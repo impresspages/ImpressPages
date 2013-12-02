@@ -108,7 +108,7 @@ class System{
 
     function findPluginWidgets($moduleName)
     {
-        $widgetDir = ipConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+        $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR.'/');
         if (!is_dir($widgetDir)) {
             return array();
         }
@@ -156,7 +156,7 @@ class System{
         if ($core) {
             $widgetPublicDir = ipFile('Ip/Module/' . $pluginAssetsPath);
         } else {
-            $widgetPublicDir = ipConfig()->pluginFile($pluginAssetsPath);
+            $widgetPublicDir = ipFile('Plugin/' . $pluginAssetsPath);
         }
 
 

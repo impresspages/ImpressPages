@@ -99,8 +99,8 @@ class PublicController extends \Ip\Controller
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
         $js = array(
-            ipConfig()->pluginUrl('Install/assets/js/ModuleInstall.js'),
-            ipConfig()->pluginUrl('Install/assets/js/step3.js')
+            ipUrl('Plugin/Install/assets/js/ModuleInstall.js'),
+            ipUrl('Plugin/Install/assets/js/step3.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));
@@ -140,8 +140,8 @@ class PublicController extends \Ip\Controller
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
         $js = array(
-            ipConfig()->pluginUrl('Install/assets/js/ModuleInstall.js'),
-            ipConfig()->pluginUrl('Install/assets/js/step4.js')
+            ipUrl('Plugin/Install/assets/js/ModuleInstall.js'),
+            ipUrl('Plugin/Install/assets/js/step4.js')
         );
 
         return $this->applyLayout($content, array('requiredJs' => $js));

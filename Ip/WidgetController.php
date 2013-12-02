@@ -61,8 +61,8 @@ class WidgetController{
                 return ipUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipConfig()->pluginFile($this->widgetAssetsDir . 'icon.png'))) {
-                return ipConfig()->pluginUrl($this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Plugin/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
             }
 
         }
@@ -79,7 +79,7 @@ class WidgetController{
         if ($this->core) {
             $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::VIEW_DIR . '/');
         } else {
-            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::VIEW_DIR . '/');
         }
 
 
@@ -189,7 +189,7 @@ class WidgetController{
             if ($this->core ) {
                 $adminView = ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             } else {
-                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             }
             if (is_file($adminView)) {
                 $answer = \Ip\View::create($adminView, $data)->render();
@@ -207,7 +207,7 @@ class WidgetController{
             if ($this->core) {
                 $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
