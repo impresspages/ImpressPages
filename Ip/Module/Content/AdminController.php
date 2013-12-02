@@ -152,8 +152,7 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
-            !isset($_POST['revisionId']) ||
-            !isset($_POST['managementState'])
+            !isset($_POST['revisionId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
         }
@@ -162,7 +161,6 @@ class AdminController extends \Ip\Controller
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
-        $managementState = $_POST['managementState'];
 
 
         $record = Model::getWidgetFullRecord($instanceId);
@@ -176,12 +174,7 @@ class AdminController extends \Ip\Controller
         $newInstanceId = Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
 
 
-        //preview and management might depend on instanceId. We need to regenerate moved widget.
-        if ($managementState) {
-            $widgetHtml = Model::generateWidgetManagement($newInstanceId);
-        } else {
-            $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
-        }
+        $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
 
         $data = array (
             'status' => 'success',

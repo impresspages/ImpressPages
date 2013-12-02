@@ -13,6 +13,7 @@
 
             return this.each(function () {
                 var $this = $(this);
+                $this.prepend(options.widgetControlls);
                 $this.save = function(data, refresh){$(this).ipWidget('save', data, refresh);};
                 var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
@@ -102,25 +103,3 @@
 })(jQuery);
 
 
-//(function ($) {
-//$.fn.save = function (method) {
-//    var methods = {
-//        init: function (options) {
-//
-//            return this.each(function () {
-//                var $this = $(this);
-//                $this.ipWidget('save');
-//            });
-//        }
-//    };
-//    if (methods[method]) {
-//        return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-//    } else if (typeof method === 'object' || !method) {
-//        return methods.init.apply(this, arguments);
-//    } else {
-//        $.error('Method ' + method + ' does not exist on jQuery.ipWidget');
-//    }
-//
-//};
-//
-//})(jQuery);
