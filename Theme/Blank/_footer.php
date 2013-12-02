@@ -22,4 +22,3 @@
 
 </body>
 </html>
-<!-- <?php echo ipConfig()->count ?> -->
