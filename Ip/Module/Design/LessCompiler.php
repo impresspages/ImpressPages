@@ -41,7 +41,7 @@ class LessCompiler
         require_once ipConfig()->coreFile('Ip/Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $themeDir = rtrim(ipConfig()->themeFile(\Ip\Application::ASSET_DIR, $themeName), '/');
-        $lessc->setImportDir(array($themeDir, ipConfig()->coreModulefile('Assets/assets/css/ipContent')));
+        $lessc->setImportDir(array($themeDir, ipFile('Ip/Module/Assets/assets/css/ipContent')));
         //$lessc->setFormatter('compressed');
         $lessc->setVariables(array(
                 'ipContentDir' => 'less/ipContent',
@@ -170,7 +170,7 @@ class LessCompiler
 
     public function rebuildIpContent()
     {
-        $items = $this->globRecursive(ipConfig()->coreModulefile('Assets/assets/css/ipContent/less/') . '*.less');
+        $items = $this->globRecursive(ipFile('Ip/Module/Assets/assets/css/ipContent/less/') . '*.less');
         if (!$items) {
             return false;
         }
@@ -193,7 +193,7 @@ class LessCompiler
 
         require_once ipConfig()->coreFile('Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
-        $lessc->setImportDir(ipConfig()->coreModulefile('Assets/assets/css/ipContent'));
+        $lessc->setImportDir(ipFile('Ip/Module/Assets/assets/css/ipContent'));
         $lessc->setPreserveComments(true);
         $css = $lessc->compileFile(ipUrl('Ip/Module/Assets/assets/css/ipContent/less/ipContent/ipContent.less'));
         file_put_contents($cssFile, $css);
