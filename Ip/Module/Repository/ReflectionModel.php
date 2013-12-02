@@ -64,8 +64,8 @@ class ReflectionModel
         $reflections = $this->getReflections($file);
         $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
-            if (file_exists(ipConfig()->baseFile($reflection['reflection']))) {
-                unlink(ipConfig()->baseFile($reflection['reflection']));
+            if (file_exists(ipFile($reflection['reflection']))) {
+                unlink(ipFile($reflection['reflection']));
             }
         }
 
@@ -82,7 +82,7 @@ class ReflectionModel
 
     private function createReflection($source, $desiredName, Transform\Base $transform)
     {
-        $absoluteSource = realpath(ipConfig()->repositoryFile($source));
+        $absoluteSource = realpath(ipFile('file/repository/' . $source));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
         }
@@ -93,7 +93,7 @@ class ReflectionModel
             return false;
         }
 
-        if (strpos($absoluteSource, ipConfig()->repositoryFile('')) !== 0) {
+        if (strpos($absoluteSource, ipFile('file/repository/')) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
 
@@ -125,7 +125,7 @@ class ReflectionModel
         $relativeDestination = date('Y/m/d/') . $desiredName;
         $relativeDestination = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestination, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
 
-        $absoluteDestinationDir = dirname(ipConfig()->fileDirFile($relativeDestination));
+        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestination));
         if (!is_dir($absoluteDestinationDir)) {
             mkdir($absoluteDestinationDir, 0777, $recursive = true);
         }

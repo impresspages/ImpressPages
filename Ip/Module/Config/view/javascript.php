@@ -4,7 +4,6 @@ var ip = {
     languageId : <?php echo json_encode($ipLanguageId) ?>,
     languageUrl : <?php echo json_encode($ipLanguageUrl) ?>,
     repositoryUrl : <?php echo json_encode($ipRepositoryUrl) ?>,
-    themeDir : <?php echo json_encode($ipThemeDir) ?>,
     theme : <?php echo json_encode($ipTheme) ?>,
     zoneName : <?php echo json_encode($ipZoneName) ?>,
     pageId : <?php echo json_encode($ipPageId) ?>,

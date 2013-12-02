@@ -662,7 +662,7 @@ class Model{
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
     public static function getThemeLayouts($theme = null, $includeHidden = false) {
-        $themeDir = ipConfig()->themeFile('', $theme);
+        $themeDir = ipFile('Theme/' . $theme . '/');
 
         $files = scandir($themeDir);
         $layouts = array();

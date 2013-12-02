@@ -36,7 +36,7 @@ class Controller extends \Ip\WidgetController{
             switch($image['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(ipConfig()->repositoryFile($image['fileName']))) {
+                    if (!file_exists(ipFile('file/repository/' . $image['fileName']))) {
                         break;
                     }
 
@@ -224,7 +224,7 @@ class Controller extends \Ip\WidgetController{
 
                 }
                 try {
-                    $curImage['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
+                    $curImage['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
                 } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }

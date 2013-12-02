@@ -49,7 +49,7 @@
                     if (options.defaultImage) {
                         defaultImage = options.defaultImage;
                     } else {
-                        defaultImage = ip.moduleDir + 'Upload/assets/empty.gif';
+                        defaultImage = ipFileUrl('Ip/Module/Upload/assets/empty.gif');
                     }
                     
                     var curImage;
@@ -180,7 +180,7 @@
             
             
             if (data.curImage) {
-                $this.find('.ipUploadImage').attr('src', ip.repositoryUrl + data.curImage);
+                $this.find('.ipUploadImage').attr('src', ipFileUrl('file/repository/' + data.curImage));
             }
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);

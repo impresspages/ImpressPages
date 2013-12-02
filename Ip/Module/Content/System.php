@@ -27,9 +27,10 @@ class System{
         $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
         $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-tools/jquery.tools.form.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widgets.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/bootstrap.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
 
         // TODOX move to more appropriate place
@@ -39,28 +40,28 @@ class System{
                 'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
             );
 
-            $validatorJs = \Ip\View::create(ipConfig()->coreModuleFile('Config/jquerytools/validator.js'), $data)->render();
+            $validatorJs = \Ip\View::create(ipFile('Ip/Module/Config/jquerytools/validator.js'), $data)->render();
             $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
         }
 
 
         if (ipConfig()->getRaw('DEBUG_MODE')) {
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpColumns.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFaq.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFile.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpForm.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormContainer.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormField.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpFormOptions.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpHtml.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImage.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpImageGallery.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTable.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpText.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTextImage.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.src/IpTitle.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpColumns.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFaq.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFile.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpForm.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormContainer.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormField.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormOptions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpHtml.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImageGallery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTable.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpText.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTextImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTitle.js'));
         } else {
-            ipAddJavascript(ipConfig()->coreModuleUrl('Content/assets/widget.admin.min.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.min.js'));
         }
 
 
@@ -127,7 +128,8 @@ class System{
 
     function findPluginWidgets($moduleName)
     {
-        $widgetDir = ipConfig()->pluginFile($moduleName . '/' . Model::WIDGET_DIR.'/');
+        $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR.'/');
+
         if (!is_dir($widgetDir)) {
             return array();
         }
@@ -173,9 +175,9 @@ class System{
     {
         $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::LAYOUT_DIR . '/';
         if ($core) {
-            $widgetPublicDir = ipConfig()->coreModuleFile($pluginAssetsPath);
+            $widgetPublicDir = ipFile('Ip/Module/' . $pluginAssetsPath);
         } else {
-            $widgetPublicDir = ipConfig()->pluginFile($pluginAssetsPath);
+            $widgetPublicDir = ipFile('Plugin/' . $pluginAssetsPath);
         }
 
 
@@ -184,23 +186,23 @@ class System{
 
 
     private function includeResources($resourcesFolder){
-        if (is_dir(ipConfig()->baseFile($resourcesFolder))) {
-            $files = scandir(ipConfig()->baseFile($resourcesFolder));
+        if (is_dir(ipFile($resourcesFolder))) {
+            $files = scandir(ipFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
             
             
             foreach ($files as $fileKey => $file) {
-                if (is_dir(ipConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(ipConfig()->baseFile($resourcesFolder.$file));
+                if (is_dir(ipFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
+                    self::includeResources(ipFile($resourcesFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
-                    ipAddJavascript(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
+                    ipAddJavascript(ipFileUrl($resourcesFolder.'/'.$file));
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
-                    ipAddCss(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
+                    ipAddCss(ipFileUrl($resourcesFolder.'/'.$file));
                 }
             }
         }

@@ -23,20 +23,23 @@ class Application {
     public function init()
     {
         $config = require ($this->configPath);
-        require_once dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $config['CORE_DIR'] . '/Ip/Config.php';
+
+        $coreDir = !empty($config['CORE_DIR']) ? $config['CORE_DIR'] : dirname(__DIR__) . '/';
+
+        require_once $coreDir . '/Ip/Config.php';
+
         $config = new \Ip\Config($config);
         require_once(__DIR__ . '/ServiceLocator.php');
         \Ip\ServiceLocator::setConfig($config);
 
-        require_once $config->coreFile('Ip/Internal/Autoloader.php');
+        require_once $coreDir . 'Ip/Internal/Autoloader.php';
+
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
+        require_once $coreDir . 'Ip/Functions.php';
 
-        require_once $config->coreFile('Ip/Functions.php');
-
-
-        require_once $config->coreFile('Ip/Internal/Deprecated/mysqlFunctions.php');
+        require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
@@ -46,7 +49,7 @@ class Application {
     {
         //TODOX decide if separate option for error setting in config is needed
         if (empty($options['skipErrorHandler'])) {
-            require_once ipConfig()->coreFile('Ip/Internal/Deprecated/error_handler.php');
+            require_once ipFile('Ip/Internal/Deprecated/error_handler.php');
         }
 
         if (empty($options['skipError'])) {
@@ -78,8 +81,8 @@ class Application {
     protected function initTranslations($languageCode)
     {
         \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
     }
 
     /**
@@ -140,7 +143,7 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl('') . 'admin');
+            return new \Ip\Response\Redirect(ipFileUrl('admin'));
         }
 
 
@@ -251,8 +254,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);

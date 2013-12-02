@@ -69,17 +69,17 @@ class WidgetController
     public function getIcon()
     {
         if ($this->core) {
-            if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
-                return ipConfig()->coreModuleUrl($this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipConfig()->pluginFile($this->widgetAssetsDir . 'icon.png'))) {
-                return ipConfig()->pluginUrl($this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
             }
 
         }
 
-        return ipConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
+        return ipFileUrl('Ip/Module/Content/assets/img/icon_widget.png');
     }
 
     public function defaultData()
@@ -95,9 +95,9 @@ class WidgetController
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::LAYOUT_DIR . '/');
+            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::LAYOUT_DIR . '/');
         } else {
-            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::LAYOUT_DIR . '/');
+            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::LAYOUT_DIR . '/');
         }
 
 
@@ -112,7 +112,7 @@ class WidgetController
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -234,9 +234,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core ) {
-                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             } else {
-                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             }
             if (is_file($adminView)) {
                 $answer = \Ip\View::create($adminView, $data)->render();
@@ -254,9 +254,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
@@ -264,7 +264,7 @@ class WidgetController
                     'widgetName' => $this->name,
                     'layout' => $layout
                 );
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile('Content/view/unknown_widget_layout.php'), $tmpData)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/Content/view/unknown_widget_layout.php'), $tmpData)->render();
             } else {
                 $answer = '';
             }

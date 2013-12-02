@@ -52,9 +52,9 @@ class UploadModel{
         }
 
         if ($secureFolder) {
-            $targetDir = ipConfig()->getRaw('TMP_SECURE_DIR');
+            $targetDir = ipFile('file/secure/tmp/');
         } else {
-            $targetDir = ipConfig()->getRaw('TMP_FILE_DIR');
+            $targetDir = ipFile('file/tmp/');
         }
 
         // Get parameters
@@ -125,7 +125,7 @@ class UploadModel{
             }
         } else {
             // Open temp file
-            $out = fopen($targetDir . DIRECTORY_SEPARATOR . $fileName, $chunk == 0 ? "wb" : "ab");
+            $out = fopen($targetDir . '/' . $fileName, $chunk == 0 ? "wb" : "ab");
             if ($out) {
                 // Read binary input stream and append it to temp file
                 $in = fopen("php://input", "rb");
@@ -171,9 +171,9 @@ class UploadModel{
             return false;
         }
         if ($secure) {
-            $targetDir = ipConfig()->getRaw('TMP_SECURE_DIR');
+            $targetDir = ipFile('file/secure/tmp/');
         } else {
-            $targetDir = ipConfig()->getRaw('TMP_FILE_DIR');
+            $targetDir = ipFile('file/tmp/');
         }
 
         $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
@@ -217,7 +217,7 @@ class UploadModel{
     public function getUploadedFilePath($fileName, $secure)
     {
         if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
-            return ipConfig()->temporarySecureFile($fileName);
+            return ipFile('file/secure/tmp/' . $fileName);
         } else {
             throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
         }

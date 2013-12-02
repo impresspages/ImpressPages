@@ -32,7 +32,7 @@ class Model{
             $moduleItem = new \Ip\Menu\Item();
             $moduleItem->setTitle($module);
             $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $module.'.index')));
-            $moduleItem->setUrl(ipConfig()->baseUrl('', array('aa' => $module . '.index')));
+            $moduleItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             $answer[] = $moduleItem;
         }
 
@@ -47,7 +47,7 @@ class Model{
             $moduleItem = new \Ip\Menu\Item();
             $moduleItem->setTitle($plugin);
             $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin.'.index')));
-            $moduleItem->setUrl(ipConfig()->baseUrl('', array('aa' => $plugin . '.index')));
+            $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin . '.index')));
             $answer[] = $moduleItem;
         }
 

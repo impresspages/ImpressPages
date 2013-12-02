@@ -51,7 +51,7 @@ class BrowserModel{
     {
         $answer = array();
 
-        $iterator = new \DirectoryIterator(ipConfig()->repositoryFile(''));
+        $iterator = new \DirectoryIterator(ipFile('file/repository/'));
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
@@ -82,7 +82,7 @@ class BrowserModel{
 
     private function getFileData($fileName)
     {
-        $file = ipConfig()->repositoryFile($fileName);
+        $file = ipFile('file/repository/' . $fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new Exception("File doesn't exist ".$file);
         }
@@ -94,7 +94,7 @@ class BrowserModel{
             'fileName' => $fileName,
             'ext' => $ext,
             'previewUrl' => $this->createPreview($fileName),
-            'originalUrl' => ipConfig()->repositoryUrl($fileName),
+            'originalUrl' => ipFileUrl('file/repository/' . $fileName),
             'modified' => filemtime($file)
         );
         return $data;
@@ -116,10 +116,10 @@ class BrowserModel{
             $transform = new Transform\ImageFit(140, 140, null, TRUE);
             $reflection = $reflectionService->getReflection($file, $baseName, $transform);
             if ($reflection){
-                return ipConfig()->fileUrl($reflection);
+                return ipFileUrl('file/' . $reflection);
             }
         }
-        return ipConfig()->coreModuleUrl('Repository/assets/admin/icons/general.png');
+        return ipFileUrl('Ip/Module/Repository/assets/admin/icons/general.png');
     }
 
     

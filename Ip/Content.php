@@ -71,7 +71,7 @@ class Content {
                 }
 
             }
-            if (!is_file(ipConfig()->themeFile($layout))) {
+            if (!is_file(ipThemeFile($layout))) {
                 $layout = 'main.php';
             }
 
@@ -537,12 +537,13 @@ class Content {
      * @return bool true if URL is reserved for CMS core
      *
      */
-    public function usedUrl($folderName){
-
+    public function usedUrl($folderName)
+    {
         $systemDirs = array();
-        $systemDirs[ipConfig()->getRaw('PLUGIN_DIR')] = 1;
-        $systemDirs[ipConfig()->getRaw('THEME_DIR')] = 1;
-        $systemDirs[ipConfig()->getRaw('FILE_DIR')] = 1;
+        // TODOX make it smart with overriden paths
+        $systemDirs['Plugin'] = 1;
+        $systemDirs['Theme'] = 1;
+        $systemDirs['File'] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){
