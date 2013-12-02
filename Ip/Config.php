@@ -105,7 +105,7 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_FILE_DIR'] . '/' . $path;
     }
 
-    public function temporarySecureFile($path)
+    public function __temporarySecureFile($path)
     {
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_SECURE_DIR'] . '/' . $path;
     }
