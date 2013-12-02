@@ -26,12 +26,12 @@
                     <button type="button" class="btn btn-default ipaFieldAdd"><?php echo __('Add new', 'ipAdmin') ?></button>
                     <div class="ipaOptions">
                         <label class="ipAdminLabel"><?php __('Thank you message', 'ipAdmin'); ?></label>
-                        <textarea class="ipWidgetIpFormSuccess"><?php echo isset($success) ? esc($success, 'textarea') : ''; ?></textarea>
+                        <div class="ipWidgetIpFormSuccess"><?php echo isset($success) ? esc($success) : ''; ?></div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>
-                    <button type="button" class="btn btn-primary"><?php echo __('Confirm', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php echo __('Confirm', 'ipAdmin') ?></button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

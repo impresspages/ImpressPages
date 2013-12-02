@@ -47,16 +47,16 @@
                         data.initInfo = options;
                         $this.data('ipContentManagement', data);
 
-                        $('.ipActionWidgetButton').ipAdminWidgetButton();
+                        $('.ipAdminPanel .ipActionWidgetButton').ipAdminWidgetButton();
 
-                        $('.ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
+                        $('.ipAdminPanel .ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
 
-                        $('.ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
-                        $('.ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
+                        $('.ipAdminPanel .ipActionSave').bind('click', function(event){event.preventDefault();$(this).trigger('savePageClick.ipContentManagement');});
+                        $('.ipAdminPanel .ipActionPublish').bind('click', function(event){event.preventDefault();$(this).trigger('publishClick.ipContentManagement');});
                         $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
 
-                        $this.bind('savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
-                        $this.bind('publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
+                        $this.bind('.ipAdminPanel  savePageClick.ipContentManagement', function(event){$(this).ipContentManagement('saveStart');});
+                        $this.bind('.ipAdminPanel  publishClick.ipContentManagement', function(event){$(this).ipContentManagement('publishStart');});
 
                         $this.bind('addSaveJob.ipContentManagement', function(event, jobName, saveJobObject){$(this).ipContentManagement('addSaveJob', jobName, saveJobObject);});
 

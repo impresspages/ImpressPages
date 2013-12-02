@@ -32,6 +32,8 @@ function IpWidget_IpForm() {
         this.modal.modal({});
 
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
+        this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
+        this.modal.find('.ipsConfirm').on('click', $.proxy(save, this));
 
         var instanceData = this.data;
 
@@ -49,9 +51,9 @@ function IpWidget_IpForm() {
 
 
         this.addButton.on('click', $.proxy(addField, this));
-        var customTinyMceConfig = ipTinyMceConfigMin;
-        customTinyMceConfig.height = 100;
-        this.modal.find(".ipWidgetIpFormSuccess").tinymce(customTinyMceConfig);
+//        var customTinyMceConfig = ipTinyMceConfigMin;
+//        customTinyMceConfig.height = 100;
+//        this.modal.find(".ipWidgetIpFormSuccess").tinymce(customTinyMceConfig);
     };
 
 
@@ -66,8 +68,13 @@ function IpWidget_IpForm() {
     };
     
 
+    var save = function(e) {
+        var data = this.getData();
+        this.widgetObject.save(data);
+        this.modal.modal('hide');
+    };
     
-    var prepareData = function() {
+    this.getData = function() {
         var data = Object();
         var container = this.widgetObject.find('.ipWidget_ipForm_container');
 
@@ -92,7 +99,7 @@ function IpWidget_IpForm() {
         });
 
         data.success = this.widgetObject.find('.ipWidgetIpFormSuccess').html();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        return data;
     };
 
 
