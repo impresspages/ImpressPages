@@ -60,12 +60,16 @@ class PublicController extends \Ip\Controller
         foreach($widgets as $widget) {
             $snippets = array_merge($snippets, $widget->adminSnippets());
         }
+        ipAddJavascriptVariable('ipWidgetSnippets', $snippets);
 
         ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/paste_preprocess.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/min.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/med.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/max.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/tinymce/table.js'));
+
+        ipAddCss(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js'));
 
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
