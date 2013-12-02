@@ -269,10 +269,6 @@ class Model
                 'value' => '',
                 'comment' => 'root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'CORE_DIR' => array(
-                'value' => '',
-                'comment' => 'Directory where Ip directory resides',
-            ),
             'BASE_URL' => array(
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',

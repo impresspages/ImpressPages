@@ -44,12 +44,6 @@ class Config
             $this->protocol = 'http://';
         }
 
-        if ($this->rawConfig['CORE_DIR']) {
-            $this->corePath = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['CORE_DIR'];
-        } else {
-            $this->corePath = $this->rawConfig['BASE_DIR'];
-        }
-
         if (empty($this->rawConfig['CDN_URL'])) {
             $this->cdnUrl = $this->rawConfig['BASE_URL'];
         } else {
@@ -130,7 +124,7 @@ class Config
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
     }
 
-    public function coreFile($path)
+    public function __coreFile($path)
     {
         return $this->corePath . '/' . $path;
     }

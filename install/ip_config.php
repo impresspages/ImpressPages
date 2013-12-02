@@ -16,8 +16,7 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => '', //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    'CORE_DIR' => '..',
+    'BASE_DIR' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     'BASE_URL' => getParentUrl(), //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     'FILE_DIR' => 'file', //uploaded files directory
     'TMP_FILE_DIR' => 'file/tmp', //temporary files directory
@@ -44,9 +43,6 @@ return array(
 
     'timezone' => 'Europe/Vilnius', //TODOX replace with current
     // END FRONTEND
-
-
-
 );
 
 function getParentUrl() {

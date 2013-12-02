@@ -23,18 +23,21 @@ class Application {
     public function init()
     {
         $config = require ($this->configPath);
-        require_once dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $config['CORE_DIR'] . '/Ip/Config.php';
+
+        $coreDir = !empty($config['CORE_DIR']) ? $config['CORE_DIR'] : dirname(__DIR__) . '/';
+
+        require_once $coreDir . '/Ip/Config.php';
+
         $config = new \Ip\Config($config);
         require_once(__DIR__ . '/ServiceLocator.php');
         \Ip\ServiceLocator::setConfig($config);
 
-        // TODOX remove coreFile()
-        require_once $config->coreFile('Ip/Internal/Autoloader.php');
+        require_once $coreDir . 'Ip/Internal/Autoloader.php';
+
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
-        // TODOX remove coreFile()
-        require_once $config->coreFile('Ip/Functions.php');
+        require_once $coreDir . 'Ip/Functions.php';
 
         require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
