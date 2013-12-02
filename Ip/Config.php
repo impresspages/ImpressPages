@@ -176,12 +176,12 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $path;
     }
 
-    public function pluginFile($path)
+    public function __pluginFile($path)
     {
         return $this->pluginDir . '/' . $path;
     }
 
-    public function pluginUrl($path)
+    public function __pluginUrl($path)
     {
         return $this->pluginUrl . '/' . $path;
     }
