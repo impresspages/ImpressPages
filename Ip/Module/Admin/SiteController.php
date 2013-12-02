@@ -36,7 +36,7 @@ class SiteController extends \Ip\Controller{
 
 
         //TODOX replace with url to first module;
-        $redirectUrl = ipFileUrl('');
+        $redirectUrl = ipHomeUrl();
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -72,7 +72,7 @@ class SiteController extends \Ip\Controller{
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
             \Ip\Module\Content\Service::setManagementMode(1);
-            return new \Ip\Response\Redirect(ipFileUrl(''));
+            return new \Ip\Response\Redirect(ipHomeUrl());
         }
 
 

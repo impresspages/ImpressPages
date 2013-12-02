@@ -19,7 +19,7 @@ class Module
     public function updateRobotsTxt($oldUrl)
     {
         $robotsFile = 'robots.txt';
-        if ($oldUrl != ipFileUrl('') && file_exists($robotsFile)) { //update robots.txt file.
+        if ($oldUrl != ipBaseUrl() && file_exists($robotsFile)) { //update robots.txt file.
             $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
             $newData = '';
             foreach ($data as $dataKey => $dataVal) {
@@ -42,7 +42,7 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipFileUrl('')); // update system variable
+        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipBaseUrl()); // update system variable
 
         $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
         \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
