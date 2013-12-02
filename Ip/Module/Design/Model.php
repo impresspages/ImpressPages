@@ -31,7 +31,7 @@ class Model
 
     protected function getThemePluginDir()
     {
-        return ipConfig()->themeFile('plugins/');
+        return ipThemeFile('plugins/');
     }
 
 
@@ -135,7 +135,7 @@ class Model
                 $cleanDirs[] = trim($line);
             }
         }
-        $cleanDirs = array_merge($cleanDirs, array(ipConfig()->themeFile('')));
+        $cleanDirs = array_merge($cleanDirs, array(ipThemeFile('')));
         return $cleanDirs;
     }
 
@@ -175,7 +175,7 @@ class Model
 
     public function isThemeAvailable($name)
     {
-        return is_dir(ipConfig()->themeFile('', $name));
+        return is_dir(ipFile('Theme/' . $name . '/'));
     }
 
 
@@ -194,7 +194,7 @@ class Model
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
-        $parametersFile = ipConfig()->themeFile(Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE, $themeName);
+        $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
         if (file_exists($parametersFile)) {
             //TODOX new type of parameters
 
@@ -239,7 +239,7 @@ class Model
     public function getTheme($name, $dir = null)
     {
         if ($dir) {
-            $currentThemeDir = ipConfig()->themeFile('');
+            $currentThemeDir = ipThemeFile('');
             ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 
@@ -252,7 +252,7 @@ class Model
         }
 
         //old type config
-        $themeIniFile = ipConfig()->themeFile(self::INSTALL_DIR . 'theme.ini', $name);
+        $themeIniFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'theme.ini');
         if (file_exists($themeIniFile)) {
             $iniConfig = $this->parseThemeIni($themeIniFile);
         } else {
@@ -260,11 +260,11 @@ class Model
         }
 
         //new type config
-        $themeJsonFile = ipConfig()->themeFile(self::INSTALL_DIR . 'Theme.json', $name);
+        $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'Theme.json');
         if (file_exists($themeJsonFile)) {
             $jsonConfig = $this->parseThemeJson($themeJsonFile);
         } else {
-            $themeJsonFile = ipConfig()->themeFile(self::INSTALL_DIR . 'theme.json', $name);
+            $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'theme.json');
             if (file_exists($themeJsonFile)) {
                 $jsonConfig = $this->parseThemeJson($themeJsonFile);
             } else {

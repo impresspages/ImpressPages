@@ -71,7 +71,7 @@ class Content {
                 }
 
             }
-            if (!is_file(ipConfig()->themeFile($layout))) {
+            if (!is_file(ipThemeFile($layout))) {
                 $layout = 'main.php';
             }
 

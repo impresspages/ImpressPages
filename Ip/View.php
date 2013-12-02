@@ -282,9 +282,9 @@ class View implements \Ip\Response\ResponseInterface
         } elseif (strpos($absoluteFile, ipFile('Plugin/')) === 0) {
             //plugin dir
             $basePath = ipFile('Plugin/');
-        } elseif (strpos($absoluteFile, ipConfig()->themeFile('')) === 0) {
+        } elseif (strpos($absoluteFile, ipThemeFile('')) === 0) {
             //theme dir
-            $basePath = ipConfig()->themeFile('');
+            $basePath = ipThemeFile('');
         } else {
             $backtrace = debug_backtrace();
             if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
@@ -296,7 +296,7 @@ class View implements \Ip\Response\ResponseInterface
         }
         $relativeFile = substr($absoluteFile, strlen($basePath));
 
-        $fileInThemeDir = ipConfig()->themeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
+        $fileInThemeDir = ipThemeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
         if (is_file($fileInThemeDir)) {
             //found file in theme.
             return $fileInThemeDir;

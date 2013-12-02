@@ -110,12 +110,12 @@ class Config
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_SECURE_DIR'] . '/' . $path;
     }
 
-    public function themeUrl($path)
+    public function __themeUrl($path)
     {
         return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['THEME_DIR'] . '/' . $this->rawConfig['THEME'] . '/' . $path;
     }
 
-    public function themeFile($path, $theme = null)
+    public function __themeFile($path, $theme = null)
     {
         if (!$theme) {
             $theme = $this->rawConfig['THEME'];
@@ -161,7 +161,7 @@ class Config
         return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);
     }
 
-    public function baseUrl($path, $query = array(), $querySeparator = '&')
+    public function __baseUrl($path, $query = array(), $querySeparator = '&')
     {
         $url = $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $path;
         if ($query) {

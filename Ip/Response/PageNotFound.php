@@ -29,7 +29,7 @@ class PageNotFound extends \Ip\Response\Layout {
         if ($this->layout) {
             return $this->layout;
         }
-        return is_file(ipConfig()->themeFile('404.php')) ? '404.php' : 'main.php';
+        return is_file(ipThemeFile('404.php')) ? '404.php' : 'main.php';
     }
 
     protected function generateError404Content() {

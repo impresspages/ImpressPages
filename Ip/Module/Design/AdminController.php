@@ -109,7 +109,7 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $themes = ipRequest()->getPost('themes');
 
-        if (!is_writable(ipConfig()->themeFile(''))) {
+        if (!is_writable(ipThemeFile(''))) {
             return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin', false), 777);
         }
 
