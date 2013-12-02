@@ -24,7 +24,6 @@ return array(
 
     // GLOBAL
     /*OK*/'BASE_DIR' => '', //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    /*OK*/'CORE_DIR' => '',
     /*OK*/'BASE_URL' => 'http://localhost/', //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     /*OK*/'FILE_DIR' => 'file/', //uploded files directory
     /*OK*/'TMP_FILE_DIR' => 'file/tmp/', //temporary files directory
