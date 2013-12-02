@@ -60,7 +60,7 @@ function IpWidget_IpForm() {
 
 
         this.addButton.on('click', $.proxy(addField, this));
-//        var customTinyMceConfig = ipTinyMceConfigMin;
+//        var customTinyMceConfig = ipTinyMceConfigMin();
 //        customTinyMceConfig.height = 100;
 //        this.modal.find(".ipWidgetIpFormSuccess").tinymce(customTinyMceConfig);
     };

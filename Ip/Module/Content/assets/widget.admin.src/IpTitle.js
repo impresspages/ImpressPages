@@ -13,19 +13,22 @@ function IpWidget_IpTitle(widgetObject) {
         this.data = data;
 
 
-        var customTinyMceConfig = ipTinyMceConfigMin;
+        var customTinyMceConfig = ipTinyMceConfigMin();
         customTinyMceConfig.menubar = false;
         customTinyMceConfig.toolbar = false;
-        customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
-            $widgetObject.save({title: $widgetObject.find('h1,h2,h3,h4,h5,h6').html()});
-        })};
+        customTinyMceConfig.setup = function(ed, l) {
+            ed.on('change', function(e) {
+                $widgetObject.save({title: $widgetObject.find('h1,h2,h3,h4,h5,h6').html()});
+            });
+        };
+        customTinyMceConfig.paste_as_text = true;
         customTinyMceConfig.valid_elements = '';
-        customTinyMceConfig.oninit = 'setPlainText';
-        customTinyMceConfig.custom_shortcuts = false;
+            customTinyMceConfig.custom_shortcuts = false;
 
-        $widgetObject.find('h1,h2,h3,h4,h5,h6').tinymce(ipTinyMceConfigMin);
+        $widgetObject.find('h1,h2,h3,h4,h5,h6').tinymce(customTinyMceConfig);
 
 
+        //TODOX refactor this functionality
         var $self = this.widgetObject;
         $self.find('.ipsTitleOptionsButton').on('click', function (e) {
             $self.find('.ipsTitleOptions').toggle();
