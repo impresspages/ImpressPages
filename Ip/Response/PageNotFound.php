@@ -52,9 +52,9 @@ class PageNotFound extends \Ip\Response\Layout {
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
             $message = __('Config.error_mistyped_url', 'ipPublic');
         } else {
-            if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) !== false) {
+            if (strpos($_SERVER['HTTP_REFERER'], ipUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], ipUrl('')) !== false) {
                 $message = '<p>' . __('Config.error_broken_link_inside', 'ipPublic') . '</p>';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) === false) {
+            } elseif (strpos($_SERVER['HTTP_REFERER'], ipUrl('')) === false) {
                 $message = '<p>' . __('Config.error_broken_link_outside', 'ipPublic') . '</p>';
             }
         }

@@ -65,7 +65,7 @@ class ElementImage extends Element{ //data element in area
         $deleteTranslation = '&nbsp;'.__('Delete', 'ipAdmin').'&nbsp;';
         /*eof translation*/
 
-        $image = ipConfig()->baseUrl($this->copies[0]['destDir'].$value);
+        $image = ipUrl($this->copies[0]['destDir'].$value);
 
     $sizing = '';
 

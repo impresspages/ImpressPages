@@ -36,7 +36,7 @@ class SiteController extends \Ip\Controller{
 
 
         //TODOX replace with url to first module;
-        $redirectUrl = ipConfig()->baseUrl('');
+        $redirectUrl = ipUrl('');
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -59,7 +59,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        return new \Ip\Response\Redirect(ipConfig()->baseUrl('admin/'));
+        return new \Ip\Response\Redirect(ipUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -72,7 +72,7 @@ class SiteController extends \Ip\Controller{
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
             \Ip\Module\Content\Service::setManagementMode(1);
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl(''));
+            return new \Ip\Response\Redirect(ipUrl(''));
         }
 
 

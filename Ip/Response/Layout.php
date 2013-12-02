@@ -35,7 +35,7 @@ class Layout extends \Ip\Response {
 
     public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
     {
-        $this->setFavicon(ipConfig()->baseUrl('favicon.ico'));
+        $this->setFavicon(ipUrl('favicon.ico'));
         $this->setCharset(ipConfig()->getRaw('CHARSET'));
         parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
     }
@@ -222,7 +222,7 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(''),
+            'ipBaseUrl' => ipUrl(''),
             'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),

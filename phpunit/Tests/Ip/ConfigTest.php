@@ -19,6 +19,6 @@ class ConfigTest extends \PhpUnit\GeneralTestCase
 
     public function testBaseUrl()
     {
-        $this->assertEquals('http://localhost/page', ipConfig()->baseUrl('page'));
+        $this->assertEquals('http://localhost/page', ipUrl('page'));
     }
 }
