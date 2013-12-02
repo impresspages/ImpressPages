@@ -86,7 +86,6 @@ class LayoutResponse extends \Ip\Response\Layout
             'ipBaseUrl' => ipUrl(''),
             'ipLanguageId' => null,
             'ipLanguageUrl' => null,
-            'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => null,
             'ipZoneName' => null,

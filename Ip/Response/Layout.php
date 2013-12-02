@@ -225,7 +225,6 @@ class Layout extends \Ip\Response {
             'ipBaseUrl' => ipUrl(''),
             'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipRepositoryUrl' => ipUrl('file/repository/'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
