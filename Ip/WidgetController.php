@@ -36,10 +36,8 @@ class WidgetController
         $this->moduleName = $moduleName;
         $this->core = $core;
 
-        $ds = '/';
-
-        $this->widgetDir = $moduleName . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
-        $this->widgetAssetsDir = $moduleName . $ds . \ip\Application::ASSET_DIR . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
+        $this->widgetDir = $moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/';
+        $this->widgetAssetsDir = $this->widgetDir . \Ip\Application::ASSET_DIR . '/';
     }
 
     public function getTitle()
