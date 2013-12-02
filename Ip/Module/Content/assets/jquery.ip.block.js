@@ -120,7 +120,7 @@
                         instanceData = $instance.data('widgetdata'),
                         instanceId = $instance.data('widgetinstanceid'),
                         $subwidgets = $instance.find('.ipWidget');
-                    
+
                     $subwidgets.each(function () {
                         $(this).trigger('deleteWidget.ipBlock', {
                             'instanceId': $(this).data('widgetinstanceid')
