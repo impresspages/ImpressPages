@@ -66,22 +66,6 @@ class Config
         }
 
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
-
-//TODOX ask Algimantas if this comment is still useful
-//        $relativeDirs = array(
-//            'fileDir',
-//            'pluginDir',
-//        );
-//
-//        foreach ($relativeDirs as $relativeDir) {
-//            if (self::$rawConfig[$relativeDir][0] == '.') {
-//                self::$config[$relativeDir] = self::$rawConfig['baseDir'] . substr(self::$rawConfig[$relativeDir], 1);
-//            } else {
-//                self::$config[$relativeDir] = self::$rawConfig[$relativeDir];
-//            }
-//        }
-//
-//        self::$config['homeUrl'] = self::$rawConfig['protocol'] . '://' . $this->rawConfig['host'] . $this->rawConfig['siteUrlPath'];
     }
 
 
