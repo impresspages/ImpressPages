@@ -31,9 +31,9 @@ class Theme
     public function getThumbnailUrl()
     {
         if ($this->thumbnail) {
-            $image = ipUrl($this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail);
+            $image = ipFileUrl($this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail);
         } else {
-            $image = ipUrl('Ip/Module/Design/assets/theme.png');
+            $image = ipFileUrl('Ip/Module/Design/assets/theme.png');
         }
         return $image;
     }

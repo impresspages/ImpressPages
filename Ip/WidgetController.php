@@ -58,7 +58,7 @@ class WidgetController{
     public function getIcon() {
         if ($this->core) {
             if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
-                return ipUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
+                return ipFileUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
             if (file_exists(ipFile('Plugin/' . $this->widgetAssetsDir . 'icon.png'))) {
@@ -67,7 +67,7 @@ class WidgetController{
 
         }
 
-        return ipUrl('Ip/Module/Content/assets/img/icon_widget.png');
+        return ipFileUrl('Ip/Module/Content/assets/img/icon_widget.png');
     }
 
     public function getLayouts() {

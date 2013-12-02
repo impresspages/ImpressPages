@@ -221,7 +221,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipUrl('Ip/Module/Pages/img/file_hidden.png');
+                        $icon = ipFileUrl('Ip/Module/Pages/img/file_hidden.png');
                     }
 
 
@@ -258,7 +258,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipUrl('Ip/Module/Pages/img/file_hidden.png');
+                        $icon = ipFileUrl('Ip/Module/Pages/img/file_hidden.png');
                     }
 
                     //if node status is open
@@ -1177,7 +1177,7 @@ class AdminController extends \Ip\Controller
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt($ch, CURLOPT_URL, $remote['url']);
-        curl_setopt($ch, CURLOPT_REFERER, ipUrl(''));
+        curl_setopt($ch, CURLOPT_REFERER, ipFileUrl(''));
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla4/1.0");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

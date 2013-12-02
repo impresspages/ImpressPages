@@ -81,11 +81,11 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -108,7 +108,7 @@ function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
     }
 }
 
@@ -334,7 +334,7 @@ function ipFile($path)
     return $basePath . $path;
 }
 
-function ipUrl($path)
+function ipFileUrl($path)
 {
     static $baseUrl = ''; // TODOX does not work with internal requests
     if (!$baseUrl) {
@@ -362,15 +362,24 @@ function ipUrl($path)
 
 function ipActionUrl($query)
 {
-    return ipUrl('') . '?' . http_build_query($query);
+    return ipFileUrl('') . '?' . http_build_query($query);
 }
 
 function ipThemeUrl($path)
 {
-    return ipUrl('Theme/' . ipConfig()->theme() . '/' . $path);
+    return ipFileUrl('Theme/' . ipConfig()->theme() . '/' . $path);
 }
 
 function ipThemeFile($path)
 {
     return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
 }
+
+// ipFile()
+// ipFileUrl()
+// ipThemeFile()
+// ipThemeFileUrl()
+// ipActionUrl()
+// ipHomeUrl()
+// ipBaseUrl() ?
+// ipPageUrl() ?

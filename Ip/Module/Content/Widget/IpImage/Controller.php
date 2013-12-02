@@ -112,7 +112,7 @@ class Controller extends \Ip\WidgetController{
                         $requiredWidth,
                         $requiredHeight
                     );
-                    $data['imageSmall'] = ipUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
+                    $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
                 }
             }
         }
