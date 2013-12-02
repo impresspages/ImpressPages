@@ -16,7 +16,7 @@ class Captcha extends Field{
         $this->captchaInit = array(
         
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-              'tempfolder'     => ipConfig()->temporaryFile(''),
+              'tempfolder'     => ipFile('file/tmp/'),
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
               'TTF_folder'     => ipFile('Ip/Module/Assets/assets/fonts/HnCaptcha/'),

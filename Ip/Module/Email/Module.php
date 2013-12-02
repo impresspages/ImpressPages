@@ -45,9 +45,9 @@ class Module{
         if($files)
         foreach($files as $key => $file){
             $new_name = 'contact_form_'.rand();
-            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipConfig()->temporaryFile(''));
-            if (copy($file['real_name'], ipConfig()->temporaryFile($new_name))) {
-                $cached_files[] = ipConfig()->temporaryFile($new_name);
+            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
+            if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
+                $cached_files[] = ipFile('file/tmp/' . $new_name);
                 $cached_file_names[] = $file['required_name'];
                 $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                 if($tmpMimeType == null)

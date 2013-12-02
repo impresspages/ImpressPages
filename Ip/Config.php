@@ -100,7 +100,7 @@ class Config
 
 
 
-    public function temporaryFile($path)
+    public function __temporaryFile($path)
     {
         return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_FILE_DIR'] . '/' . $path;
     }

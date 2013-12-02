@@ -142,7 +142,7 @@ class SiteController extends \Ip\Controller{
 
         //download image to TMP dir and get $resultFilename
         $net = \Ip\Internal\NetHelper::instance();
-        $tmpFilename = $net->downloadFile($url, ipConfig()->temporaryFile(''), 'bigstock_'.time());
+        $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_'.time());
         if (!$tmpFilename) {
             return;
         }
@@ -150,7 +150,7 @@ class SiteController extends \Ip\Controller{
 
         //find out file mime type to know required extension
         try {
-            $mime = \Ip\Internal\File\Functions::getMimeType(ipConfig()->temporaryFile($tmpFilename));
+            $mime = \Ip\Internal\File\Functions::getMimeType(ipFile('file/tmp/' . $tmpFilename));
             switch($mime) {
                 case 'image/png':
                     $ext = '.jpg';
@@ -193,9 +193,9 @@ class SiteController extends \Ip\Controller{
         $destinationDir = ipConfig()->repositoryFile('');
         $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
-        copy(ipConfig()->temporaryFile($tmpFilename), $destinationDir . $destinationFileName);
+        copy(ipFile('file/tmp/' . $tmpFilename), $destinationDir . $destinationFileName);
 
-        unlink(ipConfig()->temporaryFile($tmpFilename));
+        unlink(ipFile('file/tmp/' . $tmpFilename));
 
         $browserModel = \Ip\Module\Repository\BrowserModel::instance();
         $file = $browserModel->getFile($destinationFileName);
@@ -216,7 +216,7 @@ class SiteController extends \Ip\Controller{
 
         $file = realpath($_POST['file']);
 
-        if (strpos($file, ipConfig()->temporaryFile('')) !== 0) {
+        if (strpos($file, ipFile('file/tmp/')) !== 0) {
             $answer = array(
                 'status' => 'error',
                 'error' => 'Trying to access file outside temporary dir'
