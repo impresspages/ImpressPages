@@ -34,6 +34,18 @@ class Config
         if ($this->rawConfig['BASE_DIR'] == '') {
             $this->rawConfig['BASE_DIR'] = dirname($_SERVER['SCRIPT_FILENAME']);
         }
+
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+            $this->protocol = 'https://';
+        } else {
+            $this->protocol = 'http://';
+        }
+
+    }
+
+    public function baseUrl()
+    {
+        return $this->protocol . $this->rawConfig['BASE_URL'];
     }
 
     public function getRaw($name)

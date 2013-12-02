@@ -19,7 +19,7 @@ class ModelTree {
 
         $answer[] = array(
             'id' => self::$websiteId,
-            'title' => ipBaseUrl()
+            'title' => ipConfig()->baseUrl()
         );
 
         $remotes = Remotes::getRemotes();
