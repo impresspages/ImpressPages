@@ -34,10 +34,6 @@ return array(
     'timezone' => 'Africa/Bujumbura',
     // END FRONTEND
 
-    'SECURE_DIR' => 'phpunit/tmp/file/secure/',
-    'TMP_SECURE_DIR' => 'phpunit/tmp/file/secure/tmp/',
-    'MANUAL_DIR' => 'phpunit/tmp/file/manual/',
-
     'FILE_OVERRIDES' => array(
         'file/' => TEST_TMP_DIR . 'file/',
     ),

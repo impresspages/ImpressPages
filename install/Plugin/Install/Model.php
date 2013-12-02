@@ -273,18 +273,6 @@ class Model
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'FILE_REPOSITORY_DIR' => array(
-                'value' => 'file/repository/',
-                'comment' => 'files repository.',
-            ),
-            'SECURE_DIR' => array(
-                'value' => 'file/secure/',
-                'comment' => 'directory not accessible from the Internet',
-            ),
-            'TMP_SECURE_DIR' => array(
-                'value' => 'file/secure/tmp/',
-                'comment' => 'directory for temporary files. Not accessible from the Internet.',
-            ),
             'MANUAL_DIR' => array(
                 'value' => 'file/manual/',
                 'comment' => 'Used for TinyMCE file browser and others tools where user manually controls all files.',
