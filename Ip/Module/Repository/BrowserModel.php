@@ -94,7 +94,7 @@ class BrowserModel{
             'fileName' => $fileName,
             'ext' => $ext,
             'previewUrl' => $this->createPreview($fileName),
-            'originalUrl' => ipConfig()->repositoryUrl($fileName),
+            'originalUrl' => ipUrl('file/repository/' . $fileName),
             'modified' => filemtime($file)
         );
         return $data;
