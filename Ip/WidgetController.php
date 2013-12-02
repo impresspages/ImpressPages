@@ -10,7 +10,8 @@ namespace Ip;
 use Ip\Module\Content\Exception;
 use Ip\Module\Content\Model;
 
-class WidgetController{
+class WidgetController
+{
     var $name;
     var $moduleName;
 
@@ -29,7 +30,8 @@ class WidgetController{
     private $widgetDir;
     private $widgetAssetsDir;
 
-    public function __construct($name, $moduleName, $core = false) {
+    public function __construct($name, $moduleName, $core = false)
+    {
         $this->name = $name;
         $this->moduleName = $moduleName;
         $this->core = $core;
@@ -40,28 +42,34 @@ class WidgetController{
         $this->widgetAssetsDir = $moduleName . $ds . \ip\Application::ASSET_DIR . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return self::getName();
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     //TODOX remove
-    public function getModuleGroup() {
+    public function getModuleGroup()
+    {
         return $this->moduleGroup;
     }
 
-    public function getModuleName() {
+    public function getModuleName()
+    {
         return $this->moduleName;
     }
 
-    public function isCore() {
+    public function isCore()
+    {
         return $this->core;
     }
 
-    public function getIcon() {
+    public function getIcon()
+    {
         if ($this->core) {
             if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
                 return ipConfig()->coreModuleUrl($this->widgetAssetsDir . 'icon.png');
@@ -76,7 +84,13 @@ class WidgetController{
         return ipConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
     }
 
-    public function getLayouts() {
+    public function defaultData()
+    {
+        return array();
+    }
+
+    public function getLayouts()
+    {
 
         $views = array();
 
@@ -127,7 +141,8 @@ class WidgetController{
      * Return true if you like to hide widget in administration panel.
      * You will be able to access widget in your code.
      */
-    public function getUnderTheHood() {
+    public function getUnderTheHood()
+    {
         return false; //by default all widgets are visible; 
     }
 
@@ -139,7 +154,8 @@ class WidgetController{
      * @param $currentData
      * @return array data to be stored to the database
      */
-    public function update ($widgetId, $postData, $currentData) {
+    public function update ($widgetId, $postData, $currentData)
+    {
         return $postData;
     }
 
@@ -159,7 +175,8 @@ class WidgetController{
      * @param int $instanceId
      * @param array $data widget data
      */
-    public function post ($instanceId, $data) {
+    public function post ($instanceId, $data)
+    {
 
     }
 
@@ -172,7 +189,8 @@ class WidgetController{
      * @param int $newId duplicated widget id
      * @param array $data data that has been duplicated from old widget to the new one
      */
-    public function duplicate($oldId, $newId, $data) {
+    public function duplicate($oldId, $newId, $data)
+    {
 
     }
 
@@ -185,7 +203,8 @@ class WidgetController{
      * @param int $widgetId
      * @param array $data data that is being stored in the widget
      */
-    public function delete($widgetId, $data){
+    public function delete($widgetId, $data)
+    {
 
     }
 
@@ -212,7 +231,8 @@ class WidgetController{
     }
 
     //TODOX remove
-    public function managementHtml($instanceId, $data, $layout) {
+    public function managementHtml($instanceId, $data, $layout)
+    {
         $answer = '';
         try {
             if ($this->core ) {
@@ -231,7 +251,8 @@ class WidgetController{
     }
 
     //TODOX rename to generateHtml or something.
-    public function previewHtml($instanceId, $data, $layout) {
+    public function previewHtml($instanceId, $data, $layout)
+    {
         $answer = '';
         try {
             if ($this->core) {
@@ -253,7 +274,8 @@ class WidgetController{
         return $answer;
     }
 
-    public function dataForJs($data) {
+    public function dataForJs($data)
+    {
         return $data;
     }
 
@@ -263,7 +285,8 @@ class WidgetController{
      * Eg. if widget has cropped images, they need to be cropped once again, because cropping options
      * might be changed.
      */
-    public function recreate($widgetId, $data) {
+    public function recreate($widgetId, $data)
+    {
         return $data;
     }
 }
