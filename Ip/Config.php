@@ -121,10 +121,6 @@ class Config
             'ERRORS_SEND' => '', //insert email address or leave blank. If email is set, you will get an email when an error occurs.
             // END GLOBAL
 
-            // BACKEND
-            'CONFIG_DIR' => 'ip_configs/', //modules configuration directory
-            // END BACKEND
-
             // FRONTEND
             'CHARSET' => 'UTF-8', //system character set
             'THEME' => 'Blank', //theme from themes directory
