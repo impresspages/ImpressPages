@@ -362,7 +362,7 @@ function ipFileUrl($path)
 
 function ipActionUrl($query)
 {
-    return ipFileUrl('') . '?' . http_build_query($query);
+    return ipBaseUrl() . '?' . http_build_query($query);
 }
 
 function ipThemeUrl($path)
@@ -373,6 +373,11 @@ function ipThemeUrl($path)
 function ipThemeFile($path)
 {
     return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
+}
+
+function ipBaseUrl()
+{
+
 }
 
 // ipFile()

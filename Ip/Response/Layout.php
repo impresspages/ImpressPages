@@ -222,7 +222,7 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipFileUrl(''),
+            'ipBaseUrl' => ipBaseUrl(),
             'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipTheme' => ipConfig()->getRaw('THEME'),

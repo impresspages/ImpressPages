@@ -48,8 +48,8 @@ class Module
         \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
 
         // TODO move somewhere
-        if (ipFileUrl('') != $cachedUrl) {
-            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipFileUrl('')));
+        if (ipBaseUrl() != $cachedUrl) {
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipBaseUrl()));
         }
         ipDispatcher()->notify('site.clearCache');
     }
@@ -76,7 +76,7 @@ class Module
 //                }
 //            }
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            curl_setopt($ch, CURLOPT_REFERER, ipFileUrl(''));
+            curl_setopt($ch, CURLOPT_REFERER, ipBaseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
             $answer = curl_exec($ch);
