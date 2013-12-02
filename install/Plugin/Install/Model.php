@@ -242,7 +242,7 @@ class Model
         // TODOX execute multiple statements
         //$all_sql = utf8_encode($all_sql);
         $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("[[[[base_url]]]]", ipBaseUrl(), $all_sql);
+        $all_sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $all_sql);
         $sql_list = explode("-- Dumping data for table--", $all_sql);
 
 

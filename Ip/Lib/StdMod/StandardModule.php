@@ -853,7 +853,7 @@ class StandardModule {
     
     <script type="text/javascript">
         var ip = {
-            baseUrl : '.json_encode(ipBaseUrl()).',
+            baseUrl : '.json_encode(ipConfig()->baseUrl()).',
             fileUrl : '.json_encode(ipFileUrl('')).',
             themeDir : '.json_encode(ipFileUrl('Theme/')).',
             theme : ' . json_encode(ipConfig()->theme()) . ',
