@@ -44,8 +44,8 @@ class AdminController extends \Ip\Controller{
         $destination = ipFile('file/repository/');
         foreach ($files as $key => $file) {
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(ipConfig()->baseFile($file['file']), $destination.$newName);
-            unlink(ipConfig()->baseFile($file['file'])); //this is a temporary file
+            copy(ipFile($file['file']), $destination.$newName);
+            unlink(ipFile($file['file'])); //this is a temporary file
             $browserModel = \Ip\Module\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;

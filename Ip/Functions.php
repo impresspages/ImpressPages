@@ -319,7 +319,7 @@ function ipFile($path)
 {
     static $basePath = '';
     if (!$basePath) {
-        $basePath = ipConfig()->baseFile('');
+        $basePath = ipConfig()->getRaw('BASE_DIR') . '/';
     }
 
     $overrides = ipConfig()->getRaw('FILE_OVERRIDES');

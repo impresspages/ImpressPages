@@ -165,16 +165,16 @@ class System{
 
 
     private function includeResources($resourcesFolder){
-        if (is_dir(ipConfig()->baseFile($resourcesFolder))) {
-            $files = scandir(ipConfig()->baseFile($resourcesFolder));
+        if (is_dir(ipFile($resourcesFolder))) {
+            $files = scandir(ipFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
             
             
             foreach ($files as $fileKey => $file) {
-                if (is_dir(ipConfig()->baseFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(ipConfig()->baseFile($resourcesFolder.$file));
+                if (is_dir(ipFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
+                    self::includeResources(ipFile($resourcesFolder.$file));
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){

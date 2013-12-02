@@ -36,20 +36,20 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
         $this->assertEquals(ipConfig()->getRaw('FILE_DIR') . 'impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
-        $this->assertEquals(true, file_exists(ipConfig()->baseFile($reflection)));
+        $this->assertEquals(true, file_exists(ipFile($reflection)));
 
 
         //Unbind file from repository (once)
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //check if reflection still exists
-        $this->assertEquals(true, file_exists(ipConfig()->baseFile($reflection)));
+        $this->assertEquals(true, file_exists(ipFile($reflection)));
 
         //unbind next file instance
         $repository->unbindFile($file, 'modulexxx', 1);
 
         //Check if reflection has been removed
-        $this->assertEquals(false, file_exists(ipConfig()->baseFile($reflection)));
+        $this->assertEquals(false, file_exists(ipFile($reflection)));
 
 
     }

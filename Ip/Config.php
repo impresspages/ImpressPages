@@ -171,7 +171,7 @@ class Config
         return $url;
     }
 
-    public function baseFile($path)
+    public function __baseFile($path)
     {
         return $this->rawConfig['BASE_DIR'] . '/' . $path;
     }

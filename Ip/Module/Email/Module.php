@@ -14,7 +14,7 @@
 namespace Ip\Module\Email;
 
 /** @private */
-require_once(ipConfig()->baseFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
+require_once(ipFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
 /**
  * Class to send emails. Typically all emails should be send trouht this class.
  * @package ImpressPages
