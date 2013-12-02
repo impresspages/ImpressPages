@@ -21,6 +21,14 @@ function IpWidget_IpForm() {
         this.data = data;
         this.widgetObject = $widgetObject;
         $widgetObject.on('click', $.proxy(openPopup, this));
+        var $widgetOverlay = $('<div></div>')
+            .css('position', 'absolute')
+            .css('z-index', 5)
+            .width(this.widgetObject.width())
+            .height(this.widgetObject.height());
+
+        this.widgetObject.prepend($widgetOverlay);
+
     };
 
 
