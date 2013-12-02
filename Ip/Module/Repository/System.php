@@ -13,16 +13,16 @@ class System{
     public function init(){
 
         if (\Ip\ServiceLocator::content()->isManagementState()) {
-            ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepository.js'));
-            ipAddCss(ipConfig()->coreModuleUrl('Repository/assets/admin/repository.css'));
-            ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryUploader.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryAll.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Repository/assets/admin/ipRepositoryBuy.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/market.js'));
-            ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Repository/assets/admin/ipRepository.js'));
+            ipAddCss(ipUrl('Ip/Module/Repository/assets/admin/repository.css'));
+            ipAddCss(ipUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css'));
+            ipAddJavascript(ipUrl('Ip/Module/Repository/assets/admin/ipRepositoryUploader.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Repository/assets/admin/ipRepositoryAll.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Repository/assets/admin/ipRepositoryBuy.js'));
+            ipAddJavascript(ipUrl('Ip/Module/System/assets/market.js'));
+            ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
                 $marketUrl = TEST_MARKET_URL.'images-v1/';

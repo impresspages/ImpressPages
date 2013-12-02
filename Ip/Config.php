@@ -70,7 +70,7 @@ class Config
 
 
 
-    public function coreModuleUrl($path)
+    public function __coreModuleUrl($path)
     {//echo $this->protocol . $this->rawConfig['BASE_URL']; exit;
         return $this->protocol . $this->cdnUrl . '/Ip/Module/' . $path;
     }

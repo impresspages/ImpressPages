@@ -43,13 +43,13 @@ class System{
 
     protected function initConfig()
     {
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/optionsBox.js'));
+        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css'));
+        ipAddJavascript(ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.js'));
+        ipAddCss(ipUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(ipUrl('Ip/Module/Design/assets/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
-        ipAddCss(ipConfig()->coreModuleUrl('Design/assets/optionsBox.css'));
+        ipAddCss(ipUrl('Ip/Module/Design/assets/optionsBox.css'));
         if (file_exists(ipConfig()->themeFile(Model::INSTALL_DIR.'Options.js'))) {
             ipAddJavascript(ipConfig()->themeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(ipConfig()->themeFile(Model::INSTALL_DIR.'options.js'))) {

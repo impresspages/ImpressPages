@@ -119,7 +119,7 @@ class BrowserModel{
                 return ipConfig()->fileUrl($reflection);
             }
         }
-        return ipConfig()->coreModuleUrl('Repository/assets/admin/icons/general.png');
+        return ipUrl('Ip/Module/Repository/assets/admin/icons/general.png');
     }
 
     
