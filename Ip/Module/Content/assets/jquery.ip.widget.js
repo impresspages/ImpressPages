@@ -13,7 +13,7 @@
 
             return this.each(function () {
                 var $this = $(this);
-                $this.save = function(data){$(this).ipWidget('save', data);};
+                $this.save = function(data, refresh){$(this).ipWidget('save', data, refresh);};
                 var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
@@ -35,11 +35,13 @@
 
 
 
-        save: function (widgetData) {
+        save: function (widgetData, refresh) {
 
             return this.each(function () {
                 var $this = $(this);
                 var data = Object();
+
+
                 data.aa = 'Content.updateWidget';
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('widgetinstanceid');
@@ -51,8 +53,22 @@
                     url: ip.baseUrl,
                     data: data,
                     context: $this,
-                    success: function() {
-                        //do nothing
+                    success: function(response) {
+                        if (!refresh) {
+                            return;
+                        }
+                        var $newWidget = $(response.previewHtml);
+                        $($newWidget).insertAfter($this);
+                        $newWidget.trigger('reinitRequired.ipWidget');
+
+                        // init any new blocks the widget may have created
+                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+//
+//                        var tmpData = $newWidget.data('ipWidget');
+//                        tmpData.state = IP_WIDGET_STATE_PREVIEW;
+//                        $newWidget.data('ipWidget', tmpData);
+
+                        $this.remove();
                     },
                     error: function(response) {
                         console.log(response);
@@ -61,9 +77,14 @@
                 });
 
             });
+        },
+
+
+        refresh: function (widgetData) {
+            return this.each(function () {
+
+            });
         }
-
-
 
     };
 

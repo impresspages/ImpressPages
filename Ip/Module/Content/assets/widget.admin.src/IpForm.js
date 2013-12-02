@@ -82,7 +82,7 @@ function IpWidget_IpForm() {
 
     var save = function(e) {console.log('save');
         var data = this.getData();
-        this.widgetObject.save(data);
+        this.widgetObject.save(data, 1);
         this.modal.modal('hide');
     };
     
