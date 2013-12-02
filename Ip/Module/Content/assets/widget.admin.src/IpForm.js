@@ -14,6 +14,7 @@ function IpWidget_IpForm() {
     this.modal = null;
     this.container = null;
     this.addButton = null;
+    this.confirmButton = null;
 
 
     this.init = function($widgetObject, data) {
@@ -29,11 +30,12 @@ function IpWidget_IpForm() {
         this.modal = $('#ipWidgetFormPopup');
         this.addButton = this.modal.find(".ipaFieldAdd");
         this.container = this.modal.find('.ipWidget_ipForm_container');
+        this.confirmButton = this.modal.find('.ipsConfirm');
         this.modal.modal();
 
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
-        this.modal.find('.ipsConfirm').on('click', $.proxy(save, this));
+        this.confirmButton.on('click', $.proxy(save, this));
 
         var instanceData = this.data;
 
@@ -61,6 +63,7 @@ function IpWidget_IpForm() {
         this.container.html('');
         this.container.ipWidget_ipForm_container('destroy');
         this.addButton.off();
+        this.confirmButton.off();
     }
     
     var addField = function (e) {
@@ -69,7 +72,7 @@ function IpWidget_IpForm() {
     };
     
 
-    var save = function(e) {
+    var save = function(e) {console.log('save');
         var data = this.getData();
         this.widgetObject.save(data);
         this.modal.modal('hide');
