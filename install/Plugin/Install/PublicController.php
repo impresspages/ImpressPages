@@ -9,6 +9,13 @@ namespace Plugin\Install;
 
 class PublicController extends \Ip\Controller
 {
+    public function init()
+    {
+        if (empty($_SESSION['step'])) {
+            $_SESSION['step'] = 0;
+        }
+    }
+
     public function index ()
     {
         return $this->step0();

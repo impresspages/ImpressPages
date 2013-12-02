@@ -7,12 +7,12 @@ return array(
 
     // DB
     'db' => array(
-        'hostname' => 'localhost',
-        'username' => 'rootc',
-        'password' => 'maskas',
-        'database' => '4.x',
-        'tablePrefix' => 'ip3_',
-        'charset' => 'utf8',
+        'hostname' => '',
+        'username' => '',
+        'password' => '',
+        'database' => '',
+        'tablePrefix' => '',
+        'charset' => '',
     ),
 
     // GLOBAL
@@ -31,6 +31,16 @@ return array(
 
     'timezone' => 'Europe/Vilnius', //TODOX replace with current
     // END FRONTEND
+
+    'FILE_OVERRIDES' => array(
+        'Plugin/' => __DIR__ . '/Plugin/',
+        'Theme/' => __DIR__ . '/Theme/',
+    ),
+
+    'URL_OVERRIDES' => array(
+        'Plugin/' => 'http://' . getParentUrl() . '/Plugin/',//TODOX find the way to add domain
+        'Theme/' => 'http://' . getParentUrl() . '/Theme/',
+    )
 );
 
 function getParentUrl() {

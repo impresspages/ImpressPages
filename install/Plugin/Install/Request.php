@@ -5,6 +5,13 @@ class Request extends \Ip\Request {
     protected $defaultControllerAction = 'index';
     protected $defaultControllerClass = '\\Plugin\\Install\\PublicController';
 
+
+    //original function requires database access
+    protected function isWebsiteRoot()
+    {
+        return true;
+    }
+
     protected function parseControllerAction()
     {
         $action = $this->defaultControllerAction;
@@ -12,9 +19,14 @@ class Request extends \Ip\Request {
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
 
 
-        if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
-            throw new \Ip\CoreException('Controller action can be requested only at website root.');
+        parent::parseControllerAction();
+
+        if ($this->controllerClass !== 'Plugin\Install\PublicController') {
+            $action = $this->defaultControllerAction;
+            $controllerClass = $this->defaultControllerClass;
+            $controllerType = self::CONTROLLER_TYPE_PUBLIC;
         }
+
         $this->controllerClass = $controllerClass;
         $this->controllerAction = $action;
         $this->controllerType = $controllerType;
