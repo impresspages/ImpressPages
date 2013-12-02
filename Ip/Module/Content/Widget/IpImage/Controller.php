@@ -22,7 +22,7 @@ class Controller extends \Ip\WidgetController{
         $newData = $currentData;
         $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
-        if (isset($postData['newImage']) && is_file(ipConfig()->repositoryFile($postData['newImage']))) {
+        if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
@@ -112,7 +112,7 @@ class Controller extends \Ip\WidgetController{
                         $requiredWidth,
                         $requiredHeight
                     );
-                    $data['imageSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
+                    $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $data['title'], $transformSmall));
                 }
             }
         }

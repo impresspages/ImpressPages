@@ -14,15 +14,15 @@ class System
         ipAddJQuery();
 
         //Form init
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/form/form.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/form/form.js'));
 
-        ipAddJavascriptVariable('Form_pluploadJsFile', ipConfig()->coreModuleUrl('Assets/assets/js/plupload/plupload.full.js'));
-        ipAddJavascriptVariable('Form_fileFieldJs', ipConfig()->coreModuleUrl('Assets/assets/form/file.js'));
+        ipAddJavascriptVariable('Form_pluploadJsFile', ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.full.js'));
+        ipAddJavascriptVariable('Form_fileFieldJs', ipFileUrl('Ip/Module/Assets/assets/form/file.js'));
 
 
-        ipAddJavascriptVariable('Form_spectrumJsFile', ipConfig()->coreModuleUrl('Assets/assets/js/spectrum/spectrum.min.js'));
-        ipAddJavascriptVariable('Form_spectrumCssFile', ipConfig()->coreModuleUrl('Assets/assets/js/spectrum/spectrum.css'));
-        ipAddJavascriptVariable('Form_colorFieldJs', ipConfig()->coreMOduleUrl('Assets/assets/form/color.js'));
+        ipAddJavascriptVariable('Form_spectrumJsFile', ipFileUrl('Ip/Module/Assets/assets/js/spectrum/spectrum.min.js'));
+        ipAddJavascriptVariable('Form_spectrumCssFile', ipFileUrl('Ip/Module/Assets/assets/js/spectrum/spectrum.css'));
+        ipAddJavascriptVariable('Form_colorFieldJs', ipFileUrl('Ip/Module/Assets/assets/form/color.js'));
 
         //
     }

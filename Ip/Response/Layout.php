@@ -35,7 +35,7 @@ class Layout extends \Ip\Response {
 
     public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
     {
-        $this->setFavicon(ipConfig()->baseUrl('favicon.ico'));
+        $this->setFavicon(ipFileUrl('favicon.ico'));
         $this->setCharset(ipConfig()->getRaw('CHARSET'));
         parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
     }
@@ -54,7 +54,7 @@ class Layout extends \Ip\Response {
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } else {
-            $viewFile = ipConfig()->themeFile($layout);
+            $viewFile = ipThemeFile($layout);
         }
 
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
@@ -65,9 +65,9 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = ipConfig()->coreFile('') . 'Ip/Module/Admin/view/layout.php';
-            $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.css'));
-            $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/bootstrap/bootstrap.js'));
+            $this->layout = ipFile('Ip/Module/Admin/view/layout.php');
+            $this->addCss(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css'));
+            $this->addJavascript(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/view/safeModeLayout.php';
         } else {
@@ -180,7 +180,7 @@ class Layout extends \Ip\Response {
         if ($inDesignPreview) {
             foreach($cssFiles as &$file) {
                 $path = pathinfo($file['value']);
-                if ($path['dirname'] . '/' == ipConfig()->themeFile('') && file_exists(ipConfig()->themeFile($path['filename'] . '.less'))) {
+                if ($path['dirname'] . '/' == ipThemeFile('') && file_exists(ipThemeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(ipConfig()->theme(), $path['filename']);
                 } else {
@@ -207,7 +207,7 @@ class Layout extends \Ip\Response {
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -222,12 +222,11 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(''),
+            'ipBaseUrl' => ipConfig()->baseUrl(),
             'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
-            'ipRepositoryUrl' => ipConfig()->repositoryUrl(''),
+            'ipRepositoryUrl' => ipFileUrl('file/repository/'),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
             'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,
@@ -236,7 +235,7 @@ class Layout extends \Ip\Response {
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
 
 

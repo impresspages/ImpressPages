@@ -15,7 +15,7 @@
             <span class="ipmMenuTitle"><?php _e('Menu', 'ipAdmin') ?></span>
             <?php
 
-                $viewFile = ipConfig()->coreModuleFile('Config/view/menu.php');
+                $viewFile = ipFile('Ip/Module/Config/view/menu.php');
                 $data = array(
                     'items' => $menuItems,
                     'depth' => 1
@@ -25,7 +25,7 @@
             ?>
             <ul>
                 <li>
-                    <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>">
+                    <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>">
                         <?php _e('Logout', 'ipAdmin') ?>
                         <span class="fa-stack">
                             <i class="fa fa-square fa-stack-2x"></i>
@@ -41,7 +41,7 @@
 
 
 
-        <a href="<?php echo ipConfig()->baseUrl('', array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
+        <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
             <?php _e('Logout', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>

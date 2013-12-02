@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         $app = \Ip\ServiceLocator::application();
         $data = array (
             'securityToken' =>  $app->getSecurityToken(),
-            'imageDir' => ipConfig()->coreModuleFile('Pages/img/')
+            'imageDir' => ipFile('Ip/Module/Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);
@@ -221,7 +221,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipConfig()->coreModuleUrl('Pages/img/file_hidden.png');
+                        $icon = ipFileUrl('Ip/Module/Pages/img/file_hidden.png');
                     }
 
 
@@ -258,7 +258,7 @@ class AdminController extends \Ip\Controller
                     if ($item['visible']) {
                         $icon = '';
                     } else {
-                        $icon = ipConfig()->coreModuleUrl('Pages/img/file_hidden.png');
+                        $icon = ipFileUrl('Ip/Module/Pages/img/file_hidden.png');
                     }
 
                     //if node status is open
@@ -1177,7 +1177,7 @@ class AdminController extends \Ip\Controller
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt($ch, CURLOPT_URL, $remote['url']);
-        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
+        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla4/1.0");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

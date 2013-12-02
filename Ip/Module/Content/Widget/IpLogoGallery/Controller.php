@@ -36,7 +36,7 @@ class Controller extends \Ip\WidgetController{
             switch($logo['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(ipConfig()->repositoryFile($logo['fileName']))) {
+                    if (!file_exists(ipFile('file/repository/' . $logo['fileName']))) {
                         break;
                     }
 
@@ -201,8 +201,8 @@ class Controller extends \Ip\WidgetController{
                         true
                     );
                     try {
-                        $curLogo['logoSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall));
-                        $curLogo['logoUrl'] = ipConfig()->repositoryUrl($curLogo['logoSmall']);
+                        $curLogo['logoSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall));
+                        $curLogo['logoUrl'] = ipFileUrl('file/repository/' . $curLogo['logoSmall']);
                     } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }

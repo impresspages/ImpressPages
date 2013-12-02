@@ -31,13 +31,13 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $model = Model::instance();
         //download theme
         $net = \Ip\Internal\NetHelper::instance();
-        $themeTempFilename = $net->downloadFile($url, ipConfig()->temporarySecureFile(''), $name . '.zip');
+        $themeTempFilename = $net->downloadFile($url, ipFile('file/secure/tmp/'), $name . '.zip');
 
         if (!$themeTempFilename) {
             throw new \Ip\CoreException('Theme file download failed.');
         }
 
-        $archivePath = ipConfig()->temporarySecureFile($themeTempFilename);
+        $archivePath = ipFile('file/secure/tmp/' . $themeTempFilename);
 
         //check signature
         $fileMd5 = md5_file($archivePath);
@@ -53,18 +53,16 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
         //extract
         $helper = Helper::instance();
-        $tmpExtractedDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, ipConfig()->temporarySecureFile(''));
-        $helper->extractZip(ipConfig()->temporarySecureFile($themeTempFilename), ipConfig()->temporarySecureFile($tmpExtractedDir));
+        $secureTmpDir = ipFile('file/secure/tmp/');
+        $tmpExtractedDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, $secureTmpDir);
+        $helper->extractZip($secureTmpDir . $themeTempFilename, $secureTmpDir . $tmpExtractedDir);
         unlink($archivePath);
 
         //install
-        $extractedDir = $helper->getFirstDir(ipConfig()->temporarySecureFile($tmpExtractedDir));
+        $extractedDir = $helper->getFirstDir($secureTmpDir . $tmpExtractedDir);
         $installDir = $model->getThemeInstallDir();
         $newThemeDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, $installDir);
-        rename(ipConfig()->temporarySecureFile($tmpExtractedDir . '/' . $extractedDir), $installDir . $newThemeDir);
-
+        rename($secureTmpDir . $tmpExtractedDir . '/' . $extractedDir, $installDir . $newThemeDir);
     }
-
-
 
 }

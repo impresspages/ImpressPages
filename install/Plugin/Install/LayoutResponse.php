@@ -22,7 +22,7 @@ class LayoutResponse extends \Ip\Response\Layout
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } else {
-            $viewFile = ipConfig()->themeFile($layout);
+            $viewFile = ipThemeFile($layout);
         }
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
 
@@ -69,7 +69,7 @@ class LayoutResponse extends \Ip\Response\Layout
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -83,10 +83,9 @@ class LayoutResponse extends \Ip\Response\Layout
             }
         }
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(''),
+            'ipBaseUrl' => ipConfig()->baseUrl(),
             'ipLanguageId' => null,
             'ipLanguageUrl' => null,
-            'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
             'ipManagementUrl' => null,
             'ipZoneName' => null,
@@ -96,6 +95,6 @@ class LayoutResponse extends \Ip\Response\Layout
             'javascript' => $javascriptFiles,
             'javascriptVariables' => $this->getJavascriptVariables()
         );
-        return \Ip\View::create(ipConfig()->coreModuleFile('Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
 }

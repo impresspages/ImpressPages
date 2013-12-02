@@ -14,20 +14,12 @@ return array(
 
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
-    'CORE_DIR' => '',
     'BASE_URL' => 'localhost/',
-    'FILE_DIR' => 'phpunit/tmp/file/',
-    'TMP_FILE_DIR' => 'phpunit/tmp/file/tmp/',
-    'FILE_REPOSITORY_DIR' => 'phpunit/tmp/file/repository/',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
     'ERRORS_SEND' => '',
     // END GLOBAL
-
-    // BACKEND
-    'THEME_DIR' => 'Theme/',
-    // END BACKEND
 
     // FRONTEND
     'CHARSET' => 'UTF-8',
@@ -38,8 +30,8 @@ return array(
     'timezone' => 'Africa/Bujumbura',
     // END FRONTEND
 
-    'SECURE_DIR' => 'phpunit/tmp/file/secure/',
-    'TMP_SECURE_DIR' => 'phpunit/tmp/file/secure/tmp/',
-    'MANUAL_DIR' => 'phpunit/tmp/file/manual/',
+    'FILE_OVERRIDES' => array(
+        'file/' => TEST_TMP_DIR . 'file/',
+    ),
 
 );

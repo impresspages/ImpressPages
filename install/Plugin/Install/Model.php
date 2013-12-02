@@ -33,11 +33,11 @@ class Model
             $error['mod_pdo'] = 1;
         }
 
-        if (!file_exists(ipConfig()->baseFile('.htaccess'))) {
+        if (!file_exists(ipFile('.htaccess'))) {
             $error['htaccess'] = 1;
         }
 
-        if (file_exists(ipConfig()->baseFile('index.html'))) {
+        if (file_exists(ipFile('index.html'))) {
             $error['index.html'] = 1;
         }
 
@@ -145,7 +145,7 @@ class Model
 
         $table[] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
 
-        if (!Helper::isDirectoryWritable(ipConfig()->fileDirFile(''))) {
+        if (!Helper::isDirectoryWritable(ipFile('file/'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_file'] = 1;
         } else
@@ -153,7 +153,7 @@ class Model
 
 
         $table[] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
-        if (!Helper::isDirectoryWritable(dirname(ipConfig()->themeFile('')))) {
+        if (!Helper::isDirectoryWritable(dirname(ipThemeFile('')))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_themes'] = 1;
         } else
@@ -162,7 +162,7 @@ class Model
 
         $table[] = '<b>/ip_config.php</b> ' . __('writable', 'ipInstall');
 
-        if (!is_writable(ipConfig()->baseFile('ip_config.php'))) {
+        if (!is_writable(ipFile('ip_config.php'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_config'] = 1;
         } else
@@ -170,7 +170,7 @@ class Model
 
 
         $table[] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
-        if (!is_writable(ipConfig()->baseFile('robots.txt'))) {
+        if (!is_writable(ipFile('robots.txt'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_robots'] = 1;
         } else
@@ -210,7 +210,7 @@ class Model
 
     public static function createDatabaseStructure($database, $tablePrefix)
     {
-        $all_sql = file_get_contents(ipConfig()->pluginFile('Install/sql/structure.sql'));
+        $all_sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
 
         $all_sql = str_replace("[[[[database]]]]", $database, $all_sql);
         $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $tablePrefix, $all_sql);
@@ -234,15 +234,15 @@ class Model
     {
         $errors = array();
 
-        // TODOX Algimantas: why so complicated?
-        $sqlFile = ipConfig()->pluginFile("Install/sql/data.sql");
+        $sqlFile = ipFile('Plugin/Install/sql/data.sql');
         $fh = fopen($sqlFile, 'r');
         $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);
 
+        // TODOX execute multiple statements
         //$all_sql = utf8_encode($all_sql);
         $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(''), $all_sql);
+        $all_sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $all_sql);
         $sql_list = explode("-- Dumping data for table--", $all_sql);
 
 
@@ -269,41 +269,9 @@ class Model
                 'value' => '',
                 'comment' => 'root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'CORE_DIR' => array(
-                'value' => '',
-                'comment' => 'Directory where Ip directory resides',
-            ),
             'BASE_URL' => array(
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
-            ),
-            'FILE_DIR' => array(
-                'value' => 'file/',
-                'comment' => 'uploded files directory',
-            ),
-            'TMP_FILE_DIR' => array(
-                'value' => 'file/tmp/',
-                'comment' => 'temporary files directory',
-            ),
-            'FILE_REPOSITORY_DIR' => array(
-                'value' => 'file/repository/',
-                'comment' => 'files repository.',
-            ),
-            'SECURE_DIR' => array(
-                'value' => 'file/secure/',
-                'comment' => 'directory not accessible from the Internet',
-            ),
-            'TMP_SECURE_DIR' => array(
-                'value' => 'file/secure/tmp/',
-                'comment' => 'directory for temporary files. Not accessible from the Internet.',
-            ),
-            'MANUAL_DIR' => array(
-                'value' => 'file/manual/',
-                'comment' => 'Used for TinyMCE file browser and others tools where user manually controls all files.',
-            ),
-            'PLUGIN_DIR' => array(
-                'value' => 'Plugin/',
-                'comment' => 'A place for plugins',
             ),
             'DEVELOPMENT_ENVIRONMENT' => array(
                 'value' => 1,
@@ -323,10 +291,6 @@ class Model
             'pluginDir' => array(
                 'value' => './Plugin',
                 'comment' => 'Plugins directory',
-            ),
-            'THEME_DIR' => array(
-                'value' => 'Theme/',
-                'comment' => 'themes directory',
             ),
             // END BACKEND
 
@@ -400,7 +364,7 @@ Disallow: /admin.php
 Disallow: /ip_config.php
 Disallow: /ip_license.html
 Disallow: /readme.md
-Sitemap: '. ipConfig()->baseUrl('sitemap.php');
+Sitemap: '. ipFileUrl('sitemap.php');
 
         file_put_contents($filename, $content);
     }

@@ -239,7 +239,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
             
             
             
-            //$this.find('.ipaLogo').attr('src', ip.baseUrl + data.fileName);
+            //$this.find('.ipaLogo').attr('src', ipFileUrl(data.fileName));
             var logoOptions = new Object;
             logoOptions.image = data.fileName;
             if (options.coordinates) {

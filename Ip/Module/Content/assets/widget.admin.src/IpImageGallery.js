@@ -234,7 +234,7 @@ function IpWidget_IpImageGallery(widgetObject) {
             
             
             
-            //$this.find('.ipaImage').attr('src', ip.baseUrl + data.fileName);
+            //$this.find('.ipaImage').attr('src', ipFileUrl(data.fileName));
             var imageOptions = new Object;
             imageOptions.image = data.fileName;
             if (options.coordinates) {

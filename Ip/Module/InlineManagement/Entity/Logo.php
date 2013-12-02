@@ -56,7 +56,7 @@ class Logo
                 break;
         }
 
-        if (!empty($data['imageOrig']) && file_exists(ipConfig()->baseFile($data['imageOrig']))) {
+        if (!empty($data['imageOrig']) && file_exists(ipFile($data['imageOrig']))) {
             $this->imageOrig = $data['imageOrig'];
 
             if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {

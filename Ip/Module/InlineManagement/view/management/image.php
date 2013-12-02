@@ -4,4 +4,4 @@
      data-options='<?php echo json_encode($options); ?>'
      data-cssclass="<?php echo esc($cssClass) ?>"
      class="ipModuleInlineManagement ipmImage <?php echo $empty ? 'ipmEmpty' : '' ?> <?php echo esc($cssClass) ?>"
-     src="<?php echo $empty ? ipConfig()->coreModuleUrl('InlineManagement/assets/empty.gif') : esc($value) ?>" alt="" />
+     src="<?php echo $empty ? ipFileUrl('Ip/Module/InlineManagement/assets/empty.gif') : esc($value) ?>" alt="" />

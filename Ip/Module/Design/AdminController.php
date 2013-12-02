@@ -19,15 +19,15 @@ class AdminController extends \Ip\Controller
     public function index()
     {
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Assets/assets/js/jquery-ui/jquery-ui.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/easyXDM/easyXDM.min.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/options.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/market.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/design.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Design/assets/pluginInstall.js'));
-        ipAddCss(ipConfig()->coreModuleUrl('Design/assets/design.css'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/market.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/easyXDM/easyXDM.min.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Design/assets/options.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Design/assets/market.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Design/assets/design.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Design/assets/pluginInstall.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Design/assets/design.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/System/assets/market.js'));
 
 
 

@@ -78,7 +78,7 @@ class Block
      */
     public function exampleContentFrom($filename)
     {
-        $this->exampleContent = \Ip\View::create(ipConfig()->themeFile($filename));
+        $this->exampleContent = \Ip\View::create(ipThemeFile($filename));
         return $this;
     }
 
