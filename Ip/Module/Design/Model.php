@@ -185,7 +185,9 @@ class Model
         //TODOX new way of doing.
         $configModel = new \Ip\Module\Config\Model();
         $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
-        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
+
+        // TODOX theme dir
+//        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
@@ -235,6 +237,7 @@ class Model
     {
         if ($dir) {
             $currentThemeDir = ipThemeFile('');
+            // TODOX change that
             ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 

@@ -21,10 +21,6 @@ return array(
     'ERRORS_SEND' => '',
     // END GLOBAL
 
-    // BACKEND
-    'THEME_DIR' => 'Theme/',
-    // END BACKEND
-
     // FRONTEND
     'CHARSET' => 'UTF-8',
 

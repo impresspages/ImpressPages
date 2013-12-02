@@ -292,10 +292,6 @@ class Model
                 'value' => './Plugin',
                 'comment' => 'Plugins directory',
             ),
-            'THEME_DIR' => array(
-                'value' => 'Theme/',
-                'comment' => 'themes directory',
-            ),
             // END BACKEND
 
             // FRONTEND

@@ -854,7 +854,7 @@ class StandardModule {
     <script type="text/javascript">
         var ip = {
             baseUrl : '.json_encode(ipUrl('')).',
-            themeDir : '.json_encode(ipConfig()->getRaw('THEME_DIR')).',
+            themeDir : '.json_encode(ipUrl('Theme/')).',
             theme : ' . json_encode(ipConfig()->theme()) . ',
             zoneName : '.json_encode(null).',
             pageId : '.json_encode(null).',
