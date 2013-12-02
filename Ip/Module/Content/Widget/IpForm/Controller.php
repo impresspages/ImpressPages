@@ -156,11 +156,33 @@ class Controller extends \Ip\WidgetController{
         
         return parent::managementHtml($instanceId, $data, $layout);
     }
+
+    public function defaultData()
+    {
+        $data = array();
+        $data['fields'] = array();
+        $data['fields'][] = array (
+            'type' => 'IpText',
+            'label' => __('Name', 'ipPublic', false),
+            'options' => array()
+        );
+        $data['fields'][] = array (
+            'type' => 'IpEmail',
+            'label' => __('Email', 'ipPublic', false),
+            'options' => array()
+        );
+        $data['fields'][] = array (
+            'type' => 'IpTextarea',
+            'label' => __('Text', 'ipPublic', false),
+            'options' => array()
+        );
+        return $data;
+    }
     
     public function previewHtml($instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
-        
+
         if (!isset($data['success'])) {
             $data['success'] = '';
         }
@@ -191,7 +213,17 @@ class Controller extends \Ip\WidgetController{
             $data['fields'] = array();
             $data['fields'][] = array (
                 'type' => 'IpText',
-                'label' => '',
+                'label' => __('Name', 'ipPublic', false),
+                'options' => array()
+            );
+            $data['fields'][] = array (
+                'type' => 'IpEmail',
+                'label' => __('Email', 'ipPublic', false),
+                'options' => array()
+            );
+            $data['fields'][] = array (
+                'type' => 'IpTextarea',
+                'label' => __('Text', 'ipPublic', false),
                 'options' => array()
             );
         }
@@ -208,7 +240,7 @@ class Controller extends \Ip\WidgetController{
      * @param array $data
      * @return \Ip\Form
      */
-    private function createForm($instanceId, $data) {
+    protected function createForm($instanceId, $data) {
         $form = new \Ip\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {

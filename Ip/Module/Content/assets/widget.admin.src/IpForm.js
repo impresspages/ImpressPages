@@ -28,7 +28,6 @@ function IpWidget_IpForm() {
             .height(this.widgetObject.height());
         this.widgetObject.prepend($widgetOverlay);
         $widgetOverlay.on('click', $.proxy(openPopup, this));
-
     };
 
 

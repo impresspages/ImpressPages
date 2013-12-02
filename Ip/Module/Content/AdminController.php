@@ -238,7 +238,8 @@ class AdminController extends \Ip\Controller
 
         try {
             $layouts = $widgetObject->getLayouts();
-            $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
+            $widgetObject = Model::getWidgetObject($widgetName);
+            $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetManagementHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
