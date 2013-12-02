@@ -118,7 +118,7 @@
                     //       one widget in a single request). 
                     var $instance = $(this),
                         instanceData = $instance.data('widgetdata'),
-                        instanceId = $instance.data('widgetInstanceId'),
+                        instanceId = $instance.data('widgetinstanceid'),
                         $subwidgets = $instance.find('.ipWidget');
                     
                     $subwidgets.each(function () {
