@@ -28,15 +28,15 @@ class Application {
         require_once(__DIR__ . '/ServiceLocator.php');
         \Ip\ServiceLocator::setConfig($config);
 
+        // TODOX remove coreFile()
         require_once $config->coreFile('Ip/Internal/Autoloader.php');
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
-
+        // TODOX remove coreFile()
         require_once $config->coreFile('Ip/Functions.php');
 
-
-        require_once $config->coreFile('Ip/Internal/Deprecated/mysqlFunctions.php');
+        require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
@@ -46,7 +46,7 @@ class Application {
     {
         //TODOX decide if separate option for error setting in config is needed
         if (empty($options['skipErrorHandler'])) {
-            require_once ipConfig()->coreFile('Ip/Internal/Deprecated/error_handler.php');
+            require_once ipFile('Ip/Internal/Deprecated/error_handler.php');
         }
 
         if (empty($options['skipError'])) {
@@ -78,8 +78,8 @@ class Application {
     protected function initTranslations($languageCode)
     {
         \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
     }
 
     /**

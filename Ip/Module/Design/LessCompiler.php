@@ -38,7 +38,7 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less.= $this->generateLessVariables($options, $config);
 
-        require_once ipConfig()->coreFile('Ip/Lib/Lessphp/lessc.inc.php');
+        require_once ipFile('Ip/Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $themeDir = rtrim(ipConfig()->themeFile(\Ip\Application::ASSET_DIR, $themeName), '/');
         $lessc->setImportDir(array($themeDir, ipFile('Ip/Module/Assets/assets/css/ipContent')));
@@ -191,7 +191,7 @@ class LessCompiler
             return;
         }
 
-        require_once ipConfig()->coreFile('Lib/Lessphp/lessc.inc.php');
+        require_once ipFile('Ip/Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
         $lessc->setImportDir(ipFile('Ip/Module/Assets/assets/css/ipContent'));
         $lessc->setPreserveComments(true);
