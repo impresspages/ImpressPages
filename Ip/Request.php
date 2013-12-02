@@ -242,7 +242,6 @@ class Request
             $relativePath = trim($relativePath, '/');
             $urlParts = explode('/', $relativePath);
             if (!empty($urlParts[1])) {
-                var_dump($urlParts);
                 return false;
             }
             return true;
