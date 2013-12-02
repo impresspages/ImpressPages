@@ -64,11 +64,6 @@
 
                         // init any new blocks the widget may have created
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-//
-//                        var tmpData = $newWidget.data('ipWidget');
-//                        tmpData.state = IP_WIDGET_STATE_PREVIEW;
-//                        $newWidget.data('ipWidget', tmpData);
-
                         $this.remove();
                     },
                     error: function(response) {
