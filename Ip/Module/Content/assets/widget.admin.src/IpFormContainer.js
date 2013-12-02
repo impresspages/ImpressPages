@@ -64,7 +64,15 @@
         getFields : function () {
             var $this = this;
             return $this.find('.ipaFieldTemplate');
+        },
+
+        destroy : function () {
+            return this.each(function() {
+                var $this = this;
+                $.removeData($this, 'ipWidget_ipForm_container');
+            });
         }
+
     };
 
     $.fn.ipWidget_ipForm_container = function(method) {

@@ -26,7 +26,7 @@
  
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
-                        optionsChanged : false,
+                        optionsChanged : false
                     });
                     var data = $this.data('ipContentManagement');
 
