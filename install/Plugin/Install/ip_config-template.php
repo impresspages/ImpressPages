@@ -31,10 +31,6 @@ return array(
     /*OK*/'ERRORS_SEND' => '', //insert email address or leave blank. If email is set, you will get an email when an error occurs.
     // END GLOBAL
 
-    // BACKEND
-    /*OK*/'THEME_DIR' => 'Theme/', //themes directory
-    // END BACKEND
-
     // FRONTEND
     /*OK*/'CHARSET' => 'UTF-8', //system characterset
     /*OK*/'THEME' => 'Blank', //theme from themes directory

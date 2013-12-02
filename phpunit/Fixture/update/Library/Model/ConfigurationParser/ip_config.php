@@ -26,12 +26,7 @@ return array(
       'ERRORS_SEND' => 'mangirdas@impresspages.org',
     // END GLOBAL
       
-    // BACKEND
-      'THEME_DIR' => 'Theme/',
-    // END BACKEND
-    
     // FRONTEND
-    
       'CHARSET' => 'UTF-8',
       'MYSQL_CHARSET' => 'utf8',
       'THEME' => 'Blank',

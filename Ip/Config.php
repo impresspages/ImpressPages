@@ -59,7 +59,7 @@ class Config
 //            $this->pluginDir = $this->rawConfig['BASE_DIR'] . '/Plugin';
 //        }
 
-        $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
+//        $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
     }
 
     public function getRaw($name)
@@ -123,8 +123,6 @@ class Config
 
             // BACKEND
             'CONFIG_DIR' => 'ip_configs/', //modules configuration directory
-            'THEME_DIR' => 'Theme/', //themes directory
-
             // END BACKEND
 
             // FRONTEND
