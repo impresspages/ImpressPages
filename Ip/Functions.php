@@ -361,10 +361,10 @@ function ipActionUrl($query)
 
 function ipThemeUrl($path)
 {
-    return ipUrl('Theme/' . ipConfig()->getRaw('THEME') . '/' . $path);
+    return ipUrl('Theme/' . ipConfig()->theme() . '/' . $path);
 }
 
 function ipThemeFile($path)
 {
-    return ipFile('Theme/' . ipConfig()->getRaw('THEME') . '/' . $path);
+    return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
 }
