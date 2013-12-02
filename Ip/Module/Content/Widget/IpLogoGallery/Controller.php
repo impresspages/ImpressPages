@@ -36,7 +36,7 @@ class Controller extends \Ip\WidgetController{
             switch($logo['status']){
                 case 'new':
                     //just to be sure
-                    if (!file_exists(ipConfig()->baseFile($logo['fileName']))) {
+                    if (!file_exists(ipConfig()->repositoryFile($logo['fileName']))) {
                         break;
                     }
 
@@ -181,11 +181,10 @@ class Controller extends \Ip\WidgetController{
     public function previewHtml($instanceId, $data, $layout) {
         $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
-
         if (!isset($data['logos']) || !is_array($data['logos'])){
             $data['logos'] = array();
         }
-        foreach ($data['logos'] as $logoKey => &$logo) {
+        foreach ($data['logos'] as &$logo) {
             if ($logo['link'] && stripos($logo['link'], 'http') !== 0 && stripos($logo['link'], '#') !== 0) {
                 $logo['link'] = 'http://'.$logo['link'];
             }
@@ -202,7 +201,8 @@ class Controller extends \Ip\WidgetController{
                         true
                     );
                     try {
-                        $curLogo['logoSmall'] = $reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall);
+                        $curLogo['logoSmall'] = ipConfig()->fileUrl($reflectionService->getReflection($curLogo['logoOriginal'], $curLogo['title'], $transformSmall));
+                        $curLogo['logoUrl'] = ipConfig()->repositoryUrl($curLogo['logoSmall']);
                     } catch (\Ip\Module\Repository\Exception $e) {
                         //do nothing
                     }

@@ -423,10 +423,7 @@ class AdminController extends \Ip\Controller
         }
         $revisionId = $_POST['revisionId'];
 
-        if (empty($_POST['publish'])){
-            return $this->_errorAnswer('Missing publish POST variable');
-        }
-        $publish = $_POST['publish'];
+        $publish = !empty($_POST['publish']);
 
 
 

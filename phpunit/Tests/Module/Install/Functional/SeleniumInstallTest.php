@@ -38,7 +38,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
             );
         } else {
             $driver = new \Behat\Mink\Driver\Selenium2Driver(
-                'firefox', TEST_TMP_DIR
+                'firefox'
             );
         }
 

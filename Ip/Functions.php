@@ -160,6 +160,7 @@ function ipPrintJavascript($print = true)
  * @param bool $print false - return instead of print
  * @return string
  */
+//TODOX remove $print parameters. People can use long syntax if they want the response
 function ipPrintHead($print = true)
 {
     $head = \Ip\ServiceLocator::response()->generateHead();
@@ -282,7 +283,7 @@ function escTextarea($value)
 
 function escAttr($value)
 {
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
 function escUrl($url)

@@ -10,7 +10,7 @@
  * 
  * backgroundImage - default image to be used when real image is not uploaded (not implemented)
  * backgroundColor - (not implemented)
- * image - url to image to be cropped / resized
+ * image - url to image to be cropped / re-sized
  * cropX1 - current cropping coordinates
  * cropY1 
  * cropX2
@@ -180,7 +180,7 @@
             
             
             if (data.curImage) {
-                $this.find('.ipUploadImage').attr('src', ip.baseUrl + data.curImage);
+                $this.find('.ipUploadImage').attr('src', ip.repositoryUrl + data.curImage);
             }
             $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
             $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
@@ -309,11 +309,11 @@
             var file = files[0];
 
 
-            data.curImage = file.file;
+            data.curImage = file.fileName;
             data.imageChanged = true;
             data.coordinatesChanged = true;
             $this.data('ipUploadImage', data);
-            $this.find('.ipUploadImage').attr('src', ip.baseUrl + file.file);
+            $this.find('.ipUploadImage').attr('src', file.originalUrl);
         },
         
 
@@ -344,7 +344,7 @@
                 
                 $(this).ipUploadImage('autosize', data.autosizeType, true);
             } else { //current image loaded. Crop it as it was cropped before
-                $(this).ipUploadImage('restoreOriginalDimmensions');
+                $(this).ipUploadImage('restoreOriginalDimensions');
             }
             
 
@@ -681,7 +681,7 @@
             return answer;
         },
         
-        restoreOriginalDimmensions : function(){
+        restoreOriginalDimensions : function(){
             var $this = $(this);
             var $image = $this.find('.ipUploadImage');
             var $window = $image.parent().parent();

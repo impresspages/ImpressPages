@@ -92,7 +92,7 @@ class PublicController extends \Ip\Controller
         ipAddJavascript(ipConfig()->coreModuleUrl('Upload/assets/jquery.ip.uploadFile.js'));
 
         ipAddCss(ipConfig()->coreModuleUrl('Content/assets/widgets.css'));
-        ipAddJavascriptVariable('isMobile', \Ip\Browser::isMobile());
+        ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
     }
 
