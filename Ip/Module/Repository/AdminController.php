@@ -41,7 +41,7 @@ class AdminController extends \Ip\Controller{
 
         $newFiles = array();
 
-        $destination = ipConfig()->repositoryFile('');
+        $destination = ipFile('file/repository/');
         foreach ($files as $key => $file) {
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
             copy(ipConfig()->baseFile($file['file']), $destination.$newName);

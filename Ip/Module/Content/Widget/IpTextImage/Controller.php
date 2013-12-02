@@ -23,7 +23,7 @@ class Controller extends \Ip\WidgetController{
         $newData['text'] = $postData['text'];
         $newData['title'] = $postData['title'];
 
-        if (isset($postData['newImage']) && is_file(ipConfig()->repositoryFile($postData['newImage']))) {
+        if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
 
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {

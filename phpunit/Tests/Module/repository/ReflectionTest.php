@@ -22,7 +22,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
         $file = ipConfig()->getRaw('FILE_REPOSITORY_DIR') . 'impresspages.png';
 
-        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipConfig()->repositoryFile('impresspages.png'));
+        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipFile('file/repository/impresspages.png'));
 
         //Bind file to module (twice)
         $repository->bindFile($file, 'modulexxx', 1);
