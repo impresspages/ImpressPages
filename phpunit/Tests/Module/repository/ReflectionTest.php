@@ -34,7 +34,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         //Create reflection
         $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
-        $this->assertEquals(ipConfig()->getRaw('FILE_DIR') . 'impresspages.png', $reflection);
+        $this->assertEquals('file/impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
         $this->assertEquals(true, file_exists(ipFile($reflection)));
 

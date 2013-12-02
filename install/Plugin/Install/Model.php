@@ -273,14 +273,6 @@ class Model
                 'value' => '',
                 'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
-            'FILE_DIR' => array(
-                'value' => 'file/',
-                'comment' => 'uploded files directory',
-            ),
-            'TMP_FILE_DIR' => array(
-                'value' => 'file/tmp/',
-                'comment' => 'temporary files directory',
-            ),
             'FILE_REPOSITORY_DIR' => array(
                 'value' => 'file/repository/',
                 'comment' => 'files repository.',

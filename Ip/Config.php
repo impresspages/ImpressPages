@@ -62,18 +62,6 @@ class Config
         $this->core['THEME_DIR'] = $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'];
     }
 
-
-
-    public function __coreModuleUrl($path)
-    {//echo $this->protocol . $this->rawConfig['BASE_URL']; exit;
-        return $this->protocol . $this->cdnUrl . '/Ip/Module/' . $path;
-    }
-
-    public function __coreModuleFile($path)
-    {
-        return $this->corePath . '/Ip/Module/' . $path;
-    }
-
     public function getRaw($name)
     {
         return array_key_exists($name, $this->rawConfig) ? $this->rawConfig[$name] : null;
@@ -92,92 +80,9 @@ class Config
         $this->core[$name] = $value;
     }
 
-
-
-    public function __temporaryFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_FILE_DIR'] . '/' . $path;
-    }
-
-    public function __temporarySecureFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['TMP_SECURE_DIR'] . '/' . $path;
-    }
-
-    public function __themeUrl($path)
-    {
-        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['THEME_DIR'] . '/' . $this->rawConfig['THEME'] . '/' . $path;
-    }
-
-    public function __themeFile($path, $theme = null)
-    {
-        if (!$theme) {
-            $theme = $this->rawConfig['THEME'];
-        }
-
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['THEME_DIR'] . '/' . $theme . '/' . $path;
-    }
-
-    //TODOX remove
-    public function __coreUrl($path)
-    {
-        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['CORE_DIR'] . '/' . $path;
-    }
-
-    public function __coreFile($path)
-    {
-        return $this->corePath . '/' . $path;
-    }
-
-
-    public function __fileUrl($path)
-    {
-        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
-    }
-
-    public function __fileDirFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_DIR'] . '/' . $path;
-    }
-
-    public function __repositoryFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
-    }
-
-    public function __repositoryUrl($path)
-    {
-        return $this->protocol . $this->cdnUrl . '/' . $this->rawConfig['FILE_REPOSITORY_DIR'] . '/' . $path;
-    }
-
     public function isDevelopmentEnvironment()
     {
         return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);
-    }
-
-    public function __baseUrl($path, $query = array(), $querySeparator = '&')
-    {
-        $url = $this->protocol . $this->rawConfig['BASE_URL'] . '/' . $path;
-        if ($query) {
-            $url .= '?' . http_build_query($query, null, $querySeparator);
-        }
-
-        return $url;
-    }
-
-    public function __baseFile($path)
-    {
-        return $this->rawConfig['BASE_DIR'] . '/' . $path;
-    }
-
-    public function __pluginFile($path)
-    {
-        return $this->pluginDir . '/' . $path;
-    }
-
-    public function __pluginUrl($path)
-    {
-        return $this->pluginUrl . '/' . $path;
     }
 
     public function theme()
@@ -209,10 +114,7 @@ class Config
 
             // GLOBAL
             'BASE_DIR' => '', //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-            'CORE_DIR' => '',
             'BASE_URL' => '', //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-            'FILE_DIR' => 'file/', //uploaded files directory
-            'TMP_FILE_DIR' => 'file/tmp/', //temporary files directory
             'FILE_REPOSITORY_DIR' => 'file/repository/', //files repository.
             'SECURE_DIR' => 'file/secure/', //directory not accessible from the Internet
             'TMP_SECURE_DIR' => 'file/secure/tmp/', //directory for temporary files. Not accessible from the Internet.
