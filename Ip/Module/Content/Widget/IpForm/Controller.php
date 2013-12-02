@@ -273,7 +273,7 @@ class Controller extends \Ip\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => __('Content.widget_contact_form.send', 'ipPublic', false)
+            'defaultValue' => __('Send', 'ipPublic', false)
         ));
         $form->addField($field);
         
