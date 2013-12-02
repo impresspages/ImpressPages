@@ -18,8 +18,6 @@ return array(
     // GLOBAL
     'BASE_DIR' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     'BASE_URL' => getParentUrl(), //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    'FILE_DIR' => 'file', //uploaded files directory
-    'TMP_FILE_DIR' => 'file/tmp', //temporary files directory
     'FILE_REPOSITORY_DIR' => 'file/repository', //files repository.
     'SECURE_DIR' => 'file/secure', //directory not accessible from the Internet
     'TMP_SECURE_DIR' => 'file/secure/tmp', //directory for temporary files. Not accessible from the Internet.

@@ -20,9 +20,6 @@ return array(
     // GLOBAL
       'BASE_DIR' => '/var/www/test/',
       'BASE_URL' => 'http://www.example.com/',
-      'FILE_DIR' => 'file/',
-      'TMP_FILE_DIR' => 'file/tmp/',
-      'FILE_REPOSITORY_DIR' => 'file/repository/',
 
       'DEVELOPMENT_ENVIRONMENT' => 1,
       'ERRORS_SHOW' => 1,
