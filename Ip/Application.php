@@ -140,7 +140,7 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl('') . 'admin');
+            return new \Ip\Response\Redirect(ipUrl('admin'));
         }
 
 
@@ -251,8 +251,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipUrl(''));
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);

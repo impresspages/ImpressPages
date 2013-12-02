@@ -83,7 +83,7 @@ class LayoutResponse extends \Ip\Response\Layout
             }
         }
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(''),
+            'ipBaseUrl' => ipUrl(''),
             'ipLanguageId' => null,
             'ipLanguageUrl' => null,
             'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),

@@ -178,10 +178,10 @@ class System{
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js'){
-                    ipAddJavascript(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
+                    ipAddJavascript(ipUrl($resourcesFolder.'/'.$file));
                 }
                 if (strtolower(substr($file, -4)) == '.css'){
-                    ipAddCss(ipConfig()->baseUrl($resourcesFolder.'/'.$file));
+                    ipAddCss(ipUrl($resourcesFolder.'/'.$file));
                 }
             }
         }

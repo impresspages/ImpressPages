@@ -353,3 +353,8 @@ function ipUrl($path)
 
     return $baseUrl . $path;
 }
+
+function ipActionUrl($query)
+{
+    return ipUrl('') . '?' . http_build_query($query);
+}

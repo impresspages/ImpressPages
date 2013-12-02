@@ -74,12 +74,12 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        $session->visit(ipConfig()->baseUrl('someNonExistentPage'));
+        $session->visit(ipUrl('someNonExistentPage'));
 
         $this->assertEquals(404, $session->getStatusCode());
 
         \PhpUnit\Helper\TestEnvironment::initCode();
-        $session->visit(ipConfig()->baseUrl('en/'));
+        $session->visit(ipUrl('en/'));
 
         $page = $session->getPage();
 

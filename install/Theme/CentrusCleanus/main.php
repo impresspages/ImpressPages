@@ -5,7 +5,7 @@
     <meta name="robots" content="NOINDEX,NOFOLLOW">
     <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
     <link rel="stylesheet" href="<?php echo ipUrl('Plugin/Install/assets/style.css') ?>">
-    <link rel="shortcut icon" href="<?php echo ipConfig()->baseUrl('favicon.ico') ?>">
+    <link rel="shortcut icon" href="<?php echo ipUrl('favicon.ico') ?>">
     <?php echo ipPrintHead() ?>
 </head>
 <body>

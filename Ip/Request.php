@@ -175,7 +175,7 @@ class Request
      */
     public function getRelativePath()
     {
-        $basePath = parse_url(ipConfig()->baseUrl(''), PHP_URL_PATH);
+        $basePath = parse_url(ipUrl(''), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
             if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {

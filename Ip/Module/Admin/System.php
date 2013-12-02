@@ -68,7 +68,7 @@ class System {
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
             $curModTitle = $curModule; //TODOX translation
-            $curModUrl = ipConfig()->baseUrl('', array('aa' => $curModule . '.index'));
+            $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
         }
 
 

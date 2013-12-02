@@ -1177,7 +1177,7 @@ class AdminController extends \Ip\Controller
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
         curl_setopt($ch, CURLOPT_URL, $remote['url']);
-        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
+        curl_setopt($ch, CURLOPT_REFERER, ipUrl(''));
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla4/1.0");
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

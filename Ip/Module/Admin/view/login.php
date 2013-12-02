@@ -5,7 +5,7 @@
     <title>ImpressPages</title>
     <link rel="stylesheet" href="<?php echo ipUrl('Ip/Module/Admin/assets/backend/login/login.css') ?>">
     <link rel="stylesheet" href="<?php echo ipUrl('Ip/Module/Assets/assets/css/bootstrap/bootstrap.css') ?>">
-    <link rel="shortcut icon" href="<?php echo ipConfig()->baseUrl('favicon.ico') ?>">
+    <link rel="shortcut icon" href="<?php echo ipUrl('favicon.ico') ?>">
 </head>
 <body>
 

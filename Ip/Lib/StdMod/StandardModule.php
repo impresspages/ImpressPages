@@ -853,7 +853,7 @@ class StandardModule {
     
     <script type="text/javascript">
         var ip = {
-            baseUrl : '.json_encode(ipConfig()->baseUrl('')).',
+            baseUrl : '.json_encode(ipUrl('')).',
             themeDir : '.json_encode(ipConfig()->getRaw('THEME_DIR')).',
             theme : ' . json_encode(ipConfig()->theme()) . ',
             zoneName : '.json_encode(null).',
@@ -866,7 +866,7 @@ class StandardModule {
     <script src="' . ipUrl('Ip/Module/Assets/assets/js/tabs.js') . '"></script>
     <script src="' . ipUrl('Ip/Module/Assets/assets/js/jquery.js') . '"></script>
     <script src="' . ipUrl('Ip/Module/Assets/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
-    <script src="' . ipConfig()->baseUrl('', array('pa' => 'Config.tinymceConfig')) . '"></script>
+    <script src="' . ipActionUrl(array('pa' => 'Config.tinymceConfig')) . '"></script>
     '.ipPrintHead(false).'
 </head>
 	 
