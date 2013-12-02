@@ -12,7 +12,7 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         \Ip\Module\Content\Service::setManagementMode(1);
-        header('location: ' . ipConfig()->baseUrl(''));
+        return (new \Ip\Response\Redirect(ipConfig()->baseUrl('')));
     }
 
     public function setManagementMode()
