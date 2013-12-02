@@ -21,7 +21,7 @@ namespace Ip {
 
             $translator->addTranslationFilePattern(
                 'gettext',
-                ipConfig()->themeFile('languages/'),
+                ipThemeFile('languages/'),
                 '%s.mo',
                 'theme-' . ipConfig()->theme()
             );

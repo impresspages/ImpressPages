@@ -40,7 +40,7 @@ class LessCompiler
 
         require_once ipFile('Ip/Lib/Lessphp/lessc.inc.php');
         $lessc = new \lessc();
-        $themeDir = rtrim(ipConfig()->themeFile(\Ip\Application::ASSET_DIR, $themeName), '/');
+        $themeDir = rtrim(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSET_DIR . '/'), '/');
         $lessc->setImportDir(array($themeDir, ipFile('Ip/Module/Assets/assets/css/ipContent')));
         //$lessc->setFormatter('compressed');
         $lessc->setVariables(array(
@@ -92,7 +92,7 @@ class LessCompiler
 
     public function shouldRebuild($themeName)
     {
-        $items = $this->globRecursive(ipConfig()->themeFile('', $themeName) . '*.less');
+        $items = $this->globRecursive(ipFile('Theme/' . $themeName . '/') . '*.less');
         if (!$items) {
             return false;
         }
@@ -124,7 +124,7 @@ class LessCompiler
 
     protected function getLessFiles($themeName)
     {
-        $lessFiles = glob(ipConfig()->themeFile(\Ip\Application::ASSET_DIR . '/', $themeName) . '*.less');
+        $lessFiles = glob(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSET_DIR . '/') . '*.less');
         if (!is_array($lessFiles)) {
             return array();
         }
@@ -142,7 +142,7 @@ class LessCompiler
         foreach ($lessFiles as $file) {
             $lessFile = basename($file);
             $css = $this->compileFile($themeName, basename($lessFile));
-            file_put_contents(ipConfig()->themeFile(\Ip\Application::ASSET_DIR . '/' . substr($lessFile, 0, -4) . 'css'), $css);
+            file_put_contents(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSET_DIR . '/' . substr($lessFile, 0, -4) . 'css'), $css);
         }
     }
 

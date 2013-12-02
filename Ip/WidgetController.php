@@ -94,7 +94,7 @@ class WidgetController{
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {

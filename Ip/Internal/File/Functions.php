@@ -131,7 +131,7 @@ class Functions{
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
         if (!copy(ipFile('file/tmp/' . $relativePath), $destinationDir . $newBasename)) {
-            trigger_error("Can't copy file from " . htmlspecialchars(ipConfig()->themeFile('') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
+            trigger_error("Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
         }
 
         return $newBasename;

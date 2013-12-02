@@ -95,11 +95,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -357,4 +357,14 @@ function ipUrl($path)
 function ipActionUrl($query)
 {
     return ipUrl('') . '?' . http_build_query($query);
+}
+
+function ipThemeUrl($path)
+{
+    return ipUrl('Theme/' . ipConfig()->getRaw('THEME') . '/' . $path);
+}
+
+function ipThemeFile($path)
+{
+    return ipFile('Theme/' . ipConfig()->getRaw('THEME') . '/' . $path);
 }

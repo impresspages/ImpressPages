@@ -54,7 +54,7 @@ class Layout extends \Ip\Response {
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } else {
-            $viewFile = ipConfig()->themeFile($layout);
+            $viewFile = ipThemeFile($layout);
         }
 
         $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
@@ -180,7 +180,7 @@ class Layout extends \Ip\Response {
         if ($inDesignPreview) {
             foreach($cssFiles as &$file) {
                 $path = pathinfo($file['value']);
-                if ($path['dirname'] . '/' == ipConfig()->themeFile('') && file_exists(ipConfig()->themeFile($path['filename'] . '.less'))) {
+                if ($path['dirname'] . '/' == ipThemeFile('') && file_exists(ipThemeFile($path['filename'] . '.less'))) {
                     $designService = \Ip\Module\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(ipConfig()->theme(), $path['filename']);
                 } else {
