@@ -336,18 +336,6 @@ function ipFile($path)
 
 function ipFileUrl($path)
 {
-    static $baseUrl = ''; // TODOX does not work with internal requests
-    if (!$baseUrl) {
-
-        if (ipRequest()->getServer('HTTPS') == "on") {
-            $baseUrl = 'https://' . ipConfig()->getRaw('BASE_URL');
-        } else {
-            $baseUrl = 'http://' . ipConfig()->getRaw('BASE_URL');
-        }
-
-        // $url = $this->protocol . $this->rawConfig['BASE_URL'] . $path;
-    }
-
     $overrides = ipConfig()->getRaw('URL_OVERRIDES');
     if ($overrides) {
         foreach ($overrides as $prefix => $newPath) {
@@ -357,7 +345,7 @@ function ipFileUrl($path)
         }
     }
 
-    return $baseUrl . $path;
+    return ipConfig()->baseUrl() . $path;
 }
 
 function ipActionUrl($query)
@@ -377,14 +365,5 @@ function ipThemeFile($path)
 
 function ipHomeUrl()
 {
-
+    return \Ip\Internal\Deprecated\Url::generate();
 }
-
-// ipFile()
-// ipFileUrl()
-// ipThemeFile()
-// ipThemeFileUrl()
-// ipActionUrl()
-// ipHomeUrl()
-// ipConfig()->baseUrl() ?
-// ipPageUrl() ?
