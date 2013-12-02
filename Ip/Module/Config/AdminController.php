@@ -49,12 +49,22 @@ class AdminController extends \Ip\Controller{
         $emailValidator = new \Ip\Form\Validator\Email();
         $error = $emailValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
         if ($fieldName === 'websiteEmail' && $error !== false) {
-            $this->returnError($error);
-            return;
+            return $this->returnError($error);
         }
 
-        if ($fieldName == 'websiteTitle') {
-            ipSetOptionLang('Config.' . $fieldName, $value, ipContent()->getCurrentLanguage()->getId());
+        $numberValidator = new \Ip\Form\Validator\Number();
+        $error = $numberValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        if ($fieldName === 'keepOldRevision' && ($error !== false || $value == '')) { //if user enters some text, browser sends empty message and $error becomes false. We have to check that.
+            return $this->returnError($numberValidator->validate(array('value' => 'for sure incorrect value'), 'value', \Ip\Form::ENVIRONMENT_ADMIN)); //this is to get original Number error message instead of hardcoding text once again
+        }
+
+
+        if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {
+            if (!isset($post['languageId'])) {
+                throw new \Exception('Missing required parameter');
+            }
+            $languageId = $post['languageId'];
+            ipSetOptionLang('Config.' . $fieldName, $value, $languageId);
         } else {
             ipSetOption('Config.' . $fieldName, $value);
         }

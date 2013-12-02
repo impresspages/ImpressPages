@@ -21,14 +21,14 @@ var IpConfig = new function () {
         updateCronUrl();
     }
 
-    var queueAdd = function (fieldName) {
-        queue = removeFromArray(queue, fieldName);
-        queue.push(fieldName);
+    var queueAdd = function (fieldid) {
+        queue = removeFromArray(queue, fieldid);
+        queue.push(fieldid);
         queueProcess();
     };
 
-    var getFieldValue = function (fieldName) {
-        var $field = $('.ips' + fieldName);
+    var getFieldValue = function (fieldid) {
+        var $field = $('#' + fieldid);
         if ($field.attr('type') === 'checkbox') {
             return $field.prop('checked') ? 1 : 0;
         }
@@ -36,35 +36,54 @@ var IpConfig = new function () {
         return $field.val();
     }
 
+    var getFieldLanguage = function (fieldid) {
+        var $field = $('#' + fieldid);
+        return $field.data('languageid');
+    }
+
+    var getFieldName = function (fieldid) {
+        var $field = $('#' + fieldid);
+        return $field.data('fieldname');
+    }
 
     var queueProcess = function () {
         if (processing) {
             return;
         }
         processing = true;
-        var curItem = queue.shift();
+        var fieldId = queue.shift();
 
-        if (!curItem) {
+        if (!fieldId) {
             processing = false;
             return;
         }
+        console.log(fieldId);
+        console.log(getFieldValue(fieldId));
+
 
         updateCronUrl();
 
 
         var postData = {
             'aa' : 'Config.saveValue',
-            'fieldName' : curItem,
-            'value' : getFieldValue(curItem),
-            'securityToken' : ip.securityToken
+            'fieldName' : getFieldName(fieldId),
+            'value' : getFieldValue(fieldId),
+            'securityToken' : ip.securityToken,
+            'languageId' : getFieldLanguage(fieldId)
         };
-
         $.ajax({
             url: '',
             data: postData,
             dataType: 'json',
             type: 'POST',
             success: function (response) {
+                console.log(response);
+                if (response && response.error) {
+                    var errors = {};
+                    errors[fieldId] = response.error;
+                    console.log(errors);
+                    $('.ipsConfigForm').data("validator").invalidate(errors);
+                }
                 processing = false;
                 queueProcess();
             },
@@ -83,22 +102,24 @@ var IpConfig = new function () {
     }
 
     var updateCronUrl = function () {
-        var $urlText = $('.ipsautomaticCron').closest('.ipmField').find('.ipmCheckboxText');
+        var $urlText = $('#automaticCron').closest('.ipmField').find('.ipmCheckboxText');
         var $url = $urlText.find('.ipsUrl');
-        var $passField = $('.ipscronPassword').closest('.ipmField');
+        var $passField = $('#cronPassword').closest('.ipmField');
         if (getFieldValue('automaticCron')) {
             $urlText.addClass('ipgHide');
             $passField.addClass('ipgHide');
         } else {
-            $url.text(ip.baseUrl + '?pa=Cron&pass=' + $('.ipscronPassword').val());
+            $url.text(ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val());
             $passField.removeClass('ipgHide');
             $urlText.removeClass('ipgHide');
         }
     }
 
     this.autoSaveValue = function () {
+        var $this = $(this);
         $('.ipsConfigForm').data("validator").checkValidity();
-        queueAdd($(this).data('fieldname'));
+        console.log($this.data());
+        queueAdd($this.data('fieldid'));
     };
 
     var removeFromArray = function (dataArray, value) {

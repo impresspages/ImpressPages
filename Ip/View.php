@@ -28,22 +28,17 @@ class View implements \Ip\Response\ResponseInterface
     private $file;
     private $data;
     private $doctype;
-    private $languageId;
 
     /**
      * Construct view object using specified file and date
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    public static function create($file, $data = array(), $languageId = null) {
-        if (DIRECTORY_SEPARATOR != '/') {
-            $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
-        }
+    public static function create($file, $data = array()) {
         $foundFile = self::findFile($file);
         self::checkData($data);
 
-        return new \Ip\View($foundFile, $data, $languageId);
+        return new \Ip\View($foundFile, $data);
     }
 
 
@@ -53,17 +48,11 @@ class View implements \Ip\Response\ResponseInterface
      * @internal
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
-     * @param int $languageId language in which to render the view. Current language by default
      */
-    private function __construct($file, $data = array(), $languageId = null) {
-        $content = \Ip\ServiceLocator::content();
+    private function __construct($file, $data = array()) {
         $this->file = $file;
         $this->data = $data;
-        if ($languageId == null) {
-            $this->languageId = $content->getCurrentLanguage()->getId();
-        } else {
-            $this->languageId = $languageId;
-        }
+
         eval('$this->doctype = self::'. ipConfig()->getRaw('DEFAULT_DOCTYPE').';');
     }
     
@@ -89,7 +78,7 @@ class View implements \Ip\Response\ResponseInterface
     }
     
 
-    
+
 
 
     public function par($parameterKey, $variables = null){
@@ -103,14 +92,14 @@ class View implements \Ip\Response\ResponseInterface
                 return '';
             }
         }
-        $value = $parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
+        $value = '1';//$parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
 
         if (!empty($variables) && is_array($variables)) {
             foreach($variables as $variableKey => $variableValue) {
                 $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
             }
         }
-        
+
         return $value;
     }
 
@@ -208,14 +197,8 @@ class View implements \Ip\Response\ResponseInterface
         return $this->doctype;
     }
     
-    public function setLanguageId ($languageId) {
-        $this->languageId = $languageId;
-    }
-    
-    public function getLanguageId () {
-        return $this->languageId;
-    }    
-    
+
+    //TODOX refactor to sugar method
     public function doctypeDeclaration($doctype = null) {
         if ($doctype === null) {
             $doctype = $this->getDoctype();
@@ -247,7 +230,7 @@ class View implements \Ip\Response\ResponseInterface
         }
     }
     
-    
+    //TODOX refactor to sugar method
     public function htmlAttributes($doctype = null) {
         $content = \Ip\ServiceLocator::content();
         if ($doctype === null) {
@@ -277,14 +260,7 @@ class View implements \Ip\Response\ResponseInterface
 
     
     private static function findFile($file) {
-
         //make $file absolute
-        if ($file == 'view/widget_preview.php') {
-            $test = 1;
-        } else {
-            $test = 0;
-        }
-
         if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $absoluteFile = $file;
         } else {
@@ -295,6 +271,10 @@ class View implements \Ip\Response\ResponseInterface
             $absoluteFile = dirname($backtrace[1]['file']) . DIRECTORY_SEPARATOR . $file;
         }
 
+        if (DIRECTORY_SEPARATOR == '\\') {
+            // Replace windows paths
+            $absoluteFile = str_replace('\\', '/', $absoluteFile);
+        }
 
         if (strpos($absoluteFile, ipConfig()->baseFile('')) === 0) {
             //core dir

@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         $app = \Ip\ServiceLocator::application();
         $data = array (
             'securityToken' =>  $app->getSecurityToken(),
-            'imageDir' => ipConfig()->coreUrl('Ip/Module/Pages/img/')
+            'imageDir' => ipConfig()->coreModuleFile('Pages/img/')
         );
         $content = Template::content($data);
         $answer = Template::addLayout($content);

@@ -152,6 +152,9 @@ class Content {
 
     public function getCurrentPage()
     {
+        if ($this->currentPage === null) {
+            $this->parseUrl();
+        }
         return $this->currentPage;
     }
 
@@ -159,7 +162,7 @@ class Content {
 
     /**
      *
-     * @return array - all website languages. Each element is an object Language
+     * @return \Ip\Language[] - all website languages. Each element is an object Language
      *
      */
     public function getLanguages()
@@ -300,10 +303,8 @@ class Content {
             $this->currentLanguage = $languages[0];
             $this->languageUrl = $this->currentLanguage->getUrl();
         }
-
         //find zone
         $zonesData = $this->getZonesData();
-
         if (count($urlVars)) {
             $potentialZoneUrl = urldecode($urlVars[0]);
             foreach ($zonesData as $zoneData) {
@@ -341,8 +342,15 @@ class Content {
 
 
         //find current page
+
         $zone = $this->getZone($this->currentZoneName);
-        $currentPage = $zone->getCurrentPage();
+
+        if ($zone) {
+            $currentPage = $zone->getCurrentPage();
+        } else {
+            $currentPage = false;
+        }
+
         if ($currentPage) {
             $this->currentPage = $currentPage;
         } else {

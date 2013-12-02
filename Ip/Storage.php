@@ -38,7 +38,7 @@ class Storage {
 
         $value = ipDb()->fetchValue($sql, $params);
 
-        if ($value === null) {
+        if ($value === false) {
             return $defaultValue;
         }
 

@@ -26,9 +26,10 @@ class Options
         if (!isset($parts[1])) {
             throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
         }
+
         $answer = \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $languageId . '.' . $parts[1]);
         if ($answer === null) {
-            $answer = getOption($key, $defaultValue);
+            $answer = ipGetOption($key, $defaultValue);
         }
         return $answer;
     }

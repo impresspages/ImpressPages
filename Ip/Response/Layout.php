@@ -65,7 +65,7 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = ipConfig()->getCore('CORE_DIR') . 'Ip/Module/Admin/view/layout.php';
+            $this->layout = ipConfig()->coreFile('') . 'Ip/Module/Admin/view/layout.php';
             $this->addCss(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css'));
             $this->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
@@ -227,6 +227,7 @@ class Layout extends \Ip\Response {
             'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipThemeDir' => ipConfig()->getRaw('THEME_DIR'),
             'ipTheme' => ipConfig()->getRaw('THEME'),
+            'ipRepositoryUrl' => ipConfig()->repositoryUrl(''),
             'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
             'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
             'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,

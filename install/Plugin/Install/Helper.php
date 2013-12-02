@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Module\Install;
+namespace Plugin\Install;
 
 
 class Helper
