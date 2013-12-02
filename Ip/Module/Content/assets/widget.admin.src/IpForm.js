@@ -29,7 +29,7 @@ function IpWidget_IpForm() {
         this.modal = $('#ipWidgetFormPopup');
         this.addButton = this.modal.find(".ipaFieldAdd");
         this.container = this.modal.find('.ipWidget_ipForm_container');
-        this.modal.modal({});
+        this.modal.modal();
 
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
@@ -59,6 +59,7 @@ function IpWidget_IpForm() {
 
     var cleanup = function() {
         this.container.html('');
+        this.container.ipWidget_ipForm_container('destroy');
         this.addButton.off();
     }
     
@@ -76,10 +77,9 @@ function IpWidget_IpForm() {
     
     this.getData = function() {
         var data = Object();
-        var container = this.widgetObject.find('.ipWidget_ipForm_container');
 
         data.fields = new Array();
-        var $fields = container.ipWidget_ipForm_container('getFields');
+        var $fields = this.container.ipWidget_ipForm_container('getFields');
         $fields.each(function(index) {
             var $this = $(this);
             var tmpField = new Object();
