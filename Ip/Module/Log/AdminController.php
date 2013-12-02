@@ -45,7 +45,7 @@ class AdminController extends \Ip\Controller
                     }
                 }
 
-                return strtr($value, $replace);
+                return strtr($info['record']['message'], $replace);
             });
         $elements[] = $element;
 
@@ -60,7 +60,13 @@ class AdminController extends \Ip\Controller
         $element->previewLength = 200;
         $element->setPreviewValueFilter(function($value, $info) {
                 $context = json_decode($info['record']['context'], true);
-                return var_export($context, true);
+
+                unset($context['exception']);
+
+                // TODOX check if ob functions is always available
+                ob_start();
+                var_dump($context);
+                return ob_get_clean();
             });
 
         $elements[] = $element;
