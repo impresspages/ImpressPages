@@ -217,7 +217,7 @@ class UploadModel{
     public function getUploadedFilePath($fileName, $secure)
     {
         if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
-            return ipConfig()->temporarySecureFile($fileName);
+            return ipFile('file/secure/tmp/' . $fileName);
         } else {
             throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
         }
