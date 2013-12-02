@@ -254,8 +254,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipFileUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, ipFileUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipBaseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipBaseUrl());
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);
