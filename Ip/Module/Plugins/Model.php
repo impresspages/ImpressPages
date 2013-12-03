@@ -87,7 +87,10 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
-
+        ipDispatcher()->notify('Plugin.activate', array(
+                'name' => $pluginName,
+                'version' => $config['version'],
+            ));
     }
 
     public static function deactivatePlugin($pluginName)
@@ -123,7 +126,11 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
-
+        // TODOX remove plugin event listeners
+        ipDispatcher()->notify('Plugin.deactivate', array(
+                'name' => $pluginName,
+                'version' => $pluginRecord['version'],
+            ));
     }
 
     public static function removePlugin($pluginName)
@@ -170,6 +177,11 @@ class Model{
         } catch (\Ip\PhpException $e) {
             throw new \Ip\CoreException('Can\'t remove folder ' . $pluginDir, \Ip\CoreException::PLUGIN_SETUP);
         }
+
+        ipDispatcher()->notify('Plugin.remove', array(
+                'name' => $pluginName,
+                'version' => $version,
+            ));
 
     }
 
