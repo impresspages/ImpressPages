@@ -36,7 +36,7 @@ return array(
     'IP_STEP_LICENSE_LONG' => 'ImpressPages Legal Notices',
     'IP_STEP_DB_LONG' => 'Database installation',
     'IP_STEP_CONFIGURATION_LONG' => 'System configuration',
-    'IP_STEP_COMPLETED_LONG' => 'ImpressPages CMS successfully installed.',
+    'IP_STEP_COMPLETED_LONG' => 'ImpressPages CMS has been successfully installed.',
 
     'IP_DB_SERVER' => 'Database Host (eg. localhost or 127.0.0.1)',
     'IP_DB_USER' => 'User name',
