@@ -335,7 +335,7 @@ class Model
         foreach ($configInfo as $key => $info) {
             $exportedString = var_export($info['value'], true);
             if (is_array($info['value'])) {
-                $exportedString = preg_replace('/([\r\n]+)/', '$1  ', $exportedString);
+                $exportedString = self::addSpacesOnNewLines($exportedString);
             }
             $configCode.= "\n    '{$key}' => " . $exportedString . ",";
             if (!empty($info['comment'])) {
@@ -352,6 +352,11 @@ class Model
  return array(" . $configCode . "\n);";
 
         file_put_contents($filename, $configCode);
+    }
+
+    protected static function addSpacesOnNewLines($string)
+    {
+        return preg_replace('/([\r\n]+)/', '$1      ', $string);
     }
 
     public static function writeRobotsFile($filename)
