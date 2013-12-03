@@ -350,7 +350,7 @@ class Model
  */
 
  return array(" . $configCode . "\n);";
-echo $configCode; exit; //todox
+
         file_put_contents($filename, $configCode);
     }
 

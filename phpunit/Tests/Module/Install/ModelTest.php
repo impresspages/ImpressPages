@@ -5,7 +5,9 @@
 
 namespace Tests\Ip\Module\Install;
 
-use \Ip\Module\Install\Model;
+
+require_once(TEST_CODEBASE_DIR . 'install/Plugin/Install/Model.php');
+use \Plugin\Install\Model;
 use PhpUnit\Helper\TestEnvironment;
 
 
