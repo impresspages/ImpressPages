@@ -11,6 +11,10 @@ use Ip\Form\Exception;
 class Service
 {
 
+
+    /**
+     * @return \Ip\WidgetController[]
+     */
     public static function getAvailableWidgets()
     {
         return Model::getAvailableWidgetObjects();

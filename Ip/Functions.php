@@ -67,7 +67,7 @@ function ipSetLayoutVariable($name, $value)
     }
 }
 
-//TODOX remove
+//TODOX rename to ipAddJs
 function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::response();
@@ -81,25 +81,42 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
+
+function ipAddPluginJs($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
+{
+    $response = \Ip\ServiceLocator::response();
+    if (method_exists($response, 'addJavascript')) {
+        $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+    }
+}
+
+function ipAddPluginCss($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
+{
+    $response = \Ip\ServiceLocator::response();
+    if (method_exists($response, 'addCss')) {
+        $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+    }
+}
+
 
 function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipConfig()->themeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -108,7 +125,7 @@ function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
     }
 }
 
@@ -160,6 +177,7 @@ function ipPrintJavascript($print = true)
  * @param bool $print false - return instead of print
  * @return string
  */
+//TODOX remove $print parameters. People can use long syntax if they want the response
 function ipPrintHead($print = true)
 {
     $head = \Ip\ServiceLocator::response()->generateHead();
@@ -282,7 +300,7 @@ function escTextarea($value)
 
 function escAttr($value)
 {
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
 function escUrl($url)
@@ -312,3 +330,57 @@ function _e($text, $domain, $esc = 'html')
 //{
 //    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
 //}
+
+
+function ipFile($path)
+{
+    static $basePath = '';
+    if (!$basePath) {
+        $basePath = ipConfig()->getRaw('BASE_DIR') . '/';
+    }
+
+    $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+    if ($overrides) {
+        foreach ($overrides as $prefix => $newPath) {
+            if (strpos($path, $prefix) === 0) {
+                return substr_replace($path, $newPath, 0, strlen($prefix));
+            }
+        }
+    }
+
+    return $basePath . $path;
+}
+
+function ipFileUrl($path)
+{
+    $overrides = ipConfig()->getRaw('URL_OVERRIDES');
+    if ($overrides) {
+        foreach ($overrides as $prefix => $newPath) {
+            if (strpos($path, $prefix) === 0) {
+                return substr_replace($path, $newPath, 0, strlen($prefix));
+            }
+        }
+    }
+
+    return ipConfig()->baseUrl() . '/' . $path;
+}
+
+function ipActionUrl($query)
+{
+    return ipConfig()->baseUrl() . '?' . http_build_query($query);
+}
+
+function ipThemeUrl($path)
+{
+    return ipFileUrl('Theme/' . ipConfig()->theme() . '/' . $path);
+}
+
+function ipThemeFile($path)
+{
+    return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
+}
+
+function ipHomeUrl()
+{
+    return \Ip\Internal\Deprecated\Url::generate();
+}

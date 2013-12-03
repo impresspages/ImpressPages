@@ -24,7 +24,7 @@ class Service
         $this->installationDir = $installationDir;
         $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
         $this->cf = $configurationParser->parse($installationDir);
-        $this->parameters = new \IpUpdate\Library\Model\ConfigurationParser($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
+        $this->parameters = new \IpUpdate\Library\Model\ConfigurationParser($this->cf['BASE_DIR'] . 'file/tmp/update/');
     }
 
 

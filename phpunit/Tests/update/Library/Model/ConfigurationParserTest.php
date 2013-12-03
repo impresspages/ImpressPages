@@ -19,18 +19,11 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         // GLOBAL
         $this->assertEquals($configuration['BASE_DIR'], '/var/www/test/'); //root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
         $this->assertEquals($configuration['BASE_URL'], 'http://www.example.com/'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-        $this->assertEquals($configuration['FILE_DIR'], 'file/'); //uploded files directory
-        $this->assertEquals($configuration['TMP_FILE_DIR'], 'file/tmp/'); //temporary files directory
-        $this->assertEquals($configuration['FILE_REPOSITORY_DIR'], 'file/repository/'); //files repository. Used for TinyMCE and others where user can browse the files.
 
         $this->assertEquals($configuration['DEVELOPMENT_ENVIRONMENT'], 1); //displays error and debug information. Change to 0 before deployment to production server
         $this->assertEquals($configuration['ERRORS_SHOW'], 1);  //0 if you don't wish to display errors on the page
         $this->assertEquals($configuration['ERRORS_SEND'], 'mangirdas@impresspages.org'); //insert email address or leave blank. If email is set, you will get an email when an error occurs.
         // END GLOBAL
-
-        // BACKEND
-        $this->assertEquals($configuration['THEME_DIR'], 'Theme/'); //themes directory
-        // END BACKEND
 
         // FRONTEND
         $this->assertEquals($configuration['CHARSET'], 'UTF-8'); //system characterset

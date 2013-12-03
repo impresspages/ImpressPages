@@ -92,8 +92,8 @@
                     
                     //if you add "multipart: false," IE fails.
                     
-                    flash_swf_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.flash.swf',
-                    silverlight_xap_url : ip.baseUrl + ip.libraryDir + 'js/plupload/plupload.silverlight.xap'
+                    flash_swf_url : ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.flash.swf'),
+                    silverlight_xap_url : ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.silverlight.xap')
             };
 
             if (data.filterExtensions) {

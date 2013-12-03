@@ -22,70 +22,100 @@ class Application {
 
     public function init()
     {
-        require_once(__DIR__ . '/ServiceLocator.php');
-
         $config = require ($this->configPath);
-        require_once $config['BASE_DIR'] . $config['CORE_DIR'] . 'Ip/Config.php';
+
+        $coreDir = !empty($config['CORE_DIR']) ? $config['CORE_DIR'] : dirname(__DIR__) . '/';
+
+        require_once $coreDir . '/Ip/Config.php';
+
         $config = new \Ip\Config($config);
+        require_once(__DIR__ . '/ServiceLocator.php');
         \Ip\ServiceLocator::setConfig($config);
 
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Autoloader.php';
+        require_once $coreDir . 'Ip/Internal/Autoloader.php';
+
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
+        require_once $coreDir . 'Ip/Functions.php';
 
-
-        require_once $config->getCore('CORE_DIR') . 'Ip/Functions.php';
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/error_handler.php';
-        require_once $config->getCore('CORE_DIR') . 'Ip/Internal/Deprecated/mysqlFunctions.php';
+        require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
         global $parametersMod;
         $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
+    }
 
-        if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-            session_name($config->getRaw('SESSION_NAME'));
-            session_start();
+    public function prepareEnvironment($options = array())
+    {
+        //TODOX decide if separate option for error setting in config is needed
+        if (empty($options['skipErrorHandler'])) {
+            require_once ipFile('Ip/Internal/Deprecated/error_handler.php');
         }
 
+        if (empty($options['skipError'])) {
+            if (ipConfig()->isDevelopmentEnvironment()){
+                error_reporting(E_ALL|E_STRICT);
+                ini_set('display_errors', '1');
+            } else {
+                ini_set('display_errors', '0');
+            }
+        }
 
+        if (empty($options['skipSession'])) {
+            if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+                session_name(ipConfig()->getRaw('SESSION_NAME'));
+                session_start();
+            }
+        }
 
-        mb_internal_encoding($config->getRaw('CHARSET'));
-        date_default_timezone_set($config->getRaw('timezone')); //PHP 5 requires timezone to be set.
+        if (empty($options['skipEncoding'])) {
+            mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
+        }
 
-        if ($config->isDevelopmentEnvironment()){
-            error_reporting(E_ALL|E_STRICT);
-            ini_set('display_errors', '1');
-        } else {
-            ini_set('display_errors', '0');
+        if (empty($options['skipTimezone'])) {
+            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
         }
     }
 
 
+    protected function initTranslations($languageCode)
+    {
+        \Ip\Translator::init($languageCode);
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+    }
+
     /**
      * @param Request $request
-     * @param boold $subrequest
+     * @param bool $subrequest
      * @return Response
      * @throws CoreException
      */
-    public function handleRequest(\Ip\Request $request, $subrequest = true)
+    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
-        \Ip\ServiceLocator::addRequest($request);
 
-        if (!$subrequest) { // Do not fix magic quotoes for internal requests because php didn't touched it
+        \Ip\ServiceLocator::addRequest($request);
+        if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
 
-        $language = ipContent()->getCurrentLanguage();
-        $languageCode = $language->getCode();
+        if (empty($options['skipTranslationsInit'])) {
+            if (!empty($options['translationsLanguageCode'])) {
+                $languageCode = $options['translationsLanguageCode'];
+            } else {
+                $language = ipContent()->getCurrentLanguage();
+                $languageCode = $language->getCode();
+            }
+            $this->initTranslations($languageCode);
+        }
 
-        \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->getCore('CORE_DIR') . 'Ip/languages', 'ipPublic-%s.php', 'ipPublic');
-
-        $this->modulesInit();
+        if (empty($options['skipModuleInit'])) {
+            $this->modulesInit();
+        }
         ipDispatcher()->notify('site.afterInit');
 
-        if ($request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
+        //check for CSRF attach
+        if (empty($options['skipScrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
@@ -110,21 +140,22 @@ class Application {
             throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
         }
 
-        $controller = new $controllerClass();
-
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl('') . 'admin');
+            return new \Ip\Response\Redirect(ipFileUrl('admin'));
         }
 
 
 
         $action = $request->getControllerAction();
+
+
+
+        $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\CoreException($controllerClass.".php must extend \\Ip\\Controller class.");
         }
-
         $controller->init();
         $controllerAnswer = $controller->$action();
 
@@ -140,6 +171,7 @@ class Application {
             return \Ip\ServiceLocator::response();
         } elseif ($controllerAnswer instanceof \Ip\Response) {
             \Ip\ServiceLocator::removeRequest();
+            \Ip\ServiceLocator::setResponse($controllerAnswer);
             return $controllerAnswer;
         } elseif ($controllerAnswer === NULL) {
             $response = \Ip\ServiceLocator::response();
@@ -181,14 +213,18 @@ class Application {
     }
 
 
-    public function run()
+    public function run($options = array())
     {
+        $this->prepareEnvironment($options);
         $request = new \Ip\Request();
         $request->setGet($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
-        $response = $this->handleRequest($request, false);
+
+
+
+        $response = $this->handleRequest($request, $options, false);
         $this->handleResponse($response);
         $this->close();
     }
@@ -200,6 +236,7 @@ class Application {
     public function handleResponse(\Ip\Response $response)
     {
         $response = ipDispatcher()->filter('Application.sendResponse', $response);
+        ipDispatcher()->notify('Application.sendResponse', array('response' => $response));
         $response->send();
     }
 
@@ -217,8 +254,8 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl('') . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
-                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl(''));
+                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);

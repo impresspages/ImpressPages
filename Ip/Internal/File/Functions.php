@@ -17,12 +17,12 @@ class Functions{
      */
     public static function isFileInPublicDir($fileName)
     {
-        $fileName = realpath(ipConfig()->baseFile($fileName));
+        $fileName = realpath(ipFile($fileName));
         //realpath changes slash on windows machines. So we should use the same function on public dir to get equal strings
         $publicDirs = array(
-            realpath(ipConfig()->fileDirFile('')),
-            realpath(ipConfig()->temporaryFile('')),
-            realpath(ipConfig()->repositoryFile('')),
+            realpath(ipFile('file/')),
+            realpath(ipFile('file/tmp/')),
+            realpath(ipFile('file/repository')),
         );
         foreach ($publicDirs as $publicDir) {
             if (strpos($fileName, $publicDir) === 0) {
@@ -130,8 +130,8 @@ class Functions{
     {
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
-        if (!copy(ipConfig()->temporaryFile($relativePath), $destinationDir . $newBasename)) {
-            trigger_error("Can't copy file from " . htmlspecialchars(ipConfig()->getCore('TMP_FILE_DIR') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
+        if (!copy(ipFile('file/tmp/' . $relativePath), $destinationDir . $newBasename)) {
+            trigger_error("Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . " to " . htmlspecialchars($destinationDir . $newBasename));
         }
 
         return $newBasename;

@@ -149,7 +149,7 @@ class Service
 
 
         if ($defaultValue === null) {
-            $defaultValue = ipConfig()->coreModuleFile('InlineManagement/assets/empty.gif');
+            $defaultValue = ipFile('Ip/Module/InlineManagement/assets/empty.gif');
         }
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);

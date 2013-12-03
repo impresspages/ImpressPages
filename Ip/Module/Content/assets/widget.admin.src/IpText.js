@@ -4,27 +4,18 @@
  *
  */
 
-function IpWidget_IpText(widgetObject) {
-    this.widgetObject = widgetObject;
+function IpWidget_IpText() {
+    "use strict";
 
-    this.manageInit = manageInit;
-    this.prepareData = prepareData;
+    this.init = function($widgetObject) {
+        var customTinyMceConfig = ipTinyMceConfigMin();
+        customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
+            $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
+        })};
 
+        $widgetObject.find('.ipsContent').tinymce(customTinyMceConfig);
+    };
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin);
-    }
-
-    function prepareData() {
-
-        var data = Object();
-
-        data.text = this.widgetObject.find('textarea').html();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
-
-    
 
 };
 

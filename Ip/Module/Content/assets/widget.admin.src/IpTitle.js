@@ -5,9 +5,30 @@
  */
 function IpWidget_IpTitle(widgetObject) {
     "use strict";
-    this.widgetObject = widgetObject;
+    this.widgetObject = null;
+    this.data = null;
 
-    this.manageInit = function () {
+    this.init = function ($widgetObject, data, editMode) {
+        this.widgetObject = $widgetObject;
+        this.data = data;
+
+
+        var customTinyMceConfig = ipTinyMceConfigMin();
+        customTinyMceConfig.menubar = false;
+        customTinyMceConfig.toolbar = false;
+        customTinyMceConfig.setup = function(ed, l) {
+            ed.on('change', function(e) {
+                $widgetObject.save({title: $widgetObject.find('h1,h2,h3,h4,h5,h6').html()});
+            });
+        };
+        customTinyMceConfig.paste_as_text = true;
+        customTinyMceConfig.valid_elements = '';
+            customTinyMceConfig.custom_shortcuts = false;
+
+        $widgetObject.find('h1,h2,h3,h4,h5,h6').tinymce(customTinyMceConfig);
+
+
+        //TODOX refactor this functionality
         var $self = this.widgetObject;
         $self.find('.ipsTitleOptionsButton').on('click', function (e) {
             $self.find('.ipsTitleOptions').toggle();
@@ -18,6 +39,7 @@ function IpWidget_IpTitle(widgetObject) {
         $self.find('.ipsAnchor').on('keydown', $.proxy(updateAnchor, this));
         $self.find('.ipsAnchor').on('change', $.proxy(updateAnchor, this));
         $self.find('.ipsAnchor').on('keyup', $.proxy(updateAnchor, this));
+
     };
 
     var updateAnchor = function () {
@@ -37,3 +59,4 @@ function IpWidget_IpTitle(widgetObject) {
     }
 
 };
+

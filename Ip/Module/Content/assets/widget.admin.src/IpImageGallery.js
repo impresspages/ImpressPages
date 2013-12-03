@@ -56,7 +56,7 @@ function IpWidget_IpImageGallery(widgetObject) {
 
         var container = $this.find('.ipWidget_ipImageGallery_container');
         for(var index in files) {
-            container.ipWidget_ipImageGallery_container('addImage', files[index].file, '', 'new');
+            container.ipWidget_ipImageGallery_container('addImage', files[index].fileName, '', 'new');
         }
     }
 
@@ -234,7 +234,7 @@ function IpWidget_IpImageGallery(widgetObject) {
             
             
             
-            //$this.find('.ipaImage').attr('src', ip.baseUrl + data.fileName);
+            //$this.find('.ipaImage').attr('src', ipFileUrl(data.fileName));
             var imageOptions = new Object;
             imageOptions.image = data.fileName;
             if (options.coordinates) {

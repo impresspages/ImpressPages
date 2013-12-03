@@ -10,7 +10,8 @@ namespace Ip;
 use Ip\Module\Content\Exception;
 use Ip\Module\Content\Model;
 
-class WidgetController{
+class WidgetController
+{
     var $name;
     var $moduleName;
 
@@ -18,68 +19,85 @@ class WidgetController{
      * @var boolean - true if widget is installed by default
      */
     var $core;
-    const VIEW_DIR = 'view';
+    const LAYOUT_DIR = 'layout';
+
+    //TODOX
     const MANAGEMENT_DIR = 'admin';
+
+    //TODOX
+    const SNIPPET_VIEW = 'snippet.php';
 
     private $widgetDir;
     private $widgetAssetsDir;
 
-    public function __construct($name, $moduleName, $core = false) {
+    public function __construct($name, $moduleName, $core = false)
+    {
         $this->name = $name;
         $this->moduleName = $moduleName;
         $this->core = $core;
 
-        $ds = '/';
-
-        $this->widgetDir = $moduleName . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
-        $this->widgetAssetsDir = $moduleName . $ds . \ip\Application::ASSET_DIR . $ds . Model::WIDGET_DIR . $ds . $this->name . $ds;
+        $this->widgetDir = $moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/';
+        $this->widgetAssetsDir = $this->widgetDir . \Ip\Application::ASSET_DIR . '/';
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return self::getName();
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getModuleGroup() {
+    //TODOX remove
+    public function getModuleGroup()
+    {
         return $this->moduleGroup;
     }
 
-    public function getModuleName() {
+    public function getModuleName()
+    {
         return $this->moduleName;
     }
 
-    public function getCore() {
+    public function isCore()
+    {
         return $this->core;
     }
 
-    public function getIcon() {
+    public function getIcon()
+    {
         if ($this->core) {
-            if (file_exists(ipConfig()->coreModuleFile($this->widgetAssetsDir . 'icon.png'))) {
-                return ipConfig()->coreModuleUrl($this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipConfig()->pluginFile($this->widgetAssetsDir . 'icon.png'))) {
-                return ipConfig()->pluginUrl($this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
             }
 
         }
 
-        return ipConfig()->coreModuleUrl('Content/assets/img/icon_widget.png');
+        return ipFileUrl('Ip/Module/Content/assets/img/icon_widget.png');
     }
 
-    public function getLayouts() {
+    public function defaultData()
+    {
+        return array();
+    }
+
+    public function getLayouts()
+    {
 
         $views = array();
 
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipConfig()->coreModuleFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::LAYOUT_DIR . '/');
         } else {
-            $layoutsDir = ipConfig()->pluginFile($this->widgetDir . self::VIEW_DIR . '/');
+            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::LAYOUT_DIR . '/');
         }
 
 
@@ -94,7 +112,7 @@ class WidgetController{
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipConfig()->themeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -121,7 +139,8 @@ class WidgetController{
      * Return true if you like to hide widget in administration panel.
      * You will be able to access widget in your code.
      */
-    public function getUnderTheHood() {
+    public function getUnderTheHood()
+    {
         return false; //by default all widgets are visible; 
     }
 
@@ -133,7 +152,8 @@ class WidgetController{
      * @param $currentData
      * @return array data to be stored to the database
      */
-    public function update ($widgetId, $postData, $currentData) {
+    public function update ($widgetId, $postData, $currentData)
+    {
         return $postData;
     }
 
@@ -153,7 +173,8 @@ class WidgetController{
      * @param int $instanceId
      * @param array $data widget data
      */
-    public function post ($instanceId, $data) {
+    public function post ($instanceId, $data)
+    {
 
     }
 
@@ -166,30 +187,56 @@ class WidgetController{
      * @param int $newId duplicated widget id
      * @param array $data data that has been duplicated from old widget to the new one
      */
-    public function duplicate($oldId, $newId, $data) {
+    public function duplicate($oldId, $newId, $data)
+    {
 
     }
 
     /**
      * 
-     * Delete widget. This method is executed before actuall deletion of widget.
+     * Delete widget. This method is executed before actual deletion of widget.
      * It is used to remove widget data (photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
      * if your widget does not upload files or add new records to the database manually.
      * @param int $widgetId
      * @param array $data data that is being stored in the widget
      */
-    public function delete($widgetId, $data){
+    public function delete($widgetId, $data)
+    {
 
     }
 
-    public function managementHtml($instanceId, $data, $layout) {
+
+    public function adminSnippets()
+    {
+
+        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+//        $answer = '';
+//        try {
+//            if ($this->core ) {
+//                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+//            } else {
+//                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
+//            }
+//            if (is_file($adminView)) {
+//                $answer = \Ip\View::create($adminView)->render();
+//            }
+//        } catch (\Ip\CoreException $e){
+//            return $e->getMessage();
+//        }
+//        return $answer;
+        return array();
+    }
+
+    //TODOX remove
+    public function managementHtml($instanceId, $data, $layout)
+    {
         $answer = '';
         try {
             if ($this->core ) {
-                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             } else {
-                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
+                $adminView = ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
             }
             if (is_file($adminView)) {
                 $answer = \Ip\View::create($adminView, $data)->render();
@@ -201,13 +248,15 @@ class WidgetController{
         return $answer;
     }
 
-    public function previewHtml($instanceId, $data, $layout) {
+    //TODOX rename to generateHtml or something.
+    public function previewHtml($instanceId, $data, $layout)
+    {
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::VIEW_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
@@ -215,7 +264,7 @@ class WidgetController{
                     'widgetName' => $this->name,
                     'layout' => $layout
                 );
-                $answer = \Ip\View::create('view/unknown_widget_layout.php', $tmpData)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/Content/view/unknown_widget_layout.php'), $tmpData)->render();
             } else {
                 $answer = '';
             }
@@ -223,7 +272,8 @@ class WidgetController{
         return $answer;
     }
 
-    public function dataForJs($data) {
+    public function dataForJs($data)
+    {
         return $data;
     }
 
@@ -233,7 +283,8 @@ class WidgetController{
      * Eg. if widget has cropped images, they need to be cropped once again, because cropping options
      * might be changed.
      */
-    public function recreate($widgetId, $data) {
+    public function recreate($widgetId, $data)
+    {
         return $data;
     }
 }

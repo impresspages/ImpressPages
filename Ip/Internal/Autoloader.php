@@ -21,12 +21,12 @@ class Autoloader {
             $fileName = substr($fileName, 1);
         }
 
-        if (file_exists(ipConfig()->baseFile($fileName))) {
-            require_once ipConfig()->baseFile($fileName);
+        if (file_exists(ipFile($fileName))) {
+            require_once ipFile($fileName);
             return true;
         }
 
-        $vendorFile = ipConfig()->baseFile('Ip' . DIRECTORY_SEPARATOR . 'Internal' . DIRECTORY_SEPARATOR . 'Vendor' . DIRECTORY_SEPARATOR . $fileName);
+        $vendorFile = ipFile('Ip/Internal/Vendor/' . $fileName);
         if (file_exists($vendorFile)) {
             require_once $vendorFile;
             return true;

@@ -38,7 +38,28 @@ class Controller extends \Ip\WidgetController{
         // TODO use JsonRpc
         return new \Ip\Response\Json($data);
     }
-    
+
+    public function adminSnippets()
+    {
+        $snippets = array();
+
+        $fieldObjects = Model::getAvailableFieldTypes();
+
+        $fieldTypes = array ();
+        foreach($fieldObjects as $fieldObject){
+            $fieldTypes[] = array(
+                'key' => $fieldObject->getKey(),
+                'title' => $fieldObject->getTitle()
+            );
+        }
+        usort($fieldTypes, array($this, 'sortFieldTypes'));
+        $data['fieldTypes'] = $fieldTypes;
+
+        $snippets[] = \Ip\View::create('snippet/popup.php', $data)->render();        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+        return $snippets;
+
+    }
+
     public function sendEmail ($form, $postData, $data) {
 
         $contentData = array();
@@ -118,7 +139,7 @@ class Controller extends \Ip\WidgetController{
         
     }
     
-    
+    //TODOX remove
     public function managementHtml($instanceId, $data, $layout) {
         $fieldObjects = Model::getAvailableFieldTypes();
         
@@ -135,15 +156,39 @@ class Controller extends \Ip\WidgetController{
         
         return parent::managementHtml($instanceId, $data, $layout);
     }
+
+    public function defaultData()
+    {
+        $data = array();
+        $data['fields'] = array();
+        $data['fields'][] = array (
+            'type' => 'IpText',
+            'label' => __('Name', 'ipPublic', false),
+            'options' => array()
+        );
+        $data['fields'][] = array (
+            'type' => 'IpEmail',
+            'label' => __('Email', 'ipPublic', false),
+            'options' => array()
+        );
+        $data['fields'][] = array (
+            'type' => 'IpTextarea',
+            'label' => __('Text', 'ipPublic', false),
+            'options' => array()
+        );
+        return $data;
+    }
     
     public function previewHtml($instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
-        
+
         if (!isset($data['success'])) {
             $data['success'] = '';
         }
-        
+
+
+
         return parent::previewHtml($instanceId, $data, $layout);
     }
     
@@ -163,18 +208,28 @@ class Controller extends \Ip\WidgetController{
             );
         }
         $data['fieldTypes'] = $fieldTypes;
-        
+
         if (empty($data['fields'])) {
             $data['fields'] = array();
             $data['fields'][] = array (
                 'type' => 'IpText',
-                'label' => '',
+                'label' => __('Name', 'ipPublic', false),
+                'options' => array()
+            );
+            $data['fields'][] = array (
+                'type' => 'IpEmail',
+                'label' => __('Email', 'ipPublic', false),
+                'options' => array()
+            );
+            $data['fields'][] = array (
+                'type' => 'IpTextarea',
+                'label' => __('Text', 'ipPublic', false),
                 'options' => array()
             );
         }
-        
-        
-        
+
+
+
         return $data;
     }    
     
@@ -185,7 +240,7 @@ class Controller extends \Ip\WidgetController{
      * @param array $data
      * @return \Ip\Form
      */
-    private function createForm($instanceId, $data) {
+    protected function createForm($instanceId, $data) {
         $form = new \Ip\Form();
         
         if (empty($data['fields']) || !is_array($data['fields'])) {
@@ -250,7 +305,7 @@ class Controller extends \Ip\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-        	'defaultValue' => __('Content.widget_contact_form.send', 'ipPublic', false)
+            'defaultValue' => __('Send', 'ipPublic', false)
         ));
         $form->addField($field);
         
@@ -259,7 +314,7 @@ class Controller extends \Ip\WidgetController{
         return $form;
     }
     
-    private function sortFieldTypes($a, $b) {
+    protected function sortFieldTypes($a, $b) {
         return strcasecmp($a['title'], $b['title']);
     }
 }

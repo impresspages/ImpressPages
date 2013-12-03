@@ -32,17 +32,17 @@ class AdminController extends \Ip\Controller{
 
         $content = \Ip\View::create('view/index.php', $data)->render();
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/default.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/default.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/default.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/default.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
 
-        ipAddCss(ipConfig()->coreModuleUrl('Admin/assets/backend/ip_admin.css'));
+        ipAddCss(ipFileUrl('Ip/Module/Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/update.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/System/assets/update.js'));
         }
-        ipAddJavascript(ipConfig()->coreModuleUrl('System/assets/clearCache.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/System/assets/clearCache.js'));
 
         return $content;
     }
@@ -96,7 +96,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array (
             'status' => 'success',
-            'redirectUrl' => ipConfig()->baseUrl('update')
+            'redirectUrl' => ipFileUrl('update')
         );
         return new \Ip\Response\Json($data);
     }

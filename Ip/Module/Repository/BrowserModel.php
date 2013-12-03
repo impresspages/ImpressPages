@@ -51,7 +51,7 @@ class BrowserModel{
     {
         $answer = array();
 
-        $iterator = new \DirectoryIterator(ipConfig()->repositoryFile(''));
+        $iterator = new \DirectoryIterator(ipFile('file/repository/'));
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
@@ -82,7 +82,7 @@ class BrowserModel{
 
     private function getFileData($fileName)
     {
-        $file = ipConfig()->repositoryFile($fileName);
+        $file = ipFile('file/repository/' . $fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new Exception("File doesn't exist ".$file);
         }
@@ -90,13 +90,11 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
-        $relativeRepositoryDir = ipConfig()->getRaw('FILE_REPOSITORY_DIR');
         $data = array(
             'fileName' => $fileName,
-            'dir' => $relativeRepositoryDir,
-            'file' => $relativeRepositoryDir . $fileName,
             'ext' => $ext,
-            'preview' => $this->createPreview($relativeRepositoryDir . $fileName),
+            'previewUrl' => $this->createPreview($fileName),
+            'originalUrl' => ipFileUrl('file/repository/' . $fileName),
             'modified' => filemtime($file)
         );
         return $data;
@@ -113,17 +111,15 @@ class BrowserModel{
         $pathInfo = pathinfo($file);
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
-
         if (in_array($ext, $this->supportedImageExtensions)) {
             $reflectionService = ReflectionService::instance();
             $transform = new Transform\ImageFit(140, 140, null, TRUE);
             $reflection = $reflectionService->getReflection($file, $baseName, $transform);
             if ($reflection){
-                return $reflection;
+                return ipFileUrl('file/' . $reflection);
             }
         }
-
-        return ipConfig()->coreModuleUrl('Repository/assets/admin/icons/general.png');
+        return ipFileUrl('Ip/Module/Repository/assets/admin/icons/general.png');
     }
 
     
