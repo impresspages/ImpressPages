@@ -13,8 +13,8 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => realpath(TEST_CODEBASE_DIR) . '/',
-    'BASE_URL' => 'localhost/',
+    'BASE_DIR' => realpath(TEST_CODEBASE_DIR),
+    'BASE_URL' => 'localhost',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
