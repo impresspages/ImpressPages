@@ -14,7 +14,11 @@ class Config
     protected $corePath = null;
     protected $pluginUrl = null;
 
-    public function __construct($config)
+    /**
+     * @param $config
+     * @param array|null $server $_SERVER
+     */
+    public function __construct($config, $server = NULL)
     {
         $this->rawConfig = $config;
 
@@ -23,19 +27,30 @@ class Config
             define('DB_PREF', $this->rawConfig['db']['tablePrefix']);
         }
 
+        if (!$server) {
+            $server = $_SERVER;
+        }
+
         if ($this->rawConfig['BASE_URL'] == '') {
-            if ($_SERVER["SERVER_PORT"] != "80") {
-                $this->rawConfig['BASE_URL'] = $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-            } else {
-                $this->rawConfig['BASE_URL'] = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            $this->rawConfig['BASE_URL'] = $server["SERVER_NAME"];
+
+            if ($server["SERVER_PORT"] != "80") {
+                $this->rawConfig['BASE_URL'].= ":".$server["SERVER_PORT"];
             }
+
+            $baseUrl = dirname($server['SCRIPT_NAME']);
+            if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
+                throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in ip_config.php');
+            }
+
+            $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/');
         }
 
         if ($this->rawConfig['BASE_DIR'] == '') {
-            $this->rawConfig['BASE_DIR'] = dirname($_SERVER['SCRIPT_FILENAME']);
+            $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
         }
 
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+        if (isset($server['HTTPS']) && $server['HTTPS'] == "on") {
             $this->protocol = 'https://';
         } else {
             $this->protocol = 'http://';
