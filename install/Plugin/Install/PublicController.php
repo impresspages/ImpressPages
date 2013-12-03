@@ -346,6 +346,7 @@ class PublicController extends \Ip\Controller
         }
 
         $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
         return $pageURL;
     }
 
