@@ -1,11 +1,11 @@
-<h1><?php _e('ImpressPages CMS successfully installed.', 'ipInstall') ?></h1>
-<?php _e('FINISH_MESSAGE', 'ipInstall') ?>
+<h1><?php _e('ImpressPages CMS has been successfully installed.', 'ipInstall') ?></h1>
 
-<?php
-/*
- * autocron is required in case first visit is to administration panel.
- * In this case cron tries to delete old revisions in parallel to administration panel load.
- * Some issues are avoided while executing cron before going to administration panel.
- */
-?>
-
+<p>
+    <a href="../"><?php _e('Front page', 'ipInstall') ?></a>
+</p>
+<p>
+    <a href="../admin.php"><?php _e('Administration page', 'ipInstall') ?></a><br /><br />
+</p>
+<p>
+    <?php _e('If you wish to repeat the installation, please clear the configuration file "ip_config.php".', 'ipInstall') ?>
+</p>
