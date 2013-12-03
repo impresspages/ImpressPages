@@ -115,7 +115,7 @@ class Application {
         ipDispatcher()->notify('site.afterInit');
 
         //check for CSRF attach
-        if (empty($options['skipScrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
+        if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
@@ -143,10 +143,8 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipFileUrl('admin'));
+            return new \Ip\Response\Redirect(ipConfig()->baseUrl() . '/admin');
         }
-
-
 
         $action = $request->getControllerAction();
 
