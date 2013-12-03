@@ -333,7 +333,11 @@ class Model
         // Generate config code:
         $configCode = "";
         foreach ($configInfo as $key => $info) {
-            $configCode.= "\n    '{$key}' => " . var_export($info['value'], true) . ",";
+            $exportedString = var_export($info['value'], true);
+            if (is_array($info['value'])) {
+                $exportedString = preg_replace('/([\r\n]+)/', '$1  ', $exportedString);
+            }
+            $configCode.= "\n    '{$key}' => " . $exportedString . ",";
             if (!empty($info['comment'])) {
                 $configCode.= " // " . $info['comment'];
             }
@@ -346,7 +350,7 @@ class Model
  */
 
  return array(" . $configCode . "\n);";
-
+echo $configCode; exit; //todox
         file_put_contents($filename, $configCode);
     }
 
