@@ -175,17 +175,19 @@ class Request
      */
     public function getRelativePath()
     {
-        $basePath = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH) . '/';
+        $basePath = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH);
 
-        if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
-            if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {
+        $requestPath = parse_url($this->_SERVER["REQUEST_URI"], PHP_URL_PATH);
+
+        if (strpos($requestPath, $basePath) !== 0) {
+            if ($requestPath == rtrim($basePath, '/')) {
                 return '';
             }
             // TODO log error
-            return $this->_SERVER["REQUEST_URI"];
+            return $requestPath;
         }
 
-        return substr($this->_SERVER['REQUEST_URI'], strlen($basePath));
+        return substr($requestPath, strlen($basePath));
     }
 
     public function fixMagicQuotes()
@@ -239,18 +241,16 @@ class Request
     {
         $relativePath = ipRequest()->getRelativePath();
         if (ipGetOption('Config.multilingual')) {
-            $relativePath = trim($relativePath, '/');
             $urlParts = explode('/', $relativePath);
             if (!empty($urlParts[1])) {
                 return false;
             }
             return true;
         } else {
-            $firstChar = substr($relativePath, 0, 1);
-            if ($firstChar !== '?' && $firstChar != '') {
-                return FALSE;
+            if (empty($relativePath[0]) || $relativePath[0] == '?') {
+                return true;
             } else {
-                return TRUE;
+                return false;
             }
         }
     }
