@@ -22,7 +22,7 @@
                 <?php echo \Plugin\Install\Helper::gen_menu() ?>
             </div>
             <div id="content">
-                <?php echo ipBlock('main'); ?>
+                <?php echo ipBlock('main')->render(); ?>
             </div>
             <div id="loading">
                 <img src="<?php echo ipFileUrl('Plugin/Install/assets/img/loading.gif') ?>" >

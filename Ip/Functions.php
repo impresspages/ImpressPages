@@ -94,7 +94,7 @@ function ipAddPluginJs($plugin, $file, $attributes = array(), $priority = 1, $ca
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+        $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
     }
 }
 

@@ -9,4 +9,3 @@
  */
 ?>
 
-<img width="1px" height="1px" style="border: none;" src="<?php echo ipActionUrl(array('pa' => 'Cron', 'pass' => ipGetOption('Config.cronPassword'))) ?>" alt=""/>
