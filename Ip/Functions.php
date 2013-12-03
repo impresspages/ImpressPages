@@ -362,7 +362,7 @@ function ipFileUrl($path)
         }
     }
 
-    return ipConfig()->baseUrl() . '/' . $path;
+    return ipConfig()->baseUrl() . $path;
 }
 
 function ipActionUrl($query)

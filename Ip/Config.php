@@ -43,7 +43,7 @@ class Config
                 throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in ip_config.php');
             }
 
-            $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/');
+            $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';
         }
 
         if ($this->rawConfig['BASE_DIR'] == '') {
