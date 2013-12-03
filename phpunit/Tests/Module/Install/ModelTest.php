@@ -102,23 +102,23 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
 
         $sources = array(
-        'line1',
-        'line1
-        line2',
-        'line1
-          line2
-          line3'
+'line1',
+'line1
+line2',
+'line1
+  line2
+  line3'
     );
 
 
 
         $results = array(
-        'line1',
-        'line1
-          line2',
-        'line1
-            line2
-            line3'
+'line1',
+'line1
+      line2',
+'line1
+        line2
+        line3'
     );
 
         $addSpacesOnNewLines = new \ReflectionMethod('Plugin\Install\Model', 'addSpacesOnNewLines');
