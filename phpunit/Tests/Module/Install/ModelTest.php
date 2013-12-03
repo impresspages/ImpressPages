@@ -95,4 +95,39 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($config);
     }
 
+    public function testConfigBeauty()
+    {
+        TestEnvironment::initCode('install.php');
+
+
+
+        $sources = array(
+        'line1',
+        'line1
+        line2',
+        'line1
+          line2
+          line3'
+    );
+
+
+
+        $results = array(
+        'line1',
+        'line1
+          line2',
+        'line1
+            line2
+            line3'
+    );
+
+        $addSpacesOnNewLines = new \ReflectionMethod('Plugin\Install\Model', 'addSpacesOnNewLines');
+        $addSpacesOnNewLines->setAccessible(true);
+
+        foreach ($sources as $key => $source) {
+            $this->assertEquals($results[$key], $addSpacesOnNewLines->invoke(null, $source));
+        }
+
+    }
+
 }
