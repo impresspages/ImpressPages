@@ -37,7 +37,7 @@ class Helper
         return true;
     }
 
-    function isInstallAvailable()
+    public static function isInstallAvailable()
     {
         if (filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100) {
             return true;

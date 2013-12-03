@@ -267,11 +267,11 @@ class Model
             ),
             'BASE_DIR' => array(
                 'value' => '',
-                'comment' => 'root DIR with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
+                'comment' => 'root DIR without trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
             'BASE_URL' => array(
                 'value' => '',
-                'comment' => 'root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
+                'comment' => 'root url without trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.',
             ),
             'DEVELOPMENT_ENVIRONMENT' => array(
                 'value' => 1,

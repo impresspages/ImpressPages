@@ -23,11 +23,15 @@ class PublicController extends \Ip\Controller
         } else {
             $step = 0;
         }
+        if (!Helper::isInstallAvailable()) {
+            $step = 5;
+        }
+
         $method = 'step' . $step;
         return $this->$method();
     }
 
-    public function step0()
+    protected function step0()
     {
         $selected_language = (isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en');
 
@@ -54,7 +58,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function step1()
+    protected function step1()
     {
         Model::completeStep(1);
 
@@ -83,7 +87,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function step2()
+    protected function step2()
     {
         Model::completeStep(2);
 
@@ -95,7 +99,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function step3()
+    protected function step3()
     {
         if (!isset($_SESSION['db'])) {
             $_SESSION['db'] = array(
@@ -125,7 +129,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function step4()
+    protected function step4()
     {
         $dateTimeObject = new \DateTime();
         $currentTimeZone = $dateTimeObject->getTimezone()->getName();
@@ -170,7 +174,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function step5()
+    protected function step5()
     {
         $SESSION['step'] = 5;
         $content = \Ip\View::create('view/step5.php')->render();
