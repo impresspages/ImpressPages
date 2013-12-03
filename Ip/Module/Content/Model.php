@@ -12,6 +12,7 @@ class Model{
     static private $widgetObjects = null;
     const DEFAULT_LAYOUT = 'default';
     const WIDGET_DIR = 'Widget';
+    const SNIPPET_DIR = 'snippet';
 
     public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '') {
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
@@ -228,16 +229,22 @@ class Model{
 
         $previewHtml = $widgetObject->previewHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
-        
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
+
         $variables = array (
+            'managementState' => $managementState,
             'html' => $previewHtml,
-            'widgetRecord' => $widgetRecord,
-            'managementState' => $managementState
+            'widgetData' => $widgetRecord['data'],
+            'widgetInstanceId' => $widgetRecord['instanceId'],
+            'widgetName' => $widgetRecord['name'],
+            'widgetLayout' => $widgetRecord['layout']
         );
+
         $answer = \Ip\View::create('view/widget_preview.php', $variables)->render();
         return $answer;
     }
 
+    //TODOX remove
     public static function generateWidgetManagement($instanceId) {
         $widgetRecord = self::getWidgetFullRecord($instanceId);
         return self::_generateWidgetManagement($widgetRecord);
@@ -352,6 +359,9 @@ class Model{
 
     }
 
+    /**
+     * @return \Ip\WidgetController[]
+     */
     public static function getAvailableWidgetObjects() {
 
         if (self::$widgetObjects !== null) {
@@ -652,7 +662,7 @@ class Model{
      * @return array layouts (e.g. ['main.php', 'blank.php'])
      */
     public static function getThemeLayouts($theme = null, $includeHidden = false) {
-        $themeDir = ipConfig()->themeFile('', $theme);
+        $themeDir = ipFile('Theme/' . $theme . '/');
 
         $files = scandir($themeDir);
         $layouts = array();

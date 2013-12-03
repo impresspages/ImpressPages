@@ -64,8 +64,8 @@ class ReflectionModel
         $reflections = $this->getReflections($file);
         $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
-            if (file_exists(ipConfig()->baseFile($reflection['reflection']))) {
-                unlink(ipConfig()->baseFile($reflection['reflection']));
+            if (file_exists(ipFile($reflection['reflection']))) {
+                unlink(ipFile($reflection['reflection']));
             }
         }
 
@@ -73,18 +73,31 @@ class ReflectionModel
     }
 
     /**
-     * @param string $file
+     * @param string $source
      * @param string $desiredName
      * @param Transform\Base $transform
      * @return string
      * @throws \Exception
      */
 
-    private function createReflection($file, $desiredName, Transform\Base $transform)
+    private function createReflection($source, $desiredName, Transform\Base $transform)
     {
-        if (!\Ip\Internal\File\Functions::isFileInPublicDir($file)) {
-            throw new Exception("Security notice. Try to access a file (".$file.") from a non public folder.", Exception::SECURITY);
+        $absoluteSource = realpath(ipFile('file/repository/' . $source));
+        if (!$absoluteSource || !is_file($absoluteSource)) {
+            throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
         }
+
+
+
+        if (!is_file($absoluteSource)) {
+            return false;
+        }
+
+        if (strpos($absoluteSource, ipFile('file/repository/')) !== 0) {
+            throw new \Exception("Requested file (".$source.") is outside repository dir");
+        }
+
+
 
         //if desired name ends with .jpg, .gif, etc., remove extension
         $desiredPathInfo = pathinfo($desiredName);
@@ -93,29 +106,37 @@ class ReflectionModel
         }
 
 
-        $pathInfo = pathinfo($file);
-
+        //update destination file extension
+        $pathInfo = pathinfo($absoluteSource);
         if (isset($pathInfo['extension'])) {
-            $ext = $transform->getNewExtension($file, $pathInfo['extension']);
+            $ext = $transform->getNewExtension($absoluteSource, $pathInfo['extension']);
         } else {
             $ext = '';
         }
-
         if ($desiredName == '') {
             $desiredName = $pathInfo['filename'];
         }
-
-
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
-        $reflection = ipConfig()->getRaw('FILE_DIR') . \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, ipConfig()->fileDirFile(''));
-        $transform->transform($file, $reflection);
 
+
+
+        $relativeDestination = date('Y/m/d/') . $desiredName;
+        $relativeDestination = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestination, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
+
+        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestination));
+        if (!is_dir($absoluteDestinationDir)) {
+            mkdir($absoluteDestinationDir, 0777, $recursive = true);
+        }
+        $destinationFileName = basename($relativeDestination);
+
+        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($destinationFileName, $absoluteDestinationDir);
+        $transform->transform($absoluteSource, $absoluteDestinationDir . '/' . $destinationFileName);
         $transformFingerprint = $transform->getFingerprint();
-        $this->storeReflectionRecord($file, $reflection, $transformFingerprint);
+        $this->storeReflectionRecord($source, $relativeDestination, $transformFingerprint);
 
-        return $reflection;
+        return $relativeDestination;
     }
 
 

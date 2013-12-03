@@ -102,14 +102,10 @@ class Helper
         // search and remove comments like /* */ and //
         $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
 
-        if(version_compare(phpversion(), '5.4.0', '>=')) {
+        if (version_compare(phpversion(), '5.4.0', '>=')) {
             $json = json_decode($json, $assoc, $depth, $options);
-        }
-        elseif(version_compare(phpversion(), '5.3.0', '>=')) {
+        } else {
             $json = json_decode($json, $assoc, $depth);
-        }
-        else {
-            $json = json_decode($json, $assoc);
         }
 
         return $json;
@@ -118,7 +114,7 @@ class Helper
 
     public function generateAdminUrl($moduleId)
     {
-        return ipConfig()->baseUrl('', array('admin' => 1, 'module_id' => $moduleId, 'security_token' => $this->backendSecurityToken()));
+        return ipActionUrl(array('admin' => 1, 'module_id' => $moduleId, 'security_token' => $this->backendSecurityToken()));
     }
 
     private function backendSecurityToken()

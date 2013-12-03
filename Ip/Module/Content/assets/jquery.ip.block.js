@@ -41,8 +41,7 @@
                     
                     // this event is fired twice by both blocks, when element is moved from one block to another.
                     update : function(event, ui) {
-                        if (!$(ui.item).data('ipWidget')) {
-                            // some other object is dragged in. Do nothing.
+                        if (!$(ui.item).data('widgetinstanceid')) {
                             return;
                         }
     
@@ -51,7 +50,7 @@
                             return;
                         }
     
-                        var instanceId = $(ui.item).data('ipWidget').instanceId;
+                        var instanceId = $(ui.item).data('widgetinstanceid');
                         var position = $(ui.item).index();
     
                         var data = Object();
@@ -61,11 +60,6 @@
                         data.position = position;
                         data.blockName = $this.data('ipBlock').name;
                         data.revisionId = $this.data('ipBlock').revisionId;
-                        if ($(ui.item).ipWidget('managementState')) {
-                            data.managementState = 1;
-                        } else {
-                            data.managementState = 0;
-                        }
 
                         $.ajax( {
                             type : 'POST',
@@ -96,8 +90,7 @@
                 $this.data('ipBlock', {
                     name : $this.attr('id').substr(8),
                     revisionId : $this.data('revisionid'),
-                    widgetControlsHtml : options.widgetControlsHtml,
-                    contenManagementObject : options.contentManagementObject
+                    widgetControlsHtml : options.widgetControlsHtml
                 });
 
                 var widgetOptions = new Object;
@@ -124,13 +117,13 @@
                     //       backend must be extended so it can delete more than
                     //       one widget in a single request). 
                     var $instance = $(this),
-                        instanceData = $instance.data('ipWidget'),
-                        instanceId = instanceData.instanceId,
+                        instanceData = $instance.data('widgetdata'),
+                        instanceId = $instance.data('widgetinstanceid'),
                         $subwidgets = $instance.find('.ipWidget');
-                    
+
                     $subwidgets.each(function () {
                         $(this).trigger('deleteWidget.ipBlock', {
-                            'instanceId': $(this).data('ipWidget').instanceId
+                            'instanceId': $(this).data('widgetinstanceid')
                         });
                     });
                     
@@ -240,7 +233,7 @@
 
             $.ajax( {
             type : 'POST',
-            url : ip.baseUrl,
+            url : ip.languageUrl,
             data : data,
             context : $this,
             success : methods._createWidgetResponse,

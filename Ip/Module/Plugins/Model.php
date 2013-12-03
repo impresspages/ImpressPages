@@ -25,6 +25,7 @@ class Model{
             "Form",
             "Cron",
             "Ip",
+            "Translations"
         );
     }
 
@@ -160,8 +161,7 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
-        // TODOX Plugin dir
-        $pluginDir = ipConfig()->pluginFile ($pluginName);
+        $pluginDir = ipFile('Plugin/' . $pluginName);
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
@@ -197,8 +197,7 @@ class Model{
     public static function getAllPlugins()
     {
         $answer = array();
-        // TODOX Plugin dir
-        $pluginDir = ipConfig()->pluginFile ( '');
+        $pluginDir = ipFile('Plugin/');
         $files = scandir($pluginDir);
         if (!$files) {
             return array();
@@ -209,6 +208,8 @@ class Model{
             }
             $answer[] = $file;
         }
+
+        // TODOX add filter for plugins in other directories
         return $answer;
     }
 
@@ -233,8 +234,7 @@ class Model{
 
     public static function getPluginConfig($pluginName)
     {
-        // TODOX Plugin dir
-        $configFile = ipConfig()->pluginFile ( $pluginName . '/Setup/plugin.json' );
+        $configFile = ipFile('Plugin/' . $pluginName . '/Setup/plugin.json' );
         if (!is_file($configFile)) {
             return array();
         }

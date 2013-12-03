@@ -29,7 +29,7 @@ class PageNotFound extends \Ip\Response\Layout {
         if ($this->layout) {
             return $this->layout;
         }
-        return is_file(ipConfig()->themeFile('404.php')) ? '404.php' : 'main.php';
+        return is_file(ipThemeFile('404.php')) ? '404.php' : 'main.php';
     }
 
     protected function generateError404Content() {
@@ -37,7 +37,7 @@ class PageNotFound extends \Ip\Response\Layout {
             'title' => __('Error 404', 'ipPublic', false),
             'text' => self::error404Message()
         );
-        $content = \Ip\View::create(ipConfig()->coreModuleFile('Config/view/error404.php'), $data)->render();
+        $content = \Ip\View::create(ipFile('Ip/Module/Config/view/error404.php'), $data)->render();
         return $content;
 
     }
@@ -52,9 +52,9 @@ class PageNotFound extends \Ip\Response\Layout {
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
             $message = __('Config.error_mistyped_url', 'ipPublic');
         } else {
-            if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) !== false) {
+            if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) !== false) {
                 $message = '<p>' . __('Config.error_broken_link_inside', 'ipPublic') . '</p>';
-            } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl('')) === false) {
+            } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) === false) {
                 $message = '<p>' . __('Config.error_broken_link_outside', 'ipPublic') . '</p>';
             }
         }

@@ -12,7 +12,7 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         \Ip\Module\Content\Service::setManagementMode(1);
-        header('location: ' . ipConfig()->baseUrl(''));
+        return (new \Ip\Response\Redirect(ipHomeUrl()));
     }
 
     public function setManagementMode()
@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
 
-        $answer .= '<li><a href="' . ipConfig()->baseUrl('') . '">Home</a></li>' . "\n";
+        $answer .= '<li><a href="' . ipHomeUrl() . '">Home</a></li>' . "\n";
 
         $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
 
@@ -145,14 +145,14 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function moveWidget() {
+    public function moveWidget()
+    {
 
 
         if (!isset($_POST['instanceId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
-            !isset($_POST['revisionId']) ||
-            !isset($_POST['managementState'])
+            !isset($_POST['revisionId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
         }
@@ -161,7 +161,6 @@ class AdminController extends \Ip\Controller
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
-        $managementState = $_POST['managementState'];
 
 
         $record = Model::getWidgetFullRecord($instanceId);
@@ -175,12 +174,7 @@ class AdminController extends \Ip\Controller
         $newInstanceId = Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
 
 
-        //preview and management might depend on instanceId. We need to regenerate moved widget.
-        if ($managementState) {
-            $widgetHtml = Model::generateWidgetManagement($newInstanceId);
-        } else {
-            $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
-        }
+        $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
 
         $data = array (
             'status' => 'success',
@@ -192,7 +186,8 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function createWidget() {
+    public function createWidget()
+    {
 
 
 
@@ -243,9 +238,10 @@ class AdminController extends \Ip\Controller
 
         try {
             $layouts = $widgetObject->getLayouts();
-            $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
+            $widgetObject = Model::getWidgetObject($widgetName);
+            $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
-            $widgetManagementHtml = Model::generateWidgetManagement($instanceId);
+            $widgetManagementHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);
         }
@@ -264,7 +260,11 @@ class AdminController extends \Ip\Controller
 
     }
 
-    public function manageWidget() {
+
+
+    //TODOX remove.
+    public function manageWidget()
+    {
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable');
@@ -313,9 +313,9 @@ class AdminController extends \Ip\Controller
     }
 
 
-
-
-    public function cancelWidget() {
+    //TODOX remove
+    public function cancelWidget()
+    {
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable');
@@ -423,10 +423,7 @@ class AdminController extends \Ip\Controller
         }
         $revisionId = $_POST['revisionId'];
 
-        if (empty($_POST['publish'])){
-            return $this->_errorAnswer('Missing publish POST variable');
-        }
-        $publish = $_POST['publish'];
+        $publish = !empty($_POST['publish']);
 
 
 

@@ -20,21 +20,13 @@ return array(
     // GLOBAL
       'BASE_DIR' => '/var/www/test/',
       'BASE_URL' => 'http://www.example.com/',
-      'FILE_DIR' => 'file/',
-      'TMP_FILE_DIR' => 'file/tmp/',
-      'FILE_REPOSITORY_DIR' => 'file/repository/',
 
       'DEVELOPMENT_ENVIRONMENT' => 1,
       'ERRORS_SHOW' => 1,
       'ERRORS_SEND' => 'mangirdas@impresspages.org',
     // END GLOBAL
       
-    // BACKEND
-      'THEME_DIR' => 'Theme/',
-    // END BACKEND
-    
     // FRONTEND
-    
       'CHARSET' => 'UTF-8',
       'MYSQL_CHARSET' => 'utf8',
       'THEME' => 'Blank',

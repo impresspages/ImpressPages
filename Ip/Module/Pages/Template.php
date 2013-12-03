@@ -16,21 +16,21 @@ class Template {
 <html>
 <head>
     '.ipPrintHead(false).'
-    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipPrintJavascript(false).'
-    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/js/default.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreModuleUrl('Assets/assets/css/bootstrap/bootstrap.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/languageProperties.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
-    <script type="text/javascript" src="' . ipConfig()->coreUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Assets/assets/js/default.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/assets/pages.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/assets/zoneProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/assets/languageProperties.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/assets/layout.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jquery-ui/jquery-ui.js') . '"></script>
 </head>
 <body>
 '.$content.'
@@ -251,7 +251,7 @@ class Template {
             <input id="typeRedirect" class="stdModBox" name="type" value="redirect" '.($element->getType() == 'redirect' ? 'checked="checkded"' : '' ).'type="radio" />
             <label for="typeRedirect" class="small">'.__('Redirect to external page', 'ipAdmin').'</label><br/>
             <input autocomplete="off" name="redirectURL" value="'.$element->getRedirectUrl().'">
-            <img class="linkList" id="internalLinkingIcon" src="' . ipConfig()->coreUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
+            <img class="linkList" id="internalLinkingIcon" src="' . ipFileUrl('Ip/Module/Pages/img/list.gif') . '" /><br />
         </p>
 
         <input class="submit" type="submit" value="'.__('Save', 'ipAdmin').'" />

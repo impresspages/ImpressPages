@@ -107,22 +107,22 @@ class Model {
             case 'text_photos/photo':
                 $values['new_photo'] = basename($values['photo']);
                 $values['new_bigphoto'] = basename($values['photo_big']);
-                copy($values['photo'], ipConfig()->temporaryFile($values['new_photo']));
-                copy($values['photo_big'], ipConfig()->temporaryFile($values['new_bigphoto']));
+                copy($values['photo'], ipFile('file/tmp/' . $values['new_photo']));
+                copy($values['photo_big'], ipFile('file/tmp/' . $values['new_bigphoto']));
                 break;
             case 'text_photos/text_photo':
                 $values['new_photo'] = basename($values['photo']);
                 $values['new_bigphoto'] = basename($values['photo_big']);
-                copy($values['photo'], ipConfig()->temporaryFile($values['new_photo']));
-                copy($values['photo_big'], ipConfig()->temporaryFile($values['new_bigphoto']));
+                copy($values['photo'], ipFile('file/tmp/' . $values['new_photo']));
+                copy($values['photo_big'], ipFile('file/tmp/' . $values['new_bigphoto']));
                 break;
             case 'misc/file':
                 $values['new_photo'] = basename($values['photo']);
-                copy($values['photo'], ipConfig()->temporaryFile($values['new_photo']));
+                copy($values['photo'], ipFile('file/tmp/' . $values['new_photo']));
                 break;
             case 'misc/video':
                 $values['new_photo'] = basename($values['photo']);
-                copy($values['photo'], ipConfig()->temporaryFile($values['new_photo']));
+                copy($values['photo'], ipFile('file/tmp/' . $values['new_photo']));
                 break;
         }
 
@@ -143,7 +143,7 @@ class Model {
                 $galleryId = $lockMax['max_id'];
                 foreach($values['logos'] as $logoKey => $logo){
                     $tmpValues = array();
-                    copy($logo['logo'], ipConfig()->temporaryFile(basename($logo['logo'])));
+                    copy($logo['logo'], ipFile('file/tmp/' . basename($logo['logo'])));
                     $tmpValues['new_photo1'] = basename($logo['logo']);
                     $tmpValues['title1'] = $logo['link'];
                     $widgetObject->insert_photo($galleryId, 1, $tmpValues);
@@ -162,8 +162,8 @@ class Model {
 
                 foreach($values['photos'] as $photoKey => $photo){
                     $tmpValues = array();
-                    copy($photo['photo'], ipConfig()->temporaryFile(basename($photo['photo'])));
-                    copy($photo['photo_big'], ipConfig()->temporaryFile(basename($photo['photo_big'])));
+                    copy($photo['photo'], ipFile('file/tmp/' . basename($photo['photo'])));
+                    copy($photo['photo_big'], ipFile('file/tmp/' . basename($photo['photo_big'])));
                     $tmpValues['new_photo1'] = basename($photo['photo']);
                     $tmpValues['new_bigphoto1'] = basename($photo['photo_big']);
                     $tmpValues['title1'] = $photo['title'];

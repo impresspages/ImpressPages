@@ -18,9 +18,9 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         $_SESSION = array('step' => 2);
 
         \Ip\Translator::init('en');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/Module/Install/languages'), '%s.php', 'ipInstall');
 
-        $view = \Ip\View::create(ipConfig()->coreModuleFile('Install/view/layout.php'), array('content' => ''));
+        $view = \Ip\View::create(ipFile('Ip/Module/Install/view/layout.php'), array('content' => ''));
         $html = $view->render();
 
         $page = \PhpUnit\Helper\Mink\Html::getPage($html);
@@ -43,9 +43,9 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         $_SESSION = array('step' => 2);
 
         \Ip\Translator::init('lt');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipConfig()->coreModuleFile('Install/languages'), '%s.php', 'ipInstall');
+        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/Module/Install/languages'), '%s.php', 'ipInstall');
 
-        $view = \Ip\View::create(ipConfig()->coreModuleFile('Install/view/layout.php'), array('content' => ''));
+        $view = \Ip\View::create(ipFile('Plugin/Install/view/layout.php'), array('content' => ''));
         $html = $view->render();
 
         $page = \PhpUnit\Helper\Mink\Html::getPage($html);

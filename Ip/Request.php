@@ -175,7 +175,7 @@ class Request
      */
     public function getRelativePath()
     {
-        $basePath = parse_url(ipConfig()->baseUrl(''), PHP_URL_PATH);
+        $basePath = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH);
 
         if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
             if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {
@@ -239,6 +239,7 @@ class Request
     {
         $relativePath = ipRequest()->getRelativePath();
         if (ipGetOption('Config.multilingual')) {
+            $relativePath = trim($relativePath, '/');
             $urlParts = explode('/', $relativePath);
             if (!empty($urlParts[1])) {
                 return false;

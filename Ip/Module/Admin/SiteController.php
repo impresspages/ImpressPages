@@ -36,7 +36,7 @@ class SiteController extends \Ip\Controller{
 
 
         //TODOX replace with url to first module;
-        $redirectUrl = ipConfig()->baseUrl('');
+        $redirectUrl = ipHomeUrl();
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
@@ -48,8 +48,11 @@ class SiteController extends \Ip\Controller{
                 'errors' => $errors
             );
         }
+
         if (ipRequest()->getPost('ajax', 1)) {
-            return new \Ip\Response\Json($answer);
+            $response =  new \Ip\Response\Json($answer);
+            $response->addHeader('location: ' . $redirectUrl);
+            return $response;
         } else {
             //MultiSite autologin
             return new \Ip\Response\Redirect($redirectUrl);
@@ -59,7 +62,7 @@ class SiteController extends \Ip\Controller{
     public function logout()
     {
         Model::instance()->logout();
-        return new \Ip\Response\Redirect(ipConfig()->baseUrl('admin/'));
+        return new \Ip\Response\Redirect(ipFileUrl('admin/'));
     }
 
     public function sessionRefresh()
@@ -72,17 +75,17 @@ class SiteController extends \Ip\Controller{
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in
             \Ip\Module\Content\Service::setManagementMode(1);
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl(''));
+            return new \Ip\Response\Redirect(ipHomeUrl());
         }
 
 
-        ipAddJavascript(ipConfig()->coreModuleUrl('Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipConfig()->coreModuleUrl('Admin/assets/login.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Admin/assets/login.js'));
 
 
 
         $response = new \Ip\Response\Layout();
-        $response->setLayout(ipConfig()->coreMOduleFile('Admin/view/login.php'));
+        $response->setLayout(ipFile('Ip/Module/Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
         return $response;
         $view = \Ip\View::create('view/login.php', $variables);

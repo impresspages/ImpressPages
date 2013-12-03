@@ -16,10 +16,10 @@ class Captcha extends Field{
         $this->captchaInit = array(
         
         // string: absolute path (with trailing slash!) to a php-writeable tempfolder which is also accessible via HTTP!
-              'tempfolder'     => ipConfig()->temporaryFile(''),
+              'tempfolder'     => ipFile('file/tmp/'),
 
         // string: absolute path (in filesystem, with trailing slash!) to folder which contain your TrueType-Fontfiles.
-              'TTF_folder'     => ipConfig()->coreModuleFile('Assets/assets/fonts/HnCaptcha/'),
+              'TTF_folder'     => ipFile('Ip/Module/Assets/assets/fonts/HnCaptcha/'),
         
         // mixed (array or string): basename(s) of TrueType-Fontfiles, OR the string 'AUTO'. AUTO scanns the TTF_folder for files ending with '.ttf' and include them in an Array.
         // Attention, the names have to be written casesensitive!
@@ -61,7 +61,7 @@ class Captcha extends Field{
         <div class="captcha">
         <input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'[code]" '.$this->getValidationAttributesStr($doctype).' type="text" />
         <input type="hidden" name="'.htmlspecialchars($this->getName()).'[id]" value="'.$this->getId().'" />
-        <img src="'.ipConfig()->baseUrl($captcha->get_filename_url()).'" alt="Captcha"/>
+        <img src="'.ipFileUrl($captcha->get_filename_url()).'" alt="Captcha"/>
         </div>
         ';
     }

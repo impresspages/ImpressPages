@@ -14,7 +14,7 @@
 namespace Ip\Module\Email;
 
 /** @private */
-require_once(ipConfig()->baseFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
+require_once(ipFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
 /**
  * Class to send emails. Typically all emails should be send trouht this class.
  * @package ImpressPages
@@ -45,9 +45,9 @@ class Module{
         if($files)
         foreach($files as $key => $file){
             $new_name = 'contact_form_'.rand();
-            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipConfig()->temporaryFile(''));
-            if (copy($file['real_name'], ipConfig()->temporaryFile($new_name))) {
-                $cached_files[] = ipConfig()->temporaryFile($new_name);
+            $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
+            if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
+                $cached_files[] = ipFile('file/tmp/' . $new_name);
                 $cached_file_names[] = $file['required_name'];
                 $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                 if($tmpMimeType == null)
@@ -62,7 +62,7 @@ class Module{
         $cachedFileNamesStr = implode("\n", $cached_file_names);
         $cachedFileMimeTypesStr = implode("\n", $cached_file_mime_types);
          
-        $email = str_replace('src="'. ipConfig()->baseUrl(''), 'src="', $email);
+        $email = str_replace('src="'. ipConfig()->baseUrl(), 'src="', $email);
          
         Db::addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $cachedFilesStr, $cachedFileNamesStr, $cachedFileMimeTypesStr);
     }

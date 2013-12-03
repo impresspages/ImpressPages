@@ -1041,7 +1041,7 @@ class HnCaptcha
         public function get_filename_url($public='')
         {
             if($public==='') $public = $this->public_key;
-            return str_replace(ipConfig()->baseFile(''), '', $this->tempfolder).$public.'.jpg';
+            return str_replace(ipFile(''), '', $this->tempfolder).$public.'.jpg';
         }
 
         /** @private **/

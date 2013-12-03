@@ -71,7 +71,7 @@ class Content {
                 }
 
             }
-            if (!is_file(ipConfig()->themeFile($layout))) {
+            if (!is_file(ipThemeFile($layout))) {
                 $layout = 'main.php';
             }
 
@@ -152,6 +152,9 @@ class Content {
 
     public function getCurrentPage()
     {
+        if ($this->currentPage === null) {
+            $this->parseUrl();
+        }
         return $this->currentPage;
     }
 
@@ -159,7 +162,7 @@ class Content {
 
     /**
      *
-     * @return array - all website languages. Each element is an object Language
+     * @return \Ip\Language[] - all website languages. Each element is an object Language
      *
      */
     public function getLanguages()
@@ -300,10 +303,8 @@ class Content {
             $this->currentLanguage = $languages[0];
             $this->languageUrl = $this->currentLanguage->getUrl();
         }
-
         //find zone
         $zonesData = $this->getZonesData();
-
         if (count($urlVars)) {
             $potentialZoneUrl = urldecode($urlVars[0]);
             foreach ($zonesData as $zoneData) {
@@ -341,8 +342,15 @@ class Content {
 
 
         //find current page
+
         $zone = $this->getZone($this->currentZoneName);
-        $currentPage = $zone->getCurrentPage();
+
+        if ($zone) {
+            $currentPage = $zone->getCurrentPage();
+        } else {
+            $currentPage = false;
+        }
+
         if ($currentPage) {
             $this->currentPage = $currentPage;
         } else {
@@ -529,12 +537,13 @@ class Content {
      * @return bool true if URL is reserved for CMS core
      *
      */
-    public function usedUrl($folderName){
-
+    public function usedUrl($folderName)
+    {
         $systemDirs = array();
-        $systemDirs[ipConfig()->getRaw('PLUGIN_DIR')] = 1;
-        $systemDirs[ipConfig()->getRaw('THEME_DIR')] = 1;
-        $systemDirs[ipConfig()->getRaw('FILE_DIR')] = 1;
+        // TODOX make it smart with overriden paths
+        $systemDirs['Plugin'] = 1;
+        $systemDirs['Theme'] = 1;
+        $systemDirs['File'] = 1;
         $systemDirs['install'] = 1;
         $systemDirs['update'] = 1;
         if(isset($systemDirs[$folderName])){
