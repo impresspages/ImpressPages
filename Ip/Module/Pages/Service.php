@@ -16,7 +16,7 @@ class Service
         $content = new \Ip\Content();
 
         if ($content->getZone($zoneName)){
-            throw new \Exception("Zone '".$zoneName."' already exists.");
+            throw new \Ip\CoreException("Zone '".$zoneName."' already exists.");
         }
 
 //TODO  throw new Exception("Zone name ".$zoneName." already exists");
@@ -77,7 +77,9 @@ class Service
 //    );
 //
 //    ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
-    return true;
+        ipContent()->invalidateZones();
+
+    return $zoneId;
 
 //
 //
