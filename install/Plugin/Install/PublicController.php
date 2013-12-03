@@ -26,6 +26,7 @@ class PublicController extends \Ip\Controller
         if (!Helper::isInstallAvailable()) {
             $step = 5;
         }
+        $_SESSION['step'] = $step;
 
         $method = 'step' . $step;
         return $this->$method();

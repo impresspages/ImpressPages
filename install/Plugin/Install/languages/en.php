@@ -36,7 +36,7 @@ return array(
     'ImpressPages Legal Notices' => 'ImpressPages Legal Notices',
     'Database installation' => 'Database installation',
     'System configuration' => 'System configuration',
-    'ImpressPages CMS successfully installed.' => 'ImpressPages CMS successfully installed.',
+    'ImpressPages CMS successfully installed.' => 'ImpressPages CMS has been successfully installed.',
 
     'Database Host (eg. localhost or 127.0.0.1)' => 'Database Host (eg. localhost or 127.0.0.1)',
     'User name' => 'User name',

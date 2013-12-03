@@ -48,7 +48,7 @@ class Helper
 
     public static function gen_menu()
     {
-        global $cur_step;
+
         $steps = array();
         $steps[] = __('Language selection', 'ipInstall');
         $steps[] = __('System check', 'ipInstall');
@@ -68,12 +68,14 @@ class Helper
             else {
                 $class = "incompleted";
             }
-            if ($key == $cur_step)
+            if ($key == $_SESSION['step']) {
                 $class = "current";
-            if ($key < $cur_step)
+            }
+            if ($key <= $_SESSION['step']) {
                 $answer .= '<li onclick="document.location=\'index.php?step=' . ($key) . '\'" class="' . $class . '"><a href="index.php?step=' . ($key) . '">' . $step . '</a></li>';
-            else
+            } else {
                 $answer .= '<li class="' . $class . '"><a>' . $step . '</a></li>';
+            }
 
         }
 
