@@ -1,9 +1,6 @@
 var ModuleInstall = new function () {
     "use strict";
 
-    var internalFunction = function () {
-
-    };
 
     this.step3Click = function () {
         $('#content').hide();
@@ -19,7 +16,7 @@ var ModuleInstall = new function () {
         };
 
         var postData = {
-            'a': 'createDatabase',
+            'pa': 'Install.createDatabase',
             'db': db,
             'jsonrpc': '2.0'
         };
@@ -58,7 +55,7 @@ var ModuleInstall = new function () {
         $('.errorContainer').empty();
 
         var postData = {
-            'a': 'writeConfig',
+            'pa': 'Install.writeConfig',
             'site_name': $('#config_site_name').val(),
             'site_email': $('#config_site_email').val(),
             'install_login': $('#config_login').val(),

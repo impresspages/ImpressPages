@@ -114,13 +114,13 @@ class PublicController extends \Ip\Controller
 
         $content = \Ip\View::create('view/step3.php', $data)->render();
 
-        $js = array(
-            ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'),
-            ipFileUrl('Plugin/Install/assets/js/step3.js')
-        );
 
         $response = new LayoutResponse();
         $response->setContent($content);
+
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step3.js'));
 
         return $response;
     }
@@ -158,12 +158,13 @@ class PublicController extends \Ip\Controller
 
         $content = \Ip\View::create('view/step4.php', $data)->render();
 
-        $js = array(
-            ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'),
-            ipFileUrl('Plugin/Install/assets/js/step4.js')
-        );
+
 
         $response = new LayoutResponse();
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step4.js'));
+
         $response->setContent($content);
 
         return $response;
@@ -173,8 +174,6 @@ class PublicController extends \Ip\Controller
     {
         $SESSION['step'] = 5;
         $content = \Ip\View::create('view/step5.php')->render();
-
-        unset($_SESSION['step']);
 
         $response = new LayoutResponse();
         $response->setContent($content);
@@ -311,10 +310,9 @@ class PublicController extends \Ip\Controller
 
 
         try {
-            ipDb()->disconnect();
             ipConfig()->_setRaw('db', $config['db']);
             ipDb()->getConnection();
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {echo $e->getTraceAsString();exit;
             return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall', false));
         }
 

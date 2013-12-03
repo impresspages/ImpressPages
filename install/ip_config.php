@@ -40,6 +40,7 @@ return array(
     'URL_OVERRIDES' => array(
         'Plugin/' => 'http://' . getParentUrl() . '/Plugin/',//TODOX find the way to add domain
         'Theme/' => 'http://' . getParentUrl() . '/Theme/',
+        'Ip/' => 'http://' . getParentUrl() . '/../Ip/',
     )
 );
 
