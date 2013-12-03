@@ -121,24 +121,15 @@ INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
 INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`, `associated_group`, `associated_module`) VALUES
 (105, 4, 'menu1', 'main.php', 'Menu1', '', 'Content'),
 (106, 5, 'menu2', 'main.php', 'Menu2', '', 'Content'),
-(110, 6, 'menu3', 'main.php', 'Menu3', '', 'Content'),
-(93, 7, 'search', 'main.php', 'Search', 'administrator', 'search'),
-(108, 9, 'sitemap', 'main.php', 'Sitemap', 'administrator', 'sitemap'),
-(109, 10, 'newsletter', 'main.php', 'Newsletter', 'community', 'newsletter');
+(110, 6, 'menu3', 'main.php', 'Menu3', '', 'Content');
 
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`, `translation`) VALUES
-(627, '', '', 'Newsletter', 'newsletter', 109, 344, NULL),
-(626, '', '', 'Sitemap', 'sitemap', 108, 384, NULL),
-(625, '', '', 'Sitemap', 'sitemap', 108, 344, NULL),
-(622, '', '', 'Search', 'search', 93, 384, NULL),
-(621, '', '', 'Search', 'search', 93, 344, NULL),
 (620, '', '', 'Menu2', 'menu2', 106, 384, NULL),
 (619, '', '', 'Menu2', 'menu2', 106, 344, NULL),
 (618, '', '', 'Menu1', 'menu1', 105, 384, NULL),
 (617, '', '', 'Menu1', 'menu1', 105, 344, NULL),
-(628, '', '', 'Newsletter', 'newsletter', 109, 384, NULL),
 (629, '', '', 'Menu3', 'menu3', 110, 344, NULL),
 (630, '', '', 'Menu3', 'menu3', 110, 384, NULL);
 
