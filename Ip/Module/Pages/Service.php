@@ -21,6 +21,7 @@ class Service
 
 //TODO  throw new Exception("Zone name ".$zoneName." already exists");
 
+        $rowNumber =  self::getLastRowNumber();
 
         $languages = Db::getLanguages();
 
@@ -29,14 +30,12 @@ class Service
             'template' => $defaultLayout,
             'translation' => $title,
             'associated_module' => $associatedModule,
-            'associated_group' => $associatedGroup
+            'associated_group' => $associatedGroup,
+            'row_number' => ++$rowNumber
         );
 
         $zoneId = ipDb()->insert(ipDb()->tablePrefix() . 'zone', $row);
 
-        /**
-         * //rankomis sukurti įrašą DB
-         */
 
         foreach($languages as $key => $language){
 
@@ -132,8 +131,17 @@ class Service
         }
     }
 
+    public static function getLastRowNumber()
+    {
 
+        ipDb()->tablePrefix();
 
+        $sql = "select MAX(row_number) as max_row from ".ipDb()->tablePrefix()."zone";
+
+        $val= ipDb()->fetchValue($sql);
+
+        return $val;
+    }
 
 
 }
