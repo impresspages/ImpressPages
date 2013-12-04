@@ -79,7 +79,7 @@ class WidgetController
 
         }
 
-        return ipFileUrl('Ip/Module/Content/assets/img/icon_widget.png');
+        return ipFileUrl('Ip/Module/Content/assets/img/iconWidget.png');
     }
 
     public function defaultData()
