@@ -7,8 +7,8 @@
 
 namespace Ip\Module\Pages;
 
-use Ip\Form\Exception;
 
+//TODOX review
 class Service
 {
     public static function addZone($title, $zoneName, $associatedModule, $defaultLayout, $associatedGroup = '', $description = '', $url = '') {
@@ -18,8 +18,6 @@ class Service
         if ($content->getZone($zoneName)){
             throw new \Ip\CoreException("Zone '".$zoneName."' already exists.");
         }
-
-//TODO  throw new Exception("Zone name ".$zoneName." already exists");
 
         $rowNumber =  self::getLastRowNumber();
 
@@ -37,10 +35,9 @@ class Service
         $zoneId = ipDb()->insert(ipDb()->tablePrefix() . 'zone', $row);
 
 
-        foreach($languages as $key => $language){
+        foreach($languages as $language){
 
             $language_id = $language['id'];
-            $language_title = $language['d_short'];
 
             $row = array(
                 'visible' => 1
@@ -64,58 +61,17 @@ class Service
             );
 
             ipDb()->insert(ipDb()->tablePrefix() . 'zone_parameter', $row);
-
+            //TODOX catch zone event and creaet root zone element in content module
 
         }
 
-//
-//    $row = array(
-//    'level' => \Psr\Log\LogLevel::ERROR,
-//    'message' => 'Code uses ipLog()->log() without giving $level info.',
-//    'context' => json_encode(array('args' => func_get_args())),
-//    );
-//
-//    ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
+
         ipContent()->invalidateZones();
 
-    return $zoneId;
-
-//
-//
-//
-//        $languages = Db::getLanguages();
-//        $zone = Db::getZone($zoneId);
-//
-//        foreach($languages as $key => $language){
-//            $sql = "insert into `".DB_PREF."content_element` set `visible` = 1";
-//            $rs = mysql_query($sql);
-//            if($rs){
-//                $sql2 = "insert into `".DB_PREF."zone_to_content` set
-//            `language_id` = '".mysql_real_escape_string($language['id'])."',
-//            `zone_id` = '".mysql_real_escape_string($zoneId)."',
-//            `element_id` = '".mysql_insert_id()."'";
-//                $rs2 = mysql_query($sql2);
-//                if(!$rs2)
-//                    trigger_error($sql2." ".mysql_error());
-//
-//                $sql2 = "insert into `".DB_PREF."zone_parameter` set
-//            `title` = '".mysql_real_escape_string($translation)."',
-//            `language_id` = '".mysql_real_escape_string($language['id'])."',
-//            `zone_id` = '".$zoneId."',
-//            `url` = '".mysql_real_escape_string(Db::newUrl($language['id'], $zone['translation']))."'";
-//                $rs2 = mysql_query($sql2);
-//                if(!$rs2)
-//                    trigger_error($sql2." ".mysql_error());
-//            }else{
-//                trigger_error($sql." ".mysql_error());
-//            }
-//        }
-
-//        Db::afterInsert($id);
-
-
+        return $zoneId;
     }
 
+    //TODOX move to Content module
     public static function createRootZoneElement($language) {
         $firstLanguage = \Ip\Internal\ContentDb::getFirstLanguage();
         $zones = \Ip\Internal\ContentDb::getZones($firstLanguage['id']);
