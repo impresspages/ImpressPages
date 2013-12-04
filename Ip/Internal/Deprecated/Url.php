@@ -33,12 +33,7 @@ class Url {
             $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
-
-        if (ipGetOption('Config.multilingual')) {
-            $answer = ipConfig()->baseUrl() . urlencode(\Ip\ServiceLocator::content()->getLanguageById($languageId)->getUrl()).'/';
-        } else {
-            $answer = ipConfig()->baseUrl();
-        }
+        $answer = ipContent()->getCurrentLanguage()->getLink();
 
         if ($zoneName != null){
             if ($languageId == ipContent()->getCurrentLanguage()->getId()){ //current language
