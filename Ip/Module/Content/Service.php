@@ -55,9 +55,9 @@ class Service
         $revisionId = null,
         $position = null
     ) {
-
         if (is_null($revisionId)) {
             //Static block;
+            //TODOX use \Ip\Revision::getLastRevision instead
             $revisionId = \Ip\Revision::createRevision($zoneName, $pageId, true);
         } else {
             //check revision consistency
@@ -73,11 +73,13 @@ class Service
 
             $zone = ipContent()->getZone($zoneName);
             if ($zone === false) {
+                //TODOX service must not return Response object.
                 return self::_errorAnswer('Unknown zone "' . $zoneName . '"');
             }
 
             $page = $zone->getPage($pageId);
             if ($page === false) {
+                //TODOX service must not return Response object.
                 return self::_errorAnswer('Page not found "' . $zoneName . '"/"' . $pageId . '"');
             }
 
@@ -86,6 +88,7 @@ class Service
         $widgetObject = Model::getWidgetObject($widgetName);
 
         if ($widgetObject === false) {
+            //TODOX service must not return Response object.
             return self::_errorAnswer('Unknown widget "' . $widgetName . '"');
         }
 
@@ -95,12 +98,14 @@ class Service
             $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
 
         } catch (Exception $e) {
+            //TODOX service must not return Response object.
             return self::_errorAnswer($e);
         }
 
         try {
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
         } catch (Exception $e) {
+            //TODOX service must not return Response object.
             return self::_errorAnswer($e);
         }
         return $instanceId;
