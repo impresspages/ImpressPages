@@ -124,7 +124,7 @@ class PublicController extends \Ip\Controller
         $response->setContent($content);
 
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step3.js'));
 
         return $response;
@@ -167,7 +167,7 @@ class PublicController extends \Ip\Controller
 
         $response = new LayoutResponse();
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step4.js'));
 
         $response->setContent($content);

@@ -16,13 +16,13 @@ class Template {
 <html>
 <head>
     '.ipPrintHead(false).'
-    <link href="' . ipFileUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
-    <link href="' . ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Ip/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />
+    <link href="' . ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . ipFileUrl('Ip/Module/Pages/assets/pages.css') . '" type="text/css" rel="stylesheet" media="screen" />
     <link href="' . ipFileUrl('Ip/Module/Pages/jquery-ui/jquery-ui.css') . '" type="text/css" rel="stylesheet" media="screen" />
     '.ipPrintJavascript(false).'
-    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Assets/assets/js/default.js') . '"></script>
-    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Ip/assets/js/default.js') . '"></script>
+    <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.js') . '"></script>
     <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.cookie.js') . '"></script>
     <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.hotkeys.js') . '"></script>
     <script type="text/javascript" src="' . ipFileUrl('Ip/Module/Pages/jstree/jquery.jstree.js') . '"></script>

@@ -15,7 +15,7 @@ class System
         if (\Ip\ServiceLocator::content()->isManagementState()) {
             ipAddCss(ipFileUrl('Ip/Module/InlineManagement/assets/inline_management.css'));
 
-            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
 
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/inlineManagementControls.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/inlineManagementLogo.js'));
@@ -30,17 +30,17 @@ class System
 
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/inlineManagement.js'));
 
-            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.full.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.browserplus.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/plupload/plupload.gears.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/plupload/plupload.full.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/plupload/plupload.browserplus.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/plupload/plupload.gears.js'));
 
             ipAddJavascript(ipFileUrl('Ip/Module/Upload/assets/jquery.ip.uploadImage.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Upload/assets/jquery.ip.uploadFile.js'));
 
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/jquery.fontselector.js'));
 
-            ipAddCss(ipFileUrl('Ip/Module/Assets/assets/js/jquery-colorpicker/colorpicker.css'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-colorpicker/colorpicker.js'));
+            ipAddCss(ipFileUrl('Ip/Module/Ip/assets/js/jquery-colorpicker/colorpicker.css'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-colorpicker/colorpicker.js'));
         }
     }
 }

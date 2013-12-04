@@ -81,7 +81,7 @@ class SiteController extends \Ip\Controller{
         $response = ipResponse();//new \Ip\Response\Layout();
         $response->setLayout(ipFile('Ip/Module/Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
-        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
         $response->addJavascript(ipFileUrl('Ip/Module/Admin/assets/login.js'));
         return $response;
     }

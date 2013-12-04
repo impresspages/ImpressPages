@@ -9,9 +9,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php ipAddCss(ipFileUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css')); ?>
-    <?php ipAddCss(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css')); ?>
-    <?php ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js')); ?>
+    <?php ipAddCss(ipFileUrl('Ip/Module/Ip/assets/fonts/font-awesome/font-awesome.css')); ?>
+    <?php ipAddCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css')); ?>
+    <?php ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.js')); ?>
 
     <?php ipPrintHead() ?>
     <!--[if lt IE 9]>
