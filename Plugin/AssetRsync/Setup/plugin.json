@@ -1,0 +1,7 @@
+{
+    "title": "Asset rsync",
+    "version": "1.00",
+    "name": "AssetRsync",
+    "description": "Synchronizes assets to different dir",
+    "author": "ImpressPages"
+}
