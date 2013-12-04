@@ -36,7 +36,7 @@ class Model{
 
         $data = array (
             'widgetsHtml' => $widgetsHtml,
-            'blockName' => $blockName,    		
+            'blockName' => $blockName,
             'revisionId' => $revisionId,
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
@@ -81,14 +81,8 @@ class Model{
 
         $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
 
-        $widgetControlsHtml = \Ip\View::create('view/widget_controls.php', $data)->render();
-
-        $saveProgressHtml = \Ip\View::create('view/save_progress.php', $data)->render();
         $data = array (
-            'status' => 'success',
             'controlPanelHtml' => $controlPanelHtml,
-            'widgetControlsHtml' => $widgetControlsHtml,
-            'saveProgressHtml' => $saveProgressHtml,
             'manageableRevision' => $manageableRevision
         );
 
@@ -231,16 +225,41 @@ class Model{
 
         $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
 
+
+        $optionsMenu = array();
+        $optionsMenu[] = array(
+            'title' => __('Look', 'ipAdmin', false),
+            'class' => 'ipsLook'
+        );
+        $optionsMenu[] = array(
+            'title' => __('Look', 'ipAdmin', false),
+            'class' => 'ipsLook'
+        );
+        $optionsMenu[] = array(
+            'title' => __('Look', 'ipAdmin', false),
+            'class' => 'ipsLook'
+        );
+        $optionsMenu = ipDispatcher()->filter('ipWidgetMenu', $optionsMenu, $widgetRecord);
+        $data = array(
+            'optionsMenu' => $optionsMenu,
+        );
+
+        $widgetControlsHtml = \Ip\View::create('view/widgetControls.php', $data)->render();
+
+
+
         $variables = array (
             'managementState' => $managementState,
             'html' => $previewHtml,
             'widgetData' => $widgetRecord['data'],
             'widgetInstanceId' => $widgetRecord['instanceId'],
             'widgetName' => $widgetRecord['name'],
-            'widgetLayout' => $widgetRecord['layout']
+            'widgetLayout' => $widgetRecord['layout'],
+            'optionsMenu' => $optionsMenu,
+            'widgetControlsHtml' => $widgetControlsHtml
         );
 
-        $answer = \Ip\View::create('view/widget_preview.php', $variables)->render();
+        $answer = \Ip\View::create('view/widget.php', $variables)->render();
         return $answer;
     }
 
