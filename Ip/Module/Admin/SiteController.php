@@ -51,7 +51,6 @@ class SiteController extends \Ip\Controller{
 
         if (ipRequest()->getPost('ajax', 1)) {
             $response =  new \Ip\Response\Json($answer);
-            $response->addHeader('location: ' . $redirectUrl);
             return $response;
         } else {
             //MultiSite autologin
@@ -79,17 +78,12 @@ class SiteController extends \Ip\Controller{
         }
 
 
-        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Admin/assets/login.js'));
-
-
-
-        $response = new \Ip\Response\Layout();
+        $response = ipResponse();//new \Ip\Response\Layout();
         $response->setLayout(ipFile('Ip/Module/Admin/view/login.php'));
         $response->setLayoutVariable('loginForm', $this->getLoginForm());
+        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Admin/assets/login.js'));
         return $response;
-        $view = \Ip\View::create('view/login.php', $variables);
-        return $view;
     }
 
     protected function getLoginForm()

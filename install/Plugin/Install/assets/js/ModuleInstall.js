@@ -71,16 +71,20 @@ var ModuleInstall = new function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-
+                var $errorContainer = $('.errorContainer');
                 if (response && response.result) {
+                    $errorContainer.html('');
                     document.location = 'index.php?step=5';
                 } else if (response && response.error && response.error.message) {
-                    $('.errorContainer').append('<p class="error"></p>');
-                    $('.errorContainer .error').text(response.error.message);
+                    $errorContainer.html('');
 
-                    if (response.error.errors) {
-                        // TODOX use theese errors instead of message
-                    }
+                    $.each(response.error.errors, function(key, value){
+                        var $error = $('<p class="error"></p>');
+                        $error.text(value);
+                        $('.errorContainer').append($error);
+                    });
+
+
                 } else {
                     alert('Unknown response. #FYLXK');
                 }
