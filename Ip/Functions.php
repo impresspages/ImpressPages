@@ -129,7 +129,7 @@ function ipAddJQuery()
     }
 }
 
-
+//TODOX rename to ipAddJsVariable
 function ipAddJavascriptVariable($name, $value)
 {
     $response = \Ip\ServiceLocator::response();
