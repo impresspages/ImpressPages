@@ -132,11 +132,10 @@ class Language{
      */
     public function getLink()
     {
-
         if (ipGetOption('Config.multilingual')) {
             return ipConfig()->baseUrl() . urlencode(\Ip\ServiceLocator::content()->getLanguageById($this->getId())->getUrl()).'/';
         } else {
-            return ipHomeUrl();
+            return ipConfig()->baseUrl();
         }
     }
 }

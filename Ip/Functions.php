@@ -382,5 +382,5 @@ function ipThemeFile($path)
 
 function ipHomeUrl()
 {
-    return \Ip\Internal\Deprecated\Url::generate();
+    return ipContent()->getCurrentLanguage()->getLink();
 }
