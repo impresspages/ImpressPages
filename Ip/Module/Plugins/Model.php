@@ -87,7 +87,12 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
+        ipLog()->info('Plugin.activate: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
 
+        ipDispatcher()->notify('Plugin.activate', array(
+                'name' => $pluginName,
+                'version' => $config['version'],
+            ));
     }
 
     public static function deactivatePlugin($pluginName)
@@ -110,20 +115,24 @@ class Model{
             $worker->deactivate();
         }
 
-
-        $dbh = ipDb()->getConnection();
         $sql = '
         UPDATE
             `'.DB_PREF.'plugin`
         SET
             `active` = 0
+        WHERE
+            `name` = ?
         ';
 
-        $params = array ();
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        ipDb()->execute($sql, array($pluginName));
 
+        ipLog()->info('Plugin.deactivate: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
 
+        // TODOX remove plugin event listeners
+        ipDispatcher()->notify('Plugin.deactivate', array(
+                'name' => $pluginName,
+                'version' => $pluginRecord['version'],
+            ));
     }
 
     public static function removePlugin($pluginName)
@@ -170,6 +179,13 @@ class Model{
         } catch (\Ip\PhpException $e) {
             throw new \Ip\CoreException('Can\'t remove folder ' . $pluginDir, \Ip\CoreException::PLUGIN_SETUP);
         }
+
+        ipLog()->info('Plugin.remove: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
+
+        ipDispatcher()->notify('Plugin.remove', array(
+                'name' => $pluginName,
+                'version' => $version,
+            ));
 
     }
 
