@@ -274,22 +274,12 @@ class Model
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
             ),
-            'ERRORS_SHOW' => array(
+            'ERRORS_SHOW' => array( //TODOX remove?
                 'value' => 1,
                 'comment' => "0 if you don't wish to display errors on the page",
             ),
-            'ERRORS_SEND' => array(
-                'value' => '',
-                'comment' => 'insert email address or leave blank. If email is set, you will get an email when an error occurs.',
-            ),
             // END GLOBAL
 
-            // BACKEND
-            'pluginDir' => array(
-                'value' => './Plugin',
-                'comment' => 'Plugins directory',
-            ),
-            // END BACKEND
 
             // FRONTEND
             'CHARSET' => array(
