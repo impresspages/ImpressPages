@@ -6,6 +6,8 @@
         data-widgetinstanceid="<?php echo esc($widgetInstanceId, 'attr'); ?>"
     <?php } ?>
     class="ipWidget ipPreviewWidget  ipWidget-<?php echo $widgetName; ?> ipLayout-<?php echo $widgetLayout; ?>">
-<?php //TODOX remove ipPreviewWidget class. It is redundant ?>
+    <?php if ($managementState){ ?>
+        <?php echo \Ip\View::create('widgetControls.php', $this->getVariables())->render() ?>
+    <?php } ?>
 <?php echo $html; ?>
 </div>

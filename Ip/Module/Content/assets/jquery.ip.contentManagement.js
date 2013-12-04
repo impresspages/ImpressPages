@@ -191,10 +191,9 @@
             if (response.status == 'success') {
                 window.location.href = response.newRevisionUrl;
             } else {
-                // show error
-                $( "#ipSaveProgress" ).dialog('close');
+
             }
-        },
+        }
 
 
         // *********END SAVE*************//
