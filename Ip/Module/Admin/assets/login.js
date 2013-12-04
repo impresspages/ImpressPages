@@ -1,8 +1,10 @@
 $(document).ready(function() {
+    "use strict";
+
     $('.ipmControlInput').first().focus();
 
-    $('form').validator(validatorConfig);
-    $('form').submit(function (e) {
+    $('.ipsModuleForm').validator(validatorConfig);
+    $('.ipsModuleForm').submit(function (e) {
         var form = $(this);
 
         // client-side validation OK.

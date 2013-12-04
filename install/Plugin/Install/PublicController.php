@@ -296,7 +296,7 @@ class PublicController extends \Ip\Controller
         $config = array();
         $config['SESSION_NAME'] = 'ses' . rand();
         $config['BASE_DIR'] = ipConfig()->getRaw('BASE_DIR');
-        $config['BASE_URL'] = ipConfig()->getRaw('BASE_URL');
+        $config['BASE_URL'] = $this->getParentUrl();
         $config['ERRORS_SEND'] = $_POST['email'];
         $config['timezone'] = $timezone;
         $config['db'] = $_SESSION['db'];
@@ -331,17 +331,23 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Unknown SQL error.', 'ipInstall', false)); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', ipDb()->getConnection()->errorInfo());
         }
 
-        /*TODOX follow the new structure
-         *             $sql = "update `".$_SESSION['db_prefix']."mc_misc_contact_form` set `email_to` = REPLACE(`email_to`, '[[[[site_email]]]]', '".ip_deprecated_mysql_real_escape_string($_POST['site_email'])."') where 1";
-         $rs = ip_deprecated_mysql_query($sql);
-         if(!$rs){
-         $errorMessage = preg_replace("/[\n\r]/","",$sql.' '.ip_deprecated_mysql_error());
-         die('{errorCode:"ERROR_QUERY", error:"'.addslashes($errorMessage).'"}');
-         }*/
-
         Model::completeStep(4);
 
         return \Ip\Response\JsonRpc::result(true);
+    }
+
+
+    protected function getParentUrl() {
+        $pageURL = '';
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+
+        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
+        return $pageURL;
     }
 
     protected function applyLayout($content, $data = array())
