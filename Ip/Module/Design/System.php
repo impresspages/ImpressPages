@@ -43,10 +43,10 @@ class System{
 
     protected function initConfig()
     {
-        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.css'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/bootstrap/bootstrap.js'));
-        ipAddCss(ipFileUrl('Ip/Module/Assets/assets/fonts/font-awesome/font-awesome.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Ip/assets/fonts/font-awesome/font-awesome.css'));
         ipAddJavascript(ipFileUrl('Ip/Module/Design/assets/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         ipAddCss(ipFileUrl('Ip/Module/Design/assets/optionsBox.css'));

@@ -28,8 +28,8 @@ class System{
         $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
 
         ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/bootstrap.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
 

@@ -125,7 +125,7 @@ function ipAddJQuery()
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipFileUrl('Ip/Module/Assets/assets/js/jquery.js'));
+        $response->addJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
     }
 }
 

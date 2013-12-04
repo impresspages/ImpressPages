@@ -1,6 +1,6 @@
 ipTinyMceConfigTable = {
     // Location of TinyMCE script
-    script_url : ipFileUrl('Ip/Module/Assets/assets/js/tiny_mce/tiny_mce.js'),
+    script_url : ipFileUrl('Ip/Module/Ip/assets/js/tiny_mce/tiny_mce.js'),
     
     theme : "advanced",
     plugins : "paste,inlinepopups,iplink,table,autoresize",
