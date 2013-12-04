@@ -231,14 +231,7 @@ class Model{
             'title' => __('Look', 'ipAdmin', false),
             'class' => 'ipsLook'
         );
-        $optionsMenu[] = array(
-            'title' => __('Look', 'ipAdmin', false),
-            'class' => 'ipsLook'
-        );
-        $optionsMenu[] = array(
-            'title' => __('Look', 'ipAdmin', false),
-            'class' => 'ipsLook'
-        );
+
         $optionsMenu = ipDispatcher()->filter('ipWidgetMenu', $optionsMenu, $widgetRecord);
         $data = array(
             'optionsMenu' => $optionsMenu,
