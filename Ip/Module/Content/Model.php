@@ -263,38 +263,6 @@ class Model{
         return $answer;
     }
 
-    //TODOX remove
-    public static function generateWidgetManagement($instanceId) {
-        $widgetRecord = self::getWidgetFullRecord($instanceId);
-        return self::_generateWidgetManagement($widgetRecord);
-    }
-
-    private static function _generateWidgetManagement($widgetRecord) {
-        $widgetData = $widgetRecord['data'];
-
-        if (!is_array($widgetData)) {
-            $widgetData = array();
-        }
-
-        $widgetObject = self::getWidgetObject($widgetRecord['name']);
-
-        if (!$widgetObject) {
-            throw new Exception('Widget does not exist. Widget name: '.$widgetRecord['name'], Exception::DB);
-        }
-
-        $managementHtml = $widgetObject->managementHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']); 
-        $data = array (
-            'managementHtml' => $managementHtml,
-            'widgetRecord' => $widgetRecord,
-            'layouts' => $widgetObject->getLayouts(),
-            'widgetTitle' => $widgetObject->getTitle()
-        );
-        $answer = \Ip\View::create('view/widget_management.php', $data)->render();
-
-        return $answer;
-    }
-
 
     public static function getBlockWidgetRecords($blockName, $revisionId){
         $sql = "
