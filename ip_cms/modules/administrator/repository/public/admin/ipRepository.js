@@ -12,7 +12,10 @@ var ipRepository = function (options) {
 
     $('body').append(ipRepositoryHtml);
     var $popup = $('.ipModuleRepositoryPopup');
-    $popup.css('top', $(document).scrollTop() + 'px');
+    //$popup.css('top', $(document).scrollTop() + 'px');
+    $popup.css('position', 'fixed');
+    $popup.css('top', 0);
+    $popup.css('left', 0);
     if (top.document.getElementById('adminFrameset')) {
         $popup.data('originalTopFrameRows', top.document.getElementById('adminFrameset').rows);
         top.document.getElementById('adminFrameset').rows = "0px,*";

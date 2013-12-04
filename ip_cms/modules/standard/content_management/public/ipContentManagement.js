@@ -19,6 +19,11 @@ $(document).ready(function() {
     jQuery.expr[':'].icontains = function(a, i, m) {
         return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
     };
+
+    if (isMobile) {
+        $('body').addClass('ipMobile');
+    }
+
 });
 
 $(window).resize(function() {
@@ -42,7 +47,8 @@ $(window).resize(function() {
 function ipAdminWidgetsScroll() {
     var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
     $scrollable.scrollable({
-        items: 'li' // items are <li> elements; on scroll styles will be added to <ul>
+        items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
+        touch: false
     });
     var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
     var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
@@ -118,6 +124,7 @@ function ipAdminPanelInit() {
     $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
     $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
     $container.height($panel.height()); // setting the height to container
+    $panel.css('top',$('.ipsAdminToolbarContainer').outerHeight()); // move down to leave space for top toolbar
 }
 
 /**

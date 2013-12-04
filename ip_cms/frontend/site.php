@@ -342,10 +342,36 @@ class Site{
             }
                 
             if (!$this->currentZone) {
+                $this->homeZone();
+            }
+
+            if (!$this->currentZone) {
                 $this->error404();
             }
         }
     }
+
+    protected function homeZone()
+    {
+        $zones = \Frontend\Db::getZones($this->currentLanguage['id']);
+        foreach ($zones as $key => $zoneInfo) {
+            if ($zoneInfo['url'] == '') {
+                $zone = $this->getZone($zoneInfo['name']);
+
+                // if first url element is not in home zone, we are not in home zone
+                if (!$zone->findElement(array($this->zoneUrl), array())) {
+                    return;
+                }
+
+                $this->currentZone = $zoneInfo['name'];
+                array_unshift($this->urlVars, urlencode($this->zoneUrl));
+                $this->zoneUrl = '';
+                break;
+            }
+        }
+    }
+
+
 
     /*
      * Check if current zone can find current page.
@@ -635,8 +661,9 @@ class Site{
      * @return string - requested link or link to first page of current language if all parameters are not specified or null
      */
     public function generateUrl($languageId=null, $zoneName = null, $urlVars = null, $getVars = null, $escape = true){
+
         global $parametersMod;
-         
+
         if($languageId == null){
             $languageId = $this->currentLanguage['id'];
         }
@@ -660,7 +687,9 @@ class Site{
         if($zoneName != null){
             if($languageId == $this->currentLanguage['id']){ //current language
                 if(isset($this->zones[$zoneName])){
-                    $answer .= urlencode($this->zones[$zoneName]['url']).'/';
+                    if ($this->zones[$zoneName]['url']) {
+                        $answer .= urlencode($this->zones[$zoneName]['url']).'/';
+                    }
                 }else{
                     $backtrace = debug_backtrace();
                     if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
@@ -710,13 +739,8 @@ class Site{
 
 
     /**
-     * Some modules need to make some actions before any output.
-     * This function detects such requirements and executes required action of specified module.
-     * If you need to use this feature, simply POST (or GET) three variables:
-     * $_REQUEST['g']
-     * $_REQUEST['m']
-     * $_REQUEST['a']
-     * This function will execute method $_REQUEST['a'] on class \Modules\REQUEST['g']\REQUEST['m']\Controller
+     * Pass parameter "a" using GET or POST with value plugin.action to access your plugin Controller public method
+     * Or pass the same parameter naming it "ba" to access secured action in Backend class of your plugin
      *
      */
     public function makeActions(){
@@ -777,7 +801,11 @@ class Site{
                     if (method_exists($tmpModule, $function)) {
                         $tmpModule->init();
                         if ($tmpModule->allowAction($function)) {
-                            call_user_func(array($tmpModule, $function));
+                            $result = call_user_func(array($tmpModule, $function));
+                            if ($result && is_string($result)) {
+                                $this->setBlockContent('main', $result);
+                                $this->setOutput(\Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/layout.php')->render());
+                            }
                         }
                     } else {
                         trigger_error("Requested action (".$_REQUEST['g']." / ".$_REQUEST['m']." ".$function."()) does not exitst.");
@@ -791,19 +819,73 @@ class Site{
                     }
                 }
 
+            } else {
+
+                $actionString = '';
+                if(isset($_REQUEST['aa'])) {
+                    $actionString = $_REQUEST['aa'];
+                    $controllerClass = 'AdminController';
+                } elseif(isset($_REQUEST['sa'])) {
+                    $actionString = $_REQUEST['sa'];
+                    $controllerClass = 'SiteController';
+                } elseif(isset($_REQUEST['pa'])) {
+                    $actionString = $_REQUEST['pa'];
+                    $controllerClass = 'PublicController';
+                }
+
+                if ($actionString) {
+                    $parts = explode('.', $actionString);
+                    $module = array_shift($parts);
+                    if (isset($parts[0])) {
+                        $action = $parts[0];
+                    } else {
+                        $action = 'index';
+                    }
+                    //check if user is logged in
+                    if (isset($_REQUEST['aa']) && !\Ip\Backend::userId()) {
+                        throw new \Ip\CoreException("User has no administration rights", \Ip\CoreException::SECURITY);
+                    }
+
+
+                    if ($this->isDefaultModule($module)) {
+                        $controllerClass = 'Ip\\Module\\'.$module.'\\'.$controllerClass;
+                    } else {
+                        $controllerClass = 'Plugin\\'.$module.'\\'.$controllerClass;
+                    }
+                    if (!class_exists($controllerClass)) {
+                        throw new \Ip\CoreException('Requested controller doesn\'t exist');
+                    }
+                    $controller = new $controllerClass();
+                    $controller->$action();
+                }
+
             }
 
+            if (isset($_GET['admin']) && $_GET['security_token'] && $_GET['module_id']            ) {
+                $controller = new \Ip\Module\Admin\Backend();
 
+                ob_start();
+                $controller->deprecatedBootstrap();
+                $output = ob_get_clean();
+
+                echo \Ip\Module\Admin\Service::injectAdminHtml($output);
+            }
         }
 
         //old deprecated way. Need to refactor to controllers
         $currentZone = $this->getZone($this->currentZone);
+
         if ($currentZone) {
             $currentZone->makeActions(); 
         }
 
 
 
+    }
+
+    private function isDefaultModule($moduleName)
+    {
+        return in_array($moduleName, $this->getCoreModules());
     }
 
     /**
@@ -1082,11 +1164,38 @@ class Site{
         }
     }
 
+    private function getCoreModules()
+    {
+        $modules = array(
+            'Plugins',
+            'Admin'
+        );
+        return $modules;
+    }
+
     public function modulesInit(){
+        //init core modules
+        $coreModules = $this->getCoreModules();
+        foreach($coreModules as $module) {
+            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
+            if(class_exists($systemClass)) {
+                $system = new $systemClass();
+                if (method_exists($system, 'init')) {
+                    $system->init();
+                }
+            }
+        }
+
+        //init old core modules
         $sql = "select m.core as m_core, m.name as m_name, mg.name as mg_name from `".DB_PREF."module_group` mg, `".DB_PREF."module` m where m.group_id = mg.id";
         $rs = mysql_query($sql);
         if($rs){
             while($lock = mysql_fetch_assoc($rs)){
+                if (!$lock['m_core'] && \Ip\Module\Admin\Model::isSafeMode()) {
+                    //no plugin initialization in safe mode
+                    continue;
+                }
+
                 if($lock['m_core']){
                     $dir = BASE_DIR.MODULE_DIR;
                 } else {
@@ -1112,6 +1221,8 @@ class Site{
                 }
             }
         }
+
+
     }
 
 
@@ -1128,18 +1239,19 @@ class Site{
 
 
     public function generateOutput() {
-        global $site;
-        global $log;
-        global $dispatcher;
-        global $parametersMod;
-        global $session;
 
         if (!isset($this->output)) {
+            if (\Ip\Module\Admin\Model::isSafeMode()) {
+                return \Ip\View::create(BASE_DIR . INCLUDE_DIR . 'Ip/Module/Admin/View/safeModeLayout.php', array())->render();
+            }
+
+
             $layout = $this->getLayout();
             if ($layout) {
-                $this->output = \Ip\View::create(BASE_DIR.THEME_DIR.THEME.'/'.$this->getLayout(), array())->render();
+                $this->output = \Ip\View::create(BASE_DIR . THEME_DIR . THEME . '/' . $layout, array())->render();
             } else {
                 // DEPRECATED just for backward compatibility
+                $site = \Ip\ServiceLocator::getSite();
                 $this->output = $site->generateBlock('main')->render();
             }
         }

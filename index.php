@@ -18,13 +18,13 @@
 if (!defined('CMS')) {
     define('CMS', true); // make sure other files are accessed through this file.
 }
-if (!defined('FRONTEND')) {
+if (!defined('FRONTEND') && !defined('BACKEND')) {
     define('FRONTEND', true); // make sure other files are accessed through this file.
 }
 
 
 if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
-    echo 'Your PHP version is: '.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.'. To run ImpressPages CMS you need PHP 5.3.*';
+    echo 'Your PHP version is: '.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.'. To run ImpressPages CMS you need PHP >= 5.3.*';
     exit;
 }
 

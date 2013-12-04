@@ -21,7 +21,7 @@ class Service {
      */
     public static function parsePluginConfig($pluginDir)
     {
-        $configFile = BASE_DIR . $pluginDir . '/install/plugin.ini';
+        $configFile = $pluginDir . '/install/plugin.ini';
         if (!file_exists($configFile)) {
             return false;
         }

@@ -100,7 +100,7 @@ class StandardModule {
         }
 
         if ($this->up_area && isset($_GET['road']) && isset($_GET['road'][(sizeof($_GET['road'])-1)]) && $_GET['road'][(sizeof($_GET['road'])-1)]!='') {
-            $this->up_area->set_parent_id(str_replace('`', '', $_GET['road'][(sizeof($_GET['road'])-1)]));
+            $this->up_area->set_parent_id((int) $_GET['road'][(sizeof($_GET['road'])-1)]);
         }
 
         //end find up_area
@@ -1385,10 +1385,10 @@ class StandardModule {
 
         if($this->current_area->permission != "read_only" && $this->current_area->permission != "update_only")
         $answer .= '
-			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
+			<li onclick="document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_new_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','new').'</span></li>';
 
         if($this->current_area->searchable)
-        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
+        $answer .= '<li onclick="document.getElementById(\'std_mod_search_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\'; document.getElementById(\'std_mod_search_popup\').style.display = \'block\';"><span>'.$parametersMod->getValue('developer','std_mod','admin_translations','search').'</span></li>';
 
 
         $answer .= '</ul>';
@@ -1440,7 +1440,7 @@ class StandardModule {
         if(sizeof($this->errors) != 0) {
             $answer .= '
 			<script type="text/javascript">
-				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 130) + \'px\';
+				document.getElementById(\'std_mod_new_popup_body\').style.height=(LibWindow.getWindowHeight() - 160) + \'px\';
 				document.getElementById(\'std_mod_new_popup\').style.display = \'block\';
 			</script>
 			';
@@ -1518,7 +1518,7 @@ class StandardModule {
             if($i != $max_level) {
                 if($tmp_url != '')
                 $tmp_url.='&amp;';
-                $tmp_url.='road[]='.$_GET['road'][$i];
+                $tmp_url.='road[]='.(int)$_GET['road'][$i];
             }
 
             if($i == $max_level && $ignore != 'sort') {

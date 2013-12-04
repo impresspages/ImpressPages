@@ -25,15 +25,15 @@ class MigrationTestCase extends GeneralTestCase
             'DB_DATABASE' => TEST_DB_NAME,
             'MYSQL_CHARSET' => 'utf8',
             'BASE_DIR' => TEST_CODEBASE_DIR,
-            'FILE_DIR' => 'phpunit/Tmp/file/',
-            'IMAGE_DIR' => 'phpunit/Tmp/image/',
-            'AUDIO_DIR' => 'phpunit/Tmp/audio/',
-            'VIDEO_DIR' => 'phpunit/Tmp/video/',
-            'FILE_REPOSITORY_DIR' => 'phpunit/Tmp/file/repository/',
+            'FILE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/',
+            'IMAGE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'image/',
+            'AUDIO_DIR' => 'phpunit/' . TEST_TMP_DIR . 'audio/',
+            'VIDEO_DIR' => 'phpunit/' . TEST_TMP_DIR . 'video/',
+            'FILE_REPOSITORY_DIR' => 'phpunit/' . TEST_TMP_DIR . 'file/repository/',
 
-            'SECURE_DIR' => 'phpunit/Tmp/securefile/',
-            'TMP_SECURE_DIR' => 'phpunit/Tmp/securefile/tmp',
-            'MANUAL_DIR' => 'phpunit/Tmp/manual'
+            'SECURE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'securefile/',
+            'TMP_SECURE_DIR' => 'phpunit/' . TEST_TMP_DIR . 'securefile/tmp',
+            'MANUAL_DIR' => 'phpunit/' . TEST_TMP_DIR . 'manual'
             //Add others when needed
         );
     }

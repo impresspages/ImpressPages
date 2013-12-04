@@ -75,6 +75,26 @@
         }
     }
 
+    if (defined('WORKER')) {
+
+        global $site;
+        global $log;
+
+        $site = \Ip\ServiceLocator::getSite();
+
+        $log = new \Modules\administrator\log\Module();
+
+        require_once (BASE_DIR.BACKEND_DIR.'cms.php');
+        require_once (BASE_DIR.BACKEND_DIR.'db.php');
+
+        global $cms;
+        $cms = new \Backend\Cms();
+
+        $cms->worker();
+
+        \Db::disconnect();
+        exit();
+    }
 
     $output = $site->generateOutput();
 
@@ -88,7 +108,7 @@
     The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
     By default fake cron is enabled
     */
-    if($parametersMod->getValue('standard', 'configuration', 'advanced_options', 'use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
+    if(!\Ip\Module\Admin\Model::isSafeMode() && $parametersMod->getValue('standard', 'configuration', 'advanced_options', 'use_fake_cron') && function_exists('curl_init') && $log->lastLogsCount(60, 'system/cron') == 0){
         // create a new curl resource
          
         $ch = curl_init();

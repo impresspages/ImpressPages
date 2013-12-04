@@ -47,7 +47,7 @@ class Controller extends \Ip\Controller{
             return;
         }
 
-        $pageId = $_REQUEST['pageId'];
+        $pageId = (int)$_REQUEST['pageId'];
 
         if (!isset($_REQUEST['zoneName'])) {
             $this->_errorAnswer('Zone name is not set');
@@ -493,7 +493,7 @@ class Controller extends \Ip\Controller{
             $this->_errorAnswer('Mising instanceId POST variable');
             return;
         }
-        $instanceId = $_POST['instanceId'];
+        $instanceId = (int)$_POST['instanceId'];
 
         Model::deleteInstance($instanceId);
 
@@ -629,7 +629,7 @@ class Controller extends \Ip\Controller{
         if ($lastRevision['revisionId'] == $revision['revisionId']) {
             $newRevisionUrl = $site->getCurrentElement()->getLink(); //we publish the last revision. We will not specify revision id. Then CMS will create new revison for editing.
         } else {
-            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$revisionId; 
+            $newRevisionUrl = $site->getCurrentElement()->getLink().'&cms_revision='.$lastRevision['revisionId'];
         }
 
         $data = array (

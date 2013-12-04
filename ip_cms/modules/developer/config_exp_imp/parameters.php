@@ -22,7 +22,7 @@ class Parameters{
 
     function __construct($languageId, $types){
         $this->parameterGroups = array();
-        $this->languageId = $languageId;
+        $this->languageId = (int)$languageId;
         $this->cachedLanguage = Db::getLanguage($languageId);
         $this->languageCode = $this->cachedLanguage['code'];
         $this->types = $types;

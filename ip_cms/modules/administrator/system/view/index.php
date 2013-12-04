@@ -1,7 +1,15 @@
 <?php
 /** @var $this \Ip\View */
-$this;
 ?>
+
+<?php if (!empty($notes)) { ?>
+    <?php foreach ($notes as $note) { ?>
+        <div class="note">
+            <?php echo $note ?>
+        </div>
+    <?php } ?>
+<?php } ?>
+
 <?php
 echo $this->subview('header.php')->render();
 ?>
@@ -20,7 +28,6 @@ echo $this->subview('header.php')->render();
         <script type="text/javascript" src="<?php echo BASE_URL.MODULE_DIR  ?>administrator/system/public/update.js"></script>
     <?php } ?>
     <script type="text/javascript" src="<?php echo BASE_URL.MODULE_DIR ?>administrator/system/public/clearCache.js"></script>
-    <?php echo $site->generateJavascript(); ?>
 </div>
 <?php
 echo $this->subview('footer.php')->render();

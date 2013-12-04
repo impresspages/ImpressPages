@@ -53,6 +53,7 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.block.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/jquery.ip.widget.js');
             $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/exampleContent.js');
+            $site->addJavascript(BASE_URL.MODULE_DIR.'standard/content_management/public/drag.js');
 
 
             $site->addJavascript(BASE_URL.LIBRARY_DIR.'js/jquery-ui/jquery-ui.js');
@@ -72,7 +73,7 @@ class System{
             $site->addJavascript(BASE_URL.MODULE_DIR.'developer/upload/jquery.ip.uploadFile.js?v=1');
 
             $site->addCss(BASE_URL.MODULE_DIR.'standard/content_management/public/widgets.css');
-
+            $site->addJavascriptVariable('isMobile', \Ip\Browser::isMobile());
 
         }
 

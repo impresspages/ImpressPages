@@ -119,5 +119,21 @@ class Request
         return $pageURL;
     }
 
+    /**
+     * @return string path after BASE_URL
+     */
+    public function getRelativePath()
+    {
+        $basePath = parse_url(BASE_URL, PHP_URL_PATH);
 
+        if (strpos($this->_SERVER["REQUEST_URI"], $basePath) !== 0) {
+            if ($this->_SERVER["REQUEST_URI"] == rtrim($basePath, '/')) {
+                return '';
+            }
+            // TODO log error
+            return $this->_SERVER["REQUEST_URI"];
+        }
+
+        return substr($this->_SERVER['REQUEST_URI'], strlen($basePath));
+    }
 }

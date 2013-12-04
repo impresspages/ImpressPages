@@ -105,30 +105,7 @@ class HtmlOutput {
 </head>
 
 <body>
-<script>
-  //<![CDATA[
-    function pingResponse(response){
-      if(response != \'\'){
-        document.location = \'admin.php\';
-      }
-    }
-  
-  
-    function session_ping(){
-        $.ajax({
-            type : \'POST\',
-            url : \'' . $cms->generateActionUrl('ping') . '\',
-            data : Object(),
-            success : pingResponse
-        });
-    }
-    iii = setInterval(session_ping, 240000);
-    
-    
 
-
-  //]]>
-</script> 
     ';
 
 
@@ -257,6 +234,5 @@ class HtmlOutput {
     function send() {
         echo $this->html;
     }
-
 }
 
