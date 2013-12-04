@@ -4,6 +4,11 @@ namespace Plugin\AssetRsync;
 
 class Model
 {
+    protected static function getAssetDestinationDirectory()
+    {
+        return rtrim(ipGetOption('AssetRsync.assetDestinationDirectory'). '/\\') . '/';
+    }
+
     public static function syncAssets()
     {
         $directoryIterator = new \DirectoryIterator(ipFile('Ip/Module'));
@@ -23,7 +28,7 @@ class Model
     {
         $assetsDir = ipFile("$parentDirectory/$pluginName/assets");
         if (file_exists($assetsDir)) {
-            static::syncDir($assetsDir, "/var/www/ip-outside/assets/{$pluginName}/assets");
+            static::syncDir($assetsDir, static::getAssetDestinationDirectory() . $pluginName . "/assets");
         }
 
         $widgetDir = ipFile("$parentDirectory/$pluginName/Widget");
@@ -39,7 +44,7 @@ class Model
     {
         $assetsDir = ipFile("$parentDirectory/$pluginName/Widget/$widgetName/assets");
         if (file_exists($assetsDir)) {
-            static::syncDir($assetsDir, "/var/www/ip-outside/assets/{$pluginName}/Widget/$widgetName/assets");
+            static::syncDir($assetsDir, static::getAssetDestinationDirectory() . $pluginName . '/Widget/$widgetName/assets');
         }
     }
 
