@@ -612,5 +612,14 @@ class Content {
         }
     }
 
+    /**
+     * Invalidate zones cache. Use this method if you have added or removed some zones
+     */
+    public function invalidateZones()
+    {
+        $this->zones = null;
+        $this->zonesData = null;
+    }
+
 
 }
