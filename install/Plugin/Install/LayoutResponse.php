@@ -49,10 +49,6 @@ class LayoutResponse extends \Ip\Response\Layout
         $cacheVersion = \Ip\Application::getVersion();
         $cssFiles = $this->getCss();
 
-        $inDesignPreview = false;
-
-        $data = ipRequest()->getRequest();
-
         foreach($cssFiles as &$file) {
             if ($file['cacheFix']) {
                 $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;

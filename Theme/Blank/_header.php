@@ -16,17 +16,6 @@
     <![endif]-->
 </head>
 <body>
-<?php
-//TODOX remove this test image
-echo '</br></br>';
-echo ipSlot('Ip.image', array(
-        'id' => 'test5',
-        'default' => 'http://cdn.impresspages.org/ip_themes/impresspages/img/impresspages_plugins.png',
-        'width' => 200,
-        'height' => 300,
-        'class' => 'super'
-
-    )); ?>
 <div class="theme clearfix">
     <header class="clearfix col_12">
         <?php echo ipSlot('Ip.logo') ?>

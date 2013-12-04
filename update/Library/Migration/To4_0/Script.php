@@ -51,7 +51,51 @@ class Script extends \IpUpdate\Library\Migration\General
         $this->migrateLogTable();
 
         $this->refactorReflections();
+
+        $this->renameContentManagementZones();
+
+        $this->removeNonContentZones();
     }
+
+
+    protected function renameContentManagementZones()
+    {
+        $dbh = $this->dbh;
+        $sql = "
+        UPDATE
+            `{$this->dbPref}zone`
+        SET
+            `associated_group` = '',
+            `associated_module` = 'Content'
+        WHERE
+            `associated_module` = 'content_management'
+        ";
+        $q = $dbh->prepare($sql);
+        $q->execute();
+    }
+
+    protected function removeNonContentZones()
+    {
+        //remove zones
+        $dbh = $this->dbh;
+        $sql = "
+        DELETE
+          `{$this->dbPref}zone`, `{$this->dbPref}zone_parameter`
+        FROM
+            `{$this->dbPref}zone`, `{$this->dbPref}zone_parameter`
+        WHERE
+            `{$this->dbPref}zone_parameter`.`zone_id` = `{$this->dbPref}zone`.`id`
+            AND
+            `{$this->dbPref}zone`.`associated_module` != 'Content'
+        ";
+
+        $q = $dbh->prepare($sql);
+        $q->execute();
+
+
+
+    }
+
 
     protected function refactorReflections()
     {
