@@ -187,6 +187,10 @@ class Request
             return $requestPath;
         }
 
+        if (strpos($requestPath, '/index.php') === 0) { // remove index.php if needed
+            $requestPath = substr($requestPath, 10);
+        }
+
         return substr($requestPath, strlen($basePath));
     }
 

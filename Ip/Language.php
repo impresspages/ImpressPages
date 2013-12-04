@@ -132,10 +132,16 @@ class Language{
      */
     public function getLink()
     {
-        if (ipGetOption('Config.multilingual')) {
-            return ipConfig()->baseUrl() . urlencode(\Ip\ServiceLocator::content()->getLanguageById($this->getId())->getUrl()).'/';
-        } else {
-            return ipConfig()->baseUrl();
+        $link = ipConfig()->baseUrl();
+
+        if (ipConfig()->getRaw('NO_REWRITES')) {
+            $link .= 'index.php/';
         }
+
+        if (ipGetOption('Config.multilingual')) {
+            $link .= urlencode(\Ip\ServiceLocator::content()->getLanguageById($this->getId())->getUrl()).'/';
+        }
+
+        return $link;
     }
 }

@@ -382,5 +382,14 @@ function ipThemeFile($path)
 
 function ipHomeUrl()
 {
-    return ipContent()->getCurrentLanguage()->getLink();
+    $homeUrl = ipConfig()->baseUrl();
+    if (ipConfig()->getRaw('NO_REWRITES')) {
+        $homeUrl .= 'index.php/';
+    }
+
+    if (ipGetOption('Config.multilingual')) {
+        $homeUrl .= urlencode(ipContent()->getCurrentLanguage()->getUrl()) . '/';
+    }
+
+    return $homeUrl;
 }
