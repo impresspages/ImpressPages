@@ -14,13 +14,16 @@ class System
 
     public function syncAssets()
     {
-        Model::syncAssets();
+        if (ipGetOption('AssetRsync.syncOnCacheClear') && ipGetOption('AssetRsync.assetDestinationDirectory')) {
+            Model::syncAssets();
+        }
     }
 
     public function onPluginActivate($data)
     {
-        ipLog()->info('AssetRsync.onPluginActivate', $data);
-        Model::syncPlugin('Plugin', $data['name']);
+        if (ipGetOption('AssetRsync.assetDestinationDirectory')) {
+            Model::syncPlugin('Plugin', $data['name']);
+        }
     }
 
     public function onPluginDeactivate()

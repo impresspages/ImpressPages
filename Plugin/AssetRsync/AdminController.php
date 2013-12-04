@@ -14,9 +14,17 @@ class AdminController extends \Ip\Controller
 
         $form = new \Ip\Form();
         $form->addClass('ipsAssetRsyncOptions');
+
         $field = new \Ip\Form\Field\Hidden(array(
             'name' => 'aa',
             'defaultValue' => 'AssetRsync.saveOptions'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(array(
+            'name' => 'assetDestinationDirectory',
+            'label' => __('Asset destination directory', 'plugin-AssetRsync'),
+            'defaultValue' => ipGetOption('AssetRsync.assetDestinationDirectory'),
         ));
         $form->addField($field);
 
@@ -24,34 +32,6 @@ class AdminController extends \Ip\Controller
             'name' => 'syncOnCacheClear',
             'label' => __('Sync on cache clear', 'plugin-AssetRsync'),
             'checked' => ipGetOption('AssetRsync.syncOnCacheClear') ? true : false,
-        ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(array(
-            'name' => 'pluginAssetDirectory',
-            'label' => __('Plugin asset directory', 'plugin-AssetRsync'),
-            'defaultValue' => ipGetOption('AssetRsync.pluginAssetDirectory'),
-        ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(array(
-            'name' => 'pluginAssetUrl',
-            'label' => __('Plugin asset url', 'plugin-AssetRsync'),
-            'defaultValue' => ipGetOption('AssetRsync.pluginAssetUrl'),
-        ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(array(
-            'name' => 'moduleAssetDirectory',
-            'label' => __('Module asset directory', 'plugin-AssetRsync'),
-            'defaultValue' => ipGetOption('AssetRsync.moduleAssetDirectory'),
-        ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(array(
-            'name' => 'moduleAssetUrl',
-            'label' => __('Module asset url', 'plugin-AssetRsync'),
-            'defaultValue' => ipGetOption('AssetRsync.moduleAssetUrl'),
         ));
         $form->addField($field);
 
@@ -78,10 +58,7 @@ class AdminController extends \Ip\Controller
 
         ipSetOption('AssetRsync.syncOnCacheClear', $syncOnCacheClear);
 
-        ipSetOption('AssetRsync.pluginAssetDirectory', $request->getPost('pluginAssetDirectory'));
-        ipSetOption('AssetRsync.pluginAssetUrl', $request->getPost('pluginAssetUrl'));
-        ipSetOption('AssetRsync.moduleAssetDirectory', $request->getPost('moduleAssetDirectory'));
-        ipSetOption('AssetRsync.moduleAssetUrl', $request->getPost('moduleAssetUrl'));
+        ipSetOption('AssetRsync.assetDestinationDirectory', $request->getPost('assetDestinationDirectory'));
 
         return JsonRpc::result(true);
     }
