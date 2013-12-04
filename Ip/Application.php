@@ -143,7 +143,11 @@ class Application {
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
-            return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+            if (ipConfig()->getRaw('NO_REWRITES')) {
+                return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
+            } else {
+                return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+            }
         }
 
         $action = $request->getControllerAction();
