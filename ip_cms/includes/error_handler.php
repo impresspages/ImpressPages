@@ -52,6 +52,9 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
         case E_COMPILE_ERROR:
             $message .= 'ERROR ';
             break;
+        case E_DEPRECATED:
+            // drop E_DEPRECATED to make IP work with PHP 5.5
+            return;            
         default:
             $message .= 'UNKNOWN EXCEPTION ';
             break;
