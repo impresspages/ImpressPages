@@ -33,16 +33,6 @@ class System{
         ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
 
-        // TODOX move to more appropriate place
-        $response = \Ip\ServiceLocator::response();
-        if (method_exists($response, 'addJavascriptContent')) {
-            $data = array(
-                'languageCode' => \Ip\ServiceLocator::content()->getCurrentLanguage()->getCode()
-            );
-
-            $validatorJs = \Ip\View::create(ipFile('Ip/Module/Config/jquerytools/validator.js'), $data)->render();
-            $response->addJavascriptContent('ipValidatorConfig.js', $validatorJs);
-        }
 
 
         if (ipConfig()->getRaw('DEBUG_MODE')) {
