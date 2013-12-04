@@ -1,6 +1,6 @@
 <div class="ipAdminWidgetControls">
     <?php if (!empty($optionsMenu)) { ?>
-        <div class="ip">
+        <div class="ip" style="float: left; display: block;">
         <div class="btn-group ipaButton">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"><?php _e('Settings', 'ipAdmin') ?></span>
