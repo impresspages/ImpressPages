@@ -241,7 +241,7 @@ class AdminController extends \Ip\Controller
             $widgetObject = Model::getWidgetObject($widgetName);
             $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
-            $widgetManagementHtml = Model::generateWidgetPreview($instanceId, 1);
+            $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);
         }
@@ -250,7 +250,7 @@ class AdminController extends \Ip\Controller
         $data = array (
             'status' => 'success',
             'action' => '_createWidgetResponse',
-            'widgetManagementHtml' => $widgetManagementHtml,
+            'widgetHtml' => $widgetHtml,
             'position' => $position,
             'widgetId' => $widgetId,
             'instanceId' => $instanceId
@@ -260,98 +260,6 @@ class AdminController extends \Ip\Controller
 
     }
 
-
-
-    //TODOX remove.
-    public function manageWidget()
-    {
-
-        if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Missing POST variable');
-        }
-        $instanceId = $_POST['instanceId'];
-
-
-
-
-        $widgetRecord = Model::getWidgetFullRecord($instanceId);
-
-        if ($widgetRecord === false){
-            throw new Exception('Can\'t find widget '.$instanceId, Exception::UNKNOWN_INSTANCE);
-        }
-
-
-
-
-        $widgetObject = Model::getWidgetObject($widgetRecord['name']);
-
-        if (!$widgetObject) {
-            return $this->_errorAnswer("Controlls of this widget does not exist. You need to install required plugin \"" . $widgetRecord['name'] . "\" or remove this widget");
-        }
-
-
-        $position = Model::getInstancePosition($instanceId);
-        Model::deleteInstance($instanceId);
-
-        $newWidgetId = Model::createWidget($widgetRecord['name'], $widgetRecord['data'], $widgetRecord['layout'], $widgetRecord['widgetId']);
-        $newInstanceId = Model::addInstance($newWidgetId, $widgetRecord['revisionId'], $widgetRecord['blockName'], $position, $widgetRecord['visible']);
-
-        $widgetObject->duplicate($widgetRecord['widgetId'], $newWidgetId, $widgetRecord['data']);
-
-
-        $managementHtml = Model::generateWidgetManagement($newInstanceId);
-
-        $data = array (
-            'status' => 'success',
-            'action' => '_manageWidgetResponse',
-            'managementHtml' => $managementHtml,
-            'instanceId' => $instanceId,
-            'newInstanceId' => $newInstanceId
-        );
-
-        return new \Ip\Response\Json($data);
-    }
-
-
-    //TODOX remove
-    public function cancelWidget()
-    {
-
-        if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Missing POST variable');
-        }
-        $instanceId = $_POST['instanceId'];
-
-        $curPosition = Model::getInstancePosition($instanceId);
-        $widgetFullRecord = Model::getWidgetFullRecord($instanceId);
-
-        if ($widgetFullRecord['predecessor'] !== null) {
-            Model::deleteInstance($instanceId);
-            $newInstanceId = Model::addInstance($widgetFullRecord['predecessor'], $widgetFullRecord['revisionId'], $widgetFullRecord['blockName'], $curPosition, $widgetFullRecord['visible']);
-            $previewHtml = Model::generateWidgetPreview($newInstanceId, true);
-            $data = array (
-                'status' => 'success',
-                'action' => '_cancelWidgetResponse',
-                'previewHtml' => $previewHtml,
-                'oldInstanceId' => $newInstanceId
-            );
-
-            return new \Ip\Response\Json($data);
-        } else {
-            Model::deleteInstance($instanceId);
-            $data = array (
-                'status' => 'success',
-                'action' => '_cancelWidgetResponse',
-                'previewHtml' => '',
-                'instanceId' => $instanceId,
-                'oldInstanceId' => ''
-            );
-
-            return new \Ip\Response\Json($data);
-        }
-
-
-    }
 
 
     public function updateWidget(){
