@@ -13,7 +13,6 @@ $(document).ready(function () {
 
                     $block.css('min-height', $block.height());
 
-                    // $ipExampleContent.css('visibility', 'hidden').css('position', 'absolute');
                     $ipExampleContent.fadeOut('slow');
                 });
             })
@@ -24,7 +23,6 @@ $(document).ready(function () {
                     if ($block.children('.ipAdminWidgetPlaceholder').length) {
                         $ipExampleContent.remove();
                     } else {
-                        // $ipExampleContent.css('visibility', 'visible').css('position', 'static')
                         $ipExampleContent.fadeIn('fast');
                     }
 
