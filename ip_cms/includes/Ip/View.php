@@ -463,6 +463,11 @@ class View{
         }
     }
 
-    
+    public function getThemeAsset($path) {
+		$url = BASE_URL . THEME_DIR . THEME;
+		if (0!== strpos($path, '/'))
+		 	$url = $url . '/'; 		 			
+		return $url.$path;
+	}
     
 }
