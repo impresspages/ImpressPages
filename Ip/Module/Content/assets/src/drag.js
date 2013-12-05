@@ -11,6 +11,7 @@
 
 (function ($) {
 
+
     // Detect touch support
     $.support.touch = 'ontouchend' in document;
 

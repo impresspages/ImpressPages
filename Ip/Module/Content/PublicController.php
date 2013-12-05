@@ -74,14 +74,18 @@ class PublicController extends \Ip\Controller
 
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/ipContentManagement.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.contentManagement.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.pageOptions.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.widgetbutton.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.block.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/jquery.ip.widget.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/exampleContent.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/drag.js'));
+        if (ipConfig()->getRaw('DEBUG_MODE')) {
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/ipContentManagement.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.contentManagement.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.pageOptions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widgetbutton.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.block.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widget.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/exampleContent.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/drag.js'));
+        } else {
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/content.min.js'));
+        }
 
 
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-ui/jquery-ui.js'));
