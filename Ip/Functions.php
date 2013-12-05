@@ -152,35 +152,16 @@ function ipLog()
     return \Ip\ServiceLocator::log();
 }
 
-/**
- * @param bool $print false - return instead of print
- * @return string
- */
-function ipPrintJavascript($print = true)
+
+function ipPrintJavascript()
 {
-    $script = \Ip\ServiceLocator::response()->generateJavascript();
-    if ($print) {
-        echo $script;
-        return '';
-    } else {
-        return $script;
-    }
+    echo \Ip\ServiceLocator::response()->generateJavascript();
 }
 
-/**
- * @param bool $print false - return instead of print
- * @return string
- */
-//TODOX remove $print parameters. People can use long syntax if they want the response
-function ipPrintHead($print = true)
+
+function ipPrintHead()
 {
-    $head = \Ip\ServiceLocator::response()->generateHead();
-    if ($print) {
-        echo $head;
-        return '';
-    } else {
-        return $head;
-    }
+    echo \Ip\ServiceLocator::response()->generateHead();
 }
 
 function ipSetLayout($file)
