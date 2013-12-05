@@ -22,10 +22,16 @@
                     var $newItem = $itemTemplate.clone().detach().text(value.title).data('layout', value.name);
                     if (value.name == options.currentLayout) {
                         $newItem.addClass('active');
-                        $newItem.on('click', function(e){e.preventDefault(); $this.modal('hide');})
+                        $newItem.on('click', function(e){
+                            e.preventDefault();
+                            $this.modal('hide');
+                        })
                     } else {
-                        options.widgetObject.ipWidget('refresh');
-                        $newItem.on('click', function(e){e.preventDefault(); $this.modal('hide');})
+                        $newItem.on('click', function(e){
+                            e.preventDefault();
+                            options.widgetObject.ipWidget('changeLayout', value.name);
+                            $this.modal('hide');
+                        })
                     }
                     $list.append($newItem);
                 });
