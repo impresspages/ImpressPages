@@ -237,7 +237,7 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $layouts = $widgetObject->getLayouts();
+            $layouts = $widgetObject->getLooks();
             $widgetObject = Model::getWidgetObject($widgetName);
             $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
             $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
@@ -301,7 +301,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function changeLayout()
+    public function changeLook()
     {
         $updateData = array();
         if (!isset($_POST['instanceId'])) {
@@ -315,11 +315,11 @@ class AdminController extends \Ip\Controller
         }
 
 
-        if (!isset($_POST['layout'])) {
-            return $this->_errorAnswer('Missing POST variable layout');
+        if (!isset($_POST['look'])) {
+            return $this->_errorAnswer('Missing POST variable look');
         }
-        $layout = $_POST['layout'];
-        $updateData['layout'] = $layout;
+        $look = $_POST['look'];
+        $updateData['layout'] = $look;
 
 
         Model::updateWidget($record['widgetId'], $updateData);

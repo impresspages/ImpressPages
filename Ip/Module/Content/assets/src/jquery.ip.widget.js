@@ -78,16 +78,16 @@
         },
 
 
-        changeLayout: function(layout) {
+        changeLook: function(look) {
             return this.each(function () {
                 var $this = $(this);
                 var data = Object();
 
 
-                data.aa = 'Content.changeLayout';
+                data.aa = 'Content.changeLook';
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('widgetinstanceid');
-                data.layout = layout;
+                data.layout = look;
 
                 $.ajax({
                     type: 'POST',

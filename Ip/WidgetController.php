@@ -87,7 +87,7 @@ class WidgetController
         return array();
     }
 
-    public function getLayouts()
+    public function getLooks()
     {
 
         $views = array();
@@ -95,19 +95,19 @@ class WidgetController
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::LOOK_DIR . '/');
+            $lookDir = ipFile('Ip/Module/' . $this->widgetDir . self::LOOK_DIR . '/');
         } else {
-            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::LOOK_DIR . '/');
+            $lookDir = ipFile('Plugin/' . $this->widgetDir . self::LOOK_DIR . '/');
         }
 
 
-        if (!is_dir($layoutsDir)) {
-            throw new Exception('Layouts directory does not exist. ' . $layoutsDir, Exception::NO_LAYOUTS);
+        if (!is_dir($lookDir)) {
+            throw new Exception('Layouts directory does not exist. ' . $lookDir, Exception::NO_LOOK);
         }
 
-        $availableViewFiles = scandir($layoutsDir);
+        $availableViewFiles = scandir($lookDir);
         foreach ($availableViewFiles as $viewFile) {
-            if (is_file($layoutsDir . $viewFile) && substr($viewFile, -4) == '.php') {
+            if (is_file($lookDir . $viewFile) && substr($viewFile, -4) == '.php') {
                 $views[substr($viewFile, 0, -4)] = 1;
             }
         }
@@ -129,7 +129,7 @@ class WidgetController
         }
 
         if (empty($layouts)) {
-            throw new Exception('No layouts', Exception::NO_LAYOUTS);
+            throw new Exception('No layouts', Exception::NO_LOOK);
         }
 
         return $layouts;
