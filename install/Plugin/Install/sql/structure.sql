@@ -177,29 +177,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
 
 
 -- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_m_community_user`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_m_community_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(255) DEFAULT NULL,
-  `language_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(32) NOT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `last_login` timestamp NULL DEFAULT NULL,
-  `verification_code` varchar(32) NOT NULL,
-  `new_email` varchar(255) DEFAULT NULL,
-  `new_password` varchar(32) DEFAULT NULL,
-  `warned_on` timestamp NULL DEFAULT NULL,
-  `valid_until` timestamp NULL DEFAULT NULL COMMENT 'required for maintenance. Real date should be calculated in real time by last_login field.',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
-
--- Table structure
   
 DROP TABLE IF EXISTS `ip_cms_m_content_management_widget`;
 

@@ -27,7 +27,6 @@ INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`
 (7, 'IpTitle', 20, 0),
 (8, 'IpFile', 90, 0),
 (10, 'IpSeparator', 40, 0),
-(12, 'IpNewsletter', 110, 0),
 (9, 'IpHtml', 120, 0),
 (11, 'IpTable', 100, 0),
 (13, 'IpRichText', 130, 0),
