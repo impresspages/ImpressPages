@@ -90,7 +90,7 @@ class SiteController extends \Ip\Controller{
 
         $config = \Ip\ServiceLocator::getConfig();
         $site->removeJavascript($config->getCoreModuleUrl().'Admin/Public/admin.js');
-        $view = \Ip\View::create('View/login.php', $variables);
+        $view = \Ip\View::create(BASE_DIR . MODULE_DIR . 'standard/configuration/view/adminLogin.php', $variables);
         $site->setOutput($view);
     }
 
