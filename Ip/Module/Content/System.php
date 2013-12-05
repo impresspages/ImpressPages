@@ -147,24 +147,23 @@ class System{
         //TODO cache found assets to decrease file system usage
         $widgets = Service::getAvailableWidgets();
 
-        foreach ($widgets as $widget) {
-            $this->addWidgetAssets($widget, 1);
-        }
         if (ipIsManagementState()) {
             foreach ($widgets as $widget) {
-                $this->addWidgetAssets($widget, 0);
+                if (!$widget->isCore()) { //core widget assets are included automatically in one minified file
+                    $this->addWidgetAssets($widget);
+                }
             }
         }
 
     }
 
-    private function addWidgetAssets(\Ip\WidgetController $widget, $core)
+    private function addWidgetAssets(\Ip\WidgetController $widget)
     {
-        $pluginAssetsPath = \Ip\Application::ASSET_DIR . '/' . $widget->getModuleName() . '/' . $widget->getName() . '/' . WidgetController::LAYOUT_DIR . '/';
-        if ($core) {
-            $widgetPublicDir = ipFile('Ip/Module/' . $pluginAssetsPath);
+        $pluginAssetsPath = $widget->getModuleName() . '/' . Model::WIDGET_DIR . '/' . $widget->getName() . '/' . \Ip\Application::ASSETS_DIR . '/';
+        if ($widget->isCore()) {
+            $widgetPublicDir = 'Ip/Module/' . $pluginAssetsPath;
         } else {
-            $widgetPublicDir = ipFile('Plugin/' . $pluginAssetsPath);
+            $widgetPublicDir = 'Plugin/' . $pluginAssetsPath;
         }
 
 
@@ -173,6 +172,7 @@ class System{
 
 
     private function includeResources($resourcesFolder){
+
         if (is_dir(ipFile($resourcesFolder))) {
             $files = scandir(ipFile($resourcesFolder));
             if ($files === false) {
@@ -180,7 +180,7 @@ class System{
             }
             
             
-            foreach ($files as $fileKey => $file) {
+            foreach ($files as $file) {
                 if (is_dir(ipFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
                     self::includeResources(ipFile($resourcesFolder.$file));
                     continue;

@@ -81,11 +81,11 @@ function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, 
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
@@ -94,7 +94,7 @@ function ipAddPluginJs($plugin, $file, $attributes = array(), $priority = 1, $ca
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+        $response->addJavascript(ipFileUrl('Plugin/' . $plugin . '/' . \Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
     }
 }
 
@@ -102,7 +102,7 @@ function ipAddPluginCss($plugin, $file, $attributes = array(), $priority = 1, $c
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addCss')) {
-        $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+        $response->addCss(ipConfig()->pluginUrl($plugin . '/' . \Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
     }
 }
 
@@ -112,11 +112,11 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     $response = \Ip\ServiceLocator::response();
     if (strtolower(substr($file, -3)) == '.js') { // todox: make more foolproof checking
         if (method_exists($response, 'addJavascript')) {
-            $response->addJavascript(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addJavascript(ipThemeUrl(\Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     } else { // todox: make more foolproof checking
         if (method_exists($response, 'addCss')) {
-            $response->addCss(ipThemeUrl(\Ip\Application::ASSET_DIR . '/' . $file), $attributes, $priority, $cacheFix);
+            $response->addCss(ipThemeUrl(\Ip\Application::ASSETS_DIR . '/' . $file), $attributes, $priority, $cacheFix);
         }
     }
 }
