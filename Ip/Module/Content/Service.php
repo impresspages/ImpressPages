@@ -94,7 +94,7 @@ class Service
 
         try {
 
-            $layouts = $widgetObject->getLayouts();
+            $layouts = $widgetObject->getLooks();
             $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
 
         } catch (Exception $e) {
