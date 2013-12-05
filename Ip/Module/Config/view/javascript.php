@@ -15,33 +15,37 @@ var ip = {
     var <?php echo $name ?> = <?php echo json_encode($variable); ?>;
 <?php } ?>
 </script>
-<?php foreach ($javascript as $levelKey => $level) { ?>
-    <?php foreach ($level as $recordKey => $record) { ?>
-        <?php if ($record['type'] == 'file') { ?>
-            <script type="text/javascript" src="<?php echo $record['value'] ?>" <?php
-            if (is_array($record['attributes'])) {
-                echo join(
-                    ' ',
-                    array_map(
-                        function ($sKey, $sValue) {
-                            return esc($sKey) . '="' . esc($sValue) . '"';
-                        },
-                        array_keys($record['attributes']),
-                        array_values($record['attributes'])
-                    )
-                );
+<?php
+    foreach ($javascript as $levelKey => $level) {
+        foreach ($level as $recordKey => $record) {
+            if ($record['type'] == 'file') {
+                echo '  <script type="text/javascript" src="' . $record['value'] . '"';
+                if (is_array($record['attributes'])) {
+                    echo join(
+                        ' ',
+                        array_map(
+                            function ($sKey, $sValue) {
+                                return esc($sKey) . '="' . esc($sValue) . '"';
+                            },
+                            array_keys($record['attributes']),
+                            array_values($record['attributes'])
+                        )
+                    );
+                }
+                echo '></script>' . "\n";
+
             }
-            ?>></script>
-        <?php } ?>
-        <?php if ($record['type'] == 'variable') { ?>
-            <script type="text/javascript">
-                var <?php echo $recordKey; ?> = <?php echo json_encode($record['value']); ?>;
-            </script>
-        <?php } ?>
-        <?php if ($record['type'] == 'content') { ?>
-            <script type="text/javascript">
-        <?php echo $record['value']; ?>
-            </script>
-        <?php } ?>
-    <?php } ?>
-<?php } ?>
+
+            if ($record['type'] == 'variable') {
+                echo '  <script type="text/javascript">
+    var ' . $recordKey . ' = ' . json_encode($record['value']) . ';
+  </script>' . "\n";
+            }
+            if ($record['type'] == 'content') {
+                echo '  <script type="text/javascript">
+        ' . $record['value'] . '
+  </script>';
+            }
+
+       }
+   }

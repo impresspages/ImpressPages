@@ -17,8 +17,15 @@ class System
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) {
 
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/functions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
+
+
+
             //Form init
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/form/form.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/validator.js'));
 
             ipAddJavascriptVariable('Form_pluploadJsFile', ipFileUrl('Ip/Module/Ip/assets/js/plupload/plupload.full.js'));
             ipAddJavascriptVariable('Form_fileFieldJs', ipFileUrl('Ip/Module/Ip/assets/form/file.js'));
@@ -34,8 +41,6 @@ class System
                 ipContent()->getCurrentLanguage()->getCode() => $this->validatorLocalizationData('ipPublic')
             );
             ipAddJavascriptVariable('ipValidatorTranslations', $validatorTranslations);
-            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/validator.js'));
-
         }
 
     }
