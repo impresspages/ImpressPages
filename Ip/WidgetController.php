@@ -19,7 +19,7 @@ class WidgetController
      * @var boolean - true if widget is installed by default
      */
     var $core;
-    const LAYOUT_DIR = 'layout';
+    const LOOK_DIR = 'look';
 
     //TODOX
     const MANAGEMENT_DIR = 'admin';
@@ -95,9 +95,9 @@ class WidgetController
 
         //collect default view files
         if ($this->core) {
-            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::LAYOUT_DIR . '/');
+            $layoutsDir = ipFile('Ip/Module/' . $this->widgetDir . self::LOOK_DIR . '/');
         } else {
-            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::LAYOUT_DIR . '/');
+            $layoutsDir = ipFile('Plugin/' . $this->widgetDir . self::LOOK_DIR . '/');
         }
 
 
@@ -112,7 +112,7 @@ class WidgetController
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -254,9 +254,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LAYOUT_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (\Ip\ServiceLocator::content()->isManagementState()) {
