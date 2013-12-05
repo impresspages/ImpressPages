@@ -465,13 +465,7 @@ $languageUrl = "en";
         $parameterType ['standard']['menu_management']['admin_translations']['page_design_confirm_notification'] = 'textarea';
 
         $parameterTitle["standard"]["menu_management"]["admin_translations"]["page_layout_add_layout_instructions"] = "How to add custom page layout";
-        $parameterValue["standard"]["menu_management"]["admin_translations"]["page_layout_add_layout_instructions"] = "You have only one layout in your theme. If you wish to add more layouts, please,"
-            . "<ol>"
-            . "    <li>find main.php in your theme directory (for example, ip_themes/main.php);</li>"
-            . "    <li>copy and paste it under new name (for example, simple.php);</li>"
-            . "   <li>come here and select it;</li>"
-            . "   <li>modify it according to your needs.</li>"
-            . "</ol>";
+        $parameterValue["standard"]["menu_management"]["admin_translations"]["page_layout_add_layout_instructions"] = "You have only one layout in your theme. If you wish to add more layouts, please,<ol>    <li>find main.php in your theme directory (for example, ip_themes/main.php);</li>    <li>copy and paste it under new name (for example, simple.php);</li>   <li>come here and select it;</li></ol>";
         $parameterAdmin["standard"]["menu_management"]["admin_translations"]["page_layout_add_layout_instructions"] = "1";
         $parameterType ["standard"]["menu_management"]["admin_translations"]["page_layout_add_layout_instructions"] = "textarea";
 

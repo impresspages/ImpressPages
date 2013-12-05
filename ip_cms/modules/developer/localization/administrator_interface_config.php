@@ -666,8 +666,8 @@ $parameter["parameterValue/standard/configuration/admin_translations/save"] = "s
 $parameter["parameterTitle/standard/configuration/admin_translations/install"] = "Install";
 $parameter["parameterValue/standard/configuration/admin_translations/install"] = "Install";
 
-$parameter["parameterTitle/standard/configuration/translations/menu"] = "Menu";
-$parameter["parameterValue/standard/configuration/translations/menu"] = "Menu";
+$parameter["parameterTitle/standard/configuration/admin_translations/menu"] = "Menu";
+$parameter["parameterValue/standard/configuration/admin_translations/menu"] = "Menu";
 
 $parameter["parameterTitle/standard/configuration/advanced_options/administrator_interface_language"] = "Backend language";
 
