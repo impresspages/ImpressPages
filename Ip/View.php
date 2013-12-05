@@ -322,11 +322,6 @@ class View implements \Ip\Response\ResponseInterface
         return \Ip\ServiceLocator::content()->generateBlock($blockName);
     }
 
-    public function generateSlot($name)
-    {
-        return ipSlot($name);
-    }
-
 
 
 

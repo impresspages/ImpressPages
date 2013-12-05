@@ -18,20 +18,18 @@
 <body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
-        <?php echo ipSlot('Ip.logo') ?>
+        <?php ipSlot('Ip.logo') ?>
         <div class="right">
             <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getButtonTitle()) ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
-                <?php
-                    echo ipSlot('Ip.menu', 'menu1');
-                ?>
+                <?php ipSlot('Ip.menu', 'menu1'); ?>
                 <div class="languages">
-                    <?php echo $this->generateSlot('Ip.languages'); ?>
+                    <?php ipSlot('Ip.languages'); ?>
                 </div>
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo ipSlot('Search'); //TODOX review ?>
+            <?php ipSlot('Search'); //TODOX review ?>
         </div>
     </header>

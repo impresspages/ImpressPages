@@ -220,13 +220,14 @@ function ipBlock($block)
     return \Ip\ServiceLocator::content()->generateBlock($block);
 }
 
+
 /**
  * @param $slot
- * @return string
+ * @param array $params
  */
 function ipSlot($slot, $params = array())
 {
-    return \Ip\ServiceLocator::content()->generateSlot($slot, $params);
+    echo \Ip\ServiceLocator::content()->generateSlot($slot, $params);
 }
 
 
