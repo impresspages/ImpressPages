@@ -868,7 +868,7 @@ class StandardModule {
     <script src="' . ipFileUrl('Ip/Module/Ip/assets/js/jquery.js') . '"></script>
     <script src="' . ipFileUrl('Ip/Module/Ip/assets/js/tiny_mce/jquery.tinymce.js') . '"></script>
     <script src="' . ipActionUrl(array('pa' => 'Config.tinymceConfig')) . '"></script>
-    '.ipPrintHead(false).'
+    '.ipResponse()->generateHead().'
 </head>
 	 
 <body> <!-- display loading until page is loaded-->
@@ -941,7 +941,7 @@ class StandardModule {
   $(\'.mceEditor\').tinymce(ipTinyMceConfigMed);
   //]]>
 </script>
-'.ipPrintJavascript(false).'
+'.ipResponse()->generateJavascript().'
 		   </body>
       </html>   
 		 ';
