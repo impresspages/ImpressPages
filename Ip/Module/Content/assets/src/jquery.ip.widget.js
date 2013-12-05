@@ -50,7 +50,6 @@
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('widgetinstanceid');
                 data.widgetData = widgetData;
-                data.layout = 'default'; //TODOX reimplement layouts$this.find('.ipaLayouts').val();
 
                 $.ajax({
                     type: 'POST',
@@ -80,7 +79,37 @@
 
 
         changeLayout: function(layout) {
-            alert(layout);
+            return this.each(function () {
+                var $this = $(this);
+                var data = Object();
+
+
+                data.aa = 'Content.changeLayout';
+                data.securityToken = ip.securityToken;
+                data.instanceId = $this.data('widgetinstanceid');
+                data.layout = layout;
+
+                $.ajax({
+                    type: 'POST',
+                    url: ip.baseUrl,
+                    data: data,
+                    context: $this,
+                    success: function(response) {
+                        var $newWidget = $(response.previewHtml);
+                        $($newWidget).insertAfter($this);
+                        $newWidget.trigger('reinitRequired.ipWidget');
+
+                        // init any new blocks the widget may have created
+                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+                        $this.remove();
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    },
+                    dataType: 'json'
+                });
+
+            });
         },
 
         refresh: function (widgetData) {
@@ -106,7 +135,7 @@
             changeCallback: function(layout){
                 $(this).ipWidget('changeLayout', layout);
             },
-            widgetObject: this
+            widgetObject: $this
         })
     }
 

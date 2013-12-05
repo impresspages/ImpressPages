@@ -262,37 +262,33 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function updateWidget(){
+    public function updateWidget()
+    {
+
+        $updateData = array();
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable instanceId');
         }
         $instanceId = $_POST['instanceId'];
 
-        if (!isset($_POST['layout'])) {
-            return $this->_errorAnswer('Missing POST variable layout');
+        $record = Model::getWidgetFullRecord($instanceId);
+        if (!$record) {
+            return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
         }
-        $layout = $_POST['layout'];
 
 
         if (!isset($_POST['widgetData']) || !is_array($_POST['widgetData'])) {
             $_POST['widgetData'] = array();
         }
-
         $postData = $_POST['widgetData'];
-
-
-        $record = Model::getWidgetFullRecord($instanceId);
 
         $widgetObject = Model::getWidgetObject($record['name']);
 
         $newData = $widgetObject->update($record['widgetId'], $postData, $record['data']);
+        $updateData['data'] = $newData;
 
-        $updateArray = array (
-            'data' => $newData,
-            'layout' => $layout
-        );
 
-        Model::updateWidget($record['widgetId'], $updateArray);
+        Model::updateWidget($record['widgetId'], $updateData);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
         $data = array (
@@ -305,7 +301,42 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function deleteWidget() {
+    public function changeLayout()
+    {
+        $updateData = array();
+        if (!isset($_POST['instanceId'])) {
+            return $this->_errorAnswer('Missing POST variable instanceId');
+        }
+        $instanceId = $_POST['instanceId'];
+
+        $record = Model::getWidgetFullRecord($instanceId);
+        if (!$record) {
+            return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
+        }
+
+
+        if (!isset($_POST['layout'])) {
+            return $this->_errorAnswer('Missing POST variable layout');
+        }
+        $layout = $_POST['layout'];
+        $updateData['layout'] = $layout;
+
+
+        Model::updateWidget($record['widgetId'], $updateData);
+        $previewHtml = Model::generateWidgetPreview($instanceId, true);
+
+        $data = array (
+            'status' => 'success',
+            'action' => '_updateWidget',
+            'previewHtml' => $previewHtml,
+            'instanceId' => $instanceId
+        );
+
+        return new \Ip\Response\Json($data);
+    }
+
+    public function deleteWidget()
+    {
 
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing instanceId POST variable');
