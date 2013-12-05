@@ -451,6 +451,13 @@ class View{
         return $themeService->getThemeOption($name, $default);
     }
 
+	public function getThemeAsset($path) {
+        $url = BASE_URL . THEME_DIR . THEME;
+        if (0!== strpos($path, '/'))
+            $url = $url . '/'; 		 			
+        return $url.$path;
+    }
+
     private static function checkData ($data) {
         foreach ($data as $key => $value) {
             if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
