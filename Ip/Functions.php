@@ -72,7 +72,7 @@ function ipAddJavascript($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript($file, $stage);
+        $response->addJavascript($file, array(), $stage);
     }
 }
 
@@ -121,13 +121,7 @@ function ipAddThemeAsset($file, $attributes = array(), $priority = 1, $cacheFix 
     }
 }
 
-function ipAddJQuery()
-{
-    $response = \Ip\ServiceLocator::response();
-    if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
-    }
-}
+
 
 //TODOX rename to ipAddJsVariable
 function ipAddJavascriptVariable($name, $value)

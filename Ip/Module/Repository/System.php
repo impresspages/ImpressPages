@@ -13,7 +13,6 @@ class System{
     public function init(){
 
         if (\Ip\ServiceLocator::content()->isManagementState()) {
-            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-ui/jquery-ui.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Repository/assets/admin/ipRepository.js'));
             ipAddCss(ipFileUrl('Ip/Module/Repository/assets/admin/repository.css'));

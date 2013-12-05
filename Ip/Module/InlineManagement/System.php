@@ -15,7 +15,6 @@ class System
         if (\Ip\ServiceLocator::content()->isManagementState()) {
             ipAddCss(ipFileUrl('Ip/Module/InlineManagement/assets/inline_management.css'));
 
-            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
 
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/inlineManagementControls.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/inlineManagementLogo.js'));

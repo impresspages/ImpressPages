@@ -11,7 +11,7 @@
  * General Field
  */
 (function($) {
-
+    "use strict";
     var methods = {
         init : function(options) {
             if (typeof options !== 'object') {
@@ -74,7 +74,7 @@
                     }
                 }
 
-                $thisForEvent = $this;
+                var $thisForEvent = $this;
                 $this.find('.ipaFieldRemove').bind('click', function(event){
                     $thisForEvent.ipWidget_ipForm_field('setStatus', 'deleted');
                     $thisForEvent.hide();
@@ -85,9 +85,9 @@
         },
 
         openOptionsPopup : function () {
-            $this = this;
+            var $this = this;
             var data = $this.data('ipWidget_ipForm_field');
-            $thisForEvent = $this;
+            var $thisForEvent = $this;
             data.optionsPopup.bind('saveOptions.ipWidget_ipForm', function(e,options){
                 $this = $(this); //we are in popup context
                 $this.unbind('saveOptions.ipWidget_ipForm');
@@ -158,7 +158,7 @@
         },
 
         getRequired : function () {
-            $this = $(this);
+            var $this = $(this);
             return $this.find('.ipaFieldRequired').is(':checked');
         }
 

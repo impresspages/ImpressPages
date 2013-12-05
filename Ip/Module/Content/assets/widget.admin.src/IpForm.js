@@ -9,7 +9,7 @@
  * Widget initialization
  */
 function IpWidget_IpForm() {
-
+    "use strict";
     this.data = null;
     this.modal = null;
     this.container = null;

@@ -11,7 +11,6 @@
     <?php echo ipBlock('main'); ?>
 </div>
 <?php
-ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
 ipPrintJavascript();
 ?>
 </body>

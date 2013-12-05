@@ -33,10 +33,6 @@ class AdminController extends \Ip\Controller{
         $content = \Ip\View::create('view/index.php', $data)->render();
 
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/default.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/default.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
-
         ipAddCss(ipFileUrl('Ip/Module/Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){

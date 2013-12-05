@@ -35,7 +35,6 @@
     <div class="footer">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages UAB</a></div>
 </div>
 
-<script type="text/javascript" src="<?php echo ipFileUrl('Plugin/Install/assets/js/jquery.js') ?>"></script>
 <script type="text/javascript" src="<?php echo ipFileUrl('Plugin/Install/assets/js/init.js') ?>"></script>
 <?php if (!empty($requiredJs)) { ?>
     <?php foreach($requiredJs as $jsFile) { ?>

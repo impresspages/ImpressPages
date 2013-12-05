@@ -8,7 +8,17 @@
             </button>
             <ul class="dropdown-menu" role="menu">
                 <?php foreach($optionsMenu as $menuItem) { ?>
-                    <li><a href="#"><?php echo esc($menuItem['title']) ?></a></li>
+                    <li>
+                        <a
+                            <?php
+                            if (is_array($menuItem['attributes'])) {
+                                foreach ($menuItem['attributes'] as $key => $value) {
+                                    echo esc($key, 'attr') . '="' . esc($value, 'attr') . '"';
+                                }
+                            }
+                            ?>
+                            href="#"><?php echo esc($menuItem['title']) ?></a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>
