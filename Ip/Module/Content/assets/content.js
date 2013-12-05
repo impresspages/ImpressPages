@@ -23,6 +23,11 @@ var ipContent = new function() {
                 $('body').append(value);
             });
         }
+
+        if (typeof ipWidgetLayoutModalTemplate  !== "undefined") {
+            $('body').append(ipWidgetLayoutModalTemplate);
+        }
+
     };
 
     this.setManagementMode = function(mode) {

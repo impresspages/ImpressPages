@@ -79,6 +79,7 @@ class PublicController extends \Ip\Controller
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.contentManagement.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.pageOptions.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widgetbutton.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.layoutModal.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.block.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widget.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/exampleContent.js'));
@@ -107,6 +108,31 @@ class PublicController extends \Ip\Controller
 
         ipAddCss(ipFileUrl('Ip/Module/Content/assets/widgets.css'));
         ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
+
+
+
+        if (ipConfig()->getRaw('DEBUG_MODE')) {
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpColumns.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFaq.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFile.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpForm.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormContainer.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormField.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormOptions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpHtml.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImageGallery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTable.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpText.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTextImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTitle.js'));
+        } else {
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.min.js'));
+        }
+
+        if (ipIsManagementState()) {
+            ipAddJavascriptVariable('ipWidgetLayoutModalTemplate', \Ip\View::create('view/widgetLayoutModal.php')->render());
+        }
 
     }
 

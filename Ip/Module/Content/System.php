@@ -32,27 +32,11 @@ class System{
 
 
 
-        if (ipConfig()->getRaw('DEBUG_MODE')) {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpColumns.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFaq.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFile.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpForm.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormContainer.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormField.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormOptions.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpHtml.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImage.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImageGallery.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTable.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpText.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTextImage.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTitle.js'));
-        } else {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.min.js'));
-        }
 
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
+
+
 
 
     }
