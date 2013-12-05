@@ -31,6 +31,9 @@
 
                     }
                 }
+
+                $this.find('.ipsLook').on('click', $.proxy(openLayoutModal, this));
+
             });
         },
 
@@ -76,6 +79,10 @@
         },
 
 
+        changeLayout: function(layout) {
+            alert(layout);
+        },
+
         refresh: function (widgetData) {
             return this.each(function () {
 
@@ -83,6 +90,25 @@
         }
 
     };
+
+    var openLayoutModal = function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var $layoutButton = $this.find('.ipsLook');
+        var layouts = $layoutButton.data('layouts');
+        var currentLayout = $layoutButton.data('currentlayout');
+
+        var $modal = $('#ipWidgetLayoutPopup');
+
+        $modal.ipLayoutModal({
+            layouts: layouts,
+            currentLayout: currentLayout,
+            changeCallback: function(layout){
+                $(this).ipWidget('changeLayout', layout);
+            },
+            widgetObject: this
+        })
+    }
 
     $.fn.ipWidget = function (method) {
         if (methods[method]) {

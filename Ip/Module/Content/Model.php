@@ -231,7 +231,8 @@ class Model{
             'title' => __('Look', 'ipAdmin', false),
             'attributes' => array(
                 'class' => 'ipsLook',
-                'data-layouts' => json_encode($widgetObject->getLayouts())
+                'data-layouts' => json_encode($widgetObject->getLayouts()),
+                'data-currentlayout' => $widgetRecord['layout']
             )
         );
 
