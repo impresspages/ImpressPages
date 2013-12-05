@@ -11,14 +11,14 @@ class System
 {
     public function init()
     {
-        ipAddJQuery();
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/console.log.js'), 0);
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'), 0);
 
 
         $response = \Ip\ServiceLocator::response();
-        if (method_exists($response, 'addJavascriptContent')) {
+        if (method_exists($response, 'addJavascriptContent')) { //if Layout response
 
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/functions.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
 
 

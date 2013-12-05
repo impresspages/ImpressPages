@@ -47,7 +47,3 @@ var ipContent = new function() {
 
 
 };
-
-var preview = function (e) {
-
-}

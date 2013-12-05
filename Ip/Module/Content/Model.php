@@ -229,7 +229,10 @@ class Model{
         $optionsMenu = array();
         $optionsMenu[] = array(
             'title' => __('Look', 'ipAdmin', false),
-            'class' => 'ipsLook'
+            'attributes' => array(
+                'class' => 'ipsLook',
+                'data-layouts' => json_encode($widgetObject->getLayouts())
+            )
         );
 
         $optionsMenu = ipDispatcher()->filter('ipWidgetMenu', $optionsMenu, $widgetRecord);
