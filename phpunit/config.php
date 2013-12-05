@@ -22,4 +22,4 @@ define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
 define ('TEST_SCREENSHOT_PATH', __DIR__ . '/screenshots/');
 define ('TEST_SCREENSHOT_URL', $isTravis ? 'http://localhost/phpunit/screenshots/' : 'http://localhost/ip3.x/phpunit/screenshots/');
 
-define('RECENT_VERSION', '3.8');
+define('RECENT_VERSION', '3.9');
