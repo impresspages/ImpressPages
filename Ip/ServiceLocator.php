@@ -180,7 +180,7 @@ class ServiceLocator
     public static function translator()
     {
         if (static::$translator === null) {
-            static::$translator = new \Zend\I18n\Translator\Translator();
+            static::$translator = new \Ip\Translator\Translator();
         }
 
         return static::$translator;
