@@ -16,21 +16,15 @@ namespace Ip {
         public static function init($locale = 'en')
         {
             $translator = new \Zend\I18n\Translator\Translator();
-
+            $translator->getPluginManager()->setInvokableClass('json', 'Ip\Translator\JsonLoader');
             $translator->setLocale($locale);
-
-            $translator->addTranslationFilePattern(
-                'gettext',
-                ipThemeFile('languages/'),
-                '%s.mo',
-                'theme-' . ipConfig()->theme()
-            );
 
             static::$translator = $translator;
         }
 
         public static function addTranslationFilePattern($type, $directory, $pattern, $domain)
         {
+
             static::$translator->addTranslationFilePattern(
                 $type,
                 $directory,

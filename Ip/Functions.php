@@ -293,6 +293,9 @@ function escUrlRaw($url)
 
 function __($text, $domain, $esc = 'html')
 {
+    if ($domain == 'ipAdmin') {
+        $esc = 'html';
+    }
     return esc(\Ip\Translator::translate($text, $domain), $esc);
 }
 
