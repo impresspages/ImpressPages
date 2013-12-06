@@ -13,7 +13,7 @@ function IpWidget_IpTitle(widgetObject) {
         this.data = data;
 
 
-        var customTinyMceConfig = ipTinyMceConfigMin();
+        var customTinyMceConfig = ipTinyMceConfig();
         customTinyMceConfig.menubar = false;
         customTinyMceConfig.toolbar = false;
         customTinyMceConfig.setup = function(ed, l) {

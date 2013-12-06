@@ -13,7 +13,7 @@ function IpWidget_IpFaq(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin());
+        this.widgetObject.find('textarea').tinymce(ipTinyMceConfig());
     }
 
     function prepareData() {

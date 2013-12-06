@@ -129,7 +129,7 @@ ipWidgetIpForm_InitWysiwygOptions = function ($context, currentOptions) {
     if (currentOptions && currentOptions.text) {
         $context.find(".ipaFieldOptionsRichText").val(currentOptions.text);
     }
-    $context.find(".ipaFieldOptionsRichText").tinymce(ipTinyMceConfigMin());
+    $context.find(".ipaFieldOptionsRichText").tinymce(ipTinyMceConfig());
 };
 
 ipWidgetIpForm_SaveWysiwygOptions = function ($context) {

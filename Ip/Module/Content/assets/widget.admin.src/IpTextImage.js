@@ -12,7 +12,7 @@ function IpWidget_IpTextImage(widgetObject) {
     this.addError = addError;
 
     this.manageInit = function() {
-        this.widgetObject.find('.ipwText').tinymce(ipTinyMceConfigMin());
+        this.widgetObject.find('.ipwText').tinymce(ipTinyMceConfig());
     }
 
 
@@ -45,7 +45,7 @@ function IpWidget_IpTextImage(widgetObject) {
 //        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
 //
 //
-//        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigMin());
+//        this.widgetObject.find('textarea').tinymce(ipTinyMceConfig());
 //    }
     
 
