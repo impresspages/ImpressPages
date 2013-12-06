@@ -73,17 +73,33 @@ class PublicController extends \Ip\Controller
         ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
 
         if (ipConfig()->getRaw('DEBUG_MODE')) {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/ipContentManagement.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.contentManagement.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.pageOptions.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widgetbutton.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.layoutModal.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.block.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/jquery.ip.widget.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/exampleContent.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/src/drag.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/ipContentManagement.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.contentManagement.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.pageOptions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.widgetbutton.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.layoutModal.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.block.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/jquery.ip.widget.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/exampleContent.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management/drag.js'));
+
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpColumns/assets/IpColumns.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpFaq/assets/IpFaq.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpFile/assets/IpFile.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpForm/assets/IpForm.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpForm/assets/IpFormContainer.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpForm/assets/IpFormField.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpForm/assets/IpFormOptions.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpHtml/assets/IpHtml.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpImage/assets/IpImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpImageGallery/assets/IpImageGallery.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTable/assets/IpTable.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpText/assets/IpText.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTextImage/assets/IpTextImage.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTitle/assets/IpTitle.js'));
+
         } else {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/content.min.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management.min.js'));
         }
 
 
@@ -108,25 +124,6 @@ class PublicController extends \Ip\Controller
         ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 
-
-        if (ipConfig()->getRaw('DEBUG_MODE')) {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpColumns.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFaq.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFile.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpForm.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormContainer.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormField.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpFormOptions.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpHtml.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImage.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpImageGallery.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTable.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpText.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTextImage.js'));
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.src/IpTitle.js'));
-        } else {
-            ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widget.admin.min.js'));
-        }
 
         if (ipIsManagementState()) {
             ipAddJavascriptVariable('ipWidgetLayoutModalTemplate', \Ip\View::create('view/widgetLayoutModal.php')->render());
