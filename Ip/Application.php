@@ -80,23 +80,25 @@ class Application {
 
     protected function initTranslations($languageCode)
     {
-        \Ip\Translator::init($languageCode);
+        $translator = \Ip\ServiceLocator::translator();
+        $translator->getPluginManager()->setInvokableClass('json', 'Ip\Translator\JsonLoader');
+        $translator->setLocale($languageCode);
 
         $theme = ipConfig()->theme();
         $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
 
-        \Ip\Translator::addTranslationFilePattern('json', $originalDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
-        \Ip\Translator::addTranslationFilePattern('json', ipFile("Theme/$theme/translations/"), "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
-        \Ip\Translator::addTranslationFilePattern('json', $overrideDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern('json', ipFile("Theme/$theme/translations/"), "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
 
-        \Ip\Translator::addTranslationFilePattern('json', $originalDir, "%s/ipAdmin.json", 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipAdmin.json", 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('json', $overrideDir, "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipAdmin.json", 'ipAdmin');
 
-        \Ip\Translator::addTranslationFilePattern('json', $originalDir, "%s/ipPublic.json", 'ipPublic');
-        \Ip\Translator::addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipPublic.json", 'ipPublic');
-        \Ip\Translator::addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
     }
 
     /**

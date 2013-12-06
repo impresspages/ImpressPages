@@ -293,23 +293,13 @@ function escUrlRaw($url)
 
 function __($text, $domain, $esc = 'html')
 {
-    if ($domain == 'ipAdmin') {
-        $esc = 'html';
-    }
-    return esc(\Ip\Translator::translate($text, $domain), $esc);
+    return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
 }
 
 function _e($text, $domain, $esc = 'html')
 {
     echo __($text, $domain, $esc);
 }
-
-//TODOX ask Algimantas if this is still used
-//function _n($singular, $plural, $number, $domain)
-//{
-//    return \Ip\Translator::translatePlural($singular, $plural, $number, $domain);
-//}
-
 
 function ipFile($path)
 {

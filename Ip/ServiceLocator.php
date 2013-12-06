@@ -26,6 +26,7 @@ class ServiceLocator
     protected static $options = null;
     protected static $storage = null;
     protected static $db;
+    protected static $translator;
 
     public static function options()
     {
@@ -171,5 +172,17 @@ class ServiceLocator
         }
 
         return self::$db;
+    }
+
+    /**
+     * @return \Zend\I18n\Translator\Translator
+     */
+    public static function translator()
+    {
+        if (static::$translator === null) {
+            static::$translator = new \Zend\I18n\Translator\Translator();
+        }
+
+        return static::$translator;
     }
 }
