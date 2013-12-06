@@ -81,7 +81,6 @@ class Application {
     protected function initTranslations($languageCode)
     {
         $translator = \Ip\ServiceLocator::translator();
-        $translator->getPluginManager()->setInvokableClass('json', 'Ip\Translator\JsonLoader');
         $translator->setLocale($languageCode);
 
         $theme = ipConfig()->theme();
@@ -119,8 +118,7 @@ class Application {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $language = ipContent()->getCurrentLanguage();
-                $languageCode = $language->getCode();
+                $languageCode = ipContent()->getCurrentLanguage()->getCode();
             }
             $this->initTranslations($languageCode);
         }
