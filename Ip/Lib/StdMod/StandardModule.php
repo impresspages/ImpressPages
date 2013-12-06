@@ -938,7 +938,7 @@ class StandardModule {
 
 <script type="text/javascript">
   //<![CDATA[
-  $(\'.mceEditor\').tinymce(ipTinyMceConfigMed);
+  $(\'.mceEditor\').tinymce(ipTinyMceConfig());
   //]]>
 </script>
 '.ipResponse()->generateJavascript().'

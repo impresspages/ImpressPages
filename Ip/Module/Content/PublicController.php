@@ -62,10 +62,8 @@ class PublicController extends \Ip\Controller
         }
         ipAddJavascriptVariable('ipWidgetSnippets', $snippets);
 
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/paste_preprocess.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/min.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/med.js'));
-        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/max.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/pastePreprocess.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/default.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/tinymce/table.js'));
 
         ipAddCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css'));
