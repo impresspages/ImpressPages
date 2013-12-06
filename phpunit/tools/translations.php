@@ -53,6 +53,12 @@ foreach ($all as $key => $values) {
     $domains[$domain][$id] = $id;
 }
 
+foreach (array('ipPublic', 'ipAdmin') as $domain) {
+    $messages = json_decode(file_get_contents($rootDir . '/Ip/Translator/translations/en/' . $domain . '.json'), true);
+
+    $domains[$domain] = array_merge($domains[$domain], $messages);
+}
+
 `rm all.json`;
 
 foreach ($domains as $domain => $messageList) {
