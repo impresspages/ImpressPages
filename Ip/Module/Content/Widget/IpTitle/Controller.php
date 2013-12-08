@@ -41,6 +41,10 @@ class Controller extends \Ip\WidgetController{
     public function adminSnippets()
     {
         $snippets[] = \Ip\View::create('snippet/controls.php')->render();
+        $variables = array(
+            'curUrl' => \Ip\Internal\UrlHelper::getCurrentUrl()
+        );
+        $snippets[] = \Ip\View::create('snippet/options.php', $variables)->render();
         return $snippets;
     }
 

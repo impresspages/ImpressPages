@@ -97,6 +97,7 @@ class PublicController extends \Ip\Controller
             ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpText/assets/IpText.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTextImage/assets/IpTextImage.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTitle/assets/IpTitle.js'));
+            ipAddJavascript(ipFileUrl('Ip/Module/Content/Widget/IpTitle/assets/IpTitleModal.js'));
 
         } else {
             ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/management.min.js'));

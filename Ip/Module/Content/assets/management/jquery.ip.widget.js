@@ -67,8 +67,13 @@
                             $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                             $this.remove();
                         }
+
                         if (callback) {
-                            callback($newWidget);
+                            if (refresh) {
+                                callback($newWidget);
+                            } else {
+                                callback($this);
+                            }
                         }
                     },
                     error: function(response) {
@@ -129,9 +134,6 @@
         $modal.ipLayoutModal({
             layouts: layouts,
             currentLayout: currentLayout,
-            changeCallback: function(layout){
-                $(this).ipWidget('changeLayout', layout);
-            },
             widgetObject: $this
         })
     }
