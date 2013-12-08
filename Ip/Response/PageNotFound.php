@@ -50,7 +50,7 @@ class PageNotFound extends \Ip\Response\Layout {
     protected function error404Message(){
         $message = '';
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
-            $message = __('Config.error_mistyped_url', 'ipPublic');
+            $message = __('Config.error_mistyped_url', 'ipPublic', false);
         } else {
             if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) !== false) {
                 $message = '<p>' . __('Config.error_broken_link_inside', 'ipPublic') . '</p>';

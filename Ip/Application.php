@@ -80,9 +80,24 @@ class Application {
 
     protected function initTranslations($languageCode)
     {
-        \Ip\Translator::init($languageCode);
-        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipAdmin-%s.php', 'ipAdmin');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/languages'), 'ipPublic-%s.php', 'ipPublic');
+        $translator = \Ip\ServiceLocator::translator();
+        $translator->setLocale($languageCode);
+
+        $theme = ipConfig()->theme();
+        $originalDir = ipFile("file/translations/original/");
+        $overrideDir = ipFile("file/translations/override/");
+
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern('json', ipFile("Theme/$theme/translations/"), "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipAdmin.json", 'ipAdmin');
+
+        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
     }
 
     /**
@@ -103,8 +118,7 @@ class Application {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $language = ipContent()->getCurrentLanguage();
-                $languageCode = $language->getCode();
+                $languageCode = ipContent()->getCurrentLanguage()->getCode();
             }
             $this->initTranslations($languageCode);
         }
