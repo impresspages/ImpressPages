@@ -11,7 +11,7 @@ namespace Ip\Module\Content\Widget\IpTextImage;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Text with image', 'ipAdmin');
+        return __('Text with image', 'ipAdmin', false);
     }
 
 

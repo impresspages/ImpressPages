@@ -13,7 +13,7 @@ class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
-        return __('Contact form', 'ipAdmin');
+        return __('Contact form', 'ipAdmin', false);
     }
     
     public function post ($instanceId, $data) {
@@ -55,7 +55,7 @@ class Controller extends \Ip\WidgetController{
         usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
-        $snippets[] = \Ip\View::create('snippet/popup.php', $data)->render();        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+        $snippets[] = \Ip\View::create('snippet/popup.php', $data)->render();
         return $snippets;
 
     }
