@@ -77,8 +77,9 @@ function IpWidget_IpTitle() {
         $controls.css('left', $widgetObject.offset().left);
         $controls.css('top', $widgetObject.offset().top - $controls.height() - 5);
         $controls.find('.ipsH').on('click', $.proxy(levelPressed, this));
-        //$('*[data-customerID="22"]');
 
+        $controls.find('.ipsH').removeClass('active');
+        $controls.find('.ipsH[data-level="' + this.data.level + '"]').addClass('active');
     };
 
 
@@ -97,45 +98,15 @@ function IpWidget_IpTitle() {
         $preview.text(newText);
     };
 
-    var saveSelection = function () {
-//        if(window.getSelection)//non IE Browsers
-//        {
-//            this.savedRange = window.getSelection().getRangeAt(0);
-//        }
-//        else if(document.selection)//IE
-//        {
-//            this.savedRange = document.selection.createRange();
-//        }
-//        console.log(this.savedRange);
-    };
-
-    var restoreSelection = function () {
-//        this.$header.focus();
-//        if (this.savedRange != null) {
-//            if (window.getSelection)//non IE and there is already a selection
-//            {
-//                var s = window.getSelection();
-//                if (s.rangeCount > 0)
-//                    s.removeAllRanges();
-//                s.addRange(savedRange);
-//            }
-//            else if (document.createRange)//non IE and no selection
-//            {
-//                window.getSelection().addRange(savedRange);
-//            }
-//            else if (document.selection)//IE
-//            {
-//                savedRange.select();
-//            }
-//        }
-    };
 
     var save = function (refresh, callback) {
         var saveData = {
             title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
             level: this.data.level
-        }
-        this.$widgetObject.save(saveData, refresh, function($widget){console.log('respnose'); console.log($widget); $widget.find('h1,h2,h3,h4,h5,h6').focus();})
+        };
+        this.$widgetObject.save(saveData, refresh, function($widget){
+            $widget.find('h1,h2,h3,h4,h5,h6').focus();
+        });
     };
 
 
