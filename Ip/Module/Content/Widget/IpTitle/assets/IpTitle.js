@@ -36,7 +36,7 @@ function IpWidget_IpTitle() {
     }
 
     this.blur = function(e) {
-        if ($(e.relatedTarget).hasClass('ipsH')) {
+        if ($(e.relatedTarget).hasClass('ipsH') || $(e.relatedTarget).hasClass('ipsOptions')) {
             return;
         }
         this.removeControls();
@@ -53,26 +53,17 @@ function IpWidget_IpTitle() {
     };
 
 
-    this.initOptions = function () {
-        var $self = this.$widgetObject;
-        $self.find('.ipsTitleOptionsButton').on('click', function (e) {
-            $self.find('.ipsTitleOptions').toggle(getChildern);
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        });
-        $self.find('.ipsAnchor').on('keydown', $.proxy(updateAnchor, this));
-        $self.find('.ipsAnchor').on('change', $.proxy(updateAnchor, this));
-        $self.find('.ipsAnchor').on('keyup', $.proxy(updateAnchor, this));
+    this.saveOptions = function (data) {
+        this.data.anchor = data.anchor;
+        this.save(false);
+    }
 
+    this.openOptions = function () {
+        var $modal = $('#ipWidgetTitleOptions');
+        $modal.removeClass('hide');
+        $modal.ipWidgetIpTitleModal({anchor: this.data.anchor, saveCallback: $.proxy(this.saveOptions, this)});
     };
 
-    this.updateAnchor = function () {
-        var  $preview = this.$widgetObject.find('.ipsAnchorPreview');
-        var curText = $preview.text();
-        var newText = curText.split('#')[0] + '#' + this.$widgetObject.find('.ipsAnchor').val();
-        $preview.text(newText);
-    };
 
     this.initControls = function () {
         var $controls = this.$controls;
@@ -102,10 +93,11 @@ function IpWidget_IpTitle() {
 
 
 
-    this.save = function (refresh, callback) {
+    this.save = function (refresh) {
         var saveData = {
-            title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
-            level: this.data.level
+            title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').text(),
+            level: this.data.level,
+            anchor: this.data.anchor
         };
         this.$widgetObject.save(saveData, refresh, function($widget){
             $widget.find('h1,h2,h3,h4,h5,h6').focus();
@@ -115,12 +107,12 @@ function IpWidget_IpTitle() {
 
 
     this.tinyMceConfig = function () {
-        var $controller = this;
+        var self = this;
         var customTinyMceConfig = ipTinyMceConfig();
         customTinyMceConfig.menubar = false;
         customTinyMceConfig.toolbar = false;
         customTinyMceConfig.setup = function(ed, l) {
-            ed.on('change', function(){$.proxy(save, $controller)(false)});
+            ed.on('change', function(){$.proxy(self.save, self)(false)});
         };
         customTinyMceConfig.paste_as_text = true;
         customTinyMceConfig.valid_elements = '';

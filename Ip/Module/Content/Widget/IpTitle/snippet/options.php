@@ -7,9 +7,9 @@
                     <h4 class="modal-title"><?php echo __('Options', 'ipAdmin') ?></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="ipsTitleOptions" style="display: none;">
-                        <label class="ipAdminLabel"><?php echo $this->escPar('standard/content_management/widget_title/anchor'); ?> <span class="ipsAnchorPreview ipmAnchorPreview"><?php echo $curUrl ?>#<?php echo htmlspecialchars(isset($id) ? $id : '' ); ?></span><br/>
-                            <input name="id" class="ipAdminInput ipsAnchor" value="<?php echo htmlspecialchars(isset($id) ? $id : '' ); ?>" /></label>
+                    <div class="ipsTitleOptions">
+                        <label class="ipAdminLabel"><?php _e('Anchor', 'ipAdmin') ?> <span class="ipsAnchorPreview ipmAnchorPreview"><?php echo $curUrl ?>#</span><br/>
+                            <input name="id" class="ipAdminInput ipsAnchor" value="" /></label>
                     </div>
                 </div>
                 <div class="modal-footer">
