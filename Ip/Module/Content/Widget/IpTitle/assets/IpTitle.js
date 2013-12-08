@@ -49,7 +49,7 @@ function IpWidget_IpTitle() {
     }
 
     this.destroy = function() {
-        this.initControls();
+        this.removeControls();
     };
 
 
