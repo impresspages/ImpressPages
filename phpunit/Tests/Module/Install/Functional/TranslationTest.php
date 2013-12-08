@@ -17,8 +17,7 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         // Required for test
         $_SESSION = array('step' => 2);
 
-        \Ip\Translator::init('en');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/Module/Install/languages'), '%s.php', 'ipInstall');
+        // TODOX check whether test nees translation init
 
         $view = \Ip\View::create(ipFile('Ip/Module/Install/view/layout.php'), array('content' => ''));
         $html = $view->render();
@@ -42,8 +41,7 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
         // Required for test
         $_SESSION = array('step' => 2);
 
-        \Ip\Translator::init('lt');
-        \Ip\Translator::addTranslationFilePattern('phparray', ipFile('Ip/Module/Install/languages'), '%s.php', 'ipInstall');
+        // TODOX init lithuanian translations
 
         $view = \Ip\View::create(ipFile('Plugin/Install/view/layout.php'), array('content' => ''));
         $html = $view->render();
