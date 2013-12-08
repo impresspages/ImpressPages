@@ -3,35 +3,60 @@
  *
  *
  */
-function IpWidget_IpTitle(widgetObject) {
+function IpWidget_IpTitle() {
     "use strict";
-    this.widgetObject = null;
+    this.$widgetObject = null;
     this.data = null;
+    this.$header = null;
+    this.$controls = null;
+    this.savedRange = null;
 
-    this.init = function ($widgetObject, data, editMode) {
-        this.widgetObject = $widgetObject;
+    this.init = function ($widgetObject, data) {
+        var thisScope = this;
+        this.$widgetObject = $widgetObject;
         this.data = data;
+        this.$header = $widgetObject.find('h1,h2,h3,h4,h5,h6');
+        this.$controls = $('#ipWidgetTitleControls');
+
+        this.$header.tinymce($.proxy(tinyMceConfig, this)());
+
+        this.$header.on('focus', $.proxy(focus, this));
+        this.$header.on('blur', $.proxy(blur, this));
+        if (!data.level) {
+            this.data.level = 1;
+        }
+        this.$widgetObject.on('remove', $.proxy(destroy, this));
+
+    };
 
 
-        var customTinyMceConfig = ipTinyMceConfig();
-        customTinyMceConfig.menubar = false;
-        customTinyMceConfig.toolbar = false;
-        customTinyMceConfig.setup = function(ed, l) {
-            ed.on('change', function(e) {
-                $widgetObject.save({title: $widgetObject.find('h1,h2,h3,h4,h5,h6').html()});
-            });
-        };
-        customTinyMceConfig.paste_as_text = true;
-        customTinyMceConfig.valid_elements = '';
-            customTinyMceConfig.custom_shortcuts = false;
 
-        $widgetObject.find('h1,h2,h3,h4,h5,h6').tinymce(customTinyMceConfig);
+    var focus = function () {
+        $.proxy(initControls, this)()
+    }
+
+    var blur = function(e) {
+        if ($(e.relatedTarget).hasClass('ipsH')) {
+            return;
+        }
+        $.proxy(removeControls, this)();
+    };
+
+    var removeControls = function() {
+        this.$controls.addClass('hide');
+        this.$controls.find('.ipsH').off();
+        this.$controls.find('.ipsOptions').off();
+    }
+
+    var destroy = function() {
+        $.proxy(removeControls, this)();
+    };
 
 
-        //TODOX refactor this functionality
-        var $self = this.widgetObject;
+    var initOptions = function () {
+        var $self = this.$widgetObject;
         $self.find('.ipsTitleOptionsButton').on('click', function (e) {
-            $self.find('.ipsTitleOptions').toggle();
+            $self.find('.ipsTitleOptions').toggle(getChildern);
             e.preventDefault();
             e.stopPropagation();
             return false;
@@ -42,21 +67,92 @@ function IpWidget_IpTitle(widgetObject) {
 
     };
 
-    var updateAnchor = function () {
-        var  $preview = this.widgetObject.find('.ipsAnchorPreview');
-        var curText = $preview.text();
-        var newText = curText.split('#')[0] + '#' + this.widgetObject.find('.ipsAnchor').val();
-        $preview.text(newText);
-    }
+    var initControls = function () {
+        var $controls = this.$controls;
+        var $widgetObject = this.$widgetObject;
+        $controls.removeClass('hide');
+        $controls.css('left', $widgetObject.offsetLeft);
+        $controls.css('top', $widgetObject.offsetTop);
+        $controls.css('position', 'absolute');
+        $controls.css('left', $widgetObject.offset().left);
+        $controls.css('top', $widgetObject.offset().top - $controls.height() - 5);
+        $controls.find('.ipsH').on('click', $.proxy(levelPressed, this));
+        //$('*[data-customerID="22"]');
 
-    this.prepareData = function () {
-        var widgetInputs = this.widgetObject.find('.ipaBody').find(':input');
-        var data = {};
-        widgetInputs.each(function (index) {
-            data[$(this).attr('name')] = $(this).val();
-        });
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
+    };
+
+
+
+
+    var levelPressed = function (e) {
+        $.proxy(removeControls, this)();
+        this.data.level = $(e.currentTarget).data('level');
+        $.proxy(save, this)(true);
+    };
+
+    var updateAnchor = function () {
+        var  $preview = this.$widgetObject.find('.ipsAnchorPreview');
+        var curText = $preview.text();
+        var newText = curText.split('#')[0] + '#' + this.$widgetObject.find('.ipsAnchor').val();
+        $preview.text(newText);
+    };
+
+    var saveSelection = function () {
+//        if(window.getSelection)//non IE Browsers
+//        {
+//            this.savedRange = window.getSelection().getRangeAt(0);
+//        }
+//        else if(document.selection)//IE
+//        {
+//            this.savedRange = document.selection.createRange();
+//        }
+//        console.log(this.savedRange);
+    };
+
+    var restoreSelection = function () {
+//        this.$header.focus();
+//        if (this.savedRange != null) {
+//            if (window.getSelection)//non IE and there is already a selection
+//            {
+//                var s = window.getSelection();
+//                if (s.rangeCount > 0)
+//                    s.removeAllRanges();
+//                s.addRange(savedRange);
+//            }
+//            else if (document.createRange)//non IE and no selection
+//            {
+//                window.getSelection().addRange(savedRange);
+//            }
+//            else if (document.selection)//IE
+//            {
+//                savedRange.select();
+//            }
+//        }
+    };
+
+    var save = function (refresh, callback) {
+        var saveData = {
+            title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
+            level: this.data.level
+        }
+        this.$widgetObject.save(saveData, refresh, function($widget){console.log('respnose'); console.log($widget); $widget.find('h1,h2,h3,h4,h5,h6').focus();})
+    };
+
+
+
+    var tinyMceConfig = function () {
+        var $controller = this;
+        var customTinyMceConfig = ipTinyMceConfig();
+        customTinyMceConfig.menubar = false;
+        customTinyMceConfig.toolbar = false;
+        customTinyMceConfig.setup = function(ed, l) {
+            ed.on('change', function(){$.proxy(save, $controller)(false)});
+        };
+        customTinyMceConfig.paste_as_text = true;
+        customTinyMceConfig.valid_elements = '';
+        customTinyMceConfig.custom_shortcuts = false;
+        return customTinyMceConfig;
+    };
 
 };
 
