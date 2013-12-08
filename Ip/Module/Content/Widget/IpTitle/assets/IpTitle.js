@@ -18,42 +18,42 @@ function IpWidget_IpTitle() {
         this.$header = $widgetObject.find('h1,h2,h3,h4,h5,h6');
         this.$controls = $('#ipWidgetTitleControls');
 
-        this.$header.tinymce($.proxy(tinyMceConfig, this)());
+        this.$header.tinymce(this.tinyMceConfig());
 
-        this.$header.on('focus', $.proxy(focus, this));
-        this.$header.on('blur', $.proxy(blur, this));
+        this.$header.on('focus', $.proxy(this.focus, this));
+        this.$header.on('blur', $.proxy(this.blur, this));
         if (!data.level) {
             this.data.level = 1;
         }
-        this.$widgetObject.on('remove', $.proxy(destroy, this));
+        this.$widgetObject.on('remove', $.proxy(this.destroy, this));
 
     };
 
 
 
-    var focus = function () {
-        $.proxy(initControls, this)()
+    this.focus = function () {
+        this.initControls();
     }
 
-    var blur = function(e) {
+    this.blur = function(e) {
         if ($(e.relatedTarget).hasClass('ipsH')) {
             return;
         }
-        $.proxy(removeControls, this)();
+        this.removeControls();
     };
 
-    var removeControls = function() {
+    this.removeControls = function() {
         this.$controls.addClass('hide');
         this.$controls.find('.ipsH').off();
         this.$controls.find('.ipsOptions').off();
     }
 
-    var destroy = function() {
-        $.proxy(removeControls, this)();
+    this.destroy = function() {
+        this.initControls();
     };
 
 
-    var initOptions = function () {
+    this.initOptions = function () {
         var $self = this.$widgetObject;
         $self.find('.ipsTitleOptionsButton').on('click', function (e) {
             $self.find('.ipsTitleOptions').toggle(getChildern);
@@ -67,7 +67,14 @@ function IpWidget_IpTitle() {
 
     };
 
-    var initControls = function () {
+    this.updateAnchor = function () {
+        var  $preview = this.$widgetObject.find('.ipsAnchorPreview');
+        var curText = $preview.text();
+        var newText = curText.split('#')[0] + '#' + this.$widgetObject.find('.ipsAnchor').val();
+        $preview.text(newText);
+    };
+
+    this.initControls = function () {
         var $controls = this.$controls;
         var $widgetObject = this.$widgetObject;
         $controls.removeClass('hide');
@@ -76,30 +83,26 @@ function IpWidget_IpTitle() {
         $controls.css('position', 'absolute');
         $controls.css('left', $widgetObject.offset().left);
         $controls.css('top', $widgetObject.offset().top - $controls.height() - 5);
-        $controls.find('.ipsH').on('click', $.proxy(levelPressed, this));
+        $controls.find('.ipsH').on('click', $.proxy(this.levelPressed, this));
 
         $controls.find('.ipsH').removeClass('active');
         $controls.find('.ipsH[data-level="' + this.data.level + '"]').addClass('active');
+        $controls.find('.ipsOptions').on('click', $.proxy(this.openOptions, this));
     };
 
 
 
 
-    var levelPressed = function (e) {
-        $.proxy(removeControls, this)();
+    this.levelPressed = function (e) {
+        this.removeControls();
         this.data.level = $(e.currentTarget).data('level');
-        $.proxy(save, this)(true);
-    };
-
-    var updateAnchor = function () {
-        var  $preview = this.$widgetObject.find('.ipsAnchorPreview');
-        var curText = $preview.text();
-        var newText = curText.split('#')[0] + '#' + this.$widgetObject.find('.ipsAnchor').val();
-        $preview.text(newText);
+        this.save(true);
     };
 
 
-    var save = function (refresh, callback) {
+
+
+    this.save = function (refresh, callback) {
         var saveData = {
             title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
             level: this.data.level
@@ -111,7 +114,7 @@ function IpWidget_IpTitle() {
 
 
 
-    var tinyMceConfig = function () {
+    this.tinyMceConfig = function () {
         var $controller = this;
         var customTinyMceConfig = ipTinyMceConfig();
         customTinyMceConfig.menubar = false;
