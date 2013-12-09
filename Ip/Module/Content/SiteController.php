@@ -11,7 +11,7 @@ namespace Ip\Module\Content;
 class SiteController extends \Ip\Controller{
 
 
-    public function widgetPost()
+    public function widgetPostAction()
     {
         $instanceId = ipRequest()->getPost('instanceId');
 

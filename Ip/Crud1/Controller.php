@@ -11,12 +11,12 @@ namespace Ip\Crud1;
  * @package Library\Php\Ecommerce
  */
 abstract class Controller extends \Ip\Controller{
-    public function index()
+    public function indexAction()
     {
 
     }
 
-    public function crud()
+    public function crudAction()
     {
         $worker = new Worker($this->crudConfig());
         return $worker->handleAction();
@@ -25,7 +25,7 @@ abstract class Controller extends \Ip\Controller{
     /**
      * @return array
      */
-    abstract protected function crudConfig();
+    abstract protected function crudConfigAction();
 
 //    /**
 //     * @return \Ip\Crud1\Controller

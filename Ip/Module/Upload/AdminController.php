@@ -12,7 +12,7 @@ use Ip\Response\JsonRpc;
 class AdminController extends \Ip\Controller
 {
 
-    public function getImageContainerHtml() {
+    public function getImageContainerHtmlAction() {
         $html = \Ip\View::create('view/imageContainer.php', array())->render();
 
         $result = array(
@@ -25,7 +25,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getFileContainerHtml() {
+    public function getFileContainerHtmlAction() {
         $html = \Ip\View::create('view/fileContainer.php', array())->render();
 
         $result = array(
@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($result);
     }
 
-    public function upload(){
+    public function uploadAction(){
         if (!isset($_SESSION['backend_session']['userId'])) {
             die('{"jsonrpc" : "2.0", "error" : {"code": 201, "message": "Try to upload image to temporary directory without permission."}, "id" : "id"}');
         }

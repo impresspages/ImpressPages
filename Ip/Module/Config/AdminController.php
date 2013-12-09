@@ -11,7 +11,7 @@ namespace Ip\Module\Config;
 
 class AdminController extends \Ip\Controller{
 
-    public function index()
+    public function indexAction()
     {
 
 
@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function saveValue()
+    public function saveValueAction()
     {
         $request = \Ip\ServiceLocator::request();
 

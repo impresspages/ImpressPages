@@ -8,7 +8,7 @@ namespace Ip\Module\Content;
 
 class PublicController extends \Ip\Controller
 {
-    public function index()
+    public function indexAction()
     {
         $currentPage = ipContent()->getCurrentPage();
 

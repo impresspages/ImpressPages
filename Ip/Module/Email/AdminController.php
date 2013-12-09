@@ -9,7 +9,7 @@ namespace Ip\Module\Email;
 
 
 class AdminController extends \Ip\Controller{
-    function index(){
+    function indexAction(){
 
 
         $elements = array();

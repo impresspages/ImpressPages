@@ -3,7 +3,7 @@ namespace Ip\Module\Admin;
 
 class SiteController extends \Ip\Controller{
 
-    public function loginAjax()
+    public function loginAjaxAction()
     {
 
         ipRequest()->mustBePost();
@@ -58,18 +58,18 @@ class SiteController extends \Ip\Controller{
         }
     }
 
-    public function logout()
+    public function logoutAction()
     {
         Model::instance()->logout();
         return new \Ip\Response\Redirect(ipFileUrl('admin/'));
     }
 
-    public function sessionRefresh()
+    public function sessionRefreshAction()
     {
         return new \Ip\Response\Json(array());
     }
 
-    public function login()
+    public function loginAction()
     {
         if (\Ip\Module\Admin\Backend::userId()) {
             //user has already been logged in

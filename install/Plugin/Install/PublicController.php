@@ -16,7 +16,7 @@ class PublicController extends \Ip\Controller
         }
     }
 
-    public function index ()
+    public function indexAction ()
     {
         if (isset($_GET['step'])) {
             $step = (int)$_GET['step'];
@@ -32,7 +32,7 @@ class PublicController extends \Ip\Controller
         return $this->$method();
     }
 
-    protected function step0()
+    protected function step0Action()
     {
         $selected_language = (isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en');
 
@@ -59,7 +59,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    protected function step1()
+    protected function step1Action()
     {
         Model::completeStep(1);
 
@@ -88,7 +88,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    protected function step2()
+    protected function step2Action()
     {
         Model::completeStep(2);
 
@@ -100,7 +100,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    protected function step3()
+    protected function step3Action()
     {
         if (!isset($_SESSION['db'])) {
             $_SESSION['db'] = array(
@@ -129,7 +129,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    protected function step4()
+    protected function step4Action()
     {
         $dateTimeObject = new \DateTime();
         $currentTimeZone = $dateTimeObject->getTimezone()->getName();
@@ -173,7 +173,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    protected function step5()
+    protected function step5Action()
     {
         $SESSION['step'] = 5;
         $content = \Ip\View::create('view/step5.php')->render();
@@ -184,7 +184,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function createDatabase()
+    public function createDatabaseAction()
     {
         $db = ipRequest()->getPost('db');
 
@@ -256,7 +256,7 @@ class PublicController extends \Ip\Controller
         }
     }
 
-    public function writeConfig()
+    public function writeConfigAction()
     {
         if (empty($_SESSION['db'])) {
             return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'ipInstall', 'false'));
@@ -335,7 +335,7 @@ class PublicController extends \Ip\Controller
     }
 
 
-    protected function getParentUrl() {
+    protected function getParentUrlAction() {
         $pageURL = '';
         if ($_SERVER["SERVER_PORT"] != "80") {
             $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
@@ -348,7 +348,7 @@ class PublicController extends \Ip\Controller
         return $pageURL;
     }
 
-    protected function applyLayout($content, $data = array())
+    protected function applyLayoutAction($content, $data = array())
     {
         $data['content'] = $content;
         $layout = \Ip\View::create('view/layout.php', $data);

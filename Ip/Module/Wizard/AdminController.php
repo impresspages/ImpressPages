@@ -9,7 +9,7 @@ namespace Ip\Module\Wizard;
 
 class AdminController extends \Ip\Controller{
 
-    public function loadContent() {
+    public function loadContentAction() {
         $viewData = array (
             'tip_dragWidget' => ipGetOption('Wizard.tip_dragWidget'),
             'tip_dropWidget' => ipGetOption('Wizard.tip_dropWidget'),
@@ -29,7 +29,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function closeWizardTip() {
+    public function closeWizardTipAction() {
         if (!isset($_POST['id'])) {
             trigger_error("Required parameter missing");
         }
