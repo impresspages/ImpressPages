@@ -1,1 +1,1 @@
-<h1 <?php echo isset($id) ? 'id="'.esc($id).'"': '' ?> class="ipwTitle"><?php echo !empty($title) ? esc($title) : '&nbsp;'; ?></h1>
+<h<?php echo (int)$level ?> <?php echo isset($id) ? 'id="'.esc($id).'"': '' ?> class="ipwTitle"><?php echo !empty($title) ? esc($title) : '&nbsp;'; ?></h<?php echo (int)$level ?>>
