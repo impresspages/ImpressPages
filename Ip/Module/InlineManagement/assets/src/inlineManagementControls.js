@@ -47,7 +47,6 @@
                             top : objOffset.top
                         })
                         .show()
-                        .find('.ipaButton').hide(); // hiding all buttons
                         for (var key in options) {
                             $controls
                             .find('.ipActionWidget'+key).show().off().on('click', function(event){

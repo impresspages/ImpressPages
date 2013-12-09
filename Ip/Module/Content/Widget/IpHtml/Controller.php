@@ -13,7 +13,7 @@ class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
-        return __('HTML code', 'ipAdmin');
+        return __('HTML code', 'ipAdmin', false);
     }
     
 }

@@ -14,7 +14,7 @@
             return this.each(function () {
                 var $this = $(this);
                 $this.prepend(options.widgetControlls);
-                $this.save = function(data, refresh){$(this).ipWidget('save', data, refresh);};
+                $this.save = function(data, refresh, callback){$(this).ipWidget('save', data, refresh, callback);};
                 var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
@@ -39,7 +39,7 @@
 
 
 
-        save: function (widgetData, refresh) {
+        save: function (widgetData, refresh, callback) {
 
             return this.each(function () {
                 var $this = $(this);
@@ -57,16 +57,24 @@
                     data: data,
                     context: $this,
                     success: function(response) {
-                        if (!refresh) {
-                            return;
-                        }
-                        var $newWidget = $(response.previewHtml);
-                        $($newWidget).insertAfter($this);
-                        $newWidget.trigger('reinitRequired.ipWidget');
+                        if (refresh) {
+                            var newWidget = response.previewHtml;
+                            var $newWidget = $(newWidget);
+                            $newWidget.insertAfter($this);
+                            $newWidget.trigger('reinitRequired.ipWidget');
 
-                        // init any new blocks the widget may have created
-                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-                        $this.remove();
+                            // init any new blocks the widget may have created
+                            $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+                            $this.remove();
+                        }
+
+                        if (callback) {
+                            if (refresh) {
+                                callback($newWidget);
+                            } else {
+                                callback($this);
+                            }
+                        }
                     },
                     error: function(response) {
                         console.log(response);
@@ -110,12 +118,6 @@
                 });
 
             });
-        },
-
-        refresh: function (widgetData) {
-            return this.each(function () {
-
-            });
         }
 
     };
@@ -132,9 +134,6 @@
         $modal.ipLayoutModal({
             layouts: layouts,
             currentLayout: currentLayout,
-            changeCallback: function(layout){
-                $(this).ipWidget('changeLayout', layout);
-            },
             widgetObject: $this
         })
     }

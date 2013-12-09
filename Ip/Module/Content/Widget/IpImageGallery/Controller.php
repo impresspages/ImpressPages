@@ -12,7 +12,7 @@ namespace Ip\Module\Content\Widget\IpImageGallery;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Photo gallery', 'ipAdmin');
+        return __('Photo gallery', 'ipAdmin', false);
     }
 
     
