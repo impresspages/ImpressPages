@@ -175,7 +175,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Zend\I18n\Translator\Translator
+     * @return \Ip\Translator\Translator
      */
     public static function translator()
     {
