@@ -76,6 +76,7 @@ function ipAddJavascript($file, $stage = 1)
     }
 }
 
+//TODOX remove
 function ipAddPluginAsset($plugin, $file, $attributes = array(), $priority = 1, $cacheFix = true)
 {
     $response = \Ip\ServiceLocator::response();
@@ -152,13 +153,13 @@ function ipLog()
     return \Ip\ServiceLocator::log();
 }
 
-
+//TODOX remove "print"
 function ipPrintJavascript()
 {
     echo \Ip\ServiceLocator::response()->generateJavascript();
 }
 
-
+//TODOX remove "print"
 function ipPrintHead()
 {
     echo \Ip\ServiceLocator::response()->generateHead();
