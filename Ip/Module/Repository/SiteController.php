@@ -23,7 +23,7 @@ class SiteController extends \Ip\Controller{
     /**
      * Upload file to temporary folder
      */
-    public function upload()
+    public function uploadAction()
     {
 
         if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
@@ -104,7 +104,7 @@ class SiteController extends \Ip\Controller{
      *
      * @throws \Ip\CoreException
      */
-    public function addFromUrl()
+    public function addFromUrlAction()
     {
 
         $this->backendOnly();
@@ -202,7 +202,7 @@ class SiteController extends \Ip\Controller{
         return $file;
     }
 
-    public function deleteTmpFile()
+    public function deleteTmpFileAction()
     {
         $this->backendOnly();
 
@@ -236,7 +236,7 @@ class SiteController extends \Ip\Controller{
     }
 
 
-    public function deleteFiles()
+    public function deleteFilesAction()
     {
         $this->backendOnly();
 

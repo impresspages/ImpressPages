@@ -8,7 +8,7 @@ use Symfony\Bridge\Twig\Tests\NodeVisitor\TranslationDefaultDomainNodeVisitorTes
 
 class AdminController extends \Ip\Controller
 {
-    public function index()
+    public function indexAction()
     {
         ipAddJavascript(ipFileUrl('Plugin/AssetRsync/assets/admin.js'));
 
@@ -48,7 +48,7 @@ class AdminController extends \Ip\Controller
         return \Ip\View::create('view/options.php', $data);
     }
 
-    public function saveOptions()
+    public function saveOptionsAction()
     {
         $request = ipRequest();
 
@@ -63,7 +63,7 @@ class AdminController extends \Ip\Controller
         return JsonRpc::result(true);
     }
 
-    public function syncAssets()
+    public function syncAssetsAction()
     {
         Model::syncAssets();
 

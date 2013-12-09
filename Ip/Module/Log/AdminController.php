@@ -10,7 +10,7 @@ namespace Ip\Module\Log;
 
 class AdminController extends \Ip\Controller
 {
-    public function index()
+    public function indexAction()
     {
 
         $elements = array();

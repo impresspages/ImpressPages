@@ -271,7 +271,7 @@ class Request
                 throw new \Ip\CoreException('Controller action can be requested only at website root.');
             }
             $this->controllerClass = $controllerClass;
-            $this->controllerAction = $action;
+            $this->controllerAction = $action . 'Action';
             $this->controllerType = $controllerType;
             return; //default controller to display page content.
         }
@@ -305,7 +305,7 @@ class Request
         }
 
         $this->controllerClass = $controllerClass;
-        $this->controllerAction = $action;
+        $this->controllerAction = $action . 'Action';
         $this->controllerType = $controllerType;
     }
 
@@ -326,7 +326,7 @@ class Request
         $this->controller = null;
         $this->controllerClass = $this->generateControllerClass($module, $type);
 
-        $this->controllerAction = $action;
+        $this->controllerAction = $action . 'Action';
     }
 
     private function generateControllerClass($module, $type)
@@ -354,7 +354,7 @@ class Request
 
     public function isDefaultAction()
     {
-        return $this->getControllerClass() == $this->defaultControllerClass && $this->getControllerAction() == $this->defaultControllerAction;
+        return $this->getControllerClass() == $this->defaultControllerClass && $this->getControllerAction() == $this->defaultControllerAction . 'Action';
     }
 
 
