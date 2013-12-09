@@ -301,37 +301,41 @@ function _e($text, $domain, $esc = 'html')
     echo __($text, $domain, $esc);
 }
 
-function ipFile($path)
-{
-    static $basePath = '';
-    if (!$basePath) {
-        $basePath = ipConfig()->getRaw('BASE_DIR') . '/';
-    }
+if (!function_exists('ipFile')) {
+    function ipFile($path)
+    {
+        static $basePath = '';
+        if (!$basePath) {
+            $basePath = ipConfig()->getRaw('BASE_DIR') . '/';
+        }
 
-    $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
-    if ($overrides) {
-        foreach ($overrides as $prefix => $newPath) {
-            if (strpos($path, $prefix) === 0) {
-                return substr_replace($path, $newPath, 0, strlen($prefix));
+        $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+        if ($overrides) {
+            foreach ($overrides as $prefix => $newPath) {
+                if (strpos($path, $prefix) === 0) {
+                    return substr_replace($path, $newPath, 0, strlen($prefix));
+                }
             }
         }
-    }
 
-    return $basePath . $path;
+        return $basePath . $path;
+    }
 }
 
-function ipFileUrl($path)
-{
-    $overrides = ipConfig()->getRaw('URL_OVERRIDES');
-    if ($overrides) {
-        foreach ($overrides as $prefix => $newPath) {
-            if (strpos($path, $prefix) === 0) {
-                return substr_replace($path, $newPath, 0, strlen($prefix));
+if (!function_exists('ipFileUrl')) {
+    function ipFileUrl($path)
+    {
+        $overrides = ipConfig()->getRaw('URL_OVERRIDES');
+        if ($overrides) {
+            foreach ($overrides as $prefix => $newPath) {
+                if (strpos($path, $prefix) === 0) {
+                    return substr_replace($path, $newPath, 0, strlen($prefix));
+                }
             }
         }
-    }
 
-    return ipConfig()->baseUrl() . $path;
+        return ipConfig()->baseUrl() . $path;
+    }
 }
 
 function ipActionUrl($query)
