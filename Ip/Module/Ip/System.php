@@ -13,6 +13,7 @@ class System
     {
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
+            // TODOX $response instanceof \Ip\Response\Layout ?
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/console.log.js'), 0);
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'), 0);
 
@@ -32,7 +33,6 @@ class System
             ipAddJavascriptVariable('Form_spectrumJsFile', ipFileUrl('Ip/Module/Ip/assets/js/spectrum/spectrum.min.js'));
             ipAddJavascriptVariable('Form_spectrumCssFile', ipFileUrl('Ip/Module/Ip/assets/js/spectrum/spectrum.css'));
             ipAddJavascriptVariable('Form_colorFieldJs', ipFileUrl('Ip/Module/Ip/assets/form/color.js'));
-
 
             $validatorTranslations = array(
                 'ipAdmin' => $this->validatorLocalizationData('ipAdmin'),
