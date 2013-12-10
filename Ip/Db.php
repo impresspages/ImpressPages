@@ -249,4 +249,9 @@ class Db
     {
         return $this->tablePrefix;
     }
+
+    public function isConnected()
+    {
+        return $this->pdoConnection ? TRUE : FALSE;
+    }
 }
