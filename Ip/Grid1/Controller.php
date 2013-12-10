@@ -19,7 +19,7 @@ abstract class Controller extends \Ip\Controller{
         $controllerClass = get_class($this);
         $controllerClassParts = explode('\\', $controllerClass);
         $aa = $controllerClassParts[2] . '.grid';
-        $gateway = ipConfig()->baseUrl() . '?' . http_build_query(array('aa' => $aa));
+        $gateway = array('aa' => $aa);
 
         $variables = array(
             'gateway' => $gateway
@@ -30,9 +30,9 @@ abstract class Controller extends \Ip\Controller{
 
     public function gridAction()
     {
-
         $worker = new Worker($this->config());
-        return $worker->handleAction(ipRequest());
+        $result =  $worker->handleMethod(ipRequest());
+        return new \Ip\Response\JsonRpc($result);
     }
 
     /**

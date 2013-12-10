@@ -22,43 +22,17 @@ class Worker {
         }
         switch($this->config['type']) {
             case 'table':
-                $this->model = new ModelTable();
+                $this->model = new Model\Table($this->config);
                 break;
             default:
                 throw new \Ip\CoreException('Undefined Grid type');
         }
     }
 
-    public function handleAction(\Ip\Request $request)
+    public function handleMethod(\Ip\Request $request)
     {
-        $data = $request->getRequest();
-        if (empty($data['method']) || !isset($data['params'])) {
-            throw new \Ip\CoreException('Missing request data');
-        }
-        switch($data['method']) {
-            case 'init':
-                return $this->init($data);
-                break;
-            default:
-                throw new \Ip\CoreException('Unknown grid action.');
-        }
-
-    }
-
-
-    protected function init($post)
-    {
-        $commands = array();
-        $commands[] = $this->refreshCommand();
-        return new \Ip\Response\JsonRpc($commands);
-    }
-
-    protected function refreshCommand()
-    {
-        return array(
-            'command' => 'setHtml',
-            'html' => \Ip\View::create('view/table.php')->render()
-        );
+        $commands = $this->model->handleMethod($request);
+        return $commands;
     }
 
 
