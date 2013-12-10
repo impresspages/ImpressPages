@@ -233,7 +233,9 @@ class Layout extends \Ip\Response {
             'ipRevisionId' => $revision['revisionId'],
             'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),
             'javascript' => $javascriptFiles,
-            'javascriptVariables' => $this->getJavascriptVariables()
+            'javascriptVariables' => $this->getJavascriptVariables(),
+            'ipDevelopmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
+            'ipDebugMode' => ipconfig()->isDebugMode()
         );
         return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
