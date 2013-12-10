@@ -367,3 +367,9 @@ function ipHomeUrl()
 
     return $homeUrl;
 }
+
+function ipRenderWidget($widgetName, $data = array(), $look = null)
+{
+    $answer = \Ip\Module\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
+    echo $answer;
+}
