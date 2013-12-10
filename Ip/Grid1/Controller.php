@@ -11,7 +11,7 @@ namespace Ip\Grid1;
  * @package Library\Php\Ecommerce
  */
 abstract class Controller extends \Ip\Controller{
-    public function indexAction()
+    public function index()
     {
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/grid1/src/grid1.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/grid1/src/grid1Init.js'));
@@ -28,7 +28,7 @@ abstract class Controller extends \Ip\Controller{
         return $content;
     }
 
-    public function gridAction()
+    public function grid()
     {
         $worker = new Worker($this->config());
         $result =  $worker->handleMethod(ipRequest());
