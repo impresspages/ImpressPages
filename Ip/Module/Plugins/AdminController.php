@@ -4,7 +4,7 @@ namespace Ip\Module\Plugins;
 
 class AdminController extends \Ip\Controller{
 
-    public function indexAction()
+    public function index()
     {
         $activePlugins = Model::getActivePlugins();
         $allPlugins = Model::getAllPlugins();
@@ -50,7 +50,7 @@ class AdminController extends \Ip\Controller{
         return $view->render();
     }
 
-    public function activateAction ()
+    public function activate ()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
@@ -85,7 +85,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
-    public function deactivateAction ()
+    public function deactivate ()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
@@ -120,7 +120,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
-    public function removeAction ()
+    public function remove ()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {

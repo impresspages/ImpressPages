@@ -26,7 +26,7 @@ class Model{
         $modules = \Ip\Module\Plugins\Model::getModules();
         foreach($modules as $module) {
             $controllerClass = 'Ip\\Module\\'.$module.'\\AdminController';
-            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'indexAction')) {
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
             $moduleItem = new \Ip\Menu\Item();
@@ -41,7 +41,7 @@ class Model{
 
         foreach($plugins as $plugin) {
             $controllerClass = '\\Plugin\\' . $plugin . '\\AdminController';
-            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'indexAction')) {
+            if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
             $moduleItem = new \Ip\Menu\Item();

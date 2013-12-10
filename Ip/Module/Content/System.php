@@ -29,16 +29,14 @@ class System{
 
         ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
+        $ipUrlOverrides = ipConfig()->getRaw('URL_OVERRIDES');
+        if (!$ipUrlOverrides) {
+            $ipUrlOverrides = array();
+        }
 
-
-
-
+        ipAddJavascriptVariable('ipUrlOverrides', $ipUrlOverrides);
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
-
-
-
-
     }
 
     public function adminLogin($data)
