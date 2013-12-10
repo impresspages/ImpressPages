@@ -18,7 +18,9 @@ abstract class Controller extends \Ip\Controller{
 
         $controllerClass = get_class($this);
         $controllerClassParts = explode('\\', $controllerClass);
-        $aa = $controllerClassParts[2] . '.grid';
+
+        $aa = $controllerClassParts[count($controllerClassParts) - 2] . '.grid';
+
         $gateway = array('aa' => $aa);
 
         $variables = array(
@@ -40,16 +42,5 @@ abstract class Controller extends \Ip\Controller{
      */
     abstract protected function config();
 
-//    /**
-//     * @return \Ip\Crud1\Controller
-//     */
-//    protected function getCrudObject()
-//    {
-//        return new
-//        $config = array (
-//            'table' => DB_PREF . 'translations'
-//        );
-//        $crud = new \Ip\Crud1\Controller($config);
-//        return $crud;
-//    }
+
 }
