@@ -7,7 +7,9 @@ var ip = {
     zoneName : <?php echo json_encode($ipZoneName) ?>,
     pageId : <?php echo json_encode($ipPageId) ?>,
     revisionId : <?php echo json_encode($ipRevisionId) ?>,
-    securityToken : <?php echo json_encode($ipSecurityToken) ?>
+    securityToken : <?php echo json_encode($ipSecurityToken) ?>,
+    developmentEnvironment : <?php echo json_encode($ipDevelopmentEnvironment) ?>,
+    debugMode : <?php echo json_encode($ipDebugMode) ?>
 };
 </script>
 <script>

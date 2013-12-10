@@ -86,6 +86,12 @@ class Config
         return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);
     }
 
+
+    public function isDebugMode()
+    {
+        return !empty($this->rawConfig['DEBUG_MODE']);
+    }
+
     public function theme()
     {
         return $this->rawConfig['THEME'];

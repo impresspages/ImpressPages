@@ -1,0 +1,1 @@
+<div class="ipsGrid1" data-gateway="<?php echo esc($gateway, 'attr') ?>"></div>

@@ -16,7 +16,7 @@ class System
             ipAddCss(ipFileUrl('Ip/Module/InlineManagement/assets/inline_management.css'));
 
 
-            if (ipConfig()->getRaw('DEBUG_MODE')) {
+            if (ipConfig()->isDebugMode()) {
                 ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/src/inlineManagement.js'));
                 ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/src/inlineManagementControls.js'));
                 ipAddJavascript(ipFileUrl('Ip/Module/InlineManagement/assets/src/inlineManagementImage.js'));

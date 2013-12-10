@@ -2,11 +2,12 @@
 namespace Ip\Module\Translations;
 
 
-class AdminController extends \Ip\Crud1\Controller{
+class AdminController extends \Ip\Grid1\Controller{
 
-    public function crudConfigAction()
+    protected function config()
     {
         return array (
+            'type' => 'table',
             'table' => DB_PREF . 'translations'
         );
     }
