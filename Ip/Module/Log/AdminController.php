@@ -22,43 +22,44 @@ class AdminController extends \Ip\Grid1\Controller
                 ),
                 array(
                     'label' => __('Message', 'ipAdmin', false),
-                    'field' => 'message'
+                    'field' => 'message',
+                    'filter' => __CLASS__ . '::filterMessage'
                 ),
-//                -        $element->setPreviewValueFilter(function($value, $info) {
-//                        -                $context = json_decode($info['record']['context'], true);
-//                        -
-//                        -                $replace = array();
-//                        -                foreach ($context as $key => $val) {
-//                            -                    if (is_string($val) || is_numeric($val)) {
-//                                -                        $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
-//                                -                    }
-//-                }
-//-
-//-                return strtr($info['record']['message'], $replace);
-//-            });
-
-
                 array(
                     'label' => __('Context', 'ipAdmin', false),
-                    'field' => 'context'
+                    'field' => 'context',
+                    'filter' => __CLASS__ . '::filterContext'
                 )
-//                $element->setPreviewValueFilter(function($value, $info) {
-//                        -                $context = json_decode($info['record']['context'], true);
-//                        -
-//                        -                unset($context['exception']);
-//-
-//-                if (function_exists('ob_start')) {
-//                            -                    ob_start();
-//                            -                    var_dump($context);
-//                            -                    return ob_get_clean();
-//-                } else {
-//                            -                    return var_export($context, true);
-//-                }
-//-            });
-
-
             )
         );
     }
 
+    public static function filterMessage ($value, $recordData)
+    {
+        $context = json_decode($recordData['context'], true);
+
+        $replace = array();
+        foreach ($context as $key => $val) {
+            if (is_string($val) || is_numeric($val)) {
+                $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
+            }
+        }
+
+        return strtr($recordData['message'], $replace);
+    }
+
+    public static function filterContext($value, $recordData)
+    {
+        $context = json_decode($recordData['context'], true);
+
+        unset($context['exception']);
+
+        if (function_exists('ob_start')) {
+            ob_start();
+            var_dump($context);
+            return ob_get_clean();
+        } else {
+            return var_export($context, true);
+        }
+    }
 }

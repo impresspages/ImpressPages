@@ -110,8 +110,21 @@ class Table extends \Ip\Grid1\Model{
         $preparedData = array();
         foreach($data as $row) {
             $preparedRow = array();
-            foreach($this->getFieldObjects() as $field) {
-                $preparedRow[] = $field->preview($row);
+            foreach($this->getFieldObjects() as $key => $field) {
+                $preview = $field->preview($row);
+                if (!empty($this->config['fields'][$key]['filter'])) {
+                    $filters = $this->config['fields'][$key]['filter'];
+                    if (!is_array($filters)) {
+                        $filters = array($filters);
+                    }
+                    foreach($filters as $filter) {
+                        if (substr($filter, 1, 1) !== '\\') {
+                            $filter = '\\' . $filter;
+                        }
+                        $preview = call_user_func($filter, $preview, $row);
+                    }
+                }
+                $preparedRow[] = $preview;
             }
             $preparedData[] = $preparedRow;
         }
