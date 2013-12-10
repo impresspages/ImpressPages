@@ -1,5 +1,5 @@
-<?php echo $this->doctypeDeclaration(); ?>
-<html<?php echo $this->htmlAttributes(); ?>>
+<?php ipDoctypeDeclaration(); ?>
+<html<?php ipHtmlAttributes(); ?>>
 <head>
     <?php
     ipAddCss(ipThemeUrl('ipContent.css'));

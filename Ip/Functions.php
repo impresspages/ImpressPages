@@ -388,3 +388,70 @@ function ipGetThemeOption($name, $default = null)
     $themeService = \Ip\Module\Design\Service::instance();
     return $themeService->getThemeOption($name, $default);
 }
+
+
+function ipHtmlAttributes($doctype = null)
+{
+    $content = \Ip\ServiceLocator::content();
+    if ($doctype === null) {
+        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
+    }
+    $answer = '';
+    switch ($doctype) {
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_STRICT:
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_TRANSITIONAL:
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_FRAMESET:
+            $lang = $content->getCurrentLanguage()->getCode();
+            $answer = ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML4_STRICT:
+        case \Ip\Response\Layout::DOCTYPE_HTML4_TRANSITIONAL:
+        case \Ip\Response\Layout::DOCTYPE_HTML4_FRAMESET:
+        default:
+            $answer = '';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML5:
+            $lang = $content->getCurrentLanguage()->getCode();
+            $answer = ' lang="'.$lang.'"';
+            break;
+    }
+    echo $answer;
+
+}
+
+
+
+function ipDoctypeDeclaration($doctype = null)
+{
+    if ($doctype === null) {
+        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
+    }
+    switch ($doctype) {
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_STRICT:
+            $answer = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_TRANSITIONAL:
+            $answer = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_XHTML1_FRAMESET:
+            $answer = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML4_STRICT:
+            $answer = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML4_TRANSITIONAL:
+            $answer = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML4_FRAMESET:
+            $answer = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
+            break;
+        case \Ip\Response\Layout::DOCTYPE_HTML5:
+            $answer = '<!DOCTYPE html>';
+            break;
+        default:
+            throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
+    }
+    echo $answer;
+}

@@ -4,8 +4,8 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo $this->doctypeDeclaration(); ?>
-<html<?php echo $this->htmlAttributes(); ?>>
+<?php ipDoctypeDeclaration(); ?>
+<html<?php ipHtmlAttributes(); ?>>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php ipAddThemeAsset('colorbox/themes/' . ipGetThemeOption('lightboxStyle').'/colorbox.css'); ?>
