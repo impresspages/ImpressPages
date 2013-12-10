@@ -382,3 +382,9 @@ function ipFormatPrice($price, $currency, $languageId = null)
     $helper = \Ip\Ecommerce\Helper::instance();
     echo $helper->formatPrice($price, $currency, $languageId);
 }
+
+function ipGetThemeOption($name, $default = null)
+{
+    $themeService = \Ip\Module\Design\Service::instance();
+    return $themeService->getThemeOption($name, $default);
+}

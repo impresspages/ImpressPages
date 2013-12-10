@@ -18,9 +18,9 @@
 
 <?php
     // making block name dynamic, related with the first row
-    $count = (int)$this->getThemeOption('homeBlocks', 0);
+    $count = (int)ipGetThemeOption('homeBlocks', 0);
 
-    switch($this->getThemeOption('homeBlocks2', 0)) {
+    switch(ipGetThemeOption('homeBlocks2', 0)) {
         case 2:
 ?>
             <div class="col_12 col_md_6 col_lg_6">
