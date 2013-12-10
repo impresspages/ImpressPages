@@ -16,7 +16,7 @@ class AdminController extends \Ip\Controller
 {
 
 
-    public function indexAction()
+    public function index()
     {
 
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery-ui/jquery-ui.js'));
@@ -78,7 +78,7 @@ class AdminController extends \Ip\Controller
         return $contentView->render();
     }
 
-    public function installPluginAction()
+    public function installPlugin()
     {
         ipRequest()->mustBePost();
         $postData = ipRequest()->getPost();
@@ -103,7 +103,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function downloadThemesAction()
+    public function downloadThemes()
     {
 
         ipRequest()->mustBePost();
@@ -141,7 +141,7 @@ class AdminController extends \Ip\Controller
     /**
      * @throws \Ip\CoreException
      */
-    public function installThemeAction()
+    public function installTheme()
     {
         $request = ServiceLocator::request();
         $request->mustBePost();
@@ -163,7 +163,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array('status' => 'success'));
     }
 
-    public function updateConfigAction()
+    public function updateConfig()
     {
         ipRequest()->mustBePost();
 
@@ -224,7 +224,7 @@ class AdminController extends \Ip\Controller
     /**
      * Compile LESS CSS in real time and output the content
      */
-    public function realTimeLessAction()
+    public function realTimeLess()
     {
 
         $file = ipRequest()->getRequest('file');

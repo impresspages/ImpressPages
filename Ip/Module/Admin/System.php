@@ -27,11 +27,11 @@ class System {
         }
 
         $getVariables = ipRequest()->getRequest();
-        if (isset($getVariables['safeMode'])) {
-            $getVariables['safeMode'] = $getVariables['safeMode'];
+        if (isset($getVariables['safemode'])) {
+            $getVariables['safeMode'] = $getVariables['safemode'];
         }
-        if (isset($getVariables['safemode']) && \Ip\Module\Admin\Backend::userId()) {
-            Model::setSafeMode($getVariables['safemode']);
+        if (isset($getVariables['safeMode']) && \Ip\Module\Admin\Backend::userId()) {
+            Model::setSafeMode($getVariables['safeMode']);
         }
     }
 

@@ -11,7 +11,7 @@ namespace Ip\Module\System;
 class AdminController extends \Ip\Controller{
 
 
-    public function indexAction()
+    public function index()
     {
 
         $notes = array();
@@ -43,7 +43,7 @@ class AdminController extends \Ip\Controller{
         return $content;
     }
 
-    public function clearCacheAction()
+    public function clearCache()
     {
         ipRequest()->mustBePost();
 
@@ -76,7 +76,7 @@ class AdminController extends \Ip\Controller{
         return str_replace('&amp;', '&', \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index')));
     }
 
-    public function startUpdateAction() {
+    public function startUpdate() {
         $updateModel = new UpdateModel();
 
         try {
@@ -98,7 +98,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function getSystemInfoAction()
+    public function getSystemInfo()
     {
 
         $module = new Module();

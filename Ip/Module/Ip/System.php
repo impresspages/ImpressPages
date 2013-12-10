@@ -13,6 +13,7 @@ class System
     {
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
+            // TODOX $response instanceof \Ip\Response\Layout ?
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/console.log.js'), 0);
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'), 0);
 
@@ -24,15 +25,6 @@ class System
             //Form init
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/form/form.js'));
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/validator.js'));
-
-            ipAddJavascriptVariable('Form_pluploadJsFile', ipFileUrl('Ip/Module/Ip/assets/js/plupload/plupload.full.js'));
-            ipAddJavascriptVariable('Form_fileFieldJs', ipFileUrl('Ip/Module/Ip/assets/form/file.js'));
-
-
-            ipAddJavascriptVariable('Form_spectrumJsFile', ipFileUrl('Ip/Module/Ip/assets/js/spectrum/spectrum.min.js'));
-            ipAddJavascriptVariable('Form_spectrumCssFile', ipFileUrl('Ip/Module/Ip/assets/js/spectrum/spectrum.css'));
-            ipAddJavascriptVariable('Form_colorFieldJs', ipFileUrl('Ip/Module/Ip/assets/form/color.js'));
-
 
             $validatorTranslations = array(
                 'ipAdmin' => $this->validatorLocalizationData('ipAdmin'),
@@ -47,6 +39,7 @@ class System
     protected function validatorLocalizationData($namespace)
     {
         $answer = array(
+            // TODO do this localization on client side
             '*'           => __('Please correct this value', $namespace),
             ':email'      => __('Please enter a valid email address', $namespace),
             ':number'     => __('Please enter a valid numeric value', $namespace),

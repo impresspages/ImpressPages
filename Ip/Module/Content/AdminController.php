@@ -9,19 +9,19 @@ namespace Ip\Module\Content;
 class AdminController extends \Ip\Controller
 {
 
-    public function indexAction()
+    public function index()
     {
         \Ip\Module\Content\Service::setManagementMode(1);
         return (new \Ip\Response\Redirect(ipHomeUrl()));
     }
 
-    public function setManagementModeAction()
+    public function setManagementMode()
     {
         Service::setManagementMode(intval(ipRequest()->getPost('value', 1)));
         return new \Ip\Response\Json(array(1));
     }
 
-    public function getSitemapInListAction()
+    public function getSitemapInList()
     {
         $answer = '';
         $answer .= '<ul id="ipSitemap">' . "\n";
@@ -76,7 +76,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getPageOptionsHtmlAction() {
+    public function getPageOptionsHtml() {
         if (!isset($_REQUEST['pageId'])) {
             return $this->_errorAnswer('Page id is not set');
         }
@@ -145,7 +145,7 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function moveWidgetAction()
+    public function moveWidget()
     {
 
 
@@ -186,7 +186,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function createWidgetAction()
+    public function createWidget()
     {
 
 
@@ -262,7 +262,7 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function updateWidgetAction()
+    public function updateWidget()
     {
 
         $updateData = array();
@@ -301,7 +301,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function changeLookAction()
+    public function changeLook()
     {
         $updateData = array();
         if (!isset($_POST['instanceId'])) {
@@ -335,7 +335,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function deleteWidgetAction()
+    public function deleteWidget()
     {
 
         if (!isset($_POST['instanceId'])) {
@@ -355,7 +355,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function savePageAction () {
+    public function savePage () {
 
         if (!isset($_POST['revisionId'])) {
             return $this->_errorAnswer('Missing revisionId POST variable');
@@ -400,7 +400,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function savePageOptionsAction () {
+    public function savePageOptions () {
         if (empty($_POST['revisionId'])) {
             return $this->_errorAnswer('Missing revisionId POST variable');
         }

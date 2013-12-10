@@ -14,7 +14,7 @@ class AdminController extends \Ip\Controller
 {
 
 
-    public function indexAction()
+    public function index()
     {
         $app = \Ip\ServiceLocator::application();
         $data = array (
@@ -35,7 +35,7 @@ class AdminController extends \Ip\Controller
      *
      * Get children of selected jsTree node
      */
-    public function getChildrenAction () {
+    public function getChildren () {
         $parentType = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
         $parentWebsiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $parentLanguageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;
@@ -296,7 +296,7 @@ class AdminController extends \Ip\Controller
      *
      * Get page update form HTML
      */
-    public function getPageFormAction() {
+    public function getPageForm() {
 
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
@@ -368,7 +368,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function getZonePropertiesAction() {
+    public function getZoneProperties() {
 
         $params = \Ip\ServiceLocator::request()->getRequest();
 
@@ -415,7 +415,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getLanguagePropertiesAction() {
+    public function getLanguageProperties() {
 
         $params = \Ip\ServiceLocator::request()->getRequest();
 
@@ -451,7 +451,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function saveZonePropertiesAction()
+    public function saveZoneProperties()
     {
         $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
@@ -509,7 +509,7 @@ class AdminController extends \Ip\Controller
 
 
 
-    public function saveLanguagePropertiesAction()
+    public function saveLanguageProperties()
     {
         $request = \Ip\ServiceLocator::request();
         $request->mustBePost();
@@ -588,7 +588,7 @@ class AdminController extends \Ip\Controller
      *
      * Get URL of the page
      */
-    public function getPageLinkAction() {
+    public function getPageLink() {
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {
@@ -676,7 +676,7 @@ class AdminController extends \Ip\Controller
      *
      * Update page
      */
-    public function updatePageAction () {
+    public function updatePage () {
 
         $answer = array();
 
@@ -735,7 +735,7 @@ class AdminController extends \Ip\Controller
      *
      * Create new page
      */
-    public function createPageAction () {
+    public function createPage () {
 
         $answer = array();
 
@@ -833,7 +833,7 @@ class AdminController extends \Ip\Controller
      *
      * Delete the page
      */
-    public function deletePageAction () {
+    public function deletePage () {
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -858,7 +858,7 @@ class AdminController extends \Ip\Controller
      *
      * Move page to another location
      */
-    public function movePageAction () {
+    public function movePage () {
         if (!isset($_REQUEST['pageId'])) {
             trigger_error("Page id is not set");
             return false;
@@ -1037,7 +1037,7 @@ class AdminController extends \Ip\Controller
      *
      * Copy page from one place to another
      */
-    public function copyPageAction() {
+    public function copyPage() {
         $answer = array();
 
         if (!isset($_REQUEST['websiteId'])) {
@@ -1133,7 +1133,7 @@ class AdminController extends \Ip\Controller
      * Remove page from session as open one.
      *
      */
-    public function closePageAction () {
+    public function closePage () {
         $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : null;
         $websiteId = isset($_REQUEST['websiteId']) ? $_REQUEST['websiteId'] : null;
         $languageId = isset($_REQUEST['languageId']) ? $_REQUEST['languageId'] : null;

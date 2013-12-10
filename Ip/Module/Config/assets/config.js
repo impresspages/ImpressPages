@@ -104,6 +104,7 @@ var IpConfig = new function () {
     var updateCronUrl = function () {
         var $urlText = $('#automaticCron').closest('.ipmField').find('.ipmCheckboxText');
         var $url = $urlText.find('.ipsUrl');
+        // TODO do not pass password, cron should work without password for admin
         var $passField = $('#cronPassword').closest('.ipmField');
         if (getFieldValue('automaticCron')) {
             $urlText.addClass('ipgHide');

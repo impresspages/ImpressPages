@@ -2,7 +2,7 @@
 namespace Ip\Module\Translations;
 
 
-class AdminController extends \Ip\Grid1\Controller{
+class AdminController extends \Ip\Crud1\Controller{
 
     protected function config()
     {

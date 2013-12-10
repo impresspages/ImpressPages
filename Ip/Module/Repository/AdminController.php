@@ -21,7 +21,7 @@ class AdminController extends \Ip\Controller{
     /**
      * Move files from temporary folder to repository.
      */
-    public function storeNewFilesAction()
+    public function storeNewFiles()
     {
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
@@ -59,7 +59,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function getAllAction()
+    public function getAll()
     {
 
         $seek = isset($_POST['seek']) ? (int) $_POST['seek'] : 0;
