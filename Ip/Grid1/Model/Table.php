@@ -12,6 +12,14 @@ class Table extends \Ip\Grid1\Model{
     public function __construct($config)
     {
         $this->config = $config;
+
+        if (empty($this->config['table'])) {
+            throw new \Ip\CoreException('\'table\' configuration value missing.');
+        }
+
+        if (empty($this->config['fields'])) {
+            $this->config['fields'] = $this->getTableFields($this->config['table']);
+        }
     }
 
 
@@ -35,10 +43,36 @@ class Table extends \Ip\Grid1\Model{
     }
 
 
+    protected function getTableFields($tableName)
+    {
+        $sql = "SHOW COLUMNS FROM `".str_replace("`","", $tableName)."`";
+        $result = ipDb()->fetchColumn($sql);
+        return $result;
+    }
+
+    protected function fetch()
+    {
+        $sql = "
+        SELECT
+          *
+        FROM
+          `".str_replace("`","", $this->config['table'])."`
+        WHERE
+          1
+        ";
+
+        $result = ipDb()->fetchAll($sql);
+
+        return $result;
+    }
+
 
     protected function refresh()
     {
-        $html = \Ip\View::create('../view/table.php')->render();
+        $variables = array(
+            'data' => $this->fetch()
+        );
+        $html = \Ip\View::create('../view/table.php', $variables)->render();
         $commands = array(
             $this->commandSetHtml($html)
         );
