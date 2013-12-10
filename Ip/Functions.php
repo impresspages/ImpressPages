@@ -373,3 +373,12 @@ function ipRenderWidget($widgetName, $data = array(), $look = null)
     $answer = \Ip\Module\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
     echo $answer;
 }
+
+function ipFormatPrice($price, $currency, $languageId = null)
+{
+    if ($languageId === null) {
+        $languageId = ipContent()->getCurrentLanguage()->getId();
+    }
+    $helper = \Ip\Ecommerce\Helper::instance();
+    echo $helper->formatPrice($price, $currency, $languageId);
+}
