@@ -89,7 +89,9 @@ class LayoutResponse extends \Ip\Response\Layout
             'ipRevisionId' => null,
             'ipSecurityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
             'javascript' => $javascriptFiles,
-            'javascriptVariables' => $this->getJavascriptVariables()
+            'javascriptVariables' => $this->getJavascriptVariables(),
+            'developmentEnvironment' => ipconfig()->isDevelopmentEnvironment(),
+            'debugMode' => ipConfig()->isDebugMode()
         );
         return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
