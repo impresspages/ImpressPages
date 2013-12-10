@@ -30,7 +30,7 @@ class ZoneModel{
 
         $newUrl = $data['url'];
 
-        $language = \Ip\ServiceLocator::content()->getLanguageById($languageId);
+        $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
 
         if ($originalUrl != $newUrl){
             $fullOldUrl = self::makeUrl($language->getUrl(), $originalUrl);

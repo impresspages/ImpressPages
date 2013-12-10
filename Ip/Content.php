@@ -178,13 +178,13 @@ class Content {
     }
 
 
-    //TODOX rename to getLanguage
+
     /**
      *
      * @return \Ip\Language
      *
      */
-    public function getLanguageById($id){
+    public function getLanguage($id){
         foreach($this->getLanguages() as $language){
             if ($language->getId() === $id) {
                 return $language;
