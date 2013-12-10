@@ -13,7 +13,6 @@ class System
     {
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
-            // TODOX $response instanceof \Ip\Response\Layout ?
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/console.log.js'), 0);
             ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/js/jquery.js'), 0);
 
@@ -38,16 +37,31 @@ class System
 
     protected function validatorLocalizationData($namespace)
     {
-        $answer = array(
-            // TODO do this localization on client side
-            '*'           => __('Please correct this value', $namespace),
-            ':email'      => __('Please enter a valid email address', $namespace),
-            ':number'     => __('Please enter a valid numeric value', $namespace),
-            ':url'        => __('Please enter a valid URL', $namespace),
-            '[max]'       => __('Please enter a value no larger than $1', $namespace),
-            '[min]'       => __('Please enter a value of at least $1', $namespace),
-            '[required]'  => __('Please complete this mandatory field', $namespace)
-        );
+        // TODO do this localization on client side
+        if ($namespace == 'ipPublic')
+        {
+            $answer = array(
+                '*'           => __('Please correct this value', 'ipPublic'),
+                ':email'      => __('Please enter a valid email address', 'ipPublic'),
+                ':number'     => __('Please enter a valid numeric value', 'ipPublic'),
+                ':url'        => __('Please enter a valid URL', 'ipPublic'),
+                '[max]'       => __('Please enter a value no larger than $1', 'ipPublic'),
+                '[min]'       => __('Please enter a value of at least $1', 'ipPublic'),
+                '[required]'  => __('Please complete this mandatory field', 'ipPublic')
+            );
+        } elseif ($namespace == 'ipAdmin') {
+            $answer = array(
+                '*'           => __('Please correct this value', 'ipAdmin'),
+                ':email'      => __('Please enter a valid email address', 'ipAdmin'),
+                ':number'     => __('Please enter a valid numeric value', 'ipAdmin'),
+                ':url'        => __('Please enter a valid URL', 'ipAdmin'),
+                '[max]'       => __('Please enter a value no larger than $1', 'ipAdmin'),
+                '[min]'       => __('Please enter a value of at least $1', 'ipAdmin'),
+                '[required]'  => __('Please complete this mandatory field', 'ipAdmin')
+            );
+        } else {
+            throw new \Ip\CoreException('Unknown translation domain: ' . $namespace);
+        }
         return $answer;
     }
 }
