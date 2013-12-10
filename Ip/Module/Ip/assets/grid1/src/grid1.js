@@ -20,18 +20,21 @@
 
                     //window.location.hash
 
+                    var data = $this.data('gateway');
+                    data.jsonrpc = '2.0';
+                    data.method = 'init';
+                    data.params = {
+                        hash: window.location.hash
+                    };
+
                     $.ajax({
                         type: 'GET',
-                        url: $this.data('gateway'),
-                        data: {
-                            jsonrpc: '2.0',
-                            method: 'init',
-                            params: {}
-                        },
+                        url: ip.baseUrl,
+                        data: data,
                         context: $this,
                         success: initResponse,
                         error: function(response) {
-                            if (ip.debugMode || ip.developmentEnvironment) {
+                            if (ip.debugMode || ip.developmentMode) {
                                 alert(response);
                             }
                         },
@@ -54,8 +57,18 @@
 
 
     var initResponse = function(response) {
+        $.proxy(doCommands, this)(response.result);
+    };
+
+    var doCommands = function(commands) {
         var $this = this;
-        $this.html(response.html);
+        $.each(commands, function(key, value) {
+            switch (value.command) {
+                case 'setHtml':
+                    $this.html(value.html);
+                    break;
+            }
+        });
     };
 
     $.fn.ipGrid1 = function (method) {
