@@ -5,7 +5,7 @@ var ip = <?php echo json_encode($ip) ?>;
 <?php } ?>
 </script>
 <?php
-    foreach ($javascriptFiles as $levelKey => $level) {
+    foreach ($javascript as $levelKey => $level) {
         foreach ($level as $recordKey => $record) {
             if ($record['type'] == 'file') {
                 echo '  <script type="text/javascript" src="' . $record['value'] . '"';

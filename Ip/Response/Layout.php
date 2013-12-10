@@ -233,7 +233,7 @@ class Layout extends \Ip\Response {
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
-            'javascriptFiles' => $javascriptFiles,
+            'javascript' => $javascriptFiles,
         );
         return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
