@@ -56,28 +56,8 @@ class Script extends \IpUpdate\Library\Migration\General
 
         $this->removeNonContentZones();
 
-        $this->createTranslationsTable();
     }
 
-
-    protected function createTranslationsTable()
-    {
-        $dbh = $this->dbh;
-        $sql = "
-        CREATE TABLE IF NOT EXISTS `{$this->dbPref}translation` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `original` varchar(255) NOT NULL,
-    `translation` varchar(255) NOT NULL,
-    `languageId` int(11) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `translation` (`original`,`languageId`)
-    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
-        ";
-
-        $q = $dbh->prepare($sql);
-        $q->execute();
-
-    }
 
 
     protected function renameContentManagementZones()
