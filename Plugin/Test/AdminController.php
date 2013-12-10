@@ -4,7 +4,7 @@ namespace Plugin\Test;
 
 
 class AdminController extends \Ip\Controller{
-    public function indexAction()
+    public function index()
     {
 
     }

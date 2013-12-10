@@ -29,7 +29,7 @@ class PublicController extends \Ip\Controller
      * @var string */
     protected $lastTime;
 
-    public function indexAction()
+    public function index()
     {
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
             ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));

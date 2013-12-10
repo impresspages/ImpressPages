@@ -21,7 +21,7 @@ class AdminController extends \Ip\Controller{
 
 
 
-    public function getManagementPopupLogoAction()
+    public function getManagementPopupLogo()
     {
         $cssClass = '';
         if (isset($_POST['cssClass'])) {
@@ -69,7 +69,7 @@ class AdminController extends \Ip\Controller{
 
 
 
-    public function getManagementPopupStringAction()
+    public function getManagementPopupString()
     {
 
         if (!isset($_POST['key'])) {
@@ -111,7 +111,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($data);
     }
 
-    public function getManagementPopupTextAction()
+    public function getManagementPopupText()
     {
 
         if (!isset($_POST['key'])) {
@@ -153,7 +153,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($data);
     }
 
-    public function getManagementPopupImageAction()
+    public function getManagementPopupImage()
     {
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
@@ -240,7 +240,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($data);
     }
 
-    public function saveLogoAction()
+    public function saveLogo()
     {
         if (!isset($_POST['text']) || !isset($_POST['color']) || !isset($_POST['font']) || !isset($_POST['type'])) {
             $this->jsonError("Missing post data");
@@ -304,7 +304,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($data);
     }
 
-    public function saveStringAction()
+    public function saveString()
     {
         $inlineManagementService = new Service();
 
@@ -330,7 +330,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function saveTextAction()
+    public function saveText()
     {
         $inlineManagementService = new Service();
 
@@ -356,7 +356,7 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function saveImageAction()
+    public function saveImage()
     {
 
         if (!isset($_POST['key'])) {
@@ -508,7 +508,7 @@ class AdminController extends \Ip\Controller{
 
 
 
-    public function removeImageAction()
+    public function removeImage()
     {
         if (!isset($_POST['key'])) {
             throw new \Exception("Required parameter not set");
