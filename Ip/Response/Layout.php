@@ -7,7 +7,7 @@
 
 namespace Ip\Response;
 
-/**
+/**ad
  *
  * Event dispatcher class
  *
@@ -222,18 +222,18 @@ class Layout extends \Ip\Response {
         }
         $revision = \Ip\ServiceLocator::content()->getRevision();
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(),
-            'ipLanguageId' => ipContent()->getCurrentLanguage()->getId(),
-            'ipLanguageUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipTheme' => ipConfig()->getRaw('THEME'),
-            'ipRepositoryUrl' => ipFileUrl('file/repository/'),
-            'ipManagementUrl' => \Ip\Internal\Deprecated\Url::generate(),
-            'ipZoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
-            'ipPageId' => ipContent()->getCurrentPage() ?ipContent()->getCurrentPage()->getId() : null,
-            'ipRevisionId' => $revision['revisionId'],
-            'ipSecurityToken' =>\Ip\ServiceLocator::application()->getSecurityToken(),
+            'ip' => array(
+                'baseUrl' => ipConfig()->baseUrl(),
+                'languageId' => ipContent()->getCurrentLanguage()->getId(),
+                'languageUrl' => \Ip\Internal\Deprecated\Url::generate(),
+                'theme' => ipConfig()->getRaw('THEME'),
+                'zoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
+                'pageId' => ipContent()->getCurrentPage() ? ipContent()->getCurrentPage()->getId() : null,
+                'revisionId' => $revision['revisionId'],
+                'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
+            ),
+            'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
-            'javascriptVariables' => $this->getJavascriptVariables()
         );
         return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
