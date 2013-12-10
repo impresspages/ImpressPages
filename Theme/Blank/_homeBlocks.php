@@ -27,7 +27,7 @@ You can make lists:
 <div class="homerow clearfix">
 
 <?php
-    switch($this->getThemeOption('homeBlocks', 0)) {
+    switch(ipGetThemeOption('homeBlocks', 0)) {
         case 2:
 ?>
             <div class="col_12 col_md_6 col_lg_6">

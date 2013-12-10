@@ -13,6 +13,16 @@ namespace Ip\Response;
  *
  */
 class Layout extends \Ip\Response {
+
+    const DOCTYPE_XHTML1_STRICT = 1;
+    const DOCTYPE_XHTML1_TRANSITIONAL = 2;
+    const DOCTYPE_XHTML1_FRAMESET = 3;
+    const DOCTYPE_HTML4_STRICT = 4;
+    const DOCTYPE_HTML4_TRANSITIONAL = 5;
+    const DOCTYPE_HTML4_FRAMESET = 6;
+    const DOCTYPE_HTML5 = 7;
+
+
     protected $layout = null;
 
     /** array js variables */

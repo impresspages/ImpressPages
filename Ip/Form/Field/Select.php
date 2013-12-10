@@ -82,7 +82,7 @@ $answer =
         
         $firstValue = $values[0];
         
-        $html5Important = ($doctype == \Ip\View::DOCTYPE_HTML5 && $this->getAttribute('size') <= 1 && $this->getAttribute('multiple') === false && ($firstValue[0] != '' && $firstValue[1] != ''));
+        $html5Important = ($doctype == \Ip\Response\Layout::DOCTYPE_HTML5 && $this->getAttribute('size') <= 1 && $this->getAttribute('multiple') === false && ($firstValue[0] != '' && $firstValue[1] != ''));
 
         if (!$html5Important) {
             return parent::getValidationAttributesStr($doctype);

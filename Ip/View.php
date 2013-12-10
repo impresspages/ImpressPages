@@ -12,16 +12,9 @@ namespace Ip;
  * View class
  *
  */
-class View implements \Ip\Response\ResponseInterface
+class View
 {
 
-    const DOCTYPE_XHTML1_STRICT = 1;
-    const DOCTYPE_XHTML1_TRANSITIONAL = 2;
-    const DOCTYPE_XHTML1_FRAMESET = 3;
-    const DOCTYPE_HTML4_STRICT = 4;
-    const DOCTYPE_HTML4_TRANSITIONAL = 5;
-    const DOCTYPE_HTML4_FRAMESET = 6;
-    const DOCTYPE_HTML5 = 7;
 
     const OVERRIDE_DIR = 'override';
         
@@ -52,8 +45,8 @@ class View implements \Ip\Response\ResponseInterface
     private function __construct($file, $data = array()) {
         $this->file = $file;
         $this->data = $data;
-
-        eval('$this->doctype = self::'. ipConfig()->getRaw('DEFAULT_DOCTYPE').';');
+        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $this->doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     
     /**
@@ -71,37 +64,6 @@ class View implements \Ip\Response\ResponseInterface
         return $view;
     }
 
-
-    public function renderWidget($widgetName, $data = array(), $layout = null) {
-        $answer = \Ip\Module\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
-        return $answer;
-    }
-    
-
-
-
-
-    public function par($parameterKey, $variables = null){
-        return $parameterKey; //TODOX remove all instances
-        global $parametersMod;
-        $parts = explode('/', $parameterKey);
-        if (count($parts) != 4) {
-            if (ipConfig()->isDevelopmentEnvironment()) {
-                throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
-            } else {
-                return '';
-            }
-        }
-        $value = '1';//$parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
-
-        if (!empty($variables) && is_array($variables)) {
-            foreach($variables as $variableKey => $variableValue) {
-                $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
-            }
-        }
-
-        return $value;
-    }
 
 
 
@@ -159,10 +121,7 @@ class View implements \Ip\Response\ResponseInterface
 
     }
 
-    public function send()
-    {
-        echo $this->render();
-    }
+
 
     /**
      * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
@@ -198,64 +157,8 @@ class View implements \Ip\Response\ResponseInterface
     }
     
 
-    //TODOX refactor to sugar method
-    public function doctypeDeclaration($doctype = null) {
-        if ($doctype === null) {
-            $doctype = $this->getDoctype();
-        }
-        switch ($doctype) {
-            case self::DOCTYPE_XHTML1_STRICT:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
-                break;   
-            case self::DOCTYPE_XHTML1_TRANSITIONAL:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-                break;
-            case self::DOCTYPE_XHTML1_FRAMESET:
-                return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_STRICT:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_TRANSITIONAL:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
-                break;
-            case self::DOCTYPE_HTML4_FRAMESET:
-                return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
-                break;
-            case self::DOCTYPE_HTML5:
-                return '<!DOCTYPE html>';
-                break;
-            default:
-                throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
-        }
-    }
     
-    //TODOX refactor to sugar method
-    public function htmlAttributes($doctype = null) {
-        $content = \Ip\ServiceLocator::content();
-        if ($doctype === null) {
-            $doctype = $this->getDoctype();
-        }
-        switch ($doctype) {
-            case self::DOCTYPE_XHTML1_STRICT:
-            case self::DOCTYPE_XHTML1_TRANSITIONAL:
-            case self::DOCTYPE_XHTML1_FRAMESET:
-                $lang = $content->getCurrentLanguage()->getCode();
-                return ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
-                break;
-            case self::DOCTYPE_HTML4_STRICT:
-            case self::DOCTYPE_HTML4_TRANSITIONAL:
-            case self::DOCTYPE_HTML4_FRAMESET:
-            default:
-                return '';
-                break;
-            case self::DOCTYPE_HTML5:
-                $lang = $content->getCurrentLanguage()->getCode();
-                return ' lang="'.$lang.'"';
-                break;
-        }        
-       
-    }
+
 
 
     
@@ -317,25 +220,6 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    public function generateBlock($blockName)
-    {
-        return \Ip\ServiceLocator::content()->generateBlock($blockName);
-    }
-
-
-
-
-    /**
-     * @param int $price in cents
-     * @param string $currency three letter currency code
-     * @return string
-     */
-    public function formatPrice($price, $currency)
-    {
-        //TODOX move formatPrice to sugar methods
-        $helper = \Library\Php\Ecommerce\Helper::instance();
-        return $helper->formatPrice($price, $currency, $this->getLanguageId());
-    }
 
 
 
