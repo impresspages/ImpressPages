@@ -19,7 +19,7 @@ class Model{
      */
     static function generateBreadcrumb($separator, $showHome = true){
         $data = array (
-            'homeUrl' => $showHome ? \Ip\Internal\Deprecated\Url::generate() : null,
+            'homeUrl' => $showHome ? ipHomeUrl() : null,
             'breadcrumbElements' => ipContent()->getBreadcrumb(),
             'separator' => $separator,
         );
