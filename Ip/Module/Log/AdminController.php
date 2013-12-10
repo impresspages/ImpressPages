@@ -63,10 +63,13 @@ class AdminController extends \Ip\Controller
 
                 unset($context['exception']);
 
-                // TODOX check if ob functions is always available
-                ob_start();
-                var_dump($context);
-                return ob_get_clean();
+                if (function_exists('ob_start')) {
+                    ob_start();
+                    var_dump($context);
+                    return ob_get_clean();
+                } else {
+                    return var_export($context, true);
+                }
             });
 
         $elements[] = $element;
