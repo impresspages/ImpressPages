@@ -90,17 +90,6 @@ class ServiceLocator
 
 
 
-    /**
-     * @return \ParametersMod
-     */
-    public static function getParametersMod()
-    {
-        /**
-         * @var $session \ParametersMod
-         */
-        global $parametersMod;
-        return $parametersMod;
-    }
 
     /**
      * Add new request to HMVC queue
