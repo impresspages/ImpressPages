@@ -47,6 +47,7 @@ class System
     protected function validatorLocalizationData($namespace)
     {
         $answer = array(
+            // TODO do this localization on client side
             '*'           => __('Please correct this value', $namespace),
             ':email'      => __('Please enter a valid email address', $namespace),
             ':number'     => __('Please enter a valid numeric value', $namespace),
