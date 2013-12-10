@@ -8,7 +8,7 @@ namespace PhpUnit\Helper;
  *
  */
 
-use \Ip\Module\Install\Model as InstallModel;
+use \Plugin\Install\Model as InstallModel;
 
 class Installation
 {
@@ -109,7 +109,6 @@ class Installation
         InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'ip_config.php');
         InstallModel::writeRobotsFile($this->getInstallationDir() . 'robots.txt');
 
-        // TODOX define('TEST_MODE', 1);
         $this->installed = true;
 
         return;
@@ -178,12 +177,11 @@ class Installation
 
         //Put instalation into test mode:
         $configFile = $this->getInstallationDir()."ip_config.php";
-        $fh = fopen($configFile, 'a') or die("can't open file");
-        $data = "
-            define('TEST_MODE', 1);
-        ";
-        fwrite($fh, $data);
-        fclose($fh);
+        $config = include ($configFile);
+        $config['TEST_MODE'] = true;
+        $configSource = '<?php return ' . var_export($config, true);
+        file_put_contents($configFile, $configSource);
+
 
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->rm($this->getInstallationDir().'update/');
