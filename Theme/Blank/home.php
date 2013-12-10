@@ -10,12 +10,12 @@
         <?php ipSlot('Ip.text', array('id' => 'homeText1', 'tag' => 'div', 'default' => '<p style="text-align: center;">' . nl2br(__("ImpressPages is a sexy web content management tool\n with drag&drop and in-place editing.", 'theme-Blank')) . '</p><p style="text-align: center;"><a href="#" class="button">' . __('Start', 'theme-Blank') . '</a></p>', 'class' => 'homeDescription')); ?>
     </div>
     <?php
-    if ($this->getThemeOption('homeBlocks', 0) > 0) {
+    if (ipGetThemeOption('homeBlocks', 0) > 0) {
         echo $this->subview('_homeBlocks.php');
     }
     ?>
     <?php
-    if ($this->getThemeOption('homeBlocks2', 0) > 0) {
+    if (ipGetThemeOption('homeBlocks2', 0) > 0) {
         echo $this->subview('_homeBlocks2.php');
     }
     ?>
