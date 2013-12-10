@@ -8,7 +8,7 @@ class AdminController extends \Ip\Grid1\Controller{
     {
         return array (
             'type' => 'table',
-            'table' => DB_PREF . 'translations'
+            'table' => DB_PREF . 'translation'
         );
     }
 
