@@ -397,7 +397,6 @@ function ipHtmlAttributes($doctype = null)
         $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
-    $answer = '';
     switch ($doctype) {
         case \Ip\Response\Layout::DOCTYPE_XHTML1_STRICT:
         case \Ip\Response\Layout::DOCTYPE_XHTML1_TRANSITIONAL:
