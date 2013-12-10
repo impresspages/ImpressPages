@@ -12,7 +12,7 @@ namespace Ip;
  * View class
  *
  */
-class View implements \Ip\Response\ResponseInterface
+class View
 {
 
     const DOCTYPE_XHTML1_STRICT = 1;
@@ -72,37 +72,6 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    public function renderWidget($widgetName, $data = array(), $layout = null) {
-        $answer = \Ip\Module\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $layout);
-        return $answer;
-    }
-    
-
-
-
-
-    public function par($parameterKey, $variables = null){
-        return $parameterKey; //TODOX remove all instances
-        global $parametersMod;
-        $parts = explode('/', $parameterKey);
-        if (count($parts) != 4) {
-            if (ipConfig()->isDevelopmentEnvironment()) {
-                throw new \Ip\CoreException("Can't find parameter: '" . $parameterKey . "'", \Ip\CoreException::VIEW);
-            } else {
-                return '';
-            }
-        }
-        $value = '1';//$parametersMod->getValue($parts[0], $parts[1], $parts[2], $parts[3], $this->languageId);
-
-        if (!empty($variables) && is_array($variables)) {
-            foreach($variables as $variableKey => $variableValue) {
-                $value = str_replace('[[' . $variableKey . ']]', $variableValue, $value);
-            }
-        }
-
-        return $value;
-    }
-
 
 
     /**
@@ -159,10 +128,7 @@ class View implements \Ip\Response\ResponseInterface
 
     }
 
-    public function send()
-    {
-        echo $this->render();
-    }
+
 
     /**
      * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
@@ -317,25 +283,6 @@ class View implements \Ip\Response\ResponseInterface
     }
 
 
-    public function generateBlock($blockName)
-    {
-        return \Ip\ServiceLocator::content()->generateBlock($blockName);
-    }
-
-
-
-
-    /**
-     * @param int $price in cents
-     * @param string $currency three letter currency code
-     * @return string
-     */
-    public function formatPrice($price, $currency)
-    {
-        //TODOX move formatPrice to sugar methods
-        $helper = \Library\Php\Ecommerce\Helper::instance();
-        return $helper->formatPrice($price, $currency, $this->getLanguageId());
-    }
 
 
 
