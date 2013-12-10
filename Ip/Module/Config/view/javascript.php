@@ -1,22 +1,11 @@
 <script>
-var ip = {
-    baseUrl : <?php echo json_encode($ipBaseUrl) ?>,
-    languageId : <?php echo json_encode($ipLanguageId) ?>,
-    languageUrl : <?php echo json_encode($ipLanguageUrl) ?>,
-    theme : <?php echo json_encode($ipTheme) ?>,
-    zoneName : <?php echo json_encode($ipZoneName) ?>,
-    pageId : <?php echo json_encode($ipPageId) ?>,
-    revisionId : <?php echo json_encode($ipRevisionId) ?>,
-    securityToken : <?php echo json_encode($ipSecurityToken) ?>
-};
-</script>
-<script>
+var ip = <?php echo json_encode($ip) ?>;
 <?php foreach ($javascriptVariables as $name => $variable) { ?>
     var <?php echo $name ?> = <?php echo json_encode($variable); ?>;
 <?php } ?>
 </script>
 <?php
-    foreach ($javascript as $levelKey => $level) {
+    foreach ($javascriptFiles as $levelKey => $level) {
         foreach ($level as $recordKey => $record) {
             if ($record['type'] == 'file') {
                 echo '  <script type="text/javascript" src="' . $record['value'] . '"';
