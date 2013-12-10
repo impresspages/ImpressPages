@@ -40,7 +40,7 @@ class Antispam extends Field{
     public function __construct($options = array()) {
         parent::__construct($options);
         $this->removeAttribute('id'); //this field has two inputs. We need to implement support of two different ID's or remove such feature :)
-        $this->addValidator('Check');
+        $this->addValidator('Antispam');
     }
     
     public function render($doctype) {
@@ -64,7 +64,7 @@ class Antispam extends Field{
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
     public function getTypeClass() {
-        return 'check';
+        return 'antispam';
     }    
     
 }
