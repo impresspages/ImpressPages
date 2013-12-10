@@ -45,23 +45,11 @@ class Model
      */
     public function getImpressPagesAPIUrl()
     {
-        if ($this->getTestMode()) {
+        if (ipConfig()->getRaw('TEST_MODE')) {
             return 'http://test.service.impresspages.org';
         } else {
             return 'http://service.impresspages.org';
         }
 
     }
-
-
-    public function getTestMode()
-    {
-        if (defined('TEST_MODE') && TEST_MODE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }
-
