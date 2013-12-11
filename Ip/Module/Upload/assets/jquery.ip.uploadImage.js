@@ -159,7 +159,14 @@
                         dataType : 'json'
                     });
 
+
+                    $this.on('scaleUp.ipUploadImage scaleDown.ipUploadImage resize.ipUploadImage framed.ipUploadImage', function() {
+                        $(this).trigger('change.ipUploadImage');
+                    })
+
                 }
+
+
             });
 
         },
@@ -251,7 +258,7 @@
      * @param imageCenterXPercentage
      * @param imageCenterYPercentage
      */
-    var configureManagement = function(e, imageCenterXPercentage, imageCenterYPercentage) {
+    var configureManagement = function(imageCenterXPercentage, imageCenterYPercentage) {
         var $this = $(this);
         var $image = $this.find('.ipUploadImage');
         var $window = $image.parent().parent();
@@ -330,7 +337,8 @@
         $image.height('auto'); //scale automatically
         $image.height(Math.round($image.height())); //set exact value made by automatic scale
 
-        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $.proxy(configureManagement, $this)(imageCenterXPercentage, imageCenterYPercentage);
+        $this.trigger('scaleUp.ipUploadImage');
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
@@ -344,7 +352,6 @@
         var scaleFactor = 1.1;
 
         var $image = $(this).find('.ipUploadImage');
-        var $window = $image.parent().parent();
         var $dragContainer = $image.parent();
 
         var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
@@ -358,7 +365,8 @@
         $image.width($image.width() / scaleFactor);
 
 
-        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $.proxy(configureManagement, $this)(imageCenterXPercentage, imageCenterYPercentage);
+        $this.trigger('scaleDown.ipUploadImage');
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
@@ -437,14 +445,10 @@
         });
 
 
-        $this.on('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
-            $.proxy(configureManagement, $this)(event, imageCenterXPercentage, imageCenterYPercentage);
-        });
-
         $this.find('.ipUploadImage').draggable({
             containment: "parent",
             disabled: !data.enableFraming,
-            stop: jQuery.proxy(function(event, ui) { $(this).trigger('imageFramed.ipUploadImage'); }, $this)
+            stop: jQuery.proxy(function(event, ui) { $(this).trigger('framed.ipUploadImage'); }, $this)
         });
 
         $this.bind( "dragstop", function(event, ui) {
@@ -482,7 +486,8 @@
         $this.data('ipUploadImage', data);
 
 
-        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $.proxy(configureManagement, $this)(imageCenterXPercentage, imageCenterYPercentage);
+        $this.trigger('resize.ipUploadImage');
     };
 
     var uploadedNewFile = function (event, files) {
@@ -639,8 +644,8 @@
                 break;
 
         }
-
-        $this.trigger('imageResized.ipUploadImage', [50, 50]);
+        $.proxy(configureManagement, $this)(50, 50);
+        $this.trigger('resize.ipUploadImage');
     };
 
 
@@ -734,7 +739,8 @@
 
 
         }
-        $this.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
+        $.proxy(configureManagement, $this)(centerPercentageX, centerPercentageY);
+        $this.trigger('resize.ipUploadImage');
 
     }
 
