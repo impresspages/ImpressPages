@@ -414,17 +414,11 @@
 
         $this.find('.ipUploadLargerButton').click(function(event) {
             event.preventDefault();
-            $(this).trigger('imageScaleUp.ipUploadImage');
+            $.proxy(scaleUp, $this)(event);
         });
         if (!data.enableScale) {
             $this.find('.ipUploadLargerButton').hide();
         }
-
-        $this.bind('imageScaleUp.ipUploadImage', function(event) {
-            $.proxy(scaleUp, $(this))(event);
-        });
-
-
 
 
 
