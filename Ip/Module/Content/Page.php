@@ -8,29 +8,29 @@
 namespace Ip\Module\Content;
 
 
-
-
 /**
  * Website zone element. Typically each element represents one page on zone.<br />
  *
  * @package ImpressPages
  */
 
-class Page extends \Ip\Page {
+class Page extends \Ip\Page
+{
     protected $dynamicModules;
     protected $linkIgnoreRedirect;
 
-    public function getLink($ignoreRedirect = false) {
+    public function getLink($ignoreRedirect = false)
+    {
         if (\Ip\ServiceLocator::content()->isManagementState()) {
             $ignoreRedirect = true;
         }
-        
-        
-        if($this->link == null || $this->linkIgnoreRedirect == null) {
+
+
+        if ($this->link == null || $this->linkIgnoreRedirect == null) {
             $this->generateDepthAndLink();
         }
 
-        if($ignoreRedirect) {
+        if ($ignoreRedirect) {
             return $this->linkIgnoreRedirect;
         } else {
             return $this->link;
@@ -38,8 +38,8 @@ class Page extends \Ip\Page {
     }
 
 
-
-    public function getDepth() {
+    public function getDepth()
+    {
         if ($this->depth == null) {
             $this->generateDepthAndLink();
         }
@@ -48,19 +48,18 @@ class Page extends \Ip\Page {
     }
 
 
-
-
-
-
-    public function getDynamicModules() {
+    public function getDynamicModules()
+    {
         return $this->dynamicModules;
     }
 
-    public function setDynamicModules($dynamicModules) {
-        $this->dynamicModules=$dynamicModules;
+    public function setDynamicModules($dynamicModules)
+    {
+        $this->dynamicModules = $dynamicModules;
     }
 
-    private function generateDepthAndLink() {
+    private function generateDepthAndLink()
+    {
         $tmpUrlVars = array();
         $tmpId = $this->getId();
         $element = DbFrontend::getPage($tmpId);
@@ -72,7 +71,7 @@ class Page extends \Ip\Page {
 
         $urlVars = array();
 
-        for ($i=sizeof($tmpUrlVars)-1; $i >= 0; $i--) // " - 1: eliminating invisible root content element"
+        for ($i = sizeof($tmpUrlVars) - 1; $i >= 0; $i--) // " - 1: eliminating invisible root content element"
         {
             $urlVars[] = $tmpUrlVars[$i];
         }
@@ -82,10 +81,15 @@ class Page extends \Ip\Page {
         switch ($this->type) {
             case 'subpage':
                 $tmpChildren = ipContent()->getZone($this->zoneName)->getPages($languageId, $this->id, 0, $limit = 1);
-                if(sizeof($tmpChildren) == 1)
-                $this->link = $tmpChildren[0]->getLink();
-                else
-                $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);  //open current page if no subpages exist
+                if (sizeof($tmpChildren) == 1) {
+                    $this->link = $tmpChildren[0]->getLink();
+                } else {
+                    $this->link = \Ip\Internal\Deprecated\Url::generate(
+                        $languageId,
+                        $this->zoneName,
+                        $urlVars
+                    );
+                } //open current page if no subpages exist
                 break;
             case 'redirect':
                 $this->link = $this->redirectUrl;
@@ -99,7 +103,6 @@ class Page extends \Ip\Page {
 
         $this->linkIgnoreRedirect = \Ip\Internal\Deprecated\Url::generate($languageId, $this->zoneName, $urlVars);
     }
-
 
 
 }
