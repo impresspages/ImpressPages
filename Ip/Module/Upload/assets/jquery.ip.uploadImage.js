@@ -206,11 +206,8 @@
             
             var currentWidth = $image.width();
             
-            $image.width('auto');
-            $image.height('auto');
-            
-            var originalWidth = $image.width();
-            
+            var originalWidth = $image.data('originalWidth');
+
             var scale = currentWidth / originalWidth;
             
             coordinates.x1 = Math.round(offsetX / scale);
@@ -338,12 +335,12 @@
         $image.height(Math.round($image.height())); //set exact value made by automatic scale
 
         $.proxy(configureManagement, $this)(imageCenterXPercentage, imageCenterYPercentage);
-        $this.trigger('scaleUp.ipUploadImage');
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
         $this.data('ipUploadImage', data);
 
+        $this.trigger('scaleUp.ipUploadImage');
     };
 
     var scaleDown = function(e){
@@ -366,12 +363,12 @@
 
 
         $.proxy(configureManagement, $this)(imageCenterXPercentage, imageCenterYPercentage);
-        $this.trigger('scaleDown.ipUploadImage');
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
         $this.data('ipUploadImage', data);
 
+        $this.trigger('scaleDown.ipUploadImage');
 
     };
 
@@ -520,6 +517,9 @@
         var $window = $image.parent().parent();
         var $dragContainer = $image.parent();
         var data = $this.data('ipUploadImage');
+
+        $image.data('originalWidth', $image.width());
+        $image.data('originalHeight', $image.height());
 
         if ($window.height() == 0 || $image.height() == 0) {
             return; //to avoid division by zero.
