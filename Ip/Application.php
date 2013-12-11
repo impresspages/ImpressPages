@@ -41,6 +41,17 @@ class Application {
 
         require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
+        $this->initServices();
+    }
+
+    protected function initServices()
+    {
+        $container = new \Ip\Container();
+        $container->set('Ip.db', function() {
+                return new \Ip\Db();
+            });
+
+        \Ip\Container::addContainer($container);
     }
 
     public function prepareEnvironment($options = array())

@@ -236,7 +236,7 @@ function ipDispatcher()
  */
 function ipDb()
 {
-    return \Ip\ServiceLocator::db();
+    return \Ip\Container::container()->get('Ip.db');
 }
 
 /**
@@ -448,4 +448,12 @@ function ipDoctypeDeclaration($doctype = null)
             throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
     }
     echo $answer;
+}
+
+/**
+ * @return \Ip\Container
+ */
+function ipContainer()
+{
+    return \Ip\Container::container();
 }
