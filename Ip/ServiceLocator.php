@@ -28,10 +28,21 @@ class ServiceLocator
     protected static $db;
     protected static $translator;
 
+    protected static $serviceClasses = array(
+        'db' => '\Ip\Db',
+        'options' => '\Ip\Options',
+        'storage' => '\Ip\Storage',
+        'log' => '\Ip\Module\Log\Logger',
+        'translator' => '\Ip\Translator\Translator',
+        'dispatcher' => '\Ip\Dispatcher',
+        'response' => '\Ip\Response\Layout',
+        'content' => '\Ip\Content',
+    );
+
     public static function options()
     {
         if (self::$options == null) {
-            self::$options = new \Ip\Options();
+            self::$options = static::loadService('options');
         }
         return self::$options;
     }
@@ -40,7 +51,7 @@ class ServiceLocator
     public static function storage()
     {
         if (self::$storage == null) {
-            self::$storage = new \Ip\Storage();
+            self::$storage = static::loadService('storage');
         }
         return self::$storage;
     }
@@ -56,6 +67,11 @@ class ServiceLocator
     public static function setConfig($config)
     {
         self::$config = $config;
+
+        $serviceClasses = $config->getRaw('SERVICES');
+        if ($serviceClasses) {
+            static::$serviceClasses = array_merge(static::$serviceClasses, $serviceClasses);
+        }
     }
 
     /**
@@ -64,7 +80,7 @@ class ServiceLocator
     public static function log()
     {
         if (self::$log == null) {
-            self::$log= new \Ip\Module\Log\Logger();
+            self::$log = static::loadService('log');
         }
         return self::$log;
     }
@@ -89,8 +105,6 @@ class ServiceLocator
     }
 
 
-
-
     /**
      * Add new request to HMVC queue
      * Used by Application. Never add requests manually.
@@ -99,9 +113,9 @@ class ServiceLocator
     public static function addRequest($request)
     {
         self::$requests[] = $request;
-        self::$dispatchers[] = new \Ip\Dispatcher();
-        self::$contents[] = new \Ip\Content();
-        self::$responses[] = new \Ip\Response\Layout();
+        self::$dispatchers[] = static::loadService('dispatcher');
+        self::$contents[] = static::loadService('content');
+        self::$responses[] = static::loadService('response');
     }
 
     /**
@@ -156,7 +170,11 @@ class ServiceLocator
      */
     public static function db()
     {
-        return \Ip\Container::container()->get('Ip.db');
+        if (static::$db === null) {
+            static::$db = static::loadService('db');
+        }
+
+        return static::$db;
     }
 
     /**
@@ -165,10 +183,15 @@ class ServiceLocator
     public static function translator()
     {
         if (static::$translator === null) {
-            static::$translator = new \Ip\Translator\Translator();
+            static::$translator = static::loadService('translator');
         }
 
         return static::$translator;
+    }
+
+    protected static function loadService($name)
+    {
+        return new static::$serviceClasses[$name]();
     }
 
 }
