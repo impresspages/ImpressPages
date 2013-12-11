@@ -246,12 +246,12 @@
 
 
     /**
-     * recofingure management tools. It just fixes everything after image or window size changes.
+     * cofigure management tools. It just fixes everything after image or window size changes.
      * @param e
      * @param imageCenterXPercentage
      * @param imageCenterYPercentage
      */
-    var imageResized = function(e, imageCenterXPercentage, imageCenterYPercentage) {
+    var configureManagement = function(e, imageCenterXPercentage, imageCenterYPercentage) {
         var $this = $(this);
         var $image = $this.find('.ipUploadImage');
         var $window = $image.parent().parent();
@@ -437,8 +437,8 @@
         });
 
 
-        $this.find('.ipUploadImage').bind('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
-            $.proxy(imageResized, $this)(event, imageCenterXPercentage, imageCenterYPercentage);
+        $this.on('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
+            $.proxy(configureManagement, $this)(event, imageCenterXPercentage, imageCenterYPercentage);
         });
 
         $this.find('.ipUploadImage').draggable({
