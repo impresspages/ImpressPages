@@ -15,43 +15,43 @@
 function myErrorHandler ($errno, $errstr, $errfile, $errline) {
     $originalIpErrorHandler = set_error_handler("ipSilentErrorHandler");
 
-    $type = 'php.';
+    $type = '';
     switch ($errno) {
         case E_USER_WARNING:
-            $type .= 'WARNING';
+            $type .= 'Warning';
             break;
         case E_USER_NOTICE:
-            $type .= 'NOTICE';
+            $type .= 'Notice';
             break;
         case E_WARNING:
-            $type .= 'WARNING';
+            $type .= 'Warning';
             break;
         case E_NOTICE:
-            $type .= 'NOTICE';
+            $type .= 'Notice';
             break;
         case E_CORE_WARNING:
-            $type .= 'WARNING';
+            $type .= 'Warning';
             break;
         case E_COMPILE_WARNING:
-            $type .= 'WARNING';
+            $type .= 'Warning';
             break;
         case E_USER_ERROR:
-            $type .= 'ERROR';
+            $type .= 'Error';
             break;
         case E_ERROR:
-            $type .= 'ERROR';
+            $type .= 'Error';
             break;
         case E_PARSE:
-            $type .= 'PARSE';
+            $type .= 'Parse';
             break;
         case E_CORE_ERROR:
-            $type .= 'ERROR';
+            $type .= 'Error';
             break;
         case E_COMPILE_ERROR:
-            $type .= 'ERROR';
+            $type .= 'Error';
             break;
         default:
-            $type .= 'UNKNOWN_EXCEPTION';
+            $type .= 'Unknown exception';
             break;
     }
 
