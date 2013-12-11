@@ -406,13 +406,10 @@
             $ipUploadWindow.resizable(resizableOptions);
 
             $ipUploadWindow.bind( "resize", function(event, ui) {
-                $(this).trigger('windowResize.ipUploadImage', [event, ui]);
+                $.proxy(resizedWindow, $this)(event, ui);
             });
 
         }
-        $this.bind('windowResize.ipUploadImage', function(event, resizeEvent, ui) {
-            $.proxy(resizedWindow, this)(resizeEvent, ui);
-        });
 
 
         $this.find('.ipUploadLargerButton').click(function(event) {
