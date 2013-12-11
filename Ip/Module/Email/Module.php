@@ -44,8 +44,8 @@ class Module
         $cached_files = array();
         $cached_file_names = array();
         $cached_file_mime_types = array();
-        if ($files)
-            foreach ($files as $key => $file) {
+        if ($files) {
+            foreach ($files as $file) {
                 $new_name = 'contact_form_' . rand();
                 $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
                 if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
@@ -60,6 +60,7 @@ class Module
                     trigger_error('File caching failed');
                 }
             }
+        }
 
         $cachedFilesStr = implode("\n", $cached_files);
         $cachedFileNamesStr = implode("\n", $cached_file_names);
@@ -137,20 +138,21 @@ class Module
                     $files = explode("\n", $email['files']);
                     $file_names = explode("\n", $email['file_names']);
                     $file_mime_types = explode("\n", $email['file_mime_types']);
-                    for ($i = 0; $i < sizeof($files) && $i < sizeof($file_names) && $i < sizeof(
-                        $file_mime_types
-                    ); $i++) {
+
+                    $fileCount = min(count($files), count($file_names), count($file_mime_types));
+                    for ($i = 0; $i < $fileCount; $i++) {
                         if ($files[$i] != '') {
 
-                            if ($file_mime_types[$i] == '')
+                            if ($file_mime_types[$i] == '') {
                                 $answer = $mail->AddAttachment($files[$i], $file_names[$i]);
-                            else
+                            } else {
                                 $answer = $mail->AddAttachment(
                                     $files[$i],
                                     $file_names[$i],
                                     "base64",
                                     $file_mime_types[$i]
                                 );
+                            }
 
 
                             if (!$answer) {
@@ -159,7 +161,7 @@ class Module
                                     array(
                                         'to' => $email['to'],
                                         'subject' => $email['subject'],
-                                        'queueId' => $lock['id']
+                                        'filename' => $file_names[$i],
                                     )
                                 );
                                 return false;
