@@ -55,7 +55,6 @@ class Config
         } else {
             $this->protocol = 'http://';
         }
-
     }
 
     public function baseUrl()
