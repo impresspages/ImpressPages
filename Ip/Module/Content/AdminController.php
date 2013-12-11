@@ -60,23 +60,32 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response($answer);
     }
 
-    private function getPagesList($language, $zone, $parentElementId = null) {
+    private function getPagesList($language, $zone, $parentElementId = null)
+    {
         $answer = '';
-        $pages = $zone->getElements($language['id'], $parentElementId, $startFrom = 0, $limit = null, $includeHidden = true, $reverseOrder = false);
-        if($pages && sizeof($pages) > 0) {
-            $answer .= '<ul>'."\n";
-            foreach($pages as $key => $page) {
-                $answer .= '<li><a href="'.$page->getLink(true).'">'.$page->getButtonTitle().'</a>';
+        $pages = $zone->getElements(
+            $language['id'],
+            $parentElementId,
+            $startFrom = 0,
+            $limit = null,
+            $includeHidden = true,
+            $reverseOrder = false
+        );
+        if ($pages && sizeof($pages) > 0) {
+            $answer .= '<ul>' . "\n";
+            foreach ($pages as $key => $page) {
+                $answer .= '<li><a href="' . $page->getLink(true) . '">' . $page->getButtonTitle() . '</a>';
                 $answer .= $this->getPagesList($language, $zone, $page->getId());
                 $answer .= '</li>';
             }
-            $answer .= '</ul>'."\n";
+            $answer .= '</ul>' . "\n";
         }
         return $answer;
     }
 
 
-    public function getPageOptionsHtml() {
+    public function getPageOptionsHtml()
+    {
         if (!isset($_REQUEST['pageId'])) {
             return $this->_errorAnswer('Page id is not set');
         }
@@ -95,7 +104,7 @@ class AdminController extends \Ip\Controller
 
         $element = $zone->getPage($pageId);
 
-        if (! $element) {
+        if (!$element) {
             return $this->_errorAnswer('Page does not exist');
         }
 
@@ -143,8 +152,6 @@ class AdminController extends \Ip\Controller
     }
 
 
-
-
     public function moveWidget()
     {
 
@@ -165,18 +172,23 @@ class AdminController extends \Ip\Controller
 
         $record = Model::getWidgetFullRecord($instanceId);
 
-        if (!$record)
-        {
+        if (!$record) {
             return $this->_errorAnswer('Unknown instance ' . $instanceId);
         }
 
         Model::deleteInstance($instanceId);
-        $newInstanceId = Model::addInstance($record['widgetId'], $revisionId, $blockName, $position, $record['visible']);
+        $newInstanceId = Model::addInstance(
+            $record['widgetId'],
+            $revisionId,
+            $blockName,
+            $position,
+            $record['visible']
+        );
 
 
         $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
             'oldInstance' => $instanceId,
@@ -188,7 +200,6 @@ class AdminController extends \Ip\Controller
 
     public function createWidget()
     {
-
 
 
         if (!isset($_POST['widgetName']) ||
@@ -221,18 +232,18 @@ class AdminController extends \Ip\Controller
 
             $zone = ipContent()->getZone($zoneName);
             if ($zone === false) {
-                return $this->_errorAnswer('Unknown zone "'.$zoneName.'"');
+                return $this->_errorAnswer('Unknown zone "' . $zoneName . '"');
             }
 
             $page = $zone->getPage($pageId);
             if ($page === false) {
-                return $this->_errorAnswer('Page not found "'.$zoneName.'"/"'.$pageId.'"');
+                return $this->_errorAnswer('Page not found "' . $zoneName . '"/"' . $pageId . '"');
             }
 
         }
         $widgetObject = Model::getWidgetObject($widgetName);
         if ($widgetObject === false) {
-            return $this->_errorAnswer('Unknown widget "'.$widgetName.'"');
+            return $this->_errorAnswer('Unknown widget "' . $widgetName . '"');
         }
 
 
@@ -247,7 +258,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_createWidgetResponse',
             'widgetHtml' => $widgetHtml,
@@ -259,7 +270,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
 
     }
-
 
 
     public function updateWidget()
@@ -291,7 +301,7 @@ class AdminController extends \Ip\Controller
         Model::updateWidget($record['widgetId'], $updateData);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
             'previewHtml' => $previewHtml,
@@ -325,7 +335,7 @@ class AdminController extends \Ip\Controller
         Model::updateWidget($record['widgetId'], $updateData);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
             'previewHtml' => $previewHtml,
@@ -345,7 +355,7 @@ class AdminController extends \Ip\Controller
 
         Model::deleteInstance($instanceId);
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_deleteWidgetResponse',
             'widgetId' => $instanceId
@@ -355,7 +365,8 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function savePage () {
+    public function savePage()
+    {
 
         if (!isset($_POST['revisionId'])) {
             return $this->_errorAnswer('Missing revisionId POST variable');
@@ -365,11 +376,10 @@ class AdminController extends \Ip\Controller
         $publish = !empty($_POST['publish']);
 
 
-
         $revision = \Ip\Revision::getRevision($revisionId);
 
         if (!$revision) {
-            return $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
+            return $this->_errorAnswer('Can\'t find revision. RevisionId \'' . $revisionId . '\'');
         }
 
 
@@ -385,14 +395,14 @@ class AdminController extends \Ip\Controller
 
         $zone = ipContent()->getZone($revision['zoneName']);
         if (!$zone) {
-            return $this->_errorAnswer('Can\'t find content management zone. RevisionId \''.$revisionId.'\'');
+            return $this->_errorAnswer('Can\'t find content management zone. RevisionId \'' . $revisionId . '\'');
         }
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink().'?cms_revision='.$newRevisionId
+            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink() . '?cms_revision=' . $newRevisionId
         );
 
         return new \Ip\Response\Json($data);
@@ -400,14 +410,15 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function savePageOptions () {
+    public function savePageOptions()
+    {
         if (empty($_POST['revisionId'])) {
             return $this->_errorAnswer('Missing revisionId POST variable');
         }
         $revisionId = $_POST['revisionId'];
 
 
-        if (empty($_POST['pageOptions'])){
+        if (empty($_POST['pageOptions'])) {
             return $this->_errorAnswer('Missing pageOptions POST variable');
         }
         $pageOptions = $_POST['pageOptions'];
@@ -415,7 +426,7 @@ class AdminController extends \Ip\Controller
         $revision = \Ip\Revision::getRevision($revisionId);
 
         if (!$revision) {
-            return $this->_errorAnswer('Can\'t find revision. RevisionId \''.$revisionId.'\'');
+            return $this->_errorAnswer('Can\'t find revision. RevisionId \'' . $revisionId . '\'');
         }
 
         $page = \Ip\Module\Pages\Db::getPage($revision['pageId']);
@@ -438,7 +449,7 @@ class AdminController extends \Ip\Controller
             $newUrl = $newElement->getLink();
         }
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'action' => '_savePageOptionsResponse',
             'pageOptions' => $pageOptions,
@@ -455,9 +466,10 @@ class AdminController extends \Ip\Controller
     }
 
 
-    private function _errorAnswer($errorMessage) {
+    private function _errorAnswer($errorMessage)
+    {
 
-        $data = array (
+        $data = array(
             'status' => 'error',
             'errorMessage' => $errorMessage
         );

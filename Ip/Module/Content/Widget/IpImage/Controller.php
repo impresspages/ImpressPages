@@ -20,7 +20,6 @@ class Controller extends \Ip\WidgetController{
     public function update($widgetId, $postData, $currentData) {
 
         $newData = $currentData;
-        $newData['imageWindowWidth'] = $postData['imageWindowWidth'];
 
         if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
             //remove old image
@@ -34,15 +33,12 @@ class Controller extends \Ip\WidgetController{
             
         }
 
-        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['scale']) && isset($postData['maxWidth'])) {
+        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
             //new small image
             $newData['cropX1'] = $postData['cropX1'];
             $newData['cropY1'] = $postData['cropY1'];
             $newData['cropX2'] = $postData['cropX2'];
             $newData['cropY2'] = $postData['cropY2'];
-            $newData['scale'] = $postData['scale'];
-            $newData['maxWidth'] = $postData['maxWidth'];
-            
         }
 
 
@@ -97,7 +93,7 @@ class Controller extends \Ip\WidgetController{
             $transformBig = new \Ip\Module\Repository\Transform\None();
             $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
-            if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['maxWidth']) && isset($data['scale'])) {
+            if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2'])) {
                 if ($data['cropY2'] - $data['cropY1'] > 0){
                     $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
                     $requiredWidth = round($data['maxWidth'] * $data['scale']);

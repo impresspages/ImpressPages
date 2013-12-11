@@ -116,7 +116,7 @@ class Service
     public static function addWidgetContent($instanceId, $content, $layout = 'default')
     {
 
-        try{
+        try {
             $record = Model::getWidgetFullRecord($instanceId);
             $widgetObject = Model::getWidgetObject($record['name']);
             $newData = $widgetObject->update($record['widgetId'], $content, $record['data']);
@@ -126,7 +126,7 @@ class Service
             );
 
             Model::updateWidget($record['widgetId'], $updateArray);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return self::_errorAnswer($e);
         }
 
@@ -158,7 +158,7 @@ class Service
         $data['lastModified'] = date("Y-m-d");
         $data['visible'] = !ipGetOption('Pages.hideNewPages');
 
-        $newPageId =  \Ip\Module\Pages\Db::insertPage($parentPage->getId(), $data);
+        $newPageId = \Ip\Module\Pages\Db::insertPage($parentPage->getId(), $data);
 
         return $newPageId;
     }
