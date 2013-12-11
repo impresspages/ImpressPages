@@ -3289,3 +3289,6 @@ body {
 .side .ipWidget-IpLogoGallery li {
   width: 100% / ;
 }
+.ip img {
+  max-width: none;
+}

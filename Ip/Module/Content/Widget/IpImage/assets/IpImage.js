@@ -12,7 +12,7 @@ function IpWidget_IpImage() {
     this.init = function($widgetObject, data) {
         this.$widgetObject = $widgetObject;
 
-        var $imageUploader = $('<div class="ipsImage"></div>');
+        var $imageUploader = $('<div class="ipsImage ip"></div>');
         this.$widgetObject.append($imageUploader);
         this.$imageUploader = $imageUploader;
 
