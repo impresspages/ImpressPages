@@ -256,9 +256,14 @@
                 $($newWidget).insertAfter($secondChild);
             }
             $this.trigger('reinitRequired.ipWidget');
-            $this.trigger('stateManagement.ipWidget',{
-                'instanceId': response.instanceId
+            $this.trigger('addWidget.ipWidget',{
+                'instanceId': response.instanceId,
+                'widget': $newWidget
             });
+            var widgetController = $newWidget.ipWidget('widgetController');
+            if (widgetController && typeof(widgetController['onAdd']) === 'function') {
+                widgetController.onAdd();
+            }
             // $this.ipBlock('reinit');
 
         }

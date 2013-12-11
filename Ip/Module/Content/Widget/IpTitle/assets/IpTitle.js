@@ -30,6 +30,9 @@ function IpWidget_IpTitle() {
     };
 
 
+    this.onAdd = function () {
+        this.$widgetObject.find('h1,h2,h3,h4,h5,h6').focus();
+    }
 
     this.focus = function () {
         this.initControls();

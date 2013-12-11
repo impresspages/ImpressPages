@@ -220,7 +220,7 @@ function ipWizardBind(data) {
         $tip3.hide();
         $tip4.hide();
     })
-    .bind('stateManagement.ipWidget',function(event,data){
+    .bind('addWidget.ipWidget',function(event,data){
         var $openedWidget = $('#ipWidget-'+data.instanceId);
         var $widgetBody = $openedWidget.find('.ipaBody');
         var $removingWidget = $openedWidget.prev();
