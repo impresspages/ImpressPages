@@ -158,10 +158,35 @@ class View
     
 
     
+    protected static function getCallerFile($backtraceLevel = 1)
+    {
 
+    }
 
+    protected static function getIpRelativePath($absoluteFilename)
+    {
+        $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+        if ($overrides) {
+            foreach ($overrides as $relativePath => $fullPath) {
+                if (strpos($absoluteFilename, $fullPath) === 0) {
+                    return substr_replace($absoluteFilename, $relativePath, 0, strlen($fullPath));
+                }
+            }
+        }
 
-    
+        $baseDir = ipConfig()->getRaw('BASE_DIR') . '/';
+        if (strpos($absoluteFilename, $baseDir) !== 0) {
+            throw new Exception('Cannot find relative path for file ' . $absoluteFilename);
+        }
+
+        return substr($absoluteFilename, strlen($baseDir));
+    }
+
+    /**
+     * @param $file relative, absolute, Ip/ or Plugin/
+     * @return mixed|string
+     * @throws CoreException
+     */
     private static function findFile($file) {
         //make $file absolute
         if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
@@ -171,7 +196,7 @@ class View
             if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
                 throw new CoreException("Can't find caller", CoreException::VIEW);
             }
-            $absoluteFile = dirname($backtrace[1]['file']) . DIRECTORY_SEPARATOR . $file;
+            $absoluteFile = dirname($backtrace[1]['file']) . '/' . $file;
         }
 
         if (DIRECTORY_SEPARATOR == '\\') {
@@ -179,16 +204,15 @@ class View
             $absoluteFile = str_replace('\\', '/', $absoluteFile);
         }
 
-        if (strpos($absoluteFile, ipFile('')) === 0) {
-            //core dir
-            $basePath = ipFile('');
-        } elseif (strpos($absoluteFile, ipFile('Plugin/')) === 0) {
-            //plugin dir
-            $basePath = ipFile('Plugin/');
-        } elseif (strpos($absoluteFile, ipThemeFile('')) === 0) {
-            //theme dir
-            $basePath = ipThemeFile('');
+        $relativeFile = static::getIpRelativePath($absoluteFile);
+
+        if (strpos($relativeFile, 'Plugin/') == 0) {
+            $overrideFile = substr($relativeFile, 7);
         } else {
+            $overrideFile = $relativeFile;
+        }
+
+        if (0) {
             $backtrace = debug_backtrace();
             if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
                 $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
@@ -197,17 +221,15 @@ class View
             }
             throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
         }
-        $relativeFile = substr($absoluteFile, strlen($basePath));
 
-        $fileInThemeDir = ipThemeFile(self::OVERRIDE_DIR . DIRECTORY_SEPARATOR . $relativeFile);
+        $fileInThemeDir = ipThemeFile(self::OVERRIDE_DIR . '/' . $overrideFile);
         if (is_file($fileInThemeDir)) {
             //found file in theme.
             return $fileInThemeDir;
         }
 
-        if (file_exists($basePath . $relativeFile)) {
-            //found file in original location
-            return $basePath . DIRECTORY_SEPARATOR . $relativeFile;
+        if (file_exists($absoluteFile)) {
+            return $absoluteFile;
         } else {
             $backtrace = debug_backtrace();
             if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
