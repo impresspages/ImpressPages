@@ -248,7 +248,7 @@
         }
 
         if (response.status == 'success') {
-        	var $newWidget = $(response.widgetManagementHtml);
+            var $newWidget = $(response.widgetHtml);
             if (response.position == 0) {
                 $(this).prepend($newWidget);
             } else {

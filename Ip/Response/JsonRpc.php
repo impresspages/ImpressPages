@@ -5,8 +5,8 @@
 
 namespace Ip\Response;
 
-//TODOX refactor
-class JsonRpc extends Json implements ResponseInterface
+
+class JsonRpc extends Json
 {
     public function __construct($result = null, $errorMessage = null, $errorCode = null, $id = null)
     {

@@ -427,7 +427,7 @@ class AdminController extends \Ip\Controller
 
         $title = __('SEO', 'ipAdmin');
 
-        $language = \Ip\ServiceLocator::content()->getLanguageById($languageId);
+        $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
 
         if (!$language) {
             throw new \Ip\CoreException("Language doesn't exist. Language id: " . $languageId);
@@ -747,11 +747,11 @@ class AdminController extends \Ip\Controller
 
 
         if (isset($_REQUEST['languageId'])) {
-            $language = \Ip\ServiceLocator::content()->getLanguageById($_REQUEST['languageId']);
+            $language = \Ip\ServiceLocator::content()->getLanguage($_REQUEST['languageId']);
         } else {
             $languages = Db::getLanguages();
             $languageArray = $languages[0];
-            $language = \Ip\ServiceLocator::content()->getLanguageById($languageArray['id']);
+            $language = \Ip\ServiceLocator::content()->getLanguage($languageArray['id']);
         }
 
         if (empty($language) || !$language) {

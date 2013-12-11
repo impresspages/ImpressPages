@@ -2,14 +2,11 @@
 namespace Ip\Module\Translations;
 
 
-class AdminController extends \Ip\Grid1\Controller{
+class AdminController extends \Ip\Controller{
 
-    protected function config()
+    public function index()
     {
-        return array (
-            'type' => 'table',
-            'table' => DB_PREF . 'translation'
-        );
+        return 'Translation management';
     }
 
 }
