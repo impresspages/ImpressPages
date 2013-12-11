@@ -127,8 +127,10 @@ class Module{
                             $answer = $mail->AddAttachment($files[$i], $file_names[$i], "base64", $file_mime_types[$i]);
 
 
-                            if(!$answer)
-                            trigger_error("Can't add attachment. Queue id ".$lock['id']);
+                            if (!$answer) {
+                                ipLog()->error('Email.addAttachmentFailed: {subject} to {to}', array('to' => $email['to'], 'subject' => $email['subject'] , 'queueId' => $lock['id']));
+                                return false;
+                            }
                         }
                     }
                      
@@ -148,8 +150,8 @@ class Module{
 
                     $mail->AddAddress($email['to'], $email['to_name']);
                     if(!$mail->Send()){
-                        trigger_error("Can't send email ".$email['to']." ".$email['email']);
-                        $errors = true;
+                        ipLog()->error('Email.sendFailed: {subject} to {to}', array('to' => $email['to'], 'subject' => $email['subject'] , 'body' => $email['email']));
+                        return false;
                     }
                      
                     if(sizeof($emails) > 5) {
