@@ -156,11 +156,7 @@ class ServiceLocator
      */
     public static function db()
     {
-        if (self::$db === null) {
-            self::$db = new \Ip\Db();
-        }
-
-        return self::$db;
+        return \Ip\Container::container()->get('Ip.db');
     }
 
     /**
@@ -174,4 +170,5 @@ class ServiceLocator
 
         return static::$translator;
     }
+
 }
