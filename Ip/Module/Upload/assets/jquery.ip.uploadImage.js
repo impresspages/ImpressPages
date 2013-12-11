@@ -164,266 +164,7 @@
 
         },
         
-        
 
-        
-        
-        /**
-         * Autosize image and window if allowed
-         */
-        autosize : function (autosizeType, allowWindowResize) {
-            var $this = $(this);
-            var $image = $this.find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            var data = $this.data('ipUploadImage');
-            var maxAspectRatio = data.maxWindowWidth / data.maxWindowHeight; 
-            var minAspectRatio = data.minWindowWidth / data.minWindowHeight; 
-            $image.height('auto');
-            $image.width('auto');
-            var imageAspectRatio = $image.width() / $image.height();
-            
-            //container resizing
-            if (allowWindowResize) {
-                
-                switch (autosizeType) {
-                    case 'resize' :
-                        if ($image.width() > data.maxWindowWidth || $image.height() > data.maxWindowHeight) {
-                            //resize to maximum container size
-                            if (maxAspectRatio < imageAspectRatio) {
-                                $window.width(data.maxWindowWidth);
-                                var tmpHeight = Math.floor(data.maxWindowWidth / imageAspectRatio);
-                                if (tmpHeight < data.minWindowHeight) { //we are sure it is not more than max. But we need to check if it is not less than min 
-                                    tmpHeight = data.minWindowHeight;
-                                }
-                                $window.height(tmpHeight);
-                            } else {
-                                $window.height(data.maxWindowHeight);
-                                var tmpWidth = Math.floor(data.maxWindowHeight * imageAspectRatio);
-                                
-                                if (tmpWidth < data.minWindowWidth) { //we are sure it is not more than max. But we need to check if it is not less than min
-                                    tmpWidth = data.minWindowWidth;
-                                }
-                                $window.width(tmpWidth);
-                            }
-                            
-                        } else if ($image.width() < data.minWindowWidth || $image.height() < data.minWindowHeight) {
-                            //resize to minimum container size
-                            if (minAspectRatio < imageAspectRatio) {
-                                $window.height(data.minWindowHeight);
-                                var tmpWidth = Math.floor(data.minWindowHeight * imageAspectRatio);
-                                
-                                if (tmpWidth > data.maxWindowWidth) { //we are sure it is not less than min. But we need to check if it is not less than max
-                                    tmpWidth = data.maxWindowWidth;
-                                }
-                                $window.width(tmpWidth);
-                            } else {
-                                $window.width(data.minWindowWidth);
-                                var tmpHeight = Math.floor(data.minWindowWidth / imageAspectRatio);
-                                if (tmpHeight > data.maxWindowHeight) { //we are sure it is not less than min. But we need to check if it is not less than max 
-                                    tmpHeight = data.maxWindowHeight;
-                                }
-                                $window.height(tmpHeight);
-                            }
-                            
-                        } else {
-                            //resize container to exact image width / height
-                            $window.width($image.width());
-                            $window.height($image.height());
-                        }
-                        
-                        break;
-                    default:
-                }
-            }
-
-            
-            //image resizing
-            containerAspectRatio = $window.width() / $window.height();
-            switch (data.autosizeType) {
-                case 'resize' :
-                case 'crop' :
-                    if (containerAspectRatio > imageAspectRatio) {
-                        $image.width($window.width());
-                        $image.height('auto');
-                        $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
-                        
-                    } else {
-                        $image.height($window.height());
-                        $image.width('auto');
-                        $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
-                    }
-                    break;
-                case 'fit' :
-                    if (containerAspectRatio < imageAspectRatio) {
-                        $image.width($window.width());
-                        $image.height('auto');
-                        $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
-                        
-                    } else {
-                        $image.height($window.height());
-                        $image.width('auto');
-                        $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
-                    }
-                    break;
-
-            }
-            
-            $image.trigger('imageResized.ipUploadImage', [50, 50]);            
-        },
-        
-        /**
-         * recofingure management tools. It just fixes everything after image or window size changes.
-         * @param e
-         * @param imageCenterXPercentage
-         * @param imageCenterYPercentage
-         */
-        _imageResized : function(e, imageCenterXPercentage, imageCenterYPercentage) {
-            var $this = $(this);
-            var $image = $this.find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            var data = $this.data('ipUploadImage');
-            if (!data.enableUnderscale) {
-                
-                if ($image.width() < $window.width()) {
-                    $image.width(Math.round($image.width())); //set exact value made by automatic scale
-                    $image.height('auto');
-                    $image.width($window.width());
-                }
-                if ($image.height() < $window.height()) {
-                    $image.height(Math.round($image.height())); //set exact value made by automatic scale
-                    $image.width('auto');
-                    $image.height($window.height());
-                }
-            }
-            
-            
-            var imageCenterX = $image.width() * imageCenterXPercentage / 100;
-            var imageCenterY = $image.height() * imageCenterYPercentage / 100;
-            marginHorizontal = $image.width() - $window.width();
-            if (marginHorizontal < 0) {
-                marginHorizontal = 0;
-            }
-
-            $dragContainer.css('margin-left', -marginHorizontal);
-            $dragContainer.css('margin-right', -marginHorizontal);
-            $dragContainer.width($window.width() + marginHorizontal*2);
-            $image.css('left', Math.round($dragContainer.width() / 2 - imageCenterX));
-            if (parseInt($image.css('left')) < 0){
-                $image.css('left', 0);
-            }
-            if (parseInt($image.css('left')) > $dragContainer.width() - $image.width()){
-                $image.css('left', $dragContainer.width() - $image.width());
-            }
-            
-            
-            
-            marginVertical = $image.height() - $window.height();
-            if (marginVertical < 0) {
-                marginVertical = 0;
-            }
-
-            $dragContainer.css('margin-top', -marginVertical);
-            $dragContainer.css('margin-bottom', -marginVertical);
-            $dragContainer.height($window.height() + marginVertical*2);
-            $image.css('top', Math.round($dragContainer.height() / 2 - imageCenterY));
-            if (parseInt($image.css('top')) < 0){
-                $image.css('top', 0);
-            }
-            if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()){
-                $image.css('top', $dragContainer.height() - $image.height());
-            }
-
-
-        },
-        
-        _uploadImage : function(e){
-            
-            var $image = $(this).find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            
-            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
-            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
-            
-            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
-            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
-            
-            if ($image.width() < $window.width()) {
-                $image.width($window.width());
-                $image.height('auto');
-                $image.height(Math.round($image.height())); //set exact value made by automatic scale
-            }
-            if ($image.height() < $window.height()) {
-                $image.height($window.height());
-                $image.width('auto');
-                $image.height(Math.round($image.height())); //set exact value made by automatic scale
-            }
-            
-            
-            
-            
-            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
-            
-          
-        },
-        
-        _scaleUp : function(e){
-            var $this = $(this);
-            var scaleFactor = 1.1;
-            
-            var $image = $(this).find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            
-            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
-            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
-            
-            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
-            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
-            
-            $image.width(Math.round($image.width() * scaleFactor));
-            $image.height('auto'); //scale automatically
-            $image.height(Math.round($image.height())); //set exact value made by automatic scale
-            
-            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
-
-            var data = $this.data('ipUploadImage');
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
-            
-        },
-        
-        _scaleDown : function(e){
-            var $this = $(this);
-            
-            var scaleFactor = 1.1;
-            
-            var $image = $(this).find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            
-            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
-            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
-            
-            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
-            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
-            
-            $image.width(Math.round($image.width())); //set exact value made by automatic scale
-            $image.height('auto');
-            $image.width($image.width() / scaleFactor);
-            
-
-            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
-            
-            var data = $this.data('ipUploadImage');
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
-            
-          
-        },
-        
         getCurImage : function () {
             var $this = this;
             if ($this.data('ipUploadImage').curImage !== $this.data('ipUploadImage').defaultImage) {
@@ -504,6 +245,128 @@
 
 
 
+    /**
+     * recofingure management tools. It just fixes everything after image or window size changes.
+     * @param e
+     * @param imageCenterXPercentage
+     * @param imageCenterYPercentage
+     */
+    var imageResized = function(e, imageCenterXPercentage, imageCenterYPercentage) {
+        var $this = $(this);
+        var $image = $this.find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+        var data = $this.data('ipUploadImage');
+        if (!data.enableUnderscale) {
+
+            if ($image.width() < $window.width()) {
+                $image.width(Math.round($image.width())); //set exact value made by automatic scale
+                $image.height('auto');
+                $image.width($window.width());
+            }
+            if ($image.height() < $window.height()) {
+                $image.height(Math.round($image.height())); //set exact value made by automatic scale
+                $image.width('auto');
+                $image.height($window.height());
+            }
+        }
+
+
+        var imageCenterX = $image.width() * imageCenterXPercentage / 100;
+        var imageCenterY = $image.height() * imageCenterYPercentage / 100;
+        marginHorizontal = $image.width() - $window.width();
+        if (marginHorizontal < 0) {
+            marginHorizontal = 0;
+        }
+
+        $dragContainer.css('margin-left', -marginHorizontal);
+        $dragContainer.css('margin-right', -marginHorizontal);
+        $dragContainer.width($window.width() + marginHorizontal*2);
+        $image.css('left', Math.round($dragContainer.width() / 2 - imageCenterX));
+        if (parseInt($image.css('left')) < 0){
+            $image.css('left', 0);
+        }
+        if (parseInt($image.css('left')) > $dragContainer.width() - $image.width()){
+            $image.css('left', $dragContainer.width() - $image.width());
+        }
+
+
+
+        marginVertical = $image.height() - $window.height();
+        if (marginVertical < 0) {
+            marginVertical = 0;
+        }
+
+        $dragContainer.css('margin-top', -marginVertical);
+        $dragContainer.css('margin-bottom', -marginVertical);
+        $dragContainer.height($window.height() + marginVertical*2);
+        $image.css('top', Math.round($dragContainer.height() / 2 - imageCenterY));
+        if (parseInt($image.css('top')) < 0){
+            $image.css('top', 0);
+        }
+        if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()){
+            $image.css('top', $dragContainer.height() - $image.height());
+        }
+
+
+    };
+
+
+    var scaleUp = function(e){
+        var $this = $(this);
+        var scaleFactor = 1.1;
+
+        var $image = $(this).find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+
+        var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+        var imageCenterXPercentage = imageCenterX * 100 / $image.width();
+
+        var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+        var imageCenterYPercentage = imageCenterY * 100 / $image.height();
+
+        $image.width(Math.round($image.width() * scaleFactor));
+        $image.height('auto'); //scale automatically
+        $image.height(Math.round($image.height())); //set exact value made by automatic scale
+
+        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+
+        var data = $this.data('ipUploadImage');
+        data.coordinatesChanged = true;
+        $this.data('ipUploadImage', data);
+
+    };
+
+    var scaleDown = function(e){
+        var $this = $(this);
+
+        var scaleFactor = 1.1;
+
+        var $image = $(this).find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+
+        var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+        var imageCenterXPercentage = imageCenterX * 100 / $image.width();
+
+        var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+        var imageCenterYPercentage = imageCenterY * 100 / $image.height();
+
+        $image.width(Math.round($image.width())); //set exact value made by automatic scale
+        $image.height('auto');
+        $image.width($image.width() / scaleFactor);
+
+
+        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+
+        var data = $this.data('ipUploadImage');
+        data.coordinatesChanged = true;
+        $this.data('ipUploadImage', data);
+
+
+    };
+
 
     var containerHtmlResponse = function (response) {
         var $this = this;
@@ -561,7 +424,7 @@
         }
 
         $this.bind('imageScaleUp.ipUploadImage', function(event) {
-            $(this).ipUploadImage('_scaleUp', event);
+            $.proxy(scaleUp, $(this))(event);
         });
 
 
@@ -578,8 +441,7 @@
 
 
         $this.bind('imageScaleDown.ipUploadImage', function(event) {
-            $(this).ipUploadImage('_scaleDown', event);
-            $this.trigger();
+            $.proxy(scaleDown, $(this))(event);
         });
 
 
@@ -590,7 +452,7 @@
 
 
         $this.find('.ipUploadImage').bind('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
-            $this.ipUploadImage('_imageResized', event, imageCenterXPercentage, imageCenterYPercentage);
+            $.proxy(imageResized, $this)(event, imageCenterXPercentage, imageCenterYPercentage);
         });
 
         $this.find('.ipUploadImage').draggable({
@@ -673,7 +535,7 @@
         }
 
         if (!data.curImage) {//default image loaded. There is no user image specified yet.
-            $(this).ipUploadImage('autosize', 'fit', false);
+            $.proxy(autosize, $(this))('fit', false);
             return;
         }
 
@@ -682,12 +544,117 @@
             data.coordinatesChanged = true;
             $this.data('ipUploadImage', data);
 
-            $(this).ipUploadImage('autosize', data.autosizeType, true);
+            $.proxy(autosize, $(this))(data.autosizeType, true);
         } else { //current image loaded. Crop it as it was cropped before
             $.proxy(restoreOriginalDimensions, $(this))();
         }
 
 
+    };
+
+
+    /**
+     * Autosize image and window if allowed
+     */
+    var autosize = function (autosizeType, allowWindowResize) {
+        var $this = $(this);
+        var $image = $this.find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+        var data = $this.data('ipUploadImage');
+        var maxAspectRatio = data.maxWindowWidth / data.maxWindowHeight;
+        var minAspectRatio = data.minWindowWidth / data.minWindowHeight;
+        $image.height('auto');
+        $image.width('auto');
+        var imageAspectRatio = $image.width() / $image.height();
+
+        //container resizing
+        if (allowWindowResize) {
+
+            switch (autosizeType) {
+                case 'resize' :
+                    if ($image.width() > data.maxWindowWidth || $image.height() > data.maxWindowHeight) {
+                        //resize to maximum container size
+                        if (maxAspectRatio < imageAspectRatio) {
+                            $window.width(data.maxWindowWidth);
+                            var tmpHeight = Math.floor(data.maxWindowWidth / imageAspectRatio);
+                            if (tmpHeight < data.minWindowHeight) { //we are sure it is not more than max. But we need to check if it is not less than min
+                                tmpHeight = data.minWindowHeight;
+                            }
+                            $window.height(tmpHeight);
+                        } else {
+                            $window.height(data.maxWindowHeight);
+                            var tmpWidth = Math.floor(data.maxWindowHeight * imageAspectRatio);
+
+                            if (tmpWidth < data.minWindowWidth) { //we are sure it is not more than max. But we need to check if it is not less than min
+                                tmpWidth = data.minWindowWidth;
+                            }
+                            $window.width(tmpWidth);
+                        }
+
+                    } else if ($image.width() < data.minWindowWidth || $image.height() < data.minWindowHeight) {
+                        //resize to minimum container size
+                        if (minAspectRatio < imageAspectRatio) {
+                            $window.height(data.minWindowHeight);
+                            var tmpWidth = Math.floor(data.minWindowHeight * imageAspectRatio);
+
+                            if (tmpWidth > data.maxWindowWidth) { //we are sure it is not less than min. But we need to check if it is not less than max
+                                tmpWidth = data.maxWindowWidth;
+                            }
+                            $window.width(tmpWidth);
+                        } else {
+                            $window.width(data.minWindowWidth);
+                            var tmpHeight = Math.floor(data.minWindowWidth / imageAspectRatio);
+                            if (tmpHeight > data.maxWindowHeight) { //we are sure it is not less than min. But we need to check if it is not less than max
+                                tmpHeight = data.maxWindowHeight;
+                            }
+                            $window.height(tmpHeight);
+                        }
+
+                    } else {
+                        //resize container to exact image width / height
+                        $window.width($image.width());
+                        $window.height($image.height());
+                    }
+
+                    break;
+                default:
+            }
+        }
+
+
+        //image resizing
+        containerAspectRatio = $window.width() / $window.height();
+        switch (data.autosizeType) {
+            case 'resize' :
+            case 'crop' :
+                if (containerAspectRatio > imageAspectRatio) {
+                    $image.width($window.width());
+                    $image.height('auto');
+                    $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
+
+                } else {
+                    $image.height($window.height());
+                    $image.width('auto');
+                    $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
+                }
+                break;
+            case 'fit' :
+                if (containerAspectRatio < imageAspectRatio) {
+                    $image.width($window.width());
+                    $image.height('auto');
+                    $image.height(Math.ceil($image.height())); //set exact value made by automatic scale
+
+                } else {
+                    $image.height($window.height());
+                    $image.width('auto');
+                    $image.width(Math.ceil($image.width())); //set exact value made by automatic scale
+                }
+                break;
+
+        }
+
+        $image.trigger('imageResized.ipUploadImage', [50, 50]);
     };
 
 
