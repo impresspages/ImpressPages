@@ -330,7 +330,7 @@
         $image.height('auto'); //scale automatically
         $image.height(Math.round($image.height())); //set exact value made by automatic scale
 
-        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
@@ -358,7 +358,7 @@
         $image.width($image.width() / scaleFactor);
 
 
-        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
 
         var data = $this.data('ipUploadImage');
         data.coordinatesChanged = true;
@@ -482,7 +482,7 @@
         $this.data('ipUploadImage', data);
 
 
-        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+        $this.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
     };
 
     var uploadedNewFile = function (event, files) {
@@ -640,7 +640,7 @@
 
         }
 
-        $image.trigger('imageResized.ipUploadImage', [50, 50]);
+        $this.trigger('imageResized.ipUploadImage', [50, 50]);
     };
 
 
@@ -734,7 +734,7 @@
 
 
         }
-        $image.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
+        $this.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
 
     }
 
