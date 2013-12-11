@@ -6,7 +6,7 @@
 
 function IpWidget_IpText() {
     "use strict";
-    var $widgetObject = null;
+    this.$widgetObject = null;
 
     this.init = function($widgetObject, data) {
         var customTinyMceConfig = ipTinyMceConfig();

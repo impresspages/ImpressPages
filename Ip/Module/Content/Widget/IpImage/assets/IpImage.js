@@ -4,61 +4,61 @@
  *
  */
 
-function IpWidget_IpImage(widgetObject, contentBody) {
-    this.widgetObject = widgetObject;
-    this.contentBody = contentBody;
-
-    this.prepareData = prepareData;
-    this.manageInit = manageInit;
-
-    this.addError = addError;
+function IpWidget_IpImage() {
+    this.$widgetObject = null;
+    this.$imageUploader = null;
 
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
+    this.init = function($widgetObject, data) {
+        this.$widgetObject = $widgetObject;
+
+        var $imageUploader = $('<div class="ipsImage"></div>');
+        this.$widgetObject.append($imageUploader);
+        this.$imageUploader = $imageUploader;
+
         var options = new Object;
         
-        if (instanceData.data.imageOriginal) {
-            options.image = instanceData.data.imageOriginal;
+        if (data.imageOriginal) {
+            options.image = data.imageOriginal;
         }
-        if (instanceData.data.cropX1) {
-            options.cropX1 = instanceData.data.cropX1;
+        if (data.cropX1) {
+            options.cropX1 = data.cropX1;
         }
-        if (instanceData.data.cropY1) {
-            options.cropY1 = instanceData.data.cropY1;
+        if (data.cropY1) {
+            options.cropY1 = data.cropY1;
         }
-        if (instanceData.data.cropX2) {
-            options.cropX2 = instanceData.data.cropX2;
+        if (data.cropX2) {
+            options.cropX2 = data.cropX2;
         }
-        if (instanceData.data.cropY2) {
-            options.cropY2 = instanceData.data.cropY2;
+        if (data.cropY2) {
+            options.cropY2 = data.cropY2;
         }
-        if (instanceData.data.imageWindowWidth) {
-            options.windowWidth = instanceData.data.imageWindowWidth;
-        }
-        options.maxWindowWidth = this.contentBody.width();
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
         options.enableUnderscale = true;
 
-        var $imageUploader = this.widgetObject.find('.ipaImage');
-        $imageUploader.ipUploadImage(options);
-        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+        var $img = this.$widgetObject.find('img');
+
+        this.$imageUploader.ipUploadImage(options);
+        this.$imageUploader.on('error.ipUploadImage', $.proxy(addError, this));
+
+
+        if ($img.length == 1) {
+            $img.hide();
+        }
 
     }
     
 
-    function addError(event, errorMessage) {
+    var addError = function (event, errorMessage) {
         $(this).trigger('error.ipContentManagement', errorMessage);
     }
-    
-    function removeError () {
-        this.widgetObject.find('.ipaErrorContainer .ipaError').remove();
-    }
 
-    function prepareData() {
+
+    var save = function() {
+
         var data = Object();
-        var ipUploadImage = this.widgetObject.find('.ipaImage');
+        var ipUploadImage = this.$imageUploader;
         if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
             var newImage = ipUploadImage.ipUploadImage('getCurImage');
             if (newImage) {
@@ -75,15 +75,9 @@ function IpWidget_IpImage(widgetObject, contentBody) {
                 data.cropY2 = cropCoordinates.y2;
             }
         }
-        
-        var windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
-        var maxWidth = this.contentBody.width();
-        data.maxWidth = this.widgetObject.width();
-        data.scale = windowWidth / maxWidth;
-        data.imageWindowWidth = windowWidth;
-        data.title = this.widgetObject.find('.ipaImageTitle').val();
-        
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);        
+
+        data.title = this.$widgetObject.find('.ipaImageTitle').val();
+        this.$widgetObject.save(data);
     }
 
 
