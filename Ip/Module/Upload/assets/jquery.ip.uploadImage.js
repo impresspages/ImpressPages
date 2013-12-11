@@ -424,16 +424,11 @@
 
         $this.find('.ipUploadSmallerButton').click(function(event) {
             event.preventDefault();
-            $(this).trigger('imageScaleDown.ipUploadImage');
-        });
+            $.proxy(scaleDown, $this)(event);
+       });
         if (!data.enableScale) {
             $this.find('.ipUploadSmallerButton').hide();
         }
-
-
-        $this.bind('imageScaleDown.ipUploadImage', function(event) {
-            $.proxy(scaleDown, $(this))(event);
-        });
 
 
         //uploaded new photo and loaded. Reinit drag container
