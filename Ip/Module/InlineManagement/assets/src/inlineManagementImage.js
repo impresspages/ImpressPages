@@ -215,8 +215,8 @@
 
             var $imageUploader = $popup.find('.ipaImage');
 
-            var windowHeight = $imageUploader.ipUploadImage('getWindowHeight');
-            var windowWidth = $imageUploader.ipUploadImage('getWindowWidth');
+            var windowHeight = $imageUploader.ipUploadImage('height');
+            var windowWidth = $imageUploader.ipUploadImage('width');
 
             $popup.find('.ipaControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
 
