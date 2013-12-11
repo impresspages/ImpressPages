@@ -139,7 +139,7 @@ class Language{
         }
 
         if (ipGetOption('Config.multilingual')) {
-            $link .= urlencode(\Ip\ServiceLocator::content()->getLanguageById($this->getId())->getUrl()).'/';
+            $link .= urlencode(\Ip\ServiceLocator::content()->getLanguage($this->getId())->getUrl()).'/';
         }
 
         return $link;

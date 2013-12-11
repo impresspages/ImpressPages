@@ -6,14 +6,13 @@
 
 namespace Ip\Form\Validator;
 
-//TODOX rename to antispam
-/**  
+/**
  * 
- * 'Check' antispam field validator
+ * Antispam field validator
  *
  */
 
-class Check extends Validator {
+class Antispam extends Validator {
     
     public function validate($values, $valueKey, $environment) {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {

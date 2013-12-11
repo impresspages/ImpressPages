@@ -2,7 +2,7 @@
 /**
  * @package   ImpressPages
  */
-//TODOX replace this script with actual from 3.7 release
+
 namespace IpUpdate\Library\Migration\To3_7;
 
 

@@ -33,7 +33,7 @@ class Url {
             $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
-        $answer = ipContent()->getLanguageById($languageId)->getLink();
+        $answer = ipContent()->getLanguage($languageId)->getLink();
 
         if ($zoneName != null){
             if ($languageId == ipContent()->getCurrentLanguage()->getId()){ //current language

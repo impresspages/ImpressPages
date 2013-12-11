@@ -2,9 +2,9 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <?php if (!empty($data[0])) foreach($data[0] as $key => $field){ ?>
+                <?php foreach($labels as $label){ ?>
                     <th>
-                        <?php echo esc($key) ?>
+                        <?php echo esc($label) ?>
                     </th>
                 <?php } ?>
             </tr>
@@ -12,9 +12,9 @@
         <tbody>
             <?php foreach($data as $row){ ?>
                 <tr>
-                    <?php foreach($row as $field){ ?>
+                    <?php foreach($row as $fieldValue){ ?>
                     <td>
-                        <?php echo esc($field) ?>
+                        <?php echo $fieldValue ?>
                     </td>
                     <?php } ?>
                 </tr>

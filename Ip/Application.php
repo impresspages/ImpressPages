@@ -41,8 +41,6 @@ class Application {
 
         require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
 
-        global $parametersMod;
-        $parametersMod = new \Ip\Internal\Deprecated\ParametersMod();
     }
 
     public function prepareEnvironment($options = array())

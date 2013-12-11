@@ -198,7 +198,7 @@ class AdminController extends \Ip\Controller{
             $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
         }
 
-        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getLanguageById($languageId)->getAbbreviation(), $scopeLanguageTitle);
+        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getLanguage($languageId)->getAbbreviation(), $scopeLanguageTitle);
         $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 
