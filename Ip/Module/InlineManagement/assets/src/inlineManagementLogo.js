@@ -276,8 +276,8 @@
                         data.cropY1 = cropCoordinates.y1;
                         data.cropX2 = cropCoordinates.x2;
                         data.cropY2 = cropCoordinates.y2;
-                        data.windowWidth = ipUploadImage.ipUploadImage('getWindowWidth');
-                        data.windowHeight = ipUploadImage.ipUploadImage('getWindowHeight');
+                        data.windowWidth = ipUploadImage.ipUploadImage('width');
+                        data.windowHeight = ipUploadImage.ipUploadImage('height');
                     }
                 }
             }

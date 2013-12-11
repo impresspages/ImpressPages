@@ -230,7 +230,7 @@
             return $this.find('.ipUploadWindow').height();
         },
 
-        getWindowWidth : function () {
+        width : function () {
             var $this = this;
             $this.find('.ipUploadButtons').hide();
             var answer = $this.find('.ipUploadWindow').width();
@@ -238,7 +238,7 @@
             return answer;
         },
         
-        getWindowHeight : function () {
+        height : function () {
             var $this = this;
             $this.find('.ipUploadButtons').hide();
             var answer = $this.find('.ipUploadWindow').height();
