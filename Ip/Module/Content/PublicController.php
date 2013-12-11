@@ -57,7 +57,7 @@ class PublicController extends \Ip\Controller
     {
         $widgets = Service::getAvailableWidgets();
         $snippets = array();
-        foreach($widgets as $widget) {
+        foreach ($widgets as $widget) {
             $snippets = array_merge($snippets, $widget->adminSnippets());
         }
         ipAddJavascriptVariable('ipWidgetSnippets', $snippets);
@@ -125,9 +125,11 @@ class PublicController extends \Ip\Controller
         ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 
-
         if (ipIsManagementState()) {
-            ipAddJavascriptVariable('ipWidgetLayoutModalTemplate', \Ip\View::create('view/widgetLayoutModal.php')->render());
+            ipAddJavascriptVariable(
+                'ipWidgetLayoutModalTemplate',
+                \Ip\View::create('view/widgetLayoutModal.php')->render()
+            );
         }
 
     }

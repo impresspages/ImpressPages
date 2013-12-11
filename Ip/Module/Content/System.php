@@ -1,31 +1,34 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Module\Content;
 
 use Ip\WidgetController;
 
-class System{
+class System
+{
 
 
-
-    function init(){
+    function init()
+    {
 
         $dispatcher = ipDispatcher();
 
         $dispatcher->addEventListener('site.afterInit', array($this, 'initWidgets'));
-        $dispatcher->addEventListener('site.duplicatedRevision', __NAMESPACE__ .'\System::duplicatedRevision');
-        $dispatcher->addEventListener('site.removeRevision', __NAMESPACE__ .'\System::removeRevision');
-        $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ .'\System::publishRevision');
+        $dispatcher->addEventListener('site.duplicatedRevision', __NAMESPACE__ . '\System::duplicatedRevision');
+        $dispatcher->addEventListener('site.removeRevision', __NAMESPACE__ . '\System::removeRevision');
+        $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ . '\System::publishRevision');
         $dispatcher->addEventListener('Cron.execute', array($this, 'executeCron'));
-        $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ .'\System::pageDeleted');
-        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ .'\System::pageMoved');
+        $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ . '\System::pageDeleted');
+        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ . '\System::pageMoved');
 
         $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
-        $dispatcher->addFilterListener('contentManagement.collectFieldTypes', __NAMESPACE__ .'\System::collectFieldTypes');
+        $dispatcher->addFilterListener(
+            'contentManagement.collectFieldTypes',
+            __NAMESPACE__ . '\System::collectFieldTypes'
+        );
 
         ipAddJavascript(ipFileUrl('Ip/Module/Content/assets/widgets.js'));
 
@@ -51,7 +54,7 @@ class System{
             Model::deleteUnusedWidgets();
         }
     }
-    
+
     public function collectWidgets($widgets)
     {
 
@@ -97,7 +100,7 @@ class System{
 
     function findPluginWidgets($moduleName)
     {
-        $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR.'/');
+        $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR . '/');
 
         if (!is_dir($widgetDir)) {
             return array();
@@ -110,22 +113,26 @@ class System{
         //foreach all widget folders
         foreach ($widgetFolders as $widgetFolder) {
             //each directory is a widget
-            if (!is_dir($widgetDir.$widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..'){
+            if (!is_dir($widgetDir . $widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..') {
                 continue;
             }
             if (isset ($answer[(string)$widgetFolder])) {
-                ipLog()->warning('Content.duplicateWidget: {widget}', array('plugin' => 'Content', 'widget' => $widgetFolder));
+                ipLog()->warning(
+                    'Content.duplicateWidget: {widget}',
+                    array('plugin' => 'Content', 'widget' => $widgetFolder)
+                );
             }
-            $answer[] = array (
+            $answer[] = array(
                 'module' => $moduleName,
-                'dir' => $widgetDir . $widgetFolder.'/',
+                'dir' => $widgetDir . $widgetFolder . '/',
                 'widgetKey' => $widgetFolder
             );
         }
         return $answer;
     }
 
-    public function initWidgets () {
+    public function initWidgets()
+    {
         //TODO cache found assets to decrease file system usage
         $widgets = Service::getAvailableWidgets();
 
@@ -141,7 +148,8 @@ class System{
 
     private function addWidgetAssets(\Ip\WidgetController $widget)
     {
-        $pluginAssetsPath = $widget->getModuleName() . '/' . Model::WIDGET_DIR . '/' . $widget->getName() . '/' . \Ip\Application::ASSETS_DIR . '/';
+        $pluginAssetsPath = $widget->getModuleName() . '/' . Model::WIDGET_DIR . '/' . $widget->getName(
+            ) . '/' . \Ip\Application::ASSETS_DIR . '/';
         if ($widget->isCore()) {
             $widgetPublicDir = 'Ip/Module/' . $pluginAssetsPath;
         } else {
@@ -153,25 +161,26 @@ class System{
     }
 
 
-    private function includeResources($resourcesFolder){
+    private function includeResources($resourcesFolder)
+    {
 
         if (is_dir(ipFile($resourcesFolder))) {
             $files = scandir(ipFile($resourcesFolder));
             if ($files === false) {
                 return;
             }
-            
-            
+
+
             foreach ($files as $file) {
-                if (is_dir(ipFile($resourcesFolder.$file)) && $file != '.' && $file != '..'){
-                    self::includeResources(ipFile($resourcesFolder.$file));
+                if (is_dir(ipFile($resourcesFolder . $file)) && $file != '.' && $file != '..') {
+                    self::includeResources(ipFile($resourcesFolder . $file));
                     continue;
                 }
-                if (strtolower(substr($file, -3)) == '.js'){
-                    ipAddJavascript(ipFileUrl($resourcesFolder.'/'.$file));
+                if (strtolower(substr($file, -3)) == '.js') {
+                    ipAddJavascript(ipFileUrl($resourcesFolder . '/' . $file));
                 }
-                if (strtolower(substr($file, -4)) == '.css'){
-                    ipAddCss(ipFileUrl($resourcesFolder.'/'.$file));
+                if (strtolower(substr($file, -4)) == '.css') {
+                    ipAddCss(ipFileUrl($resourcesFolder . '/' . $file));
                 }
             }
         }
@@ -181,7 +190,7 @@ class System{
      * IpForm widget
      * @param array $value
      */
-    public static function collectFieldTypes($fieldTypes, $info = NULL)
+    public static function collectFieldTypes($fieldTypes, $info = null)
     {
 
         $typeText = __('Text', 'ipAdmin', false);
@@ -193,29 +202,36 @@ class System{
         $typeCaptcha = __('Captcha', 'ipAdmin', false);
         $typeFile = __('File', 'ipAdmin', false);
 
-        $fieldTypes['IpText']= new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
-        $fieldTypes['IpEmail']= new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
-        $fieldTypes['IpTextarea']= new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
-        $fieldTypes['IpSelect']= new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $fieldTypes['IpCheckbox']= new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create('view/form_field_options/wysiwyg.php')->render());
-        $fieldTypes['IpRadio']= new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create('view/form_field_options/list.php')->render());
-        $fieldTypes['IpCaptcha']= new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
-        $fieldTypes['IpFile']= new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
+        $fieldTypes['IpText'] = new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
+        $fieldTypes['IpEmail'] = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
+        $fieldTypes['IpTextarea'] = new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
+        $fieldTypes['IpSelect'] = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create(
+            'view/form_field_options/list.php'
+        )->render());
+        $fieldTypes['IpCheckbox'] = new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', \Ip\View::create(
+            'view/form_field_options/wysiwyg.php'
+        )->render());
+        $fieldTypes['IpRadio'] = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', \Ip\View::create(
+            'view/form_field_options/list.php'
+        )->render());
+        $fieldTypes['IpCaptcha'] = new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
+        $fieldTypes['IpFile'] = new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
 
         return $fieldTypes;
     }
 
-    
+
     public static function duplicatedRevision($info)
     {
         Model::duplicateRevision($info['basedOn'], $info['newRevisionId']);
     }
 
-    
-    public static function removeRevision ($info) {
+
+    public static function removeRevision($info)
+    {
         Model::removeRevision($info['revisionId']);
     }
-    
+
     public static function publishRevision($info)
     {
         Model::clearCache($info['revisionId']);
@@ -225,7 +241,7 @@ class System{
     {
         Model::removePageRevisions($info['zoneName'], $info['pageId']);
     }
-    
+
     public static function pageMoved($info)
     {
         if ($info['newZoneName'] != $info['oldZoneName']) {

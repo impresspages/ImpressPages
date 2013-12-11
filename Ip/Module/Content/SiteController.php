@@ -1,14 +1,13 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Module\Content;
 
 
-
-class SiteController extends \Ip\Controller{
+class SiteController extends \Ip\Controller
+{
 
 
     public function widgetPost()
@@ -24,12 +23,18 @@ class SiteController extends \Ip\Controller{
 
         try {
             if (!$widgetRecord) {
-                return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$instanceId, Exception::UNKNOWN_INSTANCE);
+                return \Ip\Response\JsonRpc::error(
+                    "Can't find requested Widget: " . $instanceId,
+                    Exception::UNKNOWN_INSTANCE
+                );
             }
 
             $widgetObject = Model::getWidgetObject($widgetRecord['name']);
             if (!$widgetObject) {
-                return \Ip\Response\JsonRpc::error("Can't find requested Widget: ".$widgetRecord['name'], Exception::UNKNOWN_WIDGET);
+                return \Ip\Response\JsonRpc::error(
+                    "Can't find requested Widget: " . $widgetRecord['name'],
+                    Exception::UNKNOWN_WIDGET
+                );
             }
 
             return $widgetObject->post($instanceId, $widgetRecord['data']);
