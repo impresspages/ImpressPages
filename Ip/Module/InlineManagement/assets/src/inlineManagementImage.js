@@ -138,7 +138,7 @@
 
                 var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
-                $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                $imageUploader.bind('change.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
             }
