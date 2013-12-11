@@ -22,13 +22,14 @@
 
                     var widgetName = $this.data('widgetname');
                     var data = $this.data('widgetdata');
-                    if (eval("typeof IpWidget_" + widgetName + " == 'function'")) {
-                        var widgetPluginObject;
-                        eval('widgetPluginObject = new IpWidget_' + widgetName + '();');
-                        if (widgetPluginObject.init) {
-                            widgetPluginObject.init($this, data);
+                    var functionClass = 'IpWidget_' + widgetName;
+                    if (typeof(window[functionClass]) == 'function') {
+                        var widgetController;
+                        widgetController = new window[functionClass];
+                        if (widgetController.init) {
+                            widgetController.init($this, data);
                         }
-
+                        $this.data('widgetController', widgetController);
                     }
                 }
 
@@ -38,6 +39,9 @@
         },
 
 
+        widgetController: function () {
+            return this.data('widgetController');
+        },
 
         save: function (widgetData, refresh, callback) {
 
