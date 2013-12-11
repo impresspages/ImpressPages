@@ -8,19 +8,25 @@
 namespace Ip\Module\Content;
 
 
-
-
-
-class Zone extends \Ip\Zone {
+class Zone extends \Ip\Zone
+{
     var $db;
-    function __construct($properties) {
+
+    function __construct($properties)
+    {
         $this->db = new DbFrontend();
         parent::__construct($properties);
     }
 
 
-
-    function getPages($languageId = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false) {
+    function getPages(
+        $languageId = null,
+        $parentPageId = null,
+        $startFrom = 0,
+        $limit = null,
+        $includeHidden = false,
+        $reverseOrder = false
+    ) {
 
 
         if ($languageId == null) {
@@ -29,44 +35,75 @@ class Zone extends \Ip\Zone {
 
         $urlVars = array();
 
-        if ($parentPageId != null) {  //if parent specified
+        if ($parentPageId != null) { //if parent specified
             $parentPages = $this->getRoadToPage($parentPageId);
-            foreach($parentPages as $key => $page)
-            $urlVars[] = $page->getUrl();
+            foreach ($parentPages as $key => $page) {
+                $urlVars[] = $page->getUrl();
+            }
         }
 
         $breadCrumb = $this->getBreadCrumb();
-        $depth = sizeof($urlVars)+1;
-        if (isset($breadCrumb[$depth-1])) {
-            $selectedId = $breadCrumb[$depth-1]->getId();
+        $depth = sizeof($urlVars) + 1;
+        if (isset($breadCrumb[$depth - 1])) {
+            $selectedId = $breadCrumb[$depth - 1]->getId();
         } else {
             $selectedId = null;
         }
 
         if ($reverseOrder) {
-            $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'desc', $startFrom, $limit, $includeHidden);
+            $dbPages = $this->db->getPages(
+                $this->getName(),
+                $parentPageId,
+                $languageId,
+                $this->currentPage ? $this->currentPage->getId() : null,
+                $selectedId,
+                'desc',
+                $startFrom,
+                $limit,
+                $includeHidden
+            );
         } else {
-            $dbPages = $this->db->getPages($this->getName(), $parentPageId, $languageId, $this->currentPage?$this->currentPage->getId():null, $selectedId, 'asc', $startFrom, $limit, $includeHidden);
+            $dbPages = $this->db->getPages(
+                $this->getName(),
+                $parentPageId,
+                $languageId,
+                $this->currentPage ? $this->currentPage->getId() : null,
+                $selectedId,
+                'asc',
+                $startFrom,
+                $limit,
+                $includeHidden
+            );
         }
         $pages = array();
         foreach ($dbPages as $dbPage) {
             $newPage = $this->makePageFromDb($dbPage, sizeof($urlVars) == 1);
 
-            if($selectedId == $dbPage['id'])
-            $newPage->setSelected(1);
-            else
-            $newPage->setSelected(0);
+            if ($selectedId == $dbPage['id']) {
+                $newPage->setSelected(1);
+            } else {
+                $newPage->setSelected(0);
+            }
 
-            if($this->currentPage && $this->currentPage->getId() == $dbPage['id'])
-            $newPage->setCurrent(1);
-            else
-            $newPage->setCurrent(0);
+            if ($this->currentPage && $this->currentPage->getId() == $dbPage['id']) {
+                $newPage->setCurrent(1);
+            } else {
+                $newPage->setCurrent(0);
+            }
             $pages[] = $newPage;
         }
 
-        foreach($pages as $key => $page) { //link generation optimization.
-            if($pages[$key]->getType() == 'default')
-            $pages[$key]->setLink(\Ip\Internal\Deprecated\Url::generate($languageId, $this->getName(), array_merge($urlVars, array($page->getUrl())), null));
+        foreach ($pages as $key => $page) { //link generation optimization.
+            if ($pages[$key]->getType() == 'default') {
+                $pages[$key]->setLink(
+                    \Ip\Internal\Deprecated\Url::generate(
+                        $languageId,
+                        $this->getName(),
+                        array_merge($urlVars, array($page->getUrl())),
+                        null
+                    )
+                );
+            }
         }
 
         return $pages;
@@ -74,8 +111,8 @@ class Zone extends \Ip\Zone {
     }
 
 
-
-    function getPage($pageId) {
+    function getPage($pageId)
+    {
         $dbPage = $this->db->getPage($pageId);
         if ($dbPage) {
             $dbParentPage = $this->db->getPage($dbPage['parent']);
@@ -87,17 +124,26 @@ class Zone extends \Ip\Zone {
     }
 
 
+    function getFirstPage($parentId, $level)
+    {
 
-    function getFirstPage($parentId, $level) {
-
-        $pages = $this->db->getPages($this->getName(), $parentId, ipContent()->getCurrentLanguage()->getId(), null, null, 'asc', 0, null);
+        $pages = $this->db->getPages(
+            $this->getName(),
+            $parentId,
+            ipContent()->getCurrentLanguage()->getId(),
+            null,
+            null,
+            'asc',
+            0,
+            null
+        );
         foreach ($pages as $page) {
-            switch($page['type']) {
+            switch ($page['type']) {
                 case 'inactive':
                 case 'subpage':
                 case 'redirect':
-                    $subPage = $this->getFirstPage($page['id'], $level+1);
-                    if($subPage) {
+                    $subPage = $this->getFirstPage($page['id'], $level + 1);
+                    if ($subPage) {
                         return $subPage;
                     }
                     break;
@@ -111,7 +157,8 @@ class Zone extends \Ip\Zone {
         return false;
     }
 
-    function findPage($urlVars, $getVars) {
+    function findPage($urlVars, $getVars)
+    {
         $currentEl = null;
 
         $elId = $this->db->getRootPageId($this->getName(), ipContent()->getCurrentLanguage()->getId());
@@ -136,8 +183,8 @@ class Zone extends \Ip\Zone {
     }
 
 
-
-    private function makePageFromDb($dbPage, $firstLevel) {
+    private function makePageFromDb($dbPage, $firstLevel)
+    {
         $newPage = new Page($dbPage['id'], $this->getName());
         $newPage->setButtonTitle($dbPage['button_title']);
         $newPage->setPageTitle($dbPage['page_title']);
@@ -149,16 +196,16 @@ class Zone extends \Ip\Zone {
         $newPage->setCreatedOn($dbPage['created_on']);
         $newPage->setModifyFrequency($dbPage['modify_frequency']);
         $newPage->setVisible($dbPage['visible']);
-        if($firstLevel)
-        $newPage->setParentId(null);
-        else
-        $newPage->setParentId($dbPage['parent']);
+        if ($firstLevel) {
+            $newPage->setParentId(null);
+        } else {
+            $newPage->setParentId($dbPage['parent']);
+        }
         $newPage->setHtml($dbPage['html']);
         $newPage->setType($dbPage['type']);
         $newPage->setRedirectUrl($dbPage['redirect_url']);
         return $newPage;
     }
-
 
 
 }

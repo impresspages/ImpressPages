@@ -228,10 +228,7 @@
                     data.imageUploadInitialized = true;
                     $this.data('ipInlineManagementLogo', data);
 
-                    $imageUploader.bind('imageResized.ipUploadImage', jQuery.proxy(methods._preview, $this));
-                    $imageUploader.bind('imageFramed.ipUploadImage', jQuery.proxy(methods._preview, $this));
-                    $imageUploader.bind('imageScaleUp.ipUploadImage', jQuery.proxy(methods._preview, $this));
-                    $imageUploader.bind('imageScaleDown.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                    $imageUploader.bind('change.ipUploadImage', jQuery.proxy(methods._preview, $this));
                 }
             }
             jQuery.proxy(methods._preview, $this)();
