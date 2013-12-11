@@ -155,7 +155,7 @@
                         url : ip.baseUrl,
                         data : data,
                         context : $this,
-                        success : methods._containerHtmlResponse,
+                        success : containerHtmlResponse,
                         dataType : 'json'
                     });
 
@@ -165,190 +165,7 @@
         },
         
         
-        _containerHtmlResponse : function (response) {
-            var $this = this;
-            
-            
-            if (response.status != 'success') {
-                return;
-            }
-            
-            $this.html(response.html);
-            
-            var data = $this.data('ipUploadImage');
-            var $ipUploadWindow = $this.find('.ipUploadWindow');
-            
-            
-            if (data.curImage) {
-                $this.find('.ipUploadImage').attr('src', ipFileUrl('file/repository/' + data.curImage));
-            }
-            $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
-            $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
-            $ipUploadWindow.width(data.windowWidth);
-            if (data.maxWindowWidth && $ipUploadWindow.width() > data.maxWindowWidth) {
-                $ipUploadWindow.width(data.maxWindowWidth);
-            }
-            $ipUploadWindow.height(data.windowHeight);
-            if (data.maxWindowHeight && $ipUploadWindow.height() > data.maxWindowHeight) {
-                $ipUploadWindow.height(data.maxWindowHeight);
-            }
-
-            if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
-                var resizableOptions = Object();
-                resizableOptions.maxWidth = data.maxWindowWidth;
-                resizableOptions.maxHeight = data.maxWindowHeight;
-                resizableOptions.minWidth = data.minWindowWidth;
-                resizableOptions.minHeight = data.minWindowHeight;
-                $ipUploadWindow.resizable(resizableOptions);
-                
-                $ipUploadWindow.bind( "resize", function(event, ui) {
-                    $(this).trigger('windowResize.ipUploadImage', [event, ui]);
-                });
-                
-            }
-            $this.bind('windowResize.ipUploadImage', function(event, resizeEvent, ui) {
-                $(this).ipUploadImage('_resizedWindow', resizeEvent, ui);
-            });
-
-            
-            $this.find('.ipUploadLargerButton').click(function(event) {
-                event.preventDefault();
-                $(this).trigger('imageScaleUp.ipUploadImage');
-            });
-            if (!data.enableScale) {
-                $this.find('.ipUploadLargerButton').hide();
-            }
-            
-            $this.bind('imageScaleUp.ipUploadImage', function(event) {
-                $(this).ipUploadImage('_scaleUp', event);
-            });
-
-            
-            
-            
-            
-            $this.find('.ipUploadSmallerButton').click(function(event) {
-                event.preventDefault();
-                $(this).trigger('imageScaleDown.ipUploadImage');
-            });
-            if (!data.enableScale) {
-                $this.find('.ipUploadSmallerButton').hide();
-            }
-            
-
-            $this.bind('imageScaleDown.ipUploadImage', function(event) {
-                $(this).ipUploadImage('_scaleDown', event);
-                $this.trigger();
-            });
-            
-            
-            //uploaded new photo and loaded. Reinit drag container
-            $this.find('.ipUploadImage').load(function (){
-                $this.ipUploadImage('_imageLoaded');
-            });
-            
-            
-            $this.find('.ipUploadImage').bind('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
-                $this.ipUploadImage('_imageResized', event, imageCenterXPercentage, imageCenterYPercentage);
-            });
-            
-            $this.find('.ipUploadImage').draggable({
-                containment: "parent",
-                disabled: !data.enableFraming,
-                stop: jQuery.proxy(function(event, ui) { $(this).trigger('imageFramed.ipUploadImage'); }, $this)
-            });
-
-            $this.bind( "dragstop", function(event, ui) {
-                $this = $(this);
-                var data = $this.data('ipUploadImage');
-                data.coordinatesChanged = true;
-                $this.data('ipUploadImage', data);
-            });
-
-
-            $this.find('#ipUploadButton_' + data.uniqueId).click(function(e){
-                e.preventDefault();
-                var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
-                repository.bind('ipRepository.filesSelected', $.proxy(methods._uploadedNewFile, $this));
-            });
-
-
-        },
-        
-        _resizedWindow : function (resizeEvent, ui) {
-            var $this = $(this);
-            var $image = $this.find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-
-            
-            var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
-            var imageCenterXPercentage = imageCenterX * 100 / $image.width(); 
-            
-            var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
-            var imageCenterYPercentage = imageCenterY * 100 / $image.height(); 
-        
-            var data = $this.data('ipUploadImage');
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
-            
-            
-            $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
-        },
-        
-        _uploadedNewFile : function (event, files) {
-            var $this = this;
-            var data = $this.data('ipUploadImage');
-
-
-            if (files.length == 0) {
-                return;
-            }
-
-            var file = files[0];
-
-
-            data.curImage = file.fileName;
-            data.imageChanged = true;
-            data.coordinatesChanged = true;
-            $this.data('ipUploadImage', data);
-            $this.find('.ipUploadImage').attr('src', file.originalUrl);
-        },
-        
-
-        
-        /**
-         * img onLoad event
-         */
-        _imageLoaded : function() {
-            var $this = $(this);
-            var $image = $this.find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            var data = $this.data('ipUploadImage');
-            
-            if ($window.height() == 0 || $image.height() == 0) {
-                return; //to avoid division by zero.
-            }
-            
-            if (!data.curImage) {//default image loaded. There is no user image specified yet.
-                $(this).ipUploadImage('autosize', 'fit', false);
-                return;
-            }
-            
-            if ($this.ipUploadImage('getNewImageUploaded')) { //new image uploaded. Center it.
-                var data = $this.data('ipUploadImage');
-                data.coordinatesChanged = true;
-                $this.data('ipUploadImage', data);
-                
-                $(this).ipUploadImage('autosize', data.autosizeType, true);
-            } else { //current image loaded. Crop it as it was cropped before
-                $(this).ipUploadImage('restoreOriginalDimensions');
-            }
-            
-
-        },
         
         
         /**
@@ -679,106 +496,295 @@
             var answer = $this.find('.ipUploadWindow').height();
             $this.find('.ipUploadButtons').show();
             return answer;
-        },
-        
-        restoreOriginalDimensions : function(){
-            var $this = $(this);
-            var $image = $this.find('.ipUploadImage');
-            var $window = $image.parent().parent();
-            var $dragContainer = $image.parent();
-            var data = $this.data('ipUploadImage');
-            var cropX1 = 0;
-            var cropY1 = 0;
-            var cropX2 = parseInt($image.width());
-            var cropY2 = parseInt($image.height());
-            if ($this.data('ipUploadImage').cropX1) {
-                cropX1 = parseInt($this.data('ipUploadImage').cropX1);
-            }
-            if ($this.data('ipUploadImage').cropY1) {
-                cropY1 = parseInt($this.data('ipUploadImage').cropY1);
-            }
-            if ($this.data('ipUploadImage').cropX2) {
-                cropX2 = parseInt($this.data('ipUploadImage').cropX2);
-            }
-            if ($this.data('ipUploadImage').cropY2) {
-                cropY2 = parseInt($this.data('ipUploadImage').cropY2);
-            }
-            
-            switch (data.autosizeType) {
-                case 'resize' :
-                case 'fit' :
-                        var centerX = (cropX2 - cropX1) / 2 + cropX1;
-                        var centerY = (cropY2 - cropY1) / 2 + cropY1;
-                        var centerPercentageX = centerX / $image.width() * 100;
-                        var centerPercentageY = centerY / $image.height() * 100;
-                        $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                        $windowRatio = $window.width() / $window.height();
-                        if ($this.data('ipUploadImage').enableChangeHeight) {
-                            $window.height(Math.round($window.width() / $photoRatio));
-                        } else {
-                            if ($this.data('ipUploadImage').enableChangeWidth) {
-                                $window.width(Math.round($window.height() * $photoRatio));
-                            }
-                        }
-                        
-                        if ($photoRatio < $windowRatio) {
-                            var imageScale = $window.height() / (cropY2 - cropY1);
-                            $image.height($image.height() * imageScale);
-                            $image.width('auto');
-                        } else {
-                            var imageScale = $window.width() / (cropX2 - cropX1);
-                            $image.width($image.width() * imageScale);
-                            $image.height('auto');
-                        }
-                    break;
-                case 'crop' :
-                        var centerX = (cropX2 - cropX1) / 2 + cropX1;
-                        var centerY = (cropY2 - cropY1) / 2 + cropY1;
-                        var centerPercentageX = centerX / $image.width() * 100;
-                        var centerPercentageY = centerY / $image.height() * 100;
-                        $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                        $windowRatio = $window.width() / $window.height();
-                        if ($this.data('ipUploadImage').enableChangeHeight) {
-                            $window.height(Math.round($window.width() / $photoRatio));
-                        } else {
-                            if ($this.data('ipUploadImage').enableChangeWidth) {
-                                $window.width(Math.round($window.height() * $photoRatio));
-                            }
-                        }
-                        
-                        if ($photoRatio > $windowRatio) {
-                            var imageScale = $window.height() / (cropY2 - cropY1);
-                            $image.height($image.height() * imageScale);
-                            $image.width('auto');
-                        } else {
-                            var imageScale = $window.width() / (cropX2 - cropX1);
-                            $image.width($image.width() * imageScale);
-                            $image.height('auto');
-                        }
-                    break;
-                        
-            
-            }
-            $image.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
-            
         }
-        
-        
-
 
         
         
     };
-    
-    
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-          if ((new Date().getTime() - start) > milliseconds){
-            break;
-          }
+
+
+
+
+    var containerHtmlResponse = function (response) {
+        var $this = this;
+
+
+        if (response.status != 'success') {
+            return;
         }
+
+        $this.html(response.html);
+
+        var data = $this.data('ipUploadImage');
+        var $ipUploadWindow = $this.find('.ipUploadWindow');
+
+
+        if (data.curImage) {
+            $this.find('.ipUploadImage').attr('src', ipFileUrl('file/repository/' + data.curImage));
+        }
+        $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
+        $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
+
+        $ipUploadWindow.width(data.windowWidth);
+        if (data.maxWindowWidth && $ipUploadWindow.width() > data.maxWindowWidth) {
+            $ipUploadWindow.width(data.maxWindowWidth);
+        }
+        $ipUploadWindow.height(data.windowHeight);
+        if (data.maxWindowHeight && $ipUploadWindow.height() > data.maxWindowHeight) {
+            $ipUploadWindow.height(data.maxWindowHeight);
+        }
+
+        if (data.maxWindowWidth > data.minWindowWidth || data.maxWindowHeight > data.minWindowHeight) {
+            var resizableOptions = Object();
+            resizableOptions.maxWidth = data.maxWindowWidth;
+            resizableOptions.maxHeight = data.maxWindowHeight;
+            resizableOptions.minWidth = data.minWindowWidth;
+            resizableOptions.minHeight = data.minWindowHeight;
+            $ipUploadWindow.resizable(resizableOptions);
+
+            $ipUploadWindow.bind( "resize", function(event, ui) {
+                $(this).trigger('windowResize.ipUploadImage', [event, ui]);
+            });
+
+        }
+        $this.bind('windowResize.ipUploadImage', function(event, resizeEvent, ui) {
+            $.proxy(resizedWindow, this)(resizeEvent, ui);
+        });
+
+
+        $this.find('.ipUploadLargerButton').click(function(event) {
+            event.preventDefault();
+            $(this).trigger('imageScaleUp.ipUploadImage');
+        });
+        if (!data.enableScale) {
+            $this.find('.ipUploadLargerButton').hide();
+        }
+
+        $this.bind('imageScaleUp.ipUploadImage', function(event) {
+            $(this).ipUploadImage('_scaleUp', event);
+        });
+
+
+
+
+
+        $this.find('.ipUploadSmallerButton').click(function(event) {
+            event.preventDefault();
+            $(this).trigger('imageScaleDown.ipUploadImage');
+        });
+        if (!data.enableScale) {
+            $this.find('.ipUploadSmallerButton').hide();
+        }
+
+
+        $this.bind('imageScaleDown.ipUploadImage', function(event) {
+            $(this).ipUploadImage('_scaleDown', event);
+            $this.trigger();
+        });
+
+
+        //uploaded new photo and loaded. Reinit drag container
+        $this.find('.ipUploadImage').load(function (){
+            $.proxy(imageLoaded, $this)();
+        });
+
+
+        $this.find('.ipUploadImage').bind('imageResized.ipUploadImage', function(event, imageCenterXPercentage, imageCenterYPercentage) {
+            $this.ipUploadImage('_imageResized', event, imageCenterXPercentage, imageCenterYPercentage);
+        });
+
+        $this.find('.ipUploadImage').draggable({
+            containment: "parent",
+            disabled: !data.enableFraming,
+            stop: jQuery.proxy(function(event, ui) { $(this).trigger('imageFramed.ipUploadImage'); }, $this)
+        });
+
+        $this.bind( "dragstop", function(event, ui) {
+            $this = $(this);
+            var data = $this.data('ipUploadImage');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadImage', data);
+        });
+
+
+        $this.find('#ipUploadButton_' + data.uniqueId).click(function(e){
+            e.preventDefault();
+            var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
+            repository.bind('ipRepository.filesSelected', $.proxy(uploadedNewFile, $this));
+        });
+
+
+    };
+
+    var resizedWindow = function (resizeEvent, ui) {
+        var $this = $(this);
+        var $image = $this.find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+
+
+        var imageCenterX = ($dragContainer.width() / 2) - parseInt($image.css('left'));
+        var imageCenterXPercentage = imageCenterX * 100 / $image.width();
+
+        var imageCenterY = ($dragContainer.height() / 2) - parseInt($image.css('top'));
+        var imageCenterYPercentage = imageCenterY * 100 / $image.height();
+
+        var data = $this.data('ipUploadImage');
+        data.coordinatesChanged = true;
+        $this.data('ipUploadImage', data);
+
+
+        $image.trigger('imageResized.ipUploadImage', [imageCenterXPercentage, imageCenterYPercentage]);
+    };
+
+    var uploadedNewFile = function (event, files) {
+        var $this = this;
+        var data = $this.data('ipUploadImage');
+
+
+        if (files.length == 0) {
+            return;
+        }
+
+        var file = files[0];
+
+
+        data.curImage = file.fileName;
+        data.imageChanged = true;
+        data.coordinatesChanged = true;
+        $this.data('ipUploadImage', data);
+        $this.find('.ipUploadImage').attr('src', file.originalUrl);
+    };
+
+
+
+    /**
+     * img onLoad event
+     */
+    var imageLoaded = function() {
+        var $this = $(this);
+        var $image = $this.find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+        var data = $this.data('ipUploadImage');
+
+        if ($window.height() == 0 || $image.height() == 0) {
+            return; //to avoid division by zero.
+        }
+
+        if (!data.curImage) {//default image loaded. There is no user image specified yet.
+            $(this).ipUploadImage('autosize', 'fit', false);
+            return;
+        }
+
+        if ($this.ipUploadImage('getNewImageUploaded')) { //new image uploaded. Center it.
+            var data = $this.data('ipUploadImage');
+            data.coordinatesChanged = true;
+            $this.data('ipUploadImage', data);
+
+            $(this).ipUploadImage('autosize', data.autosizeType, true);
+        } else { //current image loaded. Crop it as it was cropped before
+            $.proxy(restoreOriginalDimensions, $(this))();
+        }
+
+
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var restoreOriginalDimensions = function(){
+        var $this = $(this);
+        var $image = $this.find('.ipUploadImage');
+        var $window = $image.parent().parent();
+        var $dragContainer = $image.parent();
+        var data = $this.data('ipUploadImage');
+        var cropX1 = 0;
+        var cropY1 = 0;
+        var cropX2 = parseInt($image.width());
+        var cropY2 = parseInt($image.height());
+        if ($this.data('ipUploadImage').cropX1) {
+            cropX1 = parseInt($this.data('ipUploadImage').cropX1);
+        }
+        if ($this.data('ipUploadImage').cropY1) {
+            cropY1 = parseInt($this.data('ipUploadImage').cropY1);
+        }
+        if ($this.data('ipUploadImage').cropX2) {
+            cropX2 = parseInt($this.data('ipUploadImage').cropX2);
+        }
+        if ($this.data('ipUploadImage').cropY2) {
+            cropY2 = parseInt($this.data('ipUploadImage').cropY2);
+        }
+
+        switch (data.autosizeType) {
+            case 'resize' :
+            case 'fit' :
+                var centerX = (cropX2 - cropX1) / 2 + cropX1;
+                var centerY = (cropY2 - cropY1) / 2 + cropY1;
+                var centerPercentageX = centerX / $image.width() * 100;
+                var centerPercentageY = centerY / $image.height() * 100;
+                $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
+                $windowRatio = $window.width() / $window.height();
+                if ($this.data('ipUploadImage').enableChangeHeight) {
+                    $window.height(Math.round($window.width() / $photoRatio));
+                } else {
+                    if ($this.data('ipUploadImage').enableChangeWidth) {
+                        $window.width(Math.round($window.height() * $photoRatio));
+                    }
+                }
+
+                if ($photoRatio < $windowRatio) {
+                    var imageScale = $window.height() / (cropY2 - cropY1);
+                    $image.height($image.height() * imageScale);
+                    $image.width('auto');
+                } else {
+                    var imageScale = $window.width() / (cropX2 - cropX1);
+                    $image.width($image.width() * imageScale);
+                    $image.height('auto');
+                }
+                break;
+            case 'crop' :
+                var centerX = (cropX2 - cropX1) / 2 + cropX1;
+                var centerY = (cropY2 - cropY1) / 2 + cropY1;
+                var centerPercentageX = centerX / $image.width() * 100;
+                var centerPercentageY = centerY / $image.height() * 100;
+                $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
+                $windowRatio = $window.width() / $window.height();
+                if ($this.data('ipUploadImage').enableChangeHeight) {
+                    $window.height(Math.round($window.width() / $photoRatio));
+                } else {
+                    if ($this.data('ipUploadImage').enableChangeWidth) {
+                        $window.width(Math.round($window.height() * $photoRatio));
+                    }
+                }
+
+                if ($photoRatio > $windowRatio) {
+                    var imageScale = $window.height() / (cropY2 - cropY1);
+                    $image.height($image.height() * imageScale);
+                    $image.width('auto');
+                } else {
+                    var imageScale = $window.width() / (cropX2 - cropX1);
+                    $image.width($image.width() * imageScale);
+                    $image.height('auto');
+                }
+                break;
+
+
+        }
+        $image.trigger('imageResized.ipUploadImage', [centerPercentageX, centerPercentageY]);
+
     }
+
 
     $.fn.ipUploadImage = function(method) {
         if (methods[method]) {
