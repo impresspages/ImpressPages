@@ -17,7 +17,7 @@ function IpWidget_IpImage() {
         this.$imageUploader = $imageUploader;
 
         var options = new Object;
-        
+
         if (data.imageOriginal) {
             options.image = data.imageOriginal;
         }
@@ -39,13 +39,16 @@ function IpWidget_IpImage() {
 
         var $img = this.$widgetObject.find('img');
 
-        this.$imageUploader.ipUploadImage(options);
-        this.$imageUploader.on('error.ipUploadImage', $.proxy(addError, this));
-
 
         if ($img.length == 1) {
+            options.windowWidth = $img.width();
+            options.windowHeight = $img.height();
             $img.hide();
         }
+
+        this.$imageUploader.ipUploadImage(options);
+        this.$imageUploader.on('error.ipUploadImage', $.proxy(addError, this));
+        this.$imageUploader.on('change.ipUploadImage', $.proxy(save, this));
 
     }
     
@@ -73,6 +76,8 @@ function IpWidget_IpImage() {
                 data.cropY1 = cropCoordinates.y1;
                 data.cropX2 = cropCoordinates.x2;
                 data.cropY2 = cropCoordinates.y2;
+                data.width = ipUploadImage.ipUploadImage('width');
+                data.height = ipUploadImage.ipUploadImage('height');
             }
         }
 
