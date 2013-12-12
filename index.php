@@ -9,8 +9,8 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
     echo 'Your PHP version is: '.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION.'. To run ImpressPages CMS you need PHP >= 5.3.3';
     exit;
 }
-ini_set('display_errors', 1);
 
+git st
 require_once('Ip/Application.php');
 
 try {
