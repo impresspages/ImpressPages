@@ -9,7 +9,7 @@ function IpWidget_IpFile(widgetObject) {
 
     this.prepareData = prepareData;
     this.manageInit = manageInit;
-    this.fileUploaded = fileUploaded;
+    this.filesSelected = fileUploaded;
 
     this.addError = addError;
 
@@ -31,7 +31,7 @@ function IpWidget_IpFile(widgetObject) {
         container.ipWidget_ipFile_container(options);
         
         
-        this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
+        this.widgetObject.bind('filesSelected.ipUploadFile', this.filesSelected);
         this.widgetObject.bind('error.ipUploadFile', this.addError);
 
         var widgetObject = this.widgetObject;

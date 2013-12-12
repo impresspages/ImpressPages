@@ -41,45 +41,43 @@ function IpWidget_IpImageGallery() {
 //        container.ipWidget_ipImageGallery_container(options);
 //
 //
-//        this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
-//        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
-//        this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
+
         
     }
 
 
     this.focus = function () {
-        console.log('focus');
+        var thisContext = this;
         var $addButton = $('#ipWidgetGallerySnippet').find('.ipsAdd').clone().detach();
         this.$widgetObject.append($addButton);
         $addButton.click(function(e){
             e.preventDefault();
             var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
-            repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
+            repository.bind('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
         });
-
-
     }
 
     this.blur = function () {
-        console.log('blur');
         this.$widgetObject.find('.ipsAdd').remove();
     }
+
+
+    this.filesSelected = function(event, files) {
+        var $this = $(this);
+console.log(files);
+//        var container = $this.find('.ipWidget_ipImageGallery_container');
+//        for(var index in files) {
+//            container.ipWidget_ipImageGallery_container('addImage', files[index].fileName, '', 'new');
+//        }
+    }
+
+
 
 
     function addError(event, errorMessage) {
         $(this).trigger('error.ipContentManagement', [errorMessage]);
     }
 
-
-    function fileUploaded(event, files) {
-        var $this = $(this);
-
-        var container = $this.find('.ipWidget_ipImageGallery_container');
-        for(var index in files) {
-            container.ipWidget_ipImageGallery_container('addImage', files[index].fileName, '', 'new');
-        }
-    }
 
 
     
