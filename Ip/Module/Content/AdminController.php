@@ -299,14 +299,17 @@ class AdminController extends \Ip\Controller
 
 
         Model::updateWidget($record['widgetId'], $updateData);
-        $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
-            'previewHtml' => $previewHtml,
             'instanceId' => $instanceId
         );
+
+        if (!empty($_POST['generatePreview'])) {
+            $data['previewHtml'] = Model::generateWidgetPreview($instanceId, true);
+        }
+
 
         return new \Ip\Response\Json($data);
     }
