@@ -17,8 +17,14 @@ function IpWidget_IpHtml() {
         this.widgetObject = widgetObject;
         this.data = data;
 
+        var container = this.widgetObject.find('.ipsContainer');
+
+        if (this.data.html) { // TODOX check if not safe mode
+            container.html(this.data.html);
+        }
+
         var context = this; // set this so $.proxy would work below
-        this.widgetObject.find('.ipsContainer').click(function () {
+        container.click(function () {
             $.proxy(openPopup, context)();
         });
     };
