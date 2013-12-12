@@ -98,6 +98,9 @@ class Table extends \Ip\Grid1\Model{
           `".str_replace("`","", $this->config['table'])."`
         WHERE
           1
+        ORDER BY
+          `id`
+        DESC
         ";
 
         $result = ipDb()->fetchAll($sql);

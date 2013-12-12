@@ -11,6 +11,18 @@ class PublicController extends \Ip\Controller
 {
     public function init()
     {
+
+        if (ipRequest()->getRequest('debug') !== NULL) {
+            $_SESSION['install_debug'] = (int)ipRequest()->getRequest('debug');
+        }
+
+        if (!empty($_SESSION['install_debug'])) {
+            error_reporting(E_ALL);
+            ini_set("display_errors", 1);
+        }
+
+
+
         if (empty($_SESSION['step'])) {
             $_SESSION['step'] = 0;
         }

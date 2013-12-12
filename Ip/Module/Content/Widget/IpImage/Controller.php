@@ -87,7 +87,6 @@ class Controller extends \Ip\WidgetController{
 
 
     public function previewHtml($instanceId, $data, $layout) {
-
         if (isset($data['imageOriginal'])) {
             $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
             $desiredName = isset($data['title']) ? $data['title'] : 'image';

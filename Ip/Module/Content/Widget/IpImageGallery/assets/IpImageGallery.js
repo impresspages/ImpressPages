@@ -4,46 +4,67 @@
  *
  */
 
-function IpWidget_IpImageGallery(widgetObject) {
-    this.widgetObject = widgetObject;
-
-    this.prepareData = prepareData;
-    this.manageInit = manageInit;
-    this.fileUploaded = fileUploaded;
-    
-    this.addError = addError;
+function IpWidget_IpImageGallery() {
+    "use strict";
+    this.$widgetObject = null;
 
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
+    this.init = function($widgetObject, data) {
 
-        this.widgetObject.find('.ipmBrowseButton').click(function(e){
+        this.$widgetObject = $widgetObject;
+
+        this.$widgetObject.on('click', $.proxy(this.focus, this));
+        this.$widgetObject.on('blur', $.proxy(this.blur, this));
+        $('body').on('click', $.proxy(function(e) {
+            var $target = $(e.target);
+            if (!$target.hasClass('ipWidget-IpImageGallery')) {
+                $target = $target.closest('.ipWidget-IpImageGallery');
+            }
+            if ($target.length == 0 || $target.data('widgetinstanceid') != this.$widgetObject.data('widgetinstanceid')) {
+                $.proxy(this.blur, this)();
+            }
+
+        }, this));
+//
+//
+//
+//        var container = this.widgetObject.find('.ipWidget_ipImageGallery_container');
+//        var options = new Object;
+//        if (instanceData.data.images) {
+//            options.images = instanceData.data.images;
+//        } else {
+//            options.images = new Array();
+//        }
+//        options.smallImageWidth = this.widgetObject.find('input[name="smallImageWidth"]').val();
+//        options.smallImageHeight = this.widgetObject.find('input[name="smallImageHeight"]').val();
+//        options.imageTemplate = this.widgetObject.find('.ipaImageTemplate');
+//        container.ipWidget_ipImageGallery_container(options);
+//
+//
+//        this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
+//        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
+//        this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
+        
+    }
+
+
+    this.focus = function () {
+        console.log('focus');
+        var $addButton = $('#ipWidgetGallerySnippet').find('.ipsAdd').clone().detach();
+        this.$widgetObject.append($addButton);
+        $addButton.click(function(e){
             e.preventDefault();
             var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
             repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
         });
 
-        
-        var container = this.widgetObject.find('.ipWidget_ipImageGallery_container');
-        var options = new Object;
-        if (instanceData.data.images) {
-            options.images = instanceData.data.images;
-        } else {
-            options.images = new Array();
-        }
-        options.smallImageWidth = this.widgetObject.find('input[name="smallImageWidth"]').val();
-        options.smallImageHeight = this.widgetObject.find('input[name="smallImageHeight"]').val();
-        options.imageTemplate = this.widgetObject.find('.ipaImageTemplate');
-        container.ipWidget_ipImageGallery_container(options);
-        
-        
-        this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
-        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
-        this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
-        
+
     }
 
-    
+    this.blur = function () {
+        console.log('blur');
+        this.$widgetObject.find('.ipsAdd').remove();
+    }
 
 
     function addError(event, errorMessage) {
@@ -67,7 +88,7 @@ function IpWidget_IpImageGallery(widgetObject) {
         var container = this.widgetObject.find('.ipWidget_ipImageGallery_container');
         
         data.images = new Array();
-        $images = container.ipWidget_ipImageGallery_container('getImages');
+        var $images = container.ipWidget_ipImageGallery_container('getImages');
         $images.each(function(index) {
             var $this = $(this);
             var tmpImage = new Object();

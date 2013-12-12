@@ -122,21 +122,21 @@ class ReflectionModel
 
 
 
-        $relativeDestination = date('Y/m/d/') . $desiredName;
-        $relativeDestination = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestination, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
+        $relativeDestinationPath = date('Y/m/d/') . $desiredName;
+        $relativeDestinationPath = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
 
-        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestination));
+        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestinationPath));
         if (!is_dir($absoluteDestinationDir)) {
             mkdir($absoluteDestinationDir, 0777, $recursive = true);
         }
-        $destinationFileName = basename($relativeDestination);
-
-        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($destinationFileName, $absoluteDestinationDir);
+        $destinationFileName = basename($relativeDestinationPath);
+        $relativeDestinationDir = substr($relativeDestinationPath, 0, -strlen($destinationFileName));
+        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($destinationFileName, $absoluteDestinationDir . '/');
         $transform->transform($absoluteSource, $absoluteDestinationDir . '/' . $destinationFileName);
         $transformFingerprint = $transform->getFingerprint();
-        $this->storeReflectionRecord($source, $relativeDestination, $transformFingerprint);
+        $this->storeReflectionRecord($source, $relativeDestinationDir . $destinationFileName, $transformFingerprint);
 
-        return $relativeDestination;
+        return $relativeDestinationPath;
     }
 
 
