@@ -53,34 +53,36 @@ class Functions{
     }
 
     /**
-     * @param string $file required file name
-     * @param string $dest_dir directory where new file will be placed
-     * @return string new (or the same) file name that don't collide with existing files in specified directory
+     * @param $file requested file name
+     * @param string $destDir directory where new file will be placed
+     * @param string $suffix
+     * @return string
      */
-    public static function genUnoccupiedName($file, $dest_dir, $suffix = ''){
-        $new_name = basename($file);
-        $ext_pos = strrpos($new_name, ".");
-        if ($ext_pos !== false){
-            $new_extension = substr($new_name, $ext_pos, strlen($file));
-            $new_name = substr($new_name, 0, $ext_pos);
+    public static function genUnoccupiedName($file, $destDir, $suffix = '')
+    {
+        $newName = basename($file);
+        $extPos = strrpos($newName, ".");
+        if ($extPos !== false) {
+            $newExtension = substr($newName, $extPos, strlen($file));
+            $newName = substr($newName, 0, $extPos);
         } else {
-            $new_extension = '';
+            $newExtension = '';
         }
 
-        $new_name = self::cleanupFileName($new_name);
+        $newName = self::cleanupFileName($newName);
 
-        if($new_name == "") {
-            $new_name = "file_";
+        if ($newName == "") {
+            $newName = "file_";
         }
-        if (file_exists($dest_dir.$new_name.$new_extension)){
+        if (file_exists($destDir . $newName . $newExtension)) {
             $i = 1;
-            while(file_exists($dest_dir.$new_name.'_'.$i.$suffix.$new_extension)){
+            while (file_exists($destDir . $newName . '_' . $i . $suffix . $newExtension)) {
                 $i++;
             }
-            $new_name = $new_name.'_'.$i.$suffix;
+            $newName = $newName . '_' . $i . $suffix;
         }
-        $new_name .= $new_extension;
-        return $new_name;
+        $newName .= $newExtension;
+        return $newName;
     }
 
 
