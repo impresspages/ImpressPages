@@ -45,6 +45,9 @@ function IpWidget_IpImage() {
             options.windowHeight = $img.height();
             $img.hide();
         }
+        if (options.windowHeight == null) {
+            options.windowHeight = 100;
+        }
 
         this.$imageUploader.ipUploadImage(options);
         this.$imageUploader.on('error.ipUploadImage', $.proxy(addError, this));

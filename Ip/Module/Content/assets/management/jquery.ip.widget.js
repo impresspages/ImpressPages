@@ -47,44 +47,20 @@
 
             return this.each(function () {
                 var $this = $(this);
-                var data = Object();
 
+                //add to queue
+                var $queue = $this.data('saveQueue');
+                if ($queue == null) {
+                    $queue = [];
+                }
+                $queue.push({widgetData: widgetData, refresh: refresh, callback: callback});
+                $this.data('saveQueue', $queue);
 
-                data.aa = 'Content.updateWidget';
-                data.securityToken = ip.securityToken;
-                data.instanceId = $this.data('widgetinstanceid');
-                data.widgetData = widgetData;
-
-                $.ajax({
-                    type: 'POST',
-                    url: ip.baseUrl,
-                    data: data,
-                    context: $this,
-                    success: function(response) {
-                        if (refresh) {
-                            var newWidget = response.previewHtml;
-                            var $newWidget = $(newWidget);
-                            $newWidget.insertAfter($this);
-                            $newWidget.trigger('reinitRequired.ipWidget');
-
-                            // init any new blocks the widget may have created
-                            $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-                            $this.remove();
-                        }
-
-                        if (callback) {
-                            if (refresh) {
-                                callback($newWidget);
-                            } else {
-                                callback($this);
-                            }
-                        }
-                    },
-                    error: function(response) {
-                        console.log(response);
-                    },
-                    dataType: 'json'
-                });
+                if ($this.data('saveInProgress')) {
+                    return;
+                } else {
+                    $.proxy(processSaveQueue, $this)();
+                }
 
             });
         },
@@ -125,6 +101,88 @@
         }
 
     };
+
+
+    var processSaveQueue = function() {
+        var $this = this;
+
+        if ($this.data('saveInProgress')) {
+            return;
+        } else {
+            $this.data('saveInProgress', true);
+        }
+
+        var $queue = $this.data('saveQueue');
+        $this.data('saveQueue', []);
+        if ($queue == null || $queue.length == 0) {
+            $this.data('saveInProgress', false);
+            return;
+        }
+
+
+        var refresh = false;
+        var callbacks = [];
+        $.each($queue, function(key, value) {
+            if (value.refresh) {
+                refresh = true;
+            }
+            if (value.callback) {
+                callbacks.push(value.callback);
+            }
+        });
+
+        var data = Object();
+        data.aa = 'Content.updateWidget';
+        data.securityToken = ip.securityToken;
+        data.instanceId = $this.data('widgetinstanceid');
+        data.widgetData = $queue[$queue.length - 1].widgetData;
+
+        if (refresh) {
+            data.generatePreview = 1;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: function(response) {
+                var $this = this;
+
+                if (refresh) {
+                    var newWidget = response.previewHtml;
+                    var $newWidget = $(newWidget);
+                    $newWidget.insertAfter($this);
+                    $newWidget.trigger('reinitRequired.ipWidget');
+
+                    // init any new blocks the widget may have created
+                    $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+                    $this.remove();
+                }
+
+                if (callbacks.length) {
+                    if (refresh) {
+                        $.each(callbacks, function(key, value){
+                            value($newWidget);
+                        });
+                    } else {
+                        $.each(callbacks, function(key, value){
+                            value($this);
+                        });
+                    }
+                }
+                $this.data('saveInProgress', false);
+                $.proxy(processSaveQueue, $this)();
+            },
+            error: function(response) {
+                console.log(response);
+                $this.data('saveInProgress', false);
+                $.proxy(processSaveQueue, $this)();
+            },
+            dataType: 'json'
+        });
+    }
+
 
     var openLayoutModal = function(e) {
         e.preventDefault();

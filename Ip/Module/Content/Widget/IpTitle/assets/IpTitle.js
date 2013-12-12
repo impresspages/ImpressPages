@@ -9,7 +9,6 @@ function IpWidget_IpTitle() {
     this.data = null;
     this.$header = null;
     this.$controls = null;
-    this.savedRange = null;
 
     this.init = function ($widgetObject, data) {
         var thisScope = this;
