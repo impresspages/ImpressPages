@@ -56,7 +56,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefixos n&atilde;o podem ser maiores que 7 s�mbolos',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefixos n&atilde;o podem conter caracteres especiais e devem iniciar com uma letra',
     'Incorrect e-mail address' => 'Endere&ccedil;o de email incorreto',
-    'Can\'t write configuration \"/ip_config.php\"' => 'N&atilde;o pode escrever configura&ccedil;&atilde;o "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'N&atilde;o pode escrever configura&ccedil;&atilde;o "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'N&atilde;o pode escrever "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Por favor digite o endere&ccedil;o de e-mail correto do administrador',
     'Please enter website name.' => 'Por favor digite o nome do site.',
@@ -81,7 +81,7 @@ return array(
 <a href="../admin.php">P&aacute;gina de Administra&ccedil;&atilde;o</a><br /><br />
 </p>
 <p>
-Se voce quiser repetir a insta&ccedil;&atilde;o precisa limpar a configura&ccedil;&atilde;o do arquivo "ip_config.php".
+Se voce quiser repetir a insta&ccedil;&atilde;o precisa limpar a configura&ccedil;&atilde;o do arquivo "config.php".
 </p>
 ',
 );

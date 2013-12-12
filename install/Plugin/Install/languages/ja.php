@@ -55,7 +55,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'prefix は7文字以上でなければいけません',
     'Prefix can\'t contain any special characters and should sart with letter' => 'prefix に記号を含める事はできず、半角英文小文字からはじめなければいけません',
     'Incorrect e-mail address' => 'E-mail アドレスに誤りがあります',
-    'Can\'t write configuration \"/ip_config.php\"' => '設定ファイル "/ip_config.php" へ書き込みできません',
+    'Can\'t write configuration \"/config.php\"' => '設定ファイル "/config.php" へ書き込みできません',
     'Can\'t write \"/robots.txt\"' => '設定ファイル "/robots.txt" へ書き込みできません',
     'Please enter correct administrator e-mail address' => '管理者 E-mail アドレスへご連絡下さい',
     'Please enter website name.' => 'Web サイト名を入力して下さい',
@@ -80,7 +80,7 @@ return array(
 <a href="../admin.php">管理者ページ</a><br /><br />
 </p>
 <p>
-もしインストールを再度行いたい場合は設定ファイル "ip_config.php" を削除して下さい。
+もしインストールを再度行いたい場合は設定ファイル "config.php" を削除して下さい。
 </p>
 ',
 );

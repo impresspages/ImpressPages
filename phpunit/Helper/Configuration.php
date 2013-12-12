@@ -10,11 +10,11 @@ namespace PhpUnit\Helper;
 
 class Configuration{
 
-    const CONFIG_FILE_NAME = 'ip_config.php';
+    const CONFIG_FILE_NAME = 'config.php';
 
     /**
      *
-     * Change constant value in ip_config.php file
+     * Change constant value in config.php file
      * @param stsring $constantName
      * @param string $curValue
      * @param string $newValue
@@ -24,7 +24,7 @@ class Configuration{
         $configFile = $installation->getInstallationDir().self::CONFIG_FILE_NAME;
 
         if (!is_writable($configFile)) {
-            throw new  \Exception("Error: ip_config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
+            throw new  \Exception("Error: config.php file is not writable. You can make it writable using FTP client or Linux chmod command.");
         }
 
         $config = include $configFile;

@@ -51,7 +51,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefix can\'t be longer than 7 symbols',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefix can\'t contain any special characters and should sart with letter',
     'Incorrect e-mail address' => 'Incorrect e-mail address',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Can\'t write configuration "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Can\'t write configuration "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Can\'t write "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Please enter correct administrator e-mail address',
     'Please enter website name.' => 'Please enter website name.',
@@ -75,7 +75,7 @@ return array(
 <a href="../admin.php">Administration page</a><br /><br />
 </p>
 <p>
-If you wish to repeat the installation, please clear the configuration file "ip_config.php".
+If you wish to repeat the installation, please clear the configuration file "config.php".
 </p>
 '
 );

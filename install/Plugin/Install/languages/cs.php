@@ -57,7 +57,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefix nesmí být delší než 7 znaků',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefix nesmí obsahovat žádné speciální znaky a měl by začínat písmenem',
     'Incorrect e-mail address' => 'Nesprávná adresa e-mailu',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Nelze zapisovat do "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Nelze zapisovat do "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Nelze zapisovat do "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Zadejte prosím správnou adresu e-mailu administrátora',
     'Please enter website name.' => 'Zadejte prosím název webové stránky.',
@@ -82,7 +82,7 @@ return array(
 <a href="../admin.php">Administrace</a><br /><br />
 </p>
 <p>
-Pokud chcete opakovat instalaci, zrušte prosím konfigurační soubor "ip_config.php".
+Pokud chcete opakovat instalaci, zrušte prosím konfigurační soubor "config.php".
 </p>
 ',
 );

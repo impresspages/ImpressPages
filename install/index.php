@@ -16,7 +16,7 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
 
 require_once(__DIR__ . '/../Ip/Application.php');
 
-    $application = new \Ip\Application(__DIR__ . '/ip_config.php');
+    $application = new \Ip\Application(__DIR__ . '/config.php');
     $application->init();
     $options = array(
         'skipErrorHandler' => 1

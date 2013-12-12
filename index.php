@@ -14,7 +14,7 @@ git st
 require_once('Ip/Application.php');
 
 try {
-    $application = new \Ip\Application(__DIR__ . '/ip_config.php');
+    $application = new \Ip\Application(__DIR__ . '/config.php');
     $application->init();
     $application->run();
 } catch (\Exception $e) {

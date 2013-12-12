@@ -56,7 +56,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Le préfixe doit comporter au maximum 7 caractères',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Caractères spéciaux non autorisés dans le préfixe et il doit commencer par une lettre',
     'Incorrect e-mail address' => 'Courriel/e-mail incorrect',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Impossible de créer le fichier "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Impossible de créer le fichier "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Impossible de créer le fichier "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Entrez un courriel/e-mail valide pour l\'administrateur.',
     'Please enter website name.' => 'Entrez le nom du site.',
@@ -81,7 +81,7 @@ return array(
 <a href="../admin.php">Page Administrateur</a><br /><br />
 </p>
 <p>
-Si vous deviez refaire l\'installation, nettoyer le fichier de configuration "ip_config.php".
+Si vous deviez refaire l\'installation, nettoyer le fichier de configuration "config.php".
 </p>
 ',
 );

@@ -106,7 +106,7 @@ class Installation
             'charset' => 'utf8'
         );
 
-        InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'ip_config.php');
+        InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'config.php');
         InstallModel::writeRobotsFile($this->getInstallationDir() . 'robots.txt');
 
         $this->installed = true;
@@ -176,7 +176,7 @@ class Installation
 
 
         //Put instalation into test mode:
-        $configFile = $this->getInstallationDir()."ip_config.php";
+        $configFile = $this->getInstallationDir()."config.php";
         $config = include ($configFile);
         $config['TEST_MODE'] = true;
         $configSource = '<?php return ' . var_export($config, true);
@@ -495,7 +495,7 @@ class Installation
         $files = array(
             'favicon.ico',
             'index.php',
-            'ip_config.php',
+            'config.php',
             'ip_license.html',
             'readme.md',
             'robots.txt',
@@ -515,13 +515,13 @@ class Installation
 
         file_put_contents($destination.'robots.txt', '');
         $fs->chmod($destination.'robots.txt', 0777);
-        file_put_contents($destination.'ip_config.php',
+        file_put_contents($destination.'config.php',
             '<?php
 
  if(!isset($_GET[\'install\']))
     header("location: install/?install=1");
         ');
-        $fs->chmod($destination.'ip_config.php', 0777);
+        $fs->chmod($destination.'config.php', 0777);
 
 
     }

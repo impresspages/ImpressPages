@@ -300,9 +300,9 @@ class PublicController extends \Ip\Controller
         $config['db'] = $_SESSION['db'];
 
         try {
-            Model::writeConfigFile($config, ipFile('ip_config.php'));
+            Model::writeConfigFile($config, ipFile('config.php'));
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/ip_config.php"', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'ipInstall', false));
         }
 
         try {
