@@ -157,9 +157,9 @@ class Model
             $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
 
 
-        $table[] = '<b>/ip_config.php</b> ' . __('writable', 'ipInstall');
+        $table[] = '<b>/config.php</b> ' . __('writable', 'ipInstall');
 
-        if (!is_writable(ipFile('ip_config.php'))) {
+        if (!is_writable(ipFile('config.php'))) {
             $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
             $error['writable_config'] = 1;
         } else
@@ -357,7 +357,7 @@ Disallow: /ip_configs/
 Disallow: /update/
 Disallow: /install/
 Disallow: /admin.php
-Disallow: /ip_config.php
+Disallow: /config.php
 Disallow: /ip_license.html
 Disallow: /readme.md
 Sitemap: '. ipFileUrl('sitemap.php');

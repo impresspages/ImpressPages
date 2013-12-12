@@ -39,7 +39,7 @@ class Helper
 
     public static function isInstallAvailable()
     {
-        if (filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100) {
+        if (filesize("../config.php") !== false && filesize("../config.php") < 100) {
             return true;
         } else {
             return false;
