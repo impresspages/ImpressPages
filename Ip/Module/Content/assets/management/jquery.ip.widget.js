@@ -136,9 +136,9 @@
         data.securityToken = ip.securityToken;
         data.instanceId = $this.data('widgetinstanceid');
         data.widgetData = $queue[$queue.length - 1].widgetData;
-
+console.log(data);
         if (refresh) {
-            data.generatePreview = 1;
+            data.generatePreview = 1
         }
 
         $.ajax({
