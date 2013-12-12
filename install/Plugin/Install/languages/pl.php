@@ -57,7 +57,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Przedrostek nie może być dłuższy niż 7 znaków',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Przedrostek nie może zawierać żadnych znaków specjalnych i powinien rozpoczynać się literą',
     'Incorrect e-mail address' => 'Błędny adres e-mail',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Nie można zapisać konfiguracji do pliku "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Nie można zapisać konfiguracji do pliku "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Nie można zapisać pliku "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Proszę wprowadź poprawny adres e-mail administratora',
     'Please enter website name.' => 'Proszę wprowadź poprawny adres strony.',
@@ -82,7 +82,7 @@ return array(
 <a href="../admin.php">Administracja</a><br /><br />
 </p>
 <p>
-Jeśli chcesz powtórzyć proces instalacji, usuń dane konfiguracyjne z pliku "ip_config.php" lub nadpisz go plikiem z pakietu instalacyjnego.
+Jeśli chcesz powtórzyć proces instalacji, usuń dane konfiguracyjne z pliku "config.php" lub nadpisz go plikiem z pakietu instalacyjnego.
 </p>
 ',
 );

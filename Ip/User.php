@@ -41,9 +41,6 @@ class User{
             unset($_SESSION['ipUser']['userId']);
         }
     }
-    
-
-
 
     /**
      * User login

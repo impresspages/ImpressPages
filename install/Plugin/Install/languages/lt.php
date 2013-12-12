@@ -55,7 +55,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefiksas negali būti ilgesnis, kaip 7 simboliai',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefikse negali būti specialilų ženklų. Prefiksas turi prasidėti raide',
     'Incorrect e-mail address' => 'Neteisingas el. pašto adresas',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Nepavyko įrašyti konfigūracijos failo "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Nepavyko įrašyti konfigūracijos failo "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Nepavyko suformuoti failo "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Prašome įvesti teisingą administratoriaus el. pašto adresą',
     'Please enter website name.' => 'Prašome įvesti interneto sveatinės pavadinimą.',
@@ -80,7 +80,7 @@ return array(
 <a href="../admin.php">Administravimo aplinka</a><br /><br />
 </p>
 <p>
-Jei norite pakartoti diegimo procesą, prašome ištrinti konfigūracijos failo "ip_config.php" turinį.
+Jei norite pakartoti diegimo procesą, prašome ištrinti konfigūracijos failo "config.php" turinį.
 </p>
 ',
 );

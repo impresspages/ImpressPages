@@ -55,7 +55,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefix mag niet langer zijn dan 7 tekens',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefix can\'t contain any special characters and should sart with letter',
     'Incorrect e-mail address' => 'Ongeldig e-mailadres',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Kan het volgende bestand niet overschrijven "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Kan het volgende bestand niet overschrijven "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Kan het volgende bestand niet overschrijven "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Vul hier het correcte e-mailadres van de Administrator in',
     'Please enter website name.' => 'Vul de naam van de website in.',
@@ -80,7 +80,7 @@ return array(
 <a href="../admin.php">Administrator pagina</a><br /><br />
 </p>
 <p>
-Als je de installatie opnieuw wilt uitvoeren, dan moet u het "ip_config.php" bestand wissen.
+Als je de installatie opnieuw wilt uitvoeren, dan moet u het "config.php" bestand wissen.
 </p>
 ',
 );

@@ -7,5 +7,5 @@
     <a href="../admin.php"><?php _e('Administration page', 'ipInstall') ?></a><br /><br />
 </p>
 <p>
-    <?php _e('If you wish to repeat the installation, please clear the configuration file "ip_config.php".', 'ipInstall') ?>
+    <?php _e('If you wish to repeat the installation, please clear the configuration file "config.php".', 'ipInstall') ?>
 </p>
