@@ -40,7 +40,7 @@ class Config
 
             $baseUrl = dirname($server['SCRIPT_NAME']);
             if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
-                throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in ip_config.php');
+                throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in config.php');
             }
 
             $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';

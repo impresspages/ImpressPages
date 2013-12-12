@@ -56,7 +56,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Präfix darf nicht länger als 7 Zeichen sein',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Bei einer Präfix können keine speziellen Zeichen verwendet werden',
     'Incorrect e-mail address' => 'Falsche E-mail Adresse',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Die "/ip_config.php" ist nicht beschreibar. Bitte auf chmod 0666 setzen.',
+    'Can\'t write configuration \"/config.php\"' => 'Die "/config.php" ist nicht beschreibar. Bitte auf chmod 0666 setzen.',
     'Can\'t write \"/robots.txt\"' => 'Die "/robots.txt" ist nicht beschreibar. Bitte auf chmod 0666 setzen.',
     'Please enter correct administrator e-mail address' => 'Bitte gebt eine Emailadresse an',
     'Please enter website name.' => 'Bitte gebt einen Webseiten namen ein.',
@@ -81,7 +81,7 @@ return array(
 <a href="../admin.php">Zum Admin Panel</a><br /><br />
 </p>
 <p>
-Wenn du die Installation nocheinmal machen möchtest, dann leere die "ip_config.php".
+Wenn du die Installation nocheinmal machen möchtest, dann leere die "config.php".
 </p>
 ',
 );

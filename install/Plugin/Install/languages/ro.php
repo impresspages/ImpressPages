@@ -56,7 +56,7 @@ return array(
     'Prefix can\'t be longer than 7 symbols' => 'Prefixul nu poate fi mai lung decat 7 caractere',
     'Prefix can\'t contain any special characters and should sart with letter' => 'Prefixul nu poate contine caractere speciale si va trebui sa inceapa cu o litera',
     'Incorrect e-mail address' => 'Adresa e-mail incorecta',
-    'Can\'t write configuration \"/ip_config.php\"' => 'Nu pot scrie configuratia "/ip_config.php"',
+    'Can\'t write configuration \"/config.php\"' => 'Nu pot scrie configuratia "/config.php"',
     'Can\'t write \"/robots.txt\"' => 'Nu pot scrie "/robots.txt"',
     'Please enter correct administrator e-mail address' => 'Te rugam sa introduci adresa corecta de email a administratorului.',
     'Please enter website name.' => 'Te rugam sa introduci numele site-ului.',
@@ -81,7 +81,7 @@ return array(
 <a href="../admin.php">Pagina de administrare</a><br /><br />
 </p>
 <p>
-Daca vrei sa repeti instalarea, te rugam sa stergi continutul fisierului "ip_config.php".
+Daca vrei sa repeti instalarea, te rugam sa stergi continutul fisierului "config.php".
 </p>
 ',
 );

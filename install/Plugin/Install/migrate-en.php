@@ -51,7 +51,7 @@ return array(
     'IP_DB_ERROR_LONG_PREFIX' => 'Prefix can\'t be longer than 7 symbols',
     'IP_DB_ERROR_INCORRECT_PREFIX' => 'Prefix can\'t contain any special characters and should sart with letter',
     'IP_DB_ERROR_EMAIL' => 'Incorrect e-mail address',
-    'IP_CONFIG_ERROR_CONFIG' => 'Can\'t write configuration "/ip_config.php"',
+    'IP_CONFIG_ERROR_CONFIG' => 'Can\'t write configuration "/config.php"',
     'IP_CONFIG_ERROR_ROBOTS' => 'Can\'t write "/robots.txt"',
     'IP_CONFIG_ERROR_EMAIL' => 'Please enter correct administrator e-mail address',
     'IP_CONFIG_ERROR_SITE_NAME' => 'Please enter website name.',
@@ -75,7 +75,7 @@ return array(
 <a href="../admin.php">Administration page</a><br /><br />
 </p>
 <p>
-If you wish to repeat the installation, please clear the configuration file "ip_config.php".
+If you wish to repeat the installation, please clear the configuration file "config.php".
 </p>
 '
 );
