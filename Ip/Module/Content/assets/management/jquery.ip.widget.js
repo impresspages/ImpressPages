@@ -120,12 +120,26 @@
         }
 
 
+        var refresh = false;
+        var callbacks = [];
+        $.each($queue, function(key, value) {
+            if (value.refresh) {
+                refresh = true;
+            }
+            if (value.callback) {
+                callbacks.push(value.callback);
+            }
+        });
+
         var data = Object();
         data.aa = 'Content.updateWidget';
         data.securityToken = ip.securityToken;
         data.instanceId = $this.data('widgetinstanceid');
         data.widgetData = $queue[$queue.length - 1].widgetData;
-        ;
+
+        if (refresh) {
+            data.generatePreview = 1;
+        }
 
         $.ajax({
             type: 'POST',
@@ -133,17 +147,7 @@
             data: data,
             context: $this,
             success: function(response) {
-                var refresh = false;
-                var callbacks = [];
                 var $this = this;
-                $.each($queue, function(key, value) {
-                    if (value.refresh) {
-                        refresh = true;
-                    }
-                    if (value.callback) {
-                        callbacks.push(value.callback);
-                    }
-                });
 
                 if (refresh) {
                     var newWidget = response.previewHtml;
