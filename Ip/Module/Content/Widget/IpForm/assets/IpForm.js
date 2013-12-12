@@ -41,7 +41,6 @@ function IpWidget_IpForm() {
         this.modal.modal();
 
         this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
-        this.modal.on('hidden.bs.modal', $.proxy(cleanup, this));
         this.confirmButton.on('click', $.proxy(save, this));
 
         var instanceData = this.data;
