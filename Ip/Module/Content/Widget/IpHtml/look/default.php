@@ -1,5 +1,5 @@
 <?php if (ipContent()->isManagementState()) { ?>
-    <div class="ipsContainer"><?php echo isset($html) ? $html : ''; ?></div>
+    <div class="ipsContainer"></div>
 <?php } else { ?>
     <?php echo isset($html) ? $html : ''; ?>
 <?php } ?>
