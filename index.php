@@ -10,7 +10,7 @@ if((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3))
     exit;
 }
 
-git st
+
 require_once('Ip/Application.php');
 
 try {
