@@ -18,7 +18,7 @@ function IpWidget_IpHtml() {
         this.data = data;
 
         var context = this; // set this so $.proxy would work below
-        $widgetObject.find('.ipsContainer').click(function () {
+        this.widgetObject.find('.ipsContainer').click(function () {
             $.proxy(openPopup, context)();
         });
     };
