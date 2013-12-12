@@ -150,7 +150,13 @@ class Controller extends \Ip\WidgetController{
     }
 
 
+    public function adminSnippets()
+    {
+        $snippets = array();
+        $snippets[] = \Ip\View::create('snippet/gallery.php', $data)->render();
+        return $snippets;
 
+    }
 
 
 

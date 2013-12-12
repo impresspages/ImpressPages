@@ -14,3 +14,4 @@ foreach ($images as $imageKey => $image) {
 <?php } ?>
 </ul>
 <?php } ?>
+{{test}}
