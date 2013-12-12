@@ -160,7 +160,7 @@
                     });
 
 
-                    $this.on('scaleUp.ipUploadImage scaleDown.ipUploadImage resize.ipUploadImage framed.ipUploadImage', function() {
+                    $this.on('scaleUp.ipUploadImage scaleDown.ipUploadImage resize.ipUploadImage framed.ipUploadImage addImage.ipUploadImage', function() {
                         $(this).trigger('change.ipUploadImage');
                     })
 
@@ -540,6 +540,12 @@
             $.proxy(restoreOriginalDimensions, $(this))();
         }
 
+        if (!$this.data('firstImageLoaded')) {
+            $this.data('firstImageLoaded', true);
+        } else {
+            $this.trigger('addImage.ipUploadImage');
+        }
+
 
     };
 
@@ -645,7 +651,6 @@
 
         }
         $.proxy(configureManagement, $this)(50, 50);
-        $this.trigger('resize.ipUploadImage');
     };
 
 
@@ -740,7 +745,6 @@
 
         }
         $.proxy(configureManagement, $this)(centerPercentageX, centerPercentageY);
-        $this.trigger('resize.ipUploadImage');
 
     }
 
