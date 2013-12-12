@@ -163,7 +163,7 @@
             } else {
                 var data = $this.data('ipUploadFile');
                 $this.data('ipUploadFile', data);
-                $this.trigger('fileUploaded.ipUploadFile', [answer.fileName]);
+                $this.trigger('filesSelected.ipUploadFile', [answer.fileName]);
             }
             
             $this.find('#ipUpload_' + file.id).remove();

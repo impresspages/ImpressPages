@@ -9,7 +9,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
 
     this.prepareData = prepareData;
     this.manageInit = manageInit;
-    this.fileUploaded = fileUploaded;
+    this.filesSelected = fileUploaded;
 
     this.addError = addError;
 
@@ -37,7 +37,7 @@ function IpWidget_IpLogoGallery(widgetObject) {
         container.ipWidget_ipLogoGallery_container(options);
         
         
-        this.widgetObject.bind('fileUploaded.ipUploadFile', this.fileUploaded);
+        this.widgetObject.bind('filesSelected.ipUploadFile', this.filesSelected);
         this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
         this.widgetObject.bind('error.ipUploadFile', {widgetController: this}, this.addError);
         
