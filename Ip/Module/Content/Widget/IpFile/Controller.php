@@ -28,8 +28,8 @@ class Controller extends \Ip\WidgetController{
                         case 'new':
                             if (file_exists(ipFile('file/repository/' . $file['fileName']))) {
 
-                                //TODOX rename standard/content_management to Content
-                                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $widgetId);
+                                //TODOX rename Content to Content
+                                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'Content', $widgetId);
                                 
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
@@ -57,7 +57,7 @@ class Controller extends \Ip\WidgetController{
                         case 'deleted':
                             $existingFile = self::_findExistingFile($file['fileName'], isset($currentData['files']) ? $currentData['files'] : null);
                             if (!$existingFile) {
-                                \Ip\Module\Repository\Model::unbindFile($existingFile['fileName'], 'standard/content_management', $widgetId);
+                                \Ip\Module\Repository\Model::unbindFile($existingFile['fileName'], 'Content', $widgetId);
                             } else {
                                 //do nothing existing image not found. 
                             }
@@ -116,7 +116,7 @@ class Controller extends \Ip\WidgetController{
         
         foreach($data['files'] as $file) {
             if (isset($file['fileName']) && $file['fileName']) {
-                \Ip\Module\Repository\Model::unbindFile($file['fileName'], 'standard/content_management', $widgetId);
+                \Ip\Module\Repository\Model::unbindFile($file['fileName'], 'Content', $widgetId);
             }
         };
     }
@@ -139,7 +139,7 @@ class Controller extends \Ip\WidgetController{
         
         foreach($data['files'] as $fileKey => $file) {
             if (isset($file['fileName']) && $file['fileName']) {
-                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($file['fileName'], 'Content', $newId);
             }
         };
     }

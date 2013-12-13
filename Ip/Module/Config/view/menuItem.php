@@ -26,7 +26,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
     $href = '';
 }
 ?><li class="<?php echo implode(' ', $css) ?>">
-    <a <?php echo $href ?> title="<?php addslashes($menuItem->getPageTitle()) ?>">
+    <a <?php echo $href ?> title="<?php echo esc($menuItem->getPageTitle(), 'attr') ?>">
         <?php echo esc($menuItem->getTitle()) ?>
     </a>
     <?php if ($menuItem->getChildren()){ ?>
