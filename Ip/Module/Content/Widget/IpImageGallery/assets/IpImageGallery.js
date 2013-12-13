@@ -7,11 +7,13 @@
 function IpWidget_IpImageGallery() {
     "use strict";
     this.$widgetObject = null;
+    this.data = null;
 
 
     this.init = function($widgetObject, data) {
 
         this.$widgetObject = $widgetObject;
+        this.data = data;
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
         this.$widgetObject.on('blur', $.proxy(this.blur, this));
@@ -65,6 +67,22 @@ function IpWidget_IpImageGallery() {
     this.filesSelected = function(event, files) {
         var $this = $(this);
 console.log(files);
+
+        var data = this.data;
+        var data = {};
+        $.each(files, function(key, value) {
+            if (!data.images) {
+                data.images = [];
+            }
+            data.images[data.images.length] = { //AJAX skips arrays without integer key
+                fileName: value.fileName,
+                status: "new"
+            };
+        });
+
+        this.$widgetObject.save(data, 1, function($widget){
+            $widget.click();
+        });
 //        var container = $this.find('.ipWidget_ipImageGallery_container');
 //        for(var index in files) {
 //            container.ipWidget_ipImageGallery_container('addImage', files[index].fileName, '', 'new');

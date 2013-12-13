@@ -29,7 +29,7 @@ class Controller extends \Ip\WidgetController{
         $newData['images'] = array(); //we will create new images array.
 
         foreach($postData['images'] as $image){
-            if (!isset($image['title']) || !isset($image['fileName']) || !isset($image['status'])){ //check if all require data present
+            if (!isset($image['fileName']) || !isset($image['status'])){ //check if all required data present
                 continue;
             }
 
@@ -40,13 +40,8 @@ class Controller extends \Ip\WidgetController{
                         break;
                     }
 
-                    //check if crop coordinates are set
-                    if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])) {
-                        break;
-                    }
-
                     //bind new image to the widget
-                    \Ip\Module\Repository\Model::bindFile($image['fileName'], 'standard/content_management', $widgetId);
+                    \Ip\Module\Repository\Model::bindFile($image['fileName'], 'Content', $widgetId);
 
 
 
@@ -60,12 +55,18 @@ class Controller extends \Ip\WidgetController{
                     $newImage = array(
                         'imageOriginal' => $image['fileName'],
                         'title' => $title,
-                        'cropX1' => $image['cropX1'],
-                        'cropY1' => $image['cropY1'],
-                        'cropX2' => $image['cropX2'],
-                        'cropY2' => $image['cropY2'],
-
                     );
+
+                    //check if crop coordinates are set
+                    if (isset($image['cropX1']) && isset($image['cropY1']) && isset($image['cropX2']) && isset($image['cropY2'])) {
+                        $newImage['cropX1'] = $image['cropX1'];
+                        $newImage['cropY1'] = $image['cropY1'];
+                        $newImage['cropX2'] = $image['cropX2'];
+                        $newImage['cropY2'] = $image['cropY2'];
+                    }
+
+
+
                     $newData['images'][] = $newImage;
                      
                     break;
@@ -179,11 +180,7 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    public function managementHtml($instanceId, $data, $layout) {
-        $data['smallImageWidth'] = ipGetOption('Content.widgetImageGalleryWidth');
-        $data['smallImageHeight'] = ipGetOption('Content.widgetImageGalleryHeight');
-        return parent::managementHtml($instanceId, $data, $layout);
-    }
+
 
     public function previewHtml($instanceId, $data, $layout)
     {
@@ -256,7 +253,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
         if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-            \Ip\Module\Repository\Model::unbindFile($image['imageOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($image['imageOriginal'], 'Content', $widgetId);
         }
     }
     
@@ -283,7 +280,7 @@ class Controller extends \Ip\WidgetController{
                 return;
             }
             if (isset($image['imageOriginal']) && $image['imageOriginal']) {
-                \Ip\Module\Repository\Model::bindFile($image['imageOriginal'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($image['imageOriginal'], 'Content', $newId);
             }
         }
 
