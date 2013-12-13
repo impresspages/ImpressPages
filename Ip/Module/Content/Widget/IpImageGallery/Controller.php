@@ -18,15 +18,80 @@ class Controller extends \Ip\WidgetController{
     
 
     public function update($widgetId, $postData, $currentData) {
+
+        if (isset($postData['method'])) {
+            switch($postData['method']) {
+                case 'move':
+                    if (!isset($postData['originalPosition'])) {
+                        throw new \Ip\CoreException("Missing required parameter");
+                    }
+                    $originalPosition = $postData['originalPosition'];
+                    if (!isset($postData['newPosition'])) {
+                        throw new \Ip\CoreException("Missing required parameter");
+                    }
+                    $newPosition = $postData['newPosition'];
+
+                    if (!isset($currentData['images'][$originalPosition])) {
+                        throw new \Ip\CoreException("Moved image doesn't exist");
+                    }
+
+                    $movedImage = $currentData['images'][$originalPosition];
+                    unset($currentData['images'][$originalPosition]);
+                    array_splice($currentData['images'], $newPosition, 0, array($movedImage));
+                    return $currentData;
+                case 'add':
+                    if (!isset($postData['images']) || !is_array($postData['images'])) {
+                        throw new \Ip\CoreException("Missing required parameter");
+                    }
+
+
+                    foreach($postData['images'] as $image){
+                        if (!isset($image['fileName']) || !isset($image['status'])){ //check if all required data present
+                            continue;
+                        }
+
+                        //just to be sure
+                        if (!file_exists(ipFile('file/repository/' . $image['fileName']))) {
+                            continue;
+                        }
+
+                        //bind new image to the widget
+                        \Ip\Module\Repository\Model::bindFile($image['fileName'], 'Content', $widgetId);
+
+
+                        //find image title
+                        if ($image['title'] == '') {
+                            $title = basename($image['fileName']);
+                        } else {
+                            $title = $image['title'];
+                        }
+
+                        $newImage = array(
+                            'imageOriginal' => $image['fileName'],
+                            'title' => $title,
+                        );
+
+                        $currentData['images'][] = $newImage;
+                    }
+
+                    return $currentData;
+                default:
+                    throw new \Ip\CoreException('Unknown command');
+
+            }
+
+        }
+
+
         $newData = $currentData;
+        $newData['images'] = array(); //we will create new images array.
+
+
 
         //check if images array is set
         if (!isset($postData['images']) || !is_array($postData['images'])) {
             return $newData;
         }
-        
-
-        $newData['images'] = array(); //we will create new images array.
 
         foreach($postData['images'] as $image){
             if (!isset($image['fileName']) || !isset($image['status'])){ //check if all required data present
