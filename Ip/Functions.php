@@ -4,6 +4,16 @@
  * ImpressPages sugar methods
  */
 
+function ipApplication()
+{
+    return \Ip\ServiceLocator::application();
+}
+
+function ipSecurityToken()
+{
+    return ipApplication()->getSecurityToken();
+}
+
 function ipGetOption($option, $defaultValue = null)
 {
     return \Ip\ServiceLocator::options()->getOption($option, $defaultValue);
