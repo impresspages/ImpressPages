@@ -33,7 +33,7 @@
                         data: data,
                         context: $this,
                         success: initResponse,
-                        error: function(response) {
+                        error: function (response) {
                             if (ip.debugMode || ip.developmentMode) {
                                 alert(response);
                             }
@@ -43,7 +43,6 @@
 
 
                 }
-
 
 
             });
@@ -56,13 +55,13 @@
     };
 
 
-    var initResponse = function(response) {
+    var initResponse = function (response) {
         $.proxy(doCommands, this)(response.result);
     };
 
-    var doCommands = function(commands) {
+    var doCommands = function (commands) {
         var $this = this;
-        $.each(commands, function(key, value) {
+        $.each(commands, function (key, value) {
             switch (value.command) {
                 case 'setHtml':
                     $this.html(value.html);
