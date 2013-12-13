@@ -41,17 +41,9 @@
                         dataType: 'json'
                     });
 
-
                 }
-
-
             });
         }
-
-
-
-
-
     };
 
 
@@ -65,8 +57,39 @@
             switch (value.command) {
                 case 'setHtml':
                     $this.html(value.html);
+                    $.proxy(bindEvents, $this)();
                     break;
             }
+        });
+    };
+
+    var bindEvents = function () {
+        var $grid = this;
+
+        $grid.find('.ipsAction[data-method]').off().click(function() {
+            var $this = $(this);
+            var data = $grid.data('gateway');
+            data.jsonrpc = '2.0';
+            data.method = $this.data('method');
+
+            var params = $this.data('params');
+            if (params !== null) {
+                data.params = params;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: ip.baseUrl,
+                data: data,
+                context: $grid,
+                success: initResponse,
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                },
+                dataType: 'json'
+            });
         });
     };
 
