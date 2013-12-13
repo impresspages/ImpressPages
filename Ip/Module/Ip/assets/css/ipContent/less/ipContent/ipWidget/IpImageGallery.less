@@ -13,7 +13,7 @@
         float: left;
         margin-bottom: @ipImageGallerySpace;
         padding: 0 (@ipImageGallerySpace / 2);
-        width: (100% / @ipImageGalleryColumns);
+        width: (100% / @ipImageGalleryColumns - 0.01%); //- 0.01% fixes image dragging bug on chrome
 
         img {
             -webkit-box-sizing: border-box;
