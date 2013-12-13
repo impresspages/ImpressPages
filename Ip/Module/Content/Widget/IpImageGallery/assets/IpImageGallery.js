@@ -11,7 +11,7 @@ function IpWidget_IpImageGallery() {
 
 
     this.init = function($widgetObject, data) {
-
+        var currentScope = this;
         this.$widgetObject = $widgetObject;
         this.data = data;
 
@@ -27,6 +27,23 @@ function IpWidget_IpImageGallery() {
             }
 
         }, this));
+
+        var $list = this.$widgetObject.find('ul');
+        $list.sortable();
+        $list.disableSelection();
+        $list.on( "sortstart", function( event, ui ) {
+            currentScope.dragItemOriginalPosition = $(ui.item).index();
+        });
+        $list.on( "sortstop", function( event, ui ) {
+            var data = {};
+            data.method = 'move';
+            data.originalPosition = currentScope.dragItemOriginalPosition;
+            data.newPosition = $(ui.item).index();
+            if (data.newPosition != data.originalPosition) {
+                currentScope.$widgetObject.save(data, true);
+            }
+        } );
+
 //
 //
 //
@@ -66,10 +83,11 @@ function IpWidget_IpImageGallery() {
 
     this.filesSelected = function(event, files) {
         var $this = $(this);
-console.log(files);
 
         var data = this.data;
-        var data = {};
+        var data = {
+            method: 'add'
+        };
         $.each(files, function(key, value) {
             if (!data.images) {
                 data.images = [];
