@@ -5,11 +5,6 @@
 
 namespace Ip\Grid1;
 
-
-/**
- * Some function to speed up ecommerce products development
- * @package Library\Php\Ecommerce
- */
 abstract class Controller extends \Ip\Controller
 {
     public function index()
