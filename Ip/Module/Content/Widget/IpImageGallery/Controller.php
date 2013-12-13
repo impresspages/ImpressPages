@@ -218,7 +218,7 @@ class Controller extends \Ip\WidgetController{
                 $transformBig = new \Ip\Module\Repository\Transform\ImageFit($bigWidth, $bigHeight);
 
                 try {
-                    $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
+                    $curImage['imageBig'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
