@@ -228,25 +228,7 @@ class WidgetController
         return array();
     }
 
-    //TODOX remove
-    public function managementHtml($instanceId, $data, $layout)
-    {
-        $answer = '';
-        try {
-            if ($this->core ) {
-                $adminView = ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
-            } else {
-                $adminView = ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::MANAGEMENT_DIR.'/default.php');
-            }
-            if (is_file($adminView)) {
-                $answer = \Ip\View::create($adminView, $data)->render();
-            }
-        } catch (\Ip\CoreException $e){
-            return $e->getMessage();
-            //do nothing. Administration view does not exist
-        }
-        return $answer;
-    }
+
 
     //TODOX rename to generateHtml or something.
     public function previewHtml($instanceId, $data, $layout)
