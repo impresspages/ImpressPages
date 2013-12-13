@@ -67,7 +67,7 @@ class Table extends \Ip\Grid1\Model
 
         switch ($method) {
             case 'init':
-                return $this->refresh();
+                return $this->refresh($data['params']);
                 break;
         }
 
@@ -91,7 +91,13 @@ class Table extends \Ip\Grid1\Model
         return $result;
     }
 
-    protected function fetch()
+    protected function recordCount()
+    {
+        $table = str_replace("`", "", $this->config['table']);
+        return ipDb()->fetchValue("SELECT COUNT(*) FROM `$table`");
+    }
+
+    protected function fetch($from, $count)
     {
         $sql = "
         SELECT
@@ -101,8 +107,9 @@ class Table extends \Ip\Grid1\Model
         WHERE
           1
         ORDER BY
-          `id`
-        DESC
+            `id` DESC
+        LIMIT
+            $from, $count
         ";
 
         $result = ipDb()->fetchAll($sql);
@@ -146,12 +153,24 @@ class Table extends \Ip\Grid1\Model
     }
 
 
-    protected function refresh()
+    protected function refresh($params)
     {
+        $currentPage = !empty($params['page']) ? (int)$params['page'] : 1;
+        if ($currentPage < 1) {
+            $currentPage = 1;
+        }
+
+        $pageSize = 5;
+        $from = ($currentPage - 1) * $pageSize;
+        $totalPages = ceil($this->recordCount() / $pageSize);
+
         $variables = array(
             'labels' => $this->getFieldLabels(),
-            'data' => $this->prepareData($this->fetch())
+            'data' => $this->prepareData($this->fetch($from, $pageSize)),
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
         );
+
         $html = \Ip\View::create('../view/table.php', $variables)->render();
         $commands = array(
             $this->commandSetHtml($html)
