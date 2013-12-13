@@ -27,10 +27,10 @@ class Controller extends \Ip\WidgetController{
 
             //remove old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'standard/content_management', $widgetId);
+                \Ip\Module\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
             }
             //new original image
-            \Ip\Module\Repository\Model::bindFile($postData['newImage'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::bindFile($postData['newImage'], 'Content', $widgetId);
             $newData['imageOriginal'] = $postData['newImage'];
             
         }
@@ -46,10 +46,7 @@ class Controller extends \Ip\WidgetController{
     }
     
     
-    public function managementHtml($instanceId, $data, $layout) {
-        $data['translations']['title'] = __('Title', 'ipAdmin');
-        return parent::managementHtml($instanceId, $data, $layout);
-    }    
+
 
 
     public function previewHtml($instanceId, $data, $layout)
@@ -107,7 +104,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Ip\Module\Repository\Model::unbindFile($data['imageOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($data['imageOriginal'], 'Content', $widgetId);
         }
     }
     
@@ -125,7 +122,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
-            \Ip\Module\Repository\Model::bindFile($data['imageOriginal'], 'standard/content_management', $newId);
+            \Ip\Module\Repository\Model::bindFile($data['imageOriginal'], 'Content', $newId);
         }
     }
 

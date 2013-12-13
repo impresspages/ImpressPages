@@ -47,7 +47,7 @@ class Controller extends \Ip\WidgetController{
 
 
                     //bind to original file
-                    \Ip\Module\Repository\Model::bindFile($logo['fileName'], 'standard/content_management', $widgetId);
+                    \Ip\Module\Repository\Model::bindFile($logo['fileName'], 'Content', $widgetId);
                     $logoOriginal = $logo['fileName'];
 
                     
@@ -172,12 +172,6 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    public function managementHtml($instanceId, $data, $layout) {
-        $data['logoWidth'] = ipGetOption('Content.widgetLogoGalleryWidth');
-        $data['logoHeight'] = ipGetOption('Content.widgetLogoGalleryHeight');
-        return parent::managementHtml($instanceId, $data, $layout);
-    }
-
     public function previewHtml($instanceId, $data, $layout) {
         $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
 
@@ -232,7 +226,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
         if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-            \Ip\Module\Repository\Model::unbindFile($logo['logoOriginal'], 'standard/content_management', $widgetId);
+            \Ip\Module\Repository\Model::unbindFile($logo['logoOriginal'], 'Content', $widgetId);
         }
     }
     
@@ -255,7 +249,7 @@ class Controller extends \Ip\WidgetController{
                 return;
             }
             if (isset($logo['logoOriginal']) && $logo['logoOriginal']) {
-                \Ip\Module\Repository\Model::bindFile($logo['logoOriginal'], 'standard/content_management', $newId);
+                \Ip\Module\Repository\Model::bindFile($logo['logoOriginal'], 'Content', $newId);
             }
         };
     

@@ -139,23 +139,7 @@ class Controller extends \Ip\WidgetController{
         
     }
     
-    //TODOX remove
-    public function managementHtml($instanceId, $data, $layout) {
-        $fieldObjects = Model::getAvailableFieldTypes();
-        
-        $fieldTypes = array ();
-        foreach($fieldObjects as $fieldObject){
-            $fieldTypes[] = array(
-                'key' => $fieldObject->getKey(),
-                'title' => $fieldObject->getTitle()
-            );
-        }
-        usort($fieldTypes, array($this, 'sortFieldTypes'));
-        $data['fieldTypes'] = $fieldTypes;
 
-        
-        return parent::managementHtml($instanceId, $data, $layout);
-    }
 
     public function defaultData()
     {
