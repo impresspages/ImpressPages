@@ -6,7 +6,8 @@
  */
 namespace Ip\Module\Log;
 
-class System {
+class System
+{
 
     public function init()
     {

@@ -14,7 +14,8 @@ class Logger extends \Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        if (!is_string($message) && ipDb()->isConnected()) { // Probably programmer made a mistake, used Logger::log($message, $context)
+        if (!is_string($message) && ipDb()->isConnected()) {
+            // Probably programmer made a mistake, used Logger::log($message, $context)
             $row = array(
                 'level' => \Psr\Log\LogLevel::ERROR,
                 'message' => 'Code uses ipLog()->log() without giving $level info.',
