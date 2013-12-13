@@ -7,12 +7,11 @@
 namespace Ip\Module\Log;
 
 
-
 class AdminController extends \Ip\Grid1\Controller
 {
     protected function config()
     {
-        return array (
+        return array(
             'type' => 'table',
             'table' => DB_PREF . 'log',
             'fields' => array(
@@ -34,7 +33,7 @@ class AdminController extends \Ip\Grid1\Controller
         );
     }
 
-    public static function filterMessage ($value, $recordData)
+    public static function filterMessage($value, $recordData)
     {
         $context = json_decode($recordData['context'], true);
 

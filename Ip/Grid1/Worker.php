@@ -6,7 +6,8 @@
 namespace Ip\Grid1;
 
 
-class Worker {
+class Worker
+{
 
     protected $config = null;
     protected $model = null;
@@ -20,7 +21,7 @@ class Worker {
         if (empty($this->config['type'])) {
             $this->config['type'] = 'table';
         }
-        switch($this->config['type']) {
+        switch ($this->config['type']) {
             case 'table':
                 $this->model = new Model\Table($this->config);
                 break;
@@ -34,7 +35,6 @@ class Worker {
         $commands = $this->model->handleMethod($request);
         return $commands;
     }
-
 
 
 }

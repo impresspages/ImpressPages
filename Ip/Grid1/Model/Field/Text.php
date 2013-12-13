@@ -9,6 +9,7 @@ namespace Ip\Grid1\Model\Field;
 class Text extends \Ip\Grid1\Model\Field
 {
     protected $field = '';
+
     public function __construct($config)
     {
         if (empty($config['field'])) {
@@ -25,6 +26,7 @@ class Text extends \Ip\Grid1\Model\Field
     public function createField()
     {
     }
+
     public function createQuery($postData)
     {
     }
@@ -32,6 +34,7 @@ class Text extends \Ip\Grid1\Model\Field
     public function updateField()
     {
     }
+
     public function updateQuery($postData)
     {
     }
@@ -40,6 +43,7 @@ class Text extends \Ip\Grid1\Model\Field
     public function searchField()
     {
     }
+
     public function searchQuery($postData)
     {
     }
