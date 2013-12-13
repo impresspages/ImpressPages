@@ -75,6 +75,54 @@ class Controller extends \Ip\WidgetController{
                     }
 
                     return $currentData;
+                case 'crop':
+                    break;
+                case 'update' :
+
+//                    //check if crop coordinates are set
+//                    if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])) {
+//                        break;
+//                    }
+//
+//                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
+//                    if (!$existingImageData) {
+//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+//                    }
+//
+//                    //find image title
+//                    if ($image['title'] == '') {
+//                        $title = basename($image['fileName']);
+//                    } else {
+//                        $title = $image['title'];
+//                    }
+//
+//                    $newImage = array(
+//                        'imageOriginal' => $existingImageData['imageOriginal'],
+//                        'title' => $title,
+//                        'cropX1' => $image['cropX1'],
+//                        'cropY1' => $image['cropY1'],
+//                        'cropX2' => $image['cropX2'],
+//                        'cropY2' => $image['cropY2'],
+//                    );
+//                    $newData['images'][] = $newImage;
+//
+
+                    break;
+
+
+
+                case 'delete':
+//                    if (empty($currentData['images']) || $image['fileName']) {
+//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+//                    }
+//                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
+//                    if (!$existingImageData) {
+//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
+//                    }
+//                    self::_deleteOneImage($existingImageData, $widgetId);
+                    break;
+
+
                 default:
                     throw new \Ip\CoreException('Unknown command');
 
@@ -99,103 +147,8 @@ class Controller extends \Ip\WidgetController{
             }
 
             switch($image['status']){
-                case 'new':
-                    //just to be sure
-                    if (!file_exists(ipFile('file/repository/' . $image['fileName']))) {
-                        break;
-                    }
-
-                    //bind new image to the widget
-                    \Ip\Module\Repository\Model::bindFile($image['fileName'], 'Content', $widgetId);
 
 
-
-                    //find image title
-                    if ($image['title'] == '') {
-                        $title = basename($image['fileName']);
-                    } else {
-                        $title = $image['title'];
-                    }
-
-                    $newImage = array(
-                        'imageOriginal' => $image['fileName'],
-                        'title' => $title,
-                    );
-
-                    //check if crop coordinates are set
-                    if (isset($image['cropX1']) && isset($image['cropY1']) && isset($image['cropX2']) && isset($image['cropY2'])) {
-                        $newImage['cropX1'] = $image['cropX1'];
-                        $newImage['cropY1'] = $image['cropY1'];
-                        $newImage['cropX2'] = $image['cropX2'];
-                        $newImage['cropY2'] = $image['cropY2'];
-                    }
-
-
-
-                    $newData['images'][] = $newImage;
-                     
-                    break;
-                case 'coordinatesChanged' :
-                    //check if crop coordinates are set
-                    if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])) {
-                        break;
-                    }
-
-                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-                    if (!$existingImageData) {
-                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-                    }
-
-                    //find image title
-                    if ($image['title'] == '') {
-                        $title = basename($image['fileName']);
-                    } else {
-                        $title = $image['title'];
-                    }
-
-                    $newImage = array(
-                        'imageOriginal' => $existingImageData['imageOriginal'],
-                        'title' => $title,
-                        'cropX1' => $image['cropX1'],
-                        'cropY1' => $image['cropY1'],
-                        'cropX2' => $image['cropX2'],
-                        'cropY2' => $image['cropY2'],
-                    );
-                    $newData['images'][] = $newImage;
-
-
-                    break;
-
-
-                case 'present': //picture not changed
-                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-                    if (!$existingImageData) {
-                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-                    }
-
-
-                    //find image title
-                    if ($image['title'] == '') {
-                        $title = basename($image['fileName']);
-                    } else {
-                        $title = $image['title'];
-                    }
-
-                    $newImage = array_intersect_key($existingImageData, array('imageOriginal' => 1, 'title' => 1, 'cropX1' => 1, 'cropY1' => 1, 'cropX2' => 1, 'cropY2' => 1));
-                    $newImage['title'] = $title;
-                    $newData['images'][] = $newImage;
-
-                    break;
-                case 'deleted':
-                    if (empty($currentData['images']) || $image['fileName']) {
-                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-                    }
-                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-                    if (!$existingImageData) {
-                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-                    }
-                    self::_deleteOneImage($existingImageData, $widgetId);
-                    break;
             }
         }
 
@@ -265,7 +218,7 @@ class Controller extends \Ip\WidgetController{
                 $transformBig = new \Ip\Module\Repository\Transform\ImageFit($bigWidth, $bigHeight);
 
                 try {
-                    $curImage['imageBig'] = $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig);
+                    $curImage['imageBig'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
