@@ -33,7 +33,7 @@
                         data: data,
                         context: $this,
                         success: initResponse,
-                        error: function(response) {
+                        error: function (response) {
                             if (ip.debugMode || ip.developmentMode) {
                                 alert(response);
                             }
@@ -41,33 +41,55 @@
                         dataType: 'json'
                     });
 
-
                 }
-
-
-
             });
         }
-
-
-
-
-
     };
 
 
-    var initResponse = function(response) {
+    var initResponse = function (response) {
         $.proxy(doCommands, this)(response.result);
     };
 
-    var doCommands = function(commands) {
+    var doCommands = function (commands) {
         var $this = this;
-        $.each(commands, function(key, value) {
+        $.each(commands, function (key, value) {
             switch (value.command) {
                 case 'setHtml':
                     $this.html(value.html);
+                    $.proxy(bindEvents, $this)();
                     break;
             }
+        });
+    };
+
+    var bindEvents = function () {
+        var $grid = this;
+
+        $grid.find('.ipsAction[data-method]').off().click(function() {
+            var $this = $(this);
+            var data = $grid.data('gateway');
+            data.jsonrpc = '2.0';
+            data.method = $this.data('method');
+
+            var params = $this.data('params');
+            if (params !== null) {
+                data.params = params;
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: ip.baseUrl,
+                data: data,
+                context: $grid,
+                success: initResponse,
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                },
+                dataType: 'json'
+            });
         });
     };
 
