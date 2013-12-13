@@ -6,10 +6,12 @@
 namespace Ip\Grid1\Model;
 
 
-class Table extends \Ip\Grid1\Model{
+class Table extends \Ip\Grid1\Model
+{
 
     protected $config = null;
     protected $fieldObjects = null;
+
     public function __construct($config)
     {
         $this->config = $config;
@@ -22,7 +24,7 @@ class Table extends \Ip\Grid1\Model{
             $this->config['fields'] = $this->getTableFields($this->config['table']);
         }
 
-        foreach($this->config['fields'] as &$field) {
+        foreach ($this->config['fields'] as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
             }
@@ -63,7 +65,7 @@ class Table extends \Ip\Grid1\Model{
             $data['params'] = array();
         }
 
-        switch($method) {
+        switch ($method) {
             case 'init':
                 return $this->refresh();
                 break;
@@ -74,12 +76,12 @@ class Table extends \Ip\Grid1\Model{
 
     protected function getTableFields($tableName)
     {
-        $sql = "SHOW COLUMNS FROM `".str_replace("`","", $tableName)."`";
+        $sql = "SHOW COLUMNS FROM `" . str_replace("`", "", $tableName) . "`";
 
         $fields = ipDb()->fetchColumn($sql);
 
         $result = array();
-        foreach($fields as $fieldName) {
+        foreach ($fields as $fieldName) {
             $result[] = array(
                 'label' => $fieldName,
                 'field' => $fieldName
@@ -95,7 +97,7 @@ class Table extends \Ip\Grid1\Model{
         SELECT
           *
         FROM
-          `".str_replace("`","", $this->config['table'])."`
+          `" . str_replace("`", "", $this->config['table']) . "`
         WHERE
           1
         ORDER BY
@@ -111,16 +113,16 @@ class Table extends \Ip\Grid1\Model{
     protected function prepareData($data)
     {
         $preparedData = array();
-        foreach($data as $row) {
+        foreach ($data as $row) {
             $preparedRow = array();
-            foreach($this->getFieldObjects() as $key => $field) {
+            foreach ($this->getFieldObjects() as $key => $field) {
                 $preview = $field->preview($row);
                 if (!empty($this->config['fields'][$key]['filter'])) {
                     $filters = $this->config['fields'][$key]['filter'];
                     if (!is_array($filters)) {
                         $filters = array($filters);
                     }
-                    foreach($filters as $filter) {
+                    foreach ($filters as $filter) {
                         if (substr($filter, 1, 1) !== '\\') {
                             $filter = '\\' . $filter;
                         }

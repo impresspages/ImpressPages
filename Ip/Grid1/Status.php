@@ -6,7 +6,8 @@
 namespace Ip\Grid1;
 
 
-class Status {
+class Status
+{
 
     protected $config = null;
 

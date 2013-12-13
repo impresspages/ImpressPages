@@ -1,16 +1,12 @@
 <?php
 /**
- * @package		ImpressPages
+ * @package        ImpressPages
  */
 
 namespace Ip\Grid1;
 
-
-/**
- * Some function to speed up ecommerce products development
- * @package Library\Php\Ecommerce
- */
-abstract class Controller extends \Ip\Controller{
+abstract class Controller extends \Ip\Controller
+{
     public function index()
     {
         ipAddJavascript(ipFileUrl('Ip/Module/Ip/assets/grid1/src/grid1.js'));
@@ -33,7 +29,7 @@ abstract class Controller extends \Ip\Controller{
     public function grid()
     {
         $worker = new Worker($this->config());
-        $result =  $worker->handleMethod(ipRequest());
+        $result = $worker->handleMethod(ipRequest());
         return new \Ip\Response\JsonRpc($result);
     }
 
