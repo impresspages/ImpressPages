@@ -17,6 +17,7 @@ function IpWidget_IpImageGallery() {
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
         this.$widgetObject.on('blur', $.proxy(this.blur, this));
+        this.$widgetObject.find('a').on('click', function(e){e.preventDefault();});//turn off lightbox
         $('body').on('click', $.proxy(function(e) {
             var $target = $(e.target);
             if (!$target.hasClass('ipWidget-IpImageGallery')) {
