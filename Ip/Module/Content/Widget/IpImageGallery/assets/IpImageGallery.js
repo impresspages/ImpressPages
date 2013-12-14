@@ -8,6 +8,7 @@ function IpWidget_IpImageGallery() {
     "use strict";
     this.$widgetObject = null;
     this.data = null;
+    this.$controls = null;
 
 
     this.init = function($widgetObject, data) {
@@ -16,9 +17,7 @@ function IpWidget_IpImageGallery() {
         this.data = data;
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
-        this.$widgetObject.on('blur', $.proxy(this.blur, this));
-        this.$widgetObject.find('a').on('click', function(e){e.preventDefault();});//turn off lightbox
-        $('body').on('click', $.proxy(function(e) {
+        $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the widget
             var $target = $(e.target);
             if (!$target.hasClass('ipWidget-IpImageGallery')) {
                 $target = $target.closest('.ipWidget-IpImageGallery');
@@ -44,7 +43,53 @@ function IpWidget_IpImageGallery() {
                 currentScope.$widgetObject.save(data, true);
             }
         } );
+
+
+        //individual image management
+        this.$widgetObject.find('a').on('click', function(e){e.preventDefault();});//turn off lightbox
+        this.$widgetObject.find('li').on('click', $.proxy(this.focusImage, this));
+
+        this.$controls = $('#ipWidgetGalleryMenu');
+        $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the image
+            var $target = $(e.target);
+
+            var $closestLi = $target;
+            if (!$target.prop("tagName") == 'li') {
+                $closestLi = $target.closest('li');
+            }
+
+            var $closestWidget = $target.closest('.ipWidget-IpImageGallery');
+
+            if ($closestWidget.length != 1) {
+                $.proxy(this.blurImage(), this)();
+            }
+
+
+        }, this));
+
+
     }
+
+
+    this.focusImage = function (e) {
+        e.preventDefault();
+
+        var $image = $(e.currentTarget);
+        var $controls = this.$controls;
+
+        $controls.removeClass('ipgHide');
+        $controls.css('left', $image.offsetLeft);
+        $controls.css('top', $image.offsetTop);
+        $controls.css('position', 'absolute');
+        $controls.css('left', $image.offset().left);
+        $controls.css('top', $image.offset().top - $controls.height() - 5);
+    };
+
+    this.blurImage = function () {
+        if (this.$controlsVisible) { //controls html is shared across all gallery widgets. We need to check if this widget has activated the controls
+            this.$controls.addClass('ipgHide');
+        }
+    };
 
 
     this.focus = function () {
