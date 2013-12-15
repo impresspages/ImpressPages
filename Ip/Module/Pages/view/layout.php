@@ -1,4 +1,4 @@
-<div class="ip" ng-app ng-controller="ipPages">
+<div class="ip" ng-app ng-controller="ipPages" ng-cloak>
     <div class="languageList navBlock">
         <ul>
             <li ng-repeat="language in languages">
