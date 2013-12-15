@@ -1,5 +1,3 @@
 function ZoneList($scope) {
-    $scope.zones = [
-        {title:'Menu1'},
-        {title:'Menu2'}];
+    $scope.zones = zoneList;
 }
