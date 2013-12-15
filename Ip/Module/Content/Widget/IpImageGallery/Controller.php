@@ -112,17 +112,13 @@ class Controller extends \Ip\WidgetController{
 
 
                 case 'delete':
-//                    if (empty($currentData['images']) || $image['fileName']) {
-//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-//                    }
-//                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-//                    if (!$existingImageData) {
-//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-//                    }
-//                    self::_deleteOneImage($existingImageData, $widgetId);
-                    break;
+                    if (!isset($postData['position'])) {
+                        throw new \Ip\CoreException("Missing required parameter");
+                    }
+                    $deletePosition = $postData['position'];
 
-
+                    unset($currentData['images'][$deletePosition]);
+                    return $currentData;
                 default:
                     throw new \Ip\CoreException('Unknown command');
 
