@@ -17,6 +17,8 @@ class AdminController extends \Ip\Controller
     {
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/angular.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/languageList.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/zoneList.js'));
+        ipAddCss(ipFileUrl('Ip/Module/Pages/assets/pages.css'));
     }
 
     public function index()
