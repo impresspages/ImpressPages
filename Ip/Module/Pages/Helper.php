@@ -20,6 +20,7 @@ class Helper
         foreach($languages as $language)
         {
             $answer[] = array(
+                'id' => $language->getId(),
                 'title' => $language->getTitle(),
                 'abbreviation' => $language->getAbbreviation()
             );
@@ -34,6 +35,7 @@ class Helper
         foreach($zones as $zone)
         {
             $answer[] = array(
+                'name' => $zone->getName(),
                 'title' => $zone->getTitle()
             );
         }
