@@ -1,5 +1,6 @@
 .languageList {
     float: left;
+    padding: 0;
     li {
       list-style: none;
     }
@@ -8,11 +9,32 @@
 
 .zoneList {
     float: left;
+    padding: 0;
+
+    .title {
+      display: block;
+    }
+
     li {
       list-style: none;
+      clear:both;
+      display: block;
     }
 }
 
 .pageTree {
   float: left;
+
+}
+
+.navBlock {
+  float: left;
+  margin-left: 20px;
+  background-color: #ccc;
+  border-left: 3px solid #1d1e1e;
+  padding: 10px;
+}
+
+.navBlock :first-child {
+  margin-left: 0;
 }
