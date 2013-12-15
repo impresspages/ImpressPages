@@ -126,7 +126,8 @@ class Content {
      * @return \Ip\Zone[]
      *
      */
-    public function getZones(){
+    public function getZones()
+    {
         $answer = array();
         foreach ($this->getZonesData() as $zoneData) {
             $answer[] = $this->getZone($zoneData['name']);
