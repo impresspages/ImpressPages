@@ -13,4 +13,11 @@
             </li>
         </ul>
     </div>
+    <div ng-controller="pageTree" class="pageTree">
+        <ul>
+            <li ng-repeat="zone in zones">
+                <a href="#">{{zone.title}}</a>
+            </li>
+        </ul>
+    </div>
 </div>
