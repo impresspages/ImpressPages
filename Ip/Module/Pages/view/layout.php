@@ -14,8 +14,8 @@
         </ul>
     </div>
     <div class="ipsPages pages navBlock">
-        <div ng-repeat="language in languages" class="language" ng-show="language.active">
-            <div ng-repeat="zone in zones" class="tree" ng-show="zone.active">
+        <div ng-repeat="language in languages" class="language" ng-show="language.id == activeLanguage.id">
+            <div id="pages_{{language.id}}_{{zone.name}}" ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
                 {{language.title}} /  {{zone.title}}
             </div>
         </div>

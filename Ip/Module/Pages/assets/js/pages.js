@@ -1,12 +1,12 @@
 function ipPages($scope) {
     //languages
+    $scope.activeLanguage = languageList[0];
+    $scope.activeZone = zoneList[0];
+
     $scope.languages = languageList;
 
     $scope.activateLanguage = function(language) {
-        $.each($scope.languages, function (key, value) {
-            value.active = false;
-        })
-        language.active = true;
+        $scope.activeLanguage = language;
     }
 
 
@@ -14,9 +14,6 @@ function ipPages($scope) {
     $scope.zones = zoneList;
 
     $scope.activateZone = function(zone) {
-        $.each($scope.zones, function (key, value) {
-            value.active = false;
-        })
-        zone.active = true;
+        $scope.activeZone = zone;
     }
 }
