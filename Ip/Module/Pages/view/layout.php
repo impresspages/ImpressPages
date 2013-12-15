@@ -6,4 +6,11 @@
             </li>
         </ul>
     </div>
+    <div ng-controller="ZoneList" class="zoneList">
+        <ul>
+            <li ng-repeat="zone in zones">
+                <a href="#">{{zone.title}}</a>
+            </li>
+        </ul>
+    </div>
 </div>

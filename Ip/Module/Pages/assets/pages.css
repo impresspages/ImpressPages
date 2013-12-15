@@ -1,0 +1,12 @@
+.languageList {
+  float: left;
+}
+.languageList li {
+  list-style: none;
+}
+.zoneList {
+  float: left;
+}
+.zoneList li {
+  list-style: none;
+}
