@@ -65,7 +65,7 @@ function IpWidget_IpImageGallery() {
             var $closestWidget = $target.closest('.ipWidget-IpImageGallery');
 
             if ($closestWidget.length != 1) {
-                $.proxy(this.blurImage(), this)();
+                $.proxy(this.blurImage, this)();
             }
 
 
@@ -76,17 +76,22 @@ function IpWidget_IpImageGallery() {
 
 
     this.focusImage = function (e) {
+        var context = this;
         e.preventDefault();
 
-        var $image = $(e.currentTarget);
+        var $li = $(e.currentTarget);
         var $controls = this.$controls;
 
         $controls.removeClass('ipgHide');
-        $controls.css('left', $image.offsetLeft);
-        $controls.css('top', $image.offsetTop);
+        $controls.css('left', $li.offsetLeft);
+        $controls.css('top', $li.offsetTop);
         $controls.css('position', 'absolute');
-        $controls.css('left', $image.offset().left);
-        $controls.css('top', $image.offset().top - $controls.height() - 5);
+        $controls.css('left', $li.offset().left);
+        $controls.css('top', $li.offset().top - $controls.height() - 5);
+
+        $controls.find('.ipsDelete').on('click', function(e) {
+            $.proxy(context.deleteImage, context)($li.index());
+        });
     };
 
     this.blurImage = function () {
@@ -111,7 +116,14 @@ function IpWidget_IpImageGallery() {
 
     this.blur = function () {
         this.$widgetObject.find('.ipsAdd').remove();
-    }
+    };
+
+    this.deleteImage = function (position) {
+        var data = {};
+        data.method = 'delete';
+        data.position = position;
+        this.$widgetObject.save(data, true);
+    };
 
 
     this.filesSelected = function(event, files) {
