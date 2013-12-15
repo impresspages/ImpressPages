@@ -33,6 +33,7 @@ function IpWidget_IpImageGallery() {
         $list.disableSelection();
         $list.on( "sortstart", function( event, ui ) {
             currentScope.dragItemOriginalPosition = $(ui.item).index();
+            $.proxy(currentScope.blurImage, currentScope)();
         });
         $list.on( "sortstop", function( event, ui ) {
             var data = {};
@@ -41,6 +42,9 @@ function IpWidget_IpImageGallery() {
             data.newPosition = $(ui.item).index();
             if (data.newPosition != data.originalPosition) {
                 currentScope.$widgetObject.save(data, true);
+            } else {
+                //display image controls
+                $(ui.item).click();
             }
         } );
 
@@ -86,9 +90,7 @@ function IpWidget_IpImageGallery() {
     };
 
     this.blurImage = function () {
-        if (this.$controlsVisible) { //controls html is shared across all gallery widgets. We need to check if this widget has activated the controls
-            this.$controls.addClass('ipgHide');
-        }
+        this.$controls.addClass('ipgHide');
     };
 
 
