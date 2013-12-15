@@ -987,3 +987,8 @@ body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
     padding-right: 5px;
     width: auto;
 }
+
+
+.ipmAdd {
+    float: left;
+}

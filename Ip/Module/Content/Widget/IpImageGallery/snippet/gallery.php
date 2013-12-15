@@ -1,6 +1,6 @@
 <div class="ip">
     <div id="ipWidgetGallerySnippet" class="ipgHide">
-        <div class="ip ipsAdd">
+        <div class="ip ipsAdd ipmAdd">
             <button type="button" class="btn btn-primary"><?php _e('Add', 'ipAdmin') ?></button>
         </div>
     </div>
