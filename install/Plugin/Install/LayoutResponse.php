@@ -78,21 +78,24 @@ class LayoutResponse extends \Ip\Response\Layout
                 }
             }
         }
+
         $data = array (
-            'ipBaseUrl' => ipConfig()->baseUrl(),
-            'ipLanguageId' => null,
-            'ipLanguageUrl' => null,
-            'ipTheme' => ipConfig()->getRaw('THEME'),
-            'ipManagementUrl' => null,
-            'ipZoneName' => null,
-            'ipPageId' => null,
-            'ipRevisionId' => null,
-            'ipSecurityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
-            'javascript' => $javascriptFiles,
+            'ip' => array(
+                'baseUrl' => ipConfig()->baseUrl(),
+                'languageId' => null,
+                'languageUrl' => null,
+                'theme' => ipConfig()->getRaw('THEME'),
+                'zoneName' => null,
+                'pageId' => null,
+                'revisionId' => null,
+                'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
+                'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
+                'debugMode' => ipconfig()->isDebugMode()
+            ),
             'javascriptVariables' => $this->getJavascriptVariables(),
-            'developmentEnvironment' => ipconfig()->isDevelopmentEnvironment(),
-            'debugMode' => ipConfig()->isDebugMode()
+            'javascript' => $javascriptFiles,
         );
+
         return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
     }
 }
