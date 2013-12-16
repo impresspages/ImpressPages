@@ -11,7 +11,6 @@ class PublicController extends \Ip\Controller
 {
     public function init()
     {
-
         if (ipRequest()->getRequest('debug') !== NULL) {
             $_SESSION['install_debug'] = (int)ipRequest()->getRequest('debug');
         }
@@ -135,6 +134,7 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step3.js'));
 
@@ -177,6 +177,7 @@ class PublicController extends \Ip\Controller
 
 
         $response = new LayoutResponse();
+        $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
         $response->addJavascript(ipFileUrl('Plugin/Install/assets/js/step4.js'));
 
