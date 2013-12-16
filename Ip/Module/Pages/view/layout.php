@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="properties navBlock">
+    <div class="ipsProperties properties navBlock">
           PROPERTIES
     </div>
 

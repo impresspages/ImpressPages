@@ -18,6 +18,7 @@ class AdminController extends \Ip\Controller
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/angular.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/pages.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/jquery.pageTree.js'));
+        ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/js/jquery.pageProperties.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/jstree/jquery.jstree.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/jstree/jquery.cookie.js'));
         ipAddJavascript(ipFileUrl('Ip/Module/Pages/assets/jstree/jquery.hotkeys.js'));
@@ -56,5 +57,12 @@ class AdminController extends \Ip\Controller
 
     }
 
+    public function pagePropertiesForm()
+    {
+        $data = array (
+            'html' => 'HTML'
+        );
+        return new \Ip\Response\Json($data);
+    }
 
 }
