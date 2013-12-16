@@ -41,7 +41,7 @@ class AdminController extends \Ip\Controller
         if (empty($data['languageId'])) {
             throw new \Ip\CoreException("Missing required parameters");
         }
-        $languageId = null;
+        $languageId = (int)$data['languageId'];
 
         if (empty($data['zoneName'])) {
             throw new \Ip\CoreException("Missing required parameters");

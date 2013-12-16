@@ -58,7 +58,8 @@
                     data: form.serialize(),
                     success: function (response){
                         if (response.status && response.status == 'success') {
-                            //form has been successfully submitted.
+                            //page has been successfully updated
+                            $this.trigger('update.ipPages');
                         } else {
                             //PHP controller says there are some errors
                             if (response.errors) {
