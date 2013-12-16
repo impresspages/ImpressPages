@@ -134,18 +134,19 @@ class ContentDb {
      * @param string $pageId
      * @return string|false
      */
-    public static function getPageLayout($groupName, $moduleName, $pageId)
+    public static function getPageLayout($moduleName, $pageId)
     {
-        $sql = 'SELECT `layout`
-                FROM `' . DB_PREF . 'page_layout`
-                WHERE group_name    = :groupName
-                    AND module_name = :moduleName
-                    AND `page_id`   = :pageId';
+        $sql = 'SELECT
+                   `layout`
+                FROM
+                   `' . DB_PREF . 'page_layout`
+                WHERE
+                   module_name = :moduleName
+                   AND `page_id`   = :pageId';
 
         $dbh = ipDb()->getConnection();
         $q = $dbh->prepare($sql);
         $params = array(
-            'groupName' => $groupName,
             'moduleName' => $moduleName,
             'pageId' => $pageId,
         );

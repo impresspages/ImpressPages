@@ -658,33 +658,7 @@ class Model
         return true;
     }
 
-    /**
-     * Returns possible layout pages.
-     * blank.php and files starting with underscore (for example, _layout.php) are considered hidden.
-     *
-     * @param string $theme
-     * @param bool $includeHidden true - returns all layouts, false - only public layouts
-     * @return array layouts (e.g. ['main.php', 'blank.php'])
-     */
-    public static function getThemeLayouts($theme = null, $includeHidden = false)
-    {
-        $themeDir = ipFile('Theme/' . $theme . '/');
 
-        $files = scandir($themeDir);
-        $layouts = array();
-
-        foreach ($files as $filename) {
-            if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
-                if ($includeHidden) {
-                    $layouts[] = $filename;
-                } elseif ($filename != 'blank.php' && $filename[0] != '_') {
-                    $layouts[] = $filename;
-                }
-            }
-        }
-
-        return $layouts;
-    }
 
     public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible)
     {
