@@ -191,7 +191,7 @@ class AdminController extends \Ip\Controller{
             if ($zone) {
                 $element = $zone->getPage($scope->getPageId());
                 if ($element) {
-                    $pageName = $element->getButtonTitle();
+                    $pageName = $element->getNavigationTitle();
                 }
             }
             $scopeParentPageTitle = str_replace('[[page]]', $pageName, $scopeParentPageTitle);

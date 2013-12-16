@@ -135,7 +135,7 @@ class Service
     public static function addPage(
         $zoneName,
         $parentPageId,
-        $buttonTitle = 'page',
+        $navigationTitle = 'page',
         $pageTitle = 'Page',
         $url = null,
         $position = null
@@ -147,7 +147,7 @@ class Service
 
         $data = array();
 
-        $data['buttonTitle'] = $buttonTitle;
+        $data['navigationTitle'] = $navigationTitle;
         $data['pageTitle'] = $pageTitle;
 
         if (!is_null($url)) {

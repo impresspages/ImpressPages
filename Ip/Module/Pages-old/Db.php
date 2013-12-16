@@ -186,8 +186,8 @@ class Db {
         $oldPage = $zone->getPage($pageId);
         $oldUrl = $oldPage->getLink(true);
         
-        if (isset($params['buttonTitle']))
-        $values[] = 'button_title = \''.ip_deprecated_mysql_real_escape_string($params['buttonTitle']).'\'';
+        if (isset($params['navigationTitle']))
+        $values[] = 'button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
 
         if (isset($params['pageTitle']))
         $values[] =  'page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
@@ -203,8 +203,8 @@ class Db {
                 if (isset($params['pageTitle']) && $params['pageTitle'] != '') {
                     $params['url'] = self::makeUrl($params['pageTitle'], $pageId);
                 } else {
-                    if (isset($params['buttonTitle']) && $params['buttonTitle'] != '') {
-                        $params['url'] = self::makeUrl($params['buttonTitle'], $pageId);
+                    if (isset($params['navigationTitle']) && $params['navigationTitle'] != '') {
+                        $params['url'] = self::makeUrl($params['navigationTitle'], $pageId);
                     } else {
                         $params['url'] = self::makeUrl('page', $pageId);
                     }
@@ -370,7 +370,7 @@ class Db {
         $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
 
         if (isset($params['button_title'])) {
-            $params['buttonTitle'] = $params['button_title'];
+            $params['navigationTitle'] = $params['button_title'];
         }
         if (isset($params['page_title'])) {
             $params['pageTitle'] = $params['page_title'];
@@ -379,8 +379,8 @@ class Db {
             $params['redirectURL'] = $params['redirect_url'];
         }
 
-        if (isset($params['buttonTitle']))
-        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['buttonTitle']).'\'';
+        if (isset($params['navigationTitle']))
+        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
 
         if (isset($params['pageTitle']))
         $values .= ', page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';

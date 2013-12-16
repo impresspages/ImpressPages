@@ -20,7 +20,7 @@ class Page{
     /** int - unique number of element in that zone. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
-    protected $buttonTitle;
+    protected $navigationTitle;
     /** string - meta tag title */
     protected $pageTitle;
     /** string - meta tag keywords */
@@ -168,9 +168,9 @@ class Page{
     public function setId($id){$this->id = $id;}
 
     /** @return string */
-    public function getButtonTitle(){return $this->buttonTitle;}
-    /** @param $buttonTitle string */
-    public function setButtonTitle($buttonTitle){$this->buttonTitle= $buttonTitle;}
+    public function getNavigationTitle(){return $this->navigationTitle;}
+    /** @param $navigationTitle string */
+    public function setNavigationTitle($navigationTitle){$this->navigationTitle= $navigationTitle;}
 
     /** @return string */
     public function getPageTitle(){return $this->pageTitle;}

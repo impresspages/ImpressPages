@@ -153,11 +153,11 @@ function createPage() {
         data.languageId = node.attr('languageId');
         data.websiteId = node.attr('websiteId');
     }
-    data.buttonTitle = $('#createPageButtonTitle').val();
+    data.navigationTitle = $('#createPagenavigationTitle').val();
     data.securityToken = ip.securityToken;
 
 
-    $('#createPageForm #createPageButtonTitle').val(''); // remove value from input field
+    $('#createPageForm #createPagenavigationTitle').val(''); // remove value from input field
 
     data.aa = 'Pages.createPage';
 
@@ -337,7 +337,7 @@ function updatePageFormResponse(response) {
         tree.selectedPageId = response.page.pageId;
         tree.selectedPageZoneName = response.page.zoneName;
 
-        $('#formGeneral input[name="buttonTitle"]').val(response.page.buttonTitle);
+        $('#formGeneral input[name="navigationTitle"]').val(response.page.navigationTitle);
         $('#formGeneral input[name="visible"]').attr('checked', response.page.visible == 1 ? true : false);
         $('#formGeneral input[name="createdOn"]').val(response.page.createdOn.substr(0, 10));
         $('#formGeneral input[name="lastModified"]').val(
@@ -372,7 +372,7 @@ function updatePage() {
 
     data.pageId = tree.selectedPageId; // we have stored this ID before
     data.zoneName = tree.selectedPageZoneName; // we have stored this ID before
-    data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
+    data.navigationTitle = $('#formGeneral input[name="navigationTitle"]').val();
     data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
     data.createdOn = $('#formGeneral input[name="createdOn"]').val();
     data.lastModified = $('#formGeneral input[name="lastModified"]').val();

@@ -350,7 +350,7 @@ class AdminController extends \Ip\Controller
 
         $answer['page']['pageId'] = $page->getId();
         $answer['page']['zoneName'] = $page->getZoneName();
-        $answer['page']['buttonTitle'] = $page->getButtonTitle() . '';
+        $answer['page']['navigationTitle'] = $page->getNavigationTitle() . '';
         $answer['page']['visible'] = $page->isVisible();
         $answer['page']['createdOn'] = $page->getCreatedOn();
         $answer['page']['lastModified'] = $page->getLastModified();
@@ -692,8 +692,8 @@ class AdminController extends \Ip\Controller
             if ($_POST['pageTitle'] != '') {
                 $_POST['url'] = Db::makeUrl($_POST['pageTitle'], $pageId);
             } else {
-                if ($_POST['buttonTitle'] != '') {
-                    $_POST['url'] = Db::makeUrl($_POST['buttonTitle'], $pageId);
+                if ($_POST['navigationTitle'] != '') {
+                    $_POST['url'] = Db::makeUrl($_POST['navigationTitle'], $pageId);
                 }
             }
         } else {
@@ -739,11 +739,11 @@ class AdminController extends \Ip\Controller
 
         $answer = array();
 
-        if (!isset($_REQUEST['buttonTitle'])) {
+        if (!isset($_REQUEST['navigationTitle'])) {
             trigger_error('Button title is not set');
             return;
         }
-        $buttonTitle = $_REQUEST['buttonTitle'];
+        $navigationTitle = $_REQUEST['navigationTitle'];
 
 
         if (isset($_REQUEST['languageId'])) {
@@ -800,9 +800,9 @@ class AdminController extends \Ip\Controller
 
         $data = array();
 
-        $data['buttonTitle'] = $buttonTitle;
-        $data['pageTitle'] = $buttonTitle;
-        $data['url'] = Db::makeUrl($buttonTitle);
+        $data['navigationTitle'] = $navigationTitle;
+        $data['pageTitle'] = $navigationTitle;
+        $data['url'] = Db::makeUrl($navigationTitle);
         $data['createdOn'] = date("Y-m-d");
         $data['lastModified'] = date("Y-m-d");
         $data['visible'] = !ipGetOption('Pages.hideNewPages');

@@ -126,7 +126,7 @@ class Controller extends \Ip\WidgetController{
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (isset($revision['zoneName']) && $revision['pageId']) {
-                $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getButtonTitle();
+                $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getNavigationTitle();
             }
         }
         
