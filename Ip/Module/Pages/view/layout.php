@@ -20,4 +20,8 @@
             </div>
         </div>
     </div>
+    <div class="properties navBlock">
+          PROPERTIES
+    </div>
+
 </div>
