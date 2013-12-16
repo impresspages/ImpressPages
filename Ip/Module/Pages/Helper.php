@@ -42,5 +42,10 @@ class Helper
         return $answer;
     }
 
+    public static function pagePropertiesForm($zoneName, $pageId)
+    {
+        return new \Ip\Form();
+    }
+
 
 }
