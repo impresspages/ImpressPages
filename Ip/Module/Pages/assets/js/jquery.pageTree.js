@@ -28,8 +28,26 @@
 
             });
         },
+
+        refresh : function() {
+            return this.each(function() {
+                var $this = $(this);
+                var data = $this.data('ipPageTree');
+                $this.ipPageTree('destroy');
+
+                $this.ipPageTree({
+                    zoneName: data.zoneName,
+                    languageId: data.languageId
+                });
+            });
+        },
+
         destroy : function() {
-            // TODO
+            return this.each(function() {
+                var $this = $(this);
+                $this.data('ipPageTree', false);
+                $this.html('');
+            });
         }
 
 
@@ -66,6 +84,9 @@
             $properties.ipPageProperties({
                 pageId : node.attr('pageId'),
                 zoneName : node.attr('zoneName')
+            });
+            $properties.on('update.ipPages', function() {
+                $this.ipPageTree('refresh');
             });
         });
 

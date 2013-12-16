@@ -186,6 +186,7 @@ class Content {
      *
      */
     public function getLanguage($id){
+        $id = (int) $id;
         foreach($this->getLanguages() as $language){
             if ($language->getId() === $id) {
                 return $language;

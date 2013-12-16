@@ -25,7 +25,7 @@ class JsTreeHelper
     protected static function getList ($languageId, $zoneName, $parentId = null)
     {
         $zone = ipContent()->getzone($zoneName);
-        $pages = $zone->getPages($languageId, $parentId);
+        $pages = $zone->getPages($languageId, $parentId, 0, null, true);
 
         $answer = array();
 
