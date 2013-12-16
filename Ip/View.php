@@ -175,8 +175,9 @@ class View
         }
 
         $baseDir = ipConfig()->getRaw('BASE_DIR') . '/';
+        $baseDir = str_replace('\\', '/', $baseDir); // Compatibility with Windows
         if (strpos($absoluteFilename, $baseDir) !== 0) {
-            throw new Exception('Cannot find relative path for file ' . $absoluteFilename);
+            throw new \Ip\CoreException('Cannot find relative path for file ' . $absoluteFilename);
         }
 
         return substr($absoluteFilename, strlen($baseDir));
