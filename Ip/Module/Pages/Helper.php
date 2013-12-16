@@ -44,7 +44,19 @@ class Helper
 
     public static function pagePropertiesForm($zoneName, $pageId)
     {
-        return new \Ip\Form();
+        $zone = ipContent()->getZone($zoneName);
+        $page = $zone->getPage($pageId);
+
+        $form = new \Ip\Form();
+
+        $field = new \Modules\developer\form\Field\Text(
+            array(
+                'name' => 'firstField', //html "name" attribute
+                'label' => 'First field', //field label that will be displayed next to input field
+            ));
+        $form->addField($field);
+
+        return ;
     }
 
 
