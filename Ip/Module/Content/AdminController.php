@@ -74,7 +74,7 @@ class AdminController extends \Ip\Controller
         if ($pages && sizeof($pages) > 0) {
             $answer .= '<ul>' . "\n";
             foreach ($pages as $key => $page) {
-                $answer .= '<li><a href="' . $page->getLink(true) . '">' . $page->getButtonTitle() . '</a>';
+                $answer .= '<li><a href="' . $page->getLink(true) . '">' . $page->getNavigationTitle() . '</a>';
                 $answer .= $this->getPagesList($language, $zone, $page->getId());
                 $answer .= '</li>';
             }

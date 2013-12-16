@@ -57,7 +57,7 @@ class JsTreeHelper
 
 
             $pageData['attr'] = array('id' => $jsTreeId, 'rel' => 'page', 'languageId' => $languageId, 'zoneName' => $zoneName, 'pageId' => $page->getId());
-            $pageData['data'] = array ('title' => $page->getButtonTitle() . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
+            $pageData['data'] = array ('title' => $page->getNavigationTitle() . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
             $answer[] = $pageData;
         }
 

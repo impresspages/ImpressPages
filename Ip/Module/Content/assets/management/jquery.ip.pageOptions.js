@@ -68,7 +68,7 @@
 
             var data = Object();
 
-            data.buttonTitle = $('#formGeneral input[name="buttonTitle"]').val();
+            data.navigationTitle = $('#formGeneral input[name="navigationTitle"]').val();
             data.visible = $('#formGeneral input[name="visible"]').attr('checked') ? 1 : 0;
             data.createdOn = $('#formGeneral input[name="createdOn"]').val();
             data.lastModified = $('#formGeneral input[name="lastModified"]').val();

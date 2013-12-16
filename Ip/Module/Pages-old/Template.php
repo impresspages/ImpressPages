@@ -93,8 +93,8 @@ class Template {
                     <div class="modal-body">
                         <form role="form">
                             <div class="form-group">
-                                <label for="createPageButtonTitle">'.__('Button title', 'ipAdmin').'</label>
-                                <input type="text" class="form-control" id="createPageButtonTitle" name="buttonTitle" />
+                                <label for="createPagenavigationTitle">'.__('Button title', 'ipAdmin').'</label>
+                                <input type="text" class="form-control" id="createPagenavigationTitle" name="navigationTitle" />
                             </div>
                         </form>
                     </div>
@@ -160,8 +160,8 @@ class Template {
 '
 <form id="formGeneral" role="form">
     <div class="form-group">
-        <label for="generalButtonTitle">'.__('Button title', 'ipAdmin').'</label>
-        <input id="generalButtonTitle" name="buttonTitle" value="'.htmlspecialchars($element->getButtonTitle()).'" type="text" class="form-control" />
+        <label for="generalnavigationTitle">'.__('Button title', 'ipAdmin').'</label>
+        <input id="generalnavigationTitle" name="navigationTitle" value="'.htmlspecialchars($element->getNavigationTitle()).'" type="text" class="form-control" />
     </div>
     <div class="form-group">
         <label for="generalVisible">'.__('Visible', 'ipAdmin').'</label>

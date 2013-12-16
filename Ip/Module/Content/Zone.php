@@ -186,7 +186,7 @@ class Zone extends \Ip\Zone
     private function makePageFromDb($dbPage, $firstLevel)
     {
         $newPage = new Page($dbPage['id'], $this->getName());
-        $newPage->setButtonTitle($dbPage['button_title']);
+        $newPage->setNavigationTitle($dbPage['button_title']);
         $newPage->setPageTitle($dbPage['page_title']);
         $newPage->setKeywords($dbPage['keywords']);
         $newPage->setDescription($dbPage['description']);

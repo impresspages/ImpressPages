@@ -49,14 +49,43 @@ class Helper
 
         $form = new \Ip\Form();
 
-        $field = new \Modules\developer\form\Field\Text(
+        $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'firstField', //html "name" attribute
-                'label' => 'First field', //field label that will be displayed next to input field
+                'name' => 'pageTitle',
+                'label' => 'Page title',
+                'defaultValue' => $page->getPageTitle()
             ));
         $form->addField($field);
 
-        return ;
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'navigationTitle',
+                'label' => 'Navigation title',
+                'defaultValue' => $page->getNavigationTitle()
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'pageTitle',
+                'label' => 'Page title',
+                'defaultValue' => $page->getPageTitle()
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'pageTitle',
+                'label' => 'Page title',
+                'defaultValue' => $page->getPageTitle()
+            ));
+        $form->addField($field);
+
+
+
+
+
+        return $form;
     }
 
 

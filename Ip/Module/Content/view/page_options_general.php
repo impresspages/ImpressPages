@@ -1,9 +1,9 @@
 <form id="formGeneral">
     <p class="field">
-        <label for="generalButtonTitle">
+        <label for="generalnavigationTitle">
             <?php _e('Button title', 'ipAdmin')?>
         </label>
-        <input id="generalButtonTitle" name="buttonTitle" value="<?php echo esc($element->getButtonTitle()) ?>" />
+        <input id="generalnavigationTitle" name="navigationTitle" value="<?php echo esc($element->getNavigationTitle()) ?>" />
         <br />
     </p>
     <p class="field">

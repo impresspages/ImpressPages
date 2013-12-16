@@ -127,7 +127,7 @@ class Helper
             }
             $item->setType($element->getType());
             $item->setUrl($element->getLink());
-            $item->setTitle($element->getButtonTitle());
+            $item->setTitle($element->getNavigationTitle());
             $item->setDepth($element->getDepth());
             $items[] = $item;
         }
