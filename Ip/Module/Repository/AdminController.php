@@ -30,22 +30,14 @@ class AdminController extends \Ip\Controller{
 
         $files = isset($_POST['files']) ? $_POST['files'] : array();
 
-        $temporaryDir = str_replace('/', DIRECTORY_SEPARATOR, rtrim(ipFile('file/tmp/'), '/\\')); // for Windows compatibility
-
-        foreach ($files as $key => $file) {
-            if (realpath($file['dir']) != $temporaryDir) {
-                throw new \Exception("File is outside TMP dir.");
-            }
-        }
-
-
         $newFiles = array();
 
         $destination = ipFile('file/repository/');
-        foreach ($files as $key => $file) {
+        foreach ($files as $file) {
+            basename($file['fileName']); //to avoid any tricks with relative paths, etc.
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(ipFile($file['file']), $destination.$newName);
-            unlink(ipFile($file['file'])); //this is a temporary file
+            copy(ipFile('file/tmp/' . $file['fileName']), $destination.$newName);
+            unlink(ipFile('file/tmp/' . $file['fileName'])); //this is a temporary file
             $browserModel = \Ip\Module\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;
