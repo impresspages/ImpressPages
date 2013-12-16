@@ -202,7 +202,7 @@ class PublicController extends \Ip\Controller
         $db = ipRequest()->getPost('db');
 
         // TODOX validate $db
-        foreach (array('hostname', 'username', 'password', 'database') as $key) {
+        foreach (array('hostname', 'username', 'database') as $key) {
             if (empty($db[$key])) {
                 return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'ipInstall', false));
             }
@@ -230,7 +230,7 @@ class PublicController extends \Ip\Controller
             'charset' => 'utf8',
         );
 
-        ipConfig()->_setRaw('db', $dbConfig);
+        ipConfig()->setTablePrefix($dbConfig['tablePrefix']);
 
         try {
             ipDb()->getConnection();
@@ -335,7 +335,7 @@ class PublicController extends \Ip\Controller
         try {
             ipConfig()->_setRaw('db', $config['db']);
             ipDb()->getConnection();
-        } catch (\Exception $e) {echo $e->getTraceAsString();exit;
+        } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall', false));
         }
 

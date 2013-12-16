@@ -13,6 +13,7 @@ class Config
     protected $protocol = null;
     protected $corePath = null;
     protected $pluginUrl = null;
+    protected $tablePrefix = null;
 
     /**
      * @param $config
@@ -26,6 +27,7 @@ class Config
         if (!defined('DB_PREF')) {
             define('DB_PREF', $this->rawConfig['db']['tablePrefix']);
         }
+        $this->tablePrefix = $this->rawConfig['db']['tablePrefix'];
 
         if (!$server) {
             $server = $_SERVER;
@@ -59,7 +61,12 @@ class Config
 
     public function tablePrefix()
     {
-        return DB_PREF;
+        return $this->tablePrefix;
+    }
+
+    public function setTablePrefix($tablePrefix)
+    {
+        $this->tablePrefix = $tablePrefix;
     }
 
     public function baseUrl()
