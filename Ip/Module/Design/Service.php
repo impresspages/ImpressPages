@@ -128,6 +128,11 @@ class Service
 
     }
 
+    public static function getLayouts()
+    {
+        return Model::instance()->getThemeLayouts();
+    }
+
 
 
 }

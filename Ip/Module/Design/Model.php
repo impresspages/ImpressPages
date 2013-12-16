@@ -338,7 +338,7 @@ class Model
 
         if (file_exists($file)) {
             $config = file($file);
-            foreach ($config as $key => $configRow) {
+            foreach ($config as $configRow) {
                 $configName = substr($configRow, 0, strpos($configRow, ':'));
                 $value = substr($configRow, strpos($configRow, ':') + 1);
                 $value = str_replace("\n", "", str_replace("\r", "", $value));
@@ -352,5 +352,29 @@ class Model
 
     }
 
+
+
+    /**
+     * Returns possible layout pages.
+     * files starting with underscore (for example, _layout.php) are considered hidden.
+     * @return array layouts (e.g. ['main.php', 'home.php'])
+     * @throws \Ip\CoreException
+     */
+    public static function getThemeLayouts()
+    {
+        $themeDir = ipThemeFile('');
+        $files = scandir($themeDir);
+        $layouts = array();
+
+        foreach ($files as $filename) {
+            if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
+                if ($filename[0] != '_') {
+                    $layouts[] = $filename;
+                }
+            }
+        }
+
+        return $layouts;
+    }
 
 }
