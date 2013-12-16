@@ -52,7 +52,7 @@ class AdminController extends \Ip\Controller
             'tree' => JsTreeHelper::getPageTree($languageId, $zoneName)
         );
 
-        return \Ip\Response\Json($responseData);
+        return new \Ip\Response\Json($responseData);
 
     }
 

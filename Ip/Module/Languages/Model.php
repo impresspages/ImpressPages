@@ -42,14 +42,14 @@ class Model{
         $languages = array();
 
         foreach (ipContent()->getLanguages() as $language) {
-            if (!$language->getVisible()) {
+            if (!$language->isVisible()) {
                 continue;
             }
         
             $tmpData = array();
             $tmpData['shortTitle'] = $language->getAbbreviation();
             $tmpData['longTitle'] = $language->getTitle();
-            $tmpData['visible'] = $language->getVisible();
+            $tmpData['visible'] = $language->isVisible();
             $tmpData['current'] = $language->getCurrent();
             $tmpData['url'] = \Ip\Internal\Deprecated\Url::generate($language->getId());
             $languages[] = $tmpData;

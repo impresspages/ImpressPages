@@ -10,7 +10,7 @@
         <label for="generalVisible">
             <?php _e('Visible', 'ipAdmin')?>
         </label>
-        <input id="generalVisible" class="stdModBox" type="checkbox" name="visible" <?php echo $element->getVisible() ? 'checked="yes"' : '' ?> />
+        <input id="generalVisible" class="stdModBox" type="checkbox" name="visible" <?php echo $element->isVisible() ? 'checked="yes"' : '' ?> />
         <br />
     </p>
     <p class="field">

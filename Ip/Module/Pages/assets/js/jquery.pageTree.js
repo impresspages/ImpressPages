@@ -97,16 +97,14 @@
     function initializeTreeManagement(data) {
         var $this = this;
         var plugins = [ 'themes', 'json_data', 'types', 'ui'];
-        if (id == 'tree') {
-            plugins.push('dnd');
-            plugins.push('crrm');
-            plugins.push('contextmenu');
-        }
+        plugins.push('dnd');
+        plugins.push('crrm');
+        plugins.push('contextmenu');
 
         $this.jstree({
 
             'plugins': plugins,
-            'json_data': data,
+            'json_data': {data: data},
             'types': {
                 // -2 do not need depth and children count checking
                 'max_depth': -2,
@@ -116,7 +114,7 @@
                     'page': {
                         'valid_children': [ 'page' ],
                         'icon': {
-                            'image': imageDir + 'file.png'
+                            'image': ipFileUrl('Ip/Module/Pages/assets/img/file.png')
                         }
                     }
                 }
