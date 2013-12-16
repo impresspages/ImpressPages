@@ -49,6 +49,28 @@ class Helper
 
         $form = new \Ip\Form();
 
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa',
+                'defaultValue' => 'Pages.updatePage'
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'pageId',
+                'defaultValue' => $pageId
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'zoneName',
+                'defaultValue' => $zoneName
+            ));
+        $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -86,7 +108,7 @@ class Helper
             array(
                 'name' => 'url',
                 'label' => __('Url', 'ipAdmin', false),
-                'defaultValue' => $page->getDescription()
+                'defaultValue' => $page->getUrl()
             ));
         $form->addField($field);
 
@@ -133,9 +155,16 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'updatedOn',
+                'name' => 'lastModified',
                 'label' => __('Update on', 'ipAdmin', false),
                 'defaultValue' => date('Y-m-d', strtotime($page->getLastModified()))
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Submit(
+            array(
+                'name' => 'submit',
+                'defaultValue' => __('Save', 'ipAdmin', false)
             ));
         $form->addField($field);
 
