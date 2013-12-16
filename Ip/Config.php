@@ -59,7 +59,7 @@ class Config
 
     public function tablePrefix()
     {
-        return $this->rawConfig['db']['tablePrefix'];
+        return DB_PREF;
     }
 
     public function baseUrl()
