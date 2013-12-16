@@ -230,6 +230,7 @@ class PublicController extends \Ip\Controller
             'charset' => 'utf8',
         );
 
+        ipConfig()->_setRaw('db', $dbConfig);
         ipConfig()->setTablePrefix($dbConfig['tablePrefix']);
 
         try {
