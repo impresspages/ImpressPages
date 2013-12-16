@@ -264,9 +264,16 @@ class PublicController extends \Ip\Controller
             // TODOX show SQL queries that failed
             return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries.', 'ipInstall', false));
         } else {
+            \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
+            OptionHelper::import(__DIR__ . '/options.json');
+
             Model::completeStep(3);
             return \Ip\Response\JsonRpc::result(true);
         }
+
+
+
+
     }
 
     public function writeConfig()

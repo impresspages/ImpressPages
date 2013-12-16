@@ -57,6 +57,11 @@ class Config
         }
     }
 
+    public function tablePrefix()
+    {
+        return $this->rawConfig['db']['tablePrefix'];
+    }
+
     public function baseUrl()
     {
         return $this->protocol . $this->rawConfig['BASE_URL'];
