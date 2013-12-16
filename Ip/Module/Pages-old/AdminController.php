@@ -351,7 +351,7 @@ class AdminController extends \Ip\Controller
         $answer['page']['pageId'] = $page->getId();
         $answer['page']['zoneName'] = $page->getZoneName();
         $answer['page']['buttonTitle'] = $page->getButtonTitle() . '';
-        $answer['page']['visible'] = $page->getVisible();
+        $answer['page']['visible'] = $page->isVisible();
         $answer['page']['createdOn'] = $page->getCreatedOn();
         $answer['page']['lastModified'] = $page->getLastModified();
 
@@ -434,7 +434,7 @@ class AdminController extends \Ip\Controller
         }
 
         $propertiesData = array (
-            'form' => Forms::languageForm($languageId, $language->getVisible(), $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
+            'form' => Forms::languageForm($languageId, $language->isVisible(), $language->getTitle(), $language->getAbbreviation(), $language->getUrl(), $language->getCode(), $language->getTextDirection())
         );
         $content = \Ip\View::create('view/languageProperties.php', $propertiesData)->render();
         $tabs[] = array('title' => $title, 'content' => $content);

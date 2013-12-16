@@ -99,7 +99,7 @@ class Language{
      * @return bool
      *
      */
-    public function getVisible(){
+    public function isVisible(){
         return $this->visible;
     }
     

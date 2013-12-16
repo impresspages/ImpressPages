@@ -167,7 +167,7 @@ class Template {
         <label for="generalVisible">'.__('Visible', 'ipAdmin').'</label>
         <div class="checkbox">
             <label>
-                <input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->getVisible() ? 'checked="checked"' : '' ).' />
+                <input id="generalVisible" class="stdModBox" type="checkbox" name="visible" '.($element->isVisible() ? 'checked="checked"' : '' ).' />
                 '.__('Visible', 'ipAdmin').'
             </label>
         </div>

@@ -263,7 +263,7 @@ class Page{
     public function setRedirectUrl($redirectUrl){$this->redirectUrl=$redirectUrl;}
 
     /** @return bool */
-    public function getVisible(){return $this->visible;}
+    public function isVisible(){return $this->visible;}
     /** @param $visible bool */
     public function setVisible($visible){$this->visible=$visible;}
 }
