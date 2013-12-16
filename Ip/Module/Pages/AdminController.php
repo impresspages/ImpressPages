@@ -43,7 +43,6 @@ class AdminController extends \Ip\Controller
         }
         $languageId = null;
 
-
         if (empty($data['zoneName'])) {
             throw new \Ip\CoreException("Missing required parameters");
         }
@@ -59,8 +58,24 @@ class AdminController extends \Ip\Controller
 
     public function pagePropertiesForm()
     {
+        $data = ipRequest()->getQuery();
+        if (empty($data['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameters");
+        }
+        $zoneName = $data['zoneName'];
+        if (empty($data['pageId'])) {
+            throw new \Ip\CoreException("Missing required parameters");
+        }
+        $pageId = $data['pageId'];
+
+
+        $variables = array(
+            'form' => Helper::pagePropertiesForm($zoneName, $pageId)
+        );
+        $layout = \Ip\View::create('view/pageProperties.php', $variables)->render();
+
         $data = array (
-            'html' => 'HTML'
+            'html' => $layout
         );
         return new \Ip\Response\Json($data);
     }

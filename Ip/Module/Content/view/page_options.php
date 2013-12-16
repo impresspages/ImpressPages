@@ -1,3 +1,4 @@
+<?php //TODOX remove page options from content module ?>
 <ul class="tabs">
 <?php foreach ($tabs as $tabKey => $tab) { ?>
     <li>
