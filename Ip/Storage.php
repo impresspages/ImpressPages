@@ -56,7 +56,7 @@ class Storage {
 
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'storage`
+                '.ipTable('storage').'
             SET
                 `plugin` = :plugin,
                 `key` = :key,

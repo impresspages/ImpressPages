@@ -542,8 +542,8 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipAdminWidgetControls {
     border: 1px solid transparent;
     float: left;
-    height: 27px;
-    margin: -29px 0 0 -1px;
+    max-height: 10px;
+    margin: -10px 0 0 -1px;
     position: absolute;
 }
 .ipAdminWidgetControls .ipaButton {
@@ -567,8 +567,8 @@ Move to separate stylesheet if invalid CSS is a problem.
     float: left;
     font-family: Verdana, Geneva, sans-serif;
     font-size: 11px;
-    height: 23px;
-    line-height: 23px;
+    height: 10px;
+    line-height: 10px;
     text-decoration: none;
 }
 .ipAdminWidgetControls .ipaButton:first-child span {

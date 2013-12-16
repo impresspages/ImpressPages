@@ -48,6 +48,9 @@ class ServiceLocator
     }
 
 
+    /**
+     * @return \Ip\Storage
+     */
     public static function storage()
     {
         if (self::$storage == null) {

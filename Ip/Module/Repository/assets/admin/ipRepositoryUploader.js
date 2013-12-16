@@ -124,9 +124,9 @@
 
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
-
+console.log(file);
             var answer = jQuery.parseJSON(response.response);
-
+console.log(answer);
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
             } else {
@@ -134,9 +134,7 @@
                 var files = new Array();
                 files.push({
                     fileName : answer.fileName,
-                    file : answer.file,
                     renameTo : answer.fileName,
-                    dir : answer.dir
                 });
 
                 var data = $this.data('ipRepositoryUploader');
