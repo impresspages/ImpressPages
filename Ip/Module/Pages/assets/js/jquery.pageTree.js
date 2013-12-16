@@ -56,22 +56,30 @@
 
     var refreshResponse = function (response) {
         var $this = this;
-
+        var $properties = $('.ipsProperties');
 
         $.proxy(initializeTreeManagement, $this)(response.tree);
 
-//        $('#tree').bind("move_node.jstree", movePage);
-//        $('#tree').bind('select_node.jstree', updatePageForm);
-//        $('#tree').bind('close_node.jstree', closeNode);
-//        $('#tree').bind('select_node.jstree', function (e, data) {
+        $this.bind('select_node.jstree', function(e) {
+            var tree = jQuery.jstree._reference($this.attr('id'));
+            var node = tree.get_selected();
+            $properties.ipPageProperties({
+                pageId : node.attr('pageId'),
+                zoneName : node.attr('zoneName')
+            });
+        });
+
+//        $this.bind("move_node.jstree", movePage);
+//        $this.bind('close_node.jstree', closeNode);
+//        $this.bind('select_node.jstree', function (e, data) {
 //            // expands menu item when it is selected (shows children)
 //
-//            $('#tree').jstree('open_node', data.rslt.obj);
+//            $this.jstree('open_node', data.rslt.obj);
 //        });
 //
-//        $('#tree').bind('refresh.jstree', function (e, data) {
+//        $this.bind('refresh.jstree', function (e, data) {
 //            // when new page is created, this method immediately shows it by opening parent node
-//            $('#tree').jstree('open_node', data.rslt.obj);
+//            $this.jstree('open_node', data.rslt.obj);
 //        });
 //
 //        $('#controlls').delegate('#buttonNewPage', 'click', createPageForm);
