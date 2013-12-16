@@ -162,9 +162,9 @@ abstract class Zone{
             return $this->currentPage;
         }
         $content = \Ip\ServiceLocator::content();
-        if($this->name != $content->getCurrentZone()->getName()){
-            $this->currentPage = null;
-            return null;
+        if(!$content->getCurrentZone() || $this->name != $content->getCurrentZone()->getName()){
+            $this->currentPage = false;
+            return false;
         }
 
         $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::request()->getQuery());

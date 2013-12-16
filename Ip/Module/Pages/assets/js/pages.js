@@ -15,19 +15,11 @@ function ipPages($scope) {
 
     $scope.activateZone = function(zone) {
         $scope.activeZone = zone;
-test($scope);
-        if (!zone.initialized) {
-//            if (!zone[$scope.activeLanguage.id].initializded) {
-//                zone[$scope.activeLanguage.id].initializded = true;
-//            }
-        }
-    }
-
-    $scope.test = function() {
+        $('#pages_' + $scope.activeLanguage.id + '_' + zone.name).ipPageTree({languageId: $scope.activeLanguage.id, zoneName: zone.name});
 
     }
 
-    //var initPages =
+
 }
 
 
