@@ -62,7 +62,7 @@ function IpWidget_IpImageGallery() {
                 $closestLi = $target.closest('li');
             }
 
-            var $closestWidget = $target.closest('.ipWidget-IpImageGallery');
+            var $closestWidget = $closestLi.closest('.ipWidget-IpImageGallery');
 
             if ($closestWidget.length != 1) {
                 $.proxy(this.blurImage, this)();
@@ -74,6 +74,9 @@ function IpWidget_IpImageGallery() {
 
     }
 
+    this.onAdd = function (e) {
+        this.$widgetObject.click();
+    }
 
     this.focusImage = function (e) {
         var context = this;

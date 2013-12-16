@@ -60,10 +60,10 @@ class Controller extends \Ip\WidgetController{
 
 
                         //find image title
-                        if ($image['title'] == '') {
-                            $title = basename($image['fileName']);
-                        } else {
+                        if (!empty($image['title'])) {
                             $title = $image['title'];
+                        } else {
+                            $title = basename($image['fileName']);
                         }
 
                         $newImage = array(
@@ -218,7 +218,6 @@ class Controller extends \Ip\WidgetController{
                 } catch (\Ip\Module\Repository\Exception $e) {
                     //do nothing
                 }
-
 
 
                 if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
