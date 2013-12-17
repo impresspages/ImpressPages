@@ -31,7 +31,10 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        $layout = \Ip\View::create('view/layout.php');
+        $variables = array(
+            'addForm' => Helper::addForm()
+        );
+        $layout = \Ip\View::create('view/layout.php', $variables);
         return $layout->render();
     }
 
@@ -143,6 +146,41 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
 
 
+
+    }
+
+    public function addPage()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        if (empty($data['zoneName']) || empty($data['languageId'])) {
+            throw new \Ip\CoreException("Missing required parameters");
+        }
+        $zoneName = $data['zoneName'];
+        $languageId = $data['languageId'];
+
+        $rootId = Service::getRootId($zoneName, $languageId);
+
+        if (!empty($data['title'])) {
+            $title = $data['title'];
+        } else {
+            $title = __('Untitled', 'ipAdmin', false);
+        }
+
+        if (!empty($data['visible'])) {
+            $data['visible'] = (int) $data['visible'];
+        }
+
+        $pageId = Service::addPage($rootId, $title);
+
+
+        $answer = array(
+            'status' => 'success',
+            'pageId' => $pageId
+        );
+
+        return new \Ip\Response\Json($answer);
 
     }
 

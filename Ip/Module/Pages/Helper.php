@@ -171,5 +171,26 @@ class Helper
         return $form;
     }
 
+    public static function addform()
+    {
+        $form = new \Ip\Form();
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false)
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'visible',
+                'label' => __('Visible', 'ipAdmin', false),
+                'defaultValue' => ipGetOption('Pages.hideNewPages', 1)
+            ));
+        $form->addField($field);
+
+        return $form;
+    }
 
 }
