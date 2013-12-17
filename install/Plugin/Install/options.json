@@ -32,6 +32,8 @@
 
 
     "Design.themeDirs": "",
-    "Email.hourlyLimit": 100
+    "Email.hourlyLimit": 100,
+
+    "Pages.hideNewPages": 0
 
 }

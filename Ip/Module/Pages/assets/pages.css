@@ -17,8 +17,12 @@
   clear: both;
   display: block;
 }
-.pageTree {
+.tree {
   float: left;
+}
+.tree ul {
+  margin: 0;
+  padding: 0;
 }
 .navBlock {
   float: left;

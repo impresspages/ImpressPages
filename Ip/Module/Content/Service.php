@@ -132,36 +132,7 @@ class Service
 
     }
 
-    public static function addPage(
-        $zoneName,
-        $parentPageId,
-        $navigationTitle = 'page',
-        $pageTitle = 'Page',
-        $url = null,
-        $position = null
-    ) {
 
-        $zone = ipContent()->getZone($zoneName);
-
-        $parentPage = $zone->getPage($parentPageId);
-
-        $data = array();
-
-        $data['navigationTitle'] = $navigationTitle;
-        $data['pageTitle'] = $pageTitle;
-
-        if (!is_null($url)) {
-            $data['url'] = \Ip\Module\Pages\Db::makeUrl($url);
-        }
-
-        $data['createdOn'] = date("Y-m-d");
-        $data['lastModified'] = date("Y-m-d");
-        $data['visible'] = !ipGetOption('Pages.hideNewPages');
-
-        $newPageId = \Ip\Module\Pages\Db::insertPage($parentPage->getId(), $data);
-
-        return $newPageId;
-    }
 
     public static function removePage($pageId)
     {

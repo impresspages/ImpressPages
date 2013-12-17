@@ -22,8 +22,6 @@
                     });
 
                     $.proxy(refresh, $this)(options.zoneName, options.languageId);
-
-
                 }
 
             });
@@ -79,7 +77,7 @@
         $.proxy(initializeTreeManagement, $this)(response.tree);
 
         $this.bind('select_node.jstree', function(e) {
-            var tree = jQuery.jstree._reference($this.attr('id'));
+            var tree = jQuery.jstree._reference($this);
             var node = tree.get_selected();
             $properties.ipPageProperties({
                 pageId : node.attr('pageId'),

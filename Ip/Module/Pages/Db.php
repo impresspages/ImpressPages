@@ -75,58 +75,57 @@ class Db {
 //    }
 //
 //
-//    /**
-//     *
-//     * returns
-//     * @param int $pageId
-//     * @param int $languageId
-//     * @return array root element of content
-//     */
-//    public static function rootContentElement($zoneId, $languageId){
-//        $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$zoneId."' ";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if ($rs) {
-//            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-//                return $lock['element_id'];
-//            } else { //try to create
-//                self::createRootZoneElement($zoneId, $languageId);
-//                $rs2 = ip_deprecated_mysql_query($sql);
-//                if ($rs2) {
-//                    if ($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)) {
-//                        return $lock2['element_id'];
-//                    } else { //try to create
-//                        return false;
-//                    }
-//                }
-//                return false;
-//            }
-//        } else {
-//            trigger_error("Can't find zone element ".$sql." ".ip_deprecated_mysql_error());
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     *
-//     * Create root zone element
-//     * @param int $zoneId
-//     * @param int $languageId
-//     */
-//    public static function createRootZoneElement($zoneId, $languageId){
-//        $sql = "insert into `".DB_PREF."content_element` set visible = 1";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if($rs){
-//            $elementId = ip_deprecated_mysql_insert_id();
-//            $sql2 = "insert into `".DB_PREF."zone_to_content` set
-//            language_id = '".ip_deprecated_mysql_real_escape_string($languageId)."',
-//            zone_id = '".$zoneId."',
-//			element_id = '".$elementId."'";
-//            $rs2 = ip_deprecated_mysql_query($sql2);
-//            if(!$rs2) {
-//                trigger_error($sql2." ".ip_deprecated_mysql_error());
-//            }
-//        }
-//    }
+
+
+    /**
+     * @param $zoneId
+     * @param $languageId
+     * @return mixed
+     * @throws \Ip\CoreException
+     */
+    public static function rootContentElement($zoneId, $languageId){
+        $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$zoneId."' ";
+        $rs = ip_deprecated_mysql_query($sql);
+        if ($rs) {
+            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
+                return $lock['element_id'];
+            } else { //try to create
+                self::createRootZoneElement($zoneId, $languageId);
+                $rs2 = ip_deprecated_mysql_query($sql);
+                if ($rs2) {
+                    if ($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)) {
+                        return $lock2['element_id'];
+                    } else {
+                        throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
+                    }
+                }
+                throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
+            }
+        } else {
+            throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
+        }
+    }
+
+    /**
+     * @param $zoneId
+     * @param $languageId
+     * @throws \Ip\CoreException
+     */
+    protected static function createRootZoneElement($zoneId, $languageId){
+        $sql = "insert into `".DB_PREF."content_element` set visible = 1";
+        $rs = ip_deprecated_mysql_query($sql);
+        if ($rs) {
+            $elementId = ip_deprecated_mysql_insert_id();
+            $sql2 = "insert into `".DB_PREF."zone_to_content` set
+            language_id = '".ip_deprecated_mysql_real_escape_string($languageId)."',
+            zone_id = '".$zoneId."',
+            element_id = '".$elementId."'";
+            $rs2 = ip_deprecated_mysql_query($sql2);
+            if (!$rs2) {
+                throw new \Ip\CoreException($sql2 . " " . ip_deprecated_mysql_error());
+            }
+        }
+    }
 //
 //
 //    /**
@@ -357,99 +356,99 @@ class Db {
 
         return $wasLayoutChanged;
     }
-//
-//    /**
-//     *
-//     * Insert new page
-//     * @param int $parentId
-//     * @param array $params
-//     */
-//    public static function insertPage($parentId, $params){
-//        $values = '';
-//
-//        $values .= ' parent = '.(int)$parentId;
-//        $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
-//
-//        if (isset($params['button_title'])) {
-//            $params['navigationTitle'] = $params['button_title'];
-//        }
-//        if (isset($params['page_title'])) {
-//            $params['pageTitle'] = $params['page_title'];
-//        }
-//        if (isset($params['redirect_url'])) {
-//            $params['redirectURL'] = $params['redirect_url'];
-//        }
-//
-//        if (isset($params['navigationTitle']))
-//        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
-//
-//        if (isset($params['pageTitle']))
-//        $values .= ', page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
-//
-//        if (isset($params['keywords']))
-//        $values .= ', keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
-//
-//        if (isset($params['description']))
-//        $values .= ', description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
-//
-//        if (isset($params['url']))
-//        $values .= ', url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
-//
-//        if (isset($params['createdOn'])) {
-//            $values .= ', created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
-//        } else {
-//            $values .= ', created_on = \''.date('Y-m-d').'\'';
-//        }
-//
-//        if (isset($params['lastModified'])) {
-//            $values .= ', last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
-//        } else {
-//            $values .= ', last_modified= \''.date('Y-m-d').'\'';
-//        }
-//
-//        if (isset($params['type']))
-//        $values .= ', type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
-//
-//        if (isset($params['redirectURL']))
-//        $values .= ', redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
-//
-//        if (isset($params['visible']))
-//        $values .= ', visible = \''.ip_deprecated_mysql_real_escape_string((int)$params['visible']).'\'';
-//
-//        if (isset($params['cached_html']))
-//        $values .= ', `cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
-//
-//        if (isset($params['cached_text']))
-//        $values .= ', `cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
-//
-//
-//
-//        $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if ($rs) {
-//            return ip_deprecated_mysql_insert_id();
-//        } else {
-//            trigger_error($sql.' '.ip_deprecated_mysql_error());
-//            return false;
-//        }
-//    }
-//
-//
-//    public static function getMaxIndex($parentId) {
-//        $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = ".(int)$parentId." ";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if ($rs) {
-//            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-//                return $lock['max_row_number'];
-//            } else {
-//                return false;
-//            }
-//        } else {
-//            trigger_error($sql.' '.ip_deprecated_mysql_error());
-//            return false;
-//        }
-//    }
-//
+
+    /**
+     *
+     * Insert new page
+     * @param int $parentId
+     * @param array $params
+     */
+    public static function addPage($parentId, $params){
+        $values = '';
+
+        $values .= ' parent = '.(int)$parentId;
+        $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
+
+        if (isset($params['button_title'])) {
+            $params['navigationTitle'] = $params['button_title'];
+        }
+        if (isset($params['page_title'])) {
+            $params['pageTitle'] = $params['page_title'];
+        }
+        if (isset($params['redirect_url'])) {
+            $params['redirectURL'] = $params['redirect_url'];
+        }
+
+        if (isset($params['navigationTitle']))
+        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
+
+        if (isset($params['pageTitle']))
+        $values .= ', page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
+
+        if (isset($params['keywords']))
+        $values .= ', keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
+
+        if (isset($params['description']))
+        $values .= ', description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
+
+        if (isset($params['url']))
+        $values .= ', url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
+
+        if (isset($params['createdOn'])) {
+            $values .= ', created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
+        } else {
+            $values .= ', created_on = \''.date('Y-m-d').'\'';
+        }
+
+        if (isset($params['lastModified'])) {
+            $values .= ', last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
+        } else {
+            $values .= ', last_modified= \''.date('Y-m-d').'\'';
+        }
+
+        if (isset($params['type']))
+        $values .= ', type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
+
+        if (isset($params['redirectURL']))
+        $values .= ', redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
+
+        if (isset($params['visible']))
+        $values .= ', visible = \''.ip_deprecated_mysql_real_escape_string((int)$params['visible']).'\'';
+
+        if (isset($params['cached_html']))
+        $values .= ', `cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
+
+        if (isset($params['cached_text']))
+        $values .= ', `cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
+
+
+
+        $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
+        $rs = ip_deprecated_mysql_query($sql);
+        if ($rs) {
+            return ip_deprecated_mysql_insert_id();
+        } else {
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
+            return false;
+        }
+    }
+
+
+    private static function getMaxIndex($parentId) {
+        $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = ".(int)$parentId." ";
+        $rs = ip_deprecated_mysql_query($sql);
+        if ($rs) {
+            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
+                return $lock['max_row_number'];
+            } else {
+                return false;
+            }
+        } else {
+            trigger_error($sql.' '.ip_deprecated_mysql_error());
+            return false;
+        }
+    }
+
 //
 //
 //
