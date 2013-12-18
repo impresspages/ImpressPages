@@ -196,10 +196,18 @@ class AdminController extends \Ip\Controller
         $pageId = (int)$data['pageId'];
 
 
-        if (!isset($data['destinationPageId'])) {
-            throw new \Ip\CoreException("Destination page ID is not set");
+        if (isset($data['destinationPageId'])) {
+            $destinationPageId = $data['destinationPageId'];
+        } else {
+            if (!isset($data['zoneName'])) {
+                throw new \Ip\CoreException("Missing required parameters");
+            }
+            if (!isset($data['languageId'])) {
+                throw new \Ip\CoreException("Missing required parameters");
+            }
+            $zone = ipContent()->getZone($data['zoneName']);
+            $destinationPageId = Db::rootContentElement($zone->getId(), $data['languageId']);
         }
-        $destinationPageId = $data['destinationPageId'];
 
 
         if (!isset($data['destinationPosition'])) {

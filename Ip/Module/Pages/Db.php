@@ -79,6 +79,25 @@ class Db {
 
 
     public static function pageInfo($pageId){
+        //check when root page id given
+        $sql = "
+        SELECT
+            mte.*
+        FROM
+            ".ipTable('zone_to_content', 'mte')."
+        WHERE
+            mte.element_id = :pageId
+        ";
+
+        $params = array(
+            'pageId' => $pageId
+        );
+        $answer = ipDb()->fetchRow($sql, $params);
+        if ($answer) {
+            return $answer;
+        }
+
+        //non root page id given
         $voidZone = new \Ip\Module\Content\Zone(array());
         $breadcrumb = $voidZone->getBreadcrumb($pageId);
         $pageId = $breadcrumb[0]->getId();

@@ -38,14 +38,32 @@ function ipPages($scope) {
     }
 
     $scope.cutPage = function() {
+        $scope.copyPageId = false;
         $scope.cutPageId = $scope.selectedPageId
     }
 
     $scope.copyPage = function () {
+        $scope.cutPageId = false;
         $scope.copyPageId = $scope.selectedPageId;
     }
 
+    $scope.pastePage = function () {
+        var tree = getJsTree();
+        var position = tree._get_children(-1).length; //last position
+        var node = tree.get_selected();
+        if (node.length) {
+            var position = node.index() + 1;
+        }
+        if ($scope.cutPageId) {
+            movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
+        } else {
+            copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
+        }
+        refresh();
+    }
+
     var initTree = function () {
+        $scope.selectedPageId = false;
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
             var tree = getJsTree();
@@ -66,7 +84,7 @@ function ipPages($scope) {
     }
 
     var refresh = function () {
-        getTreeDiv().find('.ipsTree').ipPageTree('refresh');
+        $('.tree .ipsTree').ipPageTree('refresh');
     }
 
     var addPage = function (title, visible) {
@@ -121,7 +139,67 @@ function ipPages($scope) {
     }
 
 
+    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, position) {
+        var data = {
+            aa: 'Pages.copyPage',
+            destinationParentId: destinationParentId,
+            languageId: destinationLanguageId,
+            zoneName: destinationZoneName,
+            securityToken: ip.securityToken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                refresh();
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
+        var data = {
+            aa: 'Pages.movePage',
+            pageId: pageId,
+            destinationPosition: destinationPosition,
+            destinationParentId: destinationParentId,
+            languageId: destinationLanguageId,
+            zoneName: destinationZoneName,
+            securityToken: ip.securityToken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                console.log('refresh');
+                refresh();
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+
+
 }
 
 
 
+$( document ).ready(function() {
+    $('.zoneList li:first a').click();
+});
