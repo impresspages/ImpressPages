@@ -184,12 +184,12 @@
             data.destinationPosition = moveData.rslt.cp + i;
             data.aa = 'Pages.movePage';
             data.securityToken = ip.securityToken;
-
+console.log(data);
             //if we move within the same parent, fix destination position value.
             if (
                 data.zoneName == data.dstinationZoneName &&
                     data.parentId == data.destinationPageId &&
-                    data.data.destinationPosition > data.position
+                    data.destinationPosition > data.position
                 ) {
                 data.destinationPosition = data.destinationPosition - 1;
             }
@@ -229,6 +229,3 @@
 })(jQuery);
 
 
-$( document ).ready(function() {
-    $('.zoneList li:first a').click();
-});
