@@ -77,6 +77,48 @@ class Db {
 //
 
 
+
+    public static function pageInfo($pageId){
+        $voidZone = new \Ip\Module\Content\Zone(array());
+        $breadcrumb = $voidZone->getBreadcrumb($pageId);
+        $pageId = $breadcrumb[0]->getId();
+
+        $sql = "
+        SELECT
+            mte.*
+        FROM
+            ".ipTable('zone_to_content', 'mte').",
+            ".ipTable('content_element', 'page')."
+        WHERE
+            page.id = :pageId
+            AND
+            page.parent = mte.element_id
+        ";
+
+        $params = array(
+            'pageId' => $pageId
+        );
+        return ipDb()->fetchRow($sql, $params);
+    }
+
+
+    public static function getZoneName($zoneId){
+        $sql = "
+        SELECT
+            `name`
+        FROM
+            ".ipTable('zone')."
+        WHERE
+            id = :id";
+
+        $params = array(
+            'id' => (int)$zoneId
+        );
+
+        return ipDb()->fetchValue($sql, $params);
+    }
+
+
     /**
      * @param $zoneId
      * @param $languageId
@@ -126,27 +168,27 @@ class Db {
             }
         }
     }
-//
-//
-//    /**
-//     *
-//     * Get page children
-//     * @param int $elementId
-//     * @return array
-//     */
-//    public static function pageChildren($parentId){
-//        $sql = "select * from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if($rs){
-//            $pages = array();
-//            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-//                $pages[] = $lock;
-//            }
-//            return $pages;
-//        } else {
-//            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
-//        }
-//    }
+
+
+    /**
+     *
+     * Get page children
+     * @param int $elementId
+     * @return array
+     */
+    public static function pageChildren($parentId){
+        $sql = "select * from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs){
+            $pages = array();
+            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
+                $pages[] = $lock;
+            }
+            return $pages;
+        } else {
+            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
+        }
+    }
 //
 //    /**
 //     *

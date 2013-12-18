@@ -464,7 +464,11 @@ function ipTable($table, $as = null)
 {
     $answer = '`' . ipConfig()->tablePrefix() . $table . '`';
     if ($as != false) {
-        $answer .= 'as ' . $table;
+        if ($as !== null) {
+            $answer .= 'as ' . $as;
+        } else {
+            $answer .= 'as ' . $table;
+        }
     }
     return $answer;
 }

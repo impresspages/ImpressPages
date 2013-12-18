@@ -52,7 +52,7 @@ class JsTreeHelper
             if ($page->isVisible()) {
                 $icon = '';
             } else {
-                $icon = ipFileUrl('Ip/Module/Pages/img/file_hidden.png');
+                $icon = ipFileUrl('Ip/Module/Pages/assets/img/file_hidden.png');
             }
 
 
