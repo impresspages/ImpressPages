@@ -36,7 +36,7 @@ class Zone extends \Ip\Zone
         $urlVars = array();
 
         if ($parentPageId != null) { //if parent specified
-            $parentPages = $this->getRoadToPage($parentPageId);
+            $parentPages = $this->getBreadCrumb($parentPageId);
             foreach ($parentPages as $key => $page) {
                 $urlVars[] = $page->getUrl();
             }

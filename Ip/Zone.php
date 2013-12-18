@@ -80,7 +80,6 @@ abstract class Zone{
      * @return Page[]
      *
      */
-    //TODOX rename to Pages
     public abstract function getPages($language = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
 
@@ -119,36 +118,7 @@ abstract class Zone{
 
 
 
-    /**
-     *
-     * Get breadcrumb from root to required Page.
-     *
-     * @param $pageId
-     * @return array of pages - breadcrumb from root to required Page
-     *
-     */
 
-    public function getRoadToPage($pageId=null){
-        //TODOX this function likely can be replaced by getBreadcrumb or vice versa
-
-        $pages = array();
-        if($pageId !== null)
-        $page = $this->getPage($pageId);
-        else
-        $page = $this->getCurrentPage();
-
-        if($page){
-            $pages[] = $page;
-            $parentPageId = $page->getParentId();
-            while($parentPageId !== null && $parentPageId !== false){
-                $parentPage = $this->getPage($parentPageId);
-                $pages[] = $parentPage;
-                $parentPageId = $parentPage->getParentId();
-            }
-
-        }
-        return array_reverse($pages);
-    }
 
     /**
      *
@@ -208,7 +178,24 @@ abstract class Zone{
             }
             $pageId = $currentPage->getId();
         }
-        return $this->getRoadToPage($pageId);
+        $pages = array();
+        if ($pageId !== null) {
+            $page = $this->getPage($pageId);
+        } else {
+            $page = $this->getCurrentPage();
+        }
+
+        if ($page) {
+            $pages[] = $page;
+            $parentPageId = $page->getParentId();
+            while ($parentPageId !== null && $parentPageId !== false) {
+                $parentPage = $this->getPage($parentPageId);
+                $pages[] = $parentPage;
+                $parentPageId = $parentPage->getParentId();
+            }
+
+        }
+        return array_reverse($pages);
     }
 
     /**
