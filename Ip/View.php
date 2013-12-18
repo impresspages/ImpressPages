@@ -49,17 +49,21 @@ class View
         $this->doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     
+
     /**
-     * 
      * Create new view object with the same doctype, but different view file and data
      * Use it to include another view file within the view
-     * @param string $file path to view file relative to current view
-     * @param array $data associative array of data to pass to the view
+     * @param $file
+     * @param null $variables
+     * @return View
      */
-    public function subview($file, $data = array()) {
+    public function subview($file, $variables = null) {
         $foundFile = self::findFile($file);
-        self::checkData($data);
-        $view = new \Ip\View($foundFile, $data);
+        if ($variables === null) {
+            $variables = $this->getVariables();
+        }
+        self::checkData($variables);
+        $view = new \Ip\View($foundFile, $variables);
         $view->setDoctype($this->getDoctype());
         return $view;
     }
