@@ -2,7 +2,9 @@ function ipPages($scope) {
     //languages
     $scope.activeLanguage = languageList[0];
     $scope.activeZone = zoneList[0];
-
+    $scope.copyPageId = false;
+    $scope.cutPageId = false;
+    $scope.selectedPageId = false;
     $scope.languages = languageList;
 
     $scope.activateLanguage = function(language) {
@@ -19,16 +21,10 @@ function ipPages($scope) {
         initTree();
 
     }
-    var initTree = function () {
-        var $zoneScope = $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name);
 
-        $zoneScope.find('.ipsTree').ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
-
-
+    $scope.addPageModal = function() {
         var $modal = $('.ipsAddModal');
-        $zoneScope.find('.ipsAdd').off('click').on('click', function (){
-            $modal.modal();
-        });
+        $modal.modal();
 
 
         $modal.find('.ipsAdd').off('click').on('click', function(){$modal.find('form').submit()});
@@ -39,13 +35,38 @@ function ipPages($scope) {
             addPage(title, visible);
             $modal.modal('hide');
         });
+    }
+
+    $scope.cutPage = function() {
+        $scope.cutPageId = $scope.selectedPageId
+    }
+
+    $scope.copyPage = function () {
+        $scope.copyPageId = $scope.selectedPageId;
+    }
+
+    var initTree = function () {
+        getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
+        getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
+            var tree = getJsTree();
+            var node = tree.get_selected();
+            $scope.selectedPageId = node.attr('pageId');
+            console.log($scope.selectedPageId);
+            $scope.$apply();
+        });
 
     }
 
-    var refresh = function () {
-        var $zoneScope = $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name);
+    var getTreeDiv = function () {
+        return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name).find('.ipsTree');
+    }
 
-        $zoneScope.find('.ipsTree').ipPageTree('refresh');
+    var getJsTree = function () {
+        return jQuery.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name + ' .ipsTree');
+    }
+
+    var refresh = function () {
+        getTreeDiv().find('.ipsTree').ipPageTree('refresh');
     }
 
     var addPage = function (title, visible) {

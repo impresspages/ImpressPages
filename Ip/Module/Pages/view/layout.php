@@ -18,19 +18,19 @@
             <div ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
                 <div id="pages_{{language.id}}_{{zone.name}}">
                     <ul class="actions">
-                        <button class="ipsAdd btn btn-default" role="button" >
+                        <button ng-click="addPageModal()" class="btn btn-default" role="button" >
                             <i class="fa fa-file-o"></i>
                             <?php _e('Add', 'ipAdmin') ?>
                         </button>
-                        <button class="ipsCut btn btn-default" role="button" >
+                        <button ng-click="cutPage()" ng-show="selectedPageId" class="btn btn-default" role="button" >
                             <i class="fa fa-cut"></i>
                             <?php _e('Cut', 'ipAdmin') ?>
                         </button>
-                        <button class="ipsCopy btn btn-default" role="button" >
+                        <button ng-click="copyPage()" ng-show="selectedPageId" class="btn btn-default" role="button" >
                             <i class="fa fa-copy"></i>
                             <?php _e('Copy', 'ipAdmin') ?>
                         </button>
-                        <button class="ipsPaste btn btn-default hide" role="button" >
+                        <button ng-click="pastePage()" class="btn btn-default" ng-show="copyPageId || cutPageId" role="button" >
                             <i class="fa fa-paste"></i>
                             <?php _e('Paste', 'ipAdmin') ?>
                         </button>
