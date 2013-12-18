@@ -32,24 +32,9 @@ function ipPages($scope) {
 
 
         $modal.find('.ipsAdd').off('click').on('click', function() {
-            var data = {
-                aa: 'Pages.addPage',
-                securityToken: ip.securityToken,
-                title: $modal.find('input[name=title]').val(),
-                visible: $modal.find('input[name=visible]').is(':checked') ? 1 : 0,
-                zoneName: $scope.activeZone.name,
-                languageId: $scope.activeLanguage.id
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: ip.baseUrl,
-                data: data,
-                context: this,
-                success: refresh,
-                dataType: 'json'
-            });
-
+            var title = $modal.find('input[name=title]').val();
+            var visible = $modal.find('input[name=visible]').is(':checked') ? 1 : 0;
+            addPage(title, visible);
             $modal.modal('hide');
         });
 
@@ -59,6 +44,27 @@ function ipPages($scope) {
         var $zoneScope = $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name);
 
         $zoneScope.find('.ipsTree').ipPageTree('refresh');
+    }
+
+    var addPage = function (title, visible) {
+        var data = {
+            aa: 'Pages.addPage',
+            securityToken: ip.securityToken,
+            title: title,
+            visible: visible,
+            zoneName: $scope.activeZone.name,
+            languageId: $scope.activeLanguage.id
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: refresh,
+            dataType: 'json'
+        });
+
     }
 
 
