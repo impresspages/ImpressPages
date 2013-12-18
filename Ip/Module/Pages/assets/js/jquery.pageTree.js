@@ -227,3 +227,8 @@
     };
 
 })(jQuery);
+
+
+$( document ).ready(function() {
+    $('.zoneList li:first a').click();
+});
