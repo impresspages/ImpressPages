@@ -110,6 +110,7 @@ class System
             return array();
         }
 
+        $answer = array();
         //foreach all widget folders
         foreach ($widgetFolders as $widgetFolder) {
             //each directory is a widget
