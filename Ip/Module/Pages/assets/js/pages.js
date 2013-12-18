@@ -61,10 +61,40 @@ function ipPages($scope) {
             url: ip.baseUrl,
             data: data,
             context: this,
-            success: refresh,
+            success: function (response) {
+                refresh();
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
             dataType: 'json'
         });
 
+    }
+
+    var deletePage = function (pageId) {
+        var data = {
+            aa: 'Pages.deletePage',
+            securityToken: ip.securityToken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                refresh();
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
     }
 
 
