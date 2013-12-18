@@ -184,4 +184,41 @@ class AdminController extends \Ip\Controller
 
     }
 
+    public function movePage()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+
+        if (!isset($data['pageId'])) {
+            throw new \Ip\CoreException("Page id is not set");
+        }
+        $pageId = (int)$data['pageId'];
+
+
+        if (!isset($data['destinationPageId'])) {
+            throw new \Ip\CoreException("Destination page ID is not set");
+        }
+        $destinationPageId = $data['destinationPageId'];
+
+
+        if (!isset($data['destinationPosition'])) {
+            throw new \Ip\CoreException("Destination position is not set");
+        }
+        $destinationPosition = $data['destinationPosition'];
+
+
+        Service::movePage($pageId, $destinationPageId, $destinationPosition);
+
+
+        $answer = array (
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
+
+
+
+    }
+
 }

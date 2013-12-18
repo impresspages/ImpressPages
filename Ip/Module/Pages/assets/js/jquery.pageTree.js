@@ -88,7 +88,8 @@
             });
         });
 
-//        $this.bind("move_node.jstree", movePage);
+        $this.bind("move_node.jstree", $.proxy(movePage, $this));
+
 //        $this.bind('close_node.jstree', closeNode);
 //        $this.bind('select_node.jstree', function (e, data) {
 //            // expands menu item when it is selected (shows children)
@@ -173,6 +174,42 @@
 
 
     }
+
+    var movePage = function(e, moveData) {
+        moveData.rslt.o.each(function(i) {
+            var data = Object();
+
+            data.pageId = $(this).attr("pageId");
+            data.destinationPageId = moveData.rslt.np.attr("pageId");
+            data.destinationPosition = moveData.rslt.cp + i;
+            data.aa = 'Pages.movePage';
+            data.securityToken = ip.securityToken;
+
+            //if we move within the same parent, fix destination position value.
+            if (
+                data.zoneName == data.dstinationZoneName &&
+                    data.parentId == data.destinationPageId &&
+                    data.data.destinationPosition > data.position
+                ) {
+                data.destinationPosition = data.destinationPosition - 1;
+            }
+
+
+            $.ajax({
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                error : function(response) {
+                    if (ip.developmentEnvironment || ip.debugMode) {
+                        alert('Server response: ' + response.responseText);
+                    }
+                },
+                dataType : 'json'
+            });
+        });
+
+
+    };
 
 
 
