@@ -44,6 +44,10 @@ function ipPages($scope) {
         $scope.copyPageId = $scope.selectedPageId;
     }
 
+    $scope.deletePage = function () {
+        alert('delete');
+    }
+
     $scope.pastePage = function () {
         var tree = getJsTree();
         var position = tree._get_children(-1).length; //last position
@@ -59,11 +63,10 @@ function ipPages($scope) {
 
     }
 
-    var initTree = function () {console.log('init');
+    var initTree = function () {
         $scope.selectedPageId = null;
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
-            console.log('select node');
             var node = getJsTree().get_selected();
             var $properties = $('.ipsProperties');
             $scope.selectedPageId = node.attr('pageId');
@@ -73,8 +76,16 @@ function ipPages($scope) {
                 pageId : node.attr('pageId'),
                 zoneName : node.attr('zoneName')
             });
-            $properties.on('update.ipPages', function() {
+            $properties.off('update.ipPages').on('update.ipPages', function() {
                 getJsTree().set_text(getJsTree().get_selected() , $properties.find('input[name=navigationTitle]').val());
+            });
+            $properties.off('delete.ipPages').on('delete.ipPages', function() {
+                deletePage($scope.selectedPageId, function(){
+                    getJsTree().remove(getJsTree().get_selected());
+                });
+            });
+            $properties.off('edit.ipPages').on('edit.ipPages', function() {
+                editPage($scope.selectedPageId);
             });
 
         });
@@ -104,18 +115,7 @@ function ipPages($scope) {
     }
 
     var refresh = function () {
-        var activeZone = $scope.activeZone;
-//        $scope.languages = [];
-//        $scope.zones = [];
-//        $scope.activeZone = false;
-//        $scope.$apply();
-
-
-//        $scope.languages = languageList;
-//        $scope.zones = zoneList;
-//        $scope.$apply();
         $('.ipsTree').ipPageTree('destroy');
-        console.log('destoryed');
         $scope.activateZone($scope.activeZone);
         $scope.$apply();
     }
@@ -149,9 +149,10 @@ function ipPages($scope) {
 
     }
 
-    var deletePage = function (pageId) {
+    var deletePage = function (pageId, successCallback) {
         var data = {
             aa: 'Pages.deletePage',
+            pageId: pageId,
             securityToken: ip.securityToken
         };
 
@@ -160,9 +161,7 @@ function ipPages($scope) {
             url: ip.baseUrl,
             data: data,
             context: this,
-            success: function (response) {
-                refresh();
-            },
+            success: successCallback,
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
                     alert('Server response: ' + response.responseText);

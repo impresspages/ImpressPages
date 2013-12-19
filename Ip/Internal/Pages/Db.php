@@ -527,21 +527,25 @@ class Db {
         }
     }
 
-//
-//
-//
-//    /**
-//     *
-//     * Delete menu element record
-//     * @param int $id
-//     */
-//    public static function deletePage($id) {
-//        global $globalWorker;
-//        $sql = "delete from `".DB_PREF."content_element` where id = '".$id."' ";
-//        if (!ip_deprecated_mysql_query($sql))
-//        $globalWorker->set_error("Can't delete element ".$sql." ".ip_deprecated_mysql_error());
-//
-//    }
+
+
+
+    /**
+     *
+     * Delete menu element record
+     * @param int $id
+     */
+    public static function deletePage($id) {
+        $sql = "
+        DELETE FROM
+            ".ipTable('content_element')."
+        WHERE
+            `id` = :id";
+        $params = array(
+            'id' => $id
+        );
+        ipDb()->execute($sql, $params);
+    }
 //
 //
 //    public static function copyPage($nodeId, $newParentId, $newIndex){

@@ -8,25 +8,27 @@
 namespace Ip\Internal\Pages;
 
 
-class Model {
+class Model
+{
 
 
-
-    public static function deletePage ($zoneName, $pageId) {
+    public static function deletePage($zoneName, $pageId)
+    {
 
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
             throw new \Exception("Unknown zone " + $zoneName);
-        } 
+        }
         self::_deletePageRecursion($zone, $pageId);
         return true;
     }
 
 
-    private static function _deletePageRecursion (\Ip\Zone $zone, $id) {
+    private static function _deletePageRecursion(\Ip\Zone $zone, $id)
+    {
         $children = Db::pageChildren($id);
         if ($children) {
-            foreach($children as $key => $lock) {
+            foreach ($children as $key => $lock) {
                 self::_deletePageRecursion($zone, $lock['id']);
             }
         }
@@ -44,7 +46,8 @@ class Model {
      * @param unknown_type $newParentId
      * @param int $position page position in the subtree
      */
-    public static function copyPage($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $position){
+    public static function copyPage($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $position)
+    {
 
         $children = Db::pageChildren($destinationPageId);
 
@@ -67,9 +70,16 @@ class Model {
      * @param unknown_type $newIndex
      * @param unknown_type $newPages
      */
-    private static function _copyPageRecursion ($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber, $newPages = null) {
+    private static function _copyPageRecursion(
+        $zoneName,
+        $nodeId,
+        $destinationZoneName,
+        $destinationPageId,
+        $rowNumber,
+        $newPages = null
+    ) {
         //$newPages are the pages that have been copied already and should be skiped to duplicate again. This situacion can occur when copying the page to it self
-        if($newPages == null){
+        if ($newPages == null) {
             $newPages = array();
         }
         $newNodeId = Db::copyPage($nodeId, $destinationPageId, $rowNumber);
@@ -78,9 +88,9 @@ class Model {
 
 
         $children = Db::pageChildren($nodeId);
-        if($children){
-            foreach($children as $key => $lock){
-                if(!isset($newPages[$lock['id']])){
+        if ($children) {
+            foreach ($children as $key => $lock) {
+                if (!isset($newPages[$lock['id']])) {
                     self::_copyPageRecursion($zoneName, $lock['id'], $destinationZoneName, $newNodeId, $key, $newPages);
                 }
             }
@@ -88,11 +98,11 @@ class Model {
 
     }
 
-    private static function _copyWidgets($zoneName, $sourceId, $destinationZoneName, $targetId){
+    private static function _copyWidgets($zoneName, $sourceId, $destinationZoneName, $targetId)
+    {
         $oldRevision = \Ip\Revision::getPublishedRevision($zoneName, $sourceId);
         \Ip\Revision::duplicateRevision($oldRevision['revisionId'], $destinationZoneName, $targetId, 1);
     }
-
 
 
 }
