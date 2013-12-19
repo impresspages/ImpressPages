@@ -149,6 +149,29 @@ function ipPages($scope) {
 
     }
 
+    var editPage = function (pageId, successCallback) {
+        var data = {
+            aa: 'Pages.getPageUrl',
+            pageId: pageId
+        };
+
+        $.ajax({
+            type: 'GET',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function(response) {
+                window.location = response.pageUrl;
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
     var deletePage = function (pageId, successCallback) {
         var data = {
             aa: 'Pages.deletePage',

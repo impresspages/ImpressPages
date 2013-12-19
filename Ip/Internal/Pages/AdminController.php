@@ -258,4 +258,27 @@ class AdminController extends \Ip\Controller
 
     }
 
+    public function getPageUrl()
+    {
+        $data = ipRequest()->getQuery();
+
+
+        if (!isset($data['pageId'])) {
+            throw new \Ip\CoreException("Page id is not set");
+        }
+        $pageId = (int)$data['pageId'];
+
+        $pageInfo = Db::pageInfo($pageId);
+
+        $zoneName = Db::getZoneName($pageInfo['zone_id']);
+        $zone = IpContent()->getZone($zoneName);
+
+        $page = $zone->getPage($pageId);
+        $answer = array (
+            'pageUrl' => $page->getLink()
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
 }
