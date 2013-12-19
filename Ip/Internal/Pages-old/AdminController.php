@@ -884,11 +884,6 @@ class AdminController extends \Ip\Controller
         $position = $_REQUEST['position'];
 
 
-        if (!isset($_REQUEST['websiteId'])) {
-            trigger_error("Website Id is not set");
-            return false;
-        }
-        $websiteId = $_REQUEST['websiteId'];
 
         if (!isset($_REQUEST['destinationPageId'])) {
             trigger_error("Destination page ID is not set");
