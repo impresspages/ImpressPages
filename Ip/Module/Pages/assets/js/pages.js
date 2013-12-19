@@ -6,17 +6,15 @@ function ipPages($scope) {
     $scope.cutPageId = false;
     $scope.selectedPageId = false;
     $scope.languages = languageList;
+    $scope.zones = zoneList;
 
     $scope.activateLanguage = function(language) {
         $scope.activeLanguage = language;
         initTree();
     }
 
-
-    //zones
-    $scope.zones = zoneList;
-
     $scope.activateZone = function(zone) {
+        console.log('activateZone');
         $scope.activeZone = zone;
         initTree();
 
@@ -56,22 +54,40 @@ function ipPages($scope) {
         }
         if ($scope.cutPageId) {
             movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
+            refreshAll();
         } else {
             copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
+            refresh();
         }
-        refresh();
+
     }
 
-    var initTree = function () {
+    var initTree = function () {console.log('init tree');
         $scope.selectedPageId = false;
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
+        console.log(getTreeDiv());
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
+            console.log('select');
             var tree = getJsTree();
             var node = tree.get_selected();
             $scope.selectedPageId = node.attr('pageId');
-            console.log($scope.selectedPageId);
             $scope.$apply();
         });
+        console.log(getTreeDiv());
+        getTreeDiv().off('move_node.jstree').on('move_node.jstree', function(e, moveData) {
+            console.log('move');
+            moveData.rslt.o.each(function(i) {
+                var pageId = $(this).attr("pageId");
+                var destinationPageId = moveData.rslt.np.attr("pageId");
+                if (!destinationPageId) { //replace undefined with null;
+                    destinationPageId = null;
+                }
+                var destinationPosition = moveData.rslt.cp + i;
+                movePage(pageId, $scope.activeLanguage.id, $scope.activeZone.name, destinationPageId, destinationPosition);
+            });
+        });
+
+
 
     }
 
@@ -84,7 +100,25 @@ function ipPages($scope) {
     }
 
     var refresh = function () {
+
+        console.log('refresh1');
+        getTreeDiv().data('ipPageTree', null);
+//        getTreeDiv().ipPageTree('destroy');
+        $scope.activateZone($scope.activeZone);
+        //getTreeDiv().jstree("refresh");
+
+//        $scope.languages = [];
+//        $scope.zones = [];
+//        $scope.$apply();
+//        $scope.languages = languageList;
+//        $scope.zones = zoneList;
+//        console.log($scope.activeLanguage);
+//        $scope.$apply();
+    }
+
+    var refreshAll = function () {
         $('.tree .ipsTree').ipPageTree('refresh');
+        $scope.activateZone($scope.activeZone);
     }
 
     var addPage = function (title, visible) {
@@ -165,7 +199,7 @@ function ipPages($scope) {
         });
     }
 
-    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
+    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, refresh) {
         var data = {
             aa: 'Pages.movePage',
             pageId: pageId,
@@ -182,8 +216,9 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                console.log('refresh');
-                refresh();
+                if (refresh) {
+                    refresh();
+                }
             },
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {

@@ -62,7 +62,7 @@ class Service
     {
         $zone = ipContent()->getZone($zoneName);
         $zoneId = $zone->getId();
-        $rootId = Db::rootContentElement($zoneId, $languageId);
+        $rootId = Db::rootId($zoneId, $languageId);
         return $rootId;
     }
 

@@ -196,8 +196,8 @@ class AdminController extends \Ip\Controller
         $pageId = (int)$data['pageId'];
 
 
-        if (isset($data['destinationPageId'])) {
-            $destinationPageId = $data['destinationPageId'];
+        if (!empty($data['destinationParentId'])) {
+            $destinationParentId = $data['destinationParentId'];
         } else {
             if (!isset($data['zoneName'])) {
                 throw new \Ip\CoreException("Missing required parameters");
@@ -206,7 +206,7 @@ class AdminController extends \Ip\Controller
                 throw new \Ip\CoreException("Missing required parameters");
             }
             $zone = ipContent()->getZone($data['zoneName']);
-            $destinationPageId = Db::rootContentElement($zone->getId(), $data['languageId']);
+            $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
         }
 
 
@@ -216,7 +216,7 @@ class AdminController extends \Ip\Controller
         $destinationPosition = $data['destinationPosition'];
 
 
-        Service::movePage($pageId, $destinationPageId, $destinationPosition);
+        Service::movePage($pageId, $destinationParentId, $destinationPosition);
 
 
         $answer = array (

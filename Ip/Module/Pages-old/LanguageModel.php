@@ -65,7 +65,7 @@ class LanguageModel{
 
         $zones = self::getZones();
         foreach($zones as $key => $zone) {
-            $rootElement = $dbMenuManagement->rootContentElement($zone['id'], $id);
+            $rootElement = $dbMenuManagement->rootId($zone['id'], $id);
             $elements = $dbMenuManagement->pageChildren($rootElement);
             if(sizeof($elements) > 0) {
                 $answer = false;

@@ -144,7 +144,7 @@ class Db {
      * @return mixed
      * @throws \Ip\CoreException
      */
-    public static function rootContentElement($zoneId, $languageId){
+    public static function rootId($zoneId, $languageId){
         $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$zoneId."' ";
         $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {

@@ -84,12 +84,12 @@ class ModelTree {
             trigger_error('Can\'t find zone ' . $zoneName);
             return false;
         }  
-        $rootElementId = Db::rootContentElement($zone->getId(), $languageId);
+        $rootElementId = Db::rootId($zone->getId(), $languageId);
 
 
         if($rootElementId == null) { /*try to create*/
             Db::createRootZoneElement($zone->getId(), $languageId);
-            $rootElementId = Db::rootContentElement($zone->getId(), $languageId);
+            $rootElementId = Db::rootId($zone->getId(), $languageId);
             if($rootElementId === false) {	/*fail to create*/
                 trigger_error("Can't create root zone element.");
                 return false;
