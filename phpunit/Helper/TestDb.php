@@ -61,7 +61,7 @@ class TestDb
      */
     private function createDatabase($dbName)
     {
-        \Ip\Module\Install\Model::createAndUseDatabase($dbName);
+        \Ip\Internal\Install\Model::createAndUseDatabase($dbName);
         $this->dbName = $dbName;
 
     }

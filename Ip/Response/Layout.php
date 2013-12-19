@@ -75,10 +75,10 @@ class Layout extends \Ip\Response {
     protected function chooseLayout()
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $this->layout = ipFile('Ip/Module/Admin/view/layout.php');
-            //$this->addCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css'));
-            $this->addJavascript(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.js'));
-        } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
+            $this->layout = ipFile('Ip/Internal/Admin/view/layout.php');
+            //$this->addCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css'));
+            $this->addJavascript(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
+        } elseif (\Ip\Internal\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/view/safeModeLayout.php';
         } else {
             $this->layout = 'main.php';
@@ -183,7 +183,7 @@ class Layout extends \Ip\Response {
         $data = ipRequest()->getRequest();
 
         if (!empty($data['ipDesign']['pCfg']) && (defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']))) {
-            $config = \Ip\Module\Design\ConfigModel::instance();
+            $config = \Ip\Internal\Design\ConfigModel::instance();
             $inDesignPreview = $config->isInPreviewState();
         }
 
@@ -191,7 +191,7 @@ class Layout extends \Ip\Response {
             foreach($cssFiles as &$file) {
                 $path = pathinfo($file['value']);
                 if ($path['dirname'] . '/' == ipThemeFile('') && file_exists(ipThemeFile($path['filename'] . '.less'))) {
-                    $designService = \Ip\Module\Design\Service::instance();
+                    $designService = \Ip\Internal\Design\Service::instance();
                     $file = $designService->getRealTimeUrl(ipConfig()->theme(), $path['filename']);
                 } else {
                     if ($file['cacheFix']) {
@@ -217,7 +217,7 @@ class Layout extends \Ip\Response {
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipFile('Ip/Module/Config/view/head.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Internal/Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -247,7 +247,7 @@ class Layout extends \Ip\Response {
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
         );
-        return \Ip\View::create(ipFile('Ip/Module/Config/view/javascript.php'), $data)->render();
+        return \Ip\View::create(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
     }
 
 

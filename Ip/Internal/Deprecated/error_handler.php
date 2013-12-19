@@ -55,7 +55,7 @@ function myErrorHandler ($errno, $errstr, $errfile, $errline) {
             break;
     }
 
-    if (class_exists('Ip\Module\Log\Logger')) {
+    if (class_exists('Ip\Internal\Log\Logger')) {
         ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
     }
 

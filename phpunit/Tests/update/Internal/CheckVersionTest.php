@@ -17,7 +17,7 @@ class CheckVersionTest extends \PhpUnit\GeneralTestCase
         $position =  strpos($code, '\''.RECENT_VERSION.'\';');
         $this->assertNotEquals($position, FALSE);
 
-        $code = file_get_contents(TEST_CODEBASE_DIR.'Ip/Module/Install/sql/data.sql');
+        $code = file_get_contents(TEST_CODEBASE_DIR.'Ip/Internal/Install/sql/data.sql');
         $position =  strpos($code, RECENT_VERSION);
         $this->assertNotEquals($position, FALSE);
 

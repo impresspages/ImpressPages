@@ -253,7 +253,7 @@ class View
 
     public function getThemeOption($name, $default = null)
     {
-        $themeService = \Ip\Module\Design\Service::instance();
+        $themeService = \Ip\Internal\Design\Service::instance();
         return $themeService->getThemeOption($name, $default);
     }
 

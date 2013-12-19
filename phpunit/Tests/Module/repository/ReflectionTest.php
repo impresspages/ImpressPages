@@ -18,7 +18,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
     public function testCreateRemoveReflection()
     {
-        $repository = \Ip\Module\Repository\Model::instance();
+        $repository = \Ip\Internal\Repository\Model::instance();
 
         $file = 'file/repository/impresspages.png';
 
@@ -29,10 +29,10 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $repository->bindFile($file, 'modulexxx', 1);
 
 
-        $reflectionService = \Ip\Module\Repository\ReflectionService::instance();
+        $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
         //Create reflection
-        $transformSmall = new \Ip\Module\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
+        $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflection = $reflectionService->getReflection($file, null, $transformSmall);
         $this->assertEquals('file/impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;

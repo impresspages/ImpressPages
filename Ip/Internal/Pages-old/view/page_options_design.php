@@ -1,0 +1,1 @@
+<?php include ipFile('Ip/Internal/Content/view/page_options_design.php');

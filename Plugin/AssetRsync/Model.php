@@ -11,10 +11,10 @@ class Model
 
     public static function syncAssets()
     {
-        $directoryIterator = new \DirectoryIterator(ipFile('Ip/Module'));
+        $directoryIterator = new \DirectoryIterator(ipFile('Ip/Internal'));
 
         foreach ($directoryIterator as $directory) {
-            static::syncPlugin('Ip/Module', $directory->getFilename());
+            static::syncPlugin('Ip/Internal', $directory->getFilename());
         }
 
         $directoryIterator = new \DirectoryIterator(ipFile('Plugin'));

@@ -19,7 +19,7 @@ class TranslationTest extends \PHPUnit_Framework_TestCase
 
         // TODOX check whether test needs translation init
 
-        $view = \Ip\View::create(ipFile('Ip/Module/Install/view/layout.php'), array('content' => ''));
+        $view = \Ip\View::create(ipFile('Ip/Internal/Install/view/layout.php'), array('content' => ''));
         $html = $view->render();
 
         $page = \PhpUnit\Helper\Mink\Html::getPage($html);

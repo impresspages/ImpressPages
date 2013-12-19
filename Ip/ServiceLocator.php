@@ -32,7 +32,7 @@ class ServiceLocator
         'db' => '\Ip\Db',
         'options' => '\Ip\Options',
         'storage' => '\Ip\Storage',
-        'log' => '\Ip\Module\Log\Logger',
+        'log' => '\Ip\Internal\Log\Logger',
         'translator' => '\Ip\Translator\Translator',
         'dispatcher' => '\Ip\Dispatcher',
         'response' => '\Ip\Response\Layout',

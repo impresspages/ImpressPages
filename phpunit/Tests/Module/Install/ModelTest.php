@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Tests\Ip\Module\Install;
+namespace Tests\Ip\Internal\Install;
 
 
 use PhpUnit\Helper\TestEnvironment;

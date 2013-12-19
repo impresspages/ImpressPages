@@ -7,8 +7,8 @@
 namespace Ip;
 
 
-use Ip\Module\Content\Exception;
-use Ip\Module\Content\Model;
+use Ip\Internal\Content\Exception;
+use Ip\Internal\Content\Model;
 
 class WidgetController
 {
@@ -69,17 +69,17 @@ class WidgetController
     public function getIcon()
     {
         if ($this->core) {
-            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
-                return ipFileUrl('Ip/Module/' . $this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipFile('Ip/Module/' . $this->widgetAssetsDir . 'icon.png'))) {
+            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
                 return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
             }
 
         }
 
-        return ipFileUrl('Ip/Module/Content/assets/img/iconWidget.png');
+        return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.png');
     }
 
     public function defaultData()
@@ -95,7 +95,7 @@ class WidgetController
 
         //collect default view files
         if ($this->core) {
-            $lookDir = ipFile('Ip/Module/' . $this->widgetDir . self::LOOK_DIR . '/');
+            $lookDir = ipFile('Ip/Internal/' . $this->widgetDir . self::LOOK_DIR . '/');
         } else {
             $lookDir = ipFile('Plugin/' . $this->widgetDir . self::LOOK_DIR . '/');
         }
@@ -236,7 +236,7 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipFile('Ip/Module/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Internal/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
                 $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             }
@@ -246,7 +246,7 @@ class WidgetController
                     'widgetName' => $this->name,
                     'layout' => $layout
                 );
-                $answer = \Ip\View::create(ipFile('Ip/Module/Content/view/unknown_widget_layout.php'), $tmpData)->render();
+                $answer = \Ip\View::create(ipFile('Ip/Internal/Content/view/unknown_widget_layout.php'), $tmpData)->render();
             } else {
                 $answer = '';
             }
