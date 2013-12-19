@@ -44,7 +44,7 @@
             return this.each(function() {
                 var $this = $(this);
                 $this.data('ipPageTree', false);
-                $this.jstree('__destroy');
+                $this.jstree('destroy');
                 $this.html('');
             });
         }

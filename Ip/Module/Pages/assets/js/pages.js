@@ -115,7 +115,7 @@ function ipPages($scope) {
 //        $scope.$apply();
         $('.ipsTree').ipPageTree('destroy');
         console.log('destoryed');
-        $scope.activateZone(activeZone);
+        $scope.activateZone($scope.activeZone);
         $scope.$apply();
     }
 
