@@ -253,7 +253,7 @@
                 $(this).prepend($newWidget);
             } else {
                 $secondChild = $(this).children('.ipWidget:nth-child(' + response.position + ')');
-                $($newWidget).insertAfter($secondChild);
+                $newWidget.insertAfter($secondChild);
             }
             $this.trigger('reinitRequired.ipWidget');
             $this.trigger('addWidget.ipWidget',{
@@ -262,7 +262,7 @@
             });
             var widgetController = $newWidget.ipWidget('widgetController');
             if (widgetController && typeof(widgetController['onAdd']) === 'function') {
-                widgetController.onAdd();
+                widgetController.onAdd($newWidget);
             }
             // $this.ipBlock('reinit');
 
