@@ -188,6 +188,23 @@ class Db {
         }
     }
 
+    public static function isChild($pageId, $parentId)
+    {
+        $page = self::getPage($pageId);
+        if (!$page) {
+            return FALSE;
+        }
+        if ($page['parent'] == $parentId) {
+            return TRUE;
+        }
+
+        if ($page['parent']) {
+            return self::isChild($page['parent'], $parentId);
+        }
+
+        return FALSE;
+    }
+
 
     /**
      *
@@ -208,27 +225,27 @@ class Db {
             trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
         }
     }
-//
-//    /**
-//     *
-//     * Get page
-//     * @param int $id
-//     * @return array
-//     */
-//    public static function getPage($id){
-//        $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if($rs){
-//            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-//                return $lock;
-//            }
-//        } else {
-//            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
-//        }
-//        return false;
-//    }
-//
-//
+
+    /**
+     *
+     * Get page
+     * @param int $id
+     * @return array
+     */
+    private static function getPage($id){
+        $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
+        $rs = ip_deprecated_mysql_query($sql);
+        if($rs){
+            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
+                return $lock;
+            }
+        } else {
+            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
+        }
+        return false;
+    }
+
+
 
     /**
      * @param $zoneName

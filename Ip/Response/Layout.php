@@ -76,7 +76,7 @@ class Layout extends \Ip\Response {
     {
         if (\Ip\ServiceLocator::request()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->layout = ipFile('Ip/Module/Admin/view/layout.php');
-            $this->addCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css'));
+            //$this->addCss(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.css'));
             $this->addJavascript(ipFileUrl('Ip/Module/Ip/assets/bootstrap/bootstrap.js'));
         } elseif (\Ip\Module\Admin\Model::isSafeMode()) {
             $this->layout = '/Admin/view/safeModeLayout.php';
