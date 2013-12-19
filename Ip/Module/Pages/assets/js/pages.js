@@ -54,10 +54,10 @@ function ipPages($scope) {
         }
         if ($scope.cutPageId) {
             movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
-            refreshAll();
+            //refreshAll();
         } else {
             copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
-            refresh();
+            //refresh();
         }
 
     }
@@ -100,20 +100,16 @@ function ipPages($scope) {
     }
 
     var refresh = function () {
-
-        console.log('refresh1');
-        getTreeDiv().data('ipPageTree', null);
-//        getTreeDiv().ipPageTree('destroy');
-        $scope.activateZone($scope.activeZone);
-        //getTreeDiv().jstree("refresh");
-
-//        $scope.languages = [];
-//        $scope.zones = [];
-//        $scope.$apply();
-//        $scope.languages = languageList;
-//        $scope.zones = zoneList;
-//        console.log($scope.activeLanguage);
-//        $scope.$apply();
+        var activeZone = $scope.activeZone;
+        $scope.languages = [];
+        $scope.zones = [];
+        $scope.activeZone = false;
+        $scope.$apply();
+        $scope.languages = languageList;
+        $scope.zones = zoneList;
+        $scope.$apply();
+        $scope.activateZone(activeZone);
+        $scope.$apply();
     }
 
     var refreshAll = function () {
@@ -173,10 +169,11 @@ function ipPages($scope) {
     }
 
 
-    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, position) {
+    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
         var data = {
             aa: 'Pages.copyPage',
             destinationParentId: destinationParentId,
+            destinationPosition: destinationPosition,
             languageId: destinationLanguageId,
             zoneName: destinationZoneName,
             securityToken: ip.securityToken
@@ -188,7 +185,9 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                refresh();
+                if (refresh) {
+                    refresh();
+                }
             },
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
@@ -199,7 +198,7 @@ function ipPages($scope) {
         });
     }
 
-    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, refresh) {
+    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
         var data = {
             aa: 'Pages.movePage',
             pageId: pageId,
@@ -216,7 +215,7 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                if (refresh) {
+                if (true) {console.log('refresh');
                     refresh();
                 }
             },
