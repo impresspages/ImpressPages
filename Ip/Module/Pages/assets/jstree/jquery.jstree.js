@@ -2315,7 +2315,9 @@
 									}
 								}
 							}
-						}
+						} else {
+                            this.dnd_finish(e); //Fix jQuery 1.7 and jsTree drop bug. https://github.com/vakata/jstree/issues/174
+                        }
 					}, this))
 				.bind("mouseup.jstree", $.proxy(function (e) {
 						//if($.vakata.dnd.is_drag && $.vakata.dnd.user_data.jstree && $(e.currentTarget).find("> ul > li").length === 0) {
