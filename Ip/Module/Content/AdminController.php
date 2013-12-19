@@ -413,60 +413,6 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function savePageOptions()
-    {
-        if (empty($_POST['revisionId'])) {
-            return $this->_errorAnswer('Missing revisionId POST variable');
-        }
-        $revisionId = $_POST['revisionId'];
-
-
-        if (empty($_POST['pageOptions'])) {
-            return $this->_errorAnswer('Missing pageOptions POST variable');
-        }
-        $pageOptions = $_POST['pageOptions'];
-
-        $revision = \Ip\Revision::getRevision($revisionId);
-
-        if (!$revision) {
-            return $this->_errorAnswer('Can\'t find revision. RevisionId \'' . $revisionId . '\'');
-        }
-
-        $page = \Ip\Module\Pages\Db::getPage($revision['pageId']);
-        if (isset($pageOptions['url']) && $pageOptions['url'] != $page['url']) {
-            $changedUrl = true;
-        } else {
-            $changedUrl = false;
-        }
-
-        if ($changedUrl) {
-            $zone = ipContent()->getZone($revision['zoneName']);
-            $oldElement = $zone->getPage($revision['pageId']);
-            $oldUrl = $oldElement->getLink();
-        }
-
-        \Ip\Module\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-
-        if ($changedUrl) {
-            $newElement = $zone->getPage($revision['pageId']);
-            $newUrl = $newElement->getLink();
-        }
-
-        $data = array(
-            'status' => 'success',
-            'action' => '_savePageOptionsResponse',
-            'pageOptions' => $pageOptions,
-        );
-
-        if ($changedUrl) {
-            $data['oldUrl'] = $oldUrl;
-            $data['newUrl'] = $newUrl;
-        }
-
-
-        return new \Ip\Response\Json($data);
-
-    }
 
 
     private function _errorAnswer($errorMessage)
