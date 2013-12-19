@@ -4,7 +4,7 @@ function ipPages($scope) {
     $scope.activeZone = zoneList[0];
     $scope.copyPageId = false;
     $scope.cutPageId = false;
-    $scope.selectedPageId = false;
+    $scope.selectedPageId = null;
     $scope.languages = languageList;
     $scope.zones = zoneList;
 
@@ -62,20 +62,16 @@ function ipPages($scope) {
 
     }
 
-    var initTree = function () {console.log('init tree');
-        $scope.selectedPageId = false;
+    var initTree = function () {
+        $scope.selectedPageId = null;
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
-        console.log(getTreeDiv());
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
-            console.log('select');
             var tree = getJsTree();
             var node = tree.get_selected();
             $scope.selectedPageId = node.attr('pageId');
             $scope.$apply();
         });
-        console.log(getTreeDiv());
         getTreeDiv().off('move_node.jstree').on('move_node.jstree', function(e, moveData) {
-            console.log('move');
             moveData.rslt.o.each(function(i) {
                 var pageId = $(this).attr("pageId");
                 var destinationPageId = moveData.rslt.np.attr("pageId");
@@ -215,7 +211,7 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                if (true) {console.log('refresh');
+                if (true) {
                     refresh();
                 }
             },

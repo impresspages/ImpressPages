@@ -117,6 +117,7 @@ class Helper
             array(
                 'name' => 'visible',
                 'label' => __('Visible', 'ipAdmin', false),
+                'value' => 1,
                 'defaultValue' => $page->isVisible()
             ));
         $form->addField($field);
