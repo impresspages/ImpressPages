@@ -80,7 +80,7 @@ class System
             if (class_exists($widgetClass)) {
                 $widget = new $widgetClass($widgetKey, $widgetDirRecord['module'], 0);
             } else {
-                $widget = new \Ip\Widget($widgetKey, $widgetDirRecord['module'], $widgetDirRecord['core']);
+                $widget = new \Ip\WidgetController($widgetKey, $widgetDirRecord['module'], 0);
             }
             $widgets[$widgetDirRecord['widgetKey']] = $widget;
         }
