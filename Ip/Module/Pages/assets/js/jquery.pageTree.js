@@ -44,6 +44,7 @@
             return this.each(function() {
                 var $this = $(this);
                 $this.data('ipPageTree', false);
+                $this.jstree('__destroy');
                 $this.html('');
             });
         }
@@ -72,21 +73,10 @@
 
     var refreshResponse = function (response) {
         var $this = this;
-        var $properties = $('.ipsProperties');
 
         $.proxy(initializeTreeManagement, $this)(response.tree);
 
-        $this.bind('select_node.jstree', function(e) {
-            var tree = jQuery.jstree._reference($this);
-            var node = tree.get_selected();
-            $properties.ipPageProperties({
-                pageId : node.attr('pageId'),
-                zoneName : node.attr('zoneName')
-            });
-            $properties.on('update.ipPages', function() {
-                $this.ipPageTree('refresh');
-            });
-        });
+
     }
 
 

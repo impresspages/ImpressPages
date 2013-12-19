@@ -14,7 +14,6 @@ function ipPages($scope) {
     }
 
     $scope.activateZone = function(zone) {
-        console.log('activateZone');
         $scope.activeZone = zone;
         initTree();
 
@@ -53,23 +52,31 @@ function ipPages($scope) {
             var position = node.index() + 1;
         }
         if ($scope.cutPageId) {
-            movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
-            //refreshAll();
+            movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, true);
         } else {
-            copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position);
-            //refresh();
+            copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, true);
         }
 
     }
 
-    var initTree = function () {
+    var initTree = function () {console.log('init');
         $scope.selectedPageId = null;
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
-            var tree = getJsTree();
-            var node = tree.get_selected();
+            console.log('select node');
+            var node = getJsTree().get_selected();
+            var $properties = $('.ipsProperties');
             $scope.selectedPageId = node.attr('pageId');
             $scope.$apply();
+
+            $properties.ipPageProperties({
+                pageId : node.attr('pageId'),
+                zoneName : node.attr('zoneName')
+            });
+            $properties.on('update.ipPages', function() {
+                getJsTree().set_text(getJsTree().get_selected() , $properties.find('input[name=navigationTitle]').val());
+            });
+
         });
         getTreeDiv().off('move_node.jstree').on('move_node.jstree', function(e, moveData) {
             moveData.rslt.o.each(function(i) {
@@ -97,21 +104,21 @@ function ipPages($scope) {
 
     var refresh = function () {
         var activeZone = $scope.activeZone;
-        $scope.languages = [];
-        $scope.zones = [];
-        $scope.activeZone = false;
-        $scope.$apply();
-        $scope.languages = languageList;
-        $scope.zones = zoneList;
-        $scope.$apply();
+//        $scope.languages = [];
+//        $scope.zones = [];
+//        $scope.activeZone = false;
+//        $scope.$apply();
+
+
+//        $scope.languages = languageList;
+//        $scope.zones = zoneList;
+//        $scope.$apply();
+        $('.ipsTree').ipPageTree('destroy');
+        console.log('destoryed');
         $scope.activateZone(activeZone);
         $scope.$apply();
     }
 
-    var refreshAll = function () {
-        $('.tree .ipsTree').ipPageTree('refresh');
-        $scope.activateZone($scope.activeZone);
-    }
 
     var addPage = function (title, visible) {
         var data = {
@@ -165,7 +172,7 @@ function ipPages($scope) {
     }
 
 
-    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
+    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, doRefresh) {
         var data = {
             aa: 'Pages.copyPage',
             destinationParentId: destinationParentId,
@@ -181,7 +188,7 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                if (refresh) {
+                if (doRefresh) {
                     refresh();
                 }
             },
@@ -194,7 +201,7 @@ function ipPages($scope) {
         });
     }
 
-    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition) {
+    var movePage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, doRefresh) {
         var data = {
             aa: 'Pages.movePage',
             pageId: pageId,
@@ -211,7 +218,7 @@ function ipPages($scope) {
             data: data,
             context: this,
             success: function (response) {
-                if (true) {
+                if (doRefresh) {
                     refresh();
                 }
             },
