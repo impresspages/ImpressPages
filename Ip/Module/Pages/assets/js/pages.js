@@ -15,8 +15,8 @@ function ipPages($scope) {
 
     $scope.activateZone = function(zone) {
         $scope.activeZone = zone;
+        $scope.selectedPageId = null;
         initTree();
-
     }
 
     $scope.addPageModal = function() {
@@ -78,6 +78,7 @@ function ipPages($scope) {
             });
 
         });
+
         getTreeDiv().off('move_node.jstree').on('move_node.jstree', function(e, moveData) {
             moveData.rslt.o.each(function(i) {
                 var pageId = $(this).attr("pageId");

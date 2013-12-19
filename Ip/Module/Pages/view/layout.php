@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="ipsProperties properties navBlock">
+    <div ng-show="selectedPageId" class="ipsProperties properties navBlock">
 
     </div>
     <?php echo \Ip\View::create('addPageModal.php', $this->getVariables())->render() ?>
