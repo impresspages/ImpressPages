@@ -87,31 +87,6 @@
                 $this.ipPageTree('refresh');
             });
         });
-
-        $this.bind("move_node.jstree", $.proxy(movePage, $this));
-
-//        $this.bind('close_node.jstree', closeNode);
-//        $this.bind('select_node.jstree', function (e, data) {
-//            // expands menu item when it is selected (shows children)
-//
-//            $this.jstree('open_node', data.rslt.obj);
-//        });
-//
-//        $this.bind('refresh.jstree', function (e, data) {
-//            // when new page is created, this method immediately shows it by opening parent node
-//            $this.jstree('open_node', data.rslt.obj);
-//        });
-//
-//        $('#controlls').delegate('#buttonNewPage', 'click', createPageForm);
-//        $('#controlls').delegate('#buttonDeletePage', 'click', deletePageConfirm);
-//        $('#controlls').delegate('#buttonCopyPage', 'click', copyPage);
-//        $('#controlls').delegate('#buttonPastePage', 'click', pastePage);
-//
-//        $('#formCreatePage').bind('submit', function () {
-//            createPage();
-//            return false;
-//        });
-
     }
 
 
@@ -174,43 +149,6 @@
 
 
     }
-
-    var movePage = function(e, moveData) {
-        moveData.rslt.o.each(function(i) {
-            var data = Object();
-
-            data.pageId = $(this).attr("pageId");
-            data.destinationPageId = moveData.rslt.np.attr("pageId");
-            data.destinationPosition = moveData.rslt.cp + i;
-            data.aa = 'Pages.movePage';
-            data.securityToken = ip.securityToken;
-console.log(data);
-            //if we move within the same parent, fix destination position value.
-            if (
-                data.zoneName == data.dstinationZoneName &&
-                    data.parentId == data.destinationPageId &&
-                    data.destinationPosition > data.position
-                ) {
-                data.destinationPosition = data.destinationPosition - 1;
-            }
-
-
-            $.ajax({
-                type : 'POST',
-                url : ip.baseUrl,
-                data : data,
-                error : function(response) {
-                    if (ip.developmentEnvironment || ip.debugMode) {
-                        alert('Server response: ' + response.responseText);
-                    }
-                },
-                dataType : 'json'
-            });
-        });
-
-
-    };
-
 
 
 

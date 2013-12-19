@@ -782,7 +782,7 @@ class AdminController extends \Ip\Controller
 
 
         if (empty($parentPage)) {
-            $parentPageId = Db::rootContentElement($zone->getId(), $language->getId());
+            $parentPageId = Db::rootId($zone->getId(), $language->getId());
 
             if($parentPageId === false) {
                 trigger_error("Can't find root zone element.");
@@ -920,7 +920,7 @@ class AdminController extends \Ip\Controller
         //check if destination page exists
         $destinationZone = ipContent()->getZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
-            $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
+            $rootElementId = Db::rootId($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
                 trigger_error('Can\'t find root zone element.');
                 return false;
@@ -1095,7 +1095,7 @@ class AdminController extends \Ip\Controller
 
         $destinationZone = ipContent()->getZone($destinationZoneName);
         if ($destinationPageType == 'zone') {
-            $rootElementId = Db::rootContentElement($destinationZone->getId(), $destinationLanguageId);
+            $rootElementId = Db::rootId($destinationZone->getId(), $destinationLanguageId);
             if (!$rootElementId) {
                 trigger_error('Can\'t find root zone element.');
                 return false;
