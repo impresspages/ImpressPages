@@ -89,10 +89,11 @@
      */
     function initializeTreeManagement(data) {
         var $this = this;
-        var plugins = [ 'themes', 'json_data', 'types', 'ui'];
-        plugins.push('dnd');
+        var plugins = [ 'themes', 'json_data', 'types'];
+        plugins.push('ui');
         plugins.push('crrm');
-        plugins.push('contextmenu');
+        //plugins.push('dnd');
+        //plugins.push('contextmenu');
 
         $this.jstree({
 
@@ -111,21 +112,22 @@
                         }
                     }
                 }
-            },
-
-            'ui': {
-                'select_limit': 1,
-                'select_multiple_modifier': 'alt',
-                'selected_parent_close': 'select_parent',
-                'select_prev_on_delete': true
-            },
-            'cookies': {
-                'save_opened': 'PagesOpen',
-                'save_selected': 'PagesSelected'
-            },
-            'dnd': {
-                'open_timeout': 1
             }
+
+//            'ui': {
+//                'select_limit': 1,
+//                'select_multiple_modifier': 'alt',
+//                'selected_parent_close': 'select_parent',
+//                'select_prev_on_delete': true
+//            }
+//            'cookies': {
+//                'save_opened': 'PagesOpen',
+//                'save_selected': 'PagesSelected'
+//            }
+//            'dnd': {
+//                'open_timeout': 1
+//            }
+
 // TODO reimplement
 //            'contextmenu': {
 //                'show_at_node': false,
