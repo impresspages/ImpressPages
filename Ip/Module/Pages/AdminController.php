@@ -216,7 +216,15 @@ class AdminController extends \Ip\Controller
         $destinationPosition = $data['destinationPosition'];
 
 
-        Service::movePage($pageId, $destinationParentId, $destinationPosition);
+        try {
+            Service::movePage($pageId, $destinationParentId, $destinationPosition);
+        } catch (\Ip\CoreException $e) {
+            $answer = array (
+                'status' => 'error',
+                'error' => $e->getMessage()
+            );
+            return new \Ip\Response\Json($answer);
+        }
 
 
         $answer = array (
