@@ -94,7 +94,7 @@
         var plugins = [ 'themes', 'json_data', 'types'];
         plugins.push('ui');
         plugins.push('crrm');
-        //plugins.push('dnd');
+        plugins.push('dnd');
         //plugins.push('contextmenu');
 
         $this.jstree({
@@ -114,7 +114,7 @@
                         }
                     }
                 }
-            }
+            },
 
 //            'ui': {
 //                'select_limit': 1,
@@ -126,9 +126,9 @@
 //                'save_opened': 'PagesOpen',
 //                'save_selected': 'PagesSelected'
 //            }
-//            'dnd': {
-//                'open_timeout': 1
-//            }
+            'dnd': {
+                'open_timeout': 1
+            }
 
 // TODO reimplement
 //            'contextmenu': {
