@@ -22,6 +22,8 @@
                     });
 
                     $.proxy(refresh, $this)(options.zoneName, options.languageId);
+                } else {
+                    $this.jstree('deselect_all');
                 }
 
             });
