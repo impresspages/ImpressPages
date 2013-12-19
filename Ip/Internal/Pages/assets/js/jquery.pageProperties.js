@@ -71,6 +71,15 @@
             }
             e.preventDefault();
         });
+
+        $this.find('.ipsDelete').on('click', function(e) {
+            $this.trigger('delete.ipPages');
+        });
+
+        $this.find('.ipsEdit').on('click', function(e) {
+            $this.trigger('edit.ipPages');
+        });
+
     }
 
 

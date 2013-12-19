@@ -184,6 +184,27 @@ class AdminController extends \Ip\Controller
 
     }
 
+    public function deletePage()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        if (!isset($data['pageId'])) {
+            throw new \Ip\CoreException("Page id is not set");
+        }
+        $pageId = (int)$data['pageId'];
+
+        $pageInfo = Db::pageInfo($pageId);
+        $zoneName = Db::getZoneName($pageInfo['zone_id']);
+
+        Model::deletePage($zoneName, $pageId);
+
+        $answer = array ();
+        $answer['status'] = 'success';
+
+        return new \Ip\Response\Json($answer);
+    }
+
     public function movePage()
     {
         ipRequest()->mustBePost();
