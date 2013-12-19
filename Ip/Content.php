@@ -45,7 +45,7 @@ class Content {
      */
     public function isManagementState(){
         $backendLoggedIn = !empty($_SESSION['backend_session']['userId']);
-        return $backendLoggedIn && \Ip\Module\Content\Service::isManagementMode();
+        return $backendLoggedIn && \Ip\Internal\Content\Service::isManagementMode();
     }
 
 
@@ -212,7 +212,7 @@ class Content {
     private function createZone($zoneData)
     {
         if ($zoneData['associated_module']) {
-            $class = '\\Ip\\Module\\' . $zoneData['associated_module'] . '\\Zone';
+            $class = '\\Ip\\Internal\\' . $zoneData['associated_module'] . '\\Zone';
             if (class_exists($class)) {
                 $zoneObject = new $class($zoneData['name']);
             } else {
@@ -431,8 +431,8 @@ class Content {
         //execute static slot method
         $parts = explode('.', $name, 2);
         if (count($parts) == 2) {
-            if (in_array($parts[0], \Ip\Module\Plugins\Model::getModules())) {
-                $slotClass = 'Ip\\Module\\'.$parts[0].'\\Slot';
+            if (in_array($parts[0], \Ip\Internal\Plugins\Model::getModules())) {
+                $slotClass = 'Ip\\Internal\\'.$parts[0].'\\Slot';
             } else {
                 $slotClass = 'Plugin\\'.$parts[0].'\\Slot';
             }

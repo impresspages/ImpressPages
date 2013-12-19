@@ -375,7 +375,7 @@ function ipHomeUrl()
 
 function ipRenderWidget($widgetName, $data = array(), $look = null)
 {
-    $answer = \Ip\Module\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
+    $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
     echo $answer;
 }
 
@@ -390,7 +390,7 @@ function ipFormatPrice($price, $currency, $languageId = null)
 
 function ipGetThemeOption($name, $default = null)
 {
-    $themeService = \Ip\Module\Design\Service::instance();
+    $themeService = \Ip\Internal\Design\Service::instance();
     return $themeService->getThemeOption($name, $default);
 }
 

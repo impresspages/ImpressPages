@@ -33,7 +33,7 @@ class Configuration{
             $config[$key] = $value;
         }
 
-        \Ip\Module\Install\Model::writeConfigFile($config, $configFile);
+        \Ip\Internal\Install\Model::writeConfigFile($config, $configFile);
     }
 
 

@@ -152,7 +152,7 @@ class Application {
         }
 
         //check if user is logged in
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Module\Admin\Backend::userId()) {
+        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId()) {
             //TODOX check if user has access to given module
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -201,9 +201,9 @@ class Application {
         //init core modules
 
         //TODO hardcode system modules
-        $coreModules = \Ip\Module\Plugins\Model::getModules();
+        $coreModules = \Ip\Internal\Plugins\Model::getModules();
         foreach ($coreModules as $module) {
-            $systemClass = '\\Ip\\Module\\'.$module.'\\System';
+            $systemClass = '\\Ip\\Internal\\'.$module.'\\System';
             if(class_exists($systemClass)) {
                 $system = new $systemClass();
                 if (method_exists($system, 'init')) {
@@ -212,7 +212,7 @@ class Application {
             }
         }
 
-        $plugins = \Ip\Module\Plugins\Model::getActivePlugins();
+        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
             $systemClass = '\\Plugin\\' . $plugin . '\\System';
             if (class_exists($systemClass)) {
@@ -260,7 +260,7 @@ class Application {
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
          By default fake cron is enabled
         */
-        if (!\Ip\Module\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1)) {
+        if (!\Ip\Internal\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1)) {
             $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
             if (!$lastExecution || date('Y-m-d H') != date('Y-m-d H', $lastExecution)) { // Execute Cron once an hour
 

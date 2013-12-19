@@ -26,7 +26,7 @@ class Request
     protected $controllerClass = null;
     protected $controllerType = null;
     protected $defaultControllerAction = 'index';
-    protected $defaultControllerClass = '\\Ip\\Module\\Content\\PublicController';
+    protected $defaultControllerClass = '\\Ip\\Internal\\Content\\PublicController';
 
     const CONTROLLER_TYPE_PUBLIC = 0;
     const CONTROLLER_TYPE_SITE = 1;
@@ -344,8 +344,8 @@ class Request
         }
 
 
-        if (in_array($module, \Ip\Module\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Module\\'.$module.'\\'.$className;
+        if (in_array($module, \Ip\Internal\Plugins\Model::getModules())) {
+            $controllerClass = 'Ip\\Internal\\'.$module.'\\'.$className;
         } else {
             $controllerClass = 'Plugin\\'.$module.'\\'.$className;
         }

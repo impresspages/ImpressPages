@@ -71,7 +71,7 @@ class File extends Field
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             foreach($values[$valueKey]['file'] as $key => $file) {
-                $uploadModel = \Ip\Module\Repository\UploadModel::instance();
+                $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
                         $error = __('Session has ended. Please remove and re-upload files.', 'ipAdmin', false);
@@ -101,7 +101,7 @@ class File extends Field
                     $originalFileName = $values[$valueKey]['originalFileName'][$key];
                 }
 
-                $uploadModel = \Ip\Module\Repository\UploadModel::instance();
+                $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     throw new \Exception("Security risk. Current user doesn't seem to have uploaded this file");
                 }
