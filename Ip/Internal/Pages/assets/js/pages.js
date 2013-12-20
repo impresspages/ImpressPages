@@ -109,6 +109,7 @@ function ipPages($scope, $location) {
 
     $scope.addPageModal = function() {
         var $modal = $('.ipsAddModal');
+        $modal.find('input[name=title]').val('');
         $modal.modal();
 
 
