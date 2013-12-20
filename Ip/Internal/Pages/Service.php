@@ -66,6 +66,15 @@ class Service
         return $rootId;
     }
 
+    public static function copyPage($pageId, $destinationParentId, $destinationPosition)
+    {
+        $pageInfo = Db::pageInfo($pageId);
+        $destinationPageInfo = Db::pageInfo($destinationParentId);
+        $zoneName = Db::getZoneName($pageInfo['zone_id']);
+        $destinationZone = ipContent()->getZone(Db::getZoneName($destinationPageInfo['zone_id']));
+        Model::copyPage($zoneName, $pageId, $destinationZone->getName(), $destinationParentId, $destinationPosition);
+    }
+
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
