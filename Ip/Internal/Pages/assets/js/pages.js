@@ -12,43 +12,54 @@ app.run(function ($rootScope) {
 function ipPages($scope, $location) {
 
     //init
-    $scope.activeLanguage = languageList[0];
-    $scope.activeZone = zoneList[0];
+    $scope.activeLanguage = {id: null};
+    $scope.activeZone = {name: ''};
     $scope.copyPageId = false;
     $scope.cutPageId = false;
     $scope.selectedPageId = null;
     $scope.languages = languageList;
     $scope.zones = zoneList;
-
-
+    $scope.initialized = false;
 
     $scope.$on('PathChanged', function(event, path) {
         var zoneName = getHashParams().zone;
         var languageId = getHashParams().language;
         var pageId = getHashParams().page;
-        var zone = $scope.activeZone;
-        var language = $scope.activeLanguage;
-        $.each(zoneList, function(key, value) {
-            if (value.name == zoneName) {
-                zone = value;
-            }
-        });
 
-        $.each(languageList, function(key, value) {
-            if (value.id == languageId) {
-                language = value;
+        if (!$scope.initialized) {
+            if (languageId == null) {
+                languageId = languageList[0].id;
             }
-        });
-
-        $.each(languageList, function(key, value) {
-            if (value.id == languageId) {
-                language = value;
+            if (zoneName == null) {
+                zoneName = zoneList[0].name;
             }
-        });
 
-        $scope.activateZone(zone);
-        $scope.activateLanguage(language);
-        $scope.activatePage(pageId, zone.name);
+        }
+
+
+        if (languageId && languageId != $scope.activeLanguage.id) {
+            $.each(languageList, function(key, value) {
+                if (value.id == languageId) {
+                    $scope.activateLanguage(value);
+                }
+            });
+        }
+
+
+        if (zoneName && zoneName != $scope.activeZone.name) {
+            $.each(zoneList, function(key, value) {
+                if (value.name == zoneName) {
+                    $scope.activateZone(value);
+                }
+            });
+        };
+
+
+
+        if (pageId && pageId != $scope.selectedPageId) {
+            $scope.activatePage(pageId, $scope.activeZone.name);
+        }
+
     });
 
 
@@ -121,9 +132,7 @@ function ipPages($scope, $location) {
         $scope.copyPageId = $scope.selectedPageId;
     }
 
-    $scope.deletePage = function () {
-        alert('delete');
-    }
+
 
     $scope.pastePage = function () {
         var tree = getJsTree();
