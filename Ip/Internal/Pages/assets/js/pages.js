@@ -145,7 +145,9 @@ function ipPages($scope, $location) {
         if ($scope.cutPageId) {
             movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, true);
         } else {
-            copyPage($scope.selectedPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, true);
+            copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, function () {
+                    refresh();
+            });
         }
 
     }
@@ -267,9 +269,10 @@ function ipPages($scope, $location) {
     }
 
 
-    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, doRefresh) {
+    var copyPage = function(pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, callback) {
         var data = {
             aa: 'Pages.copyPage',
+            pageId: pageId,
             destinationParentId: destinationParentId,
             destinationPosition: destinationPosition,
             languageId: destinationLanguageId,
@@ -282,11 +285,7 @@ function ipPages($scope, $location) {
             url: ip.baseUrl,
             data: data,
             context: this,
-            success: function (response) {
-                if (doRefresh) {
-                    refresh();
-                }
-            },
+            success: callback,
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
                     alert('Server response: ' + response.responseText);

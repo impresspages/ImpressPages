@@ -258,6 +258,59 @@ class AdminController extends \Ip\Controller
 
     }
 
+
+    public function copyPage()
+    {
+            ipRequest()->mustBePost();
+            $data = ipRequest()->getPost();
+
+
+            if (!isset($data['pageId'])) {
+                throw new \Ip\CoreException("Page id is not set");
+            }
+            $pageId = (int)$data['pageId'];
+
+
+            if (!empty($data['destinationParentId'])) {
+                $destinationParentId = $data['destinationParentId'];
+            } else {
+                if (!isset($data['zoneName'])) {
+                    throw new \Ip\CoreException("Missing required parameters");
+                }
+                if (!isset($data['languageId'])) {
+                    throw new \Ip\CoreException("Missing required parameters");
+                }
+                $zone = ipContent()->getZone($data['zoneName']);
+                $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
+            }
+
+
+            if (!isset($data['destinationPosition'])) {
+                throw new \Ip\CoreException("Destination position is not set");
+            }
+            $destinationPosition = $data['destinationPosition'];
+
+
+            try {
+                Service::copyPage($pageId, $destinationParentId, $destinationPosition);
+            } catch (\Ip\CoreException $e) {
+                $answer = array (
+                    'status' => 'error',
+                    'error' => $e->getMessage()
+                );
+                return new \Ip\Response\Json($answer);
+            }
+
+
+            $answer = array (
+                'status' => 'success'
+            );
+
+            return new \Ip\Response\Json($answer);
+
+
+    }
+
     public function getPageUrl()
     {
         $data = ipRequest()->getQuery();
