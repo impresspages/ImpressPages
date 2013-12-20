@@ -21,38 +21,9 @@
         },
         
         
-        refreshPageData : function (pageId, zoneName) {
-            var $this = this;
-            
-            var data = Object();
-            data.aa = 'Content.getPageOptionsHtml';
-            data.securityToken = ip.securityToken;
-            data.pageId = pageId;
-            data.zoneName = zoneName;
 
-            $.ajax({
-                type : 'POST',
-                url : ip.baseUrl,
-                data : data,
-                context : $this,
-                success : methods._refreshPageDataResponse,
-                dataType : 'json'
-            });            
-        },
         
-        _refreshPageDataResponse : function (response) {
-            var $this = this;
-            if (response.status == 'success') {
-                $this.html(response.optionsHtml);
-                $this.tabs();
-            }
 
-            $('.ipaOptionsConfirm').bind('click', methods._confirm);
-            $('.ipaOptionsCancel').bind('click', methods._cancel);
-
-
-        },
-        
         _confirm : function (event) {
             var $this = $(this);
             $this.trigger('pageOptionsConfirm.ipPageOptions');
