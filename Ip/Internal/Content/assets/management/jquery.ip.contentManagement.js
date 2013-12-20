@@ -48,13 +48,11 @@
 
                         $('.ipAdminPanel .ipActionWidgetButton').ipAdminWidgetButton();
 
-                        $('.ipAdminPanel .ipaOptions').bind('click', function(event){event.preventDefault();$(this).trigger('pageOptionsClick.ipContentManagement');});
 
                         $('.ipAdminPanel .ipActionSave').bind('click', function(e){$.proxy(methods.save, $this)(false)});
                         $('.ipAdminPanel .ipActionPublish').bind('click', function(e){$.proxy(methods.save, $this)(true)});
                         $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
 
-                        $this.bind('pageOptionsClick.ipContentManagement', function(event){$(this).ipContentManagement('openPageOptions');});
 
                         $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
                         $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
@@ -96,65 +94,8 @@
             $newError.animate( {opacity: "100%"}, 6000)
             .animate( { queue: true, opacity: "0%" }, { duration: 3000, complete: function(){$(this).remove();}});
         },
-        // *********PAGE OPTIONS***********//
-        
-        openPageOptions : function() {
-            return this.each(function() {
-                var $this = $(this);
-                if ($('.ipaOptionsDialog').length) {
-                    
-                    $this.find('.ipaOptionsDialog').dialog('open');
-                } else {
-                    $('.ipAdminPanel').append('<div class="ipaOptionsDialog" style="display: none;"></div>');
-                    $('.ipaOptionsDialog').dialog({width: 600, height : 450, modal: true});
-                    $('.ipaOptionsDialog').ipPageOptions();
-                    $('.ipaOptionsDialog').ipPageOptions('refreshPageData', ip.pageId, ip.zoneName);
-                }
-                
-            });
-        },
-        
-        _optionsConfirm : function (event){
-            var $this = $(this);
-            var data = $this.data('ipContentManagement');
-            
-            var postData = Object();
-            postData.aa = 'Content.savePageOptions';
-            postData.securityToken = ip.securityToken;
-            postData.pageOptions = $('.ipaOptionsDialog').ipPageOptions('getPageOptions');
-            postData.revisionId = ip.revisionId;
 
-            $.ajax({
-                type : 'POST',
-                url : ip.baseUrl,
-                data : postData,
-                context : $this,
-                success : methods._savePageOptionsResponse,
-                dataType : 'json'
-            });
 
-        },
-        
-        _savePageOptionsResponse : function (response) {
-            $this = this;
-            if (response.status == 'success') {
-                $('.ipaOptionsDialog').remove();
-                if (response.newUrl && response.newUrl != '') {
-                    $('a[href="' + response.oldUrl + '"]').attr('href', response.newUrl);
-                }
-            } else {
-                alert(response.errorMessage);
-            }
-        },
-        
-        
-        _optionsCancel : function (event) {
-            var $this = $(this);
-            $('.ipaOptionsDialog').remove();
-        },
-        // *********END PAGE OPTIONS*************//
-        
-        
         // *********SAVE**********//
         
 

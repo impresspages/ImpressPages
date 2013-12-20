@@ -84,60 +84,6 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getPageOptionsHtml()
-    {
-        if (!isset($_REQUEST['pageId'])) {
-            return $this->_errorAnswer('Page id is not set');
-        }
-
-        $pageId = (int)$_REQUEST['pageId'];
-
-        if (!isset($_REQUEST['zoneName'])) {
-            return $this->_errorAnswer('Zone name is not set');
-        }
-
-        $zone = ipContent()->getZone($_REQUEST['zoneName']);
-
-        if (!($zone)) {
-            return $this->_errorAnswer('Can\'t find zone');
-        }
-
-        $element = $zone->getPage($pageId);
-
-        if (!$element) {
-            return $this->_errorAnswer('Page does not exist');
-        }
-
-        $data = array(
-            'element' => $element
-        );
-
-        $tabs = array();
-        $title = __('General', 'ipAdmin');
-        $content = \Ip\View::create('view/page_options_general.php', $data)->render();
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $title = __('SEO', 'ipAdmin');
-        $content = \Ip\View::create('view/page_options_seo.php', $data)->render();
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $title = __('Advanced', 'ipAdmin');
-        $content = \Ip\View::create('view/page_options_advanced.php', $data)->render();
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $title = __('Design', 'ipAdmin');
-        $content = $this->_getPageDesignOptionsHtml($zone, $element, array('show_confirm_notification' => true));
-        $tabs[] = array('title' => $title, 'content' => $content);
-
-        $optionsHtml = \Ip\View::create('view/page_options.php', array('tabs' => $tabs))->render();
-        $answer = array(
-            'status' => 'success',
-            'optionsHtml' => $optionsHtml
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
-
     /**
      * @param $zone
      * @param $page
