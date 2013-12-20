@@ -1,5 +1,17 @@
-function ipPages($scope) {
-    //languages
+var app = angular.module('Pages', []);
+app.run(function ($rootScope) {
+    $rootScope.$on('$locationChangeSuccess', function (e, newUrl, oldUrl) {
+        $rootScope.$broadcast('PathChanged', newUrl);
+    });
+});
+
+
+
+
+
+function ipPages($scope, $location) {
+
+    //init
     $scope.activeLanguage = languageList[0];
     $scope.activeZone = zoneList[0];
     $scope.copyPageId = false;
@@ -8,15 +20,80 @@ function ipPages($scope) {
     $scope.languages = languageList;
     $scope.zones = zoneList;
 
+
+
+    $scope.$on('PathChanged', function(event, path) {
+        var zoneName = getHashParams().zone;
+        var languageId = getHashParams().language;
+        var pageId = getHashParams().page;
+        var zone = $scope.activeZone;
+        var language = $scope.activeLanguage;
+        $.each(zoneList, function(key, value) {
+            if (value.name == zoneName) {
+                zone = value;
+            }
+        });
+
+        $.each(languageList, function(key, value) {
+            if (value.id == languageId) {
+                language = value;
+            }
+        });
+
+        $.each(languageList, function(key, value) {
+            if (value.id == languageId) {
+                language = value;
+            }
+        });
+
+        $scope.activateZone(zone);
+        $scope.activateLanguage(language);
+        $scope.activatePage(pageId, zone.name);
+    });
+
+
+
+    $scope.setZoneHash = function(zone) {
+        updateHash(null, zone.name, false);
+    }
+
+    $scope.setLanguageHash = function(language) {
+        updateHash(language.id, null, false);
+    }
+
+
     $scope.activateLanguage = function(language) {
         $scope.activeLanguage = language;
         initTree();
+        //updateHash();
     }
 
     $scope.activateZone = function(zone) {
         $scope.activeZone = zone;
         $scope.selectedPageId = null;
         initTree();
+        //updateHash();
+    }
+
+    $scope.activatePage = function (pageId, zoneName) {
+        $scope.selectedPageId = pageId;
+        var $properties = $('.ipsProperties');
+        $properties.ipPageProperties({
+            pageId : pageId,
+            zoneName : zoneName
+        });
+        $properties.off('update.ipPages').on('update.ipPages', function() {
+            getJsTree().set_text(getJsTree().get_selected() , $properties.find('input[name=navigationTitle]').val());
+        });
+        $properties.off('delete.ipPages').on('delete.ipPages', function() {
+            deletePage($scope.selectedPageId, function(){
+                getJsTree().remove(getJsTree().get_selected());
+            });
+        });
+        $properties.off('edit.ipPages').on('edit.ipPages', function() {
+            editPage($scope.selectedPageId);
+        });
+
     }
 
     $scope.addPageModal = function() {
@@ -68,26 +145,8 @@ function ipPages($scope) {
         getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
         getTreeDiv().off('select_node.jstree').on('select_node.jstree', function(e) {
             var node = getJsTree().get_selected();
-            var $properties = $('.ipsProperties');
-            $scope.selectedPageId = node.attr('pageId');
+            updateHash(null, null, node.attr('pageId'));
             $scope.$apply();
-
-            $properties.ipPageProperties({
-                pageId : node.attr('pageId'),
-                zoneName : node.attr('zoneName')
-            });
-            $properties.off('update.ipPages').on('update.ipPages', function() {
-                getJsTree().set_text(getJsTree().get_selected() , $properties.find('input[name=navigationTitle]').val());
-            });
-            $properties.off('delete.ipPages').on('delete.ipPages', function() {
-                deletePage($scope.selectedPageId, function(){
-                    getJsTree().remove(getJsTree().get_selected());
-                });
-            });
-            $properties.off('edit.ipPages').on('edit.ipPages', function() {
-                editPage($scope.selectedPageId);
-            });
-
         });
 
         getTreeDiv().off('move_node.jstree').on('move_node.jstree', function(e, moveData) {
@@ -105,6 +164,9 @@ function ipPages($scope) {
 
 
     }
+
+
+
 
     var getTreeDiv = function () {
         return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name).find('.ipsTree');
@@ -254,12 +316,39 @@ function ipPages($scope) {
         });
     }
 
+    var updateHash = function (languageId, zoneName, pageId) {
+        if (languageId === null) {
+            languageId = $scope.activeLanguage.id;
+        }
+        if (zoneName === null) {
+            zoneName = $scope.activeZone.name
+        }
+        if (pageId === null) {
+            pageId = $scope.selectedPageId;
+        }
+        var path = 'language=' + languageId + '&zone=' + zoneName;
+        if (pageId) {
+            path = path + '&page=' + pageId;
+        }
+        $location.path(path);
+    }
 
+    function getHashParams() {
+
+        var hashParams = {};
+        var e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&;=]+)=?([^&;]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.hash.substring(1);
+
+        while (e = r.exec(q))
+            hashParams[d(e[1])] = d(e[2]);
+
+        return hashParams;
+    }
 
 }
 
 
 
-$( document ).ready(function() {
-    $('.zoneList li:first a').click();
-});

@@ -1,15 +1,15 @@
-<div class="ip" ng-app ng-controller="ipPages" ng-cloak>
+<div class="ip" ng-app="Pages" ng-controller="ipPages" ng-cloak>
     <div class="languageList navBlock">
         <ul>
             <li ng-repeat="language in languages">
-                <a href="#" ng-click="activateLanguage(language)">{{language.abbreviation}}</a>
+                <a ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
             </li>
         </ul>
     </div>
     <div class="zoneList navBlock">
         <ul>
             <li ng-repeat="zone in zones">
-                <a class="title" href="#" ng-click="activateZone(zone)">{{zone.title}}</a>
+                <a class="title" ng-click="setZoneHash(zone)">{{zone.title}}</a>
             </li>
         </ul>
     </div>
