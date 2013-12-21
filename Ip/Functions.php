@@ -372,7 +372,7 @@ function ipHtmlAttributes($doctype = null)
             $answer = ' lang="'.$lang.'"';
             break;
     }
-    echo $answer;
+    return  $answer;
 
 }
 
