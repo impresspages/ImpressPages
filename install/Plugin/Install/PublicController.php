@@ -262,8 +262,7 @@ class PublicController extends \Ip\Controller
         $_SESSION['db'] = $dbConfig;
 
         if ($errors) {
-            // TODOX show SQL queries that failed
-            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries.', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'ipInstall', false));
         } else {
             \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
             OptionHelper::import(__DIR__ . '/options.json');
