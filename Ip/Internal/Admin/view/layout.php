@@ -22,6 +22,6 @@
     <div class="ip">
         <?php echo ipBlock('main'); ?>
     </div>
-<?php ipPrintJavascript() ?>
+<?php echo ipJavascript() ?>
 </body>
 </html>

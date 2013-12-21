@@ -18,7 +18,7 @@
     </div>
     <?php
         ipAddJs(ipThemeUrl('theme.js'));
-        ipPrintJavascript();
+        echo ipJavascript();
     ?>
 </body>
 </html>

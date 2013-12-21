@@ -13,9 +13,7 @@
     </div>
 </footer>
 </div>
-<?php
-    ipPrintJavascript();
-?>
+<?php echo ipJavascript(); ?>
 
 </body>
 </html>

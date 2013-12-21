@@ -41,6 +41,6 @@
         <script type="text/javascript" src="<?php echo $jsFile ?>"></script>
     <?php } ?>
 <?php } ?>
-    <?php ipPrintJavascript() ?>
+    <?php echo ipJavascript() ?>
 
 </body>
