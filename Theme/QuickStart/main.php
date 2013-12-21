@@ -4,7 +4,7 @@
     <?php
     ipAddCss(ipThemeUrl('ipContent.css'));
     ipAddCss(ipThemeUrl('theme.css'));
-    ipPrintHead();
+    echo ipHead();
     ?>
 </head>
 <body>
@@ -18,7 +18,7 @@
     </div>
     <?php
         ipAddJs(ipThemeUrl('theme.js'));
-        echo ipJavascript();
+        echo ipJs();
     ?>
 </body>
 </html>

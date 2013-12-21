@@ -3,13 +3,13 @@
 <head>
     <?php
     ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/css/ipContent/ipContent.css'));
-    ipPrintHead();
+    echo ipHead();
     ?>
 </head>
 <body>
 <div class="content">
     <?php echo ipBlock('main'); ?>
 </div>
-<?php echo ipJavascript(); ?>
+<?php echo ipJs(); ?>
 </body>
 </html>

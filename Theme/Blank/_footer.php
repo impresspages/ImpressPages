@@ -13,7 +13,7 @@
     </div>
 </footer>
 </div>
-<?php echo ipJavascript(); ?>
+<?php echo ipJs(); ?>
 
 </body>
 </html>
