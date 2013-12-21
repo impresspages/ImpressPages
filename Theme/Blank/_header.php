@@ -29,6 +29,6 @@
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo ipSlot('Search'); //TODOX review ?>
+            <?php echo ipSlot('Search'); ?>
         </div>
     </header>
