@@ -134,11 +134,6 @@ class Service
 
 
 
-    public static function removePage($pageId)
-    {
-
-    }
-
 
     private static function _errorAnswer($errorMessage)
     {
