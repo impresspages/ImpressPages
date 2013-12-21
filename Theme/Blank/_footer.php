@@ -14,8 +14,6 @@
 </footer>
 </div>
 <?php
-    //TODOX incompatible with new jquery ipAddThemeAsset('colorbox/jquery.colorbox.js');
-    //ipAddThemeAsset('site.js');
     ipPrintJavascript();
 ?>
 
