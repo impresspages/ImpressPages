@@ -42,7 +42,7 @@ class System {
         if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/admin.css'));
 
-            ipAddJavascript(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
 
             ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }

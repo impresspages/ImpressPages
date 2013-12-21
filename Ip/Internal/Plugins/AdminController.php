@@ -45,7 +45,7 @@ class AdminController extends \Ip\Controller{
 
         $view = \Ip\View::create('view/admin/index.php', $data);
 
-        ipAddJavascript(ipFileUrl('Ip/Internal/Plugins/assets/admin.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Plugins/assets/admin.js'));
 
         return $view->render();
     }

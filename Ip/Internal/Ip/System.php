@@ -13,17 +13,17 @@ class System
     {
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 0);
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 0);
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 0);
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 0);
 
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
 
 
 
             //Form init
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
 
             $validatorTranslations = array(
                 'ipAdmin' => $this->validatorLocalizationData('ipAdmin'),

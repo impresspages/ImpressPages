@@ -32,13 +32,13 @@ class AdminController extends \Ip\Controller{
 
         $content = \Ip\View::create('view/index.php', $data)->render();
 
-        ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/default.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/default.js'));
         ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/backend/ip_admin.css'));
 
         if ($enableUpdate){
-            ipAddJavascript(ipFileUrl('Ip/Internal/System/assets/update.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/System/assets/update.js'));
         }
-        ipAddJavascript(ipFileUrl('Ip/Internal/System/assets/clearCache.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/System/assets/clearCache.js'));
 
         return $content;
     }

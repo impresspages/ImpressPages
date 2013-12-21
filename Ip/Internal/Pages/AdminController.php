@@ -15,13 +15,13 @@ class AdminController extends \Ip\Controller
 
     public function init()
     {
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/js/angular.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/js/pages.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageTree.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageProperties.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.jstree.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.cookie.js'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/angular.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/pages.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageTree.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageProperties.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.jstree.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.cookie.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js'));
 
         ipAddCss(ipFileUrl('Ip/Internal/Pages/assets/pages.css'));
 

@@ -30,7 +30,7 @@ class System
             __NAMESPACE__ . '\System::collectFieldTypes'
         );
 
-        ipAddJavascript(ipFileUrl('Ip/Internal/Content/assets/widgets.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Content/assets/widgets.js'));
 
         $ipUrlOverrides = ipConfig()->getRaw('URL_OVERRIDES');
         if (!$ipUrlOverrides) {
@@ -178,7 +178,7 @@ class System
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js') {
-                    ipAddJavascript(ipFileUrl($resourcesFolder . '/' . $file));
+                    ipAddJs(ipFileUrl($resourcesFolder . '/' . $file));
                 }
                 if (strtolower(substr($file, -4)) == '.css') {
                     ipAddCss(ipFileUrl($resourcesFolder . '/' . $file));
