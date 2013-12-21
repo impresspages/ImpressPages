@@ -11,7 +11,7 @@
 
     <?php ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css')); ?>
     <?php ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css')); ?>
-    <?php ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js')); ?>
+    <?php ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js')); ?>
 
     <?php ipPrintHead() ?>
     <!--[if lt IE 9]>

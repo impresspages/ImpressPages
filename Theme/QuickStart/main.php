@@ -17,7 +17,7 @@
         <?php echo ipBlock('main')->render(); ?>
     </div>
     <?php
-        ipAddJavascript(ipThemeUrl('theme.js'));
+        ipAddJs(ipThemeUrl('theme.js'));
         ipPrintJavascript();
     ?>
 </body>

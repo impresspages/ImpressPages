@@ -13,15 +13,15 @@ class System{
     public function init(){
 
         if (\Ip\ServiceLocator::content()->isManagementState()) {
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepository.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepository.js'));
             ipAddCss(ipFileUrl('Ip/Internal/Repository/assets/admin/repository.css'));
             ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryUploader.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryAll.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryBuy.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/System/assets/market.js'));
-            ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryUploader.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryAll.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Repository/assets/admin/ipRepositoryBuy.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/System/assets/market.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js'));
 
             if (defined('TEST_MARKET_URL')) {
                 $marketUrl = TEST_MARKET_URL.'images-v1/';

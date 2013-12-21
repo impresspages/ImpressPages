@@ -43,17 +43,17 @@ class System{
 
     protected function initConfig()
     {
-        ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css'));
-        ipAddJavascript(ipFileUrl('Ip/Internal/Design/assets/optionsBox.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Design/assets/optionsBox.js'));
         ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         ipAddCss(ipFileUrl('Ip/Internal/Design/assets/optionsBox.css'));
         if (file_exists(ipThemeFile(Model::INSTALL_DIR.'Options.js'))) {
-            ipAddJavascript(ipThemeUrl(Model::INSTALL_DIR . 'Options.js'));
+            ipAddJs(ipThemeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(ipThemeFile(Model::INSTALL_DIR.'options.js'))) {
-            ipAddJavascript(ipThemeUrl(Model::INSTALL_DIR . 'options.js'));
+            ipAddJs(ipThemeUrl(Model::INSTALL_DIR . 'options.js'));
         }
 
         $model = Model::instance();
