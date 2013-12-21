@@ -87,9 +87,7 @@ function ipAddJs($file, $stage = 1)
 
 
 
-
-//TODOX rename to ipAddJsVariable
-function ipAddJavascriptVariable($name, $value)
+function ipAddJsVariable($name, $value)
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addJavascriptVariable')) {

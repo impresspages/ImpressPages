@@ -48,7 +48,7 @@ class System{
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css'));
         ipAddJs(ipFileUrl('Ip/Internal/Design/assets/optionsBox.js'));
-        ipAddJavascriptVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
+        ipAddJsVariable('ipModuleDesignConfiguration', $this->getConfigurationBoxHtml());
         ipAddCss(ipFileUrl('Ip/Internal/Design/assets/optionsBox.css'));
         if (file_exists(ipThemeFile(Model::INSTALL_DIR.'Options.js'))) {
             ipAddJs(ipThemeUrl(Model::INSTALL_DIR . 'Options.js'));
@@ -71,7 +71,7 @@ class System{
             }
             $fieldNames[] = $option['name'];
         }
-        ipAddJavascriptVariable('ipModuleDesignOptionNames', $fieldNames);
+        ipAddJsVariable('ipModuleDesignOptionNames', $fieldNames);
     }
 
     protected function getConfigurationBoxHtml()

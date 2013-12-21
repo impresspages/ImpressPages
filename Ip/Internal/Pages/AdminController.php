@@ -25,8 +25,8 @@ class AdminController extends \Ip\Controller
 
         ipAddCss(ipFileUrl('Ip/Internal/Pages/assets/pages.css'));
 
-        ipAddJavascriptVariable('languageList', Helper::languageList());
-        ipAddJavascriptVariable('zoneList', Helper::zoneList());
+        ipAddJsVariable('languageList', Helper::languageList());
+        ipAddJsVariable('zoneList', Helper::zoneList());
     }
 
     public function index()
