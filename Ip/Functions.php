@@ -115,16 +115,16 @@ function ipLog()
     return \Ip\ServiceLocator::log();
 }
 
-//TODOX remove "print"
-function ipJavascript()
+
+function ipJs()
 {
-    echo \Ip\ServiceLocator::response()->generateJavascript();
+    return \Ip\ServiceLocator::response()->generateJavascript();
 }
 
 //TODOX remove "print"
-function ipPrintHead()
+function ipHead()
 {
-    echo \Ip\ServiceLocator::response()->generateHead();
+    return \Ip\ServiceLocator::response()->generateHead();
 }
 
 function ipSetLayout($file)

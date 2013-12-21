@@ -13,7 +13,7 @@
     <?php ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css')); ?>
     <?php ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js')); ?>
 
-    <?php ipPrintHead() ?>
+    <?php echo ipHead() ?>
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -22,6 +22,6 @@
     <div class="ip">
         <?php echo ipBlock('main'); ?>
     </div>
-<?php echo ipJavascript() ?>
+<?php echo ipJs() ?>
 </body>
 </html>

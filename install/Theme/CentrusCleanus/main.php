@@ -6,7 +6,7 @@
     <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
     <link rel="stylesheet" href="<?php echo ipFileUrl('Plugin/Install/assets/style.css') ?>">
     <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico') ?>">
-    <?php echo ipPrintHead() ?>
+    <?php echo ipHead() ?>
 </head>
 <body>
 
@@ -41,6 +41,6 @@
         <script type="text/javascript" src="<?php echo $jsFile ?>"></script>
     <?php } ?>
 <?php } ?>
-    <?php echo ipJavascript() ?>
+    <?php echo ipJs() ?>
 
 </body>
