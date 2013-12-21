@@ -328,7 +328,7 @@ function ipHomeUrl()
 function ipRenderWidget($widgetName, $data = array(), $look = null)
 {
     $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
-    echo $answer;
+    return $answer;
 }
 
 function ipFormatPrice($price, $currency, $languageId = null)
@@ -337,7 +337,7 @@ function ipFormatPrice($price, $currency, $languageId = null)
         $languageId = ipContent()->getCurrentLanguage()->getId();
     }
     $helper = \Ip\Ecommerce\Helper::instance();
-    echo $helper->formatPrice($price, $currency, $languageId);
+    return $helper->formatPrice($price, $currency, $languageId);
 }
 
 function ipGetThemeOption($name, $default = null)
