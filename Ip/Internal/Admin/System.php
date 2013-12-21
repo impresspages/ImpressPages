@@ -23,7 +23,7 @@ class System {
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
             }
-            ipAddJavascriptVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
         $getVariables = ipRequest()->getRequest();
@@ -44,7 +44,7 @@ class System {
 
             ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
 
-            ipAddJavascriptVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
+            ipAddJsVariable('ipAdminToolbar', $this->getAdminToolbarHtml());
         }
 
     }

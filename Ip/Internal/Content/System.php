@@ -37,7 +37,7 @@ class System
             $ipUrlOverrides = array();
         }
 
-        ipAddJavascriptVariable('ipUrlOverrides', $ipUrlOverrides);
+        ipAddJsVariable('ipUrlOverrides', $ipUrlOverrides);
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
     }

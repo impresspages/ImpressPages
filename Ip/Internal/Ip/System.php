@@ -29,7 +29,7 @@ class System
                 'ipAdmin' => $this->validatorLocalizationData('ipAdmin'),
                 ipContent()->getCurrentLanguage()->getCode() => $this->validatorLocalizationData('ipPublic')
             );
-            ipAddJavascriptVariable('ipValidatorTranslations', $validatorTranslations);
+            ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
         }
 
     }

@@ -31,7 +31,7 @@ class PublicController extends \Ip\Controller
         } else {
             if (\Ip\Internal\Admin\Backend::userId()) {
                 //user has access to the backend
-                ipAddJavascriptVariable('ipContentShowEditButton', 1);
+                ipAddJsVariable('ipContentShowEditButton', 1);
             }
         }
 
@@ -60,7 +60,7 @@ class PublicController extends \Ip\Controller
         foreach ($widgets as $widget) {
             $snippets = array_merge($snippets, $widget->adminSnippets());
         }
-        ipAddJavascriptVariable('ipWidgetSnippets', $snippets);
+        ipAddJsVariable('ipWidgetSnippets', $snippets);
 
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/tinymce/pastePreprocess.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/tinymce/default.js'));
@@ -70,7 +70,7 @@ class PublicController extends \Ip\Controller
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
 
 
-        ipAddJavascriptVariable('ipContentInit', Model::initManagementData());
+        ipAddJsVariable('ipContentInit', Model::initManagementData());
 
         if (ipConfig()->isDebugMode()) {
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagement.js'));
@@ -122,11 +122,11 @@ class PublicController extends \Ip\Controller
         ipAddJs(ipFileUrl('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js'));
 
         ipAddCss(ipFileUrl('Ip/Internal/Content/assets/widgets.css'));
-        ipAddJavascriptVariable('isMobile', \Ip\Internal\Browser::isMobile());
+        ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 
         if (ipIsManagementState()) {
-            ipAddJavascriptVariable(
+            ipAddJsVariable(
                 'ipWidgetLayoutModalTemplate',
                 \Ip\View::create('view/widgetLayoutModal.php')->render()
             );
