@@ -1,4 +1,4 @@
-<?php ipDoctypeDeclaration(); ?>
+<?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <?php

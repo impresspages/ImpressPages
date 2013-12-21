@@ -409,7 +409,7 @@ function ipDoctypeDeclaration($doctype = null)
         default:
             throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
     }
-    echo $answer;
+    return $answer;
 }
 
 function ipTable($table, $as = null)
