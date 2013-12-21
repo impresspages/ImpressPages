@@ -76,7 +76,7 @@ class Table extends \Ip\Grid1\Model
 
     protected function getTableFields($tableName)
     {
-        $sql = "SHOW COLUMNS FROM `" . str_replace("`", "", $tableName) . "`";
+        $sql = "SHOW COLUMNS FROM " . $this->tableName($tableName) . "";
 
         $fields = ipDb()->fetchColumn($sql);
 
@@ -93,8 +93,7 @@ class Table extends \Ip\Grid1\Model
 
     protected function recordCount()
     {
-        $table = str_replace("`", "", $this->config['table']);
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM `$table`");
+        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->tableName($this->config['table']) . "");
     }
 
     protected function fetch($from, $count)
@@ -103,7 +102,7 @@ class Table extends \Ip\Grid1\Model
         SELECT
           *
         FROM
-          `" . str_replace("`", "", $this->config['table']) . "`
+          " . $this->tableName($this->config['table']) . "
         WHERE
           1
         ORDER BY
@@ -226,6 +225,11 @@ class Table extends \Ip\Grid1\Model
             $this->commandSetHtml($html)
         );
         return $commands;
+    }
+
+    protected function tableName($tableName)
+    {
+        return ipTable(str_replace("`", "", $tableName));
     }
 
 }
