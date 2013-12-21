@@ -1,5 +1,5 @@
 <?php ipDoctypeDeclaration(); ?>
-<html<?php ipHtmlAttributes(); ?>>
+<html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <?php
     ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/css/ipContent/ipContent.css'));
