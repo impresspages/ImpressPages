@@ -227,7 +227,7 @@ class Table extends \Ip\Grid\Model
             'pages' => $pages,
         );
 
-        $html = \Ip\View::create('../view/table.php', $variables)->render();
+        $html = \Ip\View::create('../view/layout.php', $variables)->render();
         $commands = array(
             $this->commandSetHtml($html)
         );
