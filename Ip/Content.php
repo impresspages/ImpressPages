@@ -266,9 +266,16 @@ class Content {
         $languages = $this->getLanguages();
 
         //check if admin
-        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (!ipRequest()->isDefaultAction()) {
             //admin pages don't have zones
-            $this->currentLanguage = $languages[0];
+            if (!empty($_SESSION['ipLastLanguageId'])) {
+                $this->currentLanguage = $this->getLanguage($_SESSION['ipLastLanguageId']);
+                if (!$this->currentLanguage) {
+                    $this->currentLanguage = $languages[0];
+                }
+            } else {
+                $this->currentLanguage = $languages[0];
+            }
             $this->languageUrl = $this->currentLanguage->getUrl();
             $this->currentZoneName = false;
             return;
@@ -305,6 +312,8 @@ class Content {
             $this->currentLanguage = $languages[0];
             $this->languageUrl = $this->currentLanguage->getUrl();
         }
+        $_SESSION['ipLastLanguageId'] = $this->currentLanguage->getId();
+
         //find zone
         $zonesData = $this->getZonesData();
         if (count($urlVars)) {

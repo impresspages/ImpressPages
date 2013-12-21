@@ -244,18 +244,10 @@ class Request
     protected function isWebsiteRoot()
     {
         $relativePath = ipRequest()->getRelativePath();
-        if (ipGetOption('Config.multilingual')) {
-            $urlParts = explode('/', $relativePath);
-            if (!empty($urlParts[1])) {
-                return false;
-            }
+        if (empty($relativePath[0]) || $relativePath[0] == '?') {
             return true;
         } else {
-            if (empty($relativePath[0]) || $relativePath[0] == '?') {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 

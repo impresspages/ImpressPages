@@ -228,13 +228,13 @@
             data.pageId = $this.data('ipBlock').pageId;
             data.revisionId = $this.data('ipBlock').revisionId;
 
-            $.ajax( {
-            type : 'POST',
-            url : ip.languageUrl,
-            data : data,
-            context : $this,
-            success : methods._createWidgetResponse,
-            dataType : 'json'
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: $this,
+                success: methods._createWidgetResponse,
+                dataType: 'json'
             });
 
         });

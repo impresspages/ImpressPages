@@ -124,7 +124,7 @@ class Application {
         }
         ipDispatcher()->notify('site.afterInit');
 
-        //check for CSRF attach
+        //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
