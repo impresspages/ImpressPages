@@ -3,10 +3,10 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid1\Model\Field;
+namespace Ip\Grid\Model\Field;
 
 
-class Text extends \Ip\Grid1\Model\Field
+class Text extends \Ip\Grid\Model\Field
 {
     protected $field = '';
 
