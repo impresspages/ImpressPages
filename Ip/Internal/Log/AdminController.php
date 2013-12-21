@@ -13,7 +13,7 @@ class AdminController extends \Ip\Grid1\Controller
     {
         return array(
             'type' => 'table',
-            'table' => DB_PREF . 'log',
+            'table' => 'log',
             'fields' => array(
                 array(
                     'label' => __('Time', 'ipAdmin', false),

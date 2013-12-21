@@ -14,7 +14,7 @@ class AdminController extends \Ip\Grid1\Controller
     {
         return array (
             'type' => 'table',
-            'table' => DB_PREF . 'm_administrator_email_queue'
+            'table' => 'm_administrator_email_queue'
         );
     }
 
