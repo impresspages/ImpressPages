@@ -158,6 +158,28 @@ class Table extends \Ip\Grid\Model
         return $labels;
     }
 
+    protected function getActions()
+    {
+        $actions = array();
+        if (empty($this->config['disableInsert'])) {
+            $actions[] = array(
+                'title' => __('Add', 'ipAdmin', false),
+                'data' => array(
+
+                )
+            );
+        }
+        if (empty($this->config['disableSearch'])) {
+            $actions[] = array(
+                'title' => __('Search', 'ipAdmin', false),
+                'data' => array(
+
+                )
+            );
+        }
+        return $actions;
+    }
+
 
     protected function refresh($params)
     {
@@ -225,6 +247,7 @@ class Table extends \Ip\Grid\Model
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
             'pages' => $pages,
+            'actions' => $this->getActions()
         );
 
         $html = \Ip\View::create('../view/layout.php', $variables)->render();

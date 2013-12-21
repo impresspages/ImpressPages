@@ -14,6 +14,7 @@ class AdminController extends \Ip\Grid\Controller
         return array(
             'type' => 'table',
             'table' => 'log',
+            'disableInsert' => true,
             'fields' => array(
                 array(
                     'label' => __('Time', 'ipAdmin', false),
