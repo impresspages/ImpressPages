@@ -17,18 +17,18 @@
 <body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
-        <?php ipSlot('Ip.logo') ?>
+        <?php echo ipSlot('Ip.logo') ?>
         <div class="right">
             <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getNavigationTitle()) ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
-                <?php ipSlot('Ip.menu', 'menu1'); ?>
+                <?php echo ipSlot('Ip.menu', 'menu1'); ?>
                 <div class="languages">
-                    <?php ipSlot('Ip.languages'); ?>
+                    <?php echo ipSlot('Ip.languages'); ?>
                 </div>
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php ipSlot('Search'); //TODOX review ?>
+            <?php echo ipSlot('Search'); //TODOX review ?>
         </div>
     </header>

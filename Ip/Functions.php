@@ -121,7 +121,7 @@ function ipJs()
     return \Ip\ServiceLocator::response()->generateJavascript();
 }
 
-//TODOX remove "print"
+
 function ipHead()
 {
     return \Ip\ServiceLocator::response()->generateHead();
@@ -171,7 +171,7 @@ function ipBlock($block)
  */
 function ipSlot($slot, $params = array())
 {
-    echo \Ip\ServiceLocator::content()->generateSlot($slot, $params);
+    return \Ip\ServiceLocator::content()->generateSlot($slot, $params);
 }
 
 
