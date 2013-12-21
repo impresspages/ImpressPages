@@ -4,7 +4,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php ipDoctypeDeclaration(); ?>
+<?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
