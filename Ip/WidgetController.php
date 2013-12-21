@@ -21,12 +21,6 @@ class WidgetController
     var $core;
     const LOOK_DIR = 'look';
 
-    //TODOX
-    const MANAGEMENT_DIR = 'admin';
-
-    //TODOX
-    const SNIPPET_VIEW = 'snippet.php';
-
     private $widgetDir;
     private $widgetAssetsDir;
 
