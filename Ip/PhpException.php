@@ -4,7 +4,6 @@
  */
 
 namespace Ip;
-//TODOX do we still want to throw exceptions instead of warnings?
 
 
 /**

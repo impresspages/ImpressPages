@@ -44,9 +44,8 @@ class Application {
 
     public function prepareEnvironment($options = array())
     {
-        //TODOX decide if separate option for error setting in config is needed
         if (empty($options['skipErrorHandler'])) {
-            require_once ipFile('Ip/Internal/Deprecated/error_handler.php');
+            set_error_handler(array('Ip\Internal\ErrorHandler', 'ipErrorHandler'));
         }
 
         if (empty($options['skipError'])) {
