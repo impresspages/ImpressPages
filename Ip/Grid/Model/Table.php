@@ -122,6 +122,10 @@ class Table extends \Ip\Grid\Model
         foreach ($data as $row) {
             $preparedRow = array();
             foreach ($this->getFieldObjects() as $key => $field) {
+                if (isset($this->config['fields'][$key]['showInList']) && !$this->config['fields'][$key]['showInList']) {
+                    continue;
+                }
+
                 $preview = $field->preview($row);
                 if (!empty($this->config['fields'][$key]['filter'])) {
                     $filters = $this->config['fields'][$key]['filter'];
@@ -146,6 +150,9 @@ class Table extends \Ip\Grid\Model
     {
         $labels = array();
         foreach ($this->config['fields'] as $field) {
+            if (isset($field['showInList']) && !$field['showInList']) {
+                continue;
+            }
             $labels[] = $field['label'];
         }
         return $labels;
