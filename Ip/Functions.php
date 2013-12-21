@@ -116,7 +116,7 @@ function ipLog()
 }
 
 //TODOX remove "print"
-function ipPrintJavascript()
+function ipJavascript()
 {
     echo \Ip\ServiceLocator::response()->generateJavascript();
 }

@@ -22,6 +22,6 @@
 </div>
 <div class="loginFooter">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org/">ImpressPages UAB</a></div>
 
-<?php ipPrintJavascript() ?>
+<?php echo ipJavascript() ?>
 </body>
 </html>
