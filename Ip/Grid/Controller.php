@@ -3,7 +3,7 @@
  * @package        ImpressPages
  */
 
-namespace Ip\Grid1;
+namespace Ip\Grid;
 
 abstract class Controller extends \Ip\Controller
 {

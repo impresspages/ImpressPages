@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid1\Model;
+namespace Ip\Grid\Model;
 
 
 abstract class Field

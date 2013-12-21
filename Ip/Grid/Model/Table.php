@@ -3,10 +3,10 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid1\Model;
+namespace Ip\Grid\Model;
 
 
-class Table extends \Ip\Grid1\Model
+class Table extends \Ip\Grid\Model
 {
 
     protected $config = null;
@@ -32,7 +32,7 @@ class Table extends \Ip\Grid1\Model
     }
 
     /**
-     * @return \Ip\Grid1\Model\Field[]
+     * @return \Ip\Grid\Model\Field[]
      */
     protected function getFieldObjects()
     {
@@ -40,7 +40,7 @@ class Table extends \Ip\Grid1\Model
             $collection = array();
             foreach ($this->config['fields'] as $field) {
                 if ($field['type']) {
-                    $class = '\Ip\Grid1\Model\Field\\' . $field['type'];
+                    $class = '\Ip\Grid\Model\Field\\' . $field['type'];
                     if (!class_exists($class)) {
                         $class = $field['type']; //type is full class name
                     }
