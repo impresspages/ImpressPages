@@ -22,7 +22,7 @@ require_once(__DIR__ . '/../Ip/Application.php');
         'translationsLanguageCode' => 'en'
     );
     $request = new \Plugin\Install\Request();
-    $request->setGet($_GET);
+    $request->setQuery($_GET);
     $request->setPost($_POST);
     $request->setServer($_SERVER);
     $request->setRequest($_REQUEST);

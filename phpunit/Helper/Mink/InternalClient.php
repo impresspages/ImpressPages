@@ -31,7 +31,7 @@ class InternalClient extends BaseClient
         $ipRequest->setServer($server);
 
         if ($request->getMethod() == 'GET') {
-            $ipRequest->setGet($request->getParameters());
+            $ipRequest->setQuery($request->getParameters());
         } elseif ($request->getMethod() == 'POST') {
             $ipRequest->setPost($request->getParameters());
         }

@@ -14,7 +14,7 @@ class RequestTest extends \PhpUnit\GeneralTestCase
         \Ip\ServiceLocator::addRequest(new \Ip\Request());
 
         $request = new \Ip\Request();
-        $request->setGet(array(
+        $request->setQuery(array(
             'rise' => 'and shine',
             'look' => 'and smile',
         ));

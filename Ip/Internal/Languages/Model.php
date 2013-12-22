@@ -15,6 +15,9 @@ namespace Ip\Internal\Languages;
 class Model{
 
 
+
+
+    //TODOX move to Ip module
     public static function generateLanguageList(){
         if(!ipGetOption('Config.multilingual')) {
             return '';
@@ -24,20 +27,7 @@ class Model{
     }
 
 
-    /**
-     *
-     * @deprecated Use generateLanguageList() instead.
-     * @return string HTML with links to website languages
-     *
-     */
-    public static function generatehtml(){
-        if(!ipGetOption('Config.multilingual')) {
-            return '';
-        }
-        
-        return \Ip\View::create('view/links.php', self::getViewData());
-    }
-    
+    //TODOX move to IP module
     private static function getViewData() {
         $languages = array();
 
