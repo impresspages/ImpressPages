@@ -19,8 +19,6 @@ class AdminController extends \Ip\Grid\Controller
     public function index()
     {
         $response = parent::index() . $this->helperHtml();
-        //var_dump();exit;
-        //$response .=
         return $response ;
     }
 
@@ -32,6 +30,12 @@ class AdminController extends \Ip\Grid\Controller
             'addForm' => $form = Helper::getAddForm()
         );
         return \Ip\View::create('view/helperHtml.php', $helperData)->render();
+    }
+
+
+    public function addLanguage()
+    {
+        return new \Ip\Response\Json(array());
     }
 
 

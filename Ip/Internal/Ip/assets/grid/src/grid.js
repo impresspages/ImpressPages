@@ -18,37 +18,52 @@
                 if (!data) {
                     $this.data('ipGridInit', Object());
 
-                    //window.location.hash
-
-                    var data = $this.data('gateway');
-                    data.jsonrpc = '2.0';
-                    data.method = 'init';
-                    data.params = {
-                        hash: window.location.hash
-                    };
-
-                    $.ajax({
-                        type: 'GET',
-                        url: ip.baseUrl,
-                        data: data,
-                        context: $this,
-                        success: initResponse,
-                        error: function (response) {
-                            if (ip.debugMode || ip.developmentMode) {
-                                alert(response);
-                            }
-                        },
-                        dataType: 'json'
-                    });
-
+                    $.proxy(init, $this)();
                 }
+            });
+        },
+
+        refresh: function (options) {
+
+            return this.each(function () {
+                console.log('refresh');
+                console.log(this);
+                var $this = $(this);
+                $.proxy(init, $this)();
+
             });
         }
     };
 
+    var init = function () {
+        var $this = this;
+        console.log(this);
+        var data = $this.data('gateway');
+        data.jsonrpc = '2.0';
+        data.method = 'init';
+        data.params = {
+            hash: window.location.hash
+        };
+
+        $.ajax({
+            type: 'GET',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: initResponse,
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
 
     var initResponse = function (response) {
-        $.proxy(doCommands, this)(response.result);
+        var $this = this;
+        $.proxy(doCommands, $this)(response.result);
     };
 
     var doCommands = function (commands) {
