@@ -160,23 +160,20 @@ class Table extends \Ip\Grid\Model
 
     protected function getActions()
     {
-        $actions = array();
-        if (empty($this->config['disableInsert'])) {
+        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
+            $actions = $this->config['actions'];
+        } else {
+            $actions = array();
             $actions[] = array(
-                'title' => __('Add', 'ipAdmin', false),
-                'data' => array(
-
-                )
+                'label' => __('Add', 'ipAdmin', false),
+                'class' => 'ipsAdd'
+            );
+            $actions[] = array(
+                'label' => __('Search', 'ipAdmin', false),
+                'class' => 'ipsSearch'
             );
         }
-        if (empty($this->config['disableSearch'])) {
-            $actions[] = array(
-                'title' => __('Search', 'ipAdmin', false),
-                'data' => array(
 
-                )
-            );
-        }
         return $actions;
     }
 
