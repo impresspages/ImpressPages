@@ -229,7 +229,7 @@ class Application {
     {
         $this->prepareEnvironment($options);
         $request = new \Ip\Request();
-        $request->setGet($_GET);
+        $request->setQuery($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
@@ -273,7 +273,7 @@ class Application {
                     $fakeCronAnswer = curl_exec($ch);
                 } else {
                     $request = new \Ip\Request();
-                    $request->setGet(array(
+                    $request->setQuery(array(
                             'pa' => 'Cron',
                             'pass' => ipGetOption('Config.cronPassword')
                     ));

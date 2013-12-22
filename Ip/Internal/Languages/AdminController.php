@@ -15,6 +15,26 @@ class AdminController extends \Ip\Grid\Controller
         ipAddJs(ipFileUrl('Ip/Internal/Languages/assets/languages.js'));
     }
 
+
+    public function index()
+    {
+        $response = parent::index() . $this->helperHtml();
+        //var_dump();exit;
+        //$response .=
+        return $response ;
+    }
+
+
+    protected function helperHtml()
+    {
+
+        $helperData = array(
+            'addForm' => $form = Helper::getAddForm()
+        );
+        return \Ip\View::create('view/helperHtml.php', $helperData)->render();
+    }
+
+
     protected function config()
     {
         return array(
@@ -66,7 +86,8 @@ class AdminController extends \Ip\Grid\Controller
                     'showInList' => false
                     //TODOX add select
                 ),
-            )
+            ),
+            //'appendHtml' => Model
         );
     }
 

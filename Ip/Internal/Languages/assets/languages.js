@@ -13,7 +13,7 @@ var ipLanguages = new function() {
     };
 
     var showAddModal = function() {
-        alert('modal');
+        $('.ipsAddModal').modal();
     };
 
 

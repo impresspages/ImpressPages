@@ -55,10 +55,10 @@ class Request
         $this->_SERVER = $server;
     }
 
-    public function setGet($get)
+    public function setQuery($query)
     {
-        $this->_GET = $get;
-        $this->_REQUEST = array_merge($this->_REQUEST, $get);
+        $this->_GET = $query;
+        $this->_REQUEST = array_merge($this->_REQUEST, $query);
     }
 
     public function setRequest($request)
