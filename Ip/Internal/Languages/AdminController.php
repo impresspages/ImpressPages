@@ -10,6 +10,11 @@ namespace Ip\Internal\Languages;
 
 class AdminController extends \Ip\Grid\Controller
 {
+    public function init()
+    {
+        ipAddJs(ipFileUrl('Ip/Internal/Languages/assets/languages.js'));
+    }
+
     protected function config()
     {
         return array(

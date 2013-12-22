@@ -13,10 +13,10 @@
 
             return this.each(function () {
                 var $this = $(this);
-                var data = $this.data('ipGrid1Init');
+                var data = $this.data('ipGridInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
-                    $this.data('ipGrid1Init', Object());
+                    $this.data('ipGridInit', Object());
 
                     //window.location.hash
 
@@ -58,6 +58,7 @@
                 case 'setHtml':
                     $this.html(value.html);
                     $.proxy(bindEvents, $this)();
+                    $this.trigger('init.grid');
                     break;
             }
         });
@@ -93,7 +94,7 @@
         });
     };
 
-    $.fn.ipGrid1 = function (method) {
+    $.fn.ipGrid = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
