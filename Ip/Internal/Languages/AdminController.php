@@ -15,6 +15,16 @@ class AdminController extends \Ip\Grid\Controller
         return array(
             'type' => 'table',
             'table' => 'language',
+            'actions' => array(
+                array(
+                    'label' => __('Add', 'ipAdmin', false),
+                    'class' => 'ipsCustomAdd'
+                ),
+                array(
+                    'label' => __('Search', 'ipAdmin', false),
+                    'class' => 'ipsSearch'
+                )
+            ),
             'fields' => array(
                 array(
                     'label' => __('Title', 'ipAdmin', false),

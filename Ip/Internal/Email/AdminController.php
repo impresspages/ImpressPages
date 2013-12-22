@@ -15,7 +15,7 @@ class AdminController extends \Ip\Grid\Controller
         return array (
             'type' => 'table',
             'table' => 'm_administrator_email_queue',
-            'disableInsert' => true
+            'actions' => array()
         );
     }
 
