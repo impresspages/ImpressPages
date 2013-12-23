@@ -36,7 +36,6 @@ function ipPages($scope, $location) {
 
         }
 
-
         if (languageId && languageId != $scope.activeLanguage.id) {
             $.each(languageList, function(key, value) {
                 if (value.id == languageId) {
@@ -76,14 +75,12 @@ function ipPages($scope, $location) {
     $scope.activateLanguage = function(language) {
         $scope.activeLanguage = language;
         initTree();
-        //updateHash();
     }
 
     $scope.activateZone = function(zone) {
         $scope.activeZone = zone;
         $scope.selectedPageId = null;
         initTree();
-        //updateHash();
     }
 
     $scope.activatePage = function (pageId, zoneName) {
@@ -335,7 +332,7 @@ function ipPages($scope, $location) {
         if (pageId === null) {
             pageId = $scope.selectedPageId;
         }
-        var path = 'language=' + languageId + '&zone=' + zoneName;
+        var path = 'hash&language=' + languageId + '&zone=' + zoneName;
         if (pageId) {
             path = path + '&page=' + pageId;
         }

@@ -8,7 +8,7 @@
                     <a href="#" class="ipaButton"></a>
                 </div>
             </div>
-            <a href="<?php echo ipActionUrl(array('aa' => 'Pages.index')) . '#/language' . ipContent()->getCurrentLanguage()->getId() . '&amp;' . '&zone=' . ipContent()->getCurrentZone()->getName() . '&amp;page=' . ipContent()->getCurrentPage()->getId(); ?>" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
+            <a href="<?php echo ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getId() . '&amp;' . '&zone=' . ipContent()->getCurrentZone()->getName() . '&amp;page=' . ipContent()->getCurrentPage()->getId(); ?>" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
             <a href="<?php echo \Ip\Internal\UrlHelper::getCurrentUrl(); ?>" target="_blank" class="ipAdminButton ipaPreview ipsPreview" title="<?php _e('Preview', 'ipAdmin') ?>"><span>&nbsp;</span></a>
             <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
             <div class="ipAdminRevisions">
