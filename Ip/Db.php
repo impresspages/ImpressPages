@@ -171,7 +171,7 @@ class Db
         $params = array();
         $_ignore = $ignore ? "IGNORE" : "";
 
-        $sql = "INSERT {$_ignore} INTO `{$table}` SET ";
+        $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " SET ";
 
         foreach ($row as $column => $value) {
             $sql .= "`{$column}` = ?, ";
@@ -197,7 +197,7 @@ class Db
      */
     public function delete($table, $condition)
     {
-        $sql = "DELETE FROM `{$table}` WHERE ";
+        $sql = "DELETE FROM " . ipTable($table) . " WHERE ";
         $params = array();
         foreach ($condition as $column => $value) {
             $sql .= "`{$column}` = ? AND ";
@@ -221,7 +221,7 @@ class Db
             return false;
         }
 
-        $sql = "UPDATE `{$table}` SET ";
+        $sql = "UPDATE " . ipTable($table) . " SET ";
         $params = array();
         foreach ($update as $column => $value) {
             $sql .= "`{$column}` = ? , ";
