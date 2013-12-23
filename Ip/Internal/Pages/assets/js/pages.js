@@ -24,7 +24,6 @@ function ipPages($scope, $location) {
     $scope.$on('PathChanged', function(event, path) {
         var zoneName = getHashParams().zone;
         var languageId = getHashParams().language;
-        console.log(languageId);
         var pageId = getHashParams().page;
 
         if (!$scope.initialized) {
@@ -37,8 +36,6 @@ function ipPages($scope, $location) {
 
         }
 
-console.log(languageId);
-        console.log($scope.activeLanguage);
         if (languageId && languageId != $scope.activeLanguage.id) {
             $.each(languageList, function(key, value) {
                 if (value.id == languageId) {
