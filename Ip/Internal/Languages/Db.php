@@ -106,39 +106,7 @@ class Db {
     }
 
 
-    public static function createEmptyTranslations($language, $table) {
-        $sql = "select * from `".DB_PREF."language` where `id` <> '".$language."' order by row_number";
-        $rs = ip_deprecated_mysql_query($sql);
-        if(!$rs || ip_deprecated_mysql_num_rows($rs) == 0)
-        trigger_error($sql);
-        else {
-            $oldLang = ip_deprecated_mysql_fetch_assoc($rs);
-            if($oldLang) {
-                $sql = "select * from `".DB_PREF."".$table."` where `language_id` = '".$oldLang['id']."'";
-                $rs = ip_deprecated_mysql_query($sql);
-                if($rs) {
-                    $translations = array();
-                    while($lock = ip_deprecated_mysql_fetch_assoc($rs))
-                    $translations[] = $lock;
-                    foreach($translations as $key => $lock) {
-                        $sql2 = "insert into `".DB_PREF."".$table."` set language_id = '".$language."', parameter_id = '".$lock['parameter_id']."', translation = '".ip_deprecated_mysql_real_escape_string($lock['translation'])."'";
-                        $rs2 = ip_deprecated_mysql_query($sql2);
-                        if(!$rs2)
-                        trigger_error($sql2);
-                    }
-                }else
-                trigger_error($sql);
-            }
-        }
-    }
 
-    public static function deleteTranslations($language, $table) {
-        $sql = "delete from `".DB_PREF."".$table."` where language_id = '".$language."'";
-        $rs = ip_deprecated_mysql_query($sql);
-        if(!$rs) {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        }
-    }
 
 }
 

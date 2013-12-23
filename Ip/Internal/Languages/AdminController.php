@@ -35,6 +35,26 @@ class AdminController extends \Ip\Grid\Controller
 
     public function addLanguage()
     {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+        if (empty($data['code'])) {
+            throw new \Ip\CoreException('Missing required parameter');
+        }
+        $code = $data['code'];
+        $abbreviation = $code;
+        $url = $code;
+
+        $languages = Fixture::languageList();
+
+        if (!empty($languages[$code])) {
+            $language = $languages[$code];
+            $title = $language['nativeName'];
+        } else {
+            $title = $code;
+        }
+
+        Service::addLanguage($title, $abbreviation, $code, $url, 1, Service::TEXT_DIRECTION_LTR);
+
         return new \Ip\Response\Json(array());
     }
 
