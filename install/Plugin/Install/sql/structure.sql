@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `d_short` varchar(255) NOT NULL DEFAULT '',
   `d_long` varchar(255) NOT NULL DEFAULT '',
-  `row_number` int(11) NOT NULL DEFAULT '0',
+  `row_number` double NOT NULL DEFAULT '0',
   `visible` int(1) NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL,
