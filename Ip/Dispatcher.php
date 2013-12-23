@@ -51,27 +51,6 @@ class Dispatcher
     }
 
     /**
-     *
-     * Bind action to callable function
-     * @param string $action Eg. module_name.event_name
-     * @param callable $callable
-     * @throws CoreException
-     */
-    public function bind($eventName, $callable, $priority = 10)
-    {
-        if (!is_callable($callable)) {
-            $this->callableError($callable);
-        }
-
-        if (!isset($this->eventListeners[$eventName][$priority])) {
-            $this->eventListeners[$eventName][$priority] = array();
-        }
-
-        $this->eventListeners[$eventName][$priority][] = $callable;
-        unset($this->sortedEventListeners[$eventName]);
-    }
-
-    /**
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
      * @throws CoreException

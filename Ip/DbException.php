@@ -19,7 +19,8 @@ class DbException extends \PDOException
 
         $backtrace = debug_backtrace();
 
-        $dbFile = dirname(__FILE__) . '/Db.php';
+        // We need directory separator for Windows
+        $dbFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Db.php';
 
         foreach ($backtrace as $info) {
             if ($info['file'] != $dbFile) {
