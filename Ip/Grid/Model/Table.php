@@ -118,9 +118,11 @@ class Table extends \Ip\Grid\Model
 
     protected function prepareData($data)
     {
+        $editButtonHtml = \Ip\View::create('../view/updateButton.php');
         $preparedData = array();
         foreach ($data as $row) {
             $preparedRow = array();
+            $preparedRow[] = $editButtonHtml;
             foreach ($this->getFieldObjects() as $key => $field) {
                 if (isset($this->config['fields'][$key]['showInList']) && !$this->config['fields'][$key]['showInList']) {
                     continue;
@@ -149,6 +151,7 @@ class Table extends \Ip\Grid\Model
     protected function getFieldLabels()
     {
         $labels = array();
+        $labels[] = ''; //Edit
         foreach ($this->config['fields'] as $field) {
             if (isset($field['showInList']) && !$field['showInList']) {
                 continue;
@@ -160,20 +163,22 @@ class Table extends \Ip\Grid\Model
 
     protected function getActions()
     {
-        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
-            $actions = $this->config['actions'];
-        } else {
-            $actions = array();
+        $actions = array();
+        if (!array_key_exists('allowInsert', $this->config) || $this->config['allowInsert']) {
             $actions[] = array(
                 'label' => __('Add', 'ipAdmin', false),
                 'class' => 'ipsAdd'
             );
+        }
+        if (!array_key_exists('allowSearch', $this->config) || $this->config['allowSearch']) {
             $actions[] = array(
                 'label' => __('Search', 'ipAdmin', false),
                 'class' => 'ipsSearch'
             );
         }
-
+        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
+            $actions = array_merge($actions, $this->config['actions']);
+        }
         return $actions;
     }
 
