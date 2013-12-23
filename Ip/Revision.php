@@ -16,72 +16,50 @@ class Revision{
     
     public static function getLastRevision($zoneName, $pageId) {
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
+        $revisionTable = ipTable('revision');
         $sql = "
-            SELECT * FROM `".DB_PREF."revision`
+            SELECT * FROM $revisionTable
             WHERE
-                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."' AND
-                `pageId` = '".(int)$pageId."'
+                `zoneName` = :zoneName AND
+                `pageId` = :pageId
             ORDER BY `created` DESC, `revisionId` DESC
-            LIMIT 1
-        ";    
+        ";
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t find last revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
-        }
+        $revision = ipDb()->fetchRow($sql, array('pageId' => $pageId, 'zoneName' => $zoneName));
 
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            return $lock;
-        } else {
+        if (!$revision) {
             $revisionId = self::createRevision($zoneName, $pageId, 1);
-            return self::getRevision($revisionId);
+            $revision = self::getRevision($revisionId);
         }
 
+        return $revision;
     }
 
     public static function getPublishedRevision($zoneName, $pageId) {
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
+        $revisionTable = ipTable('revision');
         $sql = "
-            SELECT * FROM `".DB_PREF."revision`
+            SELECT * FROM $revisionTable
             WHERE
-                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."' AND
-                `pageId` = '".(int)$pageId."' AND
-                `published`
+                `zoneName` = ? AND
+                `pageId` = ? AND
+                `published` = 1
             ORDER BY `created` DESC, `revisionId` DESC
-            LIMIT 1
-        ";    
+        ";
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t find last revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
-        }
+        $revision = ipDb()->fetchRow($sql, array($zoneName, $pageId));
 
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            return $lock;
-        } else {
+        if (!$revision) {
             $revisionId = self::createRevision($zoneName, $pageId, 1);
-            return self::getRevision($revisionId);
+            $revision = self::getRevision($revisionId);
         }
 
+        return $revision;
     }
 
     public static function getRevision($revisionId) {
-        $sql = "
-            SELECT * FROM `".DB_PREF."revision`
-            WHERE `revisionId` = ".(int)$revisionId."
-        ";    
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t find revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
-        }
-
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            return $lock;
-        } else {
-            return false;
-        }
-
+        return ipDb()->fetchRow('revision', array('revisionId' => $revisionId));
     }
 
 
@@ -188,7 +166,7 @@ class Revision{
         $table = ipTable('revision');
 
         $sql = "
-            SELECT `id` FROM $table
+            SELECT `revisionId` FROM $table
             WHERE `created` < ? AND `published` = 0
         ";
 
