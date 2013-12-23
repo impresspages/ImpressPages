@@ -1,4 +1,4 @@
-<h1><?php _e('Page properites', 'ipAdmin') ?></h1>
+<h1><?php _e('Page properties', 'ipAdmin') ?></h1>
 <ul>
     <button class="ipsEdit btn btn-default" role="button" >
         <i class="fa fa-edit"></i>

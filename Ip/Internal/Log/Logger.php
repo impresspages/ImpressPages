@@ -22,7 +22,7 @@ class Logger extends \Psr\Log\AbstractLogger
                 'context' => json_encode(array('args' => func_get_args())),
             );
 
-            ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
+            ipDb()->insert('log', $row);
             return;
         }
 
@@ -32,6 +32,6 @@ class Logger extends \Psr\Log\AbstractLogger
             'context' => json_encode($context),
         );
 
-        ipDb()->insert(ipDb()->tablePrefix() . 'log', $row);
+        ipDb()->insert('log', $row);
     }
 }

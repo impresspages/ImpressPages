@@ -24,7 +24,8 @@ class Service
     }
 
 
-    public static function addPage($parentId, $title, $data = array()) {
+    public static function addPage($parentId, $title, $data = array())
+    {
         if (!isset($data['navigationTitle'])) {
             $data['navigationTitle'] = $title;
         }

@@ -587,7 +587,7 @@ class Fixture
             'ii' =>
                 array (
                     'name' => 'Nuosu',
-                    'nativeName' => 'ꆈꌠ꒿ Nuosuhxop',
+                    'nativeName' => 'Nuosuhxop',
                 ),
             'nr' =>
                 array (
@@ -812,7 +812,7 @@ class Fixture
             'tl' =>
                 array (
                     'name' => 'Tagalog',
-                    'nativeName' => 'Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔',
+                    'nativeName' => 'Wikang Tagalog',
                 ),
             'tn' =>
                 array (

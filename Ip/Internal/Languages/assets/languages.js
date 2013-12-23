@@ -18,7 +18,7 @@ var ipLanguages = new function() {
         $modal.find('.ipsAdd').off('click').on('click', function(){$modal.find('form').submit()});
         $modal.find('form').off('submit').on('submit', function(e) {
             e.preventDefault();
-            var code = $modal.find('input[name=languageCode]').val();
+            var code = $modal.find('select[name=languageCode]').val();
             addLanguage(code);
             $modal.modal('hide');
         });
