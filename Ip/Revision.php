@@ -86,23 +86,18 @@ class Revision{
 
 
     public static function createRevision ($zoneName, $pageId, $published) {
-        $sql = "
-            INSERT INTO `".DB_PREF."revision`
-            SET
-                `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."',
-                `pageId` = '".(int)$pageId."',
-                `published` = ".(int)$published.",
-                `created` = ".time()."
-        ";   
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t create new revision '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
-        }
+        $revision = array(
+            'zoneName' => $zoneName,
+            'pageId' => $pageId,
+            'published' => (int)$published,
+            'created' => time(),
+        );
 
-        $revisionId = ip_deprecated_mysql_insert_id();
+        $revisionId = ipDb()->insert('revision', $revision);
+        $revision['id'] = $revisionId;
 
-        ipDispatcher()->notify('site.createdRevision', array('revisionId' => $revisionId));
+        ipDispatcher()->notify('site.createdRevision', array('revision' => $revision));
 
         return $revisionId;
     }
@@ -113,29 +108,22 @@ class Revision{
             return false;
         }
 
+        $wasUpdated = ipDb()->update('revision',
+            array(
+                'published' => 1,
+                'revisionId' => $revisionId,
+            ),
+            array(
+                'zoneName' => $revision['zoneName'],
+                'pageId' => (int)$revision['pageId'],
+            )
+        );
          
-        $sql = "
-            UPDATE `".DB_PREF."revision`
-            SET
-                `published` = (revisionId = '".(int)$revisionId."')
-            WHERE
-                `zoneName` = '".ip_deprecated_mysql_real_escape_string($revision['zoneName'])."'
-                AND
-                `pageId` = '".(int)$revision['pageId']."'
-        ";   
-
-        $rs = ip_deprecated_mysql_query($sql);
-
-        if (!$rs) {
-            throw new CoreException("Can't publish revision " . $sql . ' '. ip_deprecated_mysql_error(), CoreException::DB);
+        if (!$wasUpdated) {
+            throw new CoreException("Can't publish page #{$revision['pageId']} revision #{$revisionId}", CoreException::DB);
         }
         
-        $eventData = array(
-            'revisionId' => $revisionId,
-        );
-        ipDispatcher()->notify('site.publishRevision', $eventData);
-        
-
+        ipDispatcher()->notify('site.publishRevision', array('revisionId' => $revisionId));
     }
 
     public static function duplicateRevision ($oldRevisionId, $zoneName = null, $pageId = null, $published = null) {
@@ -171,23 +159,23 @@ class Revision{
 
 
     public static function getPageRevisions($zoneName, $pageId) {
+        $table = ipTable('revision');
         $sql = "
-            SELECT * FROM `".DB_PREF."revision`
-            WHERE `pageId` = ".(int)$pageId." AND `zoneName` = '".ip_deprecated_mysql_real_escape_string($zoneName)."'
+            SELECT * FROM $table
+            WHERE `pageId` = :pageId AND `zoneName` = :zoneName
             ORDER BY `created` DESC, `revisionId` DESC
-        ";    
+        ";
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t get page revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
+        $revisions = ipDb()->fetchAll($sql, array(
+                'pageId' => $pageId,
+                'zoneName' => $zoneName,
+            ));
+
+        if (!$revisions) {
+            throw new CoreException("Can\'t get page #{$pageId} revisions.", CoreException::DB);
         }
 
-        $answer = array();
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $answer[] = $lock;
-        }
-        return $answer;
-
+        return $revisions;
     }
 
     /**
@@ -195,36 +183,25 @@ class Revision{
      * Delete all not published revisions that are older than X days. 
      * @param int $days
      */
-    public static function removeOldRevisions($days) {
+    public static function removeOldRevisions($days)
+    {
+        $table = ipTable('revision');
 
-        $sqlWhere = "`created` < ".(time() - $days * 24 * 60 * 60)." AND NOT `published`";
         $sql = "
-            SELECT * FROM `".DB_PREF."revision`
-            WHERE ".$sqlWhere."
+            SELECT `id` FROM $table
+            WHERE `created` < ? AND `published` = 0
         ";
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t find old revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
-        }
+        $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));
 
         $dispatcher = ipDispatcher();
 
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
+        foreach ($revisionList as $revisionId) {
             $eventData = array(
-                'revisionId' => $lock['revisionId'],
+                'revisionId' => $revisionId,
             );
             $dispatcher->notify('site.removeRevision', $eventData);
-        }
-
-        $sql = "
-            DELETE FROM `".DB_PREF."revision`
-            WHERE ".$sqlWhere."
-        ";    
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new CoreException('Can\'t delete old revisions '.$sql.' '.ip_deprecated_mysql_error(), CoreException::DB);
+            ipDb()->delete('revision', array('id' => $revisionId));
         }
     }
 
