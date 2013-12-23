@@ -36,13 +36,6 @@ class Backend{
         session_destroy();
     }
 
-    public static function securityToken(){//used against CSRF atacks
-        if(!isset($_SESSION['backend_session']['security_token'])){
-            $_SESSION['backend_session']['security_token'] =  md5(uniqid(rand(), true));
-        }
-        return $_SESSION['backend_session']['security_token'];
-    }
-
     public static function login($id){
         $_SESSION['backend_session']['userId'] = $id;
     }
