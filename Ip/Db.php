@@ -192,7 +192,7 @@ class Db
 
     /**
      * @param string $table
-     * @param array $condition pvz. array("userId" => 5, "card_id" => 8)
+     * @param array $condition for example, array("userId" => 5, "card_id" => 8)
      * @return type
      */
     public function delete($table, $condition)
