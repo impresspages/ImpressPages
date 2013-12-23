@@ -25,8 +25,10 @@ class Request
     protected $controllerAction = null;
     protected $controllerClass = null;
     protected $controllerType = null;
+    protected $controllerModule = null;
     protected $defaultControllerAction = 'index';
     protected $defaultControllerClass = '\\Ip\\Internal\\Content\\PublicController';
+    protected $defaultControllerModule = 'Content';
 
     const CONTROLLER_TYPE_PUBLIC = 0;
     const CONTROLLER_TYPE_SITE = 1;
@@ -256,7 +258,7 @@ class Request
         $action = $this->defaultControllerAction;
         $controllerClass = $this->defaultControllerClass;
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
-
+        $controllerModule = $this->defaultControllerModule;
 
         if (!$this->isWebsiteRoot()) {
             if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
@@ -286,12 +288,12 @@ class Request
 
             if ($actionString) {
                 $parts = explode('.', $actionString);
-                $module = array_shift($parts);
+                $controllerModule = array_shift($parts);
                 if (isset($parts[0])) {
                     $action = $parts[0];
                 }
 
-                $controllerClass = $this->generateControllerClass($module, $controllerType);
+                $controllerClass = $this->generateControllerClass($controllerModule, $controllerType);
             }
 
         }
@@ -299,6 +301,7 @@ class Request
         $this->controllerClass = $controllerClass;
         $this->controllerAction = $action;
         $this->controllerType = $controllerType;
+        $this->controllerModule = $controllerModule;
     }
 
     public function getControllerType()
@@ -307,6 +310,14 @@ class Request
             $this->parseControllerAction();
         }
         return $this->controllerType;
+    }
+
+    public function getControllerModule()
+    {
+        if ($this->controllerModule === null) {
+            $this->parseControllerAction();
+        }
+        return $this->controllerModule;
     }
 
     public function setAction($module, $action, $type)

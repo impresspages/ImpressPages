@@ -152,7 +152,7 @@ class Application {
 
         //check if user is logged in
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId()) {
-            //TODOX check if user has access to given module
+
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
             } else {
@@ -162,7 +162,12 @@ class Application {
 
         $action = $request->getControllerAction();
 
-
+        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $plugin = $request->getControllerModule();
+            if (!ipIsAllowed($plugin, 'executeAdminAction', array('action' => $action))) {
+                throw new \Ip\CoreException('User has no permission to execute ' . $request->getControllerModule() . '.' . $request->getControllerAction() . ' action');
+            }
+        }
 
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {

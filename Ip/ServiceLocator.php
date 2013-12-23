@@ -27,6 +27,7 @@ class ServiceLocator
     protected static $storage = null;
     protected static $db;
     protected static $translator;
+    protected static $permissions;
 
     protected static $serviceClasses = array(
         'db' => '\Ip\Db',
@@ -37,6 +38,7 @@ class ServiceLocator
         'dispatcher' => '\Ip\Dispatcher',
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
+        'permissions' => '\Ip\Internal\Permissions\UserPermissions',
     );
 
     public static function options()
@@ -195,6 +197,18 @@ class ServiceLocator
     protected static function loadService($name)
     {
         return new static::$serviceClasses[$name]();
+    }
+
+    /**
+     * @return \Ip\Internal\Permissions\UserPermissions
+     */
+    public static function permissions()
+    {
+        if (static::$permissions === null) {
+            static::$permissions = static::loadService('permissions');
+        }
+
+        return static::$permissions;
     }
 
 }
