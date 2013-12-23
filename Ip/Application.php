@@ -293,7 +293,6 @@ class Application {
         }
 
         ipDb()->disconnect();
-        ipDispatcher()->notify('site.databaseDisconnect');
     }
 
     /**
