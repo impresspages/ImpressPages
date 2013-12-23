@@ -16,15 +16,17 @@ class ContentDb {
      * @param int $language_id
      * @return array all website zones with meta tags for specified language
      */
-    public static function getZones($languageId) {
-        $sql = "select m.*, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` m,`".DB_PREF."zone_parameter` p where p.zone_id = m.id and p.language_id = '".ip_deprecated_mysql_real_escape_string($languageId)."' order by m.row_number";
+    public static function getZones($languageId)
+    {
+        $sql = "select m.*, p.url, p.description, p.keywords, p.title from `" . DB_PREF . "zone` m,`" . DB_PREF . "zone_parameter` p where p.zone_id = m.id and p.language_id = " . (int) $languageId . " order by m.row_number";
         $rs = ip_deprecated_mysql_query($sql);
         if ($rs) {
             $zones = array();
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            $zones[$lock['name']] = $lock;
+            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
+                $zones[$lock['name']] = $lock;
+            }
         } else {
-            trigger_error("Can't get all zones ".$sql." ");
+            trigger_error("Can't get all zones " . $sql . " ");
             return false;
         }
         return $zones;
