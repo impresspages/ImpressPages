@@ -105,4 +105,55 @@ class Model
     }
 
 
+    public static function createZoneParameters($languageId)
+    {
+//        $langauges = ipContent()->getLanguages();
+//        $firstLanguage = $languages[0];
+//        \Frontend\Db::getZones($firstLanguage->getId());
+
+
+        //create zone translations
+        $zones = ipContent()->getZones();
+        foreach ($zones as $zone) {
+            if ($zone->getAssociatedModule() != 'Content') {
+                continue;
+            }
+            $params = array(
+                'language_id' => $languageId,
+                'zone_id' => $zone->getId(),
+                'title' => $zone->getTitle(),
+                'url' =>self::newZoneUrl($languageId, $zone->getUrl())
+            );
+            ipDb()->insert('zone_parameter', $params);
+        }
+    }
+
+    protected static function newZoneUrl($languageId, $requestedUrl)
+    {
+        $table = ipTable('zone_parameter');
+        $sql = "
+        SELECT
+            `url`
+        FROM
+            $table
+        WHERE
+            `language_id` = :languageId
+        ";
+
+        $params = array (
+            'languageId' => $languageId
+        );
+        $takenUrls = ipDb()->fetchColumn($sql, $params);
+
+        if (isset($takenUrls[$requestedUrl])) {
+            $i = 1;
+            while(isset($takenUrls[$requestedUrl.$i])) {
+                $i++;
+            }
+            return $requestedUrl.$i;
+        } else {
+            return $requestedUrl;
+        }
+    }
+
 }

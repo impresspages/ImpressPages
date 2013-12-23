@@ -23,13 +23,13 @@ class Model{
             'd_short' => $abbreviation,
             'code' => $code,
             'url' => $url,
-            'url' => $visible,
             'text_direction' => $textDirection,
-            'row_number' => $priority
+            'row_number' => $priority,
+            'visible' => $visible
         );
         $languageId = ipDb()->insert('language', $params);
 
-        Db::createRootZoneElement($languageId);
+        ipDispatcher()->notify('Ip.addLanguage', array('id' => $languageId));
 
         return $languageId;
     }
@@ -50,11 +50,13 @@ class Model{
             if (isset($languages[$position])) {
                 return ($languages[$position - 1]['row_number'] + $languages[$position]['row_number']) / 2;
             } else {
-                $languages[$position]['row_number'] + 100;
+                return $languages[$position]['row_number'] + 100;
             }
         } else {
-            $languages[count($languages) - 1]['row_number'] + 100;
+            return $languages[count($languages) - 1]['row_number'] + 100;
         }
+
+        throw new \Ip\CoreException('Unexpected behaviour');
     }
 
 

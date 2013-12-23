@@ -24,6 +24,8 @@ class System
         $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ . '\System::pageDeleted');
         $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ . '\System::pageMoved');
 
+
+
         $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
         $dispatcher->addFilterListener(
             'contentManagement.collectFieldTypes',
@@ -41,6 +43,8 @@ class System
 
         $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
     }
+
+
 
     public function adminLogin($data)
     {
