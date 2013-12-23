@@ -193,58 +193,16 @@ class Table extends \Ip\Grid\Model
             $currentPage = $totalPages;
         }
 
-        $pagerSize = 11; // do it odd number (11)
-        $pagesLeft = floor($pagerSize / 2) - 2;
-
-        $firstPage = max(1, $currentPage - $pagesLeft);
-        if ($firstPage <= 3) {
-            $firstPage = 1;
-        }
-
-        $pages = array();
-
-        if ($firstPage > 1) {
-            $pages = array(1, '..');
-        }
-
-        $pages = array_merge($pages, range($firstPage, $currentPage));
-
-        $pagesLeft = max($pagesLeft, $pagerSize - count($pages) - 2);
-        $lastPage = min($totalPages, $currentPage + $pagesLeft);
-
-        if ($lastPage + 2 >= $totalPages) {
-            $lastPage = $totalPages;
-        }
-
-        $pages = array_merge($pages, range($currentPage + 1, $lastPage));
-
-        if ($lastPage < $totalPages) {
-            $pages[]= '..';
-            $pages[]= $totalPages;
-        }
-
-        if (isset($pages[1]) && $pages[1] == '..') {
-            $pages[1] = array(
-                'text' => '..',
-                'page' => floor(($pages[0] + $pages[2]) / 2),
-            );
-        }
-
-        $beforeLast = count($pages) - 2;
-        if (isset($pages[$beforeLast]) && $pages[$beforeLast] == '..') {
-            $pages[$beforeLast] = array(
-                'text' => '..',
-                'page' => floor(($pages[$beforeLast - 1] + $pages[$beforeLast + 1]) / 2),
-            );
-        }
+        $pagination = new \Ip\Pagination\Pagination(array(
+            'currentPage' => $currentPage,
+            'totalPages' => $totalPages,
+        ));
 
         $variables = array(
             'labels' => $this->getFieldLabels(),
             'data' => $this->prepareData($this->fetch($from, $pageSize)),
-            'currentPage' => $currentPage,
-            'totalPages' => $totalPages,
-            'pages' => $pages,
-            'actions' => $this->getActions()
+            'actions' => $this->getActions(),
+            'pagination' => $pagination,
         );
 
         $html = \Ip\View::create('../view/layout.php', $variables)->render();
