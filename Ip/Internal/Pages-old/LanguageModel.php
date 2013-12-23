@@ -23,7 +23,7 @@ class LanguageModel{
         $originalLanguage = self::getLanguageById($languageId);
         $originalUrl = ipFileUrl($originalLanguage['url']) . '/';
 
-        ipDb()->update(DB_PREF . 'language', $data, $condition);
+        ipDb()->update('language', $data, $condition);
 
         $newUrl = ipFileUrl($data['url']) . '/';
 

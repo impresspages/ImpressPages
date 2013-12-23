@@ -32,7 +32,7 @@ class Service
             'row_number' => ++$rowNumber
         );
 
-        $zoneId = ipDb()->insert(ipDb()->tablePrefix() . 'zone', $row);
+        $zoneId = ipDb()->insert('zone', $row);
 
 
         foreach($languages as $language){
@@ -43,7 +43,7 @@ class Service
                 'visible' => 1
             );
 
-            $element_id = ipDb()->insert(ipDb()->tablePrefix() . 'content_element', $row);
+            $element_id = ipDb()->insert('content_element', $row);
 
             $row = array(
                 'language_id' => $language_id,
@@ -51,7 +51,7 @@ class Service
                 'element_id' => $element_id
             );
 
-            ipDb()->insert(ipDb()->tablePrefix() . 'zone_to_content', $row);
+            ipDb()->insert('zone_to_content', $row);
 
             $row = array(
                 'title' => $title,
@@ -60,8 +60,8 @@ class Service
                 'url' => \Ip\Internal\Languages\Db::newUrl($language_id, $url)
             );
 
-            ipDb()->insert(ipDb()->tablePrefix() . 'zone_parameter', $row);
-            //TODOX catch zone event and creaet root zone element in content module
+            ipDb()->insert('zone_parameter', $row);
+            //TODOX catch zone event and create root zone element in content module
 
         }
 

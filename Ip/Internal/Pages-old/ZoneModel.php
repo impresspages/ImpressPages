@@ -26,7 +26,7 @@ class ZoneModel{
         $parameter = self::getParameter($zoneId, $languageId);
         $originalUrl = $parameter['url'];
 
-        ipDb()->update(DB_PREF . 'zone_parameter', $data, $condition);
+        ipDb()->update('zone_parameter', $data, $condition);
 
         $newUrl = $data['url'];
 
