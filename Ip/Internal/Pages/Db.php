@@ -243,19 +243,23 @@ class Db {
         $oldPage = $zone->getPage($pageId);
         $oldUrl = $oldPage->getLink(true);
 
-        if (isset($params['navigationTitle']))
-        $values[] = 'button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
+        if (isset($params['navigationTitle'])) {
+            $values['button_title'] = $params['navigationTitle'];
+        }
 
-        if (isset($params['pageTitle']))
-        $values[] =  'page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
+        if (isset($params['pageTitle'])) {
+            $values['page_title'] = $params['pageTitle'];
+        }
 
-        if (isset($params['keywords']))
-        $values[] =  'keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
+        if (isset($params['keywords'])) {
+            $values['keywords'] = $params['keywords'];
+        }
 
-        if (isset($params['description']))
-        $values[] =  'description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
+        if (isset($params['description'])) {
+            $values['description'] = $params['description'];
+        }
 
-        if (isset($params['url'])){
+        if (isset($params['url'])) {
             if ($params['url'] == '') {
                 if (isset($params['pageTitle']) && $params['pageTitle'] != '') {
                     $params['url'] = self::makeUrl($params['pageTitle'], $pageId);
@@ -275,48 +279,53 @@ class Db {
                 }
                 $params['url'] = $tmpUrl;
             }
-            $values[] =  'url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
+
+            $values['url'] = $params['url'];
         }
 
-        if (isset($params['createdOn']) && strtotime($params['createdOn']) !== false)
-        $values[] =  'created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
+        if (isset($params['createdOn']) && strtotime($params['createdOn']) !== false) {
+            $values['created_on'] = $params['createdOn'];
+        }
 
-        if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false)
-        $values[] =  'last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
+        if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false) {
+            $values['last_modified'] = $params['lastModified'];
+        }
 
-        if (isset($params['type']))
-        $values[] =  'type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
+        if (isset($params['type'])) {
+            $values['type'] = $params['type'];
+        }
 
-        if (isset($params['redirectURL']))
-        $values[] =  'redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
+        if (isset($params['redirectURL'])) {
+            $values['redirect_url'] = $params['redirectURL'];
+        }
 
-        if (isset($params['visible']))
-        $values[] =  'visible = \''.ip_deprecated_mysql_real_escape_string($params['visible']).'\'';
+        if (isset($params['visible'])) {
+            $values['visible'] = $params['visible'];
+        }
 
-        if (isset($params['parentId']))
-        $values[] =  'parent = \''.ip_deprecated_mysql_real_escape_string($params['parentId']).'\'';
+        if (isset($params['parentId'])) {
+            $values['parent'] = $params['parentId'];
+        }
 
-        if (isset($params['rowNumber']))
-        $values[] =  'row_number = \''.ip_deprecated_mysql_real_escape_string($params['rowNumber']).'\'';
+        if (isset($params['rowNumber'])) {
+            $values['row_number'] = $params['rowNumber'];
+        }
 
-        if (isset($params['cached_html']))
-        $values[] =  '`cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
+        if (isset($params['cached_html'])) {
+            $values['cached_html'] = $params['cached_html'];
+        }
 
-        if (isset($params['cached_text']))
-        $values[] =  '`cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
+        if (isset($params['cached_text'])) {
+            $values['cached_text'] = $params['cached_text'];
+        }
 
         if (count($values) == 0) {
             return true; //nothing to update.
         }
 
-        $sql = 'UPDATE `'.DB_PREF.'content_element` SET '.implode(', ', $values).' WHERE `id` = '.(int)$pageId.' ';
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            trigger_error($sql.' '.ip_deprecated_mysql_error());
-            return false;
-        }
+        ipDb()->update('content_element', $values, array('id' => $pageId));
 
-        if(isset($params['url']) && $oldPage->getUrl() != $params['url']){
+        if (isset($params['url']) && $oldPage->getUrl() != $params['url']) {
             $newPage = $zone->getPage($pageId);
             $newUrl = $newPage->getLink(true);
             ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
