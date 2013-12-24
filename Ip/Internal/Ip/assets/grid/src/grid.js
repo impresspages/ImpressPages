@@ -38,9 +38,8 @@
         var data = $this.data('gateway');
         data.jsonrpc = '2.0';
         data.method = 'init';
-        data.params = {
-            hash: window.location.hash
-        };
+        data.hash = window.location.hash;
+        data.params = {};
 
         $.ajax({
             type: 'GET',
@@ -71,6 +70,9 @@
                     $this.html(value.html);
                     $.proxy(bindEvents, $this)();
                     $this.trigger('init.grid');
+                    break;
+                case 'setHash':
+                    window.location.hash = value.hash;
                     break;
             }
         });
