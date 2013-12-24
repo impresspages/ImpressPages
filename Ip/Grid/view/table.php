@@ -1,18 +1,17 @@
-
     <table class="table table-bordered">
         <thead>
             <tr>
-                <?php foreach($labels as $label){ ?>
+                <?php foreach($columns as $column){ ?>
                     <th>
-                        <?php echo esc($label) ?>
+                        <?php echo esc($column['label']) ?>
                     </th>
                 <?php } ?>
             </tr>
         </thead>
         <tbody>
-            <?php foreach($data as $row){ ?>
-                <tr>
-                    <?php foreach($row as $fieldValue){ ?>
+            <?php foreach ($data as $row) { ?>
+                <tr class="ipsRow" data-id="<?php echo esc($row['id'], 'attr') ?>">
+                    <?php foreach($row['values'] as $fieldValue){ ?>
                     <td>
                         <?php echo $fieldValue ?>
                     </td>

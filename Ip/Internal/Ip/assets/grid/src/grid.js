@@ -82,7 +82,7 @@
     var bindEvents = function () {
         var $grid = this;
 
-        $grid.find('.ipsAction[data-method]').off().click(function() {
+        $grid.find('.ipsAction[data-method]').off().on('click', function() {
             var $this = $(this);
             var data = $grid.data('gateway');
             data.jsonrpc = '2.0';
@@ -106,6 +106,10 @@
                 },
                 dataType: 'json'
             });
+        });
+
+        $grid.find('.ipsDelete').off().on('click', function() {
+
         });
     };
 
