@@ -9,58 +9,17 @@ namespace Ip\Grid\Model;
 class Table extends \Ip\Grid\Model
 {
 
+    /**
+     * @var Config
+     */
     protected $config = null;
-    protected $fieldObjects = null;
 
     public function __construct($config)
     {
-        $this->config = $config;
+        $this->config = new Config($config);
 
-        if (empty($this->config['table'])) {
-            throw new \Ip\CoreException('\'table\' configuration value missing.');
-        }
-
-        if (empty($this->config['fields'])) {
-            $this->config['fields'] = $this->getTableFields($this->config['table']);
-        }
-
-        if (empty($this->config['idField'])) {
-            $this->config['idField'] = 'id';
-        }
-
-        if (empty($this->config['pageSize'])) {
-            $this->config['pageSize'] = 10;
-        }
-
-        foreach ($this->config['fields'] as &$field) {
-            if (empty($field['type'])) {
-                $field['type'] = 'Text';
-            }
-        }
+        $this->actions = new Actions($this->config);
     }
-
-    /**
-     * @return \Ip\Grid\Model\Field[]
-     */
-    protected function getFieldObjects()
-    {
-        if ($this->fieldObjects === null) {
-            $collection = array();
-            foreach ($this->config['fields'] as $field) {
-                if ($field['type']) {
-                    $class = '\Ip\Grid\Model\Field\\' . $field['type'];
-                    if (!class_exists($class)) {
-                        $class = $field['type']; //type is full class name
-                    }
-                    $fieldObject = new $class($field);
-                    $collection[] = $fieldObject;
-                }
-            }
-            $this->fieldObjects = $collection;
-        }
-        return $this->fieldObjects;
-    }
-
 
     public function handleMethod(\Ip\Request $request)
     {
@@ -69,212 +28,56 @@ class Table extends \Ip\Grid\Model
             throw new \Ip\CoreException('Missing request data');
         }
         $method = $data['method'];
-        if (!isset($data['params'])) {
-            $data['params'] = array();
+
+        if (empty($data['hash'])) {
+            $data['hash'] = '';
         }
+        $status = $data['hash'];
+
+        if (isset($data['params'])) {
+            $params = $data['params'];
+        } else {
+            $params = array();
+        }
+
+        $statusVariables = Status::parse($status);
 
         switch ($method) {
             case 'init':
-                return $this->refresh($data['params']);
+                return $this->init($statusVariables);
+                break;
+            case 'page':
+                return $this->page($params, $statusVariables);
+                break;
+            case 'delete':
+                return $this->delete($params, $statusVariables);
                 break;
         }
-
     }
 
-
-    protected function getTableFields($tableName)
+    protected function init($statusVariables)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName($tableName) . "";
-
-        $fields = ipDb()->fetchColumn($sql);
-
-        $result = array();
-        foreach ($fields as $fieldName) {
-            $result[] = array(
-                'label' => $fieldName,
-                'field' => $fieldName
-            );
-        }
-
-        return $result;
-    }
-
-    protected function recordCount()
-    {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->tableName($this->config['table']) . "");
-    }
-
-    protected function fetch($from, $count)
-    {
-        $sql = "
-        SELECT
-          *
-        FROM
-          " . $this->tableName($this->config['table']) . "
-        WHERE
-          1
-        ORDER BY
-            `id` DESC
-        LIMIT
-            $from, $count
-        ";
-
-        $result = ipDb()->fetchAll($sql);
-
-        return $result;
-    }
-
-    protected function rowsData($data)
-    {
-        $editButtonHtml = \Ip\View::create('../view/updateButton.php');
-        $deleteButtonHtml = \Ip\View::create('../view/deleteButton.php');
-        $rows = array();
-        foreach ($data as $row) {
-            $preparedRow = array(
-                'id' => $row[$this->config['idField']]
-            );
-            $preparedRowData = array();
-            if ($this->allowUpdate()) {
-                $preparedRowData[] = $editButtonHtml;
-            }
-            foreach ($this->getFieldObjects() as $key => $field) {
-                if (isset($this->config['fields'][$key]['showInList']) && !$this->config['fields'][$key]['showInList']) {
-                    continue;
-                }
-
-                $preview = $field->preview($row);
-                if (!empty($this->config['fields'][$key]['filter'])) {
-                    $filters = $this->config['fields'][$key]['filter'];
-                    if (!is_array($filters)) {
-                        $filters = array($filters);
-                    }
-                    foreach ($filters as $filter) {
-                        if (substr($filter, 1, 1) !== '\\') {
-                            $filter = '\\' . $filter;
-                        }
-                        $preview = call_user_func($filter, $preview, $row);
-                    }
-                }
-                $preparedRowData[] = $preview;
-            }
-            if ($this->allowDelete()) {
-                $preparedRowData[] = $deleteButtonHtml;
-            }
-
-            $preparedRow['values'] = $preparedRowData;
-            $rows[] = $preparedRow;
-        }
-        return $rows;
-    }
-
-    protected function getColumnDate()
-    {
-        $columns = array();
-        if ($this->allowUpdate()) {
-            $column = array(
-                'label' => ''
-            );
-            $columns[] = $column;
-        }
-        foreach ($this->config['fields'] as $field) {
-            if (isset($field['showInList']) && !$field['showInList']) {
-                continue;
-            }
-            $column = array(
-                'label' => $field['label']
-            );
-            $columns[] = $column;
-        }
-        if ($this->allowDelete()) {
-            $column = array(
-                'label' => ''
-            );
-            $columns[] = $column;
-        }
-        return $columns;
-    }
-
-
-    protected function getActions()
-    {
-        $actions = array();
-        if ($this->allowInsert()) {
-            $actions[] = array(
-                'label' => __('Add', 'ipAdmin', false),
-                'class' => 'ipsAdd'
-            );
-        }
-        if ($this->allowSearch()) {
-            $actions[] = array(
-                'label' => __('Search', 'ipAdmin', false),
-                'class' => 'ipsSearch'
-            );
-        }
-        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
-            $actions = array_merge($actions, $this->config['actions']);
-        }
-        return $actions;
-    }
-
-
-    protected function refresh($params)
-    {
-        $currentPage = !empty($params['page']) ? (int)$params['page'] : 1;
-        if ($currentPage < 1) {
-            $currentPage = 1;
-        }
-
-        $pageSize = $this->config['pageSize'];
-        $from = ($currentPage - 1) * $pageSize;
-        $totalPages = ceil($this->recordCount() / $pageSize);
-
-        if ($currentPage > $totalPages) {
-            $currentPage = $totalPages;
-        }
-
-        $pagination = new \Ip\Pagination\Pagination(array(
-            'currentPage' => $currentPage,
-            'totalPages' => $totalPages,
-        ));
-
-        $variables = array(
-            'columns' => $this->getColumnDate(),
-            'data' => $this->rowsData($this->fetch($from, $pageSize)),
-            'actions' => $this->getActions(),
-            'pagination' => $pagination
-        );
-
-        $html = \Ip\View::create('../view/layout.php', $variables)->render();
-        $commands = array(
-            $this->commandSetHtml($html)
-        );
+        $display = new Display($this->config);
+        $commands = array();
+        $html = $display->fullHtml($statusVariables);
+        $commands[] = Commands::setHtml($html);
         return $commands;
     }
 
-    protected function tableName($tableName)
+    protected function page($params, $statusVariables)
     {
-        return ipTable(str_replace("`", "", $tableName));
+        $statusVariables['page'] = $params['page'];
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        $display = new Display($this->config);
+        $html = $display->fullHtml($statusVariables);
+        $commands[] = Commands::setHtml($html);
+        return $commands;
     }
 
-
-    protected function allowInsert()
+    protected function delete($params, $statusVariables)
     {
-        return !array_key_exists('allowInsert', $this->config) || $this->config['allowInsert'];
-    }
 
-    protected function allowSearch()
-    {
-        return !array_key_exists('allowSearch', $this->config) || $this->config['allowSearch'];
-    }
-
-    protected function allowUpdate()
-    {
-        return !array_key_exists('allowUpdate', $this->config) || $this->config['allowUpdate'];
-    }
-
-    protected function allowDelete()
-    {
-        return !array_key_exists('allowDelete', $this->config) || $this->config['allowDelete'];
     }
 
 }
