@@ -24,6 +24,10 @@ class Table extends \Ip\Grid\Model
             $this->config['fields'] = $this->getTableFields($this->config['table']);
         }
 
+        if (empty($this->config['pageSize'])) {
+            $this->config['pageSize'] = 10;
+        }
+
         foreach ($this->config['fields'] as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
@@ -118,9 +122,14 @@ class Table extends \Ip\Grid\Model
 
     protected function prepareData($data)
     {
+        $editButtonHtml = \Ip\View::create('../view/updateButton.php');
+        $deleteButtonHtml = \Ip\View::create('../view/deleteButton.php');
         $preparedData = array();
         foreach ($data as $row) {
             $preparedRow = array();
+            if ($this->allowUpdate()) {
+                $preparedRow[] = $editButtonHtml;
+            }
             foreach ($this->getFieldObjects() as $key => $field) {
                 if (isset($this->config['fields'][$key]['showInList']) && !$this->config['fields'][$key]['showInList']) {
                     continue;
@@ -141,6 +150,9 @@ class Table extends \Ip\Grid\Model
                 }
                 $preparedRow[] = $preview;
             }
+            if ($this->allowDelete()) {
+                $preparedRow[] = $deleteButtonHtml;
+            }
             $preparedData[] = $preparedRow;
         }
         return $preparedData;
@@ -149,31 +161,40 @@ class Table extends \Ip\Grid\Model
     protected function getFieldLabels()
     {
         $labels = array();
+        if ($this->allowUpdate()) {
+            $labels[] = '';
+        }
         foreach ($this->config['fields'] as $field) {
             if (isset($field['showInList']) && !$field['showInList']) {
                 continue;
             }
             $labels[] = $field['label'];
         }
+        if ($this->allowDelete()) {
+            $labels[] = '';
+        }
         return $labels;
     }
 
+
     protected function getActions()
     {
-        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
-            $actions = $this->config['actions'];
-        } else {
-            $actions = array();
+        $actions = array();
+        if ($this->allowInsert()) {
             $actions[] = array(
                 'label' => __('Add', 'ipAdmin', false),
                 'class' => 'ipsAdd'
             );
+        }
+        if ($this->allowSearch()) {
             $actions[] = array(
                 'label' => __('Search', 'ipAdmin', false),
                 'class' => 'ipsSearch'
             );
         }
-
+        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
+            $actions = array_merge($actions, $this->config['actions']);
+        }
         return $actions;
     }
 
@@ -185,7 +206,7 @@ class Table extends \Ip\Grid\Model
             $currentPage = 1;
         }
 
-        $pageSize = 5;
+        $pageSize = $this->config['pageSize'];
         $from = ($currentPage - 1) * $pageSize;
         $totalPages = ceil($this->recordCount() / $pageSize);
 
@@ -215,6 +236,27 @@ class Table extends \Ip\Grid\Model
     protected function tableName($tableName)
     {
         return ipTable(str_replace("`", "", $tableName));
+    }
+
+
+    protected function allowInsert()
+    {
+        return !array_key_exists('allowInsert', $this->config) || $this->config['allowInsert'];
+    }
+
+    protected function allowSearch()
+    {
+        return !array_key_exists('allowSearch', $this->config) || $this->config['allowSearch'];
+    }
+
+    protected function allowUpdate()
+    {
+        return !array_key_exists('allowUpdate', $this->config) || $this->config['allowUpdate'];
+    }
+
+    protected function allowDelete()
+    {
+        return !array_key_exists('allowDelete', $this->config) || $this->config['allowDelete'];
     }
 
 }
