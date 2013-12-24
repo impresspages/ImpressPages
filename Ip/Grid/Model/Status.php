@@ -10,12 +10,26 @@ class Status
 {
 
     public static function parse($statusVariable) {
-        return parse_str($statusVariable);
+        if (!empty($statusVariable[0]) && $statusVariable[0] == '#') {
+            $statusVariable = substr($statusVariable, 1);
+        }
+
+        $variables = array();
+        $parts = explode('&', $statusVariable);
+        foreach($parts as $part) {
+            $tmp = explode('=', $part);
+            if (isset($tmp[1])) {
+                $variables[$tmp[0]] = $tmp[1];
+            } else {
+                $variables[$tmp[0]] = null;
+            }
+        }
+        return $variables;
     }
 
     public static function build($variables)
     {
-        return http_build_query($variables);
+        return 'grid&' . http_build_query($variables);
     }
 
 //    protected $config = null;

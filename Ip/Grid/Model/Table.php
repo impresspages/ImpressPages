@@ -32,16 +32,14 @@ class Table extends \Ip\Grid\Model
         if (empty($data['hash'])) {
             $data['hash'] = '';
         }
-        $status = $data['hash'];
+        $hash = $data['hash'];
 
         if (isset($data['params'])) {
             $params = $data['params'];
         } else {
             $params = array();
         }
-
-        $statusVariables = Status::parse($status);
-
+        $statusVariables = Status::parse($hash);
         switch ($method) {
             case 'init':
                 return $this->init($statusVariables);
