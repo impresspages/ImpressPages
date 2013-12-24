@@ -26,8 +26,6 @@
         refresh: function (options) {
 
             return this.each(function () {
-                console.log('refresh');
-                console.log(this);
                 var $this = $(this);
                 $.proxy(init, $this)();
 
@@ -37,13 +35,11 @@
 
     var init = function () {
         var $this = this;
-        console.log(this);
         var data = $this.data('gateway');
         data.jsonrpc = '2.0';
         data.method = 'init';
-        data.params = {
-            hash: window.location.hash
-        };
+        data.hash = window.location.hash;
+        data.params = {};
 
         $.ajax({
             type: 'GET',
@@ -75,6 +71,9 @@
                     $.proxy(bindEvents, $this)();
                     $this.trigger('init.grid');
                     break;
+                case 'setHash':
+                    window.location.hash = value.hash;
+                    break;
             }
         });
     };
@@ -92,6 +91,8 @@
             if (params !== null) {
                 data.params = params;
             }
+
+            data.hash = window.location.hash;
 
             $.ajax({
                 type: 'GET',
@@ -115,10 +116,36 @@
             var $modal = $grid.find('.ipsDeleteModal');
             $modal.modal();
             $modal.find('.ipsConfirm').off().on('click', function() {
-                
+                $.proxy(deleteRecord, $grid)(id);
             });
         });
     };
+
+    var deleteRecord = function(id) {
+        var $grid = this;
+        var data = $this.data('gateway');
+        data.method = 'delete';
+        data.params = {};
+        data.params.id = id;
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $grid,
+            success: initResponse,
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+    var deleteResponse = function (response) {
+        var $this = this;
+        $.proxy(doCommands, $this)(response.result);
+    }
 
     $.fn.ipGrid = function (method) {
         if (methods[method]) {
