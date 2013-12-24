@@ -472,36 +472,14 @@ class Model
             $layout = self::DEFAULT_LAYOUT;
         }
 
-        if ($predecessor === null) {
-            $predecessorSql = ' NULL ';
-        } else {
-            $predecessorSql = (int)$predecessor;
-        }
-
-        $sql = "
-          insert into
-              " . DB_PREF . "m_content_management_widget
-          set
-              `name` = '" . ip_deprecated_mysql_real_escape_string($widgetName) . "',
-              `layout` = '" . ip_deprecated_mysql_real_escape_string($layout) . "',
-              `created` = " . time() . ",
-              `recreated` = " . time() . ",
-              `data` = '" . ip_deprecated_mysql_real_escape_string(
-                json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
-            ) . "',
-              `predecessor` = " . $predecessorSql . "
-              ";
-
-        $rs = ip_deprecated_mysql_query($sql);
-
-        if (!$rs) {
-            throw new Exception('Can\'t create new widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        $widgetId = ip_deprecated_mysql_insert_id();
-
-        return $widgetId;
-
+        return ipDb()->insert('m_content_management_widget', array(
+                'name' => $widgetName,
+                'layout' => $layout,
+                'created' => time(),
+                'recreated' => time(),
+                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
+                'predecessor' => $predecessor,
+            ));
     }
 
 
