@@ -133,7 +133,11 @@ class Db
             $sql .= "`{$column}` = ? AND ";
             $params[] = $value;
         }
-        $sql = substr($sql, 0, -4);
+        if ($where) {
+            $sql = substr($sql, 0, -4);
+        } else {
+            $sql .= '1 ';
+        }
 
         if ($sqlEnd) {
             $sql .= ' ' . $sqlEnd;
