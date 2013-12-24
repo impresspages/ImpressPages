@@ -24,6 +24,10 @@ class Table extends \Ip\Grid\Model
             $this->config['fields'] = $this->getTableFields($this->config['table']);
         }
 
+        if (empty($this->config['idField'])) {
+            $this->config['idField'] = 'id';
+        }
+
         if (empty($this->config['pageSize'])) {
             $this->config['pageSize'] = 10;
         }
@@ -120,15 +124,18 @@ class Table extends \Ip\Grid\Model
         return $result;
     }
 
-    protected function prepareData($data)
+    protected function rowsData($data)
     {
         $editButtonHtml = \Ip\View::create('../view/updateButton.php');
         $deleteButtonHtml = \Ip\View::create('../view/deleteButton.php');
-        $preparedData = array();
+        $rows = array();
         foreach ($data as $row) {
-            $preparedRow = array();
+            $preparedRow = array(
+                'id' => $row[$this->config['idField']]
+            );
+            $preparedRowData = array();
             if ($this->allowUpdate()) {
-                $preparedRow[] = $editButtonHtml;
+                $preparedRowData[] = $editButtonHtml;
             }
             foreach ($this->getFieldObjects() as $key => $field) {
                 if (isset($this->config['fields'][$key]['showInList']) && !$this->config['fields'][$key]['showInList']) {
@@ -148,32 +155,43 @@ class Table extends \Ip\Grid\Model
                         $preview = call_user_func($filter, $preview, $row);
                     }
                 }
-                $preparedRow[] = $preview;
+                $preparedRowData[] = $preview;
             }
             if ($this->allowDelete()) {
-                $preparedRow[] = $deleteButtonHtml;
+                $preparedRowData[] = $deleteButtonHtml;
             }
-            $preparedData[] = $preparedRow;
+
+            $preparedRow['values'] = $preparedRowData;
+            $rows[] = $preparedRow;
         }
-        return $preparedData;
+        return $rows;
     }
 
-    protected function getFieldLabels()
+    protected function getColumnDate()
     {
-        $labels = array();
+        $columns = array();
         if ($this->allowUpdate()) {
-            $labels[] = '';
+            $column = array(
+                'label' => ''
+            );
+            $columns[] = $column;
         }
         foreach ($this->config['fields'] as $field) {
             if (isset($field['showInList']) && !$field['showInList']) {
                 continue;
             }
-            $labels[] = $field['label'];
+            $column = array(
+                'label' => $field['label']
+            );
+            $columns[] = $column;
         }
         if ($this->allowDelete()) {
-            $labels[] = '';
+            $column = array(
+                'label' => ''
+            );
+            $columns[] = $column;
         }
-        return $labels;
+        return $columns;
     }
 
 
@@ -220,10 +238,10 @@ class Table extends \Ip\Grid\Model
         ));
 
         $variables = array(
-            'labels' => $this->getFieldLabels(),
-            'data' => $this->prepareData($this->fetch($from, $pageSize)),
+            'columns' => $this->getColumnDate(),
+            'data' => $this->rowsData($this->fetch($from, $pageSize)),
             'actions' => $this->getActions(),
-            'pagination' => $pagination,
+            'pagination' => $pagination
         );
 
         $html = \Ip\View::create('../view/layout.php', $variables)->render();

@@ -1,1 +1,1 @@
-<button type="button" class="btn btn-default btn-sm"><?php _e('Edit', 'ipAdmin') ?></button>
+<button type="button" class="btn btn-default btn-sm ipsUpdate"><?php _e('Edit', 'ipAdmin') ?></button>
