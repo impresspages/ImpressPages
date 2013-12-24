@@ -32,40 +32,6 @@ class ContentDb {
         return $zones;
     }
 
-
-    /**
-     *
-     * @param string $url
-     * @return array language attributes
-     */
-    public static function getLanguage($url) {
-        $sql = "select * from `".DB_PREF."language` where `d_short` = '".ip_deprecated_mysql_real_escape_string($url)."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            return $lock;
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        }
-    }
-
-
-    /**
-     *
-     * @param int $id
-     * @return array language attributes
-     */
-    public static function getLanguageById($languageId) {
-        $sql = "select * from `".DB_PREF."language` where `id` = '".$languageId."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs) {
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            return $lock;
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        }
-    }
-
     /**
      * Finds first language of website
      * @return array
@@ -106,55 +72,26 @@ class ContentDb {
     }
 
 
-    public static function getModules(){
-        $sql = "
-        SELECT
-            *, g.name as g_name, m.name as m_name  
-        FROM
-            `".DB_PREF."module_group` g,
-            `".DB_PREF."module` m
-        WHERE
-            m.group_id = g.id
-        ";
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
-
-        $answer = array();
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $answer[] = $lock;
-        }
-        return $answer;
-    }
-
     /**
-     * @param string $groupName
      * @param string $moduleName
      * @param string $pageId
-     * @return string|false
+     * @return string|null
      */
     public static function getPageLayout($moduleName, $pageId)
     {
-        $sql = 'SELECT
+        $table = ipTable('page_layout');
+        $sql = "SELECT
                    `layout`
                 FROM
-                   `' . DB_PREF . 'page_layout`
+                   $table
                 WHERE
                    module_name = :moduleName
-                   AND `page_id`   = :pageId';
+                   AND `page_id`   = :pageId";
 
-        $dbh = ipDb()->getConnection();
-        $q = $dbh->prepare($sql);
-        $params = array(
-            'moduleName' => $moduleName,
-            'pageId' => $pageId,
-        );
-        $q->execute($params);
-
-        return $q->fetchColumn(0);
+        return ipDb()->fetchValue($sql, array(
+                'moduleName' => $moduleName,
+                'pageId' => $pageId,
+            ));
     }
 
 }
