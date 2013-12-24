@@ -24,6 +24,10 @@ class Table extends \Ip\Grid\Model
             $this->config['fields'] = $this->getTableFields($this->config['table']);
         }
 
+        if (empty($this->config['pageSize'])) {
+            $this->config['pageSize'] = 10;
+        }
+
         foreach ($this->config['fields'] as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
@@ -202,7 +206,7 @@ class Table extends \Ip\Grid\Model
             $currentPage = 1;
         }
 
-        $pageSize = 5;
+        $pageSize = $this->config['pageSize'];
         $from = ($currentPage - 1) * $pageSize;
         $totalPages = ceil($this->recordCount() / $pageSize);
 
