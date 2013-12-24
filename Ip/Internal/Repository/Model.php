@@ -46,53 +46,23 @@ class Model{
 
     
     public static function bindFile($file, $module, $instanceId) {
-        $dbh = ipDb()->getConnection();
-        $sql = "
-        INSERT INTO
-            `".DB_PREF."m_administrator_repository_file`
-        SET
-            `fileName` = :file,
-            `module` = :module,
-            `instanceId` = :instanceId,
-            `date` = :date
-        ";
-
-        $params = array(
+        $row = array(
             'file' => $file,
             'module' => $module,
             'instanceId' => $instanceId,
             'date' => time()
         );
-
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-
-        
+        ipDb()->insert('m_administrator_repository_file', $row);
     }
 
     public static function unbindFile($file, $module, $instanceId) {
-        $dbh = ipDb()->getConnection();
-        
-        $sql = "
-        DELETE FROM
-            `".DB_PREF."m_administrator_repository_file`
-        WHERE
-            `fileName` = :file AND
-            `module` = :module AND
-            `instanceId` = :instanceId
-        LIMIT
-            1
-        ";
-
-        $params = array(
-            'file' => $file,
+        $condition = array(
+            'fileName' => $file,
             'module' => $module,
             'instanceId' => $instanceId
         );
 
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-
+        ipDb()->delete('m_administrator_repository_file', $condition);
 
         $usages = self::whoUsesFile($file);
         if (empty($usages)) {
@@ -102,94 +72,25 @@ class Model{
 
     }
     
-    public static function isBind($file, $module, $instanceId) {
-        $sql = "
-                SELECT
-                    *
-                FROM
-                    `".DB_PREF."m_administrator_repository_file`
-                WHERE
-                    `fileName` = '".ip_deprecated_mysql_real_escape_string($file)."' AND
-                    `module` = '".ip_deprecated_mysql_real_escape_string($module)."' AND
-                    `instanceId` = '".ip_deprecated_mysql_real_escape_string($instanceId)."'
-                ";
-        
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs){
-            throw new Exception('Can\'t bind new instance to the file '.$sql.' '.ip_deprecated_mysql_error(), Exception::DB);
-        }
-        
-        if($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            return $lock['date'];
-        } else {
-            return false;
-        }
-        
+    public static function whoUsesFile($file)
+    {
+        return ipDb()->select('*', 'm_administrator_repository_file', array('fileName' => $file));
     }
     
-    public static function whoUsesFile($file){
-        $sql = "
-        SELECT
-            *
-        FROM
-            `".DB_PREF."m_administrator_repository_file`
-        WHERE
-            `fileName` = :file
-        ";
-
-        $dbh = ipDb()->getConnection();
-        $q = $dbh->prepare($sql);
-        $q->execute(array(
-            'file' => $file
-        ));
-        
-        $answer = array();
-        
-        while($lock = $q->fetch()) {
-            $answer[] = $lock;
-        }
-        return $answer;
-    }
-    
-    private static function removeFile($file) {
-        if (file_exists(ipFile($file)) && !is_dir(ipFile($file))) {
-            unlink(ipFile($file));
-        }
-        
-    }
-
     /**
      * Find all files bind to particular module
      */
     public function findFiles($module, $instanceId = null)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            SELECT
-                *
-            FROM
-                `'.DB_PREF.'m_administrator_repository_file`
-            WHERE
-                `module` = :module
-        ';
-
-        $params = array (
-            ':module' => $module
+        $where = array (
+            'module' => $module
         );
 
         if ($instanceId !== null) {
-            $sql .= ' and `instanceId` = :instanceId ';
-            $params = array_merge($params, array('instanceId' => $instanceId));
+            $where['instanceId'] = $instanceId;
         }
 
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-
-        $answer = array();
-        while ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            $answer[] = $lock;
-        }
-        return $answer;
+        return ipDb()->select('*', 'm_administrator_repository_file', $where);
     }
     
     
