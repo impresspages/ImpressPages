@@ -124,6 +124,24 @@ class Db
         }
     }
 
+    public function select($fields, $table, $where, $sqlEnd = '')
+    {
+        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table) . ' WHERE ';
+
+        $params = array();
+        foreach ($where as $column => $value) {
+            $sql .= "`{$column}` = ? AND ";
+            $params[] = $value;
+        }
+        $sql = substr($sql, 0, -4);
+
+        if ($sqlEnd) {
+            $sql .= ' ' . $sqlEnd;
+        }
+
+        return $this->fetchAll($sql, $params);
+    }
+
     /**
      * @param string $sql
      * @param array $params
