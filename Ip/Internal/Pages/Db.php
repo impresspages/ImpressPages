@@ -441,12 +441,15 @@ class Db {
      * @param int $parentId
      * @param array $params
      */
-    public static function addPage($parentId, $params){
-        $values = '';
+    public static function addPage($parentId, $params)
+    {
+        $row = array(
+            'parent' => $parentId,
+            'row_number' => self::getMaxIndex($parentId) + 1,
 
-        $values .= ' parent = '.(int)$parentId;
-        $values .= ', row_number = '.((int)self::getMaxIndex($parentId) + 1);
+        );
 
+        // TODOX what is this for?
         if (isset($params['button_title'])) {
             $params['navigationTitle'] = $params['button_title'];
         }
@@ -457,77 +460,65 @@ class Db {
             $params['redirectURL'] = $params['redirect_url'];
         }
 
-        if (isset($params['navigationTitle']))
-        $values .= ', button_title = \''.ip_deprecated_mysql_real_escape_string($params['navigationTitle']).'\'';
+        if (isset($params['navigationTitle'])) {
+            $row['button_title'] = $params['navigationTitle'];
+        }
 
-        if (isset($params['pageTitle']))
-        $values .= ', page_title = \''.ip_deprecated_mysql_real_escape_string($params['pageTitle']).'\'';
+        if (isset($params['pageTitle'])) {
+            $row['page_title'] = $params['pageTitle'];
+        }
 
-        if (isset($params['keywords']))
-        $values .= ', keywords = \''.ip_deprecated_mysql_real_escape_string($params['keywords']).'\'';
+        if (isset($params['keywords'])) {
+            $row['keywords'] = $params['keywords'];
+        }
 
-        if (isset($params['description']))
-        $values .= ', description = \''.ip_deprecated_mysql_real_escape_string($params['description']).'\'';
+        if (isset($params['description'])) {
+            $row['description'] = $params['description'];
+        }
 
-        if (isset($params['url']))
-        $values .= ', url= \''.ip_deprecated_mysql_real_escape_string($params['url']).'\'';
+        if (isset($params['url'])) {
+            $row['url'] = $params['url'];
+        }
 
         if (isset($params['createdOn'])) {
-            $values .= ', created_on = \''.ip_deprecated_mysql_real_escape_string($params['createdOn']).'\'';
+            $row['createdOn'] = $params['createdOn'];
         } else {
-            $values .= ', created_on = \''.date('Y-m-d').'\'';
+            $row['createdOn'] = date('Y-m-d');
         }
 
         if (isset($params['lastModified'])) {
-            $values .= ', last_modified= \''.ip_deprecated_mysql_real_escape_string($params['lastModified']).'\'';
+            $row['last_modified'] = $params['lastModified'];
         } else {
-            $values .= ', last_modified= \''.date('Y-m-d').'\'';
+            $row['last_modified'] = date('Y-m-d');
         }
 
-        if (isset($params['type']))
-        $values .= ', type = \''.ip_deprecated_mysql_real_escape_string($params['type']).'\'';
-
-        if (isset($params['redirectURL']))
-        $values .= ', redirect_url = \''.ip_deprecated_mysql_real_escape_string($params['redirectURL']).'\'';
-
-        if (isset($params['visible']))
-        $values .= ', visible = \''.ip_deprecated_mysql_real_escape_string((int)$params['visible']).'\'';
-
-        if (isset($params['cached_html']))
-        $values .= ', `cached_html` = \''.ip_deprecated_mysql_real_escape_string($params['cached_html']).'\'';
-
-        if (isset($params['cached_text']))
-        $values .= ', `cached_text` = \''.ip_deprecated_mysql_real_escape_string($params['cached_text']).'\'';
-
-
-
-        $sql = 'INSERT INTO `'.DB_PREF.'content_element` SET '.$values.' ';
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            return ip_deprecated_mysql_insert_id();
-        } else {
-            trigger_error($sql.' '.ip_deprecated_mysql_error());
-            return false;
+        if (isset($params['type'])) {
+            $row['type'] = $params['type'];
         }
+
+        if (isset($params['redirectURL'])) {
+            $row['redirect_url'] = $params['redirectURL'];
+        }
+
+        if (isset($params['visible'])) {
+            $row['visible'] = (int)$params['visible'];
+        }
+
+        if (isset($params['cached_html'])) {
+            $row['cached_html'] = $params['cached_html'];
+        }
+
+        if (isset($params['cached_text'])) {
+            $row['cached_text'] = $params['cached_text'];
+        }
+
+        return ipDb()->insert('content_element', $row);
     }
-
 
     private static function getMaxIndex($parentId) {
-        $sql = "SELECT MAX(`row_number`) AS 'max_row_number' FROM `".DB_PREF."content_element` WHERE `parent` = ".(int)$parentId." ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                return $lock['max_row_number'];
-            } else {
-                return false;
-            }
-        } else {
-            trigger_error($sql.' '.ip_deprecated_mysql_error());
-            return false;
-        }
+        $rs = ipDb()->select("MAX(`row_number`) AS `max_row_number`", 'content_element', array('parent' => $parentId));
+        return $rs ? $rs[0]['max_row_number'] : null;
     }
-
-
 
 
     /**
@@ -535,16 +526,9 @@ class Db {
      * Delete menu element record
      * @param int $id
      */
-    public static function deletePage($id) {
-        $sql = "
-        DELETE FROM
-            ".ipTable('content_element')."
-        WHERE
-            `id` = :id";
-        $params = array(
-            'id' => $id
-        );
-        ipDb()->execute($sql, $params);
+    public static function deletePage($id)
+    {
+        ipDb()->delete('content_element', array('id' => $id));
     }
 
 
