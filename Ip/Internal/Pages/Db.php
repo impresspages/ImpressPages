@@ -520,51 +520,21 @@ class Db {
     }
 
 
-    public static function copyPage($nodeId, $newParentId, $newIndex){
-        $sql = "select * from `".DB_PREF."content_element` where `id` = ".(int)$nodeId." ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                $sql2 = "insert into `".DB_PREF."content_element` set `parent` = ".(int)$newParentId.", `row_number` = ".(int)$newIndex." ";
-
-                foreach($lock as $key => $value){
-                    switch($key){
-                        case 'button_title':
-                            $sql2 .= ", `button_title` = '".ip_deprecated_mysql_real_escape_string($lock['button_title'])."'";
-                            break;
-                        case 'id':
-
-                            break;
-                        case 'parent':
-
-                            break;
-                        case 'row_number':
-                            break;
-                        case 'url':
-                            $sql2 .= ", `url` = '".ip_deprecated_mysql_real_escape_string(self::ensureUniqueUrl($value))."'";
-                            break;
-                        default:
-                            if($value === null){
-                                $sql2 .= ", `".ip_deprecated_mysql_real_escape_string($key)."` = NULL ";
-                            } else {
-                                $sql2 .= ", `".ip_deprecated_mysql_real_escape_string($key)."` = '".ip_deprecated_mysql_real_escape_string($value)."' ";
-                            }
-                            break;
-                    }
-                }
-                $rs2 = ip_deprecated_mysql_query($sql2);
-                if($rs2){
-                    return ip_deprecated_mysql_insert_id();
-                } else {
-                    trigger_error($sql2.' '.ip_deprecated_mysql_error());
-                }
-
-            } else {
-                trigger_error("Element does not exist");
-            }
-        } else {
-            trigger_error($sql.' '.ip_deprecated_mysql_error());
+    public static function copyPage($nodeId, $newParentId, $newIndex)
+    {
+        $db = ipDb();
+        $rs = $db->select('*', 'content_element', array('id' => $nodeId));
+        if (!$rs) {
+            trigger_error("Element does not exist");
         }
+
+        $copy = $rs[0];
+        unset($copy['id']);
+        $copy['parent'] = $newParentId;
+        $copy['row_number'] = $newIndex;
+        $copy['url'] = self::ensureUniqueUrl($copy['url']);
+
+        return ipDb()->insert('content_element', $copy);
     }
 
 
