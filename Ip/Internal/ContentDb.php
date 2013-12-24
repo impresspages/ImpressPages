@@ -18,17 +18,20 @@ class ContentDb {
      */
     public static function getZones($languageId)
     {
-        $sql = "select m.*, p.url, p.description, p.keywords, p.title from `" . DB_PREF . "zone` m,`" . DB_PREF . "zone_parameter` p where p.zone_id = m.id and p.language_id = " . (int) $languageId . " order by m.row_number";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            $zones = array();
-            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                $zones[$lock['name']] = $lock;
-            }
-        } else {
-            trigger_error("Can't get all zones " . $sql . " ");
-            return false;
+        $sql = 'SELECT m.*, p.url, p.description, p.keywords, p.title
+                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') .
+                'WHERE
+                    p.zone_id = m.id
+                    AND p.language_id = ?
+                ORDER BY m.row_number';
+
+        $list = ipDb()->fetchAll($sql, array($languageId));
+
+        $zones = array();
+        foreach ($list as $zone) {
+            $zones[$zone['name']] = $zone;
         }
+
         return $zones;
     }
 
@@ -37,15 +40,7 @@ class ContentDb {
      * @return array
      */
     public static function getFirstLanguage() {
-        $sql = "select * from `".DB_PREF."language` where visible order by row_number ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            return $lock;
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        }
-
+        return ipDb()->select('*', 'language', array('visible' => 1), 'ORDER BY `row_number`');
     }
 
 
@@ -54,21 +49,20 @@ class ContentDb {
      * @return array all visible website languages
      */
     public static function getLanguages($includeHidden = false) {
-        $answer = array();
-        if ($includeHidden) {
-            $sql = "select * from `".DB_PREF."language` where 1 order by row_number";
-        } else {
-            $sql = "select * from `".DB_PREF."language` where visible order by row_number";
+
+        $where = array();
+
+        if (!$includeHidden) {
+            $where['visible'] = 1;
         }
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            $answer[$lock['id']] = $lock;
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
+
+        $rs = ipDb()->select('*', 'language', $where, 'ORDER BY `row_number`');
+        $languages = array();
+        foreach ($rs as $language) {
+            $languages[$language['id']] = $language;
         }
-        return $answer;
+
+        return $languages;
     }
 
 
