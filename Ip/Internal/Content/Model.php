@@ -461,21 +461,16 @@ class Model
 
     public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
     {
-        $sql = "
-            UPDATE
-                `" . DB_PREF . "revision`
-            SET
-                 `zoneName` = '" . ip_deprecated_mysql_real_escape_string($newZoneName) . "'
-            WHERE
-                `zoneName` = '" . ip_deprecated_mysql_real_escape_string($oldZoneName) . "'
-                AND
-                `pageId` = " . (int)$pageId . "
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t udpate revisions ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-        return ip_deprecated_mysql_affected_rows();
+        return ipDb()->update(
+            'revision',
+            array(
+                'zoneName' => $newZoneName,
+            ),
+            array(
+                'pageId' => $pageId,
+                'zoneName' => $oldZoneName,
+            )
+        );
     }
 
 
@@ -489,26 +484,22 @@ class Model
     {
         $record = Model::getWidgetFullRecord($instanceId);
 
+        $table = ipTable('m_content_management_widget_instance');
         $sql = "
-            SELECT count(instanceId) as position FROM
-                `" . DB_PREF . "m_content_management_widget_instance`
+            SELECT count(instanceId) as position
+            FROM $table
             WHERE
-                `revisionId` = " . $record['revisionId'] . " AND
-                `blockName` = '" . ip_deprecated_mysql_real_escape_string($record['blockName']) . "' AND
-                `position` < " . $record['position'] . " AND
+                `revisionId` = :revisionId AND
+                `blockName` = :blockName AND
+                `position` < :position AND
                 `deleted` IS NULL  
         ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t find widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
 
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            return $lock['position'];
-        } else {
-            return false;
-        }
-
+        return ipDb()->fetchValue($sql, array(
+                'revisionId' => $record['revisionId'],
+                'blockName' => $record['blockName'],
+                'position' => $record['position'],
+            ));
     }
 
     /**
