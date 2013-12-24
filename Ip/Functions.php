@@ -424,3 +424,8 @@ function ipTable($table, $as = null)
     }
     return $answer;
 }
+
+function ipIsAllowed($plugin, $action = NULL, $data = NULL)
+{
+    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
+}
