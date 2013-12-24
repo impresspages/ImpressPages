@@ -41,8 +41,3 @@ function ip_deprecated_mysql_error()
     return isset($ip_deprecated_mysql_error) ? $ip_deprecated_mysql_error : null;
 }
 
-function ip_deprecated_mysql_insert_id()
-{
-    $pdo = ipDb()->getConnection();
-    return $pdo->lastInsertId();
-}

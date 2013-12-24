@@ -138,14 +138,10 @@ class Db
 
     public static function addPermissions($userId, $moduleId)
     {
-        $sql = "insert into " . DB_PREF . "user_to_mod set userId = " . (int)$userId . ", module_id = " . (int)$moduleId . " ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            return ip_deprecated_mysql_insert_id();
-        } else {
-            trigger_error($sql . " " . ip_deprecated_mysql_error());
-        }
-
+        ipDb()->insert('user_to_mod', array(
+                'userId' => $userId,
+                'moduleId' => $moduleId,
+            ));
     }
 
     public static function getAllUsers()
