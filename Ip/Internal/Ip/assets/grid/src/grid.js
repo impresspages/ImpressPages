@@ -109,7 +109,14 @@
         });
 
         $grid.find('.ipsDelete').off().on('click', function() {
-
+            var $this = $(this);
+            var $row = $this.closest('.ipsRow');
+            var id = $row.data('id');
+            var $modal = $grid.find('.ipsDeleteModal');
+            $modal.modal();
+            $modal.find('.ipsConfirm').off().on('click', function() {
+                
+            });
         });
     };
 
