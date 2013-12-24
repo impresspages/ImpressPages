@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-default btn-sm"><?php _e('Delete', 'ipAdmin') ?></button>

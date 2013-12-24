@@ -143,6 +143,9 @@ class Content {
         return $this->zonesData;
     }
 
+    /**
+     * @return Zone
+     */
     public function getCurrentZone()
     {
         if ($this->currentZoneName === null) {
@@ -151,6 +154,9 @@ class Content {
         return $this->getZone($this->currentZoneName);
     }
 
+    /**
+     * @return \Ip\Page
+     */
     public function getCurrentPage()
     {
         if ($this->currentPage === null) {
