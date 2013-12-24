@@ -46,10 +46,3 @@ function ip_deprecated_mysql_insert_id()
     $pdo = ipDb()->getConnection();
     return $pdo->lastInsertId();
 }
-
-function ip_deprecated_mysql_affected_rows()
-{
-    global $ip_deprecated_mysql_last_rs;
-
-    return $ip_deprecated_mysql_last_rs ? $ip_deprecated_mysql_last_rs->rowCount() : 0;
-}
