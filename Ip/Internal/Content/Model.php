@@ -436,28 +436,8 @@ class Model
 
     public static function getRevisions($zoneName, $pageId)
     {
-        $sql = "
-            SELECT * FROM
-                `" . DB_PREF . "revision`
-            WHERE
-                `zoneName` = '" . ip_deprecated_mysql_real_escape_string($zoneName) . "'
-                AND
-                `pageId` = " . (int)$pageId . "
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t get revisions ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        $answer = array();
-
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $answer[] = $lock;
-        }
-
-        return $answer;
+        return ipDb()->select('*', 'revision', array('zoneName' => $zoneName, 'pageId' => $pageId));
     }
-
 
     public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
     {
@@ -588,93 +568,33 @@ class Model
 
     public static function updateWidget($widgetId, $data)
     {
-
-        $dataSql = '';
-
-        foreach ($data as $key => $value) {
-            if ($dataSql != '') {
-                $dataSql .= ', ';
-            }
-
-            if ($key == 'data') {
-                $dataSql .= " `" . $key . "` = '" . ip_deprecated_mysql_real_escape_string(
-                        json_encode(\Ip\Internal\Text\Utf8::checkEncoding($value))
-                    ) . "' ";
-            } else {
-                $dataSql .= " `" . $key . "` = '" . ip_deprecated_mysql_real_escape_string($value) . "' ";
-            }
+        if (array_key_exists('data', $data)) {
+            $data['data'] = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data['data']));
         }
 
-
-        $sql = "
-            UPDATE `" . DB_PREF . "m_content_management_widget`
-            SET
-                " . $dataSql . "
-            WHERE `widgetId` = " . (int)$widgetId . "
-        ";
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t update widget ' . $sql . ' ' . ip_deprecated_mysql_error());
-        }
-
-        return true;
+        return ipDb()->update('m_content_management_widget', $data, array('widgetId' => $widgetId));
     }
 
     public static function updateInstance($instanceId, $data)
     {
-
-        $dataSql = '';
-
-        foreach ($data as $key => $value) {
-            if ($dataSql != '') {
-                $dataSql .= ', ';
-            }
-            $dataSql .= " `" . $key . "` = '" . ip_deprecated_mysql_real_escape_string($value) . "' ";
-        }
-
-
-        $sql = "
-            UPDATE `" . DB_PREF . "m_content_management_widget_instance`
-            SET
-                " . $dataSql . "
-            WHERE `instanceId` = " . (int)$widgetId . "
-        ";
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t update instance ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        return true;
+        return ipDb()->update('m_content_management_widget_instance', $data, array('instanceId' => $instanceId));
     }
-
-
 
     public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible)
     {
 
         $positionNumber = Model::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
 
-        $sql = "
-            INSERT INTO `" . DB_PREF . "m_content_management_widget_instance`
-            SET
-                `widgetId` = " . (int)$widgetId . ",
-                `revisionId` = " . (int)$revisionId . ",
-                `blockName` = '" . ip_deprecated_mysql_real_escape_string($blockName) . "',
-                `position` = '" . $positionNumber . "',
-                `visible` = " . (int)$visible . ",
-                `created` = " . (int)time() . ",
-                `deleted` = NULL 
-                
-        ";
+        $row = array(
+            'widgetId' => $widgetId,
+            'revisionId' => $revisionId,
+            'blockName' => $blockName,
+            'position' => $positionNumber,
+            'visible' => (int)$visible,
+            'created' => time(),
+        );
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t create instance ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        return ip_deprecated_mysql_insert_id();
+        return ipDb()->insert('m_content_management_widget_instance', $row);
     }
 
 
@@ -685,46 +605,14 @@ class Model
      */
     public static function deleteInstance($instanceId)
     {
-        $sql = "
-            UPDATE `" . DB_PREF . "m_content_management_widget_instance`
-            SET
-                `deleted` = " . (int)time() . "
-            WHERE
-                `instanceId` = " . (int)$instanceId . "
-        ";
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t delete instance ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
+        ipDb()->update('m_content_management_widget_instance', array('deleted' => time()), array('instanceId' => $instanceId));
         return true;
     }
 
     public static function removeRevision($revisionId)
     {
-        $sql = "
-            DELETE FROM
-                `" . DB_PREF . "m_content_management_widget_instance`
-            WHERE
-                `revisionId` = " . (int)$revisionId . "
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t remove revision widgets instances ' . $sql . ' ' . ip_deprecated_mysql_error(
-                ), Exception::DB);
-        }
-
-        $sql = "
-            DELETE FROM
-                `" . DB_PREF . "revision`
-            WHERE
-                `revisionId` = " . (int)$revisionId . "
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t remove revision ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
+        ipDb()->delete('m_content_management_widget_instance', array('revisionId' => $revisionId));
+        ipdb()->delete('revision', array('revisionId' => $revisionId));
     }
 
 
@@ -746,27 +634,20 @@ class Model
      */
     public static function deleteUnusedWidgets()
     {
-
-
         $sql = "
-            SELECT
-                w.widgetId 
-            FROM
-                `" . DB_PREF . "m_content_management_widget` w
-            LEFT JOIN
-                `" . DB_PREF . "m_content_management_widget_instance` i
-            ON
-                i.widgetId = w.widgetId
-            WHERE
-                i.instanceId IS NULL
-          
+            SELECT w.widgetId
+            FROM " . ipTable('m_content_management_widget', 'w') . "
+            LEFT JOIN " . ipTable('m_content_management_widget_instance', 'i') . "
+            ON i.widgetId = w.widgetId
+            WHERE i.instanceId IS NULL
         ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t get unused widgets ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            self::deleteWidget($lock['widgetId']);
+
+        $db = ipDb();
+
+        $widgetList = $db->fetchColumn($sql);
+
+        foreach ($widgetList as $widgetId) {
+            self::deleteWidget($widgetId);
         }
     }
 
@@ -784,16 +665,7 @@ class Model
             $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
 
-        $sql = "
-          DELETE FROM
-              `" . DB_PREF . "m_content_management_widget`
-          WHERE
-              `widgetId` = " . (int)$widgetId . "
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t delete widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
+        ipDb()->delete('m_content_management_widget', array('widgetId' => $widgetId));
     }
 
 
