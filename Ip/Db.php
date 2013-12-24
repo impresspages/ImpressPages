@@ -130,8 +130,12 @@ class Db
 
         $params = array();
         foreach ($where as $column => $value) {
-            $sql .= "`{$column}` = ? AND ";
-            $params[] = $value;
+            if ($value === NULL) {
+                $sql .= "`{$column}` IS NULL AND ";
+            } else {
+                $sql .= "`{$column}` = ? AND ";
+                $params[] = $value;
+            }
         }
         if ($where) {
             $sql = substr($sql, 0, -4);
@@ -222,8 +226,12 @@ class Db
         $sql = "DELETE FROM " . ipTable($table) . " WHERE ";
         $params = array();
         foreach ($condition as $column => $value) {
-            $sql .= "`{$column}` = ? AND ";
-            $params[] = $value;
+            if ($value === NULL) {
+                $sql .= "`{$column}` IS NULL AND ";
+            } else {
+                $sql .= "`{$column}` = ? AND ";
+                $params[] = $value;
+            }
         }
         $sql = substr($sql, 0, -4);
 
@@ -255,8 +263,12 @@ class Db
 
         if (is_array($condition)) {
             foreach ($condition as $column => $value) {
-                $sql .= "`{$column}` = ? AND ";
-                $params[] = $value;
+                if ($value === NULL) {
+                    $sql .= "`{$column}` IS NULL AND ";
+                } else {
+                    $sql .= "`{$column}` = ? AND ";
+                    $params[] = $value;
+                }
             }
             $sql = substr($sql, 0, -4);
         } else {
