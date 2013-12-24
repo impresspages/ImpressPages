@@ -144,27 +144,29 @@ class Db {
      * @return mixed
      * @throws \Ip\CoreException
      */
-    public static function rootId($zoneId, $languageId){
-        $sql = "select mte.element_id from `".DB_PREF."zone_to_content` mte, `".DB_PREF."language` l where l.id = '".$languageId."' and  mte.language_id = l.id and zone_id = '".$zoneId."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                return $lock['element_id'];
-            } else { //try to create
-                self::createRootZoneElement($zoneId, $languageId);
-                $rs2 = ip_deprecated_mysql_query($sql);
-                if ($rs2) {
-                    if ($lock2 = ip_deprecated_mysql_fetch_assoc($rs2)) {
-                        return $lock2['element_id'];
-                    } else {
-                        throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
-                    }
-                }
-                throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
-            }
-        } else {
+    public static function rootId($zoneId, $languageId)
+    {
+        $sql = '
+            SELECT
+                mte.element_id
+            FROM ' . ipTable('zone_to_content', 'mte') . ', ' . ipTable('language', 'l') . '
+            WHERE l.id = :languageId AND  mte.language_id = l.id AND zone_id = :zoneId';
+
+        $where = array(
+            'languageId' => $languageId,
+            'zoneId' => $zoneId
+        );
+
+        $pageId = ipDb()->fetchValue($sql, $where);
+        if (!$pageId) {
+            $pageId = self::createRootZoneElement($zoneId, $languageId);
+        }
+
+        if (!$pageId) {
             throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
         }
+
+        return $pageId;
     }
 
     /**
@@ -172,20 +174,15 @@ class Db {
      * @param $languageId
      * @throws \Ip\CoreException
      */
-    protected static function createRootZoneElement($zoneId, $languageId){
-        $sql = "insert into `".DB_PREF."content_element` set visible = 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            $elementId = ip_deprecated_mysql_insert_id();
-            $sql2 = "insert into `".DB_PREF."zone_to_content` set
-            language_id = '".ip_deprecated_mysql_real_escape_string($languageId)."',
-            zone_id = '".$zoneId."',
-            element_id = '".$elementId."'";
-            $rs2 = ip_deprecated_mysql_query($sql2);
-            if (!$rs2) {
-                throw new \Ip\CoreException($sql2 . " " . ip_deprecated_mysql_error());
-            }
-        }
+    protected static function createRootZoneElement($zoneId, $languageId)
+    {
+        $pageId = ipDb()->insert('content_element', array('visible' => 1));
+
+        return ipDb()->insert('zone_to_content', array(
+                'language_id' => $languageId,
+                'zone_id' => $zoneId,
+                'element_id' => $pageId,
+            ));
     }
 
     public static function isChild($pageId, $parentId)
@@ -207,23 +204,13 @@ class Db {
 
 
     /**
-     *
      * Get page children
      * @param int $elementId
      * @return array
      */
-    public static function pageChildren($parentId){
-        $sql = "select * from `".DB_PREF."content_element` where parent= '".$parentId."' order by row_number";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            $pages = array();
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                $pages[] = $lock;
-            }
-            return $pages;
-        } else {
-            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
-        }
+    public static function pageChildren($parentId)
+    {
+        return ipDb()->select('*', 'content_element', array('parent' => $parentId), 'ORDER BY `row_number`');
     }
 
     /**
@@ -232,19 +219,11 @@ class Db {
      * @param int $id
      * @return array
      */
-    private static function getPage($id){
-        $sql = "select * from `".DB_PREF."content_element` where id= '".(int)$id."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs){
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                return $lock;
-            }
-        } else {
-            trigger_error("Can't get children ".$sql." ".ip_deprecated_mysql_error());
-        }
-        return false;
+    private static function getPage($id)
+    {
+        $rs = ipDb()->select('*', 'content_element', array('id' => $id));
+        return $rs ? $rs[0] : null;
     }
-
 
 
     /**
