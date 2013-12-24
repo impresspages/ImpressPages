@@ -121,27 +121,7 @@ class Model
 
     private static function _getPriorities()
     {
-        $sql = "
-        SELECT
-            *
-        FROM
-            `" . DB_PREF . "m_developer_widget_sort`
-        WHERE
-            1
-        ORDER BY
-            `priority` asc
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t add widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        $answer = array();
-
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $answer[$lock['widgetName']] = $lock['priority'];
-        }
-        return $answer;
+        return ipDb()->select('*', 'm_developer_widget_sort', array(), 'ORDER BY `priority` ASC');
     }
 
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null)
@@ -269,83 +249,51 @@ class Model
 
     public static function getBlockWidgetRecords($blockName, $revisionId)
     {
-        $sql = "
+        $sql = '
             SELECT * 
             FROM
-                `" . DB_PREF . "m_content_management_widget_instance` i,
-                `" . DB_PREF . "m_content_management_widget` w
+                ' . ipTable('m_content_management_widget_instance', 'i') . ',
+                ' . ipTable('m_content_management_widget', 'w') . '
             WHERE
                 i.deleted is NULL AND
                 i.widgetId = w.widgetId AND
-                i.blockName = '" . ip_deprecated_mysql_real_escape_string($blockName) . "' AND
-                i.revisionId = " . (int)$revisionId . "
+                i.blockName = :blockName AND
+                i.revisionId = :revisionId
             ORDER BY `position` ASC
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t get widgets ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
+        ';
+
+        $list = ipDb()->fetchAll($sql, array(
+                'blockName' => $blockName,
+                'revisionId' => $revisionId,
+            ));
+
+        foreach ($list as &$item) {
+            $item['data'] = json_decode($item['data'], true);
         }
 
-        $answer = array();
-
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $lock['data'] = json_decode($lock['data'], true);
-            $answer[] = $lock;
-        }
-
-        return $answer;
+        return $list;
     }
-
 
     public static function duplicateRevision($oldRevisionId, $newRevisionId)
     {
-        $sql = "
+        $sql = '
             SELECT * 
             FROM
-                `" . DB_PREF . "m_content_management_widget_instance` i
+                ' . ipTable('m_content_management_widget_instance', 'i') . '
             WHERE
-                i.revisionId = " . (int)$oldRevisionId . " AND
+                i.revisionId = ? AND
                 i.deleted IS NULL
             ORDER BY `position` ASC
-        ";
+        ';
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t get revision data ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
+        $instances = ipDb()->fetchAll($sql, array($oldRevisionId));
 
-        while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
+        foreach ($instances as $instance) {
 
-            $dataSql = '';
+            unset($instance['instanceId']);
+            $instance['revisionId'] = $newRevisionId;
 
-            foreach ($lock as $key => $value) {
-                if ($key != 'revisionId' && $key != 'instanceId') {
-                    if ($dataSql != '') {
-                        $dataSql .= ', ';
-                    }
-                    if ($value !== null) {
-                        $dataSql .= " `" . $key . "` = '" . ip_deprecated_mysql_real_escape_string($value) . "' ";
-                    } else {
-                        $dataSql .= " `" . $key . "` = NULL ";
-                    }
-
-                }
-            }
-
-            $insertSql = "
-                INSERT INTO
-                    `" . DB_PREF . "m_content_management_widget_instance`
-                SET
-                    " . $dataSql . ",
-                    `revisionId` = " . (int)$newRevisionId . "
-                    
-            ";
-
-            $insertRs = ip_deprecated_mysql_query($insertSql);
-            if (!$insertRs) {
-                throw new Exception('Can\'t get revision data ' . $insertSql . ' ' . ip_deprecated_mysql_error(
-                    ), Exception::DB);
-            }
+            ipDb()->insert('m_content_management_widget_instance', $instance);
         }
 
     }
@@ -385,24 +333,15 @@ class Model
 
     public static function getWidgetRecord($widgetId)
     {
-        $sql = "
-            SELECT * FROM `" . DB_PREF . "m_content_management_widget`
-            WHERE `widgetId` = " . (int)$widgetId . "
-        ";
+        $rs = ipDb()->select('*', 'm_content_management_widget', array('widgetId' => $widgetId));
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t find widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
-        }
-
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $lock['data'] = json_decode($lock['data'], true);
-            return $lock;
+        if ($rs) {
+            $rs[0]['data'] = json_decode($rs[0]['data'], true);
+            return $rs[0];
         } else {
-            return false;
+            return null;
         }
     }
-
 
     /**
      *
