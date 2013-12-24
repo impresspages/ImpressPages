@@ -602,24 +602,19 @@ class Db {
      * @returns bool true if url is available ignoring $allowed_id page.
      */
     public static function availableUrl($url, $allowedId = null){
-        if($allowedId)
-        $sql = "select url from `".DB_PREF."content_element` where url = '".ip_deprecated_mysql_real_escape_string($url)."' and id <> '".$allowedId."'";
-        else
-        $sql = "select url from `".DB_PREF."content_element` where url = '".ip_deprecated_mysql_real_escape_string($url)."' ";
 
-        $rs = ip_deprecated_mysql_query($sql);
-        if(!$rs)
-        trigger_error("Available url check ".$sql." ".ip_deprecated_mysql_error());
+        $rs = ipDb()->select('`id`', 'content_element', array('url' => $url));
 
-        if(ip_deprecated_mysql_num_rows($rs) > 0)
+        if (!$rs) {
+            return true;
+        }
+
+        if ($allowedId && $rs[0]['id'] == $allowedId) {
+            return true;
+        }
+
         return false;
-        else
-        return true;
     }
-
-
-
-
 
     /**
      *
@@ -630,53 +625,58 @@ class Db {
     public static function makeUrl($url, $allowed_id = null)
     {
 
-        if($url == '')
-        $url = 'page';
+        if ($url == '') {
+            $url = 'page';
+        }
+
         $url = mb_strtolower($url);
         $url = \Ip\Internal\Text\Transliteration::transform($url);
-        $url = str_replace(" ", "-", $url);
-        $url = str_replace("/", "-", $url);
-        $url = str_replace("\\", "-", $url);
-        $url = str_replace("\"", "-", $url);
-        $url = str_replace("\'", "-", $url);
-        $url = str_replace("„", "-", $url);
-        $url = str_replace("“", "-", $url);
-        $url = str_replace("&", "-", $url);
-        $url = str_replace("%", "-", $url);
-        $url = str_replace("`", "-", $url);
-        $url = str_replace("!", "-", $url);
-        $url = str_replace("@", "-", $url);
-        $url = str_replace("#", "-", $url);
-        $url = str_replace("$", "-", $url);
-        $url = str_replace("^", "-", $url);
-        $url = str_replace("*", "-", $url);
-        $url = str_replace("(", "-", $url);
-        $url = str_replace(")", "-", $url);
-        $url = str_replace("{", "-", $url);
-        $url = str_replace("}", "-", $url);
-        $url = str_replace("[", "-", $url);
-        $url = str_replace("]", "-", $url);
-        $url = str_replace("|", "-", $url);
-        $url = str_replace("~", "-", $url);
-        $url = str_replace(".", "-", $url);
-        $url = str_replace("'", "", $url);
-        $url = str_replace("?", "", $url);
-        $url = str_replace(":", "", $url);
-        $url = str_replace(";", "", $url);
 
-        if($url == ''){
+        $replace = array(
+            " " => "-",
+            "/" => "-",
+            "\\" => "-",
+            "\"" => "-",
+            "\'" => "-",
+            "„" => "-",
+            "“" => "-",
+            "&" => "-",
+            "%" => "-",
+            "`" => "-",
+            "!" => "-",
+            "@" => "-",
+            "#" => "-",
+            "$" => "-",
+            "^" => "-",
+            "*" => "-",
+            "(" => "-",
+            ")" => "-",
+            "{" => "-",
+            "}" => "-",
+            "[" => "-",
+            "]" => "-",
+            "|" => "-",
+            "~" => "-",
+            "." => "-",
+            "'" => "",
+            "?" => "",
+            ":" => "",
+            ";" => "",
+        );
+        $url = strtr($url, $replace);
+
+        if ($url == ''){
             $url = '-';
         }
 
+        $url = preg_replace('/-+/', '-', $url);
 
-        while($url != str_replace("--", "-", $url))
-        $url = str_replace("--", "-", $url);
-
-        if(self::availableUrl($url, $allowed_id))
-        return $url;
+        if (self::availableUrl($url, $allowed_id)) {
+            return $url;
+        }
 
         $i = 1;
-        while(!self::availableUrl($url.'-'.$i, $allowed_id)){
+        while (!self::availableUrl($url.'-'.$i, $allowed_id)) {
             $i++;
         }
 
