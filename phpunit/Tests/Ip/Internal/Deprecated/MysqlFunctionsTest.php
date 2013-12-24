@@ -42,15 +42,6 @@ class MysqlFunctionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Sample text', $row['text']);
         $this->assertEquals('sampleCode', $row['code']);
 
-        $count = 1;
-
-        while ($row = ip_deprecated_mysql_fetch_assoc($rs)){
-            $count++;
-        }
-
-        $this->assertEquals(4, $count);
-        $this->assertEquals(4, ip_deprecated_mysql_num_rows($rs));
-
         ip_deprecated_mysql_query('DROP TABLE IF EXISTS `test_mysql_deprecated`');
     }
 
