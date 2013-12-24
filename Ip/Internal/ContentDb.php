@@ -19,8 +19,8 @@ class ContentDb {
     public static function getZones($languageId)
     {
         $sql = 'SELECT m.*, p.url, p.description, p.keywords, p.title
-                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') .
-                'WHERE
+                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') . '
+                WHERE
                     p.zone_id = m.id
                     AND p.language_id = ?
                 ORDER BY m.row_number';
