@@ -149,6 +149,12 @@ class Revision{
                 'zoneName' => $zoneName,
             ));
 
+        $where = array(
+           'pageId' => $pageId,
+            'zoneName' => $zoneName,
+        );
+        $revisions = ipDb()->select('*', 'revision', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
+
         if (!$revisions) {
             throw new CoreException("Can\'t get page #{$pageId} revisions.", CoreException::DB);
         }
