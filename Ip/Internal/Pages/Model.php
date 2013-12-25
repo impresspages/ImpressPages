@@ -12,6 +12,19 @@ class Model
 {
 
 
+    public static function cleanupLanguage($id)
+    {
+        $zones = ipContent()->getZones();
+        foreach($zones as $zone) {
+            if ($zone->getAssociatedModule() == 'Content') {
+                $rootId = Db::rootId($zone->getId(), $id);
+                Model::deletePage($zone->getName(), $rootId);
+            }
+        }
+        self::deleteZoneParameters($id);
+        self::removeZoneToContent($id);
+    }
+
     public static function deletePage($zoneName, $pageId)
     {
 
@@ -107,17 +120,9 @@ class Model
 
     public static function createZoneParameters($languageId)
     {
-//        $langauges = ipContent()->getLanguages();
-//        $firstLanguage = $languages[0];
-//        \Frontend\Db::getZones($firstLanguage->getId());
-
-
         //create zone translations
         $zones = ipContent()->getZones();
         foreach ($zones as $zone) {
-            if ($zone->getAssociatedModule() != 'Content') {
-                continue;
-            }
             $params = array(
                 'language_id' => $languageId,
                 'zone_id' => $zone->getId(),
@@ -126,6 +131,18 @@ class Model
             );
             ipDb()->insert('zone_parameter', $params);
         }
+    }
+
+    protected static function deleteZoneParameters($languageId)
+    {
+        //remove zone to content binding
+        ipDb()->delete('zone_to_content', array('language_id' => $languageId));
+    }
+
+    protected static function removeZoneToContent($languageId)
+    {
+        //remove zone translations
+        ipDb()->delete('zone_parameter', array('language_id' => $languageId));
     }
 
     protected static function newZoneUrl($languageId, $requestedUrl)

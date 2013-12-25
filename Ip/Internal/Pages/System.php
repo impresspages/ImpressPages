@@ -15,11 +15,12 @@ class System
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->addEventListener('Ip.addLanguage', __CLASS__ . '::addLanguage');
+        $dispatcher->addEventListener('Ip.addLanguage', array($this, 'onAddLanguage'));
+        $dispatcher->addEventListener('Ip.deleteLanguage', array($this, 'onDeleteLanguage'));
     }
 
 
-    public static function addLanguage($data)
+    public function onAddLanguage($data)
     {
         $languageId = $data['id'];
         //todox check if root zone element is being created on demand and remove this code
@@ -33,5 +34,11 @@ class System
 
 
         Model::createZoneParameters($languageId);
+    }
+
+    public function onDeleteLanguage($data)
+    {
+        $languageId = $data['id'];
+        Model::cleanupLanguage($languageId);
     }
 }

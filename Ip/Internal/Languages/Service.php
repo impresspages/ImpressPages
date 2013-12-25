@@ -18,5 +18,9 @@ class Service
         return $languageId;
     }
 
+    public static function delete($languageId)
+    {
+        Model::delete($languageId);
+    }
 
 }

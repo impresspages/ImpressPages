@@ -34,6 +34,12 @@ class Model{
         return $languageId;
     }
 
+    public static function delete($id)
+    {
+        ipDb()->delete('language', array('id' => $id));
+        ipDispatcher()->notify('Ip.deleteLanguage', array('id' => $id));
+    }
+
     private static function getPositionPriority($position)
     {
         if ($position === null) {
