@@ -351,27 +351,22 @@ class Model
      */
     public static function getWidgetFullRecord($instanceId)
     {
-        $sql = "
+        $sql = '
             SELECT * FROM
-                `" . DB_PREF . "m_content_management_widget_instance` i,
-                `" . DB_PREF . "m_content_management_widget` w
+                ' . ipTable('m_content_management_widget_instance', 'i') . ',
+                ' . ipTable('m_content_management_widget', 'w') . '
             WHERE
-                i.`instanceId` = " . (int)$instanceId . " AND
+                i.`instanceId` = ? AND
                 i.widgetId = w.widgetId 
-        ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new Exception('Can\'t find widget ' . $sql . ' ' . ip_deprecated_mysql_error(), Exception::DB);
+        ';
+        $row = ipDb()->fetchRow($sql, array($instanceId));
+        if (!$row) {
+            return null;
         }
 
-        if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-            $lock['data'] = json_decode($lock['data'], true);
-            return $lock;
-        } else {
-            return false;
-        }
+        $row['data'] = json_decode($row['data'], true);
+        return $row;
     }
-
 
     public static function getRevisions($zoneName, $pageId)
     {
