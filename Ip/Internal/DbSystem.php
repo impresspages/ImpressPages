@@ -66,7 +66,9 @@ class DbSystem{    //system variables
     //end system variables
 
 
-    public static function replaceUrls($oldUrl, $newUrl){
+    public static function replaceUrls($oldUrl, $newUrl)
+    {
+        $db = ipDb();
 
         if ($oldUrl == '' || $newUrl == '') {
             trigger_error('Can\'t update URL');
@@ -78,46 +80,21 @@ class DbSystem{    //system variables
         $newUrlParts = explode('?', $newUrl);
         $newUrl = $newUrlParts[0];
 
-        $sql = "update `".DB_PREF."par_string` set value = REPLACE(`value`, '".ip_deprecated_mysql_real_escape_string($oldUrl)."', '".ip_deprecated_mysql_real_escape_string($newUrl)."') where 1";
-        $rs = ip_deprecated_mysql_query($sql);
+        $sql = 'UPDATE ' . ipTable('par_string') . ' SET `value` = REPLACE(`value`, ?, ?)';
+        $db->execute($sql, array($oldUrl,  $newUrl));
         
-        if (!$rs) {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
+        $sql = 'UPDATE ' . ipTable('par_lang') . ' SET translation = REPLACE(`translation`, ?, ?)';
+        $db->execute($sql, array($oldUrl,  $newUrl));
 
-
-        $sql = "update `".DB_PREF."par_lang` set translation = REPLACE(`translation`, '".ip_deprecated_mysql_real_escape_string($oldUrl)."', '".ip_deprecated_mysql_real_escape_string($newUrl)."') where 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
-
-        
         $fromJsonUrl = json_encode($oldUrl);
         $fromJsonUrl = substr($fromJsonUrl, 1, -1);
         $toJsonUrl = json_encode($newUrl);
         $toJsonUrl = substr($toJsonUrl, 1, -1);
         
-        $sql = "
-        UPDATE 
-            `".DB_PREF."m_content_management_widget` 
-        SET 
-            `data` = REPLACE(`data`, '".ip_deprecated_mysql_real_escape_string($fromJsonUrl)."', '".ip_deprecated_mysql_real_escape_string($toJsonUrl)."') where 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            return true;
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
-        
-        
+        $sql = 'UPDATE ' . ipTable('m_content_management_widget') . ' SET `data` = REPLACE(`data`, ?, ?)';
+        $db->execute($sql, array($fromJsonUrl, $toJsonUrl));
+
         return true;
     }
-
-
-
 
 }
