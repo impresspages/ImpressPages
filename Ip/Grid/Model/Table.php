@@ -75,7 +75,12 @@ class Table extends \Ip\Grid\Model
 
     protected function delete($params, $statusVariables)
     {
-
+        $actions = new Actions($this->config);
+        $actions->delete($params['id']);
+        $display = new Display($this->config);
+        $html = $display->fullHtml($statusVariables);
+        $commands[] = Commands::setHtml($html);
+        return $commands;
     }
 
 }

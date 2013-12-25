@@ -123,16 +123,17 @@
 
     var deleteRecord = function(id) {
         var $grid = this;
-        var data = $this.data('gateway');
+        var data = $grid.data('gateway');
         data.method = 'delete';
         data.params = {};
         data.params.id = id;
+        data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
             data: data,
             context: $grid,
-            success: initResponse,
+            success: deleteResponse,
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
                     alert(response);
@@ -144,7 +145,14 @@
 
     var deleteResponse = function (response) {
         var $this = this;
-        $.proxy(doCommands, $this)(response.result);
+        if (!response.error) {
+            $.proxy(doCommands, $this)(response.result);
+        } else {
+            if (ip.debugMode || ip.developmentMode) {
+                alert(response.errorMessage);
+            }
+        }
+
     }
 
     $.fn.ipGrid = function (method) {
