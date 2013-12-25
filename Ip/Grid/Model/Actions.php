@@ -12,34 +12,31 @@ namespace Ip\Grid\Model;
  */
 class Actions
 {
+    /**
+     * @var $config Config
+     */
     protected $config;
 
-    public function __constrcut($config)
+    public function __construct($config)
     {
         $this->config = $config;
     }
 
-    public function init()
+
+
+    public function delete($id)
     {
-        return array (
-            $this->refreshCommand($statusVariables)
+        $sql = "
+        DELETE FROM
+            " . $this->config->tableName() . "
+        WHERE
+            " . $this->config->idField() . " = :id
+        ";
+
+        $params = array(
+            'id' => $id
         );
-    }
 
-    public function page()
-    {
-        $statusVariables['page'] = $data['params']['page'];
-
-        $commands = array();
-        return $this->refreshCommands($statusVariables);
-
-    }
-
-    public function delete()
-    {
-
-        $this->delete($data['params']);
-
-        return $this->refreshCommands($statusVariables);
+        ipDb()->execute($sql, $params);
     }
 }
