@@ -75,6 +75,7 @@ class AdminController extends \Ip\Grid\Controller
             ),
             'preventAction' => array($this, 'preventAction'),
             'beforeDelete' => array($this, 'beforeDelete'),
+            'deleteWarning' => 'Are you sure you want to delete? All pages and other language related content will be lost forever!',
             'fields' => array(
                 array(
                     'label' => __('Title', 'ipAdmin', false),

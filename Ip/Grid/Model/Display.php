@@ -46,7 +46,8 @@ class Display
             'columns' => $this->getColumnDate(),
             'data' => $this->rowsData($this->fetch($from, $pageSize)),
             'actions' => $this->getActions(),
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'deleteWarning' => $this->config->deleteWarning()
         );
 
         $html = \Ip\View::create('../view/layout.php', $variables)->render();

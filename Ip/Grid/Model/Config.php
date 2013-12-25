@@ -42,6 +42,22 @@ class Config
         }
     }
 
+    public function getRaw($key) {
+        if (!empty($this->config[$key])) {
+            return $this->config[$key];
+        }
+        return null;
+    }
+
+    public function deleteWarning()
+    {
+        $warning = $this->getRaw('deleteWarning');
+        if (empty($warning)) {
+            $warning = __('Are you sure you want to delete?', 'ipAdmin', FALSE);
+        }
+        return $warning;
+    }
+
     public function actions()
     {
         if (!empty($this->config['actions'])) {
