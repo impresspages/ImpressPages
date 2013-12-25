@@ -68,9 +68,7 @@ class Display
                 'class' => 'ipsSearch'
             );
         }
-        if (array_key_exists('actions', $this->config) && is_array($this->config['actions'])) {
-            $actions = array_merge($actions, $this->config['actions']);
-        }
+        $actions = array_merge($actions, $this->config->actions());
         return $actions;
     }
 
