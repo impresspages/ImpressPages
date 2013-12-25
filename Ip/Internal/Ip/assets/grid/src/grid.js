@@ -74,6 +74,9 @@
                 case 'setHash':
                     window.location.hash = value.hash;
                     break;
+                case 'showMessage':
+                    alert(value.message);
+                    break;
             }
         });
     };
@@ -117,6 +120,7 @@
             $modal.modal();
             $modal.find('.ipsConfirm').off().on('click', function() {
                 $.proxy(deleteRecord, $grid)(id);
+                $modal.modal('hide');
             });
         });
     };

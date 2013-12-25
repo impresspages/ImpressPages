@@ -32,4 +32,13 @@ class Commands
         );
     }
 
+
+    public static function showMessage($message)
+    {
+        return array(
+            'command' => 'showMessage',
+            'message' => $message
+        );
+    }
+
 }
