@@ -14,58 +14,39 @@ class DbFrontend
 
     public static function getPageByUrl($url, $parent)
     {
-        $sql = "select * from `" . DB_PREF . "content_element` where  url = '" . ip_deprecated_mysql_real_escape_string(
-                $url
-            ) . "' and parent = '" . ip_deprecated_mysql_real_escape_string($parent) . "' limit 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            $answer = ip_deprecated_mysql_fetch_assoc($rs);
-        } else {
-            $answer = false;
-        }
-        return $answer;
+        $rs = ipDb()->select('*', 'content_element', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
+        return $rs ? $rs[0] : null;
     }
-
 
     public static function getFirstPage($parent)
     {
-        $sql = "select  *  from `" . DB_PREF . "content_element` where visible and parent = '" . ip_deprecated_mysql_real_escape_string(
-                $parent
-            ) . "' order by row_number limit 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            $answer = ip_deprecated_mysql_fetch_assoc($rs);
-        }
-        return $answer;
+        $rs = ipDb()->select('*', 'content_element', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
+        return $rs ? $rs[0] : null;
     }
-
 
     public static function getRootPageId($zoneName, $language)
     {
         $sql = "select mte.element_id from
-    `" . DB_PREF . "zone` m,
-    `" . DB_PREF . "zone_to_content` mte
-    where mte.zone_id = m.id and mte.language_id = '" . ip_deprecated_mysql_real_escape_string($language) . "'
-    and m.name = '" . ip_deprecated_mysql_real_escape_string($zoneName) . "'
-    ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            $lock = ip_deprecated_mysql_fetch_assoc($rs);
-            return $lock['element_id'];
-        } else
-            trigger_error($sql . " " . ip_deprecated_mysql_error());
+        " . ipTable('zone', 'm') . ",
+        " . ipTable('zone_to_content', 'mte') . "
+        where mte.zone_id = m.id
+            and mte.language_id = :language_id
+            and m.name = :zoneName
+        ";
+        return ipDb()->fetchValue($sql, array(
+                'language_id' => $language,
+                'zoneName' => $zoneName,
+            ));
     }
 
     public static function languageByRootPage($pageId)
     { //returns root element of menu
-        $sql = "select mte.language_id from `" . DB_PREF . "zone_to_content` mte where  mte.element_id = '" . (int)$pageId . "'";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                return $lock['language_id'];
-            }
-        } else
-            trigger_error("Can't find zone element " . $sql . " " . ip_deprecated_mysql_error());
+        $rs = ipDb()->select('language_id', 'zone_to_content', array('element_id' => $pageId));
+        if (!$rs) {
+            return null;
+        }
+
+        return $rs[0]['language_id'];
     }
 
 
@@ -80,37 +61,24 @@ class DbFrontend
         $limit = null,
         $includeHidden = false
     ) {
-        $answer = array();
-
         if ($parent == null) {
             $parent = DbFrontend::getRootPageId($zoneName, $language);
         }
 
-        $sql = "select * from `" . DB_PREF . "content_element` where `parent` = " . (int)$parent . "";
+        $sql = 'SELECT * FROM ' . ipTable('content_element') . ' WHERE `parent` = :parentId';
 
         if (!$includeHidden) {
-            $sql .= " and `visible` ";
+            $sql .= ' AND `visible` = 1';
         }
 
-        $sql .= " order by `row_number` " . $order . " ";
+        $sql .= ' ORDER BY `row_number` ' . $order;
 
         if ($limit !== null) {
-            $sql .= " limit " . (int)$startFrom . ", " . (int)$limit;
+            $sql .= ' LIMIT ' . (int)$startFrom . ', ' . (int)$limit;
         }
 
-
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                $answer[] = $lock;
-            }
-        } else {
-            trigger_error($sql . " " . ip_deprecated_mysql_error());
-        }
-
-        return $answer;
+        return ipDb()->fetchAll($sql, array('parentId' => $parent));
     }
-
 
     /**
      * @param $id
@@ -118,20 +86,8 @@ class DbFrontend
      */
     public static function getPage($id)
     {
-        $sql = "select  *  from `" . DB_PREF . "content_element` where id = '" . $id . "' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                return $lock;
-            } else {
-                return false;
-            }
-        } else {
-            trigger_error("Can't find menu element " . $sql . " " . ip_deprecated_mysql_error());
-        }
-        return false;
+        return ipDb()->fetchRow('select  *  from ' . ipTable('content_element') . ' WHERE `id` = ?', array($id));
     }
-
 
 }
 
