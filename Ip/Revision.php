@@ -59,7 +59,7 @@ class Revision{
 
     public static function getRevision($revisionId) {
 
-        return ipDb()->fetchRow('revision', array('revisionId' => $revisionId));
+        return ipDb()->fetchRow("SELECT * FROM " . ipTable('revision') . " WHERE revisionId = :revisionId ", array('revisionId' => $revisionId));
     }
 
 
