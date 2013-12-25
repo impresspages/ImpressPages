@@ -43,6 +43,14 @@ class Config
     }
 
 
+    public function preventAction()
+    {
+        if (empty($this->config['preventAction'])) {
+            return FALSE;
+        }
+        return $this->config['preventAction'];
+    }
+
     /**
      * @return \Ip\Grid\Model\Field[]
      */

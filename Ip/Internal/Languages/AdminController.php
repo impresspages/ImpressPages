@@ -73,6 +73,7 @@ class AdminController extends \Ip\Grid\Controller
                     'class' => 'ipsCustomAdd'
                 )
             ),
+            'preventAction' => array($this, 'preventAction'),
             'fields' => array(
                 array(
                     'label' => __('Title', 'ipAdmin', false),
@@ -109,9 +110,18 @@ class AdminController extends \Ip\Grid\Controller
                     'showInList' => false
                     //TODOX add select
                 ),
-            ),
-            //'appendHtml' => Model
+            )
         );
+    }
+
+    public function preventAction($method, $params, $statusVariables)
+    {
+        if ($method === 'delete') {
+            $languages = ipContent()->getLanguages();
+            if (count($languages) === 1) {
+                return __('Can\'t delete last language.', 'ipAdmin', false);
+            }
+        }
     }
 
 }

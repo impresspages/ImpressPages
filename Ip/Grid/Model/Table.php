@@ -40,6 +40,17 @@ class Table extends \Ip\Grid\Model
             $params = array();
         }
         $statusVariables = Status::parse($hash);
+
+
+        if ($this->config->preventAction()) {
+            $preventReason = call_user_func($this->config->preventAction(), $method, $params, $statusVariables);
+            if ($preventReason) {
+                return array(
+                    Commands::showMessage($preventReason)
+                );
+            }
+        }
+
         switch ($method) {
             case 'init':
                 return $this->init($statusVariables);
@@ -48,6 +59,7 @@ class Table extends \Ip\Grid\Model
                 return $this->page($params, $statusVariables);
                 break;
             case 'delete':
+
                 return $this->delete($params, $statusVariables);
                 break;
         }
@@ -76,11 +88,18 @@ class Table extends \Ip\Grid\Model
     protected function delete($params, $statusVariables)
     {
         $actions = new Actions($this->config);
-        $actions->delete($params['id']);
-        $display = new Display($this->config);
-        $html = $display->fullHtml($statusVariables);
-        $commands[] = Commands::setHtml($html);
-        return $commands;
+        try {
+
+            $actions->delete($params['id']);
+            $display = new Display($this->config);
+            $html = $display->fullHtml($statusVariables);
+            $commands[] = Commands::setHtml($html);
+            return $commands;
+        } catch (\Exception $e) {
+            $commands[] = Commands::showMessage($e->getMessage());
+            return $commands;
+        }
+
     }
 
 }
