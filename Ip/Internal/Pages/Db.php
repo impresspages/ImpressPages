@@ -185,6 +185,12 @@ class Db {
             ));
     }
 
+
+    public static function deleteRootZoneElements($languageId)
+    {
+        return ipDb()->delete('zone_to_content', array('language_id' => $languageId));
+    }
+
     public static function isChild($pageId, $parentId)
     {
         $page = self::getPage($pageId);
@@ -469,9 +475,9 @@ class Db {
         }
 
         if (isset($params['createdOn'])) {
-            $row['createdOn'] = $params['createdOn'];
+            $row['created_on'] = $params['createdOn'];
         } else {
-            $row['createdOn'] = date('Y-m-d');
+            $row['created_on'] = date('Y-m-d');
         }
 
         if (isset($params['lastModified'])) {

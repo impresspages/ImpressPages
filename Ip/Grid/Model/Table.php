@@ -87,9 +87,12 @@ class Table extends \Ip\Grid\Model
 
     protected function delete($params, $statusVariables)
     {
-        $actions = new Actions($this->config);
-        try {
+        if ($this->config->beforeDelete()) {
+            call_user_func($this->config->beforeDelete(), $params['id']);
+        }
 
+        try {
+            $actions = new Actions($this->config);
             $actions->delete($params['id']);
             $display = new Display($this->config);
             $html = $display->fullHtml($statusVariables);
@@ -100,6 +103,9 @@ class Table extends \Ip\Grid\Model
             return $commands;
         }
 
+        if ($this->config->afterDelete()) {
+            call_user_func($this->config->afterDelete(), $params['id']);
+        }
     }
 
 }

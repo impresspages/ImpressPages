@@ -74,6 +74,7 @@ class AdminController extends \Ip\Grid\Controller
                 )
             ),
             'preventAction' => array($this, 'preventAction'),
+            'beforeDelete' => array($this, 'beforeDelete'),
             'fields' => array(
                 array(
                     'label' => __('Title', 'ipAdmin', false),
@@ -122,6 +123,11 @@ class AdminController extends \Ip\Grid\Controller
                 return __('Can\'t delete last language.', 'ipAdmin', false);
             }
         }
+    }
+
+    public function beforeDelete($id)
+    {
+        Service::delete($id);
     }
 
 }

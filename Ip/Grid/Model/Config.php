@@ -50,6 +50,21 @@ class Config
         return array();
     }
 
+    public function beforeDelete()
+    {
+        if (empty($this->config['beforeDelete'])) {
+            return FALSE;
+        }
+        return $this->config['beforeDelete'];
+    }
+
+    public function afterDelete()
+    {
+        if (empty($this->config['afterDelete'])) {
+            return FALSE;
+        }
+        return $this->config['afterDelete'];
+    }
 
     public function preventAction()
     {
