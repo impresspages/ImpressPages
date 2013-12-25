@@ -6,7 +6,7 @@
                 <h4 class="modal-title">&nbsp;</h4>
             </div>
             <div class="modal-body">
-                <?php _e('Are you sure you want to delete?', 'ipAdmin') ?>
+                <?php echo esc($deleteWarning) ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
