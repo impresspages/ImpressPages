@@ -178,11 +178,12 @@ class Db {
     {
         $pageId = ipDb()->insert('content_element', array('visible' => 1));
 
-        return ipDb()->insert('zone_to_content', array(
+        ipDb()->insert('zone_to_content', array(
                 'language_id' => $languageId,
                 'zone_id' => $zoneId,
                 'element_id' => $pageId,
             ));
+        return $pageId;
     }
 
 
