@@ -42,6 +42,14 @@ class Config
         }
     }
 
+    public function actions()
+    {
+        if (!empty($this->config['actions'])) {
+            return $this->config['actions'];
+        }
+        return array();
+    }
+
 
     public function preventAction()
     {
