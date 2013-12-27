@@ -6,7 +6,8 @@
 namespace Ip;
 
 
-class Application {
+class Application
+{
     const ASSETS_DIR = 'assets';
     protected $configPath = null;
 
@@ -22,7 +23,7 @@ class Application {
 
     public function init()
     {
-        $config = require ($this->configPath);
+        $config = require($this->configPath);
 
         $coreDir = !empty($config['CORE_DIR']) ? $config['CORE_DIR'] : dirname(__DIR__) . '/';
 
@@ -49,8 +50,8 @@ class Application {
         }
 
         if (empty($options['skipError'])) {
-            if (ipConfig()->isDevelopmentEnvironment()){
-                error_reporting(E_ALL|E_STRICT);
+            if (ipConfig()->isDevelopmentEnvironment()) {
+                error_reporting(E_ALL | E_STRICT);
                 ini_set('display_errors', '1');
             } else {
                 ini_set('display_errors', '0');
@@ -58,7 +59,7 @@ class Application {
         }
 
         if (empty($options['skipSession'])) {
-            if(session_id() == '' && !headers_sent()) { //if session hasn't been started yet
+            if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
                 session_name(ipConfig()->getRaw('SESSION_NAME'));
                 session_start();
             }
@@ -83,16 +84,41 @@ class Application {
         $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
 
-        $translator->addTranslationFilePattern('json', $originalDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
-        $translator->addTranslationFilePattern('json', ipFile("Theme/$theme/translations/"), "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
-        $translator->addTranslationFilePattern('json', $overrideDir, "%s/theme-$theme.json", 'theme-' . ipConfig()->theme());
+        $translator->addTranslationFilePattern(
+            'json',
+            $originalDir,
+            "%s/theme-$theme.json",
+            'theme-' . ipConfig()->theme()
+        );
+        $translator->addTranslationFilePattern(
+            'json',
+            ipFile("Theme/$theme/translations/"),
+            "%s/theme-$theme.json",
+            'theme-' . ipConfig()->theme()
+        );
+        $translator->addTranslationFilePattern(
+            'json',
+            $overrideDir,
+            "%s/theme-$theme.json",
+            'theme-' . ipConfig()->theme()
+        );
 
         $translator->addTranslationFilePattern('json', $originalDir, "%s/ipAdmin.json", 'ipAdmin');
-        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern(
+            'json',
+            ipFile("Ip/Translator/translations/"),
+            "%s/ipAdmin.json",
+            'ipAdmin'
+        );
         $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipAdmin.json", 'ipAdmin');
 
         $translator->addTranslationFilePattern('json', $originalDir, "%s/ipPublic.json", 'ipPublic');
-        $translator->addTranslationFilePattern('json', ipFile("Ip/Translator/translations/"), "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern(
+            'json',
+            ipFile("Ip/Translator/translations/"),
+            "%s/ipPublic.json",
+            'ipPublic'
+        );
         $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
     }
 
@@ -125,7 +151,10 @@ class Application {
         ipDispatcher()->notify('site.afterInit');
 
         //check for CSRF attack
-        if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost('securityToken') !=  $this->getSecurityToken()) && empty($_POST['pa'])) {
+        if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
+                    'securityToken'
+                ) != $this->getSecurityToken()) && empty($_POST['pa'])
+        ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
@@ -147,11 +176,13 @@ class Application {
 
         $controllerClass = $request->getControllerClass();
         if (!class_exists($controllerClass)) {
-            throw new \Ip\CoreException('Requested controller doesn\'t exist. '.$controllerClass);
+            throw new \Ip\CoreException('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
         //check if user is logged in
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId()) {
+        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId(
+            )
+        ) {
 
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -165,13 +196,14 @@ class Application {
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $plugin = $request->getControllerModule();
             if (!ipIsAllowed($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\CoreException('User has no permission to execute ' . $request->getControllerModule() . '.' . $request->getControllerAction() . ' action');
+                throw new \Ip\CoreException('User has no permission to execute ' . $request->getControllerModule(
+                    ) . '.' . $request->getControllerAction() . ' action');
             }
         }
 
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\CoreException($controllerClass.".php must extend \\Ip\\Controller class.");
+            throw new \Ip\CoreException($controllerClass . ".php must extend \\Ip\\Controller class.");
         }
         $controller->init();
         $controllerAnswer = $controller->$action();
@@ -190,7 +222,7 @@ class Application {
             \Ip\ServiceLocator::removeRequest();
             \Ip\ServiceLocator::setResponse($controllerAnswer);
             return $controllerAnswer;
-        } elseif ($controllerAnswer === NULL) {
+        } elseif ($controllerAnswer === null) {
             $response = \Ip\ServiceLocator::response();
             \Ip\ServiceLocator::removeRequest();
             return $response;
@@ -201,14 +233,15 @@ class Application {
     }
 
 
-    public function modulesInit(){
+    public function modulesInit()
+    {
         //init core modules
 
         //TODO hardcode system modules
         $coreModules = \Ip\Internal\Plugins\Model::getModules();
         foreach ($coreModules as $module) {
-            $systemClass = '\\Ip\\Internal\\'.$module.'\\System';
-            if(class_exists($systemClass)) {
+            $systemClass = '\\Ip\\Internal\\' . $module . '\\System';
+            if (class_exists($systemClass)) {
                 $system = new $systemClass();
                 if (method_exists($system, 'init')) {
                     $system->init();
@@ -238,7 +271,6 @@ class Application {
         $request->setPost($_POST);
         $request->setServer($_SERVER);
         $request->setRequest($_REQUEST);
-
 
 
         $response = $this->handleRequest($request, $options, false);
@@ -271,17 +303,23 @@ class Application {
                 // create a new curl resource
                 if (function_exists('curl_init')) {
                     $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword')));
+                    curl_setopt(
+                        $ch,
+                        CURLOPT_URL,
+                        ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'))
+                    );
                     curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                     curl_setopt($ch, CURLOPT_TIMEOUT, 1);
                     $fakeCronAnswer = curl_exec($ch);
                 } else {
                     $request = new \Ip\Request();
-                    $request->setQuery(array(
+                    $request->setQuery(
+                        array(
                             'pa' => 'Cron',
                             'pass' => ipGetOption('Config.cronPassword')
-                    ));
+                        )
+                    );
                     $fakeCronAnswer = $this->handleRequest($request)->getContent();
                 }
 
