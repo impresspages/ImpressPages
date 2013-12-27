@@ -118,22 +118,7 @@ class Display
         return $rows;
     }
 
-    protected function getTableFields($tableName)
-    {
-        $sql = "SHOW COLUMNS FROM " . $this->config->tableName() . "";
 
-        $fields = ipDb()->fetchColumn($sql);
-
-        $result = array();
-        foreach ($fields as $fieldName) {
-            $result[] = array(
-                'label' => $fieldName,
-                'field' => $fieldName
-            );
-        }
-
-        return $result;
-    }
 
     protected function recordCount()
     {

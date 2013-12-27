@@ -145,4 +145,21 @@ class Config
     {
         return ipTable(str_replace("`", "", $this->config['table']));
     }
+
+    protected function getTableFields($tableName)
+    {
+        $sql = "SHOW COLUMNS FROM " . $this->tableName() . "";
+
+        $fields = ipDb()->fetchColumn($sql);
+
+        $result = array();
+        foreach ($fields as $fieldName) {
+            $result[] = array(
+                'label' => $fieldName,
+                'field' => $fieldName
+            );
+        }
+
+        return $result;
+    }
 }
