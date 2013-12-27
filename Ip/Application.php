@@ -291,44 +291,7 @@ class Application
 
     public function close()
     {
-        /*
-         Automatic execution of cron.
-         The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
-         By default fake cron is enabled
-        */
-        if (!\Ip\Internal\Admin\Model::isSafeMode() && ipGetOption('Config.automaticCron', 1)) {
-            $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
-            if (!$lastExecution || date('Y-m-d H') != date('Y-m-d H', $lastExecution)) { // Execute Cron once an hour
-
-                // create a new curl resource
-                if (function_exists('curl_init')) {
-                    $ch = curl_init();
-                    curl_setopt(
-                        $ch,
-                        CURLOPT_URL,
-                        ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'))
-                    );
-                    curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-                    $fakeCronAnswer = curl_exec($ch);
-                } else {
-                    $request = new \Ip\Request();
-                    $request->setQuery(
-                        array(
-                            'pa' => 'Cron',
-                            'pass' => ipGetOption('Config.cronPassword')
-                        )
-                    );
-                    $fakeCronAnswer = $this->handleRequest($request)->getContent();
-                }
-
-                if ($fakeCronAnswer != __('OK', 'ipAdmin', false)) {
-                    ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
-                }
-            }
-
-        }
+        ipDispatcher()->notify('Application.close');
 
         ipDb()->disconnect();
     }
