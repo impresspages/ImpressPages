@@ -117,10 +117,14 @@ class AdminController extends \Ip\Grid\Controller
                     'showInList' => false
                 ),
                 array(
+                    'type' => 'Select',
                     'label' => __('Text direction', 'ipAdmin', false),
                     'field' => 'text_direction',
-                    'showInList' => false
-                    //TODOX add select
+                    'showInList' => false,
+                    'values' => array(
+                        array('ltr', __('Left To Right', 'ipAdmin', false)),
+                        array('rtl', __('Right To Left', 'ipAdmin', false))
+                    )
                 ),
             )
         );
