@@ -12,11 +12,11 @@ abstract class Field
 
     public abstract function createField();
 
-    public abstract function createQuery($postData);
+    public abstract function createData($postData);
 
     public abstract function updateField($curData);
 
-    public abstract function updateQuery($postData);
+    public abstract function updateData($postData);
 
     public abstract function searchField();
 

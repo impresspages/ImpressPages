@@ -6,11 +6,12 @@
 namespace Ip\Grid\Model\Field;
 
 
-class Text extends \Ip\Grid\Model\Field
+class Select extends \Ip\Grid\Model\Field
 {
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
+    protected $values = array();
 
     public function __construct($config)
     {
@@ -21,6 +22,10 @@ class Text extends \Ip\Grid\Model\Field
 
         if (!empty($config['label'])) {
             $this->label = $config['label'];
+        }
+
+        if (!empty($config['values'])) {
+            $this->values = $config['values'];
         }
 
         if (!empty($config['defaultValue'])) {
@@ -35,9 +40,10 @@ class Text extends \Ip\Grid\Model\Field
 
     public function createField()
     {
-        $field = new \Ip\Form\Field\Text(array(
+        $field = new \Ip\Form\Field\Select(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'values' => $this->values
         ));
         $field->setDefaultValue($this->defaultValue);
         return $field;
@@ -49,9 +55,10 @@ class Text extends \Ip\Grid\Model\Field
 
     public function updateField($curData)
     {
-        $field = new \Ip\Form\Field\Text(array(
+        $field = new \Ip\Form\Field\Select(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'values' => $this->values
         ));
         $field->setDefaultValue($curData[$this->field]);
         return $field;
