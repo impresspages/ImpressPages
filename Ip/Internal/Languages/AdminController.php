@@ -84,7 +84,7 @@ class AdminController extends \Ip\Grid\Controller
                 array(
                     'label' => __('Abbreviation', 'ipAdmin', false),
                     'field' => 'd_short',
-                    'showInList' => false
+                    'showInList' => true
                 ),
                 array(
                     'label' => __('Visible', 'ipAdmin', false),
@@ -104,7 +104,7 @@ class AdminController extends \Ip\Grid\Controller
                 array(
                     'label' => __('RFC 4646 code', 'ipAdmin', false),
                     'field' => 'code',
-                    'showInList' => false
+                    'showInList' => true
                 ),
                 array(
                     'label' => __('Text direction', 'ipAdmin', false),
