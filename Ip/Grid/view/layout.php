@@ -3,4 +3,5 @@
     <?php echo $this->subview('table.php'); ?>
     <?php echo $pagination->render(ipFile('Ip/Grid/view/pagination.php')); ?>
     <?php echo $this->subview('deleteModal.php'); ?>
+    <?php echo $this->subview('updateModal.php'); ?>
 </div>

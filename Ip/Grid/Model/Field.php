@@ -14,7 +14,7 @@ abstract class Field
 
     public abstract function createQuery($postData);
 
-    public abstract function updateField();
+    public abstract function updateField($curData);
 
     public abstract function updateQuery($postData);
 

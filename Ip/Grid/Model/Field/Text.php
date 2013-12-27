@@ -9,6 +9,7 @@ namespace Ip\Grid\Model\Field;
 class Text extends \Ip\Grid\Model\Field
 {
     protected $field = '';
+    protected $label = '';
 
     public function __construct($config)
     {
@@ -16,6 +17,10 @@ class Text extends \Ip\Grid\Model\Field
             throw new \Ip\CoreException('\'field\' option required for text field');
         }
         $this->field = $config['field'];
+
+        if (!empty($config['label'])) {
+            $this->label = $config['label'];
+        }
     }
 
     public function preview($recordData)
@@ -31,8 +36,14 @@ class Text extends \Ip\Grid\Model\Field
     {
     }
 
-    public function updateField()
+    public function updateField($curData)
     {
+        $field = new \Ip\Form\Field\Text(array(
+            'label' => $this->label,
+            'name' => $this->field
+        ));
+        $field->setDefaultValue($curData[$this->field]);
+        return $field;
     }
 
     public function updateQuery($postData)

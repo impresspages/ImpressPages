@@ -146,6 +146,27 @@ class Display
     }
 
 
+    protected function fetchRow($id)
+    {
+        $sql = "
+        SELECT
+          *
+        FROM
+          " . $this->config->tableName() . "
+        WHERE
+          `" . $this->config->idField() . "` = :id
+        ";
+
+        $params = array(
+            'id' => $id
+        );
+
+        $result = ipDb()->fetchRow($sql, $params);
+
+        return $result;
+    }
+
+
 
     protected function getColumnDate()
     {
@@ -175,6 +196,19 @@ class Display
     }
 
 
+    public function updateForm($id)
+    {
+        $form = new \Ip\Form();
+        $curData = $this->fetchRow($id);
+        foreach ($this->config->fields() as $fieldData) {
+            $fieldObject = $this->config->fieldObject($fieldData);
+            $field = $fieldObject->updateField($curData);
+            if ($field) {
+                $form->addField($field);
+            }
+        }
+        return $form->render();
+    }
 
 
 

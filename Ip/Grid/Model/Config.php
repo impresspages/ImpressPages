@@ -90,7 +90,9 @@ class Config
         return $this->config['preventAction'];
     }
 
+
     /**
+     * @param $field
      * @return \Ip\Grid\Model\Field[]
      */
     public function fieldObject($field)
