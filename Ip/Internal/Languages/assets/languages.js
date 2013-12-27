@@ -38,7 +38,11 @@ var ipLanguages = new function() {
             data: data,
             context: this,
             success: function (response) {
-                refresh();
+                if (response.error && response.errorMessage) {
+                    alert(response.errorMessage);
+                } else {
+                    refresh();
+                }
             },
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
