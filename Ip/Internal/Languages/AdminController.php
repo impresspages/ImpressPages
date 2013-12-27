@@ -44,6 +44,16 @@ class AdminController extends \Ip\Grid\Controller
         $abbreviation = $code;
         $url = $code;
 
+        $languages = ipContent()->getLanguages();
+        foreach($languages as $language) {
+            if ($language->getCode() == $code) {
+                return new \Ip\Response\Json(array(
+                    'error' => 1,
+                    'errorMessage' => __('This language already exist.', 'ipAdmin', FALSE)
+                ));
+            }
+        }
+
         $languages = Fixture::languageList();
 
         if (!empty($languages[$code])) {
@@ -104,7 +114,7 @@ class AdminController extends \Ip\Grid\Controller
                 array(
                     'label' => __('RFC 4646 code', 'ipAdmin', false),
                     'field' => 'code',
-                    'showInList' => true
+                    'showInList' => false
                 ),
                 array(
                     'label' => __('Text direction', 'ipAdmin', false),
