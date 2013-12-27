@@ -97,6 +97,7 @@ class AdminController extends \Ip\Grid\Controller
                     'showInList' => true
                 ),
                 array(
+                    'type' => 'Checkbox',
                     'label' => __('Visible', 'ipAdmin', false),
                     'field' => 'visible'
                 ),
