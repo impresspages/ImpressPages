@@ -41,7 +41,7 @@ class AdminController extends \Ip\Grid\Controller
             throw new \Ip\CoreException('Missing required parameter');
         }
         $code = $data['code'];
-        $abbreviation = $code;
+        $abbreviation = strtoupper($code);
         $url = $code;
 
         $languages = ipContent()->getLanguages();
