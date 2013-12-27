@@ -59,8 +59,10 @@ class Table extends \Ip\Grid\Model
                 return $this->page($params, $statusVariables);
                 break;
             case 'delete':
-
                 return $this->delete($params, $statusVariables);
+                break;
+            case 'updateForm':
+                return $this->updateForm($params, $statusVariables);
                 break;
         }
     }
@@ -106,6 +108,13 @@ class Table extends \Ip\Grid\Model
         if ($this->config->afterDelete()) {
             call_user_func($this->config->afterDelete(), $params['id']);
         }
+    }
+
+    protected function updateForm($params, $statusVariables)
+    {
+        $display = new Display($this->config);
+        $updateForm = $display->updateForm($params['id']);
+        return $updateForm;
     }
 
 }

@@ -123,7 +123,80 @@
                 $modal.modal('hide');
             });
         });
+
+        $grid.find('.ipsUpdate').off().on('click', function() {
+            var $this = $(this);
+            var $row = $this.closest('.ipsRow');
+            var id = $row.data('id');
+            var $modal = $grid.find('.ipsUpdateModal');
+            $modal.modal();
+            $.proxy(loadUpdateForm, $grid)($modal, id);
+            $modal.find('.ipsConfirm').off().on('click', function() {
+                $.proxy(updateRecord, $grid)($modal, id);
+                $modal.modal('hide');
+            });
+        });
     };
+
+    var loadUpdateForm = function($modal, id){
+        var $grid = this;
+        var data = $grid.data('gateway');
+        data.method = 'updateForm';
+        data.params = {};
+        data.params.id = id;
+        data.securityToken = ip.securityToken;
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $grid,
+            dataType: 'json',
+            success: function (response) {
+                console.log(response.result);
+                $modal.find('.ipsBody').html(response.result);
+            },
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            }
+        });
+
+    }
+
+    var updateRecord = function(id) {
+        var $grid = this;
+        var data = $grid.data('gateway');
+        data.method = 'delete';
+        data.params = {};
+        data.params.id = id;
+        data.securityToken = ip.securityToken;
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $grid,
+            success: deleteResponse,
+            dataType: 'json',
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            }
+        });
+    }
+
+    var updateResponse = function (response) {
+        var $this = this;
+        if (!response.error) {
+            $.proxy(doCommands, $this)(response.result);
+        } else {
+            if (ip.debugMode || ip.developmentMode) {
+                alert(response.errorMessage);
+            }
+        }
+
+    }
 
     var deleteRecord = function(id) {
         var $grid = this;
