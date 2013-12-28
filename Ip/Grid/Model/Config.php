@@ -42,20 +42,13 @@ class Config
         }
     }
 
-    public function getRaw($key) {
-        if (!empty($this->config[$key])) {
-            return $this->config[$key];
-        }
-        return null;
-    }
 
     public function deleteWarning()
     {
-        $warning = $this->getRaw('deleteWarning');
-        if (empty($warning)) {
-            $warning = __('Are you sure you want to delete?', 'ipAdmin', FALSE);
+        if (!empty($this->config['deleteWarning'])) {
+            return $this->config['deleteWarning'];
         }
-        return $warning;
+        return __('Are you sure you want to delete?', 'ipAdmin', FALSE);
     }
 
     public function actions()
@@ -93,7 +86,7 @@ class Config
 
     /**
      * @param $field
-     * @return \Ip\Grid\Model\Field[]
+     * @return \Ip\Grid\Model\Field
      */
     public function fieldObject($field)
     {
@@ -146,6 +139,11 @@ class Config
     public function tableName()
     {
         return ipTable(str_replace("`", "", $this->config['table']));
+    }
+
+
+    public function rawTableName() {
+        return $this->config['table'];
     }
 
     protected function getTableFields($tableName)

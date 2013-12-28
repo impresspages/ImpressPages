@@ -59,7 +59,7 @@ class Checkbox extends \Ip\Grid\Model\Field
 
     public function updateData($postData)
     {
-
+        return array($this->field => !empty($postData[$this->field]));
     }
 
 

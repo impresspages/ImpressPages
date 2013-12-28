@@ -207,7 +207,23 @@ class Display
                 $form->addField($field);
             }
         }
-        return $form->render();
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'recordId',
+            'defaultValue' => $id
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'method',
+            'defaultValue' => 'update'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\HiddenSubmit();
+        $form->addField($field);
+
+        return $form;
     }
 
 

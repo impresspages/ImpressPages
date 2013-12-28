@@ -66,7 +66,7 @@ class Select extends \Ip\Grid\Model\Field
 
     public function updateData($postData)
     {
-
+        return array($this->field => $postData[$this->field]);
     }
 
 
