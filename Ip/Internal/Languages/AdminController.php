@@ -10,6 +10,7 @@ namespace Ip\Internal\Languages;
 
 class AdminController extends \Ip\Grid\Controller
 {
+    static $urlBeforeUpdate;
     public function init()
     {
         ipAddJs(ipFileUrl('Ip/Internal/Languages/assets/languages.js'));
@@ -84,6 +85,8 @@ class AdminController extends \Ip\Grid\Controller
                 )
             ),
             'preventAction' => array($this, 'preventAction'),
+            'beforeUpdate' => array($this, 'beforeUpdate'),
+            'afterUpdate' => array($this, 'afterUpdate'),
             'beforeDelete' => array($this, 'beforeDelete'),
             'deleteWarning' => 'Are you sure you want to delete? All pages and other language related content will be lost forever!',
             'fields' => array(
@@ -144,6 +147,22 @@ class AdminController extends \Ip\Grid\Controller
     public function beforeDelete($id)
     {
         Service::delete($id);
+    }
+
+    public function beforeUpdate($id, $newData)
+    {
+        $tmpLanguage = Db::getLanguageById($id);
+        self::$urlBeforeUpdate = $tmpLanguage['url'];
+    }
+
+    public function afterUpdate($id, $newData)
+    {
+        $tmpLanguage = Db::getLanguageById($id);
+        if($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
+            $oldUrl = ipFileUrl('') . self::$urlBeforeUpdate.'/';
+            $newUrl = ipFileUrl('') . $tmpLanguage['url'].'/';
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+        }
     }
 
 }
