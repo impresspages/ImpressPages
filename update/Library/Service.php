@@ -86,7 +86,7 @@ class Service
 
     public static function getLatestVersion()
     {
-        $curVersion = '2.0';
+        $curVersion = '4.0';
         $updateModel = new \IpUpdate\Library\Model\Migration();
         $scripts = $updateModel->getScriptsFromVersion($curVersion);
         $latestVersion = $curVersion;
