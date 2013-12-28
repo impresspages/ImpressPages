@@ -191,12 +191,13 @@ class Model
 
     public static function createAndUseDatabase($database)
     {
+        $db = ipDb();
         try {
-            ipDb()->execute('USE `' . $database . '`');
+            $db->execute('USE `' . $database . '`');
         } catch (\PDOException $e) {
             try {
-                ipDb()->execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
-                ipDb()->execute('USE `' . $database . '`');
+                $db->execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
+                $db->execute('USE `' . $database . '`');
             } catch (\PDOException $e2) {
                 throw new \Ip\CoreException('Could not create database');
             }
@@ -233,23 +234,23 @@ class Model
 
         $sqlFile = ipFile('Plugin/Install/sql/data.sql');
         $fh = fopen($sqlFile, 'r');
-        $all_sql = fread($fh, utf8_decode(filesize($sqlFile)));
+        $sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);
 
-        // TODOX execute multiple statements
-        //$all_sql = utf8_encode($all_sql);
-        $all_sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $all_sql);
-        $sql_list = explode("-- Dumping data for table--", $all_sql);
+        //$sql = utf8_encode($all_sql);
+        $sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $sql);
+        $sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $sql);
+        //$sql = explode("-- Dumping data for table--", $sql);
 
+        ipDb()->execute($sql);
 
-        foreach ($sql_list as $sql) {
-            try {
-                ipDb()->execute($sql);
-            } catch (Exception $e) {
-                $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
-            }
-        }
+//        try {
+//            foreach ($sql_list as $sql) {
+//                ipDb()->execute($sql);
+//            }
+//        } catch (Exception $e) {
+//            $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
+//        }
 
         return $errors;
     }
