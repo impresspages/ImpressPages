@@ -131,10 +131,7 @@
             var $modal = $grid.find('.ipsUpdateModal');
             $modal.modal();
             $.proxy(loadUpdateForm, $grid)($modal, id);
-            $modal.find('.ipsConfirm').off().on('click', function() {
-                $.proxy(updateRecord, $grid)($modal, id);
-                $modal.modal('hide');
-            });
+
         });
     };
 
@@ -152,8 +149,14 @@
             context: $grid,
             dataType: 'json',
             success: function (response) {
-                console.log(response.result);
                 $modal.find('.ipsBody').html(response.result);
+                $modal.find('.ipsBody form').validator(validatorConfig);
+                $modal.find('.ipsBody form').on('submit', $.proxy(updateFormSubmit, $grid));
+                $modal.find('.ipsConfirm').off().on('click', function() {
+                    $modal.find('.ipsBody form').submit();
+                    $modal.modal('hide');
+                });
+
             },
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
@@ -164,39 +167,40 @@
 
     }
 
-    var updateRecord = function(id) {
+    var updateFormSubmit = function(e) {
         var $grid = this;
+        var form = $grid.find('.ipsUpdateModal .ipsBody form');
         var data = $grid.data('gateway');
-        data.method = 'delete';
-        data.params = {};
-        data.params.id = id;
-        data.securityToken = ip.securityToken;
-        $.ajax({
-            type: 'POST',
-            url: ip.baseUrl,
-            data: data,
-            context: $grid,
-            success: deleteResponse,
-            dataType: 'json',
-            error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
+
+
+        // client-side validation OK.
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url: ip.baseUrl,
+                dataType: 'json',
+                type : 'POST',
+                data: form.serialize() + '&aa=' + data.aa,
+                success: function (response){
+                    if (!response.error) {
+                        //form has been successfully submitted.
+                        $.proxy(doCommands, $grid)(response.result.commands);
+                    } else {
+                        //PHP controller says there are some errors
+                        if (response.errors) {
+                            form.data("validator").invalidate(response.errors);
+                        }
+                    }
+                },
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
                 }
-            }
-        });
-    }
-
-    var updateResponse = function (response) {
-        var $this = this;
-        if (!response.error) {
-            $.proxy(doCommands, $this)(response.result);
-        } else {
-            if (ip.debugMode || ip.developmentMode) {
-                alert(response.errorMessage);
-            }
+            });
         }
-
+        e.preventDefault();
     }
+
 
     var deleteRecord = function(id) {
         var $grid = this;

@@ -39,4 +39,19 @@ class Actions
 
         ipDb()->execute($sql, $params);
     }
+
+    public function update($id, $data)
+    {
+        $fields = $this->config->fields();
+        $dbData = array();
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldData = $fieldObject->updateData($data);
+            if (!is_array($fieldData)) {
+                throw new \Ip\CoreException("updateData method in class " . get_class($fieldObject) . " has to return array.");
+            }
+            $dbData = array_merge($dbData, $fieldData);
+        }
+        ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
+    }
 }

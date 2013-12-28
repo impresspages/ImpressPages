@@ -62,7 +62,10 @@ class Table extends \Ip\Grid\Model
                 return $this->delete($params, $statusVariables);
                 break;
             case 'updateForm':
-                return $this->updateForm($params, $statusVariables);
+                return $this->updateForm($params, $statusVariables)->render();
+                break;
+            case 'update':
+                return $this->update($data, $statusVariables);
                 break;
         }
     }
@@ -115,6 +118,36 @@ class Table extends \Ip\Grid\Model
         $display = new Display($this->config);
         $updateForm = $display->updateForm($params['id']);
         return $updateForm;
+    }
+
+    protected function update($data, $statusVariables)
+    {
+        $display = new Display($this->config);
+        $updateForm = $display->updateForm($data['recordId']);
+
+
+        $errors = $updateForm->validate($data);
+
+        if ($errors) {
+            $data = array(
+                'error' => 1,
+                'errors' => $errors
+            );
+        } else {
+            $actions = new Actions($this->config);
+            $actions->update($data['recordId'], $updateForm->filterValues($data));
+
+            $display = new Display($this->config);
+            $html = $display->fullHtml($statusVariables);
+            $commands[] = Commands::setHtml($html);
+
+            $data = array(
+                'error' => 0,
+                'commands' => $commands
+            );
+        }
+
+        return $data;
     }
 
 }
