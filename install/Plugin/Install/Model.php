@@ -208,22 +208,23 @@ class Model
 
     public static function createDatabaseStructure($database, $tablePrefix)
     {
-        $all_sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
+        $sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
 
-        $all_sql = str_replace("[[[[database]]]]", $database, $all_sql);
-        $all_sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $tablePrefix, $all_sql);
-        $all_sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$tablePrefix, $all_sql);
-        $sql_list = explode("-- Table structure", $all_sql);
+        $sql = str_replace("[[[[database]]]]", $database, $sql);
+        $sql = str_replace("TABLE IF EXISTS `ip_cms_", "TABLE IF EXISTS `". $tablePrefix, $sql);
+        $sql = str_replace("TABLE IF NOT EXISTS `ip_cms_", "TABLE IF NOT EXISTS `".$tablePrefix, $sql);
+//        $sql = explode("-- Table structure", $sql);
 
         $errors = array();
+        ipDb()->execute($sql);
 
-        foreach ($sql_list as $sql) {
-            try {
-                ipDb()->execute($sql);
-            } catch (\Exception $e) {
-                $errors[] = preg_replace("/[\n\r]/", '', $sql . ' ' . Db::getConnection()->errorInfo());
-            }
-        }
+//        foreach ($sql_list as $sql) {
+//            try {
+//                ipDb()->execute($sql);
+//            } catch (\Exception $e) {
+//                $errors[] = preg_replace("/[\n\r]/", '', $sql . ' ' . Db::getConnection()->errorInfo());
+//            }
+//        }
 
         return $errors;
     }
