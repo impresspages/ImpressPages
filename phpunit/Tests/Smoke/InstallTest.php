@@ -11,9 +11,8 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function testInstall()
     {
-        $this->markTestSkipped('Temporary not working.');
-
         TestEnvironment::cleanupFiles();
+        TestEnvironment::initCode('install.php');
 
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
@@ -33,15 +32,13 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 
         $page = $session->getPage();
 
-        $this->assertEquals('DEBUG', $page->getContent());
-
         $homepageTitle = $page->find('css', 'title');
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
         $this->assertEquals('Home', $homepageTitle->getText());
 
-        $headlineElement = $page->find('css', 'p.homeHeadline');
+        $headlineElement = $page->find('css', '.logo a');
         $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
-        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
+        $this->assertEquals('TestSite', $headlineElement->getText());
     }
 
 }
