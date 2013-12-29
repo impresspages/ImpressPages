@@ -420,11 +420,9 @@ DROP TABLE IF EXISTS `ip_cms_storage`;
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
     `plugin` varchar(40) NOT NULL,
     `key` varchar(100) NOT NULL,
     `value` text NOT NULL,
-    PRIMARY KEY (`id`),
     UNIQUE KEY `pluginkey` (`plugin`,`key`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
@@ -455,20 +453,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_user_to_mod` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL DEFAULT '0',
   `module_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_variables`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_variables` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL COMMENT 'module group and name',
-  `value` text,
-  `modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

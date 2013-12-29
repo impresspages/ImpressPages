@@ -79,6 +79,16 @@ INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layou
 
 -- Dumping data for table--
 
+INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
+('Ip', 'version', '4.0'),
+('Ip', 'cached_base_url', '[[[[base_url]]]]'),
+('Ip', 'last_system_message_sent', ''),
+('Ip', 'last_system_message_shown', ''),
+('Ip', 'theme_changed', '0'),
+('Ip', 'cache_version', '1');
+
+-- Dumping data for table--
+
 INSERT INTO `ip_cms_user` (`id`, `name`, `pass`, `wrong_logins`, `blocked`, `e_mail`, `row_number`) VALUES
 (8, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0);
 
@@ -104,16 +114,6 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
 (534, 8, 441),
 (535, 8, 442),
 (536, 8, 443);
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_variables` (`id`, `name`, `value`, `modified_on`) VALUES
-(40, 'version', '3.7', '0000-00-00 00:00:00'),
-(41, 'cached_base_url', '[[[[base_url]]]]', '0000-00-00 00:00:00'),
-(42, 'last_system_message_sent', '', '0000-00-00 00:00:00'),
-(43, 'last_system_message_shown', '', '0000-00-00 00:00:00'),
-(44, 'theme_changed', '0', '0000-00-00 00:00:00'),
-(45, 'cache_version', '1', '0000-00-00 00:00:00');
 
 -- Dumping data for table--
 
