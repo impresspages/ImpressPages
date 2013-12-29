@@ -25,6 +25,16 @@ class Model
         self::removeZoneToContent($id);
     }
 
+    public static function uniqueZoneName($name)
+    {
+        $suffix = '';
+
+        while(ipContent()->getZone($name.$suffix)) {
+            $suffix++;
+        }
+        return $name.$suffix;
+    }
+
     public static function deletePage($zoneName, $pageId)
     {
 
@@ -118,7 +128,7 @@ class Model
     }
 
 
-    public static function createZoneParameters($languageId)
+    public static function createParametersLanguage($languageId)
     {
         //create zone translations
         $zones = ipContent()->getZones();
@@ -128,6 +138,23 @@ class Model
                 'zone_id' => $zone->getId(),
                 'title' => $zone->getTitle(),
                 'url' =>self::newZoneUrl($languageId, $zone->getUrl())
+            );
+            ipDb()->insert('zone_parameter', $params);
+        }
+    }
+
+    public static function createParametersZone($zoneId, $url, $title, $keywords, $description)
+    {
+        //create zone translations
+        $languages = ipContent()->getLanguages();
+        foreach ($languages as $language) {
+            $params = array(
+                'language_id' => $language->getId(),
+                'zone_id' => $zoneId,
+                'url' =>self::newZoneUrl($language->getId(), $url),
+                'title' => $title,
+                'keywords' => $keywords,
+                'description' => $description
             );
             ipDb()->insert('zone_parameter', $params);
         }
@@ -162,9 +189,9 @@ class Model
         );
         $takenUrls = ipDb()->fetchColumn($sql, $params);
 
-        if (isset($takenUrls[$requestedUrl])) {
+        if (in_array($requestedUrl, $takenUrls)) {
             $i = 1;
-            while(isset($takenUrls[$requestedUrl.$i])) {
+            while(in_array($requestedUrl.$i, $takenUrls)) {
                 $i++;
             }
             return $requestedUrl.$i;

@@ -24,7 +24,7 @@ class Service
         $languages = Db::getLanguages();
 
         $row = array(
-            'name' => $zoneName,
+            'name' => Model::::$zoneName,
             'template' => $defaultLayout,
             'translation' => $title,
             'associated_module' => $associatedModule,

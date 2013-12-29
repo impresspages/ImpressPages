@@ -32,7 +32,8 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         $variables = array(
-            'addForm' => Helper::addForm(),
+            'addPageForm' => Helper::addPageForm(),
+            'addZoneForm' => Helper::addZoneForm(),
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
         $layout = \Ip\View::create('view/layout.php', $variables);
@@ -148,6 +149,31 @@ class AdminController extends \Ip\Controller
 
 
 
+    }
+
+    public function addZone()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        if (!empty($data['title'])) {
+            $title = $data['title'];
+        } else {
+            $title = __('Untitled', 'ipAdmin', false);
+        }
+
+        $url = preg_replace('/[^a-z0-9_ ]/i', '', $title);
+
+        $zoneName = Service::addZone($title, $title, $url, '', '', '', 100000000);
+        $zoneId = ipContent()->getZone($zoneName)->getId();
+
+
+        $answer = array(
+            'status' => 'success',
+            'zoneId' => $zoneId
+        );
+
+        return new \Ip\Response\Json($answer);
     }
 
     public function addPage()
