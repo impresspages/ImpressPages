@@ -217,7 +217,7 @@ class Model
             $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
-        \Ip\Internal\DbSystem::setSystemVariable('theme_changed', time());
+        \Ip\ServiceLocator::storage()->set('Ip', 'themeChanged', time());
 
     }
 

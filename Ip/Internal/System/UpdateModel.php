@@ -78,7 +78,7 @@ class UpdateModel
 
         $ch = curl_init();
 
-        $curVersion = \Ip\Internal\DbSystem::getSystemVariable('version');
+        $curVersion = \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
         $options = array(
             CURLOPT_RETURNTRANSFER => true,

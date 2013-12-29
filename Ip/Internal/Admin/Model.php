@@ -107,27 +107,8 @@ class Model{
     protected function incorrectLoginCount($userName)
     {
         return 0;
-
-        // TODO do it through storage and not here
-        /*
-         0 - success
-         1 - incorrect login
-         2 - suspended account
-         */
-        $answer = 0;
-        $sql = "select * from  `".DB_PREF."log` where `value_int` = 1 and `module` = 'system' and `value_str` = '".ip_deprecated_mysql_real_escape_string($userName)."' and `name` = 'backend login incorrect' and 60 > TIMESTAMPDIFF(MINUTE,`time`,NOW()) order by `time` desc";
-        $rs = ip_deprecated_mysql_query($sql);
-        if(!$rs)
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        else {
-            $lock = ip_deprecated_mysql_fetch_assoc($rs);
-            while($lock && $lock['value_int'] != 0) {
-                $answer++;
-                $lock = ip_deprecated_mysql_fetch_assoc($rs);
-            }
-        }
-        return $answer;
     }
+
     protected  function userId($name, $pass) {
         $answer = false;
         $sql = "select id from `".DB_PREF."user` where `name` = '".ip_deprecated_mysql_real_escape_string($name)."' and `pass`='".md5($pass)."' and not blocked ";
