@@ -42,10 +42,10 @@ class Module
 
     public function clearCache($cachedUrl)
     {
-        \Ip\Internal\DbSystem::setSystemVariable('cached_base_url', ipConfig()->baseUrl()); // update system variable
+        \Ip\ServiceLocator::storage()->set('Ip', 'cachedBaseUrl', ipConfig()->baseUrl());
 
-        $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
-        \Ip\Internal\DbSystem::setSystemVariable('cache_version', $cacheVersion + 1);
+        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
+        \Ip\ServiceLocator::storage()->set('Ip', 'cacheVersion', $cacheVersion + 1);
 
         // TODO move somewhere
         if (ipConfig()->baseUrl() != $cachedUrl) {
@@ -65,7 +65,7 @@ class Module
             curl_setopt($ch, CURLOPT_POST, 1);
 
             $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
-            $postFields .= '&systemVersion=' . \Ip\Internal\DbSystem::getSystemVariable('version');
+            $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
             //TODOX refactor
 //            $groups = \Modules\developer\modules\Db::getGroups();
@@ -100,7 +100,7 @@ class Module
 
         $ch = curl_init();
 
-        $curVersion = \Ip\Internal\DbSystem::getSystemVariable('version');
+        $curVersion = \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
         $options = array(
             CURLOPT_RETURNTRANSFER => true,
