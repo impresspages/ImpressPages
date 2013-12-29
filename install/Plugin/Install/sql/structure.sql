@@ -480,7 +480,7 @@ DROP TABLE IF EXISTS `ip_cms_zone`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row_number` int(11) NOT NULL DEFAULT '0',
+  `row_number` double NOT NULL DEFAULT '0',
   `name` varchar(30) NOT NULL DEFAULT '',
   `template` varchar(255) DEFAULT NULL,
   `translation` varchar(255) NOT NULL,
