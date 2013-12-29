@@ -1,0 +1,1 @@
+<span class="ipsDrag">⇅</span>

@@ -54,4 +54,35 @@ class Actions
         }
         ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
     }
+
+    public function move($id, $targetId, $beforeOrAfter)
+    {
+        $sortField = $this->config->sortField();
+
+        $targetRow = ipDb()->select('row_number', $this->config->rawTableName(), array('id' => $targetId));
+        if (!$targetRow) {
+            throw new \Ip\CoreException('Target record doesn\'t exist');
+        }
+
+
+        $sql = "
+        SELECT
+            `row_number`
+        FROM
+            " . $this->config->tableName() . "
+        WHERE
+            `" . $sortField . "` " . ($beforeOrAfter == 'before') ? ' < ' : '' . "
+        ORDER BY
+            `" . $sortField . "`
+            " . ($beforeOrAfter == 'before') ? ' DESC ' : ' ASC ' . "
+        LIMIT
+            1
+        ";
+
+        $params = array(
+
+        );
+
+        ipDb()->fetchValue($sql, $params);
+    }
 }

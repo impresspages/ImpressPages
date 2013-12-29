@@ -137,6 +137,11 @@ class Config
         return !array_key_exists('allowUpdate', $this->config) || $this->config['allowUpdate'];
     }
 
+    public function allowSort()
+    {
+        return !empty($this->config['sortField']);
+    }
+
     public function allowDelete()
     {
         return !array_key_exists('allowDelete', $this->config) || $this->config['allowDelete'];
@@ -158,8 +163,17 @@ class Config
     }
 
 
-    public function rawTableName() {
+    public function rawTableName()
+    {
         return $this->config['table'];
+    }
+
+    public function sortField()
+    {
+        if (empty($this->config['sortField'])) {
+            return FALSE;
+        }
+        return $this->config['sortField'];
     }
 
     protected function getTableFields($tableName)
