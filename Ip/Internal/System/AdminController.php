@@ -27,7 +27,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             'notes' => $notes,
-            'version' => \Ip\Internal\DbSystem::getSystemVariable('version')
+            'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'), // TODOX ensure version is stored here
         );
 
         $content = \Ip\View::create('view/index.php', $data)->render();
@@ -49,7 +49,7 @@ class AdminController extends \Ip\Controller{
 
         ipLog()->info('System.cacheCleared');
         $module = new Module;
-        $cachedUrl = \Ip\Internal\DbSystem::getSystemVariable('cached_base_url'); // get system variable
+        $cachedUrl = \Ip\ServiceLocator::storage()->get('Ip', 'cachedBaseUrl'); // get system variable
         $module->clearCache($cachedUrl);
         $success = $module->updateRobotsTxt($cachedUrl);
 
@@ -110,7 +110,7 @@ class AdminController extends \Ip\Controller{
                 $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
                 return;
             } else {
-                $md5 = \Ip\Internal\DbSystem::getSystemVariable('last_system_message_shown');
+                $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
                 if($systemInfo && (!$md5 || $md5 != md5($systemInfo)) ) { //we have a new message
                     $newMessage = false;
 
@@ -128,7 +128,7 @@ class AdminController extends \Ip\Controller{
 
             }
         } else { //administrator/system tab.
-            \Ip\Internal\DbSystem::setSystemVariable('last_system_message_shown', md5($systemInfo));
+            \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageShown', md5($systemInfo));
             $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
         }
 

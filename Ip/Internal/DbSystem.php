@@ -16,56 +16,6 @@ namespace Ip\Internal;
  */
 class DbSystem{    //system variables
 
-    /**
-     * @access private
-     */
-    public static function setSystemVariable($name, $value){
-        if (self::getSystemVariable($name) !== FALSE) {
-            $sql = "update `".DB_PREF."variables` set `value` = '".ip_deprecated_mysql_real_escape_string($value)."' where
-        `name` = '".ip_deprecated_mysql_real_escape_string($name)."'";
-            $rs = ip_deprecated_mysql_query($sql);
-            if (!$rs) {
-                trigger_error($sql." ".ip_deprecated_mysql_error());
-                return false;
-            }
-        } else {
-            self::insertSystemVariable($name, $value);
-        }
-    }
-
-    /**
-     * @access private
-     */
-    public static function getSystemVariable($name){
-        $sql = "select value from `".DB_PREF."variables`  where `name` = '".ip_deprecated_mysql_real_escape_string($name)."'";
-        $rs = ip_deprecated_mysql_query($sql);
-        if ($rs) {
-            if ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                return $lock['value'];
-            } else {
-                throw new \Ip\CoreException("Unknown system variable ".$name, \Ip\CoreException::SYSTEM_VARIABLE);
-            }
-        } else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
-    }
-
-    /**
-     * @access private
-     */
-    public static function insertSystemVariable($name, $value){
-        $sql = "insert into `".DB_PREF."variables` set `value` = '".ip_deprecated_mysql_real_escape_string($value)."', `name` = '".ip_deprecated_mysql_real_escape_string($name)."'";
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-            return false;
-        }
-    }
-
-    //end system variables
-
-
     public static function replaceUrls($oldUrl, $newUrl)
     {
         $db = ipDb();

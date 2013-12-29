@@ -38,7 +38,7 @@ class System{
         $module = new Module();
         $systemInfo = $module->getSystemInfo();
         if ($systemInfo != '') { //send an email
-            $md5 = \Ip\Internal\DbSystem::getSystemVariable('last_system_message_sent');
+            $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageSent');
             if( !$md5 || $md5 != md5($systemInfo) ) { //we have a new message
                 $message = '';
                 $messages = json_decode($systemInfo);
@@ -76,7 +76,7 @@ class System{
                     $queue->send();
                 }
 
-                \Ip\Internal\DbSystem::setSystemVariable('last_system_message_sent', md5($systemInfo));
+                \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
             }
 
 

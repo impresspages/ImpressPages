@@ -175,7 +175,7 @@ class Layout extends \Ip\Response {
     }
 
     public function generateHead() {
-        $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
         $cssFiles = $this->getCss();
 
         $inDesignPreview = false;
@@ -221,7 +221,7 @@ class Layout extends \Ip\Response {
     }
 
     public function generateJavascript() {
-        $cacheVersion = \Ip\Internal\DbSystem::getSystemVariable('cache_version');
+        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
         $javascriptFiles = $this->getJavascript();
         foreach($javascriptFiles as &$level) {
             foreach($level as &$file) {
