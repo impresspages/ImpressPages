@@ -120,6 +120,21 @@ function ipPages($scope, $location) {
         });
     }
 
+    $scope.addZoneModal = function() {
+        var $modal = $('.ipsAddZoneModal');
+        $modal.find('input[name=title]').val('');
+        $modal.modal();
+
+
+        $modal.find('.ipsAdd').off('click').on('click', function(){$modal.find('form').submit()});
+        $modal.find('form').off('submit').on('submit', function(e) {
+            e.preventDefault();
+            var title = $modal.find('input[name=title]').val();
+            addZone(title);
+            $modal.modal('hide');
+        });
+    }
+
     $scope.cutPage = function() {
         $scope.copyPageId = false;
         $scope.cutPageId = $scope.selectedPageId
@@ -130,6 +145,13 @@ function ipPages($scope, $location) {
         $scope.copyPageId = $scope.selectedPageId;
     }
 
+
+    $scope.zoneTitle = function (zone) {
+        if (zone.title) {
+            return zone.title;
+        }
+        return 'Untitled';
+    }
 
 
     $scope.pastePage = function () {
@@ -219,6 +241,32 @@ function ipPages($scope, $location) {
         });
 
     }
+
+    var addZone = function (title) {
+        var data = {
+            aa: 'Pages.addZone',
+            securityToken: ip.securityToken,
+            title: title
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                window.location = ip.baseUrl + '?aa=Pages.index';
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+
+    }
+
 
     var editPage = function (pageId, successCallback) {
         var data = {

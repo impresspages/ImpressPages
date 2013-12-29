@@ -1,4 +1,4 @@
-<div class="ipsAddModal modal fade">
+<div class="ipsAddZoneModal modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +6,7 @@
                 <h4 class="modal-title"><?php _e('Add new page', 'ipAdmin') ?></h4>
             </div>
             <div class="modal-body">
-                <?php echo $addPageForm ?>
+                <?php echo $addZoneForm ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>

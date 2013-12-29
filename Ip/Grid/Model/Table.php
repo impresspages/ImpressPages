@@ -122,8 +122,9 @@ class Table extends \Ip\Grid\Model
 
     protected function update($data, $statusVariables)
     {
+        $recordId = $data['recordId'];
         $display = new Display($this->config);
-        $updateForm = $display->updateForm($data['recordId']);
+        $updateForm = $display->updateForm($recordId);
 
 
         $errors = $updateForm->validate($data);
@@ -134,8 +135,18 @@ class Table extends \Ip\Grid\Model
                 'errors' => $errors
             );
         } else {
+            $newData = $updateForm->filterValues($data);
+
+            if ($this->config->beforeUpdate()) {
+                call_user_func($this->config->beforeUpdate(), $recordId, $newData);
+            }
+
             $actions = new Actions($this->config);
-            $actions->update($data['recordId'], $updateForm->filterValues($data));
+            $actions->update($recordId, $newData);
+
+            if ($this->config->afterUpdate()) {
+                call_user_func($this->config->afterUpdate(), $recordId, $newData);
+            }
 
             $display = new Display($this->config);
             $html = $display->fullHtml($statusVariables);

@@ -33,7 +33,7 @@ class System
 //        }
 
 
-        Model::createZoneParameters($languageId);
+        Model::createParametersLanguage($languageId);
     }
 
     public function onDeleteLanguage($data)

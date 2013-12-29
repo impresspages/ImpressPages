@@ -5,12 +5,19 @@
                 <a ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
             </li>
         </ul>
+        <a href="<?php echo $languagesUrl ?>">*</a>
     </div>
     <div class="zoneList navBlock">
         <ul>
             <li ng-repeat="zone in zones">
-                <a class="title" ng-click="setZoneHash(zone)">{{zone.title}}</a>
+                <a class="title" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>
             </li>
+        </ul>
+        <ul class="actions">
+            <button ng-click="addZoneModal()" class="btn btn-default" role="button" >
+                <i class="fa fa-file-o"></i>
+                <?php _e('Add', 'ipAdmin') ?>
+            </button>
         </ul>
     </div>
     <div class="ipsPages pages navBlock">
@@ -43,5 +50,7 @@
     <div ng-show="selectedPageId" class="ipsProperties properties navBlock">
 
     </div>
-    <?php echo \Ip\View::create('addPageModal.php', $this->getVariables())->render() ?>
+    <?php echo $this->subview('addPageModal.php')->render() ?>
+    <?php echo $this->subview('addZoneModal.php')->render() ?>
+
 </div>
