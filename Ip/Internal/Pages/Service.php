@@ -13,7 +13,7 @@ namespace Ip\Internal\Pages;
 class Service
 {
 
-    public static function addZone($title, $name, $url, $metaTitle, $metaKeywords, $metaDescription, $position)
+    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
         $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
         $rowNumber = 0; //initial value
@@ -36,7 +36,8 @@ class Service
             'translation' => $title,
             'name' => $zoneName,
             'row_number' => $rowNumber,
-            'associated_module' => 'Content'
+            'associated_module' => 'Content',
+            'template' => $layout
         );
         $zoneId = ipDb()->insert('zone', $data);
 
