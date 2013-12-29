@@ -162,9 +162,11 @@ class AdminController extends \Ip\Controller
             $title = __('Untitled', 'ipAdmin', false);
         }
 
-        $url = preg_replace('/[^a-z0-9_ ]/i', '', $title);
+        $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
+        $url = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
+        $name = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
 
-        $zoneName = Service::addZone($title, $title, $url, '', '', '', 100000000);
+        $zoneName = Service::addZone($title, $name, $url, 'main.php', '', '', '', 100000000);
         $zoneId = ipContent()->getZone($zoneName)->getId();
 
 
