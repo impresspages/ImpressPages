@@ -67,6 +67,9 @@ class Table extends \Ip\Grid\Model
             case 'update':
                 return $this->update($data, $statusVariables);
                 break;
+            case 'move':
+                return $this->move($data, $statusVariables);
+                break;
         }
     }
 
@@ -81,6 +84,10 @@ class Table extends \Ip\Grid\Model
 
     protected function page($params, $statusVariables)
     {
+        if (empty($params['page'])) {
+            throw new \Ip\CoreException('Missing parameters');
+        }
+
         $statusVariables['page'] = $params['page'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
@@ -92,6 +99,10 @@ class Table extends \Ip\Grid\Model
 
     protected function delete($params, $statusVariables)
     {
+        if (empty($params['id'])) {
+            throw new \Ip\CoreException('Missing parameters');
+        }
+
         if ($this->config->beforeDelete()) {
             call_user_func($this->config->beforeDelete(), $params['id']);
         }
@@ -122,6 +133,9 @@ class Table extends \Ip\Grid\Model
 
     protected function update($data, $statusVariables)
     {
+        if (empty($data['recordId'])) {
+            throw new \Ip\CoreException('Missing parameters');
+        }
         $recordId = $data['recordId'];
         $display = new Display($this->config);
         $updateForm = $display->updateForm($recordId);
@@ -159,6 +173,37 @@ class Table extends \Ip\Grid\Model
         }
 
         return $data;
+    }
+
+    protected function move($params, $statusVariables)
+    {
+        if (empty($params['id']) || empty($params['targetId']) || empty($params['beforeOrAfter'])) {
+            throw new \Ip\CoreException('Missing parameters');
+        }
+
+        if ($this->config->beforeMOve()) {
+            call_user_func($this->config->beforeMove(), $params['id']);
+        }
+
+        $id = $params['id'];    
+        $targetId = $params['targetId'];
+        $beforeOrAfter = $params['beforeOrAfter'];
+
+        try {
+            $actions = new Actions($this->config);
+            $actions->move($id, $targetId, $beforeOrAfter);
+            $display = new Display($this->config);
+            $html = $display->fullHtml($statusVariables);
+            $commands[] = Commands::setHtml($html);
+            return $commands;
+        } catch (\Exception $e) {
+            $commands[] = Commands::showMessage($e->getMessage());
+            return $commands;
+        }
+
+        if ($this->config->afterMove()) {
+            call_user_func($this->config->afterMove(), $params['id']);
+        }
     }
 
 }

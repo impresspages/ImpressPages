@@ -43,7 +43,7 @@ class Display
         ));
 
         $variables = array(
-            'columns' => $this->getColumnDate(),
+            'columns' => $this->getColumnData(),
             'data' => $this->rowsData($this->fetch($from, $pageSize)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
@@ -77,12 +77,17 @@ class Display
     {
         $editButtonHtml = \Ip\View::create('../view/updateButton.php');
         $deleteButtonHtml = \Ip\View::create('../view/deleteButton.php');
+        $dragButtonHtml = \Ip\View::create('../view/dragHandle.php');
         $rows = array();
         foreach ($data as $row) {
             $preparedRow = array(
                 'id' => $row[$this->config->idField()]
             );
             $preparedRowData = array();
+            if ($this->config->allowSort()) {
+                $preparedRowData[] = $dragButtonHtml;
+            }
+
             if ($this->config->allowUpdate()) {
                 $preparedRowData[] = $editButtonHtml;
             }
@@ -168,9 +173,15 @@ class Display
 
 
 
-    protected function getColumnDate()
+    protected function getColumnData()
     {
         $columns = array();
+        if ($this->config->allowSort()) {
+            $column = array(
+                'label' => ''
+            );
+            $columns[] = $column;
+        }
         if ($this->config->allowUpdate()) {
             $column = array(
                 'label' => ''

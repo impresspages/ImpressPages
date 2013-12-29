@@ -133,6 +133,75 @@
             $.proxy(loadUpdateForm, $grid)($modal, id);
 
         });
+
+        if ($grid.find('.ipsDrag').length) {
+            $grid.find("table tbody").sortable({
+                handle: '.ipsDrag',
+                helper: dragFix,
+                axis: "y",
+                start: $.proxy(startDrag, $grid),
+                stop: $.proxy(dragStop, $grid)
+            });
+        }
+
+    };
+
+    var startDrag = function(event, ui) {
+            ui.item.data('originIndex', ui.item.index());
+    }
+
+    var dragStop = function(event, ui) {
+        var originIndex = ui.item.data('originIndex');
+        var curRow = ui.item;
+        var currentIndex = curRow.index();
+
+        if (originIndex == currentIndex) {
+            return;
+        }
+
+        var targetId = null;
+        var beforeOrAfter = 'after';
+        if (currentIndex == 0) {
+            beforeOrAfter = 'before';
+            targetId = curRow.next().data('id');
+        } else {
+            targetId = curRow.prev().data('id');
+        }
+
+        var $grid = this;
+        var id = ui.item.data('id');
+        var data = $grid.data('gateway');
+        data.method = 'move';
+        data.params = {};
+        data.params.id = id;
+        data.params.targetId = targetId;
+        data.params.beforeOrAfter = beforeOrAfter;
+        data.securityToken = ip.securityToken;
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $grid,
+            dataType: 'json',
+            success: function (response) {
+                $.proxy(doCommands, $grid)(response.result);
+            },
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            }
+        });
+    }
+
+    var dragFix = function(e, tr) {
+        var $originals = tr.children();
+        var $helper = tr.clone();
+        $helper.children().each(function(index)
+        {
+            $(this).width($originals.eq(index).width())
+        });
+        return $helper;
     };
 
     var loadUpdateForm = function($modal, id){
