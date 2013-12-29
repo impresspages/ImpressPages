@@ -5,6 +5,7 @@
                 <a ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
             </li>
         </ul>
+        <a href="<?php echo $languagesUrl ?>">*</a>
     </div>
     <div class="zoneList navBlock">
         <ul>

@@ -32,7 +32,8 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         $variables = array(
-            'addForm' => Helper::addForm()
+            'addForm' => Helper::addForm(),
+            'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
         $layout = \Ip\View::create('view/layout.php', $variables);
         return $layout->render();
