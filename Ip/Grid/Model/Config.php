@@ -75,6 +75,22 @@ class Config
         return $this->config['afterDelete'];
     }
 
+    public function beforeUpdate()
+    {
+        if (empty($this->config['beforeUpdate'])) {
+            return FALSE;
+        }
+        return $this->config['beforeUpdate'];
+    }
+
+    public function afterUpdate()
+    {
+        if (empty($this->config['afterUpdate'])) {
+            return FALSE;
+        }
+        return $this->config['afterUpdate'];
+    }
+
     public function preventAction()
     {
         if (empty($this->config['preventAction'])) {
