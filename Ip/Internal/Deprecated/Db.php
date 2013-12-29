@@ -146,20 +146,8 @@ class Db
 
     public static function getAllUsers()
     {
-        $answer = array();
-        $sql = "select * from `" . DB_PREF . "user` where 1";
-        $rs = ip_deprecated_mysql_query($sql);
-        $answer = array();
-        if ($rs) {
-            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-                $answer[] = $lock;
-            }
-        } else {
-            trigger_error($sql . " " . ip_deprecated_mysql_error());
-        }
-        return $answer;
+        return ipDb()->select('*', 'user');
     }
-
 
     /**
      * @access private
