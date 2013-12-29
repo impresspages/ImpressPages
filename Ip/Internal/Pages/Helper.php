@@ -31,12 +31,12 @@ class Helper
     public static function zoneList()
     {
         $answer = array();
-        $zones = ipContent()->getZones();
+        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
         foreach($zones as $zone)
         {
             $answer[] = array(
-                'name' => $zone->getName(),
-                'title' => $zone->getTitle()
+                'name' => $zone['name'],
+                'title' => $zone['translation']
             );
         }
         return $answer;
@@ -172,7 +172,7 @@ class Helper
         return $form;
     }
 
-    public static function addform()
+    public static function addPageform()
     {
         $form = new \Ip\Form();
 
@@ -193,5 +193,20 @@ class Helper
 
         return $form;
     }
+
+    public static function addZoneForm()
+    {
+        $form = new \Ip\Form();
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false)
+            ));
+        $form->addField($field);
+
+        return $form;
+    }
+
 
 }

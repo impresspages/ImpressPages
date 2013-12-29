@@ -234,6 +234,22 @@ class Db {
 
 
     /**
+     * @param int $language_id
+     * @return array all website zones with meta tags for specified language
+     */
+    public static function getZones($languageId)
+    {
+        $sql = 'SELECT m.*, p.url, p.description, p.keywords, p.title
+                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') . '
+                WHERE
+                    p.zone_id = m.id
+                    AND p.language_id = ?
+                ORDER BY m.row_number';
+
+        return ipDb()->fetchAll($sql, array($languageId));
+    }
+
+    /**
      * @param $zoneName
      * @param $pageId
      * @param $params
