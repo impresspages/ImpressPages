@@ -255,7 +255,7 @@ function ipPages($scope, $location) {
             data: data,
             context: this,
             success: function (response) {
-                refresh();
+                window.location = ip.baseUrl + '?aa=Pages.index';
             },
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
