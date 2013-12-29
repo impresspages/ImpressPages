@@ -486,7 +486,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
   `translation` varchar(255) NOT NULL,
   `associated_group` varchar(255) DEFAULT NULL,
   `associated_module` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
