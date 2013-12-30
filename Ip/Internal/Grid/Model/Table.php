@@ -3,10 +3,10 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model;
+namespace Ip\Internal\Grid\Model;
 
 
-class Table extends \Ip\Grid\Model
+class Table extends \Ip\Internal\Grid\Model
 {
 
     /**

@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid;
+namespace Ip\Internal\Grid;
 
 
 class Worker

@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model;
+namespace Ip\Internal\Grid\Model;
 
 
 class Config
@@ -118,14 +118,14 @@ class Config
 
     /**
      * @param $field
-     * @return \Ip\Grid\Model\Field
+     * @return \Ip\Internal\Grid\Model\Field
      */
     public function fieldObject($field)
     {
         if (empty($field['type'])) {
             $field['type'] = 'Text';
         }
-        $class = '\\Ip\\Grid\\Model\\Field\\' . $field['type'];
+        $class = '\\Ip\\Internal\\Grid\\Model\\Field\\' . $field['type'];
         if (!class_exists($class)) {
             $class = $field['type']; //type is full class name
         }

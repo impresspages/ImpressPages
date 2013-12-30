@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model;
+namespace Ip\Internal\Grid\Model;
 
 
 class Status
@@ -19,7 +19,7 @@ class Status
         foreach($parts as $part) {
             $tmp = explode('=', $part);
             if (isset($tmp[1])) {
-                $variables[$tmp[0]] = $tmp[1];
+                $vartargetIdiables[$tmp[0]] = $tmp[1];
             } else {
                 $variables[$tmp[0]] = null;
             }

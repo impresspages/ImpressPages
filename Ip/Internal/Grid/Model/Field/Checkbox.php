@@ -3,10 +3,10 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model\Field;
+namespace Ip\Internal\Grid\Model\Field;
 
 
-class Checkbox extends \Ip\Grid\Model\Field
+class Checkbox extends \Ip\Internal\Grid\Model\Field
 {
     protected $field = '';
     protected $label = '';
