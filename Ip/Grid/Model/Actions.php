@@ -59,10 +59,12 @@ class Actions
     {
         $sortField = $this->config->sortField();
 
-        $targetRow = ipDb()->select('row_number', $this->config->rawTableName(), array('id' => $targetId));
-        if (!$targetRow) {
+        $row = ipDb()->select('row_number', $this->config->rawTableName(), array('id' => $targetId));
+        if (empty($row[0])) {
             throw new \Ip\CoreException('Target record doesn\'t exist');
         }
+        $priority = $row[0]['row_number'];
+
 
 
         $sql = "
@@ -71,18 +73,26 @@ class Actions
         FROM
             " . $this->config->tableName() . "
         WHERE
-            `" . $sortField . "` " . ($beforeOrAfter == 'before') ? ' < ' : '' . "
+            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' > ' : ' < ') . "  :rowNumber
         ORDER BY
-            `" . $sortField . "`
-            " . ($beforeOrAfter == 'before') ? ' DESC ' : ' ASC ' . "
-        LIMIT
-            1
+            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' ASC ' : ' DESC ') . "
         ";
 
         $params = array(
-
+            'rowNumber' => $priority
         );
 
-        ipDb()->fetchValue($sql, $params);
+        $priority2 = ipDb()->fetchValue($sql, $params);
+        if ($priority2 === false) {
+            if ($beforeOrAfter == 'before') {
+                $priority2 = $priority + 10;
+            } else {
+                $priority2 = $priority - 10;
+            }
+        }
+
+        $avgPriority = ($priority + $priority2) / 2;
+
+        ipDb()->update($this->config->rawTableName(), array($this->config->sortField() => $avgPriority), array($this->config->idField() => $id));
     }
 }

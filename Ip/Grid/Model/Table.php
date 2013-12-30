@@ -68,7 +68,7 @@ class Table extends \Ip\Grid\Model
                 return $this->update($data, $statusVariables);
                 break;
             case 'move':
-                return $this->move($data, $statusVariables);
+                return $this->move($params, $statusVariables);
                 break;
         }
     }
@@ -181,25 +181,20 @@ class Table extends \Ip\Grid\Model
             throw new \Ip\CoreException('Missing parameters');
         }
 
-        if ($this->config->beforeMOve()) {
+        if ($this->config->beforeMove()) {
             call_user_func($this->config->beforeMove(), $params['id']);
         }
 
-        $id = $params['id'];    
+        $id = $params['id'];
         $targetId = $params['targetId'];
         $beforeOrAfter = $params['beforeOrAfter'];
 
-        try {
-            $actions = new Actions($this->config);
-            $actions->move($id, $targetId, $beforeOrAfter);
-            $display = new Display($this->config);
-            $html = $display->fullHtml($statusVariables);
-            $commands[] = Commands::setHtml($html);
-            return $commands;
-        } catch (\Exception $e) {
-            $commands[] = Commands::showMessage($e->getMessage());
-            return $commands;
-        }
+        $actions = new Actions($this->config);
+        $actions->move($id, $targetId, $beforeOrAfter);
+        $display = new Display($this->config);
+        $html = $display->fullHtml($statusVariables);
+        $commands[] = Commands::setHtml($html);
+        return $commands;
 
         if ($this->config->afterMove()) {
             call_user_func($this->config->afterMove(), $params['id']);

@@ -91,6 +91,22 @@ class Config
         return $this->config['afterUpdate'];
     }
 
+    public function beforeMove()
+    {
+        if (empty($this->config['beforeMove'])) {
+            return FALSE;
+        }
+        return $this->config['beforeMove'];
+    }
+
+    public function afterMove()
+    {
+        if (empty($this->config['afterMove'])) {
+            return FALSE;
+        }
+        return $this->config['afterMove'];
+    }
+
     public function preventAction()
     {
         if (empty($this->config['preventAction'])) {
