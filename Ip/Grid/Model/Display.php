@@ -132,6 +132,12 @@ class Display
 
     protected function fetch($from, $count)
     {
+        if ($this->config->sortField()) {
+            $sortField = $this->config->sortField();
+        } else {
+            $sortField = 'id';
+        }
+
         $sql = "
         SELECT
           *
@@ -140,7 +146,7 @@ class Display
         WHERE
           1
         ORDER BY
-            `id` DESC
+            `" . $sortField . "` DESC
         LIMIT
             $from, $count
         ";
