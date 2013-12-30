@@ -106,7 +106,7 @@ class Dao
             SELECT
                 value
             FROM
-                `'.DB_PREF.'m_inline_value_page`
+                ' . ipTable('m_inline_value_page') . '
             WHERE
                 `module` = :module AND
                 `key` = :key AND
@@ -144,7 +144,7 @@ class Dao
             SELECT
                 value
             FROM
-                `'.DB_PREF.'m_inline_value_language`
+                ' . ipTable('m_inline_value_language') . '
             WHERE
                 `module` = :module AND
                 `key` = :key AND
@@ -176,7 +176,7 @@ class Dao
             SELECT
                 value
             FROM
-                `'.DB_PREF.'m_inline_value_global`
+                ' . ipTable('m_inline_value_global') . '
             WHERE
                 `module` = :module AND
                 `key` = :key
@@ -201,7 +201,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_page`
+                ' . ipTable('m_inline_value_page') . '
             SET
                 `module` = :module,
                 `key` = :key,
@@ -232,7 +232,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_language`
+                ' . ipTable('m_inline_value_language') . '
             SET
                 `module` = :module,
                 `key` = :key,
@@ -257,7 +257,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_inline_value_global`
+                ' . ipTable('m_inline_value_global') . '
             SET
                 `module` = :module,
                 `key` = :key,
@@ -281,7 +281,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                `'.DB_PREF.'m_inline_value_page`
+                ' . ipTable('m_inline_value_page') . '
             WHERE
                 `module` = :module
                 AND `key` = :key
@@ -304,7 +304,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                `'.DB_PREF.'m_inline_value_language`
+                ' . ipTable('m_inline_value_language') . '
             WHERE
                 `module` = :module and
                 `key` = :key and
@@ -325,7 +325,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                `'.DB_PREF.'m_inline_value_global`
+                ' . ipTable('m_inline_value_global') . '
             WHERE
                 `module` = :module
                 AND `key` = :key

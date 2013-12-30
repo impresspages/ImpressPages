@@ -39,37 +39,7 @@ class Helper {
         return ipDispatcher()->job('global.getProduct', $data);
     }
 
-    //TODOX make sugar method
-    /**
-     * @param int $price in cents
-     * @param string $currency three letter currency code
-     * @param int $languageId
-     * @return string
-     */
-    public function formatPrice($price, $currency, $languageId = null)
-    {
-        if ($languageId === null) {
-            $languageId = ipContent()->getCurrentLanguage()->getId();
-        }
 
-        $data = array (
-            'price' => $price,
-            'currency' => $currency
-        );
-        $formattedPrice = ipDispatcher()->job('global.formatCurrency', $data);
-        if ($formattedPrice === NULL) {
-            if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
-                $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
-                $locale = str_replace('-', '_', $language->getCode());
-                $fmt = numfmt_create( $locale, \NumberFormatter::CURRENCY );
-
-                $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
-            } else {
-                $formattedPrice = ($data['price']/100).' '.$data['currency'];
-            }
-        }
-        return $formattedPrice;
-    }
 
 }
 

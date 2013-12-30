@@ -10,7 +10,7 @@
     <div class="zoneList navBlock">
         <ul>
             <li ng-repeat="zone in zones">
-                <a class="title" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>
+                <a class="title" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>  <a ng-click="updateZoneModal(zone)">*</a>
             </li>
         </ul>
         <ul class="actions">
@@ -52,5 +52,6 @@
     </div>
     <?php echo $this->subview('addPageModal.php')->render() ?>
     <?php echo $this->subview('addZoneModal.php')->render() ?>
+    <?php echo $this->subview('updateZoneModal.php')->render() ?>
 
 </div>

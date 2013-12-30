@@ -22,7 +22,7 @@ class Model{
             'd_long' => $title,
             'd_short' => $abbreviation,
             'code' => $code,
-            'url' => $url,
+            'url' => Db::newUrl($url),
             'text_direction' => $textDirection,
             'row_number' => $priority,
             'visible' => $visible

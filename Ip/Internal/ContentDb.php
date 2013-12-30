@@ -46,8 +46,8 @@ class ContentDb {
 
 
     /**
-     *
-     * @return array all visible website languages
+     * @param bool $includeHidden
+     * @return array all visible website's languages
      */
     public static function getLanguages($includeHidden = false) {
 
@@ -57,7 +57,7 @@ class ContentDb {
             $where['visible'] = 1;
         }
 
-        $rs = ipDb()->select('*', 'language', $where, 'ORDER BY `row_number`');
+        $rs = ipDb()->select('*', 'language', $where, 'ORDER BY `row_number` DESC ');
         $languages = array();
         foreach ($rs as $language) {
             $languages[$language['id']] = $language;

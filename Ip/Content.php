@@ -49,37 +49,6 @@ class Content {
     }
 
 
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
-    }
-
-    public function getLayout()
-    {
-        if (!$this->layout) {
-            $layout = 'main.php';
-
-            $zone = $this->getCurrentZone();
-            if ($zone) {
-                $page = $this->getCurrentPage();
-                if ($page) {
-                    $layout = Internal\ContentDb::getPageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $page->getId());
-                }
-
-                if (!$layout && $zone->getLayout()) {
-                    $layout = $zone->getLayout();
-                }
-
-            }
-            if (!is_file(ipThemeFile($layout))) {
-                $layout = 'main.php';
-            }
-
-            $this->layout = $layout;
-        }
-
-        return $this->layout;
-    }
 
     /**
      * @return \Ip\Language
@@ -220,10 +189,10 @@ class Content {
         if ($zoneData['associated_module']) {
             $class = '\\Ip\\Internal\\' . $zoneData['associated_module'] . '\\Zone';
             if (class_exists($class)) {
-                $zoneObject = new $class($zoneData['name']);
+                $zoneObject = new $class($zoneData);
             } else {
                 $class = '\\Plugin\\' . $zoneData['associated_module'] . '\\Zone';
-                $zoneObject = new $class($zoneData['name']);
+                $zoneObject = new $class($zoneData);
             }
         } else {
             $zoneObject = new \Ip\DefaultZone($zoneData);
@@ -243,13 +212,6 @@ class Content {
 
 
 
-    public function getZoneUrl()
-    {
-        if ($this->zoneUrl === null) {
-            $this->parseUrl();
-        }
-        return $this->zoneUrl;
-    }
 
     public function getLanguageUrl()
     {
@@ -547,43 +509,18 @@ class Content {
 
 
     /**
-     * TODOX check zone and language url's against this function
-     * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
-     *
-     * @param $folderName
-     * @return bool true if URL is reserved for CMS core
-     *
-     */
-    public function usedUrl($folderName)
-    {
-        $systemDirs = array();
-        // TODOX make it smart with overriden paths
-        $systemDirs['Plugin'] = 1;
-        $systemDirs['Theme'] = 1;
-        $systemDirs['File'] = 1;
-        $systemDirs['install'] = 1;
-        $systemDirs['update'] = 1;
-        if(isset($systemDirs[$folderName])){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-
-    /**
      *
      * @return string title of current page
      *
      */
-    public function getTitle(){
+    public function getTitle()
+    {
         $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentPage();
-        if($curEl && $curEl->getPageTitle() != '') {
+        $curEl = $curZone->getCurrentPage();
+        if ($curEl && $curEl->getPageTitle() != '') {
             return $curEl->getPageTitle();
         } else {
             return $curZone->getTitle();
@@ -595,13 +532,14 @@ class Content {
      * @return string description of current page
      *
      */
-    public function getDescription(){
+    public function getDescription()
+    {
         $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
-        $curEl =  $curZone->getCurrentPage();
-        if($curEl && $curEl->getDescription() != '') {
+        $curEl = $curZone->getCurrentPage();
+        if ($curEl && $curEl->getDescription() != '') {
             return $curEl->getDescription();
         } else {
             return $curZone->getDescription();
@@ -609,20 +547,20 @@ class Content {
     }
 
 
-
     /**
      *
      * @return string keywords of current page
      *
      */
-    public function getKeywords(){
+    public function getKeywords()
+    {
         $curZone = ipContent()->getCurrentZone();
         if (!$curZone) {
             return '';
         }
 
         $curEl = $curZone->getCurrentPage();
-        if($curEl && $curEl->getKeywords() != '') {
+        if ($curEl && $curEl->getKeywords() != '') {
             return $curEl->getKeywords();
         } else {
             return $curZone->getKeywords();

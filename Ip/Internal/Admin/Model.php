@@ -111,7 +111,7 @@ class Model{
 
     protected  function userId($name, $pass) {
         $answer = false;
-        $sql = "select id from `".DB_PREF."user` where `name` = '".ip_deprecated_mysql_real_escape_string($name)."' and `pass`='".md5($pass)."' and not blocked ";
+        $sql = "select id from " . ipTable('user') . " where `name` = '".ip_deprecated_mysql_real_escape_string($name)."' and `pass`='".md5($pass)."' and not blocked ";
         $rs = ip_deprecated_mysql_query($sql);
         if($rs) {
             if($lock = ip_deprecated_mysql_fetch_assoc($rs))

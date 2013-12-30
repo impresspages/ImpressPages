@@ -25,7 +25,7 @@ class Model
         self::removeZoneToContent($id);
     }
 
-    public static function uniqueZoneName($name)
+    protected static function uniqueZoneName($name)
     {
         $suffix = '';
 
@@ -143,7 +143,7 @@ class Model
         }
     }
 
-    public static function createParametersZone($zoneId, $url, $title, $keywords, $description)
+    protected static function createParametersZone($zoneId, $url, $title, $keywords, $description)
     {
         //create zone translations
         $languages = ipContent()->getLanguages();
@@ -197,6 +197,83 @@ class Model
             return $requestedUrl.$i;
         } else {
             return $requestedUrl;
+        }
+    }
+
+    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
+        $rowNumber = 0; //initial value
+
+        if(count($zones) > 0) {
+            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
+            if ($position > 0) {
+                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
+                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
+                } else { //new position is at the end
+                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
+                }
+            }
+        }
+
+
+        $zoneName = self::uniqueZoneName($name);
+
+        $data = array(
+            'translation' => $title,
+            'name' => $zoneName,
+            'row_number' => $rowNumber,
+            'associated_module' => 'Content',
+            'template' => $layout
+        );
+        $zoneId = ipDb()->insert('zone', $data);
+
+        self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
+
+        ipContent()->invalidateZones();
+
+        return $zoneName;
+    }
+
+
+    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    {
+        $zone = ipContent()->getZone($zoneName);
+        if (!$zone) {
+            throw new \Ip\CoreException('Unknown zone ' . $zoneName);
+        }
+        $language = ipContent()->getLanguage($languageId);
+        if (!$language) {
+            throw new \Ip\CoreException('Unknown language ' . $languageId);
+        }
+
+        $oldUrl = $zone->getUrl();
+
+        //update zone table record
+        $params = array(
+            'name' => $name,
+            'template' => $layout,
+            'translation' => $title
+        );
+
+        ipDb()->update('zone', $params, array('name' => $zoneName));
+
+        //update zone parameters table
+        $newUrl = self::newZoneUrl($languageId, $url);
+        $params = array(
+            'url' => $newUrl,
+            'title' => $metaTitle,
+            'keywords' => $metaKeywords,
+            'description' => $metaDescription
+        );
+
+        ipDb()->update('zone_parameter', $params, array('zone_id' => $zone->getId(), 'language_id' => $languageId));
+
+        $oldUrl = ipFileUrl('') . $language->getUrl() . '/' . $oldUrl . '/';
+        $newUrl = ipFileUrl('') . $language->getUrl() . '/' . $newUrl . '/';
+
+        if ($oldUrl != $newUrl) {
+            ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 
