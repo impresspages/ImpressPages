@@ -30,12 +30,9 @@ class DbSystem{    //system variables
         $newUrlParts = explode('?', $newUrl);
         $newUrl = $newUrlParts[0];
 
-        $sql = 'UPDATE ' . ipTable('par_string') . ' SET `value` = REPLACE(`value`, ?, ?)';
+        $sql = 'UPDATE ' . ipTable('storage') . ' SET `value` = REPLACE(`value`, ?, ?)';
         $db->execute($sql, array($oldUrl,  $newUrl));
         
-        $sql = 'UPDATE ' . ipTable('par_lang') . ' SET translation = REPLACE(`translation`, ?, ?)';
-        $db->execute($sql, array($oldUrl,  $newUrl));
-
         $fromJsonUrl = json_encode($oldUrl);
         $fromJsonUrl = substr($fromJsonUrl, 1, -1);
         $toJsonUrl = json_encode($newUrl);

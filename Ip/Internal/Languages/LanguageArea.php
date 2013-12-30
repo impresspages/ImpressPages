@@ -106,12 +106,12 @@ class LanguageArea extends \Ip\Lib\StdMod\Area {
 
     function afterInsert($id) {
         Db::createRootZoneElement($id);
-        Db::createEmptyTranslations($id,'par_lang');
     }
 
     function afterDelete($id) {
         Db::deleteRootZoneElement($id);
-        Db::deleteTranslations($id, 'par_lang');
+
+        // TODOX remove language options
     }
 
 
