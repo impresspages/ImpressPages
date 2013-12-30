@@ -64,7 +64,7 @@ class ConfigModel{
             SELECT
                 value
             FROM
-                `'.DB_PREF.'m_design`
+                ' . ipTable('m_design') . '
             WHERE
                 `theme` = :theme AND
                 `name` = :name
@@ -119,7 +119,7 @@ class ConfigModel{
             SELECT
                 `name`, `value`
             FROM
-                `'.DB_PREF.'m_design`
+                ' . ipTable('m_design') . '
             WHERE
                 `theme` = :theme
         ';
@@ -146,7 +146,7 @@ class ConfigModel{
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                `'.DB_PREF.'m_design`
+                ' . ipTable('m_design') . '
             SET
                 `theme` = :theme,
                 `name` = :name,

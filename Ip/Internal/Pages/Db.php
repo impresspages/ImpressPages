@@ -336,7 +336,7 @@ class Db {
         $dbh = ipDb()->getConnection();
 
         $sql = 'SELECT `layout`
-                FROM `' . DB_PREF . 'page_layout`
+                FROM ' . ipTable('page_layout') . '
                 WHERE group_name    = :groupName
                     AND module_name = :moduleName
                     AND `page_id`   = :pageId';
@@ -354,7 +354,7 @@ class Db {
 
         if (empty($newLayout)) {
             if ($oldLayout) {
-                $sql = 'DELETE FROM `' . DB_PREF . 'page_layout`
+                $sql = 'DELETE FROM ' . ipTable('page_layout') . '
                         WHERE `group_name` = :groupName
                             AND `module_name` = :moduleName
                             AND `page_id` = :pageId';
@@ -370,7 +370,7 @@ class Db {
             }
         } elseif ($newLayout != $oldLayout && file_exists(ipThemeFile($newLayout))) {
             if (!$oldLayout) {
-                $sql = 'INSERT IGNORE INTO `' . DB_PREF . 'page_layout`
+                $sql = 'INSERT IGNORE INTO ' . ipTable('page_layout') . '
                         (`group_name`, `module_name`, `page_id`, `layout`)
                         VALUES
                         (:groupName, :moduleName, :pageId, :layout)';
@@ -387,7 +387,7 @@ class Db {
                 );
                 $wasLayoutChanged = true;
             } else {
-                $sql = 'UPDATE `' . DB_PREF . 'page_layout`
+                $sql = 'UPDATE ' . ipTable('page_layout') . '
                         SET `layout` = :layout
                         WHERE `group_name` = :groupName
                             AND `module_name` = :moduleName
