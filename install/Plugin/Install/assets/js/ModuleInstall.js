@@ -56,8 +56,8 @@ var ModuleInstall = new function () {
 
         var postData = {
             'pa': 'Install.writeConfig',
-            'site_name': $('#config_site_name').val(),
-            'site_email': $('#config_site_email').val(),
+            'siteName': $('#configSiteName').val(),
+            'siteEmail': $('#configSiteEmail').val(),
             'install_login': $('#config_login').val(),
             'install_pass': $('#config_pass').val(),
             'email': $('#config_email').val(),

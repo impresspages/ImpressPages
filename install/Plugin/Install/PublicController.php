@@ -285,11 +285,11 @@ class PublicController extends \Ip\Controller
         // Validate input:
         $errors = array();
 
-        if (!ipRequest()->getPost('site_name')) {
+        if (!ipRequest()->getPost('siteName')) {
             $errors[] = __('Please enter website name.', 'ipInstall', false);
         }
 
-        if (!ipRequest()->getPost('site_email') || !filter_var(ipRequest()->getPost('site_email'), FILTER_VALIDATE_EMAIL)) {
+        if (!ipRequest()->getPost('siteEmail') || !filter_var(ipRequest()->getPost('siteEmail'), FILTER_VALIDATE_EMAIL)) {
             $errors[] = __('Please enter correct website email.', 'ipInstall', false);
         }
 
@@ -342,8 +342,8 @@ class PublicController extends \Ip\Controller
         try {
 
             Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
-            Model::setSiteName(ipRequest()->getPost('site_name'));
-            Model::setSiteEmail(ipRequest()->getPost('site_email'));
+            Model::setSiteName(ipRequest()->getPost('siteName'));
+            Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Unknown SQL error.', 'ipInstall', false)); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', ipDb()->getConnection()->errorInfo());

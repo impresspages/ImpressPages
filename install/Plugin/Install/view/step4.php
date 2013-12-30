@@ -2,8 +2,8 @@
 
 <div class="errorContainer"></div>
 <form onsubmit="return false;">
-    <p><strong><?php _e('Website name', 'ipInstall') ?></strong><input id="config_site_name" type="text" name="site_name"></p>
-    <p><strong><?php _e('Website e-mail address', 'ipInstall') ?></strong><input id="config_site_email" type="text" name="site_email"></p>
+    <p><strong><?php _e('Website name', 'ipInstall') ?></strong><input id="configSiteName" type="text" name="siteName"></p>
+    <p><strong><?php _e('Website e-mail address', 'ipInstall') ?></strong><input id="configSiteEmail" type="text" name="siteEmail"></p>
     <p><strong><?php _e('Administrator login', 'ipInstall') ?></strong><input id="config_login" type="text" name="install_login"></p>
     <p><strong><?php _e('Administrator password', 'ipInstall') ?></strong><input id="config_pass" type="password" name="install_pass"></p>
     <p><strong><?php _e('E-mail for error reporting (optional)', 'ipInstall') ?></strong><input id="config_email" type="text" name="email" ></p>
