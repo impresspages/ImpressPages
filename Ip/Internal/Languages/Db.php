@@ -83,26 +83,19 @@ class Db {
 
 
 
-    public static function newUrl($language, $url = 'zone') {
-        $sql = "select url from `".DB_PREF."zone_parameter` where `language_id` = '".ip_deprecated_mysql_real_escape_string($language)."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs) {
-            $urls = array();
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            $urls[$lock['url']] = 1;
-
-            if (isset($urls[$url])) {
-                $i = 1;
-                while(isset($urls[$url.$i])) {
-                    $i++;
-                }
-                return $url.$i;
-            } else {
-                return $url;
-            }
-        }else {
-            trigger_error("Can't get all urls ".$sql." ");
+    public static function newUrl($preferredUrl) {
+        $suffix = '';
+        $url = ipDb()->select('id', 'language', array('url' => $preferredUrl . $suffix));
+        if (empty($url)) {
+            return $preferredUrl;
         }
+
+        while(!empty($url)) {
+            $suffix++;
+            $url = ipDb()->select('id', 'language', array('url' => $preferredUrl . $suffix));
+        }
+
+        return $preferredUrl . $suffix;
     }
 
 

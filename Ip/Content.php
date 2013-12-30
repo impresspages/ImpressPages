@@ -220,10 +220,10 @@ class Content {
         if ($zoneData['associated_module']) {
             $class = '\\Ip\\Internal\\' . $zoneData['associated_module'] . '\\Zone';
             if (class_exists($class)) {
-                $zoneObject = new $class($zoneData['name']);
+                $zoneObject = new $class($zoneData);
             } else {
                 $class = '\\Plugin\\' . $zoneData['associated_module'] . '\\Zone';
-                $zoneObject = new $class($zoneData['name']);
+                $zoneObject = new $class($zoneData);
             }
         } else {
             $zoneObject = new \Ip\DefaultZone($zoneData);
