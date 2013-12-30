@@ -3,11 +3,11 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model;
+namespace Ip\Internal\Grid\Model;
 
 /**
  * Table helper class designated to prepare data for display
- * @package Ip\Grid\Model
+ * @package Ip\Internal\Grid\Model
  */
 class Display
 {

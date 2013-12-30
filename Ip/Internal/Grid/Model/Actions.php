@@ -3,12 +3,12 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Grid\Model;
+namespace Ip\Internal\Grid\Model;
 
 
 /**
  * Table helper class designated to do Grid actions
- * @package Ip\Grid\Model
+ * @package Ip\Internal\Grid\Model
  */
 class Actions
 {

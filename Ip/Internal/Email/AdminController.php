@@ -8,7 +8,7 @@ namespace Ip\Internal\Email;
 
 
 
-class AdminController extends \Ip\Grid\Controller
+class AdminController extends \Ip\GridController
 {
     protected function config()
     {

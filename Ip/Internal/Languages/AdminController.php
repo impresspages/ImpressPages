@@ -8,7 +8,7 @@ namespace Ip\Internal\Languages;
 
 
 
-class AdminController extends \Ip\Grid\Controller
+class AdminController extends \Ip\GridController
 {
     static $urlBeforeUpdate;
     public function init()
