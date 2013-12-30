@@ -39,11 +39,6 @@ class AdminController extends \Ip\Controller
         $theme = $model->getTheme(ipConfig()->theme());
         $options = $theme->getOptionsAsArray();
 
-
-        $helper = Helper::instance();
-        $contentManagementModule = \Ip\Internal\Deprecated\Db::getModule(null, 'standard', 'content_management');
-        $contentManagementUrl = $helper->generateAdminUrl($contentManagementModule['id']);
-
         $themePlugins = $model->getThemePlugins();
         $notInstalledPlugins = array();
 
@@ -70,8 +65,8 @@ class AdminController extends \Ip\Controller
             'availableThemes' => $themes,
             'marketUrl' => $model->getMarketUrl(),
             'showConfiguration' => !empty($options),
-            'contentManagementUrl' => $contentManagementUrl,
-            'contentManagementText' => $contentManagementModule['m_translation']
+            'contentManagementUrl' => ipConfig()->baseUrl() . '?aa=Content.index',
+            'contentManagementText' => __('Manage content', 'ipAdmin', false)
         );
         $contentView = \Ip\View::create('view/index.php', $data);
 

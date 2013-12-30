@@ -23,10 +23,6 @@ class Config
     {
         $this->rawConfig = $config;
 
-        // TODOX remove
-        if (!defined('DB_PREF')) {
-            define('DB_PREF', $this->rawConfig['db']['tablePrefix']);
-        }
         $this->tablePrefix = $this->rawConfig['db']['tablePrefix'];
 
         if (!$server) {

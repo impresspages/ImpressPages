@@ -151,6 +151,55 @@ class AdminController extends \Ip\Controller
 
     }
 
+    public function updateZoneForm()
+    {
+        $data = ipRequest()->getQuery();
+        if (empty($data['zoneName'])) {
+            throw new \Ip\CoreException("Missing required parameters");
+        }
+        $zoneName = $data['zoneName'];
+
+
+        $form = Helper::zoneForm($zoneName);
+        $html = $form->render();
+
+        $data = array (
+            'html' => $html
+        );
+        return new \Ip\Response\Json($data);
+    }
+
+    public function updateZone()
+    {
+        $data = ipRequest()->getPost();
+
+        $requiredData = array('zoneName', 'languageId', 'title', 'url', 'name', 'layout', 'metaTitle', 'metaKeywords', 'metaDescription');
+
+        foreach($requiredData as $required) {
+            if (!array_key_exists($required, $data)) {
+                throw new \Ip\CoreException("Missing required parameters");
+            }
+        }
+
+        $zoneName = $data['zoneName'];
+        $languageId = $data['languageId'];
+        $title = $data['title'];
+        $url = $data['url'];
+        $name = $data['name'];
+        $layout = $data['layout'];
+        $metaTitle = $data['metaTitle'];
+        $metaKeywords = $data['metaKeywords'];
+        $metaDescription = $data['metaDescription'];
+
+        Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+
+        $answer = array(
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
     public function addZone()
     {
         ipRequest()->mustBePost();

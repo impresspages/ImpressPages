@@ -150,7 +150,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
 
         $sql = "
         UPDATE
-            `".$installation->getConfig('DB_PREF')."variables`
+            " . ipTable('variables') . "
         SET
             `value` = 'unknown'
         WHERE

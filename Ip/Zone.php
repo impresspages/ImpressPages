@@ -57,12 +57,17 @@ abstract class Zone{
     /** array of Pages (Page). Once the breadcrumb is generated, it is stored for future use.  */
     protected $breadcrumb;
 
+    /** string */
+    protected $titleInAdmin;
+
 
     public function __construct($parameters){
         $this->name = isset($parameters['name']) ? $parameters['name'] : '';
         $this->layout = isset($parameters['template']) ? $parameters['template'] : '';
         $this->associatedModuleGroup = isset($parameters['associated_group']) ? $parameters['associated_group'] : '';
         $this->associatedModule = isset($parameters['associated_module']) ? $parameters['associated_module'] : '';
+        $this->titleInAdmin = isset($parameters['translation']) ? $parameters['translation'] : '';
+
     }
 
     /**
@@ -258,6 +263,8 @@ abstract class Zone{
     /** @param $associatedModule string */
     public function setAssociatedModule($associatedModule){$this->associatedModule=$associatedModule;}
 
+    /** @return string */
+    public function getTitleInAdmin(){return $this->titleInAdmin;}
 
 }
 

@@ -24,7 +24,7 @@ class Storage {
             SELECT
                 value
             FROM
-                `'.DB_PREF.'storage`
+                ' . ipTable('storage') . '
             WHERE
                 `plugin` = :plugin AND
                 `key` = :key
@@ -88,7 +88,7 @@ class Storage {
             SELECT
                 `key`, `value`
             FROM
-                `'.DB_PREF.'storage`
+                ' . ipTable('storage') . '
             WHERE
                 `plugin` = :plugin AND
         ';
@@ -109,7 +109,7 @@ class Storage {
     {
         $sql = '
             DELETE FROM
-                `'.DB_PREF.'storage`
+                ' . ipTable('storage') . '
             WHERE
                 `plugin` = :plugin
                 AND

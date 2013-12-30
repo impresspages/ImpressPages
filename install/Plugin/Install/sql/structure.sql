@@ -488,7 +488,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
   `url` varchar(255) DEFAULT NULL,
   `zone_id` int(11) DEFAULT NULL,
   `language_id` int(11) DEFAULT NULL,
-  `translation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 

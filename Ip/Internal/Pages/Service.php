@@ -15,38 +15,15 @@ class Service
 
     public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        $rowNumber = 0; //initial value
-
-        if(count($zones) > 0) {
-            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
-            if ($position > 0) {
-                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
-                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
-                }
-            }
-        }
-
-
-        $zoneName = Model::uniqueZoneName($name);
-
-        $data = array(
-            'translation' => $title,
-            'name' => $zoneName,
-            'row_number' => $rowNumber,
-            'associated_module' => 'Content',
-            'template' => $layout
-        );
-        $zoneId = ipDb()->insert('zone', $data);
-
-        Model::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
-
-        ipContent()->invalidateZones();
-
+        $zoneName = Model::addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
         return $zoneName;
     }
+
+    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    {
+        Model::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+    }
+
 
     /**
      * @param string $zoneName
