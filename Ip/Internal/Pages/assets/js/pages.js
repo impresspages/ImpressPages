@@ -120,6 +120,52 @@ function ipPages($scope, $location) {
         });
     }
 
+
+    $scope.updateZoneModal = function(zone) {
+        var $modal = $('.ipsUpdateZoneModal');
+        $modal.modal();
+
+        var data = {
+            aa: 'Pages.updateZoneForm',
+            zoneName: zone.name,
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                $modal.find('.ipsBody').html(response.html);
+                $modal.find('.ipsSave').off('click').on('click', function(){$modal.find('form').submit()});
+                $modal.find('form').off('submit').on('submit', function(e) {
+                    e.preventDefault();
+                    var title = $modal.find('input[name=title]').val();
+                    var url = $modal.find('input[name=url]').val();
+                    var name = $modal.find('input[name=name]').val();
+                    var layout = $modal.find('select[name=layout]').val();
+                    var metaTitle = $modal.find('input[name=metaTitle]').val();
+                    var metaKeywords = $modal.find('input[name=metaKeywords]').val();
+                    var metaDescription = $modal.find('textarea[name=metaDescription]').val();
+                    var languageId = $scope.activeLanguage.id;
+                    updateZone(zone.name, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription);
+                    $modal.modal('hide');
+                });
+
+
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+
+
+
+    }
+
     $scope.addZoneModal = function() {
         var $modal = $('.ipsAddZoneModal');
         $modal.find('input[name=title]').val('');
@@ -387,7 +433,40 @@ function ipPages($scope, $location) {
         $location.path(path);
     }
 
-    function getHashParams() {
+    var updateZone = function (zoneName, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription) {
+        var data = {
+            aa: 'Pages.updateZone',
+            zoneName: zoneName,
+            languageId: languageId,
+            title: title,
+            url: url,
+            name: name,
+            layout: layout,
+            metaTitle: metaTitle,
+            metaKeywords: metaKeywords,
+            metaDescription: metaDescription,
+            securityToken: ip.securityToken
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: this,
+            success: function (response) {
+                window.location = ip.baseUrl + '?aa=Pages.index';
+            },
+            error: function(response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+
+    var getHashParams = function() {
 
         var hashParams = {};
         var e,
