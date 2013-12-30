@@ -70,7 +70,7 @@ class Model{
         $dbh = ipDb()->getConnection();
         $sql = '
         INSERT INTO
-            `'.DB_PREF.'plugin`
+            ' . ipTable('plugin') . '
         SET
             `name` = :pluginName,
             `active` = 1,
@@ -117,7 +117,7 @@ class Model{
 
         $sql = '
         UPDATE
-            `'.DB_PREF.'plugin`
+            ' . ipTable('plugin') . '
         SET
             `active` = 0
         WHERE
@@ -159,7 +159,7 @@ class Model{
         $dbh = ipDb()->getConnection();
         $sql = '
         DELETE FROM
-            `'.DB_PREF.'plugin`
+            ' . ipTable('plugin') . '
         WHERE
             `name` = :pluginName
         ';
@@ -196,7 +196,7 @@ class Model{
             SELECT
                 *
             FROM
-                `'.DB_PREF.'plugin`
+                v
             WHERE
                 `name` = :pluginName
         ';
@@ -236,7 +236,7 @@ class Model{
             SELECT
                 `name`
             FROM
-                `'.DB_PREF.'plugin`
+                ' . ipTable('plugin') . '
             WHERE
                 `active`
         ';

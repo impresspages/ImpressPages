@@ -61,7 +61,7 @@ class Update
             SELECT
                 value
             FROM
-                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+                ' . ipTable('variables') . '
             WHERE
                 `name` = :name
         ';
@@ -382,7 +382,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
         $sql = '
             UPDATE
-                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+                ' . ipTable('variables') . '
             SET
                 `value` = :version 
             WHERE
@@ -408,7 +408,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
         $sql = '
             UPDATE
-                `'.str_replace('`', '', $this->cf['DB_PREF']).'variables`
+                ' . ipTable('variables') . '
             SET
                 `value` = `value` + 1
             WHERE
