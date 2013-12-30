@@ -151,8 +151,9 @@ function ipPages($scope, $location) {
                     updateZone(zone.name, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription);
                     $modal.modal('hide');
                 });
+                $modal.find('.ipsDelete').off('click').on('click', function() {
 
-
+                });
             },
             error: function(response) {
                 if (ip.developmentEnvironment || ip.debugMode) {

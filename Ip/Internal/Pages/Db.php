@@ -12,69 +12,32 @@ namespace Ip\Internal\Pages;
 
 class Db {
 
-//    /**
-//     * Get all languages
-//     * @return array
-//     */
-//    public static function getLanguages () {
-//        $languages = \Ip\Internal\Languages\Db::getLanguages();
-//        return $languages;
-//    }
-//
-//    /**
-//     * Get zones that are associated with menu management
-//     */
-//    public static function getZones () {
-//
-//
-//
-//        $managedZones = array();
-//        $zones = ipContent()->getZones();
-//        foreach ($zones as $zone) {
-//            $managedZones[] = $zone->getName();
-//        }
-//        $sqlZonesArray = "'".implode("','",$managedZones)."'";
-//
-//
-//
-//        $dbZones = array();
-//        $sql = "select z.name, z.translation, z.id, p.url, p.description, p.keywords, p.title from `".DB_PREF."zone` z, `".DB_PREF."zone_parameter` p where p.zone_id = z.id and z.name in (".$sqlZonesArray.") order by z.row_number  ";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if ($rs) {
-//            while ($lock = ip_deprecated_mysql_fetch_assoc($rs)) {
-//                $dbZones[$lock['name']] = $lock;
-//            }
-//        } else {
-//            trigger_error($sql." ".ip_deprecated_mysql_error());
-//        }
-//
-//        $answer = array();
-//        foreach ($managedZones as $key => &$zone) {
-//            if (isset($dbZones[$zone])) {
-//                $answer[$zone] = $dbZones[$zone];
-//            }
-//        }
-//
-//
-//
-//        return $answer;
-//    }
-//
-//    public static function languageByRootElement($element_id){ //returns root element of menu
-//        $sql = "select mte.language_id from `".DB_PREF."zone_to_content` mte where  mte.element_id = '".(int)$element_id."'";
-//        $rs = ip_deprecated_mysql_query($sql);
-//        if($rs){
-//            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-//                return $lock['language_id'];
-//            }
-//        }else
-//
-//
-//
-//        trigger_error("Can't find zone element ".$sql." ".ip_deprecated_mysql_error());
-//    }
-//
-//
+
+
+    /**
+     * TODOX check zone and language url's against this function
+     * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
+     *
+     * @param $folderName
+     * @return bool true if URL is reserved for CMS core
+     *
+     */
+    public function usedUrl($folderName)
+    {
+        $systemDirs = array();
+        // TODOX make it smart with overriden paths
+        $systemDirs['Plugin'] = 1;
+        $systemDirs['Theme'] = 1;
+        $systemDirs['File'] = 1;
+        $systemDirs['install'] = 1;
+        $systemDirs['update'] = 1;
+        if(isset($systemDirs[$folderName])){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 
