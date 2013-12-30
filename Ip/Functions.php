@@ -331,14 +331,27 @@ function ipRenderWidget($widgetName, $data = array(), $look = null)
     return $answer;
 }
 
-function ipFormatPrice($price, $currency, $languageId = null)
+function ipFormatPrice($price, $currency, $context, $languageId = null)
 {
-    if ($languageId === null) {
-        $languageId = ipContent()->getCurrentLanguage()->getId();
-    }
-    $helper = \Ip\Ecommerce\Helper::instance();
-    return $helper->formatPrice($price, $currency, $languageId);
+    return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
 }
+
+function ipFormatDate($unixTimestamp, $context = null, $languageId = null)
+{
+    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
+}
+
+function ipFormatTime($unixTimestamp, $context, $languageId = null)
+{
+    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageId);
+}
+
+function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
+{
+    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageId);
+}
+
+
 
 function ipGetThemeOption($name, $default = null)
 {
