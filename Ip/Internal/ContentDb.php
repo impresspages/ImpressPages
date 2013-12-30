@@ -57,7 +57,7 @@ class ContentDb {
             $where['visible'] = 1;
         }
 
-        $rs = ipDb()->select('*', 'language', $where, 'ORDER BY `row_number`');
+        $rs = ipDb()->select('*', 'language', $where, 'ORDER BY `row_number` DESC ');
         $languages = array();
         foreach ($rs as $language) {
             $languages[$language['id']] = $language;
