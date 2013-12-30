@@ -75,9 +75,9 @@ menu3";
         $parameterType["administrator"]["search"]["options"]["combined_zones"] = "textarea";
 
         $parameterTitle["administrator"]["search"]["options"]["searchable_zones"] = "Searchable zones";
-        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "menu
-menu
-menu";
+        $parameterValue["administrator"]["search"]["options"]["searchable_zones"] = "menu1
+menu2
+menu3";
         $parameterAdmin["administrator"]["search"]["options"]["searchable_zones"] = "1";
         $parameterType["administrator"]["search"]["options"]["searchable_zones"] = "textarea";
 
