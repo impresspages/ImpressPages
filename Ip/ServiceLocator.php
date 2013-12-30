@@ -41,6 +41,9 @@ class ServiceLocator
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
     );
 
+    /**
+     * @return \Ip\Options
+     */
     public static function options()
     {
         if (self::$options == null) {

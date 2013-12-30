@@ -377,14 +377,12 @@ Sitemap: '. ipFileUrl('sitemap.php');
 
     public static function setSiteName($siteName)
     {
-        $sql = "update `".ipDb()->tablePrefix()."par_lang` set `translation` = REPLACE(`translation`, '[[[[site_name]]]]', ?)";
-        ipDb()->execute($sql, array($siteName));
+        ipSetOption('Site.title', $siteName);
     }
 
     public static function setSiteEmail($siteEmail)
     {
-        $sql = "update `".ipDb()->tablePrefix() . "par_lang` set `translation` = REPLACE(`translation`, '[[[[site_email]]]]', ?)";
-        ipDb()->execute($sql, array($siteEmail));
+        ipSetOption('Site.email', $siteEmail);
     }
 
 }
