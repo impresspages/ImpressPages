@@ -106,10 +106,10 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
         sleep(1);
 
-        $this->assertTrue($page->has('css', '#config_site_name'), 'Site name input is not available');
+        $this->assertTrue($page->has('css', '#configSiteName'), 'Site name input is not available');
 
-        $page->findById('config_site_name')->setValue('TestSiteName');
-        $page->findById('config_site_email')->setValue('test@example.com');
+        $page->findById('configSiteName')->setValue('TestSiteName');
+        $page->findById('configSiteEmail')->setValue('test@example.com');
         $page->findById('config_login')->setValue('admin');
         $page->findById('config_pass')->setValue('admin');
         $page->findById('config_email')->setValue('test@example.com');

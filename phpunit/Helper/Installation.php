@@ -150,8 +150,8 @@ class Installation
                 'install_pass' => $this->getAdminPass(),
                 'email' => '',
                 'timezone' => $this->getSiteTimezone(),
-                'site_name' => $this->getSiteName(),
-                'site_email' => $this->getSiteEmail()
+                'siteName' => $this->getSiteName(),
+                'siteEmail' => $this->getSiteEmail()
         );
 
         $fieldsString = '';
