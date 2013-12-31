@@ -35,7 +35,7 @@ class Service
 
         $data['cssClass'] = $cssClass;
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             return \Ip\View::create('view/management/logo.php', $data)->render();
         } else {
             return \Ip\View::create('view/display/logo.php', $data)->render();
@@ -82,7 +82,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             $view = \Ip\View::create('view/management/string.php', $data);
         } else {
             $view = \Ip\View::create('view/display/string.php', $data);
@@ -118,7 +118,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             $view = \Ip\View::create('view/management/text.php', $data);
         } else {
             $view = \Ip\View::create('view/display/text.php', $data);
@@ -165,7 +165,7 @@ class Service
             'cssClass' => $cssClass
         );
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             $view = \Ip\View::create('view/management/image.php', $data);
         } else {
             $view = \Ip\View::create('view/display/image.php', $data);

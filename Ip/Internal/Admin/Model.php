@@ -25,6 +25,9 @@ class Model{
 
         $modules = \Ip\Internal\Plugins\Model::getModules();
         foreach($modules as $module) {
+            if (in_array($module, array('Languages', 'Log', 'Email'))) {
+                continue;
+            }
             $controllerClass = 'Ip\\Internal\\'.$module.'\\AdminController';
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
@@ -35,6 +38,7 @@ class Model{
             $moduleItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             $answer[] = $moduleItem;
         }
+
 
 
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();

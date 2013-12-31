@@ -28,7 +28,8 @@ class Service
 
     public static function isManagementMode()
     {
-        return !empty($_SESSION['Content']['managementMode']);
+        $backendLoggedIn = \Ip\Internal\Admin\Backend::loggedIn();
+        return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']);
     }
 
     public static function getPageLayout(\Ip\Page $page)
