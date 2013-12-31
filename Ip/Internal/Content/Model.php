@@ -68,7 +68,7 @@ class Model
             $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
         }
 
-        $revision = \Ip\ServiceLocator::content()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 

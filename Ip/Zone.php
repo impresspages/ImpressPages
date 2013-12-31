@@ -142,7 +142,7 @@ abstract class Zone{
             return false;
         }
 
-        $this->currentPage = $this->findPage($content->getUrlVars(), \Ip\ServiceLocator::request()->getQuery());
+        $this->currentPage = $this->findPage($content->getUrlPath(), \Ip\ServiceLocator::request()->getQuery());
         return $this->currentPage;
     }
 
