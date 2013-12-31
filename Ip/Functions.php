@@ -442,3 +442,31 @@ function ipIsAllowed($plugin, $action = NULL, $data = NULL)
 {
     return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
 }
+
+
+/**
+ *
+ * Add new email to the queue. If possible, ImpressPages will send the email immediately.
+ * If hourly email limit is exhausted, emails will be sent next hour.
+ * ImpressPages always preserve 20% of hourly limit for immediate emails. So even if you have
+ * just added thousands of non urgent emails, urgent emails will still be sent immediately.
+ * Set $urgent parameter to false when delivery time is not so important, like newsletters, etc.
+ * And set $urgent to true, when sending notification about purchase.
+ *
+ *
+ * @param string $from email address
+ * @param string $fromName
+ * @param string $to email address
+ * @param string $toName
+ * @param string $subject
+ * @param string $content to be sent (html or plane text. See $html attribute)
+ * @param bool $urgent
+ * @param bool $html
+ * @param null $files
+ */
+function addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html = true, $files = null)
+{
+    $emailQueue = new \Ip\Internal\Email\Module();
+    $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
+    $emailQueue->send();
+}
