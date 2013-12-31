@@ -98,7 +98,7 @@ class Model
         $priorities = self::_getPriorities();
         $sortedWidgets = array();
         $unsortedWidgets = array();
-        foreach ($widgets as $widgetKey => $widget) {
+        foreach ($widgets as $widget) {
             if (isset($priorities[$widget->getName()])) {
                 $position = $priorities[$widget->getName()];
                 $sortedWidgets[(int)$position] = $widget;
@@ -108,11 +108,11 @@ class Model
         }
         ksort($sortedWidgets);
         $answer = array();
-        foreach ($sortedWidgets as $widgetKey => $widget) {
+        foreach ($sortedWidgets as $widget) {
             $answer[$widget->getName()] = $widget;
         }
 
-        foreach ($unsortedWidgets as $widgetKey => $widget) {
+        foreach ($unsortedWidgets as $widget) {
             $answer[$widget->getName()] = $widget;
         }
 
@@ -141,8 +141,6 @@ class Model
             throw new Exception('Widget ' . $widgetName . ' does not exist. ' . $source, Exception::UNKNOWN_WIDGET);
         }
 
-        $previewHtml = $widgetObject->previewHtml(null, $data, $layout);
-
         $widgetRecord = array(
             'widgetId' => null,
             'name' => $widgetName,
@@ -159,14 +157,7 @@ class Model
             'deleted' => null
         );
         return self::_generateWidgetPreview($widgetRecord, false);
-        /*
-        $data = array (
-            'html' => $previewHtml,
-            'widgetRecord' => $data, //static data used instead of widget record from the database
-            'managementState' => FALSE
-        );
-        $answer = \Ip\View::create('view/widget_preview.php', $data)->render();
-        return $answer;*/
+
     }
 
 
@@ -315,8 +306,7 @@ class Model
 
     /**
      *
-     * Enter description here ...
-     * @param unknown_type $widgetName
+     * @param string $widgetName
      * @return \Ip\WidgetController
      */
     public static function getWidgetObject($widgetName)
