@@ -218,12 +218,6 @@ class Request
     }
 
 
-
-    public function setController(\Ip\Controller $controller)
-    {
-        $this->controller = $controller;
-    }
-
     public function getControllerAction()
     {
         if (!$this->controllerAction) {
