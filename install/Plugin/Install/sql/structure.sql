@@ -3,11 +3,11 @@ ALTER DATABASE  `[[[[database]]]]` DEFAULT CHARACTER SET utf8 COLLATE utf8_gener
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_content_element`;
+DROP TABLE IF EXISTS `ip_cms_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
+CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `row_number` double NOT NULL DEFAULT '0',
   `parent` int(11) DEFAULT NULL,

@@ -1,6 +1,6 @@
 
 
-INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
+INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
 (1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:20', NULL, NULL, 'default', NULL),
 (3, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
 (4, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),

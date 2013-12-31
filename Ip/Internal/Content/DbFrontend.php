@@ -14,13 +14,13 @@ class DbFrontend
 
     public static function getPageByUrl($url, $parent)
     {
-        $rs = ipDb()->select('*', 'content_element', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
+        $rs = ipDb()->select('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
         return $rs ? $rs[0] : null;
     }
 
     public static function getFirstPage($parent)
     {
-        $rs = ipDb()->select('*', 'content_element', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
+        $rs = ipDb()->select('*', 'page', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
         return $rs ? $rs[0] : null;
     }
 
@@ -65,7 +65,7 @@ class DbFrontend
             $parent = DbFrontend::getRootPageId($zoneName, $language);
         }
 
-        $sql = 'SELECT * FROM ' . ipTable('content_element') . ' WHERE `parent` = :parentId';
+        $sql = 'SELECT * FROM ' . ipTable('page') . ' WHERE `parent` = :parentId';
 
         if (!$includeHidden) {
             $sql .= ' AND `visible` = 1';
@@ -86,7 +86,7 @@ class DbFrontend
      */
     public static function getPage($id)
     {
-        return ipDb()->fetchRow('select  *  from ' . ipTable('content_element') . ' WHERE `id` = ?', array($id));
+        return ipDb()->fetchRow('select  *  from ' . ipTable('page') . ' WHERE `id` = ?', array($id));
     }
 
 }
