@@ -171,7 +171,7 @@ function ipBlock($block)
  */
 function ipSlot($slot, $params = array())
 {
-    return \Ip\ServiceLocator::content()->generateSlot($slot, $params);
+    return \Ip\ServiceLocator::slots()->generateSlot($slot, $params);
 }
 
 
