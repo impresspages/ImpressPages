@@ -144,11 +144,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_file`;
+DROP TABLE IF EXISTS `ip_cms_repository_file`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
+CREATE TABLE IF NOT EXISTS `ip_cms_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `module` varchar(255) NOT NULL COMMENT 'Module group and module key which uses file resource. Eg. standard/content_management',
@@ -161,11 +161,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_reflection`;
+DROP TABLE IF EXISTS `ip_cms_repository_reflection`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
+CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,

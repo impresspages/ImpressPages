@@ -78,6 +78,9 @@ class Config
     //TODOX refactor to removeDb
     public function _setRaw($name, $value)
     {
+        if ($name == 'db' && $value !== null) {
+            $this->tablePrefix = $value['tablePrefix'];
+        }
         $this->rawConfig[$name] = $value;
     }
 

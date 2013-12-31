@@ -145,7 +145,7 @@ class ReflectionModel
         $dbh = ipDb()->getConnection();
         $sql = "
         INSERT INTO
-          " . ipTable('m_administrator_repository_reflection') . "
+          " . ipTable('repository_reflection') . "
         SET
           original = :original,
           reflection = :reflection,
@@ -172,7 +172,7 @@ class ReflectionModel
         SELECT
           reflection
         FROM
-          " . ipTable('m_administrator_repository_reflection') . "
+          " . ipTable('repository_reflection') . "
         WHERE
           original = :original
           AND
@@ -200,7 +200,7 @@ class ReflectionModel
         SELECT
           reflection
         FROM
-          " . ipTable('m_administrator_repository_reflection') . "
+          " . ipTable('repository_reflection') . "
         WHERE
           original = :original
         ";
@@ -221,7 +221,7 @@ class ReflectionModel
         $dbh = ipDb()->getConnection();
         $sql = "
         DELETE FROM
-          " . ipTable('m_administrator_repository_reflection') . "
+          " . ipTable('repository_reflection') . "
         WHERE
           original = :original
         ";
