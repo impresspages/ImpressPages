@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="NOINDEX,NOFOLLOW">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
-    <link rel="stylesheet" href="<?php echo ipFileUrl('Plugin/Install/assets/style.css') ?>">
     <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico') ?>">
-    <?php echo ipHead() ?>
+    <?php ipAddCss(ipThemeUrl('assets/theme.css')); ?>
+    <?php echo ipHead(); ?>
 </head>
 <body>
 
-<div class="container">
-    <img id="logo" src="<?php echo ipFileUrl('Plugin/Install/assets/img/cms_logo.png') ?>" alt="ImpressPages CMS">
-    <div class="clear"></div>
-    <div id="wrapper">
-        <p id="installationNotice"><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?> <span><?php esc(printf(__('Version %s', 'ipInstall', false), \Ip\Application::getVersion())) ?></span></p>
-        <div class="clear"></div>
-        <img class="border" src="<?php echo ipFileUrl('Plugin/Install/assets/img/cms_main_top.gif') ?>" alt="Design">
-        <div id="main">
-            <div id="menu">
-                <?php echo \Plugin\Install\Helper::gen_menu() ?>
+<div class="ip">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="page-header">
+                    <img src="<?php echo ipThemeUrl('assets/impresspages_logo.png') ?>" alt="ImpressPages CMS">
+                    <h3><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?> <small><?php esc(printf(__('Version %s', 'ipInstall', false), \Ip\Application::getVersion())) ?></small></h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo \Plugin\Install\Helper::generateMenu(); ?>
+                    </div>
+                    <div class="col-md-9">
+                        <?php echo ipBlock('main')->render(); ?>
+                    </div>
+                </div>
+                <div class="page-footer">
+                    Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages, UAB</a>
+                </div>
             </div>
-            <div id="content">
-                <?php echo ipBlock('main')->render(); ?>
-            </div>
-            <div id="loading">
-                <img src="<?php echo ipFileUrl('Plugin/Install/assets/img/loading.gif') ?>" >
-            </div>
-            <div class="clear"></div>
         </div>
-        <img class="border" src="<?php echo ipFileUrl('Plugin/Install/assets/img/cms_main_bottom.gif') ?>" alt="Design">
-        <div class="clear"></div>
     </div>
-    <div class="footer">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages UAB</a></div>
 </div>
 
-<script type="text/javascript" src="<?php echo ipFileUrl('Plugin/Install/assets/js/init.js') ?>"></script>
 <?php if (!empty($requiredJs)) { ?>
     <?php foreach($requiredJs as $jsFile) { ?>
         <script type="text/javascript" src="<?php echo $jsFile ?>"></script>
