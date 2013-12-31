@@ -296,9 +296,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page_layout` (
   UNIQUE KEY `group_name` (`group_name`,`module_name`,`page_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Custom page layouts';
 
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_parameter`;
 
 -- Table structure
 
@@ -317,22 +314,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_parameter` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_parameter_group`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_parameter_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `module_id` int(11) DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
-
--- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_plugin`;
 
