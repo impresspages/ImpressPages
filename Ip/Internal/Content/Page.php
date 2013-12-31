@@ -21,7 +21,7 @@ class Page extends \Ip\Page
 
     public function getLink($ignoreRedirect = false)
     {
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             $ignoreRedirect = true;
         }
 
