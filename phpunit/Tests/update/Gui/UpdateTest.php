@@ -158,11 +158,8 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         ";
         // TODOX use correct connection
         // $conn = $installation->getDbConn();
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new \Exception("Can't update installation version. ".ip_deprecated_mysql_error());
-        }
-        
+        ipDb()->execute($sql);
+
         
         
         //setup update
@@ -187,10 +184,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         `name` = 'version'";
         // TODOX use correct connection
         // $conn = $installation->getDbConn();
-        $rs = ip_deprecated_mysql_query($sql);
-        if (!$rs) {
-            throw new \Exception($sql." ".ip_deprecated_mysql_error());
-        }
+        ipDb()->execute($sql);
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
         $ipActions->login();
