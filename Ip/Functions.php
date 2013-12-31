@@ -448,10 +448,10 @@ function ipIsAllowed($plugin, $action = NULL, $data = NULL)
  *
  * Add new email to the queue. If possible, ImpressPages will send the email immediately.
  * If hourly email limit is exhausted, emails will be sent next hour.
- * ImpressPages always preserve 20% of hourly limit for immediate emails. So even if you have
+ * ImpressPages always preserve 20% of hourly limit for urgent emails. So even if you have
  * just added thousands of non urgent emails, urgent emails will still be sent immediately.
  * Set $urgent parameter to false when delivery time is not so important, like newsletters, etc.
- * And set $urgent to true, when sending notification about purchase.
+ * And set $urgent to true, when sending notification about purchase, etc.
  *
  *
  * @param string $from email address
