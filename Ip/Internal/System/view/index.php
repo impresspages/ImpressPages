@@ -1,12 +1,17 @@
 <div style="float: left; width: 300px;">
     <div class="list-group">
-        <a href="#" class="list-group-item active">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">...</p>
+        <a href="#" class="list-group-item ipsTopMenu active" data-tab="ipsStatus">
+            <h4 class="list-group-item-heading"><?php _e('Status', 'ipAdmin') ?></h4>
+        </a>
+        <a href="#" class="list-group-item ipsTopMenu" data-tab="ipsLog">
+            <h4 class="list-group-item-heading"><?php _e('Log', 'ipAdmin') ?></h4>
+        </a>
+        <a href="#" class="list-group-item ipsTopMenu" data-tab="ipsEmail">
+            <h4 class="list-group-item-heading"><?php _e('Email queue', 'ipAdmin') ?></h4>
         </a>
     </div>
 </div>
-<div>
+<div class="ipsStatus systemContent">
     <?php if (!empty($notes)) { ?>
         <?php foreach ($notes as $note) { ?>
             <div class="note">
@@ -33,15 +38,11 @@
         <h1><?php _e('System message', 'ipAdmin') ?></h1>
     </div>
 </div>
-<div>
-    <div class="ip">
-        <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Log.grid&quot;}"></div>
-    </div>
+<div class="ipsLog systemContent ipgHide">
+    <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Log.grid&quot;}"></div>
 </div>
-<div>
-    <div class="ip">
-        <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Email.grid&quot;}"></div>
-    </div>
+<div class="ipsEmail systemContent ipgHide">
+    <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Email.grid&quot;}"></div>
 </div>
 
 
