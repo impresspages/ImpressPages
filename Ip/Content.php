@@ -26,7 +26,6 @@ class Content
 
     protected $blockContent = null;
 
-    protected $revision = null;
 
     protected $requestParser;
 
@@ -181,46 +180,9 @@ class Content
      * If we are in the management state and last revision is published, then create new revision.
      *
      */
-    public function getRevision()
+    public function getCurrentRevision()
     {
-        if ($this->revision !== null) {
-            return $this->revision;
-        }
-        $revision = false;
-        if (ipIsManagementState()) {
-            if (ipRequest()->getQuery('cms_revision')) {
-                $revisionId = ipRequest()->getQuery('cms_revision');
-                $revision = \Ip\Revision::getRevision($revisionId);
-            }
-
-            if ($this->getCurrentPage()) {
-                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
-                    ) || $revision['pageId'] != $this->getCurrentPage()->getId()
-                ) {
-                    $revision = \Ip\Revision::getLastRevision(
-                        ipContent()->getCurrentZone()->getName(),
-                        $this->getCurrentPage()->getId()
-                    );
-                    if ($revision['published']) {
-                        $duplicatedId = \Ip\Revision::duplicateRevision($revision['revisionId']);
-                        $revision = \Ip\Revision::getRevision($duplicatedId);
-                    }
-                }
-            } else {
-                $revision = false;
-            }
-        } else {
-            $currentPage = $this->getCurrentPage();
-            if ($currentPage) {
-                $revision = \Ip\Revision::getPublishedRevision(
-                    ipContent()->getCurrentZone()->getName(),
-                    $currentPage->getId()
-                );
-            }
-
-        }
-        $this->revision = $revision;
-        return $revision;
+        return $this->requestParser->getCurrentRevision();
     }
 
     /**
