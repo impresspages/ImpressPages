@@ -119,11 +119,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module_permission` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_email_queue`;
+DROP TABLE IF EXISTS `ip_cms_email_queue`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
+CREATE TABLE IF NOT EXISTS `ip_cms_email_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
@@ -178,11 +178,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
 
 -- Table structure
   
-DROP TABLE IF EXISTS `ip_cms_m_content_management_widget`;
+DROP TABLE IF EXISTS `ip_cms_widget`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
+CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `widgetId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `layout` varchar(25) NOT NULL,
@@ -197,11 +197,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
 
 
 
-DROP TABLE IF EXISTS `ip_cms_m_content_management_widget_instance`;
+DROP TABLE IF EXISTS `ip_cms_widget_instance`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
+CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `instanceId` int(11) NOT NULL AUTO_INCREMENT,
   `revisionId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
@@ -242,11 +242,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_developer_widget_sort` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_global`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_global`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_global` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
@@ -255,11 +255,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_language`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_language`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_language` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -269,11 +269,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_page`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_page` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_page` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,

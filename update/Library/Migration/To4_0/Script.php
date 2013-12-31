@@ -137,7 +137,7 @@ class Script extends \IpUpdate\Library\Migration\General
         //update widgets data to point relative path in repository
         $sql = "
         UPDATE
-            `{$this->dbPref}m_content_management_widget`
+            `{$this->dbPref}widget`
         SET
            `data` = REPLACE(`data`, 'file\\\\/repository\\\\/', '')
         WHERE

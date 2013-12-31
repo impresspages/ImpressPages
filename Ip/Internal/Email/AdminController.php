@@ -14,7 +14,7 @@ class AdminController extends \Ip\GridController
     {
         return array (
             'type' => 'table',
-            'table' => 'm_administrator_email_queue',
+            'table' => 'email_queue',
             'actions' => array()
         );
     }

@@ -10,12 +10,12 @@ class Db{
 
     public static function getEmail($id)
     {
-        $rs = ipDb()->select('*', 'm_administrator_email_queue', array('id' => $id));
+        $rs = ipDb()->select('*', 'email_queue', array('id' => $id));
         return $rs ? $rs[0] : NULL;
     }
 
     public static function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $filesStr, $fileNamesStr, $mimeTypesStr){
-        return ipDb()->insert('m_administrator_email_queue', array(
+        return ipDb()->insert('email_queue', array(
                 'from' => $from,
                 'from_name' => $fromName,
                 'to' => $to,
@@ -32,7 +32,7 @@ class Db{
 
     public static function lock($count, $key)
     {
-        $table = ipTable('m_administrator_email_queue');
+        $table = ipTable('email_queue');
 
         $sql = "update $table set
 		`lock` = ?, `locked_on` = NOW()
@@ -44,7 +44,7 @@ class Db{
 
     public static function lockOnlyImmediate($count, $key)
     {
-        $table = ipTable('m_administrator_email_queue');
+        $table = ipTable('email_queue');
 
         $sql = "update $table set
 		`lock` = ?, `locked_on` = NOW()
@@ -55,7 +55,7 @@ class Db{
     }
 
     public static function unlock($key){
-        return ipDb()->update('m_administrator_email_queue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => NULL,
                 'locked_on' => NULL,
@@ -66,7 +66,7 @@ class Db{
 
     public static function unlockOne($id)
     {
-        return ipDb()->update('m_administrator_email_queue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => NULL,
                 'locked_on' => NULL,
@@ -78,12 +78,12 @@ class Db{
 
     public static function getLocked($key)
     {
-        return ipDb()->select('*', 'm_administrator_email_queue', array('lock' => $key));
+        return ipDb()->select('*', 'email_queue', array('lock' => $key));
     }
 
     public static function markSend($key)
     {
-        return ipDb()->update('m_administrator_email_queue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
             ), array(
                 'lock' => $key
@@ -92,7 +92,7 @@ class Db{
 
     public static function delteOldSent($hours)
     {
-        $table = ipTable('m_administrator_email_queue');
+        $table = ipTable('email_queue');
         $sql = "delete from $table where
 		`send` is not NULL
 		and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`,NOW())";
@@ -102,7 +102,7 @@ class Db{
     /*apparently there were some errors if exists old locked records. */
     public static function deleteOld($hours)
     {
-        $table = ipTable('m_administrator_email_queue');
+        $table = ipTable('email_queue');
         $sql = "delete from $table where
 		(`lock` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`locked_on`,NOW()))
 		or
@@ -114,7 +114,7 @@ class Db{
 
     public static function sentOrLockedCount($minutes)
     {
-        $table = ipTable('m_administrator_email_queue');
+        $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
 		(`send` is not NULL and ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
 		or
