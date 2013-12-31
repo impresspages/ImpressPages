@@ -272,4 +272,15 @@ class Content
     }
 
 
+    public static function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection = 'ltr', $position = null)
+    {
+        $languageId = \Ip\Internal\Languages\Service::addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position = null);
+        return $languageId;
+    }
+
+    public static function deleteLanguage($languageId)
+    {
+        \Ip\Internal\Languages\Service::delete($languageId);
+    }
+
 }
