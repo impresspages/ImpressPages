@@ -144,7 +144,7 @@ class AdminController extends \Ip\Controller
 
         }
 
-        // TODOX use real JsonRpc
+        // TODO use real JsonRpc
         // Return JSON-RPC response
         $answerArray = array(
             "jsonrpc" => "2.0",
