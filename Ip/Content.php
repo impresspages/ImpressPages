@@ -202,7 +202,8 @@ class Content
                         $this->getCurrentPage()->getId()
                     );
                     if ($revision['published']) {
-                        $revision = $this->duplicateRevision($revision['revisionId']);
+                        $duplicatedId = \Ip\Revision::duplicateRevision($revision['revisionId']);
+                        $revision = \Ip\Revision::getRevision($duplicatedId);
                     }
                 }
             } else {
@@ -221,18 +222,6 @@ class Content
         $this->revision = $revision;
         return $revision;
     }
-
-
-    private function duplicateRevision($oldRevisionId)
-    {
-        $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
-        $revision = \Ip\Revision::getRevision($revisionId);
-        if ($revision === false) {
-            throw new \Ip\CoreException("Can't find created revision " . $revisionId, \Ip\CoreException::REVISION);
-        }
-        return $revision;
-    }
-
 
     /**
      * @param null $zoneName

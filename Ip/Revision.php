@@ -88,15 +88,23 @@ class Revision{
 
         $wasUpdated = ipDb()->update('revision',
             array(
-                'published' => 1,
-                'revisionId' => $revisionId,
+                'published' => 0
             ),
             array(
                 'zoneName' => $revision['zoneName'],
                 'pageId' => (int)$revision['pageId'],
             )
         );
-         
+        $wasUpdated = ipDb()->update('revision',
+            array(
+                'published' => 1
+            ),
+            array(
+                'revisionId' => $revisionId
+            )
+        );
+
+
         if (!$wasUpdated) {
             throw new CoreException("Can't publish page #{$revision['pageId']} revision #{$revisionId}", CoreException::DB);
         }
