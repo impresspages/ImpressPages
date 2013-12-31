@@ -28,6 +28,7 @@ class ServiceLocator
     protected static $db;
     protected static $translator;
     protected static $permissions;
+    protected static $slots;
 
     protected static $serviceClasses = array(
         'db' => '\Ip\Db',
@@ -39,6 +40,7 @@ class ServiceLocator
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
+        'slots' => '\Ip\Slots',
     );
 
     /**
@@ -124,6 +126,7 @@ class ServiceLocator
         self::$dispatchers[] = static::loadService('dispatcher');
         self::$contents[] = static::loadService('content');
         self::$responses[] = static::loadService('response');
+        self::$slots[] = static::loadService('slots');
     }
 
     /**
@@ -136,6 +139,7 @@ class ServiceLocator
             array_pop(self::$requests);
             array_pop(self::$contents);
             array_pop(self::$responses);
+            array_pop(self::$slots);
         }
     }
 
@@ -153,6 +157,14 @@ class ServiceLocator
     public static function content()
     {
         return end(self::$contents);
+    }
+
+    /**
+     * @return \Ip\Slot
+     */
+    public static function slots()
+    {
+        return end(self::$slots);
     }
 
 
