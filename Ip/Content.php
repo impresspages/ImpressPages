@@ -19,24 +19,37 @@ class Content
      * @var \Ip\Language[]
      */
     protected $languages;
-
     protected $zones = null;
     protected $zonesData = null;
-
-
     protected $blockContent = null;
-
-
     protected $requestParser;
-
 
     public function __construct()
     {
         $this->requestParser = new \Ip\Internal\Content\RequestParser();
     }
 
+    /**
+     *
+     * @return \Ip\Zone[]
+     *
+     */
+    public function getZones()
+    {
+        $answer = array();
+        foreach ($this->getZonesData() as $zoneData) {
+            $answer[] = $this->getZone($zoneData['name']);
+        }
+        return $answer;
+    }
 
-
+    protected function getZonesData()
+    {
+        if (!$this->zonesData) {
+            $this->zonesData = Internal\ContentDb::getZones($this->getCurrentLanguage()->getId());
+        }
+        return $this->zonesData;
+    }
 
     /**
      * @return \Ip\Language
@@ -75,36 +88,6 @@ class Content
     }
 
     /**
-     *
-     * @return \Ip\Zone[]
-     *
-     */
-    public function getZones()
-    {
-        $answer = array();
-        foreach ($this->getZonesData() as $zoneData) {
-            $answer[] = $this->getZone($zoneData['name']);
-        }
-        return $answer;
-    }
-
-    protected function getZonesData()
-    {
-        if (!$this->zonesData) {
-            $this->zonesData = Internal\ContentDb::getZones($this->getCurrentLanguage()->getId());
-        }
-        return $this->zonesData;
-    }
-
-    /**
-     * @return Zone
-     */
-    public function getCurrentZone()
-    {
-        return $this->requestParser->getCurrentZone();
-    }
-
-    /**
      * @return \Ip\Page
      */
     public function getCurrentPage()
@@ -112,6 +95,20 @@ class Content
         return $this->requestParser->getCurrentPage();
     }
 
+    /**
+     * @param $id
+     * @return bool|Language
+     */
+    public function getLanguage($id)
+    {
+        $id = (int)$id;
+        foreach ($this->getLanguages() as $language) {
+            if ($language->getId() === $id) {
+                return $language;
+            }
+        }
+        return false;
+    }
 
     /**
      *
@@ -130,35 +127,9 @@ class Content
         return $this->languages;
     }
 
-
-    /**
-     * @param $id
-     * @return bool|Language
-     */
-    public function getLanguage($id)
-    {
-        $id = (int)$id;
-        foreach ($this->getLanguages() as $language) {
-            if ($language->getId() === $id) {
-                return $language;
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-
     public function getUrlPath()
     {
         return $this->requestParser->getUrlPath();
-    }
-
-    public function setBlockContent($block, $content)
-    {
-        $this->blockContent[$block] = $content;
     }
 
     public function getBlockContent($block)
@@ -170,11 +141,15 @@ class Content
         }
     }
 
+    public function setBlockContent($block, $content)
+    {
+        $this->blockContent[$block] = $content;
+    }
+
     public function generateBlock($blockName)
     {
         return new \Ip\Block($blockName);
     }
-
 
     /**
      * If we are in the management state and last revision is published, then create new revision.
@@ -218,6 +193,13 @@ class Content
 
     }
 
+    /**
+     * @return Zone
+     */
+    public function getCurrentZone()
+    {
+        return $this->requestParser->getCurrentZone();
+    }
 
     /**
      *
@@ -257,7 +239,6 @@ class Content
         }
     }
 
-
     /**
      *
      * @return string keywords of current page
@@ -282,6 +263,8 @@ class Content
      * Invalidate zones cache. Use this method if you have added or removed some zones
      */
     //TODOX make private and execute when needed
+
+
     public function invalidateZones()
     {
         $this->zones = null;
