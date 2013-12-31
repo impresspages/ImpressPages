@@ -12,7 +12,7 @@ class System
     function init()
     {
 
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             ipAddCss(ipFileUrl('Ip/Internal/InlineManagement/assets/inline_management.css'));
 
 

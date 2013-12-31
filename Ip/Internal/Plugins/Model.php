@@ -196,7 +196,7 @@ class Model{
             SELECT
                 *
             FROM
-                v
+                ' . ipTable('plugin') . '
             WHERE
                 `name` = :pluginName
         ';

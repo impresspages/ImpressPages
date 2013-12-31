@@ -9,7 +9,7 @@ var Market = new function () {
     var themesDownloaded; //true if images have been downloaded
     var themesData; //downloaded themes data
 
-    this.processOrder = function(order) {
+    this.processOrder = function (order) {
         $('body').trigger('ipMarketOrderStart');
 
 
@@ -30,13 +30,15 @@ var Market = new function () {
 
     };
 
-    var checkComplete = function() {
+    var checkComplete = function () {
         if (imagesDownloaded && themesDownloaded) {
-            $('body').trigger('ipMarketOrderComplete', [{images: imagesData, themes: themesData}]);
+            $('body').trigger('ipMarketOrderComplete', [
+                {images: imagesData, themes: themesData}
+            ]);
         }
     };
 
-    var downloadImages = function(images) {
+    var downloadImages = function (images) {
 
         if (images.length == 0) {
             $('body').trigger('ipMarketOrderImageDownload', {});
@@ -78,7 +80,7 @@ var Market = new function () {
     };
 
 
-    var downloadThemes= function(themes) {
+    var downloadThemes = function (themes) {
 
         if (themes.length == 0) {
             $('body').trigger('ipMarketOrderThemeDownload', {});
