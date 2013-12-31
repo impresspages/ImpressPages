@@ -67,7 +67,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         \Plugin\Install\Model::createDatabaseStructure($config['db']['database'], $config['db']['tablePrefix']);
 
         $tables = ipDb()->fetchColumn('SHOW TABLES');
-        $this->assertTrue(in_array('ip_content_element', $tables));
+        $this->assertTrue(in_array('ip_page', $tables));
         $this->assertTrue(in_array('ip_plugin', $tables));
 
         // Import data:

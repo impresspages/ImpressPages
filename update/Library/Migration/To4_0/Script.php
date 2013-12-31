@@ -82,11 +82,11 @@ class Script extends \IpUpdate\Library\Migration\General
         $dbh = $this->dbh;
         $sql = "
         DELETE
-          `{$this->dbPref}zone`, `{$this->dbPref}zone_parameter`
+          `{$this->dbPref}zone`, `{$this->dbPref}zone_to_language`
         FROM
-            `{$this->dbPref}zone`, `{$this->dbPref}zone_parameter`
+            `{$this->dbPref}zone`, `{$this->dbPref}zone_to_language`
         WHERE
-            `{$this->dbPref}zone_parameter`.`zone_id` = `{$this->dbPref}zone`.`id`
+            `{$this->dbPref}zone_to_language`.`zone_id` = `{$this->dbPref}zone`.`id`
             AND
             `{$this->dbPref}zone`.`associated_module` != 'Content'
         ";
@@ -107,7 +107,7 @@ class Script extends \IpUpdate\Library\Migration\General
         SELECT
             `reflection`
         FROM
-            `{$this->dbPref}m_administrator_repository_reflection`
+            `{$this->dbPref}repository_reflection`
         WHERE
           1
         ";
@@ -127,7 +127,7 @@ class Script extends \IpUpdate\Library\Migration\General
         //remove all reflection records
         $sql = "
         DELETE FROM
-            `{$this->dbPref}m_administrator_repository_reflection`
+            `{$this->dbPref}repository_reflection`
         WHERE
           1
         ";
@@ -137,7 +137,7 @@ class Script extends \IpUpdate\Library\Migration\General
         //update widgets data to point relative path in repository
         $sql = "
         UPDATE
-            `{$this->dbPref}m_content_management_widget`
+            `{$this->dbPref}widget`
         SET
            `data` = REPLACE(`data`, 'file\\\\/repository\\\\/', '')
         WHERE

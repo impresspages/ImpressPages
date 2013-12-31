@@ -38,7 +38,7 @@ class DbSystem{    //system variables
         $toJsonUrl = json_encode($newUrl);
         $toJsonUrl = substr($toJsonUrl, 1, -1);
         
-        $sql = 'UPDATE ' . ipTable('m_content_management_widget') . ' SET `data` = REPLACE(`data`, ?, ?)';
+        $sql = 'UPDATE ' . ipTable('widget') . ' SET `data` = REPLACE(`data`, ?, ?)';
         $db->execute($sql, array($fromJsonUrl, $toJsonUrl));
 
         return true;

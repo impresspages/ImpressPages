@@ -156,7 +156,7 @@ class Revision{
         $revisions = ipDb()->select('*', 'revision', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
 
         if (!$revisions) {
-            throw new CoreException("Can\'t get page #{$pageId} revisions.", CoreException::DB);
+            return array();
         }
 
         return $revisions;
