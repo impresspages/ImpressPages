@@ -18,7 +18,7 @@ class System {
 
         ipDispatcher()->addEventListener('site.afterInit', array($this, 'initAdmin'));
 
-        if (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
+        if (ipIsManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -39,7 +39,7 @@ class System {
     public function initAdmin()
     {
 
-        if (!self::$disablePanel && (\Ip\ServiceLocator::content()->isManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        if (!self::$disablePanel && (ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/admin.css'));
 
             ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
@@ -60,7 +60,7 @@ class System {
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
             $curModule = $parts[0];
-        } elseif (\Ip\Internal\Content\Service::isManagementMode()) {
+        } elseif (ipIsManagementState()) {
             $curModule = "Content";
         }
 

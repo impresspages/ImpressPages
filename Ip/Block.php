@@ -48,7 +48,7 @@ class Block
                 }
             }
 
-            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, \Ip\ServiceLocator::content()->isManagementState(), $this->exampleContent);
+            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, ipIsManagementState(), $this->exampleContent);
         }
     }
 
