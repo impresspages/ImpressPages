@@ -421,11 +421,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_zone_to_content`;
+DROP TABLE IF EXISTS `ip_cms_zone_to_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_content` (
+CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',

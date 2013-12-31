@@ -163,7 +163,7 @@ class Model
     protected static function deleteZoneParameters($languageId)
     {
         //remove zone to content binding
-        ipDb()->delete('zone_to_content', array('language_id' => $languageId));
+        ipDb()->delete('zone_to_page', array('language_id' => $languageId));
     }
 
     protected static function removeZoneToContent($languageId)

@@ -28,7 +28,7 @@ class DbFrontend
     {
         $sql = "select mte.element_id from
         " . ipTable('zone', 'm') . ",
-        " . ipTable('zone_to_content', 'mte') . "
+        " . ipTable('zone_to_page', 'mte') . "
         where mte.zone_id = m.id
             and mte.language_id = :language_id
             and m.name = :zoneName
@@ -41,7 +41,7 @@ class DbFrontend
 
     public static function languageByRootPage($pageId)
     { //returns root element of menu
-        $rs = ipDb()->select('language_id', 'zone_to_content', array('element_id' => $pageId));
+        $rs = ipDb()->select('language_id', 'zone_to_page', array('element_id' => $pageId));
         if (!$rs) {
             return null;
         }
