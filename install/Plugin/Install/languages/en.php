@@ -26,13 +26,14 @@ return array(
     '(optional)' => '(optional)',
 
     'Language selection' => 'Language selection',
+    'Selected' => 'Selected',
     'System check' => 'System check',
     'License' => 'License',
     'Database' => 'Database',
     'Configuration' => 'Configuration',
     'Finish' => 'Finish',
     'Choose interface language' => 'Choose interface language',
-    'SYSTEM_CHECK_LONG' => 'System check',
+    'SYSTEM_CHECK_LONG' => 'System check', // todox: remove in all languages (shouldn't be used such thing)
     'ImpressPages Legal Notices' => 'ImpressPages Legal Notices',
     'Database installation' => 'Database installation',
     'System configuration' => 'System configuration',
@@ -41,7 +42,7 @@ return array(
     'Database Host (eg. localhost or 127.0.0.1)' => 'Database Host (eg. localhost or 127.0.0.1)',
     'User name' => 'User name',
     'User password' => 'User password',
-    'DATABASE_NAME' => 'Database',
+    'DATABASE_NAME' => 'Database', // todox: remove in all languages (shouldn't be used such thing)
     'Table prefix (use underscore to separate prefix).' => 'Table prefix (use underscore to separate prefix).',
     'Attention!!! All old tables with the same prefix will be deleted!' => 'Attention!!! All old tables with the same prefix will be deleted!',
     'Please fill in all fields' => 'Please fill in all fields',
@@ -67,6 +68,7 @@ return array(
     'Website time zone' => 'Website time zone',
     'Please choose website time zone' => 'Please choose website time zone',
 
+    'Finished!' => 'Finished!',
     'FINISH_MESSAGE' => '
 <p>
 <a href="../">Front page</a>
@@ -77,5 +79,5 @@ return array(
 <p>
 If you wish to repeat the installation, please clear the configuration file "config.php".
 </p>
-'
+' // todox: remove in all languages (shouldn't be used such thing)
 );
