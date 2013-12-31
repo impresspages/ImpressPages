@@ -94,7 +94,7 @@ class Page{
     {
         $revision = \Ip\ServiceLocator::content()->getRevision();
         if ($revision) {
-            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], \Ip\ServiceLocator::content()->isManagementState());
+            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
         } else {
             return '';
         }

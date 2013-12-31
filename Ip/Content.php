@@ -20,8 +20,6 @@ class Content
      */
     protected $languages;
 
-    protected $layout;
-
     protected $zones = null;
     protected $zonesData = null;
 
@@ -38,16 +36,7 @@ class Content
         $this->requestParser = new \Ip\Internal\Content\RequestParser();
     }
 
-    /**
-     *
-     * @return bool true if the system is in management state
-     *
-     */
-    public function isManagementState()
-    {
-        $backendLoggedIn = !empty($_SESSION['backend_session']['userId']);
-        return $backendLoggedIn && \Ip\Internal\Content\Service::isManagementMode();
-    }
+
 
 
     /**
@@ -198,7 +187,7 @@ class Content
             return $this->revision;
         }
         $revision = false;
-        if (\Ip\ServiceLocator::content()->isManagementState()) {
+        if (ipIsManagementState()) {
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);

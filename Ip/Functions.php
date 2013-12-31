@@ -177,7 +177,7 @@ function ipSlot($slot, $params = array())
 
 function ipIsManagementState()
 {
-    return \Ip\ServiceLocator::content()->isManagementState();
+    return \Ip\Internal\Content\Service::isManagementMode();
 }
 
 function ipRequest()
