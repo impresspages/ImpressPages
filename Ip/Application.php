@@ -39,8 +39,6 @@ class Application
         spl_autoload_register(array($autoloader, 'load'));
 
         require_once $coreDir . 'Ip/Functions.php';
-
-        require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
     }
 
     public function prepareEnvironment($options = array())
