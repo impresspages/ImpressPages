@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_design` (
+CREATE TABLE IF NOT EXISTS `ip_cms_design` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `theme` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
