@@ -283,4 +283,65 @@ class Content
         \Ip\Internal\Languages\Service::delete($languageId);
     }
 
+
+    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+
+        $zoneName = \Ip\Internal\Pages\Service::addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
+        return $zoneName;
+    }
+
+    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    {
+        \Ip\Internal\Pages\Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+    }
+
+
+    /**
+     * @param string $zoneName
+     * @param int $pageId
+     * @param array $data
+     */
+    public static function updatePage($zoneName, $pageId, $data)
+    {
+        \Ip\Internal\Pages\Service::updatePage($zoneName, $pageId, $data);
+    }
+
+
+    public static function addPage($parentId, $title, $data = array())
+    {
+        $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data );
+        return $newPageId;
+    }
+
+
+    /**
+     * @param string $zoneName
+     * @param int $languageId
+     * @return int
+     */
+    public static function getRootId($zoneName, $languageId)
+    {
+        $rootId = \Ip\Internal\Pages\Service::rootId($zoneName, $languageId);
+        return $rootId;
+    }
+
+    public static function copyPage($pageId, $destinationParentId, $destinationPosition)
+    {
+        $pageId = \Ip\Internal\Pages\Service::copyPage($pageId, $destinationParentId, $destinationPosition);
+        return $pageId;
+    }
+
+
+    public static function movePage($pageId, $destinationParentId, $destinationPosition)
+    {
+        \Ip\Internal\Pages\Service::movePage($pageId, $destinationParentId, $destinationPosition);
+    }
+
+    public static function deletePage($pageId)
+    {
+        \Ip\Internal\Pages\Service::deletePage($pageId);
+    }
+
+
 }

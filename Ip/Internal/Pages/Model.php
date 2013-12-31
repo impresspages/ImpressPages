@@ -18,7 +18,7 @@ class Model
         foreach($zones as $zone) {
             if ($zone->getAssociatedModule() == 'Content') {
                 $rootId = Db::rootId($zone->getId(), $id);
-                Model::deletePage($zone->getName(), $rootId);
+                Model::deletePage($rootId);
             }
         }
         self::deleteZoneParameters($id);
@@ -35,9 +35,10 @@ class Model
         return $name.$suffix;
     }
 
-    public static function deletePage($zoneName, $pageId)
+    public static function deletePage($pageId)
     {
-
+        $pageInfo = Db::pageInfo($pageId);
+        $zoneName = Db::getZoneName($pageInfo['zone_id']);
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
             throw new \Exception("Unknown zone " + $zoneName);
@@ -81,7 +82,7 @@ class Model
         }
 
 
-        self::_copyPageRecursion($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber);
+        return self::_copyPageRecursion($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber);
 
     }
 
@@ -118,6 +119,7 @@ class Model
                 }
             }
         }
+        return $newNodeId;
 
     }
 
