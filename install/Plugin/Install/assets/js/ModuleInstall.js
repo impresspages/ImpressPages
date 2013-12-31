@@ -35,8 +35,7 @@ var ModuleInstall = new function () {
                 if (response && response.result) {
                     document.location = 'index.php?step=4';
                 } else if (response && response.error && response.error.message) {
-                    $('.errorContainer').append('<p class="error"></p>');
-                    $('.errorContainer .error').text(response.error.message);
+                    $('.errorContainer').html('<p class="alert alert-danger">' + response.error.message + '</p>');
                 } else {
                     alert('Unknown response. #FYLBK');
                 }
@@ -76,7 +75,7 @@ var ModuleInstall = new function () {
                     $errorContainer.html('');
                     document.location = 'index.php?step=5';
                 } else if (response && response.error && response.error.message) {
-                    $errorContainer.html('<p class="error">' + response.error.message + '</p>');
+                    $errorContainer.html('<p class="alert alert-danger">' + response.error.message + '</p>');
                 } else {
                     alert('Unknown response. #FYLXK');
                 }

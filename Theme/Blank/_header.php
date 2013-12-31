@@ -9,10 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php ipAddCss(ipThemeUrl('assets/theme.css')); ?>
-    <?php echo ipHead(); ?>
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <?php echo ipHead(); //todox: does this print charset=UTF8? ?>
 </head>
 <body>
 <div class="theme clearfix">
