@@ -245,14 +245,6 @@ class Model
 
         ipDb()->execute($sql);
 
-//        try {
-//            foreach ($sql_list as $sql) {
-//                ipDb()->execute($sql);
-//            }
-//        } catch (Exception $e) {
-//            $errors[] = preg_replace("/[\nipDb()->", "", $sql . ' ' . Db::getConnection()->errorInfo());
-//        }
-
         return $errors;
     }
 

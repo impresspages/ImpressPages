@@ -52,7 +52,7 @@ class Model{
             'instanceId' => $instanceId,
             'date' => time()
         );
-        ipDb()->insert('m_administrator_repository_file', $row);
+        ipDb()->insert('repository_file', $row);
     }
 
     public static function unbindFile($file, $module, $instanceId) {
@@ -62,7 +62,7 @@ class Model{
             'instanceId' => $instanceId
         );
 
-        ipDb()->delete('m_administrator_repository_file', $condition);
+        ipDb()->delete('repository_file', $condition);
 
         $usages = self::whoUsesFile($file);
         if (empty($usages)) {
@@ -74,7 +74,7 @@ class Model{
     
     public static function whoUsesFile($file)
     {
-        return ipDb()->select('*', 'm_administrator_repository_file', array('fileName' => $file));
+        return ipDb()->select('*', 'repository_file', array('fileName' => $file));
     }
     
     /**
@@ -90,7 +90,7 @@ class Model{
             $where['instanceId'] = $instanceId;
         }
 
-        return ipDb()->select('*', 'm_administrator_repository_file', $where);
+        return ipDb()->select('*', 'repository_file', $where);
     }
     
     

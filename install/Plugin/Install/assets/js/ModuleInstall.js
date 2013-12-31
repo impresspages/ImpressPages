@@ -76,15 +76,7 @@ var ModuleInstall = new function () {
                     $errorContainer.html('');
                     document.location = 'index.php?step=5';
                 } else if (response && response.error && response.error.message) {
-                    $errorContainer.html('');
-
-                    $.each(response.error.errors, function(key, value){
-                        var $error = $('<p class="error"></p>');
-                        $error.text(value);
-                        $('.errorContainer').append($error);
-                    });
-
-
+                    $errorContainer.html('<p class="error">' + response.error.message + '</p>');
                 } else {
                     alert('Unknown response. #FYLXK');
                 }

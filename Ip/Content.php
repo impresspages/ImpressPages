@@ -8,7 +8,7 @@
 namespace Ip;
 
 
-use Guzzle\Parser\ParserRegistry;
+
 
 /**
  *

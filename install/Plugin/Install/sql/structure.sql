@@ -3,11 +3,11 @@ ALTER DATABASE  `[[[[database]]]]` DEFAULT CHARACTER SET utf8 COLLATE utf8_gener
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_content_element`;
+DROP TABLE IF EXISTS `ip_cms_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_content_element` (
+CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `row_number` double NOT NULL DEFAULT '0',
   `parent` int(11) DEFAULT NULL,
@@ -119,11 +119,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module_permission` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_email_queue`;
+DROP TABLE IF EXISTS `ip_cms_email_queue`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
+CREATE TABLE IF NOT EXISTS `ip_cms_email_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
@@ -144,11 +144,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_email_queue` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_file`;
+DROP TABLE IF EXISTS `ip_cms_repository_file`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
+CREATE TABLE IF NOT EXISTS `ip_cms_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `module` varchar(255) NOT NULL COMMENT 'Module group and module key which uses file resource. Eg. standard/content_management',
@@ -161,11 +161,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_file` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_administrator_repository_reflection`;
+DROP TABLE IF EXISTS `ip_cms_repository_reflection`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
+CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
@@ -178,11 +178,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_administrator_repository_reflection` (
 
 -- Table structure
   
-DROP TABLE IF EXISTS `ip_cms_m_content_management_widget`;
+DROP TABLE IF EXISTS `ip_cms_widget`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
+CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `widgetId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `layout` varchar(25) NOT NULL,
@@ -197,11 +197,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget` (
 
 
 
-DROP TABLE IF EXISTS `ip_cms_m_content_management_widget_instance`;
+DROP TABLE IF EXISTS `ip_cms_widget_instance`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
+CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `instanceId` int(11) NOT NULL AUTO_INCREMENT,
   `revisionId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_content_management_widget_instance` (
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_design` (
+CREATE TABLE IF NOT EXISTS `ip_cms_design` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `theme` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -242,11 +242,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_developer_widget_sort` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_global`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_global`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_global` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
@@ -255,11 +255,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_global` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_language`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_language`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_language` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -269,11 +269,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_language` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_inline_value_page`;
+DROP TABLE IF EXISTS `ip_cms_inlinevalue_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_inline_value_page` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_page` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -296,9 +296,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page_layout` (
   UNIQUE KEY `group_name` (`group_name`,`module_name`,`page_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Custom page layouts';
 
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_parameter`;
 
 -- Table structure
 
@@ -317,75 +314,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_parameter` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_parameter_group`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_parameter_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `module_id` int(11) DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_bool`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_bool` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` tinyint(1) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_integer`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_integer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` int(11) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_lang`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_lang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `translation` mediumtext NOT NULL,
-  `language_id` int(11) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_string`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` mediumtext NOT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
-
--- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_plugin`;
 
@@ -476,11 +404,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_zone_parameter`;
+DROP TABLE IF EXISTS `ip_cms_zone_to_language`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
+CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` mediumtext,
   `keywords` mediumtext,
@@ -493,11 +421,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_zone_to_content`;
+DROP TABLE IF EXISTS `ip_cms_zone_to_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_content` (
+CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',

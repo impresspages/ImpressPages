@@ -1,6 +1,6 @@
 
 
-INSERT INTO `ip_cms_content_element` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
+INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visible`, `html`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `modify_track1`, `modify_track2`, `modify_track3`, `modify_frequency`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
 (1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:20', NULL, NULL, 'default', NULL),
 (3, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
 (4, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 10:24:32', NULL, NULL, 'default', NULL),
@@ -124,18 +124,18 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`, `translation`) VALUES
-(620, '', '', 'Menu2', 'menu2', 106, 384, NULL),
-(619, '', '', 'Menu2', 'menu2', 106, 344, NULL),
-(618, '', '', 'Menu1', 'menu1', 105, 384, NULL),
-(617, '', '', 'Menu1', 'menu1', 105, 344, NULL),
-(629, '', '', 'Menu3', 'menu3', 110, 344, NULL),
-(630, '', '', 'Menu3', 'menu3', 110, 384, NULL);
+INSERT INTO `ip_cms_zone_to_language` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
+(620, '', '', 'Menu2', 'menu2', 106, 384),
+(619, '', '', 'Menu2', 'menu2', 106, 344),
+(618, '', '', 'Menu1', 'menu1', 105, 384),
+(617, '', '', 'Menu1', 'menu1', 105, 344),
+(629, '', '', 'Menu3', 'menu3', 110, 344),
+(630, '', '', 'Menu3', 'menu3', 110, 384);
 
 -- Dumping data for table--
 
 
-INSERT INTO `ip_cms_zone_to_content` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
+INSERT INTO `ip_cms_zone_to_page` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
 (163, 344, 105, 1),
 (165, 344, 106, 3),
 (166, 344, 110, 4);
