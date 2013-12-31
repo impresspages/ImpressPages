@@ -5,8 +5,6 @@
 
 namespace Ip;
 
-use Ip\Grid\Worker;
-
 abstract class GridController extends \Ip\Controller
 {
     public function index()
