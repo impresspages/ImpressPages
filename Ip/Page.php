@@ -92,7 +92,7 @@ class Page{
      */
     public function generateContent ()
     {
-        $revision = \Ip\ServiceLocator::content()->getRevision();
+        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
         if ($revision) {
             return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
         } else {

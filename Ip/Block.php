@@ -40,7 +40,7 @@ class Block
             if ($this->isStatic) {
                 $revisionId = null;
             } else {
-                $revision = \Ip\ServiceLocator::content()->getRevision();
+                $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
                 if ($revision) {
                     $revisionId = $revision['revisionId'];
                 } else {

@@ -86,7 +86,7 @@ class Revision{
             return false;
         }
 
-        $wasUpdated = ipDb()->update('revision',
+        ipDb()->update('revision',
             array(
                 'published' => 0
             ),
