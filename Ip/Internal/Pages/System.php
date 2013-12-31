@@ -23,16 +23,6 @@ class System
     public function onAddLanguage($data)
     {
         $languageId = $data['id'];
-        //todox check if root zone element is being created on demand and remove this code
-//
-//        $zones = ipContent()->getZones();
-//        foreach ($zones as $zone) {
-//            if ($zone->getAssociatedModule() == 'Content') {
-//                Db::createRootZoneElement($zone->getId(), $languageId);
-//            }
-//        }
-
-
         Model::createParametersLanguage($languageId);
     }
 

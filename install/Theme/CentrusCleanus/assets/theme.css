@@ -1,0 +1,7 @@
+/**
+ * Default ImpressPages CMS installation theme
+ *
+ * @package ImpressPages
+ */
+
+@import '../../../../Ip/Internal/Ip/assets/bootstrap/bootstrap.css'; /* loading core admin bootstrap */

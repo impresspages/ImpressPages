@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\System;

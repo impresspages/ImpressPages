@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="robots" content="NOINDEX,NOFOLLOW">
     <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
-    <link rel="stylesheet" href="<?php echo ipFileUrl('Plugin/Install/assets/style.css') ?>">
     <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico') ?>">
 </head>
 <body>
@@ -35,7 +34,6 @@
     <div class="footer">Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages UAB</a></div>
 </div>
 
-<script type="text/javascript" src="<?php echo ipFileUrl('Plugin/Install/assets/js/init.js') ?>"></script>
 <?php if (!empty($requiredJs)) { ?>
     <?php foreach($requiredJs as $jsFile) { ?>
         <script type="text/javascript" src="<?php echo $jsFile ?>"></script>

@@ -49,7 +49,6 @@ class Model
             $warning['magic_quotes'] = 1;
         }
 
-
         if (!function_exists('curl_init')) {
             $warning['curl'] = 1;
         }
@@ -60,131 +59,118 @@ class Model
 
         $answer = '<h1>' . __('System check', 'ipInstall') . "</h1>";
 
-        $table = array();
+        $requirements = array();
 
-        $table[] = __('PHP version >= 5.3', 'ipInstall');
-        if (isset($error['php_version']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = __('PHP version >= 5.3', 'ipInstall');
+        $check['type'] = isset($error['php_version']) ? 'error' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('Apache module "mod_rewrite"', 'ipInstall');
-        if (isset($error['mod_rewrite']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = __('Apache module "mod_rewrite"', 'ipInstall');
+        $check['type'] = isset($error['mod_rewrite']) ? 'error' : 'success';
+        $requirements[] = $check;
 
+        $check = array();
+        $check['name'] = __('PHP module "PDO"', 'ipInstall');
+        $check['type'] = isset($error['mod_pdo']) ? 'error' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('PHP module "PDO"', 'ipInstall');
-        if (isset($error['mod_pdo']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = __('GD Graphics Library', 'ipInstall');
+        $check['type'] = isset($error['gd_lib']) ? 'error' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('GD Graphics Library', 'ipInstall');
-        if (isset($error['gd_lib']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
-
-//sessions are checked using curl. If there is no curl, session availability hasn't been checked
+        //sessions are checked using curl. If there is no curl, session availability hasn't been checked
         if (!isset($warning['curl'])) {
-            $table[] = __('PHP sessions', 'ipInstall');
-            if (isset($warning['session'])) {
-                $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-            } else {
-                $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
-            }
+            $check = array();
+            $check['name'] = __('PHP sessions', 'ipInstall');
+            $check['type'] = isset($error['session']) ? 'error' : 'success';
+            $requirements[] = $check;
         }
 
-        $table[] = __('.htaccess file', 'ipInstall');
-        if (isset($error['htaccess']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = __('.htaccess file', 'ipInstall');
+        $check['type'] = isset($error['htaccess']) ? 'error' : 'success';
+        $requirements[] = $check;
 
+        $check = array();
+        $check['name'] = __('index.html removed', 'ipInstall');
+        $check['type'] = isset($error['index.html']) ? 'error' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('index.html removed', 'ipInstall');
-        if (isset($error['index.html']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = __('Magic quotes off (optional)', 'ipInstall');
+        $check['type'] = isset($error['magic_quotes']) ? 'error' : 'success';
+        $requirements[] = $check;
 
+        $check = array();
+        $check['name'] = __('PHP module "Curl"', 'ipInstall');
+        $check['type'] = isset($error['curl']) ? 'warning' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('Magic quotes off (optional)', 'ipInstall');
-        if (isset($warning['magic_quotes']))
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
-        else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        $check = array();
+        $check['name'] = sprintf( __('PHP memory limit (%s)', 'ipInstall'), ini_get('memory_limit'));
+        $check['type'] = (integer)ini_get('memory_limit') < 100 ? 'warning' : 'success';
+        $requirements[] = $check;
 
-        $table[] = __('PHP module "Curl"', 'ipInstall');
-        if (isset($warning['curl'])) {
-            $table[] = '<span class="warning">' . __('Warning', 'ipInstall') . "</span>";
-        } else {
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
-        }
+        $check = array();
+        $check['name'] = '';
+        $check['type'] = '';
+        $requirements[] = $check;
 
-        $table[] = sprintf( __('PHP memory limit (%s)', 'ipInstall'), ini_get('memory_limit'));
-        if ((integer)ini_get('memory_limit') < 100) {
-            $table[] = '<span class="warning">' . __('Warning', 'ipInstall') . "</span>";
-        } else {
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . "</span>";
-        }
-
-
-        $table[] = '';
-        $table[] = '';
-
-
-        $table[] = '';
-        $table[] = '';
-
-
-        $table[] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
-
+        $check = array();
+        $check['name'] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
         if (!Helper::isDirectoryWritable(ipFile('file/'))) {
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
+            $check['type'] = 'error';
             $error['writable_file'] = 1;
-        } else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
 
-
-        $table[] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
+        $check = array();
+        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
         if (!Helper::isDirectoryWritable(ipFile('Theme'))) {
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
+            $check['type'] = 'error';
             $error['writable_themes'] = 1;
-        } else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
 
-
-        $table[] = '<b>/config.php</b> ' . __('writable', 'ipInstall');
-
+        $check = array();
+        $check['name'] = '<b>/config.php</b> ' . __('writable', 'ipInstall');
         if (!is_writable(ipFile('config.php'))) {
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
+            $check['type'] = 'error';
             $error['writable_config'] = 1;
-        } else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
 
-
-        $table[] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
+        $check = array();
+        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
         if (!is_writable(ipFile('robots.txt'))) {
-            $table[] = '<span class="error">' . __('No', 'ipInstall') . "</span>";
+            $check['type'] = 'error';
             $error['writable_robots'] = 1;
-        } else
-            $table[] = '<span class="correct">' . __('Ok', 'ipInstall') . '</span>';
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
 
+        $answer .= Helper::generateTable($requirements);
 
-        $answer .= Helper::gen_table($table);
-
-        $answer .= '<br><br>';
+        $answer .= '
+        <p class="text-right">';
         if (sizeof($error) > 0) {
             $_SESSION['step'] = 1;
-            $answer .= '<a class="button_act" href="?step=1">' . __('Check again', 'ipInstall') . '</a>';
+            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'ipInstall') . '</a>';
         } else {
             Model::completeStep(1);
-            $answer .= '<a class="button_act" href="?step=2">' . __('Next', 'ipInstall') . '</a><a class="button" href="?step=1">' . __('Check again', 'ipInstall') . '</a>';
+            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'ipInstall') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'ipInstall') . '</a>';
         }
-        $answer .= "<br>";
+        $answer .= "</p>";
 
         return $answer;
     }

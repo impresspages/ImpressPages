@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -21,7 +20,7 @@ class FileSystem
 
         $dir = $this->removeTrailingSlash($dir); //remove trailing slash
         $parentDir = $this->getParentDir($dir);
-         
+
 
         if (!file_exists($parentDir) || !is_dir($parentDir)) {
             $this->createWritableDir($parentDir);
@@ -53,7 +52,7 @@ class FileSystem
         }
 
         $answer = true;
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             return false;
         }
 
@@ -63,8 +62,7 @@ class FileSystem
 
             try {
                 $success = chmod($path, $permissions);
-            }
-            catch (FileSystemException $e) {
+            } catch (FileSystemException $e) {
                 //do nothing. This is just the way to avoid warnings
             }
             set_error_handler($oldErrorHandler);
@@ -78,17 +76,17 @@ class FileSystem
             $path = $this->removeTrailingSlash($path);
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
-                    if (is_dir($path.'/'.$file)) {
-                        $this->makeWritable($path.'/'.$file, $permissions);
+                    if (is_dir($path . '/' . $file)) {
+                        $this->makeWritable($path . '/' . $file, $permissions);
                     } else {
-                        if (!is_writable($path.'/'.$file)) {
-                            chmod($path.'/'.$file, $permissions);
+                        if (!is_writable($path . '/' . $file)) {
+                            chmod($path . '/' . $file, $permissions);
                         }
-                        if (!is_writable($path.'/'.$file)) {
-                            $this->throwWritePermissionsError($path.'/'.$file);
+                        if (!is_writable($path . '/' . $file)) {
+                            $this->throwWritePermissionsError($path . '/' . $file);
                         }
                     }
                 }
@@ -100,7 +98,8 @@ class FileSystem
         return $answer;
     }
 
-    public function rm($dir) {
+    public function rm($dir)
+    {
 
         if (!file_exists($dir)) {
             return;
@@ -111,11 +110,11 @@ class FileSystem
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
 
-                    $this->rm($dir.'/'.$file);
+                    $this->rm($dir . '/' . $file);
                 }
                 closedir($handle);
             }
@@ -130,21 +129,23 @@ class FileSystem
      * Remove everything from dir. Make it empty
      * @var string $dir
      */
-    public function clean($dir) {
+    public function clean($dir)
+    {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \Ip\Internal\System\UpdateException("Directory doesn't exist: ".$dir);
+            throw new \Ip\Internal\System\UpdateException("Directory doesn't exist: " . $dir);
         }
 
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
-                if($file == ".." || $file == ".") {
+                if ($file == ".." || $file == ".") {
                     continue;
                 }
-                $this->rm($dir.'/'.$file);
+                $this->rm($dir . '/' . $file);
             }
             closedir($handle);
         }
     }
+
     /**
      * This is special copy. It copies all content from source into destination directory. But not the source folder it self.
      * @param string $source
@@ -154,17 +155,17 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \Ip\Internal\System\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."");
+            throw new \Ip\Internal\System\UpdateException("Source or destination is not a folder. Source: " . $source . ". Destination: " . $dest . "");
         }
 
-        $dir_handle=opendir($source);
-        while($file=readdir($dir_handle)){
-            if($file!="." && $file!=".."){
-                if(is_dir($source."/".$file)){
-                    mkdir($dest."/".$file);
-                    $this->cpContent($source."/".$file, $dest."/".$file);
+        $dir_handle = opendir($source);
+        while ($file = readdir($dir_handle)) {
+            if ($file != "." && $file != "..") {
+                if (is_dir($source . "/" . $file)) {
+                    mkdir($dest . "/" . $file);
+                    $this->cpContent($source . "/" . $file, $dest . "/" . $file);
                 } else {
-                    copy($source."/".$file, $dest."/".$file);
+                    copy($source . "/" . $file, $dest . "/" . $file);
                 }
             }
         }
@@ -180,7 +181,7 @@ class FileSystem
 
     private function throwWritePermissionsError($dir)
     {
-        throw new \Ip\Internal\System\UpdateException("Can't write directory ".$dir);
+        throw new \Ip\Internal\System\UpdateException("Can't write directory " . $dir);
     }
 
     private function getParentPermissions($path)
@@ -193,7 +194,6 @@ class FileSystem
     {
         return preg_replace('{/$}', '', $path);
     }
-
 
 
     public static function handleError($errno, $errstr, $errfile, $errline, array $errcontext)

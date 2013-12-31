@@ -8,5 +8,6 @@
     <?php } ?>
 <?php } ?>
 <br/><br/>
-
-<a class="button_act" href="?step=1"><?php _e('Next', 'ipInstall') ?></a>
+<p class="text-right">
+    <a class="btn btn-primary" href="?step=1"><?php _e('Next', 'ipInstall') ?></a>
+</p>
