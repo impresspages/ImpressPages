@@ -21,45 +21,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array(1));
     }
 
-    public function getSitemapInList()
-    {
-        $answer = '';
-        $answer .= '<ul id="ipSitemap">' . "\n";
-
-        $answer .= '<li><a href="' . ipHomeUrl() . '">Home</a></li>' . "\n";
-
-        $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
-
-        foreach ($languages as $language) {
-            $link = \Ip\Internal\Deprecated\Url::generate($language['id']);
-            $answer .= '<li><a href="' . $link . '">' . htmlspecialchars($language['d_long']) . ' (' . htmlspecialchars(
-                    $language['d_short']
-                ) . ')</a>' . "\n";
-
-            $zones = ipContent()->getZones();
-            if (sizeof($zones) > 0) {
-                $answer .= '<ul>';
-                foreach ($zones as $key => $zone) {
-                    $answer .= '<li><a href="' . \Ip\Internal\Deprecated\Url::generate(
-                            $language['id'],
-                            $zone->getName()
-                        ) . '">' . $zone->getTitle() . '</a>' . "\n";
-                    $answer .= $this->getPagesList($language, $zone);
-                    $answer .= '</li>' . "\n";
-                }
-                $answer .= '</ul>';
-
-            }
-
-            $answer .= '</li>' . "\n";
-        }
-
-
-        $answer .= '<ul>' . "\n";
-
-        return new \Ip\Response($answer);
-    }
-
     private function getPagesList($language, $zone, $parentElementId = null)
     {
         $answer = '';
