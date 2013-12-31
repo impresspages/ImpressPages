@@ -85,7 +85,7 @@ class Service
         $destinationPageInfo = Db::pageInfo($destinationParentId);
         $zoneName = Db::getZoneName($pageInfo['zone_id']);
         $destinationZone = ipContent()->getZone(Db::getZoneName($destinationPageInfo['zone_id']));
-        Model::copyPage($zoneName, $pageId, $destinationZone->getName(), $destinationParentId, $destinationPosition);
+        return Model::copyPage($zoneName, $pageId, $destinationZone->getName(), $destinationParentId, $destinationPosition);
     }
 
 
@@ -134,6 +134,11 @@ class Service
 
         ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         //report url change
+    }
+
+    public static function deletePage($pageId)
+    {
+        Model::deletePage($pageId);
     }
 
 

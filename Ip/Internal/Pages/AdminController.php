@@ -272,10 +272,7 @@ class AdminController extends \Ip\Controller
         }
         $pageId = (int)$data['pageId'];
 
-        $pageInfo = Db::pageInfo($pageId);
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-
-        Model::deletePage($zoneName, $pageId);
+        Service::deletePage($pageId);
 
         $answer = array ();
         $answer['status'] = 'success';
