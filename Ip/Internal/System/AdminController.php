@@ -1,14 +1,13 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\System;
 
 
-
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
 
     public function index()
@@ -16,7 +15,10 @@ class AdminController extends \Ip\Controller{
 
         $notes = array();
 
-        if (isset($_SESSION['modules']['administrator']['system']['notes']) && is_array($_SESSION['modules']['administrator']['system']['notes'])) {
+        if (isset($_SESSION['modules']['administrator']['system']['notes']) && is_array(
+                $_SESSION['modules']['administrator']['system']['notes']
+            )
+        ) {
             $notes = $_SESSION['modules']['administrator']['system']['notes'];
         }
 
@@ -35,7 +37,7 @@ class AdminController extends \Ip\Controller{
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/default.js'));
         ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/backend/ip_admin.css'));
 
-        if ($enableUpdate){
+        if ($enableUpdate) {
             ipAddJs(ipFileUrl('Ip/Internal/System/assets/update.js'));
         }
         ipAddJs(ipFileUrl('Ip/Internal/System/assets/clearCache.js'));
@@ -54,7 +56,10 @@ class AdminController extends \Ip\Controller{
         $success = $module->updateRobotsTxt($cachedUrl);
 
         if (!$success) {
-            $_SESSION['modules']['administrator']['system']['notes'][] = __('robots.txt file needs to be updated manually.', 'ipAdmin');
+            $_SESSION['modules']['administrator']['system']['notes'][] = __(
+                'robots.txt file needs to be updated manually.',
+                'ipAdmin'
+            );
         }
 
         $_SESSION['modules']['administrator']['system']['notes'][] = __('Cache was cleared.', 'ipAdmin');
@@ -73,16 +78,21 @@ class AdminController extends \Ip\Controller{
 
     protected function indexUrl()
     {
-        return str_replace('&amp;', '&', \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index')));
+        return str_replace(
+            '&amp;',
+            '&',
+            \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index'))
+        );
     }
 
-    public function startUpdate() {
+    public function startUpdate()
+    {
         $updateModel = new UpdateModel();
 
         try {
             $updateModel->prepareForUpdate();
         } catch (UpdateException $e) {
-            $data = array (
+            $data = array(
                 'status' => 'error',
                 'error' => $e->getMessage()
             );
@@ -90,7 +100,7 @@ class AdminController extends \Ip\Controller{
         }
 
 
-        $data = array (
+        $data = array(
             'status' => 'success',
             'redirectUrl' => ipFileUrl('update')
         );
@@ -105,17 +115,17 @@ class AdminController extends \Ip\Controller{
         $systemInfo = $module->getSystemInfo();
 
 
-        if(isset($_REQUEST['afterLogin'])) { // request after login.
-            if($systemInfo == '') {
+        if (isset($_REQUEST['afterLogin'])) { // request after login.
+            if ($systemInfo == '') {
                 $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
                 return;
             } else {
                 $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
-                if($systemInfo && (!$md5 || $md5 != md5($systemInfo)) ) { //we have a new message
+                if ($systemInfo && (!$md5 || $md5 != md5($systemInfo))) { //we have a new message
                     $newMessage = false;
 
-                    foreach(json_decode($systemInfo) as $infoValue) {
-                        if($infoValue->type != 'status') {
+                    foreach (json_decode($systemInfo) as $infoValue) {
+                        if ($infoValue->type != 'status') {
                             $newMessage = true;
                         }
                     }
