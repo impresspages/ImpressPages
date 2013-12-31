@@ -10,7 +10,6 @@
 namespace Ip\Internal\System;
 
 
-
 class UpdateModel
 {
 
@@ -23,7 +22,11 @@ class UpdateModel
             throw new UpdateException('Can\'t find update archive');
         }
 
-        $this->downloadArchive($updateVersionInfo['downloadUrl'], $updateVersionInfo['md5'], ipFile('file/tmp/' . 'update/ImpressPages.zip'));
+        $this->downloadArchive(
+            $updateVersionInfo['downloadUrl'],
+            $updateVersionInfo['md5'],
+            ipFile('file/tmp/' . 'update/ImpressPages.zip')
+        );
         $this->extractArchive(ipFile('file/tmp/update/ImpressPages.zip'), ipFile('file/tmp/update/extracted/'));
 
         $fs = new Helper\FileSystem();
@@ -32,7 +35,6 @@ class UpdateModel
         $fs->clean(ipFile('update/extracted/update'));
         $fs->cpContent(ipFile('file/tmp/update/extracted/update'), ipFile('update'));
     }
-
 
 
     private function downloadArchive($scriptUrl, $md5checksum, $archivePath)
@@ -85,7 +87,7 @@ class UpdateModel
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
             CURLOPT_URL => \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion='.$curVersion
+            CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
         );
 
         curl_setopt_array($ch, $options);

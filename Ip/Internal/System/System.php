@@ -1,27 +1,29 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\System;
 
 
-class System{
+class System
+{
 
-    public function __construct() {
+    public function __construct()
+    {
     }
 
-    public function init(){
-        ipDispatcher()->addEventListener('site.urlChanged', __NAMESPACE__ .'\System::urlChanged');
+    public function init()
+    {
+        ipDispatcher()->addEventListener('site.urlChanged', __NAMESPACE__ . '\System::urlChanged');
         ipDispatcher()->addEventListener('Cron.execute', array($this, 'executeCron'));
     }
-    
+
     public static function urlChanged($info)
     {
         \Ip\Internal\DbSystem::replaceUrls($info['oldUrl'], $info['newUrl']);
     }
-    
+
     public function executeCron($info)
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
@@ -39,16 +41,16 @@ class System{
         $systemInfo = $module->getSystemInfo();
         if ($systemInfo != '') { //send an email
             $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageSent');
-            if( !$md5 || $md5 != md5($systemInfo) ) { //we have a new message
+            if (!$md5 || $md5 != md5($systemInfo)) { //we have a new message
                 $message = '';
                 $messages = json_decode($systemInfo);
-                if(is_array($messages)) {
-                    foreach($messages as $messageKey => $messageVal) {
-                        $message .= '<p>'.$messageVal->message.'</p>';
+                if (is_array($messages)) {
+                    foreach ($messages as $messageKey => $messageVal) {
+                        $message .= '<p>' . $messageVal->message . '</p>';
                     }
 
                     $onlyStatusMessages = true;
-                    foreach($messages as $messageKey => $messageVal) {
+                    foreach ($messages as $messageKey => $messageVal) {
                         if ($messageVal->type != 'status') {
                             $onlyStatusMessages = false;
                         }
@@ -72,13 +74,13 @@ class System{
                         ipGetOption('Config.websiteTitle'),
                         $message,
                         false,
-                        true);
+                        true
+                    );
                     $queue->send();
                 }
 
                 \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
             }
-
 
 
         }
