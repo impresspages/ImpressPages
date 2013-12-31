@@ -81,7 +81,7 @@ class Content
         }
 
         $zoneData = $this->zonesData[$zoneName];
-        $this->zones[$zoneName] = $this->createZone($zoneData);
+        $this->zones[$zoneName] = \Ip\Internal\Content\Helper::createZone($zoneData);
         return $this->zones[$zoneName];
 
     }
@@ -136,7 +136,7 @@ class Content
             $languages = Internal\ContentDb::getLanguages(true);
             $this->languages = array();
             foreach ($languages as $data) {
-                $this->languages[] = $this->createLanguage($data);
+                $this->languages[] = \Ip\Internal\Content\Helper::createLanguage($data);
             }
         }
         return $this->languages;
@@ -159,41 +159,9 @@ class Content
     }
 
 
-    /**
-     * @param $data
-     * @return Language
-     */
-    private function createLanguage($data)
-    {
-        $language = new \Ip\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
-        return $language;
-    }
 
-    private function createZone($zoneData)
-    {
-        if ($zoneData['associated_module']) {
-            $class = '\\Ip\\Internal\\' . $zoneData['associated_module'] . '\\Zone';
-            if (class_exists($class)) {
-                $zoneObject = new $class($zoneData);
-            } else {
-                $class = '\\Plugin\\' . $zoneData['associated_module'] . '\\Zone';
-                $zoneObject = new $class($zoneData);
-            }
-        } else {
-            $zoneObject = new \Ip\DefaultZone($zoneData);
-        }
 
-        $zoneObject->setId($zoneData['id']);
-        $zoneObject->setName($zoneData['name']);
-        $zoneObject->setLayout($zoneData['template']);
-        $zoneObject->setTitle($zoneData['title']);
-        $zoneObject->setUrl($zoneData['url']);
-        $zoneObject->setKeywords($zoneData['keywords']);
-        $zoneObject->setDescription($zoneData['description']);
-        $zoneObject->setAssociatedModuleGroup($zoneData['associated_group']);
-        $zoneObject->setAssociatedModule($zoneData['associated_module']);
-        return $zoneObject;
-    }
+
 
     public function getUrlPath()
     {
