@@ -1,5 +1,6 @@
-<h1><?php _e('ImpressPages CMS has been successfully installed.', 'ipInstall') ?></h1>
+<h1><?php _e('Finished!', 'ipInstall'); ?></h1>
 
+<p class="alert alert-success"><?php _e('ImpressPages CMS has been successfully installed.', 'ipInstall'); ?></p>
 <p>
     <a href="../"><?php _e('Front page', 'ipInstall') ?></a>
 </p>

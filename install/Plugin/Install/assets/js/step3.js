@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
     "use strict";
-    $('.button_act').on('click', proceedInstall);
+    $('.ipsStep3').on('click', proceedInstall);
 });
 
 function proceedInstall(e){
