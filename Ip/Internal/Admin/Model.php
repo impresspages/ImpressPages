@@ -114,13 +114,23 @@ class Model{
     }
 
     protected  function userId($name, $pass) {
-        $answer = false;
-        $sql = "select id from " . ipTable('user') . " where `name` = '".ip_deprecated_mysql_real_escape_string($name)."' and `pass`='".md5($pass)."' and not blocked ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs) {
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs))
-                $answer = $lock['id'];
-        }else trigger_error($sql." ".ip_deprecated_mysql_error());
-        return $answer;
+        $sql = "
+        SELECT
+            `id`
+        FROM
+            " . ipTable('user') . "
+        where
+            `name` = :name
+            AND
+            `pass` = :pass
+            AND
+            not `blocked` ";
+
+        $params = array(
+            'name' => $name,
+            'pass' => md5($pass)
+        );
+
+        return ipDb()->fetchValue($sql, $params);
     }
 }
