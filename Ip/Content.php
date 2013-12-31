@@ -8,8 +8,6 @@
 namespace Ip;
 
 
-
-
 /**
  *
  * Event dispatcher class
@@ -197,22 +195,10 @@ class Content
         return $zoneObject;
     }
 
-
-    public function getLanguageUrl()
-    {
-        if ($this->languageUrl === null) {
-            $this->parseUrl();
-        }
-        return $this->languageUrl;
-    }
-
     public function getUrlPath()
     {
         return $this->requestParser->getUrlPath();
     }
-
-
-
 
     public function setBlockContent($block, $content)
     {
@@ -232,9 +218,6 @@ class Content
     {
         return new \Ip\Block($blockName);
     }
-
-
-
 
 
     /**
