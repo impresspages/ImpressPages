@@ -13,7 +13,7 @@ class Model
 
 
     public static function cleanupLanguage($id)
-    {
+    {ipContent()->
         $zones = ipContent()->getZones();
         foreach($zones as $zone) {
             if ($zone->getAssociatedModule() == 'Content') {

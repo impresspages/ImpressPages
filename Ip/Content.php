@@ -320,7 +320,7 @@ class Content
      * @param int $languageId
      * @return int
      */
-    public static function getRootId($zoneName, $languageId)
+    public static function getRootPageId($zoneName, $languageId)
     {
         $rootId = \Ip\Internal\Pages\Service::rootId($zoneName, $languageId);
         return $rootId;
