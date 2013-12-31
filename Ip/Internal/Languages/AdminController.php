@@ -43,7 +43,6 @@ class AdminController extends \Ip\GridController
             'table' => 'language',
             'allowInsert' => false,
             'allowSearch' => false,
-            'pageSize' => 3,
             'actions' => array(
                 array(
                     'label' => __('Add', 'ipAdmin', false),
