@@ -8,18 +8,6 @@ namespace Ip\Internal\Languages;
 
 class Db {
 
-    public static function getLanguages() {
-        $answer = array();
-        $sql = "select * from " . ipTable('language') . " where 1 order by row_number";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs) {
-            while($lock = ip_deprecated_mysql_fetch_assoc($rs))
-            $answer[] = $lock;
-        }else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
-        }
-        return $answer;
-    }
 
     public static function getLanguageById($id) {
         $result = ipDb()->select('*', 'language', array('id' => $id), 'LIMIT 1');
