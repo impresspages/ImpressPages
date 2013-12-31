@@ -331,59 +331,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_parameter_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_bool`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_bool` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` tinyint(1) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_integer`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_integer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` int(11) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_lang`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_lang` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `translation` mediumtext NOT NULL,
-  `language_id` int(11) DEFAULT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_par_string`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_par_string` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` mediumtext NOT NULL,
-  `parameter_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
 
 -- Table structure
 
