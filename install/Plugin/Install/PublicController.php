@@ -201,7 +201,6 @@ class PublicController extends \Ip\Controller
     {
         $db = ipRequest()->getPost('db');
 
-        // TODOX validate $db
         foreach (array('hostname', 'username', 'database') as $key) {
             if (empty($db[$key])) {
                 return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'ipInstall', false));
@@ -338,7 +337,6 @@ class PublicController extends \Ip\Controller
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall', false));
         }
-
         try {
 
             Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
@@ -346,7 +344,7 @@ class PublicController extends \Ip\Controller
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
 
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Unknown SQL error.', 'ipInstall', false)); // ->addErrorData('sql', $sql)->addErrorData('mysqlError', ipDb()->getConnection()->errorInfo());
+            return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }
 
         Model::completeStep(4);

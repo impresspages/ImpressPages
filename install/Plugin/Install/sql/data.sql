@@ -124,13 +124,13 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`, `translation`) VALUES
-(620, '', '', 'Menu2', 'menu2', 106, 384, NULL),
-(619, '', '', 'Menu2', 'menu2', 106, 344, NULL),
-(618, '', '', 'Menu1', 'menu1', 105, 384, NULL),
-(617, '', '', 'Menu1', 'menu1', 105, 344, NULL),
-(629, '', '', 'Menu3', 'menu3', 110, 344, NULL),
-(630, '', '', 'Menu3', 'menu3', 110, 384, NULL);
+INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
+(620, '', '', 'Menu2', 'menu2', 106, 384),
+(619, '', '', 'Menu2', 'menu2', 106, 344),
+(618, '', '', 'Menu1', 'menu1', 105, 384),
+(617, '', '', 'Menu1', 'menu1', 105, 344),
+(629, '', '', 'Menu3', 'menu3', 110, 344),
+(630, '', '', 'Menu3', 'menu3', 110, 384);
 
 -- Dumping data for table--
 

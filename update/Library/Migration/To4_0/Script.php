@@ -107,7 +107,7 @@ class Script extends \IpUpdate\Library\Migration\General
         SELECT
             `reflection`
         FROM
-            `{$this->dbPref}m_administrator_repository_reflection`
+            `{$this->dbPref}repository_reflection`
         WHERE
           1
         ";
@@ -127,7 +127,7 @@ class Script extends \IpUpdate\Library\Migration\General
         //remove all reflection records
         $sql = "
         DELETE FROM
-            `{$this->dbPref}m_administrator_repository_reflection`
+            `{$this->dbPref}repository_reflection`
         WHERE
           1
         ";
