@@ -22,14 +22,9 @@ class Db {
     }
 
     public static function getLanguageById($id) {
-        $sql = "select * from " . ipTable('language') . " where `id` = '".(int)$id."' ";
-        $rs = ip_deprecated_mysql_query($sql);
-        if($rs) {
-            if($lock = ip_deprecated_mysql_fetch_assoc($rs)){
-                return $lock;
-            }
-        }else {
-            trigger_error($sql." ".ip_deprecated_mysql_error());
+        $result = ipDb()->select('*', 'language', array('id' => $id), 'LIMIT 1');
+        if (isset($result[0])) {
+            return $result[0];
         }
         return false;
     }
