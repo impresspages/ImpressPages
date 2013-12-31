@@ -58,7 +58,7 @@ body {
   padding-left: 1em;
 }
 .button {
-  background-color: #1e0363;
+  background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -143,7 +143,7 @@ body {
   padding-left: 1em;
 }
 .ipPreviewWidget .button {
-  background-color: #1e0363;
+  background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -194,7 +194,7 @@ body {
   margin-top: -1em;
 }
 .ipPreviewWidget a {
-  color: #1e0363;
+  color: #019bd4;
   text-decoration: none;
 }
 .ipPreviewWidget a:hover {
@@ -528,7 +528,7 @@ body {
   user-select: none;
 }
 .ipModuleForm .btn-default {
-  background: #1e0363;
+  background: #019bd4;
   border: none;
   border-radius: 3px;
   color: #fff;
@@ -539,8 +539,8 @@ body {
   padding: 0.5em 1em;
 }
 .ipModuleForm .btn-default:hover {
-  box-shadow: 0 0 0 1px #1e0363 inset;
-  background: #000000;
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
 }
 .ipModuleForm .progress {
   height: 10px;
@@ -758,7 +758,7 @@ body {
   padding-left: 1em;
 }
 .mceContentBody .button {
-  background-color: #1e0363;
+  background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -809,7 +809,7 @@ body {
   margin-top: -1em;
 }
 .mceContentBody a {
-  color: #1e0363;
+  color: #019bd4;
   text-decoration: none;
 }
 .mceContentBody a:hover {
@@ -905,7 +905,7 @@ body {
   margin-left: 0;
 }
 .ipWidget-IpFile a {
-  color: #1e0363;
+  color: #019bd4;
   font-weight: bold;
 }
 .ipWidget-IpFile a:hover {
@@ -2525,7 +2525,7 @@ body {
   padding-left: 1em;
 }
 .theme .button {
-  background-color: #1e0363;
+  background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
   cursor: pointer;
@@ -2536,7 +2536,7 @@ body {
   text-decoration: none;
 }
 .theme a {
-  color: #1e0363;
+  color: #019bd4;
   text-decoration: none;
 }
 .theme .left {
@@ -2621,9 +2621,9 @@ body {
   margin-right: 10px;
 }
 .topmenuToggle {
-  background: #1e0363 url(img/icon_menu.png) no-repeat center center;
+  background: #019bd4 url(img/icon_menu.png) no-repeat center center;
   border-radius: 3px;
-  color: #1e0363;
+  color: #019bd4;
   display: none;
   margin-top: 20px;
   padding: 0.75em 1.5em;
@@ -2646,7 +2646,7 @@ body {
   display: inline-block;
 }
 .topmenu a {
-  color: #1e0363;
+  color: #019bd4;
   display: block;
   padding: 0.5em 1em;
   white-space: nowrap;
@@ -2712,7 +2712,7 @@ body {
   display: inline-block;
 }
 .languages a {
-  color: #1e0363;
+  color: #019bd4;
   display: block;
   padding: 0.5em 0.25em;
   white-space: nowrap;
@@ -2735,7 +2735,7 @@ body {
   margin-left: 1em;
 }
 .sidenav nav a {
-  color: #1e0363;
+  color: #019bd4;
   display: block;
   margin-bottom: 10px;
 }
@@ -2795,9 +2795,9 @@ body {
   }
 }
 .searchToggle {
-  background: #1e0363 url(img/icon_menu.png) no-repeat center center;
+  background: #019bd4 url(img/icon_menu.png) no-repeat center center;
   border-radius: 3px;
-  color: #1e0363;
+  color: #019bd4;
   display: none;
   margin-top: 20px;
   padding: 0.75em 1.5em;
@@ -3103,7 +3103,7 @@ body {
   user-select: none;
 }
 .ipModuleSearch .btn-default {
-  background: #1e0363;
+  background: #019bd4;
   border: none;
   border-radius: 3px;
   color: #fff;
@@ -3114,8 +3114,8 @@ body {
   padding: 0.5em 1em;
 }
 .ipModuleSearch .btn-default:hover {
-  box-shadow: 0 0 0 1px #1e0363 inset;
-  background: #000000;
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
 }
 .ipModuleSearch .progress {
   height: 10px;
