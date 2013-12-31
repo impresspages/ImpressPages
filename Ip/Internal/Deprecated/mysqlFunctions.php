@@ -2,21 +2,7 @@
 
 use \Ip\Db;
 
-function ip_deprecated_mysql_query($query)
-{
-    global $ip_deprecated_mysql_last_rs, $ip_deprecated_mysql_error;
 
-    try {
-        $pdo = ipDb()->getConnection();
-        $ip_deprecated_mysql_last_rs = $pdo->query($query);
-        $ip_deprecated_mysql_error = null;
-        return $ip_deprecated_mysql_last_rs;
-    } catch (\PDO_Exception $pe) {
-        $ip_deprecated_mysql_error = $pe->getMessage();
-    } catch (\Exception $e) {
-        $ip_deprecated_mysql_error = $e->getMessage();
-    }
-}
 
 function ip_deprecated_mysql_real_escape_string($unescaped_string)
 {
