@@ -46,7 +46,7 @@ class Helper
         }
     }
 
-    public static function gen_menu()
+    public static function generateMenu()
     {
 
         $steps = array();
@@ -58,43 +58,54 @@ class Helper
         $steps[] = __('Finish', 'ipInstall');
 
         $answer = '
-    <ul>
+    <div class="list-group">
 ';
 
         foreach ($steps as $key => $step) {
             $class = "";
-            if ($_SESSION['step'] >= $key)
-                $class = "completed";
-            else {
-                $class = "incompleted";
+            if ($_SESSION['step'] >= $key) {
+                $class = "success";
             }
             if ($key == $_SESSION['step']) {
-                $class = "current";
+                $class = "active";
             }
             if ($key <= $_SESSION['step']) {
-                $answer .= '<li onclick="document.location=\'index.php?step=' . ($key) . '\'" class="' . $class . '"><a href="index.php?step=' . ($key) . '">' . $step . '</a></li>';
+                $answer .= '<a href="index.php?step=' . ($key) . '" class="list-group-item ' . $class . '">' . $step . '</a>';
             } else {
-                $answer .= '<li class="' . $class . '"><a>' . $step . '</a></li>';
+                $answer .= '<a href="#" class="list-group-item ' . $class . '">' . $step . '</a>';
             }
 
         }
 
         $answer .= '
-    </ul>
+    </div>
 ';
 
         return $answer;
     }
 
-    public static function gen_table($table)
+    public static function generateTable($table)
     {
         $answer = '';
 
-        $answer .= '<table>';
-        $i = 0;
-        while (sizeof($table) > ($i + 1)) {
-            $answer .= '<tr><td class="label">' . $table[$i] . '</td><td class="value">' . $table[$i + 1] . '</td></tr>';
-            $i += 2;
+        $answer .= '<table class="table">';
+        foreach ($table as $row) {
+            $typeLabel = $class = '';
+            switch ($row['type']) {
+                case 'success':
+                    $typeLabel = __('Ok', 'ipInstall');
+                    $class = 'success';
+                    break;
+                case 'warning':
+                    $typeLabel = __('Warning', 'ipInstall');
+                    $class = 'warning';
+                    break;
+                case 'error':
+                    $typeLabel = __('Error', 'ipInstall');
+                    $class = 'danger';
+                    break;
+            }
+            $answer .= '<tr><th>' . $row['name'] . '</th><td class="text-center ' . $class . '">' . $typeLabel . '</td></tr>';
         }
 
         $answer .= '</table>';
