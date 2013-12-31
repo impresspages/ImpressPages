@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
         <label for="configSiteEmail"><?php _e('Website e-mail address', 'ipInstall'); ?></label>
-        <input type="text" class="form-control" id="configSiteEmail" name="siteEmail">
+        <input type="email" class="form-control" id="configSiteEmail" name="siteEmail">
     </div>
     <div class="form-group">
         <label for="config_login"><?php _e('Administrator login', 'ipInstall'); ?></label>
