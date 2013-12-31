@@ -336,7 +336,7 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
     return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
 }
 
-function ipFormatDate($unixTimestamp, $context = null, $languageId = null)
+function ipFormatDate($unixTimestamp, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
 }
