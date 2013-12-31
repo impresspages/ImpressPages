@@ -15,7 +15,8 @@ use Guzzle\Parser\ParserRegistry;
  * Event dispatcher class
  *
  */
-class Content {
+class Content
+{
     protected $currentLanguage;
     /**
      * @var \Ip\Language[]
@@ -43,11 +44,11 @@ class Content {
      * @return bool true if the system is in management state
      *
      */
-    public function isManagementState(){
+    public function isManagementState()
+    {
         $backendLoggedIn = !empty($_SESSION['backend_session']['userId']);
         return $backendLoggedIn && \Ip\Internal\Content\Service::isManagementMode();
     }
-
 
 
     /**
@@ -77,10 +78,9 @@ class Content {
             return $this->zones[$zoneName];
         }
 
-        $zonesData= $this->getZonesData();
+        $zonesData = $this->getZonesData();
 
-        if(!isset($zonesData[$zoneName]))
-        {
+        if (!isset($zonesData[$zoneName])) {
             return false;
         }
 
@@ -135,7 +135,6 @@ class Content {
     }
 
 
-
     /**
      *
      * @return \Ip\Language[] - all website languages. Each element is an object Language
@@ -146,7 +145,7 @@ class Content {
         if ($this->languages === null) {
             $languages = Internal\ContentDb::getLanguages(true);
             $this->languages = array();
-            foreach($languages as $data){
+            foreach ($languages as $data) {
                 $this->languages[] = $this->createLanguage($data);
             }
         }
@@ -154,14 +153,14 @@ class Content {
     }
 
 
-
     /**
      * @param $id
      * @return bool|Language
      */
-    public function getLanguage($id){
-        $id = (int) $id;
-        foreach($this->getLanguages() as $language){
+    public function getLanguage($id)
+    {
+        $id = (int)$id;
+        foreach ($this->getLanguages() as $language) {
             if ($language->getId() === $id) {
                 return $language;
             }
@@ -207,8 +206,6 @@ class Content {
     }
 
 
-
-
     public function getLanguageUrl()
     {
         if ($this->languageUrl === null) {
@@ -252,7 +249,7 @@ class Content {
             array_shift($urlVars);
         }
         $this->urlVars = $urlVars;
-        for ($i=0; $i< sizeof($urlVars); $i++){
+        for ($i = 0; $i < sizeof($urlVars); $i++) {
             $urlVars[$i] = urldecode($urlVars[$i]);
         }
         if (ipGetOption('Config.multilingual') && !empty($urlVars[0])) {
@@ -337,7 +334,6 @@ class Content {
     }
 
 
-
     public function setBlockContent($block, $content)
     {
         $this->blockContent[$block] = $content;
@@ -352,7 +348,8 @@ class Content {
         }
     }
 
-    public function generateBlock($blockName) {
+    public function generateBlock($blockName)
+    {
         return new \Ip\Block($blockName);
     }
 
@@ -374,7 +371,7 @@ class Content {
     public function generateSlot($name, $params = array())
     {
         $content = null;
-        $data = array (
+        $data = array(
             'slotName' => $name,
             'params' => $params
         );
@@ -405,9 +402,9 @@ class Content {
         $parts = explode('.', $name, 2);
         if (count($parts) == 2) {
             if (in_array($parts[0], \Ip\Internal\Plugins\Model::getModules())) {
-                $slotClass = 'Ip\\Internal\\'.$parts[0].'\\Slot';
+                $slotClass = 'Ip\\Internal\\' . $parts[0] . '\\Slot';
             } else {
-                $slotClass = 'Plugin\\'.$parts[0].'\\Slot';
+                $slotClass = 'Plugin\\' . $parts[0] . '\\Slot';
             }
             if (method_exists($slotClass, $parts[1])) {
                 $content = $slotClass::$parts[1]($params);
@@ -422,25 +419,30 @@ class Content {
     }
 
 
-
     /**
      * If we are in the management state and last revision is published, then create new revision.
      *
      */
-    public function getRevision() {
+    public function getRevision()
+    {
         if ($this->revision !== null) {
             return $this->revision;
         }
         $revision = false;
-        if (\Ip\ServiceLocator::content()->isManagementState()){
+        if (\Ip\ServiceLocator::content()->isManagementState()) {
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Revision::getRevision($revisionId);
             }
 
             if ($this->getCurrentPage()) {
-                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName() || $revision['pageId'] != $this->getCurrentPage()->getId() ) {
-                    $revision = \Ip\Revision::getLastRevision(ipContent()->getCurrentZone()->getName(), $this->getCurrentPage()->getId());
+                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
+                    ) || $revision['pageId'] != $this->getCurrentPage()->getId()
+                ) {
+                    $revision = \Ip\Revision::getLastRevision(
+                        ipContent()->getCurrentZone()->getName(),
+                        $this->getCurrentPage()->getId()
+                    );
                     if ($revision['published']) {
                         $revision = $this->duplicateRevision($revision['revisionId']);
                     }
@@ -451,7 +453,10 @@ class Content {
         } else {
             $currentPage = $this->getCurrentPage();
             if ($currentPage) {
-                $revision = \Ip\Revision::getPublishedRevision(ipContent()->getCurrentZone()->getName(), $currentPage->getId());
+                $revision = \Ip\Revision::getPublishedRevision(
+                    ipContent()->getCurrentZone()->getName(),
+                    $currentPage->getId()
+                );
             }
 
         }
@@ -460,8 +465,8 @@ class Content {
     }
 
 
-
-    private function duplicateRevision($oldRevisionId){
+    private function duplicateRevision($oldRevisionId)
+    {
         $revisionId = \Ip\Revision::duplicateRevision($oldRevisionId);
         $revision = \Ip\Revision::getRevision($revisionId);
         if ($revision === false) {
@@ -476,7 +481,8 @@ class Content {
      * @param null $pageId
      * @return \Ip\Page[]
      */
-    public function getBreadcrumb($zoneName = null, $pageId = null){
+    public function getBreadcrumb($zoneName = null, $pageId = null)
+    {
         if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
             trigger_error("This method can accept none or both parameters");
         }
