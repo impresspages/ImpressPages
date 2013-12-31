@@ -124,7 +124,7 @@ INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_zone_parameter` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
+INSERT INTO `ip_cms_zone_to_language` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
 (620, '', '', 'Menu2', 'menu2', 106, 384),
 (619, '', '', 'Menu2', 'menu2', 106, 344),
 (618, '', '', 'Menu1', 'menu1', 105, 384),

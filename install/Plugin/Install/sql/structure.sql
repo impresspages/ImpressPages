@@ -404,11 +404,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_zone_parameter`;
+DROP TABLE IF EXISTS `ip_cms_zone_to_language`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_parameter` (
+CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` mediumtext,
   `keywords` mediumtext,

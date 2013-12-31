@@ -139,7 +139,7 @@ class Model
                 'title' => $zone->getTitle(),
                 'url' =>self::newZoneUrl($languageId, $zone->getUrl())
             );
-            ipDb()->insert('zone_parameter', $params);
+            ipDb()->insert('zone_to_language', $params);
         }
     }
 
@@ -156,7 +156,7 @@ class Model
                 'keywords' => $keywords,
                 'description' => $description
             );
-            ipDb()->insert('zone_parameter', $params);
+            ipDb()->insert('zone_to_language', $params);
         }
     }
 
@@ -169,12 +169,12 @@ class Model
     protected static function removeZoneToContent($languageId)
     {
         //remove zone translations
-        ipDb()->delete('zone_parameter', array('language_id' => $languageId));
+        ipDb()->delete('zone_to_language', array('language_id' => $languageId));
     }
 
     protected static function newZoneUrl($languageId, $requestedUrl)
     {
-        $table = ipTable('zone_parameter');
+        $table = ipTable('zone_to_language');
         $sql = "
         SELECT
             `url`
@@ -267,7 +267,7 @@ class Model
             'description' => $metaDescription
         );
 
-        ipDb()->update('zone_parameter', $params, array('zone_id' => $zone->getId(), 'language_id' => $languageId));
+        ipDb()->update('zone_to_language', $params, array('zone_id' => $zone->getId(), 'language_id' => $languageId));
 
         $oldUrl = ipFileUrl('') . $language->getUrl() . '/' . $oldUrl . '/';
         $newUrl = ipFileUrl('') . $language->getUrl() . '/' . $newUrl . '/';
