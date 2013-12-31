@@ -296,6 +296,7 @@ class Content
         \Ip\Internal\Pages\Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
     }
 
+    //TODOX implement removeZone();
 
     /**
      * @param string $zoneName
