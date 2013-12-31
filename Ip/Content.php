@@ -156,9 +156,8 @@ class Content {
 
 
     /**
-     *
-     * @return \Ip\Language
-     *
+     * @param $id
+     * @return bool|Language
      */
     public function getLanguage($id){
         $id = (int) $id;
@@ -172,11 +171,8 @@ class Content {
 
 
     /**
-     *
-     * @param data array from database
+     * @param $data
      * @return Language
-     *
-     *
      */
     private function createLanguage($data)
     {
@@ -570,6 +566,7 @@ class Content {
     /**
      * Invalidate zones cache. Use this method if you have added or removed some zones
      */
+    //TODOX make private and execute when needed
     public function invalidateZones()
     {
         $this->zones = null;
