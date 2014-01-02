@@ -1,7 +1,3 @@
-branches:
-  only:
-    - 4.0
-    - /^feature-.*$/
 language: php
 php:
   - 5.3
