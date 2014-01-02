@@ -208,7 +208,7 @@ class PublicController extends \Ip\Controller
 
         foreach (array('hostname', 'username', 'database') as $key) {
             if (empty($db[$key])) {
-                return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'ipInstall', false));
+                return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'Install', false));
             }
         }
 
@@ -217,11 +217,11 @@ class PublicController extends \Ip\Controller
         }
 
         if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'Install', false));
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should sart with letter.', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should sart with letter.', 'Install', false));
         }
 
 
@@ -240,13 +240,13 @@ class PublicController extends \Ip\Controller
         try {
             ipDb()->getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall'), false);
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install'), false);
         }
 
         try {
             Model::createAndUseDatabase($db['database']);
         } catch (\Ip\CoreException $e) {
-            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
@@ -266,7 +266,7 @@ class PublicController extends \Ip\Controller
         $_SESSION['db'] = $dbConfig;
 
         if ($errors) {
-            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
         } else {
             \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
             OptionHelper::import(__DIR__ . '/options.json');
@@ -283,36 +283,36 @@ class PublicController extends \Ip\Controller
     public function writeConfig()
     {
         if (empty($_SESSION['db'])) {
-            return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'ipInstall', 'false'));
+            return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'Install', 'false'));
         }
 
         // Validate input:
         $errors = array();
 
         if (!ipRequest()->getPost('siteName')) {
-            $errors[] = __('Please enter website name.', 'ipInstall', false);
+            $errors[] = __('Please enter website name.', 'Install', false);
         }
 
         if (!ipRequest()->getPost('siteEmail') || !filter_var(ipRequest()->getPost('siteEmail'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = __('Please enter correct website email.', 'ipInstall', false);
+            $errors[] = __('Please enter correct website email.', 'Install', false);
         }
 
         if (!ipRequest()->getPost('install_login') || !ipRequest()->getPost('install_pass')) {
-            $errors[] = __('Please enter administrator login and password.', 'ipInstall', false);
+            $errors[] = __('Please enter administrator login and password.', 'Install', false);
         }
 
         if (ipRequest()->getPost('timezone')) {
             $timezone = ipRequest()->getPost('timezone');
         } else {
-            $errors[] = __('Please choose website time zone.', 'ipInstall', false);
+            $errors[] = __('Please choose website time zone.', 'Install', false);
         }
 
         if (ipRequest()->getPost('email') && !filter_var(ipRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = __('Please enter correct administrator e-mail address.', 'ipInstall', false);
+            $errors[] = __('Please enter correct administrator e-mail address.', 'Install', false);
         }
 
         if (!empty($errors)) {
-            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'ipInstall', false))->addErrorData('errors', $errors);
+            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
         }
 
         $config = array();
@@ -326,13 +326,13 @@ class PublicController extends \Ip\Controller
         try {
             Model::writeConfigFile($config, ipFile('config.php'));
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
 
         try {
             Model::writeRobotsFile(ipFile('robots.txt'));
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'Install', false));
         }
 
 
@@ -340,7 +340,7 @@ class PublicController extends \Ip\Controller
             ipConfig()->_setRaw('db', $config['db']);
             ipDb()->getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'ipInstall', false));
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install', false));
         }
         try {
 
