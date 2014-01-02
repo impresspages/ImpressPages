@@ -38,11 +38,12 @@
                         helper : 'clone',
                         stop: function(event, ui) {
                             if (widgetOnDroppable) {
-                                //jQuery-ui droppable is buggy and fire fake drop event. So we better handle stop event on draggable. This is just for widget side drops
-                                $(widgetOnDroppable).css('backgroundColor', 'gray');
+                                var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
+                                var leftOrRight = widgetOnDroppable.data('leftOrRight');
+                                var widgetName = $(this).data('ipAdminWidgetButton').name;
+                                ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
                             }
                             ipStopWidgetDrag();
-
                         },
                         start: function (event, ui) {
                             ipStartWidgetDrag();
@@ -81,3 +82,4 @@
     };
 
 })(jQuery);
+
