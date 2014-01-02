@@ -346,6 +346,7 @@ class PublicController extends \Ip\Controller
             Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
             Model::setSiteName(ipRequest()->getPost('siteName'));
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
+            Model::generateCronPassword();
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());

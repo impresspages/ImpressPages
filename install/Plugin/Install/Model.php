@@ -363,4 +363,13 @@ Sitemap: '. ipFileUrl('sitemap.php');
         ipSetOption('Config.websiteEmail', $siteEmail);
     }
 
+    public static function generateCronPassword()
+    {
+        $password = random(10000);
+
+        ipSetOption('Config.cronPassword', $password);
+
+        return $password;
+    }
+
 }
