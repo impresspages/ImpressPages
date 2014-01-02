@@ -8,7 +8,6 @@ $(document).ready(function () {
         postData.aa = 'Design.installPlugin';
         postData.securityToken = ip.securityToken;
         postData.params = {
-            'pluginGroup' : $this.data('plugingroup'),
             'pluginName' : $this.data('pluginname')
         };
 
