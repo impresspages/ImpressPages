@@ -67,7 +67,7 @@ class Model
 
     }
 
-    public function installThemePlugin($pluginGroup, $pluginName)
+    public function installThemePlugin($pluginName)
     {
         //refactor to new plugins
         // TODOX Plugin dir
@@ -94,7 +94,7 @@ class Model
 
         $helper = Helper::instance();
         $helper->cpDir($fromDir, $toDir);
-        \Modules\developer\modules\Service::installPlugin($pluginGroup, $pluginName);
+        \Modules\developer\modules\Service::installPlugin($pluginName);
     }
 
     /**

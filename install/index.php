@@ -19,13 +19,30 @@ require_once(__DIR__ . '/../Ip/Application.php');
     $application->prepareEnvironment($options);
     $options = array(
         'skipModuleInit' => 1,
-        'translationsLanguageCode' => 'en'
+        'translationsLanguageCode' => 'lt'
     );
+
+    $translator = \Ip\ServiceLocator::translator();
+
+    $translator->addTranslationFilePattern(
+        'json',
+        ipFile('Plugin/Install/translations/'),
+        'Install-%s.json',
+        'Install'
+    );
+    $translator->addTranslationFilePattern(
+        'json',
+        ipFile('file/translations/override/'),
+        'Install-%s.json',
+        'Install'
+    );
+
     $request = new \Plugin\Install\Request();
     $request->setQuery($_GET);
     $request->setPost($_POST);
     $request->setServer($_SERVER);
     $request->setRequest($_REQUEST);
+
     $response = $application->handleRequest($request, $options);
     $response->send();
 
