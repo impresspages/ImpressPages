@@ -43,14 +43,6 @@ class Config
             $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';
         }
 
-        //* TODOX remove
-        @ob_clean();
-        header('Content-type: text-plain; charset=UTF-8');
-        var_export($this->rawConfig);
-        echo __FILE__ . ':' . (__LINE__ - 2);
-        exit();
-        //*/
-
         if ($this->rawConfig['BASE_DIR'] == '') {
             $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
         }
