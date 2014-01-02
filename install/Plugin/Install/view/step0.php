@@ -4,7 +4,7 @@
     <a href="index.php?step=1&lang=<?php echo htmlspecialchars($key) ?>">
         <?php echo htmlspecialchars($language) ?>
     </a>
-    <?php if ($key == $selectedLanguage) { ?><span class="label label-info"><?php _e('Selected', 'ipInstall; ?></span><?php } ?>
+    <?php if ($key == $selectedLanguage) { ?><span class="label label-info"><?php _e('Selected', 'Install'); ?></span><?php } ?>
 
     <br/>
 <?php } ?>
