@@ -1,9 +1,10 @@
 $(document).ready(function () {
+    "use strict";
     $(document).bind('initFinished.ipContentManagement', function () {
         $('.ipActionWidgetButton')
             .bind('dragstart', function (event, ui) {
                 $('.ipBlock > .ipbExampleContent').each(function () {
-                    $ipExampleContent = $(this);
+                    var $ipExampleContent = $(this);
                     var $block = $ipExampleContent.parent();
 
                     if ($block.css('min-height')) {
@@ -18,7 +19,7 @@ $(document).ready(function () {
             })
             .bind('dragstop', function (event, ui) {
                 $('.ipBlock > .ipbExampleContent').each(function () {
-                    $ipExampleContent = $(this);
+                    var $ipExampleContent = $(this);
                     var $block = $ipExampleContent.parent();
                     if ($block.children('.ipAdminWidgetPlaceholder').length) {
                         $ipExampleContent.remove();

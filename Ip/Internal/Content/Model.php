@@ -148,7 +148,6 @@ class Model
             'data' => $data,
             'created' => time(),
             'recreated' => time(),
-            'predecessor' => null,
             'instanceId' => null,
             'revisionId' => null,
             'position' => null,
@@ -451,19 +450,14 @@ class Model
      * @param string $layout
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $layout, $predecessor)
+    public static function createWidget($widgetName, $data, $layout)
     {
-        if ($layout == null) {
-            $layout = self::DEFAULT_LAYOUT;
-        }
-
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
                 'layout' => $layout,
                 'created' => time(),
                 'recreated' => time(),
-                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
-                'predecessor' => $predecessor,
+                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
             ));
     }
 
@@ -587,6 +581,31 @@ class Model
         );
         \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
     }
+
+    protected static function getInstance($instanceId)
+    {
+        $instances = ipDb()->select('*', 'widget_instance', array('instanceId' => $instanceId));
+        if (isset($instances[0])) {
+            return $instances[0];
+        } else {
+            return false;
+        }
+    }
+
+    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
+    {
+        $leftInstance = self::getInstance($leftWidgetInstanceId);
+        $rightInstance = self::getInstance($rightWidgetInstanceId);
+        if (!$leftInstance || !$rightInstance) {
+            throw new \Ip\CoreException('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
+            throw new \Ip\CoreException("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        //TODOX finish the implementation
+
+    }
+
 
 
 }
