@@ -45,7 +45,7 @@ class AdminController extends \Ip\Controller
         //filter plugins that are already installed
         foreach ($themePlugins as $key => $plugin) {
             // TODOX Plugin dir
-//            if (!is_dir(BASE_DIR . PLUGIN_DIR . $plugin->getModuleGroupKey() . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
+//            if (!is_dir(BASE_DIR . PLUGIN_DIR . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
 //                $notInstalledPlugins[] = $plugin;
 //            }
         }
@@ -78,15 +78,14 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $postData = ipRequest()->getPost();
 
-        if (empty($postData['params']['pluginGroup']) || empty($postData['params']['pluginName'])) {
+        if (empty($postData['params']['pluginName'])) {
             throw new \Exception("Missing required parameters");
         }
-        $pluginGroup = $postData['params']['pluginGroup'];
         $pluginName = $postData['params']['pluginName'];
 
         $model = Model::instance();
         try {
-            $model->installThemePlugin($pluginGroup, $pluginName);
+            $model->installThemePlugin($pluginName);
 
             $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed. Please refresh the browser.', 'ipAdmin');
 

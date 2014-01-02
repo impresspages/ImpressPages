@@ -46,9 +46,6 @@ abstract class Zone{
     protected $description;
 
     /** string */
-    protected $associatedModuleGroup;
-
-    /** string */
     protected $associatedModule;
 
     /** Page - Once it is found, it is stored for future use. */
@@ -64,7 +61,6 @@ abstract class Zone{
     public function __construct($parameters){
         $this->name = isset($parameters['name']) ? $parameters['name'] : '';
         $this->layout = isset($parameters['template']) ? $parameters['template'] : '';
-        $this->associatedModuleGroup = isset($parameters['associated_group']) ? $parameters['associated_group'] : '';
         $this->associatedModule = isset($parameters['associated_module']) ? $parameters['associated_module'] : '';
         $this->titleInAdmin = isset($parameters['translation']) ? $parameters['translation'] : '';
 
@@ -208,10 +204,8 @@ abstract class Zone{
      * If you need to do some actions before any output, extend this class.
      * This function is always executed by the system when this zone is active (current page belongs to the zone).
      *
-     * Also this function is executed if two reserved GET parameters are passed (module_group, module_name) and they are equal to current zone group and name.
+     * Also this function is executed if two reserved GET parameters are passed (module_name) and they are equal to current zone group and name.
      *
-     * module_group == $this->associatedModuleGroup;
-     * and
      * module_name == $this->associatedModule;
      *
      */
@@ -252,11 +246,6 @@ abstract class Zone{
     public function getDescription(){return $this->description;}
     /** @param $description string */
     public function setDescription($description){$this->description=$description;}
-
-    /** @return string */
-    public function getAssociatedModuleGroup(){return $this->associatedModuleGroup;}
-    /** @param $associatedModuleGroup string */
-    public function setAssociatedModuleGroup($associatedModuleGroup){$this->associatedModuleGroup=$associatedModuleGroup;}
 
     /** @return string */
     public function getAssociatedModule(){return $this->associatedModule;}

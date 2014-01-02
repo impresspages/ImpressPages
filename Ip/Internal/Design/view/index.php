@@ -34,7 +34,7 @@
                     <dt><?php echo $key == 0 ? __('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
                     <dd>
                         <?php echo esc($plugin->getModuleTitle()); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin->getModuleKey()) ?>" data-plugingroup="<?php echo esc($plugin->getModuleGroupKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin->getModuleKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>

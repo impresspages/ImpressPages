@@ -47,7 +47,6 @@ class Helper
         $zoneObject->setUrl($zoneData['url']);
         $zoneObject->setKeywords($zoneData['keywords']);
         $zoneObject->setDescription($zoneData['description']);
-        $zoneObject->setAssociatedModuleGroup($zoneData['associated_group']);
         $zoneObject->setAssociatedModule($zoneData['associated_module']);
         return $zoneObject;
     }
