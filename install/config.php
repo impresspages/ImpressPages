@@ -1,5 +1,19 @@
 <?php
 
+$pageUrl = '';
+if ($_SERVER["SERVER_PORT"] != "80") {
+    $pageUrl .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+} else {
+    $pageUrl .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+}
+
+$pageUrl = substr($pageUrl, 0, strrpos($pageUrl, '/'));
+
+if (getenv('TRAVIS')) {
+    $pageUrl =  'localhost/phpunit/tmp/installTest/install';
+}
+
+
 return array(
     // GLOBAL
     'SESSION_NAME' => 'install', //prevents session conflict when two sites runs on the same server
@@ -38,24 +52,9 @@ return array(
     ),
 
     'URL_OVERRIDES' => array(
-        'Plugin/' => 'http://localhost/phpunit/tmp/installTest/install/Plugin/',//TODOX find the way to add domain
-        'Theme/' => 'http://localhost/phpunit/tmp/installTest/install/Theme/',
-        'Ip/' => 'http://localhost/phpunit/tmp/installTest/Ip/',
+        'Plugin/' => "http://{$pageUrl}/Plugin/",//TODOX find the way to add domain
+        'Theme/' => "http://{$pageUrl}/Theme/",
+        'Ip/' => 'http://' . dirname($pageUrl) . '/Ip/',
     )
 );
 
-function getCurUrl() {
-    $pageURL = '';
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-    } else {
-        $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
-    }
-
-    $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
-
-    if (getenv('TRAVIS')) {
-        return 'localhost/phpunit/tmp/installTest/install';
-    }
-    return $pageURL;
-}
