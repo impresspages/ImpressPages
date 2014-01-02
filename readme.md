@@ -1,3 +1,6 @@
+# 4.0 is under active development
+# Use it only for review purposes.
+
 # ImpressPages CMS
 
 ## About ImpressPages
