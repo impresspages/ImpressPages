@@ -121,6 +121,7 @@ class AdminController extends \Ip\Controller
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
+        $columnId = empty($_POST['columnId']) ? null : $_POST['columnId'];
 
         if ($revisionId == '') {
             //Static block;
@@ -148,6 +149,7 @@ class AdminController extends \Ip\Controller
             }
 
         }
+
         $widgetObject = Model::getWidgetObject($widgetName);
         if ($widgetObject === false) {
             return $this->_errorAnswer('Unknown widget "' . $widgetName . '"');
@@ -155,10 +157,8 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $layouts = $widgetObject->getLooks();
-            $widgetObject = Model::getWidgetObject($widgetName);
-            $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
-            $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
+            $widgetId = Service::addWidget($widgetName);
+            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);

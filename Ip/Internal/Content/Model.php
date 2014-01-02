@@ -148,7 +148,6 @@ class Model
             'data' => $data,
             'created' => time(),
             'recreated' => time(),
-            'predecessor' => null,
             'instanceId' => null,
             'revisionId' => null,
             'position' => null,
@@ -451,19 +450,14 @@ class Model
      * @param string $layout
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $layout, $predecessor)
+    public static function createWidget($widgetName, $data, $layout)
     {
-        if ($layout == null) {
-            $layout = self::DEFAULT_LAYOUT;
-        }
-
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
                 'layout' => $layout,
                 'created' => time(),
                 'recreated' => time(),
-                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
-                'predecessor' => $predecessor,
+                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
             ));
     }
 
