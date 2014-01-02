@@ -8,7 +8,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        TestEnvironment::initCode();
+        TestEnvironment::initCode('install.php');
         TestEnvironment::cleanupFiles();
 
         $installation = new \PhpUnit\Helper\Installation(); //development version
@@ -69,18 +69,18 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($title, 'Title should not be empty');
         $this->assertEquals('ImpressPages CMS installation wizard', $title->getHtml());
 
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
         $this->assertEquals('System check', $page->find('css', 'h1')->getText());
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
 
 
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
         $this->assertEquals('ImpressPages Legal Notices', $page->find('css', 'h1')->getText());
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
 
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
         $this->assertEquals('Database installation', $page->find('css', 'h1')->getText());
         // There is a hidden error message
 
@@ -95,14 +95,14 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('db_user')->setValue($testDbHelper->getDbUser());
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
         sleep(1);
-        $this->assertEquals('Can\'t connect to database.', $page->find('css', '.errorContainer .error')->getText());
+        $this->assertEquals('Can\'t connect to database.', $page->find('css', '.errorContainer .alert')->getText());
 
 
 
         $page->findById('db_pass')->setValue($testDbHelper->getDbPass());
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
 
         sleep(1);
 
@@ -114,11 +114,11 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('config_pass')->setValue('admin');
         $page->findById('config_email')->setValue('test@example.com');
         $page->findById('config_timezone')->selectOption('Europe/London');
-        $page->find('css', '.button_act')->click();
+        $page->find('css', '.btn-primary')->click();
 
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
-        $this->assertEquals('ImpressPages CMS successfully installed.', $page->find('css', 'h1')->getText());
+        $this->assertEquals('ImpressPages CMS has been successfully installed.', $page->find('css', '.alert-success')->getText());
 
         $page->clickLink('Front page');
 
@@ -129,18 +129,18 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
 
-        $headline = $page->find('css', '.homeHeadline');
-        $this->assertNotEmpty($headline);
-        $this->assertEquals('ImpressPages theme Blank', $headline->getText());
+        $title = $page->find('css', '.logo a');
+        $this->assertNotEmpty($title);
+        $this->assertEquals('TestSiteName', $title->getText());
 
         $session->stop();
 
     }
 
-    public function testCustomPort()
-    {
-        $this->testInstallCurrent(3306);
-    }
+//    public function testCustomPort()
+//    {
+//        $this->testInstallCurrent(3306);
+//    }
 
     /**
      * @param \Behat\Mink\Element\DocumentElement $page
