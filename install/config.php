@@ -53,5 +53,9 @@ function getCurUrl() {
     }
 
     $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+
+    if (getenv('TRAVIS')) {
+        return 'localhost/phpunit/tmp/installTest/install';
+    }
     return $pageURL;
 }
