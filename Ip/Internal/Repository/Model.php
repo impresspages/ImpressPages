@@ -47,7 +47,7 @@ class Model{
     
     public static function bindFile($file, $module, $instanceId) {
         $row = array(
-            'file' => $file,
+            'filename' => $file,
             'module' => $module,
             'instanceId' => $instanceId,
             'date' => time()
