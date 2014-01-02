@@ -25,6 +25,10 @@ class PublicController extends \Ip\Controller
         if (empty($_SESSION['step'])) {
             $_SESSION['step'] = 0;
         }
+
+        if (isset($_GET['lang'])) {
+            $_SESSION['installation_language'] = $_GET['lang'];
+        }
     }
 
     public function index ()
@@ -38,11 +42,6 @@ class PublicController extends \Ip\Controller
             $step = 5;
         }
         $_SESSION['step'] = $step;
-
-        // todox: make it work
-        if (isset($_GET['lang'])) {
-            $_SESSION['installation_language'] = $_GET['lang'];
-        }
 
         $method = 'step' . $step;
         return $this->$method();
@@ -62,9 +61,9 @@ class PublicController extends \Ip\Controller
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
 
-        $selected_language = (isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en');
+        $selected_language = isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en';
 
-        $data['selectedLanguage'] = in_array($selected_language,$languages) ? $selected_language : 'en';
+        $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
         $data['languages'] = $languages;
 
         $content = \Ip\View::create('view/step0.php', $data)->render();
