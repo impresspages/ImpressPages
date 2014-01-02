@@ -32,6 +32,6 @@ return array(
       'THEME' => 'Blank',
       'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
     
-       'timezone' => 'Africa/Abidjan',
+       'TIMEZONE' => 'Africa/Abidjan',
     // END FRONTEND
 );

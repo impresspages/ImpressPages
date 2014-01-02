@@ -43,6 +43,10 @@ class Config
             $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';
         }
 
+        if (getenv('TRAVIS')) {
+            $this->rawConfig['BASE_URL'] = 'localhost/phpunit/tmp/installTest/install/';
+        }
+
         if ($this->rawConfig['BASE_DIR'] == '') {
             $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
         }

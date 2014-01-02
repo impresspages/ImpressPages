@@ -29,7 +29,7 @@ return array(
     'THEME' => 'CentrusCleanus', //theme from themes directory
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5', //look ip_cms/includes/Ip/View.php for available options.
 
-    'timezone' => 'Europe/Vilnius', //TODOX replace with current
+    'TIMEZONE' => 'Europe/Vilnius', //TODOX replace with current
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(
