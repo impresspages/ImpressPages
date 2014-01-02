@@ -47,7 +47,6 @@ server {
 	location ~ \.php {
 		fastcgi_pass	unix:$PHP_FPM_SOCK;
 		include			fastcgi_params;
-		fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 	}
 }
 " | sudo tee $NGINX_CONF > /dev/null
