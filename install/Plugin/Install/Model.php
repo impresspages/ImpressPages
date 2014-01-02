@@ -365,7 +365,7 @@ Sitemap: '. ipFileUrl('sitemap.php');
 
     public static function generateCronPassword()
     {
-        $password = random(10000);
+        $password = \rand(100000, 999999);
 
         ipSetOption('Config.cronPassword', $password);
 
