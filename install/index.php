@@ -19,7 +19,7 @@ require_once(__DIR__ . '/../Ip/Application.php');
     $application->prepareEnvironment($options);
     $options = array(
         'skipModuleInit' => 1,
-        'translationsLanguageCode' => 'lt'
+        'translationsLanguageCode' => 'en'
     );
 
     $translator = \Ip\ServiceLocator::translator();
@@ -42,6 +42,13 @@ require_once(__DIR__ . '/../Ip/Application.php');
     $request->setPost($_POST);
     $request->setServer($_SERVER);
     $request->setRequest($_REQUEST);
+
+    if (isset($_SESSION['installation_language'])) {
+        $options['translationsLanguageCode'] = $_SESSION['installation_language'];
+    }
+    if (isset($_REQUEST['lang'])) {
+        $options['translationsLanguageCode'] = $_REQUEST['lang'];
+    }
 
     $response = $application->handleRequest($request, $options);
     $response->send();

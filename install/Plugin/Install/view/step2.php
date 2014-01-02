@@ -10,6 +10,6 @@
 <p><strong>Automatic updates disclaimer</strong></p>
 <p>ImpressPages is configured to check for the updates automatically. This requires for the technical data of the website to be transfered to ImpressPages service servers. This process does not transfer any personal data or any part of the website's content.</p>
 <p class="text-right">
-    <a class="btn btn-default" href="?step=1"><?php _e('Back', 'ipInstall ?></a>
+    <a class="btn btn-default" href="?step=1"><?php _e('Back', 'Install') ?></a>
     <a class="btn btn-primary" href="?step=3"><?php _e('Accept', 'Install') ?></a>
 </p>
