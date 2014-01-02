@@ -54,10 +54,6 @@
                         $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
 
 
-                        $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
-                        $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
-                        //$this.bind('dialogclose', methods._optionsCancel);
-
                         $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
 
                         $this.trigger('initFinished.ipContentManagement', options);
