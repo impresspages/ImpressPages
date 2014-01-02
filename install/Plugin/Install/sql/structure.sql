@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_file` (
   `date` int(11) NOT NULL COMMENT 'Date, when this module started to use this resource.',
   PRIMARY KEY (`fileId`),
   KEY `filename` (`filename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files';
 
 
 -- Table structure
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
   `created` int(11) NOT NULL,
   PRIMARY KEY (`reflectionId`),
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
 
 
 -- Table structure
@@ -191,15 +191,13 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `recreated` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
   `predecessor` int(11) DEFAULT NULL COMMENT 'Id of other widget that was duplicated to create this widget',
   PRIMARY KEY (`widgetId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Table structure
 
 
 
 DROP TABLE IF EXISTS `ip_cms_widget_instance`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `instanceId` int(11) NOT NULL AUTO_INCREMENT,
@@ -210,8 +208,10 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   `created` int(11) NOT NULL COMMENT 'unix timestamp',
   `deleted` int(11) DEFAULT NULL COMMENT 'unix timestamp',
+  `columns` text,
   PRIMARY KEY (`instanceId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1974 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 
 -- Table structure
 
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_design` (
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `theme` (`theme`,`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
@@ -238,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_m_developer_widget_sort` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'used for maintenance only',
   PRIMARY KEY (`sortId`),
   UNIQUE KEY `widgetName` (`widgetName`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Table structure
 
@@ -339,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `created` int(11) NOT NULL,
   PRIMARY KEY (`revisionId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- Table structure
 
