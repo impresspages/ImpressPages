@@ -431,5 +431,5 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_page` (
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `element_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='tells how mutch elements have language' ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
