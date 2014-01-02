@@ -96,7 +96,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
         $page->find('css', '.btn-primary')->click();
-        sleep(2);
+        sleep(1);
         $alert = $page->find('css', '.errorContainer .alert');
         $this->assertNotEmpty($alert);
         $this->assertEquals('Can\'t connect to database.', $alert->getText());
