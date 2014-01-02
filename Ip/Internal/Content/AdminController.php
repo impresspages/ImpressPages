@@ -21,44 +21,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array(1));
     }
 
-    private function getPagesList($language, $zone, $parentElementId = null)
-    {
-        $answer = '';
-        $pages = $zone->getElements(
-            $language['id'],
-            $parentElementId,
-            $startFrom = 0,
-            $limit = null,
-            $includeHidden = true,
-            $reverseOrder = false
-        );
-        if ($pages && sizeof($pages) > 0) {
-            $answer .= '<ul>' . "\n";
-            foreach ($pages as $key => $page) {
-                $answer .= '<li><a href="' . $page->getLink(true) . '">' . $page->getNavigationTitle() . '</a>';
-                $answer .= $this->getPagesList($language, $zone, $page->getId());
-                $answer .= '</li>';
-            }
-            $answer .= '</ul>' . "\n";
-        }
-        return $answer;
-    }
-
-
-    /**
-     * @param $zone
-     * @param $page
-     * @return string content
-     */
-    private function _getPageDesignOptionsHtml($zone, $page, $data)
-    {
-        $data['defaultLayout'] = $zone->getLayout();
-        $data['layouts'] = \Ip\Internal\Content\Model::getThemeLayouts();
-        $data['layout'] = \Ip\Internal\Content\Service::getPageLayout($page);
-        return \Ip\View::create('view/page_options_design.php', $data)->render();
-    }
-
-
     public function moveWidget()
     {
 
@@ -102,6 +64,18 @@ class AdminController extends \Ip\Controller
             'newInstanceId' => $newInstanceId
         );
 
+        return new \Ip\Response\Json($data);
+    }
+
+    private function _errorAnswer($errorMessage)
+    {
+
+        $data = array(
+            'status' => 'error',
+            'errorMessage' => $errorMessage
+        );
+
+        // TODO use jsonrpc response
         return new \Ip\Response\Json($data);
     }
 
@@ -177,7 +151,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
 
     }
-
 
     public function updateWidget()
     {
@@ -274,7 +247,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-
     public function savePage()
     {
 
@@ -317,21 +289,6 @@ class AdminController extends \Ip\Controller
 
         return new \Ip\Response\Json($data);
 
-    }
-
-
-
-
-    private function _errorAnswer($errorMessage)
-    {
-
-        $data = array(
-            'status' => 'error',
-            'errorMessage' => $errorMessage
-        );
-
-        // TODO use jsonrpc response
-        return new \Ip\Response\Json($data);
     }
 
 }
