@@ -44,11 +44,6 @@ class WidgetController
         return $this->name;
     }
 
-    //TODOX remove
-    public function getModuleGroup()
-    {
-        return $this->moduleGroup;
-    }
 
     public function getModuleName()
     {

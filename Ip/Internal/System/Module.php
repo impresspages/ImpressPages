@@ -64,7 +64,7 @@ class Module
             curl_setopt($ch, CURLOPT_URL, \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl());
             curl_setopt($ch, CURLOPT_POST, 1);
 
-            $postFields = 'module_name=communication&module_group=service&action=getInfo&version=1&afterLogin=';
+            $postFields = 'module_name=communication&action=getInfo&version=1&afterLogin=';
             $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
             //TODOX refactor
@@ -107,7 +107,7 @@ class Module
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
             CURLOPT_URL => \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
+            CURLOPT_POSTFIELDS => 'module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
         );
 
         curl_setopt_array($ch, $options);

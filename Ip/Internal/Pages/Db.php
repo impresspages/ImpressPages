@@ -47,7 +47,7 @@ class Db {
         SELECT
             mte.*
         FROM
-            ".ipTable('zone_to_page', 'mte')."
+            ".ipTable('zone_to_content', 'mte')."
         WHERE
             mte.element_id = :pageId
         ";
@@ -69,8 +69,8 @@ class Db {
         SELECT
             mte.*
         FROM
-            ".ipTable('zone_to_page', 'mte').",
-            ".ipTable('page', 'page')."
+            ".ipTable('zone_to_content', 'mte').",
+            ".ipTable('content_element', 'page')."
         WHERE
             page.id = :pageId
             AND
@@ -112,7 +112,7 @@ class Db {
         $sql = '
             SELECT
                 mte.element_id
-            FROM ' . ipTable('zone_to_page', 'mte') . ', ' . ipTable('language', 'l') . '
+            FROM ' . ipTable('zone_to_content', 'mte') . ', ' . ipTable('language', 'l') . '
             WHERE l.id = :languageId AND  mte.language_id = l.id AND zone_id = :zoneId';
 
         $where = array(
@@ -139,9 +139,9 @@ class Db {
      */
     protected static function createRootZoneElement($zoneId, $languageId)
     {
-        $pageId = ipDb()->insert('page', array('visible' => 1));
+        $pageId = ipDb()->insert('content_element', array('visible' => 1));
 
-        ipDb()->insert('zone_to_page', array(
+        ipDb()->insert('zone_to_content', array(
                 'language_id' => $languageId,
                 'zone_id' => $zoneId,
                 'element_id' => $pageId,
@@ -152,7 +152,7 @@ class Db {
 
     public static function deleteRootZoneElements($languageId)
     {
-        return ipDb()->delete('zone_to_page', array('language_id' => $languageId));
+        return ipDb()->delete('zone_to_content', array('language_id' => $languageId));
     }
 
     public static function isChild($pageId, $parentId)
@@ -180,7 +180,7 @@ class Db {
      */
     public static function pageChildren($parentId)
     {
-        return ipDb()->select('*', 'page', array('parent' => $parentId), 'ORDER BY `row_number`');
+        return ipDb()->select('*', 'content_element', array('parent' => $parentId), 'ORDER BY `row_number`');
     }
 
     /**
@@ -191,7 +191,7 @@ class Db {
      */
     private static function getPage($id)
     {
-        $rs = ipDb()->select('*', 'page', array('id' => $id));
+        $rs = ipDb()->select('*', 'content_element', array('id' => $id));
         return $rs ? $rs[0] : null;
     }
 
@@ -203,7 +203,7 @@ class Db {
     public static function getZones($languageId)
     {
         $sql = 'SELECT m.*, p.url, p.description, p.keywords, p.title
-                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_to_language', 'p') . '
+                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') . '
                 WHERE
                     p.zone_id = m.id
                     AND p.language_id = ?
@@ -309,7 +309,7 @@ class Db {
             return true; //nothing to update.
         }
 
-        ipDb()->update('page', $values, array('id' => $pageId));
+        ipDb()->update('content_element', $values, array('id' => $pageId));
 
         if (isset($params['url']) && $oldPage->getUrl() != $params['url']) {
             $newPage = $zone->getPage($pageId);
@@ -319,7 +319,7 @@ class Db {
 
         if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipThemeFile(''))) {
             $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
-            self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
+            self::changePageLayout($zone->getAssociatedModule(), $pageId, $layout);
         }
 
         return true;
@@ -332,18 +332,16 @@ class Db {
      * @param $newLayout
      * @return bool whether layout was changed or not
      */
-    private static function changePageLayout($groupName, $moduleName, $pageId, $newLayout) {
+    private static function changePageLayout($moduleName, $pageId, $newLayout) {
         $dbh = ipDb()->getConnection();
 
         $sql = 'SELECT `layout`
                 FROM ' . ipTable('page_layout') . '
-                WHERE group_name    = :groupName
-                    AND module_name = :moduleName
+                WHERE module_name = :moduleName
                     AND `page_id`   = :pageId';
         $q = $dbh->prepare($sql);
         $q->execute(
             array(
-                'groupName' => $groupName,
                 'moduleName' => $moduleName,
                 'pageId' => $pageId,
             )
@@ -355,13 +353,11 @@ class Db {
         if (empty($newLayout)) {
             if ($oldLayout) {
                 $sql = 'DELETE FROM ' . ipTable('page_layout') . '
-                        WHERE `group_name` = :groupName
-                            AND `module_name` = :moduleName
+                        WHERE `module_name` = :moduleName
                             AND `page_id` = :pageId';
                 $q = $dbh->prepare($sql);
                 $result = $q->execute(
                     array(
-                        'groupName' => $groupName,
                         'moduleName' => $moduleName,
                         'pageId' => $pageId,
                     )
@@ -370,38 +366,19 @@ class Db {
             }
         } elseif ($newLayout != $oldLayout && file_exists(ipThemeFile($newLayout))) {
             if (!$oldLayout) {
-                $sql = 'INSERT IGNORE INTO ' . ipTable('page_layout') . '
-                        (`group_name`, `module_name`, `page_id`, `layout`)
-                        VALUES
-                        (:groupName, :moduleName, :pageId, :layout)';
-
-
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'groupName' => $groupName,
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
-                        'layout' => $newLayout,
-                    )
-                );
+                ipDb()->insert('page_layout', array(
+                        'module_name' => $moduleName,
+                        'page_id' => $pageId,
+                        'layout' => $newLayout
+                    ), true);
                 $wasLayoutChanged = true;
             } else {
-                $sql = 'UPDATE ' . ipTable('page_layout') . '
-                        SET `layout` = :layout
-                        WHERE `group_name` = :groupName
-                            AND `module_name` = :moduleName
-                            AND `page_id` = :pageId';
-
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'groupName' => $groupName,
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
+                ipDb()->update('page_layout', array(
                         'layout' => $newLayout,
-                    )
-                );
+                    ), array(
+                        'module_name' => $moduleName,
+                        'page_id' => $pageId,
+                    ));
                 $wasLayoutChanged = true;
             }
         }
@@ -486,11 +463,11 @@ class Db {
             $row['cached_text'] = $params['cached_text'];
         }
 
-        return ipDb()->insert('page', $row);
+        return ipDb()->insert('content_element', $row);
     }
 
     private static function getMaxIndex($parentId) {
-        $rs = ipDb()->select("MAX(`row_number`) AS `max_row_number`", 'page', array('parent' => $parentId));
+        $rs = ipDb()->select("MAX(`row_number`) AS `max_row_number`", 'content_element', array('parent' => $parentId));
         return $rs ? $rs[0]['max_row_number'] : null;
     }
 
@@ -502,14 +479,14 @@ class Db {
      */
     public static function deletePage($id)
     {
-        ipDb()->delete('page', array('id' => $id));
+        ipDb()->delete('content_element', array('id' => $id));
     }
 
 
     public static function copyPage($nodeId, $newParentId, $newIndex)
     {
         $db = ipDb();
-        $rs = $db->select('*', 'page', array('id' => $nodeId));
+        $rs = $db->select('*', 'content_element', array('id' => $nodeId));
         if (!$rs) {
             trigger_error("Element does not exist");
         }
@@ -520,7 +497,7 @@ class Db {
         $copy['row_number'] = $newIndex;
         $copy['url'] = self::ensureUniqueUrl($copy['url']);
 
-        return ipDb()->insert('page', $copy);
+        return ipDb()->insert('content_element', $copy);
     }
 
 
@@ -531,7 +508,7 @@ class Db {
      */
     public static function availableUrl($url, $allowedId = null){
 
-        $rs = ipDb()->select('`id`', 'page', array('url' => $url));
+        $rs = ipDb()->select('`id`', 'content_element', array('url' => $url));
 
         if (!$rs) {
             return true;
