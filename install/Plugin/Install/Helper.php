@@ -50,12 +50,12 @@ class Helper
     {
 
         $steps = array();
-        $steps[] = __('Language selection', 'ipInstall');
-        $steps[] = __('System check', 'ipInstall');
-        $steps[] = __('License', 'ipInstall');
-        $steps[] = __('Database', 'ipInstall');
-        $steps[] = __('Configuration', 'ipInstall');
-        $steps[] = __('Finish', 'ipInstall');
+        $steps[] = __('Language selection', 'Install');
+        $steps[] = __('System check', 'Install');
+        $steps[] = __('License', 'Install');
+        $steps[] = __('Database', 'Install');
+        $steps[] = __('Configuration', 'Install');
+        $steps[] = __('Finish', 'Install');
 
         $answer = '
     <div class="list-group">
@@ -93,15 +93,15 @@ class Helper
             $typeLabel = $class = '';
             switch ($row['type']) {
                 case 'success':
-                    $typeLabel = __('Ok', 'ipInstall');
+                    $typeLabel = __('Ok', 'Install');
                     $class = 'success';
                     break;
                 case 'warning':
-                    $typeLabel = __('Warning', 'ipInstall');
+                    $typeLabel = __('Warning', 'Install');
                     $class = 'warning';
                     break;
                 case 'error':
-                    $typeLabel = __('Error', 'ipInstall');
+                    $typeLabel = __('Error', 'Install');
                     $class = 'danger';
                     break;
             }
