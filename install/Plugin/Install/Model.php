@@ -355,12 +355,12 @@ Sitemap: '. ipFileUrl('sitemap.php');
 
     public static function setSiteName($siteName)
     {
-        ipSetOption('Site.title', $siteName);
+        ipSetOption('Config.websiteTitle', $siteName);
     }
 
     public static function setSiteEmail($siteEmail)
     {
-        ipSetOption('Site.email', $siteEmail);
+        ipSetOption('Config.websiteEmail', $siteEmail);
     }
 
 }
