@@ -66,8 +66,8 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layout`) VALUES
-('', 'Content', 64, 'home.php');
+INSERT INTO `ip_cms_page_layout` (`module_name`, `page_id`, `layout`) VALUES
+('Content', 64, 'home.php');
 
 -- Dumping data for table--
 
