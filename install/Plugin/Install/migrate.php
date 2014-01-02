@@ -21,7 +21,7 @@ foreach ($translations as $id => $translation)
 // Add slashes:
 foreach ($translations as $id => $translation)
 {
-    $translations[$id] = "__('" . addslashes($translation) . "', 'ipInstall')";
+    $translations[$id] = "__('" . addslashes($translation) . "', 'Install')";
 }
 
 $files = glob(__DIR__ . '/view/*.php');

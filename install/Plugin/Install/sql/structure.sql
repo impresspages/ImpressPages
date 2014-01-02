@@ -274,11 +274,10 @@ DROP TABLE IF EXISTS `ip_cms_page_layout`;
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_page_layout` (
-  `group_name` varchar(128) NOT NULL,
   `module_name` varchar(128) NOT NULL,
   `page_id` int(11) unsigned NOT NULL,
   `layout` varchar(255) NOT NULL,
-  UNIQUE KEY `group_name` (`group_name`,`module_name`,`page_id`)
+  UNIQUE KEY `page_key` (`module_name`,`page_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Custom page layouts';
 
 
