@@ -90,21 +90,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_module_group`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_module_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
 DROP TABLE IF EXISTS `ip_cms_module_permission`;
 
 -- Table structure
@@ -396,7 +381,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
   `name` varchar(30) NOT NULL DEFAULT '',
   `template` varchar(255) DEFAULT NULL,
   `translation` varchar(255) NOT NULL,
-  `associated_group` varchar(255) DEFAULT NULL,
   `associated_module` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)

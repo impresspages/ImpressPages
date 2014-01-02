@@ -36,7 +36,6 @@ class Service
     {
         $zone = ipContent()->getZone($page->getZoneName());
         $layout = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()
         );
