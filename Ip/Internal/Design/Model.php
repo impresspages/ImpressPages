@@ -241,7 +241,7 @@ class Model
         if ($dir) {
             $currentThemeDir = ipThemeFile('');
             // TODOX add theme override to config
-            ipConfig()->_changeCore('THEME_DIR', $dir);
+            // ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 
         $metadata = new ThemeMetadata();
@@ -305,10 +305,6 @@ class Model
 
 
         $theme = new Theme($metadata);
-
-        if ($dir) {
-            ipConfig()->_changeCore('THEME_DIR', $currentThemeDir);
-        }
 
         return $theme;
     }
