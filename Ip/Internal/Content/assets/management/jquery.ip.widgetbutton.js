@@ -4,8 +4,10 @@
  *
  */
 
-(function($) {
 
+
+(function($) {
+    "use strict";
     var methods = {
         init : function(options) {
             return this.each(function() {
@@ -34,9 +36,20 @@
                             }
                         },
                         helper : 'clone',
-                        stop: function(event, ui) { }
+                        stop: function(event, ui) {
+                            if (widgetOnDroppable) {
+                                var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
+                                var leftOrRight = widgetOnDroppable.data('leftOrRight');
+                                var widgetName = $(this).data('ipAdminWidgetButton').name;
+                                ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+                            }
+                            ipStopWidgetDrag();
+                        },
+                        start: function (event, ui) {
+                            ipStartWidgetDrag();
+                        }
                     });
-                    
+
                     $this.data('ipAdminWidgetButton', {
                         name : $this.attr('id').substr(20)
                     });
@@ -69,3 +82,4 @@
     };
 
 })(jQuery);
+

@@ -1,12 +1,12 @@
 /**
- * @package ImpressPages
- *
- *
- */
+* @package ImpressPages
+*
+*
+*/
 
 $(document).ready(function() {
-
-    $ipObject = $(document);
+    "use strict";
+    var $ipObject = $(document);
 
     $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
     $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
@@ -27,6 +27,7 @@ $(document).ready(function() {
 });
 
 $(window).resize(function() {
+    "use strict";
     if(this.resizeTO) { clearTimeout(this.resizeTO); }
     this.resizeTO = setTimeout(function() {
         $(this).trigger('resizeEnd');
@@ -36,15 +37,17 @@ $(window).resize(function() {
 
 
 /**
- * 
- * Function used to paginate Widgets on Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to paginate Widgets on Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminWidgetsScroll() {
+    "use strict";
+
     var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
     $scrollable.scrollable({
         items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
@@ -68,15 +71,17 @@ function ipAdminWidgetsScroll() {
 }
 
 /**
- * 
- * Function used to search Widgets on Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to search Widgets on Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminWidgetsSearch() {
+    "use strict";
+
     var $input = $('.ipAdminWidgetsSearch .ipaInput');
     var $button = $('.ipAdminWidgetsSearch .ipaButton');
     var $widgets = $('.ipAdminWidgetsContainer li');
@@ -103,7 +108,7 @@ function ipAdminWidgetsSearch() {
 
     $button.click(function(event){
         event.preventDefault();
-        $this = $(this);
+        var $this = $(this);
         if ($this.hasClass('ipaClear')) {
             $input.val('').blur().keyup(); // blur returns default value; keyup displays all hidden widgets
             $this.removeClass('ipaClear'); // makes button look default
@@ -112,20 +117,86 @@ function ipAdminWidgetsSearch() {
 }
 
 /**
- * 
- * Function used to create a space on a page for Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to create a space on a page for Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminPanelInit() {
-    $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
-    $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
+    "use strict";
+
+    var $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
+    var $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
     $container.height($panel.height()); // setting the height to container
     $panel.css('top',$('.ipsAdminToolbarContainer').outerHeight()); // move down to leave space for top toolbar
 }
 
 
+var widgetOnDroppable = false;
+
+function ipStartWidgetDrag() {
+    "use strict";
+    $('.ipWidget').each(function(key, value) {
+        //left placeholder
+        var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+        $('body').append($droppable);
+        $droppable.css('position', 'absolute');
+        $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
+        $droppable.css('top', $(value).offset().top + 10 + 'px');
+        $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'left');
+
+        //right placeholder
+        var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+        $('body').append($droppable);
+        $droppable.css('position', 'absolute');
+        $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
+        $droppable.css('top', $(value).offset().top + 10 + 'px');
+        $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'right');
+    });
+
+    $('.ipsWidgetDropPlaceholder').droppable({
+        accept: ".ipActionWidgetButton, .ipWidget",
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        over: function(event,ui) {
+            widgetOnDroppable = $(this);
+        },
+        out: function(event, ui) {
+            widgetOnDroppable = false;
+        },
+        drop: function( event, ui ) {
+            //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
+        }
+    });
+
+
+    console.log('start');
+}
+
+function ipStopWidgetDrag() {
+    "use strict";
+    $('.ipsWidgetDropPlaceholder').remove();
+}
+
+
+function ipMoveWidgetToSide(widgetInstanceId, targetWidgetInstanceId, leftOrRight) {
+    "use strict";
+
+}
+
+function ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight) {
+
+
+    "use strict";
+    console.log(widgetName);
+    console.log(targetWidgetInstanceId);
+    console.log(leftOrRight);
+}
 
