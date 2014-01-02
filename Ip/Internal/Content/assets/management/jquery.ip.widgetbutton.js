@@ -35,39 +35,33 @@
                         },
                         helper : 'clone',
                         stop: function(event, ui) {
-                            console.log('Drop');
-                            console.log(ui);
-                            if (draggableOnDroppable) {
+                            if (widgetOnDroppable) {
                                 //jQuery-ui droppable is buggy and fire fake drop event. So we better handle stop event on draggable. This is just for widget side drops
-                                $(draggableOnDroppable).css('backgroundColor', 'black');
+                                $(widgetOnDroppable).css('backgroundColor', 'gray');
                             }
 
                         },
                         start: function (event, ui) {
-                            $('.ipBlock').each(function(key, value) {
-                                var $droppable = $('<div style="">DROPPABLE</div>');
+                            $('.ipWidget').each(function(key, value) {
+                                var $droppable = $('<div style="width: 10px; background-color: #000;"></div>');
                                 $('body').append($droppable);
 
                                 $droppable.css('position', 'absolute');
-                                $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
-                                $droppable.css('top', $(value).offset().top + 100 + 'px');
+                                $droppable.css('left', $(value).offset().left - Math.round($droppable.width() / 2) + 'px');
+                                $droppable.css('top', $(value).offset().top + 10 + 'px');
+                                $droppable.css('height', $(value).height() - 20 + 'px');
                                 $droppable.droppable({
                                     accept: ".ipActionWidgetButton, .ipWidget",
                                     activeClass: "ui-state-hover",
                                     hoverClass: "ui-state-active",
                                     over: function(event,ui) {
-                                        draggableOnDroppable = this;
+                                        widgetOnDroppable = this;
                                     },
                                     out: function(event, ui) {
-                                        draggableOnDroppable = false;
+                                        widgetOnDroppable = false;
                                     },
                                     drop: function( event, ui ) {
-                                        $( this )
-                                            .addClass( "ui-state-highlight" )
-                                            .html( "Dropped!" );
-                                        console.log(this);
-                                        console.log(event);
-                                        console.log(ui);
+                                        //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
                                     }
                                 });
 
