@@ -68,7 +68,7 @@ class Application
         }
 
         if (empty($options['skipTimezone'])) {
-            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+            date_default_timezone_set(ipConfig()->getRaw('TIMEZONE')); //PHP 5 requires timezone to be set.
         }
     }
 

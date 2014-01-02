@@ -27,7 +27,7 @@ return array(
     'THEME' => 'Blank',
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
 
-    'timezone' => 'Africa/Bujumbura',
+    'TIMEZONE' => 'Africa/Bujumbura',
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(

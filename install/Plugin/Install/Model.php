@@ -274,7 +274,7 @@ class Model
                 'value' => 'DOCTYPE_HTML5',
                 'comment' => 'look ip_cms/includes/Ip/View.php for available options.'
             ),
-            'timezone' => array(
+            'TIMEZONE' => array(
                 'value' => 'changeThis',
                 'comment' => 'PHP 5 requires timezone to be set.',
             ),
