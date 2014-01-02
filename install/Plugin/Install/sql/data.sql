@@ -81,11 +81,11 @@ INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layou
 
 INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'version', '4.0'),
-('Ip', 'cached_base_url', '[[[[base_url]]]]'),
-('Ip', 'last_system_message_sent', ''),
-('Ip', 'last_system_message_shown', ''),
-('Ip', 'theme_changed', '0'),
-('Ip', 'cache_version', '1');
+('Ip', 'cachedBaseUrl', '[[[[base_url]]]]'),
+('Ip', 'lastSystemMessageSent', ''),
+('Ip', 'lastSystemMessageShown', ''),
+('Ip', 'themeChanged', '0'),
+('Ip', 'cacheVersion', '1');
 
 -- Dumping data for table--
 
