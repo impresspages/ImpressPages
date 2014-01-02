@@ -82,6 +82,11 @@ class Service
         Model::removeWidgetInstance($instanceId);
     }
 
+    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
+    {
+        Model::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
+    }
+
 
 
 }

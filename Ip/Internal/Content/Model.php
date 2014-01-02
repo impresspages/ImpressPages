@@ -582,5 +582,30 @@ class Model
         \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
     }
 
+    protected static function getInstance($instanceId)
+    {
+        $instances = ipDb()->select('*', 'widget_instance', array('instanceId' => $instanceId));
+        if (isset($instances[0])) {
+            return $instances[0];
+        } else {
+            return false;
+        }
+    }
+
+    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
+    {
+        $leftInstance = self::getInstance($leftWidgetInstanceId);
+        $rightInstance = self::getInstance($rightWidgetInstanceId);
+        if (!$leftInstance || !$rightInstance) {
+            throw new \Ip\CoreException('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
+            throw new \Ip\CoreException("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        //TODOX finish the implementation
+
+    }
+
+
 
 }
