@@ -72,7 +72,7 @@ class Controller extends \Ip\WidgetController{
     }
 
     public function previewHtml($instanceId, $data, $layout) {
-        if (!is_array($data['files'])) {
+        if (empty($data['files']) || !is_array($data['files'])) {
             $data['files'] = array();
         }
         $newData = array();
