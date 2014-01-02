@@ -140,15 +140,25 @@ var widgetOnDroppable = false;
 function ipStartWidgetDrag() {
     "use strict";
     $('.ipWidget').each(function(key, value) {
+        //left placeholder
         var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
         $('body').append($droppable);
-
         $droppable.css('position', 'absolute');
         $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
         $droppable.css('top', $(value).offset().top + 10 + 'px');
         $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'left');
 
-
+        //right placeholder
+        var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+        $('body').append($droppable);
+        $droppable.css('position', 'absolute');
+        $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
+        $droppable.css('top', $(value).offset().top + 10 + 'px');
+        $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'right');
     });
 
     $('.ipsWidgetDropPlaceholder').droppable({
@@ -156,7 +166,7 @@ function ipStartWidgetDrag() {
         activeClass: "ui-state-hover",
         hoverClass: "ui-state-active",
         over: function(event,ui) {
-            widgetOnDroppable = this;
+            widgetOnDroppable = $(this);
         },
         out: function(event, ui) {
             widgetOnDroppable = false;
@@ -174,3 +184,19 @@ function ipStopWidgetDrag() {
     "use strict";
     $('.ipsWidgetDropPlaceholder').remove();
 }
+
+
+function ipMoveWidgetToSide(widgetInstanceId, targetWidgetInstanceId, leftOrRight) {
+    "use strict";
+
+}
+
+function ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight) {
+
+
+    "use strict";
+    console.log(widgetName);
+    console.log(targetWidgetInstanceId);
+    console.log(leftOrRight);
+}
+
