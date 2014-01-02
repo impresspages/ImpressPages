@@ -147,23 +147,26 @@ function ipStartWidgetDrag() {
         $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
         $droppable.css('top', $(value).offset().top + 10 + 'px');
         $droppable.css('height', $(value).height() - 20 + 'px');
-        $droppable.droppable({
-            accept: ".ipActionWidgetButton, .ipWidget",
-            activeClass: "ui-state-hover",
-            hoverClass: "ui-state-active",
-            over: function(event,ui) {
-                widgetOnDroppable = this;
-            },
-            out: function(event, ui) {
-                widgetOnDroppable = false;
-            },
-            drop: function( event, ui ) {
-                //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
-            }
-        });
 
 
     });
+
+    $('.ipsWidgetDropPlaceholder').droppable({
+        accept: ".ipActionWidgetButton, .ipWidget",
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        over: function(event,ui) {
+            widgetOnDroppable = this;
+        },
+        out: function(event, ui) {
+            widgetOnDroppable = false;
+        },
+        drop: function( event, ui ) {
+            //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
+        }
+    });
+
+
     console.log('start');
 }
 
