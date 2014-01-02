@@ -319,7 +319,7 @@ class PublicController extends \Ip\Controller
         $config['BASE_DIR'] = ipConfig()->getRaw('BASE_DIR');
         $config['BASE_URL'] = $this->getParentUrl();
         $config['ERRORS_SEND'] = $_POST['email'];
-        $config['timezone'] = $timezone;
+        $config['TIMEZONE'] = $timezone;
         $config['db'] = $_SESSION['db'];
 
         try {
@@ -346,6 +346,7 @@ class PublicController extends \Ip\Controller
             Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
             Model::setSiteName(ipRequest()->getPost('siteName'));
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
+            Model::generateCronPassword();
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
