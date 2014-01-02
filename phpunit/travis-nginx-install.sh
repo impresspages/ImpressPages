@@ -46,6 +46,7 @@ server {
 
 	location ~ \.php {
 		fastcgi_pass	unix:$PHP_FPM_SOCK;
+		fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
 		include			fastcgi_params;
 	}
 }
