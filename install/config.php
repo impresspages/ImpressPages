@@ -39,7 +39,7 @@ return array(
 
     'URL_OVERRIDES' => array(
         'Plugin/' => 'http://' . getCurUrl() . '/Plugin/',//TODOX find the way to add domain
-        'Theme/' => 'http://' . getCurUrl() . '/Theme/',
+        'Theme/' => 'http://localhost/phpunit/tmp/installTest/install/Theme/',
         'Ip/' => 'http://' . getCurUrl() . '/../Ip/',
     )
 );
