@@ -247,8 +247,32 @@ class Application
             }
         }
 
+        $translator = \Ip\ServiceLocator::translator();
+        $originalDir = ipFile("file/translations/original/");
+        $overrideDir = ipFile("file/translations/override/");
+
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
+
+            $translator->addTranslationFilePattern(
+                'json',
+                $originalDir,
+                "%s/$plugin.json",
+                $plugin
+            );
+            $translator->addTranslationFilePattern(
+                'json',
+                ipFile("Plugin/$plugin/translations/"),
+                "%s.json",
+                $plugin
+            );
+            $translator->addTranslationFilePattern(
+                'json',
+                $overrideDir,
+                "%s/$plugin.json",
+                $plugin
+            );
+
             $systemClass = '\\Plugin\\' . $plugin . '\\System';
             if (class_exists($systemClass)) {
                 $system = new $systemClass();
