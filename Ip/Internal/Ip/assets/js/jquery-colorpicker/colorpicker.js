@@ -1,3 +1,5 @@
+(function(jQuery){ // loading all plugins in ip.jQuery object leaving global jQuery untouched
+
 /**
  *
  * Color picker
@@ -482,3 +484,5 @@
 		ColorPickerSetColor: ColorPicker.setColor
 	});
 })(jQuery)
+
+})(ip.jQuery);
