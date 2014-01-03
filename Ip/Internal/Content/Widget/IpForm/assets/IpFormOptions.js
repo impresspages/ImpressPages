@@ -1,7 +1,6 @@
 /**
  * @package ImpressPages
  *
- *
  */
 
 
@@ -68,11 +67,7 @@
             return (fieldType && (fieldType.optionsInitFunction || fieldType.optionsHtml));
 
         }
-
-
     };
-
-
 
     $.fn.ipWidget_ipForm_options = function(method) {
         if (methods[method]) {
@@ -82,8 +77,6 @@
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
-
     };
 
-})(jQuery);
-
+})(ip.jQuery);

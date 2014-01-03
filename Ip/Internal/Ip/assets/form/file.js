@@ -9,7 +9,6 @@
 (function($) {
     "use strict";
 
-
     var methods = {
 
         init : function(options) {
@@ -192,7 +191,6 @@
 
     };
 
-})(jQuery);
+    $('.ipsModuleForm .ipsFileContainer').ipFormFile();
 
-
-$('.ipsModuleForm .ipsFileContainer').ipFormFile();
+})(ip.jQuery);

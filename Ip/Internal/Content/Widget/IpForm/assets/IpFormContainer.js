@@ -1,9 +1,7 @@
 /**
  * @package ImpressPages
  *
- *
  */
-
 
 
 /**
@@ -11,6 +9,7 @@
  */
 (function($) {
     "use strict";
+
     var methods = {
         init : function(options) {
             return this.each(function() {
@@ -86,4 +85,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
