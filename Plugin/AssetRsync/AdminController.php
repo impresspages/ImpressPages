@@ -52,7 +52,7 @@ class AdminController extends \Ip\Controller
     {
         $request = ipRequest();
 
-        // TODOX validate form
+        // TODOX getError form
 
         $syncOnCacheClear = $request->getPost('syncOnCacheClear', false) ? true : false;
 

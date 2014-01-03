@@ -7,7 +7,6 @@
 namespace Ip\Form\Validator;
 
 
-//TODOX refactor to interface
 abstract class Validator{
     
     /**
@@ -20,8 +19,7 @@ abstract class Validator{
      * @param string $environment - \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Fomr::ENVIRONEMNT_PUBLIC
      */
 
-    //TODOX rename to hasError, getError
-    public abstract function validate($values, $valueKey, $environment);
+    public abstract function getError($values, $valueKey, $environment);
 
     /**
      * Jquery tools compatible validation arguments

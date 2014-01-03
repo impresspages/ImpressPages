@@ -697,7 +697,7 @@ class MobileDetect
                  strpos($this->httpHeaders['HTTP_ACCEPT'], 'application/vnd.rim.html') !== false || // BlackBerry devices.
                  strpos($this->httpHeaders['HTTP_ACCEPT'], 'text/vnd.wap.wml') !== false ||
                  strpos($this->httpHeaders['HTTP_ACCEPT'], 'application/vnd.wap.xhtml+xml') !== false) ||
-            isset($this->httpHeaders['HTTP_X_WAP_PROFILE'])             || // @todo: validate
+            isset($this->httpHeaders['HTTP_X_WAP_PROFILE'])             || // @todo: getError
             isset($this->httpHeaders['HTTP_X_WAP_CLIENTID'])            ||
             isset($this->httpHeaders['HTTP_WAP_CONNECTION'])            ||
             isset($this->httpHeaders['HTTP_PROFILE'])                   ||

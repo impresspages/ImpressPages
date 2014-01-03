@@ -47,15 +47,15 @@ class AdminController extends \Ip\Controller{
         }
 
         $emailValidator = new \Ip\Form\Validator\Email();
-        $error = $emailValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        $error = $emailValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
         if ($fieldName === 'websiteEmail' && $error !== false) {
             return $this->returnError($error);
         }
 
         $numberValidator = new \Ip\Form\Validator\Number();
-        $error = $numberValidator->validate(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
+        $error = $numberValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
         if ($fieldName === 'keepOldRevision' && ($error !== false || $value == '')) { //if user enters some text, browser sends empty message and $error becomes false. We have to check that.
-            return $this->returnError($numberValidator->validate(array('value' => 'for sure incorrect value'), 'value', \Ip\Form::ENVIRONMENT_ADMIN)); //this is to get original Number error message instead of hardcoding text once again
+            return $this->returnError($numberValidator->getError(array('value' => 'for sure incorrect value'), 'value', \Ip\Form::ENVIRONMENT_ADMIN)); //this is to get original Number error message instead of hardcoding text once again
         }
 
 

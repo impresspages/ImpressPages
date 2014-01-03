@@ -210,7 +210,7 @@ class CallbackHandler
             ));
         }
 
-        // returning a non boolean value may not be nice for a validate method,
+        // returning a non boolean value may not be nice for a getError method,
         // but that allows the usage of a static string callback without using
         // the call_user_func function.
         return array($class, $method);
