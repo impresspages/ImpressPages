@@ -114,7 +114,6 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('configSiteEmail')->setValue('test@example.com');
         $page->findById('config_login')->setValue('admin');
         $page->findById('config_pass')->setValue('admin');
-        $page->findById('config_email')->setValue('test@example.com');
         $page->findById('config_timezone')->selectOption('Europe/London');
         $page->find('css', '.btn-primary')->click();
 
