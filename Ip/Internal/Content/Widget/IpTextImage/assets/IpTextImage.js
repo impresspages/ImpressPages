@@ -1,21 +1,22 @@
 /**
  * @package ImpressPages
  *
- *
  */
+var IpWidget_IpTextImage;
 
-function IpWidget_IpTextImage(widgetObject) {
-    this.widgetObject = widgetObject;
+(function($){
+    "use strict";
 
-    this.prepareData = prepareData;
+    IpWidget_IpTextImage = function(widgetObject) {
+        this.widgetObject = widgetObject;
 
-    this.addError = addError;
+        this.prepareData = prepareData;
 
-    this.manageInit = function() {
-        this.widgetObject.find('.ipwText').tinymce(ipTinyMceConfig());
-    }
+        this.addError = addError;
 
-
+        this.manageInit = function() {
+            this.widgetObject.find('.ipwText').tinymce(ipTinyMceConfig());
+        }
 
 //    function manageInit() {
 //        var instanceData = this.widgetObject.data('ipWidget');
@@ -47,43 +48,37 @@ function IpWidget_IpTextImage(widgetObject) {
 //
 //        this.widgetObject.find('textarea').tinymce(ipTinyMceConfig());
 //    }
-    
 
 
-    function prepareData() {
-        var data = Object();
+        function prepareData() {
+            var data = Object();
 
-        var ipUploadImage = this.widgetObject.find('.ipaImage');
-        if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
-            var newImage = ipUploadImage.ipUploadImage('getCurImage');
-            if (newImage) {
-                data.newImage = newImage;
+            var ipUploadImage = this.widgetObject.find('.ipaImage');
+            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
+                var newImage = ipUploadImage.ipUploadImage('getCurImage');
+                if (newImage) {
+                    data.newImage = newImage;
+                }
             }
-        }
-        
-        if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
-            var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
-            if (cropCoordinates) {
-                data.cropX1 = cropCoordinates.x1;
-                data.cropY1 = cropCoordinates.y1;
-                data.cropX2 = cropCoordinates.x2;
-                data.cropY2 = cropCoordinates.y2;
+
+            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
+                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
+                if (cropCoordinates) {
+                    data.cropX1 = cropCoordinates.x1;
+                    data.cropY1 = cropCoordinates.y1;
+                    data.cropX2 = cropCoordinates.x2;
+                    data.cropY2 = cropCoordinates.y2;
+                }
             }
+
+            data.text = $(this.widgetObject).find('textarea').first().val();
+            data.title = $(this.widgetObject).find('.ipaImageTitle').first().val();
+            $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
         }
-        
 
-        data.text = $(this.widgetObject).find('textarea').first().val();
-        data.title = $(this.widgetObject).find('.ipaImageTitle').first().val();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
-    
-    function addError(event, errorMessage) {
-        $(this).trigger('error.ipContentManagement', errorMessage);
-    }
+        function addError(event, errorMessage) {
+            $(this).trigger('error.ipContentManagement', errorMessage);
+        }
+    };
 
-
-    
-
-};
-
-
+})(ip.jQuery);

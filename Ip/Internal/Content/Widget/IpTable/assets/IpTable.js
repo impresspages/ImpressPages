@@ -1,32 +1,30 @@
 /**
  * @package ImpressPages
  *
- *
  */
+var IpWidget_IpTable;
 
-function IpWidget_IpTable(widgetObject) {
-    this.widgetObject = widgetObject;
+(function($){
+    "use strict";
 
-    this.manageInit = manageInit;
-    this.prepareData = prepareData;
+    IpWidget_IpTable = function(widgetObject) {
+        this.widgetObject = widgetObject;
 
+        this.manageInit = manageInit;
+        this.prepareData = prepareData;
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigTable);
-    }
+        function manageInit() {
+            var instanceData = this.widgetObject.data('ipWidget');
+            this.widgetObject.find('textarea').tinymce(ipTinyMceConfigTable);
+        }
 
-    function prepareData() {
+        function prepareData() {
+            var data = Object();
 
-        var data = Object();
+            data.text = this.widgetObject.find('textarea').html();
+            $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        }
 
-        data.text = this.widgetObject.find('textarea').html();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
+    };
 
-    
-
-};
-
-      
-
+})(ip.jQuery);

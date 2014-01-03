@@ -6,33 +6,38 @@
  * @copyright Copyright (C) 2011 ImpressPages LTD.
  * @license GNU/GPL, see ip_license.html
  */
+var IpWidget_IpColumns;
 
-function IpWidget_IpColumns(widgetObject) {
+(function($){
+    "use strict";
 
-    this.widgetObject = widgetObject;
-    this.manageInit = manageInit;
-    this.prepareData = prepareData;
+    IpWidget_IpColumns = function(widgetObject) {
 
-    function manageInit() {
-        //get widget data currently stored in the database
-        var instanceData = this.widgetObject.data('ipWidget').data;
+        this.widgetObject = widgetObject;
+        this.manageInit = manageInit;
+        this.prepareData = prepareData;
 
-        //if widget has been already initialized
-        if (instanceData.baseId) {
-            //set input value
-            this.widgetObject.find('input[name="baseId"]').val(instanceData.baseId);
-        } else {
-            //leave input empty
+        function manageInit() {
+            //get widget data currently stored in the database
+            var instanceData = this.widgetObject.data('ipWidget').data;
+
+            //if widget has been already initialized
+            if (instanceData.baseId) {
+                //set input value
+                this.widgetObject.find('input[name="baseId"]').val(instanceData.baseId);
+            } else {
+                //leave input empty
+            }
         }
+
+        function prepareData() {
+            //create simple data object. It will be returned as the data to be stored.
+            var data = {};
+            data.baseId = this.widgetObject.find('input[name="baseId"]').val();
+            data.columns = this.widgetObject.find('input[name="columns"]').val();
+            $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        }
+
     }
 
-    function prepareData() {
-        //create simple data object. It will be returned as the data to be stored.
-        var data = {};
-        data.baseId = this.widgetObject.find('input[name="baseId"]').val();
-        data.columns = this.widgetObject.find('input[name="columns"]').val();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
-
-}
-
+})(ip.jQuery);

@@ -1,10 +1,7 @@
 /**
  * @package ImpressPages
  *
- *
  */
-
-
 
 
 /**
@@ -12,6 +9,7 @@
  */
 (function($) {
     "use strict";
+
     var methods = {
         init : function(options) {
             if (typeof options !== 'object') {
@@ -161,14 +159,7 @@
             var $this = $(this);
             return $this.find('.ipaFieldRequired').is(':checked');
         }
-
-
-
-
     };
-
-
-
 
     $.fn.ipWidget_ipForm_field = function(method) {
         if (methods[method]) {
@@ -181,6 +172,4 @@
 
     };
 
-})(jQuery);
-
-
+})(ip.jQuery);
