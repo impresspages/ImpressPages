@@ -287,4 +287,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);

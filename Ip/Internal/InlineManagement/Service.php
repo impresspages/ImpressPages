@@ -36,9 +36,9 @@ class Service
         $data['cssClass'] = $cssClass;
 
         if (ipIsManagementState()) {
-            return \Ip\View::create('view/management/logo.php', $data)->render();
+            return ipView('view/management/logo.php', $data)->render();
         } else {
-            return \Ip\View::create('view/display/logo.php', $data)->render();
+            return ipView('view/display/logo.php', $data)->render();
         }
 
     }
@@ -52,7 +52,7 @@ class Service
         $data = $this->getLogoData();
         $data['type']  = Entity\Logo::TYPE_IMAGE;
         $data['cssClass'] = $cssClass;
-        return \Ip\View::create('view/display/logo.php', $data)->render();
+        return ipView('view/display/logo.php', $data)->render();
     }
 
     /**
@@ -64,7 +64,7 @@ class Service
         $data = $this->getLogoData();
         $data['type']  = Entity\Logo::TYPE_TEXT;
         $data['cssClass'] = $cssClass;
-        return \Ip\View::create('view/display/logo.php', $data)->render();
+        return ipView('view/display/logo.php', $data)->render();
     }
 
     public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
@@ -83,9 +83,9 @@ class Service
         );
 
         if (ipIsManagementState()) {
-            $view = \Ip\View::create('view/management/string.php', $data);
+            $view = ipView('view/management/string.php', $data);
         } else {
-            $view = \Ip\View::create('view/display/string.php', $data);
+            $view = ipView('view/display/string.php', $data);
         }
         return $view->render();
     }
@@ -119,9 +119,9 @@ class Service
         );
 
         if (ipIsManagementState()) {
-            $view = \Ip\View::create('view/management/text.php', $data);
+            $view = ipView('view/management/text.php', $data);
         } else {
-            $view = \Ip\View::create('view/display/text.php', $data);
+            $view = ipView('view/display/text.php', $data);
         }
         return $view->render();
     }
@@ -166,9 +166,9 @@ class Service
         );
 
         if (ipIsManagementState()) {
-            $view = \Ip\View::create('view/management/image.php', $data);
+            $view = ipView('view/management/image.php', $data);
         } else {
-            $view = \Ip\View::create('view/display/image.php', $data);
+            $view = ipView('view/display/image.php', $data);
         }
         return $view->render();
     }

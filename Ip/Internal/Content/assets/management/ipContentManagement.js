@@ -1,50 +1,54 @@
 /**
- * @package ImpressPages
- *
- *
- */
+* @package ImpressPages
+*
+*
+*/
 
-$(document).ready(function() {
+(function($){
+    "use strict";
 
-    $ipObject = $(document);
+    $(document).ready(function() {
+        var $ipObject = $(document);
 
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
-    $(window).bind('resizeEnd',                        ipAdminWidgetsScroll);
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsSearch);
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
+        $(window).bind('resizeEnd',                        ipAdminWidgetsScroll);
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsSearch);
 
-    $ipObject.ipContentManagement();
+        $ipObject.ipContentManagement();
 
-    // case insensitive search
-    jQuery.expr[':'].icontains = function(a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
+        // case insensitive search
+        ip.jQuery.expr[':'].icontains = function(a, i, m) {
+            return ip.jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
 
-    if (isMobile) {
-        $('body').addClass('ipMobile');
-    }
+        if (isMobile) {
+            $('body').addClass('ipMobile');
+        }
 
-});
+    });
 
-$(window).resize(function() {
-    if(this.resizeTO) { clearTimeout(this.resizeTO); }
-    this.resizeTO = setTimeout(function() {
-        $(this).trigger('resizeEnd');
-    }, 100);
-});
+    $(window).resize(function() {
+        if(this.resizeTO) { clearTimeout(this.resizeTO); }
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 100);
+    });
 
-
+})(ip.jQuery);
 
 /**
- * 
- * Function used to paginate Widgets on Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to paginate Widgets on Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminWidgetsScroll() {
+    "use strict";
+
     var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
     $scrollable.scrollable({
         items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
@@ -68,15 +72,17 @@ function ipAdminWidgetsScroll() {
 }
 
 /**
- * 
- * Function used to search Widgets on Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to search Widgets on Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminWidgetsSearch() {
+    "use strict";
+
     var $input = $('.ipAdminWidgetsSearch .ipaInput');
     var $button = $('.ipAdminWidgetsSearch .ipaButton');
     var $widgets = $('.ipAdminWidgetsContainer li');
@@ -103,7 +109,7 @@ function ipAdminWidgetsSearch() {
 
     $button.click(function(event){
         event.preventDefault();
-        $this = $(this);
+        var $this = $(this);
         if ($this.hasClass('ipaClear')) {
             $input.val('').blur().keyup(); // blur returns default value; keyup displays all hidden widgets
             $this.removeClass('ipaClear'); // makes button look default
@@ -112,97 +118,86 @@ function ipAdminWidgetsSearch() {
 }
 
 /**
- * 
- * Function used to create a space on a page for Administration Panel
- * 
- * @param none
- * @returns nothing
- * 
- * 
- */
+*
+* Function used to create a space on a page for Administration Panel
+*
+* @param none
+* @returns nothing
+*
+*
+*/
 function ipAdminPanelInit() {
-    $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
-    $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
+    "use strict";
+
+    var $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
+    var $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
     $container.height($panel.height()); // setting the height to container
     $panel.css('top',$('.ipsAdminToolbarContainer').outerHeight()); // move down to leave space for top toolbar
 }
 
-/**
- * 
- * Object used to store active job in page save progress
- * 
- * @param string
- *            name name of the job
- * @param int
- *            timeLeft predicted execution time in secconds
- * @returns {ipSaveJob}
- * 
- * 
- */
-function ipSaveJob(title, timeLeft) {
 
-    var title;
-    var predictedTime;
-    var progress;
-    var finished;
+var widgetOnDroppable = false;
 
-    this.title = title;
-    this.timeLeft = timeLeft; // secconds. Approximate value
-    this.progress = 0; // 0 - 1
-    this.finished = false;
+function ipStartWidgetDrag() {
+    "use strict";
+    $('.ipWidget').each(function(key, value) {
+        //left placeholder
+        var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+        $('body').append($droppable);
+        $droppable.css('position', 'absolute');
+        $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
+        $droppable.css('top', $(value).offset().top + 10 + 'px');
+        $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'left');
 
-    this.setTitle = setTitle;
-    this.setProgress = setProgress;
-    this.setTimeLeft = setTimeLeft;
-    this.setFinished = setFinished;
-    this.getTitle = getTitle;
-    this.getProgress = getProgress;
-    this.getTimeLeft = getTimeLeft;
-    this.getFinished = getFinished;
+        //right placeholder
+        var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+        $('body').append($droppable);
+        $droppable.css('position', 'absolute');
+        $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
+        $droppable.css('top', $(value).offset().top + 10 + 'px');
+        $droppable.css('height', $(value).height() - 20 + 'px');
+        $droppable.data('instanceId', $(value).data('widgetinstanceid'));
+        $droppable.data('leftOrRight', 'right');
+    });
 
-    function setTitle(title) {
-        this.title = title;
-    }
-
-    function setProgress(progress) {
-        if (progress > 1) {
-            progress = 1;
+    $('.ipsWidgetDropPlaceholder').droppable({
+        accept: ".ipActionWidgetButton, .ipWidget",
+        activeClass: "ui-state-hover",
+        hoverClass: "ui-state-active",
+        over: function(event,ui) {
+            widgetOnDroppable = $(this);
+        },
+        out: function(event, ui) {
+            widgetOnDroppable = false;
+        },
+        drop: function( event, ui ) {
+            //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
         }
-        if (progress < 0) {
-            progress = 0;
-        }
-        this.progress = progress;
-    }
+    });
 
-    function setTimeLeft(timeLeft) {
-        if (timeLeft < 0) {
-            timeLeft = 0;
-        }
-        this.timeLeft = timeLeft;
-    }
 
-    function setFinished(finished) {
-        this.finished = finished;
-        this.setTimeLeft(0);
-        this.setProgress(100);
-    }
+    console.log('start');
+}
 
-    function getTitle() {
-        return this.title;
-    }
+function ipStopWidgetDrag() {
+    "use strict";
+    $('.ipsWidgetDropPlaceholder').remove();
+}
 
-    function getProgress() {
-        return this.progress;
-    }
 
-    function getTimeLeft() {
-        return this.timeLeft;
-    }
-
-    function getFinished() {
-        return this.finished;
-    }
+function ipMoveWidgetToSide(widgetInstanceId, targetWidgetInstanceId, leftOrRight) {
+    "use strict";
 
 }
 
+function ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight) {
+
+
+    "use strict";
+    console.log(widgetName);
+    console.log(targetWidgetInstanceId);
+    console.log(leftOrRight);
+}
 

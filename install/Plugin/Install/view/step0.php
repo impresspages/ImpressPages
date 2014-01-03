@@ -1,13 +1,14 @@
-<h1><?php _e('Choose interface language', 'ipInstall') ?></h1>
+<h1><?php _e('Choose interface language', 'Install'); ?></h1>
 
 <?php foreach ($languages as $key => $language) { ?>
-    <?php if ($key == $selectedLanguage) { ?>
-        <a class="selected" href="index.php?step=2&lang='<?php echo htmlspecialchars($key) ?>"><?php echo htmlspecialchars($language) ?></a><br/>
-    <?php } else { ?>
-        <a href="index.php?step=2&lang=<?php echo htmlspecialchars($key) ?>"><?php echo htmlspecialchars($language) ?></a><br/>
-    <?php } ?>
+    <a href="index.php?step=1&lang=<?php echo htmlspecialchars($key) ?>">
+        <?php echo htmlspecialchars($language) ?>
+    </a>
+    <?php if ($key == $selectedLanguage) { ?><span class="label label-info"><?php _e('Selected', 'Install'); ?></span><?php } ?>
+
+    <br/>
 <?php } ?>
-<br/><br/>
+<p>&nbsp;</p>
 <p class="text-right">
-    <a class="btn btn-primary" href="?step=1"><?php _e('Next', 'ipInstall') ?></a>
+    <a class="btn btn-primary" href="?step=1"><?php _e('Next', 'Install') ?></a>
 </p>

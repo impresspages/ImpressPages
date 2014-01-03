@@ -15,6 +15,7 @@ class AdminController extends \Ip\Controller
         ipAddJs(ipFileUrl('Ip/Internal/System/assets/js/system.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/grid.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/gridInit.js'));
+        ipAddCss(ipFileUrl('Ip/Internal/System/assets/style.css'));
 
 
 
@@ -38,7 +39,7 @@ class AdminController extends \Ip\Controller
             'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'), // TODOX ensure version is stored here
         );
 
-        $content = \Ip\View::create('view/index.php', $data)->render();
+        $content = ipView('view/index.php', $data)->render();
 
         if ($enableUpdate) {
             ipAddJs(ipFileUrl('Ip/Internal/System/assets/update.js'));
@@ -81,11 +82,7 @@ class AdminController extends \Ip\Controller
 
     protected function indexUrl()
     {
-        return str_replace(
-            '&amp;',
-            '&',
-            \Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => 'System.index'))
-        );
+        return ipConfig()->baseUrl() . '?aa=System.index';
     }
 
     public function startUpdate()

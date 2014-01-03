@@ -88,7 +88,7 @@ class Pagination
         $data['totalPages'] = $this->totalPages;
         $data['pages'] = $this->pages();
 
-        return \Ip\View::create($view, $data)->render();
+        return ipView($view, $data)->render();
     }
 
 }

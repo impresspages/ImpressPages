@@ -168,7 +168,7 @@ class Controller extends \Ip\WidgetController{
     public function adminSnippets()
     {
         $snippets = array();
-        $snippets[] = \Ip\View::create('snippet/gallery.php')->render();
+        $snippets[] = ipView('snippet/gallery.php')->render();
         return $snippets;
 
     }

@@ -14,11 +14,10 @@ return array(
 
     // GLOBAL
     'BASE_DIR' => realpath(TEST_CODEBASE_DIR),
-    'BASE_URL' => 'localhost',
+    'BASE_URL' => 'localhost/',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
-    'ERRORS_SEND' => '',
     // END GLOBAL
 
     // FRONTEND
@@ -27,7 +26,7 @@ return array(
     'THEME' => 'Blank',
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
 
-    'timezone' => 'Africa/Bujumbura',
+    'TIMEZONE' => 'Africa/Bujumbura',
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(

@@ -27,7 +27,7 @@ class File extends Field
         } else {
             $viewFile = 'publicView/file.php';
         }
-        $view = \Ip\View::create($viewFile, $data);
+        $view = ipView($viewFile, $data);
 
         return $view->render();
     }

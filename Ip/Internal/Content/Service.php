@@ -36,7 +36,6 @@ class Service
     {
         $zone = ipContent()->getZone($page->getZoneName());
         $layout = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModuleGroup(),
             $zone->getAssociatedModule(),
             $page->getId()
         );
@@ -48,103 +47,46 @@ class Service
         return $layout;
     }
 
-    public static function addWidget(
-        $widgetName,
-        $zoneName,
-        $pageId,
-        $blockName = null,
-        $revisionId = null,
-        $position = null
-    ) {
-        if (is_null($revisionId)) {
-            //Static block;
-            //TODOX use \Ip\Revision::getLastRevision instead
-            $revisionId = \Ip\Revision::createRevision($zoneName, $pageId, true);
-        } else {
-            //check revision consistency
-            $revisionRecord = \Ip\Revision::getRevision($revisionId);
-
-            if (!$revisionRecord) {
-                throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
-            }
-
-            $zoneName = $revisionRecord['zoneName'];
-            $pageId = $revisionRecord['pageId'];
 
 
-            $zone = ipContent()->getZone($zoneName);
-            if ($zone === false) {
-                //TODOX service must not return Response object.
-                return self::_errorAnswer('Unknown zone "' . $zoneName . '"');
-            }
 
-            $page = $zone->getPage($pageId);
-            if ($page === false) {
-                //TODOX service must not return Response object.
-                return self::_errorAnswer('Page not found "' . $zoneName . '"/"' . $pageId . '"');
-            }
-
-        }
-
+    public static function addWidget($widgetName, $data = null, $look = null)
+    {
         $widgetObject = Model::getWidgetObject($widgetName);
-
-        if ($widgetObject === false) {
-            //TODOX service must not return Response object.
-            return self::_errorAnswer('Unknown widget "' . $widgetName . '"');
+        if (!$widgetObject) {
+            throw new \Ip\CoreException("Widget '$widgetName' doesn't exist");
         }
 
-        try {
-
-            $layouts = $widgetObject->getLooks();
-            $widgetId = Model::createWidget($widgetName, array(), $layouts[0]['name'], null);
-
-        } catch (Exception $e) {
-            //TODOX service must not return Response object.
-            return self::_errorAnswer($e);
+        if ($data ===  null) {
+            $data = $widgetObject->defaultData();
         }
 
-        try {
-            $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
-        } catch (Exception $e) {
-            //TODOX service must not return Response object.
-            return self::_errorAnswer($e);
+        if ($look === null) {
+            $looks = $widgetObject->getLooks();
+            $look = $looks[0]['name'];
         }
+
+        $widgetId = Model::createWidget($widgetName, $data, $look);
+        return $widgetId;
+    }
+
+    public static function addWidgetInstance($widgetId, $revisionId, $block, $position, $columnId = null, $visible = true)
+    {
+        $instanceId = Model::addInstance($widgetId, $revisionId, $block, $position, $columnId, $visible);
         return $instanceId;
-
     }
 
 
-    public static function addWidgetContent($instanceId, $content, $layout = 'default')
+    public static function removeWidgetInstance($instanceId)
     {
-
-        try {
-            $record = Model::getWidgetFullRecord($instanceId);
-            $widgetObject = Model::getWidgetObject($record['name']);
-            $newData = $widgetObject->update($record['widgetId'], $content, $record['data']);
-            $updateArray = array(
-                'data' => $newData,
-                'layout' => $layout
-            );
-
-            Model::updateWidget($record['widgetId'], $updateArray);
-        } catch (Exception $e) {
-            return self::_errorAnswer($e);
-        }
-
+        Model::removeWidgetInstance($instanceId);
     }
 
-
-
-
-    private static function _errorAnswer($errorMessage)
+    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
     {
-
-        $data = array(
-            'status' => 'error',
-            'errorMessage' => $errorMessage
-        );
-
-        // TODO use jsonrpc response
-        return new \Ip\Response\Json($data);
+        Model::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
     }
+
+
+
 }

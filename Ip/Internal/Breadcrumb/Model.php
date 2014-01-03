@@ -24,7 +24,7 @@ class Model{
             'separator' => $separator,
         );
         
-        $breadcrumb = \Ip\View::create('view/breadcrumb.php', $data)->render();
+        $breadcrumb = ipView('view/breadcrumb.php', $data)->render();
 
         return $breadcrumb;
 

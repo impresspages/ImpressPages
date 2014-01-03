@@ -33,7 +33,7 @@ class System{
                 'marketUrl' => $marketUrl
             );
 
-            ipAddJsVariable('ipRepositoryHtml', \Ip\View::create('view/popup.php', $popupData)->render());
+            ipAddJsVariable('ipRepositoryHtml', ipView('view/popup.php', $popupData)->render());
             ipAddJsVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'ipAdmin'));
             ipAddJsVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'ipAdmin'));
         }

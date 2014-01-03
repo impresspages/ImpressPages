@@ -1,12 +1,10 @@
 /**
  * @package ImpressPages
  *
- *
  */
 
-"use strict";
-
 (function($) {
+    "use strict";
 
     var methods = {
         init : function(options) {
@@ -80,8 +78,8 @@
                 $('.ipModuleInlineManagementPopupText').find('textarea').tinymce(tinyMceConfig);
             }
 
-            $('.ipModuleInlineManagementPopupText').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopupText').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopupText').find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopupText').find('.ipaCancel').bind('click', $.proxy(methods._cancel, $this));
         },
 
         _confirm : function (event) {
@@ -151,4 +149,4 @@
         }
     };
 
-})(jQuery);
+})(ip.jQuery);

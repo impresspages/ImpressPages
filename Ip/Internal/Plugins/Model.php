@@ -12,7 +12,6 @@ class Model{
             "Admin",
             "Design",
             "Plugins",
-            "System",
             "Log",
             "Email",
             "Config",
@@ -25,7 +24,8 @@ class Model{
             "Form",
             "Cron",
             "Ip",
-            "Translations"
+            "Translations",
+            "System",
         );
     }
 

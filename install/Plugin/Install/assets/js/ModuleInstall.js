@@ -41,7 +41,6 @@ var ModuleInstall = new function () {
                 }
             },
             error: function (response) {
-                console.log('error', response);
                 $('#loading').hide();
                 $('#content').show();
 
@@ -80,7 +79,8 @@ var ModuleInstall = new function () {
                     alert('Unknown response. #FYLXK');
                 }
             },
-            error: function () {
+            error: function (response) {
+                console.log('response:', response);
                 alert('Unexpected error. #KMLUH');
             }
         });

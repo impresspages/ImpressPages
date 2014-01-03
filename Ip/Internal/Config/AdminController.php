@@ -21,7 +21,7 @@ class AdminController extends \Ip\Controller{
         $data = array (
             'form' => $form
         );
-        return \Ip\View::create('view/configWindow.php', $data)->render();
+        return ipView('view/configWindow.php', $data)->render();
 
     }
 

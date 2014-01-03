@@ -7,7 +7,7 @@
     <?php } ?>
     class="ipWidget ipPreviewWidget  ipWidget-<?php echo $widgetName; ?> ipLayout-<?php echo $widgetLayout; ?>">
     <?php if ($managementState){ ?>
-        <?php echo \Ip\View::create('widgetControls.php', $this->getVariables())->render() ?>
+        <?php echo ipView('widgetControls.php', $this->getVariables())->render() ?>
     <?php } ?>
 <?php echo $html; ?>
 </div>

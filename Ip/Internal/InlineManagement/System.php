@@ -30,7 +30,7 @@ class System
 
             $response = \Ip\ServiceLocator::response();
             if (method_exists($response, 'addJavascriptContent')) {
-                $response->addJavascriptContent('controls', \Ip\View::create('view/management/controls.php')->render());
+                $response->addJavascriptContent('controls', ipView('view/management/controls.php')->render());
             }
 
 

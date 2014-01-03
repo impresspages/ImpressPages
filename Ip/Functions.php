@@ -470,3 +470,9 @@ function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent,
     $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
     $emailQueue->send();
 }
+
+
+function ipView($file, $data = array())
+{
+    return \Ip\View::create($file, $data);
+}

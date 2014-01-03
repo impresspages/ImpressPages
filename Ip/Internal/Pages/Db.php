@@ -319,7 +319,7 @@ class Db {
 
         if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipThemeFile(''))) {
             $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
-            self::changePageLayout($zone->getAssociatedModuleGroup(), $zone->getAssociatedModule(), $pageId, $layout);
+            self::changePageLayout($zone->getAssociatedModule(), $pageId, $layout);
         }
 
         return true;
@@ -332,18 +332,16 @@ class Db {
      * @param $newLayout
      * @return bool whether layout was changed or not
      */
-    private static function changePageLayout($groupName, $moduleName, $pageId, $newLayout) {
+    private static function changePageLayout($moduleName, $pageId, $newLayout) {
         $dbh = ipDb()->getConnection();
 
         $sql = 'SELECT `layout`
                 FROM ' . ipTable('page_layout') . '
-                WHERE group_name    = :groupName
-                    AND module_name = :moduleName
+                WHERE module_name = :moduleName
                     AND `page_id`   = :pageId';
         $q = $dbh->prepare($sql);
         $q->execute(
             array(
-                'groupName' => $groupName,
                 'moduleName' => $moduleName,
                 'pageId' => $pageId,
             )
@@ -355,13 +353,11 @@ class Db {
         if (empty($newLayout)) {
             if ($oldLayout) {
                 $sql = 'DELETE FROM ' . ipTable('page_layout') . '
-                        WHERE `group_name` = :groupName
-                            AND `module_name` = :moduleName
+                        WHERE `module_name` = :moduleName
                             AND `page_id` = :pageId';
                 $q = $dbh->prepare($sql);
                 $result = $q->execute(
                     array(
-                        'groupName' => $groupName,
                         'moduleName' => $moduleName,
                         'pageId' => $pageId,
                     )
@@ -370,38 +366,19 @@ class Db {
             }
         } elseif ($newLayout != $oldLayout && file_exists(ipThemeFile($newLayout))) {
             if (!$oldLayout) {
-                $sql = 'INSERT IGNORE INTO ' . ipTable('page_layout') . '
-                        (`group_name`, `module_name`, `page_id`, `layout`)
-                        VALUES
-                        (:groupName, :moduleName, :pageId, :layout)';
-
-
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'groupName' => $groupName,
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
-                        'layout' => $newLayout,
-                    )
-                );
+                ipDb()->insert('page_layout', array(
+                        'module_name' => $moduleName,
+                        'page_id' => $pageId,
+                        'layout' => $newLayout
+                    ), true);
                 $wasLayoutChanged = true;
             } else {
-                $sql = 'UPDATE ' . ipTable('page_layout') . '
-                        SET `layout` = :layout
-                        WHERE `group_name` = :groupName
-                            AND `module_name` = :moduleName
-                            AND `page_id` = :pageId';
-
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'groupName' => $groupName,
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
+                ipDb()->update('page_layout', array(
                         'layout' => $newLayout,
-                    )
-                );
+                    ), array(
+                        'module_name' => $moduleName,
+                        'page_id' => $pageId,
+                    ));
                 $wasLayoutChanged = true;
             }
         }

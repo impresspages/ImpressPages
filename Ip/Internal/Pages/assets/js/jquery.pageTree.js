@@ -158,6 +158,6 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 

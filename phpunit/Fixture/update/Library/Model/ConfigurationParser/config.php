@@ -23,7 +23,6 @@ return array(
 
       'DEVELOPMENT_ENVIRONMENT' => 1,
       'ERRORS_SHOW' => 1,
-      'ERRORS_SEND' => 'mangirdas@impresspages.org',
     // END GLOBAL
       
     // FRONTEND
@@ -32,6 +31,6 @@ return array(
       'THEME' => 'Blank',
       'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
     
-       'timezone' => 'Africa/Abidjan',
+       'TIMEZONE' => 'Africa/Abidjan',
     // END FRONTEND
 );

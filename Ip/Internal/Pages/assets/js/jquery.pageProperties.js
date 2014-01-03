@@ -95,6 +95,6 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 

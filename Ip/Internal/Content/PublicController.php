@@ -74,7 +74,6 @@ class PublicController extends \Ip\Controller
         if (ipConfig()->isDebugMode()) {
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagement.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.contentManagement.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.pageOptions.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.widgetbutton.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.layoutModal.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.block.js'));
@@ -127,7 +126,7 @@ class PublicController extends \Ip\Controller
         if (ipIsManagementState()) {
             ipAddJsVariable(
                 'ipWidgetLayoutModalTemplate',
-                \Ip\View::create('view/widgetLayoutModal.php')->render()
+                ipView('view/widgetLayoutModal.php')->render()
             );
         }
 

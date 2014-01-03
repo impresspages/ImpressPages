@@ -201,7 +201,16 @@ class View
             if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
                 throw new CoreException("Can't find caller", CoreException::VIEW);
             }
-            $absoluteFile = dirname($backtrace[1]['file']) . '/' . $file;
+
+            if (basename($backtrace[1]['file']) == 'Functions.php') {
+                if(!isset($backtrace[2]['file']) || !isset($backtrace[2]['line'])) {
+                    throw new CoreException("Can't find caller", CoreException::VIEW);
+                }
+                $absoluteFile = dirname($backtrace[2]['file']) . '/' . $file;
+
+            } else {
+                $absoluteFile = dirname($backtrace[1]['file']) . '/' . $file;
+            }
         }
 
         if (DIRECTORY_SEPARATOR == '\\') {

@@ -44,11 +44,6 @@ class WidgetController
         return $this->name;
     }
 
-    //TODOX remove
-    public function getModuleGroup()
-    {
-        return $this->moduleGroup;
-    }
 
     public function getModuleName()
     {
@@ -213,7 +208,7 @@ class WidgetController
 //                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
 //            }
 //            if (is_file($adminView)) {
-//                $answer = \Ip\View::create($adminView)->render();
+//                $answer = ipView($adminView)->render();
 //            }
 //        } catch (\Ip\CoreException $e){
 //            return $e->getMessage();
@@ -230,9 +225,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = \Ip\View::create(ipFile('Ip/Internal/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Ip/Internal/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = \Ip\View::create(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\CoreException $e) {
             if (ipIsManagementState()) {
@@ -240,7 +235,7 @@ class WidgetController
                     'widgetName' => $this->name,
                     'layout' => $layout
                 );
-                $answer = \Ip\View::create(ipFile('Ip/Internal/Content/view/unknown_widget_layout.php'), $tmpData)->render();
+                $answer = ipView(ipFile('Ip/Internal/Content/view/unknown_widget_layout.php'), $tmpData)->render();
             } else {
                 $answer = '';
             }
