@@ -9,12 +9,13 @@ env:
     - secure: "fwebeORlyqO1sXaOVSx7sxeAlmWr6q68RpZWSWmp5Kdu3XcfhV/v3jcH2nIpfDLkFq2rtQw1h+dRcSdHClYedDnr/Vp9fKMkscroNWTn+QqYAJtZTWZIDs3B0B+Ea3wNc1chN7iOXdr2wrz+aX7fyw8olSoEz/+lTBNnJEJovlM="
     - secure: "jlcxYPI1ndqrAV/+IVzFf/BtL0W0oxnFAgl52wFkkgH8c2DHG8Cf2vIF7JVZs0+fhjamuyAiLO9dktowSaWA/SXXbZIBap+DKPpHCp3gjGfXlLF1wwUTT+m5PAMtsoHCs4m3yjTdyAH/Foa8uEbkcZ+mdLEjrcQV8ZxosTSl1jk="
   matrix:
-    - TEST_GROUP=Smoke
-    - TEST_GROUP=Sauce
-    - TEST_GROUP=other
     fast_finish: true
     allow_failures:
         - env: "TEST_GROUP=other"
+    - TEST_GROUP=Smoke
+    - TEST_GROUP=Sauce
+    - TEST_GROUP=other
+
 before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < Ip/Internal/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
