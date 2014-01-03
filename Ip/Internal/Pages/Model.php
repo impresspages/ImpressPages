@@ -11,6 +11,23 @@ namespace Ip\Internal\Pages;
 class Model
 {
 
+    public static function sortZone($zoneName, $newIndex)
+    {
+        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
+
+        $newPriority = null;
+
+        if ($newIndex <= 0) {
+            $newPriority = $zones[0]['row_number'] - 20;
+        } elseif ($newIndex > count($zones) - 1) {
+            $lastZone = end($zones);
+            $newPriority = $lastZone['row_number'] + 20;
+        } else {
+            $newPriority = ($zones[$newIndex - 1]['row_number'] + $zones[$newIndex]['row_number']) / 2;
+        }
+
+        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $zoneName));
+    }
 
     public static function cleanupLanguage($id)
     {

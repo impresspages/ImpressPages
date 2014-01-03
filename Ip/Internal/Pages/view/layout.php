@@ -9,7 +9,7 @@
     </div>
     <div class="zoneList navBlock">
         <ul>
-            <li ng-repeat="zone in zones" zones-post-repeat-directive>
+            <li ng-repeat="zone in zones" zones-post-repeat-directive data-zonename="{{zone.name}}">
                 <a class="title" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>  <a ng-click="updateZoneModal(zone)">*</a>
             </li>
         </ul>
