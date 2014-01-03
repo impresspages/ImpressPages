@@ -9,6 +9,9 @@ use PhpUnit\Helper\TestEnvironment;
 
 class InstallTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group Smoke
+     */
     public function testInstall()
     {
         TestEnvironment::cleanupFiles();
