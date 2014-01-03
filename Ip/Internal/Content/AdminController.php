@@ -187,7 +187,7 @@ class AdminController extends \Ip\Controller
         );
 
         if (!empty($_POST['generatePreview'])) {
-            $data['previewHtml'] = Model::generateWidgetPreview($instanceId, true);
+            $data['generateHtml'] = Model::generateWidgetPreview($instanceId, true);
         }
 
 
@@ -221,7 +221,7 @@ class AdminController extends \Ip\Controller
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
-            'previewHtml' => $previewHtml,
+            'generateHtml' => $previewHtml,
             'instanceId' => $instanceId
         );
 

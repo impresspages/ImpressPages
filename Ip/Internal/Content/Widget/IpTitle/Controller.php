@@ -48,12 +48,12 @@ class Controller extends \Ip\WidgetController{
         return $snippets;
     }
 
-    public function previewHtml($instanceId, $data, $layout)
+    public function generateHtml($instanceId, $data, $layout)
     {
         if (empty($data['level']) || (int)$data['level'] < 1) {
             $data['level'] = 1;
         }
-        return parent::previewHtml($instanceId, $data, $layout);
+        return parent::generateHtml($instanceId, $data, $layout);
     }
 
 }
