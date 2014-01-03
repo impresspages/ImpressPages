@@ -11,8 +11,9 @@ addons:
 #      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
 env:
   global:
-    - secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
-    - secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
+    # SAUCE
+    - secure: "fwebeORlyqO1sXaOVSx7sxeAlmWr6q68RpZWSWmp5Kdu3XcfhV/v3jcH2nIpfDLkFq2rtQw1h+dRcSdHClYedDnr/Vp9fKMkscroNWTn+QqYAJtZTWZIDs3B0B+Ea3wNc1chN7iOXdr2wrz+aX7fyw8olSoEz/+lTBNnJEJovlM="
+    - secure: "jlcxYPI1ndqrAV/+IVzFf/BtL0W0oxnFAgl52wFkkgH8c2DHG8Cf2vIF7JVZs0+fhjamuyAiLO9dktowSaWA/SXXbZIBap+DKPpHCp3gjGfXlLF1wwUTT+m5PAMtsoHCs4m3yjTdyAH/Foa8uEbkcZ+mdLEjrcQV8ZxosTSl1jk="
   matrix:
     - TEST_GROUP=Smoke
     - TEST_GROUP=Sauce
