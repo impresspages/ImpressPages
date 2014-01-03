@@ -1,12 +1,10 @@
 /**
  * @package ImpressPages
-
  *
  */
 
-"use strict";
-
 (function($) {
+    "use strict";
 
     var methods = {
 
@@ -183,4 +181,4 @@ console.log(answer);
 
     };
 
-})(jQuery);
+})(ip.jQuery);

@@ -1,33 +1,28 @@
 /**
  * @package ImpressPages
  *
- *
  */
+var IpWidget_IpText;
 
-function IpWidget_IpText() {
+(function($){
     "use strict";
-    this.$widgetObject = null;
 
-    this.init = function($widgetObject, data) {
-        var customTinyMceConfig = ipTinyMceConfig();
-        this.$widgetObject = $widgetObject;
-        customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
-            $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
-        })};
+    IpWidget_IpText = function() {
+        this.$widgetObject = null;
 
-        $widgetObject.find('.ipsContent').tinymce(customTinyMceConfig);
+        this.init = function($widgetObject, data) {
+            var customTinyMceConfig = ipTinyMceConfig();
+            this.$widgetObject = $widgetObject;
+            customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
+                $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
+            })};
+
+            $widgetObject.find('.ipsContent').tinymce(customTinyMceConfig);
+        };
+
+        this.onAdd = function () {
+            this.$widgetObject.find('.ipsContent').focus();
+        }
     };
 
-    this.onAdd = function () {
-        this.$widgetObject.find('.ipsContent').focus();
-    }
-
-
-};
-
-
-
-
-
-
-
+})(ip.jQuery);

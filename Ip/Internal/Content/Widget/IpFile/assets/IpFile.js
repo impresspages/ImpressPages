@@ -1,88 +1,84 @@
 /**
  * @package ImpressPages
  *
- *
  */
+var IpWidget_IpFile;
 
-function IpWidget_IpFile(widgetObject) {
-    this.widgetObject = widgetObject;
+(function($) {
+    IpWidget_IpFile = function(widgetObject) {
+        this.widgetObject = widgetObject;
 
-    this.prepareData = prepareData;
-    this.manageInit = manageInit;
-    this.filesSelected = fileUploaded;
+        this.prepareData = prepareData;
+        this.manageInit = manageInit;
+        this.filesSelected = fileUploaded;
 
-    this.addError = addError;
+        this.addError = addError;
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
-        
-        var uploader = this.widgetObject.find('.ipaUpload');
-        var options = new Object;
-        uploader.ipUploadFile(options);
-        
-        var container = this.widgetObject.find('.ipWidget_ipFile_container');
-        var options = new Object;
-        if (instanceData.data.files) {
-            options.files = instanceData.data.files;
-        } else {
-            options.files = new Array();
+        function manageInit() {
+            var instanceData = this.widgetObject.data('ipWidget');
+
+            var uploader = this.widgetObject.find('.ipaUpload');
+            var options = new Object;
+            uploader.ipUploadFile(options);
+
+            var container = this.widgetObject.find('.ipWidget_ipFile_container');
+            var options = new Object;
+            if (instanceData.data.files) {
+                options.files = instanceData.data.files;
+            } else {
+                options.files = new Array();
+            }
+            options.fileTemplate = this.widgetObject.find('.ipaFileTemplate');
+            container.ipWidget_ipFile_container(options);
+
+            this.widgetObject.bind('filesSelected.ipUploadFile', this.filesSelected);
+            this.widgetObject.bind('error.ipUploadFile', this.addError);
+
+            var widgetObject = this.widgetObject;
+            this.widgetObject.find('.ipmBrowseButton').click(function(e){
+                e.preventDefault();
+                var repository = new ipRepository({preview: 'list'});
+                repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
+            });
+
         }
-        options.fileTemplate = this.widgetObject.find('.ipaFileTemplate');
-        container.ipWidget_ipFile_container(options);
-        
-        
-        this.widgetObject.bind('filesSelected.ipUploadFile', this.filesSelected);
-        this.widgetObject.bind('error.ipUploadFile', this.addError);
 
-        var widgetObject = this.widgetObject;
-        this.widgetObject.find('.ipmBrowseButton').click(function(e){
-            e.preventDefault();
-            var repository = new ipRepository({preview: 'list'});
-            repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, widgetObject));
-        });
-        
-    }
-    
-    function addError(event, errorMessage) {
-        $(this).trigger('error.ipContentManagement', [errorMessage]);
-    }
-
-    
-    function fileUploaded(event, files) {
-        /* we are in widgetObject context */
-        var $this = $(this);
-
-        var container = $this.find('.ipWidget_ipFile_container');
-        for(var index in files) {
-            container.ipWidget_ipFile_container('addFile', files[index].fileName, files[index].fileName, 'new');
+        function addError(event, errorMessage) {
+            $(this).trigger('error.ipContentManagement', [errorMessage]);
         }
-    }
-    
 
-    
-    function prepareData() {
-        var data = Object();
-        var container = this.widgetObject.find('.ipWidget_ipFile_container');
-        
-        data.files = new Array();
-        var $files = container.ipWidget_ipFile_container('getFiles');
-        $files.each(function(index) {
+        function fileUploaded(event, files) {
+            /* we are in widgetObject context */
             var $this = $(this);
-            var tmpFile = new Object();
-            tmpFile.title = $this.ipWidget_ipFile_file('getTitle');
-            tmpFile.fileName = $this.ipWidget_ipFile_file('getFileName');
-            tmpFile.status = $this.ipWidget_ipFile_file('getStatus');
-            data.files.push(tmpFile);
 
-        });
+            var container = $this.find('.ipWidget_ipFile_container');
+            for(var index in files) {
+                container.ipWidget_ipFile_container('addFile', files[index].fileName, files[index].fileName, 'new');
+            }
+        }
 
+        function prepareData() {
+            var data = Object();
+            var container = this.widgetObject.find('.ipWidget_ipFile_container');
 
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
+            data.files = new Array();
+            var $files = container.ipWidget_ipFile_container('getFiles');
+            $files.each(function(index) {
+                var $this = $(this);
+                var tmpFile = new Object();
+                tmpFile.title = $this.ipWidget_ipFile_file('getTitle');
+                tmpFile.fileName = $this.ipWidget_ipFile_file('getFileName');
+                tmpFile.status = $this.ipWidget_ipFile_file('getStatus');
+                data.files.push(tmpFile);
 
+            });
 
-};
+            $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
+        }
 
+    };
+
+})(ip.jQuery);
 
 
 
@@ -163,7 +159,7 @@ function IpWidget_IpFile(widgetObject) {
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 
 
@@ -172,82 +168,76 @@ function IpWidget_IpFile(widgetObject) {
 (function($) {
 
     var methods = {
-    init : function(options) {
+        init : function(options) {
 
-        return this.each(function() {
+            return this.each(function() {
 
-            var $this = $(this);
+                var $this = $(this);
+                var data = $this.data('ipWidget_ipFile_file');
 
-            var data = $this.data('ipWidget_ipFile_file');
-
-            
-            // If the plugin hasn't been initialized yet
-            if (!data) {
-                var data = {
-                    title : '',
-                    fileName : '',
-                    status : 'new'
-                };
+                // If the plugin hasn't been initialized yet
+                if (!data) {
+                    var data = {
+                        title : '',
+                        fileName : '',
+                        status : 'new'
+                    };
                 
-                if (options.title) {
-                    data.title = options.title;
-                }
-                if (options.fileName) {
-                    data.fileName = options.fileName;
-                }
-                if (options.status) {
-                    data.status = options.status;
-                }
+                    if (options.title) {
+                        data.title = options.title;
+                    }
+                    if (options.fileName) {
+                        data.fileName = options.fileName;
+                    }
+                    if (options.status) {
+                        data.status = options.status;
+                    }
                 
-                $this.data('ipWidget_ipFile_file', {
-                    title : data.title,
-                    fileName : data.fileName,
-                    status : data.status
+                    $this.data('ipWidget_ipFile_file', {
+                        title : data.title,
+                        fileName : data.fileName,
+                        status : data.status
+                    });
+                    $this.find('.ipaFileTitle').val(data.title);
+                }
+
+                $this.find('.ipaFileLink').attr('href', ipFileUrl('file/repository/' + data.fileName));
+                $this.find('.ipaFileRemove').bind('click', function(event){
+                    event.preventDefault();
+                    $this = $(this);
+                    $this.trigger('removeClick.ipWidget_ipFile');
                 });
-                $this.find('.ipaFileTitle').val(data.title);
-            }
-            
-            $this.find('.ipaFileLink').attr('href', ipFileUrl('file/repository/' + data.fileName));
-            $this.find('.ipaFileRemove').bind('click', function(event){
-                event.preventDefault();
-                $this = $(this);
-                $this.trigger('removeClick.ipWidget_ipFile');
+                $this.bind('removeClick.ipWidget_ipFile', function(event) {
+                    $this.trigger('removeFile.ipWidget_ipFile', this);
+                });
+                return $this;
             });
-            $this.bind('removeClick.ipWidget_ipFile', function(event) {
-                $this.trigger('removeFile.ipWidget_ipFile', this);
-            });
-            return $this;
-        });
-    },
-    
-    getTitle : function() {
-        var $this = this;
-        return $this.find('.ipaFileTitle').val();
-    },
-    
-    getFileName : function() {
-        var $this = this;
-        var tmpData = $this.data('ipWidget_ipFile_file');
-        return tmpData.fileName;
-    },
-        
-    getStatus : function() {
-        var $this = this;
-        var tmpData = $this.data('ipWidget_ipFile_file');
-        return tmpData.status;
-    },
-    
-    setStatus : function(newStatus) {
-        var $this = $(this);
-        var tmpData = $this.data('ipWidget_ipFile_file');
-        tmpData.status = newStatus;
-        $this.data('ipWidget_ipFile_file', tmpData);
-        
-    }
-    
+        },
 
+        getTitle : function() {
+            var $this = this;
+            return $this.find('.ipaFileTitle').val();
+        },
 
+        getFileName : function() {
+            var $this = this;
+            var tmpData = $this.data('ipWidget_ipFile_file');
+            return tmpData.fileName;
+        },
 
+        getStatus : function() {
+            var $this = this;
+            var tmpData = $this.data('ipWidget_ipFile_file');
+            return tmpData.status;
+        },
+
+        setStatus : function(newStatus) {
+            var $this = $(this);
+            var tmpData = $this.data('ipWidget_ipFile_file');
+            tmpData.status = newStatus;
+            $this.data('ipWidget_ipFile_file', tmpData);
+
+        }
     };
 
     $.fn.ipWidget_ipFile_file = function(method) {
@@ -258,8 +248,6 @@ function IpWidget_IpFile(widgetObject) {
         } else {
             $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
         }
-
     };
 
-})(jQuery);
-
+})(ip.jQuery);

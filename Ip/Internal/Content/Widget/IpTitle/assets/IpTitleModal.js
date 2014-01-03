@@ -37,14 +37,12 @@
             });
         },
 
-
         destroy: function () {
             return this.each(function () {
 
             });
         }
     }
-
 
     $.fn.ipWidgetIpTitleModal = function(method) {
         if (methods[method]) {
@@ -56,6 +54,4 @@
         }
     };
 
-
-
-})(jQuery);
+})(ip.jQuery);
