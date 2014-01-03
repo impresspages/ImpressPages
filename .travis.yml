@@ -10,8 +10,8 @@ addons:
     access_key:
       secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
 env:
-  - test_type: Smoke
-  - test_type: Sauce
+  - TEST_GROUP=Smoke
+  - TEST_GROUP=Sauce
 before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < Ip/Internal/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
@@ -28,4 +28,4 @@ before_script:
 #  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
 #  - sleep 5
 
-script: ./travis-tests.sh
+script: ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
