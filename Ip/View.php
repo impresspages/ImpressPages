@@ -202,8 +202,7 @@ class View
                 throw new CoreException("Can't find caller", CoreException::VIEW);
             }
 
-            if ($backtrace[1]['file'] == ipFile('Ip/Functions.php')) {
-
+            if (basename($backtrace[1]['file']) == 'Functions.php') {
                 if(!isset($backtrace[2]['file']) || !isset($backtrace[2]['line'])) {
                     throw new CoreException("Can't find caller", CoreException::VIEW);
                 }
