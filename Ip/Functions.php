@@ -101,6 +101,9 @@ function ipAddJsVariable($name, $value)
 
 function ipAddCss($file, $stage = 1)
 {
+    /**
+     * @var $response \Ip\Response\Layout
+     */
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'addCss')) {
         $response->addCss($file, $stage);
