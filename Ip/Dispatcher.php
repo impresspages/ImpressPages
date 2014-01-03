@@ -195,7 +195,7 @@ class Dispatcher
 
         do {
             if (!is_array(current($this->eventListeners[$eventName]))) {
-                continue; //TODOX find out why is this happening. Ask Algimantas for help.
+                continue; //TODOXX find out why is this happening. Ask Algimantas for help. task #125
             }
             foreach (current($this->eventListeners[$eventName]) as $callable) {
                 call_user_func($callable, $data);
