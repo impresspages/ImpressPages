@@ -23,12 +23,10 @@ class TestEnvironment {
 
         $_GET = array();
         $_POST = array();
-        $_SERVER = array(
-            'REQUEST_URI' => '/',
-            'REQUEST_METHOD' => 'GET',
-            'SERVER_PORT' => 80,
-            'SERVER_NAME' => 'localhost',
-        );
+        $_SERVER['REQUEST_URI'] = '/';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['SERVER_PORT'] = 80;
+        $_SERVER['SERVER_NAME'] = 'localhost';
     }
 
     public static function prepareFiles()
