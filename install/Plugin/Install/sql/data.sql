@@ -66,26 +66,18 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_module_group` (`id`, `name`, `row_number`, `admin`, `translation`) VALUES
-(323, 'administrator', 9, 0, 'Administrator'),
-(324, 'standard', 6, 0, 'Standard'),
-(336, 'developer', 13, 1, 'Developer'),
-(337, 'community', 7, 0, 'Community');
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_page_layout` (`group_name`, `module_name`, `page_id`, `layout`) VALUES
-('', 'Content', 64, 'home.php');
+INSERT INTO `ip_cms_page_layout` (`module_name`, `page_id`, `layout`) VALUES
+('Content', 64, 'home.php');
 
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'version', '4.0'),
-('Ip', 'cached_base_url', '[[[[base_url]]]]'),
-('Ip', 'last_system_message_sent', ''),
-('Ip', 'last_system_message_shown', ''),
-('Ip', 'theme_changed', '0'),
-('Ip', 'cache_version', '1');
+('Ip', 'cachedBaseUrl', '[[[[base_url]]]]'),
+('Ip', 'lastSystemMessageSent', ''),
+('Ip', 'lastSystemMessageShown', ''),
+('Ip', 'themeChanged', '0'),
+('Ip', 'cacheVersion', '1');
 
 -- Dumping data for table--
 
@@ -117,10 +109,10 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`, `associated_group`, `associated_module`) VALUES
-(105, 4, 'menu1', 'main.php', 'Menu1', '', 'Content'),
-(106, 5, 'menu2', 'main.php', 'Menu2', '', 'Content'),
-(110, 6, 'menu3', 'main.php', 'Menu3', '', 'Content');
+INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`, `associated_module`) VALUES
+(105, 4, 'menu1', 'main.php', 'Menu1', 'Content'),
+(106, 5, 'menu2', 'main.php', 'Menu2', 'Content'),
+(110, 6, 'menu3', 'main.php', 'Menu3', 'Content');
 
 -- Dumping data for table--
 

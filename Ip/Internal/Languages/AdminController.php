@@ -30,7 +30,7 @@ class AdminController extends \Ip\GridController
         $helperData = array(
             'addForm' => $form = Helper::getAddForm()
         );
-        return \Ip\View::create('view/helperHtml.php', $helperData)->render();
+        return ipView('view/helperHtml.php', $helperData)->render();
     }
 
 
@@ -43,7 +43,6 @@ class AdminController extends \Ip\GridController
             'table' => 'language',
             'allowInsert' => false,
             'allowSearch' => false,
-            'pageSize' => 3,
             'actions' => array(
                 array(
                     'label' => __('Add', 'ipAdmin', false),

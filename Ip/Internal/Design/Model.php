@@ -67,7 +67,7 @@ class Model
 
     }
 
-    public function installThemePlugin($pluginGroup, $pluginName)
+    public function installThemePlugin($pluginName)
     {
         //refactor to new plugins
         // TODOX Plugin dir
@@ -94,7 +94,7 @@ class Model
 
         $helper = Helper::instance();
         $helper->cpDir($fromDir, $toDir);
-        \Modules\developer\modules\Service::installPlugin($pluginGroup, $pluginName);
+        \Modules\developer\modules\Service::installPlugin($pluginName);
     }
 
     /**
@@ -241,7 +241,7 @@ class Model
         if ($dir) {
             $currentThemeDir = ipThemeFile('');
             // TODOX add theme override to config
-            ipConfig()->_changeCore('THEME_DIR', $dir);
+            // ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 
         $metadata = new ThemeMetadata();
@@ -305,10 +305,6 @@ class Model
 
 
         $theme = new Theme($metadata);
-
-        if ($dir) {
-            ipConfig()->_changeCore('THEME_DIR', $currentThemeDir);
-        }
 
         return $theme;
     }

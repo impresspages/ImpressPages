@@ -70,44 +70,14 @@ class System {
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
         }
 
-
-
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems(),
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
             'helpUrl' => $helpUrl
         );
-        $html = \Ip\View::create('view/toolbar.php', $data)->render();
+        $html = ipView('view/toolbar.php', $data)->render();
         return $html;
-    }
-
-
-    /**
-     * Injects admin html into old backend modules.
-     *
-     * @deprecated
-     * @param string $html
-     * @return mixed
-     */
-    public function injectAdminHtml($html)
-    {
-        $toolbarHtml = $this->getAdminToolbarHtml();
-
-        $code = '    <link href="' . ipFileUrl('Ip/Internal/Admin/assets/admin.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= '    <link href="' . ipFileUrl('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css') . '" type="text/css" rel="stylesheet" media="screen" />' . "\n";
-        $code .= "   <script>window.jQuery || document.write('<script src=\"" . ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js') . "\"><\\/script>');</script>\n";
-        $code .= '   <script type="text/javascript"> var ipAdminToolbar = ' . json_encode($toolbarHtml) . ';</script>' . "\n";
-        $code .= '   <script type="text/javascript" src="' . ipFileUrl('Ip/Internal/Admin/assets/admin.js') . '" ></script>' . "\n";
-        $newHtml = preg_replace('%</head>%i', $code . '</head>', $html, 1);
-
-        if ($newHtml == $html) {
-            // tag not found
-        }
-
-        /*$newHtml = preg_replace("%(<body.*?>)%is", "$1\n<script>window.document.body.style.marginTop = '30px';</script>\n", $newHtml);*/
-
-        return $newHtml;
     }
 
 }

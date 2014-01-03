@@ -45,7 +45,7 @@ class AdminController extends \Ip\Controller
             'form' => $form,
         );
 
-        return \Ip\View::create('view/options.php', $data);
+        return ipView('view/options.php', $data);
     }
 
     public function saveOptions()

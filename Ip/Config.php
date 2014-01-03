@@ -9,7 +9,6 @@ namespace Ip;
 class Config
 {
     protected $rawConfig = array();
-    protected $core = array();
     protected $protocol = null;
     protected $corePath = null;
     protected $pluginUrl = null;
@@ -82,13 +81,6 @@ class Config
             $this->tablePrefix = $value['tablePrefix'];
         }
         $this->rawConfig[$name] = $value;
-    }
-
-
-    public function _changeCore($name, $value)
-    {
-        // TODO do this through events
-        $this->core[$name] = $value;
     }
 
     public function isDevelopmentEnvironment()

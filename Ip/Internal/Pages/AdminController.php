@@ -17,6 +17,7 @@ class AdminController extends \Ip\Controller
     {
         ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/angular.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/pages.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/zones.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageTree.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageProperties.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.jstree.js'));
@@ -36,7 +37,7 @@ class AdminController extends \Ip\Controller
             'addZoneForm' => Helper::addZoneForm(),
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
-        $layout = \Ip\View::create('view/layout.php', $variables);
+        $layout = ipView('view/layout.php', $variables);
         return $layout->render();
     }
 
@@ -77,7 +78,7 @@ class AdminController extends \Ip\Controller
         $variables = array(
             'form' => Helper::pagePropertiesForm($zoneName, $pageId)
         );
-        $layout = \Ip\View::create('view/pageProperties.php', $variables)->render();
+        $layout = ipView('view/pageProperties.php', $variables)->render();
 
         $data = array (
             'html' => $layout

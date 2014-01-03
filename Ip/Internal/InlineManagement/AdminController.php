@@ -36,7 +36,7 @@ class AdminController extends \Ip\Controller{
             'availableFonts' => $availableFonts
         );
 
-        $html = \Ip\View::create('view/popup/logo.php', $popupData)->render();
+        $html = ipView('view/popup/logo.php', $popupData)->render();
 
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
@@ -101,7 +101,7 @@ class AdminController extends \Ip\Controller{
         }
 
 
-        $html = \Ip\View::create('view/popup/string.php', array('values' => $values))->render();
+        $html = ipView('view/popup/string.php', array('values' => $values))->render();
 
         $data = array(
             'status' => 'success',
@@ -143,7 +143,7 @@ class AdminController extends \Ip\Controller{
         }
 
 
-        $html = \Ip\View::create('view/popup/text.php', array('values' => $values))->render();
+        $html = ipView('view/popup/text.php', array('values' => $values))->render();
 
         $data = array(
             "status" => "success",
@@ -215,7 +215,7 @@ class AdminController extends \Ip\Controller{
             'showRemoveLink' => $imageStr !== false
         );
 
-        $html = \Ip\View::create('view/popup/image.php', $popupData)->render();
+        $html = ipView('view/popup/image.php', $popupData)->render();
 
 
 

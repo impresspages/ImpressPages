@@ -22,7 +22,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
 
         $this->assertEquals($configuration['DEVELOPMENT_ENVIRONMENT'], 1); //displays error and debug information. Change to 0 before deployment to production server
         $this->assertEquals($configuration['ERRORS_SHOW'], 1);  //0 if you don't wish to display errors on the page
-        $this->assertEquals($configuration['ERRORS_SEND'], 'mangirdas@impresspages.org'); //insert email address or leave blank. If email is set, you will get an email when an error occurs.
         // END GLOBAL
 
         // FRONTEND

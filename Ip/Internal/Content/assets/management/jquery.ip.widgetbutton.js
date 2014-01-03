@@ -4,15 +4,17 @@
  *
  */
 
-(function($) {
 
+
+(function($) {
+    "use strict";
     var methods = {
         init : function(options) {
             return this.each(function() {
                 var $this = $(this);
-                
+
                 var data = $this.data('ipAdminWidgetButton');
-            
+
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.draggable({
@@ -34,9 +36,20 @@
                             }
                         },
                         helper : 'clone',
-                        stop: function(event, ui) { }
+                        stop: function(event, ui) {
+                            if (widgetOnDroppable) {
+                                var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
+                                var leftOrRight = widgetOnDroppable.data('leftOrRight');
+                                var widgetName = $(this).data('ipAdminWidgetButton').name;
+                                ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+                            }
+                            ipStopWidgetDrag();
+                        },
+                        start: function (event, ui) {
+                            ipStartWidgetDrag();
+                        }
                     });
-                    
+
                     $this.data('ipAdminWidgetButton', {
                         name : $this.attr('id').substr(20)
                     });
@@ -68,4 +81,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);

@@ -20,8 +20,3 @@ function ipHomeUrl()
     return ip.homeUrl;
 }
 
-//TODOX implement or remove.
-function ipTranslate(key, domain)
-{
-
-}

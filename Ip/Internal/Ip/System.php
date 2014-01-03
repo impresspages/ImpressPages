@@ -14,12 +14,11 @@ class System
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 0);
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 0);
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), 0); // jQuery for core
+            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 0); // default, global jQuery
 
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
-
-
 
             //Form init
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));

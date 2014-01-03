@@ -50,7 +50,7 @@ class Display
             'deleteWarning' => $this->config->deleteWarning()
         );
 
-        $html = \Ip\View::create('../view/layout.php', $variables)->render();
+        $html = ipView('../view/layout.php', $variables)->render();
         return $html;
     }
 
@@ -75,9 +75,9 @@ class Display
 
     protected function rowsData($data)
     {
-        $editButtonHtml = \Ip\View::create('../view/updateButton.php');
-        $deleteButtonHtml = \Ip\View::create('../view/deleteButton.php');
-        $dragButtonHtml = \Ip\View::create('../view/dragHandle.php');
+        $editButtonHtml = ipView('../view/updateButton.php');
+        $deleteButtonHtml = ipView('../view/deleteButton.php');
+        $dragButtonHtml = ipView('../view/dragHandle.php');
         $rows = array();
         foreach ($data as $row) {
             $preparedRow = array(

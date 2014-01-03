@@ -21,83 +21,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array(1));
     }
 
-    public function getSitemapInList()
-    {
-        $answer = '';
-        $answer .= '<ul id="ipSitemap">' . "\n";
-
-        $answer .= '<li><a href="' . ipHomeUrl() . '">Home</a></li>' . "\n";
-
-        $languages = \Ip\Internal\ContentDb::getLanguages(true); //get all languages including hidden
-
-        foreach ($languages as $language) {
-            $link = \Ip\Internal\Deprecated\Url::generate($language['id']);
-            $answer .= '<li><a href="' . $link . '">' . htmlspecialchars($language['d_long']) . ' (' . htmlspecialchars(
-                    $language['d_short']
-                ) . ')</a>' . "\n";
-
-            $zones = ipContent()->getZones();
-            if (sizeof($zones) > 0) {
-                $answer .= '<ul>';
-                foreach ($zones as $key => $zone) {
-                    $answer .= '<li><a href="' . \Ip\Internal\Deprecated\Url::generate(
-                            $language['id'],
-                            $zone->getName()
-                        ) . '">' . $zone->getTitle() . '</a>' . "\n";
-                    $answer .= $this->getPagesList($language, $zone);
-                    $answer .= '</li>' . "\n";
-                }
-                $answer .= '</ul>';
-
-            }
-
-            $answer .= '</li>' . "\n";
-        }
-
-
-        $answer .= '<ul>' . "\n";
-
-        return new \Ip\Response($answer);
-    }
-
-    private function getPagesList($language, $zone, $parentElementId = null)
-    {
-        $answer = '';
-        $pages = $zone->getElements(
-            $language['id'],
-            $parentElementId,
-            $startFrom = 0,
-            $limit = null,
-            $includeHidden = true,
-            $reverseOrder = false
-        );
-        if ($pages && sizeof($pages) > 0) {
-            $answer .= '<ul>' . "\n";
-            foreach ($pages as $key => $page) {
-                $answer .= '<li><a href="' . $page->getLink(true) . '">' . $page->getNavigationTitle() . '</a>';
-                $answer .= $this->getPagesList($language, $zone, $page->getId());
-                $answer .= '</li>';
-            }
-            $answer .= '</ul>' . "\n";
-        }
-        return $answer;
-    }
-
-
-    /**
-     * @param $zone
-     * @param $page
-     * @return string content
-     */
-    private function _getPageDesignOptionsHtml($zone, $page, $data)
-    {
-        $data['defaultLayout'] = $zone->getLayout();
-        $data['layouts'] = \Ip\Internal\Content\Model::getThemeLayouts();
-        $data['layout'] = \Ip\Internal\Content\Service::getPageLayout($page);
-        return \Ip\View::create('view/page_options_design.php', $data)->render();
-    }
-
-
     public function moveWidget()
     {
 
@@ -144,6 +67,18 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
+    private function _errorAnswer($errorMessage)
+    {
+
+        $data = array(
+            'status' => 'error',
+            'errorMessage' => $errorMessage
+        );
+
+        // TODO use jsonrpc response
+        return new \Ip\Response\Json($data);
+    }
+
     public function createWidget()
     {
 
@@ -160,6 +95,7 @@ class AdminController extends \Ip\Controller
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
+        $columnId = empty($_POST['columnId']) ? null : $_POST['columnId'];
 
         if ($revisionId == '') {
             //Static block;
@@ -187,6 +123,7 @@ class AdminController extends \Ip\Controller
             }
 
         }
+
         $widgetObject = Model::getWidgetObject($widgetName);
         if ($widgetObject === false) {
             return $this->_errorAnswer('Unknown widget "' . $widgetName . '"');
@@ -194,10 +131,8 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $layouts = $widgetObject->getLooks();
-            $widgetObject = Model::getWidgetObject($widgetName);
-            $widgetId = Model::createWidget($widgetName, $widgetObject->defaultData(), $layouts[0]['name'], null);
-            $instanceId = Model::addInstance($widgetId, $revisionId, $blockName, $position, true);
+            $widgetId = Service::addWidget($widgetName);
+            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);
@@ -216,7 +151,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
 
     }
-
 
     public function updateWidget()
     {
@@ -313,7 +247,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-
     public function savePage()
     {
 
@@ -356,21 +289,6 @@ class AdminController extends \Ip\Controller
 
         return new \Ip\Response\Json($data);
 
-    }
-
-
-
-
-    private function _errorAnswer($errorMessage)
-    {
-
-        $data = array(
-            'status' => 'error',
-            'errorMessage' => $errorMessage
-        );
-
-        // TODO use jsonrpc response
-        return new \Ip\Response\Json($data);
     }
 
 }

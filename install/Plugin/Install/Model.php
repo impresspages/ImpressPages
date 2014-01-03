@@ -57,60 +57,60 @@ class Model
             $warning['session'] = 1;
         }
 
-        $answer = '<h1>' . __('System check', 'ipInstall') . "</h1>";
+        $answer = '<h1>' . __('System check', 'Install') . "</h1>";
 
         $requirements = array();
 
         $check = array();
-        $check['name'] = __('PHP version >= 5.3', 'ipInstall');
+        $check['name'] = __('PHP version >= 5.3', 'Install');
         $check['type'] = isset($error['php_version']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('Apache module "mod_rewrite"', 'ipInstall');
+        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
         $check['type'] = isset($error['mod_rewrite']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('PHP module "PDO"', 'ipInstall');
+        $check['name'] = __('PHP module "PDO"', 'Install');
         $check['type'] = isset($error['mod_pdo']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('GD Graphics Library', 'ipInstall');
+        $check['name'] = __('GD Graphics Library', 'Install');
         $check['type'] = isset($error['gd_lib']) ? 'error' : 'success';
         $requirements[] = $check;
 
         //sessions are checked using curl. If there is no curl, session availability hasn't been checked
         if (!isset($warning['curl'])) {
             $check = array();
-            $check['name'] = __('PHP sessions', 'ipInstall');
+            $check['name'] = __('PHP sessions', 'Install');
             $check['type'] = isset($error['session']) ? 'error' : 'success';
             $requirements[] = $check;
         }
 
         $check = array();
-        $check['name'] = __('.htaccess file', 'ipInstall');
+        $check['name'] = __('.htaccess file', 'Install');
         $check['type'] = isset($error['htaccess']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('index.html removed', 'ipInstall');
+        $check['name'] = __('index.html removed', 'Install');
         $check['type'] = isset($error['index.html']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('Magic quotes off (optional)', 'ipInstall');
+        $check['name'] = __('Magic quotes off (optional)', 'Install');
         $check['type'] = isset($error['magic_quotes']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('PHP module "Curl"', 'ipInstall');
+        $check['name'] = __('PHP module "Curl"', 'Install');
         $check['type'] = isset($error['curl']) ? 'warning' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = sprintf( __('PHP memory limit (%s)', 'ipInstall'), ini_get('memory_limit'));
+        $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
         $check['type'] = (integer)ini_get('memory_limit') < 100 ? 'warning' : 'success';
         $requirements[] = $check;
 
@@ -120,7 +120,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/file/</b> ' . __('writable', 'ipInstall') . ' ' . __('(including subfolders and files)', 'ipInstall');
+        $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
         if (!Helper::isDirectoryWritable(ipFile('file/'))) {
             $check['type'] = 'error';
             $error['writable_file'] = 1;
@@ -130,7 +130,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'ipInstall');
+        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
         if (!Helper::isDirectoryWritable(ipFile('Theme'))) {
             $check['type'] = 'error';
             $error['writable_themes'] = 1;
@@ -140,7 +140,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/config.php</b> ' . __('writable', 'ipInstall');
+        $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
         if (!is_writable(ipFile('config.php'))) {
             $check['type'] = 'error';
             $error['writable_config'] = 1;
@@ -150,7 +150,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'ipInstall');
+        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'Install');
         if (!is_writable(ipFile('robots.txt'))) {
             $check['type'] = 'error';
             $error['writable_robots'] = 1;
@@ -165,10 +165,10 @@ class Model
         <p class="text-right">';
         if (sizeof($error) > 0) {
             $_SESSION['step'] = 1;
-            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'ipInstall') . '</a>';
+            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'Install') . '</a>';
         } else {
             Model::completeStep(1);
-            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'ipInstall') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'ipInstall') . '</a>';
+            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'Install') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'Install') . '</a>';
         }
         $answer .= "</p>";
 
@@ -274,7 +274,7 @@ class Model
                 'value' => 'DOCTYPE_HTML5',
                 'comment' => 'look ip_cms/includes/Ip/View.php for available options.'
             ),
-            'timezone' => array(
+            'TIMEZONE' => array(
                 'value' => 'changeThis',
                 'comment' => 'PHP 5 requires timezone to be set.',
             ),
@@ -355,12 +355,21 @@ Sitemap: '. ipFileUrl('sitemap.php');
 
     public static function setSiteName($siteName)
     {
-        ipSetOption('Site.title', $siteName);
+        ipSetOption('Config.websiteTitle', $siteName);
     }
 
     public static function setSiteEmail($siteEmail)
     {
-        ipSetOption('Site.email', $siteEmail);
+        ipSetOption('Config.websiteEmail', $siteEmail);
+    }
+
+    public static function generateCronPassword()
+    {
+        $password = \rand(100000, 999999);
+
+        ipSetOption('Config.cronPassword', $password);
+
+        return $password;
     }
 
 }

@@ -17,7 +17,7 @@ class AdminController extends \Ip\Controller{
             'tip_confirmWidget' => ipGetOption('Wizard.tip_confirmWidget'),
             'tip_publish' => ipGetOption('Wizard.tip_publish')
         );
-        $content = \Ip\View::create('view/content.php', $viewData)->render();
+        $content = ipView('view/content.php', $viewData)->render();
 
         $data = array(
             'status' => 'success',

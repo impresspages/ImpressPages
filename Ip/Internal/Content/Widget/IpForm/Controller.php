@@ -55,7 +55,7 @@ class Controller extends \Ip\WidgetController{
         usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
-        $snippets[] = \Ip\View::create('snippet/popup.php', $data)->render();
+        $snippets[] = ipView('snippet/popup.php', $data)->render();
         return $snippets;
 
     }
@@ -108,7 +108,7 @@ class Controller extends \Ip\WidgetController{
                 }
             }
         }
-        $content = \Ip\View::create('helperView/email_content.php', array('values' => $contentData))->render();
+        $content = ipView('helperView/email_content.php', array('values' => $contentData))->render();
 
         
         $emailData = array(
@@ -117,7 +117,7 @@ class Controller extends \Ip\WidgetController{
             'email' => $websiteEmail
         );
         
-        $email = \Ip\View::create('helperView/email.php', $emailData)->render();
+        $email = ipView('helperView/email.php', $emailData)->render();
 
         
         //get page where this widget sits :)

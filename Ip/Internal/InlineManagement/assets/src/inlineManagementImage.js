@@ -1,12 +1,10 @@
 /**
  * @package ImpressPages
  *
- *
  */
 
-"use strict";
-
 (function($) {
+    "use strict";
 
     var methods = {
         init : function(options) {
@@ -132,23 +130,23 @@
                 }
 
                 //loop and assign all inline options assigned by theme author
-                jQuery.each($this.data('options'), function(name, value) {
+                $.each($this.data('options'), function(name, value) {
                     options[name] = value;
                 });
 
                 var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
                 $imageUploader.ipUploadImage(options);
-                $imageUploader.bind('change.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                $imageUploader.bind('change.ipUploadImage', $.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
             }
 
             //$.proxy(methods._preview, $this)();
 
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaCancel').bind('click', jQuery.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaCancel').bind('click', $.proxy(methods._cancel, $this));
 
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaRemove').bind('click', jQuery.proxy(methods._removeImage, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaRemove').bind('click', $.proxy(methods._removeImage, $this));
         },
 
         _removeImage : function(event) {
@@ -327,4 +325,4 @@
         }
     };
 
-})(jQuery);
+})(ip.jQuery);

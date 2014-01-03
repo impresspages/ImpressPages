@@ -49,17 +49,17 @@ class Model{
         $languages = self::getLanguages();
 
         if ($position === 0) {
-            return $languages[0]['row_number'] - 100;
+            return $languages[0]['row_number'] + 100;
         }
 
         if (isset($languages[$position - 1])) {
             if (isset($languages[$position])) {
                 return ($languages[$position - 1]['row_number'] + $languages[$position]['row_number']) / 2;
             } else {
-                return $languages[$position]['row_number'] + 100;
+                return $languages[$position]['row_number'] - 20;
             }
         } else {
-            return $languages[count($languages) - 1]['row_number'] + 100;
+            return $languages[count($languages) - 1]['row_number'] - 20;
         }
 
         throw new \Ip\CoreException('Unexpected behaviour');
@@ -80,7 +80,8 @@ class Model{
         WHERE
             1
         ORDER BY
-            `row_number`";
+            `row_number`
+        DESC";
 
         return ipDb()->fetchAll($sql);
     }
@@ -93,7 +94,7 @@ class Model{
             return '';
         }
          
-        return \Ip\View::create('view/list.php', self::getViewData());
+        return ipView('view/list.php', self::getViewData());
     }
 
 

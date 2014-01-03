@@ -27,7 +27,7 @@ class Model
                         'widgetRecord' => $widget,
                         'managementState' => $managementState
                     );
-                    $widgetsHtml[] = \Ip\View::create('view/unknown_widget.php', $viewData)->render();
+                    $widgetsHtml[] = ipView('view/unknown_widget.php', $viewData)->render();
                 } else {
                     throw new Exception('Error when generating widget preview', null, $e);
                 }
@@ -41,7 +41,7 @@ class Model
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
         );
-        $answer = \Ip\View::create('view/block.php', $data)->render();
+        $answer = ipView('view/block.php', $data)->render();
         return $answer;
     }
 
@@ -83,7 +83,7 @@ class Model
             'manageableRevision' => $manageableRevision
         );
 
-        $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
+        $controlPanelHtml = ipView('view/control_panel.php', $data)->render();
 
         $data = array(
             'controlPanelHtml' => $controlPanelHtml,
@@ -148,7 +148,6 @@ class Model
             'data' => $data,
             'created' => time(),
             'recreated' => time(),
-            'predecessor' => null,
             'instanceId' => null,
             'revisionId' => null,
             'position' => null,
@@ -219,7 +218,7 @@ class Model
             'optionsMenu' => $optionsMenu,
         );
 
-        $widgetControlsHtml = \Ip\View::create('view/widgetControls.php', $data)->render();
+        $widgetControlsHtml = ipView('view/widgetControls.php', $data)->render();
 
 
         $variables = array(
@@ -233,7 +232,7 @@ class Model
             'widgetControlsHtml' => $widgetControlsHtml
         );
 
-        $answer = \Ip\View::create('view/widget.php', $variables)->render();
+        $answer = ipView('view/widget.php', $variables)->render();
         return $answer;
     }
 
@@ -451,19 +450,14 @@ class Model
      * @param string $layout
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $layout, $predecessor)
+    public static function createWidget($widgetName, $data, $layout)
     {
-        if ($layout == null) {
-            $layout = self::DEFAULT_LAYOUT;
-        }
-
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
                 'layout' => $layout,
                 'created' => time(),
                 'recreated' => time(),
-                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
-                'predecessor' => $predecessor,
+                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
             ));
     }
 
@@ -587,6 +581,31 @@ class Model
         );
         \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
     }
+
+    protected static function getInstance($instanceId)
+    {
+        $instances = ipDb()->select('*', 'widget_instance', array('instanceId' => $instanceId));
+        if (isset($instances[0])) {
+            return $instances[0];
+        } else {
+            return false;
+        }
+    }
+
+    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
+    {
+        $leftInstance = self::getInstance($leftWidgetInstanceId);
+        $rightInstance = self::getInstance($rightWidgetInstanceId);
+        if (!$leftInstance || !$rightInstance) {
+            throw new \Ip\CoreException('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
+            throw new \Ip\CoreException("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+        }
+        //TODOX finish the implementation
+
+    }
+
 
 
 }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="robots" content="NOINDEX,NOFOLLOW">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?></title>
-    <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico') ?>">
+    <title><?php _e('ImpressPages CMS installation wizard', 'Install') ?></title>
+    <link rel="shortcut icon" href="<?php echo ipFileUrl('install/favicon.ico') ?>">
     <?php ipAddCss(ipThemeUrl('assets/theme.css')); ?>
     <?php echo ipHead(); ?>
 </head>
@@ -17,7 +17,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="page-header">
                     <img src="<?php echo ipThemeUrl('assets/impresspages_logo.png') ?>" alt="ImpressPages CMS">
-                    <h3><?php _e('ImpressPages CMS installation wizard', 'ipInstall') ?> <small><?php esc(printf(__('Version %s', 'ipInstall', false), \Ip\Application::getVersion())) ?></small></h3>
+                    <h3><?php _e('ImpressPages CMS installation wizard', 'Install') ?> <small><?php esc(printf(__('Version %s', 'Install', false), \Ip\Application::getVersion())) ?></small></h3>
                 </div>
                 <div class="row">
                     <div class="col-md-3">

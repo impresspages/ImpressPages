@@ -14,15 +14,15 @@
             return this.each(function() {
 
                 var $this = $(this);
-                
+
                 var data = $this.data('ipContentManagement');
-            
+
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.bind('initFinished.ipContentManagement', $.proxy(methods._initBlocks, $this));
 
                     $(this).trigger('initStarted.ipContentManagement');
- 
+
                     $this.data('ipContentManagement', {
                         saveJobs : Object(),
                         optionsChanged : false
@@ -54,10 +54,6 @@
                         $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
 
 
-                        $this.bind('pageOptionsConfirm.ipPageOptions', methods._optionsConfirm);
-                        $this.bind('pageOptionsCancel.ipPageOptions', methods._optionsCancel);
-                        //$this.bind('dialogclose', methods._optionsCancel);
-
                         $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
 
                         $this.trigger('initFinished.ipContentManagement', options);
@@ -71,13 +67,13 @@
 
             });
         },
-        
+
 
         _initBlocks: function() {
             var $this = this;
             $this.ipContentManagement('initBlocks', $('.ipBlock'));
         },
-        
+
         initBlocks : function(blocks) {
             var $this = this;
             var data = $this.data('ipContentManagement');
@@ -86,7 +82,7 @@
                 blocks.ipBlock(options);
             }
         },
-        
+
         addError : function (errorMessage) {
             var $newError = $('.ipAdminErrorSample .ipAdminError').clone();
             $newError.text(errorMessage);
@@ -97,9 +93,9 @@
 
 
         // *********SAVE**********//
-        
 
-        
+
+
         save : function(publish) {
             return this.each(function() {
                 var $this = $(this);
@@ -125,7 +121,7 @@
                 });
             });
         },
-        
+
         _savePageResponse: function(response) {
             var $this = $(this);
             var data = $this.data('ipContentManagement');
@@ -138,13 +134,13 @@
 
 
         // *********END SAVE*************//
-        
+
     };
 
 
 
-    
-    
+
+
 
     $.fn.ipContentManagement = function(method) {
         if (methods[method]) {
@@ -157,7 +153,7 @@
 
 
     };
-    
-   
 
-})(jQuery);
+
+
+})(ip.jQuery);

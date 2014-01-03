@@ -21,11 +21,35 @@ require_once(__DIR__ . '/../Ip/Application.php');
         'skipModuleInit' => 1,
         'translationsLanguageCode' => 'en'
     );
+
+    $translator = \Ip\ServiceLocator::translator();
+
+    $translator->addTranslationFilePattern(
+        'json',
+        ipFile('Plugin/Install/translations/'),
+        'Install-%s.json',
+        'Install'
+    );
+    $translator->addTranslationFilePattern(
+        'json',
+        ipFile('file/translations/override/'),
+        'Install-%s.json',
+        'Install'
+    );
+
     $request = new \Plugin\Install\Request();
     $request->setQuery($_GET);
     $request->setPost($_POST);
     $request->setServer($_SERVER);
     $request->setRequest($_REQUEST);
+
+    if (isset($_SESSION['installation_language'])) {
+        $options['translationsLanguageCode'] = $_SESSION['installation_language'];
+    }
+    if (isset($_REQUEST['lang'])) {
+        $options['translationsLanguageCode'] = $_REQUEST['lang'];
+    }
+
     $response = $application->handleRequest($request, $options);
     $response->send();
 

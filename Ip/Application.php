@@ -39,8 +39,6 @@ class Application
         spl_autoload_register(array($autoloader, 'load'));
 
         require_once $coreDir . 'Ip/Functions.php';
-
-        require_once ipFile('Ip/Internal/Deprecated/mysqlFunctions.php');
     }
 
     public function prepareEnvironment($options = array())
@@ -70,7 +68,7 @@ class Application
         }
 
         if (empty($options['skipTimezone'])) {
-            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+            date_default_timezone_set(ipConfig()->getRaw('TIMEZONE')); //PHP 5 requires timezone to be set.
         }
     }
 
@@ -249,8 +247,32 @@ class Application
             }
         }
 
+        $translator = \Ip\ServiceLocator::translator();
+        $originalDir = ipFile("file/translations/original/");
+        $overrideDir = ipFile("file/translations/override/");
+
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
+
+            $translator->addTranslationFilePattern(
+                'json',
+                $originalDir,
+                "%s/$plugin.json",
+                $plugin
+            );
+            $translator->addTranslationFilePattern(
+                'json',
+                ipFile("Plugin/$plugin/translations/"),
+                "%s.json",
+                $plugin
+            );
+            $translator->addTranslationFilePattern(
+                'json',
+                $overrideDir,
+                "%s/$plugin.json",
+                $plugin
+            );
+
             $systemClass = '\\Plugin\\' . $plugin . '\\System';
             if (class_exists($systemClass)) {
                 $system = new $systemClass();
