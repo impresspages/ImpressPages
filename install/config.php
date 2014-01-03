@@ -13,6 +13,10 @@ if (getenv('TRAVIS')) {
     $baseUrl =  'localhost/phpunit/tmp/installTest/install';
 }
 
+$dateTimeObject = new \DateTime();
+$currentTimeZone = $dateTimeObject->getTimezone()->getName();
+
+
 
 return array(
     // GLOBAL
@@ -42,7 +46,7 @@ return array(
     'THEME' => 'CentrusCleanus', //theme from themes directory
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5', //look ip_cms/includes/Ip/View.php for available options.
 
-    'TIMEZONE' => 'Europe/Vilnius', //TODOX replace with current
+    'TIMEZONE' => $currentTimeZone,
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(
