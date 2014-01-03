@@ -4,14 +4,20 @@ php:
 notifications:
   email: false
 addons:
-  sauce_connect:
-    username:
-      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
-    access_key:
-      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
+  sauce_connect: true
+#    username:
+#      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
+#    access_key:
+#      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
 env:
-  - TEST_GROUP=Smoke
-  - TEST_GROUP=Sauce
+  global:
+    - SAUCE_USERNAME:
+      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
+    - SAUCE_ACCESS_KEY:
+      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
+  matrix:
+    - TEST_GROUP=Smoke
+    - TEST_GROUP=Sauce
 before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < Ip/Internal/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
