@@ -30,7 +30,7 @@ class AdminController extends \Ip\GridController
         $helperData = array(
             'addForm' => $form = Helper::getAddForm()
         );
-        return \Ip\View::create('view/helperHtml.php', $helperData)->render();
+        return ipView('view/helperHtml.php', $helperData)->render();
     }
 
 

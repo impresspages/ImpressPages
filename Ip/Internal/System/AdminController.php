@@ -39,7 +39,7 @@ class AdminController extends \Ip\Controller
             'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'), // TODOX ensure version is stored here
         );
 
-        $content = \Ip\View::create('view/index.php', $data)->render();
+        $content = ipView('view/index.php', $data)->render();
 
         if ($enableUpdate) {
             ipAddJs(ipFileUrl('Ip/Internal/System/assets/update.js'));

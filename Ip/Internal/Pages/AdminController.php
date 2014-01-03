@@ -36,7 +36,7 @@ class AdminController extends \Ip\Controller
             'addZoneForm' => Helper::addZoneForm(),
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
-        $layout = \Ip\View::create('view/layout.php', $variables);
+        $layout = ipView('view/layout.php', $variables);
         return $layout->render();
     }
 
@@ -77,7 +77,7 @@ class AdminController extends \Ip\Controller
         $variables = array(
             'form' => Helper::pagePropertiesForm($zoneName, $pageId)
         );
-        $layout = \Ip\View::create('view/pageProperties.php', $variables)->render();
+        $layout = ipView('view/pageProperties.php', $variables)->render();
 
         $data = array (
             'html' => $layout

@@ -41,7 +41,7 @@ class Slot {
         );
 
         $viewFile = ipFile('Ip/Internal/Config/view/menu.php');
-        $view = \Ip\View::create($viewFile, $data);
+        $view = ipView($viewFile, $data);
         return $view->render();
     }
 

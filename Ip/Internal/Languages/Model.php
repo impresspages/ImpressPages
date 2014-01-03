@@ -94,7 +94,7 @@ class Model{
             return '';
         }
          
-        return \Ip\View::create('view/list.php', self::getViewData());
+        return ipView('view/list.php', self::getViewData());
     }
 
 

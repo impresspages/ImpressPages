@@ -68,7 +68,7 @@ class AdminController extends \Ip\Controller
             'contentManagementUrl' => ipConfig()->baseUrl() . '?aa=Content.index',
             'contentManagementText' => __('Manage content', 'ipAdmin', false)
         );
-        $contentView = \Ip\View::create('view/index.php', $data);
+        $contentView = ipView('view/index.php', $data);
 
         return $contentView->render();
     }

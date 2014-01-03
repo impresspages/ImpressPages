@@ -37,7 +37,7 @@ class PageNotFound extends \Ip\Response\Layout {
             'title' => __('Error 404', 'ipPublic', false),
             'text' => self::error404Message()
         );
-        $content = \Ip\View::create(ipFile('Ip/Internal/Config/view/error404.php'), $data)->render();
+        $content = ipView(ipFile('Ip/Internal/Config/view/error404.php'), $data)->render();
         return $content;
 
     }

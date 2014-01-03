@@ -126,7 +126,7 @@ class PublicController extends \Ip\Controller
         if (ipIsManagementState()) {
             ipAddJsVariable(
                 'ipWidgetLayoutModalTemplate',
-                \Ip\View::create('view/widgetLayoutModal.php')->render()
+                ipView('view/widgetLayoutModal.php')->render()
             );
         }
 

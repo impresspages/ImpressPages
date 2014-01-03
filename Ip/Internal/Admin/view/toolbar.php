@@ -20,7 +20,7 @@
                     'items' => $menuItems,
                     'depth' => 1
                 );
-                $view = \Ip\View::create($viewFile, $data);
+                $view = ipView($viewFile, $data);
                 echo $view->render();
             ?>
             <ul>

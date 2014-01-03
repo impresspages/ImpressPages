@@ -215,9 +215,9 @@ class Form
     {
         if (!$view) {
             if ($this->getEnvironment() == self::ENVIRONMENT_ADMIN) {
-                $view = \Ip\View::create('Form/adminView/form.php');
+                $view = ipView('Form/adminView/form.php');
             } else {
-                $view = \Ip\View::create('Form/publicView/form.php');
+                $view = ipView('Form/publicView/form.php');
             }
         }
         $view->setVariables(

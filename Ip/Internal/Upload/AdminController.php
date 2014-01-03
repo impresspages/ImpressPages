@@ -13,7 +13,7 @@ class AdminController extends \Ip\Controller
 {
 
     public function getImageContainerHtml() {
-        $html = \Ip\View::create('view/imageContainer.php', array())->render();
+        $html = ipView('view/imageContainer.php', array())->render();
 
         $result = array(
             "status" => "success",
@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller
 
 
     public function getFileContainerHtml() {
-        $html = \Ip\View::create('view/fileContainer.php', array())->render();
+        $html = ipView('view/fileContainer.php', array())->render();
 
         $result = array(
             "status" => "success",
