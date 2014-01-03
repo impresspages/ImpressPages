@@ -155,13 +155,18 @@ var ipPages = null;
                         $modal.find('.ipsBody').addClass('ipgHide');
                         $modal.find('.ipsDelete').addClass('ipgHide');
                         $modal.find('.ipsModalActions').addClass('ipgHide');
+                        $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
+                            deleteZone(zone.name);
+                        });
                     });
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').addClass('ipgHide');
                         $modal.find('.ipsBody').removeClass('ipgHide');
                         $modal.find('.ipsDelete').removeClass('ipgHide');
                         $modal.find('.ipsModalActions').removeClass('ipgHide');
+                        $modal.find('.ipsDeleteProceed').off('click');
                     });
+
                     $modal.find('.ipsSave').off('click').on('click', function () {
                         $modal.find('form').submit()
                     });
@@ -469,6 +474,30 @@ var ipPages = null;
                 metaTitle: metaTitle,
                 metaKeywords: metaKeywords,
                 metaDescription: metaDescription,
+                securityToken: ip.securityToken
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: this,
+                success: function (response) {
+                    window.location = ip.baseUrl + '?aa=Pages.index';
+                },
+                error: function (response) {
+                    if (ip.developmentEnvironment || ip.debugMode) {
+                        alert('Server response: ' + response.responseText);
+                    }
+                },
+                dataType: 'json'
+            });
+        }
+
+        var deleteZone = function (zoneName) {
+            var data = {
+                aa: 'Pages.deleteZone',
+                zoneName: zoneName,
                 securityToken: ip.securityToken
             };
 
