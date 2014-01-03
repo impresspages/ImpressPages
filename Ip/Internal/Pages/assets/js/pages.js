@@ -1,7 +1,7 @@
 var app = angular.module('Pages', []).directive('zonesPostRepeatDirective', function () {
     return function (scope, element, attrs) {
         if (scope.$last) {
-            initZones();
+            pagesZones.init();
         }
     };
 });
