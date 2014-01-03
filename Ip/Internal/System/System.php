@@ -64,20 +64,7 @@ class System
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                if (ipConfig()->getRaw('ERRORS_SEND')) {
-                    $queue = new \Ip\Internal\Email\Module();
-                    $queue->addEmail(
-                        ipGetOption('Config.websiteEmail'),
-                        ipGetOption('Config.websiteTitle'),
-                        ipConfig()->getRaw('ERRORS_SEND'),
-                        '',
-                        ipGetOption('Config.websiteTitle'),
-                        $message,
-                        false,
-                        true
-                    );
-                    $queue->send();
-                }
+                ipDispatcher('systemMessages', array('messages' => $messages));
 
                 \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
             }

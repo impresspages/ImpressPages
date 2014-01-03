@@ -318,7 +318,6 @@ class PublicController extends \Ip\Controller
         $config['SESSION_NAME'] = 'ses' . rand();
         $config['BASE_DIR'] = ipConfig()->getRaw('BASE_DIR');
         $config['BASE_URL'] = $this->getParentUrl();
-        $config['ERRORS_SEND'] = $_POST['email'];
         $config['TIMEZONE'] = $timezone;
         $config['db'] = $_SESSION['db'];
 
