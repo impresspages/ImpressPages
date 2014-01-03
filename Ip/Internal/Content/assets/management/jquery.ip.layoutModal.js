@@ -54,4 +54,4 @@
 
 
 
-})(jQuery);
+})(ip.jQuery);
