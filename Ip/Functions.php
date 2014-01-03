@@ -476,3 +476,11 @@ function ipView($file, $data = array())
 {
     return \Ip\View::create($file, $data);
 }
+
+/**
+ * @return \Ip\Storage
+ */
+function ipStorage()
+{
+    return \Ip\ServiceLocator::storage();
+}
