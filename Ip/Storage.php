@@ -90,8 +90,8 @@ class Storage {
             FROM
                 ' . ipTable('storage') . '
             WHERE
-                `plugin` = :plugin AND
-        ';
+                `plugin` = :plugin
+            ';
 
 
         $params = array (
