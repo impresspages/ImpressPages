@@ -1,3 +1,5 @@
+(function(jQuery){ // loading all plugins in ip.jQuery object leaving global jQuery untouched
+
 /**
  * Font Selector - jQuery plugin 0.1
  *
@@ -115,3 +117,4 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
     });
 }
 
+})(ip.jQuery);
