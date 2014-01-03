@@ -17,6 +17,8 @@ class System
 
         $dispatcher->addEventListener('Ip.addLanguage', array($this, 'onAddLanguage'));
         $dispatcher->addEventListener('Ip.deleteLanguage', array($this, 'onDeleteLanguage'));
+        $dispatcher->addEventListener('Ip.deleteZone', array($this, 'onDeleteZone'));
+
     }
 
 
@@ -30,5 +32,11 @@ class System
     {
         $languageId = $data['id'];
         Model::cleanupLanguage($languageId);
+    }
+
+    public function onDeleteZone($data)
+    {
+        $zoneId = $data['id'];
+        Model::removeZonePages($zoneId);
     }
 }
