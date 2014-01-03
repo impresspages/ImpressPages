@@ -11,6 +11,14 @@ namespace Ip\Internal\Pages;
 class Model
 {
 
+    public static function removeZonePages ($zoneId)
+    {
+        $pages = ipDb()->select('*', 'zone_to_page', array('zone_id' => $zoneId));
+        foreach ($pages as $page) {
+            Service::deletePage($page['element_id']);
+        }
+    }
+
     public static function sortZone($zoneName, $newIndex)
     {
         $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
@@ -293,6 +301,17 @@ class Model
 
         if ($oldUrl != $newUrl) {
             ipDispatcher()->notify('site.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+        }
+    }
+
+    public static function deleteZone($zoneName)
+    {
+        $zone = ipDb()->select('*', 'zone', array('name' => $zoneName));
+        if (isset($zone[0])) {
+            $zone = $zone[0];
+            ipDb()->delete('zone', array('name' => $zoneName));
+            ipDb()->delete('zone_to_language', array('zone_id' => $zone['id']));
+            ipDispatcher()->notify('Ip.deleteZone', $zone);
         }
     }
 
