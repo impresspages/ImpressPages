@@ -410,4 +410,24 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    public function sortZone()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+
+        if (empty($data['zoneName']) || !isset($data['newIndex'])) {
+            throw new \Ip\CoreException("Missing required parameters");
+        }
+        $zoneName = $data['zoneName'];
+        $newIndex = $data['newIndex'];
+
+        Model::sortZone($zoneName, $newIndex);
+
+        return new \Ip\Response\Json(array(
+            'error' => 0
+        ));
+    }
+
+
 }
