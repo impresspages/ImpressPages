@@ -370,11 +370,5 @@ class PublicController extends \Ip\Controller
         return $pageURL;
     }
 
-    protected function applyLayout($content, $data = array())
-    {
-        $data['content'] = $content;
-        $layout = ipView('view/layout.php', $data);
 
-        return $layout;
-    }
 }
