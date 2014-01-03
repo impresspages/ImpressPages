@@ -349,7 +349,6 @@ Sitemap: '. ipFileUrl('sitemap.php');
     public static function insertAdmin($user, $pass)
     {
         $sql = "UPDATE `" .ipDb()->tablePrefix() . "user` SET `name` = ?, `pass` = ? limit 1";
-        // TODOX use salt for passwords
         ipDb()->execute($sql, array($user, md5($pass)));
     }
 
