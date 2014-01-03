@@ -1,21 +1,26 @@
-var app = angular.module('Pages', []).directive('zonesPostRepeatDirective', function () {
-    return function (scope, element, attrs) {
-        if (scope.$last) {
-            pagesZones.init();
-        }
-    };
-});
+var ipPages = null;
 
-app.run(function ($rootScope) {
-    $rootScope.$on('$locationChangeSuccess', function (e, newUrl, oldUrl) {
-        $rootScope.$broadcast('PathChanged', newUrl);
+(function ($) {
+    "use strict";
+
+
+    var app = angular.module('Pages', []).directive('zonesPostRepeatDirective', function () {
+        return function (scope, element, attrs) {
+            if (scope.$last) {
+                pagesZones.init();
+            }
+        };
     });
-});
+
+    app.run(function ($rootScope) {
+        $rootScope.$on('$locationChangeSuccess', function (e, newUrl, oldUrl) {
+            $rootScope.$broadcast('PathChanged', newUrl);
+        });
+    });
 
 
-function ipPages($scope, $location) {
+    ipPages = function ($scope, $location) {
 
-    (function ($) {
 
 
         //init
@@ -135,7 +140,7 @@ function ipPages($scope, $location) {
 
             var data = {
                 aa: 'Pages.updateZoneForm',
-                zoneName: zone.name,
+                zoneName: zone.name
             }
 
             $.ajax({
@@ -493,8 +498,9 @@ function ipPages($scope, $location) {
         }
 
 
-    })(ip.jQuery);
+    }
 
-}
+
+})(ip.jQuery);
 
 
