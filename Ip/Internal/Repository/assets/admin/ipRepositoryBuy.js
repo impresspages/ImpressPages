@@ -1,14 +1,10 @@
 /**
  * @package ImpressPages
-
  *
  */
 
-
 (function($) {
     "use strict";
-
-
 
     var methods = {
 
@@ -115,4 +111,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);

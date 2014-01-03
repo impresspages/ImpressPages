@@ -1,6 +1,5 @@
-"use strict";
-
 (function($) {
+    "use strict";
 
     var settings = {};
 
@@ -382,4 +381,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
