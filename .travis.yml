@@ -4,7 +4,7 @@ php:
 notifications:
   email: false
 addons:
-  sauce_connect: true
+#  sauce_connect: true
 #    username:
 #      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
 #    access_key:
@@ -25,7 +25,9 @@ before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('travis') WHERE user='travis';\nFLUSH PRIVILEGES;\n" | mysql -u travis # ImpressPages does not allow empty db password
   - cd phpunit
   - composer install
-  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
+#  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
+  - sh -c "if [ $TEST_GROUP = "Sauce" ]; then ./travis-nginx-install.sh; fi"
+  - sh -c "if [ $TEST_GROUP = "Sauce" ]; then curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash; fi"
 
   # Selenium
 #  - "sh -e /etc/init.d/xvfb start"
