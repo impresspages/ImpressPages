@@ -1,12 +1,10 @@
 /**
  * @package ImpressPages
  *
- *
  */
 
-"use strict";
-
 (function($) {
+    "use strict";
 
     var methods = {
         init : function(options) {
@@ -176,13 +174,13 @@
 
             $this.find('.ipmType').buttonset();
 
-            jQuery.proxy(methods._updateType, $this)(); //initialize current type tab
+            $.proxy(methods._updateType, $this)(); //initialize current type tab
 
-            $this.data('typeSelectText').bind('change', jQuery.proxy(methods._updateType, $this));
-            $this.data('typeSelectImage').bind('change', jQuery.proxy(methods._updateType, $this));
-            $popup.find('.ipaConfirm').bind('click', jQuery.proxy(methods._confirm, $this));
+            $this.data('typeSelectText').bind('change', $.proxy(methods._updateType, $this));
+            $this.data('typeSelectImage').bind('change', $.proxy(methods._updateType, $this));
+            $popup.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
             $popup.find('.ipaCancel').bind('click', function(event){$popup.dialog('close');});
-            $popup.bind('dialogclose', jQuery.proxy(methods._cancel, $this));
+            $popup.bind('dialogclose', $.proxy(methods._cancel, $this));
 
         },
 
@@ -228,10 +226,10 @@
                     data.imageUploadInitialized = true;
                     $this.data('ipInlineManagementLogo', data);
 
-                    $imageUploader.bind('change.ipUploadImage', jQuery.proxy(methods._preview, $this));
+                    $imageUploader.bind('change.ipUploadImage', $.proxy(methods._preview, $this));
                 }
             }
-            jQuery.proxy(methods._preview, $this)();
+            $.proxy(methods._preview, $this)();
         },
 
         _addError : function(event, errorMessage) {
@@ -336,4 +334,4 @@
         }
     };
 
-})(jQuery);
+})(ip.jQuery);
