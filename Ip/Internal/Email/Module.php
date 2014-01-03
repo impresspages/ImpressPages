@@ -41,6 +41,7 @@ class Module
      */
     function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $files = null)
     {
+        //TODOX accept string array in file parameter. Avoid real_name...
         $cached_files = array();
         $cached_file_names = array();
         $cached_file_mime_types = array();
