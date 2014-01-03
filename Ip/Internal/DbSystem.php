@@ -21,6 +21,7 @@ class DbSystem{    //system variables
         $db = ipDb();
 
         if ($oldUrl == '' || $newUrl == '') {
+            return;
             trigger_error('Can\'t update URL');
         }
 
