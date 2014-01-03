@@ -19,10 +19,6 @@
         <input type="password" class="form-control" id="config_pass" name="install_pass">
     </div>
     <div class="form-group">
-        <label for="config_email"><?php _e('E-mail for error reporting (optional)', 'Install'); ?></label>
-        <input type="text" class="form-control" id="config_email" name="email">
-    </div>
-    <div class="form-group">
         <label for="config_timezone"><?php _e('Please choose website time zone', 'Install'); ?></label>
         <select id="config_timezone" class="form-control" name="config_timezone">
             <?php echo $timezoneSelectOptions; ?>

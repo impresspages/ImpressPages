@@ -47,7 +47,7 @@ class Db {
         SELECT
             mte.*
         FROM
-            ".ipTable('zone_to_content', 'mte')."
+            ".ipTable('zone_to_page', 'mte')."
         WHERE
             mte.element_id = :pageId
         ";
@@ -69,7 +69,7 @@ class Db {
         SELECT
             mte.*
         FROM
-            ".ipTable('zone_to_content', 'mte').",
+            ".ipTable('zone_to_page', 'mte').",
             ".ipTable('page', 'page')."
         WHERE
             page.id = :pageId
@@ -112,7 +112,7 @@ class Db {
         $sql = '
             SELECT
                 mte.element_id
-            FROM ' . ipTable('zone_to_content', 'mte') . ', ' . ipTable('language', 'l') . '
+            FROM ' . ipTable('zone_to_page', 'mte') . ', ' . ipTable('language', 'l') . '
             WHERE l.id = :languageId AND  mte.language_id = l.id AND zone_id = :zoneId';
 
         $where = array(
@@ -141,7 +141,7 @@ class Db {
     {
         $pageId = ipDb()->insert('page', array('visible' => 1));
 
-        ipDb()->insert('zone_to_content', array(
+        ipDb()->insert('zone_to_page', array(
                 'language_id' => $languageId,
                 'zone_id' => $zoneId,
                 'element_id' => $pageId,
@@ -152,7 +152,7 @@ class Db {
 
     public static function deleteRootZoneElements($languageId)
     {
-        return ipDb()->delete('zone_to_content', array('language_id' => $languageId));
+        return ipDb()->delete('zone_to_page', array('language_id' => $languageId));
     }
 
     public static function isChild($pageId, $parentId)
@@ -203,7 +203,7 @@ class Db {
     public static function getZones($languageId)
     {
         $sql = 'SELECT m.*, p.url, p.description, p.keywords, p.title
-                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_parameter', 'p') . '
+                FROM ' . ipTable('zone', 'm') . ', ' . ipTable('zone_to_language', 'p') . '
                 WHERE
                     p.zone_id = m.id
                     AND p.language_id = ?
