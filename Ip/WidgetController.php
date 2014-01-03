@@ -199,7 +199,7 @@ class WidgetController
     public function adminSnippets()
     {
 
-        //TODOX scandir Model::SNIPPET_DIR and return snippets as an array
+        //TODOXX scandir Model::SNIPPET_DIR and return snippets as an array #126
 //        $answer = '';
 //        try {
 //            if ($this->core ) {
