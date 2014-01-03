@@ -4,37 +4,38 @@
 *
 */
 
-$(document).ready(function() {
+(function($){
     "use strict";
-    var $ipObject = $(document);
 
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
-    $(window).bind('resizeEnd',                        ipAdminWidgetsScroll);
-    $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsSearch);
+    $(document).ready(function() {
+        var $ipObject = $(document);
 
-    $ipObject.ipContentManagement();
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminPanelInit);
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsScroll);
+        $(window).bind('resizeEnd',                        ipAdminWidgetsScroll);
+        $ipObject.bind('initFinished.ipContentManagement', ipAdminWidgetsSearch);
 
-    // case insensitive search
-    jQuery.expr[':'].icontains = function(a, i, m) {
-        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-    };
+        $ipObject.ipContentManagement();
 
-    if (isMobile) {
-        $('body').addClass('ipMobile');
-    }
+        // case insensitive search
+        ip.jQuery.expr[':'].icontains = function(a, i, m) {
+            return ip.jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
 
-});
+        if (isMobile) {
+            $('body').addClass('ipMobile');
+        }
 
-$(window).resize(function() {
-    "use strict";
-    if(this.resizeTO) { clearTimeout(this.resizeTO); }
-    this.resizeTO = setTimeout(function() {
-        $(this).trigger('resizeEnd');
-    }, 100);
-});
+    });
 
+    $(window).resize(function() {
+        if(this.resizeTO) { clearTimeout(this.resizeTO); }
+        this.resizeTO = setTimeout(function() {
+            $(this).trigger('resizeEnd');
+        }, 100);
+    });
 
+})(ip.jQuery);
 
 /**
 *
