@@ -254,7 +254,7 @@ class Model
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
             ),
-            'ERRORS_SHOW' => array( //TODOX remove?
+            'ERRORS_SHOW' => array(
                 'value' => 1,
                 'comment' => "0 if you don't wish to display errors on the page",
             ),
