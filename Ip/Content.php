@@ -262,7 +262,7 @@ class Content
     /**
      * Invalidate zones cache. Use this method if you have added or removed some zones
      */
-    //TODOX make private and execute when needed
+    //TODOXX make private and execute when needed
 
 
     public function invalidateZones()
@@ -300,8 +300,6 @@ class Content
     {
         \Ip\Internal\Pages\Service::deleteZone($zoneName);
     }
-
-    //TODOX implement removeZone();
 
     /**
      * @param string $zoneName
