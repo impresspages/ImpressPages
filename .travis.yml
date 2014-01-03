@@ -4,14 +4,20 @@ php:
 notifications:
   email: false
 addons:
-  sauce_connect:
-    username:
-      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
-    access_key:
-      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
+#  sauce_connect: true
+#    username:
+#      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
+#    access_key:
+#      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
 env:
-  - test_type: Smoke
-  - test_type: Sauce
+  global:
+    - SAUCE_USERNAME:
+      secure: "B9VRUWYj0GeV3bqiR6Pzs89LVwuYgrsXCeUeIY6D6YPfceD+OgjsgnuescDdUXOA12CUt075iP37IXuWOHVesx3T8BOQllltu/mXoi/tubOAnjAzaqHbgCvbSHjltTHAmZWqlghUu1jEJBHmVjV6qyq/fWPiyUL83xvv8esgod8="
+    - SAUCE_ACCESS_KEY:
+      secure: "Y0lQJ4iR8X17+hcAA3K3FaZAenX09phbBibLZg3ey+OPCloLe3Rbvjl3Gfk2CfZP/utK6jnjFcEY71mqxmdDxE0KBECfx5ORp0OzGDODaAE9qAzqWwsS6DlGv0t6X8B31S9GyBJVBdL28ALkJYyKxANI0UTXUmavzlrSaIGzL80="
+  matrix:
+    - TEST_GROUP=Smoke
+    - TEST_GROUP=Sauce
 before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < Ip/Internal/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
@@ -19,7 +25,9 @@ before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('travis') WHERE user='travis';\nFLUSH PRIVILEGES;\n" | mysql -u travis # ImpressPages does not allow empty db password
   - cd phpunit
   - composer install
-  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
+#  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
+  - sh -c "if [ $TEST_GROUP = "Sauce" ]; then ./travis-nginx-install.sh; fi"
+  - sh -c "if [ $TEST_GROUP = "Sauce" ]; then curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash; fi"
 
   # Selenium
 #  - "sh -e /etc/init.d/xvfb start"
@@ -28,4 +36,4 @@ before_script:
 #  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
 #  - sleep 5
 
-script: ./travis-tests.sh $test_group
+script: ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
