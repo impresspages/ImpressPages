@@ -8,7 +8,7 @@
  * FAQ widget
  ************/
 (function($) {
-    $.fn    .ipWidgetFaq = function() {
+    $.fn.ipWidgetFaq = function() {
         return this.each(function() {
             var $faq = $(this);
             var $container = $faq.find('.ipwContainer');
@@ -31,7 +31,7 @@
             }
         });
     };
-})(jQuery);
+})(ip.jQuery);
 
 /*************
  * IpForm widget
@@ -74,7 +74,7 @@
 
         });
     };
-})(jQuery);
+})(ip.jQuery);
 
 
 
@@ -141,11 +141,12 @@ ipWidgetIpForm_SaveWysiwygOptions = function ($context) {
 /*************
  * hook all widgets with plugins
  */
-$(document).ready(function() {
-    // FAQ widget
-    $('.ipWidget-IpFaq').ipWidgetFaq();
-    
-    // IpForm widget
-    $('.ipWidget-IpForm').ipWidgetIpForm();
+(function($) {
+    $(document).ready(function() {
+        // FAQ widget
+        $('.ipWidget-IpFaq').ipWidgetFaq();
 
-});
+        // IpForm widget
+        $('.ipWidget-IpForm').ipWidgetIpForm();
+    });
+})(ip.jQuery);

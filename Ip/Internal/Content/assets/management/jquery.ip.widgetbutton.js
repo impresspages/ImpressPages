@@ -12,9 +12,9 @@
         init : function(options) {
             return this.each(function() {
                 var $this = $(this);
-                
+
                 var data = $this.data('ipAdminWidgetButton');
-            
+
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.draggable({
@@ -81,5 +81,4 @@
 
     };
 
-})(jQuery);
-
+})(ip.jQuery);

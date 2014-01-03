@@ -156,4 +156,4 @@
 
 
 
-})(jQuery);
+})(ip.jQuery);
