@@ -18,7 +18,6 @@ return array(
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
-    'ERRORS_SEND' => '',
     // END GLOBAL
 
     // FRONTEND
