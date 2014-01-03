@@ -66,7 +66,7 @@ class PublicController extends \Ip\Controller
         $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
         $data['languages'] = $languages;
 
-        $content = \Ip\View::create('view/step0.php', $data)->render();
+        $content = ipView('view/step0.php', $data)->render();
 
         $response = new LayoutResponse();
         $response->setContent($content);
@@ -107,7 +107,7 @@ class PublicController extends \Ip\Controller
     {
         Model::completeStep(2);
 
-        $content = \Ip\View::create('view/step2.php');
+        $content = ipView('view/step2.php');
 
         $response = new LayoutResponse();
         $response->setContent($content);
@@ -132,7 +132,7 @@ class PublicController extends \Ip\Controller
             'db' => $_SESSION['db'],
         );
 
-        $content = \Ip\View::create('view/step3.php', $data)->render();
+        $content = ipView('view/step3.php', $data)->render();
 
 
         $response = new LayoutResponse();
@@ -176,7 +176,7 @@ class PublicController extends \Ip\Controller
             'timezoneSelectOptions' => $timezoneSelectOptions,
         );
 
-        $content = \Ip\View::create('view/step4.php', $data)->render();
+        $content = ipView('view/step4.php', $data)->render();
 
 
 
@@ -193,7 +193,7 @@ class PublicController extends \Ip\Controller
     protected function step5()
     {
         $SESSION['step'] = 5;
-        $content = \Ip\View::create('view/step5.php')->render();
+        $content = ipView('view/step5.php')->render();
 
         $response = new LayoutResponse();
         $response->setContent($content);
@@ -373,7 +373,7 @@ class PublicController extends \Ip\Controller
     protected function applyLayout($content, $data = array())
     {
         $data['content'] = $content;
-        $layout = \Ip\View::create('view/layout.php', $data);
+        $layout = ipView('view/layout.php', $data);
 
         return $layout;
     }

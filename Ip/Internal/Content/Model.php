@@ -27,7 +27,7 @@ class Model
                         'widgetRecord' => $widget,
                         'managementState' => $managementState
                     );
-                    $widgetsHtml[] = \Ip\View::create('view/unknown_widget.php', $viewData)->render();
+                    $widgetsHtml[] = ipView('view/unknown_widget.php', $viewData)->render();
                 } else {
                     throw new Exception('Error when generating widget preview', null, $e);
                 }
@@ -41,7 +41,7 @@ class Model
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
         );
-        $answer = \Ip\View::create('view/block.php', $data)->render();
+        $answer = ipView('view/block.php', $data)->render();
         return $answer;
     }
 
@@ -83,7 +83,7 @@ class Model
             'manageableRevision' => $manageableRevision
         );
 
-        $controlPanelHtml = \Ip\View::create('view/control_panel.php', $data)->render();
+        $controlPanelHtml = ipView('view/control_panel.php', $data)->render();
 
         $data = array(
             'controlPanelHtml' => $controlPanelHtml,
@@ -218,7 +218,7 @@ class Model
             'optionsMenu' => $optionsMenu,
         );
 
-        $widgetControlsHtml = \Ip\View::create('view/widgetControls.php', $data)->render();
+        $widgetControlsHtml = ipView('view/widgetControls.php', $data)->render();
 
 
         $variables = array(
@@ -232,7 +232,7 @@ class Model
             'widgetControlsHtml' => $widgetControlsHtml
         );
 
-        $answer = \Ip\View::create('view/widget.php', $variables)->render();
+        $answer = ipView('view/widget.php', $variables)->render();
         return $answer;
     }
 

@@ -76,7 +76,7 @@ class System {
             'curModUrl' => $curModUrl,
             'helpUrl' => $helpUrl
         );
-        $html = \Ip\View::create('view/toolbar.php', $data)->render();
+        $html = ipView('view/toolbar.php', $data)->render();
         return $html;
     }
 

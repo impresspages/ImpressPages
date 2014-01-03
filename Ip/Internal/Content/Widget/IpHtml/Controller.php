@@ -18,7 +18,7 @@ class Controller extends \Ip\WidgetController
     public function adminSnippets()
     {
         $snippets = array();
-        $snippets[] = \Ip\View::create('snippet/edit.php')->render();
+        $snippets[] = ipView('snippet/edit.php')->render();
         return $snippets;
     }
     

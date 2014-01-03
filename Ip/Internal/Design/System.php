@@ -83,7 +83,7 @@ class System{
         $variables = array(
             'form' => $form
         );
-        $optionsBox = \Ip\View::create('view/optionsBox.php', $variables);
+        $optionsBox = ipView('view/optionsBox.php', $variables);
         return $optionsBox->render();
     }
 

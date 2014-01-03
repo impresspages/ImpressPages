@@ -67,7 +67,7 @@ class Layout extends \Ip\Response {
             $viewFile = ipThemeFile($layout);
         }
 
-        $this->setContent(\Ip\View::create($viewFile, $this->getLayoutVariables())->render());
+        $this->setContent(ipView($viewFile, $this->getLayoutVariables())->render());
 
         parent::send();
     }
@@ -216,7 +216,7 @@ class Layout extends \Ip\Response {
             'css' => $cssFiles
         );
 
-        return \Ip\View::create(ipFile('Ip/Internal/Config/view/head.php'), $data)->render();
+        return ipView(ipFile('Ip/Internal/Config/view/head.php'), $data)->render();
     }
 
     public function generateJavascript() {
@@ -246,7 +246,7 @@ class Layout extends \Ip\Response {
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
         );
-        return \Ip\View::create(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
+        return ipView(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
     }
 
 
