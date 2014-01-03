@@ -1,7 +1,7 @@
 (function($){
+    "use strict";
 
     $(document).ready(function () {
-        "use strict";
         $(document).bind('initFinished.ipContentManagement', function () {
             $('.ipActionWidgetButton')
                 .bind('dragstart', function (event, ui) {
