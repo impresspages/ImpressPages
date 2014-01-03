@@ -196,7 +196,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function previewHtml($instanceId, $data, $layout)
+    public function generateHtml($instanceId, $data, $layout)
     {
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
@@ -247,7 +247,7 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::previewHtml($instanceId, $data, $layout);
+        return parent::generateHtml($instanceId, $data, $layout);
     }
 
     

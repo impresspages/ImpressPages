@@ -71,7 +71,7 @@ class Controller extends \Ip\WidgetController{
         return $newData;
     }
 
-    public function previewHtml($instanceId, $data, $layout) {
+    public function generateHtml($instanceId, $data, $layout) {
         if (empty($data['files']) || !is_array($data['files'])) {
             $data['files'] = array();
         }
@@ -87,7 +87,7 @@ class Controller extends \Ip\WidgetController{
             $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];
             $newData['files'][] = $newFile;
         }
-        return parent::previewHtml($instanceId, $newData, $layout);
+        return parent::generateHtml($instanceId, $newData, $layout);
     }
 
     

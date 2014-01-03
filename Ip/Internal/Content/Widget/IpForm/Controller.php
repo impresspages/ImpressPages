@@ -163,7 +163,7 @@ class Controller extends \Ip\WidgetController{
         return $data;
     }
     
-    public function previewHtml($instanceId, $data, $layout) {
+    public function generateHtml($instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
 
@@ -173,7 +173,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-        return parent::previewHtml($instanceId, $data, $layout);
+        return parent::generateHtml($instanceId, $data, $layout);
     }
     
     

@@ -219,8 +219,7 @@ class WidgetController
 
 
 
-    //TODOX rename to generateHtml or something.
-    public function previewHtml($instanceId, $data, $layout)
+    public function generateHtml($instanceId, $data, $layout)
     {
         $answer = '';
         try {
