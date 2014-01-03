@@ -339,7 +339,7 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
     return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
 }
 
-function ipFormatDate($unixTimestamp, $context = null, $languageId = null)
+function ipFormatDate($unixTimestamp, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
 }
@@ -478,4 +478,12 @@ function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent,
 function ipView($file, $data = array())
 {
     return \Ip\View::create($file, $data);
+}
+
+/**
+ * @return \Ip\Storage
+ */
+function ipStorage()
+{
+    return \Ip\ServiceLocator::storage();
 }
