@@ -24,6 +24,10 @@ class Service
         Model::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
     }
 
+    public static function deleteZone($zoneName)
+    {
+        Model::deleteZone($zoneName);
+    }
 
     /**
      * @param string $zoneName
