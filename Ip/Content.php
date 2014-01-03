@@ -296,6 +296,11 @@ class Content
         \Ip\Internal\Pages\Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
     }
 
+    public static function deleteZone($zoneName)
+    {
+        \Ip\Internal\Pages\Service::deleteZone($zoneName);
+    }
+
     //TODOX implement removeZone();
 
     /**
