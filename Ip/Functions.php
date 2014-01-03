@@ -218,10 +218,6 @@ function esc($string, $esc = 'html')
         return escHtml($string);
     } elseif ('attr' == $esc) {
         return escAttr($string);
-    } elseif ('url' == $esc) {
-        return escUrl($string);
-    } elseif ('urlRaw' == $esc || 'urlraw' == $esc) {
-        return escUrlRaw($string);
     } elseif ('textarea' == $string) {
         return escTextarea($string);
     }
@@ -243,18 +239,6 @@ function escTextarea($value)
 function escAttr($value)
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
-}
-
-function escUrl($url)
-{
-    // TODOX implement
-    throw new \Ip\CoreException('Not implemented yet.');
-}
-
-function escUrlRaw($url)
-{
-    // TODOX implement
-    throw new \Ip\CoreException('Not implemented yet.');
 }
 
 function __($text, $domain, $esc = 'html')
