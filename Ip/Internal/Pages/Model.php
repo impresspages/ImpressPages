@@ -66,7 +66,7 @@ class Model
         $zoneName = Db::getZoneName($pageInfo['zone_id']);
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
-            throw new \Exception("Unknown zone " + $zoneName);
+            throw new \Exception("Unknown zone " . $zoneName);
         }
         self::_deletePageRecursion($zone, $pageId);
         return true;
@@ -309,9 +309,9 @@ class Model
         $zone = ipDb()->select('*', 'zone', array('name' => $zoneName));
         if (isset($zone[0])) {
             $zone = $zone[0];
+            ipDispatcher()->notify('Ip.deleteZone', $zone);
             ipDb()->delete('zone', array('name' => $zoneName));
             ipDb()->delete('zone_to_language', array('zone_id' => $zone['id']));
-            ipDispatcher()->notify('Ip.deleteZone', $zone);
         }
     }
 

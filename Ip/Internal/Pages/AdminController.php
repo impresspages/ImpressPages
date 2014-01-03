@@ -201,6 +201,25 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    public function deleteZone()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        if (empty($data['zoneName'])) {
+            throw new \Ip\CoreException('Missing required parameters');
+        }
+        $zoneName = $data['zoneName'];
+
+        Service::deleteZone($zoneName);
+
+        $answer = array(
+            'status' => 'error'
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
     public function addZone()
     {
         ipRequest()->mustBePost();
