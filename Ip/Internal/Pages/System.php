@@ -38,5 +38,6 @@ class System
     {
         $zoneId = $data['id'];
         Model::removeZonePages($zoneId);
+        ipDb()->delete('zone_to_page', array('zone_id' => $zoneId));
     }
 }
