@@ -150,6 +150,18 @@ var ipPages = null;
                 context: this,
                 success: function (response) {
                     $modal.find('.ipsBody').html(response.html);
+                    $modal.find('.ipsDelete').off('click').on('click', function () {
+                        $modal.find('.ipsDeleteConfirmation').removeClass('ipgHide');
+                        $modal.find('.ipsBody').addClass('ipgHide');
+                        $modal.find('.ipsDelete').addClass('ipgHide');
+                        $modal.find('.ipsModalActions').addClass('ipgHide');
+                    });
+                    $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
+                        $modal.find('.ipsDeleteConfirmation').addClass('ipgHide');
+                        $modal.find('.ipsBody').removeClass('ipgHide');
+                        $modal.find('.ipsDelete').removeClass('ipgHide');
+                        $modal.find('.ipsModalActions').removeClass('ipgHide');
+                    });
                     $modal.find('.ipsSave').off('click').on('click', function () {
                         $modal.find('form').submit()
                     });
@@ -166,9 +178,7 @@ var ipPages = null;
                         updateZone(zone.name, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription);
                         $modal.modal('hide');
                     });
-                    $modal.find('.ipsDelete').off('click').on('click', function () {
 
-                    });
                 },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
