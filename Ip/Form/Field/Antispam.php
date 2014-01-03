@@ -20,7 +20,7 @@
  * How it works:
  * 
  * 1. It inserts input field that is hidden using inline style. If robots fills in this field,
- * form doesn't validate. Real users doesn't see this value. So they don't fill this field :)
+ * form doesn't getError. Real users doesn't see this value. So they don't fill this field :)
  * 
  * 2. It adds md5 coded value mixed of some website data and current date. That means,
  * if someone would try to write a bot particularly for your website, they

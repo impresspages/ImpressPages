@@ -12,7 +12,7 @@ use Ip\Form\Field;
 class HiddenSubmit extends Field{
 
     public function render($doctype) {
-        //TODOX add CSS to make it hidden
+        //TODOXX add CSS to make it hidden #127
         return '<input type="submit" '.$this->getAttributesStr($doctype).' class="ipmHiddenSubmit '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
     }
 

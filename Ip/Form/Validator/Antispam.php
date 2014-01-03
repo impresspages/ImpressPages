@@ -14,7 +14,7 @@ namespace Ip\Form\Validator;
 
 class Antispam extends Validator {
     
-    public function validate($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment) {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $errorText = __("Form security check has failed. Please refresh the page.", 'ipAdmin');
         } else {

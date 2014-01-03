@@ -10,7 +10,7 @@ namespace Ip\Form\Validator;
 
 class Email extends Validator {
     
-    public function validate($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
             return false;
         }
