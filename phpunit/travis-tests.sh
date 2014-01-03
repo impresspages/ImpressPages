@@ -1,4 +1,4 @@
-#!/usr/bin
+#!/bin/bash
 
 if [ $TEST_GROUP = "other" ]
 then
