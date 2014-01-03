@@ -1,12 +1,10 @@
 /**
  * @package ImpressPages
-
  *
  */
 
-"use strict";
-
 (function($) {
+    "use strict";
 
     var hideTimer = 0,
         controlsClass = 'ipModuleInlineManagementControls',
@@ -75,4 +73,4 @@
         }
     };
 
-})(jQuery);
+})(ip.jQuery);

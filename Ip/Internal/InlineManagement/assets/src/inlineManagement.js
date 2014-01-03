@@ -1,14 +1,16 @@
 /**
  * @package ImpressPages
-
  *
  */
 
-$(document).ready(function () {
+(function($){
     "use strict";
-    //$('.ipModuleInlineManagement').ipModuleInlineManagement();
-    $('.ipModuleInlineManagement.ipmLogo').ipModuleInlineManagementLogo();
-    $('.ipModuleInlineManagement.ipmString').ipModuleInlineManagementString();
-    $('.ipModuleInlineManagement.ipmText').ipModuleInlineManagementText();
-    $('.ipModuleInlineManagement.ipmImage').ipModuleInlineManagementImage();
-});
+
+    $(document).ready(function () {
+        //$('.ipModuleInlineManagement').ipModuleInlineManagement();
+        $('.ipModuleInlineManagement.ipmLogo').ipModuleInlineManagementLogo();
+        $('.ipModuleInlineManagement.ipmString').ipModuleInlineManagementString();
+        $('.ipModuleInlineManagement.ipmText').ipModuleInlineManagementText();
+        $('.ipModuleInlineManagement.ipmImage').ipModuleInlineManagementImage();
+    });
+})(ip.jQuery);

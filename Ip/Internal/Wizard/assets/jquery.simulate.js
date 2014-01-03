@@ -285,7 +285,7 @@ $.extend( $.simulate.prototype, {
     }
 });
 
-})( jQuery );
+})( ip.jQuery );
 
 var dragObject = dragObject || {};
 
