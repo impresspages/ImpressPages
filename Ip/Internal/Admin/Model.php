@@ -82,24 +82,31 @@ class Model{
     {
         $ip = ipRequest()->getServer('REMOTE_ADDR');
 
-        // TODO use events for that
-        if($this->incorrectLoginCount($username.'('.$ip.')') > 2) {
-            $this->loginError = __('Your login suspended for one hour.', 'ipAdmin');
-            ipLog()->warning('Admin.loginSuspended: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-        } else {
-            $id = $this->userId($username, $password);
-            if($id !== false) {
-                $_SESSION['backend_session']['userId'] = $id;
-                \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
-
-                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-                return true;
-            } else {
-                $this->loginError = __('Incorrect name or password', 'ipAdmin');
-                ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-                return false;
-            }
+        $preventReason = ipDispatcher()->job('Ip.reasonToPreventLogin', array('username' => $username));
+        if ($preventReason) {
+            $this->loginError = $preventReason;
+            ipLog()->notice('Admin.loginPrevented: {username} from {ip}', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            return false;
         }
+
+
+        $id = $this->userId($username, $password);
+        if ($id !== false) {
+            $_SESSION['backend_session']['userId'] = $id;
+            \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
+            ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+            return true;
+        } else {
+            \Ip\ServiceLocator::dispatcher()->notify('Admin.failedLogin', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+            $this->loginError = __('Incorrect name or password', 'ipAdmin');
+            return false;
+        }
+    }
+
+    public function getLastError()
+    {
+        return $this->loginError;
     }
 
     public function logout()
@@ -108,10 +115,6 @@ class Model{
             unset($_SESSION['backend_session']);
     }
 
-    protected function incorrectLoginCount($userName)
-    {
-        return 0;
-    }
 
     protected  function userId($name, $pass) {
         $sql = "

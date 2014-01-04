@@ -11,31 +11,15 @@ class SiteController extends \Ip\Controller{
         $validateForm = $this->getLoginForm();
         $errors = $validateForm->validate(ipRequest()->getPost());
 
-        if (empty($errors)) {
-            // TODOX do it through filter and don't use log
-//            if (\Ip\Internal\Db::incorrectLoginCount(ipRequest()->getPost('login').'('.$_SERVER['REMOTE_ADDR'].')') > 10) {
-//                $errors['password'] = __('Your login suspended for one hour.', 'ipAdmin');
-//                ipLog()->notice('Admin login `{username}` suspended. IP: {ip}', array('username' => ipRequest()->getPost('login'), 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
-//            }
-
-        }
-
         $username = ipRequest()->getPost('login');
 
         if (empty($errors)) {
-            $ip = ipRequest()->getServer('REMOTE_ADDR');
-            if (Model::instance()->login($username, ipRequest()->getPost('password'))) {
-                ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-            } else {
-                ipLog()->info('Admin.loginIncorrect: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-                ipDispatcher()->notify('Admin.loginIncorrect', array('username' => $username, 'ip' => $ip));
-                $errors['password'] =  __('Incorrect username or password', 'ipAdmin');
+            $model = Model::instance();
+            if (!$model->login($username, ipRequest()->getPost('password'))) {
+                $errors['password'] = $model->getLastError();
             }
         }
 
-
-
-        //TODOX replace with url to first module;
         $redirectUrl = ipHomeUrl();
         if (empty($errors)) {
             $answer = array(
