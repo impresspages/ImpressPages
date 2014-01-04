@@ -8,6 +8,10 @@ class System {
 
     public function init()
     {
+        ipDispatcher()->addJobListener('Ip.reasonToPreventLogin', array($this, 'jobReasonToPreventLogin'));
+        ipDispatcher()->addJobListener('Cron.execute', array($this, 'onCron'));
+        ipDispatcher()->addEventListener('Admin.failedLogin', array($this, 'onFailedLogin'));
+
         $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
 
@@ -35,6 +39,35 @@ class System {
         }
     }
 
+    public function onFailedLogin($data)
+    {
+        $securityModel = SecurityModel::instance();
+        $securityModel->registerFailedLogin($data['username'], $data['ip']);
+    }
+
+    public function onCron($data)
+    {
+        if ($data['firstTimeThisDay']) {
+            $securityModel = SecurityModel::instance();
+            $securityModel->cleanup();
+        }
+    }
+
+    public function jobReasonToPreventLogin($data)
+    {
+        if (empty($data['username'])) {
+            return 'Missing login data'; //in theory should never happen
+        }
+
+        $ip = ipRequest()->getServer('REMOTE_ADDR');
+
+        $antiBruteForce = SecurityModel::instance();
+        $failedLogins = $antiBruteForce->failedLoginCount($data['username'], $ip);
+        if ($failedLogins > ipGetOption('Admin.allowFailedLogins', 20)) {
+            return __('You have exceeded failed login attempts.', 'ipAdmin', false);
+        }
+
+    }
 
     public function initAdmin()
     {
