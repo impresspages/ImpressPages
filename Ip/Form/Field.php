@@ -166,7 +166,7 @@ abstract class Field{
     public function validate($values, $valueKey, $environment) {
         $validators = $this->getValidators();
         foreach($validators as $validator) {
-            $error = $validator->validate($values, $valueKey, $environment);
+            $error = $validator->getError($values, $valueKey, $environment);
             if ($error) {
                 return $error;
             }
