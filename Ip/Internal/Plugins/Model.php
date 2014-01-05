@@ -42,17 +42,17 @@ class Model{
         $config = Model::getPluginConfig($pluginName);
 
         if (!$config) {
-            // TODOX Plugin dir
+            // TODOXX Plugin dir #141
             // throw new \Ip\CoreException(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\CoreException::PLUGIN_SETUP);
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
-            // TODOX Plugin dir
+            // TODOXX Plugin dir #141
             // throw new \Ip\CoreException('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\CoreException::PLUGIN_SETUP);
         }
 
         if (empty($config['version'])) {
-            // TODOX Plugin dir
+            // TODOXX Plugin dir #141
             // throw new \Ip\CoreException('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\CoreException::PLUGIN_SETUP);
         }
 
@@ -225,7 +225,7 @@ class Model{
             $answer[] = $file;
         }
 
-        // TODOX add filter for plugins in other directories
+        //TODO add filter for plugins in other directories
         return $answer;
     }
 

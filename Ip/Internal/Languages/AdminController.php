@@ -76,7 +76,7 @@ class AdminController extends \Ip\GridController
                     'showInList' => false
 
                     /*
-                    //TODOX add URL validator
+                    //TODOXX validate URL when adding language #136
                     'regExpression' => '/^([^\/\\\])+$/',
                     'regExpressionError' => __('Incorrect URL. You can\'t use slash in URL.', 'ipAdmin')
                     */
