@@ -38,7 +38,7 @@ class Model
 
     public function getThemePlugins()
     {
-        //TODOX refactor to new plugins
+        //TODOXX refactor to new plugins #130
         if (!is_dir(ipFile($this->getThemePluginDir()))) {
             return array();
         }
@@ -70,7 +70,7 @@ class Model
     public function installThemePlugin($pluginName)
     {
         //refactor to new plugins
-        // TODOX Plugin dir
+        // TODOXX Plugin dir #130
         $toDir = ipFile('Plugin/' . $pluginName . '/');
         $fromDir = ipFile('Plugin/' . $pluginName . '/');
 
@@ -182,13 +182,13 @@ class Model
         }
         $theme = $themes[$themeName];
 
-        //TODOX new way of doing.
+        //TODOXX new way of doing. #130
         $configModel = new \Ip\Internal\Config\Model();
         $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
 
 
         if (ipFile('Theme/' . $themeName . '/') != $theme->getPath()) {
-            // TODOX add theme directory to override list
+            // TODOXX add theme directory to override list #130
         }
 //        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
         $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
@@ -196,7 +196,7 @@ class Model
 
         $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
         if (file_exists($parametersFile)) {
-            //TODOX new type of parameters
+            //TODOXX new type of parameters #130
 
             \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
@@ -240,7 +240,7 @@ class Model
     {
         if ($dir) {
             $currentThemeDir = ipThemeFile('');
-            // TODOX add theme override to config
+            // TODOXX add theme override to config #130
             // ipConfig()->_changeCore('THEME_DIR', $dir);
         }
 

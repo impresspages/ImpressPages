@@ -22,7 +22,7 @@ var IpWidget_IpHtml;
 
             var container = this.widgetObject.find('.ipsContainer');
 
-            if (this.data.html) { // TODOX check if not safe mode
+            if (this.data.html) { // TODOXX check if not safe mode #129
                 container.html(this.data.html);
             }
 

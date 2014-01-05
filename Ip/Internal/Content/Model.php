@@ -602,7 +602,7 @@ class Model
         if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
             throw new \Ip\CoreException("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
         }
-        //TODOX finish the implementation
+        //TODOXX finish the implementation #128
 
     }
 

@@ -28,7 +28,6 @@ class Controller extends \Ip\WidgetController{
                         case 'new':
                             if (file_exists(ipFile('file/repository/' . $file['fileName']))) {
 
-                                //TODOX rename Content to Content
                                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $widgetId);
                                 
                                 if ($file['title'] == '') {
