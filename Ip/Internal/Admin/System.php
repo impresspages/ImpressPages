@@ -99,7 +99,7 @@ class System {
 
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
-            $curModTitle = $curModule; //TODOX translation
+            $curModTitle = __($curModule, 'ipAdmin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
         }
 
