@@ -133,7 +133,7 @@ class AdminController extends \Ip\Controller
             $answer['errors'][] = array('field' => 'lastModified', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
         }
 
-//      TODOX implement
+//      TODOXX implement page type in Pages module #138
 //        if ($data['type'] == 'redirect' && $data['redirectURL'] == '') {
 //            $answer['errors'][] = array('field' => 'redirectURL', 'message' => __('External url can\'t be empty', 'ipAdmin', false));
 //        }

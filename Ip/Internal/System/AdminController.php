@@ -36,7 +36,7 @@ class AdminController extends \Ip\Controller
 
         $data = array(
             'notes' => $notes,
-            'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'), // TODOX ensure version is stored here
+            'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'),
         );
 
         $content = ipView('view/index.php', $data)->render();

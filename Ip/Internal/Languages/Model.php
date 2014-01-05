@@ -88,7 +88,7 @@ class Model{
 
 
 
-    //TODOX move to Ip module
+    //TODOXX move language list to Ip module #137
     public static function generateLanguageList(){
         if(!ipGetOption('Config.multilingual')) {
             return '';
@@ -98,7 +98,7 @@ class Model{
     }
 
 
-    //TODOX move to IP module
+    //TODOXX move to IP module #137
     private static function getViewData() {
         $languages = array();
 

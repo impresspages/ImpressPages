@@ -20,7 +20,7 @@ var ipModuleForm;
                 $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.full.js') + '"></script>'));
             }
 
-            //TODOX check if not loaded
+            //TODOXX check if form file js is not loaded #135
             $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Ip/assets/form/file.js') + '"></script>'));
 
             if ($('.ipsModuleForm .ipmType-color').length && !jQuery().spectrum) {

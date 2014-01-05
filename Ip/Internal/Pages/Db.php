@@ -15,7 +15,7 @@ class Db {
 
 
     /**
-     * TODOX check zone and language url's against this function
+     * TODOXX check zone and language url's if they don't match system folder #139
      * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
      *
      * @param $folderName
@@ -25,7 +25,7 @@ class Db {
     public function usedUrl($folderName)
     {
         $systemDirs = array();
-        // TODOX make it smart with overriden paths
+        // TODOXX make it smart with overriden paths #139
         $systemDirs['Plugin'] = 1;
         $systemDirs['Theme'] = 1;
         $systemDirs['File'] = 1;
@@ -400,7 +400,7 @@ class Db {
 
         );
 
-        // TODOX what is this for?
+        //TODOXX sync page service naming. #140
         if (isset($params['button_title'])) {
             $params['navigationTitle'] = $params['button_title'];
         }

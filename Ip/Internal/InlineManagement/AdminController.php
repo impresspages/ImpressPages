@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             'status' => 'success',
-            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(), //TODOX current language is not accessible in admin
+            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(), //TODOXX current language is not accessible in admin #134
             'html' => $html
         );
         return new \Ip\Response\Json($data);
