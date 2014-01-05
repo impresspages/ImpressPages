@@ -67,7 +67,7 @@ class Module
             $postFields = 'module_name=communication&action=getInfo&version=1&afterLogin=';
             $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
-            //TODOX refactor
+            //TODOXX refactor #144
 //            $groups = \Modules\developer\modules\Db::getGroups();
 //            foreach ($groups as $groupKey => $group) {
 //                $modules = \Modules\developer\modules\Db::getModules($group['id']);
