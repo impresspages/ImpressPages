@@ -71,11 +71,7 @@ class Service
         return $value;
     }
 
-    // TODOX check whether market or multisite uses this method
-    public function getTheme($themeName)
-    {
-        return Model::instance()->getTheme($themeName);
-    }
+
 
     public function saveWidgetOptions(Theme $theme)
     {
