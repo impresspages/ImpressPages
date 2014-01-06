@@ -49,7 +49,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($instanceId, $data, $layout)
+    public function generateHtml($widgetId, $instanceId, $data, $layout)
     {
 
         if (isset($data['imageOriginal'])) {
@@ -92,7 +92,7 @@ class Controller extends \Ip\WidgetController{
 
         }
 
-        return parent::generateHtml($instanceId, $data, $layout);
+        return parent::generateHtml($widgetId, $instanceId, $data, $layout);
     }
 
     public function delete($widgetId, $data) {
