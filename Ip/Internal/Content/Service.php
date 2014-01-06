@@ -72,19 +72,19 @@ class Service
 
     public static function addWidgetInstance($widgetId, $revisionId, $block, $position, $columnId = null, $visible = true)
     {
-        $instanceId = Model::addInstance($widgetId, $revisionId, $block, $position, $columnId, $visible);
+        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $block, $position, $columnId, $visible);
         return $instanceId;
     }
 
 
-    public static function removeWidgetInstance($instanceId)
+    public static function deleteWidgetInstance($instanceId)
     {
-        Model::removeWidgetInstance($instanceId);
+        InstanceModel::deleteInstance($instanceId);
     }
 
     public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
     {
-        Model::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
+        InstanceModel::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
     }
 
 
