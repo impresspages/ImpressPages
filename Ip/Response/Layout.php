@@ -50,11 +50,19 @@ class Layout extends \Ip\Response {
         parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
     }
 
+    public function render()
+    {
+        return $this->execute()->render();
+    }
 
-    public function send()
+    /**
+     * Execute response and return html response
+     *
+     * @return \Ip\Response
+     */
+    public function execute()
     {
         ipContent()->setBlockContent('main', $this->content);
-
 
         if ($this->getLayout() === null) {
             $this->chooseLayout();
@@ -67,9 +75,11 @@ class Layout extends \Ip\Response {
             $viewFile = ipThemeFile($layout);
         }
 
-        $this->setContent(ipView($viewFile, $this->getLayoutVariables())->render());
+        $content = ipView($viewFile, $this->getLayoutVariables())->render();
 
-        parent::send();
+        $response = new \Ip\Response($content, $this->getHeaders(), $this->getStatusCode());
+
+        return $response;
     }
 
     protected function chooseLayout()
