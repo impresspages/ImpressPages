@@ -14,10 +14,11 @@ class Form
     const ENVIRONMENT_ADMIN = 'admin';
     const ENVIRONMENT_PUBLIC = 'public';
 
+
     /**
-     * @var $pages Page[]
+     * @var Form\Fieldset[]
      */
-    protected $pages;
+    protected $fieldsets;
     protected $method;
     protected $action;
     protected $attributes;
@@ -29,7 +30,6 @@ class Form
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
         $this->action = \Ip\Internal\UrlHelper::getCurrentUrl();
-        $this->pages = array();
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
         if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
@@ -76,15 +76,15 @@ class Form
     }
 
     /**
-     * Remove field from form
+     * Remove field from fieldset
      * @param string $fieldName
      * @return int removed fields count
      */
     public function removeField($fieldName)
     {
         $count = 0;
-        foreach ($this->pages as $key => $page) {
-            $count += $page->removeField($fieldName);
+        foreach ($this->fieldsets as $fieldset) {
+            $count += $fieldset->removeField($fieldName);
         }
         return $count;
     }
@@ -126,46 +126,31 @@ class Form
         return $answer;
     }
 
-    /**
-     * @param \Ip\Form\Page $page
-     */
-    public function addPage(\Ip\Form\Page $page)
+
+
+    public function addFieldset($fieldset)
     {
-        $this->pages[] = $page;
+        $this->fieldsets[] = $fieldset;
     }
 
-    /**
-     * @param \Ip\Form\Fieldset $fieldset
-     */
-    public function addFieldset(\Ip\Form\Fieldset $fieldset)
-    {
-        if (count($this->pages) == 0) {
-            $this->addPage(new Page());
-        }
-        end($this->pages)->addFieldset($fieldset);
-    }
+
 
     /**
      *
      * Add field to last fielset. Create fieldset if does not exist.
-     * @param Field $field
+     * @param Form\Field $field
      */
-    public function addField(Form\Field $field)
+    public function addField(\Ip\Form\Field $field)
     {
-        if (count($this->pages) == 0) {
-            $this->addPage(new \Ip\Form\Page($this));
+        if (count($this->fieldsets) == 0) {
+            $this->addFieldset(new Form\Fieldset());
         }
-        end($this->pages)->addField($field);
+        end($this->fieldsets)->addField($field);
     }
 
-    /**
-     * Return all pages
-     * @return \Ip\Form\Page[]
-     */
-    public function getPages()
-    {
-        return $this->pages;
-    }
+
+
+
 
     /**
      *
@@ -237,27 +222,26 @@ class Form
 
 
     /**
-     * @return \Ip\Form\Fieldset[]
+     *
+     * Return all fieldset
+     * @return Form\Fieldset[]
      */
     public function getFieldsets()
     {
-        $pages = $this->getPages();
-        $fieldsets = array();
-        foreach ($pages as $page) {
-            $fieldsets = array_merge($fieldsets, $page->getFieldsets());
-        }
-        return $fieldsets;
+        return $this->fieldsets;
     }
 
+
+
     /**
-     * @return \Ip\Form\Field[]
+     * @return Form\Field[]
      */
     public function getFields()
     {
-        $pages = $this->getPages();
+        $fieldsets = $this->getFieldsets();
         $fields = array();
-        foreach ($pages as $page) {
-            $fields = array_merge($fields, $page->getFields());
+        foreach ($fieldsets as $fieldset) {
+            $fields = array_merge($fields, $fieldset->getFields());
         }
         return $fields;
     }
