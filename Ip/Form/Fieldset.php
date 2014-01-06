@@ -12,8 +12,11 @@ class Fieldset
     protected $fields;
     protected $label;
 
-    public function __construct()
+    public function __construct($label = null)
     {
+        if ($label) {
+            $this->setLabel($label);
+        }
         $this->fields = array();
     }
 
