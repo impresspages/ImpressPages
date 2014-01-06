@@ -64,11 +64,11 @@ class ReflectionModel
         $reflections = $this->getReflections($file);
         $this->removeReflectionRecords($file);
         foreach ($reflections as $reflection) {
-            if (file_exists(ipFile($reflection['reflection']))) {
-                unlink(ipFile($reflection['reflection']));
+            $absoluteFilename = ipFile('file/' . $reflection['reflection']);
+            if (file_exists($absoluteFilename)) {
+                unlink($absoluteFilename);
             }
         }
-
 
     }
 
