@@ -219,7 +219,7 @@ class WidgetController
 
 
 
-    public function generateHtml($instanceId, $data, $layout)
+    public function generateHtml($widgetId, $instanceId, $data, $layout)
     {
         $answer = '';
         try {
