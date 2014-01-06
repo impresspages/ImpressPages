@@ -120,16 +120,8 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
     }
 
-    /**
-     * @param Request $request
-     * @param bool $subrequest
-     * @return Response
-     * @throws CoreException
-     */
-    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    protected function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
-
-        \Ip\ServiceLocator::addRequest($request);
         if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
@@ -164,11 +156,7 @@ class Application
                 );
             }
             // TODO JSONRPC
-            $response = new \Ip\Response();
-            $response->addHeader('Content-type: text/json; charset=utf-8');
-            $response->setContent(json_encode($data));
-            \Ip\ServiceLocator::removeRequest();
-            return $response;
+            return new \Ip\Response\Json($data);
         }
 
 
@@ -206,28 +194,51 @@ class Application
         $controller->init();
         $controllerAnswer = $controller->$action();
 
-        if (empty($controllerAnswer) || is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
-            if ($controllerAnswer instanceof \Ip\View) {
-                $controllerAnswer = $controllerAnswer->render();
+        return $controllerAnswer;
+    }
+
+    /**
+     * @param Request $request
+     * @param bool $subrequest
+     * @return Response
+     * @throws CoreException
+     */
+    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    {
+
+        \Ip\ServiceLocator::addRequest($request);
+
+        $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
+
+        if (!empty($options['returnRawResponse'])) {
+            return $rawResponse;
+        }
+
+        if (empty($rawResponse) || is_string($rawResponse) || $rawResponse instanceof \Ip\View) {
+            if ($rawResponse instanceof \Ip\View) {
+                $rawResponse = $rawResponse->render();
             }
-            if (empty($controllerAnswer)) {
-                $controllerAnswer = '';
+            if (empty($rawResponse)) {
+                $rawResponse = '';
             }
-            \Ip\ServiceLocator::response()->setContent($controllerAnswer);
-            \Ip\ServiceLocator::removeRequest();
-            return \Ip\ServiceLocator::response();
-        } elseif ($controllerAnswer instanceof \Ip\Response) {
-            \Ip\ServiceLocator::removeRequest();
-            \Ip\ServiceLocator::setResponse($controllerAnswer);
-            return $controllerAnswer;
-        } elseif ($controllerAnswer === null) {
             $response = \Ip\ServiceLocator::response();
-            \Ip\ServiceLocator::removeRequest();
-            return $response;
+            $response->setContent($rawResponse);
+        } elseif ($rawResponse instanceof \Ip\Response) {
+            \Ip\ServiceLocator::setResponse($rawResponse);
+            return $rawResponse;
+        } elseif ($rawResponse === null) {
+            $response = \Ip\ServiceLocator::response();
         } else {
             throw new \Ip\CoreException('Unknown response');
         }
 
+        if (method_exists($response, 'execute')) {
+            $response = $response->execute();
+        }
+
+        \Ip\ServiceLocator::removeRequest();
+
+        return $response;
     }
 
 

@@ -18,6 +18,8 @@ class InternalClient extends BaseClient
      */
     protected function doRequest($request)
     {
+        global $application;
+
         $serverInfo = $request->getServer();
 
         $server = array(
@@ -39,7 +41,7 @@ class InternalClient extends BaseClient
         $application = new \Ip\Application(NULL);
         $ipResponse = $application->handleRequest($ipRequest);
 
-        $response = new Response($ipResponse->getContent(), $ipResponse->getStatusCode(), $ipResponse->getHeaders());
+        $response = new Response($ipResponse->render(), $ipResponse->getStatusCode(), $ipResponse->getHeaders());
 
         return $response;
     }
