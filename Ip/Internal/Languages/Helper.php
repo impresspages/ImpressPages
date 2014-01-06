@@ -17,7 +17,7 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
-                'defaultValue' => 'Languages.addLanguage'
+                'value' => 'Languages.addLanguage'
             ));
         $form->addField($field);
 

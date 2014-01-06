@@ -14,7 +14,7 @@ class Textarea extends Field{
     public function render($doctype) {
         $attributesStr = '';
         
-        return '<textarea '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' >'.htmlentities($this->getDefaultValue()).'</textarea>';
+        return '<textarea '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' >'.htmlentities($this->getValue()).'</textarea>';
     }
     
     /**

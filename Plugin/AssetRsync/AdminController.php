@@ -17,14 +17,14 @@ class AdminController extends \Ip\Controller
 
         $field = new \Ip\Form\Field\Hidden(array(
             'name' => 'aa',
-            'defaultValue' => 'AssetRsync.saveOptions'
+            'value' => 'AssetRsync.saveOptions'
         ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(array(
             'name' => 'assetDestinationDirectory',
             'label' => __('Asset destination directory', 'plugin-AssetRsync'),
-            'defaultValue' => ipGetOption('AssetRsync.assetDestinationDirectory'),
+            'value' => ipGetOption('AssetRsync.assetDestinationDirectory'),
         ));
         $form->addField($field);
 
@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller
 
         $field = new \Ip\Form\Field\Submit(array(
             'name' => 'submit',
-            'defaultValue' => __('Submit', 'plugin-AssetRsync')
+            'value' => __('Submit', 'plugin-AssetRsync')
         ));
         $form->addField($field);
 

@@ -227,13 +227,13 @@ class Display
 
         $field = new \Ip\Form\Field\Hidden(array(
             'name' => 'recordId',
-            'defaultValue' => $id
+            'value' => $id
         ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Hidden(array(
             'name' => 'method',
-            'defaultValue' => 'update'
+            'value' => 'update'
         ));
         $form->addField($field);
 

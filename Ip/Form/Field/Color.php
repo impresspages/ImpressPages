@@ -20,7 +20,7 @@ class Color extends Field{
             $cancelText = __('Cancel', 'ipPublic');
         }
 
-        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />';
     }
 
     /**

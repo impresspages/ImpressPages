@@ -17,7 +17,7 @@ class Farbtastic extends Field
     public function render($doctype)
     {
         return '<div class="ipmFarbtasticPopup ipsFarbtasticPopup"></div>
-        <input '.$this->getAttributesStr($doctype).' class="form-control ipsControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        <input '.$this->getAttributesStr($doctype).' class="form-control ipsControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />';
     }
     
     /**

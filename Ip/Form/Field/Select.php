@@ -32,7 +32,7 @@ class Select extends Field{
         $options = '';
         
         foreach($this->getValues() as $key => $value) {
-            if ($value[0]== $this->defaultValue) {
+            if ($value[0]== $this->value) {
                 $selected = 'selected="selected"';
             } else {
                 $selected = '';

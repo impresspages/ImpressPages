@@ -23,7 +23,7 @@ abstract class Field{
     protected $hint;
     protected $name;
     protected $dbField; //where in db this value should be stored by the method writeToDatabase
-    protected $defaultValue;
+    protected $value;
     protected $validators;
     protected $attributes;
     protected $classes; // CSS classes to be added to input field
@@ -53,8 +53,8 @@ abstract class Field{
         if (!empty($options['dbField'])) {
             $this->setDbField($options['dbField']);
         }
-        if (!empty($options['defaultValue'])) {
-            $this->setDefaultValue($options['defaultValue']);
+        if (!empty($options['value'])) {
+            $this->setValue($options['value']);
         }
         if (!empty($options['css'])) {
             if (is_array($options['css'])) {
@@ -288,12 +288,12 @@ abstract class Field{
         $this->dbField = $dbField;
     }
     
-    public function getDefaultValue() {
-        return $this->defaultValue;
+    public function getValue() {
+        return $this->value;
     }
     
-    public function setDefaultValue($defaultValue) {
-        $this->defaultValue = $defaultValue;
+    public function setValue($value) {
+        $this->value = $value;
     }
     
     public function getAttribute($attribute) {

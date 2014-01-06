@@ -19,7 +19,7 @@ class Email extends Field{
     public function render($doctype) {
         $attributesStr = '';
 
-        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="email" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="email" value="'.htmlspecialchars($this->getValue()).'" />';
     }
     
     /**

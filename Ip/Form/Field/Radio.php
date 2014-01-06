@@ -29,7 +29,7 @@ class Radio extends Field{
         $attributesStr = '';
         $answer = '';
         foreach($this->getValues() as $key => $value) {
-            if ($value[0]== $this->defaultValue) {
+            if ($value[0]== $this->value) {
                 $checked = 'checked="checked"';
             } else {
                 $checked = '';
