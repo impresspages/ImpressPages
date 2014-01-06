@@ -62,7 +62,13 @@ class Model{
             'instanceId' => $instanceId
         );
 
-        ipDb()->delete('repository_file', $condition);
+        $sql= 'DELETE FROM ' . ipTable('repository_file') . '
+                WHERE filename = :fileName
+                AND module = :module
+                AND instanceId = :instanceId
+                LIMIT 1'; // it is important to delete only one record
+
+        ipDb()->execute($sql, $condition);
 
         $usages = self::whoUsesFile($file);
         if (empty($usages)) {
