@@ -174,7 +174,6 @@ var ipAddWidgetToSide;
             }
         });
 
-        console.log('start');
     }
 
     ipStopWidgetDrag = function() {
