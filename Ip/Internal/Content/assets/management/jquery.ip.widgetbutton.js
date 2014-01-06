@@ -37,16 +37,8 @@
                         },
                         helper : 'clone',
                         stop: function(event, ui) {
-                            if (widgetOnDroppable) {
-                                var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
-                                var leftOrRight = widgetOnDroppable.data('leftOrRight');
-                                var widgetName = $(this).data('ipAdminWidgetButton').name;
-                                ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
-                            }
-                            ipStopWidgetDrag();
                         },
                         start: function (event, ui) {
-                            ipStartWidgetDrag();
                         }
                     });
 

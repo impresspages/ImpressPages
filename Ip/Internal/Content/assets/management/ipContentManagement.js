@@ -8,8 +8,6 @@ var ipAdminWidgetsScroll;
 var ipAdminWidgetsSearch;
 var ipAdminPanelInit;
 var widgetOnDroppable = false;
-var ipStartWidgetDrag;
-var ipStopWidgetDrag;
 var ipMoveWidgetToSide;
 var ipAddWidgetToSide;
 
@@ -34,6 +32,10 @@ var ipAddWidgetToSide;
         if (isMobile) {
             $('body').addClass('ipMobile');
         }
+
+
+        $('.ipAdminPanel .ipActionWidgetButton').on('dragstart', ipStartWidgetDrag);
+        $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
 
     });
 
@@ -136,7 +138,7 @@ var ipAddWidgetToSide;
         $panel.css('top',$('.ipsAdminToolbarContainer').outerHeight()); // move down to leave space for top toolbar
     }
 
-    ipStartWidgetDrag = function() {
+    var ipStartWidgetDrag = function(event, ui) {
         $('.ipWidget').each(function(key, value) {
             //left placeholder
             var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
@@ -176,8 +178,16 @@ var ipAddWidgetToSide;
 
     }
 
-    ipStopWidgetDrag = function() {
+    var ipStopWidgetDrag = function(event, ui) {
+
+        if (widgetOnDroppable) {
+            var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
+            var leftOrRight = widgetOnDroppable.data('leftOrRight');
+            var widgetName = $(this).data('ipAdminWidgetButton').name;
+            ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+        }
         $('.ipsWidgetDropPlaceholder').remove();
+
     }
 
     ipMoveWidgetToSide = function (widgetInstanceId, targetWidgetInstanceId, leftOrRight) {
