@@ -198,7 +198,7 @@ class Model
             throw new Exception('Widget does not exist. Widget name: ' . $widgetRecord['name'], Exception::UNKNOWN_WIDGET);
         }
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
+        $previewHtml = $widgetObject->generateHtml($widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
         $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
 
