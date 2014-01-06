@@ -16,6 +16,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
         TestEnvironment::initCode();
     }
 
+    public function testTables()
+    {
+        $tables = ipDb()->fetchColumn('SHOW TABLES');
+        $this->assertTrue(in_array('ip_widget', $tables), 'No required tables found in DB.');
+    }
+
     public function testConnect()
     {
         ipDb()->disconnect();
