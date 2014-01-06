@@ -19,10 +19,14 @@ class Json extends \Ip\Response {
         parent::__construct($data);
     }
 
+    public function render()
+    {
+        return json_encode($this->utf8Encode($this->content));;
+    }
+
     public function send()
     {
         $this->addHeader('Content-type: text/json; charset=utf-8');
-        $this->content = json_encode($this->utf8Encode($this->content));
         parent::send();
     }
 
