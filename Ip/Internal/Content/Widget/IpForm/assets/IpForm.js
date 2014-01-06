@@ -73,7 +73,7 @@ var IpWidget_IpForm;
             this.container.ipWidget_ipForm_container('addField');
         };
 
-        var save = function(e) {console.log('save');
+        var save = function(e) {
             var data = this.getData();
             this.widgetObject.save(data, 1);
             this.modal.modal('hide');

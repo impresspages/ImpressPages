@@ -49,7 +49,6 @@ var AssetRsync = new function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-                console.log(response);
                 if (response && response.result) {
                     // window.location = window.location.href.split('#')[0];
                     alert('success');
