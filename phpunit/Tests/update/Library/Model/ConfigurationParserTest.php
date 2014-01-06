@@ -9,6 +9,8 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
 {
     public function testParse()
     {
+        $this->markTestSkipped();
+
         $configurationParser = new IpUpdate\Library\Model\ConfigurationParser();
         $configuration = $configurationParser->parse(TEST_FIXTURE_DIR.'update/Library/Model/ConfigurationParser/');
 
