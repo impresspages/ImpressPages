@@ -106,7 +106,7 @@ class InstanceModel
     }
 
 
-//
+//Keeping this function in case it will be needed again
 //    /**
 //     *
 //     * Find position of widget in current block
