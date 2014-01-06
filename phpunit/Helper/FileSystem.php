@@ -23,7 +23,7 @@ class FileSystem
         if (is_dir( $source ) ) {
 
             // TODOX comment out optimization
-            `cp -r $source $destination`;
+            `cp -r $source/. $destination`;
             return;
 
             if (!is_dir($destination)) {
