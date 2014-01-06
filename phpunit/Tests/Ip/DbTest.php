@@ -16,6 +16,16 @@ class DbTest extends \PHPUnit_Framework_TestCase
         TestEnvironment::initCode();
     }
 
+    public function testTables()
+    {
+        $tables = ipDb()->fetchColumn('SHOW TABLES');
+        //* TODOX remove
+        var_export($tables);
+        echo __FILE__ . ':' . (__LINE__ - 2);
+        exit();
+        //*/
+    }
+
     public function testConnect()
     {
         ipDb()->disconnect();
