@@ -56,14 +56,14 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
-                'defaultValue' => 'Pages.updateZone'
+                'value' => 'Pages.updateZone'
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'zoneName',
-                'defaultValue' => $zoneName
+                'value' => $zoneName
             ));
         $form->addField($field);
 
@@ -71,7 +71,7 @@ class Helper
             array(
                 'name' => 'title',
                 'label' => __('Title (used in admin)', 'ipAdmin', false),
-                'defaultValue' => $zone->getTitleInAdmin()
+                'value' => $zone->getTitleInAdmin()
             ));
         $form->addField($field);
 
@@ -79,7 +79,7 @@ class Helper
             array(
                 'name' => 'url',
                 'label' => __('URL', 'ipAdmin', false),
-                'defaultValue' => $zone->getUrl()
+                'value' => $zone->getUrl()
             ));
         $form->addField($field);
 
@@ -87,7 +87,7 @@ class Helper
             array(
                 'name' => 'name',
                 'label' => __('Name (used as ID in PHP code)', 'ipAdmin', false),
-                'defaultValue' => $zone->getName()
+                'value' => $zone->getName()
             ));
         $form->addField($field);
 
@@ -102,7 +102,7 @@ class Helper
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
-                'defaultValue' => $zone->getLayout(),
+                'value' => $zone->getLayout(),
                 'values' => $values,
             ));
         $form->addField($field);
@@ -112,7 +112,7 @@ class Helper
             array(
                 'name' => 'metaTitle',
                 'label' => __('Meta title', 'ipAdmin', false),
-                'defaultValue' => $zone->getTitle()
+                'value' => $zone->getTitle()
             ));
         $form->addField($field);
 
@@ -120,7 +120,7 @@ class Helper
             array(
                 'name' => 'metaKeywords',
                 'label' => __('Meta keywords', 'ipAdmin', false),
-                'defaultValue' => $zone->getKeywords()
+                'value' => $zone->getKeywords()
             ));
         $form->addField($field);
 
@@ -128,14 +128,14 @@ class Helper
             array(
                 'name' => 'metaDescription',
                 'label' => __('Meta description', 'ipAdmin', false),
-                'defaultValue' => $zone->getDescription()
+                'value' => $zone->getDescription()
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Submit(
             array(
                 'name' => 'submit',
-                'defaultValue' => __('Save', 'ipAdmin', false)
+                'value' => __('Save', 'ipAdmin', false)
             ));
         $form->addField($field);
 
@@ -155,7 +155,7 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
-                'defaultValue' => 'Pages.updatePage'
+                'value' => 'Pages.updatePage'
             ));
         $form->addField($field);
 
@@ -163,7 +163,7 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'pageId',
-                'defaultValue' => $pageId
+                'value' => $pageId
             ));
         $form->addField($field);
 
@@ -171,7 +171,7 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'zoneName',
-                'defaultValue' => $zoneName
+                'value' => $zoneName
             ));
         $form->addField($field);
 
@@ -179,7 +179,7 @@ class Helper
             array(
                 'name' => 'navigationTitle',
                 'label' => __('Navigation title', 'ipAdmin', false),
-                'defaultValue' => $page->getNavigationTitle()
+                'value' => $page->getNavigationTitle()
             ));
         $form->addField($field);
 
@@ -187,7 +187,7 @@ class Helper
             array(
                 'name' => 'pageTitle',
                 'label' => __('Page title', 'ipAdmin', false),
-                'defaultValue' => $page->getPageTitle()
+                'value' => $page->getPageTitle()
             ));
         $form->addField($field);
 
@@ -195,7 +195,7 @@ class Helper
             array(
                 'name' => 'keywords',
                 'label' => __('Keywords', 'ipAdmin', false),
-                'defaultValue' => $page->getKeywords()
+                'value' => $page->getKeywords()
             ));
         $form->addField($field);
 
@@ -203,7 +203,7 @@ class Helper
             array(
                 'name' => 'description',
                 'label' => __('Description', 'ipAdmin', false),
-                'defaultValue' => $page->getDescription()
+                'value' => $page->getDescription()
             ));
         $form->addField($field);
 
@@ -211,7 +211,7 @@ class Helper
             array(
                 'name' => 'url',
                 'label' => __('Url', 'ipAdmin', false),
-                'defaultValue' => $page->getUrl()
+                'value' => $page->getUrl()
             ));
         $form->addField($field);
 
@@ -221,7 +221,7 @@ class Helper
                 'name' => 'visible',
                 'label' => __('Visible', 'ipAdmin', false),
                 'value' => 1,
-                'defaultValue' => $page->isVisible()
+                'value' => $page->isVisible()
             ));
         $form->addField($field);
 
@@ -244,7 +244,7 @@ class Helper
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
                 'values' => $options,
-                'defaultValue' => $curLayout
+                'value' => $curLayout
             ));
         $form->addField($field);
 
@@ -253,7 +253,7 @@ class Helper
             array(
                 'name' => 'createdOn',
                 'label' => __('Created on', 'ipAdmin', false),
-                'defaultValue' => date('Y-m-d', strtotime($page->getCreatedOn()))
+                'value' => date('Y-m-d', strtotime($page->getCreatedOn()))
             ));
         $form->addField($field);
 
@@ -261,14 +261,14 @@ class Helper
             array(
                 'name' => 'lastModified',
                 'label' => __('Update on', 'ipAdmin', false),
-                'defaultValue' => date('Y-m-d', strtotime($page->getLastModified()))
+                'value' => date('Y-m-d', strtotime($page->getLastModified()))
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Submit(
             array(
                 'name' => 'submit',
-                'defaultValue' => __('Save', 'ipAdmin', false)
+                'value' => __('Save', 'ipAdmin', false)
             ));
         $form->addField($field);
 
@@ -290,7 +290,7 @@ class Helper
             array(
                 'name' => 'visible',
                 'label' => __('Visible', 'ipAdmin', false),
-                'defaultValue' => ipGetOption('Pages.hideNewPages', 1)
+                'value' => ipGetOption('Pages.hideNewPages', 1)
             ));
         $form->addField($field);
 

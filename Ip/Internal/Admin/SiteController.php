@@ -78,7 +78,7 @@ class SiteController extends \Ip\Controller{
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'sa',
-                'defaultValue' => 'Admin.loginAjax', //html "name" attribute
+                'value' => 'Admin.loginAjax', //html "name" attribute
             ));
         $form->addfield($field);
 
@@ -112,7 +112,7 @@ class SiteController extends \Ip\Controller{
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'defaultValue' => __('Login', 'ipAdmin')
+                'value' => __('Login', 'ipAdmin')
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);

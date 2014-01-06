@@ -13,7 +13,7 @@ class HiddenSubmit extends Field{
 
     public function render($doctype) {
         //TODOXX add CSS to make it hidden #127
-        return '<input type="submit" '.$this->getAttributesStr($doctype).' class="ipmHiddenSubmit '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input type="submit" '.$this->getAttributesStr($doctype).' class="ipmHiddenSubmit '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars($this->getValue()).'" />';
     }
 
     public function getLayout() {

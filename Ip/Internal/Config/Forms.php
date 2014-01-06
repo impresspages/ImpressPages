@@ -31,7 +31,7 @@ class Forms {
             array(
                 'optionName' => 'Config.websiteEmail',
                 'name' => 'websiteEmail', //html "name" attribute
-                'defaultValue' => ipGetOption('Config.websiteEmail'),
+                'value' => ipGetOption('Config.websiteEmail'),
                 'label' => __('Website email', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('Email address used as a sender to send emails on behalf of the website.', 'Config')
             ));
@@ -43,7 +43,7 @@ class Forms {
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'automaticCron', //html "name" attribute
-                'defaultValue' => ipGetOption('Config.automaticCron', 1),
+                'value' => ipGetOption('Config.automaticCron', 1),
                 'label' => __('Execute cron automatically', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'Config'),
                 'text' => __('Cron URL: ', 'ipAdmin') . '<span class="ipsUrl"></span>'
@@ -57,7 +57,7 @@ class Forms {
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'cronPassword', //html "name" attribute
-                'defaultValue' => ipGetOption('Config.cronPassword', 1),
+                'value' => ipGetOption('Config.cronPassword', 1),
                 'label' => __('Cron password', 'Config'), //field label that will be displayed next to input field
                 'hint' => __('Protect cron from being abusively executed by the strangers.', 'Config')
             ));
@@ -70,7 +70,7 @@ class Forms {
         $field = new \Ip\Form\Field\Number(
             array(
                 'name' => 'keepOldRevision', //html "name" attribute
-                'defaultValue' => ipGetOption('Config.keepOldRevision', 1),
+                'value' => ipGetOption('Config.keepOldRevision', 1),
                 'label' => __('Days to keep old content revisions', 'Config'), //field label that will be displayed next to input field
             ));
         $field->addClass('ipsAutoSave');

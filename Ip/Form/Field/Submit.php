@@ -12,7 +12,7 @@ use Ip\Form\Field;
 class Submit extends Field{
     
     public function render($doctype) {
-        return '<button '.$this->getAttributesStr($doctype).' class="btn btn-default '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="submit">'.htmlspecialchars($this->getDefaultValue()).'</button>';
+        return '<button '.$this->getAttributesStr($doctype).' class="btn btn-default '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="submit">'.htmlspecialchars($this->getValue()).'</button>';
     }
     
     public function getLayout() {

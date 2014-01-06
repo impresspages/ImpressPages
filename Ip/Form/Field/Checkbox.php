@@ -21,13 +21,13 @@ class Checkbox extends Field{
         if (isset($options['checked'])) {
             $this->checked = $options['checked'];
         } else {
-            if(isset($options['defaultValue']) && ($options['defaultValue'] === TRUE || $options['defaultValue'] === 1)) {
+            if(isset($options['value']) && ($options['value'] === TRUE || $options['value'] === 1)) {
                 $this->checked = TRUE;
             } else {
                 $this->checked = FALSE;
             }
         }
-        if (isset($options['defaultValue']) && $options['defaultValue']) {
+        if (isset($options['value']) && $options['value']) {
             $this->setChecked(1);
         }
         if (isset($options['options']) && isset($options['options']['text']) && $options['options']['text']) {
@@ -113,8 +113,8 @@ class Checkbox extends Field{
         return 'confirm';
     }
 
-    public function setDefaultValue($defaultValue) {
-        if ($defaultValue) {
+    public function setValue($value) {
+        if ($value) {
             $this->setChecked(1);
         }
     }

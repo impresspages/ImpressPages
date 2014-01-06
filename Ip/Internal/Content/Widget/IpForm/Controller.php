@@ -268,14 +268,14 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Hidden(
         array(
         'name' => 'sa',
-        'defaultValue' => 'Content.widgetPost'
+        'value' => 'Content.widgetPost'
         ));
         $form->addField($field);
         
         $field = new \Ip\Form\Field\Hidden(
         array(
         'name' => 'instanceId',
-        'defaultValue' => $instanceId
+        'value' => $instanceId
         ));
         $form->addField($field);
 
@@ -289,7 +289,7 @@ class Controller extends \Ip\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-            'defaultValue' => __('Send', 'ipPublic', false)
+            'value' => __('Send', 'ipPublic', false)
         ));
         $form->addField($field);
         

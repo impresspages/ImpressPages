@@ -14,7 +14,7 @@ class Password extends Field{
     public function render($doctype) {
         $attributesStr = '';
 
-        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="password" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="password" value="'.htmlspecialchars($this->getValue()).'" />';
     }
     
     /**

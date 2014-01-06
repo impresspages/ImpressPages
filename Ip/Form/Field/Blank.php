@@ -21,7 +21,7 @@ use Ip\Form\Field;
 class Blank extends Field{
     
     public function render($doctype) {
-        return '<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'"  '.$this->getValidationAttributesStr($doctype).' type="hidden" value="'.htmlspecialchars($this->getValue()).'" />';
     }
 
     public function getTypeClass() {

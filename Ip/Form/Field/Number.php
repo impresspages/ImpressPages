@@ -12,7 +12,7 @@ use Ip\Form\Field;
 class Number extends Field{
 
     public function render($doctype) {
-        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="number" value="'.htmlspecialchars($this->getDefaultValue()).'" />';
+        return '<input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="number" value="'.htmlspecialchars($this->getValue()).'" />';
     }
 
     /**
