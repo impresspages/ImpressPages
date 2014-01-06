@@ -45,12 +45,14 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Unknown instance ' . $instanceId);
         }
 
-        Model::deleteInstance($instanceId);
-        $newInstanceId = Model::addInstance(
+        Service::deleteWidgetInstance($instanceId);
+
+        $newInstanceId = Service::addWidgetInstance(
             $record['widgetId'],
             $revisionId,
             $blockName,
             $position,
+            null,
             $record['visible']
         );
 
@@ -236,7 +238,7 @@ class AdminController extends \Ip\Controller
         }
         $instanceId = (int)$_POST['instanceId'];
 
-        Model::deleteInstance($instanceId);
+        Service::deleteWidgetInstance($instanceId);
 
         $data = array(
             'status' => 'success',
