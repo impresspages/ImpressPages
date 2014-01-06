@@ -122,9 +122,7 @@
 
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
-console.log(file);
             var answer = jQuery.parseJSON(response.response);
-console.log(answer);
             if (answer.error) {
                 $.proxy(methods._error, this)(up, answer.error);
             } else {

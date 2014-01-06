@@ -57,9 +57,6 @@ var IpConfig = new function () {
             processing = false;
             return;
         }
-        console.log(fieldId);
-        console.log(getFieldValue(fieldId));
-
 
         updateCronUrl();
 
@@ -77,11 +74,9 @@ var IpConfig = new function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-                console.log(response);
                 if (response && response.error) {
                     var errors = {};
                     errors[fieldId] = response.error;
-                    console.log(errors);
                     $('.ipsConfigForm').data("validator").invalidate(errors);
                 }
                 processing = false;
@@ -119,7 +114,6 @@ var IpConfig = new function () {
     this.autoSaveValue = function () {
         var $this = $(this);
         $('.ipsConfigForm').data("validator").checkValidity();
-        console.log($this.data());
         queueAdd($this.data('fieldid'));
     };
 
