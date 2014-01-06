@@ -184,7 +184,7 @@ class View
             throw new \Ip\CoreException('Cannot find relative path for file ' . $absoluteFilename);
         }
 
-        return substr($absoluteFilename, strlen($baseDir));
+        return substr($absoluteFilename, strlen($baseDir) + 1);
     }
 
     /**
@@ -220,29 +220,20 @@ class View
 
         $relativeFile = static::getIpRelativePath($absoluteFile);
 
-        if (strpos($relativeFile, 'Plugin/') == 0) {
+        if (strpos($relativeFile, 'Plugin/') === 0) {
             $overrideFile = substr($relativeFile, 7);
         } else {
             $overrideFile = $relativeFile;
         }
 
-        if (0) {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
-                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
-            } else {
-                $source = '';
-            }
-            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
-        }
-
         $fileInThemeDir = ipThemeFile(self::OVERRIDE_DIR . '/' . $overrideFile);
+
         if (is_file($fileInThemeDir)) {
             //found file in theme.
             return $fileInThemeDir;
         }
 
-        if (file_exists($absoluteFile)) {
+        if (is_file($absoluteFile)) {
             return $absoluteFile;
         } else {
             $backtrace = debug_backtrace();
