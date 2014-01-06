@@ -19,11 +19,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function testTables()
     {
         $tables = ipDb()->fetchColumn('SHOW TABLES');
-        //* TODOX remove
-        var_export($tables);
-        echo __FILE__ . ':' . (__LINE__ - 2);
-        exit();
-        //*/
+        $this->assertTrue(in_array('ip_widget', $tables), 'No required tables found in DB.');
     }
 
     public function testConnect()
