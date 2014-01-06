@@ -128,7 +128,7 @@ class Model{
 
         ipLog()->info('Plugin.deactivate: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
 
-        // TODOX remove plugin event listeners
+        // TODO remove plugin event listeners
         ipDispatcher()->notify('Plugin.deactivate', array(
                 'name' => $pluginName,
                 'version' => $pluginRecord['version'],
