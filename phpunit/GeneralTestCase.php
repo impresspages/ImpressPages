@@ -26,14 +26,6 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
                 $offset = $dt->format("P");
                 self::$pdo->exec("SET time_zone='$offset';");
                 self::$pdo->exec("SET CHARACTER SET utf8");
-
-                $sth = self::$pdo->prepare("SHOW TABLES");
-                $sth->execute();
-
-                $result = $sth->fetchAll(\PDO::FETCH_ASSOC);
-                print_r($result);
-                exit();
-
             }
             $this->conn = $this->createDefaultDBConnection(self::$pdo);
         }
