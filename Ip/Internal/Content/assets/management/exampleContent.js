@@ -1,8 +1,7 @@
 (function($){
     "use strict";
 
-    $(document).ready(function () {
-        $(document).bind('initFinished.ipContentManagement', function () {
+        $(document).bind('initFinished.ipContentManagement', function () {alert('init finished');
             $('.ipActionWidgetButton')
                 .bind('dragstart', function (event, ui) {
                     $('.ipBlock > .ipbExampleContent').each(function () {
@@ -38,6 +37,6 @@
                     });
                 });
         });
-    });
+
 
 })(ip.jQuery);
