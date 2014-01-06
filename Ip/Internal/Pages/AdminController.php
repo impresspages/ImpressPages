@@ -138,7 +138,7 @@ class AdminController extends \Ip\Controller
 //            $answer['errors'][] = array('field' => 'redirectURL', 'message' => __('External url can\'t be empty', 'ipAdmin', false));
 //        }
 
-
+        $data['visible'] = !empty($data['visible']);
         if (empty($answer['errors'])) {
             Service::updatePage($zoneName, $pageId, $data);
             $answer['status'] = 'success';
