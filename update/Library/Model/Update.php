@@ -22,7 +22,7 @@ class Update
     const STEP_PUBLISH_WEBSITE = 6;
     const STEP_FINISH = 7;
     
-    const UPDATE_SCRIPT_VERSION = '3.8';
+    const UPDATE_SCRIPT_VERSION = '4.0';
     
     
     /**
