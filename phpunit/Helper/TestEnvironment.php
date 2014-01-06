@@ -27,6 +27,8 @@ class TestEnvironment {
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['SERVER_PORT'] = 80;
         $_SERVER['SERVER_NAME'] = 'localhost';
+
+        \Ip\ServiceLocator::addRequest(new \Ip\Request());
     }
 
     public static function prepareFiles()

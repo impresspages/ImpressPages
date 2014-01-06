@@ -20,20 +20,20 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
     {
         $repository = \Ip\Internal\Repository\Model::instance();
 
-        $file = 'file/repository/impresspages.png';
+        $repositoryFile = 'impresspages.png';
+        $file = 'file/repository/' . $repositoryFile;
 
-        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipFile('file/repository/impresspages.png'));
+        copy(TEST_FIXTURE_DIR.'Repository/impresspages.png', ipFile($file));
 
         //Bind file to module (twice)
-        $repository->bindFile($file, 'modulexxx', 1);
-        $repository->bindFile($file, 'modulexxx', 1);
-
+        $repository->bindFile($repositoryFile, 'modulexxx', 1);
+        $repository->bindFile($repositoryFile, 'modulexxx', 1);
 
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
         //Create reflection
         $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
-        $reflection = $reflectionService->getReflection($file, null, $transformSmall);
+        $reflection = $reflectionService->getReflection($repositoryFile, null, $transformSmall);
         $this->assertEquals('file/impresspages.png', $reflection);
 //echo BASE_DIR.$reflection;
         $this->assertEquals(true, file_exists(ipFile($reflection)));
