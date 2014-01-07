@@ -82,7 +82,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
         $page = $session->getPage();
 
-        $this->assertEquals('DEBUG', $page->getContent());
+        // $this->assertEquals('DEBUG', $page->getContent());
 
 
         $headlineElement = $page->find('css', '.logo a');
