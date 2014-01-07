@@ -55,25 +55,48 @@ abstract class Image extends Base
     /**
      * @param $memoryNeeded in bytes
      * @param int $extra in bytes
+     * @throws \Ip\Exception\Repository\Transform
      * @return bool
-     * @throws \Ip\Internal\Repository\TransformException
      */
-    protected function allocateMemory($memoryNeeded, $extra = 10000000)  //~10Mb extra
+    protected function allocateMemory($memoryNeeded, $extra = 0x1000000)  //~10Mb extra
     {
         if (!function_exists('memory_get_usage')) {
             return false;
         }
 
-        if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded + $extra > (integer) ini_get('memory_limit') * pow(1024, 2)) {
-            $megabytesNeeded = ceil((memory_get_usage() + $memoryNeeded + $extra)) / pow(1024, 2);
-            $stringNeeded = $megabytesNeeded . 'M';
-            $success = ini_set('memory_limit', $stringNeeded);
-            if ($stringNeeded != $success && $success !== "-1") {
-                throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $stringNeeded", array('memory_needed' => $stringNeeded, 'ini_set_result' => $success));
-            }
+        $memoryLimit = (string)ini_get('memory_limit');
+        if ('-1' == $memoryLimit) { // unlimited
             return true;
         }
-        return false;
+
+        $memoryLimitInBytes = 0;
+
+        $units = array(
+            'k' => 0x400,
+            'm' => 0x100000,
+            'g' => 0x40000000);
+
+        if (!($len = strlen($memoryLimit))) {
+            return false;
+        }
+
+        $last = strtolower($memoryLimit[$len - 1]);
+        $memoryLimitInBytes = (int)$memoryLimit;
+        $memoryLimitInBytes *= isset($units[$last]) ? $units[$last] : 1;
+
+        $memoryRequired = memory_get_usage() + $memoryNeeded + $extra;
+
+        if ($memoryRequired < $memoryLimitInBytes) {
+            return true;
+        }
+
+        $megabytesNeeded = ceil($memoryRequired / 0x100000);
+        $stringNeeded = $megabytesNeeded . 'M';
+        $success = ini_set('memory_limit', $stringNeeded);
+        if (!$success) {
+            throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $stringNeeded", array('memoryNeeded' => $stringNeeded, 'currentLimit' => ini_get('memory_limit')));
+        }
+        return true;
     }
 
 
