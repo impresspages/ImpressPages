@@ -82,7 +82,7 @@ class ReflectionService
         $reflectionModel = ReflectionModel::instance();
         try {
             $reflection = $reflectionModel->getReflection($file, $desiredName, $transform);
-        } catch (TransformException $e) {
+        } catch (\Ip\Exception $e) {
             $this->lastException = $e;
             return false;
         } catch (\Ip\PhpException $e) {
