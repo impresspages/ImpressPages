@@ -21,7 +21,7 @@ before_script:
   - sed -e 's/`ip_cms_/`ip_/g' < install/Plugin/Install/sql/data.sql | mysql -D ip_test # replace ip_cms_ to ip_
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('travis') WHERE user='travis';\nFLUSH PRIVILEGES;\n" | mysql -u travis # ImpressPages does not allow empty db password
   - cd phpunit
-  - composer install
+  - composer --prefer-source install # prefer-source is used to avoid github api limit
   - ./travis-nginx-install.sh
   - sh -c "if [ $TEST_GROUP = "Sauce" ]; then curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash; fi"
 
