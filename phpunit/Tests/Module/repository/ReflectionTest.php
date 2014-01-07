@@ -36,7 +36,8 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflectionFile = 'file/' . $reflectionService->getReflection($repositoryFile, null, $transformSmall);
         if ($reflectionFile == 'file/') {
-            $this->fail($reflectionService->getLastException()->getMessage());
+            $e = $reflectionService->getLastException();
+            $this->fail($e->getMessage() . ' at ' . basename($e->getFile()) . ':' . $e->getLine());
         }
 
         $reflectionAbsolutePath = ipFile($reflectionFile);
