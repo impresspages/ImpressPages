@@ -199,12 +199,12 @@ class View
         } else {
             $backtrace = debug_backtrace();
             if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-                throw new Exception("Can't find caller", Exception::VIEW);
+                throw new \Ip\Exception\View("Can't find caller");
             }
 
             if (basename($backtrace[1]['file']) == 'Functions.php') {
                 if(!isset($backtrace[2]['file']) || !isset($backtrace[2]['line'])) {
-                    throw new Exception("Can't find caller", Exception::VIEW);
+                    throw new \Ip\Exception\View("Can't find caller");
                 }
                 $absoluteFile = dirname($backtrace[2]['file']) . '/' . $file;
 
@@ -242,7 +242,7 @@ class View
             } else {
                 $source = '';
             }
-            throw new \Ip\Exception('Can\'t find view file \''.$file. '\' ' . $source, Exception::VIEW);
+            throw new \Ip\Exception\View('Can\'t find view file \''.$file. '\' ' . $source);
         }
     }
 
@@ -264,7 +264,7 @@ class View
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
-                throw new Exception("Incorrect view variable name '".$key."' ".$source, Exception::VIEW);
+                throw new \Ip\Exception\View("Incorrect view variable name '".$key."' ".$source);
             }
         }
     }
