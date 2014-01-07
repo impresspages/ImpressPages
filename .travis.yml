@@ -12,9 +12,9 @@ env:
     - TEST_GROUP=Smoke
     - TEST_GROUP=Sauce
     - TEST_GROUP=other
-matrix:
-    allow_failures:
-        - env: "TEST_GROUP=other"
+#matrix:
+#    allow_failures:
+#        - env: "TEST_GROUP=other"
 before_script:
   - mysql -e 'create database ip_test;'
   - sed -e 's/\[\[\[\[database\]\]\]\]/ip_test/g' < install/Plugin/Install/sql/structure.sql | sed -e 's/`ip_cms_/`ip_/g' | mysql -D ip_test # replace ip_cms_ and [[[[database]]]]
