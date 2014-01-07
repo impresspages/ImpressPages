@@ -9,14 +9,17 @@ use PhpUnit\Helper\TestEnvironment;
 
 class InstallTest extends \PHPUnit_Framework_TestCase
 {
+    public function setup()
+    {
+        TestEnvironment::cleanupFiles();
+        TestEnvironment::initCode('install.php');
+    }
+
     /**
      * @group Smoke
      */
     public function testInstall()
     {
-        TestEnvironment::cleanupFiles();
-        TestEnvironment::initCode('install.php');
-
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
