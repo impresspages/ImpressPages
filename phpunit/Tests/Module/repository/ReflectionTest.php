@@ -37,7 +37,8 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $reflectionFile = 'file/' . $reflectionService->getReflection($repositoryFile, null, $transformSmall);
         if ($reflectionFile == 'file/') {
             $e = $reflectionService->getLastException();
-            $this->fail($e->getMessage() . ' at ' . basename($e->getFile()) . ':' . $e->getLine());
+            $data = $e->getData();
+            $this->fail($e->getMessage() . ' at ' . basename($e->getFile()) . ':' . $e->getLine() . ' | ini_set result: ' . $data['ini_set_result']);
         }
 
         $reflectionAbsolutePath = ipFile($reflectionFile);

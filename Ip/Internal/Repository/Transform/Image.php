@@ -65,7 +65,7 @@ abstract class Image extends Base
             $stringNeeded = $megabytesNeeded . 'M';
             $success = ini_set('memory_limit', $stringNeeded);
             if ($stringNeeded != $success && $success !== "-1") {
-                throw new \Ip\Internal\Repository\TransformException("Not enough memory. Please increase memory limit to $stringNeeded ");
+                throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $stringNeeded", array('memory_needed' => $stringNeeded, 'ini_set_result' => $success));
             }
             return true;
         }
