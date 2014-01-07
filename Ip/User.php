@@ -37,8 +37,9 @@ class User{
      */
     function logout(){
         if(isset($_SESSION['ipUser']['userId'])) {
-            ipDispatcher()->notify('ipUserLogout',  array('userId'=>$_SESSION['ipUser']['userId']));
+            ipDispatcher()->notify('Ip.beforeUserLogout',  array('userId'=>$this->userId()));
             unset($_SESSION['ipUser']['userId']);
+            ipDispatcher()->notify('ipUserLogout',  array('userId'=>$this->userId()));
         }
     }
 
