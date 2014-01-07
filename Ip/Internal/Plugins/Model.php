@@ -57,7 +57,7 @@ class Model{
         }
 
         if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
-            throw new \Ip\Exception("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.", \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.");
         }
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
@@ -139,7 +139,7 @@ class Model{
     {
         $activePlugins = self::getActivePlugins();
         if (in_array($pluginName, $activePlugins)) {
-            throw new \Ip\Exception('Please deactivate the plugin before removing it.', \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup('Please deactivate the plugin before removing it.');
 
         }
 
@@ -174,10 +174,10 @@ class Model{
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
-                throw new \Ip\Exception('Can\'t remove folder ' . $pluginDir, \Ip\Exception::PLUGIN_SETUP);
+                throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
             }
         } catch (\Ip\PhpException $e) {
-            throw new \Ip\Exception('Can\'t remove folder ' . $pluginDir, \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
         }
 
         ipLog()->info('Plugin.remove: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));

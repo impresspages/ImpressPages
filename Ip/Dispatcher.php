@@ -47,7 +47,7 @@ class Dispatcher
         } else {
             $errorMessage = "Incorrect callable " . $callable;
         }
-        throw new Exception($errorMessage, Exception::EVENT);
+        throw new \Ip\Exception\Dispatcher($errorMessage);
     }
 
     /**
