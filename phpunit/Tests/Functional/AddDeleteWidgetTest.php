@@ -49,7 +49,7 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
 
         $installationUrl = $installation->getInstallationUrl();
 
-        $session->visit($installationUrl . 'admin');
+        $session->visit($installationUrl);
 
         $loginPage = $session->getPage();
 
