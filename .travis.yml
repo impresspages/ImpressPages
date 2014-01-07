@@ -16,8 +16,8 @@ env:
 #    allow_failures:
 #        - env: "TEST_GROUP=other"
 before_script:
-  - ./travis-create-db.sh
   - cd phpunit
+  - ./travis-db-create.sh
   - composer --prefer-source install # prefer-source is used to avoid github api limit
 #  - ./travis-nginx-install.sh
   - ./travis-apache-install.sh
