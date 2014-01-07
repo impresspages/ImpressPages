@@ -21,13 +21,8 @@
 
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-
-                    $(this).trigger('initStarted.ipContentManagement');
-
                     $this.data('ipContentManagement', {
-                        optionsChanged : false
                     });
-                    var data = $this.data('ipContentManagement');
 
                     $(window).resize(function () {
                         if (this.resizeTO) {
@@ -68,26 +63,21 @@
                     $('.ipAdminPanel .ipActionWidgetButton').ipAdminWidgetButton();
 
 
-                    $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
-                    $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
-                    $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
-
-
-                    $this.bind('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
-
 
                     ipAdminPanelInit();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
-                    $this.trigger('initFinished.ipContentManagement', options);
 
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstart', ipStartWidgetDrag);
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
-
-
-
-
+                    $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
+                    $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
+                    $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
+                    $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
+
+                    $this.trigger('initFinished.ipContentManagement', options);
+
                 }
             });
         },
