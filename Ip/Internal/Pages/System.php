@@ -15,9 +15,9 @@ class System
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->addEventListener('Ip.addLanguage', array($this, 'onAddLanguage'));
-        $dispatcher->addEventListener('Ip.deleteLanguage', array($this, 'onDeleteLanguage'));
-        $dispatcher->addEventListener('Ip.deleteZone', array($this, 'onDeleteZone'));
+        $dispatcher->addEventListener('Ip.languageAdded', array($this, 'onAddLanguage'));
+        $dispatcher->addEventListener('Ip.beforeLanguageDeleted', array($this, 'onDeleteLanguage'));
+        $dispatcher->addEventListener('Ip.beforeZoneDeleted', array($this, 'onDeleteZone'));
 
     }
 

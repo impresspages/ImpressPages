@@ -8,9 +8,9 @@ class System {
 
     public function init()
     {
-        ipDispatcher()->addJobListener('Ip.reasonToPreventLogin', array($this, 'jobReasonToPreventLogin'));
-        ipDispatcher()->addEventListener('Cron.execute', array($this, 'onCron'));
-        ipDispatcher()->addEventListener('Admin.failedLogin', array($this, 'onFailedLogin'));
+        ipDispatcher()->addJobListener('Ip.adminLoginPrevent', array($this, 'jobReasonToPreventLogin'));
+        ipDispatcher()->addEventListener('Ip.cronExecute', array($this, 'onCron'));
+        ipDispatcher()->addEventListener('Ip.adminLoginFailed', array($this, 'onFailedLogin'));
 
         $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
@@ -20,7 +20,7 @@ class System {
             $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
         }
 
-        ipDispatcher()->addEventListener('site.afterInit', array($this, 'initAdmin'));
+        ipDispatcher()->addEventListener('Ip.initFinished', array($this, 'initAdmin'));
 
         if (ipIsManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');

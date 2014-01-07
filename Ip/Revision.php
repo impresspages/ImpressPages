@@ -75,7 +75,7 @@ class Revision{
         $revisionId = ipDb()->insert('revision', $revision);
         $revision['id'] = $revisionId;
 
-        ipDispatcher()->notify('site.createdRevision', array('revision' => $revision));
+        ipDispatcher()->notify('Ip.pageRevisionCreated', array('revision' => $revision));
 
         return $revisionId;
     }
@@ -109,7 +109,7 @@ class Revision{
             throw new \Ip\Exception\Db("Can't publish page #{$revision['pageId']} revision #{$revisionId}");
         }
         
-        ipDispatcher()->notify('site.publishRevision', array('revisionId' => $revisionId));
+        ipDispatcher()->notify('Ip.pageRevisionPublished', array('revisionId' => $revisionId));
     }
 
     public static function duplicateRevision ($oldRevisionId, $zoneName = null, $pageId = null, $published = null) {
@@ -138,7 +138,7 @@ class Revision{
             'newRevisionId' => $newRevisionId,
             'basedOn' => $oldRevisionId 
         );
-        ipDispatcher()->notify('site.duplicatedRevision', $eventData);
+        ipDispatcher()->notify('Ip.pageRevisionDuplicated', $eventData);
 
         return $newRevisionId;
     }
@@ -192,7 +192,7 @@ class Revision{
             $eventData = array(
                 'revisionId' => $revisionId,
             );
-            $dispatcher->notify('site.removeRevision', $eventData);
+            $dispatcher->notify('Ip.pageRevisionRemoved', $eventData);
             ipDb()->delete('revision', array('id' => $revisionId));
         }
     }

@@ -7,9 +7,9 @@ class System
 {
     public function init()
     {
-        ipDispatcher()->addEventListener('site.clearCache', array($this, 'syncAssets'));
-        ipDispatcher()->addEventListener('Plugin.activate', array($this, 'onPluginActivate'));
-        ipDispatcher()->addEventListener('Plugin.deactivate', array($this, 'onPluginDeactivate'));
+        ipDispatcher()->addEventListener('Ip.cacheClear', array($this, 'syncAssets'));
+        ipDispatcher()->addEventListener('Ip.pluginActivated', array($this, 'onPluginActivate'));
+        ipDispatcher()->addEventListener('Ip.pluginDeactivated', array($this, 'onPluginDeactivate'));
     }
 
     public function syncAssets()

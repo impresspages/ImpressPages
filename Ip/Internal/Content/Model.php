@@ -213,7 +213,7 @@ class Model
             )
         );
 
-        $optionsMenu = ipDispatcher()->filter('ipWidgetMenu', $optionsMenu, $widgetRecord);
+        $optionsMenu = ipDispatcher()->filter('Ip.widgetMangementMenu', $optionsMenu, $widgetRecord);
         $data = array(
             'optionsMenu' => $optionsMenu,
         );
@@ -298,7 +298,7 @@ class Model
             return self::$widgetObjects;
         }
 
-        self::$widgetObjects = ipDispatcher()->filter('contentManagement.collectWidgets', array());
+        self::$widgetObjects = ipDispatcher()->filter('Ip.widgets', array());
 
         return self::$widgetObjects;
     }

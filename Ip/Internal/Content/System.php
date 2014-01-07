@@ -16,19 +16,19 @@ class System
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->addEventListener('site.afterInit', array($this, 'initWidgets'));
-        $dispatcher->addEventListener('site.duplicatedRevision', __NAMESPACE__ . '\System::duplicatedRevision');
-        $dispatcher->addEventListener('site.removeRevision', __NAMESPACE__ . '\System::removeRevision');
-        $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ . '\System::publishRevision');
-        $dispatcher->addEventListener('Cron.execute', array($this, 'executeCron'));
-        $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ . '\System::pageDeleted');
+        $dispatcher->addEventListener('Ip.initFinished', array($this, 'initWidgets'));
+        $dispatcher->addEventListener('Ip.pageRevisionDuplicated', __NAMESPACE__ . '\System::duplicatedRevision');
+        $dispatcher->addEventListener('Ip.pageRevisionRemoved', __NAMESPACE__ . '\System::removeRevision');
+        $dispatcher->addEventListener('Ip.pageRevisionPublished', __NAMESPACE__ . '\System::publishRevision');
+        $dispatcher->addEventListener('Ip.cronExecute', array($this, 'executeCron'));
+        $dispatcher->addEventListener('Ip.pageDeleted', __NAMESPACE__ . '\System::pageDeleted');
         $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ . '\System::pageMoved'); //TODOXX THIS EVENT IS NEVER THROWN #150
 
 
 
-        $dispatcher->addFilterListener('contentManagement.collectWidgets', array($this, 'collectWidgets'));
+        $dispatcher->addFilterListener('Ip.widgets', array($this, 'collectWidgets'));
         $dispatcher->addFilterListener(
-            'contentManagement.collectFieldTypes',
+            'Ip.widgetIpFormFieldTypes',
             __NAMESPACE__ . '\System::collectFieldTypes'
         );
 
@@ -41,7 +41,7 @@ class System
 
         ipAddJsVariable('ipUrlOverrides', $ipUrlOverrides);
 
-        $dispatcher->addEventListener('Admin.login', array($this, 'adminLogin'));
+        $dispatcher->addEventListener('Ip.adminLoginSuccessful', array($this, 'adminLogin'));
     }
 
 

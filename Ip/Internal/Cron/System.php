@@ -7,7 +7,7 @@ class System
 {
     public function init()
     {
-        ipDispatcher()->addEventListener('Application.close', __CLASS__ . '::onClose');
+        ipDispatcher()->addEventListener('Ip.beforeApplicationClosed', __CLASS__ . '::onClose');
     }
 
     public static function onClose()
