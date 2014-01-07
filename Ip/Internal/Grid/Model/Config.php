@@ -20,7 +20,7 @@ class Config
         $this->config = $config;
 
         if (empty($this->config['table'])) {
-            throw new \Ip\CoreException('\'table\' configuration value missing.');
+            throw new \Ip\Exception('\'table\' configuration value missing.');
         }
 
         if (empty($this->config['fields'])) {

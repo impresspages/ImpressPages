@@ -48,7 +48,7 @@ class Actions
             $fieldObject = $this->config->fieldObject($field);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\CoreException("updateData method in class " . get_class($fieldObject) . " has to return array.");
+                throw new \Ip\Exception("updateData method in class " . get_class($fieldObject) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
@@ -61,7 +61,7 @@ class Actions
 
         $row = ipDb()->select('row_number', $this->config->rawTableName(), array('id' => $targetId));
         if (empty($row[0])) {
-            throw new \Ip\CoreException('Target record doesn\'t exist');
+            throw new \Ip\Exception('Target record doesn\'t exist');
         }
         $priority = $row[0]['row_number'];
 

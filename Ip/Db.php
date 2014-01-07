@@ -27,7 +27,7 @@ class Db
     }
 
     /**
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      * @return \PDO
      */
     public function getConnection()
@@ -39,7 +39,7 @@ class Db
         $dbConfig = ipConfig()->getRaw('db');
 
         if (empty($dbConfig)) {
-            throw new \Ip\CoreException("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\CoreException::DB);
+            throw new \Ip\Exception("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.", \Ip\Exception::DB);
         }
 
         try {
@@ -57,7 +57,7 @@ class Db
             $this->pdoConnection->exec("SET time_zone='$offset';");
             $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
         } catch (\PDOException2 $e) {
-            throw new \Ip\CoreException("Can't connect to database. Stack trace hidden for security reasons", \Ip\CoreException::DB);
+            throw new \Ip\Exception("Can't connect to database. Stack trace hidden for security reasons", \Ip\Exception::DB);
             //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
         }
 

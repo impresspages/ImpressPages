@@ -181,7 +181,7 @@ class View
         $baseDir = ipConfig()->getRaw('BASE_DIR');
         $baseDir = str_replace('\\', '/', $baseDir); // Compatibility with Windows
         if (strpos($absoluteFilename, $baseDir) !== 0) {
-            throw new \Ip\CoreException('Cannot find relative path for file ' . $absoluteFilename);
+            throw new \Ip\Exception('Cannot find relative path for file ' . $absoluteFilename);
         }
 
         return substr($absoluteFilename, strlen($baseDir) + 1);
@@ -190,7 +190,7 @@ class View
     /**
      * @param $file relative, absolute, Ip/ or Plugin/
      * @return mixed|string
-     * @throws CoreException
+     * @throws Exception
      */
     private static function findFile($file) {
         //make $file absolute
@@ -199,12 +199,12 @@ class View
         } else {
             $backtrace = debug_backtrace();
             if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-                throw new CoreException("Can't find caller", CoreException::VIEW);
+                throw new Exception("Can't find caller", Exception::VIEW);
             }
 
             if (basename($backtrace[1]['file']) == 'Functions.php') {
                 if(!isset($backtrace[2]['file']) || !isset($backtrace[2]['line'])) {
-                    throw new CoreException("Can't find caller", CoreException::VIEW);
+                    throw new Exception("Can't find caller", Exception::VIEW);
                 }
                 $absoluteFile = dirname($backtrace[2]['file']) . '/' . $file;
 
@@ -242,7 +242,7 @@ class View
             } else {
                 $source = '';
             }
-            throw new \Ip\CoreException('Can\'t find view file \''.$file. '\' ' . $source, CoreException::VIEW);
+            throw new \Ip\Exception('Can\'t find view file \''.$file. '\' ' . $source, Exception::VIEW);
         }
     }
 
@@ -264,7 +264,7 @@ class View
                 if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
                     $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
                 }
-                throw new CoreException("Incorrect view variable name '".$key."' ".$source, CoreException::VIEW);
+                throw new Exception("Incorrect view variable name '".$key."' ".$source, Exception::VIEW);
             }
         }
     }

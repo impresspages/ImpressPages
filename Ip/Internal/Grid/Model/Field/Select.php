@@ -16,7 +16,7 @@ class Select extends \Ip\Internal\Grid\Model\Field
     public function __construct($config)
     {
         if (empty($config['field'])) {
-            throw new \Ip\CoreException('\'field\' option required for text field');
+            throw new \Ip\Exception('\'field\' option required for text field');
         }
         $this->field = $config['field'];
 

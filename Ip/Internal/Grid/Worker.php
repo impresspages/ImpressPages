@@ -26,7 +26,7 @@ class Worker
                 $this->model = new Model\Table($this->config);
                 break;
             default:
-                throw new \Ip\CoreException('Undefined Grid type');
+                throw new \Ip\Exception('Undefined Grid type');
         }
     }
 

@@ -14,7 +14,7 @@ class Net
     {
 
         if (!function_exists('curl_init')) {
-            throw new \CoreException('CURL is not installed. Cannot download file from URL.');
+            throw new \Exception('CURL is not installed. Cannot download file from URL.');
         }
 
         $fs = new FileSystem();

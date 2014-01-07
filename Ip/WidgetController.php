@@ -210,7 +210,7 @@ class WidgetController
 //            if (is_file($adminView)) {
 //                $answer = ipView($adminView)->render();
 //            }
-//        } catch (\Ip\CoreException $e){
+//        } catch (\Ip\Exception $e){
 //            return $e->getMessage();
 //        }
 //        return $answer;
@@ -228,7 +228,7 @@ class WidgetController
             } else {
                 $answer = ipView(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             }
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
                 $tmpData = array(
                     'widgetName' => $this->name,
