@@ -25,7 +25,7 @@ class MockClient extends InternalClient
     protected function doRequest($request)
     {
         if (!$this->response) {
-            throw new \Ip\CoreException('Response is not prepared');
+            throw new \Ip\Exception('Response is not prepared');
         }
 
         $response = $this->response;

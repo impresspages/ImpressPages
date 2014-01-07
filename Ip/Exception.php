@@ -11,11 +11,9 @@ namespace Ip;
 /**
  * IpCmsException class
  */
-class CoreException extends \Exception
+class Exception extends \Exception
 {
     //error codes
-    const DB = 0;
-    const VIEW = 1;
     const EVENT = 2;
     const REVISION = 3;
     const WIDGET = 4;

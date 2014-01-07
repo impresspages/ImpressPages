@@ -162,7 +162,7 @@ class Application
 
         $controllerClass = $request->getControllerClass();
         if (!class_exists($controllerClass)) {
-            throw new \Ip\CoreException('Requested controller doesn\'t exist. ' . $controllerClass);
+            throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
         //check if user is logged in
@@ -182,14 +182,14 @@ class Application
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $plugin = $request->getControllerModule();
             if (!ipIsAllowed($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\CoreException('User has no permission to execute ' . $request->getControllerModule(
+                throw new \Ip\Exception('User has no permission to execute ' . $request->getControllerModule(
                     ) . '.' . $request->getControllerAction() . ' action');
             }
         }
 
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\CoreException($controllerClass . ".php must extend \\Ip\\Controller class.");
+            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
         }
         $controller->init();
         $controllerAnswer = $controller->$action();
@@ -201,7 +201,7 @@ class Application
      * @param Request $request
      * @param bool $subrequest
      * @return Response
-     * @throws CoreException
+     * @throws Exception
      */
     public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
@@ -229,7 +229,7 @@ class Application
         } elseif ($rawResponse === null) {
             $response = \Ip\ServiceLocator::response();
         } else {
-            throw new \Ip\CoreException('Unknown response');
+            throw new \Ip\Exception('Unknown response');
         }
 
         if (method_exists($response, 'execute')) {
@@ -313,7 +313,7 @@ class Application
 
     /**
      * @param \Ip\Response $response
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function handleResponse(\Ip\Response $response)
     {

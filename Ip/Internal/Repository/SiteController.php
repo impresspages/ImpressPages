@@ -102,7 +102,7 @@ class SiteController extends \Ip\Controller{
      *
      * Outputs repository file properties in JSON format.
      *
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function addFromUrl()
     {
@@ -110,7 +110,7 @@ class SiteController extends \Ip\Controller{
         $this->backendOnly();
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
-            throw new \Ip\CoreException('Invalid parameters.');
+            throw new \Ip\Exception('Invalid parameters.');
         }
         $files = $_POST['files'];
 

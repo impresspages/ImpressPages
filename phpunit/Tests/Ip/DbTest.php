@@ -44,8 +44,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         try {
             ipDb()->getConnection();
             $this->assertFalse(true, 'Not disconnected');
-        } catch (\Ip\CoreException $e) {
-            $this->assertEquals($e->getCode(), \Ip\CoreException::DB);
+        } catch (\Ip\Exception\Db $e) {
+            $this->assertTrue(true);
         }
     }
 
