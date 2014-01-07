@@ -140,7 +140,7 @@ class RequestParser
                 }
             } else {
                 if (empty($zonesData)) {
-                    throw new \Ip\CoreException('Please insert at least one zone');
+                    throw new \Ip\Exception('Please insert at least one zone');
                 } else {
                     $firstZoneData = array_shift($zonesData);
                     $this->currentZoneName = $firstZoneData['name'];

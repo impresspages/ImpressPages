@@ -222,7 +222,7 @@ function esc($string, $esc = 'html')
         return escTextarea($string);
     }
 
-    throw new \Ip\CoreException('Unknown escape method: {$esc}');
+    throw new \Ip\Exception('Unknown escape method: {$esc}');
 }
 
 
@@ -407,7 +407,7 @@ function ipDoctypeDeclaration($doctype = null)
             $answer = '<!DOCTYPE html>';
             break;
         default:
-            throw new CoreException('Unknown doctype: '.$doctype, CoreException::VIEW);
+            throw new Exception('Unknown doctype: '.$doctype, Exception::VIEW);
     }
     return $answer;
 }

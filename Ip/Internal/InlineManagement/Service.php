@@ -100,7 +100,7 @@ class Service
             } else {
                 $source = '';
             }
-            throw new \Ip\CoreException('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
+            throw new \Ip\Exception('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
         }
 
         $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipContent()->getCurrentLanguage()->getId());

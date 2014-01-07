@@ -64,7 +64,6 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
     public function testUseMinkToRenderEnVersion()
     {
-        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
         \PhpUnit\Helper\TestEnvironment::prepareFiles();
         \PhpUnit\Helper\TestEnvironment::initCode();
 
@@ -83,13 +82,16 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
         $page = $session->getPage();
 
+        // $this->assertEquals('DEBUG', $page->getContent());
+
+
+        $headlineElement = $page->find('css', '.logo a');
+        $this->assertNotEmpty($headlineElement, 'Title is not visible!');
+        $this->assertEquals('TestSite', $headlineElement->getText());
+
         $homepageTitle = $page->find('css', 'title');
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
         $this->assertEquals('Home', $homepageTitle->getText());
-
-        $headlineElement = $page->find('css', 'p.homeHeadline');
-        $this->assertNotEmpty($headlineElement, 'Headline is not visible!');
-        $this->assertEquals('ImpressPages theme Blank', $headlineElement->getText());
     }
 
 }

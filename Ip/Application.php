@@ -120,16 +120,8 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
     }
 
-    /**
-     * @param Request $request
-     * @param bool $subrequest
-     * @return Response
-     * @throws CoreException
-     */
-    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    protected function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
-
-        \Ip\ServiceLocator::addRequest($request);
         if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
@@ -164,17 +156,13 @@ class Application
                 );
             }
             // TODO JSONRPC
-            $response = new \Ip\Response();
-            $response->addHeader('Content-type: text/json; charset=utf-8');
-            $response->setContent(json_encode($data));
-            \Ip\ServiceLocator::removeRequest();
-            return $response;
+            return new \Ip\Response\Json($data);
         }
 
 
         $controllerClass = $request->getControllerClass();
         if (!class_exists($controllerClass)) {
-            throw new \Ip\CoreException('Requested controller doesn\'t exist. ' . $controllerClass);
+            throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
         //check if user is logged in
@@ -194,40 +182,63 @@ class Application
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $plugin = $request->getControllerModule();
             if (!ipIsAllowed($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\CoreException('User has no permission to execute ' . $request->getControllerModule(
+                throw new \Ip\Exception('User has no permission to execute ' . $request->getControllerModule(
                     ) . '.' . $request->getControllerAction() . ' action');
             }
         }
 
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\CoreException($controllerClass . ".php must extend \\Ip\\Controller class.");
+            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
         }
         $controller->init();
         $controllerAnswer = $controller->$action();
 
-        if (empty($controllerAnswer) || is_string($controllerAnswer) || $controllerAnswer instanceof \Ip\View) {
-            if ($controllerAnswer instanceof \Ip\View) {
-                $controllerAnswer = $controllerAnswer->render();
-            }
-            if (empty($controllerAnswer)) {
-                $controllerAnswer = '';
-            }
-            \Ip\ServiceLocator::response()->setContent($controllerAnswer);
-            \Ip\ServiceLocator::removeRequest();
-            return \Ip\ServiceLocator::response();
-        } elseif ($controllerAnswer instanceof \Ip\Response) {
-            \Ip\ServiceLocator::removeRequest();
-            \Ip\ServiceLocator::setResponse($controllerAnswer);
-            return $controllerAnswer;
-        } elseif ($controllerAnswer === null) {
-            $response = \Ip\ServiceLocator::response();
-            \Ip\ServiceLocator::removeRequest();
-            return $response;
-        } else {
-            throw new \Ip\CoreException('Unknown response');
+        return $controllerAnswer;
+    }
+
+    /**
+     * @param Request $request
+     * @param bool $subrequest
+     * @return Response
+     * @throws Exception
+     */
+    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    {
+
+        \Ip\ServiceLocator::addRequest($request);
+
+        $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
+
+        if (!empty($options['returnRawResponse'])) {
+            return $rawResponse;
         }
 
+        if (empty($rawResponse) || is_string($rawResponse) || $rawResponse instanceof \Ip\View) {
+            if ($rawResponse instanceof \Ip\View) {
+                $rawResponse = $rawResponse->render();
+            }
+            if (empty($rawResponse)) {
+                $rawResponse = '';
+            }
+            $response = \Ip\ServiceLocator::response();
+            $response->setContent($rawResponse);
+        } elseif ($rawResponse instanceof \Ip\Response) {
+            \Ip\ServiceLocator::setResponse($rawResponse);
+            return $rawResponse;
+        } elseif ($rawResponse === null) {
+            $response = \Ip\ServiceLocator::response();
+        } else {
+            throw new \Ip\Exception('Unknown response');
+        }
+
+        if (method_exists($response, 'execute')) {
+            $response = $response->execute();
+        }
+
+        \Ip\ServiceLocator::removeRequest();
+
+        return $response;
     }
 
 
@@ -302,7 +313,7 @@ class Application
 
     /**
      * @param \Ip\Response $response
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function handleResponse(\Ip\Response $response)
     {

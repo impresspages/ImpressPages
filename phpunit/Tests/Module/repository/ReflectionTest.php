@@ -18,6 +18,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
     public function testCreateRemoveReflection()
     {
+
         $repository = \Ip\Internal\Repository\Model::instance();
 
         $repositoryFile = 'impresspages.png';
@@ -33,23 +34,29 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
         //Create reflection
         $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
-        $reflection = $reflectionService->getReflection($repositoryFile, null, $transformSmall);
-        $this->assertEquals('file/impresspages.png', $reflection);
-//echo BASE_DIR.$reflection;
-        $this->assertEquals(true, file_exists(ipFile($reflection)));
+        $reflectionFile = 'file/' . $reflectionService->getReflection($repositoryFile, null, $transformSmall);
+        if ($reflectionFile == 'file/') {
+            $e = $reflectionService->getLastException();
+            $data = $e->getData();
+            $this->fail($e->getMessage() . ' at ' . basename($e->getFile()) . ':' . $e->getLine() . ' | ini_set result: ' . $data['ini_set_result']);
+        }
+
+        $reflectionAbsolutePath = ipFile($reflectionFile);
+        $this->assertEquals('file/' . date('Y/m/d/') . $repositoryFile, $reflectionFile);
+        $this->assertTrue(file_exists($reflectionAbsolutePath));
 
 
         //Unbind file from repository (once)
-        $repository->unbindFile($file, 'modulexxx', 1);
+        $repository->unbindFile($repositoryFile, 'modulexxx', 1);
 
         //check if reflection still exists
-        $this->assertEquals(true, file_exists(ipFile($reflection)));
+        $this->assertTrue(file_exists($reflectionAbsolutePath), 'Reflection should still exist.');
 
         //unbind next file instance
-        $repository->unbindFile($file, 'modulexxx', 1);
+        $repository->unbindFile($repositoryFile, 'modulexxx', 1);
 
         //Check if reflection has been removed
-        $this->assertEquals(false, file_exists(ipFile($reflection)));
+        $this->assertFalse(file_exists($reflectionAbsolutePath), 'Reflection has not been removed.');
 
 
     }

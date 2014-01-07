@@ -71,7 +71,7 @@ class TestDb
         try {
             ipDb()->execute('DROP DATABASE `' . $this->dbName . '`');
             ipDb()->disconnect();
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             // TODOX catch database exception
         }
 

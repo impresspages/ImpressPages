@@ -72,7 +72,7 @@ class PublicController extends \Ip\Controller
         ipAddJsVariable('ipContentInit', Model::initManagementData());
 
         if (ipConfig()->isDebugMode()) {
-            ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagement.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagementInit.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.contentManagement.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.widgetbutton.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.layoutModal.js'));

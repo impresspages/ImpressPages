@@ -185,7 +185,7 @@ class Model
                 $db->execute("CREATE DATABASE `".$database."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;");
                 $db->execute('USE `' . $database . '`');
             } catch (\PDOException $e2) {
-                throw new \Ip\CoreException('Could not create database');
+                throw new \Ip\Exception('Could not create database');
             }
         }
 

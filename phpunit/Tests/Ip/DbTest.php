@@ -16,6 +16,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
         TestEnvironment::initCode();
     }
 
+    public function testTables()
+    {
+        $tables = ipDb()->fetchColumn('SHOW TABLES');
+        $this->assertTrue(in_array('ip_widget', $tables), 'No required tables found in DB.');
+    }
+
     public function testConnect()
     {
         ipDb()->disconnect();
@@ -38,8 +44,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
         try {
             ipDb()->getConnection();
             $this->assertFalse(true, 'Not disconnected');
-        } catch (\Ip\CoreException $e) {
-            $this->assertEquals($e->getCode(), \Ip\CoreException::DB);
+        } catch (\Ip\Exception\Db $e) {
+            $this->assertTrue(true);
         }
     }
 

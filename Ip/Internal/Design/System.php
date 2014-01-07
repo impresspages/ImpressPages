@@ -59,7 +59,7 @@ class System{
         $model = Model::instance();
         $theme = $model->getTheme(ipConfig()->theme());
         if (!$theme) {
-            throw new \Ip\CoreException("Theme doesn't exist");
+            throw new \Ip\Exception("Theme doesn't exist");
         }
 
         $options = $theme->getOptionsAsArray();

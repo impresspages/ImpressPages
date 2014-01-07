@@ -54,7 +54,7 @@ class Service
     {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
-            throw new \Ip\CoreException("Widget '$widgetName' doesn't exist");
+            throw new \Ip\Exception("Widget '$widgetName' doesn't exist");
         }
 
         if ($data ===  null) {

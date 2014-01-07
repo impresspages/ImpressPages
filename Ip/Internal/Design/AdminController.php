@@ -123,7 +123,7 @@ class AdminController extends \Ip\Controller
                     $themeDownloader->downloadTheme($theme['name'], $theme['url'], $theme['signature']);
                 }
             }
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             return JsonRpc::error($e->getMessage(), $e->getCode());
         } catch (\Exception $e) {
             return JsonRpc::error(__('Unknown error. Please see logs.', 'ipAdmin', false), 987);
@@ -133,7 +133,7 @@ class AdminController extends \Ip\Controller
     }
 
     /**
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function installTheme()
     {
@@ -142,14 +142,14 @@ class AdminController extends \Ip\Controller
 
         $themeName = $request->getPost('themeName');
         if (empty($themeName)) {
-            throw new \Ip\CoreException('Invalid arguments.');
+            throw new \Ip\Exception('Invalid arguments.');
         }
 
         $model = Model::instance();
 
         try {
             $model->installTheme($themeName);
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             return JsonRpc::error($e->getMessage());
         }
 
@@ -179,7 +179,7 @@ class AdminController extends \Ip\Controller
             $model = Model::instance();
             $theme = $model->getTheme(ipConfig()->theme());
             if (!$theme) {
-                throw new \Ip\CoreException("Theme doesn't exist");
+                throw new \Ip\Exception("Theme doesn't exist");
             }
 
             $options = $theme->getOptionsAsArray();
@@ -223,7 +223,7 @@ class AdminController extends \Ip\Controller
 
         $file = ipRequest()->getRequest('file');
         if (empty($file)) {
-            throw new \Ip\CoreException("Required parameter missing");
+            throw new \Ip\Exception("Required parameter missing");
         }
 
         $file = basename($file);

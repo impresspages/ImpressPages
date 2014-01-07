@@ -43,21 +43,21 @@ class Model{
 
         if (!$config) {
             // TODOXX Plugin dir #141
-            // throw new \Ip\CoreException(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\CoreException::PLUGIN_SETUP);
+            // throw new \Ip\Exception(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\Exception::PLUGIN_SETUP);
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
             // TODOXX Plugin dir #141
-            // throw new \Ip\CoreException('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\CoreException::PLUGIN_SETUP);
+            // throw new \Ip\Exception('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\Exception::PLUGIN_SETUP);
         }
 
         if (empty($config['version'])) {
             // TODOXX Plugin dir #141
-            // throw new \Ip\CoreException('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\CoreException::PLUGIN_SETUP);
+            // throw new \Ip\Exception('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\Exception::PLUGIN_SETUP);
         }
 
         if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
-            throw new \Ip\CoreException("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.", \Ip\CoreException::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.");
         }
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
@@ -139,7 +139,7 @@ class Model{
     {
         $activePlugins = self::getActivePlugins();
         if (in_array($pluginName, $activePlugins)) {
-            throw new \Ip\CoreException('Please deactivate the plugin before removing it.', \Ip\CoreException::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup('Please deactivate the plugin before removing it.');
 
         }
 
@@ -174,10 +174,10 @@ class Model{
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
-                throw new \Ip\CoreException('Can\'t remove folder ' . $pluginDir, \Ip\CoreException::PLUGIN_SETUP);
+                throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
             }
         } catch (\Ip\PhpException $e) {
-            throw new \Ip\CoreException('Can\'t remove folder ' . $pluginDir, \Ip\CoreException::PLUGIN_SETUP);
+            throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
         }
 
         ipLog()->info('Plugin.remove: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
