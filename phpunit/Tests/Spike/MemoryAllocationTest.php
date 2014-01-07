@@ -27,7 +27,7 @@ class MemoryAllocationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($secondMemoryLimit, $result);
 
-        $overMemoryLimit = '50000M';
+        $overMemoryLimit = '5000G';
         $result = ini_set('memory_limit', $overMemoryLimit);
 
         $this->assertEquals($result, $thirdMemoryLimit);

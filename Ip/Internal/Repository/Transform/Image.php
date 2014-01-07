@@ -60,6 +60,10 @@ abstract class Image extends Base
      */
     protected function allocateMemory($memoryNeeded, $extra = 10000000)  //~10Mb extra
     {
+        if (!function_exists('memory_get_usage')) {
+            return false;
+        }
+
         if (function_exists('memory_get_usage') && memory_get_usage() + $memoryNeeded + $extra > (integer) ini_get('memory_limit') * pow(1024, 2)) {
             $megabytesNeeded = ceil((memory_get_usage() + $memoryNeeded + $extra)) / pow(1024, 2);
             $stringNeeded = $megabytesNeeded . 'M';
