@@ -12,7 +12,7 @@ class System{
 
     public function init()
     {
-        ipDispatcher()->addEventListener('site.clearCache', array($this, 'clearCacheEvent'));
+        ipDispatcher()->addEventListener('Ip.cacheClear', array($this, 'clearCacheEvent'));
 
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {

@@ -33,6 +33,6 @@ class Model{
     }
     
     private static function collectFieldTypes() {
-        self::$fields = ipDispatcher()->filter('contentManagement.collectFieldTypes', array());
+        self::$fields = ipDispatcher()->filter('Ip.widgetIpFormFieldTypes', array());
     }
 }

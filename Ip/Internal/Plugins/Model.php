@@ -87,9 +87,9 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
-        ipLog()->info('Plugin.activate: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
+        ipLog()->info('Ip.pluginActivated: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
 
-        ipDispatcher()->notify('Plugin.activate', array(
+        ipDispatcher()->notify('Ip.pluginActivated', array(
                 'name' => $pluginName,
                 'version' => $config['version'],
             ));
@@ -126,10 +126,10 @@ class Model{
 
         ipDb()->execute($sql, array($pluginName));
 
-        ipLog()->info('Plugin.deactivate: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
+        ipLog()->info('Ip.pluginDeactivated: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
 
         // TODO remove plugin event listeners
-        ipDispatcher()->notify('Plugin.deactivate', array(
+        ipDispatcher()->notify('Ip.pluginDeactivated', array(
                 'name' => $pluginName,
                 'version' => $pluginRecord['version'],
             ));
@@ -180,9 +180,9 @@ class Model{
             throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
         }
 
-        ipLog()->info('Plugin.remove: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
+        ipLog()->info('Ip.pluginRemoved: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
 
-        ipDispatcher()->notify('Plugin.remove', array(
+        ipDispatcher()->notify('Ip.pluginRemoved', array(
                 'name' => $pluginName,
                 'version' => $version,
             ));

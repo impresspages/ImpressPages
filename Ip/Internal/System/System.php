@@ -15,8 +15,8 @@ class System
 
     public function init()
     {
-        ipDispatcher()->addEventListener('site.urlChanged', __NAMESPACE__ . '\System::urlChanged');
-        ipDispatcher()->addEventListener('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->addEventListener('Ip.urlChanged', __NAMESPACE__ . '\System::urlChanged');
+        ipDispatcher()->addEventListener('Ip.cronExecute', array($this, 'executeCron'));
     }
 
     public static function urlChanged($info)

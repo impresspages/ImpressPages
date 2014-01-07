@@ -31,7 +31,7 @@ class Dispatcher
 
     public function __construct()
     {
-        $this->addEventListener('site.afterInit', array($this, 'registerInit'));
+        $this->addEventListener('Ip.initFinished', array($this, 'registerInit'));
     }
 
     public function registerInit()
@@ -116,12 +116,12 @@ class Dispatcher
      */
     public function bindSlot($slot, $callable, $priority = 10)
     {
-        $this->addJobListener('site.generateSlot.' . $slot, $callable, $priority);
+        $this->addJobListener('Ip.generateSlot.' . $slot, $callable, $priority);
     }
 
     private function checkInitCompleted($eventName)
     {
-        if (!$this->initCompleted && $eventName != 'site.afterInit') {
+        if (!$this->initCompleted && $eventName != 'Ip.initFinished') {
             $backtrace = debug_backtrace();
             if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
                 $file = ' (Error source: ' . $backtrace[1]['file'] . ' line: ' . $backtrace[1]['line'] . ' )';

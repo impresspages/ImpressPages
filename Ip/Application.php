@@ -138,7 +138,7 @@ class Application
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
         }
-        ipDispatcher()->notify('site.afterInit');
+        ipDispatcher()->notify('Ip.initFinished');
 
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
@@ -317,14 +317,14 @@ class Application
      */
     public function handleResponse(\Ip\Response $response)
     {
-        $response = ipDispatcher()->filter('Application.sendResponse', $response);
-        ipDispatcher()->notify('Application.sendResponse', array('response' => $response));
+        $response = ipDispatcher()->filter('Ip.sendResponse', $response);
+        ipDispatcher()->notify('Ip.beforeResponseSent', array('response' => $response));
         $response->send();
     }
 
     public function close()
     {
-        ipDispatcher()->notify('Application.close');
+        ipDispatcher()->notify('Ip.beforeApplicationClosed');
 
         ipDb()->disconnect();
     }

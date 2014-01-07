@@ -82,7 +82,7 @@ class Model{
     {
         $ip = ipRequest()->getServer('REMOTE_ADDR');
 
-        $preventReason = ipDispatcher()->job('Ip.reasonToPreventLogin', array('username' => $username));
+        $preventReason = ipDispatcher()->job('Ip.adminLoginPrevent', array('username' => $username));
         if ($preventReason) {
             $this->loginError = $preventReason;
             ipLog()->notice('Admin.loginPrevented: {username} from {ip}', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
@@ -93,11 +93,11 @@ class Model{
         $id = $this->userId($username, $password);
         if ($id !== false) {
             $_SESSION['backend_session']['userId'] = $id;
-            \Ip\ServiceLocator::dispatcher()->notify('Admin.login', array('userId' => $id));
+            \Ip\ServiceLocator::dispatcher()->notify('Ip.adminLoginSuccessful', array('userId' => $id));
             ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             return true;
         } else {
-            \Ip\ServiceLocator::dispatcher()->notify('Admin.failedLogin', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            \Ip\ServiceLocator::dispatcher()->notify('Ip.adminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             $this->loginError = __('Incorrect name or password', 'ipAdmin');
             return false;

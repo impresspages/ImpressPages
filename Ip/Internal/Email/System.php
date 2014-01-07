@@ -11,7 +11,7 @@ class System {
 
 
     function init(){
-        ipDispatcher()->addEventListener('Cron.execute', array($this, 'executeCron'));
+        ipDispatcher()->addEventListener('Ip.cronExecute', array($this, 'executeCron'));
     }
 
     public function executeCron($info)
