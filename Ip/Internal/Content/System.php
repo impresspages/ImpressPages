@@ -22,7 +22,7 @@ class System
         $dispatcher->addEventListener('site.publishRevision', __NAMESPACE__ . '\System::publishRevision');
         $dispatcher->addEventListener('Cron.execute', array($this, 'executeCron'));
         $dispatcher->addEventListener('site.pageDeleted', __NAMESPACE__ . '\System::pageDeleted');
-        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ . '\System::pageMoved');
+        $dispatcher->addEventListener('site.pageMoved', __NAMESPACE__ . '\System::pageMoved'); //TODOXX THIS EVENT IS NEVER THROWN #150
 
 
 
