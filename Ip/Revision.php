@@ -106,7 +106,7 @@ class Revision{
 
 
         if (!$wasUpdated) {
-            throw new Exception("Can't publish page #{$revision['pageId']} revision #{$revisionId}", Exception::DB);
+            throw new \Ip\Exception\Db("Can't publish page #{$revision['pageId']} revision #{$revisionId}");
         }
         
         ipDispatcher()->notify('site.publishRevision', array('revisionId' => $revisionId));
