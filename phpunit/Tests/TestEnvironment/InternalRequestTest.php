@@ -82,13 +82,14 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
         $page = $session->getPage();
 
-        $homepageTitle = $page->find('css', 'title');
-        $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
-        $this->assertEquals('Home', $homepageTitle->getText());
 
         $headlineElement = $page->find('css', '.logo a');
         $this->assertNotEmpty($headlineElement, 'Title is not visible!');
         $this->assertEquals('Title', $headlineElement->getText());
+
+        $homepageTitle = $page->find('css', 'title');
+        $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
+        $this->assertEquals('Home', $homepageTitle->getText());
     }
 
 }
