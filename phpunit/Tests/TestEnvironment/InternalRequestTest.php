@@ -87,7 +87,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
         $headlineElement = $page->find('css', '.logo a');
         $this->assertNotEmpty($headlineElement, 'Title is not visible!');
-        $this->assertEquals('Title', $headlineElement->getText());
+        $this->assertEquals('TestSite', $headlineElement->getText());
 
         $homepageTitle = $page->find('css', 'title');
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
