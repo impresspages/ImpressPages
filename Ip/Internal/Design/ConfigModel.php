@@ -168,14 +168,14 @@ class ConfigModel{
     /**
      * @param string $name
      * @return \Ip\Form
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function getThemeConfigForm($name)
     {
         $model = Model::instance();
         $theme = $model->getTheme($name);
         if (!$theme) {
-            throw new \Ip\CoreException("Theme doesn't exist");
+            throw new \Ip\Exception("Theme doesn't exist");
         }
 
 

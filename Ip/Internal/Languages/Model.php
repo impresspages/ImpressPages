@@ -62,7 +62,7 @@ class Model{
             return $languages[count($languages) - 1]['row_number'] - 20;
         }
 
-        throw new \Ip\CoreException('Unexpected behaviour');
+        throw new \Ip\Exception('Unexpected behaviour');
     }
 
 

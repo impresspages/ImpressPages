@@ -77,12 +77,12 @@ class Helper
                 $zip->extractTo($destinationDir);
                 $zip->close();
             } else {
-                throw new \Ip\CoreException('Theme extraction failed.');
+                throw new \Ip\Exception('Theme extraction failed.');
             }
         } else {
             $zip = new \PclZip($archivePath);
             if (!$zip->extract(PCLZIP_OPT_PATH, $destinationDir)) {
-                throw new \Ip\CoreException('Theme extraction failed.');
+                throw new \Ip\Exception('Theme extraction failed.');
             }
         }
     }

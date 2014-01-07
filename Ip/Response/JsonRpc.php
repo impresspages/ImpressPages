@@ -16,7 +16,7 @@ class JsonRpc extends Json
             $data['result'] = $result;
         } else { // Error
             if ($result !== null) {
-                throw new \Ip\CoreException('JSON 2.0 response should not contain result and error info at the same time');
+                throw new \Ip\Exception('JSON 2.0 response should not contain result and error info at the same time');
             }
             $data['error']['code'] = $errorCode !== null ? $errorCode : 1;
             $data['error']['message'] = $errorMessage;

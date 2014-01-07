@@ -11,7 +11,7 @@ namespace Ip;
 /**
  * IpCmsException class
  */
-class CoreException extends \Exception
+class Exception extends \Exception
 {
     //error codes
     const DB = 0;

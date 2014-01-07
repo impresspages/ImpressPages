@@ -45,12 +45,12 @@ class AdminController extends \Ip\Controller
     {
         $data = ipRequest()->getRequest();
         if (empty($data['languageId'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $languageId = (int)$data['languageId'];
 
         if (empty($data['zoneName'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
 
@@ -66,11 +66,11 @@ class AdminController extends \Ip\Controller
     {
         $data = ipRequest()->getQuery();
         if (empty($data['zoneName'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
         if (empty($data['pageId'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $pageId = $data['pageId'];
 
@@ -92,12 +92,12 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
         if (empty($data['pageId'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $pageId = (int)$data['pageId'];
 
         if (empty($data['zoneName'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
 
@@ -156,7 +156,7 @@ class AdminController extends \Ip\Controller
     {
         $data = ipRequest()->getQuery();
         if (empty($data['zoneName'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
 
@@ -178,7 +178,7 @@ class AdminController extends \Ip\Controller
 
         foreach($requiredData as $required) {
             if (!array_key_exists($required, $data)) {
-                throw new \Ip\CoreException("Missing required parameters");
+                throw new \Ip\Exception("Missing required parameters");
             }
         }
 
@@ -207,7 +207,7 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
         if (empty($data['zoneName'])) {
-            throw new \Ip\CoreException('Missing required parameters');
+            throw new \Ip\Exception('Missing required parameters');
         }
         $zoneName = $data['zoneName'];
 
@@ -253,7 +253,7 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
         if (empty($data['zoneName']) || empty($data['languageId'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
         $languageId = $data['languageId'];
@@ -288,7 +288,7 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
         if (!isset($data['pageId'])) {
-            throw new \Ip\CoreException("Page id is not set");
+            throw new \Ip\Exception("Page id is not set");
         }
         $pageId = (int)$data['pageId'];
 
@@ -307,7 +307,7 @@ class AdminController extends \Ip\Controller
 
 
         if (!isset($data['pageId'])) {
-            throw new \Ip\CoreException("Page id is not set");
+            throw new \Ip\Exception("Page id is not set");
         }
         $pageId = (int)$data['pageId'];
 
@@ -316,10 +316,10 @@ class AdminController extends \Ip\Controller
             $destinationParentId = $data['destinationParentId'];
         } else {
             if (!isset($data['zoneName'])) {
-                throw new \Ip\CoreException("Missing required parameters");
+                throw new \Ip\Exception("Missing required parameters");
             }
             if (!isset($data['languageId'])) {
-                throw new \Ip\CoreException("Missing required parameters");
+                throw new \Ip\Exception("Missing required parameters");
             }
             $zone = ipContent()->getZone($data['zoneName']);
             $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
@@ -327,14 +327,14 @@ class AdminController extends \Ip\Controller
 
 
         if (!isset($data['destinationPosition'])) {
-            throw new \Ip\CoreException("Destination position is not set");
+            throw new \Ip\Exception("Destination position is not set");
         }
         $destinationPosition = $data['destinationPosition'];
 
 
         try {
             Service::movePage($pageId, $destinationParentId, $destinationPosition);
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             $answer = array (
                 'status' => 'error',
                 'error' => $e->getMessage()
@@ -361,7 +361,7 @@ class AdminController extends \Ip\Controller
 
 
             if (!isset($data['pageId'])) {
-                throw new \Ip\CoreException("Page id is not set");
+                throw new \Ip\Exception("Page id is not set");
             }
             $pageId = (int)$data['pageId'];
 
@@ -370,10 +370,10 @@ class AdminController extends \Ip\Controller
                 $destinationParentId = $data['destinationParentId'];
             } else {
                 if (!isset($data['zoneName'])) {
-                    throw new \Ip\CoreException("Missing required parameters");
+                    throw new \Ip\Exception("Missing required parameters");
                 }
                 if (!isset($data['languageId'])) {
-                    throw new \Ip\CoreException("Missing required parameters");
+                    throw new \Ip\Exception("Missing required parameters");
                 }
                 $zone = ipContent()->getZone($data['zoneName']);
                 $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
@@ -381,14 +381,14 @@ class AdminController extends \Ip\Controller
 
 
             if (!isset($data['destinationPosition'])) {
-                throw new \Ip\CoreException("Destination position is not set");
+                throw new \Ip\Exception("Destination position is not set");
             }
             $destinationPosition = $data['destinationPosition'];
 
 
             try {
                 Service::copyPage($pageId, $destinationParentId, $destinationPosition);
-            } catch (\Ip\CoreException $e) {
+            } catch (\Ip\Exception $e) {
                 $answer = array (
                     'status' => 'error',
                     'error' => $e->getMessage()
@@ -412,7 +412,7 @@ class AdminController extends \Ip\Controller
 
 
         if (!isset($data['pageId'])) {
-            throw new \Ip\CoreException("Page id is not set");
+            throw new \Ip\Exception("Page id is not set");
         }
         $pageId = (int)$data['pageId'];
 
@@ -436,7 +436,7 @@ class AdminController extends \Ip\Controller
 
 
         if (empty($data['zoneName']) || !isset($data['newIndex'])) {
-            throw new \Ip\CoreException("Missing required parameters");
+            throw new \Ip\Exception("Missing required parameters");
         }
         $zoneName = $data['zoneName'];
         $newIndex = $data['newIndex'];

@@ -244,7 +244,7 @@ class PublicController extends \Ip\Controller
 
         try {
             Model::createAndUseDatabase($db['database']);
-        } catch (\Ip\CoreException $e) {
+        } catch (\Ip\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
