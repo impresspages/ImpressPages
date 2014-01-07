@@ -6,8 +6,6 @@
  */
 namespace Ip;
 
-
-use Ip\Internal\Content\Exception;
 use Ip\Internal\Content\Model;
 
 class WidgetController
@@ -91,7 +89,7 @@ class WidgetController
 
 
         if (!is_dir($lookDir)) {
-            throw new Exception('Layouts directory does not exist. ' . $lookDir, Exception::NO_LOOK);
+            throw new \Ip\Internal\Content\Exception('Layouts directory does not exist. ' . $lookDir, Exception::NO_LOOK);
         }
 
         $availableViewFiles = scandir($lookDir);
@@ -118,7 +116,7 @@ class WidgetController
         }
 
         if (empty($layouts)) {
-            throw new Exception('No layouts', Exception::NO_LOOK);
+            throw new \Ip\Internal\Content\Exception('No layouts', Exception::NO_LOOK);
         }
 
         return $layouts;
