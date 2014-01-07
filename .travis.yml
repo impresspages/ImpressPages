@@ -13,7 +13,6 @@ env:
     - TEST_GROUP=Sauce
     - TEST_GROUP=other
 matrix:
-    fast_finish: true
     allow_failures:
         - env: "TEST_GROUP=other"
 before_script:
