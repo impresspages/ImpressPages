@@ -7,6 +7,9 @@
 
 class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
 {
+    /**
+     * @group ignoreOnTravis
+     */
     public function testParse()
     {
         $this->markTestSkipped();

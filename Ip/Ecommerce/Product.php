@@ -340,7 +340,7 @@ class Product
                 $this->type = $type;
             break;
             default:
-                throw new Exception ("Unknown product type: ".$type, \Ip\Exception::ECOMMERCE);
+                throw new \Ip\Exception\Ecommerce\Product("Unknown product type: ".$type);
                 break;
         }
     }

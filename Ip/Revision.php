@@ -117,7 +117,7 @@ class Revision{
         $oldRevision = self::getRevision($oldRevisionId);
         
         if (!$oldRevision) {
-            throw new \Ip\Exception("Can't find old revision: ".$oldRevisionId, \Ip\Exception::REVISION);
+            throw new \Ip\Exception\Revision("Can't find old revision: ".$oldRevisionId);
         }
         
         if ($zoneName !== null) {
