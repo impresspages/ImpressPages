@@ -15,7 +15,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
         return \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $parts[1], $defaultValue);
     }
@@ -24,7 +24,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
 
         $answer = \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $languageId . '.' . $parts[1]);
@@ -39,7 +39,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
         \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $parts[1], $value);
     }
@@ -48,7 +48,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
         \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $languageId . '.' . $parts[1], $value);
     }
@@ -57,7 +57,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
         \Ip\ServiceLocator::storage()->remove('Config', $parts[0] . '.' . $parts[1]);
     }
@@ -66,7 +66,7 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\CoreException("Option key must have plugin name separated by dot.");
+            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
         \Ip\ServiceLocator::storage()->remove('Config', $parts[0] . '.' . $languageId . '.' . $parts[1]);
     }
@@ -75,14 +75,14 @@ class Options
 
     /**
      * @param string $configFile
-     * @throws CoreException
+     * @throws Exception
      */
     public function import($configFile)
     {
         $content = file_get_contents($configFile);
         $values = json_decode($content, true);
         if (!is_array($values)) {
-            throw new \Ip\CoreException("Can't parse configuration file: " . $configFile);
+            throw new \Ip\Exception("Can't parse configuration file: " . $configFile);
         }
         foreach ($values as $key => $value) {
             ipSetOption($key, $value);

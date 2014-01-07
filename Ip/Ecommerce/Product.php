@@ -329,7 +329,7 @@ class Product
 
     /**
      * @param $type int
-     * @throws CoreException
+     * @throws Exception
      */
     public function setType($type)
     {
@@ -340,7 +340,7 @@ class Product
                 $this->type = $type;
             break;
             default:
-                throw new CoreException ("Unknown product type: ".$type, \Ip\CoreException::ECOMMERCE);
+                throw new Exception ("Unknown product type: ".$type, \Ip\Exception::ECOMMERCE);
                 break;
         }
     }

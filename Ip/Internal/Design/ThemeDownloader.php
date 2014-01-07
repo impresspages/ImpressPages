@@ -34,7 +34,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $themeTempFilename = $net->downloadFile($url, ipFile('file/secure/tmp/'), $name . '.zip');
 
         if (!$themeTempFilename) {
-            throw new \Ip\CoreException('Theme file download failed.');
+            throw new \Ip\Exception('Theme file download failed.');
         }
 
         $archivePath = ipFile('file/secure/tmp/' . $themeTempFilename);
@@ -48,7 +48,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $verified = $rsa->verify($fileMd5, base64_decode($signature));
 
         if (!$verified) {
-            throw new \Ip\CoreException('Theme signature verification failed.');
+            throw new \Ip\Exception('Theme signature verification failed.');
         }
 
         //extract

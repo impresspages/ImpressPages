@@ -106,7 +106,7 @@ class AdminController extends \Ip\GridController
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
         if (empty($data['code'])) {
-            throw new \Ip\CoreException('Missing required parameter');
+            throw new \Ip\Exception('Missing required parameter');
         }
         $code = $data['code'];
         $abbreviation = strtoupper($code);

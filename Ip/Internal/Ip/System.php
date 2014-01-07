@@ -59,7 +59,7 @@ class System
                 '[required]'  => __('Please complete this mandatory field', 'ipAdmin')
             );
         } else {
-            throw new \Ip\CoreException('Unknown translation domain: ' . $namespace);
+            throw new \Ip\Exception('Unknown translation domain: ' . $namespace);
         }
         return $answer;
     }

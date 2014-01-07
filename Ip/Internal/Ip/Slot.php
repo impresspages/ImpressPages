@@ -52,7 +52,7 @@ class Slot {
         $defaultValue = '';
         $cssClass = '';
         if (empty($params['id'])) {
-            throw new \Ip\CoreException("Ip.text slot requires parameter 'id'");
+            throw new \Ip\Exception("Ip.text slot requires parameter 'id'");
         }
         $key = $params['id'];
 
@@ -78,7 +78,7 @@ class Slot {
         $defaultValue = '';
         $cssClass = '';
         if (empty($params['id'])) {
-            throw new \Ip\CoreException("Ip.string slot requires parameter 'id'");
+            throw new \Ip\Exception("Ip.string slot requires parameter 'id'");
         }
         $key = $params['id'];
 
@@ -103,7 +103,7 @@ class Slot {
         $defaultValue = '';
         $cssClass = '';
         if (empty($params['id'])) {
-            throw new \Ip\CoreException("Ip.image slot requires parameter 'id'");
+            throw new \Ip\Exception("Ip.image slot requires parameter 'id'");
         }
         $key = $params['id'];
 

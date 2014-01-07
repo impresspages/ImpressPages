@@ -106,7 +106,7 @@ class Revision{
 
 
         if (!$wasUpdated) {
-            throw new CoreException("Can't publish page #{$revision['pageId']} revision #{$revisionId}", CoreException::DB);
+            throw new \Ip\Exception\Db("Can't publish page #{$revision['pageId']} revision #{$revisionId}");
         }
         
         ipDispatcher()->notify('site.publishRevision', array('revisionId' => $revisionId));
@@ -117,7 +117,7 @@ class Revision{
         $oldRevision = self::getRevision($oldRevisionId);
         
         if (!$oldRevision) {
-            throw new \Ip\CoreException("Can't find old revision: ".$oldRevisionId, \Ip\CoreException::REVISION);
+            throw new \Ip\Exception("Can't find old revision: ".$oldRevisionId, \Ip\Exception::REVISION);
         }
         
         if ($zoneName !== null) {
