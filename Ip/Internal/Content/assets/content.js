@@ -3,7 +3,6 @@ var ipContent;
 
 (function($) {
     "use strict";
-    deleteZone
     $( document ).ready(function() {
         ipContent.init();
     });
