@@ -267,11 +267,11 @@ class Model
     {
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
-            throw new \Ip\CoreException('Unknown zone ' . $zoneName);
+            throw new \Ip\Exception('Unknown zone ' . $zoneName);
         }
         $language = ipContent()->getLanguage($languageId);
         if (!$language) {
-            throw new \Ip\CoreException('Unknown language ' . $languageId);
+            throw new \Ip\Exception('Unknown language ' . $languageId);
         }
 
         $oldUrl = $zone->getUrl();

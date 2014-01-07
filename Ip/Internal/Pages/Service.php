@@ -96,7 +96,7 @@ class Service
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
-            throw new \Ip\CoreException(__("Can't move page inside itself.", 'ipAdmin', false));
+            throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
         }
 
         $pageInfo = Db::pageInfo($pageId);

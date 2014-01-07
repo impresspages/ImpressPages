@@ -47,13 +47,13 @@ class Dispatcher
         } else {
             $errorMessage = "Incorrect callable " . $callable;
         }
-        throw new CoreException($errorMessage, CoreException::EVENT);
+        throw new \Ip\Exception\Dispatcher($errorMessage);
     }
 
     /**
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
-     * @throws CoreException
+     * @throws Exception
      */
     public function addEventListener($name, $callable, $priority = 10)
     {
@@ -72,7 +72,7 @@ class Dispatcher
     /**
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
-     * @throws CoreException
+     * @throws Exception
      */
     public function addFilterListener($name, $callable, $priority = 10)
     {
@@ -91,7 +91,7 @@ class Dispatcher
     /**
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
-     * @throws CoreException
+     * @throws Exception
      */
     public function addJobListener($name, $callable, $priority = 10)
     {
@@ -112,7 +112,7 @@ class Dispatcher
      * Bind to a slot generation event
      * @param string $action Eg. module_name.event_name
      * @param callable $callable
-     * @throws CoreException
+     * @throws Exception
      */
     public function bindSlot($slot, $callable, $priority = 10)
     {
@@ -128,7 +128,7 @@ class Dispatcher
             } else {
                 $file = '';
             }
-            throw new \Ip\CoreException("Event notification can't be thrown before system init." . $file);
+            throw new \Ip\Exception("Event notification can't be thrown before system init." . $file);
         }
 
     }

@@ -6,15 +6,14 @@
 namespace Tests\Ip;
 
 
-class ConfigTest extends \PhpUnit\GeneralTestCase
+use PhpUnit\Helper\TestEnvironment;
+
+class ConfigTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
         parent::setup();
-
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
-        $ipConfig = new \Ip\Config($config);
-        \Ip\ServiceLocator::setConfig($ipConfig);
+        TestEnvironment::initCode();
     }
 
     public function testBaseUrl()

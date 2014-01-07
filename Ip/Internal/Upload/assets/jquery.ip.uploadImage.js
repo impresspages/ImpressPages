@@ -279,7 +279,7 @@
 
         var imageCenterX = $image.width() * imageCenterXPercentage / 100;
         var imageCenterY = $image.height() * imageCenterYPercentage / 100;
-        marginHorizontal = $image.width() - $window.width();
+        var marginHorizontal = $image.width() - $window.width();
         if (marginHorizontal < 0) {
             marginHorizontal = 0;
         }
@@ -297,7 +297,7 @@
 
 
 
-        marginVertical = $image.height() - $window.height();
+        var marginVertical = $image.height() - $window.height();
         if (marginVertical < 0) {
             marginVertical = 0;
         }
@@ -622,7 +622,7 @@
 
 
         //image resizing
-        containerAspectRatio = $window.width() / $window.height();
+        var containerAspectRatio = $window.width() / $window.height();
         switch (data.autosizeType) {
             case 'resize' :
             case 'crop' :
@@ -697,8 +697,8 @@
                 var centerY = (cropY2 - cropY1) / 2 + cropY1;
                 var centerPercentageX = centerX / $image.width() * 100;
                 var centerPercentageY = centerY / $image.height() * 100;
-                $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                $windowRatio = $window.width() / $window.height();
+                var $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
+                var $windowRatio = $window.width() / $window.height();
                 if ($this.data('ipUploadImage').enableChangeHeight) {
                     $window.height(Math.round($window.width() / $photoRatio));
                 } else {
@@ -722,8 +722,8 @@
                 var centerY = (cropY2 - cropY1) / 2 + cropY1;
                 var centerPercentageX = centerX / $image.width() * 100;
                 var centerPercentageY = centerY / $image.height() * 100;
-                $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
-                $windowRatio = $window.width() / $window.height();
+                var $photoRatio = (cropX2 - cropX1) / (cropY2 - cropY1);
+                var $windowRatio = $window.width() / $window.height();
                 if ($this.data('ipUploadImage').enableChangeHeight) {
                     $window.height(Math.round($window.width() / $photoRatio));
                 } else {

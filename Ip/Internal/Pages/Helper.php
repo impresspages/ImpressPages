@@ -48,7 +48,7 @@ class Helper
 
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
-            throw new \Ip\CoreException('Unknown zone: ' . $zoneName);
+            throw new \Ip\Exception('Unknown zone: ' . $zoneName);
         }
 
         $form = new \Ip\Form();

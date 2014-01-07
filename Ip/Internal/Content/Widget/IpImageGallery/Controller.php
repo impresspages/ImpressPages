@@ -23,16 +23,16 @@ class Controller extends \Ip\WidgetController{
             switch($postData['method']) {
                 case 'move':
                     if (!isset($postData['originalPosition'])) {
-                        throw new \Ip\CoreException("Missing required parameter");
+                        throw new \Ip\Exception("Missing required parameter");
                     }
                     $originalPosition = $postData['originalPosition'];
                     if (!isset($postData['newPosition'])) {
-                        throw new \Ip\CoreException("Missing required parameter");
+                        throw new \Ip\Exception("Missing required parameter");
                     }
                     $newPosition = $postData['newPosition'];
 
                     if (!isset($currentData['images'][$originalPosition])) {
-                        throw new \Ip\CoreException("Moved image doesn't exist");
+                        throw new \Ip\Exception("Moved image doesn't exist");
                     }
 
                     $movedImage = $currentData['images'][$originalPosition];
@@ -41,7 +41,7 @@ class Controller extends \Ip\WidgetController{
                     return $currentData;
                 case 'add':
                     if (!isset($postData['images']) || !is_array($postData['images'])) {
-                        throw new \Ip\CoreException("Missing required parameter");
+                        throw new \Ip\Exception("Missing required parameter");
                     }
 
 
@@ -113,14 +113,14 @@ class Controller extends \Ip\WidgetController{
 
                 case 'delete':
                     if (!isset($postData['position'])) {
-                        throw new \Ip\CoreException("Missing required parameter");
+                        throw new \Ip\Exception("Missing required parameter");
                     }
                     $deletePosition = $postData['position'];
 
                     unset($currentData['images'][$deletePosition]);
                     return $currentData;
                 default:
-                    throw new \Ip\CoreException('Unknown command');
+                    throw new \Ip\Exception('Unknown command');
 
             }
 
@@ -196,7 +196,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($instanceId, $data, $layout)
+    public function generateHtml($widgetId, $instanceId, $data, $layout)
     {
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
@@ -247,7 +247,7 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::generateHtml($instanceId, $data, $layout);
+        return parent::generateHtml($widgetId, $instanceId, $data, $layout);
     }
 
     

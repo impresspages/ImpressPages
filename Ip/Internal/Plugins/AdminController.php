@@ -54,13 +54,13 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\CoreException("Missing parameter");
+            throw new \Ip\Exception("Missing parameter");
         }
         $pluginName = $post['params']['pluginName'];
 
         try {
             Model::activatePlugin($pluginName);
-        } catch (\Ip\CoreException $e){
+        } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
@@ -89,13 +89,13 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\CoreException("Missing parameter");
+            throw new \Ip\Exception("Missing parameter");
         }
         $pluginName = $post['params']['pluginName'];
 
         try {
             Model::deactivatePlugin($pluginName);
-        } catch (\Ip\CoreException $e){
+        } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
@@ -124,13 +124,13 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\CoreException("Missing parameter");
+            throw new \Ip\Exception("Missing parameter");
         }
         $pluginName = $post['params']['pluginName'];
 
         try {
             Model::removePlugin($pluginName);
-        } catch (\Ip\CoreException $e){
+        } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(

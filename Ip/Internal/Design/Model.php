@@ -178,7 +178,7 @@ class Model
     {
         $themes = $this->getAvailableThemes();
         if (!isset($themes[$themeName])) {
-            throw new \Ip\CoreException("Theme '" . $themeName . "' does not exist.");
+            throw new \Ip\Exception("Theme '" . $themeName . "' does not exist.");
         }
         $theme = $themes[$themeName];
 
@@ -354,7 +354,7 @@ class Model
      * Returns possible layout pages.
      * files starting with underscore (for example, _layout.php) are considered hidden.
      * @return array layouts (e.g. ['main.php', 'home.php'])
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public static function getThemeLayouts()
     {

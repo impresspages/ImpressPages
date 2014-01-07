@@ -25,7 +25,7 @@ class Table extends \Ip\Internal\Grid\Model
     {
         $data = $request->getRequest();
         if (empty($data['method'])) {
-            throw new \Ip\CoreException('Missing request data');
+            throw new \Ip\Exception('Missing request data');
         }
         $method = $data['method'];
 
@@ -85,7 +85,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function page($params, $statusVariables)
     {
         if (empty($params['page'])) {
-            throw new \Ip\CoreException('Missing parameters');
+            throw new \Ip\Exception('Missing parameters');
         }
 
         $statusVariables['page'] = $params['page'];
@@ -100,7 +100,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function delete($params, $statusVariables)
     {
         if (empty($params['id'])) {
-            throw new \Ip\CoreException('Missing parameters');
+            throw new \Ip\Exception('Missing parameters');
         }
 
         if ($this->config->beforeDelete()) {
@@ -134,7 +134,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function update($data, $statusVariables)
     {
         if (empty($data['recordId'])) {
-            throw new \Ip\CoreException('Missing parameters');
+            throw new \Ip\Exception('Missing parameters');
         }
         $recordId = $data['recordId'];
         $display = new Display($this->config);
@@ -178,7 +178,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function move($params, $statusVariables)
     {
         if (empty($params['id']) || empty($params['targetId']) || empty($params['beforeOrAfter'])) {
-            throw new \Ip\CoreException('Missing parameters');
+            throw new \Ip\Exception('Missing parameters');
         }
 
         if ($this->config->beforeMove()) {

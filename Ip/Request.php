@@ -80,12 +80,12 @@ class Request
     }
 
     /**
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public function mustBePost()
     {
         if (!$this->isPost()) {
-            throw new \Ip\CoreException('POST method required.');
+            throw new \Ip\Exception('POST method required.');
         }
     }
 
@@ -256,7 +256,7 @@ class Request
 
         if (!$this->isWebsiteRoot()) {
             if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
-                throw new \Ip\CoreException('Controller action can be requested only at website root.');
+                throw new \Ip\Exception('Controller action can be requested only at website root.');
             }
             $this->controllerClass = $controllerClass;
             $this->controllerAction = $action;
@@ -317,7 +317,7 @@ class Request
     public function setAction($module, $action, $type)
     {
         if (!in_array($type, array (self::CONTROLLER_TYPE_ADMIN, self::CONTROLLER_TYPE_PUBLIC, self::CONTROLLER_TYPE_SITE))) {
-            throw new \Ip\CoreException("Incorrect controller type");
+            throw new \Ip\Exception("Incorrect controller type");
         }
         $this->controllerType = $type;
         $this->controller = null;

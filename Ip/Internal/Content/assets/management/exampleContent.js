@@ -1,7 +1,6 @@
 (function($){
     "use strict";
 
-    $(document).ready(function () {
         $(document).bind('initFinished.ipContentManagement', function () {
             $('.ipActionWidgetButton')
                 .bind('dragstart', function (event, ui) {
@@ -38,6 +37,6 @@
                     });
                 });
         });
-    });
+
 
 })(ip.jQuery);

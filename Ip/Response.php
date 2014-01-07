@@ -157,7 +157,7 @@ class Response
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getContent()
     {
@@ -168,6 +168,16 @@ class Response
      * @return string
      */
     public function toString()
+    {
+        return $this->getContent();
+    }
+
+    /**
+     * Returns rendered version of a content.
+     *
+     * @return string
+     */
+    public function render()
     {
         return $this->getContent();
     }
@@ -185,8 +195,7 @@ class Response
                 header('X-Ignore-This: workaround', true, $this->getStatusCode());
             }
         }
-        echo $this->getContent();
+        echo $this->render();
     }
-
 
 }

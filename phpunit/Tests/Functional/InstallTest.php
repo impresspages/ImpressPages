@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpUnit\Tests\Module\Install\Functional;
+namespace Tests\Functional;
 
 use \PhpUnit\Helper\TestEnvironment;
 

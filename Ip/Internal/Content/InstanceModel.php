@@ -15,10 +15,10 @@ class InstanceModel
         $leftInstance = self::getInstance($leftWidgetInstanceId);
         $rightInstance = self::getInstance($rightWidgetInstanceId);
         if (!$leftInstance || !$rightInstance) {
-            throw new \Ip\CoreException('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+            throw new \Ip\Exception('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
         }
         if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
-            throw new \Ip\CoreException("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
+            throw new \Ip\Exception("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
         }
         //TODOXX finish the implementation #128
 
@@ -106,7 +106,7 @@ class InstanceModel
     }
 
 
-//
+//Keeping this function in case it will be needed again
 //    /**
 //     *
 //     * Find position of widget in current block

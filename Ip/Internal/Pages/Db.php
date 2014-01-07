@@ -105,7 +105,7 @@ class Db {
      * @param $zoneId
      * @param $languageId
      * @return mixed
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     public static function rootId($zoneId, $languageId)
     {
@@ -126,7 +126,7 @@ class Db {
         }
 
         if (!$pageId) {
-            throw new \Ip\CoreException("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
+            throw new \Ip\Exception("Failed to create root zone element. Zone: ". $zoneId . ', ' . $languageId);
         }
 
         return $pageId;
@@ -135,7 +135,7 @@ class Db {
     /**
      * @param $zoneId
      * @param $languageId
-     * @throws \Ip\CoreException
+     * @throws \Ip\Exception
      */
     protected static function createRootZoneElement($zoneId, $languageId)
     {
@@ -223,7 +223,7 @@ class Db {
 
         $zone = ipContent()->getZone($zoneName);
         if (!$zone) {
-            throw new \Ip\CoreException("Page doesn't exist");
+            throw new \Ip\Exception("Page doesn't exist");
         }
 
         $oldPage = $zone->getPage($pageId);
