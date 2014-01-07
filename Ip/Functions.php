@@ -451,7 +451,7 @@ function ipIsAllowed($plugin, $action = NULL, $data = NULL)
  * @param bool $html
  * @param null $files
  */
-function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html = true, $files = null)
+function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
 {
     $emailQueue = new \Ip\Internal\Email\Module();
     $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
