@@ -9,7 +9,7 @@ class System {
     public function init()
     {
         ipDispatcher()->addJobListener('Ip.reasonToPreventLogin', array($this, 'jobReasonToPreventLogin'));
-        ipDispatcher()->addJobListener('Cron.execute', array($this, 'onCron'));
+        ipDispatcher()->addEventListener('Cron.execute', array($this, 'onCron'));
         ipDispatcher()->addEventListener('Admin.failedLogin', array($this, 'onFailedLogin'));
 
         $relativePath = ipRequest()->getRelativePath();
