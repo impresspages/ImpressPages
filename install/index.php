@@ -22,20 +22,13 @@ require_once(__DIR__ . '/../Ip/Application.php');
         'translationsLanguageCode' => 'en'
     );
 
+    // Because module init is skipped, we have to initialize translations manually
     $translator = \Ip\ServiceLocator::translator();
 
-    $translator->addTranslationFilePattern(
-        'json',
-        ipFile('Plugin/Install/translations/'),
-        'Install-%s.json',
-        'Install'
-    );
-    $translator->addTranslationFilePattern(
-        'json',
-        ipFile('file/translations/override/'),
-        'Install-%s.json',
-        'Install'
-    );
+    $trPluginDir = ipFile('Plugin/Install/translations/');
+    $trOverrideDir = ipFile('file/translations/override/');
+    $translator->addTranslationFilePattern('json', $trPluginDir,    'plugin-Install-%s.json', 'plugin-Install');
+    $translator->addTranslationFilePattern('json', $trOverrideDir,  'plugin-Install-%s.json', 'plugin-Install');
 
     $request = new \Plugin\Install\Request();
     $request->setQuery($_GET);
