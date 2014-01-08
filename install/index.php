@@ -27,8 +27,8 @@ require_once(__DIR__ . '/../Ip/Application.php');
 
     $trPluginDir = ipFile('Plugin/Install/translations/');
     $trOverrideDir = ipFile('file/translations/override/');
-    $translator->addTranslationFilePattern('json', $trPluginDir,    'plugin-Install-%s.json', 'plugin-Install');
-    $translator->addTranslationFilePattern('json', $trOverrideDir,  'plugin-Install-%s.json', 'plugin-Install');
+    $translator->addTranslationFilePattern('json', $trPluginDir,    'Install-%s.json', 'Install');
+    $translator->addTranslationFilePattern('json', $trOverrideDir,  'Install-%s.json', 'Install');
 
     $request = new \Plugin\Install\Request();
     $request->setQuery($_GET);
