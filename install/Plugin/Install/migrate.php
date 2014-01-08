@@ -1,5 +1,7 @@
 <?php
 
+// TODOX (before release) remove this file
+
 $translations = include __DIR__ . '/migrate-en.php';
 
 // Override replaces:
@@ -21,7 +23,7 @@ foreach ($translations as $id => $translation)
 // Add slashes:
 foreach ($translations as $id => $translation)
 {
-    $translations[$id] = "__('" . addslashes($translation) . "', 'Install')";
+    $translations[$id] = "__('" . addslashes($translation) . "', 'plugin-Install')";
 }
 
 $files = glob(__DIR__ . '/view/*.php');

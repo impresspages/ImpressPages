@@ -57,60 +57,60 @@ class Model
             $warning['session'] = 1;
         }
 
-        $answer = '<h1>' . __('System check', 'Install') . "</h1>";
+        $answer = '<h1>' . __('System check', 'plugin-Install') . "</h1>";
 
         $requirements = array();
 
         $check = array();
-        $check['name'] = __('PHP version >= 5.3', 'Install');
+        $check['name'] = __('PHP version >= 5.3', 'plugin-Install');
         $check['type'] = isset($error['php_version']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
+        $check['name'] = __('Apache module "mod_rewrite"', 'plugin-Install');
         $check['type'] = isset($error['mod_rewrite']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('PHP module "PDO"', 'Install');
+        $check['name'] = __('PHP module "PDO"', 'plugin-Install');
         $check['type'] = isset($error['mod_pdo']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('GD Graphics Library', 'Install');
+        $check['name'] = __('GD Graphics Library', 'plugin-Install');
         $check['type'] = isset($error['gd_lib']) ? 'error' : 'success';
         $requirements[] = $check;
 
         //sessions are checked using curl. If there is no curl, session availability hasn't been checked
         if (!isset($warning['curl'])) {
             $check = array();
-            $check['name'] = __('PHP sessions', 'Install');
+            $check['name'] = __('PHP sessions', 'plugin-Install');
             $check['type'] = isset($error['session']) ? 'error' : 'success';
             $requirements[] = $check;
         }
 
         $check = array();
-        $check['name'] = __('.htaccess file', 'Install');
+        $check['name'] = __('.htaccess file', 'plugin-Install');
         $check['type'] = isset($error['htaccess']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('index.html removed', 'Install');
+        $check['name'] = __('index.html removed', 'plugin-Install');
         $check['type'] = isset($error['index.html']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('Magic quotes off (optional)', 'Install');
+        $check['name'] = __('Magic quotes off (optional)', 'plugin-Install');
         $check['type'] = isset($error['magic_quotes']) ? 'error' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('PHP module "Curl"', 'Install');
+        $check['name'] = __('PHP module "Curl"', 'plugin-Install');
         $check['type'] = isset($error['curl']) ? 'warning' : 'success';
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
+        $check['name'] = sprintf( __('PHP memory limit (%s)', 'plugin-Install'), ini_get('memory_limit'));
         $check['type'] = (integer)ini_get('memory_limit') < 100 ? 'warning' : 'success';
         $requirements[] = $check;
 
@@ -120,7 +120,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
+        $check['name'] = '<b>/file/</b> ' . __('writable', 'plugin-Install') . ' ' . __('(including subfolders and files)', 'plugin-Install');
         if (!Helper::isDirectoryWritable(ipFile('file/'))) {
             $check['type'] = 'error';
             $error['writable_file'] = 1;
@@ -130,7 +130,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
+        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'plugin-Install');
         if (!Helper::isDirectoryWritable(ipFile('Theme'))) {
             $check['type'] = 'error';
             $error['writable_themes'] = 1;
@@ -140,7 +140,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
+        $check['name'] = '<b>/config.php</b> ' . __('writable', 'plugin-Install');
         if (!is_writable(ipFile('config.php'))) {
             $check['type'] = 'error';
             $error['writable_config'] = 1;
@@ -150,7 +150,7 @@ class Model
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'Install');
+        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'plugin-Install');
         if (!is_writable(ipFile('robots.txt'))) {
             $check['type'] = 'error';
             $error['writable_robots'] = 1;
@@ -165,10 +165,10 @@ class Model
         <p class="text-right">';
         if (sizeof($error) > 0) {
             $_SESSION['step'] = 1;
-            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'Install') . '</a>';
+            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'plugin-Install') . '</a>';
         } else {
             Model::completeStep(1);
-            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'Install') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'Install') . '</a>';
+            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'plugin-Install') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'plugin-Install') . '</a>';
         }
         $answer .= "</p>";
 
