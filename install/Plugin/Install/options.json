@@ -4,7 +4,7 @@
     "Config.websiteEmail": "test@test.com",
     "Config.automaticCron": "1",
     "Config.keepOldRevision": "3",
-    "Config.cronPassword": "//TODOXX autogenerate on install && update",
+    "Config.cronPassword": "testCronPassword",
 
     "Config.defaultImageQuality": 80,
 
