@@ -15,7 +15,7 @@ class Translator
     public function __construct()
     {
         $this->translator = new \Zend\I18n\Translator\Translator();
-        $this->translator->getPluginManager()->setInvokableClass('json', 'Ip\Translator\JsonLoader');
+        $this->translator->getPluginManager()->setInvokableClass('json', 'Ip\Internal\Translations\JsonLoader');
         $this->translator->setLocale('en');
     }
 
