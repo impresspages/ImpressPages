@@ -1,8 +1,9 @@
 <?php
 
 /**
- * requires PHP 5.4, gettext, nodejs and nvm install po2json
+ * requires PHP 5.4, gettext, nodejs and npm install -g po2json
  *
+ * Should be run from project root directory.
  */
 
 $rootDir = dirname(dirname(__DIR__));
@@ -10,7 +11,8 @@ $rootDir = dirname(dirname(__DIR__));
 $dirs = array(
     'Ip',
     'Plugin',
-    'Theme'
+    'Theme',
+    'install'
 );
 
 chdir($rootDir);
@@ -54,13 +56,21 @@ foreach ($all as $key => $values) {
 }
 
 foreach (array('ipPublic', 'ipAdmin') as $domain) {
-    $messages = json_decode(file_get_contents($rootDir . '/Ip/Translator/translations/en/' . $domain . '.json'), true);
+    $messages = json_decode(file_get_contents($rootDir . '/Ip/Internal/Translations/translations/' . $domain . '-en.json'), true);
 
     $domains[$domain] = array_merge($domains[$domain], $messages);
 }
 
 `rm all.json`;
 
+$destinations = array(
+    'ipAdmin' => 'Ip/Internal/Translations/translations/',
+    'ipPublic' => 'Ip/Internal/Translations/translations/',
+    'Install' => 'install/Plugin/Install/translations/',
+    'Blank' => 'Theme/Blank/translations/',
+);
+
 foreach ($domains as $domain => $messageList) {
-    file_put_contents(__DIR__ . '/' . $domain . '-en.json', json_encode($messageList, JSON_PRETTY_PRINT)); // JSON_PRETTY_PRINT is only for PHP 5.4 and above
+    $destinationDir = isset($destinations[$domain]) ? $rootDir . '/' .$destinations[$domain] : __DIR__ . '/';
+    file_put_contents($destinationDir . $domain . '-en.json', json_encode($messageList, JSON_PRETTY_PRINT)); // JSON_PRETTY_PRINT is only for PHP 5.4 and above
 }

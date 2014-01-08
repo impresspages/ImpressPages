@@ -1,5 +1,0 @@
-{
-    "Config.error_mistyped_url": "<p>Sorry, but the page you were trying to get to does not exist.</p>\n<p>It looks like this was the result of either</p>\n<ul>\n<li>a mistyped address</li>\n<li>or an out-of-date bookmark in your web browser.</li>\n</ul>",
-    "Config.error_broken_link_inside": "Sorry, but the page you were trying to get to, does not exist.",
-    "Config.error_broken_link_outside": "Sorry, but the page you were trying to get to, does not exist. Apparently, there is a broken link on the page you just came from. We have been notified and will attempt to contact the owner of that page and let them know about it."
-}
