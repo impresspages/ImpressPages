@@ -25,7 +25,7 @@ class PublicController extends \Ip\Controller
         }
 
         //initialize management
-        ipAddJs(ipFileUrl('Ip/Internal/Content/assets/content.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Content/assets/managementMode.js'));
         if (ipIsManagementState()) {
             $this->initManagement();
         } else {
@@ -73,6 +73,7 @@ class PublicController extends \Ip\Controller
 
         if (ipConfig()->isDebugMode()) {
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagementInit.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/content.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.contentManagement.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.widgetbutton.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.layoutModal.js'));
