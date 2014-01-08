@@ -62,7 +62,8 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
             'oldInstance' => $instanceId,
-            'newInstanceId' => $newInstanceId
+            'newInstanceId' => $newInstanceId,
+            'block' => $blockName
         );
 
         return new \Ip\Response\Json($data);

@@ -44,30 +44,17 @@
                             return;
                         }
     
-                        // item is dragged out of the block. This action will be handled by the reciever using "receive"
+                        // item is dragged out of the block. This action will be handled by the receiver using "receive"
                         if ($(ui.item).parent().data('ipBlock').name != $this.data('ipBlock').name) {
                             return;
                         }
     
                         var instanceId = $(ui.item).data('widgetinstanceid');
                         var position = $(ui.item).index();
-    
-                        var data = Object();
-                        data.aa = 'Content.moveWidget';
-                        data.securityToken = ip.securityToken;
-                        data.instanceId = instanceId;
-                        data.position = position;
-                        data.blockName = $this.data('ipBlock').name;
-                        data.revisionId = $this.data('ipBlock').revisionId;
+                        var block = $this.data('ipBlock').name;
+                        var revisionId = $this.data('ipBlock').revisionId;
 
-                        $.ajax( {
-                            type : 'POST',
-                            url : ip.baseUrl,
-                            data : data,
-                            context : $this,
-                            success : methods._moveWidgetResponse,
-                            dataType : 'json'
-                        });
+                        ipContent.moveWidget(instanceId, position, block, revisionId);
     
                     },
     
@@ -161,14 +148,6 @@
         });
     },
 
-    _moveWidgetResponse : function(response) {
-        var $this = $(this);
-        if (response.status == 'success') {
-            $('#ipWidget-' + response.oldInstance).replaceWith(response.widgetHtml);
-            $this.trigger('reinitRequired.ipWidget');
-        }
-        // todo show error on error response
-    },
 
     pageSaveStart : function() {
         return this.each(function() {

@@ -84,6 +84,37 @@ var ipContent;
             }
         };
 
+
+        this.moveWidget = function (instanceId, position, block, revisionId) {
+            var data = Object();
+            data.aa = 'Content.moveWidget';
+            data.securityToken = ip.securityToken;
+            data.instanceId = instanceId;
+            data.position = position;
+            data.blockName = block;
+            data.revisionId = revisionId;
+
+            $.ajax( {
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                success : moveWidgetResponse,
+                dataType : 'json'
+            });
+        };
+
+
+        var moveWidgetResponse = function(response) {
+            if (response.status == 'error') {
+                alert(response.errorMessage);
+            }
+            var $block = $('#ipBlock-' + response.block);
+
+            $('#ipWidget-' + response.oldInstance).replaceWith(response.widgetHtml);
+            $block.trigger('reinitRequired.ipWidget');
+        };
+
+
     };
 
 })(ip.jQuery);
