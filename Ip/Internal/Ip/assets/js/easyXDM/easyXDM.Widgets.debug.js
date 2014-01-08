@@ -55,12 +55,12 @@
  local: "../hash.html",
  container: document.getElementById("defaultcontainer")
  },function(){
- _widgetManager.addWidget("http://provider.easyxdm.net/example/widget.html",{});
+ _widgetManager.createWidget("http://provider.easyxdm.net/example/widget.html",{});
  });
  </code></pre>
- * Widgets can by dynamically added using the addWidget method
+ * Widgets can by dynamically added using the createWidget method
  <pre><code>
- _widgetManager.addWidget("http://provider.easyxdm.net/example/widget.html",{
+ _widgetManager.createWidget("http://provider.easyxdm.net/example/widget.html",{
  container document.getElementById("widgetcontainer")
  });
  </code></pre>
