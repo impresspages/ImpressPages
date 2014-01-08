@@ -160,7 +160,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Slots
+     * @return \Ip\Internal\Slots
      */
     public static function slots()
     {

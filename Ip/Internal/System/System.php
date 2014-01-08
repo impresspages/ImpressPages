@@ -28,7 +28,7 @@ class System
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
             if (ipGetOption('Config.keepOldRevision') != 0) {
-                \Ip\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
+                \Ip\Internal\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }
             $this->checkForUpdates();
         }
