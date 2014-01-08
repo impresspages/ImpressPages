@@ -83,6 +83,7 @@ class AdminController extends \Ip\Controller
 
     public function createWidget()
     {
+        ipRequest()->mustBePost();
 
 
         if (!isset($_POST['widgetName']) ||
@@ -97,7 +98,6 @@ class AdminController extends \Ip\Controller
         $position = $_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = $_POST['revisionId'];
-        $columnId = empty($_POST['columnId']) ? null : $_POST['columnId'];
 
         if ($revisionId == '') {
             //Static block;
@@ -151,6 +151,26 @@ class AdminController extends \Ip\Controller
         );
 
         return new \Ip\Response\Json($data);
+
+    }
+
+
+    public function addWidgetToSide()
+    {
+        ipRequest()->mustBePost();
+
+        if (!isset($_POST['widgetName']) ||
+            !isset($_POST['targetWidgetInstanceId']) ||
+            !isset($_POST['leftOrRight'])
+        ) {
+            return $this->_errorAnswer('Missing POST variable');
+        }
+
+        $widgetName = $_POST['widgetName'];
+        $targetWidgetInstanceId = $_POST['targetWidgetInstanceId'];
+        $leftOrRight = $_POST['leftOrRight'];
+
+        $instance = InstanceModel::getInstance($targetWidgetInstanceId);
 
     }
 
