@@ -104,7 +104,7 @@ class AdminController extends \Ip\Controller
             $revisionId = null;
         } else {
             //check revision consistency
-            $revisionRecord = \Ip\Revision::getRevision($revisionId);
+            $revisionRecord = \Ip\Internal\Revision::getRevision($revisionId);
 
             if (!$revisionRecord) {
                 throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
@@ -260,7 +260,7 @@ class AdminController extends \Ip\Controller
         $publish = !empty($_POST['publish']);
 
 
-        $revision = \Ip\Revision::getRevision($revisionId);
+        $revision = \Ip\Internal\Revision::getRevision($revisionId);
 
         if (!$revision) {
             return $this->_errorAnswer('Can\'t find revision. RevisionId \'' . $revisionId . '\'');
@@ -271,11 +271,11 @@ class AdminController extends \Ip\Controller
             $pageOptions = array();
             $pageOptions['lastModified'] = date("Y-m-d");
             \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-            \Ip\Revision::publishRevision($revisionId);
+            \Ip\Internal\Revision::publishRevision($revisionId);
         }
 
 
-        $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
+        $newRevisionId = \Ip\Internal\Revision::duplicateRevision($revisionId);
 
         $zone = ipContent()->getZone($revision['zoneName']);
         if (!$zone) {
