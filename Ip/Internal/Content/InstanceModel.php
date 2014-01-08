@@ -10,19 +10,6 @@ class InstanceModel
 {
 
 
-    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
-    {
-        $leftInstance = self::getInstance($leftWidgetInstanceId);
-        $rightInstance = self::getInstance($rightWidgetInstanceId);
-        if (!$leftInstance || !$rightInstance) {
-            throw new \Ip\Exception('Instance doesn\'t exist. ' . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
-        }
-        if (($rightInstance['columns'] || $leftInstance['columns']) && $leftInstance['columns'] != $rightInstance['columns']) {
-            throw new \Ip\Exception("These instances have already been split. " . $leftWidgetInstanceId . ' ' . $rightWidgetInstanceId);
-        }
-        //TODOXX finish the implementation #128
-
-    }
 
 
     protected static function getInstance($instanceId)
