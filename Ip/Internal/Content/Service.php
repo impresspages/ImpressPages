@@ -82,11 +82,6 @@ class Service
         InstanceModel::deleteInstance($instanceId);
     }
 
-    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
-    {
-        InstanceModel::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
-    }
-
 
 
 }
