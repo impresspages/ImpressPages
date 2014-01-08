@@ -40,7 +40,7 @@ class Config
                 throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in config.php');
             }
 
-            $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';
+            $this->rawConfig['BASE_URL'].= rtrim($baseUrl, '/') . '/';
         }
 
         if (empty($this->rawConfig['BASE_DIR'])) {
