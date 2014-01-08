@@ -52,7 +52,6 @@ class AdminController extends \Ip\Controller
             $revisionId,
             $blockName,
             $position,
-            null,
             $record['visible']
         );
 
@@ -88,7 +87,7 @@ class AdminController extends \Ip\Controller
 
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
-            !isset($_POST['blockName']) ||
+            !isset($_POST['block']) ||
             !isset($_POST['revisionId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
@@ -96,7 +95,7 @@ class AdminController extends \Ip\Controller
 
         $widgetName = $_POST['widgetName'];
         $position = $_POST['position'];
-        $blockName = $_POST['blockName'];
+        $blockName = $_POST['block'];
         $revisionId = $_POST['revisionId'];
 
         if ($revisionId == '') {
@@ -133,7 +132,7 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $widgetId = Service::addWidget($widgetName);
+            $widgetId = Service::createWidget($widgetName);
             $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
@@ -147,6 +146,7 @@ class AdminController extends \Ip\Controller
             'widgetHtml' => $widgetHtml,
             'position' => $position,
             'widgetId' => $widgetId,
+            'block' => $blockName,
             'instanceId' => $instanceId
         );
 
@@ -171,6 +171,19 @@ class AdminController extends \Ip\Controller
         $leftOrRight = $_POST['leftOrRight'];
 
         $instance = InstanceModel::getInstance($targetWidgetInstanceId);
+        if (!$instance) {
+            throw new \Ip\Exception("Instance doesn't exist.");
+        }
+
+
+        //create column widget
+        $columnWidgetId = Service::createWidget($widgetName, $widgetData);
+
+        //add column widget instance
+        $position = Service::getInstancePosition($targetWidgetInstanceId) - 1;
+        Service::addWidgetInstance($columnWidgetId, $instance['revisionId'], $instance['blockName'], $position, 1);
+
+
 
     }
 

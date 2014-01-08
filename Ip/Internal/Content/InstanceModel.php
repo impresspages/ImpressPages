@@ -12,7 +12,7 @@ class InstanceModel
 
 
 
-    protected static function getInstance($instanceId)
+    public static function getInstance($instanceId)
     {
         $instances = ipDb()->select('*', 'widget_instance', array('instanceId' => $instanceId));
         if (isset($instances[0])) {
@@ -93,33 +93,32 @@ class InstanceModel
     }
 
 
-//Keeping this function in case it will be needed again
-//    /**
-//     *
-//     * Find position of widget in current block
-//     * @param int $instanceId
-//     * @return int position of widget or null if widget does not exist
-//     */
-//    public static function getInstancePosition($instanceId)
-//    {
-//        $record = Model::getWidgetFullRecord($instanceId);
-//
-//        $table = ipTable('widget_instance');
-//        $sql = "
-//            SELECT count(instanceId) as position
-//            FROM $table
-//            WHERE
-//                `revisionId` = :revisionId AND
-//                `blockName` = :blockName AND
-//                `position` < :position AND
-//                `deleted` IS NULL
-//        ";
-//
-//        return ipDb()->fetchValue($sql, array(
-//                'revisionId' => $record['revisionId'],
-//                'blockName' => $record['blockName'],
-//                'position' => $record['position'],
-//            ));
-//    }
+    /**
+     *
+     * Find position of widget in current block
+     * @param int $instanceId
+     * @return int position of widget or null if widget does not exist
+     */
+    public static function getInstancePosition($instanceId)
+    {
+        $record = Model::getWidgetFullRecord($instanceId);
+
+        $table = ipTable('widget_instance');
+        $sql = "
+            SELECT count(instanceId) as position
+            FROM $table
+            WHERE
+                `revisionId` = :revisionId AND
+                `blockName` = :blockName AND
+                `position` < :position AND
+                `deleted` IS NULL
+        ";
+
+        return ipDb()->fetchValue($sql, array(
+                'revisionId' => $record['revisionId'],
+                'blockName' => $record['blockName'],
+                'position' => $record['position'],
+            ));
+    }
 
 }
