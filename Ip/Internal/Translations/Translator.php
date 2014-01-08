@@ -3,7 +3,7 @@
  * @package   ImpressPages
  */
 
-namespace Ip\Translator;
+namespace Ip\Internal\Translations;
 
 class Translator
 {

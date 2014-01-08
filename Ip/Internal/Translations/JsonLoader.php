@@ -1,6 +1,6 @@
 <?php
 
-namespace Ip\Translator;
+namespace Ip\Internal\Translations;
 
 use Zend\I18n\Translator\Loader\FileLoaderInterface;
 use Zend\I18n\Exception;

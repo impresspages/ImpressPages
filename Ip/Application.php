@@ -82,7 +82,7 @@ class Application
         $originalDir = ipFile('file/translations/original/');
         $overrideDir = ipFile('file/translations/override/');
         $themeDir = ipFile("Theme/$theme/translations/");
-        $ipDir = ipFile('Ip/Translator/translations/');
+        $ipDir = ipFile('Ip/Internal/Translations/translations/');
 
         $translator->addTranslationFilePattern('json', $originalDir,    "$theme-%s.json", $theme);
         $translator->addTranslationFilePattern('json', $themeDir,       "$theme-%s.json", $theme);
