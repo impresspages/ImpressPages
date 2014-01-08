@@ -79,45 +79,22 @@ class Application
         $translator->setLocale($languageCode);
 
         $theme = ipConfig()->theme();
-        $originalDir = ipFile("file/translations/original/");
-        $overrideDir = ipFile("file/translations/override/");
+        $originalDir = ipFile('file/translations/original/');
+        $overrideDir = ipFile('file/translations/override/');
+        $themeDir = ipFile("Theme/$theme/translations/");
+        $ipDir = ipFile('Ip/Translator/translations/');
 
-        $translator->addTranslationFilePattern(
-            'json',
-            $originalDir,
-            "%s/theme-$theme.json",
-            'theme-' . ipConfig()->theme()
-        );
-        $translator->addTranslationFilePattern(
-            'json',
-            ipFile("Theme/$theme/translations/"),
-            "%s/theme-$theme.json",
-            'theme-' . ipConfig()->theme()
-        );
-        $translator->addTranslationFilePattern(
-            'json',
-            $overrideDir,
-            "%s/theme-$theme.json",
-            'theme-' . ipConfig()->theme()
-        );
+        $translator->addTranslationFilePattern('json', $originalDir,    "theme-$theme-%s.json", "theme-$theme");
+        $translator->addTranslationFilePattern('json', $themeDir,       "theme-$theme-%s.json", "theme-$theme");
+        $translator->addTranslationFilePattern('json', $overrideDir,    "theme-$theme-%s.json", "theme-$theme");
 
-        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipAdmin.json", 'ipAdmin');
-        $translator->addTranslationFilePattern(
-            'json',
-            ipFile("Ip/Translator/translations/"),
-            "%s/ipAdmin.json",
-            'ipAdmin'
-        );
-        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipAdmin.json", 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $originalDir,    'ipAdmin-%s.json', 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $ipDir,          'ipAdmin-%s.json', 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $overrideDir,    'ipAdmin-%s.json', 'ipAdmin');
 
-        $translator->addTranslationFilePattern('json', $originalDir, "%s/ipPublic.json", 'ipPublic');
-        $translator->addTranslationFilePattern(
-            'json',
-            ipFile("Ip/Translator/translations/"),
-            "%s/ipPublic.json",
-            'ipPublic'
-        );
-        $translator->addTranslationFilePattern('json', $overrideDir, "%s/ipPublic.json", 'ipPublic');
+        $translator->addTranslationFilePattern('json', $originalDir,    'ipPublic-%s.json', 'ipPublic');
+        $translator->addTranslationFilePattern('json', $ipDir,          'ipPublic-%s.json', 'ipPublic');
+        $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
     }
 
     protected function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
@@ -265,24 +242,10 @@ class Application
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
 
-            $translator->addTranslationFilePattern(
-                'json',
-                $originalDir,
-                "%s/$plugin.json",
-                $plugin
-            );
-            $translator->addTranslationFilePattern(
-                'json',
-                ipFile("Plugin/$plugin/translations/"),
-                "%s.json",
-                $plugin
-            );
-            $translator->addTranslationFilePattern(
-                'json',
-                $overrideDir,
-                "%s/$plugin.json",
-                $plugin
-            );
+            $translationsDir = ipFile("Plugin/$plugin/translations/");
+            $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", "plugin-$plugin");
+            $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", "plugin-$plugin");
+            $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", "plugin-$plugin");
 
             $systemClass = '\\Plugin\\' . $plugin . '\\System';
             if (class_exists($systemClass)) {
