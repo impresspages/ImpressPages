@@ -84,9 +84,9 @@ class Application
         $themeDir = ipFile("Theme/$theme/translations/");
         $ipDir = ipFile('Ip/Translator/translations/');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    "theme-$theme-%s.json", "theme-$theme");
-        $translator->addTranslationFilePattern('json', $themeDir,       "theme-$theme-%s.json", "theme-$theme");
-        $translator->addTranslationFilePattern('json', $overrideDir,    "theme-$theme-%s.json", "theme-$theme");
+        $translator->addTranslationFilePattern('json', $originalDir,    "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $themeDir,       "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $overrideDir,    "$theme-%s.json", $theme);
 
         $translator->addTranslationFilePattern('json', $originalDir,    'ipAdmin-%s.json', 'ipAdmin');
         $translator->addTranslationFilePattern('json', $ipDir,          'ipAdmin-%s.json', 'ipAdmin');
@@ -243,9 +243,9 @@ class Application
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");
-            $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", "plugin-$plugin");
-            $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", "plugin-$plugin");
-            $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", "plugin-$plugin");
+            $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
 
             $systemClass = '\\Plugin\\' . $plugin . '\\System';
             if (class_exists($systemClass)) {
