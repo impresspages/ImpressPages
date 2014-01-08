@@ -1,5 +1,7 @@
 <?php
 
+// TODOX (before release) remove this file
+
 return array(
     'IP_PHP_VERSION' => 'PHP version >= 5.3',
     'IP_MOD_REWRITE' => 'Apache module "mod_rewrite"',
