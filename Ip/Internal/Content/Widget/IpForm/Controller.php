@@ -124,7 +124,7 @@ class Controller extends \Ip\WidgetController{
         $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetFullRecord($postData['instanceId']);
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
-            $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
+            $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (isset($revision['zoneName']) && $revision['pageId']) {
                 $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getNavigationTitle();
             }

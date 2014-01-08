@@ -40,7 +40,7 @@ class ServiceLocator
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
-        'slots' => '\Ip\Slots',
+        'slots' => '\Ip\Internal\Slots',
     );
 
     /**
@@ -160,7 +160,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Slots
+     * @return \Ip\Internal\Slots
      */
     public static function slots()
     {

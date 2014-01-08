@@ -183,20 +183,20 @@ class RequestParser
         if (ipIsManagementState()) {
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
-                $revision = \Ip\Revision::getRevision($revisionId);
+                $revision = \Ip\Internal\Revision::getRevision($revisionId);
             }
 
             if ($this->getCurrentPage()) {
                 if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
                     ) || $revision['pageId'] != $this->getCurrentPage()->getId()
                 ) {
-                    $revision = \Ip\Revision::getLastRevision(
+                    $revision = \Ip\Internal\Revision::getLastRevision(
                         ipContent()->getCurrentZone()->getName(),
                         $this->getCurrentPage()->getId()
                     );
                     if ($revision['published']) {
-                        $duplicatedId = \Ip\Revision::duplicateRevision($revision['revisionId']);
-                        $revision = \Ip\Revision::getRevision($duplicatedId);
+                        $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
+                        $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
                     }
                 }
             } else {
@@ -205,7 +205,7 @@ class RequestParser
         } else {
             $currentPage = $this->getCurrentPage();
             if ($currentPage) {
-                $revision = \Ip\Revision::getPublishedRevision(
+                $revision = \Ip\Internal\Revision::getPublishedRevision(
                     ipContent()->getCurrentZone()->getName(),
                     $currentPage->getId()
                 );
