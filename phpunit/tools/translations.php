@@ -63,6 +63,14 @@ foreach (array('ipPublic', 'ipAdmin') as $domain) {
 
 `rm all.json`;
 
+$destinations = array(
+    'ipAdmin' => 'Ip/Internal/Translations/translations/',
+    'ipPublic' => 'Ip/Internal/Translations/translations/',
+    'Install' => 'install/Plugin/Install/translations/',
+    'Blank' => 'Theme/Blank/translations/',
+);
+
 foreach ($domains as $domain => $messageList) {
-    file_put_contents(__DIR__ . '/' . $domain . '-en.json', json_encode($messageList, JSON_PRETTY_PRINT)); // JSON_PRETTY_PRINT is only for PHP 5.4 and above
+    $destinationDir = isset($destinations[$domain]) ? $rootDir . '/' .$destinations[$domain] : __DIR__ . '/';
+    file_put_contents($destinationDir . $domain . '-en.json', json_encode($messageList, JSON_PRETTY_PRINT)); // JSON_PRETTY_PRINT is only for PHP 5.4 and above
 }
