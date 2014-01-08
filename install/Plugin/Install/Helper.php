@@ -50,12 +50,12 @@ class Helper
     {
 
         $steps = array();
-        $steps[] = __('Language selection', 'plugin-Install');
-        $steps[] = __('System check', 'plugin-Install');
-        $steps[] = __('License', 'plugin-Install');
-        $steps[] = __('Database', 'plugin-Install');
-        $steps[] = __('Configuration', 'plugin-Install');
-        $steps[] = __('Finish', 'plugin-Install');
+        $steps[] = __('Language selection', 'Install');
+        $steps[] = __('System check', 'Install');
+        $steps[] = __('License', 'Install');
+        $steps[] = __('Database', 'Install');
+        $steps[] = __('Configuration', 'Install');
+        $steps[] = __('Finish', 'Install');
 
         $answer = '
     <div class="list-group">
@@ -93,15 +93,15 @@ class Helper
             $typeLabel = $class = '';
             switch ($row['type']) {
                 case 'success':
-                    $typeLabel = __('Ok', 'plugin-Install');
+                    $typeLabel = __('Ok', 'Install');
                     $class = 'success';
                     break;
                 case 'warning':
-                    $typeLabel = __('Warning', 'plugin-Install');
+                    $typeLabel = __('Warning', 'Install');
                     $class = 'warning';
                     break;
                 case 'error':
-                    $typeLabel = __('Error', 'plugin-Install');
+                    $typeLabel = __('Error', 'Install');
                     $class = 'danger';
                     break;
             }
