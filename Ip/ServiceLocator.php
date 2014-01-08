@@ -40,7 +40,7 @@ class ServiceLocator
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
-        'slots' => '\Ip\Slots',
+        'slots' => '\Ip\Internal\Slots',
     );
 
     /**
