@@ -57,7 +57,7 @@ class Model
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions(
+        $revisions = \Ip\Internal\Revision::getPageRevisions(
             ipContent()->getCurrentZone()->getName(),
             ipContent()->getCurrentPage()->getId()
         );
@@ -477,7 +477,7 @@ class Model
     public static function clearCache($revisionId)
     {
 
-        $revision = \Ip\Revision::getRevision($revisionId);
+        $revision = \Ip\Internal\Revision::getRevision($revisionId);
         $pageContent = Model::generateBlock('main', $revisionId, false);
 
         $html2text = new \Ip\Internal\Text\Html2Text();
