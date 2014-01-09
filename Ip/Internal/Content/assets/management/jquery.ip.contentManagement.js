@@ -284,7 +284,7 @@
             var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
             var leftOrRight = widgetOnDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
-            ipContent.addWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+            ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
         }
         $('.ipsWidgetDropPlaceholder').remove();
 
