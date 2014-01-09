@@ -13,4 +13,17 @@ class Event
         }
     }
 
+    public static function ipPluginActivated($data)
+    {
+        if (ipGetOption('AssetRsync.assetDestinationDirectory')) {
+            Model::syncPlugin('Plugin', $data['name']);
+        }
+    }
+
+    public static function ipPluginDeactivated()
+    {
+
+    }
+
+
 } 
