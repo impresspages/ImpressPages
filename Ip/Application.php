@@ -291,7 +291,7 @@ class Application
 
     public function close()
     {
-        ipDispatcher()->notify('Ip.beforeApplicationClosed');
+        ipDispatcher()->notify('ipBeforeApplicationClosed');
 
         ipDb()->disconnect();
     }
