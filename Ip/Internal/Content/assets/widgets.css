@@ -992,3 +992,12 @@ body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
 .ipmAdd {
     float: left;
 }
+
+.widgetDropPlaceholder {
+    background-color: transparent;
+    width: 20px;
+}
+
+.widgetDropPlaceholder.hover {
+    background-color: #000;
+}
