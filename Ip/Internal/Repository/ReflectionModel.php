@@ -123,7 +123,7 @@ class ReflectionModel
 
 
         $relativeDestinationPath = date('Y/m/d/') . $desiredName;
-        $relativeDestinationPath = ipDispatcher()->filter('Repository.newReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
+        $relativeDestinationPath = ipDispatcher()->filter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
 
         $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestinationPath));
         if (!is_dir($absoluteDestinationDir)) {

@@ -8,7 +8,7 @@ namespace Ip\Internal\Email;
 
 class Event
 {
-    public function ipCronExecute($info)
+    public static function ipCronExecute($info)
     {
         if ($info['firstTimeThisMonth'] || $info['test']) {
             Db::deleteOld(720);
