@@ -16,7 +16,6 @@ class System
 
         $dispatcher = ipDispatcher();
 
-        $dispatcher->addEventListener('Ip.initFinished', array($this, 'initWidgets'));
         $dispatcher->addEventListener('Ip.pageRevisionDuplicated', __NAMESPACE__ . '\System::duplicatedRevision');
         $dispatcher->addEventListener('Ip.pageRevisionRemoved', __NAMESPACE__ . '\System::removeRevision');
         $dispatcher->addEventListener('Ip.pageRevisionPublished', __NAMESPACE__ . '\System::publishRevision');
@@ -85,60 +84,6 @@ class System
         return $answer;
     }
 
-    public function initWidgets()
-    {
-        //TODO cache found assets to decrease file system usage
-        $widgets = Service::getAvailableWidgets();
-
-        if (ipIsManagementState()) {
-            foreach ($widgets as $widget) {
-                if (!$widget->isCore()) { //core widget assets are included automatically in one minified file
-                    $this->addWidgetAssets($widget);
-                }
-            }
-        }
-
-    }
-
-    private function addWidgetAssets(\Ip\WidgetController $widget)
-    {
-        $pluginAssetsPath = $widget->getModuleName() . '/' . Model::WIDGET_DIR . '/' . $widget->getName(
-            ) . '/' . \Ip\Application::ASSETS_DIR . '/';
-        if ($widget->isCore()) {
-            $widgetPublicDir = 'Ip/Internal/' . $pluginAssetsPath;
-        } else {
-            $widgetPublicDir = 'Plugin/' . $pluginAssetsPath;
-        }
-
-
-        $this->includeResources($widgetPublicDir);
-    }
-
-
-    private function includeResources($resourcesFolder)
-    {
-
-        if (is_dir(ipFile($resourcesFolder))) {
-            $files = scandir(ipFile($resourcesFolder));
-            if ($files === false) {
-                return;
-            }
-
-
-            foreach ($files as $file) {
-                if (is_dir(ipFile($resourcesFolder . $file)) && $file != '.' && $file != '..') {
-                    self::includeResources(ipFile($resourcesFolder . $file));
-                    continue;
-                }
-                if (strtolower(substr($file, -3)) == '.js') {
-                    ipAddJs(ipFileUrl($resourcesFolder . '/' . $file));
-                }
-                if (strtolower(substr($file, -4)) == '.css') {
-                    ipAddCss(ipFileUrl($resourcesFolder . '/' . $file));
-                }
-            }
-        }
-    }
 
     public static function duplicatedRevision($info)
     {
