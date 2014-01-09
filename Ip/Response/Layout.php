@@ -74,6 +74,9 @@ class Layout extends \Ip\Response {
         } else {
             $viewFile = ipThemeFile($layout);
         }
+        if (!is_file($viewFile)) {
+            $viewFile = ipThemeFile('main.php');
+        }
 
         $content = ipView($viewFile, $this->getLayoutVariables())->render();
 

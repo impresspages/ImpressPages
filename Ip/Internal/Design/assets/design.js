@@ -13,10 +13,14 @@ $(document).ready(function () {
             url: ip.baseUrl,
             dataType: 'json',
             type: 'POST',
-            data: {'aa': 'Design.installTheme', 'themeName': $(this).data('theme'), 'securityToken': ip.securityToken},
+            data: {
+                'aa': 'Design.installTheme',
+                'themeName': $(this).data('theme'),
+                'securityToken': ip.securityToken
+            },
             success: function (response) {
                 if (response.status && response.status == 'success') {
-                    window.location = ip.baseUrl + '?g=standard&m=design&aa=index';
+                    window.location = ip.baseUrl + '?aa=Design.index';
                 } else if (response.error) {
                     alert(response.error);
                 }
