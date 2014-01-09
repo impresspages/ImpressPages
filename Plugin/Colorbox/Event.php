@@ -2,9 +2,9 @@
 
 namespace Plugin\Colorbox;
 
-class System
+class Event
 {
-    public function init()
+    public static function ipInit()
     {
         ipAddCss(ipFileUrl('Plugin/Colorbox/assets/theme1/colorbox.css'));
         ipAddJs(ipFileUrl('Plugin/Colorbox/assets/colorbox/jquery.colorbox-min.js'));
