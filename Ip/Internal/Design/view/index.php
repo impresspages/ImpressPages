@@ -56,7 +56,9 @@
                     <?php
                         foreach ($availableThemes as $localTheme) {
                             /* @var $localTheme \Ip\Internal\Design\Theme */
-                            if ($localTheme == $theme) { continue; }
+                            if ($localTheme->getName() == $theme->getName()) {
+                                continue;
+                            }
                     ?>
                             <li>
                                 <div class="ipmThemePreview">
