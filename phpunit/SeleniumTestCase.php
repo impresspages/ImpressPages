@@ -18,7 +18,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->screenshotPath = TEST_SCREENSHOT_PATH;
         $this->screenshotUrl = TEST_SCREENSHOT_URL;
 
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
         TestEnvironment::cleanupFiles();
 
         $this->setBrowser('*firefox'); //*googlechrome (can't manipulate file input)

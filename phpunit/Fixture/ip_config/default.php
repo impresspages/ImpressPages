@@ -31,6 +31,7 @@ return array(
 
     'FILE_OVERRIDES' => array(
         'file/' => TEST_TMP_DIR . 'file/',
+        'Plugin/' => realpath(TEST_CODEBASE_DIR) . '/install/Plugin/'
     ),
 
 );
