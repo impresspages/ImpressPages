@@ -8,7 +8,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
         TestEnvironment::cleanupFiles();
 
         $installation = new \PhpUnit\Helper\Installation(); //development version

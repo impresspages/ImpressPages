@@ -12,7 +12,7 @@ class InstallTest extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         TestEnvironment::cleanupFiles();
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
     }
 
     /**

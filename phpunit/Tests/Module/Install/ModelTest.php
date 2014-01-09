@@ -13,7 +13,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 {
     public function testCreateAndUseDatabase()
     {
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
         ipDb()->disconnect();
 
         $configObj = ipConfig();
@@ -59,7 +59,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testImportData()
     {
         // Prepare environment:
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
         ipDb()->disconnect();
 
         $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
@@ -92,7 +92,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testWriteConfig()
     {
         // Prepare environment:
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
 
         $emptyConfig = array();
 
@@ -105,7 +105,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testConfigBeauty()
     {
-        TestEnvironment::initCode('install.php');
+        TestEnvironment::initCode();
 
 
 
