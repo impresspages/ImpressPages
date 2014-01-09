@@ -6,9 +6,9 @@
  */
 namespace Ip\Internal\Log;
 
-class System
+class Event
 {
-    public function ipCronExecute($info)
+    public static function ipCronExecute($info)
     {
         if ($info['firstTimeThisMonth'] || $info['test']) {
             Db::deleteOldLogs(ipGetOption('Log.existenceInDays', '30'));

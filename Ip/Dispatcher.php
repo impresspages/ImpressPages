@@ -233,15 +233,17 @@ class Dispatcher
         }
 
         $class = new \ReflectionClass($className);
-        $methods = $class->getMethods(\ReflectionMethod::IS_STATIC);
+        $methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
 
         $addMethod = "add{$type}Listener";
 
         $events = array();
         foreach ($methods as $method) {
-            if ($method->isPublic()) {
-                $name = $method->getName();
+            $name = $method->getName();
+            if ($method->isStatic()) {
                 $this->$addMethod($name, "{$className}::{$name}");
+            } elseif (ipConfig()->isDevelopmentEnvironment()) {
+                throw new \Ip\Exception("{$plugin}\\{$type}::{$name} must be static.");
             }
         }
         return $events;
