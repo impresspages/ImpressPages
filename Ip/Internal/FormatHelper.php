@@ -31,7 +31,7 @@ class FormatHelper
             'currency' => $currency,
             'context' => $context
         );
-        $formattedPrice = ipDispatcher()->job('Ip.formatCurrency', $data);
+        $formattedPrice = ipDispatcher()->job('ipFormatCurrency', $data);
         if ($formattedPrice === NULL) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
                 $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
@@ -53,7 +53,7 @@ class FormatHelper
             'timestamp' => $context,
             'context' => $context
         );
-        $formattedDate = ipDispatcher()->job('Ip.formatDate', $data);
+        $formattedDate = ipDispatcher()->job('ipFormatDate', $data);
         if ($formattedDate === NULL) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageId === null) {
@@ -81,7 +81,7 @@ class FormatHelper
             'timestamp' => $context,
             'context' => $context
         );
-        $formattedDate = ipDispatcher()->job('Ip.formatTime', $data);
+        $formattedDate = ipDispatcher()->job('ipFormatTime', $data);
         if ($formattedDate === NULL) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageId === null) {
@@ -109,7 +109,7 @@ class FormatHelper
             'timestamp' => $context,
             'context' => $context
         );
-        $formattedDate = ipDispatcher()->job('Ip.formatDateTime', $data);
+        $formattedDate = ipDispatcher()->job('ipFormatDateTime', $data);
         if ($formattedDate === NULL) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageId === null) {

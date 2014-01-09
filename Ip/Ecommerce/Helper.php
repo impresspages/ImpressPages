@@ -36,7 +36,7 @@ class Helper {
             'options' => $options
         );
 
-        return ipDispatcher()->job('Ip.getProduct', $data);
+        return ipDispatcher()->job('ipGetProduct', $data);
     }
 
 

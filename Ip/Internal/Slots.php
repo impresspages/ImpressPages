@@ -20,9 +20,9 @@ class Slots
         );
 
         //dispatch event
-        $content = ipDispatcher()->job('Ip.generateSlot', $data);
+        $content = ipDispatcher()->job('ipGenerateSlot', $data);
         if (!$content) {
-            $content = ipDispatcher()->job('Ip.generateSlot.' . $name, $data);
+            $content = ipDispatcher()->job('ipGenerateSlot' . $name, $data);
         }
 
         if ($content) {
