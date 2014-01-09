@@ -183,22 +183,22 @@ class Model
         $theme = $themes[$themeName];
 
         //TODOXX new way of doing. #130
-        $configModel = new \Ip\Internal\Config\Model();
-        $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
+//        $configModel = new \Ip\Internal\Config\Model();
+//        $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
 
 
         if (ipFile('Theme/' . $themeName . '/') != $theme->getPath()) {
             // TODOXX add theme directory to override list #130
         }
 //        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
-        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
+//        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
         $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
         if (file_exists($parametersFile)) {
             //TODOXX new type of parameters #130
 
-            \Modules\developer\localization\Manager::saveParameters($parametersFile);
+//            \Modules\developer\localization\Manager::saveParameters($parametersFile);
         }
 
         $service = Service::instance();
