@@ -225,18 +225,6 @@ class Application
     {
         //init core modules
 
-        //TODO hardcode system modules
-        $coreModules = \Ip\Internal\Plugins\Model::getModules();
-        foreach ($coreModules as $module) {
-            $systemClass = '\\Ip\\Internal\\' . $module . '\\System';
-            if (class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
-        }
-
         ipDispatcher()->notify('ipInit');
 
         $translator = \Ip\ServiceLocator::translator();
@@ -250,14 +238,6 @@ class Application
             $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
-
-            $systemClass = '\\Plugin\\' . $plugin . '\\System';
-            if (class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
         }
 
     }
