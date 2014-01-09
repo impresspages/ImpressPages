@@ -241,30 +241,30 @@
     var ipStartWidgetDrag = function (event, ui) {
         $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").each(function (key, value) {
             //left placeholder
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
-            $droppable.css('top', $(value).offset().top + 10 + 'px');
-            $droppable.css('height', Math.max($(value).height() - 20, 10) + 'px');
+            $droppable.css('top', $(value).offset().top + 1 + 'px');
+            $droppable.css('height', Math.max($(value).height() - 2, 10) + 'px');
             $droppable.data('instanceId', $(value).data('widgetinstanceid'));
             $droppable.data('leftOrRight', 'left');
 
             //right placeholder
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
-            $droppable.css('top', $(value).offset().top + 10 + 'px');
-            $droppable.css('height', Math.max($(value).height() - 20, 10) + 'px');
+            $droppable.css('top', $(value).offset().top + 1 + 'px');
+            $droppable.css('height', Math.max($(value).height() - 2, 10) + 'px');
             $droppable.data('instanceId', $(value).data('widgetinstanceid'));
             $droppable.data('leftOrRight', 'right');
         });
 
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipActionWidgetButton, .ipWidget",
-            activeClass: "ui-state-hover",
-            hoverClass: "ui-state-active",
+            activeClass: "",
+            hoverClass: "hover",
             over: function (event, ui) {
                 widgetOnDroppable = $(this);
             },
