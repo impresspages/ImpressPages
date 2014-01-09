@@ -8,8 +8,8 @@ class Event
 {
     public static function ipInitFinished()
     {
-
-        if (!self::$disablePanel && (ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        // Show admin toolbar if admin is logged in:
+        if ((ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/admin.css'));
 
             ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
@@ -48,5 +48,47 @@ class Event
         return $html;
     }
 
+    public function init()
+    {
+        ipDispatcher()->addEventListener('Ip.adminLoginFailed', array($this, 'onFailedLogin'));
+
+        $relativePath = ipRequest()->getRelativePath();
+        $request = \Ip\ServiceLocator::request();
+
+        if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
+            \Ip\ServiceLocator::response()->setLayout(ipFile('Ip/Internal/Admin/view/layout.php'));
+            $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
+        }
+
+        if (ipIsManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
+            $sessionLifetime = ini_get('session.gc_maxlifetime');
+            if (!$sessionLifetime) {
+                $sessionLifetime = 120;
+            }
+            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+        }
+
+        $getVariables = ipRequest()->getRequest();
+        if (isset($getVariables['safemode'])) {
+            $getVariables['safeMode'] = $getVariables['safemode'];
+        }
+        if (isset($getVariables['safeMode']) && \Ip\Internal\Admin\Backend::userId()) {
+            Model::setSafeMode($getVariables['safeMode']);
+        }
+    }
+
+    public static function ipAdminLoginFailed($data)
+    {
+        $securityModel = SecurityModel::instance();
+        $securityModel->registerFailedLogin($data['username'], $data['ip']);
+    }
+
+    public static function ipCronExecute($data)
+    {
+        if ($data['firstTimeThisDay']) {
+            $securityModel = SecurityModel::instance();
+            $securityModel->cleanup();
+        }
+    }
 
 } 
