@@ -261,10 +261,6 @@ class Model
                 'value' => 'UTF-8',
                 'comment' => 'system characterset',
             ),
-            'THEME' => array(
-                'value' => 'Blank',
-                'comment' => 'theme from themes directory',
-            ),
             'DEFAULT_DOCTYPE' => array(
                 'value' => 'DOCTYPE_HTML5',
                 'comment' => 'look ip_cms/includes/Ip/View.php for available options.'
