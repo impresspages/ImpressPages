@@ -7,10 +7,10 @@
 namespace Ip\Internal\Repository;
 
 
-class System{
-
-
-    public function init(){
+class Event
+{
+    public static function ipInit()
+    {
 
         if (ipIsManagementState()) {
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
