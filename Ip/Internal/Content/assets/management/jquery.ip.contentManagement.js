@@ -72,7 +72,7 @@
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
                     $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
-                    $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipContent.setManagementMode(0);});
+                    $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
                     $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
@@ -284,7 +284,7 @@
             var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
             var leftOrRight = widgetOnDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
-            ipAddWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+            ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
         }
         $('.ipsWidgetDropPlaceholder').remove();
 
@@ -294,12 +294,7 @@
         // todo
     }
 
-    var ipAddWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight) {
 
-        console.log(widgetName);
-        console.log(targetWidgetInstanceId);
-        console.log(leftOrRight);
-    }
 
 
 

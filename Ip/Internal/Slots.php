@@ -3,7 +3,7 @@
  * @package ImpressPages
  *
  */
-namespace Ip;
+namespace Ip\Internal;
 
 
 class Slots

@@ -1,19 +1,19 @@
 // defining global variables
-var ipContent;
+var ipManagementMode;
 
 (function($) {
     "use strict";
     $( document ).ready(function() {
-        ipContent.init();
+        ipManagementMode.init();
     });
 
-    ipContent = new function() {
+    ipManagementMode = new function() {
 
         this.init = function() {
             if ("undefined" !== typeof(ipContentShowEditButton)) {
                 $('body').append('<div class="ipsContentEdit" style="position: fixed; right: 0px; top: 0px; background-color: #000; color: #fff; padding: 10px;">{{Edit}}</div>');
                 $('.ipsContentEdit').on('click', function() {
-                    ipContent.setManagementMode(1);
+                    ipManagementMode.setManagementMode(1);
                 });
             }
             if ("undefined" !== typeof(ipWidgetSnippets)) {

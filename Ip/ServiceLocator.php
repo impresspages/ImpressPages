@@ -35,12 +35,12 @@ class ServiceLocator
         'options' => '\Ip\Options',
         'storage' => '\Ip\Storage',
         'log' => '\Ip\Internal\Log\Logger',
-        'translator' => '\Ip\Translator\Translator',
+        'translator' => '\Ip\Internal\Translations\Translator',
         'dispatcher' => '\Ip\Dispatcher',
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
-        'slots' => '\Ip\Slots',
+        'slots' => '\Ip\Internal\Slots',
     );
 
     /**
@@ -160,7 +160,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Slots
+     * @return \Ip\Internal\Slots
      */
     public static function slots()
     {
@@ -198,7 +198,7 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Translator\Translator
+     * @return \Ip\Internal\Translations\Translator
      */
     public static function translator()
     {

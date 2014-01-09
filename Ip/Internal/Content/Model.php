@@ -57,7 +57,7 @@ class Model
             }
         }
 
-        $revisions = \Ip\Revision::getPageRevisions(
+        $revisions = \Ip\Internal\Revision::getPageRevisions(
             ipContent()->getCurrentZone()->getName(),
             ipContent()->getCurrentPage()->getId()
         );
@@ -198,7 +198,7 @@ class Model
             throw new Exception('Widget does not exist. Widget name: ' . $widgetRecord['name'], Exception::UNKNOWN_WIDGET);
         }
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
+        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
         $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
 
@@ -477,7 +477,7 @@ class Model
     public static function clearCache($revisionId)
     {
 
-        $revision = \Ip\Revision::getRevision($revisionId);
+        $revision = \Ip\Internal\Revision::getRevision($revisionId);
         $pageContent = Model::generateBlock('main', $revisionId, false);
 
         $html2text = new \Ip\Internal\Text\Html2Text();

@@ -50,7 +50,7 @@ class Service
 
 
 
-    public static function addWidget($widgetName, $data = null, $look = null)
+    public static function createWidget($widgetName, $data = null, $look = null)
     {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
@@ -70,9 +70,9 @@ class Service
         return $widgetId;
     }
 
-    public static function addWidgetInstance($widgetId, $revisionId, $block, $position, $columnId = null, $visible = true)
+    public static function addWidgetInstance($widgetId, $revisionId, $block, $position, $visible = true)
     {
-        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $block, $position, $columnId, $visible);
+        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $block, $position, $visible);
         return $instanceId;
     }
 
@@ -80,11 +80,6 @@ class Service
     public static function deleteWidgetInstance($instanceId)
     {
         InstanceModel::deleteInstance($instanceId);
-    }
-
-    public static function splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId)
-    {
-        InstanceModel::splitWidgetsToColumns($leftWidgetInstanceId, $rightWidgetInstanceId);
     }
 
 

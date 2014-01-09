@@ -52,7 +52,6 @@ class AdminController extends \Ip\Controller
             $revisionId,
             $blockName,
             $position,
-            null,
             $record['visible']
         );
 
@@ -63,7 +62,8 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
             'oldInstance' => $instanceId,
-            'newInstanceId' => $newInstanceId
+            'newInstanceId' => $newInstanceId,
+            'block' => $blockName
         );
 
         return new \Ip\Response\Json($data);
@@ -83,11 +83,12 @@ class AdminController extends \Ip\Controller
 
     public function createWidget()
     {
+        ipRequest()->mustBePost();
 
 
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
-            !isset($_POST['blockName']) ||
+            !isset($_POST['block']) ||
             !isset($_POST['revisionId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
@@ -95,16 +96,15 @@ class AdminController extends \Ip\Controller
 
         $widgetName = $_POST['widgetName'];
         $position = $_POST['position'];
-        $blockName = $_POST['blockName'];
+        $blockName = $_POST['block'];
         $revisionId = $_POST['revisionId'];
-        $columnId = empty($_POST['columnId']) ? null : $_POST['columnId'];
 
         if ($revisionId == '') {
             //Static block;
             $revisionId = null;
         } else {
             //check revision consistency
-            $revisionRecord = \Ip\Revision::getRevision($revisionId);
+            $revisionRecord = \Ip\Internal\Revision::getRevision($revisionId);
 
             if (!$revisionRecord) {
                 throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
@@ -133,7 +133,7 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $widgetId = Service::addWidget($widgetName);
+            $widgetId = Service::createWidget($widgetName);
             $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
@@ -147,12 +147,46 @@ class AdminController extends \Ip\Controller
             'widgetHtml' => $widgetHtml,
             'position' => $position,
             'widgetId' => $widgetId,
+            'block' => $blockName,
             'instanceId' => $instanceId
         );
 
         return new \Ip\Response\Json($data);
 
     }
+
+
+//    public function createWidgetToSide()
+//    {
+//        ipRequest()->mustBePost();
+//
+//        if (!isset($_POST['widgetName']) ||
+//            !isset($_POST['targetWidgetInstanceId']) ||
+//            !isset($_POST['leftOrRight'])
+//        ) {
+//            return $this->_errorAnswer('Missing POST variable');
+//        }
+//
+//        $widgetName = $_POST['widgetName'];
+//        $targetWidgetInstanceId = $_POST['targetWidgetInstanceId'];
+//        $leftOrRight = $_POST['leftOrRight'];
+//
+//        $instance = InstanceModel::getInstance($targetWidgetInstanceId);
+//        if (!$instance) {
+//            throw new \Ip\Exception("Instance doesn't exist.");
+//        }
+//
+//
+//        //create column widget
+//        $columnWidgetId = Service::createWidget($widgetName, $widgetData);
+//
+//        //add column widget instance
+//        $position = Service::getInstancePosition($targetWidgetInstanceId) - 1;
+//        Service::addWidgetInstance($columnWidgetId, $instance['revisionId'], $instance['blockName'], $position, 1);
+//
+//
+//
+//    }
 
     public function updateWidget()
     {
@@ -189,7 +223,7 @@ class AdminController extends \Ip\Controller
         );
 
         if (!empty($_POST['generatePreview'])) {
-            $data['generateHtml'] = Model::generateWidgetPreview($instanceId, true);
+            $data['html'] = Model::generateWidgetPreview($instanceId, true);
         }
 
 
@@ -260,7 +294,7 @@ class AdminController extends \Ip\Controller
         $publish = !empty($_POST['publish']);
 
 
-        $revision = \Ip\Revision::getRevision($revisionId);
+        $revision = \Ip\Internal\Revision::getRevision($revisionId);
 
         if (!$revision) {
             return $this->_errorAnswer('Can\'t find revision. RevisionId \'' . $revisionId . '\'');
@@ -271,11 +305,11 @@ class AdminController extends \Ip\Controller
             $pageOptions = array();
             $pageOptions['lastModified'] = date("Y-m-d");
             \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
-            \Ip\Revision::publishRevision($revisionId);
+            \Ip\Internal\Revision::publishRevision($revisionId);
         }
 
 
-        $newRevisionId = \Ip\Revision::duplicateRevision($revisionId);
+        $newRevisionId = \Ip\Internal\Revision::duplicateRevision($revisionId);
 
         $zone = ipContent()->getZone($revision['zoneName']);
         if (!$zone) {

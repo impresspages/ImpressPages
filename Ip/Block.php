@@ -17,7 +17,7 @@ class Block
         $this->name = $name;
     }
 
-    public function render()
+    public function render($revisionId = null)
     {
         $data = array (
             'blockName' => $this->name,
@@ -40,10 +40,13 @@ class Block
             if ($this->isStatic) {
                 $revisionId = null;
             } else {
-                $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
-                if ($revision) {
-                    $revisionId = $revision['revisionId'];
-                } else {
+                if ($revisionId === null) {
+                    $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+                    if ($revision) {
+                        $revisionId = $revision['revisionId'];
+                    }
+                }
+                if (!$revisionId) {
                     return '';
                 }
             }
