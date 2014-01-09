@@ -237,6 +237,8 @@ class Application
             }
         }
 
+        ipDispatcher()->notify('ipInit');
+
         $translator = \Ip\ServiceLocator::translator();
         $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
