@@ -11,7 +11,7 @@ namespace Ip\Internal\Wizard;
 class Event
 {
 
-    function ipInit()
+    public static function ipInit()
     {
         if (ipIsManagementState()) {
             // loading required Javascript libraries
