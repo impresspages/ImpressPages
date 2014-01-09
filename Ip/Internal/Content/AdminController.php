@@ -223,7 +223,7 @@ class AdminController extends \Ip\Controller
         );
 
         if (!empty($_POST['generatePreview'])) {
-            $data['generateHtml'] = Model::generateWidgetPreview($instanceId, true);
+            $data['html'] = Model::generateWidgetPreview($instanceId, true);
         }
 
 
