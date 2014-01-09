@@ -300,7 +300,7 @@ class Model
         $newUrl = ipFileUrl('') . $language->getUrl() . '/' . $newUrl . '/';
 
         if ($oldUrl != $newUrl) {
-            ipDispatcher()->notify('Ip.urlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 
