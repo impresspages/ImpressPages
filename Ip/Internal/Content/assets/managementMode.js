@@ -24,6 +24,9 @@ var ipManagementMode;
             if (typeof ipWidgetLayoutModalTemplate  !== "undefined") {
                 $('body').append(ipWidgetLayoutModalTemplate);
             }
+            if (typeof ipBrowseLinkModalTemplate  !== "undefined") {
+                $('body').append(ipBrowseLinkModalTemplate);
+            }
         };
 
         this.setManagementMode = function(mode) {
