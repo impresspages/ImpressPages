@@ -298,7 +298,7 @@ class Model
             return self::$widgetObjects;
         }
 
-        self::$widgetObjects = ipDispatcher()->filter('Ip.widgets', array());
+        self::$widgetObjects = ipDispatcher()->filter('ipWidgets', array());
 
         return self::$widgetObjects;
     }
