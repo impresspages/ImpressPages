@@ -48,7 +48,7 @@ class Event
         return $html;
     }
 
-    public function init()
+    public static function ipInit()
     {
         $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
