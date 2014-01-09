@@ -129,6 +129,12 @@ class PublicController extends \Ip\Controller
                 'ipWidgetLayoutModalTemplate',
                 ipView('view/widgetLayoutModal.php')->render()
             );
+			ipAddJsVariable(
+                'ipBrowseLinkModalTemplate',
+                ipView('view/browseLinkModal.php')->render()
+            );
+			ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/themes/default/style.min.css'));
+			ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/jstree.js'));
         }
 
     }

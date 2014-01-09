@@ -297,4 +297,58 @@ class AdminController extends \Ip\Controller
 
     }
 
+	private function _addPageToTree($page) {
+		$p = array( 
+            'text' => $page->getTitle(),
+            'icon' => 'fa fa-file-text',
+            'li_attr' => (object) array(
+            	'data-url' => parse_url($page->getUrl(),PHP_URL_PATH)
+			),
+			'children' => array()					
+		);
+        foreach($page->getChildren() as $child) {
+        	$p['children'][] = $this->_addPageToTree($child);
+        }
+        return $p;
+	}
+
+	public function getPageTree() {
+        $zones = ipContent()->getZones();
+        $sitemap = array(
+			array(
+			   'text' => 'EN',
+			   'type' => 'language',
+			   'icon' => 'fa fa-flag-o',
+			   'state' => array('opened' => true),
+			   'children' => array()
+			)
+		);
+        
+		// @todo: get all the languages
+		
+        foreach($zones as $zone) {
+            $z = array(                
+                'text' => $zone->getTitle(),
+                'icon' => 'fa fa-folder-o',
+            	'li_attr' => (object) array(
+            		'data-url' => parse_url($zone->getUrl(),PHP_URL_PATH)
+				),
+            	'children'=>array()
+			);
+			foreach (\Ip\Menu\Helper::getZoneItems($zone->getName()) as $page) {
+			   $z['children'][] = $this->_addPageToTree($page);	
+			}
+		
+			// @todo: add zone to correct language
+			$sitemap[0]['children'][] = $z;
+        }
+        
+        $data = array(
+            'status' => 'success',
+            'sitemap' => $sitemap
+        );
+        
+        return new \Ip\Response\Json($data);    
+	}
+	
 }
