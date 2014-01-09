@@ -35,7 +35,16 @@
                                 return false;
                             }
                         },
-                        helper : 'clone',
+                        helper : function (e) {
+                            var $button = $(e.currentTarget)
+                            var $result = $button.clone();
+                            $result.find('span').remove();
+                            $result.css('paddingTop', '15px');
+                            console.log($result.height());
+                            return $result;
+                        },
+                        opacity: 0.45,
+                        cursorAt: {left: 30, top: 45},
                         stop: function(event, ui) {
                         },
                         start: function (event, ui) {
