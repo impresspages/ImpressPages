@@ -185,8 +185,6 @@ class Application
 
         \Ip\ServiceLocator::addRequest($request);
 
-        ipDispatcher()->bindApplicationEvents();
-
         $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
@@ -223,7 +221,7 @@ class Application
 
     public function modulesInit()
     {
-        //init core modules
+        ipDispatcher()->bindApplicationEvents();
 
         ipDispatcher()->notify('ipInit');
 
