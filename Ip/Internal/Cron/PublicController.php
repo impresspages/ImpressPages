@@ -47,7 +47,7 @@ class PublicController extends \Ip\Controller
             'test' => ipRequest()->getQuery('test')
         );
 
-        ipDispatcher()->notify('Ip.cronExecute', $data);
+        ipDispatcher()->notify('ipCronExecute', $data);
 
         \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionEnd', time());
         ipLog()->info('Cron.finished');

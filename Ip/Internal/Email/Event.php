@@ -6,15 +6,9 @@
  */
 namespace Ip\Internal\Email;
 
-class System {
-
-
-
-    function init(){
-        ipDispatcher()->addEventListener('Ip.cronExecute', array($this, 'executeCron'));
-    }
-
-    public function executeCron($info)
+class Event
+{
+    public function ipCronExecute($info)
     {
         if ($info['firstTimeThisMonth'] || $info['test']) {
             Db::deleteOld(720);
@@ -24,6 +18,5 @@ class System {
             $queue = new Module();
             $queue->send();
         }
-
     }
 }

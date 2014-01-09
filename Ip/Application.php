@@ -185,8 +185,6 @@ class Application
 
         \Ip\ServiceLocator::addRequest($request);
 
-        ipDispatcher()->bindApplicationEvents();
-
         $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
@@ -223,19 +221,7 @@ class Application
 
     public function modulesInit()
     {
-        //init core modules
-
-        //TODO hardcode system modules
-        $coreModules = \Ip\Internal\Plugins\Model::getModules();
-        foreach ($coreModules as $module) {
-            $systemClass = '\\Ip\\Internal\\' . $module . '\\System';
-            if (class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
-        }
+        ipDispatcher()->bindApplicationEvents();
 
         ipDispatcher()->notify('ipInit');
 
@@ -250,14 +236,6 @@ class Application
             $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
-
-            $systemClass = '\\Plugin\\' . $plugin . '\\System';
-            if (class_exists($systemClass)) {
-                $system = new $systemClass();
-                if (method_exists($system, 'init')) {
-                    $system->init();
-                }
-            }
         }
 
     }
@@ -284,14 +262,14 @@ class Application
      */
     public function handleResponse(\Ip\Response $response)
     {
-        $response = ipDispatcher()->filter('Ip.sendResponse', $response);
-        ipDispatcher()->notify('Ip.beforeResponseSent', array('response' => $response));
+        $response = ipDispatcher()->filter('ipSendResponse', $response);
+        ipDispatcher()->notify('ipBeforeResponseSent', array('response' => $response));
         $response->send();
     }
 
     public function close()
     {
-        ipDispatcher()->notify('Ip.beforeApplicationClosed');
+        ipDispatcher()->notify('ipBeforeApplicationClosed');
 
         ipDb()->disconnect();
     }

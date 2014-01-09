@@ -89,7 +89,7 @@ class Model{
 
         ipLog()->info('Ip.pluginActivated: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
 
-        ipDispatcher()->notify('Ip.pluginActivated', array(
+        ipDispatcher()->notify('ipPluginActivated', array(
                 'name' => $pluginName,
                 'version' => $config['version'],
             ));
@@ -129,7 +129,7 @@ class Model{
         ipLog()->info('Ip.pluginDeactivated: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
 
         // TODO remove plugin event listeners
-        ipDispatcher()->notify('Ip.pluginDeactivated', array(
+        ipDispatcher()->notify('ipPluginDeactivated', array(
                 'name' => $pluginName,
                 'version' => $pluginRecord['version'],
             ));
@@ -182,7 +182,7 @@ class Model{
 
         ipLog()->info('Ip.pluginRemoved: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
 
-        ipDispatcher()->notify('Ip.pluginRemoved', array(
+        ipDispatcher()->notify('ipPluginRemoved', array(
                 'name' => $pluginName,
                 'version' => $version,
             ));

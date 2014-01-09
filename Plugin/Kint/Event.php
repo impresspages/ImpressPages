@@ -3,9 +3,9 @@
 namespace Plugin\Kint;
 
 
-class System
+class Event
 {
-    public function init()
+    public static function ipInit()
     {
         require_once __DIR__ . '/Kint/Kint.class.php';
     }

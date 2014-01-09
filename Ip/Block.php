@@ -23,7 +23,7 @@ class Block
             'blockName' => $this->name,
         );
 
-        $content = ipDispatcher()->job('Ip.generateBlock', $data);
+        $content = ipDispatcher()->job('ipGenerateBlock', $data);
 
         if ($content) {
             if (is_object($content) && method_exists($content, 'render')) {

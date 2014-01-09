@@ -116,7 +116,7 @@ class Dispatcher
      */
     public function bindSlot($slot, $callable, $priority = 10)
     {
-        $this->addJobListener('Ip.generateSlot.' . $slot, $callable, $priority);
+        $this->addJobListener('ipGenerateSlot' . $slot, $callable, $priority);
     }
 
     private function checkInitCompleted($eventName)
