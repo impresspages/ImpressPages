@@ -6,13 +6,19 @@
 namespace PhpUnit\Helper;
 
 
-class TestEnvironment {
+class TestEnvironment
+{
+    public static function setup()
+    {
+        static::filesSetup();
+        static::initCode();
+    }
 
     public static function initCode($configBasename = 'default.php')
     {
         require_once TEST_CODEBASE_DIR . 'Ip/Application.php';
 
-        $app = new \Ip\Application(TEST_FIXTURE_DIR . 'ip_config/' . $configBasename);
+        $app = new \Ip\Application(TEST_FIXTURE_DIR . 'config/' . $configBasename);
 
         if (!defined('IUL_TESTMODE')) {
             define('IUL_TESTMODE', 1);
@@ -32,7 +38,7 @@ class TestEnvironment {
         ipDispatcher()->registerInit();
     }
 
-    public static function prepareFiles()
+    public static function filesSetup()
     {
         self::cleanupFiles();
 

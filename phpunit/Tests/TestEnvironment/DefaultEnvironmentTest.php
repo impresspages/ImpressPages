@@ -7,7 +7,7 @@ class DefaultEnvironmentTest extends \PHPUnit_Framework_TestCase
 {
     public function testDefaultTestEnvironment()
     {
-        \PhpUnit\Helper\TestEnvironment::prepareFiles();
+        \PhpUnit\Helper\TestEnvironment::filesSetup();
         \PhpUnit\Helper\TestEnvironment::initCode();
         $this->assertEquals(realpath(TEST_CODEBASE_DIR), ipConfig()->getRaw('BASE_DIR'));
 

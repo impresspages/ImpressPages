@@ -15,8 +15,7 @@ class TestInstallation extends \PHPUnit_Framework_TestCase
 {
     public function testInstall()
     {
-        TestEnvironment::initCode();
-        TestEnvironment::cleanupFiles();
+        TestEnvironment::setup();
 
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();

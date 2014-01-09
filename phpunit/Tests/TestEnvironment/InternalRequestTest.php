@@ -64,8 +64,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
     public function testUseMinkToRenderEnVersion()
     {
-        \PhpUnit\Helper\TestEnvironment::prepareFiles();
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setup();
 
         // init Mink:
         $driver = new \PhpUnit\Helper\Mink\InternalDriver();
