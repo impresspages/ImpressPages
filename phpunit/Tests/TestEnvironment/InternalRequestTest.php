@@ -10,6 +10,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 {
     public function setup()
     {
+
 //        parent::setup();
 //        $config = include __DIR__ . '/ipConfig-default.php';
 //        ipConfig()->init($config);
@@ -55,7 +56,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
     public function testLanguages()
     {
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setupCode();
         $languages = \Ip\Internal\ContentDb::getLanguages(true);
         $this->assertNotEmpty($languages);
         $language = array_shift($languages);
@@ -64,8 +65,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
     public function testUseMinkToRenderEnVersion()
     {
-        \PhpUnit\Helper\TestEnvironment::prepareFiles();
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setup();
 
         // init Mink:
         $driver = new \PhpUnit\Helper\Mink\InternalDriver();
@@ -77,7 +77,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 
         $this->assertEquals(404, $session->getStatusCode());
 
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setupCode();
         $session->visit(ipFileUrl('en/'));
 
         $page = $session->getPage();
