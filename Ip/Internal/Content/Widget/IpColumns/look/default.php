@@ -25,6 +25,6 @@ if (empty($columns)) {
 
 <?php for($i = 1; $i <= $columns; $i++) { ?>
     <div class="ipwCol" style="width:<?php echo (100 / $columns) ?>%;" style="width: 25%; vertical-align: top;">
-        <?php echo ipBlock('multicol'.$widgetId.'_'.$i)->exampleContent(' '); ?>
+        <?php echo ipBlock('multicol'.$widgetId.'_'.$i)->exampleContent(' ')->render($revisionId); ?>
     </div>
 <?php } ?>

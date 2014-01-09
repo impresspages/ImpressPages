@@ -156,37 +156,37 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function addWidgetToSide()
-    {
-        ipRequest()->mustBePost();
-
-        if (!isset($_POST['widgetName']) ||
-            !isset($_POST['targetWidgetInstanceId']) ||
-            !isset($_POST['leftOrRight'])
-        ) {
-            return $this->_errorAnswer('Missing POST variable');
-        }
-
-        $widgetName = $_POST['widgetName'];
-        $targetWidgetInstanceId = $_POST['targetWidgetInstanceId'];
-        $leftOrRight = $_POST['leftOrRight'];
-
-        $instance = InstanceModel::getInstance($targetWidgetInstanceId);
-        if (!$instance) {
-            throw new \Ip\Exception("Instance doesn't exist.");
-        }
-
-
-        //create column widget
-        $columnWidgetId = Service::createWidget($widgetName, $widgetData);
-
-        //add column widget instance
-        $position = Service::getInstancePosition($targetWidgetInstanceId) - 1;
-        Service::addWidgetInstance($columnWidgetId, $instance['revisionId'], $instance['blockName'], $position, 1);
-
-
-
-    }
+//    public function createWidgetToSide()
+//    {
+//        ipRequest()->mustBePost();
+//
+//        if (!isset($_POST['widgetName']) ||
+//            !isset($_POST['targetWidgetInstanceId']) ||
+//            !isset($_POST['leftOrRight'])
+//        ) {
+//            return $this->_errorAnswer('Missing POST variable');
+//        }
+//
+//        $widgetName = $_POST['widgetName'];
+//        $targetWidgetInstanceId = $_POST['targetWidgetInstanceId'];
+//        $leftOrRight = $_POST['leftOrRight'];
+//
+//        $instance = InstanceModel::getInstance($targetWidgetInstanceId);
+//        if (!$instance) {
+//            throw new \Ip\Exception("Instance doesn't exist.");
+//        }
+//
+//
+//        //create column widget
+//        $columnWidgetId = Service::createWidget($widgetName, $widgetData);
+//
+//        //add column widget instance
+//        $position = Service::getInstancePosition($targetWidgetInstanceId) - 1;
+//        Service::addWidgetInstance($columnWidgetId, $instance['revisionId'], $instance['blockName'], $position, 1);
+//
+//
+//
+//    }
 
     public function updateWidget()
     {

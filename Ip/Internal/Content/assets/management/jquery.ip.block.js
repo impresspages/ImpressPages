@@ -149,13 +149,6 @@
     },
 
 
-    pageSaveStart : function() {
-        return this.each(function() {
-            var $this = $(this);
-            $(this).children('.ipWidget').ipWidget('fetchManaged').ipWidget('save');
-        });
-    },
-
     destroy : function() {
         // TODO
     },
