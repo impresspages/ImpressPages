@@ -49,7 +49,7 @@ class Module
 
         // TODO move somewhere
         if (ipConfig()->baseUrl() != $cachedUrl) {
-            ipDispatcher()->notify('Ip.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
+            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
         }
         ipDispatcher()->notify('ipCacheClear');
     }

@@ -8,10 +8,11 @@
 namespace Ip\Internal\Wizard;
 
 
-class System{
+class Event
+{
 
-    function init(){
-
+    function ipInit()
+    {
         if (ipIsManagementState()) {
             // loading required Javascript libraries
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.ui.tooltip.js'),2);

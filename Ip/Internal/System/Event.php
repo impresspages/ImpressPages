@@ -6,36 +6,24 @@
 namespace Ip\Internal\System;
 
 
-class System
+class Event
 {
-
-    public function __construct()
-    {
-    }
-
-    public function init()
-    {
-        ipDispatcher()->addEventListener('Ip.urlChanged', __NAMESPACE__ . '\System::urlChanged');
-        ipDispatcher()->addEventListener('Ip.cronExecute', array($this, 'executeCron'));
-    }
-
-    public static function urlChanged($info)
+    public static function ipUrlChanged($info)
     {
         \Ip\Internal\DbSystem::replaceUrls($info['oldUrl'], $info['newUrl']);
     }
 
-    public function executeCron($info)
+    public static function ipCronExecute($info)
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
             if (ipGetOption('Config.keepOldRevision') != 0) {
                 \Ip\Internal\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
             }
-            $this->checkForUpdates();
+            static::checkForUpdates();
         }
     }
 
-
-    private function checkForUpdates()
+    private static function checkForUpdates()
     {
         $module = new Module();
         $systemInfo = $module->getSystemInfo();
@@ -64,7 +52,7 @@ class System
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                ipDispatcher('systemMessages', array('messages' => $messages));
+                ipDispatcher()->notify('ipSystemMessages', array('messages' => $messages));
 
                 \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
             }
