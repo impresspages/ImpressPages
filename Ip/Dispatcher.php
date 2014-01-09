@@ -31,7 +31,7 @@ class Dispatcher
 
     public function __construct()
     {
-        $this->addEventListener('Ip.initFinished', array($this, 'registerInit'));
+        $this->addEventListener('ipInitFinished', array($this, 'registerInit'));
     }
 
     public function registerInit()
@@ -121,7 +121,7 @@ class Dispatcher
 
     private function checkInitCompleted($eventName)
     {
-        if (!$this->initCompleted && $eventName != 'Ip.initFinished') {
+        if (!$this->initCompleted && $eventName != 'ipInitFinished') {
             $backtrace = debug_backtrace();
             if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
                 $file = ' (Error source: ' . $backtrace[1]['file'] . ' line: ' . $backtrace[1]['line'] . ' )';
