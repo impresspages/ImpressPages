@@ -130,7 +130,7 @@ class Model
                 $cleanDirs[] = trim($line);
             }
         }
-        $cleanDirs = array_merge($cleanDirs, array(ipThemeFile('')));
+        $cleanDirs = array_merge($cleanDirs, array(ipFile('Theme/')));
         return $cleanDirs;
     }
 
@@ -238,8 +238,8 @@ class Model
      */
     public function getTheme($name, $dir = null)
     {
-        if ($dir) {
-            $currentThemeDir = ipThemeFile('');
+        if (!$dir) {
+            $currentThemeDir = ipFile('Theme/');
             // TODOXX add theme override to config #130
             // ipConfig()->_changeCore('THEME_DIR', $dir);
         }
@@ -252,13 +252,7 @@ class Model
             $metadata->setPath(ipConfig()->getRaw('THEME_DIR'));
         }
 
-        //old type config
-        $themeIniFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'theme.ini');
-        if (file_exists($themeIniFile)) {
-            $iniConfig = $this->parseThemeIni($themeIniFile);
-        } else {
-            $iniConfig = array();
-        }
+        $iniConfig = array();
 
         //new type config
         $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'Theme.json');
