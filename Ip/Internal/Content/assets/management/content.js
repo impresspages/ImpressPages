@@ -37,10 +37,9 @@ var ipContent;
                 //move target widget to right / left column
                 ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, revisionId, function (newInstanceId) {
                     $('#ipWidget-' + newInstanceId).remove();
-                    $columnWidget.ipWidget('save', {}, 1, function() {
+                    $columnWidget.ipWidget('save', {}, 1, function($widget) {
                         ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
-                            console.log('create widget response');
-
+                            $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
                             createdWidgetInstanceId = instanceId;
                         });
                     });
