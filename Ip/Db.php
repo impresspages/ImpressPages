@@ -58,8 +58,6 @@ class Db
             $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
         } catch (\PDOException $e) {
             //* TODOX remove
-            @ob_clean();
-            header('Content-type: text-plain; charset=UTF-8');
             var_export($dbConfig);
             echo __FILE__ . ':' . (__LINE__ - 2);
             exit();
