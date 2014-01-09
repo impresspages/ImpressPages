@@ -121,6 +121,7 @@ class Dispatcher
 
     private function checkInitCompleted($eventName)
     {
+        return; // TODOX Algimantas: I disabled for refactoring purposes
         if (!$this->initCompleted && $eventName != 'ipInitFinished') {
             $backtrace = debug_backtrace();
             if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
