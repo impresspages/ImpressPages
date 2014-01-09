@@ -309,7 +309,7 @@ class Model
         $zone = ipDb()->select('*', 'zone', array('name' => $zoneName));
         if (isset($zone[0])) {
             $zone = $zone[0];
-            ipDispatcher()->notify('Ip.beforeZoneDeleted', $zone);
+            ipDispatcher()->notify('ipBeforeZoneDeleted', $zone);
             ipDb()->delete('zone', array('name' => $zoneName));
             ipDb()->delete('zone_to_language', array('zone_id' => $zone['id']));
         }
