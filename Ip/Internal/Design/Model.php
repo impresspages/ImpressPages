@@ -130,7 +130,7 @@ class Model
                 $cleanDirs[] = trim($line);
             }
         }
-        $cleanDirs = array_merge($cleanDirs, array(ipThemeFile('')));
+        $cleanDirs = array_merge($cleanDirs, array(ipFile('Theme/')));
         return $cleanDirs;
     }
 

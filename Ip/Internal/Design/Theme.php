@@ -31,7 +31,7 @@ class Theme
     public function getThumbnailUrl()
     {
         if ($this->thumbnail) {
-            $image = ipFileUrl($this->getPath() . $this->name . "/" . Model::INSTALL_DIR . $this->thumbnail);
+            $image = ipThemeUrl(Model::INSTALL_DIR . $this->thumbnail);
         } else {
             $image = ipFileUrl('Ip/Internal/Design/assets/theme.png');
         }
