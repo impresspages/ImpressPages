@@ -239,14 +239,14 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        $('.ipWidget').each(function (key, value) {
+        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").each(function (key, value) {
             //left placeholder
             var $droppable = $('<div class="ipsWidgetDropPlaceholder" style="width: 10px; background-color: #000;"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
             $droppable.css('top', $(value).offset().top + 10 + 'px');
-            $droppable.css('height', $(value).height() - 20 + 'px');
+            $droppable.css('height', Math.max($(value).height() - 20, 10) + 'px');
             $droppable.data('instanceId', $(value).data('widgetinstanceid'));
             $droppable.data('leftOrRight', 'left');
 
@@ -256,7 +256,7 @@
             $droppable.css('position', 'absolute');
             $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
             $droppable.css('top', $(value).offset().top + 10 + 'px');
-            $droppable.css('height', $(value).height() - 20 + 'px');
+            $droppable.css('height', Math.max($(value).height() - 20, 10) + 'px');
             $droppable.data('instanceId', $(value).data('widgetinstanceid'));
             $droppable.data('leftOrRight', 'right');
         });

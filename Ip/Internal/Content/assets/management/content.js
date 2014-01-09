@@ -50,28 +50,10 @@ var ipContent;
                 callback($newWidget.data('widgetinstanceid'));
             }
 
-//            var $this = $(this);
-//
-//            var data = Object();
-//            data.aa = 'Content.createWidgetToSide';
-//            data.securityToken = ip.securityToken;
-//            data.widgetName = widgetName;
-//            data.targetWidgetInstanceId = targetWidgetInstanceId;
-//            data.leftOrRight = leftOrRight;
-//
-//            $.ajax({
-//                type: 'POST',
-//                url: ip.baseUrl,
-//                data: data,
-//                context: $this,
-//                success: createWidgetToSideResponse,
-//                dataType: 'json'
-//            });
-        };
-
-        var createWidgetToSideResponse = function (response) {
 
         };
+
+
 
 
         this.createWidget = function(revisionId, block, widgetName, position, callback) {
