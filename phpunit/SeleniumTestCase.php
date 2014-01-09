@@ -18,8 +18,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->screenshotPath = TEST_SCREENSHOT_PATH;
         $this->screenshotUrl = TEST_SCREENSHOT_URL;
 
-        TestEnvironment::initCode();
-        TestEnvironment::cleanupFiles();
+        TestEnvironment::setup();
 
         $this->setBrowser('*firefox'); //*googlechrome (can't manipulate file input)
         $this->setBrowserUrl(TEST_TMP_URL);
@@ -27,12 +26,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 //        $driver = $this->getDriver(array('*firefox'));
     }
     
-    protected function tearDown()
-    {
-        TestEnvironment::cleanupFiles();
-    }
-    
-    protected function assertNoErrors() 
+    protected function assertNoErrors()
     {
         $this->assertElementNotPresent('css=.error');
         $this->assertElementNotPresent('css=.warning');

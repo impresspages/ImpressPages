@@ -50,7 +50,7 @@ class RequestTest extends \PhpUnit\GeneralTestCase
             'PHP_SELF' => '/index.php',
         );
 
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
+        $config = include TEST_FIXTURE_DIR . 'config/default.php';
         $config['BASE_URL'] = '';
         $config['BASE_DIR'] = '';
         $ipConfig = new \Ip\Config($config, $server);

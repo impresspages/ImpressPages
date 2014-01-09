@@ -11,8 +11,7 @@ class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        TestEnvironment::cleanupFiles();
-        TestEnvironment::initCode();
+        TestEnvironment::setup();
     }
 
     /**

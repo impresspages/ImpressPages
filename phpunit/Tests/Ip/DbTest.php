@@ -26,7 +26,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         ipDb()->disconnect();
 
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
+        $config = include TEST_FIXTURE_DIR . 'config/default.php';
         $ipConfig = new \Ip\Config($config);
         \Ip\ServiceLocator::setConfig($ipConfig);
 

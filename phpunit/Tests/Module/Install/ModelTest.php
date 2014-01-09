@@ -19,7 +19,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $configObj = ipConfig();
 
         // Create and use database if it doesn't exist:
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
+        $config = include TEST_FIXTURE_DIR . 'config/default.php';
         unset($config['db']['database']);
 
         // We modify config object through reflection
@@ -62,7 +62,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         TestEnvironment::initCode();
         ipDb()->disconnect();
 
-        $config = include TEST_FIXTURE_DIR . 'ip_config/default.php';
+        $config = include TEST_FIXTURE_DIR . 'config/default.php';
         unset($config['db']['database']);
         ipConfig()->_setRaw('db', $config['db']);
 
@@ -96,9 +96,9 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $emptyConfig = array();
 
-        \Plugin\Install\Model::writeConfigFile($emptyConfig, TEST_TMP_DIR . 'ip_config-testWriteConfig1.php');
+        \Plugin\Install\Model::writeConfigFile($emptyConfig, TEST_TMP_DIR . 'config-testWriteConfig1.php');
 
-        $config = include TEST_TMP_DIR . 'ip_config-testWriteConfig1.php';
+        $config = include TEST_TMP_DIR . 'config-testWriteConfig1.php';
 
         $this->assertNotEmpty($config);
     }

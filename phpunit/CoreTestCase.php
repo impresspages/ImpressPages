@@ -15,13 +15,7 @@ class CoreTestCase extends \PHPUnit_Framework_TestCase
 
     protected function setup()
     {
-        \PhpUnit\Helper\TestEnvironment::prepareFiles();
-        \PhpUnit\Helper\TestEnvironment::initCode();
-    }
-    
-    protected function tearDown()
-    {
-        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
+        \PhpUnit\Helper\TestEnvironment::setup();
     }
 
 }
