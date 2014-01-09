@@ -7,7 +7,7 @@
 namespace Ip\Internal\Ip;
 
 
-class System
+class Event
 {
     public static function ipInit()
     {

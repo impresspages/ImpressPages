@@ -78,9 +78,44 @@ class Filter
         $answer = array();
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
-            $answer = array_merge($answer, self::findPluginWidgets($plugin));
+            $answer = array_merge($answer, static::findPluginWidgets($plugin));
         }
         return $answer;
     }
+
+    private static function findPluginWidgets($moduleName)
+    {
+        $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR . '/');
+
+        if (!is_dir($widgetDir)) {
+            return array();
+        }
+        $widgetFolders = scandir($widgetDir);
+        if ($widgetFolders === false) {
+            return array();
+        }
+
+        $answer = array();
+        //foreach all widget folders
+        foreach ($widgetFolders as $widgetFolder) {
+            //each directory is a widget
+            if (!is_dir($widgetDir . $widgetFolder) || $widgetFolder == '.' || $widgetFolder == '..') {
+                continue;
+            }
+            if (isset ($answer[(string)$widgetFolder])) {
+                ipLog()->warning(
+                    'Content.duplicateWidget: {widget}',
+                    array('plugin' => 'Content', 'widget' => $widgetFolder)
+                );
+            }
+            $answer[] = array(
+                'module' => $moduleName,
+                'dir' => $widgetDir . $widgetFolder . '/',
+                'widgetKey' => $widgetFolder
+            );
+        }
+        return $answer;
+    }
+
 
 } 
