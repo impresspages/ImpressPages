@@ -51,7 +51,7 @@ class Module
         if (ipConfig()->baseUrl() != $cachedUrl) {
             ipDispatcher()->notify('Ip.urlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
         }
-        ipDispatcher()->notify('Ip.cacheClear');
+        ipDispatcher()->notify('ipCacheClear');
     }
 
     public function getSystemInfo()
