@@ -15,7 +15,7 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDefaultTestEnvironment()
     {
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setupCode();
 
         $this->assertEquals('non existent string', __('non existent string', 'ip'));
     }
