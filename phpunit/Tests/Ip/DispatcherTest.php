@@ -6,16 +6,9 @@ use PhpUnit\Helper\TestEnvironment;
 
 class DispatcherTest extends \PHPUnit_Framework_TestCase
 {
-    public static function setUpBeforeClass()
-    {
-        parent::setUpBeforeClass();
-        TestEnvironment::initCode();
-    }
-
     public function setup()
     {
-        \Ip\ServiceLocator::addRequest(new \Ip\Request());
-        ipDispatcher()->registerInit();
+        TestEnvironment::setupCode();
     }
 
     public function tearDown()

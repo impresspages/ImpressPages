@@ -7,12 +7,13 @@ namespace Tests\Ip;
 
 class RequestTest extends \PhpUnit\GeneralTestCase
 {
+    public function setup()
+    {
+        \PhpUnit\Helper\TestEnvironment::setupCode();
+    }
+
     public function testGetAndPost()
     {
-        \PhpUnit\Helper\TestEnvironment::initCode();
-
-        \Ip\ServiceLocator::addRequest(new \Ip\Request());
-
         $request = new \Ip\Request();
         $request->setQuery(array(
             'rise' => 'and shine',
@@ -30,8 +31,6 @@ class RequestTest extends \PhpUnit\GeneralTestCase
 
     public function testRelativePath()
     {
-        \PhpUnit\Helper\TestEnvironment::initCode();
-
         $server = array(
             'HTTP_HOST' => 'local.ip4.x.org',
             'SERVER_NAME' => 'local.ip4.x.org',

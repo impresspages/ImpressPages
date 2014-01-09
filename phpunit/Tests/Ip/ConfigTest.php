@@ -12,8 +12,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        parent::setup();
-        TestEnvironment::initCode();
+        TestEnvironment::setupCode();
     }
 
     public function testBaseUrl()
