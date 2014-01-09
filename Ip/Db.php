@@ -57,6 +57,13 @@ class Db
             $this->pdoConnection->exec("SET time_zone='$offset';");
             $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
         } catch (\PDOException $e) {
+            //* TODOX remove
+            @ob_clean();
+            header('Content-type: text-plain; charset=UTF-8');
+            var_export($dbConfig);
+            echo __FILE__ . ':' . (__LINE__ - 2);
+            exit();
+            //*/
             throw new \Ip\Exception\Db("Can't connect to database. Stack trace hidden for security reasons");
             //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
         }

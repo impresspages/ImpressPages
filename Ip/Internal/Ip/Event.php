@@ -9,7 +9,7 @@ namespace Ip\Internal\Ip;
 
 class System
 {
-    public function init()
+    public static function ipInit()
     {
         $response = \Ip\ServiceLocator::response();
         if (method_exists($response, 'addJavascriptContent')) { //if Layout response
@@ -25,8 +25,8 @@ class System
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
 
             $validatorTranslations = array(
-                'ipAdmin' => $this->validatorLocalizationData('ipAdmin'),
-                ipContent()->getCurrentLanguage()->getCode() => $this->validatorLocalizationData('ipPublic')
+                'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
+                ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('ipPublic')
             );
             ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
         }
@@ -34,7 +34,7 @@ class System
     }
 
 
-    protected function validatorLocalizationData($namespace)
+    protected static function validatorLocalizationData($namespace)
     {
         // TODO do this localization on client side
         if ($namespace == 'ipPublic')
