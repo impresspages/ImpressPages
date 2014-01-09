@@ -73,6 +73,7 @@ INSERT INTO `ip_cms_page_layout` (`module_name`, `page_id`, `layout`) VALUES
 
 INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'version', '4.0'),
+('Ip', 'theme', 'Blank'),
 ('Ip', 'cachedBaseUrl', '[[[[base_url]]]]'),
 ('Ip', 'lastSystemMessageSent', ''),
 ('Ip', 'lastSystemMessageShown', ''),
