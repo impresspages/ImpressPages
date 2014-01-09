@@ -14,11 +14,11 @@ class Controller extends \Ip\WidgetController
         return __('Columns', 'ipAdmin', false);
     }
 
-    public function generateHtml($widgetId, $instanceId, $data, $layout)
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
     {
-
+        $data['revisionId'] = $revisionId;
         $data['widgetId'] = $widgetId;
-        return parent::generateHtml($widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
     }
 
 

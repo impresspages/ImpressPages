@@ -28,7 +28,7 @@ class Config
             $server = $_SERVER;
         }
 
-        if ($this->rawConfig['BASE_URL'] == '') {
+        if (empty($this->rawConfig['BASE_URL'])) {
             $this->rawConfig['BASE_URL'] = $server["SERVER_NAME"];
 
             if ($server["SERVER_PORT"] != "80") {
@@ -40,10 +40,10 @@ class Config
                 throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in config.php');
             }
 
-            $this->rawConfig['BASE_URL'].= ltrim($baseUrl, '/') . '/';
+            $this->rawConfig['BASE_URL'].= rtrim($baseUrl, '/') . '/';
         }
 
-        if ($this->rawConfig['BASE_DIR'] == '') {
+        if (empty($this->rawConfig['BASE_DIR'])) {
             $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
         }
 

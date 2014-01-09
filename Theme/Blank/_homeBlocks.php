@@ -9,7 +9,7 @@
     <img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
-    <h2 class="ipwTitle"><?php _e('This is a level2 headline', 'theme-Blank') ?></h2>
+    <h2 class="ipwTitle"><?php _e('This is a level2 headline', 'Blank') ?></h2>
 </div>
 <div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
 <?php _e('<p>Here is a text block where to can put any information.
@@ -20,7 +20,7 @@ You can make lists:
 <li>You add widgets to any block by simply dragging and dropping;</li>
 <li>You can paste any content to text widget and it will adapt to your website styles automatically;</li>
 <li>And many more.</li>
-</ul>', 'theme-Blank'); ?>
+</ul>', 'Blank'); ?>
 </div>
 <?php $exampleContent = ob_get_clean(); ?>
 

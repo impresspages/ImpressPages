@@ -6,6 +6,8 @@
 
 (function($) {
 
+    "use strict";
+
     var methods = {
     init : function(options) {
 
@@ -42,43 +44,32 @@
                             return;
                         }
     
-                        // item is dragged out of the block. This action will be handled by the reciever using "receive"
+                        // item is dragged out of the block. This action will be handled by the receiver using "receive"
                         if ($(ui.item).parent().data('ipBlock').name != $this.data('ipBlock').name) {
                             return;
                         }
     
                         var instanceId = $(ui.item).data('widgetinstanceid');
                         var position = $(ui.item).index();
-    
-                        var data = Object();
-                        data.aa = 'Content.moveWidget';
-                        data.securityToken = ip.securityToken;
-                        data.instanceId = instanceId;
-                        data.position = position;
-                        data.blockName = $this.data('ipBlock').name;
-                        data.revisionId = $this.data('ipBlock').revisionId;
+                        var block = $this.data('ipBlock').name;
+                        var revisionId = $this.data('ipBlock').revisionId;
 
-                        $.ajax( {
-                            type : 'POST',
-                            url : ip.baseUrl,
-                            data : data,
-                            context : $this,
-                            success : methods._moveWidgetResponse,
-                            dataType : 'json'
-                        });
+                        ipContent.moveWidget(instanceId, position, block, revisionId);
     
                     },
     
                     receive : function(event, ui) {
-                        $element = $(ui.item);
+                        var $element = $(ui.item);
                         // if received element is AdminWidgetButton (insert new widget)
                         if ($element && $element.is('.ipActionWidgetButton')) {
-                            $duplicatedDragItem = $('.ipBlock .ipActionWidgetButton');
-                            $position = $duplicatedDragItem.index();
+                            var $duplicatedDragItem = $('.ipBlock .ipActionWidgetButton');
+                            var position = $duplicatedDragItem.index();
                             var newWidgetName = $element.data('ipAdminWidgetButton').name;
                             $duplicatedDragItem.remove();
-                            $block = $this;
-                            $block.ipBlock('_createWidget', newWidgetName, $position);
+                            var $block = $this;
+                            var $revisionId = $block.data('ipBlock').revisionId;
+                            var blockName = $block.data('ipBlock').name;
+                            ipContent.createWidget($revisionId, blockName, newWidgetName, position);
                         }
     
                     }
@@ -142,6 +133,12 @@
                         return;
                     $(this).ipBlock('reinit');
                 });
+                $this.on('click', '> .ipbExampleContent', function () {
+                    var $block = $this;
+                    var $exampleContent = $(this);
+                    ipContent.createWidget(ip.revisionId, $block.data('ipBlock').name, 'IpText', 0);
+                    $exampleContent.remove();
+                });
 
             }
         });
@@ -153,34 +150,15 @@
             var widgetOptions = new Object;
             widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
             $(this).children('.ipWidget').ipWidget(widgetOptions);
-
         });
     },
 
-    _moveWidgetResponse : function(response) {
-        var $this = $(this);
-        if (response.status == 'success') {
-            $('#ipWidget-' + response.oldInstance).replaceWith(response.widgetHtml);
-            $this.trigger('reinitRequired.ipWidget');
-        }
-        // todo show error on error response
-    },
-
-    pageSaveStart : function() {
-        return this.each(function() {
-            var $this = $(this);
-            $(this).children('.ipWidget').ipWidget('fetchManaged').ipWidget('save');
-        });
-    },
 
     destroy : function() {
         // TODO
     },
 
-    _showError : function(errorMessage) {
-        alert(errorMessage);
 
-    },
 
     deleteWidget : function(instanceId) {
         return this.each(function() {
@@ -210,67 +188,9 @@
         if ($this.children('.ipWidget').length == 0) {
             $this.addClass('ipbEmpty');
         }
-    },
-
-    _createWidget : function(widgetName, position) {
-
-        return this.each(function() {
-
-            var $this = $(this);
-
-            var data = Object();
-            data.aa = 'Content.createWidget';
-            data.securityToken = ip.securityToken;
-            data.widgetName = widgetName;
-            data.position = position;
-            data.blockName = $this.data('ipBlock').name;
-            data.zoneName = $this.data('ipBlock').zoneName;
-            data.pageId = $this.data('ipBlock').pageId;
-            data.revisionId = $this.data('ipBlock').revisionId;
-
-            $.ajax({
-                type: 'POST',
-                url: ip.baseUrl,
-                data: data,
-                context: $this,
-                success: methods._createWidgetResponse,
-                dataType: 'json'
-            });
-
-        });
-
-    },
-
-    _createWidgetResponse : function(response) {
-        var $this = $(this);
-        if (response.status == 'error') {
-            $.fn.ipBlock('_showError', response.errorMessage);
-        }
-
-        if (response.status == 'success') {
-            var $newWidget = $(response.widgetHtml);
-            if (response.position == 0) {
-                $(this).prepend($newWidget);
-            } else {
-                $secondChild = $(this).children('.ipWidget:nth-child(' + response.position + ')');
-                $newWidget.insertAfter($secondChild);
-            }
-            $this.trigger('reinitRequired.ipWidget');
-            $this.trigger('addWidget.ipWidget',{
-                'instanceId': response.instanceId,
-                'widget': $newWidget
-            });
-            var widgetController = $newWidget.ipWidget('widgetController');
-            if (widgetController && typeof(widgetController['onAdd']) === 'function') {
-                widgetController.onAdd($newWidget);
-            }
-            // $this.ipBlock('reinit');
-
-        }
-        if ($this.hasClass('ipbEmpty')) {
-            $this.removeClass('ipbEmpty');
-        }
     }
+
+
 
     };
     

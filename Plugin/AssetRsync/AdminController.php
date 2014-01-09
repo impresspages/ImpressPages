@@ -23,21 +23,21 @@ class AdminController extends \Ip\Controller
 
         $field = new \Ip\Form\Field\Text(array(
             'name' => 'assetDestinationDirectory',
-            'label' => __('Asset destination directory', 'plugin-AssetRsync'),
+            'label' => __('Asset destination directory', 'AssetRsync'),
             'value' => ipGetOption('AssetRsync.assetDestinationDirectory'),
         ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Checkbox(array(
             'name' => 'syncOnCacheClear',
-            'label' => __('Sync on cache clear', 'plugin-AssetRsync'),
+            'label' => __('Sync on cache clear', 'AssetRsync'),
             'checked' => ipGetOption('AssetRsync.syncOnCacheClear') ? true : false,
         ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Submit(array(
             'name' => 'submit',
-            'value' => __('Submit', 'plugin-AssetRsync')
+            'value' => __('Submit', 'AssetRsync')
         ));
         $form->addField($field);
 

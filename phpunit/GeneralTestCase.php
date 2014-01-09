@@ -43,16 +43,9 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
     protected function setup()
     {
-        \PhpUnit\Helper\TestEnvironment::prepareFiles();
-        \PhpUnit\Helper\TestEnvironment::initCode();
+        \PhpUnit\Helper\TestEnvironment::setup();
 
         parent::setup();
-    }
-    
-    protected function tearDown()
-    {
-        \PhpUnit\Helper\TestEnvironment::cleanupFiles();
-        parent::tearDown();
     }
 
 }

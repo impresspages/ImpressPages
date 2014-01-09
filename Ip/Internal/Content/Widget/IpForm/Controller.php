@@ -124,7 +124,7 @@ class Controller extends \Ip\WidgetController{
         $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetFullRecord($postData['instanceId']);
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
-            $revision = \Ip\Revision::getRevision($fullWidgetRecord['revisionId']);
+            $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (isset($revision['zoneName']) && $revision['pageId']) {
                 $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getNavigationTitle();
             }
@@ -163,7 +163,7 @@ class Controller extends \Ip\WidgetController{
         return $data;
     }
     
-    public function generateHtml($widgetId, $instanceId, $data, $layout) {
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
 
@@ -173,7 +173,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-        return parent::generateHtml($widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
     }
     
     

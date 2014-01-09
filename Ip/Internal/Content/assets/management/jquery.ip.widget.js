@@ -150,7 +150,7 @@
                 var $this = this;
 
                 if (refresh) {
-                    var newWidget = response.previewHtml;
+                    var newWidget = response.html;
                     var $newWidget = $(newWidget);
                     $newWidget.insertAfter($this);
                     $newWidget.trigger('reinitRequired.ipWidget');
@@ -175,6 +175,7 @@
                 $.proxy(processSaveQueue, $this)();
             },
             error: function(response) {
+                console.log('save error');
                 console.log(response);
                 $this.data('saveInProgress', false);
                 $.proxy(processSaveQueue, $this)();
