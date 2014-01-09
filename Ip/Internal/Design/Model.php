@@ -252,22 +252,19 @@ class Model
             $metadata->setPath(ipConfig()->getRaw('THEME_DIR'));
         }
 
-        $iniConfig = array();
-
         //new type config
         $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'Theme.json');
         if (file_exists($themeJsonFile)) {
-            $jsonConfig = $this->parseThemeJson($themeJsonFile);
+            $config = $this->parseThemeJson($themeJsonFile);
         } else {
             $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'theme.json');
             if (file_exists($themeJsonFile)) {
-                $jsonConfig = $this->parseThemeJson($themeJsonFile);
+                $config = $this->parseThemeJson($themeJsonFile);
             } else {
-                $jsonConfig = array();
+                $config = array();
             }
         }
 
-        $config = array_merge($iniConfig, $jsonConfig);
 
         $metadata->setTitle(!empty($config['title']) ? $config['title'] : $name);
 
