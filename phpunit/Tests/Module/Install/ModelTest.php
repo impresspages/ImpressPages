@@ -11,9 +11,13 @@ use PhpUnit\Helper\TestEnvironment;
 
 class ModelTest extends \PHPUnit_Framework_TestCase
 {
+    public function setup()
+    {
+        TestEnvironment::setupCode();
+    }
+
     public function testCreateAndUseDatabase()
     {
-        TestEnvironment::initCode();
         ipDb()->disconnect();
 
         $configObj = ipConfig();
@@ -59,7 +63,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     public function testImportData()
     {
         // Prepare environment:
-        TestEnvironment::initCode();
         ipDb()->disconnect();
 
         $config = include TEST_FIXTURE_DIR . 'config/default.php';
@@ -91,9 +94,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testWriteConfig()
     {
-        // Prepare environment:
-        TestEnvironment::initCode();
-
         $emptyConfig = array();
 
         \Plugin\Install\Model::writeConfigFile($emptyConfig, TEST_TMP_DIR . 'config-testWriteConfig1.php');
@@ -105,10 +105,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
     public function testConfigBeauty()
     {
-        TestEnvironment::initCode();
-
-
-
         $sources = array(
 'line1',
 'line1
