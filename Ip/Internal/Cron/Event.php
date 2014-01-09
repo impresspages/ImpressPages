@@ -3,14 +3,9 @@
 namespace Ip\Internal\Cron;
 
 
-class System
+class Event
 {
-    public function init()
-    {
-        ipDispatcher()->addEventListener('Ip.beforeApplicationClosed', __CLASS__ . '::onClose');
-    }
-
-    public static function onClose()
+    public static function ipBeforeApplicationClosed()
     {
         /*
          Automatic execution of cron.
