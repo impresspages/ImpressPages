@@ -75,7 +75,7 @@ class Revision{
         $revisionId = ipDb()->insert('revision', $revision);
         $revision['id'] = $revisionId;
 
-        ipDispatcher()->notify('Ip.pageRevisionCreated', array('revision' => $revision));
+        ipDispatcher()->notify('ipPageRevisionCreated', array('revision' => $revision));
 
         return $revisionId;
     }

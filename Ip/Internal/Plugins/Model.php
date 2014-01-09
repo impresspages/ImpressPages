@@ -182,7 +182,7 @@ class Model{
 
         ipLog()->info('Ip.pluginRemoved: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
 
-        ipDispatcher()->notify('Ip.pluginRemoved', array(
+        ipDispatcher()->notify('ipPluginRemoved', array(
                 'name' => $pluginName,
                 'version' => $version,
             ));
