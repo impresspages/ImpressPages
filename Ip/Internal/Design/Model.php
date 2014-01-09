@@ -182,6 +182,8 @@ class Model
         }
         $theme = $themes[$themeName];
 
+
+        \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
         //TODOXX new way of doing. #130
 //        $configModel = new \Ip\Internal\Config\Model();
 //        $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());

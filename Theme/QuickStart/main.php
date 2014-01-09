@@ -10,7 +10,7 @@
 <body>
     <div class="topmenu">
         <?php
-        echo $this->generateMenu('top', 'menu1'); // first argument is unique name of this menu within your theme. Choose anything you like. Second argument is a zone name
+        ipSlot('Ip.menu', 'menu1');
         ?>
     </div>
     <div class="content">

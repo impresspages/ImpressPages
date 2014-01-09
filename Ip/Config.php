@@ -96,7 +96,11 @@ class Config
 
     public function theme()
     {
-        return $this->rawConfig['THEME'];
+        if (!empty($this->rawConfig['THEME'])) {
+            return $this->rawConfig['THEME'];
+        } else {
+            return ipStorage()->get('Ip', 'theme');
+        }
     }
 
 
