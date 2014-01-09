@@ -93,7 +93,7 @@ class Model{
         $id = $this->userId($username, $password);
         if ($id !== false) {
             $_SESSION['backend_session']['userId'] = $id;
-            \Ip\ServiceLocator::dispatcher()->notify('Ip.adminLoginSuccessful', array('userId' => $id));
+            \Ip\ServiceLocator::dispatcher()->notify('ipAdminLoginSuccessful', array('userId' => $id));
             ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             return true;
         } else {
