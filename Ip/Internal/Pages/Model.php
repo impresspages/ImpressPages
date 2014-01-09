@@ -84,7 +84,7 @@ class Model
 
         Db::deletePage($id);
 
-        ipDispatcher()->notify('Ip.pageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
+        ipDispatcher()->notify('ipPageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
     }
 
 
