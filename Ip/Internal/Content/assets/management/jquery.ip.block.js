@@ -133,6 +133,12 @@
                         return;
                     $(this).ipBlock('reinit');
                 });
+                $this.on('click', '> .ipbExampleContent', function () {
+                    var $block = $this;
+                    var $exampleContent = $(this);
+                    ipContent.createWidget(ip.revisionId, $block.data('ipBlock').name, 'IpText', 0);
+                    $exampleContent.remove();
+                });
 
             }
         });
@@ -144,7 +150,6 @@
             var widgetOptions = new Object;
             widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
             $(this).children('.ipWidget').ipWidget(widgetOptions);
-
         });
     },
 
