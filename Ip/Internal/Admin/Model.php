@@ -97,7 +97,7 @@ class Model{
             ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             return true;
         } else {
-            \Ip\ServiceLocator::dispatcher()->notify('Ip.adminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            \Ip\ServiceLocator::dispatcher()->notify('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             $this->loginError = __('Incorrect name or password', 'ipAdmin');
             return false;

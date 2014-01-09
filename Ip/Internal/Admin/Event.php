@@ -50,8 +50,6 @@ class Event
 
     public function init()
     {
-        ipDispatcher()->addEventListener('Ip.adminLoginFailed', array($this, 'onFailedLogin'));
-
         $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
 
