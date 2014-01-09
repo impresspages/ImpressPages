@@ -31,7 +31,7 @@ class Dispatcher
 
     public function __construct()
     {
-        $this->addEventListener('Ip.initFinished', array($this, 'registerInit'));
+        $this->addEventListener('ipInitFinished', array($this, 'registerInit'));
     }
 
     public function registerInit()
@@ -121,7 +121,7 @@ class Dispatcher
 
     private function checkInitCompleted($eventName)
     {
-        if (!$this->initCompleted && $eventName != 'Ip.initFinished') {
+        if (!$this->initCompleted && $eventName != 'ipInitFinished') {
             $backtrace = debug_backtrace();
             if (isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
                 $file = ' (Error source: ' . $backtrace[1]['file'] . ' line: ' . $backtrace[1]['line'] . ' )';
@@ -201,6 +201,49 @@ class Dispatcher
                 call_user_func($callable, $data);
             }
         } while (next($this->eventListeners[$eventName]) !== false);
+    }
+
+    public function bindApplicationEvents()
+    {
+        // Parse event files:
+        $coreModules = \Ip\Internal\Plugins\Model::getModules();
+        foreach ($coreModules as $module) {
+            $this->bindPluginEvents($module, '\Ip\Internal');
+        }
+
+        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
+        foreach ($plugins as $plugin) {
+            $this->bindPluginEvents($plugin);
+        }
+    }
+
+    protected function bindPluginEvents($plugin, $namespace = '\Plugin')
+    {
+        $this->bindPluginEventType($plugin, 'Event', $namespace);
+        $this->bindPluginEventType($plugin, 'Filter', $namespace);
+        $this->bindPluginEventType($plugin, 'Job', $namespace);
+    }
+
+    protected function bindPluginEventType($plugin, $type, $namespace)
+    {
+        $className = $namespace . '\\' . $plugin . '\\' . $type;
+        if (!class_exists($className)) {
+            return false;
+        }
+
+        $class = new \ReflectionClass($className);
+        $methods = $class->getMethods(\ReflectionMethod::IS_STATIC);
+
+        $addMethod = "add{$type}Listener";
+
+        $events = array();
+        foreach ($methods as $method) {
+            if ($method->isPublic()) {
+                $name = $method->getName();
+                $this->$addMethod($name, "{$className}::{$name}");
+            }
+        }
+        return $events;
     }
 
 }

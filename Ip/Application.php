@@ -115,7 +115,7 @@ class Application
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
         }
-        ipDispatcher()->notify('Ip.initFinished');
+        ipDispatcher()->notify('ipInitFinished');
 
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
@@ -184,6 +184,8 @@ class Application
     {
 
         \Ip\ServiceLocator::addRequest($request);
+
+        ipDispatcher()->bindApplicationEvents();
 
         $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
 
