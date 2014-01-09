@@ -262,7 +262,7 @@ class Application
      */
     public function handleResponse(\Ip\Response $response)
     {
-        $response = ipDispatcher()->filter('Ip.sendResponse', $response);
+        $response = ipDispatcher()->filter('ipSendResponse', $response);
         ipDispatcher()->notify('Ip.beforeResponseSent', array('response' => $response));
         $response->send();
     }

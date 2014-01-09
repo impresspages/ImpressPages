@@ -213,7 +213,7 @@ class Model
             )
         );
 
-        $optionsMenu = ipDispatcher()->filter('Ip.widgetMangementMenu', $optionsMenu, $widgetRecord);
+        $optionsMenu = ipDispatcher()->filter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
         $data = array(
             'optionsMenu' => $optionsMenu,
         );
