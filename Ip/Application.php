@@ -97,8 +97,12 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
     }
 
-    protected function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    private function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
+        if (empty($options['skipInitEvents'])) {
+            ipDispatcher()->_bindApplicationEvents();
+        }
+
         if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
             $request->fixMagicQuotes();
         }
@@ -221,8 +225,6 @@ class Application
 
     public function modulesInit()
     {
-        ipDispatcher()->_bindApplicationEvents();
-
         ipDispatcher()->notify('ipInit');
 
         $translator = \Ip\ServiceLocator::translator();
