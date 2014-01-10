@@ -591,15 +591,14 @@ function ipTable($table, $as = null)
 }
 
 /**
- * TODOX ???
+ * Check if user has right to execute administrative action on plugin
  * @param $plugin
  * @param null $action
- * @param null $data
- * @return bool
+ * @return bool true if user has permission to do the action
  */
-function ipIsAllowed($plugin, $action = NULL, $data = NULL)
+function ipAdminPermission($plugin, $action = NULL)
 {
-    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
+    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action);
 }
 
 
