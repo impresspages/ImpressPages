@@ -16,7 +16,7 @@
 ')); ?>
 <?php echo ipRenderWidget('IpTitle', array('title' => 'For titles always use "Title" widget', 'level' => 2)); ?>
 
-<?php echo ipRenderWidget('IpImage', array('imageSmall' => 'Ip/Internal/Content/img/example_image.jpg')); ?>
+<?php echo ipRenderWidget('IpImage', array('imageSmall' => ipFileUrl('Ip/Internal/Content/img/example_image.jpg'))); ?>
 
 <?php echo ipRenderWidget('IpText', array('text' => '
     <p>Put an image next to the text. It can be on the left or right. Just select a different layout. It\'s easy as that.</p>
