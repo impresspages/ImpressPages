@@ -13,7 +13,7 @@ class DefaultEnvironmentTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(file_exists(ipFile('file/repository/')), 'file/repository doesn\'t exist.');
 
-        $this->assertNotEmpty(ipDispatcher(), 'Dispatcher not loaded.');
+        $this->assertNotEmpty(\Ip\ServiceLocator::dispatcher(), 'Dispatcher not loaded.');
     }
 
 

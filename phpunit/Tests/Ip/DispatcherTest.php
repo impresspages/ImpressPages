@@ -24,7 +24,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterString()
     {
-        ipDispatcher()->addFilterListener('TestEvent1', function ($value, $data) {
+        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent1', function ($value, $data) {
                 return $value . '!';
             }
         );
@@ -35,7 +35,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterTwoHandlers()
     {
-        ipDispatcher()->addFilterListener('TestEvent2', function ($result, $data) {
+        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent2', function ($result, $data) {
                 return 'TestEvent: ' . $result;
             }
         );
@@ -48,10 +48,10 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
             return $defaultResult;
         };
 
-        ipDispatcher()->addFilterListener('TestEvent3', $addItemHandler);
-        ipDispatcher()->addFilterListener('TestEvent3', $addItemHandler);
+        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent3', $addItemHandler);
+        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent3', $addItemHandler);
 
-        $result = $result = ipDispatcher()->filter('TestEvent3', array('Dog'), 'Cat');
+        $result = $result = \Ip\ServiceLocator::dispatcher()->filter('TestEvent3', array('Dog'), 'Cat');
 
         $this->assertEquals(array('Dog', 'Cat', 'Cat'), $result);
     }
@@ -61,18 +61,18 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 //        // Init environment:
 //        TestEnvironment::initCode();
 //        \Ip\ServiceLocator::addRequest(new \Ip\Request());
-//        ipDispatcher()->registerInit();
+//        \Ip\ServiceLocator::dispatcher()->registerInit();
 //
-//        $result = ipDispatcher()->job('TestJob', array('name' => 'MyName'));
+//        $result = \Ip\ServiceLocator::dispatcher()->job('TestJob', array('name' => 'MyName'));
 //        $this->assertEquals(NULL, $result);
 //
 //        // Bind event:
-//        ipDispatcher()->addJobListener('TestJob', function ($data) {
+//        \Ip\ServiceLocator::dispatcher()->addJobListener('TestJob', function ($data) {
 //                return $data;
 //            }
 //        );
 //
-//        $result = ipDispatcher()->job('TestJob', array('name' => 'MyName'));
+//        $result = \Ip\ServiceLocator::dispatcher()->job('TestJob', array('name' => 'MyName'));
 //        $this->assertEquals(array('name' => 'MyName'), $result);
 //    }
 
