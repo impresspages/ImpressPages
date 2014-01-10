@@ -220,7 +220,7 @@ class PublicController extends \Ip\Controller
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should sart with letter.', 'Install', false));
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with letter.', 'Install', false));
         }
 
 
