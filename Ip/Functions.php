@@ -267,25 +267,33 @@ function ipRequest()
 }
 
 /**
- * Gets dispatcher object.
- * Used for events, filters and jobs.
+ * Creates event.
  * @return \Ip\Dispatcher
  */
-function ipDispatcher()
-{
-    return \Ip\ServiceLocator::dispatcher();
-}
 
 function ipEvent($event, $data = array())
 {
     return \Ip\ServiceLocator::dispatcher()->notify($event, $data);
 }
 
+/**
+ * Filters data.
+ * @param $event filter name
+ * @param $value
+ * @param array $data
+ * @return mixed filtered data
+ */
 function ipFilter($event, $value, $data = array())
 {
     return \Ip\ServiceLocator::dispatcher()->filter($event, $value, $data);
 }
 
+/**
+ * Creates job.
+ * @param $eventName
+ * @param array $data
+ * @return mixed|null
+ */
 function ipJob($eventName, $data = array())
 {
     return \Ip\ServiceLocator::dispatcher()->job($eventName, $data);

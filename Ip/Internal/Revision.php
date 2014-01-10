@@ -186,7 +186,7 @@ class Revision{
 
         $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));
 
-        $dispatcher = ipDispatcher();
+        $dispatcher = \Ip\ServiceLocator::dispatcher();
 
         foreach ($revisionList as $revisionId) {
             $eventData = array(
