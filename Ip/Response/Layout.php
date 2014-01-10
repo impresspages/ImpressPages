@@ -257,7 +257,8 @@ class Layout extends \Ip\Response {
                 'revisionId' => $revision['revisionId'],
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
-                'debugMode' => ipconfig()->isDebugMode()
+                'debugMode' => ipconfig()->isDebugMode(),
+                'managementState' => ipIsManagementState()
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,

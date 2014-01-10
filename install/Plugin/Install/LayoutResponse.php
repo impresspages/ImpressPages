@@ -90,7 +90,8 @@ class LayoutResponse extends \Ip\Response\Layout
                 'revisionId' => null,
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
-                'debugMode' => ipconfig()->isDebugMode()
+                'debugMode' => ipconfig()->isDebugMode(),
+                'managementState' => false
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
