@@ -4,38 +4,77 @@
  * ImpressPages sugar methods
  */
 
+
+/**
+ * Get CMS application object.
+ * @return \Ip\Application
+ */
 function ipApplication()
 {
     return \Ip\ServiceLocator::application();
 }
 
+/**
+ * Get security token string.
+ * @return string
+ */
 function ipSecurityToken()
 {
     return ipApplication()->getSecurityToken();
 }
 
+/**
+ * Get CMS option value.
+ * Options can be viewed or changed using administration pages. You can use this function to get your plugin settings.
+ * @param $option
+ * @param null $defaultValue
+ * @return string
+ */
 function ipGetOption($option, $defaultValue = null)
 {
     return \Ip\ServiceLocator::options()->getOption($option, $defaultValue);
 }
 
+/**
+ * Get CMS language specific option value.
+ * @param $option
+ * @param $languageId
+ * @param null $defaultValue
+ * @return string
+*/
 
 function ipGetOptionLang($option, $languageId, $defaultValue = null)
 {
     return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId, $defaultValue);
 }
 
-
+/**
+ * Set CMS option value.
+ * Options can be viewed or changed using administration pages. You can use this function to set your plugin settings.
+ * @param $option
+ * @param $value
+ */
 function ipSetOption($option, $value)
 {
     \Ip\ServiceLocator::options()->setOption($option, $value);
 }
 
+/**
+ *  Set CMS language specific option value.
+ * @param $option
+ * @param $value
+ * @param $languageId
+ */
 function ipSetOptionLang($option, $value, $languageId)
 {
     \Ip\ServiceLocator::options()->setOptionLang($option, $languageId, $value);
 }
 
+/**
+ * Remove CMS option.
+ * Options can be viewed or changed using administration pages.
+ * @param $option
+ */
 function ipRemoveOption($option)
 {
     return \Ip\ServiceLocator::options()->removeOption($option);
@@ -47,9 +86,8 @@ function ipRemoveOptionLang($option, $languageId)
 }
 
 
-
-
 /**
+ * Get website configuration object.
  * @return \Ip\Config
  */
 function ipConfig()
@@ -60,6 +98,8 @@ function ipConfig()
 
 
 /**
+ * Get CMS content object.
+ * Use this object to access zones, pages and languages.
  * @return \Ip\Content
  */
 function ipContent()
@@ -67,16 +107,13 @@ function ipContent()
     return \Ip\ServiceLocator::content();
 }
 
-function ipSetLayoutVariable($name, $value)
-{
-    $response = \Ip\ServiceLocator::response();
-    if (method_exists($response, 'setLayoutVariable')) {
-        $response->setLayoutVariable($name, $value);
-    } else {
-        ipLog()->error('Response.cantSetLayoutVariable: Response method has no method setLayoutVariable', array('response' => $response));
-    }
-}
 
+/**
+ * Adds JavaScript file to a web page.
+ * After adding all JavaScript files, use ipJs() function to generate JavaScript links HTML code.
+ * @param $file JavaScript file
+ * @param int $stage
+ */
 function ipAddJs($file, $stage = 1)
 {
     $response = \Ip\ServiceLocator::response();
@@ -85,7 +122,11 @@ function ipAddJs($file, $stage = 1)
     }
 }
 
-
+/**
+ * Passes PHP variable to JavaScript code.
+ * @param $name
+ * @param $value
+ */
 
 function ipAddJsVariable($name, $value)
 {
@@ -97,7 +138,12 @@ function ipAddJsVariable($name, $value)
     }
 }
 
-
+/**
+ * Add CSS file from your plugin or theme
+ * After adding all CSS files, use ipHead() function to generate HTML head.
+ * @param $file
+ * @param int $stage
+ */
 
 function ipAddCss($file, $stage = 1)
 {
@@ -113,22 +159,39 @@ function ipAddCss($file, $stage = 1)
 
 }
 
+/**
+ * Returns CMS log object.
+ * Use this object to create and access log records.
+ * @return \Psr\Log\LoggerInterface
+ */
 function ipLog()
 {
     return \Ip\ServiceLocator::log();
 }
 
+/**
+ * Generates HTML code which loads JavaScript files added by ipAddJs() function.
+ * @return mixed
+ */
 
 function ipJs()
 {
     return \Ip\ServiceLocator::response()->generateJavascript();
 }
 
-
+/**
+ * Generates HTML head.
+ * @return mixed
+ */
 function ipHead()
 {
     return \Ip\ServiceLocator::response()->generateHead();
 }
+
+/**
+ * Set HTML layout file.
+ * @param $file
+ */
 
 function ipSetLayout($file)
 {
@@ -148,6 +211,9 @@ function ipResponse()
     return \Ip\ServiceLocator::response();
 }
 
+/**
+ * Gets HTML layout.
+ */
 function ipGetLayout()
 {
     $response = \Ip\ServiceLocator::response();
@@ -159,6 +225,7 @@ function ipGetLayout()
 }
 
 /**
+ * Gets CMS block object.
  * @param $block
  * @return \Ip\Block
  */
@@ -169,6 +236,7 @@ function ipBlock($block)
 
 
 /**
+ * Gets CMS slot object.
  * @param $slot
  * @param array $params
  */
@@ -177,11 +245,20 @@ function ipSlot($slot, $params = array())
     return \Ip\ServiceLocator::slots()->generateSlot($slot, $params);
 }
 
+/**
+ * Checks if the website is opened in administration mode.
+ * @return bool
+ */
 
 function ipIsManagementState()
 {
     return \Ip\Internal\Content\Service::isManagementMode();
 }
+
+/**
+ * Get HTTP request data for your plugins.
+ * @return \Ip\Request
+ */
 
 function ipRequest()
 {
@@ -189,6 +266,8 @@ function ipRequest()
 }
 
 /**
+ * Gets dispatcher object.
+ * Used for events, filters and jobs.
  * @return \Ip\Dispatcher
  */
 function ipDispatcher()
@@ -197,6 +276,7 @@ function ipDispatcher()
 }
 
 /**
+ * Returns an object, which provides plugin developers with methods for connecting to database, executing SQL queries and fetching results.
  * @return \Ip\Db
  */
 function ipDb()
@@ -241,6 +321,13 @@ function escAttr($value)
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Translate and escape string. More about translations: http://www.impresspages.org/doc2/translations
+ * @param $text original value in English
+ * @param $domain
+ * @param string $esc escape type. Available values: false, 'html', 'attr', 'textarea'
+ * @return string translated string or original string if no translation exists
+ */
 function __($text, $domain, $esc = 'html')
 {
     return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
@@ -283,21 +370,41 @@ if (!function_exists('ipFileUrl')) {
     }
 }
 
+/**
+ * Generates URL-encoded query string
+ * @param $query associative (or indexed) array
+ * @return string\ URL string
+ */
 function ipActionUrl($query)
 {
     return ipConfig()->baseUrl() . '?' . http_build_query($query);
 }
 
+/**
+ * Gets url for current theme folder.
+ * @param $path
+ * @return mixed|string
+ */
 function ipThemeUrl($path)
 {
     return ipFileUrl('Theme/' . ipConfig()->theme() . '/' . $path);
 }
+
+/**
+ * Gets file path for current theme folder.
+ * @param $path
+ * @return mixed|string
+ */
 
 function ipThemeFile($path)
 {
     return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
 }
 
+/**
+ * Gets homepage URL.
+ * @return string
+ */
 function ipHomeUrl()
 {
     $homeUrl = ipConfig()->baseUrl();
@@ -312,33 +419,76 @@ function ipHomeUrl()
     return $homeUrl;
 }
 
+/**
+ * Generates widget HTML.
+ * @param $widgetName
+ * @param array $data
+ * @param null $look
+ * @return string
+ */
 function ipRenderWidget($widgetName, $data = array(), $look = null)
 {
     $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
     return $answer;
 }
 
+/**
+ * Gets formatted currency string.
+ * @param $price
+ * @param $currency
+ * @param $context
+ * @param null $languageId
+ * @return string
+ */
+
 function ipFormatPrice($price, $currency, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
 }
 
+/**
+ * Gets formatted date string.
+ * @param $unixTimestamp
+ * @param $context
+ * @param null $languageId
+ * @return bool|mixed|null|string
+ */
 function ipFormatDate($unixTimestamp, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
 }
 
+/**
+ * Gets formatted time string.
+ * @param $unixTimestamp
+ * @param $context
+ * @param null $languageId
+ * @return bool|mixed|null|string
+ */
 function ipFormatTime($unixTimestamp, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageId);
 }
 
+/**
+ * Gets formatted date-time string.
+ * @param $unixTimestamp
+ * @param $context
+ * @param null $languageId
+ * @return bool|mixed|null|string
+ */
 function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 {
     return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageId);
 }
 
-
+/**
+ * Gets theme option value.
+ * Theme options ar used for changing theme design. These options can be managed using administration page.
+ * @param $name
+ * @param null $default
+ * @return string
+ */
 
 function ipGetThemeOption($name, $default = null)
 {
@@ -346,7 +496,11 @@ function ipGetThemeOption($name, $default = null)
     return $themeService->getThemeOption($name, $default);
 }
 
-
+/**
+ * Gets HTML attributes for <html> tag.
+ * @param null $doctype
+ * @return string
+ */
 function ipHtmlAttributes($doctype = null)
 {
     $content = \Ip\ServiceLocator::content();
@@ -376,7 +530,12 @@ function ipHtmlAttributes($doctype = null)
 
 }
 
-
+/**
+ * Gets HTML doc type.
+ * @param null $doctype
+ * @return string
+ * @throws Exception
+ */
 
 function ipDoctypeDeclaration($doctype = null)
 {
@@ -412,6 +571,12 @@ function ipDoctypeDeclaration($doctype = null)
     return $answer;
 }
 
+/**
+ * Gets SQL table name by adding CMS database prefix.
+ * @param $table
+ * @param null $as
+ * @return string
+ */
 function ipTable($table, $as = null)
 {
     $answer = '`' . ipConfig()->tablePrefix() . $table . '`';
@@ -425,6 +590,13 @@ function ipTable($table, $as = null)
     return $answer;
 }
 
+/**
+ * TODOX ???
+ * @param $plugin
+ * @param null $action
+ * @param null $data
+ * @return bool
+ */
 function ipIsAllowed($plugin, $action = NULL, $data = NULL)
 {
     return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
@@ -458,13 +630,20 @@ function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=
     $emailQueue->send();
 }
 
-
+/**
+ * Get a view object from specified file and data
+ * @param $file
+ * @param array $data
+ * @return \Ip\View
+ */
 function ipView($file, $data = array())
 {
     return \Ip\View::create($file, $data);
 }
 
 /**
+ * Get CMS storage object
+ * CMS storage is a key-value storage, where any plugin can store it's data.
  * @return \Ip\Storage
  */
 function ipStorage()
