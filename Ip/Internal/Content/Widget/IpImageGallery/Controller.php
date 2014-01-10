@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\IpImageGallery;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Photo gallery', 'ipAdmin', false);
+        return __('Image gallery', 'ipAdmin', false);
     }
 
     
@@ -115,9 +115,10 @@ class Controller extends \Ip\WidgetController{
                     if (!isset($postData['position'])) {
                         throw new \Ip\Exception("Missing required parameter");
                     }
-                    $deletePosition = $postData['position'];
+                    $deletePosition = (int)$postData['position'];
 
                     unset($currentData['images'][$deletePosition]);
+                    $currentData['images'] = array_values($currentData['images']); // 'reindex' array
                     return $currentData;
                 default:
                     throw new \Ip\Exception('Unknown command');

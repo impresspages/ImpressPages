@@ -10,6 +10,43 @@ var ipContent;
 
     ipContent = new function() {
 
+        this.deleteWidget = function (instanceId, callback) {
+            var $widget = $('#ipWidget-' + instanceId);
+            var $subwidgets = $widget.find('.ipWidget');
+
+            var $this = $(this);
+
+            var data = Object();
+            data.aa = 'Content.deleteWidget';
+            data.securityToken = ip.securityToken;
+            data.instanceId = Array();
+
+            $.each($subwidgets, function (key, widget) {
+                var $widget = $(widget);
+                data.instanceId.push($widget.data('widgetinstanceid'));
+            });
+
+            data.instanceId.push(instanceId);
+
+
+            $.ajax( {
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                success : function(response) {
+                    var $block = $widget.closest('.ipBlock');
+                    $widget.remove();
+                    if ($block.children('.ipWidget').length == 0) {
+                        $this.addClass('ipbEmpty');
+                    }
+                    if (callback) {
+                        callback($newWidget.data('widgetinstanceid'));
+                    }
+                },
+                dataType : 'json'
+            });
+        }
+
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
             var createdWidgetInstanceId;
             var $targetWidget =  $('#ipWidget-' + targetWidgetInstanceId);

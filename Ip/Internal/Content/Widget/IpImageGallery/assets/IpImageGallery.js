@@ -85,15 +85,16 @@ var IpWidget_IpImageGallery;
             var context = this;
             e.preventDefault();
 
-            var $li = $(e.currentTarget).find('img');
+            var $li = $(e.currentTarget);
+            var $img = $li.find('img');
             var $controls = this.$controls;
 
             $controls.removeClass('ipgHide');
             $controls.css('position', 'absolute');
-            $controls.css('left', $li.offset().left + 5);
-            $controls.css('top', $li.offset().top + 5);
+            $controls.css('left', $img.offset().left + 5);
+            $controls.css('top', $img.offset().top + 5);
 
-            $controls.find('.ipsDelete').on('click', function(e) {
+            $controls.find('.ipsDelete').off().on('click', function(e) {
                 $.proxy(context.deleteImage, context)($li.index());
             });
         };
@@ -112,10 +113,10 @@ var IpWidget_IpImageGallery;
             $widgetControls.css('position', 'absolute');
             $widgetControls.css('left', $widgetObject.offset().left);
             $widgetControls.css('top', $widgetObject.offset().top - $widgetControls.height() - 5);
-            $widgetControls.find('.ipsAdd').on('click', function(e){
+            $widgetControls.find('.ipsAdd').off().on('click', function(e){
                 e.preventDefault();
                 var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
-                repository.bind('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
+                repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
             });
 
         }
@@ -125,6 +126,13 @@ var IpWidget_IpImageGallery;
         };
 
         this.deleteImage = function (position) {
+            if (!this.data.images[1]) { //if last image
+                //remove the whole widget
+                ipContent.deleteWidget(this.$widgetObject.data('widgetinstanceid'));
+                return;
+            }
+
+            //proceed deleting single image
             var data = {};
             data.method = 'delete';
             data.position = position;
