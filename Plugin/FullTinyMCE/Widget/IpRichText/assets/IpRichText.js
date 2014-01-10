@@ -13,7 +13,7 @@ function IpWidget_IpRichText(widgetObject) {
 
     function manageInit() {
         var instanceData = this.widgetObject.data('ipWidget');
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfigTable());
+        this.widgetObject.find('textarea').tinymce(ipTinyMceConfig());
     }
 
     function prepareData() {
