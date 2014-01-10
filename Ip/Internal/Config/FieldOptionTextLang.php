@@ -36,7 +36,7 @@ class FieldOptionTextLang extends Field{
         $languages = ipContent()->getLanguages();
         $answer = '';
         foreach ($languages as $language) {
-            $value = ipGetOptionLang($this->getOptionName(), $language->getId(), $this->getDefaultValue());
+            $value = ipGetOptionLang($this->getOptionName(), $language->getId(), $this->getValue());
             $fieldId = $this->getName() . '_'.$language->getId().'';
             $answer .= '
 <div class="input-group">
