@@ -425,9 +425,15 @@ function ipTable($table, $as = null)
     return $answer;
 }
 
-function ipIsAllowed($plugin, $action = NULL, $data = NULL)
+/**
+ * Check if user has right to execute administrative action on plugin
+ * @param $plugin
+ * @param null $action
+ * @return bool true if user has permission to do the action
+ */
+function ipAdminPermission($plugin, $action = NULL)
 {
-    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
+    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action);
 }
 
 
