@@ -52,7 +52,7 @@ class Event
                     return; //TODO replace to something that would not terminate execution of following scripts if they will be there some day
                 }
 
-                ipDispatcher()->notify('ipSystemMessages', array('messages' => $messages));
+                ipEvent('ipSystemMessages', array('messages' => $messages));
 
                 \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
             }

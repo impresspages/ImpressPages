@@ -18,7 +18,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 
     public function testFilterEmpty()
     {
-        $result = ipDispatcher()->filter('Filter', 'MyName');
+        $result = ipFilter('Filter', 'MyName');
         $this->assertEquals('MyName', $result);
     }
 
@@ -29,7 +29,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $result = ipDispatcher()->filter('TestEvent1', 'MyName');
+        $result = ipFilter('TestEvent1', 'MyName');
         $this->assertEquals('MyName!', $result);
     }
 
@@ -40,7 +40,7 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
             }
         );
 
-        $result = ipDispatcher()->filter('TestEvent2', 'Cat');
+        $result = ipFilter('TestEvent2', 'Cat');
         $this->assertEquals('TestEvent: Cat', $result);
 
         $addItemHandler = function ($defaultResult, $data) {

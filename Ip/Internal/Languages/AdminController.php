@@ -163,7 +163,7 @@ class AdminController extends \Ip\GridController
         if($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
             $oldUrl = ipFileUrl('') . self::$urlBeforeUpdate.'/';
             $newUrl = ipFileUrl('') . $tmpLanguage['url'].'/';
-            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 

@@ -115,7 +115,7 @@ class Application
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
         }
-        ipDispatcher()->notify('ipInitFinished');
+        ipEvent('ipInitFinished');
 
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
@@ -221,9 +221,9 @@ class Application
 
     public function modulesInit()
     {
-        ipDispatcher()->_bindApplicationEvents();
+        \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
 
-        ipDispatcher()->notify('ipInit');
+        ipEvent('ipInit');
 
         $translator = \Ip\ServiceLocator::translator();
         $originalDir = ipFile("file/translations/original/");
@@ -262,14 +262,14 @@ class Application
      */
     public function handleResponse(\Ip\Response $response)
     {
-        $response = ipDispatcher()->filter('ipSendResponse', $response);
-        ipDispatcher()->notify('ipBeforeResponseSent', array('response' => $response));
+        $response = ipFilter('ipSendResponse', $response);
+        ipEvent('ipBeforeResponseSent', array('response' => $response));
         $response->send();
     }
 
     public function close()
     {
-        ipDispatcher()->notify('ipBeforeApplicationClosed');
+        ipEvent('ipBeforeApplicationClosed');
 
         ipDb()->disconnect();
     }

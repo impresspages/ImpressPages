@@ -49,9 +49,9 @@ class Module
 
         // TODO move somewhere
         if (ipConfig()->baseUrl() != $cachedUrl) {
-            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
+            ipEvent('ipUrlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
         }
-        ipDispatcher()->notify('ipCacheClear');
+        ipEvent('ipCacheClear');
     }
 
     public function getSystemInfo()

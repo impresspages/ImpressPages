@@ -84,7 +84,7 @@ class Model
 
         Db::deletePage($id);
 
-        ipDispatcher()->notify('ipPageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
+        ipEvent('ipPageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
     }
 
 
@@ -300,7 +300,7 @@ class Model
         $newUrl = ipFileUrl('') . $language->getUrl() . '/' . $newUrl . '/';
 
         if ($oldUrl != $newUrl) {
-            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
 
@@ -309,7 +309,7 @@ class Model
         $zone = ipDb()->select('*', 'zone', array('name' => $zoneName));
         if (isset($zone[0])) {
             $zone = $zone[0];
-            ipDispatcher()->notify('ipBeforeZoneDeleted', $zone);
+            ipEvent('ipBeforeZoneDeleted', $zone);
             ipDb()->delete('zone', array('name' => $zoneName));
             ipDb()->delete('zone_to_language', array('zone_id' => $zone['id']));
         }

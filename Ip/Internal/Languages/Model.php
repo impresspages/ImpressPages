@@ -29,7 +29,7 @@ class Model{
         );
         $languageId = ipDb()->insert('language', $params);
 
-        ipDispatcher()->notify('ipLanguageAdded', array('id' => $languageId));
+        ipEvent('ipLanguageAdded', array('id' => $languageId));
 
         return $languageId;
     }
@@ -37,7 +37,7 @@ class Model{
     public static function delete($id)
     {
         ipDb()->delete('language', array('id' => $id));
-        ipDispatcher()->notify('ipBeforeLanguageDeleted', array('id' => $id));
+        ipEvent('ipBeforeLanguageDeleted', array('id' => $id));
     }
 
     private static function getPositionPriority($position)
