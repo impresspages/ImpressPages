@@ -227,7 +227,7 @@ class AdminController extends \Ip\Controller
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
-            'generateHtml' => $previewHtml,
+            'html' => $previewHtml,
             'instanceId' => $instanceId
         );
 
