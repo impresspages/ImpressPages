@@ -17,7 +17,6 @@ class Filter
         $widgets['IpImageGallery'] = new \Ip\Internal\Content\Widget\IpImageGallery\Controller('IpImageGallery', 'Content', 1);
         //$widgets['IpLogoGallery'] = new \Ip\Internal\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
         //$widgets['IpFile'] = new \Ip\Internal\Content\Widget\IpFile\Controller('IpFile', 'Content', 1);
-        //$widgets['IpTable'] = new \Ip\Internal\Content\Widget\IpTable\Controller('IpTable', 'Content', 1);
         $widgets['IpHtml'] = new \Ip\Internal\Content\Widget\IpHtml\Controller('IpHtml', 'Content', 1);
         //$widgets['IpFaq'] = new \Ip\Internal\Content\Widget\IpFaq\Controller('IpFaq', 'Content', 1);
         $widgets['IpColumns'] = new \Ip\Internal\Content\Widget\IpColumns\Controller('IpColumns', 'Content', 1);
