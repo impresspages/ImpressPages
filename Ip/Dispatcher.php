@@ -221,14 +221,14 @@ class Dispatcher
         }
     }
 
-    protected function bindPluginEvents($plugin, $namespace = '\Plugin')
+    private function bindPluginEvents($plugin, $namespace = '\Plugin')
     {
         $this->bindPluginEventType($plugin, 'Event', $namespace);
         $this->bindPluginEventType($plugin, 'Filter', $namespace);
         $this->bindPluginEventType($plugin, 'Job', $namespace);
     }
 
-    protected function bindPluginEventType($plugin, $type, $namespace)
+    private function bindPluginEventType($plugin, $type, $namespace)
     {
         $className = $namespace . '\\' . $plugin . '\\' . $type;
         if (!class_exists($className)) {
@@ -242,14 +242,36 @@ class Dispatcher
 
         $events = array();
         foreach ($methods as $method) {
-            $name = $method->getName();
+
+
             if ($method->isStatic()) {
-                $this->$addMethod($name, "{$className}::{$name}");
+                $info = $this->extractEventNamePriority($method->getName());
+                $this->$addMethod($info['name'], "{$className}::{$info['method']}", $info['priority']);
             } elseif (ipConfig()->isDevelopmentEnvironment()) {
-                throw new \Ip\Exception("{$plugin}\\{$type}::{$name} must be static.");
+                throw new \Ip\Exception("{$plugin}\\{$type}::{$method->getName()} must be static.");
             }
         }
         return $events;
+    }
+
+    private function extractEventNamePriority($methodName)
+    {
+        $info = array(
+            'name' => $methodName,
+            'method' => $methodName,
+            'priority' => 10,
+        );
+
+        $lastUnderscore =  strrpos($methodName , '_');
+        if ($lastUnderscore) {
+            $priority = substr($methodName, $lastUnderscore + 1);
+            if (ctype_digit($priority)) {
+                $info['name'] = substr($methodName, 0, $lastUnderscore);
+                $info['priority'] = (int)$priority;
+            }
+        }
+
+        return $info;
     }
 
 }
