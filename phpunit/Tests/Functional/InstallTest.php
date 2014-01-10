@@ -116,6 +116,8 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $page->findById('config_timezone')->selectOption('Europe/London');
         $page->find('css', '.btn-primary')->click();
 
+        sleep(1);
+
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
         $this->assertEquals('ImpressPages CMS has been successfully installed.', $page->find('css', '.alert-success')->getText());
