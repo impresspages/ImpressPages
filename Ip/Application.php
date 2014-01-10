@@ -158,7 +158,7 @@ class Application
 
         if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $plugin = $request->getControllerModule();
-            if (!ipIsAllowed($plugin, 'executeAdminAction', array('action' => $action))) {
+            if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
                 throw new \Ip\Exception('User has no permission to execute ' . $request->getControllerModule(
                     ) . '.' . $request->getControllerAction() . ' action');
             }
@@ -221,7 +221,7 @@ class Application
 
     public function modulesInit()
     {
-        ipDispatcher()->bindApplicationEvents();
+        ipDispatcher()->_bindApplicationEvents();
 
         ipDispatcher()->notify('ipInit');
 
