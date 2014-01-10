@@ -85,48 +85,6 @@
                 widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
                 $this.children('.ipWidget').ipWidget(widgetOptions);
 
-                $this.delegate('.ipWidget .ipActionWidgetDelete', 'click', function(event) {
-                    // ignore events which bubble up from nested blocks
-                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
-                        return;
-                    event.preventDefault();
-                    $(this).trigger('deleteClick.ipBlock');
-                });
-
-                $this.delegate('.ipWidget', 'deleteClick.ipBlock', function(event) {
-                    // ignore events which bubble up from nested blocks
-                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
-                        return;
-                    // trigger deleteWidget event for the widget in question,
-                    // as well as any subwidgets it may host
-                    // TODO: sending n requests for n widgets may not be the
-                    //       most elegant thing to do, however the backend does
-                    //       not know a thing about nesting (to fix this, the 
-                    //       backend must be extended so it can delete more than
-                    //       one widget in a single request). 
-                    var $instance = $(this),
-                        instanceData = $instance.data('widgetdata'),
-                        instanceId = $instance.data('widgetinstanceid'),
-                        $subwidgets = $instance.find('.ipWidget');
-
-                    $subwidgets.each(function () {
-                        $(this).trigger('deleteWidget.ipBlock', {
-                            'instanceId': $(this).data('widgetinstanceid')
-                        });
-                    });
-                    
-                    $instance.trigger('deleteWidget.ipBlock', {
-                        'instanceId': instanceId
-                    });
-                });
-
-                $this.bind('deleteWidget.ipBlock', function(event, data) {
-                    // ignore events which bubble up from nested blocks
-                    if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
-                        return;
-                    $(this).ipBlock('deleteWidget', data.instanceId);
-                });
-
                 $this.bind('reinitRequired.ipWidget', function(event) {
                     // ignore events which bubble up from nested blocks
                     if ( $(event.target).closest('.ipBlock')[0] != $this[0] )
@@ -156,39 +114,8 @@
 
     destroy : function() {
         // TODO
-    },
-
-
-
-    deleteWidget : function(instanceId) {
-        return this.each(function() {
-
-            var $this = $(this);
-
-            var data = Object();
-            data.aa = 'Content.deleteWidget';
-            data.securityToken = ip.securityToken;
-            data.instanceId = instanceId;
-
-
-            $.ajax( {
-            type : 'POST',
-            url : ip.baseUrl,
-            data : data,
-            context : $this,
-            success : methods._deleteWidgetResponse,
-            dataType : 'json'
-            });
-        });
-    },
-
-    _deleteWidgetResponse : function(response) {
-        var $this = $(this);
-        $this.find('#ipWidget-' + response.widgetId).remove();
-        if ($this.children('.ipWidget').length == 0) {
-            $this.addClass('ipbEmpty');
-        }
     }
+
 
 
 

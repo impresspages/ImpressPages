@@ -33,6 +33,11 @@
                     }
                 }
 
+                $this.find('.ipActionWidgetDelete').on('click', function(e) {
+                    e.preventDefault();
+                    ipContent.deleteWidget($this.data('widgetinstanceid'));
+                });
+
                 $this.find('.ipsLook').on('click', $.proxy(openLayoutModal, this));
 
             });

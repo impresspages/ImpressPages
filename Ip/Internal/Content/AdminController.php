@@ -240,14 +240,21 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing instanceId POST variable');
         }
-        $instanceId = (int)$_POST['instanceId'];
+        $instanceId = $_POST['instanceId'];
 
-        Service::deleteWidgetInstance($instanceId);
+        if (is_array($instanceId)) {
+            foreach($instanceId as $curInstanceId) {
+                Service::deleteWidgetInstance($curInstanceId);
+            }
+        } else {
+            $instanceId = (int)$instanceId;
+            Service::deleteWidgetInstance($instanceId);
+        }
+
+
 
         $data = array(
-            'status' => 'success',
-            'action' => '_deleteWidgetResponse',
-            'widgetId' => $instanceId
+            'status' => 'success'
         );
 
         return new \Ip\Response\Json($data);
