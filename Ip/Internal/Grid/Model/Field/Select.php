@@ -45,7 +45,7 @@ class Select extends \Ip\Internal\Grid\Model\Field
             'name' => $this->field,
             'values' => $this->values
         ));
-        $field->setDefaultValue($this->defaultValue);
+        $field->setValue($this->defaultValue);
         return $field;
     }
 
@@ -60,7 +60,7 @@ class Select extends \Ip\Internal\Grid\Model\Field
             'name' => $this->field,
             'values' => $this->values
         ));
-        $field->setDefaultValue($curData[$this->field]);
+        $field->setValue($curData[$this->field]);
         return $field;
     }
 

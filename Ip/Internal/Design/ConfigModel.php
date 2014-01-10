@@ -212,15 +212,15 @@ class ConfigModel{
         $form->addFieldset(new \Ip\Form\Fieldset());
         $field = new Form\Field\Hidden();
         $field->setName('g');
-        $field->setDefaultValue('standard');
+        $field->setValue('standard');
         $form->addField($field);
         $field = new Form\Field\Hidden();
         $field->setName('m');
-        $field->setDefaultValue('design');
+        $field->setValue('design');
         $form->addField($field);
         $field = new Form\Field\Hidden();
         $field->setName('aa');
-        $field->setDefaultValue('updateConfig');
+        $field->setValue('updateConfig');
         $form->addField($field);
 
 
@@ -278,7 +278,7 @@ class ConfigModel{
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
-            $newField->setDefaultValue($this->getConfigValue($themeName, $option['name'], $default));
+            $newField->setValue($this->getConfigValue($themeName, $option['name'], $default));
 
             $fieldset->addfield($newField);
         }
