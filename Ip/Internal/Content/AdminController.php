@@ -126,7 +126,7 @@ class AdminController extends \Ip\Controller
 
         }
 
-        $widgetObject = Model::getWidgetObject($widgetName);
+        $widgetObject = Model::getWidgetObject($widgetName, true);
         if ($widgetObject === false) {
             return $this->_errorAnswer('Unknown widget "' . $widgetName . '"');
         }
