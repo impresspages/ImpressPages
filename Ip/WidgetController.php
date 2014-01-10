@@ -89,7 +89,7 @@ class WidgetController
 
 
         if (!is_dir($lookDir)) {
-            throw new \Ip\Internal\Content\Exception('Layouts directory does not exist. ' . $lookDir, Exception::NO_LOOK);
+            throw new \Ip\Internal\Content\Exception('Look directory does not exist. ' . $lookDir, \Ip\Internal\Content\Exception::NO_LOOK);
         }
 
         $availableViewFiles = scandir($lookDir);
@@ -228,11 +228,7 @@ class WidgetController
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
-                $tmpData = array(
-                    'widgetName' => $this->name,
-                    'layout' => $layout
-                );
-                $answer = ipView(ipFile('Ip/Internal/Content/view/unknown_widget_layout.php'), $tmpData)->render();
+                $answer = $e->getTraceAsString();
             } else {
                 $answer = '';
             }
