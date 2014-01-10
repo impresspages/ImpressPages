@@ -221,7 +221,7 @@ class Application
 
     public function modulesInit()
     {
-        ipDispatcher()->bindApplicationEvents();
+        ipDispatcher()->_bindApplicationEvents();
 
         ipDispatcher()->notify('ipInit');
 
