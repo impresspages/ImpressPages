@@ -75,7 +75,7 @@
                 data.aa = 'Content.changeLook';
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('widgetinstanceid');
-                data.layout = look;
+                data.look = look;
 
                 $.ajax({
                     type: 'POST',
@@ -83,7 +83,7 @@
                     data: data,
                     context: $this,
                     success: function(response) {
-                        var $newWidget = $(response.previewHtml);
+                        var $newWidget = $(response.html);
                         $($newWidget).insertAfter($this);
                         $newWidget.trigger('reinitRequired.ipWidget');
 
