@@ -55,7 +55,7 @@ class Dispatcher
      * @param callable $callable
      * @throws Exception
      */
-    public function addEventListener($name, $callable, $priority = 10)
+    public function addEventListener($name, $callable, $priority = 50)
     {
         if (!is_callable($callable)) {
             $this->callableError($callable);
@@ -74,7 +74,7 @@ class Dispatcher
      * @param callable $callable
      * @throws Exception
      */
-    public function addFilterListener($name, $callable, $priority = 10)
+    public function addFilterListener($name, $callable, $priority = 50)
     {
         if (!is_callable($callable)) {
             $this->callableError($callable);
@@ -93,7 +93,7 @@ class Dispatcher
      * @param callable $callable
      * @throws Exception
      */
-    public function addJobListener($name, $callable, $priority = 10)
+    public function addJobListener($name, $callable, $priority = 50)
     {
         if (!is_callable($callable)) {
             $this->callableError($callable);
@@ -114,7 +114,7 @@ class Dispatcher
      * @param callable $callable
      * @throws Exception
      */
-    public function bindSlot($slot, $callable, $priority = 10)
+    public function bindSlot($slot, $callable, $priority = 50)
     {
         $this->addJobListener('ipGenerateSlot' . $slot, $callable, $priority);
     }
@@ -259,7 +259,7 @@ class Dispatcher
         $info = array(
             'name' => $methodName,
             'method' => $methodName,
-            'priority' => 10,
+            'priority' => 50,
         );
 
         $lastUnderscore =  strrpos($methodName , '_');
