@@ -78,7 +78,7 @@ class UploadModel{
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
         $forbiddenExtensions = array('htaccess', 'htpasswd', 'php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
-        $forbiddenExtensions = ipDispatcher()->filter('ipForbiddenExtensions', $forbiddenExtensions);
+        $forbiddenExtensions = ipFilter('ipForbiddenExtensions', $forbiddenExtensions);
 
         if (in_array($fileExtension, $forbiddenExtensions)) {
             //security risk

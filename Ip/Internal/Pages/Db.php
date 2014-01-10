@@ -314,7 +314,7 @@ class Db {
         if (isset($params['url']) && $oldPage->getUrl() != $params['url']) {
             $newPage = $zone->getPage($pageId);
             $newUrl = $newPage->getLink(true);
-            ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
 
         if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipThemeFile(''))) {

@@ -136,7 +136,7 @@ class Service
         $page = $destinationZone->getPage($pageId);
         $newUrl = $page->getLink();
 
-        ipDispatcher()->notify('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+        ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         //report url change
     }
 

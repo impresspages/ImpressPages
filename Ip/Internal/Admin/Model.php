@@ -82,7 +82,7 @@ class Model{
     {
         $ip = ipRequest()->getServer('REMOTE_ADDR');
 
-        $preventReason = ipDispatcher()->job('ipAdminLoginPrevent', array('username' => $username));
+        $preventReason = ipJob('ipAdminLoginPrevent', array('username' => $username));
         if ($preventReason) {
             $this->loginError = $preventReason;
             ipLog()->notice('Admin.loginPrevented: {username} from {ip}', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));

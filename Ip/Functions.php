@@ -213,7 +213,7 @@ function ipResponse()
 }
 
 /**
- * Gets HTML layout.
+ * Gets current HTML layout.
  */
 function ipGetLayout()
 {
@@ -275,6 +275,22 @@ function ipDispatcher()
 {
     return \Ip\ServiceLocator::dispatcher();
 }
+
+function ipEvent($event, $data = array())
+{
+    return \Ip\ServiceLocator::dispatcher()->notify($event, $data);
+}
+
+function ipFilter($event, $value, $data = array())
+{
+    return \Ip\ServiceLocator::dispatcher()->filter($event, $value, $data);
+}
+
+function ipJob($eventName, $data = array())
+{
+    return \Ip\ServiceLocator::dispatcher()->job($eventName, $data);
+}
+
 
 /**
  * Returns an object, which provides plugin developers with methods for connecting to database, executing SQL queries and fetching results.

@@ -29,9 +29,9 @@ class User
     function logout()
     {
         if (isset($_SESSION['ipUser']['userId'])) {
-            ipDispatcher()->notify('ipBeforeUserLogout', array('userId' => $this->userId()));
+            ipEvent('ipBeforeUserLogout', array('userId' => $this->userId()));
             unset($_SESSION['ipUser']['userId']);
-            ipDispatcher()->notify('ipUserLogout', array('userId' => $this->userId()));
+            ipEvent('ipUserLogout', array('userId' => $this->userId()));
         }
     }
 
@@ -54,7 +54,7 @@ class User
      */
     function login($id)
     {
-        ipDispatcher()->notify('ipUserLogin', array('userId' => $id));
+        ipEvent('ipUserLogin', array('userId' => $id));
         $_SESSION['ipUser']['userId'] = $id;
     }
 
