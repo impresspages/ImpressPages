@@ -12,11 +12,13 @@ var IpWidget_IpImageGallery;
         this.$widgetObject = null;
         this.data = null;
         this.$controls = null;
+        this.$widgetControls = null;
 
         this.init = function($widgetObject, data) {
             var currentScope = this;
             this.$widgetObject = $widgetObject;
             this.data = data;
+            this.$widgetControls = $('#ipWidgetGalleryControls');
 
             this.$widgetObject.on('click', $.proxy(this.focus, this));
             $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the widget
@@ -83,15 +85,13 @@ var IpWidget_IpImageGallery;
             var context = this;
             e.preventDefault();
 
-            var $li = $(e.currentTarget);
+            var $li = $(e.currentTarget).find('img');
             var $controls = this.$controls;
 
             $controls.removeClass('ipgHide');
-            $controls.css('left', $li.offsetLeft);
-            $controls.css('top', $li.offsetTop);
             $controls.css('position', 'absolute');
-            $controls.css('left', $li.offset().left);
-            $controls.css('top', $li.offset().top - $controls.height() - 5);
+            $controls.css('left', $li.offset().left + 5);
+            $controls.css('top', $li.offset().top + 5);
 
             $controls.find('.ipsDelete').on('click', function(e) {
                 $.proxy(context.deleteImage, context)($li.index());
@@ -104,17 +104,20 @@ var IpWidget_IpImageGallery;
 
         this.focus = function () {
             var thisContext = this;
-            if (this.$widgetObject.find('.ipsAdd').length) {
-                //already initialized
-                return;
-            }
-            var $addButton = $('#ipWidgetGallerySnippet').find('.ipsAdd').clone().detach();
-            this.$widgetObject.append($addButton);
-            $addButton.click(function(e){
+            var $widgetControls = this.$widgetControls;
+            var $widgetObject = this.$widgetObject;
+            $widgetControls.removeClass('hide');
+            $widgetControls.css('left', $widgetObject.offsetLeft);
+            $widgetControls.css('top', $widgetObject.offsetTop);
+            $widgetControls.css('position', 'absolute');
+            $widgetControls.css('left', $widgetObject.offset().left);
+            $widgetControls.css('top', $widgetObject.offset().top - $widgetControls.height() - 5);
+            $widgetControls.find('.ipsAdd').on('click', function(e){
                 e.preventDefault();
                 var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
                 repository.bind('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
             });
+
         }
 
         this.blur = function () {
