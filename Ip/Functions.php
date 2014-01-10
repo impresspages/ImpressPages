@@ -273,7 +273,7 @@ function ipRequest()
 
 function ipEvent($event, $data = array())
 {
-    return \Ip\ServiceLocator::dispatcher()->notify($event, $data);
+    return \Ip\ServiceLocator::dispatcher()->event($event, $data);
 }
 
 /**

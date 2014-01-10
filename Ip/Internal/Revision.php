@@ -192,7 +192,7 @@ class Revision{
             $eventData = array(
                 'revisionId' => $revisionId,
             );
-            $dispatcher->notify('ipPageRevisionRemoved', $eventData);
+            $dispatcher->event('ipPageRevisionRemoved', $eventData);
             ipDb()->delete('revision', array('id' => $revisionId));
         }
     }

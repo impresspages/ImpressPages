@@ -181,7 +181,7 @@ class Dispatcher
         return null;
     }
 
-    public function notify($eventName, $data = array())
+    public function event($eventName, $data = array())
     {
         $this->checkInitCompleted($eventName);
 
