@@ -7,7 +7,7 @@ foreach ($images as $imageKey => $image) {
     $curTitle = isset($image['title']) ? $image['title'] : '';
 ?>
     <li>
-        <a href="<?php echo esc($curImageBig) ?>" title="<?php echo esc($curTitle); ?>">
+        <a rel="lightbox" href="<?php echo esc($curImageBig) ?>" title="<?php echo esc($curTitle); ?>">
             <img src="<?php echo esc($curImage) ?>" alt="<?php echo esc($curTitle); ?>" />
         </a>
     </li>
