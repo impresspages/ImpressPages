@@ -12,14 +12,14 @@ class Filter
         $widgets['IpTitle'] = new \Ip\Internal\Content\Widget\IpTitle\Controller('IpTitle', 'Content', 1);
         $widgets['IpText'] = new \Ip\Internal\Content\Widget\IpText\Controller('IpText', 'Content', 1);
         $widgets['IpSeparator'] = new \Ip\Internal\Content\Widget\IpSeparator\Controller('IpSeparator', 'Content', 1);
-        $widgets['IpTextImage'] = new \Ip\Internal\Content\Widget\IpTextImage\Controller('IpTextImage', 'Content', 1);
+        //$widgets['IpTextImage'] = new \Ip\Internal\Content\Widget\IpTextImage\Controller('IpTextImage', 'Content', 1);
         $widgets['IpImage'] = new \Ip\Internal\Content\Widget\IpImage\Controller('IpImage', 'Content', 1);
         $widgets['IpImageGallery'] = new \Ip\Internal\Content\Widget\IpImageGallery\Controller('IpImageGallery', 'Content', 1);
-        $widgets['IpLogoGallery'] = new \Ip\Internal\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
-        $widgets['IpFile'] = new \Ip\Internal\Content\Widget\IpFile\Controller('IpFile', 'Content', 1);
-        $widgets['IpTable'] = new \Ip\Internal\Content\Widget\IpTable\Controller('IpTable', 'Content', 1);
+        //$widgets['IpLogoGallery'] = new \Ip\Internal\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
+        //$widgets['IpFile'] = new \Ip\Internal\Content\Widget\IpFile\Controller('IpFile', 'Content', 1);
+        //$widgets['IpTable'] = new \Ip\Internal\Content\Widget\IpTable\Controller('IpTable', 'Content', 1);
         $widgets['IpHtml'] = new \Ip\Internal\Content\Widget\IpHtml\Controller('IpHtml', 'Content', 1);
-        $widgets['IpFaq'] = new \Ip\Internal\Content\Widget\IpFaq\Controller('IpFaq', 'Content', 1);
+        //$widgets['IpFaq'] = new \Ip\Internal\Content\Widget\IpFaq\Controller('IpFaq', 'Content', 1);
         $widgets['IpColumns'] = new \Ip\Internal\Content\Widget\IpColumns\Controller('IpColumns', 'Content', 1);
         $widgets['IpForm'] = new \Ip\Internal\Content\Widget\IpForm\Controller('IpForm', 'Content', 1);
 

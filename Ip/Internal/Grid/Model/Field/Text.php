@@ -39,7 +39,7 @@ class Text extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field
         ));
-        $field->setDefaultValue($this->defaultValue);
+        $field->setValue($this->defaultValue);
         return $field;
     }
 
@@ -53,7 +53,7 @@ class Text extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field
         ));
-        $field->setDefaultValue($curData[$this->field]);
+        $field->setValue($curData[$this->field]);
         return $field;
     }
 
