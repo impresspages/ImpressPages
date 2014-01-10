@@ -100,7 +100,7 @@ class Application
     private function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
         if (empty($options['skipInitEvents'])) {
-            ipDispatcher()->_bindApplicationEvents();
+            \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
         }
 
         if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
