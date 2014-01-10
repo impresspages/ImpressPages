@@ -22,15 +22,7 @@ class Model
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
             } catch (Exception $e) {
-                if ($e->getCode() == Exception::UNKNOWN_WIDGET) {
-                    $viewData = array(
-                        'widgetRecord' => $widget,
-                        'managementState' => $managementState
-                    );
-                    $widgetsHtml[] = ipView('view/unknown_widget.php', $viewData)->render();
-                } else {
-                    throw new Exception('Error when generating widget preview', null, $e);
-                }
+                throw new Exception('Error when generating widget preview', null, $e);
             }
         }
 
@@ -168,16 +160,13 @@ class Model
 
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
+        $widgetObject = self::getWidgetObject($widgetRecord['name']);
         //check if we don't need to recreate the widget
         $themeChanged = \Ip\ServiceLocator::storage()->get('Ip', 'themeChanged');
         if ($themeChanged > $widgetRecord['recreated']) {
             $widgetData = $widgetRecord['data'];
             if (!is_array($widgetData)) {
                 $widgetData = array();
-            }
-            $widgetObject = self::getWidgetObject($widgetRecord['name']);
-            if (!$widgetObject) {
-                throw new Exception('Widget does not exist. Widget name: ' . $widgetRecord['name'], Exception::UNKNOWN_WIDGET);
             }
 
             $newData = $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
@@ -191,12 +180,6 @@ class Model
             $widgetData = array();
         }
 
-
-        $widgetObject = self::getWidgetObject($widgetRecord['name']);
-
-        if (!$widgetObject) {
-            throw new Exception('Widget does not exist. Widget name: ' . $widgetRecord['name'], Exception::UNKNOWN_WIDGET);
-        }
 
         $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
@@ -315,7 +298,7 @@ class Model
         if (isset($widgetObjects[$widgetName])) {
             return $widgetObjects[$widgetName];
         } else {
-            return false;
+            return new \Ip\Internal\Content\Widget\IpMissing\Controller('IpMissing', 'Content', true);
         }
 
     }

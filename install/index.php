@@ -14,11 +14,12 @@ require_once(__DIR__ . '/../Ip/Application.php');
     $application = new \Ip\Application(__DIR__ . '/config.php');
     $application->init();
     $options = array(
-        'skipErrorHandler' => 1
+        'skipErrorHandler' => true
     );
     $application->prepareEnvironment($options);
     $options = array(
-        'skipModuleInit' => 1,
+        'skipInitEvents' => true,
+        'skipModuleInit' => true,
         'translationsLanguageCode' => 'en'
     );
 

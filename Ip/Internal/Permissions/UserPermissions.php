@@ -15,7 +15,7 @@ class UserPermissions
         $this->userId = $userId;
     }
 
-    public function isAllowed($plugin, $action = null, $data = NULL)
+    public function isAllowed($plugin, $action = null)
     {
         return true;
     }
