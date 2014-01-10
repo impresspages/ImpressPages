@@ -64,9 +64,6 @@ class Layout extends \Ip\Response {
     {
         ipContent()->setBlockContent('main', $this->content);
 
-        if ($this->getLayout() === null) {
-            $this->chooseLayout();
-        }
         $layout = $this->getLayout();
 
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
@@ -104,7 +101,13 @@ class Layout extends \Ip\Response {
 
     public function getLayout()
     {
+        if ($this->layout == '') {
+            $this->chooseLayout();
+        }
+
         return $this->layout;
+
+
     }
 
     public function addCss($file, $attributes = array(), $stage = 1, $cacheFix = true) {
