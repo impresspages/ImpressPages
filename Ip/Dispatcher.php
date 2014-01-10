@@ -204,7 +204,10 @@ class Dispatcher
         } while (next($this->eventListeners[$eventName]) !== false);
     }
 
-    public function bindApplicationEvents()
+    /**
+     * @ignore
+     */
+    public function _bindApplicationEvents()
     {
         // Parse event files:
         $coreModules = \Ip\Internal\Plugins\Model::getModules();
