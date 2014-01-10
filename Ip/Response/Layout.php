@@ -102,10 +102,11 @@ class Layout extends \Ip\Response {
     public function getLayout()
     {
         if ($this->layout == '') {
-            return $this->layout;
-        } else {
             $this->chooseLayout();
         }
+
+        return $this->layout;
+
 
     }
 

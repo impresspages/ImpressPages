@@ -219,7 +219,7 @@ function ipGetLayout()
 {
     $response = \Ip\ServiceLocator::response();
     if (method_exists($response, 'getLayout')) {
-        $response->getLayout();
+        return $response->getLayout();
     } else {
         ipLog()->error('Response.cantGetLayout: Response method has no method getLayout', array('response' => $response));
     }
