@@ -189,7 +189,7 @@ function ipHead()
 }
 
 /**
- * Set HTML layout file.
+ * Sets HTML layout file.
  * @param $file
  */
 
@@ -204,6 +204,7 @@ function ipSetLayout($file)
 }
 
 /**
+ * Gets CMS response object.
  * @return \Ip\Response | \Ip\Response\Layout
  */
 function ipResponse()
@@ -285,8 +286,10 @@ function ipDb()
 }
 
 /**
+ * Gets escaped string.
  * @param string $string
  * @param string $esc html|attr|textarea|url|urlRaw|raw or false
+ * @return string escaped string
  */
 function esc($string, $esc = 'html')
 {
@@ -306,15 +309,31 @@ function esc($string, $esc = 'html')
 }
 
 
+/**
+ * Gets escaped HTML string
+ * @param $string
+ * @return string escaped string
+ */
 function escHtml($string)
 {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Gets escaped text area content.
+ * @param $value
+ * @return string escaped string
+ */
 function escTextarea($value)
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
+
+/**
+ * Gets escaped HTML attribute.
+ * @param $value
+ * @return string escaped string
+ */
 
 function escAttr($value)
 {
@@ -322,9 +341,9 @@ function escAttr($value)
 }
 
 /**
- * Translate and escape string. More about translations: http://www.impresspages.org/doc2/translations
+ * Translate and escape string.
  * @param $text original value in English
- * @param $domain
+ * @param $domain context, e.g. plugin name
  * @param string $esc escape type. Available values: false, 'html', 'attr', 'textarea'
  * @return string translated string or original string if no translation exists
  */
@@ -339,6 +358,11 @@ function _e($text, $domain, $esc = 'html')
 }
 
 if (!function_exists('ipFile')) {
+    /**
+     * Gets absolute CMS file path
+     * @param $path
+     * @return mixed|string
+     */
     function ipFile($path)
     {
         $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
@@ -355,6 +379,11 @@ if (!function_exists('ipFile')) {
 }
 
 if (!function_exists('ipFileUrl')) {
+    /**
+     * Gets URL by a file name
+     * @param $path
+     * @return mixed|string
+     */
     function ipFileUrl($path)
     {
         $overrides = ipConfig()->getRaw('URL_OVERRIDES');
@@ -590,13 +619,7 @@ function ipTable($table, $as = null)
     return $answer;
 }
 
-/**
- * TODOX ???
- * @param $plugin
- * @param null $action
- * @param null $data
- * @return bool
- */
+
 function ipIsAllowed($plugin, $action = NULL, $data = NULL)
 {
     return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action, $data);
