@@ -98,6 +98,7 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $ipActions->cancelWidget();
         $this->assertNoErrors();
         $ipActions->addWidget('IpImageGallery');
+        $ipActions->selectFirstFileInRepository();
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
