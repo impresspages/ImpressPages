@@ -63,7 +63,6 @@ class PublicController extends \Ip\Controller
 
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/tinymce/pastePreprocess.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/tinymce/default.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/tinymce/table.js'));
 
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css'));
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
@@ -92,7 +91,6 @@ class PublicController extends \Ip\Controller
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Html/assets/Html.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Image/assets/Image.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Gallery/assets/Gallery.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpTable/assets/IpTable.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Text/assets/Text.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/TextImage/assets/TextImage.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Title/assets/Title.js'));
