@@ -22,10 +22,10 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 
         $this->windowMaximize();
 
-        $ipActions->addWidget('IpHtml');
+        $ipActions->addWidget('Html');
         $this->storeAttribute('css=.topmenu ul li:eq(1) a@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
-        $this->type('css=.ipAdminWidget-IpHtml textarea', '<a class="seleniumUpdateLinkTest" href="'.$linkValue.'">TEST</a>');
+        $this->type('css=.ipAdminWidget-Html textarea', '<a class="seleniumUpdateLinkTest" href="'.$linkValue.'">TEST</a>');
         $ipActions->confirmWidget();
         $ipActions->publish();
 
@@ -42,17 +42,17 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $ipActions->publish();
 
         //add html widget to check its presents later
-        $ipActions->addWidget('IpHtml');
+        $ipActions->addWidget('Html');
         $this->storeAttribute('css=.topmenu ul li:eq(1) a@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
-        $this->type('css=.ipAdminWidget-IpHtml textarea', '<span class="seleniumPageUrlChangedTest" href="'.$linkValue.'">TEST</span>');
+        $this->type('css=.ipAdminWidget-Html textarea', '<span class="seleniumPageUrlChangedTest" href="'.$linkValue.'">TEST</span>');
         $ipActions->confirmWidget();
         $ipActions->publish();
 
 
         //assert our url still works
         $this->open($installation->getInstallationUrl());
-        $this->storeAttribute('css=.ipWidget-IpHtml a.seleniumUpdateLinkTest@href', 'linkValue');
+        $this->storeAttribute('css=.ipWidget-Html a.seleniumUpdateLinkTest@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
         $this->open($linkValue);
         $this->assertElementPresent('css=span.seleniumPageUrlChangedTest');
@@ -67,13 +67,13 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
         $ipActions->login();
 
-        $ipActions->addWidget('IpHtml');
-        $this->type('css=.ipAdminWidget-IpHtml textarea', '<a class="seleniumUpdateLinkTest" href="'.$installation->getInstallationUrl().'">TEST</a>');
+        $ipActions->addWidget('Html');
+        $this->type('css=.ipAdminWidget-Html textarea', '<a class="seleniumUpdateLinkTest" href="'.$installation->getInstallationUrl().'">TEST</a>');
 
         $ipActions->confirmWidget();
         $ipActions->publish();
 
-        $this->storeAttribute('css=.ipWidget-IpHtml a.seleniumUpdateLinkTest@href', 'linkValue');
+        $this->storeAttribute('css=.ipWidget-Html a.seleniumUpdateLinkTest@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
         $this->assertEquals($installation->getInstallationUrl(), $linkValue);
 
@@ -109,7 +109,7 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
 
         $this->open($newInstallation->getInstallationUrl());
 
-        $this->storeAttribute('css=.ipWidget-IpHtml a.seleniumUpdateLinkTest@href', 'linkValue');
+        $this->storeAttribute('css=.ipWidget-Html a.seleniumUpdateLinkTest@href', 'linkValue');
         $linkValue = $this->getExpression('${linkValue}');
         $this->assertEquals($newInstallation->getInstallationUrl(), $linkValue);
 

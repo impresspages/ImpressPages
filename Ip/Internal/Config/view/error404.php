@@ -1,2 +1,2 @@
-<?php echo ipRenderWidget('IpTitle', array('title' => $title)); ?>
-<?php echo ipRenderWidget('IpText', array('text' => $text)); ?>
+<?php echo ipRenderWidget('Title', array('title' => $title)); ?>
+<?php echo ipRenderWidget('Text', array('text' => $text)); ?>

@@ -733,92 +733,92 @@ Move to separate stylesheet if invalid CSS is a problem.
     background-position: -24px -48px;
 }
 
-/* Widget: IpColumns */
-.ipWidget-IpColumns .ipwCol{
+/* Widget: Columns */
+.ipWidget-Columns .ipwCol{
     margin-top: 20px;
 }
-.ipAdminWidget-IpColumns input {
+.ipAdminWidget-Columns input {
     width: 50px;
     text-align: right;
 }
 
 
-/* Widget: IpTitle */
-.ipAdminWidget-IpTitle .ipAdminButton {
+/* Widget: Title */
+.ipAdminWidget-Title .ipAdminButton {
     margin-bottom: 10px;
 }
 
-.ipAdminWidget-IpTitle .ipmAnchorPreview {
+.ipAdminWidget-Title .ipmAnchorPreview {
     font-weight: normal;
 }
 
-/* Widget: IpText
+/* Widget: Text
    Widget: IpRichText
    Widget: IpTable */
-.ipAdminWidget-IpText .ipaBody,
+.ipAdminWidget-Text .ipaBody,
 .ipAdminWidget-IpRichText .ipaBody,
 .ipAdminWidget-IpTable .ipaBody {
     border: 0;
     padding: 0;
 }
 
-/* Widget: IpFile */
-.ipAdminWidget-IpFile .ipaBody .ipaButton {
+/* Widget: File */
+.ipAdminWidget-File .ipaBody .ipaButton {
     background-color: #000;
     color: #fff;
     display: inline-block;
     font-size: 10px;
     padding: 2px 4px;
 }
-.ipAdminWidget-IpFile .ipaBody .ipaFileMove {
+.ipAdminWidget-File .ipaBody .ipaFileMove {
     cursor: move;
 }
-.ipAdminWidget-IpFile .ipaBody .ipaFileTemplate {
+.ipAdminWidget-File .ipaBody .ipaFileTemplate {
     margin-bottom: 7px;
 }
-.ipAdminWidget-IpFile .ipaFileTitle {
+.ipAdminWidget-File .ipaFileTitle {
     width: 50%;
 }
 
-/* Widget: IpImage */
-.ipAdminWidget-IpImage .ipaImage {
+/* Widget: Image */
+.ipAdminWidget-Image .ipaImage {
     min-height: 100px;
 }
-.ipAdminWidget-IpImage .ipaOptions {
+.ipAdminWidget-Image .ipaOptions {
     margin-top: 10px;
 }
 
-/* Widget: IpTextImage */
-.ipAdminWidget-IpTextImage .ipaImageContainer {
+/* Widget: TextImage */
+.ipAdminWidget-TextImage .ipaImageContainer {
     float: left;
     width: 200px;
 }
-.ipAdminWidget-IpTextImage .ipaOptions {
+.ipAdminWidget-TextImage .ipaOptions {
     margin-bottom: 27px;
 }
-.ipAdminWidget-IpTextImage .ipaOptions .ipAdminInput {
+.ipAdminWidget-TextImage .ipaOptions .ipAdminInput {
     width: 186px;
 }
-.ipAdminWidget-IpTextImage .ipaTextarea {
+.ipAdminWidget-TextImage .ipaTextarea {
     margin-left: 209px;
 }
-.ipAdminWidget-IpTextImage .ipaTextarea textarea {
+.ipAdminWidget-TextImage .ipaTextarea textarea {
     width: 100%;
 }
 
-/* Widget: IpImageGallery
+/* Widget: Gallery
    Widget: IpLogoGallery */
-.ipAdminWidget-IpImageGallery .ipmBrowseButton,
+.ipAdminWidget-Gallery .ipmBrowseButton,
 .ipAdminWidget-IpLogoGallery .ipmBrowseButton {
     clear: both;
     float: left;
 }
-.ipAdminWidget-IpImageGallery .ipaImageTemplate,
+.ipAdminWidget-Gallery .ipaImageTemplate,
 .ipAdminWidget-IpLogoGallery .ipaLogoTemplate {
     float: left;
     margin: 0 7px 7px 0;
 }
-.ipAdminWidget-IpImageGallery .ipaBody .ipaButton,
+.ipAdminWidget-Gallery .ipaBody .ipaButton,
 .ipAdminWidget-IpLogoGallery .ipaBody .ipaButton {
     background-color: #000;
     color: #fff;
@@ -826,37 +826,37 @@ Move to separate stylesheet if invalid CSS is a problem.
     font-size: 10px;
     padding: 2px 4px;
 }
-.ipAdminWidget-IpImageGallery .ipaBody .ipaImageMove,
+.ipAdminWidget-Gallery .ipaBody .ipaImageMove,
 .ipAdminWidget-IpLogoGallery .ipaBody .ipaLogoMove {
     cursor: move;
 }
-.ipAdminWidget-IpImageGallery .ipaImageTitle,
+.ipAdminWidget-Gallery .ipaImageTitle,
 .ipAdminWidget-IpLogoGallery .ipaLogoTitle {
     width: 136px;
 }
 
-/* Widget: IpHtml */
-.ipAdminWidget-IpHtml .ipaBody {
+/* Widget: Html */
+.ipAdminWidget-Html .ipaBody {
     padding: 0;
 }
-.ipAdminWidget-IpHtml .ipaBody .ipAdminTextarea {
+.ipAdminWidget-Html .ipaBody .ipAdminTextarea {
     border-color: #ccc;
     margin: -1px;
     padding: 0;
     width: 100%;
 }
 
-/* Widget: IpFaq */
-.ipAdminWidget-IpFaq .ipaAnswer {
+/* Widget: Faq */
+.ipAdminWidget-Faq .ipaAnswer {
     margin-top: 20px;
 }
 
-/* Widget: IpForm */
-.ipAdminWidget-IpForm .ipaBody .ipaFieldTemplate,
+/* Widget: Form */
+.ipAdminWidget-Form .ipaBody .ipaFieldTemplate,
 .ipaFieldOptionsContainer .ipaFieldOptionsTemplate {
     margin-bottom: 5px;
 }
-.ipAdminWidget-IpForm .ipaBody .ipaButton,
+.ipAdminWidget-Form .ipaBody .ipaButton,
 .ipaFieldOptionsContainer .ipaButton {
     background-color: #000;
     color: #fff;
@@ -864,10 +864,10 @@ Move to separate stylesheet if invalid CSS is a problem.
     font-size: 10px;
     padding: 2px 4px;
 }
-.ipAdminWidget-IpForm .ipaBody .ipAdminInput {
+.ipAdminWidget-Form .ipaBody .ipAdminInput {
     width: 40%;
 }
-.ipAdminWidget-IpForm .ipaOptions {
+.ipAdminWidget-Form .ipaOptions {
     margin-top: 10px;
 }
 .ipaFieldOptionsContainer .ipaOptionLabel {

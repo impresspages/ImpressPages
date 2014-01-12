@@ -90,16 +90,16 @@ class Service
         }
 
         if (isset($widgetOptions['imageGallery']['width'])) {
-            ipSetOption('Content.widgetImageGalleryWidth', $widgetOptions['imageGallery']['width']);
+            ipSetOption('Content.widgetGalleryWidth', $widgetOptions['imageGallery']['width']);
         }
         if (isset($widgetOptions['imageGallery']['height'])) {
-            ipSetOption('Content.widgetImageGalleryHeight', $widgetOptions['imageGallery']['height']);
+            ipSetOption('Content.widgetGalleryHeight', $widgetOptions['imageGallery']['height']);
         }
         if (isset($widgetOptions['imageGallery']['bigWidth'])) {
-            ipSetOption('Content.widgetImageGalleryBigWidth', $widgetOptions['imageGallery']['bigWidth']);
+            ipSetOption('Content.widgetGalleryBigWidth', $widgetOptions['imageGallery']['bigWidth']);
         }
         if (isset($widgetOptions['imageGallery']['bigHeight'])) {
-            ipSetOption('Content.widgetImageGalleryBigHeight', $widgetOptions['imageGallery']['bigHeight']);
+            ipSetOption('Content.widgetGalleryBigHeight', $widgetOptions['imageGallery']['bigHeight']);
         }
 
         if (isset($widgetOptions['logoGallery']['width'])) {

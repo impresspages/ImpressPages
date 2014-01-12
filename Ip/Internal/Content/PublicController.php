@@ -82,21 +82,21 @@ class PublicController extends \Ip\Controller
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/exampleContent.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/drag.js'));
 
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpColumns/assets/IpColumns.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpFaq/assets/IpFaq.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpFile/assets/IpFile.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpForm/assets/IpForm.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpForm/assets/IpFormContainer.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpForm/assets/IpFormField.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpForm/assets/IpFormOptions.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpHtml/assets/IpHtml.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpImage/assets/IpImage.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpImageGallery/assets/IpImageGallery.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Columns/assets/Columns.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Faq/assets/Faq.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/File/assets/File.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Form/assets/Form.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Form/assets/FormContainer.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Form/assets/FormField.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Form/assets/FormOptions.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Html/assets/Html.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Image/assets/Image.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Gallery/assets/Gallery.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpTable/assets/IpTable.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpText/assets/IpText.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpTextImage/assets/IpTextImage.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpTitle/assets/IpTitle.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/IpTitle/assets/IpTitleModal.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Text/assets/Text.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/TextImage/assets/TextImage.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Title/assets/Title.js'));
+            ipAddJs(ipFileUrl('Ip/Internal/Content/Widget/Title/assets/TitleModal.js'));
 
         } else {
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management.min.js'));

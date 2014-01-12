@@ -94,7 +94,7 @@
                 $this.on('click', '> .ipbExampleContent', function () {
                     var $block = $this;
                     var $exampleContent = $(this);
-                    ipContent.createWidget(ip.revisionId, $block.data('ipBlock').name, 'IpText', 0);
+                    ipContent.createWidget(ip.revisionId, $block.data('ipBlock').name, 'Text', 0);
                     $exampleContent.remove();
                 });
 

@@ -1,9 +1,9 @@
-.ipWidget-IpImageGallery {
-    margin-bottom: (@ipWidgetSpace - @ipImageGallerySpace); // fixing bottom margin between widgets
+.ipWidget-Gallery {
+    margin-bottom: (@ipWidgetSpace - @ipGallerySpace); // fixing bottom margin between widgets
 
     ul {
         list-style: none;
-        margin: 0 -(@ipImageGallerySpace / 2); // hack to keep images visually from border to border
+        margin: 0 -(@ipGallerySpace / 2); // hack to keep images visually from border to border
     }
 
     li {
@@ -11,9 +11,9 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
-        margin-bottom: @ipImageGallerySpace;
-        padding: 0 (@ipImageGallerySpace / 2);
-        width: (100% / @ipImageGalleryColumns - 0.01%); //- 0.01% fixes image dragging bug on chrome
+        margin-bottom: @ipGallerySpace;
+        padding: 0 (@ipGallerySpace / 2);
+        width: (100% / @ipGalleryColumns - 0.01%); //- 0.01% fixes image dragging bug on chrome
 
         img {
             -webkit-box-sizing: border-box;
@@ -25,15 +25,15 @@
     }
 
     // adapting to small screens
-    @media screen and (max-width: @ipImageGalleryScreenSmall){
+    @media screen and (max-width: @ipGalleryScreenSmall){
         ul {
-            margin: 0 -(@ipImageGallerySpaceSmall / 2);
+            margin: 0 -(@ipGallerySpaceSmall / 2);
         }
 
         li {
-            width: (100% / @ipImageGalleryColumnsSmall);
-            margin-bottom: @ipImageGallerySpaceSmall;
-            padding: 0 (@ipImageGallerySpaceSmall / 2);
+            width: (100% / @ipGalleryColumnsSmall);
+            margin-bottom: @ipGallerySpaceSmall;
+            padding: 0 (@ipGallerySpaceSmall / 2);
         }
     }
 }

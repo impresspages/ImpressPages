@@ -298,7 +298,7 @@ class Model
         if (isset($widgetObjects[$widgetName])) {
             return $widgetObjects[$widgetName];
         } else {
-            return new \Ip\Internal\Content\Widget\IpMissing\Controller('IpMissing', 'Content', true);
+            return new \Ip\Internal\Content\Widget\Missing\Controller('Missing', 'Content', true);
         }
 
     }

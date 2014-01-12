@@ -21,9 +21,9 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->windowMaximize();
 
         //add file widget
-        $ipActions->addWidget('IpFile');
-        $this->waitForElementPresent('css=.ipAdminWidget-IpFile .ipmBrowseButton');
-        $this->click('css=.ipAdminWidget-IpFile .ipmBrowseButton');
+        $ipActions->addWidget('File');
+        $this->waitForElementPresent('css=.ipAdminWidget-File .ipmBrowseButton');
+        $this->click('css=.ipAdminWidget-File .ipmBrowseButton');
         $this->waitForElementPresent('css=.ipModuleRepositoryPopup .ipmBrowseButton');
 
 
@@ -49,9 +49,9 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $ipActions->login();
 
         //add file widget and try to add our last uploaded file
-        $ipActions->addWidget('IpFile');
-        $this->waitForElementPresent('css=.ipAdminWidget-IpFile .ipmBrowseButton');
-        $this->click('css=.ipAdminWidget-IpFile .ipmBrowseButton');
+        $ipActions->addWidget('File');
+        $this->waitForElementPresent('css=.ipAdminWidget-File .ipmBrowseButton');
+        $this->click('css=.ipAdminWidget-File .ipmBrowseButton');
         $this->waitForElementPresent('css=.ipModuleRepositoryPopup .ipmBrowseButton');
 
         $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
@@ -61,8 +61,8 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         sleep(2); //wait for popup to close
         $this->waitForElementPresent('css=.ipWidget_ipFile_container input');
         $this->click('css=.ipaConfirm');
-        $this->waitForElementPresent('css=.ipWidget-IpFile a');
-        $this->assertText('css=.ipPreviewWidget.ipWidget-IpFile ul a', 'testFile_1.txt');
+        $this->waitForElementPresent('css=.ipWidget-File a');
+        $this->assertText('css=.ipPreviewWidget.ipWidget-File ul a', 'testFile_1.txt');
     }
 
 }

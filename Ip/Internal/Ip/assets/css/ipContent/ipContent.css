@@ -917,10 +917,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody ol:last-child {
   margin-bottom: 0;
 }
-.ipWidget-IpColumns {
+.ipWidget-Columns {
   margin: 0 -1em;
 }
-.ipWidget-IpColumns .ipwCol {
+.ipWidget-Columns .ipwCol {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -930,23 +930,23 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0 1em;
   position: relative;
 }
-.ipWidget-IpFaq {
+.ipWidget-Faq {
   padding-left: 30px;
 }
-.ipWidget-IpFaq .ipwQuestion {
+.ipWidget-Faq .ipwQuestion {
   color: #000000;
   cursor: pointer;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 18px;
   text-decoration: none;
 }
-.ipWidget-IpFaq .ipwQuestion:hover {
+.ipWidget-Faq .ipwQuestion:hover {
   text-decoration: underline;
 }
-.ipWidget-IpFaq .ipwQuestion:hover:before {
+.ipWidget-Faq .ipwQuestion:hover:before {
   background-color: #f3f3f3;
 }
-.ipWidget-IpFaq .ipwQuestion:before {
+.ipWidget-Faq .ipwQuestion:before {
   border: 1px solid #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 11px;
@@ -958,39 +958,39 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 1px 2px;
   position: absolute;
 }
-.ipWidget-IpFaq .ipwQuestion .ipwAnswer {
+.ipWidget-Faq .ipwQuestion .ipwAnswer {
   margin-top: 5px;
 }
-.ipWidget-IpFaq .ipwQuestion .ipwCollapsed .ipwAnswer {
+.ipWidget-Faq .ipwQuestion .ipwCollapsed .ipwAnswer {
   display: none;
 }
-.ipWidget-IpFaq .ipwExpanded .ipwQuestion:before {
+.ipWidget-Faq .ipwExpanded .ipwQuestion:before {
   background-color: #000000;
   color: #ffffff;
 }
-.ipWidget-IpFile ul {
+.ipWidget-File ul {
   list-style: none;
   margin-left: 0;
 }
-.ipWidget-IpFile a {
+.ipWidget-File a {
   color: #019bd4;
   font-weight: bold;
 }
-.ipWidget-IpFile a:hover {
+.ipWidget-File a:hover {
   text-decoration: underline;
 }
-.ipWidget-IpForm .ipwSuccess {
+.ipWidget-Form .ipwSuccess {
   /* mimicking the same styles as for form to keep message 'inside' the box */
 
   border: 1px solid #888;
   display: none;
   padding: 20px 25px;
 }
-.ipWidget-IpHtml {
+.ipWidget-Html {
   max-width: 100%;
   overflow: auto;
 }
-.ipWidget-IpImage img {
+.ipWidget-Image img {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -999,14 +999,14 @@ Move to separate stylesheet if invalid CSS is a problem.
 
   max-width: 100%;
 }
-.ipWidget-IpImageGallery {
+.ipWidget-Gallery {
   margin-bottom: 0px;
 }
-.ipWidget-IpImageGallery ul {
+.ipWidget-Gallery ul {
   list-style: none;
   margin: 0 -10px;
 }
-.ipWidget-IpImageGallery li {
+.ipWidget-Gallery li {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1015,7 +1015,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0 10px;
   width: 24.99%;
 }
-.ipWidget-IpImageGallery li img {
+.ipWidget-Gallery li img {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1023,10 +1023,10 @@ Move to separate stylesheet if invalid CSS is a problem.
   width: 100%;
 }
 @media screen and (max-width: 480px) {
-  .ipWidget-IpImageGallery ul {
+  .ipWidget-Gallery ul {
     margin: 0 -10px;
   }
-  .ipWidget-IpImageGallery li {
+  .ipWidget-Gallery li {
     width: 50%;
     margin-bottom: 20px;
     padding: 0 10px;
@@ -1069,23 +1069,23 @@ Move to separate stylesheet if invalid CSS is a problem.
   max-width: 100%;
   overflow: auto;
 }
-.ipWidget-IpSeparator.ipLayout-default {
+.ipWidget-Separator.ipLayout-default {
   border-bottom: 1px solid #747474;
   height: 0;
   overflow: hidden;
 }
-.ipWidget-IpSeparator.ipLayout-space {
+.ipWidget-Separator.ipLayout-space {
   height: 25px;
 }
 .ipWidget-IpTable {
   max-width: 100%;
   overflow: auto;
 }
-.ipWidget-IpText {
+.ipWidget-Text {
   /* covered by default styles */
 
 }
-.ipWidget-IpTextImage .ipwImage {
+.ipWidget-TextImage .ipwImage {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1093,14 +1093,14 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0 20px 20px 0;
   max-width: 100%;
 }
-.ipWidget-IpTextImage.ipLayout-right .ipwImage {
+.ipWidget-TextImage.ipLayout-right .ipwImage {
   float: right;
   margin: 0 0 20px 20px;
 }
-.ipWidget-IpTitle {
+.ipWidget-Title {
   margin-bottom: 10px;
   padding-top: 10px;
 }
-.ipWidget-IpTitle:first-child {
+.ipWidget-Title:first-child {
   padding-top: 0;
 }
