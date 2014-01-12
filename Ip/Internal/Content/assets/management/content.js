@@ -121,6 +121,47 @@ var ipContent;
         }
 
 
+        this.updateWidget = function (instanceId, widgetData, regeneratePreview, callback) {
+            var data = Object();
+            var $widget = $('#ipWidget-' + instanceId);
+            data.aa = 'Content.updateWidget';
+            data.securityToken = ip.securityToken;
+            data.instanceId = instanceId;
+            data.widgetData = widgetData;
+            if (regeneratePreview) {
+                data.generatePreview = 1
+            }
+
+            $.ajax( {
+                type : 'POST',
+                url : ip.baseUrl,
+                data : data,
+                success : function(response) {
+                    if (regeneratePreview) {
+                        var newWidget = response.html;
+                        var $newWidget = $(newWidget);
+                        $newWidget.insertAfter($widget);
+                        $newWidget.trigger('reinitRequired.ipWidget');
+
+                        // init any new blocks the widget may have created
+                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
+                        $widget.remove();
+                    }
+                    if (callback) {
+                        callback(response.newInstanceId);
+                    }
+                },
+                error: function(response) {
+                    console.log('save error');
+                    console.log(response);
+                    if (callback) {
+                        callback(null);
+                    }
+                },
+                dataType : 'json'
+            });
+        }
+
 
         this.createWidget = function(revisionId, block, widgetName, position, callback) {
             var data = {};

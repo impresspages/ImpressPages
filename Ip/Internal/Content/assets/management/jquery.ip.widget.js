@@ -110,6 +110,7 @@
 
     var processSaveQueue = function() {
         var $this = this;
+        var $widget = $this;
 
         if ($this.data('saveInProgress')) {
             return;
@@ -136,57 +137,29 @@
             }
         });
 
-        var data = Object();
-        data.aa = 'Content.updateWidget';
-        data.securityToken = ip.securityToken;
-        data.instanceId = $this.data('widgetinstanceid');
-        data.widgetData = $queue[$queue.length - 1].widgetData;
+        ipContent.updateWidget($this.data('widgetinstanceid'), $queue[$queue.length - 1].widgetData, refresh, function(newInstanceId) {
+            var $this = $widget;
 
-        if (refresh) {
-            data.generatePreview = 1
-        }
 
-        $.ajax({
-            type: 'POST',
-            url: ip.baseUrl,
-            data: data,
-            context: $this,
-            success: function(response) {
-                var $this = this;
+            var $newWidget = $('#ipWidget-' + newInstanceId);
 
+            if (callbacks.length) {
                 if (refresh) {
-                    var newWidget = response.html;
-                    var $newWidget = $(newWidget);
-                    $newWidget.insertAfter($this);
-                    $newWidget.trigger('reinitRequired.ipWidget');
-
-                    // init any new blocks the widget may have created
-                    $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-                    $this.remove();
+                    $.each(callbacks, function(key, value){
+                        value($newWidget);
+                    });
+                } else {
+                    $.each(callbacks, function(key, value){
+                        value($newWidget);
+                    });
                 }
+            }
+            $this.data('saveInProgress', false);
+            $.proxy(processSaveQueue, $this)();
 
-                if (callbacks.length) {
-                    if (refresh) {
-                        $.each(callbacks, function(key, value){
-                            value($newWidget);
-                        });
-                    } else {
-                        $.each(callbacks, function(key, value){
-                            value($this);
-                        });
-                    }
-                }
-                $this.data('saveInProgress', false);
-                $.proxy(processSaveQueue, $this)();
-            },
-            error: function(response) {
-                console.log('save error');
-                console.log(response);
-                $this.data('saveInProgress', false);
-                $.proxy(processSaveQueue, $this)();
-            },
-            dataType: 'json'
         });
+
+
     }
 
 
