@@ -34,11 +34,11 @@
 })(ip.jQuery);
 
 /*************
- * IpForm widget
+ * Form widget
  **************/
 
 (function($) {
-    $.fn.ipWidgetIpForm = function() {
+    $.fn.ipWidgetForm = function() {
         return this.each(function() {
             var $ipForm = $(this);
             
@@ -55,8 +55,8 @@
                         data: form.serialize(),
                         success: function (response){
                             if (response.status && response.status == 'success') {
-                                if (typeof ipWidgetIpFormSuccess == 'function'){ //custom handler exists
-                                    ipWidgetIpFormSuccess($ipForm);
+                                if (typeof ipWidgetFormSuccess == 'function'){ //custom handler exists
+                                    ipWidgetFormSuccess($ipForm);
                                 } else { //default handler
                                     $ipForm.find('.ipwSuccess').show();
                                     $ipForm.find('.ipwForm').hide();
@@ -77,10 +77,10 @@
 })(ip.jQuery);
 
 // defining global variables
-var ipWidgetIpForm_InitListOptions;
-var ipWidgetIpForm_SaveListOptions;
-var ipWidgetIpForm_InitWysiwygOptions;
-var ipWidgetIpForm_SaveWysiwygOptions;
+var ipWidgetForm_InitListOptions;
+var ipWidgetForm_SaveListOptions;
+var ipWidgetForm_InitWysiwygOptions;
+var ipWidgetForm_SaveWysiwygOptions;
 
 (function($) {
     /*
@@ -88,14 +88,14 @@ var ipWidgetIpForm_SaveWysiwygOptions;
      */
     $(document).ready(function() {
         // FAQ widget
-        $('.ipWidget-IpFaq').ipWidgetFaq();
+        $('.ipWidget-Faq').ipWidgetFaq();
 
-        // IpForm widget
-        $('.ipWidget-IpForm').ipWidgetIpForm();
+        // Form widget
+        $('.ipWidget-Form').ipWidgetForm();
     });
 
-    // IpForm widget select options
-    ipWidgetIpForm_InitListOptions = function ($context, currentOptions) {
+    // Form widget select options
+    ipWidgetForm_InitListOptions = function ($context, currentOptions) {
         var addOption = function (value) {
             var $newOption = $context.find('.ipgHide .ipaFieldOptionsTemplate').clone();
             $newOption.find('.ipaOptionLabel').val(value);
@@ -124,7 +124,7 @@ var ipWidgetIpForm_SaveWysiwygOptions;
         $context.find(".ipaFieldOptionsContainer").sortable('option', 'handle', '.ipaOptionMove');
     };
 
-    ipWidgetIpForm_SaveListOptions = function ($context) {
+    ipWidgetForm_SaveListOptions = function ($context) {
         var $options = $context.find('.ipaFieldOptionsContainer .ipaOptionLabel');
         var answer = new Array();
         answer = new Array();
@@ -135,15 +135,15 @@ var ipWidgetIpForm_SaveWysiwygOptions;
         return {list : answer};
     };
 
-    //IpForm widget wysiwyg options
-    ipWidgetIpForm_InitWysiwygOptions = function ($context, currentOptions) {
+    //Form widget wysiwyg options
+    ipWidgetForm_InitWysiwygOptions = function ($context, currentOptions) {
         if (currentOptions && currentOptions.text) {
             $context.find(".ipaFieldOptionsRichText").val(currentOptions.text);
         }
         $context.find(".ipaFieldOptionsRichText").tinymce(ipTinyMceConfig());
     };
 
-    ipWidgetIpForm_SaveWysiwygOptions = function ($context) {
+    ipWidgetForm_SaveWysiwygOptions = function ($context) {
         return {text:$context.find('.ipaFieldOptionsRichText').val()};
     };
 

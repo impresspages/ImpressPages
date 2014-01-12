@@ -5,13 +5,13 @@
  */
 ?>
 <?php ob_start(); // Example content ?>
-<div class="ipWidget ipPreviewWidget ipWidget-IpImage ipLayout-default">
+<div class="ipWidget ipPreviewWidget ipWidget-Image ipLayout-default">
     <img src="http://lorempixel.com/373/249/nature/5/" alt="" title="">
 </div>
-<div class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-level2">
+<div class="ipWidget ipPreviewWidget ipWidget-Title ipLayout-level2">
     <h2 class="ipwTitle"><?php _e('This is a level2 headline', 'Blank') ?></h2>
 </div>
-<div class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">
+<div class="ipWidget ipPreviewWidget ipWidget-Text ipLayout-default">
 <?php _e('<p>Here is a text block where to can put any information.
 It supports <strong>bold</strong>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>
 You can make lists:

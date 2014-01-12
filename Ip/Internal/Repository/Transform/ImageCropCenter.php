@@ -25,6 +25,9 @@ class ImageCropCenter extends Image
      */
     public function __construct($widthDest, $heightDest, $quality = null)
     {
+        if ($heightDest <= 0 || $widthDest <= 0) {
+            throw new \Ip\Internal\Repository\TransformException("Incorrect width or height");
+        }
         if ($quality === null)
         {
             $quality = ipGetOption('Config.defaultImageQuality');
@@ -101,7 +104,9 @@ class ImageCropCenter extends Image
             $heightDest = $y2 - $y1;
         }
 
-
+        if ($heightDest <= 0 || $widthDest <= 0) {
+            throw new \Ip\Internal\Repository\TransformException("Incorrect width or height");
+        }
 
         if ($this->croppingGoesOutOfImage($sourceFile, $x1, $y1, $x2, $y2)) { //cropping area goes out of image edge. Fill transparent.
             /*

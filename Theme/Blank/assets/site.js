@@ -1,6 +1,6 @@
 $(document).ready(function () {
     "use strict";
-    $('.ipWidget-IpImageGallery li a, .ipWidget-IpImage a').colorbox({
+    $('.ipWidget-Gallery li a, .ipWidget-Image a').colorbox({
         rel: 'ipwImage',
         maxWidth: '90%',
         maxHeight: '90%'

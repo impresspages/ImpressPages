@@ -9,18 +9,18 @@ class Filter
     public static function ipWidgets($widgets)
     {
 
-        $widgets['IpTitle'] = new \Ip\Internal\Content\Widget\IpTitle\Controller('IpTitle', 'Content', 1);
-        $widgets['IpText'] = new \Ip\Internal\Content\Widget\IpText\Controller('IpText', 'Content', 1);
-        $widgets['IpSeparator'] = new \Ip\Internal\Content\Widget\IpSeparator\Controller('IpSeparator', 'Content', 1);
-        //$widgets['IpTextImage'] = new \Ip\Internal\Content\Widget\IpTextImage\Controller('IpTextImage', 'Content', 1);
-        $widgets['IpImage'] = new \Ip\Internal\Content\Widget\IpImage\Controller('IpImage', 'Content', 1);
-        $widgets['IpImageGallery'] = new \Ip\Internal\Content\Widget\IpImageGallery\Controller('IpImageGallery', 'Content', 1);
+        $widgets['Title'] = new \Ip\Internal\Content\Widget\Title\Controller('Title', 'Content', 1);
+        $widgets['Text'] = new \Ip\Internal\Content\Widget\Text\Controller('Text', 'Content', 1);
+        $widgets['Separator'] = new \Ip\Internal\Content\Widget\Separator\Controller('Separator', 'Content', 1);
+        //$widgets['TextImage'] = new \Ip\Internal\Content\Widget\TextImage\Controller('TextImage', 'Content', 1);
+        $widgets['Image'] = new \Ip\Internal\Content\Widget\Image\Controller('Image', 'Content', 1);
+        $widgets['Gallery'] = new \Ip\Internal\Content\Widget\Gallery\Controller('Gallery', 'Content', 1);
         //$widgets['IpLogoGallery'] = new \Ip\Internal\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
-        //$widgets['IpFile'] = new \Ip\Internal\Content\Widget\IpFile\Controller('IpFile', 'Content', 1);
-        $widgets['IpHtml'] = new \Ip\Internal\Content\Widget\IpHtml\Controller('IpHtml', 'Content', 1);
-        //$widgets['IpFaq'] = new \Ip\Internal\Content\Widget\IpFaq\Controller('IpFaq', 'Content', 1);
-        $widgets['IpColumns'] = new \Ip\Internal\Content\Widget\IpColumns\Controller('IpColumns', 'Content', 1);
-        $widgets['IpForm'] = new \Ip\Internal\Content\Widget\IpForm\Controller('IpForm', 'Content', 1);
+        //$widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);
+        $widgets['Html'] = new \Ip\Internal\Content\Widget\Html\Controller('Html', 'Content', 1);
+        //$widgets['Faq'] = new \Ip\Internal\Content\Widget\Faq\Controller('Faq', 'Content', 1);
+        $widgets['Columns'] = new \Ip\Internal\Content\Widget\Columns\Controller('Columns', 'Content', 1);
+        $widgets['Form'] = new \Ip\Internal\Content\Widget\Form\Controller('Form', 'Content', 1);
 
 
         $widgetDirs = static::getPluginWidgetDirs();
@@ -38,10 +38,10 @@ class Filter
     }
 
     /**
-     * IpForm widget
+     * Form widget
      * @param array $value
      */
-    public static function ipWidgetIpFormFieldTypes($fieldTypes, $info = null)
+    public static function ipWidgetFormFieldTypes($fieldTypes, $info = null)
     {
 
         $typeText = __('Text', 'ipAdmin', false);
@@ -53,20 +53,20 @@ class Filter
         $typeCaptcha = __('Captcha', 'ipAdmin', false);
         $typeFile = __('File', 'ipAdmin', false);
 
-        $fieldTypes['IpText'] = new FieldType('IpText', '\Ip\Form\Field\Text', $typeText);
+        $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['IpEmail'] = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
-        $fieldTypes['IpTextarea'] = new FieldType('IpTextarea', '\Ip\Form\Field\Textarea', $typeTextarea);
-        $fieldTypes['IpSelect'] = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', ipView(
+        $fieldTypes['Textarea'] = new FieldType('Textarea', '\Ip\Form\Field\Textarea', $typeTextarea);
+        $fieldTypes['IpSelect'] = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
             'view/form_field_options/list.php'
         )->render());
-        $fieldTypes['IpCheckbox'] = new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetIpForm_InitWysiwygOptions', 'ipWidgetIpForm_SaveWysiwygOptions', ipView(
+        $fieldTypes['IpCheckbox'] = new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetForm_InitWysiwygOptions', 'ipWidgetForm_SaveWysiwygOptions', ipView(
             'view/form_field_options/wysiwyg.php'
         )->render());
-        $fieldTypes['IpRadio'] = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetIpForm_InitListOptions', 'ipWidgetIpForm_SaveListOptions', ipView(
+        $fieldTypes['IpRadio'] = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
             'view/form_field_options/list.php'
         )->render());
         $fieldTypes['IpCaptcha'] = new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
-        $fieldTypes['IpFile'] = new FieldType('IpFile', '\Ip\Form\Field\File', $typeFile);
+        $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
 
         return $fieldTypes;
     }

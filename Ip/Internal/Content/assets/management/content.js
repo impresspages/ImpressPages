@@ -56,7 +56,7 @@ var ipContent;
             var targetPosition = $targetWidget.index();
 
             //create columns widget above target widget
-            ipContent.createWidget(revisionId, targetBlockName, 'IpColumns', targetPosition, function (instanceId) {
+            ipContent.createWidget(revisionId, targetBlockName, 'Columns', targetPosition, function (instanceId) {
                 var columnWidgetInstanceId = instanceId;
                 var $columnWidget = $('#ipWidget-' + columnWidgetInstanceId);
                 if (leftOrRight == 'left') {

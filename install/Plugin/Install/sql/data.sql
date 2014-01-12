@@ -10,7 +10,7 @@ INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visibl
 (69, 3, 3, 'Page4', 4, '', 'Page4', '', '', 'page4', '', '2012-01-22 00:00:00', '2009-08-10 14:12:21', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (70, 4, 3, 'Page5', 5, '', 'Page5', '', '', 'page5', '', '2012-01-22 00:00:00', '2009-08-10 14:17:18', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (71, 0, 67, 'Subpage', 1, '', 'Subpage example', '', '', 'subpage', 'a:0:{}', '2012-01-22 00:00:00', '2009-08-10 13:36:39', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(64, 0, 1, 'Home', 1, '', 'Home', '', '', 'home', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-IpTitle ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-IpText ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
+(64, 0, 1, 'Home', 1, '', 'Home', '', '', 'home', '', '2012-01-22 00:00:00', '2009-08-10 00:22:58', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipPreviewWidget ipWidget-Title ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipPreviewWidget ipWidget-Text ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
 (65, 1, 1, 'Lorem ipsum', 1, '', 'Lorem ipsum', '', '', 'lorem-ipsum', '', '2012-01-22 00:00:00', '2009-08-10 00:43:10', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (72, 0, 4, 'Example page', 1, '', 'Example page', '', '', 'examplepage', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
 (73, 0, 4, 'Example page2', 2, '', 'Example page', '', '', 'examplepage2', '', '2012-01-22 00:00:00', '2009-08-10 00:48:05', '2009-08-09 00:00:00', NULL, NULL, '2009-08-09 00:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', '');
@@ -19,18 +19,18 @@ INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visibl
 -- Dumping data for table--
 
 INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`, `deleted`) VALUES
-(2, 'IpImage', 60, 0),
-(3, 'IpImageGallery', 70, 0),
+(2, 'Image', 60, 0),
+(3, 'Gallery', 70, 0),
 (4, 'IpLogoGallery', 80, 0),
-(5, 'IpText', 30, 0),
-(6, 'IpTextImage', 50, 0),
-(7, 'IpTitle', 20, 0),
-(8, 'IpFile', 90, 0),
-(10, 'IpSeparator', 40, 0),
-(9, 'IpHtml', 120, 0),
+(5, 'Text', 30, 0),
+(6, 'TextImage', 50, 0),
+(7, 'Title', 20, 0),
+(8, 'File', 90, 0),
+(10, 'Separator', 40, 0),
+(9, 'Html', 120, 0),
 (11, 'IpTable', 100, 0),
 (13, 'IpRichText', 130, 0),
-(14, 'IpFaq', 140, 0);
+(14, 'Faq', 140, 0);
 
 -- Dumping data for table--
 

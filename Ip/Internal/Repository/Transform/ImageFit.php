@@ -52,6 +52,9 @@ class ImageFit extends Image
 
     public function crop($image, $widthDest, $heightDest, $forced)
     {
+        if ($heightDest <= 0 || $widthDest <= 0) {
+            throw new \Ip\Internal\Repository\TransformException("Incorrect width or height");
+        }
         $widthSource = imagesx($image);
         $heightSource = imagesy($image);
 

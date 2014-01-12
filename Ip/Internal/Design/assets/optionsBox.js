@@ -158,7 +158,7 @@ var ipDesign = new function () {
     };
 
     this.init = function () {
-        $('a').not('.ipWidget-IpImageGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpImage a, .ipWidget-IpFile a, .ipWidget-IpTextImage a')
+        $('a').not('.ipWidget-Gallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-Image a, .ipWidget-File a, .ipWidget-TextImage a')
             .off('click').on('click', function (e) {
             e.preventDefault();
             ipDesign.openLink($(e.currentTarget).attr('href'));

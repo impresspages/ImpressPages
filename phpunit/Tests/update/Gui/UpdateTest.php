@@ -29,7 +29,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         
-        $this->assertTextPresent('IpForm widget has been introduced');
+        $this->assertTextPresent('Form widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
 
         //start update process
@@ -68,7 +68,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $this->open($url.'update');
         $this->waitForElementPresent('css=.actProceed');
         
-        $this->assertTextPresent('IpForm widget has been introduced');
+        $this->assertTextPresent('Form widget has been introduced');
         $this->assertTextPresent('Now ImpressPages core does not include any JavaScript by default');
 
         //start update process

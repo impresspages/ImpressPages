@@ -10,7 +10,7 @@
         <column>predecessor</column>
         <row>
             <value name="widgetId">54</value>
-            <value name="name">IpImageGallery</value>
+            <value name="name">Gallery</value>
             <value name="layout">default</value>
             <value name="data">{&quot;images&quot;:[{&quot;imageOriginal&quot;:&quot;phpunit\/Tmp\/file\/square_logo.jpg&quot;,&quot;imageBig&quot;:&quot;phpunit\/Tmp\/file\/square_logo_1.jpg&quot;,&quot;imageSmall&quot;:&quot;phpunit\/Tmp\/file\/square_logo_2.jpg&quot;,&quot;title&quot;:&quot;square_logo.jpg&quot;,&quot;cropX1&quot;:&quot;0&quot;,&quot;cropY1&quot;:&quot;12&quot;,&quot;cropX2&quot;:&quot;64&quot;,&quot;cropY2&quot;:&quot;52&quot;}]}</value>
             <value name="created">1367136019</value>

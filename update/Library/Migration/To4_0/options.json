@@ -11,7 +11,7 @@
     "Config.availableFonts": "Arial,Arial,Helvetica,sans-serif\nArial Black,Arial Black,Gadget,sans-serif\nComic Sans MS,Comic Sans MS,cursive\nCourier New,Courier New,Courier,monospace\nGeorgia,Georgia,serif\nImpact,Charcoal,sans-serif\nLucida Console,Monaco,monospace\nLucida Sans Unicode,Lucida Grande,sans-serif\nPalatino Linotype,Book Antiqua,Palatino,serif\nTahoma,Geneva,sans-serif\nTimes New Roman,Times,serif\nTrebuchet MS,Helvetica,sans-serif\nVerdana,Geneva,sans-serif\nGill Sans,Geneva,sans-serif",
 
 
-    "Content.widgetImageGalleryQuality": 90,
+    "Content.widgetGalleryQuality": 90,
     "Content.widgetLogoGalleryQuality": 100,
 
 
@@ -19,10 +19,10 @@
     "Content.widgetImageHeight": 200,
     "Content.widgetImageBigWidth": 800,
     "Content.widgetImageBigHeight": 600,
-    "Content.widgetImageGalleryWidth": 200,
-    "Content.widgetImageGalleryHeight": 200,
-    "Content.widgetImageGalleryBigWidth": 800,
-    "Content.widgetImageGalleryBigHeight": 600,
+    "Content.widgetGalleryWidth": 200,
+    "Content.widgetGalleryHeight": 200,
+    "Content.widgetGalleryBigWidth": 800,
+    "Content.widgetGalleryBigHeight": 600,
     "Content.widgetLogoGalleryWidth": 200,
     "Content.widgetLogoGalleryHeight": 200,
     "Content.widgetTextImageWidth": 300,
