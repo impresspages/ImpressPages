@@ -52,6 +52,14 @@ class IpActions
     }
 
 
+    public function selectFirstFileInRepository()
+    {
+        $this->testCase->waitForElementPresent('css=.ipmBrowserContainer ul li');
+        $this->testCase->click('css=.ipmBrowserContainer ul li:first');
+        $this->testCase->waitForElementPresent('css=.ipaSelectionConfirm');
+        $this->testCase->click('css=.ipaSelectionConfirm');
+
+    }
 
     /**
      * @param string $widgetName
