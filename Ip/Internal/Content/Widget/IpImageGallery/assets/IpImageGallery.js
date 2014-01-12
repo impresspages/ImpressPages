@@ -129,7 +129,8 @@ var IpWidget_IpImageGallery;
         }
 
         this.blur = function () {
-            this.$widgetObject.find('.ipsAdd').remove();
+            var $widgetControls = this.$widgetControls;
+            $widgetControls.addClass('hide');
         };
 
         this.deleteImage = function (position) {
