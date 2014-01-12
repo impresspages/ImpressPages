@@ -79,6 +79,13 @@ var IpWidget_IpImageGallery;
 
         this.onAdd = function (e) {
             this.$widgetObject.click();
+            var thisContext = this;
+            var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
+            repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
+            repository.on('ipModuleRepository.cancel', function () {
+                ipContent.deleteWidget(thisContext.$widgetObject.data('widgetinstanceid'));
+            });
+
         }
 
         this.focusImage = function (e) {
