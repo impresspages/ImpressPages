@@ -10,7 +10,7 @@
  */
 class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
 {
-    public function testInstallCurrent()
+    public function testAddRemoveWidgets()
     {
         $installation = $this->getInstallation();
 
@@ -40,18 +40,11 @@ class AddDeleteWidgetTest extends \PhpUnit\SeleniumTestCase
         $ipActions->cancelWidget();
         $this->assertNoErrors();
         $ipActions->addWidget('IpImageGallery');
-        $this->assertNoErrors();
-        $ipActions->cancelWidget();
-        $this->assertNoErrors();
-        $ipActions->addWidget('IpLogoGallery');
+        $ipActions->selectFirstFileInRepository();
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
         $ipActions->addWidget('IpFile');
-        $this->assertNoErrors();
-        $ipActions->cancelWidget();
-        $this->assertNoErrors();
-        $ipActions->addWidget('IpTable');
         $this->assertNoErrors();
         $ipActions->cancelWidget();
         $this->assertNoErrors();
