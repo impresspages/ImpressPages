@@ -47,41 +47,26 @@ var ipContent;
             });
         }
 
+        this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
+
+
+
+        };
+
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
             var createdWidgetInstanceId;
-            var $targetWidget =  $('#ipWidget-' + targetWidgetInstanceId);
-            var $targetBlock = $targetWidget.closest('.ipBlock');
-            var targetBlockName = $targetBlock.data('ipBlock').name;
             var revisionId = ip.revisionId;
-            var targetPosition = $targetWidget.index();
 
-            //create columns widget above target widget
-            ipContent.createWidget(revisionId, targetBlockName, 'Columns', targetPosition, function (instanceId) {
-                var columnWidgetInstanceId = instanceId;
-                var $columnWidget = $('#ipWidget-' + columnWidgetInstanceId);
-                if (leftOrRight == 'left') {
-                    //put target widget to right
-                    var $existingWidgetBlock = $columnWidget.find('.ipBlock').eq(1);
-                    var $newWidgetBlock = $columnWidget.find('.ipBlock').eq(0);
-                } else {
-                    //put target widget to left
-                    var $existingWidgetBlock = $columnWidget.find('.ipBlock').eq(0);
-                    var $newWidgetBlock = $columnWidget.find('.ipBlock').eq(1);
-                }
-                var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name
-                var newWidgetBlockName = $newWidgetBlock.data('ipBlock').name
 
-                //move target widget to right / left column
-                ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, revisionId, function (newInstanceId) {
-                    $('#ipWidget-' + newInstanceId).remove();
-                    $columnWidget.ipWidget('save', {}, 1, function($widget) {
+
+            createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
+
                         ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
-                            $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
                             createdWidgetInstanceId = instanceId;
                         });
-                    });
-                });
+
             });
+
 
             if (callback) {
                 callback($newWidget.data('widgetinstanceid'));
@@ -90,6 +75,50 @@ var ipContent;
 
         };
 
+
+        var createSpace = function (targetWidgetInstanceId, leftOrRight, callback) {
+            var newWidgetBlockName;
+            var $targetWidget =  $('#ipWidget-' + targetWidgetInstanceId);
+            var $targetBlock = $targetWidget.closest('.ipBlock');
+            var targetBlockName = $targetBlock.data('ipBlock').name;
+            var targetPosition = $targetWidget.index();
+            var revisionId = ip.revisionId;
+
+            if ($targetWidget.hasClass('ipWidget-Columns')) {
+                //create additional column on existing columns widget
+                alert('Not implemented yet');
+            } else {
+                //create columns widget above target widget
+                ipContent.createWidget(revisionId, targetBlockName, 'Columns', targetPosition, function (instanceId) {
+                    var columnWidgetInstanceId = instanceId;
+                    var $columnWidget = $('#ipWidget-' + columnWidgetInstanceId);
+                    if (leftOrRight == 'left') {
+                        //put target widget to right
+                        var $existingWidgetBlock = $columnWidget.find('.ipBlock').eq(1);
+                        var $newWidgetBlock = $columnWidget.find('.ipBlock').eq(0);
+                    } else {
+                        //put target widget to left
+                        var $existingWidgetBlock = $columnWidget.find('.ipBlock').eq(0);
+                        var $newWidgetBlock = $columnWidget.find('.ipBlock').eq(1);
+                    }
+                    var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name
+                    newWidgetBlockName = $newWidgetBlock.data('ipBlock').name;
+                    //move target widget to right / left column
+                    ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, revisionId, function (newInstanceId) {
+                        $('#ipWidget-' + newInstanceId).remove();
+                        $columnWidget.ipWidget('save', {}, 1, function($widget) {
+                            $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
+                            if (callback) {
+                                callback(newWidgetBlockName);
+                            }
+                        });
+                    });
+                });
+            }
+
+
+
+        }
 
 
 
