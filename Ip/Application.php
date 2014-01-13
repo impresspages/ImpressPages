@@ -107,25 +107,47 @@ class Application
             $request->fixMagicQuotes();
         }
 
-        // $requestedPage = ipFilter('ipParseRequest', array(), array('request' => $request, 'options' => $options));
+        $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
+        $language = $result['language'];
+        $relativeUri = $result['relativeUri'];
 
-        $requestParser = new \Ip\Internal\Content\RequestParser();
-
-        $controllerAction = $requestParser->_parseControllerAction($request);
-
-        $requestedPage = $requestParser->_parseRequest($request);
-
-        $requestedPage = ipFilter('ipRequestedPage', $requestedPage, array('request'=> $request, 'originalRequestedPage' => $requestedPage));
-
-        $currentPage = new \Ip\CurrentPage($requestedPage);
-
+        $currentPage = new \Ip\CurrentPage(array('language' => $language));
         \Ip\ServiceLocator::_setCurrentPage($currentPage);
+
+        $_SESSION['ipLastLanguageId'] = $language->getId();
+
+        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
+
+        if (empty($routeAction)) {
+            // TODOX 404 error
+            throw new \Ip\Exception('Page not found.');
+        }
+
+        foreach ($routeAction as $key => $value) {
+            $currentPage->_set($key, $value);
+        }
+
+        $plugin = $routeAction['plugin'];
+        $controller = $routeAction['controller'];
+        $action = $routeAction['action'];
+
+//        $requestParser = new \Ip\Internal\Content\RequestParser();
+
+//        $controllerAction = $requestParser->_parseControllerAction($request);
+
+//        $requestedPage = $requestParser->_parseRequest($request);
+
+//        $requestedPage = ipFilter('ipRequestedPage', $requestedPage, array('request'=> $request, 'originalRequestedPage' => $requestedPage));
+
+//        $currentPage = new \Ip\CurrentPage($requestedPage);
+
+//        \Ip\ServiceLocator::_setCurrentPage($currentPage);
 
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $languageCode = $currentPage->getLanguage()->getCode();
+                $languageCode = $language->getCode();
             }
             $this->initTranslations($languageCode);
         }
@@ -138,7 +160,7 @@ class Application
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
-                ) != $this->getSecurityToken()) && empty($_POST['pa'])
+                ) != $this->getSecurityToken()) && !$request->getPost('pa')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
@@ -154,14 +176,18 @@ class Application
             return new \Ip\Response\Json($data);
         }
 
+        if (in_array($routeAction['plugin'], \Ip\Internal\Plugins\Model::getModules())) {
+            $controllerClass = 'Ip\\Internal\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+        } else {
+            $controllerClass = 'Plugin\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+        }
 
-        $controllerClass = $currentPage->getControllerClass();
         if (!class_exists($controllerClass)) {
             throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
-        //check if user is logged in
-        if ($currentPage->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId()) {
+        // check if user is logged in
+        if ($routeAction['controller'] == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -170,13 +196,9 @@ class Application
             }
         }
 
-        $action = $currentPage->getControllerAction();
-
-        if ($currentPage->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $plugin = $currentPage->getControllerModule();
-            if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\Exception('User has no permission to execute ' . $currentPage->getControllerModule(
-                    ) . '.' . $currentPage->getControllerAction() . ' action');
+        if ($routeAction['controller'] == 'AdminController') {
+            if (!ipAdminPermission($routeAction['plugin'], 'executeAdminAction', array('action' => $action))) {
+                throw new \Ip\Exception('User has no permission to execute ' . $routeAction['plugin'] . '.' . $routeAction['action'] . ' action');
             }
         }
 

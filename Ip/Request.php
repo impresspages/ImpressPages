@@ -235,11 +235,12 @@ class Request
     }
 
     /**
+     * @ignore
      * @return bool true if current url is pointing to website root or one of the languages
      */
-    protected function isWebsiteRoot()
+    public function _isWebsiteRoot()
     {
-        $relativePath = ipRequest()->getRelativePath();
+        $relativePath = $this->getRelativePath();
         if (empty($relativePath[0]) || $relativePath[0] == '?') {
             return true;
         } else {
@@ -254,7 +255,7 @@ class Request
         $controllerType = self::CONTROLLER_TYPE_PUBLIC;
         $controllerModule = $this->defaultControllerModule;
 
-        if (!$this->isWebsiteRoot()) {
+        if (!$this->_isWebsiteRoot()) {
             if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
                 throw new \Ip\Exception('Controller action can be requested only at website root.');
             }

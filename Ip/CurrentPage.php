@@ -43,7 +43,7 @@ class CurrentPage
 
     public function getPage()
     {
-        return $this->requestedPage['page'];
+        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : NULL;
     }
 
     public function getUrlPath()
@@ -68,5 +68,15 @@ class CurrentPage
     public function getType()
     {
         return $this->requestedPage['controllerType'];
+    }
+
+    public function _set($name, $value)
+    {
+        $this->requestedPage[$name] = $value;
+    }
+
+    public function get($name, $default = NULL)
+    {
+        return array_key_exists($name, $this->requestedPage) ? $this->requestedPage[$name] : $default;
     }
 }

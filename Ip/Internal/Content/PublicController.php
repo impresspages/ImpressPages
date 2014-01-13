@@ -10,21 +10,31 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
+        //find current page
         $currentPage = ipCurrentPage();
 
-        //redirect if needed
-        if (in_array($currentPage->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
-            return new \Ip\Response\Redirect($currentPage->getLink());
+        $zone = ipContent()->getZone($currentPage->get('zone'));
+
+        if (!$zone) {
+            return new \Ip\Response\PageNotFound();
         }
 
-        //change layout if safe mode
+        $page = $zone->getCurrentPage();
+        $currentPage->_set('page', $page);
+
+        // redirect if needed
+        if (in_array($page->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
+            return new \Ip\Response\Redirect($page->getLink());
+        }
+
+        // change layout if safe mode
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
             ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
         } else {
-            ipSetLayout(Service::getPageLayout($currentPage->getPage()));
+            ipSetLayout(Service::getPageLayout($page));
         }
 
-        //initialize management
+        // initialize management
         ipAddJs(ipFileUrl('Ip/Internal/Content/assets/managementMode.js'));
         if (ipIsManagementState()) {
             $this->initManagement();
@@ -35,21 +45,13 @@ class PublicController extends \Ip\Controller
             }
         }
 
-        //show error404 page if needed
-        if (
-            $currentPage->getPage() instanceof \Ip\Page404
-        ) {
-            return new \Ip\Response\PageNotFound();
-        }
-
         //show page content
         $response = ipResponse();
         $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
         $response->setKeywords(ipContent()->getKeywords());
         $response->setTitle(ipContent()->getTitle());
 
-
-        return $currentPage->getPage()->generateContent();
+        return $page->generateContent();
     }
 
     private function initManagement()
