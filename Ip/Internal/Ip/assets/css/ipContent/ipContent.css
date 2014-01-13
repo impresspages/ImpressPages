@@ -1,14 +1,17 @@
-/**
- * ImpressPages CMS theme: LT pagan
- *
- * Styles file for widgets, system modules and content
- *
- * @package ImpressPages
- *
- */
+/* http://sonspring.com/journal/clearing-floats */
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+/*!
+    * Bootstrap v3.0.2
+    *
+    * Copyright 2013 Twitter, Inc
+    * Licensed under the Apache License v2.0
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Designed and built with all the love in the world @twitter by @mdo and @fat.
+    *
+    */
+/* covered by default styles */
 .clear {
-  /* http://sonspring.com/journal/clearing-floats */
-
   clear: both;
   display: block;
   height: 0;
@@ -17,13 +20,10 @@
   width: 0;
 }
 .clearfix {
-  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
 */
-
   zoom: 1;
 }
 .clearfix:before,
@@ -47,14 +47,14 @@ body {
   padding: 0;
 }
 .caption {
-  color: #000000;
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .signature {
-  color: #000000;
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -65,7 +65,7 @@ body {
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000000;
+  color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
@@ -77,7 +77,7 @@ body {
 .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -86,13 +86,10 @@ body {
   text-decoration: none;
 }
 .ipWidget {
-  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
 */
-
   zoom: 1;
   margin-bottom: 20px;
 }
@@ -113,51 +110,51 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget:last-child {
   margin-bottom: 0;
 }
-.ipPreviewWidget {
-  color: #000000;
+.ipWidget {
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
 }
-.ipPreviewWidget h1,
-.ipPreviewWidget h2,
-.ipPreviewWidget h3,
-.ipPreviewWidget h4,
-.ipPreviewWidget h5,
-.ipPreviewWidget h6,
-.ipPreviewWidget img,
-.ipPreviewWidget blockquote,
-.ipPreviewWidget p,
-.ipPreviewWidget ul,
-.ipPreviewWidget ol,
-.ipPreviewWidget li,
-.ipPreviewWidget dl,
-.ipPreviewWidget dd,
-.ipPreviewWidget dt,
-.ipPreviewWidget pre {
+.ipWidget h1,
+.ipWidget h2,
+.ipWidget h3,
+.ipWidget h4,
+.ipWidget h5,
+.ipWidget h6,
+.ipWidget img,
+.ipWidget blockquote,
+.ipWidget p,
+.ipWidget ul,
+.ipWidget ol,
+.ipWidget li,
+.ipWidget dl,
+.ipWidget dd,
+.ipWidget dt,
+.ipWidget pre {
   border: none;
   margin: 0;
   padding: 0;
 }
-.ipPreviewWidget .caption {
-  color: #000000;
+.ipWidget .caption {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
-.ipPreviewWidget .signature {
-  color: #000000;
+.ipWidget .signature {
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
 }
-.ipPreviewWidget .note {
+.ipWidget .note {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000000;
+  color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
@@ -166,10 +163,10 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin-bottom: 2em;
   padding-left: 1em;
 }
-.ipPreviewWidget .button {
+.ipWidget .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -177,99 +174,88 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
-.ipPreviewWidget h1 {
-  color: #000000;
+.ipWidget h1 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
-.ipPreviewWidget h2 {
-  color: #000000;
+.ipWidget h2 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
-.ipPreviewWidget h3 {
-  color: #000000;
+.ipWidget h3 {
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
-.ipPreviewWidget ul {
+.ipWidget ul {
   list-style-position: inside;
   list-style-type: square;
   margin: 0 0 2em 1em;
 }
-.ipPreviewWidget ol {
+.ipWidget ol {
   list-style-position: inside;
   margin: 0 0 2em 1em;
 }
-.ipPreviewWidget p {
+.ipWidget p {
   line-height: 1.5;
   margin-bottom: 2em;
 }
-.ipPreviewWidget ul ul,
-.ipPreviewWidget ol ol {
+.ipWidget ul ul,
+.ipWidget ol ol {
   margin-bottom: 0;
 }
-.ipPreviewWidget li {
+.ipWidget li {
   line-height: 1.5;
   margin-bottom: 5px;
 }
-.ipPreviewWidget p + ul,
-.ipPreviewWidget p + ol {
+.ipWidget p+ul,
+.ipWidget p+ol {
   margin-top: -1em;
 }
-.ipPreviewWidget a {
+.ipWidget a {
   color: #019bd4;
   text-decoration: none;
 }
-.ipPreviewWidget a:hover {
+.ipWidget a:hover {
   text-decoration: underline;
 }
-.ipPreviewWidget table {
+.ipWidget table {
   border-collapse: collapse;
-  color: #000000;
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
 }
-.ipPreviewWidget table p {
-  line-height: auto;
+.ipWidget table p {
+  line-height: normal;
   margin: 0;
 }
-.ipPreviewWidget td {
+.ipWidget td {
   border-bottom: 1px solid #b2b2b2;
   font-size: 14px;
   padding: 9px;
 }
-.ipPreviewWidget th,
-.ipPreviewWidget thead td,
-.ipPreviewWidget tbody tr:first-child td {
+.ipWidget th,
+.ipWidget thead td,
+.ipWidget tbody tr:first-child td {
   font-size: 14px;
   font-weight: bold;
 }
-.ipPreviewWidget thead + tbody tr:first-child td {
+.ipWidget thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
   font-size: 14px;
   font-weight: normal;
 }
-.ipPreviewWidget p:last-child,
-.ipPreviewWidget ul:last-child,
-.ipPreviewWidget ol:last-child {
+.ipWidget p:last-child,
+.ipWidget ul:last-child,
+.ipWidget ol:last-child {
   margin-bottom: 0;
 }
 .ipModuleForm {
-  /*!
-    * Bootstrap v3.0.2
-    *
-    * Copyright 2013 Twitter, Inc
-    * Licensed under the Apache License v2.0
-    * http://www.apache.org/licenses/LICENSE-2.0
-    *
-    * Designed and built with all the love in the world @twitter by @mdo and @fat.
-    *
-    */
-
   /*
     .ipmFileContainer {
         .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
@@ -287,7 +273,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 
     }
     */
-
 }
 .ipModuleForm input,
 .ipModuleForm button,
@@ -304,7 +289,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   border: 0;
 }
 .ipModuleForm fieldset {
@@ -336,9 +321,8 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm input[type="radio"],
 .ipModuleForm input[type="checkbox"] {
   margin: 4px 0 0;
-  margin-top: 1px \9;
   /* IE8-9 */
-
+  margin-top: 1px \9;
   line-height: normal;
 }
 .ipModuleForm input[type="file"] {
@@ -381,17 +365,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   display: block;
   width: 100%;
   padding: 0.5em;
-  color: #777777;
+  color: #777;
   vertical-align: middle;
-  background-color: #ffffff;
+  background-color: #fff;
   background-image: none;
   border: 1px solid #747474;
   border-radius: 3px;
 }
 .ipModuleForm .form-control:focus {
-  background-color: #ffffff;
-  border-color: #000000;
-  color: #000000;
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
 }
 .ipModuleForm .form-control:-moz-placeholder {
   color: #999999;
@@ -418,13 +402,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm .form-group {
   margin-bottom: 20px;
   position: relative;
-  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
 Move to separate stylesheet if invalid CSS is a problem.
 */
-
   zoom: 1;
 }
 .ipModuleForm .form-group:before,
@@ -507,8 +488,8 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .has-error .form-control {
   border-color: #b80000;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
 .ipModuleForm .form-control-static {
   margin-bottom: 0;
@@ -557,12 +538,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .form-horizontal .form-group:before,
 .ipModuleForm .form-horizontal .form-group:after {
-  content: " ";
   /* 1 */
-
-  display: table;
+  content: " ";
   /* 2 */
-
+  display: table;
 }
 .ipModuleForm .form-horizontal .form-group:after {
   clear: both;
@@ -599,7 +578,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   background: #019bd4;
   border: none;
   border-radius: 3px;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
@@ -615,8 +594,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   overflow: hidden;
   background-color: #f5f5f5;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
 }
 .ipModuleForm .progress-bar {
   float: left;
@@ -626,17 +605,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #ffffff;
   text-align: center;
   background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .ipModuleForm .progress-striped .progress-bar {
   background-color: #428bca;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));
+  background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: -moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
   background-size: 40px 40px;
 }
 .ipModuleForm .progress.active .progress-bar {
@@ -699,8 +678,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   background-color: #a7a7a7;
   border: 1px solid #747474;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
   max-width: 380px;
   position: relative;
 }
@@ -772,10 +751,33 @@ Move to separate stylesheet if invalid CSS is a problem.
   display: none !important;
 }
 .mceContentBody {
-  color: #000000;
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
+  zoom: 1;
+  margin-bottom: 20px;
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
-  background-color: #ffffff;
+  background-color: #fff;
+}
+.mceContentBody:before,
+.mceContentBody:after {
+  content: '.';
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+.mceContentBody:after {
+  clear: both;
+}
+.mceContentBody:last-child {
+  margin-bottom: 0;
 }
 .mceContentBody h1,
 .mceContentBody h2,
@@ -798,14 +800,14 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0;
 }
 .mceContentBody .caption {
-  color: #000000;
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .mceContentBody .signature {
-  color: #000000;
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -816,7 +818,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000000;
+  color: #000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
@@ -828,7 +830,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -837,17 +839,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   text-decoration: none;
 }
 .mceContentBody h1 {
-  color: #000000;
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 36px;
 }
 .mceContentBody h2 {
-  color: #000000;
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
 }
 .mceContentBody h3 {
-  color: #000000;
+  color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
 }
@@ -872,8 +874,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   line-height: 1.5;
   margin-bottom: 5px;
 }
-.mceContentBody p + ul,
-.mceContentBody p + ol {
+.mceContentBody p+ul,
+.mceContentBody p+ol {
   margin-top: -1em;
 }
 .mceContentBody a {
@@ -885,13 +887,13 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody table {
   border-collapse: collapse;
-  color: #000000;
+  color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
 }
 .mceContentBody table p {
-  line-height: auto;
+  line-height: normal;
   margin: 0;
 }
 .mceContentBody td {
@@ -905,7 +907,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-size: 14px;
   font-weight: bold;
 }
-.mceContentBody thead + tbody tr:first-child td {
+.mceContentBody thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
@@ -934,7 +936,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding-left: 30px;
 }
 .ipWidget-Faq .ipwQuestion {
-  color: #000000;
+  color: #000;
   cursor: pointer;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 18px;
@@ -947,11 +949,11 @@ Move to separate stylesheet if invalid CSS is a problem.
   background-color: #f3f3f3;
 }
 .ipWidget-Faq .ipwQuestion:before {
-  border: 1px solid #000000;
+  border: 1px solid #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 11px;
   font-weight: bold;
-  color: #000000;
+  color: #000;
   content: '?';
   display: block;
   margin: 3px 0 0 -30px;
@@ -965,8 +967,8 @@ Move to separate stylesheet if invalid CSS is a problem.
   display: none;
 }
 .ipWidget-Faq .ipwExpanded .ipwQuestion:before {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #000;
+  color: #fff;
 }
 .ipWidget-File ul {
   list-style: none;
@@ -979,25 +981,13 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-File a:hover {
   text-decoration: underline;
 }
-.ipWidget-Form .ipwSuccess {
+.ipWidget-Form {
   /* mimicking the same styles as for form to keep message 'inside' the box */
-
+}
+.ipWidget-Form .ipwSuccess {
   border: 1px solid #888;
   display: none;
   padding: 20px 25px;
-}
-.ipWidget-Html {
-  max-width: 100%;
-  overflow: auto;
-}
-.ipWidget-Image img {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  /* to remove 3px space below the image (default rendering behavior) */
-
-  max-width: 100%;
 }
 .ipWidget-Gallery {
   margin-bottom: 0px;
@@ -1032,42 +1022,17 @@ Move to separate stylesheet if invalid CSS is a problem.
     padding: 0 10px;
   }
 }
-.ipWidget-IpLogoGallery {
-  margin-bottom: 0px;
-}
-.ipWidget-IpLogoGallery ul {
-  list-style: none;
-  margin: 0 -10px;
-}
-.ipWidget-IpLogoGallery li {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  float: left;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  width: 25%;
-}
-.ipWidget-IpLogoGallery li img {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-}
-@media screen and (max-width: 480px) {
-  .ipWidget-IpLogoGallery ul {
-    margin: 0 -10px;
-  }
-  .ipWidget-IpLogoGallery li {
-    width: 50%;
-    margin-bottom: 20px;
-    padding: 0 10px;
-  }
-}
-.ipWidget-IpRichText pre {
+.ipWidget-Html {
   max-width: 100%;
   overflow: auto;
+}
+.ipWidget-Image img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* to remove 3px space below the image (default rendering behavior) */
+  display: block;
+  max-width: 100%;
 }
 .ipWidget-Separator.ipLayout-default {
   border-bottom: 1px solid #747474;
@@ -1077,13 +1042,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Separator.ipLayout-space {
   height: 25px;
 }
-.ipWidget-IpTable {
+.ipWidget-Text table,
+.ipWidget-Text pre {
   max-width: 100%;
   overflow: auto;
-}
-.ipWidget-Text {
-  /* covered by default styles */
-
 }
 .ipWidget-TextImage .ipwImage {
   -webkit-box-sizing: border-box;
