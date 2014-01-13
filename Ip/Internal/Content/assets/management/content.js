@@ -7,7 +7,7 @@
 var ipContent;
 
 (function($) {
-
+    "use strict";
     ipContent = new function() {
 
         this.deleteWidget = function (instanceId, callback) {
@@ -212,7 +212,7 @@ var ipContent;
                         if (response.position == 0) {
                             $block.prepend($newWidget);
                         } else {
-                            $secondChild = $block.children('.ipWidget:nth-child(' + response.position + ')');
+                            var $secondChild = $block.children('.ipWidget:nth-child(' + response.position + ')');
                             $newWidget.insertAfter($secondChild);
                         }
 
