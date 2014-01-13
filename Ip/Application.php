@@ -131,18 +131,6 @@ class Application
         $controller = $routeAction['controller'];
         $action = $routeAction['action'];
 
-//        $requestParser = new \Ip\Internal\Content\RequestParser();
-
-//        $controllerAction = $requestParser->_parseControllerAction($request);
-
-//        $requestedPage = $requestParser->_parseRequest($request);
-
-//        $requestedPage = ipFilter('ipRequestedPage', $requestedPage, array('request'=> $request, 'originalRequestedPage' => $requestedPage));
-
-//        $currentPage = new \Ip\CurrentPage($requestedPage);
-
-//        \Ip\ServiceLocator::_setCurrentPage($currentPage);
-
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];

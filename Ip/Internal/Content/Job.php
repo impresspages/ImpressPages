@@ -20,12 +20,12 @@ class Job
 
         $result = array();
 
-        if (!empty($urlVars[0])) {
-            $potentialZoneUrl = urldecode($urlVars[0]);
+        if (!empty($urlParts[0])) {
+            $potentialZoneUrl = urldecode($urlParts[0]);
             foreach ($zonesData as $zoneData) {
-                if ($zoneData['url'] == $potentialZoneUrl) {
+                if ($zoneData->getUrl() == $potentialZoneUrl) {
                     $result['zoneUrl'] = $potentialZoneUrl;
-                    $result['zone'] = $zoneData['name'];
+                    $result['zone'] = $zoneData->getName();
                     $result['relativeUri'] = isset($urlParts[1]) ? $urlParts[1] : '';
                     break;
                 }
@@ -34,9 +34,9 @@ class Job
             if (empty($result['zone'])) {
                 $zoneWithNoUrl = null;
                 foreach ($zonesData as $zoneData) {
-                    if ($zoneData['url'] === '') {
+                    if ($zoneData->getUrl() === '') {
                         $result['zoneUrl'] = '';
-                        $result['zone'] = $zoneData['name'];
+                        $result['zone'] = $zoneData->getName();
                         break;
                     }
                 }
@@ -57,7 +57,7 @@ class Job
         $result['plugin'] = 'Content';
         $result['controller'] = 'PublicController';
         $result['action'] = 'index';
-        $result['urlVars'] = isset($urlParts[1]) ? explode('/', $urlParts[1]) : array();
+        $result['urlParts'] = isset($urlParts[1]) ? explode('/', $urlParts[1]) : array();
 
         return $result;
     }
