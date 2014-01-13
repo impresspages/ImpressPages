@@ -56,6 +56,44 @@ class RequestParser
         return $this->currentPage;
     }
 
+    public function _parseControllerAction(\Ip\Request $request)
+    {
+        $requestedPage = array(
+            'controllerModule' => $request->getControllerModule(),
+            'controllerType' => $request->getControllerType(),
+            'controllerClass' => $request->getControllerClass(),
+            'controllerAction' => $request->getControllerAction(),
+        );
+
+        return $requestedPage;
+    }
+
+    public function _parseRequest(\Ip\Request $request)
+    {
+        $requestedPage = $this->_parseControllerAction($request);
+
+        $this->parseUrl();
+
+        $requestedPage['language'] = $this->currentLanguage;
+        $requestedPage['zone'] = $this->currentZoneName;
+        $requestedPage['page'] = $this->currentPage;
+        $requestedPage['languageUrl'] = $this->languageUrl;
+        $requestedPage['urlVars'] = $this->urlVars;
+        $requestedPage['zoneUrl'] = $this->zoneUrl;
+
+        if ($requestedPage['zone'] == '404') {
+            unset($requestedPage['zone']);
+            unset($requestedPage['page']);
+        }
+
+        return $requestedPage;
+    }
+
+    public function _parseLanguage(\Ip\Request $request)
+    {
+
+    }
+
     private function parseUrl()
     {
         $languages = ipContent()->getLanguages();

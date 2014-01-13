@@ -53,11 +53,6 @@ class Event
         $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
 
-        if (in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/')) && $request->isDefaultAction()) {
-            \Ip\ServiceLocator::response()->setLayout(ipFile('Ip/Internal/Admin/view/layout.php'));
-            $request->setAction('Admin', 'login', \Ip\Request::CONTROLLER_TYPE_SITE);
-        }
-
         if (ipIsManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {

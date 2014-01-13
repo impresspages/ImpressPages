@@ -107,11 +107,25 @@ class Application
             $request->fixMagicQuotes();
         }
 
+        // $requestedPage = ipFilter('ipParseRequest', array(), array('request' => $request, 'options' => $options));
+
+        $requestParser = new \Ip\Internal\Content\RequestParser();
+
+        $controllerAction = $requestParser->_parseControllerAction($request);
+
+        $requestedPage = $requestParser->_parseRequest($request);
+
+        $requestedPage = ipFilter('ipRequestedPage', $requestedPage, array('request'=> $request, 'originalRequestedPage' => $requestedPage));
+
+        $currentPage = new \Ip\CurrentPage($requestedPage);
+
+        \Ip\ServiceLocator::_setCurrentPage($currentPage);
+
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $languageCode = ipContent()->getCurrentLanguage()->getCode();
+                $languageCode = $currentPage->getLanguage()->getCode();
             }
             $this->initTranslations($languageCode);
         }
@@ -141,15 +155,13 @@ class Application
         }
 
 
-        $controllerClass = $request->getControllerClass();
+        $controllerClass = $currentPage->getControllerClass();
         if (!class_exists($controllerClass)) {
             throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
         //check if user is logged in
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId(
-            )
-        ) {
+        if ($currentPage->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId()) {
 
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -158,13 +170,13 @@ class Application
             }
         }
 
-        $action = $request->getControllerAction();
+        $action = $currentPage->getControllerAction();
 
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $plugin = $request->getControllerModule();
+        if ($currentPage->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $plugin = $currentPage->getControllerModule();
             if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\Exception('User has no permission to execute ' . $request->getControllerModule(
-                    ) . '.' . $request->getControllerAction() . ' action');
+                throw new \Ip\Exception('User has no permission to execute ' . $currentPage->getControllerModule(
+                    ) . '.' . $currentPage->getControllerAction() . ' action');
             }
         }
 

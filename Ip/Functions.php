@@ -107,6 +107,15 @@ function ipContent()
     return \Ip\ServiceLocator::content();
 }
 
+/**
+ * Use this object to get information about current page, language, zone.
+ *
+ * @return \Ip\CurrentPage
+ */
+function ipCurrentPage()
+{
+    return \Ip\ServiceLocator::currentPage();
+}
 
 /**
  * Adds JavaScript file to a web page.
