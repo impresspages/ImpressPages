@@ -15,7 +15,7 @@ function ipApplication()
 }
 
 /**
- * Get security token string.
+ * Get security token string. Used to prevent XSRF attacks.
  * @return string
  */
 function ipSecurityToken()
@@ -36,7 +36,7 @@ function ipGetOption($option, $defaultValue = null)
 }
 
 /**
- * Get CMS language specific option value.
+ * Get language specific CMS option value. 
  * @param $option
  * @param $languageId
  * @param null $defaultValue
@@ -60,7 +60,7 @@ function ipSetOption($option, $value)
 }
 
 /**
- *  Set CMS language specific option value.
+ *  Set language specific CMS option value.
  * @param $option
  * @param $value
  * @param $languageId
@@ -80,6 +80,12 @@ function ipRemoveOption($option)
     return \Ip\ServiceLocator::options()->removeOption($option);
 }
 
+/**
+ *  Remove language specific CMS option value.
+ * @param $option
+ * @param $value
+ * @param $languageId
+ */
 function ipRemoveOptionLang($option, $languageId)
 {
     return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId);
@@ -109,7 +115,7 @@ function ipContent()
 
 
 /**
- * Adds JavaScript file to a web page.
+ * Add JavaScript file to a web page.
  * After adding all JavaScript files, use ipJs() function to generate JavaScript links HTML code.
  * @param $file JavaScript file
  * @param int $stage
@@ -123,7 +129,7 @@ function ipAddJs($file, $stage = 1)
 }
 
 /**
- * Passes PHP variable to JavaScript code.
+ * Pass PHP variable to JavaScript code.
  * @param $name
  * @param $value
  */
@@ -160,7 +166,7 @@ function ipAddCss($file, $stage = 1)
 }
 
 /**
- * Returns CMS log object.
+ * Return CMS log object.
  * Use this object to create and access log records.
  * @return \Psr\Log\LoggerInterface
  */
@@ -170,7 +176,7 @@ function ipLog()
 }
 
 /**
- * Generates HTML code which loads JavaScript files added by ipAddJs() function.
+ * Generate HTML code which loads JavaScript files added by ipAddJs() function.
  * @return mixed
  */
 
@@ -180,7 +186,7 @@ function ipJs()
 }
 
 /**
- * Generates HTML head.
+ * Generate HTML head.
  * @return mixed
  */
 function ipHead()
@@ -189,7 +195,7 @@ function ipHead()
 }
 
 /**
- * Sets HTML layout file.
+ * Set HTML layout file.
  * @param $file
  */
 
@@ -204,7 +210,7 @@ function ipSetLayout($file)
 }
 
 /**
- * Gets CMS response object.
+ * Get CMS response object.
  * @return \Ip\Response | \Ip\Response\Layout
  */
 function ipResponse()
@@ -213,7 +219,7 @@ function ipResponse()
 }
 
 /**
- * Gets current HTML layout.
+ * Get current HTML layout.
  */
 function ipGetLayout()
 {
@@ -226,7 +232,7 @@ function ipGetLayout()
 }
 
 /**
- * Gets CMS block object.
+ * Get CMS block object.
  * @param $block
  * @return \Ip\Block
  */
@@ -237,7 +243,7 @@ function ipBlock($block)
 
 
 /**
- * Gets CMS slot object.
+ * Get CMS slot object.
  * @param $slot
  * @param array $params
  */
@@ -267,7 +273,7 @@ function ipRequest()
 }
 
 /**
- * Creates event.
+ * Create an event.
  * @return \Ip\Dispatcher
  */
 
@@ -277,7 +283,7 @@ function ipEvent($event, $data = array())
 }
 
 /**
- * Filters data.
+ * Filter data.
  * @param $event filter name
  * @param $value
  * @param array $data
@@ -289,7 +295,7 @@ function ipFilter($event, $value, $data = array())
 }
 
 /**
- * Creates job.
+ * Create a job.
  * @param $eventName
  * @param array $data
  * @return mixed|null
@@ -310,7 +316,7 @@ function ipDb()
 }
 
 /**
- * Gets escaped string.
+ * Get escaped string.
  * @param string $string
  * @param string $esc html|attr|textarea|url|urlRaw|raw or false
  * @return string escaped string
@@ -334,7 +340,7 @@ function esc($string, $esc = 'html')
 
 
 /**
- * Gets escaped HTML string
+ * Get escaped HTML string
  * @param $string
  * @return string escaped string
  */
@@ -344,7 +350,7 @@ function escHtml($string)
 }
 
 /**
- * Gets escaped text area content.
+ * Get escaped text area content.
  * @param $value
  * @return string escaped string
  */
@@ -354,7 +360,7 @@ function escTextarea($value)
 }
 
 /**
- * Gets escaped HTML attribute.
+ * Get escaped HTML attribute.
  * @param $value
  * @return string escaped string
  */
@@ -424,7 +430,7 @@ if (!function_exists('ipFileUrl')) {
 }
 
 /**
- * Generates URL-encoded query string
+ * Generate URL-encoded query string
  * @param $query associative (or indexed) array
  * @return string\ URL string
  */
@@ -434,7 +440,7 @@ function ipActionUrl($query)
 }
 
 /**
- * Gets url for current theme folder.
+ * Get url for current theme folder.
  * @param $path
  * @return mixed|string
  */
@@ -455,7 +461,7 @@ function ipThemeFile($path)
 }
 
 /**
- * Gets homepage URL.
+ * Get homepage URL.
  * @return string
  */
 function ipHomeUrl()
@@ -473,7 +479,7 @@ function ipHomeUrl()
 }
 
 /**
- * Generates widget HTML.
+ * Generate widget HTML.
  * @param $widgetName
  * @param array $data
  * @param null $look
@@ -486,7 +492,7 @@ function ipRenderWidget($widgetName, $data = array(), $look = null)
 }
 
 /**
- * Gets formatted currency string.
+ * Get formatted currency string.
  * @param $price
  * @param $currency
  * @param $context
@@ -500,7 +506,7 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
 }
 
 /**
- * Gets formatted date string.
+ * Get formatted date string.
  * @param $unixTimestamp
  * @param $context
  * @param null $languageId
@@ -524,7 +530,7 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
 }
 
 /**
- * Gets formatted date-time string.
+ * Get formatted date-time string.
  * @param $unixTimestamp
  * @param $context
  * @param null $languageId
@@ -536,7 +542,7 @@ function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 }
 
 /**
- * Gets theme option value.
+ * Get a theme option value.
  * Theme options ar used for changing theme design. These options can be managed using administration page.
  * @param $name
  * @param null $default
@@ -550,7 +556,7 @@ function ipGetThemeOption($name, $default = null)
 }
 
 /**
- * Gets HTML attributes for <html> tag.
+ * Get HTML attributes for <html> tag.
  * @param null $doctype
  * @return string
  */
@@ -584,7 +590,7 @@ function ipHtmlAttributes($doctype = null)
 }
 
 /**
- * Gets HTML doc type.
+ * Get HTML doc type.
  * @param null $doctype
  * @return string
  * @throws Exception
@@ -625,7 +631,7 @@ function ipDoctypeDeclaration($doctype = null)
 }
 
 /**
- * Gets SQL table name by adding CMS database prefix.
+ * Get SQL table name by adding CMS database prefix.
  * @param $table
  * @param null $as
  * @return string
