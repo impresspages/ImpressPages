@@ -21,7 +21,7 @@
             if (!data) {
                 $this.delegate('.ipActionWidgetMove', 'click', function(e){e.preventDefault();});
                 $this.sortable( {
-                    connectWith : '.ipBlock',
+                    connectWith : '.ipBlock, .ipsWidgetDropPlaceholder',
                     revert : true,
                     dropOnEmpty : true,
                     forcePlaceholderSize : false,
