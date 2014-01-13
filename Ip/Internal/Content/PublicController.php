@@ -10,7 +10,7 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        $currentPage = ipContent()->getCurrentPage();
+        $currentPage = ipCurrentPage();
 
         //redirect if needed
         if (in_array($currentPage->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
@@ -21,7 +21,7 @@ class PublicController extends \Ip\Controller
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
             ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
         } else {
-            ipSetLayout(Service::getPageLayout($currentPage));
+            ipSetLayout(Service::getPageLayout($currentPage->getPage()));
         }
 
         //initialize management
@@ -37,7 +37,7 @@ class PublicController extends \Ip\Controller
 
         //show error404 page if needed
         if (
-            $currentPage instanceof \Ip\Page404
+            $currentPage->getPage() instanceof \Ip\Page404
         ) {
             return new \Ip\Response\PageNotFound();
         }
@@ -49,7 +49,7 @@ class PublicController extends \Ip\Controller
         $response->setTitle(ipContent()->getTitle());
 
 
-        return $currentPage->generateContent();
+        return $currentPage->getPage()->generateContent();
     }
 
     private function initManagement()

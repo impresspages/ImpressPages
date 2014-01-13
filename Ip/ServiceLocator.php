@@ -29,6 +29,7 @@ class ServiceLocator
     protected static $translator;
     protected static $permissions;
     protected static $slots;
+    protected static $currentPages = array();
 
     protected static $serviceClasses = array(
         'db' => '\Ip\Db',
@@ -127,6 +128,18 @@ class ServiceLocator
         self::$contents[] = static::loadService('content');
         self::$responses[] = static::loadService('response');
         self::$slots[] = static::loadService('slots');
+        self::$currentPages[]= null;
+    }
+
+    public static function _setCurrentPage($currentPage)
+    {
+        array_pop(static::$currentPages);
+        static::$currentPages[] = $currentPage;
+    }
+
+    public static function currentPage()
+    {
+        return end(static::$currentPages);
     }
 
     /**
@@ -140,6 +153,7 @@ class ServiceLocator
             array_pop(self::$contents);
             array_pop(self::$responses);
             array_pop(self::$slots);
+            array_pop(self::$currentPages);
         }
     }
 
@@ -181,7 +195,7 @@ class ServiceLocator
      */
     public static function setResponse(\Ip\Response $response)
     {
-        end(self::$responses);
+        array_pop(self::$responses);
         self::$responses[] = $response;
     }
 
