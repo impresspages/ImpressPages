@@ -60,10 +60,11 @@ var ipContent;
 
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
-
-                        ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
-                            createdWidgetInstanceId = instanceId;
-                        });
+                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                    var $block = $('#ipBlock-' + newWidgetBlockName);
+                    $block.find('.ipbExampleContent').remove();
+                    createdWidgetInstanceId = instanceId;
+                });
 
             });
 
@@ -86,7 +87,29 @@ var ipContent;
 
             if ($targetWidget.hasClass('ipWidget-Columns')) {
                 //create additional column on existing columns widget
-                alert('Not implemented yet');
+                var colCount = $targetWidget.find('.ipsCol').length;
+                var newColPos;
+
+                if (leftOrRight == 'left') {
+                    newColPos = 0;
+                } else {
+                    newColPos = colCount;
+                }
+
+                var updateData = {
+                    method: 'addColumn',
+                    position: newColPos
+                }
+                ipContent.updateWidget(targetWidgetInstanceId, updateData, true, function (newInstanceId) {
+                    var $colsWidget = $('#ipWidget-' + newInstanceId);
+                    var $newCol = $colsWidget.find('.ipsCol').eq(newColPos);
+                    var $newBlock = $newCol.find('.ipBlock');
+                    var newBlockName = $newBlock.data('ipBlock').name;
+                    if (callback) {
+                        callback(newBlockName);
+                    }
+                });
+
             } else {
                 //create columns widget above target widget
                 ipContent.createWidget(revisionId, targetBlockName, 'Columns', targetPosition, function (instanceId) {
@@ -101,7 +124,7 @@ var ipContent;
                         var $existingWidgetBlock = $columnWidget.find('.ipBlock').eq(0);
                         var $newWidgetBlock = $columnWidget.find('.ipBlock').eq(1);
                     }
-                    var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name
+                    var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name;
                     newWidgetBlockName = $newWidgetBlock.data('ipBlock').name;
                     //move target widget to right / left column
                     ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, revisionId, function (newInstanceId) {
@@ -148,7 +171,7 @@ var ipContent;
                         $widget.remove();
                     }
                     if (callback) {
-                        callback(response.newInstanceId);
+                        callback(response.instanceId);
                     }
                 },
                 error: function(response) {

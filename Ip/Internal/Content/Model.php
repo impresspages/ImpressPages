@@ -183,7 +183,7 @@ class Model
 
         $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['data']);
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
 
 
         $optionsMenu = array();
