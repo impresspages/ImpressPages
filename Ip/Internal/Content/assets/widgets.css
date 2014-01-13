@@ -607,14 +607,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipAdminWidgetMoveIcon {
     background: url(../img/icon_drag.png) no-repeat;
-    display: none;
     height: 58px;
-    position: relative;
     width: 58px;
 }
-.ipAdminWidgetDrag .ipAdminWidgetMoveIcon {
-    display: block;
-}
+
 .ipAdminWidgetPlaceholder {
     background: #bdeaf9;
     outline: #5abee3 dashed 1px;

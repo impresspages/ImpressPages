@@ -28,14 +28,22 @@
                     placeholder: 'ipAdminWidgetPlaceholder',
                     handle : '.ipAdminWidgetControls .ipActionWidgetMove',
                     start : function (event, ui) {
-                        ui.item.addClass('ipAdminWidgetDrag');
-                        ui.item.width(ui.item.find('.ipAdminWidgetMoveIcon').outerWidth());
-                        ui.item.height(ui.item.find('.ipAdminWidgetMoveIcon').outerHeight());
+//                        ui.item.css('backgroundColor', 'blue');
+//                        ui.item.addClass('ipAdminWidgetDrag');
+//                        ui.item.width(ui.item.find('.ipAdminWidgetMoveIcon').outerWidth());
+//                        ui.item.height(ui.item.find('.ipAdminWidgetMoveIcon').outerHeight());
                     },
                     stop : function (event, ui) {
-                        ui.item.removeClass('ipAdminWidgetDrag');
-                        ui.item.width('auto');
-                        ui.item.height('auto');
+//                        ui.item.removeClass('ipAdminWidgetDrag');
+//                        ui.item.width('auto');
+//                        ui.item.height('auto');
+                    },
+                    helper : function (e) {
+//                        var $button = $(e.currentTarget);
+//                        var $result = $button.clone();
+//                        $result.find('span').remove();
+//                        $result.css('paddingTop', '15px');
+                        return '<div style="width:50px; height: 50px; background-color: blue;"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
                     },
                     
                     // this event is fired twice by both blocks, when element is moved from one block to another.
