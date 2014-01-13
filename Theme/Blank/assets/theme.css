@@ -89,46 +89,46 @@ body {
 .ipWidget:last-child {
   margin-bottom: 0;
 }
-.ipPreviewWidget {
+.ipWidget {
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
 }
-.ipPreviewWidget h1,
-.ipPreviewWidget h2,
-.ipPreviewWidget h3,
-.ipPreviewWidget h4,
-.ipPreviewWidget h5,
-.ipPreviewWidget h6,
-.ipPreviewWidget img,
-.ipPreviewWidget blockquote,
-.ipPreviewWidget p,
-.ipPreviewWidget ul,
-.ipPreviewWidget ol,
-.ipPreviewWidget li,
-.ipPreviewWidget dl,
-.ipPreviewWidget dd,
-.ipPreviewWidget dt,
-.ipPreviewWidget pre {
+.ipWidget h1,
+.ipWidget h2,
+.ipWidget h3,
+.ipWidget h4,
+.ipWidget h5,
+.ipWidget h6,
+.ipWidget img,
+.ipWidget blockquote,
+.ipWidget p,
+.ipWidget ul,
+.ipWidget ol,
+.ipWidget li,
+.ipWidget dl,
+.ipWidget dd,
+.ipWidget dt,
+.ipWidget pre {
   border: none;
   margin: 0;
   padding: 0;
 }
-.ipPreviewWidget .caption {
+.ipWidget .caption {
   color: #000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
-.ipPreviewWidget .signature {
+.ipWidget .signature {
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
 }
-.ipPreviewWidget .note {
+.ipWidget .note {
   background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
@@ -142,7 +142,7 @@ body {
   margin-bottom: 2em;
   padding-left: 1em;
 }
-.ipPreviewWidget .button {
+.ipWidget .button {
   background-color: #019bd4;
   border-radius: 5px;
   color: #fff;
@@ -153,85 +153,85 @@ body {
   padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
-.ipPreviewWidget h1 {
+.ipWidget h1 {
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 36px;
 }
-.ipPreviewWidget h2 {
+.ipWidget h2 {
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 30px;
 }
-.ipPreviewWidget h3 {
+.ipWidget h3 {
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
 }
-.ipPreviewWidget ul {
+.ipWidget ul {
   list-style-position: inside;
   list-style-type: square;
   margin: 0 0 2em 1em;
 }
-.ipPreviewWidget ol {
+.ipWidget ol {
   list-style-position: inside;
   margin: 0 0 2em 1em;
 }
-.ipPreviewWidget p {
+.ipWidget p {
   line-height: 1.5;
   margin-bottom: 2em;
 }
-.ipPreviewWidget ul ul,
-.ipPreviewWidget ol ol {
+.ipWidget ul ul,
+.ipWidget ol ol {
   margin-bottom: 0;
 }
-.ipPreviewWidget li {
+.ipWidget li {
   line-height: 1.5;
   margin-bottom: 5px;
 }
-.ipPreviewWidget p+ul,
-.ipPreviewWidget p+ol {
+.ipWidget p+ul,
+.ipWidget p+ol {
   margin-top: -1em;
 }
-.ipPreviewWidget a {
+.ipWidget a {
   color: #019bd4;
   text-decoration: none;
 }
-.ipPreviewWidget a:hover {
+.ipWidget a:hover {
   text-decoration: underline;
 }
-.ipPreviewWidget table {
+.ipWidget table {
   border-collapse: collapse;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
 }
-.ipPreviewWidget table p {
-  line-height: auto;
+.ipWidget table p {
+  line-height: normal;
   margin: 0;
 }
-.ipPreviewWidget td {
+.ipWidget td {
   border-bottom: 1px solid #b2b2b2;
   font-size: 14px;
   padding: 9px;
 }
-.ipPreviewWidget th,
-.ipPreviewWidget thead td,
-.ipPreviewWidget tbody tr:first-child td {
+.ipWidget th,
+.ipWidget thead td,
+.ipWidget tbody tr:first-child td {
   font-size: 14px;
   font-weight: bold;
 }
-.ipPreviewWidget thead+tbody tr:first-child td {
+.ipWidget thead+tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
   font-size: 14px;
   font-weight: normal;
 }
-.ipPreviewWidget p:last-child,
-.ipPreviewWidget ul:last-child,
-.ipPreviewWidget ol:last-child {
+.ipWidget p:last-child,
+.ipWidget ul:last-child,
+.ipWidget ol:last-child {
   margin-bottom: 0;
 }
 .ipModuleForm input,
@@ -704,10 +704,29 @@ body {
   display: none !important;
 }
 .mceContentBody {
+  zoom: 1;
+  margin-bottom: 20px;
   color: #000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   background-color: #fff;
+}
+.mceContentBody:before,
+.mceContentBody:after {
+  content: '.';
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+}
+.mceContentBody:after {
+  clear: both;
+}
+.mceContentBody:last-child {
+  margin-bottom: 0;
 }
 .mceContentBody h1,
 .mceContentBody h2,
@@ -823,7 +842,7 @@ body {
   width: 100%;
 }
 .mceContentBody table p {
-  line-height: auto;
+  line-height: normal;
   margin: 0;
 }
 .mceContentBody td {
@@ -916,17 +935,6 @@ body {
   display: none;
   padding: 20px 25px;
 }
-.ipWidget-Html {
-  max-width: 100%;
-  overflow: auto;
-}
-.ipWidget-Image img {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  max-width: 100%;
-}
 .ipWidget-Gallery {
   margin-bottom: 0px;
 }
@@ -960,42 +968,16 @@ body {
     padding: 0 10px;
   }
 }
-.ipWidget-IpLogoGallery {
-  margin-bottom: 0px;
+.ipWidget-Html {
+  max-width: 100%;
+  overflow: auto;
 }
-.ipWidget-IpLogoGallery ul {
-  list-style: none;
-  margin: 0 -10px;
-}
-.ipWidget-IpLogoGallery li {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  float: left;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  width: 25%;
-}
-.ipWidget-IpLogoGallery li img {
+.ipWidget-Image img {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
-  width: 100%;
-}
-@media screen and (max-width: 480px) {
-  .ipWidget-IpLogoGallery ul {
-    margin: 0 -10px;
-  }
-  .ipWidget-IpLogoGallery li {
-    width: 50%;
-    margin-bottom: 20px;
-    padding: 0 10px;
-  }
-}
-.ipWidget-IpRichText pre {
   max-width: 100%;
-  overflow: auto;
 }
 .ipWidget-Separator.ipLayout-default {
   border-bottom: 1px solid #747474;
@@ -1005,7 +987,8 @@ body {
 .ipWidget-Separator.ipLayout-space {
   height: 25px;
 }
-.ipWidget-IpTable {
+.ipWidget-Text table,
+.ipWidget-Text pre {
   max-width: 100%;
   overflow: auto;
 }
@@ -3287,7 +3270,7 @@ body {
 }
 .side .ipWidget-Gallery li,
 .side .ipWidget-IpLogoGallery li {
-  width: 100% / ;
+  width: 50%;
 }
 .ip img {
   max-width: none;
