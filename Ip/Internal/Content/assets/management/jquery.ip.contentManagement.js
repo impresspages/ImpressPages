@@ -71,6 +71,11 @@
 
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstart', ipStartWidgetDrag);
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
+
+                    //$('.ipWidget').on('sortstart', ipStartWidgetDrag);
+                    $('.ipBlock').on('sortstart', ipStartWidgetDrag);
+                    $('.ipBlock').on('sortstop', ipStopWidgetDrag);
+
                     $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
                     $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
@@ -240,8 +245,10 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").each(function (key, value) {
+        var draggingElement = ui.item;
+        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
             //left placeholder
+            //var $droppable = $('<ul class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></ul>');
             var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
@@ -252,6 +259,7 @@
             $droppable.data('leftOrRight', 'left');
 
             //right placeholder
+            //var $droppable = $('<ul class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></ul>');
             var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
@@ -268,14 +276,18 @@
             hoverClass: "hover",
             over: function (event, ui) {
                 widgetOnDroppable = $(this);
+                //$('.ipAdminWidgetPlaceholder').hide();
             },
             out: function (event, ui) {
                 widgetOnDroppable = false;
+                //$('.ipAdminWidgetPlaceholder').show();
             },
             drop: function (event, ui) {
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
             }
         });
+        $('.ipsWidgetDropPlaceholder').sortable();
+        $('.ipBlock').sortable('refresh');
 
     }
 

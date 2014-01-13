@@ -618,8 +618,9 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipAdminWidgetPlaceholder {
     background: #bdeaf9;
     outline: #5abee3 dashed 1px;
-    height: 12px;
-    margin-bottom: 10px;
+    height: 1px;
+    margin-top: -6px;
+    margin-bottom: 5px;
 }
 .ipAdminWidget .ipaHeader {
     background-color: #ebebeb;
@@ -995,6 +996,8 @@ body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
 
 .widgetDropPlaceholder {
     background-color: transparent;
+    background-color: red;
+    border: 1px solid black;
     width: 20px;
 }
 
