@@ -177,7 +177,7 @@ class Controller extends \Ip\WidgetController{
     }
     
     
-    public function dataForJs($data) {
+    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout) {
         //collect available field types
         $fieldTypeObjects = Model::getAvailableFieldTypes();
         

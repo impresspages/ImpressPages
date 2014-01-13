@@ -236,7 +236,7 @@ class WidgetController
         return $answer;
     }
 
-    public function dataForJs($data)
+    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout)
     {
         return $data;
     }
