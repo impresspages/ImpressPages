@@ -282,7 +282,7 @@
             $droppable.css('width', value.width + 'px');
             $droppable.data('instanceId', value.instanceId);
             $droppable.data('leftOrRight', value.leftOrRight);
-
+            $droppable.data('side', 1);
         });
 
 
@@ -298,7 +298,9 @@
                     var newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top - 10,
-                        width: $widget.width()
+                        width: $widget.width(),
+                        blockName: $(block).data('ipBlock').name,
+                        position: 0
                     };
 
                     newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
@@ -313,7 +315,9 @@
                     var newPlaceholder = {
                         left: $prevWidget.offset().left,
                         top: $prevWidget.offset().top + ($prevWidget.height() / 2),
-                        width: $widget.width()
+                        width: $widget.width(),
+                        blockName: $(block).data('ipBlock').name,
+                        position: $widget.index()
                     };
                     if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
                         newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height(); //the end of column widget
@@ -334,7 +338,9 @@
                         top: $widget.offset().top + $widget.height() / 2,
                         height: $widget.height() / 2 + 10,
                         width: $widget.width(),
-                        markerOffset: $widget.height() / 2 + 5
+                        markerOffset: $widget.height() / 2 + 5,
+                        blockName: $(block).data('ipBlock').name,
+                        position: $widget.index() + 1
                     });
                 }
 
@@ -362,6 +368,8 @@
             $droppable.css('width', value.width + 'px');
             $droppable.css('height', value.height + 'px');
             $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
+            $droppable.data('position', value.position);
+            $droppable.data('blockName', value.blockName);
         });
 
         $('.ipsWidgetDropPlaceholder').droppable({
@@ -390,7 +398,14 @@
             var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
             var leftOrRight = widgetOnDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
-            ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+            var side = widgetOnDroppable.data('side');
+            var blockName = widgetOnDroppable.data('blockName');
+            var position = widgetOnDroppable.data('position');
+            if (side) {
+                ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+            } else {
+                ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
+            }
         }
 
         if (widgetOnDroppable && $(this).hasClass('ipWidget')) {
