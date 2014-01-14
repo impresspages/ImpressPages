@@ -992,9 +992,9 @@ body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
 
 .widgetDropPlaceholder {
     background-color: transparent;
-    background-color: red;
+/*    background-color: red;
     opacity: 0.1;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc;*/
 }
 
 .widgetDropPlaceholder .widgetDropMarker {

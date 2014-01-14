@@ -288,53 +288,70 @@
 
         //drop between the widgets
         var horizontalPlaceholders = new Array();
-        $('.ipBlock > .ipWidget').not(draggingElement).each(function (key, value) {
-            var $widget = $(value);
+        $.each($('.ipBlock'), function (blockKey, block) {
+            var $widgets = $(block).find('> .ipWidget');
+            $.each($widgets, function (key, value) {
+                var $widget = $(value);
 
-            if ($widget.index() == 0) {
-                //first placeholder
-                var newPlaceholder = {
-                    left: $widget.offset().left,
-                    top: $widget.offset().top - 10,
-                    width: $widget.width()
-                };
+                if ($widget.index() == 0) {
+                    //first placeholder
+                    var newPlaceholder = {
+                        left: $widget.offset().left,
+                        top: $widget.offset().top - 10,
+                        width: $widget.width()
+                    };
 
-                newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
-                if ($widget.hasClass("ipWidget-Columns")) { //if above is columns widget
-                    newPlaceholder.height = 10; //the end of column widget
+                    newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                    if ($widget.hasClass("ipWidget-Columns")) { //if above is columns widget
+                        newPlaceholder.height = 10; //the end of column widget
+                    }
+                    newPlaceholder.markerOffset = 5;
+                    horizontalPlaceholders.push(newPlaceholder);
+                } else {
+                    var $prevWidget = $widget.prev();
+                    //all up to the last placeholders
+                    var newPlaceholder = {
+                        left: $prevWidget.offset().left,
+                        top: $prevWidget.offset().top + ($prevWidget.height() / 2),
+                        width: $widget.width()
+                    };
+                    if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
+                        newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height(); //the end of column widget
+                    }
+                    newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                    if ($widget.hasClass('ipWidget-Columns')) {
+                        newPlaceholder.height = $widget.offset().top - newPlaceholder.top;
+                    }
+
+                    newPlaceholder.markerOffset = ($prevWidget.offset().top + $prevWidget.height() + $widget.offset().top) / 2 - newPlaceholder.top;
+
+                    horizontalPlaceholders.push(newPlaceholder);
                 }
-                newPlaceholder.markerOffset = 5;
-                horizontalPlaceholders.push(newPlaceholder);
-            } else {
-                var $prevWidget = $widget.prev();
-                //all up to the last placeholders
-                var newPlaceholder = {
-                    left: $prevWidget.offset().left,
-                    top: $prevWidget.offset().top + ($prevWidget.height() / 2),
-                    width: $widget.width()
-                };
-                if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
-                    newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height(); //the end of column widget
+
+                if ($widget.index() == $widgets.length - 1) {
+                    horizontalPlaceholders.push({
+                        left: $widget.offset().left,
+                        top: $widget.offset().top + $widget.height() / 2,
+                        height: $widget.height() / 2 + 10,
+                        width: $widget.width(),
+                        markerOffset: $widget.height() / 2 + 5
+                    });
                 }
-                newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top,
-                newPlaceholder.markerOffset = ($prevWidget.offset().top + $prevWidget.height() + $widget.offset().top) / 2 - newPlaceholder.top;
 
-                horizontalPlaceholders.push(newPlaceholder);
-            }
+            });
 
-            if ($widget.is( ":last-child" )) {
-                console.log('last');
-                $widget.css('backgroundColor', 'yellow');
+            if ($('.ipbExampleContent').length) {
+                var $example = $('.ipbExampleContent').first();
                 horizontalPlaceholders.push({
-                    left: $widget.offset().left,
-                    top: $widget.offset().top + $widget.height() / 2,
-                    height: $widget.height() / 2 + 10,
-                    width: $widget.width(),
-                    markerOffset: $widget.height() / 2 + 5
+                    left: $example.offset().left,
+                    top: $example.offset().top,
+                    height: $example.height(),
+                    width: $example.width(),
+                    markerOffset: $example.height() / 2
                 });
             }
-
         });
+
 
         $.each(horizontalPlaceholders, function (key, value) {
             var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
@@ -346,7 +363,6 @@
             $droppable.css('height', value.height + 'px');
             $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
         });
-
 
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipActionWidgetButton, .ipWidget",
@@ -364,10 +380,9 @@
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
             }
         });
-        //$('.ipsWidgetDropPlaceholder').sortable();
-        //$('.ipBlock').sortable('refresh');
 
     }
+
 
     var ipStopWidgetDrag = function (event, ui) {
 
@@ -377,13 +392,15 @@
             var widgetName = $(this).data('ipAdminWidgetButton').name;
             ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
         }
+
+        if (widgetOnDroppable && $(this).hasClass('ipWidget')) {
+            alert('move widget');
+        }
+
         $('.ipsWidgetDropPlaceholder').remove();
 
     }
 
-    var ipMoveWidgetToSide = function (widgetInstanceId, targetWidgetInstanceId, leftOrRight) {
-        // todo
-    }
 
 
 
