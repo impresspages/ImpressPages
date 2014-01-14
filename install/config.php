@@ -13,10 +13,12 @@ if (getenv('TRAVIS')) {
     $baseUrl =  'localhost/phpunit/tmp/installTest/install';
 }
 
-$dateTimeObject = new \DateTime();
-$currentTimeZone = $dateTimeObject->getTimezone()->getName();
-
-
+try {
+    $dateTimeObject = new \DateTime();
+    $currentTimeZone = $dateTimeObject->getTimezone()->getName();
+} catch (Exception $e) {
+    $currentTimeZone = 'UTC';
+}
 
 return array(
     // GLOBAL

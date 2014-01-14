@@ -97,7 +97,7 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
     }
 
-    private function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    public function _handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
         if (empty($options['skipInitEvents'])) {
             \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
@@ -211,7 +211,7 @@ class Application
 
         \Ip\ServiceLocator::addRequest($request);
 
-        $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
+        $rawResponse = $this->_handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
             return $rawResponse;
