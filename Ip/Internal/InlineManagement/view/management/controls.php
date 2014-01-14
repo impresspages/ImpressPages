@@ -1,7 +1,5 @@
-var ipModInlineManagementControls = '\
-<div class="ipModuleInlineManagementControls">\
-    <div class="ipAdminWidgetControls">\
-        <a class="ipaButton ipActionWidgetManage" href="#"><span><?php _e('Edit', 'ipAdmin'); ?></span></a>\
-    </div>\
-</div>\
-';
+<div class="ipModuleInlineManagementControls">
+    <div class="ipAdminWidgetControls">
+        <a class="ipaButton ipActionWidgetManage" href="#"><span><?php _e('Edit', 'ipAdmin'); ?></span></a>
+    </div>
+</div>
