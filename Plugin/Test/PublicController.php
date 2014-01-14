@@ -8,7 +8,11 @@ class PublicController extends \Ip\Controller
 {
     public function hello()
     {
-        ipCurrentPage()->_set('page', new \Ip\Page(1, 'Test'));
+        $page = new \Ip\Page(1, 'Test');
+        $page->setPageTitle('Hello world');
+        $page->setNavigationTitle('Hello world');
+
+        _ipPageStart($page);
 
         return 'Hello world!';
     }

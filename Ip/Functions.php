@@ -221,6 +221,14 @@ function ipResponse()
     return \Ip\ServiceLocator::response();
 }
 
+
+function _ipPageStart(\Ip\Page $page)
+{
+    ipCurrentPage()->_set('page', $page);
+
+    ipEvent('_ipPageStart', array('page' => $page));
+}
+
 /**
  * Gets current HTML layout.
  */
