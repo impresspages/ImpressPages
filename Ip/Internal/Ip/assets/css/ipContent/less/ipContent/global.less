@@ -79,18 +79,12 @@ html, body {
 
 // Global styles for all widgets
 .ipWidget {
-    .clearfix;
-
-    margin-bottom: @ipWidgetSpace;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
 
 }
 
-// Global styles for all widgets that are in preview mode
-.ipPreviewWidget {
+// Global styles for all widgets
+.ipWidget {
+    .clearfix;
 
     // disabling default styles
     h1, h2, h3, h4, h5, h6, img, blockquote, p, ul, ol, li, dl, dd, dt, pre {
@@ -99,16 +93,21 @@ html, body {
         padding: 0;
     }
 
+
     color: @ipTextColor;
     font-family: @ipFontFamily;
     font-size: @ipFontSize;
+    margin-bottom: @ipWidgetSpace;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     // restoring specificity for global classes
     .caption { .caption; }
     .signature { .signature; }
     .note { .note; }
     .button { .button; }
-
 
     h1 {
         color: @ipH1Color;
@@ -172,7 +171,7 @@ html, body {
         width: 100%;
 
         p {
-            line-height: auto;
+            line-height: normal;
             margin: 0;
         }
     }
