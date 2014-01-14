@@ -62,7 +62,7 @@ class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
         $this->waitForElementPresent('css=.ipWidget_ipFile_container input');
         $this->click('css=.ipaConfirm');
         $this->waitForElementPresent('css=.ipWidget-File a');
-        $this->assertText('css=.ipPreviewWidget.ipWidget-File ul a', 'testFile_1.txt');
+        $this->assertText('css=.ipWidget.ipWidget-File ul a', 'testFile_1.txt');
     }
 
 }
