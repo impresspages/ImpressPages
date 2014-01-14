@@ -73,8 +73,8 @@
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
 
                     //$('.ipWidget').on('sortstart', ipStartWidgetDrag);
-                    $('.ipBlock').on('sortstart', ipStartWidgetDrag);
-                    $('.ipBlock').on('sortstop', ipStopWidgetDrag);
+                    $('.ipBlock .ipWidget').on('dragstart', ipStartWidgetDrag);
+                    $('.ipBlock .ipWidget').on('dragstop', ipStopWidgetDrag);
 
                     $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
@@ -246,6 +246,8 @@
 
     var ipStartWidgetDrag = function (event, ui) {
         var draggingElement = ui.item;
+
+        //drop side
         $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
             //left placeholder
             //var $droppable = $('<ul class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></ul>');
@@ -270,6 +272,31 @@
             $droppable.data('leftOrRight', 'right');
         });
 
+
+        //drop between the widgets
+        $('.ipBlock > .ipWidget').not(draggingElement).each(function (key, value) {
+            var $widget = $(value);
+
+            if ($widget.index() > 1) {
+                var $prevWidget = $widget.prev();
+                //left placeholder
+                var x1 = $prevWidget.offset().left;
+                var y1 = $prevWidget.offset().top - ($prevWidget.height() / 2);
+                var width = $widget.width();
+                var height = ($prevWidget.height() / 2) + ($widget.height() / 2);
+                var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
+                $('body').append($droppable);
+                $droppable.css('position', 'absolute');
+                $droppable.css('left', x1 + 'px');
+                $droppable.css('top', y1 + 'px');
+                $droppable.css('width', width + 'px');
+                $droppable.css('height', height + 'px');
+                $droppable.data('instanceId', $widget.data('widgetinstanceid'));
+                $droppable.data('leftOrRight', 'left');
+            }
+        });
+
+
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipActionWidgetButton, .ipWidget",
             activeClass: "",
@@ -286,14 +313,14 @@
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
             }
         });
-        $('.ipsWidgetDropPlaceholder').sortable();
-        $('.ipBlock').sortable('refresh');
+        //$('.ipsWidgetDropPlaceholder').sortable();
+        //$('.ipBlock').sortable('refresh');
 
     }
 
     var ipStopWidgetDrag = function (event, ui) {
 
-        if (widgetOnDroppable) {
+        if (widgetOnDroppable && $(this).data('ipAdminWidgetButton')) {
             var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
             var leftOrRight = widgetOnDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
