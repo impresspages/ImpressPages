@@ -106,7 +106,7 @@ class PageAssets
 
     public function generateHead()
     {
-        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
+        $cacheVersion = $this->getCacheVersion();
         $cssFiles = $this->getCss();
 
         $inDesignPreview = false;
@@ -159,7 +159,7 @@ class PageAssets
 
     public function generateJavascript()
     {
-        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
+        $cacheVersion = $this->getCacheVersion();
         $javascriptFiles = $this->getJavascript();
         foreach ($javascriptFiles as &$level) {
             foreach ($level as &$file) {
@@ -168,7 +168,7 @@ class PageAssets
                 }
             }
         }
-        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+        $revision = $this->getCurrentRevision();
         $data = array(
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
@@ -186,5 +186,15 @@ class PageAssets
             'javascript' => $javascriptFiles,
         );
         return ipView(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
+    }
+
+    protected function getCacheVersion()
+    {
+        return \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
+    }
+
+    protected function getCurrentRevision()
+    {
+        return \Ip\ServiceLocator::content()->getCurrentRevision();
     }
 }

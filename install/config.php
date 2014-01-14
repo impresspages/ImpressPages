@@ -60,6 +60,10 @@ return array(
         'Plugin/' => "http://{$baseUrl}/Plugin/",//TODOXX find the way to add domain
         'Theme/' => "http://{$baseUrl}/Theme/",
         'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
+    ),
+
+    'SERVICES' => array(
+        'pageAssets' => 'Plugin\\Install\\PageAssets',
     )
 );
 
