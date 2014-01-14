@@ -248,52 +248,103 @@
         var draggingElement = ui.item;
 
         //drop side
+        var sidePlaceholders = new Array();
+
         $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
             //left placeholder
-            //var $droppable = $('<ul class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></ul>');
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
-            $('body').append($droppable);
-            $droppable.css('position', 'absolute');
-            $droppable.css('left', $(value).offset().left - $droppable.width() + 'px');
-            $droppable.css('top', $(value).offset().top + 1 + 'px');
-            $droppable.css('height', Math.max($(value).height() - 2, 10) + 'px');
-            $droppable.data('instanceId', $(value).data('widgetinstanceid'));
-            $droppable.data('leftOrRight', 'left');
+            sidePlaceholders.push({
+                left: $(value).offset().left - 20,
+                top: $(value).offset().top + 1,
+                height: Math.max($(value).height() - 2, 10),
+                width: 20,
+                instanceId: $(value).data('widgetinstanceid'),
+                leftOrRight: 'left'
+            });
 
             //right placeholder
-            //var $droppable = $('<ul class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></ul>');
+            sidePlaceholders.push({
+                left: $(value).offset().left + $(value).width(),
+                top: $(value).offset().top + 1,
+                height: Math.max($(value).height() - 2, 10),
+                width: 20,
+                instanceId: $(value).data('widgetinstanceid'),
+                leftOrRight: 'right'
+            });
+        });
+
+        $.each(sidePlaceholders, function (key, value) {
             var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
-            $droppable.css('left', $(value).offset().left + $(value).width() + 'px');
-            $droppable.css('top', $(value).offset().top + 1 + 'px');
-            $droppable.css('height', Math.max($(value).height() - 2, 10) + 'px');
-            $droppable.data('instanceId', $(value).data('widgetinstanceid'));
-            $droppable.data('leftOrRight', 'right');
+            $droppable.css('left', value.left + 'px');
+            $droppable.css('top', value.top + 'px');
+            $droppable.css('height', value.height + 'px');
+            $droppable.css('width', value.width + 'px');
+            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('leftOrRight', value.leftOrRight);
+
         });
 
 
         //drop between the widgets
+        var horizontalPlaceholders = new Array();
         $('.ipBlock > .ipWidget').not(draggingElement).each(function (key, value) {
             var $widget = $(value);
 
-            if ($widget.index() > 1) {
+            if ($widget.index() == 0) {
+                //first placeholder
+                var newPlaceholder = {
+                    left: $widget.offset().left,
+                    top: $widget.offset().top - 10,
+                    width: $widget.width()
+                };
+
+                newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                if ($widget.hasClass("ipWidget-Columns")) { //if above is columns widget
+                    newPlaceholder.height = 10; //the end of column widget
+                }
+                newPlaceholder.markerOffset = 5;
+                horizontalPlaceholders.push(newPlaceholder);
+            } else {
                 var $prevWidget = $widget.prev();
-                //left placeholder
-                var x1 = $prevWidget.offset().left;
-                var y1 = $prevWidget.offset().top - ($prevWidget.height() / 2);
-                var width = $widget.width();
-                var height = ($prevWidget.height() / 2) + ($widget.height() / 2);
-                var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
-                $('body').append($droppable);
-                $droppable.css('position', 'absolute');
-                $droppable.css('left', x1 + 'px');
-                $droppable.css('top', y1 + 'px');
-                $droppable.css('width', width + 'px');
-                $droppable.css('height', height + 'px');
-                $droppable.data('instanceId', $widget.data('widgetinstanceid'));
-                $droppable.data('leftOrRight', 'left');
+                //all up to the last placeholders
+                var newPlaceholder = {
+                    left: $prevWidget.offset().left,
+                    top: $prevWidget.offset().top + ($prevWidget.height() / 2),
+                    width: $widget.width()
+                };
+                if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
+                    newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height(); //the end of column widget
+                }
+                newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top,
+                newPlaceholder.markerOffset = ($prevWidget.offset().top + $prevWidget.height() + $widget.offset().top) / 2 - newPlaceholder.top;
+
+                horizontalPlaceholders.push(newPlaceholder);
             }
+
+            if ($widget.is( ":last-child" )) {
+                console.log('last');
+                $widget.css('backgroundColor', 'yellow');
+                horizontalPlaceholders.push({
+                    left: $widget.offset().left,
+                    top: $widget.offset().top + $widget.height() / 2,
+                    height: $widget.height() / 2 + 10,
+                    width: $widget.width(),
+                    markerOffset: $widget.height() / 2 + 5
+                });
+            }
+
+        });
+
+        $.each(horizontalPlaceholders, function (key, value) {
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            $('body').append($droppable);
+            $droppable.css('position', 'absolute');
+            $droppable.css('left', value.left + 'px');
+            $droppable.css('top', value.top + 'px');
+            $droppable.css('width', value.width + 'px');
+            $droppable.css('height', value.height + 'px');
+            $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
         });
 
 
