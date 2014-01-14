@@ -8,7 +8,7 @@ namespace Ip;
 
 
 /**
- * Website language class.
+ * Website language support class.
  *
  */
 class Language{

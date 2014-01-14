@@ -8,6 +8,10 @@ namespace Ip;
 
 use Ip\Internal\Content\Model;
 
+/**
+ * Controller for widgets
+ * @package Ip
+ */
 class WidgetController
 {
     var $name;
@@ -181,7 +185,7 @@ class WidgetController
 
     /**
      * 
-     * Delete widget. This method is executed before actual deletion of widget.
+     * Delete a widget. This method is executed before actual deletion of widget.
      * It is used to remove widget data (photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
      * if your widget does not upload files or add new records to the database manually.

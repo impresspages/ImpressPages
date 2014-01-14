@@ -8,8 +8,7 @@
 namespace Ip;
 
 /**
- *
- * Class to get information about current request
+ * Class to get information about current HTTP request.
  *
  */
 class Request

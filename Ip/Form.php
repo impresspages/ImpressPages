@@ -6,7 +6,11 @@
 
 namespace Ip;
 
-
+/**
+ * Handles web page forms
+ *
+ * @package Ip
+ */
 class Form
 {
     const METHOD_POST = 'post';

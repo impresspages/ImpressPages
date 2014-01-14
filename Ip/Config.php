@@ -4,7 +4,10 @@
  */
 
 namespace Ip;
-
+/*
+ * Core CMS configuration
+ *
+ */
 
 class Config
 {

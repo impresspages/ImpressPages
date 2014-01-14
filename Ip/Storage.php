@@ -6,8 +6,9 @@
 
 namespace Ip;
 
-
-
+/**
+ * Key-value storage, where any plugin can store it's data.
+ */
 
 class Storage {
 

@@ -9,10 +9,10 @@ namespace Ip;
 
 
 /**
+ * Handle web page content.
  *
- * Website Zone Element. Typically each Element represents one page on Zone.
- *
- * This class is responsable to generate the content and tell all information about the page of website.
+ * A page is a website Zone element. Typically each Element represents a single page on a Zone.
+ * * This class is responsible for generating a content and providing with information about a web page.
  *
  */
 

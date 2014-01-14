@@ -2,6 +2,10 @@
 
 namespace Ip;
 
+/**
+ * Controller response. Use to output from the controller.
+ * @package Ip
+ */
 class Response
 {
 

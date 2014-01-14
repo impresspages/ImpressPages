@@ -9,7 +9,6 @@
 namespace Ip;
 
 /**
- *
  * Event dispatcher class
  *
  */
