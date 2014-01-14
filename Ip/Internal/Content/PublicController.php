@@ -71,10 +71,6 @@ class PublicController extends \Ip\Controller
         ipAddJsVariable('ipContentInit', Model::initManagementData());
 
         if (ipConfig()->isDebugMode()) {
-            // regenerate default content styles
-            $lessCompiler = \Ip\Internal\Design\LessCompiler::instance();
-            $lessCompiler->rebuildIpContent();
-
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/ipContentManagementInit.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/content.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Content/assets/management/jquery.ip.contentManagement.js'));
