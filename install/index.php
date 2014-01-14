@@ -44,6 +44,14 @@ require_once(__DIR__ . '/../Ip/Application.php');
         $options['translationsLanguageCode'] = $_REQUEST['lang'];
     }
 
-    $response = $application->handleRequest($request, $options);
+    \Ip\ServiceLocator::addRequest($request);
+
+    $controller = new \Plugin\Install\PublicController();
+    $controller->init();
+    $response = $controller->index();
+
+    \Ip\ServiceLocator::removeRequest();
+
+    // $response = $application->handleRequest($request, $options);
     $response->send();
 
