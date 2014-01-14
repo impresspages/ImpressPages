@@ -6,7 +6,10 @@
 
 namespace Ip\Form;
 
-
+/**
+ * Web page form field
+ * @package Ip\Form
+ */
 abstract class Field{
     //layouts define how field should be treated in the view
     const LAYOUT_DEFAULT = 'default';

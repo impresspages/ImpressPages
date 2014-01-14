@@ -1,5 +1,7 @@
 <?php
 /**
+ * Base class for ImpressPages application.
+ *
  * @package   ImpressPages
  */
 
