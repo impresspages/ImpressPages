@@ -1,0 +1,7 @@
+{
+    "title": "Core Compiler",
+    "version": "1.00",
+    "name": "CoreCompiler",
+    "description": "This plugin automatically compiles/minifies all required core assets: LESS, JS, etc.",
+    "author": "ImpressPages"
+}
