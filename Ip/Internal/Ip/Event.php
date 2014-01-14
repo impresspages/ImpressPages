@@ -11,25 +11,22 @@ class Event
 {
     public static function ipInit()
     {
-        $response = \Ip\ServiceLocator::response();
-        if (method_exists($response, 'addJavascriptContent')) { //if Layout response
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 0);
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), 0); // jQuery for core
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 0); // default, global jQuery
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 10);
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), 10); // jQuery for core
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 10); // default, global jQuery
 
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
 
-            //Form init
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
+        //Form init
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
 
-            $validatorTranslations = array(
-                'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
-                ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('ipPublic')
-            );
-            ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
-        }
+        $validatorTranslations = array(
+            'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
+            ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('ipPublic')
+        );
+        ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
 
     }
 
