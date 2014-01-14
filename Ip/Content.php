@@ -9,8 +9,8 @@ namespace Ip;
 
 
 /**
- *
- * Event dispatcher class
+ * Zone, language, page, block and other CMS content
+ * Can be treated as a gateway to CMS content.
  *
  */
 class Content

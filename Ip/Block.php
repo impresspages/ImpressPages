@@ -1,5 +1,7 @@
 <?php
 /**
+ * Page content block
+ *
  * @package   ImpressPages
  */
 

@@ -8,8 +8,8 @@
 namespace Ip;
 
 /**
- * Website language class
- * @package ImpressPages
+ * Logging in a user and checking login status
+ *
  */
 class User
 {

@@ -9,7 +9,7 @@ namespace Ip;
 
 /**
  *
- * View class
+ * MVC View class
  *
  */
 class View
@@ -23,7 +23,7 @@ class View
     private $doctype;
 
     /**
-     * Construct view object using specified file and date
+     * Construct a view object using specified file and data.
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
      */
@@ -37,7 +37,7 @@ class View
 
 
     /**
-     * Construct view object using specified file and date
+     * Construct view object using specified file and data.
      * @internal
      * @param string $file path to view file. Relative to file where this constructor is executed from.
      * @param array $data array of data to pass to view
@@ -51,8 +51,9 @@ class View
     
 
     /**
-     * Create new view object with the same doctype, but different view file and data
-     * Use it to include another view file within the view
+     * Create new view object with the same doctype, but using different view file and data.
+     *
+     * Use it to include another view file within the view.
      * @param $file
      * @param null $variables
      * @return View
@@ -72,7 +73,7 @@ class View
 
 
     /**
-     * set view variables
+     * Set view variables
      * @param $variables
      */
     public function setVariables($variables)
@@ -81,7 +82,7 @@ class View
     }
 
     /**
-     * get view variables
+     * Get view variables
      * @return array
      */
     public function getVariables()
@@ -90,16 +91,30 @@ class View
     }
 
 
+    /**
+     * Set a single view variable
+     * @param $name
+     * @param $value
+     */
     public function setVariable($name, $value)
     {
         $this->data[$name] = $value;
     }
 
+    /**
+     * Unset a view variable
+     * @param $name
+     */
     public function unsetVariable($name)
     {
         unset($this->data[$name]);
     }
 
+    /**
+     * Get view variable value.
+     * @param $name
+     * @return null
+     */
     public function getVariable($name)
     {
         if (isset($this->data[$name])) {
@@ -109,6 +124,10 @@ class View
     }
 
 
+    /**
+     *  Render a view and return HTML, XML, or any other string.
+     * @return string
+     */
     public function render () {
 
 
@@ -116,7 +135,7 @@ class View
 
         ob_start();
 
-        require ($this->file);      //file existance has been checked in constructor
+        require ($this->file);      // file existence has been checked in constructor
 
         $output = ob_get_contents();
         ob_end_clean();
@@ -129,6 +148,7 @@ class View
 
     /**
      * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
+     * @ignore
      * @return string
      */
     public function __toString()
@@ -152,10 +172,18 @@ class View
         return $content;
     }
 
+    /**
+     * Set DOCTYPE declaration.
+     * @param $doctype
+     */
     public function setDoctype ($doctype) {
         $this->doctype = $doctype;
     }
-    
+
+    /**
+     * Return DOCTYPE declaration.
+     * @return mixed
+     */
     public function getDoctype () {
         return $this->doctype;
     }
@@ -247,8 +275,12 @@ class View
     }
 
 
-
-
+    /**
+     * Get theme option. Options can be viewed or set using UI via Theme options dialog box.
+     * @param $name
+     * @param null $default
+     * @return string
+     */
 
 
     public function getThemeOption($name, $default = null)

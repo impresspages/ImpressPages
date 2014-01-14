@@ -9,8 +9,7 @@ namespace Ip;
 
 
 /**
- *
- * Event dispatcher class
+ * General MVC Controller
  *
  */
 class Controller{

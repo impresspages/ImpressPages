@@ -8,7 +8,10 @@
 namespace Ip;
 
 
-
+/**
+ * Website options storage class.
+ * @package Ip
+ */
 class Options
 {
     public function getOption($key, $defaultValue = null)
