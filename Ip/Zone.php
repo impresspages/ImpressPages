@@ -13,7 +13,7 @@ use Ip\Language;
  *
  *  ImpressPages system doesn't manage separate pages by itself.
  *  For this task special modules called "zones" are created.
- *  Each zone can have any number of pages with any content. Pages are the objects that extend class Page.
+ *  Each zone can have any number of pages with any content. Pages are the objects that extend Page class.
  *  CMS only finds currently required zone (by specified url), asks to supply current Page and displays the content.
  *
  *  If you wish to create your own zone of website, extend this class. Overwrite abstract methods and you are done.

@@ -3,7 +3,7 @@
 namespace Ip;
 
 /**
- * Purpose of this exception is to show error on the line db method was called.
+ * Purpose of this exception is to show error on the line database method was called.
  * @package Ip
  */
 class DbException extends \PDOException

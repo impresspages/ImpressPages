@@ -1,15 +1,14 @@
 <?php
 /**
- * @package ImpressPages
  *
+ * @package ImpressPages
  *
  */
 
 namespace Ip;
 
 /**
- *
- * Create and supply services to modules
+ *  Database connector
  *
  */
 class Db
