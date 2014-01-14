@@ -175,8 +175,8 @@ class LessCompiler
             return false;
         }
 
-        $cssFile = ipFileUrl('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
-        $lastBuildTime = filemtime($cssFile);
+        $cssFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
+        $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
 
         $hasChanged = false;
 
@@ -195,7 +195,7 @@ class LessCompiler
         $lessc = new \lessc();
         $lessc->setImportDir(ipFile('Ip/Internal/Ip/assets/css/ipContent'));
         $lessc->setPreserveComments(true);
-        $css = $lessc->compileFile(ipFileUrl('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
+        $css = $lessc->compileFile(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
         file_put_contents($cssFile, $css);
     }
 }
