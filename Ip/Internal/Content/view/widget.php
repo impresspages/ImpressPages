@@ -5,7 +5,7 @@
         data-widgetname="<?php echo esc($widgetName, 'attr'); ?>"
         data-widgetinstanceid="<?php echo esc($widgetInstanceId, 'attr'); ?>"
     <?php } ?>
-    class="ipWidget ipPreviewWidget  ipWidget-<?php echo $widgetName; ?> ipLayout-<?php echo $widgetLayout; ?>">
+    class="ipWidget ipWidget-<?php echo $widgetName; ?> ipLayout-<?php echo $widgetLayout; ?>">
     <?php if ($managementState){ ?>
         <?php echo ipView('widgetControls.php', $this->getVariables())->render() ?>
     <?php } ?>

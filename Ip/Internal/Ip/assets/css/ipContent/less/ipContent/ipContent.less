@@ -1,29 +1,25 @@
-/**
- * ImpressPages CMS theme: LT pagan
- *
- * Styles file for widgets, system modules and content
- *
- * @package ImpressPages
- *
- */
+//
+// Default styles for ImpressPages CMS content
+//
+// @package ImpressPages
+//
 
-@import 'global';
-@import 'forms';
-@import 'tiny_mce'; // styles required explicitly for Tiny MCE rich text editor
+@import 'global.less';
+@import 'forms.less';
+// todox: remove if not used anymore
+@import 'tiny_mce.less'; // styles required explicitly for Tiny MCE rich text editor
 
-@import 'ipWidget/IpCols';
-@import 'ipWidget/Faq';
-@import 'ipWidget/File';
-@import 'ipWidget/Form';
-@import 'ipWidget/Html';
-@import 'ipWidget/Image';
-@import 'ipWidget/Gallery';
-@import 'ipWidget/IpLogoGallery';
-@import 'ipWidget/IpRichText';
-@import 'ipWidget/Separator';
-@import 'ipWidget/IpTable';
-@import 'ipWidget/Text';
-@import 'ipWidget/TextImage';
-@import 'ipWidget/Title';
+@import 'ipWidget/Columns.less';
+@import 'ipWidget/Faq.less';
+@import 'ipWidget/File.less';
+@import 'ipWidget/Form.less';
+@import 'ipWidget/Gallery.less';
+@import 'ipWidget/Html.less';
+@import 'ipWidget/Image.less';
+@import 'ipWidget/Missing.less';
+@import 'ipWidget/Separator.less';
+@import 'ipWidget/Text.less';
+@import 'ipWidget/TextImage.less';
+@import 'ipWidget/Title.less';
 
-@import 'config';
+@import 'config.less';
