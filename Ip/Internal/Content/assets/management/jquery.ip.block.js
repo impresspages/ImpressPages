@@ -29,16 +29,10 @@
                         return '<div style="width:50px; height: 50px; background-color: blue;"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
                     },
                     start : function (event, ui) {
-                        console.log('start');
-                        console.log(event.target);
-                        console.log(event);
                         $(event.target).css('visibility', 'hidden');
 
                     },
                     stop : function (event, ui) {
-                        console.log('stop');
-                        console.log(event.target);
-                        console.log(event);
                         $(event.target).css('visibility', '');
 //                        console.log(ui);
 //                        $(event.currentTarget).show();
