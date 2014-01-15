@@ -201,9 +201,6 @@ class Model
             'optionsMenu' => $optionsMenu,
         );
 
-        $widgetControlsHtml = ipView('view/widgetControls.php', $data)->render();
-
-
         $variables = array(
             'managementState' => $managementState,
             'html' => $previewHtml,
@@ -211,8 +208,7 @@ class Model
             'widgetInstanceId' => $widgetRecord['instanceId'],
             'widgetName' => $widgetRecord['name'],
             'widgetLayout' => $widgetRecord['layout'],
-            'optionsMenu' => $optionsMenu,
-            'widgetControlsHtml' => $widgetControlsHtml
+            'optionsMenu' => $optionsMenu
         );
 
         $answer = ipView('view/widget.php', $variables)->render();
