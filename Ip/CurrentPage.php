@@ -7,6 +7,7 @@ namespace Ip;
 class CurrentPage
 {
     private $requestedPage;
+    private $revision;
 
     public function __construct($requestedPage)
     {
@@ -62,7 +63,41 @@ class CurrentPage
 
     public function getCurrentRevision()
     {
-        return null; // TODOX get revision
+        if ($this->revision !== null) {
+            return $this->revision;
+        }
+        $revision = false;
+        $page = $this->getPage();
+        if (ipIsManagementState()) {
+            if (ipRequest()->getQuery('cms_revision')) {
+                $revisionId = ipRequest()->getQuery('cms_revision');
+                $revision = \Ip\Internal\Revision::getRevision($revisionId);
+            }
+
+            if ($page) {
+                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
+                    ) || $revision['pageId'] != $page->getId()
+                ) {
+                    $revision = \Ip\Internal\Revision::getLastRevision(
+                        ipContent()->getCurrentZone()->getName(),
+                        $page->getId()
+                    );
+                    if ($revision['published']) {
+                        $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
+                        $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
+                    }
+                }
+            } else {
+                $revision = false;
+            }
+        } elseif ($page) {
+                $revision = \Ip\Internal\Revision::getPublishedRevision(
+                    ipContent()->getCurrentZone()->getName(),
+                    $page->getId()
+                );
+        }
+        $this->revision = $revision;
+        return $revision;
     }
 
     public function getType()
