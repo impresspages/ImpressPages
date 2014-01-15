@@ -409,11 +409,18 @@
             }
         }
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).hasClass('ipWidget')) {
-            console.log('move widget');
             var $widget = $(event.target);
             var instanceId = $widget.data('widgetinstanceid');
+            var curPosition = $widget.index();
+            var curBlock = $widget.closest('.ipBlock').data('ipBlock').name;
             var position = lastDroppable.data('position');
             var block = lastDroppable.data('blockName');
+            if (block == curBlock && curPosition < position) {
+                position--;
+            }
+            if (block == curBlock && curPosition == position) {
+                return;
+            }
             ipContent.moveWidget(instanceId, position, block, ip.revisionId);
         }
 
