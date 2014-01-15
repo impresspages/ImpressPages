@@ -54,9 +54,6 @@ class Content
      */
     public function getCurrentLanguage()
     {
-        if (!ipCurrentPage()) { // TODOMERGE remove this debug code
-            return $this->getLanguage(344);
-        }
         return ipCurrentPage()->getLanguage();
     }
 
@@ -202,9 +199,6 @@ class Content
      */
     public function getCurrentZone()
     {
-        if (!ipCurrentPage()) { // TODOMERGE remove this hack
-            return $this->getZone('menu1');
-        }
         return ipCurrentPage()->getZone();
     }
 
