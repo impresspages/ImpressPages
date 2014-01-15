@@ -13,9 +13,10 @@ namespace Ip;
 class Storage {
 
     /**
-     * @param string $pluginName
-     * @param string $key option name
-     * @param null $defaultValue
+     * Get a value from CMS storage
+     * @param string $pluginName Plugin name
+     * @param string $key Option name
+     * @param null $defaultValue Returned if specified key has no value assigned
      * @return string
      */
     public function get($pluginName, $key, $defaultValue = null)
@@ -48,9 +49,10 @@ class Storage {
 
 
     /**
-     * @param $pluginName
-     * @param $key
-     * @param $value
+     * Set CMS storage value
+     * @param string $pluginName Plugin name
+     * @param string $key Option key
+     * @param $value Option value
      */
     public function set($pluginName, $key, $value)
     {
@@ -78,9 +80,9 @@ class Storage {
     }
 
     /**
-     * @param $pluginName
-     * @param $key
-     * @return array
+     * Get all storage values for the plugin
+     * @param string $pluginName Plugin name
+     * @return array Key=>value array of plugin options
      */
     public function getAll($plugin)
     {
@@ -103,8 +105,9 @@ class Storage {
     }
 
     /**
-     * @param $pluginName
-     * @param $key
+     * Remove storage key for specific plugin
+     * @param string $pluginName Plugin name
+     * @param string $key Key to remove
      */
     public function remove($pluginName, $key)
     {

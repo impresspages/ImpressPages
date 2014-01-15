@@ -99,6 +99,15 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
     }
 
+    /**
+     * @param Request $request
+     * @param array $options
+     * @param bool $subrequest
+     * @return Response\Json|Response\PageNotFound|Response\Redirect
+     * @throws Exception
+     * @ignore
+     */
+
     public function _handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
         if (empty($options['skipInitEvents'])) {
