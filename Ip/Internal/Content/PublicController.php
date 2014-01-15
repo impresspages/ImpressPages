@@ -37,7 +37,9 @@ class PublicController extends \Ip\Controller
         // initialize management
         ipAddJs(ipFileUrl('Ip/Internal/Content/assets/managementMode.js'));
         if (ipIsManagementState()) {
-            $this->initManagement();
+            if (!ipRequest()->getQuery('ipDesignPreview')) {
+                $this->initManagement();
+            }
         } else {
             if (\Ip\Internal\Admin\Backend::userId()) {
                 //user has access to the backend
@@ -124,19 +126,17 @@ class PublicController extends \Ip\Controller
         ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 
-        if (ipIsManagementState()) {
-            ipAddJsVariable(
-                'ipWidgetLayoutModalTemplate',
-                ipView('view/widgetLayoutModal.php')->render()
-            );
-			ipAddJsVariable(
-                'ipBrowseLinkModalTemplate',
-                ipView('view/browseLinkModal.php')->render()
-            );
-			ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/themes/default/style.min.css'));
-			ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/jstree.js'));
-        }
-
+        ipAddJsVariable(
+            'ipWidgetLayoutModalTemplate',
+            ipView('view/widgetLayoutModal.php')->render()
+        );
+        ipAddJsVariable(
+            'ipBrowseLinkModalTemplate',
+            ipView('view/browseLinkModal.php')->render()
+        );
+        ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/themes/default/style.min.css'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jstree/jstree.js'));
     }
+
 
 }
