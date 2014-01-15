@@ -33,6 +33,9 @@ class Dispatcher
         $this->addEventListener('ipInitFinished', array($this, 'registerInit'));
     }
 
+    /**
+     * @ignore
+     */
     public function registerInit()
     {
         $this->initCompleted = true;
@@ -50,9 +53,11 @@ class Dispatcher
     }
 
     /**
-     * @param string $action Eg. module_name.event_name
-     * @param callable $callable
-     * @throws Exception
+     * Register event listener.
+     *
+     * @param string $name event name
+     * @param string $callable method name. This method is called on specified event.
+     * @param int $priority event priority. Lower number means higher priority.
      */
     public function addEventListener($name, $callable, $priority = 50)
     {
@@ -69,9 +74,11 @@ class Dispatcher
     }
 
     /**
-     * @param string $action Eg. module_name.event_name
-     * @param callable $callable
-     * @throws Exception
+     * Register filter listener
+     *
+     * @param $name filter name
+     * @param $callable method name. This method is called on specified event.
+     * @param int $priority filter priority. Lower number means higher priority.
      */
     public function addFilterListener($name, $callable, $priority = 50)
     {
@@ -88,9 +95,10 @@ class Dispatcher
     }
 
     /**
-     * @param string $action Eg. module_name.event_name
-     * @param callable $callable
-     * @throws Exception
+     * Register job listener
+     * @param $name job name
+     * @param $callable method name. This method is called by specified job.
+     * @param int $priority. Lower number means higher priority. Only the job with highest priority is processed.
      */
     public function addJobListener($name, $callable, $priority = 50)
     {
@@ -107,10 +115,11 @@ class Dispatcher
     }
 
     /**
-     *
      * Bind to a slot generation event
-     * @param string $action Eg. module_name.event_name
+     *
+     * @param string $slot slot name
      * @param callable $callable
+     * @param int $priority filter priority. Lower number means higher priority.
      * @throws Exception
      */
     public function bindSlot($slot, $callable, $priority = 50)
@@ -133,6 +142,14 @@ class Dispatcher
 
     }
 
+    /**
+     * Filter value
+     *
+     * @param $eventName filter event name
+     * @param $value data for filtering
+     * @param array $data additional information which may be used for filter processing
+     * @return mixed
+     */
     public function filter($eventName, $value, $data = array())
     {
         $this->checkInitCompleted($eventName);
@@ -155,6 +172,13 @@ class Dispatcher
         return $value;
     }
 
+    /**
+     * Execute a job
+     *
+     * @param $eventName
+     * @param array $data
+     * @return mixed|null
+     */
     public function job($eventName, $data = array())
     {
         $this->checkInitCompleted($eventName);
@@ -180,6 +204,13 @@ class Dispatcher
         return null;
     }
 
+    /**
+     * Trigger an event
+     *
+     * @param $eventName event name
+     * @param array $data data for event processing
+     * @return null
+     */
     public function event($eventName, $data = array())
     {
         $this->checkInitCompleted($eventName);
