@@ -19,6 +19,11 @@ class Block
         $this->name = $name;
     }
 
+    /**
+     * Render page block content
+     * @param null $revisionId
+     * @return null|string
+     */
     public function render($revisionId = null)
     {
         $data = array (
@@ -57,6 +62,11 @@ class Block
         }
     }
 
+    /**
+     * Make a block content the same on all pages.
+     *
+     * @return $this
+     */
     public function asStatic()
     {
         $this->isStatic = true;
@@ -78,7 +88,9 @@ class Block
     /**
      * Loads example content from file.
      *
-     * @param $filename
+     * Example content should be placed in theme's directory
+     *
+     * @param string $filename
      * @return $this
      */
     public function exampleContentFrom($filename)
@@ -90,6 +102,7 @@ class Block
     /**
      * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
      * @return string
+     * @ignore
      */
     public function __toString()
     {
