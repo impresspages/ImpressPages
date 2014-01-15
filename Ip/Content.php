@@ -20,11 +20,9 @@ class Content
     protected $zones = null;
     protected $zonesData = null;
     protected $blockContent = null;
-    protected $requestParser;
 
     public function __construct()
     {
-        // $this->requestParser = new \Ip\Internal\Content\RequestParser();
     }
 
     /**
