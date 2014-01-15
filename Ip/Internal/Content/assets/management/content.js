@@ -268,11 +268,10 @@ var ipContent;
                     if (position == 0) {
                         $block.prepend($newWidget);
                     } else {
-                        console.log('insert after');
-                        console.log($block.find(' > .ipWidget').eq(position - 1));
                         $newWidget.insertAfter($block.find(' > .ipWidget').eq(position - 1));
                     }
                     $block.trigger('reinitRequired.ipWidget');
+                    $block.find(' > .ipbExampleContent').remove();
                     if (callback) {
                         callback(response.newInstanceId);
                     }
