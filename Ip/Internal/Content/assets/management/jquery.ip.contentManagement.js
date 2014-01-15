@@ -346,14 +346,16 @@
 
             });
 
-            if ($('.ipbExampleContent').length) {
-                var $example = $('.ipbExampleContent').first();
+            if ($(block).find('> .ipbExampleContent').length) {
+                var $example = $(block).find('> .ipbExampleContent').first();
                 horizontalPlaceholders.push({
                     left: $example.offset().left,
                     top: $example.offset().top,
                     height: $example.height(),
                     width: $example.width(),
-                    markerOffset: $example.height() / 2
+                    markerOffset: $example.height() / 2,
+                    blockName: $(block).data('ipBlock').name,
+                    position: 0
                 });
             }
         });
