@@ -261,7 +261,17 @@ var ipContent;
                     }
                     var $block = $('#ipBlock-' + response.block);
 
-                    $('#ipWidget-' + response.oldInstance).replaceWith(response.widgetHtml);
+                    var $widget = $('#ipWidget-' + response.oldInstance);
+                    var $newWidget = $(response.widgetHtml);
+                    $widget.replaceWith($newWidget);
+                    $newWidget.detach();
+                    if (position == 0) {
+                        $block.prepend($newWidget);
+                    } else {
+                        console.log('insert after');
+                        console.log($block.find(' > .ipWidget').eq(position - 1));
+                        $newWidget.insertAfter($block.find(' > .ipWidget').eq(position - 1));
+                    }
                     $block.trigger('reinitRequired.ipWidget');
                     if (callback) {
                         callback(response.newInstanceId);
