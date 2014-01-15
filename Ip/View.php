@@ -14,8 +14,9 @@ namespace Ip;
  */
 class View
 {
-
-
+    /**
+     * @ignore
+     */
     const OVERRIDE_DIR = 'override';
         
     private $file;
@@ -93,7 +94,7 @@ class View
 
     /**
      * Set a single view variable
-     * @param $name
+     * @param string $name
      * @param $value
      */
     public function setVariable($name, $value)
@@ -111,7 +112,7 @@ class View
     }
 
     /**
-     * Get view variable value.
+     * Get view variable value
      * @param $name
      * @return null
      */
@@ -125,7 +126,7 @@ class View
 
 
     /**
-     *  Render a view and return HTML, XML, or any other string.
+     * Render a view and return HTML, XML, or any other string.
      * @return string
      */
     public function render () {
