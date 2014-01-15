@@ -22,4 +22,15 @@ class Job
 
     }
 
+    public static function ipRouteAction($info)
+    {
+        if (in_array($info['relativeUri'], array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
+            return array(
+                'plugin' => 'Admin',
+                'controller' => 'SiteController',
+                'action' => 'login',
+            );
+        }
+    }
+
 } 
