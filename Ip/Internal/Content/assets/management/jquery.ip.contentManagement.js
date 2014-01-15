@@ -7,7 +7,7 @@
 
 (function($) {
     "use strict";
-    var widgetOnDroppable = false;
+    var lastDroppable = false;
 
 
     var methods = {
@@ -377,11 +377,12 @@
             activeClass: "",
             hoverClass: "hover",
             over: function (event, ui) {
-                widgetOnDroppable = $(this);
+                lastDroppable = $(this);
+                $(this).data('hover', true);
                 //$('.ipAdminWidgetPlaceholder').hide();
             },
             out: function (event, ui) {
-                widgetOnDroppable = false;
+                $(this).data('hover', false);
                 //$('.ipAdminWidgetPlaceholder').show();
             },
             drop: function (event, ui) {
@@ -394,22 +395,26 @@
 
     var ipStopWidgetDrag = function (event, ui) {
 
-        if (widgetOnDroppable && $(this).data('ipAdminWidgetButton')) {
-            var targetWidgetInstanceId = widgetOnDroppable.data('instanceId');
-            var leftOrRight = widgetOnDroppable.data('leftOrRight');
+        if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
+            var targetWidgetInstanceId = lastDroppable.data('instanceId');
+            var leftOrRight = lastDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
-            var side = widgetOnDroppable.data('side');
-            var blockName = widgetOnDroppable.data('blockName');
-            var position = widgetOnDroppable.data('position');
+            var side = lastDroppable.data('side');
+            var blockName = lastDroppable.data('blockName');
+            var position = lastDroppable.data('position');
             if (side) {
                 ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
             } else {
                 ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
             }
         }
-
-        if (widgetOnDroppable && $(this).hasClass('ipWidget')) {
-            alert('move widget');
+        if (lastDroppable && lastDroppable.data('hover') && $(event.target).hasClass('ipWidget')) {
+            console.log('move widget');
+            var $widget = $(event.target);
+            var instanceId = $widget.data('widgetinstanceid');
+            var position = lastDroppable.data('position');
+            var block = lastDroppable.data('blockName');
+            ipContent.moveWidget(instanceId, position, block, ip.revisionId);
         }
 
         $('.ipsWidgetDropPlaceholder').remove();

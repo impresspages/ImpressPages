@@ -18,7 +18,6 @@
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.draggable({
-                        connectToSortable : '.ipBlock',
                         revert : function(droppable) {
                             if(droppable === false) {
                                 // drop was unsuccessful
