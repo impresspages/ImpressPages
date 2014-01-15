@@ -33,7 +33,7 @@
                     }
                 }
 
-                $this.find('.ipActionWidgetDelete').on('click', function(e) {
+                $this.find(' > .ipsWidgetControls .ipActionWidgetDelete').on('click', function(e) {
                     e.preventDefault();
                     ipContent.deleteWidget($this.data('widgetinstanceid'));
                 });
