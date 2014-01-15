@@ -11,9 +11,9 @@ class Event
 {
     public static function ipInit()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), 10);
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), 10); // jQuery for core
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), 10); // default, global jQuery
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), null, 10);
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), null, 10); // jQuery for core
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), null, 10); // default, global jQuery
 
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));

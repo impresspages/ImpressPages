@@ -127,11 +127,12 @@ function ipCurrentPage()
  * Add JavaScript file to a web page.
  * After adding all JavaScript files, use ipJs() function to generate JavaScript links HTML code.
  * @param $file JavaScript file
- * @param int $stage
+ * @param array $attributes for example array('id' => 'example')
+ * @param int $priority
  */
-function ipAddJs($file, $stage = 50)
+function ipAddJs($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addJavascript($file, array(), $stage);
+    \Ip\ServiceLocator::pageAssets()->addJavascript($file, $attributes, $priority);
 }
 
 /**
@@ -148,11 +149,12 @@ function ipAddJsVariable($name, $value)
  * Add CSS file from your plugin or theme
  * After adding all CSS files, use ipHead() function to generate HTML head.
  * @param $file
- * @param int $stage
+ * @param array $attributes for example array('id' => 'example')
+ * @param int $priority
  */
-function ipAddCss($file, $stage = 50)
+function ipAddCss($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addCss($file, array(), $stage);
+    \Ip\ServiceLocator::pageAssets()->addCss($file, $attributes, $priority);
 }
 
 /**

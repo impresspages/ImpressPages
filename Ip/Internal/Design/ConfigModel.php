@@ -220,7 +220,7 @@ class ConfigModel{
         $form->addField($field);
         $field = new Form\Field\Hidden();
         $field->setName('aa');
-        $field->setValue('updateConfig');
+        $field->setValue('Design.updateConfig');
         $form->addField($field);
 
 
@@ -292,9 +292,7 @@ class ConfigModel{
             return $data['ipDesign']['pCfg'];
         }
 
-        if (isset($data['aa']) && $data['aa'] == 'updateConfig') {
-            unset($data['m']);
-            unset($data['g']);
+        if (isset($data['aa']) && $data['aa'] == 'Design.updateConfig') {
             unset($data['aa']);
             return $data;
         }
