@@ -20,41 +20,8 @@
             // If the plugin hasn't been initialized yet
             if (!data) {
                 $this.delegate('.ipActionWidgetMove', 'click', function(e){e.preventDefault();});
-                $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
-                    handle : '.ipAdminWidgetControls .ipActionWidgetMove',
-                    cursorAt: {left: 30, top: 30},
-                    helper : function (e) {
-                        //$(e.currentTarget).css('visibility', 'hidden');
-                        return '<div style="width:50px; height: 50px; background-color: blue;"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
-                    },
-                    start : function (event, ui) {
-                        $(event.target).css('visibility', 'hidden');
 
-                    },
-                    stop : function (event, ui) {
-                        $(event.target).css('visibility', '');
-//                        console.log(ui);
-//                        $(event.currentTarget).show();
-//                        console.log(event);
-                    },
-                    revert : function(droppable) {
-                        if(droppable === false) {
-                            // drop was unsuccessful
-                            $this.trigger('unsuccessfulDrop.ipWidget',{
-                                widgetButton: $this
-                            });
-                            return true;
-                        } else {
-                            // drop was successful
-                            $this.trigger('successfulDrop.ipWidget',{
-                                widgetButton: $this,
-                                block: droppable
-                            });
-                            return false;
-                        }
-                    }
-
-                });
+                initWidgetDrag($this);
 //                $this.sortable( {
 //                    connectWith : '.ipBlock, .ipsWidgetDropPlaceholder',
 //                    revert : true,
@@ -151,6 +118,7 @@
             var widgetOptions = new Object;
             widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
             $(this).children('.ipWidget').ipWidget(widgetOptions);
+            initWidgetDrag($this);
         });
     },
 
@@ -163,7 +131,44 @@
 
 
     };
-    
+
+
+    var initWidgetDrag = function ($block) {
+        var $this = $block;
+        $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
+            handle : '.ipAdminWidgetControls .ipActionWidgetMove',
+            cursorAt: {
+                left: 30, top: 30
+            },
+            helper : function (e) {
+                return '<div style="width:50px; height: 50px; background-color: blue;"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
+            },
+            start : function (event, ui) {
+                $(event.target).css('visibility', 'hidden');
+
+            },
+            stop : function (event, ui) {
+                $(event.target).css('visibility', '');
+            },
+            revert : function(droppable) {
+                if(droppable === false) {
+                    // drop was unsuccessful
+                    $this.trigger('unsuccessfulDrop.ipWidget',{
+                        widgetButton: $this
+                    });
+                    return true;
+                } else {
+                    // drop was successful
+                    $this.trigger('successfulDrop.ipWidget',{
+                        widgetButton: $this,
+                        block: droppable
+                    });
+                    return false;
+                }
+            }
+
+        });
+    }
 
 
     $.fn.ipBlock = function(method) {
