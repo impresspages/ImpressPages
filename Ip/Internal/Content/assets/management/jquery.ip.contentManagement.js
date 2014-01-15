@@ -273,7 +273,7 @@
         });
 
         $.each(sidePlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -283,6 +283,7 @@
             $droppable.data('instanceId', value.instanceId);
             $droppable.data('leftOrRight', value.leftOrRight);
             $droppable.data('side', 1);
+            $droppable.find('.ipsWidgetDropMarker').height(value.height);
         });
 
 
@@ -362,7 +363,7 @@
 
 
         $.each(horizontalPlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholder"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderHorizontal"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -396,8 +397,6 @@
 
 
     var ipStopWidgetDrag = function (event, ui) {
-        $('.ipsWidgetDropPlaceholder').remove();
-
 
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
@@ -427,6 +426,8 @@
             }
             ipContent.moveWidget(instanceId, position, block, ip.revisionId);
         }
+
+        $('.ipsWidgetDropPlaceholder').remove();
 
 
     }
