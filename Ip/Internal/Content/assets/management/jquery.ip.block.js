@@ -22,7 +22,6 @@
                 $this.delegate('.ipActionWidgetMove', 'click', function(e){e.preventDefault();});
                 $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
                     handle : '.ipAdminWidgetControls .ipActionWidgetMove',
-                    revert : true,
                     cursorAt: {left: 30, top: 30},
                     helper : function (e) {
                         //$(e.currentTarget).css('visibility', 'hidden');
@@ -37,6 +36,22 @@
 //                        console.log(ui);
 //                        $(event.currentTarget).show();
 //                        console.log(event);
+                    },
+                    revert : function(droppable) {
+                        if(droppable === false) {
+                            // drop was unsuccessful
+                            $this.trigger('unsuccessfulDrop.ipWidget',{
+                                widgetButton: $this
+                            });
+                            return true;
+                        } else {
+                            // drop was successful
+                            $this.trigger('successfulDrop.ipWidget',{
+                                widgetButton: $this,
+                                block: droppable
+                            });
+                            return false;
+                        }
                     }
 
                 });
