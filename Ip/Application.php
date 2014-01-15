@@ -119,8 +119,10 @@ class Application
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
         if (empty($routeAction)) {
-            // TODOX 404 error
-            throw new \Ip\Exception('Page not found.');
+            ipCurrentPage()->_set('zone', '404');
+            $page = new \Ip\Page404(404, 'Error');
+            ipCurrentPage()->_set('page', $page);
+            return new \Ip\Response\PageNotFound();
         }
 
         foreach ($routeAction as $key => $value) {
