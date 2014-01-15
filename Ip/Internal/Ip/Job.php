@@ -35,16 +35,15 @@ class Job
         }
 
         $parts = explode('.', $actionString);
-        $plugin = array_shift($parts);
-        if (isset($parts[0])) {
-            $action = $parts[0];
+        if (count($parts) != 2) {
+            ipLog()->warning('Request.invalidControllerAction: {action}', array('action' => $actionString));
+            return;
         }
 
-
         return array(
-            'plugin' => $plugin,
+            'plugin' => $parts[0],
             'controller' => $controller,
-            'action' => $action,
+            'action' => $parts[1],
         );
     }
 } 
