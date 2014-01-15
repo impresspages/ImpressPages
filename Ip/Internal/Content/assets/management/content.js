@@ -48,16 +48,12 @@ var ipContent;
         }
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
-            var createdWidgetInstanceId;
             var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
-                ipContent.moveWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
-                    var $block = $('#ipBlock-' + newWidgetBlockName);
-                    $block.find('.ipbExampleContent').remove();
-                    createdWidgetInstanceId = instanceId;
+                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, revisionId, function (instanceId) {
                     if (callback) {
-                        callback(createdWidgetInstanceId);
+                        callback(instanceId);
                     }
 
                 });
@@ -65,19 +61,14 @@ var ipContent;
         };
 
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
-            var createdWidgetInstanceId;
             var revisionId = ip.revisionId;
-
-
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
                 ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
                     var $block = $('#ipBlock-' + newWidgetBlockName);
                     $block.find('.ipbExampleContent').remove();
-                    createdWidgetInstanceId = instanceId;
-
                     if (callback) {
-                        callback(createdWidgetInstanceId);
+                        callback(instanceId);
                     }
                 });
             });
