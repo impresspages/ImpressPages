@@ -990,25 +990,30 @@ body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
     float: left;
 }
 
-.widgetDropPlaceholder {
+.widgetDropPlaceholderVertical, .widgetDropPlaceholderHorizontal{
     background-color: transparent;
 /*    background-color: red;
     opacity: 0.1;
     border: 1px solid #ccc;*/
 }
 
-.widgetDropPlaceholder .widgetDropMarker {
+.widgetDropPlaceholderVertical .widgetDropMarker {
+    display: none;
+    width: 1px;
+    background-color: #2baeff;
+}
+
+.widgetDropPlaceholderHorizontal .widgetDropMarker {
     display: none;
     height: 1px;
     background-color: #2baeff;
-    width: 100%;
 }
 
 .widgetDropPlaceholder.hover {
     /*background-color: #000;*/
 }
 
-.widgetDropPlaceholder.hover .widgetDropMarker {
-
+.widgetDropPlaceholderVertical.hover .widgetDropMarker,
+.widgetDropPlaceholderHorizontal.hover .widgetDropMarker{
     display: block;
 }
