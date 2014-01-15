@@ -396,6 +396,8 @@
 
 
     var ipStopWidgetDrag = function (event, ui) {
+        $('.ipsWidgetDropPlaceholder').remove();
+
 
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
@@ -426,7 +428,6 @@
             ipContent.moveWidget(instanceId, position, block, ip.revisionId);
         }
 
-        $('.ipsWidgetDropPlaceholder').remove();
 
     }
 
