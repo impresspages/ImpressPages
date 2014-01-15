@@ -230,6 +230,9 @@ var ipContent;
                         $block.removeClass('ipbEmpty');
                     }
 
+
+                    $block.find(' > .ipbExampleContent').remove();
+                    
                     if (callback) {
                         callback($newWidget.data('widgetinstanceid'));
                     }
