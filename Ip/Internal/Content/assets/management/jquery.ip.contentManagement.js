@@ -418,13 +418,23 @@
             var curBlock = $widget.closest('.ipBlock').data('ipBlock').name;
             var position = lastDroppable.data('position');
             var block = lastDroppable.data('blockName');
+            var side = lastDroppable.data('side');
+            var leftOrRight = lastDroppable.data('leftOrRight');
+            var targetWidgetInstanceId = lastDroppable.data('instanceId');
+            var sourceWidgetInstanceId = $widget.data('widgetinstanceid');
+
             if (block == curBlock && curPosition < position) {
                 position--;
             }
             if (block == curBlock && curPosition == position) {
                 return;
             }
-            ipContent.moveWidget(instanceId, position, block, ip.revisionId);
+
+            if (side) {
+                ipContent.moveWidgetToSide(sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight);
+            } else {
+                ipContent.moveWidget(instanceId, position, block, ip.revisionId);
+            }
         }
 
         $('.ipsWidgetDropPlaceholder').remove();
