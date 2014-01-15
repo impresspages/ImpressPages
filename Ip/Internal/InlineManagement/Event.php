@@ -28,11 +28,8 @@ class Event
                 ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/inlineManagement.min.js'));
             }
 
-            $response = \Ip\ServiceLocator::response();
-            if (method_exists($response, 'addJavascriptContent')) {
-                $response->addJavascriptContent('controls', ipView('view/management/controls.php')->render());
-            }
 
+            ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
 
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.full.js'));
             ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js'));

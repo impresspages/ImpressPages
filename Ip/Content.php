@@ -22,11 +22,9 @@ class Content
     protected $zones = null;
     protected $zonesData = null;
     protected $blockContent = null;
-    protected $requestParser;
 
     public function __construct()
     {
-        $this->requestParser = new \Ip\Internal\Content\RequestParser();
     }
 
     /**
@@ -56,7 +54,7 @@ class Content
      */
     public function getCurrentLanguage()
     {
-        return $this->requestParser->getCurrentLanguage();
+        return ipCurrentPage()->getLanguage();
     }
 
     /**
@@ -92,7 +90,7 @@ class Content
      */
     public function getCurrentPage()
     {
-        return $this->requestParser->getCurrentPage();
+        return ipCurrentPage()->getPage();
     }
 
     /**
@@ -129,7 +127,10 @@ class Content
 
     public function getUrlPath()
     {
-        return $this->requestParser->getUrlPath();
+        if (!ipCurrentPage()) {
+            return array();
+        }
+        return ipCurrentPage()->getUrlPath();
     }
 
     public function getBlockContent($block)
@@ -157,7 +158,7 @@ class Content
      */
     public function getCurrentRevision()
     {
-        return $this->requestParser->getCurrentRevision();
+        return ipCurrentPage()->getCurrentRevision();
     }
 
     /**
@@ -198,7 +199,7 @@ class Content
      */
     public function getCurrentZone()
     {
-        return $this->requestParser->getCurrentZone();
+        return ipCurrentPage()->getZone();
     }
 
     /**
