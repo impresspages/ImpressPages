@@ -99,7 +99,7 @@ class Application
         $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
     }
 
-    private function handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    public function _handleOnlyRequest(\Ip\Request $request, $options = array(), $subrequest = true)
     {
         if (empty($options['skipInitEvents'])) {
             \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
@@ -109,11 +109,37 @@ class Application
             $request->fixMagicQuotes();
         }
 
+        $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
+        $language = $result['language'];
+        $relativeUri = $result['relativeUri'];
+
+        $currentPage = new \Ip\CurrentPage(array('language' => $language));
+        \Ip\ServiceLocator::_setCurrentPage($currentPage);
+
+        $_SESSION['ipLastLanguageId'] = $language->getId();
+
+        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
+
+        if (empty($routeAction)) {
+            ipCurrentPage()->_set('zone', '404');
+            $page = new \Ip\Page404(404, 'Error');
+            ipCurrentPage()->_set('page', $page);
+            return new \Ip\Response\PageNotFound();
+        }
+
+        foreach ($routeAction as $key => $value) {
+            $currentPage->_set($key, $value);
+        }
+
+        $plugin = $routeAction['plugin'];
+        $controller = $routeAction['controller'];
+        $action = $routeAction['action'];
+
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $languageCode = ipContent()->getCurrentLanguage()->getCode();
+                $languageCode = $language->getCode();
             }
             $this->initTranslations($languageCode);
         }
@@ -126,7 +152,7 @@ class Application
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
-                ) != $this->getSecurityToken()) && empty($_POST['pa'])
+                ) != $this->getSecurityToken()) && !$request->getPost('pa')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
@@ -142,16 +168,18 @@ class Application
             return new \Ip\Response\Json($data);
         }
 
+        if (in_array($routeAction['plugin'], \Ip\Internal\Plugins\Model::getModules())) {
+            $controllerClass = 'Ip\\Internal\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+        } else {
+            $controllerClass = 'Plugin\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+        }
 
-        $controllerClass = $request->getControllerClass();
         if (!class_exists($controllerClass)) {
             throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
         }
 
-        //check if user is logged in
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN && !\Ip\Internal\Admin\Backend::userId(
-            )
-        ) {
+        // check if user is logged in
+        if ($routeAction['controller'] == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -160,13 +188,9 @@ class Application
             }
         }
 
-        $action = $request->getControllerAction();
-
-        if ($request->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $plugin = $request->getControllerModule();
-            if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\Exception('User has no permission to execute ' . $request->getControllerModule(
-                    ) . '.' . $request->getControllerAction() . ' action');
+        if ($routeAction['controller'] == 'AdminController') {
+            if (!ipAdminPermission($routeAction['plugin'], 'executeAdminAction', array('action' => $action))) {
+                throw new \Ip\Exception('User has no permission to execute ' . $routeAction['plugin'] . '.' . $routeAction['action'] . ' action');
             }
         }
 
@@ -191,7 +215,7 @@ class Application
 
         \Ip\ServiceLocator::addRequest($request);
 
-        $rawResponse = $this->handleOnlyRequest($request, $options, $subrequest);
+        $rawResponse = $this->_handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
             return $rawResponse;
