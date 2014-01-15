@@ -48,9 +48,20 @@ var ipContent;
         }
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
+            var createdWidgetInstanceId;
+            var revisionId = ip.revisionId;
 
+            createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
+                ipContent.moveWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                    var $block = $('#ipBlock-' + newWidgetBlockName);
+                    $block.find('.ipbExampleContent').remove();
+                    createdWidgetInstanceId = instanceId;
+                    if (callback) {
+                        callback(createdWidgetInstanceId);
+                    }
 
-
+                });
+            });
         };
 
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
@@ -64,16 +75,12 @@ var ipContent;
                     var $block = $('#ipBlock-' + newWidgetBlockName);
                     $block.find('.ipbExampleContent').remove();
                     createdWidgetInstanceId = instanceId;
+
+                    if (callback) {
+                        callback(createdWidgetInstanceId);
+                    }
                 });
-
             });
-
-
-            if (callback) {
-                callback($newWidget.data('widgetinstanceid'));
-            }
-
-
         };
 
 
