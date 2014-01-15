@@ -22,7 +22,7 @@ class Job
 
     }
 
-    public static function ipRouteAction($info)
+    public static function ipRouteAction_5($info)
     {
         if (in_array($info['relativeUri'], array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
             return array(
