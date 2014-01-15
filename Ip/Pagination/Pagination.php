@@ -12,22 +12,27 @@ class Pagination
 
     public function __construct($options)
     {
+        if (isset($options['totalPages'])) {
+            $this->totalPages = $options['totalPages'];
+        }
+
+        if (isset($options['currentPage'])) {
+            $this->currentPage = $options['currentPage'];
+        }
+
+        if (isset($options['pagerSize'])) {
+            $this->pagerSize = $options['pagerSize'];
+        }
+
         $this->options = $options;
-        if (isset($this->options['currentPage'])) {
-            $this->currentPage = $this->options['currentPage'];
-        }
-
-        if (isset($this->options['totalPages'])) {
-            $this->totalPages = $this->options['totalPages'];
-        }
-
-        if (isset($this->options['pagerSize'])) {
-            $this->totalPages = $this->options['totalPages'];
-        }
     }
 
     public function pages()
     {
+        if ($this->totalPages < 1) {
+            return;
+        }
+
         $pagesLeft = floor($this->pagerSize / 2) - 2;
 
         $firstPage = max(1, $this->currentPage - $pagesLeft);
@@ -79,6 +84,10 @@ class Pagination
 
     public function render($view = NULL)
     {
+        if ($this->totalPages < 1) {
+            return null;
+        }
+
         if (!$view) {
             $view = ipFile('Ip/Pagination/view/pagination.php');
         }
