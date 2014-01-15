@@ -8,7 +8,7 @@
 namespace Ip;
 
 /**
- * Class to get information about current HTTP request.
+ * Get current HTTP request information
  *
  */
 class Request
@@ -45,41 +45,69 @@ class Request
         $this->setServer($_SERVER);
     }
 
+    /**
+     * Set CMS post variables
+     * @param $post
+     */
     public function setPost($post)
     {
         $this->_POST = $post;
         $this->_REQUEST = array_merge($this->_REQUEST, $post);
     }
 
+    /**
+     * Set CMS server data
+     * @param $server
+     */
     public function setServer($server)
     {
         $this->_SERVER = $server;
     }
 
+    /**
+     * Set CMS GET query
+     * @param $query
+     */
     public function setQuery($query)
     {
         $this->_GET = $query;
         $this->_REQUEST = array_merge($this->_REQUEST, $query);
     }
 
+    /**
+     * Set CMS request data
+     * @param $request
+     */
     public function setRequest($request)
     {
         $this->_REQUEST = $request;
     }
 
+    /**
+     * Check if HTTP request data is provided using GET method
+     *
+     * @return bool Returns true for GET method
+     */
 
     public function isGet()
     {
         return $this->getMethod() == 'GET';
     }
 
+    /**
+     * Check if HTTP request data is provided using POST method
+     *
+     * @return bool Returns true for POST method
+     */
     public function isPost()
     {
         return $this->getMethod() == 'POST';
     }
 
     /**
-     * @throws \Ip\Exception
+     * Require to provide HTTP request data using POST method
+     *
+     * @throws \Ip\Exception is thrown if POST method was not used.
      */
     public function mustBePost()
     {
@@ -88,6 +116,10 @@ class Request
         }
     }
 
+    /**
+     * Check if HTTPS protocol is used
+     * @return bool Returns true for HTTPS request
+     */
     public function isHttps()
     {
         return (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on");
@@ -96,8 +128,9 @@ class Request
 
 
     /**
-     * get request method  'GET', 'HEAD', 'POST', 'PUT'.
-     * @return string
+     * Get request method, such as 'GET', 'HEAD', 'POST', or 'PUT'
+     *
+     * @return string Request method
      */
     public function getMethod()
     {
@@ -106,7 +139,7 @@ class Request
 
 
     /**
-     * Returns GET query parameter if $name is passed. Returns all query parameters if name == null.
+     * Return GET query parameter if $name is passed. Returns all query parameters if name == null.
      *
      * @param string    $name       query parameter name
      * @param mixed     $default    default value if no GET parameter exists
@@ -130,7 +163,7 @@ class Request
     }
 
     /**
-     * Returns request parameter if $name is passed. Returns all request parameters if name == null.
+     * Return request parameter if $name is passed. Returns all request parameters if $name == null.
      *
      * @param string    $name       query parameter name
      * @param mixed     $default    default value if no GET parameter exists
@@ -140,6 +173,14 @@ class Request
     {
         return $this->getParam($name, $this->_REQUEST, $default);
     }
+
+    /**
+     * Return parameters, such as headers, paths, and script locations, provided in $_SERVER array
+     *
+     * @param string $name parameter name
+     * @param string $default default value returned when a server parameter is null
+     * @return mixed
+     */
 
     public function getServer($name = null, $default = null)
     {
@@ -157,6 +198,11 @@ class Request
         return $values[$name];
     }
 
+    /**
+     * Get current page URL
+     *
+     * @return string URL address
+     */
     public function getUrl() {
         $pageURL = 'http';
         if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
@@ -172,7 +218,9 @@ class Request
     }
 
     /**
-     * @return string path after BASE_URL
+     * Gets relative path from base URL
+     *
+     * @return string Path after BASE_URL
      */
     public function getRelativePath()
     {
@@ -195,6 +243,9 @@ class Request
         return substr($requestPath, strlen($basePath));
     }
 
+    /**
+     * @ignore
+     */
     public function fixMagicQuotes()
     {
         if (!get_magic_quotes_gpc()) {
@@ -216,7 +267,11 @@ class Request
         unset($process);
     }
 
-
+    /**
+     * Gets MVC controller action
+     *
+     * @return string controller action name
+     */
     public function getControllerAction()
     {
         if (!$this->controllerAction) {
@@ -225,6 +280,11 @@ class Request
         return $this->controllerAction;
     }
 
+    /**
+     * Gets MVC controller action class
+     *
+     * @return null
+     */
     public function getControllerClass()
     {
         if (!$this->controllerClass) {
@@ -298,6 +358,10 @@ class Request
         $this->controllerModule = $controllerModule;
     }
 
+    /**
+     * Get controller type: public, site or admin
+     * @return string
+     */
     public function getControllerType()
     {
         if ($this->controllerType === null) {
@@ -306,14 +370,14 @@ class Request
         return $this->controllerType;
     }
 
-    public function getControllerModule()
-    {
-        if ($this->controllerModule === null) {
-            $this->parseControllerAction();
-        }
-        return $this->controllerModule;
-    }
-
+    /**
+     * Set a controller action
+     *
+     * @param string $module controller module name
+     * @param string $action controller action name
+     * @param $type public, site or admin controller
+     * @throws Exception
+     */
     public function setAction($module, $action, $type)
     {
         if (!in_array($type, array (self::CONTROLLER_TYPE_ADMIN, self::CONTROLLER_TYPE_PUBLIC, self::CONTROLLER_TYPE_SITE))) {
@@ -349,6 +413,10 @@ class Request
         return $controllerClass;
     }
 
+    /**
+     * Check if this is the default controller action
+     * @return bool Returns true for default controller action
+     */
     public function isDefaultAction()
     {
         return $this->getControllerClass() == $this->defaultControllerClass && $this->getControllerAction() == $this->defaultControllerAction;
