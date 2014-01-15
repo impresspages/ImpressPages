@@ -17,7 +17,7 @@ class Event
         }
 
         $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
-        if ($lastExecution && date('Y-m-d H') == date('Y-m-d H', $lastExecution)) {
+        if ($lastExecution && (date('Y-m-d H') == date('Y-m-d H', $lastExecution))) {
             // we execute cron once an hour and cron has been executed this hour
             return;
         }
@@ -27,7 +27,7 @@ class Event
             curl_setopt(
                 $ch,
                 CURLOPT_URL,
-                ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'))
+                ipConfig()->baseUrl() . '?pa=Cron.index&pass=' . urlencode(ipGetOption('Config.cronPassword'))
             );
             curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -37,7 +37,7 @@ class Event
             $request = new \Ip\Request();
             $request->setQuery(
                 array(
-                    'pa' => 'Cron',
+                    'pa' => 'Cron.index',
                     'pass' => ipGetOption('Config.cronPassword')
                 )
             );
