@@ -113,6 +113,15 @@ function ipContent()
     return \Ip\ServiceLocator::content();
 }
 
+/**
+ * Use this object to get information about current page, language, zone.
+ *
+ * @return \Ip\CurrentPage
+ */
+function ipCurrentPage()
+{
+    return \Ip\ServiceLocator::currentPage();
+}
 
 /**
  * Add JavaScript file to a web page.
@@ -120,12 +129,9 @@ function ipContent()
  * @param $file JavaScript file
  * @param int $stage
  */
-function ipAddJs($file, $stage = 1)
+function ipAddJs($file, $stage = 50)
 {
-    $response = \Ip\ServiceLocator::response();
-    if (method_exists($response, 'addJavascript')) {
-        $response->addJavascript($file, array(), $stage);
-    }
+    \Ip\ServiceLocator::pageAssets()->addJavascript($file, array(), $stage);
 }
 
 /**
@@ -133,15 +139,9 @@ function ipAddJs($file, $stage = 1)
  * @param $name
  * @param $value
  */
-
 function ipAddJsVariable($name, $value)
 {
-    $response = \Ip\ServiceLocator::response();
-    if (method_exists($response, 'addJavascriptVariable')) {
-        $response->addJavascriptVariable($name, $value);
-    } else {
-        ipLog()->error('Response.cantAddJavascriptVariable: Response method has no method addJavascriptVariable', array('response' => $response));
-    }
+    \Ip\ServiceLocator::pageAssets()->addJavascriptVariable($name, $value);
 }
 
 /**
@@ -150,19 +150,9 @@ function ipAddJsVariable($name, $value)
  * @param $file
  * @param int $stage
  */
-
-function ipAddCss($file, $stage = 1)
+function ipAddCss($file, $stage = 50)
 {
-    /**
-     * @var $response \Ip\Response\Layout
-     */
-    $response = \Ip\ServiceLocator::response();
-    if (method_exists($response, 'addCss')) {
-        $response->addCss($file, $stage);
-    } else {
-        ipLog()->error('Response.cantAddCss: Response method has no addCss method', array('response' => $response));
-    }
-
+    \Ip\ServiceLocator::pageAssets()->addCss($file, array(), $stage);
 }
 
 /**
@@ -182,7 +172,7 @@ function ipLog()
 
 function ipJs()
 {
-    return \Ip\ServiceLocator::response()->generateJavascript();
+    return \Ip\ServiceLocator::pageAssets()->generateJavascript();
 }
 
 /**
@@ -191,7 +181,7 @@ function ipJs()
  */
 function ipHead()
 {
-    return \Ip\ServiceLocator::response()->generateHead();
+    return \Ip\ServiceLocator::pageAssets()->generateHead();
 }
 
 /**
@@ -216,6 +206,14 @@ function ipSetLayout($file)
 function ipResponse()
 {
     return \Ip\ServiceLocator::response();
+}
+
+
+function _ipPageStart(\Ip\Page $page)
+{
+    ipCurrentPage()->_set('page', $page);
+
+    ipEvent('_ipPageStart', array('page' => $page));
 }
 
 /**
