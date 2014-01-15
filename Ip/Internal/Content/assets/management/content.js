@@ -232,7 +232,7 @@ var ipContent;
 
 
                     $block.find(' > .ipbExampleContent').remove();
-                    
+
                     if (callback) {
                         callback($newWidget.data('widgetinstanceid'));
                     }
