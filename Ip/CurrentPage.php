@@ -49,7 +49,7 @@ class CurrentPage
 
     public function getUrlPath()
     {
-        return !empty($this->requestedPage['urlVars']) ? $this->requestedPage['urlVars'] : array();
+        return !empty($this->requestedPage['urlParts']) ? $this->requestedPage['urlParts'] : array();
     }
 
     public function getZone()
