@@ -171,10 +171,10 @@ class Application
             return new \Ip\Response\Json($data);
         }
 
-        if (in_array($routeAction['plugin'], \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+        if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
+            $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
         } else {
-            $controllerClass = 'Plugin\\'.$routeAction['plugin'].'\\'.$routeAction['controller'];
+            $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
         }
 
         if (!class_exists($controllerClass)) {
@@ -182,7 +182,7 @@ class Application
         }
 
         // check if user is logged in
-        if ($routeAction['controller'] == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
+        if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
             if (ipConfig()->getRaw('NO_REWRITES')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
@@ -191,9 +191,9 @@ class Application
             }
         }
 
-        if ($routeAction['controller'] == 'AdminController') {
-            if (!ipAdminPermission($routeAction['plugin'], 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\Exception('User has no permission to execute ' . $routeAction['plugin'] . '.' . $routeAction['action'] . ' action');
+        if ($controller == 'AdminController') {
+            if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
+                throw new \Ip\Exception('User has no permission to execute ' . $plugin . '.' . $action . ' action');
             }
         }
 
