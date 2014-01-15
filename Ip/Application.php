@@ -118,6 +118,16 @@ class Application
 
         $_SESSION['ipLastLanguageId'] = $language->getId();
 
+        if (empty($options['skipTranslationsInit'])) {
+            if (!empty($options['translationsLanguageCode'])) {
+                $languageCode = $options['translationsLanguageCode'];
+            } else {
+                $languageCode = $language->getCode();
+            }
+            $this->initTranslations($languageCode);
+        }
+
+
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
         if (empty($routeAction)) {
@@ -135,14 +145,7 @@ class Application
         $controller = $routeAction['controller'];
         $action = $routeAction['action'];
 
-        if (empty($options['skipTranslationsInit'])) {
-            if (!empty($options['translationsLanguageCode'])) {
-                $languageCode = $options['translationsLanguageCode'];
-            } else {
-                $languageCode = $language->getCode();
-            }
-            $this->initTranslations($languageCode);
-        }
+
 
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
