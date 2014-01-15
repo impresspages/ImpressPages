@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for ImpressPages application.
+ * Base class for ImpressPages CMS application.
  *
  * @package   ImpressPages
  */
@@ -280,7 +280,7 @@ class Application
 
     /**
      * Get security token used to prevent cross site scripting
-     * @return string
+     * @return string security token
      */
     public function getSecurityToken()
     {

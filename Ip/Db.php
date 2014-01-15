@@ -26,6 +26,8 @@ class Db
     }
 
     /**
+     * Get database connection object
+     *
      * @throws \Ip\Exception
      * @return \PDO
      */
@@ -66,12 +68,23 @@ class Db
         return $this->pdoConnection;
     }
 
+    /**
+     * Disconnect from the database
+     */
     public function disconnect()
     {
         ipConfig()->_setRaw('db', null);
         $this->pdoConnection = null;
     }
 
+    /**
+     * Execute SQL query and fetch a value from the result set.
+     *
+     * @param string $sql
+     * @param array $params
+     * @return string
+     * @throws DbException
+     */
     public function fetchValue($sql, $params = array())
     {
         try {
@@ -86,6 +99,15 @@ class Db
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
+    /**
+     * Execute SQL query and fetch a single row from the result set
+     *
+     * @param $sql
+     * @param array $params
+     * @return null
+     * @throws DbException
+     */
 
     public function fetchRow($sql, $params = array())
     {
@@ -104,6 +126,14 @@ class Db
         }
     }
 
+    /**
+     * Execute SQL query and fetch all query results
+     *
+     * @param $sql
+     * @param array $params
+     * @return array
+     * @throws DbException
+     */
     public function fetchAll($sql, $params = array())
     {
         try {
@@ -123,6 +153,15 @@ class Db
         }
     }
 
+    /**
+     * Execute SELECT query on specified table and return array with results
+     *
+     * @param string $fields comma separated string containing a list of fields
+     * @param $table
+     * @param $where
+     * @param string $sqlEnd
+     * @return array
+     */
     public function select($fields, $table, $where, $sqlEnd = '')
     {
         $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table) . ' WHERE ';
@@ -150,6 +189,8 @@ class Db
     }
 
     /**
+     * Execute SQL query
+     *
      * @param string $sql
      * @param array $params
      * @return int the number of rows affected by the last SQL statement
@@ -170,6 +211,14 @@ class Db
         }
     }
 
+    /**
+     * Execute SQL query and return a result set
+     *
+     * @param string $sql query
+     * @param array $params The array represents each row as either an array of column values.
+     * @return array
+     * @throws DbException
+     */
     public function fetchColumn($sql, $params = array())
     {
         try {
@@ -186,7 +235,8 @@ class Db
     }
 
     /**
-     * Execute query, inserts values from assoc array
+     * Execute query, insert values from assoc array
+     *
      * @param string $table
      * @param array $row
      * @return mixed
@@ -216,6 +266,8 @@ class Db
     }
 
     /**
+     * Delete a table
+     *
      * @param string $table
      * @param array $condition for example, array("userId" => 5, "card_id" => 8)
      * @return type
@@ -238,6 +290,8 @@ class Db
     }
 
     /**
+     * Update table records
+     *
      * Execute query, updates values from assoc array
      * @param string $table
      * @param array $update
@@ -278,11 +332,20 @@ class Db
         return $this->execute($sql, $params);
     }
 
+    /**
+     * Return CMS table prefix
+     * @return mixed
+     */
     public function tablePrefix()
     {
         return $this->tablePrefix;
     }
 
+    /**
+     * Get connection status
+     *
+     * @return bool
+     */
     public function isConnected()
     {
         return $this->pdoConnection ? true : false;
