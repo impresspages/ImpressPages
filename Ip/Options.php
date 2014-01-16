@@ -9,11 +9,20 @@ namespace Ip;
 
 
 /**
- * Website options storage class.
+ * Website options storage
+ *
  * @package Ip
  */
 class Options
 {
+
+    /**
+     * Get option value
+     * @param string $key Option key
+     * @param null $defaultValue A value to return if the option is not set
+     * @return string Option value
+     * @throws Exception
+     */
     public function getOption($key, $defaultValue = null)
     {
         $parts = explode('.', $key, 2);
@@ -23,6 +32,15 @@ class Options
         return \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $parts[1], $defaultValue);
     }
 
+
+    /**
+     * Get language specific option value
+     * @param string $key Option key
+     * @param int $languageId Language ID
+     * @param null $defaultValue A value to return if the option is not set
+     * @return string Option value
+     * @throws Exception
+     */
     public function getOptionLang($key, $languageId, $defaultValue = null)
     {
         $parts = explode('.', $key, 2);
@@ -37,7 +55,12 @@ class Options
         return $answer;
     }
 
-
+    /**
+     * Set CMS specific option
+     * @param string $key Option key
+     * @param $value Option value
+     * @throws Exception
+     */
     public function setOption($key, $value)
     {
         $parts = explode('.', $key, 2);
@@ -47,6 +70,13 @@ class Options
         \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $parts[1], $value);
     }
 
+    /**
+     * Set language specific option
+     * @param string $key Option key
+     * @param int $languageId Language ID
+     * @param $value Option value
+     * @throws Exception
+     */
     public function setOptionLang($key, $languageId, $value)
     {
         $parts = explode('.', $key, 2);
@@ -56,6 +86,12 @@ class Options
         \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $languageId . '.' . $parts[1], $value);
     }
 
+
+    /**
+     * Remove option
+     * @param string $key Option key
+     * @throws Exception
+     */
     public function removeOption($key)
     {
         $parts = explode('.', $key, 2);
@@ -65,6 +101,12 @@ class Options
         \Ip\ServiceLocator::storage()->remove('Config', $parts[0] . '.' . $parts[1]);
     }
 
+    /**
+     * Remove language specific option
+     * @param string $key Option key
+     * @param int $languageId Language ID
+     * @throws Exception
+     */
     public function removeOptionLang($key, $languageId)
     {
         $parts = explode('.', $key, 2);
@@ -77,7 +119,9 @@ class Options
 
 
     /**
-     * @param string $configFile
+     * Import options form JSON file
+     *
+     * @param string $configFile File name to import
      * @throws Exception
      */
     public function import($configFile)
@@ -92,6 +136,11 @@ class Options
         }
     }
 
+    /**
+     * Get all web site options
+     *
+     * @return array Configuration options
+     */
     function getAllOptions()
     {
         $optionValues = \Ip\ServiceLocator::storage()->getAll('Config');
