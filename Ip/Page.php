@@ -200,23 +200,45 @@ class Page{
      */
     public function setDescription($description){ $this->description=$description;}
 
-    /** @return string */
+    /**
+     * @ignore
+     * @return string
+     */
     public function getText(){return $this->text;}
-    /** @param $text string */
+
+    /**
+     * @ignore
+     * @param $text string
+     */
     public function setText($text){$this->text=$text;}
 
-    /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+    /**
+     * Get page modification date and time
+     *
+     * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function getLastModified(){return $this->lastModified;}
-    /** @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+
+    /**
+     * Set page modification date and time
+     * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function setLastModified($lastModified){$this->lastModified=$lastModified;}
 
-    /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+    /**
+     * Get page creation date and time
+     *
+     * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function getCreatedOn(){return $this->createdOn;}
-    /** @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+
+    /**
+     * Set page creation date and time
+     *
+     * @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function setCreatedOn($createdOn){$this->createdOn=$createdOn;}
 
-    /** @return int - average amount of days between changes */
-    public function getModifyFrequency(){return $this->modifyFrequency;}
     /** @param $modifyFrequency int represents average amount of days between changes */
     public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}
 
