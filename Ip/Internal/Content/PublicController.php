@@ -53,7 +53,13 @@ class PublicController extends \Ip\Controller
         $response->setKeywords(ipContent()->getKeywords());
         $response->setTitle(ipContent()->getTitle());
 
-        return $page->generateContent();
+        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+        if ($revision) {
+            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
+        } else {
+            return '';
+        }
+
     }
 
     private function initManagement()

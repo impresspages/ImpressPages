@@ -67,10 +67,11 @@ abstract class Zone{
     }
 
     /**
+     * Find pages of this zone.
      *
-     * Finds pages of this zone. This function returns only one level of menu tree.
+     * This function returns only one level of menu tree.
      * If $parentPageId is null, then function returns the first level of pages.
-     * Otherwise, if you specify $parentPageId, then child pages of specified parent Pages is returned.
+     * Otherwise, if you specify $parentPageId, then child pages of specified parent pages are returned.
      *
      * @param $language Language id. If not set, current website language is used.
      * @param $parentPageId if set, function returns only children
@@ -83,10 +84,9 @@ abstract class Zone{
      */
     public abstract function getPages($language = null, $parentPageId = null, $startFrom = 0, $limit = null, $includeHidden = false, $reverseOrder = false);
 
-
     /**
      *
-     * Returns Pages by specified id.
+     * Return page by specified id.
      *
      * @param $pageId int
      * @return Page by specified id.
@@ -94,10 +94,11 @@ abstract class Zone{
      */
     public abstract function getPage($pageId);
 
-
     /**
      *
-     * Finds page by URL and GET variables. This function is used to find current Page (page) of requested URL.
+     * Find page by URL and GET variables
+     *
+     * This function is used to find current page of requested URL.
      *
      * If requested url is http://yoursite.com/en/zone_url/var1/var2/?page=2
      *
@@ -106,7 +107,7 @@ abstract class Zone{
      * $urlVars == array('var1', 'var2');
      * $getVars == array('page' = 2);
      *
-     * Use these values to detect which of your zone is requested and create required Page.
+     * Use these values to detect which of your zone is requested and create required page.
      *
      *
      * @param $urlVars array
@@ -116,15 +117,10 @@ abstract class Zone{
      */
     public abstract function findPage($urlVars, $getVars);
 
-
-
-
-
-
-    /**
+    /*
+     * Find current (active) page of this zone
      *
-     * Finds current (active) page of this zone. Calculated value is cached.
-     *
+     * Calculated value is cached.
      * @return Page - that represents current requested page.
      *
      */
@@ -159,18 +155,20 @@ abstract class Zone{
         return $answer;
     }
 
+    /**
+     * Get zone URL
+     * @return string
+     */
     public function getLink()
     {
         return ipContent()->getCurrentLanguage()->getLink() . $this->getUrl() . '/';
     }
 
     /**
+     * Get breadcrumb to current page
      *
-     * Get breadcrumb to current page.
      * @return Page[]
-     *
      */
-
     public function getBreadcrumb($pageId = null){
         if ($pageId === null) {
             $currentPage = $this->getCurrentPage();
@@ -200,61 +198,106 @@ abstract class Zone{
     }
 
     /**
-     *
-     * If you need to do some actions before any output, extend this class.
-     * This function is always executed by the system when this zone is active (current page belongs to the zone).
-     *
-     * Also this function is executed if two reserved GET parameters are passed (module_name) and they are equal to current zone group and name.
-     *
-     * module_name == $this->associatedModule;
+     * Get zone ID
+     * @return int Zone id
+     */
+    public function getId(){return $this->id;}
+
+    /**
+     * Set zone ID
+     * @ignore
+     * @param $id int
      *
      */
-    public function makeActions(){
-    }
-
-    /** @return int Zone id */
-    public function getId(){return $this->id;}
-    /** @param $id int */
     public function setId($id){$this->id=$id;}
 
-    /** @return string Zone name */
+    /**
+     * Get zone name
+     * @return string Zone name
+     */
     public function getName(){return $this->name;}
-    /** @param $name string */
+
+    /**
+     * @ignore
+     * @param $name
+     */
     public function setName($name){$this->name=$name;}
 
-    /** @return string zone layout file */
+    /**
+     * Get zone layout
+     * @return string Zone layout
+     */
     public function getLayout(){return $this->layout;}
-    /** @param $layout string */
+
+    /**
+     * @ignore
+     * @param $layout string
+     */
     public function setLayout($layout){$this->layout=$layout;}
 
-    /** @return string Default title */
+    /**
+     * Get zone title
+     * @return string
+     */
     public function getTitle(){return $this->title;}
-    /** @param $title string */
+
+    /**
+     * @ignore
+     * @param $title string
+     */
     public function setTitle($title){$this->title=$title;}
 
-    /** @return string Zone URL */
+    /**
+     * Get zone URL
+     * @return string Zone URL
+     */
     public function getUrl(){return $this->url;}
-    /** @param $url string */
+
+    /**
+     * @ignore
+     * @param $url string
+     */
     public function setUrl($url){$this->url=$url;}
 
-    /** @return string Default keywords */
+    /**
+     * Get a string containing zone keywords
+     * @return string Default keywords
+     */
     public function getKeywords(){return $this->keywords;}
-    /** @param $keywords string */
+
+    /**
+     * @ignore
+     * @param $keywords string
+     */
     public function setKeywords($keywords){$this->keywords=$keywords;}
 
-    /** @return string Default description */
+    /**
+     * Get zone description
+     * @return string Default description
+     */
     public function getDescription(){return $this->description;}
-    /** @param $description string */
+
+    /**
+     * @ignore
+     * @param $description string
+     */
     public function setDescription($description){$this->description=$description;}
 
-    /** @return string */
+    /**
+     * @ignore
+     * @return string */
     public function getAssociatedModule(){return $this->associatedModule;}
-    /** @param $associatedModule string */
+
+    /**
+     * @ignore
+     * @param $associatedModule string
+     */
     public function setAssociatedModule($associatedModule){$this->associatedModule=$associatedModule;}
 
-    /** @return string */
+    /**
+     * @ignore
+     * @return string
+     */
     public function getTitleInAdmin(){return $this->titleInAdmin;}
 
 }
-
-
