@@ -49,7 +49,7 @@ class Language{
     }
 
     /**
-     *
+     * Get language title
      * @return string Eg. English
      *
      */
@@ -58,7 +58,7 @@ class Language{
     }
 
     /**
-     *
+     * Get language abbreviation
      * @return string Eg. en
      *
      */
@@ -67,7 +67,7 @@ class Language{
     }
 
     /**
-     *
+     * Get language id
      * @return int
      *
      */
@@ -77,7 +77,7 @@ class Language{
 
 
     /**
-     *
+     * Get language code
      * @return string Eg. en, en-us
      *
      */
@@ -86,7 +86,7 @@ class Language{
     }
 
     /**
-     * Language URL partial
+     * Get language URL partial
      * @return string
      *
      */
@@ -95,18 +95,18 @@ class Language{
     }
 
     /**
+     * Check if the language is visible on a web site
      *
-     * @return bool
-     *
+     * @return bool Returns true, if visible
      */
     public function isVisible(){
         return $this->visible;
     }
     
     /**
+     * Get text direction.
      *
-     * @return string
-     *
+     * @return string Returns either "ltr" or "rtl"
      */
     public function getTextDirection(){
         return $this->textDirection;
@@ -114,8 +114,8 @@ class Language{
 
     
     /**
-     * @returns boolean true if this language is the language of currently displpayed page 
-     * Enter description here ...
+     * Check if the language is current page language
+     * @returns boolean Returns true if this language is the language of currently displayed page
      */
     public function getCurrent() {
         if ($this->getId() == ipContent()->getCurrentLanguage()->getId()) {
@@ -126,9 +126,9 @@ class Language{
     }
 
     /**
-     * Generate link to the language. Returns link to home page if multilingual option is turned off
+     * Generate language URL
      *
-     * @return string
+     * @return string Returns link to home page if multilingual option is turned off
      */
     public function getLink()
     {
