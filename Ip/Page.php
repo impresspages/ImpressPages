@@ -80,27 +80,6 @@ class Page{
         $this->zoneName = $zoneName;
     }
 
-
-    /**
-     *
-     * This function returns the content of page. Typically you should use $this->getId() to know which content to output.
-     *
-     * Override this function to place your code.
-     *
-     * @return string - page content.
-     *
-     */
-    public function generateContent ()
-    {
-        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
-        if ($revision) {
-            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
-        } else {
-            return '';
-        }
-    }
-
-
     /**
      * This function is being executed every time before this element page is being displayed.
      * @param \Ip\Controller $controller
@@ -151,7 +130,6 @@ class Page{
     /**
      * Get previous page on website's page tree branch
      * @return Page or false if previous element doesn't exist
-     *
      */
     public function getPreviousPage()
     {
