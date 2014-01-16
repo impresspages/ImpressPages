@@ -395,7 +395,7 @@ if (!function_exists('ipFile')) {
      */
     function ipFile($path)
     {
-        global $ipFile_baseDir, $ipFile_overrides; // Optimization: speeds things up a lot
+        global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot
 
         if (!$ipFile_baseDir) {
             $ipFile_baseDir = ipConfig()->getRaw('BASE_DIR');
