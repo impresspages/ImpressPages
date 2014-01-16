@@ -28,6 +28,7 @@ class Content
     }
 
     /**
+     * Get all available zones
      *
      * @return \Ip\Zone[]
      *
@@ -41,6 +42,9 @@ class Content
         return $answer;
     }
 
+    /**
+     * @return array|null
+     */
     protected function getZonesData()
     {
         if (!$this->zonesData) {
@@ -50,6 +54,7 @@ class Content
     }
 
     /**
+     * Get current language object
      * @return \Ip\Language
      */
     public function getCurrentLanguage()
@@ -58,8 +63,8 @@ class Content
     }
 
     /**
-     *
-     * @param $zoneName
+     * Get specific zone object
+     * @param string $zoneName
      * @return \Ip\Zone
      *
      */
@@ -86,6 +91,8 @@ class Content
     }
 
     /**
+     * Get current page object
+     *
      * @return \Ip\Page
      */
     public function getCurrentPage()
@@ -94,7 +101,8 @@ class Content
     }
 
     /**
-     * @param $id
+     * Get specific language object
+     * @param int $id Language ID
      * @return bool|Language
      */
     public function getLanguage($id)
@@ -109,8 +117,9 @@ class Content
     }
 
     /**
+     * Get all website languages
      *
-     * @return \Ip\Language[] - all website languages. Each element is an object Language
+     * @return \Ip\Language[] - all website languages. Each element is a Language object.
      *
      */
     public function getLanguages()
@@ -125,6 +134,11 @@ class Content
         return $this->languages;
     }
 
+    /**
+     * Get URL of the current page
+     *
+     * @return array
+     */
     public function getUrlPath()
     {
         if (!ipCurrentPage()) {
@@ -133,6 +147,11 @@ class Content
         return ipCurrentPage()->getUrlPath();
     }
 
+    /**
+     * Get page block HTML content
+     * @param string $block Block name
+     * @return string HTML code
+     */
     public function getBlockContent($block)
     {
         if (isset($this->blockContent[$block])) {
@@ -142,19 +161,30 @@ class Content
         }
     }
 
+    /**
+     * Set page block HTML content
+     * @param string $block Block name
+     * @param string $content HTML code
+     */
     public function setBlockContent($block, $content)
     {
         $this->blockContent[$block] = $content;
     }
 
+    /**
+     * Generate block object
+     *
+     * @param string $blockName
+     * @return Block
+     */
     public function generateBlock($blockName)
     {
         return new \Ip\Block($blockName);
     }
 
     /**
-     * If we are in the management state and last revision is published, then create new revision.
-     *
+     * If in management state and the last revision was published, create a new revision.
+     * @ignore
      */
     public function getCurrentRevision()
     {
@@ -162,8 +192,12 @@ class Content
     }
 
     /**
-     * @param null $zoneName
-     * @param null $pageId
+     * Get a breadcrumb
+     *
+     * Gets an array of pages representing a tree path to a current page.
+     *
+     * @param string $zoneName
+     * @param int $pageId
      * @return \Ip\Page[]
      */
     public function getBreadcrumb($zoneName = null, $pageId = null)
@@ -195,6 +229,8 @@ class Content
     }
 
     /**
+     * Get current zone object
+     *
      * @return Zone
      */
     public function getCurrentZone()
@@ -203,8 +239,9 @@ class Content
     }
 
     /**
+     * Get a page title
      *
-     * @return string title of current page
+     * @return string title of the current page
      *
      */
     public function getTitle()
@@ -222,6 +259,7 @@ class Content
     }
 
     /**
+     * Get current page description
      *
      * @return string description of current page
      *
@@ -241,6 +279,7 @@ class Content
     }
 
     /**
+     * Get current page keywords
      *
      * @return string keywords of current page
      *
@@ -262,6 +301,7 @@ class Content
 
     /**
      * Invalidate zones cache. Use this method if you have added or removed some zones
+     * @ignore
      */
     //TODOXX make private and execute when needed #201
 
@@ -273,18 +313,46 @@ class Content
     }
 
 
+    /**
+     * Add website language
+     *
+     * @param string $title
+     * @param string $abbreviation
+     * @param string $code
+     * @param string $url
+     * @param bool $visible
+     * @param string $textDirection
+     * @param null $position
+     * @return mixed
+     */
     public static function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection = 'ltr', $position = null)
     {
         $languageId = \Ip\Internal\Languages\Service::addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position = null);
         return $languageId;
     }
 
+    /**
+     * Delete a language with specific ID
+     *
+     * @param $languageId
+     */
     public static function deleteLanguage($languageId)
     {
         \Ip\Internal\Languages\Service::delete($languageId);
     }
 
-
+    /**
+     * Create a new website zone
+     * @param string $title
+     * @param string $name
+     * @param string $url
+     * @param string $layout Default page layout
+     * @param string $metaTitle
+     * @param string $metaKeywords
+     * @param string $metaDescription
+     * @param int $position
+     * @return string
+     */
     public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
 
@@ -292,17 +360,35 @@ class Content
         return $zoneName;
     }
 
+    /**
+     * Update zone information
+     *
+     * @param string $zoneName
+     * @param int $languageId
+     * @param string $title
+     * @param string $url
+     * @param string $name
+     * @param string $layout Default page layout
+     * @param string $metaTitle
+     * @param string $metaKeywords
+     * @param string $metaDescription
+     */
     public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
     {
         \Ip\Internal\Pages\Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
     }
 
+    /**
+     * Delete zone
+     * @param string $zoneName
+     */
     public static function deleteZone($zoneName)
     {
         \Ip\Internal\Pages\Service::deleteZone($zoneName);
     }
 
     /**
+     * Update page data
      * @param string $zoneName
      * @param int $pageId
      * @param array $data
@@ -312,7 +398,14 @@ class Content
         \Ip\Internal\Pages\Service::updatePage($zoneName, $pageId, $data);
     }
 
-
+    /**
+     * Add a new page
+     *
+     * @param int $parentId Parent page ID
+     * @param string $title
+     * @param array $data
+     * @return mixed
+     */
     public static function addPage($parentId, $title, $data = array())
     {
         $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data );
@@ -321,9 +414,11 @@ class Content
 
 
     /**
+     * Get root page id for the specfic language
+     *
      * @param string $zoneName
      * @param int $languageId
-     * @return int
+     * @return int Page ID
      */
     public static function getRootPageId($zoneName, $languageId)
     {
@@ -331,18 +426,36 @@ class Content
         return $rootId;
     }
 
+    /**
+     * Copy page
+     *
+     * @param int $pageId Source page ID
+     * @param int $destinationParentId Target parent ID
+     * @param int $destinationPosition
+     * @return int New copied page ID
+     */
     public static function copyPage($pageId, $destinationParentId, $destinationPosition)
     {
         $pageId = \Ip\Internal\Pages\Service::copyPage($pageId, $destinationParentId, $destinationPosition);
         return $pageId;
     }
 
+    /**
+     * Move a page to different location on a website tree
+     * @param int $pageId Source page ID
+     * @param int $destinationParentId Target parent ID
+     * @param int $destinationPosition
+     */
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         \Ip\Internal\Pages\Service::movePage($pageId, $destinationParentId, $destinationPosition);
     }
 
+    /**
+     * Delete a page
+     * @param int $pageId
+     */
     public static function deletePage($pageId)
     {
         \Ip\Internal\Pages\Service::deletePage($pageId);
