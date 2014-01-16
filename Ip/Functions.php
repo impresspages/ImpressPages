@@ -395,16 +395,22 @@ if (!function_exists('ipFile')) {
      */
     function ipFile($path)
     {
-        $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
-        if ($overrides) {
-            foreach ($overrides as $prefix => $newPath) {
+        global $ipFile_baseDir, $ipFile_overrides; // Optimization: speeds things up a lot
+
+        if (!$ipFile_baseDir) {
+            $ipFile_baseDir = ipConfig()->getRaw('BASE_DIR');
+            $ipFile_overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+        }
+
+        if ($ipFile_overrides) {
+            foreach ($ipFile_overrides as $prefix => $newPath) {
                 if (strpos($path, $prefix) === 0) {
                     return substr_replace($path, $newPath, 0, strlen($prefix));
                 }
             }
         }
 
-        return ipConfig()->getRaw('BASE_DIR') . '/' . $path;
+        return $ipFile_baseDir . '/' . $path;
     }
 }
 
