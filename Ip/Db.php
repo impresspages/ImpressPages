@@ -156,7 +156,7 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param string $fields comma separated string containing a list of fields
+     * @param string $fields Comma separated string containing a list of fields
      * @param $table
      * @param $where
      * @param string $sqlEnd
@@ -193,7 +193,7 @@ class Db
      *
      * @param string $sql
      * @param array $params
-     * @return int the number of rows affected by the last SQL statement
+     * @return int The number of rows affected by the last SQL statement
      */
     public function execute($sql, $params = array())
     {
@@ -235,7 +235,7 @@ class Db
     }
 
     /**
-     * Execute query, insert values from assoc array
+     * Execute query, insert values from associative array
      *
      * @param string $table
      * @param array $row
@@ -269,7 +269,7 @@ class Db
      * Delete a table
      *
      * @param string $table
-     * @param array $condition for example, array("userId" => 5, "card_id" => 8)
+     * @param array $condition A condition, for example, array("userId" => 5, "card_id" => 8)
      * @return type
      */
     public function delete($table, $condition)
@@ -292,7 +292,7 @@ class Db
     /**
      * Update table records
      *
-     * Execute query, updates values from assoc array
+     * Execute query, updates values from associative array
      * @param string $table
      * @param array $update
      * @param array|int $condition
