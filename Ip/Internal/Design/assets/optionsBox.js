@@ -172,10 +172,38 @@ var ipDesign;
 
             $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
                 e.preventDefault();
+                $(this).addClass('disabled').text('saving...'); // TODO translate this string
+
                 $('.ipModuleDesignConfig .ipsForm').submit();
             });
 
             $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
+            $('.ipModuleDesignConfig .ipsForm').submit(function (e) {
+
+                var $form = $(this);
+
+                // client-side validation OK.
+                if (!e.isDefaultPrevented()) {
+
+                    $.ajax({
+                        url: ip.baseUrl,
+                        dataType: 'json',
+                        type : 'POST',
+                        data: $form.serialize(),
+                        success: function (response) {
+                            if (response.result) {
+                                window.location.reload(true);
+                            } else {
+                                //PHP controller says there are some errors
+                                if (response.errors) {
+                                    $form.data("validator").invalidate(response.errors);
+                                }
+                            }
+                        }
+                    });
+                }
+                e.preventDefault();
+            });
 
             $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
                 e.preventDefault();
