@@ -87,7 +87,7 @@ var ipDesign = new function () {
         var dataIterator, formData, data;
         cssUpdateInProgress = 1;
         formData = $('.ipModuleDesignConfig .ipsForm').serializeArray();
-        data = 'g=standard&m=design&aa=realTimeLess&ipDesignPreview=1&file=' + file + '.less';
+        data = 'aa=Design.realTimeLess&ipDesignPreview=1&file=' + file + '.less';
 
         $.each(formData, function (index, elem) {
             if (elem.name !== 'a' && elem.name !== 'aa' && elem.name !== 'm' && elem.name !== 'g') {
