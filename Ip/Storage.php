@@ -7,13 +7,14 @@
 namespace Ip;
 
 /**
- * Key-value storage, where any plugin can store it's data.
+ * Key-value storage, where any plugin can store it's data
  */
 
 class Storage {
 
     /**
      * Get a value from CMS storage
+     *
      * @param string $pluginName Plugin name
      * @param string $key Option name
      * @param null $defaultValue Returned if specified key has no value assigned
@@ -50,6 +51,7 @@ class Storage {
 
     /**
      * Set CMS storage value
+     *
      * @param string $pluginName Plugin name
      * @param string $key Option key
      * @param $value Option value
@@ -81,6 +83,7 @@ class Storage {
 
     /**
      * Get all storage values for the plugin
+     *
      * @param string $pluginName Plugin name
      * @return array Key=>value array of plugin options
      */
@@ -106,6 +109,7 @@ class Storage {
 
     /**
      * Remove storage key for specific plugin
+     *
      * @param string $pluginName Plugin name
      * @param string $key Key to remove
      */

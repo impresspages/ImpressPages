@@ -71,7 +71,7 @@ abstract class Zone{
      *
      * This function returns only one level of menu tree.
      * If $parentPageId is null, then function returns the first level of pages.
-     * Otherwise, if you specify $parentPageId, then child pages of specified parent Pages are returned.
+     * Otherwise, if you specify $parentPageId, then child pages of specified parent pages are returned.
      *
      * @param $language Language id. If not set, current website language is used.
      * @param $parentPageId if set, function returns only children
@@ -98,7 +98,7 @@ abstract class Zone{
      *
      * Find page by URL and GET variables
      *
-     * This function is used to find current Page (page) of requested URL.
+     * This function is used to find current page of requested URL.
      *
      * If requested url is http://yoursite.com/en/zone_url/var1/var2/?page=2
      *
@@ -107,7 +107,7 @@ abstract class Zone{
      * $urlVars == array('var1', 'var2');
      * $getVars == array('page' = 2);
      *
-     * Use these values to detect which of your zone is requested and create required Page.
+     * Use these values to detect which of your zone is requested and create required page.
      *
      *
      * @param $urlVars array
