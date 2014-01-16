@@ -208,22 +208,11 @@ class ConfigModel{
             $form->addFieldset($fieldset);
         }
 
-
         $form->addFieldset(new \Ip\Form\Fieldset());
-        $field = new Form\Field\Hidden();
-        $field->setName('g');
-        $field->setValue('standard');
-        $form->addField($field);
-        $field = new Form\Field\Hidden();
-        $field->setName('m');
-        $field->setValue('design');
-        $form->addField($field);
         $field = new Form\Field\Hidden();
         $field->setName('aa');
         $field->setValue('Design.updateConfig');
         $form->addField($field);
-
-
 
         return $form;
     }
