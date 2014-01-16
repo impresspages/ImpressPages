@@ -315,7 +315,8 @@ class Application
     }
 
     /**
-     * Get security token used to prevent cross site scripting
+     * Get security token used to prevent cross site scripting attacks
+     *
      * @return string security token
      */
     public function getSecurityToken()
