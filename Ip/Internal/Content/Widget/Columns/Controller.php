@@ -31,6 +31,19 @@ class Controller extends \Ip\WidgetController
                     return $currentData;
 
                 break;
+                case 'deleteColumn':
+                    if (!isset($postData['columnName'])) {
+                        throw new \Ip\Exception("Missing required parameter.");
+                    }
+                    $currentData = $this->prepareData($currentData, $widgetId);
+
+                    $index = array_search($postData['columnName'],$currentData['cols']);
+                    if($index !== FALSE){
+                        unset($currentData['cols'][$index]);
+                    }
+
+                    return $currentData;
+                    break;
             }
         } else {
             return parent::update($widgetId, $postData, $currentData);
