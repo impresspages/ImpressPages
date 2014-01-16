@@ -37,9 +37,18 @@ class Controller extends \Ip\WidgetController
                     }
                     $currentData = $this->prepareData($currentData, $widgetId);
 
-                    $index = array_search($postData['columnName'],$currentData['cols']);
-                    if($index !== FALSE){
-                        unset($currentData['cols'][$index]);
+                    if (is_array($postData['columnName'])) {
+                        foreach($postData['columnName'] as $colName) {
+                            $index = array_search($colName,$currentData['cols']);
+                            if ($index !== FALSE) {
+                                unset($currentData['cols'][$index]);
+                            }
+                        }
+                    } else {
+                        $index = array_search($postData['columnName'],$currentData['cols']);
+                        if ($index !== FALSE) {
+                            unset($currentData['cols'][$index]);
+                        }
                     }
 
                     return $currentData;

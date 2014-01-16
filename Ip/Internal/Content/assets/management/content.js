@@ -52,45 +52,66 @@ var ipContent;
             });
         }
 
-        var deleteEmptyColumns = function (columnsWidgetInstanceId) {
+        var deleteEmptyColumns = function (columnsWidgetInstanceId, callback) {
             var $columnsWidget = $('#ipWidget-' + columnsWidgetInstanceId);
             var $columns = $columnsWidget.find('> .ipwCol');
 
-            var $emptyColumns = {};
-            var $notEmptyColumns = {};
+            var $emptyColumns = new Array();
+            var $notEmptyColumns = new Array();
+            var columnsWidgetBlockName = $columnsWidget.closest('.ipBlock').data('ipBlock').name;
+            var columnsWidgetPosition = $columnsWidget.index();
 
-            $.each($columns, function (key, $column) {
-                if ($column.find('> .ipWidget').length == 0) {
+            $.each($columns, function (key, column) {
+                var $column = $(column);
+                if ($column.find('.ipWidget').length == 0) {
                     $emptyColumns.push($column);
                 } else {
                     $notEmptyColumns.push($column);
                 }
             });
 
-            if ($emptyColumns + 1 >= $columns.length) {
-                //move widgets from not empty columns above columns widget
+            if ($emptyColumns.length + 1 >= $columns.length) {
+                //move widgets from not empty column above columns widget
                 if ($notEmptyColumns.length == 1) {
-
-
+                    var $notEmptyColumn = $notEmptyColumns[0];
+                    $.each($notEmptyColumn.find('.ipWidget'), function (key, widget) {
+                        var $widget = $(widget);
+                        ipContent.moveWidget($widget.data('widgetinstanceid'), columnsWidgetPosition + key, columnsWidgetBlockName, ip.revisionId);
+                    });
                 }
 
                 //remove the whole columns widget
-
-            }
-
-
-            if ($block.find('> .ipWidget').length == 0 && $columnsWidget.length != 0) {
-                //remove the column
-                ipContent.deleteColumn($columnsWidget.data('widgetinstanceid'), $block.data('ipBlock').name, function() {
+                ipContent.deleteWidget(columnsWidgetInstanceId, function() {
                     if (callback) {
-                        callback($newWidget.data('widgetinstanceid'));
+                        callback();
                     }
                 });
             } else {
-                if (callback) {
-                    callback($newWidget.data('widgetinstanceid'));
+                //remove just empty columns
+                var emptyColumnNames = new Array();
+                $.each($emptyColumns, function (key, $emptyColumn) {
+                    emptyColumnNames.push($emptyColumn.find('> .ipBlock').data('ipBlock').name);
+                });
+
+                if (emptyColumnNames.length > 0) {
+                    //remove the columns
+                    ipContent.deleteColumn($columnsWidget.data('widgetinstanceid'), emptyColumnNames, function() {
+                        if (callback) {
+                            callback();
+                        }
+                    });
+                } else {
+                    if (callback) {
+                        callback();
+                    }
                 }
             }
+
+
+
+
+
+
 
         }
 
@@ -122,13 +143,13 @@ var ipContent;
         };
 
 
-        this.deleteColumn = function (columnsWidgetInstanceId, columnName, callback) {
+        this.deleteColumn = function (columnsWidgetInstanceId, columnNames, callback) {
 
             var widgetData = {
                 method: 'deleteColumn',
-                columnName: columnName
+                columnName: columnNames
             }
-            ipContent.updateWidget(columnsWidgetInstanceId, widgetData, 1, function () {
+            ipContent.updateWidget(columnsWidgetInstanceId, widgetData, 1, function (instanceId) {
                 if (callback) {
                     callback(instanceId);
                 }
