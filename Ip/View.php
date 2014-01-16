@@ -25,8 +25,8 @@ class View
 
     /**
      * Construct a view object using specified file and data.
-     * @param string $file path to view file. Relative to file where this constructor is executed from.
-     * @param array $data array of data to pass to view
+     * @param string $file Path to view file. Relative to file where this constructor is executed from.
+     * @param array $data Array of data to pass to view
      */
     public static function create($file, $data = array()) {
         $foundFile = self::findFile($file);
@@ -40,8 +40,8 @@ class View
     /**
      * Construct view object using specified file and data.
      * @internal
-     * @param string $file path to view file. Relative to file where this constructor is executed from.
-     * @param array $data array of data to pass to view
+     * @param string $file Path to view file. Relative to file where this constructor is executed from.
+     * @param array $data Array of data to pass to view
      */
     private function __construct($file, $data = array()) {
         $this->file = $file;
