@@ -44,14 +44,21 @@ class Module
     {
         \Ip\ServiceLocator::storage()->set('Ip', 'cachedBaseUrl', ipConfig()->baseUrl());
 
-        $cacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
-        \Ip\ServiceLocator::storage()->set('Ip', 'cacheVersion', $cacheVersion + 1);
-
         // TODO move somewhere
         if (ipConfig()->baseUrl() != $cachedUrl) {
             ipEvent('ipUrlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
         }
-        ipEvent('ipCacheClear');
+
+        static::cacheClear();
+    }
+
+    public static function cacheClear()
+    {
+        $oldCacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
+        $newCacheVersion = $oldCacheVersion + 1;
+        \Ip\ServiceLocator::storage()->set('Ip', 'cacheVersion', $newCacheVersion);
+
+        ipEvent('ipCacheClear', array('oldCacheVersion' => $oldCacheVersion, 'newCacheVersion' => $newCacheVersion));
     }
 
     public function getSystemInfo()
