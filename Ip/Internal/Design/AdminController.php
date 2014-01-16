@@ -204,9 +204,10 @@ class AdminController extends \Ip\Controller
                 $configModel->setConfigValue(ipConfig()->theme(), $option['name'], $value);
             }
 
+
+//            \Ip\Internal\System\Service::cacheClear(); // this should rebuild things
             $lessCompiler = LessCompiler::instance();
             $lessCompiler->rebuild(ipConfig()->theme());
-
         }
 
 
