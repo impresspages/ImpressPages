@@ -184,6 +184,8 @@ class Form
 
 
     /**
+     * Set HTML form action attribute
+     *
      * @param string $action
      */
     public function setAction($action)
@@ -191,14 +193,20 @@ class Form
         $this->action = $action;
     }
 
+    /**
+     * Get HTML form action attribute
+     *
+     * @return string Attribute
+     */
     public function getAction()
     {
         return $this->action;
     }
 
     /**
+     * Get rendered form
      * @param View $view
-     * @return string
+     * @return string HTML form
      */
     public function render(\Ip\View $view = null)
     {
@@ -224,11 +232,9 @@ class Form
         return $view->render();
     }
 
-
     /**
-     *
-     * Return all fieldset
-     * @return Form\Fieldset[]
+     * Return all fieldsets
+     * @return array|Form\Fieldset[]
      */
     public function getFieldsets()
     {
@@ -238,6 +244,8 @@ class Form
 
 
     /**
+     * Get all form fields
+     *
      * @return Form\Field[]
      */
     public function getFields()
@@ -251,6 +259,8 @@ class Form
     }
 
     /**
+     * Get form field
+     *
      * @param $name
      * @return \Ip\Form\Field
      */
@@ -266,26 +276,37 @@ class Form
     }
 
     /**
-     *
-     * Add attribute to the form
-     * @param string $name
-     * @param string $value
+     * Add HTML attribute to the form
+     * @param string $name Attribute name
+     * @param string $value Attribute value
      */
     public function addAttribute($name, $value)
     {
         $this->attributes[$name] = $value;
     }
 
+    /**
+     * Remove HTML attribute from the form
+     * @param string $name
+     */
     public function removeAttribute($name)
     {
         unset($this->attributes[$name]);
     }
 
+    /**
+     * Get all form attributes
+     * @return array
+     */
     public function getAttributes()
     {
         return $this->attributes;
     }
 
+    /**
+     * Get all form attributes as HTML
+     * @return string Attributes, provided in attribute="value" style
+     */
     public function getAttributesStr()
     {
         $answer = '';
@@ -296,8 +317,8 @@ class Form
     }
 
     /**
-     *
      * Add CSS class to the form
+     *
      * @param string $cssClass
      */
     public function addClass($cssClass)
@@ -305,16 +326,30 @@ class Form
         $this->classes[$cssClass] = 1;
     }
 
+    /**
+     * Remove CSS class from the form
+     * @param string $cssClass
+     */
     public function removeClass($cssClass)
     {
         unset($this->classes[$cssClass]);
     }
 
+    /**
+     * Get a list of classes used in the form
+     *
+     * @return array An array containing class names
+     */
     public function getClasses()
     {
         return array_keys($this->classes);
     }
 
+    /**
+     * Get a list of classes used in the form as HTML string
+     *
+     * @return Attributes, provided in attribute="value" style
+     */
     public function getClassesStr()
     {
         $answer = '';
@@ -324,6 +359,9 @@ class Form
         return 'class="' . $answer . '"';
     }
 
+    /**
+     * @ignore
+     */
     public function __toString()
     {
         return $this->render();

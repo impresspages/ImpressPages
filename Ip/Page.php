@@ -80,27 +80,6 @@ class Page{
         $this->zoneName = $zoneName;
     }
 
-
-    /**
-     *
-     * This function returns the content of page. Typically you should use $this->getId() to know which content to output.
-     *
-     * Override this function to place your code.
-     *
-     * @return string - page content.
-     *
-     */
-    public function generateContent ()
-    {
-        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
-        if ($revision) {
-            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
-        } else {
-            return '';
-        }
-    }
-
-
     /**
      * This function is being executed every time before this element page is being displayed.
      * @param \Ip\Controller $controller
@@ -137,11 +116,10 @@ class Page{
     }
 
     /**
-     *
+     * Get the next page on website's page tree branch
      * @return Page or false if next element doesn't exist
-     *
      */
-    public function getNextElement()
+    public function getNextPage()
     {
         if($this->nextElement === null){
             $this->findPreviousAndNextElements();
@@ -150,11 +128,10 @@ class Page{
     }
 
     /**
-     *
+     * Get previous page on website's page tree branch
      * @return Page or false if previous element doesn't exist
-     *
      */
-    public function getPreviousElement()
+    public function getPreviousPage()
     {
         if($this->previousElement === null){
             $this->findPreviousAndNextElements();
@@ -162,53 +139,106 @@ class Page{
         return $this->previousElement;
     }
 
-    /** @return int */
+    /**
+     * Get page ID
+     * @return int Page ID
+     */
     public function getId(){return $this->id;}
-    /** @param $id int */
+
+    /**
+     * Set page ID
+     * @ignore
+     * @param $id int
+     */
     public function setId($id){$this->id = $id;}
 
-    /** @return string */
+    /**
+     * Get page navigation title
+     * @return string
+     */
     public function getNavigationTitle(){return $this->navigationTitle;}
-    /** @param $navigationTitle string */
+
+    /**
+     * @ignore
+     * @param $navigationTitle string
+     */
     public function setNavigationTitle($navigationTitle){$this->navigationTitle= $navigationTitle;}
 
-    /** @return string */
+    /**
+     * Get page title
+     * @return string
+     */
     public function getPageTitle(){return $this->pageTitle;}
-    /** @param $pageTitle string */
+
+    /**
+     * @ignore
+     * @param $pageTitle string
+     */
     public function setPageTitle($pageTitle){$this->pageTitle = $pageTitle;}
 
-    /** @return string */
+    /**
+     * Get page keywords
+     * @return string
+     */
     public function getKeywords(){return $this->keywords;}
-    /** @param $keywords string */
+
+    /**
+     * @ignore
+     * @param $keywords string
+     */
     public function setKeywords($keywords){$this->keywords=$keywords;}
 
-    /** @return string */
+    /**
+     * Get page description
+     * @return string
+     */
     public function getDescription(){return $this->description;}
-    /** @param $description string */
+
+    /**
+     * @ignore
+     * @param $description string
+     */
     public function setDescription($description){ $this->description=$description;}
 
-    /** @return string */
-    public function getHtml(){return $this->html;}
-    /** @param $html string */
-    public function setHtml($html){$this->html=$html;}
-
-    /** @return string */
+    /**
+     * @ignore
+     * @return string
+     */
     public function getText(){return $this->text;}
-    /** @param $text string */
+
+    /**
+     * @ignore
+     * @param $text string
+     */
     public function setText($text){$this->text=$text;}
 
-    /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+    /**
+     * Get page modification date and time
+     *
+     * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function getLastModified(){return $this->lastModified;}
-    /** @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+
+    /**
+     * Set page modification date and time
+     * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function setLastModified($lastModified){$this->lastModified=$lastModified;}
 
-    /** @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+    /**
+     * Get page creation date and time
+     *
+     * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function getCreatedOn(){return $this->createdOn;}
-    /** @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
+
+    /**
+     * Set page creation date and time
+     *
+     * @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     */
     public function setCreatedOn($createdOn){$this->createdOn=$createdOn;}
 
-    /** @return int - average amount of days between changes */
-    public function getModifyFrequency(){return $this->modifyFrequency;}
     /** @param $modifyFrequency int represents average amount of days between changes */
     public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}
 

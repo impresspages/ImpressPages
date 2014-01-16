@@ -194,14 +194,12 @@ class Zone extends \Ip\Zone
         $newPage->setText($dbPage['cached_text']);
         $newPage->setLastModified($dbPage['last_modified']);
         $newPage->setCreatedOn($dbPage['created_on']);
-        $newPage->setModifyFrequency($dbPage['modify_frequency']);
         $newPage->setVisible($dbPage['visible']);
         if ($firstLevel) {
             $newPage->setParentId(null);
         } else {
             $newPage->setParentId($dbPage['parent']);
         }
-        $newPage->setHtml($dbPage['html']);
         $newPage->setType($dbPage['type']);
         $newPage->setRedirectUrl($dbPage['redirect_url']);
         return $newPage;
