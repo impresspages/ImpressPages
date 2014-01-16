@@ -119,7 +119,7 @@ class Content
     /**
      * Get all website languages
      *
-     * @return \Ip\Language[] - all website languages. Each element is a Language object.
+     * @return \Ip\Language[] All website languages. Each element is a Language object.
      *
      */
     public function getLanguages()
@@ -241,7 +241,7 @@ class Content
     /**
      * Get a page title
      *
-     * @return string title of the current page
+     * @return string Title of the current page
      *
      */
     public function getTitle()
@@ -259,9 +259,9 @@ class Content
     }
 
     /**
-     * Get current page description
+     * Get the current page description
      *
-     * @return string description of current page
+     * @return string Description of the current page
      *
      */
     public function getDescription()
@@ -279,9 +279,9 @@ class Content
     }
 
     /**
-     * Get current page keywords
+     * Get the current page keywords
      *
-     * @return string keywords of current page
+     * @return string Keywords for the current page
      *
      */
     public function getKeywords()
@@ -441,7 +441,7 @@ class Content
     }
 
     /**
-     * Move a page to different location on a website tree
+     * Move a page to a different location on a website tree
      * @param int $pageId Source page ID
      * @param int $destinationParentId Target parent ID
      * @param int $destinationPosition
