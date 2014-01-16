@@ -59,20 +59,6 @@
             "type": "select",
             "default": "2",
             "values": [1, 2, 3, 4, 5]
-        },
-        {
-            "label": "Homepage blocks",
-            "name": "homeBlocks",
-            "type": "select",
-            "default": 3,
-            "values": [0, 2, 3, 4]
-        },
-        {
-            "label": "Homepage blocks 2",
-            "name": "homeBlocks2",
-            "type": "select",
-            "default": 2,
-            "values": [0, 2, 3, 4]
         }
     ]
 
