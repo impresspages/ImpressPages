@@ -53,11 +53,11 @@ class Dispatcher
     }
 
     /**
-     * Register event listener.
+     * Register event listener
      *
-     * @param string $name event name
-     * @param string $callable method name. This method is called on specified event.
-     * @param int $priority event priority. Lower number means higher priority.
+     * @param string $name Event name
+     * @param string $callable Callable method name. This method is called on specified event.
+     * @param int $priority Event priority. Lower number means higher priority.
      */
     public function addEventListener($name, $callable, $priority = 50)
     {
@@ -76,9 +76,9 @@ class Dispatcher
     /**
      * Register filter listener
      *
-     * @param $name filter name
-     * @param $callable method name. This method is called on specified event.
-     * @param int $priority filter priority. Lower number means higher priority.
+     * @param $name Filter name
+     * @param $callable Method name. This method is called on specified event.
+     * @param int $priority Filter priority. Lower number means higher priority.
      */
     public function addFilterListener($name, $callable, $priority = 50)
     {
@@ -117,9 +117,9 @@ class Dispatcher
     /**
      * Bind to a slot generation event
      *
-     * @param string $slot slot name
-     * @param callable $callable
-     * @param int $priority filter priority. Lower number means higher priority.
+     * @param string $slot Slot name
+     * @param string $callable Callable method
+     * @param int $priority Filter priority. Lower number means higher priority.
      * @throws Exception
      */
     public function bindSlot($slot, $callable, $priority = 50)
@@ -145,9 +145,9 @@ class Dispatcher
     /**
      * Filter value
      *
-     * @param $eventName filter event name
-     * @param $value data for filtering
-     * @param array $data additional information which may be used for filter processing
+     * @param $eventName filter Event name
+     * @param $value Data for filtering
+     * @param array $data Additional information which may be used for filter processing
      * @return mixed
      */
     public function filter($eventName, $value, $data = array())
@@ -207,8 +207,8 @@ class Dispatcher
     /**
      * Trigger an event
      *
-     * @param $eventName event name
-     * @param array $data data for event processing
+     * @param $eventName Event name
+     * @param array $data Data for event processing
      * @return null
      */
     public function event($eventName, $data = array())
