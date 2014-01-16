@@ -201,7 +201,6 @@ class Zone extends \Ip\Zone
         } else {
             $newPage->setParentId($dbPage['parent']);
         }
-        $newPage->setHtml($dbPage['html']);
         $newPage->setType($dbPage['type']);
         $newPage->setRedirectUrl($dbPage['redirect_url']);
         return $newPage;
