@@ -4,7 +4,7 @@ namespace Tests\Functional;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
+class AdminLoginTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
