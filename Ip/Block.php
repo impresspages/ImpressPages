@@ -88,7 +88,7 @@ class Block
     /**
      * Loads example content from file.
      *
-     * Example content should be placed in theme's directory
+     * Example content should be placed in the theme's directory
      *
      * @param string $filename
      * @return $this
