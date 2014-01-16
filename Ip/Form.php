@@ -56,6 +56,10 @@ class Form
         $this->environment = $environment;
     }
 
+    /**
+     * Get form environment. Depending on that public or admin translations and layout will be chosen.
+     * @return mixed
+     */
     public function getEnvironment()
     {
         return $this->environment;
@@ -82,7 +86,7 @@ class Form
     /**
      * Remove field from fieldset
      * @param string $fieldName
-     * @return int removed fields count
+     * @return int Removed fields count
      */
     public function removeField($fieldName)
     {
@@ -97,7 +101,7 @@ class Form
      *
      * Check if data passes form validation rules
      * @param array $data - post data from user or other source.
-     * @return array errors. Array key - error field name. Value - error message. Empty array means there are no errors.
+     * @return array Error list. Array key - error field name, value - error message. Empty array means no errors.
      */
     public function validate($data)
     {
@@ -130,8 +134,10 @@ class Form
         return $answer;
     }
 
-
-
+    /**
+     * Add a fieldset to a form
+     * @param $fieldset
+     */
     public function addFieldset($fieldset)
     {
         $this->fieldsets[] = $fieldset;
@@ -140,8 +146,7 @@ class Form
 
 
     /**
-     *
-     * Add field to last fielset. Create fieldset if does not exist.
+     * Add field to last fieldset. Create fieldset if does not exist.
      * @param Form\Field $field
      */
     public function addField(\Ip\Form\Field $field)
@@ -175,6 +180,7 @@ class Form
     }
 
     /**
+     * Get HTML form method attribute value
      * @return string
      */
     public function getMethod()
