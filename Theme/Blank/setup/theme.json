@@ -59,20 +59,6 @@
             "type": "select",
             "default": "2",
             "values": [1, 2, 3, 4, 5]
-        },
-        {
-            "label": "Homepage blocks", // todox: remove options if we don't give them on home page
-            "name": "homeBlocks",
-            "type": "select",
-            "default": 3,
-            "values": [0, 2, 3, 4]
-        },
-        {
-            "label": "Homepage blocks 2", // todox: remove options if we don't give them on home page
-            "name": "homeBlocks2",
-            "type": "select",
-            "default": 2,
-            "values": [0, 2, 3, 4]
         }
     ]
 
