@@ -23,7 +23,7 @@ class User
     }
 
     /**
-     * User logout
+     * Logout current user
      * @return void
      */
     function logout()
@@ -36,7 +36,8 @@ class User
     }
 
     /**
-     * @return int loggedIn user id or false
+     * Get current user ID
+     * @return int Logged in user ID or false, if user is not logged in
      */
     function userId()
     {
@@ -48,8 +49,8 @@ class User
     }
 
     /**
-     * User login
-     * @param int $id user id
+     * Set user as logged in
+     * @param int $id User id
      * @return void
      */
     function login($id)
