@@ -26,7 +26,11 @@ class Controller extends \Ip\WidgetController
                     }
                     $currentData = $this->prepareData($currentData, $widgetId);
                     $position = $postData['position'];
-                    $newColumnName = 'column'.$widgetId.'_' . (count($currentData['cols']) + 1);
+                    $i = count($currentData['cols']) + 1;
+                    while(in_array('column'.$widgetId.'_' . $i, $currentData['cols'])) {
+                        $i++;
+                    }
+                    $newColumnName = 'column'.$widgetId.'_' . $i;
                     array_splice($currentData['cols'], $position, 0, $newColumnName);
                     return $currentData;
 
