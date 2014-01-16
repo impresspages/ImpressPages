@@ -118,7 +118,7 @@ var ipDesign;
         var initAccordion = function () {
             // wrap fields in a div so accordion would work
             $('.ipModuleDesignConfig .ipsBody fieldset').each(function (index, fieldset) {
-                $(fieldset).find('.ipmField').wrapAll('<div />');
+                $(fieldset).find('.form-group').wrapAll('<div />');
             });
 
             $('.ipModuleDesignConfig .ipsBody').accordion({
@@ -175,8 +175,7 @@ var ipDesign;
                 $('.ipModuleDesignConfig .ipsForm').submit();
             });
 
-            // TODOX debug
-            // $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
+            $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
 
             $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
                 e.preventDefault();
