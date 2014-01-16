@@ -39,12 +39,59 @@ var ipContent;
                     if ($block.children('.ipWidget').length == 0) {
                         $this.addClass('ipbEmpty');
                     }
-                    if (callback) {
-                        callback($newWidget.data('widgetinstanceid'));
-                    }
+
+
+                    var $columnsWidget = $block.closest('.ipWidget-Columns');
+                    deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
+                        if (callback) {
+                            callback($newWidget.data('widgetinstanceid'));
+                        }
+                    });
                 },
                 dataType : 'json'
             });
+        }
+
+        var deleteEmptyColumns = function (columnsWidgetInstanceId) {
+            var $columnsWidget = $('#ipWidget-' + columnsWidgetInstanceId);
+            var $columns = $columnsWidget.find('> .ipwCol');
+
+            var $emptyColumns = {};
+            var $notEmptyColumns = {};
+
+            $.each($columns, function (key, $column) {
+                if ($column.find('> .ipWidget').length == 0) {
+                    $emptyColumns.push($column);
+                } else {
+                    $notEmptyColumns.push($column);
+                }
+            });
+
+            if ($emptyColumns + 1 >= $columns.length) {
+                //move widgets from not empty columns above columns widget
+                if ($notEmptyColumns.length == 1) {
+
+
+                }
+
+                //remove the whole columns widget
+
+            }
+
+
+            if ($block.find('> .ipWidget').length == 0 && $columnsWidget.length != 0) {
+                //remove the column
+                ipContent.deleteColumn($columnsWidget.data('widgetinstanceid'), $block.data('ipBlock').name, function() {
+                    if (callback) {
+                        callback($newWidget.data('widgetinstanceid'));
+                    }
+                });
+            } else {
+                if (callback) {
+                    callback($newWidget.data('widgetinstanceid'));
+                }
+            }
+
         }
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
@@ -74,6 +121,20 @@ var ipContent;
             });
         };
 
+
+        this.deleteColumn = function (columnsWidgetInstanceId, columnName, callback) {
+
+            var widgetData = {
+                method: 'deleteColumn',
+                columnName: columnName
+            }
+            ipContent.updateWidget(columnsWidgetInstanceId, widgetData, 1, function () {
+                if (callback) {
+                    callback(instanceId);
+                }
+            });
+
+        }
 
         var createSpace = function (targetWidgetInstanceId, leftOrRight, callback) {
             var newWidgetBlockName;
