@@ -41,7 +41,7 @@
 
 
 
-        <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>" class="ipmAdminAction ipmMobileHide">
+        <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>" class="ipsAdminLogout ipmAdminAction ipmMobileHide">
             <?php _e('Logout', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>
