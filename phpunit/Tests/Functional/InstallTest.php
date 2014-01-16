@@ -14,50 +14,13 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
         $installation->putInstallationFiles(TEST_TMP_DIR . 'installTest/');
     }
 
-    /**
-     * @return \Behat\Mink\Session
-     */
-    protected function getSession()
-    {
-        if (getenv('TRAVIS')) {
-
-            // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
-            $url = sprintf('http://%s:%s@ondemand.saucelabs.com/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
-            $desiredCapabilities = array(
-                'name' => __METHOD__,
-                'tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER'),
-                'build' => getenv('TRAVIS_BUILD_NUMBER'),
-                'tags' => array(getenv('TRAVIS_PHP_VERSION'), 'CI')
-            );
-
-            $driver = new \Behat\Mink\Driver\Selenium2Driver(
-                'firefox',
-                $desiredCapabilities,
-                $url
-            );
-        } else {
-            $driver = new \Behat\Mink\Driver\Selenium2Driver(
-                'firefox'
-            );
-        }
-
-        try {
-            $session = new \Behat\Mink\Session($driver);
-
-            $session->start();
-        } catch (\Behat\Mink\Exception\DriverException $e) {
-            $this->markTestSkipped('Could not connect open Mink connection.' . $e->getTraceAsString());
-        }
-
-        return $session;
-    }
 
     /**
      * @group Sauce
      */
     public function testInstallCurrent($customPort = NULL)
     {
-        $session = $this->getSession();
+        $session = \PhpUnit\Helper\Session::factory();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
