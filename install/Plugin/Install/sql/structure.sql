@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `parent` int(11) DEFAULT NULL,
   `button_title` varchar(255) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `html` mediumtext,
   `page_title` mediumtext,
   `keywords` mediumtext,
   `description` mediumtext,
