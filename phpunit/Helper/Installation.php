@@ -35,8 +35,9 @@ class Installation
     private $developmentVersion;
 
     private $installed;
+
     /**
-     * @param string$version
+     * @param null $version
      */
     public function __construct($version = null)
     {
@@ -66,9 +67,9 @@ class Installation
     }
 
 
+
     /**
-     *
-     * @param string $version
+     * @throws \Exception
      */
     public function install()
     {

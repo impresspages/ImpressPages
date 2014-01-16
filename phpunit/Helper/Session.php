@@ -12,7 +12,9 @@ namespace PhpUnit\Helper;
 class Session
 {
 
-
+    /**
+     * @return \Behat\Mink\Session
+     */
     public static function factory()
     {
         // init Mink:
