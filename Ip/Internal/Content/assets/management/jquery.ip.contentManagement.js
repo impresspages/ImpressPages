@@ -347,17 +347,31 @@
 
             });
 
-            if ($(block).find('> .ipbExampleContent').length) {
-                var $example = $(block).find('> .ipbExampleContent').first();
+
+            if ($(block).find('> .ipWidget').length == 0) { //empty block
+                var $block = $(block);
                 horizontalPlaceholders.push({
-                    left: $example.offset().left,
-                    top: $example.offset().top,
-                    height: $example.height(),
-                    width: $example.width(),
-                    markerOffset: $example.height() / 2,
-                    blockName: $(block).data('ipBlock').name,
+                    left: $block.offset().left,
+                    top: $block.offset().top,
+                    height: $block.height(),
+                    width: $block.width(),
+                    markerOffset: $block.height() / 2,
+                    blockName: $block.data('ipBlock').name,
                     position: 0
                 });
+
+//                if ($(block).find('> .ipbExampleContent').length) {
+//                    var $example = $(block).find('> .ipbExampleContent').first();
+//                    horizontalPlaceholders.push({
+//                        left: $example.offset().left,
+//                        top: $example.offset().top,
+//                        height: $example.height(),
+//                        width: $example.width(),
+//                        markerOffset: $example.height() / 2,
+//                        blockName: $(block).data('ipBlock').name,
+//                        position: 0
+//                    });
+//                }
             }
         });
 

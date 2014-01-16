@@ -1,4 +1,4 @@
-<div class="ipAdminWidgetControls">
+<div class="ipsWidgetControls ipAdminWidgetControls">
     <?php if (!empty($optionsMenu)) { ?>
         <div class="ip" style="float: left; display: block;">
         <div class="btn-group ipaButton">
