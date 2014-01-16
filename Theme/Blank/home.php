@@ -5,6 +5,7 @@
  */
 ?>
 <?php echo $this->subview('_header.php'); ?>
+<?php // todox: removed home blocks; loosing examples how front page can be built; 3 columns is now impossible to build ?>
     <div class="main col_12">
         <?php echo ipBlock('main')->exampleContent(' '); ?>
     </div>
