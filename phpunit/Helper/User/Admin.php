@@ -10,9 +10,20 @@ namespace PhpUnit\Helper\User;
 
 class Admin
 {
+    /**
+     * @var \Behat\Mink\Session
+     */
     protected $session;
+
+    /**
+     * @var \PhpUnit\Helper\Installation
+     */
     protected $installation;
 
+    /**
+     * @param \Behat\Mink\Session $session
+     * @param \PhpUnit\Helper\Installation $installation
+     */
     public function __construct($session, $installation)
     {
         $this->session = $session;
@@ -55,5 +66,15 @@ class Admin
 
 
         $session->wait(10000,"typeof $ !== 'undefined' && $('.ipActionPublish').size() == 0 && $('.ipsLoginButton').size() > 0 ");
+    }
+
+
+    public function addWidget($widgetName, $block = 'main')
+    {
+        $session = $this->session;
+        $page = $session->getPage();
+        $widgetButton = $page->find('css', '#ipAdminWidgetButton-' . $widgetName);
+        $block = $page->find('css', '#ipBlock-' . $block);
+        $widgetButton->dragTo($block);
     }
 }
