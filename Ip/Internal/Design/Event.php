@@ -24,6 +24,8 @@ class Event
         }
     }
 
+
+
     public static function depracatedCatchError404($info)
     {
         // TODOXX do it other way #131

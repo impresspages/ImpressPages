@@ -17,12 +17,14 @@ class Autoloader {
     {
 
         $fileName = str_replace('\\', '/', $name) . '.php';
-        if($fileName[0] == '/') { //in some environments required class starts with slash. In that case remove the slash.
+        if ($fileName[0] == '/') { //in some environments required class starts with slash. In that case remove the slash.
             $fileName = substr($fileName, 1);
         }
 
-        if (file_exists(ipFile($fileName))) {
-            require_once ipFile($fileName);
+        $possibleFilename = ipFile($fileName);
+
+        if (file_exists($possibleFilename)) {
+            require_once $possibleFilename;
             return true;
         }
 
