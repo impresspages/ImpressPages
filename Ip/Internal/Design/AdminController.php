@@ -174,45 +174,45 @@ class AdminController extends \Ip\Controller
                 'status' => 'error',
                 'errors' => $errors
             );
-        } else {
-            $configModel = ConfigModel::instance();
-            $model = Model::instance();
-            $theme = $model->getTheme(ipConfig()->theme());
-            if (!$theme) {
-                throw new \Ip\Exception("Theme doesn't exist");
+
+            return JsonRpc::error('Invalid form');
+        }
+
+        $configModel = ConfigModel::instance();
+        $model = Model::instance();
+        $theme = $model->getTheme(ipConfig()->theme());
+        if (!$theme) {
+            throw new \Ip\Exception("Theme doesn't exist");
+        }
+
+        $options = $theme->getOptionsAsArray();
+
+        foreach($options as $option) {
+            if (empty($option['name'])) {
+                continue;
             }
 
-            $options = $theme->getOptionsAsArray();
-
-            foreach($options as $option) {
-                if (empty($option['name'])) {
-                    continue;
-                }
-
-                $field = $form->getField($option['name']);
-                if (!$field) {
-                    continue;
-                }
-
-                switch($option['type']) {
-                    case 'check':
-                        $value = $field->isChecked($post, $option['name']);
-                        break;
-                    default:
-                        $value = $field->getValueAsString($post, $option['name']);
-                }
-                $configModel->setConfigValue(ipConfig()->theme(), $option['name'], $value);
+            $field = $form->getField($option['name']);
+            if (!$field) {
+                continue;
             }
 
-
-            \Ip\Internal\System\Service::cacheClear(); // this should rebuild things
-//            $lessCompiler = LessCompiler::instance();
-//            $lessCompiler->rebuild(ipConfig()->theme());
+            switch($option['type']) {
+                case 'check':
+                    $value = $field->isChecked($post, $option['name']);
+                    break;
+                default:
+                    $value = $field->getValueAsString($post, $option['name']);
+            }
+            $configModel->setConfigValue(ipConfig()->theme(), $option['name'], $value);
         }
 
 
+        \Ip\Internal\System\Service::cacheClear(); // this should rebuild things
+//        $lessCompiler = LessCompiler::instance();
+//        $lessCompiler->rebuild(ipConfig()->theme());
 
-
+        return JsonRpc::result(true);
     }
 
 
