@@ -13,4 +13,3 @@ then
 else
   ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
 fi
-
