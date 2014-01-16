@@ -46,7 +46,7 @@ class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
 
             $session->start();
         } catch (\Behat\Mink\Exception\DriverException $e) {
-            $this->markTestSkipped('Could not connect open Mink connection.');
+            $this->markTestSkipped('Could not connect open Mink connection.' . $e->getTraceAsString());
         }
 
         return $session;
