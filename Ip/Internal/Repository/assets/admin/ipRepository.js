@@ -67,9 +67,9 @@ var ipRepositoryESC;
             $('body').removeClass('stopScrolling');
         });
 
-        $popup.find('.ipaClose').hover(function(){$(this).addClass('ui-state-hover');}, function(){$(this).removeClass('ui-state-hover');});
+        $popup.find('.ipsClose').hover(function(){$(this).addClass('ui-state-hover');}, function(){$(this).removeClass('ui-state-hover');});
 
-        $popup.find('.ipaClose').click(function(e){$(this).trigger('ipModuleRepository.cancel');  e.preventDefault();});
+        $popup.find('.ipsClose').click(function(e){$(this).trigger('ipModuleRepository.cancel');  e.preventDefault();});
 
         $(document).on('keyup', ipRepositoryESC);
 

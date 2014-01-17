@@ -4,8 +4,8 @@
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
-                    <input type="text" class="ipAdminInput ipaInput" value="<?php _e('Search widgets', 'ipAdmin') ?>" />
-                    <a href="#" class="ipaButton"></a>
+                    <input type="text" class="ipAdminInput ipaInput ipsInput" value="<?php _e('Search widgets', 'ipAdmin') ?>" />
+                    <a href="#" class="ipaButton ipsButton"></a>
                 </div>
             </div>
             <a href="<?php echo ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getId() . '&amp;' . '&zone=' . ipContent()->getCurrentZone()->getName() . '&amp;page=' . ipContent()->getCurrentPage()->getId(); ?>" class="ipAdminButton ipaOptions" title="<?php _e('Advanced', 'ipAdmin') ?>"><span>&nbsp;</span></a>
@@ -48,8 +48,8 @@
                 </p>
             </div>
     <?php } ?>
-            <a href="#" class="ipAdminWidgetsScroll ipaLeft"></a>
-            <a href="#" class="ipAdminWidgetsScroll ipaRight"></a>
+            <a href="#" class="ipAdminWidgetsScroll ipaLeft ipsLeft"></a>
+            <a href="#" class="ipAdminWidgetsScroll ipaRight ipsRight"></a>
             <div class="ipAdminWidgetsContainer">
     <?php $scrollWidth = count($widgets)*87; // to keep all elements on one line ?>
                 <ul<?php echo ' style="width: '.$scrollWidth.'px;"'; ?>>
