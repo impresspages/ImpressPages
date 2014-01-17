@@ -32,7 +32,12 @@ var IpWidget_Title;
         };
 
         this.onAdd = function () {
-            this.$widgetObject.find('h1,h2,h3,h4,h5,h6').focus();
+            var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
+            if (!($headTag).css('min-height')) {
+                $headTag.css('min-height', 10); //Firefox can't handle focus without min height defined
+            }
+
+            $headTag.focus();
         }
 
         this.focus = function () {
@@ -107,6 +112,7 @@ var IpWidget_Title;
             customTinyMceConfig.toolbar = false;
             customTinyMceConfig.setup = function(ed, l) {
                 ed.on('change', function(){$.proxy(self.save, self)(false)});
+                //ed.on('init', function(){$(this).trigger('init.tinymce')});
             };
             customTinyMceConfig.paste_as_text = true;
             customTinyMceConfig.valid_elements = '';

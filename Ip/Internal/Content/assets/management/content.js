@@ -286,6 +286,14 @@ var ipContent;
                     }
                     var $block = $('#ipBlock-' + response.block);
 
+                    if ($block.hasClass('ipbEmpty')) {
+                        $block.removeClass('ipbEmpty');
+                    }
+
+
+                    $block.find(' > .ipbExampleContent').remove();
+
+
                     if (response.status == 'success') {
 
                         var $newWidget = $(response.widgetHtml);
@@ -308,12 +316,6 @@ var ipContent;
                             widgetController.onAdd($newWidget);
                         }
                     }
-                    if ($block.hasClass('ipbEmpty')) {
-                        $block.removeClass('ipbEmpty');
-                    }
-
-
-                    $block.find(' > .ipbExampleContent').remove();
 
                     if (callback) {
                         callback($newWidget.data('widgetinstanceid'));
