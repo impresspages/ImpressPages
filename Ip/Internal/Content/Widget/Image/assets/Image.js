@@ -84,7 +84,7 @@ var IpWidget_Image;
                 }
             }
 
-            data.title = this.$widgetObject.find('.ipaImageTitle').val();
+            data.title = this.$widgetObject.find('.ipsImageTitle').val();
             this.$widgetObject.save(data);
         }
 

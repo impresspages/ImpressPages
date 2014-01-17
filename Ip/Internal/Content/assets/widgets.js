@@ -97,18 +97,18 @@ var ipWidgetForm_SaveWysiwygOptions;
     // Form widget select options
     ipWidgetForm_InitListOptions = function ($context, currentOptions) {
         var addOption = function (value) {
-            var $newOption = $context.find('.ipgHide .ipaFieldOptionsTemplate').clone();
-            $newOption.find('.ipaOptionLabel').val(value);
-            $context.find('.ipaFieldOptionsContainer').append($newOption);
+            var $newOption = $context.find('.ipgHide .ipsFieldOptionsTemplate').clone();
+            $newOption.find('.ipsOptionLabel').val(value);
+            $context.find('.ipsFieldOptionsContainer').append($newOption);
         };
 
-        $context.find('.ipaFieldOptionsAdd').bind('click', function (e) {
+        $context.find('.ipsFieldOptionsAdd').bind('click', function (e) {
             e.preventDefault();
             addOption();
         });
 
-        $context.delegate('.ipaOptionRemove', 'click', function () {
-            $(this).closest('.ipaFieldOptionsTemplate').remove();
+        $context.delegate('.ipsOptionRemove', 'click', function () {
+            $(this).closest('.ipsFieldOptionsTemplate').remove();
             return false;
         });
 
@@ -120,12 +120,12 @@ var ipWidgetForm_SaveWysiwygOptions;
             addOption(); //add first empty option
         }
 
-        $context.find(".ipaFieldOptionsContainer").sortable();
-        $context.find(".ipaFieldOptionsContainer").sortable('option', 'handle', '.ipaOptionMove');
+        $context.find(".ipsFieldOptionsContainer").sortable();
+        $context.find(".ipsFieldOptionsContainer").sortable('option', 'handle', '.ipsOptionMove');
     };
 
     ipWidgetForm_SaveListOptions = function ($context) {
-        var $options = $context.find('.ipaFieldOptionsContainer .ipaOptionLabel');
+        var $options = $context.find('.ipsFieldOptionsContainer .ipsOptionLabel');
         var answer = new Array();
         answer = new Array();
         $options.each(function (i) {
@@ -138,13 +138,13 @@ var ipWidgetForm_SaveWysiwygOptions;
     //Form widget wysiwyg options
     ipWidgetForm_InitWysiwygOptions = function ($context, currentOptions) {
         if (currentOptions && currentOptions.text) {
-            $context.find(".ipaFieldOptionsRichText").val(currentOptions.text);
+            $context.find(".ipsFieldOptionsRichText").val(currentOptions.text);
         }
-        $context.find(".ipaFieldOptionsRichText").tinymce(ipTinyMceConfig());
+        $context.find(".ipsFieldOptionsRichText").tinymce(ipTinyMceConfig());
     };
 
     ipWidgetForm_SaveWysiwygOptions = function ($context) {
-        return {text:$context.find('.ipaFieldOptionsRichText').val()};
+        return {text:$context.find('.ipsFieldOptionsRichText').val()};
     };
 
 })(ip.jQuery);

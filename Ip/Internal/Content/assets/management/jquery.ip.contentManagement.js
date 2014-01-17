@@ -170,13 +170,13 @@
         if (scrollBy < 1) {
             scrollBy = 1;
         } // setting the minimum
-        $('.ipAdminWidgets .ipaRight, .ipAdminWidgets .ipaLeft').unbind('click'); // unbind if reinitiating dynamically
+        $('.ipAdminWidgets .ipsRight, .ipAdminWidgets .ipsLeft').off('click'); // unbind if reinitiating dynamically
         scrollableAPI.begin(); // move to scroller to default position (beginning)
-        $('.ipAdminWidgets .ipaRight').click(function (event) {
+        $('.ipAdminWidgets .ipsRight').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(scrollBy);
         });
-        $('.ipAdminWidgets .ipaLeft').click(function (event) {
+        $('.ipAdminWidgets .ipsLeft').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(-scrollBy);
         });
@@ -192,8 +192,8 @@
      *
      */
     var ipAdminWidgetsSearch = function () {
-        var $input = $('.ipAdminWidgetsSearch .ipaInput');
-        var $button = $('.ipAdminWidgetsSearch .ipaButton');
+        var $input = $('.ipAdminWidgetsSearch .ipsInput');
+        var $button = $('.ipAdminWidgetsSearch .ipsButton');
         var $widgets = $('.ipAdminWidgetsContainer li');
 
         $input.focus(function () {

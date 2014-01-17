@@ -39,9 +39,9 @@
                         data.type = options.type;
                     }
                     if (options.required && options.required != '0' && options.required != 'false') {
-                        data.required = 1;
+                        data.required = true;
                     } else {
-                        data.required = 0;
+                        data.required = false;
                     }
                     if (options.status) {
                         data.status = options.status;
@@ -54,9 +54,9 @@
                         optionsPopup : options.optionsPopup
                     });
 
-                    $this.find('.ipaFieldLabel').val(data.label);
-                    $this.find('.ipaFieldType').val(data.type);
-                    $this.find('.ipaFieldType').bind('change', function() {$(this).trigger('changeType.ipWidget_ipForm', [$(this).val()]);});
+                    $this.find('.ipsFieldLabel').val(data.label);
+                    $this.find('.ipsFieldType').val(data.type);
+                    $this.find('.ipsFieldType').bind('change', function() {$(this).trigger('changeType.ipWidget_ipForm', [$(this).val()]);});
                     $this.bind('changeType.ipWidget_ipForm', function(e, type) {
                         $(this).ipWidget_ipForm_field('setType', type);
                     });
@@ -68,12 +68,12 @@
                     }
 
                     if (options.required && options.required != 0) {
-                        $this.find('.ipaFieldRequired').attr('checked', options.required);
+                        $this.find('.ipsFieldRequired').prop('checked', options.required);
                     }
                 }
 
                 var $thisForEvent = $this;
-                $this.find('.ipaFieldRemove').bind('click', function(event){
+                $this.find('.ipsFieldRemove').bind('click', function(event){
                     $thisForEvent.ipWidget_ipForm_field('setStatus', 'deleted');
                     $thisForEvent.hide();
                     event.preventDefault();
@@ -119,23 +119,23 @@
 
         getLabel : function() {
             var $this = this;
-            return $this.find('.ipaFieldLabel').val();
+            return $this.find('.ipsFieldLabel').val();
         },
 
         getType : function() {
             var $this = this;
-            return $this.find('.ipaFieldType').val();
+            return $this.find('.ipsFieldType').val();
         },
 
         setType : function(type) {
             var $this = this;
             var data = $this.data('ipWidget_ipForm_field');
             if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
-                $this.find('.ipaFieldOptions').css('visibility', 'visible');
-                $this.find('.ipaFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
+                $this.find('.ipsFieldOptions').css('visibility', 'visible');
+                $this.find('.ipsFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
                 $this.bind('optionsClick.ipWidget_ipForm', function() {$(this).ipWidget_ipForm_field('openOptionsPopup');});
             } else {
-                $this.find('.ipaFieldOptions').css('visibility', 'hidden');
+                $this.find('.ipsFieldOptions').css('visibility', 'hidden');
             }
             data.type = type;
             $this.data('ipWidget_ipForm_field', data);
@@ -157,7 +157,7 @@
 
         getRequired : function () {
             var $this = $(this);
-            return $this.find('.ipaFieldRequired').is(':checked');
+            return $this.find('.ipsFieldRequired').is(':checked');
         }
     };
 
@@ -167,7 +167,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipWidget_ipForm_field');
         }
 
     };
