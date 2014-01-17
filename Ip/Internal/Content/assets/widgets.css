@@ -44,8 +44,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     zoom: 1;
 }
 
-.ipAdminPanel,
-.ipAdminWidget {
+.ipAdminPanel {
     font: 14px Arial, Helvetica, sans-serif;
 }
 .ipAdminPanelContainer:after,
@@ -535,10 +534,6 @@ Move to separate stylesheet if invalid CSS is a problem.
     visibility: hidden;
 }
 
-.ipAdminWidget {
-    border-top: 3px solid #000;
-    margin-bottom: 29px !important; /* !important used to force .ipAdminWidgetControls not to cover .ipaFooter from widget above (mostly action buttons) */
-}
 .ipAdminWidgetControls {
     border: 1px solid transparent;
     float: left;
@@ -617,36 +612,6 @@ Move to separate stylesheet if invalid CSS is a problem.
     height: 1px;
     margin-top: -6px;
     margin-bottom: 5px;
-}
-.ipAdminWidget .ipaHeader {
-    background-color: #ebebeb;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    padding: 7px;
-}
-.ipAdminWidget .ipaTitle {
-    float: left;
-}
-.ipAdminWidget .ipaLayouts {
-    float: right;
-}
-.ipAdminWidget .ipaBody {
-    background-color: #f3f3f3;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 0 0 1px #fff;
-    padding: 7px;
-}
-.ipAdminWidget .ipaFooter {
-    background-color: #dbdbdb;
-    border-top: 1px solid #fff;
-    float: left;
-    padding: 5px 8px;
-}
-.ipAdminWidget .ipaFooter .ipAdminButton {
-    margin-left: 10px;
-}
-.ipAdminWidget .ipaFooter .ipAdminButton:first-child {
-    margin-left: 0;
 }
 
 /* File/Image upload tools */

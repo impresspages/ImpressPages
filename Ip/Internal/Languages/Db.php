@@ -10,16 +10,9 @@ class Db {
 
 
     public static function getLanguageById($id) {
-        $result = ipDb()->selectAll('*', 'language', array('id' => $id), 'LIMIT 1');
-        if (isset($result[0])) {
-            return $result[0];
-        }
-        return false;
+        return ipDb()->selectRow('*', 'language', array('id' => $id));
     }
 
-
-
-    
     public static function newUrl($preferredUrl) {
         $suffix = '';
         $url = ipDb()->selectAll('id', 'language', array('url' => $preferredUrl . $suffix));
