@@ -5,10 +5,10 @@
             <li><a href="#ipModuleRepositoryTabBuy"><?php _e('Buy images', 'ipAdmin') ?></a>
         </ul>
 
-        <a href="#" class="ipmClose ipaClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+        <a href="#" class="ipmClose ipsClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
 
         <div id="ipModuleRepositoryTabUpload" class="ipmTabUpload">
-            <div id="ipModuleRepositoryDragContainer" class="impContainer" >
+            <div id="ipModuleRepositoryDragContainer" class="ipmContainer" >
                 <div class="ipmFiles"></div>
                 <div class="ipUploadProgressContainer">
                     <div class="ipmCurErrors"></div>
@@ -46,9 +46,9 @@
             <div class="ipgHide ipmRepositoryActions">
                 <div class="ipmInner">
                     <span class="ipmTitle"><?php _e('Selected:', 'ipAdmin') ?> <strong class="ipmSelectionCount"></strong></span>
-                    <a class="ipAdminButton ipaConfirm ipaSelectionConfirm" href="#"><?php _e('Confirm', 'ipAdmin') ?></a>
-                    <a class="ipAdminButton ipaSelectionCancel" href="#"><?php _e('Cancel', 'ipAdmin') ?></a>
-                    <a class="ipAdminButton ipaSelectionDelete" href="#"><?php _e('Delete', 'ipAdmin'); ?> <i class="fa fa-trash-o"></i></a>
+                    <a class="ipAdminButton ipaConfirm ipsSelectionConfirm" href="#"><?php _e('Confirm', 'ipAdmin') ?></a>
+                    <a class="ipAdminButton ipsSelectionCancel" href="#"><?php _e('Cancel', 'ipAdmin') ?></a>
+                    <a class="ipAdminButton ipsSelectionDelete" href="#"><?php _e('Delete', 'ipAdmin'); ?> <i class="fa fa-trash-o"></i></a>
                 </div>
             </div>
             <?php // hidden templates for dynamic elements ?>

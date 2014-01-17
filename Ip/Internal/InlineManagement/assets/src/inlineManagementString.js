@@ -72,8 +72,8 @@
 
             }
 
-            $('.ipModuleInlineManagementPopup.ipmString').find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopup.ipmString').find('.ipaCancel').bind('click', $.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopup.ipmString').find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopup.ipmString').find('.ipsCancel').bind('click', $.proxy(methods._cancel, $this));
         },
 
         _confirm : function (event) {
