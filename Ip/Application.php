@@ -13,16 +13,27 @@ class Application
     const ASSETS_DIR = 'assets';
     protected $configPath = null;
 
+    /**
+     * @ignore
+     * @param $configPath
+     */
     public function __construct($configPath)
     {
         $this->configPath = $configPath;
     }
 
+    /**
+     * Get CMS version
+     * @return string
+     */
     public static function getVersion()
     {
         return '4.0';
     }
 
+    /**
+     * @ignore
+     */
     public function init()
     {
         $config = require($this->configPath);
@@ -43,6 +54,10 @@ class Application
         require_once $coreDir . 'Ip/Functions.php';
     }
 
+    /**
+     * @ignore
+     * @param array $options
+     */
     public function prepareEnvironment($options = array())
     {
         if (empty($options['skipErrorHandler'])) {
@@ -100,6 +115,7 @@ class Application
     }
 
     /**
+     * @ignore
      * @param Request $request
      * @param array $options
      * @param bool $subrequest
@@ -217,8 +233,8 @@ class Application
     }
 
     /**
-     * @param Request $request
-     * @param bool $subrequest
+     * Handle HMVC request
+     * @param Request $request Request object with MVC query
      * @return Response
      * @throws Exception
      */
@@ -260,7 +276,9 @@ class Application
         return $response;
     }
 
-
+    /**
+     * @ignore
+     */
     public function modulesInit()
     {
         ipEvent('ipInit');
@@ -280,7 +298,10 @@ class Application
 
     }
 
-
+    /**
+     * @ignore
+     * @param array $options
+     */
     public function run($options = array())
     {
         $this->prepareEnvironment($options);
@@ -297,6 +318,7 @@ class Application
     }
 
     /**
+     * @ignore
      * @param \Ip\Response $response
      * @throws \Ip\Exception
      */
@@ -307,6 +329,9 @@ class Application
         $response->send();
     }
 
+    /**
+     * @ignore
+     */
     public function close()
     {
         ipEvent('ipBeforeApplicationClosed');
