@@ -14,12 +14,7 @@ class InstanceModel
 
     public static function getInstance($instanceId)
     {
-        $instances = ipDb()->selectAll('*', 'widget_instance', array('instanceId' => $instanceId));
-        if (isset($instances[0])) {
-            return $instances[0];
-        } else {
-            return false;
-        }
+        return ipDb()->selectRow('*', 'widget_instance', array('instanceId' => $instanceId));
     }
 
     public static function updateInstance($instanceId, $data)

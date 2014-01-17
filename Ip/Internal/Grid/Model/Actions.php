@@ -59,13 +59,10 @@ class Actions
     {
         $sortField = $this->config->sortField();
 
-        $row = ipDb()->selectAll('row_number', $this->config->rawTableName(), array('id' => $targetId));
-        if (empty($row[0])) {
+        $priority = ipDb()->selectValue('row_number', $this->config->rawTableName(), array('id' => $targetId));
+        if (!$priority) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
-        $priority = $row[0]['row_number'];
-
-
 
         $sql = "
         SELECT
