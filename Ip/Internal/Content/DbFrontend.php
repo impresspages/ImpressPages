@@ -14,14 +14,12 @@ class DbFrontend
 
     public static function getPageByUrl($url, $parent)
     {
-        $rs = ipDb()->selectAll('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
-        return $rs ? $rs[0] : null;
+        return ipDb()->selectRow('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
     }
 
     public static function getFirstPage($parent)
     {
-        $rs = ipDb()->selectAll('*', 'page', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
-        return $rs ? $rs[0] : null;
+        return ipDb()->selectRow('*', 'page', array('visible' => 1, 'parent' => $parent), 'ORDER BY `row_number`');
     }
 
     public static function getRootPageId($zoneName, $language)
@@ -41,12 +39,7 @@ class DbFrontend
 
     public static function languageByRootPage($pageId)
     { //returns root element of menu
-        $rs = ipDb()->selectAll('language_id', 'zone_to_page', array('element_id' => $pageId));
-        if (!$rs) {
-            return null;
-        }
-
-        return $rs[0]['language_id'];
+        return ipDb()->selectValue('language_id', 'zone_to_page', array('element_id' => $pageId));
     }
 
 

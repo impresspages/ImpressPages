@@ -225,6 +225,44 @@ class Db
         return $result ? array_shift($result[0]) : null;
     }
 
+    public function selectColumn($field, $table, $where, $sqlEnd = '')
+    {
+        $sql = 'SELECT ' . $field . ' FROM ' . ipTable($table);
+
+        $params = array();
+        $sql .= ' WHERE ';
+        if ($where) {
+            foreach ($where as $column => $value) {
+                if ($value === NULL) {
+                    $sql .= "`{$column}` IS NULL AND ";
+                } else {
+                    $sql .= "`{$column}` = ? AND ";
+                    $params[] = $value;
+                }
+            }
+
+            $sql = substr($sql, 0, -4);
+        } else {
+            $sql .= ' 1 ';
+        }
+
+        if ($sqlEnd) {
+            $sql .= $sqlEnd;
+        }
+
+        try {
+            $query = $this->getConnection()->prepare($sql);
+            foreach ($params as $key => $value) {
+                $query->bindValue($key, $value);
+            }
+
+            $query->execute();
+            return $query->fetchAll(\PDO::FETCH_COLUMN);
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
     /**
      * Execute SQL query
      *
