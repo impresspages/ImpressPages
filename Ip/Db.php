@@ -156,19 +156,19 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param array|string $fields  list of fields or string. For example array('id', 'name') or '*'.
+     * @param array|string $columns  list of columns or string. For example array('id', 'name') or '*'.
      * @param string $table         table name without prefix
      * @param array  $where         conditional array. For example array('id' => 20)
      * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function selectAll($fields, $table, $where = array(), $sqlEnd = '')
+    public function selectAll($columns, $table, $where = array(), $sqlEnd = '')
     {
-        if (is_array($fields)) {
-            $fields = '`' . implode('`,`', $fields) . '`';
+        if (is_array($columns)) {
+            $columns = '`' . implode('`,`', $columns) . '`';
         }
 
-        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table);
+        $sql = 'SELECT ' . $columns . ' FROM ' . ipTable($table);
 
         $params = array();
         $sql .= ' WHERE ';
@@ -198,36 +198,36 @@ class Db
      * Returns one row.
      * @see self::selectAll()
      *
-     * @param $fields
+     * @param $columns
      * @param $table
      * @param array $where
      * @param string $sqlEnd
      * @return array
      */
-    public function selectRow($fields, $table, $where, $sqlEnd = '')
+    public function selectRow($columns, $table, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($fields, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($columns, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? $result[0] : array();
     }
 
     /**
      * @see self::selectAll()
      *
-     * @param $field
+     * @param $column
      * @param $table
      * @param array $where
      * @param string $sqlEnd
      * @return mixed|null
      */
-    public function selectValue($field, $table, $where, $sqlEnd = '')
+    public function selectValue($column, $table, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($field, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($column, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? array_shift($result[0]) : null;
     }
 
-    public function selectColumn($field, $table, $where, $sqlEnd = '')
+    public function selectColumn($column, $table, $where, $sqlEnd = '')
     {
-        $sql = 'SELECT ' . $field . ' FROM ' . ipTable($table);
+        $sql = 'SELECT ' . $column . ' FROM ' . ipTable($table);
 
         $params = array();
         $sql .= ' WHERE ';
