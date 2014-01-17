@@ -316,4 +316,4 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
