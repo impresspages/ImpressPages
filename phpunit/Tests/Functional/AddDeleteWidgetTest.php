@@ -32,7 +32,7 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipAdminWidgetsDisable .ipActionPublish').length != 0");
         $duplicateRevisionLink = $page->find('css', '.ipsItemCurrent');
         $duplicateRevisionLink->click();
-        $session->wait(10000,"typeof $ !== 'undefined' && $('.ipActionPublish').length != 0");
+        $session->wait(10000, "typeof $ !== 'undefined' && $('.ipActionPublish').length != 0");
 
         //TODO remove all existing widgets
 
@@ -40,6 +40,17 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
         $this->assertEquals(1, count($titleWidgets));
 
+        $session->wait(10000, "f");
+
+        $page->executeScript('var dispatchTextEvent = function(target, initTextEvent_args) {
+          var e = document.createEvent("TextEvent");
+          e.initTextEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+          target.dispatchEvent(e);
+        };');
+
+        $page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
+
+        $session->wait(30000, "false");
 
     }
 

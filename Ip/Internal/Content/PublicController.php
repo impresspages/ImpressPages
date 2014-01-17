@@ -77,6 +77,9 @@ class PublicController extends \Ip\Controller
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.css'));
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/bootstrap/bootstrap.js'));
 
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/tiny_mce/jquery.tinymce.min.js'));
+        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/tiny_mce/tinymce.min.js'));
+
 
         ipAddJsVariable('ipContentInit', Model::initManagementData());
 
@@ -115,9 +118,6 @@ class PublicController extends \Ip\Controller
         ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css'));
 
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.ui.scrollable.js'));
-
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/tiny_mce/jquery.tinymce.min.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/tiny_mce/tinymce.min.js'));
 
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.full.js'));
         ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js'));
