@@ -81,7 +81,7 @@ class Content
         $zonesData = $this->getZonesData();
 
         if (!isset($zonesData[$zoneName])) {
-            return false;
+            return new \Ip\Zone404(array('name' => '404'));
         }
 
         $zoneData = $this->zonesData[$zoneName];
