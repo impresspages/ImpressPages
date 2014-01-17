@@ -33,27 +33,49 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $duplicateRevisionLink = $page->find('css', '.ipsItemCurrent');
         $duplicateRevisionLink->click();
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipActionPublish').length != 0");
-        $session->wait(10000, "false");
         //TODO remove all existing widgets
 
         $adminHelper->addWidget('Title');
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Title').length != 0");
+        $page = $session->getPage();
         $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
-        $session->wait(5000, "false");
         $this->assertEquals(1, count($titleWidgets));
 
-        $session->wait(5000, "false");
 
+//        nice way to populate content, but doesn't work on Firefox yet
 //        $page->executeScript('var dispatchTextEvent = function(target, initTextEvent_args) {
 //          var e = document.createEvent("TextEvent");
 //          e.initTextEvent.apply(e, Array.prototype.slice.call(arguments, 1));
 //          target.dispatchEvent(e);
 //        };');
+//        $page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
 
-        //$page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
+        $session->wait(5000, "false"); //wait for widget to init
+        //$session->executeScript('$(document.activeElement).text(\'TEST\')');
+        $session->executeScript('tinyMCE.activeEditor.setContent(\'Sample text\');');
+        //$session->executeScript('$(tinyMCE.activeEditor).trigger(\'blur\');');
 
-        $session->executeScript('$(document.activeElement).text(\'TEST\')');
+        $session->wait(5000, "false"); //wait for widget to init
 
-        $session->wait(5000, "false");
+        $h1Link = $page->find('css', '#ipWidgetTitleControls .ipsH');
+        $h1Link->click(); //on blur makes widget to save
+
+        $session->wait(5000, "false"); //wait for widget to init
+
+        $duplicateRevisionLink = $page->find('css', 'body');
+        $duplicateRevisionLink->click(); //on blur makes widget to save
+
+        $session->wait(10000, "false"); //wait for save
+
+
+
+//        $session->reload();
+
+        $page = $session->getPage();
+        $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
+        $this->assertEquals(1, count($titleWidgets));
+
+        $session->wait(30000, "false");
 
     }
 
