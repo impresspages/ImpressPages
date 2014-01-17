@@ -55,7 +55,7 @@ class CurrentPage
     public function getZone()
     {
         if (!isset($this->requestedPage['zone'])) {
-            return null;
+            return new \Ip\Zone404('404');
         }
 
         return ipContent()->getZone($this->requestedPage['zone']);
