@@ -33,24 +33,27 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $duplicateRevisionLink = $page->find('css', '.ipsItemCurrent');
         $duplicateRevisionLink->click();
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipActionPublish').length != 0");
-
+        $session->wait(10000, "false");
         //TODO remove all existing widgets
 
         $adminHelper->addWidget('Title');
         $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
+        $session->wait(5000, "false");
         $this->assertEquals(1, count($titleWidgets));
 
-        $session->wait(10000, "f");
+        $session->wait(5000, "false");
 
-        $page->executeScript('var dispatchTextEvent = function(target, initTextEvent_args) {
-          var e = document.createEvent("TextEvent");
-          e.initTextEvent.apply(e, Array.prototype.slice.call(arguments, 1));
-          target.dispatchEvent(e);
-        };');
+//        $page->executeScript('var dispatchTextEvent = function(target, initTextEvent_args) {
+//          var e = document.createEvent("TextEvent");
+//          e.initTextEvent.apply(e, Array.prototype.slice.call(arguments, 1));
+//          target.dispatchEvent(e);
+//        };');
 
-        $page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
+        //$page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
 
-        $session->wait(30000, "false");
+        $session->executeScript('$(document.activeElement).text(\'TEST\')');
+
+        $session->wait(5000, "false");
 
     }
 

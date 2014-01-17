@@ -29,13 +29,14 @@ var IpWidget_Title;
             }
             this.$widgetObject.on('remove', $.proxy(this.destroy, this));
 
+            if (!this.$header.css('min-height') || this.$header.css('min-height') == '0px') {
+                this.$header.css('min-height', this.$header.css('font-size')); //Firefox can't handle focus without min height defined
+            }
+
         };
 
         this.onAdd = function () {
             var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
-            if (!($headTag).css('min-height')) {
-                $headTag.css('min-height', 10); //Firefox can't handle focus without min height defined
-            }
 
             $headTag.focus();
         }
