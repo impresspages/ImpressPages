@@ -39,6 +39,8 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Title').length != 0");
         $page = $session->getPage();
         $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
+
+        //asset we have one and only one Title widget
         $this->assertEquals(1, count($titleWidgets));
 
 
@@ -50,32 +52,33 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
 //        };');
 //        $page->executeScript('dispatchTextEvent(document.activeElement, \'textInput\', true, true, null, \'h\', 0)');
 
-        $session->wait(5000, "false"); //wait for widget to init
-        //$session->executeScript('$(document.activeElement).text(\'TEST\')');
-        $session->executeScript('tinyMCE.activeEditor.setContent(\'Sample text\');');
-        //$session->executeScript('$(tinyMCE.activeEditor).trigger(\'blur\');');
+        //Text we are going to add to the title widget
+        $testText = 'Sample text';
 
-        $session->wait(5000, "false"); //wait for widget to init
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipWidgetTitleControls').is(':visible')"); //wait for widget to init
+        $session->executeScript('tinyMCE.activeEditor.setContent(\'' . $testText . '\');');
 
-        $h1Link = $page->find('css', '#ipWidgetTitleControls .ipsH');
-        $h1Link->click(); //on blur makes widget to save
+        //change to h2. This is only way I've found to force widget save on selenium
+        $h1Link = $page->find('css', '#ipWidgetTitleControls .ipsH:nth-child(2)');
+        $h1Link->click();
 
-        $session->wait(5000, "false"); //wait for widget to init
+        //wait for widget reload
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipWidgetTitleControls').is(':visible')"); //wait for widget to init
 
-        $duplicateRevisionLink = $page->find('css', 'body');
-        $duplicateRevisionLink->click(); //on blur makes widget to save
+        //reload the page
+        $session->reload();
 
-        $session->wait(10000, "false"); //wait for save
+        //wait for page to load
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Title').length != 0");
 
-
-
-//        $session->reload();
-
+        //asset we have one and only one Title widget
         $page = $session->getPage();
         $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
         $this->assertEquals(1, count($titleWidgets));
 
-        $session->wait(30000, "false");
+        //check if we have the same text that we have stored before
+        $titleWidgetText = $session->evaluateScript("return $('#ipBlock-main .ipWidget-Title h2').text()");
+        $this->assertEquals($testText, $titleWidgetText);
 
     }
 
