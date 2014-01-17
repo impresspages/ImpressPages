@@ -19,4 +19,9 @@ class PublicController extends \Ip\Controller
 
         return 'Hello world!';
     }
+
+    public function testHmvc()
+    {
+        return 'HMVC';
+    }
 } 
