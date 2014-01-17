@@ -80,7 +80,7 @@ class Model{
     
     public static function whoUsesFile($file)
     {
-        return ipDb()->select('*', 'repository_file', array('fileName' => $file));
+        return ipDb()->selectAll('*', 'repository_file', array('fileName' => $file));
     }
     
     /**
@@ -96,7 +96,7 @@ class Model{
             $where['instanceId'] = $instanceId;
         }
 
-        return ipDb()->select('*', 'repository_file', $where);
+        return ipDb()->selectAll('*', 'repository_file', $where);
     }
     
     

@@ -120,7 +120,7 @@ class Db
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $result ? $result[0] : null;
+            return $result ? $result[0] : array();
         } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
@@ -156,36 +156,73 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param string $fields Comma separated string containing a list of fields
-     * @param $table
-     * @param $where
-     * @param string $sqlEnd
+     * @param array|string $fields  list of fields or string. For example array('id', 'name') or '*'.
+     * @param string $table         table name without prefix
+     * @param array  $where         conditional array. For example array('id' => 20)
+     * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function select($fields, $table, $where, $sqlEnd = '')
+    public function selectAll($fields, $table, $where = array(), $sqlEnd = '')
     {
-        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table) . ' WHERE ';
+        if (is_array($fields)) {
+            $fields = '`' . implode('`,`', $fields) . '`';
+        }
+
+        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table);
 
         $params = array();
-        foreach ($where as $column => $value) {
-            if ($value === NULL) {
-                $sql .= "`{$column}` IS NULL AND ";
-            } else {
-                $sql .= "`{$column}` = ? AND ";
-                $params[] = $value;
-            }
-        }
+        $sql .= ' WHERE ';
         if ($where) {
+            foreach ($where as $column => $value) {
+                if ($value === NULL) {
+                    $sql .= "`{$column}` IS NULL AND ";
+                } else {
+                    $sql .= "`{$column}` = ? AND ";
+                    $params[] = $value;
+                }
+            }
+
             $sql = substr($sql, 0, -4);
         } else {
-            $sql .= '1 ';
+            $sql .= ' 1 ';
         }
 
         if ($sqlEnd) {
-            $sql .= ' ' . $sqlEnd;
+            $sql .= $sqlEnd;
         }
 
         return $this->fetchAll($sql, $params);
+    }
+
+    /**
+     * Returns one row.
+     * @see self::selectAll()
+     *
+     * @param $fields
+     * @param $table
+     * @param array $where
+     * @param string $sqlEnd
+     * @return array
+     */
+    public function selectRow($fields, $table, $where, $sqlEnd = '')
+    {
+        $result = $this->selectAll($fields, $table, $where, $sqlEnd . ' LIMIT 1');
+        return $result ? $result[0] : array();
+    }
+
+    /**
+     * @see self::selectAll()
+     *
+     * @param $field
+     * @param $table
+     * @param array $where
+     * @param string $sqlEnd
+     * @return mixed|null
+     */
+    public function selectValue($field, $table, $where, $sqlEnd = '')
+    {
+        $result = $this->selectAll($field, $table, $where, $sqlEnd . ' LIMIT 1');
+        return $result ? array_shift($result[0]) : null;
     }
 
     /**
