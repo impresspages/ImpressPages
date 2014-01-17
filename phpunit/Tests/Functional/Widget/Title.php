@@ -15,7 +15,7 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
      * @group Sauce
      * @group Selenium
      */
-    public function testAddRemoveWidgets()
+    public function testTitle()
     {
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
@@ -79,6 +79,22 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
         //check if we have the same text that we have stored before
         $titleWidgetText = $session->evaluateScript("return $('#ipBlock-main .ipWidget-Title h2').text()");
         $this->assertEquals($testText, $titleWidgetText);
+
+        //REMOVE THE WIDGET
+        $session->executeScript("$('#ipBlock-main .ipWidget-Title .ipActionWidgetDelete').css('visibility', 'visible')");
+        $deleteLink = $page->find('css', '#ipBlock-main .ipWidget-Title .ipActionWidgetDelete');
+        $deleteLink->click();
+
+        //wait while widget disappears
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget').length == 0");
+
+        //refresh the page and check if widget has gone
+        $session->reload();
+
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main').length != 0");
+        $exampleContent = $session->evaluateScript("return $('#ipBlock-main .ipbExampleContent').length");
+        $this->assertEquals(1, $exampleContent);
+
 
     }
 
