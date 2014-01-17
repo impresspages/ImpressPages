@@ -192,7 +192,7 @@ class Db
         }
 
         return $this->fetchAll($sql, $params);
-    }""
+    }
 
     /**
      * Returns one row.
