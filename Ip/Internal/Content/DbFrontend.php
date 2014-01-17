@@ -14,7 +14,7 @@ class DbFrontend
 
     public static function getPageByUrl($url, $parent)
     {
-        return ipDb()->selectRow('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
+        return ipDb()->selectRow('*', 'page', array('url' => $url, 'parent' => $parent));
     }
 
     public static function getFirstPage($parent)
