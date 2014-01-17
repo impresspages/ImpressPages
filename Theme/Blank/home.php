@@ -12,4 +12,3 @@
     <div class="clear"></div>
 <?php echo $this->subview('_footer.php'); ?>
 <?php
-$th
