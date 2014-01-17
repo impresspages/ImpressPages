@@ -4,6 +4,10 @@
  *
  */
 
-$(document).ready(function () {
-    $('.ipsGrid').ipGrid();
-});
+(function ($) {
+    "use strict";
+    $(document).ready(function () {
+        $('.ipsGrid').ipGrid();
+    });
+
+})(ip.jQuery);
