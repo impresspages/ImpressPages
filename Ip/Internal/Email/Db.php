@@ -10,8 +10,7 @@ class Db{
 
     public static function getEmail($id)
     {
-        $rs = ipDb()->selectAll('*', 'email_queue', array('id' => $id));
-        return $rs ? $rs[0] : NULL;
+        return ipDb()->selectRow('*', 'email_queue', array('id' => $id));
     }
 
     public static function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $filesStr, $fileNamesStr, $mimeTypesStr){

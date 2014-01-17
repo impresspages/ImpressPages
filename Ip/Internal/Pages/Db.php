@@ -191,8 +191,7 @@ class Db {
      */
     private static function getPage($id)
     {
-        $rs = ipDb()->selectAll('*', 'page', array('id' => $id));
-        return $rs ? $rs[0] : null;
+        return ipDb()->selectRow('*', 'page', array('id' => $id));
     }
 
 
@@ -467,10 +466,8 @@ class Db {
     }
 
     private static function getMaxIndex($parentId) {
-        $rs = ipDb()->selectAll("MAX(`row_number`) AS `max_row_number`", 'page', array('parent' => $parentId));
-        return $rs ? $rs[0]['max_row_number'] : null;
+        return ipDb()->selectValue("MAX(`row_number`) AS `max_row_number`", 'page', array('parent' => $parentId));
     }
-
 
     /**
      *
@@ -486,12 +483,11 @@ class Db {
     public static function copyPage($nodeId, $newParentId, $newIndex)
     {
         $db = ipDb();
-        $rs = $db->selectAll('*', 'page', array('id' => $nodeId));
-        if (!$rs) {
+        $copy = $db->selectRow('*', 'page', array('id' => $nodeId));
+        if (!$copy) {
             trigger_error("Element does not exist");
         }
 
-        $copy = $rs[0];
         unset($copy['id']);
         $copy['parent'] = $newParentId;
         $copy['row_number'] = $newIndex;
@@ -508,13 +504,13 @@ class Db {
      */
     public static function availableUrl($url, $allowedId = null){
 
-        $rs = ipDb()->selectAll('`id`', 'page', array('url' => $url));
+        $pageId = ipDb()->selectValue('`id`', 'page', array('url' => $url));
 
-        if (!$rs) {
+        if (!$pageId) {
             return true;
         }
 
-        if ($allowedId && $rs[0]['id'] == $allowedId) {
+        if ($allowedId && $pageId == $allowedId) {
             return true;
         }
 
