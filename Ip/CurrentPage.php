@@ -44,7 +44,7 @@ class CurrentPage
 
     public function getPage()
     {
-        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : NULL;
+        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : new \Ip\Page404(1, '404');
     }
 
     public function getUrlPath()
