@@ -256,6 +256,7 @@ class Application
             if (empty($rawResponse)) {
                 $rawResponse = '';
             }
+
             $response = \Ip\ServiceLocator::response();
             $response->setContent($rawResponse);
         } elseif ($rawResponse instanceof \Ip\Response) {
