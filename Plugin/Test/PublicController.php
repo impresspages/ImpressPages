@@ -12,6 +12,9 @@ class PublicController extends \Ip\Controller
         $page->setPageTitle('Hello world');
         $page->setNavigationTitle('Hello world');
 
+        $req = new \Ip\Request;
+        echo 'xxx'.$req->getControllerType();
+
         _ipPageStart($page);
 
         return 'Hello world!';
