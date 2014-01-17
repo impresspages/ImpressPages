@@ -8,13 +8,12 @@
                     <h4 class="modal-title"><?php echo __('Choose widget look', 'ipAdmin') ?></h4>
                 </div>
                 <div class="modal-body">
-                    <ul class="ipsList list-group">
-                    </ul>
+                    <ul class="ipsList list-group"></ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>
