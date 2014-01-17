@@ -156,10 +156,10 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param array|string $fields  list of fields or string. For example array('id', 'name') or '*'.
-     * @param string $table         table name without prefix
-     * @param array  $where         conditional array. For example array('id' => 20)
-     * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
+     * @param array|string $fields List of fields or string. For example array('id', 'name') or '*'.
+     * @param string $table Table name without prefix
+     * @param array  $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
     public function selectAll($fields, $table, $where = array(), $sqlEnd = '')
@@ -195,13 +195,13 @@ class Db
     }
 
     /**
-     * Returns one row.
+     * Execute SELECT query and return a single row
      * @see self::selectAll()
      *
-     * @param $fields
-     * @param $table
-     * @param array $where
-     * @param string $sqlEnd
+     * @param array $fields List of fields or string. For example array('id', 'name') or '*'.
+     * @param string $table Table name without prefix
+     * @param array $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
     public function selectRow($fields, $table, $where, $sqlEnd = '')
@@ -211,12 +211,14 @@ class Db
     }
 
     /**
+     * Execute SELECT query and return a single value
+     *
      * @see self::selectAll()
      *
-     * @param $field
-     * @param $table
-     * @param array $where
-     * @param string $sqlEnd
+     * @param string $field Field name. For example 'id'.
+     * @param string $table Table name without prefix
+     * @param array $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return mixed|null
      */
     public function selectValue($field, $table, $where, $sqlEnd = '')
