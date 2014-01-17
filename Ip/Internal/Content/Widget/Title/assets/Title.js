@@ -29,10 +29,16 @@ var IpWidget_Title;
             }
             this.$widgetObject.on('remove', $.proxy(this.destroy, this));
 
+            if (!this.$header.css('min-height') || this.$header.css('min-height') == '0px') {
+                this.$header.css('min-height', this.$header.css('font-size')); //Firefox can't handle focus without min height defined
+            }
+
         };
 
         this.onAdd = function () {
-            this.$widgetObject.find('h1,h2,h3,h4,h5,h6').focus();
+            var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
+
+            $headTag.focus();
         }
 
         this.focus = function () {
@@ -107,6 +113,7 @@ var IpWidget_Title;
             customTinyMceConfig.toolbar = false;
             customTinyMceConfig.setup = function(ed, l) {
                 ed.on('change', function(){$.proxy(self.save, self)(false)});
+                //ed.on('init', function(){$(this).trigger('init.tinymce')});
             };
             customTinyMceConfig.paste_as_text = true;
             customTinyMceConfig.valid_elements = '';
