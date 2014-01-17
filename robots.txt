@@ -1,9 +1,8 @@
 User-agent: *
-Disallow: /ip_configs/
 Disallow: /update/
 Disallow: /install/
 Disallow: /admin.php
+Disallow: /admin/
 Disallow: /config.php
 Disallow: /ip_license.html
 Disallow: /readme.md
-Sitemap: http://www.example.com/4x2/installsitemap.php
