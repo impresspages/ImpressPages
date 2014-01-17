@@ -4,7 +4,7 @@ namespace Tests\Functional;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
+class WidgetTitleTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
@@ -15,7 +15,7 @@ class AddDeleteWidgetTest extends \PHPUnit_Framework_TestCase
      * @group Sauce
      * @group Selenium
      */
-    public function testTitle()
+    public function testTitleWidget()
     {
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
