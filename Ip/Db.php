@@ -156,33 +156,39 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param string $fields Comma separated string containing a list of fields
-     * @param $table
-     * @param $where
-     * @param string $sqlEnd
+     * @param array|string $fields  list of fields or string. For example array('id', 'name') or '*'.
+     * @param string $table         table name without prefix
+     * @param array  $where         conditional array. For example array('id' => 20)
+     * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function select($fields, $table, $where, $sqlEnd = '')
+    public function select($fields, $table, $where = array(), $sqlEnd = '')
     {
-        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table) . ' WHERE ';
+        if (is_array($fields)) {
+            $fields = '`' . implode('`,`', $fields) . '`';
+        }
+
+        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table);
 
         $params = array();
-        foreach ($where as $column => $value) {
-            if ($value === NULL) {
-                $sql .= "`{$column}` IS NULL AND ";
-            } else {
-                $sql .= "`{$column}` = ? AND ";
-                $params[] = $value;
-            }
-        }
+        $sql .= ' WHERE ';
         if ($where) {
+            foreach ($where as $column => $value) {
+                if ($value === NULL) {
+                    $sql .= "`{$column}` IS NULL AND ";
+                } else {
+                    $sql .= "`{$column}` = ? AND ";
+                    $params[] = $value;
+                }
+            }
+
             $sql = substr($sql, 0, -4);
         } else {
-            $sql .= '1 ';
+            $sql .= ' 1 ';
         }
 
         if ($sqlEnd) {
-            $sql .= ' ' . $sqlEnd;
+            $sql .= $sqlEnd;
         }
 
         return $this->fetchAll($sql, $params);
