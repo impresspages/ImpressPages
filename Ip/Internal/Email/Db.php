@@ -10,7 +10,7 @@ class Db{
 
     public static function getEmail($id)
     {
-        $rs = ipDb()->select('*', 'email_queue', array('id' => $id));
+        $rs = ipDb()->selectAll('*', 'email_queue', array('id' => $id));
         return $rs ? $rs[0] : NULL;
     }
 
@@ -78,7 +78,7 @@ class Db{
 
     public static function getLocked($key)
     {
-        return ipDb()->select('*', 'email_queue', array('lock' => $key));
+        return ipDb()->selectAll('*', 'email_queue', array('lock' => $key));
     }
 
     public static function markSend($key)

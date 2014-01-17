@@ -120,7 +120,7 @@ class Db
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $result ? $result[0] : null;
+            return $result ? $result[0] : array();
         } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
@@ -162,7 +162,7 @@ class Db
      * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function select($fields, $table, $where = array(), $sqlEnd = '')
+    public function selectAll($fields, $table, $where = array(), $sqlEnd = '')
     {
         if (is_array($fields)) {
             $fields = '`' . implode('`,`', $fields) . '`';
@@ -192,6 +192,37 @@ class Db
         }
 
         return $this->fetchAll($sql, $params);
+    }""
+
+    /**
+     * Returns one row.
+     * @see self::selectAll()
+     *
+     * @param $fields
+     * @param $table
+     * @param array $where
+     * @param string $sqlEnd
+     * @return array
+     */
+    public function selectRow($fields, $table, $where = array(), $sqlEnd = '')
+    {
+        $result = $this->selectAll($fields, $table, $where, $sqlEnd . ' LIMIT 1');
+        return $result ? $result[0] : array();
+    }
+
+    /**
+     * @see self::selectAll()
+     *
+     * @param $field
+     * @param $table
+     * @param array $where
+     * @param string $sqlEnd
+     * @return mixed|null
+     */
+    public function selectValue($field, $table, $where = array(), $sqlEnd = '')
+    {
+        $result = $this->selectAll($field, $table, $where, $sqlEnd . ' LIMIT 1');
+        return $result ? array_shift($result[0]) : null;
     }
 
     /**

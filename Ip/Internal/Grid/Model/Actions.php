@@ -59,7 +59,7 @@ class Actions
     {
         $sortField = $this->config->sortField();
 
-        $row = ipDb()->select('row_number', $this->config->rawTableName(), array('id' => $targetId));
+        $row = ipDb()->selectAll('row_number', $this->config->rawTableName(), array('id' => $targetId));
         if (empty($row[0])) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }

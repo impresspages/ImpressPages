@@ -14,7 +14,7 @@ class InstanceModel
 
     public static function getInstance($instanceId)
     {
-        $instances = ipDb()->select('*', 'widget_instance', array('instanceId' => $instanceId));
+        $instances = ipDb()->selectAll('*', 'widget_instance', array('instanceId' => $instanceId));
         if (isset($instances[0])) {
             return $instances[0];
         } else {
