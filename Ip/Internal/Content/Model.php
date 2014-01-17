@@ -113,7 +113,7 @@ class Model
 
     private static function _getPriorities()
     {
-        return ipDb()->select('*', 'm_developer_widget_sort', array(), 'ORDER BY `priority` ASC');
+        return ipDb()->selectAll('*', 'm_developer_widget_sort', array(), 'ORDER BY `priority` ASC');
     }
 
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null)
@@ -301,7 +301,7 @@ class Model
 
     public static function getWidgetRecord($widgetId)
     {
-        $rs = ipDb()->select('*', 'widget', array('widgetId' => $widgetId));
+        $rs = ipDb()->selectAll('*', 'widget', array('widgetId' => $widgetId));
 
         if ($rs) {
             $rs[0]['data'] = json_decode($rs[0]['data'], true);
@@ -338,7 +338,7 @@ class Model
 
     public static function getRevisions($zoneName, $pageId)
     {
-        return ipDb()->select('*', 'revision', array('zoneName' => $zoneName, 'pageId' => $pageId));
+        return ipDb()->selectAll('*', 'revision', array('zoneName' => $zoneName, 'pageId' => $pageId));
     }
 
     public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)

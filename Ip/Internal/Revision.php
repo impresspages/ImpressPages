@@ -161,7 +161,7 @@ class Revision{
            'pageId' => $pageId,
             'zoneName' => $zoneName,
         );
-        $revisions = ipDb()->select('*', 'revision', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
+        $revisions = ipDb()->selectAll('*', 'revision', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
 
         if (!$revisions) {
             return array();

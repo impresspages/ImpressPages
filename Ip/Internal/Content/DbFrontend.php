@@ -14,13 +14,13 @@ class DbFrontend
 
     public static function getPageByUrl($url, $parent)
     {
-        $rs = ipDb()->select('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
+        $rs = ipDb()->selectAll('*', 'page', array('url' => $url, 'parent' => $parent), 'LIMIT 1');
         return $rs ? $rs[0] : null;
     }
 
     public static function getFirstPage($parent)
     {
-        $rs = ipDb()->select('*', 'page', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
+        $rs = ipDb()->selectAll('*', 'page', array('visible' => 1, 'parent' => $parent), ' order by row_number limit 1');
         return $rs ? $rs[0] : null;
     }
 
@@ -41,7 +41,7 @@ class DbFrontend
 
     public static function languageByRootPage($pageId)
     { //returns root element of menu
-        $rs = ipDb()->select('language_id', 'zone_to_page', array('element_id' => $pageId));
+        $rs = ipDb()->selectAll('language_id', 'zone_to_page', array('element_id' => $pageId));
         if (!$rs) {
             return null;
         }
