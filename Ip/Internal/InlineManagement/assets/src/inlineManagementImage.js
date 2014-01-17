@@ -29,7 +29,7 @@
                 }
             });
         },
-        
+
 
         openPopup : function () {
             var $this = this;
@@ -134,7 +134,7 @@
                     options[name] = value;
                 });
 
-                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
+                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsImage');
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('change.ipUploadImage', $.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
@@ -143,10 +143,10 @@
 
             //$.proxy(methods._preview, $this)();
 
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaCancel').bind('click', $.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsCancel').bind('click', $.proxy(methods._cancel, $this));
 
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaRemove').bind('click', $.proxy(methods._removeImage, $this));
+            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsRemove').bind('click', $.proxy(methods._removeImage, $this));
         },
 
         _removeImage : function(event) {
@@ -155,7 +155,7 @@
             var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
 
 
-            if (!confirm($popup.find('.ipaRemoveConfirm').text())) {
+            if (!confirm($popup.find('.ipsRemoveConfirm').text())) {
                 return;
             }
 
@@ -211,16 +211,16 @@
 
             var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
 
-            var $imageUploader = $popup.find('.ipaImage');
+            var $imageUploader = $popup.find('.ipsImage');
 
             var windowHeight = $imageUploader.ipUploadImage('height');
             var windowWidth = $imageUploader.ipUploadImage('width');
 
-            $popup.find('.ipaControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
+            $popup.find('.ipsControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
 
 
             $this.css('width', windowWidth + 'px');
-            $this.css('height', (windowHeight + $popup.find('.ipaControls').height() + 20) + 'px'); //20 - padding
+            $this.css('height', (windowHeight + $popup.find('.ipsControls').height() + 20) + 'px'); //20 - padding
         },
 
         _confirm : function (event) {
@@ -236,14 +236,14 @@
             data.defaultValue = $this.data('ipInlineManagementImage').defaultValue;
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
-            data.type = $popup.find('.ipaType').val();
+            data.type = $popup.find('.ipsType').val();
             data.zoneName = ip.zoneName;
             data.pageId = ip.pageId;
             data.languageId = ip.languageId;
 
 
             //IMAGE
-            var ipUploadImage = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipaImage');
+            var ipUploadImage = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsImage');
 
 
             if (ipUploadImage.ipUploadImage('getCurImage') == undefined) {
