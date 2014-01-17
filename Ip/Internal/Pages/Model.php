@@ -13,7 +13,7 @@ class Model
 
     public static function removeZonePages ($zoneId)
     {
-        $pages = ipDb()->select('*', 'zone_to_page', array('zone_id' => $zoneId));
+        $pages = ipDb()->selectAll('*', 'zone_to_page', array('zone_id' => $zoneId));
         foreach ($pages as $page) {
             Service::deletePage($page['element_id']);
         }
@@ -306,7 +306,7 @@ class Model
 
     public static function deleteZone($zoneName)
     {
-        $zone = ipDb()->select('*', 'zone', array('name' => $zoneName));
+        $zone = ipDb()->selectAll('*', 'zone', array('name' => $zoneName));
         if (isset($zone[0])) {
             $zone = $zone[0];
             ipEvent('ipBeforeZoneDeleted', $zone);
