@@ -156,19 +156,19 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param array|string $fields  list of fields or string. For example array('id', 'name') or '*'.
-     * @param string $table         table name without prefix
-     * @param array  $where         conditional array. For example array('id' => 20)
-     * @param string $sqlEnd        SQL that is appended at the end. For example 'ORDER BY `createdOn` DESC'
+     * @param array|string $columns  list of columns or string. For example array('id', 'name') or '*'.
+     * @param string $table Table name without prefix
+     * @param array  $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function selectAll($fields, $table, $where = array(), $sqlEnd = '')
+    public function selectAll($columns, $table, $where = array(), $sqlEnd = '')
     {
-        if (is_array($fields)) {
-            $fields = '`' . implode('`,`', $fields) . '`';
+        if (is_array($columns)) {
+            $columns = '`' . implode('`,`', $columns) . '`';
         }
 
-        $sql = 'SELECT ' . $fields . ' FROM ' . ipTable($table);
+        $sql = 'SELECT ' . $columns . ' FROM ' . ipTable($table);
 
         $params = array();
         $sql .= ' WHERE ';
@@ -195,34 +195,74 @@ class Db
     }
 
     /**
-     * Returns one row.
+     * Execute SELECT query and return a single row
      * @see self::selectAll()
      *
-     * @param $fields
-     * @param $table
-     * @param array $where
-     * @param string $sqlEnd
+     * @param array|string $columns List of columns as array or string. For example array('id', 'name') or '*'.
+     * @param string $table Table name without prefix
+     * @param array $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function selectRow($fields, $table, $where, $sqlEnd = '')
+    public function selectRow($columns, $table, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($fields, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($columns, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? $result[0] : array();
     }
 
     /**
+     * Execute SELECT query and return a single value
+     *
      * @see self::selectAll()
      *
-     * @param $field
-     * @param $table
-     * @param array $where
-     * @param string $sqlEnd
+     * @param string $column Column name. For example 'id'.
+     * @param string $table Table name without prefix
+     * @param array $where Conditional array. For example array('id' => 20)
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return mixed|null
      */
-    public function selectValue($field, $table, $where, $sqlEnd = '')
+    public function selectValue($column, $table, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($field, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($column, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? array_shift($result[0]) : null;
+    }
+
+    public function selectColumn($column, $table, $where, $sqlEnd = '')
+    {
+        $sql = 'SELECT ' . $column . ' FROM ' . ipTable($table);
+
+        $params = array();
+        $sql .= ' WHERE ';
+        if ($where) {
+            foreach ($where as $column => $value) {
+                if ($value === NULL) {
+                    $sql .= "`{$column}` IS NULL AND ";
+                } else {
+                    $sql .= "`{$column}` = ? AND ";
+                    $params[] = $value;
+                }
+            }
+
+            $sql = substr($sql, 0, -4);
+        } else {
+            $sql .= ' 1 ';
+        }
+
+        if ($sqlEnd) {
+            $sql .= $sqlEnd;
+        }
+
+        try {
+            $query = $this->getConnection()->prepare($sql);
+            foreach ($params as $key => $value) {
+                $query->bindValue($key, $value);
+            }
+
+            $query->execute();
+            return $query->fetchAll(\PDO::FETCH_COLUMN);
+        } catch (\PDOException $e) {
+            throw new DbException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**

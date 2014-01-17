@@ -7,6 +7,7 @@
     "use strict";
 
     // todox: test all functions, may need to move to a global scope
+    // todox: update wizard to follow new logic of content management
     $(document).ready(function() {
         $(document).bind('initFinished.ipContentManagement', ipWizardInit);
     });
