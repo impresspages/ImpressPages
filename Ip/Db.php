@@ -204,7 +204,7 @@ class Db
      * @param string $sqlEnd
      * @return array
      */
-    public function selectRow($fields, $table, $where = array(), $sqlEnd = '')
+    public function selectRow($fields, $table, $where, $sqlEnd = '')
     {
         $result = $this->selectAll($fields, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? $result[0] : array();
@@ -219,7 +219,7 @@ class Db
      * @param string $sqlEnd
      * @return mixed|null
      */
-    public function selectValue($field, $table, $where = array(), $sqlEnd = '')
+    public function selectValue($field, $table, $where, $sqlEnd = '')
     {
         $result = $this->selectAll($field, $table, $where, $sqlEnd . ' LIMIT 1');
         return $result ? array_shift($result[0]) : null;
