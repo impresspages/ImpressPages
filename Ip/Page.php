@@ -221,6 +221,7 @@ class Page{
 
     /**
      * Set page modification date and time
+     * @ignore
      * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
     public function setLastModified($lastModified){$this->lastModified=$lastModified;}

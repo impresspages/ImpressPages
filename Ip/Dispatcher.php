@@ -96,6 +96,7 @@ class Dispatcher
 
     /**
      * Register job listener
+     *
      * @param $name job name
      * @param $callable method name. This method is called by specified job.
      * @param int $priority. Lower number means higher priority. Only the job with highest priority is processed.
@@ -143,7 +144,7 @@ class Dispatcher
     }
 
     /**
-     * Filter value
+     * Filter a value
      *
      * @param $eventName filter Event name
      * @param $value Data for filtering

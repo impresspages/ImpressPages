@@ -16,7 +16,7 @@ class Controller{
 
 
     /**
-     * Do any initialization before actual controller method
+     * A method to execute before any controller action
      */
     public function init() {
     }
