@@ -46,9 +46,12 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
         $addPageSubmit = $page->find('css', '.ipsAddModal .ipsAdd');
         $addPageSubmit->click();
 
-        $session->wait(10000, "typeof $ !== 'undefined' && ip.jQuery('.ipsTree ul li').length > " . $pagesBeforeSubmit );
+        $session->wait(10000, "typeof $ !== 'undefined' && ip.jQuery('.ipsTree ul li').length > " . $pagesBeforeSubmit);
         $lastPageTitle = $session->evaluateScript("return ip.jQuery('.ipsTree ul li:last-child a').text()");
-        $this->assertEquals($pageTitle, substr($lastPageTitle, -strlen($pageTitle))); //stripping some ugly whitespaces from the beginning that can't be removed using trim
+        $this->assertEquals(
+            $pageTitle,
+            substr($lastPageTitle, -strlen($pageTitle))
+        ); //stripping some ugly whitespaces from the beginning that can't be removed using trim
 
         $session->executeScript("ip.jQuery('.ipsTree ul li:last-child a').trigger('click')");
 
