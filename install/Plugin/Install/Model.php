@@ -339,7 +339,7 @@ Sitemap: '. ipFileUrl('sitemap.php');
 
     public static function insertAdmin($user, $pass)
     {
-        $sql = "UPDATE `" .ipDb()->tablePrefix() . "user` SET `name` = ?, `pass` = ? limit 1";
+        $sql = "UPDATE `" .ipDb()->tablePrefix() . "administrator` SET `name` = ?, `pass` = ? limit 1";
         ipDb()->execute($sql, array($user, md5($pass)));
     }
 

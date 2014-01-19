@@ -4,7 +4,7 @@
  *
  *
  */
-namespace Ip\Internal\Config;
+namespace Ip\Internal\Administrators;
 
 
 
