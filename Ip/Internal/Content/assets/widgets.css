@@ -604,6 +604,7 @@ Move to separate stylesheet if invalid CSS is a problem.
     background: url(../img/icon_drag.png) no-repeat;
     height: 58px;
     width: 58px;
+    z-index: 5000;
 }
 
 .ipAdminWidgetPlaceholder {
