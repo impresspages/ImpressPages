@@ -9,5 +9,11 @@ class Model{
         return ipDb()->selectRow('*', 'administrator', array('id' => $id));
     }
 
+    public static function getAll()
+    {
+        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `row_number` desc');
+    }
+
+
 
 }
