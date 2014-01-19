@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
 -- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_module`;
-   
+
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_module` (
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
 
 
 -- Table structure
-  
+
 DROP TABLE IF EXISTS `ip_cms_widget`;
 
 -- Table structure
@@ -334,11 +334,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_user`;
+DROP TABLE IF EXISTS `ip_cms_administrator`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_user` (
+CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `pass` varchar(32) NOT NULL DEFAULT '',
