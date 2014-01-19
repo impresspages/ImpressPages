@@ -7,4 +7,6 @@
             </div>
         </div>
     <?php } ?>
+    <a class="ipsAdd"><?php echo __('Add', 'ipAdmin'); ?></a>
 </div>
+<?php echo $this->subview('addModal.php'); ?>

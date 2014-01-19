@@ -19,7 +19,8 @@ class AdminController extends \Ip\Controller
 
 
 
-        ipAddJs(ipFileUrl('Ip/Internal/Config/assets/config.js'));
+        ipAddCss(ipFileUrl('Ip/Internal/Administrators/assets/administrators.css'));
+        ipAddJs(ipFileUrl('Ip/Internal/Administrators/assets/administrators.js'));
 
         $data = array (
             'administrators' => $administrators
