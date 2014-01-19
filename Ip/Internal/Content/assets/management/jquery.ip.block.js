@@ -80,7 +80,7 @@
                 left: 30, top: 30
             },
             helper : function (e) {
-                return '<div style="width:50px; height: 50px; background-color: blue;"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
+                return '<div class="ipAdminWidgetMoveIcon"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
             },
             start : function (event, ui) {
                 $(event.target).css('visibility', 'hidden');
