@@ -15,14 +15,16 @@ class AdminController extends \Ip\Controller
     public function index()
     {
 
+        $administrators = Model::getAll();
+
+
 
         ipAddJs(ipFileUrl('Ip/Internal/Config/assets/config.js'));
 
-        $form = Forms::getForm();
         $data = array (
-            'form' => $form
+            'administrators' => $administrators
         );
-        return ipView('view/configWindow.php', $data)->render();
+        return ipView('view/layout.php', $data)->render();
 
     }
 }
