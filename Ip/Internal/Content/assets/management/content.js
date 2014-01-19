@@ -42,11 +42,13 @@ var ipContent;
 
 
                     var $columnsWidget = $block.closest('.ipWidget-Columns');
-                    deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
-                        if (callback) {
-                            callback($newWidget.data('widgetinstanceid'));
-                        }
-                    });
+                    if ($columnsWidget.length) {
+                        deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
+                            if (callback) {
+                                callback($newWidget.data('widgetinstanceid'));
+                            }
+                        });
+                    }
                 },
                 dataType : 'json'
             });
@@ -336,6 +338,8 @@ var ipContent;
             data.blockName = block;
             data.revisionId = revisionId;
 
+            var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
+
             $.ajax( {
                 type : 'POST',
                 url : ip.baseUrl,
@@ -357,6 +361,23 @@ var ipContent;
                     }
                     $block.trigger('reinitRequired.ipWidget');
                     $block.find(' > .ipbExampleContent').remove();
+                    $block.removeClass('ipbEmpty');
+
+
+                    //check if we need to remove column from original place
+                    if ($originalBlock.children('.ipWidget').length == 0) {
+                        $originalBlock.addClass('ipbEmpty');
+                    }
+                    var $columnsWidget = $originalBlock.closest('.ipWidget-Columns');
+                    if ($columnsWidget.length) {
+                        deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
+                            if (callback) {
+                                callback(response.newInstanceId);
+                            }
+                            return;
+                        });
+                    }
+
                     if (callback) {
                         callback(response.newInstanceId);
                     }
