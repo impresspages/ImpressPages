@@ -121,7 +121,7 @@ class Model{
         SELECT
             `id`
         FROM
-            " . ipTable('user') . "
+            " . ipTable('administrator') . "
         where
             `name` = :name
             AND

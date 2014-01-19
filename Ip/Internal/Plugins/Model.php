@@ -10,6 +10,7 @@ class Model{
             "Content",
             "Pages",
             "Admin",
+            "Administrators",
             "Design",
             "Plugins",
             "Log",
