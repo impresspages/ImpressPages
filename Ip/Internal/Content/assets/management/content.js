@@ -54,7 +54,7 @@ var ipContent;
 
         var deleteEmptyColumns = function (columnsWidgetInstanceId, callback) {
             var $columnsWidget = $('#ipWidget-' + columnsWidgetInstanceId);
-            var $columns = $columnsWidget.find('> .ipwCol');
+            var $columns = $columnsWidget.find('> .ipsCol');
 
             var $emptyColumns = new Array();
             var $notEmptyColumns = new Array();
