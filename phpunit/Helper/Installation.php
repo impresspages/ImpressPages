@@ -89,7 +89,7 @@ class Installation
         InstallModel::createAndUseDatabase($this->getDbName());
         InstallModel::createDatabaseStructure($this->getDbName(), $this->getDbPrefix());
         InstallModel::importData($this->getDbPrefix());
-        InstallModel::insertAdmin($this->getAdminLogin(), $this->getAdminPass());
+        InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
         InstallModel::setSiteEmail($this->getSiteEmail());
         InstallModel::setSiteName($this->getSiteName());
 

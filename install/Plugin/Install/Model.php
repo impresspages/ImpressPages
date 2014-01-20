@@ -313,9 +313,9 @@ class Model
 
 
 
-    public static function insertAdmin($user, $pass)
+    public static function insertAdmin($user, $email, $pass)
     {
-        \Ip\Internal\Administrators\Service::add($user, '', $pass);
+        \Ip\Internal\Administrators\Service::add($user, $email, $pass);
     }
 
     public static function setSiteName($siteName)
