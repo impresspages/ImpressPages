@@ -19,6 +19,7 @@ class Event
         $Event->generateManagementJS();
         $Event->generateInlineManagementJS();
         $Event->generateIpContent();
+        $Event->generateCoreBootstrap();
     }
 
     protected function generateManagementJS()
@@ -57,11 +58,89 @@ class Event
         $this->minifyJS($items, $jsFile);
     }
 
+    /**
+     * Generate default content styles
+     *
+     * @return none
+     */
     protected function generateIpContent()
     {
-        // regenerate default content styles
-        $lessCompiler = \Ip\Internal\Design\LessCompiler::instance();
-        $lessCompiler->rebuildIpContent();
+
+        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/') . '*.less');
+        if (!$items) {
+            return false;
+        }
+
+        $cssFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
+        $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
+
+        $hasChanged = false;
+
+        foreach ($items as $path) {
+            if (filemtime($path) > $lastBuildTime) {
+                $hasChanged = true;
+                break;
+            }
+        }
+
+        if (!$hasChanged) {
+            return;
+        }
+
+        try {
+            require_once ipFile('Ip/Lib/less.php/Less.php');
+            $parser = new \Less_Parser(array('relativeUrls' => false));
+            $parser->parseFile(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
+            $css = $parser->getCss();
+            file_put_contents($cssFile, $css);
+        } catch(Exception $e) {
+            ipLog()->error('Less compilation error: IpContent - ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Generate core Bootstrap styles
+     *
+     * @return none
+     */
+    protected function generateCoreBootstrap()
+    {
+        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/bootstrap/less/') . '*.less');
+        if (!$items) {
+            return false;
+        }
+
+        $cssTempFile = ipFile('Ip/Internal/Ip/assets/bootstrap/less/bootstrap.temp.less');
+        $lastBuildTime = file_exists($cssTempFile) ? filemtime($cssTempFile) : 0;
+
+        $hasChanged = false;
+
+        foreach ($items as $path) {
+            if (filemtime($path) > $lastBuildTime) {
+                $hasChanged = true;
+                break;
+            }
+        }
+
+        if (!$hasChanged) {
+            return;
+        }
+
+        try {
+            require_once ipFile('Ip/Lib/less.php/Less.php');
+            $parserTemp = new \Less_Parser(array('relativeUrls' => false));
+            $parserTemp->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/less/bootstrap.less'));
+            $cssTemp = $parserTemp->getCss();
+            file_put_contents($cssTempFile, $cssTemp);
+
+            $parser = new \Less_Parser(array('relativeUrls' => false));
+            $cssFile = ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.css');
+            $parser->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.less'));
+            $css = $parser->getCss();
+            file_put_contents($cssFile, $css);
+        } catch(Exception $e) {
+            ipLog()->error('Less compilation error: Core Bootstrap - ' . $e->getMessage());
+        }
     }
 
     protected function minifyJS($filesToMinify, $fileForOutput, $force = false)
