@@ -7,7 +7,7 @@
 <?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
-    <?php ipAddCss(ipThemeUrl('assets/theme.css')); ?>
+    <?php ipAddCss('assets/theme.css'); ?>
     <?php echo ipHead(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
