@@ -38,7 +38,7 @@ class Config
                 $this->rawConfig['BASE_URL'].= ":".$server["SERVER_PORT"];
             }
 
-            $baseUrl = dirname($server['SCRIPT_NAME']);
+            $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
             if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
                 throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in config.php');
             }
