@@ -152,15 +152,6 @@ class Model
         }
         $requirements[] = $check;
 
-        $check = array();
-        $check['name'] = '<b>/robots.txt</b> ' . __('writable', 'Install');
-        if (!is_writable(ipFile('robots.txt'))) {
-            $check['type'] = 'error';
-            $error['writable_robots'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
 
         $answer .= Helper::generateTable($requirements);
 
@@ -320,21 +311,6 @@ class Model
         return preg_replace('/([\r\n]+)/', '$1      ', $string);
     }
 
-    public static function writeRobotsFile($filename)
-    {
-        $content =
-'User-agent: *
-Disallow: /ip_configs/
-Disallow: /update/
-Disallow: /install/
-Disallow: /admin.php
-Disallow: /config.php
-Disallow: /ip_license.html
-Disallow: /readme.md
-Sitemap: '. ipFileUrl('sitemap.php');
-
-        file_put_contents($filename, $content);
-    }
 
 
     public static function insertAdmin($user, $pass)

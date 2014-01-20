@@ -325,11 +325,6 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
 
-        try {
-            Model::writeRobotsFile(ipFile('robots.txt'));
-        } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'Install', false));
-        }
 
 
         try {
