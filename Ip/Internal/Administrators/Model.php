@@ -14,6 +14,12 @@ class Model{
         return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `row_number` desc');
     }
 
+
+    public static function getByUsername($username)
+    {
+        return ipDb()->selectRow('*', 'administrator', array('name' => $username));
+    }
+
     public static function addAdministrator($username, $email, $password)
     {
         $data = array(
@@ -24,6 +30,11 @@ class Model{
         ipDb()->insert('administrator', $data);
     }
 
+    public static function checkPassword($userId, $password)
+    {
+        $user = self::get($userId);
+        return self::checkHash($password, $user['pass']);
+    }
 
     private static function passwordHash($password)
     {
@@ -36,7 +47,7 @@ class Model{
     {
         $hasher = new PasswordHash(8, FALSE);
         $hasher->CheckPassword($password, $storedHash);
-        return $hasher->HashPassword($password);
+        return $hasher->CheckPassword($password, $storedHash);
     }
 
 }
