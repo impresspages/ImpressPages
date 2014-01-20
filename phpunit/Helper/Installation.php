@@ -108,7 +108,6 @@ class Installation
         );
 
         InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'config.php');
-        InstallModel::writeRobotsFile($this->getInstallationDir() . 'robots.txt');
 
         $this->installed = true;
 
@@ -164,10 +163,10 @@ class Installation
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
+
         $answer = curl_exec($ch);
 
-        
+
 
         // RUN CRON
         curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'/ip_cron.php');
@@ -190,7 +189,7 @@ class Installation
 
 
         $this->installed = true;
-        
+
     }
 
 
@@ -203,7 +202,7 @@ class Installation
         $fs = new \IpUpdate\Library\Helper\FileSystem();
         $fs->rm($this->getInstallationDir());
     }
-    
+
     public function setupUpdate($destinationVersion = null)
     {
         if (!$this->isInstalled()) {
@@ -286,9 +285,9 @@ class Installation
             throw new \Exception("Version ".$version." package does not exist");
         }
     }
-    
+
     /**
-     * 
+     *
      * @param string $key configuration value constant
      */
     public function getConfig($key)
@@ -299,7 +298,7 @@ class Installation
         }
         return $this->cf[$key];
     }
-    
+
     /**
      * Return MySQL connection to the database
      */
@@ -366,12 +365,12 @@ class Installation
     {
         $this->dbPrefix = $dbPrefix;
     }
-    
+
     public function setAdminLogin($adminLogin)
     {
         $this->adminLogin = $adminLogin;
     }
-    
+
     public function setAdminPass($adminPass)
     {
         $this->adminPass = $adminPass;
@@ -497,7 +496,7 @@ class Installation
             'favicon.ico',
             'index.php',
             'config.php',
-            'ip_license.html',
+            'license.html',
             'readme.md',
             'robots.txt',
             '.htaccess'

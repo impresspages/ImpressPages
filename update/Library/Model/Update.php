@@ -12,7 +12,7 @@ class Update
 {
 
     private $cf;
-    
+
     const STEP_START = 0;
     const STEP_DOWNLOAD_PACKAGE = 1;
     const STEP_CLOSE_WEBSITE = 2;
@@ -21,33 +21,33 @@ class Update
     const STEP_WRITE_NEW_FILES = 5;
     const STEP_PUBLISH_WEBSITE = 6;
     const STEP_FINISH = 7;
-    
+
     const UPDATE_SCRIPT_VERSION = '4.0';
-    
-    
+
+
     /**
      * @var \IpUpdate\Library\Model\TempStorage
      */
     private $tempStorage;
-    
+
     /**
-     * 
+     *
      * @var \IpUpdate\Library\Migration\General
      */
     private $destinationScript;
-    
+
     /**
-     * 
+     *
      * @var \IpUpdate\Library\Helper\FileSystem
      */
     private $fs;
-    
+
     public function __construct($config)
     {
         $this->cf = $config;
-        $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/'); 
+        $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
         $this->fs = new \IpUpdate\Library\Helper\FileSystem();
-        
+
         $updateModel = new \IpUpdate\Library\Model\Migration();
         $this->destinationScript = $updateModel->getDestinationScript($this->getCurrentVersion());
     }
@@ -65,7 +65,7 @@ class Update
             WHERE
                 `name` = :name
         ';
-        
+
         $params = array (
             ':name' => 'version'
         );
@@ -79,9 +79,9 @@ class Update
             throw new \IpUpdate\Library\UpdateException("Can't find installation version ".$sql, \IpUpdate\Library\UpdateException::SQL);
         }
     }
-    
+
     /**
-     * 
+     *
      * @param int $destinationStep - step after which script should terminate
      * @throws \IpUpdate\Library\UpdateException
      * @throws \IpUpdate\Library\Options
@@ -94,20 +94,20 @@ class Update
         }
 
         if ($this->tempStorage->exist('inProgress')) {
-            //existing inProgress variable means that some step is in progress at the moment or has failed. 
+            //existing inProgress variable means that some step is in progress at the moment or has failed.
             throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS);
         }
-        
+
         if (!$this->tempStorage->exist('version')) {
             $this->tempStorage->setValue('curStep', self::STEP_START);
             $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
         }
-        
+
         if ($this->tempStorage->getValue('version') != self::UPDATE_SCRIPT_VERSION) {
             //if script version value is wrong, some other script is executing the update. Should be very rare case.
             throw new \IpUpdate\Library\UpdateException("Update is in progress", \IpUpdate\Library\UpdateException::IN_PROGRESS);
         }
-        
+
         if ($this->tempStorage->getValue('version') === false) {
             $this->tempStorage->setValue('curStep', self::STEP_START);
             $this->tempStorage->setValue('version', self::UPDATE_SCRIPT_VERSION);
@@ -145,9 +145,9 @@ class Update
                     case self::STEP_FINISH:
                             $this->stepFinish($options);
                         break;
-                        
+
                     default:
-                        
+
                         throw new \IpUpdate\Library\Exception("Unknown update state.");
                         break;
                 }
@@ -158,21 +158,21 @@ class Update
             $this->tempStorage->remove('inProgress');
             throw $e;
         }
-        
+
         $this->tempStorage->remove('inProgress');
     }
-    
+
     public function resetLock()
     {
         $this->cleanUp();
     }
-    
-    
+
+
     private function stepStart(\IpUpdate\Library\Options $options = null)
     {
         //do nothing
     }
-    
+
     private function stepDownloadPackage(\IpUpdate\Library\Options $options = null)
     {
         if ($options && $options->ignoreFiles()) {
@@ -198,7 +198,7 @@ class Update
             throw new \IpUpdate\Library\UpdateException("Downloaded archive doesn't mach md5 checksum", \IpUpdate\Library\UpdateException::WRONG_CHECKSUM);
         }
     }
-    
+
     private function stepCloseWebsite(\IpUpdate\Library\Options $options = null)
     {
         if ($options && $options->ignoreFiles()) {
@@ -221,7 +221,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
 
     }
-    
+
     private function stepRemoveOldFiles(\IpUpdate\Library\Options $options = null)
     {
 
@@ -232,7 +232,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         if (file_exists($this->cf['BASE_DIR'].'install') || is_dir($this->cf['BASE_DIR'].'install')) {
             $this->fs->rm($this->cf['BASE_DIR'].'install');
         }
-        
+
         $replaceFolders = $this->getFoldersToReplace();
         $replaceFiles = $this->getFilesToReplace();
         foreach($replaceFolders as $folder) {
@@ -258,19 +258,19 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         }
 
     }
-    
-    
+
+
     private function stepRunMigrations(\IpUpdate\Library\Options $options = null)
     {
         $updateModel = new \IpUpdate\Library\Model\Migration();
         $scripts = $updateModel->getScriptsFromVersion($this->getCurrentVersion());
-        
+
         foreach ($scripts as $script) {
             $script->process($this->cf);
         }
-        
+
     }
-    
+
     private function stepWriteNewFiles(\IpUpdate\Library\Options $options = null)
     {
         if ($options && $options->ignoreFiles()) {
@@ -309,7 +309,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             copy($extractedPath.$file, $this->cf['BASE_DIR'].$file);
         }
     }
-    
+
     private function stepPublishWebsite(\IpUpdate\Library\Options $options = null)
     {
         if ($options && $options->ignoreFiles()) {
@@ -319,14 +319,14 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         unlink($this->cf['BASE_DIR'].'index.php');
         copy($extractedPath.'index.php', $this->cf['BASE_DIR'].'index.php');
     }
-    
+
     private function stepFinish(\IpUpdate\Library\Options $options = null)
     {
         $this->cleanUp();
         $this->setVersion($this->destinationScript->getDestinationVersion());
         $this->increaseCacheNumber();
     }
-    
+
     private function cleanUp()
     {
         $this->tempStorage->remove('inProgress');
@@ -334,44 +334,44 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->tempStorage->remove('version');
         $this->fs->clean($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
     }
-    
-    private function getFoldersToReplace() 
+
+    private function getFoldersToReplace()
     {
         return array (
             'Ip/'
         );
     }
-    
+
     private function getFilesToReplace()
     {
         return array (
-            'ip_license.html',
+            'license.html',
             'sitemap.php',
             $this->cf['FILE_DIR'].'.htaccess',
             $this->cf['FILE_DIR'].'secure/.htaccess'
         );
     }
-    
+
     private function getNewArchivePath()
     {
         $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/';
         $this->fs->createWritableDir($dir);
         return $dir.'ImpressPages.zip';
     }
-    
+
     private function getExtactedNewArchivePath()
     {
         $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
         return $dir;
-    }  
+    }
 
     public function getSubdir($version)
     {
         return 'ImpressPages';
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param string $version
      * @throws Exception
      */
@@ -384,18 +384,18 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             UPDATE
                 ' . ipTable('variables') . '
             SET
-                `value` = :version 
+                `value` = :version
             WHERE
                 `name` = :name
         ';
-        
+
         $params = array (
             ':version' => $version,
             ':name' => 'version'
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-        
+
         if ($this->getCurrentVersion() != $version){
             throw new \IpUpdate\Library\UpdateException("Can't update system version to: ".$version, \IpUpdate\Library\UpdateException::UNKNOWN);
         }
