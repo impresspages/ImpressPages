@@ -84,7 +84,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'login', //html "name" attribute
+                'name' => 'username', //html "name" attribute
                 'label' => __('Username or email', 'ipAdmin')
             ));
         $field->addValidator('Required');

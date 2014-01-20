@@ -3,6 +3,29 @@ namespace Ip\Internal\Admin;
 
 class SiteController extends \Ip\Controller{
 
+    public function login()
+    {
+        if (\Ip\Internal\Admin\Backend::userId()) {
+            //user has already been logged in
+            \Ip\Internal\Content\Service::setManagementMode(1);
+            return new \Ip\Response\Redirect(ipHomeUrl());
+        }
+
+
+        if (ipRequest()->getQuery('resetPassword', 0)) {
+            $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
+            ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/passwordReset.js'));
+        } else {
+            $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
+            ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
+        }
+        $response = ipResponse();
+        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayoutVariable('content', $content);
+
+        return $response;
+    }
+
     public function loginAjax()
     {
 
@@ -47,10 +70,10 @@ class SiteController extends \Ip\Controller{
 
         ipRequest()->mustBePost();
 
-        $validateForm = FormHelper::getPasswordResetForm()Form();
+        $validateForm = FormHelper::getPasswordResetForm();
         $errors = $validateForm->validate(ipRequest()->getPost());
 
-        $username = ipRequest()->getPost('login');
+        $username = ipRequest()->getPost('username');
 
         if (empty($errors)) {
             $user = \Ip\Internal\Administrators\Service::getByEmail($username);
@@ -73,6 +96,7 @@ class SiteController extends \Ip\Controller{
         } else {
             $answer = array(
                 'status' => 'error',
+                'errors' => $errors
             );
         }
 
@@ -91,26 +115,7 @@ class SiteController extends \Ip\Controller{
         return new \Ip\Response\Json(array());
     }
 
-    public function login()
-    {
-        if (\Ip\Internal\Admin\Backend::userId()) {
-            //user has already been logged in
-            \Ip\Internal\Content\Service::setManagementMode(1);
-            return new \Ip\Response\Redirect(ipHomeUrl());
-        }
 
-
-        if (ipRequest()->getQuery('resetPassword', 0)) {
-            $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
-        } else {
-            $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
-        }
-        $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
-        $response->setLayoutVariable('content', $content);
-        ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
-        return $response;
-    }
 
 
 }
