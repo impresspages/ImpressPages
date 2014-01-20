@@ -790,10 +790,10 @@ function ipStorage()
 // TODOX move to internal
 function ipRelativeDir($callLevel = 0)
 {
-    if (defined('DEBUG_BACKTRACE_IGNORE_ARGS')) {
+    if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $callLevel + 1);
     } else {
-        $backtrace = debug_backtrace(false);
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
     }
 
     if (!isset($backtrace[$callLevel]['file'])) {
