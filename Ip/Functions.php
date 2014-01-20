@@ -132,7 +132,31 @@ function ipCurrentPage()
  */
 function ipAddJs($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addJavascript($file, $attributes, $priority);
+    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+        $absoluteUrl = $file;
+    } else {
+        if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+            $relativePath = $file;
+        } else {
+            $relativePath = ipRelativeDir(1) . $file;
+        }
+
+        if (strpos($relativePath, 'Plugin/') === 0) {
+            $overridePath = substr($relativePath, 7);
+        } else {
+            $overridePath = $relativePath;
+        }
+
+        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+
+        if (is_file($fileInThemeDir)) {
+            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+        } else {
+            $absoluteUrl = ipFileUrl($relativePath);
+        }
+    }
+
+    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
 }
 
 /**
@@ -154,7 +178,31 @@ function ipAddJsVariable($name, $value)
  */
 function ipAddCss($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addCss($file, $attributes, $priority);
+    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+        $absoluteUrl = $file;
+    } else {
+        if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+            $relativePath = $file;
+        } else {
+            $relativePath = ipRelativeDir(1) . $file;
+        }
+
+        if (strpos($relativePath, 'Plugin/') === 0) {
+            $overridePath = substr($relativePath, 7);
+        } else {
+            $overridePath = $relativePath;
+        }
+
+        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+
+        if (is_file($fileInThemeDir)) {
+            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+        } else {
+            $absoluteUrl = ipFileUrl($relativePath);
+        }
+    }
+
+    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
 }
 
 /**
@@ -739,6 +787,7 @@ function ipStorage()
     return \Ip\ServiceLocator::storage();
 }
 
+// TODOX move to internal
 function ipRelativeDir($callLevel = 0)
 {
     if (defined('DEBUG_BACKTRACE_IGNORE_ARGS')) {
