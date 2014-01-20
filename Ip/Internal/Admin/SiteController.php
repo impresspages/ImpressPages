@@ -8,7 +8,7 @@ class SiteController extends \Ip\Controller{
 
         ipRequest()->mustBePost();
 
-        $validateForm = $this->getLoginForm();
+        $validateForm = FormHelper::getLoginForm();
         $errors = $validateForm->validate(ipRequest()->getPost());
 
         $username = ipRequest()->getPost('login');
@@ -42,6 +42,44 @@ class SiteController extends \Ip\Controller{
         }
     }
 
+    public function passwordResetAjax()
+    {
+
+        ipRequest()->mustBePost();
+
+        $validateForm = FormHelper::getPasswordResetForm()Form();
+        $errors = $validateForm->validate(ipRequest()->getPost());
+
+        $username = ipRequest()->getPost('login');
+
+        if (empty($errors)) {
+            $user = \Ip\Internal\Administrators\Service::getByEmail($username);
+            if (!$user) {
+                $user = \Ip\Internal\Administrators\Service::getByUsername($username);
+            }
+
+            if ($user) {
+                \Ip\Internal\Administrators\Service::resetPassword($user['id']);
+            } else {
+                $errors['username'] = __('Following administrator doesn\'t exist', 'ipAdmin', FALSE);
+            }
+
+        }
+
+        if (empty($errors)) {
+            $answer = array(
+                'status' => 'success',
+            );
+        } else {
+            $answer = array(
+                'status' => 'error',
+            );
+        }
+
+        $response =  new \Ip\Response\Json($answer);
+        return $response;
+    }
+
     public function logout()
     {
         Model::instance()->logout();
@@ -62,64 +100,17 @@ class SiteController extends \Ip\Controller{
         }
 
 
+        if (ipRequest()->getQuery('resetPassword', 0)) {
+            $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
+        } else {
+            $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
+        }
         $response = ipResponse();
         $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
-        $content = ipView('view/login.php', array('loginForm' => $this->getLoginForm()));
         $response->setLayoutVariable('content', $content);
         ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
         return $response;
     }
 
-    protected function getLoginForm()
-    {
-        //create form object
-        $form = new \Ip\Form();
 
-        //add text field to form object
-        $field = new \Ip\Form\Field\Hidden(
-            array(
-                'name' => 'sa',
-                'value' => 'Admin.loginAjax', //html "name" attribute
-            ));
-        $form->addfield($field);
-
-
-        //add text field to form object
-        $field = new \Ip\Form\Field\Blank(
-            array(
-                'name' => 'global_error',
-            ));
-        $form->addfield($field);
-
-        //add text field to form object
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'login', //html "name" attribute
-                'label' => __('Name', 'ipAdmin')
-            ));
-        $field->addValidator('Required');
-        $form->addField($field);
-
-        //add text field to form object
-        $field = new \Ip\Form\Field\Password(
-            array(
-                'name' => 'password', //html "name" attribute
-                'label' => __('Password', 'ipAdmin')
-            ));
-        $field->addValidator('Required');
-        $form->addField($field);
-
-
-        //add text field to form object
-        $field = new \Ip\Form\Field\Submit(
-            array(
-                'value' => __('Login', 'ipAdmin')
-            ));
-        $field->addClass('ipsLoginButton');
-        $form->addField($field);
-
-
-
-        return $form;
-    }
 }
