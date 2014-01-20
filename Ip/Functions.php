@@ -132,7 +132,7 @@ function ipCurrentPage()
  */
 function ipAddJs($file, $attributes = null, $priority = 50)
 {
-    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+    if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
     } else {
         if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
@@ -141,19 +141,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
             $relativePath = ipRelativeDir(1) . $file;
         }
 
-        if (strpos($relativePath, 'Plugin/') === 0) {
-            $overridePath = substr($relativePath, 7);
-        } else {
-            $overridePath = $relativePath;
-        }
-
-        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-
-        if (is_file($fileInThemeDir)) {
-            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-        } else {
-            $absoluteUrl = ipFileUrl($relativePath);
-        }
+        $absoluteUrl = ipFileUrl($relativePath);
     }
 
     \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
@@ -178,7 +166,7 @@ function ipAddJsVariable($name, $value)
  */
 function ipAddCss($file, $attributes = null, $priority = 50)
 {
-    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+    if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
     } else {
         if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
@@ -187,19 +175,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
             $relativePath = ipRelativeDir(1) . $file;
         }
 
-        if (strpos($relativePath, 'Plugin/') === 0) {
-            $overridePath = substr($relativePath, 7);
-        } else {
-            $overridePath = $relativePath;
-        }
-
-        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-
-        if (is_file($fileInThemeDir)) {
-            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-        } else {
-            $absoluteUrl = ipFileUrl($relativePath);
-        }
+        $absoluteUrl = ipFileUrl($relativePath);
     }
 
     \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
