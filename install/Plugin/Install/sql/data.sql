@@ -80,10 +80,6 @@ INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'themeChanged', '0'),
 ('Ip', 'cacheVersion', '1');
 
--- Dumping data for table--
-
-INSERT INTO `ip_cms_administrator` (`id`, `name`, `pass`, `wrong_logins`, `blocked`, `e_mail`, `row_number`) VALUES
-(8, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0, 0, '', 0);
 
 -- Dumping data for table--
 
