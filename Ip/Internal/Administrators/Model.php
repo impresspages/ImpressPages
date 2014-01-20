@@ -11,21 +11,21 @@ class Model{
 
     public static function getAll()
     {
-        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `row_number` desc');
+        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` desc');
     }
 
 
     public static function getByUsername($username)
     {
-        return ipDb()->selectRow('*', 'administrator', array('name' => $username));
+        return ipDb()->selectRow('*', 'administrator', array('username' => $username));
     }
 
     public static function addAdministrator($username, $email, $password)
     {
         $data = array(
-            'name' => $username,
-            'e_mail' => $email,
-            'pass' => self::passwordHash($password)
+            'username' => $username,
+            'email' => $email,
+            'hash' => self::passwordHash($password)
         );
         ipDb()->insert('administrator', $data);
     }
@@ -33,7 +33,7 @@ class Model{
     public static function checkPassword($userId, $password)
     {
         $user = self::get($userId);
-        return self::checkHash($password, $user['pass']);
+        return self::checkHash($password, $user['hash']);
     }
 
     private static function passwordHash($password)

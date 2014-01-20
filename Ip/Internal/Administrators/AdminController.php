@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
 
     }
 
-    public function addAdministrator()
+    public function add()
     {
         ipRequest()->mustBePost();
         $post = ipRequest()->getPost();
@@ -63,14 +63,14 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function deleteAdministrator()
+    public function delete()
     {
 
 
 
     }
 
-    public function updateAdministrator()
+    public function update()
     {
 
     }
