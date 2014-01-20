@@ -346,7 +346,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   `blocked` tinyint(1) NOT NULL DEFAULT '0',
   `e_mail` varchar(255) NOT NULL DEFAULT '',
   `row_number` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure
