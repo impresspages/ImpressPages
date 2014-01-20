@@ -24,26 +24,14 @@ class View
     private $doctype;
 
     /**
-     * Construct a view object using specified file and data.
-     * @param string $file Path to view file. Relative to file where this constructor is executed from.
-     * @param array $data Array of data to pass to view
-     */
-    public static function create($file, $data = array()) {
-        $foundFile = self::findFile($file);
-        self::checkData($data);
-
-        return new \Ip\View($foundFile, $data);
-    }
-
-
-
-    /**
      * Construct view object using specified file and data.
      * @internal
      * @param string $file Path to view file. Relative to file where this constructor is executed from.
      * @param array $data Array of data to pass to view
      */
-    private function __construct($file, $data = array()) {
+    public function __construct($file, $data = array())
+    {
+        self::checkData($data);
         $this->file = $file;
         $this->data = $data;
         $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
@@ -60,13 +48,14 @@ class View
      * @return View
      */
     public function subview($file, $variables = null) {
-        $foundFile = self::findFile($file);
+
         if ($variables === null) {
             $variables = $this->getVariables();
         }
-        self::checkData($variables);
-        $view = new \Ip\View($foundFile, $variables);
+
+        $view = ipView($file, $variables, 1);
         $view->setDoctype($this->getDoctype());
+
         return $view;
     }
 
@@ -189,101 +178,12 @@ class View
         return $this->doctype;
     }
     
-
-    
-    protected static function getCallerFile($backtraceLevel = 1)
-    {
-
-    }
-
-    protected static function getIpRelativePath($absoluteFilename)
-    {
-        $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
-        if ($overrides) {
-            foreach ($overrides as $relativePath => $fullPath) {
-                if (strpos($absoluteFilename, $fullPath) === 0) {
-                    return substr_replace($absoluteFilename, $relativePath, 0, strlen($fullPath));
-                }
-            }
-        }
-
-        $baseDir = ipConfig()->getRaw('BASE_DIR');
-        $baseDir = str_replace('\\', '/', $baseDir); // Compatibility with Windows
-        if (strpos($absoluteFilename, $baseDir) !== 0) {
-            throw new \Ip\Exception('Cannot find relative path for file ' . $absoluteFilename);
-        }
-
-        return substr($absoluteFilename, strlen($baseDir) + 1);
-    }
-
-    /**
-     * @param $file relative, absolute, Ip/ or Plugin/
-     * @return mixed|string
-     * @throws Exception
-     */
-    private static function findFile($file) {
-        //make $file absolute
-        if ($file[0] == '/' || $file[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
-            $absoluteFile = $file;
-        } else {
-            $backtrace = debug_backtrace();
-            if(!isset($backtrace[1]['file']) || !isset($backtrace[1]['line'])) {
-                throw new \Ip\Exception\View("Can't find caller");
-            }
-
-            if (basename($backtrace[1]['file']) == 'Functions.php') {
-                if(!isset($backtrace[2]['file']) || !isset($backtrace[2]['line'])) {
-                    throw new \Ip\Exception\View("Can't find caller");
-                }
-                $absoluteFile = dirname($backtrace[2]['file']) . '/' . $file;
-
-            } else {
-                $absoluteFile = dirname($backtrace[1]['file']) . '/' . $file;
-            }
-        }
-
-        if (DIRECTORY_SEPARATOR == '\\') {
-            // Replace windows paths
-            $absoluteFile = str_replace('\\', '/', $absoluteFile);
-        }
-
-        $relativeFile = static::getIpRelativePath($absoluteFile);
-
-        if (strpos($relativeFile, 'Plugin/') === 0) {
-            $overrideFile = substr($relativeFile, 7);
-        } else {
-            $overrideFile = $relativeFile;
-        }
-
-        $fileInThemeDir = ipThemeFile(self::OVERRIDE_DIR . '/' . $overrideFile);
-
-        if (is_file($fileInThemeDir)) {
-            //found file in theme.
-            return $fileInThemeDir;
-        }
-
-        if (is_file($absoluteFile)) {
-            return $absoluteFile;
-        } else {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
-                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' )';
-            } else {
-                $source = '';
-            }
-            throw new \Ip\Exception\View('Can\'t find view file \''.$file. '\' ' . $source);
-        }
-    }
-
-
     /**
      * Get theme option. Options can be viewed or set using UI via Theme options dialog box.
      * @param $name
      * @param null $default
      * @return string
      */
-
-
     public function getThemeOption($name, $default = null)
     {
         $themeService = \Ip\Internal\Design\Service::instance();
