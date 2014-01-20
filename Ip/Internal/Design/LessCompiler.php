@@ -40,11 +40,11 @@ class LessCompiler
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
-            $parser = new \Less_Parser();
-            $themeDir = rtrim(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/'), '/');
+            $parser = new \Less_Parser(array('relativeUrls' => false));
+            $themeDir = rtrim(ipFile('Theme/' . $themeName . '/assets/'), '/');
             $directories = array(
-                $themeDir => 'Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/',
-                ipFile('Ip/Internal/Ip/assets/css/ipContent') => 'Ip/Internal/Ip/assets/css/ipContent'
+                $themeDir => '',
+                ipFile('Ip/Internal/Ip/assets/css/ipContent') => ''
             );
             $parser->SetImportDirs($directories);
             $parser->parse('@ipContentDir: \'less/ipContent\';');
@@ -54,6 +54,7 @@ class LessCompiler
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
+        $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         return $css;
     }
 
