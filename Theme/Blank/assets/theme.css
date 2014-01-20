@@ -1,4 +1,6 @@
-/* Edit theme.less, not this file. */ .clear {
+/* Edit theme.less, not this file. */
+.clear {
+  /* http://sonspring.com/journal/clearing-floats */
   clear: both;
   display: block;
   height: 0;
@@ -7,6 +9,11 @@
   width: 0;
 }
 .clearfix {
+  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
   zoom: 1;
 }
 .clearfix:before,
@@ -30,14 +37,14 @@ body {
   padding: 0;
 }
 .caption {
-  color: #000;
+  color: #000000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .signature {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -48,19 +55,19 @@ body {
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000;
+  color: #000000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -69,8 +76,13 @@ body {
   text-decoration: none;
 }
 .ipWidget {
+  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
   zoom: 1;
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   margin-bottom: 20px;
@@ -113,14 +125,14 @@ body {
   margin-bottom: 0;
 }
 .ipWidget .caption {
-  color: #000;
+  color: #000000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .ipWidget .signature {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -131,19 +143,19 @@ body {
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000;
+  color: #000000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .ipWidget .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -152,32 +164,32 @@ body {
   text-decoration: none;
 }
 .ipWidget h1 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 36px;
 }
 .ipWidget h2 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 30px;
 }
 .ipWidget h3 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
 }
 .ipWidget ul {
   list-style-position: inside;
   list-style-type: square;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .ipWidget ol {
   list-style-position: inside;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .ipWidget p {
   line-height: 1.5;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .ipWidget ul ul,
 .ipWidget ol ol {
@@ -187,9 +199,9 @@ body {
   line-height: 1.5;
   margin-bottom: 5px;
 }
-.ipWidget p+ul,
-.ipWidget p+ol {
-  margin-top: -1em;
+.ipWidget p + ul,
+.ipWidget p + ol {
+  margin-top: -0.5em;
 }
 .ipWidget a {
   color: #019bd4;
@@ -200,7 +212,7 @@ body {
 }
 .ipWidget table {
   border-collapse: collapse;
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
@@ -220,7 +232,7 @@ body {
   font-size: 14px;
   font-weight: bold;
 }
-.ipWidget thead+tbody tr:first-child td {
+.ipWidget thead + tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
@@ -231,6 +243,35 @@ body {
 .ipWidget ul:last-child,
 .ipWidget ol:last-child {
   margin-bottom: 0;
+}
+.ipModuleForm {
+  /*!
+    * Bootstrap v3.0.2
+    *
+    * Copyright 2013 Twitter, Inc
+    * Licensed under the Apache License v2.0
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Designed and built with all the love in the world @twitter by @mdo and @fat.
+    *
+    */
+  /*
+    .ipmFileContainer {
+        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
+            width: 0;
+            height: 0;
+            overflow: hidden;
+
+            input { // margins on input makes error message to appear lower than it should
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .ipmFile {
+
+    }
+    */
 }
 .ipModuleForm input,
 .ipModuleForm button,
@@ -247,7 +288,7 @@ body {
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 .ipModuleForm fieldset {
@@ -280,6 +321,7 @@ body {
 .ipModuleForm input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
+  /* IE8-9 */
   line-height: normal;
 }
 .ipModuleForm input[type="file"] {
@@ -322,17 +364,17 @@ body {
   display: block;
   width: 100%;
   padding: 0.5em;
-  color: #777;
+  color: #777777;
   vertical-align: middle;
-  background-color: #fff;
+  background-color: #ffffff;
   background-image: none;
   border: 1px solid #747474;
   border-radius: 3px;
 }
 .ipModuleForm .form-control:focus {
-  background-color: #fff;
-  border-color: #000;
-  color: #000;
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #000000;
 }
 .ipModuleForm .form-control:-moz-placeholder {
   color: #999999;
@@ -359,6 +401,11 @@ body {
 .ipModuleForm .form-group {
   margin-bottom: 20px;
   position: relative;
+  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
   zoom: 1;
 }
 .ipModuleForm .form-group:before,
@@ -441,8 +488,8 @@ body {
 }
 .ipModuleForm .has-error .form-control {
   border-color: #b80000;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .ipModuleForm .form-control-static {
   margin-bottom: 0;
@@ -492,7 +539,9 @@ body {
 .ipModuleForm .form-horizontal .form-group:before,
 .ipModuleForm .form-horizontal .form-group:after {
   content: " ";
+  /* 1 */
   display: table;
+  /* 2 */
 }
 .ipModuleForm .form-horizontal .form-group:after {
   clear: both;
@@ -529,7 +578,7 @@ body {
   background: #019bd4;
   border: none;
   border-radius: 3px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
@@ -545,8 +594,8 @@ body {
   overflow: hidden;
   background-color: #f5f5f5;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .ipModuleForm .progress-bar {
   float: left;
@@ -556,17 +605,17 @@ body {
   color: #ffffff;
   text-align: center;
   background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
-  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .ipModuleForm .progress-striped .progress-bar {
   background-color: #428bca;
-  background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));
-  background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
-  background-image: -moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
-  background-image: linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ipModuleForm .progress.active .progress-bar {
@@ -629,8 +678,8 @@ body {
   background-color: #a7a7a7;
   border: 1px solid #747474;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   max-width: 380px;
   position: relative;
 }
@@ -702,12 +751,17 @@ body {
   display: none !important;
 }
 .mceContentBody {
+  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
   zoom: 1;
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   margin-bottom: 20px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 .mceContentBody:before,
 .mceContentBody:after {
@@ -747,14 +801,14 @@ body {
   margin-bottom: 0;
 }
 .mceContentBody .caption {
-  color: #000;
+  color: #000000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .mceContentBody .signature {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -765,19 +819,19 @@ body {
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000;
+  color: #000000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .mceContentBody .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -786,32 +840,32 @@ body {
   text-decoration: none;
 }
 .mceContentBody h1 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 36px;
 }
 .mceContentBody h2 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 30px;
 }
 .mceContentBody h3 {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
 }
 .mceContentBody ul {
   list-style-position: inside;
   list-style-type: square;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .mceContentBody ol {
   list-style-position: inside;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .mceContentBody p {
   line-height: 1.5;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .mceContentBody ul ul,
 .mceContentBody ol ol {
@@ -821,9 +875,9 @@ body {
   line-height: 1.5;
   margin-bottom: 5px;
 }
-.mceContentBody p+ul,
-.mceContentBody p+ol {
-  margin-top: -1em;
+.mceContentBody p + ul,
+.mceContentBody p + ol {
+  margin-top: -0.5em;
 }
 .mceContentBody a {
   color: #019bd4;
@@ -834,7 +888,7 @@ body {
 }
 .mceContentBody table {
   border-collapse: collapse;
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
@@ -854,7 +908,7 @@ body {
   font-size: 14px;
   font-weight: bold;
 }
-.mceContentBody thead+tbody tr:first-child td {
+.mceContentBody thead + tbody tr:first-child td {
   background-color: transparent;
   border-bottom: 1px solid #8e8e8e;
   color: inherit;
@@ -886,7 +940,7 @@ body {
   padding-left: 30px;
 }
 .ipWidget-Faq .ipwQuestion {
-  color: #000;
+  color: #000000;
   cursor: pointer;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 18px;
@@ -899,11 +953,11 @@ body {
   background-color: #f3f3f3;
 }
 .ipWidget-Faq .ipwQuestion:before {
-  border: 1px solid #000;
+  border: 1px solid #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 11px;
   font-weight: bold;
-  color: #000;
+  color: #000000;
   content: '?';
   display: block;
   margin: 3px 0 0 -30px;
@@ -917,8 +971,8 @@ body {
   display: none;
 }
 .ipWidget-Faq .ipwExpanded .ipwQuestion:before {
-  background-color: #000;
-  color: #fff;
+  background-color: #000000;
+  color: #ffffff;
 }
 .ipWidget-File ul {
   list-style: none;
@@ -932,6 +986,7 @@ body {
   text-decoration: underline;
 }
 .ipWidget-Form .ipwSuccess {
+  /* mimicking the same styles as for form to keep message 'inside' the box */
   border: 1px solid #888;
   display: none;
   padding: 20px 25px;
@@ -978,7 +1033,11 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
+  /* to remove 3px space below the image (default rendering behavior) */
   max-width: 100%;
+}
+.ipWidget-Missing {
+  /* covered by default styles */
 }
 .ipWidget-Separator.ipLayout-default {
   border-bottom: 1px solid #747474;
@@ -987,6 +1046,9 @@ body {
 }
 .ipWidget-Separator.ipLayout-space {
   height: 25px;
+}
+.ipWidget-Text {
+  /* covered by default styles */
 }
 .ipWidget-Text table,
 .ipWidget-Text pre {
@@ -1012,6 +1074,10 @@ body {
 .ipWidget-Title:first-child {
   padding-top: 0;
 }
+/**
+ * Dynamic, fluid, responsive, nested grid
+ * Includes selectors from the system to mimic grid without adding extra classes to HTML
+ */
 [class^="col_"],
 [class*=" col_"] {
   -webkit-box-sizing: border-box;
@@ -1031,7 +1097,7 @@ body {
   display: none !important;
 }
 .col_1 {
-  width: 8.3333333333333%;
+  width: 8.333333333333334%;
 }
 .col_1 .col_1 {
   width: 100%;
@@ -1070,7 +1136,7 @@ body {
   width: 1200%;
 }
 .col_2 {
-  width: 16.666666666667%;
+  width: 16.66666666666667%;
 }
 .col_2 .col_1 {
   width: 50%;
@@ -1112,43 +1178,43 @@ body {
   width: 25%;
 }
 .col_3 .col_1 {
-  width: 33.333333333333%;
+  width: 33.33333333333334%;
 }
 .col_3 .col_2 {
-  width: 66.666666666667%;
+  width: 66.66666666666667%;
 }
 .col_3 .col_3 {
   width: 100%;
 }
 .col_3 .col_4 {
-  width: 133.33333333333%;
+  width: 133.3333333333333%;
 }
 .col_3 .col_5 {
-  width: 166.66666666667%;
+  width: 166.6666666666667%;
 }
 .col_3 .col_6 {
   width: 200%;
 }
 .col_3 .col_7 {
-  width: 233.33333333333%;
+  width: 233.3333333333333%;
 }
 .col_3 .col_8 {
-  width: 266.66666666667%;
+  width: 266.6666666666667%;
 }
 .col_3 .col_9 {
   width: 300%;
 }
 .col_3 .col_10 {
-  width: 333.33333333333%;
+  width: 333.3333333333334%;
 }
 .col_3 .col_11 {
-  width: 366.66666666667%;
+  width: 366.6666666666667%;
 }
 .col_3 .col_12 {
   width: 400%;
 }
 .col_4 {
-  width: 33.333333333333%;
+  width: 33.33333333333334%;
 }
 .col_4 .col_1 {
   width: 25%;
@@ -1187,7 +1253,7 @@ body {
   width: 300%;
 }
 .col_5 {
-  width: 41.666666666667%;
+  width: 41.66666666666667%;
 }
 .col_5 .col_1 {
   width: 20%;
@@ -1229,82 +1295,82 @@ body {
   width: 50%;
 }
 .col_6 .col_1 {
-  width: 16.666666666667%;
+  width: 16.66666666666667%;
 }
 .col_6 .col_2 {
-  width: 33.333333333333%;
+  width: 33.33333333333334%;
 }
 .col_6 .col_3 {
   width: 50%;
 }
 .col_6 .col_4 {
-  width: 66.666666666667%;
+  width: 66.66666666666667%;
 }
 .col_6 .col_5 {
-  width: 83.333333333333%;
+  width: 83.33333333333334%;
 }
 .col_6 .col_6 {
   width: 100%;
 }
 .col_6 .col_7 {
-  width: 116.66666666667%;
+  width: 116.6666666666667%;
 }
 .col_6 .col_8 {
-  width: 133.33333333333%;
+  width: 133.3333333333333%;
 }
 .col_6 .col_9 {
   width: 150%;
 }
 .col_6 .col_10 {
-  width: 166.66666666667%;
+  width: 166.6666666666667%;
 }
 .col_6 .col_11 {
-  width: 183.33333333333%;
+  width: 183.3333333333333%;
 }
 .col_6 .col_12 {
   width: 200%;
 }
 .col_7 {
-  width: 58.333333333333%;
+  width: 58.33333333333334%;
 }
 .col_7 .col_1 {
-  width: 14.285714285714%;
+  width: 14.28571428571429%;
 }
 .col_7 .col_2 {
-  width: 28.571428571429%;
+  width: 28.57142857142857%;
 }
 .col_7 .col_3 {
-  width: 42.857142857143%;
+  width: 42.85714285714286%;
 }
 .col_7 .col_4 {
-  width: 57.142857142857%;
+  width: 57.14285714285715%;
 }
 .col_7 .col_5 {
-  width: 71.428571428571%;
+  width: 71.42857142857143%;
 }
 .col_7 .col_6 {
-  width: 85.714285714286%;
+  width: 85.71428571428572%;
 }
 .col_7 .col_7 {
   width: 100%;
 }
 .col_7 .col_8 {
-  width: 114.28571428571%;
+  width: 114.2857142857143%;
 }
 .col_7 .col_9 {
-  width: 128.57142857143%;
+  width: 128.5714285714286%;
 }
 .col_7 .col_10 {
-  width: 142.85714285714%;
+  width: 142.8571428571429%;
 }
 .col_7 .col_11 {
-  width: 157.14285714286%;
+  width: 157.1428571428571%;
 }
 .col_7 .col_12 {
-  width: 171.42857142857%;
+  width: 171.4285714285714%;
 }
 .col_8 {
-  width: 66.666666666667%;
+  width: 66.66666666666667%;
 }
 .col_8 .col_1 {
   width: 12.5%;
@@ -1346,43 +1412,43 @@ body {
   width: 75%;
 }
 .col_9 .col_1 {
-  width: 11.111111111111%;
+  width: 11.11111111111111%;
 }
 .col_9 .col_2 {
-  width: 22.222222222222%;
+  width: 22.22222222222222%;
 }
 .col_9 .col_3 {
-  width: 33.333333333333%;
+  width: 33.33333333333333%;
 }
 .col_9 .col_4 {
-  width: 44.444444444444%;
+  width: 44.44444444444444%;
 }
 .col_9 .col_5 {
-  width: 55.555555555556%;
+  width: 55.55555555555556%;
 }
 .col_9 .col_6 {
-  width: 66.666666666667%;
+  width: 66.66666666666666%;
 }
 .col_9 .col_7 {
-  width: 77.777777777778%;
+  width: 77.77777777777777%;
 }
 .col_9 .col_8 {
-  width: 88.888888888889%;
+  width: 88.88888888888889%;
 }
 .col_9 .col_9 {
   width: 100%;
 }
 .col_9 .col_10 {
-  width: 111.11111111111%;
+  width: 111.1111111111111%;
 }
 .col_9 .col_11 {
-  width: 122.22222222222%;
+  width: 122.2222222222222%;
 }
 .col_9 .col_12 {
-  width: 133.33333333333%;
+  width: 133.3333333333333%;
 }
 .col_10 {
-  width: 83.333333333333%;
+  width: 83.33333333333334%;
 }
 .col_10 .col_1 {
   width: 10%;
@@ -1421,79 +1487,79 @@ body {
   width: 120%;
 }
 .col_11 {
-  width: 91.666666666667%;
+  width: 91.66666666666667%;
 }
 .col_11 .col_1 {
-  width: 9.0909090909091%;
+  width: 9.090909090909092%;
 }
 .col_11 .col_2 {
-  width: 18.181818181818%;
+  width: 18.18181818181818%;
 }
 .col_11 .col_3 {
-  width: 27.272727272727%;
+  width: 27.27272727272727%;
 }
 .col_11 .col_4 {
-  width: 36.363636363636%;
+  width: 36.36363636363637%;
 }
 .col_11 .col_5 {
-  width: 45.454545454545%;
+  width: 45.45454545454546%;
 }
 .col_11 .col_6 {
-  width: 54.545454545455%;
+  width: 54.54545454545455%;
 }
 .col_11 .col_7 {
-  width: 63.636363636364%;
+  width: 63.63636363636364%;
 }
 .col_11 .col_8 {
-  width: 72.727272727273%;
+  width: 72.72727272727273%;
 }
 .col_11 .col_9 {
-  width: 81.818181818182%;
+  width: 81.81818181818183%;
 }
 .col_11 .col_10 {
-  width: 90.909090909091%;
+  width: 90.90909090909092%;
 }
 .col_11 .col_11 {
   width: 100%;
 }
 .col_11 .col_12 {
-  width: 109.09090909091%;
+  width: 109.0909090909091%;
 }
 .col_12 {
   width: 100%;
 }
 .col_12 .col_1 {
-  width: 8.3333333333333%;
+  width: 8.333333333333334%;
 }
 .col_12 .col_2 {
-  width: 16.666666666667%;
+  width: 16.66666666666667%;
 }
 .col_12 .col_3 {
   width: 25%;
 }
 .col_12 .col_4 {
-  width: 33.333333333333%;
+  width: 33.33333333333334%;
 }
 .col_12 .col_5 {
-  width: 41.666666666667%;
+  width: 41.66666666666667%;
 }
 .col_12 .col_6 {
   width: 50%;
 }
 .col_12 .col_7 {
-  width: 58.333333333333%;
+  width: 58.33333333333334%;
 }
 .col_12 .col_8 {
-  width: 66.666666666667%;
+  width: 66.66666666666667%;
 }
 .col_12 .col_9 {
   width: 75%;
 }
 .col_12 .col_10 {
-  width: 83.333333333333%;
+  width: 83.33333333333334%;
 }
 .col_12 .col_11 {
-  width: 91.666666666667%;
+  width: 91.66666666666667%;
 }
 .col_12 .col_12 {
   width: 100%;
@@ -1503,7 +1569,7 @@ body {
     display: none !important;
   }
   .col_md_1 {
-    width: 8.3333333333333%;
+    width: 8.333333333333334%;
   }
   .col_md_1 .col_md_1 {
     width: 100%;
@@ -1542,7 +1608,7 @@ body {
     width: 1200%;
   }
   .col_md_2 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_md_2 .col_md_1 {
     width: 50%;
@@ -1584,43 +1650,43 @@ body {
     width: 25%;
   }
   .col_md_3 .col_md_1 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_md_3 .col_md_2 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_md_3 .col_md_3 {
     width: 100%;
   }
   .col_md_3 .col_md_4 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_md_3 .col_md_5 {
-    width: 166.66666666667%;
+    width: 166.6666666666667%;
   }
   .col_md_3 .col_md_6 {
     width: 200%;
   }
   .col_md_3 .col_md_7 {
-    width: 233.33333333333%;
+    width: 233.3333333333333%;
   }
   .col_md_3 .col_md_8 {
-    width: 266.66666666667%;
+    width: 266.6666666666667%;
   }
   .col_md_3 .col_md_9 {
     width: 300%;
   }
   .col_md_3 .col_md_10 {
-    width: 333.33333333333%;
+    width: 333.3333333333334%;
   }
   .col_md_3 .col_md_11 {
-    width: 366.66666666667%;
+    width: 366.6666666666667%;
   }
   .col_md_3 .col_md_12 {
     width: 400%;
   }
   .col_md_4 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_md_4 .col_md_1 {
     width: 25%;
@@ -1659,7 +1725,7 @@ body {
     width: 300%;
   }
   .col_md_5 {
-    width: 41.666666666667%;
+    width: 41.66666666666667%;
   }
   .col_md_5 .col_md_1 {
     width: 20%;
@@ -1701,82 +1767,82 @@ body {
     width: 50%;
   }
   .col_md_6 .col_md_1 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_md_6 .col_md_2 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_md_6 .col_md_3 {
     width: 50%;
   }
   .col_md_6 .col_md_4 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_md_6 .col_md_5 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_md_6 .col_md_6 {
     width: 100%;
   }
   .col_md_6 .col_md_7 {
-    width: 116.66666666667%;
+    width: 116.6666666666667%;
   }
   .col_md_6 .col_md_8 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_md_6 .col_md_9 {
     width: 150%;
   }
   .col_md_6 .col_md_10 {
-    width: 166.66666666667%;
+    width: 166.6666666666667%;
   }
   .col_md_6 .col_md_11 {
-    width: 183.33333333333%;
+    width: 183.3333333333333%;
   }
   .col_md_6 .col_md_12 {
     width: 200%;
   }
   .col_md_7 {
-    width: 58.333333333333%;
+    width: 58.33333333333334%;
   }
   .col_md_7 .col_md_1 {
-    width: 14.285714285714%;
+    width: 14.28571428571429%;
   }
   .col_md_7 .col_md_2 {
-    width: 28.571428571429%;
+    width: 28.57142857142857%;
   }
   .col_md_7 .col_md_3 {
-    width: 42.857142857143%;
+    width: 42.85714285714286%;
   }
   .col_md_7 .col_md_4 {
-    width: 57.142857142857%;
+    width: 57.14285714285715%;
   }
   .col_md_7 .col_md_5 {
-    width: 71.428571428571%;
+    width: 71.42857142857143%;
   }
   .col_md_7 .col_md_6 {
-    width: 85.714285714286%;
+    width: 85.71428571428572%;
   }
   .col_md_7 .col_md_7 {
     width: 100%;
   }
   .col_md_7 .col_md_8 {
-    width: 114.28571428571%;
+    width: 114.2857142857143%;
   }
   .col_md_7 .col_md_9 {
-    width: 128.57142857143%;
+    width: 128.5714285714286%;
   }
   .col_md_7 .col_md_10 {
-    width: 142.85714285714%;
+    width: 142.8571428571429%;
   }
   .col_md_7 .col_md_11 {
-    width: 157.14285714286%;
+    width: 157.1428571428571%;
   }
   .col_md_7 .col_md_12 {
-    width: 171.42857142857%;
+    width: 171.4285714285714%;
   }
   .col_md_8 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_md_8 .col_md_1 {
     width: 12.5%;
@@ -1818,43 +1884,43 @@ body {
     width: 75%;
   }
   .col_md_9 .col_md_1 {
-    width: 11.111111111111%;
+    width: 11.11111111111111%;
   }
   .col_md_9 .col_md_2 {
-    width: 22.222222222222%;
+    width: 22.22222222222222%;
   }
   .col_md_9 .col_md_3 {
-    width: 33.333333333333%;
+    width: 33.33333333333333%;
   }
   .col_md_9 .col_md_4 {
-    width: 44.444444444444%;
+    width: 44.44444444444444%;
   }
   .col_md_9 .col_md_5 {
-    width: 55.555555555556%;
+    width: 55.55555555555556%;
   }
   .col_md_9 .col_md_6 {
-    width: 66.666666666667%;
+    width: 66.66666666666666%;
   }
   .col_md_9 .col_md_7 {
-    width: 77.777777777778%;
+    width: 77.77777777777777%;
   }
   .col_md_9 .col_md_8 {
-    width: 88.888888888889%;
+    width: 88.88888888888889%;
   }
   .col_md_9 .col_md_9 {
     width: 100%;
   }
   .col_md_9 .col_md_10 {
-    width: 111.11111111111%;
+    width: 111.1111111111111%;
   }
   .col_md_9 .col_md_11 {
-    width: 122.22222222222%;
+    width: 122.2222222222222%;
   }
   .col_md_9 .col_md_12 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_md_10 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_md_10 .col_md_1 {
     width: 10%;
@@ -1893,79 +1959,79 @@ body {
     width: 120%;
   }
   .col_md_11 {
-    width: 91.666666666667%;
+    width: 91.66666666666667%;
   }
   .col_md_11 .col_md_1 {
-    width: 9.0909090909091%;
+    width: 9.090909090909092%;
   }
   .col_md_11 .col_md_2 {
-    width: 18.181818181818%;
+    width: 18.18181818181818%;
   }
   .col_md_11 .col_md_3 {
-    width: 27.272727272727%;
+    width: 27.27272727272727%;
   }
   .col_md_11 .col_md_4 {
-    width: 36.363636363636%;
+    width: 36.36363636363637%;
   }
   .col_md_11 .col_md_5 {
-    width: 45.454545454545%;
+    width: 45.45454545454546%;
   }
   .col_md_11 .col_md_6 {
-    width: 54.545454545455%;
+    width: 54.54545454545455%;
   }
   .col_md_11 .col_md_7 {
-    width: 63.636363636364%;
+    width: 63.63636363636364%;
   }
   .col_md_11 .col_md_8 {
-    width: 72.727272727273%;
+    width: 72.72727272727273%;
   }
   .col_md_11 .col_md_9 {
-    width: 81.818181818182%;
+    width: 81.81818181818183%;
   }
   .col_md_11 .col_md_10 {
-    width: 90.909090909091%;
+    width: 90.90909090909092%;
   }
   .col_md_11 .col_md_11 {
     width: 100%;
   }
   .col_md_11 .col_md_12 {
-    width: 109.09090909091%;
+    width: 109.0909090909091%;
   }
   .col_md_12 {
     width: 100%;
   }
   .col_md_12 .col_md_1 {
-    width: 8.3333333333333%;
+    width: 8.333333333333334%;
   }
   .col_md_12 .col_md_2 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_md_12 .col_md_3 {
     width: 25%;
   }
   .col_md_12 .col_md_4 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_md_12 .col_md_5 {
-    width: 41.666666666667%;
+    width: 41.66666666666667%;
   }
   .col_md_12 .col_md_6 {
     width: 50%;
   }
   .col_md_12 .col_md_7 {
-    width: 58.333333333333%;
+    width: 58.33333333333334%;
   }
   .col_md_12 .col_md_8 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_md_12 .col_md_9 {
     width: 75%;
   }
   .col_md_12 .col_md_10 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_md_12 .col_md_11 {
-    width: 91.666666666667%;
+    width: 91.66666666666667%;
   }
   .col_md_12 .col_md_12 {
     width: 100%;
@@ -1976,7 +2042,7 @@ body {
     display: none !important;
   }
   .col_lg_1 {
-    width: 8.3333333333333%;
+    width: 8.333333333333334%;
   }
   .col_lg_1 .col_lg_1 {
     width: 100%;
@@ -2015,7 +2081,7 @@ body {
     width: 1200%;
   }
   .col_lg_2 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_lg_2 .col_lg_1 {
     width: 50%;
@@ -2057,43 +2123,43 @@ body {
     width: 25%;
   }
   .col_lg_3 .col_lg_1 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_lg_3 .col_lg_2 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_lg_3 .col_lg_3 {
     width: 100%;
   }
   .col_lg_3 .col_lg_4 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_lg_3 .col_lg_5 {
-    width: 166.66666666667%;
+    width: 166.6666666666667%;
   }
   .col_lg_3 .col_lg_6 {
     width: 200%;
   }
   .col_lg_3 .col_lg_7 {
-    width: 233.33333333333%;
+    width: 233.3333333333333%;
   }
   .col_lg_3 .col_lg_8 {
-    width: 266.66666666667%;
+    width: 266.6666666666667%;
   }
   .col_lg_3 .col_lg_9 {
     width: 300%;
   }
   .col_lg_3 .col_lg_10 {
-    width: 333.33333333333%;
+    width: 333.3333333333334%;
   }
   .col_lg_3 .col_lg_11 {
-    width: 366.66666666667%;
+    width: 366.6666666666667%;
   }
   .col_lg_3 .col_lg_12 {
     width: 400%;
   }
   .col_lg_4 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_lg_4 .col_lg_1 {
     width: 25%;
@@ -2132,7 +2198,7 @@ body {
     width: 300%;
   }
   .col_lg_5 {
-    width: 41.666666666667%;
+    width: 41.66666666666667%;
   }
   .col_lg_5 .col_lg_1 {
     width: 20%;
@@ -2174,82 +2240,82 @@ body {
     width: 50%;
   }
   .col_lg_6 .col_lg_1 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_lg_6 .col_lg_2 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_lg_6 .col_lg_3 {
     width: 50%;
   }
   .col_lg_6 .col_lg_4 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_lg_6 .col_lg_5 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_lg_6 .col_lg_6 {
     width: 100%;
   }
   .col_lg_6 .col_lg_7 {
-    width: 116.66666666667%;
+    width: 116.6666666666667%;
   }
   .col_lg_6 .col_lg_8 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_lg_6 .col_lg_9 {
     width: 150%;
   }
   .col_lg_6 .col_lg_10 {
-    width: 166.66666666667%;
+    width: 166.6666666666667%;
   }
   .col_lg_6 .col_lg_11 {
-    width: 183.33333333333%;
+    width: 183.3333333333333%;
   }
   .col_lg_6 .col_lg_12 {
     width: 200%;
   }
   .col_lg_7 {
-    width: 58.333333333333%;
+    width: 58.33333333333334%;
   }
   .col_lg_7 .col_lg_1 {
-    width: 14.285714285714%;
+    width: 14.28571428571429%;
   }
   .col_lg_7 .col_lg_2 {
-    width: 28.571428571429%;
+    width: 28.57142857142857%;
   }
   .col_lg_7 .col_lg_3 {
-    width: 42.857142857143%;
+    width: 42.85714285714286%;
   }
   .col_lg_7 .col_lg_4 {
-    width: 57.142857142857%;
+    width: 57.14285714285715%;
   }
   .col_lg_7 .col_lg_5 {
-    width: 71.428571428571%;
+    width: 71.42857142857143%;
   }
   .col_lg_7 .col_lg_6 {
-    width: 85.714285714286%;
+    width: 85.71428571428572%;
   }
   .col_lg_7 .col_lg_7 {
     width: 100%;
   }
   .col_lg_7 .col_lg_8 {
-    width: 114.28571428571%;
+    width: 114.2857142857143%;
   }
   .col_lg_7 .col_lg_9 {
-    width: 128.57142857143%;
+    width: 128.5714285714286%;
   }
   .col_lg_7 .col_lg_10 {
-    width: 142.85714285714%;
+    width: 142.8571428571429%;
   }
   .col_lg_7 .col_lg_11 {
-    width: 157.14285714286%;
+    width: 157.1428571428571%;
   }
   .col_lg_7 .col_lg_12 {
-    width: 171.42857142857%;
+    width: 171.4285714285714%;
   }
   .col_lg_8 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_lg_8 .col_lg_1 {
     width: 12.5%;
@@ -2291,43 +2357,43 @@ body {
     width: 75%;
   }
   .col_lg_9 .col_lg_1 {
-    width: 11.111111111111%;
+    width: 11.11111111111111%;
   }
   .col_lg_9 .col_lg_2 {
-    width: 22.222222222222%;
+    width: 22.22222222222222%;
   }
   .col_lg_9 .col_lg_3 {
-    width: 33.333333333333%;
+    width: 33.33333333333333%;
   }
   .col_lg_9 .col_lg_4 {
-    width: 44.444444444444%;
+    width: 44.44444444444444%;
   }
   .col_lg_9 .col_lg_5 {
-    width: 55.555555555556%;
+    width: 55.55555555555556%;
   }
   .col_lg_9 .col_lg_6 {
-    width: 66.666666666667%;
+    width: 66.66666666666666%;
   }
   .col_lg_9 .col_lg_7 {
-    width: 77.777777777778%;
+    width: 77.77777777777777%;
   }
   .col_lg_9 .col_lg_8 {
-    width: 88.888888888889%;
+    width: 88.88888888888889%;
   }
   .col_lg_9 .col_lg_9 {
     width: 100%;
   }
   .col_lg_9 .col_lg_10 {
-    width: 111.11111111111%;
+    width: 111.1111111111111%;
   }
   .col_lg_9 .col_lg_11 {
-    width: 122.22222222222%;
+    width: 122.2222222222222%;
   }
   .col_lg_9 .col_lg_12 {
-    width: 133.33333333333%;
+    width: 133.3333333333333%;
   }
   .col_lg_10 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_lg_10 .col_lg_1 {
     width: 10%;
@@ -2366,79 +2432,79 @@ body {
     width: 120%;
   }
   .col_lg_11 {
-    width: 91.666666666667%;
+    width: 91.66666666666667%;
   }
   .col_lg_11 .col_lg_1 {
-    width: 9.0909090909091%;
+    width: 9.090909090909092%;
   }
   .col_lg_11 .col_lg_2 {
-    width: 18.181818181818%;
+    width: 18.18181818181818%;
   }
   .col_lg_11 .col_lg_3 {
-    width: 27.272727272727%;
+    width: 27.27272727272727%;
   }
   .col_lg_11 .col_lg_4 {
-    width: 36.363636363636%;
+    width: 36.36363636363637%;
   }
   .col_lg_11 .col_lg_5 {
-    width: 45.454545454545%;
+    width: 45.45454545454546%;
   }
   .col_lg_11 .col_lg_6 {
-    width: 54.545454545455%;
+    width: 54.54545454545455%;
   }
   .col_lg_11 .col_lg_7 {
-    width: 63.636363636364%;
+    width: 63.63636363636364%;
   }
   .col_lg_11 .col_lg_8 {
-    width: 72.727272727273%;
+    width: 72.72727272727273%;
   }
   .col_lg_11 .col_lg_9 {
-    width: 81.818181818182%;
+    width: 81.81818181818183%;
   }
   .col_lg_11 .col_lg_10 {
-    width: 90.909090909091%;
+    width: 90.90909090909092%;
   }
   .col_lg_11 .col_lg_11 {
     width: 100%;
   }
   .col_lg_11 .col_lg_12 {
-    width: 109.09090909091%;
+    width: 109.0909090909091%;
   }
   .col_lg_12 {
     width: 100%;
   }
   .col_lg_12 .col_lg_1 {
-    width: 8.3333333333333%;
+    width: 8.333333333333334%;
   }
   .col_lg_12 .col_lg_2 {
-    width: 16.666666666667%;
+    width: 16.66666666666667%;
   }
   .col_lg_12 .col_lg_3 {
     width: 25%;
   }
   .col_lg_12 .col_lg_4 {
-    width: 33.333333333333%;
+    width: 33.33333333333334%;
   }
   .col_lg_12 .col_lg_5 {
-    width: 41.666666666667%;
+    width: 41.66666666666667%;
   }
   .col_lg_12 .col_lg_6 {
     width: 50%;
   }
   .col_lg_12 .col_lg_7 {
-    width: 58.333333333333%;
+    width: 58.33333333333334%;
   }
   .col_lg_12 .col_lg_8 {
-    width: 66.666666666667%;
+    width: 66.66666666666667%;
   }
   .col_lg_12 .col_lg_9 {
     width: 75%;
   }
   .col_lg_12 .col_lg_10 {
-    width: 83.333333333333%;
+    width: 83.33333333333334%;
   }
   .col_lg_12 .col_lg_11 {
-    width: 91.666666666667%;
+    width: 91.66666666666667%;
   }
   .col_lg_12 .col_lg_12 {
     width: 100%;
@@ -2464,15 +2530,15 @@ body {
 .showGridHint .gridHint [class*=" col_"] {
   height: 100%;
   background-clip: content-box;
-  background-color: rgba(255,0,0,0.5);
+  background-color: rgba(255, 0, 0, 0.5);
   box-shadow: none;
 }
 body {
-  background-color: #fff;
+  background-color: #ffffff;
 }
 .theme {
-  background-color: #fff;
-  color: #000;
+  background-color: #ffffff;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   margin: 0 auto;
@@ -2481,14 +2547,14 @@ body {
   position: relative;
 }
 .theme .caption {
-  color: #000;
+  color: #000000;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   font-style: normal;
   font-weight: normal;
 }
 .theme .signature {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
@@ -2499,19 +2565,19 @@ body {
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
-  color: #000;
+  color: #000000;
   display: block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .theme .button {
   background-color: #019bd4;
   border-radius: 5px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -2530,12 +2596,12 @@ body {
   float: right;
 }
 .theme > header {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000000;
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
 .theme > footer {
-  border-top: 1px solid #000;
+  border-top: 1px solid #000000;
   margin-top: 20px;
   padding: 10px 0;
 }
@@ -2565,7 +2631,7 @@ body {
   float: left;
 }
 .theme .logo a {
-  color: #000;
+  color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
   font-weight: bold;
@@ -2642,7 +2708,7 @@ body {
   font-weight: bold;
 }
 .topmenu .selected > a {
-  color: #000;
+  color: #000000;
   font-weight: bold;
 }
 .topmenu .subnodes > a {
@@ -2654,9 +2720,9 @@ body {
   right: 5px;
 }
 .topmenu .level1 ul {
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #747474;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   display: none;
   position: absolute;
   z-index: 10;
@@ -2669,9 +2735,9 @@ body {
   top: 0;
 }
 .topmenuPopup {
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #747474;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -2730,7 +2796,7 @@ body {
   font-weight: bold;
 }
 .sidenav nav .selected > a {
-  color: #000;
+  color: #000000;
   font-weight: bold;
 }
 .sidenav nav.collapse .level1 ul {
@@ -2746,9 +2812,9 @@ body {
     display: inline-block;
   }
   .topmenu {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #747474;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -2789,6 +2855,33 @@ body {
   margin-left: 10px;
 }
 .ipModuleSearch {
+  /*!
+    * Bootstrap v3.0.2
+    *
+    * Copyright 2013 Twitter, Inc
+    * Licensed under the Apache License v2.0
+    * http://www.apache.org/licenses/LICENSE-2.0
+    *
+    * Designed and built with all the love in the world @twitter by @mdo and @fat.
+    *
+    */
+  /*
+    .ipmFileContainer {
+        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
+            width: 0;
+            height: 0;
+            overflow: hidden;
+
+            input { // margins on input makes error message to appear lower than it should
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .ipmFile {
+
+    }
+    */
   clear: right;
   float: right;
   margin-top: 20px;
@@ -2808,7 +2901,7 @@ body {
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 .ipModuleSearch fieldset {
@@ -2841,6 +2934,7 @@ body {
 .ipModuleSearch input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
+  /* IE8-9 */
   line-height: normal;
 }
 .ipModuleSearch input[type="file"] {
@@ -2883,17 +2977,17 @@ body {
   display: block;
   width: 100%;
   padding: 0.5em;
-  color: #777;
+  color: #777777;
   vertical-align: middle;
-  background-color: #fff;
+  background-color: #ffffff;
   background-image: none;
   border: 1px solid #747474;
   border-radius: 3px;
 }
 .ipModuleSearch .form-control:focus {
-  background-color: #fff;
-  border-color: #000;
-  color: #000;
+  background-color: #ffffff;
+  border-color: #000000;
+  color: #000000;
 }
 .ipModuleSearch .form-control:-moz-placeholder {
   color: #999999;
@@ -2920,6 +3014,11 @@ body {
 .ipModuleSearch .form-group {
   margin-bottom: 20px;
   position: relative;
+  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+  /*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
   zoom: 1;
 }
 .ipModuleSearch .form-group:before,
@@ -3002,8 +3101,8 @@ body {
 }
 .ipModuleSearch .has-error .form-control {
   border-color: #b80000;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .ipModuleSearch .form-control-static {
   margin-bottom: 0;
@@ -3053,7 +3152,9 @@ body {
 .ipModuleSearch .form-horizontal .form-group:before,
 .ipModuleSearch .form-horizontal .form-group:after {
   content: " ";
+  /* 1 */
   display: table;
+  /* 2 */
 }
 .ipModuleSearch .form-horizontal .form-group:after {
   clear: both;
@@ -3090,7 +3191,7 @@ body {
   background: #019bd4;
   border: none;
   border-radius: 3px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: bold;
@@ -3106,8 +3207,8 @@ body {
   overflow: hidden;
   background-color: #f5f5f5;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .ipModuleSearch .progress-bar {
   float: left;
@@ -3117,17 +3218,17 @@ body {
   color: #ffffff;
   text-align: center;
   background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
-  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .ipModuleSearch .progress-striped .progress-bar {
   background-color: #428bca;
-  background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,0.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,0.15)),color-stop(0.75,rgba(255,255,255,0.15)),color-stop(0.75,transparent),to(transparent));
-  background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
-  background-image: -moz-linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
-  background-image: linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ipModuleSearch .progress.active .progress-bar {
@@ -3190,8 +3291,8 @@ body {
   background-color: #a7a7a7;
   border: 1px solid #747474;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   max-width: 380px;
   position: relative;
 }
@@ -3248,9 +3349,9 @@ body {
     display: inline-block;
   }
   .ipModuleSearch {
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #747474;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -3272,7 +3373,4 @@ body {
 .side .ipWidget-Gallery li,
 .side .ipWidget-IpLogoGallery li {
   width: 50%;
-}
-.ip img {
-  max-width: none;
 }
