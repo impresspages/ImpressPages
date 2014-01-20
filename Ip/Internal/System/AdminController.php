@@ -12,10 +12,10 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/System/assets/js/system.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/grid.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/gridInit.js'));
-        ipAddCss(ipFileUrl('Ip/Internal/System/assets/style.css'));
+        ipAddJs('Ip/Internal/System/assets/js/system.js');
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddCss('Ip/Internal/System/assets/style.css');
 
 
 
@@ -42,9 +42,9 @@ class AdminController extends \Ip\Controller
         $content = ipView('view/index.php', $data)->render();
 
         if ($enableUpdate) {
-            ipAddJs(ipFileUrl('Ip/Internal/System/assets/update.js'));
+            ipAddJs('Ip/Internal/System/assets/update.js');
         }
-        ipAddJs(ipFileUrl('Ip/Internal/System/assets/clearCache.js'));
+        ipAddJs('Ip/Internal/System/assets/clearCache.js');
 
         return $content;
     }

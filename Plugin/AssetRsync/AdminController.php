@@ -10,7 +10,7 @@ class AdminController extends \Ip\Controller
 {
     public function index()
     {
-        ipAddJs(ipFileUrl('Plugin/AssetRsync/assets/admin.js'));
+        ipAddJs('Plugin/AssetRsync/assets/admin.js');
 
         $form = new \Ip\Form();
         $form->addClass('ipsAssetRsyncOptions');
