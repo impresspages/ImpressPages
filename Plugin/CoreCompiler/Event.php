@@ -89,7 +89,7 @@ class Event
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
-            $parser = new \Less_Parser();
+            $parser = new \Less_Parser(array('relativeUrls' => false));
             $parser->parseFile(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
@@ -128,12 +128,12 @@ class Event
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
-            $parserTemp = new \Less_Parser();
+            $parserTemp = new \Less_Parser(array('relativeUrls' => false));
             $parserTemp->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/less/bootstrap.less'));
             $cssTemp = $parserTemp->getCss();
             file_put_contents($cssTempFile, $cssTemp);
 
-            $parser = new \Less_Parser();
+            $parser = new \Less_Parser(array('relativeUrls' => false));
             $cssFile = ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.css');
             $parser->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.less'));
             $css = $parser->getCss();
