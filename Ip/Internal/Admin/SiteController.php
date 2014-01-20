@@ -16,7 +16,7 @@ class SiteController extends \Ip\Controller{
         if (empty($errors)) {
             $model = Model::instance();
             if (!$model->login($username, ipRequest()->getPost('password'))) {
-                $errors['password'] = $model->getLastError();
+                $errors = $model->getErrors();
             }
         }
 
@@ -62,9 +62,10 @@ class SiteController extends \Ip\Controller{
         }
 
 
-        $response = ipResponse();//new \Ip\Response\Layout();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/login.php'));
-        $response->setLayoutVariable('loginForm', $this->getLoginForm());
+        $response = ipResponse();
+        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $content = ipView('view/login.php', array('loginForm' => $this->getLoginForm()));
+        $response->setLayoutVariable('content', $content);
         ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
         return $response;
     }

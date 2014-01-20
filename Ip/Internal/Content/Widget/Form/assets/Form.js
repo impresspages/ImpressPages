@@ -33,7 +33,7 @@ var IpWidget_Form;
 
         var openPopup = function() {
             this.modal = $('#ipWidgetFormPopup');
-            this.addButton = this.modal.find(".ipaFieldAdd");
+            this.addButton = this.modal.find(".ipsFieldAdd");
             this.container = this.modal.find('.ipWidget_ipForm_container');
             this.confirmButton = this.modal.find('.ipsConfirm');
             this.modal.modal();
@@ -50,9 +50,9 @@ var IpWidget_Form;
                 options.fields = new Array();
             }
 
-            options.fieldTemplate = this.modal.find('.ipaFieldTemplate');
+            options.fieldTemplate = this.modal.find('.ipsFieldTemplate');
 
-            options.optionsPopup = this.modal.find(".ipaFieldOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
+            options.optionsPopup = this.modal.find(".ipsFieldOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
             this.container.ipWidget_ipForm_container(options);
 
 

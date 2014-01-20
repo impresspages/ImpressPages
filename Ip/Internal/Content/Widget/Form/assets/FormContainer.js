@@ -38,7 +38,7 @@
                         $this.ipWidget_ipForm_container('addField', fields[i]);
                     }
                     $this.sortable();
-                    $this.sortable('option', 'handle', '.ipaFieldMove');
+                    $this.sortable('option', 'handle', '.ipsFieldMove');
 
                 }
             });
@@ -62,7 +62,7 @@
 
         getFields : function () {
             var $this = this;
-            return $this.find('.ipaFieldTemplate');
+            return $this.find('.ipsFieldTemplate');
         },
 
         destroy : function () {
@@ -80,7 +80,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipWidget_ipForm_container');
         }
 
     };

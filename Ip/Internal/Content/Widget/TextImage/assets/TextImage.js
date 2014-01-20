@@ -42,7 +42,7 @@ var IpWidget_TextImage;
 //        options.enableChangeWidth = false;
 //        options.enableUnderscale = true;
 //
-//        this.widgetObject.find('.ipaImage').ipUploadImage(options);
+//        this.widgetObject.find('.ipsImage').ipUploadImage(options);
 //        this.widgetObject.bind('error.ipUploadImage', {widgetController: this}, this.addError);
 //
 //
@@ -53,7 +53,7 @@ var IpWidget_TextImage;
         function prepareData() {
             var data = Object();
 
-            var ipUploadImage = this.widgetObject.find('.ipaImage');
+            var ipUploadImage = this.widgetObject.find('.ipsImage');
             if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
                 var newImage = ipUploadImage.ipUploadImage('getCurImage');
                 if (newImage) {
@@ -72,7 +72,7 @@ var IpWidget_TextImage;
             }
 
             data.text = $(this.widgetObject).find('textarea').first().val();
-            data.title = $(this.widgetObject).find('.ipaImageTitle').first().val();
+            data.title = $(this.widgetObject).find('.ipsImageTitle').first().val();
             $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
         }
 

@@ -23,7 +23,6 @@ var IpWidget_Title;
             this.$header.tinymce(this.tinyMceConfig());
 
             this.$header.on('focus', $.proxy(this.focus, this));
-            this.$header.on('blur', $.proxy(this.blur, this));
             if (!data.level) {
                 this.data.level = 1;
             }
@@ -46,16 +45,27 @@ var IpWidget_Title;
         }
 
         this.blur = function(e) {
-            if ($(e.relatedTarget).hasClass('ipsH') || $(e.relatedTarget).hasClass('ipsOptions')) {
+            if ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target) {
+                console.log('inside');
+                //mouse click inside the widget
                 return;
+            } else {
+                //mouse click outside of the widget
+                if ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetTitleOptions')[0], e.target)) {
+                    //widget toolbar click or widget popup click
+                    //do nothing
+                } else {
+                    this.removeControls()
+                }
             }
-            this.removeControls();
+
         };
 
         this.removeControls = function() {
             this.$controls.addClass('hide');
             this.$controls.find('.ipsH').off();
             this.$controls.find('.ipsOptions').off();
+            $('body').off('click.ipWidgetTitle');
         }
 
         this.destroy = function() {
@@ -87,6 +97,7 @@ var IpWidget_Title;
             $controls.find('.ipsH').removeClass('active');
             $controls.find('.ipsH[data-level="' + this.data.level + '"]').addClass('active');
             $controls.find('.ipsOptions').on('click', $.proxy(this.openOptions, this));
+            $('body').on('click.ipWidgetTitle', $.proxy(this.blur, this));
         };
 
         this.levelPressed = function (e) {
@@ -112,7 +123,7 @@ var IpWidget_Title;
             customTinyMceConfig.menubar = false;
             customTinyMceConfig.toolbar = false;
             customTinyMceConfig.setup = function(ed, l) {
-                ed.on('change', function(){$.proxy(self.save, self)(false)});
+                ed.on('change', function(e){$.proxy(self.save, self)(false)});
                 //ed.on('init', function(){$(this).trigger('init.tinymce')});
             };
             customTinyMceConfig.paste_as_text = true;

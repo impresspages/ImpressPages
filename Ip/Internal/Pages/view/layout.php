@@ -25,7 +25,7 @@
             <div ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
                 <div id="pages_{{language.id}}_{{zone.name}}">
                     <ul class="actions">
-                        <button ng-click="addPageModal()" class="btn btn-default" role="button" >
+                        <button ng-click="addPageModal()" class="ipsAddPage btn btn-default" role="button" >
                             <i class="fa fa-file-o"></i>
                             <?php _e('Add', 'ipAdmin') ?>
                         </button>

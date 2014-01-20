@@ -65,10 +65,6 @@
                     // for handling method to work uploader needs to be initialised first
                     uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
 
-                    $( ".ipmFiles" ).sortable({
-                        handle: '.ipaFileMove'
-                    });
-
                     $(window).bind("resize.ipRepositoryUploader", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $.proxy(methods._resize, this)();
@@ -161,7 +157,7 @@
 
         _resize : function(e) {
             var $this = $(this);
-            var $block = $this.find('.impContainer');
+            var $block = $this.find('.ipmContainer');
             var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
             $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
         }
