@@ -38,16 +38,22 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less.= $this->generateLessVariables($options, $config);
 
-        require_once ipFile('Ip/Lib/Lessphp/lessc.inc.php');
-        $lessc = new \lessc();
-        $themeDir = rtrim(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/'), '/');
-        $lessc->setImportDir(array($themeDir, ipFile('Ip/Internal/Ip/assets/css/ipContent')));
-        //$lessc->setFormatter('compressed');
-        $lessc->setVariables(array(
-                'ipContentDir' => 'less/ipContent',
-            ));
-        $css = $lessc->compile($less);
-        $css = "/* Edit {$lessFile}, not this file. */ " . $css;
+        try {
+            require_once ipFile('Ip/Lib/less.php/Less.php');
+            $parser = new \Less_Parser();
+            $themeDir = rtrim(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/'), '/');
+            $directories = array(
+                $themeDir => 'Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/',
+                ipFile('Ip/Internal/Ip/assets/css/ipContent') => 'Ip/Internal/Ip/assets/css/ipContent'
+            );
+            $parser->SetImportDirs($directories);
+            $parser->parse('@ipContentDir: \'less/ipContent\';');
+            $parser->parse($less);
+            $css = $parser->getCss();
+        } catch(Exception $e) {
+            ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
+        }
+
         return $css;
     }
 
@@ -166,36 +172,5 @@ class LessCompiler
         }
 
         return $files;
-    }
-
-    public function rebuildIpContent()
-    {
-        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/') . '*.less');
-        if (!$items) {
-            return false;
-        }
-
-        $cssFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
-        $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
-
-        $hasChanged = false;
-
-        foreach ($items as $path) {
-            if (filemtime($path) > $lastBuildTime) {
-                $hasChanged = true;
-                break;
-            }
-        }
-
-        if (!$hasChanged) {
-            return;
-        }
-
-        require_once ipFile('Ip/Lib/Lessphp/lessc.inc.php');
-        $lessc = new \lessc();
-        $lessc->setImportDir(ipFile('Ip/Internal/Ip/assets/css/ipContent'));
-        $lessc->setPreserveComments(true);
-        $css = $lessc->compileFile(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
-        file_put_contents($cssFile, $css);
     }
 }
