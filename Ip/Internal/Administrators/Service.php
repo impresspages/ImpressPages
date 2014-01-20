@@ -23,9 +23,20 @@ class Service
         return Model::getByUsername($username);
     }
 
+    public static function getByEmail($email)
+    {
+        return Model::getByEmail($email);
+    }
+
     public static function checkPassword($userId, $password)
     {
         return Model::checkPassword($userId, $password);
+    }
+
+
+    public static function resetPassword($userId)
+    {
+        Model::resetPassword($userId);
     }
 
 }

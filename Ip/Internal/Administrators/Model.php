@@ -20,6 +20,11 @@ class Model{
         return ipDb()->selectRow('*', 'administrator', array('username' => $username));
     }
 
+    public static function getByEmail($email)
+    {
+        return ipDb()->selectRow('*', 'administrator', array('email' => $email));
+    }
+
     public static function addAdministrator($username, $email, $password)
     {
         $data = array(
@@ -28,6 +33,12 @@ class Model{
             'hash' => self::passwordHash($password)
         );
         ipDb()->insert('administrator', $data);
+    }
+
+    public static function resetPassword($userId)
+    {
+        $user = self::get($userId);
+        
     }
 
     public static function checkPassword($userId, $password)
