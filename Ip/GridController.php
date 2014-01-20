@@ -9,8 +9,8 @@ abstract class GridController extends \Ip\Controller
 {
     public function index()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/grid.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Grid/assets/gridInit.js'));
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 
         $controllerClass = get_class($this);
         $controllerClassParts = explode('\\', $controllerClass);

@@ -138,9 +138,9 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/step3.js'));
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step3.js');
 
         return $response;
     }
@@ -181,9 +181,9 @@ class PublicController extends \Ip\Controller
 
 
         $response = new LayoutResponse();
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/step4.js'));
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step4.js');
 
         $response->setContent($content);
 

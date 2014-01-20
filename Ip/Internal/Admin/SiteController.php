@@ -66,7 +66,7 @@ class SiteController extends \Ip\Controller{
         $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
         $content = ipView('view/login.php', array('loginForm' => $this->getLoginForm()));
         $response->setLayoutVariable('content', $content);
-        ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
+        ipAddJs('Ip/Internal/Admin/assets/login.js');
         return $response;
     }
 
