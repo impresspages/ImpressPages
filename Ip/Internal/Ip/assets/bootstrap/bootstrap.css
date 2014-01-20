@@ -11,7 +11,6 @@
   color: #333333;
   background-color: #ffffff;
   /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
-
 }
 .ip article,
 .ip aside,
@@ -39,6 +38,14 @@
 .ip [hidden],
 .ip template {
   display: none;
+}
+.ip .ipRoot {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+.ip .ipRoot {
+  margin: 0;
 }
 .ip a {
   background: transparent;
@@ -211,7 +218,7 @@
   .ip img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 2cm .5cm;
   }
   .ip p,
@@ -255,6 +262,17 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.ip .ipRoot {
+  font-size: 62.5%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.ip .ipRoot {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: #ffffff;
 }
 .ip input,
 .ip button,
@@ -542,10 +560,8 @@
   .ip .dl-horizontal dd:after {
     content: " ";
     /* 1 */
-  
     display: table;
     /* 2 */
-  
   }
   .ip .dl-horizontal dd:after {
     clear: both;
@@ -554,10 +570,8 @@
   .ip .dl-horizontal dd:after {
     content: " ";
     /* 1 */
-  
     display: table;
     /* 2 */
-  
   }
   .ip .dl-horizontal dd:after {
     clear: both;
@@ -670,10 +684,8 @@
 .ip .container:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .container:after {
   clear: both;
@@ -682,10 +694,8 @@
 .ip .container:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .container:after {
   clear: both;
@@ -698,10 +708,8 @@
 .ip .row:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .row:after {
   clear: both;
@@ -710,10 +718,8 @@
 .ip .row:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .row:after {
   clear: both;
@@ -800,7 +806,7 @@
   width: 66.66666666666666%;
 }
 .ip .col-xs-7 {
-  width: 58.333333333333336%;
+  width: 58.33333333333334%;
 }
 .ip .col-xs-6 {
   width: 50%;
@@ -815,7 +821,7 @@
   width: 25%;
 }
 .ip .col-xs-2 {
-  width: 16.666666666666664%;
+  width: 16.66666666666666%;
 }
 .ip .col-xs-1 {
   width: 8.333333333333332%;
@@ -836,7 +842,7 @@
   right: 66.66666666666666%;
 }
 .ip .col-xs-pull-7 {
-  right: 58.333333333333336%;
+  right: 58.33333333333334%;
 }
 .ip .col-xs-pull-6 {
   right: 50%;
@@ -851,7 +857,7 @@
   right: 25%;
 }
 .ip .col-xs-pull-2 {
-  right: 16.666666666666664%;
+  right: 16.66666666666666%;
 }
 .ip .col-xs-pull-1 {
   right: 8.333333333333332%;
@@ -875,7 +881,7 @@
   left: 66.66666666666666%;
 }
 .ip .col-xs-push-7 {
-  left: 58.333333333333336%;
+  left: 58.33333333333334%;
 }
 .ip .col-xs-push-6 {
   left: 50%;
@@ -890,7 +896,7 @@
   left: 25%;
 }
 .ip .col-xs-push-2 {
-  left: 16.666666666666664%;
+  left: 16.66666666666666%;
 }
 .ip .col-xs-push-1 {
   left: 8.333333333333332%;
@@ -914,7 +920,7 @@
   margin-left: 66.66666666666666%;
 }
 .ip .col-xs-offset-7 {
-  margin-left: 58.333333333333336%;
+  margin-left: 58.33333333333334%;
 }
 .ip .col-xs-offset-6 {
   margin-left: 50%;
@@ -929,7 +935,7 @@
   margin-left: 25%;
 }
 .ip .col-xs-offset-2 {
-  margin-left: 16.666666666666664%;
+  margin-left: 16.66666666666666%;
 }
 .ip .col-xs-offset-1 {
   margin-left: 8.333333333333332%;
@@ -970,7 +976,7 @@
     width: 66.66666666666666%;
   }
   .ip .col-sm-7 {
-    width: 58.333333333333336%;
+    width: 58.33333333333334%;
   }
   .ip .col-sm-6 {
     width: 50%;
@@ -985,7 +991,7 @@
     width: 25%;
   }
   .ip .col-sm-2 {
-    width: 16.666666666666664%;
+    width: 16.66666666666666%;
   }
   .ip .col-sm-1 {
     width: 8.333333333333332%;
@@ -1006,7 +1012,7 @@
     right: 66.66666666666666%;
   }
   .ip .col-sm-pull-7 {
-    right: 58.333333333333336%;
+    right: 58.33333333333334%;
   }
   .ip .col-sm-pull-6 {
     right: 50%;
@@ -1021,7 +1027,7 @@
     right: 25%;
   }
   .ip .col-sm-pull-2 {
-    right: 16.666666666666664%;
+    right: 16.66666666666666%;
   }
   .ip .col-sm-pull-1 {
     right: 8.333333333333332%;
@@ -1045,7 +1051,7 @@
     left: 66.66666666666666%;
   }
   .ip .col-sm-push-7 {
-    left: 58.333333333333336%;
+    left: 58.33333333333334%;
   }
   .ip .col-sm-push-6 {
     left: 50%;
@@ -1060,7 +1066,7 @@
     left: 25%;
   }
   .ip .col-sm-push-2 {
-    left: 16.666666666666664%;
+    left: 16.66666666666666%;
   }
   .ip .col-sm-push-1 {
     left: 8.333333333333332%;
@@ -1084,7 +1090,7 @@
     margin-left: 66.66666666666666%;
   }
   .ip .col-sm-offset-7 {
-    margin-left: 58.333333333333336%;
+    margin-left: 58.33333333333334%;
   }
   .ip .col-sm-offset-6 {
     margin-left: 50%;
@@ -1099,7 +1105,7 @@
     margin-left: 25%;
   }
   .ip .col-sm-offset-2 {
-    margin-left: 16.666666666666664%;
+    margin-left: 16.66666666666666%;
   }
   .ip .col-sm-offset-1 {
     margin-left: 8.333333333333332%;
@@ -1141,7 +1147,7 @@
     width: 66.66666666666666%;
   }
   .ip .col-md-7 {
-    width: 58.333333333333336%;
+    width: 58.33333333333334%;
   }
   .ip .col-md-6 {
     width: 50%;
@@ -1156,7 +1162,7 @@
     width: 25%;
   }
   .ip .col-md-2 {
-    width: 16.666666666666664%;
+    width: 16.66666666666666%;
   }
   .ip .col-md-1 {
     width: 8.333333333333332%;
@@ -1177,7 +1183,7 @@
     right: 66.66666666666666%;
   }
   .ip .col-md-pull-7 {
-    right: 58.333333333333336%;
+    right: 58.33333333333334%;
   }
   .ip .col-md-pull-6 {
     right: 50%;
@@ -1192,7 +1198,7 @@
     right: 25%;
   }
   .ip .col-md-pull-2 {
-    right: 16.666666666666664%;
+    right: 16.66666666666666%;
   }
   .ip .col-md-pull-1 {
     right: 8.333333333333332%;
@@ -1216,7 +1222,7 @@
     left: 66.66666666666666%;
   }
   .ip .col-md-push-7 {
-    left: 58.333333333333336%;
+    left: 58.33333333333334%;
   }
   .ip .col-md-push-6 {
     left: 50%;
@@ -1231,7 +1237,7 @@
     left: 25%;
   }
   .ip .col-md-push-2 {
-    left: 16.666666666666664%;
+    left: 16.66666666666666%;
   }
   .ip .col-md-push-1 {
     left: 8.333333333333332%;
@@ -1255,7 +1261,7 @@
     margin-left: 66.66666666666666%;
   }
   .ip .col-md-offset-7 {
-    margin-left: 58.333333333333336%;
+    margin-left: 58.33333333333334%;
   }
   .ip .col-md-offset-6 {
     margin-left: 50%;
@@ -1270,7 +1276,7 @@
     margin-left: 25%;
   }
   .ip .col-md-offset-2 {
-    margin-left: 16.666666666666664%;
+    margin-left: 16.66666666666666%;
   }
   .ip .col-md-offset-1 {
     margin-left: 8.333333333333332%;
@@ -1312,7 +1318,7 @@
     width: 66.66666666666666%;
   }
   .ip .col-lg-7 {
-    width: 58.333333333333336%;
+    width: 58.33333333333334%;
   }
   .ip .col-lg-6 {
     width: 50%;
@@ -1327,7 +1333,7 @@
     width: 25%;
   }
   .ip .col-lg-2 {
-    width: 16.666666666666664%;
+    width: 16.66666666666666%;
   }
   .ip .col-lg-1 {
     width: 8.333333333333332%;
@@ -1348,7 +1354,7 @@
     right: 66.66666666666666%;
   }
   .ip .col-lg-pull-7 {
-    right: 58.333333333333336%;
+    right: 58.33333333333334%;
   }
   .ip .col-lg-pull-6 {
     right: 50%;
@@ -1363,7 +1369,7 @@
     right: 25%;
   }
   .ip .col-lg-pull-2 {
-    right: 16.666666666666664%;
+    right: 16.66666666666666%;
   }
   .ip .col-lg-pull-1 {
     right: 8.333333333333332%;
@@ -1387,7 +1393,7 @@
     left: 66.66666666666666%;
   }
   .ip .col-lg-push-7 {
-    left: 58.333333333333336%;
+    left: 58.33333333333334%;
   }
   .ip .col-lg-push-6 {
     left: 50%;
@@ -1402,7 +1408,7 @@
     left: 25%;
   }
   .ip .col-lg-push-2 {
-    left: 16.666666666666664%;
+    left: 16.66666666666666%;
   }
   .ip .col-lg-push-1 {
     left: 8.333333333333332%;
@@ -1426,7 +1432,7 @@
     margin-left: 66.66666666666666%;
   }
   .ip .col-lg-offset-7 {
-    margin-left: 58.333333333333336%;
+    margin-left: 58.33333333333334%;
   }
   .ip .col-lg-offset-6 {
     margin-left: 50%;
@@ -1441,7 +1447,7 @@
     margin-left: 25%;
   }
   .ip .col-lg-offset-2 {
-    margin-left: 16.666666666666664%;
+    margin-left: 16.66666666666666%;
   }
   .ip .col-lg-offset-1 {
     margin-left: 8.333333333333332%;
@@ -1682,7 +1688,6 @@
   margin: 4px 0 0;
   margin-top: 1px \9;
   /* IE8-9 */
-
   line-height: normal;
 }
 .ip input[type="file"] {
@@ -1964,10 +1969,8 @@
 .ip .form-horizontal .form-group:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .form-horizontal .form-group:after {
   clear: both;
@@ -1976,10 +1979,8 @@
 .ip .form-horizontal .form-group:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .form-horizontal .form-group:after {
   clear: both;
@@ -2347,8 +2348,8 @@
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('fonts/glyphicons-halflings-regular.eot');
+  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .ip .glyphicon {
   position: relative;
@@ -3145,10 +3146,8 @@
 .ip .btn-toolbar:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .btn-toolbar:after {
   clear: both;
@@ -3157,10 +3156,8 @@
 .ip .btn-toolbar:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .btn-toolbar:after {
   clear: both;
@@ -3264,10 +3261,8 @@
 .ip .btn-group-vertical > .btn-group:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .btn-group-vertical > .btn-group:after {
   clear: both;
@@ -3276,10 +3271,8 @@
 .ip .btn-group-vertical > .btn-group:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .btn-group-vertical > .btn-group:after {
   clear: both;
@@ -3480,10 +3473,8 @@
 .ip .nav:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .nav:after {
   clear: both;
@@ -3492,10 +3483,8 @@
 .ip .nav:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .nav:after {
   clear: both;
@@ -3717,10 +3706,8 @@
 .ip .navbar:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar:after {
   clear: both;
@@ -3729,10 +3716,8 @@
 .ip .navbar:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar:after {
   clear: both;
@@ -3746,10 +3731,8 @@
 .ip .navbar-header:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar-header:after {
   clear: both;
@@ -3758,10 +3741,8 @@
 .ip .navbar-header:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar-header:after {
   clear: both;
@@ -3784,10 +3765,8 @@
 .ip .navbar-collapse:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar-collapse:after {
   clear: both;
@@ -3796,10 +3775,8 @@
 .ip .navbar-collapse:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .navbar-collapse:after {
   clear: both;
@@ -4361,10 +4338,8 @@
 .ip .pager:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .pager:after {
   clear: both;
@@ -4373,10 +4348,8 @@
 .ip .pager:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .pager:after {
   clear: both;
@@ -4855,10 +4828,8 @@
 .ip .panel-body:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .panel-body:after {
   clear: both;
@@ -4867,10 +4838,8 @@
 .ip .panel-body:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .panel-body:after {
   clear: both;
@@ -5228,10 +5197,8 @@
 .ip .modal-footer:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .modal-footer:after {
   clear: both;
@@ -5240,10 +5207,8 @@
 .ip .modal-footer:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .modal-footer:after {
   clear: both;
@@ -5674,10 +5639,8 @@
 .ip .clearfix:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .ip .clearfix:after {
   clear: both;

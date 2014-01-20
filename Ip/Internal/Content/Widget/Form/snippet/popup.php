@@ -16,21 +16,21 @@
                         <div class="tab-pane active" id="ipWidgetFormPopup-fields">
                             <div class="ipWidget_ipForm_container"></div>
                             <div class="hide">
-                                <div class="ipaFieldTemplate">
-                                    <a href="#" class="ipaButton ipaFieldMove"><?php _e('Move', 'ipAdmin') ?></a>
-                                    <input type="text" class="ipAdminInput ipaFieldLabel" name="label" value="" />
-                                    <select class="ipaFieldType">
+                                <div class="ipsFieldTemplate">
+                                    <a href="#" class="ipsFieldMove"><?php _e('Move', 'ipAdmin') ?></a>
+                                    <input type="text" class="ipsFieldLabel" name="label" value="" />
+                                    <select class="ipsFieldType">
                                         <?php foreach($fieldTypes as $fieldType) { ?>
                                             <option value="<?php echo esc($fieldType['key']); ?>"><?php echo esc($fieldType['title']); ?></option>
                                         <?php } ?>
                                     </select>
-                                    <input type="checkbox" class="ipaFieldRequired" />
-                                    <a href="#" class="ipaButton ipaFieldOptions"><?php _e('Options', 'ipAdmin') ?></a>
-                                    <a href="#" class="ipaButton ipaFieldRemove"><?php _e('Remove', 'ipAdmin') ?></a>
+                                    <input type="checkbox" class="ipsFieldRequired" />
+                                    <a href="#" class="ipsFieldOptions"><?php _e('Options', 'ipAdmin') ?></a>
+                                    <a href="#" class="ipsFieldRemove"><?php _e('Remove', 'ipAdmin') ?></a>
                                 </div>
-                                <div class="ipaFieldOptionsPopup"></div>
+                                <div class="ipsFieldOptionsPopup"></div>
                             </div>
-                            <button type="button" class="btn btn-default ipaFieldAdd"><?php _e('Add new', 'ipAdmin') ?></button>
+                            <button type="button" class="btn btn-default ipsFieldAdd"><?php _e('Add new', 'ipAdmin') ?></button>
                         </div>
 
                         <div class="tab-pane" id="ipWidgetFormPopup-options">

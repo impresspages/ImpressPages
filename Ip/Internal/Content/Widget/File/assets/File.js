@@ -17,7 +17,7 @@ var IpWidget_File;
         function manageInit() {
             var instanceData = this.widgetObject.data('ipWidget');
 
-            var uploader = this.widgetObject.find('.ipaUpload');
+            var uploader = this.widgetObject.find('.ipsUpload');
             var options = new Object;
             uploader.ipUploadFile(options);
 
@@ -28,7 +28,7 @@ var IpWidget_File;
             } else {
                 options.files = new Array();
             }
-            options.fileTemplate = this.widgetObject.find('.ipaFileTemplate');
+            options.fileTemplate = this.widgetObject.find('.ipsFileTemplate');
             container.ipWidget_ipFile_container(options);
 
             this.widgetObject.bind('filesSelected.ipUploadFile', this.filesSelected);
@@ -117,7 +117,7 @@ var IpWidget_File;
                 });
                 
                 $( ".ipWidget_ipFile_container" ).sortable();
-                $( ".ipWidget_ipFile_container" ).sortable('option', 'handle', '.ipaFileMove');
+                $( ".ipWidget_ipFile_container" ).sortable('option', 'handle', '.ipsFileMove');
                 
 
             }
@@ -141,7 +141,7 @@ var IpWidget_File;
     
     getFiles : function () {
         var $this = this;
-        return $this.find('.ipaFileTemplate');
+        return $this.find('.ipsFileTemplate');
     }
 
 
@@ -198,11 +198,11 @@ var IpWidget_File;
                         fileName : data.fileName,
                         status : data.status
                     });
-                    $this.find('.ipaFileTitle').val(data.title);
+                    $this.find('.ipsFileTitle').val(data.title);
                 }
 
-                $this.find('.ipaFileLink').attr('href', ipFileUrl('file/repository/' + data.fileName));
-                $this.find('.ipaFileRemove').bind('click', function(event){
+                $this.find('.ipsFileLink').attr('href', ipFileUrl('file/repository/' + data.fileName));
+                $this.find('.ipsFileRemove').bind('click', function(event){
                     event.preventDefault();
                     $this = $(this);
                     $this.trigger('removeClick.ipWidget_ipFile');
@@ -216,7 +216,7 @@ var IpWidget_File;
 
         getTitle : function() {
             var $this = this;
-            return $this.find('.ipaFileTitle').val();
+            return $this.find('.ipsFileTitle').val();
         },
 
         getFileName : function() {
