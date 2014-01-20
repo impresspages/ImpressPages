@@ -38,7 +38,30 @@ class Model{
     public static function resetPassword($userId)
     {
         $user = self::get($userId);
-        
+        if (!$user) {
+            throw new \Ip\Exception("User doesn't exist");
+        }
+
+
+        $contentData = array (
+            'link' => '//TODOX.com'
+        );
+
+        $content = ipView('view/passwordResetContent.php', $contentData)->render();
+
+        $emailData = array (
+            'content' => $content
+        );
+
+        $email = ipView('view/passwordResetEmail.php', $emailData);
+
+        $from = ipGetOption('Config.websiteEmail');
+        $fromName = ipGetOption('Config.websiteTitle');
+        $subject = __('Password reset instructions', 'ipAdmin', FALSE);
+        $to = $user['email'];
+        $toName = $user['username'];
+        ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
+
     }
 
     public static function checkPassword($userId, $password)

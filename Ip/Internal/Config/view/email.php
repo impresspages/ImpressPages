@@ -4,7 +4,8 @@
 <p><?php echo (isset($content) ? $content : ''); ?></p>
 <p style="border-top: 1px dotted #7db113; height: 1px; font-size: 1px;"> </p>
 <p>
-<?php if (isset($email)) { ?>
+    <?php echo (isset($signature) ? $signature: ''); ?>
+<?php if (isset($name)) { ?>
     <?php echo esc(isset($name) ? $name : ''); ?>
 <?php } ?>
 <?php if (isset($telephone)) { ?>
@@ -21,4 +22,4 @@
 <?php } ?>
 </p>
 <p> </p>
-<p><span style="color: #6d6b70; font-family: Verdana, Tahoma, Arial; font-size: 10px;">Powered by </span><a style="text-decoration: underline; font-family: Verdana, Tahoma, Arial; font-size: 10px; color: #6d6b70;" href="http://www.impresspages.org">ImpressPages CMS</a></p>
+<p><span style="color: #6d6b70; font-family: Verdana, Tahoma, Arial; font-size: 10px; float: right;">Powered by </span><a style="text-decoration: underline; font-family: Verdana, Tahoma, Arial; font-size: 10px; color: #6d6b70;" href="http://www.impresspages.org">ImpressPages CMS</a></p>
