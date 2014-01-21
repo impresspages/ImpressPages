@@ -140,8 +140,12 @@ class PublicController extends \Ip\Controller
             'ipBrowseLinkModalTemplate',
             ipView('view/browseLinkModal.php')->render()
         );
+<<<<<<< HEAD
         ipAddCss('Ip/Internal/Ip/assets/js/jstree/themes/default/style.min.css');
         ipAddJs('Ip/Internal/Ip/assets/js/jstree/jstree.js');
+=======
+
+>>>>>>> 6086a94f39d4ca40ceae3458fd89cbc5af4d9b74
     }
 
 

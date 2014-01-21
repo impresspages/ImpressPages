@@ -61,7 +61,7 @@ body {
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .button {
@@ -149,7 +149,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .ipWidget .button {
@@ -181,15 +181,15 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget ul {
   list-style-position: inside;
   list-style-type: square;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .ipWidget ol {
   list-style-position: inside;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .ipWidget p {
   line-height: 1.5;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .ipWidget ul ul,
 .ipWidget ol ol {
@@ -201,7 +201,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget p + ul,
 .ipWidget p + ol {
-  margin-top: -1em;
+  margin-top: -0.5em;
 }
 .ipWidget a {
   color: #019bd4;
@@ -825,7 +825,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .mceContentBody .button {
@@ -857,15 +857,15 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody ul {
   list-style-position: inside;
   list-style-type: square;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .mceContentBody ol {
   list-style-position: inside;
-  margin: 0 0 2em 1em;
+  margin: 0 0 1em 1em;
 }
 .mceContentBody p {
   line-height: 1.5;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 .mceContentBody ul ul,
 .mceContentBody ol ol {
@@ -877,7 +877,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .mceContentBody p + ul,
 .mceContentBody p + ol {
-  margin-top: -1em;
+  margin-top: -0.5em;
 }
 .mceContentBody a {
   color: #019bd4;
@@ -2571,7 +2571,7 @@ body {
   font-size: 14px;
   font-style: italic;
   font-weight: normal;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   padding-left: 1em;
 }
 .theme .button {
