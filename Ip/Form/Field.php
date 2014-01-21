@@ -53,9 +53,6 @@ abstract class Field{
         if (!empty($options['name'])) {
             $this->setName($options['name']);
         }
-        if (!empty($options['dbField'])) {
-            $this->setDbField($options['dbField']);
-        }
         if (!empty($options['value'])) {
             $this->setValue($options['value']);
         }
@@ -137,7 +134,11 @@ abstract class Field{
     public function getValidators() {
         return $this->validators;
     }
-    
+
+    /**
+     * Check if the field is required
+     * @return bool
+     */
     public function isRequired() {
         $validators = $this->getValidators();
         foreach($validators as $validator) {
@@ -150,10 +151,8 @@ abstract class Field{
     
     /**
      * 
-     * Validate if field passes validation
-     * 
-     */
-    /**
+     * Check if field passes validation
+     *
      * Validate field
      * @param array $data all data posted. Usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
      * @param string $valueKey This value key could not exist in values array.
@@ -178,7 +177,11 @@ abstract class Field{
     }
     
     /**
-     * Add validator to field
+     * Add a validator to a field.
+     *
+     * Available validators are located at Ip/Form/Field/Validator folder. \
+     * E.g., to add required field validator use addValidator('Required') method.
+     *
      * @param string $validator
      */
     public function addValidator($validator) {
@@ -191,7 +194,12 @@ abstract class Field{
         $this->validators[] = $validator;
         
     }
-    
+
+    /**
+     * Remove field validator
+     *
+     * @param $validator
+     */
     public function removeValidator($validator) {
         $validatorClass = 'Modules\\developer\\form\\Validator\\' . $validator;
         $newValidatorsArray = array();
@@ -202,25 +210,43 @@ abstract class Field{
         }
         $this->validators = $newValidatorsArray;
     }
-    
+
+    /**
+     * Add custom validator
+     * @param Validator\Validator $validator
+     */
     public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
         $this->validators[] = $validator;
     }
     
     /**
      * 
-     * Adds attribute to input field. Altenative way to setAttributes method.
-     * @param string $name
-     * @param string $value
+     * Add HTML attribute to input field. Alternative way to setAttributes method.
+     *
+     * @param string $name Attribute name
+     * @param string $value Attribute value
+     *
      */
     public function addAttribute($name, $value) {
         $this->attributes[$name] = $value;
     }
-    
+
+    /**
+     * Remove HTML attribute
+     *
+     * @param $name
+     */
     public function removeAttribute($name) {
         unset($this->attributes[$name]);
     }
-    
+
+    /**
+     * Get validator HTML attributes
+     * Needed for JavaScript validator.
+     *
+     * @param $doctype
+     * @return string
+     */
     public function getValidationAttributesStr($doctype) {
         $attributesStr = '';
         foreach($this->getValidators() as $validator) {
@@ -242,31 +268,61 @@ abstract class Field{
     
     
     /* GETTERS AND SETTERS  */
-    
+
+    /**
+     * Get field label
+     *
+     * @return string Field label
+     */
+
     public function getLabel() {
         return $this->label;
     }
-    
+
+    /**
+     * Set field label
+     * @param string $label
+     */
     public function setLabel($label) {
         $this->label = $label;
     }
 
+    /**
+     * Get field input hint text
+     * @return string Hint
+     */
     public function getHint() {
         return $this->hint;
     }
-    
+
+    /**
+     * Set field input hint text
+     * @param string $hint Hint
+     */
     public function setHint($hint) {
         $this->hint = $hint;
     }
 
+    /**
+     * Get field note text
+     * @return string Text note
+     */
     public function getNote() {
         return $this->note;
     }
-    
+
+    /**
+     * Set field not text
+     * @param string $note Note text
+     */
     public function setNote($note) {
         $this->note = $note;
     }
 
+    /**
+     * Get field name attribute
+     * @return string Field name
+     */
     public function getName() {
         return $this->name;
     }
@@ -278,15 +334,27 @@ abstract class Field{
     public function getValidationInputName(){
         return $this->name;
     }
-    
+
+    /**
+     * Set field name attribute
+     * @param string $name Field name
+     */
     public function setName($name) {
         $this->name = $name;
     }
 
+    /**
+     *
+     * @return mixed
+     */
     public function getDbField() {
         return $this->dbField;
     }
-    
+
+    /**
+     *
+     * @param $dbField
+     */
     public function setDbField($dbField) {
         $this->dbField = $dbField;
     }
@@ -332,11 +400,20 @@ abstract class Field{
     public function removeClass($cssClass) {
         unset($this->classes[$cssClass]);
     }
-    
+
+    /**
+     * Get a list of HTML classes used
+     * @return array
+     */
     public function getClasses() {
         return array_keys($this->classes);
     }
-    
+
+    /**
+     * Get class attributes as a string
+     *
+     * @return string
+     */
     public function getClassesStr() {
         $answer = '';
         foreach ($this->getClasses() as $class) {
