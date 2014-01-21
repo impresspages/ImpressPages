@@ -50,8 +50,8 @@
     <div ng-show="selectedPageId" class="ipsProperties properties navBlock">
 
     </div>
-    <?php echo $this->subview('addPageModal.php')->render() ?>
-    <?php echo $this->subview('addZoneModal.php')->render() ?>
-    <?php echo $this->subview('updateZoneModal.php')->render() ?>
+    <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/addZoneModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/updateZoneModal.php', $this->getVariables())->render(); ?>
 
 </div>
