@@ -1,1 +1,1 @@
-<?php echo $this->subview(ipFile('Ip/Internal/Config/view/email.php')); ?>
+<?php echo ipEmailTemplate($this->getVariables()); ?>
