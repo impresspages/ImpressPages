@@ -73,8 +73,12 @@
                     $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
 
                     //$('.ipWidget').on('sortstart', ipStartWidgetDrag);
-                    $('.ipBlock .ipWidget').on('dragstart', ipStartWidgetDrag);
-                    $('.ipBlock .ipWidget').on('dragstop', ipStopWidgetDrag);
+                    $('.ipBlock .ipWidget').on('dragstart.ipContentManagement', ipStartWidgetDrag);
+                    $('.ipBlock .ipWidget').on('dragstop.ipContentManagement', ipStopWidgetDrag);
+                    $('body').on('reinitRequired.ipWidget', function () {
+                        $('.ipBlock .ipWidget').off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag);
+                        $('.ipBlock .ipWidget').off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
+                    })
 
                     $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
@@ -170,13 +174,13 @@
         if (scrollBy < 1) {
             scrollBy = 1;
         } // setting the minimum
-        $('.ipAdminWidgets .ipaRight, .ipAdminWidgets .ipaLeft').unbind('click'); // unbind if reinitiating dynamically
+        $('.ipAdminWidgets .ipsRight, .ipAdminWidgets .ipsLeft').off('click'); // unbind if reinitiating dynamically
         scrollableAPI.begin(); // move to scroller to default position (beginning)
-        $('.ipAdminWidgets .ipaRight').click(function (event) {
+        $('.ipAdminWidgets .ipsRight').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(scrollBy);
         });
-        $('.ipAdminWidgets .ipaLeft').click(function (event) {
+        $('.ipAdminWidgets .ipsLeft').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(-scrollBy);
         });
@@ -192,8 +196,8 @@
      *
      */
     var ipAdminWidgetsSearch = function () {
-        var $input = $('.ipAdminWidgetsSearch .ipaInput');
-        var $button = $('.ipAdminWidgetsSearch .ipaButton');
+        var $input = $('.ipAdminWidgetsSearch .ipsInput');
+        var $button = $('.ipAdminWidgetsSearch .ipsButton');
         var $widgets = $('.ipAdminWidgetsContainer li');
 
         $input.focus(function () {
@@ -360,18 +364,7 @@
                     position: 0
                 });
 
-//                if ($(block).find('> .ipbExampleContent').length) {
-//                    var $example = $(block).find('> .ipbExampleContent').first();
-//                    horizontalPlaceholders.push({
-//                        left: $example.offset().left,
-//                        top: $example.offset().top,
-//                        height: $example.height(),
-//                        width: $example.width(),
-//                        markerOffset: $example.height() / 2,
-//                        blockName: $(block).data('ipBlock').name,
-//                        position: 0
-//                    });
-//                }
+
             }
         });
 
@@ -411,7 +404,6 @@
 
 
     var ipStopWidgetDrag = function (event, ui) {
-
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
             var leftOrRight = lastDroppable.data('leftOrRight');
@@ -440,15 +432,14 @@
             if (block == curBlock && curPosition < position) {
                 position--;
             }
-            if (block == curBlock && curPosition == position) {
-                return;
+            if (block != curBlock || curPosition != position) {
+                if (side) {
+                    ipContent.moveWidgetToSide(sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight);
+                } else {
+                    ipContent.moveWidget(instanceId, position, block, ip.revisionId);
+                }
             }
 
-            if (side) {
-                ipContent.moveWidgetToSide(sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight);
-            } else {
-                ipContent.moveWidget(instanceId, position, block, ip.revisionId);
-            }
         }
 
         $('.ipsWidgetDropPlaceholder').remove();

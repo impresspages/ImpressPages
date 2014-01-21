@@ -36,6 +36,6 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
         <?php echo esc($menuItem->getTitle()) ?>
         <?php if ($href) { ?></a><?php } ?>
     <?php if ($menuItem->getChildren()){ ?>
-        <?php echo $this->subview('bootstrapNav.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>
+        <?php echo ipView('Ip/Internal/Admin/view/bootstrapNav.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render(); ?>
     <?php } ?>
 </li>

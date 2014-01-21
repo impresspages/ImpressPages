@@ -138,9 +138,9 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/step3.js'));
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step3.js');
 
         return $response;
     }
@@ -181,9 +181,9 @@ class PublicController extends \Ip\Controller
 
 
         $response = new LayoutResponse();
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/jquery.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/ModuleInstall.js'));
-        ipAddJs(ipFileUrl('Plugin/Install/assets/js/step4.js'));
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step4.js');
 
         $response->setContent($content);
 
@@ -306,9 +306,6 @@ class PublicController extends \Ip\Controller
             $errors[] = __('Please choose website time zone.', 'Install', false);
         }
 
-        if (ipRequest()->getPost('email') && !filter_var(ipRequest()->getPost('email'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = __('Please enter correct administrator e-mail address.', 'Install', false);
-        }
 
         if (!empty($errors)) {
             return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
@@ -325,11 +322,6 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
 
-        try {
-            Model::writeRobotsFile(ipFile('robots.txt'));
-        } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write "/robots.txt"', 'Install', false));
-        }
 
 
         try {
@@ -340,7 +332,7 @@ class PublicController extends \Ip\Controller
         }
         try {
 
-            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('install_pass'));
+            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('siteEmail'), ipRequest()->getPost('install_pass'));
             Model::setSiteName(ipRequest()->getPost('siteName'));
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
             Model::generateCronPassword();

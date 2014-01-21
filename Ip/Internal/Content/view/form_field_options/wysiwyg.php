@@ -1,1 +1,1 @@
-<textarea class="ipaFieldOptionsRichText"></textarea>
+<textarea class="ipsFieldOptionsRichText"></textarea>

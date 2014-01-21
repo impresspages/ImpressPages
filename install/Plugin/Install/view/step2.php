@@ -3,7 +3,7 @@
     ImpressPages - Content Management System<br/>
     Copyright <?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages, UAB</a>
 </p>
-<p>This program is free software: you can redistribute it and/or modify it under the terms of the <a href="<?php echo ipFileUrl('ip_license.html') ?>">GNU General Public License or MIT License</a>.</p>
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the <a href="<?php echo ipFileUrl('license.html') ?>">GNU General Public License or MIT License</a>.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>
 <p>You are required to keep these "Appropriate Legal Notices" intact as specified in GPL3 section 5(d) and 7(b) and MIT.</p>
 <p>&nbsp;</p>

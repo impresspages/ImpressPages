@@ -178,8 +178,8 @@
 
             $this.data('typeSelectText').bind('change', $.proxy(methods._updateType, $this));
             $this.data('typeSelectImage').bind('change', $.proxy(methods._updateType, $this));
-            $popup.find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
-            $popup.find('.ipaCancel').bind('click', function(event){$popup.dialog('close');});
+            $popup.find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $popup.find('.ipsCancel').bind('click', function(event){$popup.dialog('close');});
             $popup.bind('dialogclose', $.proxy(methods._cancel, $this));
 
         },
@@ -200,7 +200,7 @@
             } else {
                 $this.data('previewText').hide();
                 $this.data('previewImage').show();
-                var $imageUploader = $popup.find('.ipaImage');
+                var $imageUploader = $popup.find('.ipsImage');
                 $this.data('previewImage').html('');
                 $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
                 $this.data('previewImage').find('.ipUploadButtons').remove();
@@ -219,7 +219,7 @@
                 $this.data('imageManagement').show();
 
                 if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
-                    var $imageUploader = $popup.find('.ipaImage');
+                    var $imageUploader = $popup.find('.ipsImage');
                     $imageUploader.ipUploadImage($this.data('ipUploadImageOptions'));
                     $popup.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
                     var data = $this.data('ipInlineManagementLogo');
@@ -259,7 +259,7 @@
             data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
             //IMAGE LOGO
             if ($this.data('ipInlineManagementLogo').imageUploadInitialized) {
-                var ipUploadImage = $popup.find('.ipaImage');
+                var ipUploadImage = $popup.find('.ipsImage');
                 if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
                     var newImage = ipUploadImage.ipUploadImage('getCurImage');
                     if (newImage) {

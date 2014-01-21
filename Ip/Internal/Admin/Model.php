@@ -4,6 +4,7 @@ namespace Ip\Internal\Admin;
 
 class Model{
 
+    protected $errors = array();
 
     protected function __construct()
     {
@@ -84,29 +85,38 @@ class Model{
 
         $preventReason = ipJob('ipAdminLoginPrevent', array('username' => $username));
         if ($preventReason) {
-            $this->loginError = $preventReason;
+            $this->errors = array('global_error' => $preventReason);
             ipLog()->notice('Admin.loginPrevented: {username} from {ip}', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             return false;
         }
 
 
-        $id = $this->userId($username, $password);
-        if ($id !== false) {
-            $_SESSION['backend_session']['userId'] = $id;
-            \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginSuccessful', array('userId' => $id));
+
+
+        $administrator = \Ip\Internal\Administrators\Service::getByUsername($username);
+        if (!$administrator) {
+            \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+            $this->errors = array('login' => __('Following user doesn\'t exist', 'ipAdmin'));
+            return false;
+        }
+
+        if (\Ip\Internal\Administrators\Service::checkPassword($administrator['id'], $password)) {
+            $_SESSION['backend_session']['userId'] = $administrator['id'];
+            \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginSuccessful', array('userId' => $administrator['id']));
             ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             return true;
         } else {
             \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-            $this->loginError = __('Incorrect name or password', 'ipAdmin');
+            $this->errors = array('password' => __('Incorrect password', 'ipAdmin'));
             return false;
         }
     }
 
-    public function getLastError()
+    public function getErrors()
     {
-        return $this->loginError;
+        return $this->errors;
     }
 
     public function logout()
@@ -116,24 +126,5 @@ class Model{
     }
 
 
-    protected  function userId($name, $pass) {
-        $sql = "
-        SELECT
-            `id`
-        FROM
-            " . ipTable('user') . "
-        where
-            `name` = :name
-            AND
-            `pass` = :pass
-            AND
-            not `blocked` ";
 
-        $params = array(
-            'name' => $name,
-            'pass' => md5($pass)
-        );
-
-        return ipDb()->fetchValue($sql, $params);
-    }
 }

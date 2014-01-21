@@ -13,33 +13,33 @@ class Event
     {
 
         if (ipIsManagementState()) {
-            ipAddCss(ipFileUrl('Ip/Internal/InlineManagement/assets/inline_management.css'));
+            ipAddCss('Ip/Internal/InlineManagement/assets/inline_management.css');
 
 
             if (ipConfig()->isDebugMode()) {
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagement.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagementControls.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagementImage.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagementLogo.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagementString.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/inlineManagementText.js'));
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/src/jquery.fontselector.js'));
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagement.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementControls.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementImage.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementLogo.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementString.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementText.js');
+                ipAddJs('Ip/Internal/InlineManagement/assets/src/jquery.fontselector.js');
             } else {
-                ipAddJs(ipFileUrl('Ip/Internal/InlineManagement/assets/inlineManagement.min.js'));
+                ipAddJs('Ip/Internal/InlineManagement/assets/inlineManagement.min.js');
             }
 
 
             ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
 
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.full.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/plupload/plupload.gears.js'));
+            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.full.js');
+            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js');
+            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.gears.js');
 
-            ipAddJs(ipFileUrl('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js'));
+            ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
+            ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
-            ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.css'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.js'));
+            ipAddCss('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.css');
+            ipAddJs('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.js');
         }
     }
 }

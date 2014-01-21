@@ -1,9 +1,7 @@
 /**
  * @package ImpressPages
-
  *
  */
-
 
 
 (function($) {
@@ -19,8 +17,6 @@
 
                 var data = $this.data('ipFormFile');
                 if (!data) {
-
-
                     var uniqueNumber = Math.floor(Math.random()*100000000);
                     var $uploadButton = $this.find('.ipmFileAddButton');
                     if (!$uploadButton.attr('id')) {
@@ -30,9 +26,6 @@
                     if (!$uploadContainer.attr('id')) {
                         $uploadContainer.attr('id', 'ipModFormFileContainer_' + uniqueNumber);
                     }
-
-
-
 
                     var uploaderConfig = {
                         runtimes : 'gears,html5,flash,silverlight,browserplus',
@@ -74,7 +67,6 @@
                 }
             });
         },
-
 
         _error : function(up, err) {
             var $this = $(this);
@@ -133,7 +125,6 @@
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
-
         _fileUploaded : function(up, file, response) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
@@ -169,15 +160,12 @@
                 files.push({
                     fileName : $this.data('fileName'),
                     file : $this.data('file'),
-                    renameTo : $this.find('.ipaRenameTo').val(),
+                    renameTo : $this.find('.ipsRenameTo').val(),
                     dir : $this.data('dir')
                 });
             });
             return files;
         }
-
-
-
     };
 
     $.fn.ipFormFile = function(method) {

@@ -5,8 +5,8 @@
 
         $('.ipmControlInput').first().focus();
 
-        $('.ipsModuleForm').validator(validatorConfig);
-        $('.ipsModuleForm').submit(function (e) {
+        $('.ipsLoginForm').validator(validatorConfig);
+        $('.ipsLoginForm').submit(function (e) {
             var form = $(this);
 
             // client-side validation OK.

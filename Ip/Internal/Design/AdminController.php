@@ -19,15 +19,15 @@ class AdminController extends \Ip\Controller
     public function index()
     {
 
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js'));
-        ipAddCss(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css'));
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Design/assets/options.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Design/assets/market.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Design/assets/design.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Design/assets/pluginInstall.js'));
-        ipAddCss(ipFileUrl('Ip/Internal/Design/assets/design.css'));
-        ipAddJs(ipFileUrl('Ip/Internal/System/assets/market.js'));
+        ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
+        ipAddCss('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css');
+        ipAddJs('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js');
+        ipAddJs('Ip/Internal/Design/assets/options.js');
+        ipAddJs('Ip/Internal/Design/assets/market.js');
+        ipAddJs('Ip/Internal/Design/assets/design.js');
+        ipAddJs('Ip/Internal/Design/assets/pluginInstall.js');
+        ipAddCss('Ip/Internal/Design/assets/design.css');
+        ipAddJs('Ip/Internal/System/assets/market.js');
 
 
 

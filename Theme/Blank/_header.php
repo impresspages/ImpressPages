@@ -7,16 +7,16 @@
 <?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
-    <?php ipAddCss(ipThemeUrl('assets/theme.css')); ?>
+    <?php ipAddCss('assets/theme.css'); ?>
     <?php echo ipHead(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
-        <?php echo ipSlot('Ip.logo') ?>
+        <?php echo ipSlot('Ip.logo'); ?>
         <div class="right">
-            <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getNavigationTitle()) ?></span>
+            <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getNavigationTitle()); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php echo ipSlot('Ip.menu', 'menu1'); ?>
