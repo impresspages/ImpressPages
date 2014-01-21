@@ -72,7 +72,7 @@ class Model{
         $secret = md5(ipConfig()->getRaw('SESSION_NAME') . uniqid());
         $data = array(
             'resetSecret' => $secret,
-            'resetTimestamp' => time()
+            'resetTime' => time()
         );
         ipDb()->update('administrator', $data, array('id' => $userId));
         return $secret;
