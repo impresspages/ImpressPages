@@ -44,7 +44,7 @@ class LessCompiler
             $themeDir = rtrim(ipFile('Theme/' . $themeName . '/assets/'), '/');
             $directories = array(
                 $themeDir => '',
-                ipFile('Ip/Internal/Ip/assets/css/ipContent') => ''
+                rtrim(ipFile('Ip/Internal/Ip/assets/css/ipContent/'), '/') => ''
             );
             $parser->SetImportDirs($directories);
             $parser->parse('@ipContentDir: \'less/ipContent\';');
