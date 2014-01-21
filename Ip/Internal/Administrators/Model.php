@@ -43,12 +43,13 @@ class Model{
         }
 
         $urlData = array(
+            'sa' => 'Admin.passwordReset',
             'id' => $userId,
             'secret' => self::generatePasswordResetSecret($userId)
         );
 
         $contentData = array (
-            'link' => ipFileUrl('') . 'admin.php' . '?' . http_build_query($urlData)
+            'link' => ipActionUrl($urlData)
         );
         $content = ipView('view/passwordResetContent.php', $contentData)->render();
 
