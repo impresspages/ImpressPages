@@ -23,7 +23,7 @@ var ipModuleForm;
             //TODOXX check if form file js is not loaded #135
             $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Ip/assets/form/file.js') + '"></script>'));
 
-            if ($('.ipsModuleForm .ipmType-color').length && !jQuery().spectrum) {
+            if ($('.ipsModuleForm .ipsColorPicker').length && !jQuery().spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Ip/assets/js/spectrum/spectrum.min.js') + '"></script>');
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Ip/assets/form/color.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Ip/assets/js/spectrum/spectrum.css') + '" type="text/css" />');

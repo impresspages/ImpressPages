@@ -27,7 +27,8 @@ class PageAssets extends \Ip\Internal\PageAssets
                 'pageId' => null,
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
-                'debugMode' => ipconfig()->isDebugMode()
+                'debugMode' => ipconfig()->isDebugMode(),
+                'isManagementState' => false,
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
