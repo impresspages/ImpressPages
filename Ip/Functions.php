@@ -132,7 +132,7 @@ function ipCurrentPage()
  */
 function ipAddJs($file, $attributes = null, $priority = 50)
 {
-    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+    if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
     } else {
         if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
@@ -141,19 +141,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
             $relativePath = ipRelativeDir(1) . $file;
         }
 
-        if (strpos($relativePath, 'Plugin/') === 0) {
-            $overridePath = substr($relativePath, 7);
-        } else {
-            $overridePath = $relativePath;
-        }
-
-        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-
-        if (is_file($fileInThemeDir)) {
-            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-        } else {
-            $absoluteUrl = ipFileUrl($relativePath);
-        }
+        $absoluteUrl = ipFileUrl($relativePath);
     }
 
     \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
@@ -178,7 +166,7 @@ function ipAddJsVariable($name, $value)
  */
 function ipAddCss($file, $attributes = null, $priority = 50)
 {
-    if ($file[0] == '/' || preg_match('%(https?:)?//%', $file)) {
+    if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
     } else {
         if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
@@ -187,19 +175,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
             $relativePath = ipRelativeDir(1) . $file;
         }
 
-        if (strpos($relativePath, 'Plugin/') === 0) {
-            $overridePath = substr($relativePath, 7);
-        } else {
-            $overridePath = $relativePath;
-        }
-
-        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-
-        if (is_file($fileInThemeDir)) {
-            $absoluteUrl = ipThemeUrl(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
-        } else {
-            $absoluteUrl = ipFileUrl($relativePath);
-        }
+        $absoluteUrl = ipFileUrl($relativePath);
     }
 
     \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
@@ -760,28 +736,49 @@ function ipEmailTemplate($data)
  */
 function ipView($file, $data = array(), $_callerDepth = 0)
 {
-    if ($file[0] == '/' || $file[1] == ':') {
-        $absolutePath = $file;
+    if ($file[0] == '/' || $file[1] == ':') { // Absolute filename
+        return new \Ip\View($file, $data);
+    }
+
+    if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+        $relativePath = $file;
     } else {
-        if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
-            $relativePath = $file;
-        } else {
-            $relativePath = ipRelativeDir($_callerDepth + 1) . $file;
-        }
+        $relativePath = ipRelativeDir($_callerDepth + 1) . $file;
+    }
 
-        if (strpos($relativePath, 'Plugin/') === 0) {
-            $overridePath = substr($relativePath, 7);
-        } else {
-            $overridePath = $relativePath;
-        }
+    if (strpos($relativePath, 'Plugin/') === 0) {
+        $overridePath = substr($relativePath, 7);
+    } elseif (strpos($relativePath, 'Ip/Internal/')) {
+        $overridePath = substr($relativePath, 12);
+    } else {
+        $overridePath = $relativePath;
+    }
 
-        $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+    $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
 
-        if (is_file($fileInThemeDir)) {
-            $absolutePath = $fileInThemeDir;
-        } else {
-            $absolutePath = ipFile($relativePath);
-        }
+    if (is_file($fileInThemeDir)) {
+        return new \Ip\View($fileInThemeDir, $data);
+    }
+
+    $absolutePath = ipFile($relativePath);
+    if (file_exists($absolutePath)) {
+        // the most common case
+        return new \Ip\View($absolutePath, $data);
+    }
+
+    // File was not found, check whether it is in theme override dir
+    if (strpos($relativePath, 'Theme/' . ipConfig()->theme() . '/override/') !== 0) {
+        throw new \Ip\Exception\View("View {$file} not found.");
+    }
+
+    $path = substr($relativePath, 'Theme/' . ipConfig()->theme() . '/override/');
+
+    if (file_exists(ipFile('Ip/Internal/' . $path))) {
+        $absolutePath = ipFile('Ip/Internal/' . $path);
+    } elseif (file_exists(ipFile('Plugin/' . $path))) {
+        $absolutePath = ipFile('Plugin/' . $path);
+    } else {
+        throw new \Ip\Exception\View("View {$file} not found.");
     }
 
     return new \Ip\View($absolutePath, $data);

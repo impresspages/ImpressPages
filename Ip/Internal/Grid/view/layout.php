@@ -1,7 +1,7 @@
 <div class="ip scopeGrid">
-    <?php echo $this->subview('actions.php'); ?>
-    <?php echo $this->subview('table.php'); ?>
+    <?php echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables()); ?>
+    <?php echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables()); ?>
     <?php echo $pagination->render(ipFile('Ip/Internal/Grid/view/pagination.php')); ?>
-    <?php echo $this->subview('deleteModal.php'); ?>
-    <?php echo $this->subview('updateModal.php'); ?>
+    <?php echo ipView('Ip/Internal/Grid/view/deleteModal.php', $this->getVariables()); ?>
+    <?php echo ipView('Ip/Internal/Grid/view/updateModal.php', $this->getVariables()); ?>
 </div>

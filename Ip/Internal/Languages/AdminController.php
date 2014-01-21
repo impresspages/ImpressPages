@@ -13,7 +13,7 @@ class AdminController extends \Ip\GridController
     static $urlBeforeUpdate;
     public function init()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Languages/assets/languages.js'));
+        ipAddJs('Ip/Internal/Languages/assets/languages.js');
     }
 
 
