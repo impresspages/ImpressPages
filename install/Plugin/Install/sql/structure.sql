@@ -343,6 +343,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   `username` varchar(255) NOT NULL DEFAULT '',
   `hash` text NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
+  `resetSecret` varchar(32) DEFAULT NULL,
+  `resetTime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
