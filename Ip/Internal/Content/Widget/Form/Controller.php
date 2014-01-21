@@ -109,12 +109,11 @@ class Controller extends \Ip\WidgetController{
 
 
         $emailData = array(
-            'content' => $content,
-            'name' => $websiteName,
-            'email' => $websiteEmail
+            'content' => $content
         );
 
-        $email = ipView('helperView/email.php', $emailData)->render();
+
+        $email = ipEmailTemplate($emailData);
 
 
         //get page where this widget sits :)

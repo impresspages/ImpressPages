@@ -742,6 +742,16 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
     $emailQueue->send();
 }
 
+
+/**
+ * @param array $data pass content to the template. Default template outputs following array elements 'title', 'content', 'signature', 'footer'
+ * @return string
+ */
+function ipEmailTemplate($data)
+{
+    return ipView('Internal/Config/view/email.php', $data)->render();
+}
+
 /**
  * Get a view object from specified file and data
  * @param $file
