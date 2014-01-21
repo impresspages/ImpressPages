@@ -63,7 +63,7 @@ class Block
     }
 
     /**
-     * Make a block content the same on all pages.
+     * Make a block content the same on all pages
      *
      * @return $this
      */
@@ -74,7 +74,7 @@ class Block
     }
 
     /**
-     * Sets example content to be used when block content is empty.
+     * Set example content to be used when block content is empty
      *
      * @param string $content
      * @return $this
@@ -86,9 +86,9 @@ class Block
     }
 
     /**
-     * Loads example content from file.
+     * Load example content from file
      *
-     * Example content should be placed in the theme's directory
+     * Example content should be placed in theme's directory
      *
      * @param string $filename
      * @return $this
@@ -101,8 +101,8 @@ class Block
 
     /**
      * PHP can't handle exceptions in __toString method. Try to avoid it every time possible. Use render() method instead.
-     * @return string
      * @ignore
+     * @return string
      */
     public function __toString()
     {

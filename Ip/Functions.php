@@ -720,7 +720,10 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
 
 
 /**
- * @param array $data pass content to the template. Default template outputs following array elements 'title', 'content', 'signature', 'footer'
+ *
+ * Generate complete email HTML out of given title, content, signature and footer.
+ *
+ * @param array $data associative array. pass content to the template. Default template outputs following array elements 'title', 'content', 'signature', 'footer'
  * @return string
  */
 function ipEmailTemplate($data)
