@@ -701,12 +701,13 @@ function ipAdminPermission($plugin, $action = NULL)
  * And set $urgent to true, when sending notification about purchase, etc.
  *
  *
- * @param string $from email address
- * @param string $fromName
- * @param string $to email address
- * @param string $toName
- * @param string $subject
- * @param string $content to be sent (html or plane text. See $html attribute)
+ *
+ * @param string $from Sender's e-mail address
+ * @param string $fromName Sender's name
+ * @param string $to Recipient's email address
+ * @param string $toName  Recipient's name
+ * @param string $subject Message subject
+ * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
  * @param bool $urgent
  * @param bool $html
  * @param null $files
@@ -721,10 +722,12 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
 
 /**
  *
- * Generate complete email HTML out of given title, content, signature and footer.
+ * Generate e-mail message HTML using given title, content, signature and footer
+ * To send generated e-mail message HTML, use ipSendEmail() function.
  *
- * @param array $data associative array. pass content to the template. Default template outputs following array elements 'title', 'content', 'signature', 'footer'
- * @return string
+ * This function uses the default template, located at Internal/Config/view/email.php. Override the default template
+ * @param array $data Associative array with template content. Default template outputs HTML using following array elements 'title', 'content', 'signature', 'footer'
+ * @return string E-mail in HTML format
  */
 function ipEmailTemplate($data)
 {
@@ -829,6 +832,7 @@ function ipRelativeDir($callLevel = 0)
 
     $baseDir = ipConfig()->getRaw('BASE_DIR');
 
+    $baseDir = str_replace('\\', '/', $baseDir);
     if (strpos($absoluteFile, $baseDir) !== 0) {
         throw new \Ip\Exception('Cannot find relative path for file ' . $absoluteFile);
     }
