@@ -12,19 +12,54 @@ class SiteController extends \Ip\Controller{
         }
 
 
-        if (ipRequest()->getQuery('resetPassword', 0)) {
-            $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
-            ipAddJs('Ip/Internal/Admin/assets/passwordReset.js');
-        } else {
-            $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
-            ipAddJs('Ip/Internal/Admin/assets/login.js');
-        }
+        $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
+        ipAddJs('Ip/Internal/Admin/assets/login.js');
         $response = ipResponse();
         $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
         $response->setLayoutVariable('content', $content);
 
         return $response;
     }
+
+    public function resetPasswordForm()
+    {
+        if (\Ip\Internal\Admin\Backend::userId()) {
+            //user has already been logged in
+            \Ip\Internal\Content\Service::setManagementMode(1);
+            return new \Ip\Response\Redirect(ipHomeUrl());
+        }
+
+
+        $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
+        ipAddJs('Ip/Internal/Admin/assets/passwordReset.js');
+
+        $response = ipResponse();
+        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayoutVariable('content', $content);
+
+        return $response;
+
+    }
+
+    public function passwordReset()
+    {
+        if (\Ip\Internal\Admin\Backend::userId()) {
+            //user has already been logged in
+            \Ip\Internal\Content\Service::setManagementMode(1);
+            return new \Ip\Response\Redirect(ipHomeUrl());
+        }
+
+
+        $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
+        ipAddJs('Ip/Internal/Admin/assets/passwordReset.js');
+
+        $response = ipResponse();
+        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayoutVariable('content', $content);
+
+        return $response;
+    }
+
 
     public function loginAjax()
     {

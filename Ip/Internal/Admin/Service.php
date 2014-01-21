@@ -10,6 +10,7 @@ class Service
     public static function isSafeMode()
     {
         return \Ip\Internal\Admin\Model::isSafeMode();
+
     }
 
 }
