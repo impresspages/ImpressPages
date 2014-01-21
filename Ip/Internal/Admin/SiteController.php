@@ -183,7 +183,7 @@ class SiteController extends \Ip\Controller{
 
         ipRequest()->mustBePost();
 
-        $validateForm = FormHelper::getPasswordResetForm1();
+        $validateForm = FormHelper::getPasswordResetForm2();
         $errors = $validateForm->validate(ipRequest()->getPost());
 
         $userId = ipRequest()->getPost('userId');
@@ -197,19 +197,6 @@ class SiteController extends \Ip\Controller{
             $user['global_error'] = $e->getMessage();
         }
 
-        if (empty($errors)) {
-            $user = \Ip\Internal\Administrators\Service::getByEmail($username);
-            if (!$user) {
-                $user = \Ip\Internal\Administrators\Service::getByUsername($username);
-            }
-
-            if ($user) {
-                \Ip\Internal\Administrators\Service::sendResetPasswordLink($user['id']);
-            } else {
-                $errors['username'] = __('Following administrator doesn\'t exist', 'ipAdmin', FALSE);
-            }
-
-        }
 
         if (empty($errors)) {
             $answer = array(
