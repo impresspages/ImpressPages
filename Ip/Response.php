@@ -34,7 +34,7 @@ class Response
     }
 
     /**
-     * Add web page HTTP header
+     * Add HTTP header
      *
      * @param $value
      */
@@ -43,6 +43,10 @@ class Response
         $this->headers[] = $value;
     }
 
+    /**
+     * Get HTTP headers
+     * @return array
+     */
     public function getHeaders()
     {
         return $this->headers;
@@ -103,7 +107,7 @@ class Response
     }
 
     /**
-     * Check if the page returns HTTP informational status code
+     * Check if a page returns HTTP informational status code
      * @return bool
      */
     public function isInformational()
@@ -196,7 +200,7 @@ class Response
     }
 
     /**
-     * Returns rendered version of a content.
+     * Returns rendered version of a content
      *
      * @return string
      */
