@@ -33,6 +33,11 @@ class Response
         }
     }
 
+    /**
+     * Add web page HTTP header
+     *
+     * @param $value
+     */
     public function addHeader($value)
     {
         $this->headers[] = $value;
@@ -44,7 +49,8 @@ class Response
     }
 
     /**
-     * @param  int $code
+     * Set HTTP status code
+     * @param  int $code Status code
      * @return Response
      */
     public function setStatusCode($code)
@@ -56,7 +62,7 @@ class Response
     /**
      * Retrieve HTTP status code
      *
-     * @return int
+     * @return int HTTP status code
      */
     public function getStatusCode()
     {
@@ -64,7 +70,9 @@ class Response
     }
 
     /**
-     * @param string $reasonPhrase
+     * Set HTTP status message
+     *
+     * @param string $reasonPhrase Status message text
      * @return Response
      */
     public function setStatusMessage($message)
@@ -74,6 +82,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status code is Client error
      * @return bool
      */
     public function isClientError()
@@ -84,6 +93,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status code is 403 Forbidden
      * @return bool
      */
     public function isForbidden()
@@ -93,6 +103,7 @@ class Response
     }
 
     /**
+     * Check if the page returns HTTP informational status code
      * @return bool
      */
     public function isInformational()
@@ -103,6 +114,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status is 404 Page not found
      * @return bool
      */
     public function isNotFound()
@@ -112,6 +124,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status is 200 Ok
      * @return bool
      */
     public function isOk()
@@ -121,6 +134,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status is Server error
      * @return bool
      */
     public function isServerError()
@@ -131,6 +145,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status is Redirect
      * @return bool
      */
     public function isRedirect()
@@ -141,6 +156,7 @@ class Response
     }
 
     /**
+     * Check if HTTP status is Success
      * @return bool
      */
     public function isSuccess()
@@ -152,6 +168,7 @@ class Response
 
 
     /**
+     * Set webpage content
      * @param String $content
      */
     public function setContent($content)
@@ -161,6 +178,7 @@ class Response
     }
 
     /**
+     * Get webpage content
      * @return string
      */
     public function getContent()
@@ -169,6 +187,7 @@ class Response
     }
 
     /**
+     * @ignore
      * @return string
      */
     public function toString()
@@ -186,6 +205,9 @@ class Response
         return $this->getContent();
     }
 
+    /**
+     * Sends a page to web browser
+     */
     public function send()
     {
         $headers = $this->getHeaders();
