@@ -462,7 +462,7 @@ if (!function_exists('ipFileUrl')) {
 /**
  * Generate URL-encoded query string
  * @param $query associative (or indexed) array
- * @return string\ URL string
+ * @return string URL string
  */
 function ipActionUrl($query)
 {

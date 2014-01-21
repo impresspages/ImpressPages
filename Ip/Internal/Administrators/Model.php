@@ -35,7 +35,7 @@ class Model{
         ipDb()->insert('administrator', $data);
     }
 
-    public static function resetPassword($userId)
+    public static function sendResetPasswordLink($userId)
     {
         $user = self::get($userId);
         if (!$user) {
@@ -65,6 +65,30 @@ class Model{
         $toName = $user['username'];
         ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
 
+    }
+
+
+    public static function setUserPassword($userId, $password)
+    {
+        ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
+    }
+
+    public static function resetPassword($userId, $secret, $password)
+    {
+        $user = self::get($userId);
+        if (!$user) {
+            throw new \Ip\Exception(__('User doesn\'t exist', 'ipAdmin', FALSE));
+        }
+
+        if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption('Config.passwordResetLinkExpire', 60 * 60 * 24)) {
+            throw new \Ip\Exception(__('Invalid password reset link', 'ipAdmin', FALSE));
+        }
+
+        if ($user['resetSecret'] != $secret) {
+            throw new \Ip\Exception(__('Password reset link has expired', 'ipAdmin', FALSE));
+        }
+
+        ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
     }
 
     private static function generatePasswordResetSecret($userId)
