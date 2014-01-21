@@ -19,7 +19,7 @@
         if ($exampleContent) {
             echo $exampleContent;
         } else {
-            echo $this->subview('exampleContent.php')->render();
+            echo ipView('Ip/Internal/Content/view/exampleContent.php')->render();
         }
 ?>
             </div>

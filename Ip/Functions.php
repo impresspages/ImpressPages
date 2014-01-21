@@ -36,7 +36,7 @@ function ipGetOption($option, $defaultValue = null)
 }
 
 /**
- * Get language specific CMS option value. 
+ * Get language specific CMS option value.
  * @param $option
  * @param $languageId
  * @param null $defaultValue
@@ -132,7 +132,19 @@ function ipCurrentPage()
  */
 function ipAddJs($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addJavascript($file, $attributes, $priority);
+    if (preg_match('%(https?:)?//%', $file)) {
+        $absoluteUrl = $file;
+    } else {
+        if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+            $relativePath = $file;
+        } else {
+            $relativePath = ipRelativeDir(1) . $file;
+        }
+
+        $absoluteUrl = ipFileUrl($relativePath);
+    }
+
+    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
 }
 
 /**
@@ -154,7 +166,19 @@ function ipAddJsVariable($name, $value)
  */
 function ipAddCss($file, $attributes = null, $priority = 50)
 {
-    \Ip\ServiceLocator::pageAssets()->addCss($file, $attributes, $priority);
+    if (preg_match('%(https?:)?//%', $file)) {
+        $absoluteUrl = $file;
+    } else {
+        if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+            $relativePath = $file;
+        } else {
+            $relativePath = ipRelativeDir(1) . $file;
+        }
+
+        $absoluteUrl = ipFileUrl($relativePath);
+    }
+
+    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
 }
 
 /**
@@ -687,11 +711,21 @@ function ipAdminPermission($plugin, $action = NULL)
  * @param bool $html
  * @param null $files
  */
-function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
+function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
 {
     $emailQueue = new \Ip\Internal\Email\Module();
     $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
     $emailQueue->send();
+}
+
+
+/**
+ * @param array $data pass content to the template. Default template outputs following array elements 'title', 'content', 'signature', 'footer'
+ * @return string
+ */
+function ipEmailTemplate($data)
+{
+    return ipView('Internal/Config/view/email.php', $data)->render();
 }
 
 /**
@@ -700,9 +734,54 @@ function ipAddEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=
  * @param array $data
  * @return \Ip\View
  */
-function ipView($file, $data = array())
+function ipView($file, $data = array(), $_callerDepth = 0)
 {
-    return \Ip\View::create($file, $data);
+    if ($file[0] == '/' || $file[1] == ':') { // Absolute filename
+        return new \Ip\View($file, $data);
+    }
+
+    if (preg_match('%^(Plugin|Theme|file|Ip)/%', $file)) {
+        $relativePath = $file;
+    } else {
+        $relativePath = ipRelativeDir($_callerDepth + 1) . $file;
+    }
+
+    if (strpos($relativePath, 'Plugin/') === 0) {
+        $overridePath = substr($relativePath, 7);
+    } elseif (strpos($relativePath, 'Ip/Internal/')) {
+        $overridePath = substr($relativePath, 12);
+    } else {
+        $overridePath = $relativePath;
+    }
+
+    $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+
+    if (is_file($fileInThemeDir)) {
+        return new \Ip\View($fileInThemeDir, $data);
+    }
+
+    $absolutePath = ipFile($relativePath);
+    if (file_exists($absolutePath)) {
+        // the most common case
+        return new \Ip\View($absolutePath, $data);
+    }
+
+    // File was not found, check whether it is in theme override dir
+    if (strpos($relativePath, 'Theme/' . ipConfig()->theme() . '/override/') !== 0) {
+        throw new \Ip\Exception\View("View {$file} not found.");
+    }
+
+    $path = substr($relativePath, 'Theme/' . ipConfig()->theme() . '/override/');
+
+    if (file_exists(ipFile('Ip/Internal/' . $path))) {
+        $absolutePath = ipFile('Ip/Internal/' . $path);
+    } elseif (file_exists(ipFile('Plugin/' . $path))) {
+        $absolutePath = ipFile('Plugin/' . $path);
+    } else {
+        throw new \Ip\Exception\View("View {$file} not found.");
+    }
+
+    return new \Ip\View($absolutePath, $data);
 }
 
 /**
@@ -713,4 +792,62 @@ function ipView($file, $data = array())
 function ipStorage()
 {
     return \Ip\ServiceLocator::storage();
+}
+
+// TODOX move to internal
+function ipRelativeDir($callLevel = 0)
+{
+    if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $callLevel + 1);
+    } else {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+    }
+
+    if (!isset($backtrace[$callLevel]['file'])) {
+        throw new \Ip\Exception("Can't find caller");
+    }
+
+    $absoluteFile = $backtrace[$callLevel]['file'];
+
+    if (DIRECTORY_SEPARATOR == '\\') {
+        // Replace windows paths
+        $absoluteFile = str_replace('\\', '/', $absoluteFile);
+    }
+
+    $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+    if ($overrides) {
+        foreach ($overrides as $relativePath => $fullPath) {
+            if (strpos($absoluteFile, $fullPath) === 0) {
+                $relativeFile = substr_replace($absoluteFile, $relativePath, 0, strlen($fullPath));
+                return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+            }
+        }
+    }
+
+    $baseDir = ipConfig()->getRaw('BASE_DIR');
+
+    if (strpos($absoluteFile, $baseDir) !== 0) {
+        throw new \Ip\Exception('Cannot find relative path for file ' . $absoluteFile);
+    }
+
+    $relativeFile = substr($absoluteFile, strlen($baseDir) + 1);
+
+    return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+}
+
+function ipPath($path)
+{
+    // Check if absolute path: '/' for unix, 'C:' for windows
+    if ($path[0] == '/' || $path[1] == ':') {
+        return $path;
+    }
+
+    // Check if relative path to root
+    if (preg_match('%$(Plugin|Theme|file|Ip)/%', $path, $matches)) {
+
+    }
+
+    // Check if relative path to current path
+
+
 }

@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
 -- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_module`;
-   
+
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_module` (
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
 
 
 -- Table structure
-  
+
 DROP TABLE IF EXISTS `ip_cms_widget`;
 
 -- Table structure
@@ -334,19 +334,17 @@ CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_user`;
+DROP TABLE IF EXISTS `ip_cms_administrator`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_user` (
+CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `pass` varchar(32) NOT NULL DEFAULT '',
-  `wrong_logins` int(11) NOT NULL DEFAULT '0',
-  `blocked` tinyint(1) NOT NULL DEFAULT '0',
-  `e_mail` varchar(255) NOT NULL DEFAULT '',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `hash` text NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 -- Table structure

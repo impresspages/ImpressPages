@@ -4,5 +4,5 @@ Disallow: /install/
 Disallow: /admin.php
 Disallow: /admin/
 Disallow: /config.php
-Disallow: /ip_license.html
+Disallow: /license.html
 Disallow: /readme.md

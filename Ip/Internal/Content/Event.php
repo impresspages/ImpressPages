@@ -53,10 +53,10 @@ class Event
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js') {
-                    ipAddJs(ipFileUrl($resourcesFolder . '/' . $file));
+                    ipAddJs($resourcesFolder . '/' . $file);
                 }
                 if (strtolower(substr($file, -4)) == '.css') {
-                    ipAddCss(ipFileUrl($resourcesFolder . '/' . $file));
+                    ipAddCss($resourcesFolder . '/' . $file);
                 }
             }
         }
@@ -64,7 +64,7 @@ class Event
 
     public static function ipInit()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Content/assets/widgets.js'));
+        ipAddJs('Ip/Internal/Content/assets/widgets.js');
 
         $ipUrlOverrides = ipConfig()->getRaw('URL_OVERRIDES');
         if (!$ipUrlOverrides) {

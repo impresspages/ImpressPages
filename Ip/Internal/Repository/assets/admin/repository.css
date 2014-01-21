@@ -33,7 +33,7 @@
 .ipModuleRepositoryPopup .ipmTabUpload {
     overflow: hidden;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
     width: 250px;
     height: 295px;
     overflow-x: hidden;
@@ -41,50 +41,34 @@
     float: left;
 }
 @media all and (max-width: 640px) {
-    .ipModuleRepositoryPopup .ipmTabUpload .impContainer {
+    .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
         width: 90px;
     }
 }
 
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .impDragdropNotice {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .impDragdropNotice {
     display: none;
     margin-bottom: 10px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop {
     background-color: #d5d5d5;
     background-image: url(bg_upload.png);
     padding: 20px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop.hover {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop.hover {
     background-color: #f9f9f9;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop .ipmBrowseButtonWrapper {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop .ipmBrowseButtonWrapper {
     padding: 50px 0;
     text-align: center;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer.dragdrop .impDragdropNotice {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop .impDragdropNotice {
     display: block;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipmFile {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .ipmFile {
     margin-bottom: 10px;
 }
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaButton {
-    background-color: #000;
-    color: #fff;
-    display: inline-block;
-    font-size: 10px;
-    padding: 2px 4px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaFileMove {
-    cursor: move;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaFileTemplate {
-    margin-bottom: 7px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipaRenameTo {
-    width: 400px;
-}
-.ipModuleRepositoryPopup .ipmTabUpload .impContainer .ipmBrowseButton {
+.ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .ipmBrowseButton {
     font-size: 14px;
     line-height: 30px;
     z-index: 99100;

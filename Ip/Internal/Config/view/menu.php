@@ -9,6 +9,6 @@
     <?php $firstItem = $items[0]; ?>
     <ul class="level<?php echo $depth ?>"><?php
 foreach($items as $item) {
-    echo $this->subview('menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render();
+    echo ipView('Ip/Internal/Config/view/menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render();
 } ?></ul>
 <?php } ?>

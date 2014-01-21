@@ -25,7 +25,7 @@
             <div ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
                 <div id="pages_{{language.id}}_{{zone.name}}">
                     <ul class="actions">
-                        <button ng-click="addPageModal()" class="btn btn-default" role="button" >
+                        <button ng-click="addPageModal()" class="ipsAddPage btn btn-default" role="button" >
                             <i class="fa fa-file-o"></i>
                             <?php _e('Add', 'ipAdmin') ?>
                         </button>
@@ -50,8 +50,8 @@
     <div ng-show="selectedPageId" class="ipsProperties properties navBlock">
 
     </div>
-    <?php echo $this->subview('addPageModal.php')->render() ?>
-    <?php echo $this->subview('addZoneModal.php')->render() ?>
-    <?php echo $this->subview('updateZoneModal.php')->render() ?>
+    <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/addZoneModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/updateZoneModal.php', $this->getVariables())->render(); ?>
 
 </div>

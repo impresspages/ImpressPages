@@ -43,6 +43,13 @@ class Admin
         $loginButton = $loginPage->find('css', '.ipsLoginButton');
 
         $loginField = $loginPage->find('css', '.form-control[name=login]');
+        if (!$loginField) {
+            //* TODOX remove
+            var_export($loginPage->getContent());
+            echo __FILE__ . ':' . (__LINE__ - 2);
+            exit();
+            //*/
+        }
         $loginField->setValue($installation->getAdminLogin());
 
         $passwordField = $loginPage->find('css', '.form-control[name=password]');

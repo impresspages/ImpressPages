@@ -229,9 +229,9 @@
 
             }
 
-            $this.find('.ipmRepositoryActions .ipaSelectionConfirm').click($.proxy(methods._confirm, this));
-            $this.find('.ipmRepositoryActions .ipaSelectionCancel').click($.proxy(methods._stopSelect, this));
-            $this.find('.ipmRepositoryActions .ipaSelectionDelete').click($.proxy(methods._delete, this));
+            $this.find('.ipmRepositoryActions .ipsSelectionConfirm').click($.proxy(methods._confirm, this));
+            $this.find('.ipmRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
+            $this.find('.ipmRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
 
             $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');

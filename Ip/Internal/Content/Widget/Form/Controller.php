@@ -15,13 +15,13 @@ class Controller extends \Ip\WidgetController{
     public function getTitle() {
         return __('Form', 'ipAdmin', false);
     }
-    
+
     public function post ($instanceId, $data) {
         $postData = ipRequest()->getPost();
 
         $form = $this->createForm($instanceId, $data);
         $errors = $form->validate($postData);
-        
+
         if ($errors) {
             $data = array(
                 'status' => 'error',
@@ -29,7 +29,7 @@ class Controller extends \Ip\WidgetController{
             );
         } else {
             $this->sendEmail($form, $postData, $data);
-            
+
             $data = array(
                 'status' => 'success'
             );
@@ -72,18 +72,18 @@ class Controller extends \Ip\WidgetController{
         $files = array();
 
         foreach($form->getFields() as $fieldKey => $field) {
-            
+
             if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
                     $postData[$field->getName()] = null;
                 }
-                
+
                 $title = $field->getLabel();
                 $value = $field->getValueAsString($postData, $field->getName());
                 $contentData[] = array(
                     'fieldClass' => get_class($field),
                     'title' => $title,
-                    'value' => $value 
+                    'value' => $value
                 );
             }
 
@@ -101,25 +101,21 @@ class Controller extends \Ip\WidgetController{
                  */
                 $uploadedFiles = $field->getFiles($postData, $field->getName());
                 foreach($uploadedFiles as $uploadedFile) {
-                    $files[] = array(
-                        'real_name' => $uploadedFile->getFile(),
-                        'required_name' => $uploadedFile->getOriginalFileName()
-                    );
+                    $files[] = array($uploadedFile->getFile(),$uploadedFile->getOriginalFileName());
                 }
             }
         }
         $content = ipView('helperView/email_content.php', array('values' => $contentData))->render();
 
-        
-        $emailData = array(
-            'content' => $content,
-            'name' => $websiteName,
-            'email' => $websiteEmail
-        );
-        
-        $email = ipView('helperView/email.php', $emailData)->render();
 
-        
+        $emailData = array(
+            'content' => $content
+        );
+
+
+        $email = ipEmailTemplate($emailData);
+
+
         //get page where this widget sits :)
         $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetFullRecord($postData['instanceId']);
         $pageTitle = '';
@@ -129,16 +125,16 @@ class Controller extends \Ip\WidgetController{
                 $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getNavigationTitle();
             }
         }
-        
+
         $subject = $websiteName.': '.$pageTitle;
 
         $emailQueue = new \Ip\Internal\Email\Module();
         $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
 
         $emailQueue->send();
-        
+
     }
-    
+
 
 
     public function defaultData()
@@ -162,7 +158,7 @@ class Controller extends \Ip\WidgetController{
         );
         return $data;
     }
-    
+
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout) {
 
         $data['form'] = $this->createForm($instanceId, $data);
@@ -175,12 +171,12 @@ class Controller extends \Ip\WidgetController{
 
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
     }
-    
-    
+
+
     public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout) {
         //collect available field types
         $fieldTypeObjects = Model::getAvailableFieldTypes();
-        
+
         $fieldTypes = array ();
         foreach($fieldTypeObjects as $typeObject){
             $fieldTypes[$typeObject->getKey()] = array(
@@ -215,21 +211,21 @@ class Controller extends \Ip\WidgetController{
 
 
         return $data;
-    }    
-    
+    }
+
     /**
-     * 
-     * 
+     *
+     *
      * @param int $instanceId
      * @param array $data
      * @return \Ip\Form
      */
     protected function createForm($instanceId, $data) {
         $form = new \Ip\Form();
-        
+
         if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();
-        }        
+        }
         foreach ($data['fields'] as $fieldKey => $field) {
             if (!isset($field['type']) || !isset($field['label'])) {
                 continue;
@@ -251,18 +247,18 @@ class Controller extends \Ip\WidgetController{
                     'required' => $field['required'],
                     'options' => $field['options']
                 );
-                
+
                 try {
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
                 } catch (\Ip\Internal\Content\Exception $e) {
                     ipLog()->error('FormWidget.failedAddField: Widget failed to add field.', array('widget' => 'Form', 'exception' => $e, 'fieldData' => $fieldData));
                 }
-                
+
             }
         }
-        
-        
+
+
 
         //special variable to post to widget controller
         $field = new \Ip\Form\Field\Hidden(
@@ -271,7 +267,7 @@ class Controller extends \Ip\WidgetController{
         'value' => 'Content.widgetPost'
         ));
         $form->addField($field);
-        
+
         $field = new \Ip\Form\Field\Hidden(
         array(
         'name' => 'instanceId',
@@ -285,19 +281,19 @@ class Controller extends \Ip\WidgetController{
         'name' => 'checkField'
         ));
         $form->addField($field);
-        
+
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
             'value' => __('Send', 'ipPublic', false)
         ));
         $form->addField($field);
-        
-    
+
+
 
         return $form;
     }
-    
+
     protected function sortFieldTypes($a, $b) {
         return strcasecmp($a['title'], $b['title']);
     }

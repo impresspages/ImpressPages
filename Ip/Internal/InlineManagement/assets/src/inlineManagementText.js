@@ -78,8 +78,8 @@
                 $('.ipModuleInlineManagementPopupText').find('textarea').tinymce(tinyMceConfig);
             }
 
-            $('.ipModuleInlineManagementPopupText').find('.ipaConfirm').bind('click', $.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopupText').find('.ipaCancel').bind('click', $.proxy(methods._cancel, $this));
+            $('.ipModuleInlineManagementPopupText').find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $('.ipModuleInlineManagementPopupText').find('.ipsCancel').bind('click', $.proxy(methods._cancel, $this));
         },
 
         _confirm : function (event) {

@@ -4,7 +4,7 @@ namespace Tests\Functional;
 
 use \PhpUnit\Helper\TestEnvironment;
 
-class SeleniumInstallTest extends \PHPUnit_Framework_TestCase
+class InstallTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {

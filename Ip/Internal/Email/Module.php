@@ -41,12 +41,19 @@ class Module
      */
     function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $files = null)
     {
-        //TODOXX accept string array in file parameter. Avoid real_name... #133
         $cached_files = array();
         $cached_file_names = array();
         $cached_file_mime_types = array();
         if ($files) {
-            foreach ($files as $file) {
+            foreach ($files as $fileSetting) {
+                $file = array();
+                if (is_array($fileSetting)) {
+                    $file['real_name'] = $fileSetting[0];
+                    $file['required_name'] = $fileSetting[1];
+                } else {
+                    $file['real_name'] = $fileSetting;
+                    $file['required_name'] = $fileSetting;
+                }
                 $new_name = 'contact_form_' . rand();
                 $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
                 if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
