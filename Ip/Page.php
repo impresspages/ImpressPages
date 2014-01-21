@@ -12,7 +12,7 @@ namespace Ip;
  * Handle web page content.
  *
  * A page is a website Zone element. Typically each Element represents a single page on a Zone.
- * * This class is responsible for generating a content and providing with information about a web page.
+ * This class is responsible for generating a content and providing with information about a web page.
  *
  */
 
@@ -81,7 +81,8 @@ class Page{
     }
 
     /**
-     * This function is being executed every time before this element page is being displayed.
+     * This function is being executed every time before this page element is being displayed.
+     *
      * @param \Ip\Controller $controller
      */
     public function init(\Ip\Controller $controller)
@@ -117,6 +118,7 @@ class Page{
 
     /**
      * Get the next page on website's page tree branch
+     *
      * @return Page or false if next element doesn't exist
      */
     public function getNextPage()
@@ -129,6 +131,7 @@ class Page{
 
     /**
      * Get previous page on website's page tree branch
+     *
      * @return Page or false if previous element doesn't exist
      */
     public function getPreviousPage()
@@ -141,12 +144,14 @@ class Page{
 
     /**
      * Get page ID
+     *
      * @return int Page ID
      */
     public function getId(){return $this->id;}
 
     /**
      * Set page ID
+     *
      * @ignore
      * @param $id int
      */
@@ -154,23 +159,28 @@ class Page{
 
     /**
      * Get page navigation title
+     *
      * @return string
      */
     public function getNavigationTitle(){return $this->navigationTitle;}
 
     /**
      * @ignore
+     *
      * @param $navigationTitle string
      */
     public function setNavigationTitle($navigationTitle){$this->navigationTitle= $navigationTitle;}
 
     /**
      * Get page title
+     *
      * @return string
      */
     public function getPageTitle(){return $this->pageTitle;}
 
     /**
+     * Set page title
+     *
      * @ignore
      * @param $pageTitle string
      */
@@ -178,11 +188,14 @@ class Page{
 
     /**
      * Get page keywords
+     *
      * @return string
      */
     public function getKeywords(){return $this->keywords;}
 
     /**
+     * Set keywords
+     *
      * @ignore
      * @param $keywords string
      */
@@ -190,6 +203,7 @@ class Page{
 
     /**
      * Get page description
+     *
      * @return string
      */
     public function getDescription(){return $this->description;}
@@ -221,6 +235,7 @@ class Page{
 
     /**
      * Set page modification date and time
+     *
      * @ignore
      * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
@@ -240,32 +255,71 @@ class Page{
      */
     public function setCreatedOn($createdOn){$this->createdOn=$createdOn;}
 
-    /** @param $modifyFrequency int represents average amount of days between changes */
+    /**
+     * @ignore
+     * @param $modifyFrequency int represents average amount of days between changes
+     */
     public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}
 
-    /** @return float */
+    /**
+     * @ignore
+     * @return float
+     */
     public function getPriority(){return $this->priority;}
-    /** @param $priority float */
+
+    /**
+     * @ignore
+     * @param $priority float
+     */
     public function setPriority($priority){$this->priority=$priority;}
 
-    /** @return int */
+    /**
+     * Get parent page id
+     *
+     * @return int
+     */
+
     public function getParentId(){return $this->parentId;}
-    /** @param $parentId int */
+    /**
+     * Set parent page id
+     *
+     * @ignore
+     * @param $parentId int
+     */
+
     public function setParentId($parentId){$this->parentId=$parentId;}
 
-    /** @return string */
+    /**
+     * Get page URL address
+     * @return string
+     */
     public function getLink(){return $this->link;}
-    /** @param $link string */
+
+    /**
+     * @ignore
+     * @param $link string
+     */
     public function setLink($link){$this->link=$link;}
 
-    /** @return string */
+    /**
+     * Get the last part of the page URL
+     * @return string
+     */
     public function getUrl(){return $this->url;}
-    /** @param $url string */
+
+    /**
+     * @ignore
+     * @param $url string
+     */
     public function setUrl($url){$this->url=$url;}
 
-    /** @return bool */
+    /**
+     * @
+     * @return bool
+     */
     public function getCurrent(){return $this->current;}
-    /** @param $current bool */
+
+    /**   @param $current bool */
     public function setCurrent($current){$this->current=$current;}
 
     /** @return bool */
@@ -273,28 +327,75 @@ class Page{
     /** @param $selected bool */
     public function setSelected($selected){$this->selected=$selected;}
 
-    /** @return int */
+    /**
+     * Get page depth level in a menu tree
+     *
+     * @return int Depth level.
+     */
     public function getDepth(){return $this->depth;}
-    /** @param $depth int */
+    /**
+     * @ignore
+     *
+     * @param $depth int Depth level
+     */
     public function setDepth($depth){$this->depth=$depth;}
 
-    /** @return string */
+    /**
+     * Get zone name of the page
+     *
+     * @return string Zone name
+     */
     public function getZoneName(){return $this->zoneName;}
-    /** @param $zoneName string */
+
+    /**
+     * @ignore
+     *
+     * @param $zoneName string
+     */
     public function setZoneName($zoneName){$this->zoneName=$zoneName;}
 
-    /** @return string */
+    /**
+     * Get the page type (e.g., default, redirect or other types)
+     *
+     * @return string Page type
+     */
     public function getType(){return $this->type;}
-    /** @param $type string */
+
+    /**
+     * Set the page type
+     * @ignore
+     *
+     * @param $type string Page type
+     */
     public function setType($type){$this->type=$type;}
 
-    /** @return string */
+    /**
+     *
+     * Get page redirect address URL
+     *
+     * @return string Redirect URL address
+     */
     public function getRedirectUrl(){return $this->redirectUrl;}
-    /** @param $redirectUrl string */
+    /**
+     * Set page redirect URL
+     *
+     * @ignore
+     * @param $redirectUrl string Redirect URL address
+     */
     public function setRedirectUrl($redirectUrl){$this->redirectUrl=$redirectUrl;}
 
-    /** @return bool */
+    /**
+     * Get page visibility status
+     *
+     * @return bool Visibility
+     */
     public function isVisible(){return $this->visible;}
-    /** @param $visible bool */
+
+    /**
+     * Set page visibility status
+     *
+     * @ignore
+     * @param $visible bool
+     */
     public function setVisible($visible){$this->visible=$visible;}
 }
