@@ -314,7 +314,6 @@ class Page{
     public function setUrl($url){$this->url=$url;}
 
     /**
-     * @
      * @return bool
      */
     public function getCurrent(){return $this->current;}
@@ -324,6 +323,7 @@ class Page{
 
     /** @return bool */
     public function getSelected(){return $this->selected;}
+
     /** @param $selected bool */
     public function setSelected($selected){$this->selected=$selected;}
 
@@ -333,6 +333,7 @@ class Page{
      * @return int Depth level.
      */
     public function getDepth(){return $this->depth;}
+
     /**
      * @ignore
      *
@@ -376,6 +377,7 @@ class Page{
      * @return string Redirect URL address
      */
     public function getRedirectUrl(){return $this->redirectUrl;}
+
     /**
      * Set page redirect URL
      *
