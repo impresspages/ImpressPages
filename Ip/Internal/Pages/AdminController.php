@@ -15,16 +15,16 @@ class AdminController extends \Ip\Controller
 
     public function init()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/angular.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/pages.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/zones.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageTree.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/js/jquery.pageProperties.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.jstree.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.cookie.js'));
-        ipAddJs(ipFileUrl('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js'));
+        ipAddJs('Ip/Internal/Pages/assets/js/angular.js');
+        ipAddJs('Ip/Internal/Pages/assets/js/pages.js');
+        ipAddJs('Ip/Internal/Pages/assets/js/zones.js');
+        ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageTree.js');
+        ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageProperties.js');
+        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.jstree.js');
+        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.cookie.js');
+        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
 
-        ipAddCss(ipFileUrl('Ip/Internal/Pages/assets/pages.css'));
+        ipAddCss('Ip/Internal/Pages/assets/pages.css');
 
         ipAddJsVariable('languageList', Helper::languageList());
         ipAddJsVariable('zoneList', Helper::zoneList());

@@ -4,7 +4,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo $this->subview('_header.php')->render(); ?>
+<?php echo ipView('_header.php')->render(); ?>
         <div class="sidenav col_12 col_md_12 col_lg_3 left">
             <nav>
                 <?php
@@ -16,7 +16,7 @@
             </nav>
         </div>
         <div class="main col_12 col_md_12 col_lg_8 right">
-            <?php echo ipBlock('main'); ?>
+            <?php echo ipBlock('main')->render(); ?>
         </div>
         <div class="side col_12 col_md_12 col_lg_3 left">
             <aside>
@@ -24,4 +24,4 @@
             </aside>
         </div>
         <div class="clear"></div>
-<?php echo $this->subview('_footer.php'); ?>
+<?php echo ipView('_footer.php')->render(); ?>

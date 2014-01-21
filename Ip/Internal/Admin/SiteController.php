@@ -14,10 +14,10 @@ class SiteController extends \Ip\Controller{
 
         if (ipRequest()->getQuery('resetPassword', 0)) {
             $content = ipView('view/resetPassword.php', array('resetPasswordForm' => FormHelper::getPasswordResetForm()));
-            ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/passwordReset.js'));
+            ipAddJs('Ip/Internal/Admin/assets/passwordReset.js');
         } else {
             $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
-            ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/login.js'));
+            ipAddJs('Ip/Internal/Admin/assets/login.js');
         }
         $response = ipResponse();
         $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));

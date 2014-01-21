@@ -10,10 +10,10 @@ class Event
     {
         // Show admin toolbar if admin is logged in:
         if ((ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
-            ipAddCss(ipFileUrl('Ip/Internal/Admin/assets/admin.css'));
+            ipAddCss('Ip/Internal/Admin/assets/admin.css');
 
             if (!ipRequest()->getQuery('ipDesignPreview')) {
-                ipAddJs(ipFileUrl('Ip/Internal/Admin/assets/admin.js'));
+                ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminToolbar', static::getAdminToolbarHtml());
             }
         }

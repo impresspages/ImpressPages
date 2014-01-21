@@ -11,17 +11,17 @@ class Event
 {
     public static function ipInit()
     {
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/console.log.js'), null, 10);
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/ip.jquery.js'), null, 10); // jQuery for core
-        ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery.js'), null, 10); // default, global jQuery
+        ipAddJs('Ip/Internal/Ip/assets/console.log.js', null, 10);
+        ipAddJs('Ip/Internal/Ip/assets/js/ip.jquery.js', null, 10); // jQuery for core
+        ipAddJs('Ip/Internal/Ip/assets/js/jquery.js', null, 10); // default, global jQuery
 
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/functions.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js'));
+        ipAddJs('Ip/Internal/Ip/assets/functions.js');
+        ipAddJs('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js');
 
-            //Form init
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form/form.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/validator.js'));
-            ipAddJs(ipFileUrl('Ip/Internal/Ip/assets/form-validator/jquery.form-validator.min.js'));
+        //Form init
+        ipAddJs('Ip/Internal/Ip/assets/form/form.js');
+        ipAddJs('Ip/Internal/Ip/assets/validator.js');
+        ipAddJs('Ip/Internal/Ip/assets/form-validator/jquery.form-validator.min.js');
 
         $validatorTranslations = array(
             'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
