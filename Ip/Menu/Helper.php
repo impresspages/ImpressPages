@@ -99,36 +99,36 @@ class Helper
 
 
     /**
-     * @param $elements
+     * @param \Ip\Page[] $pages
      * @param $zoneName
      * @param $depth
      * @param $curDepth
      * @return Item[]
      */
-    private static function getSubElementsData($elements, $zoneName, $depth, $curDepth) {
+    private static function getSubElementsData($pages, $zoneName, $depth, $curDepth) {
         $content = \Ip\ServiceLocator::content();
 
         $items = array();
-        foreach($elements as $element) {
+        foreach($pages as $page) {
             $item = new Item();
             $subSelected = false;
             if($curDepth < $depth) {
                 $zone = $content->getZone($zoneName);
-                $children = $zone->getPages(null, $element->getId());
+                $children = $zone->getPages(null, $page->getId());
                 if(sizeof($children) > 0) {
                     $childrenItems = self::getSubElementsData($children, $zoneName, $depth, $curDepth+1);
                     $item->setChildren($childrenItems);
                 }
             }
-            if($element->getCurrent()  || $element->getType() == 'redirect' && $element->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
-                $item->setCurrent(true);
-            } elseif($element->getSelected() || $subSelected || $element->getType() == 'redirect' && self::existInBreadcrumb($element->getLink())) {
-                $item->setSelected(true);
+            if($page->isCurrent()  || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+                $item->markAsCurrent(true);
+            } elseif($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
+                $item->markAsInCurrentBreadcrumb(true);
             }
-            $item->setType($element->getType());
-            $item->setUrl($element->getLink());
-            $item->setTitle($element->getNavigationTitle());
-            $item->setDepth($element->getDepth());
+            $item->setType($page->getType());
+            $item->setUrl($page->getLink());
+            $item->setTitle($page->getNavigationTitle());
+            $item->setDepth($page->getDepth());
             $items[] = $item;
         }
 
