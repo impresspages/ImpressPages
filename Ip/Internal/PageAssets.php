@@ -180,12 +180,13 @@ class PageAssets
                 'revisionId' => $revision['revisionId'],
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
-                'debugMode' => ipconfig()->isDebugMode()
+                'debugMode' => ipconfig()->isDebugMode(),
+                'isManagementState' => ipIsManagementState(),
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
         );
-        return ipView(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
+        return ipView('Ip/Internal/Config/view/javascript.php', $data)->render();
     }
 
     protected function getCacheVersion()
