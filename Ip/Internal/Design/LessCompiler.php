@@ -41,6 +41,7 @@ class LessCompiler
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
             $parser = new \Less_Parser(array('relativeUrls' => false));
+            $parser->SetCacheDir(ipFile('file/tmp/less/'));
             $themeDir = rtrim(ipFile('Theme/' . $themeName . '/assets/'), '/');
             $directories = array(
                 $themeDir => '',
