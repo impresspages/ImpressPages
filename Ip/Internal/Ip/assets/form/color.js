@@ -2,7 +2,7 @@
     "use strict";
 
     $(document).ready(function() {
-        $.each($('.ipsModuleForm .type-color'), function () {
+        $('.ipsModuleForm .type-color').each(function() {
             var $this = $(this);
             var lastColor = $this.find('.ipsColorPicker').val();
 
@@ -28,5 +28,4 @@
         });
     });
 
-})(jQuery); // spectrum uses public jQuery, so do we
-
+})(ip.jQuery);
