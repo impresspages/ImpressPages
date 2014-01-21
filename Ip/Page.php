@@ -316,16 +316,16 @@ class Page{
     /**
      * @return bool
      */
-    public function getCurrent(){return $this->current;}
+    public function isCurrent(){return $this->current;}
 
     /**   @param $current bool */
     public function setCurrent($current){$this->current=$current;}
 
     /** @return bool */
-    public function getSelected(){return $this->selected;}
+    public function isInCurrentBreadcrumb(){return $this->selected;}
 
     /** @param $selected bool */
-    public function setSelected($selected){$this->selected=$selected;}
+    public function markAsInCurrentBreadcrumb($selected){$this->selected=$selected;}
 
     /**
      * Get page depth level in a menu tree

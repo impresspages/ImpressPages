@@ -6,10 +6,10 @@
  */
 
 $css = array();
-if($menuItem->getCurrent()) {
+if($menuItem->isCurrent()) {
     $css[] = 'current';
     $selected = true;
-} elseif ($menuItem->getSelected()) {
+} elseif ($menuItem->isInCurrentBreadcrumb()) {
     $css[] = 'selected';
     $selected = true;
 }
