@@ -314,18 +314,18 @@ class Page{
     public function setUrl($url){$this->url=$url;}
 
     /**
-     * @
      * @return bool
      */
-    public function getCurrent(){return $this->current;}
+    public function isCurrent(){return $this->current;}
 
     /**   @param $current bool */
     public function setCurrent($current){$this->current=$current;}
 
     /** @return bool */
-    public function getSelected(){return $this->selected;}
+    public function isInCurrentBreadcrumb(){return $this->selected;}
+
     /** @param $selected bool */
-    public function setSelected($selected){$this->selected=$selected;}
+    public function markAsInCurrentBreadcrumb($selected){$this->selected=$selected;}
 
     /**
      * Get page depth level in a menu tree
@@ -333,6 +333,7 @@ class Page{
      * @return int Depth level.
      */
     public function getDepth(){return $this->depth;}
+
     /**
      * @ignore
      *
@@ -376,6 +377,7 @@ class Page{
      * @return string Redirect URL address
      */
     public function getRedirectUrl(){return $this->redirectUrl;}
+
     /**
      * Set page redirect URL
      *

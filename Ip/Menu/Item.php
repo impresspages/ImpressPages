@@ -93,19 +93,19 @@ class Item{
         $this->target = $target;
     }
 
-    public function getSelected(){
+    public function isInCurrentBreadcrumb(){
         return (bool) $this->selected;
     }
 
-    public function setSelected($selected){
+    public function markAsInCurrentBreadcrumb($selected){
         $this->selected = (bool) $selected;
     }
 
-    public function getCurrent(){
+    public function isCurrent(){
         return (bool) $this->current;
     }
 
-    public function setCurrent($current){
+    public function markAsCurrent($current){
         $this->current = (bool) $current;
     }
 
