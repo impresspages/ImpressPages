@@ -42,18 +42,21 @@ class Model{
             throw new \Ip\Exception("User doesn't exist");
         }
 
-
-        $contentData = array (
-            'link' => '//TODOX.com'
+        $urlData = array(
+            'id' => $userId,
+            'secret' => self::generatePasswordResetSecret($userId)
         );
 
+        $contentData = array (
+            'link' => ipFileUrl('') . 'admin.php' . '?' . http_build_query($urlData)
+        );
         $content = ipView('view/passwordResetContent.php', $contentData)->render();
 
         $emailData = array (
             'content' => $content
         );
 
-        $email = ipView('view/passwordResetEmail.php', $emailData);
+        $email = ipEmailTemplate($emailData);
 
         $from = ipGetOption('Config.websiteEmail');
         $fromName = ipGetOption('Config.websiteTitle');
@@ -62,6 +65,17 @@ class Model{
         $toName = $user['username'];
         ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
 
+    }
+
+    private static function generatePasswordResetSecret($userId)
+    {
+        $secret = md5(ipConfig()->getRaw('SESSION_NAME') . uniqid());
+        $data = array(
+            'resetSecret' => $secret,
+            'resetTimestamp' => time()
+        );
+        ipDb()->update('administrator', $data, array('id' => $userId));
+        return $secret;
     }
 
     public static function checkPassword($userId, $password)
