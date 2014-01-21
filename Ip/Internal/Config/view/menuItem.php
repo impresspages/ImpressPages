@@ -30,6 +30,6 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
         <?php echo esc($menuItem->getTitle()) ?>
     </a>
     <?php if ($menuItem->getChildren()){ ?>
-        <?php echo $this->subview('menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>
+        <?php echo ipView('Ip/Internal/Config/view/menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>
     <?php } ?>
 </li>

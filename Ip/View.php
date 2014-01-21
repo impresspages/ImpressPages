@@ -38,30 +38,6 @@ class View
         $this->doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     
-
-    /**
-     * Create new view object with the same doctype, but using different view file and data.
-     *
-     * Use it to include another view file within the view.
-     * @param $file
-     * @param null $variables
-     * @return View
-     */
-    public function subview($file, $variables = null) {
-
-        if ($variables === null) {
-            $variables = $this->getVariables();
-        }
-
-        $view = ipView($file, $variables, 1);
-        $view->setDoctype($this->getDoctype());
-
-        return $view;
-    }
-
-
-
-
     /**
      * Set view variables
      * @param $variables

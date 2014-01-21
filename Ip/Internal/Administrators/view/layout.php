@@ -9,4 +9,4 @@
     <?php } ?>
     <a class="ipsAdd"><?php echo __('Add', 'ipAdmin'); ?></a>
 </div>
-<?php echo $this->subview('addModal.php'); ?>
+<?php echo ipView('Ip/Internal/Administrators/view/addModal.php', array('createForm' => $createForm))->render(); ?>

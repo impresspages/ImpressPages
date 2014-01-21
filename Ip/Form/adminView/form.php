@@ -11,7 +11,7 @@
             <?php
                 switch ($field->getLayout()) {
                     case \Ip\Form\Field::LAYOUT_DEFAULT:
-                        echo $this->subview('field.php', array('field' => $field, 'environment' => $environment))->render()."\n";
+                        echo ipView('Ip/Form/adminView/field.php', array('field' => $field, 'environment' => $environment))->render()."\n";
                         break;
                     case \Ip\Form\Field::LAYOUT_BLANK:
                     default:
