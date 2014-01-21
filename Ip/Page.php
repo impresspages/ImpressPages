@@ -314,17 +314,32 @@ class Page{
     public function setUrl($url){$this->url=$url;}
 
     /**
+     * Check if the page is the currently opened page in the browser
+     *
      * @return bool
      */
     public function isCurrent(){return $this->current;}
 
-    /**   @param $current bool */
+    /**
+     * Set the page as currently opened in the browser
+     *
+     * @ignore
+     * @param $current bool
+     */
     public function setCurrent($current){$this->current=$current;}
 
-    /** @return bool */
+    /**
+     * Check if the page exists in current breadcrumb
+     *
+     * @return bool
+     */
     public function isInCurrentBreadcrumb(){return $this->selected;}
 
-    /** @param $selected bool */
+    /**
+     * Set the page as existing in current breadcrumb
+     * @ignore
+     * @param $selected bool
+     */
     public function markAsInCurrentBreadcrumb($selected){$this->selected=$selected;}
 
     /**
@@ -335,6 +350,7 @@ class Page{
     public function getDepth(){return $this->depth;}
 
     /**
+     * Set page depth level in a menu tree
      * @ignore
      *
      * @param $depth int Depth level
