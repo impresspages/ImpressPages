@@ -119,7 +119,7 @@ class WidgetController
 
 
         //collect default view files
-        $lookDir = $this->widgetDir . self::LOOK_DIR . '/';
+        $lookDir = ipFile($this->widgetDir . self::LOOK_DIR . '/');
 
 
         if (!is_dir($lookDir)) {
@@ -240,7 +240,18 @@ class WidgetController
         return array();
     }
 
-
+    /**
+     * Renders widget's HTML output
+     *
+     * Extend this method to generate widget's HTML.
+     *
+     * @param $revisionId Widget revision id
+     * @param $widgetId Widget id
+     * @param $instanceId Widget instance id
+     * @param array|null $data Widget data array
+     * @param string $layout Layout name
+     * @return string Widget's HTML code
+     */
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
     {
@@ -261,19 +272,18 @@ class WidgetController
         return $answer;
     }
 
+    /**
+     * @param $revisionId
+     * @param $widgetId
+     * @param $instanceId
+     * @param $data
+     * @param $layout
+     * @return mixed
+     */
     public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout)
     {
         return $data;
     }
 
-    /**
-     * This method is called when widget options has been changed.
-     * Do any maintenance job needed.
-     * Eg. if widget has cropped images, they need to be cropped once again, because cropping options
-     * might be changed.
-     */
-    public function recreate($widgetId, $data)
-    {
-        return $data;
-    }
+
 }
