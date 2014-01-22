@@ -36,16 +36,27 @@ class WidgetController
         $this->widgetAssetsDir = $this->widgetDir . \Ip\Application::ASSETS_DIR . '/';
     }
 
+    /**
+     * Gets widget title
+     *
+     * Override this method to set the widget name displayed in widget toolbar.
+     *
+     * @return string
+     */
     public function getTitle()
     {
         return self::getName();
     }
 
+    /**
+     * Return a name, which is unique widget identifier
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
-
 
     public function getModuleName()
     {
@@ -57,6 +68,13 @@ class WidgetController
         return $this->core;
     }
 
+    /**
+     * Get widget icon URL
+     *
+     * Widget icon is displayed in widget toolbar of administration page.
+     *
+     * @return string
+     */
     public function getIcon()
     {
         if ($this->core) {
@@ -83,6 +101,10 @@ class WidgetController
         return array();
     }
 
+    /**
+     * @return array
+     * @throws Internal\Content\Exception
+     */
     public function getLooks()
     {
 
@@ -129,15 +151,6 @@ class WidgetController
         }
 
         return $layouts;
-    }
-
-    /**
-     * Return true if you like to hide widget in administration panel.
-     * You will be able to access widget in your code.
-     */
-    public function getUnderTheHood()
-    {
-        return false; //by default all widgets are visible; 
     }
 
     /**
