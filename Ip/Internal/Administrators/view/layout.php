@@ -1,5 +1,5 @@
 <div class="ipModuleAdministrators" ng-app="Administrators" ng-controller="ipAdministratorsController" >
-    <div ng-repeat="administrator in administrators" class="panel panel-default">
+    <div ng-repeat="administrator in administrators" ng-click="activateAdministrator(administrator)" ng-class="[administrator.id == activeAdministrator.id ? 'active' : '',  'panel', 'panel-default']">
         <div class="panel-heading">{{administrator.username}}</div>
         <div class="panel-body">
             <b><?php //echo esc($administrator['username']) ?></b>
