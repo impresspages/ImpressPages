@@ -11,7 +11,7 @@ class Model{
 
     public static function getAll()
     {
-        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` desc');
+        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` ASC');
     }
 
 
