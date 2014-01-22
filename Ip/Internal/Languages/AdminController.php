@@ -11,14 +11,10 @@ namespace Ip\Internal\Languages;
 class AdminController extends \Ip\GridController
 {
     static $urlBeforeUpdate;
-    public function init()
-    {
-        ipAddJs('Ip/Internal/Languages/assets/languages.js');
-    }
-
 
     public function index()
     {
+        ipAddJs('Ip/Internal/Languages/assets/languages.js');
         $response = parent::index() . $this->helperHtml();
         return $response ;
     }
