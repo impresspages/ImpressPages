@@ -161,16 +161,6 @@ class Model
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
         //check if we don't need to recreate the widget
         $themeChanged = \Ip\ServiceLocator::storage()->get('Ip', 'themeChanged');
-        if ($themeChanged > $widgetRecord['recreated']) {
-            $widgetData = $widgetRecord['data'];
-            if (!is_array($widgetData)) {
-                $widgetData = array();
-            }
-
-            $newData = $widgetObject->recreate($widgetRecord['instanceId'], $widgetData);
-            self::updateWidget($widgetRecord['widgetId'], array('recreated' => time(), 'data' => $newData));
-            $widgetRecord = self::getWidgetFullRecord($widgetRecord['instanceId']);
-        }
 
 
         $widgetData = $widgetRecord['data'];

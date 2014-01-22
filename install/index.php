@@ -49,7 +49,6 @@ require_once(__DIR__ . '/../Ip/Application.php');
 
     if ($request->isGet()) {
         $controller = new \Plugin\Install\PublicController();
-        $controller->init();
         $response = $controller->index();
     } elseif ($request->isPost()) {
         $route = Ip\Internal\Ip\Job::ipRouteAction_20(array('request' => $request));
@@ -57,7 +56,6 @@ require_once(__DIR__ . '/../Ip/Application.php');
             $response = new \Ip\Response\PageNotFound();
         } else {
             $controller = new \Plugin\Install\PublicController();
-            $controller->init();
             $response = $controller->{$route['action']}();
         }
     }
