@@ -240,7 +240,18 @@ class WidgetController
         return array();
     }
 
-
+    /**
+     * Renders widget's HTML output
+     *
+     * Extend this method to generate widget's HTML.
+     *
+     * @param $revisionId Widget revision id
+     * @param $widgetId Widget id
+     * @param $instanceId Widget instance id
+     * @param array|null $data Widget data array
+     * @param string $layout Layout name
+     * @return string Widget's HTML code
+     */
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
     {
@@ -261,6 +272,14 @@ class WidgetController
         return $answer;
     }
 
+    /**
+     * @param $revisionId
+     * @param $widgetId
+     * @param $instanceId
+     * @param $data
+     * @param $layout
+     * @return mixed
+     */
     public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout)
     {
         return $data;
