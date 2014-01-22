@@ -64,7 +64,7 @@ class AdminController extends \Ip\Controller
         $email = $data['email'];
         $password = $data['password'];
 
-        Model::addAdministrator($username, $email, $password);
+        Service::add($username, $email, $password);
 
 
         $data = array (
@@ -82,6 +82,46 @@ class AdminController extends \Ip\Controller
 
     public function update()
     {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
 
+        if (!isset($post['id']) || !isset($post['username']) || !isset($post['email'])) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+
+
+        $form = Helper::updateForm();
+        $errors = $form->validate($post);
+
+        $userId = $post['id'];
+        $username = $post['username'];
+        $email = $post['email'];
+        if (isset($post['password'])) {
+            $password = $post['password'];
+        } else {
+            $password = null;
+        }
+
+
+        $existingUser = Service::getByUsername($username);
+        if ($existingUser && $existingUser['id'] != $userId) {
+            $errors['username'] = __('Already taken', 'ipAdmin', FALSE);
+        }
+
+        if ($errors) {
+            $data = array (
+                'status' => 'error',
+                'errors' => $errors
+            );
+            return new \Ip\Response\Json($data);
+        }
+
+        Service::update($userId, $username, $email, $password);
+
+        $data = array (
+            'status' => 'ok'
+        );
+        return new \Ip\Response\Json($data);
     }
 }

@@ -161,8 +161,11 @@ class AdminController extends \Ip\GridController
     {
         $tmpLanguage = Db::getLanguageById($id);
         if($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
-            $oldUrl = ipFileUrl('') . self::$urlBeforeUpdate.'/';
-            $newUrl = ipFileUrl('') . $tmpLanguage['url'].'/';
+            $oldUrl = ipConfig()->baseUrl() . self::$urlBeforeUpdate.'/';
+            $newUrl = ipConfig()->baseUrl() . $tmpLanguage['url'].'/';
+            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+            $oldUrl = ipConfig()->baseUrl() . 'index.php/' . self::$urlBeforeUpdate.'/';
+            $newUrl = ipConfig()->baseUrl() . 'index.php/' . $tmpLanguage['url'].'/';
             ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }

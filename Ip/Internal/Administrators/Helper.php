@@ -80,10 +80,9 @@ class Helper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', // HTML "name" attribute
-                'label' => __('Password', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('New password', 'ipAdmin', false), // Field label that will be displayed next to input field
                 'value' => ''
             ));
-        $field->addValidator("Required");
         $form->addField($field);
 
         return $form;
