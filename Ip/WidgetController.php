@@ -60,14 +60,19 @@ class WidgetController
     public function getIcon()
     {
         if ($this->core) {
+            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.svg'))) {
+                return ipFileUrl('Ip/Internal/' . $this->widgetAssetsDir . 'icon.svg');
+            }
             if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
                 return ipFileUrl('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
+            if (file_exists(ipFile('Plugin/' . $this->widgetAssetsDir . 'icon.svg'))) {
+                return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.svg');
+            }
+            if (file_exists(ipFile('Plugin/' . $this->widgetAssetsDir . 'icon.png'))) {
                 return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
             }
-
         }
 
         return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.png');
