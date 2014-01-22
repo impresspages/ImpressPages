@@ -5,4 +5,7 @@
     float: left;
 }
 
+.ipModuleAdministrators .panel.active .panel-heading {
+    background-color: #ccc;
+}
 
