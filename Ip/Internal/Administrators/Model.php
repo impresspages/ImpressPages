@@ -82,7 +82,7 @@ class Model{
         );
 
         if ($password) {
-            $data['password'] = $password;
+            $data['hash'] = self::passwordHash($password);
         }
 
         ipDb()->update('administrator', $data, array('id' => $userId));

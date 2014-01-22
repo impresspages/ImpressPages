@@ -80,8 +80,15 @@ class Helper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', // HTML "name" attribute
-                'label' => __('New password', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('New password (optional)', 'ipAdmin', false), // Field label that will be displayed next to input field
                 'value' => ''
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Submit(
+            array(
+                'value' => __('', 'ipAdmin', false)
             ));
         $form->addField($field);
 

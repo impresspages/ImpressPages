@@ -44,7 +44,6 @@ var ipAdministratorsController = null;
 
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
-            console.log('activate administarrata');
         }
 
         $scope.addModal = function () {
@@ -69,8 +68,7 @@ var ipAdministratorsController = null;
 
         $scope.updateModal = function (zone) {
             $('.ipsUpdateModal').modal();
-            //$('.ipsAddModal').find("input[name=username]").hide();
-            $('.ipsAddModal form').off('submit').on('submit', function (e) {
+            $('.ipsUpdateModal form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var $form = $(this);
                 var username = $form.find('input[name=username]').val();
@@ -78,7 +76,7 @@ var ipAdministratorsController = null;
                 var password = $form.find('input[name=password]').val();
                 updateAdministrator($scope.activeAdministrator.id, username, email, password);
             });
-            setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
+            setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
         }
 
         var addAdministrator = function (username, email, password) {
@@ -116,7 +114,7 @@ var ipAdministratorsController = null;
 
         var updateAdministrator = function (id, username, email, password) {
             var data = {
-                aa: 'Administrator.update',
+                aa: 'Administrators.update',
                 securityToken: ip.securityToken,
                 id: id,
                 username: username,
@@ -129,10 +127,12 @@ var ipAdministratorsController = null;
                 data: data,
                 context: this,
                 success: function (response) {
-                    $scope.activeAdministrator.username = username;
-                    $scope.activeAdministrator.email= email;
-                    $scope.$apply();
-                    $('.ipsAddModal').modal('hide');
+                    if (response && response.status == 'ok') {
+                        $scope.activeAdministrator.username = username;
+                        $scope.activeAdministrator.email= email;
+                        $scope.$apply();
+                        $('.ipsUpdateModal').modal('hide');
+                    }
                 },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
