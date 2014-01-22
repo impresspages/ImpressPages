@@ -33,7 +33,8 @@ class AdminController extends \Ip\Controller
         ipAddJsVariable('ipAdministrators', $administrators);
 
         $data = array (
-            'createForm' => Helper::createForm()
+            'createForm' => Helper::createForm(),
+            'updateForm' => Helper::updateForm()
         );
         return ipView('view/layout.php', $data)->render();
 
