@@ -12,15 +12,15 @@ var ipAdministratorsController = null;
         });
     });
 
+//    ipAdministratorsController = function ($scope, $location) {
+//        //init
+//        $scope.administrators = ipAdministrators;
+//        $scope.activeAdministrator = null;
+//
+//        console.log(ipAdministrators);
+//    };
+
     ipAdministratorsController = function ($scope, $location) {
-        //init
-        $scope.administrators = ipAdministrators;
-        $scope.activeAdministrator = null;
-
-        console.log(ipAdministrators);
-    };
-
-    var ipAdministratorsController2 = function ($scope, $location) {
 
 
 
@@ -46,21 +46,18 @@ var ipAdministratorsController = null;
         }
 
         $scope.addAdministratorModal = function () {
-//            var $modal = $('.ipsAddModal');
-//            $modal.find('input[name=title]').val('');
-//            $modal.modal();
-//
-//
-//            $modal.find('.ipsAdd').off('click').on('click', function () {
-//                $modal.find('form').submit()
-//            });
-//            $modal.find('form').off('submit').on('submit', function (e) {
-//                e.preventDefault();
-//                var title = $modal.find('input[name=title]').val();
-//                var visible = $modal.find('input[name=visible]').is(':checked') ? 1 : 0;
-//                addPage(title, visible);
-//                $modal.modal('hide');
-//            });
+            $('.ipsAddAdministratorModal').modal();
+            //$('.ipsAddAdministratorModal').find("input[name=username]").hide();
+            $('.ipsAddAdministratorModal form').off('submit').on('submit', function (e) {
+                e.preventDefault();
+                var $form = $(this);
+                var username = $form.find('input[name=username]').val();
+                var email = $form.find('input[name=email]').val();
+                var password = $form.find('input[name=password]').val();
+                addAdministrator(username, email, password);
+            });
+            setTimeout(function() {$('.ipsAddAdministratorModal input[name=username]').focus();}, 500);
+
         }
 
 
@@ -126,31 +123,35 @@ var ipAdministratorsController = null;
 
         }
 
-        var addAdministrator = function (title, visible) {
-//            var data = {
-//                aa: 'Pages.addPage',
-//                securityToken: ip.securityToken,
-//                title: title,
-//                visible: visible,
-//                zoneName: $scope.activeZone.name,
-//                languageId: $scope.activeLanguage.id
-//            };
-//
-//            $.ajax({
-//                type: 'POST',
-//                url: ip.baseUrl,
-//                data: data,
-//                context: this,
-//                success: function (response) {
-//                    refresh();
-//                },
-//                error: function (response) {
-//                    if (ip.developmentEnvironment || ip.debugMode) {
-//                        alert('Server response: ' + response.responseText);
-//                    }
-//                },
-//                dataType: 'json'
-//            });
+        var addAdministrator = function (username, email, password) {
+            var data = {
+                aa: 'Administrators.add',
+                securityToken: ip.securityToken,
+                username: username,
+                email: email,
+                password: password
+            }
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: this,
+                success: function (response) {
+                    $scope.administrators.push({
+                        username: username,
+                        email: email,
+                        password: password
+                    });
+                    $scope.$apply();
+                    $('.ipsAddAdministratorModal').modal('hide');
+                },
+                error: function (response) {
+                    if (ip.developmentEnvironment || ip.debugMode) {
+                        alert('Server response: ' + response.responseText);
+                    }
+                },
+                dataType: 'json'
+            });
 
         }
 
