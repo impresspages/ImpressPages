@@ -14,12 +14,12 @@ class Farbtastic extends Field
 
 
 
-    public function render($doctype)
+    public function render($doctype, $environment)
     {
         return '<div class="ipmFarbtasticPopup ipsFarbtasticPopup"></div>
         <input '.$this->getAttributesStr($doctype).' class="form-control ipsControlInput '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />';
     }
-    
+
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */

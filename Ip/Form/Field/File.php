@@ -11,10 +11,10 @@ use Ip\Form\Field;
 
 class File extends Field
 {
-    
 
-    
-    public function render($doctype)
+
+
+    public function render($doctype, $environment)
     {
         $data = array (
             'attributesStr' => $this->getAttributesStr($doctype),
@@ -22,7 +22,7 @@ class File extends Field
             'inputName' => $this->getName()
         );
 
-        if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+        if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $viewFile = 'adminView/file.php';
         } else {
             $viewFile = 'publicView/file.php';
@@ -31,7 +31,7 @@ class File extends Field
 
         return $view->render();
     }
-    
+
     /**
     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
     */
@@ -73,7 +73,7 @@ class File extends Field
             foreach($values[$valueKey]['file'] as $key => $file) {
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
-                    if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+                    if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
                         $error = __('Session has ended. Please remove and re-upload files.', 'ipAdmin', false);
                     } else {
                         $error = __('Session has ended. Please remove and re-upload files.', 'ipPublic', false);
