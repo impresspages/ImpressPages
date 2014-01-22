@@ -43,6 +43,7 @@ var ipAdministratorsController = null;
 
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
+            console.log('activate administarrata');
         }
 
         $scope.addAdministratorModal = function () {
