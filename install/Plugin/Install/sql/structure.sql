@@ -85,20 +85,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_module_permission`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_module_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_to_module_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `value` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
 DROP TABLE IF EXISTS `ip_cms_email_queue`;
 
 -- Table structure
