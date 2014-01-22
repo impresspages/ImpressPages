@@ -25,8 +25,7 @@ class Event
 
     protected static function addWidgetAssets(\Ip\WidgetController $widget)
     {
-        $pluginAssetsPath = $widget->getModuleName() . '/' . Model::WIDGET_DIR . '/' . $widget->getName(
-            ) . '/' . \Ip\Application::ASSETS_DIR . '/';
+        $pluginAssetsPath = $widget->getWidgetDir() . \Ip\Application::ASSETS_DIR . '/';
         if ($widget->isCore()) {
             $widgetPublicDir = 'Ip/Internal/' . $pluginAssetsPath;
         } else {
@@ -116,4 +115,4 @@ class Event
         }
     }
 
-} 
+}
