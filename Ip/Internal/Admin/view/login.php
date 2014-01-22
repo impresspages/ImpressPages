@@ -3,5 +3,5 @@
 </div>
 <div class="ip">
     <?php echo $loginForm->render() ?>
-    <a href="?resetPassword=1"><?php echo _e('Reset password', 'ipAdmin'); ?></a>
+    <a href="<?php echo ipActionUrl(array('sa' => 'Admin.passwordResetForm')) ?>"><?php echo _e('Reset password', 'ipAdmin'); ?></a>
 </div>

@@ -16,7 +16,10 @@ class Service
         Model::addAdministrator($username, $email, $password);
     }
 
-
+    public static function get($userId)
+    {
+        return Model::get($userId);
+    }
 
     public static function getByUsername($username)
     {
@@ -33,10 +36,19 @@ class Service
         return Model::checkPassword($userId, $password);
     }
 
-
-    public static function resetPassword($userId)
+    public static function sendResetPasswordLink($userId)
     {
-        Model::resetPassword($userId);
+        Model::sendResetPasswordLink($userId);
+    }
+
+    public static function setUserPassword($userId, $password)
+    {
+        Model::setUserPassword($userId, $password);
+    }
+
+    public static function resetPassword($userId, $secret, $password)
+    {
+        Model::resetPassword($userId, $secret, $password);
     }
 
 }

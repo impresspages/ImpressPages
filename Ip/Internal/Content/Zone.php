@@ -80,9 +80,9 @@ class Zone extends \Ip\Zone
             $newPage = $this->makePageFromDb($dbPage, sizeof($urlVars) == 1);
 
             if ($selectedId == $dbPage['id']) {
-                $newPage->setSelected(1);
+                $newPage->markAsInCurrentBreadcrumb(1);
             } else {
-                $newPage->setSelected(0);
+                $newPage->markAsInCurrentBreadcrumb(0);
             }
 
             if ($this->currentPage && $this->currentPage->getId() == $dbPage['id']) {
