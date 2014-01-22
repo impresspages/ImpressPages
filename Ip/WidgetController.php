@@ -119,7 +119,7 @@ class WidgetController
 
 
         //collect default view files
-        $lookDir = $this->widgetDir . self::LOOK_DIR . '/';
+        $lookDir = ipFile($this->widgetDir . self::LOOK_DIR . '/');
 
 
         if (!is_dir($lookDir)) {
