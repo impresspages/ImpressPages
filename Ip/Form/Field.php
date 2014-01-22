@@ -14,13 +14,13 @@ abstract class Field{
     //layouts define how field should be treated in the view
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
-    
+
     //types define how field values should be used in controller. Eg. 'system' fields
     //should not be sent by email as form post data. They are just helpers to deliver
     //form to the controller (eg. hidden fields, submit button, captcha).
     const TYPE_REGULAR = 'regular';
-    const TYPE_SYSTEM = 'system'; 
-    
+    const TYPE_SYSTEM = 'system';
+
     protected $label;
     protected $note;
     protected $hint;
@@ -31,16 +31,16 @@ abstract class Field{
     protected $attributes;
     protected $classes; // CSS classes to be added to input field
     protected $environment;
-    
+
     public function __construct($options = array()) {
         $this->validators = array();
-        
+
         if (!empty($options['validators'])) {
             foreach($options['validators'] as $validatorKey => $validator) {
                 $this->addValidator($validator);
             }
         }
-        
+
         if (!empty($options['label'])) {
             $this->setLabel($options['label']);
         }
@@ -73,51 +73,25 @@ abstract class Field{
         if (!isset($this->attributes['id'])) {
             $this->addAttribute('id', 'field_'.rand(1, PHP_INT_MAX));
         }
-        
-        
+
+
     }
 
     /**
      * @param $doctype \Ip\View doctype constant
+     * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return string
      */
-    public abstract function render($doctype);
+    public abstract function render($doctype, $environment);
 
-    /**
-     * Set form environment. Depending on that public or admin translations and layout will be chosen.
-     * ImpressPages tries to detect environment automatically based on current controller. You can set manually the right mode if needed.
-     * @param $environment
-     */
-    public function setEnvironment($environment)
-    {
-        $this->environment = $environment;
-    }
-
-    /**
-     * Get form environment. Depending on the environment public or admin translations and layout will be chosen.
-     * @return mixed
-     */
-    public function getEnvironment()
-    {
-        return $this->environment;
-    }
-
-    /**
-     * @ignore
-     * @return string
-     */
-    public function __toString() {
-        return $this->render(ipConfig()->getRaw('DEFAULT_DOCTYPE'));
-    }
-    
     public function getLayout() {
         return self::LAYOUT_DEFAULT;
     }
-    
+
     public function getType() {
         return self::TYPE_REGULAR;
     }
-    
+
     public function getAttributesStr($doctype) {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
@@ -125,7 +99,7 @@ abstract class Field{
         }
         return $answer;
     }
-    
+
     /**
      * @param array $values all posted form values
      * @param string $valueKey this field name
@@ -137,8 +111,8 @@ abstract class Field{
             return '';
         }
     }
-    
-    
+
+
     public function getValidators() {
         return $this->validators;
     }
@@ -156,9 +130,9 @@ abstract class Field{
         }
         return false;
     }
-    
+
     /**
-     * 
+     *
      * Check if field passes validation
      *
      * Validate field
@@ -183,7 +157,7 @@ abstract class Field{
         }
         return false;
     }
-    
+
     /**
      * Add a validator to a field.
      *
@@ -198,9 +172,9 @@ abstract class Field{
         }
         $validatorClass = '\\Ip\\Form\\Validator\\' . $validator;
         $validator = new $validatorClass;
-        
+
         $this->validators[] = $validator;
-        
+
     }
 
     /**
@@ -226,9 +200,9 @@ abstract class Field{
     public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
         $this->validators[] = $validator;
     }
-    
+
     /**
-     * 
+     *
      * Add HTML attribute to input field. Alternative way to setAttributes method.
      *
      * @param string $name Attribute name
@@ -265,7 +239,7 @@ abstract class Field{
         }
         return $attributesStr;
     }
-    
+
     /**
      * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their constant value.
      * This field is not used to identify fields by their type. So each extending class should return its own unique and constant string.
@@ -273,8 +247,8 @@ abstract class Field{
     public function getTypeClass() {
         return '';
     }
-    
-    
+
+
     /* GETTERS AND SETTERS  */
 
     /**
@@ -366,15 +340,15 @@ abstract class Field{
     public function setDbField($dbField) {
         $this->dbField = $dbField;
     }
-    
+
     public function getValue() {
         return $this->value;
     }
-    
+
     public function setValue($value) {
         $this->value = $value;
     }
-    
+
     public function getAttribute($attribute) {
         if (isset($this->attributes[$attribute])) {
             return $this->attributes[$attribute];
@@ -382,20 +356,20 @@ abstract class Field{
             return false;
         }
     }
-    
+
     public function getAttributes() {
         return $this->attributes;
     }
-    
+
     public function setAttributes($attributes) {
         $this->attributes = $attributes;
     }
-    
+
     public function getId() {
         return $this->getAttribute('id');
     }
-    
-    
+
+
     /**
     *
     * Add CSS class to the input
@@ -404,7 +378,7 @@ abstract class Field{
     public function addClass($cssClass) {
         $this->classes[$cssClass] = 1;
     }
-    
+
     public function removeClass($cssClass) {
         unset($this->classes[$cssClass]);
     }
@@ -428,5 +402,5 @@ abstract class Field{
             $answer .= ' '.$class;
         }
         return 'class="'.$answer.'"';
-    }    
+    }
 }
