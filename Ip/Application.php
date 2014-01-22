@@ -226,7 +226,6 @@ class Application
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
         }
-        $controller->init();
         $controllerAnswer = $controller->$action();
 
         return $controllerAnswer;
