@@ -53,7 +53,7 @@ abstract class Field{
         if (!empty($options['name'])) {
             $this->setName($options['name']);
         }
-        if (!empty($options['value'])) {
+         if (!empty($options['value'])) {
             $this->setValue($options['value']);
         }
         if (!empty($options['css'])) {
@@ -93,11 +93,19 @@ abstract class Field{
         $this->environment = $environment;
     }
 
+    /**
+     * Get form environment. Depending on the environment public or admin translations and layout will be chosen.
+     * @return mixed
+     */
     public function getEnvironment()
     {
         return $this->environment;
     }
 
+    /**
+     * @ignore
+     * @return string
+     */
     public function __toString() {
         return $this->render(ipConfig()->getRaw('DEFAULT_DOCTYPE'));
     }
