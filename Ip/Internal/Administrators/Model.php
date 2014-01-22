@@ -74,6 +74,21 @@ class Model{
         ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
     }
 
+    public static function update($userId, $username, $email, $password)
+    {
+        $data = array(
+            'email' => $email,
+            'username' => $username
+        );
+
+        if ($password) {
+            $data['password'] = $password;
+        }
+
+        ipDb()->update('administrator', $data, array('id' => $userId));
+    }
+
+
     public static function resetPassword($userId, $secret, $password)
     {
         $user = self::get($userId);

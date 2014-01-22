@@ -9,3 +9,7 @@
     background-color: #ccc;
 }
 
+.ipModuleAdministrators .ipmAdministrator {
+    float: left;
+    margin-left: 20px;
+}
