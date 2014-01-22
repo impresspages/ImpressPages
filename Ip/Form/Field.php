@@ -78,20 +78,37 @@ abstract class Field{
     }
 
     /**
+     * Render field's HTML code
      * @param $doctype \Ip\View doctype constant
      * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return string
      */
     public abstract function render($doctype, $environment);
 
+    /**
+     * Get field layout
+     *
+     * @return string
+     */
     public function getLayout() {
         return self::LAYOUT_DEFAULT;
     }
 
+    /**
+     * Get field type
+     *
+     * @return string
+     */
     public function getType() {
         return self::TYPE_REGULAR;
     }
 
+    /**
+     * Get field attributes as HTML string
+     * 
+     * @param $doctype \Ip\View doctype constant
+     * @return string
+     */
     public function getAttributesStr($doctype) {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
@@ -101,8 +118,10 @@ abstract class Field{
     }
 
     /**
-     * @param array $values all posted form values
-     * @param string $valueKey this field name
+     * Get a value from posted form values array
+     *
+     * @param array $values All posted form values
+     * @param string $valueKey This field name
      */
     public function getValueAsString($values, $valueKey) {
         if (isset($values[$valueKey])) {
@@ -194,7 +213,8 @@ abstract class Field{
     }
 
     /**
-     * Add custom validator
+     * Add custom field value validator
+     *
      * @param Validator\Validator $validator
      */
     public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
@@ -202,7 +222,6 @@ abstract class Field{
     }
 
     /**
-     *
      * Add HTML attribute to input field. Alternative way to setAttributes method.
      *
      * @param string $name Attribute name
@@ -226,7 +245,7 @@ abstract class Field{
      * Get validator HTML attributes
      * Needed for JavaScript validator.
      *
-     * @param $doctype
+     * @param $doctype \Ip\View doctype constant
      * @return string
      */
     public function getValidationAttributesStr($doctype) {
@@ -263,6 +282,7 @@ abstract class Field{
 
     /**
      * Set field label
+     *
      * @param string $label
      */
     public function setLabel($label) {
@@ -271,6 +291,7 @@ abstract class Field{
 
     /**
      * Get field input hint text
+     *
      * @return string Hint
      */
     public function getHint() {
@@ -279,6 +300,7 @@ abstract class Field{
 
     /**
      * Set field input hint text
+     *
      * @param string $hint Hint
      */
     public function setHint($hint) {
@@ -287,6 +309,7 @@ abstract class Field{
 
     /**
      * Get field note text
+     *
      * @return string Text note
      */
     public function getNote() {
@@ -294,7 +317,8 @@ abstract class Field{
     }
 
     /**
-     * Set field not text
+     * Set field note text
+     *
      * @param string $note Note text
      */
     public function setNote($note) {
@@ -303,6 +327,7 @@ abstract class Field{
 
     /**
      * Get field name attribute
+     *
      * @return string Field name
      */
     public function getName() {
@@ -311,6 +336,7 @@ abstract class Field{
 
     /**
      * If your input has many input fields. Eg. field[id], field[code], ... Return the name of input that should hold error message
+     *
      * @return string
      */
     public function getValidationInputName(){
@@ -319,36 +345,46 @@ abstract class Field{
 
     /**
      * Set field name attribute
+     *
      * @param string $name Field name
      */
     public function setName($name) {
         $this->name = $name;
     }
 
-    /**
+     /**
+     * Get field value
      *
-     * @return mixed
+     * @return mixed Field value
      */
-    public function getDbField() {
-        return $this->dbField;
-    }
-
-    /**
-     *
-     * @param $dbField
-     */
-    public function setDbField($dbField) {
-        $this->dbField = $dbField;
-    }
-
     public function getValue() {
         return $this->value;
     }
 
+    /**
+     * Set field value
+     *
+     * @param string $value Field value
+     */
     public function setValue($value) {
         $this->value = $value;
     }
 
+    /**
+     * Get all HTML attributes of the field
+     *
+     * @return array Field HTML attributes
+     */
+    public function getAttributes() {
+        return $this->attributes;
+    }
+
+    /**
+     * Get specific HTML attribute of the field
+     *
+     * @param string $attribute
+     * @return string|bool
+     */
     public function getAttribute($attribute) {
         if (isset($this->attributes[$attribute])) {
             return $this->attributes[$attribute];
@@ -357,34 +393,47 @@ abstract class Field{
         }
     }
 
-    public function getAttributes() {
-        return $this->attributes;
-    }
-
+    /**
+     * Set extra HTML attributes from associative array
+     *
+     * Does not affect default class, name, required, type and value attributes.
+     * @param $attributes Associative array with keys as attribute names and values as attribute values.
+     */
     public function setAttributes($attributes) {
         $this->attributes = $attributes;
     }
 
+    /**
+     * Get field "id" HTML attribute
+     *
+     * @return string HTML "id" attribute value
+     */
     public function getId() {
         return $this->getAttribute('id');
     }
 
 
     /**
-    *
-    * Add CSS class to the input
+    * Add CSS class to form field
+     *
     * @param string $cssClass
     */
     public function addClass($cssClass) {
         $this->classes[$cssClass] = 1;
     }
 
+    /**
+     * Remove CSS class from a form field
+     *
+     * @param $cssClass
+     */
     public function removeClass($cssClass) {
         unset($this->classes[$cssClass]);
     }
 
     /**
-     * Get a list of HTML classes used
+     * Get a list of field's HTML classes
+     *
      * @return array
      */
     public function getClasses() {
