@@ -14,6 +14,10 @@ class Model{
         return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` ASC');
     }
 
+    public static function delete($id)
+    {
+        ipDb()->delete('administrator', array('id' => $id));
+    }
 
     public static function getByUsername($username)
     {

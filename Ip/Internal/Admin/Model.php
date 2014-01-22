@@ -72,11 +72,12 @@ class Model{
         return false;
     }
 
-    public function getUserId(){
-        if(isset($_SESSION['backend_session']['userId']))
+    public static function getUserId(){
+        if (isset($_SESSION['backend_session']['userId'])) {
             return $_SESSION['backend_session']['userId'];
-        else
+        } else {
             return false;
+        }
     }
 
     public function login($username, $password)

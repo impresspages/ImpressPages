@@ -11,7 +11,7 @@
     <div class="ipmAdministrator" ng-show="activeAdministrator">
         <h1><?php _e('Administrator profile', 'ipAdmin') ?></h1>
         <br/>
-        <a><?php _e('Delete', 'ipAdmin') ?></a>
+        <a ng-show="activeAdministrator.id != ipAdministratorsAdminId" ng-click="deleteModal()"><?php _e('Delete', 'ipAdmin') ?></a>
         <br/><br/>
         <div ng-show="!editMode">
             <b><?php _e('Username', 'ipAdmin') ?></b> {{activeAdministrator.username}}
@@ -26,4 +26,5 @@
     </div>
     <?php echo ipView('Ip/Internal/Administrators/view/addModal.php', array('createForm' => $createForm))->render(); ?>
     <?php echo ipView('Ip/Internal/Administrators/view/updateModal.php', array('updateForm' => $updateForm))->render(); ?>
+    <?php echo ipView('Ip/Internal/Administrators/view/deleteModal.php', array('updateForm' => $updateForm))->render(); ?>
 </div>

@@ -31,6 +31,7 @@ class AdminController extends \Ip\Controller
         }
 
         ipAddJsVariable('ipAdministrators', $administrators);
+        ipAddJsVariable('ipAdministratorsAdminId', (int)ipAdminId());
 
         $data = array (
             'createForm' => Helper::createForm(),
@@ -75,9 +76,26 @@ class AdminController extends \Ip\Controller
 
     public function delete()
     {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
+
+        if (!isset($post['id'])) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+        $userId = $post['id'];
+
+        if ($userId == ipAdminId()) {
+            throw new \Ip\Exception("Can't delete yourself");
+        }
 
 
+        Service::delete($userId);
 
+        $data = array (
+            'status' => 'ok'
+        );
+        return new \Ip\Response\Json($data);
     }
 
     public function update()

@@ -858,3 +858,14 @@ function ipPath($path)
 
 
 }
+
+
+/**
+ * Get currently logged-in administrator id.
+ * false if administrator is not logged-in
+ * @return int | bool
+ */
+function ipAdminId()
+{
+    return \Ip\Internal\Admin\Service::adminId();
+}

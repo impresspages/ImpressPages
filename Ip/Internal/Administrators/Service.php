@@ -56,4 +56,15 @@ class Service
         Model::resetPassword($userId, $secret, $password);
     }
 
+
+    public static function getAll()
+    {
+        return Model::getAll();
+    }
+
+    public static function delete($id)
+    {
+        Model::delete($id);
+    }
+
 }
