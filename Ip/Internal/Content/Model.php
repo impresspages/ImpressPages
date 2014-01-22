@@ -44,9 +44,7 @@ class Model
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
         $widgets = array();
         foreach ($tmpWidgets as $key => $widget) {
-            if (!$widget->getUnderTheHood()) {
-                $widgets[$key] = $widget;
-            }
+            $widgets[$key] = $widget;
         }
 
         $revisions = \Ip\Internal\Revision::getPageRevisions(
@@ -219,7 +217,7 @@ class Model
     public static function getBlockWidgetRecords($blockName, $revisionId)
     {
         $sql = '
-            SELECT * 
+            SELECT *
             FROM
                 ' . ipTable('widget_instance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
@@ -246,7 +244,7 @@ class Model
     public static function duplicateRevision($oldRevisionId, $newRevisionId)
     {
         $sql = '
-            SELECT * 
+            SELECT *
             FROM
                 ' . ipTable('widget_instance', 'i') . '
             WHERE
@@ -325,7 +323,7 @@ class Model
                 ' . ipTable('widget', 'w') . '
             WHERE
                 i.`instanceId` = ? AND
-                i.widgetId = w.widgetId 
+                i.widgetId = w.widgetId
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
         if (!$row) {
