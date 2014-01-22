@@ -16,7 +16,7 @@ class Checkbox extends Field{
     protected $checked = null;
     protected $text = null;
     protected $postValue = null;
-    
+
     public function __construct($options = array()) {
         if (isset($options['checked'])) {
             $this->checked = $options['checked'];
@@ -39,8 +39,8 @@ class Checkbox extends Field{
 
         parent::__construct($options);
     }
-    
-    public function render($doctype) {
+
+    public function render($doctype, $environment) {
         $answer = '';
         if ($this->getChecked()) {
             $attributes = 'checked="checked"';
@@ -61,18 +61,18 @@ class Checkbox extends Field{
             '.$this->getText().'
         </div>
         ';
-    
-        return $answer; 
+
+        return $answer;
     }
-    
+
     public function setChecked($checked) {
         $this->checked = $checked;
     }
-    
+
     public function getChecked() {
         return $this->checked;
     }
-    
+
     public function setPostValue($postValue) {
         $this->postValue = $postValue;
     }
@@ -118,5 +118,5 @@ class Checkbox extends Field{
             $this->setChecked(1);
         }
     }
-    
+
 }
