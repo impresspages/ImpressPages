@@ -2,7 +2,7 @@
     <label for="<?php echo $field->getId(); ?>">
         <?php echo esc($field->getLabel()); ?>
     </label>
-    <?php echo $field->render($this->getDoctype()); ?>
+    <?php echo $field->render($this->getDoctype(), \Ip\Form::ENVIRONMENT_PUBLIC); ?>
     <div class="help-error"></div>
 <?php if($field->getNote()) { ?>
     <div class="help-block"><?php echo $field->getNote(); ?></div>

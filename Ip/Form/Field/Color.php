@@ -10,9 +10,9 @@ namespace Ip\Form\Field;
 use Ip\Form\Field;
 
 class Color extends Field{
-    
-    public function render($doctype) {
-        if ($this->getEnvironment() == \Ip\Form::ENVIRONMENT_ADMIN) {
+
+    public function render($doctype, $environment) {
+        if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $confirmText = __('Confirm', 'ipAdmin');
             $cancelText = __('Cancel', 'ipAdmin');
         } else {
