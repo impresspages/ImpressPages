@@ -35,25 +35,29 @@ class Model{
         ipDb()->insert('administrator', $data);
     }
 
-    public static function resetPassword($userId)
+    public static function sendResetPasswordLink($userId)
     {
         $user = self::get($userId);
         if (!$user) {
             throw new \Ip\Exception("User doesn't exist");
         }
 
-
-        $contentData = array (
-            'link' => '//TODOX.com'
+        $urlData = array(
+            'sa' => 'Admin.passwordReset',
+            'id' => $userId,
+            'secret' => self::generatePasswordResetSecret($userId)
         );
 
+        $contentData = array (
+            'link' => ipActionUrl($urlData)
+        );
         $content = ipView('view/passwordResetContent.php', $contentData)->render();
 
         $emailData = array (
             'content' => $content
         );
 
-        $email = ipView('view/passwordResetEmail.php', $emailData);
+        $email = ipEmailTemplate($emailData);
 
         $from = ipGetOption('Config.websiteEmail');
         $fromName = ipGetOption('Config.websiteTitle');
@@ -62,6 +66,41 @@ class Model{
         $toName = $user['username'];
         ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
 
+    }
+
+
+    public static function setUserPassword($userId, $password)
+    {
+        ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
+    }
+
+    public static function resetPassword($userId, $secret, $password)
+    {
+        $user = self::get($userId);
+        if (!$user) {
+            throw new \Ip\Exception(__('User doesn\'t exist', 'ipAdmin', FALSE));
+        }
+
+        if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption('Config.passwordResetLinkExpire', 60 * 60 * 24)) {
+            throw new \Ip\Exception(__('Invalid password reset link', 'ipAdmin', FALSE));
+        }
+
+        if ($user['resetSecret'] != $secret) {
+            throw new \Ip\Exception(__('Password reset link has expired', 'ipAdmin', FALSE));
+        }
+
+        ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
+    }
+
+    private static function generatePasswordResetSecret($userId)
+    {
+        $secret = md5(ipConfig()->getRaw('SESSION_NAME') . uniqid());
+        $data = array(
+            'resetSecret' => $secret,
+            'resetTime' => time()
+        );
+        ipDb()->update('administrator', $data, array('id' => $userId));
+        return $secret;
     }
 
     public static function checkPassword($userId, $password)

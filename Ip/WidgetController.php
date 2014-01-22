@@ -14,60 +14,90 @@ use Ip\Internal\Content\Model;
  */
 class WidgetController
 {
-    var $name;
-    var $moduleName;
+    protected $name;
+    protected $pluginName;
 
     /**
      * @var boolean - true if widget is installed by default
      */
-    var $core;
+    protected $core;
     const LOOK_DIR = 'look';
 
-    private $widgetDir;
-    private $widgetAssetsDir;
+    protected $widgetDir;
+    protected $widgetAssetsDir;
 
-    public function __construct($name, $moduleName, $core = false)
+    public function __construct($name, $pluginName, $core = false)
     {
         $this->name = $name;
-        $this->moduleName = $moduleName;
+        $this->pluginName = $pluginName;
         $this->core = $core;
 
-        $this->widgetDir = $moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/';
+        if ($this->core) {
+
+            $this->widgetDir = 'Ip/Internal/' . $pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/';
+        } else {
+            $this->widgetDir = 'Plugin/' . $pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/';
+        }
+
         $this->widgetAssetsDir = $this->widgetDir . \Ip\Application::ASSETS_DIR . '/';
     }
 
+    /**
+     * Gets widget title
+     *
+     * Override this method to set the widget name displayed in widget toolbar.
+     *
+     * @return string
+     */
     public function getTitle()
     {
         return self::getName();
     }
 
+    /**
+     * Return a name, which is unique widget identifier
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
-
-    public function getModuleName()
+    public function getWidgetDir()
     {
-        return $this->moduleName;
+        return $this->widgetDir;
     }
+
 
     public function isCore()
     {
         return $this->core;
     }
 
+    /**
+     * Get widget icon URL
+     *
+     * Widget icon is displayed in widget toolbar of administration page.
+     *
+     * @return string
+     */
     public function getIcon()
     {
         if ($this->core) {
-            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
-                return ipFileUrl('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile($this->widgetAssetsDir . 'icon.svg'))) {
+                return ipFileUrl($this->widgetAssetsDir . 'icon.svg');
+            }
+            if (file_exists(ipFile($this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl($this->widgetAssetsDir . 'icon.png');
             }
         } else {
-            if (file_exists(ipFile('Ip/Internal/' . $this->widgetAssetsDir . 'icon.png'))) {
-                return ipFileUrl('Plugin/' . $this->widgetAssetsDir . 'icon.png');
+            if (file_exists(ipFile($this->widgetAssetsDir . 'icon.svg'))) {
+                return ipFileUrl($this->widgetAssetsDir . 'icon.svg');
             }
-
+            if (file_exists(ipFile($this->widgetAssetsDir . 'icon.png'))) {
+                return ipFileUrl($this->widgetAssetsDir . 'icon.png');
+            }
         }
 
         return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.png');
@@ -78,6 +108,10 @@ class WidgetController
         return array();
     }
 
+    /**
+     * @return array
+     * @throws Internal\Content\Exception
+     */
     public function getLooks()
     {
 
@@ -85,11 +119,7 @@ class WidgetController
 
 
         //collect default view files
-        if ($this->core) {
-            $lookDir = ipFile('Ip/Internal/' . $this->widgetDir . self::LOOK_DIR . '/');
-        } else {
-            $lookDir = ipFile('Plugin/' . $this->widgetDir . self::LOOK_DIR . '/');
-        }
+        $lookDir = $this->widgetDir . self::LOOK_DIR . '/';
 
 
         if (!is_dir($lookDir)) {
@@ -103,7 +133,7 @@ class WidgetController
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -115,7 +145,7 @@ class WidgetController
 
         $layouts = array();
         foreach ($views as $viewKey => $view) {
-            $translation = __('Layout_' . $viewKey, $this->getModuleName(), false);
+            $translation = __('Look_' . $viewKey, $this->pluginName, false);
             $layouts[] = array('name' => $viewKey, 'title' => $translation);
         }
 
@@ -124,15 +154,6 @@ class WidgetController
         }
 
         return $layouts;
-    }
-
-    /**
-     * Return true if you like to hide widget in administration panel.
-     * You will be able to access widget in your code.
-     */
-    public function getUnderTheHood()
-    {
-        return false; //by default all widgets are visible; 
     }
 
     /**
@@ -149,14 +170,14 @@ class WidgetController
     }
 
     /**
-     * 
+     *
      * You can make posts directly to your widget. If you will pass following parameters:
      * sa=Content.widgetPost
      * securityToken=actualSecurityToken
      * instanceId=actualWidgetInstanceId
-     * 
+     *
      * then that post request will be redirected to this method.
-     * 
+     *
      * Use return new \Ip\Response\Json($jsonArray) to return json.
      *
      * Be careful. This method is accessible for website visitor without admin login.
@@ -170,7 +191,7 @@ class WidgetController
     }
 
     /**
-     * 
+     *
      * Duplicate widget action. This function is executed after the widget is being duplicated.
      * All widget data is duplicated automatically. This method is used only in case a widget
      * needs to do some maintenance tasks on duplication.
@@ -184,7 +205,7 @@ class WidgetController
     }
 
     /**
-     * 
+     *
      * Delete a widget. This method is executed before actual deletion of widget.
      * It is used to remove widget data (photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
@@ -226,9 +247,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = ipView(ipFile('Ip/Internal/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = ipView(ipFile('Plugin/' . $this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {

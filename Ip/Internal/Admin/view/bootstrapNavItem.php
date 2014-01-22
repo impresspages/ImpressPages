@@ -8,11 +8,11 @@
 
 <?php
 $css = array();
-if($menuItem->getCurrent()) {
+if($menuItem->isCurrent()) {
     $css[] = 'current';
     $css[] = 'active';
     $selected = true;
-} elseif ($menuItem->getSelected()) {
+} elseif ($menuItem->isInCurrentBreadcrumb()) {
     $css[] = 'selected';
     $selected = true;
 }

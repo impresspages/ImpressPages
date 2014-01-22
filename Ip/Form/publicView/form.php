@@ -11,11 +11,11 @@
             <?php
                 switch ($field->getLayout()) {
                     case \Ip\Form\Field::LAYOUT_DEFAULT:
-                        echo ipView('Ip/Form/publicView/field.php', array('field' => $field, 'environment' => $environment))->render()."\n";
+                        echo ipView('Ip/Form/publicView/field.php', array('field' => $field))->render()."\n";
                         break;
                     case \Ip\Form\Field::LAYOUT_BLANK:
                     default:
-                        echo $field->render($this->getDoctype())."\n";
+                        echo $field->render($this->getDoctype(), \Ip\Form::ENVIRONMENT_PUBLIC)."\n";
                         break;
                 }
             ?>

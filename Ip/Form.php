@@ -225,15 +225,11 @@ class Form
         }
         $view->setVariables(
             array(
-                'form' => $this,
-                'environment' => $this->getEnvironment()
+                'form' => $this
             )
         );
 
         $fields = $this->getFields();
-        foreach($fields as $field) {
-            $field->setEnvironment($this->getEnvironment());
-        }
 
         return $view->render();
     }
