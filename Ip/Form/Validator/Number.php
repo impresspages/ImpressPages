@@ -8,8 +8,10 @@ namespace Ip\Form\Validator;
 
 
 
+use Ip\Form\Validator;
+
 class Number extends Validator {
-    
+
     public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
             return false;
@@ -26,5 +28,5 @@ class Number extends Validator {
             return false;
         }
     }
-    
+
 }

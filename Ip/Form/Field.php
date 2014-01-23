@@ -215,9 +215,9 @@ abstract class Field{
     /**
      * Add custom field value validator
      *
-     * @param Validator\Validator $validator
+     * @param \Ip\Form\Validator $validator
      */
-    public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
+    public function addCustomValidator(\Ip\Form\Validator $validator) {
         $this->validators[] = $validator;
     }
 
