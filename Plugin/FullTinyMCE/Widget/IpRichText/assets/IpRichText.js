@@ -1,32 +1,30 @@
 /**
  * @package ImpressPages
  *
- *
  */
+var IpWidget_IpRichText;
 
-function IpWidget_IpRichText(widgetObject) {
-    this.widgetObject = widgetObject;
+(function($){
+    "use strict";
 
-    this.manageInit = manageInit;
-    this.prepareData = prepareData;
+    IpWidget_IpRichText = function() {
+        this.$widgetObject = null;
 
+        this.init = function($widgetObject, data) {
+            var customTinyMceConfig = ipTinyMceConfig();
+            this.$widgetObject = $widgetObject;
+            customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
+                $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
+            })};
 
-    function manageInit() {
-        var instanceData = this.widgetObject.data('ipWidget');
-        this.widgetObject.find('textarea').tinymce(ipTinyMceConfig());
-    }
+            $widgetObject.find('.ipsContent').tinymce(customTinyMceConfig);
+        };
 
-    function prepareData() {
+        this.onAdd = function () {
+            this.$widgetObject.find('.ipsContent').focus();
+        }
+    };
 
-        var data = Object();
+})(ip.jQuery);
 
-        data.text = this.widgetObject.find('textarea').html();
-        $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-    }
-
-    
-
-};
-
-      
 
