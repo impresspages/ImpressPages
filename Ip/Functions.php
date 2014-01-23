@@ -512,12 +512,12 @@ function ipHomeUrl()
  * Generate widget HTML.
  * @param $widgetName
  * @param array $data
- * @param null $look
+ * @param null $skin
  * @return string
  */
-function ipRenderWidget($widgetName, $data = array(), $look = null)
+function ipRenderWidget($widgetName, $data = array(), $skin = null)
 {
-    $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $look);
+    $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $skin);
     return $answer;
 }
 
@@ -857,4 +857,15 @@ function ipPath($path)
     // Check if relative path to current path
 
 
+}
+
+
+/**
+ * Get currently logged-in administrator id.
+ * false if administrator is not logged-in
+ * @return int | bool
+ */
+function ipAdminId()
+{
+    return \Ip\Internal\Admin\Service::adminId();
 }

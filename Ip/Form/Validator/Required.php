@@ -8,6 +8,8 @@ namespace Ip\Form\Validator;
 
 
 
+use Ip\Form\Validator;
+
 class Required extends Validator {
 
     public function getError($values, $valueKey, $environment) {

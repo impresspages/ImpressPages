@@ -9,7 +9,7 @@ namespace Plugin\Install;
 
 class PublicController extends \Ip\Controller
 {
-    public function init()
+    protected function init()
     {
         if (ipRequest()->getRequest('debug') !== NULL) {
             $_SESSION['install_debug'] = (int)ipRequest()->getRequest('debug');
@@ -33,6 +33,7 @@ class PublicController extends \Ip\Controller
 
     public function index ()
     {
+        $this->init();
         if (isset($_GET['step'])) {
             $step = (int)$_GET['step'];
         } else {
@@ -49,6 +50,8 @@ class PublicController extends \Ip\Controller
 
     protected function step0()
     {
+        $this->init();
+
         $languages = array();
         $languages['cs'] = 'Čeština';
         $languages['nl'] = 'Dutch';
@@ -76,6 +79,8 @@ class PublicController extends \Ip\Controller
 
     protected function step1()
     {
+        $this->init();
+
         Model::completeStep(1);
 
         $content = Model::checkRequirements();
@@ -105,6 +110,8 @@ class PublicController extends \Ip\Controller
 
     protected function step2()
     {
+        $this->init();
+
         Model::completeStep(2);
 
         $content = ipView('view/step2.php');
@@ -117,6 +124,8 @@ class PublicController extends \Ip\Controller
 
     protected function step3()
     {
+        $this->init();
+
         if (!isset($_SESSION['db'])) {
             $_SESSION['db'] = array(
                 'hostname' => 'localhost',
@@ -147,6 +156,8 @@ class PublicController extends \Ip\Controller
 
     protected function step4()
     {
+        $this->init();
+
         $dateTimeObject = new \DateTime();
         $currentTimeZone = $dateTimeObject->getTimezone()->getName();
         $timezoneSelectOptions = '';
@@ -192,6 +203,8 @@ class PublicController extends \Ip\Controller
 
     protected function step5()
     {
+        $this->init();
+
         $SESSION['step'] = 5;
         $content = ipView('view/step5.php')->render();
 
@@ -281,6 +294,8 @@ class PublicController extends \Ip\Controller
 
     public function writeConfig()
     {
+        $this->init();
+
         if (empty($_SESSION['db'])) {
             return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'Install', 'false'));
         }

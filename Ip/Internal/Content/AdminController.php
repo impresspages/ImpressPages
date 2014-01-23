@@ -200,7 +200,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function changeLook()
+    public function changeSkin()
     {
         $updateData = array();
         if (!isset($_POST['instanceId'])) {
@@ -214,11 +214,11 @@ class AdminController extends \Ip\Controller
         }
 
 
-        if (!isset($_POST['look'])) {
-            return $this->_errorAnswer('Missing POST variable look');
+        if (!isset($_POST['skin'])) {
+            return $this->_errorAnswer('Missing POST variable skin');
         }
-        $look = $_POST['look'];
-        $updateData['layout'] = $look;
+        $skin = $_POST['skin'];
+        $updateData['layout'] = $skin;
 
 
         Model::updateWidget($record['widgetId'], $updateData);
@@ -305,13 +305,13 @@ class AdminController extends \Ip\Controller
     }
 
 	private function _addPageToTree($page) {
-		$p = array( 
+		$p = array(
             'text' => $page->getTitle(),
             'icon' => 'fa fa-file-text',
             'li_attr' => (object) array(
             	'data-url' => parse_url($page->getUrl(),PHP_URL_PATH)
 			),
-			'children' => array()					
+			'children' => array()
 		);
         foreach($page->getChildren() as $child) {
         	$p['children'][] = $this->_addPageToTree($child);
@@ -330,11 +330,11 @@ class AdminController extends \Ip\Controller
 			   'children' => array()
 			)
 		);
-        
+
 		// @todo: get all the languages
-		
+
         foreach($zones as $zone) {
-            $z = array(                
+            $z = array(
                 'text' => $zone->getTitle(),
                 'icon' => 'fa fa-folder-o',
             	'li_attr' => (object) array(
@@ -343,19 +343,19 @@ class AdminController extends \Ip\Controller
             	'children'=>array()
 			);
 			foreach (\Ip\Menu\Helper::getZoneItems($zone->getName()) as $page) {
-			   $z['children'][] = $this->_addPageToTree($page);	
+			   $z['children'][] = $this->_addPageToTree($page);
 			}
-		
+
 			// @todo: add zone to correct language
 			$sitemap[0]['children'][] = $z;
         }
-        
+
         $data = array(
             'status' => 'success',
             'sitemap' => $sitemap
         );
-        
-        return new \Ip\Response\Json($data);    
+
+        return new \Ip\Response\Json($data);
 	}
-	
+
 }

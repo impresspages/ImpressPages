@@ -88,37 +88,7 @@ class Model{
 
 
 
-    //TODOXX move language list to Ip module #137
-    public static function generateLanguageList(){
-        if(!ipGetOption('Config.multilingual')) {
-            return '';
-        }
-         
-        return ipView('view/list.php', self::getViewData());
-    }
 
 
-    //TODOXX move to IP module #137
-    private static function getViewData() {
-        $languages = array();
-
-        foreach (ipContent()->getLanguages() as $language) {
-            if (!$language->isVisible()) {
-                continue;
-            }
-        
-            $tmpData = array();
-            $tmpData['shortTitle'] = $language->getAbbreviation();
-            $tmpData['longTitle'] = $language->getTitle();
-            $tmpData['visible'] = $language->isVisible();
-            $tmpData['current'] = $language->getCurrent();
-            $tmpData['url'] = \Ip\Internal\Deprecated\Url::generate($language->getId());
-            $languages[] = $tmpData;
-        }
-        $data = array (
-            'languages' => $languages
-        );
-        return $data;
-    }
 
 }

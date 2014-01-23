@@ -21,7 +21,11 @@ class Slot {
 
     public static function languages($params)
     {
-        return \Ip\Internal\Languages\Model::generateLanguageList();
+        if(!ipGetOption('Config.multilingual')) {
+            return '';
+        }
+
+        return ipView('Ip/Internal/Config/view/languages.php', array('languages' => ipContent()->getLanguages()));
     }
 
     public static function logo()

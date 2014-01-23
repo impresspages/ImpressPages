@@ -38,22 +38,21 @@ class Controller extends \Ip\WidgetController{
         );
     }
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
         $snippets[] = ipView('snippet/controls.php')->render();
         $variables = array(
             'curUrl' => \Ip\Internal\UrlHelper::getCurrentUrl()
         );
-        $snippets[] = ipView('snippet/options.php', $variables)->render();
-        return $snippets;
+        return ipView('snippet/options.php', $variables)->render();
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
         if (empty($data['level']) || (int)$data['level'] < 1) {
             $data['level'] = 1;
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
 }

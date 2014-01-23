@@ -1,8 +1,15 @@
 
 
-.ipModuleAdministrators {
+.ipModuleAdministrators .ipmList{
     width: 250px;
     float: left;
 }
 
+.ipModuleAdministrators .panel.active .panel-heading {
+    background-color: #ccc;
+}
 
+.ipModuleAdministrators .ipmAdministrator {
+    float: left;
+    margin-left: 20px;
+}

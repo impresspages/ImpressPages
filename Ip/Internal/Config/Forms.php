@@ -46,7 +46,6 @@ class Forms {
                 'value' => ipGetOption('Config.automaticCron', 1),
                 'label' => __('Execute cron automatically', 'ipAdmin'), //field label that will be displayed next to input field
                 'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'ipAdmin'),
-                'text' => __('Cron URL: ', 'ipAdmin') . '<span class="ipsUrl"></span>'
             ));
         $field->addClass('ipsAutoSave');
         $field->addAttribute('data-fieldid',  $field->getName());
@@ -59,7 +58,8 @@ class Forms {
                 'name' => 'cronPassword', //html "name" attribute
                 'value' => ipGetOption('Config.cronPassword', 1),
                 'label' => __('Cron password', 'ipAdmin'), //field label that will be displayed next to input field
-                'hint' => __('Protect cron from being abusively executed by the strangers.', 'ipAdmin')
+                'hint' => __('Protect cron from being abusively executed by the strangers.', 'ipAdmin'),
+                'note' => '<span class="ipsUrlLabel">' . __('Cron URL: ', 'ipAdmin') . '</span><a target="_blank" class="ipsUrl"></a>'
             ));
         $field->addClass('ipsAutoSave');
         $field->addAttribute('data-fieldid',  $field->getName());

@@ -105,7 +105,7 @@ abstract class Field{
 
     /**
      * Get field attributes as HTML string
-     * 
+     *
      * @param $doctype \Ip\View doctype constant
      * @return string
      */
@@ -215,9 +215,9 @@ abstract class Field{
     /**
      * Add custom field value validator
      *
-     * @param Validator\Validator $validator
+     * @param \Ip\Form\Validator $validator
      */
-    public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
+    public function addCustomValidator(\Ip\Form\Validator $validator) {
         $this->validators[] = $validator;
     }
 
