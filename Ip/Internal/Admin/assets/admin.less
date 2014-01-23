@@ -1,24 +1,21 @@
-
 .ipAdminToolbar {
     background-color: #2f313f;
     border-bottom: 1px solid #000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
     left: 0;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10001;
+    z-index: @admin-toolbar-zIndex;
 }
 .ipAdminToolbar .ipmItemMenu {
     background-color: #f90;
     float: left;
     display: block;
-    height: 10px;
+    height: 30px;
     margin: 0 15px;
     padding: 10px;
     position: relative;
-    width: 14px;
+    width: 34px;
 }
 .ipAdminToolbar .ipmItemMenu .ipmMenuBar {
     background-color: #000;
@@ -73,10 +70,11 @@
 .ipAdminToolbar .ipmMenu .ipmMenuTitle {
     background-color: #f90;
     border-bottom: 1px solid #000;
+    color: #000;
     display: block;
     font-weight: bold;
     line-height: 30px;
-    height: 30px; /* same as menu icon */
+    height: 31px; /* same as menu icon + border */
     padding-left: 50px;
 }
 .ipAdminToolbar .ipmMenu ul {

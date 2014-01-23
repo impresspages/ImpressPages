@@ -40,9 +40,6 @@ class Event
     protected static function initConfig()
     {
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
-        ipAddCss('Ip/Internal/Ip/assets/bootstrap/bootstrap.css');
-        ipAddJs('Ip/Internal/Ip/assets/bootstrap/bootstrap.js');
-        ipAddCss('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css');
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
         ipAddJsVariable('ipModuleDesignConfiguration', static::getConfigurationBoxHtml());
         ipAddCss('Ip/Internal/Design/assets/optionsBox.css');
