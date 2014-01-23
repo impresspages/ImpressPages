@@ -66,9 +66,11 @@ class PublicController extends \Ip\Controller
     {
         $widgets = Service::getAvailableWidgets();
         $snippets = array();
+        $snippetHtml = '';
         foreach ($widgets as $widget) {
-            $snippets = array_merge($snippets, $widget->adminSnippets());
+            $snippets = array_merge($snippets, Model::getWidgetSnippets($widget));
         }
+        //var_dump($snippets);
         ipAddJsVariable('ipWidgetSnippets', $snippets);
 
         ipAddJs('Ip/Internal/Ip/assets/tinymce/pastePreprocess.js');

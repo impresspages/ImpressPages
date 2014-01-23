@@ -223,30 +223,6 @@ class WidgetController
     }
 
 
-    /**
-     * @ignore
-     * @return array
-     */
-    public function adminSnippets()
-    {
-
-        //TODOXX scandir Model::SNIPPET_DIR and return snippets as an array #126
-//        $answer = '';
-//        try {
-//            if ($this->core ) {
-//                $adminView = ipConfig()->coreModuleFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
-//            } else {
-//                $adminView = ipConfig()->pluginFile($this->moduleName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SNIPPET_VIEW);
-//            }
-//            if (is_file($adminView)) {
-//                $answer = ipView($adminView)->render();
-//            }
-//        } catch (\Ip\Exception $e){
-//            return $e->getMessage();
-//        }
-//        return $answer;
-        return array();
-    }
 
     /**
      * Renders widget's HTML output
