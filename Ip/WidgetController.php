@@ -47,7 +47,7 @@ class WidgetController
      *
      * Override this method to set the widget name displayed in widget toolbar.
      *
-     * @return string
+     * @return string Widget's title
      */
     public function getTitle()
     {
@@ -57,19 +57,28 @@ class WidgetController
     /**
      * Return a name, which is unique widget identifier
      *
-     * @return string
+     * @return string Widget's name
      */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * Get widget's administration directory
+     *
+     * @return string Widget's directory path
+     */
     public function getWidgetDir()
     {
         return $this->widgetDir;
     }
 
-
+    /**
+     * Check if the widget is native ImpressPages CMS widget
+     *
+     * @return bool Returns false, if the widget is provided by installable plugin.
+     */
     public function isCore()
     {
         return $this->core;
@@ -80,7 +89,7 @@ class WidgetController
      *
      * Widget icon is displayed in widget toolbar of administration page.
      *
-     * @return string
+     * @return string Icon URL
      */
     public function getIcon()
     {
@@ -103,6 +112,11 @@ class WidgetController
         return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.png');
     }
 
+    /**
+     * Override this method to set default widget's data
+     *
+     * @return array Default data
+     */
     public function defaultData()
     {
         return array();
@@ -111,7 +125,7 @@ class WidgetController
     /**
      * Get all widget skins
      *
-     * @return array
+     * @return array List of skins
      * @throws Internal\Content\Exception
      */
     public function getSkins()
@@ -161,6 +175,8 @@ class WidgetController
     /**
      * Update widget data
      *
+     * This method is executed each time the widget data is updated.
+     *
      * @param $widgetId Widget ID
      * @param $postData
      * @param $currentData
@@ -172,17 +188,20 @@ class WidgetController
     }
 
     /**
+     * Processes post data submitted in public mode
      *
-     * You can make posts directly to your widget. If you will pass following parameters:
+     * You can make posts directly to your widget (e.g., when submitting HTML form in public page).
+     *
+     * If you will pass following parameters:
      * sa=Content.widgetPost
      * securityToken=actualSecurityToken
      * instanceId=actualWidgetInstanceId
      *
      * then that post request will be redirected to this method.
      *
-     * Use return new \Ip\Response\Json($jsonArray) to return json.
+     * Use return new \Ip\Response\Json($jsonArray) to return JSON.
      *
-     * Be careful. This method is accessible for website visitor without admin login.
+     * Attention: this method is accessible for website visitors without admin login.
      *
      * @param int $instanceId
      * @param array $data widget data
@@ -227,7 +246,7 @@ class WidgetController
     /**
      * Renders widget's HTML output
      *
-     * Extend this method to generate widget's HTML.
+     * You can extend this method when generating widget's HTML.
      *
      * @param $revisionId Widget revision id
      * @param $widgetId Widget id
@@ -257,6 +276,8 @@ class WidgetController
     }
 
     /**
+     * Process data which is passed to widget's JavaScript file for processing
+     *
      * @param $revisionId
      * @param $widgetId
      * @param $instanceId
