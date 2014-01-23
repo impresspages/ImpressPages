@@ -109,6 +109,8 @@ class WidgetController
     }
 
     /**
+     * Get all widget layouts
+     *
      * @return array
      * @throws Internal\Content\Exception
      */
@@ -157,9 +159,9 @@ class WidgetController
     }
 
     /**
+     * Update widget data
      *
-     *
-     * @param $widgetId
+     * @param $widgetId Widget ID
      * @param $postData
      * @param $currentData
      * @return array data to be stored to the database
@@ -191,13 +193,14 @@ class WidgetController
     }
 
     /**
+     * Duplicate widget action
      *
-     * Duplicate widget action. This function is executed after the widget is being duplicated.
+     * This function is executed after the widget is being duplicated.
      * All widget data is duplicated automatically. This method is used only in case a widget
      * needs to do some maintenance tasks on duplication.
-     * @param int $oldId old widget id
-     * @param int $newId duplicated widget id
-     * @param array $data data that has been duplicated from old widget to the new one
+     * @param int $oldId Old widget id
+     * @param int $newId Duplicated widget id
+     * @param array $data Data that has been duplicated from old widget to the new one
      */
     public function duplicate($oldId, $newId, $data)
     {
@@ -205,8 +208,9 @@ class WidgetController
     }
 
     /**
+     * Delete a widget
      *
-     * Delete a widget. This method is executed before actual deletion of widget.
+     * This method is executed before actual deletion of widget.
      * It is used to remove widget data (photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
      * if your widget does not upload files or add new records to the database manually.
@@ -219,6 +223,10 @@ class WidgetController
     }
 
 
+    /**
+     * @ignore
+     * @return array
+     */
     public function adminSnippets()
     {
 
