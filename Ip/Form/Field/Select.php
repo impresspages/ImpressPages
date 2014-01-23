@@ -7,9 +7,8 @@
 namespace Ip\Form\Field;
 
 
-use Ip\Form\Field;
 
-class Select extends Field
+class Select extends \Ip\Form\Field
 {
 
     private $values;
