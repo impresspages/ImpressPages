@@ -38,7 +38,7 @@
                     ipContent.deleteWidget($this.data('widgetinstanceid'));
                 });
 
-                $this.find('.ipsLook').on('click', $.proxy(openLayoutModal, this));
+                $this.find('.ipsSkin').on('click', $.proxy(openLayoutModal, this));
 
             });
         },
@@ -71,16 +71,16 @@
         },
 
 
-        changeLook: function(look) {
+        changeSkin: function(skin) {
             return this.each(function () {
                 var $this = $(this);
                 var data = Object();
 
 
-                data.aa = 'Content.changeLook';
+                data.aa = 'Content.changeSkin';
                 data.securityToken = ip.securityToken;
                 data.instanceId = $this.data('widgetinstanceid');
-                data.look = look;
+                data.skin = skin;
 
                 $.ajax({
                     type: 'POST',
@@ -166,7 +166,7 @@
     var openLayoutModal = function(e) {
         e.preventDefault();
         var $this = $(this);
-        var $layoutButton = $this.find('.ipsLook');
+        var $layoutButton = $this.find('.ipsSkin');
         var layouts = $layoutButton.data('layouts');
         var currentLayout = $layoutButton.data('currentlayout');
 
