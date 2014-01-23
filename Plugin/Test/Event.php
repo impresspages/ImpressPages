@@ -18,4 +18,15 @@ class Event
 //    }
 
 
+    public static function ipInit()
+    {//var_dump( $_SERVER);exit;
+        if (ipRequest()->getQuery('testHmvc')) {
+            $request = new \Ip\Request();
+            $request->setQuery(array('pa' => 'Test.testHmvc'));
+
+            echo ipApplication()->handleRequest($request)->getContent(); exit;
+
+        }
+    }
+
 }
