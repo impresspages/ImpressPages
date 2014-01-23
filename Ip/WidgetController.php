@@ -188,7 +188,7 @@ class WidgetController
     }
 
     /**
-     * Processes post data submitted in public mode
+     * Process post data submitted in public mode
      *
      * You can make posts directly to your widget (e.g., when submitting HTML form in public page).
      *
@@ -203,8 +203,8 @@ class WidgetController
      *
      * Attention: this method is accessible for website visitors without admin login.
      *
-     * @param int $instanceId
-     * @param array $data widget data
+     * @param int $instanceId Widget instance ID
+     * @param array $data Widget data array
      */
     public function post ($instanceId, $data)
     {
@@ -217,8 +217,9 @@ class WidgetController
      * This function is executed after the widget is being duplicated.
      * All widget data is duplicated automatically. This method is used only in case a widget
      * needs to do some maintenance tasks on duplication.
-     * @param int $oldId Old widget id
-     * @param int $newId Duplicated widget id
+     *
+     * @param int $oldId Old widget ID
+     * @param int $newId Duplicated widget ID
      * @param array $data Data that has been duplicated from old widget to the new one
      */
     public function duplicate($oldId, $newId, $data)
@@ -248,11 +249,11 @@ class WidgetController
      *
      * You can extend this method when generating widget's HTML.
      *
-     * @param $revisionId Widget revision id
-     * @param $widgetId Widget id
-     * @param $instanceId Widget instance id
+     * @param $revisionId Widget revision ID
+     * @param $widgetId Widget ID
+     * @param $instanceId Widget instance ID
      * @param array|null $data Widget data array
-     * @param string $skin Layout name
+     * @param string $skin Skin name
      * @return string Widget's HTML code
      */
 
@@ -278,11 +279,11 @@ class WidgetController
     /**
      * Process data which is passed to widget's JavaScript file for processing
      *
-     * @param $revisionId
-     * @param $widgetId
-     * @param $instanceId
-     * @param $data
-     * @param $skin
+     * @param $revisionId Widget revision ID
+     * @param $widgetId Widget ID
+     * @param $instanceId Widget instance ID
+     * @param $data Widget data array
+     * @param $skin Widget skin name
      * @return mixed
      */
     public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
