@@ -15,7 +15,7 @@ class ConfigModel{
 
     protected function __construct()
     {
-        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || isset($_REQUEST['ipDesignPreview']) && $this->hasPermission();
+        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || ipRequest()->getRequest('ipDesignPreview') && $this->hasPermission();
     }
 
     /**
