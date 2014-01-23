@@ -35,9 +35,13 @@ class Job
         }
 
         $parts = explode('.', $actionString);
-        if (count($parts) != 2) {
+        if (count($parts) > 2) {
             ipLog()->warning('Request.invalidControllerAction: {action}', array('action' => $actionString));
             return;
+        }
+
+        if (empty($parts[1])) {
+            $parts[1] = 'index';
         }
 
         return array(
@@ -46,4 +50,4 @@ class Job
             'action' => $parts[1],
         );
     }
-} 
+}
