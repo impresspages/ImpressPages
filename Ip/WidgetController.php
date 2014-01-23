@@ -242,6 +242,24 @@ class WidgetController
     }
 
 
+    public function adminHtmlSnippet()
+    {
+        $snippetDir = ipFile($this->getWidgetDir() . \Ip\Internal\Content\Model::SNIPPET_DIR) . '/';
+        if (!is_dir($snippetDir)) {
+            return array();
+        }
+        $snippetFiles = scandir($snippetDir);
+        $snippet = '';
+        foreach ($snippetFiles as $snippetFile) {
+            if (is_file($snippetDir . $snippetFile) && substr($snippetFile, -4) == '.php') {
+                $snippet .= ipView($snippetDir . $snippetFile)->render();
+            }
+        }
+
+        return $snippet;
+
+    }
+
 
     /**
      * Renders widget's HTML output
