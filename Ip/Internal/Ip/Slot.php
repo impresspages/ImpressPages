@@ -9,7 +9,7 @@ namespace Ip\Internal\Ip;
 
 
 /**
- * class to ouput current breadcrumb
+ * class to output current breadcrumb
  * @package ImpressPages
  */
 class Slot {
@@ -46,7 +46,7 @@ class Slot {
     }
 
 
-    public static function text ($params)
+    public static function text($params)
     {
         $tag = 'div';
         $defaultValue = '';
@@ -125,5 +125,4 @@ class Slot {
         $inlineManagementService = new \Ip\Internal\InlineManagement\Service();
         return $inlineManagementService->generateManagedImage($key, $defaultValue, $options, $cssClass);
     }
-
 }
