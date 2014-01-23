@@ -1,0 +1,19 @@
+a.list-group-item {
+    // Success class on item itself, not parent
+    &.success,
+    &.success:hover,
+    &.success:focus {
+        z-index: 2; // Place active items above their siblings for proper border styling
+        color: @list-group-success-color;
+        background-color: @list-group-success-bg;
+        //border-color: @list-group-success-border;
+
+        // Force color to inherit for custom content
+        .list-group-item-heading {
+            color: inherit;
+        }
+        .list-group-item-text {
+            color: lighten(@list-group-success-bg, 40%);
+        }
+    }
+}
