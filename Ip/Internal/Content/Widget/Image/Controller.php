@@ -86,7 +86,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout) {
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
             $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
@@ -108,7 +108,7 @@ class Controller extends \Ip\WidgetController{
                 }
             }
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
 

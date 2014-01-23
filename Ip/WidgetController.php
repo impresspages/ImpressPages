@@ -109,7 +109,7 @@ class WidgetController
     }
 
     /**
-     * Get all widget layouts
+     * Get all widget skins
      *
      * @return array
      * @throws Internal\Content\Exception
@@ -145,17 +145,17 @@ class WidgetController
             }
         }
 
-        $layouts = array();
+        $skins = array();
         foreach ($views as $viewKey => $view) {
             $translation = __('Skin_' . $viewKey, $this->pluginName, false);
-            $layouts[] = array('name' => $viewKey, 'title' => $translation);
+            $skins[] = array('name' => $viewKey, 'title' => $translation);
         }
 
-        if (empty($layouts)) {
-            throw new \Ip\Internal\Content\Exception('No layouts', Exception::NO_SKIN);
+        if (empty($skins)) {
+            throw new \Ip\Internal\Content\Exception('No skins', Exception::NO_SKIN);
         }
 
-        return $layouts;
+        return $skins;
     }
 
     /**
@@ -257,18 +257,18 @@ class WidgetController
      * @param $widgetId Widget id
      * @param $instanceId Widget instance id
      * @param array|null $data Widget data array
-     * @param string $layout Layout name
+     * @param string $skin Layout name
      * @return string Widget's HTML code
      */
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
         $answer = '';
         try {
             if ($this->core) {
-                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
             } else {
-                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
@@ -285,10 +285,10 @@ class WidgetController
      * @param $widgetId
      * @param $instanceId
      * @param $data
-     * @param $layout
+     * @param $skin
      * @return mixed
      */
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout)
+    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
     {
         return $data;
     }
