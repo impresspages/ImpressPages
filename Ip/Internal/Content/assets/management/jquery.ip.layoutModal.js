@@ -29,7 +29,7 @@
                     } else {
                         $newItem.on('click', function(e){
                             e.preventDefault();
-                            options.widgetObject.ipWidget('changeLook', value.name);
+                            options.widgetObject.ipWidget('changeSkin', value.name);
                             $this.modal('hide');
                         })
                     }

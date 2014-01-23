@@ -21,7 +21,7 @@ class WidgetController
      * @var boolean - true if widget is installed by default
      */
     protected $core;
-    const LOOK_DIR = 'look';
+    const SKIN_DIR = 'skin';
 
     protected $widgetDir;
     protected $widgetAssetsDir;
@@ -114,28 +114,28 @@ class WidgetController
      * @return array
      * @throws Internal\Content\Exception
      */
-    public function getLooks()
+    public function getSkins()
     {
 
         $views = array();
 
 
         //collect default view files
-        $lookDir = ipFile($this->widgetDir . self::LOOK_DIR . '/');
+        $skinDir = ipFile($this->widgetDir . self::SKIN_DIR . '/');
 
 
-        if (!is_dir($lookDir)) {
-            throw new \Ip\Internal\Content\Exception('Look directory does not exist. ' . $lookDir, \Ip\Internal\Content\Exception::NO_LOOK);
+        if (!is_dir($skinDir)) {
+            throw new \Ip\Internal\Content\Exception('Skins directory does not exist. ' . $skinDir, \Ip\Internal\Content\Exception::NO_SKIN);
         }
 
-        $availableViewFiles = scandir($lookDir);
+        $availableViewFiles = scandir($skinDir);
         foreach ($availableViewFiles as $viewFile) {
-            if (is_file($lookDir . $viewFile) && substr($viewFile, -4) == '.php') {
+            if (is_file($skinDir . $viewFile) && substr($viewFile, -4) == '.php') {
                 $views[substr($viewFile, 0, -4)] = 1;
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR);
+        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
@@ -147,12 +147,12 @@ class WidgetController
 
         $layouts = array();
         foreach ($views as $viewKey => $view) {
-            $translation = __('Look_' . $viewKey, $this->pluginName, false);
+            $translation = __('Skin_' . $viewKey, $this->pluginName, false);
             $layouts[] = array('name' => $viewKey, 'title' => $translation);
         }
 
         if (empty($layouts)) {
-            throw new \Ip\Internal\Content\Exception('No layouts', Exception::NO_LOOK);
+            throw new \Ip\Internal\Content\Exception('No layouts', Exception::NO_SKIN);
         }
 
         return $layouts;
@@ -266,9 +266,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$layout.'.php'), $data)->render();
             } else {
-                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::LOOK_DIR.'/'.$layout.'.php'), $data)->render();
+                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$layout.'.php'), $data)->render();
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
