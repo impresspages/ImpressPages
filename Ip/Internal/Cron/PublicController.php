@@ -36,8 +36,7 @@ class PublicController extends \Ip\Controller
             ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
         }
 
-        \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionStart', time());
-        ipLog()->info('Cron.started');
+        ipStorage()->set('Cron', 'lastExecutionStart', time());
         $data = array(
             'firstTimeThisYear' => $this->firstTimeThisYear,
             'firstTimeThisMonth' => $this->firstTimeThisMonth,
@@ -47,10 +46,11 @@ class PublicController extends \Ip\Controller
             'lastTime' => $this->lastTime,
             'test' => ipRequest()->getQuery('test')
         );
+        ipLog()->info('Cron.started', $data);
 
         ipEvent('ipCronExecute', $data);
 
-        \Ip\ServiceLocator::storage()->set('Cron', 'lastExecutionEnd', time());
+        ipStorage()->set('Cron', 'lastExecutionEnd', time());
         ipLog()->info('Cron.finished');
 
         $response = new \Ip\Response();
@@ -67,13 +67,13 @@ class PublicController extends \Ip\Controller
         $this->firstTimeThisHour = true;
         $this->lastTime = null;
 
-        $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionEnd', NULL);
-        $lastExecutionStart = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart', NULL);
+        $lastExecution = ipStorage()->get('Cron', 'lastExecutionEnd', NULL);
+        $lastExecutionStart = ipStorage()->get('Cron', 'lastExecutionStart', NULL);
         if ($lastExecution < $lastExecutionStart) { // if last cron execution failed to finish
             $lastExecution = $lastExecutionStart;
         }
 
-        if (!$lastExecution && !(ipRequest()->getQuery('test') && isset($_SESSION['backend_session']['userId']))) {
+        if ($lastExecution && !(ipRequest()->getQuery('test', 0) && ipAdminId())) {
             $this->firstTimeThisYear = date('Y') != date('Y', $lastExecution);
             $this->firstTimeThisMonth = date('Y-m') != date('Y-m', $lastExecution);
             $this->firstTimeThisWeek = date('Y-w') != date('Y-w', $lastExecution);
