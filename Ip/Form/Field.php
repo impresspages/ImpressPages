@@ -105,7 +105,7 @@ abstract class Field{
 
     /**
      * Get field attributes as HTML string
-     * 
+     *
      * @param $doctype \Ip\View doctype constant
      * @return string
      */

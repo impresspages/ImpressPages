@@ -99,17 +99,22 @@ var IpConfig;
         }
 
         var updateCronUrl = function () {
-            var $urlText = $('#automaticCron').closest('.ipmField').find('.ipmCheckboxText');
-            var $url = $urlText.find('.ipsUrl');
-            // TODO do not pass password, cron should work without password for admin
-            var $passField = $('#cronPassword').closest('.ipmField');
+            var $note = $('.name-cronPassword .ipsUrlLabel');
+            var $urlText = $('.name-cronPassword .ipsUrl');
+            // cron should work without password for admin
+            var $passField = $('.name-cronPassword');
             if (getFieldValue('automaticCron')) {
-                $urlText.addClass('ipgHide');
-                $passField.addClass('ipgHide');
+                $note.addClass('hide');
+                $urlText.addClass('hide');
+                $passField.addClass('hide');
+
             } else {
-                $url.text(ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val());
-                $passField.removeClass('ipgHide');
-                $urlText.removeClass('ipgHide');
+                $note.removeClass('hide');
+                var url = ip.baseUrl + '?pa=Cron.index&pass=' + $('#cronPassword').val();
+                $urlText.text(url);
+                $urlText.attr('href', url);
+                $passField.removeClass('hide');
+                $urlText.removeClass('hide');
             }
         }
 

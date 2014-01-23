@@ -13,4 +13,9 @@ class Service
 
     }
 
+    public static function adminId()
+    {
+        return Model::getUserId();
+    }
+
 }

@@ -46,9 +46,25 @@ class Service
         Model::setUserPassword($userId, $password);
     }
 
+    public static function update($userId, $username, $email, $password)
+    {
+        Model::update($userId, $username, $email, $password);
+    }
+
     public static function resetPassword($userId, $secret, $password)
     {
         Model::resetPassword($userId, $secret, $password);
+    }
+
+
+    public static function getAll()
+    {
+        return Model::getAll();
+    }
+
+    public static function delete($id)
+    {
+        Model::delete($id);
     }
 
 }

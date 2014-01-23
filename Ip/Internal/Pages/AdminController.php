@@ -13,9 +13,10 @@ namespace Ip\Internal\Pages;
 class AdminController extends \Ip\Controller
 {
 
-    public function init()
+
+    public function index()
     {
-        ipAddJs('Ip/Internal/Pages/assets/js/angular.js');
+        ipAddJs('Ip/Internal/Ip/assets/js/angular.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pages.js');
         ipAddJs('Ip/Internal/Pages/assets/js/zones.js');
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageTree.js');
@@ -28,10 +29,7 @@ class AdminController extends \Ip\Controller
 
         ipAddJsVariable('languageList', Helper::languageList());
         ipAddJsVariable('zoneList', Helper::zoneList());
-    }
 
-    public function index()
-    {
         $variables = array(
             'addPageForm' => Helper::addPageForm(),
             'addZoneForm' => Helper::addZoneForm(),
