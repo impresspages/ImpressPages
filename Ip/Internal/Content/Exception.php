@@ -17,7 +17,7 @@ class Exception extends \Exception
     const UNKNOWN_WIDGET = 2;
     const UNKNOWN_INSTANCE = 3;
     const UNKNOWN_REVISION = 4;
-    const NO_LOOK = 5;
+    const NO_SKIN = 5;
 
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null)

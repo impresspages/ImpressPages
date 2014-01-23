@@ -50,7 +50,7 @@ class Service
 
 
 
-    public static function createWidget($widgetName, $data = null, $look = null)
+    public static function createWidget($widgetName, $data = null, $skin = null)
     {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
@@ -61,12 +61,12 @@ class Service
             $data = $widgetObject->defaultData();
         }
 
-        if ($look === null) {
-            $looks = $widgetObject->getLooks();
-            $look = $looks[0]['name'];
+        if ($skin === null) {
+            $skins = $widgetObject->getSkins();
+            $skin = $skins[0]['name'];
         }
 
-        $widgetId = Model::createWidget($widgetName, $data, $look);
+        $widgetId = Model::createWidget($widgetName, $data, $skin);
         return $widgetId;
     }
 
