@@ -23,22 +23,31 @@ class Table extends \Ip\Internal\Grid\Model
 
     public function handleMethod(\Ip\Request $request)
     {
-        $data = $request->getRequest();
-        if (empty($data['method'])) {
+        $request = ipRequest()->getRequest();
+
+        if (empty($request['method'])) {
             throw new \Ip\Exception('Missing request data');
         }
-        $method = $data['method'];
+        $method = $request['method'];
+
+        if (in_array($method, array('update', 'insert', 'delete', 'move'))) {
+            ipRequest()->mustBePost();
+        }
+
+        if (in_array($method, array('update', 'insert'))) {
+            $data = ipRequest()->getPost();
+            $params = $data;
+        } else {
+            $data = ipRequest()->getRequest();
+            $params = empty($data['params']) ? array() : $data['params'];
+        }
+
 
         if (empty($data['hash'])) {
             $data['hash'] = '';
         }
         $hash = $data['hash'];
 
-        if (isset($data['params'])) {
-            $params = $data['params'];
-        } else {
-            $params = array();
-        }
         $statusVariables = Status::parse($hash);
 
 
@@ -65,7 +74,7 @@ class Table extends \Ip\Internal\Grid\Model
                 return $this->updateForm($params, $statusVariables)->render();
                 break;
             case 'update':
-                return $this->update($data, $statusVariables);
+                return $this->update($params, $statusVariables);
                 break;
             case 'move':
                 return $this->move($params, $statusVariables);
