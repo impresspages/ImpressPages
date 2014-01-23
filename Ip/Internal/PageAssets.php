@@ -118,17 +118,22 @@ class PageAssets
         }
 
         if ($inDesignPreview) {
-            $themeUrl = ipThemeUrl('');
+            $themeAssetsUrl = ipThemeUrl(\Ip\Application::ASSETS_DIR . '/');
             $designService = \Ip\Internal\Design\Service::instance();
             $theme = ipConfig()->theme();
 
             foreach ($cssFiles as &$file) {
-                if (strpos($file['value'], $themeUrl) === 0) {
-                    $themeFile = substr($file['value'], strlen($themeUrl), -4) . '.less';
-                    if (file_exists(ipThemeFile($themeFile))) {
-                        $file['value'] = $designService->getRealTimeUrl($theme, $themeFile);
+                if (strpos($file['value'], $themeAssetsUrl) === 0) {
+                    $pathinfo = pathinfo($file['value']);
+
+                    if ($pathinfo['extension'] == 'css'
+                        && $themeAssetsUrl . $pathinfo['basename'] == $file['value']) {
+                        $themeFile = \Ip\Application::ASSETS_DIR . '/' . $pathinfo['filename'] . '.less';
+                        if (file_exists(ipThemeFile($themeFile))) {
+                            $file['value'] = $designService->getRealTimeUrl($theme, $themeFile);
+                            $file['cacheFix'] = false;
+                        }
                     }
-                    continue;
                 }
 
                 if ($file['cacheFix']) {
