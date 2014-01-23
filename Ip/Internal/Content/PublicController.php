@@ -66,9 +66,11 @@ class PublicController extends \Ip\Controller
     {
         $widgets = Service::getAvailableWidgets();
         $snippets = array();
-        $snippetHtml = '';
         foreach ($widgets as $widget) {
-            $snippets = array_merge($snippets, Model::getWidgetSnippets($widget));
+            $snippetHtml = $widget->adminHtmlSnippet();
+            if ($snippetHtml != '') {
+                $snippets[] = $snippetHtml;
+            }
         }
         //var_dump($snippets);
         ipAddJsVariable('ipWidgetSnippets', $snippets);
