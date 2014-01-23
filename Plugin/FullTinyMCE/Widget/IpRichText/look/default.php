@@ -1,1 +1,3 @@
-<?php echo isset($text) ? $text : ''; ?>
+<div class="ipsContent">
+    <?php echo !empty($text) ? $text : '&nbsp;'; ?>
+</div>
