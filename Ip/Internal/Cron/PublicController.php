@@ -34,6 +34,9 @@ class PublicController extends \Ip\Controller
         $this->init();
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
             ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            $response = new \Ip\Response();
+            $response->setContent('Fail. Please see logs for details.');
+            return $response;
         }
 
         ipStorage()->set('Cron', 'lastExecutionStart', time());

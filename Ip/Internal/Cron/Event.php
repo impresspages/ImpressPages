@@ -27,7 +27,7 @@ class Event
             curl_setopt(
                 $ch,
                 CURLOPT_URL,
-                ipConfig()->baseUrl() . '?pa=Cron.index&pass=' . urlencode(ipGetOption('Config.cronPassword'))
+                ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'))
             );
             curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -37,7 +37,7 @@ class Event
             $request = new \Ip\Request();
             $request->setQuery(
                 array(
-                    'pa' => 'Cron.index',
+                    'pa' => 'Cron',
                     'pass' => ipGetOption('Config.cronPassword')
                 )
             );
@@ -48,4 +48,4 @@ class Event
             ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
         }
     }
-} 
+}
