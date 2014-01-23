@@ -156,6 +156,26 @@ class Model
         return self::_generateWidgetPreview($widgetRecord, $managementState);
     }
 
+    /**
+     * @param \Ip\WidgetController $widget
+     */
+    public static function getWidgetSnippets(\Ip\WidgetController $widget)
+    {
+        $snippetDir = ipFile($widget->getWidgetDir() . self::SNIPPET_DIR) . '/';
+        if (!is_dir($snippetDir)) {
+            return array();
+        }
+        $snippetFiles = scandir($snippetDir);
+        $snippets = array();
+        foreach ($snippetFiles as $snippetFile) {
+            if (is_file($snippetDir . $snippetFile) && substr($snippetFile, -4) == '.php') {
+                $snippets[] = ipView($snippetDir . $snippetFile)->render();
+            }
+        }
+        return $snippets;
+
+    }
+
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
