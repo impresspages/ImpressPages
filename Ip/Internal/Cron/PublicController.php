@@ -31,6 +31,7 @@ class PublicController extends \Ip\Controller
 
     public function index()
     {
+        $this->init();
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
             ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
         }
@@ -57,7 +58,7 @@ class PublicController extends \Ip\Controller
         return $response;
     }
 
-    public function init()
+    protected function init()
     {
         $this->firstTimeThisYear = true;
         $this->firstTimeThisMonth = true;

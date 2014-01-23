@@ -26,14 +26,7 @@ class Event
     protected static function addWidgetAssets(\Ip\WidgetController $widget)
     {
         $pluginAssetsPath = $widget->getWidgetDir() . \Ip\Application::ASSETS_DIR . '/';
-        if ($widget->isCore()) {
-            $widgetPublicDir = 'Ip/Internal/' . $pluginAssetsPath;
-        } else {
-            $widgetPublicDir = 'Plugin/' . $pluginAssetsPath;
-        }
-
-
-        static::includeResources($widgetPublicDir);
+        static::includeResources($pluginAssetsPath);
     }
 
     private static function includeResources($resourcesFolder)
@@ -52,10 +45,10 @@ class Event
                     continue;
                 }
                 if (strtolower(substr($file, -3)) == '.js') {
-                    ipAddJs($resourcesFolder . '/' . $file);
+                    ipAddJs($resourcesFolder . $file);
                 }
                 if (strtolower(substr($file, -4)) == '.css') {
-                    ipAddCss($resourcesFolder . '/' . $file);
+                    ipAddCss($resourcesFolder . $file);
                 }
             }
         }

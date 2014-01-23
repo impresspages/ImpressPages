@@ -11,9 +11,13 @@ class Model{
 
     public static function getAll()
     {
-        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` desc');
+        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` ASC');
     }
 
+    public static function delete($id)
+    {
+        ipDb()->delete('administrator', array('id' => $id));
+    }
 
     public static function getByUsername($username)
     {
@@ -73,6 +77,21 @@ class Model{
     {
         ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));
     }
+
+    public static function update($userId, $username, $email, $password)
+    {
+        $data = array(
+            'email' => $email,
+            'username' => $username
+        );
+
+        if ($password) {
+            $data['hash'] = self::passwordHash($password);
+        }
+
+        ipDb()->update('administrator', $data, array('id' => $userId));
+    }
+
 
     public static function resetPassword($userId, $secret, $password)
     {
