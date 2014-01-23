@@ -15,7 +15,7 @@ class Controller extends \Ip\WidgetController{
         return __('Gallery', 'ipAdmin', false);
     }
 
-    
+
 
     public function update($widgetId, $postData, $currentData) {
 
@@ -166,11 +166,10 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
         $snippets = array();
-        $snippets[] = ipView('snippet/gallery.php')->render();
-        return $snippets;
+        return ipView('snippet/gallery.php')->render();
 
     }
 
@@ -197,7 +196,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
@@ -253,19 +252,19 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
-    
+
     public function delete($widgetId, $data) {
         if (!isset($data['images']) || !is_array($data['images'])) {
             return;
         }
-        
+
         foreach($data['images'] as $imageKey => $image) {
             self::_deleteOneImage($image, $widgetId);
         };
-    }    
+    }
 
     private function _deleteOneImage($image, $widgetId) {
         if (!is_array($image)) {
@@ -275,11 +274,11 @@ class Controller extends \Ip\WidgetController{
             \Ip\Internal\Repository\Model::unbindFile($image['imageOriginal'], 'Content', $widgetId);
         }
     }
-    
 
-    
 
-    
+
+
+
     /**
     *
     * Duplicate widget action. This function is executed after the widget is being duplicated.
@@ -293,7 +292,7 @@ class Controller extends \Ip\WidgetController{
         if (!isset($data['images']) || !is_array($data['images'])) {
             return;
         }
-        
+
         foreach($data['images'] as $imageKey => $image) {
             if (!is_array($image)) {
                 return;

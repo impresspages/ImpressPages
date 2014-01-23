@@ -39,9 +39,8 @@ class Controller extends \Ip\WidgetController{
         return new \Ip\Response\Json($data);
     }
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
-        $snippets = array();
 
         $fieldObjects = Model::getAvailableFieldTypes();
 
@@ -55,8 +54,8 @@ class Controller extends \Ip\WidgetController{
         usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
-        $snippets[] = ipView('snippet/popup.php', $data)->render();
-        return $snippets;
+        $snippet = ipView('snippet/popup.php', $data)->render();
+        return $snippet;
 
     }
 
@@ -159,7 +158,7 @@ class Controller extends \Ip\WidgetController{
         return $data;
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout) {
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
 
         $data['form'] = $this->createForm($instanceId, $data);
 
@@ -169,11 +168,11 @@ class Controller extends \Ip\WidgetController{
 
 
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
 
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $layout) {
+    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin) {
         //collect available field types
         $fieldTypeObjects = Model::getAvailableFieldTypes();
 

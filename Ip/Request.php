@@ -42,7 +42,13 @@ class Request
 
     public function __construct()
     {
-        $this->setServer($_SERVER);
+        $server = $_SERVER;
+        $server['REDIRECT_QUERY_STRING'] = '';
+        $server['REDIRECT_URL'] = '';
+        $server['QUERY_STRING'] = '';
+        $server['REQUEST_URI'] = '/';
+        $this->setServer($server);
+
     }
 
     /**

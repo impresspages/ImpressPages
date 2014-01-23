@@ -32,7 +32,7 @@ class FieldOptionTextLang extends Field{
     }
 
 
-    public function render($doctype) {
+    public function render($doctype, $environment) {
         $languages = ipContent()->getLanguages();
         $answer = '';
         foreach ($languages as $language) {
