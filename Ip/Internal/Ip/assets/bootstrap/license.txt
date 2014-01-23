@@ -1,3 +1,0 @@
-Please read bootstrap.css comments for original Bootstrap license.
-
-This is a modified version of it prefixed with ip and additional elements added.
