@@ -2,8 +2,8 @@
 
 require_once( dirname(__FILE__).'/Cache.php');
 
-class Ip_Less_Parser extends Less_Cache{
-
+class Less_Parser extends Less_Cache{
+    public static $override_dirs = array(); // IpPatch
 
 	private $input;		// LeSS input string
 	private $input_len;	// input string length
@@ -253,7 +253,7 @@ class Ip_Less_Parser extends Less_Cache{
 
 		$this->env->currentFileInfo = $currentFileInfo;
 
-		self::$import_dirs = array_merge( array( $dirname => $currentFileInfo['uri_root'] ), self::$import_dirs );
+		self::$import_dirs = array_merge( self::$override_dirs, array( $dirname => $currentFileInfo['uri_root'] ), self::$import_dirs ); // IpPatch
 	}
 
 	public function SetCacheDir( $dir ){
@@ -296,6 +296,27 @@ class Ip_Less_Parser extends Less_Cache{
 			self::$import_dirs[$path] = $uri_root;
 		}
 	}
+
+    public function SetOverrideDirs( $dirs ){ // IpPatch
+
+        foreach($dirs as $path => $uri_root){
+
+            $path = str_replace('\\','/',$path);
+            if( !empty($path) ){
+                $path = rtrim($path,'/').'/';
+            }
+
+            if ( !is_callable($uri_root) ){
+                $uri_root = str_replace('\\','/',$uri_root);
+                if( !empty($uri_root) ){
+                    $uri_root = rtrim($uri_root,'/').'/';
+                }
+            }
+
+            self::$override_dirs[$path] = $uri_root;
+            self::$import_dirs = array_merge( self::$override_dirs, self::$import_dirs );
+        }
+    }
 
 	private function _parse( $file_path = false ){
 		$this->rules = array_merge($this->rules, $this->GetRules( $file_path ));

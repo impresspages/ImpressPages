@@ -55,6 +55,7 @@ class Model
             return false;
         }
 
+        $lessFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.less');
         $cssFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
         $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
 
@@ -72,9 +73,9 @@ class Model
         }
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Less.php');
+            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
             $parser = new \Less_Parser(array('relativeUrls' => false));
-            $parser->parseFile(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/ipContent/ipContent.less'));
+            $parser->parseFile($lessFile);
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
         } catch(Exception $e) {
@@ -89,37 +90,51 @@ class Model
      */
     public function generateCoreBootstrap()
     {
-        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/bootstrap/less/') . '*.less');
+        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/admin/ip/') . '*.less');
         if (!$items) {
             return false;
         }
 
-        $cssTempFile = ipFile('Ip/Internal/Ip/assets/bootstrap/less/bootstrap.temp.less');
-        $lastBuildTime = file_exists($cssTempFile) ? filemtime($cssTempFile) : 0;
+        $lessTempFile = ipFile('Ip/Internal/Ip/assets/admin/admin.tmp.less');
+        $cssTempFile = ipFile('Ip/Internal/Ip/assets/admin/admin.tmp.css');
+        $lessFile = ipFile('Ip/Internal/Ip/assets/admin/admin.less');
+        $cssFile = ipFile('Ip/Internal/Ip/assets/admin/admin.css');
 
+        $lastBuildTimeTemp = file_exists($cssTempFile) ? filemtime($cssTempFile) : 0;
+        $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
+
+        $hasChangedTemp = false;
         $hasChanged = false;
 
         foreach ($items as $path) {
-            if (filemtime($path) > $lastBuildTime) {
-                $hasChanged = true;
+            if (filemtime($path) > $lastBuildTimeTemp) {
+                $hasChangedTemp = true;
                 break;
             }
         }
 
-        if (!$hasChanged) {
+        if ($lastBuildTimeTemp > $lastBuildTime) {
+            $hasChanged = true;
+        }
+
+        if (!$hasChangedTemp && !$hasChanged) {
             return;
         }
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Less.php');
-            $parserTemp = new \Less_Parser(array('relativeUrls' => false));
-            $parserTemp->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/less/bootstrap.less'));
-            $cssTemp = $parserTemp->getCss();
-            file_put_contents($cssTempFile, $cssTemp);
+            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
+
+            if ($hasChangedTemp) { // skipping temp compilation if only main file is missing
+                $parserTemp = new \Less_Parser(array('relativeUrls' => false));
+                $parserTemp->SetCacheDir(ipFile('file/tmp/less/'));
+                $parserTemp->parseFile($lessTempFile);
+                $cssTemp = $parserTemp->getCss();
+                file_put_contents($cssTempFile, $cssTemp);
+            }
 
             $parser = new \Less_Parser(array('relativeUrls' => false));
-            $cssFile = ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.css');
-            $parser->parseFile(ipFile('Ip/Internal/Ip/assets/bootstrap/bootstrap.less'));
+            $parser->SetCacheDir(ipFile('file/tmp/less/'));
+            $parser->parseFile($lessFile);
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
         } catch(Exception $e) {
@@ -215,4 +230,4 @@ class Model
         return $files;
     }
 
-} 
+}
