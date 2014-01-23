@@ -197,7 +197,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $layout)
+    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
@@ -253,7 +253,7 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $layout);
+        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
     
