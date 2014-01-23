@@ -173,32 +173,10 @@ $_SESSION['step'] = 0;
 
 $cur_step = $_SESSION['step'];
 
-
-
-if(isset($_GET['step'])){
-    switch($_GET['step']){
-        case 0:
-            $cur_step = 0;
-            break;
-        case 1:
-            $cur_step = 1;
-            break;
-        case 2:
-            $cur_step = 2;
-            break;
-        case 3:
-            $cur_step = 3;
-            break;
-        case 4:
-            $cur_step = 4;
-            break;
-        case 5:
-            $cur_step = 5;
-            break;
-    }
-
-
+if(isset($_GET['step']) && in_array($_GET['step'], range(0,5))){
+    $cur_step = $_GET['step'];
 }
+
 if($cur_step > $_SESSION['step']+1){
     $cur_step = $_SESSION['step']+1;
 }
