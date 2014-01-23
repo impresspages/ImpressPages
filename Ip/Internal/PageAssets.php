@@ -113,27 +113,26 @@ class PageAssets
 
         $data = ipRequest()->getRequest();
 
-        if (!empty($data['ipDesign']['pCfg']) && (defined(
-                    'IP_ALLOW_PUBLIC_THEME_CONFIG'
-                ) || isset($_REQUEST['ipDesignPreview']))
-        ) {
-            $config = \Ip\Internal\Design\ConfigModel::instance();
-            $inDesignPreview = $config->isInPreviewState();
+        if (!empty($data['ipDesign']['pCfg'])) {
+            $inDesignPreview = \Ip\Internal\Design\ConfigModel::instance()->isInPreviewState();
         }
 
         if ($inDesignPreview) {
+            $themeUrl = ipThemeUrl('');
+            $designService = \Ip\Internal\Design\Service::instance();
+            $theme = ipConfig()->theme();
+
             foreach ($cssFiles as &$file) {
-                $path = pathinfo($file['value']);
-                if ($path['dirname'] . '/' == ipThemeFile('') && file_exists(
-                        ipThemeFile($path['filename'] . '.less')
-                    )
-                ) {
-                    $designService = \Ip\Internal\Design\Service::instance();
-                    $file = $designService->getRealTimeUrl(ipConfig()->theme(), $path['filename']);
-                } else {
-                    if ($file['cacheFix']) {
-                        $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
+                if (strpos($file['value'], $themeUrl) === 0) {
+                    $themeFile = substr($file['value'], strlen($themeUrl), -4) . '.less';
+                    if (file_exists(ipThemeFile($themeFile))) {
+                        $file['value'] = $designService->getRealTimeUrl($theme, $themeFile);
                     }
+                    continue;
+                }
+
+                if ($file['cacheFix']) {
+                    $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }
         } else {
@@ -154,7 +153,7 @@ class PageAssets
             'css' => $cssFiles
         );
 
-        return ipView(ipFile('Ip/Internal/Config/view/head.php'), $data)->render();
+        return ipView('Ip/Internal/Config/view/head.php', $data)->render();
     }
 
     public function generateJavascript()
