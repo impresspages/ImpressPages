@@ -39,16 +39,16 @@ class LessCompiler
         $less.= $this->generateLessVariables($options, $config);
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Less.php');
+            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
             $parser = new \Less_Parser(array('relativeUrls' => false));
             $parser->SetCacheDir(ipFile('file/tmp/less/'));
-            $themeDir = rtrim(ipFile('Theme/' . $themeName . '/assets/'), '/');
+            $themeDir = ipFile('Theme/' . $themeName . '/assets/');
+            $ipContentDir = ipFile('Ip/Internal/Ip/assets/css/ipContent/');
             $directories = array(
                 $themeDir => '',
-                rtrim(ipFile('Ip/Internal/Ip/assets/css/ipContent/'), '/') => ''
+                $ipContentDir => ''
             );
-            $parser->SetImportDirs($directories);
-            $parser->parse('@ipContentDir: \'less/ipContent\';');
+            $parser->SetOverrideDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
         } catch(Exception $e) {

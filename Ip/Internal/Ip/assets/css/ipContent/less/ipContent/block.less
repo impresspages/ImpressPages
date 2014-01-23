@@ -1,0 +1,52 @@
+.ipBlock {
+    min-height: 10px; /* to create minimum height when block is empty */
+}
+.ipBlock.ipbEmpty { /* styles when block is empty */
+    min-height: 30px;
+    outline: #000 dashed 1px;
+}
+.ipBlock.ipbEmpty:hover { /* styles when block is empty */
+    outline-color: #019bd4;
+}
+.ipBlock .ipbExampleContent {
+    position: relative;
+}
+.ipBlock .ipbExampleContent:after {
+    background-color: #e3e3e3;
+    content: ' ';
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    opacity: 0.3;
+    filter: Alpha(Opacity=30);
+    top: 0;
+    width: 100%;
+}
+.ipBlock .ipbExampleContent .ipWidget:hover {
+    outline: none;
+}
+.ipBlock .ipbExampleContent .ipbDefault {
+    color: #2f313f;
+    font-size: 24px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    height: 50px;
+    line-height: 50px;
+    visibility: hidden;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+.ipBlock .ipbExampleContent .ipbUser {
+    position: relative;
+    margin-top: -50px; /* same height as .ipbDefault to show on top of it */
+    min-height: 50px; /* same height as .ipbDefault to show on top of it */
+}
+.ipBlock .ipbExampleContent:hover .ipbDefault {
+    visibility: visible;
+}
+.ipBlock .ipbExampleContent:hover .ipbUser {
+    visibility: hidden;
+}
