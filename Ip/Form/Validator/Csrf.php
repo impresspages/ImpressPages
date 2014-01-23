@@ -6,15 +6,17 @@
 
 namespace Ip\Form\Validator;
 
+use Ip\Form\Validator;
 
-/**  
- * 
+
+/**
+ *
  * 'Check' antispam field validator
  *
  */
 
 class Csrf extends Validator {
-    
+
     public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
             return 'error';
@@ -34,5 +36,5 @@ class Csrf extends Validator {
         }
 
     }
-    
+
 }
