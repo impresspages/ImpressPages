@@ -176,10 +176,10 @@ class Model
 
         $optionsMenu = array();
         $optionsMenu[] = array(
-            'title' => __('Look', 'ipAdmin', false),
+            'title' => __('Skin', 'ipAdmin', false),
             'attributes' => array(
-                'class' => 'ipsLook',
-                'data-layouts' => json_encode($widgetObject->getLooks()),
+                'class' => 'ipsSkin',
+                'data-layouts' => json_encode($widgetObject->getSkins()),
                 'data-currentlayout' => $widgetRecord['layout']
             )
         );
