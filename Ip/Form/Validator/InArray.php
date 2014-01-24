@@ -14,7 +14,7 @@ class InArray extends \Ip\Form\Validator {
         if (!is_array($data)) {
             throw \Ip\Exception("InArray validator expect array of strings");
         }
-        parent::__construct($data, $errorMessage = null);
+        parent::__construct($data, $errorMessage);
     }
 
     public function getError($values, $valueKey, $environment) {
