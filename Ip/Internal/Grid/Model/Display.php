@@ -221,6 +221,11 @@ class Display
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->updateField($curData);
             if ($field) {
+                if (!empty($fieldData['validators'])) {
+                    foreach($fieldData['validators'] as $validatorKey => $validator) {
+                        $field->addValidator($validator);
+                    }
+                }
                 $form->addField($field);
             }
         }
