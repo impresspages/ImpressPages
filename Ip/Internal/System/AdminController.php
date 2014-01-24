@@ -53,14 +53,8 @@ class AdminController extends \Ip\Controller
         $module = new Module;
         $cachedUrl = \Ip\ServiceLocator::storage()->get('Ip', 'cachedBaseUrl'); // get system variable
         $module->clearCache($cachedUrl);
-        $success = $module->updateRobotsTxt($cachedUrl);
 
-        if (!$success) {
-            $_SESSION['modules']['administrator']['system']['notes'][] = __(
-                'robots.txt file needs to be updated manually.',
-                'ipAdmin'
-            );
-        }
+
 
         $_SESSION['modules']['administrator']['system']['notes'][] = __('Cache was cleared.', 'ipAdmin');
 

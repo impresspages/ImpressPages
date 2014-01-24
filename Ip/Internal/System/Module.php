@@ -12,32 +12,6 @@ namespace Ip\Internal\System;
 
 class Module
 {
-    /**
-     * @param string $oldUrl
-     * @return bool true on success
-     */
-    public function updateRobotsTxt($oldUrl)
-    {
-        $robotsFile = 'robots.txt';
-        if ($oldUrl != ipConfig()->baseUrl() && file_exists($robotsFile)) { //update robots.txt file.
-            $data = file($robotsFile, FILE_IGNORE_NEW_LINES);
-            $newData = '';
-            foreach ($data as $dataKey => $dataVal) {
-                $tmpVal = $dataVal;
-                $tmpVal = trim($tmpVal);
-
-                $tmpVal = preg_replace('/^Sitemap:(.*)/', 'Sitemap: ' . ipFileUrl('sitemap.php'), $tmpVal);
-                $newData .= $tmpVal . "\n";
-            }
-            if (is_writable($robotsFile)) {
-                file_put_contents($robotsFile, $newData);
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
 
 
     public function clearCache($cachedUrl)
