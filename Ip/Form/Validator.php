@@ -7,7 +7,25 @@
 namespace Ip\Form;
 
 
-abstract class Validator{
+abstract class Validator
+{
+
+    protected $data;
+    protected $errorMessage;
+
+
+    /**
+     * All validators has to have the same constructor to make it easier to use them.
+     * Thanks to this rule, you can add new validator to the form field without actually creating validator object, but just passing
+     * validator class and data for the constructor. Eg.  $field->addValidator('validatorClass', $validationDAta);
+     * @param array $data additional parameters to tune up the validator. Like regular expression for Regex validator
+     * @param string $errorMessage override default error message
+     */
+    public function __construct($data = array(), $errorMessage = null)
+    {
+        $this->data = $data;
+        $this->errorMessage = $errorMessage;
+    }
 
     /**
      *

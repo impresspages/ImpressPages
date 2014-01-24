@@ -14,30 +14,6 @@ class Db {
 
 
 
-    /**
-     * TODOXX check zone and language url's if they don't match system folder #139
-     * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
-     *
-     * @param $folderName
-     * @return bool true if URL is reserved for CMS core
-     *
-     */
-    public function usedUrl($folderName)
-    {
-        $systemDirs = array();
-        // TODOXX make it smart with overriden paths #139
-        $systemDirs['Plugin'] = 1;
-        $systemDirs['Theme'] = 1;
-        $systemDirs['File'] = 1;
-        $systemDirs['install'] = 1;
-        $systemDirs['update'] = 1;
-        if(isset($systemDirs[$folderName])){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
 
 
@@ -583,8 +559,8 @@ class Db {
 
         return $url.'-'.$i;
     }
-    
-    
+
+
 
     public static function ensureUniqueUrl($url, $allowedId = null) {
         $url = str_replace("/", "-", $url);
