@@ -9,6 +9,8 @@
     "Config.defaultImageQuality": 80,
 
     "Config.availableFonts": "Arial,Arial,Helvetica,sans-serif\nArial Black,Arial Black,Gadget,sans-serif\nComic Sans MS,Comic Sans MS,cursive\nCourier New,Courier New,Courier,monospace\nGeorgia,Georgia,serif\nImpact,Charcoal,sans-serif\nLucida Console,Monaco,monospace\nLucida Sans Unicode,Lucida Grande,sans-serif\nPalatino Linotype,Book Antiqua,Palatino,serif\nTahoma,Geneva,sans-serif\nTimes New Roman,Times,serif\nTrebuchet MS,Helvetica,sans-serif\nVerdana,Geneva,sans-serif\nGill Sans,Geneva,sans-serif",
+    "Config.reservedDirs": ["file", "install", "Ip", "Plugin", "update", "Theme", "index.php", "admin", "admin.php"],
+
 
 
     "Content.widgetGalleryQuality": 90,
