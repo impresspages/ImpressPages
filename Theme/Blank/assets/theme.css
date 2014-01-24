@@ -51,7 +51,7 @@ body {
   font-weight: normal;
 }
 .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -139,7 +139,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: normal;
 }
 .ipWidget .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -612,10 +612,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .progress-striped .progress-bar {
   background-color: #428bca;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ipModuleForm .progress.active .progress-bar {
@@ -872,7 +872,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: normal;
 }
 .mceContentBody .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -2618,7 +2618,7 @@ body {
   font-weight: normal;
 }
 .theme .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -2670,7 +2670,7 @@ body {
 .theme .side {
   clear: left;
 }
-@media screen and (max-width: 980px - 1px) {
+@media screen and (max-width: 979px) {
   .main + .theme .side {
     border-top: 1px solid #747474;
     padding-top: 20px;
@@ -2700,7 +2700,7 @@ body {
   margin: 20px 0;
   text-align: center;
 }
-@media screen and (max-width: 480px - 1px) {
+@media screen and (max-width: 479px) {
   .theme .homeHeadline {
     font-size: 40px;
   }
@@ -2863,7 +2863,7 @@ body {
 .sidenav nav.collapse .selected ul {
   display: block;
 }
-@media screen and (max-width: 480px - 1px) {
+@media screen and (max-width: 479px) {
   .currentPage,
   .topmenuToggle {
     display: inline-block;

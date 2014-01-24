@@ -50,13 +50,13 @@ class Model
     public function generateIpContent()
     {
 
-        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/css/ipContent/less/') . '*.less');
+        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/ipContent/less/') . '*.less');
         if (!$items) {
             return false;
         }
 
-        $lessFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.less');
-        $cssFile = ipFile('Ip/Internal/Ip/assets/css/ipContent/ipContent.css');
+        $lessFile = ipFile('Ip/Internal/Ip/assets/ipContent/ipContent.less');
+        $cssFile = ipFile('Ip/Internal/Ip/assets/ipContent/ipContent.css');
         $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
 
         $hasChanged = false;
