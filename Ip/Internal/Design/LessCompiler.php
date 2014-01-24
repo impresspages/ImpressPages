@@ -43,7 +43,7 @@ class LessCompiler
             $parser = new \Less_Parser(array('relativeUrls' => false));
             $parser->SetCacheDir(ipFile('file/tmp/less/'));
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
-            $ipContentDir = ipFile('Ip/Internal/Ip/assets/css/ipContent/');
+            $ipContentDir = ipFile('Ip/Internal/Ip/assets/ipContent/');
             $directories = array(
                 $themeDir => '',
                 $ipContentDir => ''
