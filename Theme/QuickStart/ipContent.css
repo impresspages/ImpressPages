@@ -2,7 +2,7 @@
 In order to show ImpressPages widgets well, we use default ipContent.css.
 */
 
-@import '../../Ip/Internal/Ip/assets/css/ipContent/ipContent.css';
+@import '../../Ip/Internal/Ip/assets/ipContent/ipContent.css';
 
 /*
 If you want to override widget styles, do it bellow.
