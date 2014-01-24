@@ -222,7 +222,7 @@ class Display
             $field = $fieldObject->updateField($curData);
             if ($field) {
                 if (!empty($fieldData['validators'])) {
-                    foreach($fieldData['validators'] as $validatorKey => $validator) {
+                    foreach($fieldData['validators'] as $validator) {
                         $field->addValidator($validator);
                     }
                 }
