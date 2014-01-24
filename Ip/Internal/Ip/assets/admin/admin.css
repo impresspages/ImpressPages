@@ -51,6 +51,18 @@
   /* vendor specific styles; to remove in the future */
   /* Error messages */
   /* To be removed */
+  /* Preview in Theme Market */
+  /* Theme Preview / Options */
+  /* input styles (adapted) from bootstrap */
+  /* General*/
+  /* Logo management */
+  /* Font selector */
+  /* String management */
+  /* Image management */
+  /* Popup */
+  /* Tab Upload */
+  /* Tab All */
+  /* Tab Buy */
 }
 .ip * {
   font-family: sans-serif;
@@ -7801,6 +7813,17 @@
   background: linear-gradient(top, #559000 0%, #76af00 100%);
   box-shadow: none;
 }
+.ip .ipModuleAdministrators .ipmList {
+  float: left;
+  width: 250px;
+}
+.ip .ipModuleAdministrators .panel.active .panel-heading {
+  background-color: #ccc;
+}
+.ip .ipModuleAdministrators .ipmAdministrator {
+  float: left;
+  margin-left: 20px;
+}
 .ip .ipAdminPanel {
   font: 14px Arial, Helvetica, sans-serif;
 }
@@ -8492,4 +8515,691 @@
 .ip .widgetDropPlaceholderVertical.hover .widgetDropMarker,
 .ip .widgetDropPlaceholderHorizontal.hover .widgetDropMarker {
   display: block;
+}
+.ip body {
+  margin: 0;
+  padding: 0;
+}
+.ip .ipgStopScrolling {
+  height: 100%;
+  overflow: hidden;
+}
+.ip .ipModuleDesign {
+  padding: 10px;
+}
+.ip .ipModuleDesign .ipmSelectedTheme {
+  float: left;
+  width: 448px;
+}
+.ip .ipModuleDesign .ipmSelectedTheme .ipmThemePreview {
+  background: #acacac url(bg_theme_preview.png) no-repeat center top;
+  border-bottom: 1px solid #acacac;
+  /* making virtual border */
+  max-height: 278px;
+  padding: 10px 1px 0 1px;
+  /* making virtual border */
+  overflow: hidden;
+}
+.ip .ipModuleDesign .ipmSelectedTheme .ipmThemePreview img {
+  width: 100%;
+}
+.ip .ipModuleDesign .ipmSelectedTheme .ipmThemeActions {
+  float: right;
+  margin-top: 10px;
+  text-align: right;
+}
+.ip .ipModuleDesign .ipmSelectedTheme .fa-check {
+  color: #92c131;
+}
+.ip .ipModuleDesign .ipmOtherThemes {
+  border: 1px solid #ccc;
+  margin-left: 468px;
+  /* space for selected theme column */
+}
+.ip .ipModuleDesign .ipmThemeMarket {
+  background-color: #d5d5d5;
+  background-image: url(../../Repository/assets/bg_upload.png);
+  color: #000;
+}
+.ip .ipModuleDesign .ipmThemeMarket .ipmButtonWrapper {
+  padding: 20px;
+  text-align: center;
+}
+.ip .ipModuleDesign .ipmThemeMarket .ipmTitle {
+  background: url(logo_market.png) no-repeat;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 25px;
+  margin-bottom: 15px;
+  padding-left: 30px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px #eeeeee, -1px -1px #eeeeee, -1px 1px #eeeeee, 1px -1px #eeeeee;
+}
+.ip .ipModuleDesign .ipmThemeMarket .impNotice {
+  display: block;
+  margin-bottom: 5px;
+  text-shadow: 1px 1px #eeeeee, -1px -1px #eeeeee, -1px 1px #eeeeee, 1px -1px #eeeeee;
+}
+.ip .ipModuleDesign .ipmLocalThemes {
+  background-color: #f3f3f3;
+  border-top: 1px solid #ccc;
+  /* separator */
+  padding: 15px 20px;
+}
+.ip .ipModuleDesign .ipmThemesList {
+  list-style: none;
+  margin: -20px 0 0 -20px;
+  padding: 0;
+}
+.ip .ipModuleDesign .ipmThemesList li {
+  float: left;
+  margin: 20px 0 0 20px;
+  position: relative;
+  width: 212px;
+}
+.ip .ipModuleDesign .ipmThemesList .ipmThemeActions {
+  display: none;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  top: 50px;
+  width: 100%;
+}
+.ip .ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
+  display: block;
+}
+.ip .ipModuleDesign .ipmPlugins {
+  clear: both;
+  padding-top: 10px;
+}
+.ip .ipModuleDesign .ipmThemesList .ipmThemePreview {
+  border: 1px solid #fff;
+  height: 132px;
+  overflow: hidden;
+}
+.ip .ipModuleDesign .ipmThemesList li:hover .ipmThemePreview {
+  border-color: #019bd4;
+  outline: 1px solid #019bd4;
+}
+.ip .ipModuleDesign .ipmThemesList .ipmThemePreview img {
+  width: 100%;
+}
+.ip .ipModuleDesign .ipmThemesList .ipmThemeTitle {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopup {
+  font-size: 10px;
+  /* fixing collision between jQuery UI and Bootstrap */
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99000;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopup .ui-tabs .ui-tabs-panel {
+  padding: 0;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopupClose {
+  border: 1px solid transparent;
+  float: right;
+  margin-right: 7px;
+  margin-top: -26px;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopupClose:hover {
+  background-color: #ddd;
+  /* fixing collision */
+}
+.ip .ipModuleDesign .ipmThemeMarketPopup .ui-tabs {
+  height: 100%;
+}
+.ip .ipModuleDesign .ipmThemeMarketContainer {
+  height: 100%;
+}
+.ip .ipModuleDesign .ipmThemeMarketContainer iframe {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ipmPopupTabs {
+  border: none;
+  padding: 0;
+}
+.ip .ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ui-tabs-nav {
+  display: none;
+}
+.ip .ipModuleDesign .ipmPreview {
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.ip .ipModuleDesign .ipmPreviewClose {
+  position: absolute;
+  right: 20px;
+  top: 36px;
+}
+.ip .ipModuleDesign iframe {
+  height: 100%;
+  width: 100%;
+  border-top: 31px solid transparent;
+}
+.ip .ipModuleDesignConfig {
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+.ip .ipModuleDesignConfig .modal-dialog {
+  left: 10px;
+  position: fixed;
+  top: 10px;
+  width: 350px;
+}
+.ip .ipModuleDesignConfig .modal-header {
+  cursor: move;
+  font-size: 14px;
+}
+.ip .ipModuleDesignConfig .ipmBody {
+  overflow: hidden;
+}
+.ip .ipModuleDesignConfig .modal-footer {
+  margin-top: 0;
+}
+.ip .ipModuleDesignConfig fieldset legend {
+  background-color: #dcdcdc;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  outline: none;
+  padding: 10px 20px;
+}
+.ip .ipModuleDesignConfig fieldset legend:before {
+  content: '\25BA';
+  display: inline-block;
+  margin-right: 10px;
+}
+.ip .ipModuleDesignConfig fieldset legend.ui-accordion-header-active {
+  background-color: #ecebeb;
+}
+.ip .ipModuleDesignConfig fieldset legend.ui-accordion-header-active:before {
+  content: '\25BC';
+}
+.ip .ipModuleDesignConfig fieldset .ipmField {
+  margin-bottom: 12px;
+  padding: 0 20px;
+}
+.ip .ipModuleDesignConfig .ipmType-blank {
+  display: none;
+}
+.ip .ipModuleDesignConfig label.ipmLabel {
+  font-size: 12px;
+  font-weight: normal;
+}
+.ip .ipModuleDesignConfig .ipmControlInput {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 6px;
+  font-size: 12px;
+  line-height: 1.428571429;
+  color: #2f313f;
+  vertical-align: middle;
+  background-color: #fbfbfb;
+  border: 1px solid #a1a2a5;
+  border-radius: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.ip .ipModuleDesignConfig .ipmControlInput:focus {
+  border-color: #000;
+  outline: 0;
+}
+.ip .ui-dialog .ipModuleInlineManagementPopup {
+  padding: 1em;
+}
+.ip .ipModuleInlineManagement.ipmEmpty {
+  outline: #019bd4 dashed 1px;
+}
+.ip .ipModuleInlineManagement.ipmHilite {
+  outline: 1px dashed #4d4d4d;
+}
+.ip .ipModuleInlineManagementControls {
+  display: none;
+  position: absolute;
+  z-index: 99;
+}
+.ip .ipModuleInlineManagementControls .ipAdminWidgetControls {
+  margin-top: -28px;
+}
+.ip .ipModuleInlineManagementControls .ipAdminWidgetControls .ipaButton {
+  visibility: visible;
+}
+.ip .ipModuleInlineManagementPopup .ipUploadImageButton {
+  z-index: 2500;
+  /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmType {
+  font-size: 20px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTextManagement input {
+  font-size: 32px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTypeSelect * {
+  float: left;
+  font-size: 17px;
+  margin-right: 0 10px 0 0;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTypeSelect input {
+  width: auto;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect * {
+  margin: 0;
+  padding: 0;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect {
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #f0f0f0);
+  background-image: -moz-linear-gradient(top, #f9f9f9, #f0f0f0);
+  background-image: -o-linear-gradient(top, #f9f9f9, #f0f0f0);
+  background-image: -ms-linear-gradient(top, #f9f9f9, #f0f0f0);
+  background-image: linear-gradient(top, #f9f9f9, #f0f0f0);
+  border-radius: 4px;
+  border: 1px solid #cecece;
+  cursor: pointer;
+  height: 28px;
+  line-height: 28px;
+  margin: 3px;
+  padding: 3px;
+  position: relative;
+  width: 200px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect span {
+  margin-left: 5px;
+  overflow: hidden;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect .arrow-down {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #aaa;
+  position: absolute;
+  right: 10px;
+  top: 14px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect ul {
+  background: #f9f9f9;
+  height: 250px;
+  left: 0;
+  list-style: none;
+  overflow: auto;
+  position: absolute;
+  top: 35px;
+  width: 200px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect li {
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+  font-size: 14px;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 0 10px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect ul li:last-child {
+  border-bottom: 1px solid #eee;
+  border-radius: 0 0 4px 4px;
+}
+.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect li:hover {
+  background: #ddd;
+}
+.ip .ipModuleInlineManagementPopup.ipmString textarea {
+  height: 100px;
+  width: 100%;
+}
+.ip .ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
+  border: none;
+}
+.ip .ipModuleInlineManagementPopup.ipmImage .ipmControls {
+  padding: 10px;
+  background-color: #ccc;
+}
+.ip .ipModuleInlineManagementPopup.ipmImage .ipmType,
+.ip .ipModuleInlineManagementPopup.ipmImage .ipmType option {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.ip .ipModuleInlineManagementPopup.ipmImage .ipmRemove {
+  float: right;
+}
+.ip .ipModuleInlineManagement.ipmImage.ipmEmpty {
+  width: 100%;
+  height: 50px;
+}
+.ip .languageList {
+  float: left;
+  padding: 0;
+}
+.ip .languageList li {
+  list-style: none;
+}
+.ip .zoneList {
+  float: left;
+  padding: 0;
+}
+.ip .zoneList .title {
+  display: block;
+}
+.ip .zoneList li {
+  list-style: none;
+  clear: both;
+  display: block;
+}
+.ip .tree {
+  float: left;
+}
+.ip .tree ul.actions {
+  margin: 0;
+  padding: 0;
+}
+.ip .navBlock {
+  float: left;
+  margin-left: 20px;
+  background-color: #ccc;
+  border-left: 3px solid #1d1e1e;
+  padding: 10px;
+}
+.ip .navBlock:first-child {
+  margin-left: 0;
+}
+.ip .stopScrolling {
+  height: 100%;
+  overflow: hidden;
+}
+.ip .ipModuleRepositoryPopup {
+  font-size: 10px;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99000;
+}
+.ip .ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
+  padding: 0;
+}
+.ip .ipModuleRepositoryPopup .ipmBuyDialog {
+  z-index: 99001;
+}
+.ip .ipModuleRepositoryPopup .ipmClose {
+  border: 1px solid transparent;
+  float: right;
+  margin-right: 7px;
+  margin-top: -26px;
+}
+.ip .ipModuleRepositoryPopup .ui-tabs {
+  height: 100%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload {
+  overflow: hidden;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
+  width: 250px;
+  height: 295px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  float: left;
+}
+@media all and (max-width: 640px) {
+  .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
+    width: 90px;
+  }
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .impDragdropNotice {
+  display: none;
+  margin-bottom: 10px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop {
+  background-color: #d5d5d5;
+  background-image: url(bg_upload.png);
+  padding: 20px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop.hover {
+  background-color: #f9f9f9;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop .ipmBrowseButtonWrapper {
+  padding: 50px 0;
+  text-align: center;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop .impDragdropNotice {
+  display: block;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .ipmFile {
+  margin-bottom: 10px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .ipmBrowseButton {
+  font-size: 14px;
+  line-height: 30px;
+  z-index: 99100;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
+  margin-left: 300px;
+  min-height: 295px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+@media all and (max-width: 640px) {
+  .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
+    margin-left: 140px;
+  }
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserControls {
+  background-color: #dcdcdc;
+  margin-right: 20px;
+  /* for scrollbar */
+  padding: 6px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 99999;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch {
+  display: inline-block;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmForm {
+  position: relative;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
+  padding-right: 37px;
+  /* reflects left padding + space for search button */
+  width: 260px;
+}
+@media all and (max-width: 640px) {
+  .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
+    width: 100px;
+  }
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  height: 26px;
+  line-height: 26px;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  width: 30px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer {
+  padding-bottom: 55px;
+  /* space for action buttons */
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmListTitle {
+  background: url(icon_clock.png) no-repeat;
+  clear: both;
+  color: #2f313f;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 21px;
+  margin-top: 15px;
+  padding-left: 30px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmRecentTitle {
+  background: none;
+  font-weight: bold;
+  padding-left: 0;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList {
+  clear: both;
+  font-size: 14px;
+  list-style: none;
+  /* making elements non-selectable */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li {
+  cursor: pointer;
+  position: relative;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:after {
+  content: '\f14a';
+  display: none;
+  font-family: 'FontAwesome';
+  font-size: 20px;
+  position: absolute;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover {
+  color: #000;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ui-selecting .ipmList li:after,
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList li:hover:after {
+  display: block;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected,
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover {
+  color: #019bd4;
+  font-weight: bold;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:after,
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList .ui-selected:hover:after {
+  font-weight: normal;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li {
+  border-bottom: 1px solid #e4e4e4;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 10px 2px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li:after {
+  left: 0;
+  margin: -10px 0 0 -30px;
+  top: 50%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li i {
+  display: inline-block;
+  min-width: 25px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails {
+  margin: 0 0 20px -9px;
+  /* leaving 1px for selected outline */
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li {
+  float: left;
+  margin: 10px 0 0 10px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li:after {
+  font-size: 36px;
+  left: 50%;
+  margin: -16px 0 0 -16px;
+  text-shadow: -2px 0 rgba(255, 255, 255, 0.8), 0 2px rgba(255, 255, 255, 0.8), 2px 0 rgba(255, 255, 255, 0.8), 0 -2px rgba(255, 255, 255, 0.8);
+  top: 50%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li img {
+  border: 1px solid #e7e7e7;
+  display: block;
+  height: 140px;
+  width: 140px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails .ui-selected img {
+  border-color: #019bd4;
+  outline: #019bd4 solid 1px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li i,
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-thumbnails li span,
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserContainer .ipmList.ipmPreview-list li img {
+  display: none;
+  /* hiding irrelevant elements */
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
+  background-color: #fff;
+  border: 3px solid #019bd4;
+  margin: 0 20px 0 300px;
+  /* left as .ipmBrowser; right for scrollbar */
+  padding: 10px 20px;
+  position: relative;
+  text-align: center;
+}
+@media all and (max-width: 640px) {
+  .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
+    margin: 0;
+  }
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmTitle {
+  color: #2f313f;
+  display: inline-block;
+  font-size: 14px;
+  left: 20px;
+  line-height: 26px;
+  /* keeping same baseline for text; absolute removes element from flow */
+  position: absolute;
+  /* to make buttons centered */
+}
+.ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipAdminButton {
+  margin-right: 15px;
+}
+.ip .ipModuleRepositoryPopup .ipmTabBuy {
+  position: relative;
+}
+.ip .ipModuleRepositoryPopup .ipmTabBuy .ipmContainer iframe {
+  overflow: hidden;
+  width: 100%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabBuy .ipmLoading {
+  background: #fff;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.ip .ipModuleRepositoryPopup .ipmTabBuy .ipmLoadingText {
+  background: url(loading.gif) no-repeat center top;
+  display: inline-block;
+  height: 40px;
+  left: 50%;
+  margin: -30px 0 0 -150px;
+  padding-top: 20px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 300px;
 }

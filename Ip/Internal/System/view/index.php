@@ -11,7 +11,7 @@
         </a>
     </div>
 </div>
-<div class="ipsStatus systemContent">
+<div class="ipsStatus">
     <?php if (!empty($notes)) { ?>
         <?php foreach ($notes as $note) { ?>
             <div class="note">
@@ -38,11 +38,9 @@
         <h1><?php _e('System message', 'ipAdmin') ?></h1>
     </div>
 </div>
-<div class="ipsLog systemContent ipgHide">
+<div class="ipsLog ipgHide">
     <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Log.grid&quot;}"></div>
 </div>
-<div class="ipsEmail systemContent ipgHide">
+<div class="ipsEmail ipgHide">
     <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Email.grid&quot;}"></div>
 </div>
-
-

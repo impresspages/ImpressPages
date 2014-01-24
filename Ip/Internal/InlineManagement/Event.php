@@ -13,9 +13,6 @@ class Event
     {
 
         if (ipIsManagementState()) {
-            ipAddCss('Ip/Internal/InlineManagement/assets/inline_management.css');
-
-
             if (ipConfig()->isDebugMode()) {
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagement.js');
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementControls.js');
@@ -27,7 +24,6 @@ class Event
             } else {
                 ipAddJs('Ip/Internal/InlineManagement/assets/inlineManagement.min.js');
             }
-
 
             ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
 
