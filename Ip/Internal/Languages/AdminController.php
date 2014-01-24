@@ -41,6 +41,10 @@ class AdminController extends \Ip\GridController
             $languageUrls[] = $language->getUrl();
         }
 
+        $reservedDirs = ipGetOption('Config.reservedDirs');
+        if (is_array($reservedDirs)) {
+            $languageUrls = array_merge($languageUrls, $reservedDirs);
+        }
 
         return array(
             'type' => 'table',
