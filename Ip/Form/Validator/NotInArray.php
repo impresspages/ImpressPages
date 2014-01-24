@@ -7,7 +7,7 @@
 namespace Ip\Form\Validator;
 
 
-class InArray extends \Ip\Form\Validator {
+class NotInArray extends \Ip\Form\Validator {
 
     public function __construct($data, $errorMessage = null)
     {
@@ -31,7 +31,7 @@ class InArray extends \Ip\Form\Validator {
             } else {
                 $errorText = __('The value can\'t be one of:', 'ipPublic');
             }
-            $errorText . ' ' . implode(', ', $this->values);
+            $errorText . ' ' . implode(', ', $this->data);
             return $errorText;
         }
 

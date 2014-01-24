@@ -23,9 +23,6 @@ abstract class Validator
      */
     public function __construct($data = array(), $errorMessage = null)
     {
-        if (!is_array($data)) {
-            throw \Ip\Exception("InArray validator expect array of strings");
-        }
         $this->data = $data;
         $this->errorMessage = $errorMessage;
     }
