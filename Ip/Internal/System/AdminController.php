@@ -12,13 +12,9 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        ipAddJs('Ip/Internal/System/assets/js/system.js');
+        ipAddJs('Ip/Internal/System/assets/system.js');
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
-        ipAddCss('Ip/Internal/System/assets/style.css');
-
-
-
 
         $notes = array();
 
