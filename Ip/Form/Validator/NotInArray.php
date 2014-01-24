@@ -14,7 +14,7 @@ class NotInArray extends \Ip\Form\Validator {
         if (!is_array($data)) {
             throw \Ip\Exception("InArray validator expect array of strings");
         }
-        parent::__construct($data, $errorMessage = null);
+        parent::__construct($data, $errorMessage);
     }
 
     public function getError($values, $valueKey, $environment) {
@@ -23,7 +23,7 @@ class NotInArray extends \Ip\Form\Validator {
         }
 
         if (in_array($values[$valueKey], $this->data)) {
-            if ($this->errorMessage) {
+            if ($this->errorMessage !== null) {
                 return $this->errorMessage;
             }
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
@@ -31,7 +31,7 @@ class NotInArray extends \Ip\Form\Validator {
             } else {
                 $errorText = __('The value can\'t be one of:', 'ipPublic');
             }
-            $errorText . ' ' . implode(', ', $this->data);
+            $errorText .= ' ' . implode(', ', $this->data);
             return $errorText;
         }
 
