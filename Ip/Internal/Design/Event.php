@@ -29,7 +29,7 @@ class Event
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
         ipAddJsVariable('ipModuleDesignConfiguration', static::getConfigurationBoxHtml());
-        ipAddCss('Ip/Internal/Design/assets/optionsBox.css');
+
         if (file_exists(ipThemeFile(Model::INSTALL_DIR.'Options.js'))) {
             ipAddJs(ipThemeUrl(Model::INSTALL_DIR . 'Options.js'));
         } elseif (file_exists(ipThemeFile(Model::INSTALL_DIR.'options.js'))) {
