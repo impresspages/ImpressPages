@@ -132,7 +132,6 @@ class PublicController extends \Ip\Controller
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
-        ipAddCss('Ip/Internal/Content/assets/widgets.css');
         ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 
