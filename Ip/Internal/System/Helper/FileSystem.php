@@ -61,7 +61,9 @@ class FileSystem
             $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
 
             try {
+                $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
                 $success = chmod($path, $permissions);
+                set_error_handler($originalIpErrorHandler);
             } catch (FileSystemException $e) {
                 //do nothing. This is just the way to avoid warnings
             }
@@ -105,7 +107,12 @@ class FileSystem
             return;
         }
 
+        $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
         chmod($dir, 0777);
+        set_error_handler($originalIpErrorHandler);
+        if (!is_writable($dir)) {
+            throw new \Ip\Internal\System\UpdateException("Directory is not writable: " . $dir);
+        }
 
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
