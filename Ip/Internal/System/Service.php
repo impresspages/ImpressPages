@@ -8,6 +8,6 @@ class Service
 {
     public static function cacheClear()
     {
-        Module::cacheClear();
+        Model::cacheClear();
     }
-} 
+}
