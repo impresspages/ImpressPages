@@ -25,20 +25,20 @@
         };
 
         var notificationsResponse = function (response) {
-            var container = document.getElementById('systemInfo');
+            var $container = $('#systemInfo');
             var messages = '';
             if (response != '') {
                 messages = response;
                 if (messages.length > 0) {
-                    container.style.display = '';
+                    $container.css('display', '');
                     var i = 0;
                     for (i = 0; i < messages.length; i++) {
-                        container.innerHTML = container.innerHTML + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>';
+                        $container.html($container.html() + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>');
 
                         if (messages[i]['code'] == 'update') {
-                            container.innerHTML = container.innerHTML + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>';
+                            $container.html($container.html() + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>');
                         }
-                        container.innerHTML = container.innerHTML + '<div class="clear"></div>';
+                        $container.html($container.html() +  '<div class="clear"></div>');
                     }
                 }
             }

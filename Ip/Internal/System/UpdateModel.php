@@ -63,6 +63,7 @@ class UpdateModel
         $fs->createWritableDir($extractedPath);
         $fs->clean($extractedPath);
 
+        require_once(ipFile('Ip/Internal/PclZip.php'));
         $zip = new \PclZip($archivePath);
         $status = $zip->extract(PCLZIP_OPT_PATH, $extractedPath, PCLZIP_OPT_REMOVE_PATH, 'ImpressPages');
 
@@ -87,7 +88,7 @@ class UpdateModel
             CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
             CURLOPT_URL => \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl(),
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
+            CURLOPT_POSTFIELDS => 'module_group=service&module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
         );
 
         curl_setopt_array($ch, $options);
