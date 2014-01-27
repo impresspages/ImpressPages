@@ -12,15 +12,12 @@
     <?php ipAddCss('Ip/Internal/Ip/assets/admin/admin.css'); ?>
     <?php ipAddJs('Ip/Internal/Ip/assets/admin/bootstrap.js'); ?>
 
-    <?php echo ipHead() ?>
-    <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <?php echo ipHead(); ?>
 </head>
 <body class="manage">
     <div class="ip">
         <?php echo ipBlock('main'); ?>
     </div>
-<?php echo ipJs() ?>
+<?php echo ipJs(); ?>
 </body>
 </html>
