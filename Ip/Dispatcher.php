@@ -225,6 +225,7 @@ class Dispatcher
             $this->sortedEventListeners[$eventName] = true;
         }
 
+        reset($this->eventListeners[$eventName]);
         do {
             foreach (current($this->eventListeners[$eventName]) as $callable) {
                 call_user_func($callable, $data);

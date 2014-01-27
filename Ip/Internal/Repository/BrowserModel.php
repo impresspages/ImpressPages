@@ -8,7 +8,7 @@ namespace Ip\Internal\Repository;
 
 
 /**
- * 
+ *
  * Functions required by files repository browser
  *
  */
@@ -119,9 +119,9 @@ class BrowserModel{
                 return ipFileUrl('file/' . $reflection);
             }
         }
-        return ipFileUrl('Ip/Internal/Repository/assets/admin/icons/general.png');
+        return ipFileUrl('Ip/Internal/Repository/assets/icons/general.png');
     }
 
-    
-    
+
+
 }

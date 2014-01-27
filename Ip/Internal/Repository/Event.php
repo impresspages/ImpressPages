@@ -14,12 +14,10 @@ class Event
 
         if (ipIsManagementState()) {
             ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
-            ipAddJs('Ip/Internal/Repository/assets/admin/ipRepository.js');
-            ipAddCss('Ip/Internal/Repository/assets/admin/repository.css');
-            ipAddCss('Ip/Internal/Ip/assets/fonts/font-awesome/font-awesome.css');
-            ipAddJs('Ip/Internal/Repository/assets/admin/ipRepositoryUploader.js');
-            ipAddJs('Ip/Internal/Repository/assets/admin/ipRepositoryAll.js');
-            ipAddJs('Ip/Internal/Repository/assets/admin/ipRepositoryBuy.js');
+            ipAddJs('Ip/Internal/Repository/assets/ipRepository.js');
+            ipAddJs('Ip/Internal/Repository/assets/ipRepositoryUploader.js');
+            ipAddJs('Ip/Internal/Repository/assets/ipRepositoryAll.js');
+            ipAddJs('Ip/Internal/Repository/assets/ipRepositoryBuy.js');
             ipAddJs('Ip/Internal/System/assets/market.js');
             ipAddJs('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js');
 

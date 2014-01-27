@@ -15,11 +15,10 @@ class Controller extends \Ip\WidgetController
         return __('HTML code', 'ipAdmin', false);
     }
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
         $snippets = array();
-        $snippets[] = ipView('snippet/edit.php')->render();
-        return $snippets;
+        return ipView('snippet/edit.php')->render();
     }
-    
+
 }

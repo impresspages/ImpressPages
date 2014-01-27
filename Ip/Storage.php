@@ -39,13 +39,12 @@ class Storage {
         );
 
 
-        $value = ipDb()->fetchValue($sql, $params);
-
-        if ($value === false) {
+        $jsonValue = ipDb()->fetchValue($sql, $params);
+        if ($jsonValue === false) {
             return $defaultValue;
         }
 
-        return $value;
+        return json_decode($jsonValue);
     }
 
 
@@ -75,7 +74,7 @@ class Storage {
         $params = array (
             ':plugin' => $pluginName,
             ':key' => $key,
-            ':value' => $value
+            ':value' => json_encode($value)
         );
 
         ipDb()->execute($sql, $params);
@@ -104,7 +103,12 @@ class Storage {
             ':plugin' => $plugin
         );
 
-        return ipDb()->fetchAll($sql, $params);
+        $jsonValues = ipDb()->fetchAll($sql, $params);
+        $values = array();
+        foreach($jsonValues as $jsonValue) {
+            $values[] = json_decode($jsonValue, TRUE);
+        }
+        return $values;
     }
 
     /**

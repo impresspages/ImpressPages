@@ -1,0 +1,104 @@
+// Global Spaces
+@ipSpaceGlobal: 20px; // used for layout: widgets, blocks, grid, etc.
+@ipSpaceGroup: 10px; // used for grouped elements: buttons, forms, etc.
+@ipSpaceText: 1em; // used for text elements like paragraph, mostly bottom margins
+@ipSpaceElement: 1em; // used inside elements, mostly for padding
+
+// Global Colors
+@ipBackgroundColor: #fff;
+@ipBackgroundColorInverted: #000; // use for focus, hover, etc.
+@ipTextColor: #000;
+@ipTextColorInverted: #fff;
+@ipLinkColor: #019bd4;
+@ipBorderColor: #747474;
+@ipBorderColorActive: #000;
+@ipErrorColor: #b80000;
+
+// Global Fonts
+@ipFontFamily: Arial, "Helvetica Neue", Helvetica, sans-serif;
+@ipFontFamilyHeadlines: Georgia, Times, "Times New Roman", serif;
+@ipFontFamilyAlternative: Georgia, Times, "Times New Roman", serif;
+
+// Global Font sizes
+@ipFontSize: 14px;
+@ipFontSizeBig: 24px; // default h3 element, caption style
+@ipFontSizeSmall: 12px; // form hints, errors. Other elements that have to be smaller than usual
+
+// Global Elements
+@ipCaptionColor: @ipTextColor;
+@ipCaptionFontFamily: @ipFontFamilyAlternative;
+@ipCaptionFontSize: @ipFontSizeBig;
+@ipCaptionFontStyle: normal;
+@ipCaptionFontWeight: normal;
+
+@ipSignatureColor: @ipTextColor;
+@ipSignatureFontFamily: @ipFontFamily;
+@ipSignatureFontSize: @ipFontSize;
+@ipSignatureFontStyle: italic;
+@ipSignatureFontWeight: normal;
+
+@ipNoteBackgroundColor: transparent;
+@ipNoteBorderLeftColor: @ipBorderColor;
+@ipNoteBorderLeftStyle: solid;
+@ipNoteBorderLeftWidth: 2px;
+@ipNoteColor: @ipTextColor;
+@ipNoteFontFamily: @ipFontFamily;
+@ipNoteFontSize: @ipFontSize;
+@ipNoteFontStyle: italic;
+@ipNoteFontWeight: normal;
+@ipNoteMarginBottom: @ipSpaceText;
+@ipNotePaddingLeft: @ipSpaceElement;
+
+@ipButtonBgColor: @ipLinkColor;
+@ipButtonBorderRadius: 5px;
+@ipButtonColor: @ipTextColorInverted;
+@ipButtonFontFamily: @ipFontFamily;
+@ipButtonFontWeight: bold;
+@ipButtonPaddingTop: (@ipSpaceElement / 2);
+@ipButtonPaddingRight: @ipSpaceElement;
+@ipButtonPaddingBottom: (@ipSpaceElement / 2);
+@ipButtonPaddingLeft: @ipSpaceElement;
+@ipButtonTextDecoration: none;
+
+// Widgets
+@ipLineHeight: 1.5;
+@ipWidgetSpace: @ipSpaceGlobal;
+
+// Titles
+@ipH1FontSize: (@ipFontSizeBig * 1.5);
+@ipH2FontSize: (@ipFontSizeBig * 1.25);
+@ipH3FontSize: @ipFontSizeBig;
+
+@ipH1Color: @ipTextColor;
+@ipH2Color: @ipTextColor;
+@ipH3Color: @ipTextColor;
+
+@ipH1FontFamily: @ipFontFamilyHeadlines;
+@ipH2FontFamily: @ipFontFamilyHeadlines;
+@ipH3FontFamily: @ipFontFamilyHeadlines;
+
+// Forms
+@ipFormFieldSpace: (@ipSpaceGroup * 2);
+
+@ipFormInputColor: #777;
+@ipFormInputFocus: #000;
+@ipFormInputFontSize: @ipFontSize;
+@ipFormInputFontFamily: @ipFontFamily;
+@ipFormInputBackground: @ipBackgroundColor;
+@ipFormInputMaxWidth: 380px;
+@ipFormInputBackgroundActive: @ipBackgroundColor;
+@ipFormInputCorner: 3px;
+@ipFormTextareaHeight: 10em;
+
+@ipFormButtonBackground: @ipLinkColor;
+@ipFormButtonCorner: 3px;
+@ipFormButtonFontFamily: @ipFontFamily;
+@ipFormButtonColor: @ipTextColorInverted;
+
+// Gallery
+@ipGalleryColumns: 4;
+@ipGallerySpace: @ipSpaceGlobal;
+@ipGalleryColumnsSmall: 2;
+@ipGallerySpaceSmall: @ipSpaceGlobal;
+@ipGalleryScreenSmall: 480px; // max-width in media query
+

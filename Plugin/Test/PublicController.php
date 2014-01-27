@@ -22,6 +22,8 @@ class PublicController extends \Ip\Controller
 
     public function testHmvc()
     {
-        return 'HMVC';
+        $response = new \Ip\Response();
+        $response->setContent('TEST');
+        return $response;
     }
-} 
+}

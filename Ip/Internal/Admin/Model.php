@@ -26,7 +26,7 @@ class Model{
 
         $modules = \Ip\Internal\Plugins\Model::getModules();
         foreach($modules as $module) {
-            if (in_array($module, array('Languages', 'Log', 'Email'))) {
+            if (in_array($module, array('Log', 'Email'))) {
                 continue;
             }
             $controllerClass = 'Ip\\Internal\\'.$module.'\\AdminController';

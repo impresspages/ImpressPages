@@ -39,9 +39,8 @@ class Controller extends \Ip\WidgetController{
         return new \Ip\Response\Json($data);
     }
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
-        $snippets = array();
 
         $fieldObjects = Model::getAvailableFieldTypes();
 
@@ -55,8 +54,8 @@ class Controller extends \Ip\WidgetController{
         usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
 
-        $snippets[] = ipView('snippet/popup.php', $data)->render();
-        return $snippets;
+        $snippet = ipView('snippet/popup.php', $data)->render();
+        return $snippet;
 
     }
 

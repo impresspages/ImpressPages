@@ -1,0 +1,201 @@
+// Clearing floated elements
+// DO NOT REMOVE! They are reused in multiple places and required for system to function properly
+.clear { /* http://sonspring.com/journal/clearing-floats */
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
+.clearfix { /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+    &:before, &:after {
+        content: '.';
+        display: block;
+        font-size: 0;
+        height: 0;
+        line-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        width: 0;
+    }
+    &:after {
+        clear: both;
+    }
+/*
+The following zoom:1 rule is specifically for IE6 + IE7.
+Move to separate stylesheet if invalid CSS is a problem.
+*/
+    zoom: 1;
+}
+
+// Globally disabling default styles
+html, body {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+// Global styles mostly used in rich text editor
+.caption {
+    color: @ipCaptionColor;
+    font-family: @ipCaptionFontFamily;
+    font-size: @ipCaptionFontSize;
+    font-style: @ipCaptionFontStyle;
+    font-weight: @ipCaptionFontWeight;
+}
+.signature {
+    color: @ipSignatureColor;
+    font-family: @ipSignatureFontFamily;
+    font-size: @ipSignatureFontSize;
+    font-style: @ipSignatureFontStyle;
+    font-weight: @ipSignatureFontWeight;
+}
+.note {
+    background-color: @ipNoteBackgroundColor;
+    border-left-color: @ipNoteBorderLeftColor;
+    border-left-style: @ipNoteBorderLeftStyle;
+    border-left-width: @ipNoteBorderLeftWidth;
+    color: @ipNoteColor;
+    display: block;
+    font-family: @ipNoteFontFamily;
+    font-size: @ipNoteFontSize;
+    font-style: @ipNoteFontStyle;
+    font-weight: @ipNoteFontWeight;
+    margin-bottom: @ipNoteMarginBottom;
+    padding-left: @ipNotePaddingLeft;
+}
+.button {
+    background-color: @ipButtonBgColor;
+    border-radius: @ipButtonBorderRadius;
+    color: @ipButtonColor;
+    cursor: pointer;
+    display: inline-block;
+    font-family: @ipButtonFontFamily;
+    font-weight: @ipButtonFontWeight;
+    padding: @ipButtonPaddingTop @ipButtonPaddingRight @ipButtonPaddingBottom @ipButtonPaddingLeft;
+    text-decoration: @ipButtonTextDecoration;
+}
+
+// Global styles for all widgets
+.ipWidget {
+    .clearfix;
+
+    // disabling default styles
+    h1, h2, h3, h4, h5, h6, img, blockquote, p, ul, ol, li, dl, dd, dt, pre {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
+    font-size: @ipFontSize;
+    margin-bottom: @ipWidgetSpace;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    // restoring specificity for global classes
+    .caption { .caption; }
+    .signature { .signature; }
+    .note { .note; }
+    .button { .button; }
+
+    h1 {
+        color: @ipH1Color;
+        font-family: @ipH1FontFamily;
+        font-size: @ipH1FontSize;
+    }
+    h2 {
+        color: @ipH2Color;
+        font-family: @ipH2FontFamily;
+        font-size: @ipH2FontSize;
+    }
+    h3 {
+        color: @ipH3Color;
+        font-family: @ipH3FontFamily;
+        font-size: @ipH3FontSize;
+    }
+
+    ul {
+        list-style-position: inside;
+        list-style-type: square;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
+    }
+
+    ol {
+        list-style-position: inside;
+        margin: 0 0 @ipSpaceText @ipSpaceElement;
+    }
+
+    p {
+        line-height: @ipLineHeight;
+        margin-bottom: @ipSpaceText;
+    }
+
+    ul ul, ol ol {
+        margin-bottom: 0; // removing bottom spacing for inner lists
+    }
+
+    li {
+        line-height: @ipLineHeight;
+        margin-bottom: (@ipSpaceGroup / 2);
+    }
+
+    p+ul, p+ol {
+        margin-top: -(@ipSpaceText / 2); // If list goes just after the paragraph the space is removed
+    }
+
+    a {
+        color: @ipLinkColor;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    table {
+        border-collapse: collapse;
+        color: @ipTextColor;
+        font-family:  @ipFontFamily;
+        font-size: @ipFontSize;
+        width: 100%;
+
+        p {
+            line-height: normal;
+            margin: 0;
+        }
+    }
+
+    td {
+        border-bottom: 1px solid #b2b2b2;
+        font-size: @ipFontSize;
+        padding: 9px;
+    }
+
+    th,
+    thead td,
+    tbody tr:first-child td {
+        // making first line look like header in all cases
+        font-size: @ipFontSize;
+        font-weight: bold;
+    }
+
+    thead+tbody tr:first-child td {
+        // setting back styles if thead exists
+        background-color: transparent;
+        border-bottom: 1px solid lighten(@ipBorderColor, 10);
+        color: inherit;
+        font-size: @ipFontSize;
+        font-weight: normal;
+    }
+
+    p:last-child,
+    ul:last-child,
+    ol:last-child {
+        margin-bottom: 0; // removing bottom margin on last elements
+    }
+}

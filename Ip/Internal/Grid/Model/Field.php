@@ -14,6 +14,10 @@ abstract class Field
 
     public abstract function createData($postData);
 
+    /**
+     * @param $curData
+     * @return \Ip\Form\Field
+     */
     public abstract function updateField($curData);
 
     public abstract function updateData($postData);

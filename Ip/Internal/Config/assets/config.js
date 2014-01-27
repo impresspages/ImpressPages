@@ -110,7 +110,7 @@ var IpConfig;
 
             } else {
                 $note.removeClass('hide');
-                var url = ip.baseUrl + '?pa=Cron.index&pass=' + $('#cronPassword').val();
+                var url = ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val();
                 $urlText.text(url);
                 $urlText.attr('href', url);
                 $passField.removeClass('hide');

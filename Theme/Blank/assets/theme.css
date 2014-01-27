@@ -51,7 +51,7 @@ body {
   font-weight: normal;
 }
 .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -139,7 +139,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: normal;
 }
 .ipWidget .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -612,10 +612,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .progress-striped .progress-bar {
   background-color: #428bca;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ipModuleForm .progress.active .progress-bar {
@@ -750,6 +750,63 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipmErrorMessage {
   display: none !important;
 }
+.ipBlock {
+  min-height: 10px;
+  /* to create minimum height when block is empty */
+}
+.ipBlock.ipbEmpty {
+  /* styles when block is empty */
+  min-height: 30px;
+  outline: #000 dashed 1px;
+}
+.ipBlock.ipbEmpty:hover {
+  /* styles when block is empty */
+  outline-color: #019bd4;
+}
+.ipBlock .ipbExampleContent {
+  position: relative;
+}
+.ipBlock .ipbExampleContent:after {
+  background-color: #e3e3e3;
+  content: ' ';
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+  top: 0;
+  width: 100%;
+}
+.ipBlock .ipbExampleContent .ipWidget:hover {
+  outline: none;
+}
+.ipBlock .ipbExampleContent .ipbDefault {
+  color: #2f313f;
+  font-size: 24px;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  height: 50px;
+  line-height: 50px;
+  visibility: hidden;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.ipBlock .ipbExampleContent .ipbUser {
+  position: relative;
+  margin-top: -50px;
+  /* same height as .ipbDefault to show on top of it */
+  min-height: 50px;
+  /* same height as .ipbDefault to show on top of it */
+}
+.ipBlock .ipbExampleContent:hover .ipbDefault {
+  visibility: visible;
+}
+.ipBlock .ipbExampleContent:hover .ipbUser {
+  visibility: hidden;
+}
 .mceContentBody {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
@@ -815,7 +872,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: normal;
 }
 .mceContentBody .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -2561,7 +2618,7 @@ body {
   font-weight: normal;
 }
 .theme .note {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   border-left-color: #747474;
   border-left-style: solid;
   border-left-width: 2px;
@@ -2613,7 +2670,7 @@ body {
 .theme .side {
   clear: left;
 }
-@media screen and (max-width: 980px - 1px) {
+@media screen and (max-width: 979px) {
   .main + .theme .side {
     border-top: 1px solid #747474;
     padding-top: 20px;
@@ -2643,7 +2700,7 @@ body {
   margin: 20px 0;
   text-align: center;
 }
-@media screen and (max-width: 480px - 1px) {
+@media screen and (max-width: 479px) {
   .theme .homeHeadline {
     font-size: 40px;
   }
@@ -2806,7 +2863,7 @@ body {
 .sidenav nav.collapse .selected ul {
   display: block;
 }
-@media screen and (max-width: 480px - 1px) {
+@media screen and (max-width: 479px) {
   .currentPage,
   .topmenuToggle {
     display: inline-block;
@@ -2842,527 +2899,6 @@ body {
   }
   .languages a {
     padding: 0.5em 1em;
-  }
-}
-.searchToggle {
-  background: #019bd4 url(img/icon_menu.png) no-repeat center center;
-  border-radius: 3px;
-  color: #019bd4;
-  display: none;
-  margin-top: 20px;
-  padding: 0.75em 1.5em;
-  background-image: url('img/icon_search.png');
-  margin-left: 10px;
-}
-.ipModuleSearch {
-  /*!
-    * Bootstrap v3.0.2
-    *
-    * Copyright 2013 Twitter, Inc
-    * Licensed under the Apache License v2.0
-    * http://www.apache.org/licenses/LICENSE-2.0
-    *
-    * Designed and built with all the love in the world @twitter by @mdo and @fat.
-    *
-    */
-  /*
-    .ipmFileContainer {
-        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
-            width: 0;
-            height: 0;
-            overflow: hidden;
-
-            input { // margins on input makes error message to appear lower than it should
-                margin: 0;
-                padding: 0;
-            }
-        }
-
-        .ipmFile {
-
-    }
-    */
-  clear: right;
-  float: right;
-  margin-top: 20px;
-}
-.ipModuleSearch input,
-.ipModuleSearch button,
-.ipModuleSearch select,
-.ipModuleSearch textarea {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  line-height: inherit;
-}
-.ipModuleSearch .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-.ipModuleSearch fieldset {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-.ipModuleSearch legend {
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin-bottom: 20px;
-  font-size: 21px;
-  line-height: inherit;
-  color: #333333;
-  border: 0;
-  border-bottom: 1px solid #e5e5e5;
-}
-.ipModuleSearch label {
-  display: inline-block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.ipModuleSearch input[type="search"] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.ipModuleSearch input[type="radio"],
-.ipModuleSearch input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  /* IE8-9 */
-  line-height: normal;
-}
-.ipModuleSearch input[type="file"] {
-  display: block;
-}
-.ipModuleSearch select[multiple],
-.ipModuleSearch select[size] {
-  height: auto;
-}
-.ipModuleSearch select optgroup {
-  font-size: inherit;
-  font-style: inherit;
-  font-family: inherit;
-}
-.ipModuleSearch input[type="file"]:focus,
-.ipModuleSearch input[type="radio"]:focus,
-.ipModuleSearch input[type="checkbox"]:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-.ipModuleSearch input[type="number"]::-webkit-outer-spin-button,
-.ipModuleSearch input[type="number"]::-webkit-inner-spin-button {
-  height: auto;
-}
-.ipModuleSearch output {
-  display: block;
-  padding-top: 7px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  color: #555555;
-  vertical-align: middle;
-}
-.ipModuleSearch .form-control {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  max-width: 380px;
-  display: block;
-  width: 100%;
-  padding: 0.5em;
-  color: #777777;
-  vertical-align: middle;
-  background-color: #ffffff;
-  background-image: none;
-  border: 1px solid #747474;
-  border-radius: 3px;
-}
-.ipModuleSearch .form-control:focus {
-  background-color: #ffffff;
-  border-color: #000000;
-  color: #000000;
-}
-.ipModuleSearch .form-control:-moz-placeholder {
-  color: #999999;
-}
-.ipModuleSearch .form-control::-moz-placeholder {
-  color: #999999;
-}
-.ipModuleSearch .form-control:-ms-input-placeholder {
-  color: #999999;
-}
-.ipModuleSearch .form-control::-webkit-input-placeholder {
-  color: #999999;
-}
-.ipModuleSearch .form-control[disabled],
-.ipModuleSearch .form-control[readonly],
-.ipModuleSearch fieldset[disabled] .form-control {
-  cursor: not-allowed;
-  background-color: #eeeeee;
-}
-.ipModuleSearch textarea.form-control {
-  height: 10em;
-  overflow: auto;
-}
-.ipModuleSearch .form-group {
-  margin-bottom: 20px;
-  position: relative;
-  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-  /*
-The following zoom:1 rule is specifically for IE6 + IE7.
-Move to separate stylesheet if invalid CSS is a problem.
-*/
-  zoom: 1;
-}
-.ipModuleSearch .form-group:before,
-.ipModuleSearch .form-group:after {
-  content: '.';
-  display: block;
-  font-size: 0;
-  height: 0;
-  line-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  width: 0;
-}
-.ipModuleSearch .form-group:after {
-  clear: both;
-}
-.ipModuleSearch .form-group:last-child {
-  margin-bottom: 0;
-}
-.ipModuleSearch .radio,
-.ipModuleSearch .checkbox {
-  display: block;
-  min-height: 20px;
-  padding-left: 20px;
-  vertical-align: middle;
-}
-.ipModuleSearch .radio label,
-.ipModuleSearch .checkbox label {
-  display: inline;
-  margin-bottom: 0;
-  font-weight: normal;
-  cursor: pointer;
-}
-.ipModuleSearch .radio input[type="radio"],
-.ipModuleSearch .radio-inline input[type="radio"],
-.ipModuleSearch .checkbox input[type="checkbox"],
-.ipModuleSearch .checkbox-inline input[type="checkbox"] {
-  float: left;
-  margin-left: -20px;
-}
-.ipModuleSearch .radio + .radio,
-.ipModuleSearch .checkbox + .checkbox {
-  margin-top: -5px;
-}
-.ipModuleSearch .radio-inline,
-.ipModuleSearch .checkbox-inline {
-  display: inline-block;
-  padding-left: 20px;
-  margin-bottom: 0;
-  vertical-align: middle;
-  font-weight: normal;
-  cursor: pointer;
-}
-.ipModuleSearch .radio-inline + .radio-inline,
-.ipModuleSearch .checkbox-inline + .checkbox-inline {
-  margin-top: 0;
-  margin-left: 10px;
-}
-.ipModuleSearch input[type="radio"][disabled],
-.ipModuleSearch input[type="checkbox"][disabled],
-.ipModuleSearch .radio[disabled],
-.ipModuleSearch .radio-inline[disabled],
-.ipModuleSearch .checkbox[disabled],
-.ipModuleSearch .checkbox-inline[disabled],
-.ipModuleSearch fieldset[disabled] input[type="radio"],
-.ipModuleSearch fieldset[disabled] input[type="checkbox"],
-.ipModuleSearch fieldset[disabled] .radio,
-.ipModuleSearch fieldset[disabled] .radio-inline,
-.ipModuleSearch fieldset[disabled] .checkbox,
-.ipModuleSearch fieldset[disabled] .checkbox-inline {
-  cursor: not-allowed;
-}
-.ipModuleSearch .has-error .help-block,
-.ipModuleSearch .has-error .control-label,
-.ipModuleSearch .has-error .radio,
-.ipModuleSearch .has-error .checkbox,
-.ipModuleSearch .has-error .radio-inline,
-.ipModuleSearch .has-error .checkbox-inline {
-  color: #b80000;
-}
-.ipModuleSearch .has-error .form-control {
-  border-color: #b80000;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-.ipModuleSearch .form-control-static {
-  margin-bottom: 0;
-}
-.ipModuleSearch .help-block {
-  font-size: 12px;
-  display: block;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  color: #333333;
-}
-@media (min-width: 768px) {
-  .ipModuleSearch .form-inline .form-group {
-    display: inline-block;
-    margin-bottom: 0;
-    vertical-align: middle;
-  }
-  .ipModuleSearch .form-inline .form-control {
-    display: inline-block;
-  }
-  .ipModuleSearch .form-inline .radio,
-  .ipModuleSearch .form-inline .checkbox {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-  }
-  .ipModuleSearch .form-inline .radio input[type="radio"],
-  .ipModuleSearch .form-inline .checkbox input[type="checkbox"] {
-    float: none;
-    margin-left: 0;
-  }
-}
-.ipModuleSearch .form-horizontal .control-label,
-.ipModuleSearch .form-horizontal .radio,
-.ipModuleSearch .form-horizontal .checkbox,
-.ipModuleSearch .form-horizontal .radio-inline,
-.ipModuleSearch .form-horizontal .checkbox-inline {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 7px;
-}
-.ipModuleSearch .form-horizontal .form-group {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.ipModuleSearch .form-horizontal .form-group:before,
-.ipModuleSearch .form-horizontal .form-group:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ipModuleSearch .form-horizontal .form-group:after {
-  clear: both;
-}
-.ipModuleSearch .form-horizontal .form-control-static {
-  padding-top: 7px;
-}
-@media (min-width: 768px) {
-  .ipModuleSearch .form-horizontal .control-label {
-    text-align: right;
-  }
-}
-.ipModuleSearch .btn {
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: normal;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  border-radius: 3px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-.ipModuleSearch .btn-default {
-  background: #019bd4;
-  border: none;
-  border-radius: 3px;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: bold;
-  margin: 0;
-  padding: 0.5em 1em;
-}
-.ipModuleSearch .btn-default:hover {
-  box-shadow: 0 0 0 1px #019bd4 inset;
-  background: #01516e;
-}
-.ipModuleSearch .progress {
-  height: 10px;
-  overflow: hidden;
-  background-color: #f5f5f5;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-.ipModuleSearch .progress-bar {
-  float: left;
-  width: 0;
-  height: 100%;
-  font-size: 12px;
-  color: #ffffff;
-  text-align: center;
-  background-color: #428bca;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-transition: width 0.6s ease;
-  transition: width 0.6s ease;
-}
-.ipModuleSearch .progress-striped .progress-bar {
-  background-color: #428bca;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-size: 40px 40px;
-}
-.ipModuleSearch .progress.active .progress-bar {
-  -webkit-animation: progress-bar-stripes 2s linear infinite;
-  -moz-animation: progress-bar-stripes 2s linear infinite;
-  -ms-animation: progress-bar-stripes 2s linear infinite;
-  -o-animation: progress-bar-stripes 2s linear infinite;
-  animation: progress-bar-stripes 2s linear infinite;
-}
-.ipModuleSearch .help-hint {
-  background-color: #747474;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50%;
-  z-index: 1;
-}
-.ipModuleSearch .help-error {
-  background-color: #b80000;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  max-width: 380px;
-  padding: 4px 10px 2px;
-  width: 100%;
-}
-.ipModuleSearch .has-error .help-error {
-  display: block;
-}
-.ipModuleSearch .form-group:hover .help-hint {
-  display: block;
-}
-.ipModuleSearch .captcha img {
-  display: block;
-  max-width: 100%;
-}
-.ipModuleSearch .form-group.type-blank {
-  margin-bottom: 0;
-}
-.ipModuleSearch .form-group.type-blank label {
-  display: none;
-}
-.ipModuleSearch .form-group.type-blank .help-error {
-  margin-bottom: 20px;
-}
-.ipModuleSearch .form-group.type-submit label {
-  display: none;
-}
-.ipModuleSearch .ipmFile {
-  min-height: 20px;
-  padding: 0.5em;
-  margin-top: 5px;
-  background-color: #a7a7a7;
-  border: 1px solid #747474;
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  max-width: 380px;
-  position: relative;
-}
-.ipModuleSearch .ipmFile .close {
-  float: right;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-}
-.ipModuleSearch .ipmFile .close:hover,
-.ipModuleSearch .ipmFile .close:focus {
-  color: #000000;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-.ipModuleSearch .ipmFile button.close {
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  border: 0;
-  -webkit-appearance: none;
-}
-.ipModuleSearch .ipmFile .ipmUploadError {
-  color: #b80000;
-  font-size: 12px;
-}
-.ipModuleSearch .ipmFileTemplate {
-  display: none;
-}
-.ipModuleSearch .ipmPage {
-  overflow: visible;
-}
-.ipModuleSearch .ipmField {
-  float: left;
-  margin-bottom: 0;
-}
-.ipModuleSearch .ipmLabel {
-  display: none;
-}
-.ipModuleSearch .ipmControlInput {
-  width: 160px;
-}
-.ipModuleSearch .ipmControlSubmit {
-  margin-left: 10px;
-}
-@media screen and (max-width: 480px - 1px) {
-  .searchToggle {
-    display: inline-block;
-  }
-  .ipModuleSearch {
-    background-color: #ffffff;
-    border: 1px solid #747474;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    display: none;
-    left: 0;
-    margin-top: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-    padding: 20px;
   }
 }
 .ipWidget-File li {

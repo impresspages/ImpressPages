@@ -86,7 +86,7 @@ class Less_Cache{
 
 
 		// get less.php if it exists
-		$file = dirname(__FILE__) . '/Less.php';
+		$file = dirname(__FILE__) . '/Ip_Less.php'; // IpPatch
 		if( file_exists($file) && !class_exists('Less_Parser') ){
 			require_once($file);
 		}

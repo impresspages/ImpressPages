@@ -26,7 +26,6 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Design/assets/market.js');
         ipAddJs('Ip/Internal/Design/assets/design.js');
         ipAddJs('Ip/Internal/Design/assets/pluginInstall.js');
-        ipAddCss('Ip/Internal/Design/assets/design.css');
         ipAddJs('Ip/Internal/System/assets/market.js');
 
 

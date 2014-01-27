@@ -66,9 +66,11 @@ class PublicController extends \Ip\Controller
     {
         $widgets = Service::getAvailableWidgets();
         $snippets = array();
-        $snippetHtml = '';
         foreach ($widgets as $widget) {
-            $snippets = array_merge($snippets, Model::getWidgetSnippets($widget));
+            $snippetHtml = $widget->adminHtmlSnippet();
+            if ($snippetHtml != '') {
+                $snippets[] = $snippetHtml;
+            }
         }
         //var_dump($snippets);
         ipAddJsVariable('ipWidgetSnippets', $snippets);
@@ -76,8 +78,8 @@ class PublicController extends \Ip\Controller
         ipAddJs('Ip/Internal/Ip/assets/tinymce/pastePreprocess.js');
         ipAddJs('Ip/Internal/Ip/assets/tinymce/default.js');
 
-        ipAddCss('Ip/Internal/Ip/assets/bootstrap/bootstrap.css');
-        ipAddJs('Ip/Internal/Ip/assets/bootstrap/bootstrap.js');
+        ipAddCss('Ip/Internal/Ip/assets/admin/admin.css');
+        ipAddJs('Ip/Internal/Ip/assets/admin/bootstrap.js');
 
         ipAddJs('Ip/Internal/Ip/assets/js/tiny_mce/jquery.tinymce.min.js');
         ipAddJs('Ip/Internal/Ip/assets/js/tiny_mce/tinymce.min.js');
@@ -130,7 +132,6 @@ class PublicController extends \Ip\Controller
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
-        ipAddCss('Ip/Internal/Content/assets/widgets.css');
         ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 
 

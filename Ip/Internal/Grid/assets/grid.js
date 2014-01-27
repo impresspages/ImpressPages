@@ -252,7 +252,7 @@
                 success: function (response){
                     if (!response.error) {
                         //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result.commands);
+                        $.proxy(doCommands, $grid)(response.result);
                     } else {
                         //PHP controller says there are some errors
                         if (response.errors) {

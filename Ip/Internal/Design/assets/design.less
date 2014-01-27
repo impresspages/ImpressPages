@@ -1,0 +1,175 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.ipgStopScrolling {
+    height: 100%;
+    overflow: hidden;
+}
+.ipModuleDesign {
+    padding: 10px;
+}
+.ipModuleDesign .ipmSelectedTheme {
+    float: left;
+    width: 448px;
+}
+.ipModuleDesign .ipmSelectedTheme .ipmThemePreview {
+    background: #acacac url(bg_theme_preview.png) no-repeat center top;
+    border-bottom: 1px solid #acacac; /* making virtual border */
+    max-height: 278px;
+    padding: 10px 1px 0 1px; /* making virtual border */
+    overflow: hidden;
+}
+.ipModuleDesign .ipmSelectedTheme .ipmThemePreview img {
+    width: 100%;
+}
+.ipModuleDesign .ipmSelectedTheme .ipmThemeActions {
+    float: right;
+    margin-top: 10px;
+    text-align: right;
+}
+.ipModuleDesign .ipmSelectedTheme .fa-check {
+    color: #92c131;
+}
+.ipModuleDesign .ipmOtherThemes {
+    border: 1px solid #ccc;
+    margin-left: 468px; /* space for selected theme column */
+}
+.ipModuleDesign .ipmThemeMarket {
+    background-color: #d5d5d5;
+    background-image: url(../../Repository/assets/bg_upload.png);
+    color: #000;
+}
+.ipModuleDesign .ipmThemeMarket .ipmButtonWrapper {
+    padding: 20px;
+    text-align: center;
+}
+.ipModuleDesign .ipmThemeMarket .ipmTitle {
+    background: url(logo_market.png) no-repeat;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 25px;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px #eee, -1px -1px #eee, -1px 1px #eee, 1px -1px #eee;
+}
+.ipModuleDesign .ipmThemeMarket .impNotice {
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px #eee, -1px -1px #eee, -1px 1px #eee, 1px -1px #eee;
+}
+.ipModuleDesign .ipmLocalThemes {
+    background-color: #f3f3f3;
+    border-top: 1px solid #ccc; /* separator */
+    padding: 15px 20px;
+}
+.ipModuleDesign .ipmThemesList {
+    list-style: none;
+    margin: -20px 0 0 -20px;
+    padding: 0;
+}
+.ipModuleDesign .ipmThemesList li {
+    float: left;
+    margin: 20px 0 0 20px;
+    position: relative;
+    width: 212px;
+}
+.ipModuleDesign .ipmThemesList .ipmThemeActions {
+    display: none;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 50px;
+    width: 100%;
+}
+.ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
+    display: block;
+}
+.ipModuleDesign .ipmPlugins {
+    clear: both;
+    padding-top: 10px;
+}
+.ipModuleDesign .ipmThemesList .ipmThemePreview {
+    border: 1px solid #fff;
+    height: 132px;
+    overflow: hidden;
+}
+.ipModuleDesign .ipmThemesList li:hover .ipmThemePreview {
+    border-color: #019bd4;
+    outline: 1px solid #019bd4;
+}
+.ipModuleDesign .ipmThemesList .ipmThemePreview img {
+    width: 100%;
+}
+.ipModuleDesign .ipmThemesList .ipmThemeTitle {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ipModuleDesign .ipmThemeMarketPopup {
+    font-size: 10px; /* fixing collision between jQuery UI and Bootstrap */
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 99000;
+}
+.ipModuleDesign .ipmThemeMarketPopup .ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeMarketPopupClose {
+    border: 1px solid transparent;
+    float: right;
+    margin-right: 7px;
+    margin-top: -26px;
+}
+.ipModuleDesign .ipmThemeMarketPopupClose:hover {
+    background-color: #ddd; /* fixing collision */
+}
+.ipModuleDesign .ipmThemeMarketPopup .ui-tabs {
+    height: 100%;
+}
+.ipModuleDesign .ipmThemeMarketContainer {
+    height: 100%;
+}
+.ipModuleDesign .ipmThemeMarketContainer iframe {
+    width:100%;
+    height:100%;
+    background-color: white;
+}
+
+/* Preview in Theme Market */
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ipmPopupTabs {
+    border: none;
+    padding: 0;
+}
+.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ui-tabs-nav {
+    display: none;
+}
+
+/* Theme Preview / Options */
+.ipModuleDesign .ipmPreview {
+    background-color: #fff;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.ipModuleDesign .ipmPreviewClose {
+    position: absolute;
+    right: 20px;
+    top: 36px;
+}
+.ipModuleDesign iframe {
+    height: 100%;
+    width: 100%;
+    border-top: 31px solid transparent;
+}
