@@ -7,7 +7,7 @@
 
 /**
  * Get CMS application object.
- * @return \Ip\Application
+ * @return \Ip\Application Application object
  */
 function ipApplication()
 {
@@ -18,7 +18,7 @@ function ipApplication()
  * Get security token string. Used to prevent XSRF attacks.
  *
  * Security token is a long random string generated for currently browsing user.
- * @return string
+ * @return string Security token string.
  */
 function ipSecurityToken()
 {
@@ -26,11 +26,12 @@ function ipSecurityToken()
 }
 
 /**
- * Get CMS option value.
+ * Get CMS option value
+ *
  * Options can be viewed or changed using administration pages. You can use this function to get your plugin settings.
- * @param $option
- * @param null $defaultValue
- * @return string
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param mixed|null $defaultValue Default value. Returned if option is not set.
+ * @return mixed Option
  */
 function ipGetOption($option, $defaultValue = null)
 {
@@ -38,11 +39,12 @@ function ipGetOption($option, $defaultValue = null)
 }
 
 /**
- * Get language specific CMS option value.
- * @param $option
- * @param $languageId
- * @param null $defaultValue
- * @return string
+ * Get language specific CMS option value
+ *
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param int $languageId Language ID.
+ * @param mixed|null $defaultValue Default value. Returned option is not set.
+ * @return mixed Option value
 */
 
 function ipGetOptionLang($option, $languageId, $defaultValue = null)
@@ -51,10 +53,12 @@ function ipGetOptionLang($option, $languageId, $defaultValue = null)
 }
 
 /**
- * Set CMS option value.
+ * Set CMS option value
+ *
  * Options can be viewed or changed using administration pages. You can use this function to set your plugin settings.
- * @param $option
- * @param $value
+ *
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param mixed $value Option value.
  */
 function ipSetOption($option, $value)
 {
@@ -62,10 +66,11 @@ function ipSetOption($option, $value)
 }
 
 /**
- *  Set language specific CMS option value.
- * @param $option
- * @param $value
- * @param $languageId
+ *  Set language specific CMS option value
+ *
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param mixed $value Option value.
+ * @param int $languageId Language ID.
  */
 function ipSetOptionLang($option, $value, $languageId)
 {
@@ -73,9 +78,10 @@ function ipSetOptionLang($option, $value, $languageId)
 }
 
 /**
- * Remove CMS option.
+ * Remove CMS option
+ *
  * Options can be viewed or changed using administration pages.
- * @param $option
+ * @param $option Option name. Option names use syntax PluginName.optionName.
  */
 function ipRemoveOption($option)
 {
@@ -83,10 +89,10 @@ function ipRemoveOption($option)
 }
 
 /**
- *  Remove language specific CMS option value.
- * @param $option
- * @param $value
- * @param $languageId
+ * Remove language specific CMS option value
+ *
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param int $languageId Language ID.
  */
 function ipRemoveOptionLang($option, $languageId)
 {
@@ -95,8 +101,11 @@ function ipRemoveOptionLang($option, $languageId)
 
 
 /**
- * Get website configuration object.
- * @return \Ip\Config
+ * Get website configuration object
+ *
+ * Use website configuration object to access configuration values, such as base URL, debug mode, current theme, etc.
+ *
+ * @return \Ip\Config Configuration object.
  */
 function ipConfig()
 {
@@ -106,9 +115,10 @@ function ipConfig()
 
 
 /**
- * Get CMS content object.
+ * Get CMS content object
+ *
  * Use this object to access zones, pages and languages.
- * @return \Ip\Content
+ * @return \Ip\Content Content object.
  */
 function ipContent()
 {
@@ -116,9 +126,11 @@ function ipContent()
 }
 
 /**
+ * Get current page object
+ *
  * Use this object to get information about current page, language, zone.
  *
- * @return \Ip\CurrentPage
+ * @return \Ip\CurrentPage Current page object
  */
 function ipCurrentPage()
 {
@@ -126,11 +138,13 @@ function ipCurrentPage()
 }
 
 /**
- * Add JavaScript file to a web page.
- * After adding all JavaScript files, use ipJs() function to generate JavaScript links HTML code.
- * @param $file JavaScript file
- * @param array $attributes for example array('id' => 'example')
- * @param int $priority
+ * Add JavaScript file to a web page
+ *
+ * After adding all JavaScript files, issue ipJs() function to generate JavaScript links HTML code.
+ *
+ * @param string $file JavaScript file
+ * @param array|null $attributes for example array('id' => 'example')
+ * @param int $priority JavaScript file priority. The lower the number the higher the priority.
  */
 function ipAddJs($file, $attributes = null, $priority = 50)
 {
@@ -150,9 +164,12 @@ function ipAddJs($file, $attributes = null, $priority = 50)
 }
 
 /**
- * Pass PHP variable to JavaScript code.
- * @param $name
- * @param $value
+ * Add JavaScript variable
+ *
+ * Generates JavaScript code which sets variables using specified values.
+ *
+ * @param string $name JavaScript variable name
+ * @param mixed $value Variable value. Note: Do not use object as a value.
  */
 function ipAddJsVariable($name, $value)
 {
@@ -161,10 +178,11 @@ function ipAddJsVariable($name, $value)
 
 /**
  * Add CSS file from your plugin or theme
+ *
  * After adding all CSS files, use ipHead() function to generate HTML head.
- * @param $file
- * @param array $attributes for example array('id' => 'example')
- * @param int $priority
+ * @param string $file Full path to CSS file.
+ * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
+ * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
  */
 function ipAddCss($file, $attributes = null, $priority = 50)
 {
@@ -184,9 +202,10 @@ function ipAddCss($file, $attributes = null, $priority = 50)
 }
 
 /**
- * Return CMS log object.
- * Use this object to create and access log records.
- * @return \Psr\Log\LoggerInterface
+ * Return CMS log object
+ *
+ * Use this object to create or access log records.
+ * @return \Psr\Log\LoggerInterface Logger interface object
  */
 function ipLog()
 {
@@ -194,8 +213,10 @@ function ipLog()
 }
 
 /**
+ * Generate HTML code for loading JavaScript files
+ *
  * Generate HTML code which loads JavaScript files added by ipAddJs() function.
- * @return mixed
+ * @return string HTML code with links to JavaScript files
  */
 
 function ipJs()
@@ -204,8 +225,9 @@ function ipJs()
 }
 
 /**
- * Generate HTML head.
- * @return mixed
+ * Generate HTML head
+ *
+ * @return string Webpage HTML head
  */
 function ipHead()
 {
@@ -213,8 +235,9 @@ function ipHead()
 }
 
 /**
- * Set HTML layout file.
- * @param $file
+ * Set HTML layout file
+ *
+ * @param string $file Layout file name
  */
 
 function ipSetLayout($file)
@@ -228,15 +251,19 @@ function ipSetLayout($file)
 }
 
 /**
- * Get CMS response object.
- * @return \Ip\Response | \Ip\Response\Layout
+ * Get CMS response object
+ *
+ * @return \Ip\Response | \Ip\Response\Layout CMS response object
  */
 function ipResponse()
 {
     return \Ip\ServiceLocator::response();
 }
 
-
+/**
+ * @ignore
+ * @param \Ip\Page $page
+ */
 function _ipPageStart(\Ip\Page $page)
 {
     ipCurrentPage()->_set('page', $page);
@@ -245,7 +272,9 @@ function _ipPageStart(\Ip\Page $page)
 }
 
 /**
- * Get current HTML layout.
+ * Get current HTML layout
+ *
+ * @return string HTML layout, e.g., "main"
  */
 function ipGetLayout()
 {
@@ -258,9 +287,10 @@ function ipGetLayout()
 }
 
 /**
- * Get CMS block object.
- * @param $block
- * @return \Ip\Block
+ * Get CMS block object
+ *
+ * @param string $block Block name, e.g. "main"
+ * @return \Ip\Block Block object
  */
 function ipBlock($block)
 {
@@ -269,9 +299,12 @@ function ipBlock($block)
 
 
 /**
- * Get CMS slot object.
- * @param $slot
- * @param array $params
+ * Get CMS slot object
+ *
+ * See slot documentation pages for more details.
+ *
+ * @param string $slot Slot name
+ * @param array|null $params Slot parameters
  */
 function ipSlot($slot, $params = array())
 {
@@ -279,8 +312,10 @@ function ipSlot($slot, $params = array())
 }
 
 /**
- * Checks if the website is opened in administration mode.
- * @return bool
+ * Get management state
+ *
+ * Checks if the website is opened in management mode.
+ * @return bool Returns true if the website is opened in management state.
  */
 
 function ipIsManagementState()
@@ -289,8 +324,11 @@ function ipIsManagementState()
 }
 
 /**
- * Get HTTP request data for your plugins.
- * @return \Ip\Request
+ * Get HTTP request object
+ *
+ * HTTP request object can be used to get HTTP POST, GET and SERVER variables, and to perform other HTTP request related tasks.
+ *
+ * @return \Ip\Request Request object.
  */
 
 function ipRequest()
@@ -303,17 +341,23 @@ function ipRequest()
  * @return \Ip\Dispatcher
  */
 
+/**
+ * @param string $event Event name, e.g. "MyPlugin_myEvent"
+ * @param array $data Array with event data
+ * @return \Ip\Dispatcher Event dispatcher object.
+ */
 function ipEvent($event, $data = array())
 {
     return \Ip\ServiceLocator::dispatcher()->event($event, $data);
 }
 
 /**
- * Filter data.
- * @param $event filter name
- * @param $value
- * @param array $data
- * @return mixed filtered data
+ * Filter data
+ *
+ * @param string $event Filter name, e.g. "MyPlugin_myFilter"
+ * @param mixed $value Data to filter.
+ * @param array $data Context array.
+ * @return mixed Filtered data.
  */
 function ipFilter($event, $value, $data = array())
 {
@@ -321,10 +365,11 @@ function ipFilter($event, $value, $data = array())
 }
 
 /**
- * Create a job.
- * @param $eventName
- * @param array $data
- * @return mixed|null
+ * Create a job
+ *
+ * @param $eventName Job event name, e.g. "MyPlugin_myJob"
+ * @param array $data Data for job processing.
+ * @return mixed|null Job result.
  */
 function ipJob($eventName, $data = array())
 {
@@ -333,8 +378,10 @@ function ipJob($eventName, $data = array())
 
 
 /**
+ * Get database object
+ *
  * Returns an object, which provides plugin developers with methods for connecting to database, executing SQL queries and fetching results.
- * @return \Ip\Db
+ * @return \Ip\Db Database object.
  */
 function ipDb()
 {
@@ -342,10 +389,10 @@ function ipDb()
 }
 
 /**
- * Get escaped string.
- * @param string $string
+ * Get escaped text string.
+ * @param string $string Unescaped string
  * @param string $esc html|attr|textarea|url|urlRaw|raw or false
- * @return string escaped string
+ * @return string Escaped string
  */
 function esc($string, $esc = 'html')
 {
@@ -867,9 +914,9 @@ function ipPath($path)
 
 
 /**
- * Get currently logged-in administrator id.
- * false if administrator is not logged-in
- * @return int | bool
+ * Get currently logged-in administrator ID
+ *
+ * @return int | bool Administrator ID. Returns false if administrator is not logged-in.
  */
 function ipAdminId()
 {
