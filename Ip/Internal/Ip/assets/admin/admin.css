@@ -101,7 +101,9 @@
   white-space: normal;
   width: auto;
   color: inherit;
+  cursor: inherit;
   font-size: inherit;
+  text-align: inherit;
 }
 .ip article,
 .ip aside,
@@ -7576,7 +7578,9 @@
   white-space: normal;
   width: auto;
   color: inherit;
+  cursor: inherit;
   font-size: inherit;
+  text-align: inherit;
 }
 .ip .help-hint {
   background-color: #cccccc;
@@ -8921,6 +8925,7 @@
   margin-left: 0;
 }
 .ip .stopScrolling {
+  /* todox: create one global style (implement from Bootstrap) */
   height: 100%;
   overflow: hidden;
 }
@@ -8932,12 +8937,14 @@
   top: 0;
   width: 100%;
   z-index: 99000;
+  /* todox: use one zIndex calculation from variables.less */
 }
 .ip .ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
   padding: 0;
 }
 .ip .ipModuleRepositoryPopup .ipmBuyDialog {
   z-index: 99001;
+  /* todox: use one zIndex calculation from variables.less */
 }
 .ip .ipModuleRepositoryPopup .ipmClose {
   border: 1px solid transparent;
@@ -8952,15 +8959,15 @@
   overflow: hidden;
 }
 .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-  width: 250px;
-  height: 295px;
+  float: left;
+  min-height: 295px;
   overflow-x: hidden;
   overflow-y: auto;
-  float: left;
+  width: 290px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-    width: 90px;
+    width: 130px;
   }
 }
 .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .impDragdropNotice {
@@ -8996,7 +9003,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
     margin-left: 140px;
   }
@@ -9022,7 +9029,7 @@
   /* reflects left padding + space for search button */
   width: 260px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
     width: 100px;
   }
@@ -9158,7 +9165,7 @@
   position: relative;
   text-align: center;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ip .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
     margin: 0;
   }
