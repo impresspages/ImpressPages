@@ -25,8 +25,8 @@ class Event
 
     private static function checkForUpdates()
     {
-        $module = new Module();
-        $systemInfo = $module->getSystemInfo();
+        $module = new Model();
+        $systemInfo = $module->getIpNotifications();
         if ($systemInfo != '') { //send an email
             $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageSent');
             if (!$md5 || $md5 != md5($systemInfo)) { //we have a new message

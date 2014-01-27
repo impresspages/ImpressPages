@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ImpressPages</title>
-    <link rel="stylesheet" href="<?php echo ipFileUrl('Ip/Internal/Admin/assets/login.css'); ?>">
     <link rel="stylesheet" href="<?php echo ipFileUrl('Ip/Internal/Ip/assets/admin/admin.css'); ?>">
+    <link rel="stylesheet" href="<?php echo ipFileUrl('Ip/Internal/Admin/assets/login.css'); ?>">
     <link rel="shortcut icon" href="<?php echo ipFileUrl('favicon.ico'); ?>">
 </head>
 <body>

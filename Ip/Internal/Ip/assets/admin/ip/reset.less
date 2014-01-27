@@ -32,13 +32,16 @@
     -ms-transition: none;
     transition: none;
     vertical-align: baseline;
-    white-space: nowrap;
+    white-space: normal;
     width: auto;
 //bootstrap    -webkit-tap-highlight-color: transparent;
 }
 
 .ipRootAll {
     .ipRoot;
+    // todox: extend .ipRoot class and rewrite all styles that should be inherited to keep expected behavior; http://www.w3.org/TR/CSS2/propidx.html
     color: inherit;
+    cursor: inherit;
     font-size: inherit;
+    text-align: inherit;
 }

@@ -132,7 +132,7 @@ class Page{
     /**
      * Get previous page on website's page tree branch
      *
-     * @return Page or false if previous element doesn't exist
+     * @return Page Page object or false if previous element doesn't exist
      */
     public function getPreviousPage()
     {
@@ -160,7 +160,7 @@ class Page{
     /**
      * Get page navigation title
      *
-     * @return string
+     * @return string A title for page navigation
      */
     public function getNavigationTitle(){return $this->navigationTitle;}
 
@@ -174,7 +174,7 @@ class Page{
     /**
      * Get page title
      *
-     * @return string
+     * @return string Page title
      */
     public function getPageTitle(){return $this->pageTitle;}
 
@@ -189,7 +189,7 @@ class Page{
     /**
      * Get page keywords
      *
-     * @return string
+     * @return string Page keywords
      */
     public function getKeywords(){return $this->keywords;}
 
@@ -204,7 +204,7 @@ class Page{
     /**
      * Get page description
      *
-     * @return string
+     * @return string Page description text
      */
     public function getDescription(){return $this->description;}
 
@@ -216,7 +216,7 @@ class Page{
 
     /**
      * @ignore
-     * @return string
+     * @return string Get page text
      */
     public function getText(){return $this->text;}
 
@@ -274,24 +274,23 @@ class Page{
     public function setPriority($priority){$this->priority=$priority;}
 
     /**
-     * Get parent page id
+     * Get parent page ID
      *
-     * @return int
+     * @return int Parent page ID
      */
-
     public function getParentId(){return $this->parentId;}
+
     /**
      * Set parent page id
      *
      * @ignore
      * @param $parentId int
      */
-
     public function setParentId($parentId){$this->parentId=$parentId;}
 
     /**
      * Get page URL address
-     * @return string
+     * @return string Page URL
      */
     public function getLink(){return $this->link;}
 
@@ -303,7 +302,7 @@ class Page{
 
     /**
      * Get the last part of the page URL
-     * @return string
+     * @return string Page URL
      */
     public function getUrl(){return $this->url;}
 
@@ -316,7 +315,7 @@ class Page{
     /**
      * Check if the page is the currently opened page in the browser
      *
-     * @return bool
+     * @return bool True, if the page is a current page
      */
     public function isCurrent(){return $this->current;}
 
@@ -331,7 +330,7 @@ class Page{
     /**
      * Check if the page exists in current breadcrumb
      *
-     * @return bool
+     * @return bool True, if the page is in a current breadcrumb
      */
     public function isInCurrentBreadcrumb(){return $this->selected;}
 

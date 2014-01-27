@@ -126,14 +126,14 @@ class Model
 
             if ($hasChangedTemp) { // skipping temp compilation if only main file is missing
                 $parserTemp = new \Less_Parser(array('relativeUrls' => false));
-                $parserTemp->SetCacheDir(ipFile('file/tmp/less/'));
+//                $parserTemp->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
                 $parserTemp->parseFile($lessTempFile);
                 $cssTemp = $parserTemp->getCss();
                 file_put_contents($cssTempFile, $cssTemp);
             }
 
             $parser = new \Less_Parser(array('relativeUrls' => false));
-            $parser->SetCacheDir(ipFile('file/tmp/less/'));
+//            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
             $parser->parseFile($lessFile);
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
