@@ -168,7 +168,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
  *
  * Generates JavaScript code which sets variables using specified values.
  *
- * @param string $name JavaScript variable name
+ * @param string $name JavaScript variable name.
  * @param mixed $value Variable value. Note: Do not use object as a value.
  */
 function ipAddJsVariable($name, $value)
@@ -216,7 +216,7 @@ function ipLog()
  * Generate HTML code for loading JavaScript files
  *
  * Generate HTML code which loads JavaScript files added by ipAddJs() function.
- * @return string HTML code with links to JavaScript files
+ * @return string HTML code with links to JavaScript files.
  */
 
 function ipJs()
@@ -337,11 +337,8 @@ function ipRequest()
 }
 
 /**
- * Create an event.
- * @return \Ip\Dispatcher
- */
-
-/**
+ * Trigger an event
+ *
  * @param string $event Event name, e.g. "MyPlugin_myEvent"
  * @param array $data Array with event data
  * @return \Ip\Dispatcher Event dispatcher object.
@@ -389,7 +386,8 @@ function ipDb()
 }
 
 /**
- * Get escaped text string.
+ * Get escaped text string
+ *
  * @param string $string Unescaped string
  * @param string $esc html|attr|textarea|url|urlRaw|raw or false
  * @return string Escaped string
@@ -423,7 +421,8 @@ function escHtml($string)
 }
 
 /**
- * Get escaped text area content.
+ * Get escaped text area content
+ *
  * @param $value
  * @return string escaped string
  */
@@ -444,7 +443,8 @@ function escAttr($value)
 }
 
 /**
- * Translate and escape string.
+ * Translate and escape string
+ *
  * @param $text original value in English
  * @param $domain context, e.g. plugin name
  * @param string $esc escape type. Available values: false, 'html', 'attr', 'textarea'
@@ -519,7 +519,8 @@ function ipActionUrl($query)
 }
 
 /**
- * Get url for current theme folder.
+ * Get URL address of current theme folder
+ *
  * @param $path
  * @return mixed|string
  */
@@ -529,7 +530,8 @@ function ipThemeUrl($path)
 }
 
 /**
- * Gets file path for current theme folder.
+ * Gets the file path of the current theme folder
+ *
  * @param $path
  * @return mixed|string
  */
@@ -540,8 +542,9 @@ function ipThemeFile($path)
 }
 
 /**
- * Get homepage URL.
- * @return string
+ * Get homepage URL
+ *
+ * @return string Homepage URL address
  */
 function ipHomeUrl()
 {
@@ -558,11 +561,12 @@ function ipHomeUrl()
 }
 
 /**
- * Generate widget HTML.
+ * Generate widget HTML
+ *
  * @param $widgetName
  * @param array $data
- * @param null $skin
- * @return string
+ * @param null $skin Widget skin name.
+ * @return string Widget HTML.
  */
 function ipRenderWidget($widgetName, $data = array(), $skin = null)
 {
@@ -669,9 +673,9 @@ function ipHtmlAttributes($doctype = null)
 }
 
 /**
- * Get HTML doc type.
- * @param null $doctype
- * @return string
+ * Get HTML document type declaration string
+ * @param int|null $doctype Doctype value. For constant value list, see \Ip\Response\Layout class definition.
+ * @return string Document type declaration string.
  * @throws Exception
  */
 
