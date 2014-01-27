@@ -80,6 +80,7 @@ class Helper
                 throw new \Ip\Exception('Theme extraction failed.');
             }
         } else {
+            require_once(ipFile('Ip/Internal/PclZip.php'));
             $zip = new \PclZip($archivePath);
             if (!$zip->extract(PCLZIP_OPT_PATH, $destinationDir)) {
                 throw new \Ip\Exception('Theme extraction failed.');

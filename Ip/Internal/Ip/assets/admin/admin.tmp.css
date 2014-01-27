@@ -1358,7 +1358,7 @@ pre code {
 }
 table {
   max-width: 100%;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 th {
   text-align: left;
@@ -1510,7 +1510,7 @@ table th[class*="col-"] {
 .table-hover > tbody > tr.warning:hover > th {
   background-color: #faf2cc;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
@@ -2872,8 +2872,8 @@ input[type="button"].btn-block {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px solid #000000;
-  border-right: 4px solid rgba(0, 0, 0, 0);
-  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
   border-bottom: 0 dotted;
 }
 .dropdown {
@@ -3800,7 +3800,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 20px;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3878,7 +3878,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
     margin-left: 0;
   }
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
@@ -3934,7 +3934,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #5e5e5e;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-default .navbar-text {
   color: #777777;
@@ -3945,7 +3945,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #333333;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -3957,7 +3957,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #cccccc;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-default .navbar-toggle {
   border-color: #dddddd;
@@ -3994,14 +3994,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-top-color: #777777;
   border-bottom-color: #777777;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #333333;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -4013,7 +4013,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
   }
 }
 .navbar-default .navbar-link {
@@ -4032,7 +4032,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-inverse .navbar-text {
   color: #999999;
@@ -4043,7 +4043,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
@@ -4055,7 +4055,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .disabled > a:hover,
 .navbar-inverse .navbar-nav > .disabled > a:focus {
   color: #444444;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
   border-color: #333333;
@@ -4091,7 +4091,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-top-color: #ffffff;
   border-bottom-color: #ffffff;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
@@ -4101,7 +4101,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #ffffff;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -4113,7 +4113,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #444444;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
   }
 }
 .navbar-inverse .navbar-link {
@@ -4577,10 +4577,10 @@ a.thumbnail.active {
   transition: width 0.6s ease;
 }
 .progress-striped .progress-bar {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .progress.active .progress-bar {
@@ -4591,37 +4591,37 @@ a.thumbnail.active {
   background-color: #5cb85c;
 }
 .progress-striped .progress-bar-success {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
   background-color: #5bc0de;
 }
 .progress-striped .progress-bar-info {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-warning {
   background-color: #f0ad4e;
 }
 .progress-striped .progress-bar-warning {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-danger {
   background-color: #d9534f;
 }
 .progress-striped .progress-bar-danger {
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .media,
 .media-body {
@@ -4872,7 +4872,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #dddddd;
 }
 .panel-default > .panel-heading > .dropdown .caret {
-  border-color: #333333 rgba(0, 0, 0, 0);
+  border-color: #333333 transparent;
 }
 .panel-default > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #dddddd;
@@ -4889,7 +4889,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #428bca;
 }
 .panel-primary > .panel-heading > .dropdown .caret {
-  border-color: #ffffff rgba(0, 0, 0, 0);
+  border-color: #ffffff transparent;
 }
 .panel-primary > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #428bca;
@@ -4906,7 +4906,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #d6e9c6;
 }
 .panel-success > .panel-heading > .dropdown .caret {
-  border-color: #468847 rgba(0, 0, 0, 0);
+  border-color: #468847 transparent;
 }
 .panel-success > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #d6e9c6;
@@ -4923,7 +4923,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #faebcc;
 }
 .panel-warning > .panel-heading > .dropdown .caret {
-  border-color: #c09853 rgba(0, 0, 0, 0);
+  border-color: #c09853 transparent;
 }
 .panel-warning > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #faebcc;
@@ -4940,7 +4940,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #ebccd1;
 }
 .panel-danger > .panel-heading > .dropdown .caret {
-  border-color: #b94a48 rgba(0, 0, 0, 0);
+  border-color: #b94a48 transparent;
 }
 .panel-danger > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #ebccd1;
@@ -4957,7 +4957,7 @@ a.list-group-item.active:focus .list-group-item-text {
   border-top-color: #bce8f1;
 }
 .panel-info > .panel-heading > .dropdown .caret {
-  border-color: #3a87ad rgba(0, 0, 0, 0);
+  border-color: #3a87ad transparent;
 }
 .panel-info > .panel-footer + .panel-collapse .panel-body {
   border-bottom-color: #bce8f1;
@@ -5590,7 +5590,7 @@ th.visible-xs,
 td.visible-xs {
   display: none !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .visible-xs {
     display: block !important;
   }
@@ -5602,7 +5602,7 @@ td.visible-xs {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .visible-xs.visible-sm {
     display: block !important;
   }
@@ -5614,7 +5614,7 @@ td.visible-xs {
     display: table-cell !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .visible-xs.visible-md {
     display: block !important;
   }
@@ -5644,7 +5644,7 @@ th.visible-sm,
 td.visible-sm {
   display: none !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .visible-sm.visible-xs {
     display: block !important;
   }
@@ -5656,7 +5656,7 @@ td.visible-sm {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .visible-sm {
     display: block !important;
   }
@@ -5668,7 +5668,7 @@ td.visible-sm {
     display: table-cell !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .visible-sm.visible-md {
     display: block !important;
   }
@@ -5698,7 +5698,7 @@ th.visible-md,
 td.visible-md {
   display: none !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .visible-md.visible-xs {
     display: block !important;
   }
@@ -5710,7 +5710,7 @@ td.visible-md {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .visible-md.visible-sm {
     display: block !important;
   }
@@ -5722,7 +5722,7 @@ td.visible-md {
     display: table-cell !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .visible-md {
     display: block !important;
   }
@@ -5752,7 +5752,7 @@ th.visible-lg,
 td.visible-lg {
   display: none !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .visible-lg.visible-xs {
     display: block !important;
   }
@@ -5764,7 +5764,7 @@ td.visible-lg {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .visible-lg.visible-sm {
     display: block !important;
   }
@@ -5776,7 +5776,7 @@ td.visible-lg {
     display: table-cell !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .visible-lg.visible-md {
     display: block !important;
   }
@@ -5810,7 +5810,7 @@ th.hidden-xs,
 td.hidden-xs {
   display: table-cell !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .hidden-xs,
   tr.hidden-xs,
   th.hidden-xs,
@@ -5818,7 +5818,7 @@ td.hidden-xs {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .hidden-xs.hidden-sm,
   tr.hidden-xs.hidden-sm,
   th.hidden-xs.hidden-sm,
@@ -5826,7 +5826,7 @@ td.hidden-xs {
     display: none !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .hidden-xs.hidden-md,
   tr.hidden-xs.hidden-md,
   th.hidden-xs.hidden-md,
@@ -5852,7 +5852,7 @@ th.hidden-sm,
 td.hidden-sm {
   display: table-cell !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .hidden-sm.hidden-xs,
   tr.hidden-sm.hidden-xs,
   th.hidden-sm.hidden-xs,
@@ -5860,7 +5860,7 @@ td.hidden-sm {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .hidden-sm,
   tr.hidden-sm,
   th.hidden-sm,
@@ -5868,7 +5868,7 @@ td.hidden-sm {
     display: none !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .hidden-sm.hidden-md,
   tr.hidden-sm.hidden-md,
   th.hidden-sm.hidden-md,
@@ -5894,7 +5894,7 @@ th.hidden-md,
 td.hidden-md {
   display: table-cell !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .hidden-md.hidden-xs,
   tr.hidden-md.hidden-xs,
   th.hidden-md.hidden-xs,
@@ -5902,7 +5902,7 @@ td.hidden-md {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .hidden-md.hidden-sm,
   tr.hidden-md.hidden-sm,
   th.hidden-md.hidden-sm,
@@ -5910,7 +5910,7 @@ td.hidden-md {
     display: none !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .hidden-md,
   tr.hidden-md,
   th.hidden-md,
@@ -5936,7 +5936,7 @@ th.hidden-lg,
 td.hidden-lg {
   display: table-cell !important;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .hidden-lg.hidden-xs,
   tr.hidden-lg.hidden-xs,
   th.hidden-lg.hidden-xs,
@@ -5944,7 +5944,7 @@ td.hidden-lg {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .hidden-lg.hidden-sm,
   tr.hidden-lg.hidden-sm,
   th.hidden-lg.hidden-sm,
@@ -5952,7 +5952,7 @@ td.hidden-lg {
     display: none !important;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .hidden-lg.hidden-md,
   tr.hidden-lg.hidden-md,
   th.hidden-lg.hidden-md,
@@ -7354,7 +7354,7 @@ td.visible-print {
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: nowrap;
+  white-space: normal;
   width: auto;
 }
 .ipRootAll {
@@ -7391,10 +7391,12 @@ td.visible-print {
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: nowrap;
+  white-space: normal;
   width: auto;
   color: inherit;
+  cursor: inherit;
   font-size: inherit;
+  text-align: inherit;
 }
 .help-hint {
   background-color: #cccccc;
@@ -7798,7 +7800,7 @@ a.list-group-item.success:focus .list-group-item-text {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-@media (max-width: 768px - 1) {
+@media (max-width: 767px) {
   .ipAdminWidgets {
     margin-right: 10px;
   }
@@ -8754,6 +8756,7 @@ body {
   margin-left: 0;
 }
 .stopScrolling {
+  /* todox: create one global style (implement from Bootstrap) */
   height: 100%;
   overflow: hidden;
 }
@@ -8766,12 +8769,14 @@ body {
   top: 0;
   width: 100%;
   z-index: 99000;
+  /* todox: use one zIndex calculation from variables.less */
 }
 .ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
   padding: 0;
 }
 .ipModuleRepositoryPopup .ipmBuyDialog {
   z-index: 99001;
+  /* todox: use one zIndex calculation from variables.less */
 }
 .ipModuleRepositoryPopup .ipmClose {
   border: 1px solid transparent;
@@ -8787,15 +8792,15 @@ body {
   overflow: hidden;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-  width: 250px;
-  height: 295px;
+  float: left;
+  min-height: 295px;
   overflow-x: hidden;
   overflow-y: auto;
-  float: left;
+  width: 290px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-    width: 90px;
+    width: 130px;
   }
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer .impDragdropNotice {
@@ -8832,7 +8837,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
     margin-left: 140px;
   }
@@ -8858,7 +8863,7 @@ body {
   /* reflects left padding + space for search button */
   width: 260px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
     width: 100px;
   }
@@ -8994,7 +8999,7 @@ body {
   position: relative;
   text-align: center;
 }
-@media all and (max-width: 640px) {
+@media (max-width: 767px) {
   .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
     margin: 0;
   }
