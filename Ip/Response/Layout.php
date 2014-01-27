@@ -23,6 +23,9 @@ class Layout extends \Ip\Response {
     const DOCTYPE_HTML5 = 7;
 
 
+    /**
+     * @var string
+     */
     protected $layout = null;
 
     /** array js variables */
