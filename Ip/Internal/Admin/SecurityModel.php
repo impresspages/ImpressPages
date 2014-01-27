@@ -48,8 +48,7 @@ class SecurityModel
 
     private function failedLogins()
     {
-        $failedLoginsSerialized = ipStorage()->get('Admin', 'failedLogins', serialize(array()));
-        $failedLogins = unserialize($failedLoginsSerialized);
+        $failedLogins = ipStorage()->get('Admin', 'failedLogins', array());
         return $failedLogins;
     }
 
@@ -67,7 +66,7 @@ class SecurityModel
 
     private function setFailedLogins($failedLogins)
     {
-        ipStorage()->set('Admin', 'failedLogins', serialize($failedLogins));
+        ipStorage()->set('Admin', 'failedLogins', $failedLogins);
     }
 
 

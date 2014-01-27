@@ -1,4 +1,4 @@
-<div class="ipAdminToolbarContainer ipsAdminToolbarContainer">
+<div class="ip ipAdminToolbarContainer ipsAdminToolbarContainer">
     <div class="ipAdminToolbar ipsAdminToolbar">
         <a href="#" class="ipmItemMenu ipsAdminMenu">
             <span class="ipmMenuBar"></span>
@@ -36,19 +36,19 @@
             </ul>
         </div>
         <?php if ($curModTitle) { ?>
-            <a href="<?php echo esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent ipmMobileHide"><?php echo esc($curModTitle) ?></a>
+            <a href="<?php echo esc($curModUrl) ?>" class="ipmItemCurrent ipsItemCurrent hidden-xs"><?php echo esc($curModTitle) ?></a>
         <?php } ?>
 
 
 
-        <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>" class="ipsAdminLogout ipmAdminAction ipmMobileHide">
+        <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')) ?>" class="ipsAdminLogout ipmAdminAction hidden-xs">
             <?php _e('Logout', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>
                 <i class="fa fa-times fa-stack-1x"></i>
             </span>
         </a>
-        <a target="_blank" href="<?php echo esc($helpUrl); ?>" class="ipmAdminAction ipmMobileHide">
+        <a target="_blank" href="<?php echo esc($helpUrl); ?>" class="ipmAdminAction hidden-xs">
             <?php _e('Help', 'ipAdmin') ?>
             <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>

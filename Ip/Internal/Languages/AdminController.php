@@ -34,6 +34,18 @@ class AdminController extends \Ip\GridController
 
     protected function config()
     {
+
+        $languages = ipContent()->getLanguages();
+        $languageUrls = array();
+        foreach($languages as $language) {
+            $languageUrls[] = $language->getUrl();
+        }
+
+        $reservedDirs = ipGetOption('Config.reservedDirs');
+        if (is_array($reservedDirs)) {
+            $languageUrls = array_merge($languageUrls, $reservedDirs);
+        }
+
         return array(
             'type' => 'table',
             'table' => 'language',
@@ -69,13 +81,12 @@ class AdminController extends \Ip\GridController
                 array(
                     'label' => __('Url', 'ipAdmin', false),
                     'field' => 'url',
-                    'showInList' => false
-
-                    /*
-                    //TODOXX validate URL when adding language #136
-                    'regExpression' => '/^([^\/\\\])+$/',
-                    'regExpressionError' => __('Incorrect URL. You can\'t use slash in URL.', 'ipAdmin')
-                    */
+                    'showInList' => false,
+                    'validators' => array(
+                        'Required',
+                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', FALSE)),
+                        array('NotInArray', $languageUrls, __('Already taken', 'ipAdmin', FALSE) ),
+                    )
                 ),
                 array(
                     'label' => __('RFC 4646 code', 'ipAdmin', false),
@@ -149,6 +160,33 @@ class AdminController extends \Ip\GridController
 
     public function beforeUpdate($id, $newData)
     {
+
+
+
+//        /**
+//         * TODOXX check zone and language url's if they don't match system folder #139
+//         * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
+//         *
+//         * @param $folderName
+//         * @return bool true if URL is reserved for CMS core
+//         *
+//         */
+//        public function usedUrl($folderName)
+//    {
+//        $systemDirs = array();
+//        // TODOXX make it smart with overriden paths #139
+//        $systemDirs['Plugin'] = 1;
+//        $systemDirs['Theme'] = 1;
+//        $systemDirs['File'] = 1;
+//        $systemDirs['install'] = 1;
+//        $systemDirs['update'] = 1;
+//        if(isset($systemDirs[$folderName])){
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
         $tmpLanguage = Db::getLanguageById($id);
         self::$urlBeforeUpdate = $tmpLanguage['url'];
     }

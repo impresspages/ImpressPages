@@ -38,14 +38,13 @@ class Controller extends \Ip\WidgetController{
         );
     }
 
-    public function adminSnippets()
+    public function adminHtmlSnippet()
     {
         $snippets[] = ipView('snippet/controls.php')->render();
         $variables = array(
             'curUrl' => \Ip\Internal\UrlHelper::getCurrentUrl()
         );
-        $snippets[] = ipView('snippet/options.php', $variables)->render();
-        return $snippets;
+        return ipView('snippet/options.php', $variables)->render();
     }
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)

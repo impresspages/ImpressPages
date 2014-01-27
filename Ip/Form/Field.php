@@ -186,13 +186,36 @@ abstract class Field{
      * @param string $validator
      */
     public function addValidator($validator) {
-        if (!preg_match('/^[a-z0-9]+$/i', $validator)) {
-            throw new \Ip\Form\Exception("Unknown validator: '".$validator."'", \Ip\Form\Exception::UNKNOWN_VALIDATOR);
+        if (is_string($validator)) {
+            $validator = array($validator);
         }
-        $validatorClass = '\\Ip\\Form\\Validator\\' . $validator;
-        $validator = new $validatorClass;
 
-        $this->validators[] = $validator;
+        if (!isset($validator[0])) {
+            throw new \Ip\Exception("Empty validator");
+        }
+
+        if (is_string($validator[0])) {
+            if (preg_match('/^[a-z0-9]+$/i', $validator[0])) {
+                $validatorClass = '\\Ip\\Form\\Validator\\' . $validator[0];
+            } else {
+                $validatorClass = $validator[0];
+            }
+            if (count($validator) >= 3) {
+                $validatorObject = new $validatorClass($validator[1], $validator[2]);
+            } elseif (count($validator) == 2) {
+                $validatorObject = new $validatorClass($validator[1]);
+            } elseif (count($validator) == 1) {
+                $validatorObject = new $validatorClass();
+            } else {
+                throw new \Ip\Exception("Incorrect validator");
+            }
+
+        } else {
+            $validatorObject = $validator[0];
+        }
+
+
+        $this->validators[] = $validatorObject;
 
     }
 
@@ -215,9 +238,9 @@ abstract class Field{
     /**
      * Add custom field value validator
      *
-     * @param Validator\Validator $validator
+     * @param \Ip\Form\Validator $validator
      */
-    public function addCustomValidator(\Ip\Form\Validator\Validator $validator) {
+    public function addCustomValidator(\Ip\Form\Validator $validator) {
         $this->validators[] = $validator;
     }
 

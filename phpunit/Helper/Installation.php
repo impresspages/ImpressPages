@@ -513,15 +513,6 @@ class Installation
             $fs->chmod($destination.$file, 0777);
         }
 
-        file_put_contents($destination.'robots.txt', '');
-        $fs->chmod($destination.'robots.txt', 0777);
-        file_put_contents($destination.'config.php',
-            '<?php
-
- if(!isset($_GET[\'install\']))
-    header("location: install/?install=1");
-        ');
-        $fs->chmod($destination.'config.php', 0777);
 
 
     }

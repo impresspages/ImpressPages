@@ -1,8 +1,6 @@
 language: php
 php:
   - 5.3
-notifications:
-  email: false
 env:
   global:
     # SAUCE

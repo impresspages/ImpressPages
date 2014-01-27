@@ -1,0 +1,709 @@
+.ipAdminPanel {
+    font: 14px Arial, Helvetica, sans-serif;
+}
+.ipAdminPanelContainer:after,
+.ipAdminPanelContainer:before,
+.ipAdminWidgets:after,
+.ipWidget:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+
+.ipAdminLabel {
+    color: #000;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.ipAdminInput {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 26px;
+    padding: 0 7px;
+    width: 95%;
+}
+.ipAdminTextarea {
+    background-color: #fff;
+    border: 1px solid #96979a;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 150px;
+    padding: 4px 2px;
+    width: 95%;
+}
+.ipAdminButton {
+    background: #e0e0e0;
+    background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+    border: 1px solid #b8b8b8;
+    border-radius: 2px;
+    color: #2f313f;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 0 14px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255,255,255,.66);
+}
+.ipAdminButton:hover {
+    background: #c0c0c0;
+}
+.ipAdminButton.ipaConfirm {
+    background: #77b000;
+    background: linear-gradient(top, #77b000 0%, #569100 100%);
+    border-color: #699212;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
+    color: #fff;
+    font-weight: bold;
+    padding: 0 20px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
+    text-transform: uppercase;
+}
+.ipAdminButton.ipaConfirm:hover {
+    background: #559000;
+    background: linear-gradient(top, #559000 0%, #76af00 100%);
+    box-shadow: none;
+}
+.ipAdminButton.ipaRevisions {
+    background: #77b000;
+    background: linear-gradient(top, #77b000 0%, #569100 100%);
+    border-color: #699212;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
+    padding: 0 15px;
+}
+.ipAdminButton.ipaRevisions:hover {
+    background: #559000;
+    background: linear-gradient(top, #559000 0%, #76af00 100%);
+    box-shadow: none;
+}
+.ipAdminButton.ipaRevisions span {
+    background: url(../img/icon_down2.png) no-repeat center center;
+    display: inline-block;
+    width: 12px;
+}
+.ipAdminButton.ipaAction {
+    background: #ffaa00;
+    background: linear-gradient(top, #ffaa00 0%, #ff8800 100%);
+    border-color: #ff6a00;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
+    color: #fff;
+    font-weight: bold;
+    padding: 0 20px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
+    text-transform: uppercase;
+}
+.ipAdminButton.ipaAction:hover {
+    background: #ff8800;
+    background: linear-gradient(top, #ff8800 0%, #ffaa00 100%);
+    box-shadow: none;
+}
+.ipAdminButton.ipaOptions {
+    padding: 0;
+}
+.ipAdminButton.ipaOptions span {
+    background: url(../img/icon_options.png) no-repeat center center;
+    display: inline-block;
+    padding: 0 16px;
+}
+.ipAdminButton.ipaPreview {
+    padding: 0;
+}
+.ipAdminButton.ipaPreview span {
+    background: url(../img/icon_preview.png) no-repeat center center;
+    display: inline-block;
+    padding: 0 16px;
+}
+.ipAdminButton.ipaDropdown {
+    border-left: none;
+    border-radius: 0 2px 2px 0;
+    display: inline-block;
+    height: 30px;
+}
+.ipAdminButton.ipaDropdown span {
+    background: url(../img/icon_down.png) no-repeat center center;
+    display: inline-block;
+    width: 9px;
+}
+.ipAdminButton.ipaDropdown:hover {
+    background-color: #c0c0c0;
+}
+
+/* draggable widgets and controls */
+.ipAdminPanelContainer {/* see clearing option above */}
+.ipAdminPanel {
+    background-color: #fff;
+    border-bottom: 1px solid #000;
+    box-shadow: inset 0px -2px 2px -3px #000;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.ipAdminWidgets {
+    margin: 10px 250px 10px 0;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+@media (max-width: @screen-xs-max) {
+    .ipAdminWidgets {
+        margin-right: 10px;
+    }
+}
+
+.ipAdminWidgetsScroll {
+    background: url(../img/icons_scroll.png) no-repeat;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 26px;
+    z-index: 9;
+}
+.ipAdminWidgetsScroll.ipaLeft {
+    background-position: 8px center;
+    left: 6px;
+}
+.ipAdminWidgetsScroll.ipaRight {
+    background-position: -32px center;
+    right: 6px;
+}
+.ipAdminWidgetsScroll:hover {
+    background-color: #e6e6e6;
+}
+.ipAdminWidgetsScroll:active {
+    box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.15);
+}
+.ipAdminWidgetsContainer {
+    margin: 0 38px;
+    min-height: 81px;
+}
+.ipAdminWidgetsContainer:before {
+    background-color: #fff;
+    content: " ";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    width: 38px;
+    z-index: 2;
+}
+.ipAdminWidgetsContainer:after {
+    background-color: #fff;
+    content: " ";
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: -250px;
+    width: 288px;
+    z-index: 2;
+}
+.ipAdminWidgets ul {
+    list-style: none;
+    margin-left: -24px; /* to compensate left margin of first item */
+    position: relative;
+}
+.ipAdminWidgets li {
+    float: left;
+    margin-left: 24px;
+    width: 63px;
+}
+.ipAdminWidgets li a {
+    border: 3px solid transparent;
+    border-radius: 5px;
+    display: block;
+    height: 57px;
+    position: relative;
+    text-decoration: none;
+    width: 57px;
+}
+.ipAdminWidgets li img {
+    background-color: #dbdbdb;
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    box-shadow: inset 0 0 0 2px #fff;
+    height: 51px;
+    padding: 2px;
+    width: 51px;
+}
+.ipAdminWidgets .ipActionWidgetButton {
+    padding-bottom: 18px; /* to push widget button down to keep space for title */
+}
+.ipActionWidgetButton.ui-draggable-dragging {
+    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+}
+.ipAdminWidgets li .ipaTitle {
+    left: -12px;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    top: 62px;
+    width: 81px;
+}
+.ipAdminWidgets li .ipaTitle span {
+    border-radius: 5px;
+    color: #5f5e60;
+    display: inline-block;
+    font-size: 11px;
+    line-height: 14px;
+    min-width: 30px;
+    padding: 0 3px;
+    white-space: nowrap;
+}
+.ipAdminWidgets li a:hover {
+    border-color: #dedede;
+}
+.ipAdminWidgets li a:hover img {
+    border-color: #767676;
+}
+.ipAdminWidgets li a:hover .ipaTitle span {
+    background-color: #dedede;
+    color: #000;
+}
+.ipAdminWidgets li a:active img {
+    border-color: #878787;
+    box-shadow: inset 0 0 2px 0 #fff;
+}
+.ipAdminWidgetsDisable {
+    background-color: rgba(255,255,255,.6);
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 11;
+}
+.ipAdminWidgetsDisable p {
+    background-color: #ffa400;
+    box-shadow: 0 1px 0 1px rgba(0, 0, 0, .7);
+    color: #000;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 28px;
+    padding: 10px;
+}
+.ipAdminWidgetsDisable p a {
+    color: #000;
+    text-decoration: underline;
+}
+.ipAdminControls {
+    height: 100%;
+    padding-right: 5px;
+    position: absolute;
+    right: 5px;
+    width: 246px;
+    z-index: 10;
+}
+.ipAdminControls .ipAdminButton {
+    float: left;
+    font-size: 13px;
+    line-height: 30px;
+}
+.ipAdminControls .ipAdminButton.ipaOptions,
+.ipAdminControls .ipAdminButton.ipaPreview {
+    margin-left: 7px;
+    padding: 0;
+}
+.ipAdminControls .ipAdminButton.ipaConfirm {
+    border-radius: 2px 0 0 2px;
+    font-size: 14px;
+    margin-left: 7px;
+    overflow: hidden; /* if text is too long it will be cropped */
+    padding: 0 5px;
+    text-align: center;
+    width: 90px;
+    white-space: nowrap; /* in case two words won't wrap */
+}
+.ipAdminButton.ipaConfirm.visible-xs {
+    position: fixed;
+    right: 15px;
+    top: 2px;
+    z-index: 10002;
+}
+.ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled,
+.ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled:hover {
+    background: #66a000;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.5;
+}
+.ipAdminControls .ipAdminButton.ipaRevisions {
+    border-radius: 0 2px 2px 0;
+    margin-left: -1px;
+}
+.ipAdminRevisions {
+    float: left;
+    position: relative;
+}
+.ipAdminRevisions .ipaDropdownBlock {
+    background-color: #fff;
+    border: 1px solid #b8b8b8;
+    display: none;
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    top: 33px;
+    width: 230px;
+}
+.ipAdminControls .ipAdminButton.ipaSave {
+    display: block;
+    float: none;
+    margin-bottom: 4px;
+    line-height: 25px;
+    text-align: center;
+}
+.ipAdminRevisions ul {
+    list-style: none;
+    max-height: 184px;
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+}
+.ipAdminRevisions li a {
+    color: #2f313f;
+    display: block;
+    font-size: 12px;
+    padding: 4px 7px;
+    text-decoration: none;
+}
+.ipAdminRevisions .ipaActive a {
+    color: #000;
+    font-weight: bold;
+}
+.ipAdminRevisions .ipaPublished a {
+    color: #66a000;
+}
+.ipAdminRevisions li a:hover {
+    background-color: #dbdbdb;
+    color: #000;
+}
+.ipAdminRevisions:hover .ipaDropdownBlock {
+    display: block;
+}
+.ipAdminRevisions:hover .ipAdminButton.ipaRevisions {
+    padding-bottom: 1px;
+}
+
+.ipAdminWidgetControls {
+    border: 1px solid transparent;
+    float: left;
+    max-height: 10px;
+    margin: -10px 0 0 -1px;
+    position: absolute;
+}
+.ipAdminWidgetControls .ipaButton {
+    background: #3b3b3b;
+    background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
+    display: block;
+    float: left;
+    font-weight: normal;
+    padding: 2px 0;
+    text-decoration: none;
+    visibility: hidden;
+}
+.ipAdminWidgetControls .ipaButton:hover {
+    background: #2e2e2e;
+}
+.ipAdminWidgetControls .ipaButton span {
+    background: url(../img/icons_controls.png) no-repeat;
+    border-left: 1px dotted #000;
+    color: #fff;
+    display: block;
+    float: left;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    height: 10px;
+    line-height: 10px;
+    text-decoration: none;
+}
+.ipAdminWidgetControls .ipaButton:first-child span {
+    border-left: none;
+}
+.ipAdminWidgetControls .ipActionWidgetManage span {
+    background-position: 5px 0;
+    padding: 0 9px 0 28px;
+}
+.ipAdminWidgetControls .ipActionWidgetManage:hover span {
+    background-position: 5px -23px;
+}
+.ipAdminWidgetControls .ipActionWidgetMove span {
+    background-position: center -46px;
+    cursor: move;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 50px;
+}
+.ipAdminWidgetControls .ipActionWidgetMove:hover span {
+    background-position: center -69px;
+}
+.ipAdminWidgetControls .ipActionWidgetDelete span {
+    background-position: 7px -92px;
+    padding: 0 9px 0 26px;
+}
+.ipAdminWidgetControls .ipActionWidgetDelete:hover span {
+    background-position: 7px -115px;
+}
+.ipAdminWidgetDrag {
+    height: 58px;
+    overflow: hidden;
+    margin-left: 100px;
+    width: 58px;
+    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+}
+.ipAdminWidgetMoveIcon {
+    background: url(../img/icon_drag.png) no-repeat;
+    height: 58px;
+    width: 58px;
+    z-index: 5000;
+}
+
+.ipAdminWidgetPlaceholder {
+    background: #bdeaf9;
+    outline: #5abee3 dashed 1px;
+    height: 1px;
+    margin-top: -6px;
+    margin-bottom: 5px;
+}
+
+/* File/Image upload tools */
+.ipUploadProgressContainer {}
+.ipUploadProgressItem {
+    margin-bottom: 10px;
+}
+.ipUploadTitle {
+    color: #000;
+    font-size: 11px;
+    line-height: 22px;
+    margin-top: -22px;
+    padding: 0 5px;
+    text-shadow: 1px 1px 0 #fff;
+}
+.ipUploadProgressbar {
+    background: #ebebeb;
+    border: 1px solid #d3d3d3;
+    height: 20px;
+}
+.ipUploadProgressbar .ui-progressbar-value {
+    background: #019bd4;
+    border: 1px solid #018bbe;
+    height: 100%;
+    margin: -1px;
+}
+.ipUploadWindow {
+    position: relative;
+}
+.ipUploadWindow .ipUploadButtons {
+    background-color: rgba(0,0,0,.8);
+    margin: 9px;
+    padding: 3px;
+    position: absolute;
+    z-index: 99;
+}
+.ipUploadWindow .ipUploadProgressbar {
+    display: none;
+    margin-top: -11px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    z-index: 999;
+}
+.ipUploadWindow {
+    background: url(../img/bg_upload.gif);
+    overflow: hidden;
+    user-select: none;
+}
+.ipUploadWindow .ipUploadBrowseContainer {
+    float: left;
+}
+.ipUploadWindow .ipUploadImageButton {
+    background: url(../img/icons_upload.png) no-repeat;
+    display: block;
+    float: left;
+    height: 24px;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 24px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton {
+    background-position: 0 0;
+    width: 40px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton:hover {
+    background-position: -40px 0;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton {
+    background-position: 0 -24px;
+    margin-left: 3px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton:hover {
+    background-position: -24px -24px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton {
+    background-position: 0 -48px;
+    margin-left: 3px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton:hover {
+    background-position: -24px -48px;
+}
+
+/* Widget: Columns */
+.ipWidget-Columns .ipwCol{
+    margin-top: 20px; /* todox: remove */
+}
+
+
+/* style that interfere with theme styles and potentially may cause issues */
+.ipWidget {
+    min-height: 10px;
+}
+.ipWidget:hover {
+    outline: #4d4d4d dashed 1px;
+}
+.ipWidget:hover > .ipAdminWidgetControls {
+    border-color: #000;
+}
+.ipWidget:hover > .ipAdminWidgetControls .ipaButton,
+body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton{
+    visibility: visible;
+}
+
+/* vendor specific styles; to remove in the future */
+.ipAdminButton {
+    background: -moz-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+    background: -webkit-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+}
+.ipAdminButton.ipaConfirm,
+.ipAdminButton.ipaRevisions {
+    background: -moz-linear-gradient(top, #77b000 0%, #569100 100%);
+    background: -webkit-linear-gradient(top, #77b000 0%, #569100 100%);
+}
+.ipAdminButton.ipaConfirm:hover,
+.ipAdminButton.ipaRevisions:hover {
+    background: -moz-linear-gradient(top, #559000 0%, #76af00 100%);
+    background: -webkit-linear-gradient(top, #559000 0%, #76af00 100%);
+}
+.ipAdminButton.ipaAction {
+    background: -moz-linear-gradient(top, #ffaa00 0%, #ff8800 100%);
+    background: -webkit-linear-gradient(top, #ffaa00 0%, #ff8800 100%);
+}
+.ipAdminButton.ipaAction:hover {
+    background: -moz-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
+    background: -webkit-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
+}
+.ipAdminWidgetControls .ipaButton {
+    background: -moz-linear-gradient(top, #3b3b3b 0%, #212121 100%);
+    background: -webkit-linear-gradient(top, #3b3b3b 0%, #212121 100%);
+}
+.ipUploadWindow {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+}
+/* Error messages */
+.ipAdminError {
+    padding: 5px;
+    color: #f00;
+    border-bottom: 1px #ccc solid;
+    margin: 0;
+}
+.ipAdminErrorSample {
+    display: none;
+}
+
+/* To be removed */
+.ui-dialog {
+    font-size: 12px;
+}
+.ui-widget .error {
+    display: none;
+}
+.ui-widget form label {
+    color: #797979;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.ui-widget form label.small {
+    color: #797979;
+    display: inline;
+    font-size: 12px;
+    font-weight: normal;
+}
+.ui-widget form p.field {
+    margin-bottom: 15px;
+}
+.ui-widget form .error {
+    background-color: #FFF5E1;
+    border: 1px solid #EFA6A7;
+    color: #E73031;
+    display: none;
+    margin-bottom: 2px;
+    padding: 4px;
+    width: 492px;
+}
+.ui-widget form input,
+.ui-widget form textarea {
+    border: 1px solid #C0C0C0;
+    font-size: 12px;
+    margin-bottom: 2px;
+    text-align: left;
+    vertical-align: middle;
+    width: 500px;
+}
+.ui-widget form input.stdModBox {
+    width: auto;
+}
+.ui-widget form .submit {
+    background-color: #FCEAC9;
+    border: 1px solid #FFBB44;
+    color: #264971;
+    font-weight: bold;
+    height: 22px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: auto;
+}
+
+
+.ipmAdd {
+    float: left;
+}
+
+.widgetDropPlaceholderVertical, .widgetDropPlaceholderHorizontal{
+    background-color: transparent;
+/*    background-color: red;
+    opacity: 0.1;
+    border: 1px solid #ccc;*/
+}
+
+.widgetDropPlaceholderVertical .widgetDropMarker {
+    display: none;
+    width: 1px;
+    background-color: #2baeff;
+}
+
+.widgetDropPlaceholderHorizontal .widgetDropMarker {
+    display: none;
+    height: 1px;
+    background-color: #2baeff;
+}
+
+.widgetDropPlaceholder.hover {
+    /*background-color: #000;*/
+}
+
+.widgetDropPlaceholderVertical.hover .widgetDropMarker,
+.widgetDropPlaceholderHorizontal.hover .widgetDropMarker{
+    display: block;
+}

@@ -1,0 +1,44 @@
+// Reset
+// Making everything under .ip scope foolproof even if users have global styles applied
+// (still breaks if !important is applied by the users)
+.ipRoot {
+    background: transparent;
+    border: 0;
+    border-collapse: collapse;
+//bootstrap    box-sizing: content-box;
+//bootstrap    -moz-box-sizing: content-box;
+//bootstrap    -webkit-box-sizing: content-box;
+//bootstrap    color: #000;
+    cursor: auto;
+    direction: ltr;
+    float: none;
+    font-style: normal;
+    font-variant: normal;
+//bootstrap    font-size: 12px;
+//bootstrap    font-family: sans-serif;
+    font-weight: normal;
+    height: auto;
+//bootstrap    line-height: normal;
+    margin: 0;
+    max-width: none;
+    outline: 0;
+    padding: 0;
+    position: static;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    transition: none;
+    vertical-align: baseline;
+    white-space: nowrap;
+    width: auto;
+//bootstrap    -webkit-tap-highlight-color: transparent;
+}
+
+.ipRootAll {
+    .ipRoot;
+    color: inherit;
+    font-size: inherit;
+}

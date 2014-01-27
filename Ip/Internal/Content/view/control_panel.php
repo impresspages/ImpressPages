@@ -1,6 +1,6 @@
-<div class="ipAdminPanelContainer">
+<div class="ip ipAdminPanelContainer">
     <div class="ipAdminPanel">
-        <div class="ipAdminControls ipmMobileHide">
+        <div class="ipAdminControls hidden-xs">
             <div class="ipAdminWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
@@ -71,6 +71,5 @@
             <p class="ipAdminError"></p>
         </div>
     </div>
-
+    <a href="#" class="ipAdminButton ipaConfirm ipActionPublish visible-xs" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
 </div>
-<a href="#" class="ipAdminButton ipaConfirm ipActionPublish ipmMobileShow" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>

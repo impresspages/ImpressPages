@@ -102,7 +102,7 @@ class Language{
     public function isVisible(){
         return $this->visible;
     }
-    
+
     /**
      * Get text direction.
      *
@@ -112,12 +112,12 @@ class Language{
         return $this->textDirection;
     }
 
-    
+
     /**
      * Check if the language is current page language
      * @returns boolean Returns true if this language is the language of currently displayed page
      */
-    public function getCurrent() {
+    public function isCurrent() {
         if ($this->getId() == ipContent()->getCurrentLanguage()->getId()) {
             return true;
         } else {

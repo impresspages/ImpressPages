@@ -12,24 +12,20 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        ipAddJs('Ip/Internal/System/assets/js/system.js');
+        ipAddJs('Ip/Internal/System/assets/system.js');
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
-        ipAddCss('Ip/Internal/System/assets/style.css');
-
-
-
 
         $notes = array();
 
-        if (isset($_SESSION['modules']['administrator']['system']['notes']) && is_array(
-                $_SESSION['modules']['administrator']['system']['notes']
+        if (isset($_SESSION['ipSystem']['notes']) && is_array(
+                $_SESSION['ipSystem']['notes']
             )
         ) {
-            $notes = $_SESSION['modules']['administrator']['system']['notes'];
+            $notes = $_SESSION['ipSystem']['notes'];
         }
 
-        unset($_SESSION['modules']['administrator']['system']['notes']);
+        unset($_SESSION['ipSystem']['notes']);
 
 
         $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
@@ -49,24 +45,19 @@ class AdminController extends \Ip\Controller
         return $content;
     }
 
+    //TODOXX 301
     public function clearCache()
     {
         ipRequest()->mustBePost();
 
         ipLog()->info('System.cacheCleared');
-        $module = new Module;
+        $module = Model::instance();
         $cachedUrl = \Ip\ServiceLocator::storage()->get('Ip', 'cachedBaseUrl'); // get system variable
         $module->clearCache($cachedUrl);
-        $success = $module->updateRobotsTxt($cachedUrl);
 
-        if (!$success) {
-            $_SESSION['modules']['administrator']['system']['notes'][] = __(
-                'robots.txt file needs to be updated manually.',
-                'ipAdmin'
-            );
-        }
 
-        $_SESSION['modules']['administrator']['system']['notes'][] = __('Cache was cleared.', 'ipAdmin');
+
+        $_SESSION['ipSystem']['notes'][] = __('Cache was cleared.', 'ipAdmin');
 
         // TODO JSONRPC
         $answer = array(
@@ -108,20 +99,19 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getSystemInfo()
+    public function getIpNotifications()
     {
 
-        $module = new Module();
-        $systemInfo = $module->getSystemInfo();
+        $systemInfo = Model::getIpNotifications();
 
 
         if (isset($_REQUEST['afterLogin'])) { // request after login.
             if ($systemInfo == '') {
-                $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+                $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
                 return;
             } else {
                 $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
-                if ($systemInfo && (!$md5 || $md5 != md5($systemInfo))) { //we have a new message
+                if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { //we have a new message
                     $newMessage = false;
 
                     foreach (json_decode($systemInfo) as $infoValue) {
@@ -130,20 +120,19 @@ class AdminController extends \Ip\Controller
                         }
                     }
 
-                    $_SESSION['modules']['administrator']['system']['show_system_message'] = $newMessage; //display system alert
+                    $_SESSION['ipSystem']['show_system_message'] = $newMessage; //display system alert
                 } else { //this message was already seen.
-                    $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+                    $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
                     return;
                 }
 
             }
         } else { //administrator/system tab.
-            \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageShown', md5($systemInfo));
-            $_SESSION['modules']['administrator']['system']['show_system_message'] = false; //don't display system alert at the top.
+            \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageShown', md5(serialize($systemInfo)));
+            $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
         }
 
-
-        return new \Ip\Response($systemInfo);
+        return new \Ip\Response\Json($systemInfo);
     }
 
 }
