@@ -1,4 +1,4 @@
-.stopScrolling {
+.stopScrolling { /* todox: create one global style (implement from Bootstrap) */
     height: 100%;
     overflow: hidden;
 }
@@ -11,13 +11,13 @@
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 99000;
+    z-index: 99000; /* todox: use one zIndex calculation from variables.less */
 }
 .ipModuleRepositoryPopup .ui-tabs .ui-tabs-panel {
     padding: 0;
 }
 .ipModuleRepositoryPopup .ipmBuyDialog {
-    z-index: 99001;
+    z-index: 99001; /* todox: use one zIndex calculation from variables.less */
 }
 .ipModuleRepositoryPopup .ipmClose {
     border: 1px solid transparent;
@@ -34,15 +34,15 @@
     overflow: hidden;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-    width: 250px;
-    height: 295px;
+    float: left;
+    min-height: 295px;
     overflow-x: hidden;
     overflow-y: auto;
-    float: left;
+    width: 290px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: @screen-xs-max) {
     .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer {
-        width: 90px;
+        width: 130px;
     }
 }
 
@@ -81,7 +81,7 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
-@media all and (max-width: 640px) {
+@media (max-width: @screen-xs-max) {
     .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowser {
         margin-left: 140px;
     }
@@ -106,7 +106,7 @@
     padding-right: 37px; /* reflects left padding + space for search button */
     width: 260px;
 }
-@media all and (max-width: 640px) {
+@media (max-width: @screen-xs-max) {
     .ipModuleRepositoryPopup .ipmTabUpload .ipmBrowserSearch .ipmTerm {
         width: 100px;
     }
@@ -239,7 +239,7 @@
     position: relative;
     text-align: center;
 }
-@media all and (max-width: 640px) {
+@media (max-width: @screen-xs-max) {
     .ipModuleRepositoryPopup .ipmTabUpload .ipmRepositoryActions .ipmInner {
         margin: 0;
     }
