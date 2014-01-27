@@ -77,7 +77,7 @@ class WidgetController
     /**
      * Check if the widget is native ImpressPages CMS widget
      *
-     * @return bool Returns false, if the widget is provided by installable plugin.
+     * @return bool Returns false, if a widget is provided by installable plugin.
      */
     public function isCore()
     {
@@ -113,7 +113,7 @@ class WidgetController
     }
 
     /**
-     * Override this method to set default widget's data
+     * Override this method to set default data of the widget
      *
      * @return array Default data
      */
@@ -180,7 +180,7 @@ class WidgetController
      * @param $widgetId Widget ID
      * @param $postData
      * @param $currentData
-     * @return array data to be stored to the database
+     * @return array Data to be stored to the database
      */
     public function update ($widgetId, $postData, $currentData)
     {
@@ -192,19 +192,19 @@ class WidgetController
      *
      * You can make posts directly to your widget (e.g., when submitting HTML form in public page).
      *
-     * If you will pass following parameters:
+     * If you pass the following parameters:
      * sa=Content.widgetPost
      * securityToken=actualSecurityToken
      * instanceId=actualWidgetInstanceId
      *
-     * then that post request will be redirected to this method.
+     * then that post request will be redirected to the specified method.
      *
      * Use return new \Ip\Response\Json($jsonArray) to return JSON.
      *
      * Attention: this method is accessible for website visitors without admin login.
      *
      * @param int $instanceId Widget instance ID
-     * @param array $data Widget data array
+     * @param array $data Widget Data array
      */
     public function post ($instanceId, $data)
     {
@@ -230,12 +230,12 @@ class WidgetController
     /**
      * Delete a widget
      *
-     * This method is executed before actual deletion of widget.
-     * It is used to remove widget data (photos, files, additional database records and so on).
+     * This method is executed before actual deletion of a widget.
+     * It is used to remove widget data (e.g., photos, files, additional database records and so on).
      * Standard widget data is being deleted automatically. So you don't need to extend this method
      * if your widget does not upload files or add new records to the database manually.
-     * @param int $widgetId
-     * @param array $data data that is being stored in the widget
+     * @param int $widgetId Widget ID
+     * @param array $data Data that is being stored in the widget
      */
     public function delete($widgetId, $data)
     {
@@ -284,7 +284,7 @@ class WidgetController
      * @param $instanceId Widget instance ID
      * @param $data Widget data array
      * @param $skin Widget skin name
-     * @return mixed
+     * @return array Data array
      */
     public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
     {

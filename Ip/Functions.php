@@ -16,6 +16,8 @@ function ipApplication()
 
 /**
  * Get security token string. Used to prevent XSRF attacks.
+ *
+ * Security token is a long random string generated for currently browsing user.
  * @return string
  */
 function ipSecurityToken()
