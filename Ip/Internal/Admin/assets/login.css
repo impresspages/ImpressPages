@@ -39,7 +39,7 @@ h1, h2, h3 {
 .verticalAlign {
     float: left;
     height: 50%;
-    margin-top: -157px; /* .login height/2 + border */
+    margin-top: -167px; /* .login height/2 + border */
     width: 100%;
 }
 .login {
@@ -47,7 +47,7 @@ h1, h2, h3 {
     border: 7px solid #000;
     box-shadow: 0 0 20px #000;
     clear: both;
-    height: 300px;
+    height: 320px;
     margin: 0 auto;
     position: relative;
     width: 472px;
@@ -89,10 +89,16 @@ h1, h2, h3 {
     font-size: 36px;
     text-transform: uppercase;
 }
-.login form {
+.loginContent {
     padding: 20px 15px 10px;
 }
-
-.ipmErrorMessage {
+.loginContent .form-group:last-child {
+    margin-bottom: 0;
+}
+.loginContent .alternativeLink {
+    float: right;
+    margin-top: -2em;
+}
+.ipmErrorMessage { /* todox: fix validator to have this global message optional (if moving to inline) */
     display: none !important; /* hiding global validator error */
 }
