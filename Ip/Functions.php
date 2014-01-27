@@ -752,15 +752,7 @@ function ipView($file, $data = array(), $_callerDepth = 0)
         $relativePath = ipRelativeDir($_callerDepth + 1) . $file;
     }
 
-    if (strpos($relativePath, 'Plugin/') === 0) {
-        $overridePath = substr($relativePath, 7);
-    } elseif (strpos($relativePath, 'Ip/Internal/')) {
-        $overridePath = substr($relativePath, 12);
-    } else {
-        $overridePath = $relativePath;
-    }
-
-    $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $overridePath);
+    $fileInThemeDir = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $relativePath);
 
     if (is_file($fileInThemeDir)) {
         return new \Ip\View($fileInThemeDir, $data);
@@ -779,10 +771,10 @@ function ipView($file, $data = array(), $_callerDepth = 0)
 
     $path = substr($relativePath, 'Theme/' . ipConfig()->theme() . '/override/');
 
-    if (file_exists(ipFile('Ip/Internal/' . $path))) {
-        $absolutePath = ipFile('Ip/Internal/' . $path);
-    } elseif (file_exists(ipFile('Plugin/' . $path))) {
-        $absolutePath = ipFile('Plugin/' . $path);
+    $possiblePath = ipFile($path);
+
+    if (file_exists($possiblePath)) {
+        $absolutePath = $possiblePath;
     } else {
         throw new \Ip\Exception\View("View {$file} not found.");
     }
