@@ -14,8 +14,8 @@ class FormatHelper
 {
 
     /**
-     * @param int $price in cents
-     * @param string $currency three letter currency code
+     * @param int $price Price in cents
+     * @param string $currency Three letter currency code
      * @param string $context
      * @param int $languageId
      * @return string
