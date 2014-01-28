@@ -714,29 +714,32 @@ function ipDoctypeDeclaration($doctype = null)
 }
 
 /**
- * Get SQL table name by adding CMS database prefix.
- * @param $table
- * @param null $as
- * @return string
+ * Get SQL table name by adding CMS database prefix
+ *
+ * @param $table SQL table name without prefix.
+ * @param string|null $as SQL "as" keyword to be added.
+ * @return string Actual SQL table name
  */
 function ipTable($table, $as = null)
 {
     $answer = '`' . ipConfig()->tablePrefix() . $table . '`';
     if ($as != false) {
         if ($as !== null) {
-            $answer .= 'as ' . $as;
+            $answer .= ' as ' . $as;
         } else {
-            $answer .= 'as ' . $table;
+            $answer .= ' as ' . $table;
         }
     }
     return $answer;
 }
 
 /**
- * Check if user has right to execute administrative action on plugin
- * @param $plugin
- * @param null $action
- * @return bool true if user has permission to do the action
+ * Check the permission to access plugin's administration
+ *
+ * Check if user has a right to access plugin's Admin controller.
+ *
+ * @param $plugin Plugin name
+ * @return bool Returns true if user has plugin's administration permission.
  */
 function ipAdminPermission($plugin, $action = NULL)
 {
@@ -744,16 +747,16 @@ function ipAdminPermission($plugin, $action = NULL)
 }
 
 
+
 /**
+ * Send e-mail message
  *
- * Add new email to the queue. If possible, ImpressPages will send the email immediately.
- * If hourly email limit is exhausted, emails will be sent next hour.
+ * Adds new e-mail to the queue. If possible, ImpressPages will send the email immediately.
+ * If hourly e-mail limit is exhausted, emails will be sent in the next hour.
  * ImpressPages always preserve 20% of hourly limit for urgent emails. So even if you have
- * just added thousands of non urgent emails, urgent emails will still be sent immediately.
+ * just added thousands of non urgent e-mails, urgent e-mails will still be sent immediately.
  * Set $urgent parameter to false when delivery time is not so important, like newsletters, etc.
  * And set $urgent to true, when sending notification about purchase, etc.
- *
- *
  *
  * @param string $from Sender's e-mail address
  * @param string $fromName Sender's name
@@ -761,9 +764,9 @@ function ipAdminPermission($plugin, $action = NULL)
  * @param string $toName  Recipient's name
  * @param string $subject Message subject
  * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
- * @param bool $urgent
- * @param bool $html
- * @param null $files
+ * @param bool $urgent E-mail urgency
+ * @param bool $html HTML mode. Set to false for plain text mode.
+ * @param string|array|null $files Full pathname of the file to be attached or array of the pathnames.
  */
 function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
 {
@@ -772,15 +775,15 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
     $emailQueue->send();
 }
 
-
 /**
+ * Generate e-mail HTML using template
  *
- * Generate e-mail message HTML using given title, content, signature and footer
- * To send generated e-mail message HTML, use ipSendEmail() function.
+ * Generates e-mail message HTML using given template data, such as title, content, signature, footer, etc.
+ * To send a message generated using ipEmailTemplate() function, use ipSendEmail() function.
  *
- * This function uses the default template, located at Internal/Config/view/email.php. Override the default template
- * @param array $data Associative array with template content. Default template outputs HTML using following array elements 'title', 'content', 'signature', 'footer'
- * @return string E-mail in HTML format
+ * This function uses the default template, located at Internal/Config/view/email.php file. You can use your own template by overriding the default one.
+ * @param array $data Associative array with template content. Default template outputs HTML using following array elements: 'title', 'content', 'signature', 'footer'.
+ * @return string Generated e-mail message in HTML format
  */
 function ipEmailTemplate($data)
 {
@@ -788,9 +791,12 @@ function ipEmailTemplate($data)
 }
 
 /**
- * Get a view object from specified file and data
- * @param $file
- * @param array $data
+ * Get MVC view object
+ *
+ * Get a view object using specified view file and data array.
+ *
+ * @param $file MVC view file pathname
+ * @param array $data View's data
  * @return \Ip\View
  */
 function ipView($file, $data = array(), $_callerDepth = 0)
@@ -837,8 +843,9 @@ function ipView($file, $data = array(), $_callerDepth = 0)
 
 /**
  * Get CMS storage object
+ *
  * CMS storage is a key-value storage, where any plugin can store it's data.
- * @return \Ip\Storage
+ * @return \Ip\Storage Storage object
  */
 function ipStorage()
 {
@@ -891,6 +898,10 @@ function ipRelativeDir($callLevel = 0)
     return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
 }
 
+/**
+ * @param $path
+ * @return mixed
+ */
 function ipPath($path)
 {
     // Check if absolute path: '/' for unix, 'C:' for windows
@@ -912,7 +923,7 @@ function ipPath($path)
 /**
  * Get currently logged-in administrator ID
  *
- * @return int | bool Administrator ID. Returns false if administrator is not logged-in.
+ * @return int | bool Administrator ID. Returns false if not logged-in as administrator.
  */
 function ipAdminId()
 {
