@@ -237,7 +237,7 @@ function ipHead()
 /**
  * Set HTML layout file
  *
- * @param string $file Layout file name
+ * @param string $file Layout file name, e.g. "main.php".
  */
 
 function ipSetLayout($file)
@@ -274,7 +274,7 @@ function _ipPageStart(\Ip\Page $page)
 /**
  * Get current HTML layout
  *
- * @return string HTML layout, e.g., "main"
+ * @return string HTML layout, e.g., "main.php".
  */
 function ipGetLayout()
 {
@@ -289,8 +289,8 @@ function ipGetLayout()
 /**
  * Get CMS block object
  *
- * @param string $block Block name, e.g. "main"
- * @return \Ip\Block Block object
+ * @param string $block Block name, e.g. "main".
+ * @return \Ip\Block Block object.
  */
 function ipBlock($block)
 {
@@ -303,8 +303,8 @@ function ipBlock($block)
  *
  * See slot documentation pages for more details.
  *
- * @param string $slot Slot name
- * @param array|null $params Slot parameters
+ * @param string $slot Slot name.
+ * @param array|null $params Slot parameters.
  */
 function ipSlot($slot, $params = array())
 {
@@ -388,9 +388,9 @@ function ipDb()
 /**
  * Get escaped text string
  *
- * @param string $string Unescaped string
- * @param string $esc html|attr|textarea|url|urlRaw|raw or false
- * @return string Escaped string
+ * @param string $string Unescaped string.
+ * @param string|bool $esc String type "html"|"attr"|"textarea"|"url"|"urlRaw"|"raw" or false.
+ * @return string Escaped string.
  */
 function esc($string, $esc = 'html')
 {
@@ -412,8 +412,8 @@ function esc($string, $esc = 'html')
 
 /**
  * Get escaped HTML string
- * @param $string
- * @return string escaped string
+ * @param $string Unescaped HTML string.
+ * @return string Escaped string.
  */
 function escHtml($string)
 {
@@ -421,10 +421,10 @@ function escHtml($string)
 }
 
 /**
- * Get escaped text area content
+ * Get escaped HTML text area content
  *
- * @param $value
- * @return string escaped string
+ * @param $value Unescaped string, containing HTML <textarea> tag content.
+ * @return string Escaped string.
  */
 function escTextarea($value)
 {
@@ -433,8 +433,8 @@ function escTextarea($value)
 
 /**
  * Get escaped HTML attribute.
- * @param $value
- * @return string escaped string
+ * @param $value Unescaped HTML attribute.
+ * @return string Escaped string.
  */
 
 function escAttr($value)
@@ -443,18 +443,25 @@ function escAttr($value)
 }
 
 /**
- * Translate and escape string
+ * Translate and escape a string
  *
- * @param $text original value in English
- * @param $domain context, e.g. plugin name
- * @param string $esc escape type. Available values: false, 'html', 'attr', 'textarea'
- * @return string translated string or original string if no translation exists
+ * @param $text Original value in English.
+ * @param $domain Context, e.g. plugin name.
+ * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
+ * @return string Translated string or original string if no translation exists.
  */
 function __($text, $domain, $esc = 'html')
 {
     return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
 }
 
+/**
+ * Translate, escape and then output a string
+ *
+ * @param $text Original value in English.
+ * @param $domain Context, e.g. plugin name.
+ * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
+ */
 function _e($text, $domain, $esc = 'html')
 {
     echo __($text, $domain, $esc);
@@ -463,8 +470,8 @@ function _e($text, $domain, $esc = 'html')
 if (!function_exists('ipFile')) {
     /**
      * Gets absolute CMS file path
-     * @param $path
-     * @return mixed|string
+     * @param $path A path or a pathname.
+     * @return mixed|string Absolute path or pathname.
      */
     function ipFile($path)
     {
@@ -490,8 +497,8 @@ if (!function_exists('ipFile')) {
 if (!function_exists('ipFileUrl')) {
     /**
      * Gets URL by a file name
-     * @param $path
-     * @return mixed|string
+     * @param $path Relative file pathname.
+     * @return mixed|string File's URL address.
      */
     function ipFileUrl($path)
     {
@@ -510,7 +517,8 @@ if (!function_exists('ipFileUrl')) {
 
 /**
  * Generate URL-encoded query string
- * @param $query associative (or indexed) array
+ *
+ * @param $query Associative (or indexed) array
  * @return string URL string
  */
 function ipActionUrl($query)
@@ -521,8 +529,8 @@ function ipActionUrl($query)
 /**
  * Get URL address of current theme folder
  *
- * @param $path
- * @return mixed|string
+ * @param $path A path or a pathname relative to Theme/ directory.
+ * @return mixed|string Theme's URL path
  */
 function ipThemeUrl($path)
 {
@@ -532,8 +540,8 @@ function ipThemeUrl($path)
 /**
  * Gets the file path of the current theme folder
  *
- * @param $path
- * @return mixed|string
+ * @param $path  A path or a pathname relative to Theme/ directory.
+ * @return mixed|string Absolute path or pathname.
  */
 
 function ipThemeFile($path)
@@ -563,8 +571,8 @@ function ipHomeUrl()
 /**
  * Generate widget HTML
  *
- * @param $widgetName
- * @param array $data
+ * @param $widgetName Widget name.
+ * @param array $data Widget's data.
  * @param null $skin Widget skin name.
  * @return string Widget HTML.
  */
@@ -575,9 +583,10 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
 }
 
 /**
- * Get formatted currency string.
- * @param $price
- * @param $currency
+ * Get formatted currency string
+ *
+ * @param $price Numeric price. Multiplied by 100.
+ * @param $currency Three letter currency code. E.g. "EUR".
  * @param $context
  * @param null $languageId
  * @return string
@@ -589,7 +598,7 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
 }
 
 /**
- * Get formatted date string.
+ * Get formatted date string
  * @param $unixTimestamp
  * @param $context
  * @param null $languageId
@@ -601,7 +610,7 @@ function ipFormatDate($unixTimestamp, $context, $languageId = null)
 }
 
 /**
- * Gets formatted time string.
+ * Get formatted time string
  * @param $unixTimestamp
  * @param $context
  * @param null $languageId
@@ -613,7 +622,7 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
 }
 
 /**
- * Get formatted date-time string.
+ * Get formatted date-time string
  * @param $unixTimestamp
  * @param $context
  * @param null $languageId
@@ -640,8 +649,9 @@ function ipGetThemeOption($name, $default = null)
 
 /**
  * Get HTML attributes for <html> tag.
- * @param null $doctype
- * @return string
+ *
+ * @param int|null $doctype Doctype value. For constant value list, see \Ip\Response\Layout class definition.
+ * @return string A string with generated attributes for <html> tag.
  */
 function ipHtmlAttributes($doctype = null)
 {
@@ -674,6 +684,7 @@ function ipHtmlAttributes($doctype = null)
 
 /**
  * Get HTML document type declaration string
+ *
  * @param int|null $doctype Doctype value. For constant value list, see \Ip\Response\Layout class definition.
  * @return string Document type declaration string.
  * @throws Exception
@@ -718,7 +729,7 @@ function ipDoctypeDeclaration($doctype = null)
  *
  * @param $table SQL table name without prefix.
  * @param string|null $as SQL "as" keyword to be added.
- * @return string Actual SQL table name
+ * @return string Actual SQL table name.
  */
 function ipTable($table, $as = null)
 {
@@ -738,7 +749,7 @@ function ipTable($table, $as = null)
  *
  * Check if user has a right to access plugin's Admin controller.
  *
- * @param $plugin Plugin name
+ * @param $plugin Plugin name.
  * @return bool Returns true if user has plugin's administration permission.
  */
 function ipAdminPermission($plugin, $action = NULL)
