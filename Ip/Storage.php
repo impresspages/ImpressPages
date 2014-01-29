@@ -44,7 +44,7 @@ class Storage {
             return $defaultValue;
         }
 
-        return json_decode($jsonValue);
+        return json_decode($jsonValue, TRUE);
     }
 
 
