@@ -21,7 +21,6 @@ class Event
         //Form init
         ipAddJs('Ip/Internal/Ip/assets/form/form.js');
         ipAddJs('Ip/Internal/Ip/assets/validator.js');
-        ipAddJs('Ip/Internal/Ip/assets/form-validator/jquery.form-validator.min.js');
 
         $validatorTranslations = array(
             'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
