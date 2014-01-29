@@ -864,6 +864,12 @@ function ipStorage()
 }
 
 // TODOX move to internal
+/**
+ * @ignore
+ * @param int $callLevel
+ * @return string
+ * @throws Ip\Exception
+ */
 function ipRelativeDir($callLevel = 0)
 {
     if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
@@ -908,28 +914,6 @@ function ipRelativeDir($callLevel = 0)
 
     return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
 }
-
-/**
- * @param $path
- * @return mixed
- */
-function ipPath($path)
-{
-    // Check if absolute path: '/' for unix, 'C:' for windows
-    if ($path[0] == '/' || $path[1] == ':') {
-        return $path;
-    }
-
-    // Check if relative path to root
-    if (preg_match('%$(Plugin|Theme|file|Ip)/%', $path, $matches)) {
-
-    }
-
-    // Check if relative path to current path
-
-
-}
-
 
 /**
  * Get currently logged-in administrator ID
