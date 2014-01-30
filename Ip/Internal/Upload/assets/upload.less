@@ -1,0 +1,85 @@
+// File/Image upload tools
+.ipUploadProgressContainer {}
+.ipUploadProgressItem {
+    margin-bottom: 10px;
+}
+.ipUploadTitle {
+    color: #000;
+    font-size: 11px;
+    line-height: 22px;
+    margin-top: -22px;
+    padding: 0 5px;
+    text-shadow: 1px 1px 0 #fff;
+}
+.ipUploadProgressbar {
+    background: #ebebeb;
+    border: 1px solid #d3d3d3;
+    height: 20px;
+}
+.ipUploadProgressbar .ui-progressbar-value {
+    background: #019bd4;
+    border: 1px solid #018bbe;
+    height: 100%;
+    margin: -1px;
+}
+.ipUploadWindow {
+    position: relative;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.ipUploadWindow .ipUploadButtons {
+    background-color: rgba(0,0,0,.8);
+    margin: 9px;
+    padding: 3px;
+    position: absolute;
+    z-index: 99;
+}
+.ipUploadWindow .ipUploadProgressbar {
+    display: none;
+    margin-top: -11px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    z-index: 999;
+}
+.ipUploadWindow {
+    background: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=); // source: bg_upload.gif
+    overflow: hidden;
+    user-select: none;
+}
+.ipUploadWindow .ipUploadBrowseContainer {
+    float: left;
+}
+.ipUploadWindow .ipUploadImageButton {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABICAYAAABhlHJbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAytJREFUeNrsmb9rk0Ecxu+tRSh0CLpU2iEUO9UhujiajBnTvyCCHZSqZHZIMjgHf2CGCmZ1MWPGRDenZrBTikmgxTpYAgYDRX295/AtNbwm7497817o88Dxvu8lXK6fPt/7fu89y7ZtYbJefLj1Sl7uGzq9qvgL0DaxYW7P39+0TZ0f5rYgqFAiwJBanPUPnl9zLcsyDogMy7P7R3f26ECGMEP437A1MZzPh63fcKYDo3ZgKpUS9XpdJJPJQD+QyWQi/QNWry+J7afr4srK5WCF+uOOlvD6b7HY7XbtUqmkszg+k45CuvR2087evaa1OHaal+9OdSCcJwGq+0qlIvL5vGi328qZtVpNFAqFqWtelOsbnNd480Xdb+2sitvZq+LwYCTWpDM/Nr6Jdy+Ppq55XsqV0EkE8BKJhCiXywogGvrQxiHGkRAAb2l5UTRqx+Ko80NB3NpZU/3jEMMAC5xE4Lx+v68gAt5gMFDg0O9HgOs0nYLzTr6eSoiXFLzR8JcEd6j6/QhwnaYNoAOt1WqpcAY8CFf0p9Pp0CVNGDnQDva+q3AGPAhX9G+klkOXNKEAAhTWPMAaB4t+gI1TAIU1D7DGwaK/0x7GvxNBwnDWQQcentFvgpAwsOYBmgMPz+g3YiuH9Q5OlGWNaDab6opnJBUThEQxGv4UsqwRD59tqCuekVRmsc3yVQfKNS9QjYVxMJ7Q+ELVrQ6Ua16g+WEcjOenZpxaxuRyObUTKRaLof9ZvV5PjadTu08+q51INr8SeqyT41M1nlYHCr7S5yt9vg80/W2MDBXL4DlWZagYe6xpRX0uvPB6P8pz3erve5sPYkUYZRLB2Nbup8gWcYyN34izcQ1kEiFAAiRAHwknyqwtk4JqdCAdSBEgAc7RXnjCDsXzZ35P2SYlC7fP7O0bdOCFcqCboxzn6TjTdXOU4zxT3UYHEiABEiDlMYl4TSw6NU/Jgw4kQAIkQGo258JVucOI7FiTDpx38VyY58IMYQIkQIoACZAACZAiwHj2whN2KJ6l81zYdT48F75gDuTrezqQAAmQACkCJEACJECKAKPdifBcOLj+CDAAulbLLNylD0MAAAAASUVORK5CYII=) no-repeat; // source: icons_upload.png
+    display: block;
+    float: left;
+    height: 24px;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 24px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton {
+    background-position: 0 0;
+    width: 40px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton:hover {
+    background-position: -40px 0;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton {
+    background-position: 0 -24px;
+    margin-left: 3px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton:hover {
+    background-position: -24px -24px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton {
+    background-position: 0 -48px;
+    margin-left: 3px;
+}
+.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton:hover {
+    background-position: -24px -48px;
+}
