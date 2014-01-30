@@ -45,7 +45,7 @@ var ipContent;
                     if ($columnsWidget.length) {
                         deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
                             if (callback) {
-                                callback($newWidget.data('widgetinstanceid'));
+                                callback();
                             }
                         });
                     }
