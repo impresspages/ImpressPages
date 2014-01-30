@@ -1,0 +1,73 @@
+// style that interfere with theme styles and potentially may cause issues
+.ipWidget {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    min-height: 10px;
+}
+.ipWidget:hover {
+    outline: #4d4d4d dashed 1px;
+}
+.ipWidget:hover > .ip > .ipAdminWidgetControls {
+    border-color: #000;
+}
+.ipWidget:hover > .ip > .ipAdminWidgetControls .ipaButton,
+body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton { // todox: ipMobile class???
+    visibility: visible;
+}
+
+.ipAdminWidgetDrag {
+    height: 58px;
+    overflow: hidden;
+    margin-left: 100px;
+    width: 58px;
+    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+}
+.ipAdminWidgetMoveIcon {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAYAAADhu0ooAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAe5JREFUeNrsm89OwkAQxrdk9QGITRq5yDP4IF68yAmDB04ekUaOJZAePRgPGjlhTLj4HIZnKBdMk/UJSJo6gyXZrPwtQnfLfMmw2dKS/pj5dgvdWoyxI4hbiEsIh22gOI7LbI+yLCvY8JAQYgDxYMFLA07YZzkWfEENBB0C6HnOQYcc2qK8sdVq3fR6vevxeHya5kP/q5xTlOlUpVLpq1qtvnqe9yxtLnJ5J9d1691u987k7GGC2u32fRRFvNPpPMnvBZAFzASzbftT7psayIAscr8gEwshTvLiS5WFrzpgW8/uWgs8OVeBnGK532w268m2WPMI8FwXcST9xaCJZ2MTQvWkysXXrfPkAB3nyLXGlwI7EBEogZoKuu+fWlkIGal0CZRA9RbP8j+gXQ4+VLoESqAESqAESqAESqAESqAESqAESqBZgeLt9LS31HXSPA4qXQIlUM1B8zD4rDM4UekSKIHqraWrUmzb/hZCnCWG1hoEzzV1Rmu12gs0IwMSNsLVY6kziqsjJ5PJcb/fvwrD0NGR0HGcsFKpvPm+/7h0imG/K6zKs/kGW9NvH6ocf+bRVXVuklQWrnoSFyZvc7WU9QrsmVTPctM8mdazB/PwAHr0/QCuFwaYUXzApwFxgR7Owo879K2A+IDwfwQYAKu03z6zSpuwAAAAAElFTkSuQmCC) no-repeat; // source: img/icon_drag.png
+    height: 58px;
+    width: 58px;
+    z-index: 5000;
+}
+
+.ipAdminWidgetPlaceholder {
+    background: #bdeaf9;
+    outline: #5abee3 dashed 1px;
+    height: 1px;
+    margin-top: -6px;
+    margin-bottom: 5px;
+}
+
+// todox: rename to follow naming convention
+.widgetDropPlaceholderVertical, .widgetDropPlaceholderHorizontal{
+    background-color: transparent;
+    /*    background-color: red;
+        opacity: 0.1;
+        border: 1px solid #ccc;*/
+}
+
+.widgetDropPlaceholderVertical .widgetDropMarker {
+    display: none;
+    width: 1px;
+    background-color: #2baeff;
+}
+
+.widgetDropPlaceholderHorizontal .widgetDropMarker {
+    display: none;
+    height: 1px;
+    background-color: #2baeff;
+}
+
+.widgetDropPlaceholder.hover {
+    /*background-color: #000;*/
+}
+
+.widgetDropPlaceholderVertical.hover .widgetDropMarker,
+.widgetDropPlaceholderHorizontal.hover .widgetDropMarker{
+    display: block;
+}

@@ -29,9 +29,9 @@ function ipSecurityToken()
  * Get CMS option value
  *
  * Options can be viewed or changed using administration pages. You can use this function to get your plugin settings.
- * @param string $option Option name. Option names use syntax PluginName.optionName.
- * @param mixed|null $defaultValue Default value. Returned if option is not set.
- * @return mixed Option
+ * @param string $option Option name. Option names use syntax "PluginName.optionName".
+ * @param mixed|null $defaultValue Default value. Returned if the option was not set.
+ * @return mixed Option value.
  */
 function ipGetOption($option, $defaultValue = null)
 {
@@ -41,10 +41,10 @@ function ipGetOption($option, $defaultValue = null)
 /**
  * Get language specific CMS option value
  *
- * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param string $option Option name. Option names use syntax "PluginName.optionName".
  * @param int $languageId Language ID.
- * @param mixed|null $defaultValue Default value. Returned option is not set.
- * @return mixed Option value
+ * @param mixed|null $defaultValue Default value. Returned if the option was not set.
+ * @return mixed Option value.
 */
 
 function ipGetOptionLang($option, $languageId, $defaultValue = null)
@@ -55,9 +55,9 @@ function ipGetOptionLang($option, $languageId, $defaultValue = null)
 /**
  * Set CMS option value
  *
- * Options can be viewed or changed using administration pages. You can use this function to set your plugin settings.
+ * You can use this function to set your plugin settings. Also, options can be viewed or changed using administration pages.
  *
- * @param string $option Option name. Option names use syntax PluginName.optionName.
+ * @param string $option Option name. Option names use syntax "PluginName.optionName".
  * @param mixed $value Option value.
  */
 function ipSetOption($option, $value)
@@ -130,7 +130,7 @@ function ipContent()
  *
  * Use this object to get information about current page, language, zone.
  *
- * @return \Ip\CurrentPage Current page object
+ * @return \Ip\CurrentPage Current page object.
  */
 function ipCurrentPage()
 {
@@ -272,7 +272,7 @@ function _ipPageStart(\Ip\Page $page)
 }
 
 /**
- * Get current HTML layout
+ * Get current HTML layout name
  *
  * @return string HTML layout, e.g., "main.php".
  */
@@ -339,8 +339,8 @@ function ipRequest()
 /**
  * Trigger an event
  *
- * @param string $event Event name, e.g. "MyPlugin_myEvent"
- * @param array $data Array with event data
+ * @param string $event Event name, e.g. "MyPlugin_myEvent".
+ * @param array $data Array with event data.
  * @return \Ip\Dispatcher Event dispatcher object.
  */
 function ipEvent($event, $data = array())
@@ -351,10 +351,12 @@ function ipEvent($event, $data = array())
 /**
  * Filter data
  *
- * @param string $event Filter name, e.g. "MyPlugin_myFilter"
- * @param mixed $value Data to filter.
+ * Fires an event for transforming a value.
+ *
+ * @param string $event Filter name, e.g. "MyPlugin_myFilter".
+ * @param mixed $value Value to filter.
  * @param array $data Context array.
- * @return mixed Filtered data.
+ * @return mixed Filtered value.
  */
 function ipFilter($event, $value, $data = array())
 {
@@ -366,7 +368,7 @@ function ipFilter($event, $value, $data = array())
  *
  * @param $eventName Job event name, e.g. "MyPlugin_myJob"
  * @param array $data Data for job processing.
- * @return mixed|null Job result.
+ * @return mixed|null Job result value.
  */
 function ipJob($eventName, $data = array())
 {
@@ -518,8 +520,8 @@ if (!function_exists('ipFileUrl')) {
 /**
  * Generate URL-encoded query string
  *
- * @param $query Associative (or indexed) array
- * @return string URL string
+ * @param $query Associative (or indexed) array.
+ * @return string URL string.
  */
 function ipActionUrl($query)
 {
@@ -552,7 +554,7 @@ function ipThemeFile($path)
 /**
  * Get homepage URL
  *
- * @return string Homepage URL address
+ * @return string Homepage URL address.
  */
 function ipHomeUrl()
 {
@@ -587,9 +589,9 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  *
  * @param $price Numeric price. Multiplied by 100.
  * @param $currency Three letter currency code. E.g. "EUR".
- * @param $context
- * @param null $languageId
- * @return string
+ * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param null $languageId Language ID.
+ * @return string A currency string in specific country format.
  */
 
 function ipFormatPrice($price, $currency, $context, $languageId = null)
@@ -599,10 +601,11 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
 
 /**
  * Get formatted date string
- * @param $unixTimestamp
- * @param $context
- * @param null $languageId
- * @return bool|mixed|null|string
+ *
+ * @param $unixTimestamp Unix timestamp.
+ * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param null $languageId Language ID.
+ * @return string|null A date string formatted according to country format.
  */
 function ipFormatDate($unixTimestamp, $context, $languageId = null)
 {
@@ -611,10 +614,11 @@ function ipFormatDate($unixTimestamp, $context, $languageId = null)
 
 /**
  * Get formatted time string
- * @param $unixTimestamp
- * @param $context
- * @param null $languageId
- * @return bool|mixed|null|string
+ *
+ * @param $unixTimestamp Unix timestamp.
+ * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param null $languageId Language ID.
+ * @return string|null A time string formatted according to country format.
  */
 function ipFormatTime($unixTimestamp, $context, $languageId = null)
 {
@@ -623,10 +627,11 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
 
 /**
  * Get formatted date-time string
- * @param $unixTimestamp
- * @param $context
- * @param null $languageId
- * @return bool|mixed|null|string
+ *
+ * @param $unixTimestamp Unix timestamp.
+ * @param $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param null $languageId Language ID.
+ * @return bool|mixed|null|string A date-time string formatted according to country format.
  */
 function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 {
@@ -635,10 +640,11 @@ function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 
 /**
  * Get a theme option value.
+ * 
  * Theme options ar used for changing theme design. These options can be managed using administration page.
- * @param $name
- * @param null $default
- * @return string
+ * @param $name Option name.
+ * @param mixed|null $default A value returned if the option was not set.
+ * @return string Theme option value.
  */
 
 function ipGetThemeOption($name, $default = null)
@@ -794,7 +800,7 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
  *
  * This function uses the default template, located at Internal/Config/view/email.php file. You can use your own template by overriding the default one.
  * @param array $data Associative array with template content. Default template outputs HTML using following array elements: 'title', 'content', 'signature', 'footer'.
- * @return string Generated e-mail message in HTML format
+ * @return string Generated e-mail message in HTML format.
  */
 function ipEmailTemplate($data)
 {
@@ -864,6 +870,12 @@ function ipStorage()
 }
 
 // TODOX move to internal
+/**
+ * @ignore
+ * @param int $callLevel
+ * @return string
+ * @throws Ip\Exception
+ */
 function ipRelativeDir($callLevel = 0)
 {
     if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
@@ -908,28 +920,6 @@ function ipRelativeDir($callLevel = 0)
 
     return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
 }
-
-/**
- * @param $path
- * @return mixed
- */
-function ipPath($path)
-{
-    // Check if absolute path: '/' for unix, 'C:' for windows
-    if ($path[0] == '/' || $path[1] == ':') {
-        return $path;
-    }
-
-    // Check if relative path to root
-    if (preg_match('%$(Plugin|Theme|file|Ip)/%', $path, $matches)) {
-
-    }
-
-    // Check if relative path to current path
-
-
-}
-
 
 /**
  * Get currently logged-in administrator ID

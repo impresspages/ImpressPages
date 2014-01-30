@@ -173,7 +173,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   `created` int(11) NOT NULL COMMENT 'unix timestamp',
   `deleted` int(11) DEFAULT NULL COMMENT 'unix timestamp',
-  `columns` text,
   PRIMARY KEY (`instanceId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
