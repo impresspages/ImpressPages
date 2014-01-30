@@ -1,5 +1,13 @@
 // style that interfere with theme styles and potentially may cause issues
 .ipWidget {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
     min-height: 10px;
 }
 .ipWidget:hover {
