@@ -38,7 +38,7 @@
                             var $button = $(e.currentTarget);
                             var $result = $button.clone();
                             $result.find('span').remove();
-                            $result.css('paddingTop', '15px');
+                            $result.css('padding-top', '15px');
                             return $result;
                         },
                         opacity: 0.45,
@@ -46,6 +46,13 @@
                         stop: function(event, ui) {
                         },
                         start: function (event, ui) {
+                            // fixing dragging from fixed element while scrolling
+                            $(this).data("startingScrollTop", $('body').scrollTop());
+                        },
+                        drag: function(event, ui){
+                            // fixing dragging from fixed element while scrolling
+                            var start = parseInt($(this).data("startingScrollTop"));
+                            ui.position.top -= $('body').scrollTop() - start;
                         }
                     });
 
@@ -54,10 +61,10 @@
                     });
 
                 }
-                    
+
                 $this.find('a').bind('click', function () {return false;} );
-                
-                
+
+
 
             });
         },
@@ -65,7 +72,7 @@
             // TODO
         }
 
-        
+
     };
 
     $.fn.ipAdminWidgetButton = function(method) {
