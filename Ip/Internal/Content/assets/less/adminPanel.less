@@ -1,19 +1,6 @@
-// todox: refactor file and separate all styles to their modules
 .ipAdminPanel {
     font: 14px Arial, Helvetica, sans-serif;
 }
-.ipAdminPanelContainer:after,
-.ipAdminPanelContainer:before,
-.ipAdminWidgets:after,
-.ipWidget:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-
-
 .ipAdminLabel {
     color: #000;
     display: block;
@@ -86,7 +73,7 @@
     box-shadow: none;
 }
 .ipAdminButton.ipaRevisions span {
-    background: url(../img/icon_down2.png) no-repeat center center;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHCAYAAAA8sqwkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAD1JREFUeNpi/A8EDEQCRhAAMYjRBFRaCaZhAvg0wRQDQQcjsgQ2TciKUWzApgldMU4A1VQBxUQDrIoBAgwAFhQc4kTHYtgAAAAASUVORK5CYII=) no-repeat center center; // source: img/icon_down2.png
     display: inline-block;
     width: 12px;
 }
@@ -110,7 +97,7 @@
     padding: 0;
 }
 .ipAdminButton.ipaOptions span {
-    background: url(../img/icon_options.png) no-repeat center center;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAfpJREFUeNpi/P//PwM2YGDk8B5EXzh3QJABB2CBKhQAUSC1QMUfoHIfBAUFRID0XCBOBqoxgBp2AUUzEBQAcb2srPQ0a1uvh1+/fssE8hXev//AYO/oF/Lx46fLQH4/VK0iED9A1nxBRET46v9//6OAGkGuYJCQEH/DwszM8uTpMwGYRgMDnadAqgOII0B8JqhTNkhIiO0CKRQXF301c0bfzh3bVu7dsnnZzIkT2ubLSEuBvaKvp/0KSJ2GexoUYCCsb2h/H4j/nzh5dgeQ3wHECjC5iqpmL5Cco3PAFyDfCybOCBQEhSrIZAWQU0E2AtkVMH/BgJmF69Vfv35r8fPzfQKGwT9QLICdDQ1VBpAfoZoeoEcLUOMvEM0MBOzs7JzgWIA6Ya6dg+9HkNMOHDw6D+YsJC8ZgOSAaj4A+SuAeDJIDxPU4GSgU+pBjO7uKYGV1S1eSIkFFL/zQewAf897QOo1EOeC9MASSQCQ8ufl5bkHDHElIN66d+/Ba1CnGsAMunjpqhiQ2g7jw2wGKXCwMDd+FBLst1dISPArKHBA4sAA+hgfF34eHKUXrkgDKU2UqAL6R2Da9Hn1r9+8XQvkh4CiAxQG0KgB+3HxklU50GhcAQsL5IDhBmItKA0y8L2ZhdsPaODA1Cggxz8jrlwFBXNhAYpNEiDAAFIVNtzMBDvFAAAAAElFTkSuQmCC) no-repeat center center; // source: img/icon_options.png
     display: inline-block;
     padding: 0 16px;
 }
@@ -118,7 +105,7 @@
     padding: 0;
 }
 .ipAdminButton.ipaPreview span {
-    background: url(../img/icon_preview.png) no-repeat center center;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAASCAYAAACw50UTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAk5JREFUeNpi1De0/89AGXC8cO7AAWwSLCCiq7N+v5ur4ytSTTUwcggH6q0DMkF6r2E1HAqasCnAB4Aujnjz9t1aXPIsFAYJg4iwUDCQ4qbIcGAQCACpACBWQBL+AMQHgD64QJbhQENBhtUDcQKILyDAf4GFhYUVxP727ZvYt2/f+41NnZ/8/fu3FmjJAmS9TAQMbgBS95mYmJxDgv0WzZzRtxPIVn3z5q02CAPFjk6Z3LnCwtz4N1DdfAcn//NQx+B2OTQI9oOYtrYWCyZP7OAEsj9Z23pbff36FR6+ixavDODl5UmZOqWrcuu23anTp8/P+v7t+/Wo6LTIZUtnbcDl8n6QwUmJUdugBi8C4lygwSroCuXlZaJBtLeXa7Wrq4MvByfHz2vXb60HCmnhCvNCISFBl3nzl3lduHBlyry5k7bBUh/IUmSF/Pz8v4AUF9C3IPHJjIyMDKCgArLrmHCk3w/79qzX8HB3Onru/KUcCyuPF0DNoAhN5Ofn+whTl5OdcgpE2zv6NQKp8xwcHD8WL5y23Mba/BuQX8EIyv7QHJqDLRMdOHg0c/XqjaVHj51SBPGBBpyQlBSXZQWmGGAG4n737j03MzPzk8AA73011UXsUDOmA/FrgknRwd56OhCvefz4aezOXfvDnz1/wfv50+fbIDltbY0fzs52H4AuZQRFOBCvAeKDpGai17Ky0n0pyTEzgWwTIBZFkvsGde0DSrP/V2SXwZItKI6wKWaipFwBGvwfmnqwli2MlJbn+BIDC9BLoMhYwUADABBgAJH1209CZ8AmAAAAAElFTkSuQmCC) no-repeat center center; // source: img/icon_preview.png
     display: inline-block;
     padding: 0 16px;
 }
@@ -129,7 +116,7 @@
     height: 30px;
 }
 .ipAdminButton.ipaDropdown span {
-    background: url(../img/icon_down.png) no-repeat center center;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAYAAACXU8ZrAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADFJREFUeNpi1De0/89AADABMSMBNYxMMAYuBWCTLpw7wIBDISOydQxYFMIVgOQAAgwAJ7gIyoILvpIAAAAASUVORK5CYII=) no-repeat center center; // source: img/icon_down.png
     display: inline-block;
     width: 9px;
 }
@@ -137,8 +124,10 @@
     background-color: #c0c0c0;
 }
 
-/* draggable widgets and controls */
-.ipAdminPanelContainer {/* see clearing option above */}
+// draggable widgets and controls
+.ipAdminPanelContainer {
+    .clearfix();
+}
 .ipAdminPanel {
     background-color: #fff;
     border-bottom: 1px solid #000;
@@ -150,6 +139,7 @@
     z-index: 1000;
 }
 .ipAdminWidgets {
+    .clearfix();
     margin: 10px 250px 10px 0;
     position: relative;
     -webkit-box-sizing: border-box;
@@ -163,7 +153,7 @@
 }
 
 .ipAdminWidgetsScroll {
-    background: url(../img/icons_scroll.png) no-repeat;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat; // source: img/icons_scroll.png
     display: block;
     height: 100%;
     position: absolute;
@@ -210,7 +200,7 @@
 }
 .ipAdminWidgets ul {
     list-style: none;
-    margin-left: -24px; /* to compensate left margin of first item */
+    margin-left: -24px; // to compensate left margin of first item
     position: relative;
 }
 .ipAdminWidgets li {
@@ -237,10 +227,10 @@
     width: 51px;
 }
 .ipAdminWidgets .ipActionWidgetButton {
-    padding-bottom: 18px; /* to push widget button down to keep space for title */
+    padding-bottom: 18px; // to push widget button down to keep space for title
 }
 .ipActionWidgetButton.ui-draggable-dragging {
-    z-index: 99999; /* draggable object must have the highest z-index to be always on top of everything else */
+    z-index: 99999; // draggable object must have the highest z-index to be always on top of everything else // todox: use global zIndex variable
 }
 .ipAdminWidgets li .ipaTitle {
     left: -12px;
@@ -394,154 +384,7 @@
     padding-bottom: 1px;
 }
 
-.ipAdminWidgetControls {
-    border: 1px solid transparent;
-    float: left;
-    max-height: 10px;
-    margin: -10px 0 0 -1px;
-    position: absolute;
-}
-.ipAdminWidgetControls .ipaButton {
-    background: #3b3b3b;
-    background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
-    display: block;
-    float: left;
-    font-weight: normal;
-    padding: 2px 0;
-    text-decoration: none;
-    visibility: hidden;
-}
-.ipAdminWidgetControls .ipaButton:hover {
-    background: #2e2e2e;
-}
-.ipAdminWidgetControls .ipaButton span {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAACKCAYAAACq5Wo+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABN1JREFUeNrsmVtoE00UgGejDRTFaLRYHxSKQgv+YH3zQSpS0SiCiJc3FXzriw+FQiQQKLRUAgURjJcHQUEEEUQUqYi3JxGFisbbUyE2pv/vb02kgmko6znbme1kLzM701Ur7IHDNju7355z5sycmY5hmiYJU2IkZFn4QJQ8qKmoeYy9lxr4gGrHGIaBLxlebYt13QJoC1x66M9z8IHPrM1UFeZ2Nps1UWnYWpinSrByuWwBEcSEhxKNDjH7+/tdH6LQ7GJqojRmpVKJDA4OktbWVgIvu9qr1ap1CeTy+Pi42dPTYw4MDHi29/b2MpfjUqACrDlQp4hgfX19DTApsFarmfF4XAZbyo8UqYVe7el02hOmBaQw1ITXWJbONhBDa+wypemBL1c9h2TYk0P401dUUyKgnhQ08rAgLKNnnmxWsuDEtlHfkRKbRxntAH1ItSOMGN5IHWvdjop/M6hyof82WbeuANq45/gadnvjyOUJhB40aJCVBEEAbLh391KZAPSRZWGQTqn+Xyf3rkyQZSubXDCUH99n8FIJ5DKDLW9pIjuPuGE3z5bI4xuf38CfR2NhwB5d/w9hXZBKU1KgCHbrfANsUpo2M3WTPL37xRf24JoF62YwKXBRk2FBnXL74ice9u+8RgrC7l+1GLudsECJvXXfKmvs8r9pGf3oW0bDnBzCn76iMrrwgNI8hElzHd0xTdId05TwBb/up73fhiutoaEhfgmcFL4jgG1AQC6Xs1evmUymYRumChwG8d0xaVuYSCRcm8bAFmJ8QDMsTrgwdwL9nnUB6U4yz+IUAJj3iilrTLD9L+earQ6XG+5zW9sED0zj/kNX6N4lze9T0DXt0ZFMJllMbQtxNORZmqi4jO9Ql9ucnWInctBO4WAb/NIGh1rO/poYiAYM8zBZYrcLErtdZ6ScBnH1KN7DNh1gu3NyYPHVspCfvhDEwdpE70irHkywbY5/SY0Jn4/K6F8IhF7eAvoU9A7oailRkodduNIa2k/Mvp2zqy7Q9bpltBsBuQPw88KsZvbY0A4d4IvhQ3Mwptm9FvShtoWJ5jkYW2yKLIw5OmA96H28QuMDXJh7xPwf0Pf8s569TLentyBOO/Dq24sX7aW1/Sy/X2burUVXMD6ca3O144L/fRpTDMNae7aBL4ykU2QXpIeWnLxJyKkRcg9Yqbky2qw/OpJLrMsK3uUtaDZLExWX8R3qcpezjNqJzPYhGBdn2sCVPV/gYN1+ZRSH2jP7a17ARgNe8DBZYqcEiZ3SGSmjpw+7hx7ewzYdYMo5ObD4alnIT18I4mBdWtOXR0c9k8Gi3WgEDAsIk20e1KSaD+Ww1W8bITql0DpslZ2j/LIYnuOPiESKzwZaLIHU8MjNTyqVCj5UkcWPXzkUQYTnonhRSZvQgSX6kqfQjxX/qIVCYOgW6gCFMVRxmXhttJ2CbcTncNW36kmONPNBYFHVi4ALuYwWuDJa0IG6TivMzs2WqpxSNJbRzmDnKcbL0d9fRlUPaAqBJgfsgNqmThI3vL2pzsyQ5a9f4UwWC9rL9eL0tP8EW7dObKdV0maqWJcCp1SAX0vTdf+aMmv9FxVgOYCFEyrAsaLIwtmPjakAP4gspC6/UwG+FcWQuvxWBfg8QAxfBq7LbMs/nxESldHw5KcAAwDML0MCz/XTvgAAAABJRU5ErkJggg==) no-repeat; // source: img/icons_controls.png
-    border-left: 1px dotted #000;
-    color: #fff;
-    display: block;
-    float: left;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 11px;
-    height: 10px;
-    line-height: 10px;
-    text-decoration: none;
-}
-.ipAdminWidgetControls .ipaButton:first-child span {
-    border-left: none;
-}
-.ipAdminWidgetControls .ipActionWidgetManage span {
-    background-position: 5px 0;
-    padding: 0 9px 0 28px;
-}
-.ipAdminWidgetControls .ipActionWidgetManage:hover span {
-    background-position: 5px -23px;
-}
-.ipAdminWidgetControls .ipActionWidgetMove span {
-    background-position: center -46px;
-    cursor: move;
-    overflow: hidden;
-    text-indent: -999px;
-    width: 50px;
-}
-.ipAdminWidgetControls .ipActionWidgetMove:hover span {
-    background-position: center -69px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete span {
-    background-position: 7px -92px;
-    padding: 0 9px 0 26px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete:hover span {
-    background-position: 7px -115px;
-}
-
-/* File/Image upload tools */
-.ipUploadProgressContainer {}
-.ipUploadProgressItem {
-    margin-bottom: 10px;
-}
-.ipUploadTitle {
-    color: #000;
-    font-size: 11px;
-    line-height: 22px;
-    margin-top: -22px;
-    padding: 0 5px;
-    text-shadow: 1px 1px 0 #fff;
-}
-.ipUploadProgressbar {
-    background: #ebebeb;
-    border: 1px solid #d3d3d3;
-    height: 20px;
-}
-.ipUploadProgressbar .ui-progressbar-value {
-    background: #019bd4;
-    border: 1px solid #018bbe;
-    height: 100%;
-    margin: -1px;
-}
-.ipUploadWindow {
-    position: relative;
-}
-.ipUploadWindow .ipUploadButtons {
-    background-color: rgba(0,0,0,.8);
-    margin: 9px;
-    padding: 3px;
-    position: absolute;
-    z-index: 99;
-}
-.ipUploadWindow .ipUploadProgressbar {
-    display: none;
-    margin-top: -11px;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    z-index: 999;
-}
-.ipUploadWindow {
-    background: url(../img/bg_upload.gif);
-    overflow: hidden;
-    user-select: none;
-}
-.ipUploadWindow .ipUploadBrowseContainer {
-    float: left;
-}
-.ipUploadWindow .ipUploadImageButton {
-    background: url(../img/icons_upload.png) no-repeat;
-    display: block;
-    float: left;
-    height: 24px;
-    overflow: hidden;
-    text-indent: -999px;
-    width: 24px;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton {
-    background-position: 0 0;
-    width: 40px;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadBrowseButton:hover {
-    background-position: -40px 0;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton {
-    background-position: 0 -24px;
-    margin-left: 3px;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadLargerButton:hover {
-    background-position: -24px -24px;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton {
-    background-position: 0 -48px;
-    margin-left: 3px;
-}
-.ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton:hover {
-    background-position: -24px -48px;
-}
-
-/* Widget: Columns */
-.ipWidget-Columns .ipwCol{
-    margin-top: 20px; /* todox: remove */
-}
-
-
-/* vendor specific styles; to remove in the future */
+// vendor specific styles; to remove in the future
 .ipAdminButton {
     background: -moz-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
     background: -webkit-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
@@ -568,80 +411,3 @@
     background: -moz-linear-gradient(top, #3b3b3b 0%, #212121 100%);
     background: -webkit-linear-gradient(top, #3b3b3b 0%, #212121 100%);
 }
-.ipUploadWindow {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-}
-/* Error messages */
-.ipAdminError {
-    padding: 5px;
-    color: #f00;
-    border-bottom: 1px #ccc solid;
-    margin: 0;
-}
-.ipAdminErrorSample {
-    display: none;
-}
-
-/* To be removed */
-.ui-dialog {
-    font-size: 12px;
-}
-.ui-widget .error {
-    display: none;
-}
-.ui-widget form label {
-    color: #797979;
-    display: block;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 4px;
-}
-.ui-widget form label.small {
-    color: #797979;
-    display: inline;
-    font-size: 12px;
-    font-weight: normal;
-}
-.ui-widget form p.field {
-    margin-bottom: 15px;
-}
-.ui-widget form .error {
-    background-color: #FFF5E1;
-    border: 1px solid #EFA6A7;
-    color: #E73031;
-    display: none;
-    margin-bottom: 2px;
-    padding: 4px;
-    width: 492px;
-}
-.ui-widget form input,
-.ui-widget form textarea {
-    border: 1px solid #C0C0C0;
-    font-size: 12px;
-    margin-bottom: 2px;
-    text-align: left;
-    vertical-align: middle;
-    width: 500px;
-}
-.ui-widget form input.stdModBox {
-    width: auto;
-}
-.ui-widget form .submit {
-    background-color: #FCEAC9;
-    border: 1px solid #FFBB44;
-    color: #264971;
-    font-weight: bold;
-    height: 22px;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: auto;
-}
-
-
-.ipmAdd {
-    float: left;
-}
-
