@@ -36,8 +36,18 @@
                         <div class="tab-pane" id="ipWidgetFormPopup-options">
                             <div class="ipaOptions">
                                 <label class="ipAdminLabel"><?php _e('Thank you message', 'ipAdmin'); ?></label>
-                                <textarea class="ipWidgetFormSuccess"><?php echo isset($success) ? esc($success, 'textarea') : ''; ?></textarea>
+                                <div class="ipWidgetFormSuccess ipsSuccess"><?php echo !empty($success) ? $success : ''; ?></div>
                             </div>
+                            <div class="ipaOptions">
+                                <label class="ipAdminLabel"><?php _e('Send to', 'ipAdmin'); ?></label>
+                                <label><input type="radio" name="sendTo" value="default" /><?php _e('Website\'s email', 'ipAdmin') ?> (<?php echo ipGetOption('Config.websiteEmail'); ?>)</label><br/>
+
+                                <br/>
+                                <label><input type="radio" name="sendTo" value="custom" /><?php _e('Custom emails separated by space', 'ipAdmin') ?></label><br/>
+                                <input type="text" name="emails" value="<?php echo isset($customEmails) ? esc($customEmails, 'attr') : ''; ?>" />
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
