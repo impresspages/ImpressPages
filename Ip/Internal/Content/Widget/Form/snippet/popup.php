@@ -28,7 +28,6 @@
                                     <a href="#" class="ipsFieldOptions"><?php _e('Options', 'ipAdmin') ?></a>
                                     <a href="#" class="ipsFieldRemove"><?php _e('Remove', 'ipAdmin') ?></a>
                                 </div>
-                                <div class="ipsFieldOptionsPopup"></div>
                             </div>
                             <button type="button" class="btn btn-default ipsFieldAdd"><?php _e('Add new', 'ipAdmin') ?></button>
                         </div>
@@ -58,4 +57,21 @@
             </div>
         </div>
     </div>
+    <div id="ipWidgetFormPopupOptions" class="ipsFieldOptionsPopup modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><?php echo __('Field options', 'ipAdmin') ?></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'ipAdmin') ?></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
