@@ -133,7 +133,7 @@ class ReflectionModel
         $transformFingerprint = $transform->getFingerprint();
         $this->storeReflectionRecord($source, $relativeDestinationDir . $destinationFileName, $transformFingerprint);
 
-        return $relativeDestinationPath;
+        return $relativeDestinationDir . $destinationFileName;
     }
 
 
