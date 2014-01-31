@@ -56,15 +56,14 @@
 
                     $this.find('.ipsFieldLabel').val(data.label);
                     $this.find('.ipsFieldType').val(data.type);
-                    $this.find('.ipsFieldType').bind('change', function() {$(this).trigger('changeType.ipWidget_ipForm', [$(this).val()]);});
-                    $this.bind('changeType.ipWidget_ipForm', function(e, type) {
-                        $(this).ipWidget_ipForm_field('setType', type);
+                    $this.find('.ipsFieldType').on('change', function (e) {
+                        $.proxy(setFieldType, $this)($(this).val());
                     });
 
-                    $(this).ipWidget_ipForm_field('setType', data.type);
+                    $.proxy(setFieldType, $this)(data.type);
 
                     if (options.options) {
-                        $this.ipWidget_ipForm_field('setOptions', options.options);
+                        $.proxy(setOptions, $this)(options.options);
                     }
 
                     if (options.required && options.required != 0) {
@@ -82,28 +81,7 @@
             });
         },
 
-        openOptionsPopup : function () {
-            var $this = this;
-            var data = $this.data('ipWidget_ipForm_field');
-            var $thisForEvent = $this;
-            data.optionsPopup.bind('saveOptions.ipWidget_ipForm', function(e,options){
-                $this = $(this); //we are in popup context
-                $this.unbind('saveOptions.ipWidget_ipForm');
-                $thisForEvent.ipWidget_ipForm_field('setOptions', options);
-            });
 
-            data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type, $this.ipWidget_ipForm_field('getOptions'));
-        },
-
-        setOptions : function (options) {
-            var $this = this;
-            var data = $this.data('ipWidget_ipForm_field');
-            if (!data.options) {
-                data.options = {};
-            }
-            data.options[$this.ipWidget_ipForm_field('getType')] = options; //store separte options for each type. Just to avoid accidental removal of options on type change
-            $this.data('ipWidget_ipForm_field', data);
-        },
 
         getOptions : function () {
             var $this = $(this);
@@ -127,19 +105,6 @@
             return $this.find('.ipsFieldType').val();
         },
 
-        setType : function(type) {
-            var $this = this;
-            var data = $this.data('ipWidget_ipForm_field');
-            if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
-                $this.find('.ipsFieldOptions').css('visibility', 'visible');
-                $this.find('.ipsFieldOptions').bind('click', function() {$(this).trigger('optionsClick.ipWidget_ipForm'); return false;});
-                $this.bind('optionsClick.ipWidget_ipForm', function() {$(this).ipWidget_ipForm_field('openOptionsPopup');});
-            } else {
-                $this.find('.ipsFieldOptions').css('visibility', 'hidden');
-            }
-            data.type = type;
-            $this.data('ipWidget_ipForm_field', data);
-        },
 
         getStatus : function() {
             var $this = this;
@@ -159,6 +124,46 @@
             var $this = $(this);
             return $this.find('.ipsFieldRequired').is(':checked');
         }
+    };
+
+    var openOptionsPopup = function () {
+        var $this = $(this);
+        var data = $this.data('ipWidget_ipForm_field');
+        var $fieldContext = $this;
+        data.optionsPopup.bind('saveOptions.ipWidget_ipForm', function(e,options){
+            $this = $(this); //we are in popup context
+            $this.unbind('saveOptions.ipWidget_ipForm');
+            $.proxy(setOptions, $fieldContext)(options);
+        });
+
+        data.optionsPopup.ipWidget_ipForm_options('showOptions', data.type, $this.ipWidget_ipForm_field('getOptions'));
+    };
+
+
+
+    var setFieldType = function (type) {
+        var $this = this;
+        var data = $this.data('ipWidget_ipForm_field');
+        if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
+            $this.find('.ipsFieldOptions').css('visibility', 'visible');
+            $this.find('.ipsFieldOptions').on('click', $.proxy(openOptionsPopup, this));
+        } else {
+            $this.find('.ipsFieldOptions').css('visibility', 'hidden');
+        }
+        data.type = type;
+        $this.data('ipWidget_ipForm_field', data);
+    };
+
+
+    var setOptions = function (options) {
+        var $this = this;
+
+        var data = $this.data('ipWidget_ipForm_field');
+        if (!data.options) {
+            data.options = {};
+        }
+        data.options[$this.ipWidget_ipForm_field('getType')] = options; //store separte options for each type. Just to avoid accidental removal of options on type change
+        $this.data('ipWidget_ipForm_field', data);
     };
 
     $.fn.ipWidget_ipForm_field = function(method) {

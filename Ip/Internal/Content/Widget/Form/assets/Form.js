@@ -52,7 +52,7 @@ var IpWidget_Form;
 
             options.fieldTemplate = this.modal.find('.ipsFieldTemplate');
 
-            options.optionsPopup = this.modal.find(".ipsFieldOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
+            options.optionsPopup = $("#ipWidgetFormPopupOptions").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
             this.container.ipWidget_ipForm_container(options);
 
 
