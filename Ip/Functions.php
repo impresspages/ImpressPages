@@ -205,7 +205,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
  * Return CMS log object
  *
  * Use this object to create or access log records.
- * @return \Psr\Log\LoggerInterface Logger interface object
+ * @return \Psr\Log\LoggerInterface Logger interface object (\Ip\Internal\Log\Logger)
  */
 function ipLog()
 {
@@ -640,7 +640,7 @@ function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 
 /**
  * Get a theme option value.
- * 
+ *
  * Theme options ar used for changing theme design. These options can be managed using administration page.
  * @param $name Option name.
  * @param mixed|null $default A value returned if the option was not set.
