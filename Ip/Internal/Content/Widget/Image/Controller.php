@@ -16,21 +16,61 @@ class Controller extends \Ip\WidgetController{
         return __('Image', 'ipAdmin', false);
     }
 
-    
+
     public function update($widgetId, $postData, $currentData) {
+
+        if (isset($postData['method'])) {
+            switch($postData['method']) {
+                case 'update':
+                    $newData = $currentData;
+
+                    if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
+                        //unbind old image
+                        if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
+                            \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
+                        }
+
+                        //bind new image
+                        \Ip\Internal\Repository\Model::bindFile($postData['newImage'], 'Content', $widgetId);
+
+                        $newData['imageOriginal'] = $postData['newImage'];
+                    }
+
+                    return $newData;
+                    break;
+                case 'crop':
+                    $newData = $currentData;
+                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
+                        //new small image
+                        $newData['cropX1'] = $postData['cropX1'];
+                        $newData['cropY1'] = $postData['cropY1'];
+                        $newData['cropX2'] = $postData['cropX2'];
+                        $newData['cropY2'] = $postData['cropY2'];
+                        $newData['width'] = $postData['width'];
+                        $newData['height'] = $postData['height'];
+                    }
+                    return $newData;
+
+                    break;
+            }
+        }
+    }
+
+    //TODOX remove
+    public function update_old($widgetId, $postData, $currentData) {
 
         $newData = $currentData;
 
         if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
-            //remove old image
+            //unbind old image
             if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
                 \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
             }
-            
+
             //new original image
             \Ip\Internal\Repository\Model::bindFile($postData['newImage'], 'Content', $widgetId);
             $newData['imageOriginal'] = $postData['newImage'];
-            
+
         }
 
         if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
@@ -55,7 +95,7 @@ class Controller extends \Ip\WidgetController{
     public function delete($widgetId, $data) {
         self::_deleteImage($data, $widgetId);
     }
-    
+
     private function _deleteImage($data, $widgetId) {
         if (!is_array($data)) {
             return;
@@ -64,8 +104,8 @@ class Controller extends \Ip\WidgetController{
             \Ip\Internal\Repository\Model::unbindFile($data['imageOriginal'], 'Content', $widgetId);
         }
     }
-    
-    
+
+
     /**
     *
     * Duplicate widget action. This function is executed after the widget is being duplicated.
@@ -94,9 +134,11 @@ class Controller extends \Ip\WidgetController{
             $transformBig = new \Ip\Internal\Repository\Transform\None();
             $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
-            if (isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['width'])  && isset($data['height'])) {
-                if ($data['cropY2'] - $data['cropY1'] > 0){
-                    $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(
+            if (
+                isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['width'])  && isset($data['height'])
+                && $data['cropY2'] - $data['cropY1'] > 0
+            ) {
+                    $transform = new \Ip\Internal\Repository\Transform\ImageCrop(
                         $data['cropX1'],
                         $data['cropY1'],
                         $data['cropX2'],
@@ -105,7 +147,16 @@ class Controller extends \Ip\WidgetController{
                         $data['height']
                     );
                     $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformSmall));
-                }
+            } else {
+                $transform = new \Ip\Internal\Repository\Transform\ImageFit(
+                    ipGetOption('Content.widgetImageWidth', 800),
+                    ipGetOption('Content.widgetImageHeight', 400)
+                );
+            }
+            try {
+                $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transform));
+            } catch (\Ip\Exception\TransformException $e) {
+                ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             }
         }
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);

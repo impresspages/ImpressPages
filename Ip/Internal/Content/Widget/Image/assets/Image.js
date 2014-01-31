@@ -13,52 +13,84 @@ var IpWidget_Image;
 
         this.init = function($widgetObject, data) {
             this.$widgetObject = $widgetObject;
-
-            var $imageUploader = $('<div class="ipsImage ip"></div>');
-            this.$widgetObject.append($imageUploader);
-            this.$imageUploader = $imageUploader;
-
-            var options = new Object;
-
-            if (data.imageOriginal) {
-                options.image = data.imageOriginal;
-            }
-            if (data.cropX1) {
-                options.cropX1 = data.cropX1;
-            }
-            if (data.cropY1) {
-                options.cropY1 = data.cropY1;
-            }
-            if (data.cropX2) {
-                options.cropX2 = data.cropX2;
-            }
-            if (data.cropY2) {
-                options.cropY2 = data.cropY2;
-            }
-            options.enableChangeHeight = true;
-            options.enableChangeWidth = true;
-            options.enableUnderscale = true;
-
-            var $img = this.$widgetObject.find('img');
-
-
-            if ($img.length == 1) {
-                options.windowWidth = $img.width();
-                options.windowHeight = $img.height();
-                $img.hide();
-            }
-            if (options.windowHeight == null) {
-                options.windowHeight = 100;
-            }
-
-            this.$imageUploader.ipUploadImage(options);
-            this.$imageUploader.on('error.ipUploadImage', $.proxy(addError, this));
-            this.$imageUploader.on('change.ipUploadImage', $.proxy(save, this));
+//
+//            var $imageUploader = $('<div class="ipsImage ip"></div>');
+//            this.$widgetObject.append($imageUploader);
+//            this.$imageUploader = $imageUploader;
+//
+//            var options = new Object;
+//
+//            if (data.imageOriginal) {
+//                options.image = data.imageOriginal;
+//            }
+//            if (data.cropX1) {
+//                options.cropX1 = data.cropX1;
+//            }
+//            if (data.cropY1) {
+//                options.cropY1 = data.cropY1;
+//            }
+//            if (data.cropX2) {
+//                options.cropX2 = data.cropX2;
+//            }
+//            if (data.cropY2) {
+//                options.cropY2 = data.cropY2;
+//            }
+//            options.enableChangeHeight = true;
+//            options.enableChangeWidth = true;
+//            options.enableUnderscale = true;
+//
+//            var $img = this.$widgetObject.find('img');
+//
+//
+//            if ($img.length == 1) {
+//                options.windowWidth = $img.width();
+//                options.windowHeight = $img.height();
+//                $img.hide();
+//            }
+//            if (options.windowHeight == null) {
+//                options.windowHeight = 100;
+//            }
+//
+//            this.$imageUploader.ipUploadImage(options);
 
         }
 
-        var addError = function (event, errorMessage) {
-            $(this).trigger('error.ipContentManagement', errorMessage);
+
+        this.onAdd = function (e) {
+            var thisContext = this;
+            var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
+            repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
+            repository.on('ipModuleRepository.cancel', function () {
+                ipContent.deleteWidget(thisContext.$widgetObject.data('widgetinstanceid'));
+            });
+
+        }
+
+
+        this.filesSelected = function(event, files) {
+            var $this = $(this);
+
+            var data = this.data;
+            var data = {
+                method: 'update'
+            };
+            $.each(files, function(key, value) {
+                data.newImage = value.fileName;
+            });
+
+            this.$widgetObject.save(data, 1);
+        }
+
+        var updateImage = function(newImage) {
+            var $this = $(this);
+
+            var data = this.data;
+            var data = {
+                method: 'add'
+            };
+            this.$widgetObject.save(data, 1, function($widget){
+                $widget.click();
+            });
         }
 
         var save = function() {
