@@ -12,10 +12,8 @@ class Filter
         $widgets['Title'] = new \Ip\Internal\Content\Widget\Title\Controller('Title', 'Content', 1);
         $widgets['Text'] = new \Ip\Internal\Content\Widget\Text\Controller('Text', 'Content', 1);
         $widgets['Separator'] = new \Ip\Internal\Content\Widget\Separator\Controller('Separator', 'Content', 1);
-        //$widgets['TextImage'] = new \Ip\Internal\Content\Widget\TextImage\Controller('TextImage', 'Content', 1);
         $widgets['Image'] = new \Ip\Internal\Content\Widget\Image\Controller('Image', 'Content', 1);
         $widgets['Gallery'] = new \Ip\Internal\Content\Widget\Gallery\Controller('Gallery', 'Content', 1);
-        //$widgets['IpLogoGallery'] = new \Ip\Internal\Content\Widget\IpLogoGallery\Controller('IpLogoGallery', 'Content', 1);
         //$widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);
         $widgets['Html'] = new \Ip\Internal\Content\Widget\Html\Controller('Html', 'Content', 1);
         //$widgets['Faq'] = new \Ip\Internal\Content\Widget\Faq\Controller('Faq', 'Content', 1);
