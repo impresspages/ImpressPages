@@ -209,8 +209,8 @@ class Controller extends \Ip\WidgetController{
                 $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
 
                 //create big image reflection
-                $bigWidth = ipGetOption('Content.widgetGalleryBigWidth');
-                $bigHeight = ipGetOption('Content.widgetGalleryBigHeight');
+                $bigWidth = ipGetOption('Config.lightboxWidth');
+                $bigHeight = ipGetOption('Config.lightboxHeight');
 
                 try {
                     $transformBig = new \Ip\Internal\Repository\Transform\ImageFit($bigWidth, $bigHeight);
