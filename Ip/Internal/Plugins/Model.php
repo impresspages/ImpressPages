@@ -32,7 +32,7 @@ class Model{
 
     public static function activatePlugin($pluginName)
     {
-        $activePlugins = self::getActivePlugins();
+        $activePlugins = self::getActivePluginNames();
         if (in_array($pluginName, $activePlugins)) {
             //already activated
             return true;
@@ -73,15 +73,24 @@ class Model{
         INSERT INTO
             ' . ipTable('plugin') . '
         SET
+            `title` = :title,
             `name` = :pluginName,
             `active` = 1,
             `version` = :version
         ON DUPLICATE KEY UPDATE
+            `title` = :title,
             `active` = 1,
             `version` = :version
         ';
 
+        if (!empty($config['title'])) {
+            $pluginTitle = $config['title'];
+        } else {
+            $pluginTitle = $pluginName;
+        }
+
         $params = array (
+            'title' => $pluginTitle,
             'pluginName' => $pluginName,
             'version' => $config['version']
         );
@@ -98,7 +107,7 @@ class Model{
 
     public static function deactivatePlugin($pluginName)
     {
-        $activePlugins = self::getActivePlugins();
+        $activePlugins = self::getActivePluginNames();
         if (!in_array($pluginName, $activePlugins)) {
             //already deactivated
             return true;
@@ -138,7 +147,7 @@ class Model{
 
     public static function removePlugin($pluginName)
     {
-        $activePlugins = self::getActivePlugins();
+        $activePlugins = self::getActivePluginNames();
         if (in_array($pluginName, $activePlugins)) {
             throw new \Ip\Exception\Plugin\Setup('Please deactivate the plugin before removing it.');
 
@@ -190,6 +199,11 @@ class Model{
 
     }
 
+    public static function getActivePlugins()
+    {
+        return ipDb()->selectAll('*', 'plugin', array('active' => 1));
+    }
+
     protected static function getPluginRecord($pluginName)
     {
         $dbh = ipDb()->getConnection();
@@ -230,7 +244,7 @@ class Model{
         return $answer;
     }
 
-    public static function getActivePlugins()
+    public static function getActivePluginNames()
     {
         $dbh = ipDb()->getConnection();
         $sql = '
