@@ -1111,18 +1111,6 @@ Move to separate stylesheet if invalid CSS is a problem.
   max-width: 100%;
   overflow: auto;
 }
-.ipWidget-TextImage .ipwImage {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  float: left;
-  margin: 0 20px 20px 0;
-  max-width: 100%;
-}
-.ipWidget-TextImage.ipLayout-right .ipwImage {
-  float: right;
-  margin: 0 0 20px 20px;
-}
 .ipWidget-Title {
   margin-bottom: 10px;
   padding-top: 10px;
