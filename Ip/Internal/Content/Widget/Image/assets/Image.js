@@ -19,6 +19,7 @@ var IpWidget_Image;
                 var $this = $(this);
                 $this.resizable({
                     aspectRatio: true,
+                    maxWidth: controllerScope.$widgetObject.width(),
                     resize: function(event, ui) {
                         controllerScope.resize(Math.round(ui.size.width), Math.round(ui.size.height));
                     }
