@@ -21,8 +21,6 @@ class Model{
             "Upload",
             "InlineManagement",
             "Languages",
-            "Wizard",
-            "Form",
             "Cron",
             "Ip",
             "Translations",
