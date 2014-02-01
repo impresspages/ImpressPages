@@ -8,11 +8,22 @@ var IpWidget_Image;
     "use strict";
 
     IpWidget_Image = function() {
+        var controllerScope = this;
         this.$widgetObject = null;
         this.$imageUploader = null;
 
         this.init = function($widgetObject, data) {
             this.$widgetObject = $widgetObject;
+
+            this.$widgetObject.find('.ipsImage').on('click', function() {
+                var $this = $(this);
+                $this.resizable({
+                    aspectRatio: true,
+                    resize: function(event, ui) {
+                        controllerScope.resize(Math.round(ui.size.width), Math.round(ui.size.height));
+                    }
+                });
+            });
 //
 //            var $imageUploader = $('<div class="ipsImage ip"></div>');
 //            this.$widgetObject.append($imageUploader);
@@ -70,9 +81,8 @@ var IpWidget_Image;
         this.filesSelected = function(event, files) {
             var $this = $(this);
 
-            var data = this.data;
             var data = {
-                method: 'update'
+                method: 'newImage'
             };
             $.each(files, function(key, value) {
                 data.newImage = value.fileName;
@@ -81,44 +91,55 @@ var IpWidget_Image;
             this.$widgetObject.save(data, 1);
         }
 
-        var updateImage = function(newImage) {
+        this.resize = function(width, height) {
             var $this = $(this);
 
-            var data = this.data;
             var data = {
-                method: 'add'
+                method: 'resize',
+                width: width,
+                height: height
             };
-            this.$widgetObject.save(data, 1, function($widget){
-                $widget.click();
-            });
+            this.$widgetObject.save(data, 0);
         }
 
-        var save = function() {
-
-            var data = Object();
-            var ipUploadImage = this.$imageUploader;
-            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
-                var newImage = ipUploadImage.ipUploadImage('getCurImage');
-                if (newImage) {
-                    data.newImage = newImage;
-                }
-            }
-
-            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
-                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
-                if (cropCoordinates) {
-                    data.cropX1 = cropCoordinates.x1;
-                    data.cropY1 = cropCoordinates.y1;
-                    data.cropX2 = cropCoordinates.x2;
-                    data.cropY2 = cropCoordinates.y2;
-                    data.width = ipUploadImage.ipUploadImage('width');
-                    data.height = ipUploadImage.ipUploadImage('height');
-                }
-            }
-
-            data.title = this.$widgetObject.find('.ipsImageTitle').val();
-            this.$widgetObject.save(data);
-        }
+//        var updateImage = function(newImage) {
+//            var $this = $(this);
+//
+//            var data = this.data;
+//            var data = {
+//                method: 'add'
+//            };
+//            this.$widgetObject.save(data, 1, function($widget){
+//                $widget.click();
+//            });
+//        }
+//
+//        var save = function() {
+//
+//            var data = Object();
+//            var ipUploadImage = this.$imageUploader;
+//            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
+//                var newImage = ipUploadImage.ipUploadImage('getCurImage');
+//                if (newImage) {
+//                    data.newImage = newImage;
+//                }
+//            }
+//
+//            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
+//                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
+//                if (cropCoordinates) {
+//                    data.cropX1 = cropCoordinates.x1;
+//                    data.cropY1 = cropCoordinates.y1;
+//                    data.cropX2 = cropCoordinates.x2;
+//                    data.cropY2 = cropCoordinates.y2;
+//                    data.width = ipUploadImage.ipUploadImage('width');
+//                    data.height = ipUploadImage.ipUploadImage('height');
+//                }
+//            }
+//
+//            data.title = this.$widgetObject.find('.ipsImageTitle').val();
+//            this.$widgetObject.save(data);
+//        }
 
     };
 
