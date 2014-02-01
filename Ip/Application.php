@@ -287,7 +287,7 @@ class Application
         $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
 
-        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
+        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");

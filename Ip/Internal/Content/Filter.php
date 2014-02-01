@@ -73,7 +73,7 @@ class Filter
     private static function getPluginWidgetDirs()
     {
         $answer = array();
-        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
+        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         foreach ($plugins as $plugin) {
             $answer = array_merge($answer, static::findPluginWidgets($plugin));
         }

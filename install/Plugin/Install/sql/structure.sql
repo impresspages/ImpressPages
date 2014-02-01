@@ -283,6 +283,7 @@ DROP TABLE IF EXISTS `ip_cms_plugin`;
 -- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
+  `title` varchar(100) NOT NULL,
   `name` varchar(30) NOT NULL,
   `version` decimal(10,2) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
