@@ -2906,7 +2906,6 @@ body {
   margin-bottom: 4px;
   padding-left: 25px;
 }
-.side .ipWidget-Gallery li,
-.side .ipWidget-IpLogoGallery li {
+.side .ipWidget-Gallery li {
   width: 50%;
 }
