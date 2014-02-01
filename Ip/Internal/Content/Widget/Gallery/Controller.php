@@ -213,7 +213,7 @@ class Controller extends \Ip\WidgetController{
                 $bigHeight = ipGetOption('Config.lightboxHeight');
 
                 try {
-                    $transformBig = new \Ip\Internal\Repository\Transform\ImageFit($bigWidth, $bigHeight);
+                    $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
                     $curImage['imageBig'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     //do nothing
@@ -225,7 +225,7 @@ class Controller extends \Ip\WidgetController{
 
                 try {
                     if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
-                        $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(
+                        $transformSmall = new \Ip\Transform\ImageCrop(
                             $curImage['cropX1'],
                             $curImage['cropY1'],
                             $curImage['cropX2'],
@@ -236,7 +236,7 @@ class Controller extends \Ip\WidgetController{
                         );
 
                     } else {
-                        $transformSmall = new \Ip\Internal\Repository\Transform\ImageCropCenter(
+                        $transformSmall = new \Ip\Transform\ImageCropCenter(
                             ipGetOption('Content.widgetGalleryWidth'),
                             ipGetOption('Content.widgetGalleryHeight'),
                             ipGetOption('Content.widgetGalleryQuality')
