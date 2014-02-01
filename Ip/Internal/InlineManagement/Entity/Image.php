@@ -50,7 +50,7 @@ class Image
                 $this->requiredHeight = $data['requiredHeight'];
 
                 $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
-                $transform = new \Ip\Internal\Repository\Transform\ImageCrop(
+                $transform = new \Ip\Transform\ImageCrop(
                     $this->getX1(),
                     $this->getY1(),
                     $this->getX2(),

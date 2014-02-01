@@ -5,9 +5,9 @@
      *
      */
 
-namespace Ip\Internal\Repository\Transform;
+namespace Ip\Transform;
 
-abstract class Image extends Base
+abstract class Image extends \Ip\Transform
 {
 
     /**
