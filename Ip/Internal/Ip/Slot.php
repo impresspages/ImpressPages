@@ -13,13 +13,13 @@ namespace Ip\Internal\Ip;
  * @package ImpressPages
  */
 class Slot {
-    public static function breadcrumb($params)
+    public static function breadcrumb_80($params)
     {
         $showHome = isset($params['showHome']) ? $params['showHome'] : true;
         return \Ip\Internal\Breadcrumb\Model::generateBreadcrumb(' &rsaquo; ', $showHome);
     }
 
-    public static function languages($params)
+    public static function languages_80($params)
     {
         if(!ipGetOption('Config.multilingual')) {
             return '';
@@ -28,13 +28,13 @@ class Slot {
         return ipView('Ip/Internal/Config/view/languages.php', array('languages' => ipContent()->getLanguages()));
     }
 
-    public static function logo()
+    public static function logo_80()
     {
         $inlineManagementService = new \Ip\Internal\InlineManagement\Service();
         return $inlineManagementService->generateManagedLogo();
     }
 
-    public static function menu($items)
+    public static function menu_80($items)
     {
         if (is_string($items)) {
             $items = \Ip\Menu\Helper::getZoneItems($items);
@@ -50,7 +50,7 @@ class Slot {
     }
 
 
-    public static function text($params)
+    public static function text_80($params)
     {
         $tag = 'div';
         $defaultValue = '';
@@ -76,7 +76,7 @@ class Slot {
         return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
     }
 
-    public static function string($params)
+    public static function string_80($params)
     {
         $tag = 'p';
         $defaultValue = '';
@@ -101,7 +101,7 @@ class Slot {
         return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
     }
 
-    public static function image($params)
+    public static function image_80($params)
     {
         $options = array();
         $defaultValue = '';

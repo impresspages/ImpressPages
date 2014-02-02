@@ -36,7 +36,6 @@ class TestEnvironment
         $_SERVER['SERVER_NAME'] = 'localhost';
 
         \Ip\ServiceLocator::addRequest(new \Ip\Request());
-        \Ip\ServiceLocator::dispatcher()->registerInit();
     }
 
     public static function filesSetup()

@@ -14,18 +14,18 @@
 <body>
 <div class="theme clearfix">
     <header class="clearfix col_12">
-        <?php echo ipSlot('Ip.logo'); ?>
+        <?php echo ipSlot('logo'); ?>
         <div class="right">
             <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getNavigationTitle()); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
-                <?php echo ipSlot('Ip.menu', 'menu1'); ?>
+                <?php echo ipSlot('menu', 'menu1'); ?>
                 <div class="languages">
-                    <?php echo ipSlot('Ip.languages'); ?>
+                    <?php echo ipSlot('languages'); ?>
                 </div>
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo ipSlot('Search'); ?>
+            <?php echo ipSlot('search'); ?>
         </div>
     </header>
