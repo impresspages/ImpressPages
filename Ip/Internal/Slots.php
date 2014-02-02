@@ -13,17 +13,7 @@ class Slots
 
     public function generateSlot($name, $params = array())
     {
-        $content = null;
-        $data = array(
-            'slotName' => $name,
-            'params' => $params
-        );
-
-        //dispatch event
-        $content = ipJob('ipGenerateSlot', $data);
-        if (!$content) {
-            $content = ipJob('ipGenerateSlot' . $name, $data);
-        }
+        $content = \Ip\ServiceLocator::dispatcher()->slot($name, $params);
 
         if ($content) {
             if (is_object($content) && method_exists($content, 'render')) {
@@ -39,23 +29,6 @@ class Slots
                 $predefinedContent = $content->render();
             }
             return $predefinedContent;
-        }
-
-        //execute static slot method
-        $parts = explode('.', $name, 2);
-        if (count($parts) == 2) {
-            if (in_array($parts[0], \Ip\Internal\Plugins\Model::getModules())) {
-                $slotClass = 'Ip\\Internal\\' . $parts[0] . '\\Slot';
-            } else {
-                $slotClass = 'Plugin\\' . $parts[0] . '\\Slot';
-            }
-            if (method_exists($slotClass, $parts[1])) {
-                $content = $slotClass::$parts[1]($params);
-                if (is_object($content) && method_exists($content, 'render')) {
-                    $content = $content->render();
-                }
-                return $content;
-            }
         }
 
         return '';
