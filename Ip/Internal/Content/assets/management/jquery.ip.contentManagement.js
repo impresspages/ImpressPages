@@ -432,15 +432,11 @@
             hoverClass: "hover",
             greedy: true,
             over: function (event, ui) {
-//                $('.ipsWidgetDropPlaceholder').removeClass('hover');
-//                $(this).addClass('hover');
                 lastDroppable = $(this);
                 $(this).data('hover', true);
-                //$('.ipAdminWidgetPlaceholder').hide();
             },
             out: function (event, ui) {
                 $(this).data('hover', false);
-                //$('.ipAdminWidgetPlaceholder').show();
             },
             drop: function (event, ui) {
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
@@ -489,7 +485,7 @@
 
         }
 
-        //$('.ipsWidgetDropPlaceholder').remove();
+        $('.ipsWidgetDropPlaceholder').remove();
 
 
     }
