@@ -364,7 +364,7 @@
 
                 if ($widget.index() == $widgets.length - 1) {
                     var space = 10;
-                    var $newPlaceholder = {
+                    var newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top + $widget.height() / 2,
                         height: $widget.height() / 2 + space,
@@ -380,9 +380,17 @@
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
-                        $newPlaceholder.height = columnsEnd -  $newPlaceholder.top + space * 1 / 4;
+                        newPlaceholder.height = columnsEnd -  newPlaceholder.top + space * 1 / 4;
                     }
-                    horizontalPlaceholders.push($newPlaceholder);
+
+                    if ($widget.hasClass('ipWidget-Columns')) {
+                        var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        newPlaceholder.height = space * 2;
+                        newPlaceholder.top = columnsEnd + space * 1 / 4;
+                        newPlaceholder.markerOffset = 5;
+                    }
+
+                    horizontalPlaceholders.push(newPlaceholder);
                 }
 
             });
