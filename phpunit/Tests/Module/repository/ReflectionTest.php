@@ -33,7 +33,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
         //Create reflection
-        $transformSmall = new \Ip\Internal\Repository\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
+        $transformSmall = new \Ip\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
         $reflectionFile = 'file/' . $reflectionService->getReflection($repositoryFile, null, $transformSmall);
         if ($reflectionFile == 'file/') {
             $e = $reflectionService->getLastException();

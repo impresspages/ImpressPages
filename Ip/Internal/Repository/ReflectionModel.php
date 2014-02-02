@@ -40,13 +40,13 @@ class ReflectionModel
     /**
      * @param string $file relative path from BASE_DIR
      * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
-     * @param Transform\Base $transform - file transformation class
+     * @param \Ip\Transform $transform - file transformation class
      * @return string file name relative to BASE_DIR
      */
-    public function getReflection($file, $desiredName = null, Transform\Base $transform = null)
+    public function getReflection($file, $desiredName = null, \Ip\Transform $transform = null)
     {
         if (!$transform) {
-            $transform = new Transform\None();
+            $transform = new \Ip\Transform\None();
         }
 
         $fingerprint = $transform->getFingerprint();
@@ -75,12 +75,12 @@ class ReflectionModel
     /**
      * @param string $source
      * @param string $desiredName
-     * @param Transform\Base $transform
+     * @param \Ip\Transform $transform
      * @return string
      * @throws \Exception
      */
 
-    private function createReflection($source, $desiredName, Transform\Base $transform)
+    private function createReflection($source, $desiredName, \Ip\Transform $transform)
     {
         $absoluteSource = realpath(ipFile('file/repository/' . $source));
         if (!$absoluteSource || !is_file($absoluteSource)) {
@@ -133,7 +133,7 @@ class ReflectionModel
         $transformFingerprint = $transform->getFingerprint();
         $this->storeReflectionRecord($source, $relativeDestinationDir . $destinationFileName, $transformFingerprint);
 
-        return $relativeDestinationPath;
+        return $relativeDestinationDir . $destinationFileName;
     }
 
 

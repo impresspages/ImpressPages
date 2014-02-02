@@ -207,6 +207,8 @@ class Model
         $service->saveWidgetOptions($theme);
 
 
+
+
         //write down default theme options
         $options = $theme->getOptionsAsArray();
         foreach($options as $option) {

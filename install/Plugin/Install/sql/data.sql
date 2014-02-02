@@ -21,15 +21,11 @@ INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visibl
 INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`, `deleted`) VALUES
 (2, 'Image', 60, 0),
 (3, 'Gallery', 70, 0),
-(4, 'IpLogoGallery', 80, 0),
 (5, 'Text', 30, 0),
-(6, 'TextImage', 50, 0),
 (7, 'Title', 20, 0),
 (8, 'File', 90, 0),
 (10, 'Separator', 40, 0),
 (9, 'Html', 120, 0),
-(11, 'IpTable', 100, 0),
-(13, 'IpRichText', 130, 0),
 (14, 'Faq', 140, 0);
 
 -- Dumping data for table--
@@ -61,8 +57,7 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (438, 336, 11, 'upload', 0, 'Upload', 0, '1.00', 1),
 (439, 323, 12, 'repository', 1, 'Repository', 0, '1.00', 1),
 (441, 336, 14, 'form', 0, 'Form', 0, '1.00', 1),
-(442, 336, 0, 'inline_management', 1, 'Inline Management', 0, '1.00', 1),
-(443, 323, 0, 'wizard', 1, 'Wizard', 0, '1.00', 1);
+(442, 336, 0, 'inline_management', 1, 'Inline Management', 0, '1.00', 1);
 
 -- Dumping data for table--
 
