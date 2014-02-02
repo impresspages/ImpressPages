@@ -336,7 +336,7 @@
                     horizontalPlaceholders.push(newPlaceholder);
                 } else {  //not first widget
                     var $prevWidget = $widget.prev();
-                    var $space = $widget.offset().top - ($prevWidget.offset().top + $prevWidget.height());
+                    var space = $widget.offset().top - ($prevWidget.offset().top + $prevWidget.height());
                     //all up to the last placeholders
                     var newPlaceholder = {
                         left: $prevWidget.offset().left,
@@ -346,11 +346,11 @@
                         position: $widget.index()
                     };
                     if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
-                        newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height(); //the end of column widget
+                        newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height() + space * 1 / 4; //the end of column widget
                     }
                     newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
                     if ($widget.hasClass('ipWidget-Columns')) {
-                        newPlaceholder.height = $widget.offset().top - newPlaceholder.top - ($space / 2);
+                        newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
                         newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
                     }
 
@@ -363,15 +363,26 @@
                 }
 
                 if ($widget.index() == $widgets.length - 1) {
-                    horizontalPlaceholders.push({
+                    var space = 10;
+                    var $newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top + $widget.height() / 2,
-                        height: $widget.height() / 2 + 10,
+                        height: $widget.height() / 2 + space,
                         width: $widget.width(),
-                        markerOffset: $widget.height() / 2 + 5,
+                        markerOffset: $widget.height() / 2 + space / 2,
                         blockName: $(block).data('ipBlock').name,
                         position: $widget.index() + 1
-                    });
+                    };
+
+                    var $columnsWidget = $widget.closest('.ipWidget-Columns');
+                    if ($columnsWidget.length && !$widget.hasClass("ipWidget-Columns")) {
+                        var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        if ($columnsWidget.next().length) {
+                            space = $columnsWidget.next().offset().top - columnsEnd;
+                        }
+                        $newPlaceholder.height = columnsEnd -  $newPlaceholder.top + space * 1 / 4;
+                    }
+                    horizontalPlaceholders.push($newPlaceholder);
                 }
 
             });
