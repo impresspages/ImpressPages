@@ -61,7 +61,6 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase
 //        // Init environment:
 //        TestEnvironment::initCode();
 //        \Ip\ServiceLocator::addRequest(new \Ip\Request());
-//        \Ip\ServiceLocator::dispatcher()->registerInit();
 //
 //        $result = \Ip\ServiceLocator::dispatcher()->job('TestJob', array('name' => 'MyName'));
 //        $this->assertEquals(NULL, $result);
