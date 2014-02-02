@@ -21,7 +21,7 @@ class Controller extends \Ip\WidgetController{
 
         if (isset($postData['method'])) {
             switch($postData['method']) {
-                case 'update':
+                case 'newImage':
                     $newData = $currentData;
 
                     if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
@@ -38,59 +38,34 @@ class Controller extends \Ip\WidgetController{
 
                     return $newData;
                     break;
-                case 'crop':
+                case 'resize':
                     $newData = $currentData;
-                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
-                        //new small image
-                        $newData['cropX1'] = $postData['cropX1'];
-                        $newData['cropY1'] = $postData['cropY1'];
-                        $newData['cropX2'] = $postData['cropX2'];
-                        $newData['cropY2'] = $postData['cropY2'];
-                        $newData['width'] = $postData['width'];
-                        $newData['height'] = $postData['height'];
+                    if (!isset($postData['width']) || !$postData['height']) {
+                        ipLog()->error("Image widget resize missing required parameter", $postData);
+                        throw new \Ip\Exception("Missing required data");
                     }
+                    $newData['width'] = $postData['width'];
+                    $newData['height'] = $postData['height'];
                     return $newData;
-
                     break;
+//                case 'crop':
+//                    $newData = $currentData;
+//                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
+//                        //new small image
+//                        $newData['cropX1'] = $postData['cropX1'];
+//                        $newData['cropY1'] = $postData['cropY1'];
+//                        $newData['cropX2'] = $postData['cropX2'];
+//                        $newData['cropY2'] = $postData['cropY2'];
+//                        $newData['width'] = $postData['width'];
+//                        $newData['height'] = $postData['height'];
+//                    }
+//                    return $newData;
+//
+//                    break;
             }
         }
     }
 
-    //TODOX remove
-    public function update_old($widgetId, $postData, $currentData) {
-
-        $newData = $currentData;
-
-        if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
-            //unbind old image
-            if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
-            }
-
-            //new original image
-            \Ip\Internal\Repository\Model::bindFile($postData['newImage'], 'Content', $widgetId);
-            $newData['imageOriginal'] = $postData['newImage'];
-
-        }
-
-        if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
-            //new small image
-            $newData['cropX1'] = $postData['cropX1'];
-            $newData['cropY1'] = $postData['cropY1'];
-            $newData['cropX2'] = $postData['cropX2'];
-            $newData['cropY2'] = $postData['cropY2'];
-            $newData['width'] = $postData['width'];
-            $newData['height'] = $postData['height'];
-        }
-
-
-
-        if (isset($postData['title'])) {
-            $newData['title'] = $postData['title'];
-        }
-
-        return $newData;
-    }
 
     public function delete($widgetId, $data) {
         self::_deleteImage($data, $widgetId);
@@ -131,14 +106,14 @@ class Controller extends \Ip\WidgetController{
             $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
-            $transformBig = new \Ip\Internal\Repository\Transform\None();
+            $transformBig = new \Ip\Transform\None();
             $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
             if (
                 isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['width'])  && isset($data['height'])
                 && $data['cropY2'] - $data['cropY1'] > 0
             ) {
-                    $transform = new \Ip\Internal\Repository\Transform\ImageCrop(
+                    $transform = new \Ip\Transform\ImageCrop(
                         $data['cropX1'],
                         $data['cropY1'],
                         $data['cropX2'],
@@ -148,9 +123,20 @@ class Controller extends \Ip\WidgetController{
                     );
                     $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformSmall));
             } else {
-                $transform = new \Ip\Internal\Repository\Transform\ImageFit(
-                    ipGetOption('Content.widgetImageWidth', 800),
-                    ipGetOption('Content.widgetImageHeight', 400)
+                if (!empty($data['width'])) {
+                    $width = $data['width'];
+                } else {
+                    $width = ipGetOption('Content.widgetImageWidth', 1200);
+                }
+
+                if (!empty($data['height'])) {
+                    $height = $data['height'];
+                } else {
+                    $height = ipGetOption('Content.widgetImageHeight', 900);
+                }
+                $transform = new \Ip\Transform\ImageFit(
+                    $width,
+                    $height
                 );
             }
             try {

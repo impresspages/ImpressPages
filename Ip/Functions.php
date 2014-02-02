@@ -177,6 +177,20 @@ function ipAddJsVariable($name, $value)
 }
 
 /**
+ * Add JavaScript script. $value will be put inside <script> tags inline into HTML
+ *
+ * Generates JavaScript code which sets variables using specified values.
+ *
+ * @param string $name JavaScript variable name.
+ * @param mixed $value Variable value. Note: Do not use object as a value.
+ * @param int $priority JavaScript file priority. The lower the number the higher the priority.
+ */
+function ipAddJsContent($name, $value, $priority = 50)
+{
+    \Ip\ServiceLocator::pageAssets()->addJavascriptContent($name, $value, $priority);
+}
+
+/**
  * Add CSS file from your plugin or theme
  *
  * After adding all CSS files, use ipHead() function to generate HTML head.

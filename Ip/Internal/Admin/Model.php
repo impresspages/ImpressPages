@@ -42,17 +42,17 @@ class Model{
 
 
 
-        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
+        $plugins = \Ip\Internal\Plugins\Service::getActivePlugins();
 
         foreach($plugins as $plugin) {
-            $controllerClass = '\\Plugin\\' . $plugin . '\\AdminController';
+            $controllerClass = '\\Plugin\\' . $plugin['name'] . '\\AdminController';
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
             $moduleItem = new \Ip\Menu\Item();
-            $moduleItem->setTitle($plugin);
-            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin.'.index')));
-            $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin . '.index')));
+            $moduleItem->setTitle($plugin['title']);
+            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin['name'])));
+            $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin['name'])));
             $answer[] = $moduleItem;
         }
 

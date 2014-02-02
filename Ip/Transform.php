@@ -5,9 +5,9 @@
      *
      */
 
-namespace Ip\Internal\Repository\Transform;
+namespace Ip;
 
-abstract class Base
+abstract class Transform
 {
     /**
      * @param string $sourceFile original file

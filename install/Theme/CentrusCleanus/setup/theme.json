@@ -7,25 +7,11 @@
     "widget": { /* Image cropping settings for widgets. Require theme reinstall to take effect. */
         "image": {
             "width": 540,
-            "height": 342,
-            "bigWidth": 800, /* Lightbox */
-            "bigHeight": 600 /* Lightbox */
+            "height": 342
         },
-        "imageGallery": {
+        "gallery": {
             "width": 160,
-            "height": 100,
-            "bigWidth": 800, /* Lightbox */
-            "bigHeight": 600 /* Lightbox */
-        },
-        "logoGallery": {
-            "width": 160,
-            "height": 160
-        },
-        "textImage": {
-            "width": 220,
-            "height": 600,
-            "bigWidth": 800, /* Lightbox */
-            "bigHeight": 600 /* Lightbox */
+            "height": 100
         }
     }
 }
