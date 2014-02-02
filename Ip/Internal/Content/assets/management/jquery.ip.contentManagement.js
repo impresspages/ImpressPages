@@ -321,9 +321,14 @@
                         var $aboveColumnsWidget = $widget.closest('.ipWidget-Columns').prev();
                         if ($aboveColumnsWidget.length) {
                             space = $widget.offset().top - ($aboveColumnsWidget.offset().top + $aboveColumnsWidget.height());
+                            newPlaceholder.top = $widget.offset().top - space / 2;
+                            newPlaceholder.markerOffset = space / 2 / 2; //hald of marker size
+                        } else {
+                            newPlaceholder.markerOffset = 0;
+
                         }
-                        newPlaceholder.top = $widget.offset().top - space*1/4;
-                        newPlaceholder.markerOffset = 0;
+
+                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
 
                     }
 
