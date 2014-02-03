@@ -490,10 +490,13 @@
             var leftOrRight = lastDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
             var side = lastDroppable.data('side');
+            var newCol = lastDroppable.data('newCol');
             var blockName = lastDroppable.data('blockName');
             var position = lastDroppable.data('position');
             if (side) {
                 ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
+            } else if (newCol) {
+                ipContent.createWidgetToColumn(widgetName, targetWidgetInstanceId, position);
             } else {
                 ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
             }
@@ -506,6 +509,7 @@
             var position = lastDroppable.data('position');
             var block = lastDroppable.data('blockName');
             var side = lastDroppable.data('side');
+            var newCol = lastDroppable.data('newCol');
             var leftOrRight = lastDroppable.data('leftOrRight');
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
             var sourceWidgetInstanceId = $widget.data('widgetinstanceid');
@@ -516,6 +520,8 @@
             if (block != curBlock || curPosition != position) {
                 if (side) {
                     ipContent.moveWidgetToSide(sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight);
+                } else if (newCol) {
+                    ipContent.moveWidgetToColumn(sourceWidgetInstanceId, targetWidgetInstanceId, position);
                 } else {
                     ipContent.moveWidget(instanceId, position, block, ip.revisionId);
                 }
