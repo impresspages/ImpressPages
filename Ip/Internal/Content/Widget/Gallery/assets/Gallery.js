@@ -54,7 +54,7 @@ var IpWidget_Gallery;
 
             //individual image management
             this.$widgetObject.find('a').on('click', function(e){e.preventDefault();});//turn off lightbox
-            this.$widgetObject.find('li').on('click', $.proxy(this.focusImage, this));
+            this.$widgetObject.find('.ipsItem').on('click', $.proxy(this.focusImage, this));
 
             this.$controls = $('#ipWidgetGalleryMenu');
             $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the image
@@ -92,8 +92,8 @@ var IpWidget_Gallery;
             var context = this;
             e.preventDefault();
 
-            var $li = $(e.currentTarget);
-            var $img = $li.find('img');
+            var $item = $(e.currentTarget);
+            var $img = $item.find('.ipsImage');
             var $controls = this.$controls;
 
             $controls.removeClass('ipgHide');
@@ -102,7 +102,10 @@ var IpWidget_Gallery;
             $controls.css('top', $img.offset().top + 5);
 
             $controls.find('.ipsDelete').off().on('click', function(e) {
-                $.proxy(context.deleteImage, context)($li.index());
+                $.proxy(context.deleteImage, context)($item.index());
+            });
+            $controls.find('.ipsEdit').off().on('click', function(e) {
+                $.proxy(context.editImage, context)($item.index());
             });
         };
 
@@ -147,10 +150,74 @@ var IpWidget_Gallery;
             this.$widgetObject.save(data, true);
         };
 
-        this.filesSelected = function(event, files) {
-            var $this = $(this);
+        this.editImage = function (position) {
+            var thisContext = this;
+            var $modal = $('#ipWidgetGalleryEditPopup');
+            var options = new Object;
+            var data = this.data.images[position];
 
-            var data = this.data;
+            $modal.modal();
+
+            if (data.imageOriginal) {
+                options.image = data.imageOriginal;
+            }
+            if (data.cropX1) {
+                options.cropX1 = data.cropX1;
+            }
+            if (data.cropY1) {
+                options.cropY1 = data.cropY1;
+            }
+            if (data.cropX2) {
+                options.cropX2 = data.cropX2;
+            }
+            if (data.cropY2) {
+                options.cropY2 = data.cropY2;
+            }
+            options.enableChangeHeight = false;
+            options.enableChangeWidth = false;
+            options.enableUnderscale = true;
+
+            options.autosizeType = 'crop';
+
+            var $img = this.$widgetObject.find('.ipsImage').eq(position);
+            if ($img.length == 1) {
+                options.windowWidth = $img.width();
+                options.windowHeight = $img.height();
+            }
+
+            var $editScreen = $modal.find('.ipsEditScreen');
+            $editScreen.ipUploadImage('destroy');
+            $editScreen.ipUploadImage(options);
+
+            $modal.find('.ipsConfirm').off().on('click', function () {
+                var crop = $editScreen.ipUploadImage('getCropCoordinates');
+                var curImage = $editScreen.ipUploadImage('getCurImage');
+                $.proxy(thisContext.updateImage, thisContext)(position, crop.x1, crop.y1, crop.x2, crop.y2, curImage);
+                $modal.modal('hide');
+            });
+        }
+
+        this.updateImage = function (imageIndex, x1, y1, x2, y2, image, callback) {
+            var data = {
+                method: 'update',
+                fileName: image,
+                imageIndex: imageIndex,
+                cropX1: x1,
+                cropY1: y1,
+                cropX2: x2,
+                cropY2: y2
+            };
+
+
+            this.$widgetObject.save(data, 1, function($widget){
+                $widget.click();
+                if (callback) {
+                    callback($widget);
+                }
+            });
+        }
+
+        this.filesSelected = function(event, files) {
             var data = {
                 method: 'add'
             };
