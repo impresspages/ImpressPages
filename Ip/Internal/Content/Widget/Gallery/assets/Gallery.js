@@ -169,34 +169,8 @@ var IpWidget_Gallery;
             });
         }
 
-        function addError(event, errorMessage) {
-            $(this).trigger('error.ipContentManagement', [errorMessage]);
-        }
 
-        function prepareData() {
-            var data = Object();
-            var container = this.widgetObject.find('.ipWidget_ipGallery_container');
 
-            data.images = new Array();
-            var $images = container.ipWidget_ipGallery_container('getImages');
-            $images.each(function(index) {
-                var $this = $(this);
-                var tmpImage = new Object();
-                tmpImage.title = $this.ipWidget_ipGallery_image('getTitle');
-                tmpImage.fileName = $this.ipWidget_ipGallery_image('getFileName');
-                tmpImage.status = $this.ipWidget_ipGallery_image('getStatus');
-                var tmpCropCoordinates = $this.ipWidget_ipGallery_image('getCropCoordinates');
-                tmpImage.cropX1 = tmpCropCoordinates.x1;
-                tmpImage.cropY1 = tmpCropCoordinates.y1;
-                tmpImage.cropX2 = tmpCropCoordinates.x2;
-                tmpImage.cropY2 = tmpCropCoordinates.y2;
-
-                data.images.push(tmpImage);
-
-            });
-
-            $(this.widgetObject).trigger('preparedWidgetData.ipWidget', [ data ]);
-        }
     };
 
 })(ip.jQuery);

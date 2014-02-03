@@ -6,7 +6,7 @@
 ?>
 <footer class="clearfix">
     <div class="col_12">
-        <?php echo ipSlot('Ip.string', array('id' => 'themeName', 'tag' => 'p', 'default' => __('Theme "Blank"', 'Blank', false), 'class' => 'left')) ?>
+        <?php echo ipSlot('string', array('id' => 'themeName', 'tag' => 'p', 'default' => __('Theme "Blank"', 'Blank', false), 'class' => 'left')) ?>
         <div>
             <?php echo sprintf(__('Drag & drop with %s', 'Blank'), '<a href="http://www.impresspages.org">' . __('ImpressPages CMS', 'Blank') . '</a>'); ?>
         </div>

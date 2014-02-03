@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="topmenu">
-        <?php ipSlot('Ip.menu', 'menu1'); ?>
+        <?php ipSlot('menu', 'menu1'); ?>
     </div>
     <div class="content">
         <?php echo ipBlock('main')->render(); ?>

@@ -33,24 +33,32 @@
 
         showOptions : function(fieldType, currentOptions) {
             var $this = this;
+            var $optionsModal = $this;
             var fieldType = $this.ipWidget_ipForm_options('getFieldType', fieldType);
-            $this.html(fieldType.optionsHtml);
-            $this.dialog({
-                modal: true,
-                buttons: {
-                    "Save": function() {
-                        var $this = $(this);
-                        eval ('var options = ' + fieldType.optionsSaveFunction + '($this);');
-                        $this.dialog( "close" );
-                        $this.trigger('saveOptions.ipWidget_ipForm', [options]);
-                    },
-                    "Cancel": function() {
-                        $( this ).dialog( "close" );
-                    }
-                }
+            $this.find('.modal-body').html(fieldType.optionsHtml);
 
+            var $confirm = $this.find('.ipsConfirm');
+            //$('#ipWidgetFormPopup').modal('hide');
+            $('#ipWidgetFormPopup').hide();
+
+
+            $confirm.off().on('click', function() {
+                var options = window[fieldType.optionsSaveFunction]($optionsModal);
+                //$('#ipWidgetFormPopup').modal('show');
+                $('#ipWidgetFormPopup').show();
+                $optionsModal.modal( "hide" );
+                $optionsModal.trigger('saveOptions.ipWidget_ipForm', [options]);
             });
-            eval ('' + fieldType.optionsInitFunction + '($this, currentOptions);');
+
+            $optionsModal.on('hide.bs.modal', function() {
+                //$('#ipWidgetFormPopup').modal('show');
+                $('#ipWidgetFormPopup').show();
+            });
+
+
+            $this.modal();
+
+            window[fieldType.optionsInitFunction]($this, currentOptions);
         },
 
 

@@ -177,6 +177,20 @@ function ipAddJsVariable($name, $value)
 }
 
 /**
+ * Add JavaScript script. $value will be put inside <script> tags inline into HTML
+ *
+ * Generates JavaScript code which sets variables using specified values.
+ *
+ * @param string $name JavaScript variable name.
+ * @param mixed $value Variable value. Note: Do not use object as a value.
+ * @param int $priority JavaScript file priority. The lower the number the higher the priority.
+ */
+function ipAddJsContent($name, $value, $priority = 50)
+{
+    \Ip\ServiceLocator::pageAssets()->addJavascriptContent($name, $value, $priority);
+}
+
+/**
  * Add CSS file from your plugin or theme
  *
  * After adding all CSS files, use ipHead() function to generate HTML head.
@@ -205,7 +219,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
  * Return CMS log object
  *
  * Use this object to create or access log records.
- * @return \Psr\Log\LoggerInterface Logger interface object
+ * @return \Psr\Log\LoggerInterface Logger interface object (\Ip\Internal\Log\Logger)
  */
 function ipLog()
 {
@@ -640,7 +654,7 @@ function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
 
 /**
  * Get a theme option value.
- * 
+ *
  * Theme options ar used for changing theme design. These options can be managed using administration page.
  * @param $name Option name.
  * @param mixed|null $default A value returned if the option was not set.

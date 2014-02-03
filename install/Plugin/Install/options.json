@@ -14,24 +14,14 @@
 
 
     "Content.widgetGalleryQuality": 90,
-    "Content.widgetLogoGalleryQuality": 100,
 
 
-    "Content.widgetImageWidth": 1000,
-    "Content.widgetImageHeight": 200,
-    "Content.widgetImageBigWidth": 800,
-    "Content.widgetImageBigHeight": 600,
+    "Content.widgetImageWidth": 1160,
+    "Content.widgetImageHeight": 800,
     "Content.widgetGalleryWidth": 200,
     "Content.widgetGalleryHeight": 200,
-    "Content.widgetGalleryBigWidth": 800,
-    "Content.widgetGalleryBigHeight": 600,
-    "Content.widgetLogoGalleryWidth": 200,
-    "Content.widgetLogoGalleryHeight": 200,
-    "Content.widgetTextImageWidth": 300,
-    "Content.widgetTextImageHeight": 600,
-    "Content.widgetTextImageBigWidth": 800,
-    "Content.widgetTextImageBigHeight": 600,
-
+    "Content.lightboxWidth": 800,
+    "Content.lightboxHeight": 600,
 
     "Design.themeDirs": "",
     "Email.hourlyLimit": 100,
