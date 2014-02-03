@@ -79,43 +79,42 @@ class Controller extends \Ip\WidgetController{
                     break;
                 case 'update' :
 
-//                    //check if crop coordinates are set
-//                    if (!isset($image['cropX1']) || !isset($image['cropY1']) || !isset($image['cropX2']) || !isset($image['cropY2'])) {
-//                        break;
-//                    }
-//
-//                    $existingImageData = self::_findExistingImage($image['fileName'], $currentData['images']);
-//                    if (!$existingImageData) {
-//                        break; //existing image not found. Impossible to recalculate coordinates if image does not exists.
-//                    }
-//
+                    $tmpData = $currentData['images'][$postData['imageIndex']];
+                    if ($tmpData['imageOriginal'] != $postData['fileName']) {
+                        $this->_deleteOneImage($tmpData, $widgetId);
+                        //bind new image to the widget
+                        \Ip\Internal\Repository\Model::bindFile($postData['fileName'], 'Content', $widgetId);
+                    }
+
+                    //check if crop coordinates are set
+                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
+                        $tmpData['cropX1'] = $postData['cropX1'];
+                        $tmpData['cropY1'] = $postData['cropY1'];
+                        $tmpData['cropX2'] = $postData['cropX2'];
+                        $tmpData['cropY2'] = $postData['cropY2'];
+                    }
+
+                    $currentData['images'][$postData['imageIndex']] = $tmpData;
+                    return $currentData;
+                    break;
+
+//                case 'setTitle':
 //                    //find image title
 //                    if ($image['title'] == '') {
 //                        $title = basename($image['fileName']);
 //                    } else {
 //                        $title = $image['title'];
 //                    }
-//
-//                    $newImage = array(
-//                        'imageOriginal' => $existingImageData['imageOriginal'],
-//                        'title' => $title,
-//                        'cropX1' => $image['cropX1'],
-//                        'cropY1' => $image['cropY1'],
-//                        'cropX2' => $image['cropX2'],
-//                        'cropY2' => $image['cropY2'],
-//                    );
-//                    $newData['images'][] = $newImage;
-//
-
-                    break;
-
-
+//                    break;
 
                 case 'delete':
                     if (!isset($postData['position'])) {
                         throw new \Ip\Exception("Missing required parameter");
                     }
                     $deletePosition = (int)$postData['position'];
+
+
+                    $this->_deleteOneImage($currentData['images'][$deletePosition], $widgetId);
 
                     unset($currentData['images'][$deletePosition]);
                     $currentData['images'] = array_values($currentData['images']); // 'reindex' array

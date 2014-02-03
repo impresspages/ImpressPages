@@ -5,16 +5,16 @@
  */
 
 /**
- * 
+ *
  * Available options:
- * 
+ *
  * backgroundImage - default image to be used when real image is not uploaded (not implemented)
  * backgroundColor - (not implemented)
  * image - url to image to be cropped / re-sized
  * cropX1 - current cropping coordinates
- * cropY1 
+ * cropY1
  * cropX2
- * cropY2 * 
+ * cropY2 *
  * windowWidth - width of container (100% if not set)
  * windowHeight - height of container (the same as width if not set)
  * constrainProportions - update container parameters to constrain proportions on resize (not implemented)
@@ -28,9 +28,9 @@
  * enableChangeWidth - allow user to change container width
  * enableChangeHeight - allow user to change container height
  * autosizeType - how to resize image after upload. Available options: crop, fit, resize. Default - resize (tries to resize container to fit in the photo. Fall back to crop if impossible)
- * 
+ *
  * uploadHandler - link to PHP script that will accept uploads
- * 
+ *
  */
 
 
@@ -42,7 +42,7 @@
 
             return this.each(function() {
                 var $this = $(this);
-                
+
                 var data = $this.data('ipUploadImage');
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
@@ -52,14 +52,14 @@
                     } else {
                         defaultImage = ipFileUrl('Ip/Internal/Upload/assets/empty.gif');
                     }
-                    
+
                     var curImage;
                     if (options.image) {
                         curImage = options.image;
                     } else {
                         //curImage = defaultImage;
                     }
-                    
+
                     if (!options.windowWidth) {
                         options.windowWidth = $this.width();
                     }
@@ -70,8 +70,8 @@
                             options.windowHeight = options.windowWidth;
                         }
                     }
-                    
-                    
+
+
                     if (!options.maxWindowWidth) {
                         options.maxWindowWidth = $this.width();
                     }
@@ -84,7 +84,7 @@
                     if (!options.minWindowHeight) {
                         options.minWindowHeight = 10;
                     }
-                    
+
                     if (!options.enableChangeWidth) {
                         options.enableChangeWidth = false;
                         options.minWindowWidth = options.windowWidth;
@@ -98,11 +98,11 @@
                     if (typeof options.aspectRatio == 'undefined') {
                         options.aspectRatio = true;
                     }
-                    
+
                     if (typeof options.enableScale == 'undefined') {
                         options.enableScale = true;
                     }
-                    
+
                     if (typeof options.enableFraming == 'undefined') {
                         options.enableFraming = true;
                     }
@@ -110,7 +110,7 @@
                     if (typeof options.enableUnderscale == 'undefined') {
                         options.enableUnderscale = false;
                     }
-                    
+
                     if (typeof options.autosizeType == 'undefined') {
                         options.autosizeType = 'resize';
                     }
@@ -118,7 +118,7 @@
                     if (options.autosizeType == 'fit') {
                         options.enableUnderscale = true;
                     }
-                    
+
 
                     var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
                     $this.data('ipUploadImage', {
@@ -138,19 +138,19 @@
                         cropY1 : options.cropY1,
                         cropX2 : options.cropX2,
                         cropY2 : options.cropY2,
-                        
+
                         defaultImage : defaultImage,
                         imageChanged : false,
                         coordinatesChanged : false,
-                        
+
                         curImage : curImage,
                         uniqueId : uniqueId
-                    }); 
-                    
-                    
+                    });
+
+
                     var data = Object();
                     data.aa = 'Upload.getImageContainerHtml';
-                    
+
                     $.ajax({
                         type : 'GET',
                         url : ip.baseUrl,
@@ -171,7 +171,18 @@
             });
 
         },
-        
+
+        destroy: function () {
+            return this.each(function() {
+                var $this = $(this);
+                $this.data('ipUploadImage', null);
+                $this.data('originalWidth', null);
+                $this.data('originalHeight', null);
+                $this.data('firstImageLoaded', null)
+                $this.html('');
+                $this.off();
+            });
+        },
 
         getCurImage : function () {
             var $this = this;
@@ -181,36 +192,36 @@
                 return false;
             }
         },
-        
+
         getNewImageUploaded : function () {
             var $this = this;
             return $this.data('ipUploadImage').imageChanged;
         },
-        
+
         getCropCoordinatesChanged : function () {
             var $this = this;
             return $this.data('ipUploadImage').coordinatesChanged || this.ipUploadImage('getNewImageUploaded');
         },
-        
+
         getCropCoordinates : function () {
             var $this = this;
-            
+
             var $image = $this.find('.ipUploadImage');
             var $window = $image.parent().parent();
             var $dragContainer = $image.parent();
-            
+
             var coordinates = new Object;
-            
+
             var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($image.css('left'));
             var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($image.css('top'));
-            
-            
+
+
             var currentWidth = $image.width();
-            
+
             var originalWidth = $image.data('originalWidth');
 
             var scale = currentWidth / originalWidth;
-            
+
             coordinates.x1 = Math.round(offsetX / scale);
             coordinates.y1 = Math.round(offsetY / scale);
             coordinates.x2 = Math.round(coordinates.x1 + $window.width() / scale);
@@ -235,7 +246,7 @@
             $this.find('.ipUploadButtons').show();
             return answer;
         },
-        
+
         height : function () {
             var $this = this;
             $this.find('.ipUploadButtons').hide();
@@ -244,8 +255,8 @@
             return answer;
         }
 
-        
-        
+
+
     };
 
 
