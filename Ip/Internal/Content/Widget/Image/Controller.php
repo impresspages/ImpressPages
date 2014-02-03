@@ -48,6 +48,11 @@ class Controller extends \Ip\WidgetController{
                     $newData['height'] = $postData['height'];
                     return $newData;
                     break;
+                case 'autosize':
+                    unset($currentData['width']);
+                    unset($currentData['height']);
+                    return $currentData;
+                    break;
 //                case 'crop':
 //                    $newData = $currentData;
 //                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
