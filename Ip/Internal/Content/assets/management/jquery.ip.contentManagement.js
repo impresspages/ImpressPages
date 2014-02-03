@@ -523,7 +523,7 @@
 
         }
 
-//        $('.ipsWidgetDropPlaceholder').remove();
+        $('.ipsWidgetDropPlaceholder').remove();
 
 
     }
