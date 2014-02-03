@@ -117,6 +117,11 @@ var ipContent;
 
         }
 
+
+        this.addColumn = function(columnWidgetInstanceId, newColPos) {
+            console.log('//TODOX Add column ' + columnWidgetInstanceId + ' ' + newColPos);
+        }
+
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
             var revisionId = ip.revisionId;
 

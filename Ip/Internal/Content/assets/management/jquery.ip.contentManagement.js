@@ -291,6 +291,44 @@
             $droppable.find('.ipsWidgetDropMarker').css('marginLeft', Math.round(value.width / 2));
         });
 
+        //------------------------------------------------------
+
+        var colsPlaceholders = new Array();
+        $.each($('.ipWidget-Columns'), function (widgetKey, columnsWidget) {
+            $.each($(columnsWidget).find('.ipsCol'), function (colKey, col) {
+                var $col = $(col);
+                if (colKey != 0) { //skip first col
+                    var space = $col.find('.ipBlock').offset().left - ($col.prev().find('.ipBlock').offset().left + $col.prev().find('.ipBlock').width());
+                    //alert(space);
+                    colsPlaceholders.push({
+                        left: $col.find('.ipBlock').offset().left - space,
+                        top: $col.find('.ipBlock').offset().top + 1,
+                        height: Math.max($(columnsWidget).height() - 2, 10),
+                        width: space,
+                        instanceId: $(columnsWidget).data('widgetinstanceid'),
+                        position: colKey
+                    });
+                }
+            });
+        });
+
+
+        $.each(colsPlaceholders, function (key, value) {
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            $('body').append($droppable);
+            $droppable.css('position', 'absolute');
+            $droppable.css('left', value.left + 'px');
+            $droppable.css('top', value.top + 'px');
+            $droppable.css('height', value.height + 'px');
+            $droppable.css('width', value.width + 'px');
+            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('newCol', 1);
+            $droppable.data('position', value.position);
+            $droppable.find('.ipsWidgetDropMarker').height(value.height);
+            $droppable.find('.ipsWidgetDropMarker').css('marginLeft', Math.round(value.width / 2));
+        });
+
+        //------------------------------------------------------
 
         //drop between the widgets horizontally
         var horizontalPlaceholders = new Array();
@@ -485,7 +523,7 @@
 
         }
 
-        $('.ipsWidgetDropPlaceholder').remove();
+//        $('.ipsWidgetDropPlaceholder').remove();
 
 
     }
