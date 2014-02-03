@@ -100,6 +100,13 @@ var IpWidget_Image;
                 width: width,
                 height: height
             };
+
+            if (this.$widgetObject.width() - width <= 2) {
+                data = {
+                    method: 'autosize'
+                }
+            }
+
             this.$widgetObject.save(data, 0);
         }
 
