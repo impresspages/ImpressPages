@@ -6,7 +6,7 @@ class AdminController extends \Ip\Controller{
 
     public function index()
     {
-        $activePlugins = Model::getActivePlugins();
+        $activePlugins = Service::getActivePluginNames();
         $allPlugins = Model::getAllPlugins();
 
         $plugins = array();

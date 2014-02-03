@@ -79,44 +79,12 @@ class Service
         if (isset($widgetOptions['image']['height'])) {
             ipSetOption('Content.widgetImageHeight', $widgetOptions['image']['height']);
         }
-        if (isset($widgetOptions['image']['bigWidth'])) {
-            ipSetOption('Content.widgetImageBigWidth', $widgetOptions['image']['bigWidth']);
-        }
-        if (isset($widgetOptions['image']['bigHeight'])) {
-            ipSetOption('Content.widgetImageBigHeight', $widgetOptions['image']['bigHeight']);
-        }
 
-        if (isset($widgetOptions['imageGallery']['width'])) {
+        if (isset($widgetOptions['gallery']['width'])) {
             ipSetOption('Content.widgetGalleryWidth', $widgetOptions['imageGallery']['width']);
         }
-        if (isset($widgetOptions['imageGallery']['height'])) {
+        if (isset($widgetOptions['gallery']['height'])) {
             ipSetOption('Content.widgetGalleryHeight', $widgetOptions['imageGallery']['height']);
-        }
-        if (isset($widgetOptions['imageGallery']['bigWidth'])) {
-            ipSetOption('Content.widgetGalleryBigWidth', $widgetOptions['imageGallery']['bigWidth']);
-        }
-        if (isset($widgetOptions['imageGallery']['bigHeight'])) {
-            ipSetOption('Content.widgetGalleryBigHeight', $widgetOptions['imageGallery']['bigHeight']);
-        }
-
-        if (isset($widgetOptions['logoGallery']['width'])) {
-            ipSetOption('Content.widgetLogoGalleryWidth', $widgetOptions['logoGallery']['width']);
-        }
-        if (isset($widgetOptions['logoGallery']['height'])) {
-            ipSetOption('Content.widgetLogoGalleryHeight', $widgetOptions['logoGallery']['height']);
-        }
-
-        if (isset($widgetOptions['textImage']['width'])) {
-            ipSetOption('Content.widgetTextImageWidth', $widgetOptions['textImage']['width']);
-        }
-        if (isset($widgetOptions['textImage']['height'])) {
-            ipSetOption('Content.widgetTextImageHeight', $widgetOptions['textImage']['height']);
-        }
-        if (isset($widgetOptions['textImage']['bigWidth'])) {
-            ipSetOption('Content.widgetTextImageBigWidth', $widgetOptions['textImage']['bigWidth']);
-        }
-        if (isset($widgetOptions['textImage']['bigHeight'])) {
-            ipSetOption('Content.widgetTextImageBigHeight', $widgetOptions['textImage']['bigHeight']);
         }
 
     }

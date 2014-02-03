@@ -67,7 +67,7 @@ class Controller extends \Ip\WidgetController{
         $websiteEmail = ipGetOption('Config.websiteEmail');
 
 
-        $to = $from = $websiteEmail;
+        $from = $websiteEmail;
         $files = array();
 
         foreach($form->getFields() as $fieldKey => $field) {
@@ -128,7 +128,19 @@ class Controller extends \Ip\WidgetController{
         $subject = $websiteName.': '.$pageTitle;
 
         $emailQueue = new \Ip\Internal\Email\Module();
-        $emailQueue->addEmail($from, '', $to, '',  $subject, $email, false, true, $files);
+
+        if (!empty($data['sendTo']) && $data['sendTo'] == 'custom') {
+            if (empty($data['emails'])) {
+                $data['emails'] = '';
+            }
+            $emailList = preg_split("/[\s,]+/", $data['emails']);
+        } else {
+            $emailList = array($websiteEmail);
+        }
+
+        foreach($emailList as $listItem) {
+            $emailQueue->addEmail($from, '', $listItem, '',  $subject, $email, false, true, $files);
+        }
 
         $emailQueue->send();
 

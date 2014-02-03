@@ -160,7 +160,7 @@ var ipDesign;
         };
 
         this.init = function () {
-            $('a').not('.ipWidget-Gallery a, .ipWidget-IpLogoGallery a, .ipWidget-IpLogoGallery a, .ipWidget-Image a, .ipWidget-File a, .ipWidget-TextImage a')
+            $('a').not('.ipWidget-Gallery a, .ipWidget-Image a, .ipWidget-File a')
                 .off('click').on('click', function (e) {
                     e.preventDefault();
                     ipDesign.openLink($(e.currentTarget).attr('href'));

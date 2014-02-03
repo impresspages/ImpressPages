@@ -5,9 +5,9 @@
  *
  */
 
-namespace Ip\Internal\Repository\Transform;
+namespace Ip\Transform;
 
-class None extends Base
+class None extends \Ip\Transform
 {
     public function transform($sourceFile, $destinationFile)
     {

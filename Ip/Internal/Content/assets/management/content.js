@@ -108,14 +108,35 @@ var ipContent;
                     }
                 }
             }
-
-
-
-
-
-
-
         }
+
+
+        this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
+            var revisionId = ip.revisionId;
+            addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
+                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                    var $block = $('#ipBlock-' + newWidgetBlockName);
+                    $block.find('.ipbExampleContent').remove();
+                    if (callback) {
+                        callback(instanceId);
+                    }
+                });
+            });
+        }
+
+
+        this.moveWidgetToColumn = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
+            var revisionId = ip.revisionId;
+            addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
+                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, revisionId, function (instanceId) {
+                    if (callback) {
+                        callback(instanceId);
+                    }
+
+                });
+            });
+        }
+
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
             var revisionId = ip.revisionId;
@@ -157,6 +178,23 @@ var ipContent;
                 }
             });
 
+        }
+
+
+        var addColumn = function (columnWidgetInstanceId, newColPos, callback) {
+            var updateData = {
+                method: 'addColumn',
+                position: newColPos
+            }
+            ipContent.updateWidget(columnWidgetInstanceId, updateData, true, function (newInstanceId) {
+                var $colsWidget = $('#ipWidget-' + newInstanceId);
+                var $newCol = $colsWidget.find('.ipsCol').eq(newColPos);
+                var $newBlock = $newCol.find('.ipBlock');
+                var newBlockName = $newBlock.data('ipBlock').name;
+                if (callback) {
+                    callback(newBlockName);
+                }
+            });
         }
 
         var createSpace = function (targetWidgetInstanceId, leftOrRight, callback) {

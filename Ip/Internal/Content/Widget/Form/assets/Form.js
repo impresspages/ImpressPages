@@ -52,14 +52,25 @@ var IpWidget_Form;
 
             options.fieldTemplate = this.modal.find('.ipsFieldTemplate');
 
-            options.optionsPopup = this.modal.find(".ipsFieldOptionsPopup").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
+            options.optionsPopup = $("#ipWidgetFormPopupOptions").ipWidget_ipForm_options({fieldTypes : instanceData.fieldTypes});
             this.container.ipWidget_ipForm_container(options);
 
 
             this.addButton.on('click', $.proxy(addField, this));
-//        var customTinyMceConfig = ipTinyMceConfig();
-//        customTinyMceConfig.height = 100;
-//        this.modal.find(".ipWidgetFormSuccess").tinymce(customTinyMceConfig);
+
+            var customTinyMceConfig = ipTinyMceConfig();
+            this.modal.find('.ipsSuccess').html(instanceData.success);
+            this.modal.find('.ipsSuccess').tinymce(customTinyMceConfig);
+
+            if (instanceData.sendTo == 'custom') {
+                this.modal.find('input[value=custom]').prop('checked', true);
+            } else {
+                this.modal.find('input[value=default]').prop('checked', true);
+            }
+
+            this.modal.find('input[name=emails]').val(instanceData.emails);
+
+
         };
 
         var cleanup = function() {
@@ -101,7 +112,15 @@ var IpWidget_Form;
                 }
             });
 
-            data.success = this.widgetObject.find('.ipWidgetFormSuccess').html();
+            data.success = this.modal.find('.ipsSuccess').html();
+
+            if (this.modal.find('input[value=custom]').prop('checked')) {
+                data.sendTo = 'custom';
+            } else {
+                data.sendTo = 'default';
+            }
+            data.emails = this.modal.find('input[name=emails]').val();
+
             return data;
         };
     };

@@ -11,7 +11,7 @@
                     // generate 2 - 7 levels submenu of top menu.
                     // please note that it is possible to generate second level only if first level item is selected
                     $pages = \Ip\Menu\Helper::getZoneItems('menu1', 2, 7);
-                    echo ipSlot('Ip.menu', $pages);
+                    echo ipSlot('menu', $pages);
                 ?>
             </nav>
         </div>

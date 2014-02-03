@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Internal\Repository\Transform;
+namespace Ip\Transform;
 
 class ImageCrop extends Image
 {
@@ -119,7 +119,7 @@ class ImageCrop extends Image
             /*
             * Negative coordinates x1, y1 are possible.
             * This part of code just adds transparent edges in this way making $image required proportions.
-            * We don't care about the size in this step.
+            * We don't care about the size at this step.
             *
             * */
             $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
