@@ -61,8 +61,8 @@ var IpWidget_Gallery;
                 var $target = $(e.target);
 
                 var $closestLi = $target;
-                if (!$target.prop("tagName") == 'li') {
-                    $closestLi = $target.closest('li');
+                if (!$target.hasClass('ipsItem')) {
+                    $closestLi = $target.closest('.ipsItem');
                 }
 
                 var $closestWidget = $closestLi.closest('.ipWidget-Gallery');
