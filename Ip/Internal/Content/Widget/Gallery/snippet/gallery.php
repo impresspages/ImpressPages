@@ -7,8 +7,6 @@
     <div class="ipgHide" id="ipWidgetGalleryMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <!--<button type="button" class="btn btn-default"><?php _e('Crop', 'ipAdmin') ?></button>
-                <button type="button" class="btn btn-default"><?php _e('Options', 'ipAdmin') ?></button>-->
                 <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
                 <button class="btn btn-default ipsEdit" role="button"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-default ipsLink" role="button"><i class="fa fa-link"></i></button>
