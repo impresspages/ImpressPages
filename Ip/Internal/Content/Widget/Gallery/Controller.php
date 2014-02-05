@@ -55,7 +55,7 @@ class Controller extends \Ip\WidgetController{
                             continue;
                         }
 
-                        //bind new image to the widget
+                        //bind new image to the widgetx
                         \Ip\Internal\Repository\Model::bindFile($image['fileName'], 'Content', $widgetId);
 
 

@@ -399,9 +399,7 @@
         var $ipUploadWindow = $this.find('.ipUploadWindow');
 
 
-        if (data.curImage) {
-            $this.find('.ipUploadImage').attr('src', ipFileUrl('file/repository/' + data.curImage));
-        }
+
         $this.find('.ipUploadBrowseContainer').attr('id', 'ipUploadContainer_' + data.uniqueId);
         $this.find('.ipUploadBrowseButton').attr('id', 'ipUploadButton_' + data.uniqueId);
 
@@ -447,12 +445,15 @@
             $this.find('.ipUploadSmallerButton').hide();
         }
 
-
         //uploaded new photo and loaded. Reinit drag container
-        $this.find('.ipUploadImage').load(function (){
+        $this.find('.ipUploadImage').on('load', function (){
             $.proxy(imageLoaded, $this)();
         });
 
+
+        if (data.curImage) {
+            $this.find('.ipUploadImage').attr('src', ipFileUrl('file/repository/' + data.curImage));
+        }
 
         $this.find('.ipUploadImage').draggable({
             containment: "parent",
@@ -519,6 +520,14 @@
     };
 
 
+
+    function pausecomp(millis)
+    {
+        var date = new Date();
+        var curDate = null;
+        do { curDate = new Date(); }
+        while(curDate-date < millis);
+    }
 
     /**
      * img onLoad event

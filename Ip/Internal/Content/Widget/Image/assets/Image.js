@@ -11,9 +11,12 @@ var IpWidget_Image;
         var controllerScope = this;
         this.$widgetObject = null;
         this.$imageUploader = null;
+        this.data = null;
 
         this.init = function($widgetObject, data) {
             this.$widgetObject = $widgetObject;
+            this.data = data;
+
 
             this.$widgetObject.find('.ipsImage').on('click', function() {
                 var $this = $(this);
@@ -25,6 +28,23 @@ var IpWidget_Image;
                     }
                 });
             });
+
+            this.$controls = $('#ipWidgetImageMenu');
+            this.$widgetObject.on('click', $.proxy(this.focusImage, this));
+
+            $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the image
+                var $target = $(e.target);
+                var $closestWidget = $target.closest('.ipWidget-Image');
+
+                if (!$target.hasClass('ipWidget-Image') && !$closestWidget.hasClass('ipWidget-Image')) {
+                    $.proxy(this.blurImage, this)();
+                }
+
+
+            }, this));
+
+
+
 //
 //            var $imageUploader = $('<div class="ipsImage ip"></div>');
 //            this.$widgetObject.append($imageUploader);
@@ -67,6 +87,98 @@ var IpWidget_Image;
 
         }
 
+        this.focusImage = function (e) {
+            var context = this;
+            e.preventDefault();
+
+            var $item = $(e.currentTarget);
+            var $img = $item.find('.ipsImage');
+            var $controls = this.$controls;
+
+            $controls.removeClass('ipgHide');
+            $controls.css('position', 'absolute');
+            $controls.css('left', $img.offset().left + 5);
+            $controls.css('top', $img.offset().top + 5);
+
+            $controls.find('.ipsDelete').off().on('click', function(e) {
+                $.proxy(context.deleteImage, context)($item.index());
+            });
+            $controls.find('.ipsEdit').off().on('click', function(e) {
+                $.proxy(context.editImage, context)($item.index());
+            });
+        };
+
+        this.blurImage = function () {
+            this.$controls.addClass('ipgHide');
+        };
+
+
+        this.editImage = function (position) {
+            var thisContext = this;
+            var $modal = $('#ipWidgetImageEditPopup');
+            var options = new Object;
+            var data = this.data;
+
+            $modal.modal();
+
+            if (data.imageOriginal) {
+                options.image = data.imageOriginal;
+            }
+            if (data.cropX1) {
+                options.cropX1 = data.cropX1;
+            }
+            if (data.cropY1) {
+                options.cropY1 = data.cropY1;
+            }
+            if (data.cropX2) {
+                options.cropX2 = data.cropX2;
+            }
+            if (data.cropY2) {
+                options.cropY2 = data.cropY2;
+            }
+            options.enableChangeHeight = true;
+            options.enableChangeWidth = true;
+            options.maxWindowWidth = 538;
+            options.enableUnderscale = true;
+
+            options.autosizeType = 'fit';
+
+            var $img = this.$widgetObject.find('.ipsImage').eq(position);
+            if ($img.length == 1) {
+                options.windowWidth = 538;
+                options.windowHeight = Math.round($img.height() / $img.width() * options.windowWidth) ;
+            }
+
+            var $editScreen = $modal.find('.ipsEditScreen');
+            $editScreen.ipUploadImage('destroy');
+            $editScreen.ipUploadImage(options);
+console.log(options);
+            $modal.find('.ipsConfirm').off().on('click', function () {
+                var crop = $editScreen.ipUploadImage('getCropCoordinates');
+                var curImage = $editScreen.ipUploadImage('getCurImage');
+                $.proxy(thisContext.updateImage, thisContext)(crop.x1, crop.y1, crop.x2, crop.y2, curImage);
+                $modal.modal('hide');
+            });
+        }
+
+        this.updateImage = function (x1, y1, x2, y2, image, callback) {
+            var data = {
+                method: 'update',
+                fileName: image,
+                cropX1: x1,
+                cropY1: y1,
+                cropX2: x2,
+                cropY2: y2
+            };
+
+
+            this.$widgetObject.save(data, 1, function($widget){
+                $widget.click();
+                if (callback) {
+                    callback($widget);
+                }
+            });
+        }
 
         this.onAdd = function (e) {
             var thisContext = this;

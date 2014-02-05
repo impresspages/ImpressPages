@@ -53,20 +53,29 @@ class Controller extends \Ip\WidgetController{
                     unset($currentData['height']);
                     return $currentData;
                     break;
-//                case 'crop':
-//                    $newData = $currentData;
-//                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2']) && isset($postData['width'])  && isset($postData['height'])) {
-//                        //new small image
-//                        $newData['cropX1'] = $postData['cropX1'];
-//                        $newData['cropY1'] = $postData['cropY1'];
-//                        $newData['cropX2'] = $postData['cropX2'];
-//                        $newData['cropY2'] = $postData['cropY2'];
-//                        $newData['width'] = $postData['width'];
-//                        $newData['height'] = $postData['height'];
-//                    }
-//                    return $newData;
-//
-//                    break;
+                case 'update':
+                    $newData = $currentData;
+                    if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
+                        $curWidth = $postData['cropX2'] - $postData['cropX1'];
+                        $curHeight = $postData['cropY2'] - $postData['cropY1'];
+                        //new small image
+                        $newData['cropX1'] = $postData['cropX1'];
+                        $newData['cropY1'] = $postData['cropY1'];
+                        $newData['cropX2'] = $postData['cropX2'];
+                        $newData['cropY2'] = $postData['cropY2'];
+                        if (!isset($newData['width'])) {
+                            $newData['width'] = $curWidth;
+                            $newData['height'] = $curHeight;
+                        } else {
+                            if ($curWidth != 0) {
+                                $newData['height'] = $curHeight / $curWidth * $currentData['width'];
+                            }
+
+                        }
+                    }
+                    return $newData;
+
+                    break;
             }
         }
     }
@@ -114,19 +123,41 @@ class Controller extends \Ip\WidgetController{
             $transformBig = new \Ip\Transform\None();
             $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
 
+
+
+
             if (
-                isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2']) && isset($data['width'])  && isset($data['height'])
+                isset($data['cropX1']) && isset($data['cropY1']) && isset($data['cropX2']) && isset($data['cropY2'])
                 && $data['cropY2'] - $data['cropY1'] > 0
             ) {
-                    $transform = new \Ip\Transform\ImageCrop(
-                        $data['cropX1'],
-                        $data['cropY1'],
-                        $data['cropX2'],
-                        $data['cropY2'],
-                        $data['width'],
-                        $data['height']
-                    );
-                    $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformSmall));
+                if (!empty($data['width'])) {
+                    $width = $data['width'];
+                } else {
+                    $width = ipGetOption('Content.widgetImageWidth', 1200);
+                }
+                if ($width <= 0) {
+                    $width = 1200;
+                }
+
+
+                if (!empty($data['height'])) {
+                    $height = $data['height'];
+                } else {
+                    $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
+                    if ($ratio == 0) {
+                        $ratio = 1;
+                    }
+                    $height = round($width / $ratio);
+                }
+                $transform = new \Ip\Transform\ImageCrop(
+                    $data['cropX1'],
+                    $data['cropY1'],
+                    $data['cropX2'],
+                    $data['cropY2'],
+                    $width,
+                    $height
+                );
+                $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transform));
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
