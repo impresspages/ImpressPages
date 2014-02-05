@@ -23,6 +23,8 @@ abstract class Element { //data element in area
         $this->disabledOnUpdate = false;
         $this->previewLength = 20;
         $this->useInBreadcrumb = false;
+        $this->secure = false;
+        $this->secureKey = DB_SECURE_FIELDS_KEY;
 
         foreach ($variables as $name => $value) {
 
@@ -70,6 +72,12 @@ abstract class Element { //data element in area
                     break;
                 case 'useInBreadcrumb':
                     $this->useInBreadcrumb = $value;
+                    break;
+                case 'secure':
+                    $this->secure = $value;
+                    break;
+                case 'secureKey':
+                    $this->secureKey = $value;
                     break;
             }
         }

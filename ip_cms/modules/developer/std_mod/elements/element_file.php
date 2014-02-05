@@ -166,7 +166,15 @@ class ElementFile extends Element{ //data element in area
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
                 if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
-                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = ";
+
+                    if(!$this->secure)
+                        $sql .= "'".$newName."'";
+                    else
+                        $sql .= "AES_ENCRYPT('".mysql_real_escape_string($newName)."', '".$this->secureKey."')";
+
+                    $sql .= " where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
@@ -205,7 +213,14 @@ class ElementFile extends Element{ //data element in area
                 require_once(LIBRARY_DIR.'php/file/functions.php');
                 $newName = \Library\Php\File\Functions::genUnoccupiedName($this->memFile, $this->destDir);
                 if(copy(TMP_FILE_DIR.$this->memFile,$this->destDir.$newName)){
-                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = '".$newName."' where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
+                    $sql = "update `".DB_PREF."".$area->dbTable."` set `".$this->dbField."` = ";
+
+                    if(!$this->secure)
+                        $sql .= "'".$newName."'";
+                    else
+                        $sql .= "AES_ENCRYPT('".mysql_real_escape_string($newName)."', '".$this->secureKey."')";
+
+                    $sql .= " where `".$area->dbPrimaryKey."` = '".mysql_real_escape_string($id)."' ";
                     $rs = mysql_query($sql);
                     if (!$rs)
                     trigger_error("Can't update photo field ".$sql);
@@ -248,7 +263,12 @@ class ElementFile extends Element{ //data element in area
     }
 
     function getFilterOption($value, $area){
-        return " `".$this->dbField."` like '%".mysql_real_escape_string($value)."%' ";
+        if(!$this->secure)
+            $dbField =  "`".$this->dbField."`";
+        else
+            $dbField =  "AES_DECRYPT(".$this->dbField.", '".$this->secureKey."')";
+
+        return " ".$dbField." like '%".mysql_real_escape_string($value)."%' ";
     }
 
 

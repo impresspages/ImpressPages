@@ -189,10 +189,15 @@ class ElementDate extends Element{ //data element in area
             $till = $value['till'];
         }
 
+        if(!$this->secure)
+            $dbField =  "`".$this->dbField."`";
+        else
+            $dbField =  "AES_DECRYPT(".$this->dbField.", '".$this->secureKey."')";
+
         $answer = '';
         if($from != '')
         {
-            $answer .= " `".$this->dbField."` >= '".mysql_real_escape_string($from)."' ";
+            $answer .= " ".$dbField." >= '".mysql_real_escape_string($from)."' ";
         }
         if(isset($value['till']) && $value['till'] != '')
         {
@@ -200,7 +205,7 @@ class ElementDate extends Element{ //data element in area
             {
                 $answer .= " AND ";
             }
-            $answer .= " `".$this->dbField."` <= '".mysql_real_escape_string($till)."' ";
+            $answer .= " ".$dbField." <= '".mysql_real_escape_string($till)."' ";
         }
         return $answer;
 

@@ -222,6 +222,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'config'){
       define('DB_PASSWORD', '".addslashes($_SESSION['db_pass'])."');
       define('DB_DATABASE', '".addslashes($_SESSION['db_db'])."');
       define('DB_PREF', '".addslashes($_SESSION['db_prefix'])."');
+      define('DB_SECURE_FIELDS_KEY', '".hash('ripemd128',rand())."'); // Key to encrypt secure data. You don't must modify this key if you have encrypted fields!
     // END DB
     
     // GLOBAL

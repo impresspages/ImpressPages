@@ -110,10 +110,15 @@ class ElementBool extends Element{ //data element in area
     }
 
     function getFilterOption($value, $area){
-        if($value)
-        return " `".$this->dbField."` = 1 ";
+        if(!$this->secure)
+            $dbField =  "`".$this->dbField."`";
         else
-        return " `".$this->dbField."` = 0 ";
+            $dbField =  "AES_DECRYPT(".$this->dbField.", '".$this->secureKey."')";
+
+        if($value)
+        return " ".$dbField." = 1 ";
+        else
+        return " ".$dbField." = 0 ";
     }
 
 
