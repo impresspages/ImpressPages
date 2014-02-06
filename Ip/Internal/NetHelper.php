@@ -3,7 +3,7 @@
  * @package ImpressPages
  */
 
-namespace Library\Php;
+namespace Ip\Internal;
 
 
 class NetHelper

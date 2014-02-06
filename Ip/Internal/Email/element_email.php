@@ -7,7 +7,7 @@
 
 namespace Ip\Internal\Email;
 //TODOXX refactor #132
-class element_email extends \Library\Php\StandardModule\Element{ //data element in area
+class element_email extends \Ip\Internal\StandardModule\Element{ //data element in area
     var $default_value;
     var $mem_value;
     var $reg_expression;
