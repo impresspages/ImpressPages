@@ -1,13 +1,8 @@
-var adminFramesetRows;
 
 var ipDesignOpenOptions = function (e) {
     "use strict";
     e.preventDefault();
 
-    if (top.document.getElementById('adminFrameset')) {
-        adminFramesetRows = top.document.getElementById('adminFrameset').rows;
-        top.document.getElementById('adminFrameset').rows = "0px,*";
-    }
 
     $('body').addClass('ipgStopScrolling');
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
@@ -18,10 +13,6 @@ var ipDesignOpenOptions = function (e) {
 var ipDesignCloseOptions = function (e) {
     "use strict";
     e.preventDefault();
-
-    if (top.document.getElementById('adminFrameset')) {
-        top.document.getElementById('adminFrameset').rows = adminFramesetRows;
-    }
 
     $('body').removeClass('ipgStopScrolling');
     $('.ipModuleDesign .ipsPreview').hide();
