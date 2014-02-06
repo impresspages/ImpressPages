@@ -196,8 +196,8 @@ namespace Ip\Lib\HnCaptcha;
   * Tabsize: 4
   *
   **/
-use Library\Php\hn_captcha\HTML;
-use Library\Php\hn_captcha\nothing;
+use Ip\Internal\hn_captcha\HTML;
+use Ip\Internal\hn_captcha\nothing;
 
 
 /**

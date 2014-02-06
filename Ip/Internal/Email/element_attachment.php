@@ -9,7 +9,7 @@ namespace Ip\Internal\Email;
 //TODOXX REFACTOR #132
 require_once(__DIR__ . '/db.php');
 
-class element_attachment extends \Library\Php\StandardModule\Element{ //data element in area
+class element_attachment extends \Ip\Internal\StandardModule\Element{ //data element in area
     var $default_value;
     var $mem_value;
     var $reg_expression;
@@ -58,7 +58,7 @@ class element_attachment extends \Library\Php\StandardModule\Element{ //data ele
                 if ($answer != '') {
                     $answer .= '<br />';
                 }
-                 
+
                 $answer .= '<a target="_blank" href="'.$cms->generateWorkerUrl($cms->curModId, 'action=get_file&file_number='.$i.'&record_id='.$value).'">'.htmlspecialchars($file_names[$i]).'</a>';
 
             }
