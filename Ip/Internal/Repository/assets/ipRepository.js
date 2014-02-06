@@ -17,15 +17,9 @@ var ipRepositoryESC;
 
         $('body').append(ipRepositoryHtml);
         var $popup = $('.ipModuleRepositoryPopup');
-        //$popup.css('top', $(document).scrollTop() + 'px');
         $popup.css('position', 'fixed');
         $popup.css('top', 0);
         $popup.css('left', 0);
-        if (top.document.getElementById('adminFrameset')) {
-            $popup.data('originalTopFrameRows', top.document.getElementById('adminFrameset').rows);
-            top.document.getElementById('adminFrameset').rows = "0px,*";
-        }
-        //$popup.dialog({modal: true, width: 853, height: 450, top: 50, zIndex: 99000});
 
 
         //initialize first tab
@@ -59,9 +53,6 @@ var ipRepositoryESC;
         });
 
         $popup.bind('ipModuleRepository.close', function(e) {
-            if (top.document.getElementById('adminFrameset')) {
-                top.document.getElementById('adminFrameset').rows = $(this).data('originalTopFrameRows');
-            }
             $(document).off('keyup', ipRepositoryESC);
             $('.ipModuleRepositoryPopup').remove();
             $('body').removeClass('stopScrolling');

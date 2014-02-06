@@ -5,10 +5,6 @@ var ipDesignThemeMarket;
     "use strict";
     ipDesignThemeMarket = new function () {
 
-        /**
-         * @see this.openMarketWindow(), this.closeMarketWindow()
-         */
-        var adminFramesetRows = 0;
         var isThemePreview = false;
 
         var processOrder = function (order) {
@@ -59,17 +55,14 @@ var ipDesignThemeMarket;
                         handle: function (action, data) {
                             switch (action) {
                                 case 'installTheme':
+                                    $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                        location.reload();
+                                    });
                                     var fakeOrder = {
                                         images: [],
                                         themes: [data]
                                     };
                                     processOrder(fakeOrder);
-                                    $('body').bind('ipMarketOrderComplete', function (e, data) {
-                                        if (top.document.getElementById('adminFrameset')) {
-                                            top.document.getElementById('adminFrameset').rows = adminFramesetRows;
-                                        }
-                                        location.reload();
-                                    });
                                     break;
                                 case 'processOrder':
                                     processOrder(data);
@@ -126,9 +119,6 @@ var ipDesignThemeMarket;
             var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
             $popup.hide();
 
-            if (top.document.getElementById('adminFrameset')) {
-                top.document.getElementById('adminFrameset').rows = adminFramesetRows;
-            }
 
             $('#ipModuleThemeMarketContainer iframe').remove();
 

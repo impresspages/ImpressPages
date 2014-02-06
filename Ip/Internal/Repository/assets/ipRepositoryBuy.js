@@ -50,9 +50,6 @@
                                         }
                                         processOrder(fakeOrder);
                                         $('body').bind('ipMarketOrderComplete', function (e, data) {
-                                            if (top.document.getElementById('adminFrameset')) {
-                                                top.document.getElementById('adminFrameset').rows = adminFramesetRows;
-                                            }
                                             location.reload();
                                         });
                                         break;
