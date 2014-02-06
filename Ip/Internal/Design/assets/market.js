@@ -106,7 +106,6 @@ var ipDesignThemeMarket;
 
             var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
 
-            $popup.find('.ipmPopupTabs').tabs();
             $('body').addClass('ipgStopScrolling');
             $popup.show();
             showMarketIframe();
