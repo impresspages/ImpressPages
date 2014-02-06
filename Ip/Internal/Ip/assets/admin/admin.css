@@ -8531,7 +8531,6 @@
   border: 1px solid transparent;
   float: right;
   margin-right: 7px;
-  margin-top: -26px;
 }
 .ip .ipModuleDesign .ipmThemeMarketPopupClose:hover {
   background-color: #ddd;
@@ -8541,6 +8540,7 @@
   height: 100%;
 }
 .ip .ipModuleDesign .ipmThemeMarketContainer {
+  background-color: #fff;
   height: 100%;
 }
 .ip .ipModuleDesign .ipmThemeMarketContainer iframe {

@@ -81,18 +81,9 @@
     </div>
 
     <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
-        <div class="ipmPopupTabs">
-            <ul>
-                <li><a href="#ipModuleThemeMarketAll"><?php _e('Marketplace', 'ipAdmin'); ?></a></li>
-            </ul>
-
-            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
-
-            <div id="ipModuleThemeMarketAll">
-                <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo esc($marketUrl) ?>">
-                    <!-- <iframe name="easyXDM*" /> -->
-                </div>
-            </div>
+        <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo esc($marketUrl) ?>">
+            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose"><?php _e('Close', 'ipAdmin'); ?></a>
+            <!-- <iframe name="easyXDM*" /> -->
         </div>
     </div>
 
