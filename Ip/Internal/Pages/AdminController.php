@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
 
         ipAddJsVariable('languageList', Helper::languageList());
-        ipAddJsVariable('zoneList', Helper::zoneList());
+        ipAddJsVariable('menuList', Helper::menuList());
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),

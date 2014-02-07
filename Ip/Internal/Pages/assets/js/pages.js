@@ -24,62 +24,61 @@ var ipPages = null;
 
 
         //init
-        $scope.activeLanguage = {id: null};
-        $scope.activeZone = {name: ''};
+        $scope.activeLanguage = {id: null, code: null};
+        $scope.activeMenu = {alias: ''};
         $scope.copyPageId = false;
         $scope.cutPageId = false;
         $scope.selectedPageId = null;
-        $scope.languages = languageList;
-        $scope.zones = zoneList;
+        $scope.languageList = languageList;
+        $scope.menuList = menuList;
         $scope.initialized = false;
 
         $scope.$on('PathChanged', function (event, path) {
-            var zoneName = getHashParams().zone;
-            var languageId = getHashParams().language;
+            var menuName = getHashParams().menu;
+            var languageCode = getHashParams().language;
             var pageId = getHashParams().page;
 
             if (!$scope.initialized) {
-                if (languageId == null) {
-                    languageId = languageList[0].id;
+                if (languageCode == null) {
+                    console.log('languageList', languageList);
+                    languageCode = languageList[0].code;
                 }
-                if (zoneName == null) {
-                    zoneName = zoneList[0].name;
+                if (menuName == null) {
+                    menuName = menuList[0].alias;
                 }
 
             }
 
-            if (languageId && languageId != $scope.activeLanguage.id) {
+            if (languageCode && languageCode != $scope.activeLanguage.code) {
                 $.each(languageList, function (key, value) {
-                    if (value.id == languageId) {
+                    if (value.code == languageCode) {
                         $scope.activateLanguage(value);
                     }
                 });
             }
 
 
-            if (zoneName && zoneName != $scope.activeZone.name) {
-                $.each(zoneList, function (key, value) {
-                    if (value.name == zoneName) {
-                        $scope.activateZone(value);
+            if (menuName && menuName != $scope.activeMenu.name) {
+                $.each(menuList, function (key, value) {
+                    if (value.name == menuName) {
+                        $scope.activatemenu(value);
                     }
                 });
             }
-            ;
-
 
             if (pageId && pageId != $scope.selectedPageId) {
-                $scope.activatePage(pageId, $scope.activeZone.name);
+                $scope.activatePage(pageId, $scope.activeMenu.name);
             }
 
         });
 
 
-        $scope.setZoneHash = function (zone) {
-            updateHash(null, zone.name, false);
+        $scope.setMenuHash = function (menu) {
+            updateHash(null, menu.alias, false);
         }
 
         $scope.setLanguageHash = function (language) {
-            updateHash(language.id, null, false);
+            updateHash(language.code, null, false);
         }
 
 
@@ -88,9 +87,9 @@ var ipPages = null;
             initTree();
         }
 
-        $scope.activateZone = function (zone) {
-            $scope.activeZone = zone;
-            $scope.selectedPageId = null;
+        $scope.activateMenu = function (menu) {
+            $scope.activeMenu = menu;
+            $scope.selectedPageId = menu.id;
             initTree();
         }
 
@@ -224,10 +223,14 @@ var ipPages = null;
         }
 
 
-        $scope.zoneTitle = function (zone) {
-            if (zone.title) {
-                return zone.title;
+        $scope.menuTitle = function (menu) {
+            if (menu.navigationTitle) {
+                return menu.navigationTitle;
             }
+            if (menu.pageTitle) {
+                return menu.pageTitle;
+            }
+
             return 'Untitled';
         }
 
@@ -240,9 +243,9 @@ var ipPages = null;
                 var position = node.index() + 1;
             }
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, true);
+                movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeMenu.name, $scope.selectedPageId, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeZone.name, $scope.selectedPageId, position, function () {
+                copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeMenu.name, $scope.selectedPageId, position, function () {
                     refresh();
                 });
             }
@@ -251,7 +254,7 @@ var ipPages = null;
 
         var initTree = function () {
             $scope.selectedPageId = null;
-            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeZone.name});
+            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeMenu.name});
             getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
                 var node = getJsTree().get_selected();
                 updateHash(null, null, node.attr('pageId'));
@@ -266,7 +269,7 @@ var ipPages = null;
                         destinationPageId = null;
                     }
                     var destinationPosition = moveData.rslt.cp + i;
-                    movePage(pageId, $scope.activeLanguage.id, $scope.activeZone.name, destinationPageId, destinationPosition);
+                    movePage(pageId, $scope.activeLanguage.id, $scope.activeMenu.name, destinationPageId, destinationPosition);
                 });
             });
 
@@ -275,16 +278,16 @@ var ipPages = null;
 
 
         var getTreeDiv = function () {
-            return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name).find('.ipsTree');
+            return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.name).find('.ipsTree');
         }
 
         var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeZone.name + ' .ipsTree');
+            return $.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.name + ' .ipsTree');
         }
 
         var refresh = function () {
             $('.ipsTree').ipPageTree('destroy');
-            $scope.activateZone($scope.activeZone);
+            $scope.activateZone($scope.activeMenu);
             $scope.$apply();
         }
 
@@ -295,7 +298,7 @@ var ipPages = null;
                 securityToken: ip.securityToken,
                 title: title,
                 visible: visible,
-                zoneName: $scope.activeZone.name,
+                zoneName: $scope.activeMenu.name,
                 languageId: $scope.activeLanguage.id
             };
 
@@ -445,17 +448,18 @@ var ipPages = null;
             });
         }
 
-        var updateHash = function (languageId, zoneName, pageId) {
-            if (languageId === null) {
-                languageId = $scope.activeLanguage.id;
+        var updateHash = function (languageCode, menuName, pageId) {
+            if (languageCode === null) {
+                console.log('activeLanguage:', $scope.activeLanguage);
+                languageCode = $scope.activeLanguage.code;
             }
-            if (zoneName === null) {
-                zoneName = $scope.activeZone.name
+            if (menuName === null) {
+                menuName = $scope.activeMenu.alias;
             }
             if (pageId === null) {
                 pageId = $scope.selectedPageId;
             }
-            var path = 'hash&language=' + languageId + '&zone=' + zoneName;
+            var path = 'hash&language=' + languageCode + '&menu=' + menuName;
             if (pageId) {
                 path = path + '&page=' + pageId;
             }

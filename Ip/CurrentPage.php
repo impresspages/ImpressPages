@@ -74,7 +74,7 @@ class CurrentPage
                 $revision = \Ip\Internal\Revision::getRevision($revisionId);
             }
 
-            if ($page) {
+            if ($page && !($page instanceof \Ip\Page404)) {
                 if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
                     ) || $revision['pageId'] != $page->getId()
                 ) {

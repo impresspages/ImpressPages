@@ -22,24 +22,16 @@ class Helper
             $answer[] = array(
                 'id' => $language->getId(),
                 'title' => $language->getTitle(),
-                'abbreviation' => $language->getAbbreviation()
+                'abbreviation' => $language->getAbbreviation(),
+                'code' => $language->getCode(),
             );
         }
         return $answer;
     }
 
-    public static function zoneList()
+    public static function menuList()
     {
-        $answer = array();
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        foreach($zones as $zone)
-        {
-            $answer[] = array(
-                'name' => $zone['name'],
-                'title' => $zone['translation']
-            );
-        }
-        return $answer;
+        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `navigationTitle`', array('parentId' => 0));
     }
 
     public static function zoneForm($zoneName)
