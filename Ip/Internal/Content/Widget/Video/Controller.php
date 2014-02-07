@@ -35,11 +35,18 @@ class Controller extends \Ip\WidgetController
         $url = $data['url'];
 
 
-        if (preg_match('/^((http|https):\/\/)?(www.)?youtube.com/s', $url)) {
-            if (!preg_match('/^((http|https):\/\/)/s', $url)) {
+        if (preg_match('%^[^"&?/ ]{11}$%i', $url)) {
+            $url = 'http://www.youtube.com/embed/' . $url;
+        }
+
+        if (preg_match('/^((http|https):\/\/)?(www.)?youtube.com/i', $url)) {
+
+
+
+            if (!preg_match('/^((http|https):\/\/)/i', $url)) {
                 $url = 'http://' . $url;
             }
-            if (preg_match('/youtube.com\/watch\?v=/s', $url)) {
+            if (preg_match('/youtube.com\/watch\?v=/i', $url)) {
                 $url = str_replace('youtube.com/watch?v=', 'youtube.com/embed/', $url);
             }
             if (ipIsManagementState()) {
