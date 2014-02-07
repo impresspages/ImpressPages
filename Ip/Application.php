@@ -156,8 +156,7 @@ class Application
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
         if (empty($routeAction)) {
-            ipCurrentPage()->_set('zone', '404');
-            $page = new \Ip\Page404(404, 'Error');
+            $page = new \Ip\Page404(0, 'Error');
             ipCurrentPage()->_set('page', $page);
             return new \Ip\Response\PageNotFound();
         }

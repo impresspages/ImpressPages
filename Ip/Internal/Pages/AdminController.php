@@ -136,7 +136,7 @@ class AdminController extends \Ip\Controller
 
         $data['visible'] = !empty($data['visible']);
         if (empty($answer['errors'])) {
-            Service::updatePage($zoneName, $pageId, $data);
+            Service::updatePage($pageId, $data);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';

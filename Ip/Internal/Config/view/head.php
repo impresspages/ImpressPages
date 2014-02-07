@@ -3,7 +3,7 @@
 <?php } else { ?>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
 <?php } ?>
-    <title><?php echo htmlspecialchars($title); ?></title>
+    <title>#<?php echo ipCurrentPage()->getPage()->getId() ?> <?php echo htmlspecialchars($title); ?></title>
     <link rel="shortcut icon" href="<?php echo htmlspecialchars($favicon); ?>" />
     <meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
     <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />

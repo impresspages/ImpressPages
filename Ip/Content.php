@@ -395,7 +395,7 @@ class Content
      */
     public static function updatePage($zoneName, $pageId, $data)
     {
-        \Ip\Internal\Pages\Service::updatePage($zoneName, $pageId, $data);
+        \Ip\Internal\Pages\Service::updatePage($pageId, $data);
     }
 
     /**
