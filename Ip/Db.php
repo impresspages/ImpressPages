@@ -156,13 +156,13 @@ class Db
     /**
      * Execute SELECT query on specified table and return array with results
      *
-     * @param array|string $columns  list of columns or string. For example array('id', 'name') or '*'.
      * @param string $table Table name without prefix
-     * @param array  $where Conditional array. For example array('id' => 20)
+     * @param array|string $columns list of columns or string. For example array('id', 'name') or '*'.
+     * @param array $where Conditional array. For example array('id' => 20)
      * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function selectAll($columns, $table, $where = array(), $sqlEnd = '')
+    public function selectAll($table, $columns, $where = array(), $sqlEnd = '')
     {
         if (is_array($columns)) {
             $columns = '`' . implode('`,`', $columns) . '`';
@@ -198,15 +198,15 @@ class Db
      * Execute SELECT query and return a single row
      * @see self::selectAll()
      *
-     * @param array|string $columns List of columns as array or string. For example array('id', 'name') or '*'.
      * @param string $table Table name without prefix
+     * @param array|string $columns List of columns as array or string. For example array('id', 'name') or '*'.
      * @param array $where Conditional array. For example array('id' => 20)
      * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return array
      */
-    public function selectRow($columns, $table, $where, $sqlEnd = '')
+    public function selectRow($table, $columns, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($columns, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($table, $columns, $where, $sqlEnd . ' LIMIT 1');
         return $result ? $result[0] : array();
     }
 
@@ -215,19 +215,19 @@ class Db
      *
      * @see self::selectAll()
      *
-     * @param string $column Column name. For example 'id'.
      * @param string $table Table name without prefix
+     * @param string $column Column name. For example 'id'.
      * @param array $where Conditional array. For example array('id' => 20)
      * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
      * @return mixed|null
      */
-    public function selectValue($column, $table, $where, $sqlEnd = '')
+    public function selectValue($table, $column, $where, $sqlEnd = '')
     {
-        $result = $this->selectAll($column, $table, $where, $sqlEnd . ' LIMIT 1');
+        $result = $this->selectAll($table, $column, $where, $sqlEnd . ' LIMIT 1');
         return $result ? array_shift($result[0]) : null;
     }
 
-    public function selectColumn($column, $table, $where, $sqlEnd = '')
+    public function selectColumn($table, $column, $where, $sqlEnd = '')
     {
         $sql = 'SELECT ' . $column . ' FROM ' . ipTable($table);
 

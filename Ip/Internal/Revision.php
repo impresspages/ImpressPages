@@ -162,7 +162,7 @@ class Revision{
             'zoneName' => $zoneName,
         );
 
-        return ipDb()->selectAll('*', 'revision', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
+        return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
     }
 
     /**
