@@ -342,7 +342,7 @@ class AdminController extends \Ip\Controller
 				),
             	'children'=>array()
 			);
-			foreach (\Ip\Menu\Helper::getZoneItems($zone->getName()) as $page) {
+			foreach (\Ip\Menu\Helper::getMenuItems($zone->getName()) as $page) {
 			   $z['children'][] = $this->_addPageToTree($page);
 			}
 

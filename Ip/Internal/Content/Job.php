@@ -15,45 +15,20 @@ class Job
      */
     public static function ipRouteAction_70($info)
     {
-        $zonesData = ipContent()->getZones();
-        $urlParts = explode('/', $info['relativeUri'], 2);
+        $languageCode = ipCurrentPage()->getLanguage()->getCode();
+        $pageId = ipDb()->selectValue('page', 'id',
+            array(
+                'url' => $info['relativeUri'],
+                'languageCode' => $languageCode,
+                'visible' => 1,
+            )
+        );
 
-        $result = array();
-
-        if (!empty($urlParts[0])) {
-            $potentialZoneUrl = urldecode($urlParts[0]);
-            foreach ($zonesData as $zoneData) {
-                if ($zoneData->getUrl() == $potentialZoneUrl) {
-                    $result['zoneUrl'] = $potentialZoneUrl;
-                    $result['zone'] = $zoneData->getName();
-                    $result['relativeUri'] = isset($urlParts[1]) ? $urlParts[1] : '';
-                    break;
-                }
-            }
-
-            if (empty($result['zone'])) {
-                $zoneWithNoUrl = null;
-                foreach ($zonesData as $zoneData) {
-                    if ($zoneData->getUrl() === '') {
-                        $result['zoneUrl'] = '';
-                        $result['zone'] = $zoneData->getName();
-                        break;
-                    }
-                }
-            }
-        } else {
-            if (empty($zonesData)) {
-                throw new \Ip\Exception('Please insert at least one zone');
-            } else {
-                $firstZoneData = array_shift($zonesData);
-                $result['zone'] = $firstZoneData->getName();
-            }
+        if (!$pageId) {
+            return null;
         }
 
-        if (empty($result['zone'])) {
-            return NULL;
-        }
-
+        $result['page'] = new \Ip\Page($pageId, 'page');
         $result['plugin'] = 'Content';
         $result['controller'] = 'PublicController';
         $result['action'] = 'index';

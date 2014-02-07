@@ -191,7 +191,7 @@ class Zone extends \Ip\Zone
         $newPage->setKeywords($dbPage['keywords']);
         $newPage->setDescription($dbPage['description']);
         $newPage->setUrl($dbPage['url']);
-        $newPage->setText($dbPage['cached_text']);
+        //$newPage->setText($dbPage['cached_text']);
         $newPage->setLastModified($dbPage['last_modified']);
         $newPage->setCreatedOn($dbPage['created_on']);
         $newPage->setVisible($dbPage['visible']);
