@@ -36,16 +36,22 @@ class Controller extends \Ip\WidgetController
 
 
         if (preg_match('%^[^"&?/ ]{11}$%i', $url)) {
+            //youtube id
             $url = 'http://www.youtube.com/embed/' . $url;
+        }
+        if (preg_match('%^[0-9]+$%i', $url)) {
+            //vimeo id
+            $url = 'http://player.vimeo.com/video/' . $url;
+        }
+
+        if (!preg_match('/^((http|https):\/\/)/i', $url)) {
+            $url = 'http://' . $url;
         }
 
         if (preg_match('/^((http|https):\/\/)?(www.)?youtube.com/i', $url)) {
+            //youtube video
 
 
-
-            if (!preg_match('/^((http|https):\/\/)/i', $url)) {
-                $url = 'http://' . $url;
-            }
             if (preg_match('/youtube.com\/watch\?v=/i', $url)) {
                 $url = str_replace('youtube.com/watch?v=', 'youtube.com/embed/', $url);
             }
@@ -57,34 +63,50 @@ class Controller extends \Ip\WidgetController
                 }
 
             }
+            return $this->renderView('view/youtube.php', $url, $data);
+        }
 
-            $variables = array(
-                'url' => $url,
-                'style' => '',
-                'iframeStyle' => ''
-            );
-
-            if (!empty($data['size']) && $data['size'] != 'auto') {
-                if (empty($data['width'])) {
-                    $data['width'] = 853;
-                }
-                if (empty($data['height'])) {
-                    $data['height'] = 480;
-                }
-                $variables['iframeStyle'] = 'width: ' . $data['width'] . 'px; height: ' . $data['height'] . 'px;';
-            } else {
-                $variables['iframeStyle'] = 'height: 100%; width:100%; position: absolute; top: 0; left: 0;';
-                if (!empty($data['ratio']) && $data['ratio'] != '16:9') {
-                    $variables['style'] = 'padding-bottom: 75% !important; position: relative;';
-                } else {
-                    $variables['style'] = 'padding-bottom: 56.25% !important; position: relative;';
-                }
+        if (preg_match('/^((http|https):\/\/)?(www.)?(player.)?vimeo.com/i', $url)) {
+            if (preg_match('%www.vimeo.com%i', $url)) {
+                $url = str_replace('www.vimeo.com', 'player.vimeo.com', $url);
+            }
+            if (preg_match('%//vimeo.com%i', $url)) {
+                $url = str_replace('//vimeo.com', '//player.vimeo.com', $url);
             }
 
-
-            return ipView('view/youtube.php', $variables)->render();
-
+            return $this->renderView('view/vimeo.php', $url, $data);
         }
+
+
+        return false;
+    }
+
+    protected function renderView($viewFile, $url, $data) {
+        $variables = array(
+            'url' => $url,
+            'style' => '',
+            'iframeStyle' => ''
+        );
+
+        if (!empty($data['size']) && $data['size'] != 'auto') {
+            if (empty($data['width'])) {
+                $data['width'] = 853;
+            }
+            if (empty($data['height'])) {
+                $data['height'] = 480;
+            }
+            $variables['iframeStyle'] = 'width: ' . $data['width'] . 'px; height: ' . $data['height'] . 'px;';
+        } else {
+            $variables['iframeStyle'] = 'height: 100%; width:100%; position: absolute; top: 0; left: 0;';
+            if (!empty($data['ratio']) && $data['ratio'] != '16:9') {
+                $variables['style'] = 'padding-bottom: 75% !important; position: relative;';
+            } else {
+                $variables['style'] = 'padding-bottom: 56.25% !important; position: relative;';
+            }
+        }
+
+
+        return ipView($viewFile, $variables)->render();
 
     }
 
