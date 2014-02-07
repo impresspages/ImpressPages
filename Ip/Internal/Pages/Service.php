@@ -34,9 +34,9 @@ class Service
      * @param int $pageId
      * @param array $data
      */
-    public static function updatePage($zoneName, $pageId, $data)
+    public static function updatePage($pageId, $data)
     {
-        Db::updatePage($zoneName, $pageId, $data);
+        Db::updatePage($pageId, $data);
     }
 
 
@@ -130,7 +130,7 @@ class Service
             'parentId' => $destinationParentId,
             'rowNumber' => $newIndex
         );
-        Db::updatePage($zone->getName(), $pageId, $data);
+        Db::updatePage($pageId, $data);
 
         //report url change
         $page = $destinationZone->getPage($pageId);

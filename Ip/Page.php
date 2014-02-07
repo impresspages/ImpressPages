@@ -306,7 +306,10 @@ class Page{
      * Get page URL address
      * @return string Page URL
      */
-    public function getLink(){return $this->link;}
+    public function getLink()
+    {
+        return $this->languageCode . '/' . $this->url;
+    }
 
     /**
      * @ignore

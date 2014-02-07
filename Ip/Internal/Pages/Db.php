@@ -193,15 +193,11 @@ class Db {
      * @param $params
      * @return bool
      */
-    public static function updatePage($zoneName, $pageId, $params){
+    public static function updatePage($pageId, $params)
+    {
         $values = array();
 
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Ip\Exception("Page doesn't exist");
-        }
-
-        $oldPage = $zone->getPage($pageId);
+        $oldPage = new \Ip\Page($pageId);
         $oldUrl = $oldPage->getLink(true);
 
         if (isset($params['navigationTitle'])) {
@@ -209,7 +205,7 @@ class Db {
         }
 
         if (isset($params['pageTitle'])) {
-            $values['page_title'] = $params['pageTitle'];
+            $values['pageTitle'] = $params['pageTitle'];
         }
 
         if (isset($params['keywords'])) {
@@ -249,7 +245,7 @@ class Db {
         }
 
         if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false) {
-            $values['last_modified'] = $params['lastModified'];
+            $values['lastModified'] = $params['lastModified'];
         }
 
         if (isset($params['type'])) {
@@ -257,7 +253,7 @@ class Db {
         }
 
         if (isset($params['redirectURL'])) {
-            $values['redirect_url'] = $params['redirectURL'];
+            $values['redirectUrl'] = $params['redirectURL'];
         }
 
         if (isset($params['visible'])) {
@@ -268,16 +264,8 @@ class Db {
             $values['parent'] = $params['parentId'];
         }
 
-        if (isset($params['rowNumber'])) {
-            $values['row_number'] = $params['rowNumber'];
-        }
-
-        if (isset($params['cached_html'])) {
-            $values['cached_html'] = $params['cached_html'];
-        }
-
-        if (isset($params['cached_text'])) {
-            $values['cached_text'] = $params['cached_text'];
+        if (isset($params['pageOrder'])) {
+            $values['pageOrder'] = $params['pageOrder'];
         }
 
         if (count($values) == 0) {

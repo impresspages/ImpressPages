@@ -457,7 +457,7 @@ class Model
             'cached_html' => $pageContent,
             'cached_text' => $pageContentText
         );
-        \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
+        \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $params);
     }
 
 
