@@ -2,20 +2,20 @@
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss('ipContent.css');
-    ipAddCss('theme.css');
+    ipAddCss('assets/ipContent.css');
+    ipAddCss('assets/theme.css');
     echo ipHead();
     ?>
 </head>
 <body>
     <div class="topmenu">
-        <?php ipSlot('menu', 'menu1'); ?>
+        <?php echo ipSlot('menu', 'menu1'); ?>
     </div>
     <div class="content">
         <?php echo ipBlock('main')->render(); ?>
     </div>
     <?php
-        ipAddJs('theme.js');
+        ipAddJs('assets/theme.js');
         echo ipJs();
     ?>
 </body>
