@@ -65,6 +65,8 @@ class Revision{
 
     public static function createRevision ($zoneName, $pageId, $published) {
 
+        assert('$pageId > 0');
+
         $revision = array(
             'zoneName' => $zoneName,
             'pageId' => $pageId,
