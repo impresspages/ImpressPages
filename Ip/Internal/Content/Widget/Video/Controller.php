@@ -18,22 +18,21 @@ class Controller extends \Ip\WidgetController
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
-        if (!empty($data['url'])) {
-            $videoHtml = $this->generateVideoHtml($data['url']);
-            if ($videoHtml) {
-                $data['videoHtml'] = $videoHtml;
-            }
+        $videoHtml = $this->generateVideoHtml($data);
+        if ($videoHtml) {
+            $data['videoHtml'] = $videoHtml;
         }
 
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
 
-    protected function generateVideoHtml($url)
+    protected function generateVideoHtml($data)
     {
-        if (empty($url)) {
+        if (empty($data['url'])) {
             return false;
         }
+        $url = $data['url'];
 
 
         if (preg_match('/^((http|https):\/\/)?(www.)?youtube.com/s', $url)) {
@@ -53,8 +52,28 @@ class Controller extends \Ip\WidgetController
             }
 
             $variables = array(
-                'url' => $url
+                'url' => $url,
+                'style' => '',
+                'iframeStyle' => ''
             );
+
+            if (!empty($data['size']) && $data['size'] != 'auto') {
+                if (empty($data['width'])) {
+                    $data['width'] = 853;
+                }
+                if (empty($data['height'])) {
+                    $data['height'] = 480;
+                }
+                $variables['iframeStyle'] = 'width: ' . $data['width'] . 'px; height: ' . $data['height'] . 'px;';
+            } else {
+                $variables['iframeStyle'] = 'height: 100%; width:100%; position: absolute; top: 0; left: 0;';
+                if (!empty($data['ratio']) && $data['ratio'] != '16:9') {
+                    $variables['style'] = 'padding-bottom: 75% !important; position: relative;';
+                } else {
+                    $variables['style'] = 'padding-bottom: 56.25% !important; position: relative;';
+                }
+            }
+
 
             return ipView('view/youtube.php', $variables)->render();
 
@@ -85,12 +104,46 @@ class Controller extends \Ip\WidgetController
             ));
         $form->addField($field);
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Select(
             array(
-                'name' => 'url',
-                'label' => __('Url', 'ipAdmin', false),
+                'name' => 'size',
+                'label' => __('Size', 'ipAdmin', false),
+            ));
+
+        $values = array(
+            array('auto', __('Auto', 'ipAdmin', false)),
+            array('custom', __('Custom', 'ipAdmin', false)),
+        );
+        $field->setValues($values);
+
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Number(
+            array(
+                'name' => 'width',
+                'label' => __('Width', 'ipAdmin', false),
             ));
         $form->addField($field);
+
+        $field = new \Ip\Form\Field\Number(
+            array(
+                'name' => 'height',
+                'label' => __('Height', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'ratio',
+                'label' => __('Aspect ratio', 'ipAdmin', false),
+            ));
+        $values = array(
+            array('16:9', __('16:9', 'ipAdmin', false)),
+            array('4:3', __('4:3', 'ipAdmin', false)),
+        );
+        $field->setValues($values);
+        $form->addField($field);
+
 
 
         return $form; // Output a string with generated HTML form
