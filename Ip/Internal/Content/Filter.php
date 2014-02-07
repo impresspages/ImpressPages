@@ -14,7 +14,7 @@ class Filter
         $widgets['Separator'] = new \Ip\Internal\Content\Widget\Separator\Controller('Separator', 'Content', 1);
         $widgets['Image'] = new \Ip\Internal\Content\Widget\Image\Controller('Image', 'Content', 1);
         $widgets['Gallery'] = new \Ip\Internal\Content\Widget\Gallery\Controller('Gallery', 'Content', 1);
-        //$widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);
+        $widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);
         $widgets['Html'] = new \Ip\Internal\Content\Widget\Html\Controller('Html', 'Content', 1);
         //$widgets['Faq'] = new \Ip\Internal\Content\Widget\Faq\Controller('Faq', 'Content', 1);
         $widgets['Columns'] = new \Ip\Internal\Content\Widget\Columns\Controller('Columns', 'Content', 1);
