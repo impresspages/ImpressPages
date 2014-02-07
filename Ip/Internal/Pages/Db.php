@@ -205,7 +205,7 @@ class Db {
         $oldUrl = $oldPage->getLink(true);
 
         if (isset($params['navigationTitle'])) {
-            $values['button_title'] = $params['navigationTitle'];
+            $values['navigationTitle'] = $params['navigationTitle'];
         }
 
         if (isset($params['pageTitle'])) {
@@ -376,9 +376,6 @@ class Db {
         );
 
         //TODOXX sync page service naming. #140
-        if (isset($params['button_title'])) {
-            $params['navigationTitle'] = $params['button_title'];
-        }
         if (isset($params['page_title'])) {
             $params['pageTitle'] = $params['page_title'];
         }
@@ -387,7 +384,7 @@ class Db {
         }
 
         if (isset($params['navigationTitle'])) {
-            $row['button_title'] = $params['navigationTitle'];
+            $row['navigationTitle'] = $params['navigationTitle'];
         }
 
         if (isset($params['pageTitle'])) {
