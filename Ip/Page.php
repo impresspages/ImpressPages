@@ -21,6 +21,13 @@ class Page{
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
     protected $navigationTitle;
+    /** string - part of link. Identifies actual page */
+    protected $url;
+
+    protected $languageCode;
+
+    protected $slug;
+
     /** string - meta tag title */
     protected $pageTitle;
     /** string - meta tag keywords */
@@ -43,8 +50,6 @@ class Page{
     protected $parentId;
     /** string - url (including http://) to this page. */
     protected $link;
-    /** string - part of link. Identifies actual page */
-    protected $url;
     /** bool - true if this element is currently active page */
     protected $current;
     /** bool - true if this element is part of current breadcrumb */
@@ -74,10 +79,19 @@ class Page{
     /** Element - previous sibling element */
     protected $previousElement;
 
-    public function __construct($id, $zoneName)
+    public function __construct($id)
     {
         $this->id = $id;
-        $this->zoneName = $zoneName;
+
+        $page = ipDb()->selectRow('page', '*', array('id' => $id));
+
+        if (!$page) {
+            throw new \Ip\Exception("Page #{$id} not found.");
+        }
+
+        foreach ($page as $key => $value) {
+            $this->{$key} = $value;
+        }
     }
 
     /**
@@ -415,4 +429,14 @@ class Page{
      * @param $visible bool
      */
     public function setVisible($visible){$this->visible=$visible;}
+
+    public static function createList($list)
+    {
+        $pages = array();
+        foreach ($list as $page) {
+            $pages[]= new \Ip\Page($page['id']);
+        }
+
+        return $pages;
+    }
 }
