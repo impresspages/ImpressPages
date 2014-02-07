@@ -4,6 +4,8 @@
     <?php } else { ?>
         <?php echo isset($videoHtml) ? $videoHtml : ''; ?>
     <?php } ?>
+    <div style="clear: both;"></div>
+
 </div>
 
 

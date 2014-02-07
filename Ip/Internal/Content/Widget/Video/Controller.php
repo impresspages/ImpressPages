@@ -43,9 +43,19 @@ class Controller extends \Ip\WidgetController
             if (preg_match('/youtube.com\/watch\?v=/s', $url)) {
                 $url = str_replace('youtube.com/watch?v=', 'youtube.com/embed/', $url);
             }
+            if (ipIsManagementState()) {
+                if (preg_match('/\?/s', $url)) {
+                    $url .= '&wmode=opaque';
+                } else {
+                    $url .= '?wmode=opaque';
+                }
+
+            }
+
             $variables = array(
                 'url' => $url
             );
+
             return ipView('view/youtube.php', $variables)->render();
 
         }
@@ -74,6 +84,15 @@ class Controller extends \Ip\WidgetController
                 'label' => __('Url', 'ipAdmin', false),
             ));
         $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'url',
+                'label' => __('Url', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
         return $form; // Output a string with generated HTML form
     }
 
