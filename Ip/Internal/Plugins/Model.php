@@ -199,7 +199,7 @@ class Model{
 
     public static function getActivePlugins()
     {
-        return ipDb()->selectAll('*', 'plugin', array('active' => 1));
+        return ipDb()->selectAll('plugin', '*', array('active' => 1));
     }
 
     protected static function getPluginRecord($pluginName)

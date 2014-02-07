@@ -6,12 +6,12 @@ class Model{
 
     public static function get($id)
     {
-        return ipDb()->selectRow('*', 'administrator', array('id' => $id));
+        return ipDb()->selectRow('administrator', '*', array('id' => $id));
     }
 
     public static function getAll()
     {
-        return ipDb()->selectAll('*', 'administrator', array(), 'ORDER BY `id` ASC');
+        return ipDb()->selectAll('administrator', '*', array(), 'ORDER BY `id` ASC');
     }
 
     public static function delete($id)
@@ -21,12 +21,12 @@ class Model{
 
     public static function getByUsername($username)
     {
-        return ipDb()->selectRow('*', 'administrator', array('username' => $username));
+        return ipDb()->selectRow('administrator', '*', array('username' => $username));
     }
 
     public static function getByEmail($email)
     {
-        return ipDb()->selectRow('*', 'administrator', array('email' => $email));
+        return ipDb()->selectRow('administrator', '*', array('email' => $email));
     }
 
     public static function addAdministrator($username, $email, $password)

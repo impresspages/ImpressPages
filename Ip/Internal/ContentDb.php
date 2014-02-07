@@ -40,7 +40,7 @@ class ContentDb {
      * @return array
      */
     public static function getFirstLanguage() {
-        return ipDb()->selectRow('*', 'language', array('visible' => 1), 'ORDER BY `row_number`');
+        return ipDb()->selectRow('language', '*', array('visible' => 1), 'ORDER BY `row_number`');
     }
 
 
@@ -56,7 +56,7 @@ class ContentDb {
             $where['visible'] = 1;
         }
 
-        $rs = ipDb()->selectAll('*', 'language', $where, 'ORDER BY `row_number` DESC ');
+        $rs = ipDb()->selectAll('language', '*', $where, 'ORDER BY `row_number` DESC ');
         $languages = array();
         foreach ($rs as $language) {
             $languages[$language['id']] = $language;
