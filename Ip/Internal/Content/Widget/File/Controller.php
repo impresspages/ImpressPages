@@ -29,7 +29,7 @@ class Controller extends \Ip\WidgetController{
                             if (file_exists(ipFile('file/repository/' . $file['fileName']))) {
 
                                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $widgetId);
-                                
+
                                 if ($file['title'] == '') {
                                     $title = basename($file['fileName']);
                                 } else {
@@ -58,7 +58,7 @@ class Controller extends \Ip\WidgetController{
                             if (!$existingFile) {
                                 \Ip\Internal\Repository\Model::unbindFile($existingFile['fileName'], 'Content', $widgetId);
                             } else {
-                                //do nothing existing image not found. 
+                                //do nothing existing image not found.
                             }
                             break;
                     }
@@ -89,7 +89,7 @@ class Controller extends \Ip\WidgetController{
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $newData, $skin);
     }
 
-    
+
     private function _findExistingFile ($fileName, $allFiles) {
 
         if (!is_array($allFiles)) {
@@ -97,7 +97,7 @@ class Controller extends \Ip\WidgetController{
         }
 
         $answer = false;
-        foreach ($allFiles as $fileKey => $file) {
+        foreach ($allFiles as $file) {
             if ($file['fileName'] == $fileName) {
                 $answer = $file;
                 break;
@@ -106,13 +106,13 @@ class Controller extends \Ip\WidgetController{
 
         return $answer;
 
-    }    
+    }
 
     public function delete($widgetId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
             return;
         }
-        
+
         foreach($data['files'] as $file) {
             if (isset($file['fileName']) && $file['fileName']) {
                 \Ip\Internal\Repository\Model::unbindFile($file['fileName'], 'Content', $widgetId);
@@ -121,7 +121,7 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    
+
     /**
     *
     * Duplicate widget action. This function is executed after the widget is being duplicated.
@@ -135,7 +135,7 @@ class Controller extends \Ip\WidgetController{
         if (!isset($data['files']) || !is_array($data['files'])) {
             return;
         }
-        
+
         foreach($data['files'] as $fileKey => $file) {
             if (isset($file['fileName']) && $file['fileName']) {
                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $newId);
