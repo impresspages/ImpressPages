@@ -6,7 +6,7 @@
 ?>
 <?php echo ipView('_header.php')->render(); ?>
         <div class="sidenav col_12 col_md_12 col_lg_3 left">
-            <nav>
+            <nav> <!-- add class="collapse" if you want subpages to be automatically hidden if inactive -->
                 <?php
                     // generate 2 - 7 levels submenu of top menu.
                     // please note that it is possible to generate second level only if first level item is selected
