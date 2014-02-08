@@ -58,10 +58,16 @@
         getFiles : function () {
             var $this = this;
             return $this.find('.ipsFileTemplate');
+        },
+
+
+        destroy : function () {
+            return this.each(function() {
+                var $this = $(this);
+                $this.html('');
+                $.removeData(this, 'ipWidget_ipFile_container');
+            });
         }
-
-
-
     };
 
     $.fn.ipWidget_ipFile_container = function(method) {
