@@ -3,13 +3,13 @@
  *
  */
 var IpWidget_File;
-
 (function($) {
+
     IpWidget_File = function() {
         this.widgetObject = null;
         this.filesSelected = null;
 
-        this.init = function($widgetObject, data) {
+        this.init = function($widgetObject, data) {console.log('init');
             this.data = data;
             this.widgetObject = $widgetObject;
 
@@ -21,6 +21,12 @@ var IpWidget_File;
             this.widgetObject.prepend($widgetOverlay);
             $widgetOverlay.on('click', $.proxy(openPopup, this));
         };
+
+        this.onAdd = function (e) {
+            $.proxy(openPopup, this)();
+            this.modal.find('.ipmBrowseButton').click();
+        };
+
 
         var openPopup = function() {
             this.modal = $('#ipWidgetFilePopup');
@@ -41,7 +47,7 @@ var IpWidget_File;
                 options.files = this.data.files;
             } else {
                 options.files = new Array();
-            }console.log(options);
+            }
             options.fileTemplate = this.modal.find('.ipsFileTemplate');
             container.ipWidget_ipFile_container('destroy');
             container.ipWidget_ipFile_container(options);
@@ -88,7 +94,6 @@ var IpWidget_File;
 
             if (notDeletedCount == 0) {
                 //remove the whole widget
-                console.log('remove widget');
                 this.modal.modal('hide');
                 ipContent.deleteWidget(this.widgetObject.data('widgetinstanceid'));
                 return;
