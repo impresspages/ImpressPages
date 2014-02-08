@@ -41,13 +41,13 @@ var IpWidget_File;
                 options.files = this.data.files;
             } else {
                 options.files = new Array();
-            }
+            }console.log(options);
             options.fileTemplate = this.modal.find('.ipsFileTemplate');
             container.ipWidget_ipFile_container('destroy');
             container.ipWidget_ipFile_container(options);
-            this.confirmButton.on('click', $.proxy(save, this));
+            this.confirmButton.off().on('click', $.proxy(save, this));
 
-            this.modal.bind('filesSelected.ipUploadFile', this.filesSelected);
+            this.modal.off('filesSelected.ipUploadFile').on('filesSelected.ipUploadFile', this.filesSelected);
 
             var widgetObject = this.widgetObject;
             this.modal.find('.ipmBrowseButton').click(function(e){
@@ -72,6 +72,7 @@ var IpWidget_File;
 
             data.files = new Array();
             var $files = container.ipWidget_ipFile_container('getFiles');
+            var notDeletedCount = 0;
             $files.each(function(index) {
                 var $this = $(this);
                 var tmpFile = new Object();
@@ -79,8 +80,19 @@ var IpWidget_File;
                 tmpFile.fileName = $this.ipWidget_ipFile_file('getFileName');
                 tmpFile.status = $this.ipWidget_ipFile_file('getStatus');
                 data.files.push(tmpFile);
-
+                if (tmpFile.status != 'deleted') {
+                    notDeletedCount++;
+                }
             });
+
+
+            if (notDeletedCount == 0) {
+                //remove the whole widget
+                console.log('remove widget');
+                this.modal.modal('hide');
+                ipContent.deleteWidget(this.widgetObject.data('widgetinstanceid'));
+                return;
+            }
 
             this.widgetObject.save(data, true);
             this.modal.modal('hide');
