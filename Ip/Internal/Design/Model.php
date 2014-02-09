@@ -38,7 +38,6 @@ class Model
 
     public function getThemePlugins()
     {
-        //TODOXX refactor to new plugins #130
         if (!is_dir($this->getThemePluginDir())) {
             return array();
         }
@@ -50,7 +49,7 @@ class Model
             $pluginDir = ipThemeFile('Plugin/' . $plugin);
             if (is_dir($pluginDir) && $plugin[0] != '.' && $plugin[0] != '..') { //don't add slash before is_dir check as it throws open basedir error
                 $pluginDir .= '/';
-                $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($pluginDir . 'Setup/plugin.json');
+                $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($pluginDir);
                 if ($pluginConfiguration) {
                     $pluginConfigs[] = $pluginConfiguration;
                 }
@@ -66,29 +65,29 @@ class Model
         //refactor to new plugins
         // TODOXX Plugin dir #130
         $toDir = ipFile('Plugin/' . $pluginName . '/');
-        $fromDir = ipFile('Plugin/' . $pluginName . '/');
+        $fromDir = ipThemeFile('Plugin/' . $pluginName . '/');
 
         if (is_dir($toDir)) {
-            throw new \Exception('This plugin has been already installed');
+            throw new \Ip\Exception('This plugin has been already installed');
         }
 
         if (!is_dir($fromDir)) {
-            throw new \Exception('This plugin has been already installed.');
+            throw new \Ip\Exception('Plugin is missing.');
         }
 
-        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($fromDir);
+        $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($fromDir);
 
         if (!$pluginConfiguration) {
-            throw new \Exception('Can\'t read plugin configuration file.');
+            throw new \Ip\Exception('Can\'t read plugin configuration file.');
         }
 
         if (!is_writable(ipFile('Plugin/'))) {
-            throw new \Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
+            throw new \Ip\Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
         }
 
         $helper = Helper::instance();
         $helper->cpDir($fromDir, $toDir);
-        \Modules\developer\modules\Service::installPlugin($pluginName);
+        \Ip\Internal\Plugins\Service::activatePlugin($pluginName);
     }
 
     /**

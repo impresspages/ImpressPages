@@ -59,7 +59,7 @@ class AdminController extends \Ip\Controller{
         $pluginName = $post['params']['pluginName'];
 
         try {
-            Model::activatePlugin($pluginName);
+            Service::activatePlugin($pluginName);
         } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
@@ -94,7 +94,7 @@ class AdminController extends \Ip\Controller{
         $pluginName = $post['params']['pluginName'];
 
         try {
-            Model::deactivatePlugin($pluginName);
+            Service::deactivatePlugin($pluginName);
         } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
@@ -129,7 +129,7 @@ class AdminController extends \Ip\Controller{
         $pluginName = $post['params']['pluginName'];
 
         try {
-            Model::removePlugin($pluginName);
+            Service::removePlugin($pluginName);
         } catch (\Ip\Exception $e){
             $answer = array(
                 'jsonrpc' => '2.0',
