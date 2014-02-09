@@ -31,7 +31,7 @@ class Model
 
     protected function getThemePluginDir()
     {
-        return ipThemeFile('plugins/');
+        return ipThemeFile('Plugin/');
     }
 
 
@@ -39,30 +39,24 @@ class Model
     public function getThemePlugins()
     {
         //TODOXX refactor to new plugins #130
-        if (!is_dir(ipFile($this->getThemePluginDir()))) {
+        if (!is_dir($this->getThemePluginDir())) {
             return array();
         }
 
         $pluginConfigs = array();
 
-        $groups = scandir($this->getThemePluginDir());
-        foreach ($groups as $group) {
-            $groupDir = ipFile($this->getThemePluginDir() . $group);
-            if (is_dir($groupDir) && $group[0] != '.') {//don't add slash before is_dir check as it throws open basedir error
-                $groupDir .= '/';
-                $plugins = scandir($groupDir);
-                foreach ($plugins as $plugin) {
-                    $pluginDir = $groupDir . $plugin;
-                    if (is_dir($pluginDir) && $plugin[0] != '.') { //don't add slash before is_dir check as it throws open basedir error
-                        $pluginDir .= '/';
-                        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($pluginDir);
-                        if ($pluginConfiguration) {
-                            $pluginConfigs[] = $pluginConfiguration;
-                        }
-                    }
+        $plugins = scandir($this->getThemePluginDir());
+        foreach ($plugins as $plugin) {
+            $pluginDir = ipThemeFile('Plugin/' . $plugin);
+            if (is_dir($pluginDir) && $plugin[0] != '.' && $plugin[0] != '..') { //don't add slash before is_dir check as it throws open basedir error
+                $pluginDir .= '/';
+                $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($pluginDir . 'Setup/plugin.json');
+                if ($pluginConfiguration) {
+                    $pluginConfigs[] = $pluginConfiguration;
                 }
             }
         }
+
         return $pluginConfigs;
 
     }
