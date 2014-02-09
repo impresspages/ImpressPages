@@ -14,4 +14,9 @@ class Service
         return Model::getActivePlugins();
     }
 
+    public static function parsePluginConfigFile($configFile)
+    {
+        return Model::parseConfigFile($configFile);
+    }
+
 }

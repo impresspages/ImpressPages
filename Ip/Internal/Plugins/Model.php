@@ -264,6 +264,11 @@ class Model{
     public static function getPluginConfig($pluginName)
     {
         $configFile = ipFile('Plugin/' . $pluginName . '/Setup/plugin.json' );
+        return self::parseConfigFile($configFile);
+    }
+
+    public static function parseConfigFile($configFile)
+    {
         if (!is_file($configFile)) {
             return array();
         }

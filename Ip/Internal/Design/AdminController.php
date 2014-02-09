@@ -39,14 +39,15 @@ class AdminController extends \Ip\Controller
         $options = $theme->getOptionsAsArray();
 
         $themePlugins = $model->getThemePlugins();
+        $installedPlugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         $notInstalledPlugins = array();
 
         //filter plugins that are already installed
         foreach ($themePlugins as $key => $plugin) {
             // TODOXX Plugin dir #130
-//            if (!is_dir(BASE_DIR . PLUGIN_DIR . '/' . $plugin->getModuleKey())) { //if plugin has been already installed
-//                $notInstalledPlugins[] = $plugin;
-//            }
+            if (!empty($plugin['name']) && !in_array($plugin['name'], $installedPlugins)) {
+                $notInstalledPlugins[] = $plugin;
+            }
         }
 
 
