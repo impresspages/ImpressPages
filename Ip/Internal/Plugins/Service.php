@@ -14,9 +14,25 @@ class Service
         return Model::getActivePlugins();
     }
 
-    public static function parsePluginConfigFile($configFile)
+    public static function parsePluginConfigFile($pluginDir)
     {
-        return Model::parseConfigFile($configFile);
+        return Model::parseConfigFile($pluginDir);
     }
+
+    public static function activatePlugin($pluginName)
+    {
+        Model::activatePlugin($pluginName);
+    }
+
+    public static function deactivatePlugin($pluginName)
+    {
+        Model::deactivatePlugin($pluginName);
+    }
+
+    public static function removePlugin($pluginName)
+    {
+        Model::removePlugin($pluginName);
+    }
+
 
 }

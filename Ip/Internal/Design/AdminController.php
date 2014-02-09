@@ -43,9 +43,8 @@ class AdminController extends \Ip\Controller
         $notInstalledPlugins = array();
 
         //filter plugins that are already installed
-        foreach ($themePlugins as $key => $plugin) {
-            // TODOXX Plugin dir #130
-            if (!empty($plugin['name']) && !in_array($plugin['name'], $installedPlugins)) {
+        foreach ($themePlugins as $plugin) {
+            if (!empty($plugin['name']) && (!in_array($plugin['name'], $installedPlugins) || !is_dir(ipFile('Plugin/' . $plugin['name'])))) {
                 $notInstalledPlugins[] = $plugin;
             }
         }
@@ -87,7 +86,7 @@ class AdminController extends \Ip\Controller
         try {
             $model->installThemePlugin($pluginName);
 
-            $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed. Please refresh the browser.', 'ipAdmin');
+            $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed.', 'ipAdmin');
 
             return JsonRpc::result(1);
         } catch (\Exception $e) {

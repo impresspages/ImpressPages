@@ -41,18 +41,15 @@ class Model{
         $config = Model::getPluginConfig($pluginName);
 
         if (!$config) {
-            // TODOXX Plugin dir #141
-            // throw new \Ip\Exception(BASE_DIR . PLUGIN_DIR . $pluginName . "/Setup/plugin.json doesn't exist", \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception(ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . ' doesn\'t exist or is incorrect');
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
-            // TODOXX Plugin dir #141
-            // throw new \Ip\Exception('Plugin name setting in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json doesn't match the folder name.", \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception('Plugin name setting in ' . ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . " doesn't match the folder name.");
         }
 
         if (empty($config['version'])) {
-            // TODOXX Plugin dir #141
-            // throw new \Ip\Exception('Missing plugin version number in ' . BASE_DIR . PLUGIN_DIR . "Setup/plugin.json file.", \Ip\Exception::PLUGIN_SETUP);
+            throw new \Ip\Exception('Missing plugin version number in ' . ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . " file.");
         }
 
         if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
@@ -263,12 +260,13 @@ class Model{
 
     public static function getPluginConfig($pluginName)
     {
-        $configFile = ipFile('Plugin/' . $pluginName . '/Setup/plugin.json' );
+        $configFile = ipFile('Plugin/' . $pluginName . '/');
         return self::parseConfigFile($configFile);
     }
 
-    public static function parseConfigFile($configFile)
+    public static function parseConfigFile($pluginDir)
     {
+        $configFile = $pluginDir . 'Setup/plugin.json';
         if (!is_file($configFile)) {
             return array();
         }
