@@ -10,22 +10,20 @@ namespace Ip\Internal\Pages;
 class JsTreeHelper
 {
 
-    public static function getPageTree($languageId, $zoneName)
+    public static function getPageTree($languageCode, $parentId)
     {
-        $answer = self::getList($languageId, $zoneName, null);
+        $answer = self::getList($languageCode, $parentId);
         return $answer;
     }
 
     /**
-     * @param $languageId
-     * @param $zoneName
+     * @param $languageCode
      * @param \Ip\Page[] $pages
      * @return array
      */
-    protected static function getList ($languageId, $zoneName, $parentId = null)
+    protected static function getList ($languageCode, $parentId)
     {
-        $zone = ipContent()->getzone($zoneName);
-        $pages = $zone->getPages($languageId, $parentId, 0, null, true);
+        $pages = ipDb()->selectAll('page', '*', array('parentId' => $parentId), 'ORDER BY `pageOrder`');
 
         $answer = array();
 
@@ -36,12 +34,13 @@ class JsTreeHelper
 
             $pageData['state'] = 'closed';
 
-            $jsTreeId = self::_jsTreeId($languageId, $zoneName, $page->getId());
+            $jsTreeId = 'page_' . $page['id'];
+
             if (!empty($_SESSION['Pages.nodeOpen'][$jsTreeId])) {
                 $pageData['state'] = 'open';
             }
 
-            $children = self::getList($languageId, $zoneName, $page->getId());
+            $children = self::getList($languageCode, $page['id']);
             if (count($children) === 0) {
                 $pageData['children'] = false;
                 $pageData['state'] = 'leaf';
@@ -49,22 +48,22 @@ class JsTreeHelper
             $pageData['children'] = $children;
 
 
-            if ($page->isVisible()) {
+            if ($page['visible']) {
                 $icon = '';
             } else {
                 $icon = ipFileUrl('Ip/Internal/Pages/assets/img/file_hidden.png');
             }
 
-
-            $pageData['attr'] = array('id' => $jsTreeId, 'rel' => 'page', 'languageId' => $languageId, 'zoneName' => $zoneName, 'pageId' => $page->getId());
-            $pageData['data'] = array ('title' => $page->getNavigationTitle() . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
+            $pageData['attr'] = array('id' => $jsTreeId, 'rel' => 'page', 'languageId' => $languageCode, 'pageId' => $page['id']);
+            $navigationTitle = $page['navigationTitle'] ? $page['navigationTitle'] : $page['pageTitle'];
+            $pageData['data'] = array ('title' => $navigationTitle . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
             $answer[] = $pageData;
         }
 
         return $answer;
     }
 
-    protected static function _jsTreeId($languageId, $zoneName, $pageId)
+    protected static function _jsTreeId($languageId, $pageId)
     {
         return 'page_' . $languageId . '_' . $zoneName . '_' . $pageId;
     }

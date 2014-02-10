@@ -43,15 +43,17 @@ class AdminController extends \Ip\Controller
         if (empty($data['languageId'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $languageId = (int)$data['languageId'];
+        $languageCode = $data['languageId']; // TODOX use language code
+        $languageCode = 'en';
 
-        if (empty($data['zoneName'])) {
+        if (empty($data['menuName'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
+        $menuName = $data['menuName'];
 
+        $parentId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName));
         $responseData = array (
-            'tree' => JsTreeHelper::getPageTree($languageId, $zoneName)
+            'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
         );
 
         return new \Ip\Response\Json($responseData);
