@@ -14,43 +14,47 @@ namespace Ip\Internal;
  */
 class Revision{
     
-    public static function getLastRevision($zoneName, $pageId) {
-        //ordering by id is required because sometimes two revisions might be created at excatly the same time
+    public static function getLastRevision($pageId)
+    {
+        if (empty($pageId)) {
+            return null;
+        }
+
+        //ordering by id is required because sometimes two revisions might be created at exactly the same time
         $revisionTable = ipTable('revision');
         $sql = "
             SELECT * FROM $revisionTable
             WHERE
-                `zoneName` = :zoneName AND
                 `pageId` = :pageId
             ORDER BY `created` DESC, `revisionId` DESC
         ";
 
-        $revision = ipDb()->fetchRow($sql, array('pageId' => $pageId, 'zoneName' => $zoneName));
+        $revision = ipDb()->fetchRow($sql, array('pageId' => $pageId));
 
         if (!$revision) {
-            $revisionId = self::createRevision($zoneName, $pageId, 1);
+            $revisionId = self::createRevision($pageId, 1);
             $revision = self::getRevision($revisionId);
         }
 
         return $revision;
     }
 
-    public static function getPublishedRevision($zoneName, $pageId) {
+    public static function getPublishedRevision($pageId) {
+        assert('$pageId > 0');
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
         $revisionTable = ipTable('revision');
         $sql = "
             SELECT * FROM $revisionTable
             WHERE
-                `zoneName` = ? AND
                 `pageId` = ? AND
                 `published` = 1
             ORDER BY `created` DESC, `revisionId` DESC
         ";
 
-        $revision = ipDb()->fetchRow($sql, array($zoneName, $pageId));
+        $revision = ipDb()->fetchRow($sql, array($pageId));
 
         if (!$revision) {
-            $revisionId = self::createRevision($zoneName, $pageId, 1);
+            $revisionId = self::createRevision($pageId, 1);
             $revision = self::getRevision($revisionId);
         }
 
@@ -63,12 +67,11 @@ class Revision{
     }
 
 
-    public static function createRevision ($zoneName, $pageId, $published) {
+    public static function createRevision ($pageId, $published) {
 
         assert('$pageId > 0');
 
         $revision = array(
-            'zoneName' => $zoneName,
             'pageId' => $pageId,
             'published' => (int)$published,
             'created' => time(),
@@ -114,7 +117,7 @@ class Revision{
         ipEvent('ipPageRevisionPublished', array('revisionId' => $revisionId));
     }
 
-    public static function duplicateRevision ($oldRevisionId, $zoneName = null, $pageId = null, $published = null) {
+    public static function duplicateRevision ($oldRevisionId, $pageId = null, $published = null) {
 
         $oldRevision = self::getRevision($oldRevisionId);
         
@@ -122,14 +125,11 @@ class Revision{
             throw new \Ip\Exception\Revision("Can't find old revision: ".$oldRevisionId);
         }
         
-        if ($zoneName !== null) {
-            $oldRevision['zoneName'] = $zoneName;
-        }
         if ($pageId !== null) {
             $oldRevision['pageId'] = $pageId;
         }
         
-        $newRevisionId = self::createRevision($oldRevision['zoneName'], $oldRevision['pageId'], 0);
+        $newRevisionId = self::createRevision($oldRevision['pageId'], 0);
 
         if ($published !== null) {
             self::publishRevision($newRevisionId);
