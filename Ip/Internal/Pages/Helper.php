@@ -259,7 +259,7 @@ class Helper
         return $form;
     }
 
-    public static function addPageform()
+    public static function addPageForm()
     {
         $form = new \Ip\Form();
 

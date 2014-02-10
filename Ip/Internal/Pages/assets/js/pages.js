@@ -286,7 +286,7 @@ var ipPages = null;
 
         var refresh = function () {
             $('.ipsTree').ipPageTree('destroy');
-            $scope.activateZone($scope.activeMenu);
+            $scope.activateMenu($scope.activeMenu);
             $scope.$apply();
         }
 
@@ -297,8 +297,7 @@ var ipPages = null;
                 securityToken: ip.securityToken,
                 title: title,
                 visible: visible,
-                menuName: $scope.activeMenu.alias,
-                languageId: $scope.activeLanguage.id
+                parentId: $scope.activeMenu.id
             };
 
             $.ajax({

@@ -326,9 +326,9 @@ class Model
         return $row;
     }
 
-    public static function getRevisions($zoneName, $pageId)
+    public static function getRevisions($pageId)
     {
-        return ipDb()->selectAll('revision', '*', array('zoneName' => $zoneName, 'pageId' => $pageId));
+        return ipDb()->selectAll('revision', '*', array('pageId' => $pageId));
     }
 
     public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
@@ -390,9 +390,9 @@ class Model
     }
 
 
-    public static function removePageRevisions($zoneName, $pageId)
+    public static function removePageRevisions($pageId)
     {
-        $revisions = self::getRevisions($zoneName, $pageId);
+        $revisions = self::getRevisions($pageId);
         foreach ($revisions as $revisionKey => $revision) {
             self::removeRevision($revision['revisionId']);
         }
