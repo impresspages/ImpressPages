@@ -44,9 +44,7 @@ return array(
     // END GLOBAL
 
     // FRONTEND
-    'CHARSET' => 'UTF-8', //system characterset
     'THEME' => 'CentrusCleanus', //theme from themes directory
-    'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5', //look ip_cms/includes/Ip/View.php for available options.
 
     'TIMEZONE' => $currentTimeZone,
     // END FRONTEND
