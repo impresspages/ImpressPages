@@ -137,10 +137,9 @@ class Helper
 
     }
 
-    public static function pagePropertiesForm($zoneName, $pageId)
+    public static function pagePropertiesForm($pageId)
     {
-        $zone = ipContent()->getZone($zoneName);
-        $page = $zone->getPage($pageId);
+        $page = new \Ip\Page($pageId);
 
         $form = new \Ip\Form();
 
@@ -156,14 +155,6 @@ class Helper
             array(
                 'name' => 'pageId',
                 'value' => $pageId
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Hidden(
-            array(
-                'name' => 'zoneName',
-                'value' => $zoneName
             ));
         $form->addField($field);
 
@@ -224,21 +215,22 @@ class Helper
             $options[] = array ($layout, $layout);
         }
 
-        $curLayout = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModule(),
-            $page->getId()
-        );
-        if (!$curLayout) {
-            $curLayout = $zone->getLayout();
-        }
-        $field = new \Ip\Form\Field\Select(
-            array(
-                'name' => 'layout',
-                'label' => __('Layout', 'ipAdmin', false),
-                'values' => $options,
-                'value' => $curLayout
-            ));
-        $form->addField($field);
+        // TODOX layout
+//        $curLayout = \Ip\Internal\ContentDb::getPageLayout(
+//            $zone->getAssociatedModule(),
+//            $page->getId()
+//        );
+//        if (!$curLayout) {
+//            $curLayout = $zone->getLayout();
+//        }
+//        $field = new \Ip\Form\Field\Select(
+//            array(
+//                'name' => 'layout',
+//                'label' => __('Layout', 'ipAdmin', false),
+//                'values' => $options,
+//                'value' => $curLayout
+//            ));
+//        $form->addField($field);
 
 
         $field = new \Ip\Form\Field\Text(

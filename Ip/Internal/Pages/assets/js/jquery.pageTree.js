@@ -17,11 +17,11 @@
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
                     $this.data('ipPageTree', {
-                        zoneName: options.zoneName,
+                        menuName: options.menuName,
                         languageId: options.languageId
                     });
 
-                    $.proxy(refresh, $this)(options.zoneName, options.languageId);
+                    $.proxy(refresh, $this)(options.menuName, options.languageId);
                 } else {
                     $this.jstree('deselect_all');
                 }

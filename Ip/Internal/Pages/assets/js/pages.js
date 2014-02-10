@@ -93,12 +93,11 @@ var ipPages = null;
             initTree();
         }
 
-        $scope.activatePage = function (pageId, zoneName) {
+        $scope.activatePage = function (pageId) {
             $scope.selectedPageId = pageId;
             var $properties = $('.ipsProperties');
             $properties.ipPageProperties({
-                pageId: pageId,
-                zoneName: zoneName
+                pageId: pageId
             });
             $properties.off('update.ipPages').on('update.ipPages', function () {
                 getJsTree().set_text(getJsTree().get_selected(), $properties.find('input[name=navigationTitle]').val());
@@ -254,7 +253,7 @@ var ipPages = null;
 
         var initTree = function () {
             $scope.selectedPageId = null;
-            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeMenu.alias});
+            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
             getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
                 var node = getJsTree().get_selected();
                 updateHash(null, null, node.attr('pageId'));
@@ -298,7 +297,7 @@ var ipPages = null;
                 securityToken: ip.securityToken,
                 title: title,
                 visible: visible,
-                zoneName: $scope.activeMenu.alias,
+                menuName: $scope.activeMenu.alias,
                 languageId: $scope.activeLanguage.id
             };
 
