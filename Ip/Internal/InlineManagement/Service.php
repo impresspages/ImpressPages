@@ -67,41 +67,10 @@ class Service
         return ipView('view/display/logo.php', $data)->render();
     }
 
-    public function generateManagedString($key, $tag = 'span', $defaultValue = null, $cssClass = null)
-    {
-        $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, ipContent()->getCurrentLanguage()->getId());
-        if ($curValue === false) {
-            $curValue = $defaultValue;
-        }
 
-        $data = array (
-            'defaultValue' => $defaultValue,
-            'value' => $curValue,
-            'key' => $key,
-            'tag' => $tag,
-            'cssClass' => $cssClass
-        );
-
-        if (ipIsManagementState()) {
-            $view = ipView('view/management/string.php', $data);
-        } else {
-            $view = ipView('view/display/string.php', $data);
-        }
-        return $view->render();
-    }
 
     public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
     {
-
-        if ($tag == 'p') {
-            $backtrace = debug_backtrace();
-            if(isset($backtrace[1]['file']) && isset($backtrace[1]['line'])) {
-                $source = '(Error source: '.$backtrace[1]['file'].' line: '.$backtrace[1]['line'].' ) ';
-            } else {
-                $source = '';
-            }
-            throw new \Ip\Exception('generateManagedText can\'t be wrapped inside paragraph HTML tag. '.$source);
-        }
 
         $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipContent()->getCurrentLanguage()->getId());
 
