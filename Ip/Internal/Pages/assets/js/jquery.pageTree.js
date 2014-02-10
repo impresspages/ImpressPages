@@ -36,7 +36,7 @@
                 $this.ipPageTree('destroy');
 
                 $this.ipPageTree({
-                    zoneName: data.zoneName,
+                    menuName: data.menuName,
                     languageId: data.languageId
                 });
             });
@@ -55,10 +55,10 @@
 
     };
 
-    var refresh = function (zoneName, languageId) {
+    var refresh = function (menuName, languageId) {
         var $this = this;
         var data = {
-            zoneName : zoneName,
+            menuName : menuName,
             languageId : languageId,
             aa : 'Pages.getPages'
         };

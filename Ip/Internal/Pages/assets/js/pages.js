@@ -58,16 +58,16 @@ var ipPages = null;
             }
 
 
-            if (menuName && menuName != $scope.activeMenu.name) {
+            if (menuName && menuName != $scope.activeMenu.alias) {
                 $.each(menuList, function (key, value) {
-                    if (value.name == menuName) {
-                        $scope.activatemenu(value);
+                    if (value.alias == menuName) {
+                        $scope.activateMenu(value);
                     }
                 });
             }
 
             if (pageId && pageId != $scope.selectedPageId) {
-                $scope.activatePage(pageId, $scope.activeMenu.name);
+                $scope.activatePage(pageId, $scope.activeMenu.alias);
             }
 
         });
@@ -243,9 +243,9 @@ var ipPages = null;
                 var position = node.index() + 1;
             }
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeMenu.name, $scope.selectedPageId, position, true);
+                movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeMenu.alias, $scope.selectedPageId, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeMenu.name, $scope.selectedPageId, position, function () {
+                copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeMenu.alias, $scope.selectedPageId, position, function () {
                     refresh();
                 });
             }
@@ -254,7 +254,7 @@ var ipPages = null;
 
         var initTree = function () {
             $scope.selectedPageId = null;
-            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeMenu.name});
+            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, zoneName: $scope.activeMenu.alias});
             getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
                 var node = getJsTree().get_selected();
                 updateHash(null, null, node.attr('pageId'));
@@ -269,7 +269,7 @@ var ipPages = null;
                         destinationPageId = null;
                     }
                     var destinationPosition = moveData.rslt.cp + i;
-                    movePage(pageId, $scope.activeLanguage.id, $scope.activeMenu.name, destinationPageId, destinationPosition);
+                    movePage(pageId, $scope.activeLanguage.id, $scope.activeMenu.alias, destinationPageId, destinationPosition);
                 });
             });
 
@@ -278,11 +278,11 @@ var ipPages = null;
 
 
         var getTreeDiv = function () {
-            return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.name).find('.ipsTree');
+            return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.alias).find('.ipsTree');
         }
 
         var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.name + ' .ipsTree');
+            return $.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.alias + ' .ipsTree');
         }
 
         var refresh = function () {
@@ -298,7 +298,7 @@ var ipPages = null;
                 securityToken: ip.securityToken,
                 title: title,
                 visible: visible,
-                zoneName: $scope.activeMenu.name,
+                zoneName: $scope.activeMenu.alias,
                 languageId: $scope.activeLanguage.id
             };
 
@@ -450,7 +450,6 @@ var ipPages = null;
 
         var updateHash = function (languageCode, menuName, pageId) {
             if (languageCode === null) {
-                console.log('activeLanguage:', $scope.activeLanguage);
                 languageCode = $scope.activeLanguage.code;
             }
             if (menuName === null) {
