@@ -133,7 +133,7 @@ class Model
         }
         $newNodeId = Db::copyPage($nodeId, $destinationPageId, $rowNumber);
         $newPages[$newNodeId] = 1;
-        self::_copyWidgets($zoneName, $nodeId, $destinationZoneName, $newNodeId);
+        self::_copyWidgets($nodeId, $newNodeId);
 
 
         $children = Db::pageChildren($nodeId);
@@ -148,10 +148,10 @@ class Model
 
     }
 
-    private static function _copyWidgets($zoneName, $sourceId, $destinationZoneName, $targetId)
+    private static function _copyWidgets($sourceId, $targetId)
     {
-        $oldRevision = \Ip\Internal\Revision::getPublishedRevision($zoneName, $sourceId);
-        \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $destinationZoneName, $targetId, 1);
+        $oldRevision = \Ip\Internal\Revision::getPublishedRevision($sourceId);
+        \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
 
 

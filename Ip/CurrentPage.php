@@ -44,7 +44,7 @@ class CurrentPage
 
     public function getPage()
     {
-        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : new \Ip\Page404(1, '404');
+        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : null;
     }
 
     public function getUrlPath()
@@ -75,13 +75,8 @@ class CurrentPage
             }
 
             if ($page && !($page instanceof \Ip\Page404)) {
-                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
-                    ) || $revision['pageId'] != $page->getId()
-                ) {
-                    $revision = \Ip\Internal\Revision::getLastRevision(
-                        ipContent()->getCurrentZone()->getName(),
-                        $page->getId()
-                    );
+                if ($revision === false || $revision['pageId'] != $page->getId()) {
+                    $revision = \Ip\Internal\Revision::getLastRevision($page->getId());
                     if ($revision['published']) {
                         $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
                         $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
@@ -91,10 +86,7 @@ class CurrentPage
                 $revision = false;
             }
         } elseif ($page) {
-                $revision = \Ip\Internal\Revision::getPublishedRevision(
-                    ipContent()->getCurrentZone()->getName(),
-                    $page->getId()
-                );
+            $revision = \Ip\Internal\Revision::getPublishedRevision($page->getId());
         }
         $this->revision = $revision;
         return $revision;
