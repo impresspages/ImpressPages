@@ -62,19 +62,13 @@ class AdminController extends \Ip\Controller
 
     public function pagePropertiesForm()
     {
-        $data = ipRequest()->getQuery();
-        if (empty($data['zoneName'])) {
+        $pageId = ipRequest()->getQuery('pageId');
+        if (!$pageId) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
-        if (empty($data['pageId'])) {
-            throw new \Ip\Exception("Missing required parameters");
-        }
-        $pageId = $data['pageId'];
-
 
         $variables = array(
-            'form' => Helper::pagePropertiesForm($zoneName, $pageId)
+            'form' => Helper::pagePropertiesForm($pageId)
         );
         $layout = ipView('view/pageProperties.php', $variables)->render();
 
