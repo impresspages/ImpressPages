@@ -62,29 +62,23 @@ class Model
 
     public static function deletePage($pageId)
     {
-        $pageInfo = Db::pageInfo($pageId);
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Exception("Unknown zone " . $zoneName);
-        }
-        self::_deletePageRecursion($zone, $pageId);
+        self::_deletePageRecursion($pageId);
         return true;
     }
 
 
-    private static function _deletePageRecursion(\Ip\Zone $zone, $id)
+    private static function _deletePageRecursion($id)
     {
         $children = Db::pageChildren($id);
         if ($children) {
-            foreach ($children as $key => $lock) {
-                self::_deletePageRecursion($zone, $lock['id']);
+            foreach ($children as $child) {
+                self::_deletePageRecursion($child['id']);
             }
         }
 
         Db::deletePage($id);
 
-        ipEvent('ipPageDeleted', array('zoneName' => $zone->getName(), 'pageId' => $id));
+        ipEvent('ipPageDeleted', array('pageId' => $id));
     }
 
 

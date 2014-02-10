@@ -156,7 +156,7 @@ class Db {
      */
     public static function pageChildren($parentId)
     {
-        return ipDb()->selectAll('page', '*', array('parent' => $parentId), 'ORDER BY `row_number`');
+        return ipDb()->selectAll('page', '*', array('parentId' => $parentId), 'ORDER BY `pageOrder`');
     }
 
     /**
@@ -358,25 +358,17 @@ class Db {
     public static function addPage($parentId, $params)
     {
         $row = array(
-            'parent' => $parentId,
-            'row_number' => self::getMaxIndex($parentId) + 1,
-
+            'parentId' => $parentId,
+            'pageOrder' => self::getNextPageOrder($parentId),
         );
 
         //TODOXX sync page service naming. #140
-        if (isset($params['page_title'])) {
-            $params['pageTitle'] = $params['page_title'];
-        }
-        if (isset($params['redirect_url'])) {
-            $params['redirectURL'] = $params['redirect_url'];
-        }
-
         if (isset($params['navigationTitle'])) {
             $row['navigationTitle'] = $params['navigationTitle'];
         }
 
         if (isset($params['pageTitle'])) {
-            $row['page_title'] = $params['pageTitle'];
+            $row['pageTitle'] = $params['pageTitle'];
         }
 
         if (isset($params['keywords'])) {
@@ -392,15 +384,15 @@ class Db {
         }
 
         if (isset($params['createdOn'])) {
-            $row['created_on'] = $params['createdOn'];
+            $row['createdOn'] = $params['createdOn'];
         } else {
-            $row['created_on'] = date('Y-m-d');
+            $row['createdOn'] = date('Y-m-d');
         }
 
         if (isset($params['lastModified'])) {
-            $row['last_modified'] = $params['lastModified'];
+            $row['lastModified'] = $params['lastModified'];
         } else {
-            $row['last_modified'] = date('Y-m-d');
+            $row['lastModified'] = date('Y-m-d');
         }
 
         if (isset($params['type'])) {
@@ -408,26 +400,18 @@ class Db {
         }
 
         if (isset($params['redirectURL'])) {
-            $row['redirect_url'] = $params['redirectURL'];
+            $row['redirectUrl'] = $params['redirectURL'];
         }
 
         if (isset($params['visible'])) {
             $row['visible'] = (int)$params['visible'];
         }
 
-        if (isset($params['cached_html'])) {
-            $row['cached_html'] = $params['cached_html'];
-        }
-
-        if (isset($params['cached_text'])) {
-            $row['cached_text'] = $params['cached_text'];
-        }
-
         return ipDb()->insert('page', $row);
     }
 
-    private static function getMaxIndex($parentId) {
-        return ipDb()->selectValue('page', "MAX(`row_number`) AS `max_row_number`", array('parent' => $parentId));
+    private static function getNextPageOrder($parentId) {
+        return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', array('parentId' => $parentId));
     }
 
     /**

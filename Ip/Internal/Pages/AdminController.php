@@ -88,32 +88,25 @@ class AdminController extends \Ip\Controller
         }
         $pageId = (int)$data['pageId'];
 
-        if (empty($data['zoneName'])) {
-            throw new \Ip\Exception("Missing required parameters");
-        }
-        $zoneName = $data['zoneName'];
-
         $answer = array();
 
-
-
         //make url
-        if ($data['url'] == '') {
+        if ($data['slug'] == '') {
             if ($data['pageTitle'] != '') {
-                $data['url'] = Db::makeUrl($data['pageTitle'], $pageId);
+                $data['slug'] = Db::makeUrl($data['pageTitle'], $pageId);
             } else {
                 if ($data['navigationTitle'] != '') {
-                    $data['url'] = Db::makeUrl($data['navigationTitle'], $pageId);
+                    $data['slug'] = Db::makeUrl($data['navigationTitle'], $pageId);
                 }
             }
         } else {
-            $tmpUrl = str_replace("/", "-", $data['url']);
+            $tmpUrl = str_replace("/", "-", $data['slug']);
             $i = 1;
             while (!Db::availableUrl($tmpUrl, $pageId)) {
-                $tmpUrl = $data['url'].'-'.$i;
+                $tmpUrl = $data['slug'].'-'.$i;
                 $i++;
             }
-            $data['url'] = $tmpUrl;
+            $data['slug'] = $tmpUrl;
         }
         //end make url
 
@@ -242,27 +235,20 @@ class AdminController extends \Ip\Controller
     public function addPage()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
-        if (empty($data['zoneName']) || empty($data['languageId'])) {
+        $parentId = ipRequest()->getPost('parentId');
+        if (empty($parentId)) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
-        $languageId = $data['languageId'];
 
-        $rootId = Service::getRootId($zoneName, $languageId);
-
-        if (!empty($data['title'])) {
-            $title = $data['title'];
-        } else {
+        $title = ipRequest()->getPost('title');
+        if (empty($title)) {
             $title = __('Untitled', 'ipAdmin', false);
         }
 
-        if (!empty($data['visible'])) {
-            $data['visible'] = (int) $data['visible'];
-        }
+        $visible = ipRequest()->getPost('visible', 0);
 
-        $pageId = Service::addPage($rootId, $title);
+        $pageId = Service::addPage($parentId, $title, array('visible' => $visible));
 
 
         $answer = array(
@@ -277,12 +263,11 @@ class AdminController extends \Ip\Controller
     public function deletePage()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
-        if (!isset($data['pageId'])) {
+        $pageId = (int)ipRequest()->getPost('pageId');
+        if (!$pageId) {
             throw new \Ip\Exception("Page id is not set");
         }
-        $pageId = (int)$data['pageId'];
 
         Service::deletePage($pageId);
 

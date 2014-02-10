@@ -42,9 +42,6 @@ class Service
 
     public static function addPage($parentId, $title, $data = array())
     {
-        if (!isset($data['navigationTitle'])) {
-            $data['navigationTitle'] = $title;
-        }
         if (!isset($data['pageTitle'])) {
             $data['pageTitle'] = $title;
         }
@@ -52,7 +49,6 @@ class Service
         if (!isset($data['url'])) {
             $data['url'] = Db::makeUrl($title);
         }
-
 
         if (!isset($data['createdOn'])) {
             $data['createdOn'] = date("Y-m-d");
@@ -62,6 +58,10 @@ class Service
         }
         if (!isset($data['visible'])) {
             $data['visible'] = !ipGetOption('Pages.hideNewPages');
+        }
+
+        if (!isset($data['languageCode'])) {
+            $data['languageCode'] = ipDb()->selectValue('page', 'languageCode', array('id' => $parentId));
         }
 
         $newPageId = Db::addPage($parentId, $data);
