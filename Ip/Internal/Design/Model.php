@@ -62,8 +62,6 @@ class Model
 
     public function installThemePlugin($pluginName)
     {
-        //refactor to new plugins
-        // TODOXX Plugin dir #130
         $toDir = ipFile('Plugin/' . $pluginName . '/');
         $fromDir = ipThemeFile('Plugin/' . $pluginName . '/');
 
@@ -177,24 +175,9 @@ class Model
 
 
         \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
-        //TODOXX new way of doing. #130
-//        $configModel = new \Ip\Internal\Config\Model();
-//        $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
-
-
-        if (ipFile('Theme/' . $themeName . '/') != $theme->getPath()) {
-            // TODOXX add theme directory to override list #130
-        }
-//        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
-//        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
         $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
-        if (file_exists($parametersFile)) {
-            //TODOXX new type of parameters #130
-
-//            \Modules\developer\localization\Manager::saveParameters($parametersFile);
-        }
 
         $service = Service::instance();
         $service->saveWidgetOptions($theme);
@@ -235,11 +218,6 @@ class Model
      */
     public function getTheme($name, $dir = null)
     {
-        if (!$dir) {
-            $currentThemeDir = ipFile('Theme/');
-            // TODOXX add theme override to config #130
-            // ipConfig()->_changeCore('THEME_DIR', $dir);
-        }
 
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
