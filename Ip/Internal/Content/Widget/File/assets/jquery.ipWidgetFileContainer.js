@@ -18,7 +18,7 @@
                     files = new Array();
                 }
 
-                if (!data) {
+                if (!data) {console.log('init');console.log(files);
                     $this.data('ipWidget_ipFile_container', {
                         files : files,
                         fileTemplate : options.fileTemplate
@@ -42,7 +42,7 @@
 
         addFile : function (fileName, title, status) {
             var $this = this;
-            var $newFileRecord = $this.data('ipWidget_ipFile_container').fileTemplate.clone();
+            var $newFileRecord = $this.data('ipWidget_ipFile_container').fileTemplate.clone().removeClass('ipsFileTemplate').addClass('ipsFile');
             $newFileRecord.ipWidget_ipFile_file({'status' : status, 'fileName' : fileName, 'title' : title});
 
             $this.append($newFileRecord);
@@ -57,11 +57,18 @@
 
         getFiles : function () {
             var $this = this;
-            return $this.find('.ipsFileTemplate');
+            return $this.find('.ipsFile');
+        },
+
+
+        destroy : function () {
+            return this.each(function() {
+                var $this = $(this);
+                $this.html('');
+                console.log('destory');
+                $.removeData(this, 'ipWidget_ipFile_container');
+            });
         }
-
-
-
     };
 
     $.fn.ipWidget_ipFile_container = function(method) {
