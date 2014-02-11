@@ -5,7 +5,7 @@
         <a
             <?php if ($image['type'] == 'lightbox'){ ?>
                 rel="lightbox"
-                href="<?php echo esc($curImageBig, 'attr') ?>"
+                href="<?php echo esc($image['imageBig'], 'attr') ?>"
             <?php } ?>
             <?php if ($image['type'] == 'link'){ ?>
                 href="<?php echo esc($image['url'], 'attr') ?>"

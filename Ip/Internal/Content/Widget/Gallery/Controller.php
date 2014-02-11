@@ -226,15 +226,17 @@ class Controller extends \Ip\WidgetController{
                 $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
 
                 //create big image reflection
-                $bigWidth = ipGetOption('Config.lightboxWidth');
-                $bigHeight = ipGetOption('Config.lightboxHeight');
+                $bigWidth = ipGetOption('Config.lightboxWidth', 800);
+                $bigHeight = ipGetOption('Config.lightboxHeight', 600);
 
                 try {
                     $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
                     $curImage['imageBig'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
+                    $curImage['imageBig'] = '';
                     //do nothing
                 } catch (\Ip\Internal\Repository\Exception $e) {
+                    $curImage['imageBig'] = '';
                     //do nothing
                 }
 
