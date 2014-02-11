@@ -1,14 +1,18 @@
 <?php if (isset($images) && is_array($images)){ ?>
 <ul>
-<?php
-foreach ($images as $imageKey => $image) {
-    $curImage = isset($image['imageSmall']) ? $image['imageSmall'] : '';
-    $curImageBig = isset($image['imageBig']) ? $image['imageBig'] : '';
-    $curTitle = isset($image['title']) ? $image['title'] : '';
-?>
+<?php foreach ($images as $imageKey => $image) { ?>
     <li class="ipsItem">
-        <a rel="lightbox" href="<?php echo esc($curImageBig) ?>" title="<?php echo esc($curTitle); ?>">
-            <img class="ipsImage" src="<?php echo esc($curImage) ?>" alt="<?php echo esc($curTitle); ?>" />
+        <a
+            <?php if ($image['type'] == 'lightbox'){ ?>
+                rel="lightbox"
+                href="<?php echo esc($curImageBig, 'attr') ?>"
+            <?php } ?>
+            <?php if ($image['type'] == 'link'){ ?>
+                href="<?php echo esc($image['url'], 'attr') ?>"
+                <?php echo $image['blank'] ? ' target="_blank" ' : '' ?>
+            <?php } ?>
+            title="<?php echo esc($image['title']); ?>">
+            <img class="ipsImage" src="<?php echo esc($image['imageSmall'], 'attr') ?>" alt="<?php echo esc($image['title'], 'attr'); ?>" />
         </a>
     </li>
 <?php } ?>

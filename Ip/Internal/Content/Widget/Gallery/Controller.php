@@ -106,7 +106,23 @@ class Controller extends \Ip\WidgetController{
 //                        $title = $image['title'];
 //                    }
 //                    break;
+                case 'setLink':
+                    if (!isset($postData['index'])) {
+                        throw new \Ip\Exception("Missing required parameter");
+                    }
+                    $index = $postData['index'];
+                    if (isset($postData['type'])) {
+                        $currentData['images'][$index]['type'] = $postData['type'];
+                    }
+                    if (isset($postData['url'])) {
+                        $currentData['images'][$index]['url'] = $postData['url'];
+                    }
+                    if (isset($postData['blank'])) {
+                        $currentData['images'][$index]['blank'] = $postData['blank'];
+                    }
+                    return $currentData;
 
+                    break;
                 case 'delete':
                     if (!isset($postData['position'])) {
                         throw new \Ip\Exception("Missing required parameter");
@@ -167,8 +183,10 @@ class Controller extends \Ip\WidgetController{
 
     public function adminHtmlSnippet()
     {
-        $snippets = array();
-        return ipView('snippet/gallery.php')->render();
+        $variables = array (
+            'linkForm' => $this->linkForm()
+        );
+        return ipView('snippet/gallery.php', $variables)->render();
 
     }
 
@@ -201,7 +219,7 @@ class Controller extends \Ip\WidgetController{
 
         if (isset($data['images']) && is_array($data['images'])) {
             //loop all current images
-            foreach ($data['images'] as $curImageKey => &$curImage) {
+            foreach ($data['images'] as &$curImage) {
                 if (empty($curImage['imageOriginal'])) {
                     continue;
                 }
@@ -248,6 +266,20 @@ class Controller extends \Ip\WidgetController{
                 } catch (\Ip\Internal\Repository\Exception $e) {
                     //do nothing
                 }
+
+                if (empty($curImage['type'])) {
+                    $curImage['type'] = 'lightbox';
+                }
+                if (empty($curImage['url'])) {
+                    $curImage['url'] = '';
+                }
+                if (empty($curImage['blank'])) {
+                    $curImage['blank'] = '';
+                }
+                if (empty($curImage['title'])) {
+                    $curImage['title'] = '';
+                }
+
 
             }
         }
@@ -301,6 +333,44 @@ class Controller extends \Ip\WidgetController{
             }
         }
 
+    }
+
+
+    protected function linkForm()
+    {
+        $form = new \Ip\Form();
+
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Mouse click action', 'ipAdmin', false),
+            ));
+
+        $values = array(
+            array('lightbox', __('Lightbox', 'ipAdmin', false)),
+            array('link', __('URL', 'ipAdmin', false)),
+            array('nothing', __('Nothing', 'ipAdmin', false)),
+        );
+        $field->setValues($values);
+        $form->addfield($field);
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'url',
+                'label' => __('Url', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'blank',
+                'label' => __('Open in new window', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+        return $form; // Output a string with generated HTML form
     }
 
 }
