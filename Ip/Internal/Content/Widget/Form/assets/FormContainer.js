@@ -24,6 +24,7 @@
                 }
 
                 if (!data) {
+                    $this.html('');
                     $this.data('ipWidget_ipForm_container', {
                         fields : fields,
                         fieldTemplate : options.fieldTemplate,
@@ -67,8 +68,7 @@
 
         destroy : function () {
             return this.each(function() {
-                var $this = this;
-                $.removeData($this, 'ipWidget_ipForm_container');
+                $.removeData(this, 'ipWidget_ipForm_container');
             });
         }
 

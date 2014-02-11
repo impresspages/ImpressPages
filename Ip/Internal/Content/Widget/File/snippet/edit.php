@@ -8,18 +8,17 @@
                 </div>
 
                 <div class="modal-body">
-                    <a class="ipsUpload">Upload</a>
                     <div class="ipWidget_ipFile_container">
                     </div>
                     <div class="ipgHide">
-                        <div class="ipaFileTemplate">
-                            <a href="#" class="ipaButton ipaFileMove"><?php _e('move', 'ipAdmin') ?></a>
-                            <input type="text" class="ipAdminInput ipaFileTitle" name="title" value="" />
-                            <a href="#" class="ipaButton ipaFileLink" target="_blank"><?php _e('preview', 'ipAdmin') ?></a>
-                            <a href="#" class="ipaButton ipaFileRemove"><?php _e('remove', 'ipAdmin') ?></a>
+                        <div class="ipsFileTemplate">
+                            <a href="#" class="ipaButton ipsFileMove"><?php _e('move', 'ipAdmin') ?></a>
+                            <input type="text" class="ipAdminInput ipsFileTitle" name="title" value="" />
+                            <a href="#" class="ipaButton ipsFileLink" target="_blank"><?php _e('preview', 'ipAdmin') ?></a>
+                            <a href="#" class="ipaButton ipsFileRemove"><?php _e('remove', 'ipAdmin') ?></a>
                         </div>
                     </div>
-                    <a href="#" class="ipAdminButton ipmBrowseButton"><?php _e('Add new', 'ipAdmin') ?></a>
+                    <a href="#" class="ipsUpload ipAdminButton ipmBrowseButton"><?php _e('Add new', 'ipAdmin') ?></a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>

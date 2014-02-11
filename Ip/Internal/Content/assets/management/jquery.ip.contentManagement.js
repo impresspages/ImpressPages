@@ -297,8 +297,10 @@
         $.each($('.ipWidget-Columns'), function (widgetKey, columnsWidget) {
             $.each($(columnsWidget).find('.ipsCol'), function (colKey, col) {
                 var $col = $(col);
-                if (colKey != 0) { //skip first col
-                    var space = $col.find('.ipBlock').offset().left - ($col.prev().find('.ipBlock').offset().left + $col.prev().find('.ipBlock').width());
+                var $prevBlock = $col.prev().find('.ipBlock');
+                var $block = $col.find('.ipBlock');
+                if (colKey != 0 && $block.offset() && $prevBlock.offset()) { //skip first col. Offset checking is just in case. If everything goes right, prev block should always exist.
+                    var space = $block.offset().left - ($prevBlock.offset().left + $prevBlock.width());
                     //alert(space);
                     colsPlaceholders.push({
                         left: $col.find('.ipBlock').offset().left - space,

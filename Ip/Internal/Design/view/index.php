@@ -33,8 +33,8 @@
                 <?php foreach ($plugins as $key => $plugin ) {?>
                     <dt><?php echo $key == 0 ? __('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
                     <dd>
-                        <?php echo esc($plugin->getModuleTitle()); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin->getModuleKey()) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
+                        <?php echo esc(!empty($plugin['title']) ? $plugin['title'] : $plugin['name']); ?>
+                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin['name']) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>

@@ -50,6 +50,15 @@ class Config
             $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
         }
 
+        if (empty($this->rawConfig['CHARSET'])) {
+            $this->rawConfig['CHARSET'] = 'UTF-8';
+        }
+
+        if (empty($this->rawConfig['DEFAULT_DOCTYPE'])) {
+            $this->rawConfig['DEFAULT_DOCTYPE'] = 'DOCTYPE_HTML5';
+        }
+
+
         if (isset($server['HTTPS']) && $server['HTTPS'] == "on") {
             $this->protocol = 'https://';
         } else {
