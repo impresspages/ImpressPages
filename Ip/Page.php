@@ -1,31 +1,31 @@
 <?php
 /**
  * @package ImpressPages
- *
- *
  */
 
 namespace Ip;
 
 
-/**
- * Handle web page content.
- *
- * A page is a website Zone element. Typically each Element represents a single page on a Zone.
- * This class is responsible for generating a content and providing with information about a web page.
- *
- */
-
-class Page{
+class Page
+{
     /** int - unique number of element in that zone. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
     protected $navigationTitle;
-    /** string - part of link. Identifies actual page */
+
+    /**
+     * @var string full url relative to base url
+     */
     protected $url;
 
+    /**
+     * @var string language code. For example 'en'.
+     */
     protected $languageCode;
 
+    /**
+     * @var string last part of url address (relative address to parent page)
+     */
     protected $slug;
 
     /** string - meta tag title */
@@ -114,16 +114,16 @@ class Page{
     {
         $zone = ipContent()->getZone($this->zoneName);
         $elements = $zone->getPages(null, $this->parentId);
-        for($i = 0; $i<sizeof($elements); $i++){
-            if($elements[$i]->getId() == $this->getId()){
-                if(isset($elements[$i-1])){
-                    $this->previousElement = $elements[$i-1];
-                } else{
+        for ($i = 0; $i < sizeof($elements); $i++) {
+            if ($elements[$i]->getId() == $this->getId()) {
+                if (isset($elements[$i - 1])) {
+                    $this->previousElement = $elements[$i - 1];
+                } else {
                     $this->previousElement = false;
                 }
-                if(isset($elements[$i+1])){
-                    $this->nextElement = $elements[$i+1];
-                } else{
+                if (isset($elements[$i + 1])) {
+                    $this->nextElement = $elements[$i + 1];
+                } else {
                     $this->nextElement = false;
                 }
             }
@@ -137,7 +137,7 @@ class Page{
      */
     public function getNextPage()
     {
-        if($this->nextElement === null){
+        if ($this->nextElement === null) {
             $this->findPreviousAndNextElements();
         }
         return $this->nextElement;
@@ -150,7 +150,7 @@ class Page{
      */
     public function getPreviousPage()
     {
-        if($this->previousElement === null){
+        if ($this->previousElement === null) {
             $this->findPreviousAndNextElements();
         }
         return $this->previousElement;
@@ -161,7 +161,10 @@ class Page{
      *
      * @return int Page ID
      */
-    public function getId(){return $this->id;}
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set page ID
@@ -169,28 +172,40 @@ class Page{
      * @ignore
      * @param $id int
      */
-    public function setId($id){$this->id = $id;}
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get page navigation title
      *
      * @return string A title for page navigation
      */
-    public function getNavigationTitle(){return $this->navigationTitle;}
+    public function getNavigationTitle()
+    {
+        return $this->navigationTitle;
+    }
 
     /**
      * @ignore
      *
      * @param $navigationTitle string
      */
-    public function setNavigationTitle($navigationTitle){$this->navigationTitle= $navigationTitle;}
+    public function setNavigationTitle($navigationTitle)
+    {
+        $this->navigationTitle = $navigationTitle;
+    }
 
     /**
      * Get page title
      *
      * @return string Page title
      */
-    public function getPageTitle(){return $this->pageTitle;}
+    public function getPageTitle()
+    {
+        return $this->pageTitle;
+    }
 
     /**
      * Set page title
@@ -198,14 +213,20 @@ class Page{
      * @ignore
      * @param $pageTitle string
      */
-    public function setPageTitle($pageTitle){$this->pageTitle = $pageTitle;}
+    public function setPageTitle($pageTitle)
+    {
+        $this->pageTitle = $pageTitle;
+    }
 
     /**
      * Get page keywords
      *
      * @return string Page keywords
      */
-    public function getKeywords(){return $this->keywords;}
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
 
     /**
      * Set keywords
@@ -213,39 +234,57 @@ class Page{
      * @ignore
      * @param $keywords string
      */
-    public function setKeywords($keywords){$this->keywords=$keywords;}
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+    }
 
     /**
      * Get page description
      *
      * @return string Page description text
      */
-    public function getDescription(){return $this->description;}
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
     /**
      * @ignore
      * @param $description string
      */
-    public function setDescription($description){ $this->description=$description;}
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * @ignore
      * @return string Get page text
      */
-    public function getText(){return $this->text;}
+    public function getText()
+    {
+        return $this->text;
+    }
 
     /**
      * @ignore
      * @param $text string
      */
-    public function setText($text){$this->text=$text;}
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
 
     /**
      * Get page modification date and time
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getLastModified(){return $this->lastModified;}
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
 
     /**
      * Set page modification date and time
@@ -253,46 +292,67 @@ class Page{
      * @ignore
      * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setLastModified($lastModified){$this->lastModified=$lastModified;}
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+    }
 
     /**
      * Get page creation date and time
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getCreatedOn(){return $this->createdOn;}
+    public function getCreatedOn()
+    {
+        return $this->createdOn;
+    }
 
     /**
      * Set page creation date and time
      *
      * @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setCreatedOn($createdOn){$this->createdOn=$createdOn;}
+    public function setCreatedOn($createdOn)
+    {
+        $this->createdOn = $createdOn;
+    }
 
     /**
      * @ignore
      * @param $modifyFrequency int represents average amount of days between changes
      */
-    public function setModifyFrequency($modifyFrequency){$this->modifyFrequency=$modifyFrequency;}
+    public function setModifyFrequency($modifyFrequency)
+    {
+        $this->modifyFrequency = $modifyFrequency;
+    }
 
     /**
      * @ignore
      * @return float
      */
-    public function getPriority(){return $this->priority;}
+    public function getPriority()
+    {
+        return $this->priority;
+    }
 
     /**
      * @ignore
      * @param $priority float
      */
-    public function setPriority($priority){$this->priority=$priority;}
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+    }
 
     /**
      * Get parent page ID
      *
      * @return int Parent page ID
      */
-    public function getParentId(){return $this->parentId;}
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
 
     /**
      * Set parent page id
@@ -300,7 +360,10 @@ class Page{
      * @ignore
      * @param $parentId int
      */
-    public function setParentId($parentId){$this->parentId=$parentId;}
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+    }
 
     /**
      * Get page URL address
@@ -308,33 +371,50 @@ class Page{
      */
     public function getLink()
     {
-        return $this->languageCode . '/' . $this->url;
+        return $this->languageCode . $this->url;
     }
 
     /**
      * @ignore
      * @param $link string
      */
-    public function setLink($link){$this->link=$link;}
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
 
     /**
      * Get the last part of the page URL
      * @return string Page URL
      */
-    public function getUrl(){return $this->url;}
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
     /**
      * @ignore
      * @param $url string
      */
-    public function setUrl($url){$this->url=$url;}
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    }
 
     /**
      * Check if the page is the currently opened page in the browser
      *
      * @return bool True, if the page is a current page
      */
-    public function isCurrent(){return $this->current;}
+    public function isCurrent()
+    {
+        return $this->current;
+    }
 
     /**
      * Set the page as currently opened in the browser
@@ -342,28 +422,40 @@ class Page{
      * @ignore
      * @param $current bool
      */
-    public function setCurrent($current){$this->current=$current;}
+    public function setCurrent($current)
+    {
+        $this->current = $current;
+    }
 
     /**
      * Check if the page exists in current breadcrumb
      *
      * @return bool True, if the page is in a current breadcrumb
      */
-    public function isInCurrentBreadcrumb(){return $this->selected;}
+    public function isInCurrentBreadcrumb()
+    {
+        return $this->selected;
+    }
 
     /**
      * Set the page as existing in current breadcrumb
      * @ignore
      * @param $selected bool
      */
-    public function markAsInCurrentBreadcrumb($selected){$this->selected=$selected;}
+    public function markAsInCurrentBreadcrumb($selected)
+    {
+        $this->selected = $selected;
+    }
 
     /**
      * Get page depth level in a menu tree
      *
      * @return int Depth level.
      */
-    public function getDepth(){return $this->depth;}
+    public function getDepth()
+    {
+        return $this->depth;
+    }
 
     /**
      * Set page depth level in a menu tree
@@ -371,28 +463,40 @@ class Page{
      *
      * @param $depth int Depth level
      */
-    public function setDepth($depth){$this->depth=$depth;}
+    public function setDepth($depth)
+    {
+        $this->depth = $depth;
+    }
 
     /**
      * Get zone name of the page
      *
      * @return string Zone name
      */
-    public function getZoneName(){return $this->zoneName;}
+    public function getZoneName()
+    {
+        return $this->zoneName;
+    }
 
     /**
      * @ignore
      *
      * @param $zoneName string
      */
-    public function setZoneName($zoneName){$this->zoneName=$zoneName;}
+    public function setZoneName($zoneName)
+    {
+        $this->zoneName = $zoneName;
+    }
 
     /**
      * Get the page type (e.g., default, redirect or other types)
      *
      * @return string Page type
      */
-    public function getType(){return $this->type;}
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Set the page type
@@ -400,7 +504,10 @@ class Page{
      *
      * @param $type string Page type
      */
-    public function setType($type){$this->type=$type;}
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
     /**
      *
@@ -408,7 +515,10 @@ class Page{
      *
      * @return string Redirect URL address
      */
-    public function getRedirectUrl(){return $this->redirectUrl;}
+    public function getRedirectUrl()
+    {
+        return $this->redirectUrl;
+    }
 
     /**
      * Set page redirect URL
@@ -416,14 +526,20 @@ class Page{
      * @ignore
      * @param $redirectUrl string Redirect URL address
      */
-    public function setRedirectUrl($redirectUrl){$this->redirectUrl=$redirectUrl;}
+    public function setRedirectUrl($redirectUrl)
+    {
+        $this->redirectUrl = $redirectUrl;
+    }
 
     /**
      * Get page visibility status
      *
      * @return bool Visibility
      */
-    public function isVisible(){return $this->visible;}
+    public function isVisible()
+    {
+        return $this->visible;
+    }
 
     /**
      * Set page visibility status
@@ -431,13 +547,16 @@ class Page{
      * @ignore
      * @param $visible bool
      */
-    public function setVisible($visible){$this->visible=$visible;}
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+    }
 
     public static function createList($list)
     {
         $pages = array();
         foreach ($list as $page) {
-            $pages[]= new \Ip\Page($page['id']);
+            $pages[] = new \Ip\Page($page['id']);
         }
 
         return $pages;

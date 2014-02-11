@@ -90,25 +90,7 @@ class AdminController extends \Ip\Controller
 
         $answer = array();
 
-        //make url
-        if ($data['slug'] == '') {
-            if ($data['pageTitle'] != '') {
-                $data['slug'] = Db::makeUrl($data['pageTitle'], $pageId);
-            } else {
-                if ($data['navigationTitle'] != '') {
-                    $data['slug'] = Db::makeUrl($data['navigationTitle'], $pageId);
-                }
-            }
-        } else {
-            $tmpUrl = str_replace("/", "-", $data['slug']);
-            $i = 1;
-            while (!Db::availableUrl($tmpUrl, $pageId)) {
-                $tmpUrl = $data['slug'].'-'.$i;
-                $i++;
-            }
-            $data['slug'] = $tmpUrl;
-        }
-        //end make url
+        $pageBeforeUpdate = new \Ip\Page($pageId);
 
         if (strtotime($data['createdOn']) === false) {
             $answer['errors'][] = array('field' => 'createdOn', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
@@ -125,16 +107,22 @@ class AdminController extends \Ip\Controller
 
         $data['visible'] = !empty($data['visible']);
         if (empty($answer['errors'])) {
-            Service::updatePage($pageId, $data);
+            Model::updatePageProperties($pageId, $data);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
         }
 
+        if (empty($data['slug'])) {
+
+            $newPageInfo = Model::regeneratePageSlug($pageId);
+
+        } elseif ($data['slug'] != $pageBeforeUpdate->getSlug()) {
+
+            $newPageInfo = Model::updatePageSlug($pageId, $data['slug']);
+        }
+
         return new \Ip\Response\Json($answer);
-
-
-
     }
 
     public function updateZoneForm()
@@ -393,12 +381,8 @@ class AdminController extends \Ip\Controller
         }
         $pageId = (int)$data['pageId'];
 
-        $pageInfo = Db::pageInfo($pageId);
+        $page = new \Ip\Page($pageId);
 
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $zone = IpContent()->getZone($zoneName);
-
-        $page = $zone->getPage($pageId);
         $answer = array (
             'pageUrl' => $page->getLink()
         );
