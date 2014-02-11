@@ -101,11 +101,16 @@ var IpWidget_Gallery;
             $controls.css('left', $img.offset().left + 5);
             $controls.css('top', $img.offset().top + 5);
 
+            this.imageIndex = $item.index();
+
             $controls.find('.ipsDelete').off().on('click', function(e) {
                 $.proxy(context.deleteImage, context)($item.index());
             });
             $controls.find('.ipsEdit').off().on('click', function(e) {
                 $.proxy(context.editImage, context)($item.index());
+            })
+            $controls.find('.ipsLink').off().on('click', function(e) {
+                $.proxy(linkPopup, context)($item.index());
             });
         };
 
@@ -236,7 +241,69 @@ var IpWidget_Gallery;
             });
         }
 
+        var linkPopup = function (index) {
+            var context = this;
+            this.popup = $('#ipWidgetGalleryLinkPopup');
+            this.confirmButton = this.popup.find('.ipsConfirm');
+            this.type = this.popup.find('select[name=type]');
+            this.url = this.popup.find('input[name=url]');
+            this.blank = this.popup.find('input[name=blank]');
+            var data = this.data.images[index];
 
+            if (data.type) {
+                this.type.val(data.type);
+            } else {
+                this.type.val('lightbox'); // cleanup value if it was set before
+            }
+
+            if (data.url) {
+                this.url.val(data.url);
+            } else {
+                this.url.val(''); // cleanup value if it was set before
+            }
+
+            if (data.blank) {
+                this.blank.attr('checked', true);
+            } else {
+                this.blank.attr('checked', false);
+            }
+
+
+            this.type.off().on('change', function () {
+                $.proxy(showHide, context)();
+            });
+
+            $.proxy(showHide, context)();
+
+
+            this.popup.modal(); // open modal popup
+
+            this.confirmButton.off(); // ensure we will not bind second time
+            this.confirmButton.on('click', $.proxy(saveLink, this));
+        };
+
+        var saveLink = function () {
+            var data = {
+                method: 'setLink',
+                type: this.type.val(),
+                url: this.url.val(),
+                blank: this.blank.attr('checked') ? 1 : 0,
+                index: this.imageIndex
+            };
+
+            this.$widgetObject.save(data, 1); // save and reload widget
+            this.popup.modal('hide');
+        };
+
+        var showHide = function () {
+            if (this.type.val() == 'link') {
+                this.popup.find('.form-group.name-url').show();
+                this.popup.find('.form-group.name-blank').show();
+            } else {
+                this.popup.find('.form-group.name-url').hide();
+                this.popup.find('.form-group.name-blank').hide();
+            }
+        }
 
     };
 
