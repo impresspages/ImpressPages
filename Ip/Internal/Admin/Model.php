@@ -19,24 +19,37 @@ class Model{
         return new Model();
     }
 
-    public function getAdminMenuItems()
+    /**
+     * @param $currentModule Name of the current (active) module
+     * @return array
+     */
+    public function getAdminMenuItems($currentModule)
     {
         $answer = array();
 
 
         $modules = \Ip\Internal\Plugins\Model::getModules();
         foreach($modules as $module) {
+            // skipping modules that shouldn't have their own menu
             if (in_array($module, array('Log', 'Email'))) {
                 continue;
             }
+
+            // skipping modules that don't have 'index' (default) action in AdminController
             $controllerClass = 'Ip\\Internal\\'.$module.'\\AdminController';
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
-            $moduleItem = new \Ip\Menu\Item();
-            $moduleItem->setTitle($module);
+
+            $moduleItem = new \Ip\Internal\Admin\MenuItem();
+            $moduleItem->setTitle(__($module, 'ipAdmin', false));
             $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $module.'.index')));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
+            $moduleItem->setIcon($this->getAdminMenuItemIcon($module));
+            if ($module == $currentModule) {
+                $moduleItem->markAsCurrent(true);
+            }
+
             $answer[] = $moduleItem;
         }
 
@@ -49,14 +62,49 @@ class Model{
             if (!class_exists($controllerClass) || !method_exists($controllerClass, 'index')) {
                 continue;
             }
-            $moduleItem = new \Ip\Menu\Item();
-            $moduleItem->setTitle($plugin['title']);
+            $moduleItem = new \Ip\Internal\Admin\MenuItem();
+            $moduleItem->setTitle(__($plugin['title'], 'ipAdmin', false));
             $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin['name'])));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin['name'])));
+            $moduleItem->setIcon($this->getAdminMenuItemIcon($plugin['name']));
+            if ($plugin['name'] == $currentModule) {
+                $moduleItem->markAsCurrent(true);
+            }
             $answer[] = $moduleItem;
         }
 
         return $answer;
+    }
+
+    public static function getAdminMenuItemIcon($module)
+    {
+        $icon = 'fa-cog'; // default
+
+        switch ($module) {
+            case 'Content':
+                $icon = 'fa-pencil-square-o';
+                break;
+            case 'Pages':
+                $icon = 'fa-file-text-o';
+                break;
+            case 'Administrators':
+                $icon = 'fa-users';
+                break;
+            case 'Design':
+                $icon = 'fa-pencil';
+                break;
+            case 'Plugins':
+                $icon = 'fa-cogs';
+                break;
+            case 'Config':
+                $icon = 'fa-cog';
+                break;
+            case 'System':
+                $icon = 'fa-list-alt';
+                break;
+        }
+
+        return $icon;
     }
 
     public static function setSafeMode($value)

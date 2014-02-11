@@ -13,7 +13,8 @@ namespace Ip\Menu;
  * Menu item element class.
  *
  */
-class Item{
+class Item
+{
 
     /**
      * @var string
