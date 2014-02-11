@@ -50,7 +50,7 @@ class Db {
         WHERE
             page.id = :pageId
             AND
-            page.parent = mte.element_id
+            page.parentId = mte.element_id
         ";
 
         $params = array(
@@ -137,12 +137,12 @@ class Db {
         if (!$page) {
             return FALSE;
         }
-        if ($page['parent'] == $parentId) {
+        if ($page['parentId'] == $parentId) {
             return TRUE;
         }
 
-        if ($page['parent']) {
-            return self::isChild($page['parent'], $parentId);
+        if ($page['parentId']) {
+            return self::isChild($page['parentId'], $parentId);
         }
 
         return FALSE;
@@ -333,7 +333,7 @@ class Db {
         }
 
         unset($copy['id']);
-        $copy['parent'] = $newParentId;
+        $copy['parentId'] = $newParentId;
         $copy['row_number'] = $newIndex;
         $copy['url'] = self::ensureUniqueUrl($copy['url']);
 
