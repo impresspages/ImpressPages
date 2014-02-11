@@ -1,4 +1,122 @@
-.ipAdminToolbar {
+.ipAdminNavbar {
+    border: 0;
+    z-index: @admin-navbar-zIndex;
+
+    ._toggle {
+        border: 0;
+        border-radius: 0;
+        display: inline-block;
+        float: left;
+        height: @navbar-height;
+        margin: 0 0 0 (@grid-gutter-width / 2);
+        width: @navbar-height;
+
+        .icon-bar {
+            border-radius: 0;
+            width: 100%;
+        }
+    }
+
+    .nav._active { // current active page
+        margin-left: (@grid-gutter-width / 2);
+
+        > li > a {
+            color: @navbar-inverse-link-active-color;
+            font-size: 16px; // todox: get calculated size (variable)
+        }
+    }
+
+    ._menu {
+        background-color: #2f313f; // todox: default color?
+        .box-shadow(0 0 0 3px rgba(0,0,0,.2));
+        display: none;
+        left: (@grid-gutter-width / 4);
+        position: absolute;
+        top: 0;
+        z-index: @admin-navbar-zIndex;
+
+        .nav {
+            border-top: 1px solid @navbar-inverse-bg;
+
+            > li {
+                border-bottom: 1px solid @navbar-inverse-bg;
+
+                > a {
+                    background-color: #262732; // todox: calculate color?
+                    color: @navbar-inverse-link-color;
+                    padding: 8px (@grid-gutter-width * 2) 8px (@grid-gutter-width / 4); // leaving for space on the right (especially for scrollbar)
+                    white-space: nowrap;
+
+                    &:hover {
+                        background-color: @navbar-inverse-link-hover-bg;
+                        color: @navbar-inverse-link-hover-color;
+                    }
+                }
+            }
+
+            > .active > a {
+                background-color: #1e1f28; // todox: calculate color?
+                color: #019ad2; // todox: default color?
+            }
+
+            &:last-child {
+                border-top: 0;
+
+                > li {
+                    border-bottom-color: #17181f; // todox: calculate color?
+
+                    > a {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+
+        .nav-stacked > li + li {
+            margin-top: 0;
+        }
+
+        .@{fa-css-prefix}-fw {
+            width: @grid-gutter-width;
+        }
+    }
+
+    ._menuHeader {
+        background-color: @color-orange;
+        height: @navbar-height;
+        white-space: nowrap;
+
+        ._toggle {
+            cursor: default;
+            margin-left: ((@grid-gutter-width / 2) - (@grid-gutter-width / 4)); // default left margin minus ._menu distance from left border
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        .navbar-text {
+            color: @navbar-inverse-link-active-color;
+            display: inline-block;
+            font-size: 16px; // todox: get calculated size (variable)
+            font-weight: bold;
+            float: none;
+            margin-left: 0;
+        }
+    }
+
+    ._menuContainer {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        nav {
+            margin-bottom: @navbar-height; // leaving space at the bottom
+        }
+    }
+}
+
+// todox: remove old code
+/*.ipAdminToolbar {
     background-color: #2f313f;
     border-bottom: 1px solid #000;
     left: 0;
@@ -32,9 +150,9 @@
     display: block;
     float: left;
     font-weight: bold;
-    height: 31px; /* 1px more to hide container border */
+    height: 31px; // 1px more to hide container border
     line-height: 30px;
-    margin-bottom: -1px; /* 1px more to hide container border */
+    margin-bottom: -1px; // 1px more to hide container border
     padding: 0 15px;
     text-decoration: none;
 }
@@ -74,7 +192,7 @@
     display: block;
     font-weight: bold;
     line-height: 30px;
-    height: 31px; /* same as menu icon + border */
+    height: 31px; // same as menu icon + border
     padding-left: 50px;
 }
 .ipAdminToolbar .ipmMenu ul {
@@ -83,7 +201,7 @@
     padding: 0;
 }
 .ipAdminToolbar .ipmMenu ul:last-child {
-    margin-bottom: 30px; /* leaving space at the bottom */
+    margin-bottom: 30px; // leaving space at the bottom
 }
 .ipAdminToolbar .ipmMenu .typeHeader {
     color: #a6a6a6;
@@ -173,3 +291,4 @@
     background: linear-gradient(top, #559000 0%, #76af00 100%);
     box-shadow: none;
 }
+*/

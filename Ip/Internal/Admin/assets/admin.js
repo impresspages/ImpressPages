@@ -10,15 +10,17 @@ var ipAdmin;
 
     ipAdmin = new function () {
         var $adminMenu;
+        var $adminMenuContainer;
         var $container;
         var $currentItem;
 
         this.init = function () {
-            $('body').prepend($(ipAdminToolbar));
-            $container = $('.ipsAdminToolbarContainer'); // the most top element physically creates a space
+            $('body').prepend($(ipAdminNavbar));
+            $container = $('.ipsAdminNavbarContainer'); // the most top element physically creates a space
             $currentItem = $('.ipsItemCurrent');
 
             $adminMenu = $('.ipsAdminMenuBlock');
+            $adminMenuContainer = $('.ipsAdminMenuBlockContainer');
 
             $('.ipsAdminMenu').on('mouseenter', function (e) { showAdminMenu(); });
 
@@ -45,9 +47,13 @@ var ipAdmin;
         };
 
         var fixLayout = function () {
-            var $toolbar = $('.ipsAdminToolbar'); // Administration Panel that stays always visible
-            $adminMenu.height($(window).height());
-            $container.height($toolbar.outerHeight()); // setting the height to container
+            var $navbar = $('.ipsAdminNavbar'); // Administration Panel that stays always visible
+            console.log($(window).height()+ ' : '+$navbar.outerHeight());
+            console.log($(window).height()-$navbar.outerHeight());
+            $container.height($navbar.outerHeight()); // setting the height to container
+            var containerHeight = $(window).height()-$navbar.outerHeight();
+            console.log(containerHeight);
+            $adminMenuContainer.height(containerHeight);
         }
 
         var refreshSession = function () {
