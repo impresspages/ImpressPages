@@ -94,49 +94,7 @@ class Service
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
-        if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
-            throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
-        }
-
-        $pageInfo = Db::pageInfo($pageId);
-        $destinationPageInfo = Db::pageInfo($destinationParentId);
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $zone = ipContent()->getZone($zoneName);
-        $destinationZone = ipContent()->getZone(Db::getZoneName($destinationPageInfo['zone_id']));
-
-        //report url change
-        $oldUrl = $zone->getPage($pageId)->getLink(true);
-        //report url change
-
-
-
-        $newParentChildren = Db::pageChildren($destinationParentId);
-        $newIndex = 0; //initial value
-
-        if(count($newParentChildren) > 0) {
-            $newIndex = $newParentChildren[0]['row_number'] - 1;  //set as first page
-            if ($destinationPosition > 0) {
-                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
-                    $newIndex = ($newParentChildren[$destinationPosition - 1]['row_number'] + $newParentChildren[$destinationPosition]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $newIndex = $newParentChildren[count($newParentChildren) - 1]['row_number'] + 1;
-                }
-            }
-        }
-
-
-        $data = array (
-            'parentId' => $destinationParentId,
-            'rowNumber' => $newIndex
-        );
-        Model::updatePageProperties($pageId, $data);
-
-        //report url change
-        $page = $destinationZone->getPage($pageId);
-        $newUrl = $page->getLink();
-
-        ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-        //report url change
+        Model::movePage($pageId, $destinationParentId, $destinationPosition);
     }
 
     public static function deletePage($pageId)

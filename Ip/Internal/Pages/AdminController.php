@@ -115,11 +115,11 @@ class AdminController extends \Ip\Controller
 
         if (empty($data['slug'])) {
 
-            $newPageInfo = Model::regeneratePageSlug($pageId);
+            Model::regeneratePageSlug($pageId);
 
         } elseif ($data['slug'] != $pageBeforeUpdate->getSlug()) {
 
-            $newPageInfo = Model::updatePageSlug($pageId, $data['slug']);
+            Model::updatePageSlug($pageId, $data['slug']);
         }
 
         return new \Ip\Response\Json($answer);
@@ -280,14 +280,10 @@ class AdminController extends \Ip\Controller
         if (!empty($data['destinationParentId'])) {
             $destinationParentId = $data['destinationParentId'];
         } else {
-            if (!isset($data['zoneName'])) {
-                throw new \Ip\Exception("Missing required parameters");
-            }
             if (!isset($data['languageId'])) {
                 throw new \Ip\Exception("Missing required parameters");
             }
-            $zone = ipContent()->getZone($data['zoneName']);
-            $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
+            throw new \Ip\Exception\NotImplemented();
         }
 
 
@@ -298,7 +294,7 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            Service::movePage($pageId, $destinationParentId, $destinationPosition);
+            Model::movePage($pageId, $destinationParentId, $destinationPosition);
         } catch (\Ip\Exception $e) {
             $answer = array (
                 'status' => 'error',

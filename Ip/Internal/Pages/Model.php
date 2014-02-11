@@ -317,9 +317,6 @@ class Model
     {
         $update = array();
 
-        $oldPage = new \Ip\Page($pageId);
-        $oldUrl = $oldPage->getLink(true);
-
         if (isset($properties['navigationTitle'])) {
             $update['navigationTitle'] = $properties['navigationTitle'];
         }
@@ -356,48 +353,11 @@ class Model
             $update['visible'] = $properties['visible'];
         }
 
-        if (isset($properties['parentId'])) {
-            $update['parent'] = $properties['parentId'];
-        }
-
-        if (isset($properties['pageOrder'])) {
-            $update['pageOrder'] = $properties['pageOrder'];
-        }
-
         if (count($update) == 0) {
             return true; //nothing to update.
         }
 
         ipDb()->update('page', $update, array('id' => $pageId));
-
-        // TODOX move page
-//        if (isset($new['url'])) {
-//            if ($new['url'] == '') {
-//                if (isset($new['pageTitle']) && $new['pageTitle'] != '') {
-//                    $new['url'] = self::makeUrl($new['pageTitle'], $pageId);
-//                } else {
-//                    if (isset($new['navigationTitle']) && $new['navigationTitle'] != '') {
-//                        $new['url'] = self::makeUrl($new['navigationTitle'], $pageId);
-//                    } else {
-//                        $new['url'] = self::makeUrl('page', $pageId);
-//                    }
-//                }
-//            } else {
-//                $tmpUrl = str_replace("/", "-", $new['url']);
-//                $i = 1;
-//                while (!self::availableUrl($tmpUrl, $pageId)) {
-//                    $tmpUrl = $new['url'].'-'.$i;
-//                    $i++;
-//                }
-//                $new['url'] = $tmpUrl;
-//            }
-//
-//            $update['url'] = $new['url'];
-//        }
-//
-//        if (isset($new['url']) && $oldPage->getUrl() != $new['url']) {
-//            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-//        }
 
         // TODOX update layout
 //        if (!empty($new['layout']) && \Ip\Internal\File\Functions::isFileInDir($new['layout'], ipThemeFile(''))) {
@@ -412,27 +372,32 @@ class Model
     {
         $page = ipDb()->selectRow('page', array('parentId', 'pageTitle', 'navigationTitle', 'slug', 'url'), array('id' => $pageId));
 
-        if ($slug == $page['slug']) {
-            return false;
-        }
-
         $parentUrl = ipDb()->selectValue('page', 'url', array('id' => $page['parentId']));
 
         $slug = str_replace("/", "-", $slug);
 
-        $tmpUrl = $parentUrl . '/' . $slug;
+        $newUrl = $parentUrl . '/' . $slug;
 
-        if (!Db::availableUrl($tmpUrl, $pageId)) {
+        if ($newUrl == $page['url']) {
+            return false;
+        }
+
+        if (!Db::availableUrl($newUrl, $pageId)) {
             $i = 1;
-            while (!Db::availableUrl("$tmpUrl-$i", $pageId)) {
+            while (!Db::availableUrl("$newUrl-$i", $pageId)) {
                 $i++;
             }
 
-            $tmpUrl = "$tmpUrl-$i";
+            $newUrl = "$newUrl-$i";
             $slug .= '-' . $i;
         }
 
-        ipDb()->update('page', array('url' => $tmpUrl, 'slug' => $slug), array('id' => $pageId));
+        ipDb()->update('page', array('url' => $newUrl, 'slug' => $slug), array('id' => $pageId));
+
+        if ($newUrl != $page['url']) {
+            // TODOX full url
+            ipEvent('ipUrlChanged', array('oldUrl' => $page['url'], 'newUrl' => $newUrl));
+        }
 
         return true;
     }
@@ -450,6 +415,45 @@ class Model
         }
 
         return static::updatePageSlug($pageId, $slug);
+    }
+
+    public static function movePage($pageId, $destinationParentId, $destinationPosition)
+    {
+        if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
+            throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
+        }
+
+        // for ipUrlChanged event
+        $oldPage = new \Ip\Page($pageId);
+        $oldUrl = $oldPage->getLink();
+        // for ipUrlChanged event
+
+        $newParentChildren = Db::pageChildren($destinationParentId);
+        $newPageOrder = 0; //initial value
+
+        if (count($newParentChildren) > 0) {
+            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1;  //set as first page
+            if ($destinationPosition > 0) {
+                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
+                    $newPageOrder = ($newParentChildren[$destinationPosition - 1]['pageOrder'] + $newParentChildren[$destinationPosition]['pageOrder']) / 2; //average
+                } else { //new position is at the end
+                    $newPageOrder = $newParentChildren[count($newParentChildren) - 1]['pageOrder'] + 1;
+                }
+            }
+        }
+
+        $update = array (
+            'parentId' => $destinationParentId,
+            'pageOrder' => $newPageOrder
+        );
+
+        ipDb()->update('page', $update, array('id' => $pageId));
+
+        static::updatePageSlug($pageId, $oldPage->getSlug());
+
+        $newPage = new \Ip\Page($pageId);
+
+        ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newPage->getLink()));
     }
 
 }
