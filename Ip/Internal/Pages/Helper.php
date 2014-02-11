@@ -192,9 +192,9 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'url',
-                'label' => __('Url', 'ipAdmin', false),
-                'value' => $page->getUrl()
+                'name' => 'slug',
+                'label' => __('Url slug', 'ipAdmin', false),
+                'value' => $page->getSlug(),
             ));
         $form->addField($field);
 

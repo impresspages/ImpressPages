@@ -36,9 +36,8 @@ class Service
      */
     public static function updatePage($pageId, $data)
     {
-        Db::updatePage($pageId, $data);
+        Model::updatePageProperties($pageId, $data);
     }
-
 
     public static function addPage($parentId, $title, $data = array())
     {
@@ -130,7 +129,7 @@ class Service
             'parentId' => $destinationParentId,
             'rowNumber' => $newIndex
         );
-        Db::updatePage($pageId, $data);
+        Model::updatePageProperties($pageId, $data);
 
         //report url change
         $page = $destinationZone->getPage($pageId);

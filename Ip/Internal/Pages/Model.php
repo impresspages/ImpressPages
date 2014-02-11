@@ -308,4 +308,148 @@ class Model
         }
     }
 
+    /**
+     * @param $pageId
+     * @param $properties
+     * @return bool
+     */
+    public static function updatePageProperties($pageId, $properties)
+    {
+        $update = array();
+
+        $oldPage = new \Ip\Page($pageId);
+        $oldUrl = $oldPage->getLink(true);
+
+        if (isset($properties['navigationTitle'])) {
+            $update['navigationTitle'] = $properties['navigationTitle'];
+        }
+
+        if (isset($properties['pageTitle'])) {
+            $update['pageTitle'] = $properties['pageTitle'];
+        }
+
+        if (isset($properties['keywords'])) {
+            $update['keywords'] = $properties['keywords'];
+        }
+
+        if (isset($properties['description'])) {
+            $update['description'] = $properties['description'];
+        }
+
+        if (isset($properties['createdOn']) && strtotime($properties['createdOn']) !== false) {
+            $update['createdOn'] = $properties['createdOn'];
+        }
+
+        if (isset($properties['lastModified']) && strtotime($properties['lastModified']) !== false) {
+            $update['lastModified'] = $properties['lastModified'];
+        }
+
+        if (isset($properties['type'])) {
+            $update['type'] = $properties['type'];
+        }
+
+        if (isset($properties['redirectURL'])) {
+            $update['redirectUrl'] = $properties['redirectURL'];
+        }
+
+        if (isset($properties['visible'])) {
+            $update['visible'] = $properties['visible'];
+        }
+
+        if (isset($properties['parentId'])) {
+            $update['parent'] = $properties['parentId'];
+        }
+
+        if (isset($properties['pageOrder'])) {
+            $update['pageOrder'] = $properties['pageOrder'];
+        }
+
+        if (count($update) == 0) {
+            return true; //nothing to update.
+        }
+
+        ipDb()->update('page', $update, array('id' => $pageId));
+
+        // TODOX move page
+//        if (isset($new['url'])) {
+//            if ($new['url'] == '') {
+//                if (isset($new['pageTitle']) && $new['pageTitle'] != '') {
+//                    $new['url'] = self::makeUrl($new['pageTitle'], $pageId);
+//                } else {
+//                    if (isset($new['navigationTitle']) && $new['navigationTitle'] != '') {
+//                        $new['url'] = self::makeUrl($new['navigationTitle'], $pageId);
+//                    } else {
+//                        $new['url'] = self::makeUrl('page', $pageId);
+//                    }
+//                }
+//            } else {
+//                $tmpUrl = str_replace("/", "-", $new['url']);
+//                $i = 1;
+//                while (!self::availableUrl($tmpUrl, $pageId)) {
+//                    $tmpUrl = $new['url'].'-'.$i;
+//                    $i++;
+//                }
+//                $new['url'] = $tmpUrl;
+//            }
+//
+//            $update['url'] = $new['url'];
+//        }
+//
+//        if (isset($new['url']) && $oldPage->getUrl() != $new['url']) {
+//            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+//        }
+
+        // TODOX update layout
+//        if (!empty($new['layout']) && \Ip\Internal\File\Functions::isFileInDir($new['layout'], ipThemeFile(''))) {
+//            $layout = $new['layout'] == $zone->getLayout() ? false : $new['layout']; // if default layout - delete layout
+//            self::changePageLayout($zone->getAssociatedModule(), $pageId, $layout);
+//        }
+
+        return true;
+    }
+
+    public static function updatePageSlug($pageId, $slug)
+    {
+        $page = ipDb()->selectRow('page', array('parentId', 'pageTitle', 'navigationTitle', 'slug', 'url'), array('id' => $pageId));
+
+        if ($slug == $page['slug']) {
+            return false;
+        }
+
+        $parentUrl = ipDb()->selectValue('page', 'url', array('id' => $page['parentId']));
+
+        $slug = str_replace("/", "-", $slug);
+
+        $tmpUrl = $parentUrl . '/' . $slug;
+
+        if (!Db::availableUrl($tmpUrl, $pageId)) {
+            $i = 1;
+            while (!Db::availableUrl("$tmpUrl-$i", $pageId)) {
+                $i++;
+            }
+
+            $tmpUrl = "$tmpUrl-$i";
+            $slug .= '-' . $i;
+        }
+
+        ipDb()->update('page', array('url' => $tmpUrl, 'slug' => $slug), array('id' => $pageId));
+
+        return true;
+    }
+
+    public static function regeneratePageSlug($pageId)
+    {
+        $page = ipDb()->selectRow('page', array('pageTitle', 'navigationTitle'), array('id' => $pageId));
+
+        if (!empty($page['pageTitle'])) {
+            $slug = $page['pageTitle'];
+        } elseif (!empty($page['navigationTitle'])) {
+            $slug = $page['navigationTitle'];
+        } else {
+            throw new \Ip\Exception('Page has no title.');
+        }
+
+        return static::updatePageSlug($pageId, $slug);
+    }
+
 }
