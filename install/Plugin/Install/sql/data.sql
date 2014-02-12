@@ -1,20 +1,21 @@
 
+INSERT INTO `ip_cms_page` (`id`, `url`, `languageCode`, `slug`, `pageOrder`, `parentId`, `navigationTitle`, `visible`, `pageTitle`, `keywords`, `description`, `lastModified`, `createdOn`, `type`, `alias`) VALUES
+(1,	NULL,	'en',	NULL,	0,	0,	'Menu1',	1,	'Menu1',	NULL,	NULL,	NULL,	'2014-02-07 17:13:11',	'default',	'menu1'),
+(3,	'',	'en',	'',	0,	0,	'Home',	1,	'Home',	NULL,	NULL,	'2014-02-07 00:00:00',	'2014-02-07 17:13:21',	'default',	'menu2'),
+(4,	NULL,	'en',	NULL,	0,	0,	'Menu3',	1,	'Menu3',	NULL,	NULL,	NULL,	'2014-02-07 17:13:25',	'default',	'menu3'),
+(66,	'page1',	'en',	'page1',	0,	3,	'Page1',	1,	'Page1',	'',	'',	'2014-02-07 00:00:00',	'2014-02-07 16:34:55',	'default',	NULL),
+(67,	'page2',	'en',	'page2',	1,	3,	'Page2',	2,	'Page2',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(68,	'page3',	'en',	'page3',	2,	3,	'Page3',	3,	'Page3',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(69,	'page4',	'en',	'page4',	3,	3,	'Page4',	4,	'Page4',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(70,	'page5',	'en',	'page5',	3.5,	3,	'Page5',	5,	'Page5',	'',	'',	'2012-01-21 22:00:00',	'2014-02-12 12:02:18',	'default',	NULL),
+(71,	'subpage',	'en',	'page2/subpage',	0,	67,	'Subpage',	1,	'Subpage example',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(64,	'home',	'en',	'home',	0,	1,	'Home',	1,	'Home',	'',	'',	'2014-01-27 00:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(65,	'lorem-ipsumy',	'en',	'lorem-ipsumy',	1,	1,	'Lorem ipsum',	1,	'Lorem ipsum',	'',	'',	'2012-01-21 00:00:00',	'2014-02-12 12:02:00',	'default',	NULL),
+(72,	'examplepage',	'en',	'examplepage',	0,	4,	'Example page',	1,	'Example page',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
+(73,	'examplepage2',	'en',	'examplepage2',	0,	4,	'Example page2',	2,	'Example page',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL);
 
-
-INSERT INTO `ip_cms_page` (`id`, `row_number`, `parent`, `button_title`, `visible`, `page_title`, `keywords`, `description`, `url`, `dynamic_modules`, `last_modified`, `created_on`, `cached_html`, `cached_text`, `type`, `redirect_url`) VALUES
-(1, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 07:24:20', NULL, NULL, 'default', NULL),
-(3, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 07:24:32', NULL, NULL, 'default', NULL),
-(4, 0, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '2009-07-19 07:24:32', NULL, NULL, 'default', NULL),
-(66, 0, 3, 'Page1', 1, 'Page1', '', '', 'page1', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(67, 1, 3, 'Page2', 2, 'Page2', '', '', 'page2', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(68, 2, 3, 'Page3', 3, 'Page3', '', '', 'page3', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(69, 3, 3, 'Page4', 4, 'Page4', '', '', 'page4', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(70, 4, 3, 'Page5', 5, 'Page5', '', '', 'page5', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(71, 0, 67, 'Subpage', 1, 'Subpage example', '', '', 'subpage', 'a:0:{}', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(64, 0, 1, 'Home', 1, 'Home', '', '', 'home', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock">\n<div  class="ipWidget ipWidget-Title ipLayout-default">\n<h1 class="ipwTitle">This is the main content area</h1>\n</div>\n<div  class="ipWidget ipWidget-Text ipLayout-default">\n<p>Drag any widget here and play with it. You can drag same widget to the sidebar too.</p></div>\n</div>\n', '  \n\nTHIS IS MAIN CONTENT AREA\n\n	Drag any widget here and play with it. You can drag same widget to\nthe sidebar too. ', 'default', ''),
-(65, 1, 1, 'Lorem ipsum', 1, 'Lorem ipsum', '', '', 'lorem-ipsum', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(72, 0, 4, 'Example page', 1, 'Example page', '', '', 'examplepage', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', ''),
-(73, 0, 4, 'Example page2', 2, 'Example page', '', '', 'examplepage2', '', '2012-01-21 22:00:00', '2009-08-08 21:00:00', '<div id="ipBlock-main" class="ipBlock ipbEmpty">\n</div>\n', ' ', 'default', '');
+INSERT INTO `ip_cms_pageStorage` (`pageId`, `key`, `value`) VALUES
+(64, 'layout', 'home.php');
 
 -- Dumping data for table--
 
@@ -58,11 +59,6 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (439, 323, 12, 'repository', 1, 'Repository', 0, '1.00', 1),
 (441, 336, 14, 'form', 0, 'Form', 0, '1.00', 1),
 (442, 336, 0, 'inline_management', 1, 'Inline Management', 0, '1.00', 1);
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_page_layout` (`module_name`, `page_id`, `layout`) VALUES
-('Content', 64, 'home.php');
 
 -- Dumping data for table--
 
