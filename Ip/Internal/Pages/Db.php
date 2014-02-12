@@ -188,64 +188,13 @@ class Db {
     }
 
     /**
-     * @param $groupName
-     * @param $moduleName
      * @param $pageId
      * @param $newLayout
      * @return bool whether layout was changed or not
      */
-    private static function changePageLayout($moduleName, $pageId, $newLayout) {
-        $dbh = ipDb()->getConnection();
-
-        $sql = 'SELECT `layout`
-                FROM ' . ipTable('page_layout') . '
-                WHERE module_name = :moduleName
-                    AND `page_id`   = :pageId';
-        $q = $dbh->prepare($sql);
-        $q->execute(
-            array(
-                'moduleName' => $moduleName,
-                'pageId' => $pageId,
-            )
-        );
-        $oldLayout = $q->fetchColumn(0);
-
-        $wasLayoutChanged = false;
-
-        if (empty($newLayout)) {
-            if ($oldLayout) {
-                $sql = 'DELETE FROM ' . ipTable('page_layout') . '
-                        WHERE `module_name` = :moduleName
-                            AND `page_id` = :pageId';
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
-                    )
-                );
-                $wasLayoutChanged = true;
-            }
-        } elseif ($newLayout != $oldLayout && file_exists(ipThemeFile($newLayout))) {
-            if (!$oldLayout) {
-                ipDb()->insert('page_layout', array(
-                        'module_name' => $moduleName,
-                        'page_id' => $pageId,
-                        'layout' => $newLayout
-                    ), true);
-                $wasLayoutChanged = true;
-            } else {
-                ipDb()->update('page_layout', array(
-                        'layout' => $newLayout,
-                    ), array(
-                        'module_name' => $moduleName,
-                        'page_id' => $pageId,
-                    ));
-                $wasLayoutChanged = true;
-            }
-        }
-
-        return $wasLayoutChanged;
+    private static function changePageLayout($pageId, $newLayout)
+    {
+        ipPageStorage($pageId)->set('layout', $newLayout);
     }
 
     /**

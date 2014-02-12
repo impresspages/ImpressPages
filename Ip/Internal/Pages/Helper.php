@@ -215,23 +215,16 @@ class Helper
             $options[] = array ($layout, $layout);
         }
 
-        // TODOX layout
-//        $curLayout = \Ip\Internal\ContentDb::getPageLayout(
-//            $zone->getAssociatedModule(),
-//            $page->getId()
-//        );
-//        if (!$curLayout) {
-//            $curLayout = $zone->getLayout();
-//        }
-//        $field = new \Ip\Form\Field\Select(
-//            array(
-//                'name' => 'layout',
-//                'label' => __('Layout', 'ipAdmin', false),
-//                'values' => $options,
-//                'value' => $curLayout
-//            ));
-//        $form->addField($field);
+        $layout = ipPageStorage($pageId)->get('layout', 'main.php');
 
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'layout',
+                'label' => __('Layout', 'ipAdmin', false),
+                'values' => $options,
+                'value' => $layout
+            ));
+        $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
