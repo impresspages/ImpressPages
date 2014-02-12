@@ -30,11 +30,11 @@ class Table extends \Ip\Internal\Grid\Model
         }
         $method = $request['method'];
 
-        if (in_array($method, array('update', 'insert', 'delete', 'move'))) {
+        if (in_array($method, array('update', 'create', 'delete', 'move'))) {
             ipRequest()->mustBePost();
         }
 
-        if (in_array($method, array('update', 'insert'))) {
+        if (in_array($method, array('update', 'create'))) {
             $data = ipRequest()->getPost();
             $params = $data;
         } else {
@@ -78,6 +78,9 @@ class Table extends \Ip\Internal\Grid\Model
                 break;
             case 'move':
                 return $this->move($params, $statusVariables);
+                break;
+            case 'create':
+                return $this->create($params, $statusVariables);
                 break;
         }
     }
@@ -169,6 +172,46 @@ class Table extends \Ip\Internal\Grid\Model
 
             if ($this->config->afterUpdate()) {
                 call_user_func($this->config->afterUpdate(), $recordId, $newData);
+            }
+
+            $display = new Display($this->config);
+            $html = $display->fullHtml($statusVariables);
+            $commands[] = Commands::setHtml($html);
+
+            $data = array(
+                'error' => 0,
+                'commands' => $commands
+            );
+        }
+
+        return $data;
+    }
+
+    protected function create($data, $statusVariables)
+    {
+        $display = new Display($this->config);
+        $createForm = $display->createForm();
+
+
+        $errors = $createForm->validate($data);
+
+        if ($errors) {
+            $data = array(
+                'error' => 1,
+                'errors' => $errors
+            );
+        } else {
+            $newData = $createForm->filterValues($data);
+
+            if ($this->config->beforeCreate()) {
+                call_user_func($this->config->beforeCreate(), $newData);
+            }
+
+            $actions = new Actions($this->config);
+            $recordId = $actions->create($newData);
+
+            if ($this->config->afterCreate()) {
+                call_user_func($this->config->afterCreate(), $recordId, $newData);
             }
 
             $display = new Display($this->config);
