@@ -211,49 +211,34 @@ class Db {
         );
 
         //TODOXX sync page service naming. #140
-        if (isset($params['navigationTitle'])) {
-            $row['navigationTitle'] = $params['navigationTitle'];
+        $fields = array(
+            'navigationTitle',
+            'pageTitle',
+            'languageCode',
+            'keywords',
+            'description',
+            'url',
+            'createdOn',
+            'lastModified',
+            'type',
+            'visible'
+        );
+
+        foreach ($fields as $column) {
+            if (array_key_exists($column, $params)) {
+                $row[$column] = $params[$column];
+            }
         }
 
-        if (isset($params['pageTitle'])) {
-            $row['pageTitle'] = $params['pageTitle'];
-        }
-
-        if (isset($params['keywords'])) {
-            $row['keywords'] = $params['keywords'];
-        }
-
-        if (isset($params['description'])) {
-            $row['description'] = $params['description'];
-        }
-
-        if (isset($params['url'])) {
-            $row['url'] = $params['url'];
-        }
-
-        if (isset($params['createdOn'])) {
-            $row['createdOn'] = $params['createdOn'];
-        } else {
+        if (empty($row['createdOn'])) {
             $row['createdOn'] = date('Y-m-d');
         }
 
-        if (isset($params['lastModified'])) {
-            $row['lastModified'] = $params['lastModified'];
-        } else {
+        if (empty($row['lastModified'])) {
             $row['lastModified'] = date('Y-m-d');
         }
 
-        if (isset($params['type'])) {
-            $row['type'] = $params['type'];
-        }
 
-        if (isset($params['redirectURL'])) {
-            $row['redirectUrl'] = $params['redirectURL'];
-        }
-
-        if (isset($params['visible'])) {
-            $row['visible'] = (int)$params['visible'];
-        }
 
         return ipDb()->insert('page', $row);
     }
