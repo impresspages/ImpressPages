@@ -242,9 +242,9 @@ var ipPages = null;
                 var position = node.index() + 1;
             }
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.activeLanguage.id, $scope.activeMenu.alias, $scope.selectedPageId, position, true);
+                movePage($scope.cutPageId, $scope.selectedPageId, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.activeLanguage.id, $scope.activeMenu.alias, $scope.selectedPageId, position, function () {
+                copyPage($scope.copyPageId, $scope.selectedPageId, position, function () {
                     refresh();
                 });
             }
@@ -263,12 +263,12 @@ var ipPages = null;
             getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
                 moveData.rslt.o.each(function (i) {
                     var pageId = $(this).attr("pageId");
-                    var destinationPageId = moveData.rslt.np.attr("pageId");
-                    if (!destinationPageId) { //replace undefined with null;
-                        destinationPageId = null;
+                    var destinationParentId = moveData.rslt.np.attr("pageId");
+                    if (!destinationParentId) { //replace undefined with null;
+                        destinationParentId = $scope.activeMenu.id;
                     }
                     var destinationPosition = moveData.rslt.cp + i;
-                    movePage(pageId, $scope.activeLanguage.id, $scope.activeMenu.alias, destinationPageId, destinationPosition);
+                    movePage(pageId, destinationParentId, destinationPosition);
                 });
             });
 
@@ -416,14 +416,12 @@ var ipPages = null;
             });
         }
 
-        var movePage = function (pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, doRefresh) {
+        var movePage = function (pageId, destinationParentId, destinationPosition, doRefresh) {
             var data = {
                 aa: 'Pages.movePage',
                 pageId: pageId,
                 destinationPosition: destinationPosition,
                 destinationParentId: destinationParentId,
-                languageId: destinationLanguageId,
-                zoneName: destinationZoneName,
                 securityToken: ip.securityToken
             };
 
