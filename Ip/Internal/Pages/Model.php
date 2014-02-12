@@ -62,26 +62,18 @@ class Model
 
     public static function deletePage($pageId)
     {
-        self::_deletePageRecursion($pageId);
-        return true;
-    }
-
-
-    private static function _deletePageRecursion($id)
-    {
-        $children = Db::pageChildren($id);
+        $children = Db::pageChildren($pageId);
         if ($children) {
             foreach ($children as $child) {
-                self::_deletePageRecursion($child['id']);
+                self::deletePage($child['id']);
             }
         }
 
-        ipDb()->delete('page', array('id' => $id));
-        ipPageStorage($id)->removeAll();
+        ipDb()->delete('page', array('id' => $pageId));
+        ipPageStorage($pageId)->removeAll();
 
-        ipEvent('ipPageDeleted', array('pageId' => $id));
+        ipEvent('ipPageDeleted', array('pageId' => $pageId));
     }
-
 
     /**
      *

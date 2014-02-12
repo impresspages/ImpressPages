@@ -124,8 +124,8 @@ class Helper
 //            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
 //                $item->markAsInCurrentBreadcrumb(true);
 //            }
-//            $item->setType($page->getType());
 
+            $item->setType($page->getType());
             $item->setUrl($page->getLink());
             $item->setTitle($page->getNavigationTitle());
             $item->setDepth($curDepth);
@@ -173,14 +173,6 @@ class Helper
         }
 
         $breadcrumb = array_reverse($pages);
-        /* TODOX remove
-        @ob_clean();
-        header('Content-type: text-plain; charset=UTF-8');
-        var_export($breadcrumb);
-        echo __FILE__ . ':' . (__LINE__ - 2);
-        exit();
-        //*/
-
         return $breadcrumb;
     }
 

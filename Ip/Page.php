@@ -371,7 +371,7 @@ class Page
      */
     public function getLink()
     {
-        return $this->languageCode . $this->url;
+        return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->url;
     }
 
     /**
