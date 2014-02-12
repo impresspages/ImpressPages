@@ -18,7 +18,7 @@
                     files = new Array();
                 }
 
-                if (!data) {console.log('init');console.log(files);
+                if (!data) {
                     $this.data('ipWidget_ipFile_container', {
                         files : files,
                         fileTemplate : options.fileTemplate
@@ -65,7 +65,6 @@
             return this.each(function() {
                 var $this = $(this);
                 $this.html('');
-                console.log('destory');
                 $.removeData(this, 'ipWidget_ipFile_container');
             });
         }

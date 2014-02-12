@@ -52,7 +52,6 @@ ipBrowseLink = function(callback_function) {
 
     ipGetPageTree()
       .success(function (data) {
-            console.log(data.sitemap);
          // init tree
          $tree.jstree({
                 core: {

@@ -9,7 +9,7 @@ var IpWidget_File;
         this.widgetObject = null;
         this.filesSelected = null;
 
-        this.init = function($widgetObject, data) {console.log('init');
+        this.init = function($widgetObject, data) {
             this.data = data;
             this.widgetObject = $widgetObject;
 

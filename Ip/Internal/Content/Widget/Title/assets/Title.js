@@ -46,7 +46,6 @@ var IpWidget_Title;
 
         this.blur = function(e) {
             if ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target) {
-                console.log('inside');
                 //mouse click inside the widget
                 return;
             } else {
