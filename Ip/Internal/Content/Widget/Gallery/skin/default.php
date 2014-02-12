@@ -3,7 +3,7 @@
 <?php foreach ($images as $imageKey => $image) { ?>
     <li class="ipsItem">
         <a
-            <?php if ($image['type'] == 'lightbox'){ ?>
+            <?php if ($image['type'] == 'lightbox' && !ipIsManagementState()){ ?>
                 rel="lightbox"
                 href="<?php echo esc($image['imageBig'], 'attr') ?>"
             <?php } ?>
