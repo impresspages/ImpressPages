@@ -7,11 +7,7 @@ DROP TABLE IF EXISTS `ip_cms_page`;
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_page`;
-
--- Table structure
-
-CREATE TABLE `ip_cms_page` (
+CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(255) DEFAULT NULL,
   `languageCode` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
@@ -36,7 +32,7 @@ DROP TABLE IF EXISTS `ip_cms_pageStorage`;
 
 -- Table structure
 
-CREATE TABLE `ip_cms_pageStorage` (
+CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
   `pageId` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL
