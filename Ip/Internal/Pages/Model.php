@@ -359,11 +359,9 @@ class Model
 
         ipDb()->update('page', $update, array('id' => $pageId));
 
-        // TODOX update layout
-//        if (!empty($new['layout']) && \Ip\Internal\File\Functions::isFileInDir($new['layout'], ipThemeFile(''))) {
-//            $layout = $new['layout'] == $zone->getLayout() ? false : $new['layout']; // if default layout - delete layout
-//            self::changePageLayout($zone->getAssociatedModule(), $pageId, $layout);
-//        }
+        if (!empty($properties['layout'])) {
+            ipPageStorage($pageId)->set('layout', $properties['layout']);
+        }
 
         return true;
     }

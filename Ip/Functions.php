@@ -944,3 +944,12 @@ function ipAdminId()
 {
     return \Ip\Internal\Admin\Service::adminId();
 }
+
+/**
+ * @param $pageId
+ * @return \Ip\PageStorage
+ */
+function ipPageStorage($pageId)
+{
+    return new \Ip\PageStorage($pageId);
+}
