@@ -57,7 +57,7 @@ class Display
     protected function getActions()
     {
         $actions = array();
-        if ($this->config->allowInsert()) {
+        if ($this->config->allowCreate()) {
             $actions[] = array(
                 'label' => __('Add', 'ipAdmin', false),
                 'class' => 'ipsAdd'
@@ -248,6 +248,35 @@ class Display
         return $form;
     }
 
+
+    public function createForm()
+    {
+        $form = new \Ip\Form();
+        foreach ($this->config->fields() as $fieldData) {
+            $fieldObject = $this->config->fieldObject($fieldData);
+            $field = $fieldObject->createField();
+            if ($field) {
+                if (!empty($fieldData['validators'])) {
+                    foreach($fieldData['validators'] as $validator) {
+                        $field->addValidator($validator);
+                    }
+                }
+                $form->addField($field);
+            }
+        }
+
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'method',
+            'value' => 'create'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\HiddenSubmit();
+        $form->addField($field);
+
+        return $form;
+    }
 
 
 }

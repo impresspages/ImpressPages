@@ -30,14 +30,6 @@ class AdminController extends \Ip\GridController
         return array(
             'type' => 'table',
             'table' => 'grid_test',
-            'allowInsert' => false,
-            'allowSearch' => false,
-            'actions' => array(
-                array(
-                    'label' => __('Add', 'ipAdmin', false),
-                    'class' => 'ipsCustomAdd'
-                )
-            ),
             'sortField' => 'gridOrder',
             'fields' => array(
                 array(

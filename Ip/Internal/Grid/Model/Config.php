@@ -91,6 +91,24 @@ class Config
         return $this->config['afterUpdate'];
     }
 
+
+    public function beforeCreate()
+    {
+        if (empty($this->config['beforeCreate'])) {
+            return FALSE;
+        }
+        return $this->config['beforeCreate'];
+    }
+
+    public function afterCreate()
+    {
+        if (empty($this->config['afterCreate'])) {
+            return FALSE;
+        }
+        return $this->config['afterCreate'];
+    }
+
+
     public function beforeMove()
     {
         if (empty($this->config['beforeMove'])) {
@@ -138,9 +156,9 @@ class Config
         return $this->config['fields'];
     }
 
-    public function allowInsert()
+    public function allowCreate()
     {
-        return !array_key_exists('allowInsert', $this->config) || $this->config['allowInsert'];
+        return !array_key_exists('allowCreate', $this->config) || $this->config['allowCreate'];
     }
 
     public function allowSearch()

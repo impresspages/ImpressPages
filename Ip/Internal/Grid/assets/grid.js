@@ -134,6 +134,20 @@
 
         });
 
+
+
+        $grid.find('.ipsCreate').off().on('click', function() {
+            var $this = $(this);
+            var $modal = $grid.find('.ipsCreateModal');
+            $modal.modal();
+            $modal.find('.ipsBody form').validator(validatorConfig);
+            $modal.find('.ipsBody form').on('submit', $.proxy(createFormSubmit, $grid));
+            $modal.find('.ipsConfirm').off().on('click', function() {
+                $modal.find('.ipsBody form').submit();
+            });
+        });
+
+
         if ($grid.find('.ipsDrag').length) {
             $grid.find("table tbody").sortable({
                 handle: '.ipsDrag',
@@ -239,6 +253,40 @@
     var updateFormSubmit = function(e) {
         var $grid = this;
         var form = $grid.find('.ipsUpdateModal .ipsBody form');
+        var data = $grid.data('gateway');
+
+
+        // client-side validation OK.
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url: ip.baseUrl,
+                dataType: 'json',
+                type : 'POST',
+                data: form.serialize() + '&aa=' + data.aa,
+                success: function (response){
+                    if (!response.error) {
+                        //form has been successfully submitted.
+                        $.proxy(doCommands, $grid)(response.result);
+                    } else {
+                        //PHP controller says there are some errors
+                        if (response.errors) {
+                            form.data("validator").invalidate(response.errors);
+                        }
+                    }
+                },
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    }
+
+    var createFormSubmit = function(e) {
+        var $grid = this;
+        var form = $grid.find('.ipsCreateModal .ipsBody form');
         var data = $grid.data('gateway');
 
 
