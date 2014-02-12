@@ -119,6 +119,10 @@ class PublicController extends \Ip\Controller
             ipAddJs('Ip/Internal/Content/assets/management.min.js');
         }
 
+        ipAddJs('Ip/Internal/Content/assets/jstree/jstree.js');
+        ipAddJs('Ip/Internal/Content/assets/jstree/jstree.wholerow.js');
+
+
 
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
         ipAddCss('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css');
