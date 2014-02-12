@@ -281,7 +281,7 @@ class AdminController extends \Ip\Controller
         if ($publish) {
             $pageOptions = array();
             $pageOptions['lastModified'] = date("Y-m-d");
-            \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $pageOptions);
+            \Ip\Internal\Pages\Model::updatePageProperties($revision['pageId'], $pageOptions);
             \Ip\Internal\Revision::publishRevision($revisionId);
         }
 
