@@ -7,8 +7,6 @@ namespace Ip\Internal\Content;
 class Job
 {
     /**
-     * Zone routing.
-     *
      * @param $info
      * @return array|null
      * @throws \Ip\Exception

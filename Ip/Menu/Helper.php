@@ -24,8 +24,6 @@ class Helper
      */
     public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000)
     {
-        return array();
-
         //variable check
         if ($depthFrom < 1) {
             $backtrace = debug_backtrace();
@@ -54,7 +52,7 @@ class Helper
 
         $breadcrumb = static::getBreadcrumb();
 
-        $menuRootId = ipDb()->selectValue('page', 'id', array('menuName' => $menuName));
+        $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
 
         if ($depthFrom == 1) {
             $elements = ipDb()->selectAll('page', '*', array('parentId' => $menuRootId)); //get first level elements
@@ -63,9 +61,8 @@ class Helper
         }
 
         $items = array();
-        if (isset($elements) && sizeof($elements) > 0) {
-            $curDepth = $elements[0]->getDepth();
-            $items = self::getSubElementsData($elements, $menuName, $depthTo, $curDepth);
+        if (!empty($elements)) {
+            $items = self::getSubElementsData($elements, $depthTo, $depthFrom);
         }
 
         return $items;
@@ -103,41 +100,35 @@ class Helper
 
 
     /**
-     * @param \Ip\Page[] $pages
-     * @param $zoneName
+     * @param array $pages
      * @param $depth
      * @param $curDepth
      * @return Item[]
      */
-    private static function getSubElementsData($pages, $zoneName, $depth, $curDepth)
+    private static function getSubElementsData($pages, $depth, $curDepth)
     {
-        $content = \Ip\ServiceLocator::content();
-
         $items = array();
-        foreach ($pages as $page) {
+        foreach ($pages as $pageRow) {
+            $page = new \Ip\Page($pageRow['id']);
             $item = new Item();
             $subSelected = false;
             if ($curDepth < $depth) {
-                $zone = $content->getZone($zoneName);
-                $children = $zone->getPages(null, $page->getId());
-                if (sizeof($children) > 0) {
-                    $childrenItems = self::getSubElementsData($children, $zoneName, $depth, $curDepth + 1);
+                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'visible' => 1), 'ORDER BY `pageOrder`');
+                if ($children) {
+                    $childrenItems = self::getSubElementsData($children, $depth, $curDepth + 1);
                     $item->setChildren($childrenItems);
                 }
             }
-            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink(
-                ) == \Ip\Internal\UrlHelper::getCurrentUrl()
-            ) {
-                $item->markAsCurrent(true);
-            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType(
-                ) == 'redirect' && self::existInBreadcrumb($page->getLink())
-            ) {
-                $item->markAsInCurrentBreadcrumb(true);
-            }
-            $item->setType($page->getType());
+//            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+//                $item->markAsCurrent(true);
+//            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
+//                $item->markAsInCurrentBreadcrumb(true);
+//            }
+//            $item->setType($page->getType());
+
             $item->setUrl($page->getLink());
             $item->setTitle($page->getNavigationTitle());
-            $item->setDepth($page->getDepth());
+            $item->setDepth($curDepth);
             $items[] = $item;
         }
 
@@ -179,9 +170,18 @@ class Helper
                 $pages[] = $parentPage;
                 $parentPageId = $parentPage->getParentId();
             }
-
         }
-        return array_reverse($pages);
+
+        $breadcrumb = array_reverse($pages);
+        /* TODOX remove
+        @ob_clean();
+        header('Content-type: text-plain; charset=UTF-8');
+        var_export($breadcrumb);
+        echo __FILE__ . ':' . (__LINE__ - 2);
+        exit();
+        //*/
+
+        return $breadcrumb;
     }
 
 
