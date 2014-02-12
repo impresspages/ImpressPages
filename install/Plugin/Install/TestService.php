@@ -11,5 +11,7 @@ class TestService
         Model::createDatabaseStructure($database, $tablePrefix);
         Model::importData($tablePrefix);
         Model::insertAdmin('test', 'test@example.com', 'test');
+        Model::setSiteEmail('test@example.com');
+        Model::setSiteName('TestSite');
     }
 } 
