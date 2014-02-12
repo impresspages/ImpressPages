@@ -48,11 +48,8 @@ var ipAdmin;
 
         var fixLayout = function () {
             var $navbar = $('.ipsAdminNavbar'); // Administration Panel that stays always visible
-            console.log($(window).height()+ ' : '+$navbar.outerHeight());
-            console.log($(window).height()-$navbar.outerHeight());
             $container.height($navbar.outerHeight()); // setting the height to container
             var containerHeight = $(window).height()-$navbar.outerHeight();
-            console.log(containerHeight);
             $adminMenuContainer.height(containerHeight);
         }
 

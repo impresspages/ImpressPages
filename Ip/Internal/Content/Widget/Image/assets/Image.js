@@ -152,7 +152,6 @@ var IpWidget_Image;
             var $editScreen = $modal.find('.ipsEditScreen');
             $editScreen.ipUploadImage('destroy');
             $editScreen.ipUploadImage(options);
-console.log(options);
             $modal.find('.ipsConfirm').off().on('click', function () {
                 var crop = $editScreen.ipUploadImage('getCropCoordinates');
                 var curImage = $editScreen.ipUploadImage('getCurImage');

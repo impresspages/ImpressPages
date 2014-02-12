@@ -48,7 +48,6 @@
         _node.appendChild(_temp1);
         _temp1 = _temp2 = null;
 
-console.log('init 2');
         /**
          * holds all jstree related functions and variables, including the actual class and methods to create, access and manipulate instances.
          * @name $.jstree
