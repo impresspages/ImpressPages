@@ -8,8 +8,22 @@ namespace PhpUnit\Helper;
 
 class TestEnvironment
 {
+    public static function setupOnce()
+    {
+        static $hasRun = false;
+
+        if ($hasRun) {
+            return false;
+        }
+
+        echo "(setupOnce)";
+
+        $hasRun = true;
+    }
+
     public static function setup()
     {
+        static::setupOnce();
         static::filesSetup();
         static::setupCode();
     }

@@ -7,26 +7,40 @@ DROP TABLE IF EXISTS `ip_cms_page`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_page` (
+DROP TABLE IF EXISTS `ip_cms_page`;
+
+-- Table structure
+
+CREATE TABLE `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row_number` double NOT NULL DEFAULT '0',
-  `parent` int(11) DEFAULT NULL,
-  `button_title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `languageCode` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `pageOrder` double NOT NULL DEFAULT '0',
+  `parentId` int(11) DEFAULT NULL,
+  `navigationTitle` varchar(255) DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `page_title` mediumtext,
+  `pageTitle` mediumtext,
   `keywords` mediumtext,
   `description` mediumtext,
-  `url` varchar(255) DEFAULT NULL,
-  `dynamic_modules` mediumtext,
-  `last_modified` timestamp NULL DEFAULT NULL,
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cached_html` mediumtext,
-  `cached_text` mediumtext COMMENT 'mainly for search purposes',
+  `lastModified` timestamp NULL DEFAULT NULL,
+  `createdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` varchar(255) NOT NULL DEFAULT 'default',
-  `redirect_url` mediumtext,
+  `alias` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+-- Table structure
+
+DROP TABLE IF EXISTS `ip_cms_pageStorage`;
+
+-- Table structure
+
+CREATE TABLE `ip_cms_pageStorage` (
+  `pageId` int(10) unsigned NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
