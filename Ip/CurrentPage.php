@@ -69,15 +69,21 @@ class CurrentPage
         if ($this->revision !== null) {
             return $this->revision;
         }
-        $revision = false;
+
         $page = $this->getPage();
+
+        if (!$page || $page instanceof \Ip\Page404) {
+            return false;
+        }
+
+        $revision = false;
         if (ipIsManagementState()) {
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
                 $revision = \Ip\Internal\Revision::getRevision($revisionId);
             }
 
-            if ($page && !($page instanceof \Ip\Page404)) {
+            if ($page) {
                 if ($revision === false || $revision['pageId'] != $page->getId()) {
                     $revision = \Ip\Internal\Revision::getLastRevision($page->getId());
                     if ($revision['published']) {

@@ -136,7 +136,7 @@ abstract class Zone{
 
         $this->currentPage = $this->findPage($content->getUrlPath(), \Ip\ServiceLocator::request()->getQuery());
         if (empty($this->currentPage)) {
-            $this->currentPage = new \Ip\Page404(404, '404');
+            $this->currentPage = new \Ip\Page404();
         }
         return $this->currentPage;
     }
