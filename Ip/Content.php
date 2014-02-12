@@ -246,15 +246,9 @@ class Content
      */
     public function getTitle()
     {
-        $curZone = ipContent()->getCurrentZone();
-        if (!$curZone) {
-            return '';
-        }
-        $curEl = $curZone->getCurrentPage();
-        if ($curEl && $curEl->getPageTitle() != '') {
-            return $curEl->getPageTitle();
-        } else {
-            return $curZone->getTitle();
+        $page = ipCurrentPage()->getPage();
+        if ($page) {
+            return $page->getPageTitle();
         }
     }
 

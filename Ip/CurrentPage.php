@@ -42,6 +42,9 @@ class CurrentPage
         return $this->requestedPage['controllerAction'];
     }
 
+    /**
+     * @return \Ip\Page
+     */
     public function getPage()
     {
         return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : null;

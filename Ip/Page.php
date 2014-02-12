@@ -371,7 +371,11 @@ class Page
      */
     public function getLink()
     {
-        return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->url;
+        if (ipGetOption('Config.multilingual')) {
+            return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->url;
+        } else {
+            return ipConfig()->baseUrl() . $this->url;
+        }
     }
 
     /**

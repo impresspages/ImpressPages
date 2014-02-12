@@ -3,11 +3,7 @@
 <?php } else { ?>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
 <?php } ?>
-    <?php if (ipContent()->getCurrentPage()) { ?>
-        <title>#<?php echo ipContent()->getCurrentPage()->getId() ?> <?php echo htmlspecialchars($title); ?></title>
-    <?php } else { ?>
-        <title><?php echo htmlspecialchars($title); ?></title>
-    <?php } ?>
+    <title><?php echo htmlspecialchars($title); ?></title>
     <link rel="shortcut icon" href="<?php echo htmlspecialchars($favicon); ?>" />
     <meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
     <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
