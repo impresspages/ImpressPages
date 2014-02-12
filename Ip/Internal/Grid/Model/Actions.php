@@ -59,14 +59,14 @@ class Actions
     {
         $sortField = $this->config->sortField();
 
-        $priority = ipDb()->selectValue($this->config->rawTableName(), 'row_number', array('id' => $targetId));
+        $priority = ipDb()->selectValue($this->config->rawTableName(), $sortField, array('id' => $targetId));
         if (!$priority) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
 
         $sql = "
         SELECT
-            `row_number`
+            `".str_replace('`', '', $sortField)."`
         FROM
             " . $this->config->tableName() . "
         WHERE
