@@ -76,7 +76,8 @@ class Model
             }
         }
 
-        Db::deletePage($id);
+        ipDb()->delete('page', array('id' => $id));
+        ipPageStorage($id)->removeAll();
 
         ipEvent('ipPageDeleted', array('pageId' => $id));
     }

@@ -94,4 +94,12 @@ abstract class RawStorage
         ipDb()->delete($this->tableName, array($this->namespaceColumn => $this->namespace, $this->keyColumn => $key));
     }
 
+    /**
+     * Remove all
+     */
+    public function removeAll()
+    {
+        ipDb()->delete($this->tableName, array($this->namespaceColumn => $this->namespace));
+    }
+
 }

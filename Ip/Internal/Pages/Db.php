@@ -262,17 +262,6 @@ class Db {
         return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', array('parentId' => $parentId));
     }
 
-    /**
-     *
-     * Delete menu element record
-     * @param int $id
-     */
-    public static function deletePage($id)
-    {
-        ipDb()->delete('page', array('id' => $id));
-    }
-
-
     public static function copyPage($nodeId, $newParentId, $newIndex)
     {
         $db = ipDb();
