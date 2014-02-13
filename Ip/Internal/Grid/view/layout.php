@@ -5,4 +5,5 @@
     <?php echo ipView('Ip/Internal/Grid/view/deleteModal.php', $this->getVariables()); ?>
     <?php echo ipView('Ip/Internal/Grid/view/updateModal.php', $this->getVariables()); ?>
     <?php echo ipView('Ip/Internal/Grid/view/createModal.php', $this->getVariables()); ?>
+    <?php echo ipView('Ip/Internal/Grid/view/searchModal.php', $this->getVariables()); ?>
 </div>

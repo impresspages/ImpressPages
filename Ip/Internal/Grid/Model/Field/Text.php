@@ -64,11 +64,20 @@ class Text extends \Ip\Internal\Grid\Model\Field
     }
 
 
-    public function searchField()
+    public function searchField($searchVariables)
     {
+        $field = new \Ip\Form\Field\Text(array(
+            'label' => $this->label,
+            'name' => $this->field
+        ));
+        if (!empty($searchVariables[$this->field])) {
+            $field->setValue($searchVariables[$this->field]);
+        }
+        return $field;
     }
 
     public function searchQuery($postData)
     {
+        return $this->field . ' like \'%'.mysql_real_escape_string($postData[$this->field]) . '%\' ';
     }
 }

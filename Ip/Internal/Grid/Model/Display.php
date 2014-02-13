@@ -24,6 +24,33 @@ class Display
 
     public function fullHtml($statusVariables)
     {
+        $searchVariables = array();
+        foreach ($statusVariables as $key => $value) {
+            if (preg_match('/^s_/', $key)) {
+                $searchVariables[substr($key, 2)] = $value;
+            }
+        }
+
+
+        if (empty($searchVariables)) {
+            $where = 1;
+        } else {
+            $where = '1';
+            foreach ($this->config->fields() as $fieldData) {
+                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldQuery = $fieldObject->searchQuery($searchVariables);
+                if ($fieldQuery) {
+                    if ($where != ' ') {
+                        $where .= ' and ';
+                    }
+                    $where .= $fieldQuery;
+                }
+            }
+        }
+
+
+
+
         $currentPage = !empty($statusVariables['page']) ? (int)$statusVariables['page'] : 1;
         if ($currentPage < 1) {
             $currentPage = 1;
@@ -31,7 +58,7 @@ class Display
 
         $pageSize = $this->config->pageSize();
         $from = ($currentPage - 1) * $pageSize;
-        $totalPages = ceil($this->recordCount() / $pageSize);
+        $totalPages = ceil($this->recordCount($where) / $pageSize);
 
         if ($currentPage > $totalPages) {
             $currentPage = $totalPages;
@@ -44,11 +71,12 @@ class Display
 
         $variables = array(
             'columns' => $this->getColumnData(),
-            'data' => $this->rowsData($this->fetch($from, $pageSize)),
+            'data' => $this->rowsData($this->fetch($from, $pageSize, $where)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
             'deleteWarning' => $this->config->deleteWarning(),
-            'createForm' => $this->createForm()
+            'createForm' => $this->createForm(),
+            'searchForm' => $this->searchForm($searchVariables)
         );
 
         $html = ipView('../view/layout.php', $variables)->render();
@@ -126,12 +154,12 @@ class Display
 
 
 
-    protected function recordCount()
+    protected function recordCount($where)
     {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . "");
+        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " WHERE " . $where . " ");
     }
 
-    protected function fetch($from, $count)
+    protected function fetch($from, $count, $where = 1)
     {
         if ($this->config->sortField()) {
             $sortField = $this->config->sortField();
@@ -145,7 +173,7 @@ class Display
         FROM
           " . $this->config->tableName() . "
         WHERE
-          1
+          " . $where . "
         ORDER BY
             `" . $sortField . "` DESC
         LIMIT
@@ -270,6 +298,32 @@ class Display
         $field = new \Ip\Form\Field\Hidden(array(
             'name' => 'method',
             'value' => 'create'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\HiddenSubmit();
+        $form->addField($field);
+
+        return $form;
+    }
+
+    public function searchForm($searchVariables)
+    {
+        $form = new \Ip\Form();
+        $form->setMethod('get');
+        $form->removeCsrfCheck();
+        foreach ($this->config->fields() as $fieldData) {
+            $fieldObject = $this->config->fieldObject($fieldData);
+            $field = $fieldObject->searchField($searchVariables);
+            if ($field) {
+                $form->addField($field);
+            }
+        }
+
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'method',
+            'value' => 'search'
         ));
         $form->addField($field);
 
