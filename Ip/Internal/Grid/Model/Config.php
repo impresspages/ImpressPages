@@ -212,10 +212,10 @@ class Config
 
     public function createPosition()
     {
-        if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'top') {
-            return 'top';
+        if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'bottom') {
+            return 'bottom';
         }
-        return 'bottom';
+        return 'top';
 
     }
 
