@@ -37,6 +37,9 @@ class Table extends \Ip\Internal\Grid\Model
         if (in_array($method, array('update', 'create'))) {
             $data = ipRequest()->getPost();
             $params = $data;
+        } elseif (in_array($method, array('search'))) {
+            $data = ipRequest()->getQuery();
+            $params = $data;
         } else {
             $data = ipRequest()->getRequest();
             $params = empty($data['params']) ? array() : $data['params'];
@@ -60,6 +63,10 @@ class Table extends \Ip\Internal\Grid\Model
             }
         }
 
+        unset($params['method']);
+        unset($params['aa']);
+
+
         switch ($method) {
             case 'init':
                 return $this->init($statusVariables);
@@ -82,6 +89,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'create':
                 return $this->create($params, $statusVariables);
                 break;
+            case 'search':
+                return $this->search($params, $statusVariables);
+                break;
         }
     }
 
@@ -103,9 +113,6 @@ class Table extends \Ip\Internal\Grid\Model
         $statusVariables['page'] = $params['page'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
-        $display = new Display($this->config);
-        $html = $display->fullHtml($statusVariables);
-        $commands[] = Commands::setHtml($html);
         return $commands;
     }
 
@@ -128,12 +135,13 @@ class Table extends \Ip\Internal\Grid\Model
             return $commands;
         } catch (\Exception $e) {
             $commands[] = Commands::showMessage($e->getMessage());
-            return $commands;
         }
 
         if ($this->config->afterDelete()) {
             call_user_func($this->config->afterDelete(), $params['id']);
         }
+        return $commands;
+
     }
 
     protected function updateForm($params, $statusVariables)
@@ -246,11 +254,44 @@ class Table extends \Ip\Internal\Grid\Model
         $display = new Display($this->config);
         $html = $display->fullHtml($statusVariables);
         $commands[] = Commands::setHtml($html);
-        return $commands;
 
         if ($this->config->afterMove()) {
             call_user_func($this->config->afterMove(), $params['id']);
         }
+        return $commands;
     }
+
+    protected function search($data, $statusVariables)
+    {
+        $display = new Display($this->config);
+        $searchForm = $display->searchForm(array());
+
+
+        $errors = $searchForm->validate($data);
+
+        if ($errors) {
+            $data = array(
+                'error' => 1,
+                'errors' => $errors
+            );
+        } else {
+            $newData = $searchForm->filterValues($data);
+
+
+            foreach ($newData as $key => $value) {
+                $statusVariables['s_'.$key] = $value;
+            }
+
+            $commands[] = Commands::setHash(Status::build($statusVariables));
+
+            $data = array(
+                'error' => 0,
+                'commands' => $commands
+            );
+        }
+
+        return $data;
+    }
+
 
 }

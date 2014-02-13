@@ -22,7 +22,7 @@ abstract class Field
 
     public abstract function updateData($postData);
 
-    public abstract function searchField();
+    public abstract function searchField($searchVariables);
 
     public abstract function searchQuery($postData);
 }
