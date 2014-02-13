@@ -266,7 +266,7 @@
                 success: function (response){
                     if (!response.error) {
                         //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result);
+                        $.proxy(doCommands, $grid)(response.result.commands);
                     } else {
                         //PHP controller says there are some errors
                         if (response.errors) {
@@ -288,7 +288,9 @@
         var $grid = this;
         var form = $grid.find('.ipsCreateModal .ipsBody form');
         var data = $grid.data('gateway');
+        var $modal = $grid.find('.ipsCreateModal');
 
+        $modal.modal('hide');
 
         // client-side validation OK.
         if (!e.isDefaultPrevented()) {
@@ -300,7 +302,7 @@
                 success: function (response){
                     if (!response.error) {
                         //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result);
+                        $.proxy(doCommands, $grid)(response.result.commands);
                     } else {
                         //PHP controller says there are some errors
                         if (response.errors) {

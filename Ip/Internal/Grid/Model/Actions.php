@@ -55,12 +55,39 @@ class Actions
         ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
     }
 
+    public function create($data)
+    {
+        $fields = $this->config->fields();
+        $dbData = array();
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldData = $fieldObject->createData($data);
+            if (!is_array($fieldData)) {
+                throw new \Ip\Exception("createData method in class " . get_class($fieldObject) . " has to return array.");
+            }
+            $dbData = array_merge($dbData, $fieldData);
+        }
+
+        $sortField = $this->config->sortField();
+        if ($sortField) {
+            if ($this->config->createPosition() == 'top') {
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField . ' DESC');
+                $dbData[$sortField] = $orderValue + 1;
+            } else {
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField .  ' ASC');
+                $dbData[$sortField] = $orderValue - 1;
+            }
+        }
+
+        ipDb()->insert($this->config->rawTableName(), $dbData);
+    }
+
     public function move($id, $targetId, $beforeOrAfter)
     {
         $sortField = $this->config->sortField();
 
         $priority = ipDb()->selectValue($this->config->rawTableName(), $sortField, array('id' => $targetId));
-        if (!$priority) {
+        if ($priority === false) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
 
