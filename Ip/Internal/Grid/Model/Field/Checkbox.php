@@ -45,6 +45,7 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
+        return array($this->field => !empty($postData[$this->field]));
     }
 
     public function updateField($curData)
@@ -63,11 +64,38 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     }
 
 
-    public function searchField()
+    public function searchField($searchVariables)
     {
+        $values = array(
+            array(null, ''),
+            array('1', __('Yes', 'ipAdmin', false)),
+            array('0', __('No', 'ipAdmin', false))
+
+        );
+
+
+        $field = new \Ip\Form\Field\Select(array(
+            'label' => $this->label,
+            'name' => $this->field,
+            'values' => $values,
+            'value' => null
+        ));
+        if (isset($searchVariables[$this->field])) {
+            $field->setValue($searchVariables[$this->field]);
+        }
+        return $field;
+
     }
 
-    public function searchQuery($postData)
+    public function searchQuery($searchVariables)
     {
+        if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
+            if ($searchVariables[$this->field]) {
+                return $this->field;
+            } else {
+                return 'not '.$this->field;
+            }
+
+        }
     }
 }

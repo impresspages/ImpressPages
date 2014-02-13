@@ -26,44 +26,25 @@ class AdminController extends \Ip\GridController
             'pageSize' => 3,
             'fields' => array(
                 array(
-                    'label' => __('Message', 'ipAdmin', false),
+                    'label' => __('Name', 'ipAdmin', false),
                     'field' => 'message',
                 ),
-//                array(
-//                    'label' => __('Abbreviation', 'ipAdmin', false),
-//                    'field' => 'd_short',
-//                    'showInList' => true
-//                ),
-//                array(
-//                    'type' => 'Checkbox',
-//                    'label' => __('Visible', 'ipAdmin', false),
-//                    'field' => 'visible'
-//                ),
-//                array(
-//                    'label' => __('Url', 'ipAdmin', false),
-//                    'field' => 'url',
-//                    'showInList' => false,
-//                    'validators' => array(
-//                        'Required',
-//                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', FALSE)),
-//                        array('NotInArray', $languageUrls, __('Already taken', 'ipAdmin', FALSE) ),
-//                    )
-//                ),
-//                array(
-//                    'label' => __('RFC 4646 code', 'ipAdmin', false),
-//                    'field' => 'code',
-//                    'showInList' => false
-//                ),
-//                array(
-//                    'type' => 'Select',
-//                    'label' => __('Text direction', 'ipAdmin', false),
-//                    'field' => 'text_direction',
-//                    'showInList' => false,
-//                    'values' => array(
-//                        array('ltr', __('Left To Right', 'ipAdmin', false)),
-//                        array('rtl', __('Right To Left', 'ipAdmin', false))
-//                    )
-//                ),
+                array(
+                    'type' => 'Select',
+                    'label' => __('Age', 'ipAdmin', false),
+                    'field' => 'age',
+                    'values' => array(
+                        array('young', __('Young', 'ipAdmin', false)),
+                        array('old', __('Old', 'ipAdmin', false))
+                    )
+                ),
+                array(
+                    'type' => 'Checkbox',
+                    'label' => __('In love', 'ipAdmin', false),
+                    'showInList' => true,
+                    'field' => 'inLove'
+                )
+
             )
         );
     }

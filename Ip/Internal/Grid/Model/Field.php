@@ -24,5 +24,5 @@ abstract class Field
 
     public abstract function searchField($searchVariables);
 
-    public abstract function searchQuery($postData);
+    public abstract function searchQuery($searchVariables);
 }

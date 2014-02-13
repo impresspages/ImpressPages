@@ -45,7 +45,10 @@ class Text extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
-        return array($this->field => $postData[$this->field]);
+        if (isset($postData[$this->field])) {
+            return array($this->field => $postData[$this->field]);
+        }
+        return array();
     }
 
     public function updateField($curData)
@@ -76,8 +79,10 @@ class Text extends \Ip\Internal\Grid\Model\Field
         return $field;
     }
 
-    public function searchQuery($postData)
+    public function searchQuery($searchVariables)
     {
-        return $this->field . ' like \'%'.mysql_real_escape_string($postData[$this->field]) . '%\' ';
+        if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
+            return $this->field . ' like \'%'.mysql_real_escape_string($searchVariables[$this->field]) . '%\' ';
+        }
     }
 }

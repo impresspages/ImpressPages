@@ -51,6 +51,10 @@ class Select extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
+        if (isset($postData[$this->field])) {
+            return array($this->field => $postData[$this->field]);
+        }
+        return array();
     }
 
     public function updateField($curData)
@@ -70,11 +74,27 @@ class Select extends \Ip\Internal\Grid\Model\Field
     }
 
 
-    public function searchField()
+    public function searchField($searchVariables)
     {
+        $values = array(array(null, ''));
+        $values = array_merge($values, $this->values);
+
+        $field = new \Ip\Form\Field\Select(array(
+            'label' => $this->label,
+            'name' => $this->field,
+            'values' => $values
+        ));
+        if (!empty($searchVariables[$this->field])) {
+            $field->setValue($searchVariables[$this->field]);
+        }
+        return $field;
     }
 
-    public function searchQuery($postData)
+    public function searchQuery($searchVariables)
     {
+        if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
+            return $this->field . ' = \''.mysql_real_escape_string($searchVariables[$this->field]) . '\' ';
+        }
+
     }
 }
