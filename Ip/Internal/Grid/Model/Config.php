@@ -210,6 +210,15 @@ class Config
         return $this->config['sortField'];
     }
 
+    public function createPosition()
+    {
+        if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'top') {
+            return 'top';
+        }
+        return 'bottom';
+
+    }
+
     protected function getTableFields($tableName)
     {
         $sql = "SHOW COLUMNS FROM " . $this->tableName() . "";

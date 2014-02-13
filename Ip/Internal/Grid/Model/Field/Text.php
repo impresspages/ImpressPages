@@ -45,6 +45,7 @@ class Text extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
+        return array($this->field => $postData[$this->field]);
     }
 
     public function updateField($curData)

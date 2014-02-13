@@ -31,6 +31,7 @@ class AdminController extends \Ip\GridController
             'type' => 'table',
             'table' => 'grid_test',
             'sortField' => 'gridOrder',
+            'createPosition' => 'top',
             'fields' => array(
                 array(
                     'label' => __('Message', 'ipAdmin', false),

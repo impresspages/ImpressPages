@@ -47,7 +47,8 @@ class Display
             'data' => $this->rowsData($this->fetch($from, $pageSize)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
-            'deleteWarning' => $this->config->deleteWarning()
+            'deleteWarning' => $this->config->deleteWarning(),
+            'createForm' => $this->createForm()
         );
 
         $html = ipView('../view/layout.php', $variables)->render();
@@ -60,7 +61,7 @@ class Display
         if ($this->config->allowCreate()) {
             $actions[] = array(
                 'label' => __('Add', 'ipAdmin', false),
-                'class' => 'ipsAdd'
+                'class' => 'ipsCreate'
             );
         }
         if ($this->config->allowSearch()) {
