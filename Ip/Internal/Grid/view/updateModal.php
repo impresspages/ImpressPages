@@ -1,4 +1,4 @@
-<div class="ipsUpdateModal modal fade">
+<div class="ipsUpdateModal modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

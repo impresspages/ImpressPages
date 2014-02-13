@@ -16,22 +16,14 @@ class AdminController extends \Ip\GridController
     protected function config()
     {
 
-        $languages = ipContent()->getLanguages();
-        $languageUrls = array();
-        foreach($languages as $language) {
-            $languageUrls[] = $language->getUrl();
-        }
 
-        $reservedDirs = ipGetOption('Config.reservedDirs');
-        if (is_array($reservedDirs)) {
-            $languageUrls = array_merge($languageUrls, $reservedDirs);
-        }
 
         return array(
             'type' => 'table',
             'table' => 'grid_test',
             'sortField' => 'gridOrder',
             'createPosition' => 'top',
+            'pageSize' => 3,
             'fields' => array(
                 array(
                     'label' => __('Message', 'ipAdmin', false),

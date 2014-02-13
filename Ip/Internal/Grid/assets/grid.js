@@ -118,6 +118,7 @@
             var id = $row.data('id');
             var $modal = $grid.find('.ipsDeleteModal');
             $modal.modal();
+            $modal.find('.ipsConfirm').focus();
             $modal.find('.ipsConfirm').off().on('click', function() {
                 $.proxy(deleteRecord, $grid)(id);
                 $modal.modal('hide');
@@ -140,6 +141,7 @@
             var $this = $(this);
             var $modal = $grid.find('.ipsCreateModal');
             $modal.modal();
+            $modal.find('.form-group').not('.type-blank').first().find('input').focus();
             $modal.find('.ipsBody form').validator(validatorConfig);
             $modal.find('.ipsBody form').on('submit', $.proxy(createFormSubmit, $grid));
             $modal.find('.ipsConfirm').off().on('click', function() {
@@ -235,6 +237,7 @@
                 $modal.find('.ipsBody').html(response.result);
                 $modal.find('.ipsBody form').validator(validatorConfig);
                 $modal.find('.ipsBody form').on('submit', $.proxy(updateFormSubmit, $grid));
+                $modal.find('.form-group').not('.type-blank').first().find('input').focus();
                 $modal.find('.ipsConfirm').off().on('click', function() {
                     $modal.find('.ipsBody form').submit();
                     $modal.modal('hide');
