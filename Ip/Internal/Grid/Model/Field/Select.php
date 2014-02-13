@@ -35,7 +35,14 @@ class Select extends \Ip\Internal\Grid\Model\Field
 
     public function preview($recordData)
     {
-        return esc($recordData[$this->field]);
+        $previewValue = $recordData[$this->field];
+        foreach($this->values as $value) {
+            if (is_array($value) && isset($value[1]) && $value[0] == $previewValue) {
+                $previewValue = $value[1];
+                break;
+            }
+        }
+        return esc($previewValue);
     }
 
     public function createField()
