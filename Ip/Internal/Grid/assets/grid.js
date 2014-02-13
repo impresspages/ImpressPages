@@ -193,6 +193,7 @@
         data.params.targetId = targetId;
         data.params.beforeOrAfter = beforeOrAfter;
         data.securityToken = ip.securityToken;
+        data.hash = window.location.hash;
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
@@ -265,7 +266,7 @@
                 url: ip.baseUrl,
                 dataType: 'json',
                 type : 'POST',
-                data: form.serialize() + '&aa=' + data.aa,
+                data: form.serialize() + '&aa=' + data.aa + '&hash=' + encodeURIComponent(window.location.hash),
                 success: function (response){
                     if (!response.error) {
                         //form has been successfully submitted.
