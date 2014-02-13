@@ -30,7 +30,11 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
 
     public function preview($recordData)
     {
-        return esc($recordData[$this->field]);
+        if (!empty($recordData[$this->field])) {
+            return __('Yes', 'ipAdmin');
+        } else {
+            return __('No', 'ipAdmin');
+        }
     }
 
     public function createField()
