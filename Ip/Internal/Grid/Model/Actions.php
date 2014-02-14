@@ -26,6 +26,16 @@ class Actions
 
     public function delete($id)
     {
+        $db = new Db($this->config);
+
+        $fields = $this->config->fields();
+        $curData = $db->fetchRow($id);
+        foreach ($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->onDelete($id, $curData);
+        }
+
+
         $sql = "
         DELETE FROM
             " . $this->config->tableName() . "
@@ -42,6 +52,8 @@ class Actions
 
     public function update($id, $data)
     {
+        $db = new Db($this->config);
+
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {
@@ -57,6 +69,8 @@ class Actions
 
     public function create($data)
     {
+        $db = new Db($this->config);
+
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {

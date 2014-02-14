@@ -24,6 +24,8 @@ class Display
 
     public function fullHtml($statusVariables)
     {
+        $db = new Db($this->config);
+
         $searchVariables = array();
         foreach ($statusVariables as $key => $value) {
             if (preg_match('/^s_/', $key)) {
@@ -58,7 +60,8 @@ class Display
 
         $pageSize = $this->config->pageSize();
         $from = ($currentPage - 1) * $pageSize;
-        $totalPages = ceil($this->recordCount($where) / $pageSize);
+
+        $totalPages = ceil($db->recordCount($where) / $pageSize);
 
         if ($currentPage > $totalPages) {
             $currentPage = $totalPages;
@@ -71,7 +74,7 @@ class Display
 
         $variables = array(
             'columns' => $this->getColumnData(),
-            'data' => $this->rowsData($this->fetch($from, $pageSize, $where)),
+            'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
             'deleteWarning' => $this->config->deleteWarning(),
@@ -154,57 +157,7 @@ class Display
 
 
 
-    protected function recordCount($where)
-    {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " WHERE " . $where . " ");
-    }
 
-    protected function fetch($from, $count, $where = 1)
-    {
-        if ($this->config->sortField()) {
-            $sortField = $this->config->sortField();
-        } else {
-            $sortField = 'id';
-        }
-
-        $sql = "
-        SELECT
-          *
-        FROM
-          " . $this->config->tableName() . "
-        WHERE
-          " . $where . "
-        ORDER BY
-            `" . $sortField . "` DESC
-        LIMIT
-            $from, $count
-        ";
-
-        $result = ipDb()->fetchAll($sql);
-
-        return $result;
-    }
-
-
-    protected function fetchRow($id)
-    {
-        $sql = "
-        SELECT
-          *
-        FROM
-          " . $this->config->tableName() . "
-        WHERE
-          `" . $this->config->idField() . "` = :id
-        ";
-
-        $params = array(
-            'id' => $id
-        );
-
-        $result = ipDb()->fetchRow($sql, $params);
-
-        return $result;
-    }
 
 
 
@@ -244,8 +197,9 @@ class Display
 
     public function updateForm($id)
     {
+        $db = new Db($this->config);
         $form = new \Ip\Form();
-        $curData = $this->fetchRow($id);
+        $curData = $db->fetchRow($id);
         foreach ($this->config->fields() as $fieldData) {
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->updateField($curData);
