@@ -27,7 +27,7 @@ class AdminController extends \Ip\GridController
             'fields' => array(
                 array(
                     'label' => __('Name', 'ipAdmin', false),
-                    'field' => 'message',
+                    'field' => 'name',
                 ),
                 array(
                     'type' => 'Select',
@@ -43,6 +43,12 @@ class AdminController extends \Ip\GridController
                     'label' => __('In love', 'ipAdmin', false),
                     'showInList' => true,
                     'field' => 'inLove'
+                ),
+                array(
+                    'type' => 'File',
+                    'label' => __('CV', 'ipAdmin', false),
+                    'showInList' => true,
+                    'field' => 'cv'
                 )
 
             )

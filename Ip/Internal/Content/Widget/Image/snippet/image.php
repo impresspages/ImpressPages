@@ -2,7 +2,6 @@
     <div class="ipgHide" id="ipWidgetImageMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
                 <button class="btn btn-default ipsEdit" role="button"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-default ipsLink" role="button"><i class="fa fa-link"></i></button>
                 <button class="btn btn-default ipsSettings" role="button"><i class="fa fa-gears"></i></button>

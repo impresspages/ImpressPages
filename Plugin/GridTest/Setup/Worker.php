@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS $table (
   `gridOrder` int(11) NOT NULL,
   `inLove` int(1) NOT NULL,
   `age` varchar(255) NOT NULL,
-  `message` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `cv` varchar(255) NOT NULL,
+  `photo` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
         ");

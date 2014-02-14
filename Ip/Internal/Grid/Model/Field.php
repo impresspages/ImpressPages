@@ -62,11 +62,32 @@ abstract class Field
     public abstract function searchQuery($searchVariables);
 
     /**
+     * Executed before creating a new record
+     * @param int $recordId
+     * @param array $curData
+     */
+    public function beforeCreate($recordId, $curData)
+    {
+        //do nothing by default
+    }
+
+    /**
      * Executed after new record has been created
      * @param int $recordId
      * @param array $curData
      */
-    public function onCreate($recordId, $curData)
+    public function afterCreate($recordId, $curData)
+    {
+        //do nothing by default
+    }
+
+    /**
+     * Executed before update
+     * @param int $recordId
+     * @param array $oldData
+     * @param array $newData
+     */
+    public function beforeUpdate($recordId, $oldData, $newData)
     {
         //do nothing by default
     }
@@ -77,17 +98,28 @@ abstract class Field
      * @param array $oldData
      * @param array $newData
      */
-    public function onUpdate($recordId, $oldData, $newData)
+    public function afterUpdate($recordId, $oldData, $newData)
     {
         //do nothing by default
     }
+
 
     /**
      * Executed before deleting the record
      * @param int $recordId
      * @param array $curData
      */
-    public function onDelete($recordId, $curData)
+    public function beforeDelete($recordId, $curData)
+    {
+        //do nothing by default
+    }
+
+    /**
+     * Executed after deleting the record
+     * @param int $recordId
+     * @param array $curData
+     */
+    public function afterDelete($recordId, $curData)
     {
         //do nothing by default
     }
