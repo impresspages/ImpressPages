@@ -27,7 +27,7 @@
                         var repository = new ipRepository({preview: 'list'});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     })
-//alert($this.data('filelimit'));
+
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
                         limit: $this.data('filelimit')
