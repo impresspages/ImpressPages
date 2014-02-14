@@ -50,4 +50,14 @@ class RepositoryFile extends Field
         return 'repositoryFile';
     }
 
+    public function setFileLimit($fileLimit)
+    {
+        $this->fileLimit = $fileLimit;
+    }
+
+    public function getFileLimit()
+    {
+        return $this->fileLimit;
+    }
+
 }

@@ -23,6 +23,10 @@ class File extends \Ip\Internal\Grid\Model\Field
             $this->label = $config['label'];
         }
 
+        if (isset($config['fileLimit'])) {
+            $this->fileLimit = $config['fileLimit'];
+        }
+
         if (!empty($config['defaultValue'])) {
             $this->defaultValue = $config['defaultValue'];
         }
@@ -39,6 +43,9 @@ class File extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field
         ));
+        if ($this->fileLimit !== null) {
+            $field->setFileLimit($this->fileLimit);
+        }
         $field->setValue($this->defaultValue);
         return $field;
     }
@@ -57,6 +64,9 @@ class File extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field
         ));
+        if ($this->fileLimit !== null) {
+            $field->setFileLimit($this->fileLimit);
+        }
         $field->setValue($curData[$this->field]);
         return $field;
     }
