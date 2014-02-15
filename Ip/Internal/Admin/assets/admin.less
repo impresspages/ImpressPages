@@ -1,6 +1,5 @@
 .ipAdminNavbar {
     border: 0;
-    z-index: @admin-navbar-zIndex;
 
     ._toggle {
         border: 0;
@@ -33,7 +32,7 @@
         left: (@grid-gutter-width / 4);
         position: absolute;
         top: 0;
-        z-index: @admin-navbar-zIndex;
+        z-index: (@zindex-navbar-fixed + 10);
 
         .nav {
             border-top: 1px solid @navbar-inverse-bg;

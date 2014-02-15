@@ -81,8 +81,8 @@ class WidgetTitleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testText, $titleWidgetText);
 
         //REMOVE THE WIDGET
-        $session->executeScript("$('#ipBlock-main .ipWidget-Title .ipActionWidgetDelete').css('visibility', 'visible')");
-        $deleteLink = $page->find('css', '#ipBlock-main .ipWidget-Title .ipActionWidgetDelete');
+        $session->executeScript("$('#ipBlock-main .ipWidget-Title .ipsWidgetDelete').css('visibility', 'visible')");
+        $deleteLink = $page->find('css', '#ipBlock-main .ipWidget-Title .ipsWidgetDelete');
         $deleteLink->click();
 
         //wait while widget disappears

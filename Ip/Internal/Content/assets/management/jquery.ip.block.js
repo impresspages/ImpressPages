@@ -19,7 +19,7 @@
 
             // If the plugin hasn't been initialized yet
             if (!data) {
-                $this.delegate('.ipActionWidgetMove', 'click', function(e){e.preventDefault();});
+                $this.delegate('.ipsWidgetDrag', 'click', function(e){e.preventDefault();});
 
                 initWidgetDrag($this);
 
@@ -73,18 +73,19 @@
 
 
     var initWidgetDrag = function ($block) {
+        console.log('init');
         var $this = $block;
         $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
-            handle : '.ipAdminWidgetControls .ipActionWidgetMove',
+            handle : '.ipsWidgetControls .ipsWidgetDrag',
             cursorAt: {
                 left: 30, top: 30
             },
+            cancel: false, // making <button> elements to work
             helper : function (e) {
-                return '<div class="ipAdminWidgetMoveIcon"></div>';//'<div class="ipAdminWidgetMoveIcon"></div>';
+                return '<div class="ipAdminWidgetDragIcon"></div>';
             },
             start : function (event, ui) {
                 $(event.target).css('visibility', 'hidden');
-
             },
             stop : function (event, ui) {
                 $(event.target).css('visibility', '');

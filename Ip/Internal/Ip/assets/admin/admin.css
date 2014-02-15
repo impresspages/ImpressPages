@@ -7753,6 +7753,43 @@
   font-size: inherit;
   text-align: inherit;
 }
+.ip .btn-controls {
+  color: #e2e2e2;
+  background-color: #46495e;
+  border-color: #ffffff;
+}
+.ip .btn-controls:hover,
+.ip .btn-controls:focus,
+.ip .btn-controls:active,
+.ip .btn-controls.active,
+.ip .open .dropdown-toggle.btn-controls {
+  color: #e2e2e2;
+  background-color: #353747;
+  border-color: #e0e0e0;
+}
+.ip .btn-controls:active,
+.ip .btn-controls.active,
+.ip .open .dropdown-toggle.btn-controls {
+  background-image: none;
+}
+.ip .btn-controls.disabled,
+.ip .btn-controls[disabled],
+.ip fieldset[disabled] .btn-controls,
+.ip .btn-controls.disabled:hover,
+.ip .btn-controls[disabled]:hover,
+.ip fieldset[disabled] .btn-controls:hover,
+.ip .btn-controls.disabled:focus,
+.ip .btn-controls[disabled]:focus,
+.ip fieldset[disabled] .btn-controls:focus,
+.ip .btn-controls.disabled:active,
+.ip .btn-controls[disabled]:active,
+.ip fieldset[disabled] .btn-controls:active,
+.ip .btn-controls.disabled.active,
+.ip .btn-controls[disabled].active,
+.ip fieldset[disabled] .btn-controls.active {
+  background-color: #46495e;
+  border-color: #ffffff;
+}
 .ip .help-hint {
   background-color: #cccccc;
   color: #fff;
@@ -7817,7 +7854,6 @@
 }
 .ip .ipAdminNavbar {
   border: 0;
-  z-index: 10000;
 }
 .ip .ipAdminNavbar ._toggle {
   border: 0;
@@ -7847,7 +7883,7 @@
   left: 10px;
   position: absolute;
   top: 0;
-  z-index: 10000;
+  z-index: 1040;
 }
 .ip .ipAdminNavbar ._menu .nav {
   border-top: 1px solid #000000;
@@ -8364,10 +8400,6 @@
   background: -moz-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
   background: -webkit-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
 }
-.ip .ipAdminWidgetControls .ipaButton {
-  background: -moz-linear-gradient(top, #3b3b3b 0%, #212121 100%);
-  background: -webkit-linear-gradient(top, #3b3b3b 0%, #212121 100%);
-}
 .ip .ipWidget-Columns .ipwCol {
   margin-top: 20px;
 }
@@ -8437,63 +8469,41 @@
   float: left;
 }
 .ip .ipAdminWidgetControls {
-  border: 1px solid transparent;
-  float: left;
-  max-height: 10px;
-  margin: -10px 0 0 -1px;
-  position: absolute;
+  margin: 0 -11px;
+  position: relative;
+  width: auto;
+  z-index: 1020;
 }
-.ip .ipAdminWidgetControls .ipaButton {
-  background: #3b3b3b;
-  background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
-  display: block;
-  float: left;
-  font-weight: normal;
-  padding: 2px 0;
-  text-decoration: none;
+.ip .ipAdminWidgetControls ._container {
+  margin-top: -11px;
+  min-height: 22px;
+  position: absolute;
+  width: 100%;
+}
+.ip .ipAdminWidgetControls ._container * {
   visibility: hidden;
 }
-.ip .ipAdminWidgetControls .ipaButton:hover {
-  background: #2e2e2e;
+.ip .ipAdminWidgetControls ._container:hover * {
+  visibility: visible;
 }
-.ip .ipAdminWidgetControls .ipaButton span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAACKCAYAAACq5Wo+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABN1JREFUeNrsmVtoE00UgGejDRTFaLRYHxSKQgv+YH3zQSpS0SiCiJc3FXzriw+FQiQQKLRUAgURjJcHQUEEEUQUqYi3JxGFisbbUyE2pv/vb02kgmko6znbme1kLzM701Ur7IHDNju7355z5sycmY5hmiYJU2IkZFn4QJQ8qKmoeYy9lxr4gGrHGIaBLxlebYt13QJoC1x66M9z8IHPrM1UFeZ2Nps1UWnYWpinSrByuWwBEcSEhxKNDjH7+/tdH6LQ7GJqojRmpVKJDA4OktbWVgIvu9qr1ap1CeTy+Pi42dPTYw4MDHi29/b2MpfjUqACrDlQp4hgfX19DTApsFarmfF4XAZbyo8UqYVe7el02hOmBaQw1ITXWJbONhBDa+wypemBL1c9h2TYk0P401dUUyKgnhQ08rAgLKNnnmxWsuDEtlHfkRKbRxntAH1ItSOMGN5IHWvdjop/M6hyof82WbeuANq45/gadnvjyOUJhB40aJCVBEEAbLh391KZAPSRZWGQTqn+Xyf3rkyQZSubXDCUH99n8FIJ5DKDLW9pIjuPuGE3z5bI4xuf38CfR2NhwB5d/w9hXZBKU1KgCHbrfANsUpo2M3WTPL37xRf24JoF62YwKXBRk2FBnXL74ice9u+8RgrC7l+1GLudsECJvXXfKmvs8r9pGf3oW0bDnBzCn76iMrrwgNI8hElzHd0xTdId05TwBb/up73fhiutoaEhfgmcFL4jgG1AQC6Xs1evmUymYRumChwG8d0xaVuYSCRcm8bAFmJ8QDMsTrgwdwL9nnUB6U4yz+IUAJj3iilrTLD9L+earQ6XG+5zW9sED0zj/kNX6N4lze9T0DXt0ZFMJllMbQtxNORZmqi4jO9Ql9ucnWInctBO4WAb/NIGh1rO/poYiAYM8zBZYrcLErtdZ6ScBnH1KN7DNh1gu3NyYPHVspCfvhDEwdpE70irHkywbY5/SY0Jn4/K6F8IhF7eAvoU9A7oailRkodduNIa2k/Mvp2zqy7Q9bpltBsBuQPw88KsZvbY0A4d4IvhQ3Mwptm9FvShtoWJ5jkYW2yKLIw5OmA96H28QuMDXJh7xPwf0Pf8s569TLentyBOO/Dq24sX7aW1/Sy/X2burUVXMD6ca3O144L/fRpTDMNae7aBL4ykU2QXpIeWnLxJyKkRcg9Yqbky2qw/OpJLrMsK3uUtaDZLExWX8R3qcpezjNqJzPYhGBdn2sCVPV/gYN1+ZRSH2jP7a17ARgNe8DBZYqcEiZ3SGSmjpw+7hx7ewzYdYMo5ObD4alnIT18I4mBdWtOXR0c9k8Gi3WgEDAsIk20e1KSaD+Ww1W8bITql0DpslZ2j/LIYnuOPiESKzwZaLIHU8MjNTyqVCj5UkcWPXzkUQYTnonhRSZvQgSX6kqfQjxX/qIVCYOgW6gCFMVRxmXhttJ2CbcTncNW36kmONPNBYFHVi4ALuYwWuDJa0IG6TivMzs2WqpxSNJbRzmDnKcbL0d9fRlUPaAqBJgfsgNqmThI3vL2pzsyQ5a9f4UwWC9rL9eL0tP8EW7dObKdV0maqWJcCp1SAX0vTdf+aMmv9FxVgOYCFEyrAsaLIwtmPjakAP4gspC6/UwG+FcWQuvxWBfg8QAxfBq7LbMs/nxESldHw5KcAAwDML0MCz/XTvgAAAABJRU5ErkJggg==) no-repeat;
-  border-left: 1px dotted #000;
-  color: #fff;
-  display: block;
+.ip .ipAdminWidgetControls ._settings {
   float: left;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 11px;
-  height: 10px;
-  line-height: 10px;
-  text-decoration: none;
 }
-.ip .ipAdminWidgetControls .ipaButton:first-child span {
-  border-left: none;
-}
-.ip .ipAdminWidgetControls .ipActionWidgetManage span {
-  background-position: 5px 0;
-  padding: 0 9px 0 28px;
-}
-.ip .ipAdminWidgetControls .ipActionWidgetManage:hover span {
-  background-position: 5px -23px;
-}
-.ip .ipAdminWidgetControls .ipActionWidgetMove span {
-  background-position: center -46px;
+.ip .ipAdminWidgetControls ._drag {
+  background-image: url(data:image/gif;base64,R0lGODlhEQAHAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAARAAcAAAIUTISGomnnVmNw2Yuz3nn6+oCiFBQAOw==);
+  background-position: center center;
+  background-repeat: no-repeat;
   cursor: move;
+  height: 15px;
+  margin-left: -32px;
+  margin-top: 3px;
+  left: 50%;
   overflow: hidden;
-  text-indent: -999px;
-  width: 50px;
+  position: absolute;
+  width: 64px;
 }
-.ip .ipAdminWidgetControls .ipActionWidgetMove:hover span {
-  background-position: center -69px;
-}
-.ip .ipAdminWidgetControls .ipActionWidgetDelete span {
-  background-position: 7px -92px;
-  padding: 0 9px 0 26px;
-}
-.ip .ipAdminWidgetControls .ipActionWidgetDelete:hover span {
-  background-position: 7px -115px;
+.ip .ipAdminWidgetControls ._delete {
+  float: right;
 }
 .ip body {
   margin: 0;
@@ -9269,7 +9279,7 @@
   background-position: -24px -48px;
 }
 .ipWidget {
-  min-height: 10px;
+  min-height: 22px;
 }
 .ipWidget:before,
 .ipWidget:after {
@@ -9282,54 +9292,36 @@
 .ipWidget:hover {
   outline: #4d4d4d dashed 1px;
 }
-.ipWidget:hover > .ip > .ipAdminWidgetControls {
-  border-color: #000;
+.ipWidget.ipWidget-Columns:hover {
+  outline: 0;
 }
-.ipWidget:hover > .ip > .ipAdminWidgetControls .ipaButton,
-body.ipMobile .ipWidget .ipAdminWidgetControls .ipaButton {
+.ipWidget:hover > .ip > .ipAdminWidgetControls ._container *,
+.ipMobile .ipWidget:hover > .ip > .ipAdminWidgetControls ._container * {
   visibility: visible;
 }
-.ipAdminWidgetDrag {
-  height: 58px;
-  overflow: hidden;
-  margin-left: 100px;
-  width: 58px;
-  z-index: 99999;
-}
-.ipAdminWidgetMoveIcon {
+.ipAdminWidgetDragIcon {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAYAAADhu0ooAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAe5JREFUeNrsm89OwkAQxrdk9QGITRq5yDP4IF68yAmDB04ekUaOJZAePRgPGjlhTLj4HIZnKBdMk/UJSJo6gyXZrPwtQnfLfMmw2dKS/pj5dgvdWoyxI4hbiEsIh22gOI7LbI+yLCvY8JAQYgDxYMFLA07YZzkWfEENBB0C6HnOQYcc2qK8sdVq3fR6vevxeHya5kP/q5xTlOlUpVLpq1qtvnqe9yxtLnJ5J9d1691u987k7GGC2u32fRRFvNPpPMnvBZAFzASzbftT7psayIAscr8gEwshTvLiS5WFrzpgW8/uWgs8OVeBnGK532w268m2WPMI8FwXcST9xaCJZ2MTQvWkysXXrfPkAB3nyLXGlwI7EBEogZoKuu+fWlkIGal0CZRA9RbP8j+gXQ4+VLoESqAESqAESqAESqAESqAESqAESqBZgeLt9LS31HXSPA4qXQIlUM1B8zD4rDM4UekSKIHqraWrUmzb/hZCnCWG1hoEzzV1Rmu12gs0IwMSNsLVY6kziqsjJ5PJcb/fvwrD0NGR0HGcsFKpvPm+/7h0imG/K6zKs/kGW9NvH6ocf+bRVXVuklQWrnoSFyZvc7WU9QrsmVTPctM8mdazB/PwAHr0/QCuFwaYUXzApwFxgR7Owo879K2A+IDwfwQYAKu03z6zSpuwAAAAAElFTkSuQmCC) no-repeat;
   height: 58px;
   width: 58px;
-  z-index: 5000;
+  z-index: 1020;
 }
-.ipAdminWidgetPlaceholder {
-  background: #bdeaf9;
-  outline: #5abee3 dashed 1px;
-  height: 1px;
-  margin-top: -6px;
-  margin-bottom: 5px;
-}
-.widgetDropPlaceholderVertical,
-.widgetDropPlaceholderHorizontal {
+.ipAdminWidgetPlaceholderVertical,
+.ipAdminWidgetPlaceholderHorizontal {
   background-color: transparent;
-  /*    background-color: red;
-        opacity: 0.1;
-        border: 1px solid #ccc;*/
 }
-.widgetDropPlaceholderVertical .widgetDropMarker {
+.ipAdminWidgetPlaceholderVertical ._marker,
+.ipAdminWidgetPlaceholderHorizontal ._marker {
+  background: #7ecefd;
   display: none;
-  width: 1px;
-  background-color: #2baeff;
+  outline: #019db4 solid 1px;
 }
-.widgetDropPlaceholderHorizontal .widgetDropMarker {
-  display: none;
-  height: 1px;
-  background-color: #2baeff;
-}
-.widgetDropPlaceholder.hover {
-  /*background-color: #000;*/
-}
-.widgetDropPlaceholderVertical.hover .widgetDropMarker,
-.widgetDropPlaceholderHorizontal.hover .widgetDropMarker {
+.ipAdminWidgetPlaceholderVertical.hover ._marker,
+.ipAdminWidgetPlaceholderHorizontal.hover ._marker {
   display: block;
+}
+.ipAdminWidgetPlaceholderVertical ._marker {
+  width: 1px;
+}
+.ipAdminWidgetPlaceholderHorizontal ._marker {
+  height: 1px;
 }
