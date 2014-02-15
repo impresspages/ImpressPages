@@ -70,7 +70,7 @@ class File extends Field
     public function validate($values, $valueKey, $environment)
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
-            foreach($values[$valueKey]['file'] as $key => $file) {
+            foreach($values[$valueKey]['file'] as $file) {
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
