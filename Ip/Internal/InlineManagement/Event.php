@@ -18,7 +18,6 @@ class Event
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementControls.js');
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementImage.js');
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementLogo.js');
-                ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementString.js');
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/inlineManagementText.js');
                 ipAddJs('Ip/Internal/InlineManagement/assets/src/jquery.fontselector.js');
             } else {
