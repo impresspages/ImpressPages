@@ -48,8 +48,7 @@ class AdminController extends \Ip\GridController
                     'type' => 'File',
                     'label' => __('CV', 'ipAdmin', false),
                     'showInList' => true,
-                    'field' => 'cv',
-                    'fileLimit' => 2
+                    'field' => 'cv'
                 )
 
             )

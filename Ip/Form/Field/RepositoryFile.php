@@ -60,4 +60,20 @@ class RepositoryFile extends Field
         return $this->fileLimit;
     }
 
+    /**
+     * @param array $values all posted form values
+     * @param string $valueKey this field name
+     * @return string
+     */
+    public function getValueAsString($values, $valueKey)
+    {
+        if (isset($values[$valueKey]) && is_array($values[$valueKey])) {
+            return implode(', ',$values[$valueKey]);
+        } else {
+            return '';
+        }
+    }
+
+
+
 }
