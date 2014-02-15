@@ -1098,7 +1098,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Separator.ipLayout-default {
   border-bottom: 1px solid #747474;
   height: 0;
-  overflow: hidden;
 }
 .ipWidget-Separator.ipLayout-space {
   height: 25px;

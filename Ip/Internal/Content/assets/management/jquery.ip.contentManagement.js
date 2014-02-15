@@ -277,7 +277,7 @@
         });
 
         $.each(sidePlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderVertical"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -316,7 +316,7 @@
 
 
         $.each(colsPlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderVertical"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -455,7 +455,7 @@
 
 
         $.each(horizontalPlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderHorizontal"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderHorizontal"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
