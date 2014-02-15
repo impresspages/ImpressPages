@@ -104,10 +104,13 @@
 
     var filesSelected = function (event, files) {
         var $this = this;
+        var $fileInputContainer = $this.find('.ipsInputContainer');
+
         for (var index in files) {
+            var fileName = files[index].fileName;
             var $newFile = $this.find('.ipmFileTemplate').clone();
             $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
-            $newFile.find('.ipmFileName').text(files[index].fileName);
+            $newFile.find('.ipmFileName').text(fileName);
             $newFile.find('.ipsRemove').click(function(e){
                 var $this = $(this);
                 var $file = $this.closest('.ipmFile');
@@ -118,10 +121,16 @@
                     if ($this.find('.ipmFiles').children().first().length == 1) {
                         $this.find('.ipmFiles').children().first().remove();
                     }
+                    if ($fileInputContainer.children().first().length == 1) {
+                        $fileInputContainer.children().first().remove();
+                    }
                 }
             }
 
             $this.find('.ipmFiles').append($newFile);
+            var $fileInput = $('<input name="' + $this.data('ipFormRepositoryFile').inputName + '[]" type="hidden" value="' + fileName + '" />');
+            $fileInputContainer.append($fileInput);
+
         }
     }
 
