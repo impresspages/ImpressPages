@@ -23,9 +23,7 @@ class File extends \Ip\Internal\Grid\Model\Field
             $this->label = $config['label'];
         }
 
-        if (isset($config['fileLimit'])) {
-            $this->fileLimit = $config['fileLimit'];
-        }
+        $this->fileLimit = 1;
 
         if (!empty($config['defaultValue'])) {
             $this->defaultValue = $config['defaultValue'];
@@ -52,8 +50,8 @@ class File extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
-        if (isset($postData[$this->field])) {
-            return array($this->field => $postData[$this->field]);
+        if (isset($postData[$this->field][0])) {
+            return array($this->field => $postData[$this->field][0]);
         }
         return array();
     }
