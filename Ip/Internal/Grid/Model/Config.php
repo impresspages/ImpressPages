@@ -152,7 +152,7 @@ class Config
             }
 
         }
-        $fieldObject = new $class($field);
+        $fieldObject = new $class($field, $this->config);
         return $fieldObject;
     }
 
