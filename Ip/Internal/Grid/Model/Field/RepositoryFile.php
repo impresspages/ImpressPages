@@ -6,7 +6,7 @@
 namespace Ip\Internal\Grid\Model\Field;
 
 
-class File extends \Ip\Internal\Grid\Model\Field
+class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 {
     protected $field = '';
     protected $label = '';
@@ -71,7 +71,11 @@ class File extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array($this->field => $postData[$this->field]);
+        $field = new \Ip\Form\Field\RepositoryFile(array(
+            'label' => $this->label,
+            'name' => $this->field
+        ));
+        return array ($this->field => $field->getValueAsString($postData, $this->field));
     }
 
 

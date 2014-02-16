@@ -45,7 +45,7 @@ class AdminController extends \Ip\GridController
                     'field' => 'inLove'
                 ),
                 array(
-                    'type' => 'File',
+                    'type' => 'RepositoryFile',
                     'label' => __('CV', 'ipAdmin', false),
                     'showInList' => true,
                     'field' => 'cv'
