@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div id="ipWidgetGalleryEditPopup" class="modal fade">
+    <div id="ipWidgetGalleryEditPopup" class="modal"><?php /*Fade breaks image management*/?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
