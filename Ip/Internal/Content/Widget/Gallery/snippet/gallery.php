@@ -1,10 +1,10 @@
 <div class="ip">
-    <div id="ipWidgetGallerySnippet" class="ipgHide">
+    <div id="ipWidgetGallerySnippet" class="hide">
         <div class="ip ipsAdd ipmAdd">
             <button type="button" class="btn btn-primary"><?php _e('Add', 'ipAdmin') ?></button>
         </div>
     </div>
-    <div class="ipgHide" id="ipWidgetGalleryMenu">
+    <div class="hide" id="ipWidgetGalleryMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
                 <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
