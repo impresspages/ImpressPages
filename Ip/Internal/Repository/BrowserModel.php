@@ -115,7 +115,7 @@ class BrowserModel{
             $transform = new \Ip\Transform\ImageFit(140, 140, null, TRUE);
             $reflection = ipReflection($file, $baseName, $transform);
             if ($reflection){
-                return ipFileUrl('file/' . $reflection);
+                return ipFileUrl($reflection);
             }
         }
         return ipFileUrl('Ip/Internal/Repository/assets/icons/general.png');
