@@ -15,14 +15,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
     public function __construct($fieldFieldConfig, $wholeConfig)
     {
-        if (empty($fieldFieldConfig['field'])) {
-            throw new \Ip\Exception('\'field\' option required for text field');
-        }
-        $this->field = $fieldFieldConfig['field'];
-
-        if (!empty($fieldFieldConfig['label'])) {
-            $this->label = $fieldFieldConfig['label'];
-        }
+        parent::__construct($fieldFieldConfig, $wholeConfig);
 
         if (!empty($fieldFieldConfig['repositoryBindKey'])) {
             $this->repositoryBindKey = $fieldFieldConfig['repositoryBindKey'];
@@ -32,9 +25,10 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
         $this->fileLimit = 1;
 
-        if (!empty($fieldFieldConfig['defaultValue'])) {
-            $this->defaultValue = $fieldFieldConfig['defaultValue'];
+        if (!empty($this->defaultValue) && !is_array($this->defaultValue)) {
+            $this->defaultValue = array($this->defaultValue);
         }
+
     }
 
     public function preview($recordData)
@@ -72,7 +66,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
         }
-        $field->setValue($curData[$this->field]);
+        $field->setValue(array($curData[$this->field]));
         return $field;
     }
 
