@@ -18,7 +18,7 @@
             </button>
             <ul>
                 <li ng-repeat="zone in zones" zones-post-repeat-directive data-zonename="{{zone.name}}">
-                    <a href="#" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>
+                    <a ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>
                     <button class="btn btn-sm btn-default _control" ng-click="updateZoneModal(zone)"><i class="fa fa-cog"></i></button>
                 </li>
             </ul>
