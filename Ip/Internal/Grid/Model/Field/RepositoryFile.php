@@ -107,12 +107,16 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
     public function afterDelete($recordId, $curData)
     {
-        //do nothing by default
+        if (!empty($curData[$this->field])) {
+            \Ip\Internal\Repository\Model::unbindFile($curData[$this->field], $this->repositoryBindKey, $recordId);
+        }
     }
 
     public function afterCreate($recordId, $curData)
     {
-        //do nothing by default
+        if (!empty($curData[$this->field])) {
+            \Ip\Internal\Repository\Model::bindFile($curData[$this->field][0], $this->repositoryBindKey, $recordId);
+        }
     }
 
     public function afterUpdate($recordId, $oldData, $newData)
