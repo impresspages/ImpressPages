@@ -75,7 +75,6 @@ class Logo
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
-                $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
                 $transform = new \Ip\Transform\ImageCrop(
                     $this->getX1(),
                     $this->getY1(),
@@ -86,7 +85,7 @@ class Logo
                     100
                 );
                 $requestedName = ipGetOption('Config.websiteTitle');
-                $this->image = $reflectionService->getReflection($this->getImageOrig(), $requestedName, $transform);
+                $this->image = ipReflection($this->getImageOrig(), $requestedName, $transform);
             }
         } else {
             $this->image = $defaultLogo;
