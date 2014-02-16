@@ -12,19 +12,19 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     protected $label = '';
     protected $defaultValue = '';
 
-    public function __construct($config)
+    public function __construct($fieldConfig, $wholeConfig)
     {
-        if (empty($config['field'])) {
+        if (empty($fieldConfig['field'])) {
             throw new \Ip\Exception('\'field\' option required for text field');
         }
-        $this->field = $config['field'];
+        $this->field = $fieldConfig['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
+        if (!empty($fieldConfig['label'])) {
+            $this->label = $fieldConfig['label'];
         }
 
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
+        if (!empty($fieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldConfig['defaultValue'];
         }
     }
 

@@ -53,11 +53,13 @@ class Actions
     public function update($id, $data)
     {
         $db = new Db($this->config);
+        $oldData = $db->fetchRow($id);
 
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
                 throw new \Ip\Exception("updateData method in class " . get_class($fieldObject) . " has to return array.");
@@ -65,6 +67,12 @@ class Actions
             $dbData = array_merge($dbData, $fieldData);
         }
         ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
+
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterUpdate($id, $oldData, $data);
+        }
+
     }
 
     public function create($data)

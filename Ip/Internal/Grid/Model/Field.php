@@ -8,6 +8,31 @@ namespace Ip\Internal\Grid\Model;
 
 abstract class Field
 {
+    protected $field = '';
+    protected $label = '';
+    protected $defaultValue = '';
+
+    /**
+     * Create field object for grid
+     * @param array $fieldFieldConfig config of this particular field
+     * @param $wholeConfig whole grid setup config
+     */
+    public function __construct($fieldFieldConfig, $wholeConfig)
+    {
+        if (empty($fieldFieldConfig['field'])) {
+            throw new \Ip\Exception('\'field\' option required for text field');
+        }
+        $this->field = $fieldFieldConfig['field'];
+
+        if (!empty($fieldFieldConfig['label'])) {
+            $this->label = $fieldFieldConfig['label'];
+        }
+
+        if (!empty($fieldFieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldFieldConfig['defaultValue'];
+        }
+    }
+
     /**
      * Generate field value preview for table view. HTML is allowed
      * @param array() $data current record data
