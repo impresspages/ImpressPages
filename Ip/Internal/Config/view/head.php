@@ -3,10 +3,10 @@
 <?php } else { ?>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
 <?php } ?>
-    <title><?php echo htmlspecialchars($title); ?></title>
-    <link rel="shortcut icon" href="<?php echo htmlspecialchars($favicon); ?>" />
-    <meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
-    <meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+    <title><?php echo esc($title); ?></title>
+    <link rel="shortcut icon" href="<?php echo esc($favicon, 'attr'); ?>" />
+    <meta name="keywords" content="<?php echo esc($keywords, 'attr'); ?>" />
+    <meta name="description" content="<?php echo esc($description, 'attr'); ?>" />
     <meta name="generator" content="ImpressPages CMS" />
 <?php foreach ($css as $key => $file) { ?>
     <link href="<?php echo $file['value']; ?>" rel="stylesheet" type="text/css" <?php
