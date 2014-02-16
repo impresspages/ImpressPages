@@ -8,25 +8,8 @@ namespace Ip\Internal\Grid\Model\Field;
 
 class Text extends \Ip\Internal\Grid\Model\Field
 {
-    protected $field = '';
-    protected $label = '';
-    protected $defaultValue = '';
 
-    public function __construct($config)
-    {
-        if (empty($config['field'])) {
-            throw new \Ip\Exception('\'field\' option required for text field');
-        }
-        $this->field = $config['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
-        }
-
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
-        }
-    }
 
     public function preview($recordData)
     {
