@@ -1,0 +1,10 @@
+// bringing global Bootstrap styles to global scope
+.modal-open {
+    .ip > .modal-open;
+}
+.modal-backdrop {
+    .ip > .modal-backdrop;
+    // Fade for backdrop
+    &.fade { .opacity(0); }
+    &.in { .opacity(.5); }
+}
