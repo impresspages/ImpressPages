@@ -32,57 +32,18 @@
                         inputName: $this.data('inputname'),
                         limit: $this.data('filelimit')
                     });
+
+                    $this.find('.ipsFiles .ipsFile .ipsRemove').on('click', removeFile);
+
                 }
             });
         },
 
-        _filesAdded : function(up, files) {
-            var $this = $(this);
-            $.each(files, function(i, file) {
-                var $file = $('#ipModFormFile_' + $this.data('ipFormRepositoryFile').uniqueNumber + '_' + file.id);
-                if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
-                    var $newFile = $this.find('.ipmFileTemplate').clone();
-                    $newFile.data('fileId', file.id);
-                    $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
-                    $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormRepositoryFile').uniqueNumber + '_' + file.id);
-                    $newFile.find('.ipmFileName').text(file.name);
-                    $newFile.find('.ipsRemove').click(function(e){
-                        var $this = $(this);
-                        var $file = $this.closest('.ipmFile');
-                        var fileId = $file.data('fileId');
-
-                        /* Seems that removeFile method is used just for files that are not started to be upload
-                        var uploader = $this.closest('.ipsFileContainer').data('ipFormRepositoryFile').uploader;
-                        var uploaderFile = uploader.getFile(fileId)
-                        uploader.removeFile(uploaderFile);
-                        */
-
-                        $file.remove();
-                    });
-                    $this.find('.ipmFiles').append($newFile);
-                }
-            });
-            up.refresh(); // Reposition Flash/Silverlight
-            up.start();
-        },
-
-        _fileUploaded : function(up, file, response) {
-            var $this = $(this);
-            var $file = $('#ipModFormFile_' + $this.data('ipFormRepositoryFile').uniqueNumber + '_' + file.id);
-            if (!$file.length) {
-                return; //file has been removed by user
-            }
-
-            var answer = jQuery.parseJSON(response.response);
-
-            var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormRepositoryFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
-            $file.append($fileInput);
-        },
 
         _getFiles : function () {
             var $this = $(this);
             var files = new Array();
-            $this.find('.ipmFiles div').each(function(){
+            $this.find('.ipsFiles div').each(function(){
 
                 var $this = $(this);
 
@@ -104,34 +65,30 @@
 
     var filesSelected = function (event, files) {
         var $this = this;
-        var $fileInputContainer = $this.find('.ipsInputContainer');
 
         for (var index in files) {
             var fileName = files[index].fileName;
-            var $newFile = $this.find('.ipmFileTemplate').clone();
-            $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
-            $newFile.find('.ipmFileName').text(fileName);
-            $newFile.find('.ipsRemove').click(function(e){
-                var $this = $(this);
-                var $file = $this.closest('.ipmFile');
-                $file.remove();
-            });
+            var $newFile = $this.find('.ipsFileTemplate').clone();
+            $newFile.removeClass('ipgHide').removeClass('ipsFileTemplate');
+            $newFile.find('.ipsFileName').text(fileName);
+            $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
+            $newFile.find('.ipsRemove').click(removeFile);
             if ($this.data('ipFormRepositoryFile').limit) {
-                if ($this.find('.ipmFiles').children().length + 1 > $this.data('ipFormRepositoryFile').limit) {
-                    if ($this.find('.ipmFiles').children().first().length == 1) {
-                        $this.find('.ipmFiles').children().first().remove();
-                    }
-                    if ($fileInputContainer.children().first().length == 1) {
-                        $fileInputContainer.children().first().remove();
+                if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormRepositoryFile').limit) {
+                    if ($this.find('.ipsFiles').children().first().length == 1) {
+                        $this.find('.ipsFiles').children().first().remove();
                     }
                 }
             }
-
-            $this.find('.ipmFiles').append($newFile);
-            var $fileInput = $('<input name="' + $this.data('ipFormRepositoryFile').inputName + '[]" type="hidden" value="' + fileName + '" />');
-            $fileInputContainer.append($fileInput);
+            $this.find('.ipsFiles').append($newFile);
 
         }
+    }
+
+    var removeFile = function(e){
+        var $this = $(this);
+        var $file = $this.closest('.ipsFile');
+        $file.remove();
     }
 
 
@@ -145,7 +102,7 @@
         }
 
     };
-
-    $('.ipsModuleForm .ipsRepositoryFileContainer').ipFormRepositoryFile();
+//
+//    $('.ipsModuleForm .ipsRepositoryFileContainer').ipFormRepositoryFile();
 
 })(ip.jQuery);
