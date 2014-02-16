@@ -36,6 +36,6 @@ class TestInstallation extends \PHPUnit_Framework_TestCase
 
         $headline = $page->find('css', '.homeHeadline');
         $this->assertNotEmpty($headline);
-        $this->assertEquals('ImpressPages theme Blank', $headline->getText());
+        $this->assertEquals('ImpressPages theme Air', $headline->getText());
     }
-} 
+}
