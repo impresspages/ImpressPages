@@ -32,7 +32,7 @@ class Actions
         $curData = $db->fetchRow($id);
         foreach ($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
-            $fieldObject->onDelete($id, $curData);
+            $fieldObject->beforeDelete($id, $curData);
         }
 
 
@@ -48,6 +48,12 @@ class Actions
         );
 
         ipDb()->execute($sql, $params);
+
+        foreach ($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterDelete($id, $curData);
+        }
+
     }
 
     public function update($id, $data)
@@ -83,6 +89,7 @@ class Actions
         $dbData = array();
         foreach($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->beforeCreate(null, $data);
             $fieldData = $fieldObject->createData($data);
             if (!is_array($fieldData)) {
                 throw new \Ip\Exception("createData method in class " . get_class($fieldObject) . " has to return array.");
@@ -101,7 +108,13 @@ class Actions
             }
         }
 
-        ipDb()->insert($this->config->rawTableName(), $dbData);
+        $recordId = ipDb()->insert($this->config->rawTableName(), $dbData);
+
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterCreate($recordId, $data);
+        }
+        return $recordId;
     }
 
     public function move($id, $targetId, $beforeOrAfter)
