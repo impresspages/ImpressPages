@@ -117,11 +117,10 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
-            $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
             $transformBig = new \Ip\Transform\None();
-            $data['imageBig'] = $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transformBig);
+            $data['imageBig'] = ipReflection($data['imageOriginal'], $desiredName, $transformBig);
 
 
 
@@ -157,7 +156,7 @@ class Controller extends \Ip\WidgetController{
                     $width,
                     $height
                 );
-                $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transform));
+                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transform));
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
@@ -176,7 +175,7 @@ class Controller extends \Ip\WidgetController{
                 );
             }
             try {
-                $data['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($data['imageOriginal'], $desiredName, $transform));
+                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transform));
             } catch (\Ip\Exception\TransformException $e) {
                 ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             }

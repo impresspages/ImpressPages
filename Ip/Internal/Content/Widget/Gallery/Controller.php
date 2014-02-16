@@ -215,7 +215,6 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
-        $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
         if (isset($data['images']) && is_array($data['images'])) {
             //loop all current images
@@ -231,7 +230,7 @@ class Controller extends \Ip\WidgetController{
 
                 try {
                     $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
-                    $curImage['imageBig'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $desiredName, $transformBig));
+                    $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     $curImage['imageBig'] = '';
                     //do nothing
@@ -262,7 +261,7 @@ class Controller extends \Ip\WidgetController{
                         );
 
                     }
-                    $curImage['imageSmall'] = ipFileUrl('file/' . $reflectionService->getReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
+                    $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     //do nothing
                 } catch (\Ip\Internal\Repository\Exception $e) {
