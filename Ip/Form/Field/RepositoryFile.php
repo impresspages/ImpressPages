@@ -33,7 +33,8 @@ class RepositoryFile extends Field
             'attributesStr' => $this->getAttributesStr($doctype),
             'classes' => implode(' ',$this->getClasses()),
             'inputName' => $this->getName(),
-            'fileLimit' => $this->fileLimit
+            'fileLimit' => $this->fileLimit,
+            'value' => $this->getValue()
         );
 
         $viewFile = 'adminView/repositoryFile.php';

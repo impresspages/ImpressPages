@@ -6,27 +6,34 @@
 namespace Ip\Internal\Grid\Model\Field;
 
 
-class File extends \Ip\Internal\Grid\Model\Field
+class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 {
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
+    protected $repositoryBindKey = 'Grid';
 
-    public function __construct($config)
+    public function __construct($fieldFieldConfig, $wholeConfig)
     {
-        if (empty($config['field'])) {
+        if (empty($fieldFieldConfig['field'])) {
             throw new \Ip\Exception('\'field\' option required for text field');
         }
-        $this->field = $config['field'];
+        $this->field = $fieldFieldConfig['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
+        if (!empty($fieldFieldConfig['label'])) {
+            $this->label = $fieldFieldConfig['label'];
+        }
+
+        if (!empty($fieldFieldConfig['repositoryBindKey'])) {
+            $this->repositoryBindKey = $fieldFieldConfig['repositoryBindKey'];
+        } else {
+            $this->repositoryBindKey = 'Table_' . $wholeConfig['table'] . '_' . $this->field;
         }
 
         $this->fileLimit = 1;
 
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
+        if (!empty($fieldFieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
     }
 
@@ -71,7 +78,11 @@ class File extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array($this->field => $postData[$this->field]);
+        $field = new \Ip\Form\Field\RepositoryFile(array(
+            'label' => $this->label,
+            'name' => $this->field
+        ));
+        return array ($this->field => $field->getValueAsString($postData, $this->field));
     }
 
 
@@ -106,7 +117,20 @@ class File extends \Ip\Internal\Grid\Model\Field
 
     public function afterUpdate($recordId, $oldData, $newData)
     {
-        //do nothing by default
+        if (!isset($oldData[$this->field])) {
+            $oldData[$this->field] = '';
+        }
+        if (!isset($newData[$this->field])) {
+            $newData[$this->field] = '';
+        }
+
+        if (!empty($oldData[$this->field]) && $oldData[$this->field] != $newData[$this->field]) {
+            \Ip\Internal\Repository\Model::unbindFile($oldData[$this->field], $this->repositoryBindKey, $recordId);
+        }
+
+        if (!empty($newData[$this->field]) && $oldData[$this->field] != $newData[$this->field]) {
+            \Ip\Internal\Repository\Model::bindFile($newData[$this->field][0], $this->repositoryBindKey, $recordId);
+        }
     }
 
 }

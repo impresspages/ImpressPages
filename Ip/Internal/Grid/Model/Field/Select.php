@@ -13,23 +13,23 @@ class Select extends \Ip\Internal\Grid\Model\Field
     protected $defaultValue = '';
     protected $values = array();
 
-    public function __construct($config)
+    public function __construct($fieldFieldConfig, $wholeConfig)
     {
-        if (empty($config['field'])) {
+        if (empty($fieldFieldConfig['field'])) {
             throw new \Ip\Exception('\'field\' option required for text field');
         }
-        $this->field = $config['field'];
+        $this->field = $fieldFieldConfig['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
+        if (!empty($fieldFieldConfig['label'])) {
+            $this->label = $fieldFieldConfig['label'];
         }
 
-        if (!empty($config['values'])) {
-            $this->values = $config['values'];
+        if (!empty($fieldFieldConfig['values'])) {
+            $this->values = $fieldFieldConfig['values'];
         }
 
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
+        if (!empty($fieldFieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
     }
 

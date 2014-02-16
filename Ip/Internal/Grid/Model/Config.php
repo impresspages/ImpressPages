@@ -145,9 +145,14 @@ class Config
         }
         $class = '\\Ip\\Internal\\Grid\\Model\\Field\\' . $field['type'];
         if (!class_exists($class)) {
-            $class = $field['type']; //type is full class name
+            if (class_exists($field['type'])) {
+                $class = $field['type']; //type is full class name
+            } else {
+                throw new \Ip\Exception('Cass doesn\'t exist "' . $field['type'] . '"');
+            }
+
         }
-        $fieldObject = new $class($field);
+        $fieldObject = new $class($field, $this->config);
         return $fieldObject;
     }
 
