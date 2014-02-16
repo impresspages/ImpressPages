@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <div id="ipWidgetImageEditPopup" class="modal">
+    <div id="ipWidgetImageEditPopup" class="modal"><?php /*Fade breaks image management*/?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
