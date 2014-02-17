@@ -60,7 +60,7 @@ return array(
         'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
     ),
 
-    'SERVICES' => array(
+    'services' => array(
         'pageAssets' => 'Plugin\\Install\\PageAssets',
     )
 );
