@@ -12,25 +12,29 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     protected $label = '';
     protected $defaultValue = '';
 
-    public function __construct($config)
+    public function __construct($fieldConfig, $wholeConfig)
     {
-        if (empty($config['field'])) {
+        if (empty($fieldConfig['field'])) {
             throw new \Ip\Exception('\'field\' option required for text field');
         }
-        $this->field = $config['field'];
+        $this->field = $fieldConfig['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
+        if (!empty($fieldConfig['label'])) {
+            $this->label = $fieldConfig['label'];
         }
 
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
+        if (!empty($fieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldConfig['defaultValue'];
         }
     }
 
     public function preview($recordData)
     {
-        return esc($recordData[$this->field]);
+        if (!empty($recordData[$this->field])) {
+            return __('Yes', 'ipAdmin');
+        } else {
+            return __('No', 'ipAdmin');
+        }
     }
 
     public function createField()
@@ -45,6 +49,7 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
+        return array($this->field => !empty($postData[$this->field]));
     }
 
     public function updateField($curData)
@@ -63,11 +68,38 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     }
 
 
-    public function searchField()
+    public function searchField($searchVariables)
     {
+        $values = array(
+            array(null, ''),
+            array('1', __('Yes', 'ipAdmin', false)),
+            array('0', __('No', 'ipAdmin', false))
+
+        );
+
+
+        $field = new \Ip\Form\Field\Select(array(
+            'label' => $this->label,
+            'name' => $this->field,
+            'values' => $values,
+            'value' => null
+        ));
+        if (isset($searchVariables[$this->field])) {
+            $field->setValue($searchVariables[$this->field]);
+        }
+        return $field;
+
     }
 
-    public function searchQuery($postData)
+    public function searchQuery($searchVariables)
     {
+        if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
+            if ($searchVariables[$this->field]) {
+                return $this->field;
+            } else {
+                return 'not '.$this->field;
+            }
+
+        }
     }
 }

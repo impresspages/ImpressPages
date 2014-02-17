@@ -34,6 +34,7 @@ class ServiceLocator
 
     protected static $serviceClasses = array(
         'db' => '\Ip\Db',
+        'reflection' => '\Ip\Reflection',
         'options' => '\Ip\Options',
         'storage' => '\Ip\Storage',
         'log' => '\Ip\Internal\Log\Logger',

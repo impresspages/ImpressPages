@@ -1,11 +1,8 @@
 <div class="ip">
-    <div class="ipsWidgetControls ipAdminWidgetControls">
-        <?php if (!empty($optionsMenu)) { ?>
-            <div class="btn-group ipaButton">
-                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"><?php _e('Settings', 'ipAdmin') ?></span>
-                    <span class="sr-only"></span>
-                </button>
+    <div class="ipAdminWidgetControls ipsWidgetControls">
+        <div class="_container clearfix">
+            <?php if (!empty($optionsMenu)) { ?>
+                <button class="btn btn-controls btn-xs _settings" data-toggle="dropdown" title="<?php _e('Settings', 'ipAdmin'); ?>"><i class="fa fa-cog"></i></button>
                 <ul class="dropdown-menu" role="menu">
                     <?php foreach($optionsMenu as $menuItem) { ?>
                         <li>
@@ -20,10 +17,10 @@
                                 href="#"><?php echo esc($menuItem['title']) ?></a>
                         </li>
                     <?php } ?>
-                </ul>
-            </div>
-        <?php } ?>
-        <a href="#" class="ipaButton ipActionWidgetMove"><span><?php _e('Move', 'ipAdmin') ?></span></a>
-        <a href="#" class="ipaButton ipActionWidgetDelete"><span><?php _e('Delete', 'ipAdmin') ?></span></a>
+            </ul>
+            <?php } ?>
+            <button class="btn btn-controls btn-xs _drag ipsWidgetDrag" title="<?php _e('Drag', 'ipAdmin'); ?>">&nbsp;</button>
+            <button class="btn btn-controls btn-xs _delete ipsWidgetDelete" title="<?php _e('Delete', 'ipAdmin'); ?>"><i class="fa fa-trash-o"></i></button>
+        </div>
     </div>
 </div>

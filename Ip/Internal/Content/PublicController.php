@@ -92,11 +92,14 @@ class PublicController extends \Ip\Controller
             ipAddJs('Ip/Internal/Content/Widget/Columns/assets/Columns.js');
             ipAddJs('Ip/Internal/Content/Widget/Faq/assets/Faq.js');
             ipAddJs('Ip/Internal/Content/Widget/File/assets/File.js');
+            ipAddJs('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFile.js');
+            ipAddJs('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFileContainer.js');
             ipAddJs('Ip/Internal/Content/Widget/Form/assets/Form.js');
             ipAddJs('Ip/Internal/Content/Widget/Form/assets/FormContainer.js');
             ipAddJs('Ip/Internal/Content/Widget/Form/assets/FormField.js');
             ipAddJs('Ip/Internal/Content/Widget/Form/assets/FormOptions.js');
             ipAddJs('Ip/Internal/Content/Widget/Html/assets/Html.js');
+            ipAddJs('Ip/Internal/Content/Widget/Video/assets/Video.js');
             ipAddJs('Ip/Internal/Content/Widget/Image/assets/Image.js');
             ipAddJs('Ip/Internal/Content/Widget/Gallery/assets/Gallery.js');
             ipAddJs('Ip/Internal/Content/Widget/Text/assets/Text.js');
@@ -106,6 +109,10 @@ class PublicController extends \Ip\Controller
         } else {
             ipAddJs('Ip/Internal/Content/assets/management.min.js');
         }
+
+        ipAddJs('Ip/Internal/Content/assets/jstree/jstree.js');
+        ipAddJs('Ip/Internal/Content/assets/jstree/jstree.wholerow.js');
+
 
 
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');

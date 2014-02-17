@@ -1,59 +1,41 @@
 .ipAdminWidgetControls {
-    border: 1px solid transparent;
-    float: left;
-    max-height: 10px;
-    margin: -10px 0 0 -1px;
-    position: absolute;
-}
-.ipAdminWidgetControls .ipaButton {
-    background: #3b3b3b;
-    background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
-    display: block;
-    float: left;
-    font-weight: normal;
-    padding: 2px 0;
-    text-decoration: none;
-    visibility: hidden;
-}
-.ipAdminWidgetControls .ipaButton:hover {
-    background: #2e2e2e;
-}
-.ipAdminWidgetControls .ipaButton span {
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAACKCAYAAACq5Wo+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABN1JREFUeNrsmVtoE00UgGejDRTFaLRYHxSKQgv+YH3zQSpS0SiCiJc3FXzriw+FQiQQKLRUAgURjJcHQUEEEUQUqYi3JxGFisbbUyE2pv/vb02kgmko6znbme1kLzM701Ur7IHDNju7355z5sycmY5hmiYJU2IkZFn4QJQ8qKmoeYy9lxr4gGrHGIaBLxlebYt13QJoC1x66M9z8IHPrM1UFeZ2Nps1UWnYWpinSrByuWwBEcSEhxKNDjH7+/tdH6LQ7GJqojRmpVKJDA4OktbWVgIvu9qr1ap1CeTy+Pi42dPTYw4MDHi29/b2MpfjUqACrDlQp4hgfX19DTApsFarmfF4XAZbyo8UqYVe7el02hOmBaQw1ITXWJbONhBDa+wypemBL1c9h2TYk0P401dUUyKgnhQ08rAgLKNnnmxWsuDEtlHfkRKbRxntAH1ItSOMGN5IHWvdjop/M6hyof82WbeuANq45/gadnvjyOUJhB40aJCVBEEAbLh391KZAPSRZWGQTqn+Xyf3rkyQZSubXDCUH99n8FIJ5DKDLW9pIjuPuGE3z5bI4xuf38CfR2NhwB5d/w9hXZBKU1KgCHbrfANsUpo2M3WTPL37xRf24JoF62YwKXBRk2FBnXL74ice9u+8RgrC7l+1GLudsECJvXXfKmvs8r9pGf3oW0bDnBzCn76iMrrwgNI8hElzHd0xTdId05TwBb/up73fhiutoaEhfgmcFL4jgG1AQC6Xs1evmUymYRumChwG8d0xaVuYSCRcm8bAFmJ8QDMsTrgwdwL9nnUB6U4yz+IUAJj3iilrTLD9L+earQ6XG+5zW9sED0zj/kNX6N4lze9T0DXt0ZFMJllMbQtxNORZmqi4jO9Ql9ucnWInctBO4WAb/NIGh1rO/poYiAYM8zBZYrcLErtdZ6ScBnH1KN7DNh1gu3NyYPHVspCfvhDEwdpE70irHkywbY5/SY0Jn4/K6F8IhF7eAvoU9A7oailRkodduNIa2k/Mvp2zqy7Q9bpltBsBuQPw88KsZvbY0A4d4IvhQ3Mwptm9FvShtoWJ5jkYW2yKLIw5OmA96H28QuMDXJh7xPwf0Pf8s569TLentyBOO/Dq24sX7aW1/Sy/X2burUVXMD6ca3O144L/fRpTDMNae7aBL4ykU2QXpIeWnLxJyKkRcg9Yqbky2qw/OpJLrMsK3uUtaDZLExWX8R3qcpezjNqJzPYhGBdn2sCVPV/gYN1+ZRSH2jP7a17ARgNe8DBZYqcEiZ3SGSmjpw+7hx7ewzYdYMo5ObD4alnIT18I4mBdWtOXR0c9k8Gi3WgEDAsIk20e1KSaD+Ww1W8bITql0DpslZ2j/LIYnuOPiESKzwZaLIHU8MjNTyqVCj5UkcWPXzkUQYTnonhRSZvQgSX6kqfQjxX/qIVCYOgW6gCFMVRxmXhttJ2CbcTncNW36kmONPNBYFHVi4ALuYwWuDJa0IG6TivMzs2WqpxSNJbRzmDnKcbL0d9fRlUPaAqBJgfsgNqmThI3vL2pzsyQ5a9f4UwWC9rL9eL0tP8EW7dObKdV0maqWJcCp1SAX0vTdf+aMmv9FxVgOYCFEyrAsaLIwtmPjakAP4gspC6/UwG+FcWQuvxWBfg8QAxfBq7LbMs/nxESldHw5KcAAwDML0MCz/XTvgAAAABJRU5ErkJggg==) no-repeat; // source: img/icons_controls.png
-    border-left: 1px dotted #000;
-    color: #fff;
-    display: block;
-    float: left;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size: 11px;
-    height: 10px;
-    line-height: 10px;
-    text-decoration: none;
-}
-.ipAdminWidgetControls .ipaButton:first-child span {
-    border-left: none;
-}
-.ipAdminWidgetControls .ipActionWidgetManage span {
-    background-position: 5px 0;
-    padding: 0 9px 0 28px;
-}
-.ipAdminWidgetControls .ipActionWidgetManage:hover span {
-    background-position: 5px -23px;
-}
-.ipAdminWidgetControls .ipActionWidgetMove span {
-    background-position: center -46px;
-    cursor: move;
-    overflow: hidden;
-    text-indent: -999px;
-    width: 50px;
-}
-.ipAdminWidgetControls .ipActionWidgetMove:hover span {
-    background-position: center -69px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete span {
-    background-position: 7px -92px;
-    padding: 0 9px 0 26px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete:hover span {
-    background-position: 7px -115px;
+    margin: 0 -(@admin-widgetControls-height / 2);
+    position: relative;
+    width: auto; // to expand more than 100% with negative margins
+    z-index: @admin-widgetControls-zIndex;
+
+    ._container {
+        margin-top: -(@admin-widgetControls-height / 2);
+        min-height: @admin-widgetControls-height;
+        position: absolute; // removes container out of flow
+        width: 100%; // stretches to the edges of container
+
+        * {
+            visibility: hidden;
+        }
+
+        &:hover * {
+            visibility: visible;
+        }
+    }
+
+    ._settings {
+        float: left;
+    }
+    ._drag {
+        background-image: url(data:image/gif;base64,R0lGODlhEQAHAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAARAAcAAAIUTISGomnnVmNw2Yuz3nn6+oCiFBQAOw==); // source: img/icon_drag2.gif
+        background-position: center center;
+        background-repeat: no-repeat;
+        cursor: move;
+        height: 15px;
+        margin-left: -32px; // centering
+        margin-top: floor((@admin-widgetControls-height - 15)/2);
+        left: 50%; // centering
+        overflow: hidden;
+        position: absolute; // centering
+        width: 64px;
+    }
+    ._delete {
+        float: right;
+    }
 }

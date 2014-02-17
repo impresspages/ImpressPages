@@ -22,7 +22,7 @@ function ipHomeUrl()
 
 /**
  * retrieve a page tree (in jstree format) from backend
- * 
+ *
  * @returns promise
  */
 function ipGetPageTree()
@@ -30,7 +30,7 @@ function ipGetPageTree()
     var data = {};
     data.aa = 'Content.getPageTree';
     data.securityToken = ip.securityToken;
-    
+
     return $.ajax({
         type: 'GET',
         url: ip.baseUrl,
@@ -41,15 +41,15 @@ function ipGetPageTree()
 
 /**
  * show the "browse link" modal, and call callback_function with result
- * 
+ *
  * @param {Object} callback_function
  */
 
-function ipBrowseLink(callback_function) {
-    var $=ip.$,
+ipBrowseLink = function(callback_function) {
+    var $=ip.jQuery,
         $modal=$('#ipBrowseLinkModal'),
         $tree=$('.ipSitemap', $modal);
-    
+
     ipGetPageTree()
       .success(function (data) {
          // init tree
@@ -59,14 +59,14 @@ function ipBrowseLink(callback_function) {
                     animation: 0,
                     multiple: false,
                     themes: {
-                        dots: false,
+                        dots: false
                     }
                 },
-                plugins: ['wholerow']                    
+                plugins: ['wholerow']
          });
          $tree
             .on('select_node.jstree', function () {
-                 $('.btn-primary', $modal).removeClass('disabled');     
+                 $('.btn-primary', $modal).removeClass('disabled');
             });
          // show modal
          $modal
@@ -83,3 +83,4 @@ function ipBrowseLink(callback_function) {
             });
       });
 }
+

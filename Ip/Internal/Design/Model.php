@@ -31,70 +31,61 @@ class Model
 
     protected function getThemePluginDir()
     {
-        return ipThemeFile('plugins/');
+        return ipThemeFile('Plugin/');
     }
 
 
 
     public function getThemePlugins()
     {
-        //TODOXX refactor to new plugins #130
-        if (!is_dir(ipFile($this->getThemePluginDir()))) {
+        if (!is_dir($this->getThemePluginDir())) {
             return array();
         }
 
         $pluginConfigs = array();
 
-        $groups = scandir($this->getThemePluginDir());
-        foreach ($groups as $group) {
-            $groupDir = ipFile($this->getThemePluginDir() . $group);
-            if (is_dir($groupDir) && $group[0] != '.') {//don't add slash before is_dir check as it throws open basedir error
-                $groupDir .= '/';
-                $plugins = scandir($groupDir);
-                foreach ($plugins as $plugin) {
-                    $pluginDir = $groupDir . $plugin;
-                    if (is_dir($pluginDir) && $plugin[0] != '.') { //don't add slash before is_dir check as it throws open basedir error
-                        $pluginDir .= '/';
-                        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($pluginDir);
-                        if ($pluginConfiguration) {
-                            $pluginConfigs[] = $pluginConfiguration;
-                        }
-                    }
+        $plugins = scandir($this->getThemePluginDir());
+        foreach ($plugins as $plugin) {
+            $pluginDir = ipThemeFile('Plugin/' . $plugin);
+            if (is_dir($pluginDir) && $plugin[0] != '.' && $plugin[0] != '..') { //don't add slash before is_dir check as it throws open basedir error
+                $pluginDir .= '/';
+                $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($pluginDir);
+                if ($pluginConfiguration) {
+                    $pluginConfigs[] = $pluginConfiguration;
                 }
             }
         }
+
         return $pluginConfigs;
 
     }
 
     public function installThemePlugin($pluginName)
     {
-        //refactor to new plugins
-        // TODOXX Plugin dir #130
         $toDir = ipFile('Plugin/' . $pluginName . '/');
-        $fromDir = ipFile('Plugin/' . $pluginName . '/');
+        $fromDir = ipThemeFile('Plugin/' . $pluginName . '/');
 
         if (is_dir($toDir)) {
-            throw new \Exception('This plugin has been already installed');
+            throw new \Ip\Exception('This plugin has been already installed');
         }
 
         if (!is_dir($fromDir)) {
-            throw new \Exception('This plugin has been already installed.');
+            throw new \Ip\Exception('Plugin is missing.');
         }
 
-        $pluginConfiguration = \Modules\developer\modules\Service::parsePluginConfig($fromDir);
+        $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($fromDir);
 
         if (!$pluginConfiguration) {
-            throw new \Exception('Can\'t read plugin configuration file.');
+            throw new \Ip\Exception('Can\'t read plugin configuration file.');
         }
 
         if (!is_writable(ipFile('Plugin/'))) {
-            throw new \Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
+            throw new \Ip\Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
         }
 
         $helper = Helper::instance();
         $helper->cpDir($fromDir, $toDir);
-        \Modules\developer\modules\Service::installPlugin($pluginName);
+        \Ip\Internal\Plugins\Service::activatePlugin($pluginName);
     }
 
     /**
@@ -184,24 +175,9 @@ class Model
 
 
         \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
-        //TODOXX new way of doing. #130
-//        $configModel = new \Ip\Internal\Config\Model();
-//        $configModel->changeConfigurationConstantValue('THEME', ipConfig()->theme(), $theme->getName());
-
-
-        if (ipFile('Theme/' . $themeName . '/') != $theme->getPath()) {
-            // TODOXX add theme directory to override list #130
-        }
-//        $configModel->changeConfigurationConstantValue('THEME_DIR', ipConfig()->getRaw('THEME_DIR'), $theme->getPath());
-//        $configModel->changeConfigurationConstantValue('DEFAULT_DOCTYPE', ipConfig()->getRaw('DEFAULT_DOCTYPE'), $theme->getDoctype());
 
 
         $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
-        if (file_exists($parametersFile)) {
-            //TODOXX new type of parameters #130
-
-//            \Modules\developer\localization\Manager::saveParameters($parametersFile);
-        }
 
         $service = Service::instance();
         $service->saveWidgetOptions($theme);
@@ -242,11 +218,6 @@ class Model
      */
     public function getTheme($name, $dir = null)
     {
-        if (!$dir) {
-            $currentThemeDir = ipFile('Theme/');
-            // TODOXX add theme override to config #130
-            // ipConfig()->_changeCore('THEME_DIR', $dir);
-        }
 
         $metadata = new ThemeMetadata();
         $metadata->setName($name);

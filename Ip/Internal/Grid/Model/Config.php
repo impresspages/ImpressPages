@@ -91,6 +91,24 @@ class Config
         return $this->config['afterUpdate'];
     }
 
+
+    public function beforeCreate()
+    {
+        if (empty($this->config['beforeCreate'])) {
+            return FALSE;
+        }
+        return $this->config['beforeCreate'];
+    }
+
+    public function afterCreate()
+    {
+        if (empty($this->config['afterCreate'])) {
+            return FALSE;
+        }
+        return $this->config['afterCreate'];
+    }
+
+
     public function beforeMove()
     {
         if (empty($this->config['beforeMove'])) {
@@ -127,9 +145,14 @@ class Config
         }
         $class = '\\Ip\\Internal\\Grid\\Model\\Field\\' . $field['type'];
         if (!class_exists($class)) {
-            $class = $field['type']; //type is full class name
+            if (class_exists($field['type'])) {
+                $class = $field['type']; //type is full class name
+            } else {
+                throw new \Ip\Exception('Cass doesn\'t exist "' . $field['type'] . '"');
+            }
+
         }
-        $fieldObject = new $class($field);
+        $fieldObject = new $class($field, $this->config);
         return $fieldObject;
     }
 
@@ -138,9 +161,9 @@ class Config
         return $this->config['fields'];
     }
 
-    public function allowInsert()
+    public function allowCreate()
     {
-        return !array_key_exists('allowInsert', $this->config) || $this->config['allowInsert'];
+        return !array_key_exists('allowCreate', $this->config) || $this->config['allowCreate'];
     }
 
     public function allowSearch()
@@ -190,6 +213,15 @@ class Config
             return FALSE;
         }
         return $this->config['sortField'];
+    }
+
+    public function createPosition()
+    {
+        if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'bottom') {
+            return 'bottom';
+        }
+        return 'top';
+
     }
 
     protected function getTableFields($tableName)

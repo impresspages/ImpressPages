@@ -1,47 +1,90 @@
-
-
-.languageList {
-    float: left;
-    padding: 0;
-    li {
-      list-style: none;
-    }
-}
-
-
-.zoneList {
-    float: left;
-    padding: 0;
-
-    .title {
-      display: block;
+.ipAdminPages {
+    ._container {
+        float: left;
+        padding: (@grid-gutter-width / 2);
+        height: 100%;
     }
 
-    li {
-      list-style: none;
-      clear:both;
-      display: block;
+    ._languages {
+        background-color: #2f313f; // todox: make variable
+        padding-right: 0;
+        width:  (@grid-gutter-width * 1.5);
+
+        ul {
+            list-style: none;
+
+            a {
+                color: #97989f; // todox: make variable
+                display: block;
+                padding: (@grid-gutter-width / 4);
+                overflow: hidden;
+
+                &:hover {
+                    color: #fff; // todox: make variable
+                    text-decoration: none;
+                }
+            }
+
+            .active a {
+                background-color: #eaeaea; // todox: make variable
+                color: #000; // todox: make variable
+                font-weight: bold;
+            }
+        }
     }
-}
 
-.tree {
-  float: left;
+    ._zones {
+        background-color: #eaeaea; // todox: make variable
+        width:  (@grid-gutter-width * 5);
 
-  ul.actions {
-    margin: 0;
-    padding: 0;
-  }
 
-}
+        ul {
+            list-style: none;
 
-.navBlock {
-  float: left;
-  margin-left: 20px;
-  background-color: #ccc;
-  border-left: 3px solid #1d1e1e;
-  padding: 10px;
-}
+            li {
+                position: relative; // scope for control button
 
-.navBlock:first-child {
-  margin-left: 0;
+                &:hover ._control {
+                    visibility: visible;
+                }
+            }
+
+            a {
+                color: #46495e; // todox: make variable
+                display: block;
+                margin: 0 -(@grid-gutter-width / 2);
+                padding: (@grid-gutter-width / 4)  (@grid-gutter-width / 2);
+
+                &:hover {
+                    color: #000; // todox: make variable
+                    text-decoration: none;
+                }
+            }
+
+            .active a {
+                background-color: #f4f4f4; // todox: make variable
+                color: #000; // todox: make variable
+                font-weight: bold;
+            }
+
+            ._control {
+                margin-top: -15px; // half .btn-sm
+                position: absolute;
+                right: 0;
+                top: 50%;
+                visibility: hidden;
+                z-index: 1; // putting on top
+            }
+        }
+    }
+
+    ._pages {
+        background-color: #f4f4f4; // todox: make variable
+        width:  (@grid-gutter-width * 5);
+    }
+
+    ._properties {
+        background-color: #fff; // todox: make variable
+        padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+    }
 }

@@ -49,7 +49,6 @@ class Image
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
-                $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
                 $transform = new \Ip\Transform\ImageCrop(
                     $this->getX1(),
                     $this->getY1(),
@@ -58,7 +57,7 @@ class Image
                     $this->getRequiredWidth(),
                     $this->getRequiredHeight()
                 );
-                $this->image = ipFileUrl($reflectionService->getReflection($this->getImageOrig(), null, $transform));
+                $this->image = ipFileUrl(ipReflection($this->getImageOrig(), null, $transform));
 
 
             }

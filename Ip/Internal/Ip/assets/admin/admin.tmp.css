@@ -664,8 +664,8 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .container:before,
 .container:after {
@@ -688,8 +688,8 @@ pre code {
   clear: both;
 }
 .row {
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .row:before,
 .row:after {
@@ -714,8 +714,8 @@ pre code {
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11 {
   float: left;
@@ -875,7 +875,7 @@ pre code {
 }
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    width: 760px;
   }
   .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11 {
     float: left;
@@ -1036,7 +1036,7 @@ pre code {
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 980px;
   }
   .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11 {
     float: left;
@@ -1197,7 +1197,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1180px;
   }
   .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11 {
     float: left;
@@ -1862,8 +1862,8 @@ textarea.input-lg {
   padding-top: 7px;
 }
 .form-horizontal .form-group {
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .form-horizontal .form-group:before,
 .form-horizontal .form-group:after {
@@ -3598,7 +3598,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 40px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -3655,8 +3655,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-collapse {
   max-height: 340px;
   overflow-x: visible;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 20px;
+  padding-left: 20px;
   border-top: 1px solid transparent;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   -webkit-overflow-scrolling: touch;
@@ -3700,10 +3700,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
     overflow-y: auto;
   }
   .navbar-collapse .navbar-nav.navbar-left:first-child {
-    margin-left: -15px;
+    margin-left: -20px;
   }
   .navbar-collapse .navbar-nav.navbar-right:last-child {
-    margin-right: -15px;
+    margin-right: -20px;
   }
   .navbar-collapse .navbar-text:last-child {
     margin-right: 0;
@@ -3711,8 +3711,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .container > .navbar-header,
 .container > .navbar-collapse {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -20px;
+  margin-left: -20px;
 }
 @media (min-width: 768px) {
   .container > .navbar-header,
@@ -3754,7 +3754,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  padding: 10px 20px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -3764,16 +3764,16 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand {
-    margin-left: -15px;
+    margin-left: -20px;
   }
 }
 .navbar-toggle {
   position: relative;
   float: right;
-  margin-right: 15px;
+  margin-right: 20px;
   padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
   background-color: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -3793,7 +3793,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  margin: 5px -20px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -3831,8 +3831,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 @media (min-width: 768px) {
@@ -3846,15 +3846,15 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-form {
-  margin-left: -15px;
-  margin-right: -15px;
-  padding: 10px 15px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding: 10px 20px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -3910,18 +3910,18 @@ textarea.input-group-sm > .input-group-btn > .btn {
   right: 0;
 }
 .navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 .navbar-text {
   float: left;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 @media (min-width: 768px) {
   .navbar-text {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 .navbar-default {
@@ -4023,8 +4023,8 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #333333;
 }
 .navbar-inverse {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #000000;
+  border-color: #000000;
 }
 .navbar-inverse .navbar-brand {
   color: #999999;
@@ -4049,7 +4049,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: #000000;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
@@ -4069,12 +4069,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #101010;
+  border-color: #000000;
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #080808;
+  background-color: #000000;
   color: #ffffff;
 }
 .navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
@@ -4093,7 +4093,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #080808;
+    border-color: #000000;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #999999;
@@ -4107,7 +4107,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #080808;
+    background-color: #000000;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -7398,6 +7398,43 @@ td.visible-print {
   font-size: inherit;
   text-align: inherit;
 }
+.btn-controls {
+  color: #e2e2e2;
+  background-color: #46495e;
+  border-color: #ffffff;
+}
+.btn-controls:hover,
+.btn-controls:focus,
+.btn-controls:active,
+.btn-controls.active,
+.open .dropdown-toggle.btn-controls {
+  color: #e2e2e2;
+  background-color: #353747;
+  border-color: #e0e0e0;
+}
+.btn-controls:active,
+.btn-controls.active,
+.open .dropdown-toggle.btn-controls {
+  background-image: none;
+}
+.btn-controls.disabled,
+.btn-controls[disabled],
+fieldset[disabled] .btn-controls,
+.btn-controls.disabled:hover,
+.btn-controls[disabled]:hover,
+fieldset[disabled] .btn-controls:hover,
+.btn-controls.disabled:focus,
+.btn-controls[disabled]:focus,
+fieldset[disabled] .btn-controls:focus,
+.btn-controls.disabled:active,
+.btn-controls[disabled]:active,
+fieldset[disabled] .btn-controls:active,
+.btn-controls.disabled.active,
+.btn-controls[disabled].active,
+fieldset[disabled] .btn-controls.active {
+  background-color: #46495e;
+  border-color: #ffffff;
+}
 .help-hint {
   background-color: #cccccc;
   color: #fff;
@@ -7460,179 +7497,277 @@ a.list-group-item.success:hover .list-group-item-text,
 a.list-group-item.success:focus .list-group-item-text {
   color: #ffffff;
 }
-.ipAdminToolbar {
-  background-color: #2f313f;
-  border-bottom: 1px solid #000;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 10000;
+.ipAdminNavbar {
+  border: 0;
 }
-.ipAdminToolbar .ipmItemMenu {
-  background-color: #f90;
+.ipAdminNavbar ._toggle {
+  border: 0;
+  border-radius: 0;
+  display: inline-block;
   float: left;
-  display: block;
-  height: 30px;
-  margin: 0 15px;
-  padding: 10px;
-  position: relative;
-  width: 34px;
+  height: 40px;
+  margin: 0 0 0 20px;
+  width: 40px;
 }
-.ipAdminToolbar .ipmItemMenu .ipmMenuBar {
-  background-color: #000;
-  display: block;
-  height: 2px;
-  margin-top: 3px;
+.ipAdminNavbar ._toggle .icon-bar {
+  border-radius: 0;
+  width: 100%;
 }
-.ipAdminToolbar .ipmItemMenu .ipmMenuBar:first-child {
+.ipAdminNavbar .nav._active {
+  margin-left: 20px;
+}
+.ipAdminNavbar .nav._active > li > a {
+  color: #ffffff;
+  font-size: 16px;
+}
+.ipAdminNavbar ._menu {
+  background-color: #2f313f;
+  -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+  display: none;
+  left: 10px;
+  position: absolute;
+  top: 0;
+  z-index: 1040;
+}
+.ipAdminNavbar ._menu .nav {
+  border-top: 1px solid #000000;
+}
+.ipAdminNavbar ._menu .nav > li {
+  border-bottom: 1px solid #000000;
+}
+.ipAdminNavbar ._menu .nav > li > a {
+  background-color: #262732;
+  color: #999999;
+  padding: 8px 80px 8px 10px;
+  white-space: nowrap;
+}
+.ipAdminNavbar ._menu .nav > li > a:hover {
+  background-color: transparent;
+  color: #ffffff;
+}
+.ipAdminNavbar ._menu .nav > .active > a {
+  background-color: #1e1f28;
+  color: #019ad2;
+}
+.ipAdminNavbar ._menu .nav:last-child {
+  border-top: 0;
+}
+.ipAdminNavbar ._menu .nav:last-child > li {
+  border-bottom-color: #17181f;
+}
+.ipAdminNavbar ._menu .nav:last-child > li > a {
+  background-color: transparent;
+}
+.ipAdminNavbar ._menu .nav-stacked > li + li {
   margin-top: 0;
 }
-.ipAdminToolbar .ipmItemCurrent {
-  background-color: #fff;
-  color: #000;
-  display: block;
-  float: left;
+.ipAdminNavbar ._menu .fa-fw {
+  width: 40px;
+}
+.ipAdminNavbar ._menuHeader {
+  background-color: #fd9827;
+  height: 40px;
+  white-space: nowrap;
+}
+.ipAdminNavbar ._menuHeader ._toggle {
+  cursor: default;
+  margin-left: 10px;
+}
+.ipAdminNavbar ._menuHeader ._toggle:hover {
+  background-color: transparent;
+}
+.ipAdminNavbar ._menuHeader .navbar-text {
+  color: #ffffff;
+  display: inline-block;
+  font-size: 16px;
   font-weight: bold;
-  height: 31px;
-  /* 1px more to hide container border */
-  line-height: 30px;
-  margin-bottom: -1px;
-  /* 1px more to hide container border */
-  padding: 0 15px;
-  text-decoration: none;
+  float: none;
+  margin-left: 0;
+}
+.ipAdminNavbar ._menuContainer {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.ipAdminNavbar ._menuContainer nav {
+  margin-bottom: 40px;
+}
+/*.ipAdminToolbar {
+    background-color: #2f313f;
+    border-bottom: 1px solid #000;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: @admin-toolbar-zIndex;
+}
+.ipAdminToolbar .ipmItemMenu {
+    background-color: #f90;
+    float: left;
+    display: block;
+    height: 30px;
+    margin: 0 15px;
+    padding: 10px;
+    position: relative;
+    width: 34px;
+}
+.ipAdminToolbar .ipmItemMenu .ipmMenuBar {
+    background-color: #000;
+    display: block;
+    height: 2px;
+    margin-top: 3px;
+}
+.ipAdminToolbar .ipmItemMenu .ipmMenuBar:first-child {
+    margin-top: 0;
+}
+.ipAdminToolbar .ipmItemCurrent {
+    background-color: #fff;
+    color: #000;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 31px; // 1px more to hide container border
+    line-height: 30px;
+    margin-bottom: -1px; // 1px more to hide container border
+    padding: 0 15px;
+    text-decoration: none;
 }
 .ipAdminToolbar .ipmAdminAction {
-  color: #c0c0c0;
-  float: right;
-  font-size: 12px;
-  line-height: 30px;
-  margin-right: 15px;
-  text-decoration: none;
-  text-shadow: 1px 1px #000;
+    color: #c0c0c0;
+    float: right;
+    font-size: 12px;
+    line-height: 30px;
+    margin-right: 15px;
+    text-decoration: none;
+    text-shadow: 1px 1px #000;
 }
 .ipAdminToolbar .ipmAdminAction:hover {
-  color: #fff;
+    color: #fff;
 }
 .ipAdminToolbar .ipmMenu li .fa-stack .fa-stack-2x,
 .ipAdminToolbar .ipmAdminAction .fa-stack .fa-stack-2x {
-  color: #444653;
-  font-size: 1.5em;
-  line-height: 1.33em;
-  text-shadow: none;
+    color: #444653;
+    font-size: 1.5em;
+    line-height: 1.33em;
+    text-shadow: none;
 }
 .ipAdminToolbar .ipmMenu {
-  background-color: #2f313f;
-  display: none;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: absolute;
-  top: 0;
-  z-index: 10001;
+    background-color: #2f313f;
+    display: none;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    z-index: 10001;
 }
 .ipAdminToolbar .ipmMenu .ipmMenuTitle {
-  background-color: #f90;
-  border-bottom: 1px solid #000;
-  color: #000;
-  display: block;
-  font-weight: bold;
-  line-height: 30px;
-  height: 31px;
-  /* same as menu icon + border */
-  padding-left: 50px;
+    background-color: #f90;
+    border-bottom: 1px solid #000;
+    color: #000;
+    display: block;
+    font-weight: bold;
+    line-height: 30px;
+    height: 31px; // same as menu icon + border
+    padding-left: 50px;
 }
 .ipAdminToolbar .ipmMenu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 .ipAdminToolbar .ipmMenu ul:last-child {
-  margin-bottom: 30px;
-  /* leaving space at the bottom */
+    margin-bottom: 30px; // leaving space at the bottom
 }
 .ipAdminToolbar .ipmMenu .typeHeader {
-  color: #a6a6a6;
-  border-bottom: 1px solid #000;
-  border-top: 1px solid #000;
-  font-size: 12px;
-  margin-top: -1px;
-  padding: 6px 10px;
-  text-shadow: 1px 1px #000;
-  text-transform: uppercase;
+    color: #a6a6a6;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    font-size: 12px;
+    margin-top: -1px;
+    padding: 6px 10px;
+    text-shadow: 1px 1px #000;
+    text-transform: uppercase;
 }
 .ipAdminToolbar .ipmMenu li a {
-  background-color: #262732;
-  border-bottom: 1px solid #3b3d4f;
-  color: #e2e2e2;
-  display: block;
-  padding: 6px 50px 6px 30px;
-  text-decoration: none;
-  text-shadow: 1px 1px #000;
-  white-space: nowrap;
+    background-color: #262732;
+    border-bottom: 1px solid #3b3d4f;
+    color: #e2e2e2;
+    display: block;
+    padding: 6px 50px 6px 30px;
+    text-decoration: none;
+    text-shadow: 1px 1px #000;
+    white-space: nowrap;
 }
 .ipAdminToolbar .ipmMenu li a:hover {
-  background-color: #3b3d4f;
+    background-color: #3b3d4f;
 }
 .ipAdminToolbar .ipmMenu .selected a,
 .ipAdminToolbar .ipmMenu .current a {
-  background-color: #019bd4;
+    background-color: #019bd4;
 }
+
+
+
+
+
 .ipgLeft {
-  float: left;
+    float: left;
 }
 .ipgRight {
-  float: right;
+    float: right;
 }
 .ipgClear:after {
-  clear: both;
-  content: ".";
-  display: block;
-  height: 0;
-  visibility: hidden;
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
 }
 .ipgHide {
-  display: none;
+    display: none;
 }
 .ipgError {
-  border: 1px solid #f00;
-  color: black;
-  padding: 10px;
+    border: 1px solid #f00;
+    color: black;
+    padding: 10px;
 }
 .ipgAdminButton {
-  background: #e0e0e0;
-  background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-  border: 1px solid #b8b8b8;
-  border-radius: 2px;
-  color: #2f313f;
-  display: inline-block;
-  font-size: 12px;
-  line-height: 24px;
-  padding: 0 14px;
-  text-decoration: none;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    background: #e0e0e0;
+    background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
+    border: 1px solid #b8b8b8;
+    border-radius: 2px;
+    color: #2f313f;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 0 14px;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 rgba(255,255,255,.66);
 }
 .ipgAdminButton:hover {
-  background: #c0c0c0;
+    background: #c0c0c0;
 }
+
 .ui-widget-content a.ipgConfirmButton,
-.ipgConfirmButton {
-  background: #77b000;
-  background: linear-gradient(top, #77b000 0%, #569100 100%);
-  border-color: #699212;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-weight: bold;
-  padding: 0 20px;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.47);
-  text-transform: uppercase;
+.ipgConfirmButton{
+    background: #77b000;
+    background: linear-gradient(top, #77b000 0%, #569100 100%);
+    border-color: #699212;
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
+    color: #fff;
+    font-weight: bold;
+    padding: 0 20px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
+    text-transform: uppercase;
 }
 .ui-widget-content a.ipgConfirmButton:hover,
 .ipgConfirmButton:hover {
-  background: #559000;
-  background: linear-gradient(top, #559000 0%, #76af00 100%);
-  box-shadow: none;
+    background: #559000;
+    background: linear-gradient(top, #559000 0%, #76af00 100%);
+    box-shadow: none;
 }
+*/
 .ipModuleAdministrators .ipmList {
   float: left;
   width: 250px;
@@ -8086,10 +8221,6 @@ a.list-group-item.success:focus .list-group-item-text {
   background: -moz-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
   background: -webkit-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
 }
-.ipAdminWidgetControls .ipaButton {
-  background: -moz-linear-gradient(top, #3b3b3b 0%, #212121 100%);
-  background: -webkit-linear-gradient(top, #3b3b3b 0%, #212121 100%);
-}
 /* Widget: Columns */
 .ipWidget-Columns .ipwCol {
   margin-top: 20px;
@@ -8161,63 +8292,41 @@ a.list-group-item.success:focus .list-group-item-text {
   float: left;
 }
 .ipAdminWidgetControls {
-  border: 1px solid transparent;
-  float: left;
-  max-height: 10px;
-  margin: -10px 0 0 -1px;
-  position: absolute;
+  margin: 0 -11px;
+  position: relative;
+  width: auto;
+  z-index: 1020;
 }
-.ipAdminWidgetControls .ipaButton {
-  background: #3b3b3b;
-  background: linear-gradient(top, #3b3b3b 0%, #212121 100%);
-  display: block;
-  float: left;
-  font-weight: normal;
-  padding: 2px 0;
-  text-decoration: none;
+.ipAdminWidgetControls ._container {
+  margin-top: -11px;
+  min-height: 22px;
+  position: absolute;
+  width: 100%;
+}
+.ipAdminWidgetControls ._container * {
   visibility: hidden;
 }
-.ipAdminWidgetControls .ipaButton:hover {
-  background: #2e2e2e;
+.ipAdminWidgetControls ._container:hover * {
+  visibility: visible;
 }
-.ipAdminWidgetControls .ipaButton span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAACKCAYAAACq5Wo+AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABN1JREFUeNrsmVtoE00UgGejDRTFaLRYHxSKQgv+YH3zQSpS0SiCiJc3FXzriw+FQiQQKLRUAgURjJcHQUEEEUQUqYi3JxGFisbbUyE2pv/vb02kgmko6znbme1kLzM701Ur7IHDNju7355z5sycmY5hmiYJU2IkZFn4QJQ8qKmoeYy9lxr4gGrHGIaBLxlebYt13QJoC1x66M9z8IHPrM1UFeZ2Nps1UWnYWpinSrByuWwBEcSEhxKNDjH7+/tdH6LQ7GJqojRmpVKJDA4OktbWVgIvu9qr1ap1CeTy+Pi42dPTYw4MDHi29/b2MpfjUqACrDlQp4hgfX19DTApsFarmfF4XAZbyo8UqYVe7el02hOmBaQw1ITXWJbONhBDa+wypemBL1c9h2TYk0P401dUUyKgnhQ08rAgLKNnnmxWsuDEtlHfkRKbRxntAH1ItSOMGN5IHWvdjop/M6hyof82WbeuANq45/gadnvjyOUJhB40aJCVBEEAbLh391KZAPSRZWGQTqn+Xyf3rkyQZSubXDCUH99n8FIJ5DKDLW9pIjuPuGE3z5bI4xuf38CfR2NhwB5d/w9hXZBKU1KgCHbrfANsUpo2M3WTPL37xRf24JoF62YwKXBRk2FBnXL74ice9u+8RgrC7l+1GLudsECJvXXfKmvs8r9pGf3oW0bDnBzCn76iMrrwgNI8hElzHd0xTdId05TwBb/up73fhiutoaEhfgmcFL4jgG1AQC6Xs1evmUymYRumChwG8d0xaVuYSCRcm8bAFmJ8QDMsTrgwdwL9nnUB6U4yz+IUAJj3iilrTLD9L+earQ6XG+5zW9sED0zj/kNX6N4lze9T0DXt0ZFMJllMbQtxNORZmqi4jO9Ql9ucnWInctBO4WAb/NIGh1rO/poYiAYM8zBZYrcLErtdZ6ScBnH1KN7DNh1gu3NyYPHVspCfvhDEwdpE70irHkywbY5/SY0Jn4/K6F8IhF7eAvoU9A7oailRkodduNIa2k/Mvp2zqy7Q9bpltBsBuQPw88KsZvbY0A4d4IvhQ3Mwptm9FvShtoWJ5jkYW2yKLIw5OmA96H28QuMDXJh7xPwf0Pf8s569TLentyBOO/Dq24sX7aW1/Sy/X2burUVXMD6ca3O144L/fRpTDMNae7aBL4ykU2QXpIeWnLxJyKkRcg9Yqbky2qw/OpJLrMsK3uUtaDZLExWX8R3qcpezjNqJzPYhGBdn2sCVPV/gYN1+ZRSH2jP7a17ARgNe8DBZYqcEiZ3SGSmjpw+7hx7ewzYdYMo5ObD4alnIT18I4mBdWtOXR0c9k8Gi3WgEDAsIk20e1KSaD+Ww1W8bITql0DpslZ2j/LIYnuOPiESKzwZaLIHU8MjNTyqVCj5UkcWPXzkUQYTnonhRSZvQgSX6kqfQjxX/qIVCYOgW6gCFMVRxmXhttJ2CbcTncNW36kmONPNBYFHVi4ALuYwWuDJa0IG6TivMzs2WqpxSNJbRzmDnKcbL0d9fRlUPaAqBJgfsgNqmThI3vL2pzsyQ5a9f4UwWC9rL9eL0tP8EW7dObKdV0maqWJcCp1SAX0vTdf+aMmv9FxVgOYCFEyrAsaLIwtmPjakAP4gspC6/UwG+FcWQuvxWBfg8QAxfBq7LbMs/nxESldHw5KcAAwDML0MCz/XTvgAAAABJRU5ErkJggg==) no-repeat;
-  border-left: 1px dotted #000;
-  color: #fff;
-  display: block;
+.ipAdminWidgetControls ._settings {
   float: left;
-  font-family: Verdana, Geneva, sans-serif;
-  font-size: 11px;
-  height: 10px;
-  line-height: 10px;
-  text-decoration: none;
 }
-.ipAdminWidgetControls .ipaButton:first-child span {
-  border-left: none;
-}
-.ipAdminWidgetControls .ipActionWidgetManage span {
-  background-position: 5px 0;
-  padding: 0 9px 0 28px;
-}
-.ipAdminWidgetControls .ipActionWidgetManage:hover span {
-  background-position: 5px -23px;
-}
-.ipAdminWidgetControls .ipActionWidgetMove span {
-  background-position: center -46px;
+.ipAdminWidgetControls ._drag {
+  background-image: url(data:image/gif;base64,R0lGODlhEQAHAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAARAAcAAAIUTISGomnnVmNw2Yuz3nn6+oCiFBQAOw==);
+  background-position: center center;
+  background-repeat: no-repeat;
   cursor: move;
+  height: 15px;
+  margin-left: -32px;
+  margin-top: 3px;
+  left: 50%;
   overflow: hidden;
-  text-indent: -999px;
-  width: 50px;
+  position: absolute;
+  width: 64px;
 }
-.ipAdminWidgetControls .ipActionWidgetMove:hover span {
-  background-position: center -69px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete span {
-  background-position: 7px -92px;
-  padding: 0 9px 0 26px;
-}
-.ipAdminWidgetControls .ipActionWidgetDelete:hover span {
-  background-position: 7px -115px;
+.ipAdminWidgetControls ._delete {
+  float: right;
 }
 body {
   margin: 0;
@@ -8595,41 +8704,77 @@ body {
   width: 100%;
   height: 50px;
 }
-.languageList {
+.ipAdminPages ._container {
   float: left;
-  padding: 0;
+  padding: 20px;
+  height: 100%;
 }
-.languageList li {
+.ipAdminPages ._languages {
+  background-color: #2f313f;
+  padding-right: 0;
+  width: 60px;
+}
+.ipAdminPages ._languages ul {
   list-style: none;
 }
-.zoneList {
-  float: left;
-  padding: 0;
-}
-.zoneList .title {
+.ipAdminPages ._languages ul a {
+  color: #97989f;
   display: block;
-}
-.zoneList li {
-  list-style: none;
-  clear: both;
-  display: block;
-}
-.tree {
-  float: left;
-}
-.tree ul.actions {
-  margin: 0;
-  padding: 0;
-}
-.navBlock {
-  float: left;
-  margin-left: 20px;
-  background-color: #ccc;
-  border-left: 3px solid #1d1e1e;
   padding: 10px;
+  overflow: hidden;
 }
-.navBlock:first-child {
-  margin-left: 0;
+.ipAdminPages ._languages ul a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.ipAdminPages ._languages ul .active a {
+  background-color: #eaeaea;
+  color: #000;
+  font-weight: bold;
+}
+.ipAdminPages ._zones {
+  background-color: #eaeaea;
+  width: 200px;
+}
+.ipAdminPages ._zones ul {
+  list-style: none;
+}
+.ipAdminPages ._zones ul li {
+  position: relative;
+}
+.ipAdminPages ._zones ul li:hover ._control {
+  visibility: visible;
+}
+.ipAdminPages ._zones ul a {
+  color: #46495e;
+  display: block;
+  margin: 0 -20px;
+  padding: 10px 20px;
+}
+.ipAdminPages ._zones ul a:hover {
+  color: #000;
+  text-decoration: none;
+}
+.ipAdminPages ._zones ul .active a {
+  background-color: #f4f4f4;
+  color: #000;
+  font-weight: bold;
+}
+.ipAdminPages ._zones ul ._control {
+  margin-top: -15px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  visibility: hidden;
+  z-index: 1;
+}
+.ipAdminPages ._pages {
+  background-color: #f4f4f4;
+  width: 200px;
+}
+.ipAdminPages ._properties {
+  background-color: #fff;
+  padding: 20px 40px 40px;
 }
 .stopScrolling {
   /* todox: create one global style (implement from Bootstrap) */

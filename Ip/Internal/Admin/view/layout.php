@@ -14,10 +14,8 @@
 
     <?php echo ipHead(); ?>
 </head>
-<body class="manage">
-    <div class="ip">
-        <?php echo ipBlock('main'); ?>
-    </div>
-<?php echo ipJs(); ?>
+<body class="ipAdminBody">
+    <?php echo ipBlock('main'); ?>
+    <?php echo ipJs(); ?>
 </body>
 </html>

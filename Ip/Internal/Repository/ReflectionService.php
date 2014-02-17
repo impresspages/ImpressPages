@@ -90,7 +90,7 @@ class ReflectionService
             return false;
         }
 
-        return $reflection;
+        return 'file/' . $reflection;
     }
 
     /**

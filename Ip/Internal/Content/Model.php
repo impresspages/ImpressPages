@@ -177,14 +177,18 @@ class Model
 
 
         $optionsMenu = array();
-        $optionsMenu[] = array(
-            'title' => __('Skin', 'ipAdmin', false),
-            'attributes' => array(
-                'class' => 'ipsSkin',
-                'data-layouts' => json_encode($widgetObject->getSkins()),
-                'data-currentlayout' => $widgetRecord['layout']
-            )
-        );
+
+        if (count($widgetObject->getSkins()) > 1) {
+            $optionsMenu[] = array(
+                'title' => __('Skin', 'ipAdmin', false),
+                'attributes' => array(
+                    'class' => 'ipsSkin',
+                    'data-layouts' => json_encode($widgetObject->getSkins()),
+                    'data-currentlayout' => $widgetRecord['layout']
+                )
+            );
+        }
+
 
         $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
         $data = array(

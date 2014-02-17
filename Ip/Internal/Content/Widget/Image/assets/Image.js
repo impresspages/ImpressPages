@@ -95,7 +95,7 @@ var IpWidget_Image;
             var $img = $item.find('.ipsImage');
             var $controls = this.$controls;
 
-            $controls.removeClass('ipgHide');
+            $controls.removeClass('hide');
             $controls.css('position', 'absolute');
             $controls.css('left', $img.offset().left + 5);
             $controls.css('top', $img.offset().top + 5);
@@ -109,7 +109,7 @@ var IpWidget_Image;
         };
 
         this.blurImage = function () {
-            this.$controls.addClass('ipgHide');
+            this.$controls.addClass('hide');
         };
 
 
@@ -152,7 +152,6 @@ var IpWidget_Image;
             var $editScreen = $modal.find('.ipsEditScreen');
             $editScreen.ipUploadImage('destroy');
             $editScreen.ipUploadImage(options);
-console.log(options);
             $modal.find('.ipsConfirm').off().on('click', function () {
                 var crop = $editScreen.ipUploadImage('getCropCoordinates');
                 var curImage = $editScreen.ipUploadImage('getCurImage');

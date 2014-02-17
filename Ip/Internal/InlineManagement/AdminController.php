@@ -69,89 +69,7 @@ class AdminController extends \Ip\Controller{
 
 
 
-    public function getManagementPopupString()
-    {
 
-        if (!isset($_POST['key'])) {
-            throw new \Exception("Required parameter not set");
-        }
-        $key = $_POST['key'];
-
-        if (!isset($_POST['defaultValue'])) {
-            throw new \Exception("Required parameter not set");
-        }
-        $defaultValue = $_POST['defaultValue'];
-
-        $languages = ipContent()->getLanguages();
-
-        $values = array();
-        foreach ($languages as $language) {
-            $curValue = $this->dao->getLanguageValue(Dao::PREFIX_STRING, $key, $language->getId());
-            if($curValue !== false) {
-                $text = $curValue;
-            } else {
-                $text = $defaultValue;
-            }
-
-            $values[] = array(
-                'language' => $language->getAbbreviation(),
-                'languageId' => $language->getId(),
-                'text' => $text
-            );
-        }
-
-
-        $html = ipView('view/popup/string.php', array('values' => $values))->render();
-
-        $data = array(
-            'status' => 'success',
-            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(), //TODOXX current language is not accessible in admin #134
-            'html' => $html
-        );
-        return new \Ip\Response\Json($data);
-    }
-
-    public function getManagementPopupText()
-    {
-
-        if (!isset($_POST['key'])) {
-            throw new \Exception("Required parameter not set");
-        }
-        $key = $_POST['key'];
-
-        if (!isset($_POST['defaultValue'])) {
-            throw new \Exception("Required parameter not set");
-        }
-        $defaultValue = $_POST['defaultValue'];
-
-        $languages = ipContent()->getLanguages();
-
-        $values = array();
-        foreach ($languages as $language) {
-            $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, $language->getId());
-            if($curValue !== false) {
-                $text = $curValue;
-            } else {
-                $text = $defaultValue;
-            }
-
-            $values[] = array(
-                'language' => $language->getAbbreviation(),
-                'languageId' => $language->getId(),
-                'text' => $text
-            );
-        }
-
-
-        $html = ipView('view/popup/text.php', array('values' => $values))->render();
-
-        $data = array(
-            "status" => "success",
-            'curLanguageId' => ipContent()->getCurrentLanguage()->getId(),
-            "html" => $html
-        );
-        return new \Ip\Response\Json($data);
-    }
 
     public function getManagementPopupImage()
     {
@@ -304,30 +222,6 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($data);
     }
 
-    public function saveString()
-    {
-        $inlineManagementService = new Service();
-
-        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
-            throw new \Exception("Required parameters missing");
-        }
-        $key = $_POST['key'];
-        $tag = $_POST['htmlTag'];
-        $cssClass = $_POST['cssClass'];
-        $values = $_POST['values'];
-
-
-        foreach($values as $languageId => $value) {
-            $this->dao->setLanguageValue(Dao::PREFIX_STRING, $key, $languageId, $value);
-        }
-
-        $data = array(
-            "status" => "success",
-            "stringHtml" => $inlineManagementService->generateManagedString($key, $tag, null, $cssClass)
-        );
-        return new \Ip\Response\Json($data);
-
-    }
 
 
     public function saveText()

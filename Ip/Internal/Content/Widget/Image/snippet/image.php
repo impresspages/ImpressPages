@@ -1,15 +1,14 @@
 <div class="ip">
-    <div class="ipgHide" id="ipWidgetImageMenu">
+    <div class="hide" id="ipWidgetImageMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
                 <button class="btn btn-default ipsEdit" role="button"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-default ipsLink" role="button"><i class="fa fa-link"></i></button>
                 <button class="btn btn-default ipsSettings" role="button"><i class="fa fa-gears"></i></button>
             </div>
         </div>
     </div>
-    <div id="ipWidgetImageEditPopup" class="modal">
+    <div id="ipWidgetImageEditPopup" class="modal"><?php /*Fade breaks image management*/?>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
