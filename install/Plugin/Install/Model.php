@@ -240,7 +240,7 @@ class Model
                 'value' => 'changeThis',
                 'comment' => 'prevents session conflict when two sites runs on the same server',
             ),
-            'DEVELOPMENT_ENVIRONMENT' => array(
+            'developmentEnvironment' => array(
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
             ),

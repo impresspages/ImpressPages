@@ -73,7 +73,7 @@ class ConfigurationParser
             'tmpFileDir',
             'secureDir',
             'tmpSecureDir',
-            'DEVELOPMENT_ENVIRONMENT',
+            'developmentEnvironment',
             'ERRORS_SHOW',
             'THEME_DIR',
             'CHARSET',
