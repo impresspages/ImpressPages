@@ -54,7 +54,7 @@ return array(
         'Theme/' => __DIR__ . '/Theme/',
     ),
 
-    'URL_OVERRIDES' => array(
+    'urlOverrides' => array(
         'Plugin/' => "http://{$baseUrl}/Plugin/",//TODOXX find the way to add domain
         'Theme/' => "http://{$baseUrl}/Theme/",
         'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',

@@ -518,7 +518,7 @@ if (!function_exists('ipFileUrl')) {
      */
     function ipFileUrl($path)
     {
-        $overrides = ipConfig()->getRaw('URL_OVERRIDES');
+        $overrides = ipConfig()->getRaw('urlOverrides');
         if ($overrides) {
             foreach ($overrides as $prefix => $newPath) {
                 if (strpos($path, $prefix) === 0) {

@@ -58,7 +58,7 @@ class Event
     {
         ipAddJs('Ip/Internal/Content/assets/widgets.js');
 
-        $ipUrlOverrides = ipConfig()->getRaw('URL_OVERRIDES');
+        $ipUrlOverrides = ipConfig()->getRaw('urlOverrides');
         if (!$ipUrlOverrides) {
             $ipUrlOverrides = array();
         }
