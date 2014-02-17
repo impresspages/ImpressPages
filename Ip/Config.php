@@ -97,7 +97,7 @@ class Config
 
     public function isDevelopmentEnvironment()
     {
-        return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);
+        return !empty($this->rawConfig['developmentEnvironment']);
     }
 
 

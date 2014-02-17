@@ -21,7 +21,7 @@ return array(
       'baseDir' => '/var/www/test/',
       'baseUrl' => 'http://www.example.com/',
 
-      'DEVELOPMENT_ENVIRONMENT' => 1,
+      'developmentEnvironment' => 1,
       'ERRORS_SHOW' => 1,
     // END GLOBAL
 
