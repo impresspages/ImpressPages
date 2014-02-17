@@ -3,7 +3,7 @@
         <div class="_container _languages">
             <a href="#" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>
             <ul>
-                <li ng-repeat="language in languages">
+                <li ng-repeat="language in languageList">
                     <a href="#" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
                 </li>
                 <li>
@@ -17,14 +17,14 @@
                 <?php _e('Add', 'ipAdmin'); ?>
             </button>
             <ul>
-                <li ng-repeat="zone in zones" zones-post-repeat-directive data-zonename="{{zone.name}}">
-                    <a href="" ng-click="setZoneHash(zone)">{{zoneTitle(zone)}}</a>
-                    <button class="btn btn-sm btn-default _control" ng-click="updateZoneModal(zone)"><i class="fa fa-cog"></i></button>
+                <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}">
+                    <a href="" ng-click="setMenuHash(menu)">{{menuTitle(menu)}}</a>
+                    <button class="btn btn-sm btn-default _control" ng-click="updateZoneModal(menu)"><i class="fa fa-cog"></i></button>
                 </li>
             </ul>
         </div>
         <div class="_container _pages ipsPages">
-            <div ng-repeat="language in languages" class="language" ng-show="language.id == activeLanguage.id">
+            <div ng-repeat="language in languageList" class="language" ng-show="language.code == activeLanguage.code">
                 <div ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
                     <div id="pages_{{language.id}}_{{zone.name}}">
                         <button class="btn btn-sm btn-default ipsAddPage" ng-click="addPageModal()" role="button">

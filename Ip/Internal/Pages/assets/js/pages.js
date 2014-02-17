@@ -40,7 +40,6 @@ var ipPages = null;
 
             if (!$scope.initialized) {
                 if (languageCode == null) {
-                    console.log('languageList', languageList);
                     languageCode = languageList[0].code;
                 }
                 if (menuName == null) {
