@@ -75,7 +75,6 @@ class ConfigurationParser
             'tmpSecureDir',
             'developmentEnvironment',
             'errorsShow',
-            'THEME_DIR',
             'CHARSET',
             'MYSQL_CHARSET',
             'THEME',
