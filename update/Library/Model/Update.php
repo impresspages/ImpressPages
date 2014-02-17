@@ -45,7 +45,7 @@ class Update
     public function __construct($config)
     {
         $this->cf = $config;
-        $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
+        $this->tempStorage = new \IpUpdate\Library\Model\TempStorage($this->cf['BASE_DIR'].$this->cf['tmpFileDir'].'update/');
         $this->fs = new \IpUpdate\Library\Helper\FileSystem();
 
         $updateModel = new \IpUpdate\Library\Model\Migration();
@@ -332,7 +332,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->tempStorage->remove('inProgress');
         $this->tempStorage->remove('curStep');
         $this->tempStorage->remove('version');
-        $this->fs->clean($this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/');
+        $this->fs->clean($this->cf['baseDir'].$this->cf['tmpFileDir'].'update/');
     }
 
     private function getFoldersToReplace()
@@ -347,21 +347,21 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         return array (
             'license.html',
             'sitemap.php',
-            $this->cf['FILE_DIR'].'.htaccess',
-            $this->cf['FILE_DIR'].'secure/.htaccess'
+            $this->cf['fileDir'].'.htaccess',
+            $this->cf['fileDir'].'secure/.htaccess'
         );
     }
 
     private function getNewArchivePath()
     {
-        $dir = $this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/';
+        $dir = $this->cf['baseDir'].$this->cf['tmpFileDir'].'update/';
         $this->fs->createWritableDir($dir);
         return $dir.'ImpressPages.zip';
     }
 
     private function getExtactedNewArchivePath()
     {
-        $dir = $this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
+        $dir = $this->cf['baseDir'].$this->cf['tmpFileDir'].'update/extracted/';
         return $dir;
     }
 

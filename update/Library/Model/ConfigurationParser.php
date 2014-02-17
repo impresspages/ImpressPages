@@ -45,7 +45,7 @@ class ConfigurationParser
 
         $configurationValues = array();
         foreach($newConstants as $key => $constant) {
-            //we check if constant exists becase early 2.x versions had no constants like: SECURE_DIR, TMP_SECURE_DIR, MANUAL_DIR
+            //we check if constant exists becase early 2.x versions had no constants like: secureDir, tmpSecureDir, MANUAL_DIR
             eval('$configurationValues[\''.$oldConstants[$key].'\'] = defined(\''.$constant.'\') ? '.$constant.' : \'\';' );
         }
         return $configurationValues;
@@ -69,11 +69,10 @@ class ConfigurationParser
             'dbPrefix',
             'baseDir',
             'baseUrl',
-            'FILE_DIR',
-            'TMP_FILE_DIR',
-            'FILE_REPOSITORY_DIR',
-            'SECURE_DIR',
-            'TMP_SECURE_DIR',
+            'fileDir',
+            'tmpFileDir',
+            'secureDir',
+            'tmpSecureDir',
             'DEVELOPMENT_ENVIRONMENT',
             'ERRORS_SHOW',
             'THEME_DIR',
@@ -81,8 +80,6 @@ class ConfigurationParser
             'MYSQL_CHARSET',
             'THEME',
             'DEFAULT_DOCTYPE',
-            'SECURE_DIR',
-            'TMP_SECURE_DIR',
             'MANUAL_DIR',
             'TEST_MODE',
             'MISSING_CONSTANT_USED_FOR_TESTING_TO_CHECK_IF_CODE_WORKS_IF_SOME_CONSTANTS_ARE_MISSING'
