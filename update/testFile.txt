@@ -2,9 +2,9 @@
 
       define('secureDir', 'file/secure/'); //directory not accessible from the Internet
       define('tmpSecureDir', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
-      define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
+      define('manualDir', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
 
 
       define('secureDir', 'file/secure/'); //directory not accessible from the Internet
       define('tmpSecureDir', 'file/secure/tmp/'); //directory for temporary files. Not accessible from the Internet.
-      define('MANUAL_DIR', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
+      define('manualDir', 'file/manual/'); //Used for TinyMCE file browser and others tools where user manually controls all files.
