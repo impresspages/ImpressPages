@@ -323,8 +323,8 @@
             $this.data('previewText').hide();
             $this.data('previewImage').show();
             var $imageUploader = $modal.find('.ipsImage');
-            $this.data('previewImage').html('');
-            $this.data('previewImage').append($imageUploader.find('.ipUploadWindow').clone());
+            $this.data('previewImage').html('<div class="ip"></div>');
+            $this.data('previewImage').find('div').append($imageUploader.find('.ipUploadWindow').clone());
             $this.data('previewImage').find('.ipUploadButtons').remove();
             $this.data('previewImage').find('.ui-resizable-handle').remove();
         }
