@@ -14,7 +14,7 @@ return array(
 
     // GLOBAL
     'baseDir' => realpath(TEST_CODEBASE_DIR),
-    'BASE_URL' => 'localhost/',
+    'baseUrl' => 'localhost/',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,
     'ERRORS_SHOW' => 1,
