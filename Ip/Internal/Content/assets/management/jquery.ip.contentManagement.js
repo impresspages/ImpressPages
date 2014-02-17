@@ -477,6 +477,40 @@
         });
 
 
+
+        //drop between paragraphs inside widget
+        var paragraphPlaceholders = new Array();
+        $.each($('.ipWidget-Text'), function (widgetKey, widget) {
+            var $widget = $(widget);
+            var $paragraphs = $(widget).find('.ipsContent > *');
+            if($paragraphs.length <= 1) {
+                return;
+            }
+            $.each($paragraphs, function (paragraphKey, paragraph) {
+                var $paragraph = $(paragraph);
+
+                if (paragraphKey == 0) {
+                    return;
+                }
+                var $prevParagraph = $paragraphs.eq(paragraphKey - 1);
+
+                var newPlaceholder = {
+                    left: $widget.offset().left,
+                    top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
+                    width: $widget.width(),
+                    widgetInstanceId: $paragraph.data('instanceId'),
+                    position: paragraphKey + 1
+                };
+
+                newPlaceholder.height = $paragraph.offset().top + Math.round($paragraph.height() / 2) - newPlaceholder.top;
+                newPlaceholder.markerOffset = ($prevParagraph.offset().top + $prevParagraph.height() + $paragraph.offset().top) / 2 - newPlaceholder.top;
+
+                paragraphPlaceholders.push(newPlaceholder);
+
+            });
+        });
+
+
         $.each(horizontalPlaceholders, function (key, value) {
             var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderHorizontal"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
@@ -488,6 +522,19 @@
             $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
             $droppable.data('position', value.position);
             $droppable.data('blockName', value.blockName);
+        });
+
+        $.each(paragraphPlaceholders, function (key, value) {
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderHorizontal"><div class="ipsWidgetDropMarker _marker"></div></div>');
+            $('body').append($droppable);
+            $droppable.css('position', 'absolute');
+            $droppable.css('left', value.left + 'px');
+            $droppable.css('top', value.top + 'px');
+            $droppable.css('width', value.width + 'px');
+            $droppable.css('height', value.height + 'px');
+            $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
+            $droppable.data('position', value.position);
+            $droppable.data('widgetInstanceId', value.widgetInstanceId);
         });
 
         $('.ipsWidgetDropPlaceholder').droppable({
