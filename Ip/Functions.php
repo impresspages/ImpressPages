@@ -946,7 +946,6 @@ function ipAdminId()
 }
 
 /**
-<<<<<<< HEAD
  * @param $pageId
  * @return \Ip\PageStorage
  */
