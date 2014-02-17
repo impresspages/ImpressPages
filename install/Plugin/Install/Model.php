@@ -144,7 +144,11 @@ class Model
 
         $check = array();
         $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
-        if (!is_writable(ipFile('config.php'))) {
+        if (
+            is_file(ipFile('config.php')) && !is_writable(ipFile('config.php'))
+            ||
+            !is_file(ipFile('config.php')) && !is_writable(ipFile(''))
+        ) {
             $check['type'] = 'error';
             $error['writable_config'] = 1;
         } else {
@@ -248,14 +252,6 @@ class Model
 
 
             // FRONTEND
-            'CHARSET' => array(
-                'value' => 'UTF-8',
-                'comment' => 'system characterset',
-            ),
-            'DEFAULT_DOCTYPE' => array(
-                'value' => 'DOCTYPE_HTML5',
-                'comment' => 'look ip_cms/includes/Ip/View.php for available options.'
-            ),
             'TIMEZONE' => array(
                 'value' => 'changeThis',
                 'comment' => 'PHP 5 requires timezone to be set.',

@@ -67,7 +67,7 @@ $destinations = array(
     'ipAdmin' => 'Ip/Internal/Translations/translations/',
     'ipPublic' => 'Ip/Internal/Translations/translations/',
     'Install' => 'install/Plugin/Install/translations/',
-    'Blank' => 'Theme/Blank/translations/',
+    'Air' => 'Theme/Air/translations/',
 );
 
 foreach ($domains as $domain => $messageList) {

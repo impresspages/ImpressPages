@@ -946,10 +946,35 @@ function ipAdminId()
 }
 
 /**
+<<<<<<< HEAD
  * @param $pageId
  * @return \Ip\PageStorage
  */
 function ipPageStorage($pageId)
 {
     return new \Ip\PageStorage($pageId);
+}
+
+/**
+ * Get a modified copy of original file in repository
+ * @param string $file (just filename. No path required)
+ * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
+ * @param \Ip\Transform $transform transformation object that does the modification of original file
+ * @return string path to modified copy starting from website's root. use ipFileUrl and ipFile functions to get full URL or full path to that file
+ */
+function ipReflection($file, $desiredName = null, \Ip\Transform $transform = null)
+{
+    $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
+    return $reflectionService->getReflection($file, $desiredName, $transform);
+}
+
+
+/**
+ * Get last exception of ipReflection method
+ * @return \Ip\Internal\Repository\TransformException|null
+ */
+function ipReflectionException()
+{
+    $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
+    return $reflectionService->getLastException();
 }

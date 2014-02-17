@@ -245,7 +245,7 @@
         var $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
         var $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
         $container.height($panel.height()); // setting the height to container
-        $panel.css('top', $('.ipsAdminToolbarContainer').outerHeight()); // move down to leave space for top toolbar
+        $panel.css('top', $('.ipsAdminNavbarContainer').outerHeight()); // move down to leave space for top navbar
     }
 
     var ipStartWidgetDrag = function (event, ui) {
@@ -277,7 +277,7 @@
         });
 
         $.each(sidePlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderVertical"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -297,8 +297,10 @@
         $.each($('.ipWidget-Columns'), function (widgetKey, columnsWidget) {
             $.each($(columnsWidget).find('.ipsCol'), function (colKey, col) {
                 var $col = $(col);
-                if (colKey != 0) { //skip first col
-                    var space = $col.find('.ipBlock').offset().left - ($col.prev().find('.ipBlock').offset().left + $col.prev().find('.ipBlock').width());
+                var $prevBlock = $col.prev().find('.ipBlock');
+                var $block = $col.find('.ipBlock');
+                if (colKey != 0 && $block.offset() && $prevBlock.offset()) { //skip first col. Offset checking is just in case. If everything goes right, prev block should always exist.
+                    var space = $block.offset().left - ($prevBlock.offset().left + $prevBlock.width());
                     //alert(space);
                     colsPlaceholders.push({
                         left: $col.find('.ipBlock').offset().left - space,
@@ -314,7 +316,7 @@
 
 
         $.each(colsPlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderVertical"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderVertical"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');
@@ -453,7 +455,7 @@
 
 
         $.each(horizontalPlaceholders, function (key, value) {
-            var $droppable = $('<div class="ipsWidgetDropPlaceholder widgetDropPlaceholderHorizontal"><div class="ipsWidgetDropMarker widgetDropMarker"></div></div>');
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderHorizontal"><div class="ipsWidgetDropMarker _marker"></div></div>');
             $('body').append($droppable);
             $droppable.css('position', 'absolute');
             $droppable.css('left', value.left + 'px');

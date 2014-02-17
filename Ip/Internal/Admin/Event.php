@@ -12,16 +12,17 @@ class Event
         if ((ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
             if (!ipRequest()->getQuery('ipDesignPreview')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
-                ipAddJsVariable('ipAdminToolbar', static::getAdminToolbarHtml());
+                ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
             }
         }
     }
 
-    protected static function getAdminToolbarHtml()
+    protected static function getAdminNavbarHtml()
     {
         $requestData = \Ip\ServiceLocator::request()->getRequest();
         $curModTitle = '';
         $curModUrl = '';
+        $curModIcon = '';
         $helpUrl = 'http://www.impresspages.org/help2';
 
         if (!empty($requestData['aa'])) {
@@ -35,15 +36,17 @@ class Event
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
             $curModTitle = __($curModule, 'ipAdmin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
+            $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
 
         $data = array(
-            'menuItems' => Model::instance()->getAdminMenuItems(),
+            'menuItems' => Model::instance()->getAdminMenuItems($curModule),
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
+            'curModIcon' => $curModIcon,
             'helpUrl' => $helpUrl
         );
-        $html = ipView('view/toolbar.php', $data)->render();
+        $html = ipView('view/navbar.php', $data)->render();
         return $html;
     }
 

@@ -30,13 +30,12 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
         $repository->bindFile($repositoryFile, 'modulexxx', 1);
         $repository->bindFile($repositoryFile, 'modulexxx', 1);
 
-        $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
 
         //Create reflection
         $transformSmall = new \Ip\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
-        $reflectionFile = 'file/' . $reflectionService->getReflection($repositoryFile, null, $transformSmall);
+        $reflectionFile = ipReflection($repositoryFile, null, $transformSmall);
         if ($reflectionFile == 'file/') {
-            $e = $reflectionService->getLastException();
+            $e = ipReflectionException();
             $data = $e->getData();
             $this->fail($e->getMessage() . ' at ' . basename($e->getFile()) . ':' . $e->getLine() . ' | ini_set result: ' . $data['ini_set_result']);
         }

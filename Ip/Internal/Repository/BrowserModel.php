@@ -112,11 +112,10 @@ class BrowserModel{
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
         if (in_array($ext, $this->supportedImageExtensions)) {
-            $reflectionService = ReflectionService::instance();
             $transform = new \Ip\Transform\ImageFit(140, 140, null, TRUE);
-            $reflection = $reflectionService->getReflection($file, $baseName, $transform);
+            $reflection = ipReflection($file, $baseName, $transform);
             if ($reflection){
-                return ipFileUrl('file/' . $reflection);
+                return ipFileUrl($reflection);
             }
         }
         return ipFileUrl('Ip/Internal/Repository/assets/icons/general.png');

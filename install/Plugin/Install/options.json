@@ -20,8 +20,8 @@
     "Content.widgetImageHeight": 800,
     "Content.widgetGalleryWidth": 200,
     "Content.widgetGalleryHeight": 200,
-    "Content.lightboxWidth": 800,
-    "Content.lightboxHeight": 600,
+    "Config.lightboxWidth": 800,
+    "Config.lightboxHeight": 600,
 
     "Design.themeDirs": "",
     "Email.hourlyLimit": 100,

@@ -23,7 +23,7 @@ return array(
     // FRONTEND
     'CHARSET' => 'UTF-8',
 
-    'THEME' => 'Blank',
+    'THEME' => 'Air',
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
 
     'TIMEZONE' => 'Africa/Bujumbura',

@@ -26,6 +26,16 @@ class Actions
 
     public function delete($id)
     {
+        $db = new Db($this->config);
+
+        $fields = $this->config->fields();
+        $curData = $db->fetchRow($id);
+        foreach ($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->beforeDelete($id, $curData);
+        }
+
+
         $sql = "
         DELETE FROM
             " . $this->config->tableName() . "
@@ -38,14 +48,24 @@ class Actions
         );
 
         ipDb()->execute($sql, $params);
+
+        foreach ($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterDelete($id, $curData);
+        }
+
     }
 
     public function update($id, $data)
     {
+        $db = new Db($this->config);
+        $oldData = $db->fetchRow($id);
+
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
                 throw new \Ip\Exception("updateData method in class " . get_class($fieldObject) . " has to return array.");
@@ -53,20 +73,62 @@ class Actions
             $dbData = array_merge($dbData, $fieldData);
         }
         ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
+
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterUpdate($id, $oldData, $data);
+        }
+
+    }
+
+    public function create($data)
+    {
+        $db = new Db($this->config);
+
+        $fields = $this->config->fields();
+        $dbData = array();
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->beforeCreate(null, $data);
+            $fieldData = $fieldObject->createData($data);
+            if (!is_array($fieldData)) {
+                throw new \Ip\Exception("createData method in class " . get_class($fieldObject) . " has to return array.");
+            }
+            $dbData = array_merge($dbData, $fieldData);
+        }
+
+        $sortField = $this->config->sortField();
+        if ($sortField) {
+            if ($this->config->createPosition() == 'top') {
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField . ' DESC');
+                $dbData[$sortField] = $orderValue + 1;
+            } else {
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField .  ' ASC');
+                $dbData[$sortField] = $orderValue - 1;
+            }
+        }
+
+        $recordId = ipDb()->insert($this->config->rawTableName(), $dbData);
+
+        foreach($fields as $field) {
+            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject->afterCreate($recordId, $data);
+        }
+        return $recordId;
     }
 
     public function move($id, $targetId, $beforeOrAfter)
     {
         $sortField = $this->config->sortField();
 
-        $priority = ipDb()->selectValue($this->config->rawTableName(), 'row_number', array('id' => $targetId));
-        if (!$priority) {
+        $priority = ipDb()->selectValue($this->config->rawTableName(), $sortField, array('id' => $targetId));
+        if ($priority === false) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
 
         $sql = "
         SELECT
-            `row_number`
+            `".str_replace('`', '', $sortField)."`
         FROM
             " . $this->config->tableName() . "
         WHERE

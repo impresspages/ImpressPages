@@ -1,11 +1,23 @@
 // Bootstrap
+// overriding defaults
+@navbar-height: @grid-gutter-width;
+@navbar-inverse-bg: #000;
+@grid-gutter-width: 40px; // main spacing definition
+
 // adding success state for list-group
 @list-group-success-color:     @state-success-text;
 @list-group-success-bg:        @state-success-bg;
 @list-group-success-border:    @list-group-success-bg;
 
+// adding new button type
+@btn-controls-color: #e2e2e2;
+@btn-controls-bg: #46495e;
+@btn-controls-border: #fff;
+
 // Font Awesome
 @fa-font-path: "font-awesome/fonts";
 
 // ImpressPages
-@admin-toolbar-zIndex: 10000;
+@color-orange: #fd9827; // todox: rename to some kind default colors naming
+@admin-widgetControls-zIndex: (@zindex-navbar-fixed - 10); // todox: naming convention (remove 'admin-' ?)
+@admin-widgetControls-height: 22px; // .btn-xs height

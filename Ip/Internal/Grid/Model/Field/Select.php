@@ -13,29 +13,36 @@ class Select extends \Ip\Internal\Grid\Model\Field
     protected $defaultValue = '';
     protected $values = array();
 
-    public function __construct($config)
+    public function __construct($fieldFieldConfig, $wholeConfig)
     {
-        if (empty($config['field'])) {
+        if (empty($fieldFieldConfig['field'])) {
             throw new \Ip\Exception('\'field\' option required for text field');
         }
-        $this->field = $config['field'];
+        $this->field = $fieldFieldConfig['field'];
 
-        if (!empty($config['label'])) {
-            $this->label = $config['label'];
+        if (!empty($fieldFieldConfig['label'])) {
+            $this->label = $fieldFieldConfig['label'];
         }
 
-        if (!empty($config['values'])) {
-            $this->values = $config['values'];
+        if (!empty($fieldFieldConfig['values'])) {
+            $this->values = $fieldFieldConfig['values'];
         }
 
-        if (!empty($config['defaultValue'])) {
-            $this->defaultValue = $config['defaultValue'];
+        if (!empty($fieldFieldConfig['defaultValue'])) {
+            $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
     }
 
     public function preview($recordData)
     {
-        return esc($recordData[$this->field]);
+        $previewValue = $recordData[$this->field];
+        foreach($this->values as $value) {
+            if (is_array($value) && isset($value[1]) && $value[0] == $previewValue) {
+                $previewValue = $value[1];
+                break;
+            }
+        }
+        return esc($previewValue);
     }
 
     public function createField()
@@ -51,6 +58,10 @@ class Select extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
+        if (isset($postData[$this->field])) {
+            return array($this->field => $postData[$this->field]);
+        }
+        return array();
     }
 
     public function updateField($curData)
@@ -70,11 +81,27 @@ class Select extends \Ip\Internal\Grid\Model\Field
     }
 
 
-    public function searchField()
+    public function searchField($searchVariables)
     {
+        $values = array(array(null, ''));
+        $values = array_merge($values, $this->values);
+
+        $field = new \Ip\Form\Field\Select(array(
+            'label' => $this->label,
+            'name' => $this->field,
+            'values' => $values
+        ));
+        if (!empty($searchVariables[$this->field])) {
+            $field->setValue($searchVariables[$this->field]);
+        }
+        return $field;
     }
 
-    public function searchQuery($postData)
+    public function searchQuery($searchVariables)
     {
+        if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
+            return $this->field . ' = \''.mysql_real_escape_string($searchVariables[$this->field]) . '\' ';
+        }
+
     }
 }

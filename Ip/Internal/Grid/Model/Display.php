@@ -24,6 +24,35 @@ class Display
 
     public function fullHtml($statusVariables)
     {
+        $db = new Db($this->config);
+
+        $searchVariables = array();
+        foreach ($statusVariables as $key => $value) {
+            if (preg_match('/^s_/', $key)) {
+                $searchVariables[substr($key, 2)] = $value;
+            }
+        }
+
+
+        if (empty($searchVariables)) {
+            $where = 1;
+        } else {
+            $where = '1';
+            foreach ($this->config->fields() as $fieldData) {
+                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldQuery = $fieldObject->searchQuery($searchVariables);
+                if ($fieldQuery) {
+                    if ($where != ' ') {
+                        $where .= ' and ';
+                    }
+                    $where .= $fieldQuery;
+                }
+            }
+        }
+
+
+
+
         $currentPage = !empty($statusVariables['page']) ? (int)$statusVariables['page'] : 1;
         if ($currentPage < 1) {
             $currentPage = 1;
@@ -31,7 +60,8 @@ class Display
 
         $pageSize = $this->config->pageSize();
         $from = ($currentPage - 1) * $pageSize;
-        $totalPages = ceil($this->recordCount() / $pageSize);
+
+        $totalPages = ceil($db->recordCount($where) / $pageSize);
 
         if ($currentPage > $totalPages) {
             $currentPage = $totalPages;
@@ -44,10 +74,12 @@ class Display
 
         $variables = array(
             'columns' => $this->getColumnData(),
-            'data' => $this->rowsData($this->fetch($from, $pageSize)),
+            'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
-            'deleteWarning' => $this->config->deleteWarning()
+            'deleteWarning' => $this->config->deleteWarning(),
+            'createForm' => $this->createForm(),
+            'searchForm' => $this->searchForm($searchVariables)
         );
 
         $html = ipView('../view/layout.php', $variables)->render();
@@ -57,10 +89,10 @@ class Display
     protected function getActions()
     {
         $actions = array();
-        if ($this->config->allowInsert()) {
+        if ($this->config->allowCreate()) {
             $actions[] = array(
                 'label' => __('Add', 'ipAdmin', false),
-                'class' => 'ipsAdd'
+                'class' => 'ipsCreate'
             );
         }
         if ($this->config->allowSearch()) {
@@ -125,57 +157,7 @@ class Display
 
 
 
-    protected function recordCount()
-    {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . "");
-    }
 
-    protected function fetch($from, $count)
-    {
-        if ($this->config->sortField()) {
-            $sortField = $this->config->sortField();
-        } else {
-            $sortField = 'id';
-        }
-
-        $sql = "
-        SELECT
-          *
-        FROM
-          " . $this->config->tableName() . "
-        WHERE
-          1
-        ORDER BY
-            `" . $sortField . "` DESC
-        LIMIT
-            $from, $count
-        ";
-
-        $result = ipDb()->fetchAll($sql);
-
-        return $result;
-    }
-
-
-    protected function fetchRow($id)
-    {
-        $sql = "
-        SELECT
-          *
-        FROM
-          " . $this->config->tableName() . "
-        WHERE
-          `" . $this->config->idField() . "` = :id
-        ";
-
-        $params = array(
-            'id' => $id
-        );
-
-        $result = ipDb()->fetchRow($sql, $params);
-
-        return $result;
-    }
 
 
 
@@ -215,8 +197,9 @@ class Display
 
     public function updateForm($id)
     {
+        $db = new Db($this->config);
         $form = new \Ip\Form();
-        $curData = $this->fetchRow($id);
+        $curData = $db->fetchRow($id);
         foreach ($this->config->fields() as $fieldData) {
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->updateField($curData);
@@ -248,6 +231,61 @@ class Display
         return $form;
     }
 
+
+    public function createForm()
+    {
+        $form = new \Ip\Form();
+        foreach ($this->config->fields() as $fieldData) {
+            $fieldObject = $this->config->fieldObject($fieldData);
+            $field = $fieldObject->createField();
+            if ($field) {
+                if (!empty($fieldData['validators'])) {
+                    foreach($fieldData['validators'] as $validator) {
+                        $field->addValidator($validator);
+                    }
+                }
+                $form->addField($field);
+            }
+        }
+
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'method',
+            'value' => 'create'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\HiddenSubmit();
+        $form->addField($field);
+
+        return $form;
+    }
+
+    public function searchForm($searchVariables)
+    {
+        $form = new \Ip\Form();
+        $form->setMethod('get');
+        $form->removeCsrfCheck();
+        foreach ($this->config->fields() as $fieldData) {
+            $fieldObject = $this->config->fieldObject($fieldData);
+            $field = $fieldObject->searchField($searchVariables);
+            if ($field) {
+                $form->addField($field);
+            }
+        }
+
+
+        $field = new \Ip\Form\Field\Hidden(array(
+            'name' => 'method',
+            'value' => 'search'
+        ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\HiddenSubmit();
+        $form->addField($field);
+
+        return $form;
+    }
 
 
 }
