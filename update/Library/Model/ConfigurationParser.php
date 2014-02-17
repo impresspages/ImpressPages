@@ -79,7 +79,6 @@ class ConfigurationParser
             'mysqlCharset',
             'theme',
             'defaultDoctype',
-            'MANUAL_DIR',
             'TEST_MODE',
             'MISSING_CONSTANT_USED_FOR_TESTING_TO_CHECK_IF_CODE_WORKS_IF_SOME_CONSTANTS_ARE_MISSING'
         );
