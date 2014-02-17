@@ -77,7 +77,7 @@ class ConfigurationParser
             'errorsShow',
             'charset',
             'mysqlCharset',
-            'THEME',
+            'theme',
             'DEFAULT_DOCTYPE',
             'MANUAL_DIR',
             'TEST_MODE',

@@ -28,7 +28,7 @@ return array(
     // FRONTEND
       'charset' => 'UTF-8',
       'mysqlCharset' => 'utf8',
-      'THEME' => 'Air',
+      'theme' => 'Air',
       'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
 
        'TIMEZONE' => 'Africa/Abidjan',

@@ -108,8 +108,8 @@ class Config
 
     public function theme()
     {
-        if (!empty($this->rawConfig['THEME'])) {
-            return $this->rawConfig['THEME'];
+        if (!empty($this->rawConfig['theme'])) {
+            return $this->rawConfig['theme'];
         } else {
             return ipStorage()->get('Ip', 'theme');
         }
