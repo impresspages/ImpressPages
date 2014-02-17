@@ -80,16 +80,10 @@ class Page extends \Ip\Page
 
         switch ($this->type) {
             case 'subpage':
-                $tmpChildren = ipContent()->getZone($this->zoneName)->getPages($languageId, $this->id, 0, $limit = 1);
-                if (sizeof($tmpChildren) == 1) {
-                    $this->link = $tmpChildren[0]->getLink();
-                } else {
-                    $this->link = \Ip\Internal\Deprecated\Url::generate(
-                        $languageId,
-                        $this->zoneName,
-                        $urlVars
-                    );
-                } //open current page if no subpages exist
+                $url = ipDb()->selectValue('page', 'url', array('parentId' => $this->id, 'visible' => 1), 'ORDER BY `pageOrder`');
+
+                $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, null, $url);
+
                 break;
             case 'redirect':
                 $this->link = $this->redirectUrl;

@@ -97,13 +97,6 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_zone` (`id`, `row_number`, `name`, `template`, `translation`, `associated_module`) VALUES
-(105, 4, 'menu1', 'main.php', 'Menu1', 'Content'),
-(106, 5, 'menu2', 'main.php', 'Menu2', 'Content'),
-(110, 6, 'menu3', 'main.php', 'Menu3', 'Content');
-
--- Dumping data for table--
-
 INSERT INTO `ip_cms_zone_to_language` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
 (620, '', '', 'Menu2', 'menu2', 106, 384),
 (619, '', '', 'Menu2', 'menu2', 106, 344),
