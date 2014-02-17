@@ -21,7 +21,7 @@ return array(
     // END GLOBAL
 
     // FRONTEND
-    'CHARSET' => 'UTF-8',
+    'charset' => 'UTF-8',
 
     'THEME' => 'Air',
     'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',

@@ -50,8 +50,8 @@ class Config
             $this->rawConfig['baseDir'] = dirname($server['SCRIPT_FILENAME']);
         }
 
-        if (empty($this->rawConfig['CHARSET'])) {
-            $this->rawConfig['CHARSET'] = 'UTF-8';
+        if (empty($this->rawConfig['charset'])) {
+            $this->rawConfig['charset'] = 'UTF-8';
         }
 
         if (empty($this->rawConfig['DEFAULT_DOCTYPE'])) {
