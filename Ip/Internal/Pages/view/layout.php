@@ -25,8 +25,8 @@
         </div>
         <div class="_container _pages ipsPages">
             <div ng-repeat="language in languageList" class="language" ng-show="language.code == activeLanguage.code">
-                <div ng-repeat="zone in zones" class="tree" ng-show="zone.name == activeZone.name">
-                    <div id="pages_{{language.id}}_{{zone.name}}">
+                <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
+                    <div id="pages_{{language.id}}_{{menu.alias}}">
                         <button class="btn btn-sm btn-default ipsAddPage" ng-click="addPageModal()" role="button">
                             <i class="fa fa-plus"></i>
                             <?php _e('Add', 'ipAdmin'); ?>
