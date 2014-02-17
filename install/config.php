@@ -46,7 +46,7 @@ return array(
     // FRONTEND
     'theme' => 'CentrusCleanus', //theme from themes directory
 
-    'TIMEZONE' => $currentTimeZone,
+    'timezone' => $currentTimeZone,
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(

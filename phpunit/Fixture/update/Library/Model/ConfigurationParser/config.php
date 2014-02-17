@@ -31,6 +31,6 @@ return array(
       'theme' => 'Air',
       'defaultDoctype' => 'DOCTYPE_HTML5',
 
-       'TIMEZONE' => 'Africa/Abidjan',
+       'timezone' => 'Africa/Abidjan',
     // END FRONTEND
 );
