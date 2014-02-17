@@ -46,8 +46,8 @@ class Config
             $this->rawConfig['BASE_URL'].= rtrim($baseUrl, '/') . '/';
         }
 
-        if (empty($this->rawConfig['BASE_DIR'])) {
-            $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
+        if (empty($this->rawConfig['baseDir'])) {
+            $this->rawConfig['baseDir'] = dirname($server['SCRIPT_FILENAME']);
         }
 
         if (empty($this->rawConfig['CHARSET'])) {

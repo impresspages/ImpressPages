@@ -17,8 +17,8 @@ class ConfigurationParser
         foreach($oldConstants as $constant) {
             $newConstants[] = $uniquePrefix.'_'.$constant;
         }
-         
-        
+
+
         if(is_file($installationDir.'/ip_config.php')) {
             return include($installationDir.'/ip_config.php');
 
@@ -32,7 +32,7 @@ class ConfigurationParser
                 throw new \IpUpdate\Library\UpdateException("Can't find configuration file. Installation dir: ".$installationDir, \IpUpdate\Library\UpdateException::UNKNOWN);
             }
         }
-        
+
         //rename all constants to avoid conflicts
         foreach($oldConstants as $key => $constant) {
             $configSource = str_replace('"'.$constant.'"', '"'.$newConstants[$key].'"', $configSource);
@@ -50,9 +50,9 @@ class ConfigurationParser
         }
         return $configurationValues;
     }
-    
-    
-    private function getUniqueInstancePrefix() 
+
+
+    private function getUniqueInstancePrefix()
     {
         if (self::$instancePrefix) {
             self::$instancePrefix++;
@@ -60,14 +60,14 @@ class ConfigurationParser
             self::$instancePrefix = 1;
         }
         return 'updateUniquePrefix'.self::$instancePrefix;
-    }    
-    
-    private function getAllConstants() 
+    }
+
+    private function getAllConstants()
     {
         $constants = array (
-            'SESSION_NAME',
-            'DB_PREF',
-            'BASE_DIR',
+            'sessionName',
+            'dbPrefix',
+            'baseDir',
             'BASE_URL',
             'FILE_DIR',
             'TMP_FILE_DIR',
@@ -86,7 +86,7 @@ class ConfigurationParser
             'MANUAL_DIR',
             'TEST_MODE',
             'MISSING_CONSTANT_USED_FOR_TESTING_TO_CHECK_IF_CODE_WORKS_IF_SOME_CONSTANTS_ARE_MISSING'
-        );    
+        );
         return $constants;
     }
 }

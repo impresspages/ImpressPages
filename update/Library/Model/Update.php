@@ -205,7 +205,7 @@ class Update
             return;
         }
 
-        $indexFile = $this->cf['BASE_DIR'].'index.php';
+        $indexFile = $this->cf['baseDir'].'index.php';
         $this->fs->makeWritable($indexFile);
         $maintenanceMode = '<?php
 header("HTTP/1.1 503 Service Temporarily Unavailable");
@@ -229,32 +229,32 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             return;
         }
 
-        if (file_exists($this->cf['BASE_DIR'].'install') || is_dir($this->cf['BASE_DIR'].'install')) {
-            $this->fs->rm($this->cf['BASE_DIR'].'install');
+        if (file_exists($this->cf['baseDir'].'install') || is_dir($this->cf['baseDir'].'install')) {
+            $this->fs->rm($this->cf['baseDir'].'install');
         }
 
         $replaceFolders = $this->getFoldersToReplace();
         $replaceFiles = $this->getFilesToReplace();
         foreach($replaceFolders as $folder) {
-            $this->fs->makeWritable($this->cf['BASE_DIR'].$folder);
-            $this->fs->clean($this->cf['BASE_DIR'].$folder); //just clean the content to leave writable folder
+            $this->fs->makeWritable($this->cf['baseDir'].$folder);
+            $this->fs->clean($this->cf['baseDir'].$folder); //just clean the content to leave writable folder
         }
 
 
         foreach($replaceFiles as $file) {
-            if (file_exists($this->cf['BASE_DIR'].$file)) {
-                $this->fs->makeWritable($this->cf['BASE_DIR'].$file);
-                file_put_contents($this->cf['BASE_DIR'].$file, '');
+            if (file_exists($this->cf['baseDir'].$file)) {
+                $this->fs->makeWritable($this->cf['baseDir'].$file);
+                file_put_contents($this->cf['baseDir'].$file, '');
             }
         }
 
-        if (file_exists($this->cf['BASE_DIR'].'admin.php')) {
-            $this->fs->makeWritable($this->cf['BASE_DIR'].'admin.php');
-            unlink($this->cf['BASE_DIR'].'admin.php');
+        if (file_exists($this->cf['baseDir'].'admin.php')) {
+            $this->fs->makeWritable($this->cf['baseDir'].'admin.php');
+            unlink($this->cf['baseDir'].'admin.php');
         }
-        if (file_exists($this->cf['BASE_DIR'].'ip_backend_frames.php')) {
-            $this->fs->makeWritable($this->cf['BASE_DIR'].'ip_backend_frames.php');
-            unlink($this->cf['BASE_DIR'].'ip_backend_frames.php');
+        if (file_exists($this->cf['baseDir'].'ip_backend_frames.php')) {
+            $this->fs->makeWritable($this->cf['baseDir'].'ip_backend_frames.php');
+            unlink($this->cf['baseDir'].'ip_backend_frames.php');
         }
 
     }
@@ -299,14 +299,14 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $replaceFolders = $this->getFoldersToReplace();
         $replaceFiles = $this->getFilesToReplace();
         foreach($replaceFolders as $folder) {
-            $this->fs->cpContent($extractedPath.$folder, $this->cf['BASE_DIR'].$folder);
+            $this->fs->cpContent($extractedPath.$folder, $this->cf['baseDir'].$folder);
         }
 
         foreach($replaceFiles as $file) {
-            if (file_exists($this->cf['BASE_DIR'].$file)) {
-                unlink($this->cf['BASE_DIR'].$file);
+            if (file_exists($this->cf['baseDir'].$file)) {
+                unlink($this->cf['baseDir'].$file);
             }
-            copy($extractedPath.$file, $this->cf['BASE_DIR'].$file);
+            copy($extractedPath.$file, $this->cf['baseDir'].$file);
         }
     }
 
@@ -316,8 +316,8 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
             return;
         }
         $extractedPath = $this->getExtactedNewArchivePath();
-        unlink($this->cf['BASE_DIR'].'index.php');
-        copy($extractedPath.'index.php', $this->cf['BASE_DIR'].'index.php');
+        unlink($this->cf['baseDir'].'index.php');
+        copy($extractedPath.'index.php', $this->cf['baseDir'].'index.php');
     }
 
     private function stepFinish(\IpUpdate\Library\Options $options = null)
@@ -332,7 +332,7 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
         $this->tempStorage->remove('inProgress');
         $this->tempStorage->remove('curStep');
         $this->tempStorage->remove('version');
-        $this->fs->clean($this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/');
+        $this->fs->clean($this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/');
     }
 
     private function getFoldersToReplace()
@@ -354,14 +354,14 @@ if (file_exists(__DIR__.\'/maintenance.php\')) {
 
     private function getNewArchivePath()
     {
-        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/';
+        $dir = $this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/';
         $this->fs->createWritableDir($dir);
         return $dir.'ImpressPages.zip';
     }
 
     private function getExtactedNewArchivePath()
     {
-        $dir = $this->cf['BASE_DIR'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
+        $dir = $this->cf['baseDir'].$this->cf['TMP_FILE_DIR'].'update/extracted/';
         return $dir;
     }
 

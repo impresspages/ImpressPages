@@ -17,8 +17,8 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $configurationParser = new IpUpdate\Library\Model\ConfigurationParser();
         $configuration = $configurationParser->parse(TEST_FIXTURE_DIR.'update/Library/Model/ConfigurationParser/');
 
-        $this->assertEquals($configuration['SESSION_NAME'], 'ses328617118');
-        $this->assertEquals($configuration['DB_PREF'], 'ip_');
+        $this->assertEquals($configuration['sessionName'], 'ses328617118');
+        $this->assertEquals($configuration['dbPrefix'], 'ip_');
         // END DB
 
         // GLOBAL

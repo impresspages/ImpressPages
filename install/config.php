@@ -22,7 +22,7 @@ try {
 
 return array(
     // GLOBAL
-    'SESSION_NAME' => 'install', //prevents session conflict when two sites runs on the same server
+    'sessionName' => 'install', //prevents session conflict when two sites runs on the same server
     // END GLOBAL
 
     // DB
@@ -36,7 +36,7 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
+    'baseDir' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
     'BASE_URL' => $baseUrl, //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
 
     'DEVELOPMENT_ENVIRONMENT' => 1, //displays error and debug information. Change to 0 before deployment to production server

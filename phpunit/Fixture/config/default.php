@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'SESSION_NAME' => 'testsession',  //prevents session conflict when two sites runs on the same server
+    'sessionName' => 'testsession',  //prevents session conflict when two sites runs on the same server
 
     'db' => array(
         'hostname' => TEST_DB_HOST,
@@ -13,7 +13,7 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => realpath(TEST_CODEBASE_DIR),
+    'baseDir' => realpath(TEST_CODEBASE_DIR),
     'BASE_URL' => 'localhost/',
 
     'DEVELOPMENT_ENVIRONMENT' => 1,

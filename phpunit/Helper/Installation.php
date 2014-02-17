@@ -94,8 +94,8 @@ class Installation
         InstallModel::setSiteName($this->getSiteName());
 
         $config = array();
-        $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = $this->getInstallationDir();
+        $config['sessionName'] = 'ses' . rand();
+        $config['baseDir'] = $this->getInstallationDir();
         $config['BASE_URL'] = substr($this->getInstallationUrl(), strlen('http://'));
         $config['TIMEZONE'] = $this->getSiteTimeZone();
         $config['db'] = array(
