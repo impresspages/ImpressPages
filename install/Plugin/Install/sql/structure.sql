@@ -360,23 +360,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_user_to_mod` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_zone`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_zone` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `row_number` double NOT NULL DEFAULT '0',
-  `name` varchar(30) NOT NULL DEFAULT '',
-  `template` varchar(255) DEFAULT NULL,
-  `translation` varchar(255) NOT NULL,
-  `associated_module` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
 DROP TABLE IF EXISTS `ip_cms_zone_to_language`;
 
 -- Table structure
