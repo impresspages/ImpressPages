@@ -19,7 +19,7 @@ return array(
 
     // GLOBAL
       'baseDir' => '/var/www/test/',
-      'BASE_URL' => 'http://www.example.com/',
+      'baseUrl' => 'http://www.example.com/',
 
       'DEVELOPMENT_ENVIRONMENT' => 1,
       'ERRORS_SHOW' => 1,

@@ -68,7 +68,7 @@ class ConfigurationParser
             'sessionName',
             'dbPrefix',
             'baseDir',
-            'BASE_URL',
+            'baseUrl',
             'FILE_DIR',
             'TMP_FILE_DIR',
             'FILE_REPOSITORY_DIR',
