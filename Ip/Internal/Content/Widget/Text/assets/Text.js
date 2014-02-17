@@ -23,6 +23,12 @@ var IpWidget_Text;
         this.onAdd = function () {
             this.$widgetObject.find('.ipsContent').focus();
         }
+
+        this.splitParts = function () {
+            return this.$widgetObject.find('.ipsContent > *');
+        }
+
+
     };
 
 })(ip.jQuery);

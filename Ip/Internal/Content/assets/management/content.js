@@ -111,6 +111,19 @@ var ipContent;
         }
 
 
+        this.createWidgetToWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
+            var revisionId = ip.revisionId;
+            addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
+                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                    var $block = $('#ipBlock-' + newWidgetBlockName);
+                    $block.find('.ipbExampleContent').remove();
+                    if (callback) {
+                        callback(instanceId);
+                    }
+                });
+            });
+        }
+
         this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
             var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
