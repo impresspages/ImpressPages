@@ -44,7 +44,7 @@ return array(
     // END GLOBAL
 
     // FRONTEND
-    'THEME' => 'CentrusCleanus', //theme from themes directory
+    'theme' => 'CentrusCleanus', //theme from themes directory
 
     'TIMEZONE' => $currentTimeZone,
     // END FRONTEND
