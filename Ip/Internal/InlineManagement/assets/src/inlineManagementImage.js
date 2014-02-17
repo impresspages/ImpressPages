@@ -65,7 +65,7 @@
                 $overlay.css('z-index', 2000);
 
                 $('.ipModuleInlineManagementPopup.ipmImage').remove();
-                $('body').append('<div class="ipModuleInlineManagementPopup ipmImage" ></div>');
+                $('body').append('<div class="ipModuleInlineManagementPopup ipmImage ip" ></div>');
                 var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
 
                 $popup.html(response.html);

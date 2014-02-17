@@ -302,7 +302,7 @@ class AdminController extends \Ip\Controller{
 
 
         //STORE IMAGE
-        if (isset($_POST['newImage']) && is_file(ipFile($_POST['newImage']))) {
+        if (isset($_POST['newImage']) && is_file(ipFile('file/repository/' . $_POST['newImage']))) {
 
 
             //remove old image
