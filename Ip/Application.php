@@ -81,7 +81,7 @@ class Application
         }
 
         if (empty($options['skipEncoding'])) {
-            mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
+            mb_internal_encoding(ipConfig()->getRaw('charset'));
         }
 
         if (empty($options['skipTimezone'])) {
