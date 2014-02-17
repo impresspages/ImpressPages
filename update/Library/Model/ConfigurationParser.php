@@ -76,7 +76,7 @@ class ConfigurationParser
             'developmentEnvironment',
             'errorsShow',
             'charset',
-            'MYSQL_CHARSET',
+            'mysqlCharset',
             'THEME',
             'DEFAULT_DOCTYPE',
             'MANUAL_DIR',
