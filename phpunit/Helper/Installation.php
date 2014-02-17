@@ -178,7 +178,7 @@ class Installation
         //Put instalation into test mode:
         $configFile = $this->getInstallationDir()."config.php";
         $config = include ($configFile);
-        $config['TEST_MODE'] = true;
+        $config['testMode'] = true;
         $configSource = '<?php return ' . var_export($config, true);
         file_put_contents($configFile, $configSource);
 
