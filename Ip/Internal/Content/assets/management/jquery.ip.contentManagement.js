@@ -338,11 +338,11 @@
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
                 var $widget = $(value);
-
+                var newPlaceholder = {};
                 if ($widget.index() == 0) { //first widget
                     var space = 15;
                     //first placeholder
-                    var newPlaceholder = {
+                    newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top - space,
                         width: $widget.width(),
@@ -369,7 +369,14 @@
 
                         }
 
-                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                        if ($widget.hasClass('ipWidget-Text') && $widget.find('.ipsContent > *').length) {
+                            //middle of the first paragraph
+                            var $firstParagraph = $widget.find('.ipsContent > *').first();
+                            newPlaceholder.height = $firstParagraph.offset().top + Math.round($firstParagraph.height() / 2) - newPlaceholder.top;
+                        } else {
+                            //middle of the widget
+                            newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                        }
 
                     }
 
@@ -379,7 +386,7 @@
                     var $prevWidget = $widget.prev();
                     var space = $widget.offset().top - ($prevWidget.offset().top + $prevWidget.height());
                     //all up to the last placeholders
-                    var newPlaceholder = {
+                    newPlaceholder = {
                         left: $prevWidget.offset().left,
                         top: $prevWidget.offset().top + ($prevWidget.height() / 2),
                         width: $widget.width(),
@@ -389,7 +396,23 @@
                     if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
                         newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height() + space * 1 / 4; //the end of column widget
                     }
-                    newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+
+                    if ($prevWidget.hasClass('ipWidget-Text') && $prevWidget.find('.ipsContent > *').length) {
+                        //start placeholder from the middle of last paragraph
+                        var $lastParagraph = $prevWidget.find('.ipsContent > *').last();
+                        newPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                    }
+
+
+                    if ($widget.hasClass('ipWidget-Text') && $widget.find('.ipsContent > *').length) {
+                        //placeholder touches center of first paragraph
+                        var $firstParagraph = $widget.find('.ipsContent > *').first();
+                        newPlaceholder.height = $firstParagraph.offset().top - newPlaceholder.top + Math.round($firstParagraph.height() / 2);
+                    } else {
+                        //placeholder touches the center of the widget
+                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                    }
+
                     if ($widget.hasClass('ipWidget-Columns')) {
                         newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
                         newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
@@ -405,9 +428,9 @@
 
                 if ($widget.index() == $widgets.length - 1) {
                     var space = 10;
-                    var newPlaceholder = {
+                    var lastPlaceholder = {
                         left: $widget.offset().left,
-                        top: $widget.offset().top + $widget.height() / 2,
+                        top: newPlaceholder.top + newPlaceholder.height + 1,
                         height: $widget.height() / 2 + space,
                         width: $widget.width(),
                         markerOffset: $widget.height() / 2 + space / 2,
@@ -421,17 +444,17 @@
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
-                        newPlaceholder.height = columnsEnd -  newPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
                     }
 
                     if ($widget.hasClass('ipWidget-Columns')) {
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
-                        newPlaceholder.height = space * 2;
-                        newPlaceholder.top = columnsEnd + space * 1 / 4;
-                        newPlaceholder.markerOffset = 5;
+                        lastPlaceholder.height = space * 2;
+                        lastPlaceholder.top = columnsEnd + space * 1 / 4;
+                        lastPlaceholder.markerOffset = 5;
                     }
 
-                    horizontalPlaceholders.push(newPlaceholder);
+                    horizontalPlaceholders.push(lastPlaceholder);
                 }
 
             });
