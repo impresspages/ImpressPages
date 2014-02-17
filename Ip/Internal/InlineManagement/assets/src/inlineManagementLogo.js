@@ -296,6 +296,7 @@
 
         $this.find('.ipmType').buttonset();
 
+        $modal.find('.ipsImage').one('ready.ipUploadImage', $.proxy(preview, $this));
         $.proxy(updateType, $this)(); //initialize current type tab
 
         $this.data('typeSelectText').bind('change', $.proxy(updateType, $this));

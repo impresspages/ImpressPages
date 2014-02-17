@@ -521,14 +521,6 @@
 
 
 
-    function pausecomp(millis)
-    {
-        var date = new Date();
-        var curDate = null;
-        do { curDate = new Date(); }
-        while(curDate-date < millis);
-    }
-
     /**
      * img onLoad event
      */
@@ -563,6 +555,7 @@
 
         if (!$this.data('firstImageLoaded')) {
             $this.data('firstImageLoaded', true);
+            $this.trigger('ready.ipUploadImage');
         } else {
             $this.trigger('addImage.ipUploadImage');
         }
