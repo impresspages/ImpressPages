@@ -18,7 +18,7 @@ class View
      * @ignore
      */
     const OVERRIDE_DIR = 'override';
-        
+
     private $file;
     private $data;
     private $doctype;
@@ -34,10 +34,10 @@ class View
         self::checkData($data);
         $this->file = $file;
         $this->data = $data;
-        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
         $this->doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
-    
+
     /**
      * Set view variables
      * @param $variables
@@ -153,7 +153,7 @@ class View
     public function getDoctype () {
         return $this->doctype;
     }
-    
+
     /**
      * Get theme option. Options can be viewed or set using UI via Theme options dialog box.
      * @param $name
@@ -178,6 +178,6 @@ class View
         }
     }
 
-    
-    
+
+
 }

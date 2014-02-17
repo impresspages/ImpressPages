@@ -677,7 +677,7 @@ function ipHtmlAttributes($doctype = null)
 {
     $content = \Ip\ServiceLocator::content();
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {
@@ -713,7 +713,7 @@ function ipHtmlAttributes($doctype = null)
 function ipDoctypeDeclaration($doctype = null)
 {
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('DEFAULT_DOCTYPE');
+        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {

@@ -54,8 +54,8 @@ class Config
             $this->rawConfig['charset'] = 'UTF-8';
         }
 
-        if (empty($this->rawConfig['DEFAULT_DOCTYPE'])) {
-            $this->rawConfig['DEFAULT_DOCTYPE'] = 'DOCTYPE_HTML5';
+        if (empty($this->rawConfig['defaultDoctype'])) {
+            $this->rawConfig['defaultDoctype'] = 'DOCTYPE_HTML5';
         }
 
 
