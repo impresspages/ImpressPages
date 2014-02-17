@@ -244,7 +244,7 @@ class Model
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
             ),
-            'ERRORS_SHOW' => array(
+            'errorsShow' => array(
                 'value' => 1,
                 'comment' => "0 if you don't wish to display errors on the page",
             ),
