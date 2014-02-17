@@ -103,7 +103,7 @@ class Config
 
     public function isDebugMode()
     {
-        return !empty($this->rawConfig['DEBUG_MODE']);
+        return !empty($this->rawConfig['debugMode']);
     }
 
     public function theme()
