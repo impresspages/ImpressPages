@@ -279,8 +279,7 @@ var IpWidget_Gallery;
 
             this.popup.modal(); // open modal popup
 
-            this.confirmButton.off(); // ensure we will not bind second time
-            this.confirmButton.on('click', $.proxy(saveLink, this));
+            this.confirmButton.off().on('click', $.proxy(saveLink, this));
         };
 
         var saveLink = function () {
