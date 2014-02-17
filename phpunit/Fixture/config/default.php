@@ -24,7 +24,7 @@ return array(
     'charset' => 'UTF-8',
 
     'theme' => 'Air',
-    'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
+    'defaultDoctype' => 'DOCTYPE_HTML5',
 
     'TIMEZONE' => 'Africa/Bujumbura',
     // END FRONTEND

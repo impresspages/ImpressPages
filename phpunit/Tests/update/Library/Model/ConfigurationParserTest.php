@@ -33,6 +33,6 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['charset'], 'UTF-8'); //system characterset
         $this->assertEquals($configuration['mysqlCharset'], 'utf8');
         $this->assertEquals($configuration['theme'], 'Air'); //theme from themes directory
-        $this->assertEquals($configuration['DEFAULT_DOCTYPE'], 'DOCTYPE_HTML5'); //look /Ip/View.php for available options.
+        $this->assertEquals($configuration['defaultDoctype'], 'DOCTYPE_HTML5'); //look /Ip/View.php for available options.
     }
 }
