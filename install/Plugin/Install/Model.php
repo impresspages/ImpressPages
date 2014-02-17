@@ -248,6 +248,10 @@ class Model
                 'value' => 1,
                 'comment' => "0 if you don't wish to display errors on the page",
             ),
+            'debugMode' => array(
+                'value' => 0,
+                'comment' => "Debug mode loads raw unminified JS files, alerts AJAX errors.",
+            ),
             // END GLOBAL
 
 
