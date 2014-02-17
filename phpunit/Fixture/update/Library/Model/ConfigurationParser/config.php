@@ -7,18 +7,18 @@
  */
 
 return array(
-      'SESSION_NAME' => 'ses328617118',
+      'sessionName' => 'ses328617118',
     // END GLOBAL
 
     // DB
       'DB_USERNAME' => 'root',
       'DB_PASSWORD' => 'rootpass',
       'DB_DATABASE' => 'somedatabase',
-      'DB_PREF' => 'ip_',
+      'dbPrefix' => 'ip_',
     // END DB
 
     // GLOBAL
-      'BASE_DIR' => '/var/www/test/',
+      'baseDir' => '/var/www/test/',
       'BASE_URL' => 'http://www.example.com/',
 
       'DEVELOPMENT_ENVIRONMENT' => 1,

@@ -75,7 +75,7 @@ class Application
 
         if (empty($options['skipSession'])) {
             if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-                session_name(ipConfig()->getRaw('SESSION_NAME'));
+                session_name(ipConfig()->getRaw('sessionName'));
                 session_start();
             }
         }

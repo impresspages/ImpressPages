@@ -494,7 +494,7 @@ if (!function_exists('ipFile')) {
         global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot
 
         if (!$ipFile_baseDir) {
-            $ipFile_baseDir = ipConfig()->getRaw('BASE_DIR');
+            $ipFile_baseDir = ipConfig()->getRaw('baseDir');
             $ipFile_overrides = ipConfig()->getRaw('FILE_OVERRIDES');
         }
 
@@ -923,7 +923,7 @@ function ipRelativeDir($callLevel = 0)
         }
     }
 
-    $baseDir = ipConfig()->getRaw('BASE_DIR');
+    $baseDir = ipConfig()->getRaw('baseDir');
 
     $baseDir = str_replace('\\', '/', $baseDir);
     if (strpos($absoluteFile, $baseDir) !== 0) {

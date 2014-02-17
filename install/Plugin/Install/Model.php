@@ -236,7 +236,7 @@ class Model
     {
         $configInfo = array(
             // GLOBAL
-            'SESSION_NAME' => array(
+            'sessionName' => array(
                 'value' => 'changeThis',
                 'comment' => 'prevents session conflict when two sites runs on the same server',
             ),

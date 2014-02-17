@@ -327,7 +327,7 @@ class PublicController extends \Ip\Controller
         }
 
         $config = array();
-        $config['SESSION_NAME'] = 'ses' . rand();
+        $config['sessionName'] = 'ses' . rand();
         $config['TIMEZONE'] = $timezone;
         $config['db'] = $_SESSION['db'];
 
