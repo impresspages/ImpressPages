@@ -26,7 +26,7 @@ class ConfigurationParserTest extends \PhpUnit\GeneralTestCase
         $this->assertEquals($configuration['baseUrl'], 'http://www.example.com/'); //root url with trainling slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
 
         $this->assertEquals($configuration['developmentEnvironment'], 1); //displays error and debug information. Change to 0 before deployment to production server
-        $this->assertEquals($configuration['ERRORS_SHOW'], 1);  //0 if you don't wish to display errors on the page
+        $this->assertEquals($configuration['errorsShow'], 1);  //0 if you don't wish to display errors on the page
         // END GLOBAL
 
         // FRONTEND

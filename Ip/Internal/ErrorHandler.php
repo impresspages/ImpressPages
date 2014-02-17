@@ -57,7 +57,7 @@ class ErrorHandler {
             ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
         }
 
-        if(ipConfig()->getRaw('ERRORS_SHOW')){
+        if(ipConfig()->getRaw('errorsShow')){
             echo "{$errstr} in {$errfile}:{$errline}";
         }
 

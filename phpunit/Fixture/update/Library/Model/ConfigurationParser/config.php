@@ -22,7 +22,7 @@ return array(
       'baseUrl' => 'http://www.example.com/',
 
       'developmentEnvironment' => 1,
-      'ERRORS_SHOW' => 1,
+      'errorsShow' => 1,
     // END GLOBAL
 
     // FRONTEND
