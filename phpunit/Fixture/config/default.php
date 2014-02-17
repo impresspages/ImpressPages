@@ -26,7 +26,7 @@ return array(
     'theme' => 'Air',
     'defaultDoctype' => 'DOCTYPE_HTML5',
 
-    'TIMEZONE' => 'Africa/Bujumbura',
+    'timezone' => 'Africa/Bujumbura',
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(

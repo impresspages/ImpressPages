@@ -252,7 +252,7 @@ class Model
 
 
             // FRONTEND
-            'TIMEZONE' => array(
+            'timezone' => array(
                 'value' => 'changeThis',
                 'comment' => 'PHP 5 requires timezone to be set.',
             ),
