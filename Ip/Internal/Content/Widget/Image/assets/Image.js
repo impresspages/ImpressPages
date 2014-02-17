@@ -45,45 +45,7 @@ var IpWidget_Image;
 
 
 
-//
-//            var $imageUploader = $('<div class="ipsImage ip"></div>');
-//            this.$widgetObject.append($imageUploader);
-//            this.$imageUploader = $imageUploader;
-//
-//            var options = new Object;
-//
-//            if (data.imageOriginal) {
-//                options.image = data.imageOriginal;
-//            }
-//            if (data.cropX1) {
-//                options.cropX1 = data.cropX1;
-//            }
-//            if (data.cropY1) {
-//                options.cropY1 = data.cropY1;
-//            }
-//            if (data.cropX2) {
-//                options.cropX2 = data.cropX2;
-//            }
-//            if (data.cropY2) {
-//                options.cropY2 = data.cropY2;
-//            }
-//            options.enableChangeHeight = true;
-//            options.enableChangeWidth = true;
-//            options.enableUnderscale = true;
-//
-//            var $img = this.$widgetObject.find('img');
-//
-//
-//            if ($img.length == 1) {
-//                options.windowWidth = $img.width();
-//                options.windowHeight = $img.height();
-//                $img.hide();
-//            }
-//            if (options.windowHeight == null) {
-//                options.windowHeight = 100;
-//            }
-//
-//            this.$imageUploader.ipUploadImage(options);
+
 
         }
 
@@ -105,6 +67,9 @@ var IpWidget_Image;
             });
             $controls.find('.ipsEdit').off().on('click', function(e) {
                 $.proxy(context.editImage, context)($item.index());
+            });
+            $controls.find('.ipsLink').off().on('click', function(e) {
+                $.proxy(linkPopup, context)($item.index());
             });
         };
 
@@ -221,44 +186,67 @@ var IpWidget_Image;
             this.$widgetObject.save(data, 0);
         }
 
-//        var updateImage = function(newImage) {
-//            var $this = $(this);
-//
-//            var data = this.data;
-//            var data = {
-//                method: 'add'
-//            };
-//            this.$widgetObject.save(data, 1, function($widget){
-//                $widget.click();
-//            });
-//        }
-//
-//        var save = function() {
-//
-//            var data = Object();
-//            var ipUploadImage = this.$imageUploader;
-//            if (ipUploadImage.ipUploadImage('getNewImageUploaded')) {
-//                var newImage = ipUploadImage.ipUploadImage('getCurImage');
-//                if (newImage) {
-//                    data.newImage = newImage;
-//                }
-//            }
-//
-//            if (ipUploadImage.ipUploadImage('getCropCoordinatesChanged') && ipUploadImage.ipUploadImage('getCurImage') != false) {
-//                var cropCoordinates = ipUploadImage.ipUploadImage('getCropCoordinates');
-//                if (cropCoordinates) {
-//                    data.cropX1 = cropCoordinates.x1;
-//                    data.cropY1 = cropCoordinates.y1;
-//                    data.cropX2 = cropCoordinates.x2;
-//                    data.cropY2 = cropCoordinates.y2;
-//                    data.width = ipUploadImage.ipUploadImage('width');
-//                    data.height = ipUploadImage.ipUploadImage('height');
-//                }
-//            }
-//
-//            data.title = this.$widgetObject.find('.ipsImageTitle').val();
-//            this.$widgetObject.save(data);
-//        }
+        var linkPopup = function (index) {
+            var context = this;
+            this.popup = $('#ipWidgetImageLinkPopup');
+            this.confirmButton = this.popup.find('.ipsConfirm');
+            this.type = this.popup.find('select[name=type]');
+            this.url = this.popup.find('input[name=url]');
+            this.blank = this.popup.find('input[name=blank]');
+            var data = this.data;
+
+            if (data.type) {
+                this.type.val(data.type);
+            } else {
+                this.type.val('lightbox'); // cleanup value if it was set before
+            }
+
+            if (data.url) {
+                this.url.val(data.url);
+            } else {
+                this.url.val(''); // cleanup value if it was set before
+            }
+
+            if (data.blank) {
+                this.blank.attr('checked', true);
+            } else {
+                this.blank.attr('checked', false);
+            }
+
+
+            this.type.off().on('change', function () {
+                $.proxy(showHide, context)();
+            });
+
+            $.proxy(showHide, context)();
+
+
+            this.popup.modal(); // open modal popup
+
+            this.confirmButton.off().on('click', $.proxy(saveLink, this));
+        };
+
+        var saveLink = function () {
+            var data = {
+                method: 'setLink',
+                type: this.type.val(),
+                url: this.url.val(),
+                blank: this.blank.attr('checked') ? 1 : 0
+            };
+
+            this.$widgetObject.save(data, 1); // save and reload widget
+            this.popup.modal('hide');
+        };
+
+        var showHide = function () {
+            if (this.type.val() == 'link') {
+                this.popup.find('.form-group.name-url').show();
+                this.popup.find('.form-group.name-blank').show();
+            } else {
+                this.popup.find('.form-group.name-url').hide();
+                this.popup.find('.form-group.name-blank').hide();
+            }
+        }
 
     };
 

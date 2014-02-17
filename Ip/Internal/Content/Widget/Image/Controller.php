@@ -76,6 +76,19 @@ class Controller extends \Ip\WidgetController{
                     return $newData;
 
                     break;
+                case 'setLink':
+                    if (isset($postData['type'])) {
+                        $currentData['type'] = $postData['type'];
+                    }
+                    if (isset($postData['url'])) {
+                        $currentData['url'] = $postData['url'];
+                    }
+                    if (isset($postData['blank'])) {
+                        $currentData['blank'] = $postData['blank'];
+                    }
+                    return $currentData;
+
+                    break;
             }
         }
     }
@@ -120,7 +133,7 @@ class Controller extends \Ip\WidgetController{
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
             $transformBig = new \Ip\Transform\None();
-            $data['imageBig'] = ipReflection($data['imageOriginal'], $desiredName, $transformBig);
+            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transformBig));
 
 
 
@@ -179,10 +192,69 @@ class Controller extends \Ip\WidgetController{
             } catch (\Ip\Exception\TransformException $e) {
                 ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             }
+
+
+            if (empty($data['type'])) {
+                $data['type'] = 'lightbox';
+            }
+            if (empty($data['url'])) {
+                $data['url'] = '';
+            }
+            if (empty($data['blank'])) {
+                $data['blank'] = '';
+            }
+            if (empty($data['title'])) {
+                $data['title'] = '';
+            }
+
         }
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
+    public function adminHtmlSnippet()
+    {
+        $variables = array (
+            'linkForm' => $this->linkForm()
+        );
+        return ipView('snippet/image.php', $variables)->render();
 
+    }
+
+    protected function linkForm()
+    {
+        $form = new \Ip\Form();
+
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Mouse click action', 'ipAdmin', false),
+            ));
+
+        $values = array(
+            array('lightbox', __('Lightbox', 'ipAdmin', false)),
+            array('link', __('URL', 'ipAdmin', false)),
+            array('nothing', __('Nothing', 'ipAdmin', false)),
+        );
+        $field->setValues($values);
+        $form->addfield($field);
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'url',
+                'label' => __('Url', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'blank',
+                'label' => __('Open in new window', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+        return $form; // Output a string with generated HTML form
+    }
 
 }
