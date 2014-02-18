@@ -397,7 +397,7 @@ class Model
     public static function removePageRevisions($pageId)
     {
         $revisions = self::getRevisions($pageId);
-        foreach ($revisions as $revisionKey => $revision) {
+        foreach ($revisions as $revision) {
             self::removeRevision($revision['revisionId']);
         }
 
