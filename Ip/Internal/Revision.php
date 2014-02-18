@@ -96,7 +96,6 @@ class Revision{
                 'published' => 0
             ),
             array(
-                'zoneName' => $revision['zoneName'],
                 'pageId' => (int)$revision['pageId'],
             )
         );
@@ -146,22 +145,10 @@ class Revision{
     }
 
 
-    public static function getPageRevisions($zoneName, $pageId) {
-        $table = ipTable('revision');
-        $sql = "
-            SELECT * FROM $table
-            WHERE `pageId` = :pageId AND `zoneName` = :zoneName
-            ORDER BY `created` DESC, `revisionId` DESC
-        ";
-
-        $revisions = ipDb()->fetchAll($sql, array(
-                'pageId' => $pageId,
-                'zoneName' => $zoneName,
-            ));
-
+    public static function getPageRevisions($pageId)
+    {
         $where = array(
            'pageId' => $pageId,
-            'zoneName' => $zoneName,
         );
 
         return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
