@@ -539,7 +539,7 @@
                     left: $widget.offset().left,
                     top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
                     width: $widget.width(),
-                    widgetinstanceid: $paragraph.data('instanceId'),
+                    instanceId: $widget.data('widgetinstanceid'),
                     position: paragraphKey + 1
                 };
 
@@ -563,7 +563,7 @@
             $droppable.css('height', value.height + 'px');
             $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
             $droppable.data('position', value.position);
-            $droppable.data('widgetinstanceid', value.widgetInstanceId);
+            $droppable.data('instanceId', value.instanceId);
             $droppable.data('paragraph', 1);
         });
 
@@ -603,7 +603,7 @@
             } else if (newCol) {
                 ipContent.createWidgetToColumn(widgetName, targetWidgetInstanceId, position);
             } else if (paragraph) {
-                ipContent.createWidgetToWidget(widgetName, targetWidgetInstanceId, position);
+                ipContent.createWidgetInsideWidget(widgetName, targetWidgetInstanceId, position);
             } else {
                 ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
             }

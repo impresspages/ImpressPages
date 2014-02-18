@@ -111,24 +111,23 @@ var ipContent;
         }
 
 
-        this.createWidgetToWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
+        this.createWidgetInsideWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
             var revisionId = ip.revisionId;
-            //var $targetWidget = $('#ipWidget-' + targetWidgetInstanceId);
             this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
-//                    ipContent.createWidget(revisionId, blockName, widgetName, 0, function (instanceId) {
-//                        var $block = $('#ipBlock-' + newWidgetBlockName);
-//                        $block.find('.ipbExampleContent').remove();
-//                        if (callback) {
-//                            callback(instanceId);
-//                        }
-//                    });
-
+                var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
+                var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
+                var firstWidgetPosition = $firstWidget.index();
+                    ipContent.createWidget(revisionId, blockName, widgetName, firstWidgetPosition + 1, function (instanceId) {
+                        if (callback) {
+                            callback(instanceId);
+                        }
+                    });
             });
-
         }
 
 
         this.splitWidget = function (widgetInstanceId, position, callback) {
+            var context = this;
             var $widget = $('#ipWidget-' + widgetInstanceId);
             var blockName = $widget.closest('.ipBlock').data('ipBlock').name;
             var widgetPosition = $widget.index();
@@ -142,13 +141,18 @@ var ipContent;
                 }
                 return;
             }
-            var splitData = widgetController.spiltData($widget.data('widgetdata'), position);
+            var splitData = widgetController.splitData($widget.data('widgetdata'), position);
             this.deleteWidget(widgetInstanceId, function() {
-                this.createWidget(ip.revisionId, widgetName, widgetPosition, function (firstWidgetInstanceId) {
+                context.createWidget(ip.revisionId, blockName, widgetName, widgetPosition, function (firstWidgetInstanceId) {
                     var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
-                    $firstWidget.save()
-                    this.createWidget(ip.revisionId, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
+                    $firstWidget.ipWidget('save', splitData[0], true);
 
+                    context.createWidget(ip.revisionId, blockName, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
+                        var $secondWidget = $('#ipWidget-' + secondWidgetInstanceId);
+                        $secondWidget.ipWidget('save', splitData[1], true);
+                        if (callback) {
+                            callback(firstWidgetInstanceId, secondWidgetInstanceId);
+                        }
                     });
                 });
             });
@@ -389,12 +393,12 @@ var ipContent;
                             $newWidget.insertAfter($secondChild);
                         }
 
+                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                         $block.trigger('reinitRequired.ipWidget');
                         $block.trigger('addWidget.ipWidget',{
                             'instanceId': response.instanceId,
                             'widget': $newWidget
                         });
-                        $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
 
                         var widgetController = $newWidget.ipWidget('widgetController');
                         if (widgetController && typeof(widgetController['onAdd']) === 'function') {
