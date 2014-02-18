@@ -31,31 +31,31 @@ class Config
             $server = $_SERVER;
         }
 
-        if (empty($this->rawConfig['BASE_URL'])) {
-            $this->rawConfig['BASE_URL'] = $server["SERVER_NAME"];
+        if (empty($this->rawConfig['baseUrl'])) {
+            $this->rawConfig['baseUrl'] = $server["SERVER_NAME"];
 
             if ($server["SERVER_PORT"] != "80") {
-                $this->rawConfig['BASE_URL'].= ":".$server["SERVER_PORT"];
+                $this->rawConfig['baseUrl'].= ":".$server["SERVER_PORT"];
             }
 
             $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
             if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
-                throw new \Exception('Could not detect BASE_URL. Please specify BASE_URL in config.php');
+                throw new \Exception('Could not detect base URL. Please specify baseUrl in config.php');
             }
 
-            $this->rawConfig['BASE_URL'].= rtrim($baseUrl, '/') . '/';
+            $this->rawConfig['baseUrl'].= rtrim($baseUrl, '/') . '/';
         }
 
-        if (empty($this->rawConfig['BASE_DIR'])) {
-            $this->rawConfig['BASE_DIR'] = dirname($server['SCRIPT_FILENAME']);
+        if (empty($this->rawConfig['baseDir'])) {
+            $this->rawConfig['baseDir'] = dirname($server['SCRIPT_FILENAME']);
         }
 
-        if (empty($this->rawConfig['CHARSET'])) {
-            $this->rawConfig['CHARSET'] = 'UTF-8';
+        if (empty($this->rawConfig['charset'])) {
+            $this->rawConfig['charset'] = 'UTF-8';
         }
 
-        if (empty($this->rawConfig['DEFAULT_DOCTYPE'])) {
-            $this->rawConfig['DEFAULT_DOCTYPE'] = 'DOCTYPE_HTML5';
+        if (empty($this->rawConfig['defaultDoctype'])) {
+            $this->rawConfig['defaultDoctype'] = 'DOCTYPE_HTML5';
         }
 
 
@@ -78,7 +78,7 @@ class Config
 
     public function baseUrl()
     {
-        return $this->protocol . $this->rawConfig['BASE_URL'];
+        return $this->protocol . $this->rawConfig['baseUrl'];
     }
 
     public function getRaw($name)
@@ -97,19 +97,19 @@ class Config
 
     public function isDevelopmentEnvironment()
     {
-        return !empty($this->rawConfig['DEVELOPMENT_ENVIRONMENT']);
+        return !empty($this->rawConfig['developmentEnvironment']);
     }
 
 
     public function isDebugMode()
     {
-        return !empty($this->rawConfig['DEBUG_MODE']);
+        return !empty($this->rawConfig['debugMode']);
     }
 
     public function theme()
     {
-        if (!empty($this->rawConfig['THEME'])) {
-            return $this->rawConfig['THEME'];
+        if (!empty($this->rawConfig['theme'])) {
+            return $this->rawConfig['theme'];
         } else {
             return ipStorage()->get('Ip', 'theme');
         }

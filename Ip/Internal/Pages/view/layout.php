@@ -32,24 +32,22 @@
                             <?php _e('Add', 'ipAdmin'); ?>
                         </button>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-default" title="<?php _e('Cut', 'ipAdmin'); ?>" ng-click="cutPage()" ng-show="selectedPageId" role="button">
+                            <button class="btn btn-sm btn-default" title="<?php _e('Cut', 'ipAdmin'); ?>" ng-click="cutPage()" ng-class="{disabled: !selectedPageId}" role="button">
                                 <i class="fa fa-cut"></i>
                             </button>
-                            <button class="btn btn-sm btn-default" title="<?php _e('Copy', 'ipAdmin'); ?>" ng-click="copyPage()" ng-show="selectedPageId" role="button">
+                            <button class="btn btn-sm btn-default" title="<?php _e('Copy', 'ipAdmin'); ?>" ng-click="copyPage()" ng-class="{disabled: !selectedPageId}" role="button">
                                 <i class="fa fa-copy"></i>
                             </button>
-                            <button class="btn btn-sm btn-default" title="<?php _e('Paste', 'ipAdmin'); ?>" ng-click="pastePage()" ng-show="copyPageId || cutPageId" role="button">
+                            <button class="btn btn-sm btn-default" title="<?php _e('Paste', 'ipAdmin'); ?>" ng-click="pastePage()" ng-class="{disabled: !copyPageId && !cutPageId}" role="button">
                                 <i class="fa fa-paste"></i>
                             </button>
                         </div>
-                        <div class="ipsTree"></div>
-                    </div>
+                    <div class="ipsTree"></div>
                 </div>
             </div>
         </div>
-        <div class="_container _properties ipsProperties" ng-show="selectedPageId"></div>
-        <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
-        <?php echo ipView('Ip/Internal/Pages/view/addMenuModal.php', $this->getVariables())->render(); ?>
-        <?php echo ipView('Ip/Internal/Pages/view/updateMenuModal.php', $this->getVariables())->render(); ?>
-    </div>
+    <div class="_container _properties ipsProperties" ng-show="selectedPageId"></div>
+    <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/addMenuModal.php', $this->getVariables())->render(); ?>
+    <?php echo ipView('Ip/Internal/Pages/view/updateMenuModal.php', $this->getVariables())->render(); ?>
 </div>

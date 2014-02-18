@@ -90,7 +90,7 @@ class ServiceLocator
     {
         self::$config = $config;
 
-        $serviceClasses = $config->getRaw('SERVICES');
+        $serviceClasses = $config->getRaw('services');
         if ($serviceClasses) {
             static::$serviceClasses = array_merge(static::$serviceClasses, $serviceClasses);
         }

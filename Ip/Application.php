@@ -75,17 +75,17 @@ class Application
 
         if (empty($options['skipSession'])) {
             if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-                session_name(ipConfig()->getRaw('SESSION_NAME'));
+                session_name(ipConfig()->getRaw('sessionName'));
                 session_start();
             }
         }
 
         if (empty($options['skipEncoding'])) {
-            mb_internal_encoding(ipConfig()->getRaw('CHARSET'));
+            mb_internal_encoding(ipConfig()->getRaw('charset'));
         }
 
         if (empty($options['skipTimezone'])) {
-            date_default_timezone_set(ipConfig()->getRaw('TIMEZONE')); //PHP 5 requires timezone to be set.
+            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
         }
     }
 

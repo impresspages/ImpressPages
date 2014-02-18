@@ -14,7 +14,7 @@
 
     <?php echo ipHead(); ?>
 </head>
-<body class="ipAdminBody">
+<body class="ip ipAdminBody">
     <?php echo ipBlock('main'); ?>
     <?php echo ipJs(); ?>
 </body>

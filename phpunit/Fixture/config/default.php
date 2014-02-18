@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'SESSION_NAME' => 'testsession',  //prevents session conflict when two sites runs on the same server
+    'sessionName' => 'testsession',  //prevents session conflict when two sites runs on the same server
 
     'db' => array(
         'hostname' => TEST_DB_HOST,
@@ -13,20 +13,20 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => realpath(TEST_CODEBASE_DIR),
-    'BASE_URL' => 'localhost/',
+    'baseDir' => realpath(TEST_CODEBASE_DIR),
+    'baseUrl' => 'localhost/',
 
-    'DEVELOPMENT_ENVIRONMENT' => 1,
-    'ERRORS_SHOW' => 1,
+    'developmentEnvironment' => 1,
+    'errorsShow' => 1,
     // END GLOBAL
 
     // FRONTEND
-    'CHARSET' => 'UTF-8',
+    'charset' => 'UTF-8',
 
-    'THEME' => 'Air',
-    'DEFAULT_DOCTYPE' => 'DOCTYPE_HTML5',
+    'theme' => 'Air',
+    'defaultDoctype' => 'DOCTYPE_HTML5',
 
-    'TIMEZONE' => 'Africa/Bujumbura',
+    'timezone' => 'Africa/Bujumbura',
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(

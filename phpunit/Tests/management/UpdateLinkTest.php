@@ -93,8 +93,8 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $configurationHelper = new \PhpUnit\Helper\Configuration();
 
         $configurationHelper->changeConfigurationValues($newInstallation, array(
-            'BASE_URL' => $newInstallation->getInstallationUrl(),
-            'BASE_DIR' => $newInstallation->getInstallationDir()
+            'baseUrl' => $newInstallation->getInstallationUrl(),
+            'baseDir' => $newInstallation->getInstallationDir()
         ));
 
         $ipActions = new \PhpUnit\Helper\IpActions($this, $newInstallation);

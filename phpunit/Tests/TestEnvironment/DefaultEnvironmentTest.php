@@ -9,7 +9,7 @@ class DefaultEnvironmentTest extends \PHPUnit_Framework_TestCase
     {
         \PhpUnit\Helper\TestEnvironment::setup();
 
-        $this->assertEquals(realpath(TEST_CODEBASE_DIR), ipConfig()->getRaw('BASE_DIR'));
+        $this->assertEquals(realpath(TEST_CODEBASE_DIR), ipConfig()->getRaw('baseDir'));
 
         $this->assertTrue(file_exists(ipFile('file/repository/')), 'file/repository doesn\'t exist.');
 

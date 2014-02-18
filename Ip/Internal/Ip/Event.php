@@ -16,6 +16,9 @@ class Event
         ipAddJs('Ip/Internal/Ip/assets/js/jquery.js', null, 10); // default, global jQuery
 
         ipAddJs('Ip/Internal/Ip/assets/functions.js');
+        if (ipAdminId()) {
+            ipAddJs('Ip/Internal/Ip/assets/adminFunctions.js');
+        }
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js');
 
         //Form init
