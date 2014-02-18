@@ -46,8 +46,6 @@ class Model
                 Model::deletePage($rootId);
             }
         }
-        self::deleteZoneParameters($id);
-        self::removeZoneToContent($id);
     }
 
     protected static function uniqueZoneName($name)
@@ -255,8 +253,6 @@ class Model
         $zoneId = ipDb()->insert('zone', $data);
 
         self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
-
-        ipContent()->invalidateZones();
 
         return $zoneName;
     }

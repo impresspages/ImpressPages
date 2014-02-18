@@ -179,7 +179,6 @@ class PageAssets
                 'languageId' => ipContent()->getCurrentLanguage()->getId(),
                 'languageUrl' => \Ip\Internal\Deprecated\Url::generate(),
                 'theme' => ipConfig()->getRaw('theme'),
-                'zoneName' => ipContent()->getCurrentZone() ? ipContent()->getCurrentZone()->getName() : null,
                 'pageId' => ipContent()->getCurrentPage() ? ipContent()->getCurrentPage()->getId() : null,
                 'revisionId' => $revision['revisionId'],
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),

@@ -47,10 +47,7 @@ class Model
             $widgets[$key] = $widget;
         }
 
-        $revisions = \Ip\Internal\Revision::getPageRevisions(
-            ipContent()->getCurrentZone()->getName(),
-            ipContent()->getCurrentPage()->getId()
-        );
+        $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();

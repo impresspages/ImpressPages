@@ -196,36 +196,13 @@ class Content
      *
      * Gets an array of pages representing a tree path to a current page.
      *
-     * @param string $zoneName
      * @param int $pageId
      * @return \Ip\Page[]
      */
-    public function getBreadcrumb($zoneName = null, $pageId = null)
+    public function getBreadcrumb($pageId = null)
     {
-        if ($zoneName === null && $pageId !== null || $zoneName !== null && $pageId === null) {
-            trigger_error("This method can accept none or both parameters");
-        }
-
-        if ($zoneName === null && $pageId === null) {
-            $zone = ipContent()->getCurrentZone();
-            if (!$zone) {
-                return array();
-            }
-            $breadcrumb = $zone->getBreadcrumb();
-        } else {
-            $zone = $this->getZone($zoneName);
-            if (!$zone) {
-                return array();
-            }
-            $breadcrumb = $zone->getBreadcrumb($pageId);
-        }
-
-        if (is_array($breadcrumb)) {
-            return $breadcrumb;
-        } else {
-            return array();
-        }
-
+        // TODOXX #breadcrumb
+        return array();
     }
 
     /**
@@ -260,15 +237,9 @@ class Content
      */
     public function getDescription()
     {
-        $curZone = ipContent()->getCurrentZone();
-        if (!$curZone) {
-            return '';
-        }
-        $curEl = $curZone->getCurrentPage();
-        if ($curEl && $curEl->getDescription() != '') {
-            return $curEl->getDescription();
-        } else {
-            return $curZone->getDescription();
+        $page = ipCurrentPage()->getPage();
+        if ($page) {
+            return $page->getDescription();
         }
     }
 
@@ -280,32 +251,11 @@ class Content
      */
     public function getKeywords()
     {
-        $curZone = ipContent()->getCurrentZone();
-        if (!$curZone) {
-            return '';
-        }
-
-        $curEl = $curZone->getCurrentPage();
-        if ($curEl && $curEl->getKeywords() != '') {
-            return $curEl->getKeywords();
-        } else {
-            return $curZone->getKeywords();
+        $page = ipCurrentPage()->getPage();
+        if ($page) {
+            return $page->getKeywords();
         }
     }
-
-    /**
-     * Invalidate zones cache. Use this method if you have added or removed some zones
-     * @ignore
-     */
-    //TODOXX make private and execute when needed #201
-
-
-    public function invalidateZones()
-    {
-        $this->zones = null;
-        $this->zonesData = null;
-    }
-
 
     /**
      * Add website language
