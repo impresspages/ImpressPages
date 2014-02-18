@@ -113,15 +113,47 @@ var ipContent;
 
         this.createWidgetToWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
             var revisionId = ip.revisionId;
-            addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
-                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
-                    var $block = $('#ipBlock-' + newWidgetBlockName);
-                    $block.find('.ipbExampleContent').remove();
-                    if (callback) {
-                        callback(instanceId);
-                    }
+            //var $targetWidget = $('#ipWidget-' + targetWidgetInstanceId);
+            this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
+//                    ipContent.createWidget(revisionId, blockName, widgetName, 0, function (instanceId) {
+//                        var $block = $('#ipBlock-' + newWidgetBlockName);
+//                        $block.find('.ipbExampleContent').remove();
+//                        if (callback) {
+//                            callback(instanceId);
+//                        }
+//                    });
+
+            });
+
+        }
+
+
+        this.splitWidget = function (widgetInstanceId, position, callback) {
+            var $widget = $('#ipWidget-' + widgetInstanceId);
+            var blockName = $widget.closest('.ipBlock').data('ipBlock').name;
+            var widgetPosition = $widget.index();
+            var widgetName = $widget.data('widgetname');
+            var widgetController = $widget.data('widgetController');
+            if (!widgetController.splitData) {
+                if (ip.debugMode) {
+                    alert('Widget ' + widgetName + ' javascript controller IpWidget_' + widgetName + ' has no method splitData');
+                } else {
+                    //do nothing
+                }
+                return;
+            }
+            var splitData = widgetController.spiltData($widget.data('widgetdata'), position);
+            this.deleteWidget(widgetInstanceId, function() {
+                this.createWidget(ip.revisionId, widgetName, widgetPosition, function (firstWidgetInstanceId) {
+                    var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
+                    $firstWidget.save()
+                    this.createWidget(ip.revisionId, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
+
+                    });
                 });
             });
+
+
         }
 
         this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
