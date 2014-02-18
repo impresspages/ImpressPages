@@ -369,7 +369,7 @@ class Content
      */
     public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
     {
-        \Ip\Internal\Pages\Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+        \Ip\Internal\Pages\Service::updateMenu($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
     }
 
     /**

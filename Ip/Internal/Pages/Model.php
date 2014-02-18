@@ -262,45 +262,15 @@ class Model
     }
 
 
-    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    public static function updateMenu($menuId, $alias, $title, $layout)
     {
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Ip\Exception('Unknown zone ' . $zoneName);
-        }
-        $language = ipContent()->getLanguage($languageId);
-        if (!$language) {
-            throw new \Ip\Exception('Unknown language ' . $languageId);
-        }
-
-        $oldUrl = $zone->getUrl();
-
-        //update zone table record
-        $params = array(
-            'name' => $name,
-            'template' => $layout,
-            'translation' => $title
+        $update = array(
+            'alias' => $alias,
+            'navigationTitle' => $title,
         );
 
-        ipDb()->update('zone', $params, array('name' => $zoneName));
-
-        //update zone parameters table
-        $newUrl = self::newZoneUrl($languageId, $url);
-        $params = array(
-            'url' => $newUrl,
-            'title' => $metaTitle,
-            'keywords' => $metaKeywords,
-            'description' => $metaDescription
-        );
-
-        ipDb()->update('zone_to_language', $params, array('zone_id' => $zone->getId(), 'language_id' => $languageId));
-
-        $oldUrl = ipFileUrl('') . $language->getUrl() . '/' . $oldUrl . '/';
-        $newUrl = ipFileUrl('') . $language->getUrl() . '/' . $newUrl . '/';
-
-        if ($oldUrl != $newUrl) {
-            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-        }
+        ipDb()->update('page', $update, array('id' => $menuId));
+        ipPageStorage($menuId)->set('layout', $layout);
     }
 
     public static function deleteZone($zoneName)

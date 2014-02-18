@@ -19,7 +19,7 @@
             <ul>
                 <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}">
                     <a href="" ng-click="setMenuHash(menu)">{{menuTitle(menu)}}</a>
-                    <button class="btn btn-sm btn-default _control" ng-click="updateZoneModal(menu)"><i class="fa fa-cog"></i></button>
+                    <button class="btn btn-sm btn-default _control" ng-click="updateMenuModal(menu)"><i class="fa fa-cog"></i></button>
                 </li>
             </ul>
         </div>
@@ -50,6 +50,6 @@
         <div class="_container _properties ipsProperties" ng-show="selectedPageId"></div>
         <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
         <?php echo ipView('Ip/Internal/Pages/view/addMenuModal.php', $this->getVariables())->render(); ?>
-        <?php echo ipView('Ip/Internal/Pages/view/updateZoneModal.php', $this->getVariables())->render(); ?>
+        <?php echo ipView('Ip/Internal/Pages/view/updateMenuModal.php', $this->getVariables())->render(); ?>
     </div>
 </div>

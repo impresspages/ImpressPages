@@ -131,13 +131,13 @@ var ipPages = null;
         }
 
 
-        $scope.updateZoneModal = function (zone) {
-            var $modal = $('.ipsUpdateZoneModal');
+        $scope.updateMenuModal = function (menu) {
+            var $modal = $('.ipsUpdateMenuModal');
             $modal.modal();
 
             var data = {
-                aa: 'Pages.updateZoneForm',
-                zoneName: zone.name
+                aa: 'Pages.updateMenuForm',
+                id: menu.id
             }
 
             $.ajax({
@@ -169,15 +169,12 @@ var ipPages = null;
                     });
                     $modal.find('form').off('submit').on('submit', function (e) {
                         e.preventDefault();
+                        var menuId = $modal.find('input[name=id]').val();
                         var title = $modal.find('input[name=title]').val();
-                        var url = $modal.find('input[name=url]').val();
-                        var name = $modal.find('input[name=name]').val();
+                        var alias = $modal.find('input[name=alias]').val();
                         var layout = $modal.find('select[name=layout]').val();
-                        var metaTitle = $modal.find('input[name=metaTitle]').val();
-                        var metaKeywords = $modal.find('input[name=metaKeywords]').val();
-                        var metaDescription = $modal.find('textarea[name=metaDescription]').val();
-                        var languageId = $scope.activeLanguage.id;
-                        updateZone(zone.name, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription);
+                        var languageCode = $scope.activeLanguage.code;
+                        updateMenu(menuId, alias, title, layout);
                         $modal.modal('hide');
                     });
 
@@ -461,18 +458,13 @@ var ipPages = null;
             $location.path(path);
         }
 
-        var updateZone = function (zoneName, languageId, title, url, name, layout, metaTitle, metaKeywords, metaDescription) {
+        var updateMenu = function (menuId, alias, title, layout) {
             var data = {
-                aa: 'Pages.updateZone',
-                zoneName: zoneName,
-                languageId: languageId,
+                aa: 'Pages.updateMenu',
+                id: menuId,
+                alias: alias,
                 title: title,
-                url: url,
-                name: name,
                 layout: layout,
-                metaTitle: metaTitle,
-                metaKeywords: metaKeywords,
-                metaDescription: metaDescription,
                 securityToken: ip.securityToken
             };
 

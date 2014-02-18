@@ -125,16 +125,14 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function updateZoneForm()
+    public function updateMenuForm()
     {
-        $data = ipRequest()->getQuery();
-        if (empty($data['zoneName'])) {
+        $menuId = ipRequest()->getQuery('id');
+        if (empty($menuId)) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
 
-
-        $form = Helper::zoneForm($zoneName);
+        $form = Helper::menuForm($menuId);
         $html = $form->render();
 
         $data = array (
@@ -143,29 +141,20 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function updateZone()
+    public function updateMenu()
     {
-        $data = ipRequest()->getPost();
+        $request = ipRequest();
 
-        $requiredData = array('zoneName', 'languageId', 'title', 'url', 'name', 'layout', 'metaTitle', 'metaKeywords', 'metaDescription');
+        $menuId = $request->getPost('id');
+        $title = $request->getPost('title');
+        $alias = $request->getPost('alias');
+        $layout = $request->getPost('layout');
 
-        foreach($requiredData as $required) {
-            if (!array_key_exists($required, $data)) {
-                throw new \Ip\Exception("Missing required parameters");
-            }
+        if (empty($menuId) || empty($title) || empty($alias) || empty($layout)) {
+            throw new \Ip\Exception('Missing required parameters');
         }
 
-        $zoneName = $data['zoneName'];
-        $languageId = $data['languageId'];
-        $title = $data['title'];
-        $url = $data['url'];
-        $name = $data['name'];
-        $layout = $data['layout'];
-        $metaTitle = $data['metaTitle'];
-        $metaKeywords = $data['metaKeywords'];
-        $metaDescription = $data['metaDescription'];
-
-        Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+        Service::updateMenu($menuId, $alias, $title, $layout);
 
         $answer = array(
             'status' => 'success'

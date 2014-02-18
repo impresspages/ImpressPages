@@ -23,9 +23,9 @@ class Service
         return $zoneName;
     }
 
-    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    public static function updateMenu($menuId, $alias, $title, $layout)
     {
-        Model::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+        Model::updateMenu($menuId, $alias, $title, $layout);
     }
 
     public static function deleteZone($zoneName)
