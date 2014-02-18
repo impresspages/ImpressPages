@@ -450,8 +450,20 @@
                         position: $widget.index() + 1
                     };
 
+                    var widgetController = $widget.data('widgetController');
+                    if (!widgetController.splitParts) {
+                        widgetController.splitParts = function () {return new Array()};
+                    }
+                    if (widgetController.splitParts && widgetController.splitParts().length) {
+                        //middle of the last paragraph
+                        var $lastParagraph = widgetController.splitParts().last();
+                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                    }
+
+
                     var $columnsWidget = $widget.closest('.ipWidget-Columns');
                     if ($columnsWidget.length && !$widget.hasClass("ipWidget-Columns")) {
+                        //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
@@ -585,6 +597,7 @@
             var newCol = lastDroppable.data('newCol');
             var blockName = lastDroppable.data('blockName');
             var position = lastDroppable.data('position');
+            var paragraph = lastDroppable.data('paragraph');
             if (side) {
                 ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
             } else if (newCol) {
