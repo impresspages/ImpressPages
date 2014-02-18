@@ -22,7 +22,7 @@ try {
 
 return array(
     // GLOBAL
-    'SESSION_NAME' => 'install', //prevents session conflict when two sites runs on the same server
+    'sessionName' => 'install', //prevents session conflict when two sites runs on the same server
     // END GLOBAL
 
     // DB
@@ -36,17 +36,17 @@ return array(
     ),
 
     // GLOBAL
-    'BASE_DIR' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
-    'BASE_URL' => $baseUrl, //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
+    'baseDir' => dirname(dirname(__FILE__)), //root DIR with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
+    'baseUrl' => $baseUrl, //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
 
-    'DEVELOPMENT_ENVIRONMENT' => 1, //displays error and debug information. Change to 0 before deployment to production server
-    'ERRORS_SHOW' => 1,  //0 if you don't wish to display errors on the page
+    'developmentEnvironment' => 1, //displays error and debug information. Change to 0 before deployment to production server
+    'errorsShow' => 1,  //0 if you don't wish to display errors on the page
     // END GLOBAL
 
     // FRONTEND
-    'THEME' => 'CentrusCleanus', //theme from themes directory
+    'theme' => 'CentrusCleanus', //theme from themes directory
 
-    'TIMEZONE' => $currentTimeZone,
+    'timezone' => $currentTimeZone,
     // END FRONTEND
 
     'FILE_OVERRIDES' => array(
@@ -54,13 +54,13 @@ return array(
         'Theme/' => __DIR__ . '/Theme/',
     ),
 
-    'URL_OVERRIDES' => array(
+    'urlOverrides' => array(
         'Plugin/' => "http://{$baseUrl}/Plugin/",//TODOXX find the way to add domain
         'Theme/' => "http://{$baseUrl}/Theme/",
         'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
     ),
 
-    'SERVICES' => array(
+    'services' => array(
         'pageAssets' => 'Plugin\\Install\\PageAssets',
     )
 );

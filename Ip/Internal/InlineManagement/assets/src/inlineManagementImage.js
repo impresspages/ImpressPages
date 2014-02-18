@@ -65,7 +65,7 @@
                 $overlay.css('z-index', 2000);
 
                 $('.ipModuleInlineManagementPopup.ipmImage').remove();
-                $('body').append('<div class="ipModuleInlineManagementPopup ipmImage" ></div>');
+                $('body').append('<div class="ipModuleInlineManagementPopup ipmImage ip" ></div>');
                 var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
 
                 $popup.html(response.html);
@@ -206,7 +206,7 @@
         },
 
 
-        _preview : function(event) {
+        _preview : function(event) {console.log('preview');
             var $this = this;
 
             var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
@@ -218,9 +218,9 @@
 
             $popup.find('.ipsControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
 
-
             $this.css('width', windowWidth + 'px');
-            $this.css('height', (windowHeight + $popup.find('.ipsControls').height() + 20) + 'px'); //20 - padding
+            //$this.css('height', (windowHeight + $popup.find('.ipsControls').height()) + 'px'); //20 - padding
+            $this.css('height', windowHeight + 'px');
         },
 
         _confirm : function (event) {

@@ -66,7 +66,7 @@ class Product
      */
     protected $type;
     /**
-     * @var string Makes sense only for downloadable products. Relative path to file within SECURE_DIR directory
+     * @var string Makes sense only for downloadable products. Relative path to file within secureDir directory
      */
     protected $file;
 

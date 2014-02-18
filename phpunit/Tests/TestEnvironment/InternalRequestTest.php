@@ -38,10 +38,10 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
 //        $session = new \Behat\Mink\Session($driver);
 //        $session->start();
 //
-//        $session->visit(BASE_URL);
+//        $session->visit(baseUrl);
 //
 //        // get the current page URL:
-//        $this->assertEquals(BASE_URL, $session->getCurrentUrl());
+//        $this->assertEquals(baseUrl, $session->getCurrentUrl());
 //
 //        $page = $session->getPage();
 //

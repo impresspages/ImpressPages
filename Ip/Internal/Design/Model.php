@@ -224,7 +224,7 @@ class Model
         if ($dir) {
             $metadata->setPath($dir);
         } else {
-            $metadata->setPath(ipConfig()->getRaw('THEME_DIR'));
+            $metadata->setPath(ipFile('Theme'));
         }
 
         //new type config

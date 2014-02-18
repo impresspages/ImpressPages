@@ -50,8 +50,8 @@ class RequestTest extends \PhpUnit\GeneralTestCase
         );
 
         $config = include TEST_FIXTURE_DIR . 'config/default.php';
-        $config['BASE_URL'] = '';
-        $config['BASE_DIR'] = '';
+        $config['baseUrl'] = '';
+        $config['baseDir'] = '';
         $ipConfig = new \Ip\Config($config, $server);
         \Ip\ServiceLocator::setConfig($ipConfig);
 

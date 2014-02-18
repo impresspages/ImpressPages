@@ -94,10 +94,10 @@ class Installation
         InstallModel::setSiteName($this->getSiteName());
 
         $config = array();
-        $config['SESSION_NAME'] = 'ses' . rand();
-        $config['BASE_DIR'] = $this->getInstallationDir();
-        $config['BASE_URL'] = substr($this->getInstallationUrl(), strlen('http://'));
-        $config['TIMEZONE'] = $this->getSiteTimeZone();
+        $config['sessionName'] = 'ses' . rand();
+        $config['baseDir'] = $this->getInstallationDir();
+        $config['baseUrl'] = substr($this->getInstallationUrl(), strlen('http://'));
+        $config['timezone'] = $this->getSiteTimeZone();
         $config['db'] = array(
             'hostname' => $this->getDbHost(),
             'username' => $this->getDbPass(),
@@ -178,7 +178,7 @@ class Installation
         //Put instalation into test mode:
         $configFile = $this->getInstallationDir()."config.php";
         $config = include ($configFile);
-        $config['TEST_MODE'] = true;
+        $config['testMode'] = true;
         $configSource = '<?php return ' . var_export($config, true);
         file_put_contents($configFile, $configSource);
 

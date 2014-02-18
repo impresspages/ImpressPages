@@ -236,23 +236,27 @@ class Model
     {
         $configInfo = array(
             // GLOBAL
-            'SESSION_NAME' => array(
+            'sessionName' => array(
                 'value' => 'changeThis',
                 'comment' => 'prevents session conflict when two sites runs on the same server',
             ),
-            'DEVELOPMENT_ENVIRONMENT' => array(
+            'developmentEnvironment' => array(
                 'value' => 1,
                 'comment' => 'displays error and debug information. Change to 0 before deployment to production server',
             ),
-            'ERRORS_SHOW' => array(
+            'errorsShow' => array(
                 'value' => 1,
                 'comment' => "0 if you don't wish to display errors on the page",
+            ),
+            'debugMode' => array(
+                'value' => 0,
+                'comment' => "Debug mode loads raw unminified JS files, alerts AJAX errors.",
             ),
             // END GLOBAL
 
 
             // FRONTEND
-            'TIMEZONE' => array(
+            'timezone' => array(
                 'value' => 'changeThis',
                 'comment' => 'PHP 5 requires timezone to be set.',
             ),
