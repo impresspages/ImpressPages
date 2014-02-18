@@ -193,8 +193,8 @@ var ipPages = null;
 
         }
 
-        $scope.addZoneModal = function () {
-            var $modal = $('.ipsAddZoneModal');
+        $scope.addMenuModal = function () {
+            var $modal = $('.ipsAddMenuModal');
             $modal.find('input[name=title]').val('');
             $modal.modal();
 
@@ -205,7 +205,7 @@ var ipPages = null;
             $modal.find('form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
-                addZone(title);
+                addMenu(title);
                 $modal.modal('hide');
             });
         }
@@ -317,9 +317,9 @@ var ipPages = null;
 
         }
 
-        var addZone = function (title) {
+        var addMenu = function (title) {
             var data = {
-                aa: 'Pages.addZone',
+                aa: 'Pages.addMenu',
                 securityToken: ip.securityToken,
                 title: title
             };

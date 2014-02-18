@@ -350,7 +350,7 @@ class Content
     public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
 
-        $zoneName = \Ip\Internal\Pages\Service::addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
+        $zoneName = \Ip\Internal\Pages\Service::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
         return $zoneName;
     }
 

@@ -12,10 +12,14 @@ namespace Ip\Internal\Pages;
 
 class Service
 {
-
-    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    public static function createMenu()
     {
-        $zoneName = Model::addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
+
+    }
+
+    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+        $zoneName = Model::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
         return $zoneName;
     }
 

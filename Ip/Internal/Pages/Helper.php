@@ -274,7 +274,7 @@ class Helper
         return $form;
     }
 
-    public static function addZoneForm()
+    public static function addMenuForm()
     {
         $form = new \Ip\Form();
 
