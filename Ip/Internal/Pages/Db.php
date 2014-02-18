@@ -244,7 +244,8 @@ class Db {
     }
 
     private static function getNextPageOrder($parentId) {
-        return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', array('parentId' => $parentId));
+        $order = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', array('parentId' => $parentId));
+        return $order ? $order : 1;
     }
 
     public static function copyPage($nodeId, $newParentId, $newIndex)
