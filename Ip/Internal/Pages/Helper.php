@@ -34,13 +34,12 @@ class Helper
         return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `navigationTitle`', array('parentId' => 0));
     }
 
-    public static function zoneForm($zoneName)
+    public static function menuForm($menuId)
     {
+        $menu = ipDb()->selectRow('page', '*', array('id' => $menuId));
 
-
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Ip\Exception('Unknown zone: ' . $zoneName);
+        if (!$menu) {
+            throw new \Ip\Exception('Menu not found.', array('id' => $menuId));
         }
 
         $form = new \Ip\Form();
@@ -48,14 +47,14 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
-                'value' => 'Pages.updateZone'
+                'value' => 'Pages.updateMenu'
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Hidden(
             array(
-                'name' => 'zoneName',
-                'value' => $zoneName
+                'name' => 'id',
+                'value' => $menu['id']
             ));
         $form->addField($field);
 
@@ -63,26 +62,17 @@ class Helper
             array(
                 'name' => 'title',
                 'label' => __('Title (used in admin)', 'ipAdmin', false),
-                'value' => $zone->getTitleInAdmin()
+                'value' => $menu['navigationTitle']
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'url',
-                'label' => __('URL', 'ipAdmin', false),
-                'value' => $zone->getUrl()
+                'name' => 'alias',
+                'label' => __('Menu name (used in PHP code)', 'ipAdmin', false),
+                'value' => $menu['alias']
             ));
         $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'name',
-                'label' => __('Name (used as ID in PHP code)', 'ipAdmin', false),
-                'value' => $zone->getName()
-            ));
-        $form->addField($field);
-
 
         $layouts = \Ip\Internal\Design\Service::getLayouts();
         $values = array();
@@ -94,33 +84,8 @@ class Helper
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
-                'value' => $zone->getLayout(),
+                'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
                 'values' => $values,
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'metaTitle',
-                'label' => __('Meta title', 'ipAdmin', false),
-                'value' => $zone->getTitle()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'metaKeywords',
-                'label' => __('Meta keywords', 'ipAdmin', false),
-                'value' => $zone->getKeywords()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Textarea(
-            array(
-                'name' => 'metaDescription',
-                'label' => __('Meta description', 'ipAdmin', false),
-                'value' => $zone->getDescription()
             ));
         $form->addField($field);
 
@@ -131,10 +96,7 @@ class Helper
             ));
         $form->addField($field);
 
-
         return $form;
-
-
     }
 
     public static function pagePropertiesForm($pageId)
