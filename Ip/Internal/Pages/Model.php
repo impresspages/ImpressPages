@@ -141,22 +141,6 @@ class Model
         \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
 
-
-    public static function createParametersLanguage($languageId)
-    {
-        //create zone translations
-        $zones = ipContent()->getZones();
-        foreach ($zones as $zone) {
-            $params = array(
-                'language_id' => $languageId,
-                'zone_id' => $zone->getId(),
-                'title' => $zone->getTitle(),
-                'url' =>self::newZoneUrl($languageId, $zone->getUrl())
-            );
-            ipDb()->insert('zone_to_language', $params);
-        }
-    }
-
     protected static function createParametersZone($zoneId, $url, $title, $keywords, $description)
     {
         //create zone translations
@@ -214,7 +198,7 @@ class Model
         }
     }
 
-    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
         $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
         $rowNumber = 0; //initial value

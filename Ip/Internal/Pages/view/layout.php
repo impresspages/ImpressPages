@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div class="_container _zones">
-            <button ng-click="addZoneModal()" class="btn btn-sm btn-default" role="button" >
+            <button ng-click="addMenuModal()" class="btn btn-sm btn-default" role="button" >
                 <i class="fa fa-plus"></i>
                 <?php _e('Add', 'ipAdmin'); ?>
             </button>
@@ -49,7 +49,7 @@
         </div>
         <div class="_container _properties ipsProperties" ng-show="selectedPageId"></div>
         <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
-        <?php echo ipView('Ip/Internal/Pages/view/addZoneModal.php', $this->getVariables())->render(); ?>
+        <?php echo ipView('Ip/Internal/Pages/view/addMenuModal.php', $this->getVariables())->render(); ?>
         <?php echo ipView('Ip/Internal/Pages/view/updateZoneModal.php', $this->getVariables())->render(); ?>
     </div>
 </div>

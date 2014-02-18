@@ -12,7 +12,8 @@ class Event
     public static function ipLanguageAdded($data)
     {
         $languageId = $data['id'];
-        Model::createParametersLanguage($languageId);
+
+        // TODOXX #ipLanguageAdded_createMenu
     }
 
     public static function ipBeforeLanguageDeleted($data)

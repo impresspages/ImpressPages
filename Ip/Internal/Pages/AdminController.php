@@ -30,7 +30,7 @@ class AdminController extends \Ip\Controller
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),
-            'addZoneForm' => Helper::addZoneForm(),
+            'addMenuForm' => Helper::addMenuForm(),
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
         $layout = ipView('view/layout.php', $variables);
@@ -193,7 +193,7 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function addZone()
+    public function addMenu()
     {
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
@@ -208,7 +208,7 @@ class AdminController extends \Ip\Controller
         $url = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
         $name = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
 
-        $zoneName = Service::addZone($title, $name, $url, 'main.php', '', '', '', 100000000);
+        $zoneName = Service::addMenu($title, $name, $url, 'main.php', '', '', '', 100000000);
         $zoneId = ipContent()->getZone($zoneName)->getId();
 
 
