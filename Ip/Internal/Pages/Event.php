@@ -8,14 +8,6 @@ namespace Ip\Internal\Pages;
 
 class Event
 {
-
-    public static function ipLanguageAdded($data)
-    {
-        $languageId = $data['id'];
-
-        // TODOXX #ipLanguageAdded_createMenu
-    }
-
     public static function ipBeforeLanguageDeleted($data)
     {
         $languageId = $data['id'];
