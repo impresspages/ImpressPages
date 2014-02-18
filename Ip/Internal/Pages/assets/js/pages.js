@@ -319,8 +319,9 @@ var ipPages = null;
 
         var addMenu = function (title) {
             var data = {
-                aa: 'Pages.addMenu',
+                aa: 'Pages.createMenu',
                 securityToken: ip.securityToken,
+                languageCode: $scope.activeLanguage.code,
                 title: title
             };
 

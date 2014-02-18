@@ -193,28 +193,25 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function addMenu()
+    public function createMenu()
     {
-        ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
+        $request = ipRequest();
+        $request->mustBePost();
+        $languageCode = $request->getPost('languageCode');
+        $title = $request->getPost('title');
 
-        if (!empty($data['title'])) {
-            $title = $data['title'];
-        } else {
+        if (empty($title)) {
             $title = __('Untitled', 'ipAdmin', false);
         }
 
         $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
-        $url = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
-        $name = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
+        $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
 
-        $zoneName = Service::addMenu($title, $name, $url, 'main.php', '', '', '', 100000000);
-        $zoneId = ipContent()->getZone($zoneName)->getId();
-
+        $menuAlias = Service::createMenu($languageCode, $alias, $title);
 
         $answer = array(
             'status' => 'success',
-            'zoneId' => $zoneId
+            'menuName' => $menuAlias
         );
 
         return new \Ip\Response\Json($answer);

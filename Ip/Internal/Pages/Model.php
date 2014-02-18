@@ -198,6 +198,34 @@ class Model
         }
     }
 
+    public static function createMenu($languageCode, $alias, $title, $data = array())
+    {
+        $data['languageCode'] = $languageCode;
+        $data['alias'] = $alias;
+        $data['navigationTitle'] = $title;
+
+        if (!array_key_exists('parentId', $data)) {
+            $data['parentId'] = 0;
+        }
+
+        if (!array_key_exists('pageOrder', $data)) {
+            $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
+        }
+
+        if (!array_key_exists('visible', $data)) {
+            $data['visible'] = 1;
+        }
+
+        $menuId = ipDb()->insert('page', $data);
+
+        return $menuId ? $alias : null;
+    }
+
+    protected static function getNextPageOrder($where)
+    {
+        return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+    }
+
     public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {
         $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());

@@ -12,9 +12,9 @@ namespace Ip\Internal\Pages;
 
 class Service
 {
-    public static function createMenu()
+    public static function createMenu($languageCode, $alias, $title, $data = array())
     {
-
+        return Model::createMenu($languageCode, $alias, $title, $data);
     }
 
     public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
