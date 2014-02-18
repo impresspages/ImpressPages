@@ -73,7 +73,6 @@
 
 
     var initWidgetDrag = function ($block) {
-        console.log('init');
         var $this = $block;
         $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
             handle : '.ipsWidgetControls .ipsWidgetDrag',
