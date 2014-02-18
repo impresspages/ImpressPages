@@ -251,10 +251,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_page` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
-  `zoneName` varchar(30) NOT NULL,
   `pageId` int(11) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`,`languageId`,`zoneName`,`pageId`)
+  PRIMARY KEY (`module`,`key`,`languageId`,`pageId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
@@ -295,7 +294,6 @@ DROP TABLE IF EXISTS `ip_cms_revision`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
   `revisionId` int(11) NOT NULL AUTO_INCREMENT,
-  `zoneName` varchar(25) NOT NULL,
   `pageId` int(11) NOT NULL DEFAULT '0',
   `published` tinyint(1) NOT NULL DEFAULT '0',
   `created` int(11) NOT NULL,
@@ -344,35 +342,4 @@ CREATE TABLE IF NOT EXISTS `ip_cms_user_to_mod` (
   `module_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_zone_to_language`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_language` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` mediumtext,
-  `keywords` mediumtext,
-  `title` varchar(255) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `zone_id` int(11) DEFAULT NULL,
-  `language_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_zone_to_page`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_zone_to_page` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `language_id` int(11) NOT NULL DEFAULT '0',
-  `zone_id` int(11) NOT NULL DEFAULT '0',
-  `element_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

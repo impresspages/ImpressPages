@@ -41,7 +41,6 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (352, 336, 4, 'modules_configuration', 1, 'Modules config', 1, '1.00', 1),
 (326, 323, 0, 'administrators', 1, 'Administrators', 1, '1.00', 1),
 (327, 324, 1, 'content_management', 1, 'Content management', 1, '1.00', 1),
-(328, 336, 1, 'zones', 1, 'Zones', 1, '1.00', 1),
 (329, 324, 6, 'languages', 1, 'Languages', 1, '1.00', 1),
 (330, 336, 5, 'widgets', 1, 'Widgets', 1, '1.00', 1),
 (332, 324, 5, 'configuration', 0, 'Configuration', 1, '1.00', 1),
@@ -94,24 +93,6 @@ INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
 (534, 8, 441),
 (535, 8, 442),
 (536, 8, 443);
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_zone_to_language` (`id`, `description`, `keywords`, `title`, `url`, `zone_id`, `language_id`) VALUES
-(620, '', '', 'Menu2', 'menu2', 106, 384),
-(619, '', '', 'Menu2', 'menu2', 106, 344),
-(618, '', '', 'Menu1', 'menu1', 105, 384),
-(617, '', '', 'Menu1', 'menu1', 105, 344),
-(629, '', '', 'Menu3', 'menu3', 110, 344),
-(630, '', '', 'Menu3', 'menu3', 110, 384);
-
--- Dumping data for table--
-
-
-INSERT INTO `ip_cms_zone_to_page` (`id`, `language_id`, `zone_id`, `element_id`) VALUES
-(163, 344, 105, 1),
-(165, 344, 106, 3),
-(166, 344, 110, 4);
 
 
 
