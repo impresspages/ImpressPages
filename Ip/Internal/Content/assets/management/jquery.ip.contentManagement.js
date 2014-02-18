@@ -621,6 +621,7 @@
             var leftOrRight = lastDroppable.data('leftOrRight');
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
             var sourceWidgetInstanceId = $widget.data('widgetinstanceid');
+            var paragraph = lastDroppable.data('paragraph');
 
             if (block == curBlock && curPosition < position) {
                 position--;
@@ -631,7 +632,7 @@
                 } else if (newCol) {
                     ipContent.moveWidgetToColumn(sourceWidgetInstanceId, targetWidgetInstanceId, position);
                 } else if (paragraph) {
-                    ipContent.moveWidgetToWidget(sourceWidgetInstanceId, targetWidgetInstanceId, position);
+                    ipContent.moveWidgetInsideWidget(sourceWidgetInstanceId, targetWidgetInstanceId, position);
                 } else {
                     ipContent.moveWidget(instanceId, position, block, ip.revisionId);
                 }

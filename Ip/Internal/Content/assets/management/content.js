@@ -126,6 +126,21 @@ var ipContent;
         }
 
 
+        this.moveWidgetInsideWidget = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
+            var revisionId = ip.revisionId;
+            this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
+                var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
+                var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
+                var firstWidgetPosition = $firstWidget.index();
+                ipContent.moveWidget(sourceWidgetInstanceId, firstWidgetPosition + 1, blockName, ip.revisionId, function (instanceId) {
+                    if (callback) {
+                        callback(instanceId);
+                    }
+                });
+            });
+        }
+
+
         this.splitWidget = function (widgetInstanceId, position, callback) {
             var context = this;
             var $widget = $('#ipWidget-' + widgetInstanceId);
