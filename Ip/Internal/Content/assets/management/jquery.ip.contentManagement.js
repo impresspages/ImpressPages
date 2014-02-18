@@ -369,9 +369,13 @@
 
                         }
 
-                        if ($widget.hasClass('ipWidget-Text') && $widget.find('.ipsContent > *').length) {
+                        var widgetController = $widget.data('widgetController');
+                        if (!widgetController.splitParts) {
+                            widgetController.splitParts = function () {return new Array()};
+                        }
+                        if (widgetController.splitParts && widgetController.splitParts().length) {
                             //middle of the first paragraph
-                            var $firstParagraph = $widget.find('.ipsContent > *').first();
+                            var $firstParagraph = widgetController.splitParts().first();
                             newPlaceholder.height = $firstParagraph.offset().top + Math.round($firstParagraph.height() / 2) - newPlaceholder.top;
                         } else {
                             //middle of the widget
@@ -397,16 +401,24 @@
                         newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height() + space * 1 / 4; //the end of column widget
                     }
 
-                    if ($prevWidget.hasClass('ipWidget-Text') && $prevWidget.find('.ipsContent > *').length) {
+                    var prevWidgetController = $prevWidget.data('widgetController');
+                    if (!prevWidgetController.splitParts) {
+                        prevWidgetController.splitParts = function () {return new Array()};
+                    }
+                    if (prevWidgetController.splitParts() && prevWidgetController.splitParts().length) {
                         //start placeholder from the middle of last paragraph
-                        var $lastParagraph = $prevWidget.find('.ipsContent > *').last();
+                        var $lastParagraph = prevWidgetController.splitParts().last();
                         newPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
                     }
 
 
-                    if ($widget.hasClass('ipWidget-Text') && $widget.find('.ipsContent > *').length) {
+                    var widgetController = $widget.data('widgetController');
+                    if (!widgetController.splitParts) {
+                        widgetController.splitParts = function () {return new Array()};
+                    }
+                    if (widgetController.splitParts() && widgetController.splitParts().length) {
                         //placeholder touches center of first paragraph
-                        var $firstParagraph = $widget.find('.ipsContent > *').first();
+                        var $firstParagraph = widgetController.splitParts().first();
                         newPlaceholder.height = $firstParagraph.offset().top - newPlaceholder.top + Math.round($firstParagraph.height() / 2);
                     } else {
                         //placeholder touches the center of the widget
@@ -491,37 +503,41 @@
         });
 
 
-//        //drop between paragraphs inside widget
-//        var paragraphPlaceholders = new Array();
-//        $.each($('.ipWidget-Text'), function (widgetKey, widget) {
-//            var $widget = $(widget);
-//            var $paragraphs = $(widget).find('.ipsContent > *');
-//            if($paragraphs.length <= 1) {
-//                return;
-//            }
-//            $.each($paragraphs, function (paragraphKey, paragraph) {
-//                var $paragraph = $(paragraph);
-//
-//                if (paragraphKey == 0) {
-//                    return;
-//                }
-//                var $prevParagraph = $paragraphs.eq(paragraphKey - 1);
-//
-//                var newPlaceholder = {
-//                    left: $widget.offset().left,
-//                    top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
-//                    width: $widget.width(),
-//                    widgetinstanceid: $paragraph.data('instanceId'),
-//                    position: paragraphKey + 1
-//                };
-//
-//                newPlaceholder.height = $paragraph.offset().top + Math.round($paragraph.height() / 2) - newPlaceholder.top;
-//                newPlaceholder.markerOffset = ($prevParagraph.offset().top + $prevParagraph.height() + $paragraph.offset().top) / 2 - newPlaceholder.top;
-//
-//                paragraphPlaceholders.push(newPlaceholder);
-//
-//            });
-//        });
+        //drop between paragraphs inside widget
+        var paragraphPlaceholders = new Array();
+        $.each($('.ipWidget'), function (widgetKey, widget) {
+            var $widget = $(widget);
+            var widgetController = $widget.data('widgetController');
+            if (!widgetController.splitParts) {
+                widgetController.splitParts = function () {return new Array()};
+            }
+            var $paragraphs = widgetController.splitParts();
+            if($paragraphs.length <= 1) {
+                return;
+            }
+            $.each($paragraphs, function (paragraphKey, paragraph) {
+                var $paragraph = $(paragraph);
+
+                if (paragraphKey == 0) {
+                    return;
+                }
+                var $prevParagraph = $paragraphs.eq(paragraphKey - 1);
+
+                var newPlaceholder = {
+                    left: $widget.offset().left,
+                    top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
+                    width: $widget.width(),
+                    widgetinstanceid: $paragraph.data('instanceId'),
+                    position: paragraphKey + 1
+                };
+
+                newPlaceholder.height = $paragraph.offset().top + Math.round($paragraph.height() / 2) - newPlaceholder.top;
+                newPlaceholder.markerOffset = ($prevParagraph.offset().top + $prevParagraph.height() + $paragraph.offset().top) / 2 - newPlaceholder.top;
+
+                paragraphPlaceholders.push(newPlaceholder);
+
+            });
+        });
 
 
 

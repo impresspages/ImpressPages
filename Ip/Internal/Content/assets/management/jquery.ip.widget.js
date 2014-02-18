@@ -30,7 +30,10 @@
                             widgetController.init($this, data);
                         }
                         $this.data('widgetController', widgetController);
+                    } else {
+                        $this.data('widgetController', {});
                     }
+
                 }
 
                 $this.find(' > .ip > .ipsWidgetControls .ipsWidgetDelete').on('click', function(e) {
