@@ -28,7 +28,6 @@ class TestEnvironment
     {
         static::filesSetup();
         static::setupCode();
-        static::setupOnce();
     }
 
     public static function setupCode($configBasename = 'default.php')
@@ -44,6 +43,8 @@ class TestEnvironment
 
         //because of PHPUnit magic, we have to repeat it on every test
         $application->init();
+
+        static::setupOnce();
 
         $_GET = array();
         $_POST = array();

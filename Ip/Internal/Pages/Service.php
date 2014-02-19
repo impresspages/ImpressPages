@@ -12,6 +12,16 @@ namespace Ip\Internal\Pages;
 
 class Service
 {
+    public static function getPage($pageId)
+    {
+        return Model::getPage($pageId);
+    }
+
+    public static function getMenu($languageCode, $alias)
+    {
+        return Model::getMenu($languageCode, $alias);
+    }
+
     public static function createMenu($languageCode, $alias, $title)
     {
         return Model::createMenu($languageCode, $alias, $title);
