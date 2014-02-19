@@ -54,10 +54,10 @@ class Service
         }
 
         if (!isset($data['createdOn'])) {
-            $data['createdOn'] = date("Y-m-d");
+            $data['createdOn'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['lastModified'])) {
-            $data['lastModified'] = date("Y-m-d");
+            $data['lastModified'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['visible'])) {
             $data['visible'] = !ipGetOption('Pages.hideNewPages');
