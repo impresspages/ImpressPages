@@ -6,8 +6,18 @@ namespace Ip\Internal\Admin;
 
 class Event
 {
+
+
     public static function ipInitFinished()
     {
+        //show admin submenu if needed
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $submenu = Submenu::getSubmenuItems();
+            if ($submenu) {
+                ipResponse()->setLayoutVariable('submenu', $submenu);
+            }
+        }
+
         // Show admin toolbar if admin is logged in:
         if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
             if (!ipRequest()->getQuery('ipDesignPreview')) {
