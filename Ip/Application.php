@@ -198,6 +198,9 @@ class Application
         if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
             $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
         } else {
+            if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
+                throw new \Ip\Exception("Plugin '".$plugin."' doesn't exist or isn't activated.");
+            }
             $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
         }
 
