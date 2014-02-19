@@ -99,14 +99,6 @@ class Controller extends \Ip\WidgetController{
                     return $currentData;
                     break;
 
-//                case 'setTitle':
-//                    //find image title
-//                    if ($image['title'] == '') {
-//                        $title = basename($image['fileName']);
-//                    } else {
-//                        $title = $image['title'];
-//                    }
-//                    break;
                 case 'setLink':
                     if (!isset($postData['index'])) {
                         throw new \Ip\Exception("Missing required parameter");
@@ -136,6 +128,21 @@ class Controller extends \Ip\WidgetController{
                     unset($currentData['images'][$deletePosition]);
                     $currentData['images'] = array_values($currentData['images']); // 'reindex' array
                     return $currentData;
+                case 'saveSettings':
+                    if (!isset($postData['index'])) {
+                        throw new \Ip\Exception("Missing required parameter");
+                    }
+                    $index = $postData['index'];
+
+                    if (isset($postData['title'])) {
+                        $currentData['images'][$index]['title'] = $postData['title'];
+                    }
+                    if (isset($postData['description'])) {
+                        $currentData['images'][$index]['description'] = $postData['description'];
+                    }
+                    return $currentData;
+
+                    break;
                 default:
                     throw new \Ip\Exception('Unknown command');
 
@@ -152,7 +159,8 @@ class Controller extends \Ip\WidgetController{
     public function adminHtmlSnippet()
     {
         $variables = array (
-            'linkForm' => $this->linkForm()
+            'linkForm' => $this->linkForm(),
+            'settingsFomr' => $this->settingsForm()
         );
         return ipView('snippet/gallery.php', $variables)->render();
 
@@ -338,6 +346,33 @@ class Controller extends \Ip\WidgetController{
                 'label' => __('Open in new window', 'ipAdmin', false),
             ));
         $form->addField($field);
+
+        return $form; // Output a string with generated HTML form
+    }
+
+
+    protected function settingsForm()
+    {
+        $form = new \Ip\Form();
+
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Textarea(
+            array(
+                'name' => 'description',
+                'label' => __('Description', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
 
         return $form; // Output a string with generated HTML form
     }
