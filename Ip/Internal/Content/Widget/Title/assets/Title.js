@@ -116,7 +116,9 @@ var IpWidget_Title;
                 anchor: this.data.anchor
             };
             this.$widgetObject.save(saveData, refresh, function($widget){
-                $widget.find('h1,h2,h3,h4,h5,h6').focus();
+                if (refresh) {
+                    $widget.find('h1,h2,h3,h4,h5,h6').focus();
+                }
             });
         };
 
