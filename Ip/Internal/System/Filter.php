@@ -15,4 +15,21 @@ class Filter {
         }
 
     }
+
+    /**
+     * @param \Ip\Menu\Item[] $menu
+     * @param $info
+     */
+    public static function ipAdminMenu ($menu, $info)
+    {
+        $urls = Submenu::getSubmenuUrls();
+        $filteredMenu = array();
+        $systemUrl = ipActionUrl(array('aa' => 'System.index'));
+        foreach ($menu as $menuItem) {
+            if ($menuItem->getUrl() == $systemUrl || !in_array($menuItem->getUrl(), $urls)) {
+                $filteredMenu[] = $menuItem;
+            }
+        }
+        return $filteredMenu;
+    }
 }

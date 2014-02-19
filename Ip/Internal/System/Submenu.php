@@ -17,7 +17,18 @@ namespace Ip\Internal\System;
 class Submenu {
     protected static function getModuleNames()
     {
-        return array('System', 'Log', 'Email');
+        return array('System', 'Administrators', 'Log', 'Email');
+    }
+
+    public static function getSubmenuUrls()
+    {
+        $moduleNames = self::getModuleNames();
+        $urls = array();
+        foreach ($moduleNames as $moduleName) {
+            $urls[] = ipActionUrl(array('aa' => $moduleName . '.index'));
+        }
+
+        return $urls;
     }
 
     protected static function getControllerNames()
