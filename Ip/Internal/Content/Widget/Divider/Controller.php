@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Internal\Content\Widget\Separator;
+namespace Ip\Internal\Content\Widget\Divider;
 
 
 
@@ -13,7 +13,7 @@ class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
-        return __('Separator', 'ipAdmin', false);
+        return __('Divider', 'ipAdmin', false);
     }
-    
+
 }

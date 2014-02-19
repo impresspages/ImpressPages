@@ -8,7 +8,9 @@
             href="<?php echo esc($url, 'attr') ?>"
             <?php echo $blank ? ' target="_blank" ' : '' ?>
         <?php } ?>
-        title="<?php echo esc($title, 'attr'); ?>">
-        <img class="ipsImage" src="<?php echo esc($imageSmall) ?>" alt="<?php echo isset($title) ? esc($title) : ''; ?>" title="<?php echo isset($title) ? esc($title) : ''; ?>"/>
+        title="<?php echo isset($title) ? esc($title, 'attr') : '' ?>">
+        <img class="ipsImage" src="<?php echo esc($imageSmall) ?>" alt="<?php echo isset($title) ? esc($title, 'attr') : ''; ?>" title="<?php echo isset($title) ? esc($title, 'attr') : ''; ?>"/>
     </a>
+<?php } else { ?>
+    <div class="ipsImage">&nbsp;</div>
 <?php } ?>

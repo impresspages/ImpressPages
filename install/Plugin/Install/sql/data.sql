@@ -25,7 +25,7 @@ INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`
 (5, 'Text', 30, 0),
 (7, 'Title', 20, 0),
 (8, 'File', 90, 0),
-(10, 'Separator', 40, 0),
+(10, 'Divider', 40, 0),
 (9, 'Html', 120, 0),
 (14, 'Faq', 140, 0);
 

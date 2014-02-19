@@ -142,7 +142,8 @@ function ipCurrentPage()
  *
  * After adding all JavaScript files, issue ipJs() function to generate JavaScript links HTML code.
  *
- * @param string $file JavaScript file
+ * @param string $file JavaScript file pathname. Can be provided as URL address, a pathname relative to current directory or to CMS root.
+ * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
  */
@@ -194,7 +195,8 @@ function ipAddJsContent($name, $value, $priority = 50)
  * Add CSS file from your plugin or theme
  *
  * After adding all CSS files, use ipHead() function to generate HTML head.
- * @param string $file Full path to CSS file.
+ * @param string $file CSS file pathname. Can be provided as URL address, a pathname relative to current directory or to CMS root.
+ * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
  * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
  */
@@ -513,7 +515,7 @@ if (!function_exists('ipFile')) {
 if (!function_exists('ipFileUrl')) {
     /**
      * Gets URL by a file name
-     * @param $path Relative file pathname.
+     * @param $path Pathname relative to current directory or CMS root.
      * @return mixed|string File's URL address.
      */
     function ipFileUrl($path)
@@ -545,7 +547,7 @@ function ipActionUrl($query)
 /**
  * Get URL address of current theme folder
  *
- * @param $path A path or a pathname relative to Theme/ directory.
+ * @param $path Path or pathname relative to current theme directory.
  * @return mixed|string Theme's URL path
  */
 function ipThemeUrl($path)
