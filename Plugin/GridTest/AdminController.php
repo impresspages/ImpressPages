@@ -26,27 +26,27 @@ class AdminController extends \Ip\GridController
             'pageSize' => 3,
             'fields' => array(
                 array(
-                    'label' => __('Name', 'ipAdmin', false),
+                    'label' => __('Name', 'GridTest', false),
                     'field' => 'name',
                 ),
                 array(
                     'type' => 'Select',
-                    'label' => __('Age', 'ipAdmin', false),
+                    'label' => __('Age', 'GridTest', false),
                     'field' => 'age',
                     'values' => array(
-                        array('young', __('Young', 'ipAdmin', false)),
-                        array('old', __('Old', 'ipAdmin', false))
+                        array('young', __('Young', 'GridTest', false)),
+                        array('old', __('Old', 'GridTest', false))
                     )
                 ),
                 array(
                     'type' => 'Checkbox',
-                    'label' => __('In love', 'ipAdmin', false),
+                    'label' => __('In love', 'GridTest', false),
                     'showInList' => true,
                     'field' => 'inLove'
                 ),
                 array(
                     'type' => 'RepositoryFile',
-                    'label' => __('CV', 'ipAdmin', false),
+                    'label' => __('CV', 'GridTest', false),
                     'showInList' => true,
                     'field' => 'cv'
                 )
