@@ -200,17 +200,14 @@ CREATE TABLE IF NOT EXISTS `ip_cms_design` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_m_developer_widget_sort`;
+DROP TABLE IF EXISTS `ip_cms_widgetOrder`;
 
 -- Table structure
 
 
-CREATE TABLE IF NOT EXISTS `ip_cms_m_developer_widget_sort` (
-  `sortId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
   `widgetName` varchar(255) NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '0',
-  `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'used for maintenance only',
-  PRIMARY KEY (`sortId`),
   UNIQUE KEY `widgetName` (`widgetName`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
