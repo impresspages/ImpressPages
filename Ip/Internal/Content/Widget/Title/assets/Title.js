@@ -35,9 +35,13 @@ var IpWidget_Title;
         };
 
         this.onAdd = function () {
-            var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
-
-            $headTag.focus();
+            if (this.$widgetObject.index() != 0) {
+                this.data.level = 2;
+                this.save(true);
+            } else {
+                var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
+                $headTag.focus();
+            }
         }
 
         this.focus = function () {
