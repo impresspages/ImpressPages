@@ -106,20 +106,16 @@ class Dao
             SELECT
                 value
             FROM
-                ' . ipTable('inlinevalue_page') . '
+                ' . ipTable('inlineValueForPage') . '
             WHERE
-                `module` = :module AND
+                `plugin` = :module AND
                 `key` = :key AND
-                `languageId` = :languageId AND
-                `zoneName` = :zoneName AND
                 `pageId` = :pageId
         ';
 
         $params = array (
             ':module' => $this->module,
             ':key' => $key,
-            ':languageId' => $languageId,
-            ':zoneName' => $zoneName,
             ':pageId' => $pageId
         );
         $q = $dbh->prepare($sql);
@@ -144,9 +140,9 @@ class Dao
             SELECT
                 value
             FROM
-                ' . ipTable('inlinevalue_language') . '
+                ' . ipTable('inlineValueForLanguage') . '
             WHERE
-                `module` = :module AND
+                `plugin` = :module AND
                 `key` = :key AND
                 `languageId` = :languageId
         ';
@@ -176,9 +172,9 @@ class Dao
             SELECT
                 value
             FROM
-                ' . ipTable('inlinevalue_global') . '
+                ' . ipTable('inlineValueGlobal') . '
             WHERE
-                `module` = :module AND
+                `plugin` = :module AND
                 `key` = :key
         ';
 
@@ -201,12 +197,10 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlinevalue_page') . '
+                ' . ipTable('inlineValueForPage') . '
             SET
-                `module` = :module,
+                `plugin` = :module,
                 `key` = :key,
-                `languageId` = :languageId,
-                `zoneName` = :zoneName,
                 `pageId` = :pageId,
                 `value` = :value
             ON DUPLICATE KEY UPDATE
@@ -216,8 +210,6 @@ class Dao
         $params = array (
             ':module' => $this->module,
             ':key' => $key,
-            ':languageId' => $languageId,
-            ':zoneName' => $zoneName,
             ':pageId' => $pageId,
             ':value' => $value
         );
@@ -232,9 +224,9 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlinevalue_language') . '
+                ' . ipTable('inlineValueForLanguage') . '
             SET
-                `module` = :module,
+                `plugin` = :module,
                 `key` = :key,
                 `languageId` = :languageId,
                 `value` = :value
@@ -257,9 +249,9 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlinevalue_global') . '
+                ' . ipTable('inlineValueGlobal') . '
             SET
-                `module` = :module,
+                `plugin` = :module,
                 `key` = :key,
                 `value` = :value
             ON DUPLICATE KEY UPDATE
@@ -281,18 +273,16 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlinevalue_page') . '
+                ' . ipTable('inlineValueForPage') . '
             WHERE
-                `module` = :module
+                `plugin` = :module
                 AND `key` = :key
-                AND `zoneName` = :zoneName
                 AND `pageId` = :pageId
         ';
 
         $params = array (
             ':module' => $this->module,
             ':key' => $key,
-            ':zoneName' => $zoneName,
             ':pageId' => $pageId
         );
         $q = $dbh->prepare($sql);
@@ -304,9 +294,9 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlinevalue_language') . '
+                ' . ipTable('inlineValueForLanguage') . '
             WHERE
-                `module` = :module and
+                `plugin` = :module and
                 `key` = :key and
                 `languageId` = :languageId
         ';
@@ -325,9 +315,9 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlinevalue_global') . '
+                ' . ipTable('inlineValueGlobal') . '
             WHERE
-                `module` = :module
+                `plugin` = :module
                 AND `key` = :key
         ';
 
