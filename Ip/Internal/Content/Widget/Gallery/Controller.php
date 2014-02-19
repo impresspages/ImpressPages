@@ -84,6 +84,7 @@ class Controller extends \Ip\WidgetController{
                         $this->_deleteOneImage($tmpData, $widgetId);
                         //bind new image to the widget
                         \Ip\Internal\Repository\Model::bindFile($postData['fileName'], 'Content', $widgetId);
+                        $tmpData['imageOriginal'] = $postData['fileName'];
                     }
 
                     //check if crop coordinates are set
