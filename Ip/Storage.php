@@ -103,10 +103,14 @@ class Storage {
             ':plugin' => $plugin
         );
 
-        $jsonValues = ipDb()->fetchAll($sql, $params);
+        $records = ipDb()->fetchAll($sql, $params);
         $values = array();
-        foreach($jsonValues as $jsonValue) {
-            $values[] = json_decode($jsonValue, TRUE);
+
+        foreach($records as $record) {
+            $values[] = array(
+                'key' => $record['key'],
+                'value' => json_decode($record['value'], TRUE)
+            );
         }
         return $values;
     }
