@@ -63,13 +63,16 @@ var IpWidget_Image;
             $controls.css('top', $img.offset().top + 5);
 
             $controls.find('.ipsDelete').off().on('click', function(e) {
-                $.proxy(context.deleteImage, context)($item.index());
+                $.proxy(context.deleteImage, context)();
             });
             $controls.find('.ipsEdit').off().on('click', function(e) {
-                $.proxy(context.editImage, context)($item.index());
+                $.proxy(context.editImage, context)();
             });
             $controls.find('.ipsLink').off().on('click', function(e) {
-                $.proxy(linkPopup, context)($item.index());
+                $.proxy(linkPopup, context)();
+            });
+            $controls.find('.ipsSettings').off().on('click', function(e) {
+                $.proxy(settingsPopup, context)();
             });
         };
 
@@ -159,10 +162,10 @@ var IpWidget_Image;
             var $this = $(this);
 
             var data = {
-                method: 'newImage'
+                method: 'update'
             };
             $.each(files, function(key, value) {
-                data.newImage = value.fileName;
+                data.fileName = value.fileName;
             });
 
             this.$widgetObject.save(data, 1);
@@ -186,7 +189,7 @@ var IpWidget_Image;
             this.$widgetObject.save(data, 0);
         }
 
-        var linkPopup = function (index) {
+        var linkPopup = function () {
             var context = this;
             this.popup = $('#ipWidgetImageLinkPopup');
             this.confirmButton = this.popup.find('.ipsConfirm');
@@ -223,7 +226,7 @@ var IpWidget_Image;
 
             this.popup.modal(); // open modal popup
 
-            this.confirmButton.off().on('click', $.proxy(saveLink, this));
+            this.confirmButton.off().on('click', $.proxy(saveLink, context));
         };
 
         var saveLink = function () {
@@ -247,6 +250,34 @@ var IpWidget_Image;
                 this.popup.find('.form-group.name-blank').hide();
             }
         }
+
+
+        var settingsPopup = function () {
+            var data = this.data;
+            var context = this;
+            this.settingsPopup = $('#ipWidgetImageSettingsPopup');
+            this.confirmButton = this.settingsPopup.find('.ipsConfirm');
+            this.title = this.settingsPopup.find('input[name=title]');
+            this.description = this.settingsPopup.find('textarea[name=description]');
+
+            this.title.val(data.title);
+            this.description.val(data.description);
+
+            this.settingsPopup.modal(); // open modal popup
+
+            this.confirmButton.off().on('click', $.proxy(saveSettings, context));
+        };
+
+        var saveSettings = function () {
+            var data = {
+                method: 'saveSettings',
+                title: this.title.val(),
+                description: this.description.val()
+            };
+
+            this.$widgetObject.save(data, 1); // save and reload widget
+            this.settingsPopup.modal('hide');
+        };
 
     };
 

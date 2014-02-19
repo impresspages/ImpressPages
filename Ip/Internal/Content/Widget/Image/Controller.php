@@ -21,23 +21,7 @@ class Controller extends \Ip\WidgetController{
 
         if (isset($postData['method'])) {
             switch($postData['method']) {
-                case 'newImage':
-                    $newData = $currentData;
 
-                    if (isset($postData['newImage']) && is_file(ipFile('file/repository/' . $postData['newImage']))) {
-                        //unbind old image
-                        if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                            \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
-                        }
-
-                        //bind new image
-                        \Ip\Internal\Repository\Model::bindFile($postData['newImage'], 'Content', $widgetId);
-
-                        $newData['imageOriginal'] = $postData['newImage'];
-                    }
-
-                    return $newData;
-                    break;
                 case 'resize':
                     $newData = $currentData;
                     if (!isset($postData['width']) || !$postData['height']) {
@@ -55,23 +39,25 @@ class Controller extends \Ip\WidgetController{
                     break;
                 case 'update':
                     $newData = $currentData;
+
+                    if (isset($postData['fileName']) && is_file(ipFile('file/repository/' . $postData['fileName']))) {
+                        //unbind old image
+                        if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
+                            \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
+                        }
+
+                        //bind new image
+                        \Ip\Internal\Repository\Model::bindFile($postData['fileName'], 'Content', $widgetId);
+
+                        $newData['imageOriginal'] = $postData['fileName'];
+                    }
+
                     if (isset($postData['cropX1']) && isset($postData['cropY1']) && isset($postData['cropX2']) && isset($postData['cropY2'])) {
-                        $curWidth = $postData['cropX2'] - $postData['cropX1'];
-                        $curHeight = $postData['cropY2'] - $postData['cropY1'];
                         //new small image
                         $newData['cropX1'] = $postData['cropX1'];
                         $newData['cropY1'] = $postData['cropY1'];
                         $newData['cropX2'] = $postData['cropX2'];
                         $newData['cropY2'] = $postData['cropY2'];
-                        if (!isset($newData['width'])) {
-                            $newData['width'] = $curWidth;
-                            $newData['height'] = $curHeight;
-                        } else {
-                            if ($curWidth != 0) {
-                                $newData['height'] = $curHeight / $curWidth * $currentData['width'];
-                            }
-
-                        }
                     }
                     return $newData;
 
@@ -89,8 +75,24 @@ class Controller extends \Ip\WidgetController{
                     return $currentData;
 
                     break;
+                case 'saveSettings':
+                    if (isset($postData['title'])) {
+                        $currentData['title'] = $postData['title'];
+                    }
+                    if (isset($postData['description'])) {
+                        $currentData['description'] = $postData['description'];
+                    }
+                    return $currentData;
+
+                    break;
             }
         }
+        return $currentData;
+    }
+
+    protected function updateImage($curData)
+    {
+
     }
 
 
@@ -206,6 +208,10 @@ class Controller extends \Ip\WidgetController{
             if (empty($data['title'])) {
                 $data['title'] = '';
             }
+            if (empty($data['description'])) {
+                $data['description'] = '';
+            }
+
 
         }
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
@@ -214,7 +220,8 @@ class Controller extends \Ip\WidgetController{
     public function adminHtmlSnippet()
     {
         $variables = array (
-            'linkForm' => $this->linkForm()
+            'linkForm' => $this->linkForm(),
+            'settingsForm' => $this->settingsForm()
         );
         return ipView('snippet/image.php', $variables)->render();
 
@@ -256,5 +263,32 @@ class Controller extends \Ip\WidgetController{
 
         return $form; // Output a string with generated HTML form
     }
+
+    protected function settingsForm()
+    {
+        $form = new \Ip\Form();
+
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Textarea(
+            array(
+                'name' => 'description',
+                'label' => __('Description', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+
+        return $form; // Output a string with generated HTML form
+    }
+
 
 }
