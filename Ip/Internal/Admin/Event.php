@@ -9,7 +9,7 @@ class Event
     public static function ipInitFinished()
     {
         // Show admin toolbar if admin is logged in:
-        if ((ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
             if (!ipRequest()->getQuery('ipDesignPreview')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
