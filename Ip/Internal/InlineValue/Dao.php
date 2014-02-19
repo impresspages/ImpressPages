@@ -30,7 +30,7 @@ class Dao
             //we can't get breadcrumb if page id is null
             $breadcrumb = array();
         } else {
-            $breadcrumb = ipContent()->getBreadcrumb($zoneName, $pageId);
+            $breadcrumb = ipContent()->getBreadcrumb($pageId);
             //var_dump($breadcrumb);exit;
         }
         $breadcrumb = array_reverse($breadcrumb);

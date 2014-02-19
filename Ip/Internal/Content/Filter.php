@@ -11,7 +11,7 @@ class Filter
 
         $widgets['Title'] = new \Ip\Internal\Content\Widget\Title\Controller('Title', 'Content', 1);
         $widgets['Text'] = new \Ip\Internal\Content\Widget\Text\Controller('Text', 'Content', 1);
-        $widgets['Separator'] = new \Ip\Internal\Content\Widget\Separator\Controller('Separator', 'Content', 1);
+        $widgets['Divider'] = new \Ip\Internal\Content\Widget\Divider\Controller('Divider', 'Content', 1);
         $widgets['Image'] = new \Ip\Internal\Content\Widget\Image\Controller('Image', 'Content', 1);
         $widgets['Gallery'] = new \Ip\Internal\Content\Widget\Gallery\Controller('Gallery', 'Content', 1);
         $widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);

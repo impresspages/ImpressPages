@@ -12,16 +12,20 @@ namespace Ip\Internal\Pages;
 
 class Service
 {
-
-    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    public static function createMenu($languageCode, $alias, $title)
     {
-        $zoneName = Model::addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
+        return Model::createMenu($languageCode, $alias, $title);
+    }
+
+    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+        $zoneName = Model::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
         return $zoneName;
     }
 
-    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
+    public static function updateMenu($menuId, $alias, $title, $layout)
     {
-        Model::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+        Model::updateMenu($menuId, $alias, $title, $layout);
     }
 
     public static function deleteZone($zoneName)
@@ -34,17 +38,13 @@ class Service
      * @param int $pageId
      * @param array $data
      */
-    public static function updatePage($zoneName, $pageId, $data)
+    public static function updatePage($pageId, $data)
     {
-        Db::updatePage($zoneName, $pageId, $data);
+        Model::updatePageProperties($pageId, $data);
     }
-
 
     public static function addPage($parentId, $title, $data = array())
     {
-        if (!isset($data['navigationTitle'])) {
-            $data['navigationTitle'] = $title;
-        }
         if (!isset($data['pageTitle'])) {
             $data['pageTitle'] = $title;
         }
@@ -53,15 +53,18 @@ class Service
             $data['url'] = Db::makeUrl($title);
         }
 
-
         if (!isset($data['createdOn'])) {
-            $data['createdOn'] = date("Y-m-d");
+            $data['createdOn'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['lastModified'])) {
-            $data['lastModified'] = date("Y-m-d");
+            $data['lastModified'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['visible'])) {
             $data['visible'] = !ipGetOption('Pages.hideNewPages');
+        }
+
+        if (!isset($data['languageCode'])) {
+            $data['languageCode'] = ipDb()->selectValue('page', 'languageCode', array('id' => $parentId));
         }
 
         $newPageId = Db::addPage($parentId, $data);
@@ -95,49 +98,7 @@ class Service
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
-        if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
-            throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
-        }
-
-        $pageInfo = Db::pageInfo($pageId);
-        $destinationPageInfo = Db::pageInfo($destinationParentId);
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $zone = ipContent()->getZone($zoneName);
-        $destinationZone = ipContent()->getZone(Db::getZoneName($destinationPageInfo['zone_id']));
-
-        //report url change
-        $oldUrl = $zone->getPage($pageId)->getLink(true);
-        //report url change
-
-
-
-        $newParentChildren = Db::pageChildren($destinationParentId);
-        $newIndex = 0; //initial value
-
-        if(count($newParentChildren) > 0) {
-            $newIndex = $newParentChildren[0]['row_number'] - 1;  //set as first page
-            if ($destinationPosition > 0) {
-                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
-                    $newIndex = ($newParentChildren[$destinationPosition - 1]['row_number'] + $newParentChildren[$destinationPosition]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $newIndex = $newParentChildren[count($newParentChildren) - 1]['row_number'] + 1;
-                }
-            }
-        }
-
-
-        $data = array (
-            'parentId' => $destinationParentId,
-            'rowNumber' => $newIndex
-        );
-        Db::updatePage($zone->getName(), $pageId, $data);
-
-        //report url change
-        $page = $destinationZone->getPage($pageId);
-        $newUrl = $page->getLink();
-
-        ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-        //report url change
+        Model::movePage($pageId, $destinationParentId, $destinationPosition);
     }
 
     public static function deletePage($pageId)

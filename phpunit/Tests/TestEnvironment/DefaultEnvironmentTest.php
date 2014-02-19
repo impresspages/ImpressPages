@@ -16,5 +16,15 @@ class DefaultEnvironmentTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty(\Ip\ServiceLocator::dispatcher(), 'Dispatcher not loaded.');
     }
 
+    public function testDatabaseStructure()
+    {
+        \PhpUnit\Helper\TestEnvironment::setup();
+
+        $tables = ipDb()->fetchColumn('SHOW TABLES');
+
+        $this->assertTrue(in_array('ip_page', $tables));
+        $this->assertTrue(in_array('ip_pageStorage', $tables));
+    }
+
 
 }

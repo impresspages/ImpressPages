@@ -246,7 +246,9 @@ class Request
             $requestPath = substr($requestPath, 10);
         }
 
-        return substr($requestPath, strlen($basePath));
+        $relativePath = substr($requestPath, strlen($basePath));
+
+        return $relativePath ? $relativePath : '';
     }
 
     /**

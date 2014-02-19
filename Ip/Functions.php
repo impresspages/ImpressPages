@@ -497,7 +497,7 @@ if (!function_exists('ipFile')) {
 
         if (!$ipFile_baseDir) {
             $ipFile_baseDir = ipConfig()->getRaw('baseDir');
-            $ipFile_overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+            $ipFile_overrides = ipConfig()->getRaw('fileOverrides');
         }
 
         if ($ipFile_overrides) {
@@ -575,7 +575,7 @@ function ipThemeFile($path)
 function ipHomeUrl()
 {
     $homeUrl = ipConfig()->baseUrl();
-    if (ipConfig()->getRaw('NO_REWRITES')) {
+    if (ipConfig()->getRaw('rewritesDisabled')) {
         $homeUrl .= 'index.php/';
     }
 
@@ -755,12 +755,13 @@ function ipDoctypeDeclaration($doctype = null)
  */
 function ipTable($table, $as = null)
 {
-    $answer = '`' . ipConfig()->tablePrefix() . $table . '`';
+    $prefix = ipConfig()->tablePrefix();
+    $answer = '`' . $prefix . $table . '`';
     if ($as != false) {
         if ($as !== null) {
-            $answer .= ' as ' . $as;
-        } else {
-            $answer .= ' as ' . $table;
+            $answer .= ' as `' . $as . '`';
+        } elseif ($prefix) { // if table prefix is empty we don't need to use `tableName` as `tableName`
+            $answer .= ' as `' . $table . '`';
         }
     }
     return $answer;
@@ -911,7 +912,7 @@ function ipRelativeDir($callLevel = 0)
         $absoluteFile = str_replace('\\', '/', $absoluteFile);
     }
 
-    $overrides = ipConfig()->getRaw('FILE_OVERRIDES');
+    $overrides = ipConfig()->getRaw('fileOverrides');
     if ($overrides) {
         foreach ($overrides as $relativePath => $fullPath) {
             if (DIRECTORY_SEPARATOR == '\\') {
@@ -945,6 +946,15 @@ function ipRelativeDir($callLevel = 0)
 function ipAdminId()
 {
     return \Ip\Internal\Admin\Service::adminId();
+}
+
+/**
+ * @param $pageId
+ * @return \Ip\PageStorage
+ */
+function ipPageStorage($pageId)
+{
+    return new \Ip\PageStorage($pageId);
 }
 
 /**

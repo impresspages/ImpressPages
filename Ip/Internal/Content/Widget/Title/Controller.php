@@ -40,11 +40,10 @@ class Controller extends \Ip\WidgetController{
 
     public function adminHtmlSnippet()
     {
-        $snippets[] = ipView('snippet/controls.php')->render();
         $variables = array(
             'curUrl' => \Ip\Internal\UrlHelper::getCurrentUrl()
         );
-        return ipView('snippet/options.php', $variables)->render();
+        return ipView('snippet/options.php', $variables)->render() . "\n" . ipView('snippet/controls.php')->render();
     }
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)

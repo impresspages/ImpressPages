@@ -42,9 +42,12 @@ class CurrentPage
         return $this->requestedPage['controllerAction'];
     }
 
+    /**
+     * @return \Ip\Page
+     */
     public function getPage()
     {
-        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : new \Ip\Page404(1, '404');
+        return isset($this->requestedPage['page']) ? $this->requestedPage['page'] : null;
     }
 
     public function getUrlPath()
@@ -66,8 +69,14 @@ class CurrentPage
         if ($this->revision !== null) {
             return $this->revision;
         }
-        $revision = false;
+
         $page = $this->getPage();
+
+        if (!$page || $page instanceof \Ip\Page404) {
+            return false;
+        }
+
+        $revision = false;
         if (ipIsManagementState()) {
             if (ipRequest()->getQuery('cms_revision')) {
                 $revisionId = ipRequest()->getQuery('cms_revision');
@@ -75,13 +84,8 @@ class CurrentPage
             }
 
             if ($page) {
-                if ($revision === false || $revision['zoneName'] != ipContent()->getCurrentZone()->getName(
-                    ) || $revision['pageId'] != $page->getId()
-                ) {
-                    $revision = \Ip\Internal\Revision::getLastRevision(
-                        ipContent()->getCurrentZone()->getName(),
-                        $page->getId()
-                    );
+                if ($revision === false || $revision['pageId'] != $page->getId()) {
+                    $revision = \Ip\Internal\Revision::getLastRevision($page->getId());
                     if ($revision['published']) {
                         $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
                         $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
@@ -91,10 +95,7 @@ class CurrentPage
                 $revision = false;
             }
         } elseif ($page) {
-                $revision = \Ip\Internal\Revision::getPublishedRevision(
-                    ipContent()->getCurrentZone()->getName(),
-                    $page->getId()
-                );
+            $revision = \Ip\Internal\Revision::getPublishedRevision($page->getId());
         }
         $this->revision = $revision;
         return $revision;

@@ -37,7 +37,7 @@ class Slot {
     public static function menu_80($items)
     {
         if (is_string($items)) {
-            $items = \Ip\Menu\Helper::getZoneItems($items);
+            $items = \Ip\Menu\Helper::getMenuItems($items);
         }
         $data = array(
             'items' => $items,

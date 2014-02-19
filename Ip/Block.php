@@ -43,7 +43,6 @@ class Block
                 return $predefinedContent;
             }
 
-
             if ($this->isStatic) {
                 $revisionId = null;
             } else {

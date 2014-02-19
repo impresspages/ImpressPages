@@ -23,7 +23,6 @@ class PageAssets extends \Ip\Internal\PageAssets
                 'languageId' => null,
                 'languageUrl' => '',
                 'theme' => ipConfig()->getRaw('theme'),
-                'zoneName' => null,
                 'pageId' => null,
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),

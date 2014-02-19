@@ -156,8 +156,7 @@ class Application
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
         if (empty($routeAction)) {
-            ipCurrentPage()->_set('zone', '404');
-            $page = new \Ip\Page404(404, 'Error');
+            $page = new \Ip\Page404();
             ipCurrentPage()->_set('page', $page);
             return new \Ip\Response\PageNotFound();
         }
@@ -209,7 +208,7 @@ class Application
         // check if user is logged in
         if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
-            if (ipConfig()->getRaw('NO_REWRITES')) {
+            if (ipConfig()->getRaw('rewritesDisabled')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
             } else {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');

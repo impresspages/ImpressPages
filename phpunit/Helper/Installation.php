@@ -495,7 +495,6 @@ class Installation
         $files = array(
             'favicon.ico',
             'index.php',
-            'config.php',
             'license.html',
             'readme.md',
             'robots.txt',
@@ -513,8 +512,8 @@ class Installation
             $fs->chmod($destination.$file, 0777);
         }
 
-
-
+        file_put_contents($destination . 'config.php', '<?php header("Location: install/"); exit();');
+        $fs->chmod($destination . 'config.php', 0777);
     }
 
 

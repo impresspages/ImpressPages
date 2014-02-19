@@ -37,7 +37,7 @@ class Zone404 extends \Ip\Zone {
 
     private function page() {
         if ($this->page === null) {
-            $this->page = new Page404(1, $this->getName());
+            $this->page = new Page404();
         }
         return $this->page;
     }

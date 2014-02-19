@@ -48,6 +48,10 @@ var ipContent;
                                 callback();
                             }
                         });
+                    } else {
+                        if (callback) {
+                            callback();
+                        }
                     }
                 },
                 dataType : 'json'
