@@ -119,10 +119,17 @@ class Filter
     public static function ipAdminNavButtons($buttons, $info)
     {
         $buttons[] = array(
-            'text' => __('Page preview', 'ipAdmin', false),
-            'label' => __('Page preview', 'ipAdmin', false),
+            'text' => __('Preview', 'ipAdmin', false),
+            'label' => __('Preview', 'ipAdmin', false),
             'class' => 'ipsAdminPreview',
             'faIcon' => 'fa-eye',
+            'url' => '#'
+        );
+        $buttons[] = array(
+            'text' => __('Settings', 'ipAdmin', false),
+            'label' => __('Settings', 'ipAdmin', false),
+            'class' => 'ipsAdminPageSettings',
+            'faIcon' => 'fa-gear',
             'url' => '#'
         );
         return $buttons;
