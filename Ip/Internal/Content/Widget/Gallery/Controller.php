@@ -84,6 +84,7 @@ class Controller extends \Ip\WidgetController{
                         $this->_deleteOneImage($tmpData, $widgetId);
                         //bind new image to the widget
                         \Ip\Internal\Repository\Model::bindFile($postData['fileName'], 'Content', $widgetId);
+                        $tmpData['imageOriginal'] = $postData['fileName'];
                     }
 
                     //check if crop coordinates are set
@@ -139,45 +140,12 @@ class Controller extends \Ip\WidgetController{
                     throw new \Ip\Exception('Unknown command');
 
             }
-
         }
 
 
-        $newData = $currentData;
-        $newData['images'] = array(); //we will create new images array.
 
 
-
-        //check if images array is set
-        if (!isset($postData['images']) || !is_array($postData['images'])) {
-            return $newData;
-        }
-
-        foreach($postData['images'] as $image){
-            if (!isset($image['fileName']) || !isset($image['status'])){ //check if all required data present
-                continue;
-            }
-
-            switch($image['status']){
-
-
-            }
-        }
-
-
-        //delete images that does not exist in posted array
-        //Usually it should not happen ever. But just in case we are checking it and deleting unused images.
-        if (isset($currentData['images']) && is_array($currentData['images'])) {
-            //loop all current images
-            foreach ($currentData['images'] as $curImage) {
-                if (!$this->_findExistingImage($curImage, $widgetId)) {
-                    $this->_deleteOneImage($curImage, $widgetId);
-                }
-            }
-        }
-
-
-        return $newData;
+        return $currentData;
     }
 
 
