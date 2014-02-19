@@ -208,7 +208,7 @@ class Application
         // check if user is logged in
         if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
-            if (ipConfig()->getRaw('NO_REWRITES')) {
+            if (ipConfig()->getRaw('rewritesDisabled')) {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
             } else {
                 return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');

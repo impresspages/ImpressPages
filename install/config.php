@@ -49,7 +49,7 @@ return array(
     'timezone' => $currentTimeZone,
     // END FRONTEND
 
-    'FILE_OVERRIDES' => array(
+    'fileOverrides' => array(
         'Plugin/' => __DIR__ . '/Plugin/',
         'Theme/' => __DIR__ . '/Theme/',
     ),
