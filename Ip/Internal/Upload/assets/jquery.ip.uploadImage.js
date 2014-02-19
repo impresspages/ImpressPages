@@ -531,6 +531,9 @@
         var $dragContainer = $image.parent();
         var data = $this.data('ipUploadImage');
 
+        $image.width('auto');
+        $image.height('auto');
+
         $image.data('originalWidth', $image.width());
         $image.data('originalHeight', $image.height());
 
