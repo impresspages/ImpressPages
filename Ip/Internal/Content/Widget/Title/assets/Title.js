@@ -32,12 +32,22 @@ var IpWidget_Title;
                 this.$header.css('min-height', this.$header.css('font-size')); //Firefox can't handle focus without min height defined
             }
 
+            this.$header.on('keyup', function(e) {
+                if (event.which == 13) {
+                    ipContent.createWidget(ip.revisionId, thisScope.$widgetObject.closest('.ipBlock').data('ipBlock').name, 'Text', thisScope.$widgetObject.index() + 1);
+                }
+            });
+
         };
 
         this.onAdd = function () {
-            var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
-
-            $headTag.focus();
+            if (this.$widgetObject.index() != 0) {
+                this.data.level = 2;
+                this.save(true);
+            } else {
+                var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
+                $headTag.focus();
+            }
         }
 
         this.focus = function () {
@@ -45,12 +55,12 @@ var IpWidget_Title;
         }
 
         this.blur = function(e) {
-            if ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target) {
+            if (this.$widgetObject[0] && ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target)) {
                 //mouse click inside the widget
                 return;
             } else {
                 //mouse click outside of the widget
-                if ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetTitleOptions')[0], e.target)) {
+                if (this.$controls[0] && ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetTitleOptions')[0], e.target))) {
                     //widget toolbar click or widget popup click
                     //do nothing
                 } else {
@@ -112,7 +122,9 @@ var IpWidget_Title;
                 anchor: this.data.anchor
             };
             this.$widgetObject.save(saveData, refresh, function($widget){
-                $widget.find('h1,h2,h3,h4,h5,h6').focus();
+                if (refresh) {
+                    $widget.find('h1,h2,h3,h4,h5,h6').focus();
+                }
             });
         };
 

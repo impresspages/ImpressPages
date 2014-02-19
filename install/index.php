@@ -45,7 +45,8 @@ require_once(__DIR__ . '/../Ip/Application.php');
     }
 
     \Ip\ServiceLocator::addRequest($request);
-
+    $currentPage = new \Ip\CurrentPage(array('language' => $options['translationsLanguageCode']));
+    \Ip\ServiceLocator::_setCurrentPage($currentPage);
 
     if ($request->isGet()) {
         $controller = new \Plugin\Install\PublicController();

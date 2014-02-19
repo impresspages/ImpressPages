@@ -50,7 +50,7 @@ class Db {
         WHERE
             page.id = :pageId
             AND
-            page.parent = mte.element_id
+            page.parentId = mte.element_id
         ";
 
         $params = array(
@@ -137,12 +137,12 @@ class Db {
         if (!$page) {
             return FALSE;
         }
-        if ($page['parent'] == $parentId) {
+        if ($page['parentId'] == $parentId) {
             return TRUE;
         }
 
-        if ($page['parent']) {
-            return self::isChild($page['parent'], $parentId);
+        if ($page['parentId']) {
+            return self::isChild($page['parentId'], $parentId);
         }
 
         return FALSE;
@@ -156,7 +156,7 @@ class Db {
      */
     public static function pageChildren($parentId)
     {
-        return ipDb()->selectAll('page', '*', array('parent' => $parentId), 'ORDER BY `row_number`');
+        return ipDb()->selectAll('page', '*', array('parentId' => $parentId), 'ORDER BY `pageOrder`');
     }
 
     /**
@@ -188,177 +188,13 @@ class Db {
     }
 
     /**
-     * @param $zoneName
-     * @param $pageId
-     * @param $params
-     * @return bool
-     */
-    public static function updatePage($zoneName, $pageId, $params){
-        $values = array();
-
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Ip\Exception("Page doesn't exist");
-        }
-
-        $oldPage = $zone->getPage($pageId);
-        $oldUrl = $oldPage->getLink(true);
-
-        if (isset($params['navigationTitle'])) {
-            $values['button_title'] = $params['navigationTitle'];
-        }
-
-        if (isset($params['pageTitle'])) {
-            $values['page_title'] = $params['pageTitle'];
-        }
-
-        if (isset($params['keywords'])) {
-            $values['keywords'] = $params['keywords'];
-        }
-
-        if (isset($params['description'])) {
-            $values['description'] = $params['description'];
-        }
-
-        if (isset($params['url'])) {
-            if ($params['url'] == '') {
-                if (isset($params['pageTitle']) && $params['pageTitle'] != '') {
-                    $params['url'] = self::makeUrl($params['pageTitle'], $pageId);
-                } else {
-                    if (isset($params['navigationTitle']) && $params['navigationTitle'] != '') {
-                        $params['url'] = self::makeUrl($params['navigationTitle'], $pageId);
-                    } else {
-                        $params['url'] = self::makeUrl('page', $pageId);
-                    }
-                }
-            } else {
-                $tmpUrl = str_replace("/", "-", $params['url']);
-                $i = 1;
-                while (!self::availableUrl($tmpUrl, $pageId)) {
-                    $tmpUrl = $params['url'].'-'.$i;
-                    $i++;
-                }
-                $params['url'] = $tmpUrl;
-            }
-
-            $values['url'] = $params['url'];
-        }
-
-        if (isset($params['createdOn']) && strtotime($params['createdOn']) !== false) {
-            $values['created_on'] = $params['createdOn'];
-        }
-
-        if (isset($params['lastModified']) && strtotime($params['lastModified']) !== false) {
-            $values['last_modified'] = $params['lastModified'];
-        }
-
-        if (isset($params['type'])) {
-            $values['type'] = $params['type'];
-        }
-
-        if (isset($params['redirectURL'])) {
-            $values['redirect_url'] = $params['redirectURL'];
-        }
-
-        if (isset($params['visible'])) {
-            $values['visible'] = $params['visible'];
-        }
-
-        if (isset($params['parentId'])) {
-            $values['parent'] = $params['parentId'];
-        }
-
-        if (isset($params['rowNumber'])) {
-            $values['row_number'] = $params['rowNumber'];
-        }
-
-        if (isset($params['cached_html'])) {
-            $values['cached_html'] = $params['cached_html'];
-        }
-
-        if (isset($params['cached_text'])) {
-            $values['cached_text'] = $params['cached_text'];
-        }
-
-        if (count($values) == 0) {
-            return true; //nothing to update.
-        }
-
-        ipDb()->update('page', $values, array('id' => $pageId));
-
-        if (isset($params['url']) && $oldPage->getUrl() != $params['url']) {
-            $newPage = $zone->getPage($pageId);
-            $newUrl = $newPage->getLink(true);
-            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-        }
-
-        if (!empty($params['layout']) && \Ip\Internal\File\Functions::isFileInDir($params['layout'], ipThemeFile(''))) {
-            $layout = $params['layout'] == $zone->getLayout() ? false : $params['layout']; // if default layout - delete layout
-            self::changePageLayout($zone->getAssociatedModule(), $pageId, $layout);
-        }
-
-        return true;
-    }
-
-    /**
-     * @param $groupName
-     * @param $moduleName
      * @param $pageId
      * @param $newLayout
      * @return bool whether layout was changed or not
      */
-    private static function changePageLayout($moduleName, $pageId, $newLayout) {
-        $dbh = ipDb()->getConnection();
-
-        $sql = 'SELECT `layout`
-                FROM ' . ipTable('page_layout') . '
-                WHERE module_name = :moduleName
-                    AND `page_id`   = :pageId';
-        $q = $dbh->prepare($sql);
-        $q->execute(
-            array(
-                'moduleName' => $moduleName,
-                'pageId' => $pageId,
-            )
-        );
-        $oldLayout = $q->fetchColumn(0);
-
-        $wasLayoutChanged = false;
-
-        if (empty($newLayout)) {
-            if ($oldLayout) {
-                $sql = 'DELETE FROM ' . ipTable('page_layout') . '
-                        WHERE `module_name` = :moduleName
-                            AND `page_id` = :pageId';
-                $q = $dbh->prepare($sql);
-                $result = $q->execute(
-                    array(
-                        'moduleName' => $moduleName,
-                        'pageId' => $pageId,
-                    )
-                );
-                $wasLayoutChanged = true;
-            }
-        } elseif ($newLayout != $oldLayout && file_exists(ipThemeFile($newLayout))) {
-            if (!$oldLayout) {
-                ipDb()->insert('page_layout', array(
-                        'module_name' => $moduleName,
-                        'page_id' => $pageId,
-                        'layout' => $newLayout
-                    ), true);
-                $wasLayoutChanged = true;
-            } else {
-                ipDb()->update('page_layout', array(
-                        'layout' => $newLayout,
-                    ), array(
-                        'module_name' => $moduleName,
-                        'page_id' => $pageId,
-                    ));
-                $wasLayoutChanged = true;
-            }
-        }
-
-        return $wasLayoutChanged;
+    private static function changePageLayout($pageId, $newLayout)
+    {
+        ipPageStorage($pageId)->set('layout', $newLayout);
     }
 
     /**
@@ -370,91 +206,47 @@ class Db {
     public static function addPage($parentId, $params)
     {
         $row = array(
-            'parent' => $parentId,
-            'row_number' => self::getMaxIndex($parentId) + 1,
-
+            'parentId' => $parentId,
+            'pageOrder' => self::getNextPageOrder($parentId),
         );
 
         //TODOXX sync page service naming. #140
-        if (isset($params['button_title'])) {
-            $params['navigationTitle'] = $params['button_title'];
-        }
-        if (isset($params['page_title'])) {
-            $params['pageTitle'] = $params['page_title'];
-        }
-        if (isset($params['redirect_url'])) {
-            $params['redirectURL'] = $params['redirect_url'];
+        $fields = array(
+            'navigationTitle',
+            'pageTitle',
+            'languageCode',
+            'keywords',
+            'description',
+            'url',
+            'createdOn',
+            'lastModified',
+            'type',
+            'visible'
+        );
+
+        foreach ($fields as $column) {
+            if (array_key_exists($column, $params)) {
+                $row[$column] = $params[$column];
+            }
         }
 
-        if (isset($params['navigationTitle'])) {
-            $row['button_title'] = $params['navigationTitle'];
+        if (empty($row['createdOn'])) {
+            $row['createdOn'] = date('Y-m-d');
         }
 
-        if (isset($params['pageTitle'])) {
-            $row['page_title'] = $params['pageTitle'];
+        if (empty($row['lastModified'])) {
+            $row['lastModified'] = date('Y-m-d');
         }
 
-        if (isset($params['keywords'])) {
-            $row['keywords'] = $params['keywords'];
-        }
 
-        if (isset($params['description'])) {
-            $row['description'] = $params['description'];
-        }
-
-        if (isset($params['url'])) {
-            $row['url'] = $params['url'];
-        }
-
-        if (isset($params['createdOn'])) {
-            $row['created_on'] = $params['createdOn'];
-        } else {
-            $row['created_on'] = date('Y-m-d');
-        }
-
-        if (isset($params['lastModified'])) {
-            $row['last_modified'] = $params['lastModified'];
-        } else {
-            $row['last_modified'] = date('Y-m-d');
-        }
-
-        if (isset($params['type'])) {
-            $row['type'] = $params['type'];
-        }
-
-        if (isset($params['redirectURL'])) {
-            $row['redirect_url'] = $params['redirectURL'];
-        }
-
-        if (isset($params['visible'])) {
-            $row['visible'] = (int)$params['visible'];
-        }
-
-        if (isset($params['cached_html'])) {
-            $row['cached_html'] = $params['cached_html'];
-        }
-
-        if (isset($params['cached_text'])) {
-            $row['cached_text'] = $params['cached_text'];
-        }
 
         return ipDb()->insert('page', $row);
     }
 
-    private static function getMaxIndex($parentId) {
-        return ipDb()->selectValue('page', "MAX(`row_number`) AS `max_row_number`", array('parent' => $parentId));
+    private static function getNextPageOrder($parentId) {
+        $order = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', array('parentId' => $parentId));
+        return $order ? $order : 1;
     }
-
-    /**
-     *
-     * Delete menu element record
-     * @param int $id
-     */
-    public static function deletePage($id)
-    {
-        ipDb()->delete('page', array('id' => $id));
-    }
-
 
     public static function copyPage($nodeId, $newParentId, $newIndex)
     {
@@ -465,7 +257,7 @@ class Db {
         }
 
         unset($copy['id']);
-        $copy['parent'] = $newParentId;
+        $copy['parentId'] = $newParentId;
         $copy['row_number'] = $newIndex;
         $copy['url'] = self::ensureUniqueUrl($copy['url']);
 

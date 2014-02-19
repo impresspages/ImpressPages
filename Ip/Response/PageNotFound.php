@@ -21,6 +21,7 @@ class PageNotFound extends \Ip\Response\Layout {
         $this->addHeader('HTTP/1.0 404 Not Found');
         $this->setStatusCode(404);
         $this->setContent($content);
+        $this->setTitle(__('Error 404', 'ipPublic', false));
         parent::__construct($content);
     }
 
@@ -39,9 +40,7 @@ class PageNotFound extends \Ip\Response\Layout {
         );
         $content = ipView(ipFile('Ip/Internal/Config/view/error404.php'), $data)->render();
         return $content;
-
     }
-
 
     /**
      * Find the reason why the user come to non-existent URL

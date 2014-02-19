@@ -351,7 +351,20 @@
                         markerOffset: space/2
                     };
 
-                    newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+
+                    var widgetController = $widget.data('widgetController');
+                    if (!widgetController.splitParts) {
+                        widgetController.splitParts = function () {return new Array()};
+                    }
+                    if (widgetController.splitParts && widgetController.splitParts().length) {
+                        //middle of the first paragraph
+                        var $firstParagraph = widgetController.splitParts().first();
+                        newPlaceholder.height = $firstParagraph.offset().top + Math.round($firstParagraph.height() / 2) - newPlaceholder.top;
+                    } else {
+                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                    }
+
+
                     if ($widget.hasClass("ipWidget-Columns")) { //if this is a columns widget, make a 3/4 space for droping. Leave 1/4 for column placeholders
                         newPlaceholder.height = space*3/4;
                         newPlaceholder.markerOffset = space*3/4 / 2;
@@ -517,7 +530,7 @@
 
         //drop between paragraphs inside widget
         var paragraphPlaceholders = new Array();
-        $.each($('.ipWidget'), function (widgetKey, widget) {
+        $.each($('.ipBlock .ipWidget').not('.ipbEmpty .ipWidget'), function (widgetKey, widget) {
             var $widget = $(widget);
             var widgetController = $widget.data('widgetController');
             if (!widgetController.splitParts) {

@@ -16,7 +16,6 @@
 
                 var data = Object();
                 data.pageId = options.pageId;
-                data.zoneName = options.zoneName;
                 data.aa = 'Pages.pagePropertiesForm';
                 data.securityToken = ip.securityToken;
 

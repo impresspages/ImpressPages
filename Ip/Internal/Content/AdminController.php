@@ -110,18 +110,11 @@ class AdminController extends \Ip\Controller
                 throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
             }
 
-            $zoneName = $revisionRecord['zoneName'];
             $pageId = $revisionRecord['pageId'];
 
-
-            $zone = ipContent()->getZone($zoneName);
-            if ($zone === false) {
-                return $this->_errorAnswer('Unknown zone "' . $zoneName . '"');
-            }
-
-            $page = $zone->getPage($pageId);
+            $page = new \Ip\Page($pageId);
             if ($page === false) {
-                return $this->_errorAnswer('Page not found "' . $zoneName . '"/"' . $pageId . '"');
+                return $this->_errorAnswer('Page not found #' . $pageId);
             }
 
         }
@@ -281,46 +274,42 @@ class AdminController extends \Ip\Controller
         if ($publish) {
             $pageOptions = array();
             $pageOptions['lastModified'] = date("Y-m-d");
-            \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $pageOptions);
+            \Ip\Internal\Pages\Model::updatePageProperties($revision['pageId'], $pageOptions);
             \Ip\Internal\Revision::publishRevision($revisionId);
         }
 
 
         $newRevisionId = \Ip\Internal\Revision::duplicateRevision($revisionId);
 
-        $zone = ipContent()->getZone($revision['zoneName']);
-        if (!$zone) {
-            return $this->_errorAnswer('Can\'t find content management zone. RevisionId \'' . $revisionId . '\'');
-        }
+        $page = new \Ip\Page($revision['pageId']);
 
         $data = array(
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $zone->getPage($revision['pageId'])->getLink() . '?cms_revision=' . $newRevisionId
+            'newRevisionUrl' => $page->getLink() . '?cms_revision=' . $newRevisionId
         );
 
         return new \Ip\Response\Json($data);
 
     }
 
-	private function _addPageToTree($page) {
+	private function _addPageToTree(\Ip\Page $page) {
 		$p = array(
-            'text' => $page->getTitle(),
+            'text' => $page->getPageTitle(),
             'icon' => 'fa fa-file-text',
             'li_attr' => (object) array(
-            	'data-url' => parse_url($page->getUrl(),PHP_URL_PATH)
+            	'data-url' => $page->getUrl()
 			),
 			'children' => array()
 		);
-        foreach($page->getChildren() as $child) {
+        foreach ($page->getChildren() as $child) {
         	$p['children'][] = $this->_addPageToTree($child);
         }
         return $p;
 	}
 
 	public function getPageTree() {
-        $zones = ipContent()->getZones();
         $sitemap = array(
 			array(
 			   'text' => 'EN',
@@ -333,22 +322,22 @@ class AdminController extends \Ip\Controller
 
 		// @todo: get all the languages
 
-        foreach($zones as $zone) {
-            $z = array(
-                'text' => $zone->getTitle(),
-                'icon' => 'fa fa-folder-o',
-            	'li_attr' => (object) array(
-            		'data-url' => parse_url($zone->getUrl(),PHP_URL_PATH)
-				),
-            	'children'=>array()
-			);
-			foreach (\Ip\Menu\Helper::getZoneItems($zone->getName()) as $page) {
-			   $z['children'][] = $this->_addPageToTree($page);
-			}
-
-			// @todo: add zone to correct language
-			$sitemap[0]['children'][] = $z;
-        }
+//        foreach($zones as $zone) {
+//            $z = array(
+//                'text' => $zone->getTitle(),
+//                'icon' => 'fa fa-folder-o',
+//            	'li_attr' => (object) array(
+//            		'data-url' => parse_url($zone->getUrl(),PHP_URL_PATH)
+//				),
+//            	'children'=>array()
+//			);
+//			foreach (\Ip\Menu\Helper::getMenuItems($zone->getName()) as $page) {
+//			   $z['children'][] = $this->_addPageToTree($page);
+//			}
+//
+//			// @todo: add zone to correct language
+//			$sitemap[0]['children'][] = $z;
+//        }
 
         $data = array(
             'status' => 'success',

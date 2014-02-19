@@ -47,10 +47,7 @@ class Model
             $widgets[$key] = $widget;
         }
 
-        $revisions = \Ip\Internal\Revision::getPageRevisions(
-            ipContent()->getCurrentZone()->getName(),
-            ipContent()->getCurrentPage()->getId()
-        );
+        $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
@@ -330,9 +327,9 @@ class Model
         return $row;
     }
 
-    public static function getRevisions($zoneName, $pageId)
+    public static function getRevisions($pageId)
     {
-        return ipDb()->selectAll('revision', '*', array('zoneName' => $zoneName, 'pageId' => $pageId));
+        return ipDb()->selectAll('revision', '*', array('pageId' => $pageId));
     }
 
     public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
@@ -394,10 +391,10 @@ class Model
     }
 
 
-    public static function removePageRevisions($zoneName, $pageId)
+    public static function removePageRevisions($pageId)
     {
-        $revisions = self::getRevisions($zoneName, $pageId);
-        foreach ($revisions as $revisionKey => $revision) {
+        $revisions = self::getRevisions($pageId);
+        foreach ($revisions as $revision) {
             self::removeRevision($revision['revisionId']);
         }
 
@@ -450,18 +447,18 @@ class Model
     public static function clearCache($revisionId)
     {
 
-        $revision = \Ip\Internal\Revision::getRevision($revisionId);
-        $pageContent = Model::generateBlock('main', $revisionId, false);
+//        $revision = \Ip\Internal\Revision::getRevision($revisionId);
+//        $pageContent = Model::generateBlock('main', $revisionId, false);
+//
+//        $html2text = new \Ip\Internal\Text\Html2Text();
+//        $html2text->set_html($pageContent);
+//        $pageContentText = $html2text->get_text();
 
-        $html2text = new \Ip\Internal\Text\Html2Text();
-        $html2text->set_html($pageContent);
-        $pageContentText = $html2text->get_text();
-
-        $params = array(
-            'cached_html' => $pageContent,
-            'cached_text' => $pageContentText
-        );
-        \Ip\Internal\Pages\Db::updatePage($revision['zoneName'], $revision['pageId'], $params);
+//        $params = array(
+//            'cached_html' => $pageContent,
+//            'cached_text' => $pageContentText
+//        );
+//        \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $params);
     }
 
 
