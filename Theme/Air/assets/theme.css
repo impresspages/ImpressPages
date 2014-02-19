@@ -1096,11 +1096,11 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Missing {
   /* covered by default styles */
 }
-.ipWidget-Separator.ipLayout-default {
+.ipWidget-Divider.ipLayout-default {
   border-bottom: 1px solid #747474;
   height: 0;
 }
-.ipWidget-Separator.ipLayout-space {
+.ipWidget-Divider.ipLayout-space {
   height: 25px;
 }
 .ipWidget-Text {
