@@ -196,8 +196,9 @@ class Model
         }
     }
 
-    public static function createMenu($languageCode, $alias, $title, $data = array())
+    public static function createMenu($languageCode, $alias, $title)
     {
+        $data = array();
         $data['languageCode'] = $languageCode;
         $data['alias'] = $alias;
         $data['navigationTitle'] = $title;

@@ -2,19 +2,14 @@
 
 namespace Tests\Ip\Internal\Pages;
 
+use Ip\Internal\Pages\Service;
 use PhpUnit\Helper\TestEnvironment;
-use \Ip\Internal\Pages\Service;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
         TestEnvironment::setupCode();
-    }
-
-    public function testCreatePage()
-    {
-
     }
 
     public function testCreateMenu()
