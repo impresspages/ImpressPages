@@ -229,7 +229,7 @@ class Helper
             array(
                 'name' => 'visible',
                 'label' => __('Visible', 'ipAdmin', false),
-                'value' => ipGetOption('Pages.hideNewPages', 1)
+                'value' => !ipGetOption('Pages.hideNewPages', 0)
             ));
         $form->addField($field);
 

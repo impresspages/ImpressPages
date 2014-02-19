@@ -1,16 +1,3 @@
-<div style="float: left; width: 300px;">
-    <div class="list-group">
-        <a href="#" class="list-group-item ipsTopMenu active" data-tab="ipsStatus">
-            <h4 class="list-group-item-heading"><?php _e('Status', 'ipAdmin') ?></h4>
-        </a>
-        <a href="#" class="list-group-item ipsTopMenu" data-tab="ipsLog">
-            <h4 class="list-group-item-heading"><?php _e('Log', 'ipAdmin') ?></h4>
-        </a>
-        <a href="#" class="list-group-item ipsTopMenu" data-tab="ipsEmail">
-            <h4 class="list-group-item-heading"><?php _e('Email queue', 'ipAdmin') ?></h4>
-        </a>
-    </div>
-</div>
 <div style="float: left; margin-left: 20px;">
     <div class="ipsStatus">
         <?php if (!empty($notes)) { ?>
