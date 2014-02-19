@@ -32,6 +32,7 @@ var IpWidget_Form;
         };
 
         var openPopup = function() {
+            var context = this;
             this.modal = $('#ipWidgetFormPopup');
             this.addButton = this.modal.find(".ipsFieldAdd");
             this.container = this.modal.find('.ipWidget_ipForm_container');
@@ -64,10 +65,20 @@ var IpWidget_Form;
             this.modal.find('.ipsSuccess').tinymce(customTinyMceConfig);
 
             if (instanceData.sendTo == 'custom') {
-                this.modal.find('input[value=custom]').prop('checked', true);
+                this.modal.find('select[name=sendTo]').val('custom');
+                this.modal.find('.form-group.name-emails').show();
             } else {
-                this.modal.find('input[value=default]').prop('checked', true);
+                this.modal.find('select[name=sendTo]').val('default');
+                this.modal.find('.form-group.name-emails').hide();
             }
+            this.modal.find('select[name=sendTo]').on('change', function() {
+                if ($(this).val() == 'custom') {
+                    context.modal.find('.form-group.name-emails').show();
+                } else {
+                    context.modal.find('.form-group.name-emails').hide();
+                }
+            })
+
 
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
@@ -115,11 +126,7 @@ var IpWidget_Form;
 
             data.success = this.modal.find('.ipsSuccess').html();
 
-            if (this.modal.find('input[value=custom]').prop('checked')) {
-                data.sendTo = 'custom';
-            } else {
-                data.sendTo = 'default';
-            }
+            data.sendTo =this.modal.find('select[name=sendTo]').val();
             data.emails = this.modal.find('input[name=emails]').val();
 
             return data;

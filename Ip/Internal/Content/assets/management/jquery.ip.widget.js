@@ -13,11 +13,11 @@
 
             return this.each(function () {
                 var $this = $(this);
-                $this.prepend(options.widgetControlls);
-                $this.save = function(data, refresh, callback){$(this).ipWidget('save', data, refresh, callback);};
                 var data = $this.data('ipWidgetInit');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
+                    $this.prepend(options.widgetControlls);
+                    $this.save = function(data, refresh, callback){$(this).ipWidget('save', data, refresh, callback);};
                     $this.data('ipWidgetInit', Object());
 
                     var widgetName = $this.data('widgetname');
@@ -30,7 +30,10 @@
                             widgetController.init($this, data);
                         }
                         $this.data('widgetController', widgetController);
+                    } else {
+                        $this.data('widgetController', {});
                     }
+
                 }
 
                 $this.find(' > .ip > .ipsWidgetControls .ipsWidgetDelete').on('click', function(e) {

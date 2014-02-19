@@ -33,7 +33,7 @@
                 widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
                 $this.children('.ipWidget').ipWidget(widgetOptions);
 
-                $this.bind('reinitRequired.ipWidget', function(event) {
+                $this.on('reinitRequired.ipWidget', function(event) {
                     // ignore events which bubble up from nested blocks
                     if ( $(event.target).closest('.ipBlock')[0] != $this[0] ) {
                         return;
@@ -73,7 +73,6 @@
 
 
     var initWidgetDrag = function ($block) {
-        console.log('init');
         var $this = $block;
         $this.find('.ipWidget').not('.ipWidget-Columns').draggable({
             handle : '.ipsWidgetControls .ipsWidgetDrag',
