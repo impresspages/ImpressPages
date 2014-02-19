@@ -517,7 +517,7 @@
 
         //drop between paragraphs inside widget
         var paragraphPlaceholders = new Array();
-        $.each($('.ipWidget'), function (widgetKey, widget) {
+        $.each($('.ipBlock .ipWidget').not('.ipbEmpty .ipWidget'), function (widgetKey, widget) {
             var $widget = $(widget);
             var widgetController = $widget.data('widgetController');
             if (!widgetController.splitParts) {
