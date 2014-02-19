@@ -69,30 +69,3 @@ INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'lastSystemMessageShown', ''),
 ('Ip', 'themeChanged', '0'),
 ('Ip', 'cacheVersion', '1');
-
-
--- Dumping data for table--
-
-INSERT INTO `ip_cms_user_to_mod` (`id`, `userId`, `module_id`) VALUES
-(530, 8, 436),
-(525, 8, 361),
-(523, 8, 330),
-(522, 8, 352),
-(520, 8, 328),
-(519, 8, 424),
-(518, 8, 348),
-(517, 8, 353),
-(516, 8, 326),
-(529, 8, 435),
-(512, 8, 329),
-(511, 8, 332),
-(510, 8, 333),
-(508, 8, 327),
-(531, 8, 437),
-(532, 8, 439),
-(534, 8, 441),
-(535, 8, 442),
-(536, 8, 443);
-
-
-

@@ -311,16 +311,3 @@ CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- Table structure
-
-DROP TABLE IF EXISTS `ip_cms_user_to_mod`;
-
--- Table structure
-
-CREATE TABLE IF NOT EXISTS `ip_cms_user_to_mod` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL DEFAULT '0',
-  `module_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
