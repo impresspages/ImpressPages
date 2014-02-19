@@ -213,38 +213,38 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_inlinevalue_global`;
+DROP TABLE IF EXISTS `ip_cms_inlineValueGlobal`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_global` (
-  `module` varchar(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueGlobal` (
+  `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`)
+  PRIMARY KEY (`plugin`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_inlinevalue_language`;
+DROP TABLE IF EXISTS `ip_cms_inlineValueForLanguage`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_language` (
-  `module` varchar(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForLanguage` (
+  `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`,`languageId`)
+  PRIMARY KEY (`plugin`,`key`,`languageId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Table structure
 
-DROP TABLE IF EXISTS `ip_cms_inlinevalue_page`;
+DROP TABLE IF EXISTS `ip_cms_inlineValueForPage`;
 
 -- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlinevalue_page` (
+CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForPage` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
