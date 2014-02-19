@@ -110,7 +110,13 @@ class Model
 
     private static function _getPriorities()
     {
-        return ipDb()->selectAll('m_developer_widget_sort', '*', array(), 'ORDER BY `priority` ASC');
+        $list = ipDb()->selectAll('widgetOrder', '*', array(), 'ORDER BY `priority` ASC');
+        $result = array();
+        foreach ($list as $widgetOrder) {
+            $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
+        }
+
+        return $result;
     }
 
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null)

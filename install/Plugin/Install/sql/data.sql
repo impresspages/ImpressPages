@@ -19,15 +19,15 @@ INSERT INTO `ip_cms_pageStorage` (`pageId`, `key`, `value`) VALUES
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_m_developer_widget_sort` (`sortId`, `widgetName`, `priority`, `deleted`) VALUES
-(2, 'Image', 60, 0),
-(3, 'Gallery', 70, 0),
-(5, 'Text', 30, 0),
-(7, 'Title', 20, 0),
-(8, 'File', 90, 0),
-(10, 'Divider', 40, 0),
-(9, 'Html', 120, 0),
-(14, 'Faq', 140, 0);
+INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
+('Title',   10),
+('Text',    20),
+('Divider', 30),
+('Image',   40),
+('Gallery', 50),
+('File',    60),
+('Html',    70),
+('Faq',     80);
 
 -- Dumping data for table--
 
