@@ -8,13 +8,6 @@ namespace Ip\Internal\Pages;
 
 class Event
 {
-
-    public static function ipLanguageAdded($data)
-    {
-        $languageId = $data['id'];
-        Model::createParametersLanguage($languageId);
-    }
-
     public static function ipBeforeLanguageDeleted($data)
     {
         $languageId = $data['id'];

@@ -40,11 +40,11 @@ class PagesTest extends \PHPUnit_Framework_TestCase
 
         $pageTitle = 'New page title';
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipsAddModal').is(':visible')");
-        $session->executeScript("ip.jQuery('.ipsAddModal input[name=title]').val('" . $pageTitle . "')");
+        $page = $session->getPage();
+        $page->find('css', '.ipsAddModal input[name=title]')->setValue($pageTitle);
 
         $pagesBeforeSubmit = $session->evaluateScript("return ip.jQuery('.ipsTree ul li').length");
-        $addPageSubmit = $page->find('css', '.ipsAddModal .ipsAdd');
-        $addPageSubmit->click();
+        $page->find('css', '.ipsAddModal .ipsAdd')->click();
 
         $session->wait(10000, "typeof $ !== 'undefined' && ip.jQuery('.ipsTree ul li').length > " . $pagesBeforeSubmit);
         $lastPageTitle = $session->evaluateScript("return ip.jQuery('.ipsTree ul li:last-child a').text()");
@@ -60,6 +60,11 @@ class PagesTest extends \PHPUnit_Framework_TestCase
         $lastPageLink->click();
 
         $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main').length != 0");
+        $page = $session->getPage();
+        $title = $page->find('css', 'title');
+        $this->assertNotEmpty($title);
+
+        $this->assertEquals($pageTitle, $title->getHtml());
 
     }
 

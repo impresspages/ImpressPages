@@ -5,7 +5,7 @@ var pagesZones;
 
     pagesZones = {
         init: function () {
-            $('.zoneList ul').sortable({
+            $('.menuList ul').sortable({
                 start: this.startSort,
                 stop: this.stopSort
             });

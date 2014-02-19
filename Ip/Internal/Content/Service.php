@@ -34,21 +34,8 @@ class Service
 
     public static function getPageLayout(\Ip\Page $page)
     {
-        $zone = ipContent()->getZone($page->getZoneName());
-        $layout = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModule(),
-            $page->getId()
-        );
-
-
-        if (!$layout) {
-            $layout = $zone->getLayout();
-        }
-        return $layout;
+        return ipPageStorage($page->getId())->get('layout', 'main.php');
     }
-
-
-
 
     public static function createWidget($widgetName, $data = null, $skin = null)
     {

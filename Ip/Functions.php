@@ -946,6 +946,15 @@ function ipAdminId()
 }
 
 /**
+ * @param $pageId
+ * @return \Ip\PageStorage
+ */
+function ipPageStorage($pageId)
+{
+    return new \Ip\PageStorage($pageId);
+}
+
+/**
  * Get a modified copy of original file in repository
  * @param string $file (just filename. No path required)
  * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.

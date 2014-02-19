@@ -22,33 +22,24 @@ class Helper
             $answer[] = array(
                 'id' => $language->getId(),
                 'title' => $language->getTitle(),
-                'abbreviation' => $language->getAbbreviation()
+                'abbreviation' => $language->getAbbreviation(),
+                'code' => $language->getCode(),
             );
         }
         return $answer;
     }
 
-    public static function zoneList()
+    public static function menuList()
     {
-        $answer = array();
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        foreach($zones as $zone)
-        {
-            $answer[] = array(
-                'name' => $zone['name'],
-                'title' => $zone['translation']
-            );
-        }
-        return $answer;
+        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `navigationTitle`', array('parentId' => 0));
     }
 
-    public static function zoneForm($zoneName)
+    public static function menuForm($menuId)
     {
+        $menu = ipDb()->selectRow('page', '*', array('id' => $menuId));
 
-
-        $zone = ipContent()->getZone($zoneName);
-        if (!$zone) {
-            throw new \Ip\Exception('Unknown zone: ' . $zoneName);
+        if (!$menu) {
+            throw new \Ip\Exception('Menu not found.', array('id' => $menuId));
         }
 
         $form = new \Ip\Form();
@@ -56,14 +47,14 @@ class Helper
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
-                'value' => 'Pages.updateZone'
+                'value' => 'Pages.updateMenu'
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Hidden(
             array(
-                'name' => 'zoneName',
-                'value' => $zoneName
+                'name' => 'id',
+                'value' => $menu['id']
             ));
         $form->addField($field);
 
@@ -71,26 +62,17 @@ class Helper
             array(
                 'name' => 'title',
                 'label' => __('Title (used in admin)', 'ipAdmin', false),
-                'value' => $zone->getTitleInAdmin()
+                'value' => $menu['navigationTitle']
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'url',
-                'label' => __('URL', 'ipAdmin', false),
-                'value' => $zone->getUrl()
+                'name' => 'alias',
+                'label' => __('Menu name (used in PHP code)', 'ipAdmin', false),
+                'value' => $menu['alias']
             ));
         $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'name',
-                'label' => __('Name (used as ID in PHP code)', 'ipAdmin', false),
-                'value' => $zone->getName()
-            ));
-        $form->addField($field);
-
 
         $layouts = \Ip\Internal\Design\Service::getLayouts();
         $values = array();
@@ -102,33 +84,8 @@ class Helper
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
-                'value' => $zone->getLayout(),
+                'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
                 'values' => $values,
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'metaTitle',
-                'label' => __('Meta title', 'ipAdmin', false),
-                'value' => $zone->getTitle()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'metaKeywords',
-                'label' => __('Meta keywords', 'ipAdmin', false),
-                'value' => $zone->getKeywords()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Textarea(
-            array(
-                'name' => 'metaDescription',
-                'label' => __('Meta description', 'ipAdmin', false),
-                'value' => $zone->getDescription()
             ));
         $form->addField($field);
 
@@ -139,16 +96,12 @@ class Helper
             ));
         $form->addField($field);
 
-
         return $form;
-
-
     }
 
-    public static function pagePropertiesForm($zoneName, $pageId)
+    public static function pagePropertiesForm($pageId)
     {
-        $zone = ipContent()->getZone($zoneName);
-        $page = $zone->getPage($pageId);
+        $page = new \Ip\Page($pageId);
 
         $form = new \Ip\Form();
 
@@ -164,14 +117,6 @@ class Helper
             array(
                 'name' => 'pageId',
                 'value' => $pageId
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Hidden(
-            array(
-                'name' => 'zoneName',
-                'value' => $zoneName
             ));
         $form->addField($field);
 
@@ -209,9 +154,9 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'url',
-                'label' => __('Url', 'ipAdmin', false),
-                'value' => $page->getUrl()
+                'name' => 'slug',
+                'label' => __('Url slug', 'ipAdmin', false),
+                'value' => $page->getSlug(),
             ));
         $form->addField($field);
 
@@ -232,22 +177,16 @@ class Helper
             $options[] = array ($layout, $layout);
         }
 
-        $curLayout = \Ip\Internal\ContentDb::getPageLayout(
-            $zone->getAssociatedModule(),
-            $page->getId()
-        );
-        if (!$curLayout) {
-            $curLayout = $zone->getLayout();
-        }
+        $layout = ipPageStorage($pageId)->get('layout', 'main.php');
+
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
                 'values' => $options,
-                'value' => $curLayout
+                'value' => $layout
             ));
         $form->addField($field);
-
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -275,7 +214,7 @@ class Helper
         return $form;
     }
 
-    public static function addPageform()
+    public static function addPageForm()
     {
         $form = new \Ip\Form();
 
@@ -297,7 +236,7 @@ class Helper
         return $form;
     }
 
-    public static function addZoneForm()
+    public static function addMenuForm()
     {
         $form = new \Ip\Form();
 

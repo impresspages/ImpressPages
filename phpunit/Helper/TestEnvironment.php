@@ -6,12 +6,29 @@
 namespace PhpUnit\Helper;
 
 
+use Plugin\Install\TestService;
+
 class TestEnvironment
 {
+    public static function setupOnce()
+    {
+        static $hasRun = false;
+
+        if ($hasRun) {
+            return false;
+        }
+
+        $hasRun = true;
+
+        // create test database structure
+        \Plugin\Install\TestService::setupTestDatabase(TEST_DB_NAME, 'ip_');
+    }
+
     public static function setup()
     {
         static::filesSetup();
         static::setupCode();
+        static::setupOnce();
     }
 
     public static function setupCode($configBasename = 'default.php')
