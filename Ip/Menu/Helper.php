@@ -17,49 +17,52 @@ class Helper
 {
 
     /**
-     * @param string $zoneName
+     * @param string $menuName
      * @param int $depthFrom
      * @param int $depthTo
      * @return Item[]
      */
-    public static function getZoneItems($zoneName, $depthFrom = 1, $depthTo = 1000)
+    public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000)
     {
         //variable check
-        if($depthFrom < 1) {
+        if ($depthFrom < 1) {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-                trigger_error('$depthFrom can\'t be less than one. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-            else
+            if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                trigger_error(
+                    '$depthFrom can\'t be less than one. (Error source: ' . $backtrace[0]['file'] . ' line: ' . $backtrace[0]['line'] . ' ) '
+                );
+            } else {
                 trigger_error('$depthFrom can\'t be less than one.');
+            }
             return;
         }
 
-        if($depthTo < $depthFrom) {
+        if ($depthTo < $depthFrom) {
             $backtrace = debug_backtrace();
-            if(isset($backtrace[0]['file']) && $backtrace[0]['line'])
-                trigger_error('$depthTo can\'t be lower than $depthFrom. (Error source: '.$backtrace[0]['file'].' line: '.$backtrace[0]['line'].' ) ');
-            else
+            if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                trigger_error(
+                    '$depthTo can\'t be lower than $depthFrom. (Error source: ' . $backtrace[0]['file'] . ' line: ' . $backtrace[0]['line'] . ' ) '
+                );
+            } else {
                 trigger_error('$depthTo can\'t be lower than $depthFrom.');
+            }
             return;
         }
         //end variable check
 
-        $content = \Ip\ServiceLocator::content();
-        $zone = $content->getZone($zoneName);
-        if(!$zone) {
-            return array();
+        $breadcrumb = static::getBreadcrumb();
+
+        $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
+
+        if ($depthFrom == 1) {
+            $elements = ipDb()->selectAll('page', '*', array('parentId' => $menuRootId)); //get first level elements
+        } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
+            $elements = ipDb()->selectAll('page', '*', array('parentId' => $breadcrumb[$depthFrom - 2]->getId()));
         }
 
-        $breadcrumb = $zone->getBreadcrumb();
-        if($depthFrom == 1) {
-            $elements = $zone->getPages(); //get first level elements
-        } elseif (isset($breadcrumb[$depthFrom-2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
-            $elements = $zone->getPages(null, $breadcrumb[$depthFrom-2]->getId());
-        }
         $items = array();
-        if(isset($elements) && sizeof($elements) > 0) {
-            $curDepth = $elements[0]->getDepth();
-            $items = self::getSubElementsData($elements, $zoneName, $depthTo, $curDepth);
+        if (!empty($elements)) {
+            $items = self::getSubElementsData($elements, $depthTo, $depthFrom);
         }
 
         return $items;
@@ -87,48 +90,45 @@ class Helper
 
         $pages = $zone->getPages(null, $pageId);
         $items = array();
-        if(isset($pages) && sizeof($pages) > 0) {
+        if (isset($pages) && sizeof($pages) > 0) {
             $curDepth = $pages[0]->getDepth();
-            $items = self::getSubElementsData($pages, $zoneName, $depthTo+1, $curDepth);
+            $items = self::getSubElementsData($pages, $zoneName, $depthTo + 1, $curDepth);
         }
 
         return $items;
     }
 
 
-
-
     /**
-     * @param \Ip\Page[] $pages
-     * @param $zoneName
+     * @param array $pages
      * @param $depth
      * @param $curDepth
      * @return Item[]
      */
-    private static function getSubElementsData($pages, $zoneName, $depth, $curDepth) {
-        $content = \Ip\ServiceLocator::content();
-
+    private static function getSubElementsData($pages, $depth, $curDepth)
+    {
         $items = array();
-        foreach($pages as $page) {
+        foreach ($pages as $pageRow) {
+            $page = new \Ip\Page($pageRow['id']);
             $item = new Item();
             $subSelected = false;
-            if($curDepth < $depth) {
-                $zone = $content->getZone($zoneName);
-                $children = $zone->getPages(null, $page->getId());
-                if(sizeof($children) > 0) {
-                    $childrenItems = self::getSubElementsData($children, $zoneName, $depth, $curDepth+1);
+            if ($curDepth < $depth) {
+                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'visible' => 1), 'ORDER BY `pageOrder`');
+                if ($children) {
+                    $childrenItems = self::getSubElementsData($children, $depth, $curDepth + 1);
                     $item->setChildren($childrenItems);
                 }
             }
-            if($page->isCurrent()  || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
-                $item->markAsCurrent(true);
-            } elseif($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
-                $item->markAsInCurrentBreadcrumb(true);
-            }
+//            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+//                $item->markAsCurrent(true);
+//            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
+//                $item->markAsInCurrentBreadcrumb(true);
+//            }
+
             $item->setType($page->getType());
             $item->setUrl($page->getLink());
             $item->setTitle($page->getNavigationTitle());
-            $item->setDepth($page->getDepth());
+            $item->setDepth($curDepth);
             $items[] = $item;
         }
 
@@ -136,13 +136,13 @@ class Helper
     }
 
 
-
-    private static function existInBreadcrumb($link) {
+    private static function existInBreadcrumb($link)
+    {
         $content = \Ip\ServiceLocator::content();
         $breadcrumb = $content->getBreadcrumb();
         array_pop($breadcrumb);
-        foreach($breadcrumb as $key => $element) {
-            if($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
+        foreach ($breadcrumb as $key => $element) {
+            if ($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
                 return true;
             }
         }
@@ -151,6 +151,29 @@ class Helper
             return true;
         }
         return false;
+    }
+
+    public static function getBreadcrumb($pageId = null)
+    {
+        $pages = array();
+        if ($pageId !== null) {
+            $page = new \Ip\Page($pageId);
+        } else {
+            $page = ipCurrentPage()->getPage();
+        }
+
+        if ($page) {
+            $pages[] = $page;
+            $parentPageId = $page->getParentId();
+            while (!empty($parentPageId)) {
+                $parentPage = new \Ip\Page($parentPageId);
+                $pages[] = $parentPage;
+                $parentPageId = $parentPage->getParentId();
+            }
+        }
+
+        $breadcrumb = array_reverse($pages);
+        return $breadcrumb;
     }
 
 

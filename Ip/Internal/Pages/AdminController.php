@@ -26,11 +26,11 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
 
         ipAddJsVariable('languageList', Helper::languageList());
-        ipAddJsVariable('zoneList', Helper::zoneList());
+        ipAddJsVariable('menuList', Helper::menuList());
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),
-            'addZoneForm' => Helper::addZoneForm(),
+            'addMenuForm' => Helper::addMenuForm(),
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
         $layout = ipView('view/layout.php', $variables);
@@ -43,15 +43,17 @@ class AdminController extends \Ip\Controller
         if (empty($data['languageId'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $languageId = (int)$data['languageId'];
+        $languageCode = $data['languageId']; // TODOX use language code
+        $languageCode = 'en';
 
-        if (empty($data['zoneName'])) {
+        if (empty($data['menuName'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
+        $menuName = $data['menuName'];
 
+        $parentId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName));
         $responseData = array (
-            'tree' => JsTreeHelper::getPageTree($languageId, $zoneName)
+            'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
         );
 
         return new \Ip\Response\Json($responseData);
@@ -60,19 +62,13 @@ class AdminController extends \Ip\Controller
 
     public function pagePropertiesForm()
     {
-        $data = ipRequest()->getQuery();
-        if (empty($data['zoneName'])) {
+        $pageId = ipRequest()->getQuery('pageId');
+        if (!$pageId) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
-        if (empty($data['pageId'])) {
-            throw new \Ip\Exception("Missing required parameters");
-        }
-        $pageId = $data['pageId'];
-
 
         $variables = array(
-            'form' => Helper::pagePropertiesForm($zoneName, $pageId)
+            'form' => Helper::pagePropertiesForm($pageId)
         );
         $layout = ipView('view/pageProperties.php', $variables)->render();
 
@@ -92,34 +88,9 @@ class AdminController extends \Ip\Controller
         }
         $pageId = (int)$data['pageId'];
 
-        if (empty($data['zoneName'])) {
-            throw new \Ip\Exception("Missing required parameters");
-        }
-        $zoneName = $data['zoneName'];
-
         $answer = array();
 
-
-
-        //make url
-        if ($data['url'] == '') {
-            if ($data['pageTitle'] != '') {
-                $data['url'] = Db::makeUrl($data['pageTitle'], $pageId);
-            } else {
-                if ($data['navigationTitle'] != '') {
-                    $data['url'] = Db::makeUrl($data['navigationTitle'], $pageId);
-                }
-            }
-        } else {
-            $tmpUrl = str_replace("/", "-", $data['url']);
-            $i = 1;
-            while (!Db::availableUrl($tmpUrl, $pageId)) {
-                $tmpUrl = $data['url'].'-'.$i;
-                $i++;
-            }
-            $data['url'] = $tmpUrl;
-        }
-        //end make url
+        $pageBeforeUpdate = new \Ip\Page($pageId);
 
         if (strtotime($data['createdOn']) === false) {
             $answer['errors'][] = array('field' => 'createdOn', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
@@ -136,28 +107,32 @@ class AdminController extends \Ip\Controller
 
         $data['visible'] = !empty($data['visible']);
         if (empty($answer['errors'])) {
-            Service::updatePage($zoneName, $pageId, $data);
+            Model::updatePageProperties($pageId, $data);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
         }
 
+        if (empty($data['slug'])) {
+
+            Model::regeneratePageSlug($pageId);
+
+        } elseif ($data['slug'] != $pageBeforeUpdate->getSlug()) {
+
+            Model::updatePageSlug($pageId, $data['slug']);
+        }
+
         return new \Ip\Response\Json($answer);
-
-
-
     }
 
-    public function updateZoneForm()
+    public function updateMenuForm()
     {
-        $data = ipRequest()->getQuery();
-        if (empty($data['zoneName'])) {
+        $menuId = ipRequest()->getQuery('id');
+        if (empty($menuId)) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
 
-
-        $form = Helper::zoneForm($zoneName);
+        $form = Helper::menuForm($menuId);
         $html = $form->render();
 
         $data = array (
@@ -166,29 +141,20 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function updateZone()
+    public function updateMenu()
     {
-        $data = ipRequest()->getPost();
+        $request = ipRequest();
 
-        $requiredData = array('zoneName', 'languageId', 'title', 'url', 'name', 'layout', 'metaTitle', 'metaKeywords', 'metaDescription');
+        $menuId = $request->getPost('id');
+        $title = $request->getPost('title');
+        $alias = $request->getPost('alias');
+        $layout = $request->getPost('layout');
 
-        foreach($requiredData as $required) {
-            if (!array_key_exists($required, $data)) {
-                throw new \Ip\Exception("Missing required parameters");
-            }
+        if (empty($menuId) || empty($title) || empty($alias) || empty($layout)) {
+            throw new \Ip\Exception('Missing required parameters');
         }
 
-        $zoneName = $data['zoneName'];
-        $languageId = $data['languageId'];
-        $title = $data['title'];
-        $url = $data['url'];
-        $name = $data['name'];
-        $layout = $data['layout'];
-        $metaTitle = $data['metaTitle'];
-        $metaKeywords = $data['metaKeywords'];
-        $metaDescription = $data['metaDescription'];
-
-        Service::updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
+        Service::updateMenu($menuId, $alias, $title, $layout);
 
         $answer = array(
             'status' => 'success'
@@ -216,28 +182,25 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function addZone()
+    public function createMenu()
     {
-        ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
+        $request = ipRequest();
+        $request->mustBePost();
+        $languageCode = $request->getPost('languageCode');
+        $title = $request->getPost('title');
 
-        if (!empty($data['title'])) {
-            $title = $data['title'];
-        } else {
+        if (empty($title)) {
             $title = __('Untitled', 'ipAdmin', false);
         }
 
         $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
-        $url = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
-        $name = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
+        $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
 
-        $zoneName = Service::addZone($title, $name, $url, 'main.php', '', '', '', 100000000);
-        $zoneId = ipContent()->getZone($zoneName)->getId();
-
+        $menuAlias = Service::createMenu($languageCode, $alias, $title);
 
         $answer = array(
             'status' => 'success',
-            'zoneId' => $zoneId
+            'menuName' => $menuAlias
         );
 
         return new \Ip\Response\Json($answer);
@@ -246,27 +209,20 @@ class AdminController extends \Ip\Controller
     public function addPage()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
-        if (empty($data['zoneName']) || empty($data['languageId'])) {
+        $parentId = ipRequest()->getPost('parentId');
+        if (empty($parentId)) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
-        $languageId = $data['languageId'];
 
-        $rootId = Service::getRootId($zoneName, $languageId);
-
-        if (!empty($data['title'])) {
-            $title = $data['title'];
-        } else {
+        $title = ipRequest()->getPost('title');
+        if (empty($title)) {
             $title = __('Untitled', 'ipAdmin', false);
         }
 
-        if (!empty($data['visible'])) {
-            $data['visible'] = (int) $data['visible'];
-        }
+        $visible = ipRequest()->getPost('visible', 0);
 
-        $pageId = Service::addPage($rootId, $title);
+        $pageId = Service::addPage($parentId, $title, array('visible' => $visible));
 
 
         $answer = array(
@@ -281,12 +237,11 @@ class AdminController extends \Ip\Controller
     public function deletePage()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
-        if (!isset($data['pageId'])) {
+        $pageId = (int)ipRequest()->getPost('pageId');
+        if (!$pageId) {
             throw new \Ip\Exception("Page id is not set");
         }
-        $pageId = (int)$data['pageId'];
 
         Service::deletePage($pageId);
 
@@ -311,14 +266,10 @@ class AdminController extends \Ip\Controller
         if (!empty($data['destinationParentId'])) {
             $destinationParentId = $data['destinationParentId'];
         } else {
-            if (!isset($data['zoneName'])) {
-                throw new \Ip\Exception("Missing required parameters");
-            }
             if (!isset($data['languageId'])) {
                 throw new \Ip\Exception("Missing required parameters");
             }
-            $zone = ipContent()->getZone($data['zoneName']);
-            $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
+            throw new \Ip\Exception\NotImplemented();
         }
 
 
@@ -329,7 +280,7 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            Service::movePage($pageId, $destinationParentId, $destinationPosition);
+            Model::movePage($pageId, $destinationParentId, $destinationPosition);
         } catch (\Ip\Exception $e) {
             $answer = array (
                 'status' => 'error',
@@ -412,12 +363,8 @@ class AdminController extends \Ip\Controller
         }
         $pageId = (int)$data['pageId'];
 
-        $pageInfo = Db::pageInfo($pageId);
+        $page = new \Ip\Page($pageId);
 
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $zone = IpContent()->getZone($zoneName);
-
-        $page = $zone->getPage($pageId);
         $answer = array (
             'pageUrl' => $page->getLink()
         );
