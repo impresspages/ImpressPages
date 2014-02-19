@@ -14,13 +14,3 @@
         <li>And many more.</li>
     </ul>
 ')); ?>
-<?php echo ipRenderWidget('Title', array('title' => 'For titles always use "Title" widget', 'level' => 2)); ?>
-
-<?php echo ipRenderWidget('Image', array('imageSmall' => ipFileUrl('Ip/Internal/Content/assets/img/example_image.jpg'))); ?>
-
-<?php echo ipRenderWidget('Text', array('text' => '
-    <p>Put an image next to the text. It can be on the left or right. Just select a different layout. It\'s easy as that.</p>
-    <p>Add any widget to work with different types of content. There are many of them: title, text, separator, text with image, image, gallery, file, HTML code, F.A.Q., form.</p>
-')); ?>
-
-<?php echo ipRenderWidget('Title', array('title' => 'Have a great experience to get most out of your website!', 'level' => 3)); ?>

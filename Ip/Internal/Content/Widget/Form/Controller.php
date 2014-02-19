@@ -53,10 +53,41 @@ class Controller extends \Ip\WidgetController{
         }
         usort($fieldTypes, array($this, 'sortFieldTypes'));
         $data['fieldTypes'] = $fieldTypes;
+        $data['optionsForm'] = $this->optionsForm();
 
         $snippet = ipView('snippet/popup.php', $data)->render();
         return $snippet;
 
+    }
+
+    protected function optionsForm()
+    {
+        $form = new \Ip\Form();
+
+
+
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'sendTo',
+                'label' => __('Mouse click action', 'ipAdmin', false) . '(' . ipGetOption('Config.websiteEmail') . ')'
+            ));
+
+        $values = array(
+            array('default', __('Website\'s email', 'ipAdmin', false)),
+            array('custom', __('Custom emails separated by space', 'ipAdmin', false))
+        );
+        $field->setValues($values);
+        $form->addfield($field);
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'emails',
+                'label' => __('Custom emails separated by space', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+        return $form; // Output a string with generated HTML form
     }
 
     public function sendEmail ($form, $postData, $data) {

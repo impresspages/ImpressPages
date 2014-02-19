@@ -338,11 +338,11 @@
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
                 var $widget = $(value);
-
+                var newPlaceholder = {};
                 if ($widget.index() == 0) { //first widget
                     var space = 15;
                     //first placeholder
-                    var newPlaceholder = {
+                    newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top - space,
                         width: $widget.width(),
@@ -369,7 +369,18 @@
 
                         }
 
-                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                        var widgetController = $widget.data('widgetController');
+                        if (!widgetController.splitParts) {
+                            widgetController.splitParts = function () {return new Array()};
+                        }
+                        if (widgetController.splitParts && widgetController.splitParts().length) {
+                            //middle of the first paragraph
+                            var $firstParagraph = widgetController.splitParts().first();
+                            newPlaceholder.height = $firstParagraph.offset().top + Math.round($firstParagraph.height() / 2) - newPlaceholder.top;
+                        } else {
+                            //middle of the widget
+                            newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                        }
 
                     }
 
@@ -379,7 +390,7 @@
                     var $prevWidget = $widget.prev();
                     var space = $widget.offset().top - ($prevWidget.offset().top + $prevWidget.height());
                     //all up to the last placeholders
-                    var newPlaceholder = {
+                    newPlaceholder = {
                         left: $prevWidget.offset().left,
                         top: $prevWidget.offset().top + ($prevWidget.height() / 2),
                         width: $widget.width(),
@@ -389,7 +400,31 @@
                     if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
                         newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height() + space * 1 / 4; //the end of column widget
                     }
-                    newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+
+                    var prevWidgetController = $prevWidget.data('widgetController');
+                    if (!prevWidgetController.splitParts) {
+                        prevWidgetController.splitParts = function () {return new Array()};
+                    }
+                    if (prevWidgetController.splitParts() && prevWidgetController.splitParts().length) {
+                        //start placeholder from the middle of last paragraph
+                        var $lastParagraph = prevWidgetController.splitParts().last();
+                        newPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                    }
+
+
+                    var widgetController = $widget.data('widgetController');
+                    if (!widgetController.splitParts) {
+                        widgetController.splitParts = function () {return new Array()};
+                    }
+                    if (widgetController.splitParts() && widgetController.splitParts().length) {
+                        //placeholder touches center of first paragraph
+                        var $firstParagraph = widgetController.splitParts().first();
+                        newPlaceholder.height = $firstParagraph.offset().top - newPlaceholder.top + Math.round($firstParagraph.height() / 2);
+                    } else {
+                        //placeholder touches the center of the widget
+                        newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
+                    }
+
                     if ($widget.hasClass('ipWidget-Columns')) {
                         newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
                         newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
@@ -405,9 +440,9 @@
 
                 if ($widget.index() == $widgets.length - 1) {
                     var space = 10;
-                    var newPlaceholder = {
+                    var lastPlaceholder = {
                         left: $widget.offset().left,
-                        top: $widget.offset().top + $widget.height() / 2,
+                        top: newPlaceholder.top + newPlaceholder.height + 1,
                         height: $widget.height() / 2 + space,
                         width: $widget.width(),
                         markerOffset: $widget.height() / 2 + space / 2,
@@ -415,23 +450,35 @@
                         position: $widget.index() + 1
                     };
 
+                    var widgetController = $widget.data('widgetController');
+                    if (!widgetController.splitParts) {
+                        widgetController.splitParts = function () {return new Array()};
+                    }
+                    if (widgetController.splitParts && widgetController.splitParts().length) {
+                        //middle of the last paragraph
+                        var $lastParagraph = widgetController.splitParts().last();
+                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                    }
+
+
                     var $columnsWidget = $widget.closest('.ipWidget-Columns');
                     if ($columnsWidget.length && !$widget.hasClass("ipWidget-Columns")) {
+                        //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
-                        newPlaceholder.height = columnsEnd -  newPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
                     }
 
                     if ($widget.hasClass('ipWidget-Columns')) {
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
-                        newPlaceholder.height = space * 2;
-                        newPlaceholder.top = columnsEnd + space * 1 / 4;
-                        newPlaceholder.markerOffset = 5;
+                        lastPlaceholder.height = space * 2;
+                        lastPlaceholder.top = columnsEnd + space * 1 / 4;
+                        lastPlaceholder.markerOffset = 5;
                     }
 
-                    horizontalPlaceholders.push(newPlaceholder);
+                    horizontalPlaceholders.push(lastPlaceholder);
                 }
 
             });
@@ -467,6 +514,59 @@
             $droppable.data('blockName', value.blockName);
         });
 
+
+        //drop between paragraphs inside widget
+        var paragraphPlaceholders = new Array();
+        $.each($('.ipWidget'), function (widgetKey, widget) {
+            var $widget = $(widget);
+            var widgetController = $widget.data('widgetController');
+            if (!widgetController.splitParts) {
+                widgetController.splitParts = function () {return new Array()};
+            }
+            var $paragraphs = widgetController.splitParts();
+            if($paragraphs.length <= 1) {
+                return;
+            }
+            $.each($paragraphs, function (paragraphKey, paragraph) {
+                var $paragraph = $(paragraph);
+
+                if (paragraphKey == 0) {
+                    return;
+                }
+                var $prevParagraph = $paragraphs.eq(paragraphKey - 1);
+
+                var newPlaceholder = {
+                    left: $widget.offset().left,
+                    top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
+                    width: $widget.width(),
+                    instanceId: $widget.data('widgetinstanceid'),
+                    position: paragraphKey + 1
+                };
+
+                newPlaceholder.height = $paragraph.offset().top + Math.round($paragraph.height() / 2) - newPlaceholder.top;
+                newPlaceholder.markerOffset = ($prevParagraph.offset().top + $prevParagraph.height() + $paragraph.offset().top) / 2 - newPlaceholder.top;
+
+                paragraphPlaceholders.push(newPlaceholder);
+
+            });
+        });
+
+
+
+        $.each(paragraphPlaceholders, function (key, value) {
+            var $droppable = $('<div class="ipsWidgetDropPlaceholder ipAdminWidgetPlaceholderHorizontal"><div class="ipsWidgetDropMarker _marker"></div></div>');
+            $('body').append($droppable);
+            $droppable.css('position', 'absolute');
+            $droppable.css('left', value.left + 'px');
+            $droppable.css('top', value.top + 'px');
+            $droppable.css('width', value.width + 'px');
+            $droppable.css('height', value.height + 'px');
+            $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
+            $droppable.data('position', value.position);
+            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('paragraph', 1);
+        });
+
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipActionWidgetButton, .ipWidget",
             activeClass: "",
@@ -489,6 +589,7 @@
 
     var ipStopWidgetDrag = function (event, ui) {
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
+            //new widget has been dropped
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
             var leftOrRight = lastDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
@@ -496,15 +597,19 @@
             var newCol = lastDroppable.data('newCol');
             var blockName = lastDroppable.data('blockName');
             var position = lastDroppable.data('position');
+            var paragraph = lastDroppable.data('paragraph');
             if (side) {
                 ipContent.createWidgetToSide(widgetName, targetWidgetInstanceId, leftOrRight);
             } else if (newCol) {
                 ipContent.createWidgetToColumn(widgetName, targetWidgetInstanceId, position);
+            } else if (paragraph) {
+                ipContent.createWidgetInsideWidget(widgetName, targetWidgetInstanceId, position);
             } else {
                 ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
             }
         }
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).hasClass('ipWidget')) {
+            //existing widget has been moved
             var $widget = $(event.target);
             var instanceId = $widget.data('widgetinstanceid');
             var curPosition = $widget.index();
@@ -516,6 +621,7 @@
             var leftOrRight = lastDroppable.data('leftOrRight');
             var targetWidgetInstanceId = lastDroppable.data('instanceId');
             var sourceWidgetInstanceId = $widget.data('widgetinstanceid');
+            var paragraph = lastDroppable.data('paragraph');
 
             if (block == curBlock && curPosition < position) {
                 position--;
@@ -525,6 +631,8 @@
                     ipContent.moveWidgetToSide(sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight);
                 } else if (newCol) {
                     ipContent.moveWidgetToColumn(sourceWidgetInstanceId, targetWidgetInstanceId, position);
+                } else if (paragraph) {
+                    ipContent.moveWidgetInsideWidget(sourceWidgetInstanceId, targetWidgetInstanceId, position);
                 } else {
                     ipContent.moveWidget(instanceId, position, block, ip.revisionId);
                 }
