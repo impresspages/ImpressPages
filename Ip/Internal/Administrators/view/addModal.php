@@ -6,7 +6,7 @@
                 <h4 class="modal-title"><?php _e('Administrator profile', 'ipAdmin') ?></h4>
             </div>
             <div class="modal-body">
-                <?php echo $insertForm ?>
+                <?php echo $createForm ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
