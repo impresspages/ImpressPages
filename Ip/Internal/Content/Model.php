@@ -61,6 +61,8 @@ class Model
 
         $page = ipContent()->getCurrentPage();
 
+        unset($widgets['Columns']);
+
         $data = array(
             'widgets' => $widgets,
             'page' => $page,
@@ -70,7 +72,7 @@ class Model
             'manageableRevision' => $manageableRevision
         );
 
-        $controlPanelHtml = ipView('view/control_panel.php', $data)->render();
+        $controlPanelHtml = ipView('view/controlPanel.php', $data)->render();
 
         $data = array(
             'controlPanelHtml' => $controlPanelHtml,
