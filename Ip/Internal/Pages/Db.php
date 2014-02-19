@@ -210,7 +210,6 @@ class Db {
             'pageOrder' => self::getNextPageOrder($parentId),
         );
 
-        //TODOXX sync page service naming. #140
         $fields = array(
             'navigationTitle',
             'pageTitle',
