@@ -26,8 +26,8 @@ var IpWidget_Gallery;
                 if (!$target.hasClass('ipWidget-Gallery')) {
                     $target = $target.closest('.ipWidget-Gallery');
                 }
-                if ($target.length == 0 || $target.data('widgetinstanceid') != this.$widgetObject.data('widgetinstanceid')) {
-                    $.proxy(this.blur, this)();
+                if ($target.length == 0) {
+                    $.proxy(currentScope.blur, currentScope)();
                 }
 
             }, this));
