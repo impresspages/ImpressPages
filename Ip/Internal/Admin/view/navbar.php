@@ -56,17 +56,18 @@
         <?php } ?>
 
         <ul class="nav navbar-nav navbar-right">
+            <?php foreach ($navBarButtons as $button) { ?>
             <li>
-                <a href="#" class="ipsAdminPreview">
-                    <i class="fa fa-eye"></i>
-                    <?php _e('Page preview', 'ipAdmin'); ?>
+                <a
+                    href="<?php echo empty($button['url']) ? '#' : esc($button['url'], 'attr') ?>"
+                    class="<?php echo empty($button['class']) ? '' : esc($button['class'], 'attr') ?>"
+                    title="<?php echo empty($button['hint']) ? '' : esc($button['hint'], 'attr') ?>"
+                >
+                    <i class="fa <?php echo empty($button['faIcon']) ? '' : esc($button['faIcon'], 'attr') ?>"></i>
+                    <?php echo empty($button['text']) ? '' : $button['text'] ?>
                 </a>
             </li>
-            <li>
-                <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')); ?>" class="ipsAdminLogout" title="<?php _e('Logout', 'ipAdmin'); ?>">
-                    <i class="fa fa-power-off"></i>
-                </a>
-            </li>
+            <?php } ?>
         </ul>
     </div>
 </div>
