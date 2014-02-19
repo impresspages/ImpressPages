@@ -24,7 +24,7 @@ function ipGetPageTree()
  * @param {Object} callback_function
  */
 
-ipBrowseLink = function(callback_function) {
+function ipBrowseLink(callback_function) {
     var $=ip.jQuery,
         $modal=$('#ipBrowseLinkModal'),
         $tree=$('.ipSitemap', $modal);

@@ -34,18 +34,33 @@ class Event
 
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
-            $curModTitle = __($curModule, 'ipAdmin', false);
+            $curModTitle = __($curModule, 'ipAdmin', FALSE);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
+
+        $navBarButtons = array(
+            array(
+                'text' => '',
+                'hint' => __('Logout', 'ipAdmin', FALSE),
+                'url' => ipActionUrl(array('sa' => 'Admin.logout')),
+                'class' => 'ipsAdminLogout',
+                'faIcon' => 'fa-power-off'
+            )
+        );
+
+        $navBarButtons = ipFilter('ipAdminNavButtons', $navBarButtons);
 
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems($curModule),
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
             'curModIcon' => $curModIcon,
-            'helpUrl' => $helpUrl
+            'helpUrl' => $helpUrl,
+            'navBarButtons' => array_reverse($navBarButtons)
         );
+
+
         $html = ipView('view/navbar.php', $data)->render();
         return $html;
     }
