@@ -81,7 +81,7 @@ var Market;
                 }
             });
 
-            $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('ipgHide');
+            $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('hide');
         };
 
 

@@ -39,10 +39,10 @@
             <h1><?php _e('System message', 'ipAdmin') ?></h1>
         </div>
     </div>
-    <div class="ipsLog ipgHide">
+    <div class="ipsLog hide">
         <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Log.grid&quot;}"></div>
     </div>
-    <div class="ipsEmail ipgHide">
+    <div class="ipsEmail hide">
         <div class="ipsGrid" data-gateway="{&quot;aa&quot;:&quot;Email.grid&quot;}"></div>
     </div>
 
