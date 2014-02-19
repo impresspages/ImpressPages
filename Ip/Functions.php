@@ -753,12 +753,13 @@ function ipDoctypeDeclaration($doctype = null)
  */
 function ipTable($table, $as = null)
 {
-    $answer = '`' . ipConfig()->tablePrefix() . $table . '`';
+    $prefix = ipConfig()->tablePrefix();
+    $answer = '`' . $prefix . $table . '`';
     if ($as != false) {
         if ($as !== null) {
-            $answer .= ' as ' . $as;
-        } else {
-            $answer .= ' as ' . $table;
+            $answer .= ' as `' . $as . '`';
+        } elseif ($prefix) { // if table prefix is empty we don't need to use `tableName` as `tableName`
+            $answer .= ' as `' . $table . '`';
         }
     }
     return $answer;
