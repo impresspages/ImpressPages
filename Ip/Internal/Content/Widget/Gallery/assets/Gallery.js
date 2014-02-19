@@ -108,9 +108,12 @@ var IpWidget_Gallery;
             });
             $controls.find('.ipsEdit').off().on('click', function(e) {
                 $.proxy(context.editImage, context)($item.index());
-            })
+            });
             $controls.find('.ipsLink').off().on('click', function(e) {
                 $.proxy(linkPopup, context)($item.index());
+            });
+            $controls.find('.ipsSettings').off().on('click', function(e) {
+                $.proxy(settingsPopup, context)($item.index());
             });
         };
 
@@ -304,6 +307,36 @@ var IpWidget_Gallery;
                 this.popup.find('.form-group.name-blank').hide();
             }
         }
+
+
+
+        var settingsPopup = function (index) {
+            var data = this.data.images[index];
+            var context = this;
+            this.settingsPopup = $('#ipWidgetImageSettingsPopup');
+            this.confirmButton = this.settingsPopup.find('.ipsConfirm');
+            this.title = this.settingsPopup.find('input[name=title]');
+            this.description = this.settingsPopup.find('textarea[name=description]');
+
+            this.title.val(data.title);
+            this.description.val(data.description);
+
+            this.settingsPopup.modal(); // open modal popup
+
+            this.confirmButton.off().on('click', $.proxy(saveSettings, context));
+        };
+
+        var saveSettings = function () {
+            var data = {
+                method: 'saveSettings',
+                title: this.title.val(),
+                description: this.description.val(),
+                index: this.imageIndex
+            };
+
+            this.$widgetObject.save(data, 1); // save and reload widget
+            this.settingsPopup.modal('hide');
+        };
 
     };
 

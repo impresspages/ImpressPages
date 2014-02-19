@@ -220,6 +220,16 @@ class Model
         return $menuId ? $alias : null;
     }
 
+    public static function getMenu($languageCode, $alias)
+    {
+        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias));
+    }
+
+    public static function getPage($pageId)
+    {
+        return ipDb()->selectRow('page', '*', array('id' => $pageId));
+    }
+
     protected static function getNextPageOrder($where)
     {
         return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
