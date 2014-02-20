@@ -5,7 +5,7 @@ ALTER DATABASE  `[[[[database]]]]` DEFAULT CHARACTER SET utf8 COLLATE utf8_gener
 
 DROP TABLE IF EXISTS `ip_cms_page`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_page` (
+CREATE TABLE `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url` varchar(255) DEFAULT NULL,
   `languageCode` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page` (
 
 DROP TABLE IF EXISTS `ip_cms_pageStorage`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
+CREATE TABLE `ip_cms_pageStorage` (
   `pageId` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
 
 DROP TABLE IF EXISTS `ip_cms_language`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_language` (
+CREATE TABLE `ip_cms_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `abbreviation` varchar(255) NOT NULL DEFAULT '',
   `title` varchar(255) NOT NULL DEFAULT '',
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_language` (
 
 DROP TABLE IF EXISTS `ip_cms_log`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_log` (
+CREATE TABLE `ip_cms_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `level` varchar(255) NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
 
 DROP TABLE IF EXISTS `ip_cms_emailQueue`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_emailQueue` (
+CREATE TABLE `ip_cms_emailQueue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_emailQueue` (
 
 DROP TABLE IF EXISTS `ip_cms_repositoryFile`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_repositoryFile` (
+CREATE TABLE `ip_cms_repositoryFile` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `plugin` varchar(255) NOT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repositoryFile` (
 
 DROP TABLE IF EXISTS `ip_cms_repositoryReflection`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_repositoryReflection` (
+CREATE TABLE `ip_cms_repositoryReflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repositoryReflection` (
 
 DROP TABLE IF EXISTS `ip_cms_widget`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
+CREATE TABLE `ip_cms_widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `layout` varchar(25) NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
 
 DROP TABLE IF EXISTS `ip_cms_widgetInstance`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_widgetInstance` (
+CREATE TABLE `ip_cms_widgetInstance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `revisionId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widgetInstance` (
 
 DROP TABLE IF EXISTS `ip_cms_themeStorage`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_themeStorage` (
+CREATE TABLE `ip_cms_themeStorage` (
   `theme` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_themeStorage` (
 
 DROP TABLE IF EXISTS `ip_cms_widgetOrder`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
+CREATE TABLE `ip_cms_widgetOrder` (
   `widgetName` varchar(255) NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '0',
   UNIQUE KEY `widgetName` (`widgetName`)
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueGlobal`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueGlobal` (
+CREATE TABLE `ip_cms_inlineValueGlobal` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueGlobal` (
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueForLanguage`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForLanguage` (
+CREATE TABLE `ip_cms_inlineValueForLanguage` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForLanguage` (
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueForPage`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForPage` (
+CREATE TABLE `ip_cms_inlineValueForPage` (
   `module` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForPage` (
 
 DROP TABLE IF EXISTS `ip_cms_plugin`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
+CREATE TABLE `ip_cms_plugin` (
   `title` varchar(100) NOT NULL,
   `name` varchar(30) NOT NULL,
   `version` decimal(10,2) NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
 
 DROP TABLE IF EXISTS `ip_cms_revision`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
+CREATE TABLE `ip_cms_revision` (
   `revisionId` int(11) NOT NULL AUTO_INCREMENT,
   `pageId` int(11) NOT NULL DEFAULT '0',
   `isPublished` tinyint(1) NOT NULL DEFAULT '0',
@@ -234,7 +234,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
 
 DROP TABLE IF EXISTS `ip_cms_storage`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
+CREATE TABLE `ip_cms_storage` (
     `plugin` varchar(40) NOT NULL,
     `key` varchar(100) NOT NULL,
     `value` text NOT NULL,
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
 
 DROP TABLE IF EXISTS `ip_cms_administrator`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
+CREATE TABLE `ip_cms_administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL DEFAULT '',
   `hash` text NOT NULL DEFAULT '',
