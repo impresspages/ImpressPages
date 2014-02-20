@@ -3,7 +3,7 @@
 <!--            <a href="#" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>-->
         <ul>
             <li ng-repeat="language in languageList">
-                <a href="#" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
+                <a href="" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
             </li>
             <li>
                 <a href="<?php echo $languagesUrl; ?>"><i class="fa fa-cog"></i></a>

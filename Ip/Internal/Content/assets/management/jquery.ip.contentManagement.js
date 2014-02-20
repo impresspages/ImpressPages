@@ -648,7 +648,7 @@
                 } else if (paragraph) {
                     ipContent.moveWidgetInsideWidget(sourceWidgetInstanceId, targetWidgetInstanceId, position);
                 } else {
-                    ipContent.moveWidget(instanceId, position, block, ip.revisionId);
+                    ipContent.moveWidget(instanceId, position, block);
                 }
             }
 
