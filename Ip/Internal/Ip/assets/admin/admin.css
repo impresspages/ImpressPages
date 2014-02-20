@@ -7926,6 +7926,36 @@
 .ip .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+.ip .ipAdminSubmenu {
+  float: left;
+  height: 100%;
+  padding: 20px 0 20px 20px;
+  width: 200px;
+}
+.ip .ipAdminSubmenu ul {
+  list-style: none;
+}
+.ip .ipAdminSubmenu ul a {
+  color: #97989f;
+  display: block;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+.ip .ipAdminSubmenu ul a:hover {
+  color: #019bd4;
+  text-decoration: none;
+}
+.ip .ipAdminSubmenu ul .active a {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+.ip .ipAdminSubmenuContent {
+  background-color: #fff;
+  margin-left: 200px;
+  margin-right: 60px;
+  padding: 20px 40px 40px;
+}
 .ip .ipModuleAdministrators .ipmList {
   float: left;
   width: 250px;

@@ -4,7 +4,7 @@
         $showEmpty = true;
     }
 ?>
-<div id="ipBlock-<?php echo $blockName; ?>" data-revisionid='<?php echo $revisionId ?>' class="ipBlock<?php echo ($showEmpty ? ' ipbEmpty' : ''); ?>"><?php
+<div id="ipBlock-<?php echo $blockName; ?>" data-revisionid='<?php echo $revisionId ?>' data-languageid='<?php echo $languageId ?>' class="ipBlock<?php echo ($showEmpty ? ' ipbEmpty' : ''); ?>"><?php
 
     if ($widgetsHtml) {
         foreach($widgetsHtml as $key => $widgetHtml) {

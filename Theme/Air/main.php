@@ -20,7 +20,7 @@
         </div>
         <div class="side col_12 col_md_12 col_lg_3 left">
             <aside>
-                <?php echo ipBlock('side1', true)->render(); ?>
+                <?php echo ipBlock('side1')->asStatic()->render(); ?>
             </aside>
         </div>
         <div class="clear"></div>

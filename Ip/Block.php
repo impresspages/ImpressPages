@@ -24,7 +24,7 @@ class Block
      * @param null $revisionId
      * @return null|string
      */
-    public function render($revisionId = null)
+    public function render($revisionId = 0)
     {
         $data = array (
             'blockName' => $this->name,
@@ -44,9 +44,10 @@ class Block
             }
 
             if ($this->isStatic) {
-                $revisionId = null;
+                $languageId = ipContent()->getCurrentLanguage()->getId();
+                $revisionId = 0;
             } else {
-                if ($revisionId === null) {
+                if ($revisionId === 0) {
                     $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
                     if ($revision) {
                         $revisionId = $revision['revisionId'];
@@ -55,9 +56,10 @@ class Block
                 if (!$revisionId) {
                     return '';
                 }
+                $languageId = 0;
             }
 
-            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, ipIsManagementState(), $this->exampleContent);
+            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, $languageId, ipIsManagementState(), $this->exampleContent);
         }
     }
 

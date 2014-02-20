@@ -7591,6 +7591,36 @@ a.list-group-item.success:focus .list-group-item-text {
 .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+.ipAdminSubmenu {
+  float: left;
+  height: 100%;
+  padding: 20px 0 20px 20px;
+  width: 200px;
+}
+.ipAdminSubmenu ul {
+  list-style: none;
+}
+.ipAdminSubmenu ul a {
+  color: #97989f;
+  display: block;
+  padding: 10px 20px;
+  overflow: hidden;
+}
+.ipAdminSubmenu ul a:hover {
+  color: #019bd4;
+  text-decoration: none;
+}
+.ipAdminSubmenu ul .active a {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+.ipAdminSubmenuContent {
+  background-color: #fff;
+  margin-left: 200px;
+  margin-right: 60px;
+  padding: 20px 40px 40px;
+}
 /*.ipAdminToolbar {
     background-color: #2f313f;
     border-bottom: 1px solid #000;

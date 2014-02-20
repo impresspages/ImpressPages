@@ -619,7 +619,7 @@
             } else if (paragraph) {
                 ipContent.createWidgetInsideWidget(widgetName, targetWidgetInstanceId, position);
             } else {
-                ipContent.createWidget(ip.revisionId, blockName, widgetName, position);
+                ipContent.createWidget(blockName, widgetName, position);
             }
         }
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).hasClass('ipWidget')) {
