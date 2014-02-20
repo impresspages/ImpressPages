@@ -3,7 +3,9 @@
 
 namespace Ip\Internal;
 
-
+/**
+ * Value storage saves any php value.
+ */
 abstract class ValueStorage extends RawStorage
 {
     /**
