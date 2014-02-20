@@ -103,19 +103,18 @@ var IpConfig;
             var $urlText = $('.name-cronPassword .ipsUrl');
             // cron should work without password for admin
             var $passField = $('.name-cronPassword');
-            if (getFieldValue('automaticCron')) {
-                $note.addClass('hidden');
-                $urlText.addClass('hidden');
-                $passField.addClass('hidden');
-
-            } else {
-                $note.removeClass('hidden');
-                var url = ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val();
-                $urlText.text(url);
-                $urlText.attr('href', url);
-                $passField.removeClass('hidden');
-                $urlText.removeClass('hidden');
-            }
+//            if (getFieldValue('automaticCron')) {
+//                $note.addClass('hidden');
+//                $urlText.addClass('hidden');
+//                $passField.addClass('hidden');
+//            } else {
+//                $note.removeClass('hidden');
+//                $passField.removeClass('hidden');
+//                $urlText.removeClass('hidden');
+//            }
+            var url = ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val();
+            $urlText.text(url);
+            $urlText.attr('href', url);
         }
 
         this.autoSaveValue = function () {
