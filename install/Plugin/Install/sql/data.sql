@@ -31,8 +31,8 @@ INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
 
 
 
-INSERT INTO `ip_cms_language` (`id`, `abbreviation`, `title`, `row_number`, `visible`, `url`, `code`) VALUES
-(344, 'EN', 'English', 2, 1, 'en', 'en');
+INSERT INTO `ip_cms_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
+('EN', 'English', 2, 1, 'en', 'en');
 
 
 
