@@ -147,14 +147,14 @@ class ReflectionModel
           original = :original,
           reflection = :reflection,
           transformFingerprint = :transformFingerprint,
-          created = :created
+          createdAt = :createdAt
         ";
 
         $params = array(
             'original' => $file,
             'reflection' => $reflection,
             'transformFingerprint' => $transformFingerprint,
-            'created' => time()
+            'createdAt' => time()
         );
 
         $q = $dbh->prepare($sql);

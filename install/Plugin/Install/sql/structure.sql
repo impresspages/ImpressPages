@@ -105,14 +105,14 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repositoryFile` (
 
 
 
-DROP TABLE IF EXISTS `ip_cms_repository_reflection`;
+DROP TABLE IF EXISTS `ip_cms_repositoryReflection`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
+CREATE TABLE IF NOT EXISTS `ip_cms_repositoryReflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
   `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of original file.',
-  `created` int(11) NOT NULL,
+  `createdAt` int(11) NOT NULL,
   PRIMARY KEY (`reflectionId`),
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
