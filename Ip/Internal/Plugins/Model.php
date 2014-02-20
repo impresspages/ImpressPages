@@ -70,11 +70,11 @@ class Model{
         SET
             `title` = :title,
             `name` = :pluginName,
-            `active` = 1,
+            `isActive` = 1,
             `version` = :version
         ON DUPLICATE KEY UPDATE
             `title` = :title,
-            `active` = 1,
+            `isActive` = 1,
             `version` = :version
         ';
 
@@ -124,7 +124,7 @@ class Model{
         UPDATE
             ' . ipTable('plugin') . '
         SET
-            `active` = 0
+            `isActive` = 0
         WHERE
             `name` = ?
         ';
@@ -196,7 +196,7 @@ class Model{
 
     public static function getActivePlugins()
     {
-        return ipDb()->selectAll('plugin', '*', array('active' => 1));
+        return ipDb()->selectAll('plugin', '*', array('isActive' => 1));
     }
 
     protected static function getPluginRecord($pluginName)
@@ -248,7 +248,7 @@ class Model{
             FROM
                 ' . ipTable('plugin') . '
             WHERE
-                `active`
+                `isActive` = 1
         ';
 
         $params = array ();

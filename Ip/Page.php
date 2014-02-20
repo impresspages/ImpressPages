@@ -39,9 +39,9 @@ class Page
     /** string - text version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
     protected $text;
     /** string - date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
-    protected $lastModified;
+    protected $updatedAt;
     /** string - page creation date in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
-    protected $createdOn;
+    protected $createdAt;
     /** integer - average amount of days between changes */
     protected $modifyFrequency;
     /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
@@ -281,20 +281,20 @@ class Page
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getLastModified()
+    public function getUpdatedAt()
     {
-        return $this->lastModified;
+        return $this->updatedAt;
     }
 
     /**
      * Set page modification date and time
      *
      * @ignore
-     * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     * @param $updatedAt string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setLastModified($lastModified)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->lastModified = $lastModified;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
@@ -302,19 +302,19 @@ class Page
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getCreatedOn()
+    public function getCreatedAt()
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
     /**
      * Set page creation date and time
      *
-     * @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     * @param $createdAt string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setCreatedOn($createdOn)
+    public function setCreatedAt($createdAt)
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = $createdAt;
     }
 
     /**

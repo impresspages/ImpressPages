@@ -71,7 +71,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchValue()
     {
-        $value = ipDb()->fetchValue('SELECT `d_short` FROM ' . ipTable('language') . ' WHERE `code` = ?', array('en'));
+        $value = ipDb()->fetchValue('SELECT `abbreviation` FROM ' . ipTable('language') . ' WHERE `code` = ?', array('en'));
         $this->assertEquals('EN', $value);
     }
 

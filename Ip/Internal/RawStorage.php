@@ -62,7 +62,7 @@ abstract class RawStorage
         $params = array(
             ':namespace' => $this->namespace,
             ':key' => $key,
-            ':value' => json_encode($value)
+            ':value' => $value
         );
 
         ipDb()->execute($sql, $params);

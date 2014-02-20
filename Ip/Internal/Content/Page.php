@@ -80,7 +80,7 @@ class Page extends \Ip\Page
 
         switch ($this->type) {
             case 'subpage':
-                $url = ipDb()->selectValue('page', 'url', array('parentId' => $this->id, 'visible' => 1), 'ORDER BY `pageOrder`');
+                $url = ipDb()->selectValue('page', 'url', array('parentId' => $this->id, 'isVisible' => 1), 'ORDER BY `pageOrder`');
 
                 $this->link = \Ip\Internal\Deprecated\Url::generate($languageId, null, $url);
 

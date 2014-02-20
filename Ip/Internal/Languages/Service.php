@@ -12,9 +12,9 @@ class Service
     const TEXT_DIRECTION_LTR = 'ltr';
     const TEXT_DIRECTION_RTL = 'rtl';
 
-    public static function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position = null)
+    public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection, $position = null)
     {
-        $languageId = Model::addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position);
+        $languageId = Model::addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection, $position);
         return $languageId;
     }
 

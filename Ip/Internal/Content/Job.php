@@ -18,7 +18,7 @@ class Job
             array(
                 'url' => $info['relativeUri'],
                 'languageCode' => $languageCode,
-                'visible' => 1,
+                'isVisible' => 1,
             )
         );
 
