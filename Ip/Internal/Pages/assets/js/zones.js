@@ -5,7 +5,7 @@ var pagesZones;
 
     pagesZones = {
         init: function () {
-            $('.menuList ul').sortable({
+            $('ul.ipsMenuList').sortable({
                 start: this.startSort,
                 stop: this.stopSort
             });
@@ -15,8 +15,8 @@ var pagesZones;
         },
         stopSort: function (event, ui) {
             var originIndex = ui.item.data('originIndex');
-            var zoneItem = ui.item;
-            var newIndex = zoneItem.index();
+            var menuItem = ui.item;
+            var newIndex = menuItem.index();
 
             if (originIndex == newIndex) {
                 return;
@@ -26,11 +26,11 @@ var pagesZones;
                 newIndex++; //jsTree gives us index with removed original. Make newIndex to be as it would be preserving original position
             }
 
-            var zoneName = zoneItem.data('zonename');
+            var menuName = menuItem.data('menuname');
             var data = {};
             data.aa= 'Pages.sortZone';
             data.newIndex = newIndex;
-            data.zoneName = zoneName;
+            data.menuName = menuName;
             data.securityToken = ip.securityToken;
             $.ajax({
                 type: 'POST',

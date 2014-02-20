@@ -15,7 +15,7 @@
             <i class="fa fa-plus"></i>
             <?php _e('Add', 'ipAdmin'); ?>
         </button>
-        <ul>
+        <ul class="ipsMenuList">
             <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}">
                 <a href="" ng-click="setMenuHash(menu)">{{menuTitle(menu)}}</a>
                 <button class="btn btn-sm btn-default _control" ng-click="updateMenuModal(menu)"><i class="fa fa-cog"></i></button>

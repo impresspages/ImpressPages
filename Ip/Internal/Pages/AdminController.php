@@ -378,13 +378,13 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
 
-        if (empty($data['zoneName']) || !isset($data['newIndex'])) {
+        if (empty($data['menuName']) || !isset($data['newIndex'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
+        $menuName = $data['menuName'];
         $newIndex = $data['newIndex'];
 
-        Model::sortZone($zoneName, $newIndex);
+        Model::sortZone($menuName, $newIndex);
 
         return new \Ip\Response\Json(array(
             'error' => 0
