@@ -7524,7 +7524,6 @@ a.list-group-item.success:focus .list-group-item-text {
   background-color: #2f313f;
   -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
-  display: none;
   left: 10px;
   position: absolute;
   top: 0;
@@ -7711,22 +7710,6 @@ a.list-group-item.success:focus .list-group-item-text {
 
 
 
-.ipgLeft {
-    float: left;
-}
-.ipgRight {
-    float: right;
-}
-.ipgClear:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-.ipgHide {
-    display: none;
-}
 .ipgError {
     border: 1px solid #f00;
     color: black;
@@ -7879,14 +7862,6 @@ a.list-group-item.success:focus .list-group-item-text {
 }
 .ipAdminButton.ipaOptions span {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAfpJREFUeNpi/P//PwM2YGDk8B5EXzh3QJABB2CBKhQAUSC1QMUfoHIfBAUFRID0XCBOBqoxgBp2AUUzEBQAcb2srPQ0a1uvh1+/fssE8hXev//AYO/oF/Lx46fLQH4/VK0iED9A1nxBRET46v9//6OAGkGuYJCQEH/DwszM8uTpMwGYRgMDnadAqgOII0B8JqhTNkhIiO0CKRQXF301c0bfzh3bVu7dsnnZzIkT2ubLSEuBvaKvp/0KSJ2GexoUYCCsb2h/H4j/nzh5dgeQ3wHECjC5iqpmL5Cco3PAFyDfCybOCBQEhSrIZAWQU0E2AtkVMH/BgJmF69Vfv35r8fPzfQKGwT9QLICdDQ1VBpAfoZoeoEcLUOMvEM0MBOzs7JzgWIA6Ya6dg+9HkNMOHDw6D+YsJC8ZgOSAaj4A+SuAeDJIDxPU4GSgU+pBjO7uKYGV1S1eSIkFFL/zQewAf897QOo1EOeC9MASSQCQ8ufl5bkHDHElIN66d+/Ba1CnGsAMunjpqhiQ2g7jw2wGKXCwMDd+FBLst1dISPArKHBA4sAA+hgfF34eHKUXrkgDKU2UqAL6R2Da9Hn1r9+8XQvkh4CiAxQG0KgB+3HxklU50GhcAQsL5IDhBmItKA0y8L2ZhdsPaODA1Cggxz8jrlwFBXNhAYpNEiDAAFIVNtzMBDvFAAAAAElFTkSuQmCC) no-repeat center center;
-  display: inline-block;
-  padding: 0 16px;
-}
-.ipAdminButton.ipaPreview {
-  padding: 0;
-}
-.ipAdminButton.ipaPreview span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAASCAYAAACw50UTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAk5JREFUeNpi1De0/89AGXC8cO7AAWwSLCCiq7N+v5ur4ytSTTUwcggH6q0DMkF6r2E1HAqasCnAB4Aujnjz9t1aXPIsFAYJg4iwUDCQ4qbIcGAQCACpACBWQBL+AMQHgD64QJbhQENBhtUDcQKILyDAf4GFhYUVxP727ZvYt2/f+41NnZ/8/fu3FmjJAmS9TAQMbgBS95mYmJxDgv0WzZzRtxPIVn3z5q02CAPFjk6Z3LnCwtz4N1DdfAcn//NQx+B2OTQI9oOYtrYWCyZP7OAEsj9Z23pbff36FR6+ixavDODl5UmZOqWrcuu23anTp8/P+v7t+/Wo6LTIZUtnbcDl8n6QwUmJUdugBi8C4lygwSroCuXlZaJBtLeXa7Wrq4MvByfHz2vXb60HCmnhCvNCISFBl3nzl3lduHBlyry5k7bBUh/IUmSF/Pz8v4AUF9C3IPHJjIyMDKCgArLrmHCk3w/79qzX8HB3Onru/KUcCyuPF0DNoAhN5Ofn+whTl5OdcgpE2zv6NQKp8xwcHD8WL5y23Mba/BuQX8EIyv7QHJqDLRMdOHg0c/XqjaVHj51SBPGBBpyQlBSXZQWmGGAG4n737j03MzPzk8AA73011UXsUDOmA/FrgknRwd56OhCvefz4aezOXfvDnz1/wfv50+fbIDltbY0fzs52H4AuZQRFOBCvAeKDpGai17Ky0n0pyTEzgWwTIBZFkvsGde0DSrP/V2SXwZItKI6wKWaipFwBGvwfmnqwli2MlJbn+BIDC9BLoMhYwUADABBgAJH1209CZ8AmAAAAAElFTkSuQmCC) no-repeat center center;
   display: inline-block;
   padding: 0 16px;
 }
@@ -8113,8 +8088,7 @@ a.list-group-item.success:focus .list-group-item-text {
   font-size: 13px;
   line-height: 30px;
 }
-.ipAdminControls .ipAdminButton.ipaOptions,
-.ipAdminControls .ipAdminButton.ipaPreview {
+.ipAdminControls .ipAdminButton.ipaOptions {
   margin-left: 7px;
   padding: 0;
 }
@@ -8299,7 +8273,7 @@ a.list-group-item.success:focus .list-group-item-text {
 }
 .ipAdminWidgetControls ._container {
   margin-top: -11px;
-  min-height: 22px;
+  height: 11px;
   position: absolute;
   width: 100%;
 }
@@ -8328,57 +8302,50 @@ a.list-group-item.success:focus .list-group-item-text {
 .ipAdminWidgetControls ._delete {
   float: right;
 }
-body {
-  margin: 0;
-  padding: 0;
-}
-.ipgStopScrolling {
-  height: 100%;
-  overflow: hidden;
-}
 .ipModuleDesign {
   padding: 10px;
 }
-.ipModuleDesign .ipmSelectedTheme {
+.ipModuleDesign ._selectedTheme {
   float: left;
   width: 448px;
 }
-.ipModuleDesign .ipmSelectedTheme .ipmThemePreview {
-  background: #acacac url(bg_theme_preview.png) no-repeat center top;
+.ipModuleDesign ._selectedTheme ._preview {
+  background: #acacac url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcAAAAAKCAIAAACsQxlCAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMRJREFUeNrs1jsKg1AUhOH4QLC94i7E0tYNuwg3YCO6CUURG4MPbg6W0RBDrC7/Vw1Md4rhWFrraZrKsuy6TsIDAPCZ7/tBEMRxLMEaxzHP83meuQsAXOR5Xpqmdl3XrCcA/ERmU8bTbZrm2IVhGEWRhKqq2rb9vwIAw8h42suyHIskSdROwi0VABhmXVf7tNBav4U/KwAwz/mAFkXx3Em4pQIA81hZlnEFALjtAwUAfOUOw6CU2raNWwDARY7j9H3/EmAAeaWBzdwERhwAAAAASUVORK5CYII=) no-repeat center top;
   border-bottom: 1px solid #acacac;
-  /* making virtual border */
   max-height: 278px;
   padding: 10px 1px 0 1px;
-  /* making virtual border */
   overflow: hidden;
 }
-.ipModuleDesign .ipmSelectedTheme .ipmThemePreview img {
+.ipModuleDesign ._selectedTheme ._preview img {
   width: 100%;
 }
-.ipModuleDesign .ipmSelectedTheme .ipmThemeActions {
+.ipModuleDesign ._selectedTheme ._actions {
   float: right;
   margin-top: 10px;
   text-align: right;
 }
-.ipModuleDesign .ipmSelectedTheme .fa-check {
+.ipModuleDesign ._selectedTheme .fa-check {
   color: #92c131;
 }
-.ipModuleDesign .ipmOtherThemes {
+.ipModuleDesign ._selectedTheme ._plugins {
+  padding-top: 10px;
+}
+.ipModuleDesign ._themes {
   border: 1px solid #ccc;
   margin-left: 468px;
   /* space for selected theme column */
 }
-.ipModuleDesign .ipmThemeMarket {
+.ipModuleDesign ._market {
   background-color: #d5d5d5;
-  background-image: url(../../Repository/assets/bg_upload.png);
+  background-image: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
   color: #000;
 }
-.ipModuleDesign .ipmThemeMarket .ipmButtonWrapper {
+.ipModuleDesign ._market ._wrapper {
   padding: 20px;
   text-align: center;
 }
-.ipModuleDesign .ipmThemeMarket .ipmTitle {
-  background: url(logo_market.png) no-repeat;
+.ipModuleDesign ._market ._title {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAZCAYAAAAxFw7TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hJREFUeNqUlWtIk2EUx/+7pDln5syy4WWhiIWYdpEluuyCFSntQ1qZSlSUFEVFGITfoigI0k9RnypYSQWapsyM0iGZsnLTZaQGKnlrplvO1mVtnXfv6zbnFu7Af+d9n/d5fjvnOc8F8Lbqvo1nLlY1O9an1ZIKSSEIwIResBz6fTa9VPyR/E7SPpKFoDXkH5Je8vQ626KAFd2T5YlhQVdfjM8KYZjXR0wq4WQk+GMO3k5whzeQx0VWki8NvVeXLeUzr8bpGWtUU0MIXrcAHR3+ghkiPWLgBO5xA6v7zpKvypOGoj5bOn+I3Q58+kTQTqDhOdA/4A/O5KRiQmOAzrB9Aj3NRlPX08NGrG4CBgcX9kmb9CqKa/AsYO4FItYD/CButqlrejqr0lJApwM6KfKaWuprBrLHAPmEH2BLHjBB8ydOAHY0sd7TRCIgM5PVsWPAE/qDYJ3zE98n8Nck6y2fKYrTrmaHw46Zn+NwwKO4YWGkv65X38Dk8+5nk971+Eh7BNebknG7dTvM1lGfQ30DE44CWdVArBJIveJqnrT0O/2IqQt13RcCADIWfwBQ0AZJPA61Wg2DwYDN8Ufci/Db20VsvTkbo4rpu4GMzRi2WKBUKiGTyaDVasFL5aFruBrJ0bsDAJ47zy5osRhxd++isrISKpUKU1NTkK854ZQ/852yQMBV2QLcuIGysjJoNBosXx0DjdGKWZs9QGDZSfrCd6fP7FEeD8q2UWx99QVJjUP4YP4dQMoKBfDgPtD8EtgidzV//8NGNmq14dS7r2jdHuMfaJpuRMegEDJJBlYtWwekpLDysEtrJSh8w0Zs8IjQwZs7tjjgJsFjKBw3Uadnd0DSyp1YJ81DQlQOJCKZa2BBrBgNCilUQzPIjRa52qcjbJCMc8dX1tNyh0J4x+8kb4grcoLXRGYhPMT3aWRs2YOoETVbz+IiQz1TT2Ypk5YtWJLmHvSO1eP9sAom6xfY7L8QFrwSSwTuq+bHoAqhMwPoFS5pn0sdl2vDmbJSNXCIyY4U4S9qUZAEG+OKKfKtiI+Uw9RWiJHxZtWGg3+Keb4GEJw5BHeRDpPyGYY/eJQ46ce2mIJbacnlFe475T9GcDF3+xWRcr2WGlPyvdeU5q75l9QijeAryO3nIg9nbg6CDXv2+SfAAHYnJXLjtG7tAAAAAElFTkSuQmCC) no-repeat;
   display: inline-block;
   font-size: 18px;
   font-weight: bold;
@@ -8388,29 +8355,35 @@ body {
   text-transform: uppercase;
   text-shadow: 1px 1px #eeeeee, -1px -1px #eeeeee, -1px 1px #eeeeee, 1px -1px #eeeeee;
 }
-.ipModuleDesign .ipmThemeMarket .impNotice {
+.ipModuleDesign ._market ._notice {
   display: block;
   margin-bottom: 5px;
   text-shadow: 1px 1px #eeeeee, -1px -1px #eeeeee, -1px 1px #eeeeee, 1px -1px #eeeeee;
 }
-.ipModuleDesign .ipmLocalThemes {
+.ipModuleDesign ._localThemes {
   background-color: #f3f3f3;
   border-top: 1px solid #ccc;
-  /* separator */
   padding: 15px 20px;
 }
-.ipModuleDesign .ipmThemesList {
+.ipModuleDesign ._localThemes ._list {
   list-style: none;
   margin: -20px 0 0 -20px;
   padding: 0;
 }
-.ipModuleDesign .ipmThemesList li {
+.ipModuleDesign ._localThemes ._list li {
   float: left;
   margin: 20px 0 0 20px;
   position: relative;
   width: 212px;
 }
-.ipModuleDesign .ipmThemesList .ipmThemeActions {
+.ipModuleDesign ._localThemes ._list li:hover ._actions {
+  display: block;
+}
+.ipModuleDesign ._localThemes ._list li:hover ._preview {
+  border-color: #019bd4;
+  outline: 1px solid #019bd4;
+}
+.ipModuleDesign ._localThemes ._list ._actions {
   display: none;
   left: 0;
   position: absolute;
@@ -8418,26 +8391,15 @@ body {
   top: 50px;
   width: 100%;
 }
-.ipModuleDesign .ipmThemesList li:hover .ipmThemeActions {
-  display: block;
-}
-.ipModuleDesign .ipmPlugins {
-  clear: both;
-  padding-top: 10px;
-}
-.ipModuleDesign .ipmThemesList .ipmThemePreview {
+.ipModuleDesign ._localThemes ._list ._preview {
   border: 1px solid #fff;
   height: 132px;
   overflow: hidden;
 }
-.ipModuleDesign .ipmThemesList li:hover .ipmThemePreview {
-  border-color: #019bd4;
-  outline: 1px solid #019bd4;
-}
-.ipModuleDesign .ipmThemesList .ipmThemePreview img {
+.ipModuleDesign ._localThemes ._list ._preview img {
   width: 100%;
 }
-.ipModuleDesign .ipmThemesList .ipmThemeTitle {
+.ipModuleDesign ._localThemes ._list ._title {
   display: block;
   font-size: 12px;
   font-weight: bold;
@@ -8446,90 +8408,58 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.ipModuleDesign .ipmThemeMarketPopup {
-  font-size: 10px;
-  /* fixing collision between jQuery UI and Bootstrap */
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 99000;
-}
-.ipModuleDesign .ipmThemeMarketPopup .ui-tabs .ui-tabs-panel {
-  padding: 0;
-}
-.ipModuleDesign .ipmThemeMarketPopupClose {
-  border: 1px solid transparent;
-  float: right;
-  margin-right: 7px;
-  margin-top: -26px;
-}
-.ipModuleDesign .ipmThemeMarketPopupClose:hover {
-  background-color: #ddd;
-  /* fixing collision */
-}
-.ipModuleDesign .ipmThemeMarketPopup .ui-tabs {
-  height: 100%;
-}
-.ipModuleDesign .ipmThemeMarketContainer {
-  height: 100%;
-}
-.ipModuleDesign .ipmThemeMarketContainer iframe {
-  width: 100%;
-  height: 100%;
-  background-color: white;
-}
-/* Preview in Theme Market */
-.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ipmPopupTabs {
-  border: none;
-  padding: 0;
-}
-.ipModuleDesign .ipmThemeMarketPopup.ipmPreviewOpen .ui-tabs-nav {
-  display: none;
-}
-/* Theme Preview / Options */
-.ipModuleDesign .ipmPreview {
+.ipModuleDesign ._popup {
   background-color: #fff;
   height: 100%;
   left: 0;
   position: absolute;
-  top: 0;
+  top: 40px;
   width: 100%;
+  z-index: 1050;
 }
-.ipModuleDesign .ipmPreviewClose {
+.ipModuleDesign ._popup ._back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.ipModuleDesign ._popup ._close {
   position: absolute;
   right: 20px;
-  top: 36px;
+  top: 10px;
 }
-.ipModuleDesign iframe {
+.ipModuleDesign ._popup ._container,
+.ipModuleDesign ._popup iframe {
   height: 100%;
   width: 100%;
-  border-top: 31px solid transparent;
-}
-.ipModuleDesignConfig {
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
 }
 .ipModuleDesignConfig .modal-dialog {
   left: 10px;
   position: fixed;
   top: 10px;
-  width: 350px;
+  width: 400px;
 }
 .ipModuleDesignConfig .modal-header {
   cursor: move;
-  font-size: 14px;
-}
-.ipModuleDesignConfig .ipmBody {
-  overflow: hidden;
 }
 .ipModuleDesignConfig .modal-footer {
   margin-top: 0;
 }
+.ipModuleDesignConfig ._body {
+  overflow: hidden;
+}
+.ipModuleDesignConfig .alert {
+  margin-bottom: 0;
+}
+.ipModuleDesignConfig .panel {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin: 0;
+}
 .ipModuleDesignConfig fieldset legend {
-  background-color: #dcdcdc;
+  background-color: #ecebeb;
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
@@ -8538,50 +8468,26 @@ body {
   padding: 10px 20px;
 }
 .ipModuleDesignConfig fieldset legend:before {
-  content: '\25BA';
+  content: '\25BC';
   display: inline-block;
   margin-right: 10px;
 }
-.ipModuleDesignConfig fieldset legend.ui-accordion-header-active {
-  background-color: #ecebeb;
+.ipModuleDesignConfig fieldset legend.collapsed {
+  background-color: #dcdcdc;
 }
-.ipModuleDesignConfig fieldset legend.ui-accordion-header-active:before {
-  content: '\25BC';
+.ipModuleDesignConfig fieldset legend.collapsed:before {
+  content: '\25BA';
 }
-.ipModuleDesignConfig fieldset .ipmField {
-  margin-bottom: 12px;
+.ipModuleDesignConfig fieldset .form-group {
   padding: 0 20px;
 }
-.ipModuleDesignConfig .ipmType-blank {
-  display: none;
-}
-.ipModuleDesignConfig label.ipmLabel {
-  font-size: 12px;
-  font-weight: normal;
-}
-/* input styles (adapted) from bootstrap */
-.ipModuleDesignConfig .ipmControlInput {
-  display: block;
-  width: 100%;
-  height: auto;
-  padding: 6px;
-  font-size: 12px;
-  line-height: 1.428571429;
-  color: #2f313f;
-  vertical-align: middle;
-  background-color: #fbfbfb;
-  border: 1px solid #a1a2a5;
-  border-radius: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-.ipModuleDesignConfig .ipmControlInput:focus {
-  border-color: #000;
-  outline: 0;
+.ipModuleDesignConfig fieldset .collapse {
+  overflow: auto;
 }
 /* General*/
 .ui-dialog .ipModuleInlineManagementPopup {
   padding: 1em;
+  background-color: #ccc;
 }
 .ipModuleInlineManagement.ipmEmpty {
   outline: #019bd4 dashed 1px;
@@ -8776,12 +8682,6 @@ body {
   background-color: #fff;
   padding: 20px 40px 40px;
 }
-.stopScrolling {
-  /* todox: create one global style (implement from Bootstrap) */
-  height: 100%;
-  overflow: hidden;
-}
-/* Popup */
 .ipModuleRepositoryPopup {
   font-size: 10px;
   height: 100%;
@@ -8830,7 +8730,7 @@ body {
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop {
   background-color: #d5d5d5;
-  background-image: url(bg_upload.png);
+  background-image: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
   padding: 20px;
 }
 .ipModuleRepositoryPopup .ipmTabUpload .ipmContainer.dragdrop.hover {

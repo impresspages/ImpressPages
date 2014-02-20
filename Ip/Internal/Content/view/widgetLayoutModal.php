@@ -1,6 +1,6 @@
 <div class="ip">
     <div id="ipWidgetLayoutPopup" class="modal fade">
-        <a class="ipsItemTemplate ipgHide list-group-item" href="#"></a>
+        <a class="ipsItemTemplate hidden list-group-item" href="#"></a>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

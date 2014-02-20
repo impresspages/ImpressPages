@@ -6,6 +6,7 @@ var ipDesignThemeMarket;
     ipDesignThemeMarket = new function () {
 
         var isThemePreview = false;
+        var bodyClassToHideScroll = 'modal-open';
 
         var processOrder = function (order) {
             $('body').bind('ipMarketOrderComplete', function (e, data) {
@@ -22,21 +23,19 @@ var ipDesignThemeMarket;
 
         var beforeOpenThemePreview = function() {
             isThemePreview = true;
-            $('.ipsThemeMarketPopup').addClass('ipmPreviewOpen');
             ipDesignThemeMarket.resize();
         };
 
         var afterCloseThemePreview = function() {
             isThemePreview = false;
-            $('.ipsThemeMarketPopup').removeClass('ipmPreviewOpen');
             ipDesignThemeMarket.resize();
         };
 
         var showMarketIframe = function () {
 
             var remote = new easyXDM.Rpc({
-                    remote: $('#ipModuleThemeMarketContainer').data('marketurl'),
-                    container: "ipModuleThemeMarketContainer",
+                    remote: $('#ipsModuleThemeMarketContainer').data('marketurl'),
+                    container: "ipsModuleThemeMarketContainer",
                     onMessage: function (message, origin) {
                         //DO NOTHING
                     },
@@ -99,8 +98,8 @@ var ipDesignThemeMarket;
 
             var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
 
-            $('body').addClass('ipgStopScrolling');
-            $popup.show();
+            $(document.body).addClass(bodyClassToHideScroll);
+            $popup.removeClass('hidden');
             showMarketIframe();
             ipDesignThemeMarket.resize();
             $(window).bind('resize.ipThemeMarketAll', ipDesignThemeMarket.resize);
@@ -117,19 +116,21 @@ var ipDesignThemeMarket;
             $(document).off('keyup', onMarketKeyUp);
 
             var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
-            $popup.hide();
+            $popup.addClass('hidden');
 
+            $('#ipsModuleThemeMarketContainer iframe').remove();
 
-            $('#ipModuleThemeMarketContainer iframe').remove();
-
-            $('body').removeClass('ipgStopScrolling');
+            $(document.body).removeClass(bodyClassToHideScroll);
         };
 
         this.resize = function(e) {
-            var $popup = $('#ipModuleThemeMarketContainer');
+            var $popup = $('.ipsThemeMarketPopup');
             var height = parseInt($(window).height());
-            if (!isThemePreview) { height -= 40; } // leaving place for tabs
-            $popup.find('iframe').height(height + 'px');
+            height -= 40; // leaving place for navbar
+            if (isThemePreview) {
+                // do noting
+            }
+            $popup.height(height + 'px');
         };
     };
 })(ip.jQuery);

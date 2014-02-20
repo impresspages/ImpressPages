@@ -1,29 +1,24 @@
-<?php
-/* @var $theme \Ip\Internal\Design\Theme */
-/* @var $this \Ip\View */
-?>
-<div class="ip ipModuleDesign" xmlns="http://www.w3.org/1999/html">
+<div class="ipModuleDesign">
     <h1><?php _e('My theme', 'ipAdmin'); ?></h1>
 
-    <div class="ipmSelectedTheme">
-        <div class="ipmThemePreview">
+    <div class="_selectedTheme">
+        <div class="_preview">
             <img src="<?php echo esc($theme->getThumbnailUrl()); ?>" alt="<?php echo esc($theme->getTitle()); ?>" />
         </div>
 
-        <div class="ipmThemeActions">
-<!--            <a href="#" class="btn btn-link">Download</a>-->
+        <div class="_actions">
             <?php if ($showConfiguration){ ?>
                 <a href="#" class="btn btn-primary ipsOpenOptions"><?php _e('Options', 'ipAdmin'); ?></a>
                 <br/><br/>
             <?php } ?>
             <a href="<?php echo $contentManagementUrl ?>" class="btn btn-primary"><?php echo esc($contentManagementText); ?></a>
         </div>
-        <h2>
+        <h2 class="clearfix">
             <i class="fa fa-check"></i>
             <?php echo esc($theme->getTitle()); ?>
             <small>(<?php echo esc($theme->getVersion()); ?>)</small>
         </h2>
-        <div class="ipmPlugins">
+        <div class="_plugins">
             <?php if ($pluginNote) { ?>
             <div class="alert alert-block">
                 <?php echo esc($pluginNote); ?>
@@ -31,28 +26,30 @@
             <?php } ?>
             <dl class="dl-horizontal">
                 <?php foreach ($plugins as $key => $plugin ) {?>
-                    <dt><?php echo $key == 0 ? __('Available plugins', 'ipAdmin') . ':' : '' ?></dt>
+                    <?php if ($key == 0) { ?>
+                        <dt><?php _e('Available plugins', 'ipAdmin'); ?></dt>
+                    <?php } ?>
                     <dd>
                         <?php echo esc(!empty($plugin['title']) ? $plugin['title'] : $plugin['name']); ?>
-                        <a href="#" class="ipsInstallPlugin" data-pluginname="<?php echo esc($plugin['name']) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
+                        <a href="#" class="btn btn-xs btn-primary ipsInstallPlugin" data-pluginname="<?php echo esc($plugin['name']) ?>"><?php _e('Install', 'ipAdmin'); ?></a>
                     </dd>
                 <?php } ?>
             </dl>
         </div>
     </div>
 
-    <div class="ipmOtherThemes">
-        <div class="ipmThemeMarket">
-            <div class="ipmButtonWrapper">
-                <span class="ipmTitle"><?php _e('Marketplace', 'ipAdmin'); ?></span>
-                <span class="impNotice"><?php _e('Want a new look? Search for a new theme.', 'ipAdmin'); ?></span>
+    <div class="_themes">
+        <div class="_market">
+            <div class="_wrapper">
+                <span class="_title"><?php _e('Marketplace', 'ipAdmin'); ?></span>
+                <span class="_notice"><?php _e('Want a new look? Search for a new theme.', 'ipAdmin'); ?></span>
                 <a href="#" class="btn btn-success ipsOpenMarket"><?php _e('Browse themes', 'ipAdmin'); ?></a>
             </div>
         </div>
-        <div class="ipmLocalThemes">
+        <div class="_localThemes">
             <?php if (count($availableThemes) > 1) { ?>
                 <h2><?php _e('Local themes', 'ipAdmin'); ?></h2>
-                <ul class="ipmThemesList clearfix">
+                <ul class="_list clearfix">
                     <?php
                         foreach ($availableThemes as $localTheme) {
                             /* @var $localTheme \Ip\Internal\Design\Theme */
@@ -60,35 +57,34 @@
                                 continue;
                             }
                     ?>
-                            <li>
-                                <div class="ipmThemePreview">
-                                    <img src="<?php echo esc($localTheme->getThumbnailUrl()); ?>" alt="<?php echo esc($localTheme->getTitle()); ?>" />
-                                </div>
-                                <span class="ipmThemeTitle">
-                                    <?php echo esc($localTheme->getTitle()); ?>
-                                    <small>(<?php echo esc($localTheme->getVersion()); ?>)</small>
-                                </span>
-                                <div class="ipmThemeActions">
-                                    <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo esc($localTheme->getName()) ?>'>
-                                        <?php _e('Install', 'ipAdmin'); ?>
-                                    </a>
-                                </div>
-                            </li>
+                        <li>
+                            <div class="_preview">
+                                <img src="<?php echo esc($localTheme->getThumbnailUrl()); ?>" alt="<?php echo esc($localTheme->getTitle()); ?>" />
+                            </div>
+                            <span class="_title">
+                                <?php echo esc($localTheme->getTitle()); ?>
+                                <small>(<?php echo esc($localTheme->getVersion()); ?>)</small>
+                            </span>
+                            <div class="_actions">
+                                <a href="#" class="btn btn-primary ipsInstallTheme" data-theme='<?php echo esc($localTheme->getName()) ?>'>
+                                    <?php _e('Install', 'ipAdmin'); ?>
+                                </a>
+                            </div>
+                        </li>
                     <?php } ?>
                 </ul>
             <?php } ?>
         </div>
     </div>
 
-    <div class="ipsThemeMarketPopup ipmThemeMarketPopup ipgHide">
-        <div class="ipmThemeMarketContainer" id="ipModuleThemeMarketContainer" data-marketurl="<?php echo esc($marketUrl) ?>">
-            <a href="#" class="ipmThemeMarketPopupClose ipsThemeMarketPopupClose"><?php _e('Close', 'ipAdmin'); ?></a>
-            <!-- <iframe name="easyXDM*" /> -->
+    <div class="_popup ipsThemeMarketPopup hidden">
+        <div class="_container" id="ipsModuleThemeMarketContainer" data-marketurl="<?php echo esc($marketUrl); ?>">
+            <button type="button" class="btn btn-default _back ipsThemeMarketPopupClose"><i class="fa fa-angle-double-left"></i> <?php _e('Back to Design', 'ipAdmin'); ?></button>
         </div>
     </div>
 
-    <div class="ipmPreview ipsPreview ipgHide">
-        <button type="button" class="btn ipmPreviewClose ipsPreviewClose"><i class="fa fa-times"></i></button>
+    <div class="_popup ipsPreview hidden">
+        <button type="button" class="btn btn-danger _close ipsPreviewClose" title="<?php _e('Close', 'ipAdmin'); ?>"><i class="fa fa-times"></i></button>
         <iframe class="ipsFrame" src="" frameborder="0"></iframe>
     </div>
 </div>

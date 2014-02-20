@@ -25,7 +25,7 @@ class Event
 
     private static function checkForUpdates()
     {
-        $module = new Model();
+        $module = Model::instance();
         $systemInfo = $module->getIpNotifications();
         if ($systemInfo != '') { //send an email
             $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageSent');

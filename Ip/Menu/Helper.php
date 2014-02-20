@@ -55,9 +55,9 @@ class Helper
         $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
 
         if ($depthFrom == 1) {
-            $elements = ipDb()->selectAll('page', '*', array('parentId' => $menuRootId)); //get first level elements
+            $elements = ipDb()->selectAll('page', '*', array('visible' => 1, 'parentId' => $menuRootId)); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
-            $elements = ipDb()->selectAll('page', '*', array('parentId' => $breadcrumb[$depthFrom - 2]->getId()));
+            $elements = ipDb()->selectAll('page', '*', array('visible' => 1, 'parentId' => $breadcrumb[$depthFrom - 2]->getId()));
         }
 
         $items = array();

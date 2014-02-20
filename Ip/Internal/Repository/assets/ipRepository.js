@@ -55,7 +55,7 @@ var ipRepositoryESC;
         $popup.bind('ipModuleRepository.close', function(e) {
             $(document).off('keyup', ipRepositoryESC);
             $('.ipModuleRepositoryPopup').remove();
-            $('body').removeClass('stopScrolling');
+            $('body').removeClass('modal-open');
         });
 
         $popup.find('.ipsClose').hover(function(){$(this).addClass('ui-state-hover');}, function(){$(this).removeClass('ui-state-hover');});
@@ -64,7 +64,7 @@ var ipRepositoryESC;
 
         $(document).on('keyup', ipRepositoryESC);
 
-        $('body').addClass('stopScrolling');
+        $('body').addClass('modal-open');
 
         //$popup.bind('dialogclose', function(){$('.ipModuleRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
 

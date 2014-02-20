@@ -49,7 +49,7 @@ class AdminController extends \Ip\GridController
         return array(
             'type' => 'table',
             'table' => 'language',
-            'allowInsert' => false,
+            'allowCreate' => false,
             'allowSearch' => false,
             'actions' => array(
                 array(

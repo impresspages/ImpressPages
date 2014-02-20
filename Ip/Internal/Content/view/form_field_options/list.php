@@ -1,5 +1,5 @@
 <div class="ipsFieldOptionsContainer"></div>
-<div class="ipgHide">
+<div class="hidden">
     <div class="ipsFieldOptionsTemplate">
         <a href="#" class="ipaButton ipsOptionMove"><?php _e('Move', 'ipAdmin') ?></a>
         <input type="text" class="ipAdminInput ipsOptionLabel" name="option" value="" />

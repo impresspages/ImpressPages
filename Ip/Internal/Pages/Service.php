@@ -59,6 +59,10 @@ class Service
             $data['pageTitle'] = $title;
         }
 
+        if (!isset($data['navigationTitle'])) {
+            $data['navigationTitle'] = $title;
+        }
+
         if (!isset($data['url'])) {
             $data['url'] = Db::makeUrl($title);
         }

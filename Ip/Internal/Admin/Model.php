@@ -30,10 +30,6 @@ class Model{
 
         $modules = \Ip\Internal\Plugins\Model::getModules();
         foreach($modules as $module) {
-            // skipping modules that shouldn't have their own menu
-            if (in_array($module, array('Log', 'Email'))) {
-                continue;
-            }
 
             // skipping modules that don't have 'index' (default) action in AdminController
             $controllerClass = 'Ip\\Internal\\'.$module.'\\AdminController';
@@ -64,7 +60,6 @@ class Model{
             }
             $moduleItem = new \Ip\Internal\Admin\MenuItem();
             $moduleItem->setTitle(__($plugin['title'], 'ipAdmin', false));
-            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $plugin['name'])));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin['name'])));
             $moduleItem->setIcon($this->getAdminMenuItemIcon($plugin['name']));
             if ($plugin['name'] == $currentModule) {
@@ -72,6 +67,8 @@ class Model{
             }
             $answer[] = $moduleItem;
         }
+
+        $answer = ipFilter('ipAdminMenu', $answer);
 
         return $answer;
     }

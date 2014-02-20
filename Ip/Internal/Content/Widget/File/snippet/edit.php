@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="ipWidget_ipFile_container">
                     </div>
-                    <div class="ipgHide">
+                    <div class="hidden">
                         <div class="ipsFileTemplate">
                             <a href="#" class="ipaButton ipsFileMove"><?php _e('move', 'ipAdmin') ?></a>
                             <input type="text" class="ipAdminInput ipsFileTitle" name="title" value="" />
@@ -24,7 +24,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>
                     <button type="button" class="btn btn-primary ipsConfirm"><?php echo __('Confirm', 'ipAdmin') ?></button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>

@@ -16,7 +16,7 @@
     <header class="clearfix col_12">
         <?php echo ipSlot('logo'); ?>
         <div class="right">
-            <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage()->getNavigationTitle()); ?></span>
+            <span class="currentPage"><?php echo esc(ipContent()->getCurrentPage() ? ipContent()->getCurrentPage()->getNavigationTitle() : ''); ?></span>
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php echo ipSlot('menu', 'menu1'); ?>

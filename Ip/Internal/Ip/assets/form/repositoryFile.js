@@ -69,7 +69,7 @@
         for (var index in files) {
             var fileName = files[index].fileName;
             var $newFile = $this.find('.ipsFileTemplate').clone();
-            $newFile.removeClass('ipgHide').removeClass('ipsFileTemplate');
+            $newFile.removeClass('hidden').removeClass('ipsFileTemplate');
             $newFile.find('.ipsFileName').text(fileName);
             $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
             $newFile.find('.ipsRemove').click(removeFile);
