@@ -96,7 +96,7 @@ var IpWidget_Gallery;
             var $img = $item.find('.ipsImage');
             var $controls = this.$controls;
 
-            $controls.removeClass('hide');
+            $controls.removeClass('hidden');
             $controls.css('position', 'absolute');
             $controls.css('left', $img.offset().left + 5);
             $controls.css('top', $img.offset().top + 5);
@@ -118,14 +118,14 @@ var IpWidget_Gallery;
         };
 
         this.blurImage = function () {
-            this.$controls.addClass('hide');
+            this.$controls.addClass('hidden');
         };
 
         this.focus = function () {
             var thisContext = this;
             var $widgetControls = this.$widgetControls;
             var $widgetObject = this.$widgetObject;
-            $widgetControls.removeClass('hide');
+            $widgetControls.removeClass('hidden');
             $widgetControls.css('left', $widgetObject.offsetLeft);
             $widgetControls.css('top', $widgetObject.offsetTop);
             $widgetControls.css('position', 'absolute');
@@ -141,8 +141,8 @@ var IpWidget_Gallery;
 
         this.blur = function () {
             var $widgetControls = this.$widgetControls;
-            $widgetControls.addClass('hide');
-            this.$controls.addClass('hide');
+            $widgetControls.addClass('hidden');
+            this.$controls.addClass('hidden');
         };
 
         this.deleteImage = function (position) {
