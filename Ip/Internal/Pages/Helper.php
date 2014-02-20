@@ -31,7 +31,7 @@ class Helper
 
     public static function menuList()
     {
-        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `navigationTitle`', array('parentId' => 0));
+        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `languageCode`, `navigationTitle`', array('parentId' => 0));
     }
 
     public static function menuForm($menuId)
