@@ -8446,7 +8446,7 @@
 }
 .ip .ipAdminWidgetControls ._container {
   margin-top: -11px;
-  min-height: 22px;
+  height: 11px;
   position: absolute;
   width: 100%;
 }
