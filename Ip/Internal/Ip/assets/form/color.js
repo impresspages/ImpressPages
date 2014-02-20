@@ -1,7 +1,6 @@
 (function($){
     "use strict";
 
-    $(document).ready(function() {
         $('.ipsModuleForm .type-color').each(function() {
             var $this = $(this);
             var lastColor = $this.find('.ipsColorPicker').val();
@@ -25,7 +24,6 @@
 
             });
 
-        });
     });
 
 })(ip.jQuery);

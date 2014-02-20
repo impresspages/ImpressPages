@@ -1,12 +1,12 @@
 var ipDesign;
 
 (function ($) {
+    "use strict";
+
     ipDesign = new function () {
-        "use strict";
         var lastSerialized = null,
             cssUpdateQueue = [], //css files that are in progress to be updated
             cssUpdateInProgress = false;
-
 
         /**
          *
@@ -116,30 +116,59 @@ var ipDesign;
         };
 
         var initAccordion = function () {
+            var firstFieldsetToShow;
             // wrap fields in a div so accordion would work
             $('.ipModuleDesignConfig .ipsBody fieldset').each(function (index, fieldset) {
-                $(fieldset).find('.form-group').wrapAll('<div />');
-            });
+                var $fieldset = $(fieldset);
+                var $legend = $fieldset.find('legend');
 
-            $('.ipModuleDesignConfig .ipsBody').accordion({
-                heightStyle: "fill",
-                header: "fieldset legend",
-                collapsible: true,
-                activate: function (event, ui) {
-                    if (ui.newPanel) {
-                        fixAccordion();
+                $fieldset.addClass('panel');
+                // if legend exist it means its option group
+                if ($legend.length) {
+                    // adding required class to make a group
+                    $fieldset.parent().attr('id', 'optionBoxCollapseGroup');
+                    firstFieldsetToShow = firstFieldsetToShow || index;
+                    // adding required attributes to make collapse() to work
+                    $legend
+                        .attr('data-toggle', 'collapse')
+                        .attr('data-target', '#optionBoxCollapse'+index)
+                        .attr('data-parent', '#optionBoxCollapseGroup');
+                    if (firstFieldsetToShow != index) {
+                        $legend.addClass('collapsed');
                     }
+                    $fieldset.find('.form-group').wrapAll('<div class="collapse'+(firstFieldsetToShow == index ? ' in' : '')+'" id="optionBoxCollapse'+index+'" />');
                 }
+            });
+            $('.ipModuleDesignConfig .ipsBody .collapse').on('shown.bs.collapse', function() {
+                fixAccordion();
             });
         };
 
         var fixAccordion = function () {
             // this code is not in ipDesign.fixLayout so it would be executed only on drag
-            $('.ipModuleDesignConfig .ipsBody')
-                .accordion("option", "heightStyle", "auto")
-                .accordion('refresh')
-                .accordion("option", "heightStyle", "fill")
-                .accordion('refresh');
+            var $body = $('.ipModuleDesignConfig .ipsBody');
+            var $openPanel = $body.find('.collapse.in');
+            if ($openPanel.length) {
+                var bodyHeight = parseInt($body.css('max-height'));
+                var panelHeight = parseInt($openPanel.height('auto').height());
+                var legendHeight = 0;
+                // calculating the height of all opened legends
+                $body.find('legend').each(function(index, legend){
+                    legendHeight += $(legend).outerHeight(true);
+                });
+                // adding the height of warning
+                legendHeight += $('.ipModuleDesignConfig .ipsReload').outerHeight(true);
+
+                // calculating how much space is left for content
+                var openPanelHeight = (bodyHeight > legendHeight) ? (bodyHeight - legendHeight) : 0;
+
+                // fixing height only if there's not enough space
+                if (openPanelHeight < panelHeight) {
+                    $openPanel.height(openPanelHeight);
+                } else {
+                    $openPanel.height('auto');
+                }
+            }
         };
 
         var initLayout = function () {
@@ -207,7 +236,7 @@ var ipDesign;
 
             $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
                 e.preventDefault();
-                window.parent.ipDesignCloseOptions(e);
+                window.parent.ipDesignOptionsClose(e);
             });
 
             $('.ipModuleDesignConfig .ipsDefault').off('click').on('click', function (e) {
@@ -223,7 +252,7 @@ var ipDesign;
             initAccordion();
             initLayout();
 
-            $('.ipsReload').on('click', function (e) {
+            $('.ipModuleDesignConfig .ipsReloadButton').on('click', function (e) {
                 e.preventDefault();
                 ipDesign.openLink(window.location.href);
             });
@@ -236,7 +265,8 @@ var ipDesign;
         };
 
         this.showReloadNotice = function () {
-            $('.ipModuleDesignConfig .ipsReload').removeClass('ipgHide');
+            $('.ipModuleDesignConfig .ipsReload').removeClass('hidden');
+            fixAccordion();
         };
 
         this.reloadLessFiles = function (files) {
@@ -334,7 +364,7 @@ var ipDesign;
             var x2 = $(window).width() - $('.ipModuleDesignConfig .ipsDialog').width() - 20;
             var y2 = $(window).height() - 150;
             var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
-            $('.ipModuleDesignConfig .ipsBody').css('maxHeight', $(window).height() - topOffset - 170);
+            $('.ipModuleDesignConfig .ipsBody').css('max-height', $(window).height() - topOffset - 170);
 
             fixAccordion();
         };
