@@ -85,24 +85,24 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module` (
 
 
 
-DROP TABLE IF EXISTS `ip_cms_email_queue`;
+DROP TABLE IF EXISTS `ip_cms_emailQueue`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_email_queue` (
+CREATE TABLE IF NOT EXISTS `ip_cms_emailQueue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
-  `to_name` varchar(255) DEFAULT NULL,
+  `toName` varchar(255) DEFAULT NULL,
   `from` varchar(255) NOT NULL,
-  `from_name` varchar(255) DEFAULT NULL,
+  `fromName` varchar(255) DEFAULT NULL,
   `subject` varchar(255) NOT NULL,
   `immediate` tinyint(1) NOT NULL DEFAULT '0',
   `html` tinyint(1) NOT NULL,
   `send` timestamp NULL DEFAULT NULL,
   `lock` varchar(32) DEFAULT NULL,
-  `locked_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `lockedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `files` mediumtext,
-  `file_names` mediumtext,
-  `file_mime_types` mediumtext NOT NULL,
+  `fileNames` mediumtext,
+  `fileMimeTypes` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
