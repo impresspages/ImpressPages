@@ -31,7 +31,8 @@ DROP TABLE IF EXISTS `ip_cms_pageStorage`;
 CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
   `pageId` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL,
-  `value` text NOT NULL
+  `value` text NOT NULL,
+  UNIQUE KEY `pageKey` (`pageId`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
