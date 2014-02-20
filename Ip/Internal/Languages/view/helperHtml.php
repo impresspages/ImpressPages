@@ -12,6 +12,6 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
                 <button type="button" class="ipsAdd btn btn-primary"><?php _e('Add', 'ipAdmin') ?></button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+    </div>
+</div>
