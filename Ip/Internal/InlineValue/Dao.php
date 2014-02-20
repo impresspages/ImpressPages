@@ -100,31 +100,13 @@ class Dao
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
 
-
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            SELECT
-                value
-            FROM
-                ' . ipTable('inlineValueForPage') . '
-            WHERE
-                `plugin` = :module AND
-                `key` = :key AND
-                `pageId` = :pageId
-        ';
-
-        $params = array (
-            ':module' => $this->module,
-            ':key' => $key,
-            ':pageId' => $pageId
+        $where = array (
+            'plugin' => $this->module,
+            'pageId' => $pageId,
+            'key' => $key,
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-        if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
-            return $lock['value'];
-        } else {
-            return false;
-        }
+
+        return ipDb()->selectValue('inlineValueForPage', 'value', $where);
     }
 
     public function getLanguageValue($key, $languageId)
