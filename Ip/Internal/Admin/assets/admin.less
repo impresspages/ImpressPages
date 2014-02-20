@@ -113,6 +113,42 @@
     }
 }
 
+.ipAdminSubmenu {
+    float: left;
+    height: 100%;
+    padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+    width: (@grid-gutter-width * 5);
+
+
+    ul {
+        list-style: none;
+
+        a {
+            color: #97989f; // todox: make variable
+            display: block;
+            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+            overflow: hidden;
+
+            &:hover {
+                color: #019bd4; // todox: make variable
+                text-decoration: none;
+            }
+        }
+
+        .active a {
+            background-color: #fff; // todox: make variable
+            color: #000; // todox: make variable
+            font-weight: bold;
+        }
+    }
+}
+.ipAdminSubmenuContent {
+    background-color: #fff; // todox: use variable
+    margin-left: (@grid-gutter-width * 5);
+    margin-right: (@grid-gutter-width * 1.5);
+    padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+}
+
 // todox: remove old code
 /*.ipAdminToolbar {
     background-color: #2f313f;
