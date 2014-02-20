@@ -24,14 +24,15 @@ class InstanceModel
 
 
 
-    public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible)
+    public static function addInstance($widgetId, $revisionId, $languageId, $blockName, $position, $visible)
     {
 
-        $positionNumber = self::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
         $row = array(
             'widgetId' => $widgetId,
             'revisionId' => $revisionId,
+            'languageId' => $languageId,
             'blockName' => $blockName,
             'position' => $positionNumber,
             'isVisible' => (int)$visible,
@@ -49,13 +50,13 @@ class InstanceModel
      * @param string $blockName
      * @param int $newPosition Real position of widget starting with 0
      */
-    private static function _calcWidgetPositionNumber($revisionId, $instanceId, $newBlockName, $newPosition)
+    private static function _calcWidgetPositionNumber($revisionId, $languageId, $instanceId, $newBlockName, $newPosition)
     {
-        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId);
+        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
 
         $widgets = array();
 
-        foreach ($allWidgets as $widgetKey => $instance) {
+        foreach ($allWidgets as $instance) {
             if ($instanceId === null || $instance['id'] != $instanceId) {
                 $widgets[] = $instance;
             }
@@ -84,7 +85,7 @@ class InstanceModel
      */
     public static function deleteInstance($instanceId)
     {
-        ipDb()->update('widgetInstance', array('isDeleted' => 1, 'deletedAt' => time()), array('instanceId' => $instanceId));
+        ipDb()->update('widgetInstance', array('isDeleted' => 1, 'deletedAt' => time()), array('id' => $instanceId));
         return true;
     }
 

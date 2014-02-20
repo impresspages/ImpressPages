@@ -57,9 +57,9 @@ class Service
         return $widgetId;
     }
 
-    public static function addWidgetInstance($widgetId, $revisionId, $block, $position, $visible = true)
+    public static function addWidgetInstance($widgetId, $revisionId, $languageId, $block, $position, $visible = true)
     {
-        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $block, $position, $visible);
+        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $languageId, $block, $position, $visible);
         return $instanceId;
     }
 
