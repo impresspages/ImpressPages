@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller
 //            $answer['errors'][] = array('field' => 'redirectURL', 'message' => __('External url can\'t be empty', 'ipAdmin', false));
 //        }
 
-        $data['visible'] = !empty($data['visible']);
+        $data['isVisible'] = !empty($data['isVisible']);
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
             $answer['status'] = 'success';
@@ -220,9 +220,9 @@ class AdminController extends \Ip\Controller
             $title = __('Untitled', 'ipAdmin', false);
         }
 
-        $visible = ipRequest()->getPost('visible', 0);
+        $isVisible = ipRequest()->getPost('isVisible', 0);
 
-        $pageId = Service::addPage($parentId, $title, array('visible' => $visible));
+        $pageId = Service::addPage($parentId, $title, array('isVisible' => $isVisible));
 
 
         $answer = array(

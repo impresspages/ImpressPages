@@ -211,8 +211,8 @@ class Model
             $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
         }
 
-        if (!array_key_exists('visible', $data)) {
-            $data['visible'] = 1;
+        if (!array_key_exists('isVisible', $data)) {
+            $data['isVisible'] = (int)!ipGetOption('Pages.hideNewPages');
         }
 
         $menuId = ipDb()->insert('page', $data);
@@ -331,8 +331,8 @@ class Model
             $update['redirectUrl'] = $properties['redirectURL'];
         }
 
-        if (isset($properties['visible'])) {
-            $update['visible'] = $properties['visible'];
+        if (isset($properties['isVisible'])) {
+            $update['isVisible'] = $properties['isVisible'];
         }
 
         if (count($update) == 0) {

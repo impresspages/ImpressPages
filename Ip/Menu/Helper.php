@@ -113,7 +113,7 @@ class Helper
             $item = new Item();
             $subSelected = false;
             if ($curDepth < $depth) {
-                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'visible' => 1), 'ORDER BY `pageOrder`');
+                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1), 'ORDER BY `pageOrder`');
                 if ($children) {
                     $childrenItems = self::getSubElementsData($children, $depth, $curDepth + 1);
                     $item->setChildren($childrenItems);

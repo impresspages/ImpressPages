@@ -52,7 +52,7 @@ class AdminController extends \Ip\Controller
             $revisionId,
             $blockName,
             $position,
-            $record['visible']
+            $record['isVisible']
         );
 
 

@@ -128,8 +128,8 @@ var ipPages = null;
             $modal.find('form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
-                var visible = $modal.find('input[name=visible]').is(':checked') ? 1 : 0;
-                addPage(title, visible);
+                var isVisible = $modal.find('input[name=isVisible]').is(':checked') ? 1 : 0;
+                addPage(title, isVisible);
                 $modal.modal('hide');
             });
         }
@@ -291,12 +291,12 @@ var ipPages = null;
         }
 
 
-        var addPage = function (title, visible) {
+        var addPage = function (title, isvisible) {
             var data = {
                 aa: 'Pages.addPage',
                 securityToken: ip.securityToken,
                 title: title,
-                visible: visible,
+                isVisible: isvisible,
                 parentId: $scope.activeMenu.id
             };
 

@@ -48,7 +48,7 @@ class JsTreeHelper
             $pageData['children'] = $children;
 
 
-            if ($page['visible']) {
+            if ($page['isVisible']) {
                 $icon = '';
             } else {
                 $icon = ipFileUrl('Ip/Internal/Pages/assets/img/file_hidden.png');
