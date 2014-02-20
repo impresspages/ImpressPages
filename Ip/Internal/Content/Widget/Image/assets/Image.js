@@ -57,7 +57,7 @@ var IpWidget_Image;
             var $img = $item.find('.ipsImage');
             var $controls = this.$controls;
 
-            $controls.removeClass('hide');
+            $controls.removeClass('hidden');
             $controls.css('position', 'absolute');
             $controls.css('left', $img.offset().left + 5);
             $controls.css('top', $img.offset().top + 5);
@@ -77,7 +77,7 @@ var IpWidget_Image;
         };
 
         this.blurImage = function () {
-            this.$controls.addClass('hide');
+            this.$controls.addClass('hidden');
         };
 
 
