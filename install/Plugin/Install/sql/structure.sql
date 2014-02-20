@@ -156,7 +156,6 @@ CREATE TABLE `ip_cms_themeStorage` (
   `theme` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
   UNIQUE KEY `themeKey` (`theme`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -198,12 +197,11 @@ CREATE TABLE `ip_cms_inlineValueForLanguage` (
 DROP TABLE IF EXISTS `ip_cms_inlineValueForPage`;
 
 CREATE TABLE `ip_cms_inlineValueForPage` (
-  `module` varchar(100) NOT NULL,
+  `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
-  `languageId` int(11) NOT NULL,
   `pageId` int(11) NOT NULL,
   `value` text NOT NULL,
-  PRIMARY KEY (`module`,`key`,`languageId`,`pageId`)
+  PRIMARY KEY (`plugin`,`key`,`pageId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
