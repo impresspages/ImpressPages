@@ -15,7 +15,7 @@ INSERT INTO `ip_cms_page` (`id`, `url`, `languageCode`, `slug`, `pageOrder`, `pa
 (73,	'examplepage2',	'en',	'examplepage2',	0,	4,	'Example page2',	2,	'Example page',	'',	'',	'2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL);
 
 INSERT INTO `ip_cms_pageStorage` (`pageId`, `key`, `value`) VALUES
-(64, 'layout', 'home.php');
+(64, 'layout', '"home.php"');
 
 -- Dumping data for table--
 
