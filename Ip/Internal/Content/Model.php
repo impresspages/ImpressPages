@@ -428,11 +428,11 @@ class Model
     public static function deleteUnusedWidgets()
     {
         $sql = "
-            SELECT `widget`.id
-            FROM " . ipTable('widget') . "
-            LEFT JOIN " . ipTable('widgetInstance') . "
-            ON widgetInstance.widgetId = widget.id
-            WHERE widgetInstance.id IS NULL
+            SELECT `widget`.`id`
+            FROM " . ipTable('widget', 'widget') . "
+            LEFT JOIN " . ipTable('widgetInstance', 'widgetInstance') . "
+            ON `widgetInstance`.`widgetId` = `widget`.`id`
+            WHERE `widgetInstance`.`id` IS NULL
         ";
 
         $db = ipDb();

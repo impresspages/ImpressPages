@@ -351,7 +351,7 @@ class Db
      */
     public function delete($table, $condition)
     {
-        $sql = "DELETE FROM " . ipTable($table) . " WHERE ";
+        $sql = "DELETE FROM " . ipTable($table, FALSE) . " WHERE ";
         $params = array();
         foreach ($condition as $column => $value) {
             if ($value === NULL) {
