@@ -86,7 +86,7 @@ var ipPages = null;
             initTree();
         }
 
-        $scope.activateMenu = function (menu) {
+        $scope.activateMenu = function (menu) {console.log('activate menu');console.log(menu);
             $scope.activeMenu = menu;
             $scope.selectedPageId = menu.id;
             initTree();
@@ -281,7 +281,7 @@ var ipPages = null;
 
 
         var getTreeDiv = function () {
-            return $('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.alias).find('.ipsTree');
+            return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsTree');
         }
 
         var getJsTree = function () {

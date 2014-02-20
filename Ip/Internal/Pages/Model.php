@@ -232,7 +232,9 @@ class Model
 
     protected static function getNextPageOrder($where)
     {
-        return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+        $value = ipDb()->selectValue('page', 'MAX(`pageOrder`)', $where); //can't use +1 in mysql. It fails if there are no records
+        $value++;
+        return $value;
     }
 
     public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)

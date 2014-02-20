@@ -43,8 +43,11 @@ class AdminController extends \Ip\Controller
         if (empty($data['languageId'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $languageCode = $data['languageId']; // TODOX use language code
-        $languageCode = 'en';
+        $language = ipContent()->getLanguage($data['languageId']);
+        if (!$language) {
+            throw new \Ip\Exception("Language doesn't exist. " . $data['languageId']);
+        }
+        $languageCode = $language->getCode();
 
         if (empty($data['menuName'])) {
             throw new \Ip\Exception("Missing required parameters");
