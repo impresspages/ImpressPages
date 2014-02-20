@@ -129,6 +129,13 @@ class AdminController extends \Ip\Controller
 
         try {
             $widgetId = Service::createWidget($widgetName);
+            if ($widgetName == 'Columns' && $revisionId == 0) {
+                $widgetRecord = Model::getWidgetRecord($widgetId);
+                $data = array_merge($widgetRecord['data'], array('static' => true));
+                Model::updateWidget($widgetId, array('data' => $data));
+
+            }
+
             $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $languageId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
