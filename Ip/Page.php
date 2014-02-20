@@ -41,7 +41,7 @@ class Page
     /** string - date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
     protected $lastModified;
     /** string - page creation date in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
-    protected $createdOn;
+    protected $createdAt;
     /** integer - average amount of days between changes */
     protected $modifyFrequency;
     /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
@@ -302,19 +302,19 @@ class Page
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getCreatedOn()
+    public function getCreatedAt()
     {
-        return $this->createdOn;
+        return $this->createdAt;
     }
 
     /**
      * Set page creation date and time
      *
-     * @param $createdOn string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     * @param $createdAt string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setCreatedOn($createdOn)
+    public function setCreatedAt($createdAt)
     {
-        $this->createdOn = $createdOn;
+        $this->createdAt = $createdAt;
     }
 
     /**

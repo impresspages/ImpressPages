@@ -159,7 +159,7 @@ class Db
      * @param string $table Table name without prefix
      * @param array|string $columns list of columns or string. For example array('id', 'name') or '*'.
      * @param array $where Conditional array. For example array('id' => 20)
-     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdAt` DESC'
      * @return array
      */
     public function selectAll($table, $columns, $where = array(), $sqlEnd = '')
@@ -201,7 +201,7 @@ class Db
      * @param string $table Table name without prefix
      * @param array|string $columns List of columns as array or string. For example array('id', 'name') or '*'.
      * @param array $where Conditional array. For example array('id' => 20)
-     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdAt` DESC'
      * @return array
      */
     public function selectRow($table, $columns, $where, $sqlEnd = '')
@@ -218,7 +218,7 @@ class Db
      * @param string $table Table name without prefix
      * @param string $column Column name. For example 'id'.
      * @param array $where Conditional array. For example array('id' => 20)
-     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdOn` DESC'
+     * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdAt` DESC'
      * @return mixed|null
      */
     public function selectValue($table, $column, $where, $sqlEnd = '')

@@ -193,7 +193,7 @@ class Zone extends \Ip\Zone
         $newPage->setUrl($dbPage['url']);
         //$newPage->setText($dbPage['cached_text']);
         $newPage->setLastModified($dbPage['last_modified']);
-        $newPage->setCreatedOn($dbPage['created_on']);
+        $newPage->setCreatedAt($dbPage['createdAt']);
         $newPage->setVisible($dbPage['visible']);
         if ($firstLevel) {
             $newPage->setParentId(null);

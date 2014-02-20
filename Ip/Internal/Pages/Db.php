@@ -217,7 +217,7 @@ class Db {
             'keywords',
             'description',
             'url',
-            'createdOn',
+            'createdAt',
             'lastModified',
             'type',
             'visible'
@@ -229,8 +229,8 @@ class Db {
             }
         }
 
-        if (empty($row['createdOn'])) {
-            $row['createdOn'] = date('Y-m-d');
+        if (empty($row['createdAt'])) {
+            $row['createdAt'] = date('Y-m-d');
         }
 
         if (empty($row['lastModified'])) {
