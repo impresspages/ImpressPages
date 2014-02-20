@@ -13,9 +13,9 @@ class Model
     const WIDGET_DIR = 'Widget';
     const SNIPPET_DIR = 'snippet';
 
-    public static function generateBlock($blockName, $revisionId, $managementState, $exampleContent = '')
+    public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
-        $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
+        $widgets = self::getBlockWidgetRecords($blockName, $revisionId, $languageId);
 
         $widgetsHtml = array();
         foreach ($widgets as $widget) {
@@ -26,14 +26,15 @@ class Model
             }
         }
 
-        $data = array(
+        $variables = array(
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,
             'revisionId' => $revisionId,
+            'languageId' => $languageId,
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
         );
-        $answer = ipView('view/block.php', $data)->render();
+        $answer = ipView('view/block.php', $variables)->render();
         return $answer;
     }
 
@@ -209,7 +210,7 @@ class Model
     }
 
 
-    public static function getBlockWidgetRecords($blockName, $revisionId)
+    public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
         $sql = '
             SELECT *
@@ -220,13 +221,15 @@ class Model
                 i.deleted is NULL AND
                 i.widgetId = w.widgetId AND
                 i.blockName = :blockName AND
-                i.revisionId = :revisionId
+                i.revisionId = :revisionId AND
+                i.languageId = :languageId
             ORDER BY `position` ASC
         ';
 
         $list = ipDb()->fetchAll($sql, array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
+                'languageId' => $languageId,
             ));
 
         foreach ($list as &$item) {

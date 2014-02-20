@@ -34,7 +34,7 @@ var IpWidget_Title;
 
             this.$header.on('keyup', function(e) {
                 if (event.which == 13) {
-                    ipContent.createWidget(ip.revisionId, thisScope.$widgetObject.closest('.ipBlock').data('ipBlock').name, 'Text', thisScope.$widgetObject.index() + 1);
+                    ipContent.createWidget(thisScope.$widgetObject.closest('.ipBlock').data('ipBlock').name, 'Text', thisScope.$widgetObject.index() + 1);
                 }
             });
 
