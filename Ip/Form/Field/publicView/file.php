@@ -2,7 +2,7 @@
     <a <?php echo $attributesStr ?> class="btn btn-default ipmFileAddButton"  href="#" ><?php _e('Upload', 'ipAdmin') ?></a>
     <input type="hidden" name="<?php echo addslashes($inputName) ?>" /> <!-- It is needed for jQuery Tools to position error message -->
     <div class="ipmFiles"></div>
-    <div class="well ipmFileTemplate ipmFile ipgHide">
+    <div class="well ipmFileTemplate ipmFile hidden">
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
         <div class="ipmUploadError"></div>
         <div class="ipmFileName"></div>

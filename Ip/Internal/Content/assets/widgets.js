@@ -41,7 +41,7 @@
     $.fn.ipWidgetForm = function() {
         return this.each(function() {
             var $ipForm = $(this);
-            
+
             $ipForm.find('form').validator(validatorConfig);
             $ipForm.find('form').submit(function(e) {
                 var form = $(this);
@@ -97,7 +97,7 @@ var ipWidgetForm_SaveWysiwygOptions;
     // Form widget select options
     ipWidgetForm_InitListOptions = function ($context, currentOptions) {
         var addOption = function (value) {
-            var $newOption = $context.find('.ipgHide .ipsFieldOptionsTemplate').clone();
+            var $newOption = $context.find('.hidden .ipsFieldOptionsTemplate').clone();
             $newOption.find('.ipsOptionLabel').val(value);
             $context.find('.ipsFieldOptionsContainer').append($newOption);
         };

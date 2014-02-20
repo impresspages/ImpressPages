@@ -9,7 +9,7 @@
                 <button class="btn btn-default ipsDelete" role="button">
                     <i class="fa fa-delete"></i><?php _e('Delete', 'ipAdmin') ?>
                 </button>
-                <div class="ipsDeleteConfirmation ipgHide">
+                <div class="ipsDeleteConfirmation hidden">
                     <div class="alert alert-danger"><?php _e('All pages inside this menu will be deleted. Are you sure you want to proceed?', 'ipAdmin'); ?></div>
                     <button class="btn btn-default ipsDeleteProceed" role="button">
                         <i class="fa fa-delete"></i><?php _e('Proceed', 'ipAdmin') ?>

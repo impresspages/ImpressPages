@@ -36,13 +36,13 @@ var ipAdmin;
         };
 
         var showAdminMenu = function () {
-            $currentItem.hide();
-            $adminMenu.show();
+            $currentItem.addClass('hidden');
+            $adminMenu.removeClass('hidden');
         };
 
         var hideAdminMenu = function () {
-            $currentItem.show();
-            $adminMenu.hide();
+            $currentItem.removeClass('hidden');
+            $adminMenu.addClass('hidden');
             $adminMenu.focus(); //makes click outside adminMenu work as roll out.
         };
 

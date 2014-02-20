@@ -78,16 +78,16 @@
                     // check in files' data whether filename include term
                     if (fileName.search(term) != -1) {
                         // show file if term match (in case it was hidden earlier)
-                        $file.removeClass('ipgHide');
+                        $file.removeClass('hidden');
                     } else {
                         // hide file is term doesn't match
-                        $file.addClass('ipgHide');
+                        $file.addClass('hidden');
                     }
                 });
                 $this.find('.ipmBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
             } else {
                 // show all files if term doesn't exist
-                $files.removeClass('ipgHide');
+                $files.removeClass('hidden');
                 $this.find('.ipmBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
             }
 
@@ -95,25 +95,25 @@
             $lists.each(function(){
                 var $list = $(this);
                 var totalFiles = $list.find('li').length;
-                var hiddenFiles = $list.find('li.ipgHide').length;
+                var hiddenFiles = $list.find('li.hidden').length;
                 var numberOfVisibleChildren = totalFiles - hiddenFiles;
 
                 if (numberOfVisibleChildren > 0) {
                     // if list has at least one visible child display list and title
-                    $list.removeClass('ipgHide');
-                    $list.prev('.ipmListTitle').removeClass('ipgHide');
+                    $list.removeClass('hidden');
+                    $list.prev('.ipmListTitle').removeClass('hidden');
                 } else {
                     // if all children in the list is hidden, hide it and its title
-                    $list.addClass('ipgHide');
-                    $list.prev('.ipmListTitle').addClass('ipgHide');
+                    $list.addClass('hidden');
+                    $list.prev('.ipmListTitle').addClass('hidden');
                 }
             });
         },
 
         addRecentFiles : function (files) {
             var $this = $(this);
-            $this.find('.ipmRecentTitle').removeClass('ipgHide');
-            $this.find('.ipmRecentList').removeClass('ipgHide');
+            $this.find('.ipmRecentTitle').removeClass('hidden');
+            $this.find('.ipmRecentList').removeClass('hidden');
 
             var $template = $this.find('.ipmFileTemplate');
             var $newList = $this.find('.ipmRecentList');
@@ -253,14 +253,14 @@
 
         _startSelect : function(e) {
             var $this = $(this);
-            $this.find('.ipmRepositoryActions').removeClass('ipgHide');
+            $this.find('.ipmRepositoryActions').removeClass('hidden');
             $this.find('.ipmBrowserContainer').addClass('ui-selecting');
         },
 
         _stopSelect : function(e) {
             if (e) { e.preventDefault(); }
             var $this = $(this);
-            $this.find('.ipmRepositoryActions').addClass('ipgHide');
+            $this.find('.ipmRepositoryActions').addClass('hidden');
             $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
             $this.find('.ipmBrowserContainer').removeClass('ui-selecting');
         },

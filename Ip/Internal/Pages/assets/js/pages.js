@@ -152,19 +152,19 @@ var ipPages = null;
                 success: function (response) {
                     $modal.find('.ipsBody').html(response.html);
                     $modal.find('.ipsDelete').off('click').on('click', function () {
-                        $modal.find('.ipsDeleteConfirmation').removeClass('ipgHide');
-                        $modal.find('.ipsBody').addClass('ipgHide');
-                        $modal.find('.ipsDelete').addClass('ipgHide');
-                        $modal.find('.ipsModalActions').addClass('ipgHide');
+                        $modal.find('.ipsDeleteConfirmation').removeClass('hidden');
+                        $modal.find('.ipsBody').addClass('hidden');
+                        $modal.find('.ipsDelete').addClass('hidden');
+                        $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
                             deleteZone(zone.name);
                         });
                     });
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
-                        $modal.find('.ipsDeleteConfirmation').addClass('ipgHide');
-                        $modal.find('.ipsBody').removeClass('ipgHide');
-                        $modal.find('.ipsDelete').removeClass('ipgHide');
-                        $modal.find('.ipsModalActions').removeClass('ipgHide');
+                        $modal.find('.ipsDeleteConfirmation').addClass('hidden');
+                        $modal.find('.ipsBody').removeClass('hidden');
+                        $modal.find('.ipsDelete').removeClass('hidden');
+                        $modal.find('.ipsModalActions').removeClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click');
                     });
 
