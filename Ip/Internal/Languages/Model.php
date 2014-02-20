@@ -14,18 +14,18 @@ namespace Ip\Internal\Languages;
  */
 class Model{
 
-    public static function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position)
+    public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection, $position)
     {
         $priority = self::getPositionPriority($position);
 
         $params = array (
-            'd_long' => $title,
-            'd_short' => $abbreviation,
+            'title' => $title,
+            'abbreviation' => $abbreviation,
             'code' => $code,
             'url' => Db::newUrl($url),
-            'text_direction' => $textDirection,
-            'row_number' => $priority,
-            'visible' => $visible
+            'textDirection' => $textDirection,
+            'languageOrder' => $priority,
+            'isVisible' => $isVisible
         );
         $languageId = ipDb()->insert('language', $params);
 
@@ -49,17 +49,17 @@ class Model{
         $languages = self::getLanguages();
 
         if ($position === 0) {
-            return $languages[0]['row_number'] + 100;
+            return $languages[0]['languageOrder'] + 100;
         }
 
         if (isset($languages[$position - 1])) {
             if (isset($languages[$position])) {
-                return ($languages[$position - 1]['row_number'] + $languages[$position]['row_number']) / 2;
+                return ($languages[$position - 1]['languageOrder'] + $languages[$position]['languageOrder']) / 2;
             } else {
-                return $languages[$position]['row_number'] - 20;
+                return $languages[$position]['languageOrder'] - 20;
             }
         } else {
-            return $languages[count($languages) - 1]['row_number'] - 20;
+            return $languages[count($languages) - 1]['languageOrder'] - 20;
         }
 
         throw new \Ip\Exception('Unexpected behaviour');
@@ -80,7 +80,7 @@ class Model{
         WHERE
             1
         ORDER BY
-            `row_number`
+            `languageOrder`
         DESC";
 
         return ipDb()->fetchAll($sql);

@@ -62,21 +62,21 @@ class AdminController extends \Ip\GridController
             'afterUpdate' => array($this, 'afterUpdate'),
             'beforeDelete' => array($this, 'beforeDelete'),
             'deleteWarning' => 'Are you sure you want to delete? All pages and other language related content will be lost forever!',
-            'sortField' => 'row_number',
+            'sortField' => 'languageOrder',
             'fields' => array(
                 array(
                     'label' => __('Title', 'ipAdmin', false),
-                    'field' => 'd_long',
+                    'field' => 'title',
                 ),
                 array(
                     'label' => __('Abbreviation', 'ipAdmin', false),
-                    'field' => 'd_short',
+                    'field' => 'abbreviation',
                     'showInList' => true
                 ),
                 array(
                     'type' => 'Checkbox',
                     'label' => __('Visible', 'ipAdmin', false),
-                    'field' => 'visible'
+                    'field' => 'isVisible'
                 ),
                 array(
                     'label' => __('Url', 'ipAdmin', false),
@@ -96,7 +96,7 @@ class AdminController extends \Ip\GridController
                 array(
                     'type' => 'Select',
                     'label' => __('Text direction', 'ipAdmin', false),
-                    'field' => 'text_direction',
+                    'field' => 'textDirection',
                     'showInList' => false,
                     'values' => array(
                         array('ltr', __('Left To Right', 'ipAdmin', false)),
