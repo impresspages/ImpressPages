@@ -315,8 +315,8 @@ class Model
             $update['description'] = $properties['description'];
         }
 
-        if (isset($properties['createdOn']) && strtotime($properties['createdOn']) !== false) {
-            $update['createdOn'] = $properties['createdOn'];
+        if (isset($properties['createdAt']) && strtotime($properties['createdAt']) !== false) {
+            $update['createdAt'] = $properties['createdAt'];
         }
 
         if (isset($properties['lastModified']) && strtotime($properties['lastModified']) !== false) {

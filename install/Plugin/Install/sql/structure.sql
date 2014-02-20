@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `keywords` mediumtext,
   `description` mediumtext,
   `lastModified` timestamp NULL DEFAULT NULL,
-  `createdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` varchar(255) NOT NULL DEFAULT 'default',
   `alias` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)

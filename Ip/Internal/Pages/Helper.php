@@ -190,9 +190,9 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'createdOn',
+                'name' => 'createdAt',
                 'label' => __('Created on', 'ipAdmin', false),
-                'value' => date('Y-m-d', strtotime($page->getCreatedOn()))
+                'value' => date('Y-m-d', strtotime($page->getCreatedAt()))
             ));
         $form->addField($field);
 

@@ -92,8 +92,8 @@ class AdminController extends \Ip\Controller
 
         $pageBeforeUpdate = new \Ip\Page($pageId);
 
-        if (strtotime($data['createdOn']) === false) {
-            $answer['errors'][] = array('field' => 'createdOn', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
+        if (strtotime($data['createdAt']) === false) {
+            $answer['errors'][] = array('field' => 'createdAt', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
         }
 
         if (strtotime($data['lastModified']) === false) {

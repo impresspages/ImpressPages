@@ -63,8 +63,8 @@ class Service
             $data['url'] = Db::makeUrl($title);
         }
 
-        if (!isset($data['createdOn'])) {
-            $data['createdOn'] = date("Y-m-d H:i:s");
+        if (!isset($data['createdAt'])) {
+            $data['createdAt'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['lastModified'])) {
             $data['lastModified'] = date("Y-m-d H:i:s");
