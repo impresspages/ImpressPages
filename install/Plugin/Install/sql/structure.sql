@@ -1,11 +1,9 @@
 
 ALTER DATABASE  `[[[[database]]]]` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_page`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -26,11 +24,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_pageStorage`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
   `pageId` int(10) unsigned NOT NULL,
@@ -38,12 +34,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_pageStorage` (
   `value` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_language`;
-
--- Table structure
-
 
 CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,11 +50,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_log`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -74,11 +65,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
   KEY `message` (`message`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_module`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_module` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -93,11 +82,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_module` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_email_queue`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_email_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -118,11 +105,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_email_queue` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_repository_file`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
@@ -135,11 +120,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_file` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files';
 
 
--- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_repository_reflection`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
@@ -152,11 +134,8 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repository_reflection` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
 
 
--- Table structure
 
 DROP TABLE IF EXISTS `ip_cms_widget`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `widgetId` int(11) NOT NULL AUTO_INCREMENT,
@@ -167,8 +146,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `recreated` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
   PRIMARY KEY (`widgetId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
--- Table structure
 
 
 
@@ -187,23 +164,20 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
--- Table structure
 
-CREATE TABLE IF NOT EXISTS `ip_cms_design` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `ip_cms_themeStorage`;
+
+CREATE TABLE IF NOT EXISTS `ip_cms_themeStorage` (
   `theme` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `theme` (`theme`,`name`)
+  UNIQUE KEY `themeKey` (`theme`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_widgetOrder`;
-
--- Table structure
-
 
 CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
   `widgetName` varchar(255) NOT NULL,
@@ -211,11 +185,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widgetOrder` (
   UNIQUE KEY `widgetName` (`widgetName`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueGlobal`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueGlobal` (
   `plugin` varchar(100) NOT NULL,
@@ -224,11 +196,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueGlobal` (
   PRIMARY KEY (`plugin`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueForLanguage`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForLanguage` (
   `plugin` varchar(100) NOT NULL,
@@ -238,11 +208,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForLanguage` (
   PRIMARY KEY (`plugin`,`key`,`languageId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_inlineValueForPage`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForPage` (
   `module` varchar(100) NOT NULL,
@@ -253,11 +221,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_inlineValueForPage` (
   PRIMARY KEY (`module`,`key`,`languageId`,`pageId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_plugin`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
   `title` varchar(100) NOT NULL,
@@ -267,11 +233,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_plugin` (
   PRIMARY KEY (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_revision`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
   `revisionId` int(11) NOT NULL AUTO_INCREMENT,
@@ -281,11 +245,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
   PRIMARY KEY (`revisionId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_storage`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
     `plugin` varchar(40) NOT NULL,
@@ -294,11 +256,9 @@ CREATE TABLE IF NOT EXISTS `ip_cms_storage` (
     UNIQUE KEY `pluginkey` (`plugin`,`key`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
--- Table structure
+
 
 DROP TABLE IF EXISTS `ip_cms_administrator`;
-
--- Table structure
 
 CREATE TABLE IF NOT EXISTS `ip_cms_administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

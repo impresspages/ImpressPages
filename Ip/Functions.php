@@ -949,13 +949,34 @@ function ipAdminId()
 }
 
 /**
- * @param $pageId
+ * @param int|null $pageId
  * @return \Ip\PageStorage
  */
-function ipPageStorage($pageId)
+function ipPageStorage($pageId = NULL)
 {
+    if (!$pageId) {
+        $pageId = ipCurrentPage()->getPage()->getId();
+        if (!$pageId) {
+            return null;
+        }
+    }
+
     return new \Ip\PageStorage($pageId);
 }
+
+/**
+ * @param string|null $theme
+ * @return \Ip\ThemeStorage
+ */
+function ipThemeStorage($theme = NULL)
+{
+    if (!$theme) {
+        $theme = ipConfig()->theme();
+    }
+
+    return new \Ip\ThemeStorage($theme);
+}
+
 
 /**
  * Get a modified copy of original file in repository

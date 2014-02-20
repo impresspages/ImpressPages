@@ -59,26 +59,10 @@ class ConfigModel{
             return $config[$name];
         }
 
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            SELECT
-                value
-            FROM
-                ' . ipTable('design') . '
-            WHERE
-                `theme` = :theme AND
-                `name` = :name
-        ';
+        $result = ipThemeStorage($themeName)->get($name);
 
-        $params = array (
-            ':theme' => $themeName,
-            ':name' => $name
-        );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-        $result = $q->fetch(\PDO::FETCH_ASSOC);
-        if ($result) {
-            return $result['value'];
+        if ($result !== NULL) {
+            return $result;
         }
 
         if ($default === null) {
@@ -114,56 +98,13 @@ class ConfigModel{
             return $config;
         }
 
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            SELECT
-                `name`, `value`
-            FROM
-                ' . ipTable('design') . '
-            WHERE
-                `theme` = :theme
-        ';
-
-        $params = array (
-            ':theme' => $theme,
-        );
-
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
-        $rs = $q->fetchAll(\PDO::FETCH_ASSOC);
-
-        $config = array();
-        foreach ($rs as $row) {
-            $config[$row['name']] = $row['value'];
-        }
-
-
-        return $config;
+        return ipThemeStorage($theme)->getAll();
     }
 
     public function setConfigValue($theme, $name, $value)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            INSERT INTO
-                ' . ipTable('design') . '
-            SET
-                `theme` = :theme,
-                `name` = :name,
-                `value` = :value
-            ON DUPLICATE KEY UPDATE
-                `value` = :value
-        ';
-
-        $params = array (
-            ':theme' => $theme,
-            ':name' => $name,
-            ':value' => $value
-        );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        ipThemeStorage($theme)->set($name, $value);
     }
-
 
     /**
      * @param string $name
