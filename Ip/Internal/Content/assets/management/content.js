@@ -116,7 +116,6 @@ var ipContent;
 
 
         this.createWidgetInsideWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
                 var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                 var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
@@ -131,7 +130,6 @@ var ipContent;
 
 
         this.moveWidgetInsideWidget = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
                 var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                 var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
@@ -180,7 +178,6 @@ var ipContent;
         }
 
         this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
                 ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
                     var $block = $('#ipBlock-' + newWidgetBlockName);
@@ -194,7 +191,6 @@ var ipContent;
 
 
         this.moveWidgetToColumn = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
                 ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, function (instanceId) {
                     if (callback) {
@@ -207,7 +203,6 @@ var ipContent;
 
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
-            var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
                 ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, function (instanceId) {
@@ -220,7 +215,6 @@ var ipContent;
         };
 
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
-            var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
                 ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
@@ -271,7 +265,6 @@ var ipContent;
             var $targetBlock = $targetWidget.closest('.ipBlock');
             var targetBlockName = $targetBlock.data('ipBlock').name;
             var targetPosition = $targetWidget.index();
-            var revisionId = ip.revisionId;
 
             if ($targetWidget.hasClass('ipWidget-Columns')) {
                 //create additional column on existing columns widget
@@ -317,7 +310,8 @@ var ipContent;
                     //move target widget to right / left column
                     ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, function (newInstanceId) {
                         $('#ipWidget-' + newInstanceId).remove();
-                        $columnWidget.ipWidget('save', {}, 1, function($widget) {
+                        var staticBlock = $('.ipBlock-existingWidgetBlockName').data('revisionId') == 0;
+                        $columnWidget.ipWidget('save', {static: staticBlock}, 1, function($widget) {
                             $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
                             if (callback) {
                                 callback(newWidgetBlockName);
