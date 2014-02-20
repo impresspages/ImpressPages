@@ -138,7 +138,6 @@ DROP TABLE IF EXISTS `ip_cms_widgetInstance`;
 CREATE TABLE `ip_cms_widgetInstance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `revisionId` int(11) NOT NULL,
-  `languageId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
   `position` double NOT NULL,
   `blockName` varchar(25) NOT NULL,

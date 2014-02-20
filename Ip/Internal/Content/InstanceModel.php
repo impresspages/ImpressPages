@@ -24,15 +24,14 @@ class InstanceModel
 
 
 
-    public static function addInstance($widgetId, $revisionId, $languageId, $blockName, $position, $visible)
+    public static function addInstance($widgetId, $revisionId, $blockName, $position, $visible)
     {
 
-        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, null, $blockName, $position);
 
         $row = array(
             'widgetId' => $widgetId,
             'revisionId' => $revisionId,
-            'languageId' => $languageId,
             'blockName' => $blockName,
             'position' => $positionNumber,
             'isVisible' => (int)$visible,
@@ -50,9 +49,9 @@ class InstanceModel
      * @param string $blockName
      * @param int $newPosition Real position of widget starting with 0
      */
-    private static function _calcWidgetPositionNumber($revisionId, $languageId, $instanceId, $newBlockName, $newPosition)
+    private static function _calcWidgetPositionNumber($revisionId, $instanceId, $newBlockName, $newPosition)
     {
-        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
+        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId);
 
         $widgets = array();
 

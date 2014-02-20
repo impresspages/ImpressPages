@@ -15,7 +15,7 @@ class Model
 
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
-        $widgets = self::getBlockWidgetRecords($blockName, $revisionId, $languageId);
+        $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
 
         $widgetsHtml = array();
         foreach ($widgets as $widget) {
@@ -215,10 +215,11 @@ class Model
     }
 
 
-    public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
+    public static function getBlockWidgetRecords($blockName, $revisionId)
     {
         $sql = '
             SELECT i.*,
+                i.id AS `instanceId`,
                 w.id AS `widgetId`,
                 w.name AS `name`,
                 w.layout AS `layout`,
@@ -231,15 +232,13 @@ class Model
                 i.isDeleted = 0 AND
                 i.widgetId = w.id AND
                 i.blockName = :blockName AND
-                i.revisionId = :revisionId AND
-                i.languageId = :languageId
+                i.revisionId = :revisionId
             ORDER BY `position` ASC
         ';
 
         $list = ipDb()->fetchAll($sql, array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
-                'languageId' => $languageId,
             ));
 
         foreach ($list as &$item) {
