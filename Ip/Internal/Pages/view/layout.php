@@ -42,7 +42,8 @@
                                 <i class="fa fa-paste"></i>
                             </button>
                         </div>
-                    <div class="ipsTree"></div>
+                        <div class="ipsTree"></div>
+                    </div>
                 </div>
             </div>
         </div>
