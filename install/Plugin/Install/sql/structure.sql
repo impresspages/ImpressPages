@@ -41,13 +41,13 @@ DROP TABLE IF EXISTS `ip_cms_language`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_language` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `d_short` varchar(255) NOT NULL DEFAULT '',
-  `d_long` varchar(255) NOT NULL DEFAULT '',
-  `row_number` double NOT NULL DEFAULT '0',
-  `visible` int(1) NOT NULL DEFAULT '0',
+  `abbreviation` varchar(255) NOT NULL DEFAULT '',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `languageOrder` double NOT NULL DEFAULT '0',
+  `isVisible` int(1) NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL DEFAULT '',
   `code` varchar(255) NOT NULL,
-  `text_direction` varchar(10) NOT NULL DEFAULT 'ltr',
+  `textDirection` varchar(10) NOT NULL DEFAULT 'ltr',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

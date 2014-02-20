@@ -31,7 +31,7 @@ INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
 
 -- Dumping data for table--
 
-INSERT INTO `ip_cms_language` (`id`, `d_short`, `d_long`, `row_number`, `visible`, `url`, `code`) VALUES
+INSERT INTO `ip_cms_language` (`id`, `abbreviation`, `title`, `row_number`, `visible`, `url`, `code`) VALUES
 (344, 'EN', 'English', 2, 1, 'en', 'en');
 
 -- Dumping data for table--
