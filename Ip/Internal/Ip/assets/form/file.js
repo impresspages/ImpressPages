@@ -95,7 +95,7 @@
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
                     var $newFile = $this.find('.ipmFileTemplate').clone();
                     $newFile.data('fileId', file.id);
-                    $newFile.removeClass('ipgHide').removeClass('ipmFileTemplate');
+                    $newFile.removeClass('hidden').removeClass('ipmFileTemplate');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipmFileName').text(file.name);
                     $newFile.find('.ipsRemove').click(function(e){

@@ -33,7 +33,7 @@ class Form
     {
         $this->fieldsets = array();
         $this->method = self::METHOD_POST;
-        $this->action = \Ip\Internal\UrlHelper::getCurrentUrl();
+        $this->action = ipConfig()->baseUrl();
         $this->attributes = array();
         $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
         if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {

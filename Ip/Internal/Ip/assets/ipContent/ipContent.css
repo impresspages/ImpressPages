@@ -992,6 +992,13 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Columns .ipwCol.last {
   padding-right: 0;
 }
+.ipWidget-Divider.ipLayout-default {
+  border-bottom: 1px solid #747474;
+  height: 0;
+}
+.ipWidget-Divider.ipLayout-space {
+  height: 25px;
+}
 .ipWidget-Faq {
   padding-left: 30px;
 }
@@ -1094,13 +1101,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-Missing {
   /* covered by default styles */
-}
-.ipWidget-Divider.ipLayout-default {
-  border-bottom: 1px solid #747474;
-  height: 0;
-}
-.ipWidget-Divider.ipLayout-space {
-  height: 25px;
 }
 .ipWidget-Text {
   /* covered by default styles */

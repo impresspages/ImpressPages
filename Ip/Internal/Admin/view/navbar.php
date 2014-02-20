@@ -5,7 +5,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <div class="_menu ipsAdminMenuBlock">
+        <div class="_menu hidden ipsAdminMenuBlock">
             <div class="_menuHeader">
                 <button type="button" class="_toggle navbar-toggle">
                     <span class="icon-bar"></span>
