@@ -19,9 +19,9 @@ class Model
         }
     }
 
-    public static function sortZone($zoneName, $newIndex)
+    public static function sortZone($menuName, $newIndex)
     {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
+        $menu = Db::getZones(ipContent()->getCurrentLanguage()->getId());
 
         $newPriority = null;
 
@@ -34,7 +34,7 @@ class Model
             $newPriority = ($zones[$newIndex - 1]['row_number'] + $zones[$newIndex]['row_number']) / 2;
         }
 
-        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $zoneName));
+        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $menuName));
     }
 
     public static function cleanupLanguage($id)

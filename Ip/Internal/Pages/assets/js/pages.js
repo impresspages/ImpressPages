@@ -4,7 +4,7 @@ var ipPages = null;
     "use strict";
 
 
-    var app = angular.module('Pages', []).directive('zonesPostRepeatDirective', function () {
+    var app = angular.module('Pages', []).directive('menulistPostRepeatDirective', function () {
         return function (scope, element, attrs) {
             if (scope.$last) {
                 pagesZones.init();
