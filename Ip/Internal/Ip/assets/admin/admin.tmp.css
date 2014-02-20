@@ -8682,12 +8682,6 @@ a.list-group-item.success:focus .list-group-item-text {
   background-color: #fff;
   padding: 20px 40px 40px;
 }
-.stopScrolling {
-  /* todox: create one global style (implement from Bootstrap) */
-  height: 100%;
-  overflow: hidden;
-}
-/* Popup */
 .ipModuleRepositoryPopup {
   font-size: 10px;
   height: 100%;
