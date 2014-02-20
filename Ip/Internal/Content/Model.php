@@ -254,7 +254,7 @@ class Model
         $sql = '
             SELECT *
             FROM
-                ' . ipTable('widget_instance', 'i') . '
+                ' . ipTable('widgetInstance', 'i') . '
             WHERE
                 i.revisionId = ? AND
                 i.isDeleted = 0
@@ -268,7 +268,7 @@ class Model
             unset($instance['instanceId']);
             $instance['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widget_instance', $instance);
+            ipDb()->insert('widgetInstance', $instance);
         }
 
     }
@@ -319,7 +319,7 @@ class Model
 
     /**
      *
-     * getWidgetFullRecord differ from getWidgetRecord by including the information from widget_instance table.
+     * getWidgetFullRecord differ from getWidgetRecord by including the information from widgetInstance table.
      * @param int $instanceId
      * @throws Exception
      */
@@ -327,7 +327,7 @@ class Model
     {
         $sql = '
             SELECT * FROM
-                ' . ipTable('widget_instance', 'i') . ',
+                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
                 i.`instanceId` = ? AND
@@ -401,7 +401,7 @@ class Model
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widget_instance', array('revisionId' => $revisionId));
+        ipDb()->delete('widgetInstance', array('revisionId' => $revisionId));
         ipdb()->delete('revision', array('revisionId' => $revisionId));
     }
 
@@ -427,9 +427,9 @@ class Model
         $sql = "
             SELECT `widget`.id
             FROM " . ipTable('widget') . "
-            LEFT JOIN " . ipTable('widget_instance') . "
-            ON widget_instance.widgetId = widget.id
-            WHERE widget_instance.instanceId IS NULL
+            LEFT JOIN " . ipTable('widgetInstance') . "
+            ON widgetInstance.widgetId = widget.id
+            WHERE widgetInstance.instanceId IS NULL
         ";
 
         $db = ipDb();
