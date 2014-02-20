@@ -174,9 +174,11 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
 
 DROP TABLE IF EXISTS `ip_cms_widget_instance`;
 
+
 CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `instanceId` int(11) NOT NULL AUTO_INCREMENT,
-  `revisionId` int(11) NOT NULL,
+  `revisionId` int(11) DEFAULT NULL,
+  `languageId` int(11) DEFAULT NULL,
   `widgetId` int(11) NOT NULL,
   `position` double NOT NULL,
   `blockName` varchar(25) NOT NULL,
@@ -185,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
   `deleted` int(11) DEFAULT NULL COMMENT 'unix timestamp',
   PRIMARY KEY (`instanceId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 
 
 -- Table structure
