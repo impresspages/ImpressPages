@@ -6,10 +6,20 @@ namespace Ip\Internal\Admin;
 
 class Event
 {
+
+
     public static function ipInitFinished()
     {
+        //show admin submenu if needed
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $submenu = Submenu::getSubmenuItems();
+            if ($submenu) {
+                ipResponse()->setLayoutVariable('submenu', $submenu);
+            }
+        }
+
         // Show admin toolbar if admin is logged in:
-        if ((ipIsManagementState() || !empty($_GET['aa']) ) && !empty($_SESSION['backend_session']['userId'])) {
+        if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
             if (!ipRequest()->getQuery('ipDesignPreview')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
@@ -34,18 +44,33 @@ class Event
 
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
-            $curModTitle = __($curModule, 'ipAdmin', false);
+            $curModTitle = __($curModule, 'ipAdmin', FALSE);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
+
+        $navBarButtons = array(
+            array(
+                'text' => '',
+                'hint' => __('Logout', 'ipAdmin', FALSE),
+                'url' => ipActionUrl(array('sa' => 'Admin.logout')),
+                'class' => 'ipsAdminLogout',
+                'faIcon' => 'fa-power-off'
+            )
+        );
+
+        $navBarButtons = ipFilter('ipAdminNavButtons', $navBarButtons);
 
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems($curModule),
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
             'curModIcon' => $curModIcon,
-            'helpUrl' => $helpUrl
+            'helpUrl' => $helpUrl,
+            'navBarButtons' => array_reverse($navBarButtons)
         );
+
+
         $html = ipView('view/navbar.php', $data)->render();
         return $html;
     }

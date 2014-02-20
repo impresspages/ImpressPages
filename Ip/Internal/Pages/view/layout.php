@@ -1,7 +1,7 @@
 <div class="ip">
     <div class="ipAdminPages" ng-app="Pages" ng-controller="ipPages" ng-cloak>
         <div class="_container _languages">
-            <a href="#" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>
+<!--            <a href="#" class="btn btn-sm btn-default"><i class="fa fa-plus"></i></a>-->
             <ul>
                 <li ng-repeat="language in languageList">
                     <a href="#" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
@@ -42,7 +42,8 @@
                                 <i class="fa fa-paste"></i>
                             </button>
                         </div>
-                    <div class="ipsTree"></div>
+                        <div class="ipsTree"></div>
+                    </div>
                 </div>
             </div>
         </div>

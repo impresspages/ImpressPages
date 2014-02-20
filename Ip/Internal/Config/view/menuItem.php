@@ -7,7 +7,7 @@
 
 $css = array();
 if($menuItem->isCurrent()) {
-    $css[] = 'current';
+    $css[] = 'active';
     $selected = true;
 } elseif ($menuItem->isInCurrentBreadcrumb()) {
     $css[] = 'selected';
@@ -15,7 +15,7 @@ if($menuItem->isCurrent()) {
 }
 
 if(sizeof($menuItem->getChildren()) > 0) {
-    $css[] = 'subnodes';
+    $css[] = 'dropdown';
 }
 
 $css[] = 'type'.ucwords($menuItem->getType());
@@ -23,13 +23,15 @@ $css[] = 'type'.ucwords($menuItem->getType());
 if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
     $href = 'href="'.$menuItem->getUrl().'"';
 } else {
+    $css[] = 'disabled';
     $href = '';
 }
-?><li class="<?php echo implode(' ', $css) ?>">
-    <a <?php echo $href ?> title="<?php echo esc($menuItem->getPageTitle(), 'attr') ?>">
-        <?php echo esc($menuItem->getTitle()) ?>
+
+?><li class="<?php echo implode(' ', $css); ?>">
+    <a <?php echo $href ?> title="<?php echo esc($menuItem->getPageTitle(), 'attr'); ?>">
+        <?php echo esc($menuItem->getTitle()); ?>
     </a>
-    <?php if ($menuItem->getChildren()){ ?>
-        <?php echo ipView('Ip/Internal/Config/view/menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render() ?>
+    <?php if ($menuItem->getChildren()) { ?>
+        <?php echo ipView('Ip/Internal/Config/view/menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render(); ?>
     <?php } ?>
 </li>

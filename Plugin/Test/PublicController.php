@@ -26,4 +26,10 @@ class PublicController extends \Ip\Controller
         $response->setContent('TEST');
         return $response;
     }
+
+    public function returnString()
+    {
+        return 'Some kind of a string';
+    }
+
 }

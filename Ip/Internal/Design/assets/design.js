@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.ipModuleDesign .ipsOpenMarket').on('click', ipDesignThemeMarket.openMarketWindow);
     $('.ipModuleDesign .ipsThemeMarketPopupClose').on('click', ipDesignThemeMarket.closeMarketWindow);
 
-    $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOpenOptions);
+    $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOptionsOpen);
 
     $('.ipsInstallTheme').on('click', function (e) {
         e.preventDefault();

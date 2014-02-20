@@ -1,72 +1,57 @@
 .ipModuleDesignConfig {
-    color: #000;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-}
-.ipModuleDesignConfig .modal-dialog {
-    left: 10px;
-    position: fixed;
-    top: 10px;
-    width: 350px;
-}
-.ipModuleDesignConfig .modal-header {
-    cursor: move;
-    font-size: 14px;
-}
-.ipModuleDesignConfig .ipmBody {
-    overflow: hidden;
-}
-.ipModuleDesignConfig .modal-footer {
-    margin-top: 0;
-}
-.ipModuleDesignConfig fieldset legend {
-    background-color: #dcdcdc;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 1px;
-    outline: none;
-    padding: 10px 20px;
-}
-.ipModuleDesignConfig fieldset legend:before {
-    content: '\25BA';
-    display: inline-block;
-    margin-right: 10px;
-}
-.ipModuleDesignConfig fieldset legend.ui-accordion-header-active {
-    background-color: #ecebeb;
-}
-.ipModuleDesignConfig fieldset legend.ui-accordion-header-active:before {
-    content: '\25BC';
-}
-.ipModuleDesignConfig fieldset .ipmField {
-    margin-bottom: 12px;
-    padding: 0 20px;
-}
-.ipModuleDesignConfig .ipmType-blank {
-    display: none;
-}
-.ipModuleDesignConfig label.ipmLabel {
-    font-size: 12px;
-    font-weight: normal;
-}
-/* input styles (adapted) from bootstrap */
-.ipModuleDesignConfig .ipmControlInput {
-    display: block;
-    width: 100%;
-    height: auto;
-    padding: 6px;
-    font-size: 12px;
-    line-height: 1.428571429;
-    color: #2f313f;
-    vertical-align: middle;
-    background-color: #fbfbfb;
-    border: 1px solid #a1a2a5;
-    border-radius: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-}
-.ipModuleDesignConfig .ipmControlInput:focus {
-    border-color: #000;
-    outline: 0;
+    .modal-dialog {
+        left: (@grid-gutter-width / 4);
+        position: fixed;
+        top: (@grid-gutter-width / 4);
+        width: (@grid-gutter-width * 10);
+    }
+    .modal-header {
+        cursor: move;
+    }
+    .modal-footer {
+        margin-top: 0;
+    }
+    ._body {
+        overflow: hidden;
+    }
+    .alert {
+        margin-bottom: 0;
+    }
+    .panel { // resetting default styles; we don't need them but we're forced to use this class
+        background-color: transparent;
+        border: 0;
+        border-radius: 0;
+        .box-shadow(none);
+        margin: 0;
+    }
+    fieldset {
+        legend {
+            background-color: #ecebeb; // todox: move to variables
+            cursor: pointer;
+            font-size: @font-size-small;
+            font-weight: bold;
+            margin-bottom: 1px;
+            outline: none;
+            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+
+            &:before {
+                content: '\25BC';
+                display: inline-block;
+                margin-right: (@grid-gutter-width / 4);
+            }
+            &.collapsed {
+                background-color: #dcdcdc; // todox: move to variables
+
+                &:before {
+                    content: '\25BA';
+                }
+            }
+        }
+        .form-group {
+            padding: 0 (@grid-gutter-width / 2);
+        }
+        .collapse {
+            overflow: auto;
+        }
+    }
 }

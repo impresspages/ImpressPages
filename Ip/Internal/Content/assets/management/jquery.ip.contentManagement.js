@@ -82,7 +82,8 @@
 
                     $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
-                    $('.ipAdminPanelContainer .ipsPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
+                    $('.ipsAdminNavbar .ipsAdminPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
+                    //ipAddAdminNavBarButton('Page preview', '#', 'test', 'fa-trash');
                     $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 

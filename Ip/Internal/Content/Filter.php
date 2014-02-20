@@ -116,4 +116,28 @@ class Filter
     }
 
 
+    public static function ipAdminNavButtons($buttons, $info)
+    {
+        if (ipContent()->getCurrentPage()) {
+            $buttons[] = array(
+                'text' => __('Preview', 'ipAdmin', false),
+                'hint' => __('Hides admin tools', 'ipAdmin', false),
+                'class' => 'ipsAdminPreview',
+                'faIcon' => 'fa-eye',
+                'url' => '#'
+            );
+            $buttons[] = array(
+                'text' => __('Settings', 'ipAdmin', false),
+                'hint' => __('Page settings', 'ipAdmin', false),
+                'class' => 'ipsAdminPageSettings',
+                'faIcon' => 'fa-gear',
+                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getId() . '&zone=' . ipContent()->getCurrentZone()->getName() . '&page=' . ipContent()->getCurrentPage()->getId()
+            );
+        }
+
+
+
+        return $buttons;
+    }
+
 }

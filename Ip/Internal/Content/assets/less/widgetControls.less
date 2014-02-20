@@ -6,7 +6,7 @@
 
     ._container {
         margin-top: -(@admin-widgetControls-height / 2);
-        min-height: @admin-widgetControls-height;
+        height: (@admin-widgetControls-height / 2); // forcing height to keep content clear from controls (required for inline text); losing 1/4 of corner buttons for hover
         position: absolute; // removes container out of flow
         width: 100%; // stretches to the edges of container
 
