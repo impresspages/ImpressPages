@@ -24,8 +24,13 @@ class Event
         }
     }
 
+    /*
+     * Loading in Preview mode
+     */
     protected static function initConfig()
     {
+        ipAddCss('Ip/Internal/Ip/assets/admin/admin.css');
+        ipAddJs('Ip/Internal/Ip/assets/admin/bootstrap.js');
         ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
         ipAddJsVariable('ipModuleDesignConfiguration', static::getConfigurationBoxHtml());
