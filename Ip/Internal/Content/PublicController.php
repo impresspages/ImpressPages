@@ -46,7 +46,7 @@ class PublicController extends \Ip\Controller
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
         if ($revision) {
-            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], ipIsManagementState());
+            return \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], 0, ipIsManagementState());
         } else {
             return '';
         }

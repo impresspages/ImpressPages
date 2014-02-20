@@ -131,7 +131,7 @@ class Filter
                 'hint' => __('Page settings', 'ipAdmin', false),
                 'class' => 'ipsAdminPageSettings',
                 'faIcon' => 'fa-gear',
-                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getId() . '&zone=' . ipContent()->getCurrentZone()->getName() . '&page=' . ipContent()->getCurrentPage()->getId()
+                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getCode() . '&menu=' . ipContent()->getCurrentZone()->getName() . '&page=' . ipContent()->getCurrentPage()->getId()
             );
         }
 

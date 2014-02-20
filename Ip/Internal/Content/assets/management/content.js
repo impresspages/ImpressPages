@@ -121,7 +121,7 @@ var ipContent;
                 var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                 var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
                 var firstWidgetPosition = $firstWidget.index();
-                    ipContent.createWidget(revisionId, blockName, widgetName, firstWidgetPosition + 1, function (instanceId) {
+                    ipContent.createWidget(blockName, widgetName, firstWidgetPosition + 1, function (instanceId) {
                         if (callback) {
                             callback(instanceId);
                         }
@@ -162,11 +162,11 @@ var ipContent;
             }
             var splitData = widgetController.splitData($widget.data('widgetdata'), position);
             this.deleteWidget(widgetInstanceId, function() {
-                context.createWidget(ip.revisionId, blockName, widgetName, widgetPosition, function (firstWidgetInstanceId) {
+                context.createWidget(blockName, widgetName, widgetPosition, function (firstWidgetInstanceId) {
                     var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                     $firstWidget.ipWidget('save', splitData[0], true);
 
-                    context.createWidget(ip.revisionId, blockName, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
+                    context.createWidget(blockName, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
                         var $secondWidget = $('#ipWidget-' + secondWidgetInstanceId);
                         $secondWidget.ipWidget('save', splitData[1], true);
                         if (callback) {
@@ -182,7 +182,7 @@ var ipContent;
         this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
             var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
-                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
                     var $block = $('#ipBlock-' + newWidgetBlockName);
                     $block.find('.ipbExampleContent').remove();
                     if (callback) {
@@ -223,7 +223,7 @@ var ipContent;
             var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
-                ipContent.createWidget(revisionId, newWidgetBlockName, widgetName, 0, function (instanceId) {
+                ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
                     var $block = $('#ipBlock-' + newWidgetBlockName);
                     $block.find('.ipbExampleContent').remove();
                     if (callback) {
@@ -300,7 +300,7 @@ var ipContent;
 
             } else {
                 //create columns widget above target widget
-                ipContent.createWidget(revisionId, targetBlockName, 'Columns', targetPosition, function (instanceId) {
+                ipContent.createWidget(targetBlockName, 'Columns', targetPosition, function (instanceId) {
                     var columnWidgetInstanceId = instanceId;
                     var $columnWidget = $('#ipWidget-' + columnWidgetInstanceId);
                     if (leftOrRight == 'left') {
@@ -374,14 +374,17 @@ var ipContent;
         }
 
 
-        this.createWidget = function(revisionId, block, widgetName, position, callback) {
+        this.createWidget = function(block, widgetName, position, callback) {
             var data = {};
             data.aa = 'Content.createWidget';
             data.securityToken = ip.securityToken;
             data.widgetName = widgetName;
             data.position = position;
             data.block = block;
-            data.revisionId = revisionId;
+
+            var $block = $('#ipBlock-' + block);
+            data.revisionId = $block.data('revisionid');
+            data.languageId = $block.data('languageid');
 
 
             $.ajax({

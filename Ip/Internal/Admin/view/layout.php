@@ -14,13 +14,20 @@
 
     <?php echo ipHead(); ?>
 </head>
-<body class="ip ipAdminBody <?php echo !empty($submenu) ? 'ipAdminSubmenu' : '' ?>">
+<body class="ip ipAdminBody">
     <?php if (!empty($submenu)) { ?>
-        <div style="float: left; width: 300px;" class="list-group">
-            <?php echo ipSlot('menu', $submenu) ?>
+        <div class="ipAdminSubmenu">
+            <?php echo ipSlot('menu', $submenu); ?>
+        </div>
+        <div class="ipAdminSubmenuContent clearfix">
+    <?php } ?>
+
+    <?php echo ipBlock('main'); ?>
+
+    <?php if (!empty($submenu)) { ?>
         </div>
     <?php } ?>
-    <?php echo ipBlock('main'); ?>
+
     <?php echo ipJs(); ?>
 </body>
 </html>
