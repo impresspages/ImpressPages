@@ -218,7 +218,7 @@ class Db {
             'description',
             'url',
             'createdAt',
-            'lastModified',
+            'updatedAt',
             'type',
             'visible'
         );
@@ -230,11 +230,11 @@ class Db {
         }
 
         if (empty($row['createdAt'])) {
-            $row['createdAt'] = date('Y-m-d');
+            $row['createdAt'] = date('Y-m-d H:i:s');
         }
 
-        if (empty($row['lastModified'])) {
-            $row['lastModified'] = date('Y-m-d');
+        if (empty($row['updatedAt'])) {
+            $row['updatedAt'] = date('Y-m-d H:i:s');
         }
 
 

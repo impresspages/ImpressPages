@@ -66,8 +66,8 @@ class Service
         if (!isset($data['createdAt'])) {
             $data['createdAt'] = date("Y-m-d H:i:s");
         }
-        if (!isset($data['lastModified'])) {
-            $data['lastModified'] = date("Y-m-d H:i:s");
+        if (!isset($data['updatedAt'])) {
+            $data['updatedAt'] = date("Y-m-d H:i:s");
         }
         if (!isset($data['visible'])) {
             $data['visible'] = !ipGetOption('Pages.hideNewPages');
