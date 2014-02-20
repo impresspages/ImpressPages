@@ -36,12 +36,26 @@
 
                 }
 
-                $this.find(' > .ip > .ipsWidgetControls .ipsWidgetDelete').on('click', function(e) {
+                var $widgetControls = $this.find(' > .ip > .ipsWidgetControls');
+
+                // binding delete action
+                $widgetControls.find('.ipsWidgetDelete').on('click', function(e) {
                     e.preventDefault();
                     ipContent.deleteWidget($this.data('widgetinstanceid'));
                 });
 
-                $this.find('.ipsSkin').on('click', $.proxy(openLayoutModal, this));
+                // binding z-index fix for open dropdown
+                $widgetControls.find('.ipsContainer')
+                    .on('shown.bs.dropdown', function () {
+                        // increase z-index on .ipsWidgetControls
+                        $widgetControls.css('z-index', ($widgetControls.zIndex() + 1));
+                    })
+                    .on('hidden.bs.dropdown', function () {
+                        $widgetControls.css('z-index', '');
+                    });
+
+                // binding skin change action
+                $widgetControls.find('.ipsSkin').on('click', $.proxy(openLayoutModal, this));
 
             });
         },
