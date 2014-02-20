@@ -327,11 +327,11 @@ class Model
     public static function getWidgetFullRecord($instanceId)
     {
         $sql = '
-            SELECT * FROM
+            SELECT *, i.id as instanceId FROM
                 ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.`instanceId` = ? AND
+                i.`id` = ? AND
                 i.widgetId = w.id
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
