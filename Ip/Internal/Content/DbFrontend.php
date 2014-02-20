@@ -12,14 +12,14 @@ class DbFrontend
 {
 
 
-    public static function getPageByUrl($url, $parent)
+    public static function getPageByUrl($url, $parentId)
     {
-        return ipDb()->selectRow('page', '*', array('url' => $url, 'parent' => $parent));
+        return ipDb()->selectRow('page', '*', array('url' => $url, 'parentId' => $parentId));
     }
 
-    public static function getFirstPage($parent)
+    public static function getFirstPage($parentId)
     {
-        return ipDb()->selectRow('page', '*', array('visible' => 1, 'parent' => $parent), 'ORDER BY `row_number`');
+        return ipDb()->selectRow('page', '*', array('isVisible' => 1, 'parentId' => $parentId), 'ORDER BY `pageOrder`');
     }
 
     public static function getRootPageId($zoneName, $language)
@@ -61,10 +61,10 @@ class DbFrontend
         $sql = 'SELECT * FROM ' . ipTable('page') . ' WHERE `parent` = :parentId';
 
         if (!$includeHidden) {
-            $sql .= ' AND `visible` = 1';
+            $sql .= ' AND `isVisible` = 1';
         }
 
-        $sql .= ' ORDER BY `row_number` ' . $order;
+        $sql .= ' ORDER BY `pageOrder` ' . $order;
 
         if ($limit !== null) {
             $sql .= ' LIMIT ' . (int)$startFrom . ', ' . (int)$limit;

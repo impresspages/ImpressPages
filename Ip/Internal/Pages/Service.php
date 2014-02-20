@@ -69,8 +69,8 @@ class Service
         if (!isset($data['updatedAt'])) {
             $data['updatedAt'] = date("Y-m-d H:i:s");
         }
-        if (!isset($data['visible'])) {
-            $data['visible'] = !ipGetOption('Pages.hideNewPages');
+        if (!isset($data['isVisible'])) {
+            $data['isVisible'] = !ipGetOption('Pages.hideNewPages');
         }
 
         if (!isset($data['languageCode'])) {

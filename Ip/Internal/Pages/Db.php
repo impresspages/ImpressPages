@@ -115,13 +115,8 @@ class Db {
      */
     protected static function createRootZoneElement($zoneId, $languageId)
     {
-        $pageId = ipDb()->insert('page', array('visible' => 1));
+        $pageId = ipDb()->insert('page', array('isVisible' => 1));
 
-        ipDb()->insert('zone_to_page', array(
-                'language_id' => $languageId,
-                'zone_id' => $zoneId,
-                'element_id' => $pageId,
-            ));
         return $pageId;
     }
 
@@ -220,7 +215,7 @@ class Db {
             'createdAt',
             'updatedAt',
             'type',
-            'visible'
+            'isVisible'
         );
 
         foreach ($fields as $column) {

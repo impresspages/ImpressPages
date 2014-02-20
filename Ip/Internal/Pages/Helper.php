@@ -163,7 +163,7 @@ class Helper
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
-                'name' => 'visible',
+                'name' => 'isVisible',
                 'label' => __('Visible', 'ipAdmin', false),
                 'value' => 1,
                 'value' => $page->isVisible()
@@ -227,7 +227,7 @@ class Helper
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
-                'name' => 'visible',
+                'name' => 'isVisible',
                 'label' => __('Visible', 'ipAdmin', false),
                 'value' => ipGetOption('Pages.hideNewPages', 1)
             ));

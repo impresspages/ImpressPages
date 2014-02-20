@@ -141,14 +141,13 @@ class Model
             'name' => $widgetName,
             'layout' => $layout,
             'data' => $data,
-            'created' => time(),
-            'recreated' => time(),
+            'createdAt' => time(),
+            'updatedAt' => time(),
             'instanceId' => null,
             'revisionId' => null,
             'position' => null,
             'blockName' => null,
-            'visible' => 1,
-            'deleted' => null
+            'isVisible' => 1,
         );
         return self::_generateWidgetPreview($widgetRecord, false);
 
@@ -218,12 +217,17 @@ class Model
     public static function getBlockWidgetRecords($blockName, $revisionId)
     {
         $sql = '
-            SELECT *
+            SELECT i.*,
+                w.id AS `widgetId`,
+                w.name AS `name`,
+                w.layout AS `layout`,
+                w.data AS `data`,
+                w.updatedAt AS `updatedAt`
             FROM
-                ' . ipTable('widget_instance', 'i') . ',
+                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.deleted is NULL AND
+                i.isDeleted = 0 AND
                 i.widgetId = w.id AND
                 i.blockName = :blockName AND
                 i.revisionId = :revisionId
@@ -250,7 +254,7 @@ class Model
                 ' . ipTable('widget_instance', 'i') . '
             WHERE
                 i.revisionId = ? AND
-                i.deleted IS NULL
+                i.isDeleted = 0
             ORDER BY `position` ASC
         ';
 
@@ -373,8 +377,8 @@ class Model
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
                 'layout' => $layout,
-                'created' => time(),
-                'recreated' => time(),
+                'createdAt' => time(),
+                'updatedAt' => time(),
                 'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
             ));
     }

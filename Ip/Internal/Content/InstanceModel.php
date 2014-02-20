@@ -14,12 +14,12 @@ class InstanceModel
 
     public static function getInstance($instanceId)
     {
-        return ipDb()->selectRow('widget_instance', '*', array('instanceId' => $instanceId));
+        return ipDb()->selectRow('widgetInstance', '*', array('id' => $instanceId));
     }
 
     public static function updateInstance($instanceId, $data)
     {
-        return ipDb()->update('widget_instance', $data, array('instanceId' => $instanceId));
+        return ipDb()->update('widgetInstance', $data, array('id' => $instanceId));
     }
 
 
@@ -34,11 +34,12 @@ class InstanceModel
             'revisionId' => $revisionId,
             'blockName' => $blockName,
             'position' => $positionNumber,
-            'visible' => (int)$visible,
-            'created' => time(),
+            'isVisible' => (int)$visible,
+            'createdAt' => time(),
+            'isDeleted' => 0,
         );
 
-        return ipDb()->insert('widget_instance', $row);
+        return ipDb()->insert('widgetInstance', $row);
     }
 
     /**
@@ -55,7 +56,7 @@ class InstanceModel
         $widgets = array();
 
         foreach ($allWidgets as $widgetKey => $instance) {
-            if ($instanceId === null || $instance['instanaceId'] != $instanceId) {
+            if ($instanceId === null || $instance['id'] != $instanceId) {
                 $widgets[] = $instance;
             }
         }
@@ -83,7 +84,7 @@ class InstanceModel
      */
     public static function deleteInstance($instanceId)
     {
-        ipDb()->update('widget_instance', array('deleted' => time()), array('instanceId' => $instanceId));
+        ipDb()->update('widgetInstance', array('isDeleted' => 1, 'deletedAt' => time()), array('instanceId' => $instanceId));
         return true;
     }
 
@@ -98,15 +99,15 @@ class InstanceModel
     {
         $record = Model::getWidgetFullRecord($instanceId);
 
-        $table = ipTable('widget_instance');
+        $table = ipTable('widgetInstance');
         $sql = "
-            SELECT count(instanceId) as position
+            SELECT count(*) as position
             FROM $table
             WHERE
                 `revisionId` = :revisionId AND
                 `blockName` = :blockName AND
                 `position` < :position AND
-                `deleted` IS NULL
+                `isDeleted` = 0
         ";
 
         return ipDb()->fetchValue($sql, array(

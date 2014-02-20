@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `ip_cms_page` (
   `pageOrder` double NOT NULL DEFAULT '0',
   `parentId` int(11) DEFAULT NULL,
   `navigationTitle` varchar(255) DEFAULT NULL,
-  `visible` tinyint(1) NOT NULL DEFAULT '0',
+  `isVisible` tinyint(1) NOT NULL DEFAULT '0',
   `pageTitle` mediumtext,
   `keywords` mediumtext,
   `description` mediumtext,
@@ -127,24 +127,25 @@ CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
   `layout` varchar(25) NOT NULL,
   `data` text NOT NULL,
   `createdAt` int(11) NOT NULL,
-  `recreated` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
+  `updatedAt` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
 
-DROP TABLE IF EXISTS `ip_cms_widget_instance`;
+DROP TABLE IF EXISTS `ip_cms_widgetInstance`;
 
-CREATE TABLE IF NOT EXISTS `ip_cms_widget_instance` (
-  `instanceId` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `ip_cms_widgetInstance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `revisionId` int(11) NOT NULL,
   `widgetId` int(11) NOT NULL,
   `position` double NOT NULL,
   `blockName` varchar(25) NOT NULL,
-  `visible` tinyint(1) NOT NULL DEFAULT '1',
-  `created` int(11) NOT NULL COMMENT 'unix timestamp',
-  `deleted` int(11) DEFAULT NULL COMMENT 'unix timestamp',
-  PRIMARY KEY (`instanceId`)
+  `isVisible` tinyint(1) NOT NULL DEFAULT '1',
+  `createdAt` int(11) NOT NULL COMMENT 'unix timestamp',
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `deletedAt` int(11) DEFAULT NULL COMMENT 'unix timestamp',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
