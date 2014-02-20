@@ -121,6 +121,10 @@ var ipPages = null;
             $modal.find('input[name=title]').val('');
             $modal.modal();
 
+            $modal.on('shown.bs.modal', function () {
+                $modal.find('input[name=title]').focus();
+            });
+
 
             $modal.find('.ipsAdd').off('click').on('click', function () {
                 $modal.find('form').submit()
