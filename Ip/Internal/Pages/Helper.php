@@ -198,9 +198,9 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'lastModified',
+                'name' => 'updatedAt',
                 'label' => __('Update on', 'ipAdmin', false),
-                'value' => date('Y-m-d', strtotime($page->getLastModified()))
+                'value' => date('Y-m-d', strtotime($page->getUpdatedAt()))
             ));
         $form->addField($field);
 

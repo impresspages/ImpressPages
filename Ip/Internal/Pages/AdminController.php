@@ -96,8 +96,8 @@ class AdminController extends \Ip\Controller
             $answer['errors'][] = array('field' => 'createdAt', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
         }
 
-        if (strtotime($data['lastModified']) === false) {
-            $answer['errors'][] = array('field' => 'lastModified', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
+        if (strtotime($data['updatedAt']) === false) {
+            $answer['errors'][] = array('field' => 'updatedAt', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
         }
 
 //      TODOXX implement page type in Pages module #138

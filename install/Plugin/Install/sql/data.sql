@@ -1,4 +1,4 @@
-INSERT INTO `ip_cms_page` (`id`, `url`, `languageCode`, `slug`, `pageOrder`, `parentId`, `navigationTitle`, `visible`, `pageTitle`, `keywords`, `description`, `lastModified`, `createdAt`, `type`, `alias`) VALUES
+INSERT INTO `ip_cms_page` (`id`, `url`, `languageCode`, `slug`, `pageOrder`, `parentId`, `navigationTitle`, `visible`, `pageTitle`, `keywords`, `description`, `updatedAt`, `createdAt`, `type`, `alias`) VALUES
 (1,	NULL,	'en',	NULL,	0,	0,	'Menu1',	1,	'Menu1',	NULL,	NULL,	NULL,	'2014-02-07 17:13:11',	'default',	'menu1'),
 (3,	'',	'en',	'',	0,	0,	'Home',	1,	'Home',	NULL,	NULL,	'2014-02-07 00:00:00',	'2014-02-07 17:13:21',	'default',	'menu2'),
 (4,	NULL,	'en',	NULL,	0,	0,	'Menu3',	1,	'Menu3',	NULL,	NULL,	NULL,	'2014-02-07 17:13:25',	'default',	'menu3'),

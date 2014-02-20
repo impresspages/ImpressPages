@@ -39,7 +39,7 @@ class Page
     /** string - text version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
     protected $text;
     /** string - date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
-    protected $lastModified;
+    protected $updatedAt;
     /** string - page creation date in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
     protected $createdAt;
     /** integer - average amount of days between changes */
@@ -281,20 +281,20 @@ class Page
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function getLastModified()
+    public function getUpdatedAt()
     {
-        return $this->lastModified;
+        return $this->updatedAt;
     }
 
     /**
      * Set page modification date and time
      *
      * @ignore
-     * @param $lastModified string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
+     * @param $updatedAt string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
      */
-    public function setLastModified($lastModified)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->lastModified = $lastModified;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
