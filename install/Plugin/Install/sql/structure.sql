@@ -122,13 +122,13 @@ CREATE TABLE IF NOT EXISTS `ip_cms_repositoryReflection` (
 DROP TABLE IF EXISTS `ip_cms_widget`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_widget` (
-  `widgetId` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
   `layout` varchar(25) NOT NULL,
   `data` text NOT NULL,
-  `created` int(11) NOT NULL,
+  `createdAt` int(11) NOT NULL,
   `recreated` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
-  PRIMARY KEY (`widgetId`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
@@ -224,8 +224,8 @@ DROP TABLE IF EXISTS `ip_cms_revision`;
 CREATE TABLE IF NOT EXISTS `ip_cms_revision` (
   `revisionId` int(11) NOT NULL AUTO_INCREMENT,
   `pageId` int(11) NOT NULL DEFAULT '0',
-  `published` tinyint(1) NOT NULL DEFAULT '0',
-  `created` int(11) NOT NULL,
+  `isPublished` tinyint(1) NOT NULL DEFAULT '0',
+  `createdAt` int(11) NOT NULL,
   PRIMARY KEY (`revisionId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

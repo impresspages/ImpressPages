@@ -224,7 +224,7 @@ class Model
                 ' . ipTable('widget', 'w') . '
             WHERE
                 i.deleted is NULL AND
-                i.widgetId = w.widgetId AND
+                i.widgetId = w.id AND
                 i.blockName = :blockName AND
                 i.revisionId = :revisionId
             ORDER BY `position` ASC
@@ -300,7 +300,7 @@ class Model
 
     public static function getWidgetRecord($widgetId)
     {
-        $rs = ipDb()->selectAll('widget', '*', array('widgetId' => $widgetId));
+        $rs = ipDb()->selectAll('widget', '*', array('id' => $widgetId));
 
         if ($rs) {
             $rs[0]['data'] = json_decode($rs[0]['data'], true);
@@ -324,7 +324,7 @@ class Model
                 ' . ipTable('widget', 'w') . '
             WHERE
                 i.`instanceId` = ? AND
-                i.widgetId = w.widgetId
+                i.widgetId = w.id
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
         if (!$row) {
@@ -386,7 +386,7 @@ class Model
             $data['data'] = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data['data']));
         }
 
-        return ipDb()->update('widget', $data, array('widgetId' => $widgetId));
+        return ipDb()->update('widget', $data, array('id' => $widgetId));
     }
 
 
@@ -418,11 +418,11 @@ class Model
     public static function deleteUnusedWidgets()
     {
         $sql = "
-            SELECT w.widgetId
-            FROM " . ipTable('widget', 'w') . "
-            LEFT JOIN " . ipTable('widget_instance', 'i') . "
-            ON i.widgetId = w.widgetId
-            WHERE i.instanceId IS NULL
+            SELECT `widget`.id
+            FROM " . ipTable('widget') . "
+            LEFT JOIN " . ipTable('widget_instance') . "
+            ON widget_instance.widgetId = widget.id
+            WHERE widget_instance.instanceId IS NULL
         ";
 
         $db = ipDb();
@@ -448,7 +448,7 @@ class Model
             $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
 
-        ipDb()->delete('widget', array('widgetId' => $widgetId));
+        ipDb()->delete('widget', array('id' => $widgetId));
     }
 
 

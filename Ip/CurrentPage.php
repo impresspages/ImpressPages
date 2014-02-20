@@ -86,7 +86,7 @@ class CurrentPage
             if ($page) {
                 if ($revision === false || $revision['pageId'] != $page->getId()) {
                     $revision = \Ip\Internal\Revision::getLastRevision($page->getId());
-                    if ($revision['published']) {
+                    if ($revision['isPublished']) {
                         $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
                         $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
                     }
