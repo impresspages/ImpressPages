@@ -7524,7 +7524,6 @@ a.list-group-item.success:focus .list-group-item-text {
   background-color: #2f313f;
   -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
-  display: none;
   left: 10px;
   position: absolute;
   top: 0;
@@ -7711,22 +7710,6 @@ a.list-group-item.success:focus .list-group-item-text {
 
 
 
-.ipgLeft {
-    float: left;
-}
-.ipgRight {
-    float: right;
-}
-.ipgClear:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-.ipgHide {
-    display: none;
-}
 .ipgError {
     border: 1px solid #f00;
     color: black;
@@ -8290,7 +8273,7 @@ a.list-group-item.success:focus .list-group-item-text {
 }
 .ipAdminWidgetControls ._container {
   margin-top: -11px;
-  min-height: 22px;
+  height: 11px;
   position: absolute;
   width: 100%;
 }
@@ -8699,12 +8682,6 @@ a.list-group-item.success:focus .list-group-item-text {
   background-color: #fff;
   padding: 20px 40px 40px;
 }
-.stopScrolling {
-  /* todox: create one global style (implement from Bootstrap) */
-  height: 100%;
-  overflow: hidden;
-}
-/* Popup */
 .ipModuleRepositoryPopup {
   font-size: 10px;
   height: 100%;

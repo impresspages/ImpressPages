@@ -22,13 +22,13 @@
                             <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php _e('Buy images', 'ipAdmin') ?></a>
                         </div>
                     </div>
-                    <div class="ipUploadProgressItemSample ipgHide">
+                    <div class="ipUploadProgressItemSample hidden">
                         <div class="ipUploadProgressItem">
                             <div class="ipUploadProgressbar"></div>
                             <p class="ipUploadTitle"></p>
                         </div>
                     </div>
-                    <p class="ipmErrorSample ipgError ipgHide"></p>
+                    <p class="ipmErrorSample ipgError hidden"></p>
                 </div>
                 <div class="ipmBrowser">
                     <div class="ipmBrowserControls">
@@ -40,11 +40,11 @@
                         </div>
                     </div>
                     <div class="ipmBrowserContainer clearfix">
-                        <h2 class="ipgHide ipmListTitle ipmRecentTitle"><?php _e('Recent files', 'ipAdmin') ?></h2>
-                        <ul class="ipgHide ipmList clearfix ipmRecentList"></ul>
+                        <h2 class="hidden ipmListTitle ipmRecentTitle"><?php _e('Recent files', 'ipAdmin') ?></h2>
+                        <ul class="hidden ipmList clearfix ipmRecentList"></ul>
                     </div>
                 </div>
-                <div class="ipgHide ipmRepositoryActions">
+                <div class="hidden ipmRepositoryActions">
                     <div class="ipmInner">
                         <span class="ipmTitle"><?php _e('Selected:', 'ipAdmin') ?> <strong class="ipmSelectionCount"></strong></span>
                         <a class="ipAdminButton ipaConfirm ipsSelectionConfirm" href="#"><?php _e('Confirm', 'ipAdmin') ?></a>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <?php // hidden templates for dynamic elements ?>
-                <div class="ipgHide">
+                <div class="hidden">
                     <h2 class="ipmListTitleTemplate ipmListTitle"></h2>
                     <ul class="ipmListTemplate ipmList clearfix"></ul>
                     <ul>
@@ -67,7 +67,7 @@
             </div>
             <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy">
                 <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
-                <div class="ipgHide ipmLoading">
+                <div class="hidden ipmLoading">
                     <span class="ipmLoadingText">
                         <?php _e('Your images are being downloaded to your website. It may take some time to finish. Please wait.', 'ipAdmin') ?>
                     </span>

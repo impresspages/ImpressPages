@@ -71,7 +71,7 @@ var IpWidget_Title;
         };
 
         this.removeControls = function() {
-            this.$controls.addClass('hide');
+            this.$controls.addClass('hidden');
             this.$controls.find('.ipsH').off();
             this.$controls.find('.ipsOptions').off();
             $('body').off('click.ipWidgetTitle');
@@ -88,14 +88,14 @@ var IpWidget_Title;
 
         this.openOptions = function () {
             var $modal = $('#ipWidgetTitleOptions');
-            $modal.removeClass('hide');
+            $modal.removeClass('hidden');
             $modal.ipWidgetTitleModal({anchor: this.data.anchor, saveCallback: $.proxy(this.saveOptions, this)});
         };
 
         this.initControls = function () {
             var $controls = this.$controls;
             var $widgetObject = this.$widgetObject;
-            $controls.removeClass('hide');
+            $controls.removeClass('hidden');
             $controls.css('left', $widgetObject.offsetLeft);
             $controls.css('top', $widgetObject.offsetTop);
             $controls.css('position', 'absolute');

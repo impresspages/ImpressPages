@@ -15,7 +15,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="ipWidgetFormPopup-fields">
                             <div class="ipWidget_ipForm_container"></div>
-                            <div class="hide">
+                            <div class="hidden">
                                 <div class="ipsFieldTemplate">
                                     <a href="#" class="ipsFieldMove"><?php _e('Move', 'ipAdmin') ?></a>
                                     <input type="text" class="ipsFieldLabel" name="label" value="" />

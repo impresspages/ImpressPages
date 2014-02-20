@@ -1,5 +1,5 @@
 <div class="ip">
-    <div class="hide" id="ipWidgetImageMenu">
+    <div class="hidden" id="ipWidgetImageMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
                 <button class="btn btn-default ipsEdit" role="button"><i class="fa fa-edit"></i></button>

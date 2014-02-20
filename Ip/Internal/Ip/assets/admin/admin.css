@@ -163,22 +163,6 @@
 
 
 
-.ipgLeft {
-    float: left;
-}
-.ipgRight {
-    float: right;
-}
-.ipgClear:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-}
-.ipgHide {
-    display: none;
-}
 .ipgError {
     border: 1px solid #f00;
     color: black;
@@ -227,7 +211,6 @@
   /* Font selector */
   /* String management */
   /* Image management */
-  /* Popup */
   /* Tab Upload */
   /* Tab All */
   /* Tab Buy */
@@ -7876,7 +7859,6 @@
   background-color: #2f313f;
   -webkit-box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
-  display: none;
   left: 10px;
   position: absolute;
   top: 0;
@@ -8464,7 +8446,7 @@
 }
 .ip .ipAdminWidgetControls ._container {
   margin-top: -11px;
-  min-height: 22px;
+  height: 11px;
   position: absolute;
   width: 100%;
 }
@@ -8867,11 +8849,6 @@
 .ip .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
-}
-.ip .stopScrolling {
-  /* todox: create one global style (implement from Bootstrap) */
-  height: 100%;
-  overflow: hidden;
 }
 .ip .ipModuleRepositoryPopup {
   font-size: 10px;

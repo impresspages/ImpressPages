@@ -240,7 +240,7 @@ class Controller extends \Ip\WidgetController{
         $values = array(
             array('lightbox', __('Lightbox', 'ipAdmin', false)),
             array('link', __('URL', 'ipAdmin', false)),
-            array('nothing', __('Nothing', 'ipAdmin', false)),
+            array('none', __('None', 'ipAdmin', false)),
         );
         $field->setValues($values);
         $form->addfield($field);
