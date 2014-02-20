@@ -1,22 +1,37 @@
+var ipDesignOptionsOpen;
+var ipDesignOptionsClose;
+var ipDesignOptionsResize;
 
-var ipDesignOpenOptions = function (e) {
+(function ($) {
     "use strict";
-    e.preventDefault();
+    ipDesignOptionsOpen = function (e) {
+        e.preventDefault();
 
+        var bodyClassToHideScroll = 'modal-open';
 
-    $('body').addClass('ipgStopScrolling');
-    $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
-    $('.ipModuleDesign .ipsPreview').show();
-    $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignCloseOptions);
-};
+        $(document.body).addClass(bodyClassToHideScroll);
+        $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
+        $('.ipModuleDesign .ipsPreview').removeClass('hidden');
+        $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignOptionsClose);
+    };
 
-var ipDesignCloseOptions = function (e) {
-    "use strict";
-    e.preventDefault();
+    ipDesignOptionsClose = function (e) {
+        e.preventDefault();
 
-    $('body').removeClass('ipgStopScrolling');
-    $('.ipModuleDesign .ipsPreview').hide();
-    $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
-};
+        var bodyClassToHideScroll = 'modal-open';
 
+        $(document.body).removeClass(bodyClassToHideScroll);
+        $('.ipModuleDesign .ipsPreview').addClass('hidden');
+        $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
+    };
 
+    ipDesignOptionsResize = function(e) {
+        var $popup = $('.ipModuleDesign .ipsPreview');
+        var height = parseInt($(window).height());
+        height -= 40; // leaving place for navbar
+        $popup.height(height + 'px');
+    };
+
+    ipDesignOptionsResize();
+    $(window).bind('resize.ipDesignOptions', ipDesignOptionsResize);
+})(ip.jQuery);
