@@ -309,9 +309,8 @@ var ipContent;
                     newWidgetBlockName = $newWidgetBlock.data('ipBlock').name;
                     //move target widget to right / left column
                     ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, function (newInstanceId) {
-                        $('#ipWidget-' + newInstanceId).remove();
                         var staticBlock = $('.ipBlock-existingWidgetBlockName').data('revisionId') == 0;
-                        $columnWidget.ipWidget('save', {static: staticBlock}, 1, function($widget) {
+                        $columnWidget.ipWidget('save', {}, 1, function($widget) {
                             $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
                             if (callback) {
                                 callback(newWidgetBlockName);
