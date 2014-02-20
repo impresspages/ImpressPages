@@ -45,26 +45,26 @@ class Model{
     }
 
     
-    public static function bindFile($file, $module, $instanceId) {
+    public static function bindFile($file, $plugin, $instanceId) {
         $row = array(
             'filename' => $file,
-            'module' => $module,
+            'plugin' => $plugin,
             'instanceId' => $instanceId,
-            'date' => time()
+            'createdAt' => time()
         );
-        ipDb()->insert('repository_file', $row);
+        ipDb()->insert('repositoryFile', $row);
     }
 
-    public static function unbindFile($file, $module, $instanceId) {
+    public static function unbindFile($file, $plugin, $instanceId) {
         $condition = array(
             'fileName' => $file,
-            'module' => $module,
+            'plugin' => $plugin,
             'instanceId' => $instanceId
         );
 
-        $sql= 'DELETE FROM ' . ipTable('repository_file') . '
+        $sql= 'DELETE FROM ' . ipTable('repositoryFile') . '
                 WHERE filename = :fileName
-                AND module = :module
+                AND plugin = :plugin
                 AND instanceId = :instanceId
                 LIMIT 1'; // it is important to delete only one record
 
@@ -80,23 +80,23 @@ class Model{
     
     public static function whoUsesFile($file)
     {
-        return ipDb()->selectAll('repository_file', '*', array('fileName' => $file));
+        return ipDb()->selectAll('repositoryFile', '*', array('fileName' => $file));
     }
     
     /**
      * Find all files bind to particular module
      */
-    public function findFiles($module, $instanceId = null)
+    public function findFiles($plugin, $instanceId = null)
     {
         $where = array (
-            'module' => $module
+            'plugin' => $plugin
         );
 
         if ($instanceId !== null) {
             $where['instanceId'] = $instanceId;
         }
 
-        return ipDb()->selectAll('repository_file', '*', $where);
+        return ipDb()->selectAll('repositoryFile', '*', $where);
     }
     
     
