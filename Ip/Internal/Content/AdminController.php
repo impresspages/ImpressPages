@@ -28,7 +28,8 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
-            !isset($_POST['revisionId'])
+            !isset($_POST['revisionId'])||
+            !isset($_POST['languageId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
         }
@@ -36,7 +37,8 @@ class AdminController extends \Ip\Controller
         $instanceId = $_POST['instanceId'];
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
-        $revisionId = $_POST['revisionId'];
+        $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
+        $languageId = isset($_POST['languageId']) ? $_POST['languageId'] : 0;
 
 
         $record = Model::getWidgetFullRecord($instanceId);
@@ -50,6 +52,7 @@ class AdminController extends \Ip\Controller
         $newInstanceId = Service::addWidgetInstance(
             $record['widgetId'],
             $revisionId,
+            $languageId,
             $blockName,
             $position,
             $record['visible']
@@ -89,7 +92,8 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
             !isset($_POST['block']) ||
-            !isset($_POST['revisionId'])
+            !isset($_POST['revisionId'])||
+            !isset($_POST['languageId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
         }
@@ -97,12 +101,10 @@ class AdminController extends \Ip\Controller
         $widgetName = $_POST['widgetName'];
         $position = $_POST['position'];
         $blockName = $_POST['block'];
-        $revisionId = $_POST['revisionId'];
+        $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
+        $languageId = isset($_POST['languageId']) ? $_POST['languageId'] : 0;
 
-        if ($revisionId == '') {
-            //Static block;
-            $revisionId = null;
-        } else {
+        if ($revisionId) {
             //check revision consistency
             $revisionRecord = \Ip\Internal\Revision::getRevision($revisionId);
 
@@ -127,7 +129,7 @@ class AdminController extends \Ip\Controller
 
         try {
             $widgetId = Service::createWidget($widgetName);
-            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
+            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $languageId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);
