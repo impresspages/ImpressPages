@@ -46,7 +46,6 @@ INSERT INTO `ip_cms_module` (`id`, `group_id`, `row_number`, `name`, `admin`, `t
 (332, 324, 5, 'configuration', 0, 'Configuration', 1, '1.00', 1),
 (333, 324, 4, 'seo', 1, 'SEO', 1, '1.00', 1),
 (348, 323, 3, 'log', 1, 'Log', 1, '1.00', 1),
-(353, 323, 0, 'email_queue', 1, 'E-mail queue', 1, '1.00', 1),
 (356, 323, 0, 'search', 0, 'Search', 0, '1.00', 1),
 (358, 323, 0, 'sitemap', 1, 'Sitemap', 0, '1.00', 1),
 (361, 336, 8, 'config_exp_imp', 1, 'Modules exp/imp', 1, '1.00', 1),
