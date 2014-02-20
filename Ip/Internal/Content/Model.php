@@ -48,15 +48,17 @@ class Model
             $widgets[$key] = $widget;
         }
 
+        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+
         $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
-        foreach ($revisions as $revision) {
-            $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
+        foreach ($revisions as $value) {
+            $managementUrls[] = $currentPageLink . '?cms_revision=' . $value['revisionId'];
         }
 
-        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
@@ -68,7 +70,7 @@ class Model
             'widgets' => $widgets,
             'page' => $page,
             'revisions' => $revisions,
-            'currentRevision' => $revision,
+            'currentRevision' => $value,
             'managementUrls' => $managementUrls,
             'manageableRevision' => $manageableRevision
         );
