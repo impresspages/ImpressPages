@@ -22,7 +22,7 @@ class Helper
      */
     public static function createLanguage($data)
     {
-        $language = new \Ip\Language($data['id'], $data['code'], $data['url'], $data['d_long'], $data['d_short'], $data['visible'], $data['text_direction']);
+        $language = new \Ip\Language($data['id'], $data['code'], $data['url'], $data['title'], $data['abbreviation'], $data['isVisible'], $data['textDirection']);
         return $language;
     }
 

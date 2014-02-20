@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <dataset>
-    <table name="ip_repository_file">
+    <table name="ip_repositoryFile">
     </table>
-    <table name="ip_repository_reflection">
+    <table name="ip_repositoryReflection">
     </table>
 </dataset>
 

@@ -26,7 +26,7 @@ class Revision{
             SELECT * FROM $revisionTable
             WHERE
                 `pageId` = :pageId
-            ORDER BY `created` DESC, `revisionId` DESC
+            ORDER BY `createdAt` DESC, `revisionId` DESC
         ";
 
         $revision = ipDb()->fetchRow($sql, array('pageId' => $pageId));
@@ -47,8 +47,8 @@ class Revision{
             SELECT * FROM $revisionTable
             WHERE
                 `pageId` = ? AND
-                `published` = 1
-            ORDER BY `created` DESC, `revisionId` DESC
+                `isPublished` = 1
+            ORDER BY `createdAt` DESC, `revisionId` DESC
         ";
 
         $revision = ipDb()->fetchRow($sql, array($pageId));
@@ -63,7 +63,7 @@ class Revision{
 
     public static function getRevision($revisionId) {
 
-        return ipDb()->fetchRow("SELECT * FROM " . ipTable('revision') . " WHERE revisionId = :revisionId ", array('revisionId' => $revisionId));
+        return ipDb()->selectRow('revision', '*', array('revisionId' => $revisionId));
     }
 
 
@@ -73,8 +73,8 @@ class Revision{
 
         $revision = array(
             'pageId' => $pageId,
-            'published' => (int)$published,
-            'created' => time(),
+            'isPublished' => (int)$published,
+            'createdAt' => time(),
         );
 
         $revisionId = ipDb()->insert('revision', $revision);
@@ -93,7 +93,7 @@ class Revision{
 
         ipDb()->update('revision',
             array(
-                'published' => 0
+                'isPublished' => 0
             ),
             array(
                 'pageId' => (int)$revision['pageId'],
@@ -101,7 +101,7 @@ class Revision{
         );
         $wasUpdated = ipDb()->update('revision',
             array(
-                'published' => 1
+                'isPublished' => 1
             ),
             array(
                 'revisionId' => $revisionId
@@ -151,7 +151,7 @@ class Revision{
            'pageId' => $pageId,
         );
 
-        return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `created` DESC, `revisionId` DESC');
+        return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `createdAt` DESC, `revisionId` DESC');
     }
 
     /**
@@ -165,7 +165,7 @@ class Revision{
 
         $sql = "
             SELECT `revisionId` FROM $table
-            WHERE `created` < ? AND `published` = 0
+            WHERE `createdAt` < ? AND `published` = 0
         ";
 
         $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));

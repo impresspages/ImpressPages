@@ -163,7 +163,7 @@ class Helper
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
-                'name' => 'visible',
+                'name' => 'isVisible',
                 'label' => __('Visible', 'ipAdmin', false),
                 'value' => $page->isVisible()
             ));
@@ -189,17 +189,17 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'createdOn',
+                'name' => 'createdAt',
                 'label' => __('Created on', 'ipAdmin', false),
-                'value' => date('Y-m-d', strtotime($page->getCreatedOn()))
+                'value' => date('Y-m-d', strtotime($page->getCreatedAt()))
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'lastModified',
+                'name' => 'updatedAt',
                 'label' => __('Update on', 'ipAdmin', false),
-                'value' => date('Y-m-d', strtotime($page->getLastModified()))
+                'value' => date('Y-m-d', strtotime($page->getUpdatedAt()))
             ));
         $form->addField($field);
 
@@ -226,7 +226,7 @@ class Helper
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
-                'name' => 'visible',
+                'name' => 'isVisible',
                 'label' => __('Visible', 'ipAdmin', false),
                 'value' => !ipGetOption('Pages.hideNewPages', 0)
             ));

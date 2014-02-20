@@ -115,13 +115,8 @@ class Db {
      */
     protected static function createRootZoneElement($zoneId, $languageId)
     {
-        $pageId = ipDb()->insert('page', array('visible' => 1));
+        $pageId = ipDb()->insert('page', array('isVisible' => 1));
 
-        ipDb()->insert('zone_to_page', array(
-                'language_id' => $languageId,
-                'zone_id' => $zoneId,
-                'element_id' => $pageId,
-            ));
         return $pageId;
     }
 
@@ -217,10 +212,10 @@ class Db {
             'keywords',
             'description',
             'url',
-            'createdOn',
-            'lastModified',
+            'createdAt',
+            'updatedAt',
             'type',
-            'visible'
+            'isVisible'
         );
 
         foreach ($fields as $column) {
@@ -229,12 +224,12 @@ class Db {
             }
         }
 
-        if (empty($row['createdOn'])) {
-            $row['createdOn'] = date('Y-m-d');
+        if (empty($row['createdAt'])) {
+            $row['createdAt'] = date('Y-m-d H:i:s');
         }
 
-        if (empty($row['lastModified'])) {
-            $row['lastModified'] = date('Y-m-d');
+        if (empty($row['updatedAt'])) {
+            $row['updatedAt'] = date('Y-m-d H:i:s');
         }
 
 

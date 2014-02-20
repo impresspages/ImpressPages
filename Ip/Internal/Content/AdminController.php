@@ -55,7 +55,7 @@ class AdminController extends \Ip\Controller
             $languageId,
             $blockName,
             $position,
-            $record['visible']
+            $record['isVisible']
         );
 
 
@@ -182,11 +182,11 @@ class AdminController extends \Ip\Controller
 
         $widgetObject = Model::getWidgetObject($record['name']);
 
-        $newData = $widgetObject->update($record['widgetId'], $postData, $record['data']);
+        $newData = $widgetObject->update($record['id'], $postData, $record['data']);
         $updateData['data'] = $newData;
 
 
-        Model::updateWidget($record['widgetId'], $updateData);
+        Model::updateWidget($record['id'], $updateData);
 
         $data = array(
             'status' => 'success',
@@ -223,7 +223,7 @@ class AdminController extends \Ip\Controller
         $updateData['layout'] = $skin;
 
 
-        Model::updateWidget($record['widgetId'], $updateData);
+        Model::updateWidget($record['id'], $updateData);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
         $data = array(
@@ -282,7 +282,7 @@ class AdminController extends \Ip\Controller
 
         if ($publish) {
             $pageOptions = array();
-            $pageOptions['lastModified'] = date("Y-m-d");
+            $pageOptions['updatedAt'] = date("Y-m-d");
             \Ip\Internal\Pages\Model::updatePageProperties($revision['pageId'], $pageOptions);
             \Ip\Internal\Revision::publishRevision($revisionId);
         }

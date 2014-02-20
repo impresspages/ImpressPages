@@ -211,8 +211,8 @@ class Model
             $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
         }
 
-        if (!array_key_exists('visible', $data)) {
-            $data['visible'] = 1;
+        if (!array_key_exists('isVisible', $data)) {
+            $data['isVisible'] = (int)!ipGetOption('Pages.hideNewPages');
         }
 
         $menuId = ipDb()->insert('page', $data);
@@ -315,12 +315,12 @@ class Model
             $update['description'] = $properties['description'];
         }
 
-        if (isset($properties['createdOn']) && strtotime($properties['createdOn']) !== false) {
-            $update['createdOn'] = $properties['createdOn'];
+        if (isset($properties['createdAt']) && strtotime($properties['createdAt']) !== false) {
+            $update['createdAt'] = $properties['createdAt'];
         }
 
-        if (isset($properties['lastModified']) && strtotime($properties['lastModified']) !== false) {
-            $update['lastModified'] = $properties['lastModified'];
+        if (isset($properties['updatedAt']) && strtotime($properties['updatedAt']) !== false) {
+            $update['updatedAt'] = $properties['updatedAt'];
         }
 
         if (isset($properties['type'])) {
@@ -331,8 +331,8 @@ class Model
             $update['redirectUrl'] = $properties['redirectURL'];
         }
 
-        if (isset($properties['visible'])) {
-            $update['visible'] = $properties['visible'];
+        if (isset($properties['isVisible'])) {
+            $update['isVisible'] = $properties['isVisible'];
         }
 
         if (count($update) == 0) {

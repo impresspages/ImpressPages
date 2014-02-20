@@ -15,7 +15,7 @@ class Model
 
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
-        $widgets = self::getBlockWidgetRecords($blockName, $revisionId, $languageId);
+        $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
 
         $widgetsHtml = array();
         foreach ($widgets as $widget) {
@@ -111,7 +111,13 @@ class Model
 
     private static function _getPriorities()
     {
-        return ipDb()->selectAll('m_developer_widget_sort', '*', array(), 'ORDER BY `priority` ASC');
+        $list = ipDb()->selectAll('widgetOrder', '*', array(), 'ORDER BY `priority` ASC');
+        $result = array();
+        foreach ($list as $widgetOrder) {
+            $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
+        }
+
+        return $result;
     }
 
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null)
@@ -136,14 +142,13 @@ class Model
             'name' => $widgetName,
             'layout' => $layout,
             'data' => $data,
-            'created' => time(),
-            'recreated' => time(),
+            'createdAt' => time(),
+            'updatedAt' => time(),
             'instanceId' => null,
             'revisionId' => null,
             'position' => null,
             'blockName' => null,
-            'visible' => 1,
-            'deleted' => null
+            'isVisible' => 1,
         );
         return self::_generateWidgetPreview($widgetRecord, false);
 
@@ -210,26 +215,30 @@ class Model
     }
 
 
-    public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
+    public static function getBlockWidgetRecords($blockName, $revisionId)
     {
         $sql = '
-            SELECT *
+            SELECT i.*,
+                i.id AS `instanceId`,
+                w.id AS `widgetId`,
+                w.name AS `name`,
+                w.layout AS `layout`,
+                w.data AS `data`,
+                w.updatedAt AS `updatedAt`
             FROM
-                ' . ipTable('widget_instance', 'i') . ',
+                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.deleted is NULL AND
-                i.widgetId = w.widgetId AND
+                i.isDeleted = 0 AND
+                i.widgetId = w.id AND
                 i.blockName = :blockName AND
-                i.revisionId = :revisionId AND
-                i.languageId = :languageId
+                i.revisionId = :revisionId
             ORDER BY `position` ASC
         ';
 
         $list = ipDb()->fetchAll($sql, array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
-                'languageId' => $languageId,
             ));
 
         foreach ($list as &$item) {
@@ -244,10 +253,10 @@ class Model
         $sql = '
             SELECT *
             FROM
-                ' . ipTable('widget_instance', 'i') . '
+                ' . ipTable('widgetInstance', 'i') . '
             WHERE
                 i.revisionId = ? AND
-                i.deleted IS NULL
+                i.isDeleted = 0
             ORDER BY `position` ASC
         ';
 
@@ -258,7 +267,7 @@ class Model
             unset($instance['instanceId']);
             $instance['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widget_instance', $instance);
+            ipDb()->insert('widgetInstance', $instance);
         }
 
     }
@@ -297,7 +306,7 @@ class Model
 
     public static function getWidgetRecord($widgetId)
     {
-        $rs = ipDb()->selectAll('widget', '*', array('widgetId' => $widgetId));
+        $rs = ipDb()->selectAll('widget', '*', array('id' => $widgetId));
 
         if ($rs) {
             $rs[0]['data'] = json_decode($rs[0]['data'], true);
@@ -309,7 +318,7 @@ class Model
 
     /**
      *
-     * getWidgetFullRecord differ from getWidgetRecord by including the information from widget_instance table.
+     * getWidgetFullRecord differ from getWidgetRecord by including the information from widgetInstance table.
      * @param int $instanceId
      * @throws Exception
      */
@@ -317,11 +326,11 @@ class Model
     {
         $sql = '
             SELECT * FROM
-                ' . ipTable('widget_instance', 'i') . ',
+                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
                 i.`instanceId` = ? AND
-                i.widgetId = w.widgetId
+                i.widgetId = w.id
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
         if (!$row) {
@@ -370,8 +379,8 @@ class Model
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
                 'layout' => $layout,
-                'created' => time(),
-                'recreated' => time(),
+                'createdAt' => time(),
+                'updatedAt' => time(),
                 'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
             ));
     }
@@ -383,7 +392,7 @@ class Model
             $data['data'] = json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data['data']));
         }
 
-        return ipDb()->update('widget', $data, array('widgetId' => $widgetId));
+        return ipDb()->update('widget', $data, array('id' => $widgetId));
     }
 
 
@@ -391,7 +400,7 @@ class Model
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widget_instance', array('revisionId' => $revisionId));
+        ipDb()->delete('widgetInstance', array('revisionId' => $revisionId));
         ipdb()->delete('revision', array('revisionId' => $revisionId));
     }
 
@@ -415,11 +424,11 @@ class Model
     public static function deleteUnusedWidgets()
     {
         $sql = "
-            SELECT w.widgetId
-            FROM " . ipTable('widget', 'w') . "
-            LEFT JOIN " . ipTable('widget_instance', 'i') . "
-            ON i.widgetId = w.widgetId
-            WHERE i.instanceId IS NULL
+            SELECT `widget`.id
+            FROM " . ipTable('widget') . "
+            LEFT JOIN " . ipTable('widgetInstance') . "
+            ON widgetInstance.widgetId = widget.id
+            WHERE widgetInstance.id IS NULL
         ";
 
         $db = ipDb();
@@ -445,7 +454,7 @@ class Model
             $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
 
-        ipDb()->delete('widget', array('widgetId' => $widgetId));
+        ipDb()->delete('widget', array('id' => $widgetId));
     }
 
 
