@@ -68,23 +68,6 @@ CREATE TABLE IF NOT EXISTS `ip_cms_log` (
 
 
 
-DROP TABLE IF EXISTS `ip_cms_module`;
-
-CREATE TABLE IF NOT EXISTS `ip_cms_module` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL DEFAULT '0',
-  `row_number` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `translation` varchar(255) NOT NULL,
-  `managed` tinyint(1) NOT NULL DEFAULT '1',
-  `version` decimal(10,2) NOT NULL,
-  `core` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
-
-
-
 DROP TABLE IF EXISTS `ip_cms_emailQueue`;
 
 CREATE TABLE IF NOT EXISTS `ip_cms_emailQueue` (
