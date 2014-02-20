@@ -173,11 +173,11 @@ class AdminController extends \Ip\Controller
 
         $widgetObject = Model::getWidgetObject($record['name']);
 
-        $newData = $widgetObject->update($record['widgetId'], $postData, $record['data']);
+        $newData = $widgetObject->update($record['id'], $postData, $record['data']);
         $updateData['data'] = $newData;
 
 
-        Model::updateWidget($record['widgetId'], $updateData);
+        Model::updateWidget($record['id'], $updateData);
 
         $data = array(
             'status' => 'success',
@@ -214,7 +214,7 @@ class AdminController extends \Ip\Controller
         $updateData['layout'] = $skin;
 
 
-        Model::updateWidget($record['widgetId'], $updateData);
+        Model::updateWidget($record['id'], $updateData);
         $previewHtml = Model::generateWidgetPreview($instanceId, true);
 
         $data = array(
