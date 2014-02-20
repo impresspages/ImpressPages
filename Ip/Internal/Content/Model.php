@@ -429,7 +429,7 @@ class Model
             FROM " . ipTable('widget') . "
             LEFT JOIN " . ipTable('widgetInstance') . "
             ON widgetInstance.widgetId = widget.id
-            WHERE widgetInstance.instanceId IS NULL
+            WHERE widgetInstance.id IS NULL
         ";
 
         $db = ipDb();
