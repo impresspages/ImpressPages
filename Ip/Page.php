@@ -46,7 +46,7 @@ class Page
     protected $modifyFrequency;
     /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
     protected $priority;
-    /** int - id of parent Element or null. Parents can be only elements from the same zone*/
+    /** int - id of parent Element or null.*/
     protected $parentId;
     /** string - url (including http://) to this page. */
     protected $link;
