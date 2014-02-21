@@ -7,10 +7,10 @@
 
 $css = array();
 if($menuItem->isCurrent()) {
-    $css[] = 'active';
+    $css[] = 'current';
     $selected = true;
 } elseif ($menuItem->isInCurrentBreadcrumb()) {
-    $css[] = 'selected';
+    $css[] = 'inBreadcrumb';
     $selected = true;
 }
 
