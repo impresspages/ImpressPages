@@ -268,7 +268,7 @@ class Model
 
         foreach ($instances as $instance) {
 
-            unset($instance['instanceId']);
+            unset($instance['id']);
             $instance['revisionId'] = $newRevisionId;
 
             ipDb()->insert('widgetInstance', $instance);
