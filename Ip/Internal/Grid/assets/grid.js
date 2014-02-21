@@ -350,7 +350,7 @@
         var $grid = this;
         var form = $grid.find('.ipsSearchModal .ipsBody form');
         var data = $grid.data('gateway');
-        var $modal = $grid.find('.ipsCreateModal');
+        var $modal = $grid.find('.ipsSearchModal');
         data.hash = null;
 
         $modal.modal('hide');
