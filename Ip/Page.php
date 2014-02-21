@@ -8,7 +8,7 @@ namespace Ip;
 
 class Page
 {
-    /** int - unique number of element in that zone. */
+    /** int - unique number of element. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
     protected $navigationTitle;
