@@ -201,11 +201,10 @@ class Content
      */
     public function getBreadcrumb($pageId = null)
     {
-        $pages = array();
         if ($pageId !== null) {
             $page = new \Ip\Page($pageId);
         } else {
-            $page = ipCurrentPage()->getPage();
+            $page = ipContent()->getCurrentPage();
         }
 
         if ($page) {

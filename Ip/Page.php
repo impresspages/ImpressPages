@@ -53,7 +53,7 @@ class Page
     /** bool - true if this element is currently active page */
     protected $current;
     /** bool - true if this element is part of current breadcrumb */
-    protected $selected;
+    protected $inBreadcrumb;
     /** int - depth of the element (starts at 1) */
     protected $depth;
     /** string - element type<br />
@@ -417,7 +417,7 @@ class Page
      */
     public function isCurrent()
     {
-        return $this->current;
+        return $this->getId() == ipContent()->getCurrentPage()->getId();
     }
 
     /**
@@ -438,7 +438,15 @@ class Page
      */
     public function isInCurrentBreadcrumb()
     {
-        return $this->selected;
+        if ($this->inBreadcrumb === null) {
+            $breadcrumb = ipContent()->getBreadcrumb();
+            $ids = array();
+            foreach($breadcrumb as $page) {
+                $ids[] = $page->getId();
+            }
+            $this->inBreadcrumb = in_array($this->getId(), $ids);
+        }
+        return $this->inBreadcrumb;
     }
 
     /**
@@ -446,9 +454,9 @@ class Page
      * @ignore
      * @param $selected bool
      */
-    public function markAsInCurrentBreadcrumb($selected)
+    public function markAsInCurrentBreadcrumb($inBreadcrumb)
     {
-        $this->selected = $selected;
+        $this->inBreadcrumb = $inBreadcrumb;
     }
 
     /**
