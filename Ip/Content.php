@@ -90,6 +90,17 @@ class Content
 
     }
 
+    public function getPage($pageId)
+    {
+        try {
+            $page = new \Ip\Page($pageId);
+        } catch (\Ip\Exception $e) {
+            return FALSE;
+        }
+        return $page;
+
+    }
+
     /**
      * Get current page object
      *
