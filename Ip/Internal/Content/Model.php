@@ -350,19 +350,7 @@ class Model
         return ipDb()->selectAll('revision', '*', array('pageId' => $pageId));
     }
 
-    public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
-    {
-        return ipDb()->update(
-            'revision',
-            array(
-                'zoneName' => $newZoneName,
-            ),
-            array(
-                'pageId' => $pageId,
-                'zoneName' => $oldZoneName,
-            )
-        );
-    }
+
 
 
 

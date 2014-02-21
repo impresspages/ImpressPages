@@ -99,13 +99,6 @@ class Event
         Model::removePageRevisions($info['pageId']);
     }
 
-    public static function ipPageMoved($info)
-    {
-        //TODOXX THIS EVENT IS NEVER THROWN #150
-        if ($info['newZoneName'] != $info['oldZoneName']) {
-            //move revisions from one zone to another
-            Model::updatePageRevisionsZone($info['pageId'], $info['oldZoneName'], $info['newZoneName']);
-        }
-    }
+
 
 }
