@@ -14,21 +14,21 @@ class AdminController extends \Ip\GridController
         return array(
             'type' => 'table',
             'table' => 'log',
-            'allowInsert' => false,
-            'allowUpdate' => false,
-            'allowDelete' => false,
+            'allowCreate' => FALSE,
+            'allowUpdate' => FALSE,
+            'allowDelete' => FALSE,
             'fields' => array(
                 array(
-                    'label' => __('Time', 'ipAdmin', false),
+                    'label' => __('Time', 'ipAdmin', FALSE),
                     'field' => 'time'
                 ),
                 array(
-                    'label' => __('Message', 'ipAdmin', false),
+                    'label' => __('Message', 'ipAdmin', FALSE),
                     'field' => 'message',
                     'filter' => __CLASS__ . '::filterMessage'
                 ),
                 array(
-                    'label' => __('Context', 'ipAdmin', false),
+                    'label' => __('Context', 'ipAdmin', FALSE),
                     'field' => 'context',
                     'filter' => __CLASS__ . '::filterContext'
                 )
@@ -38,7 +38,7 @@ class AdminController extends \Ip\GridController
 
     public static function filterMessage($value, $recordData)
     {
-        $context = json_decode($recordData['context'], true);
+        $context = json_decode($recordData['context'], TRUE);
 
         $replace = array();
         foreach ($context as $key => $val) {
@@ -52,7 +52,7 @@ class AdminController extends \Ip\GridController
 
     public static function filterContext($value, $recordData)
     {
-        $context = json_decode($recordData['context'], true);
+        $context = json_decode($recordData['context'], TRUE);
 
         unset($context['exception']);
 
@@ -61,7 +61,7 @@ class AdminController extends \Ip\GridController
             var_dump($context);
             return ob_get_clean();
         } else {
-            return var_export($context, true);
+            return var_export($context, TRUE);
         }
     }
 }
