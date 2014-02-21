@@ -6,7 +6,7 @@ class Worker extends \Ip\SetupWorker{
 
     public function activate()
     {
-        $table = ipTable('grid_test');
+        $table = ipTable('person');
         ipDb()->execute("
 CREATE TABLE IF NOT EXISTS $table (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -23,10 +23,14 @@ CREATE TABLE IF NOT EXISTS $table (
 
     public function deactivate()
     {
-        $table = ipTable('grid_test');
-        ipDb()->execute("
-DROP TABLE $table;
-        ");
+        $table = ipTable('person');
+        try {
+            ipDb()->execute("
+              DROP TABLE $table;
+            ");
+        } catch (\Exception $e) {
+            //ignore
+        }
     }
 
     public function remove()
