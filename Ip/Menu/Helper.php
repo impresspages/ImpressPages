@@ -140,16 +140,12 @@ class Helper
     {
         $content = \Ip\ServiceLocator::content();
         $breadcrumb = $content->getBreadcrumb();
-        array_pop($breadcrumb);
-        foreach ($breadcrumb as $key => $element) {
+        foreach ($breadcrumb as $element) {
             if ($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
                 return true;
             }
         }
 
-        if ($link == \Ip\Internal\Deprecated\Url::generate(null, $content->getCurrentZone()->getName())) {
-            return true;
-        }
         return false;
     }
 
