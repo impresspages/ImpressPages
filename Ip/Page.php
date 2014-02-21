@@ -72,7 +72,7 @@ class Page
     /** string - zone name of element */
     protected $zoneName;
     /** bool */
-    protected $visible;
+    protected $isVisible;
 
     /** Element - next sibling element */
     protected $nextElement;
@@ -542,7 +542,7 @@ class Page
      */
     public function isVisible()
     {
-        return $this->visible;
+        return $this->isVisible;
     }
 
     /**
@@ -551,9 +551,9 @@ class Page
      * @ignore
      * @param $visible bool
      */
-    public function setVisible($visible)
+    public function setIsVisible($visible)
     {
-        $this->visible = $visible;
+        $this->isVisible = $visible;
     }
 
     public static function createList($list)
