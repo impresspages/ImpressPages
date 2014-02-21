@@ -166,7 +166,8 @@ var ipPages = null;
                         $modal.find('.ipsDelete').addClass('hidden');
                         $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
-                            deleteZone(zone.name);
+                            deletePage(menu.id);
+                            window.location = ip.baseUrl + '?aa=Pages.index';
                         });
                     });
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
@@ -502,30 +503,30 @@ var ipPages = null;
                 dataType: 'json'
             });
         }
-
-        var deleteZone = function (zoneName) {
-            var data = {
-                aa: 'Pages.deleteZone',
-                zoneName: zoneName,
-                securityToken: ip.securityToken
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: ip.baseUrl,
-                data: data,
-                context: this,
-                success: function (response) {
-                    window.location = ip.baseUrl + '?aa=Pages.index';
-                },
-                error: function (response) {
-                    if (ip.developmentEnvironment || ip.debugMode) {
-                        alert('Server response: ' + response.responseText);
-                    }
-                },
-                dataType: 'json'
-            });
-        }
+//
+//        var deleteMenu = function (menuAlias) {
+//            var data = {
+//                aa: 'Pages.deleteMenu',
+//                menu: menuAlias,
+//                securityToken: ip.securityToken
+//            };
+//
+//            $.ajax({
+//                type: 'POST',
+//                url: ip.baseUrl,
+//                data: data,
+//                context: this,
+//                success: function (response) {
+//                    window.location = ip.baseUrl + '?aa=Pages.index';
+//                },
+//                error: function (response) {
+//                    if (ip.developmentEnvironment || ip.debugMode) {
+//                        alert('Server response: ' + response.responseText);
+//                    }
+//                },
+//                dataType: 'json'
+//            });
+//        }
 
 
         var getHashParams = function () {
