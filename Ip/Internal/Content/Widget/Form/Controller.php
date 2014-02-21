@@ -151,8 +151,8 @@ class Controller extends \Ip\WidgetController{
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
-            if (isset($revision['zoneName']) && $revision['pageId']) {
-                $pageTitle = ipContent()->getZone($revision['zoneName'])->getPage($revision['pageId'])->getNavigationTitle();
+            if (!empty($revision['pageId'])) {
+                $pageTitle = ipContent()->getPage($revision['pageId'])->getNavigationTitle();
             }
         }
 
