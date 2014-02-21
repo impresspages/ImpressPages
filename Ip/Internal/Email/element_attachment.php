@@ -51,15 +51,15 @@ class element_attachment extends \Ip\Internal\StandardModule\Element{ //data ele
         $answer = '';
         $email = Db::getEmail($value);
         $files = explode("\n", $email['files']);
-        $file_names = explode("\n", $email['file_names']);
-        $file_mime_types = explode("\n", $email['file_mime_types']);
+        $fileNames = explode("\n", $email['fileNames']);
+        $fileMimeTypes = explode("\n", $email['fileMimeTypes']);
         if (sizeof($files) > 0) {
-            for($i =0; $i<sizeof($files) && $i<sizeof($file_names)&& $i<sizeof($file_mime_types); $i++){
+            for($i =0; $i<sizeof($files) && $i<sizeof($fileNames)&& $i<sizeof($fileMimeTypes); $i++){
                 if ($answer != '') {
                     $answer .= '<br />';
                 }
 
-                $answer .= '<a target="_blank" href="'.$cms->generateWorkerUrl($cms->curModId, 'action=get_file&file_number='.$i.'&record_id='.$value).'">'.htmlspecialchars($file_names[$i]).'</a>';
+                $answer .= '<a target="_blank" href="'.$cms->generateWorkerUrl($cms->curModId, 'action=get_file&file_number='.$i.'&record_id='.$value).'">'.htmlspecialchars($fileNames[$i]).'</a>';
 
             }
         }
