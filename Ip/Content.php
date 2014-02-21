@@ -201,8 +201,26 @@ class Content
      */
     public function getBreadcrumb($pageId = null)
     {
-        // TODOXX #breadcrumb
-        return array();
+        $pages = array();
+        if ($pageId !== null) {
+            $page = new \Ip\Page($pageId);
+        } else {
+            $page = ipCurrentPage()->getPage();
+        }
+
+        if ($page) {
+            $pages[] = $page;
+            $parentPageId = $page->getParentId();
+            while (!empty($parentPageId)) {
+                $parentPage = new \Ip\Page($parentPageId);
+                $pages[] = $parentPage;
+                $parentPageId = $parentPage->getParentId();
+            }
+        }
+        array_pop($pages);
+
+        $breadcrumb = array_reverse($pages);
+        return $breadcrumb;
     }
 
     /**
