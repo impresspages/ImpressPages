@@ -117,7 +117,7 @@ function ipConfig()
 /**
  * Get CMS content object
  *
- * Use this object to access zones, pages and languages.
+ * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
  */
 function ipContent()
@@ -128,7 +128,7 @@ function ipContent()
 /**
  * Get current page object
  *
- * Use this object to get information about current page, language, zone.
+ * Use this object to get information about current page.
  *
  * @return \Ip\CurrentPage Current page object.
  */
