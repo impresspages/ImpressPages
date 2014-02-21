@@ -50,7 +50,7 @@ class Helper
         }
         //end variable check
 
-        $breadcrumb = static::getBreadcrumb();
+        $breadcrumb = ipContent()->getBreadcrumb();
 
         $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
 
@@ -149,28 +149,6 @@ class Helper
         return false;
     }
 
-    public static function getBreadcrumb($pageId = null)
-    {
-        $pages = array();
-        if ($pageId !== null) {
-            $page = new \Ip\Page($pageId);
-        } else {
-            $page = ipCurrentPage()->getPage();
-        }
-
-        if ($page) {
-            $pages[] = $page;
-            $parentPageId = $page->getParentId();
-            while (!empty($parentPageId)) {
-                $parentPage = new \Ip\Page($parentPageId);
-                $pages[] = $parentPage;
-                $parentPageId = $parentPage->getParentId();
-            }
-        }
-
-        $breadcrumb = array_reverse($pages);
-        return $breadcrumb;
-    }
 
 
 }

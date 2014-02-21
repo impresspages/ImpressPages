@@ -20,7 +20,7 @@ class Service{
     static function generateBreadcrumb($separator, $showHome = true){
         $data = array (
             'homeUrl' => $showHome ? ipHomeUrl() : null,
-            'breadcrumbElements' => ipContent()->getBreadcrumb(),
+            'pages' => ipContent()->getBreadcrumb(),
             'separator' => $separator,
         );
 
