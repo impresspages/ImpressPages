@@ -14,6 +14,7 @@ if($menuItem->isCurrent()) {
     $selected = true;
 }
 
+
 if(sizeof($menuItem->getChildren()) > 0) {
     $css[] = 'dropdown';
 }
