@@ -57,12 +57,17 @@ var ipPages = null;
             }
 
 
-            if (menuName && menuName != $scope.activeMenu.alias) {
+            if (menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
+                var newActiveMenu = null;
                 $.each(menuList, function (key, value) {
-                    if (value.alias == menuName) {
-                        $scope.activateMenu(value);
+                    if (value.alias == menuName && value.languageCode == $scope.activeLanguage.code) {
+                        newActiveMenu = value;
                     }
                 });
+                if (newActiveMenu == null) {
+                    newActiveMenu = getFirstMenuOfLanguage($scope.activeLanguage);
+                }
+                $scope.activateMenu(newActiveMenu);
             }
 
             if (pageId && pageId != $scope.selectedPageId) {
@@ -86,7 +91,7 @@ var ipPages = null;
             initTree();
         }
 
-        $scope.activateMenu = function (menu) {console.log('activate menu');console.log(menu);
+        $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
             $scope.selectedPageId = menu.id;
             initTree();
@@ -257,6 +262,11 @@ var ipPages = null;
 
         var initTree = function () {
             $scope.selectedPageId = null;
+            if (!$scope.activeMenu) {
+                $('.ipsTree').addClass('hidden');
+                return;
+            }
+            $('.ipsTree').removeClass('hidden')
             getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
             getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
                 var node = getJsTree().get_selected();
@@ -285,7 +295,7 @@ var ipPages = null;
         }
 
         var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.id + '_' + $scope.activeMenu.alias + ' .ipsTree');
+            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsTree');
         }
 
         var refresh = function () {
@@ -533,6 +543,18 @@ var ipPages = null;
                 hashParams[d(e[1])] = d(e[2]);
 
             return hashParams;
+        }
+
+        var getFirstMenuOfLanguage = function (language) {
+            var firstMenu = null;
+            $.each(menuList, function (key, menu) {
+                if (menu.languageCode == language.code) {
+                    if (firstMenu == null) {
+                        firstMenu = menu;
+                    }
+                }
+            })
+            return firstMenu;
         }
 
 
