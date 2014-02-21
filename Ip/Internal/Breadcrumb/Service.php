@@ -12,7 +12,7 @@ namespace Ip\Internal\Breadcrumb;
  * class to ouput current breadcrumb
  * @package ImpressPages
  */
-class Model{
+class Service{
 
     /**
      * @return string HTML with links to website languages
@@ -23,7 +23,7 @@ class Model{
             'breadcrumbElements' => ipContent()->getBreadcrumb(),
             'separator' => $separator,
         );
-        
+
         $breadcrumb = ipView('view/breadcrumb.php', $data)->render();
 
         return $breadcrumb;

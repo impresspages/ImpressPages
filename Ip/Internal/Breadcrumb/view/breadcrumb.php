@@ -3,6 +3,6 @@
     <?php echo $separator; ?>
 <?php } ?>
 <?php foreach ($breadcrumbElements as $key => $element) { ?>
-    <a href="<?php echo $element->getLink(); ?>" title="<?php echo htmlspecialchars($element->getPageTitle()); ?>"><?php echo htmlspecialchars($element->getNavigationTitle()); ?></a>
+    <a href="<?php echo esc($element->getLink(), 'attr'); ?>" title="<?php echo esc($element->getPageTitle(), 'attr'); ?>"><?php echo esc($element->getNavigationTitle()); ?></a>
     <?php echo $key < count($breadcrumbElements) -1 ? $separator : ''; ?>
 <?php } ?>
