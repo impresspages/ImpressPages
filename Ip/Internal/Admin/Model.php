@@ -12,6 +12,19 @@ class Model{
     }
 
     /**
+     * @param \Ip\Request $request
+     * @return bool
+     */
+    public static function isLoginPage(\Ip\Request $request = null)
+    {
+        if ($request == null) {
+            $request = ipRequest();
+        }
+        $relativePath = $request->getRelativePath();
+        return in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'));
+    }
+
+    /**
     * @return Model
     */
     public static function instance()

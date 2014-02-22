@@ -4,25 +4,25 @@
  *
  */
 
-namespace Ip\Internal\Ip;
+namespace Ip\Internal\Core;
 
 
 class Event
 {
     public static function ipInit()
     {
-        ipAddJs('Ip/Internal/Ip/assets/console.log.js', null, 10);
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery.js', null, 10); // default, global jQuery
+        ipAddJs('Ip/Internal/Core/assets/console.log.js', null, 10);
+        ipAddJs('Ip/Internal/Core/assets/js/jquery.js', null, 10); // default, global jQuery
 
-        ipAddJs('Ip/Internal/Ip/assets/functions.js');
+        ipAddJs('Ip/Internal/Core/assets/functions.js');
         if (ipAdminId()) {
-            ipAddJs('Ip/Internal/Ip/assets/adminFunctions.js');
+            ipAddJs('Ip/Internal/Core/assets/adminFunctions.js');
         }
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.form.js');
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.form.js');
 
         //Form init
-        ipAddJs('Ip/Internal/Ip/assets/form/form.js');
-        ipAddJs('Ip/Internal/Ip/assets/validator.js');
+        ipAddJs('Ip/Internal/Core/assets/form/form.js');
+        ipAddJs('Ip/Internal/Core/assets/validator.js');
 
         $validatorTranslations = array(
             'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
@@ -31,8 +31,8 @@ class Event
         ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
 
 
-        if (ipAdminId()) {
-            ipAddJs('Ip/Internal/Ip/assets/js/ip.jquery.js', null, 10); // jQuery for core
+        if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage()) {
+            ipAddJs('Ip/Internal/Core/assets/js/ip.jquery.js', null, 10); // jQuery for core
             ipAddJs('Ip/Internal/Content/assets/managementMode.js');
 
 

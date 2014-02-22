@@ -4,4 +4,4 @@
  * @package ImpressPages
  */
 
-@import '../../../../Ip/Internal/Ip/assets/admin/admin.css'; /* loading core admin styles */
+@import '../../../../Ip/Internal/Core/assets/admin/admin.css'; /* loading core admin styles */

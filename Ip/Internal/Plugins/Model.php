@@ -22,7 +22,7 @@ class Model{
             "InlineManagement",
             "Languages",
             "Cron",
-            "Ip",
+            "Core",
             "Translations",
             "System",
         );

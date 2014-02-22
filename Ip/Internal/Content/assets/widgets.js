@@ -31,7 +31,7 @@
             }
         });
     };
-})(ip.jQuery);
+})(jQuery);
 
 /*************
  * Form widget
@@ -74,7 +74,7 @@
 
         });
     };
-})(ip.jQuery);
+})(jQuery);
 
 // defining global variables
 var ipWidgetForm_InitListOptions;
@@ -147,4 +147,4 @@ var ipWidgetForm_SaveWysiwygOptions;
         return {text:$context.find('.ipsFieldOptionsRichText').val()};
     };
 
-})(ip.jQuery);
+})(jQuery);

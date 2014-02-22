@@ -52,7 +52,7 @@ require_once(__DIR__ . '/../Ip/Application.php');
         $controller = new \Plugin\Install\PublicController();
         $response = $controller->index();
     } elseif ($request->isPost()) {
-        $route = Ip\Internal\Ip\Job::ipRouteAction_20(array('request' => $request));
+        $route = Ip\Internal\Core\Job::ipRouteAction_20(array('request' => $request));
         if (!$route || $route['plugin'] != 'Install' || $route['controller'] != 'PublicController') {
             $response = new \Ip\Response\PageNotFound();
         } else {

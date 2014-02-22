@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Ip\Internal\Ip;
+namespace Ip\Internal\Core;
 
 class Job
 {

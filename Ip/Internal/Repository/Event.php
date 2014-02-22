@@ -13,13 +13,13 @@ class Event
     {
 
         if (ipIsManagementState()) {
-            ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepository.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryUploader.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryAll.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryBuy.js');
             ipAddJs('Ip/Internal/System/assets/market.js');
-            ipAddJs('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js');
+            ipAddJs('Ip/Internal/Core/assets/js/easyXDM/easyXDM.min.js');
 
             if (defined('TEST_MARKET_URL')) {
                 $marketUrl = TEST_MARKET_URL.'images-v1/';

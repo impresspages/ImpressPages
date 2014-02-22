@@ -50,13 +50,13 @@ class Model
     public function generateIpContent()
     {
 
-        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/ipContent/less/') . '*.less');
+        $items = $this->globRecursive(ipFile('Ip/Internal/Core/assets/ipContent/less/') . '*.less');
         if (!$items) {
             return false;
         }
 
-        $lessFile = ipFile('Ip/Internal/Ip/assets/ipContent/ipContent.less');
-        $cssFile = ipFile('Ip/Internal/Ip/assets/ipContent/ipContent.css');
+        $lessFile = ipFile('Ip/Internal/Core/assets/ipContent/ipContent.less');
+        $cssFile = ipFile('Ip/Internal/Core/assets/ipContent/ipContent.css');
         $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
 
         $hasChanged = false;
@@ -90,15 +90,15 @@ class Model
      */
     public function generateCoreBootstrap()
     {
-        $items = $this->globRecursive(ipFile('Ip/Internal/Ip/assets/admin/ip/') . '*.less');
+        $items = $this->globRecursive(ipFile('Ip/Internal/Core/assets/admin/ip/') . '*.less');
         if (!$items) {
             return false;
         }
 
-        $lessTempFile = ipFile('Ip/Internal/Ip/assets/admin/admin.tmp.less');
-        $cssTempFile = ipFile('Ip/Internal/Ip/assets/admin/admin.tmp.css');
-        $lessFile = ipFile('Ip/Internal/Ip/assets/admin/admin.less');
-        $cssFile = ipFile('Ip/Internal/Ip/assets/admin/admin.css');
+        $lessTempFile = ipFile('Ip/Internal/Core/assets/admin/admin.tmp.less');
+        $cssTempFile = ipFile('Ip/Internal/Core/assets/admin/admin.tmp.css');
+        $lessFile = ipFile('Ip/Internal/Core/assets/admin/admin.less');
+        $cssFile = ipFile('Ip/Internal/Core/assets/admin/admin.css');
 
         $lastBuildTimeTemp = file_exists($cssTempFile) ? filemtime($cssTempFile) : 0;
         $lastBuildTime = file_exists($cssFile) ? filemtime($cssFile) : 0;
