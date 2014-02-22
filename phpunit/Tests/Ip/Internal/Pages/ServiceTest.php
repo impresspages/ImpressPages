@@ -35,10 +35,46 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $page = Service::getPage($pageId);
         $this->assertNotEmpty($page);
         $this->assertEquals('Test page', $page['pageTitle']);
+        $this->assertEquals('test-page', $page['urlPath']);
+
+        $subpageId = Service::addPage($pageId, 'Test subpage');
+        $this->assertNotEmpty($subpageId);
+        $subpage = Service::getPage($subpageId);
+        $this->assertNotEmpty($subpage);
+        $this->assertEquals('Test subpage', $subpage['pageTitle']);
+        $this->assertEquals('test-page/test-subpage', $subpage['urlPath']);
 
         Service::deletePage($pageId);
 
         $page = Service::getPage($pageId);
         $this->assertEmpty($page);
+
+        $subpage = Service::getPage($subpageId);
+        $this->assertEmpty($subpage);
     }
-} 
+
+    public function testMovePage()
+    {
+        $firstPageId = Service::addPage(0, 'First page');
+        $this->assertNotEmpty($firstPageId);
+
+        $firstPage = Service::getPage($firstPageId);
+        $this->assertNotEmpty($firstPage);
+        $this->assertEquals('first-page', $firstPage['urlPath']);
+
+
+        $secondPageId = Service::addPage(0, 'Second page');
+        $this->assertNotEmpty($secondPageId);
+
+        $secondPage = Service::getPage($secondPageId);
+        $this->assertNotEmpty($secondPage);
+        $this->assertEquals('second-page', $secondPage['urlPath']);
+
+        Service::movePage($secondPageId, $firstPageId, 1);
+        $secondPage = Service::getPage($secondPageId);
+        $this->assertNotEmpty($secondPage);
+        $this->assertEquals($firstPageId, $secondPage['parentId']);
+        $this->assertEquals('first-page/second-page', $secondPage['urlPath']);
+    }
+
+}

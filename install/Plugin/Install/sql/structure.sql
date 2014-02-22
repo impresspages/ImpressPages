@@ -7,11 +7,10 @@ DROP TABLE IF EXISTS `ip_cms_page`;
 
 CREATE TABLE `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(255) DEFAULT NULL,
   `languageCode` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `pageOrder` double NOT NULL DEFAULT '0',
+  `urlPath` varchar(255) DEFAULT NULL,
   `parentId` int(11) DEFAULT NULL,
+  `pageOrder` double NOT NULL DEFAULT '0',
   `navigationTitle` varchar(255) DEFAULT NULL,
   `isVisible` tinyint(1) NOT NULL DEFAULT '0',
   `pageTitle` mediumtext,
@@ -137,14 +136,14 @@ DROP TABLE IF EXISTS `ip_cms_widgetInstance`;
 
 CREATE TABLE `ip_cms_widgetInstance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `widgetId` int(11) NOT NULL,
   `revisionId` int(11) NOT NULL,
   `languageId` int(11) NOT NULL,
-  `widgetId` int(11) NOT NULL,
-  `position` double NOT NULL,
   `blockName` varchar(25) NOT NULL,
+  `position` double NOT NULL,
   `isVisible` tinyint(1) NOT NULL DEFAULT '1',
-  `createdAt` int(11) NOT NULL COMMENT 'unix timestamp',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `createdAt` int(11) NOT NULL COMMENT 'unix timestamp',
   `deletedAt` int(11) DEFAULT NULL COMMENT 'unix timestamp',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

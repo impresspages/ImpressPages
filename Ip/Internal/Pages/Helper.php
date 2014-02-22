@@ -154,9 +154,9 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'slug',
-                'label' => __('Url slug', 'ipAdmin', false),
-                'value' => $page->getSlug(),
+                'name' => 'urlPath',
+                'label' => __('urlPath', 'ipAdmin', false),
+                'value' => $page->getUrlPath(),
             ));
         $form->addField($field);
 
