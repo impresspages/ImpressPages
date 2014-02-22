@@ -16,7 +16,7 @@ class Job
         $languageCode = ipCurrentPage()->getLanguage()->getCode();
         $pageId = ipDb()->selectValue('page', 'id',
             array(
-                'url' => $info['relativeUri'],
+                'urlPath' => $info['relativeUri'],
                 'languageCode' => $languageCode,
                 'isVisible' => 1,
             )

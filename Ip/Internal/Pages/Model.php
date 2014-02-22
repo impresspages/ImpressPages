@@ -203,17 +203,9 @@ class Model
         $data['alias'] = $alias;
         $data['navigationTitle'] = $title;
 
-        if (!array_key_exists('parentId', $data)) {
-            $data['parentId'] = 0;
-        }
-
-        if (!array_key_exists('pageOrder', $data)) {
-            $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
-        }
-
-        if (!array_key_exists('isVisible', $data)) {
-            $data['isVisible'] = (int)!ipGetOption('Pages.hideNewPages');
-        }
+        $data['parentId'] = 0;
+        $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
+        $data['isVisible'] = 1;
 
         $menuId = ipDb()->insert('page', $data);
 
@@ -364,9 +356,9 @@ class Model
             return false;
         }
 
-        if (!Db::availableUrl($newUrl, $pageId)) {
+        if (!UrlAllocator::isPathAvailable($newUrl, $pageId)) {
             $i = 1;
-            while (!Db::availableUrl("$newUrl-$i", $pageId)) {
+            while (!UrlAllocator::isPathAvailable("$newUrl-$i", $pageId)) {
                 $i++;
             }
 
@@ -410,6 +402,8 @@ class Model
         $oldUrl = $oldPage->getLink();
         // for ipUrlChanged event
 
+        $oldData = ipDb()->selectRow('page', '*', array('id' => $pageId));
+
         $newParentChildren = Db::pageChildren($destinationParentId);
         $newPageOrder = 0; //initial value
 
@@ -429,13 +423,29 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
+        if ($oldData['parentId'] != $destinationParentId) {
+            $parentPath = rtrim(ipDb()->selectValue('page', 'urlPath', array('id' => $destinationParentId)), '/');
+
+            $slug = basename($oldData['urlPath']);
+
+            if ($parentPath) {
+                $newPath = $parentPath . '/' . $slug;
+            } else {
+                $newPath = $slug;
+            }
+
+            if ($newPath != $oldData['urlPath']) {
+                $newPath = UrlAllocator::allocatePath($oldData['languageCode'], $newPath);
+                $update['urlPath'] = $newPath;
+            }
+        }
+
         ipDb()->update('page', $update, array('id' => $pageId));
 
-        static::updatePageSlug($pageId, $oldPage->getSlug());
-
-        $newPage = new \Ip\Page($pageId);
-
-        ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newPage->getLink()));
+        if (!empty($update['urlPath'])) {
+            $newPage = new \Ip\Page($pageId);
+            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newPage->getLink()));
+        }
     }
 
 }

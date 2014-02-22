@@ -14,19 +14,14 @@ class Page
     protected $navigationTitle;
 
     /**
-     * @var string full url relative to base url
+     * @var string full url relative to language url
      */
-    protected $url;
+    protected $urlPath;
 
     /**
      * @var string language code. For example 'en'.
      */
     protected $languageCode;
-
-    /**
-     * @var string last part of url address (relative address to parent page)
-     */
-    protected $slug;
 
     /** string - meta tag title */
     protected $pageTitle;
@@ -372,9 +367,9 @@ class Page
     public function getLink()
     {
         if (ipGetOption('Config.multilingual')) {
-            return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->url;
+            return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->urlPath;
         } else {
-            return ipConfig()->baseUrl() . $this->url;
+            return ipConfig()->baseUrl() . $this->urlPath;
         }
     }
 
@@ -391,23 +386,18 @@ class Page
      * Get the last part of the page URL
      * @return string Page URL
      */
-    public function getUrl()
+    public function getUrlPath()
     {
-        return $this->url;
-    }
-
-    public function getSlug()
-    {
-        return $this->slug;
+        return $this->urlPath;
     }
 
     /**
      * @ignore
      * @param $url string
      */
-    public function setUrl($url)
+    public function setUrlPath($urlPath)
     {
-        $this->url = $url;
+        $this->urlPath = $urlPath;
     }
 
     /**
