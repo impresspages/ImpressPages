@@ -11,10 +11,6 @@ class Text extends \Ip\Internal\Grid\Model\Field
 
 
 
-    public function preview($recordData)
-    {
-        return esc($recordData[$this->field]);
-    }
 
     public function createField()
     {
