@@ -50,4 +50,4 @@ var ipValidator;
     };
 
     ipValidator.init();
-})(jQuery);
+})(ip.jQuery);
