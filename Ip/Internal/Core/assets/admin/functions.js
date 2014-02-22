@@ -6,6 +6,7 @@
  */
 function ipGetPageTree()
 {
+    var $ = ip.jQuery;
     var data = {};
     data.aa = 'Content.getPageTree';
     data.securityToken = ip.securityToken;

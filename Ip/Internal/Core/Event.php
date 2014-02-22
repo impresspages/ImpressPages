@@ -11,8 +11,8 @@ class Event
 {
     public static function ipInit()
     {
-        ipAddJs('Ip/Internal/Core/assets/console.log.js', null, 10);
         ipAddJs('Ip/Internal/Core/assets/js/jquery.js', null, 10); // default, global jQuery
+        ipAddJs('Ip/Internal/Core/assets/console.log.js', null, 10);
         ipAddJs('Ip/Internal/Core/assets/functions.js');
         ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.form.js');
         ipAddJs('Ip/Internal/Core/assets/form/form.js');
@@ -29,13 +29,12 @@ class Event
 
 
         if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage()) {
-            ipAddJs('Ip/Internal/Core/assets/js/ip.jquery.js', null, 10); // jQuery for core
-            ipAddJs('Ip/Internal/Content/assets/managementMode.js');
-            ipAddJs('Ip/Internal/Core/assets/adminFunctions.js');
-
-            ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/ip.jquery.tools.form.js');
-            ipAddJs('Ip/Internal/Core/assets/form/ip.form.js');
-            ipAddJs('Ip/Internal/Core/assets/ip.validator.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/jquery.js', null, 10); // jQuery for core
+            ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/form.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
 
         }
 
