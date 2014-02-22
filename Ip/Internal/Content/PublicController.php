@@ -69,7 +69,6 @@ class PublicController extends \Ip\Controller
         ipAddJs('Ip/Internal/Core/assets/tinymce/default.js');
 
         ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
-        ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
 
         ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
         ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');

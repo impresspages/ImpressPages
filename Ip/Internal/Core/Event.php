@@ -35,6 +35,7 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
             ipAddJs('Ip/Internal/Core/assets/admin/form.js');
             ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
 
         }
 
