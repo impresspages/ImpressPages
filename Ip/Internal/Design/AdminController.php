@@ -19,9 +19,9 @@ class AdminController extends \Ip\Controller
     public function index()
     {
 
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
-        ipAddCss('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css');
-        ipAddJs('Ip/Internal/Ip/assets/js/easyXDM/easyXDM.min.js');
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+        ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
+        ipAddJs('Ip/Internal/Core/assets/js/easyXDM/easyXDM.min.js');
         ipAddJs('Ip/Internal/Design/assets/options.js');
         ipAddJs('Ip/Internal/Design/assets/market.js');
         ipAddJs('Ip/Internal/Design/assets/design.js');

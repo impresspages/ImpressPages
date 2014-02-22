@@ -24,7 +24,7 @@ class Job
 
     public static function ipRouteAction_5($info)
     {
-        if (in_array($info['relativeUri'], array('admin', 'admin/', 'admin.php', 'admin.php/'))) {
+        if (Model::isLoginPage($info['request'])) {
             return array(
                 'plugin' => 'Admin',
                 'controller' => 'SiteController',
@@ -33,4 +33,4 @@ class Job
         }
     }
 
-} 
+}

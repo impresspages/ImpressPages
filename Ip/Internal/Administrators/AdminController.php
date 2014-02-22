@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
 
 
 
-        ipAddJs('Ip/Internal/Ip/assets/js/angular.js');
+        ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Administrators/assets/administratorsController.js');
 
         foreach($administrators as &$administrator)

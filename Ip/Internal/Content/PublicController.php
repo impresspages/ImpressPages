@@ -65,14 +65,14 @@ class PublicController extends \Ip\Controller
         //var_dump($snippets);
         ipAddJsVariable('ipWidgetSnippets', $snippets);
 
-        ipAddJs('Ip/Internal/Ip/assets/tinymce/pastePreprocess.js');
-        ipAddJs('Ip/Internal/Ip/assets/tinymce/default.js');
+        ipAddJs('Ip/Internal/Core/assets/tinymce/pastePreprocess.js');
+        ipAddJs('Ip/Internal/Core/assets/tinymce/default.js');
 
-        ipAddCss('Ip/Internal/Ip/assets/admin/admin.css');
-        ipAddJs('Ip/Internal/Ip/assets/admin/bootstrap.js');
+        ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
+        ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
 
-        ipAddJs('Ip/Internal/Ip/assets/js/tiny_mce/jquery.tinymce.min.js');
-        ipAddJs('Ip/Internal/Ip/assets/js/tiny_mce/tinymce.min.js');
+        ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
+        ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');
 
 
         ipAddJsVariable('ipContentInit', Model::initManagementData());
@@ -114,15 +114,15 @@ class PublicController extends \Ip\Controller
 
 
 
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
-        ipAddCss('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.css');
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+        ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
 
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery-tools/jquery.tools.ui.scrollable.js');
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.ui.scrollable.js');
 
-        ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.full.js');
-        ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js');
-        ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.gears.js');
-        ipAddJs('Ip/Internal/Ip/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
+        ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.full.js');
+        ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.browserplus.js');
+        ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.gears.js');
+        ipAddJs('Ip/Internal/Core/assets/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
 
 
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');

@@ -43,7 +43,7 @@ class LessCompiler
             $parser = new \Less_Parser(array('relativeUrls' => false));
 //            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
-            $ipContentDir = ipFile('Ip/Internal/Ip/assets/ipContent/');
+            $ipContentDir = ipFile('Ip/Internal/Core/assets/ipContent/');
             $directories = array(
                 $themeDir => '',
                 $ipContentDir => ''

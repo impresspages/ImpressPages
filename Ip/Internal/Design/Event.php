@@ -29,9 +29,9 @@ class Event
      */
     protected static function initConfig()
     {
-        ipAddCss('Ip/Internal/Ip/assets/admin/admin.css');
-        ipAddJs('Ip/Internal/Ip/assets/admin/bootstrap.js');
-        ipAddJs('Ip/Internal/Ip/assets/js/jquery-ui/jquery-ui.js');
+        ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
+        ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
         ipAddJsVariable('ipModuleDesignConfiguration', static::getConfigurationBoxHtml());
 

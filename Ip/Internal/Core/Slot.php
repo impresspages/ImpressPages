@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Internal\Ip;
+namespace Ip\Internal\Core;
 
 
 /**

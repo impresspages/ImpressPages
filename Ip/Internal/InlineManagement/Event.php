@@ -26,15 +26,15 @@ class Event
 
             ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
 
-            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.full.js');
-            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.browserplus.js');
-            ipAddJs('Ip/Internal/Ip/assets/js/plupload/plupload.gears.js');
+            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.full.js');
+            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.browserplus.js');
+            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.gears.js');
 
             ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
             ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
-            ipAddCss('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.css');
-            ipAddJs('Ip/Internal/Ip/assets/js/jquery-colorpicker/colorpicker.js');
+            ipAddCss('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.css');
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.js');
         }
     }
 }
