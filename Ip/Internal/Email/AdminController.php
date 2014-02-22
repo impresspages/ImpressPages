@@ -30,20 +30,24 @@ class AdminController extends \Ip\GridController
                     'preview' => __CLASS__ . '::html2text'
                 ),
                 array(
-                    'label' => __('To', 'ipAdmin', FALSE),
-                    'field' => 'toName'
+                    'label' => __('Recipient name', 'ipAdmin', FALSE),
+                    'field' => 'toName',
+                    'preview' => FALSE
                 ),
                 array(
-                    'label' => __('To', 'ipAdmin', FALSE),
-                    'field' => 'to'
+                    'label' => __('Recipient email', 'ipAdmin', FALSE),
+                    'field' => 'to',
+                    'preview' => __CLASS__ . '::to'
                 ),
                 array(
-                    'label' => __('From', 'ipAdmin', FALSE),
-                    'field' => 'fromName'
+                    'label' => __('Sender name', 'ipAdmin', FALSE),
+                    'field' => 'fromName',
+                    'preview' => FALSE
                 ),
                 array(
-                    'label' => __('From', 'ipAdmin', FALSE),
-                    'field' => 'from'
+                    'label' => __('Sender email', 'ipAdmin', FALSE),
+                    'field' => 'from',
+                    'preview' => __CLASS__ . '::from'
                 ),
                 array(
                     'label' => __('Sent at', 'ipAdmin', FALSE),
@@ -64,5 +68,18 @@ class AdminController extends \Ip\GridController
         $text = $html2text->get_text();
         return $text;
     }
+
+    public static function to($value, $recordData)
+    {
+        return esc($recordData['toName'] . ' ' . $value);
+    }
+
+    public static function from($value, $recordData)
+    {
+        return esc($recordData['fromName'] . ' ' . $value);
+    }
+
+
+
 
 }
