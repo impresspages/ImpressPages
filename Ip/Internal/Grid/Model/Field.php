@@ -11,6 +11,7 @@ abstract class Field
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
+    protected $previewMethod = '';
 
     /**
      * Create field object for grid
@@ -31,6 +32,11 @@ abstract class Field
         if (!empty($fieldFieldConfig['defaultValue'])) {
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
+
+        if (!empty($fieldFieldConfig['previewMethod'])) {
+            $this->previewMethod = $fieldFieldConfig['previewMethod'];
+        }
+
     }
 
     /**
@@ -38,7 +44,14 @@ abstract class Field
      * @param array() $data current record data
      * @return string
      */
-    public abstract function preview($data);
+    public function preview($recordData)
+    {
+        if ($this->previewMethod) {
+            return call_user_func($this->previewMethod, $recordData);
+        } else {
+            return esc($recordData[$this->field]);
+        }
+    }
 
     /**
      * Return an object which can be used as a field for standard Ip\Form class.

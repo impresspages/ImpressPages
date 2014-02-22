@@ -126,23 +126,15 @@ class Display
             }
             foreach ($this->config->fields() as $fieldData) {
 
-                if (isset($fieldData['showInList']) && !$fieldData['showInList']) {
+                if (isset($fieldData['preview']) && !$fieldData['preview']) {
                     continue;
                 }
 
                 $fieldObject = $this->config->fieldObject($fieldData);
                 $preview = $fieldObject->preview($row);
-                if (!empty($fieldData['filter'])) {
-                    $filters = $fieldData['filter'];
-                    if (!is_array($filters)) {
-                        $filters = array($filters);
-                    }
-                    foreach ($filters as $filter) {
-                        if (substr($filter, 1, 1) !== '\\') {
-                            $filter = '\\' . $filter;
-                        }
-                        $preview = call_user_func($filter, $preview, $row);
-                    }
+
+                if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], TRUE)) {
+                    $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
                 }
                 $preparedRowData[] = $preview;
             }
@@ -178,7 +170,7 @@ class Display
             $columns[] = $column;
         }
         foreach ($this->config->fields() as $field) {
-            if (isset($field['showInList']) && !$field['showInList']) {
+            if (isset($field['preview']) && !$field['preview']) {
                 continue;
             }
             $column = array(
