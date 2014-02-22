@@ -15,11 +15,11 @@ class Event
         ipAddJs('Ip/Internal/Core/assets/js/jquery.js', null, 10); // default, global jQuery
         ipAddJs('Ip/Internal/Core/assets/functions.js');
         ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.form.js');
+        ipAddJs('Ip/Internal/Core/assets/form/form.js');
         ipAddJs('Ip/Internal/Core/assets/validator.js');
 
 
         //Form init
-//        ipAddJs('Ip/Internal/Core/assets/form/form.js');
 
         $validatorTranslations = array(
             'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
@@ -34,6 +34,7 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/adminFunctions.js');
 
             ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/ip.jquery.tools.form.js');
+            ipAddJs('Ip/Internal/Core/assets/form/ip.form.js');
             ipAddJs('Ip/Internal/Core/assets/ip.validator.js');
 
         }
