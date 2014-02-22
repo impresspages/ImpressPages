@@ -211,7 +211,7 @@ class Db {
             'languageCode',
             'keywords',
             'description',
-            'url',
+            'urlPath',
             'createdAt',
             'updatedAt',
             'type',
@@ -253,113 +253,10 @@ class Db {
         unset($copy['id']);
         $copy['parentId'] = $newParentId;
         $copy['row_number'] = $newIndex;
-        $copy['url'] = self::ensureUniqueUrl($copy['url']);
+        $copy['url'] = UrlAllocator::ensureUniqueUrl($copy['url']);
 
         return ipDb()->insert('page', $copy);
     }
 
-
-    /**
-     * @param string $url
-     * @param int $allowed_id
-     * @returns bool true if url is available ignoring $allowed_id page.
-     */
-    public static function availableUrl($url, $allowedId = null){
-
-        $pageId = ipDb()->selectValue('page', '`id`', array('url' => $url));
-
-        if (!$pageId) {
-            return true;
-        }
-
-        if ($allowedId && $pageId == $allowedId) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * Create unique URL
-     * @param string $url
-     * @param int $allowed_id
-     */
-    public static function makeUrl($url, $allowed_id = null)
-    {
-
-        if ($url == '') {
-            $url = 'page';
-        }
-
-        $url = mb_strtolower($url);
-        $url = \Ip\Internal\Text\Transliteration::transform($url);
-
-        $replace = array(
-            " " => "-",
-            "/" => "-",
-            "\\" => "-",
-            "\"" => "-",
-            "\'" => "-",
-            "„" => "-",
-            "“" => "-",
-            "&" => "-",
-            "%" => "-",
-            "`" => "-",
-            "!" => "-",
-            "@" => "-",
-            "#" => "-",
-            "$" => "-",
-            "^" => "-",
-            "*" => "-",
-            "(" => "-",
-            ")" => "-",
-            "{" => "-",
-            "}" => "-",
-            "[" => "-",
-            "]" => "-",
-            "|" => "-",
-            "~" => "-",
-            "." => "-",
-            "'" => "",
-            "?" => "",
-            ":" => "",
-            ";" => "",
-        );
-        $url = strtr($url, $replace);
-
-        if ($url == ''){
-            $url = '-';
-        }
-
-        $url = preg_replace('/-+/', '-', $url);
-
-        if (self::availableUrl($url, $allowed_id)) {
-            return $url;
-        }
-
-        $i = 1;
-        while (!self::availableUrl($url.'-'.$i, $allowed_id)) {
-            $i++;
-        }
-
-        return $url.'-'.$i;
-    }
-
-
-
-    public static function ensureUniqueUrl($url, $allowedId = null) {
-        $url = str_replace("/", "-", $url);
-
-        if(self::availableUrl($url, $allowedId))
-          return $url;
-
-        $i = 1;
-        while(!self::availableUrl($url.'-'.$i, $allowedId)) {
-          $i++;
-        }
-
-        return $url.'-'.$i;
-    }
 
 }
