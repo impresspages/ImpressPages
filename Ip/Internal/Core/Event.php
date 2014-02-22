@@ -13,16 +13,13 @@ class Event
     {
         ipAddJs('Ip/Internal/Core/assets/console.log.js', null, 10);
         ipAddJs('Ip/Internal/Core/assets/js/jquery.js', null, 10); // default, global jQuery
-
         ipAddJs('Ip/Internal/Core/assets/functions.js');
-        if (ipAdminId()) {
-            ipAddJs('Ip/Internal/Core/assets/adminFunctions.js');
-        }
         ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.form.js');
+        ipAddJs('Ip/Internal/Core/assets/validator.js');
+
 
         //Form init
-        ipAddJs('Ip/Internal/Core/assets/form/form.js');
-        ipAddJs('Ip/Internal/Core/assets/validator.js');
+//        ipAddJs('Ip/Internal/Core/assets/form/form.js');
 
         $validatorTranslations = array(
             'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
@@ -34,7 +31,10 @@ class Event
         if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage()) {
             ipAddJs('Ip/Internal/Core/assets/js/ip.jquery.js', null, 10); // jQuery for core
             ipAddJs('Ip/Internal/Content/assets/managementMode.js');
+            ipAddJs('Ip/Internal/Core/assets/adminFunctions.js');
 
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/ip.jquery.tools.form.js');
+            ipAddJs('Ip/Internal/Core/assets/ip.validator.js');
 
         }
 
