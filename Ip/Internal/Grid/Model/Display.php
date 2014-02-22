@@ -79,7 +79,8 @@ class Display
             'pagination' => $pagination,
             'deleteWarning' => $this->config->deleteWarning(),
             'createForm' => $this->createForm(),
-            'searchForm' => $this->searchForm($searchVariables)
+            'searchForm' => $this->searchForm($searchVariables),
+            'title' => $this->config->getTitle()
         );
 
         $html = ipView('../view/layout.php', $variables)->render();

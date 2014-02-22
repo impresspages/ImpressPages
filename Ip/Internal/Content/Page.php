@@ -9,7 +9,7 @@ namespace Ip\Internal\Content;
 
 
 /**
- * Website zone element. Typically each element represents one page on zone.<br />
+ * Page class.<br />
  *
  * @package ImpressPages
  */

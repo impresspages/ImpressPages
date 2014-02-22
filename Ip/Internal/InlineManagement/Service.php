@@ -106,7 +106,7 @@ class Service
         if (isset($options['zoneName'])) {
             $zoneName = $options['zoneName'];
         } else {
-            $zoneName = ipContent()->getCurrentZone()->getName();
+            $zoneName = '//TODOX';//ipContent()->getCurrentZone()->getName();
         }
 
         if (isset($options['pageId'])) {

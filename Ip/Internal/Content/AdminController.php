@@ -38,6 +38,8 @@ class AdminController extends \Ip\Controller
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
+        $languageId = isset($_POST['languageId']) ? $_POST['languageId'] : 0;
+
 
         $record = Model::getWidgetFullRecord($instanceId);
 
@@ -50,6 +52,7 @@ class AdminController extends \Ip\Controller
         $newInstanceId = Service::addWidgetInstance(
             $record['widgetId'],
             $revisionId,
+            $languageId,
             $blockName,
             $position,
             $record['isVisible']
@@ -99,6 +102,7 @@ class AdminController extends \Ip\Controller
         $position = $_POST['position'];
         $blockName = $_POST['block'];
         $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
+        $languageId = isset($_POST['languageId']) ? $_POST['languageId'] : 0;
 
         if ($revisionId) {
             //check revision consistency
@@ -125,7 +129,14 @@ class AdminController extends \Ip\Controller
 
         try {
             $widgetId = Service::createWidget($widgetName);
-            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $blockName, $position, true);
+            if ($widgetName == 'Columns' && $revisionId == 0) {
+                $widgetRecord = Model::getWidgetRecord($widgetId);
+                $data = array_merge($widgetRecord['data'], array('static' => true));
+                Model::updateWidget($widgetId, array('data' => $data));
+
+            }
+
+            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $languageId, $blockName, $position, true);
             $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);

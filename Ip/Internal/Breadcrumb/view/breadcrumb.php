@@ -1,8 +1,14 @@
+<?php
+/**
+ * @var $pages \Ip\Page[]
+ */
+$pages;
+?>
 <?php if ($homeUrl) { ?>
     <a href="<?php echo $homeUrl; ?>"><?php _e('Home', 'ipPublic') ?></a>
     <?php echo $separator; ?>
 <?php } ?>
-<?php foreach ($breadcrumbElements as $key => $element) { ?>
-    <a href="<?php echo $element->getLink(); ?>" title="<?php echo htmlspecialchars($element->getPageTitle()); ?>"><?php echo htmlspecialchars($element->getNavigationTitle()); ?></a>
-    <?php echo $key < count($breadcrumbElements) -1 ? $separator : ''; ?>
+<?php foreach ($pages as $key => $page) { ?>
+    <a href="<?php echo esc($page->getLink(), 'attr'); ?>" title="<?php echo esc($page->getPageTitle(), 'attr'); ?>"><?php echo esc($page->getNavigationTitle()); ?></a>
+    <?php echo $key < count($pages) -1 ? $separator : ''; ?>
 <?php } ?>

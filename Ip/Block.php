@@ -53,9 +53,7 @@ class Block
                         $revisionId = $revision['revisionId'];
                     }
                 }
-                if (!$revisionId) {
-                    return '';
-                }
+
                 $languageId = 0;
             }
 

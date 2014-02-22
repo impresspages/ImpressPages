@@ -16,7 +16,7 @@ class Slot {
     public static function breadcrumb_80($params)
     {
         $showHome = isset($params['showHome']) ? $params['showHome'] : true;
-        return \Ip\Internal\Breadcrumb\Model::generateBreadcrumb(' &rsaquo; ', $showHome);
+        return \Ip\Internal\Breadcrumb\Service::generateBreadcrumb(' &rsaquo; ', $showHome);
     }
 
     public static function languages_80($params)
