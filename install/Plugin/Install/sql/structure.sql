@@ -138,6 +138,7 @@ CREATE TABLE `ip_cms_widgetInstance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `widgetId` int(11) NOT NULL,
   `revisionId` int(11) NOT NULL,
+  `languageId` int(11) NOT NULL,
   `blockName` varchar(25) NOT NULL,
   `position` double NOT NULL,
   `isVisible` tinyint(1) NOT NULL DEFAULT '1',
