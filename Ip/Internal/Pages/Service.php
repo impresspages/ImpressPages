@@ -63,10 +63,6 @@ class Service
             $data['navigationTitle'] = $title;
         }
 
-        if (!isset($data['url'])) {
-            $data['url'] = Db::makeUrl($title);
-        }
-
         if (!isset($data['createdAt'])) {
             $data['createdAt'] = date("Y-m-d H:i:s");
         }
@@ -79,6 +75,12 @@ class Service
 
         if (!isset($data['languageCode'])) {
             $data['languageCode'] = ipDb()->selectValue('page', 'languageCode', array('id' => $parentId));
+        }
+
+        if (!isset($data['urlPath'])) {
+            $dataForPath = $data;
+            $dataForPath['parentId'] = $parentId;
+            $data['urlPath'] = UrlAllocator::allocatePathForNewPage($dataForPath);
         }
 
         $newPageId = Db::addPage($parentId, $data);

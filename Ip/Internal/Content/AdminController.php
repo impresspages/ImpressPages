@@ -297,7 +297,7 @@ class AdminController extends \Ip\Controller
             'text' => $page->getPageTitle(),
             'icon' => 'fa fa-file-text',
             'li_attr' => (object) array(
-            	'data-url' => $page->getUrl()
+            	'data-url' => $page->getUrlPath()
 			),
 			'children' => array()
 		);

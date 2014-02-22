@@ -38,7 +38,7 @@ class Zone extends \Ip\Zone
         if ($parentPageId != null) { //if parent specified
             $parentPages = $this->getBreadCrumb($parentPageId);
             foreach ($parentPages as $key => $page) {
-                $urlVars[] = $page->getUrl();
+                $urlVars[] = $page->getUrlPath();
             }
         }
 
@@ -190,7 +190,7 @@ class Zone extends \Ip\Zone
         $newPage->setPageTitle($dbPage['page_title']);
         $newPage->setKeywords($dbPage['keywords']);
         $newPage->setDescription($dbPage['description']);
-        $newPage->setUrl($dbPage['url']);
+        $newPage->setUrlPath($dbPage['url']);
         //$newPage->setText($dbPage['cached_text']);
         $newPage->setUpdatedAt($dbPage['updatedAt']);
         $newPage->setCreatedAt($dbPage['createdAt']);
