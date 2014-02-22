@@ -26,7 +26,6 @@ class PublicController extends \Ip\Controller
         }
 
         // initialize management
-        ipAddJs('Ip/Internal/Content/assets/managementMode.js');
         if (ipIsManagementState()) {
             if (!ipRequest()->getQuery('ipDesignPreview')) {
                 $this->initManagement();

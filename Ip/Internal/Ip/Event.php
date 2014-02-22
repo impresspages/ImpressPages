@@ -12,7 +12,6 @@ class Event
     public static function ipInit()
     {
         ipAddJs('Ip/Internal/Ip/assets/console.log.js', null, 10);
-        ipAddJs('Ip/Internal/Ip/assets/js/ip.jquery.js', null, 10); // jQuery for core
         ipAddJs('Ip/Internal/Ip/assets/js/jquery.js', null, 10); // default, global jQuery
 
         ipAddJs('Ip/Internal/Ip/assets/functions.js');
@@ -30,6 +29,16 @@ class Event
             ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('ipPublic')
         );
         ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
+
+
+        if (ipAdminId()) {
+            ipAddJs('Ip/Internal/Ip/assets/js/ip.jquery.js', null, 10); // jQuery for core
+            ipAddJs('Ip/Internal/Content/assets/managementMode.js');
+
+
+        }
+
+
 
     }
 
