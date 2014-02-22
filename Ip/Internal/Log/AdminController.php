@@ -25,12 +25,12 @@ class AdminController extends \Ip\GridController
                 array(
                     'label' => __('Message', 'ipAdmin', FALSE),
                     'field' => 'message',
-                    'filter' => __CLASS__ . '::filterMessage'
+                    'preview' => __CLASS__ . '::filterMessage'
                 ),
                 array(
                     'label' => __('Context', 'ipAdmin', FALSE),
                     'field' => 'context',
-                    'filter' => __CLASS__ . '::filterContext'
+                    'preview' => __CLASS__ . '::filterContext'
                 )
             )
         );
