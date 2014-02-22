@@ -8,7 +8,7 @@ namespace Ip;
 
 class Page
 {
-    /** int - unique number of element in that zone. */
+    /** int - unique number of element. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
     protected $navigationTitle;
@@ -41,14 +41,14 @@ class Page
     protected $modifyFrequency;
     /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
     protected $priority;
-    /** int - id of parent Element or null. Parents can be only elements from the same zone*/
+    /** int - id of parent Element or null.*/
     protected $parentId;
     /** string - url (including http://) to this page. */
     protected $link;
     /** bool - true if this element is currently active page */
     protected $current;
     /** bool - true if this element is part of current breadcrumb */
-    protected $selected;
+    protected $inBreadcrumb;
     /** int - depth of the element (starts at 1) */
     protected $depth;
     /** string - element type<br />
@@ -67,7 +67,7 @@ class Page
     /** string - zone name of element */
     protected $zoneName;
     /** bool */
-    protected $visible;
+    protected $isVisible;
 
     /** Element - next sibling element */
     protected $nextElement;
@@ -407,7 +407,7 @@ class Page
      */
     public function isCurrent()
     {
-        return $this->current;
+        return $this->getId() == ipContent()->getCurrentPage()->getId();
     }
 
     /**
@@ -428,7 +428,15 @@ class Page
      */
     public function isInCurrentBreadcrumb()
     {
-        return $this->selected;
+        if ($this->inBreadcrumb === null) {
+            $breadcrumb = ipContent()->getBreadcrumb();
+            $ids = array();
+            foreach($breadcrumb as $page) {
+                $ids[] = $page->getId();
+            }
+            $this->inBreadcrumb = in_array($this->getId(), $ids);
+        }
+        return $this->inBreadcrumb;
     }
 
     /**
@@ -436,9 +444,9 @@ class Page
      * @ignore
      * @param $selected bool
      */
-    public function markAsInCurrentBreadcrumb($selected)
+    public function markAsInCurrentBreadcrumb($inBreadcrumb)
     {
-        $this->selected = $selected;
+        $this->inBreadcrumb = $inBreadcrumb;
     }
 
     /**
@@ -532,7 +540,7 @@ class Page
      */
     public function isVisible()
     {
-        return $this->visible;
+        return $this->isVisible;
     }
 
     /**
@@ -541,9 +549,9 @@ class Page
      * @ignore
      * @param $visible bool
      */
-    public function setVisible($visible)
+    public function setIsVisible($visible)
     {
-        $this->visible = $visible;
+        $this->isVisible = $visible;
     }
 
     public static function createList($list)

@@ -50,7 +50,7 @@ class Helper
         }
         //end variable check
 
-        $breadcrumb = static::getBreadcrumb();
+        $breadcrumb = ipContent()->getBreadcrumb();
 
         $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
 
@@ -62,7 +62,7 @@ class Helper
 
         $items = array();
         if (!empty($elements)) {
-            $items = self::getSubElementsData($elements, $depthTo, $depthFrom);
+            $items = self::arrayToMenuItem($elements, $depthTo, $depthFrom);
         }
 
         return $items;
@@ -70,29 +70,31 @@ class Helper
 
 
     /**
-     * Get child items of currently open page.
-     * $zoneName and $elementId should both be defined or leaved blank.
+     * Get child items of currently open page or specified page.
      * @param string | null $zoneName zone name
      * @param int | null $elementId
      * @param int $depthTo limit depth of generated menu
      * @return Item[]
      */
-    public static function getChildItems($zoneName = null, $pageId = null, $depthTo = 10000)
+    public static function getChildItems($pageId = null, $depthTo = 10000)
     {
-        $content = \Ip\ServiceLocator::content();
-        if ($zoneName === null || $pageId === null) { //in case zone is set, but elementId is null
-            $zoneName = $content->getCurrentZone()->getName();
+        $content = ipContent();
+        if ($pageId === null) {
+            $page = ipContent()->getCurrentPage();
+        } else {
+            $page = ipContent()->getPage($pageId);
         }
-        if ($pageId === null && $content->getCurrentPage()) {
-            $pageId = $content->getCurrentPage()->getId();
+        if (!$page) {
+            return array();
         }
-        $zone = $content->getZone($zoneName);
 
-        $pages = $zone->getPages(null, $pageId);
+
+        $pageData = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $page->getId()));
         $items = array();
-        if (isset($pages) && sizeof($pages) > 0) {
-            $curDepth = $pages[0]->getDepth();
-            $items = self::getSubElementsData($pages, $zoneName, $depthTo + 1, $curDepth);
+
+        if (isset($pageData) && count($pageData) > 0) {
+            $curDepth = $page->getDepth();
+            $items = self::arrayToMenuItem($pageData, $depthTo + 1, $curDepth);
         }
 
         return $items;
@@ -105,7 +107,7 @@ class Helper
      * @param $curDepth
      * @return Item[]
      */
-    private static function getSubElementsData($pages, $depth, $curDepth)
+    private static function arrayToMenuItem($pages, $depth, $curDepth)
     {
         $items = array();
         foreach ($pages as $pageRow) {
@@ -115,15 +117,15 @@ class Helper
             if ($curDepth < $depth) {
                 $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1), 'ORDER BY `pageOrder`');
                 if ($children) {
-                    $childrenItems = self::getSubElementsData($children, $depth, $curDepth + 1);
+                    $childrenItems = self::arrayToMenuItem($children, $depth, $curDepth + 1);
                     $item->setChildren($childrenItems);
                 }
             }
-//            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
-//                $item->markAsCurrent(true);
-//            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
-//                $item->markAsInCurrentBreadcrumb(true);
-//            }
+            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+                $item->markAsCurrent(true);
+            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
+                $item->markAsInCurrentBreadcrumb(true);
+            }
 
             $item->setType($page->getType());
             $item->setUrl($page->getLink());
@@ -138,43 +140,16 @@ class Helper
 
     private static function existInBreadcrumb($link)
     {
-        $content = \Ip\ServiceLocator::content();
-        $breadcrumb = $content->getBreadcrumb();
-        array_pop($breadcrumb);
-        foreach ($breadcrumb as $key => $element) {
+        $breadcrumb = ipContent()->getBreadcrumb();
+        foreach ($breadcrumb as $element) {
             if ($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
                 return true;
             }
         }
 
-        if ($link == \Ip\Internal\Deprecated\Url::generate(null, $content->getCurrentZone()->getName())) {
-            return true;
-        }
         return false;
     }
 
-    public static function getBreadcrumb($pageId = null)
-    {
-        $pages = array();
-        if ($pageId !== null) {
-            $page = new \Ip\Page($pageId);
-        } else {
-            $page = ipCurrentPage()->getPage();
-        }
-
-        if ($page) {
-            $pages[] = $page;
-            $parentPageId = $page->getParentId();
-            while (!empty($parentPageId)) {
-                $parentPage = new \Ip\Page($parentPageId);
-                $pages[] = $parentPage;
-                $parentPageId = $parentPage->getParentId();
-            }
-        }
-
-        $breadcrumb = array_reverse($pages);
-        return $breadcrumb;
-    }
 
 
 }

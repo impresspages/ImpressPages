@@ -31,9 +31,9 @@ class Module
      * Newsletters, greetings always can wait a litle. So they are not immediate and will not be send if is less than 20% of traffic left.
      *
      * @param string $from email address from whish an email should be send
-     * @param string @from_name
+     * @param string @fromName
      * @param string $to email address where an email should be send
-     * @param string @to_name
+     * @param string @toName
      * @param string $email email html text
      * @param bool $immediate indicate hurry of an email.
      * @param bool $html true if email message should be send as html
@@ -42,8 +42,8 @@ class Module
     function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $files = null)
     {
         $cached_files = array();
-        $cached_file_names = array();
-        $cached_file_mime_types = array();
+        $cached_fileNames = array();
+        $cached_fileMimeTypes = array();
         if ($files) {
             foreach ($files as $fileSetting) {
                 $file = array();
@@ -58,12 +58,12 @@ class Module
                 $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
                 if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
                     $cached_files[] = ipFile('file/tmp/' . $new_name);
-                    $cached_file_names[] = $file['required_name'];
+                    $cached_fileNames[] = $file['required_name'];
                     $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                     if ($tmpMimeType == null) {
                         $tmpMimeType = 'Application/octet-stream';
                     }
-                    $cached_file_mime_types[] = $tmpMimeType;
+                    $cached_fileMimeTypes[] = $tmpMimeType;
                 } else {
                     trigger_error('File caching failed');
                 }
@@ -71,8 +71,8 @@ class Module
         }
 
         $cachedFilesStr = implode("\n", $cached_files);
-        $cachedFileNamesStr = implode("\n", $cached_file_names);
-        $cachedFileMimeTypesStr = implode("\n", $cached_file_mime_types);
+        $cachedFileNamesStr = implode("\n", $cached_fileNames);
+        $cachedFileMimeTypesStr = implode("\n", $cached_fileMimeTypes);
 
         $email = str_replace('src="' . ipConfig()->baseUrl(), 'src="', $email);
 
@@ -131,8 +131,8 @@ class Module
                      $mail->addCustomHeader("Return-Path: " . $email['from']);*/
 
                     $mail->From = $email['from'];
-                    $mail->FromName = $email['from_name'];
-                    $mail->AddReplyTo($email['from'], $email['from_name']);
+                    $mail->FromName = $email['fromName'];
+                    $mail->AddReplyTo($email['from'], $email['fromName']);
 
                     $mail->WordWrap = 50; // set word wrap
                     $mail->CharSet = ipConfig()->getRaw('charset');
@@ -144,21 +144,21 @@ class Module
                      }
                      }*/
                     $files = explode("\n", $email['files']);
-                    $file_names = explode("\n", $email['file_names']);
-                    $file_mime_types = explode("\n", $email['file_mime_types']);
+                    $fileNames = explode("\n", $email['fileNames']);
+                    $fileMimeTypes = explode("\n", $email['fileMimeTypes']);
 
-                    $fileCount = min(count($files), count($file_names), count($file_mime_types));
+                    $fileCount = min(count($files), count($fileNames), count($fileMimeTypes));
                     for ($i = 0; $i < $fileCount; $i++) {
                         if ($files[$i] != '') {
 
-                            if ($file_mime_types[$i] == '') {
-                                $answer = $mail->AddAttachment($files[$i], $file_names[$i]);
+                            if ($fileMimeTypes[$i] == '') {
+                                $answer = $mail->AddAttachment($files[$i], $fileNames[$i]);
                             } else {
                                 $answer = $mail->AddAttachment(
                                     $files[$i],
-                                    $file_names[$i],
+                                    $fileNames[$i],
                                     "base64",
-                                    $file_mime_types[$i]
+                                    $fileMimeTypes[$i]
                                 );
                             }
 
@@ -169,7 +169,7 @@ class Module
                                     array(
                                         'to' => $email['to'],
                                         'subject' => $email['subject'],
-                                        'filename' => $file_names[$i],
+                                        'filename' => $fileNames[$i],
                                     )
                                 );
                                 return false;
@@ -191,7 +191,7 @@ class Module
                         $mail->Body = $email['email'];
                     }
 
-                    $mail->AddAddress($email['to'], $email['to_name']);
+                    $mail->AddAddress($email['to'], $email['toName']);
                     if (!$mail->Send()) {
                         ipLog()->error(
                             'Email.sendFailed: {subject} to {to}',

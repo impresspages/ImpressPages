@@ -82,7 +82,7 @@ var ipContent;
                     var $notEmptyColumn = $notEmptyColumns[0];
                     $.each($notEmptyColumn.find('.ipWidget'), function (key, widget) {
                         var $widget = $(widget);
-                        ipContent.moveWidget($widget.data('widgetinstanceid'), columnsWidgetPosition + key, columnsWidgetBlockName, ip.revisionId);
+                        ipContent.moveWidget($widget.data('widgetinstanceid'), columnsWidgetPosition + key, columnsWidgetBlockName);
                     });
                 }
 
@@ -116,7 +116,6 @@ var ipContent;
 
 
         this.createWidgetInsideWidget = function(widgetName, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
                 var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                 var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
@@ -131,12 +130,11 @@ var ipContent;
 
 
         this.moveWidgetInsideWidget = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             this.splitWidget(targetWidgetInstanceId, position, function(firstWidgetInstanceId, secondWidgetInstanceId) {
                 var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                 var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
                 var firstWidgetPosition = $firstWidget.index();
-                ipContent.moveWidget(sourceWidgetInstanceId, firstWidgetPosition + 1, blockName, ip.revisionId, function (instanceId) {
+                ipContent.moveWidget(sourceWidgetInstanceId, firstWidgetPosition + 1, blockName, function (instanceId) {
                     if (callback) {
                         callback(instanceId);
                     }
@@ -180,7 +178,6 @@ var ipContent;
         }
 
         this.createWidgetToColumn = function(widgetName, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
                 ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
                     var $block = $('#ipBlock-' + newWidgetBlockName);
@@ -194,9 +191,8 @@ var ipContent;
 
 
         this.moveWidgetToColumn = function(sourceWidgetInstanceId, targetWidgetInstanceId, position, callback) {
-            var revisionId = ip.revisionId;
             addColumn(targetWidgetInstanceId, position, function (newWidgetBlockName) {
-                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, revisionId, function (instanceId) {
+                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, function (instanceId) {
                     if (callback) {
                         callback(instanceId);
                     }
@@ -207,10 +203,9 @@ var ipContent;
 
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
-            var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
-                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, revisionId, function (instanceId) {
+                ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, function (instanceId) {
                     if (callback) {
                         callback(instanceId);
                     }
@@ -220,7 +215,6 @@ var ipContent;
         };
 
         this.createWidgetToSide = function (widgetName, targetWidgetInstanceId, leftOrRight, callback) {
-            var revisionId = ip.revisionId;
 
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
                 ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
@@ -271,7 +265,6 @@ var ipContent;
             var $targetBlock = $targetWidget.closest('.ipBlock');
             var targetBlockName = $targetBlock.data('ipBlock').name;
             var targetPosition = $targetWidget.index();
-            var revisionId = ip.revisionId;
 
             if ($targetWidget.hasClass('ipWidget-Columns')) {
                 //create additional column on existing columns widget
@@ -315,8 +308,8 @@ var ipContent;
                     var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name;
                     newWidgetBlockName = $newWidgetBlock.data('ipBlock').name;
                     //move target widget to right / left column
-                    ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, revisionId, function (newInstanceId) {
-                        $('#ipWidget-' + newInstanceId).remove();
+                    ipContent.moveWidget(targetWidgetInstanceId, 0, existingWidgetBlockName, function (newInstanceId) {
+                        var staticBlock = $('.ipBlock-existingWidgetBlockName').data('revisionId') == 0;
                         $columnWidget.ipWidget('save', {}, 1, function($widget) {
                             $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
                             if (callback) {
@@ -438,14 +431,17 @@ var ipContent;
         };
 
 
-        this.moveWidget = function (instanceId, position, block, revisionId, callback) {
+        this.moveWidget = function (instanceId, position, block, callback) {
             var data = Object();
             data.aa = 'Content.moveWidget';
             data.securityToken = ip.securityToken;
             data.instanceId = instanceId;
             data.position = position;
             data.blockName = block;
-            data.revisionId = revisionId;
+            var $block = $('#ipBlock-' + block);
+            data.revisionId = $block.data('revisionid');
+            data.languageId = $block.data('languageid');
+
 
             var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
 

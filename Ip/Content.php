@@ -90,6 +90,17 @@ class Content
 
     }
 
+    public function getPage($pageId)
+    {
+        try {
+            $page = new \Ip\Page($pageId);
+        } catch (\Ip\Exception $e) {
+            return FALSE;
+        }
+        return $page;
+
+    }
+
     /**
      * Get current page object
      *
@@ -201,8 +212,25 @@ class Content
      */
     public function getBreadcrumb($pageId = null)
     {
-        // TODOXX #breadcrumb
-        return array();
+        if ($pageId !== null) {
+            $page = new \Ip\Page($pageId);
+        } else {
+            $page = ipContent()->getCurrentPage();
+        }
+
+        if ($page) {
+            $pages[] = $page;
+            $parentPageId = $page->getParentId();
+            while (!empty($parentPageId)) {
+                $parentPage = new \Ip\Page($parentPageId);
+                $pages[] = $parentPage;
+                $parentPageId = $parentPage->getParentId();
+            }
+        }
+        array_pop($pages);
+
+        $breadcrumb = array_reverse($pages);
+        return $breadcrumb;
     }
 
     /**

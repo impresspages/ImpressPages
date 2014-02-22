@@ -10,9 +10,10 @@ if($menuItem->isCurrent()) {
     $css[] = 'active';
     $selected = true;
 } elseif ($menuItem->isInCurrentBreadcrumb()) {
-    $css[] = 'selected';
+    $css[] = 'inBreadcrumb';
     $selected = true;
 }
+
 
 if(sizeof($menuItem->getChildren()) > 0) {
     $css[] = 'dropdown';

@@ -19,9 +19,9 @@ class Model
         }
     }
 
-    public static function sortZone($zoneName, $newIndex)
+    public static function sortZone($menuName, $newIndex)
     {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
+        $menu = Db::getZones(ipContent()->getCurrentLanguage()->getId());
 
         $newPriority = null;
 
@@ -34,7 +34,7 @@ class Model
             $newPriority = ($zones[$newIndex - 1]['row_number'] + $zones[$newIndex]['row_number']) / 2;
         }
 
-        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $zoneName));
+        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $menuName));
     }
 
     public static function cleanupLanguage($id)
@@ -224,7 +224,9 @@ class Model
 
     protected static function getNextPageOrder($where)
     {
-        return ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+        $value = ipDb()->selectValue('page', 'MAX(`pageOrder`)', $where); //can't use +1 in mysql. It fails if there are no records
+        $value++;
+        return $value;
     }
 
     public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)

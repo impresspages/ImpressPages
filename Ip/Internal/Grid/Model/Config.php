@@ -224,6 +224,15 @@ class Config
 
     }
 
+    public function getTitle()
+    {
+        if (empty($this->config['title'])) {
+            return '';
+        }
+        return $this->config['title'];
+    }
+
+
     protected function getTableFields($tableName)
     {
         $sql = "SHOW COLUMNS FROM " . $this->tableName() . "";

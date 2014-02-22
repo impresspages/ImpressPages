@@ -59,8 +59,11 @@ class Controller extends \Ip\WidgetController
                     break;
             }
         } else {
-            return parent::update($widgetId, $postData, $currentData);
+            //return parent::update($widgetId, $postData, $currentData);
+            //Do nothing
         }
+
+        return $currentData;
 
     }
 

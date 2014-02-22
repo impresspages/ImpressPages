@@ -43,8 +43,11 @@ class AdminController extends \Ip\Controller
         if (empty($data['languageId'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $languageCode = $data['languageId']; // TODOX use language code
-        $languageCode = 'en';
+        $language = ipContent()->getLanguage($data['languageId']);
+        if (!$language) {
+            throw new \Ip\Exception("Language doesn't exist. " . $data['languageId']);
+        }
+        $languageCode = $language->getCode();
 
         if (empty($data['menuName'])) {
             throw new \Ip\Exception("Missing required parameters");
@@ -163,24 +166,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function deleteZone()
-    {
-        ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
-
-        if (empty($data['zoneName'])) {
-            throw new \Ip\Exception('Missing required parameters');
-        }
-        $zoneName = $data['zoneName'];
-
-        Service::deleteZone($zoneName);
-
-        $answer = array(
-            'status' => 'error'
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
 
     public function createMenu()
     {
@@ -378,13 +363,13 @@ class AdminController extends \Ip\Controller
         $data = ipRequest()->getPost();
 
 
-        if (empty($data['zoneName']) || !isset($data['newIndex'])) {
+        if (empty($data['menuName']) || !isset($data['newIndex'])) {
             throw new \Ip\Exception("Missing required parameters");
         }
-        $zoneName = $data['zoneName'];
+        $menuName = $data['menuName'];
         $newIndex = $data['newIndex'];
 
-        Model::sortZone($zoneName, $newIndex);
+        Model::sortZone($menuName, $newIndex);
 
         return new \Ip\Response\Json(array(
             'error' => 0

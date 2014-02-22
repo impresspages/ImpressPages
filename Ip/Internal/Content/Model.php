@@ -15,7 +15,7 @@ class Model
 
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
-        $widgets = self::getBlockWidgetRecords($blockName, $revisionId);
+        $widgets = self::getBlockWidgetRecords($blockName, $revisionId, $languageId);
 
         $widgetsHtml = array();
         foreach ($widgets as $widget) {
@@ -48,15 +48,17 @@ class Model
             $widgets[$key] = $widget;
         }
 
+        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+
         $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
         $managementUrls = array();
         $currentPageLink = ipContent()->getCurrentPage()->getLink();
-        foreach ($revisions as $revision) {
-            $managementUrls[] = $currentPageLink . '?cms_revision=' . $revision['revisionId'];
+        foreach ($revisions as $value) {
+            $managementUrls[] = $currentPageLink . '?cms_revision=' . $value['revisionId'];
         }
 
-        $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+
 
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
@@ -68,7 +70,7 @@ class Model
             'widgets' => $widgets,
             'page' => $page,
             'revisions' => $revisions,
-            'currentRevision' => $revision,
+            'currentRevision' => $value,
             'managementUrls' => $managementUrls,
             'manageableRevision' => $manageableRevision
         );
@@ -215,7 +217,7 @@ class Model
     }
 
 
-    public static function getBlockWidgetRecords($blockName, $revisionId)
+    public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
         $sql = '
             SELECT i.*,
@@ -232,13 +234,15 @@ class Model
                 i.isDeleted = 0 AND
                 i.widgetId = w.id AND
                 i.blockName = :blockName AND
-                i.revisionId = :revisionId
+                i.revisionId = :revisionId AND
+                i.languageId = :languageId
             ORDER BY `position` ASC
         ';
 
         $list = ipDb()->fetchAll($sql, array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
+                'languageId' => $languageId
             ));
 
         foreach ($list as &$item) {
@@ -264,7 +268,7 @@ class Model
 
         foreach ($instances as $instance) {
 
-            unset($instance['instanceId']);
+            unset($instance['id']);
             $instance['revisionId'] = $newRevisionId;
 
             ipDb()->insert('widgetInstance', $instance);
@@ -325,11 +329,11 @@ class Model
     public static function getWidgetFullRecord($instanceId)
     {
         $sql = '
-            SELECT * FROM
+            SELECT *, i.id as instanceId FROM
                 ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.`instanceId` = ? AND
+                i.`id` = ? AND
                 i.widgetId = w.id
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
@@ -346,19 +350,7 @@ class Model
         return ipDb()->selectAll('revision', '*', array('pageId' => $pageId));
     }
 
-    public static function updatePageRevisionsZone($pageId, $oldZoneName, $newZoneName)
-    {
-        return ipDb()->update(
-            'revision',
-            array(
-                'zoneName' => $newZoneName,
-            ),
-            array(
-                'pageId' => $pageId,
-                'zoneName' => $oldZoneName,
-            )
-        );
-    }
+
 
 
 
@@ -424,11 +416,11 @@ class Model
     public static function deleteUnusedWidgets()
     {
         $sql = "
-            SELECT `widget`.id
-            FROM " . ipTable('widget') . "
-            LEFT JOIN " . ipTable('widgetInstance') . "
-            ON widgetInstance.widgetId = widget.id
-            WHERE widgetInstance.id IS NULL
+            SELECT `widget`.`id`
+            FROM " . ipTable('widget', 'widget') . "
+            LEFT JOIN " . ipTable('widgetInstance', 'widgetInstance') . "
+            ON `widgetInstance`.`widgetId` = `widget`.`id`
+            WHERE `widgetInstance`.`id` IS NULL
         ";
 
         $db = ipDb();
