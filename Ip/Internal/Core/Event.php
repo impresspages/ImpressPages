@@ -11,12 +11,16 @@ class Event
 {
     public static function ipInit()
     {
-        ipAddJs('Ip/Internal/Core/assets/js/jquery.js', null, 10); // default, global jQuery
-        ipAddJs('Ip/Internal/Core/assets/console.log.js', null, 10);
-        ipAddJs('Ip/Internal/Core/assets/functions.js');
-        ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.form.js');
-        ipAddJs('Ip/Internal/Core/assets/form/form.js');
-        ipAddJs('Ip/Internal/Core/assets/validator.js');
+        if (ipConfig()->isDebugMode()) {
+            ipAddJs('Ip/Internal/Core/assets/ipCore/jquery.js', null, 10); // default, global jQuery
+            ipAddJs('Ip/Internal/Core/assets/ipCore/console.log.js', null, 10);
+            ipAddJs('Ip/Internal/Core/assets/ipCore/functions.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/jquery.tools.form.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/form.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/validator.js');
+        } else {
+            ipAddJs('Ip/Internal/Core/assets/ipCore.min.js', null, 10);
+        }
 
 
         //Form init

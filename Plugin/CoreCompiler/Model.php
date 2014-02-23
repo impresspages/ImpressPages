@@ -6,6 +6,27 @@ namespace Plugin\CoreCompiler;
 
 class Model
 {
+
+    public function generateIpCoreJS()
+    {
+        // source:
+        // - root/Ip/Internal/Core/assets/ipCoreJs/
+        // output:
+        // - assets/ipCoreJs.min.js
+
+        $items = array();
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/jquery.js'); // default, global jQuery
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/console.log.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/functions.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/jquery.tools.form.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/validator.js');
+
+        $jsFile = ipFile('Ip/Internal/Core/assets/ipCore.min.js');
+
+        $this->minifyJS($items, $jsFile);
+    }
+
     public function generateManagementJS()
     {
         // source:
