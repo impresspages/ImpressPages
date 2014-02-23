@@ -35,14 +35,17 @@ class Event
 
 
         if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage()) {
-            ipAddJs('Ip/Internal/Core/assets/admin/jquery.js', null, 10); // jQuery for core
-            ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
-            ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
-            ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
-            ipAddJs('Ip/Internal/Core/assets/admin/form.js');
-            ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
-            ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
-
+            if (ipConfig()->isDebugMode()) {
+                ipAddJs('Ip/Internal/Core/assets/admin/jquery.js', null, 10); // jQuery for core
+                ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/form.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
+            } else {
+                ipAddJs('Ip/Internal/Core/assets/admin.min.js', null, 10);
+            }
         }
 
 

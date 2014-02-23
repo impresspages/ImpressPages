@@ -7,6 +7,27 @@ namespace Plugin\CoreCompiler;
 class Model
 {
 
+    public function generateAdminJS()
+    {
+        // source:
+        // - root/Ip/Internal/Core/assets/admin/
+        // output:
+        // - assets/admin.min.js
+
+        $items = array();
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/jquery.js'); // jQuery for admin
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/managementMode.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/functions.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/form.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/validator.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/bootstrap.js');
+
+        $jsFile = ipFile('Ip/Internal/Core/assets/admin.min.js');
+
+        $this->minifyJS($items, $jsFile);
+    }
+
     public function generateIpCoreJS()
     {
         // source:
