@@ -18,6 +18,8 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/ipCore/jquery.tools.form.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/validator.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/widgets.js');
+
         } else {
             ipAddJs('Ip/Internal/Core/assets/ipCore.min.js', null, 10);
         }
