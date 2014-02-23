@@ -56,7 +56,6 @@ class Event
 
     public static function ipInit()
     {
-        ipAddJs('Ip/Internal/Content/assets/widgets.js');
 
         $ipUrlOverrides = ipConfig()->getRaw('urlOverrides');
         if (!$ipUrlOverrides) {

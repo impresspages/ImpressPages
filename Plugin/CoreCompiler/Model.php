@@ -21,6 +21,8 @@ class Model
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/jquery.tools.form.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/validator.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/widgets.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/ipCore.js');
 
         $jsFile = ipFile('Ip/Internal/Core/assets/ipCore.min.js');
 
