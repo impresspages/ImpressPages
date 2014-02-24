@@ -19,7 +19,6 @@ class Scope
     private $scopeType;
     private $languageId;
     private $pageId;
-    private $zoneName;
 
     public function setType($type)
     {
@@ -36,11 +35,6 @@ class Scope
         $this->pageId = $pageId;
     }
 
-    public function setZoneName($zoneName)
-    {
-        $this->zoneName = $zoneName;
-    }
-
 
     public function getType()
     {
@@ -55,11 +49,6 @@ class Scope
     public function getPageId()
     {
         return $this->pageId;
-    }
-
-    public function getZoneName()
-    {
-        return $this->zoneName;
     }
 
 }

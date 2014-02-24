@@ -13,6 +13,27 @@ namespace Ip\Internal\Pages;
 class Helper
 {
 
+    public static function pagesGridConfig($parentId)
+    {
+        return array(
+        'table' => 'page',
+        'allowCreate' => FALSE,
+        'allowSearch' => FALSE,
+        'allowDelete' => FALSE,
+        'allowUpdate' => FALSE,
+        'sortField' => 'pageOrder',
+        'pageSize' => ipGetOption('Pages.pageListSize', 30),
+        'pageVariableName' => 'gpage',
+        'filter' => 'parentId = ' . (int) $parentId, //rename to sqlWhere
+        'fields' => array(
+            array(
+                'label' => __('Title', 'ipAdmin', FALSE),
+                'field' => 'title',
+            ))
+        );
+    }
+
+
     public static function languageList()
     {
         $answer = array();
@@ -31,7 +52,11 @@ class Helper
 
     public static function menuList()
     {
-        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `languageCode`, `navigationTitle`', array('parentId' => 0));
+        $menus = ipDb()->selectAll('page', '`id`, `alias`, `title`, `languageCode`, `title`', array('parentId' => 0));
+        foreach($menus as &$menu) {
+            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
+        }
+        return $menus;
     }
 
     public static function menuForm($menuId)
@@ -61,8 +86,8 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title (used in admin)', 'ipAdmin', false),
-                'value' => $menu['navigationTitle']
+                'label' => __('Title', 'ipAdmin', false),
+                'value' => $menu['title']
             ));
         $form->addField($field);
 
@@ -85,6 +110,19 @@ class Helper
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
                 'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
+                'values' => $values,
+            ));
+        $form->addField($field);
+
+        $values = array (
+            array ('tree', __('Tree (for menu)', 'ipAdmin', FALSE)),
+            array ('list', __('List (for blogs)', 'ipAdmin', FALSE)),
+        );
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Type', 'ipAdmin', false),
+                'value' => ipPageStorage($menu['id'])->get('menuType', 'main.php'),
                 'values' => $values,
             ));
         $form->addField($field);
@@ -122,17 +160,17 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'navigationTitle',
-                'label' => __('Navigation title', 'ipAdmin', false),
-                'value' => $page->getNavigationTitle()
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false),
+                'value' => $page->getTitle()
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'pageTitle',
-                'label' => __('Page title', 'ipAdmin', false),
-                'value' => $page->getPageTitle()
+                'name' => 'metaTitle',
+                'label' => __('Meta title', 'ipAdmin', false),
+                'value' => $page->getMetaTitle()
             ));
         $form->addField($field);
 
@@ -243,6 +281,18 @@ class Helper
             array(
                 'name' => 'title',
                 'label' => __('Title', 'ipAdmin', false)
+            ));
+        $form->addField($field);
+
+        $values = array (
+            array ('tree', __('Tree (for menu)', 'ipAdmin', FALSE)),
+            array ('list', __('List (for blogs)', 'ipAdmin', FALSE)),
+        );
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Type', 'ipAdmin', false),
+                'values' => $values,
             ));
         $form->addField($field);
 

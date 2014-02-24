@@ -25,7 +25,7 @@
                             $this.trigger('ipModuleInlineManagement.openEditPopup');
                         }
                     })
-                    .bind('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
+                    .on('ipModuleInlineManagement.openEditPopup', $.proxy(methods.openPopup, $this ));
                 }
             });
         },
@@ -34,8 +34,6 @@
         openPopup : function () {
             var $this = this;
 
-
-
             $this.css('width', '');
             $this.css('height', '');
 
@@ -43,7 +41,6 @@
             data.aa = 'InlineManagement.getManagementPopupImage';
             data.securityToken = ip.securityToken;
             data.key = $this.data('ipInlineManagementImage').key;
-            data.zoneName = ip.zoneName;
             data.pageId = ip.pageId;
             data.languageId = ip.languageId;
 
@@ -167,7 +164,6 @@
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
             data.securityToken = ip.securityToken;
-            data.zoneName = ip.zoneName;
             data.pageId = ip.pageId;
             data.languageId = ip.languageId;
 
@@ -237,7 +233,6 @@
             data.options = $this.data('ipInlineManagementImage').options;
             data.cssClass = $this.data('ipInlineManagementImage').cssClass;
             data.type = $popup.find('.ipsType').val();
-            data.zoneName = ip.zoneName;
             data.pageId = ip.pageId;
             data.languageId = ip.languageId;
 

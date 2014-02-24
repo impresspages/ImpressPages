@@ -19,7 +19,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         $menu = Service::getMenu('en', 'testMenu');
         $this->assertNotEmpty($menu);
-        $this->assertEquals('Test menu', $menu['navigationTitle']);
+        $this->assertEquals('Test menu', $menu['title']);
 
         Service::deletePage($menu['id']);
 
@@ -29,20 +29,20 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatePage()
     {
-        $pageId = Service::addPage(0, 'Test page');
+        $pageId = Service::addPage(0, 'Test page', array('languageCode' => 'en'));
         $this->assertNotEmpty($pageId);
 
         $page = Service::getPage($pageId);
         $this->assertNotEmpty($page);
-        $this->assertEquals('Test page', $page['pageTitle']);
+        $this->assertEquals('Test page', $page['title']);
         $this->assertEquals('test-page', $page['urlPath']);
 
         $subpageId = Service::addPage($pageId, 'Test subpage');
         $this->assertNotEmpty($subpageId);
         $subpage = Service::getPage($subpageId);
         $this->assertNotEmpty($subpage);
-        $this->assertEquals('Test subpage', $subpage['pageTitle']);
-        $this->assertEquals('test-page/test-subpage', $subpage['urlPath']);
+        $this->assertEquals('Test subpage', $subpage['title']);
+        $this->assertEquals('test-subpage', $subpage['urlPath']);
 
         Service::deletePage($pageId);
 
@@ -55,26 +55,34 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testMovePage()
     {
-        $firstPageId = Service::addPage(0, 'First page');
+        $firstPageId = Service::addPage(0, 'First page', array('languageCode' => 'en'));
         $this->assertNotEmpty($firstPageId);
 
         $firstPage = Service::getPage($firstPageId);
-        $this->assertNotEmpty($firstPage);
         $this->assertEquals('first-page', $firstPage['urlPath']);
 
-
-        $secondPageId = Service::addPage(0, 'Second page');
+        $secondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
         $this->assertNotEmpty($secondPageId);
 
         $secondPage = Service::getPage($secondPageId);
-        $this->assertNotEmpty($secondPage);
         $this->assertEquals('second-page', $secondPage['urlPath']);
 
         Service::movePage($secondPageId, $firstPageId, 1);
         $secondPage = Service::getPage($secondPageId);
-        $this->assertNotEmpty($secondPage);
         $this->assertEquals($firstPageId, $secondPage['parentId']);
-        $this->assertEquals('first-page/second-page', $secondPage['urlPath']);
+        $this->assertEquals('second-page', $secondPage['urlPath']);
+
+        $newSecondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
+        $this->assertNotEmpty($newSecondPageId);
+
+        $newSecondPage = Service::getPage($newSecondPageId);
+        $this->assertEquals('second-page-2', $newSecondPage['urlPath']);
+
+        Service::movePage($newSecondPageId, $firstPageId, 2);
+        $newSecondPage = Service::getPage($newSecondPageId);
+        $this->assertEquals('second-page-2', $newSecondPage['urlPath']);
+
+        Service::deletePage($firstPageId);
     }
 
 }

@@ -26,15 +26,15 @@ class Model
         $newPriority = null;
 
         if ($newIndex <= 0) {
-            $newPriority = $zones[0]['row_number'] - 20;
+            $newPriority = $zones[0]['pageOrder'] - 20;
         } elseif ($newIndex > count($zones) - 1) {
             $lastZone = end($zones);
-            $newPriority = $lastZone['row_number'] + 20;
+            $newPriority = $lastZone['pageOrder'] + 20;
         } else {
-            $newPriority = ($zones[$newIndex - 1]['row_number'] + $zones[$newIndex]['row_number']) / 2;
+            $newPriority = ($zones[$newIndex - 1]['pageOrder'] + $zones[$newIndex]['pageOrder']) / 2;
         }
 
-        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $menuName));
+        ipDb()->update('zone', array('pageOrder' => $newPriority), array('name' => $menuName));
     }
 
     public static function cleanupLanguage($id)
@@ -76,23 +76,23 @@ class Model
     /**
      *
      * Copy page
-     * @param unknown_type $nodeId
-     * @param unknown_type $newParentId
-     * @param int $position page position in the subtree
+     * @param int $pageId
+     * @param int$newParentId
+     * @param int $position page position in the subtree //TODO implement
      */
-    public static function copyPage($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $position)
+    public static function copyPage($pageId, $destinationPageId, $position = null)
     {
 
         $children = Db::pageChildren($destinationPageId);
 
         if (!empty($children)) {
-            $rowNumber = $children[count($children) - 1]['row_number'] + 1;
+            $rowNumber = $children[count($children) - 1]['pageOrder'] + 1;
         } else {
             $rowNumber = 0;
         }
 
 
-        return self::_copyPageRecursion($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber);
+        return self::_copyPageRecursion($pageId, $destinationPageId, $rowNumber);
 
     }
 
@@ -105,14 +105,12 @@ class Model
      * @param unknown_type $newPages
      */
     private static function _copyPageRecursion(
-        $zoneName,
         $nodeId,
-        $destinationZoneName,
         $destinationPageId,
         $rowNumber,
         $newPages = null
     ) {
-        //$newPages are the pages that have been copied already and should be skiped to duplicate again. This situacion can occur when copying the page to it self
+        //$newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self
         if ($newPages == null) {
             $newPages = array();
         }
@@ -125,7 +123,7 @@ class Model
         if ($children) {
             foreach ($children as $key => $lock) {
                 if (!isset($newPages[$lock['id']])) {
-                    self::_copyPageRecursion($zoneName, $lock['id'], $destinationZoneName, $newNodeId, $key, $newPages);
+                    self::_copyPageRecursion($lock['id'], $newNodeId, $key, $newPages);
                 }
             }
         }
@@ -139,22 +137,7 @@ class Model
         \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
 
-    protected static function createParametersZone($zoneId, $url, $title, $keywords, $description)
-    {
-        //create zone translations
-        $languages = ipContent()->getLanguages();
-        foreach ($languages as $language) {
-            $params = array(
-                'language_id' => $language->getId(),
-                'zone_id' => $zoneId,
-                'url' =>self::newZoneUrl($language->getId(), $url),
-                'title' => $title,
-                'keywords' => $keywords,
-                'description' => $description
-            );
-            ipDb()->insert('zone_to_language', $params);
-        }
-    }
+
 
     protected static function deleteZoneParameters($languageId)
     {
@@ -196,21 +179,7 @@ class Model
         }
     }
 
-    public static function createMenu($languageCode, $alias, $title)
-    {
-        $data = array();
-        $data['languageCode'] = $languageCode;
-        $data['alias'] = $alias;
-        $data['navigationTitle'] = $title;
 
-        $data['parentId'] = 0;
-        $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
-        $data['isVisible'] = 1;
-
-        $menuId = ipDb()->insert('page', $data);
-
-        return $menuId ? $alias : null;
-    }
 
     public static function getMenu($languageCode, $alias)
     {
@@ -229,50 +198,29 @@ class Model
         return $value;
     }
 
-    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        $rowNumber = 0; //initial value
 
-        if(count($zones) > 0) {
-            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
-            if ($position > 0) {
-                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
-                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
-                }
-            }
+
+    public static function changePageUrlPath($pageId, $newUrlPath)
+    {
+        $pageBeforeChange = ipPage($pageId);
+
+        if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
+            return false;
         }
 
+        $allocatedPath = UrlAllocator::allocatePath($pageBeforeChange->getLanguageCode(), $newUrlPath);
+        ipDb()->update('page', array('urlPath' => $allocatedPath), array('id' => $pageId));
 
-        $zoneName = self::uniqueZoneName($name);
+        $pageAfterChange = ipPage($pageId);
 
-        $data = array(
-            'translation' => $title,
-            'name' => $zoneName,
-            'row_number' => $rowNumber,
-            'associated_module' => 'Content',
-            'template' => $layout
-        );
-        $zoneId = ipDb()->insert('zone', $data);
-
-        self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
-
-        return $zoneName;
+        ipEvent('ipUrlChanged', array(
+                'oldUrl' => $pageBeforeChange->getLink(),
+                'newUrl' => $pageAfterChange->getLink(),
+            ));
     }
 
 
-    public static function updateMenu($menuId, $alias, $title, $layout)
-    {
-        $update = array(
-            'alias' => $alias,
-            'navigationTitle' => $title,
-        );
 
-        ipDb()->update('page', $update, array('id' => $menuId));
-        ipPageStorage($menuId)->set('layout', $layout);
-    }
 
     public static function deleteZone($zoneName)
     {
@@ -293,12 +241,12 @@ class Model
     {
         $update = array();
 
-        if (isset($properties['navigationTitle'])) {
-            $update['navigationTitle'] = $properties['navigationTitle'];
+        if (isset($properties['title'])) {
+            $update['title'] = $properties['title'];
         }
 
-        if (isset($properties['pageTitle'])) {
-            $update['pageTitle'] = $properties['pageTitle'];
+        if (isset($properties['metaTitle'])) {
+            $update['metaTitle'] = $properties['metaTitle'];
         }
 
         if (isset($properties['keywords'])) {
@@ -342,67 +290,11 @@ class Model
         return true;
     }
 
-    public static function updatePageSlug($pageId, $slug)
-    {
-        $page = ipDb()->selectRow('page', array('parentId', 'pageTitle', 'navigationTitle', 'slug', 'url'), array('id' => $pageId));
-
-        $parentUrl = ipDb()->selectValue('page', 'url', array('id' => $page['parentId']));
-
-        $slug = str_replace("/", "-", $slug);
-
-        $newUrl = $parentUrl . '/' . $slug;
-
-        if ($newUrl == $page['url']) {
-            return false;
-        }
-
-        if (!UrlAllocator::isPathAvailable($newUrl, $pageId)) {
-            $i = 1;
-            while (!UrlAllocator::isPathAvailable("$newUrl-$i", $pageId)) {
-                $i++;
-            }
-
-            $newUrl = "$newUrl-$i";
-            $slug .= '-' . $i;
-        }
-
-        ipDb()->update('page', array('url' => $newUrl, 'slug' => $slug), array('id' => $pageId));
-
-        if ($newUrl != $page['url']) {
-            // TODOX full url
-            ipEvent('ipUrlChanged', array('oldUrl' => $page['url'], 'newUrl' => $newUrl));
-        }
-
-        return true;
-    }
-
-    public static function regeneratePageSlug($pageId)
-    {
-        $page = ipDb()->selectRow('page', array('pageTitle', 'navigationTitle'), array('id' => $pageId));
-
-        if (!empty($page['pageTitle'])) {
-            $slug = $page['pageTitle'];
-        } elseif (!empty($page['navigationTitle'])) {
-            $slug = $page['navigationTitle'];
-        } else {
-            throw new \Ip\Exception('Page has no title.');
-        }
-
-        return static::updatePageSlug($pageId, $slug);
-    }
-
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
             throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
         }
-
-        // for ipUrlChanged event
-        $oldPage = new \Ip\Page($pageId);
-        $oldUrl = $oldPage->getLink();
-        // for ipUrlChanged event
-
-        $oldData = ipDb()->selectRow('page', '*', array('id' => $pageId));
 
         $newParentChildren = Db::pageChildren($destinationParentId);
         $newPageOrder = 0; //initial value
@@ -423,29 +315,7 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
-        if ($oldData['parentId'] != $destinationParentId) {
-            $parentPath = rtrim(ipDb()->selectValue('page', 'urlPath', array('id' => $destinationParentId)), '/');
-
-            $slug = basename($oldData['urlPath']);
-
-            if ($parentPath) {
-                $newPath = $parentPath . '/' . $slug;
-            } else {
-                $newPath = $slug;
-            }
-
-            if ($newPath != $oldData['urlPath']) {
-                $newPath = UrlAllocator::allocatePath($oldData['languageCode'], $newPath);
-                $update['urlPath'] = $newPath;
-            }
-        }
-
         ipDb()->update('page', $update, array('id' => $pageId));
-
-        if (!empty($update['urlPath'])) {
-            $newPage = new \Ip\Page($pageId);
-            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newPage->getLink()));
-        }
     }
 
 }
