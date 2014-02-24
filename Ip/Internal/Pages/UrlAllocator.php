@@ -77,39 +77,18 @@ class UrlAllocator
     }
 
     /**
+     * @parem string $languageCode
      * @param string $urlPath
-     * @param int $allowed_id
-     * @returns bool true if url is available ignoring $allowed_id page.
+     * @returns bool true if url is available
      */
-    public static function isPathAvailable($urlPath, $allowedId = null)
+    public static function isPathAvailable($languageCode, $urlPath)
     {
-
-        $pageId = ipDb()->selectValue('page', '`id`', array('urlPath' => $urlPath));
+        $pageId = ipDb()->selectValue('page', '`id`', array('languageCode' => $languageCode, 'urlPath' => $urlPath));
 
         if (!$pageId) {
             return true;
         }
 
-        if ($allowedId && $pageId == $allowedId) {
-            return true;
-        }
-
         return false;
     }
-
-    public static function ensureUniqueUrl($url, $allowedId = null)
-    {
-        $url = str_replace("/", "-", $url);
-
-        if (self::isPathAvailable($url, $allowedId))
-            return $url;
-
-        $i = 2;
-        while (!self::isPathAvailable($url . '-' . $i, $allowedId)) {
-            $i++;
-        }
-
-        return $url . '-' . $i;
-    }
-
 }
