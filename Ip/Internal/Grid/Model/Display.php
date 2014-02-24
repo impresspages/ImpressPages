@@ -35,9 +35,9 @@ class Display
 
 
         if (empty($searchVariables)) {
-            $where = 1;
+            $where = $this->config->filter();
         } else {
-            $where = '1';
+            $where = $this->config->filter();
             foreach ($this->config->fields() as $fieldData) {
                 $fieldObject = $this->config->fieldObject($fieldData);
                 $fieldQuery = $fieldObject->searchQuery($searchVariables);
@@ -53,7 +53,8 @@ class Display
 
 
 
-        $currentPage = !empty($statusVariables['page']) ? (int)$statusVariables['page'] : 1;
+        $pageVariableName = $this->config->pageVariableName();
+        $currentPage = !empty($statusVariables[$pageVariableName]) ? (int)$statusVariables[$pageVariableName] : 1;
         if ($currentPage < 1) {
             $currentPage = 1;
         }

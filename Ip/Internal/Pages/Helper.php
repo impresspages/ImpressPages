@@ -13,6 +13,26 @@ namespace Ip\Internal\Pages;
 class Helper
 {
 
+    public static function pagesGridConfig($parentId)
+    {
+        return array(
+        'table' => 'page',
+        'allowCreate' => FALSE,
+        'allowSearch' => FALSE,
+        'allowDelete' => FALSE,
+        'allowUpdate' => FALSE,
+        'sortField' => 'pageOrder',
+        'pageVariableName' => 'gpage',
+        'filter' => 'parentId = ' . (int) $parentId,
+        'fields' => array(
+            array(
+                'label' => __('Navigation title', 'ipAdmin', FALSE),
+                'field' => 'navigationTitle',
+            ))
+        );
+    }
+
+
     public static function languageList()
     {
         $answer = array();

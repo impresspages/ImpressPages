@@ -40,7 +40,7 @@
                         <i class="fa fa-paste"></i>
                     </button>
                 </div>
-                <div class="ipsTree"></div>
+                <div class="ipsPages"></div>
             </div>
         </div>
     </div>

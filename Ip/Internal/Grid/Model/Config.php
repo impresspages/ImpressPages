@@ -43,6 +43,26 @@ class Config
     }
 
 
+    public function pageVariableName()
+    {
+        if (!empty($this->config['pageVariableName'])) {
+            return $this->config['pageVariableName'];
+        }
+        return 'page';
+    }
+
+    /**
+     * Get sql part to be used in where clause
+     * @return string
+     */
+    public function filter()
+    {
+        if (!empty($this->config['filter'])) {
+            return $this->config['filter'];
+        }
+        return '1';
+    }
+
     public function deleteWarning()
     {
         if (!empty($this->config['deleteWarning'])) {
