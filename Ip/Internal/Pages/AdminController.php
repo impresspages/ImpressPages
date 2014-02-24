@@ -108,8 +108,6 @@ class AdminController extends \Ip\Controller
 
         $answer = array();
 
-        $pageBeforeUpdate = new \Ip\Page($pageId);
-
         if (strtotime($data['createdAt']) === false) {
             $answer['errors'][] = array('field' => 'createdAt', 'message' => __('Incorrect date format. Example:', 'ipAdmin', false).date(" Y-m-d"));
         }
@@ -126,18 +124,10 @@ class AdminController extends \Ip\Controller
         $data['isVisible'] = !empty($data['isVisible']);
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
+            Model::changePageUrlPath($pageId, $data['urlPath']);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
-        }
-
-        if (empty($data['slug'])) {
-
-            Model::regeneratePageSlug($pageId);
-
-        } elseif ($data['slug'] != $pageBeforeUpdate->getSlug()) {
-
-            Model::updatePageSlug($pageId, $data['slug']);
         }
 
         return new \Ip\Response\Json($answer);
