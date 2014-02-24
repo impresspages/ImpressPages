@@ -278,20 +278,6 @@ class Content
         return $newPageId;
     }
 
-
-    /**
-     * Get root page id for the specfic language
-     *
-     * @param string $zoneName
-     * @param int $languageId
-     * @return int Page ID
-     */
-    public static function getRootPageId($zoneName, $languageId)
-    {
-        $rootId = \Ip\Internal\Pages\Service::rootId($zoneName, $languageId);
-        return $rootId;
-    }
-
     /**
      * Copy page
      *
