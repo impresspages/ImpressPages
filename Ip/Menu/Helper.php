@@ -129,7 +129,7 @@ class Helper
 
             $item->setType($page->getType());
             $item->setUrl($page->getLink());
-            $item->setTitle($page->getNavigationTitle());
+            $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $items[] = $item;
         }

@@ -32,7 +32,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
 ?>
 
 <li class="<?php echo implode(' ', $css) ?>">
-    <?php if ($href) { ?><a <?php echo $href ?> title="<?php addslashes($menuItem->getPageTitle()) ?>"><?php } ?>
+    <?php if ($href) { ?><a <?php echo $href ?> title="<?php esc($menuItem->getTitle()) ?>"><?php } ?>
         <?php echo esc($menuItem->getTitle()) ?>
         <?php if ($href) { ?></a><?php } ?>
     <?php if ($menuItem->getChildren()){ ?>

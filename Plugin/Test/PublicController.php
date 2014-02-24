@@ -9,8 +9,8 @@ class PublicController extends \Ip\Controller
     public function hello()
     {
         $page = new \Ip\Page(1, 'Test');
-        $page->setPageTitle('Hello world');
-        $page->setNavigationTitle('Hello world');
+        $page->setMetaTitle('Hello world');
+        $page->setTitle('Hello world');
 
         $req = new \Ip\Request;
         echo 'xxx'.$req->getControllerType();

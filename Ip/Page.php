@@ -11,7 +11,7 @@ class Page
     /** int - unique number of element. */
     protected $id;
     /** string - title that will be placed in menu on the link to this page */
-    protected $navigationTitle;
+    protected $title;
 
     /**
      * @var string full url relative to language url
@@ -24,7 +24,7 @@ class Page
     protected $languageCode;
 
     /** string - meta tag title */
-    protected $pageTitle;
+    protected $metaTitle;
     /** string - meta tag keywords */
     protected $keywords;
     /** string - meta tag description */
@@ -177,19 +177,19 @@ class Page
      *
      * @return string A title for page navigation
      */
-    public function getNavigationTitle()
+    public function getTitle()
     {
-        return $this->navigationTitle;
+        return $this->title;
     }
 
     /**
      * @ignore
      *
-     * @param $navigationTitle string
+     * @param $title string
      */
-    public function setNavigationTitle($navigationTitle)
+    public function setTitle($title)
     {
-        $this->navigationTitle = $navigationTitle;
+        $this->title = $title;
     }
 
     /**
@@ -197,9 +197,9 @@ class Page
      *
      * @return string Page title
      */
-    public function getPageTitle()
+    public function getMetaTitle()
     {
-        return $this->pageTitle;
+        return $this->metaTitle;
     }
 
     /**
@@ -211,14 +211,12 @@ class Page
     }
 
     /**
-     * Set page title
-     *
      * @ignore
-     * @param $pageTitle string
+     * @param $metaTitle string
      */
-    public function setPageTitle($pageTitle)
+    public function setMetaTitle($metaTitle)
     {
-        $this->pageTitle = $pageTitle;
+        $this->metaTitle = $metaTitle;
     }
 
     /**
