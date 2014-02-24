@@ -420,7 +420,15 @@ var ipPages = null;
                 url: ip.baseUrl,
                 data: data,
                 context: this,
-                success: successCallback,
+                success: function () {
+                    //$('.ipsProperties').addClass('hidden');
+                    updateHash(null, null, 0);
+                    $scope.$apply();
+
+                    if (successCallback) {
+                        successCallback();
+                    }
+                },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
                         alert('Server response: ' + response.responseText);
