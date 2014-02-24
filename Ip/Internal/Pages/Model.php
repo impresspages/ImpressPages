@@ -262,6 +262,25 @@ class Model
         return $zoneName;
     }
 
+    public static function changePageUrlPath($pageId, $newUrlPath)
+    {
+        $pageBeforeChange = ipPage($pageId);
+
+        if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
+            return false;
+        }
+
+        $allocatedPath = UrlAllocator::allocatePath($pageBeforeChange->getLanguageCode(), $newUrlPath);
+        ipDb()->update('page', array('urlPath' => $allocatedPath), array('id' => $pageId));
+
+        $pageAfterChange = ipPage($pageId);
+
+        ipEvent('ipUrlChanged', array(
+                'oldUrl' => $pageBeforeChange->getLink(),
+                'newUrl' => $pageAfterChange->getLink(),
+            ));
+    }
+
 
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {

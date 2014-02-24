@@ -203,6 +203,14 @@ class Page
     }
 
     /**
+     * @return string Language code
+     */
+    public function getLanguageCode()
+    {
+        return $this->languageCode;
+    }
+
+    /**
      * Set page title
      *
      * @ignore
