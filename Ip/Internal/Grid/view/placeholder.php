@@ -1,1 +1,1 @@
-<div class="ipsGrid" data-gateway="<?php echo esc(json_encode($gateway), 'attr') ?>"></div>
+<div class="ipModuleGrid ipsGrid" data-gateway="<?php echo esc(json_encode($gateway), 'attr'); ?>"></div>

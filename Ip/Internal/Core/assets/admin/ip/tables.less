@@ -1,0 +1,3 @@
+th {
+    font-weight: bold;
+}
