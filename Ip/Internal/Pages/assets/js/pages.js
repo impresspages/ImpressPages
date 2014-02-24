@@ -109,9 +109,9 @@ var ipPages = null;
                 pageId: pageId
             });
             $properties.off('update.ipPages').on('update.ipPages', function () {
-                var title = $properties.find('input[name=navigationTitle]').val();
+                var title = $properties.find('input[name=title]').val();
                 if (!title) {
-                    title = $properties.find('input[name=pageTitle]').val();
+                    title = $properties.find('input[name=metaTitle]').val();
                 }
                 getJsTree().set_text(getJsTree().get_selected(), title);
             });
@@ -240,11 +240,8 @@ var ipPages = null;
 
 
         $scope.menuTitle = function (menu) {
-            if (menu.navigationTitle) {
-                return menu.navigationTitle;
-            }
-            if (menu.pageTitle) {
-                return menu.pageTitle;
+            if (menu.title) {
+                return menu.title;
             }
 
             return 'Untitled';

@@ -82,6 +82,7 @@ class Model
      */
     public static function copyPage($pageId, $destinationPageId, $position = null)
     {
+
         $children = Db::pageChildren($destinationPageId);
 
         if (!empty($children)) {
@@ -104,6 +105,7 @@ class Model
      * @param unknown_type $newPages
      */
     private static function _copyPageRecursion(
+        $zoneName,
         $nodeId,
         $destinationPageId,
         $rowNumber,
@@ -240,12 +242,12 @@ class Model
     {
         $update = array();
 
-        if (isset($properties['navigationTitle'])) {
-            $update['navigationTitle'] = $properties['navigationTitle'];
+        if (isset($properties['title'])) {
+            $update['title'] = $properties['title'];
         }
 
-        if (isset($properties['pageTitle'])) {
-            $update['pageTitle'] = $properties['pageTitle'];
+        if (isset($properties['metaTitle'])) {
+            $update['metaTitle'] = $properties['metaTitle'];
         }
 
         if (isset($properties['keywords'])) {

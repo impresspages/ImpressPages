@@ -27,8 +27,8 @@ class Helper
         'filter' => 'parentId = ' . (int) $parentId, //rename to sqlWhere
         'fields' => array(
             array(
-                'label' => __('Navigation title', 'ipAdmin', FALSE),
-                'field' => 'navigationTitle',
+                'label' => __('Title', 'ipAdmin', FALSE),
+                'field' => 'title',
             ))
         );
     }
@@ -52,7 +52,7 @@ class Helper
 
     public static function menuList()
     {
-        $menus = ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `languageCode`, `navigationTitle`', array('parentId' => 0));
+        $menus = ipDb()->selectAll('page', '`id`, `alias`, `title`, `languageCode`, `title`', array('parentId' => 0));
         foreach($menus as &$menu) {
             $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
         }
@@ -86,8 +86,8 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title (used in admin)', 'ipAdmin', false),
-                'value' => $menu['navigationTitle']
+                'label' => __('Title', 'ipAdmin', false),
+                'value' => $menu['title']
             ));
         $form->addField($field);
 
@@ -160,17 +160,17 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'navigationTitle',
-                'label' => __('Navigation title', 'ipAdmin', false),
-                'value' => $page->getNavigationTitle()
+                'name' => 'title',
+                'label' => __('Title', 'ipAdmin', false),
+                'value' => $page->getTitle()
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'pageTitle',
-                'label' => __('Page title', 'ipAdmin', false),
-                'value' => $page->getPageTitle()
+                'name' => 'metaTitle',
+                'label' => __('Meta title', 'ipAdmin', false),
+                'value' => $page->getMetaTitle()
             ));
         $form->addField($field);
 
