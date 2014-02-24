@@ -22,8 +22,9 @@ class Helper
         'allowDelete' => FALSE,
         'allowUpdate' => FALSE,
         'sortField' => 'pageOrder',
+        'pageSize' => ipGetOption('Pages.pageListSize', 30),
         'pageVariableName' => 'gpage',
-        'filter' => 'parentId = ' . (int) $parentId,
+        'filter' => 'parentId = ' . (int) $parentId, //rename to sqlWhere
         'fields' => array(
             array(
                 'label' => __('Navigation title', 'ipAdmin', FALSE),

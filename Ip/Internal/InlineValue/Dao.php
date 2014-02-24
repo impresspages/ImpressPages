@@ -23,7 +23,7 @@ class Dao
     }
 
     // GET
-    public function getValue($key, $languageId, $zoneName, $pageId)
+    public function getValue($key, $languageId, $pageId)
     {
         //Find value in breadcrumb
         if ($pageId === null) {
@@ -37,20 +37,18 @@ class Dao
 
 
         foreach ($breadcrumb as $position => $element) {
-            $value = $this->getPageValue($key, $languageId, $zoneName, $element->getId());
+            $value = $this->getPageValue($key, $languageId, $element->getId());
             if ($value !== false) {
                 if ($position == 0) {
                     $scope = new Entity\Scope();
                     $scope->settype(Entity\Scope::SCOPE_PAGE);
                     $scope->setPageId($element->getId());
-                    $scope->setZoneName($zoneName);
                     $scope->setLanguageId($languageId);
                     $this->lastValueScope = $scope;
                 } else {
                     $scope = new Entity\Scope();
                     $scope->settype(Entity\Scope::SCOPE_PARENT_PAGE);
                     $scope->setPageId($element->getId());
-                    $scope->setZoneName($zoneName);
                     $scope->setLanguageId($languageId);
                     $this->lastValueScope = $scope;
                 }
@@ -91,12 +89,11 @@ class Dao
     }
 
 
-    public function getPageValue($key, $languageId, $zoneName, $pageId)
+    public function getPageValue($key, $languageId, $pageId)
     {
         $scope = new Entity\Scope();
         $scope->settype(Entity\Scope::SCOPE_PAGE);
         $scope->setPageId($pageId);
-        $scope->setZoneName($zoneName);
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
 
@@ -174,7 +171,7 @@ class Dao
     }
 
     // SET
-    public function setPageValue($key, $languageId, $zoneName, $pageId, $value)
+    public function setPageValue($key, $languageId, $pageId, $value)
     {
         $dbh = ipDb()->getConnection();
         $sql = '
@@ -250,7 +247,7 @@ class Dao
     }
 
     // DELETE
-    public function deletePageValue($key, $zoneName, $pageId)
+    public function deletePageValue($key, $pageId)
     {
         $dbh = ipDb()->getConnection();
         $sql = '
