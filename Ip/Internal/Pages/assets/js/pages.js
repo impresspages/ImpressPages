@@ -482,7 +482,7 @@ var ipPages = null;
                 context: this,
                 success: function (response) {
                     if (doRefresh) {
-                        refresh();
+                        window.location = ip.baseUrl + '?aa=Pages.index';
                     }
                 },
                 error: function (response) {
