@@ -99,58 +99,6 @@ class Page
         //by default do nothing. Override to do something
     }
 
-
-    /**
-     *
-     * Find and cache previous and next elements in elements list.
-     *
-     */
-    private function findPreviousAndNextElements()
-    {
-        $zone = ipContent()->getZone($this->zoneName);
-        $elements = $zone->getPages(null, $this->parentId);
-        for ($i = 0; $i < sizeof($elements); $i++) {
-            if ($elements[$i]->getId() == $this->getId()) {
-                if (isset($elements[$i - 1])) {
-                    $this->previousElement = $elements[$i - 1];
-                } else {
-                    $this->previousElement = false;
-                }
-                if (isset($elements[$i + 1])) {
-                    $this->nextElement = $elements[$i + 1];
-                } else {
-                    $this->nextElement = false;
-                }
-            }
-        }
-    }
-
-    /**
-     * Get the next page on website's page tree branch
-     *
-     * @return Page or false if next element doesn't exist
-     */
-    public function getNextPage()
-    {
-        if ($this->nextElement === null) {
-            $this->findPreviousAndNextElements();
-        }
-        return $this->nextElement;
-    }
-
-    /**
-     * Get previous page on website's page tree branch
-     *
-     * @return Page Page object or false if previous element doesn't exist
-     */
-    public function getPreviousPage()
-    {
-        if ($this->previousElement === null) {
-            $this->findPreviousAndNextElements();
-        }
-        return $this->previousElement;
-    }
-
     /**
      * Get page ID
      *

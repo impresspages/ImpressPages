@@ -95,14 +95,6 @@ class Zone extends \Ip\Zone
 
         foreach ($pages as $key => $page) { //link generation optimization.
             if ($pages[$key]->getType() == 'default') {
-                $pages[$key]->setLink(
-                    \Ip\Internal\Deprecated\Url::generate(
-                        $languageId,
-                        $this->getName(),
-                        array_merge($urlVars, array($page->getUrl())),
-                        null
-                    )
-                );
             }
         }
 
