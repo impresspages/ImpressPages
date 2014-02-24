@@ -591,7 +591,7 @@ var ipPagesResize;
         var $window = $(window);
         var $languages = $('.ipsLanguages');
         var $menus = $('.ipsMenus');
-        var $pages = $('.ipsPages');
+        var $pages = $('.ipsPagesContainer');
         var $properties = $('.ipsProperties');
 
         var contentHeight = parseInt($window.height());
