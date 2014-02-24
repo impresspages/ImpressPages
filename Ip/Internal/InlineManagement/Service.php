@@ -103,12 +103,6 @@ class Service
             $languageId = ipContent()->getCurrentLanguage()->getId();
         }
 
-        if (isset($options['zoneName'])) {
-            $zoneName = $options['zoneName'];
-        } else {
-            $zoneName = '//TODOX';//ipContent()->getCurrentZone()->getName();
-        }
-
         if (isset($options['pageId'])) {
             $pageId = $options['pageId'];
         } else {
@@ -121,7 +115,7 @@ class Service
             $defaultValue = ipFile('Ip/Internal/InlineManagement/assets/empty.gif');
         }
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $zoneName, $pageId);
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);
 
         $image = new Entity\Image($imageStr, $defaultValue);
 
