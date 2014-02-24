@@ -217,7 +217,8 @@ var ipPages = null;
             $modal.find('form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
-                addMenu(title);
+                var type = $modal.find('select[name=type]').val();
+                addMenu(title, type);
                 $modal.modal('hide');
             });
         }
@@ -349,12 +350,13 @@ var ipPages = null;
 
         }
 
-        var addMenu = function (title) {
+        var addMenu = function (title, type) {
             var data = {
                 aa: 'Pages.createMenu',
                 securityToken: ip.securityToken,
                 languageCode: $scope.activeLanguage.code,
-                title: title
+                title: title,
+                type: type
             };
 
             $.ajax({

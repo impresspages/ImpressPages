@@ -283,6 +283,18 @@ class Helper
             ));
         $form->addField($field);
 
+        $values = array (
+            array ('tree', __('Tree (for menu)', 'ipAdmin', FALSE)),
+            array ('list', __('List (for blogs)', 'ipAdmin', FALSE)),
+        );
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Type', 'ipAdmin', false),
+                'values' => $values,
+            ));
+        $form->addField($field);
+
         return $form;
     }
 

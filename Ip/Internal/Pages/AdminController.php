@@ -189,8 +189,9 @@ class AdminController extends \Ip\Controller
         $request->mustBePost();
         $languageCode = $request->getPost('languageCode');
         $title = $request->getPost('title');
+        $type = $request->getPost('type');
 
-        if (empty($title)) {
+        if (empty($title) || empty($type)) {
             $title = __('Untitled', 'ipAdmin', false);
         }
 
@@ -198,6 +199,12 @@ class AdminController extends \Ip\Controller
         $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
 
         $menuAlias = Service::createMenu($languageCode, $alias, $title);
+
+        $menu = Service::getMenu($languageCode, $menuAlias);
+
+
+        ipPageStorage($menu['id'])->set('menuType', $type);
+
 
         $answer = array(
             'status' => 'success',
