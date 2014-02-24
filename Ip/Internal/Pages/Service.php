@@ -79,6 +79,9 @@ class Service
 
         if (!isset($data['languageCode'])) {
             $data['languageCode'] = ipDb()->selectValue('page', 'languageCode', array('id' => $parentId));
+            if (empty($data['languageCode'])) {
+                throw new \Ip\Exception('Page languageCode should be set if parent is absent');
+            }
         }
 
         if (!isset($data['urlPath'])) {

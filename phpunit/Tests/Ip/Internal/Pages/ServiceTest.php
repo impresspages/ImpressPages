@@ -29,7 +29,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatePage()
     {
-        $pageId = Service::addPage(0, 'Test page');
+        $pageId = Service::addPage(0, 'Test page', array('languageCode' => 'en'));
         $this->assertNotEmpty($pageId);
 
         $page = Service::getPage($pageId);
@@ -55,14 +55,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testMovePage()
     {
-        $firstPageId = Service::addPage(0, 'First page');
+        $firstPageId = Service::addPage(0, 'First page', array('languageCode' => 'en'));
         $this->assertNotEmpty($firstPageId);
 
         $firstPage = Service::getPage($firstPageId);
         $this->assertNotEmpty($firstPage);
         $this->assertEquals('first-page', $firstPage['urlPath']);
 
-        $secondPageId = Service::addPage(0, 'Second page');
+        $secondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
         $this->assertNotEmpty($secondPageId);
 
         $secondPage = Service::getPage($secondPageId);
@@ -75,7 +75,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($firstPageId, $secondPage['parentId']);
         $this->assertEquals('first-page/second-page', $secondPage['urlPath']);
 
-        $newSecondPageId = Service::addPage(0, 'Second page');
+        $newSecondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
         $this->assertNotEmpty($newSecondPageId);
 
         $newSecondPage = Service::getPage($newSecondPageId);

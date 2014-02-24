@@ -1001,3 +1001,12 @@ function ipReflectionException()
     $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
     return $reflectionService->getLastException();
 }
+
+/**
+ * @param int $pageId
+ * @return \Ip\Page
+ */
+function ipPage($pageId)
+{
+    return new \Ip\Page($pageId);
+}
