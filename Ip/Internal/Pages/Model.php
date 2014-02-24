@@ -297,4 +297,66 @@ class Model
         ipDb()->update('page', $update, array('id' => $pageId));
     }
 
+    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
+        $rowNumber = 0; //initial value
+
+        if(count($zones) > 0) {
+            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
+            if ($position > 0) {
+                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
+                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
+                } else { //new position is at the end
+                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
+                }
+            }
+        }
+
+
+        $zoneName = self::uniqueZoneName($name);
+
+        $data = array(
+            'translation' => $title,
+            'name' => $zoneName,
+            'row_number' => $rowNumber,
+            'associated_module' => 'Content',
+            'template' => $layout
+        );
+        $zoneId = ipDb()->insert('zone', $data);
+
+        self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
+
+        return $zoneName;
+    }
+
+
+    public static function updateMenu($menuId, $alias, $title, $layout, $type)
+    {
+        $update = array(
+            'alias' => $alias,
+            'title' => $title,
+        );
+
+        ipDb()->update('page', $update, array('id' => $menuId));
+        ipPageStorage($menuId)->set('layout', $layout);
+        ipPageStorage($menuId)->set('menuType', $type);
+    }
+
+    public static function createMenu($languageCode, $alias, $title)
+    {
+        $data = array();
+        $data['languageCode'] = $languageCode;
+        $data['alias'] = $alias;
+        $data['title'] = $title;
+
+        $data['parentId'] = 0;
+        $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
+        $data['isVisible'] = 1;
+
+        $menuId = ipDb()->insert('page', $data);
+
+        return $menuId ? $alias : null;
+    }
+
 }
