@@ -23,6 +23,13 @@ class Service
     }
 
 
+    public static function getMenus($languageCode)
+    {
+        return Model::getMenus($languageCode);
+    }
+
+
+
 
 
     /**
@@ -82,7 +89,10 @@ class Service
         Model::deletePage($pageId);
     }
 
-
+    public static function getChildren($pageId, $start = null, $limit = null)
+    {
+        return Model::getChildren($pageId, $start, $limit);
+    }
 
     public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
     {

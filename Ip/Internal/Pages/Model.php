@@ -165,6 +165,25 @@ class Model
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias));
     }
 
+
+
+    public static function getChildren($parentId, $start = null, $limit = null)
+    {
+        $sqlEnd = 'ORDER BY `pageOrder`';
+        if ($start !== null || $limit !== null) {
+            $sqlEnd .= ' LIMIT ' . (int) $start;
+        }
+        if ($limit !== null) {
+            $sqlEnd .= ', ' . (int) $limit;
+        }
+        return ipDb()->selectAll('page', '*', array('parentId' => $parentId), $sqlEnd);
+    }
+
+    public static function getMenus($languageCode)
+    {
+        return ipDb()->selectAll('page', '*', array('languageCode' => $languageCode, 'parentId' => 0), ' ORDER BY `pageOrder` ');
+    }
+
     public static function getPage($pageId)
     {
         return ipDb()->selectRow('page', '*', array('id' => $pageId));
