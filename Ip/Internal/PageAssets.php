@@ -177,7 +177,7 @@ class PageAssets
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
                 'languageId' => ipContent()->getCurrentLanguage()->getId(),
-                'languageUrl' => \Ip\Internal\Deprecated\Url::generate(),
+                'languageUrl' => ipContent()->getCurrentLanguage()->getLink(),
                 'theme' => ipConfig()->getRaw('theme'),
                 'pageId' => ipContent()->getCurrentPage() ? ipContent()->getCurrentPage()->getId() : null,
                 'revisionId' => $revision['revisionId'],
