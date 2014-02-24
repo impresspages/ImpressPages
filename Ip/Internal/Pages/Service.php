@@ -44,13 +44,17 @@ class Service
     }
 
     /**
-     * @param string $zoneName
      * @param int $pageId
      * @param array $data
      */
     public static function updatePage($pageId, $data)
     {
         Model::updatePageProperties($pageId, $data);
+    }
+
+    public static function changePageUrl($pageId, $newUrlPath)
+    {
+        Model::updatePageSlug();
     }
 
     public static function addPage($parentId, $title, $data = array())
