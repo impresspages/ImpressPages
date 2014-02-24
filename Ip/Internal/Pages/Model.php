@@ -397,13 +397,6 @@ class Model
             throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
         }
 
-        // for ipUrlChanged event
-        $oldPage = new \Ip\Page($pageId);
-        $oldUrl = $oldPage->getLink();
-        // for ipUrlChanged event
-
-        $oldData = ipDb()->selectRow('page', '*', array('id' => $pageId));
-
         $newParentChildren = Db::pageChildren($destinationParentId);
         $newPageOrder = 0; //initial value
 
@@ -423,29 +416,7 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
-        if ($oldData['parentId'] != $destinationParentId) {
-            $parentPath = rtrim(ipDb()->selectValue('page', 'urlPath', array('id' => $destinationParentId)), '/');
-
-            $slug = basename($oldData['urlPath']);
-
-            if ($parentPath) {
-                $newPath = $parentPath . '/' . $slug;
-            } else {
-                $newPath = $slug;
-            }
-
-            if ($newPath != $oldData['urlPath']) {
-                $newPath = UrlAllocator::allocatePath($oldData['languageCode'], $newPath);
-                $update['urlPath'] = $newPath;
-            }
-        }
-
         ipDb()->update('page', $update, array('id' => $pageId));
-
-        if (!empty($update['urlPath'])) {
-            $newPage = new \Ip\Page($pageId);
-            ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newPage->getLink()));
-        }
     }
 
 }
