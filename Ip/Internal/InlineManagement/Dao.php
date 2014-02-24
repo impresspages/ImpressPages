@@ -24,14 +24,14 @@ class Dao
 
 
     // GET
-    public function getValue($prefix, $key, $languageId, $zoneName, $pageId)
+    public function getValue($prefix, $key, $languageId, $pageId)
     {
-        return $this->inlineValueService->getValue($prefix.$key, $languageId, $zoneName, $pageId);
+        return $this->inlineValueService->getValue($prefix.$key, $languageId, $pageId);
     }
 
-    public function getPageValue($prefix, $key, $languageId, $zoneName, $pageId)
+    public function getPageValue($prefix, $key, $languageId, $pageId)
     {
-        return $this->inlineValueService->getPageValue($prefix.$key, $languageId, $zoneName, $pageId);
+        return $this->inlineValueService->getPageValue($prefix.$key, $languageId, $pageId);
     }
 
     public function getLanguageValue($prefix, $key, $languageId)
@@ -45,9 +45,9 @@ class Dao
     }
 
     // SET
-    public function setPageValue($prefix, $key, $languageId, $zoneName, $pageId, $value)
+    public function setPageValue($prefix, $key, $languageId, $pageId, $value)
     {
-        return $this->inlineValueService->setPageValue($prefix.$key, $languageId, $zoneName, $pageId, $value);
+        return $this->inlineValueService->setPageValue($prefix.$key, $languageId, $pageId, $value);
     }
 
 
@@ -62,9 +62,9 @@ class Dao
     }
 
     // DELETE
-    public function deletePageValue($prefix, $key, $zoneName, $pageId)
+    public function deletePageValue($prefix, $key, $pageId)
     {
-        $this->inlineValueService->deletePageValue($prefix.$key, $zoneName, $pageId);
+        $this->inlineValueService->deletePageValue($prefix.$key, $pageId);
     }
 
     public function deleteLanguageValue($prefix, $key, $languageId)

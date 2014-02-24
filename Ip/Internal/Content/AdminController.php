@@ -305,7 +305,7 @@ class AdminController extends \Ip\Controller
 
 	private function _addPageToTree(\Ip\Page $page) {
 		$p = array(
-            'text' => $page->getPageTitle(),
+            'text' => $page->getTitle(),
             'icon' => 'fa fa-file-text',
             'li_attr' => (object) array(
             	'data-url' => $page->getUrlPath()

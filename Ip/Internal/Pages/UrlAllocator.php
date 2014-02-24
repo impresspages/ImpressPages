@@ -51,20 +51,13 @@ class UrlAllocator
     {
         if (array_key_exists('urlPath', $page)) {
             $path = $page['urlPath'];
-        } elseif (!empty($page['pageTitle'])) {
-            $path = $page['pageTitle'];
+        } elseif (!empty($page['title'])) {
+            $path = $page['title'];
         } else {
             $path = 'page';
         }
 
         $path = static::slugify($path);
-
-        if (!empty($page['parentId'])) {
-            $parentPath = ipDb()->selectValue('page', 'urlPath', array('id' => $page['parentId']));
-            if ($parentPath) {
-                $path = rtrim($parentPath, '/') . '/' . $path;
-            }
-        }
 
         return static::allocatePath($page['languageCode'], $path);
     }
@@ -88,7 +81,7 @@ class UrlAllocator
      * @param int $allowed_id
      * @returns bool true if url is available ignoring $allowed_id page.
      */
-    public static function isPathAvailable($languageCode, $urlPath, $allowedId = null)
+    public static function isPathAvailable($urlPath, $allowedId = null)
     {
 
         $pageId = ipDb()->selectValue('page', '`id`', array('urlPath' => $urlPath));
@@ -119,4 +112,4 @@ class UrlAllocator
         return $url . '-' . $i;
     }
 
-} 
+}

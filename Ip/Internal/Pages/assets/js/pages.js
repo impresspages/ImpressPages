@@ -80,13 +80,18 @@ var ipPagesResize;
 
         $scope.activateLanguage = function (language) {
             $scope.activeLanguage = language;
-            initTree();
+            showPages();
         }
 
         $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
-            $scope.selectedPageId = menu.id;
-            initTree();
+            if (menu) {
+                $scope.selectedPageId = menu.id;
+            } else {
+                $scope.selectedPageId = null;
+            }
+
+            showPages();
         }
 
         $scope.activatePage = function (pageId) {
@@ -96,9 +101,9 @@ var ipPagesResize;
                 pageId: pageId
             });
             $properties.off('update.ipPages').on('update.ipPages', function () {
-                var title = $properties.find('input[name=navigationTitle]').val();
+                var title = $properties.find('input[name=title]').val();
                 if (!title) {
-                    title = $properties.find('input[name=pageTitle]').val();
+                    title = $properties.find('input[name=metaTitle]').val();
                 }
                 getJsTree().set_text(getJsTree().get_selected(), title);
             });
@@ -178,8 +183,9 @@ var ipPagesResize;
                         var title = $modal.find('input[name=title]').val();
                         var alias = $modal.find('input[name=alias]').val();
                         var layout = $modal.find('select[name=layout]').val();
+                        var type = $modal.find('select[name=type]').val();
                         var languageCode = $scope.activeLanguage.code;
-                        updateMenu(menuId, alias, title, layout);
+                        updateMenu(menuId, alias, title, layout, type);
                         $modal.modal('hide');
                     });
 
@@ -204,7 +210,8 @@ var ipPagesResize;
             $modal.find('form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
-                addMenu(title);
+                var type = $modal.find('select[name=type]').val();
+                addMenu(title, type);
                 $modal.modal('hide');
             });
         }
@@ -220,11 +227,8 @@ var ipPagesResize;
         }
 
         $scope.menuTitle = function (menu) {
-            if (menu.navigationTitle) {
-                return menu.navigationTitle;
-            }
-            if (menu.pageTitle) {
-                return menu.pageTitle;
+            if (menu.title) {
+                return menu.title;
             }
 
             return 'Untitled';
@@ -237,55 +241,78 @@ var ipPagesResize;
             if (node.length) {
                 var position = node.index() + 1;
             }
+
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.selectedPageId, position, true);
+                movePage($scope.cutPageId, $scope.activeMenu.id, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.selectedPageId, position, function () {
+                copyPage($scope.copyPageId, $scope.activeMenu.id, position, function () {
                     refresh();
                 });
             }
         }
 
-        var initTree = function () {
+        var showPages = function () {
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
-                $('.ipsTree').addClass('hidden');
+                $('.ipsPages').addClass('hidden');
                 return;
             }
-            $('.ipsTree').removeClass('hidden')
-            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
-            getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
-                var node = getJsTree().get_selected();
-                updateHash(null, null, node.attr('pageId'));
-                $scope.$apply();
-            });
 
-            getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
-                moveData.rslt.o.each(function (i) {
-                    var pageId = $(this).attr("pageId");
-                    var destinationParentId = moveData.rslt.np.attr("pageId");
-                    if (!destinationParentId) { //replace undefined with null;
-                        destinationParentId = $scope.activeMenu.id;
-                    }
-                    var destinationPosition = moveData.rslt.cp + i;
-                    movePage(pageId, destinationParentId, destinationPosition);
+            $('.ipsPages').removeClass('hidden');
+
+            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                var gridContainer = getTreeDiv();
+                if (!gridContainer.data('gateway')) {
+                    gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
+                    gridContainer.ipGrid();
+                    gridContainer.on('click', '.ipsRow', function (e) {
+                        var $row = $(e.currentTarget);
+                        updateHash(null, null, $row.data('id'));
+                        $scope.$apply();
+                    });
+                }
+            } else {
+                getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
+                getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
+                    var node = getJsTree().get_selected();
+                    updateHash(null, null, node.attr('pageId'));
+                    $scope.$apply();
                 });
-            });
+
+                getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
+                    moveData.rslt.o.each(function (i) {
+                        var pageId = $(this).attr("pageId");
+                        var destinationParentId = moveData.rslt.np.attr("pageId");
+                        if (!destinationParentId) { //replace undefined with null;
+                            destinationParentId = $scope.activeMenu.id;
+                        }
+                        var destinationPosition = moveData.rslt.cp + i;
+                        movePage(pageId, destinationParentId, destinationPosition);
+                    });
+                });
+            }
         }
 
         var getTreeDiv = function () {
-            return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsTree');
+            return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
         }
 
         var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsTree');
+            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsPages');
         }
 
         var refresh = function () {
-            $('.ipsTree').ipPageTree('destroy');
-            $scope.activateMenu($scope.activeMenu);
-            $scope.$apply();
+
+            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                getTreeDiv().ipGrid('refresh');
+            } else {
+                getTreeDiv().ipPageTree('destroy');
+                $scope.activateMenu($scope.activeMenu);
+                $scope.$apply();
+            }
+
         }
+
 
         var addPage = function (title, isvisible) {
             var data = {
@@ -313,12 +340,13 @@ var ipPagesResize;
             });
         }
 
-        var addMenu = function (title) {
+        var addMenu = function (title, type) {
             var data = {
                 aa: 'Pages.createMenu',
                 securityToken: ip.securityToken,
                 languageCode: $scope.activeLanguage.code,
-                title: title
+                title: title,
+                type: type
             };
 
             $.ajax({
@@ -373,7 +401,15 @@ var ipPagesResize;
                 url: ip.baseUrl,
                 data: data,
                 context: this,
-                success: successCallback,
+                success: function () {
+                    //$('.ipsProperties').addClass('hidden');
+                    updateHash(null, null, 0);
+                    $scope.$apply();
+
+                    if (successCallback) {
+                        successCallback();
+                    }
+                },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
                         alert('Server response: ' + response.responseText);
@@ -383,14 +419,12 @@ var ipPagesResize;
             });
         }
 
-        var copyPage = function (pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, callback) {
+        var copyPage = function (pageId, destinationParentId, destinationPosition, callback) {
             var data = {
                 aa: 'Pages.copyPage',
                 pageId: pageId,
                 destinationParentId: destinationParentId,
                 destinationPosition: destinationPosition,
-                languageId: destinationLanguageId,
-                zoneName: destinationZoneName,
                 securityToken: ip.securityToken
             };
 
@@ -425,7 +459,7 @@ var ipPagesResize;
                 context: this,
                 success: function (response) {
                     if (doRefresh) {
-                        refresh();
+                        window.location = ip.baseUrl + '?aa=Pages.index';
                     }
                 },
                 error: function (response) {
@@ -438,29 +472,47 @@ var ipPagesResize;
         }
 
         var updateHash = function (languageCode, menuName, pageId) {
-            if (languageCode === null) {
+            var curVariables = getHashParams();
+            curVariables.hash = '';
+
+            if (languageCode === null && $scope.activeLanguage) {
                 languageCode = $scope.activeLanguage.code;
             }
-            if (menuName === null) {
+            if (menuName === null && $scope.activeMenu) {
                 menuName = $scope.activeMenu.alias;
             }
-            if (pageId === null) {
+            if (pageId === null && $scope.selectedPageId) {
                 pageId = $scope.selectedPageId;
             }
-            var path = 'hash&language=' + languageCode + '&menu=' + menuName;
-            if (pageId) {
-                path = path + '&page=' + pageId;
+
+            if (languageCode) {
+                curVariables.language = languageCode;
             }
+            if (menuName) {
+                curVariables.menu = menuName;
+            }
+            if (pageId) {
+                curVariables.page = pageId;
+            }
+
+            var path = '';
+            $.each(curVariables, function(key, value){
+                if (path != '') {
+                    path = path + '&';
+                }
+                path = path + key + '=' + value;
+            });
             $location.path(path);
         }
 
-        var updateMenu = function (menuId, alias, title, layout) {
+        var updateMenu = function (menuId, alias, title, layout, type) {
             var data = {
                 aa: 'Pages.updateMenu',
                 id: menuId,
                 alias: alias,
                 title: title,
                 layout: layout,
+                type: type,
                 securityToken: ip.securityToken
             };
 

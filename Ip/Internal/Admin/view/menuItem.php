@@ -28,7 +28,7 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
 }
 
 ?><li class="<?php echo implode(' ', $css); ?>">
-    <a <?php echo $href ?> title="<?php echo esc($menuItem->getPageTitle(), 'attr'); ?>">
+    <a <?php echo $href ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">
         <i class="fa fa-fw <?php echo esc($menuItem->getIcon()); ?>"></i>
         <?php echo esc($menuItem->getTitle()); ?>
     </a>
