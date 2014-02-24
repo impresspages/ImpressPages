@@ -442,13 +442,12 @@ var ipPages = null;
         }
 
 
-        var copyPage = function (pageId, destinationLanguageId, destinationParentId, destinationPosition, callback) {
+        var copyPage = function (pageId, destinationParentId, destinationPosition, callback) {
             var data = {
                 aa: 'Pages.copyPage',
                 pageId: pageId,
                 destinationParentId: destinationParentId,
                 destinationPosition: destinationPosition,
-                languageId: destinationLanguageId,
                 securityToken: ip.securityToken
             };
 
