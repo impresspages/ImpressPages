@@ -54,7 +54,7 @@ class Service
 
     public static function changePageUrl($pageId, $newUrlPath)
     {
-        Model::updatePageSlug();
+
     }
 
     public static function addPage($parentId, $title, $data = array())
