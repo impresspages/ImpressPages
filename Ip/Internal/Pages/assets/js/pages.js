@@ -93,7 +93,12 @@ var ipPages = null;
 
         $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
-            $scope.selectedPageId = menu.id;
+            if (menu) {
+                $scope.selectedPageId = menu.id;
+            } else {
+                $scope.selectedPageId = null;
+            }
+
             showPages();
         }
 
@@ -479,20 +484,25 @@ var ipPages = null;
             var curVariables = getHashParams();
             curVariables.hash = '';
 
-            if (languageCode === null) {
+            if (languageCode === null && $scope.activeLanguage) {
                 languageCode = $scope.activeLanguage.code;
             }
-            if (menuName === null) {
+            if (menuName === null && $scope.activeMenu) {
                 menuName = $scope.activeMenu.alias;
             }
-            if (pageId === null) {
+            if (pageId === null && $scope.selectedPageId) {
                 pageId = $scope.selectedPageId;
             }
 
-            curVariables.language = languageCode;
-            curVariables.menu = menuName;
-            curVariables.page = pageId;
-
+            if (languageCode) {
+                curVariables.language = languageCode;
+            }
+            if (menuName) {
+                curVariables.menu = menuName;
+            }
+            if (pageId) {
+                curVariables.page = pageId;
+            }
 
             var path = '';
             $.each(curVariables, function(key, value){
