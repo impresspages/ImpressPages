@@ -22,6 +22,7 @@ class Helper
         'allowDelete' => FALSE,
         'allowUpdate' => FALSE,
         'sortField' => 'pageOrder',
+        'pageSize' => ipGetOption('Pages.pageListSize', 30),
         'pageVariableName' => 'gpage',
         'filter' => 'parentId = ' . (int) $parentId,
         'fields' => array(
