@@ -37,17 +37,6 @@ class Model
         ipDb()->update('zone', array('pageOrder' => $newPriority), array('name' => $menuName));
     }
 
-    public static function cleanupLanguage($id)
-    {
-        $zones = ipContent()->getZones();
-        foreach($zones as $zone) {
-            if ($zone->getAssociatedModule() == 'Content') {
-                $rootId = Db::rootId($zone->getId(), $id);
-                Model::deletePage($rootId);
-            }
-        }
-    }
-
     protected static function uniqueZoneName($name)
     {
         $suffix = '';
