@@ -22,26 +22,8 @@ class Service
         return Model::getMenu($languageCode, $alias);
     }
 
-    public static function createMenu($languageCode, $alias, $title)
-    {
-        return Model::createMenu($languageCode, $alias, $title);
-    }
 
-    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
-        $zoneName = Model::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
-        return $zoneName;
-    }
 
-    public static function updateMenu($menuId, $alias, $title, $layout, $type)
-    {
-        Model::updateMenu($menuId, $alias, $title, $layout, $type);
-    }
-
-    public static function deleteZone($zoneName)
-    {
-        Model::deleteZone($zoneName);
-    }
 
     /**
      * @param int $pageId
@@ -105,11 +87,7 @@ class Service
 
     public static function copyPage($pageId, $destinationParentId, $destinationPosition)
     {
-        $pageInfo = Db::pageInfo($pageId);
-        $destinationPageInfo = Db::pageInfo($destinationParentId);
-        $zoneName = Db::getZoneName($pageInfo['zone_id']);
-        $destinationZone = ipContent()->getZone(Db::getZoneName($destinationPageInfo['zone_id']));
-        return Model::copyPage($zoneName, $pageId, $destinationZone->getName(), $destinationParentId, $destinationPosition);
+        return Model::copyPage($pageId, $destinationParentId, $destinationPosition);
     }
 
 

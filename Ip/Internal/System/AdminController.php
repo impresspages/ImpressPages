@@ -12,7 +12,6 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
-        ipAddJs('Ip/Internal/System/assets/system.js');
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 

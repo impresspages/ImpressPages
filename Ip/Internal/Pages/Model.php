@@ -26,15 +26,15 @@ class Model
         $newPriority = null;
 
         if ($newIndex <= 0) {
-            $newPriority = $zones[0]['row_number'] - 20;
+            $newPriority = $zones[0]['pageOrder'] - 20;
         } elseif ($newIndex > count($zones) - 1) {
             $lastZone = end($zones);
-            $newPriority = $lastZone['row_number'] + 20;
+            $newPriority = $lastZone['pageOrder'] + 20;
         } else {
-            $newPriority = ($zones[$newIndex - 1]['row_number'] + $zones[$newIndex]['row_number']) / 2;
+            $newPriority = ($zones[$newIndex - 1]['pageOrder'] + $zones[$newIndex]['pageOrder']) / 2;
         }
 
-        ipDb()->update('zone', array('row_number' => $newPriority), array('name' => $menuName));
+        ipDb()->update('zone', array('pageOrder' => $newPriority), array('name' => $menuName));
     }
 
     public static function cleanupLanguage($id)
@@ -76,23 +76,23 @@ class Model
     /**
      *
      * Copy page
-     * @param unknown_type $nodeId
-     * @param unknown_type $newParentId
-     * @param int $position page position in the subtree
+     * @param int $pageId
+     * @param int$newParentId
+     * @param int $position page position in the subtree //TODO implement
      */
-    public static function copyPage($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $position)
+    public static function copyPage($pageId, $destinationPageId, $position = null)
     {
 
         $children = Db::pageChildren($destinationPageId);
 
         if (!empty($children)) {
-            $rowNumber = $children[count($children) - 1]['row_number'] + 1;
+            $rowNumber = $children[count($children) - 1]['pageOrder'] + 1;
         } else {
             $rowNumber = 0;
         }
 
 
-        return self::_copyPageRecursion($zoneName, $nodeId, $destinationZoneName, $destinationPageId, $rowNumber);
+        return self::_copyPageRecursion($pageId, $destinationPageId, $rowNumber);
 
     }
 
@@ -105,14 +105,12 @@ class Model
      * @param unknown_type $newPages
      */
     private static function _copyPageRecursion(
-        $zoneName,
         $nodeId,
-        $destinationZoneName,
         $destinationPageId,
         $rowNumber,
         $newPages = null
     ) {
-        //$newPages are the pages that have been copied already and should be skiped to duplicate again. This situacion can occur when copying the page to it self
+        //$newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self
         if ($newPages == null) {
             $newPages = array();
         }
@@ -125,7 +123,7 @@ class Model
         if ($children) {
             foreach ($children as $key => $lock) {
                 if (!isset($newPages[$lock['id']])) {
-                    self::_copyPageRecursion($zoneName, $lock['id'], $destinationZoneName, $newNodeId, $key, $newPages);
+                    self::_copyPageRecursion($lock['id'], $newNodeId, $key, $newPages);
                 }
             }
         }
@@ -139,22 +137,7 @@ class Model
         \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
 
-    protected static function createParametersZone($zoneId, $url, $title, $keywords, $description)
-    {
-        //create zone translations
-        $languages = ipContent()->getLanguages();
-        foreach ($languages as $language) {
-            $params = array(
-                'language_id' => $language->getId(),
-                'zone_id' => $zoneId,
-                'url' =>self::newZoneUrl($language->getId(), $url),
-                'title' => $title,
-                'keywords' => $keywords,
-                'description' => $description
-            );
-            ipDb()->insert('zone_to_language', $params);
-        }
-    }
+
 
     protected static function deleteZoneParameters($languageId)
     {
@@ -196,21 +179,7 @@ class Model
         }
     }
 
-    public static function createMenu($languageCode, $alias, $title)
-    {
-        $data = array();
-        $data['languageCode'] = $languageCode;
-        $data['alias'] = $alias;
-        $data['title'] = $title;
 
-        $data['parentId'] = 0;
-        $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
-        $data['isVisible'] = 1;
-
-        $menuId = ipDb()->insert('page', $data);
-
-        return $menuId ? $alias : null;
-    }
 
     public static function getMenu($languageCode, $alias)
     {
@@ -229,38 +198,7 @@ class Model
         return $value;
     }
 
-    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        $rowNumber = 0; //initial value
 
-        if(count($zones) > 0) {
-            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
-            if ($position > 0) {
-                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
-                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
-                }
-            }
-        }
-
-
-        $zoneName = self::uniqueZoneName($name);
-
-        $data = array(
-            'translation' => $title,
-            'name' => $zoneName,
-            'row_number' => $rowNumber,
-            'associated_module' => 'Content',
-            'template' => $layout
-        );
-        $zoneId = ipDb()->insert('zone', $data);
-
-        self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
-
-        return $zoneName;
-    }
 
     public static function changePageUrlPath($pageId, $newUrlPath)
     {
@@ -282,17 +220,7 @@ class Model
     }
 
 
-    public static function updateMenu($menuId, $alias, $title, $layout, $type)
-    {
-        $update = array(
-            'alias' => $alias,
-            'title' => $title,
-        );
 
-        ipDb()->update('page', $update, array('id' => $menuId));
-        ipPageStorage($menuId)->set('layout', $layout);
-        ipPageStorage($menuId)->set('menuType', $type);
-    }
 
     public static function deleteZone($zoneName)
     {
