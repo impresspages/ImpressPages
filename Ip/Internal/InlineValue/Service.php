@@ -27,14 +27,14 @@ class Service
     }
 
     // GET
-    public function getValue($key, $languageId, $zoneName, $pageId)
+    public function getValue($key, $languageId, $pageId)
     {
-        return $this->dao->getValue($key, $languageId, $zoneName, $pageId);
+        return $this->dao->getValue($key, $languageId, $pageId);
     }
 
-    public function getPageValue($key, $languageId, $zoneName, $pageId)
+    public function getPageValue($key, $languageId, $pageId)
     {
-        return $this->dao->getPageValue($key, $languageId, $zoneName, $pageId);
+        return $this->dao->getPageValue($key, $languageId, $pageId);
     }
 
     public function getLanguageValue($key, $languageId)
@@ -57,9 +57,9 @@ class Service
     }
 
     // SET
-    public function setPageValue($key, $languageId, $zoneName, $pageId, $value)
+    public function setPageValue($key, $languageId, $pageId, $value)
     {
-        return $this->dao->setPageValue($key, $languageId, $zoneName, $pageId, $value);
+        return $this->dao->setPageValue($key, $languageId, $pageId, $value);
     }
 
 
@@ -74,9 +74,9 @@ class Service
     }
 
     // DELETE
-    public function deletePageValue($key, $zoneName, $pageId)
+    public function deletePageValue($key, $pageId)
     {
-        $this->dao->deletePageValue($key, $zoneName, $pageId);
+        $this->dao->deletePageValue($key, $pageId);
     }
 
     public function deleteLanguageValue($key, $languageId)

@@ -44,6 +44,26 @@ class Form
 
 
         $this->addCsrfCheck();
+        $this->addSpamCheck();
+
+    }
+
+    /**
+     * Add securityToken field
+     */
+    public function addSpamCheck()
+    {
+        $tokenField = new \Ip\Form\Field\Antispam();
+        $tokenField->setName('antispam');
+        $this->addField($tokenField);
+    }
+
+    /**
+     * Remove securityToken field
+     */
+    public function removeSpamCheck()
+    {
+        $this->removeField('antispam');
     }
 
     /**

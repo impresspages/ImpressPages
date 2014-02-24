@@ -322,9 +322,16 @@ var ipPages = null;
         }
 
         var refresh = function () {
-            $('.ipsPages').ipPageTree('destroy');
-            $scope.activateMenu($scope.activeMenu);
-            $scope.$apply();
+
+            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                getTreeDiv().ipGrid('refresh');
+            } else {
+                getTreeDiv().ipPageTree('destroy');
+                $scope.activateMenu($scope.activeMenu);
+                $scope.$apply();
+            }
+
+
         }
 
 
