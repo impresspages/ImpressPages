@@ -62,7 +62,6 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($firstPage);
         $this->assertEquals('first-page', $firstPage['urlPath']);
 
-
         $secondPageId = Service::addPage(0, 'Second page');
         $this->assertNotEmpty($secondPageId);
 
@@ -75,6 +74,20 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($secondPage);
         $this->assertEquals($firstPageId, $secondPage['parentId']);
         $this->assertEquals('first-page/second-page', $secondPage['urlPath']);
+
+        $newSecondPageId = Service::addPage(0, 'Second page');
+        $this->assertNotEmpty($newSecondPageId);
+
+        $newSecondPage = Service::getPage($newSecondPageId);
+        $this->assertNotEmpty($newSecondPage);
+        $this->assertEquals('second-page', $newSecondPage['urlPath']);
+
+        Service::movePage($newSecondPageId, $firstPageId, 2);
+        $newSecondPage = Service::getPage($newSecondPageId);
+        $this->assertNotEmpty($newSecondPage);
+        $this->assertEquals('first-page/second-page-2', $newSecondPage['urlPath']);
+
+        Service::deletePage($firstPageId);
     }
 
 }
