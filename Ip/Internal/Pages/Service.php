@@ -34,11 +34,6 @@ class Service
         Model::updatePageProperties($pageId, $data);
     }
 
-    public static function changePageUrl($pageId, $newUrlPath)
-    {
-
-    }
-
     public static function addPage($parentId, $title, $data = array())
     {
         $data['title'] = $title;
@@ -69,20 +64,6 @@ class Service
         $newPageId = Db::addPage($parentId, $data);
 
         return $newPageId;
-    }
-
-
-    /**
-     * @param string $zoneName
-     * @param int $languageId
-     * @return int
-     */
-    public static function getRootId($zoneName, $languageId)
-    {
-        $zone = ipContent()->getZone($zoneName);
-        $zoneId = $zone->getId();
-        $rootId = Db::rootId($zoneId, $languageId);
-        return $rootId;
     }
 
     public static function copyPage($pageId, $destinationParentId, $destinationPosition)

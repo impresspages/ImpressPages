@@ -55,15 +55,6 @@ class CurrentPage
         return !empty($this->requestedPage['urlParts']) ? $this->requestedPage['urlParts'] : array();
     }
 
-    public function getZone()
-    {
-        if (!isset($this->requestedPage['zone'])) {
-            return new \Ip\Zone404('404');
-        }
-
-        return ipContent()->getZone($this->requestedPage['zone']);
-    }
-
     public function getCurrentRevision()
     {
         if ($this->revision !== null) {
