@@ -167,12 +167,13 @@ class AdminController extends \Ip\Controller
         $title = $request->getPost('title');
         $alias = $request->getPost('alias');
         $layout = $request->getPost('layout');
+        $type = $request->getPost('type');
 
-        if (empty($menuId) || empty($title) || empty($alias) || empty($layout)) {
+        if (empty($menuId) || empty($title) || empty($alias) || empty($layout) || empty($type)) {
             throw new \Ip\Exception('Missing required parameters');
         }
 
-        Service::updateMenu($menuId, $alias, $title, $layout);
+        Service::updateMenu($menuId, $alias, $title, $layout, $type);
 
         $answer = array(
             'status' => 'success'

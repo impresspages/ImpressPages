@@ -51,7 +51,11 @@ class Helper
 
     public static function menuList()
     {
-        return ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `languageCode`, `navigationTitle`', array('parentId' => 0));
+        $menus = ipDb()->selectAll('page', '`id`, `alias`, `pageTitle`, `languageCode`, `navigationTitle`', array('parentId' => 0));
+        foreach($menus as &$menu) {
+            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
+        }
+        return $menus;
     }
 
     public static function menuForm($menuId)
@@ -105,6 +109,19 @@ class Helper
                 'name' => 'layout',
                 'label' => __('Layout', 'ipAdmin', false),
                 'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
+                'values' => $values,
+            ));
+        $form->addField($field);
+
+        $values = array (
+            array ('tree', __('Tree (for menu)', 'ipAdmin', FALSE)),
+            array ('list', __('List (for blogs)', 'ipAdmin', FALSE)),
+        );
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'type',
+                'label' => __('Type', 'ipAdmin', false),
+                'value' => ipPageStorage($menu['id'])->get('menuType', 'main.php'),
                 'values' => $values,
             ));
         $form->addField($field);

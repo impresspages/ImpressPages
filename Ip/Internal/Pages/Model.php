@@ -263,7 +263,7 @@ class Model
     }
 
 
-    public static function updateMenu($menuId, $alias, $title, $layout)
+    public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
         $update = array(
             'alias' => $alias,
@@ -272,6 +272,7 @@ class Model
 
         ipDb()->update('page', $update, array('id' => $menuId));
         ipPageStorage($menuId)->set('layout', $layout);
+        ipPageStorage($menuId)->set('menuType', $type);
     }
 
     public static function deleteZone($zoneName)
