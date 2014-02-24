@@ -262,6 +262,25 @@ class Model
         return $zoneName;
     }
 
+    public static function changePageUrlPath($pageId, $newUrlPath)
+    {
+        $pageBeforeChange = ipPage($pageId);
+
+        if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
+            return false;
+        }
+
+        $allocatedPath = UrlAllocator::allocatePath($pageBeforeChange->getLanguageCode(), $newUrlPath);
+        ipDb()->update('page', array('urlPath' => $allocatedPath), array('id' => $pageId));
+
+        $pageAfterChange = ipPage($pageId);
+
+        ipEvent('ipUrlChanged', array(
+                'oldUrl' => $pageBeforeChange->getLink(),
+                'newUrl' => $pageAfterChange->getLink(),
+            ));
+    }
+
 
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
@@ -341,55 +360,6 @@ class Model
         }
 
         return true;
-    }
-
-    public static function updatePageSlug($pageId, $slug)
-    {
-        $page = ipDb()->selectRow('page', array('parentId', 'pageTitle', 'navigationTitle', 'slug', 'url'), array('id' => $pageId));
-
-        $parentUrl = ipDb()->selectValue('page', 'url', array('id' => $page['parentId']));
-
-        $slug = str_replace("/", "-", $slug);
-
-        $newUrl = $parentUrl . '/' . $slug;
-
-        if ($newUrl == $page['url']) {
-            return false;
-        }
-
-        if (!UrlAllocator::isPathAvailable($newUrl, $pageId)) {
-            $i = 1;
-            while (!UrlAllocator::isPathAvailable("$newUrl-$i", $pageId)) {
-                $i++;
-            }
-
-            $newUrl = "$newUrl-$i";
-            $slug .= '-' . $i;
-        }
-
-        ipDb()->update('page', array('url' => $newUrl, 'slug' => $slug), array('id' => $pageId));
-
-        if ($newUrl != $page['url']) {
-            // TODOX full url
-            ipEvent('ipUrlChanged', array('oldUrl' => $page['url'], 'newUrl' => $newUrl));
-        }
-
-        return true;
-    }
-
-    public static function regeneratePageSlug($pageId)
-    {
-        $page = ipDb()->selectRow('page', array('pageTitle', 'navigationTitle'), array('id' => $pageId));
-
-        if (!empty($page['pageTitle'])) {
-            $slug = $page['pageTitle'];
-        } elseif (!empty($page['navigationTitle'])) {
-            $slug = $page['navigationTitle'];
-        } else {
-            throw new \Ip\Exception('Page has no title.');
-        }
-
-        return static::updatePageSlug($pageId, $slug);
     }
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
