@@ -1,5 +1,5 @@
-<div class="ipAdminPages" ng-app="Pages" ng-controller="ipPages" ng-cloak>
-    <div class="_container _languages ipsLanguages">
+<div class="ipAdminPages" ng-app="Pages" ng-controller="ipPages">
+    <div class="_container _languages ipsLanguages" ng-cloak>
         <div class="_actions">
 <!--            <a href="#" class="btn btn-new"><i class="fa fa-plus"></i></a>-->
         </div>
@@ -12,7 +12,7 @@
             </li>
         </ul>
     </div>
-    <div class="_container _menus ipsMenus">
+    <div class="_container _menus ipsMenus" ng-cloak>
         <div class="_actions">
             <button ng-click="addMenuModal()" class="btn btn-new" role="button">
                 <i class="fa fa-plus"></i>
@@ -26,7 +26,7 @@
             </li>
         </ul>
     </div>
-    <div class="_container _pages ipsPagesContainer">
+    <div class="_container _pages ipsPagesContainer" ng-cloak>
         <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
             <div id="pages_{{menu.languageCode}}_{{menu.alias}}">
                 <div class="_actions">
