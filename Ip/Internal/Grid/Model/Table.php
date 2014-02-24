@@ -106,11 +106,12 @@ class Table extends \Ip\Internal\Grid\Model
 
     protected function page($params, $statusVariables)
     {
+        $pageVariableName = $this->config->pageVariableName();
         if (empty($params['page'])) {
             throw new \Ip\Exception('Missing parameters');
         }
 
-        $statusVariables['page'] = $params['page'];
+        $statusVariables[$pageVariableName] = $params['page'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
