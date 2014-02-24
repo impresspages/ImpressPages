@@ -25,6 +25,9 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.cookie.js');
         ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
 
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+
         ipAddJsVariable('languageList', Helper::languageList());
         ipAddJsVariable('menuList', Helper::menuList());
 
@@ -35,6 +38,18 @@ class AdminController extends \Ip\Controller
         );
         $layout = ipView('view/layout.php', $variables);
         return $layout->render();
+    }
+
+    public function pagesGridGateway()
+    {
+        $parentId = ipRequest()->getRequest('parentId');
+        if (!$parentId) {
+            throw new \Ip\Exception('Missing required parameter');
+        }
+
+        $worker = new \Ip\Internal\Grid\Worker(Helper::pagesGridConfig($parentId));
+        $result = $worker->handleMethod(ipRequest());
+        return new \Ip\Response\JsonRpc($result);
     }
 
     public function getPages()
