@@ -1,9 +1,3 @@
-<?php
-/**
- * This comment block is used just to make IDE suggestions to work
- * @var $this \Ip\View
- */
-?>
 <?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
@@ -18,12 +12,15 @@
         <div class="ipAdminSubmenu">
             <?php echo ipSlot('menu', $submenu); ?>
         </div>
-        <div class="ipAdminSubmenuContent clearfix">
     <?php } ?>
 
-    <?php echo ipBlock('main'); ?>
+    <?php if (empty($removeAdminContentWrapper)) { ?>
+        <div class="ipAdminContentWrapper<?php if (!empty($submenu)) { ?> _hasSubmenu<?php } ?>">
+    <?php } ?>
 
-    <?php if (!empty($submenu)) { ?>
+        <?php echo ipBlock('main'); ?>
+
+    <?php if (empty($removeAdminContentWrapper)) { ?>
         </div>
     <?php } ?>
 
