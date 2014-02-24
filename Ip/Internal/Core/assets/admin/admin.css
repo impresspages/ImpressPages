@@ -7744,6 +7744,9 @@
   font-size: inherit;
   text-align: inherit;
 }
+.ip [ng-cloak] {
+  display: none;
+}
 .ip .btn {
   font-weight: bold;
   padding: 6px 12px;
@@ -8091,11 +8094,14 @@
   color: #000;
   font-weight: bold;
 }
-.ip .ipAdminSubmenuContent {
+.ip .ipAdminContentWrapper {
   background-color: #fff;
-  margin-left: 200px;
+  margin-left: 20px;
   margin-right: 60px;
   padding: 20px 40px 40px;
+}
+.ip .ipAdminContentWrapper._hasSubmenu {
+  margin-left: 200px;
 }
 .ip .ipModuleAdministrators .panel.active .panel-heading {
   background-color: #ccc;

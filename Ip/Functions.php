@@ -269,7 +269,7 @@ function ipSetLayout($file)
 /**
  * Get CMS response object
  *
- * @return \Ip\Response | \Ip\Response\Layout CMS response object
+ * @return \Ip\Response\Layout | \Ip\Response\Layout CMS response object
  */
 function ipResponse()
 {

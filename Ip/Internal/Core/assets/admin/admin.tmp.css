@@ -7409,6 +7409,9 @@ td.visible-print {
   font-size: inherit;
   text-align: inherit;
 }
+[ng-cloak] {
+  display: none;
+}
 .btn {
   font-weight: bold;
   padding: 6px 12px;
@@ -7756,11 +7759,14 @@ th {
   color: #000;
   font-weight: bold;
 }
-.ipAdminSubmenuContent {
+.ipAdminContentWrapper {
   background-color: #fff;
-  margin-left: 200px;
+  margin-left: 20px;
   margin-right: 60px;
   padding: 20px 40px 40px;
+}
+.ipAdminContentWrapper._hasSubmenu {
+  margin-left: 200px;
 }
 /*.ipAdminToolbar {
     background-color: #2f313f;

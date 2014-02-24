@@ -361,7 +361,8 @@ class Page
      */
     public function isCurrent()
     {
-        return $this->getId() == ipContent()->getCurrentPage()->getId();
+        $curPage = ipContent()->getCurrentPage();
+        return $curPage && $this->getId() == ipContent()->getCurrentPage()->getId();
     }
 
     /**
