@@ -1,4 +1,4 @@
-<div class="actions">
+<div class="_actions">
     <?php foreach($actions as $action) { ?>
         <button
             type="button"

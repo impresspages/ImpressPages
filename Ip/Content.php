@@ -9,7 +9,7 @@ namespace Ip;
 
 
 /**
- * Zone, language, page, block and other CMS content
+ * Language, page, block and other CMS content
  * Can be treated as a gateway to CMS content.
  *
  */

@@ -174,6 +174,7 @@
         if ($grid.find('.ipsDrag').length) {
             $grid.find("table tbody").sortable({
                 handle: '.ipsDrag',
+                cancel: false,
                 helper: dragFix,
                 axis: "y",
                 start: $.proxy(startDrag, $grid),
