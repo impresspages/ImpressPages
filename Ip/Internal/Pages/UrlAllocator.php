@@ -59,13 +59,6 @@ class UrlAllocator
 
         $path = static::slugify($path);
 
-        if (!empty($page['parentId'])) {
-            $parentPath = ipDb()->selectValue('page', 'urlPath', array('id' => $page['parentId']));
-            if ($parentPath) {
-                $path = rtrim($parentPath, '/') . '/' . $path;
-            }
-        }
-
         return static::allocatePath($page['languageCode'], $path);
     }
 
