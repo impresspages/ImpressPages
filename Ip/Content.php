@@ -171,9 +171,18 @@ class Content
                 $parentPageId = $parentPage->getParentId();
             }
         }
+        if (empty($pages)) {
+            return array();
+        }
+
         array_pop($pages);
 
+        if (empty($pages)) {
+            return array();
+        }
+
         $breadcrumb = array_reverse($pages);
+
         return $breadcrumb;
     }
 
