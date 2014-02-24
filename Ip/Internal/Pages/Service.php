@@ -103,4 +103,23 @@ class Service
 
 
 
+    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
+    {
+        $zoneName = Model::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
+        return $zoneName;
+    }
+
+    public static function updateMenu($menuId, $alias, $title, $layout, $type)
+    {
+        Model::updateMenu($menuId, $alias, $title, $layout, $type);
+    }
+
+    public static function createMenu($languageCode, $alias, $title)
+    {
+        return Model::createMenu($languageCode, $alias, $title);
+    }
+
+
+
+
 }

@@ -328,5 +328,60 @@ class AdminController extends \Ip\Controller
         ));
     }
 
+    public function updateMenu()
+    {
+        $request = ipRequest();
+
+        $menuId = $request->getPost('id');
+        $title = $request->getPost('title');
+        $alias = $request->getPost('alias');
+        $layout = $request->getPost('layout');
+        $type = $request->getPost('type');
+
+        if (empty($menuId) || empty($title) || empty($alias) || empty($layout) || empty($type)) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+        Service::updateMenu($menuId, $alias, $title, $layout, $type);
+
+        $answer = array(
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
+
+    public function createMenu()
+    {
+        $request = ipRequest();
+        $request->mustBePost();
+        $languageCode = $request->getPost('languageCode');
+        $title = $request->getPost('title');
+        $type = $request->getPost('type');
+
+        if (empty($title) || empty($type)) {
+            $title = __('Untitled', 'ipAdmin', false);
+        }
+
+        $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
+        $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
+
+        $menuAlias = Service::createMenu($languageCode, $alias, $title);
+
+        $menu = Service::getMenu($languageCode, $menuAlias);
+
+
+        ipPageStorage($menu['id'])->set('menuType', $type);
+
+
+        $answer = array(
+            'status' => 'success',
+            'menuName' => $menuAlias
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
 
 }
