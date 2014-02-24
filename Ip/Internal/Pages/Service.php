@@ -59,13 +59,7 @@ class Service
 
     public static function addPage($parentId, $title, $data = array())
     {
-        if (!isset($data['pageTitle'])) {
-            $data['pageTitle'] = $title;
-        }
-
-        if (!isset($data['navigationTitle'])) {
-            $data['navigationTitle'] = $title;
-        }
+        $data['title'] = $title;
 
         if (!isset($data['createdAt'])) {
             $data['createdAt'] = date("Y-m-d H:i:s");

@@ -51,8 +51,8 @@ class UrlAllocator
     {
         if (array_key_exists('urlPath', $page)) {
             $path = $page['urlPath'];
-        } elseif (!empty($page['pageTitle'])) {
-            $path = $page['pageTitle'];
+        } elseif (!empty($page['title'])) {
+            $path = $page['title'];
         } else {
             $path = 'page';
         }

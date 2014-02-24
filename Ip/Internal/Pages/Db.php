@@ -206,8 +206,8 @@ class Db {
         );
 
         $fields = array(
-            'navigationTitle',
-            'pageTitle',
+            'title',
+            'metaTitle',
             'languageCode',
             'keywords',
             'description',

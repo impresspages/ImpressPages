@@ -253,7 +253,7 @@ class Content
     {
         $page = ipCurrentPage()->getPage();
         if ($page) {
-            return $page->getPageTitle();
+            return $page->getTitle();
         }
     }
 

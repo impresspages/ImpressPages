@@ -201,7 +201,7 @@ class Model
         $data = array();
         $data['languageCode'] = $languageCode;
         $data['alias'] = $alias;
-        $data['navigationTitle'] = $title;
+        $data['title'] = $title;
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
@@ -286,7 +286,7 @@ class Model
     {
         $update = array(
             'alias' => $alias,
-            'navigationTitle' => $title,
+            'title' => $title,
         );
 
         ipDb()->update('page', $update, array('id' => $menuId));
@@ -313,12 +313,12 @@ class Model
     {
         $update = array();
 
-        if (isset($properties['navigationTitle'])) {
-            $update['navigationTitle'] = $properties['navigationTitle'];
+        if (isset($properties['title'])) {
+            $update['title'] = $properties['title'];
         }
 
-        if (isset($properties['pageTitle'])) {
-            $update['pageTitle'] = $properties['pageTitle'];
+        if (isset($properties['metaTitle'])) {
+            $update['metaTitle'] = $properties['metaTitle'];
         }
 
         if (isset($properties['keywords'])) {
