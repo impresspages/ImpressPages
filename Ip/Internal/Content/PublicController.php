@@ -62,16 +62,9 @@ class PublicController extends \Ip\Controller
                 $snippets[] = $snippetHtml;
             }
         }
-        //var_dump($snippets);
         ipAddJsVariable('ipWidgetSnippets', $snippets);
 
-        ipAddJs('Ip/Internal/Core/assets/tinymce/pastePreprocess.js');
-        ipAddJs('Ip/Internal/Core/assets/tinymce/default.js');
 
-        ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
-
-        ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
-        ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');
 
 
         ipAddJsVariable('ipContentInit', Model::initManagementData());

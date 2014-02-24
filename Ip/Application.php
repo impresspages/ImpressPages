@@ -155,19 +155,18 @@ class Application
 
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
-        if (empty($routeAction)) {
+        if (!empty($routeAction)) {
+            foreach ($routeAction as $key => $value) {
+                $currentPage->_set($key, $value);
+            }
+        } else {
             $page = new \Ip\Page404();
             ipCurrentPage()->_set('page', $page);
-            return new \Ip\Response\PageNotFound();
         }
 
-        foreach ($routeAction as $key => $value) {
-            $currentPage->_set($key, $value);
-        }
 
-        $plugin = $routeAction['plugin'];
-        $controller = $routeAction['controller'];
-        $action = $routeAction['action'];
+
+
 
 
 
@@ -175,6 +174,8 @@ class Application
             $this->modulesInit();
         }
         ipEvent('ipInitFinished');
+
+
 
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
@@ -194,6 +195,15 @@ class Application
             // TODO JSONRPC
             return new \Ip\Response\Json($data);
         }
+
+        if (empty($routeAction)) {
+
+            return new \Ip\Response\PageNotFound();
+        }
+        $plugin = $routeAction['plugin'];
+        $controller = $routeAction['controller'];
+        $action = $routeAction['action'];
+
 
         if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
             $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
