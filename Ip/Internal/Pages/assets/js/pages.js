@@ -319,7 +319,7 @@ var ipPages = null;
         var refresh = function () {
 
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
-
+                getTreeDiv().ipGrid('refresh');
             } else {
                 getTreeDiv().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
