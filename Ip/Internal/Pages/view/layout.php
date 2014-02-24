@@ -26,7 +26,7 @@
             </li>
         </ul>
     </div>
-    <div class="_container _pages ipsPages">
+    <div class="_container _pages ipsPagesContainer">
         <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
             <div id="pages_{{menu.languageCode}}_{{menu.alias}}">
                 <div class="_actions">
