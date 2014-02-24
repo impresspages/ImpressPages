@@ -149,60 +149,9 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
-    public function updateMenu()
-    {
-        $request = ipRequest();
-
-        $menuId = $request->getPost('id');
-        $title = $request->getPost('title');
-        $alias = $request->getPost('alias');
-        $layout = $request->getPost('layout');
-        $type = $request->getPost('type');
-
-        if (empty($menuId) || empty($title) || empty($alias) || empty($layout) || empty($type)) {
-            throw new \Ip\Exception('Missing required parameters');
-        }
-
-        Service::updateMenu($menuId, $alias, $title, $layout, $type);
-
-        $answer = array(
-            'status' => 'success'
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
 
 
-    public function createMenu()
-    {
-        $request = ipRequest();
-        $request->mustBePost();
-        $languageCode = $request->getPost('languageCode');
-        $title = $request->getPost('title');
-        $type = $request->getPost('type');
 
-        if (empty($title) || empty($type)) {
-            $title = __('Untitled', 'ipAdmin', false);
-        }
-
-        $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
-        $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
-
-        $menuAlias = Service::createMenu($languageCode, $alias, $title);
-
-        $menu = Service::getMenu($languageCode, $menuAlias);
-
-
-        ipPageStorage($menu['id'])->set('menuType', $type);
-
-
-        $answer = array(
-            'status' => 'success',
-            'menuName' => $menuAlias
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
 
     public function addPage()
     {
@@ -313,17 +262,7 @@ class AdminController extends \Ip\Controller
 
             if (!empty($data['destinationParentId'])) {
                 $destinationParentId = $data['destinationParentId'];
-            } else {
-                if (!isset($data['zoneName'])) {
-                    throw new \Ip\Exception("Missing required parameters");
-                }
-                if (!isset($data['languageId'])) {
-                    throw new \Ip\Exception("Missing required parameters");
-                }
-                $zone = ipContent()->getZone($data['zoneName']);
-                $destinationParentId = Db::rootId($zone->getId(), $data['languageId']);
             }
-
 
             if (!isset($data['destinationPosition'])) {
                 throw new \Ip\Exception("Destination position is not set");

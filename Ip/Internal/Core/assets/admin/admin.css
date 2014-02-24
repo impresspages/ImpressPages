@@ -658,7 +658,7 @@
 .ip .h5,
 .ip .h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 1.1;
   color: inherit;
 }
@@ -720,23 +720,23 @@
 }
 .ip h1,
 .ip .h1 {
-  font-size: 36px;
+  font-size: 24px;
 }
 .ip h2,
 .ip .h2 {
-  font-size: 30px;
+  font-size: 16px;
 }
 .ip h3,
 .ip .h3 {
-  font-size: 24px;
+  font-size: 14px;
 }
 .ip h4,
 .ip .h4 {
-  font-size: 18px;
+  font-size: 12px;
 }
 .ip h5,
 .ip .h5 {
-  font-size: 14px;
+  font-size: 12px;
 }
 .ip h6,
 .ip .h6 {
@@ -745,7 +745,7 @@
 .ip .page-header {
   padding-bottom: 9px;
   margin: 40px 0 20px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #a3a4af;
 }
 .ip ul,
 .ip ol {
@@ -2083,15 +2083,15 @@
   height: auto;
 }
 .ip .input-lg {
-  height: 45px;
+  height: 43px;
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .ip select.input-lg {
-  height: 45px;
-  line-height: 45px;
+  height: 43px;
+  line-height: 43px;
 }
 .ip textarea.input-lg {
   height: auto;
@@ -2264,7 +2264,7 @@
 }
 .ip .btn:hover,
 .ip .btn:focus {
-  color: #333333;
+  color: #000000;
   text-decoration: none;
 }
 .ip .btn:active,
@@ -2285,18 +2285,18 @@
   box-shadow: none;
 }
 .ip .btn-default {
-  color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  color: #000000;
+  background-color: #e7e7e7;
+  border-color: #e7e7e7;
 }
 .ip .btn-default:hover,
 .ip .btn-default:focus,
 .ip .btn-default:active,
 .ip .btn-default.active,
 .ip .open .dropdown-toggle.btn-default {
-  color: #333333;
-  background-color: #ebebeb;
-  border-color: #adadad;
+  color: #000000;
+  background-color: #d3d3d3;
+  border-color: #c8c8c8;
 }
 .ip .btn-default:active,
 .ip .btn-default.active,
@@ -2318,13 +2318,13 @@
 .ip .btn-default.disabled.active,
 .ip .btn-default[disabled].active,
 .ip fieldset[disabled] .btn-default.active {
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #e7e7e7;
+  border-color: #e7e7e7;
 }
 .ip .btn-primary {
   color: #ffffff;
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #66a000;
+  border-color: #66a000;
 }
 .ip .btn-primary:hover,
 .ip .btn-primary:focus,
@@ -2332,8 +2332,8 @@
 .ip .btn-primary.active,
 .ip .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #3276b1;
-  border-color: #285e8e;
+  background-color: #4c7700;
+  border-color: #3f6300;
 }
 .ip .btn-primary:active,
 .ip .btn-primary.active,
@@ -2355,8 +2355,8 @@
 .ip .btn-primary.disabled.active,
 .ip .btn-primary[disabled].active,
 .ip fieldset[disabled] .btn-primary.active {
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #66a000;
+  border-color: #66a000;
 }
 .ip .btn-warning {
   color: #ffffff;
@@ -2541,7 +2541,7 @@
 }
 .ip .btn-lg {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.33;
   border-radius: 6px;
 }
@@ -3336,7 +3336,7 @@
   }
 }
 .ip .btn-default .caret {
-  border-top-color: #333333;
+  border-top-color: #000000;
 }
 .ip .btn-primary .caret,
 .ip .btn-success .caret,
@@ -3346,7 +3346,7 @@
   border-top-color: #fff;
 }
 .ip .dropup .btn-default .caret {
-  border-bottom-color: #333333;
+  border-bottom-color: #000000;
 }
 .ip .dropup .btn-primary .caret,
 .ip .dropup .btn-success .caret,
@@ -3450,23 +3450,34 @@
   outline: 0;
 }
 .ip .btn-group-xs > .btn {
-  padding: 5px 10px;
   font-size: 12px;
+  padding: 5px 10px;
+  font-size: 11px;
   line-height: 1.5;
   border-radius: 3px;
   padding: 1px 5px;
 }
-.ip .btn-group-sm > .btn {
-  padding: 5px 10px;
+.ip .btn-group-xs > .btn .fa {
   font-size: 12px;
+}
+.ip .btn-group-sm > .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  font-size: 11px;
   line-height: 1.5;
   border-radius: 3px;
 }
+.ip .btn-group-sm > .btn .fa {
+  font-size: 12px;
+}
 .ip .btn-group-lg > .btn {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.33;
   border-radius: 6px;
+}
+.ip .btn-group-lg > .btn .fa {
+  font-size: 18px;
 }
 .ip .btn-group > .btn + .dropdown-toggle {
   padding-left: 8px;
@@ -3588,17 +3599,17 @@
 .ip .input-group-lg > .form-control,
 .ip .input-group-lg > .input-group-addon,
 .ip .input-group-lg > .input-group-btn > .btn {
-  height: 45px;
+  height: 43px;
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.33;
   border-radius: 6px;
 }
 .ip select.input-group-lg > .form-control,
 .ip select.input-group-lg > .input-group-addon,
 .ip select.input-group-lg > .input-group-btn > .btn {
-  height: 45px;
-  line-height: 45px;
+  height: 43px;
+  line-height: 43px;
 }
 .ip textarea.input-group-lg > .form-control,
 .ip textarea.input-group-lg > .input-group-addon,
@@ -3659,7 +3670,7 @@
 }
 .ip .input-group-addon.input-lg {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 6px;
 }
 .ip .input-group-addon input[type="radio"],
@@ -4099,7 +4110,7 @@
 .ip .navbar-brand {
   float: left;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 20px;
 }
 .ip .navbar-brand:hover,
@@ -4547,7 +4558,7 @@
 .ip .pagination-lg > li > a,
 .ip .pagination-lg > li > span {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 16px;
 }
 .ip .pagination-lg > li:first-child > a,
 .ip .pagination-lg > li:first-child > span {
@@ -7733,6 +7744,89 @@
   font-size: inherit;
   text-align: inherit;
 }
+.ip .btn {
+  font-weight: bold;
+  padding: 6px 12px;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 3px;
+}
+.ip .btn .fa {
+  font-size: 14px;
+}
+.ip .btn .fa-fw {
+  text-align: right;
+  width: 1.5em;
+}
+.ip .btn-lg {
+  padding: 10px 16px;
+  font-size: 16px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+.ip .btn-lg .fa {
+  font-size: 18px;
+}
+.ip .btn-sm,
+.ip .btn-xs {
+  padding: 5px 10px;
+  font-size: 11px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+.ip .btn-sm .fa,
+.ip .btn-xs .fa {
+  font-size: 12px;
+}
+.ip .btn-xs {
+  padding: 1px 5px;
+}
+.ip .btn-danger {
+  color: #000000;
+  background-color: #e7e7e7;
+  border-color: #e7e7e7;
+}
+.ip .btn-danger:hover,
+.ip .btn-danger:focus,
+.ip .btn-danger:active,
+.ip .btn-danger.active,
+.ip .open .dropdown-toggle.btn-danger {
+  color: #000000;
+  background-color: #d3d3d3;
+  border-color: #c8c8c8;
+}
+.ip .btn-danger:active,
+.ip .btn-danger.active,
+.ip .open .dropdown-toggle.btn-danger {
+  background-image: none;
+}
+.ip .btn-danger.disabled,
+.ip .btn-danger[disabled],
+.ip fieldset[disabled] .btn-danger,
+.ip .btn-danger.disabled:hover,
+.ip .btn-danger[disabled]:hover,
+.ip fieldset[disabled] .btn-danger:hover,
+.ip .btn-danger.disabled:focus,
+.ip .btn-danger[disabled]:focus,
+.ip fieldset[disabled] .btn-danger:focus,
+.ip .btn-danger.disabled:active,
+.ip .btn-danger[disabled]:active,
+.ip fieldset[disabled] .btn-danger:active,
+.ip .btn-danger.disabled.active,
+.ip .btn-danger[disabled].active,
+.ip fieldset[disabled] .btn-danger.active {
+  background-color: #e7e7e7;
+  border-color: #e7e7e7;
+}
+.ip .btn-danger:hover,
+.ip .btn-danger:focus,
+.ip .btn-danger:active,
+.ip .btn-danger.active,
+.ip .open .dropdown-toggle.btn-danger {
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
 .ip .btn-controls {
   color: #e2e2e2;
   background-color: #46495e;
@@ -7769,6 +7863,43 @@
 .ip fieldset[disabled] .btn-controls.active {
   background-color: #46495e;
   border-color: #ffffff;
+}
+.ip .btn-new {
+  color: #ffffff;
+  background-color: #019bd4;
+  border-color: #019bd4;
+}
+.ip .btn-new:hover,
+.ip .btn-new:focus,
+.ip .btn-new:active,
+.ip .btn-new.active,
+.ip .open .dropdown-toggle.btn-new {
+  color: #ffffff;
+  background-color: #017dab;
+  border-color: #016e97;
+}
+.ip .btn-new:active,
+.ip .btn-new.active,
+.ip .open .dropdown-toggle.btn-new {
+  background-image: none;
+}
+.ip .btn-new.disabled,
+.ip .btn-new[disabled],
+.ip fieldset[disabled] .btn-new,
+.ip .btn-new.disabled:hover,
+.ip .btn-new[disabled]:hover,
+.ip fieldset[disabled] .btn-new:hover,
+.ip .btn-new.disabled:focus,
+.ip .btn-new[disabled]:focus,
+.ip fieldset[disabled] .btn-new:focus,
+.ip .btn-new.disabled:active,
+.ip .btn-new[disabled]:active,
+.ip fieldset[disabled] .btn-new:active,
+.ip .btn-new.disabled.active,
+.ip .btn-new[disabled].active,
+.ip fieldset[disabled] .btn-new.active {
+  background-color: #019bd4;
+  border-color: #019bd4;
 }
 .ip .help-hint {
   background-color: #cccccc;
@@ -7831,6 +7962,16 @@
 .ip a.list-group-item.success:hover .list-group-item-text,
 .ip a.list-group-item.success:focus .list-group-item-text {
   color: #ffffff;
+}
+.ip th {
+  font-weight: bold;
+}
+.ip .page-header {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+.ip .page-header h1 {
+  margin-top: 0;
 }
 .ip .ipAdminNavbar {
   border: 0;
@@ -7956,16 +8097,8 @@
   margin-right: 60px;
   padding: 20px 40px 40px;
 }
-.ip .ipModuleAdministrators .ipmList {
-  float: left;
-  width: 250px;
-}
 .ip .ipModuleAdministrators .panel.active .panel-heading {
   background-color: #ccc;
-}
-.ip .ipModuleAdministrators .ipmAdministrator {
-  float: left;
-  margin-left: 20px;
 }
 .ip .ipAdminPanel {
   font: 14px Arial, Helvetica, sans-serif;
@@ -8810,8 +8943,11 @@
 }
 .ip .ipAdminPages ._container {
   float: left;
+  overflow: auto;
   padding: 20px;
-  height: 100%;
+}
+.ip .ipAdminPages ._container ._actions {
+  min-height: 40px;
 }
 .ip .ipAdminPages ._languages {
   background-color: #2f313f;
@@ -8836,35 +8972,35 @@
   color: #000;
   font-weight: bold;
 }
-.ip .ipAdminPages ._zones {
+.ip .ipAdminPages ._menus {
   background-color: #eaeaea;
   width: 200px;
 }
-.ip .ipAdminPages ._zones ul {
+.ip .ipAdminPages ._menus ul {
   list-style: none;
 }
-.ip .ipAdminPages ._zones ul li {
+.ip .ipAdminPages ._menus ul li {
   position: relative;
 }
-.ip .ipAdminPages ._zones ul li:hover ._control {
+.ip .ipAdminPages ._menus ul li:hover ._control {
   visibility: visible;
 }
-.ip .ipAdminPages ._zones ul a {
+.ip .ipAdminPages ._menus ul a {
   color: #46495e;
   display: block;
   margin: 0 -20px;
   padding: 10px 20px;
 }
-.ip .ipAdminPages ._zones ul a:hover {
+.ip .ipAdminPages ._menus ul a:hover {
   color: #000;
   text-decoration: none;
 }
-.ip .ipAdminPages ._zones ul .active a {
+.ip .ipAdminPages ._menus ul .active a {
   background-color: #f4f4f4;
   color: #000;
   font-weight: bold;
 }
-.ip .ipAdminPages ._zones ul ._control {
+.ip .ipAdminPages ._menus ul ._control {
   margin-top: -15px;
   position: absolute;
   right: 0;
@@ -8874,11 +9010,79 @@
 }
 .ip .ipAdminPages ._pages {
   background-color: #f4f4f4;
-  width: 200px;
+  width: 240px;
+}
+.ip .ipAdminPages ._pages ._actions {
+  white-space: nowrap;
 }
 .ip .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
+}
+.ip .ipAdminPages ._properties ._actions {
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+.ip .ipAdminPages ._languages .btn-new,
+.ip .ipAdminPages ._menus .btn-new {
+  color: #ffffff;
+  background-color: #46495e;
+  border-color: #46495e;
+}
+.ip .ipAdminPages ._languages .btn-new:hover,
+.ip .ipAdminPages ._menus .btn-new:hover,
+.ip .ipAdminPages ._languages .btn-new:focus,
+.ip .ipAdminPages ._menus .btn-new:focus,
+.ip .ipAdminPages ._languages .btn-new:active,
+.ip .ipAdminPages ._menus .btn-new:active,
+.ip .ipAdminPages ._languages .btn-new.active,
+.ip .ipAdminPages ._menus .btn-new.active,
+.ip .open .dropdown-toggle.ipAdminPages ._languages .btn-new,
+.ip .open .dropdown-toggle.ipAdminPages ._menus .btn-new {
+  color: #ffffff;
+  background-color: #353747;
+  border-color: #2c2e3b;
+}
+.ip .ipAdminPages ._languages .btn-new:active,
+.ip .ipAdminPages ._menus .btn-new:active,
+.ip .ipAdminPages ._languages .btn-new.active,
+.ip .ipAdminPages ._menus .btn-new.active,
+.ip .open .dropdown-toggle.ipAdminPages ._languages .btn-new,
+.ip .open .dropdown-toggle.ipAdminPages ._menus .btn-new {
+  background-image: none;
+}
+.ip .ipAdminPages ._languages .btn-new.disabled,
+.ip .ipAdminPages ._menus .btn-new.disabled,
+.ip .ipAdminPages ._languages .btn-new[disabled],
+.ip .ipAdminPages ._menus .btn-new[disabled],
+.ip fieldset[disabled] .ipAdminPages ._languages .btn-new,
+.ip fieldset[disabled] .ipAdminPages ._menus .btn-new,
+.ip .ipAdminPages ._languages .btn-new.disabled:hover,
+.ip .ipAdminPages ._menus .btn-new.disabled:hover,
+.ip .ipAdminPages ._languages .btn-new[disabled]:hover,
+.ip .ipAdminPages ._menus .btn-new[disabled]:hover,
+.ip fieldset[disabled] .ipAdminPages ._languages .btn-new:hover,
+.ip fieldset[disabled] .ipAdminPages ._menus .btn-new:hover,
+.ip .ipAdminPages ._languages .btn-new.disabled:focus,
+.ip .ipAdminPages ._menus .btn-new.disabled:focus,
+.ip .ipAdminPages ._languages .btn-new[disabled]:focus,
+.ip .ipAdminPages ._menus .btn-new[disabled]:focus,
+.ip fieldset[disabled] .ipAdminPages ._languages .btn-new:focus,
+.ip fieldset[disabled] .ipAdminPages ._menus .btn-new:focus,
+.ip .ipAdminPages ._languages .btn-new.disabled:active,
+.ip .ipAdminPages ._menus .btn-new.disabled:active,
+.ip .ipAdminPages ._languages .btn-new[disabled]:active,
+.ip .ipAdminPages ._menus .btn-new[disabled]:active,
+.ip fieldset[disabled] .ipAdminPages ._languages .btn-new:active,
+.ip fieldset[disabled] .ipAdminPages ._menus .btn-new:active,
+.ip .ipAdminPages ._languages .btn-new.disabled.active,
+.ip .ipAdminPages ._menus .btn-new.disabled.active,
+.ip .ipAdminPages ._languages .btn-new[disabled].active,
+.ip .ipAdminPages ._menus .btn-new[disabled].active,
+.ip fieldset[disabled] .ipAdminPages ._languages .btn-new.active,
+.ip fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
+  background-color: #46495e;
+  border-color: #46495e;
 }
 .ip .ipModuleRepositoryPopup {
   font-size: 10px;

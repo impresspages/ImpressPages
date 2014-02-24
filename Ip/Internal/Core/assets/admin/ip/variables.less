@@ -4,6 +4,29 @@
 @navbar-inverse-bg: #000;
 @grid-gutter-width: 40px; // main spacing definition
 
+@font-size-base: 14px;
+@font-size-large: floor(@font-size-base * 1.15); // ~16px
+@font-size-small: ceil(@font-size-base * 0.85); // ~12px
+@font-size-xsmall: (@font-size-small - 1); // ~11px
+
+@font-size-h1: ceil(@font-size-base * 1.7); // ~24px
+@font-size-h2: floor(@font-size-base * 1.15); // ~16px
+@font-size-h3: @font-size-base;
+@font-size-h4: ceil(@font-size-base * 0.85); // ~12px
+@font-size-h5: @font-size-h4;
+@font-size-h6: @font-size-h4;
+
+@headings-font-weight: bold;
+
+@btn-default-color: #000;
+@btn-default-bg: #e7e7e7;
+@btn-default-border: #e7e7e7;
+@btn-primary-color: #fff;
+@btn-primary-bg: #66a000;
+@btn-primary-border: #66a000;
+
+@page-header-border-color: #a3a4af;
+
 // adding success state for list-group
 @list-group-success-color:     @state-success-text;
 @list-group-success-bg:        @state-success-bg;
@@ -13,6 +36,9 @@
 @btn-controls-color: #e2e2e2;
 @btn-controls-bg: #46495e;
 @btn-controls-border: #fff;
+@btn-new-color: #fff;
+@btn-new-bg: #019bd4;
+@btn-new-border: #019bd4;
 
 // Font Awesome
 @fa-font-path: "font-awesome/fonts";

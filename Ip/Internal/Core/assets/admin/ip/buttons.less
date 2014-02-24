@@ -1,3 +1,50 @@
-.btn-controls {
+.btn {
+    font-weight: bold;
+    .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-small; @line-height-base; @border-radius-small);
+
+    .@{fa-css-prefix} {
+        font-size: (@font-size-small + 2);
+    }
+    .@{fa-css-prefix}-fw {
+        text-align: right;
+        width: 1.5em;
+    }
+}
+.btn-lg {
+    // line-height: ensure even-numbered height of button next to large input
+    .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+
+    .@{fa-css-prefix} {
+        font-size: (@font-size-large + 2);
+    }
+}
+.btn-sm,
+.btn-xs {
+    // line-height: ensure proper height of button next to small input
+    .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-xsmall; @line-height-small; @border-radius-small);
+
+    .@{fa-css-prefix} {
+        font-size: (@font-size-xsmall + 1);
+    }
+}
+.btn-xs {
+    padding: 1px 5px;
+}
+.btn-danger {
+    .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    .open .dropdown-toggle& {
+        color: @btn-danger-color;
+        background-color: @btn-danger-bg;
+        border-color: @btn-danger-border;
+    }
+}
+.btn-controls { // used for widget controls
     .button-variant(@btn-controls-color; @btn-controls-bg; @btn-controls-border);
+}
+.btn-new { // todox: if possible, use default naming from bootstrap
+    .button-variant(@btn-new-color; @btn-new-bg; @btn-new-border);
 }

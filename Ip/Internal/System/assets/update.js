@@ -30,21 +30,18 @@
             if (response != '') {
                 messages = response;
                 if (messages.length > 0) {
-                    $container.css('display', '');
+                    $container.removeClass('hidden');
                     var i = 0;
                     for (i = 0; i < messages.length; i++) {
                         $container.html($container.html() + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>');
 
                         if (messages[i]['code'] == 'update') {
-                            $container.html($container.html() + ' <a target="_blank" class="button" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="button actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>');
+                            $container.html($container.html() + ' <a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="btn btn-primary actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>');
                         }
-                        $container.html($container.html() +  '<div class="clear"></div>');
                     }
                 }
             }
-
         }
-
 
         var startUpdate = function (e) {
             e.preventDefault();
@@ -76,10 +73,7 @@
                     alert('Unknown error. Please see logs.');
                 }
             });
-
         }
-
-
 
     };
 
@@ -88,4 +82,3 @@
     });
 
 })(ip.jQuery);
-
