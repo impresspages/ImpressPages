@@ -313,51 +313,11 @@ class Content
         \Ip\Internal\Languages\Service::delete($languageId);
     }
 
-    /**
-     * Create a new website zone
-     * @param string $title
-     * @param string $name
-     * @param string $url
-     * @param string $layout Default page layout
-     * @param string $metaTitle
-     * @param string $metaKeywords
-     * @param string $metaDescription
-     * @param int $position
-     * @return string
-     */
-    public static function addZone($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
 
-        $zoneName = \Ip\Internal\Pages\Service::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
-        return $zoneName;
-    }
 
-    /**
-     * Update zone information
-     *
-     * @param string $zoneName
-     * @param int $languageId
-     * @param string $title
-     * @param string $url
-     * @param string $name
-     * @param string $layout Default page layout
-     * @param string $metaTitle
-     * @param string $metaKeywords
-     * @param string $metaDescription
-     */
-    public static function updateZone($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription)
-    {
-        \Ip\Internal\Pages\Service::updateMenu($zoneName, $languageId, $title, $url, $name, $layout, $metaTitle, $metaKeywords, $metaDescription);
-    }
 
-    /**
-     * Delete zone
-     * @param string $zoneName
-     */
-    public static function deleteZone($zoneName)
-    {
-        \Ip\Internal\Pages\Service::deleteZone($zoneName);
-    }
+
+
 
     /**
      * Update page data

@@ -81,7 +81,7 @@ class UrlAllocator
      * @param int $allowed_id
      * @returns bool true if url is available ignoring $allowed_id page.
      */
-    public static function isPathAvailable($languageCode, $urlPath, $allowedId = null)
+    public static function isPathAvailable($urlPath, $allowedId = null)
     {
 
         $pageId = ipDb()->selectValue('page', '`id`', array('urlPath' => $urlPath));
@@ -112,4 +112,4 @@ class UrlAllocator
         return $url . '-' . $i;
     }
 
-} 
+}

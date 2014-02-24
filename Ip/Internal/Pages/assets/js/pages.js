@@ -258,10 +258,11 @@ var ipPages = null;
             if (node.length) {
                 var position = node.index() + 1;
             }
+
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.selectedPageId, position, true);
+                movePage($scope.cutPageId, $scope.activeMenu.id, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.selectedPageId, position, function () {
+                copyPage($scope.copyPageId, $scope.activeMenu.id, position, function () {
                     refresh();
                 });
             }
@@ -444,14 +445,13 @@ var ipPages = null;
         }
 
 
-        var copyPage = function (pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, callback) {
+        var copyPage = function (pageId, destinationLanguageId, destinationParentId, destinationPosition, callback) {
             var data = {
                 aa: 'Pages.copyPage',
                 pageId: pageId,
                 destinationParentId: destinationParentId,
                 destinationPosition: destinationPosition,
                 languageId: destinationLanguageId,
-                zoneName: destinationZoneName,
                 securityToken: ip.securityToken
             };
 

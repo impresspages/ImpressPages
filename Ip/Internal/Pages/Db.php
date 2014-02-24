@@ -177,7 +177,7 @@ class Db {
                 WHERE
                     p.zone_id = m.id
                     AND p.language_id = ?
-                ORDER BY m.row_number';
+                ORDER BY m.pageOrder';
 
         return ipDb()->fetchAll($sql, array($languageId));
     }
@@ -252,8 +252,9 @@ class Db {
 
         unset($copy['id']);
         $copy['parentId'] = $newParentId;
-        $copy['row_number'] = $newIndex;
-        $copy['url'] = UrlAllocator::ensureUniqueUrl($copy['url']);
+        $copy['pageOrder'] = $newIndex;
+        $copy['urlPath'] = UrlAllocator::ensureUniqueUrl($copy['urlPath']);
+        //TODOX ensure unique alias
 
         return ipDb()->insert('page', $copy);
     }
