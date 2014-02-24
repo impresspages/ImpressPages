@@ -19,7 +19,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         $menu = Service::getMenu('en', 'testMenu');
         $this->assertNotEmpty($menu);
-        $this->assertEquals('Test menu', $menu['navigationTitle']);
+        $this->assertEquals('Test menu', $menu['title']);
 
         Service::deletePage($menu['id']);
 
@@ -34,14 +34,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
         $page = Service::getPage($pageId);
         $this->assertNotEmpty($page);
-        $this->assertEquals('Test page', $page['pageTitle']);
+        $this->assertEquals('Test page', $page['title']);
         $this->assertEquals('test-page', $page['urlPath']);
 
         $subpageId = Service::addPage($pageId, 'Test subpage');
         $this->assertNotEmpty($subpageId);
         $subpage = Service::getPage($subpageId);
         $this->assertNotEmpty($subpage);
-        $this->assertEquals('Test subpage', $subpage['pageTitle']);
+        $this->assertEquals('Test subpage', $subpage['title']);
         $this->assertEquals('test-subpage', $subpage['urlPath']);
 
         Service::deletePage($pageId);

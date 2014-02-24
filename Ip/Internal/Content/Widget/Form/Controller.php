@@ -152,7 +152,7 @@ class Controller extends \Ip\WidgetController{
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
             if (!empty($revision['pageId'])) {
-                $pageTitle = ipContent()->getPage($revision['pageId'])->getNavigationTitle();
+                $pageTitle = ipPage($revision['pageId'])->getTitle();
             }
         }
 
