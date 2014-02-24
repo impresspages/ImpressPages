@@ -42,8 +42,8 @@
 
                         //if you add "multipart: false," IE fails.
 
-                        flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/js/plupload/plupload.flash.swf'),
-                        silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/js/plupload/plupload.silverlight.xap'),
+                        flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/ipcore/plupload/plupload.flash.swf'),
+                        silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap'),
 
                         button_browse_hover : true,
                         //drop_element : "ipModuleRepositoryDragContainer",

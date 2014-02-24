@@ -26,9 +26,9 @@ class Event
 
             ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
 
-            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.full.js');
-            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.browserplus.js');
-            ipAddJs('Ip/Internal/Core/assets/js/plupload/plupload.gears.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/plupload/plupload.full.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/plupload/plupload.browserplus.js');
+            ipAddJs('Ip/Internal/Core/assets/admin/plupload/plupload.gears.js');
 
             ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
             ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
