@@ -88,13 +88,13 @@ var ipPages = null;
 
         $scope.activateLanguage = function (language) {
             $scope.activeLanguage = language;
-            initTree();
+            showPages();
         }
 
         $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
             $scope.selectedPageId = menu.id;
-            initTree();
+            showPages();
         }
 
         $scope.activatePage = function (pageId) {
@@ -261,46 +261,61 @@ var ipPages = null;
 
         }
 
-        var initTree = function () {
+        var showPages = function () {
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
-                $('.ipsTree').addClass('hidden');
+                $('.ipsPages').addClass('hidden');
                 return;
             }
-            $('.ipsTree').removeClass('hidden')
-            getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
-            getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
-                var node = getJsTree().get_selected();
-                updateHash(null, null, node.attr('pageId'));
-                $scope.$apply();
-            });
 
-            getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
-                moveData.rslt.o.each(function (i) {
-                    var pageId = $(this).attr("pageId");
-                    var destinationParentId = moveData.rslt.np.attr("pageId");
-                    if (!destinationParentId) { //replace undefined with null;
-                        destinationParentId = $scope.activeMenu.id;
-                    }
-                    var destinationPosition = moveData.rslt.cp + i;
-                    movePage(pageId, destinationParentId, destinationPosition);
+            $('.ipsPages').removeClass('hidden');
+
+            if ( false ) { // if blog structure
+                var gridContainer = getTreeDiv();
+                if (!gridContainer.data('gateway')) {
+                    gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
+                    gridContainer.ipGrid();
+                    gridContainer.on('click', '.ipsRow', function (e) {
+                        var $row = $(e.currentTarget);
+                        updateHash(null, null, $row.data('id'));
+                        $scope.$apply();
+                    });
+                }
+            } else {
+                getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
+                getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
+                    var node = getJsTree().get_selected();
+                    updateHash(null, null, node.attr('pageId'));
+                    $scope.$apply();
                 });
-            });
+
+                getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
+                    moveData.rslt.o.each(function (i) {
+                        var pageId = $(this).attr("pageId");
+                        var destinationParentId = moveData.rslt.np.attr("pageId");
+                        if (!destinationParentId) { //replace undefined with null;
+                            destinationParentId = $scope.activeMenu.id;
+                        }
+                        var destinationPosition = moveData.rslt.cp + i;
+                        movePage(pageId, destinationParentId, destinationPosition);
+                    });
+                });
+            }
 
 
         }
 
 
         var getTreeDiv = function () {
-            return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsTree');
+            return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
         }
 
         var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsTree');
+            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsPages');
         }
 
         var refresh = function () {
-            $('.ipsTree').ipPageTree('destroy');
+            $('.ipsPages').ipPageTree('destroy');
             $scope.activateMenu($scope.activeMenu);
             $scope.$apply();
         }
@@ -461,6 +476,9 @@ var ipPages = null;
         }
 
         var updateHash = function (languageCode, menuName, pageId) {
+            var curVariables = getHashParams();
+            curVariables.hash = '';
+
             if (languageCode === null) {
                 languageCode = $scope.activeLanguage.code;
             }
@@ -470,10 +488,19 @@ var ipPages = null;
             if (pageId === null) {
                 pageId = $scope.selectedPageId;
             }
-            var path = 'hash&language=' + languageCode + '&menu=' + menuName;
-            if (pageId) {
-                path = path + '&page=' + pageId;
-            }
+
+            curVariables.language = languageCode;
+            curVariables.menu = menuName;
+            curVariables.page = pageId;
+
+
+            var path = '';
+            $.each(curVariables, function(key, value){
+                if (path != '') {
+                    path = path + '&';
+                }
+                path = path + key + '=' + value;
+            });
             $location.path(path);
         }
 
