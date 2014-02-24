@@ -105,7 +105,6 @@ class Model
      * @param unknown_type $newPages
      */
     private static function _copyPageRecursion(
-        $zoneName,
         $nodeId,
         $destinationPageId,
         $rowNumber,
