@@ -192,8 +192,9 @@ var ipPages = null;
                         var title = $modal.find('input[name=title]').val();
                         var alias = $modal.find('input[name=alias]').val();
                         var layout = $modal.find('select[name=layout]').val();
+                        var type = $modal.find('select[name=type]').val();
                         var languageCode = $scope.activeLanguage.code;
-                        updateMenu(menuId, alias, title, layout);
+                        updateMenu(menuId, alias, title, layout, type);
                         $modal.modal('hide');
                     });
 
@@ -221,7 +222,8 @@ var ipPages = null;
             $modal.find('form').off('submit').on('submit', function (e) {
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
-                addMenu(title);
+                var type = $modal.find('select[name=type]').val();
+                addMenu(title, type);
                 $modal.modal('hide');
             });
         }
@@ -275,7 +277,7 @@ var ipPages = null;
 
             $('.ipsPages').removeClass('hidden');
 
-            if ( false ) { // if blog structure
+            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                 var gridContainer = getTreeDiv();
                 if (!gridContainer.data('gateway')) {
                     gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
@@ -353,12 +355,13 @@ var ipPages = null;
 
         }
 
-        var addMenu = function (title) {
+        var addMenu = function (title, type) {
             var data = {
                 aa: 'Pages.createMenu',
                 securityToken: ip.securityToken,
                 languageCode: $scope.activeLanguage.code,
-                title: title
+                title: title,
+                type: type
             };
 
             $.ajax({
@@ -514,13 +517,14 @@ var ipPages = null;
             $location.path(path);
         }
 
-        var updateMenu = function (menuId, alias, title, layout) {
+        var updateMenu = function (menuId, alias, title, layout, type) {
             var data = {
                 aa: 'Pages.updateMenu',
                 id: menuId,
                 alias: alias,
                 title: title,
                 layout: layout,
+                type: type,
                 securityToken: ip.securityToken
             };
 
