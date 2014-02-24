@@ -37,6 +37,9 @@ class AdminController extends \Ip\Controller
             'languagesUrl' => ipConfig()->baseUrl() . '?aa=Languages.index'
         );
         $layout = ipView('view/layout.php', $variables);
+
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
+
         return $layout->render();
     }
 
