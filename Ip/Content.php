@@ -19,38 +19,10 @@ class Content
      * @var \Ip\Language[]
      */
     protected $languages;
-    protected $zones = null;
-    protected $zonesData = null;
     protected $blockContent = null;
 
     public function __construct()
     {
-    }
-
-    /**
-     * Get all available zones
-     *
-     * @return \Ip\Zone[]
-     *
-     */
-    public function getZones()
-    {
-        $answer = array();
-        foreach ($this->getZonesData() as $zoneData) {
-            $answer[] = $this->getZone($zoneData['name']);
-        }
-        return $answer;
-    }
-
-    /**
-     * @return array|null
-     */
-    protected function getZonesData()
-    {
-        if (!$this->zonesData) {
-            $this->zonesData = Internal\ContentDb::getZones($this->getCurrentLanguage()->getId());
-        }
-        return $this->zonesData;
     }
 
     /**
@@ -60,34 +32,6 @@ class Content
     public function getCurrentLanguage()
     {
         return ipCurrentPage()->getLanguage();
-    }
-
-    /**
-     * Get specific zone object
-     * @param string $zoneName
-     * @return \Ip\Zone
-     *
-     */
-    public function getZone($zoneName)
-    {
-        if ($zoneName === '404') {
-            return new \Ip\Zone404(array('name' => '404'));
-        }
-
-        if (isset($this->zones[$zoneName])) {
-            return $this->zones[$zoneName];
-        }
-
-        $zonesData = $this->getZonesData();
-
-        if (!isset($zonesData[$zoneName])) {
-            return new \Ip\Zone404(array('name' => '404'));
-        }
-
-        $zoneData = $this->zonesData[$zoneName];
-        $this->zones[$zoneName] = \Ip\Internal\Content\Helper::createZone($zoneData);
-        return $this->zones[$zoneName];
-
     }
 
     public function getPage($pageId)
@@ -227,20 +171,19 @@ class Content
                 $parentPageId = $parentPage->getParentId();
             }
         }
+        if (empty($pages)) {
+            return array();
+        }
+
         array_pop($pages);
 
-        $breadcrumb = array_reverse($pages);
-        return $breadcrumb;
-    }
+        if (empty($pages)) {
+            return array();
+        }
 
-    /**
-     * Get current zone object
-     *
-     * @return Zone
-     */
-    public function getCurrentZone()
-    {
-        return ipCurrentPage()->getZone();
+        $breadcrumb = array_reverse($pages);
+
+        return $breadcrumb;
     }
 
     /**
@@ -342,20 +285,6 @@ class Content
     {
         $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data );
         return $newPageId;
-    }
-
-
-    /**
-     * Get root page id for the specfic language
-     *
-     * @param string $zoneName
-     * @param int $languageId
-     * @return int Page ID
-     */
-    public static function getRootPageId($zoneName, $languageId)
-    {
-        $rootId = \Ip\Internal\Pages\Service::rootId($zoneName, $languageId);
-        return $rootId;
     }
 
     /**

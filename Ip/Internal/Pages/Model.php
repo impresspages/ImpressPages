@@ -37,16 +37,6 @@ class Model
         ipDb()->update('zone', array('pageOrder' => $newPriority), array('name' => $menuName));
     }
 
-    protected static function uniqueZoneName($name)
-    {
-        $suffix = '';
-
-        while(ipContent()->getZone($name.$suffix)) {
-            $suffix++;
-        }
-        return $name.$suffix;
-    }
-
     public static function deletePage($pageId)
     {
         $children = Db::pageChildren($pageId);

@@ -52,7 +52,6 @@ class Model{
 
             $moduleItem = new \Ip\Internal\Admin\MenuItem();
             $moduleItem->setTitle(__($module, 'ipAdmin', false));
-            $moduleItem->setUrl(\Ip\Internal\Deprecated\Url::generate(null, null, null, array('aa' => $module.'.index')));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             $moduleItem->setIcon($this->getAdminMenuItemIcon($module));
             if ($module == $currentModule) {
