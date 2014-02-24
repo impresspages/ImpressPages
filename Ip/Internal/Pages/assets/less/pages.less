@@ -1,8 +1,12 @@
 .ipAdminPages {
     ._container {
         float: left;
+        overflow: auto;
         padding: (@grid-gutter-width / 2);
-        height: 100%;
+
+        ._actions {
+            min-height: @grid-gutter-width;
+        }
     }
 
     ._languages {
@@ -33,10 +37,9 @@
         }
     }
 
-    ._zones {
+    ._menus {
         background-color: #eaeaea; // todox: make variable
-        width:  (@grid-gutter-width * 5);
-
+        width: (@grid-gutter-width * 5);
 
         ul {
             list-style: none;
@@ -80,11 +83,26 @@
 
     ._pages {
         background-color: #f4f4f4; // todox: make variable
-        width:  (@grid-gutter-width * 5);
+        width: (@grid-gutter-width * 6);
+
+        ._actions {
+            white-space: nowrap; // keeping all controls in one line
+        }
     }
 
     ._properties {
         background-color: #fff; // todox: make variable
         padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+
+        ._actions {
+            margin-bottom: (@grid-gutter-width / 4);
+            margin-top: -(@grid-gutter-width / 4);
+        }
+    }
+
+    ._languages, ._menus {
+        .btn-new {
+            .button-variant(#fff; #46495e; #46495e); // todox: use variables
+        }
     }
 }

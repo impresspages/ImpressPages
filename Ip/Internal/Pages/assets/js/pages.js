@@ -1,8 +1,8 @@
 var ipPages = null;
+var ipPagesResize;
 
 (function ($) {
     "use strict";
-
 
     var app = angular.module('Pages', []).directive('menulistPostRepeatDirective', function () {
         return function (scope, element, attrs) {
@@ -18,11 +18,7 @@ var ipPages = null;
         });
     });
 
-
     ipPages = function ($scope, $location) {
-
-
-
         //init
         $scope.activeLanguage = {id: null, code: null};
         $scope.activeMenu = {alias: ''};
@@ -45,7 +41,6 @@ var ipPages = null;
                 if (menuName == null) {
                     menuName = menuList[0].alias;
                 }
-
             }
 
             if (languageCode && languageCode != $scope.activeLanguage.code) {
@@ -55,7 +50,6 @@ var ipPages = null;
                     }
                 });
             }
-
 
             if (menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
                 var newActiveMenu = null;
@@ -73,7 +67,6 @@ var ipPages = null;
             if (pageId && pageId != $scope.selectedPageId) {
                 $scope.activatePage(pageId, $scope.activeMenu.alias);
             }
-
         });
 
 
@@ -84,7 +77,6 @@ var ipPages = null;
         $scope.setLanguageHash = function (language) {
             updateHash(language.code, null, false);
         }
-
 
         $scope.activateLanguage = function (language) {
             $scope.activeLanguage = language;
@@ -143,7 +135,6 @@ var ipPages = null;
             });
         }
 
-
         $scope.updateMenuModal = function (menu) {
             var $modal = $('.ipsUpdateMenuModal');
             $modal.modal();
@@ -200,15 +191,12 @@ var ipPages = null;
                 },
                 dataType: 'json'
             });
-
-
         }
 
         $scope.addMenuModal = function () {
             var $modal = $('.ipsAddMenuModal');
             $modal.find('input[name=title]').val('');
             $modal.modal();
-
 
             $modal.find('.ipsAdd').off('click').on('click', function () {
                 $modal.find('form').submit()
@@ -231,7 +219,6 @@ var ipPages = null;
             $scope.copyPageId = $scope.selectedPageId;
         }
 
-
         $scope.menuTitle = function (menu) {
             if (menu.navigationTitle) {
                 return menu.navigationTitle;
@@ -242,7 +229,6 @@ var ipPages = null;
 
             return 'Untitled';
         }
-
 
         $scope.pastePage = function () {
             var tree = getJsTree();
@@ -258,7 +244,6 @@ var ipPages = null;
                     refresh();
                 });
             }
-
         }
 
         var initTree = function () {
@@ -286,10 +271,7 @@ var ipPages = null;
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
             });
-
-
         }
-
 
         var getTreeDiv = function () {
             return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsTree');
@@ -304,7 +286,6 @@ var ipPages = null;
             $scope.activateMenu($scope.activeMenu);
             $scope.$apply();
         }
-
 
         var addPage = function (title, isvisible) {
             var data = {
@@ -330,7 +311,6 @@ var ipPages = null;
                 },
                 dataType: 'json'
             });
-
         }
 
         var addMenu = function (title) {
@@ -356,9 +336,7 @@ var ipPages = null;
                 },
                 dataType: 'json'
             });
-
         }
-
 
         var editPage = function (pageId, successCallback) {
             var data = {
@@ -404,7 +382,6 @@ var ipPages = null;
                 dataType: 'json'
             });
         }
-
 
         var copyPage = function (pageId, destinationLanguageId, destinationZoneName, destinationParentId, destinationPosition, callback) {
             var data = {
@@ -528,7 +505,6 @@ var ipPages = null;
 //            });
 //        }
 
-
         var getHashParams = function () {
 
             var hashParams = {};
@@ -557,10 +533,35 @@ var ipPages = null;
             })
             return firstMenu;
         }
-
-
     }
 
+    ipPagesResize = function() {
+        var $window = $(window);
+        var $languages = $('.ipsLanguages');
+        var $menus = $('.ipsMenus');
+        var $pages = $('.ipsPages');
+        var $properties = $('.ipsProperties');
+
+        var contentHeight = parseInt($window.height());
+        contentHeight -= 40; // leaving place for navbar
+
+        var contentWidth = parseInt($window.width());
+        contentWidth -= parseInt($languages.outerWidth());
+        contentWidth -= parseInt($menus.outerWidth());
+        contentWidth -= parseInt($pages.outerWidth());
+        contentWidth -= 40 * 1.5; // 1.5 times grid
+
+        $languages.innerHeight(contentHeight);
+        $menus.innerHeight(contentHeight);
+        $pages.innerHeight(contentHeight);
+        $properties.innerHeight(contentHeight).innerWidth(contentWidth);
+    }
+
+    $(document).ready(function() {
+        ipPagesResize();
+    });
+
+    $(window).bind('resize.ipPages', ipPagesResize);
 
 })(ip.jQuery);
 
