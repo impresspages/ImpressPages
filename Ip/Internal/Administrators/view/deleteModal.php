@@ -1,4 +1,4 @@
-<div class="ipsDeleteModal modal fade">
+<div class="ipsDeleteModal modal fade"  ng-cloak>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
