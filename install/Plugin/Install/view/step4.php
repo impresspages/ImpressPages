@@ -1,7 +1,7 @@
 <h1><?php _e('Website configuration', 'Install') ?></h1>
 
 <div class="errorContainer"></div>
-<form role="form" onsubmit="return false;">
+<form role="form" class="ipsForm">
     <div class="form-group">
         <label for="configSiteName"><?php _e('Website name', 'Install'); ?></label>
         <input type="text" class="form-control" id="configSiteName" name="siteName">
@@ -24,6 +24,8 @@
             <?php echo $timezoneSelectOptions; ?>
         </select>
     </div>
+
+    <input type="submit" > <!-- TODOX #hide-submit-button -->
 </form>
 <p class="text-right">
     <a class="btn btn-default" href="?step=3"><?php _e('Back', 'Install') ?></a>

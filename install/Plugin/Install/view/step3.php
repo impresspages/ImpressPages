@@ -1,7 +1,7 @@
 <h1><?php _e('Database installation', 'Install') ?></h1>
 
 <div class="errorContainer"></div>
-<form role="form" onsubmit="return false">
+<form role="form" class="ipsForm">
     <div class="form-group">
         <label for="db_server"><?php _e('Database Host (eg. localhost or 127.0.0.1)', 'Install'); ?></label>
         <input type="text" class="form-control" id="db_server" name="server" value="<?php echo htmlspecialchars($db['hostname']); ?>">
@@ -23,6 +23,8 @@
         <input type="text" maxlength="7" class="form-control" id="db_prefix" name="prefix" value="<?php echo htmlspecialchars($db['tablePrefix']); ?>">
     </div>
     <p class="alert alert-warning"><?php _e('Important!!! All old tables with the same prefix will be deleted!', 'Install') ?></p>
+
+    <input type="submit"> <!-- TODOX #hide-submit-button -->
 </form>
 <p class="text-right">
     <a class="btn btn-default" href="?step=2"><?php _e('Back', 'Install') ?></a>
