@@ -131,15 +131,6 @@ class AdminController extends \Ip\Controller
             $answer['status'] = 'error';
         }
 
-        if (empty($data['slug'])) {
-
-            Model::regeneratePageSlug($pageId);
-
-        } elseif ($data['slug'] != $pageBeforeUpdate->getSlug()) {
-
-            Model::updatePageSlug($pageId, $data['slug']);
-        }
-
         return new \Ip\Response\Json($answer);
     }
 
