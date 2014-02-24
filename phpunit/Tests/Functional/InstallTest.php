@@ -53,7 +53,10 @@ class InstallTest extends \PHPUnit_Framework_TestCase
         if ($customPort) {
             $dbHost .= ':' . $customPort;
         }
-        $page->findById('db_server')->setValue($dbHost);
+        $dbServer = $page->findById('db_server');
+        $dbServer->blur();
+        $dbServer->setValue($dbHost);
+
         $page->findById('db_user')->setValue($testDbHelper->getDbUser());
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
