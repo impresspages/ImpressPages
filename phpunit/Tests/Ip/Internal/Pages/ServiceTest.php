@@ -42,7 +42,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $subpage = Service::getPage($subpageId);
         $this->assertNotEmpty($subpage);
         $this->assertEquals('Test subpage', $subpage['pageTitle']);
-        $this->assertEquals('test-page/test-subpage', $subpage['urlPath']);
+        $this->assertEquals('test-subpage', $subpage['urlPath']);
 
         Service::deletePage($pageId);
 
@@ -59,33 +59,28 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($firstPageId);
 
         $firstPage = Service::getPage($firstPageId);
-        $this->assertNotEmpty($firstPage);
         $this->assertEquals('first-page', $firstPage['urlPath']);
 
         $secondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
         $this->assertNotEmpty($secondPageId);
 
         $secondPage = Service::getPage($secondPageId);
-        $this->assertNotEmpty($secondPage);
         $this->assertEquals('second-page', $secondPage['urlPath']);
 
         Service::movePage($secondPageId, $firstPageId, 1);
         $secondPage = Service::getPage($secondPageId);
-        $this->assertNotEmpty($secondPage);
         $this->assertEquals($firstPageId, $secondPage['parentId']);
-        $this->assertEquals('first-page/second-page', $secondPage['urlPath']);
+        $this->assertEquals('second-page', $secondPage['urlPath']);
 
         $newSecondPageId = Service::addPage(0, 'Second page', array('languageCode' => 'en'));
         $this->assertNotEmpty($newSecondPageId);
 
         $newSecondPage = Service::getPage($newSecondPageId);
-        $this->assertNotEmpty($newSecondPage);
-        $this->assertEquals('second-page', $newSecondPage['urlPath']);
+        $this->assertEquals('second-page-2', $newSecondPage['urlPath']);
 
         Service::movePage($newSecondPageId, $firstPageId, 2);
         $newSecondPage = Service::getPage($newSecondPageId);
-        $this->assertNotEmpty($newSecondPage);
-        $this->assertEquals('first-page/second-page-2', $newSecondPage['urlPath']);
+        $this->assertEquals('second-page-2', $newSecondPage['urlPath']);
 
         Service::deletePage($firstPageId);
     }
