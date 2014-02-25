@@ -29,7 +29,6 @@ class ServiceLocator
     protected static $translator;
     protected static $permissions;
     protected static $slots;
-    protected static $currentPages = array();
     protected static $pageAssets = array();
 
     protected static $serviceClasses = array(
@@ -140,18 +139,6 @@ class ServiceLocator
         self::$responses[] = static::loadService('response');
         self::$slots[] = static::loadService('slots');
         self::$pageAssets[] = static::loadService('pageAssets');
-        self::$currentPages[]= null;
-    }
-
-    public static function _setCurrentPage($currentPage)
-    {
-        array_pop(static::$currentPages);
-        static::$currentPages[] = $currentPage;
-    }
-
-    public static function currentPage()
-    {
-        return end(static::$currentPages);
     }
 
     /**
@@ -165,7 +152,6 @@ class ServiceLocator
             array_pop(self::$contents);
             array_pop(self::$responses);
             array_pop(self::$slots);
-            array_pop(self::$currentPages);
             array_pop(self::$pageAssets);
         }
     }

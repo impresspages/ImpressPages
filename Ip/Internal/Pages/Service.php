@@ -25,7 +25,7 @@ class Service
 
     public static function getMenus($languageCode)
     {
-        return Model::getMenus($languageCode);
+        return Model::getMenuList($languageCode);
     }
 
 
@@ -68,7 +68,7 @@ class Service
             $data['urlPath'] = UrlAllocator::allocatePathForNewPage($dataForPath);
         }
 
-        $newPageId = Db::addPage($parentId, $data);
+        $newPageId = Model::addPage($parentId, $data);
 
         return $newPageId;
     }
@@ -92,12 +92,6 @@ class Service
     public static function getChildren($pageId, $start = null, $limit = null)
     {
         return Model::getChildren($pageId, $start, $limit);
-    }
-
-    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
-        $zoneName = Model::addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position);
-        return $zoneName;
     }
 
     public static function updateMenu($menuId, $alias, $title, $layout, $type)

@@ -41,17 +41,56 @@ class Controller extends \Ip\WidgetController{
     public function adminHtmlSnippet()
     {
         $variables = array(
-            'curUrl' => \Ip\Internal\UrlHelper::getCurrentUrl()
+            'optionsForm' => $this->optionsForm()
         );
         return ipView('snippet/options.php', $variables)->render() . "\n" . ipView('snippet/controls.php')->render();
     }
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
+        if (!empty($data['link']) && !preg_match('/^((http|https):\/\/)/i', $data['link'])) {
+            $data['link'] = 'http://' . $data['link'];
+        }
+
         if (empty($data['level']) || (int)$data['level'] < 1) {
             $data['level'] = 1;
         }
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+    }
+
+    protected function optionsForm()
+    {
+        $curUrl = \Ip\Internal\UrlHelper::getCurrentUrl();
+
+        $form = new \Ip\Form();
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'anchor',
+                'label' => __('Anchor', 'ipAdmin', false),
+                'note' => __('Anchor', 'ipAdmin') .'<span class="ipsAnchorPreview ipmAnchorPreview">'. $curUrl .'#</span>'
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'link',
+                'label' => __('Link', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'blank',
+                'label' => __('Open in new window', 'ipAdmin', false),
+            ));
+        $form->addField($field);
+
+
+        return $form; // Output a string with generated HTML form
     }
 
 }

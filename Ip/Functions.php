@@ -126,18 +126,6 @@ function ipContent()
 }
 
 /**
- * Get current page object
- *
- * Use this object to get information about current page.
- *
- * @return \Ip\CurrentPage Current page object.
- */
-function ipCurrentPage()
-{
-    return \Ip\ServiceLocator::currentPage();
-}
-
-/**
  * Add JavaScript file to a web page
  *
  * After adding all JavaScript files, issue ipJs() function to generate JavaScript links HTML code.
@@ -274,17 +262,6 @@ function ipSetLayout($file)
 function ipResponse()
 {
     return \Ip\ServiceLocator::response();
-}
-
-/**
- * @ignore
- * @param \Ip\Page $page
- */
-function _ipPageStart(\Ip\Page $page)
-{
-    ipCurrentPage()->_set('page', $page);
-
-    ipEvent('_ipPageStart', array('page' => $page));
 }
 
 /**
@@ -955,10 +932,12 @@ function ipAdminId()
 function ipPageStorage($pageId = NULL)
 {
     if (!$pageId) {
-        $pageId = ipCurrentPage()->getPage()->getId();
+        $page = ipContent()->getCurrentPage();
         if (!$pageId) {
             return null;
         }
+
+        $pageId = $page->getId();
     }
 
     return new \Ip\PageStorage($pageId);
