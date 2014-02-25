@@ -59,17 +59,30 @@ jQuery.fn.ipWidgetMap = function() {
 
         var $widget = $(this);
         var $map = $widget.find('.ipsMap');
-        $(this).height($(this).data('height'));
+        var data = $map.data();
+
 
         if (!$widget.data('initialized') || true) {
 
-            var mapOptions = {
-                //center: new google.maps.LatLng($(this).data('lat'), $(this).data('lng')),
-                center: new google.maps.LatLng(-34.397, 150.644),
-                zoom: 8, //$map.data('zoom'),
-//                mapTypeId: $map.data('mapview'),
+            //init map
+            if (typeof(data.lat) == 'undefined') {
+                data.lat = 0;
+            }
+            if (typeof(data.lng) == 'undefined') {
+                data.lng = 0;
+            }
 
+            var mapOptions = {
+                center: new google.maps.LatLng(data.lat, data.lng),
+                zoom: 0
             };
+
+            if (data.maptypeid) {
+                mapOptions.mapTypeId = data.maptypeid;
+            }
+            if (data.zoom) {
+                mapOptions.zoom = parseInt(data.zoom);
+            }
 
             var map = new google.maps.Map($map.get(0), mapOptions);
 
