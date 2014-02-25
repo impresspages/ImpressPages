@@ -20,6 +20,7 @@ class Filter
         $widgets['Columns'] = new \Ip\Internal\Content\Widget\Columns\Controller('Columns', 'Content', 1);
         $widgets['Form'] = new \Ip\Internal\Content\Widget\Form\Controller('Form', 'Content', 1);
         $widgets['Video'] = new \Ip\Internal\Content\Widget\Video\Controller('Video', 'Content', 1);
+        $widgets['Map'] = new \Ip\Internal\Content\Widget\Map\Controller('Map', 'Content', 1);
 
 
         $widgetDirs = static::getPluginWidgetDirs();

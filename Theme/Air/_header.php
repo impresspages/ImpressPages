@@ -10,6 +10,7 @@
     <?php ipAddCss('assets/theme.css'); ?>
     <?php echo ipHead(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>-->
 </head>
 <body>
 <div class="theme clearfix">
