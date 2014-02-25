@@ -27,6 +27,8 @@ var IpWidget_Map;
 
 
             var $resizeContainer = $('<div></div>');
+            $resizeContainer.width($map.width());
+            $resizeContainer.height($map.height());
             $map.replaceWith($resizeContainer);
             $resizeContainer.append($map);
 
@@ -38,8 +40,8 @@ var IpWidget_Map;
                 resize: function(event, ui) {
                     $map.width(ui.size.width);
                     $map.height(ui.size.height);
-                    $.proxy(context.initMap, context)();
-                    $.proxy(context.save, context)();
+                    $.proxy(initMap, context)();
+                    $.proxy(save, context)();
                 }
             });
 
@@ -118,7 +120,7 @@ var IpWidget_Map;
                     map: this.map
                 });
             }
-
+            $.proxy(save, this)();
 
         }
 
@@ -140,11 +142,10 @@ var IpWidget_Map;
                 data.markerlat = markerPos.lat();
                 data.markerlng = markerPos.lng();
             }
-//            if (this.$widgetObject.width() - width <= 2) {
-//                data = {
-//                    method: 'autosize'
-//                }
-//            }
+            var mapWidth = this.$widgetObject.find('.ipsMap').width();
+            if (this.$widgetObject.width() - mapWidth > 2) {
+                data.width = mapWidth;
+            }
 
             this.$widgetObject.save(data, 0);
         }
