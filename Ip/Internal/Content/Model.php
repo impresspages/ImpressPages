@@ -65,7 +65,7 @@ class Model
             'manageableRevision' => $manageableRevision
         );
 
-        $controlPanelHtml = ipView('view/controlPanel.php', $data)->render();
+        $controlPanelHtml = ipView('view/adminPanel.php', $data)->render();
 
         $data = array(
             'controlPanelHtml' => $controlPanelHtml,

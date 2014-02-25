@@ -60,23 +60,24 @@
                     data.initInfo = options;
                     $this.data('ipContentManagement', data);
 
-                    $('.ipAdminPanel .ipActionWidgetButton').ipAdminWidgetButton();
-
-
+                    $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
 
                     ipAdminPanelInit();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
 
-                    $('.ipAdminPanel .ipActionWidgetButton').on('dragstart', ipStartWidgetDrag);
-                    $('.ipAdminPanel .ipActionWidgetButton').on('dragstop', ipStopWidgetDrag);
+                    $('.ipsAdminPanelWidgetButton')
+                        .on('dragstart', ipStartWidgetDrag)
+                        .on('dragstop', ipStopWidgetDrag);
 
                     //$('.ipWidget').on('sortstart', ipStartWidgetDrag);
-                    $('.ipBlock .ipWidget').on('dragstart.ipContentManagement', ipStartWidgetDrag);
-                    $('.ipBlock .ipWidget').on('dragstop.ipContentManagement', ipStopWidgetDrag);
+                    $('.ipBlock .ipWidget')
+                        .on('dragstart.ipContentManagement', ipStartWidgetDrag)
+                        .on('dragstop.ipContentManagement', ipStopWidgetDrag);
                     $('body').on('reinitRequired.ipWidget', function () {
-                        $('.ipBlock .ipWidget').off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag);
-                        $('.ipBlock .ipWidget').off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
+                        $('.ipBlock .ipWidget')
+                            .off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag)
+                            .off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
                     })
 
                     $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
@@ -162,7 +163,7 @@
      *
      */
     var ipAdminWidgetsScroll = function () {
-        var $scrollable = $('.ipAdminWidgetsContainer'); // binding object
+        var $scrollable = $('.ipsAdminPanelWidgetsContainer'); // binding object
         $scrollable.scrollable({
             items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
             touch: false
@@ -174,13 +175,13 @@
         if (scrollBy < 1) {
             scrollBy = 1;
         } // setting the minimum
-        $('.ipAdminWidgets .ipsRight, .ipAdminWidgets .ipsLeft').off('click'); // unbind if reinitiating dynamically
+        $scrollable.siblings('.ipsRight, .ipsLeft').off('click'); // unbind if reinitiating dynamically
         scrollableAPI.begin(); // move to scroller to default position (beginning)
-        $('.ipAdminWidgets .ipsRight').on('click', function (event) {
+        $scrollable.siblings('.ipsRight').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(scrollBy);
         });
-        $('.ipAdminWidgets .ipsLeft').on('click', function (event) {
+        $scrollable.siblings('.ipsLeft').on('click', function (event) {
             event.preventDefault();
             scrollableAPI.move(-scrollBy);
         });
@@ -196,9 +197,9 @@
      *
      */
     var ipAdminWidgetsSearch = function () {
-        var $input = $('.ipAdminWidgetsSearch .ipsInput');
-        var $button = $('.ipAdminWidgetsSearch .ipsButton');
-        var $widgets = $('.ipAdminWidgetsContainer li');
+        var $input = $('.ipsAdminPanelWidgetsSearch .ipsInput');
+        var $button = $('.ipsAdminPanelWidgetsSearch .ipsButton');
+        var $widgets = $('.ipsAdminPanelWidgetsContainer li');
 
         $input.focus(function () {
             if (this.value == this.defaultValue) {
@@ -242,9 +243,9 @@
      *
      */
     var ipAdminPanelInit = function () {
-        var $container = $('.ipAdminPanelContainer'); // the most top element physically creates a space
-        var $panel = $('.ipAdminPanel'); // Administration Panel that stays always visible
-        $container.height($panel.height()); // setting the height to container
+        var $container = $('.ipsAdminPanelContainer'); // the most top element physically creates a space
+        var $panel = $('.ipsAdminPanel'); // Administration Panel that stays always visible
+        $container.height($panel.outerHeight()); // setting the height to container
         $panel.css('top', $('.ipsAdminNavbarContainer').outerHeight()); // move down to leave space for top navbar
     }
 
@@ -581,7 +582,7 @@
         });
 
         $('.ipsWidgetDropPlaceholder').droppable({
-            accept: ".ipActionWidgetButton, .ipWidget",
+            accept: ".ipsAdminPanelWidgetButton, .ipWidget",
             activeClass: "",
             hoverClass: "hover",
             greedy: true,

@@ -29,7 +29,7 @@ class WidgetTitleTest extends \PHPUnit_Framework_TestCase
         $adminHelper->login();
 
         //These four lines are redundand and has to be removed when installation will be fixed
-        $session->wait(10000, "typeof $ !== 'undefined' && $('.ipAdminWidgetsDisable .ipsContentPublish').length != 0");
+        $session->wait(10000, "typeof $ !== 'undefined' && $('._disable .ipsContentPublish').length != 0");
         $duplicateRevisionLink = $page->find('css', '.ipsItemCurrent');
         $duplicateRevisionLink->click();
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipsContentPublish').length != 0");
