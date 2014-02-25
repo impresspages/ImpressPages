@@ -1,23 +1,18 @@
 <div class="ip">
-    <div id="ipWidgetGallerySnippet" class="hidden">
-        <div class="ip ipsAdd ipmAdd">
-            <button type="button" class="btn btn-primary"><?php _e('Add', 'ipAdmin') ?></button>
-        </div>
-    </div>
     <div class="hidden" id="ipWidgetGalleryMenu">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
                 <button class="btn btn-default ipsEdit" role="button"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-default ipsLink" role="button"><i class="fa fa-link"></i></button>
                 <button class="btn btn-default ipsSettings" role="button"><i class="fa fa-gears"></i></button>
+                <button class="btn btn-default ipsDelete" role="button"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </div>
     <div class="hidden" id="ipWidgetGalleryControls">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button type="button" data-level="1" class="btn btn-default ipsAdd"><?php _e('Add image', 'ipAdmin') ?></button>
+                <button type="button" data-level="1" class="btn btn-default ipsAdd"><?php _e('Add image', 'ipAdmin'); ?></button>
             </div>
         </div>
     </div>
