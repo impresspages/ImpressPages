@@ -25,7 +25,7 @@ class Service
 
     public static function getMenus($languageCode)
     {
-        return Model::getMenus($languageCode);
+        return Model::getMenuList($languageCode);
     }
 
 

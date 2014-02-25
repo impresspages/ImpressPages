@@ -29,7 +29,7 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 
         ipAddJsVariable('languageList', Helper::languageList());
-        ipAddJsVariable('menuList', Helper::menuList());
+        ipAddJsVariable('menuList', Model::getMenuList(ipContent()->getCurrentLanguage()->getCode()));
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),
@@ -365,6 +365,25 @@ class AdminController extends \Ip\Controller
         );
 
         return new \Ip\Response\Json($answer);
+    }
+
+    public function changeMenuOrder()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        $menuId = ipRequest()->getPost('menuId');
+        $newIndex = ipRequest()->getPost('newIndex');
+
+        if (empty($menuId) || !isset($newIndex)) {
+            throw new \Ip\Exception("Missing required parameters");
+        }
+
+        Model::changeMenuOrder($menuId, $newIndex);
+
+        return new \Ip\Response\Json(array(
+            'error' => 0
+        ));
     }
 
 
