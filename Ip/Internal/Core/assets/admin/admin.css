@@ -44,7 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /* To be removed */
   /* General*/
   /* Logo management */
   /* Font selector */
@@ -8140,62 +8139,6 @@
 }
 .ip .ipModuleContentPublishButton ._revisions ._button {
   padding: 0 20px;
-}
-.ip .ui-dialog {
-  font-size: 12px;
-}
-.ip .ui-widget .error {
-  display: none;
-}
-.ip .ui-widget form label {
-  color: #797979;
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-.ip .ui-widget form label.small {
-  color: #797979;
-  display: inline;
-  font-size: 12px;
-  font-weight: normal;
-}
-.ip .ui-widget form p.field {
-  margin-bottom: 15px;
-}
-.ip .ui-widget form .error {
-  background-color: #FFF5E1;
-  border: 1px solid #EFA6A7;
-  color: #E73031;
-  display: none;
-  margin-bottom: 2px;
-  padding: 4px;
-  width: 492px;
-}
-.ip .ui-widget form input,
-.ip .ui-widget form textarea {
-  border: 1px solid #C0C0C0;
-  font-size: 12px;
-  margin-bottom: 2px;
-  text-align: left;
-  vertical-align: middle;
-  width: 500px;
-}
-.ip .ui-widget form input.stdModBox {
-  width: auto;
-}
-.ip .ui-widget form .submit {
-  background-color: #FCEAC9;
-  border: 1px solid #FFBB44;
-  color: #264971;
-  font-weight: bold;
-  height: 22px;
-  padding-left: 5px;
-  padding-right: 5px;
-  width: auto;
-}
-.ip .ipmAdd {
-  float: left;
 }
 .ip .ipAdminWidgetControls {
   margin: 0 -11px;
