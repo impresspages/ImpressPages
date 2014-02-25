@@ -52,14 +52,6 @@ class Model
 
         $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
-        $managementUrls = array();
-        $currentPageLink = ipContent()->getCurrentPage()->getLink();
-        foreach ($revisions as $value) {
-            $managementUrls[] = $currentPageLink . '?cms_revision=' . $value['revisionId'];
-        }
-
-
-
         $manageableRevision = isset($revisions[0]['revisionId']) && ($revisions[0]['revisionId'] == $revision['revisionId']);
 
         $page = ipContent()->getCurrentPage();
@@ -69,9 +61,7 @@ class Model
         $data = array(
             'widgets' => $widgets,
             'page' => $page,
-            'revisions' => $revisions,
-            'currentRevision' => $value,
-            'managementUrls' => $managementUrls,
+            'currentRevision' => $revision,
             'manageableRevision' => $manageableRevision
         );
 

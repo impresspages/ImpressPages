@@ -116,13 +116,13 @@ class Filter
     }
 
 
-    public static function ipAdminNavButtons($buttons, $info)
+    public static function ipAdminNavbarButtons($buttons, $info)
     {
         if (ipContent()->getCurrentPage()) {
             $buttons[] = array(
                 'text' => __('Preview', 'ipAdmin', false),
                 'hint' => __('Hides admin tools', 'ipAdmin', false),
-                'class' => 'ipsAdminPreview',
+                'class' => 'ipsContentPreview',
                 'faIcon' => 'fa-eye',
                 'url' => '#'
             );
@@ -135,9 +135,30 @@ class Filter
             );
         }
 
-
-
         return $buttons;
     }
 
+
+    public static function ipAdminNavbarCenterElements($elements, $info)
+    {
+        if (ipContent()->getCurrentPage()) {
+            $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+            $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
+
+            $managementUrls = array();
+            $currentPageLink = ipContent()->getCurrentPage()->getLink();
+            foreach ($revisions as $value) {
+                $managementUrls[] = $currentPageLink . '?cms_revision=' . $value['revisionId'];
+            }
+
+            $data = array(
+                'revisions' => $revisions,
+                'currentRevision' => $revision,
+                'managementUrls' => $managementUrls
+            );
+
+            $elements[] = ipView('view/publishButton.php', $data);
+        }
+        return $elements;
+    }
 }
