@@ -29,7 +29,7 @@ class Model
      *
      * Copy page
      * @param int $pageId
-     * @param int$newParentId
+     * @param int $newParentId
      * @param int $position page position in the subtree //TODO implement
      */
     public static function copyPage($pageId, $destinationPageId, $position = null)
@@ -111,22 +111,26 @@ class Model
     }
 
 
-
     public static function getChildren($parentId, $start = null, $limit = null)
     {
         $sqlEnd = 'ORDER BY `pageOrder`';
         if ($start !== null || $limit !== null) {
-            $sqlEnd .= ' LIMIT ' . (int) $start;
+            $sqlEnd .= ' LIMIT ' . (int)$start;
         }
         if ($limit !== null) {
-            $sqlEnd .= ', ' . (int) $limit;
+            $sqlEnd .= ', ' . (int)$limit;
         }
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId), $sqlEnd);
     }
 
     public static function getMenus($languageCode)
     {
-        return ipDb()->selectAll('page', '*', array('languageCode' => $languageCode, 'parentId' => 0), ' ORDER BY `pageOrder` ');
+        return ipDb()->selectAll(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'parentId' => 0),
+            ' ORDER BY `pageOrder` '
+        );
     }
 
     public static function getPage($pageId)
@@ -153,10 +157,13 @@ class Model
 
         $pageAfterChange = ipPage($pageId);
 
-        ipEvent('ipUrlChanged', array(
+        ipEvent(
+            'ipUrlChanged',
+            array(
                 'oldUrl' => $pageBeforeChange->getLink(),
                 'newUrl' => $pageAfterChange->getLink(),
-            ));
+            )
+        );
     }
 
     /**
@@ -221,17 +228,17 @@ class Model
     {
         $page = self::getPage($pageId);
         if (!$page) {
-            return FALSE;
+            return false;
         }
         if ($page['parentId'] == $parentId) {
-            return TRUE;
+            return true;
         }
 
         if ($page['parentId']) {
             return self::isChild($page['parentId'], $parentId);
         }
 
-        return FALSE;
+        return false;
     }
 
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
@@ -244,7 +251,7 @@ class Model
         $newPageOrder = 0; //initial value
 
         if (count($newParentChildren) > 0) {
-            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1;  //set as first page
+            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1; //set as first page
             if ($destinationPosition > 0) {
                 if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
                     $newPageOrder = ($newParentChildren[$destinationPosition - 1]['pageOrder'] + $newParentChildren[$destinationPosition]['pageOrder']) / 2; //average
@@ -254,7 +261,7 @@ class Model
             }
         }
 
-        $update = array (
+        $update = array(
             'parentId' => $destinationParentId,
             'pageOrder' => $newPageOrder
         );
@@ -282,7 +289,9 @@ class Model
         $data['title'] = $title;
 
         $data['parentId'] = 0;
-        $data['pageOrder'] = static::getNextPageOrder(array('languageCode' => $languageCode, 'parentId' => $data['parentId']));
+        $data['pageOrder'] = static::getNextPageOrder(
+            array('languageCode' => $languageCode, 'parentId' => $data['parentId'])
+        );
         $data['isVisible'] = 1;
 
         $menuId = ipDb()->insert('page', $data);
@@ -330,7 +339,6 @@ class Model
         if (empty($row['updatedAt'])) {
             $row['updatedAt'] = date('Y-m-d H:i:s');
         }
-
 
 
         return ipDb()->insert('page', $row);
