@@ -24,6 +24,16 @@ class Controller extends \Ip\WidgetController{
 
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+        if (!empty($data['width'])) {
+            $data['width'] = ((int)$data['width']) . 'px';
+        } else {
+            $data['width'] = '100%';
+        }
+        if (!empty($data['height'])) {
+            $data['height'] = ((int)$data['height']) . 'px';
+        } else {
+            $data['height'] = '250px';
+        }
 
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }

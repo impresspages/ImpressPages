@@ -11,8 +11,9 @@ var IpWidget_Map;
         var controllerScope = this;
         this.$widgetObject = null;
         this.data = null;
+        this.map = null;
 
-        this.init = function($widgetObject, data) {console.log('init');
+        this.init = function($widgetObject, data) {
             this.$widgetObject = $widgetObject;
             this.data = data;
             var context = this;
@@ -22,13 +23,7 @@ var IpWidget_Map;
                 jQuery(this.$widgetObject.get()).ipWidgetMap();
             }
 
-//            var $widgetOverlay = $('<div></div>')
-//                .css('position', 'absolute')
-//                .css('z-index', 5)
-//                .width(this.$widgetObject.width())
-//                .height(this.$widgetObject.height());
-//            this.$widgetObject.prepend($widgetOverlay);
-//            $widgetOverlay.on('click', $.proxy(this.focusMap, context));
+
 
             var $resizeContainer = $('<div></div>');
             $map.replaceWith($resizeContainer);
@@ -42,24 +37,21 @@ var IpWidget_Map;
                 resize: function(event, ui) {
                     $map.width(ui.size.width);
                     $map.height(ui.size.height);
-                    jQuery(context.$widgetObject.get()).ipWidgetMap('refresh');
+                    $.proxy(context.initMap, context)();
+                    $.proxy(context.save, context)();
                 }
             });
-//
-//            this.$controls = $('#ipWidgetMapMenu');
-//            this.$widgetObject.on('click', $.proxy(this.focusMap, this));
-//
-//            $('body').on('click', $.proxy(function(e) { //detect mouse click outside of the map
-//                var $target = $(e.target);
-//                var $closestWidget = $target.closest('.ipWidget-Map');
-//
-//                if (!$target.hasClass('ipWidget-Map') && !$closestWidget.hasClass('ipWidget-Map')) {
-//                    $.proxy(this.blurMap, this)();
-//                }
-//
-//
-//            }, this));
 
+
+
+
+
+                if (typeof(google) !== 'undefined' && typeof(google.maps) !== 'undefined' && typeof(google.maps.LatLng) !== 'undefined') {
+                    $.proxy(initMap, this)();
+                } else {
+                    jQuery('body').on('ipGoogleMapsLoaded', jQuery.proxy(initMap, this));
+                    ipLoadGoogleMaps();
+                }
 
 
 
@@ -67,124 +59,71 @@ var IpWidget_Map;
 
         };
 
-        this.focusMap = function (e) {
+        var initMap = function () {
             var context = this;
-            e.preventDefault();
-
-            var $item = $(e.currentTarget);
-            var $img = $item.find('.ipsMap');
-            var $controls = this.$controls;
-
-            $controls.removeClass('hidden');
-            $controls.css('position', 'absolute');
-            $controls.css('left', $img.offset().left + 5);
-            $controls.css('top', $img.offset().top + 5);
-
-            $controls.find('.ipsDelete').off().on('click', function(e) {
-                $.proxy(context.deleteMap, context)();
-            });
-            $controls.find('.ipsEdit').off().on('click', function(e) {
-                $.proxy(context.editMap, context)();
-            });
-            $controls.find('.ipsLink').off().on('click', function(e) {
-                $.proxy(linkPopup, context)();
-            });
-            $controls.find('.ipsSettings').off().on('click', function(e) {
-                $.proxy(settingsPopup, context)();
-            });
-        };
-
-        this.blurMap = function () {
-            this.$controls.addClass('hidden');
-        };
-
-
-        this.editMap = function (position) {
-            var thisContext = this;
-            var $modal = $('#ipWidgetImageEditPopup');
-            var options = new Object;
-            var data = this.data;
-
-            $modal.modal();
-
+            var $widget = this.$widgetObject;
+            var $map = $widget.find('.ipsMap');
             //init map
-
-
-            $modal.find('.ipsConfirm').off().on('click', function () {
-                var var1 = 'xxx';
-                $.proxy(thisContext.updateMap, thisContext)(var1, var1, var1);
-                $modal.modal('hide');
-            });
-        }
-
-        this.updateMap = function (x1, y1, x2, y2, image, callback) {
-            var data = {
-                method: 'update',
-                fileName: image,
-                cropX1: x1,
-                cropY1: y1,
-                cropX2: x2,
-                cropY2: y2
-            };
-
-
-            this.$widgetObject.save(data, 1, function($widget){
-                $widget.click();
-                if (callback) {
-                    callback($widget);
-                }
-            });
-        }
-
-
-
-        this.resize = function(width, height) {
-            var $this = $(this);
-
-            var data = {
-                method: 'resize',
-                width: width,
-                height: height
-            };
-
-            if (this.$widgetObject.width() - width <= 2) {
-                data = {
-                    method: 'autosize'
-                }
+            if (typeof(this.data.lat) == 'undefined') {
+                this.data.lat = 0;
             }
+            if (typeof(this.data.lng) == 'undefined') {
+                this.data.lng = 0;
+            }
+
+            var mapOptions = {
+                center: new google.maps.LatLng(this.data.lat, this.data.lng),
+                zoom: 0
+            };
+
+            if (this.data.mapTypeId) {
+                mapOptions.mapTypeId = this.data.mapTypeId;
+            }
+            if (this.data.zoom) {
+                mapOptions.zoom = parseInt(this.data.zoom);
+            }
+
+
+            this.map = new google.maps.Map($map.get(0), mapOptions);
+
+//            if ((typeof ($widget.data('markerlat') !== 'undefined')) && (typeof ($widget.data('markerlng') !== 'undefined'))) {
+//                var marker = new google.maps.Marker({
+//                    position: new google.maps.LatLng($(this).data('markerlat'), $widget.data('markerlng')),
+//                    map: map
+//                });
+//            }
+
+            //bind map events
+            google.maps.event.addListener(this.map, 'center_changed', $.proxy(save, this));
+            google.maps.event.addListener(this.map, 'zoom_changed', $.proxy(save, this));
+        }
+
+
+
+        var save = function() {
+
+            var curLatLng = this.map.getCenter();
+
+            var data = {};
+
+            data.lat = curLatLng.lat();
+            data.lng = curLatLng.lng();
+            data.zoom = this.map.getZoom();
+            data.mapTypeId = this.map.mapTypeId;
+            data.height = parseInt( this.$widgetObject.height());
+
+
+console.log(data);
+//            if (this.$widgetObject.width() - width <= 2) {
+//                data = {
+//                    method: 'autosize'
+//                }
+//            }
 
             this.$widgetObject.save(data, 0);
         }
 
 
-
-
-        var settingsPopup = function () {
-            var data = this.data;
-            var context = this;
-            this.settingsPopup = $('#ipWidgetMapSettingsPopup');
-            this.confirmButton = this.settingsPopup.find('.ipsConfirm');
-            this.title = this.settingsPopup.find('input[name=title]');
-            this.description = this.settingsPopup.find('textarea[name=description]');
-
-            this.title.val(data.title);
-            this.description.val(data.description);
-
-            this.settingsPopup.modal(); // open modal popup
-
-            this.confirmButton.off().on('click', $.proxy(saveSettings, context));
-        };
-
-        var saveSettings = function () {
-            var data = {
-                method: 'saveSettings',
-                title: this.title.val(),
-                description: this.description.val()
-            };
-
-            this.$widgetObject.save(data, 1); // save and reload widget
-            this.settingsPopup.modal('hide');
-        };
 
     };
 

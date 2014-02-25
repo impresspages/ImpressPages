@@ -4,6 +4,7 @@
  **************/
 
 jQuery.fn.ipWidgetForm = function() {
+    "use strict";
     return this.each(function() {
         var $ipForm = $(this);
 
@@ -49,12 +50,18 @@ jQuery.fn.ipWidgetForm = function() {
 
 
 jQuery.fn.ipWidgetMap = function() {
+    "use strict";
+
     return this.each(function() {
-        var $map = $(this);
-        var initWaiter;
+        if (ip.isManagementState) {
+            return; //management part will initialize script by itself
+        }
+
+        var $widget = $(this);
+        var $map = $widget.find('.ipsMap');
         $(this).height($(this).data('height'));
 
-        if (!$map.data('initialized') || true) {
+        if (!$widget.data('initialized') || true) {
 
             var mapOptions = {
                 //center: new google.maps.LatLng($(this).data('lat'), $(this).data('lng')),
@@ -64,15 +71,14 @@ jQuery.fn.ipWidgetMap = function() {
 
             };
 
-            map = new google.maps.Map($(this).find('.ipsMap').get(0), mapOptions);
+            var map = new google.maps.Map($map.get(0), mapOptions);
 
-            if ((typeof ($map.data('markerlat') !== 'undefined')) && (typeof ($map.data('markerlng') !== 'undefined'))) {
+            if ((typeof ($widget.data('markerlat') !== 'undefined')) && (typeof ($widget.data('markerlng') !== 'undefined'))) {
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng($(this).data('markerlat'), $map.data('markerlng')),
+                    position: new google.maps.LatLng($(this).data('markerlat'), $widget.data('markerlng')),
                     map: map
                 });
             }
-
 
         }
 
