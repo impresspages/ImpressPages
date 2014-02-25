@@ -123,14 +123,20 @@ class Model
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId), $sqlEnd);
     }
 
-    public static function getMenus($languageCode)
+    public static function getMenuList($languageCode)
     {
-        return ipDb()->selectAll(
+        $list = ipDb()->selectAll(
             'page',
             '*',
             array('languageCode' => $languageCode, 'parentId' => 0),
             ' ORDER BY `pageOrder` '
         );
+
+        foreach ($list as &$menu) {
+            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
+        }
+
+        return $list;
     }
 
     public static function getPage($pageId)
@@ -350,4 +356,25 @@ class Model
 
         return ipDb()->insert('page', $row);
     }
+
+    public static function changeMenuOrder($menuId, $newIndex)
+    {
+        $menu = static::getPage($menuId);
+
+        $menus = static::getMenuList($menu['languageCode']);
+
+        $newPriority = null;
+
+        if ($newIndex <= 0) {
+            $newPriority = $menus[0]['pageOrder'] - 20;
+        } elseif ($newIndex > count($menus) - 1) {
+            $lastMenu = end($menus);
+            $newPriority = $lastMenu['pageOrder'] + 20;
+        } else {
+            $newPriority = ($menus[$newIndex - 1]['pageOrder'] + $menus[$newIndex]['pageOrder']) / 2;
+        }
+
+        ipDb()->update('page', array('pageOrder' => $newPriority), array('id' => $menuId));
+    }
+
 }
