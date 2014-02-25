@@ -76,18 +76,16 @@ class AdminController extends \Ip\Controller
     public function delete()
     {
         ipRequest()->mustBePost();
-        $post = ipRequest()->getPost();
 
-        if (!isset($post['id'])) {
+        $userId = ipRequest()->getPost('id');
+
+        if (!$userId) {
             throw new \Ip\Exception('Missing required parameters');
         }
-
-        $userId = $post['id'];
 
         if ($userId == ipAdminId()) {
             throw new \Ip\Exception("Can't delete yourself");
         }
-
 
         Service::delete($userId);
 

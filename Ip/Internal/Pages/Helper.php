@@ -184,7 +184,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'urlPath',
-                'label' => __('urlPath', 'ipAdmin', false),
+                'label' => __('URL path', 'ipAdmin', false),
                 'value' => $page->getUrlPath(),
             ));
         $form->addField($field);
