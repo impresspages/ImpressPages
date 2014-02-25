@@ -18,3 +18,4 @@ Please visit the [ImpressPages website] (http://www.impresspages.org) to downloa
 1. Backup all your files and the database before starting the update process.
 2. Point your browser to ImpressPages administration console (`admin.php`), and log in.
 3. Go to `Administrator -> System` tab, and check for update instructions in `System messages` area. Click the `Start update` button. Follow the onscreen instructions.
+
