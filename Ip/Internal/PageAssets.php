@@ -173,13 +173,15 @@ class PageAssets
             }
         }
         $revision = $this->getCurrentRevision();
+
+        $page = ipContent()->getCurrentPage();
         $data = array(
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
                 'languageId' => ipContent()->getCurrentLanguage()->getId(),
                 'languageUrl' => ipContent()->getCurrentLanguage()->getLink(),
                 'theme' => ipConfig()->getRaw('theme'),
-                'pageId' => ipContent()->getCurrentPage() ? ipContent()->getCurrentPage()->getId() : null,
+                'pageId' => $page ? $page->getId() : null,
                 'revisionId' => $revision['revisionId'],
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),

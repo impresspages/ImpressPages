@@ -117,29 +117,6 @@ abstract class Zone{
      */
     public abstract function findPage($urlVars, $getVars);
 
-    /*
-     * Find current (active) page of this zone
-     *
-     * Calculated value is cached.
-     * @return Page - that represents current requested page.
-     *
-     */
-    public function getCurrentPage(){
-        if($this->currentPage !== null){
-            return $this->currentPage;
-        }
-        $content = \Ip\ServiceLocator::content();
-        if(!$content->getCurrentZone() || $this->name != $content->getCurrentZone()->getName()){
-            $this->currentPage = false;
-            return false;
-        }
-
-        $this->currentPage = $this->findPage($content->getUrlPath(), \Ip\ServiceLocator::request()->getQuery());
-        if (empty($this->currentPage)) {
-            $this->currentPage = new \Ip\Page404();
-        }
-        return $this->currentPage;
-    }
 
     /**
      *
