@@ -991,11 +991,11 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Columns ._col.last {
   padding-right: 0;
 }
-.ipWidget-Divider.ipLayout-default {
+.ipWidget-Divider.ipSkin-default {
   border-bottom: 1px solid #747474;
   height: 0;
 }
-.ipWidget-Divider.ipLayout-space {
+.ipWidget-Divider.ipSkin-space {
   height: 25px;
 }
 .ipWidget-Faq {
