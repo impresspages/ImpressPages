@@ -63,29 +63,29 @@ var IpWidget_Map;
             var context = this;
             var $widget = this.$widgetObject;
             var $map = $widget.find('.ipsMap');
+            var data = this.data;
             //init map
-            if (typeof(this.data.lat) == 'undefined') {
-                this.data.lat = 0;
+            if (typeof(data.lat) == 'undefined') {
+                data.lat = 0;
             }
-            if (typeof(this.data.lng) == 'undefined') {
-                this.data.lng = 0;
+            if (typeof(data.lng) == 'undefined') {
+                data.lng = 0;
             }
 
             var mapOptions = {
-                center: new google.maps.LatLng(this.data.lat, this.data.lng),
+                center: new google.maps.LatLng(data.lat, data.lng),
                 zoom: 0
             };
 
-            if (this.data.mapTypeId) {
-                mapOptions.mapTypeId = this.data.mapTypeId;
+            if (data.mapTypeId) {
+                mapOptions.mapTypeId = data.mapTypeId;
             }
-            if (this.data.zoom) {
-                mapOptions.zoom = parseInt(this.data.zoom);
+            if (data.zoom) {
+                mapOptions.zoom = parseInt(data.zoom);
             }
 
-
-            this.map = new google.maps.Map($map.get(0), mapOptions);
-
+            var map = new google.maps.Map($map.get(0), mapOptions);
+            this.map = map;
 //            if ((typeof ($widget.data('markerlat') !== 'undefined')) && (typeof ($widget.data('markerlng') !== 'undefined'))) {
 //                var marker = new google.maps.Marker({
 //                    position: new google.maps.LatLng($(this).data('markerlat'), $widget.data('markerlng')),
