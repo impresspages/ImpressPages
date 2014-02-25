@@ -44,7 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /* Widget: Columns */
   /* To be removed */
   /* General*/
   /* Logo management */
@@ -7967,297 +7966,16 @@
   background-color: #ccc;
 }
 .ip .ipAdminPanel {
-  font: 14px Arial, Helvetica, sans-serif;
-}
-.ip .ipAdminLabel {
-  color: #000;
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.ip .ipAdminInput {
-  background-color: #fff;
-  border: 1px solid #96979a;
-  color: #2f313f;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  height: 26px;
-  padding: 0 7px;
-  width: 95%;
-}
-.ip .ipAdminTextarea {
-  background-color: #fff;
-  border: 1px solid #96979a;
-  color: #2f313f;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  height: 150px;
-  padding: 4px 2px;
-  width: 95%;
-}
-.ip .ipAdminButton {
-  background: #e0e0e0;
-  background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-  border: 1px solid #b8b8b8;
-  border-radius: 2px;
-  color: #2f313f;
-  display: inline-block;
-  font-size: 12px;
-  line-height: 24px;
-  padding: 0 14px;
-  text-decoration: none;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
-}
-.ip .ipAdminButton:hover {
-  background: #c0c0c0;
-}
-.ip .ipAdminButton.ipaConfirm {
-  background: #77b000;
-  background: linear-gradient(top, #77b000 0%, #569100 100%);
-  border-color: #699212;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-weight: bold;
-  padding: 0 20px;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.47);
-  text-transform: uppercase;
-}
-.ip .ipAdminButton.ipaConfirm:hover {
-  background: #559000;
-  background: linear-gradient(top, #559000 0%, #76af00 100%);
-  box-shadow: none;
-}
-.ip .ipAdminButton.ipaRevisions {
-  background: #77b000;
-  background: linear-gradient(top, #77b000 0%, #569100 100%);
-  border-color: #699212;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-  padding: 0 15px;
-}
-.ip .ipAdminButton.ipaRevisions:hover {
-  background: #559000;
-  background: linear-gradient(top, #559000 0%, #76af00 100%);
-  box-shadow: none;
-}
-.ip .ipAdminButton.ipaRevisions span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAHCAYAAAA8sqwkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAD1JREFUeNpi/A8EDEQCRhAAMYjRBFRaCaZhAvg0wRQDQQcjsgQ2TciKUWzApgldMU4A1VQBxUQDrIoBAgwAFhQc4kTHYtgAAAAASUVORK5CYII=) no-repeat center center;
-  display: inline-block;
-  width: 12px;
-}
-.ip .ipAdminButton.ipaAction {
-  background: #ffaa00;
-  background: linear-gradient(top, #ffaa00 0%, #ff8800 100%);
-  border-color: #ff6a00;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-weight: bold;
-  padding: 0 20px;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.47);
-  text-transform: uppercase;
-}
-.ip .ipAdminButton.ipaAction:hover {
-  background: #ff8800;
-  background: linear-gradient(top, #ff8800 0%, #ffaa00 100%);
-  box-shadow: none;
-}
-.ip .ipAdminButton.ipaOptions {
-  padding: 0;
-}
-.ip .ipAdminButton.ipaOptions span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAfpJREFUeNpi/P//PwM2YGDk8B5EXzh3QJABB2CBKhQAUSC1QMUfoHIfBAUFRID0XCBOBqoxgBp2AUUzEBQAcb2srPQ0a1uvh1+/fssE8hXev//AYO/oF/Lx46fLQH4/VK0iED9A1nxBRET46v9//6OAGkGuYJCQEH/DwszM8uTpMwGYRgMDnadAqgOII0B8JqhTNkhIiO0CKRQXF301c0bfzh3bVu7dsnnZzIkT2ubLSEuBvaKvp/0KSJ2GexoUYCCsb2h/H4j/nzh5dgeQ3wHECjC5iqpmL5Cco3PAFyDfCybOCBQEhSrIZAWQU0E2AtkVMH/BgJmF69Vfv35r8fPzfQKGwT9QLICdDQ1VBpAfoZoeoEcLUOMvEM0MBOzs7JzgWIA6Ya6dg+9HkNMOHDw6D+YsJC8ZgOSAaj4A+SuAeDJIDxPU4GSgU+pBjO7uKYGV1S1eSIkFFL/zQewAf897QOo1EOeC9MASSQCQ8ufl5bkHDHElIN66d+/Ba1CnGsAMunjpqhiQ2g7jw2wGKXCwMDd+FBLst1dISPArKHBA4sAA+hgfF34eHKUXrkgDKU2UqAL6R2Da9Hn1r9+8XQvkh4CiAxQG0KgB+3HxklU50GhcAQsL5IDhBmItKA0y8L2ZhdsPaODA1Cggxz8jrlwFBXNhAYpNEiDAAFIVNtzMBDvFAAAAAElFTkSuQmCC) no-repeat center center;
-  display: inline-block;
-  padding: 0 16px;
-}
-.ip .ipAdminButton.ipaDropdown {
-  border-left: none;
-  border-radius: 0 2px 2px 0;
-  display: inline-block;
-  height: 30px;
-}
-.ip .ipAdminButton.ipaDropdown span {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAYAAACXU8ZrAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADFJREFUeNpi1De0/89AADABMSMBNYxMMAYuBWCTLpw7wIBDISOydQxYFMIVgOQAAgwAJ7gIyoILvpIAAAAASUVORK5CYII=) no-repeat center center;
-  display: inline-block;
-  width: 9px;
-}
-.ip .ipAdminButton.ipaDropdown:hover {
-  background-color: #c0c0c0;
-}
-.ip .ipAdminPanelContainer:before,
-.ip .ipAdminPanelContainer:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ip .ipAdminPanelContainer:after {
-  clear: both;
-}
-.ip .ipAdminPanelContainer:before,
-.ip .ipAdminPanelContainer:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ip .ipAdminPanelContainer:after {
-  clear: both;
-}
-.ip .ipAdminPanel {
-  background-color: #fff;
-  border-bottom: 1px solid #000;
-  box-shadow: inset 0px -2px 2px -3px #000000;
+  background-color: #eaeaea;
+  border-bottom: 1px solid #c6c7cc;
   left: 0;
+  padding: 20px 0 10px;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1030;
 }
-.ip .ipAdminWidgets {
-  margin: 10px 250px 10px 0;
-  position: relative;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.ip .ipAdminWidgets:before,
-.ip .ipAdminWidgets:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ip .ipAdminWidgets:after {
-  clear: both;
-}
-.ip .ipAdminWidgets:before,
-.ip .ipAdminWidgets:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ip .ipAdminWidgets:after {
-  clear: both;
-}
-@media (max-width: 767px) {
-  .ip .ipAdminWidgets {
-    margin-right: 10px;
-  }
-}
-.ip .ipAdminWidgetsScroll {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
-  display: block;
-  height: 100%;
-  position: absolute;
-  width: 26px;
-  z-index: 9;
-}
-.ip .ipAdminWidgetsScroll.ipaLeft {
-  background-position: 8px center;
-  left: 6px;
-}
-.ip .ipAdminWidgetsScroll.ipaRight {
-  background-position: -32px center;
-  right: 6px;
-}
-.ip .ipAdminWidgetsScroll:hover {
-  background-color: #e6e6e6;
-}
-.ip .ipAdminWidgetsScroll:active {
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
-}
-.ip .ipAdminWidgetsContainer {
-  margin: 0 38px;
-  min-height: 81px;
-}
-.ip .ipAdminWidgetsContainer:before {
-  background-color: #fff;
-  content: " ";
-  display: block;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  width: 38px;
-  z-index: 2;
-}
-.ip .ipAdminWidgetsContainer:after {
-  background-color: #fff;
-  content: " ";
-  display: block;
-  height: 100%;
-  position: absolute;
-  right: -250px;
-  width: 288px;
-  z-index: 2;
-}
-.ip .ipAdminWidgets ul {
-  list-style: none;
-  margin-left: -24px;
-  position: relative;
-}
-.ip .ipAdminWidgets li {
-  float: left;
-  margin-left: 24px;
-  width: 63px;
-}
-.ip .ipAdminWidgets li a {
-  border: 3px solid transparent;
-  border-radius: 5px;
-  display: block;
-  height: 57px;
-  position: relative;
-  text-decoration: none;
-  width: 57px;
-}
-.ip .ipAdminWidgets li img {
-  background-color: #dbdbdb;
-  border: 1px solid #d6d6d6;
-  border-radius: 3px;
-  box-shadow: inset 0 0 0 2px #fff;
-  height: 51px;
-  padding: 2px;
-  width: 51px;
-}
-.ip .ipAdminWidgets .ipActionWidgetButton {
-  padding-bottom: 18px;
-}
-.ip .ipActionWidgetButton.ui-draggable-dragging {
-  z-index: 99999;
-}
-.ip .ipAdminWidgets li .ipaTitle {
-  left: -12px;
-  overflow: hidden;
-  position: absolute;
-  text-align: center;
-  top: 62px;
-  width: 81px;
-}
-.ip .ipAdminWidgets li .ipaTitle span {
-  border-radius: 5px;
-  color: #5f5e60;
-  display: inline-block;
-  font-size: 11px;
-  line-height: 14px;
-  min-width: 30px;
-  padding: 0 3px;
-  white-space: nowrap;
-}
-.ip .ipAdminWidgets li a:hover {
-  border-color: #dedede;
-}
-.ip .ipAdminWidgets li a:hover img {
-  border-color: #767676;
-}
-.ip .ipAdminWidgets li a:hover .ipaTitle span {
-  background-color: #dedede;
-  color: #000;
-}
-.ip .ipAdminWidgets li a:active img {
-  border-color: #878787;
-  box-shadow: inset 0 0 2px 0 #fff;
-}
-.ip .ipAdminWidgetsDisable {
+.ip .ipAdminPanel ._disable {
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   position: absolute;
@@ -8266,7 +7984,7 @@
   width: 100%;
   z-index: 11;
 }
-.ip .ipAdminWidgetsDisable p {
+.ip .ipAdminPanel ._disable p {
   background-color: #ffa400;
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.7);
   color: #000;
@@ -8275,129 +7993,129 @@
   margin-top: 28px;
   padding: 10px;
 }
-.ip .ipAdminWidgetsDisable p a {
+.ip .ipAdminPanel ._disable p a {
   color: #000;
   text-decoration: underline;
 }
-.ip .ipAdminControls {
-  height: 100%;
-  padding-right: 5px;
-  position: absolute;
-  right: 5px;
-  width: 246px;
-  z-index: 10;
-}
-.ip .ipAdminControls .ipAdminButton {
-  float: left;
-  font-size: 13px;
-  line-height: 30px;
-}
-.ip .ipAdminControls .ipAdminButton.ipaOptions {
-  margin-left: 7px;
-  padding: 0;
-}
-.ip .ipAdminControls .ipAdminButton.ipaConfirm {
-  border-radius: 2px 0 0 2px;
-  font-size: 14px;
-  margin-left: 7px;
-  overflow: hidden;
-  /* if text is too long it will be cropped */
-  padding: 0 5px;
-  text-align: center;
-  width: 90px;
-  white-space: nowrap;
-  /* in case two words won't wrap */
-}
-.ip .ipAdminButton.ipaConfirm.visible-xs {
-  position: fixed;
-  right: 15px;
-  top: 2px;
-  z-index: 10002;
-}
-.ip .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled,
-.ip .ipAdminControls .ipAdminButton.ipaConfirm.ipaDisabled:hover {
-  background: #66a000;
-  box-shadow: none;
-  cursor: default;
-  opacity: 0.5;
-}
-.ip .ipAdminControls .ipAdminButton.ipaRevisions {
-  border-radius: 0 2px 2px 0;
-  margin-left: -1px;
-}
-.ip .ipAdminRevisions {
-  float: left;
+.ip .ipAdminPanel ._widgets {
   position: relative;
 }
-.ip .ipAdminRevisions .ipaDropdownBlock {
-  background-color: #fff;
-  border: 1px solid #b8b8b8;
-  display: none;
-  padding: 4px;
+.ip .ipAdminPanel ._widgets:before,
+.ip .ipAdminPanel ._widgets:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.ip .ipAdminPanel ._widgets:after {
+  clear: both;
+}
+.ip .ipAdminPanel ._widgets:before,
+.ip .ipAdminPanel ._widgets:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+.ip .ipAdminPanel ._widgets:after {
+  clear: both;
+}
+.ip .ipAdminPanel ._widgets ._scrollButton {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
+  display: block;
+  height: 100%;
   position: absolute;
+  width: 26px;
+  z-index: 9;
+}
+.ip .ipAdminPanel ._widgets ._scrollButton._left {
+  background-position: 8px center;
+  left: 6px;
+}
+.ip .ipAdminPanel ._widgets ._scrollButton._right {
+  background-position: -32px center;
+  right: 6px;
+}
+.ip .ipAdminPanel ._widgets ._scrollButton:hover {
+  background-color: #e6e6e6;
+}
+.ip .ipAdminPanel ._widgets ._scrollButton:active {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
+}
+.ip .ipAdminPanel ._widgets ._container {
+  margin: 0 40px;
+}
+.ip .ipAdminPanel ._widgets ._container:before,
+.ip .ipAdminPanel ._widgets ._container:after {
+  background-color: #eaeaea;
+  content: " ";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 40px;
+  z-index: 2;
+}
+.ip .ipAdminPanel ._widgets ._container:after {
+  left: auto;
   right: 0;
-  top: 33px;
-  width: 230px;
 }
-.ip .ipAdminControls .ipAdminButton.ipaSave {
-  display: block;
-  float: none;
-  margin-bottom: 4px;
-  line-height: 25px;
-  text-align: center;
-}
-.ip .ipAdminRevisions ul {
+.ip .ipAdminPanel ._widgets ul {
   list-style: none;
-  max-height: 184px;
-  overflow: auto;
-  margin: 0;
-  padding: 0;
+  margin: 0 0 0 -30px;
+  position: relative;
 }
-.ip .ipAdminRevisions li a {
-  color: #2f313f;
+.ip .ipAdminPanel ._widgets li {
+  float: left;
+  margin-left: 30px;
+  padding: 0 3px;
+}
+.ip .ipAdminPanel ._widgets li a {
+  background-color: #fff;
+  border-radius: 5px;
   display: block;
-  font-size: 12px;
-  padding: 4px 7px;
+  height: 55px;
+  box-shadow: 0 0 0 2px #e4e4e4;
+  position: relative;
+  text-align: center;
   text-decoration: none;
+  width: 55px;
 }
-.ip .ipAdminRevisions .ipaActive a {
+.ip .ipAdminPanel ._widgets li a img {
+  vertical-align: middle;
+}
+.ip .ipAdminPanel ._widgets li a:hover {
+  box-shadow: 0 0 0 3px #e0e0e0;
+}
+.ip .ipAdminPanel ._widgets li a:hover ._title span {
+  background-color: #dedede;
   color: #000;
-  font-weight: bold;
 }
-.ip .ipAdminRevisions .ipaPublished a {
-  color: #66a000;
+.ip .ipAdminPanel ._widgets li a ._title {
+  left: -10px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  top: 62px;
+  width: 75px;
 }
-.ip .ipAdminRevisions li a:hover {
-  background-color: #dbdbdb;
-  color: #000;
+.ip .ipAdminPanel ._widgets li a ._title span {
+  border-radius: 5px;
+  color: #5f5e60;
+  display: inline-block;
+  font-size: 11px;
+  max-width: 100%;
+  min-width: 30px;
+  overflow: hidden;
+  padding: 0 3px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.ip .ipAdminRevisions:hover .ipaDropdownBlock {
-  display: block;
+.ip .ipAdminPanel ._widgets li ._button {
+  padding-bottom: 22px;
 }
-.ip .ipAdminRevisions:hover .ipAdminButton.ipaRevisions {
-  padding-bottom: 1px;
-}
-.ip .ipAdminButton {
-  background: -moz-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-  background: -webkit-linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-}
-.ip .ipAdminButton.ipaConfirm,
-.ip .ipAdminButton.ipaRevisions {
-  background: -moz-linear-gradient(top, #77b000 0%, #569100 100%);
-  background: -webkit-linear-gradient(top, #77b000 0%, #569100 100%);
-}
-.ip .ipAdminButton.ipaConfirm:hover,
-.ip .ipAdminButton.ipaRevisions:hover {
-  background: -moz-linear-gradient(top, #559000 0%, #76af00 100%);
-  background: -webkit-linear-gradient(top, #559000 0%, #76af00 100%);
-}
-.ip .ipAdminButton.ipaAction {
-  background: -moz-linear-gradient(top, #ffaa00 0%, #ff8800 100%);
-  background: -webkit-linear-gradient(top, #ffaa00 0%, #ff8800 100%);
-}
-.ip .ipAdminButton.ipaAction:hover {
-  background: -moz-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
-  background: -webkit-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
+.ip .ipAdminPanel ._widgets li ._button.ui-draggable-dragging {
+  z-index: 1040;
 }
 .ip .ipModuleContentEditButton {
   background-color: #000000;
@@ -8422,18 +8140,6 @@
 }
 .ip .ipModuleContentPublishButton ._revisions ._button {
   padding: 0 20px;
-}
-.ip .ipWidget-Columns .ipwCol {
-  margin-top: 20px;
-}
-.ip .ipAdminError {
-  padding: 5px;
-  color: #f00;
-  border-bottom: 1px #ccc solid;
-  margin: 0;
-}
-.ip .ipAdminErrorSample {
-  display: none;
 }
 .ip .ui-dialog {
   font-size: 12px;
@@ -9387,6 +9093,8 @@
 .ipAdminWidgetDragIcon {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAYAAADhu0ooAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAe5JREFUeNrsm89OwkAQxrdk9QGITRq5yDP4IF68yAmDB04ekUaOJZAePRgPGjlhTLj4HIZnKBdMk/UJSJo6gyXZrPwtQnfLfMmw2dKS/pj5dgvdWoyxI4hbiEsIh22gOI7LbI+yLCvY8JAQYgDxYMFLA07YZzkWfEENBB0C6HnOQYcc2qK8sdVq3fR6vevxeHya5kP/q5xTlOlUpVLpq1qtvnqe9yxtLnJ5J9d1691u987k7GGC2u32fRRFvNPpPMnvBZAFzASzbftT7psayIAscr8gEwshTvLiS5WFrzpgW8/uWgs8OVeBnGK532w268m2WPMI8FwXcST9xaCJZ2MTQvWkysXXrfPkAB3nyLXGlwI7EBEogZoKuu+fWlkIGal0CZRA9RbP8j+gXQ4+VLoESqAESqAESqAESqAESqAESqAESqBZgeLt9LS31HXSPA4qXQIlUM1B8zD4rDM4UekSKIHqraWrUmzb/hZCnCWG1hoEzzV1Rmu12gs0IwMSNsLVY6kziqsjJ5PJcb/fvwrD0NGR0HGcsFKpvPm+/7h0imG/K6zKs/kGW9NvH6ocf+bRVXVuklQWrnoSFyZvc7WU9QrsmVTPctM8mdazB/PwAHr0/QCuFwaYUXzApwFxgR7Owo879K2A+IDwfwQYAKu03z6zSpuwAAAAAElFTkSuQmCC) no-repeat;
   height: 58px;
+  opacity: 0.45;
+  filter: alpha(opacity=45);
   width: 58px;
   z-index: 1020;
 }
