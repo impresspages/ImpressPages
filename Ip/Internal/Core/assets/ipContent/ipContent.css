@@ -976,20 +976,19 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody ol:last-child {
   margin-bottom: 0;
 }
-.ipWidget-Columns .ipwCol {
+.ipWidget-Columns ._col {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   float: left;
-  margin-bottom: 20px;
   min-height: 1px;
   padding: 0 10px;
   position: relative;
 }
-.ipWidget-Columns .ipwCol.first {
+.ipWidget-Columns ._col.first {
   padding-left: 0;
 }
-.ipWidget-Columns .ipwCol.last {
+.ipWidget-Columns ._col.last {
   padding-right: 0;
 }
 .ipWidget-Divider.ipLayout-default {
