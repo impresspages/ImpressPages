@@ -312,25 +312,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-    public function sortZone()
-    {
-        ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
-
-
-        if (empty($data['menuName']) || !isset($data['newIndex'])) {
-            throw new \Ip\Exception("Missing required parameters");
-        }
-        $menuName = $data['menuName'];
-        $newIndex = $data['newIndex'];
-
-        Model::sortZone($menuName, $newIndex);
-
-        return new \Ip\Response\Json(array(
-            'error' => 0
-        ));
-    }
-
     public function updateMenu()
     {
         $request = ipRequest();
