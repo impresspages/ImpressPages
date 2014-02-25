@@ -50,6 +50,8 @@ class Page
     /** bool */
     protected $isVisible;
 
+    protected $inBreadcrumb = false;
+
     public function __construct($id)
     {
         $this->id = $id;

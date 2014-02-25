@@ -16,7 +16,7 @@ class Job
         if ($info['relativeUri'] == '') {
             $pageId = ipJob('ipDefaultPageId');
         } else {
-            $languageCode = ipCurrentPage()->getLanguage()->getCode();
+            $languageCode = ipContent()->getCurrentLanguage()->getCode();
             $pageId = ipDb()->selectValue('page', 'id',
                 array(
                     'urlPath' => $info['relativeUri'],
@@ -43,7 +43,7 @@ class Job
 
     public static function ipDefaultPageId_70()
     {
-        $languageCode = ipCurrentPage()->getLanguage()->getCode();
+        $languageCode = ipContent()->getCurrentLanguage()->getCode();
         $defaultPageId = ipGetOption('Config.defaultPageId_' . $languageCode, null);
 
         if ($defaultPageId) {
