@@ -1,8 +1,8 @@
 <div class="ipModuleContentPublishButton btn-group">
-    <button type="button" class="btn btn-primary navbar-btn ipsContentPublish">{{Publish}}</button>
+    <button type="button" class="btn btn-primary navbar-btn ipsContentPublish"><?php _e('Publish', 'ipAdmin') ?></button>
     <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-caret-down"></i></button>
     <ul class="_revisions dropdown-menu" role="menu">
-        <li class="_button"><button type="button" class="btn btn-default btn-block ipsContentSave">{{Save now}}</button></li>
+        <li class="_button"><button type="button" class="btn btn-default btn-block ipsContentSave"><?php _e('Save now', 'ipAdmin') ?></button></li>
         <li class="divider"></li>
         <?php foreach ($revisions as $revisionKey => $revision){
             $revisionClass = '';
