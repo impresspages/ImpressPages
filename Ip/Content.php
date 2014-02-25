@@ -119,19 +119,6 @@ class Content
     }
 
     /**
-     * Get URL of the current page
-     *
-     * @return array
-     */
-    public function getUrlPath()
-    {
-        if (!ipCurrentPage()) {
-            return array();
-        }
-        return ipCurrentPage()->getUrlPath();
-    }
-
-    /**
      * Get page block HTML content
      * @param string $block Block name
      * @return string HTML code
@@ -255,9 +242,8 @@ class Content
      */
     public function getTitle()
     {
-        $page = ipCurrentPage()->getPage();
-        if ($page) {
-            return $page->getTitle();
+        if ($this->currentPage) {
+            return $this->currentPage->getTitle();
         }
     }
 
@@ -269,9 +255,8 @@ class Content
      */
     public function getDescription()
     {
-        $page = ipCurrentPage()->getPage();
-        if ($page) {
-            return $page->getDescription();
+        if ($this->currentPage) {
+            return $this->currentPage->getDescription();
         }
     }
 
@@ -283,9 +268,8 @@ class Content
      */
     public function getKeywords()
     {
-        $page = ipCurrentPage()->getPage();
-        if ($page) {
-            return $page->getKeywords();
+        if ($this->currentPage) {
+            return $this->currentPage->getKeywords();
         }
     }
 

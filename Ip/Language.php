@@ -48,6 +48,16 @@ class Language{
         $this->textDirection = $textDirection;
     }
 
+    public static function getByCode($languageCode)
+    {
+        $row = ipDb()->selectRow('language', '*', array('code' => $languageCode));
+        if (!$row) {
+            return null;
+        }
+
+        return new self($row['id'], $row['code'], $row['url'], $row['title'], $row['abbreviation'], $row['isVisible'], $row['textDirection']);
+    }
+
     /**
      * Get language title
      * @return string Eg. English
