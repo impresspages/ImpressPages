@@ -19,6 +19,7 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/ipCore/form.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/validator.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/widgets.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/ipCore.js');
 
         } else {
             ipAddJs('Ip/Internal/Core/assets/ipCore.min.js', null, 10);

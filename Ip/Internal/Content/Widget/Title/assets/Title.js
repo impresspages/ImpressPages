@@ -51,7 +51,7 @@ var IpWidget_Title;
         }
 
         this.focus = function () {
-            this.initControls();
+            $.proxy(this.initControls, this)();
         }
 
         this.blur = function(e) {
@@ -83,13 +83,20 @@ var IpWidget_Title;
 
         this.saveOptions = function (data) {
             this.data.anchor = data.anchor;
+            this.data.link = data.link;
+            this.data.blank = data.blank;
             this.save(false);
         }
 
         this.openOptions = function () {
             var $modal = $('#ipWidgetTitleOptions');
             $modal.removeClass('hidden');
-            $modal.ipWidgetTitleModal({anchor: this.data.anchor, saveCallback: $.proxy(this.saveOptions, this)});
+            $modal.ipWidgetTitleModal({
+                anchor: this.data.anchor,
+                link: this.data.link,
+                blank: this.data.blank,
+                saveCallback: $.proxy(this.saveOptions, this)
+            });
         };
 
         this.initControls = function () {
@@ -119,7 +126,9 @@ var IpWidget_Title;
             var saveData = {
                 title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').text(),
                 level: this.data.level,
-                anchor: this.data.anchor
+                anchor: this.data.anchor,
+                link: this.data.link,
+                blank: this.data.blank
             };
             this.$widgetObject.save(saveData, refresh, function($widget){
                 if (refresh) {

@@ -137,7 +137,9 @@ class Controller extends \Ip\WidgetController{
             $transformBig = new \Ip\Transform\None();
             $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transformBig));
 
-
+            if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
+                $data['url'] = 'http://' . $data['url'];
+            }
 
 
             if (
