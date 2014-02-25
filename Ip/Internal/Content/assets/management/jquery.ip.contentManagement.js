@@ -50,7 +50,6 @@
                     $('body').prepend(ipContentInit.controlPanelHtml);
 
                     var options = new Object;
-                    options.zoneName = ip.zoneName;
                     options.pageId = ip.pageId;
                     options.revisionId = ip.revisionId;
                     options.widgetControlsHtml = ipContentInit.widgetControlsHtml;
