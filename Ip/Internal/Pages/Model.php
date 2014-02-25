@@ -308,9 +308,16 @@ class Model
      */
     public static function addPage($parentId, $params)
     {
+        $pageOrderCondition = array(
+            'parentId' => $parentId,
+        );
+        if (!empty($params['languageCode'])) {
+            $pageOrderCondition['languageCode'] = $params['languageCode'];
+        }
+
         $row = array(
             'parentId' => $parentId,
-            'pageOrder' => self::getNextPageOrder($parentId),
+            'pageOrder' => self::getNextPageOrder($pageOrderCondition),
         );
 
         $fields = array(
