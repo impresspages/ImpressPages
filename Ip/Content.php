@@ -264,11 +264,10 @@ class Content
 
     /**
      * Update page data
-     * @param string $zoneName
      * @param int $pageId
      * @param array $data
      */
-    public static function updatePage($zoneName, $pageId, $data)
+    public static function updatePage($pageId, $data)
     {
         \Ip\Internal\Pages\Service::updatePage($pageId, $data);
     }
