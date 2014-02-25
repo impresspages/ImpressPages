@@ -10,36 +10,9 @@ namespace Ip\Internal\Pages;
 
 class Model
 {
-
-    public static function removeZonePages ($zoneId)
-    {
-        $pages = ipDb()->selectAll('zone_to_page', '*', array('zone_id' => $zoneId));
-        foreach ($pages as $page) {
-            Service::deletePage($page['element_id']);
-        }
-    }
-
-    public static function sortZone($menuName, $newIndex)
-    {
-        $menu = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-
-        $newPriority = null;
-
-        if ($newIndex <= 0) {
-            $newPriority = $zones[0]['pageOrder'] - 20;
-        } elseif ($newIndex > count($zones) - 1) {
-            $lastZone = end($zones);
-            $newPriority = $lastZone['pageOrder'] + 20;
-        } else {
-            $newPriority = ($zones[$newIndex - 1]['pageOrder'] + $zones[$newIndex]['pageOrder']) / 2;
-        }
-
-        ipDb()->update('zone', array('pageOrder' => $newPriority), array('name' => $menuName));
-    }
-
     public static function deletePage($pageId)
     {
-        $children = Db::pageChildren($pageId);
+        $children = self::getChildren($pageId);
         if ($children) {
             foreach ($children as $child) {
                 self::deletePage($child['id']);
@@ -62,7 +35,7 @@ class Model
     public static function copyPage($pageId, $destinationPageId, $position = null)
     {
 
-        $children = Db::pageChildren($destinationPageId);
+        $children = self::getChildren($destinationPageId);
 
         if (!empty($children)) {
             $rowNumber = $children[count($children) - 1]['pageOrder'] + 1;
@@ -93,12 +66,12 @@ class Model
         if ($newPages == null) {
             $newPages = array();
         }
-        $newNodeId = Db::copyPage($nodeId, $destinationPageId, $rowNumber);
+        $newNodeId = static::copySinglePage($nodeId, $destinationPageId, $rowNumber);
         $newPages[$newNodeId] = 1;
         self::_copyWidgets($nodeId, $newNodeId);
 
 
-        $children = Db::pageChildren($nodeId);
+        $children = self::getChildren($nodeId);
         if ($children) {
             foreach ($children as $key => $lock) {
                 if (!isset($newPages[$lock['id']])) {
@@ -110,55 +83,27 @@ class Model
 
     }
 
+    public static function copySinglePage($nodeId, $newParentId, $newIndex)
+    {
+        $copy = ipDb()->selectRow('page', '*', array('id' => $nodeId));
+        if (!$copy) {
+            trigger_error("Element does not exist");
+        }
+
+        unset($copy['id']);
+        $copy['parentId'] = $newParentId;
+        $copy['pageOrder'] = $newIndex;
+        $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
+        //TODOX ensure unique alias
+
+        return ipDb()->insert('page', $copy);
+    }
+
     private static function _copyWidgets($sourceId, $targetId)
     {
         $oldRevision = \Ip\Internal\Revision::getPublishedRevision($sourceId);
         \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
-
-
-
-    protected static function deleteZoneParameters($languageId)
-    {
-        //remove zone to content binding
-        ipDb()->delete('zone_to_page', array('language_id' => $languageId));
-    }
-
-    protected static function removeZoneToContent($languageId)
-    {
-        //remove zone translations
-        ipDb()->delete('zone_to_language', array('language_id' => $languageId));
-    }
-
-    protected static function newZoneUrl($languageId, $requestedUrl)
-    {
-        $table = ipTable('zone_to_language');
-        $sql = "
-        SELECT
-            `url`
-        FROM
-            $table
-        WHERE
-            `language_id` = :languageId
-        ";
-
-        $params = array (
-            'languageId' => $languageId
-        );
-        $takenUrls = ipDb()->fetchColumn($sql, $params);
-
-        if (in_array($requestedUrl, $takenUrls)) {
-            $i = 1;
-            while(in_array($requestedUrl.$i, $takenUrls)) {
-                $i++;
-            }
-            return $requestedUrl.$i;
-        } else {
-            return $requestedUrl;
-        }
-    }
-
-
 
     public static function getMenu($languageCode, $alias)
     {
@@ -191,12 +136,9 @@ class Model
 
     protected static function getNextPageOrder($where)
     {
-        $value = ipDb()->selectValue('page', 'MAX(`pageOrder`)', $where); //can't use +1 in mysql. It fails if there are no records
-        $value++;
-        return $value;
+        $nextPageOrder = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+        return $nextPageOrder ? $nextPageOrder : 1;
     }
-
-
 
     public static function changePageUrlPath($pageId, $newUrlPath)
     {
@@ -215,19 +157,6 @@ class Model
                 'oldUrl' => $pageBeforeChange->getLink(),
                 'newUrl' => $pageAfterChange->getLink(),
             ));
-    }
-
-
-
-
-    public static function deleteZone($zoneName)
-    {
-        $zone = ipDb()->selectRow('zone', '*', array('name' => $zoneName));
-        if ($zone) {
-            ipEvent('ipBeforeZoneDeleted', $zone);
-            ipDb()->delete('zone', array('name' => $zoneName));
-            ipDb()->delete('zone_to_language', array('zone_id' => $zone['id']));
-        }
     }
 
     /**
@@ -288,13 +217,30 @@ class Model
         return true;
     }
 
+    public static function isChild($pageId, $parentId)
+    {
+        $page = self::getPage($pageId);
+        if (!$page) {
+            return FALSE;
+        }
+        if ($page['parentId'] == $parentId) {
+            return TRUE;
+        }
+
+        if ($page['parentId']) {
+            return self::isChild($page['parentId'], $parentId);
+        }
+
+        return FALSE;
+    }
+
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
-        if (Db::isChild($destinationParentId, $pageId) || (int)$pageId === (int)$destinationParentId) {
+        if ((int)$pageId === (int)$destinationParentId || static::isChild($destinationParentId, $pageId)) {
             throw new \Ip\Exception(__("Can't move page inside itself.", 'ipAdmin', false));
         }
 
-        $newParentChildren = Db::pageChildren($destinationParentId);
+        $newParentChildren = self::getChildren($destinationParentId);
         $newPageOrder = 0; //initial value
 
         if (count($newParentChildren) > 0) {
@@ -315,40 +261,6 @@ class Model
 
         ipDb()->update('page', $update, array('id' => $pageId));
     }
-
-    public static function addMenu($title, $name, $url, $layout, $metaTitle, $metaKeywords, $metaDescription, $position)
-    {
-        $zones = Db::getZones(ipContent()->getCurrentLanguage()->getId());
-        $rowNumber = 0; //initial value
-
-        if(count($zones) > 0) {
-            $rowNumber = $zones[0]['row_number'] - 1;  //set as first page
-            if ($position > 0) {
-                if (isset($zones[$position - 1]) && isset($zones[$position])) { //new position is in the middle of other pages
-                    $rowNumber = ($zones[$position - 1]['row_number'] + $zones[$position]['row_number']) / 2; //average
-                } else { //new position is at the end
-                    $rowNumber = $zones[count($zones) - 1]['row_number'] + 1;
-                }
-            }
-        }
-
-
-        $zoneName = self::uniqueZoneName($name);
-
-        $data = array(
-            'translation' => $title,
-            'name' => $zoneName,
-            'row_number' => $rowNumber,
-            'associated_module' => 'Content',
-            'template' => $layout
-        );
-        $zoneId = ipDb()->insert('zone', $data);
-
-        self::createParametersZone($zoneId, $url, $metaTitle, $metaKeywords, $metaDescription);
-
-        return $zoneName;
-    }
-
 
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
@@ -378,4 +290,49 @@ class Model
         return $menuId ? $alias : null;
     }
 
+
+    /**
+     *
+     * Insert new page
+     * @param int $parentId
+     * @param array $params
+     */
+    public static function addPage($parentId, $params)
+    {
+        $row = array(
+            'parentId' => $parentId,
+            'pageOrder' => self::getNextPageOrder($parentId),
+        );
+
+        $fields = array(
+            'title',
+            'metaTitle',
+            'languageCode',
+            'keywords',
+            'description',
+            'urlPath',
+            'createdAt',
+            'updatedAt',
+            'type',
+            'isVisible'
+        );
+
+        foreach ($fields as $column) {
+            if (array_key_exists($column, $params)) {
+                $row[$column] = $params[$column];
+            }
+        }
+
+        if (empty($row['createdAt'])) {
+            $row['createdAt'] = date('Y-m-d H:i:s');
+        }
+
+        if (empty($row['updatedAt'])) {
+            $row['updatedAt'] = date('Y-m-d H:i:s');
+        }
+
+
+
+        return ipDb()->insert('page', $row);
+    }
 }
