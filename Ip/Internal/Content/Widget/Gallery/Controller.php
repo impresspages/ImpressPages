@@ -249,6 +249,10 @@ class Controller extends \Ip\WidgetController{
                 }
                 if (empty($curImage['url'])) {
                     $curImage['url'] = '';
+                } else {
+                    if (!preg_match('/^((http|https):\/\/)/i', $curImage['url'])) {
+                        $curImage['url'] = 'http://' . $curImage['url'];
+                    }
                 }
                 if (empty($curImage['blank'])) {
                     $curImage['blank'] = '';

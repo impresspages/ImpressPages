@@ -19,7 +19,7 @@
                     saveCallback({
                         anchor: $this.find('input[name=anchor]').val(),
                         link: $this.find('input[name=link]').val(),
-                        blank: $this.find('input[name=blank]').attr('checked') ? 1 : 0
+                        blank: $this.find('input[name=blank]').prop('checked') ? 1 : 0
                     });
                     $this.modal('hide');
                 });
