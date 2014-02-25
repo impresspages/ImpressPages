@@ -26,11 +26,11 @@ var pagesZones;
                 newIndex++; //jsTree gives us index with removed original. Make newIndex to be as it would be preserving original position
             }
 
-            var menuName = menuItem.data('menuname');
+            var menuId = menuItem.data('menuid');
             var data = {};
-            data.aa= 'Pages.sortZone';
+            data.aa = 'Pages.changeMenuOrder';
             data.newIndex = newIndex;
-            data.menuName = menuName;
+            data.menuId = menuId;
             data.securityToken = ip.securityToken;
             $.ajax({
                 type: 'POST',

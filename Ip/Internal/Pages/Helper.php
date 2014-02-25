@@ -50,15 +50,6 @@ class Helper
         return $answer;
     }
 
-    public static function menuList()
-    {
-        $menus = ipDb()->selectAll('page', '`id`, `alias`, `title`, `languageCode`, `title`', array('parentId' => 0));
-        foreach($menus as &$menu) {
-            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
-        }
-        return $menus;
-    }
-
     public static function menuForm($menuId)
     {
         $menu = ipDb()->selectRow('page', '*', array('id' => $menuId));

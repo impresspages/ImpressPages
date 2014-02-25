@@ -56,7 +56,7 @@
         <?php } ?>
 
         <ul class="nav navbar-nav navbar-right">
-            <?php foreach ($navBarButtons as $button) { ?>
+            <?php foreach ($navbarButtons as $button) { ?>
             <li>
                 <a
                     href="<?php echo empty($button['url']) ? '#' : esc($button['url'], 'attr') ?>"
@@ -69,5 +69,11 @@
             </li>
             <?php } ?>
         </ul>
+
+        <div class="navbar-center">
+            <div class="navbar-center-container">
+                <?php foreach ($navbarCenterElements as $el) { echo $el; } ?>
+            </div>
+        </div>
     </div>
 </div>

@@ -20,7 +20,7 @@
             </button>
         </div>
         <ul class="ipsMenuList">
-            <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}" ng-class="{active: menu == activeMenu}">
+            <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}" data-menuid="{{menu.id}}" ng-class="{active: menu == activeMenu}">
                 <a href="" ng-show="activeLanguage.code == menu.languageCode" ng-click="setMenuHash(menu)">{{menuTitle(menu)}}</a>
                 <button class="btn btn-default _control" ng-click="updateMenuModal(menu)"><i class="fa fa-cog"></i></button>
             </li>

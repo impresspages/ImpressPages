@@ -49,7 +49,7 @@ class Event
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
 
-        $navBarButtons = array(
+        $navbarButtons = array(
             array(
                 'text' => '',
                 'hint' => __('Logout', 'ipAdmin', FALSE),
@@ -59,7 +59,9 @@ class Event
             )
         );
 
-        $navBarButtons = ipFilter('ipAdminNavButtons', $navBarButtons);
+        $navbarButtons = ipFilter('ipAdminNavbarButtons', $navbarButtons);
+
+        $navbarCenterElements = ipFilter('ipAdminNavbarCenterElements', array());
 
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems($curModule),
@@ -67,7 +69,8 @@ class Event
             'curModUrl' => $curModUrl,
             'curModIcon' => $curModIcon,
             'helpUrl' => $helpUrl,
-            'navBarButtons' => array_reverse($navBarButtons)
+            'navbarButtons' => array_reverse($navbarButtons),
+            'navbarCenterElements' => $navbarCenterElements
         );
 
 

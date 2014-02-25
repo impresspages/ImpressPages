@@ -11,7 +11,8 @@ var ipManagementMode;
 
         this.init = function() {
             if ("undefined" !== typeof(ipContentShowEditButton)) {
-                $('body').append('<div class="ipsContentEdit" style="position: fixed; right: 0px; top: 0px; background-color: #000; color: #fff; padding: 10px;">{{Edit}}</div>');
+                // todox: remove HTML from JavaScript
+                $('body').append('<div class="ip"><div class="ipModuleContentEditButton"><button type="button" class="btn btn-primary ipsContentEdit">{{Edit}}</button></div></div>');
                 $('.ipsContentEdit').on('click', function() {
                     ipManagementMode.setManagementMode(1);
                 });
