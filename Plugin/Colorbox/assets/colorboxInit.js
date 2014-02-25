@@ -2,7 +2,7 @@ $(document).ready(function () {
     "use strict";
 
     console.log(ip);
-    if (ip.managementState) {
+    if (ip.isManagementState) {
         return;
     }
     $('a[rel=lightbox]').colorbox({

@@ -7,6 +7,7 @@ class Model{
     public static function getModules()
     {
         return array(
+            "Core",
             "Content",
             "Pages",
             "Admin",
@@ -22,7 +23,6 @@ class Model{
             "InlineManagement",
             "Languages",
             "Cron",
-            "Core",
             "Translations",
             "System",
         );
