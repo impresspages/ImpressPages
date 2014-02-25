@@ -44,166 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /*.ipAdminToolbar {
-    background-color: #2f313f;
-    border-bottom: 1px solid #000;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: @admin-toolbar-zIndex;
-}
-.ipAdminToolbar .ipmItemMenu {
-    background-color: #f90;
-    float: left;
-    display: block;
-    height: 30px;
-    margin: 0 15px;
-    padding: 10px;
-    position: relative;
-    width: 34px;
-}
-.ipAdminToolbar .ipmItemMenu .ipmMenuBar {
-    background-color: #000;
-    display: block;
-    height: 2px;
-    margin-top: 3px;
-}
-.ipAdminToolbar .ipmItemMenu .ipmMenuBar:first-child {
-    margin-top: 0;
-}
-.ipAdminToolbar .ipmItemCurrent {
-    background-color: #fff;
-    color: #000;
-    display: block;
-    float: left;
-    font-weight: bold;
-    height: 31px; // 1px more to hide container border
-    line-height: 30px;
-    margin-bottom: -1px; // 1px more to hide container border
-    padding: 0 15px;
-    text-decoration: none;
-}
-.ipAdminToolbar .ipmAdminAction {
-    color: #c0c0c0;
-    float: right;
-    font-size: 12px;
-    line-height: 30px;
-    margin-right: 15px;
-    text-decoration: none;
-    text-shadow: 1px 1px #000;
-}
-.ipAdminToolbar .ipmAdminAction:hover {
-    color: #fff;
-}
-.ipAdminToolbar .ipmMenu li .fa-stack .fa-stack-2x,
-.ipAdminToolbar .ipmAdminAction .fa-stack .fa-stack-2x {
-    color: #444653;
-    font-size: 1.5em;
-    line-height: 1.33em;
-    text-shadow: none;
-}
-.ipAdminToolbar .ipmMenu {
-    background-color: #2f313f;
-    display: none;
-    left: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: absolute;
-    top: 0;
-    z-index: 10001;
-}
-.ipAdminToolbar .ipmMenu .ipmMenuTitle {
-    background-color: #f90;
-    border-bottom: 1px solid #000;
-    color: #000;
-    display: block;
-    font-weight: bold;
-    line-height: 30px;
-    height: 31px; // same as menu icon + border
-    padding-left: 50px;
-}
-.ipAdminToolbar .ipmMenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.ipAdminToolbar .ipmMenu ul:last-child {
-    margin-bottom: 30px; // leaving space at the bottom
-}
-.ipAdminToolbar .ipmMenu .typeHeader {
-    color: #a6a6a6;
-    border-bottom: 1px solid #000;
-    border-top: 1px solid #000;
-    font-size: 12px;
-    margin-top: -1px;
-    padding: 6px 10px;
-    text-shadow: 1px 1px #000;
-    text-transform: uppercase;
-}
-.ipAdminToolbar .ipmMenu li a {
-    background-color: #262732;
-    border-bottom: 1px solid #3b3d4f;
-    color: #e2e2e2;
-    display: block;
-    padding: 6px 50px 6px 30px;
-    text-decoration: none;
-    text-shadow: 1px 1px #000;
-    white-space: nowrap;
-}
-.ipAdminToolbar .ipmMenu li a:hover {
-    background-color: #3b3d4f;
-}
-.ipAdminToolbar .ipmMenu .selected a,
-.ipAdminToolbar .ipmMenu .current a {
-    background-color: #019bd4;
-}
-
-
-
-
-
-.ipgError {
-    border: 1px solid #f00;
-    color: black;
-    padding: 10px;
-}
-.ipgAdminButton {
-    background: #e0e0e0;
-    background: linear-gradient(top, #f8f8f8 0%, #e0e0e0 100%);
-    border: 1px solid #b8b8b8;
-    border-radius: 2px;
-    color: #2f313f;
-    display: inline-block;
-    font-size: 12px;
-    line-height: 24px;
-    padding: 0 14px;
-    text-decoration: none;
-    text-shadow: 1px 1px 0 rgba(255,255,255,.66);
-}
-.ipgAdminButton:hover {
-    background: #c0c0c0;
-}
-
-.ui-widget-content a.ipgConfirmButton,
-.ipgConfirmButton{
-    background: #77b000;
-    background: linear-gradient(top, #77b000 0%, #569100 100%);
-    border-color: #699212;
-    box-shadow: inset 0 0 0 2px rgba(255,255,255,.1);
-    color: #fff;
-    font-weight: bold;
-    padding: 0 20px;
-    text-shadow: 1px 1px 0 rgba(0,0,0,.47);
-    text-transform: uppercase;
-}
-.ui-widget-content a.ipgConfirmButton:hover,
-.ipgConfirmButton:hover {
-    background: #559000;
-    background: linear-gradient(top, #559000 0%, #76af00 100%);
-    box-shadow: none;
-}
-*/
   /* Widget: Columns */
   /* To be removed */
   /* General*/
@@ -7966,6 +7806,26 @@
 .ip a.list-group-item.success:focus .list-group-item-text {
   color: #ffffff;
 }
+.ip .navbar-center {
+  margin: 0 auto;
+  position: relative;
+  width: 400px;
+}
+.ip .navbar-center .navbar-center-container {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+.ip .navbar-center .navbar-text {
+  display: inline-block;
+  float: none;
+}
+.ip .navbar-center .dropdown-menu {
+  text-align: left;
+}
+.ip .navbar-center .dropdown-menu > li > a * {
+  white-space: inherit;
+}
 .ip th {
   font-weight: bold;
 }
@@ -8538,6 +8398,30 @@
 .ip .ipAdminButton.ipaAction:hover {
   background: -moz-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
   background: -webkit-linear-gradient(top, #ff8800 0%, #ffaa00 100%);
+}
+.ip .ipModuleContentEditButton {
+  background-color: #000000;
+  padding: 5px;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.ip .ipModuleContentPublishButton .btn {
+  font-size: 14px;
+  line-height: 1.428571429;
+}
+.ip .ipModuleContentPublishButton .btn .fa-fw {
+  text-align: center;
+}
+.ip .ipModuleContentPublishButton .dropdown-toggle {
+  border-left-color: #3f6300;
+}
+.ip .ipModuleContentPublishButton ._revisions {
+  max-height: 280px;
+  overflow: auto;
+}
+.ip .ipModuleContentPublishButton ._revisions ._button {
+  padding: 0 20px;
 }
 .ip .ipWidget-Columns .ipwCol {
   margin-top: 20px;
