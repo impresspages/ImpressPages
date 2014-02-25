@@ -48,7 +48,7 @@ class IpActions
             $this->testCase->type('css=.form-control[name=password]', $this->installation->getAdminPass());
             $this->testCase->clickAndWait('css=.ipsLoginButton');
         }
-        $this->testCase->waitForElementPresent('css=.ipActionPublish');
+        $this->testCase->waitForElementPresent('css=.ipsContentPublish');
     }
 
 
@@ -86,10 +86,10 @@ class IpActions
 
     public function publish()
     {
-        $this->testCase->click('css=.ipActionPublish');
+        $this->testCase->click('css=.ipsContentPublish');
         $this->testCase->waitForElementPresent('css=.ipSeleniumProgress');
         $this->testCase->waitForNotVisible('css=.ipSeleniumProgress');
-        $this->testCase->waitForElementPresent('css=.ipActionPublish');
+        $this->testCase->waitForElementPresent('css=.ipsContentPublish');
     }
 
     /**
