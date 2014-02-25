@@ -19,7 +19,19 @@ class Content
      * @var \Ip\Language[]
      */
     protected $languages;
-    protected $blockContent = null;
+    protected $blockContent;
+
+    /**
+     * @var \Ip\Language
+     */
+    protected $currentLanguage;
+
+    /**
+     * @var \Ip\Page
+     */
+    protected $currentPage;
+
+    protected $currentRevision;
 
     public function __construct()
     {
@@ -31,7 +43,15 @@ class Content
      */
     public function getCurrentLanguage()
     {
-        return ipCurrentPage()->getLanguage();
+        return $this->currentLanguage;
+    }
+
+    /**
+     * @ignore Used only for internal purposes
+     */
+    public function _setCurrentLanguage($currentLanguage)
+    {
+        $this->currentLanguage = $currentLanguage;
     }
 
     public function getPage($pageId)
@@ -52,7 +72,16 @@ class Content
      */
     public function getCurrentPage()
     {
-        return ipCurrentPage()->getPage();
+        return $this->currentPage;
+    }
+
+    /**
+     * @ignore used only for internal purposes
+     */
+    public function _setCurrentPage($page)
+    {
+        $this->currentPage = $page;
+        $this->currentRevision = null;
     }
 
     /**
@@ -143,7 +172,39 @@ class Content
      */
     public function getCurrentRevision()
     {
-        return ipCurrentPage()->getCurrentRevision();
+        if ($this->currentRevision !== null) {
+            return $this->currentRevision;
+        }
+
+        if (!$this->currentPage) {
+            return null;
+        }
+
+        $revision = null;
+        $pageId = $this->currentPage->getId();
+
+        if (ipIsManagementState()) {
+            if (ipRequest()->getQuery('cms_revision')) {
+                $revisionId = ipRequest()->getQuery('cms_revision');
+                $revision = \Ip\Internal\Revision::getRevision($revisionId);
+                if ($revision['pageId'] != $pageId) {
+                    $revision = null;
+                }
+            }
+
+            if (!$revision) {
+                $revision = \Ip\Internal\Revision::getLastRevision($pageId);
+                if ($revision['isPublished']) {
+                    $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
+                    $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
+                }
+            }
+        } else {
+            $revision = \Ip\Internal\Revision::getPublishedRevision($this->currentPage->getId());
+        }
+
+        $this->currentRevision = $revision;
+        return $this->currentRevision;
     }
 
     /**
