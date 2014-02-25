@@ -67,23 +67,11 @@ class Model{
 
 
     /**
-     *
      * @return array all website languages
      */
-    private static function getLanguages() {
-        $table = ipTable('language');
-        $sql = "
-        SELECT
-            *
-        FROM
-            $table
-        WHERE
-            1
-        ORDER BY
-            `languageOrder`
-        DESC";
-
-        return ipDb()->fetchAll($sql);
+    public static function getLanguages()
+    {
+        return ipDb()->selectAll('language', '*', array(), 'ORDER BY `languageOrder`');
     }
 
 
