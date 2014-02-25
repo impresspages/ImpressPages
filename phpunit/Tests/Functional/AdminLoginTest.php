@@ -29,7 +29,7 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
 
         $page = $session->getPage();
         $this->assertEmpty($page->find('css', '.ipsLoginButton'), 'Could not log in.');
-        $this->assertNotEmpty($page->find('css', '.ipActionPublish'));
+        $this->assertNotEmpty($page->find('css', '.ipsContentPublish'));
 
     }
 

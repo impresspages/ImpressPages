@@ -22,7 +22,7 @@ if (file_exists("$rootDir/phpunit/tools/tmp_gettext_files.txt")) {
 }
 
 foreach ($dirs as $dir) {
-    `find ./$dir -iname "*.php" >> {$rootDir}/phpunit/tools/tmp_gettext_files.txt`;
+    `find ./$dir ! -type d -iname "*.php" >> {$rootDir}/phpunit/tools/tmp_gettext_files.txt`;
 }
 
 `xgettext -f {$rootDir}/phpunit/tools/tmp_gettext_files.txt -L PHP --from-code=utf-8 --keyword=__:1,2c --keyword=_e:1,2c -o {$rootDir}/phpunit/tools/all.po --omit-header`;
@@ -56,7 +56,8 @@ foreach ($all as $key => $values) {
 }
 
 foreach (array('ipPublic', 'ipAdmin') as $domain) {
-    $messages = json_decode(file_get_contents($rootDir . '/Ip/Internal/Translations/translations/' . $domain . '-en.json'), true);
+    $contents = file_get_contents($rootDir . '/Ip/Internal/Translations/translations/' . $domain . '-en.json');
+    $messages = json_decode($contents, true);
 
     $domains[$domain] = array_merge($domains[$domain], $messages);
 }

@@ -304,24 +304,27 @@ class AdminController extends \Ip\Controller
     }
 
 	private function _addPageToTree(\Ip\Page $page) {
-		$p = array(
+		$children = array(
             'text' => $page->getTitle(),
             'icon' => 'fa fa-file-text',
             'li_attr' => (object) array(
-            	'data-url' => $page->getUrlPath()
+            	'data-url' => $page->getLink()
 			),
 			'children' => array()
 		);
         foreach ($page->getChildren() as $child) {
-        	$p['children'][] = $this->_addPageToTree($child);
+        	$children['children'][] = $this->_addPageToTree($child);
         }
-        return $p;
+        return $children;
 	}
 
 	public function getPageTree() {
+
+        $language = ipContent()->getCurrentLanguage();
+
         $sitemap = array(
 			array(
-			   'text' => 'EN',
+			   'text' => $language->getAbbreviation(),
 			   'type' => 'language',
 			   'icon' => 'fa fa-flag-o',
 			   'state' => array('opened' => true),
@@ -329,24 +332,26 @@ class AdminController extends \Ip\Controller
 			)
 		);
 
-		// @todo: get all the languages
+        $menuList = \Ip\Internal\Pages\Model::getMenuList($language->getCode());
 
-//        foreach($zones as $zone) {
-//            $z = array(
-//                'text' => $zone->getTitle(),
-//                'icon' => 'fa fa-folder-o',
-//            	'li_attr' => (object) array(
-//            		'data-url' => parse_url($zone->getUrl(),PHP_URL_PATH)
-//				),
-//            	'children'=>array()
-//			);
-//			foreach (\Ip\Menu\Helper::getMenuItems($zone->getName()) as $page) {
-//			   $z['children'][] = $this->_addPageToTree($page);
-//			}
-//
-//			// @todo: add zone to correct language
-//			$sitemap[0]['children'][] = $z;
-//        }
+        foreach ($menuList as $menu) {
+            $page = ipPage($menu['id']);
+
+            $children = array(
+                'text' => $menu['title'],
+                'icon' => 'fa fa-folder-o',
+                'li_attr' => (object)array(
+                        'data-url' => $page->getLink(),
+                    ),
+                'children' => array()
+            );
+
+            foreach ($page->getChildren() as $child) {
+                $children['children'][] = $this->_addPageToTree($child);
+            }
+
+            $sitemap[0]['children'][] = $children;
+        }
 
         $data = array(
             'status' => 'success',
