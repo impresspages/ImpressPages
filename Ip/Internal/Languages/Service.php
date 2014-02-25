@@ -18,6 +18,11 @@ class Service
         return $languageId;
     }
 
+    public static function getLanguages()
+    {
+        return Model::getLanguages();
+    }
+
     public static function delete($languageId)
     {
         Model::delete($languageId);
