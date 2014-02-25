@@ -32,7 +32,7 @@ class WidgetTextTest extends \PHPUnit_Framework_TestCase
         $session->wait(10000, "typeof $ !== 'undefined' && $('._disable .ipsContentPublish').length != 0");
         $duplicateRevisionLink = $page->find('css', '.ipsItemCurrent');
         $duplicateRevisionLink->click();
-        $session->wait(10000, "typeof $ !== 'undefined' && $('.ipActionPublish').length != 0");
+        $session->wait(10000, "typeof $ !== 'undefined' && $('.ipsContentPublish').length != 0");
         //TODO remove all existing widgets
 
         $adminHelper->addWidget('Text');

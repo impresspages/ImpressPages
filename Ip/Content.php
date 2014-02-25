@@ -109,7 +109,7 @@ class Content
     public function getLanguages()
     {
         if ($this->languages === null) {
-            $languages = Internal\ContentDb::getLanguages(true);
+            $languages = \Ip\Internal\Languages\Service::getLanguages();
             $this->languages = array();
             foreach ($languages as $data) {
                 $this->languages[] = \Ip\Internal\Content\Helper::createLanguage($data);

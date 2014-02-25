@@ -57,7 +57,7 @@ class Admin
 
         $loginButton->click();
 
-        $session->wait(10000,"typeof $ !== 'undefined' && $('.ipActionPublish').size() > 0");
+        $session->wait(10000,"typeof $ !== 'undefined' && $('.ipsContentPublish').size() > 0");
     }
 
     public function logout()
@@ -72,7 +72,7 @@ class Admin
         $logoutButton->click();
 
 
-        $session->wait(10000,"typeof $ !== 'undefined' && $('.ipActionPublish').size() == 0 && $('.ipsLoginButton').size() > 0 ");
+        $session->wait(10000,"typeof $ !== 'undefined' && $('.ipsContentPublish').size() == 0 && $('.ipsLoginButton').size() > 0 ");
     }
 
 

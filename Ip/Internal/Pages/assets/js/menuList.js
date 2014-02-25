@@ -1,9 +1,9 @@
 
-var pagesZones;
+var pageMenuList;
 
 (function($) {
 
-    pagesZones = {
+    pageMenuList = {
         init: function () {
             $('ul.ipsMenuList').sortable({
                 start: this.startSort,
