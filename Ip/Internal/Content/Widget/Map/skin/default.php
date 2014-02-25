@@ -1,5 +1,5 @@
 <div
-data-mapview="<?php echo esc($mapview, 'attr'); ?>"
+data-maptypeid="<?php echo esc($mapTypeId, 'attr'); ?>"
 data-zoom="<?php echo esc($zoom, 'attr'); ?>"
 data-lat="<?php echo esc($lat, 'attr'); ?>"
 data-lng="<?php echo esc($lng, 'attr'); ?>"
@@ -13,7 +13,7 @@ data-lng="<?php echo esc($lng, 'attr'); ?>"
 <?php } ?>
 
 style="height: <?php echo ($height); ?>; width: <?php echo ($width); ?>;"
-data-initialized="0" id="<?php echo esc($id, 'attr'); ?>"
+data-initialized="0"
 class="ipsMap">
 </div>
 <?php if (ipIsManagementState()) { ?>
