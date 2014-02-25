@@ -86,9 +86,9 @@ jQuery.fn.ipWidgetMap = function() {
 
             var map = new google.maps.Map($map.get(0), mapOptions);
 
-            if ((typeof ($widget.data('markerlat') !== 'undefined')) && (typeof ($widget.data('markerlng') !== 'undefined'))) {
+            if ((typeof ($map.data('markerlat') !== 'undefined')) && (typeof ($map.data('markerlng') !== 'undefined'))) {
                 var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng($(this).data('markerlat'), $widget.data('markerlng')),
+                    position: new google.maps.LatLng($map.data('markerlat'), $map.data('markerlng')),
                     map: map
                 });
             }

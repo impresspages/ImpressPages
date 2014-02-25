@@ -12,6 +12,7 @@ var IpWidget_Map;
         this.$widgetObject = null;
         this.data = null;
         this.map = null;
+        this.marker = null;
 
         this.init = function($widgetObject, data) {
             this.$widgetObject = $widgetObject;
@@ -86,18 +87,40 @@ var IpWidget_Map;
 
             var map = new google.maps.Map($map.get(0), mapOptions);
             this.map = map;
-//            if ((typeof ($widget.data('markerlat') !== 'undefined')) && (typeof ($widget.data('markerlng') !== 'undefined'))) {
-//                var marker = new google.maps.Marker({
-//                    position: new google.maps.LatLng($(this).data('markerlat'), $widget.data('markerlng')),
-//                    map: map
-//                });
-//            }
+
+
+
+
+            if ((typeof (data.markerlat) !== 'undefined') && (typeof (data.markerlng) !== 'undefined')) {
+                this.marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(data.markerlat, data.markerlng),
+                    map: this.map
+                });
+            }
 
             //bind map events
             google.maps.event.addListener(this.map, 'bounds_changed', $.proxy(save, this));
             google.maps.event.addListener(this.map, 'maptypeid_changed', $.proxy(save, this));
+
+            google.maps.event.addListener(this.map, 'click', function(event) {
+                $.proxy(placeMarker, context)(event.latLng);
+            });
+
+
         }
 
+        function placeMarker(location) {
+            if ( this.marker ) {
+                this.marker.setPosition(location);
+            } else {
+                this.marker = new google.maps.Marker({
+                    position: location,
+                    map: this.map
+                });
+            }
+
+
+        }
 
 
         var save = function() {
@@ -112,8 +135,11 @@ var IpWidget_Map;
             data.mapTypeId = this.map.mapTypeId;
             data.height = parseInt( this.$widgetObject.height());
 
-
-console.log(data);
+            if (this.marker) {
+                var markerPos = this.marker.getPosition();
+                data.markerlat = markerPos.lat();
+                data.markerlng = markerPos.lng();
+            }
 //            if (this.$widgetObject.width() - width <= 2) {
 //                data = {
 //                    method: 'autosize'
