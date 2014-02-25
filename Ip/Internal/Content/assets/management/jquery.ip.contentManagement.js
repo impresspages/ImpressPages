@@ -79,9 +79,9 @@
                         $('.ipBlock .ipWidget').off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
                     })
 
-                    $('.ipAdminPanel .ipActionSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
-                    $('.ipAdminPanel .ipActionPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
-                    $('.ipsAdminNavbar .ipsAdminPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
+                    $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
+                    $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
+                    $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
                     //ipAddAdminNavBarButton('Page preview', '#', 'test', 'fa-trash');
                     $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));

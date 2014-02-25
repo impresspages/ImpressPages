@@ -8,32 +8,6 @@
                     <a href="#" class="ipaButton ipsButton"></a>
                 </div>
             </div>
-            <a href="#" class="ipAdminButton ipaConfirm ipActionPublish" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
-            <div class="ipAdminRevisions">
-                <a href="#" class="ipAdminButton ipaRevisions"><span>&nbsp;</span></a>
-                <div class="ipaDropdownBlock">
-                    <a href="#" class="ipAdminButton ipaSave ipActionSave" title="<?php _e('Save', 'ipAdmin') ?>"><?php _e('Save now', 'ipAdmin') ?></a>
-                    <ul>
-    <?php foreach ($revisions as $revisionKey => $revision){
-              $revisionClass = '';
-              if ($revision['revisionId'] == $currentRevision['revisionId']) {
-                  $revisionClass .= $revisionClass ? ' ' : '';
-                  $revisionClass .= 'ipaActive';
-              }
-              if ($revision['isPublished']) {
-                  $revisionClass .= $revisionClass ? ' ' : '';
-                  $revisionClass .= 'ipaPublished';
-              }
-    ?>
-                        <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
-                            <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                                <strong><?php echo (int)$revision['revisionId'] ?></strong> - <?php echo date("Y-m-d H:i", $revision['createdAt']); echo $revision['isPublished'] ? ' '.esc(__('Published', 'ipAdmin')) . ' ' : ''; ?>
-                            </a>
-                        </li>
-    <?php } ?>
-                    </ul>
-                </div>
-            </div>
         </div>
 
         <div class="ipAdminWidgets">
@@ -41,8 +15,8 @@
             <div class="ipAdminWidgetsDisable">
                 <p>
                     <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['createdAt']) ?>
-                    <a href="#" class="ipActionPublish"><?php _e('Publish this revision', 'ipAdmin') ?></a>
-                    <a href="#" class="ipActionSave"><?php _e('Duplicate and edit this revision', 'ipAdmin') ?></a>
+                    <a href="#" class="ipsContentPublish"><?php _e('Publish this revision', 'ipAdmin'); ?></a>
+                    <a href="#" class="ipsContentSave"><?php _e('Duplicate and edit this revision', 'ipAdmin'); ?></a>
                 </p>
             </div>
     <?php } ?>
@@ -69,5 +43,4 @@
             <p class="ipAdminError"></p>
         </div>
     </div>
-    <a href="#" class="ipAdminButton ipaConfirm ipActionPublish visible-xs" title="<?php _e('Publish', 'ipAdmin') ?>"><?php _e('Publish', 'ipAdmin') ?></a>
 </div>
