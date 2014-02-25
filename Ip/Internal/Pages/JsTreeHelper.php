@@ -64,7 +64,7 @@ class JsTreeHelper
 
     protected static function _jsTreeId($languageId, $pageId)
     {
-        return 'page_' . $languageId . '_' . $zoneName . '_' . $pageId;
+        return 'page_' . $languageId . '_'. $pageId;
     }
 
 
