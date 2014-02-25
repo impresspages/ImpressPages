@@ -7,9 +7,9 @@ then
     exit 0
 fi
 
-if [ $TEST_GROUP = "other" ]
+if [ $TEST_GROUP = "unit" ]
 then
-  ./vendor/bin/phpunit --exclude-group Sauce,smoke,ignoreOnTravis --colors Tests/
+  ./vendor/bin/phpunit --exclude-group Sauce,ignoreOnTravis --colors Tests/
 else
   ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
 fi
