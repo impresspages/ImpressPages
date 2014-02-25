@@ -290,10 +290,9 @@ var IpWidget_Gallery;
                 method: 'setLink',
                 type: this.type.val(),
                 url: this.url.val(),
-                blank: this.blank.attr('checked') ? 1 : 0,
+                blank: this.blank.prop('checked') ? 1 : 0,
                 index: this.imageIndex
             };
-
             this.$widgetObject.save(data, 1); // save and reload widget
             this.popup.modal('hide');
         };
