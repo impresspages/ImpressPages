@@ -471,9 +471,16 @@ var ipPagesResize;
             });
         }
 
+        /**
+         * null values = current
+         * false = unset
+         * @param string|null languageCode
+         * @param string|null|false menuName
+         * @param string|null|false pageId
+         */
         var updateHash = function (languageCode, menuName, pageId) {
             var curVariables = getHashParams();
-            curVariables.hash = '';
+            curVariables['/hash'] = '';
 
             if (languageCode === null && $scope.activeLanguage) {
                 languageCode = $scope.activeLanguage.code;
@@ -485,22 +492,18 @@ var ipPagesResize;
                 pageId = $scope.selectedPageId;
             }
 
-            if (languageCode) {
-                curVariables.language = languageCode;
-            }
-            if (menuName) {
-                curVariables.menu = menuName;
-            }
-            if (pageId) {
-                curVariables.page = pageId;
-            }
+            curVariables.language = languageCode ? languageCode : null;
+            curVariables.menu = menuName ? menuName : null;
+            curVariables.page = pageId ? pageId : null;
 
             var path = '';
             $.each(curVariables, function(key, value){
-                if (path != '') {
-                    path = path + '&';
+                if (value != null) {
+                    if (path != '') {
+                        path = path + '&';
+                    }
+                    path = path + key + '=' + value;
                 }
-                path = path + key + '=' + value;
             });
             $location.path(path);
         }
