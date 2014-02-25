@@ -7,7 +7,7 @@ var ipPagesResize;
     var app = angular.module('Pages', []).directive('menulistPostRepeatDirective', function () {
         return function (scope, element, attrs) {
             if (scope.$last) {
-                pagesZones.init();
+                pageMenuList.init();
             }
         };
     });
