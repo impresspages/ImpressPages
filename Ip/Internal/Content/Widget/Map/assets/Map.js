@@ -94,8 +94,8 @@ var IpWidget_Map;
 //            }
 
             //bind map events
-            google.maps.event.addListener(this.map, 'center_changed', $.proxy(save, this));
-            google.maps.event.addListener(this.map, 'zoom_changed', $.proxy(save, this));
+            google.maps.event.addListener(this.map, 'bounds_changed', $.proxy(save, this));
+            google.maps.event.addListener(this.map, 'maptypeid_changed', $.proxy(save, this));
         }
 
 
