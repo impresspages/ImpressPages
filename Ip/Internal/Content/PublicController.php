@@ -11,7 +11,7 @@ class PublicController extends \Ip\Controller
     public function index()
     {
         //find current page
-        $page = ipCurrentPage()->getPage();
+        $page = ipContent()->getCurrentPage();
 
         // redirect if needed
         if (in_array($page->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {

@@ -29,28 +29,13 @@ class Page
     protected $keywords;
     /** string - meta tag description */
     protected $description;
-    /** string - html version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
-    protected $html;
-    /** string - text version of page content. Used for search and similar tasks. This field can be used like cache. It isn't the content that will be printed out to the site. */
-    protected $text;
     /** string - date when last change in this page was made. MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
     protected $updatedAt;
     /** string - page creation date in MySql timestamp format 'YYYY-MM-DD HH:MM:SS' */
     protected $createdAt;
-    /** integer - average amount of days between changes */
-    protected $modifyFrequency;
-    /** float - value from 0 to 1, representing importance of page. 0 - lowest importance, 1 - highest importance. Used in XML sitemap. */
-    protected $priority;
     /** int - id of parent Element or null.*/
     protected $parentId;
-    /** string - url (including http://) to this page. */
-    protected $link;
-    /** bool - true if this element is currently active page */
-    protected $current;
-    /** bool - true if this element is part of current breadcrumb */
-    protected $inBreadcrumb;
-    /** int - depth of the element (starts at 1) */
-    protected $depth;
+
     /** string - element type<br />
      * <br />
      * Available values:<br />
@@ -61,18 +46,11 @@ class Page
      * error404
      */
     protected $type;
-    /** string - redirect URL if element type is "redirect" */
-    protected $redirectUrl;
 
-    /** string - zone name of element */
-    protected $zoneName;
     /** bool */
     protected $isVisible;
 
-    /** Element - next sibling element */
-    protected $nextElement;
-    /** Element - previous sibling element */
-    protected $previousElement;
+    protected $inBreadcrumb = false;
 
     public function __construct($id)
     {
@@ -208,24 +186,6 @@ class Page
     }
 
     /**
-     * @ignore
-     * @return string Get page text
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * @ignore
-     * @param $text string
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
-    }
-
-    /**
      * Get page modification date and time
      *
      * @return string in MySql timestamp format 'YYYY-MM-DD HH:MM:SS'
@@ -328,15 +288,6 @@ class Page
     }
 
     /**
-     * @ignore
-     * @param $link string
-     */
-    public function setLink($link)
-    {
-        $this->link = $link;
-    }
-
-    /**
      * Get the last part of the page URL
      * @return string Page URL
      */
@@ -366,17 +317,6 @@ class Page
     }
 
     /**
-     * Set the page as currently opened in the browser
-     *
-     * @ignore
-     * @param $current bool
-     */
-    public function setCurrent($current)
-    {
-        $this->current = $current;
-    }
-
-    /**
      * Check if the page exists in current breadcrumb
      *
      * @return bool True, if the page is in a current breadcrumb
@@ -392,57 +332,6 @@ class Page
             $this->inBreadcrumb = in_array($this->getId(), $ids);
         }
         return $this->inBreadcrumb;
-    }
-
-    /**
-     * Set the page as existing in current breadcrumb
-     * @ignore
-     * @param $selected bool
-     */
-    public function markAsInCurrentBreadcrumb($inBreadcrumb)
-    {
-        $this->inBreadcrumb = $inBreadcrumb;
-    }
-
-    /**
-     * Get page depth level in a menu tree
-     *
-     * @return int Depth level.
-     */
-    public function getDepth()
-    {
-        return $this->depth;
-    }
-
-    /**
-     * Set page depth level in a menu tree
-     * @ignore
-     *
-     * @param $depth int Depth level
-     */
-    public function setDepth($depth)
-    {
-        $this->depth = $depth;
-    }
-
-    /**
-     * Get zone name of the page
-     *
-     * @return string Zone name
-     */
-    public function getZoneName()
-    {
-        return $this->zoneName;
-    }
-
-    /**
-     * @ignore
-     *
-     * @param $zoneName string
-     */
-    public function setZoneName($zoneName)
-    {
-        $this->zoneName = $zoneName;
     }
 
     /**
@@ -467,7 +356,6 @@ class Page
     }
 
     /**
-     *
      * Get page redirect address URL
      *
      * @return string Redirect URL address

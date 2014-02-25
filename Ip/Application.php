@@ -138,8 +138,7 @@ class Application
         $language = $result['language'];
         $relativeUri = $result['relativeUri'];
 
-        $currentPage = new \Ip\CurrentPage(array('language' => $language));
-        \Ip\ServiceLocator::_setCurrentPage($currentPage);
+        ipContent()->_setCurrentLanguage($language);
 
         $_SESSION['ipLastLanguageId'] = $language->getId();
 
@@ -156,19 +155,10 @@ class Application
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
 
         if (!empty($routeAction)) {
-            foreach ($routeAction as $key => $value) {
-                $currentPage->_set($key, $value);
+            if (!empty($routeAction['page'])) {
+                ipContent()->_setCurrentPage($routeAction['page']);
             }
-        } else {
-            $page = new \Ip\Page404();
-            ipCurrentPage()->_set('page', $page);
         }
-
-
-
-
-
-
 
         if (empty($options['skipModuleInit'])) {
             $this->modulesInit();
