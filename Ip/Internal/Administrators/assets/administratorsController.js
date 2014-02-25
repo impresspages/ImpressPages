@@ -67,7 +67,7 @@ var ipAdministratorsController = null;
         }
 
 
-        $scope.updateModal = function (zone) {
+        $scope.updateModal = function () {
             $('.ipsUpdateModal').modal();
             $('.ipsUpdateModal form').off('submit').on('submit', function (e) {
                 e.preventDefault();
@@ -80,7 +80,7 @@ var ipAdministratorsController = null;
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
         }
 
-        $scope.deleteModal = function (zone) {
+        $scope.deleteModal = function () {
             $('.ipsDeleteModal').modal();
             $('.ipsDeleteModal .ipsDelete').off('click').on('click', function (e) {
                 e.preventDefault();
