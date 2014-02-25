@@ -2,7 +2,7 @@
     "use strict";
 
         $(document).bind('initFinished.ipContentManagement', function () {
-            $('.ipActionWidgetButton')
+            $('.ipsAdminPanelWidgetButton')
                 .bind('dragstart', function (event, ui) {
                     $('.ipBlock > .ipbExampleContent').each(function () {
                         var $ipExampleContent = $(this);
