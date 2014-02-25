@@ -68,39 +68,6 @@ class Helper
         return $items;
     }
 
-
-    /**
-     * Get child items of currently open page or specified page.
-     * @param string | null $zoneName zone name
-     * @param int | null $elementId
-     * @param int $depthTo limit depth of generated menu
-     * @return Item[]
-     */
-    public static function getChildItems($pageId = null, $depthTo = 10000)
-    {
-        $content = ipContent();
-        if ($pageId === null) {
-            $page = ipContent()->getCurrentPage();
-        } else {
-            $page = ipContent()->getPage($pageId);
-        }
-        if (!$page) {
-            return array();
-        }
-
-
-        $pageData = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $page->getId()));
-        $items = array();
-
-        if (isset($pageData) && count($pageData) > 0) {
-            $curDepth = $page->getDepth();
-            $items = self::arrayToMenuItem($pageData, $depthTo + 1, $curDepth);
-        }
-
-        return $items;
-    }
-
-
     /**
      * @param array $pages
      * @param $depth

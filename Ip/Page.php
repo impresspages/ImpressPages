@@ -406,4 +406,11 @@ class Page
 
         return $pages;
     }
+
+    public function getChildren()
+    {
+        $list = ipDb()->selectAll('page', 'id', array('parentId' => $this->id, 'isVisible' => 1), 'ORDER BY `pageOrder`');
+
+        return static::createList($list);
+    }
 }
