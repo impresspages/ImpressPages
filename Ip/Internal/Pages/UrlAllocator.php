@@ -83,7 +83,7 @@ class UrlAllocator
      */
     public static function isPathAvailable($languageCode, $urlPath)
     {
-        $pageId = ipDb()->selectValue('page', '`id`', array('languageCode' => $languageCode, 'urlPath' => $urlPath));
+        $pageId = ipDb()->selectValue('page', '`id`', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
 
         if (!$pageId) {
             return true;

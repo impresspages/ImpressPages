@@ -17,6 +17,11 @@ class Service
         return Model::getPage($pageId);
     }
 
+    public static function getPageByUrl($languageCode, $urlPath)
+    {
+        return Model::getPageByUrl($languageCode, $urlPath);
+    }
+
     public static function getMenu($languageCode, $alias)
     {
         return Model::getMenu($languageCode, $alias);

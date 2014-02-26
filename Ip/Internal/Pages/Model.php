@@ -19,7 +19,9 @@ class Model
             }
         }
 
-        ipDb()->delete('page', array('id' => $pageId));
+        ipDb()->update('page', array('isDeleted' => 1, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
+
+        // TODOX #page-delete
         ipPageStorage($pageId)->removeAll();
 
         ipEvent('ipPageDeleted', array('pageId' => $pageId));
@@ -107,7 +109,7 @@ class Model
 
     public static function getMenu($languageCode, $alias)
     {
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias));
+        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
     }
 
 
@@ -120,7 +122,7 @@ class Model
         if ($limit !== null) {
             $sqlEnd .= ', ' . (int)$limit;
         }
-        return ipDb()->selectAll('page', '*', array('parentId' => $parentId), $sqlEnd);
+        return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
     public static function getMenuList($languageCode)
@@ -141,11 +143,19 @@ class Model
 
     public static function getPage($pageId)
     {
-        return ipDb()->selectRow('page', '*', array('id' => $pageId));
+        return ipDb()->selectRow('page', '*', array('id' => $pageId, 'isDeleted' => 0));
+    }
+
+    public static function getPageByUrl($languageCode, $urlPath)
+    {
+        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
     protected static function getNextPageOrder($where)
     {
+        if (empty($where['isDeleted'])) {
+            $where['isDeleted'] = 0;
+        }
         $nextPageOrder = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
         return $nextPageOrder ? $nextPageOrder : 1;
     }

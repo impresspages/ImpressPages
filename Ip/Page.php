@@ -52,14 +52,18 @@ class Page
 
     protected $inBreadcrumb = false;
 
+    /**
+     * @param int|array $id
+     */
     public function __construct($id)
     {
-        $this->id = $id;
-
-        $page = ipDb()->selectRow('page', '*', array('id' => $id));
-
-        if (!$page) {
-            throw new \Ip\Exception("Page #{$id} not found.");
+        if (!is_array($id)) {
+            $page = ipDb()->selectRow('page', '*', array('id' => $id));
+            if (!$page) {
+                throw new \Ip\Exception("Page #{$id} not found.");
+            }
+        } else {
+            $page = $id;
         }
 
         foreach ($page as $key => $value) {
@@ -401,7 +405,7 @@ class Page
     {
         $pages = array();
         foreach ($list as $page) {
-            $pages[] = new \Ip\Page($page['id']);
+            $pages[] = new \Ip\Page($page);
         }
 
         return $pages;
@@ -409,7 +413,7 @@ class Page
 
     public function getChildren()
     {
-        $list = ipDb()->selectAll('page', 'id', array('parentId' => $this->id, 'isVisible' => 1), 'ORDER BY `pageOrder`');
+        $list = ipDb()->selectAll('page', 'id', array('parentId' => $this->id, 'isVisible' => 1, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
 
         return static::createList($list);
     }
