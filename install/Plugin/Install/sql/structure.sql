@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS `ip_cms_page`;
 
 CREATE TABLE `ip_cms_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `languageCode` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
-  `urlPath` varchar(255) DEFAULT NULL,
+  `languageCode` varchar(6) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `urlPath` varchar(140) DEFAULT NULL,
   `parentId` int(11) DEFAULT NULL,
   `pageOrder` double NOT NULL DEFAULT '0',
   `title` varchar(255) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `ip_cms_page` (
   `updatedAt` timestamp NULL DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `url` (`languageCode`, `urlPath`)
+  INDEX `url` (`urlPath`, `languageCode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
