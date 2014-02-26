@@ -28,6 +28,7 @@ var ipPagesResize;
         $scope.languageList = languageList;
         $scope.menuList = menuList;
         $scope.initialized = false;
+        $scope.allowActions = !getQuery('disableActions');
 
         $scope.$on('PathChanged', function (event, path) {
             var menuName = getHashParams().menu;
@@ -575,6 +576,13 @@ var ipPagesResize;
                 hashParams[d(e[1])] = d(e[2]);
 
             return hashParams;
+        }
+
+        function getQuery(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
 
         var getFirstMenuOfLanguage = function (language) {
