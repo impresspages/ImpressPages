@@ -17,7 +17,7 @@ CREATE TABLE `ip_cms_page` (
   `description` mediumtext,
   `type` varchar(255) NOT NULL DEFAULT 'default',
   `alias` varchar(255) DEFAULT NULL,
-  `isPublished` tinyint(1) NOT NULL DEFAULT '0',
+  `isVisible` tinyint(1) NOT NULL DEFAULT '0',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
