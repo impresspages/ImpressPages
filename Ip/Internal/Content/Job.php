@@ -15,24 +15,17 @@ class Job
     {
         if ($info['relativeUri'] == '') {
             $pageId = ipJob('ipDefaultPageId');
+            $page = \Ip\Internal\Pages\Service::getPage($pageId);
         } else {
             $languageCode = ipContent()->getCurrentLanguage()->getCode();
-            $pageId = ipDb()->selectValue('page', 'id',
-                array(
-                    'urlPath' => $info['relativeUri'],
-                    'languageCode' => $languageCode,
-                    'isVisible' => 1,
-                )
-            );
+            $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUrl']);
         }
 
-
-
-        if (!$pageId) {
+        if (!$page) {
             return null;
         }
 
-        $result['page'] = new \Ip\Page($pageId, 'page');
+        $result['page'] = new \Ip\Page($page);
         $result['plugin'] = 'Content';
         $result['controller'] = 'PublicController';
         $result['action'] = 'index';

@@ -52,7 +52,7 @@ class Helper
 
     public static function menuForm($menuId)
     {
-        $menu = ipDb()->selectRow('page', '*', array('id' => $menuId));
+        $menu = Model::getPage($menuId);
 
         if (!$menu) {
             throw new \Ip\Exception('Menu not found.', array('id' => $menuId));

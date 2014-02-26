@@ -72,7 +72,7 @@ class AdminController extends \Ip\Controller
         }
         $menuName = $data['menuName'];
 
-        $parentId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName));
+        $parentId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
         $responseData = array (
             'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
         );

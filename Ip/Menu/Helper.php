@@ -52,12 +52,12 @@ class Helper
 
         $breadcrumb = ipContent()->getBreadcrumb();
 
-        $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName));
+        $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName, 'isDeleted' => 0));
 
         if ($depthFrom == 1) {
-            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $menuRootId)); //get first level elements
+            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $menuRootId, 'isDeleted' => 0)); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
-            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $breadcrumb[$depthFrom - 2]->getId()));
+            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'parentId' => $breadcrumb[$depthFrom - 2]->getId(), 'isDeleted' => 0));
         }
 
         $items = array();
@@ -82,7 +82,7 @@ class Helper
             $item = new Item();
             $subSelected = false;
             if ($curDepth < $depth) {
-                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1), 'ORDER BY `pageOrder`');
+                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
                 if ($children) {
                     $childrenItems = self::arrayToMenuItem($children, $depth, $curDepth + 1);
                     $item->setChildren($childrenItems);
