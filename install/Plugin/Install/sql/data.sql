@@ -1,5 +1,5 @@
 INSERT INTO `ip_cms_page`
-(`id`,`languageCode`,`urlPath`,`parentId`,`pageOrder`,`title`,`isVisible`,`metaTitle`,`keywords`,`description`,`updatedAt`,             `createdAt`,            `type`,     `alias`) VALUES
+(`id`,`languageCode`,`urlPath`,`parentId`,`pageOrder`,`title`,`isPublished`,`metaTitle`,`keywords`,`description`,`updatedAt`,             `createdAt`,            `type`,     `alias`) VALUES
 (1,   'en',   NULL,	          0,  0,            'Menu1',          1,	      NULL,     NULL,       NULL,	        NULL,                   '2014-02-07 17:13:11',	'default',	'menu1'),
 (3,   'en',   '',	            0,  1,	          'Home',	          1,	      NULL,     NULL,	      NULL,	        '2014-02-07 00:00:00',	'2014-02-07 17:13:21',	'default',	'menu2'),
 (4,   'en',   NULL,	          0,	2,	          'Menu3',	        1,	      NULL,	    NULL,	      NULL,	        NULL,                   '2014-02-07 17:13:25',	'default',	'menu3'),

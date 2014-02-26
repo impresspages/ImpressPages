@@ -12,15 +12,18 @@ CREATE TABLE `ip_cms_page` (
   `parentId` int(11) DEFAULT NULL,
   `pageOrder` double NOT NULL DEFAULT '0',
   `title` varchar(255) NOT NULL,
-  `isVisible` tinyint(1) NOT NULL DEFAULT '0',
   `metaTitle` mediumtext,
   `keywords` mediumtext,
   `description` mediumtext,
-  `updatedAt` timestamp NULL DEFAULT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` varchar(255) NOT NULL DEFAULT 'default',
   `alias` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `isPublished` tinyint(1) NOT NULL DEFAULT '0',
+  `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NULL DEFAULT NULL,
+  `deletedAt` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `url` (`languageCode`, `urlPath`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
