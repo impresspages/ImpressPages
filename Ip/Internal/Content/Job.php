@@ -18,7 +18,7 @@ class Job
             $page = \Ip\Internal\Pages\Service::getPage($pageId);
         } else {
             $languageCode = ipContent()->getCurrentLanguage()->getCode();
-            $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUrl']);
+            $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUri']);
         }
 
         if (!$page) {

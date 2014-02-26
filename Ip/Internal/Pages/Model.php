@@ -10,21 +10,16 @@ namespace Ip\Internal\Pages;
 
 class Model
 {
-    public static function deletePage($pageId)
+    public static function moveToTrash($pageId)
     {
         $children = self::getChildren($pageId);
         if ($children) {
             foreach ($children as $child) {
-                self::deletePage($child['id']);
+                self::moveToTrash($child['id']);
             }
         }
 
         ipDb()->update('page', array('isDeleted' => 1, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
-
-        // TODOX #page-delete
-        ipPageStorage($pageId)->removeAll();
-
-        ipEvent('ipPageDeleted', array('pageId' => $pageId));
     }
 
     /**
@@ -385,6 +380,29 @@ class Model
         }
 
         ipDb()->update('page', array('pageOrder' => $newPriority), array('id' => $menuId));
+    }
+
+    public static function deleteTrashPages()
+    {
+        $daysToKeepInTrash = (int)ipGetOption('ipDaysToKeepInTrash', 7);
+
+        if (empty($daysToKeepInTrash)) {
+            return;
+        }
+
+        $deletedBefore = date('Y-m-d H:i:s', strtotime("-$daysToKeepInTrash days"));
+        $deletedPages = ipDb()->selectColumn('page', 'id', array('isDeleted' => 1), " AND `deletedAt` < '$deletedBefore'");
+
+        foreach ($deletedPages as $pageId) {
+            static::deleteForever($pageId);
+        }
+    }
+
+    public static function deleteForever($pageId)
+    {
+        ipDb()->delete('page', array('id' => $pageId));
+        ipPageStorage($pageId)->removeAll();
+        ipEvent('ipPageDeleted', array('pageId' => $pageId));
     }
 
 }

@@ -12,4 +12,12 @@ class Event
     {
         // TODOX #delete-language-pages
     }
+
+    public static function ipCronExecute($info)
+    {
+        if ($info['firstTimeThisDay'] || $info['test']) {
+            Model::deleteTrashPages();
+        }
+    }
+
 }
