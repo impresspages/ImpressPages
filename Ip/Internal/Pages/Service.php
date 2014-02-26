@@ -91,7 +91,7 @@ class Service
 
     public static function deletePage($pageId)
     {
-        Model::deletePage($pageId);
+        Model::moveToTrash($pageId);
     }
 
     public static function getChildren($pageId, $start = null, $limit = null)
