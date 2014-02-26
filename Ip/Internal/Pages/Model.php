@@ -20,6 +20,7 @@ class Model
         }
 
         ipDb()->update('page', array('isDeleted' => 1, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
+        ipEvent('ipPageMarkedAsDeleted', array('pageId' => $pageId));
     }
 
     /**
