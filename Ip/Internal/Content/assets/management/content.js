@@ -159,7 +159,6 @@ var ipContent;
                 return;
             }
             var splitData = widgetController.splitData($widget.data('widgetdata'), position);
-            this.deleteWidget(widgetInstanceId, function() {
                 context.createWidget(blockName, widgetName, widgetPosition, function (firstWidgetInstanceId) {
                     var $firstWidget = $('#ipWidget-' + firstWidgetInstanceId);
                     $firstWidget.ipWidget('save', splitData[0], true);
@@ -167,12 +166,14 @@ var ipContent;
                     context.createWidget(blockName, widgetName, widgetPosition + 1, function (secondWidgetInstanceId) {
                         var $secondWidget = $('#ipWidget-' + secondWidgetInstanceId);
                         $secondWidget.ipWidget('save', splitData[1], true);
-                        if (callback) {
-                            callback(firstWidgetInstanceId, secondWidgetInstanceId);
-                        }
+                        context.deleteWidget(widgetInstanceId, function() {
+                            if (callback) {
+                                callback(firstWidgetInstanceId, secondWidgetInstanceId);
+                            }
+                        });
+
                     });
                 });
-            });
 
 
         }
