@@ -204,7 +204,9 @@ var ipContent;
 
 
         this.moveWidgetToSide = function (sourceWidgetInstanceId, targetWidgetInstanceId, leftOrRight, callback) {
-
+            if (sourceWidgetInstanceId == targetWidgetInstanceId) {
+                return;
+            }
             createSpace(targetWidgetInstanceId, leftOrRight, function(newWidgetBlockName) {
                 ipContent.moveWidget(sourceWidgetInstanceId, 0, newWidgetBlockName, function (instanceId) {
                     if (callback) {
