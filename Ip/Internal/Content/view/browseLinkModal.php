@@ -14,7 +14,7 @@
 <!--                    <div class="ipSitemap"></div>-->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary disabled" ><?php echo __('Select', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm" ><?php echo __('Select', 'ipAdmin') ?></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>
                 </div>
             </div>
