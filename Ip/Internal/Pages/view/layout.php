@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-<div class="_container _properties ipsProperties" ng-show="{{selectedPageId && allowActions}}"></div>
+<div class="_container _properties ipsProperties" ng-show="selectedPageId && allowActions"></div>
 <?php echo ipView('Ip/Internal/Pages/view/addPageModal.php', $this->getVariables())->render(); ?>
 <?php echo ipView('Ip/Internal/Pages/view/addMenuModal.php', $this->getVariables())->render(); ?>
 <?php echo ipView('Ip/Internal/Pages/view/updateMenuModal.php', $this->getVariables())->render(); ?>
