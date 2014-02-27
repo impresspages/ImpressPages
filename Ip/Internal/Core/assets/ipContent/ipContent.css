@@ -1116,3 +1116,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Title:first-child {
   padding-top: 0;
 }
+.ipWidget-Title a {
+  color: #000000;
+  text-decoration: inherit;
+}
+.ipWidget-Title a:hover {
+  text-decoration: underline;
+}
