@@ -37,4 +37,11 @@ function ipBrowseLink(callback) {
 }
 
 
+function ipBrowseFile(callback, options)
+{
+    var repository = new ipRepository({preview: 'list'});
+    repository.bind('ipRepository.filesSelected', function (event, files) {
+        callback(files);
+    });
+}
 
