@@ -8146,16 +8146,16 @@
   width: auto;
   z-index: 1020;
 }
-.ip .ipAdminWidgetControls ._container {
+.ip .ipAdminWidgetControls ._controls {
   margin-top: -11px;
   height: 11px;
   position: absolute;
   width: 100%;
 }
-.ip .ipAdminWidgetControls ._container * {
+.ip .ipAdminWidgetControls ._controls * {
   visibility: hidden;
 }
-.ip .ipAdminWidgetControls ._container:hover * {
+.ip .ipAdminWidgetControls ._controls:hover * {
   visibility: visible;
 }
 .ip .ipAdminWidgetControls ._settings {
@@ -9029,8 +9029,8 @@
 .ipWidget.ipWidget-Columns:hover {
   outline: 0;
 }
-.ipWidget:hover > .ip > .ipAdminWidgetControls ._container *,
-.ipMobile .ipWidget:hover > .ip > .ipAdminWidgetControls ._container * {
+.ipWidget:hover > .ip > .ipAdminWidgetControls ._controls *,
+.ipMobile .ipWidget:hover > .ip > .ipAdminWidgetControls ._controls * {
   visibility: visible;
 }
 .ipAdminWidgetDragIcon {

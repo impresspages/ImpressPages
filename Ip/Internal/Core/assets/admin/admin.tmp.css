@@ -7973,16 +7973,16 @@ th {
   width: auto;
   z-index: 1020;
 }
-.ipAdminWidgetControls ._container {
+.ipAdminWidgetControls ._controls {
   margin-top: -11px;
   height: 11px;
   position: absolute;
   width: 100%;
 }
-.ipAdminWidgetControls ._container * {
+.ipAdminWidgetControls ._controls * {
   visibility: hidden;
 }
-.ipAdminWidgetControls ._container:hover * {
+.ipAdminWidgetControls ._controls:hover * {
   visibility: visible;
 }
 .ipAdminWidgetControls ._settings {
