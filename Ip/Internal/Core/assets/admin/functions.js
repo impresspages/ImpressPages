@@ -9,6 +9,7 @@
 
 function ipBrowseLink(callback) {
 
+    var selectedPageId = null;
     var $ = ip.jQuery,
         $modal = $('#ipBrowseLinkModal'),
         $iframe = $modal.find('.ipsPageSelectIframe');
@@ -18,11 +19,21 @@ function ipBrowseLink(callback) {
 
     $modal.find('.ipsConfirm').on('click', function () {
         var iframeWindow = $iframe.get(0).contentWindow;
-        var pageId = iframeWindow.angular.element(iframeWindow.$('.ipAdminPages')).scope().selectedPageId;
+        selectedPageId = iframeWindow.angular.element(iframeWindow.$('.ipAdminPages')).scope().selectedPageId;
+        $modal.modal('hide');
+    });
+
+    $modal.on('hide.bs.modal',function () {
+        if (!selectedPageId) {
+            callback('');
+            return;
+        }
+
+        //page selected. Get the URL
         $.ajax({
             type: 'GET',
             url: ip.baseUrl,
-            data: {aa: 'Core.getPageUrl', pageId: pageId},
+            data: {aa: 'Core.getPageUrl', pageId: selectedPageId},
             dataType: 'json',
             success: function (response) {
                 callback(response.url);
@@ -31,9 +42,12 @@ function ipBrowseLink(callback) {
                 if (ip.developmentEnvironment || ip.debugMode) {
                     alert('Server response: ' + response.responseText);
                 }
+                callback('');
             }
         });
     });
+
+
 }
 
 

@@ -21,7 +21,7 @@ class AdminController extends \Ip\Controller{
         }
         $page = ipContent()->getPage($pageId);
         if ($page) {
-            $url = $page->getUrlPath();
+            $url = $page->getLink();
         } else {
             $success = false;
         }
