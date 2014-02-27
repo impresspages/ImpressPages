@@ -45,7 +45,7 @@
                 });
 
                 // binding z-index fix for open dropdown
-                $widgetControls.find('.ipsContainer')
+                $widgetControls.find('.ipsControls')
                     .on('shown.bs.dropdown', function () {
                         // increase z-index on .ipsWidgetControls
                         $widgetControls.css('z-index', ($widgetControls.zIndex() + 1));

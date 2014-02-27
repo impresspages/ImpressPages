@@ -1057,11 +1057,11 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Gallery {
   margin-bottom: 0px;
 }
-.ipWidget-Gallery ul {
+.ipWidget-Gallery ._container {
   list-style: none;
   margin: 0 -10px;
 }
-.ipWidget-Gallery li {
+.ipWidget-Gallery ._item {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1070,7 +1070,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0 10px;
   width: 24.99%;
 }
-.ipWidget-Gallery li img {
+.ipWidget-Gallery ._image {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1078,13 +1078,13 @@ Move to separate stylesheet if invalid CSS is a problem.
   width: 100%;
 }
 @media screen and (max-width: 480px) {
-  .ipWidget-Gallery ul {
+  .ipWidget-Gallery ._container {
     margin: 0 -10px;
   }
-  .ipWidget-Gallery li {
-    width: 50%;
+  .ipWidget-Gallery ._item {
     margin-bottom: 20px;
     padding: 0 10px;
+    width: 50%;
   }
 }
 .ipWidget-Html {
