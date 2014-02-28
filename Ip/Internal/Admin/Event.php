@@ -20,8 +20,7 @@ class Event
 
         // Show admin toolbar if admin is logged in:
         if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
-            $query = ipRequest()->getQuery();
-            if (!ipRequest()->getQuery('ipDesignPreview') && !isset($query['disableAdminBar'])) {
+            if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminBar')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
             }
@@ -81,10 +80,9 @@ class Event
 
     public static function ipInit()
     {
-        $relativePath = ipRequest()->getRelativePath();
         $request = \Ip\ServiceLocator::request();
 
-        if (ipIsManagementState() || !empty($_GET['aa']) || !empty($_GET['admin'])) {
+        if (ipIsManagementState() || $request->getQuery('aa') || $request->getQuery('admin')) {
             $sessionLifetime = ini_get('session.gc_maxlifetime');
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
@@ -92,12 +90,10 @@ class Event
             ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
-        $getVariables = ipRequest()->getRequest();
-        if (isset($getVariables['safemode'])) {
-            $getVariables['safeMode'] = $getVariables['safemode'];
-        }
-        if (isset($getVariables['safeMode']) && \Ip\Internal\Admin\Backend::userId()) {
-            Model::setSafeMode($getVariables['safeMode']);
+        $safeMode = $request->getQuery('safeMode', $request->getQuery('safemode'));
+
+        if ($safeMode && \Ip\Internal\Admin\Backend::userId()) {
+            Model::setSafeMode($safeMode);
         }
     }
 
