@@ -178,6 +178,7 @@ class PageAssets
         $data = array(
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
+                'safeMode' => \Ip\Internal\Admin\Service::isSafeMode(),
                 'languageId' => ipContent()->getCurrentLanguage()->getId(),
                 'languageUrl' => ipContent()->getCurrentLanguage()->getLink(),
                 'theme' => ipConfig()->getRaw('theme'),
