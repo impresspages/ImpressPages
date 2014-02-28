@@ -93,6 +93,15 @@ class Fieldset
     }
 
     /**
+     * Get all HTML attributes of the field
+     *
+     * @return array Field HTML attributes
+     */
+    public function getAttributes() {
+        return $this->attributes;
+    }
+
+    /**
      * Add HTML attribute to input field. Alternative way to setAttributes method.
      *
      * @param string $name Attribute name
