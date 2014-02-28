@@ -53,6 +53,14 @@ var ipModuleForm;
                 //ipFormRepositoryFile JS will initialize itself
             }
 
+            // adding dumb submit element for 'enter' to trigger form submit
+            $('.ipsModuleForm').each(function(){
+                var $form = $(this);
+                if($form.find(":submit").length==0) {
+                    $form.append('<input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />');
+                }
+            });
+
         };
     };
 })(jQuery);
