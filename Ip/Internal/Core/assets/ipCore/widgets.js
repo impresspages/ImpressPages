@@ -62,7 +62,7 @@ jQuery.fn.ipWidgetMap = function() {
         var data = $map.data();
 
 
-        if (!$widget.data('initialized') || true) {
+        if (!$widget.data('initialized')) {
 
             //init map
             if (typeof(data.lat) == 'undefined') {
