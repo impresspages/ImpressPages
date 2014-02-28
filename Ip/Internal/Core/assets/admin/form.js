@@ -15,7 +15,7 @@ var ipModuleForm;
 
     ipModuleForm = new function () {
         this.init = function () {
-            //TODOX on some servers files are loaded in random order. Problem when plupload and file are loaded at the same time. Or color and spectrum.
+            //TODOX on some servers files are loaded in random order. Problem when plupload and file are loaded at the same time. Or color and spectrum. #loadFormFilesBetter
 
             //if interactive file upload input found, load file upload javascript
             if ($('.ipsModuleForm .ipsFileContainer').length && (typeof(plupload) === "undefined")) {

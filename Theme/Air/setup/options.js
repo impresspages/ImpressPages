@@ -1,10 +1,10 @@
 var ipDesignOptions = {
     textColor: function (value) {
-        $('.ipModuleForm .ipmLabel, .ipWidget-IpText td, .ipWidget-Text, .ipWidget-Faq').css('color', value);
+        $('.ipModuleForm .ipmLabel, .ipWidget-IpText td, .ipWidget-Text').css('color', value);
         ipDesign.reloadLessFiles(['theme']);
     },
     linkColor: function (value) {
-        $('footer a, .ipWidget-Text a, .ipWidget-Faq a, .ipWidget-File a').css('color', value);
+        $('footer a, .ipWidget-Text a, .ipWidget-File a').css('color', value);
         ipDesign.reloadLessFiles(['theme']);
     },
     bodyBackgroundColor: function (value) {
