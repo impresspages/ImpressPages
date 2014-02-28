@@ -64,41 +64,26 @@ abstract class Image extends \Ip\Transform
             return false;
         }
 
-        $memoryLimit = (string)ini_get('memory_limit');
+        $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
+
         if ('-1' == $memoryLimit) { // unlimited
             return true;
         }
 
-        $memoryLimitInBytes = 0;
+        $memoryRequired = memory_get_usage() + $memoryNeeded;
 
-        $units = array(
-            'k' => 0x400,
-            'm' => 0x100000,
-            'g' => 0x40000000);
-
-        if (!($len = strlen($memoryLimit))) {
-            return false;
-        }
-
-        $last = strtolower($memoryLimit[$len - 1]);
-        $memoryLimitInBytes = (int)$memoryLimit;
-        $memoryLimitInBytes *= isset($units[$last]) ? $units[$last] : 1;
-
-        $memoryRequired = memory_get_usage() + $memoryNeeded + $extra;
-
-        if ($memoryRequired < $memoryLimitInBytes) {
+        if ($memoryRequired < $memoryLimit) {
             return true;
         }
 
-        $megabytesNeeded = ceil($memoryRequired / 0x100000);
-        $stringNeeded = $megabytesNeeded . 'M';
-        $success = ini_set('memory_limit', $stringNeeded);
+        $megabytesNeeded = ceil($memoryRequired + $extra / 0x100000) . 'M';
+        $success = ini_set('memory_limit', $megabytesNeeded);
         if (!$success) {
-            throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $stringNeeded", array('memoryNeeded' => $stringNeeded, 'currentLimit' => ini_get('memory_limit')));
+            throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $megabytesNeeded", array('memoryNeeded' => $megabytesNeeded, 'currentLimit' => ini_get('memory_limit')));
         }
+
         return true;
     }
-
 
     /**
      * Takes memory required to process supplied image file and a bit more for future PHP operations.
