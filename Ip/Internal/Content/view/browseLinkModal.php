@@ -8,10 +8,13 @@
                     <h4 class="modal-title"><?php echo __('Select Link Target', 'ipAdmin') ?></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="ipSitemap"></div>
+                    <iframe class="ipsPageSelectIframe" style="overflow: hidden; width: 100%; height: 300px;" src="<?php echo ipConfig()->baseUrl() ?>?aa=Pages&disableAdminBar=1&disableActions=1">
+
+                    </iframe>
+<!--                    <div class="ipSitemap"></div>-->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary disabled" ><?php echo __('Select', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm" ><?php echo __('Select', 'ipAdmin') ?></button>
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'ipAdmin') ?></button>
                 </div>
             </div>
