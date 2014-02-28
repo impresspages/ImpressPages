@@ -11,6 +11,7 @@ class Fieldset
 {
     protected $fields;
     protected $label;
+    protected $attributes;
 
     public function __construct($label = null)
     {
@@ -76,5 +77,40 @@ class Fieldset
     {
         $this->label = $label;
     }
+
+    /**
+     * Get field attributes as HTML string
+     *
+     * @param $doctype \Ip\View doctype constant
+     * @return string
+     */
+    public function getAttributesStr($doctype) {
+        $answer = '';
+        foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
+            $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
+        }
+        return $answer;
+    }
+
+    /**
+     * Add HTML attribute to input field. Alternative way to setAttributes method.
+     *
+     * @param string $name Attribute name
+     * @param string $value Attribute value
+     *
+     */
+    public function addAttribute($name, $value) {
+        $this->attributes[$name] = $value;
+    }
+
+    /**
+     * Remove HTML attribute
+     *
+     * @param $name
+     */
+    public function removeAttribute($name) {
+        unset($this->attributes[$name]);
+    }
+
 
 }
