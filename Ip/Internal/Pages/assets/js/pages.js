@@ -116,6 +116,7 @@ var ipPagesResize;
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
             });
+            $('#page_' + $scope.selectedPageId + ' a').first().click();
 
         }
 
@@ -273,6 +274,9 @@ var ipPagesResize;
                     });
                 }
             } else {
+                getTreeDiv().off('loaded.jstree').on('loaded.jstree', function (e) {
+                    $('#page_' + $scope.selectedPageId + ' a').first().click();
+                });
                 getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
                 getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
                     var node = getJsTree().get_selected();

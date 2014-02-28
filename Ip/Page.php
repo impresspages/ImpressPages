@@ -35,6 +35,8 @@ class Page
     protected $createdAt;
     /** int - id of parent Element or null.*/
     protected $parentId;
+    /** int - unique string identificator of a page.*/
+    protected $alias;
 
     /** string - element type<br />
      * <br />
@@ -416,5 +418,26 @@ class Page
         $list = ipDb()->selectAll('page', 'id', array('parentId' => $this->id, 'isVisible' => 1, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
 
         return static::createList($list);
+    }
+
+
+    /**
+     * Get page alias - unique string identificator of the page
+     * @return string Page alias
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * Set the page alias
+     * @ignore
+     *
+     * @param $type string Page alias
+     */
+    public function setAlias($alias)
+    {
+        $this->type = $alias;
     }
 }
