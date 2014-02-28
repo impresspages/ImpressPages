@@ -1057,11 +1057,11 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Gallery {
   margin-bottom: 0px;
 }
-.ipWidget-Gallery ul {
+.ipWidget-Gallery ._container {
   list-style: none;
   margin: 0 -10px;
 }
-.ipWidget-Gallery li {
+.ipWidget-Gallery ._item {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1070,7 +1070,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   padding: 0 10px;
   width: 24.99%;
 }
-.ipWidget-Gallery li img {
+.ipWidget-Gallery ._image {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1078,13 +1078,13 @@ Move to separate stylesheet if invalid CSS is a problem.
   width: 100%;
 }
 @media screen and (max-width: 480px) {
-  .ipWidget-Gallery ul {
+  .ipWidget-Gallery ._container {
     margin: 0 -10px;
   }
-  .ipWidget-Gallery li {
-    width: 50%;
+  .ipWidget-Gallery ._item {
     margin-bottom: 20px;
     padding: 0 10px;
+    width: 50%;
   }
 }
 .ipWidget-Html {
@@ -1116,6 +1116,13 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-Title:first-child {
   padding-top: 0;
+}
+.ipWidget-Title a {
+  color: #000000;
+  text-decoration: inherit;
+}
+.ipWidget-Title a:hover {
+  text-decoration: underline;
 }
 /**
  * Dynamic, fluid, responsive, nested grid
@@ -2578,108 +2585,75 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 body {
   background-color: #ffffff;
-}
-.theme {
-  background-color: #ffffff;
   color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
+}
+a {
+  color: #019bd4;
+  text-decoration: none;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.wrapper {
+  background-color: #ffffff;
   margin: 0 auto;
   max-width: 1180px;
   padding: 0 10px;
   position: relative;
 }
-.theme .caption {
-  color: #000000;
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: normal;
-}
-.theme .signature {
-  color: #000000;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: normal;
-}
-.theme .note {
-  background-color: transparent;
-  border-left-color: #747474;
-  border-left-style: solid;
-  border-left-width: 2px;
-  color: #000000;
-  display: block;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: normal;
-  margin-bottom: 1em;
-  padding-left: 1em;
-}
-.theme .button {
-  background-color: #019bd4;
-  border-radius: 5px;
-  color: #ffffff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: bold;
-  padding: 0.5em 1em 0.5em 1em;
-  text-decoration: none;
-}
-.theme a {
-  color: #019bd4;
-  text-decoration: none;
-}
-.theme .left {
-  float: left;
-}
-.theme .right {
-  float: right;
-}
-.theme > header {
+.wrapper > header {
   border-bottom: 1px solid #000000;
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
-.theme > footer {
+.wrapper > footer {
   border-top: 1px solid #000000;
   margin-top: 20px;
   padding: 10px 0;
 }
-.theme .homerow {
+.wrapper > footer p {
+  margin: 0;
+}
+.wrapper > footer a:hover {
+  text-decoration: underline;
+}
+.homerow {
   clear: both;
   border-top: 1px solid #747474;
   padding-top: 20px;
 }
-.theme .side {
+.side {
   clear: left;
 }
 @media screen and (max-width: 979px) {
-  .main + .theme .side {
+  .main + .side {
     border-top: 1px solid #747474;
     padding-top: 20px;
   }
 }
-.theme .sidenav {
+.sidenav {
   margin-bottom: 0;
 }
-.theme .sidenav nav > ul {
+.sidenav nav > ul {
   margin-bottom: 40px;
 }
-.theme .logo {
+.logo {
   margin-top: 20px;
   display: block;
   float: left;
 }
-.theme .logo a {
+.logo a {
   color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
   font-weight: bold;
 }
-.theme .homeHeadline {
+.homeHeadline {
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 60px;
   font-weight: bold;
@@ -2687,26 +2661,20 @@ body {
   text-align: center;
 }
 @media screen and (max-width: 479px) {
-  .theme .homeHeadline {
+  .homeHeadline {
     font-size: 40px;
   }
 }
-.theme .homeDescription {
+.homeDescription {
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
   margin-bottom: 20px;
 }
-.theme .homeDescription p {
+.homeDescription p {
   margin-bottom: 20px;
 }
-.theme .homeDescription p:last-child {
+.homeDescription p:last-child {
   margin-bottom: 0;
-}
-.theme > footer p {
-  margin: 0;
-}
-.theme > footer a:hover {
-  text-decoration: underline;
 }
 .currentPage {
   font-weight: bold;
