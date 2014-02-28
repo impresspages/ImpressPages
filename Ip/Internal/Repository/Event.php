@@ -9,7 +9,7 @@ namespace Ip\Internal\Repository;
 
 class Event
 {
-    public static function ipInit()
+    public static function ipBeforeController()
     {
 
         if (ipIsManagementState()) {

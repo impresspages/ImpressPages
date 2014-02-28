@@ -5,7 +5,7 @@ namespace Plugin\CoreCompiler;
 
 class Event
 {
-    public static function ipInit()
+    public static function ipBeforeController()
     {
         $model = new Model();
         $model->generateAdminJS();

@@ -224,6 +224,15 @@ class Application
             }
         }
 
+        $eventInfo = array(
+            'plugin' => $plugin,
+            'controller' => $controller,
+            'action' => $action,
+            'page' => !empty($routeAction['page']) ? $routeAction['page'] : null,
+        );
+
+        ipEvent('ipBeforeController', $eventInfo);
+
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");

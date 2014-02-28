@@ -7,22 +7,6 @@ use Ip\WidgetController;
 
 class Event
 {
-    public static function ipInitFinished()
-    {
-        // Add widgets
-        //TODO cache found assets to decrease file system usage
-        $widgets = Service::getAvailableWidgets();
-
-        if (ipIsManagementState()) {
-            foreach ($widgets as $widget) {
-                if (!$widget->isCore()) { //core widget assets are included automatically in one minified file
-                    static::addWidgetAssets($widget);
-                }
-            }
-        }
-
-    }
-
     protected static function addWidgetAssets(\Ip\WidgetController $widget)
     {
         $pluginAssetsPath = $widget->getWidgetDir() . \Ip\Application::ASSETS_DIR . '/';
@@ -54,7 +38,7 @@ class Event
         }
     }
 
-    public static function ipInit()
+    public static function ipBeforeController()
     {
 
         $ipUrlOverrides = ipConfig()->getRaw('urlOverrides');
@@ -63,6 +47,18 @@ class Event
         }
 
         ipAddJsVariable('ipUrlOverrides', $ipUrlOverrides);
+
+        // Add widgets
+        //TODO cache found assets to decrease file system usage
+        $widgets = Service::getAvailableWidgets();
+
+        if (ipIsManagementState()) {
+            foreach ($widgets as $widget) {
+                if (!$widget->isCore()) { //core widget assets are included automatically in one minified file
+                    static::addWidgetAssets($widget);
+                }
+            }
+        }
     }
 
     public static function ipAdminLoginSuccessful($data)

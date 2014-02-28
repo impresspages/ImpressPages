@@ -9,7 +9,7 @@ namespace Ip\Internal\Design;
 
 class Event
 {
-    public static function ipInit()
+    public static function ipBeforeController()
     {
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {

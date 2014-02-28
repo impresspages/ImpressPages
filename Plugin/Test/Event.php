@@ -18,7 +18,7 @@ class Event
 //    }
 
 
-    public static function ipInit()
+    public static function ipBeforeController()
     {//var_dump( $_SERVER);exit;
         if (ipRequest()->getQuery('testHmvc')) {
             $request = new \Ip\Request();

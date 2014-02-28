@@ -6,27 +6,6 @@ namespace Ip\Internal\Admin;
 
 class Event
 {
-
-
-    public static function ipInitFinished()
-    {
-        //show admin submenu if needed
-        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
-            $submenu = Submenu::getSubmenuItems();
-            if ($submenu) {
-                ipResponse()->setLayoutVariable('submenu', $submenu);
-            }
-        }
-
-        // Show admin toolbar if admin is logged in:
-        if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
-            if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminBar')) {
-                ipAddJs('Ip/Internal/Admin/assets/admin.js');
-                ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
-            }
-        }
-    }
-
     protected static function getAdminNavbarHtml()
     {
         $requestData = \Ip\ServiceLocator::request()->getRequest();
@@ -78,7 +57,7 @@ class Event
         return $html;
     }
 
-    public static function ipInit()
+    public static function ipBeforeController()
     {
         $request = \Ip\ServiceLocator::request();
 
@@ -94,6 +73,22 @@ class Event
 
         if ($safeMode && \Ip\Internal\Admin\Backend::userId()) {
             Model::setSafeMode($safeMode);
+        }
+
+        //show admin submenu if needed
+        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+            $submenu = Submenu::getSubmenuItems();
+            if ($submenu) {
+                ipResponse()->setLayoutVariable('submenu', $submenu);
+            }
+        }
+
+        // Show admin toolbar if admin is logged in:
+        if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
+            if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminBar')) {
+                ipAddJs('Ip/Internal/Admin/assets/admin.js');
+                ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
+            }
         }
     }
 
