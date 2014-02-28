@@ -998,44 +998,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget-Divider.ipSkin-space {
   height: 25px;
 }
-.ipWidget-Faq {
-  padding-left: 30px;
-}
-.ipWidget-Faq .ipwQuestion {
-  color: #000000;
-  cursor: pointer;
-  font-family: Georgia, Times, "Times New Roman", serif;
-  font-size: 18px;
-  text-decoration: none;
-}
-.ipWidget-Faq .ipwQuestion:hover {
-  text-decoration: underline;
-}
-.ipWidget-Faq .ipwQuestion:hover:before {
-  background-color: #f3f3f3;
-}
-.ipWidget-Faq .ipwQuestion:before {
-  border: 1px solid #000000;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  color: #000000;
-  content: '?';
-  display: block;
-  margin: 3px 0 0 -30px;
-  padding: 1px 2px;
-  position: absolute;
-}
-.ipWidget-Faq .ipwQuestion .ipwAnswer {
-  margin-top: 5px;
-}
-.ipWidget-Faq .ipwQuestion .ipwCollapsed .ipwAnswer {
-  display: none;
-}
-.ipWidget-Faq .ipwExpanded .ipwQuestion:before {
-  background-color: #000000;
-  color: #ffffff;
-}
 .ipWidget-File ul {
   list-style: none;
   margin-left: 0;

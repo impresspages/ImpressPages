@@ -86,7 +86,7 @@ class Config
         return array_key_exists($name, $this->rawConfig) ? $this->rawConfig[$name] : null;
     }
 
-    //TODOXX refactor to removeDb
+    //TODOXX refactor to removeDb #removeSetRaw
     public function _setRaw($name, $value)
     {
         if ($name == 'db' && $value !== null) {

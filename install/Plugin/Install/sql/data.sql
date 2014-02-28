@@ -27,8 +27,9 @@ INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
 ('Image',   40),
 ('Gallery', 50),
 ('File',    60),
-('Html',    70),
-('Faq',     80);
+('Html',    80),
+('Video',   90),
+('Map',    100);
 
 
 

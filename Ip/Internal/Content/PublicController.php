@@ -81,7 +81,6 @@ class PublicController extends \Ip\Controller
             ipAddJs('Ip/Internal/Content/assets/management/drag.js');
 
             ipAddJs('Ip/Internal/Content/Widget/Columns/assets/Columns.js');
-            ipAddJs('Ip/Internal/Content/Widget/Faq/assets/Faq.js');
             ipAddJs('Ip/Internal/Content/Widget/File/assets/File.js');
             ipAddJs('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFile.js');
             ipAddJs('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFileContainer.js');

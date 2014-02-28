@@ -16,7 +16,6 @@ class Filter
         $widgets['Gallery'] = new \Ip\Internal\Content\Widget\Gallery\Controller('Gallery', 'Content', 1);
         $widgets['File'] = new \Ip\Internal\Content\Widget\File\Controller('File', 'Content', 1);
         $widgets['Html'] = new \Ip\Internal\Content\Widget\Html\Controller('Html', 'Content', 1);
-        //$widgets['Faq'] = new \Ip\Internal\Content\Widget\Faq\Controller('Faq', 'Content', 1);
         $widgets['Columns'] = new \Ip\Internal\Content\Widget\Columns\Controller('Columns', 'Content', 1);
         $widgets['Form'] = new \Ip\Internal\Content\Widget\Form\Controller('Form', 'Content', 1);
         $widgets['Video'] = new \Ip\Internal\Content\Widget\Video\Controller('Video', 'Content', 1);
