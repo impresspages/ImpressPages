@@ -9,7 +9,7 @@ namespace Ip\Internal\Core;
 
 class Event
 {
-    public static function ipInit()
+    public static function ipBeforeController()
     {
         if (ipConfig()->isDebugMode()) {
             ipAddJs('Ip/Internal/Core/assets/ipCore/jquery.js', null, 10); // default, global jQuery

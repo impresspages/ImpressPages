@@ -9,7 +9,7 @@ namespace Ip\Internal\InlineManagement;
 
 class Event
 {
-    public static function ipInit()
+    public static function ipBeforeController()
     {
 
         if (ipIsManagementState()) {
