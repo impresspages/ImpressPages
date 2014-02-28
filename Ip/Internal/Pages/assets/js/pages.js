@@ -28,6 +28,7 @@ var ipPagesResize;
         $scope.languageList = languageList;
         $scope.menuList = menuList;
         $scope.initialized = false;
+        $scope.allowActions = !getQuery('disableActions');
 
         $scope.$on('PathChanged', function (event, path) {
             var menuName = getHashParams().menu;
@@ -51,7 +52,7 @@ var ipPagesResize;
                 });
             }
 
-            if (menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
+            if (!$scope.activeMenu || menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
                 var newActiveMenu = null;
                 $.each(menuList, function (key, value) {
                     if (value.alias == menuName && value.languageCode == $scope.activeLanguage.code) {
@@ -575,6 +576,13 @@ var ipPagesResize;
                 hashParams[d(e[1])] = d(e[2]);
 
             return hashParams;
+        }
+
+        function getQuery(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
         }
 
         var getFirstMenuOfLanguage = function (language) {

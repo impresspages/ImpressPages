@@ -20,7 +20,21 @@ ipTinyMceConfig = function() {
         remove_script_host : false,
         relative_urls : false,
 
-        paste_preprocess : function(pl, o) {
+        file_browser_callback: function(field_name, url, type, win) {
+            var $input = $('#' + field_name);
+            var $dialog = $input.closest('.mce-window');
+            console.log('open dialog');
+            $('#mce-modal-block').addClass('hidden');
+            $dialog.addClass('hidden');
+
+            ipBrowseLink(function(link) {
+                $('#mce-modal-block').removeClass('hidden');
+                $dialog.removeClass('hidden');
+                $input.val(link);
+            })
+        },
+
+        paste_preprocess: function(pl, o) {
             ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note', 'button'));
         }
     }

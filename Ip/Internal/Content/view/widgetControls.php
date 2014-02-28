@@ -1,6 +1,6 @@
 <div class="ip">
     <div class="ipAdminWidgetControls ipsWidgetControls">
-        <div class="_container ipsContainer clearfix">
+        <div class="_controls ipsControls clearfix">
             <?php if (!empty($optionsMenu)) { ?>
                 <button class="btn btn-controls btn-xs _settings" data-toggle="dropdown" title="<?php _e('Settings', 'ipAdmin'); ?>"><i class="fa fa-cog"></i></button>
                 <ul class="dropdown-menu" role="menu">

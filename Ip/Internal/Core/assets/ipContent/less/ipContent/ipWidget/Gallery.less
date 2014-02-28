@@ -1,12 +1,12 @@
 .ipWidget-Gallery {
     margin-bottom: (@ipWidgetSpace - @ipGallerySpace); // fixing bottom margin between widgets
 
-    ul {
+    ._container {
         list-style: none;
         margin: 0 -(@ipGallerySpace / 2); // hack to keep images visually from border to border
     }
 
-    li {
+    ._item {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
@@ -14,26 +14,28 @@
         margin-bottom: @ipGallerySpace;
         padding: 0 (@ipGallerySpace / 2);
         width: (100% / @ipGalleryColumns - 0.01%); //- 0.01% fixes image dragging bug on chrome
+    }
 
-        img {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box; // for width to make sense if padding/borders are added
-            display: block;
-            width: 100%; // image will always be same size as column width
-        }
+    ._link {}
+
+    ._image {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box; // for width to make sense if padding/borders are added
+        display: block;
+        width: 100%; // image will always be same size as column width
     }
 
     // adapting to small screens
     @media screen and (max-width: @ipGalleryScreenSmall){
-        ul {
+        ._container {
             margin: 0 -(@ipGallerySpaceSmall / 2);
         }
 
-        li {
-            width: (100% / @ipGalleryColumnsSmall);
+        ._item {
             margin-bottom: @ipGallerySpaceSmall;
             padding: 0 (@ipGallerySpaceSmall / 2);
+            width: (100% / @ipGalleryColumnsSmall);
         }
     }
 }

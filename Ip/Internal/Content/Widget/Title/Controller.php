@@ -48,13 +48,20 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
     {
+        $data['showLink'] = false;
         if (!empty($data['link']) && !preg_match('/^((http|https):\/\/)/i', $data['link'])) {
             $data['link'] = 'http://' . $data['link'];
+
+            // hiding link in administration
+            if (!ipIsManagementState()) {
+                $data['showLink'] = true;
+            }
         }
 
         if (empty($data['level']) || (int)$data['level'] < 1) {
             $data['level'] = 1;
         }
+
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
