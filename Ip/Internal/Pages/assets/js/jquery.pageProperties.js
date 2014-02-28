@@ -43,6 +43,15 @@
         var $this = this;
         $this.html(response.html);
 
+        $this.find('.ipsFieldsetSeo .form-group').addClass('hidden');
+        $this.find('.ipsFieldsetSeo legend').off().on('click', function () {
+            $this.find('.ipsFieldsetSeo .form-group').toggleClass('hidden');
+        });
+
+        $this.find('.ipsFieldsetOther .form-group').addClass('hidden');
+        $this.find('.ipsFieldsetOther legend').off().on('click', function () {
+            $this.find('.ipsFieldsetOther .form-group').toggleClass('hidden');
+        });
 
         $this.find('form').validator(validatorConfig);
         $this.find('form').submit(function(e) {
