@@ -22,8 +22,13 @@ var IpWidget_Html;
 
             var container = this.widgetObject.find('.ipsContainer');
 
-            if (this.data.html) { // TODOXX check if not safe mode #129
-                container.html(this.data.html);
+            if (this.data.html) {
+                if (!ip.safeMode) {
+                    container.html(this.data.html);
+                } else {
+                    container.html('<p>HTML widget content is hidden in safe mode.</p>');
+                }
+
             }
 
             var context = this; // set this so $.proxy would work below
