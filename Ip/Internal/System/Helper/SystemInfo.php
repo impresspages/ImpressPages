@@ -26,7 +26,7 @@ class SystemInfo
         $limit = static::getMemoryLimit();
 
         if ($limit > 0) {
-            return floor($limit / (1 >> 20));
+            return floor($limit / 1048576);
         }
 
         return $limit;
