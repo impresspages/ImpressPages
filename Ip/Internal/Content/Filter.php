@@ -119,6 +119,16 @@ class Filter
 
     public static function ipAdminNavbarButtons($buttons, $info)
     {
+        $breadcrumb = ipContent()->getBreadcrumb();
+        if (!empty($breadcrumb[0])) {
+            $rootPage = $breadcrumb[0];
+            $menu = ipContent()->getPage($rootPage->getParentId());
+            $alias = $menu->getAlias();
+        } else {
+            $alias = '';
+        }
+
+
         if (ipContent()->getCurrentPage()) {
             $buttons[] = array(
                 'text' => __('Preview', 'ipAdmin', false),
@@ -132,7 +142,7 @@ class Filter
                 'hint' => __('Page settings', 'ipAdmin', false),
                 'class' => 'ipsAdminPageSettings',
                 'faIcon' => 'fa-gear',
-                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getCode() . '&menu=//todox&page=' . ipContent()->getCurrentPage()->getId()
+                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage()->getId()
             );
         }
 
