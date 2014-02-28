@@ -52,7 +52,7 @@ var ipPagesResize;
                 });
             }
 
-            if (menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
+            if (!$scope.activeMenu || menuName && menuName != $scope.activeMenu.alias || $scope.activeLanguage.code != $scope.activeMenu.languageCode) {
                 var newActiveMenu = null;
                 $.each(menuList, function (key, value) {
                     if (value.alias == menuName && value.languageCode == $scope.activeLanguage.code) {
