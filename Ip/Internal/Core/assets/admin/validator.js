@@ -19,7 +19,7 @@ var ipValidator;
             var config = {
                 'lang' : ip.languageUrl,
                 //'errorClass' : 'ipmControlError',
-                'messageClass' : 'ipmErrorMessage',
+                'messageClass' : 'hidden', //hide default jqueryTools absolutely positioned error message
                 //'position' : 'bottom left',
                 //'offset' : [-3, 0],
                 'onFail' : function(e, errors) {
