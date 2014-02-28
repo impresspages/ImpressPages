@@ -113,7 +113,7 @@ class Model
         $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
 
 
-        $check['type'] = (integer)ini_get('memory_limit') < 100 ? 'warning' : 'success';
+        $check['type'] = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 ? 'warning' : 'success';
 
         $requirements[] = $check;
 
