@@ -19,6 +19,7 @@ class Fieldset
             $this->setLabel($label);
         }
         $this->fields = array();
+        $this->attributes = array();
     }
 
     /**
