@@ -22,7 +22,7 @@ var IpWidget_Video;
 
             var container = this.widgetObject.find('.ipsContainer');
 
-            if (this.data.html) { // TODOXX check if not safe mode #129
+            if (this.data.html) {
                 container.html(this.data.html);
             }
 
