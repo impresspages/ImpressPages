@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 
     // Map widget
-    if ($('.ipWidget-Form').length) {
+    if ($('.ipWidget-Map').length) {
         $('body').on('ipGoogleMapsLoaded', function () {
             $('.ipWidget-Map').ipWidgetMap();
         });
