@@ -159,30 +159,6 @@ class Helper
 
         $field = new \Ip\Form\Field\Text(
             array(
-                'name' => 'metaTitle',
-                'label' => __('Meta title', 'ipAdmin', false),
-                'value' => $page->getMetaTitle()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'keywords',
-                'label' => __('Keywords', 'ipAdmin', false),
-                'value' => $page->getKeywords()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Textarea(
-            array(
-                'name' => 'description',
-                'label' => __('Description', 'ipAdmin', false),
-                'value' => $page->getDescription()
-            ));
-        $form->addField($field);
-
-        $field = new \Ip\Form\Field\Text(
-            array(
                 'name' => 'urlPath',
                 'label' => __('URL path', 'ipAdmin', false),
                 'value' => $page->getUrlPath(),
@@ -216,6 +192,40 @@ class Helper
             ));
         $form->addField($field);
 
+        $fieldset = new \Ip\Form\Fieldset(__('Seo', 'ipAdmin', FALSE));
+        $fieldset->addAttribute('class', 'ipsFieldsetSeo');
+        $form->addFieldset($fieldset);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'metaTitle',
+                'label' => __('Meta title', 'ipAdmin', false),
+                'value' => $page->getMetaTitle()
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'keywords',
+                'label' => __('Keywords', 'ipAdmin', false),
+                'value' => $page->getKeywords()
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Textarea(
+            array(
+                'name' => 'description',
+                'label' => __('Description', 'ipAdmin', false),
+                'value' => $page->getDescription()
+            ));
+        $form->addField($field);
+
+
+        $fieldset = new \Ip\Form\Fieldset(__('Other', 'ipAdmin', FALSE));
+        $fieldset->addAttribute('class', 'ipsFieldsetOther');
+        $form->addFieldset($fieldset);
+
+
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'createdAt',
@@ -231,6 +241,9 @@ class Helper
                 'value' => date('Y-m-d', strtotime($page->getUpdatedAt()))
             ));
         $form->addField($field);
+
+        $fieldset = new \Ip\Form\Fieldset();
+        $form->addFieldset($fieldset);
 
         $field = new \Ip\Form\Field\Submit(
             array(
