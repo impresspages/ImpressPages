@@ -32,4 +32,36 @@ class SystemInfo
         return $limit;
     }
 
+    /**
+     * Allocates memory (if required).
+     *
+     * @param int $bytesRequired
+     * @param int $extra in bytes
+     * @return bool|null true if enough memory, false if could not allocate, null if there is no way to know
+     */
+    public static function allocateMemory($bytesRequired, $extra = 0x1000000)  //~10Mb extra
+    {
+        if (!function_exists('memory_get_usage')) {
+            return null; // We can't calculate how much memory should be allocated
+        }
+
+        $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
+        if ('-1' == $memoryLimit) { // unlimited
+            return true;
+        }
+
+        $memoryRequired = memory_get_usage() + $bytesRequired;
+        if ($memoryRequired < $memoryLimit) {
+            return true;
+        }
+
+        $megabytesNeeded = ceil($memoryRequired + $extra / 0x100000) . 'M';
+        if ( ! ini_set('memory_limit', $megabytesNeeded)) {
+            ipLog()->warning('Could not allocate enough memory. Please increase memory limit to {memoryNeeded}', array('memoryNeeded' => $megabytesNeeded));
+            return false;
+        }
+
+        return true;
+    }
+
 } 

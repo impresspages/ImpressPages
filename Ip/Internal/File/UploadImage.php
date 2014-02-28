@@ -324,22 +324,9 @@ class UploadImage{
         if(!isset($image_info['bits']) || !$image_info['bits'])
         $image_info['bits'] = 8;
 
-        $memoryNeeded = round(($image_info[0] * $image_info[1] * $image_info['bits'] * $image_info['channels'] / 8 + Pow(2, 16)) * 1.65);
+        $bytesRequired = round(($image_info[0] * $image_info[1] * $image_info['bits'] * $image_info['channels'] / 8 + Pow(2, 16)) * 1.65);
 
-        $Mb = 1048576;
-        $isEnoughMemory = true;
-        if (function_exists('memory_get_usage')) {
-            $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
-            $memoryLimitNeeded = memory_get_usage() + $memoryNeeded;
-
-            if ($memoryLimitNeeded > $memoryLimit) {
-                if (!ini_set('memory_limit', ceil($memoryLimitNeeded / $Mb + 10) . 'M')) {
-                    $isEnoughMemory = false;
-                }
-            }
-        }
-
-        return $isEnoughMemory;
+        return \Ip\Internal\System\Helper\SystemInfo::allocateMemory($bytesRequired);
     }
 
 }

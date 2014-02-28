@@ -247,24 +247,10 @@ class ImageHelper{
             $imageInfo[1] = 1;
         }
 
-        $Mb = 1048576;
         $a64kb = 65536;
+        $bytesNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $a64kb) * 1.65);
 
-        $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $a64kb) * 1.65);
-
-        $isEnoughMemory = true;
-        if (function_exists('memory_get_usage')) {
-            $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
-            $memoryLimitNeeded = memory_get_usage() + $memoryNeeded;
-
-            if ($memoryLimitNeeded > $memoryLimit) {
-                if (!ini_set('memory_limit', ceil($memoryLimitNeeded / $Mb + 10) . 'M')) {
-                    $isEnoughMemory = false;
-                }
-            }
-        }
-
-        return $isEnoughMemory;
+        return \Ip\Internal\System\Helper\SystemInfo::allocateMemory($bytesNeeded);
     }
 
 

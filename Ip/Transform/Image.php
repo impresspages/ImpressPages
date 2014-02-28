@@ -48,41 +48,9 @@ abstract class Image extends \Ip\Transform
     protected function createEmptyImage($width, $height)
     {
         $trueColor = 1;
-        $this->allocateMemory($width*$height*(2.2+($trueColor*3)));
+
+        \Ip\Internal\System\Helper\SystemInfo::allocateMemory($width*$height*(2.2+($trueColor*3)));
         return imagecreatetruecolor($width, $height);
-    }
-
-    /**
-     * @param $memoryNeeded in bytes
-     * @param int $extra in bytes
-     * @throws \Ip\Exception\Repository\Transform
-     * @return bool
-     */
-    protected function allocateMemory($memoryNeeded, $extra = 0x1000000)  //~10Mb extra
-    {
-        if (!function_exists('memory_get_usage')) {
-            return false;
-        }
-
-        $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
-
-        if ('-1' == $memoryLimit) { // unlimited
-            return true;
-        }
-
-        $memoryRequired = memory_get_usage() + $memoryNeeded;
-
-        if ($memoryRequired < $memoryLimit) {
-            return true;
-        }
-
-        $megabytesNeeded = ceil($memoryRequired + $extra / 0x100000) . 'M';
-        $success = ini_set('memory_limit', $megabytesNeeded);
-        if (!$success) {
-            throw new \Ip\Exception\Repository\Transform("Not enough memory. Please increase memory limit to $megabytesNeeded", array('memoryNeeded' => $megabytesNeeded, 'currentLimit' => ini_get('memory_limit')));
-        }
-
-        return true;
     }
 
     /**
@@ -111,7 +79,7 @@ abstract class Image extends \Ip\Transform
         }
 
         $memoryNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + Pow(2, 16)) * 1.65);
-        $success = $this->allocateMemory($memoryNeeded);
+        $success = \Ip\Internal\System\Helper\SystemInfo::allocateMemory($memoryNeeded);
 
         return $success;
     }
