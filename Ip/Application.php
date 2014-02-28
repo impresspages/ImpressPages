@@ -283,8 +283,6 @@ class Application
      */
     public function modulesInit()
     {
-        ipEvent('ipInit');
-
         $translator = \Ip\ServiceLocator::translator();
         $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
@@ -298,6 +296,7 @@ class Application
             $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
         }
 
+        ipEvent('ipInit');
     }
 
     /**
