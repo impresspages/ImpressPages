@@ -82,7 +82,7 @@ var ipContent;
                     var $notEmptyColumn = $notEmptyColumns[0];
                     $.each($notEmptyColumn.find('.ipWidget'), function (key, widget) {
                         var $widget = $(widget);
-                        ipContent.moveWidget($widget.data('widgetinstanceid'), columnsWidgetPosition + key, columnsWidgetBlockName);
+                        moveWidgetHelper($widget.data('widgetinstanceid'), columnsWidgetPosition + key, columnsWidgetBlockName, null);
                     });
                 }
 
@@ -435,6 +435,26 @@ var ipContent;
 
 
         this.moveWidget = function (instanceId, position, block, callback) {
+            var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
+            moveWidgetHelper(instanceId, position, block, function (newInstanceId) {
+                var $columns = $originalBlock.closest('.ipWidget-Columns');
+                if ($columns.length) {
+                    deleteEmptyColumns($columns.data('widgetinstanceid'), function() {
+                        if (callback) {
+                            callback(response.newInstanceId);
+                        }
+                        return;
+                    });
+                }
+
+                if (callback) {
+                    callback(newInstanceId);
+                }
+            });
+        };
+
+
+        var moveWidgetHelper = function (instanceId, position, block, callback) {
             var data = Object();
             data.aa = 'Content.moveWidget';
             data.securityToken = ip.securityToken;
@@ -476,15 +496,7 @@ var ipContent;
                     if ($originalBlock.children('.ipWidget').length == 0) {
                         $originalBlock.addClass('ipbEmpty');
                     }
-                    var $columnsWidget = $originalBlock.closest('.ipWidget-Columns');
-                    if ($columnsWidget.length) {
-                        deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
-                            if (callback) {
-                                callback(response.newInstanceId);
-                            }
-                            return;
-                        });
-                    }
+
 
                     if (callback) {
                         callback(response.newInstanceId);
@@ -492,10 +504,12 @@ var ipContent;
                 },
                 dataType : 'json'
             });
-        };
+        }
 
 
 
     };
+
+
 
 })(ip.jQuery);
