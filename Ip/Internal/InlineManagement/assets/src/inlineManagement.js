@@ -8,7 +8,7 @@
 
     $(document).ready(function () {
         //$('.ipModuleInlineManagement').ipModuleInlineManagement();
-        $('.ipModuleInlineManagement.ipmLogo').ipModuleInlineManagementLogo();
+        $('.ipsModuleInlineManagementLogo').ipModuleInlineManagementLogo();
         $('.ipModuleInlineManagement.ipmText').ipModuleInlineManagementText();
         $('.ipModuleInlineManagement.ipmImage').ipModuleInlineManagementImage();
     });

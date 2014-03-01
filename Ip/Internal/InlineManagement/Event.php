@@ -24,7 +24,7 @@ class Event
                 ipAddJs('Ip/Internal/InlineManagement/assets/inlineManagement.min.js');
             }
 
-            ipAddJsVariable('ipModInlineManagementControls', ipView('view/management/controls.php')->render());
+            ipAddJsVariable('ipModuleInlineManagementControls', ipView('view/management/controls.php')->render());
 
             ipAddJs('Ip/Internal/Core/assets/admin/plupload/plupload.full.js');
             ipAddJs('Ip/Internal/Core/assets/admin/plupload/plupload.browserplus.js');
