@@ -13,6 +13,6 @@ var ipDesignOptions = {
     },
     backgroundColor: function (value) {
         'use strict';
-        $('.theme').css('background-color', value);
+        $('.wrapper').css('background-color', value);
     }
 };
