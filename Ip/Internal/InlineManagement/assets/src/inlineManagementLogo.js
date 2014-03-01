@@ -29,31 +29,14 @@
                 }
             });
         }
-
-
-
-
-
-
     };
 
-
-
-
-
-
-
-
-    var updateType = function () {
+    var updateType = function (e) {
         var $this = this;
-        var $popup = $('#ipInlineLogoModal');
-        if ($this.data('typeSelectText').is(':checked')) {
-            $this.data('textManagement').show();
-            $this.data('imageManagement').hide();
+        var $popup = $('.ipsModuleInlineManagementLogoModal');
+        if ($popup.find('.active a[data-logotype]').data('logotype') == 'text') {
+            // do nothing
         } else {
-            $this.data('textManagement').hide();
-            $this.data('imageManagement').show();
-
             if (!$this.data('ipInlineManagementLogo').imageUploadInitialized) {
                 var $imageUploader = $popup.find('.ipsImage');
                 $imageUploader.ipUploadImage($this.data('ipUploadImageOptions'));
@@ -71,16 +54,13 @@
         event.preventDefault();
         var $this = $(this);
 
-        $('#ipInlineLogoModal').remove();
-
+        $('.ipsModuleInlineManagementLogoModal').remove();
 
         var $this = this;
         var data = Object();
         data.aa = 'InlineManagement.getManagementPopupLogo';
         data.securityToken = ip.securityToken;
         data.cssClass = $this.data('cssclass');
-
-
 
         $.ajax({
             type : 'POST',
@@ -90,13 +70,12 @@
             success : popupContentResponse,
             dataType : 'json'
         });
-
     };
 
     var confirm = function (event) {
         event.preventDefault();
         var $this = $(this);
-        var $popup = $('#ipInlineLogoModal');
+        var $popup = $('.ipsModuleInlineManagementLogoModal');
         $this.trigger('ipInlineManagement.logoConfirm');
         var data = Object();
         data.aa = 'InlineManagement.saveLogo';
@@ -104,7 +83,7 @@
 
         data.cssClass = $this.data('ipInlineManagementLogo').cssClass;
 
-        if ($this.data('typeSelectText').is(':checked')) {
+        if ($popup.find('.active a[data-logotype]').data('logotype') == 'text') {
             data.type = 'text';
         } else {
             data.type = 'image';
@@ -137,8 +116,6 @@
             }
         }
 
-
-
         //SAVE
         $.ajax({
             type : 'POST',
@@ -150,11 +127,9 @@
         });
     };
 
-
-
     var confirmResponse = function (answer) {
         var $this = this;
-        var $modal = $('#ipInlineLogoModal');
+        var $modal = $('.ipsModuleInlineManagementLogoModal');
         if (answer && answer.status == 'success') {
             $modal.modal('hide');
 
@@ -165,13 +140,12 @@
 
             }
             $this.trigger('ipInlineManagement.logoConfirm');
-
         }
     };
 
     var cancel = function () {
         var $this = this;
-        $this.show();
+        $this.removeClass('hidden');
         $this.data('previewText').remove();
         $this.data('previewImage').remove();
         var data = $this.data('ipInlineManagementLogo');
@@ -180,38 +154,32 @@
         $this.trigger('ipInlineManagement.logoCancel');
     }
 
-
     var popupContentResponse = function(response) {
-
         var $this = this;
 
         var $responseHtml = $(response.html);
-        $('body').append($responseHtml);
-        var $modal = $responseHtml.find('#ipInlineLogoModal');
+        $(document.body).append($responseHtml);
+        var $modal = $responseHtml.find('.ipsModuleInlineManagementLogoModal');
         $modal.modal();
 
-
-        $this.data('typeSelectText', $modal.find('.ipmTypeSelect input[value=text]'));
-        $this.data('typeSelectImage', $modal.find('.ipmTypeSelect input[value=image]'));
-        $this.data('textManagement', $modal.find('.ipmTextManagement'));
-        $this.data('imageManagement', $modal.find('.ipmImageManagement'));
-        $this.data('fontSelect', $modal.find('.ipmFontSelect'));
-        $this.data('colorPicker', $modal.find('.ipmColorPicker'));
-        $this.data('logoText', $modal.find('.ipmLogoText'));
+        $this.data('fontSelect', $modal.find('.ipsFontSelect'));
+        $this.data('colorPicker', $modal.find('.ipsColorPicker'));
+        $this.data('logoText', $modal.find('.ipsLogoText'));
         $this.data('previewText', $(response.textPreview));
         $this.data('previewImage', $(response.imagePreview));
         $this.after($this.data('previewText'));
         $this.after($this.data('previewImage'));
-        $this.data('previewImage').hide();
-        $this.data('previewText').hide();
+        $this.data('previewImage').addClass('hidden');
+        $this.data('previewText').addClass('hidden');
 
-        var curColor = $this.data('previewText').find('a').css('color');
-        var curText = $.trim($this.data('previewText').find('a').text());
-        var curFont = $this.data('previewText').find('a').css('font-family');
-        $this.data('previewText').find('a').css('font-family', ''); //remove font
-        var defaultFont = $this.data('previewText').find('a').css('font-family'); //get default font
-        $this.data('previewText').find('a').css('font-family', curFont); //restore font
-        $modal.find('ul li.ipmDefaultFont').css('font-family', defaultFont);
+        var $anchor = $this.data('previewText').find('a');
+        var curColor = $anchor.css('color');
+        var curText = $.trim($anchor.text());
+        var curFont = $anchor.css('font-family');
+        $anchor.css('font-family', ''); //remove font
+        var defaultFont = $anchor.css('font-family'); //get default font
+        $anchor.css('font-family', curFont); //restore font
+        $modal.find('ipsDefaultFont').css('font-family', defaultFont);
         if (curFont.indexOf(',') == false) {
             curFont = curFont + ',sans-serif';
         }
@@ -257,13 +225,13 @@
 
         //init text management
         $this.data('logoText').val(curText);
-        $this.data('logoText').on('keyup', $.proxy(preview, $this));
+        $this.data('logoText').on('change keyup', $.proxy(preview, $this));
 
         $this.data('fontSelect').ipInlineManagementFontSelector({
             'hide_fallbacks' : true,
             'initial' : curFont,
             'selected' : function(style) {
-                $this.data('fontSelect').find('span').css('font-family', style);
+                $this.data('fontSelect').find('.ipsFontName').css('font-family', style);
                 $this.data('curFont', style);
                 $.proxy(preview, $this)();
             }
@@ -289,40 +257,39 @@
 
         //type selection
         if (logoData.type == 'text') {
-            $this.data('typeSelectText').attr('checked', 'checked');
+            $modal.find('a[data-logotype="text"]').tab('show');
         } else {
-            $this.data('typeSelectImage').attr('checked', 'checked');
+            $modal.find('a[data-logotype="image"]').tab('show');
         }
-
-        $this.find('.ipmType').buttonset();
 
         $modal.find('.ipsImage').one('ready.ipUploadImage', $.proxy(preview, $this));
         $.proxy(updateType, $this)(); //initialize current type tab
 
-        $this.data('typeSelectText').bind('change', $.proxy(updateType, $this));
-        $this.data('typeSelectImage').bind('change', $.proxy(updateType, $this));
+        $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
         $modal.find('.ipsConfirm').bind('click', $.proxy(confirm, $this));
         $modal.on('hide.bs.modal', function () {$.proxy(cancel, $this)();});
-
     };
-
 
     var preview = function() {
         var $this = this;
-        var $modal = $('#ipInlineLogoModal');
+        var $modal = $('.ipsModuleInlineManagementLogoModal');
 
-        $this.hide();
+        $this.addClass('hidden');
 
-        if ($this.data('typeSelectText').is(':checked')) {
-            $this.data('previewImage').hide();
-            $this.data('previewText').show();
-            $this.data('previewText').find('a').text($this.data('logoText').val());
-            $this.data('previewText').find('a').css('color', $this.data('colorPicker').css('background-color'));
-            $this.data('previewText').find('a').css('font-family', $this.data('curFont'));
-            $this.data('logoText').css('font-family', $this.data('curFont'));
+        if ($modal.find('.active a[data-logotype]').data('logotype') == 'text') {
+            $this.data('previewImage').addClass('hidden');
+            $this.data('previewText').removeClass('hidden');
+            $this.data('previewText').find('a')
+                .text($this.data('logoText').val())
+                .css('color', $this.data('colorPicker').css('background-color'))
+                .css('font-family', $this.data('curFont'));
+//            $this.data('logoText')
+//                .css('font', $this.data('previewText').find('a').css('font'))
+//                .css('font-size', '') // resetting font size to fit into input field
+//                .css('color', $this.data('colorPicker').css('background-color')); // preview should look the same
         } else {
-            $this.data('previewText').hide();
-            $this.data('previewImage').show();
+            $this.data('previewText').addClass('hidden');
+            $this.data('previewImage').removeClass('hidden');
             var $imageUploader = $modal.find('.ipsImage');
             $this.data('previewImage').html('<div class="ip"></div>');
             $this.data('previewImage').find('div').append($imageUploader.find('.ipUploadWindow').clone());
@@ -330,7 +297,6 @@
             $this.data('previewImage').find('.ui-resizable-handle').remove();
         }
     };
-
 
     $.fn.ipModuleInlineManagementLogo = function(method) {
         if (methods[method]) {

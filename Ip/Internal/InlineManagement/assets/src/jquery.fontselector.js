@@ -50,7 +50,7 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
         if (settings['initial'] != '') {
             var curFontExists = false;
             var initialBaseFont = $.trim(settings['initial'].substr(0, settings['initial'].indexOf(',')).replace(/\'/g, ''));
-            root.find('li').each(function () {
+            root.find('li a').each(function () {
                 var font = $(this).text();
                 var baseFont = $.trim(font.substr(0, font.indexOf(',')).replace(/\'/g, ''));
                 if (baseFont.toLowerCase() == initialBaseFont.toLowerCase()) {
@@ -58,16 +58,16 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
                 }
             });
             if (!curFontExists) {
-                var defaultFontLabel =  root.find('li.ipmDefaultFont').html();
-                root.find('span').html(defaultFontLabel.substr(0, defaultFontLabel.indexOf(',')));
-                root.css('font-family', root.find('li.ipmDefaultFont').css('font-family'));
+                var defaultFontLabel =  root.find('.ipsDefaultFont').html();
+                root.find('.ipsFontName').html(defaultFontLabel.substr(0, defaultFontLabel.indexOf(',')));
+                root.css('font-family', root.find('.ipsDefaultFont').css('font-family'));
             } else {
-                root.find('span').html(initialBaseFont);
+                root.find('.ipsFontName').html(initialBaseFont);
                 root.css('font-family', settings['initial']);
             }
         }
 
-        ul.find('li').each(function () {
+        ul.find('li a').each(function () {
             $(this).css("font-family", $(this).text());
 
             if (settings['hide_fallbacks']) {
@@ -76,7 +76,7 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
             }
         });
 
-        ul.find('li').click(function () {
+        ul.find('li a').click(function () {
 
             if (!visible)
                 return;
@@ -85,10 +85,10 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
                 visible = false;
             });
 
-            root.find('span').html($(this).text());
+            root.find('.ipsFontName').html($(this).text());
             root.css('font-family', $(this).css('font-family'));
 
-            if ($(this).hasClass('ipmDefaultFont')) {
+            if ($(this).hasClass('ipsDefaultFont')) {
                 settings['selected']('');
             } else {
                 settings['selected']($(this).css('font-family'));

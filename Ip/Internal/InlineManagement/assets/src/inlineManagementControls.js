@@ -7,8 +7,8 @@
     "use strict";
 
     var hideTimer = 0,
-        controlsClass = 'ipModuleInlineManagementControls',
-        hiliteClass = 'ipmHilite',
+        controlsClass = 'ipsModuleInlineManagementControls',
+        hiliteClass = '_hilite',
         methods = {
         init : function(options) {
             return this.each(function() {
@@ -16,7 +16,7 @@
 
                 // Creating global controls block
                 if (!$('.'+controlsClass).length) {
-                    $('body').append(ipModInlineManagementControls);
+                    $('body').append(ipModuleInlineManagementControls);
                 }
                 var $controls = $('.'+controlsClass);
                 $controls

@@ -44,9 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /* General*/
-  /* Logo management */
-  /* Font selector */
   /* String management */
   /* Image management */
   /* Tab Upload */
@@ -93,6 +90,7 @@
   cursor: inherit;
   font-size: inherit;
   text-align: inherit;
+  white-space: inherit;
 }
 .ip article,
 .ip aside,
@@ -7581,6 +7579,7 @@
   cursor: inherit;
   font-size: inherit;
   text-align: inherit;
+  white-space: inherit;
 }
 .ip [ng-cloak] {
   display: none;
@@ -8359,103 +8358,27 @@
 .ip .ipModuleDesignConfig fieldset .collapse {
   overflow: auto;
 }
-.ip .ui-dialog .ipModuleInlineManagementPopup {
-  padding: 1em;
-  background-color: #ccc;
-}
-.ip .ipModuleInlineManagement.ipmEmpty {
-  outline: #019bd4 dashed 1px;
-}
-.ip .ipModuleInlineManagement.ipmHilite {
-  outline: 1px dashed #4d4d4d;
-}
 .ip .ipModuleInlineManagementControls {
   display: none;
   position: absolute;
-  z-index: 99;
+  z-index: 1030;
 }
-.ip .ipModuleInlineManagementControls .ipAdminWidgetControls {
-  margin-top: -10px;
-}
-.ip .ipModuleInlineManagementControls .ipAdminWidgetControls .ipaButton {
+.ip .ipModuleInlineManagementControls .ipAdminWidgetControls ._controls * {
   visibility: visible;
+}
+.ip .ipModuleInlineManagementLogoModal .nav-tabs {
+  margin-bottom: 20px;
+}
+.ip .ipModuleInlineManagementLogoModal .input-group-lg > .input-group-btn > .btn {
+  font-size: 14px;
+}
+.ip .ipModuleInlineManagementLogoModal ._colorPicker {
+  display: inline-block;
+  vertical-align: middle;
 }
 .ip .ipModuleInlineManagementPopup .ipUploadImageButton {
   z-index: 2500;
   /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmType {
-  font-size: 20px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTextManagement input {
-  font-size: 32px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTypeSelect * {
-  float: left;
-  font-size: 17px;
-  margin-right: 0 10px 0 0;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmTypeSelect input {
-  width: auto;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect * {
-  margin: 0;
-  padding: 0;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect {
-  background-image: -webkit-linear-gradient(top, #f9f9f9, #f0f0f0);
-  background-image: -moz-linear-gradient(top, #f9f9f9, #f0f0f0);
-  background-image: -o-linear-gradient(top, #f9f9f9, #f0f0f0);
-  background-image: -ms-linear-gradient(top, #f9f9f9, #f0f0f0);
-  background-image: linear-gradient(top, #f9f9f9, #f0f0f0);
-  border-radius: 4px;
-  border: 1px solid #cecece;
-  cursor: pointer;
-  height: 28px;
-  line-height: 28px;
-  margin: 3px;
-  padding: 3px;
-  position: relative;
-  width: 200px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect span {
-  margin-left: 5px;
-  overflow: hidden;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect .arrow-down {
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid #aaa;
-  position: absolute;
-  right: 10px;
-  top: 14px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect ul {
-  background: #f9f9f9;
-  height: 250px;
-  left: 0;
-  list-style: none;
-  overflow: auto;
-  position: absolute;
-  top: 35px;
-  width: 200px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect li {
-  border-left: 1px solid #f0f0f0;
-  border-right: 1px solid #f0f0f0;
-  cursor: pointer;
-  font-size: 14px;
-  height: 24px;
-  line-height: 24px;
-  overflow: hidden;
-  padding: 0 10px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect ul li:last-child {
-  border-bottom: 1px solid #eee;
-  border-radius: 0 0 4px 4px;
-}
-.ip .ipModuleInlineManagementPopup.ipmLogo .ipmFontSelect li:hover {
-  background: #ddd;
 }
 .ip .ipModuleInlineManagementPopup.ipmString textarea {
   height: 100px;
@@ -8475,10 +8398,6 @@
 }
 .ip .ipModuleInlineManagementPopup.ipmImage .ipmRemove {
   float: right;
-}
-.ip .ipModuleInlineManagement.ipmImage.ipmEmpty {
-  width: 100%;
-  height: 50px;
 }
 .ip .ipAdminPages ._container {
   float: left;
@@ -8987,6 +8906,10 @@
 .ip .ipUploadWindow .ipUploadImageButton.ipUploadSmallerButton:hover {
   background-position: -24px -48px;
 }
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
 .modal-open {
   overflow: hidden;
 }
@@ -9060,4 +8983,14 @@
 }
 .ipAdminWidgetPlaceholderHorizontal ._marker {
   height: 1px;
+}
+.ipModuleInlineManagement._empty {
+  outline: #019bd4 dashed 1px;
+}
+.ipModuleInlineManagement._hilite {
+  outline: #4d4d4d dashed 1px;
+}
+.ipModuleInlineManagement._typeImage._empty {
+  height: 50px;
+  width: 100%;
 }
