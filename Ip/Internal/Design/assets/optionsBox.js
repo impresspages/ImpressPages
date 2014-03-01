@@ -201,7 +201,7 @@ var ipDesign;
 
             $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
                 e.preventDefault();
-                $(this).addClass('disabled').text('saving...'); // TODO translate this string
+                $(this).addClass('disabled').text('Saving...'); // TODOx translate this string
 
                 $('.ipModuleDesignConfig .ipsForm').submit();
             });

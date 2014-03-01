@@ -12,7 +12,7 @@
                     <?php echo $form->render(); ?>
                 </div>
                 <div class="modal-footer ipsActions">
-                    <a href="#" class="btn btn-success btn-sm ipsSave"><?php _e('save', 'ipAdmin'); ?></a>
+                    <a href="#" class="btn btn-success btn-sm ipsSave"><?php _e('Save', 'ipAdmin'); ?></a>
                     <a href="#" class="btn btn-default btn-sm ipsDefault"><?php _e('Preview defaults', 'ipAdmin'); ?></a>
                     <a href="#" class="btn btn-default btn-sm ipsCancel"><?php _e('Cancel', 'ipAdmin'); ?></a>
                 </div>
