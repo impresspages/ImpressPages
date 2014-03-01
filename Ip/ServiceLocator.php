@@ -182,7 +182,7 @@ class ServiceLocator
 
 
     /**
-     * @return \Ip\Response
+     * @return \Ip\Response\Layout
      */
     public static function response()
     {

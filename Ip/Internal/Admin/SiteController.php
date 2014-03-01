@@ -15,7 +15,7 @@ class SiteController extends \Ip\Controller{
         $content = ipView('view/login.php', array('loginForm' => FormHelper::getLoginForm()));
         ipAddJs('Ip/Internal/Admin/assets/login.js');
         $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
 
         return $response;
@@ -34,7 +34,7 @@ class SiteController extends \Ip\Controller{
         ipAddJs('Ip/Internal/Admin/assets/passwordReset1.js');
 
         $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
 
         return $response;
@@ -53,7 +53,7 @@ class SiteController extends \Ip\Controller{
         $content = ipView('view/passwordResetInfo.php');
 
         $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
 
         return $response;
@@ -72,7 +72,7 @@ class SiteController extends \Ip\Controller{
         $content = ipView('view/passwordResetSuccess.php');
 
         $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
 
         return $response;
@@ -92,7 +92,7 @@ class SiteController extends \Ip\Controller{
         ipAddJs('Ip/Internal/Admin/assets/passwordReset2.js');
 
         $response = ipResponse();
-        $response->setLayout(ipFile('Ip/Internal/Admin/view/loginLayout.php'));
+        $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
 
         return $response;
