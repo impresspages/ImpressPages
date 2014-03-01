@@ -102,7 +102,7 @@ class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
         $this->assertNoErrors();
 
         $ipActions->openModule('system');
-        $this->waitForElementPresent('css=.ipsClearCache');
+        $this->waitForElementPresent('css=#systemInfo');
         $this->click('css=.ipsClearCache');
         $this->waitForText('css=.note', 'Cache was cleared.');
         $this->assertNoErrors();

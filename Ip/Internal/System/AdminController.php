@@ -39,7 +39,6 @@ class AdminController extends \Ip\Controller
         if ($enableUpdate) {
             ipAddJs('Ip/Internal/System/assets/update.js');
         }
-        ipAddJs('Ip/Internal/System/assets/clearCache.js');
 
         return $content;
     }

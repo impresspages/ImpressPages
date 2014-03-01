@@ -100,7 +100,7 @@ class IpActions
         switch ($module) {
             case 'system':
                 $this->testCase->open($this->installation->getInstallationUrl().'?aa=System.index');
-                $this->testCase->waitForElementPresent('css=.ipsClearCache');
+                $this->testCase->waitForElementPresent('css=#systemInfo');
                 break;
             default:
                 throw new \Exception("Unknown error");
