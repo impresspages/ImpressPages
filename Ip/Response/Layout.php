@@ -73,7 +73,7 @@ class Layout extends \Ip\Response {
             $viewFile = $layout;
         } elseif(strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
             $viewFile = ipFile($layout);
-        } else {
+        } else { //layout file. Like main.php
             $viewFile = ipThemeFile($layout);
         }
         if (!is_file($viewFile)) {
