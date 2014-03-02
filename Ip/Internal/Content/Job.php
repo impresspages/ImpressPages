@@ -34,6 +34,15 @@ class Job
         return $result;
     }
 
+    public static function ipExecuteController($info)
+    {
+        $page = ipContent()->getCurrentPage();
+        if ($page && $page->getRedirectUrl() && !ipAdminId()) {
+            return new \Ip\Response\Redirect($page->getRedirectUrl());
+        }
+
+    }
+
     public static function ipDefaultPageId_70()
     {
         $languageCode = ipContent()->getCurrentLanguage()->getCode();
