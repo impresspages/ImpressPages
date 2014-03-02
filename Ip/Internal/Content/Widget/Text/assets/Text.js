@@ -14,23 +14,23 @@ var IpWidget_Text;
             var customTinyMceConfig = ipTinyMceConfig();
             this.$widgetObject = $widgetObject;
             customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
-                $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
+                $widgetObject.save({text: $widgetObject.find('.ipsContainer').html()});
             })};
 
-            $widgetObject.find('.ipsContent').tinymce(customTinyMceConfig);
+            $widgetObject.find('.ipsContainer').tinymce(customTinyMceConfig);
         };
 
         this.onAdd = function () {
-            this.$widgetObject.find('.ipsContent').focus();
+            this.$widgetObject.find('.ipsContainer').focus();
         }
 
         this.splitParts = function () {
-            return this.$widgetObject.find('.ipsContent > *');
+            return this.$widgetObject.find('.ipsContainer > *');
         }
 
         this.splitData = function (curData, position) {
             //we ignore curData value as it holds data from the database. While actual data in editor might be already changed
-            var recentData = {text: this.$widgetObject.find('.ipsContent').html()};
+            var recentData = {text: this.$widgetObject.find('.ipsContainer').html()};
             var paragraphs = this.splitParts();
 
             var text1 = '';
