@@ -59,7 +59,7 @@ class Filter
             'view/formFieldOptions/list.php'
         )->render());
         $fieldTypes['Checkbox'] = new FieldType('Checkbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetForm_InitWysiwygOptions', 'ipWidgetForm_SaveWysiwygOptions', ipView(
-            'view/formFieldOptions/wysiwyg.php'
+            'view/formFieldOptions/wysiwyg.php', array('form' => self::wysiwygForm())
         )->render());
         $fieldTypes['Radio'] = new FieldType('Radio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
             'view/formFieldOptions/list.php'
@@ -70,6 +70,15 @@ class Filter
         return $fieldTypes;
     }
 
+    private static function wysiwygForm()
+    {
+        $form = new \Ip\Form();
+        $field = new \Ip\Form\Field\RichText(array (
+            'name' => 'text'
+        ));
+        $form->addField($field);
+        return $form;
+    }
 
     private static function getPluginWidgetDirs()
     {
