@@ -13,7 +13,7 @@ use Ip\Form\Field;
 
 class Checkbox extends Field{
 
-    protected $checked = null;
+    protected $checked = FALSE;
     protected $text = null;
     protected $postValue = null;
 

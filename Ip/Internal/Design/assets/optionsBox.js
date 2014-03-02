@@ -328,6 +328,12 @@ var ipDesign;
                     'value': 1,
                     'type': 'hidden'
                 }));
+            } else {
+                postForm.append($('<input>', {
+                    'name': 'refreshPreview',
+                    'value': 1,
+                    'type': 'hidden'
+                }));
             }
 
 
