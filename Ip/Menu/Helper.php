@@ -97,6 +97,12 @@ class Helper
             $item->setType($page->getType());
             if ($page->isDisabled()) {
                 $item->setUrl('');
+            } elseif ($page->getRedirectUrl()) {
+                $url = $page->getRedirectUrl();
+                if (!preg_match('/^((http|https):\/\/)/i', $url)) {
+                    $url = 'http://' . $url;
+                }
+                $item->setUrl($url);
             } else {
                 $item->setUrl($page->getLink());
             }
