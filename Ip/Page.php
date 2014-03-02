@@ -393,6 +393,17 @@ class Page
     }
 
     /**
+     * Set page visibility status
+     *
+     * @ignore
+     * @param $visible bool
+     */
+    public function setIsVisible($visible)
+    {
+        $this->isVisible = $visible;
+    }
+
+    /**
      * Get page disabled status. Disabled means it is not clickable in the interface.
      *
      * @return bool Visibility
@@ -400,6 +411,17 @@ class Page
     public function isDisabled()
     {
         return $this->isDisabled;
+    }
+
+    /**
+     * Set page disabled status
+     *
+     * @ignore
+     * @param $disabled bool
+     */
+    public function setIsDisabled($disabled)
+    {
+        $this->isDisabled = $disabled;
     }
 
     /**
@@ -413,15 +435,37 @@ class Page
     }
 
     /**
-     * Set page visibility status
+     * Set page secure status
      *
      * @ignore
-     * @param $visible bool
+     * @param $secured bool
      */
-    public function setIsVisible($visible)
+    public function setIsSecured($secured)
     {
-        $this->isVisible = $visible;
+        $this->isSecured = $secured;
     }
+
+    /**
+     * Get page blank status.
+     *
+     * @return bool Open link in new window
+     */
+    public function isBlank()
+    {
+        return $this->isBlank;
+    }
+
+    /**
+     * Set page blank status
+     *
+     * @ignore
+     * @param $isBlank bool
+     */
+    public function setIsBlank($isBlank)
+    {
+        $this->isBlank = $isBlank;
+    }
+
 
     public static function createList($list)
     {

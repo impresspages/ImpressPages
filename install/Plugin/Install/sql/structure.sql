@@ -22,6 +22,7 @@ CREATE TABLE `ip_cms_page` (
   `isDisabled` tinyint(1) NOT NULL DEFAULT '0',
   `isSecured` tinyint(1) NOT NULL DEFAULT '0',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
+  `isBlank` BOOLEAN NOT NULL DEFAULT FALSE COMMENT  'Open page in new window',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,

@@ -139,4 +139,12 @@ class Item
     public function setType($type){
         $this->type = $type;
     }
+
+    public function getBlank(){
+        return (bool) $this->blank;
+    }
+
+    public function setBlank($blank){
+        $this->blank = $blank;
+    }
 }

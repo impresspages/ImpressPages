@@ -28,8 +28,14 @@ if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
     $href = '';
 }
 
+if ($menuItem->getBlank()) {
+    $target = 'target="_blank"';
+} else {
+    $target = '';
+}
+
 ?><li class="<?php echo implode(' ', $css); ?>">
-    <a <?php echo $href ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">
+    <a <?php echo $href ?> <?php echo $target ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">
         <?php echo esc($menuItem->getTitle()); ?>
     </a>
     <?php if ($menuItem->getChildren()) { ?>

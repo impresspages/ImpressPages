@@ -32,7 +32,7 @@ class Event
         ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
         ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
-        ipAddJsVariable('ipModuleDesignConfiguration', static::getConfigurationBoxHtml());
+        ipAddJsVariable('ipModuleDesignConfiguration', Helper::getConfigurationBoxHtml());
 
         if (file_exists(ipThemeFile(Model::INSTALL_DIR.'Options.js'))) {
             ipAddJs(ipThemeUrl(Model::INSTALL_DIR . 'Options.js'));
@@ -58,18 +58,7 @@ class Event
         ipAddJsVariable('ipModuleDesignOptionNames', $fieldNames);
     }
 
-    protected static function getConfigurationBoxHtml()
-    {
-        $configModel = ConfigModel::instance();
 
-        $form = $configModel->getThemeConfigForm(ipConfig()->theme());
-        $form->removeClass('ipModuleForm');
-        $variables = array(
-            'form' => $form
-        );
-        $optionsBox = ipView('view/optionsBox.php', $variables);
-        return $optionsBox->render();
-    }
 
     public static function ipCacheClear($info)
     {
