@@ -7450,6 +7450,9 @@ td.visible-print {
 .btn-xs {
   padding: 1px 5px;
 }
+.input-group-btn > .btn {
+  line-height: 20px;
+}
 .btn-danger {
   color: #000000;
   background-color: #e7e7e7;
@@ -7614,6 +7617,17 @@ fieldset[disabled] .btn-new.active {
 }
 .form-group.type-submit label {
   display: none;
+}
+legend[data-toggle="collapse"] {
+  cursor: pointer;
+}
+legend[data-toggle="collapse"]:after {
+  content: '\25B4';
+  display: inline-block;
+  margin-left: 10px;
+}
+legend[data-toggle="collapse"].collapsed:after {
+  content: '\25Be';
 }
 a.list-group-item.success,
 a.list-group-item.success:hover,
@@ -8204,15 +8218,6 @@ th {
 .ipModuleInlineManagementLogoModal ._colorPicker {
   display: inline-block;
   vertical-align: middle;
-}
-.ipModuleInlineManagementPopup .ipUploadImageButton {
-  z-index: 2500;
-  /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
-}
-/* String management */
-.ipModuleInlineManagementPopup.ipmString textarea {
-  height: 100px;
-  width: 100%;
 }
 /* Image management */
 .ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
