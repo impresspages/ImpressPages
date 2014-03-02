@@ -88,6 +88,8 @@
             $this.trigger('edit.ipPages');
         });
 
+        ipModuleForm.init();
+
     }
 
 

@@ -55,6 +55,11 @@ class Event
 
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');
+
+            ipAddJsVariable(
+                'ipBrowseLinkModalTemplate',
+                ipView('view/browseLinkModal.php')->render()
+            );
         }
 
 

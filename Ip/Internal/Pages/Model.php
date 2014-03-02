@@ -215,8 +215,16 @@ class Model
             $update['type'] = $properties['type'];
         }
 
-        if (isset($properties['redirectURL'])) {
-            $update['redirectUrl'] = $properties['redirectURL'];
+        if (isset($properties['redirectUrl'])) {
+            $update['redirectUrl'] = $properties['redirectUrl'];
+        }
+
+        if (isset($properties['isDisabled'])) {
+            $update['isDisabled'] = $properties['isDisabled'];
+        }
+
+        if (isset($properties['isSecured'])) {
+            $update['isSecured'] = $properties['isSecured'];
         }
 
         if (isset($properties['isVisible'])) {

@@ -118,12 +118,10 @@ class AdminController extends \Ip\Controller
             $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'ipAdmin', FALSE).date(" Y-m-d");
         }
 
-//      TODOXX implement page type in Pages module #138
-//        if ($data['type'] == 'redirect' && $data['redirectURL'] == '') {
-//            $answer['errors'][] = array('field' => 'redirectURL', 'message' => __('External url can\'t be empty', 'ipAdmin', false));
-//        }
 
         $data['isVisible'] = !empty($data['isVisible']);
+        $data['isDisabled'] = !empty($data['isDisabled']);
+        $data['isSecured'] = !empty($data['isSecured']);
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
             Model::changePageUrlPath($pageId, $data['urlPath']);

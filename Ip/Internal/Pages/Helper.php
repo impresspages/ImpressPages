@@ -225,6 +225,30 @@ class Helper
         $fieldset->addAttribute('class', 'ipsFieldsetOther');
         $form->addFieldset($fieldset);
 
+        $field = new \Ip\Form\Field\Url(
+            array(
+                'name' => 'redirectUrl',
+                'label' => __('Redirect', 'ipAdmin', false),
+                'value' => $page->getRedirectUrl()
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'isDisabled',
+                'label' => __('Secured', 'ipAdmin', false),
+                'value' => $page->isDisabled()
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'isSecured',
+                'label' => __('Disabled', 'ipAdmin', false),
+                'value' => $page->isSecured()
+            ));
+        $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(

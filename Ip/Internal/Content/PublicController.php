@@ -127,10 +127,7 @@ class PublicController extends \Ip\Controller
             'ipWidgetLayoutModalTemplate',
             ipView('view/widgetLayoutModal.php')->render()
         );
-        ipAddJsVariable(
-            'ipBrowseLinkModalTemplate',
-            ipView('view/browseLinkModal.php')->render()
-        );
+
     }
 
 
