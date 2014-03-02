@@ -393,6 +393,26 @@ class Page
     }
 
     /**
+     * Get page disabled status. Disabled means it is not clickable in the interface.
+     *
+     * @return bool Visibility
+     */
+    public function isDisabled()
+    {
+        return $this->isDisabled;
+    }
+
+    /**
+     * Get page security status. Sescured means that it can't be visible even by knowing the url of the page.
+     *
+     * @return bool Visibility
+     */
+    public function isSecured()
+    {
+        return $this->isSecured;
+    }
+
+    /**
      * Set page visibility status
      *
      * @ignore
