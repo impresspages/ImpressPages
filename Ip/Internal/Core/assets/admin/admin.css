@@ -44,7 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /* String management */
   /* Image management */
   /* Tab Upload */
   /* Tab All */
@@ -7621,6 +7620,9 @@
 .ip .btn-xs {
   padding: 1px 5px;
 }
+.ip .input-group-btn > .btn {
+  line-height: 20px;
+}
 .ip .btn-danger {
   color: #000000;
   background-color: #e7e7e7;
@@ -7785,6 +7787,17 @@
 }
 .ip .form-group.type-submit label {
   display: none;
+}
+.ip legend[data-toggle="collapse"] {
+  cursor: pointer;
+}
+.ip legend[data-toggle="collapse"]:after {
+  content: '\25B4';
+  display: inline-block;
+  margin-left: 10px;
+}
+.ip legend[data-toggle="collapse"].collapsed:after {
+  content: '\25Be';
 }
 .ip a.list-group-item.success,
 .ip a.list-group-item.success:hover,
@@ -8375,14 +8388,6 @@
 .ip .ipModuleInlineManagementLogoModal ._colorPicker {
   display: inline-block;
   vertical-align: middle;
-}
-.ip .ipModuleInlineManagementPopup .ipUploadImageButton {
-  z-index: 2500;
-  /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
-}
-.ip .ipModuleInlineManagementPopup.ipmString textarea {
-  height: 100px;
-  width: 100%;
 }
 .ip .ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
   border: none;

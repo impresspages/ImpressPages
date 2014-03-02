@@ -30,6 +30,9 @@
 .btn-xs {
     padding: 1px 5px;
 }
+.input-group-btn > .btn {
+    line-height: @line-height-computed; // fixing line height to match input
+}
 .btn-danger {
     .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
     &:hover,

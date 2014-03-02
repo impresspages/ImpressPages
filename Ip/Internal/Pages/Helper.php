@@ -193,7 +193,6 @@ class Helper
         $form->addField($field);
 
         $fieldset = new \Ip\Form\Fieldset(__('Seo', 'ipAdmin', FALSE));
-        $fieldset->addAttribute('class', 'ipsFieldsetSeo');
         $form->addFieldset($fieldset);
 
         $field = new \Ip\Form\Field\Text(
@@ -222,7 +221,6 @@ class Helper
 
 
         $fieldset = new \Ip\Form\Fieldset(__('Other', 'ipAdmin', FALSE));
-        $fieldset->addAttribute('class', 'ipsFieldsetOther');
         $form->addFieldset($fieldset);
 
         $field = new \Ip\Form\Field\Url(
