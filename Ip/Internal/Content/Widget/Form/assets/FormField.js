@@ -145,10 +145,10 @@
         var $this = this;
         var data = $this.data('ipWidget_ipForm_field');
         if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
-            $this.find('.ipsFieldOptions').css('visibility', 'visible');
+            $this.find('.ipsFieldOptions').removeClass('disabled');
             $this.find('.ipsFieldOptions').on('click', $.proxy(openOptionsPopup, this));
         } else {
-            $this.find('.ipsFieldOptions').css('visibility', 'hidden');
+            $this.find('.ipsFieldOptions').addClass('disabled');
         }
         data.type = type;
         $this.data('ipWidget_ipForm_field', data);

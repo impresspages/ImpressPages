@@ -1,1 +1,1 @@
-<textarea class="ipsFieldOptionsRichText"></textarea>
+<div class="ipsFieldOptionsRichText"></div>

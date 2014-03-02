@@ -26,9 +26,8 @@ var IpWidget_Html;
                 if (!ip.safeMode) {
                     container.html(this.data.html);
                 } else {
-                    container.html('<p>HTML widget content is hidden in safe mode.</p>');
+                    container.html('<p>HTML widget content is hidden in safe mode.</p>'); // todox: translate
                 }
-
             }
 
             var context = this; // set this so $.proxy would work below

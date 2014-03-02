@@ -7816,6 +7816,21 @@
 .ip a.list-group-item.success:focus .list-group-item-text {
   color: #ffffff;
 }
+.ip .modal-content {
+  border-radius: 0;
+}
+.ip .modal-title {
+  font-size: 18px;
+}
+.ip .modal-header {
+  background-color: #e7e7e7;
+  padding: 10px 20px;
+}
+.ip .modal-footer {
+  background-color: #e7e7e7;
+  margin-top: 0;
+  padding: 5px 20px;
+}
 .ip .navbar-center {
   margin: 0 auto;
   position: relative;
@@ -8151,6 +8166,9 @@
 }
 .ip .ipModuleContentPublishButton ._revisions ._button {
   padding: 0 20px;
+}
+.ip .ipModuleContentFormModal .nav-tabs {
+  margin-bottom: 20px;
 }
 .ip .ipAdminWidgetControls {
   margin: 0 -11px;
