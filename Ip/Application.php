@@ -225,19 +225,16 @@ class Application
         }
 
         $eventInfo = array(
+            'controllerClass' => $controllerClass,
             'plugin' => $plugin,
-            'controller' => $controller,
+            'controllerType' => $controller,
             'action' => $action,
             'page' => !empty($routeAction['page']) ? $routeAction['page'] : null,
         );
 
         ipEvent('ipBeforeController', $eventInfo);
 
-        $controller = new $controllerClass();
-        if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
-        }
-        $controllerAnswer = $controller->$action();
+        $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
 
         return $controllerAnswer;
     }

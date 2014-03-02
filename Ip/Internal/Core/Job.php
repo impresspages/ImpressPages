@@ -50,4 +50,17 @@ class Job
             'action' => $parts[1],
         );
     }
+
+    public static function ipExecuteController_70($info)
+    {
+        $controllerClass = $info['controllerClass'];
+        $action = $info['action'];
+        $controller = new $controllerClass();
+        if (!$controller instanceof \Ip\Controller) {
+            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
+        }
+        $controllerAnswer = $controller->$action();
+        return $controllerAnswer;
+    }
+
 }
