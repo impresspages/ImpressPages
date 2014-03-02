@@ -60,10 +60,8 @@ var IpWidget_Form;
 
             this.addButton.on('click', $.proxy(addField, this));
 
-            var customTinyMceConfig = ipTinyMceConfig();
-            customTinyMceConfig.inline = false;
             this.modal.find('textarea[name=success]').val(instanceData.success);
-            this.modal.find('textarea[name=success]').tinymce(customTinyMceConfig);
+
 
             if (instanceData.sendTo == 'custom') {
                 this.modal.find('select[name=sendTo]').val('custom');
@@ -84,7 +82,7 @@ var IpWidget_Form;
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
             this.modal.find('.ipsTabs li a').first().click();
-
+            IpWidget_Form.init();
         };
 
         var cleanup = function() {
