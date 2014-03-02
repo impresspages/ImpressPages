@@ -12,6 +12,10 @@ namespace Ip\Internal\Pages;
 
 class Service
 {
+    /**
+     * @param $pageId
+     * @return array
+     */
     public static function getPage($pageId)
     {
         return Model::getPage($pageId);

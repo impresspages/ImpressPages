@@ -21,7 +21,7 @@ class Job
             $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUri']);
         }
 
-        if (!$page) {
+        if (!$page || $page['isSecured'] && !ipAdminId()) {
             return null;
         }
 
