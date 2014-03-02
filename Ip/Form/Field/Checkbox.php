@@ -57,8 +57,9 @@ class Checkbox extends Field{
         $answer .= '
         <div class="checkbox">
             <label>
-            <input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.'  '.$this->getValidationAttributesStr($doctype).' '.$value.' />
-            '.$this->getText().'
+                <input '.$this->getAttributesStr($doctype).' class="'.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" type="checkbox" '.$attributes.'  '.$this->getValidationAttributesStr($doctype).' '.$value.' />
+                '.$this->getText().'
+            </label>
         </div>
         ';
 
