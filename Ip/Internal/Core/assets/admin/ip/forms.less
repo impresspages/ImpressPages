@@ -1,4 +1,3 @@
-// Forms
 .help-hint { // to be shown on hover
     background-color: @input-border;
     color: #fff;
@@ -46,5 +45,19 @@
 .form-group.type-submit {
     label {
         display: none;
+    }
+}
+legend[data-toggle="collapse"] { // auto styling if fieldsets are collapsable
+    cursor: pointer;
+
+    &:after {
+        content: '\25B4';
+        display: inline-block;
+        margin-left: (@grid-gutter-width / 4);
+    }
+    &.collapsed {
+        &:after {
+            content: '\25Be';
+        }
     }
 }
