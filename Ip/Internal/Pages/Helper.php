@@ -236,8 +236,9 @@ class Helper
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isDisabled',
-                'label' => __('Secured', 'ipAdmin', false),
-                'value' => $page->isDisabled()
+                'label' => __('Disabled', 'ipAdmin', false),
+                'value' => $page->isDisabled(),
+                'note' => 'Won\'t be clickable in menu if selected.'
             ));
         $form->addField($field);
 
@@ -245,8 +246,9 @@ class Helper
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isSecured',
-                'label' => __('Disabled', 'ipAdmin', false),
-                'value' => $page->isSecured()
+                'label' => __('Secured', 'ipAdmin', false),
+                'value' => $page->isSecured(),
+                'note' => 'Won\'t be accessible to view even knowing the URL.'
             ));
         $form->addField($field);
 
