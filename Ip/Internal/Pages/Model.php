@@ -231,6 +231,10 @@ class Model
             $update['isVisible'] = $properties['isVisible'];
         }
 
+        if (isset($properties['isBlank'])) {
+            $update['isBlank'] = $properties['isBlank'];
+        }
+
         if (count($update) == 0) {
             return true; //nothing to update.
         }

@@ -126,4 +126,17 @@ class Helper
         return $_SESSION['backend_session']['security_token'];
     }
 
+    public static function getConfigurationBoxHtml()
+    {
+        $configModel = ConfigModel::instance();
+
+        $form = $configModel->getThemeConfigForm(ipConfig()->theme());
+        $form->removeClass('ipModuleForm');
+        $variables = array(
+            'form' => $form
+        );
+        $optionsBox = ipView('view/optionsBox.php', $variables);
+        return $optionsBox->render();
+    }
+
 }

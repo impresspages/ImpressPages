@@ -77,7 +77,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false),
+                'label' => __('Title', 'ipAdmin', FALSE),
                 'value' => $menu['title']
             ));
         $form->addField($field);
@@ -85,7 +85,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'alias',
-                'label' => __('Menu name (used in PHP code)', 'ipAdmin', false),
+                'label' => __('Menu name (used in PHP code)', 'ipAdmin', FALSE),
                 'value' => $menu['alias']
             ));
         $form->addField($field);
@@ -99,7 +99,7 @@ class Helper
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
-                'label' => __('Layout', 'ipAdmin', false),
+                'label' => __('Layout', 'ipAdmin', FALSE),
                 'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
                 'values' => $values,
             ));
@@ -112,7 +112,7 @@ class Helper
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'type',
-                'label' => __('Type', 'ipAdmin', false),
+                'label' => __('Type', 'ipAdmin', FALSE),
                 'value' => ipPageStorage($menu['id'])->get('menuType', 'main.php'),
                 'values' => $values,
             ));
@@ -121,7 +121,7 @@ class Helper
         $field = new \Ip\Form\Field\Submit(
             array(
                 'name' => 'submit',
-                'value' => __('Save', 'ipAdmin', false)
+                'value' => __('Save', 'ipAdmin', FALSE)
             ));
         $form->addField($field);
 
@@ -152,7 +152,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false),
+                'label' => __('Title', 'ipAdmin', FALSE),
                 'value' => $page->getTitle()
             ));
         $form->addField($field);
@@ -160,7 +160,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'urlPath',
-                'label' => __('URL path', 'ipAdmin', false),
+                'label' => __('URL path', 'ipAdmin', FALSE),
                 'value' => $page->getUrlPath(),
             ));
         $form->addField($field);
@@ -169,7 +169,7 @@ class Helper
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isVisible',
-                'label' => __('Visible', 'ipAdmin', false),
+                'label' => __('Visible', 'ipAdmin', FALSE),
                 'value' => $page->isVisible()
             ));
         $form->addField($field);
@@ -186,7 +186,7 @@ class Helper
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
-                'label' => __('Layout', 'ipAdmin', false),
+                'label' => __('Layout', 'ipAdmin', FALSE),
                 'values' => $options,
                 'value' => $layout
             ));
@@ -198,7 +198,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'metaTitle',
-                'label' => __('Meta title', 'ipAdmin', false),
+                'label' => __('Meta title', 'ipAdmin', FALSE),
                 'value' => $page->getMetaTitle()
             ));
         $form->addField($field);
@@ -206,7 +206,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'keywords',
-                'label' => __('Keywords', 'ipAdmin', false),
+                'label' => __('Keywords', 'ipAdmin', FALSE),
                 'value' => $page->getKeywords()
             ));
         $form->addField($field);
@@ -214,7 +214,7 @@ class Helper
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'description',
-                'label' => __('Description', 'ipAdmin', false),
+                'label' => __('Description', 'ipAdmin', FALSE),
                 'value' => $page->getDescription()
             ));
         $form->addField($field);
@@ -226,7 +226,7 @@ class Helper
         $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'redirectUrl',
-                'label' => __('Redirect', 'ipAdmin', false),
+                'label' => __('Redirect', 'ipAdmin', FALSE),
                 'value' => $page->getRedirectUrl()
             ));
         $form->addField($field);
@@ -234,7 +234,7 @@ class Helper
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isDisabled',
-                'label' => __('Disabled', 'ipAdmin', false),
+                'label' => __('Disabled', 'ipAdmin', FALSE),
                 'value' => $page->isDisabled(),
                 'note' => 'Won\'t be clickable in menu if selected.'
             ));
@@ -244,16 +244,24 @@ class Helper
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isSecured',
-                'label' => __('Secured', 'ipAdmin', false),
+                'label' => __('Secured', 'ipAdmin', FALSE),
                 'value' => $page->isSecured(),
                 'note' => 'Won\'t be accessible to view even knowing the URL.'
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'isBlank',
+                'label' => __('Open in new window', 'ipAdmin', FALSE),
+                'value' => $page->isSecured()
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'createdAt',
-                'label' => __('Created on', 'ipAdmin', false),
+                'label' => __('Created on', 'ipAdmin', FALSE),
                 'value' => date('Y-m-d', strtotime($page->getCreatedAt()))
             ));
         $form->addField($field);
@@ -261,7 +269,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'updatedAt',
-                'label' => __('Update on', 'ipAdmin', false),
+                'label' => __('Update on', 'ipAdmin', FALSE),
                 'value' => date('Y-m-d', strtotime($page->getUpdatedAt()))
             ));
         $form->addField($field);
@@ -272,7 +280,7 @@ class Helper
         $field = new \Ip\Form\Field\Submit(
             array(
                 'name' => 'submit',
-                'value' => __('Save', 'ipAdmin', false)
+                'value' => __('Save', 'ipAdmin', FALSE)
             ));
         $form->addField($field);
 
@@ -286,14 +294,14 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false)
+                'label' => __('Title', 'ipAdmin', FALSE)
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isVisible',
-                'label' => __('Visible', 'ipAdmin', false),
+                'label' => __('Visible', 'ipAdmin', FALSE),
                 'value' => !ipGetOption('Pages.hideNewPages', 0)
             ));
         $form->addField($field);
@@ -308,7 +316,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false)
+                'label' => __('Title', 'ipAdmin', FALSE)
             ));
         $form->addField($field);
 
@@ -319,7 +327,7 @@ class Helper
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'type',
-                'label' => __('Type', 'ipAdmin', false),
+                'label' => __('Type', 'ipAdmin', FALSE),
                 'values' => $values,
             ));
         $form->addField($field);

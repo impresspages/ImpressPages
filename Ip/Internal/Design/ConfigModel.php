@@ -42,23 +42,28 @@ class ConfigModel{
     {
         $data = ipRequest()->getRequest();
         $config = $this->getLiveConfig();
-        if (isset($config[$name])) {
 
-            if (isset($data['restoreDefault'])) {
-                //overwrite current config with default theme values
-                $model = Model::instance();
-                $theme = $model->getTheme(ipConfig()->theme());
-                $options = $theme->getOptionsAsArray();
-                foreach($options as $option) {
-                    if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
-                        return $option['default'];
+        if (isset($data['refreshPreview'])) {
+
+            if (isset($config[$name])) {
+
+                if (isset($data['restoreDefault'])) {
+                    //overwrite current config with default theme values
+                    $model = Model::instance();
+                    $theme = $model->getTheme(ipConfig()->theme());
+                    $options = $theme->getOptionsAsArray();
+                    foreach($options as $option) {
+                        if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
+                            return $option['default'];
+                        }
                     }
                 }
+
+                return $config[$name];
+            } else {
+                return '';
             }
-
-            return $config[$name];
         }
-
         $result = ipThemeStorage($themeName)->get($name);
 
         if ($result !== NULL) {
@@ -95,9 +100,7 @@ class ConfigModel{
                     }
                 }
             }
-            return $config;
         }
-
         return ipThemeStorage($theme)->getAll();
     }
 
@@ -194,7 +197,7 @@ class ConfigModel{
                 case 'range':
                     $newField = new Form\Field\Range();
                     break;
-                case 'check':
+                case 'checkbox':
                     $newField = new Form\Field\Checkbox();
                     break;
                 default:

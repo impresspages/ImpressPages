@@ -199,7 +199,7 @@ class AdminController extends \Ip\Controller
             }
 
             switch($option['type']) {
-                case 'check':
+                case 'checkbox':
                     $value = $field->isChecked($post, $option['name']);
                     break;
                 default:
@@ -212,6 +212,8 @@ class AdminController extends \Ip\Controller
         \Ip\Internal\System\Service::cacheClear(); // this should rebuild things
 //        $lessCompiler = LessCompiler::instance();
 //        $lessCompiler->rebuild(ipConfig()->theme());
+
+        ipAddJsVariable('ipModuleDesignConfiguration', Helper::getConfigurationBoxHtml());
 
         return JsonRpc::result(true);
     }
