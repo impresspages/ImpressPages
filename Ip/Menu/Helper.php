@@ -95,9 +95,9 @@ class Helper
             }
 
             $item->setType($page->getType());
-            if ($page->isDisabled()) {
+            if ($page->isDisabled() && !ipIsManagementState()) {
                 $item->setUrl('');
-            } elseif ($page->getRedirectUrl()) {
+            } elseif ($page->getRedirectUrl() && !ipIsManagementState()) {
                 $url = $page->getRedirectUrl();
                 if (!preg_match('/^((http|https):\/\/)/i', $url)) {
                     $url = 'http://' . $url;
@@ -106,6 +106,7 @@ class Helper
             } else {
                 $item->setUrl($page->getLink());
             }
+            $item->setBlank($page->isBlank() && !ipIsManagementState());
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $items[] = $item;
