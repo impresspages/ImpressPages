@@ -43,14 +43,20 @@
         var $this = this;
         $this.html(response.html);
 
-        $this.find('.ipsFieldsetSeo .form-group').addClass('hidden');
-        $this.find('.ipsFieldsetSeo legend').off().on('click', function () {
-            $this.find('.ipsFieldsetSeo .form-group').toggleClass('hidden');
-        });
+        // wrap fields in a div so accordion would work
+        $this.find('fieldset').each(function (index, fieldset) {
+            var $fieldset = $(fieldset);
+            var $legend = $fieldset.find('legend');
 
-        $this.find('.ipsFieldsetOther .form-group').addClass('hidden');
-        $this.find('.ipsFieldsetOther legend').off().on('click', function () {
-            $this.find('.ipsFieldsetOther .form-group').toggleClass('hidden');
+            // if legend exist it means its option group
+            if ($legend.length) {
+                // adding required attributes to make collapse() to work
+                $legend
+                    .attr('data-toggle', 'collapse')
+                    .attr('data-target', '#propertiesCollapse'+index)
+                    .addClass('collapsed');
+                $fieldset.find('.form-group').wrapAll('<div class="collapse" id="propertiesCollapse'+index+'" />');
+            }
         });
 
         $this.find('form').validator(validatorConfig);
