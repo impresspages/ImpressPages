@@ -6,6 +6,7 @@ ipTinyMceConfig = function() {
         plugins: "paste, link, table",
         entity_encoding : "raw",
         menubar: false,
+        statusbar: false,
         toolbar1: 'bold italic alignleft aligncenter alignright styleselect removeformat table',
         toolbar2: 'link bullist numlist outdent indent subscript superscript undo redo',
         valid_elements : "@[class|style],table,tbody,tr,td,th,strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",

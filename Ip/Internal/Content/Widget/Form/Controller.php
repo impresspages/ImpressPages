@@ -64,12 +64,17 @@ class Controller extends \Ip\WidgetController{
     {
         $form = new \Ip\Form();
 
-
+        $field = new \Ip\Form\Field\RichText(
+            array(
+                'name' => 'success',
+                'label' => __('Thank you message', 'ipAdmin', false)
+            ));
+        $form->addfield($field);
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'sendTo',
-                'label' => __('Mouse click action', 'ipAdmin', false) . '(' . ipGetOption('Config.websiteEmail') . ')'
+                'label' => __('Mouse click action', 'ipAdmin', false) . ' (' . ipGetOption('Config.websiteEmail') . ')'
             ));
 
         $values = array(
