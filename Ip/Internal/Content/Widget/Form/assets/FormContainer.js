@@ -38,9 +38,10 @@
                     for (var i in fields) {
                         $this.ipWidget_ipForm_container('addField', fields[i]);
                     }
-                    $this.sortable();
-                    $this.sortable('option', 'handle', '.ipsFieldMove');
-
+                    $this.sortable({
+                        handle: '.ipsFieldMove',
+                        cancel: false
+                    });
                 }
             });
         },

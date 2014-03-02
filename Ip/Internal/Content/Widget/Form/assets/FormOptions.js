@@ -142,13 +142,13 @@ var ipWidgetForm_SaveWysiwygOptions;
     //Form widget wysiwyg options
     ipWidgetForm_InitWysiwygOptions = function ($context, currentOptions) {
         if (currentOptions && currentOptions.text) {
-            $context.find(".ipsFieldOptionsRichText").val(currentOptions.text);
+            $context.find(".ipsFieldOptionsRichText").html(currentOptions.text);
         }
         $context.find(".ipsFieldOptionsRichText").tinymce(ipTinyMceConfig());
     };
 
     ipWidgetForm_SaveWysiwygOptions = function ($context) {
-        return {text:$context.find('.ipsFieldOptionsRichText').val()};
+        return {text:$context.find('.ipsFieldOptionsRichText').html()};
     };
 
 })(ip.jQuery);

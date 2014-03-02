@@ -24,7 +24,7 @@ var IpWidget_File;
 
         this.onAdd = function (e) {
             $.proxy(openPopup, this)();
-            this.modal.find('.ipmBrowseButton').click();
+            this.modal.find('.ipsUpload').click();
         };
 
 
@@ -56,7 +56,7 @@ var IpWidget_File;
             this.modal.off('filesSelected.ipUploadFile').on('filesSelected.ipUploadFile', this.filesSelected);
 
             var widgetObject = this.widgetObject;
-            this.modal.find('.ipmBrowseButton').click(function(e){
+            this.modal.find('.ipsUpload').click(function(e){
                 e.preventDefault();
                 var repository = new ipRepository({preview: 'list'});
                 repository.bind('ipRepository.filesSelected', $.proxy(fileUploaded, context));

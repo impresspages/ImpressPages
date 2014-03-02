@@ -32,10 +32,10 @@
                         $fileObject.ipWidget_ipFile_container('removeFile', $fileObject);
                     });
 
-                    $( ".ipWidget_ipFile_container" ).sortable();
-                    $( ".ipWidget_ipFile_container" ).sortable('option', 'handle', '.ipsFileMove');
-
-
+                    $( ".ipWidget_ipFile_container" ).sortable({
+                        handle: '.ipsFileMove',
+                        cancel: false
+                    });
                 }
             });
         },

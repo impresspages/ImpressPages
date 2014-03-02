@@ -1051,7 +1051,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-Html {
   max-width: 100%;
-  overflow: auto;
 }
 .ipWidget-Image img {
   -webkit-box-sizing: border-box;
@@ -1062,9 +1061,6 @@ Move to separate stylesheet if invalid CSS is a problem.
   max-width: 100%;
 }
 .ipWidget-Missing {
-  /* covered by default styles */
-}
-.ipWidget-Text {
   /* covered by default styles */
 }
 .ipWidget-Text table,
