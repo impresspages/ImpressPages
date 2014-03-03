@@ -31,6 +31,26 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($page->find('css', '.ipsLoginButton'), 'Could not log in.');
         $this->assertNotEmpty($page->find('css', '.ipsContentPublish'));
 
+        if (getenv('TRAVIS')) {
+
+            $sauceReport = array(
+                'name' => __CLASS__ . '::' . __METHOD__,
+                'passed' => true,
+                // 'public' => 'public',
+                // 'tags' => array('tag1', 'tag2'),
+                'build' => getenv('TRAVIS_BUILD_NUMBER'),
+                // 'custom-data' => array(
+                //    'release' => '4.0',
+                //),
+            );
+
+            $json = json_encode($sauceReport);
+
+            $template = "curl -H \"Content-Type:text/json\" -s -X PUT -d '%1s' http://%2s:%3s@saucelabs.com/rest/v1/%2s/jobs/%3s";
+            $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), getenv('TRAVIS_JOB_NUMBER'));
+            system($command);
+        }
+
     }
 
 
