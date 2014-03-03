@@ -61,6 +61,10 @@ class Item
      */
     protected $type;
 
+    /**
+     * @var bool
+     */
+    protected $blank;
 
     public function getTitle(){
         return $this->title;
