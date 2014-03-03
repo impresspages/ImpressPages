@@ -46,12 +46,11 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
 
             $json = json_encode($sauceReport);
 
-            $template = "curl -H \"Content-Type:text/json\" -s -X PUT -d '%1s' http://%2s:%3s@saucelabs.com/rest/v1/%2s/jobs/%3s";
+            $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%3$s';
             $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), getenv('TRAVIS_JOB_NUMBER'));
             system($command);
         }
 
     }
-
 
 }
