@@ -45,20 +45,21 @@ class ConfigModel{
 
         if (isset($data['refreshPreview'])) {
 
-            if (isset($config[$name])) {
 
-                if (isset($data['restoreDefault'])) {
-                    //overwrite current config with default theme values
-                    $model = Model::instance();
-                    $theme = $model->getTheme(ipConfig()->theme());
-                    $options = $theme->getOptionsAsArray();
-                    foreach($options as $option) {
-                        if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
-                            return $option['default'];
-                        }
+            if (isset($data['restoreDefault'])) {
+                //overwrite current config with default theme values
+                $model = Model::instance();
+                $theme = $model->getTheme(ipConfig()->theme());
+                $options = $theme->getOptionsAsArray();
+                foreach($options as $option) {
+                    if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
+                        return $option['default'];
                     }
                 }
+                return '';
+            }
 
+            if (isset($config[$name])) {
                 return $config[$name];
             } else {
                 return '';
