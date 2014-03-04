@@ -23,6 +23,30 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
 
         $session = \PhpUnit\Helper\Session::factory();
 
+        if (getenv('TRAVIS')) {
+
+            $sauceReport = array(
+                'name' => __CLASS__ . '::' . __METHOD__,
+            );
+
+            $json = json_encode($sauceReport);
+
+            $capabilities = $session->getDriver()->getWebDriverSession()->capabilities();
+            $remoteSessionId = $capabilities['webdriver.remote.sessionid'];
+
+            $this->assertNotEmpty($remoteSessionId);
+
+            $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%3$s';
+            $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), $remoteSessionId);
+            echo "\n---\n";
+            echo $remoteSessionId;
+            echo "\n---\n";
+            echo system($command);
+            echo "\n---\n";
+
+            return;
+        }
+
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);
 
         $adminHelper->login();
@@ -51,6 +75,8 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
 
             $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%3$s';
             $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), $remoteSessionId);
+            echo "\n---\n";
+            echo $remoteSessionId;
             echo "\n---\n";
             echo system($command);
             echo "\n---\n";
