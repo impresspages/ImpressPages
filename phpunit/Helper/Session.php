@@ -15,14 +15,14 @@ class Session
     /**
      * @return \Behat\Mink\Session
      */
-    public static function factory()
+    public static function factory($testName)
     {
         // init Mink:
         if (getenv('TRAVIS')) {
             // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
             $url = sprintf('http://%s:%s@ondemand.saucelabs.com/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
             $desiredCapabilities = array(
-                'name' => __METHOD__,
+                'name' => $testName,
                 'tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER'),
                 'build' => getenv('TRAVIS_BUILD_NUMBER'),
                 'tags' => array(getenv('TRAVIS_PHP_VERSION'), 'CI')

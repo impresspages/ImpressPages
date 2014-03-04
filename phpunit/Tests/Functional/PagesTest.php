@@ -21,7 +21,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
 
-        $session = \PhpUnit\Helper\Session::factory();
+        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
 
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);
 
