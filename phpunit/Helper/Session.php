@@ -17,6 +17,8 @@ class Session
      */
     public static function factory($testName)
     {
+        echo "\n\n\nSTART {$testName}\n\n";
+        
         // init Mink:
         if (getenv('TRAVIS')) {
             // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
@@ -42,7 +44,7 @@ class Session
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
-        echo "\n\n\nSTART {$testName}\n\n";
+
         return $session;
     }
 
