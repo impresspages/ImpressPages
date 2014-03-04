@@ -101,7 +101,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 
         try {
             $session->stop();
-        } catch (\DriverException $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
