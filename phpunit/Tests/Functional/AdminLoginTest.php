@@ -26,6 +26,12 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
         if (getenv('TRAVIS')) {
 
             $capabilities = $session->getDriver()->getWebDriverSession()->capabilities();
+
+            //* TODOX remove
+            echo "\n---\n";
+            var_export($capabilities);
+            echo "\n---\n";
+            //*/
             $remoteSessionId = $capabilities['webdriver.remote.sessionid'];
             $this->assertNotEmpty($remoteSessionId);
 
@@ -44,7 +50,7 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
             system($command);
             echo "\n---\n";
             printf($template, $json, getenv('SAUCE_USERNAME'), 'SAUCE_ACCESS_KEY', getenv('TRAVIS_JOB_NUMBER'));
-            $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), getenv('TRAVIS_JOB_NUMBER'));
+            $command = sprintf($template . "\n", $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), getenv('TRAVIS_JOB_NUMBER'));
             system($command);
             echo "\n---\n";
 
