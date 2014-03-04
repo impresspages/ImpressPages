@@ -25,11 +25,12 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
 
         if (getenv('TRAVIS')) {
 
+            $wdSession = $session->getDriver()->getWebDriverSession();
             $capabilities = $session->getDriver()->getWebDriverSession()->capabilities();
 
             //* TODOX remove
             echo "\n---\n";
-            var_export($capabilities);
+            var_export($wdSession);
             echo "\n---\n";
             //*/
             $remoteSessionId = $capabilities['webdriver.remote.sessionid'];
