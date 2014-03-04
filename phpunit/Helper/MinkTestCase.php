@@ -14,6 +14,8 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         TestEnvironment::setup();
+
+        echo "\n\n\n" . get_class($this) . '::' . $this->getName() . "\n\n";
     }
 
     /**
@@ -41,8 +43,6 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
      */
     public static function startSession($testName)
     {
-        echo "\n\n\nSTART {$testName}\n\n";
-
         // init Mink:
         if (getenv('TRAVIS')) {
             // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
