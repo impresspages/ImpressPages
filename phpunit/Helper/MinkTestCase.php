@@ -99,7 +99,13 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 //            echo "\n---\n";
         }
 
-        $session->stop();
+        try {
+            $session->stop();
+        } catch (\WebDriver\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
 }
