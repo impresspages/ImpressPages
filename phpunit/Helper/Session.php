@@ -41,6 +41,7 @@ class Session
 
         $session = new \Behat\Mink\Session($driver);
         $session->start();
+        echo "\n\n\nSTART {$testName}\n\n";
         return $session;
     }
 
