@@ -196,7 +196,7 @@ var ipDesign;
                 }); //it is important to bind links before adding configuration box html to the body
 
             $('body').append(ipModuleDesignConfiguration);
-            ipModuleForm.init(); //reinit form controls after adding option box
+            ipInitForms(); //reinit form controls after adding option box
 
 
             $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {

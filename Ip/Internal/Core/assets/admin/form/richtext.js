@@ -46,7 +46,7 @@ console.log('load');
 
     };
 
-    $('.ipsModuleForm .type-richtext').ipFormRichtext();
+    $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
 
 })(ip.jQuery);
 
