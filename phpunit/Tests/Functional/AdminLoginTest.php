@@ -2,7 +2,7 @@
 
 namespace Tests\Functional;
 
-class AdminLoginTest extends \Helper\MinkTestCase
+class AdminLoginTest extends \PhpUnit\Helper\MinkTestCase
 {
 
     /**
