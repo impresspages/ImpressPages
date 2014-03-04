@@ -8222,7 +8222,6 @@ th {
 .ipModuleInlineManagementControls {
   display: none;
   position: absolute;
-  z-index: 1030;
 }
 .ipModuleInlineManagementControls .ipAdminWidgetControls ._controls * {
   visibility: visible;
@@ -8237,21 +8236,20 @@ th {
   display: inline-block;
   vertical-align: middle;
 }
-/* Image management */
-.ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
-  border: none;
+.ipModuleInlineManagementImageModal {
+  outline: #e7e7e7 solid 1px;
+  position: absolute;
+  z-index: 1050;
 }
-.ipModuleInlineManagementPopup.ipmImage .ipmControls {
-  padding: 10px;
-  background-color: #ccc;
+.ipModuleInlineManagementImageModal ._controls {
+  background-color: #e7e7e7;
+  padding: 0 20px 20px;
 }
-.ipModuleInlineManagementPopup.ipmImage .ipmType,
-.ipModuleInlineManagementPopup.ipmImage .ipmType option {
-  font-size: 14px;
-  margin-bottom: 10px;
+.ipModuleInlineManagementImageModal ._controls .form-group {
+  margin-top: 20px;
 }
-.ipModuleInlineManagementPopup.ipmImage .ipmRemove {
-  float: right;
+.ipModuleInlineManagementImageModal ._controls .pull-left {
+  clear: left;
 }
 .ipAdminPages ._container {
   float: left;

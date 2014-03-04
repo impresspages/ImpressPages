@@ -1,7 +1,6 @@
 .ipModuleInlineManagementControls {
     display: none;
     position: absolute;
-    z-index: @zindex-tooltip;
 
     .ipAdminWidgetControls ._controls * {
         visibility: visible;
@@ -21,31 +20,21 @@
     }
 }
 
-.ipModuleInlineManagementPopup .ipUploadImageButton {
-    z-index: 2500; /* plupload browser button don't work if following conditions are met: chrome, jQuery ui dialog is in modal mode. z-index fixes that */
-}
+.ipModuleInlineManagementImageModal {
+    outline: @color-silver2 solid 1px;
+    position: absolute;
+    z-index: @zindex-modal;
 
+    ._controls {
+        background-color: @color-silver2;
+        padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
 
+        .form-group {
+            margin-top:  (@grid-gutter-width / 2);
+        }
 
-/* String management */
-.ipModuleInlineManagementPopup.ipmString textarea {
-    height: 100px;
-    width: 100%;
-}
-
-/* Image management */
-.ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
-    border: none;
-}
-.ipModuleInlineManagementPopup.ipmImage .ipmControls {
-    padding: 10px;
-    background-color: #ccc;
-}
-.ipModuleInlineManagementPopup.ipmImage .ipmType,
-.ipModuleInlineManagementPopup.ipmImage .ipmType option {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-.ipModuleInlineManagementPopup.ipmImage .ipmRemove {
-    float: right;
+        .pull-left {
+            clear: left;
+        }
+    }
 }

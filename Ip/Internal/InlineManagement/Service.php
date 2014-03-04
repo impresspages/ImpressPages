@@ -109,10 +109,9 @@ class Service
             $pageId = ipContent()->getCurrentPage()->getId();
         }
 
-
-
-        if ($defaultValue === null) {
-            $defaultValue = ipFile('Ip/Internal/InlineManagement/assets/empty.gif');
+        // if default value is not defined, we'll add it
+        if (empty($defaultValue)) {
+            $defaultValue = ipFileUrl('Ip/Internal/InlineManagement/assets/empty.gif');
         }
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);

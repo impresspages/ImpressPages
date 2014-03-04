@@ -9,7 +9,7 @@
     $(document).ready(function () {
         //$('.ipModuleInlineManagement').ipModuleInlineManagement();
         $('.ipsModuleInlineManagementLogo').ipModuleInlineManagementLogo();
-        $('.ipModuleInlineManagement.ipmText').ipModuleInlineManagementText();
-        $('.ipModuleInlineManagement.ipmImage').ipModuleInlineManagementImage();
+        $('.ipsModuleInlineManagementText').ipModuleInlineManagementText();
+        $('.ipsModuleInlineManagementImage').ipModuleInlineManagementImage();
     });
 })(ip.jQuery);
