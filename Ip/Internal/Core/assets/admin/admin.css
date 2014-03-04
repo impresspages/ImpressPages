@@ -44,7 +44,6 @@
   /* makes the font 33% larger relative to the icon container */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
-  /* Image management */
   /* Tab Upload */
   /* Tab All */
   /* Tab Buy */
@@ -8392,7 +8391,6 @@
 .ip .ipModuleInlineManagementControls {
   display: none;
   position: absolute;
-  z-index: 1030;
 }
 .ip .ipModuleInlineManagementControls .ipAdminWidgetControls ._controls * {
   visibility: visible;
@@ -8407,20 +8405,20 @@
   display: inline-block;
   vertical-align: middle;
 }
-.ip .ipModuleInlineManagementPopup.ipmImage .ipUploadWindow {
-  border: none;
+.ip .ipModuleInlineManagementImageModal {
+  outline: #e7e7e7 solid 1px;
+  position: absolute;
+  z-index: 1050;
 }
-.ip .ipModuleInlineManagementPopup.ipmImage .ipmControls {
-  padding: 10px;
-  background-color: #ccc;
+.ip .ipModuleInlineManagementImageModal ._controls {
+  background-color: #e7e7e7;
+  padding: 0 20px 20px;
 }
-.ip .ipModuleInlineManagementPopup.ipmImage .ipmType,
-.ip .ipModuleInlineManagementPopup.ipmImage .ipmType option {
-  font-size: 14px;
-  margin-bottom: 10px;
+.ip .ipModuleInlineManagementImageModal ._controls .form-group {
+  margin-top: 20px;
 }
-.ip .ipModuleInlineManagementPopup.ipmImage .ipmRemove {
-  float: right;
+.ip .ipModuleInlineManagementImageModal ._controls .pull-left {
+  clear: left;
 }
 .ip .ipAdminPages ._container {
   float: left;
@@ -9010,10 +9008,7 @@
 .ipModuleInlineManagement._empty {
   outline: #019bd4 dashed 1px;
 }
+.ipModuleInlineManagement:hover,
 .ipModuleInlineManagement._hilite {
   outline: #4d4d4d dashed 1px;
-}
-.ipModuleInlineManagement._typeImage._empty {
-  height: 50px;
-  width: 100%;
 }
