@@ -13,11 +13,12 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+
         parent::setUp();
 
         TestEnvironment::setup();
 
-        $this->session = \PhpUnit\Helper\Session::factory(__METHOD__);
+        $this->session = \PhpUnit\Helper\Session::factory($this->getName());
     }
 
     public function tearDown()
