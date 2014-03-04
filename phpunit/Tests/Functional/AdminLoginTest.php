@@ -21,20 +21,19 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
 
-        $session = \PhpUnit\Helper\Session::factory();
+        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
 
         if (getenv('TRAVIS')) {
 
+            $capabilities = $session->getDriver()->getWebDriverSession()->capabilities();
+            $remoteSessionId = $capabilities['webdriver.remote.sessionid'];
+            $this->assertNotEmpty($remoteSessionId);
+
             $sauceReport = array(
-                'name' => __CLASS__ . '::' . __METHOD__,
+                'passed' => true,
             );
 
             $json = json_encode($sauceReport);
-
-            $capabilities = $session->getDriver()->getWebDriverSession()->capabilities();
-            $remoteSessionId = $capabilities['webdriver.remote.sessionid'];
-
-            $this->assertNotEmpty($remoteSessionId);
 
             $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%4$s';
             $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), $remoteSessionId);

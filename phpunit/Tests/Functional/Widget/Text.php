@@ -21,7 +21,7 @@ class WidgetTextTest extends \PHPUnit_Framework_TestCase
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
 
-        $session = \PhpUnit\Helper\Session::factory();
+        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
         $page = $session->getPage();
 
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);

@@ -20,7 +20,7 @@ class InstallTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstallCurrent($customPort = NULL)
     {
-        $session = \PhpUnit\Helper\Session::factory();
+        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 
