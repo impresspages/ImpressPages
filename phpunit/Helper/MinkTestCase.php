@@ -9,16 +9,23 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @var \Behat\Mink\Session
      */
-    protected $session;
+    private $session;
 
     protected function setUp()
     {
-
-        parent::setUp();
-
         TestEnvironment::setup();
+    }
 
-        $this->session = \PhpUnit\Helper\Session::factory($this->getName());
+    /**
+     * @return \Behat\Mink\Session
+     */
+    protected function session()
+    {
+        if (!$this->session) {
+            $this->session = \PhpUnit\Helper\Session::factory($this->getName());
+        }
+
+        return $this->session;
     }
 
     public function tearDown()
@@ -42,8 +49,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         }
 
         $this->session->stop();
-
-        parent::tearDown();
+        $this->session = null;
     }
 }
 

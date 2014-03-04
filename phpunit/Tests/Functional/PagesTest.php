@@ -2,14 +2,10 @@
 
 namespace Tests\Functional;
 
-use PhpUnit\Helper\TestEnvironment;
+use PhpUnit\Helper\MinkTestCase;
 
-class PagesTest extends \PHPUnit_Framework_TestCase
+class PagesTest extends MinkTestCase
 {
-    public function setup()
-    {
-        TestEnvironment::setup();
-    }
 
     /**
      * @group Sauce
@@ -21,7 +17,7 @@ class PagesTest extends \PHPUnit_Framework_TestCase
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
 
-        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
+        $session = $this->session();
 
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);
 
