@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Helper;
+namespace PhpUnit\Helper;
 
 
 class MinkTestCase extends \PHPUnit_Framework_TestCase
