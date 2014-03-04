@@ -2,15 +2,10 @@
 
 namespace Tests\Functional;
 
-use PhpUnit\Helper\TestEnvironment;
+use PhpUnit\Helper\MinkTestCase;
 
-class WidgetTextTest extends \PHPUnit_Framework_TestCase
+class WidgetTextTest extends MinkTestCase
 {
-    public function setup()
-    {
-        TestEnvironment::setup();
-    }
-
     /**
      * @group Sauce
      * @group Selenium
@@ -21,7 +16,7 @@ class WidgetTextTest extends \PHPUnit_Framework_TestCase
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
 
-        $session = \PhpUnit\Helper\Session::factory(__METHOD__);
+        $session = $this->session();
         $page = $session->getPage();
 
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);
