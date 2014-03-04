@@ -37,11 +37,12 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEmpty($remoteSessionId);
 
             $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%4$s';
-            $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), $remoteSessionId);
+            $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), 'ACCESS_KEY', $remoteSessionId);
             echo "\n---\n";
             echo $remoteSessionId;
             echo "\n---\n";
-            echo system($command);
+            echo $command;
+            // system($command);
             echo "\n---\n";
 
             return;
