@@ -35,10 +35,10 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 
             $template = 'curl -H "Content-Type:text/json" -s -X PUT -d \'%1$s\' http://%2$s:%3$s@saucelabs.com/rest/v1/%2$s/jobs/%4$s';
             $command = sprintf($template, $json, getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'), $sauceSessionId);
-            echo "\n---\n";
-            printf($template . "\n", $json, getenv('SAUCE_USERNAME'), 'SAUCE_ACCESS_KEY', $sauceSessionId);
-            system($command);
-            echo "\n---\n";
+//            echo "\n---\n";
+//            printf($template . "\n", $json, getenv('SAUCE_USERNAME'), 'SAUCE_ACCESS_KEY', $sauceSessionId);
+            exec($command);
+//            echo "\n---\n";
         }
 
         $this->session->stop();
