@@ -22,7 +22,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     protected function session()
     {
         if (!$this->session) {
-            $this->session = static::startSession(get_class($this) . '->' . $this->getName());
+            $this->session = static::startSession(get_class($this) . '::' . $this->getName());
         }
 
         return $this->session;
