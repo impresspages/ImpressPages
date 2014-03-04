@@ -22,7 +22,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     protected function session()
     {
         if (!$this->session) {
-            $this->session = \PhpUnit\Helper\Session::factory(get_class($this) . '->' . $this->getName());
+            $this->session = static::startSession(get_class($this) . '->' . $this->getName());
         }
 
         return $this->session;
@@ -30,13 +30,64 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        if (getenv('TRAVIS')) {
+        static::stopSession($this->session, $this->getStatus() == \PHPUnit_Runner_BaseTestRunner::STATUS_PASSED);
 
-            $sessionUrl = $this->session->getDriver()->getWebDriverSession()->getURL();
+        $this->session = null;
+    }
+
+
+    /**
+     * @return \Behat\Mink\Session
+     */
+    public static function startSession($testName)
+    {
+        echo "\n\n\nSTART {$testName}\n\n";
+
+        // init Mink:
+        if (getenv('TRAVIS')) {
+            // $url = sprintf('http://%s:%s@localhost:4445/wd/hub', getenv('SAUCE_USERNAME'), getenv('SAUCE_ACCESS_KEY'));
+            $url = sprintf(
+                'http://%s:%s@ondemand.saucelabs.com/wd/hub',
+                getenv('SAUCE_USERNAME'),
+                getenv('SAUCE_ACCESS_KEY')
+            );
+            $desiredCapabilities = array(
+                'name' => $testName,
+                'tunnel-identifier' => getenv('TRAVIS_JOB_NUMBER'),
+                'build' => getenv('TRAVIS_BUILD_NUMBER'),
+                'tags' => array(getenv('TRAVIS_PHP_VERSION'), 'CI')
+            );
+
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox',
+                $desiredCapabilities,
+                $url
+            );
+        } else {
+            $driver = new \Behat\Mink\Driver\Selenium2Driver(
+                'firefox'
+            );
+        }
+
+        $session = new \Behat\Mink\Session($driver);
+        $session->start();
+
+
+        return $session;
+    }
+
+    /**
+     * @param \Behat\Mink\Session $session
+     * @param bool $hasPassed
+     */
+    public static function stopSession($session, $hasPassed)
+    {
+        if (getenv('TRAVIS')) {
+            $sessionUrl = $session->getDriver()->getWebDriverSession()->getURL();
             $sauceSessionId = substr($sessionUrl, strrpos($sessionUrl, '/') + 1);
 
             $sauceReport = array(
-                'passed' => $this->getStatus() == \PHPUnit_Runner_BaseTestRunner::STATUS_PASSED,
+                'passed' => $hasPassed,
             );
             $json = json_encode($sauceReport);
 
@@ -48,8 +99,8 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 //            echo "\n---\n";
         }
 
-        $this->session->stop();
-        $this->session = null;
+        $session->stop();
     }
+
 }
 
