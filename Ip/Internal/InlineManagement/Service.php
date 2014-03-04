@@ -97,6 +97,8 @@ class Service
 
     public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
     {
+        $defaultPlaceholder = ipFileUrl('Ip/Internal/InlineManagement/assets/empty.gif');
+
         if (isset($options['languageId'])) {
             $languageId = $options['languageId'];
         } else {
@@ -111,7 +113,7 @@ class Service
 
         // if default value is not defined, we'll add it
         if (empty($defaultValue)) {
-            $defaultValue = ipFileUrl('Ip/Internal/InlineManagement/assets/empty.gif');
+            $defaultValue = $defaultPlaceholder;
         }
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);
@@ -121,7 +123,7 @@ class Service
         $data = array (
             'value' => $image->getImage(),
             'defaultValue' => $defaultValue,
-            'empty' => $image->getImage() == '',
+            'empty' => ($image->getImage() == '' || $image->getImage() == $defaultPlaceholder),
             'key' => $key,
             'options' => $options,
             'cssClass' => $cssClass
