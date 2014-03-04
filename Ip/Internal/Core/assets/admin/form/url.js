@@ -51,7 +51,7 @@ console.log('load');
 
     };
 
-    $('.ipsModuleForm .type-url').ipFormUrl();
+    $('.ipsModuleFormAdmin .type-url').ipFormUrl();
 
 })(ip.jQuery);
 

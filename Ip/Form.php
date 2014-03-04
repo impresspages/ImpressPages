@@ -28,6 +28,8 @@ class Form
     protected $attributes;
     protected $classes;
     protected $environment;
+    protected $ajaxSubmit;
+    protected $validate;
 
     public function __construct()
     {
@@ -35,7 +37,11 @@ class Form
         $this->method = self::METHOD_POST;
         $this->action = ipConfig()->baseUrl();
         $this->attributes = array();
-        $this->classes = array('ipModuleForm' => 1, 'ipsModuleForm' => 1);
+        $this->classes = array();
+        $this->ajaxSubmit = TRUE;
+        $this->validate= TRUE;
+        $this->addClass('ipModuleForm');
+        $this->addClass('ipsAjaxSubmit');
         if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->setEnvironment(self::ENVIRONMENT_ADMIN);
         } else {
@@ -73,6 +79,14 @@ class Form
      */
     public function setEnvironment($environment)
     {
+        if ($environment == self::ENVIRONMENT_ADMIN) {
+            $this->addClass('ipsModuleFormAdmin');
+            $this->removeClass('ipsModuleFormPublic');
+        } else {
+            $this->addClass('ipsModuleFormPublic');
+            $this->removeClass('ipsModuleFormAdmin');
+        }
+
         $this->environment = $environment;
     }
 
@@ -379,6 +393,52 @@ class Form
             $answer .= ' ' . $class;
         }
         return 'class="' . $answer . '"';
+    }
+
+    /**
+     * Set ajaxSubmit attribute. If true, form will be automatically
+     * @param $ajaxSubmit
+     */
+    public function setAjaxSubmit($ajaxSubmit)
+    {
+        if ($ajaxSubmit) {
+            $this->addClass('ipsAjaxSubmit');
+        } else {
+            $this->removeClass('ipsAjaxSubmit');
+        }
+        $this->ajaxSubmit = $ajaxSubmit;
+    }
+
+    /**
+     * Get ajaxSubmit property
+     * @return bool
+     */
+    public function getAjaxSubmit()
+    {
+        return (bool) $this->ajaxSubmit;
+    }
+
+    /**
+     * Set validate attribute. If true, form will be automatically validated by javascript on submit
+     * @param $validate
+     */
+    public function setValidate($validate)
+    {
+        if ($validate) {
+            $this->addClass('ipsValidate');
+        } else {
+            $this->removeClass('ipsValidate');
+        }
+        $this->validate = $validate;
+    }
+
+    /**
+     * Get validate property
+     * @return bool
+     */
+    public function getValidate($validate)
+    {
+        return (bool) $this->validate;
     }
 
     /**

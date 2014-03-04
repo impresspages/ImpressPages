@@ -194,7 +194,7 @@ class Controller extends \Ip\WidgetController{
             'options' => array()
         );
         $data['fields'][] = array (
-            'type' => 'IpEmail',
+            'type' => 'Email',
             'label' => __('Email', 'ipPublic', false),
             'options' => array()
         );
@@ -244,7 +244,7 @@ class Controller extends \Ip\WidgetController{
                 'options' => array()
             );
             $data['fields'][] = array (
-                'type' => 'IpEmail',
+                'type' => 'Email',
                 'label' => __('Email', 'ipPublic', false),
                 'options' => array()
             );
