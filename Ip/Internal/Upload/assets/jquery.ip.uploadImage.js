@@ -475,7 +475,7 @@
             repository.bind('ipRepository.filesSelected', $.proxy(uploadedNewFile, $this));
         });
 
-
+        $(this).trigger('change.ipUploadImage');
     };
 
     var resizedWindow = function (resizeEvent, ui) {
