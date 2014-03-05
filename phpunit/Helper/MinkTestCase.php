@@ -21,7 +21,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @return \Behat\Mink\Session
      */
-    protected function session()
+    public function session()
     {
         if (!$this->session) {
             $this->session = static::startSession(get_class($this) . '::' . $this->getName());
@@ -33,7 +33,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
     /**
      * @return \Behat\Mink\Element\DocumentElement
      */
-    protected function page()
+    public function page()
     {
         return $this->session()->getPage();
     }
