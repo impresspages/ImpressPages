@@ -1,6 +1,10 @@
 language: php
 php:
   - 5.3
+notifications:
+  email:
+    on_success: change
+    on_failure: change
 env:
   global:
     # SAUCE
