@@ -33,14 +33,14 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
         $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
 
         // wait for popup to close
-        $popupClosed = $this->session()->waitForElementNotPresent('css', '#ipModuleRepositoryTabUpload');
+        $popupClosed = $this->waitForElementNotPresent('#ipModuleRepositoryTabUpload');
         $this->assertTrue($popupClosed);
 
         $this->find('#ipWidgetFilePopup .ipsCancel')->click();
 
         $this->find('.ipWidget-File .ipsWidgetDelete');
         $this->session()->executeScript("$('.ipWidget-File .ipsWidgetDelete').click()");
-        $removed = $this->session()->waitForElementNotPresent('css', '.ipWidget-File'); // TODO refactor
+        $removed = $this->waitForElementNotPresent('.ipWidget-File');
         $this->assertTrue($removed);
 
         $this->assertTrue(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'));

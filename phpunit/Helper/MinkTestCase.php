@@ -53,9 +53,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function find($cssSelector)
     {
-        $element = $this->session()->waitForElementPresent('css', $cssSelector);
-        $this->assertNotEmpty($element, "Element $cssSelector not found");
-        return $element;
+        return $this->waitForElementPresent($cssSelector);
     }
 
     /**
@@ -169,7 +167,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         $context = $this;
         $result = $this->spin(
             function () use ($context, $cssSelector) {
-                return $context->getPage()->find('css', $cssSelector);
+                return $context->page()->find('css', $cssSelector);
             },
             $timeout
         );
@@ -189,7 +187,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         $context = $this;
         $result = $this->spin(
             function () use ($context, $cssSelector) {
-                $element = $context->getPage()->find('css', $cssSelector);
+                $element = $context->page()->find('css', $cssSelector);
                 if (!$element) {
                     return true;
                 }
