@@ -60,6 +60,9 @@ var IpWidget_Form;
 
             this.addButton.on('click', $.proxy(addField, this));
 
+            if (instanceData.success == null)  {
+                instanceData.success = '';
+            }
             this.modal.find('textarea[name=success]').val(instanceData.success);
 
 
@@ -82,7 +85,7 @@ var IpWidget_Form;
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
             this.modal.find('.ipsTabs li a').first().click();
-            IpWidget_Form.init();
+            ipInitForms();
         };
 
         var cleanup = function() {

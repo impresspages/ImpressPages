@@ -8,7 +8,7 @@
                     <h4 class="modal-title"><?php echo __('Select Link Target', 'ipAdmin') ?></h4>
                 </div>
                 <div class="modal-body">
-                    <iframe class="ipsPageSelectIframe" style="overflow: hidden; width: 100%; height: 300px;" src="<?php echo ipConfig()->baseUrl() ?>?aa=Pages&disableAdminBar=1&disableActions=1">
+                    <iframe class="ipsPageSelectIframe" style="overflow: hidden; width: 100%; height: 300px;" src="" data-source="<?php echo ipConfig()->baseUrl() ?>?aa=Pages&disableAdminBar=1&disableActions=1">
 
                     </iframe>
 <!--                    <div class="ipSitemap"></div>-->
