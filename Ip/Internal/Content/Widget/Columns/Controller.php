@@ -71,6 +71,7 @@ class Controller extends \Ip\WidgetController
     {
         $data['revisionId'] = $revisionId;
         $data['widgetId'] = $widgetId;
+        $data['cols'] = array_values($data['cols']); //fix numeric values of array
         $data = $this->prepareData($data, $widgetId);
 
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
@@ -91,6 +92,7 @@ class Controller extends \Ip\WidgetController
                 'column'.$widgetId.'_2'
             );
         }
+        $data['cols'] = array_values($data['cols']);
 
         return $data;
     }
