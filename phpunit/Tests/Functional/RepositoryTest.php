@@ -6,7 +6,7 @@
      */
 
 /**
- * @group Sauce
+ * @group ignoreOnTravis
  * @group Selenium
  */
 class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
