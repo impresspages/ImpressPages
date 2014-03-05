@@ -228,6 +228,9 @@ var ipDesign;
                                     $form.data("validator").invalidate(response.errors);
                                 }
                             }
+                        },
+                        error: function (response) {
+                            alert('Unexpected error.' + response.responseText);
                         }
                     });
                 }
