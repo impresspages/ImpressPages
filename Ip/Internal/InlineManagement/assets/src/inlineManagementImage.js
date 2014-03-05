@@ -58,23 +58,16 @@
         _openPopupResponse : function (response) {
             var $this = this;
             if (response.status == 'success') {
-                var $overlay = $('<div class="ui-widget-overlay"></div>').appendTo("body").css('position', 'fixed');//new $.ui.dialog.overlay();
-                $overlay.css('z-index', 2000);
+                // removing the old instance in case it still exists
+                $('.ipsModuleInlineManagementImageModal').remove();
+                var $popup = $(response.html).appendTo(document.body).modal('show');
 
-                $('.ipModuleInlineManagementPopup.ipmImage').remove();
-                $('body').append('<div class="ipModuleInlineManagementPopup ipmImage ip" ></div>');
-                var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
-
-                $popup.html(response.html);
-                $popup.css('z-index', 2010);
-
-                $popup.css('position', 'absolute');
-                $popup.css($this.offset());
-
+                $popup
+                    .css('position', 'absolute') // should go to CSS but that requires additional classes and complicates usage
+                    .css($this.offset()); // since we add this offset, above style is not that bad after all
 
                 var data = $this.data('ipInlineManagementImage');
                 data.popup = $popup;
-                data.overlay = $overlay;
                 $this.data('ipInlineManagementImage', data);
 
                 //initialize image browser
@@ -126,31 +119,30 @@
                     options.enableChangeHeight = false;
                 }
 
+                console.log($this.data('options'));
                 //loop and assign all inline options assigned by theme author
                 $.each($this.data('options'), function(name, value) {
                     options[name] = value;
                 });
 
-                var $imageUploader = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsImage');
+                console.log('6');
+                var $imageUploader = $popup.find('.ipsImage');
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('change.ipUploadImage', $.proxy(methods._preview, $this));
                 $this.bind('error.ipUploadImage', {widgetController: this}, methods._addError);
 
             }
 
-            //$.proxy(methods._preview, $this)();
-
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsCancel').bind('click', $.proxy(methods._cancel, $this));
-
-            $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsRemove').bind('click', $.proxy(methods._removeImage, $this));
+            $.proxy(methods._preview, $this)();
+            $popup.find('.ipsConfirm').bind('click', $.proxy(methods._confirm, $this));
+            $popup.find('.ipsCancel').bind('click', $.proxy(methods._cancel, $this));
+            $popup.find('.ipsRemove').bind('click', $.proxy(methods._removeImage, $this));
         },
 
         _removeImage : function(event) {
             event.preventDefault();
             var $this = this;
-            var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
-
+            var $popup = $('.ipsModuleInlineManagementImageModal');
 
             if (!confirm($popup.find('.ipsRemoveConfirm').text())) {
                 return;
@@ -186,8 +178,7 @@
 
             if (answer && answer.status == 'success') {
                 var data = $this.data('ipInlineManagementImage');
-                data.overlay.remove();
-                data.popup.remove();
+                data.popup.modal('hide').remove();
 
                 $this.css('width', '');
                 $this.css('height', '');
@@ -201,28 +192,27 @@
             }
         },
 
-
-        _preview : function(event) {console.log('preview');
+        _preview : function(event) {
             var $this = this;
-
-            var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
+            var $popup = $('.ipsModuleInlineManagementImageModal');
 
             var $imageUploader = $popup.find('.ipsImage');
 
             var windowHeight = $imageUploader.ipUploadImage('height');
             var windowWidth = $imageUploader.ipUploadImage('width');
 
-            $popup.find('.ipsControls').css('width', (windowWidth - 20) + 'px'); //20 - padding
-
-            $this.css('width', windowWidth + 'px');
-            //$this.css('height', (windowHeight + $popup.find('.ipsControls').height()) + 'px'); //20 - padding
-            $this.css('height', windowHeight + 'px');
+            $this
+                .width(windowWidth)
+                .height(windowHeight);
+            $popup
+                .width(windowWidth)
+                .height(windowHeight);
         },
 
         _confirm : function (event) {
             event.preventDefault();
             var $this = $(this);
-            var $popup = $('.ipModuleInlineManagementPopup.ipmImage');
+            var $popup = $('.ipsModuleInlineManagementImageModal');
             $this.trigger('ipInlineManagement.logoConfirm');
             var data = Object();
             data.aa = 'InlineManagement.saveImage';
@@ -236,10 +226,8 @@
             data.pageId = ip.pageId;
             data.languageId = ip.languageId;
 
-
             //IMAGE
-            var ipUploadImage = $('.ipModuleInlineManagementPopup.ipmImage').find('.ipsImage');
-
+            var ipUploadImage = $('.ipsModuleInlineManagementImageModal').find('.ipsImage');
 
             if (ipUploadImage.ipUploadImage('getCurImage') == undefined) {
                 $.proxy(methods._cancel, $this)(event);
@@ -265,8 +253,6 @@
                 }
             }
 
-
-
             //SAVE
             $.ajax({
                 type : 'POST',
@@ -283,8 +269,7 @@
 
             if (answer && answer.status == 'success') {
                 var data = $this.data('ipInlineManagementImage');
-                data.overlay.remove();
-                data.popup.remove();
+                data.popup.modal('hide').remove();
 
                 $this.css('width', '');
                 $this.css('height', '');
@@ -301,8 +286,7 @@
             event.preventDefault();
             var $this = this;
             var data = $this.data('ipInlineManagementImage');
-            data.overlay.remove();
-            data.popup.remove();
+            data.popup.modal('hide').remove();
 
             $this.css('width', '');
             $this.css('height', '');
