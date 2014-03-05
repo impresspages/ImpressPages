@@ -60,6 +60,9 @@ var IpWidget_Form;
 
             this.addButton.on('click', $.proxy(addField, this));
 
+            if (instanceData.success == null)  {
+                instanceData.success = '';
+            }
             this.modal.find('textarea[name=success]').val(instanceData.success);
 
 
