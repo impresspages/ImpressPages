@@ -15,45 +15,21 @@ var ipModuleFormAdmin;
 
     ipModuleFormAdmin = new function () {
         this.init = function () {
-            //TODOX on some servers files are loaded in random order. Problem when plupload and file are loaded at the same time. Or color and spectrum. #loadFormFilesBetter
-
             //if interactive file upload input found, load file upload javascript
             if ($('.ipsModuleFormAdmin .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
                 $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.full.js') + '"></script>'));
             }
 
-
-
-
-            if ($('.ipsModuleFormAdmin .ipsColorPicker').length && !$.spectrum) {
+            if ($('.ipsModuleFormAdmin .ipsColorPicker').length && !$.fn.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
-
-            if ($.fn.ipFormFile) {
-                //if ipFormFile is already loaded
-                $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
-            } else {
-                //ipFormFile JS will initialize itself
-            }
-
-
-            if ($.fn.ipFormRepositoryFile) {
-                //if ipFormRepositoryFile is already loaded
-                $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
-            } else {
-                //ipFormRepositoryFile JS will initialize itself
-            }
-
-
-
-            if ($.fn.ipFormRichtext) {
-                //if ipFormFile is already loaded
-                $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
-            } else {
-                //ipFormRichtext JS will initialize itself
-            }
+            $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
+            $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
+            $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormAdmin .type-url').ipFormUrl();
+            $('.ipsModuleFormAdmin .type-color').ipFormColor();
 
 
             // adding dumb submit element for 'enter' to trigger form submit
@@ -68,23 +44,3 @@ var ipModuleFormAdmin;
     };
 })(ip.jQuery);
 
-
-
-//            if ($('.ipsModuleFormAdmin .ipsFileContainer').length && !$.ipFormFile) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/file.js') + '"></script>'));
-//            }
-//
-//if ($('.ipsModuleFormAdmin .type-richtext').length && !$.ipFormUrl) {
-//    $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
-//}
-//
-//
-//
-//            if ($('.ipsModuleFormAdmin .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/repositoryFile.js') + '"></script>'));
-//            }
-//
-//            if ($('.ipsModuleFormAdmin .type-url').length && !$.ipFormUrl) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/url.js') + '"></script>'));
-//            }
-//$('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/color.js') + '"></script>');

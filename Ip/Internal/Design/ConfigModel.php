@@ -134,6 +134,7 @@ class ConfigModel{
 
 
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
         $form->addClass('ipsForm');
 
 

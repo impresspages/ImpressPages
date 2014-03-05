@@ -29,27 +29,10 @@ var ipModuleFormPublic;
             }
 
 
-            if ($.fn.ipFormFile) {
-                //if ipFormFile is already loaded
-                $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
-            } else {
-                //ipFormFile JS will initialize itself
-            }
-
-
-            if ($.fn.ipFormRepositoryFile) {
-                //if ipFormRepositoryFile is already loaded
-                $('.ipsModuleFormPublic .ipsRepositoryFileContainer').ipFormRepositoryFile();
-            } else {
-                //ipFormRepositoryFile JS will initialize itself
-            }
-
-            if ($.fn.ipFormRichtext) {
-                //if ipFormFile is already loaded
-                $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
-            } else {
-                //ipFormRichtext JS will initialize itself
-            }
+            $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
+            $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormPublic .type-url').ipFormUrl();
+            $('.ipsModuleFormPublic .type-color').ipFormColor();
 
 
             // adding dumb submit element for 'enter' to trigger form submit
@@ -64,19 +47,4 @@ var ipModuleFormPublic;
     };
 })(jQuery);
 
-
-
-//            if ($('.ipsModuleFormPublic .ipsFileContainer').length && !$.ipFormFile) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/file.js') + '"></script>'));
-//            }
-//
-//            if ($('.ipsModuleFormPublic .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
-//            }
-//
-//
-//            if ($('.ipsModuleFormPublic .type-richtext').length && !$.ipFormUrl) {
-//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
-//            }
-//                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');
 
