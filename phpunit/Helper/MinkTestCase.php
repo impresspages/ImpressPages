@@ -44,7 +44,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
 
         $this->session = null;
 
-        TestEnvironment::cleanupFiles();
+//        TestEnvironment::cleanupFiles();
     }
 
     /**
