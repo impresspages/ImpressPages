@@ -11,11 +11,11 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
      */
     private $session;
 
+    protected $timeout = 5;
+
     protected function setUp()
     {
         TestEnvironment::setup();
-
-        echo "\n\n\n" . get_class($this) . '::' . $this->getName() . "\n\n";
     }
 
     /**
@@ -30,13 +30,33 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         return $this->session;
     }
 
+    /**
+     * @return \Behat\Mink\Element\DocumentElement
+     */
+    protected function page()
+    {
+        return $this->session()->getPage();
+    }
+
     public function tearDown()
     {
         static::stopSession($this->session, $this->getStatus() == \PHPUnit_Runner_BaseTestRunner::STATUS_PASSED);
 
         $this->session = null;
+
+        TestEnvironment::cleanupFiles();
     }
 
+    /**
+     * @param string $cssSelector
+     * @return \Behat\Mink\Element\NodeElement|null
+     */
+    protected function find($cssSelector)
+    {
+        $element = $this->session()->waitForElementPresent('css', $cssSelector);
+        $this->assertNotEmpty($element, "Element $cssSelector not found");
+        return $element;
+    }
 
     /**
      * @return \Behat\Mink\Session
@@ -72,6 +92,8 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         $session = new \Behat\Mink\Session($driver);
         $session->start();
 
+        // $session->wait();
+
 
         return $session;
     }
@@ -82,6 +104,10 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
      */
     public static function stopSession($session, $hasPassed)
     {
+        if (!$session) {
+            return;
+        }
+
         if (getenv('TRAVIS')) {
             $sessionUrl = $session->getDriver()->getWebDriverSession()->getURL();
             $sauceSessionId = substr($sessionUrl, strrpos($sessionUrl, '/') + 1);
@@ -106,6 +132,73 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
         }
 
         return true;
+    }
+
+    /**
+     * @param $lambda
+     * @param int|null $timeout
+     * @return mixed
+     */
+    public function spin($lambda, $timeout = null)
+    {
+        if (!$timeout) {
+            $timeout = $this->timeout;
+        }
+
+        $start = microtime(true);
+
+        do {
+            try {
+                $result = $lambda($this);
+            } catch (Exception $e) {
+                // do nothing
+            }
+
+        } while ($result === null && microtime(true) - $start < $timeout);
+
+        return $result;
+    }
+
+    /**
+     * @param string $cssSelector
+     * @param int|null $timeout
+     * @return \Behat\Mink\Element\NodeElement|null
+     */
+    public function waitForElementPresent($cssSelector, $timeout = null)
+    {
+        $context = $this;
+        $result = $this->spin(
+            function () use ($context, $cssSelector) {
+                return $context->getPage()->find('css', $cssSelector);
+            },
+            $timeout
+        );
+
+        $this->assertNotEmpty($result, "Element $cssSelector not found");
+
+        return $result;
+    }
+
+    /**
+     * @param string $cssSelector
+     * @param int|null $timeout
+     * @return bool
+     */
+    public function waitForElementNotPresent($cssSelector, $timeout = null)
+    {
+        $context = $this;
+        $result = $this->spin(
+            function () use ($context, $cssSelector) {
+                $element = $context->getPage()->find('css', $cssSelector);
+                if (!$element) {
+                    return true;
+                }
+            }
+        );
+
+        $this->assertTrue($result, "Element $cssSelector is present");
+
+        return $result ? true : false;
     }
 
 }
