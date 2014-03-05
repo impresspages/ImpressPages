@@ -26,11 +26,13 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
         sleep(1);
         $adminHelper->addWidget('File');
 
+        sleep(1);
         // Try to upload file
         $this->assertFalse(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'));
         $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
         $this->find('.ipWidget-File .ipsWidgetDelete');
+        sleep(1);
         $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
 
         // wait for popup to close
