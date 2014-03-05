@@ -30,6 +30,7 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
         $this->assertFalse(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'));
         $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
+        $this->find('.ipWidget-File .ipsWidgetDelete');
         $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
 
         // wait for popup to close
@@ -54,6 +55,7 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
 
         $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
+        $this->find('.ipWidget-File .ipsWidgetDelete');
         $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
 
         $this->find('.ipWidget_ipFile_container input');
