@@ -397,7 +397,7 @@ function esc($string, $esc = 'html')
         return escHtml($string);
     } elseif ('attr' == $esc) {
         return escAttr($string);
-    } elseif ('textarea' == $string) {
+    } elseif ('textarea' == $esc) {
         return escTextarea($string);
     }
 

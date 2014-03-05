@@ -7,7 +7,7 @@
                     <h4 class="modal-title"><?php _e('Form options', 'ipAdmin'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs ipsTabs">
                         <li class="active"><a href="#ipWidgetFormPopup-fields" data-toggle="tab"><?php _e('Fields', 'ipAdmin'); ?></a></li>
                         <li><a href="#ipWidgetFormPopup-options" data-toggle="tab"><?php _e('Options', 'ipAdmin'); ?></a></li>
                     </ul>
@@ -43,11 +43,7 @@
                         </div>
 
                         <div class="tab-pane" id="ipWidgetFormPopup-options">
-                            <div class="form-group type-textarea name-success">
-                                <label><?php _e('Thank you message', 'ipAdmin'); ?></label>
-                                <div class="ipWidgetFormSuccess ipsSuccess"><?php echo !empty($success) ? $success : ''; ?></div>
-                            </div>
-                            <?php echo $optionsForm; ?>
+                            <?php echo $optionsForm->render(); ?>
                         </div>
                     </div>
                 </div>

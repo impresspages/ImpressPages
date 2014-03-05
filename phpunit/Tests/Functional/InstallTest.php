@@ -2,25 +2,20 @@
 
 namespace Tests\Functional;
 
+use PhpUnit\Helper\MinkTestCase;
 use \PhpUnit\Helper\TestEnvironment;
 
-class InstallTest extends \PHPUnit_Framework_TestCase
+class InstallTest extends MinkTestCase
 {
-    public function setup()
-    {
-        TestEnvironment::setup();
-
-        $installation = new \PhpUnit\Helper\Installation(); //development version
-        $installation->putInstallationFiles(TEST_TMP_DIR . 'installTest/');
-    }
-
-
     /**
      * @group Sauce
      */
     public function testInstallCurrent($customPort = NULL)
     {
-        $session = \PhpUnit\Helper\Session::factory();
+        $installation = new \PhpUnit\Helper\Installation(); //development version
+        $installation->putInstallationFiles(TEST_TMP_DIR . 'installTest/');
+
+        $session = $this->session();
 
         $session->visit(TEST_TMP_URL . 'installTest/install/');
 

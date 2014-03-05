@@ -53,23 +53,32 @@ class Filter
         $typeFile = __('File', 'ipAdmin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
-        $fieldTypes['IpEmail'] = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
+        $fieldTypes['Email'] = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
         $fieldTypes['Textarea'] = new FieldType('Textarea', '\Ip\Form\Field\Textarea', $typeTextarea);
-        $fieldTypes['IpSelect'] = new FieldType('IpSelect', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
-            'view/form_field_options/list.php'
+        $fieldTypes['Select'] = new FieldType('Select', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
+            'view/formFieldOptions/list.php'
         )->render());
-        $fieldTypes['IpCheckbox'] = new FieldType('IpCheckbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetForm_InitWysiwygOptions', 'ipWidgetForm_SaveWysiwygOptions', ipView(
-            'view/form_field_options/wysiwyg.php'
+        $fieldTypes['Checkbox'] = new FieldType('Checkbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetForm_InitWysiwygOptions', 'ipWidgetForm_SaveWysiwygOptions', ipView(
+            'view/formFieldOptions/wysiwyg.php', array('form' => self::wysiwygForm())
         )->render());
-        $fieldTypes['IpRadio'] = new FieldType('IpRadio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
-            'view/form_field_options/list.php'
+        $fieldTypes['Radio'] = new FieldType('Radio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
+            'view/formFieldOptions/list.php'
         )->render());
-        $fieldTypes['IpCaptcha'] = new FieldType('IpCaptcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
+        $fieldTypes['Captcha'] = new FieldType('Captcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
 
         return $fieldTypes;
     }
 
+    private static function wysiwygForm()
+    {
+        $form = new \Ip\Form();
+        $field = new \Ip\Form\Field\RichText(array (
+            'name' => 'text'
+        ));
+        $form->addField($field);
+        return $form;
+    }
 
     private static function getPluginWidgetDirs()
     {

@@ -9,7 +9,7 @@ fi
 
 if [ $TEST_GROUP = "unit" ]
 then
-  ./vendor/bin/phpunit --exclude-group Sauce,ignoreOnTravis --colors Tests/
+    ./vendor/bin/phpunit --exclude-group Sauce,ignoreOnTravis --colors Tests/
 else
-  ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
+    ./vendor/bin/phpunit --group $TEST_GROUP --colors Tests/
 fi
