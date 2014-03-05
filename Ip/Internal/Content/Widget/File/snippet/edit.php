@@ -25,7 +25,7 @@
                     <a href="#" class="ipsUpload ipAdminButton btn btn-new"><?php _e('Add new', 'ipAdmin'); ?></a>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin'); ?></button>
+                    <button type="button" class="btn btn-default ipsCancel" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin'); ?></button>
                     <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'ipAdmin'); ?></button>
                 </div>
             </div>
