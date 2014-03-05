@@ -18,21 +18,16 @@ console.log('load');
             return this.each(function() {
 
                 var $this = $(this);
-                var $input = $(this).find('input');
+                var $textarea = $this.find('textarea');
 
-                var data = $this.data('ipFormUrl');
+
+                var data = $this.data('ipFormRichText');
                 if (!data) {
 
-                    $this.data('ipFormUrl', {initialized: 1});
-
-                    $this.find('.ipsBrowse').on('click', function () {
-                        console.log('browse');
-                        ipBrowseLink(function(link) {
-                            if (link) {
-                                $input.val(link);
-                            }
-                        });
-                    });
+                    $this.data('ipFormRichText', {initialized: 1});
+                    var customTinyMceConfig = ipTinyMceConfig();
+                    customTinyMceConfig.inline = false;
+                    $textarea.tinymce(customTinyMceConfig);
 
                 }
             });
@@ -40,7 +35,7 @@ console.log('load');
     };
 
 
-    $.fn.ipFormUrl = function(method) {
+    $.fn.ipFormRichtext = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
@@ -51,9 +46,9 @@ console.log('load');
 
     };
 
-    $('.ipsModuleFormAdmin .type-url').ipFormUrl();
+    $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
 
-})(ip.jQuery);
+})(jQuery);
 
 
 

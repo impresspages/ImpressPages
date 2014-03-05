@@ -80,8 +80,7 @@ var ModuleInstall = new function () {
                 }
             },
             error: function (response) {
-                console.log('response:', response);
-                alert('Unexpected error. #KMLUH');
+                alert('Unexpected error.' + response.responseText);
             }
         });
     };

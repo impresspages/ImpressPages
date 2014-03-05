@@ -77,7 +77,7 @@
                     $this.html(value.html);
                     $.proxy(bindEvents, $this)();
                     $this.trigger('init.grid');
-                    ipModuleForm.init();
+                    ipInitForms();;
                     break;
                 case 'setHash':
                     window.location.hash = value.hash;
@@ -265,7 +265,7 @@
                     $modal.find('.ipsBody form').submit();
                     $modal.modal('hide');
                 });
-                ipModuleForm.init();
+                ipInitForms();
 
             },
             error: function (response) {

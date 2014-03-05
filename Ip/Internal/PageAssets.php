@@ -113,7 +113,7 @@ class PageAssets
 
         $data = ipRequest()->getRequest();
 
-        if (!empty($data['ipDesign']['pCfg'])) {
+        if (!empty($data['ipDesign']['pCfg']) || !empty($data['restoreDefault'])) {
             $inDesignPreview = \Ip\Internal\Design\ConfigModel::instance()->isInPreviewState();
         }
 

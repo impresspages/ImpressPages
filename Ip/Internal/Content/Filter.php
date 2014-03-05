@@ -53,7 +53,7 @@ class Filter
         $typeFile = __('File', 'ipAdmin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
-        $fieldTypes['Email'] = new FieldType('IpEmail', '\Ip\Form\Field\Email', $typeEmail);
+        $fieldTypes['Email'] = new FieldType('Email', '\Ip\Form\Field\Email', $typeEmail);
         $fieldTypes['Textarea'] = new FieldType('Textarea', '\Ip\Form\Field\Textarea', $typeTextarea);
         $fieldTypes['Select'] = new FieldType('Select', '\Ip\Form\Field\Select', $typeSelect, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
             'view/formFieldOptions/list.php'
