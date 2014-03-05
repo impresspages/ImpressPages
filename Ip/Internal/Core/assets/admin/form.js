@@ -23,31 +23,15 @@ var ipModuleFormAdmin;
             }
 
 
-            if ($('.ipsModuleFormAdmin .ipsFileContainer').length && !$.ipFormFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/file.js') + '"></script>'));
-            }
 
-            if ($('.ipsModuleFormAdmin .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/repositoryFile.js') + '"></script>'));
-            }
-
-            if ($('.ipsModuleFormAdmin .type-url').length && !$.ipFormUrl) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/url.js') + '"></script>'));
-            }
-
-
-            if ($('.ipsModuleFormAdmin .type-richtext').length && !$.ipFormUrl) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
-            }
 
             if ($('.ipsModuleFormAdmin .ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.min.js') + '"></script>');
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/color.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
 
-            if ($.ipFormFile) {
+            if ($.fn.ipFormFile) {
                 //if ipFormFile is already loaded
                 $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
             } else {
@@ -55,12 +39,22 @@ var ipModuleFormAdmin;
             }
 
 
-            if ($.ipFormRepositoryFile) {
+            if ($.fn.ipFormRepositoryFile) {
                 //if ipFormRepositoryFile is already loaded
                 $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
             } else {
                 //ipFormRepositoryFile JS will initialize itself
             }
+
+
+
+            if ($.fn.ipFormRichtext) {
+                //if ipFormFile is already loaded
+                $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            } else {
+                //ipFormRichtext JS will initialize itself
+            }
+
 
             // adding dumb submit element for 'enter' to trigger form submit
             $('.ipsModuleFormAdmin').each(function(){
@@ -73,3 +67,24 @@ var ipModuleFormAdmin;
         };
     };
 })(ip.jQuery);
+
+
+
+//            if ($('.ipsModuleFormAdmin .ipsFileContainer').length && !$.ipFormFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/file.js') + '"></script>'));
+//            }
+//
+//if ($('.ipsModuleFormAdmin .type-richtext').length && !$.ipFormUrl) {
+//    $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
+//}
+//
+//
+//
+//            if ($('.ipsModuleFormAdmin .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/repositoryFile.js') + '"></script>'));
+//            }
+//
+//            if ($('.ipsModuleFormAdmin .type-url').length && !$.ipFormUrl) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/url.js') + '"></script>'));
+//            }
+//$('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/color.js') + '"></script>');

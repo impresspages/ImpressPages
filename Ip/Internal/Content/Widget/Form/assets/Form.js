@@ -82,7 +82,7 @@ var IpWidget_Form;
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
             this.modal.find('.ipsTabs li a').first().click();
-            IpWidget_Form.init();
+            ipInitForms();
         };
 
         var cleanup = function() {

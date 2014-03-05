@@ -48,7 +48,7 @@ console.log('load');
 
     $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
 
-})(ip.jQuery);
+})(jQuery);
 
 
 
