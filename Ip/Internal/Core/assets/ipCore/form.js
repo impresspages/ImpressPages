@@ -31,6 +31,11 @@ var ipModuleForm;
                 $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
             }
 
+
+            if ($('.ipsModuleForm .type-richtext').length && !$.ipFormUrl) {
+                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
+            }
+
             if ($('.ipsModuleForm .ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');

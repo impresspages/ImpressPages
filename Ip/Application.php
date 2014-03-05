@@ -301,8 +301,6 @@ class Application
             $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
         }
-
-        ipEvent('ipInit');
     }
 
     /**

@@ -53,7 +53,7 @@ console.log('load');
 
     $('.ipsModuleForm .type-url').ipFormUrl();
 
-})(ip.jQuery);
+})(jQuery);
 
 
 

@@ -1,10 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
 
-RewriteEngine on
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
-
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
+</IfModule>
 
 #Modified rules for 1and1 hosting
 #AddHandler x-mapp-php5.4 .php3 .php4 .php .phtml

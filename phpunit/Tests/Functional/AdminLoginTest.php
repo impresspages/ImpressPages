@@ -2,14 +2,8 @@
 
 namespace Tests\Functional;
 
-use PhpUnit\Helper\TestEnvironment;
-
-class AdminLoginTest extends \PHPUnit_Framework_TestCase
+class AdminLoginTest extends \PhpUnit\Helper\MinkTestCase
 {
-    public function setup()
-    {
-        TestEnvironment::setup();
-    }
 
     /**
      * @group Sauce
@@ -17,11 +11,11 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
      */
     public function testLogin()
     {
+        $session = $this->session();
+
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->install();
-
-        $session = \PhpUnit\Helper\Session::factory();
 
         $adminHelper = new \PhpUnit\Helper\User\Admin($session, $installation);
 
@@ -30,8 +24,6 @@ class AdminLoginTest extends \PHPUnit_Framework_TestCase
         $page = $session->getPage();
         $this->assertEmpty($page->find('css', '.ipsLoginButton'), 'Could not log in.');
         $this->assertNotEmpty($page->find('css', '.ipsContentPublish'));
-
     }
-
 
 }

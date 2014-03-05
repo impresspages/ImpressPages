@@ -323,18 +323,21 @@ var ipDesign;
             }));
 
             if (restoreDefault) {
+                postForm.find('[name^=ipDesign]').remove();
                 postForm.append($('<input>', {
                     'name': 'restoreDefault',
                     'value': 1,
                     'type': 'hidden'
                 }));
-            } else {
-                postForm.append($('<input>', {
-                    'name': 'refreshPreview',
-                    'value': 1,
-                    'type': 'hidden'
-                }));
             }
+
+
+            postForm.append($('<input>', {
+                'name': 'refreshPreview',
+                'value': 1,
+                'type': 'hidden'
+            }));
+
 
 
             postForm.appendTo('body').submit();

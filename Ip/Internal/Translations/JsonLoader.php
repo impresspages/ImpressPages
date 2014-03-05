@@ -33,10 +33,14 @@ class JsonLoader implements FileLoaderInterface
         $messages = json_decode(file_get_contents($filename), true);
 
         if (!is_array($messages)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Expected an array, but received %s',
-                gettype($messages)
-            ));
+            if (ipConfig()->isDevelopmentEnvironment()) {
+                throw new Exception\InvalidArgumentException(sprintf(
+                    'Expected an array, but received %s',
+                    gettype($messages)
+                ));
+            } else {
+                return null;
+            }
         }
 
         $textDomain = new TextDomain($messages);

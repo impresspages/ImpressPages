@@ -52,6 +52,9 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/tinymce/default.js');
 
             ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
+        }
+
+        if (ipAdminId()) {
 
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');
@@ -61,9 +64,6 @@ class Event
                 ipView('view/browseLinkModal.php')->render()
             );
         }
-
-
-
     }
 
 
