@@ -23,27 +23,13 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsModuleFormPublic .ipsFileContainer').length && !$.ipFormFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/file.js') + '"></script>'));
-            }
-
-            if ($('.ipsModuleFormPublic .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
-            }
-
-
-            if ($('.ipsModuleFormPublic .type-richtext').length && !$.ipFormUrl) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
-            }
-
             if ($('.ipsModuleFormPublic .ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
 
-            if ($.ipFormFile) {
+            if ($.fn.ipFormFile) {
                 //if ipFormFile is already loaded
                 $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
             } else {
@@ -51,12 +37,20 @@ var ipModuleFormPublic;
             }
 
 
-            if ($.ipFormRepositoryFile) {
+            if ($.fn.ipFormRepositoryFile) {
                 //if ipFormRepositoryFile is already loaded
                 $('.ipsModuleFormPublic .ipsRepositoryFileContainer').ipFormRepositoryFile();
             } else {
                 //ipFormRepositoryFile JS will initialize itself
             }
+
+            if ($.fn.ipFormRichtext) {
+                //if ipFormFile is already loaded
+                $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            } else {
+                //ipFormRichtext JS will initialize itself
+            }
+
 
             // adding dumb submit element for 'enter' to trigger form submit
             $('.ipsModuleFormPublic').each(function(){
@@ -69,3 +63,20 @@ var ipModuleFormPublic;
         };
     };
 })(jQuery);
+
+
+
+//            if ($('.ipsModuleFormPublic .ipsFileContainer').length && !$.ipFormFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/file.js') + '"></script>'));
+//            }
+//
+//            if ($('.ipsModuleFormPublic .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
+//            }
+//
+//
+//            if ($('.ipsModuleFormPublic .type-richtext').length && !$.ipFormUrl) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
+//            }
+//                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');
+
