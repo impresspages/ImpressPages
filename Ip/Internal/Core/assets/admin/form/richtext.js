@@ -2,7 +2,7 @@
  * @package ImpressPages
  *
  */
-console.log('load');
+console.log('load rich text');
 
 (function($) {
     "use strict";
@@ -46,7 +46,7 @@ console.log('load');
 
     };
 
-    $('.ipsModuleForm .type-richtext').ipFormRichtext();
+    $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
 
 })(ip.jQuery);
 

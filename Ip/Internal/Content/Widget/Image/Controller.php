@@ -232,6 +232,8 @@ class Controller extends \Ip\WidgetController{
     protected function linkForm()
     {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
 
         $field = new \Ip\Form\Field\Select(
             array(

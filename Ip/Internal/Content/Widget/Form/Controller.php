@@ -63,6 +63,7 @@ class Controller extends \Ip\WidgetController{
     protected function optionsForm()
     {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
         $field = new \Ip\Form\Field\RichText(
             array(
@@ -194,7 +195,7 @@ class Controller extends \Ip\WidgetController{
             'options' => array()
         );
         $data['fields'][] = array (
-            'type' => 'IpEmail',
+            'type' => 'Email',
             'label' => __('Email', 'ipPublic', false),
             'options' => array()
         );
@@ -244,7 +245,7 @@ class Controller extends \Ip\WidgetController{
                 'options' => array()
             );
             $data['fields'][] = array (
-                'type' => 'IpEmail',
+                'type' => 'Email',
                 'label' => __('Email', 'ipPublic', false),
                 'options' => array()
             );
@@ -269,6 +270,7 @@ class Controller extends \Ip\WidgetController{
      */
     protected function createForm($instanceId, $data) {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
         if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();

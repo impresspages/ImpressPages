@@ -179,6 +179,6 @@
 
     };
 
-    $('.ipsModuleForm .ipsFileContainer').ipFormFile();
+    $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
 
 })(ip.jQuery);

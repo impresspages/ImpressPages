@@ -1,7 +1,7 @@
 (function($){
     "use strict";
 
-        $('.ipsModuleForm .type-color').each(function() {
+        $('.ipsModuleFormAdmin .type-color').each(function() {
             var $this = $(this);
             var lastColor = $this.find('.ipsColorPicker').val();
 
