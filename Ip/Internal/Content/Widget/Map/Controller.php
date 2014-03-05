@@ -50,6 +50,7 @@ class Controller extends \Ip\WidgetController{
     protected function settingsForm()
     {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
 
 

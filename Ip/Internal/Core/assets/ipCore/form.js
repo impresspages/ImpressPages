@@ -4,64 +4,58 @@
  */
 
 // defining global variables
-var ipModuleForm;
+var ipModuleFormPublic;
 
 (function($){
     "use strict";
 
     $(document).ready(function () {
-        ipModuleForm.init();
+        ipModuleFormPublic.init();
     });
 
-    ipModuleForm = new function () {
+    ipModuleFormPublic = new function () {
         this.init = function () {
             //TODOX on some servers files are loaded in random order. Problem when plupload and file are loaded at the same time. Or color and spectrum.
 
             //if interactive file upload input found, load file upload javascript
-            if ($('.ipsModuleForm .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
+            if ($('.ipsModuleFormPublic .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
                 $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.full.js') + '"></script>'));
             }
 
 
-            if ($('.ipsModuleForm .ipsFileContainer').length && !$.ipFormFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/file.js') + '"></script>'));
-            }
-
-            if ($('.ipsModuleForm .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
-            }
-
-
-            if ($('.ipsModuleForm .type-richtext').length && !$.ipFormUrl) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
-            }
-
-            if ($('.ipsModuleForm .ipsColorPicker').length && !$.spectrum) {
+            if ($('.ipsModuleFormPublic .ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
 
-            if ($.ipFormFile) {
+            if ($.fn.ipFormFile) {
                 //if ipFormFile is already loaded
-                $('.ipsModuleForm .ipsFileContainer').ipFormFile();
+                $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
             } else {
                 //ipFormFile JS will initialize itself
             }
 
 
-            if ($.ipFormRepositoryFile) {
+            if ($.fn.ipFormRepositoryFile) {
                 //if ipFormRepositoryFile is already loaded
-                $('.ipsModuleForm .ipsRepositoryFileContainer').ipFormRepositoryFile();
+                $('.ipsModuleFormPublic .ipsRepositoryFileContainer').ipFormRepositoryFile();
             } else {
                 //ipFormRepositoryFile JS will initialize itself
             }
 
+            if ($.fn.ipFormRichtext) {
+                //if ipFormFile is already loaded
+                $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            } else {
+                //ipFormRichtext JS will initialize itself
+            }
+
+
             // adding dumb submit element for 'enter' to trigger form submit
-            $('.ipsModuleForm').each(function(){
+            $('.ipsModuleFormPublic').each(function(){
                 var $form = $(this);
-                if($form.find(":submit").length==0) {
+                if ($form.find(":submit").length==0) {
                     $form.append('<input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />');
                 }
             });
@@ -69,3 +63,20 @@ var ipModuleForm;
         };
     };
 })(jQuery);
+
+
+
+//            if ($('.ipsModuleFormPublic .ipsFileContainer').length && !$.ipFormFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/file.js') + '"></script>'));
+//            }
+//
+//            if ($('.ipsModuleFormPublic .ipsRepositoryFileContainer').length && !$.ipFormRepositoryFile) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js') + '"></script>'));
+//            }
+//
+//
+//            if ($('.ipsModuleFormPublic .type-richtext').length && !$.ipFormUrl) {
+//                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/form/richtext.js') + '"></script>'));
+//            }
+//                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/form/color.js') + '"></script>');
+
