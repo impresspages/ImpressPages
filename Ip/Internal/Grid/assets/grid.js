@@ -279,8 +279,18 @@
             dataType: 'json',
             success: function (response) {
                 $modal.find('.ipsBody').html(response.result);
-                $modal.find('.ipsBody form').validator(validatorConfig);
-                $modal.find('.ipsBody form').on('submit', $.proxy(updateFormSubmit, $grid));
+                var $form = $modal.find('.ipsBody form');
+                var data = $grid.data('gateway');
+                if (!$form.find('input[name=aa]').length) {
+                    $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                }
+                $form.on('ipSubmitResponse', function (e, response) {
+                    if (!response.error) {
+                        $modal.modal('hide');
+                        //form has been successfully submitted.
+                        $.proxy(doCommands, $grid)(response.result.commands);
+                    }
+                });
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
                 $modal.find('.ipsConfirm').off().on('click', function() {
                     $modal.find('.ipsBody form').submit();
@@ -297,43 +307,6 @@
         });
 
     }
-
-    var updateFormSubmit = function(e) {
-        var $grid = this;
-        var form = $grid.find('.ipsUpdateModal .ipsBody form');
-        var data = $grid.data('gateway');
-
-
-        // client-side validation OK.
-        if (!e.isDefaultPrevented()) {
-            $.ajax({
-                url: ip.baseUrl,
-                dataType: 'json',
-                type : 'POST',
-                data: form.serialize() + '&aa=' + data.aa + '&hash=' + encodeURIComponent(window.location.hash),
-                success: function (response){
-                    if (!response.error) {
-                        //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result.commands);
-                    } else {
-                        //PHP controller says there are some errors
-                        if (response.errors) {
-                            form.data("validator").invalidate(response.errors);
-                        }
-                    }
-                },
-                error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
-                }
-            });
-        }
-        e.preventDefault();
-    }
-
-
-
 
 
 
