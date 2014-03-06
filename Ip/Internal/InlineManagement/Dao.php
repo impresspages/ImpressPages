@@ -12,7 +12,6 @@ class Dao
 {
 
     const MODULE_NAME = 'inline_management';
-    const PREFIX_STRING = 'str_';
     const PREFIX_TEXT = 'txt_';
     const PREFIX_IMAGE = 'img_';
     const PREFIX_LOGO = 'logo_';
