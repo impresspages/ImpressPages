@@ -2906,6 +2906,10 @@ class Less_Functions{
 
 	static function fround( $value ){
 
+		if( $value === 0 ){
+			return $value;
+		}
+
 		if( Less_Parser::$options['numPrecision'] ){
 			$p = pow(10, Less_Parser::$options['numPrecision']);
 			return round( $value * $p) / $p;
