@@ -30,7 +30,7 @@ class Model{
             $request = ipRequest();
         }
         $sa = $request->getQuery('sa');
-        return in_array($sa, array('Admin.passwordResetForm'));
+        return in_array($sa, array('Admin.passwordResetForm', 'Admin.passwordReset'));
     }
 
     /**
