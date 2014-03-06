@@ -9,30 +9,10 @@ var AssetRsync = new function () {
         $('.ipsSyncAssets').on('click', this.syncAssets);
 
 
-        $('.ipsAssetRsyncOptions').validator(validatorConfig);
-        $('.ipsAssetRsyncOptions').submit(function (e) {
-            var form = $(this);
-
-            // client-side validation OK.
-            if (!e.isDefaultPrevented()) {
-                $.ajax({
-                    url: ip.baseUrl,
-                    dataType: 'json',
-                    type : 'POST',
-                    data: form.serialize(),
-                    success: function (response) {
-                        if (response.result) {
-                            alert('OK');
-                        } else {
-                            //PHP controller says there are some errors
-                            if (response.error) {
-                                form.data("validator").invalidate(response.error.data);
-                            }
-                        }
-                    }
-                });
+        $('.ipsAssetRsyncOptions').on('ipSubmitResponse', function (e, response) {
+            if (response.result) {
+                alert('OK');
             }
-            e.preventDefault();
         });
     };
 
