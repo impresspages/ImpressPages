@@ -45,37 +45,6 @@ var validatorConfigAdmin = '';
     });
 
 
-    $('.ipsModuleFormAdmin.ipsAjaxSubmit').validator(validatorConfigAdmin);
-    $('.ipsModuleFormAdmin.ipsAjaxSubmit').submit(function (e) {
-        var $form = $(this);
-
-        // client-side validation OK.
-        if (!e.isDefaultPrevented()) {
-            $.ajax({
-                url: ip.baseUrl,
-                dataType: 'json',
-                type : 'POST',
-                data: $form.serialize(),
-                success: function (response) {
-                    $form.trigger('ipSubmitResponse', [response]);
-                    //PHP controller says there are some errors
-                    if (response.errors) {
-                        $form.data("validator").invalidate(response.errors);
-                    }
-                    if (response.redirectUrl) {
-                        window.location = response.redirectUrl;
-                    }
-                },
-                error: function (response) {
-                    if (ip.developmentEnvironment || ip.debugMode) {
-                        console.log(response);
-                        alert('Server response: ' + response.responseText);
-                    }
-                }
-            });
-        }
-        e.preventDefault();
-    });
 
 
 })(ip.jQuery);
