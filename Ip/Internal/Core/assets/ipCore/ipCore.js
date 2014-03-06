@@ -10,8 +10,7 @@ var ipGoogleMapsLoading = false;
  */
 
 $(document).ready(function() {
-    // Form widget
-    $('.ipWidget-Form').ipWidgetForm();
+
 
 
     // Map widget

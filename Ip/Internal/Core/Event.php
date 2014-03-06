@@ -20,7 +20,6 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/color.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/file.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/richtext.js');
-            ipAddJs('Ip/Internal/Core/assets/ipCore/form/url.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form.js');
 
             ipAddJs('Ip/Internal/Core/assets/ipCore/validator.js');

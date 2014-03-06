@@ -11,6 +11,7 @@ class FormHelper
     {
         //create form object
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
         //add text field to form object
         $field = new \Ip\Form\Field\Hidden(
@@ -54,8 +55,6 @@ class FormHelper
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
-
-        $form->addClass('ipsLoginForm');
 
         return $form;
     }

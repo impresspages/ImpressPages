@@ -270,7 +270,7 @@ class Controller extends \Ip\WidgetController{
      */
     protected function createForm($instanceId, $data) {
         $form = new \Ip\Form();
-        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_PUBLIC);
 
         if (empty($data['fields']) || !is_array($data['fields'])) {
             $data['fields'] = array();
