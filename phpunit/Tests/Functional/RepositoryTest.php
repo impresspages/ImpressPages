@@ -7,66 +7,64 @@
 
 /**
  * @group ignoreOnTravis
+ * @group Selenium
  */
-class RepositoryTestTest extends \PhpUnit\SeleniumTestCase
+class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
 {
     public function testNewFilesUploadRemoval()
     {
         $installation = new \PhpUnit\Helper\Installation();
         $installation->install();
 
-        $ipActions = new \PhpUnit\Helper\IpActions($this, $installation);
-        $ipActions->login();
+        $adminHelper = new \PhpUnit\Helper\User\Admin($this->session(), $installation);
+        $adminHelper->login();
 
-        $this->windowMaximize();
+        // $this->windowMaximize();
 
         //add file widget
-        $this->waitForElementPresent('css=#ipAdminWidgetButton-File');
-        $this->dragAndDropToObject('css=#ipAdminWidgetButton-File', 'css=#ipBlock-main');
 
-//        $this->waitForElementPresent('css=.ipAdminWidget-File .ipmBrowseButton');
-//        $this->click('css=.ipAdminWidget-File .ipmBrowseButton');
-//        $this->waitForElementPresent('css=.ipModuleRepositoryPopup .ipmBrowseButton');
+        sleep(1);
+        $adminHelper->addWidget('File');
 
+        sleep(1);
+        // Try to upload file
+        $this->assertFalse(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'));
+        $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
+        $this->find('.ipWidget-File .ipsWidgetDelete');
+        sleep(1);
+        $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
 
-        //try to upload file
-        $this->assertEquals(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'), FALSE);
-        $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
-        $this->waitForElementPresent('css=#ipModuleRepositoryTabUpload .ipmRecentList li');
-        $this->click('css=#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipaConfirm');
-        sleep(1); //wait for popup to close
-        $this->assertElementNotPresent('css=#ipModuleRepositoryTabUpload');
-        $this->click('css=.ipWidgetFilePopup .btn-default'); // cancel button
-        $this->waitForElementNotPresent('css=.ipWidgetFilePopup .btn-default');
-        $this->assertEquals(file_exists($installation->getConfig('baseDir') . 'file/repository/testFile.txt'), TRUE);
+        // wait for popup to close
+        $popupClosed = $this->waitForElementNotPresent('#ipModuleRepositoryTabUpload');
+        $this->assertTrue($popupClosed);
 
-        //check if file is NOT automatically removed if not used
-        //check if file is NOT automatically removed if not used
-        \PhpUnit\Helper\Time::changeTime(60*60*24*7 + 1); //+7 days and 1s.
-        $this->open($installation->getInstallationUrl().'ip_cron.php'); //cron should remove our file because it is not used by any widget yet
-        \PhpUnit\Helper\Time::restoreTime(); //+7 days and 1s.
-        $this->assertEquals(file_exists($installation->getConfig('baseDir') . 'file/repository/testFile.txt'), TRUE);
+        $this->find('#ipWidgetFilePopup .ipsCancel')->click();
 
-        $ipActions->login();
+        $this->find('.ipWidget-File .ipsWidgetDelete');
+        $this->session()->executeScript("$('.ipWidget-File .ipsWidgetDelete').click()");
+        $removed = $this->waitForElementNotPresent('.ipWidget-File');
+        $this->assertTrue($removed);
+
+        $this->assertTrue(file_exists($installation->getInstallationDir() . 'file/repository/testFile.txt'));
+
+        $adminHelper->logout();
+        $adminHelper->login();
+        sleep(1);
 
         //add file widget and try to add our last uploaded file
-        $ipActions->addWidget('File');
-        $this->waitForElementPresent('css=.ipAdminWidget-File .ipmBrowseButton');
-        $this->click('css=.ipAdminWidget-File .ipmBrowseButton');
-        $this->waitForElementPresent('css=.ipModuleRepositoryPopup .ipmBrowseButton');
+        $adminHelper->addWidget('File');
 
-        $this->type("css=.plupload input", TEST_FIXTURE_DIR."Repository/testFile.txt");
-        $this->waitForElementPresent('css=#ipModuleRepositoryTabUpload .ipmList li');
-        $this->click('css=#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipaConfirm');
+        $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
-        sleep(2); //wait for popup to close
-        $this->waitForElementPresent('css=.ipWidget_ipFile_container input');
-        $this->click('css=.ipaConfirm');
-        $this->waitForElementPresent('css=.ipWidget-File a');
-        $this->assertText('css=.ipWidget.ipWidget-File ul a', 'testFile_1.txt');
+        $this->find('.ipWidget-File .ipsWidgetDelete');
+        $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
+
+        $this->find('.ipWidget_ipFile_container input');
+        $this->find('#ipWidgetFilePopup .ipsConfirm')->click();
+
+        $this->assertEquals('testFile_1.txt', $this->find('.ipWidget.ipWidget-File ul a')->getText());
     }
-
 }
 
 
