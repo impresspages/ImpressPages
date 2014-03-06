@@ -39,16 +39,23 @@ class LessCompiler
         $less.= $this->generateLessVariables($options, $config);
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
-            $parser = new \Less_Parser(array('relativeUrls' => false));
-//            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
+            require_once ipFile('Ip/Lib/less.php/Less.php');
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
             $ipContentDir = ipFile('Ip/Internal/Core/assets/ipContent/');
+
+            // creating new context to pass theme assets directory dynamically to a static callback function
+            $context = $this;
+            $callback = function ($parseFile) use ($context, $themeDir) {
+                return $context->overrideImportDirectory($themeDir, $parseFile);
+            };
+
+            $parser = new \Less_Parser(array('import_callback' => $callback, 'relativeUrls' => false));
+//            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
             $directories = array(
                 $themeDir => '',
                 $ipContentDir => ''
             );
-            $parser->SetOverrideDirs($directories);
+            $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
         } catch(Exception $e) {
@@ -59,6 +66,16 @@ class LessCompiler
         return $css;
     }
 
+    public static function overrideImportDirectory($themeAssetsDir, $parseFile)
+    {
+        $full_path = $themeAssetsDir . $parseFile->getPath();
+        $uri = ''; // relative path doesn't work correctly
+
+        // if file exists in theme directory it means we want to override the default path
+        if( file_exists($full_path) ) {
+            return array($full_path, $uri);
+        }
+    }
 
     protected function generateLessVariables($options, $config)
     {

@@ -117,7 +117,7 @@ class Model
         }
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
+            require_once ipFile('Ip/Lib/less.php/Less.php');
             $parser = new \Less_Parser(array('relativeUrls' => false));
             $parser->parseFile($lessFile);
             $css = $parser->getCss();
@@ -166,7 +166,7 @@ class Model
         }
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Ip_Less.php');
+            require_once ipFile('Ip/Lib/less.php/Less.php');
 
             if ($hasChangedTemp) { // skipping temp compilation if only main file is missing
                 $parserTemp = new \Less_Parser(array('relativeUrls' => false));
