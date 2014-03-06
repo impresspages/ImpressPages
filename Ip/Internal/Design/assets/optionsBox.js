@@ -206,35 +206,10 @@ var ipDesign;
                 $('.ipModuleDesignConfig .ipsForm').submit();
             });
 
-            $('.ipModuleDesignConfig .ipsForm').validator(validatorConfig);
-            $('.ipModuleDesignConfig .ipsForm').submit(function (e) {
-
-                var $form = $(this);
-
-                // client-side validation OK.
-                if (!e.isDefaultPrevented()) {
-
-                    $.ajax({
-                        url: ip.baseUrl,
-                        dataType: 'json',
-                        type : 'POST',
-                        data: $form.serialize(),
-                        success: function (response) {
-                            if (response.result) {
-                                window.location.reload(true);
-                            } else {
-                                //PHP controller says there are some errors
-                                if (response.errors) {
-                                    $form.data("validator").invalidate(response.errors);
-                                }
-                            }
-                        },
-                        error: function (response) {
-                            alert('Unexpected error.' + response.responseText);
-                        }
-                    });
+            $('.ipModuleDesignConfig .ipsForm').on('ipSubmitResponse', function (e, response) {
+                if (response.result) {
+                    window.location.reload(true);
                 }
-                e.preventDefault();
             });
 
             $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
