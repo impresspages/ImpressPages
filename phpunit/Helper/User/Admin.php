@@ -43,13 +43,6 @@ class Admin
         $loginButton = $loginPage->find('css', '.ipsLoginButton');
 
         $loginField = $loginPage->find('css', '.form-control[name=login]');
-        if (!$loginField) {
-            //* TODOX remove
-            var_export($loginPage->getContent());
-            echo __FILE__ . ':' . (__LINE__ - 2);
-            exit();
-            //*/
-        }
         $loginField->setValue($installation->getAdminLogin());
 
         $passwordField = $loginPage->find('css', '.form-control[name=password]');
@@ -78,8 +71,7 @@ class Admin
 
     public function addWidget($widgetName, $block = 'main')
     {
-        $session = $this->session;
-        $page = $session->getPage();
+        $page = $this->session->getPage();
         $widgetButton = $page->find('css', '#ipAdminWidgetButton-' . $widgetName);
         $block = $page->find('css', '#ipBlock-' . $block);
         $widgetButton->dragTo($block);

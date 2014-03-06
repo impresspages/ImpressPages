@@ -85,12 +85,14 @@ class Controller extends \Ip\WidgetController
 
     private function prepareData($data, $widgetId)
     {
-        if (empty($data['cols'])) {
+        if (empty($data['cols']) || !is_array($data['cols'])) {
             $data['cols'] = array(
                 'column'.$widgetId.'_1',
                 'column'.$widgetId.'_2'
             );
         }
+
+        $data['cols'] = array_values($data['cols']);
 
         return $data;
     }
