@@ -14,6 +14,7 @@ class Forms {
     {
         $form = new \Ip\Form();
         $form->addClass('ipsConfigForm');
+        $form->setAjaxSubmit(0);
 
 
         $field = new FieldOptionTextLang(
