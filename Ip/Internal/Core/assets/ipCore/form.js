@@ -28,7 +28,6 @@ var ipModuleFormPublic;
 
             $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
             $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
-            $('.ipsModuleFormPublic .type-url').ipFormUrl();
             $('.ipsModuleFormPublic .type-color').ipFormColor();
 
 
