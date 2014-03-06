@@ -118,7 +118,11 @@ class Model
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
-            $parser = new \Less_Parser(array('relativeUrls' => false));
+            $parserOptions = array(
+                'cache_dir' => ipFile('file/tmp/less/'),
+                'relativeUrls' => false
+            );
+            $parser = new \Less_Parser($parserOptions);
             $parser->parseFile($lessFile);
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
@@ -167,17 +171,19 @@ class Model
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
+            $parserOptions = array(
+                'cache_dir' => ipFile('file/tmp/less/'),
+                'relativeUrls' => false
+            );
 
             if ($hasChangedTemp) { // skipping temp compilation if only main file is missing
-                $parserTemp = new \Less_Parser(array('relativeUrls' => false));
-//                $parserTemp->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
+                $parserTemp = new \Less_Parser($parserOptions);
                 $parserTemp->parseFile($lessTempFile);
                 $cssTemp = $parserTemp->getCss();
                 file_put_contents($cssTempFile, $cssTemp);
             }
 
-            $parser = new \Less_Parser(array('relativeUrls' => false));
-//            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
+            $parser = new \Less_Parser($parserOptions);
             $parser->parseFile($lessFile);
             $css = $parser->getCss();
             file_put_contents($cssFile, $css);
