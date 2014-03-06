@@ -161,10 +161,23 @@
         $grid.find('.ipsSearch').off().on('click', function() {
             var $this = $(this);
             var $modal = $grid.find('.ipsSearchModal');
+            var $form = $modal.find('.ipsBody form');
+            var data = $grid.data('gateway');
             $modal.modal();
             $modal.find('.form-group').not('.type-blank').first().find('input').focus();
-            $modal.find('.ipsBody form').validator(validatorConfig);
-            $modal.find('.ipsBody form').on('submit', $.proxy(searchFormSubmit, $grid));
+//            $modal.find('.ipsBody form').validator(validatorConfig);
+//            $modal.find('.ipsBody form').on('submit', $.proxy(searchFormSubmit, $grid));
+            if (!$form.find('input[name=aa]').length) {
+                $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+            }
+            $form.on('ipSubmitResponse', function (e, response) {
+                if (!response.error) {
+                    //form has been successfully submitted.
+                    $.proxy(doCommands, $grid)(response.result.commands);
+                    $modal.modal('hide');
+                }
+            });
+
             $modal.find('.ipsSearch').off().on('click', function() {
                 $modal.find('.ipsBody form').submit();
             });
