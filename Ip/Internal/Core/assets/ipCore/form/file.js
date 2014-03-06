@@ -203,6 +203,6 @@
 
     };
 
-    $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
+    $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
 
 })(jQuery);
