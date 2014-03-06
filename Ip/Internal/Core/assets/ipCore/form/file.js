@@ -30,7 +30,7 @@
         },
 
         _error : function(up, err) {
-            var $this = $(this);
+            var $this = this;
 
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + err.file.id);
             if (!$file.length) {
@@ -50,7 +50,7 @@
         },
 
         _filesAdded : function(up, files) {
-            var $this = $(this);
+            var $this = this;
             $.each(files, function(i, file) {
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
@@ -80,14 +80,14 @@
         },
 
         _uploadProgress : function(up, file) {
-            var $this = $(this);
+            var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipmFileProgressValue').width(file.percent + '%');
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
         _fileUploaded : function(up, file, response) {
-            var $this = $(this);
+            var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             if (!$file.length) {
                 return; //file has been removed by user
@@ -177,13 +177,13 @@
             container: $uploadContainer.attr('id')
         };
         var uploader = new plupload.Uploader(uploaderConfig);
-        uploader.bind('Error', $.proxy(methods._error, this));
-        uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
-        uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, this));
+        uploader.bind('Error', $.proxy(methods._error, $this));
+        uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, $this));
+        uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, $this));
 
         uploader.init();
         // for handling method to work uploader needs to be initialised first
-        uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
+        uploader.bind('FilesAdded', $.proxy(methods._filesAdded, $this));
 
         $this.data('ipFormFile', {
             uniqueNumber: uniqueNumber,

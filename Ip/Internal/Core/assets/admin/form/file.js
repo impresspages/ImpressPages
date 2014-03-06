@@ -30,7 +30,7 @@
         },
 
         _error : function(up, err) {
-            var $this = $(this);
+            var $this = this;
 
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + err.file.id);
             if (!$file.length) {
@@ -65,10 +65,10 @@
                         var fileId = $file.data('fileId');
 
                         /* Seems that removeFile method is used just for files that are not started to be upload
-                        var uploader = $this.closest('.ipsFileContainer').data('ipFormFile').uploader;
-                        var uploaderFile = uploader.getFile(fileId)
-                        uploader.removeFile(uploaderFile);
-                        */
+                         var uploader = $this.closest('.ipsFileContainer').data('ipFormFile').uploader;
+                         var uploaderFile = uploader.getFile(fileId)
+                         uploader.removeFile(uploaderFile);
+                         */
 
                         $file.remove();
                     });
@@ -80,14 +80,14 @@
         },
 
         _uploadProgress : function(up, file) {
-            var $this = $(this);
+            var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipmFileProgressValue').width(file.percent + '%');
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
         _fileUploaded : function(up, file, response) {
-            var $this = $(this);
+            var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             if (!$file.length) {
                 return; //file has been removed by user
@@ -177,9 +177,9 @@
             container: $uploadContainer.attr('id')
         };
         var uploader = new plupload.Uploader(uploaderConfig);
-        uploader.bind('Error', $.proxy(methods._error, this));
-        uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
-        uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, this));
+        uploader.bind('Error', $.proxy(methods._error, $this));
+        uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, $this));
+        uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, $this));
 
         uploader.init();
         // for handling method to work uploader needs to be initialised first
@@ -203,6 +203,6 @@
 
     };
 
-    $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
+    $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
 
 })(ip.jQuery);
