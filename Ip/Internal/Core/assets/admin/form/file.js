@@ -50,7 +50,7 @@
         },
 
         _filesAdded : function(up, files) {
-            var $this = $(this);
+            var $this = this;
             $.each(files, function(i, file) {
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
@@ -183,7 +183,7 @@
 
         uploader.init();
         // for handling method to work uploader needs to be initialised first
-        uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
+        uploader.bind('FilesAdded', $.proxy(methods._filesAdded, $this));
 
         $this.data('ipFormFile', {
             uniqueNumber: uniqueNumber,
