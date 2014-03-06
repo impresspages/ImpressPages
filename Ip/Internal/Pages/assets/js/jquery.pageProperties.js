@@ -59,32 +59,14 @@
             }
         });
 
-        $this.find('form').validator(validatorConfig);
-        $this.find('form').submit(function(e) {
-            var form = $(this);
-
-            // client-side validation OK.
-            if (!e.isDefaultPrevented()) {
-                $.ajax({
-                    url: ip.baseUrl, //we assume that for already has m, g, a parameters which will lead this request to required controller
-                    dataType: 'json',
-                    type : 'POST',
-                    data: form.serialize(),
-                    success: function (response){
-                        if (response.status && response.status == 'success') {
-                            //page has been successfully updated
-                            $this.trigger('update.ipPages');
-                        } else {
-                            //PHP controller says there are some errors
-                            if (response.errors) {
-                                form.data("validator").invalidate(response.errors);
-                            }
-                        }
-                    }
-                });
+        ipInitForms();
+        $this.find('form').on('ipSubmitResponse', function (e, response) {
+            if (response.status && response.status == 'success') {
+                //page has been successfully updated
+                $this.trigger('update.ipPages');
             }
-            e.preventDefault();
         });
+
 
         $this.find('.ipsDelete').on('click', function(e) {
             $this.trigger('delete.ipPages');
