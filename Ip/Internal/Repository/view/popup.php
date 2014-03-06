@@ -19,7 +19,7 @@
                         </div>
                         <div class="ipmBrowseButtonWrapper">
                             <span class="impDragdropNotice"><?php _e('Need more images? Browse and choose from thousands of them.', 'ipAdmin') ?></span>
-                            <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipaConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php _e('Buy images', 'ipAdmin') ?></a>
+                            <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipsConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php _e('Buy images', 'ipAdmin') ?></a>
                         </div>
                     </div>
                     <div class="ipUploadProgressItemSample hidden">
