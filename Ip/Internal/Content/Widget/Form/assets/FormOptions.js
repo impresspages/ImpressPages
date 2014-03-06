@@ -152,7 +152,7 @@ var ipWidgetForm_SaveWysiwygOptions;
         if (currentOptions && currentOptions.text) {
             $textarea.val(currentOptions.text);
         }
-        ipModuleForm.init();
+        ipInitForms();
     };
 
     ipWidgetForm_SaveWysiwygOptions = function ($context) {

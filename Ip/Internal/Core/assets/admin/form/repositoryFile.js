@@ -103,6 +103,6 @@
 
     };
 //
-//    $('.ipsModuleForm .ipsRepositoryFileContainer').ipFormRepositoryFile();
+//    $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
 
 })(ip.jQuery);

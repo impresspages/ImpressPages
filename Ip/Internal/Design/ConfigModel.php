@@ -41,30 +41,32 @@ class ConfigModel{
     public function getConfigValue($themeName, $name, $default = null)
     {
         $data = ipRequest()->getRequest();
-        $config = $this->getLiveConfig();
-
-        if (isset($data['refreshPreview'])) {
 
 
-            if (isset($data['restoreDefault'])) {
-                //overwrite current config with default theme values
-                $model = Model::instance();
-                $theme = $model->getTheme(ipConfig()->theme());
-                $options = $theme->getOptionsAsArray();
-                foreach($options as $option) {
-                    if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
-                        return $option['default'];
-                    }
+
+
+        if (isset($data['restoreDefault'])) {
+            //overwrite current config with default theme values
+            $model = Model::instance();
+            $theme = $model->getTheme(ipConfig()->theme());
+            $options = $theme->getOptionsAsArray();
+            foreach($options as $option) {
+                if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
+                    return $option['default'];
                 }
-                return '';
             }
-
+            return '';
+        } else {
+            $config = $this->getLiveConfig();
             if (isset($config[$name])) {
                 return $config[$name];
-            } else {
+            }
+            if (isset($data['refreshPreview'])) {
                 return '';
             }
+
         }
+
         $result = ipThemeStorage($themeName)->get($name);
 
         if ($result !== NULL) {
@@ -88,20 +90,27 @@ class ConfigModel{
     public function getAllConfigValues($theme)
     {
         $data = ipRequest()->getRequest();
-        $config = $this->getLiveConfig();
-        if (!empty($config)) {
-            if (isset($data['restoreDefault'])) {
-                //overwrite current config with default theme values
-                $model = Model::instance();
-                $theme = $model->getTheme(ipConfig()->theme());
-                $options = $theme->getOptionsAsArray();
-                foreach($options as $option) {
-                    if (isset($option['name']) && isset($option['default'])) {
-                        $config[$option['name']] = $option['default'];
-                    }
+
+        if (isset($data['restoreDefault'])) {
+            $config = array();
+            //overwrite current config with default theme values
+            $model = Model::instance();
+            $theme = $model->getTheme(ipConfig()->theme());
+            $options = $theme->getOptionsAsArray();
+            foreach($options as $option) {
+                if (isset($option['name']) && isset($option['default'])) {
+                    $config[$option['name']] = $option['default'];
                 }
             }
+            return $config;
+        } else {
+            $config = $this->getLiveConfig();
+            if (!empty($config)) {
+                return $config;
+            }
+
         }
+
         return ipThemeStorage($theme)->getAll();
     }
 
@@ -125,6 +134,7 @@ class ConfigModel{
 
 
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
         $form->addClass('ipsForm');
 
 

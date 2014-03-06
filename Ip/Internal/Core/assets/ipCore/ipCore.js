@@ -42,3 +42,8 @@ var ipLoadGoogleMaps = function () {
     document.body.appendChild(script);
 }
 
+
+var ipInitForms = function () {
+    ipModuleFormAdmin.init();
+    ipModuleFormPublic.init();
+}
