@@ -42,13 +42,18 @@ var ipModuleFormPublic;
             $('.ipsModuleFormPublic.ipsAjaxSubmit').validator(validatorConfigPublic);
             $('.ipsModuleFormPublic.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
                 var $form = $(this);
+                var type = 'GET';
+
+                if ($form.attr('method') && $form.attr('method').toUpperCase() == 'POST') {
+                    type = 'POST';
+                }
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
                         url: ip.baseUrl,
                         dataType: 'json',
-                        type : 'POST',
+                        type : type,
                         data: $form.serialize(),
                         success: function (response) {
                             $form.trigger('ipSubmitResponse', [response]);

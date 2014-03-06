@@ -259,6 +259,7 @@ class Display
     {
         $form = new \Ip\Form();
         $form->setMethod('get');
+
         $form->removeCsrfCheck();
         foreach ($this->config->fields() as $fieldData) {
             $fieldObject = $this->config->fieldObject($fieldData);
