@@ -49,8 +49,12 @@ class LessCompiler
                 return $context->overrideImportDirectory($themeDir, $parseFile);
             };
 
-            $parser = new \Less_Parser(array('import_callback' => $callback, 'relativeUrls' => false));
-//            $parser->SetCacheDir(ipFile('file/tmp/less/')); // todox: check whether compiler fixed https://github.com/oyejorge/less.php/issues/51
+            $parserOptions = array(
+                'import_callback' => $callback,
+                'cache_dir' => ipFile('file/tmp/less/'),
+                'relativeUrls' => false
+            );
+            $parser = new \Less_Parser($parserOptions);
             $directories = array(
                 $themeDir => '',
                 $ipContentDir => ''
