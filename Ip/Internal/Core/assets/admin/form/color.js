@@ -30,12 +30,14 @@
 
     var initSpectrum = function ($colorPicker, loadInterval) {
         if (typeof($.fn.spectrum) == 'undefined') {
-            //return. Wait for spectrum to load
+            //Wait for spectrum to load
+            return;
         }
+        clearInterval(loadInterval);
+
         var $this = $colorPicker;
         var lastColor = $this.find('.ipsColorPicker').val();
 
-        clearInterval(loadInterval);
 
         $this.find('.ipsColorPicker').spectrum({
             showInput: true,

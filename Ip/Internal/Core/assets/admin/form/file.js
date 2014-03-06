@@ -17,53 +17,14 @@
 
                 var data = $this.data('ipFormFile');
                 if (!data) {
-                    var uniqueNumber = Math.floor(Math.random()*100000000);
-                    var $uploadButton = $this.find('.ipmFileAddButton');
-                    if (!$uploadButton.attr('id')) {
-                        $uploadButton.attr('id', 'ipModFormFileAddButton_' + uniqueNumber);
-                    }
-                    var $uploadContainer = $this;
-                    if (!$uploadContainer.attr('id')) {
-                        $uploadContainer.attr('id', 'ipModFormFileContainer_' + uniqueNumber);
-                    }
+                    $this.data('ipFormFile', {});
 
-                    var uploaderConfig = {
-                        runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : $uploadButton.attr('id'),
 
-                        max_file_size : '10000Mb',
-                        chunk_size : '1mb',
-                        url : ip.baseUrl, //website root (available globally in ImpressPages environment)
-                        multipart_params : {
-                            sa : 'Repository.upload',
-                            secureFolder : 1,
-                            securityToken : ip.securityToken
-                        },
+                    var loadInterval = setInterval(function() {
+                        initPlupload($this, loadInterval);
+                    }, 1000);
 
-                        //if you add "multipart: false," IE fails.
 
-                        flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.flash.swf'),
-                        silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.silverlight.xap'),
-
-                        button_browse_hover : true,
-                        //drop_element : "ipModuleRepositoryDragContainer",
-                        autostart : true,
-                        container: $uploadContainer.attr('id')
-                    };
-                    var uploader = new plupload.Uploader(uploaderConfig);
-                    uploader.bind('Error', $.proxy(methods._error, this));
-                    uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
-                    uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, this));
-
-                    uploader.init();
-                    // for handling method to work uploader needs to be initialised first
-                    uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
-
-                    $this.data('ipFormFile', {
-                        uniqueNumber: uniqueNumber,
-                        inputName: $this.data('inputname'),
-                        uploader: uploader
-                    });
                 }
             });
         },
@@ -166,7 +127,70 @@
             });
             return files;
         }
+
+
+
+
     };
+
+
+    var initPlupload = function (field, loadInterval) {
+        if (typeof(plupload) == 'undefined') {
+            //Wait for spectrum to load
+            return;
+        }
+        clearInterval(loadInterval);
+
+        var $this = field;
+
+        var uniqueNumber = Math.floor(Math.random()*100000000);
+        var $uploadButton = $this.find('.ipmFileAddButton');
+        if (!$uploadButton.attr('id')) {
+            $uploadButton.attr('id', 'ipModFormFileAddButton_' + uniqueNumber);
+        }
+        var $uploadContainer = $this;
+        if (!$uploadContainer.attr('id')) {
+            $uploadContainer.attr('id', 'ipModFormFileContainer_' + uniqueNumber);
+        }
+
+        var uploaderConfig = {
+            runtimes : 'gears,html5,flash,silverlight,browserplus',
+            browse_button : $uploadButton.attr('id'),
+
+            max_file_size : '10000Mb',
+            chunk_size : '1mb',
+            url : ip.baseUrl, //website root (available globally in ImpressPages environment)
+            multipart_params : {
+                sa : 'Repository.upload',
+                secureFolder : 1,
+                securityToken : ip.securityToken
+            },
+
+            //if you add "multipart: false," IE fails.
+
+            flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.flash.swf'),
+            silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.silverlight.xap'),
+
+            button_browse_hover : true,
+            //drop_element : "ipModuleRepositoryDragContainer",
+            autostart : true,
+            container: $uploadContainer.attr('id')
+        };
+        var uploader = new plupload.Uploader(uploaderConfig);
+        uploader.bind('Error', $.proxy(methods._error, this));
+        uploader.bind('UploadProgress', $.proxy(methods._uploadProgress, this));
+        uploader.bind('FileUploaded', $.proxy(methods._fileUploaded, this));
+
+        uploader.init();
+        // for handling method to work uploader needs to be initialised first
+        uploader.bind('FilesAdded', $.proxy(methods._filesAdded, this));
+
+        $this.data('ipFormFile', {
+            uniqueNumber: uniqueNumber,
+            inputName: $this.data('inputname'),
+            uploader: uploader
+        });
+    }
 
     $.fn.ipFormFile = function(method) {
         if (methods[method]) {
