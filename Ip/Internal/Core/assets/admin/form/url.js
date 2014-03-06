@@ -2,7 +2,6 @@
  * @package ImpressPages
  *
  */
-console.log('load');
 
 (function($) {
     "use strict";
