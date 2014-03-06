@@ -60,7 +60,7 @@ var validatorConfigAdmin = '';
                     $form.trigger('ipSubmitResponse', [response]);
                     //PHP controller says there are some errors
                     if (response.errors) {
-                        form.data("validator").invalidate(response.errors);
+                        $form.data("validator").invalidate(response.errors);
                     }
                     if (response.redirectUrl) {
                         window.location = response.redirectUrl;

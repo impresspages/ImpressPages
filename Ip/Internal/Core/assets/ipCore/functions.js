@@ -25,6 +25,10 @@ function ipHomeUrl()
 
 
 function ipInitForms () {
-    ipModuleFormAdmin.init();
-    ipModuleFormPublic.init();
+    if (ipModuleFormAdmin) {
+        ipModuleFormAdmin.init();
+    }
+    if (ipModuleFormPublic) {
+        ipModuleFormPublic.init();
+    }
 }
