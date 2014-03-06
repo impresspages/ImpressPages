@@ -24,6 +24,15 @@ class Model{
         return in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'));
     }
 
+    public static function isPasswordResetPage(\Ip\Request $request = null)
+    {
+        if ($request == null) {
+            $request = ipRequest();
+        }
+        $sa = $request->getQuery('sa');
+        return in_array($sa, array('Admin.passwordResetForm'));
+    }
+
     /**
     * @return Model
     */
