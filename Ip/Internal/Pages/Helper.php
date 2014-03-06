@@ -59,6 +59,7 @@ class Helper
         }
 
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
         $field = new \Ip\Form\Field\Hidden(
             array(
@@ -133,6 +134,8 @@ class Helper
         $page = new \Ip\Page($pageId);
 
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
 
         $field = new \Ip\Form\Field\Hidden(
             array(
@@ -290,6 +293,8 @@ class Helper
     public static function addPageForm()
     {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -312,6 +317,8 @@ class Helper
     public static function addMenuForm()
     {
         $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
 
         $field = new \Ip\Form\Field\Text(
             array(

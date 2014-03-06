@@ -263,8 +263,6 @@ class Form
             )
         );
 
-        $fields = $this->getFields();
-
         return $view->render();
     }
 
