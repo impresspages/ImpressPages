@@ -77,7 +77,7 @@
                     $this.html(value.html);
                     $.proxy(bindEvents, $this)();
                     $this.trigger('init.grid');
-                    ipInitForms();;
+                    ipInitForms();
                     break;
                 case 'setHash':
                     window.location.hash = value.hash;

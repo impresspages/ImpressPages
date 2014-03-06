@@ -1,3 +1,6 @@
+/*!
+ImpressPages core init
+ */
 
 var ipGoogleMapsLoading = false;
 
@@ -24,11 +27,13 @@ $(document).ready(function() {
         }
     }
 
+    ipInitForms();
+
 });
 
 var ipGoogleMapsLoaded = function () {
     $('body').trigger('ipGoogleMapsLoaded');
-}
+};
 
 var ipLoadGoogleMaps = function () {
     if (ipGoogleMapsLoading) {
@@ -40,10 +45,6 @@ var ipLoadGoogleMaps = function () {
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&' +
         'callback=ipGoogleMapsLoaded';
     document.body.appendChild(script);
-}
+};
 
 
-var ipInitForms = function () {
-    ipModuleFormAdmin.init();
-    ipModuleFormPublic.init();
-}

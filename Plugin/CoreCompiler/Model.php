@@ -51,7 +51,7 @@ class Model
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/color.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/file.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/url.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/richtext.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/richtext.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form.js');
 
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/validator.js');

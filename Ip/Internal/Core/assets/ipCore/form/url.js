@@ -56,5 +56,3 @@ console.log('load');
 })(jQuery);
 
 
-
-
