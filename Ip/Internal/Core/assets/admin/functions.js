@@ -14,7 +14,7 @@ function ipBrowseLink(callback) {
         $modal = $('#ipBrowseLinkModal'),
         $iframe = $modal.find('.ipsPageSelectIframe');
 
-    $iframe.attr('source', $iframe.data('source'));
+    $iframe.attr('src', $iframe.data('source'));
 
     $modal.modal();
     var $iframeContent = $iframe.contents();
