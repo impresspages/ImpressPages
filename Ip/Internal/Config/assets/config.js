@@ -10,7 +10,7 @@ var IpConfig;
         $('.ipsAutoSave').on('change', IpConfig.autoSaveValue);
         $('.ipsAutoSave').on('keyup', IpConfig.autoSaveValue);
 
-        $('.ipsConfigForm').validator(validatorConfig);
+        $('.ipsConfigForm').validator(validatorConfigAdmin);
         $('.ipsConfigForm').data("validator").checkValidity();
 
     });
