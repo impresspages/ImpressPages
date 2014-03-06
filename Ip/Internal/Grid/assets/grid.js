@@ -149,10 +149,20 @@
         $grid.find('.ipsCreate').off().on('click', function() {
             var $this = $(this);
             var $modal = $grid.find('.ipsCreateModal');
+            var $form = $modal.find('.ipsBody form');
+            var data = $grid.data('gateway');
             $modal.modal();
             $modal.find('.form-group').not('.type-blank').first().find('input').focus();
-            $modal.find('.ipsBody form').validator(validatorConfig);
-            $modal.find('.ipsBody form').on('submit', $.proxy(createFormSubmit, $grid));
+            if (!$form.find('input[name=aa]').length) {
+                $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+            }
+            $form.on('ipSubmitResponse', function (e, response) {
+                if (!response.error) {
+                    $modal.modal('hide');
+                    //form has been successfully submitted.
+                    $.proxy(doCommands, $grid)(response.result.commands);
+                }
+            });
             $modal.find('.ipsConfirm').off().on('click', function() {
                 $modal.find('.ipsBody form').submit();
             });
@@ -165,16 +175,14 @@
             var data = $grid.data('gateway');
             $modal.modal();
             $modal.find('.form-group').not('.type-blank').first().find('input').focus();
-//            $modal.find('.ipsBody form').validator(validatorConfig);
-//            $modal.find('.ipsBody form').on('submit', $.proxy(searchFormSubmit, $grid));
             if (!$form.find('input[name=aa]').length) {
                 $form.append($('<input type="hidden" name="aa" />').val(data.aa));
             }
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
+                    $modal.modal('hide');
                     //form has been successfully submitted.
                     $.proxy(doCommands, $grid)(response.result.commands);
-                    $modal.modal('hide');
                 }
             });
 
@@ -324,78 +332,9 @@
         e.preventDefault();
     }
 
-    var createFormSubmit = function(e) {
-        var $grid = this;
-        var form = $grid.find('.ipsCreateModal .ipsBody form');
-        var data = $grid.data('gateway');
-        var $modal = $grid.find('.ipsCreateModal');
 
-        $modal.modal('hide');
 
-        // client-side validation OK.
-        if (!e.isDefaultPrevented()) {
-            $.ajax({
-                url: ip.baseUrl,
-                dataType: 'json',
-                type : 'POST',
-                data: form.serialize() + '&aa=' + data.aa,
-                success: function (response){
-                    if (!response.error) {
-                        //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result.commands);
-                    } else {
-                        //PHP controller says there are some errors
-                        if (response.errors) {
-                            form.data("validator").invalidate(response.errors);
-                        }
-                    }
-                },
-                error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
-                }
-            });
-        }
-        e.preventDefault();
-    }
 
-    var searchFormSubmit = function(e) {
-        var $grid = this;
-        var form = $grid.find('.ipsSearchModal .ipsBody form');
-        var data = $grid.data('gateway');
-        var $modal = $grid.find('.ipsSearchModal');
-        data.hash = null;
-
-        $modal.modal('hide');
-
-        // client-side validation OK.
-        if (!e.isDefaultPrevented()) {
-            $.ajax({
-                url: ip.baseUrl,
-                dataType: 'json',
-                type : 'GET',
-                data: form.serialize() + '&aa=' + data.aa,
-                success: function (response){
-                    if (!response.error) {
-                        //form has been successfully submitted.
-                        $.proxy(doCommands, $grid)(response.result.commands);
-                    } else {
-                        //PHP controller says there are some errors
-                        if (response.errors) {
-                            form.data("validator").invalidate(response.errors);
-                        }
-                    }
-                },
-                error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
-                }
-            });
-        }
-        e.preventDefault();
-    }
 
 
     var deleteRecord = function(id) {
