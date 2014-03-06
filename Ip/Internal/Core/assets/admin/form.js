@@ -9,9 +9,6 @@ var ipModuleFormAdmin;
 (function($){
     "use strict";
 
-    $(document).ready(function () {
-        ipModuleFormAdmin.init();
-    });
 
     ipModuleFormAdmin = new function () {
         this.init = function () {

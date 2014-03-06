@@ -1,5 +1,5 @@
-/**
- * @package ImpressPages
+/*!
+ * ImpressPages form initialization function
  *
  */
 
@@ -9,9 +9,6 @@ var ipModuleFormPublic;
 (function($){
     "use strict";
 
-    $(document).ready(function () {
-        ipModuleFormPublic.init();
-    });
 
     ipModuleFormPublic = new function () {
         this.init = function () {

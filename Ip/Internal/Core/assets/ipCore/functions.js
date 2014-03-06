@@ -1,4 +1,6 @@
-
+/*!
+Default ImpressPages functions
+ */
 function ipFileUrl(path)
 {
     for (prefix in ipUrlOverrides) {
@@ -21,3 +23,8 @@ function ipHomeUrl()
 }
 
 
+
+function ipInitForms () {
+    ipModuleFormAdmin.init();
+    ipModuleFormPublic.init();
+}
