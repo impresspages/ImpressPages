@@ -1,5 +1,5 @@
 // defining global variables
-var validatorConfig = '';
+var validatorConfigPublic = '';
 
 
 (function($){
@@ -38,10 +38,44 @@ var validatorConfig = '';
     };
 
     $.each(ipValidatorTranslations, function(key, value) {
-        if (validatorConfig === '') {
-            validatorConfig = createConfig(key);
+        if (validatorConfigPublic === '') {
+            validatorConfigPublic = createConfig(key);
         }
         $.tools.validator.localize(key, value);
     });
+
+
+    $('.ipsModuleFormPublic.ipsAjaxSubmit').validator(validatorConfigPublic);
+    $('.ipsModuleFormPublic.ipsAjaxSubmit').submit(function (e) {
+        var $form = $(this);
+
+        // client-side validation OK.
+        if (!e.isDefaultPrevented()) {
+            $.ajax({
+                url: ip.baseUrl,
+                dataType: 'json',
+                type : 'POST',
+                data: $form.serialize(),
+                success: function (response) {
+                    $form.trigger('ipSubmitResponse', [response]);
+                    //PHP controller says there are some errors
+                    if (response.errors) {
+                        $form.data("validator").invalidate(response.errors);
+                    }
+                    if (response.redirectUrl) {
+                        window.location = response.redirectUrl;
+                    }
+                },
+                error: function (response) {
+                    if (ip.developmentEnvironment || ip.debugMode) {
+                        console.log(response);
+                        alert('Server response: ' + response.responseText);
+                    }
+                }
+            });
+        }
+        e.preventDefault();
+    });
+
 
 })(jQuery);
