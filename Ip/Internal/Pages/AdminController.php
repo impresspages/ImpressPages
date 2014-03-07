@@ -136,7 +136,7 @@ class AdminController extends \Ip\Controller
 
     public function updateMenuForm()
     {
-        $menuId = ipRequest()->getQuery('id');
+        $menuId = (int)ipRequest()->getQuery('id');
         if (empty($menuId)) {
             throw new \Ip\Exception("Missing required parameters");
         }
