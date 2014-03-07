@@ -40,11 +40,7 @@ class Controller extends \Ip\WidgetController{
 
     public function adminHtmlSnippet()
     {
-        $variables = array (
-            'settingsForm' => $this->settingsForm()
-        );
-        return ipView('snippet/map.php', $variables)->render();
-
+        return '';
     }
 
     protected function settingsForm()
