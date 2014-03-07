@@ -3,31 +3,38 @@
  *
  */
 var IpWidget_Columns;
+var ipColumnsInitWidthHandles;
 
 (function($){
     "use strict";
-    var $handler = $('<div class="ipWidgetColsResizeHandler" style="background-color: black; width: 10px; opacity: 0.3; heigth: 100px;"></div>');
 
-    IpWidget_Columns     = function() {
+    IpWidget_Columns = function() {
         this.$widgetObject = null;
 
         this.init = function($widgetObject, data) {
-            addResizeHandlers($widgetObject);
+
 
         }
 
-        var addResizeHandlers = function ($widget){
 
-//            var $test = $handler.clone();
-//            $test.css('background-color', 'red');
-//            $test.css('position', 'absolute');
-//            $test.css('height', '20px');
-//            $('body').append($test);
-//            var $test2 = $handler.clone();
-//            $test2.css('background-color', 'blue');
-//            $test2.css('position', 'absolute');
-//            $test2.css('height', '40px');
-//            $('body').append($test2);
+    }
+
+
+    ipColumnsInitWidthHandles = function() {
+        var $handler = $('<div class="ipWidgetColsResizeHandler ipsWidgetColWidthHandler" style="background-color: black; width: 10px; opacity: 0.3; heigth: 100px;"></div>');
+
+        function addResizeHandlers($widget){
+
+            //            var $test = $handler.clone();
+            //            $test.css('background-color', 'red');
+            //            $test.css('position', 'absolute');
+            //            $test.css('height', '20px');
+            //            $('body').append($test);
+            //            var $test2 = $handler.clone();
+            //            $test2.css('background-color', 'blue');
+            //            $test2.css('position', 'absolute');
+            //            $test2.css('height', '40px');
+            //            $('body').append($test2);
 
 
             var $cols = $widget.find('.ipsCol');
@@ -55,12 +62,12 @@ var IpWidget_Columns;
                         var markerPosition = $newHandler.offset().left - firstColStart + $newHandler.width() / 2;
                         var firstPercent = markerPosition * 100 / totalWidth;
 
-//                        $test.css('left', firstColStart + 'px');
-//                        $test.css('top', $col.offset().top + 'px');
-//                        $test.css('width', totalWidth + 'px');
-//                        $test2.css('left', firstColStart + 'px');
-//                        $test2.css('top', $col.offset().top + 'px');
-//                        $test2.css('width', markerPosition + 'px');
+                        //                        $test.css('left', firstColStart + 'px');
+                        //                        $test.css('top', $col.offset().top + 'px');
+                        //                        $test.css('width', totalWidth + 'px');
+                        //                        $test2.css('left', firstColStart + 'px');
+                        //                        $test2.css('top', $col.offset().top + 'px');
+                        //                        $test2.css('width', markerPosition + 'px');
 
 
                         if (firstPercent < 5) {
@@ -75,6 +82,8 @@ var IpWidget_Columns;
                         $col.css('width', firstPercent + '%');
                         $nextCol.css('width', (totalPercent - firstPercent) + '%');
 
+                    },
+                    stop: function (event, ui) {
                         var colWidths = new Array();
                         $.each($widget.find('.ipsCol'), function (index, col) {
                             colWidths.push(parseFloat(col.style.width));
@@ -84,13 +93,29 @@ var IpWidget_Columns;
                             method: 'adjustWidth',
                             widths: colWidths
                         };
-                        $widget.save(data, 0);
+                        $widget.ipWidget('save', data, 0);
                     }
                 });
 
                 $('body').append($newHandler);
             });
         };
+
+        $('.ipsWidgetColWidthHandler').remove();
+
+        $('.ipWidget-Columns').each(function (index, widget) {
+            addResizeHandlers($(widget));
+        });
+
+
+
+
     }
+
+    $('body').on('initFinished.ipContentManagement', ipColumnsInitWidthHandles);
+
+
+
+
 
 })(ip.jQuery);
