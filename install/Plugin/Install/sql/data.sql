@@ -46,3 +46,7 @@ INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'lastSystemMessageShown', ''),
 ('Ip', 'themeChanged', '0'),
 ('Ip', 'cacheVersion', '1');
+
+
+INSERT INTO `ip_cms_plugin` (`title`, `name`, `version`, `isActive`) VALUES
+('Application', 'Application', 1.00, 1);
