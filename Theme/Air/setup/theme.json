@@ -45,6 +45,12 @@
             "type": "select",
             "default": "2",
             "values": [1, 2, 3, 4, 5]
+        },
+        {
+            "label": "Test",
+            "type": "text",
+            "name": "test",
+            "default": "Aaa"
         }
     ]
 
