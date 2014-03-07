@@ -418,7 +418,7 @@ class AdminController extends \Ip\Controller{
         }
         $pageId = $_POST['pageId'];
 
-        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $languageId);
+        $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);
         if ($imageStr) {
             $image = new Entity\Image($imageStr);
             $scope = $this->dao->getLastOperationScope();
