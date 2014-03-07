@@ -7,10 +7,10 @@
                 <?php echo esc($plugin['description']) ?>
                 </p>
                 <?php if ($plugin['active']) { ?>
-                    <button type="button" class="ipsDeactivate btn btn-default navbar-btn">{{deactivate}}</button>
+                    <button type="button" class="ipsDeactivate btn btn-default navbar-btn"><?php _e('Deactivate', 'ipAdmin') ?></button>
                 <?php } else { ?>
-                    <button type="button" class="ipsActivate btn btn-default navbar-btn">{{activate}}</button>
-                    <button type="button" class="ipsRemove btn btn-default navbar-btn">{{remove}}</button>
+                    <button type="button" class="ipsActivate btn btn-default navbar-btn"><?php _e('Activate', 'ipAdmin') ?></button>
+                    <button type="button" class="ipsRemove btn btn-default navbar-btn"><?php _e('Remove', 'ipAdmin') ?></button>
                 <?php } ?>
             </div>
         </div>
