@@ -157,8 +157,6 @@ class Controller extends \Ip\WidgetController{
 
 
                 if (!empty($data['height'])) {
-                    $height = $data['height'];
-                } else {
                     $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
                     if ($ratio == 0) {
                         $ratio = 1;
