@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Plugin\Test;
+namespace Plugin\Application;
 
 
 class Filter
 {
-    public function ipSendResponse($response)
+    public static function ipSendResponse($response)
     {
         // modify response before sending
     }
