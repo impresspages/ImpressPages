@@ -29,8 +29,9 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="input-group-addon">
-                                            <input type="checkbox" class="ipsFieldRequired" title="<?php _e('Required', 'ipAdmin'); ?>" />
+                                        <div class="input-group-btn">
+                                            <button href="#" class="btn btn-default hidden ipsFieldRequired" title="<?php _e('Required', 'ipAdmin'); ?>"><?php _e('Required', 'ipAdmin'); ?></button>
+                                            <button href="#" class="btn btn-default ipsFieldOptional" title="<?php _e('Optional', 'ipAdmin'); ?>"><?php _e('Optional', 'ipAdmin'); ?></button>
                                         </div>
                                         <div class="input-group-btn">
                                             <button href="#" class="btn btn-default ipsFieldOptions" title="<?php _e('Options', 'ipAdmin'); ?>"><i class="fa fa-cogs"></i></button>

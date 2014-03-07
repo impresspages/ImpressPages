@@ -59,6 +59,14 @@
                     $this.find('.ipsFieldType').on('change', function (e) {
                         $.proxy(setFieldType, $this)($(this).val());
                     });
+                    $this.find('.ipsFieldRequired').on('click', function () {
+                        $this.find('.ipsFieldRequired').addClass('hidden');
+                        $this.find('.ipsFieldOptional').removeClass('hidden');
+                    });
+                    $this.find('.ipsFieldOptional').on('click', function () {
+                        $this.find('.ipsFieldOptional').addClass('hidden');
+                        $this.find('.ipsFieldRequired').removeClass('hidden');
+                    });
 
                     $.proxy(setFieldType, $this)(data.type);
 
@@ -67,7 +75,13 @@
                     }
 
                     if (options.required && options.required != 0) {
-                        $this.find('.ipsFieldRequired').prop('checked', options.required);
+                        if (options.required) {
+                            $this.find('.ipsFieldRequired').removeClass('hidden');
+                            $this.find('.ipsFieldOptional').addClass('hidden');
+                        } else {
+                            $this.find('.ipsFieldRequired').addClass('hidden');
+                            $this.find('.ipsFieldOptional').removeClass('hidden');
+                        }
                     }
                 }
 
@@ -122,7 +136,7 @@
 
         getRequired : function () {
             var $this = $(this);
-            return $this.find('.ipsFieldRequired').is(':checked');
+            return !$this.find('.ipsFieldRequired').hasClass('hidden');
         }
     };
 
@@ -145,10 +159,12 @@
         var $this = this;
         var data = $this.data('ipWidget_ipForm_field');
         if (data.optionsPopup.ipWidget_ipForm_options('optionsAvailable', type)) {
-            $this.find('.ipsFieldOptions').removeClass('disabled');
+            //$this.find('.ipsFieldOptions').removeClass('disabled');
+            $this.find('.ipsFieldOptions').removeClass('hidden');
             $this.find('.ipsFieldOptions').on('click', $.proxy(openOptionsPopup, this));
         } else {
-            $this.find('.ipsFieldOptions').addClass('disabled');
+            $this.find('.ipsFieldOptions').addClass('hidden');
+            //$this.find('.ipsFieldOptions').addClass('disabled');
         }
         data.type = type;
         $this.data('ipWidget_ipForm_field', data);
