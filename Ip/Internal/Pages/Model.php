@@ -126,7 +126,7 @@ class Model
         $list = ipDb()->selectAll(
             'page',
             '*',
-            array('languageCode' => $languageCode, 'parentId' => 0),
+            array('languageCode' => $languageCode, 'parentId' => 0, 'isDeleted' => 0),
             ' ORDER BY `pageOrder` '
         );
 

@@ -52,7 +52,7 @@ class Helper
 
     public static function menuForm($menuId)
     {
-        $menu = Model::getPage($menuId);
+        $menu = Model::getPage((int)$menuId);
 
         if (!$menu) {
             throw new \Ip\Exception('Menu not found.', array('id' => $menuId));
