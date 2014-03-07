@@ -25,12 +25,12 @@
                         echo $view->render();
                     ?>
                     <ul class="nav nav-stacked">
-                        <li>
-                            <a href="<?php echo esc($helpUrl); ?>" target="_blank">
-                                <i class="fa fa-fw fa-info"></i>
-                                <?php _e('Help', 'ipAdmin'); ?>
-                            </a>
-                        </li>
+<!--                        <li>-->
+<!--                            <a href="--><?php //echo esc($helpUrl); ?><!--" target="_blank">-->
+<!--                                <i class="fa fa-fw fa-info"></i>-->
+<!--                                --><?php //_e('Help', 'ipAdmin'); ?>
+<!--                            </a>-->
+<!--                        </li>-->
                         <li>
                             <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')); ?>">
                                 <i class="fa fa-fw fa-power-off"></i>
