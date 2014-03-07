@@ -87,6 +87,7 @@
                     $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
+                    console.log('init finished');
                     $this.trigger('initFinished.ipContentManagement', options);
 
                 }
