@@ -43,7 +43,7 @@ class Block
                 return $predefinedContent;
             }
 
-            if (ipContent()->getCurrentPage() == null) {
+            if (ipContent()->getCurrentPage() == null && $revisionId == 0) {
                 return '';
             }
 
