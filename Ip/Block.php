@@ -26,9 +26,6 @@ class Block
      */
     public function render($revisionId = 0)
     {
-        if (ipContent()->getCurrentPage() == null) {
-            return '';
-        }
         $data = array (
             'blockName' => $this->name,
         );
@@ -44,6 +41,10 @@ class Block
             $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
             if ($predefinedContent !== null) {
                 return $predefinedContent;
+            }
+
+            if (ipContent()->getCurrentPage() == null) {
+                return '';
             }
 
             if ($this->isStatic) {
