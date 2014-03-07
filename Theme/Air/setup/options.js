@@ -14,9 +14,5 @@ var ipDesignOptions = {
     backgroundColor: function (value) {
         'use strict';
         $('.wrapper').css('background-color', value);
-    },
-    test2: function (value) {
-        'use strict';
-
     }
 };
