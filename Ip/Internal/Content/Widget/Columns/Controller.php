@@ -20,6 +20,13 @@ class Controller extends \Ip\WidgetController
 
         if (isset($postData['method'])) {
             switch($postData['method']) {
+                case 'adjustWidth':
+                    if (!isset($postData['widths']) || !is_array($postData['widths'])) {
+                        throw new \Ip\Exception("Missing required parameter.");
+                    }
+                    $currentData['widths'] = $postData['widths'];
+                    return $currentData;
+                    break;
                 case 'addColumn':
                     if (!isset($postData['position'])) {
                         throw new \Ip\Exception("Missing required parameter.");
@@ -32,6 +39,8 @@ class Controller extends \Ip\WidgetController
                     }
                     $newColumnName = 'column'.$widgetId.'_' . $i;
                     array_splice($currentData['cols'], $position, 0, $newColumnName);
+
+                    $currentData['widths'] = null;
                     return $currentData;
 
                 break;
@@ -55,6 +64,7 @@ class Controller extends \Ip\WidgetController
                         }
                     }
 
+                    $currentData['widths'] = null;
                     return $currentData;
                     break;
             }
@@ -91,6 +101,23 @@ class Controller extends \Ip\WidgetController
                 'column'.$widgetId.'_2'
             );
         }
+
+        if (empty($data['widths']) || !is_array($data['widths'])) {
+            $data['widths'] = array();
+        }
+
+        $totalWidth = (float)0;
+        foreach($data['widths'] as $width) {
+            $totalWidth = $totalWidth + (float)$width;
+        }
+
+        if (count($data['widths']) < count($data['cols']) || $totalWidth > 101 || $totalWidth < 99) {
+            $colWidth = (float)100 / count($data['cols']);
+            for($i = 0; $i < count($data['cols']); $i++) {
+                $data['widths'][] = $colWidth;
+            }
+        }
+
 
         $data['cols'] = array_values($data['cols']);
 
