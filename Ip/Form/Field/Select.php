@@ -38,7 +38,7 @@ class Select extends \Ip\Form\Field
                 $value = array($value, $value);
             }
 
-            if ($value[0] === $this->value) {
+            if ($value[0] === $this->value || is_int($value[0]) && (string) $value[0] === $this->value) {
                 $selected = 'selected="selected"';
             } else {
                 $selected = '';

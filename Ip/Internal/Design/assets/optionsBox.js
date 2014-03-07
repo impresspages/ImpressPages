@@ -6,7 +6,8 @@ var ipDesign;
     ipDesign = new function () {
         var lastSerialized = null,
             cssUpdateQueue = [], //css files that are in progress to be updated
-            cssUpdateInProgress = false;
+            cssUpdateInProgress = false,
+            saveButtonDown = false;
 
         /**
          *
@@ -157,7 +158,7 @@ var ipDesign;
                     legendHeight += $(legend).outerHeight(true);
                 });
                 // adding the height of warning
-                legendHeight += $('.ipModuleDesignConfig .ipsReload').outerHeight(true);
+                //legendHeight += $('.ipModuleDesignConfig .ipsReload').outerHeight(true); #removeReloadNote
 
                 // calculating how much space is left for content
                 var openPanelHeight = (bodyHeight > legendHeight) ? (bodyHeight - legendHeight) : 0;
@@ -198,6 +199,13 @@ var ipDesign;
             $('body').append(ipModuleDesignConfiguration);
             ipInitForms(); //reinit form controls after adding option box
 
+            $('.ipModuleDesignConfig .ipsSave').off('mousedown').on('mousedown', function (e) {
+                saveButtonDown = true;
+            });
+
+            $('.ipModuleDesignConfig .ipsSave').off('mouseup').on('mouseup', function (e) {
+                saveButtonDown = false;
+            });
 
             $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
                 e.preventDefault();
@@ -243,8 +251,11 @@ var ipDesign;
         };
 
         this.showReloadNotice = function () {
-            $('.ipModuleDesignConfig .ipsReload').removeClass('hidden');
-            fixAccordion();
+            if (!saveButtonDown) { //if user is holding down the save button, don't show reload message as it will scroll save booton down and save won't happen.
+                //$('.ipModuleDesignConfig .ipsReload').removeClass('hidden'); #removeReloadNote
+                $('.ipModuleDesignConfig .ipsReloadButton').removeClass('hidden');
+                //fixAccordion(); #removeReloadNote
+            }
         };
 
         this.reloadLessFiles = function (files) {
