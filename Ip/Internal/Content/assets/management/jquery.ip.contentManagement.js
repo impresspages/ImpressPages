@@ -166,7 +166,8 @@
         var $scrollable = $('.ipsAdminPanelWidgetsContainer'); // binding object
         $scrollable.scrollable({
             items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
-            touch: false
+            touch: false,
+            keyboard: false
         });
         var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
         var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
