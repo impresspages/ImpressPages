@@ -87,7 +87,10 @@ var IpWidget_Map;
                 mapOptions.zoom = parseInt(data.zoom);
             }
 
+            mapOptions.scrollwheel = false;
+
             var map = new google.maps.Map($map.get(0), mapOptions);
+            //map.disableScrollWheelZoom();
             this.map = map;
 
 
