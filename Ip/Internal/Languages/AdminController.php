@@ -148,7 +148,7 @@ class AdminController extends \Ip\GridController
         if ($method === 'delete') {
             $languages = ipContent()->getLanguages();
             if (count($languages) === 1) {
-                return __('Can\'t delete last language.', 'ipAdmin', false);
+                return __('Can\'t delete the last language.', 'ipAdmin', false);
             }
         }
     }
