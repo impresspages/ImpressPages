@@ -156,13 +156,13 @@ class Controller extends \Ip\WidgetController{
                 }
 
 
-                if (!empty($data['height'])) {
-                    $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
-                    if ($ratio == 0) {
-                        $ratio = 1;
-                    }
-                    $height = round($width / $ratio);
+                //calc height
+                $ratio = ($data['cropX2'] - $data['cropX1']) / ($data['cropY2'] - $data['cropY1']);
+                if ($ratio == 0) {
+                    $ratio = 1;
                 }
+                $height = round($width / $ratio);
+
                 $transform = new \Ip\Transform\ImageCrop(
                     $data['cropX1'],
                     $data['cropY1'],
