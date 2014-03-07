@@ -26,6 +26,9 @@ class Block
      */
     public function render($revisionId = 0)
     {
+        if (ipContent()->getCurrentPage() == null) {
+            return '';
+        }
         $data = array (
             'blockName' => $this->name,
         );
