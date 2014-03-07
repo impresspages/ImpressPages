@@ -82,18 +82,18 @@ class ReflectionModel
 
     private function createReflection($source, $desiredName, \Ip\Transform $transform)
     {
-        $absoluteSource = realpath(ipFile('file/repository/' . $source));
+        $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
         }
 
 
 
-        /* TODOX: breaks on Windows fix #windowsPath
+
         if (strpos($absoluteSource, ipFile('file/repository/')) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
-*/
+
 
 
         //if desired name ends with .jpg, .gif, etc., remove extension
