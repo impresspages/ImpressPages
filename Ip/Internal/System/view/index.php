@@ -18,7 +18,7 @@
 //        ) ?><!--</p>-->
 <!--    <a href="#" class="ipsUpdateLinks btn btn-primary">--><?php //_e('Update', 'ipAdmin'); ?><!--</a>-->
 
-    <div class="hidden" id="systemInfo">
+    <div class="hidden ipsSystemStatus">
         <h2><?php _e('System status', 'ipAdmin'); ?></h2>
     </div>
 </div>
