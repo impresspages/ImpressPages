@@ -351,6 +351,7 @@ class PublicController extends \Ip\Controller
             Model::setSiteName(ipRequest()->getPost('siteName'));
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
             Model::generateCronPassword();
+            ipStorage()->set('Ip', 'cachedBaseUrl', ipConfig()->baseUrl());
 
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());

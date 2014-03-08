@@ -197,18 +197,9 @@ class Model
         $sql = str_replace("[[[[database]]]]", $database, $sql);
         $sql = str_replace("DROP TABLE IF EXISTS `ip_cms_", "DROP TABLE IF EXISTS `". $tablePrefix, $sql);
         $sql = str_replace("CREATE TABLE `ip_cms_", "CREATE TABLE `".$tablePrefix, $sql);
-//        $sql = explode("-- Table structure", $sql);
 
         $errors = array();
         ipDb()->execute($sql);
-
-//        foreach ($sql_list as $sql) {
-//            try {
-//                ipDb()->execute($sql);
-//            } catch (\Exception $e) {
-//                $errors[] = preg_replace("/[\n\r]/", '', $sql . ' ' . Db::getConnection()->errorInfo());
-//            }
-//        }
 
         return $errors;
     }
@@ -222,10 +213,9 @@ class Model
         $sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);
 
-        //$sql = utf8_encode($all_sql);
+
         $sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $sql);
         $sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $sql);
-        //$sql = explode("-- Dumping data for table--", $sql);
 
         ipDb()->execute($sql);
 

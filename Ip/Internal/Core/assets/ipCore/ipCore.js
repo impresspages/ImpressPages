@@ -3,7 +3,7 @@ ImpressPages core init
  */
 
 var ipGoogleMapsLoading = false;
-
+var ipPingInterval;
 
 /*
  * hook all widgets with plugins
@@ -28,6 +28,8 @@ $(document).ready(function() {
 
     ipInitForms();
 
+    ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
+
 });
 
 var ipGoogleMapsLoaded = function () {
@@ -47,3 +49,10 @@ var ipLoadGoogleMaps = function () {
 };
 
 
+var ipPing = function () {
+    $.ajax({
+        url: ip.baseUrl,
+        data: {pa: 'Core.ping'},
+        method: 'GET'
+    })
+}
