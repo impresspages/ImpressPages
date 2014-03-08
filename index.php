@@ -1,13 +1,10 @@
 <?php
 /**
- *
  * ImpressPages CMS main frontend file
  *
  * This file initiates required variables and outputs the content.
  *
  * @package ImpressPages
- *
- *
  */
 
 
