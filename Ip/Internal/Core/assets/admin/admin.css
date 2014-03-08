@@ -8797,6 +8797,19 @@
 .ipAdminWidgetPlaceholderHorizontal ._marker {
   height: 1px;
 }
+.ipWidgetColsResizeHandler {
+  background-color: black;
+  width: 10px;
+  opacity: 0;
+  position: absolute;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: move;
+  z-index: 10;
+}
+.ipWidgetColsResizeHandler:hover {
+  opacity: 0.3;
+}
 .ipModuleInlineManagement._empty {
   outline: #019bd4 dashed 1px;
 }

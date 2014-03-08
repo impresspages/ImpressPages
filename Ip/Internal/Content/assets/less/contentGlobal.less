@@ -50,3 +50,22 @@
 .ipAdminWidgetPlaceholderHorizontal ._marker {
     height: 1px;
 }
+
+//TODOX review #widthHandler
+.ipWidgetColsResizeHandler {
+  background-color: black;
+  width: 10px;
+  opacity: 0;
+  position: absolute;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: move;
+  z-index: 10; //has to be higher than 5 as 5 is used as click area for form widget
+
+}
+
+.ipWidgetColsResizeHandler:hover {
+  opacity: 0.3;
+}
+
+
