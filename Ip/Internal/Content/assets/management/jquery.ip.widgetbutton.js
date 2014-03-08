@@ -21,13 +21,14 @@
                         revert : function(droppable) {
                             if(droppable === false) {
                                 // drop was unsuccessful
-                                $this.trigger('unsuccessfulDrop.ipWidgetButton',{
+                                $this.trigger('ipWidgetAddFailed',{
                                     widgetButton: $this
                                 });
                                 return true;
                             } else {
                                 // drop was successful
-                                $this.trigger('successfulDrop.ipWidgetButton',{
+                                console.log('trigger ipdgetadded');
+                                $this.trigger('ipWidgetAdded',{
                                     widgetButton: $this,
                                     block: droppable
                                 });

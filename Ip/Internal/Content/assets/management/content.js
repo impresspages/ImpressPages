@@ -44,11 +44,15 @@ var ipContent;
                     var $columnsWidget = $block.closest('.ipWidget-Columns');
                     if ($columnsWidget.length) {
                         deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
+                            console.log('widget remove end');
+                            $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                             if (callback) {
                                 callback();
                             }
                         });
                     } else {
+                        console.log('widget remove end');
+                        $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                         if (callback) {
                             callback();
                         }
@@ -348,7 +352,7 @@ var ipContent;
                         var newWidget = response.html;
                         var $newWidget = $(newWidget);
                         $newWidget.insertAfter($widget);
-                        $newWidget.trigger('reinitRequired.ipWidget');
+                        $newWidget.trigger('ipWidgetReinit');
 
                         // init any new blocks the widget may have created
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
@@ -412,8 +416,8 @@ var ipContent;
                         }
 
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-                        $block.trigger('reinitRequired.ipWidget');
-                        $block.trigger('addWidget.ipWidget',{
+                        $block.trigger('ipWidgetReinit');
+                        $block.trigger('ipWidgetAdded',{
                             'instanceId': response.instanceId,
                             'widget': $newWidget
                         });
@@ -425,6 +429,10 @@ var ipContent;
                     }
 
                     if (callback) {
+                        $(document).trigger('ipWidgetAdded', {
+                            'instanceId': $newWidget.data('widgetinstanceid'),
+                            'widget': $newWidget
+                        });
                         callback($newWidget.data('widgetinstanceid'));
                     }
                 },
@@ -440,12 +448,15 @@ var ipContent;
                 var $columns = $originalBlock.closest('.ipWidget-Columns');
                 if ($columns.length) {
                     deleteEmptyColumns($columns.data('widgetinstanceid'), function() {
+                        $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
                         if (callback) {
                             callback(response.newInstanceId);
                         }
                         return;
                     });
                 }
+
+                $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
 
                 if (callback) {
                     callback(newInstanceId);
@@ -487,7 +498,7 @@ var ipContent;
                     } else {
                         $newWidget.insertAfter($block.find(' > .ipWidget').eq(position - 1));
                     }
-                    $block.trigger('reinitRequired.ipWidget');
+                    $block.trigger('ipWidgetReinit');
                     $block.find(' > .ipbExampleContent').remove();
                     $block.removeClass('ipbEmpty');
 
