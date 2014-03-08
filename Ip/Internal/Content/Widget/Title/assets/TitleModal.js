@@ -13,9 +13,8 @@
             return this.each(function () {
                 var $this = $(this);
                 var saveCallback = options.saveCallback;
-                console.log(options);
                 $this.modal();
-                $this.find('.ipsConfirm').on('click', function() {console.log(saveCallback);
+                $this.find('.ipsConfirm').on('click', function() {
                     saveCallback({
                         anchor: $this.find('input[name=anchor]').val(),
                         link: $this.find('input[name=link]').val(),

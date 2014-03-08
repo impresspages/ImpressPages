@@ -21,7 +21,6 @@ var ipColumnsInitWidthHandles;
 
 
     ipColumnsInitWidthHandles = function() {
-        console.log('init handles   s');
         var $handler = $('<div class="ipWidgetColsResizeHandler ipsWidgetColWidthHandler" style="background-color: black; width: 10px; opacity: 0.3; heigth: 100px;"></div>');
 
         function addResizeHandlers($widget){
