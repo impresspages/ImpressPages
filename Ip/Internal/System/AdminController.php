@@ -50,7 +50,10 @@ class AdminController extends \Ip\Controller
         $model = Model::instance();
         $oldUrl = $model->getOldUrl();
         $newUrl = $model->getNewUrl();
-        if ($oldUrl != $newUrl) {
+
+        $httpExpression = '/^((http|https):\/\/)/i';
+
+        if ($oldUrl != $newUrl && preg_match($httpExpression, $oldUrl) && preg_match($httpExpression, $newUrl)) {
             $eventData = array(
                 'oldUrl' => $oldUrl,
                 'newUrl' => $newUrl
