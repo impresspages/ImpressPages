@@ -418,4 +418,25 @@ class Model
         ipEvent('ipPageDeleted', array('pageId' => $pageId));
     }
 
+    public static function updateUrl($oldUrl, $newUrl)
+    {
+        $dbh = ipDb()->getConnection();
+        $table = ipTable('page');
+        $sql = "
+            UPDATE
+              $table
+            SET
+              `redirectUrl` = REPLACE(`redirectUrl`, :oldUrl, :newUrl)
+            WHERE
+                1
+        ";
+
+        $params = array (
+            ':oldUrl' => $oldUrl,
+            ':newUrl' => $newUrl
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+    }
+
 }
