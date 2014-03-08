@@ -9,7 +9,7 @@
     "use strict";
 
     $(document).ready(function () {
-        $('body').ipContentManagement();
+        $(document).ipContentManagement();
 
         //preinit TinyMCE. Without it edit focus doesn't work after adding a widget
         var $emptyDiv = $('<div contenteditable="true" style="display: none"></div>');

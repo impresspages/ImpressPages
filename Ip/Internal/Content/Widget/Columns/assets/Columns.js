@@ -21,20 +21,21 @@ var ipColumnsInitWidthHandles;
 
 
     ipColumnsInitWidthHandles = function() {
+        console.log('init handles   s');
         var $handler = $('<div class="ipWidgetColsResizeHandler ipsWidgetColWidthHandler" style="background-color: black; width: 10px; opacity: 0.3; heigth: 100px;"></div>');
 
         function addResizeHandlers($widget){
 
-            //            var $test = $handler.clone();
-            //            $test.css('background-color', 'red');
-            //            $test.css('position', 'absolute');
-            //            $test.css('height', '20px');
-            //            $('body').append($test);
-            //            var $test2 = $handler.clone();
-            //            $test2.css('background-color', 'blue');
-            //            $test2.css('position', 'absolute');
-            //            $test2.css('height', '40px');
-            //            $('body').append($test2);
+//            var $test = $handler.clone();
+//            $test.css('background-color', 'red');
+//            $test.css('position', 'absolute');
+//            $test.css('height', '20px');
+//            $('body').append($test);
+//            var $test2 = $handler.clone();
+//            $test2.css('background-color', 'blue');
+//            $test2.css('position', 'absolute');
+//            $test2.css('height', '40px');
+//            $('body').append($test2);
 
 
             var $cols = $widget.find('.ipsCol');
@@ -62,12 +63,12 @@ var ipColumnsInitWidthHandles;
                         var markerPosition = $newHandler.offset().left - firstColStart + $newHandler.width() / 2;
                         var firstPercent = markerPosition * 100 / totalWidth;
 
-                        //                        $test.css('left', firstColStart + 'px');
-                        //                        $test.css('top', $col.offset().top + 'px');
-                        //                        $test.css('width', totalWidth + 'px');
-                        //                        $test2.css('left', firstColStart + 'px');
-                        //                        $test2.css('top', $col.offset().top + 'px');
-                        //                        $test2.css('width', markerPosition + 'px');
+//                        $test.css('left', firstColStart + 'px');
+//                        $test.css('top', $col.offset().top + 'px');
+//                        $test.css('width', totalWidth + 'px');
+//                        $test2.css('left', firstColStart + 'px');
+//                        $test2.css('top', $col.offset().top + 'px');
+//                        $test2.css('width', markerPosition + 'px');
 
 
                         if (firstPercent < 5) {
@@ -112,7 +113,11 @@ var ipColumnsInitWidthHandles;
 
     }
 
-    $('body').on('initFinished.ipContentManagement', ipColumnsInitWidthHandles);
+    $(document).on('ipInitContentManagement', ipColumnsInitWidthHandles);
+    $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
+    $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
+    $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
+
 
 
 

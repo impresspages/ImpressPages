@@ -1,7 +1,7 @@
 (function($){
     "use strict";
 
-        $(document).bind('initFinished.ipContentManagement', function () {
+        $(document).bind('ipInitContentManagement', function () {
             $('.ipsAdminPanelWidgetButton')
                 .bind('dragstart', function (event, ui) {
                     $('.ipBlock > .ipbExampleContent').each(function () {
