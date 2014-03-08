@@ -12,19 +12,17 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
+        $model = Model::instance();
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 
         $notes = array();
 
-        if (isset($_SESSION['ipSystem']['notes']) && is_array(
-                $_SESSION['ipSystem']['notes']
-            )
-        ) {
-            $notes = $_SESSION['ipSystem']['notes'];
+        if (isset($_SESSION['Ip']['notes']) && is_array($_SESSION['Ip']['notes'])) {
+            $notes = $_SESSION['Ip']['notes'];
         }
 
-        unset($_SESSION['ipSystem']['notes']);
+        unset($_SESSION['Ip']['notes']);
 
 
         $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
@@ -32,6 +30,9 @@ class AdminController extends \Ip\Controller
         $data = array(
             'notes' => $notes,
             'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'),
+            'changedUrl' => $model->getOldUrl() != $model->getNewUrl(),
+            'oldUrl' => $model->getOldUrl(),
+            'newUrl' => $model->getNewUrl()
         );
 
         $content = ipView('view/index.php', $data)->render();
@@ -43,30 +44,27 @@ class AdminController extends \Ip\Controller
         return $content;
     }
 
-    //TODOXX 301
-    public function clearCache()
+
+    public function updateLinks()
     {
+        $model = Model::instance();
+        $oldUrl = $model->getOldUrl();
+        $newUrl = $model->getNewUrl();
+        if ($oldUrl != $newUrl) {
+            $eventData = array(
+                'oldUlr' => $oldUrl,
+                'newUrl' => $newUrl
+            );
+            ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
+            ipEvent('Ip.urlChanged', $eventData);
+            $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'ipAdmin');
+        } else {
+            //in theory should never happen
+        }
+
+        return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')));
         ipRequest()->mustBePost();
 
-        ipLog()->info('System.cacheCleared');
-        $module = Model::instance();
-        $cachedUrl = \Ip\ServiceLocator::storage()->get('Ip', 'cachedBaseUrl'); // get system variable
-        $module->clearCache($cachedUrl);
-
-
-
-        $_SESSION['ipSystem']['notes'][] = __('Cache was cleared.', 'ipAdmin');
-
-        // TODO JSONRPC
-        $answer = array(
-            'jsonrpc' => '2.0',
-            'result' => array(
-                'redirectUrl' => $this->indexUrl()
-            ),
-            'id' => null,
-        );
-
-        return new \Ip\Response\Json($answer);
     }
 
     protected function indexUrl()
