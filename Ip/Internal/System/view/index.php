@@ -1,22 +1,23 @@
 <div class="ipModuleSystem">
-    <?php if (!empty($notes)) { ?>
-        <?php foreach ($notes as $note) { ?>
-            <div class="note">
-                <?php echo $note; ?>
-            </div>
-        <?php } ?>
-    <?php } ?>
-
     <div class="page-header">
         <h1>ImpressPages CMS <small><?php echo esc($version); ?></small></h1>
     </div>
+    <?php if (!empty($notes)) { ?>
+        <?php foreach ($notes as $note) { ?>
+            <p class="bg-success">
+                <?php echo $note; ?>
+            </p>
+        <?php } ?>
+    <?php } ?>
 
-<!--    <h2>--><?php //_e('Changes in URL detected', 'ipAdmin'); ?><!--</h2>-->
-<!--    <p>--><?php //_e(
-//            'We have detected that website\s URL has changed. Would you like to update links to new URL?.',
-//            'ipAdmin'
-//        ) ?><!--</p>-->
-<!--    <a href="#" class="ipsUpdateLinks btn btn-primary">--><?php //_e('Update', 'ipAdmin'); ?><!--</a>-->
+    <?php if ($changedUrl) { ?>
+    <h2><?php _e('Website\'s URL seems to be changed', 'ipAdmin'); ?></h2>
+    <p><?php echo sprintf(__(
+            'We have detected that website\'s URL has changed. Would you like to update links on your website from %s to %s ?',
+            'ipAdmin'
+        ), '<b>' . $oldUrl . '</b>', '<b>' . $newUrl . '</b>') ?></p>
+    <a href="<?php echo ipActionUrl(array('aa' => 'System.updateLinks')) ?>" class="ipsUpdateLinks btn btn-primary"><?php _e('Update links', 'ipAdmin'); ?></a>
+    <?php } ?>
 
     <div class="hidden ipsSystemStatus">
         <h2><?php _e('System status', 'ipAdmin'); ?></h2>
