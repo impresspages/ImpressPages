@@ -52,11 +52,11 @@ class AdminController extends \Ip\Controller
         $newUrl = $model->getNewUrl();
         if ($oldUrl != $newUrl) {
             $eventData = array(
-                'oldUlr' => $oldUrl,
+                'oldUrl' => $oldUrl,
                 'newUrl' => $newUrl
             );
+            ipEvent('ipUrlChanged', $eventData);
             ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
-            ipEvent('Ip.urlChanged', $eventData);
             $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'ipAdmin');
         } else {
             //in theory should never happen

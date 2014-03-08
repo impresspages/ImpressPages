@@ -457,7 +457,28 @@ class Model
 //        \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $params);
     }
 
+    public static function updateUrl($oldUrl, $newUrl)
+    {
+        $oldUrl = str_replace('\/', '\\\/', $oldUrl);
+        $newUrl = str_replace('\/', '\\\/', $newUrl);
+        $dbh = ipDb()->getConnection();
+        $table = ipTable('widget');
+        $sql = "
+            UPDATE
+              $table
+            SET
+              `data` = REPLACE(`data`, :oldUrl, :newUrl)
+            WHERE
+                1
+        ";
 
+        $params = array (
+            ':oldUrl' => $oldUrl,
+            ':newUrl' => $newUrl
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+    }
 
 
 }
