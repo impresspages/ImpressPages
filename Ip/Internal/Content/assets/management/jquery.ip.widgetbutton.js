@@ -27,7 +27,6 @@
                                 return true;
                             } else {
                                 // drop was successful
-                                console.log('trigger ipdgetadded');
                                 $this.trigger('ipWidgetAdded',{
                                     widgetButton: $this,
                                     block: droppable

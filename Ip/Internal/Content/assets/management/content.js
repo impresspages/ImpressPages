@@ -44,14 +44,12 @@ var ipContent;
                     var $columnsWidget = $block.closest('.ipWidget-Columns');
                     if ($columnsWidget.length) {
                         deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
-                            console.log('widget remove end');
                             $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                             if (callback) {
                                 callback();
                             }
                         });
                     } else {
-                        console.log('widget remove end');
                         $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                         if (callback) {
                             callback();
@@ -363,8 +361,6 @@ var ipContent;
                     }
                 },
                 error: function(response) {
-                    console.log('save error');
-                    console.log(response);
                     if (callback) {
                         callback(null);
                     }
