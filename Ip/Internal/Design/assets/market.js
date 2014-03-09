@@ -94,7 +94,8 @@ var ipDesignThemeMarket;
             }
         };
 
-        this.openMarketWindow = function () {
+        this.openMarketWindow = function (e) {
+            e.preventDefault();
 
             var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
 
