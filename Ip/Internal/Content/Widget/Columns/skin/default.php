@@ -1,5 +1,6 @@
+<div class="_container ipsColsContainer">
 <?php foreach($cols as $i => $columnUniqueStr) { ?>
-    <div class="ipsCol _col<?php if($i==0){echo ' first';}?><?php if($i==count($cols) - 1){echo ' last';}?>" style="width:<?php echo $widths[$i] ?>%;">
+    <div class="ipsCol _col" style="width:<?php echo $widths[$i]; ?>%;">
         <?php
         $block = ipBlock($columnUniqueStr)->exampleContent(' ');
         if (!empty($static)) {
@@ -8,3 +9,4 @@
         echo $block->render($revisionId); ?>
     </div>
 <?php } ?>
+</div>

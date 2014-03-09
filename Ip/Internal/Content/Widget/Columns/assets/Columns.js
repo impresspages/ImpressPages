@@ -13,12 +13,8 @@ var ipColumnsInitWidthHandles;
 
         this.init = function($widgetObject, data) {
 
-
         }
-
-
     }
-
 
     ipColumnsInitWidthHandles = function() {
         var $handler = $('<div class="ipAdminWidgetColsResizeHandler ipsAdminWidgetColsWidthHandler"></div>');
@@ -107,19 +103,11 @@ var ipColumnsInitWidthHandles;
             addResizeHandlers($(widget));
         });
 
-
-
-
     }
 
     $(document).on('ipInitContentManagement', ipColumnsInitWidthHandles);
     $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
     $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
     $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
-
-
-
-
-
 
 })(ip.jQuery);
