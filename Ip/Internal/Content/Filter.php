@@ -175,7 +175,7 @@ class Filter
                 'revisions' => $revisions,
                 'currentRevision' => $revision,
                 'managementUrls' => $managementUrls,
-                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId'])
+                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']) && ipContent()->getCurrentPage()->isVisible()
             );
 
             $elements[] = ipView('view/publishButton.php', $data);
