@@ -976,6 +976,9 @@ Move to separate stylesheet if invalid CSS is a problem.
 .mceContentBody ol:last-child {
   margin-bottom: 0;
 }
+.ipWidget-Columns ._container {
+  margin: 0 -10px;
+}
 .ipWidget-Columns ._col {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -984,12 +987,6 @@ Move to separate stylesheet if invalid CSS is a problem.
   min-height: 1px;
   padding: 0 10px;
   position: relative;
-}
-.ipWidget-Columns ._col.first {
-  padding-left: 0;
-}
-.ipWidget-Columns ._col.last {
-  padding-right: 0;
 }
 .ipWidget-Divider.ipSkin-default {
   border-bottom: 1px solid #747474;

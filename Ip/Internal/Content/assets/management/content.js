@@ -62,7 +62,7 @@ var ipContent;
 
         var deleteEmptyColumns = function (columnsWidgetInstanceId, callback) {
             var $columnsWidget = $('#ipWidget-' + columnsWidgetInstanceId);
-            var $columns = $columnsWidget.find('> .ipsCol');
+            var $columns = $columnsWidget.find('> .ipsColsContainer > .ipsCol'); // todo: refactor to remove container selector
 
             var $emptyColumns = new Array();
             var $notEmptyColumns = new Array();

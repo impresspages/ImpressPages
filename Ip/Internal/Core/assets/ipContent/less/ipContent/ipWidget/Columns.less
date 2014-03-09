@@ -1,5 +1,7 @@
 .ipWidget-Columns {
-
+    ._container {
+        margin: 0 -(@ipWidgetSpace / 2); // hack to keep images visually from border to border
+    }
     ._col {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -8,15 +10,5 @@
         min-height: 1px; // to keep empty block in place
         padding: 0 (@ipWidgetSpace / 2);
         position: relative;
-
-        // stick to the edges but don't use negative parent margins
-        &.first {
-            padding-left: 0;
-        }
-
-        // stick to the edges but don't use negative parent margins
-        &.last {
-            padding-right: 0;
-        }
     }
 }
