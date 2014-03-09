@@ -17,6 +17,10 @@ var ipManagementMode;
                     ipManagementMode.setManagementMode(1);
                 });
             }
+            if ("undefined" !== typeof(ipContentShowPublishButton)) {
+                // todox: remove HTML from JavaScript
+                $('body').append('<div class="ip"><div class="ipModuleContentPublishButton"><button type="button" class="btn btn-primary ipsContentPublish">{{Publish}}</button></div></div>');
+            }
             if ("undefined" !== typeof(ipWidgetSnippets)) {
                 $.each(ipWidgetSnippets, function( index, value ) {
                     $('body').append(value);

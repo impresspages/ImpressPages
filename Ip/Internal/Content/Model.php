@@ -480,8 +480,13 @@ class Model
         $q->execute($params);
     }
 
-    public static function isRevisionModified($revisionId)
+    public static function isRevisionModified($revisionId = null)
     {
+        if ($revisionId === null) {
+            $currentRevision = ipContent()->getCurrentRevision();
+            $revisionId = $currentRevision['revisionId'];
+        }
+
         $currentRevision = \Ip\Internal\Revision::getRevision($revisionId);
         if (!$currentRevision) {
             return FALSE;
