@@ -8797,18 +8797,17 @@
 .ipAdminWidgetPlaceholderHorizontal ._marker {
   height: 1px;
 }
-.ipWidgetColsResizeHandler {
-  background-color: black;
-  width: 10px;
-  opacity: 0;
+.ipAdminWidgetColsResizeHandler {
+  background: #7ecefd;
+  cursor: col-resize;
+  outline: #019db4 solid 1px;
   position: absolute;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-  cursor: move;
-  z-index: 10;
+  opacity: 0.01;
+  width: 3px;
+  z-index: 1020;
 }
-.ipWidgetColsResizeHandler:hover {
-  opacity: 0.3;
+.ipAdminWidgetColsResizeHandler:hover {
+  opacity: 1;
 }
 .ipModuleInlineManagement._empty {
   outline: #019bd4 dashed 1px;
