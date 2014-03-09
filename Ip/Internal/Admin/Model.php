@@ -103,7 +103,7 @@ class Model{
                 $icon = 'fa-pencil-square-o';
                 break;
             case 'Pages':
-                $icon = 'fa-file-text-o';
+                $icon = 'fa-sitemap';
                 break;
             case 'Administrators':
                 $icon = 'fa-users';
@@ -112,13 +112,16 @@ class Model{
                 $icon = 'fa-pencil';
                 break;
             case 'Plugins':
-                $icon = 'fa-cogs';
+                $icon = 'fa-code-fork';
                 break;
             case 'Config':
                 $icon = 'fa-cog';
                 break;
             case 'System':
-                $icon = 'fa-list-alt';
+                $icon = 'fa-cogs';
+                break;
+            case 'Languages':
+                $icon = 'fa-globe';
                 break;
         }
 
