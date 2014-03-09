@@ -283,6 +283,7 @@ class AdminController extends \Ip\Controller
         if ($publish) {
             $pageOptions = array();
             $pageOptions['updatedAt'] = date("Y-m-d");
+            $pageOptions['isVisible'] = 1;
             \Ip\Internal\Pages\Model::updatePageProperties($revision['pageId'], $pageOptions);
             \Ip\Internal\Revision::publishRevision($revisionId);
         }
