@@ -174,7 +174,8 @@ class Filter
             $data = array(
                 'revisions' => $revisions,
                 'currentRevision' => $revision,
-                'managementUrls' => $managementUrls
+                'managementUrls' => $managementUrls,
+                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId'])
             );
 
             $elements[] = ipView('view/publishButton.php', $data);

@@ -8,6 +8,15 @@
 (function ($) {
     "use strict";
 
+    function replacePublishedToPublish() {
+        var $publishButton = $('.ipsContentPublish');
+        $publishButton.text(ipPublishTranslation);
+        $publishButton.removeClass('btn-default').addClass('btn-primary');
+
+        var $revisionsButton = $('.ipsContentRevisions');
+        $revisionsButton.removeClass('btn-default').addClass('btn-primary');
+    }
+
     $(document).ready(function () {
         $(document).ipContentManagement();
 
@@ -16,6 +25,10 @@
         $('body').append($emptyDiv);
         $emptyDiv.tinymce(ipTinyMceConfig());
         setTimeout(function(){$emptyDiv.remove()}, '10000');
+
+        $(document).on('ipWidgetAdded', replacePublishedToPublish);
+        $(document).on('ipWidgetDeleted', replacePublishedToPublish);
+        $(document).on('ipWidgetMoved', replacePublishedToPublish);
 
     });
 })(ip.jQuery);
