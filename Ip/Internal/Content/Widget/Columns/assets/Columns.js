@@ -21,7 +21,7 @@ var ipColumnsInitWidthHandles;
 
 
     ipColumnsInitWidthHandles = function() {
-        var $handler = $('<div class="ipWidgetColsResizeHandler ipsWidgetColWidthHandler"></div>');
+        var $handler = $('<div class="ipAdminWidgetColsResizeHandler ipsAdminWidgetColsWidthHandler"></div>');
 
         function addResizeHandlers($widget){
 
@@ -101,7 +101,7 @@ var ipColumnsInitWidthHandles;
             });
         };
 
-        $('.ipsWidgetColWidthHandler').remove();
+        $('.ipsAdminWidgetColsWidthHandler').remove();
 
         $('.ipWidget-Columns').each(function (index, widget) {
             addResizeHandlers($(widget));

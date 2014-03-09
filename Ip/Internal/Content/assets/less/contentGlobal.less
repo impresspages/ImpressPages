@@ -11,7 +11,7 @@
     min-height: @admin-widgetControls-height;
 
     &:hover {
-        outline: #4d4d4d dashed 1px;
+        outline: @color-silver-dark2 dashed 1px;
     }
 
     &.ipWidget-Columns:hover {
@@ -35,9 +35,9 @@
     background-color: transparent;
 
     ._marker {
-        background: #7ecefd; // todox: default color to variables?
+        background: @color-blue-light;
         display: none;
-        outline: #019db4 solid 1px; // todox: default color to variables?
+        outline: @color-blue solid 1px;
     }
 
     &.hover ._marker {
@@ -52,20 +52,16 @@
 }
 
 //TODOX review #widthHandler
-.ipWidgetColsResizeHandler {
-  background-color: black;
-  width: 10px;
-  opacity: 0;
-  position: absolute;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-  cursor: move;
-  z-index: 10; //has to be higher than 5 as 5 is used as click area for form widget
+.ipAdminWidgetColsResizeHandler {
+    background: @color-blue-light;
+    cursor: col-resize;
+    outline: @color-blue solid 1px;
+    position: absolute;
+    opacity: 0.01;
+    width: 3px;
+    z-index: (@zindex-navbar-fixed - 10);
 
+    &:hover {
+        opacity: 1;
+    }
 }
-
-.ipWidgetColsResizeHandler:hover {
-  opacity: 0.3;
-}
-
-
