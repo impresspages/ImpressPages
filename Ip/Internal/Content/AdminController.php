@@ -297,7 +297,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'action' => '_savePageResponse',
             'newRevisionId' => $newRevisionId,
-            'newRevisionUrl' => $page->getLink() . '?cms_revision=' . $newRevisionId
+            'newRevisionUrl' => $page->getLink()
         );
 
         return new \Ip\Response\Json($data);
