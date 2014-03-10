@@ -90,6 +90,8 @@ var ipColumnsInitWidthHandles;
                             widths: colWidths
                         };
                         $widget.ipWidget('save', data, 0);
+
+                        $(document).trigger('ipWidgetResized');
                     }
                 });
 
