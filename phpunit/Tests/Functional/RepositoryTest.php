@@ -33,10 +33,10 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
 
         $this->find('.ipWidget-File .ipsWidgetDelete');
         sleep(1);
-        $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
+        $this->find('#ipsModuleRepositoryTabUpload .ipsRepositoryActions .ipsSelectionConfirm')->click();
 
         // wait for popup to close
-        $popupClosed = $this->waitForElementNotPresent('#ipModuleRepositoryTabUpload');
+        $popupClosed = $this->waitForElementNotPresent('#ipsModuleRepositoryTabUpload');
         $this->assertTrue($popupClosed);
 
         $this->find('#ipWidgetFilePopup .ipsCancel')->click();
@@ -58,7 +58,7 @@ class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
         $this->find('.plupload input')->setValue(TEST_FIXTURE_DIR."Repository/testFile.txt");
 
         $this->find('.ipWidget-File .ipsWidgetDelete');
-        $this->find('#ipModuleRepositoryTabUpload .ipmRepositoryActions .ipsSelectionConfirm')->click();
+        $this->find('#ipsModuleRepositoryTabUpload .ipsRepositoryActions .ipsSelectionConfirm')->click();
 
         $this->find('.ipWidget_ipFile_container input');
         $this->find('#ipWidgetFilePopup .ipsConfirm')->click();

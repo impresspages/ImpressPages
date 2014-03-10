@@ -18,15 +18,15 @@
                 if (!data) {
                     $this.data('ipRepositoryBuy', {});
 
-                    var $popup = $('.ipModuleRepositoryPopup');
+                    var $popup = $('.ipsModuleRepositoryPopup');
 
                     $(window).bind("resize.ipRepositoryBuy", $.proxy(methods._resize, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
 
                     //create crossdomain socket connection
                     var remote = new easyXDM.Rpc({
-                        remote: $('#ipModuleRepositoryTabBuy').data('marketurl'),
-                        container: "ipModuleRepositoryTabBuyContainer",
+                        remote: $('#ipsModuleRepositoryTabBuy').data('marketurl'),
+                        container: "ipsModuleRepositoryTabBuyContainer",
                         onMessage: function(message, origin){
                             //DO NOTHING
                         },
@@ -49,12 +49,12 @@
                                             themes: [data]
                                         }
                                         processOrder(fakeOrder);
-                                        $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                        $(document.body).bind('ipMarketOrderComplete', function (e, data) {
                                             location.reload();
                                         });
                                         break;
                                     case 'processOrder':
-                                        $('body').bind('ipMarketOrderComplete', function(e, data) {
+                                        $(document.body).bind('ipMarketOrderComplete', function(e, data) {
                                             if (typeof (data.images) != "undefined" && data.images.length) {
                                                 $.proxy(methods._confirm, buyTab, data.images)();
                                             } else {
@@ -91,8 +91,10 @@
         },
 
         _resize: function(e) {
+            var $popup = $('.ipsModuleRepositoryPopup');
+            var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
             var $this = $(this);
-            $this.find('iframe').height((parseInt($(window).height()) - 40) + 'px'); // leaving place for tabs
+            $this.find('iframe').outerHeight((parseInt($(window).height()) - tabsHeight)); // leaving place for tabs
         }
 
     };
