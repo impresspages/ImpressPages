@@ -34,10 +34,13 @@ class UpdateModel
         $this->extractArchive(ipFile('file/tmp/update/ImpressPages.zip'), ipFile('file/tmp/update/extracted/'));
 
         $fs = new Helper\FileSystem();
-        $fs->rm(ipFile('update'));
-        $fs->createWritableDir(ipFile('update/extracted/update'));
-        $fs->clean(ipFile('update/extracted/update'));
-        $fs->cpContent(ipFile('file/tmp/update/extracted/update'), ipFile('update'));
+        $backupDir = file('file/tmp/' . date('Y-m-d H.i.s'));
+        $fs->rm($backupDir);
+        $fs->createWritableDir($backupDir);
+        $fs->cpContent(ipFile('Ip'), $backupDir);
+        $fs->clean(ipFile('Ip'));
+        $fs->cpContent(ipFile('file/tmp/update/extracted/Ip'), ipFile('Ip'));
+
     }
 
 
