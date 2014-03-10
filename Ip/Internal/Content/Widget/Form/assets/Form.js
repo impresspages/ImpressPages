@@ -17,19 +17,32 @@ var IpWidget_Form;
         this.container = null;
         this.addButton = null;
         this.confirmButton = null;
+        this.$widgetOverlay = null;
 
         this.init = function($widgetObject, data) {
+            var context = this;
             this.data = data;
             this.widgetObject = $widgetObject;
 
-            var $widgetOverlay = $('<div></div>')
+
+            this.$widgetOverlay = $('<div></div>');
+            this.widgetObject.prepend(this.$widgetOverlay);
+            this.$widgetOverlay.on('click', $.proxy(openPopup, this));
+
+            $(document).on('ipWidgetResized', function () {
+                $.proxy(fixOverlay, context)();
+            });
+            $.proxy(fixOverlay, context)();
+
+        };
+
+        var fixOverlay = function () {
+            this.$widgetOverlay
                 .css('position', 'absolute')
                 .css('z-index', 1000) // should be higher enough but lower than widget controls
                 .width(this.widgetObject.width())
                 .height(this.widgetObject.height());
-            this.widgetObject.prepend($widgetOverlay);
-            $widgetOverlay.on('click', $.proxy(openPopup, this));
-        };
+        }
 
         var openPopup = function() {
             var context = this;
