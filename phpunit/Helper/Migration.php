@@ -67,7 +67,7 @@ class Migration
                 return $script;
             }
         }
-        throw new \IpUpdate\Library\UpdateException("Can't find script to ".$version, \IpUpdate\Library\UpdateException::UNKNOWN);
+        throw new \Exception("Can't find script to ".$version, \IpUpdate\Library\UpdateException::UNKNOWN);
     }
 
 
