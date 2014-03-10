@@ -18,7 +18,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
 
         $installation = new \PhpUnit\Helper\Installation('2.3');
         $installation->install();
-        $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $service = new \PhpUnit\Helper\Service($installation->getInstallationDir());
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.3', $version);
 
@@ -37,7 +37,7 @@ class ServiceTest extends \PhpUnit\GeneralTestCase
         $installation = new \PhpUnit\Helper\Installation('2.0rc2');
         $installation->install();
 
-        $service = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $service = new \PhpUnit\Helper\Service($installation->getInstallationDir());
 
         $version = $service->getCurrentVersion();
         $this->assertEquals('2.0rc2', $version);
