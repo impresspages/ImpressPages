@@ -18,4 +18,8 @@ class PublicController extends \Ip\Controller
         return 'Some kind of a string';
     }
 
+    public function funky()
+    {
+        return 'Funky!';
+    }
 }

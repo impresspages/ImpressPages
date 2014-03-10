@@ -8,12 +8,21 @@ class Job
 {
     public static function ipRouteAction($info)
     {
-        if ($info['relativeUri'] == 'hello') {
-            return array(
-               'plugin' => 'Application',
-               'controller' => 'PublicController',
-               'action' => 'hello',
-            );
+        $router = new \Ip\Router();
+
+        $context = array(
+            'plugin' => 'Application',
+            'controller' => 'PublicController',
+        );
+
+        $router->group($context, function($router) {
+            include ipFile('Plugin/Application/routes.php');
+        });
+
+        $result = $router->match($info['relativeUri'], ipRequest()->getServer());
+
+        if ($result) {
+            return $result;
         }
     }
 }

@@ -53,8 +53,32 @@ class Job
 
     public static function ipExecuteController_70($info)
     {
-        $controllerClass = $info['controllerClass'];
         $action = $info['action'];
+
+        if (is_callable($action)) {
+            $reflection = new \ReflectionFunction($action);
+
+            $parameters = $reflection->getParameters();
+
+            $arguments = array();
+
+            foreach ($parameters as $parameter) {
+
+                $name = $parameter->getName();
+
+                if (array_key_exists($name, $info)) {
+                    $arguments[]= $info[$name];
+                } elseif ($parameter->isOptional()) {
+                    $arguments[]= $parameter->getDefaultValue();
+                } else {
+                    throw new \Ip\Exception("Controller action requires $name parameter", array('route' => $info, 'requiredParameter' => $name));
+                }
+            }
+
+            return call_user_func_array($action, $arguments);
+        }
+
+        $controllerClass = $info['controllerClass'];
         $controller = new $controllerClass();
         if (!$controller instanceof \Ip\Controller) {
             throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");

@@ -9,5 +9,6 @@ class Filter
     public static function ipSendResponse($response)
     {
         // modify response before sending
+        return $response;
     }
 }
