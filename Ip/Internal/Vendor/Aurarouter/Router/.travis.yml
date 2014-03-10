@@ -1,9 +1,0 @@
-language: php
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - hhvm
-before_script:
-  - cd tests
-script: phpunit
