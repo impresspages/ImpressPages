@@ -5,10 +5,10 @@
  *
  */
 
-namespace IpUpdate\Library\Helper;
+namespace PhpUnit\Helper;
 
 
-class FileSystem
+class FileSystem2
 {
 
     public function createWritableDir($dir)
@@ -22,7 +22,7 @@ class FileSystem
 
         $dir = $this->removeTrailingSlash($dir); //remove trailing slash
         $parentDir = $this->getParentDir($dir);
-         
+
 
         if (!file_exists($parentDir) || !is_dir($parentDir)) {
             $this->createWritableDir($parentDir);
