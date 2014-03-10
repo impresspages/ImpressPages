@@ -457,7 +457,84 @@ class Model
 //        \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $params);
     }
 
+    public static function updateUrl($oldUrl, $newUrl)
+    {
+        $oldUrl = str_replace('\/', '\\\/', $oldUrl);
+        $newUrl = str_replace('\/', '\\\/', $newUrl);
+        $dbh = ipDb()->getConnection();
+        $table = ipTable('widget');
+        $sql = "
+            UPDATE
+              $table
+            SET
+              `data` = REPLACE(`data`, :oldUrl, :newUrl)
+            WHERE
+                1
+        ";
 
+        $params = array (
+            ':oldUrl' => $oldUrl,
+            ':newUrl' => $newUrl
+        );
+        $q = $dbh->prepare($sql);
+        $q->execute($params);
+    }
+
+    public static function isRevisionModified($revisionId = null)
+    {
+        if ($revisionId === null) {
+            $currentRevision = ipContent()->getCurrentRevision();
+            $revisionId = $currentRevision['revisionId'];
+        }
+
+        $currentRevision = \Ip\Internal\Revision::getRevision($revisionId);
+        if (!$currentRevision) {
+            return FALSE;
+        }
+        $pageId = $currentRevision['pageId'];
+
+        $publishedRevision = \Ip\Internal\Revision::getPublishedRevision($pageId);
+        if (!$publishedRevision) {
+            return TRUE;
+        }
+
+        if ($publishedRevision['revisionId'] == $currentRevision['revisionId']) {
+            return FALSE;
+        }
+
+        $currentWidgetIds = self::revisionWidgetIds($currentRevision['revisionId']);
+        $publishedWidgetIds = self::revisionWidgetIds($publishedRevision['revisionId']);
+        $currentFingerprint = implode(',', $currentWidgetIds);
+        $publishedFingerprint = implode(',', $publishedWidgetIds);
+
+        $modified = $currentFingerprint != $publishedFingerprint;
+
+        return $modified;
+    }
+
+
+    protected static function revisionWidgetIds($revisionId)
+    {
+        $table = ipTable('widgetInstance');
+        //compare revision content
+        $sql = "
+            SELECT
+                `widgetId`
+            FROM
+                $table
+            WHERE
+              `revisionId` = :revisionId
+            ORDER BY
+              blockName, `position`
+        ";
+
+        $params = array(
+            'revisionId' => $revisionId
+        );
+
+        $widgetIds = ipDb()->fetchColumn($sql, $params);
+        return $widgetIds;
+    }
 
 
 }

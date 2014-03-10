@@ -25,7 +25,7 @@
         };
 
         var notificationsResponse = function (response) {
-            var $container = $('#systemInfo');
+            var $container = $('.ipsSystemStatus');
             var messages = '';
             if (response != '') {
                 messages = response;

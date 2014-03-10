@@ -109,7 +109,7 @@ class WidgetController
             }
         }
 
-        return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.png');
+        return ipFileUrl('Ip/Internal/Content/assets/img/iconWidget.svg');
     }
 
     /**

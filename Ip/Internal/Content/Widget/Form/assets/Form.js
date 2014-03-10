@@ -24,7 +24,7 @@ var IpWidget_Form;
 
             var $widgetOverlay = $('<div></div>')
                 .css('position', 'absolute')
-                .css('z-index', 5)
+                .css('z-index', 1000) // should be higher enough but lower than widget controls
                 .width(this.widgetObject.width())
                 .height(this.widgetObject.height());
             this.widgetObject.prepend($widgetOverlay);

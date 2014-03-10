@@ -107,7 +107,7 @@
                     success: function(response) {
                         var $newWidget = $(response.html);
                         $($newWidget).insertAfter($this);
-                        $newWidget.trigger('reinitRequired.ipWidget');
+                        $newWidget.trigger('ipWidgetReinit');
 
                         // init any new blocks the widget may have created
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));

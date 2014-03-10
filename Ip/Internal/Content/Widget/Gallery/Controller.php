@@ -160,7 +160,7 @@ class Controller extends \Ip\WidgetController{
     {
         $variables = array (
             'linkForm' => $this->linkForm(),
-            'settingsFomr' => $this->settingsForm()
+            'settingsForm' => $this->settingsForm()
         );
         return ipView('snippet/gallery.php', $variables)->render();
 

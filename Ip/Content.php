@@ -170,23 +170,23 @@ class Content
         $revision = null;
         $pageId = $this->currentPage->getId();
 
-        if (ipIsManagementState()) {
-            if (ipRequest()->getQuery('cms_revision')) {
-                $revisionId = ipRequest()->getQuery('cms_revision');
-                $revision = \Ip\Internal\Revision::getRevision($revisionId);
-                if ($revision['pageId'] != $pageId) {
-                    $revision = null;
-                }
+        if (ipRequest()->getQuery('cms_revision') && ipAdminId()) {
+            $revisionId = ipRequest()->getQuery('cms_revision');
+            $revision = \Ip\Internal\Revision::getRevision($revisionId);
+            if ($revision['pageId'] != $pageId) {
+                $revision = null;
             }
+        }
 
-            if (!$revision) {
-                $revision = \Ip\Internal\Revision::getLastRevision($pageId);
-                if ($revision['isPublished']) {
-                    $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
-                    $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
-                }
+        if (!$revision && ipIsManagementState()) {
+            $revision = \Ip\Internal\Revision::getLastRevision($pageId);
+            if ($revision['isPublished']) {
+                $duplicatedId = \Ip\Internal\Revision::duplicateRevision($revision['revisionId']);
+                $revision = \Ip\Internal\Revision::getRevision($duplicatedId);
             }
-        } else {
+        }
+
+        if (!$revision) {
             $revision = \Ip\Internal\Revision::getPublishedRevision($this->currentPage->getId());
         }
 
