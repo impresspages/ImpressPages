@@ -25,6 +25,7 @@ class Model{
             "Cron",
             "Translations",
             "System",
+            "Update"
         );
     }
 
