@@ -252,7 +252,7 @@ class Installation
 
     private function setupPackageFiles($destinationVersion)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
         $migrationModel = new \IpUpdate\Library\Model\Migration();
         $script = $migrationModel->getScriptToVersion($destinationVersion);
@@ -524,7 +524,7 @@ class Installation
      */
     private function putInstallationFilesPackage($destination)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
         $migrationModel = new \IpUpdate\Library\Model\Migration();
         $script = $migrationModel->getScriptToVersion($this->getVersion());
