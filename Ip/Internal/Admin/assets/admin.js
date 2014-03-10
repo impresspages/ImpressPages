@@ -31,8 +31,8 @@ var ipAdmin;
                 setInterval(refreshSession, ipAdminSessionRefresh * 1000);
             }
 
-            $(window).on('resize', fixLayout);
             fixLayout();
+            $(document).trigger('ipAdminPanelInit');
         };
 
         var showAdminMenu = function () {

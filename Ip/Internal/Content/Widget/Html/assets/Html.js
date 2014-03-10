@@ -36,6 +36,7 @@ var IpWidget_Html;
             });
         };
 
+
         this.onAdd = function () {
             $.proxy(openPopup, this)();
         };

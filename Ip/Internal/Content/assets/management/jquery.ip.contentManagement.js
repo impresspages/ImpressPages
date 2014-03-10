@@ -62,7 +62,7 @@
 
                     $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
 
-                    ipAdminPanelInit();
+                    ipSpaceForWidgets();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
 
@@ -243,7 +243,7 @@
      *
      *
      */
-    var ipAdminPanelInit = function () {
+    var ipSpaceForWidgets = function () {
         var $container = $('.ipsAdminPanelContainer'); // the most top element physically creates a space
         var $panel = $('.ipsAdminPanel'); // Administration Panel that stays always visible
         $container.height($panel.outerHeight()); // setting the height to container

@@ -16,7 +16,7 @@ var IpWidget_Video;
         this.textarea = null;
 
         this.init = function (widgetObject, data) {
-
+            var context = this;
             this.widgetObject = widgetObject;
             this.data = data;
 
@@ -28,15 +28,30 @@ var IpWidget_Video;
 
             var context = this; // set this so $.proxy would work below
 
-            var $widgetOverlay = $('<div></div>')
-                .css('position', 'absolute')
-                .css('z-index', 5)
-                .width(this.widgetObject.width())
-                .height(this.widgetObject.height());
-            this.widgetObject.prepend($widgetOverlay);
-            $widgetOverlay.on('click', $.proxy(openPopup, context));
+            this.$widgetOverlay = $('<div></div>');
+            this.widgetObject.prepend(this.$widgetOverlay);
+            this.$widgetOverlay.on('click', $.proxy(openPopup, this));
+
+            $(document).on('ipWidgetResized', function () {
+                $.proxy(fixOverlay, context)();
+            });
+            $(window).on('resize', function () {
+                $.proxy(fixOverlay, context)();
+            });
+            $(window).on('resize', function () {
+                $.proxy(fixOverlay, context)();
+            });
+            $.proxy(fixOverlay, context)();
 
         };
+
+        var fixOverlay = function () {
+            this.$widgetOverlay
+                .css('position', 'absolute')
+                .css('z-index', 1000) // should be higher enough but lower than widget controls
+                .width(this.widgetObject.width())
+                .height(this.widgetObject.height());
+        }
 
         this.onAdd = function () {
             $.proxy(openPopup, this)();

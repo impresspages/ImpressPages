@@ -224,13 +224,13 @@ class Application
             }
         }
 
-        $eventInfo = array(
-            'controllerClass' => $controllerClass,
-            'plugin' => $plugin,
-            'controllerType' => $controller,
-            'action' => $action,
-            'page' => !empty($routeAction['page']) ? $routeAction['page'] : null,
-        );
+        $eventInfo = $routeAction;
+
+        $eventInfo['controllerClass'] = $controllerClass;
+        $eventInfo['controllerType'] = $controller;
+        if (empty($eventInfo['page'])) {
+            $eventInfo['page'] = null;
+        }
 
         ipEvent('ipBeforeController', $eventInfo);
 

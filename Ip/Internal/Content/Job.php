@@ -11,7 +11,7 @@ class Job
      * @return array|null
      * @throws \Ip\Exception
      */
-    public static function ipRouteAction_70($info)
+    public static function ipRouteAction_80($info)
     {
         if ($info['relativeUri'] == '') {
             $pageId = ipJob('ipDefaultPageId');

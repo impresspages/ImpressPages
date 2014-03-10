@@ -6,9 +6,6 @@
         <div class="col-md-3">
             <div ng-repeat="administrator in administrators" ng-click="activateAdministrator(administrator)" ng-class="[administrator.id == activeAdministrator.id ? 'active' : '',  'panel', 'panel-default']"  ng-cloak>
                 <div class="panel-heading">{{administrator.username}}</div>
-                <div class="panel-body">
-                    <b><?php //echo esc($administrator['username']) ?></b>
-                </div>
             </div>
             <button class="btn btn-new" ng-click="addModal()"><i class="fa fa-plus"></i> <?php _e('Add', 'ipAdmin'); ?></button>
         </div>

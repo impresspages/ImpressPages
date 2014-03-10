@@ -183,15 +183,15 @@
     var openLayoutModal = function(e) {
         e.preventDefault();
         var $this = $(this);
-        var $layoutButton = $this.find('.ipsSkin');
-        var layouts = $layoutButton.data('layouts');
-        var currentLayout = $layoutButton.data('currentlayout');
+        var $skinButton = $this.find('.ipsSkin');
+        var skins = $skinButton.data('skins');
+        var currentSkin = $skinButton.data('currentskin');
 
         var $modal = $('#ipWidgetLayoutPopup');
 
-        $modal.ipLayoutModal({
-            layouts: layouts,
-            currentLayout: currentLayout,
+        $modal.ipSkinModal({
+            layouts: skins,
+            currentLayout: currentSkin,
             widgetObject: $this
         })
     }
