@@ -43,7 +43,7 @@ class Installation
     {
         if ($version === null) {
             $this->developmentVersion = true;
-            $version = \IpUpdate\Library\Service::getLatestVersion();
+            $version = \PhpUnit\Helper\Service::getLatestVersion();
         } else {
             $this->developmentVersion = false;
         }
