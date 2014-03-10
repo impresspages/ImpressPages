@@ -60,7 +60,7 @@ class FileSystem2
             if ($permissions == null) {
                 $permissions = $this->getParentPermissions($path);
             }
-            $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
+            $oldErrorHandler = set_error_handler(array('PhpUnit\Helper\FileSystem2', 'handleError'));
 
             try {
                 $success = chmod($path, $permissions);
@@ -92,7 +92,7 @@ class FileSystem2
                             }
 
 
-                            $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
+                            $oldErrorHandler = set_error_handler(array('PhpUnit\Helper\FileSystem2', 'handleError'));
                             try {
                                 chmod($path.'/'.$file, $permissions);
                             } catch (FileSystemException $e) {
