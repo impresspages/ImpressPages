@@ -11,7 +11,7 @@ class PublicController extends \Ip\Controller
      * Or visit example.com/hello (see Job.php)
      * @return \Ip\View
      */
-    public function hello()
+    public function page()
     {
         // You can remove this line
         ipAddJs('assets/application.js');

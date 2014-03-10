@@ -3,7 +3,7 @@
 namespace Plugin\Test;
 
 
-class PublicController extends \Ip\Controller
+class AdminController extends \Ip\Controller
 {
     public function index()
     {
