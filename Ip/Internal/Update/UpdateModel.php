@@ -12,13 +12,12 @@ namespace Ip\Internal\Update;
 
 class UpdateModel
 {
-    public static function runMigrations()
-    {
 
-    }
 
     public function prepareForUpdate()
     {
+        $downloadUrl = ipRequest()->getPost('downloadUrl');
+        $md5 = ipRequest()->getPost('md5');
 
         $updateVersionInfo = $this->getUpdateInfo();
 
@@ -27,8 +26,8 @@ class UpdateModel
         }
 
         $this->downloadArchive(
-            $updateVersionInfo['downloadUrl'],
-            $updateVersionInfo['md5'],
+            $downloadUrl,
+            $md5,
             ipFile('file/tmp/' . 'update/ImpressPages.zip')
         );
         $this->extractArchive(ipFile('file/tmp/update/ImpressPages.zip'), ipFile('file/tmp/update/extracted/'));
@@ -43,6 +42,36 @@ class UpdateModel
 
     }
 
+    public function getUpdateInfo()
+    {
+        if (!function_exists('curl_init')) {
+            return false;
+        }
+
+        $ch = curl_init();
+
+        $curVersion = \Ip\ServiceLocator::storage()->get('Ip', 'version');
+
+        $options = array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
+            CURLOPT_URL => \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl(),
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => 'module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
+        );
+
+        curl_setopt_array($ch, $options);
+
+        $jsonAnswer = curl_exec($ch);
+
+        $answer = json_decode($jsonAnswer, true);
+
+        if ($answer === null || !isset($answer['status']) || $answer['status'] != 'success') {
+            return false;
+        }
+
+        return $answer;
+    }
 
     private function downloadArchive($scriptUrl, $md5checksum, $archivePath)
     {

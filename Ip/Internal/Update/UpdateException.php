@@ -3,7 +3,7 @@
  * @package ImpressPages
  *
  */
-namespace Ip\Internal\System;
+namespace Ip\Internal\Update;
 
 
 class UpdateException extends \Exception
