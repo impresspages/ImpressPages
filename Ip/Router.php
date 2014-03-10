@@ -30,6 +30,10 @@ class Router
             $route = $this->auraRouter->add($data['name'], $data['path']);
             unset($data['name']);
             unset($data['path']);
+            if (!empty($data['where'])) {
+                $route->addTokens($data['where']);
+                unset($data['where']);
+            }
 
             $route->addValues($data);
         }
