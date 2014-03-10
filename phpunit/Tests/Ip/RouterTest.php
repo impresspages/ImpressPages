@@ -4,76 +4,94 @@ namespace Tests\Ip;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class DispatcherTest extends \PHPUnit_Framework_TestCase
+class RouterTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
         TestEnvironment::setupCode();
     }
 
-    public function tearDown()
-    {
-        \Ip\ServiceLocator::removeRequest();
-    }
 
-    public function testFilterEmpty()
+    public function testStaticRoute()
     {
-        $result = ipFilter('Filter', 'MyName');
-        $this->assertEquals('MyName', $result);
-    }
-
-    public function testFilterString()
-    {
-        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent1', function ($value, $data) {
-                return $value . '!';
-            }
+        $router = new \Ip\Router();
+        $context = array(
+            'plugin' => 'Test',
+            'controller' => 'PublicController',
         );
+        $router->group($context, function($router) {
+            $router->get('static-page', 'page');
+        });
 
-        $result = ipFilter('TestEvent1', 'MyName');
-        $this->assertEquals('MyName!', $result);
+        $result = $router->match('static-page');
+
+        $this->assertNotEmpty($result);
+        $this->assertEquals('Test',             $result['plugin']);
+        $this->assertEquals('PublicController', $result['controller']);
+        $this->assertEquals('page',             $result['action']);
+
+        $result = $router->match('static-page/super');
+
+        $this->assertEmpty($result);
     }
 
-    public function testFilterTwoHandlers()
+    public function testStaticRouteWithPluginName()
     {
-        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent2', function ($result, $data) {
-                return 'TestEvent: ' . $result;
-            }
+        $router = new \Ip\Router();
+        $context = array(
+            'plugin' => 'Test',
+            'controller' => 'PublicController',
         );
+        $router->group($context, function($router) {
+                $router->get('static-page', 'MyTest.page');
+            });
 
-        $result = ipFilter('TestEvent2', 'Cat');
-        $this->assertEquals('TestEvent: Cat', $result);
+        $result = $router->match('static-page');
 
-        $addItemHandler = function ($defaultResult, $data) {
-            $defaultResult[]= $data;
-            return $defaultResult;
-        };
-
-        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent3', $addItemHandler);
-        \Ip\ServiceLocator::dispatcher()->addFilterListener('TestEvent3', $addItemHandler);
-
-        $result = $result = \Ip\ServiceLocator::dispatcher()->filter('TestEvent3', array('Dog'), 'Cat');
-
-        $this->assertEquals(array('Dog', 'Cat', 'Cat'), $result);
+        $this->assertNotEmpty($result);
+        $this->assertEquals('MyTest',           $result['plugin']);
+        $this->assertEquals('PublicController', $result['controller']);
+        $this->assertEquals('page',             $result['action']);
     }
 
-//    public function testJob()
-//    {
-//        // Init environment:
-//        TestEnvironment::initCode();
-//        \Ip\ServiceLocator::addRequest(new \Ip\Request());
-//
-//        $result = \Ip\ServiceLocator::dispatcher()->job('TestJob', array('name' => 'MyName'));
-//        $this->assertEquals(NULL, $result);
-//
-//        // Bind event:
-//        \Ip\ServiceLocator::dispatcher()->addJobListener('TestJob', function ($data) {
-//                return $data;
-//            }
-//        );
-//
-//        $result = \Ip\ServiceLocator::dispatcher()->job('TestJob', array('name' => 'MyName'));
-//        $this->assertEquals(array('name' => 'MyName'), $result);
-//    }
+    public function testStaticRouteCallable()
+    {
+        $router = new \Ip\Router();
+        $context = array(
+            'plugin' => 'Test',
+            'controller' => 'PublicController',
+        );
+        $router->group($context, function($router) {
+                $router->get('callable-static-page', 'page', function() {
+                    return 'Hello!';
+                });
+            });
 
+        $result = $router->match('callable-static-page');
 
+        $this->assertNotEmpty($result);
+        $this->assertNotEmpty($result['action']);
+        $this->assertTrue(is_callable($result['action']));
+        $this->assertEquals('Hello!', call_user_func($result['action']));
+    }
+
+    public function testStaticRouteWithPlaceholder()
+    {
+        $router = new \Ip\Router();
+        $context = array(
+            'plugin' => 'Test',
+            'controller' => 'PublicController',
+        );
+        $router->group($context, function($router) {
+                $router->get('hello/{world}', 'hello');
+            });
+
+        $result = $router->match('hello/coder');
+
+        $this->assertNotEmpty($result);
+        $this->assertEquals('Test',             $result['plugin']);
+        $this->assertEquals('PublicController', $result['controller']);
+        $this->assertEquals('hello',            $result['action']);
+        $this->assertEquals('coder',            $result['world']);
+    }
 }
