@@ -43,7 +43,7 @@ class Installation
     {
         if ($version === null) {
             $this->developmentVersion = true;
-            $version = \IpUpdate\Library\Service::getLatestVersion();
+            $version = \PhpUnit\Helper\Service::getLatestVersion();
         } else {
             $this->developmentVersion = false;
         }
@@ -183,8 +183,7 @@ class Installation
         file_put_contents($configFile, $configSource);
 
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->rm($this->getInstallationDir().'update/');
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir().'install/');
 
 
@@ -199,7 +198,7 @@ class Installation
             throw new \Exception("system is not installed");
         }
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir());
     }
 
@@ -225,18 +224,11 @@ class Installation
 
 
         $fs = new \PhpUnit\Helper\FileSystem();
-        $fs->chmod($this->getInstallationDir()."update", 0777);
     }
 
     private function setupDevelopmentFiles()
     {
-
-        $folders = array(
-            'update',
-        );
-
-
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         foreach($folders as $folder) {
             $fs->rm($this->getInstallationDir().$folder);
         }
@@ -252,22 +244,20 @@ class Installation
 
     private function setupPackageFiles($destinationVersion)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($destinationVersion);
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->rm($this->getInstallationDir().'update');
-        mkdir($this->getInstallationDir().'update');
+        $fs = new \PhpUnit\Helper\FileSystem2();
 
 
         if (!class_exists('PclZip')) {
             require_once(TEST_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archive);
-        $status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
+        //$status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
 
         if (!$status) {
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
@@ -482,14 +472,15 @@ class Installation
      */
     private function putInstallationFilesDevelopment($destination)
     {
-        mkdir($destination);
+        if (!is_dir($destination)) {
+            mkdir($destination);
+        }
 
         $folders = array(
             'Ip',
             'file',
             'install',
             'Theme',
-            'update',
         );
 
         $files = array(
@@ -524,9 +515,9 @@ class Installation
      */
     private function putInstallationFilesPackage($destination)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($this->getVersion());
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 

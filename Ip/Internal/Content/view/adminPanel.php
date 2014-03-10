@@ -11,15 +11,7 @@
                 </div>
             </div>
 */ ?>
-        <?php if(!$manageableRevision){ ?>
-            <div class="_disable">
-                <p>
-                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['createdAt']) ?>
-                    <a href="#" class="ipsContentPublish"><?php _e('Publish this revision', 'ipAdmin'); ?></a>
-                    <a href="#" class="ipsContentSave"><?php _e('Duplicate and edit this revision', 'ipAdmin'); ?></a>
-                </p>
-            </div>
-        <?php } ?>
+
         <div class="_widgets">
             <a href="#" class="_scrollButton _left ipsLeft"></a>
             <a href="#" class="_scrollButton _right ipsRight"></a>

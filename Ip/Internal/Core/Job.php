@@ -51,16 +51,88 @@ class Job
         );
     }
 
+    /**
+     * @param $info
+     * @return array|null
+     * @throws \Ip\Exception
+     */
+    public static function ipRouteAction_70($info)
+    {
+        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
+
+        foreach ($plugins as $plugin) {
+            $routesFile = ipFile("Plugin/$plugin/routes.php");
+
+            if (file_exists($routesFile)) {
+                $routes = array();
+                include $routesFile;
+
+                \Ip\ServiceLocator::router()->addRoutes($routes, array(
+                        'plugin' => $plugin,
+                        'controller' => 'PublicController',
+                    ));
+            }
+        }
+
+        $result = \Ip\ServiceLocator::router()->match(rtrim($info['relativeUri'], '/'), ipRequest());
+
+        if (!$result) {
+            return null;
+        }
+
+        if (empty($result['page'])) {
+
+            if ($info['relativeUri'] == '') {
+                $pageId = ipJob('ipDefaultPageId');
+                $page = \Ip\Internal\Pages\Service::getPage($pageId);
+            } else {
+                $languageCode = ipContent()->getCurrentLanguage()->getCode();
+                $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUri']);
+            }
+
+            if ($page && (!$page['isSecured'] || !ipAdminId())) {
+                $result['page'] = new \Ip\Page($page);
+            }
+        }
+
+        return $result;
+    }
+
     public static function ipExecuteController_70($info)
     {
-        $controllerClass = $info['controllerClass'];
-        $action = $info['action'];
-        $controller = new $controllerClass();
-        if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
+        if (!is_callable($info['action'])) {
+            $controllerClass = $info['controllerClass'];
+            $controller = new $controllerClass();
+            if (!$controller instanceof \Ip\Controller) {
+                throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
+            }
+
+            $callableAction = array($controller, $info['action']);
+            $reflection = new \ReflectionMethod($controller, $info['action']);
+
+        } else {
+            $callableAction = $info['action'];
+            $reflection = new \ReflectionFunction($callableAction);
         }
-        $controllerAnswer = $controller->$action();
-        return $controllerAnswer;
+
+        $parameters = $reflection->getParameters();
+
+        $arguments = array();
+
+        foreach ($parameters as $parameter) {
+
+            $name = $parameter->getName();
+
+            if (isset($info[$name])) {
+                $arguments[]= $info[$name];
+            } elseif ($parameter->isOptional()) {
+                $arguments[]= $parameter->getDefaultValue();
+            } else {
+                throw new \Ip\Exception("Controller action requires $name parameter", array('route' => $info, 'requiredParameter' => $name));
+            }
+        }
+
+        return call_user_func_array($callableAction, $arguments);
     }
 
 }

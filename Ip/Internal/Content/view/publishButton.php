@@ -1,6 +1,15 @@
+<?php
+if ($isPublished) {
+    $publishClass = 'btn-default';
+    $buttonText = __('Published', 'ipAdmin', FALSE);
+} else {
+    $publishClass = 'btn-primary';
+    $buttonText = __('Publish', 'ipAdmin', FALSE);
+}
+?>
 <div class="ipModuleContentPublishButton btn-group">
-    <button type="button" class="btn btn-primary navbar-btn ipsContentPublish"><?php _e('Publish', 'ipAdmin') ?></button>
-    <button type="button" class="btn btn-primary navbar-btn dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-caret-down"></i></button>
+    <button type="button" class="btn <?php echo $publishClass ?> navbar-btn ipsContentPublish"><?php echo esc($buttonText) ?></button>
+    <button type="button" class="btn <?php echo $publishClass ?> navbar-btn dropdown-toggle ipsContentRevisions" data-toggle="dropdown"><i class="fa fa-fw fa-caret-down"></i></button>
     <ul class="_revisions dropdown-menu" role="menu">
         <li class="_button"><button type="button" class="btn btn-default btn-block ipsContentSave"><?php _e('Save now', 'ipAdmin') ?></button></li>
         <li class="divider"></li>

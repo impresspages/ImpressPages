@@ -21,7 +21,7 @@
                 }
             });
 
-            $('body').on('click', '.actStartUpdate', startUpdate);
+
         };
 
         var notificationsResponse = function (response) {
@@ -36,7 +36,13 @@
                         $container.html($container.html() + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>');
 
                         if (messages[i]['code'] == 'update') {
-                            $container.html($container.html() + ' <a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a> <a class="btn btn-primary actStartUpdate" href="' + messages[i]['downloadUrl'] + '">Start update</a><br/><br/>');
+                            var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
+                            var $updateLink = $('<a class="btn btn-primary actStartUpdate" href="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</a>');
+                            $container.append($downloadLink);
+                            $container.append(' ');
+                            $container.append($updateLink);
+                            $container.append('<br/><br/>')
+                            $updateLink.on('click', startUpdate);
                         }
                     }
                 }
@@ -44,11 +50,14 @@
         }
 
         var startUpdate = function (e) {
+            var $link = $(this);
             e.preventDefault();
 
             var postData = {};
-            postData.aa = 'System.startUpdate';
+            postData.aa = 'Update.startUpdate';
             postData.securityToken = ip.securityToken;
+            postData.downloadUrl = $link.attr('href');
+            postData.md5 = $link.data('md5');
 
             $.ajax({
                 url: ip.baseUrl,
@@ -69,8 +78,8 @@
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Update has failed: ' + response.responseText);
                 }
             });
         }

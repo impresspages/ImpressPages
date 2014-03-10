@@ -446,7 +446,7 @@ var ipContent;
                     deleteEmptyColumns($columns.data('widgetinstanceid'), function() {
                         $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
                         if (callback) {
-                            callback(response.newInstanceId);
+                            callback(instanceId);
                         }
                         return;
                     });
@@ -455,7 +455,7 @@ var ipContent;
                 $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
 
                 if (callback) {
-                    callback(newInstanceId);
+                    callback(instanceId);
                 }
             });
         };

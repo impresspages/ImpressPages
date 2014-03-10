@@ -139,13 +139,23 @@ class Filter
 
 
         if (ipContent()->getCurrentPage()) {
-            $buttons[] = array(
-                'text' => __('Preview', 'ipAdmin', false),
-                'hint' => __('Hides admin tools', 'ipAdmin', false),
-                'class' => 'ipsContentPreview',
-                'faIcon' => 'fa-eye',
-                'url' => '#'
-            );
+            if (ipIsManagementState()) {
+                $buttons[] = array(
+                    'text' => __('Preview', 'ipAdmin', false),
+                    'hint' => __('Hides admin tools', 'ipAdmin', false),
+                    'class' => 'ipsContentPreview',
+                    'faIcon' => 'fa-eye',
+                    'url' => '#'
+                );
+            } else {
+                $buttons[] = array(
+                    'text' => __('Edit', 'ipAdmin', false),
+                    'hint' => __('Show widgets', 'ipAdmin', false),
+                    'class' => 'ipsContentEdit',
+                    'faIcon' => 'fa-edit',
+                    'url' => '#'
+                );
+            }
             $buttons[] = array(
                 'text' => __('Settings', 'ipAdmin', false),
                 'hint' => __('Page settings', 'ipAdmin', false),
@@ -174,7 +184,8 @@ class Filter
             $data = array(
                 'revisions' => $revisions,
                 'currentRevision' => $revision,
-                'managementUrls' => $managementUrls
+                'managementUrls' => $managementUrls,
+                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']) && ipContent()->getCurrentPage()->isVisible()
             );
 
             $elements[] = ipView('view/publishButton.php', $data);

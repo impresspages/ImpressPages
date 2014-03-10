@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin\Test;
+namespace Plugin\Application;
 
 
 class Event

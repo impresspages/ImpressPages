@@ -15,7 +15,7 @@ class OptionHelper
         $content = file_get_contents($configFile);
         $values = json_decode($content, true);
         if (!is_array($values)) {
-            throw new \IpUpdate\Library\UpdateException("Can't parse configuration file: " . $configFile, \IpUpdate\Library\UpdateException::SQL);
+            throw new \Exception("Can't parse configuration file: " . $configFile);
         }
         foreach ($values as $key => $value) {
             ipSetOption($key, $value);
