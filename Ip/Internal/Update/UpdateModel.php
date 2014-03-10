@@ -19,12 +19,6 @@ class UpdateModel
         $downloadUrl = ipRequest()->getPost('downloadUrl');
         $md5 = ipRequest()->getPost('md5');
 
-        $updateVersionInfo = $this->getUpdateInfo();
-
-        if (!$updateVersionInfo) {
-            throw new UpdateException('Can\'t find update archive');
-        }
-
         $this->downloadArchive(
             $downloadUrl,
             $md5,
@@ -33,7 +27,7 @@ class UpdateModel
         $this->extractArchive(ipFile('file/tmp/update/ImpressPages.zip'), ipFile('file/tmp/update/extracted/'));
 
         $fs = new Helper\FileSystem();
-        $backupDir = file('file/tmp/' . date('Y-m-d H.i.s'));
+        $backupDir = ipFile('file/tmp/' . date('Y-m-d H.i.s'));
         $fs->rm($backupDir);
         $fs->createWritableDir($backupDir);
         $fs->cpContent(ipFile('Ip'), $backupDir);
@@ -42,36 +36,7 @@ class UpdateModel
 
     }
 
-    public function getUpdateInfo()
-    {
-        if (!function_exists('curl_init')) {
-            return false;
-        }
 
-        $ch = curl_init();
-
-        $curVersion = \Ip\ServiceLocator::storage()->get('Ip', 'version');
-
-        $options = array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 1800, // set this to 30 min so we dont timeout
-            CURLOPT_URL => \Ip\Internal\System\Model::instance()->getImpressPagesAPIUrl(),
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => 'module_name=communication&action=getUpdateInfo&curVersion=' . $curVersion
-        );
-
-        curl_setopt_array($ch, $options);
-
-        $jsonAnswer = curl_exec($ch);
-
-        $answer = json_decode($jsonAnswer, true);
-
-        if ($answer === null || !isset($answer['status']) || $answer['status'] != 'success') {
-            return false;
-        }
-
-        return $answer;
-    }
 
     private function downloadArchive($scriptUrl, $md5checksum, $archivePath)
     {
