@@ -522,6 +522,16 @@ function ipActionUrl($query)
 }
 
 /**
+ * @param string $route
+ * @param array $params
+ * @return string
+ */
+function ipRouteUrl($route, $params = array())
+{
+    return ipHomeUrl() . \Ip\ServiceLocator::router()->generate($route, $params);
+}
+
+/**
  * Get URL address of current theme folder
  *
  * @param $path Path or pathname relative to current theme directory.
