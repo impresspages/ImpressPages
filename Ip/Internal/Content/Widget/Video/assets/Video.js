@@ -35,6 +35,12 @@ var IpWidget_Video;
             $(document).on('ipWidgetResized', function () {
                 $.proxy(fixOverlay, context)();
             });
+            $(window).on('resize', function () {
+                $.proxy(fixOverlay, context)();
+            });
+            $(window).on('resize', function () {
+                $.proxy(fixOverlay, context)();
+            });
             $.proxy(fixOverlay, context)();
 
         };
