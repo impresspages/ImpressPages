@@ -152,7 +152,7 @@ class FileSystem2
      */
     public function clean($dir) {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \IpUpdate\Library\UpdateException("Directory doesn't exist: ".$dir, \IpUpdate\Library\UpdateException::UNKNOWN);
+            throw new \Exception("Directory doesn't exist: ".$dir, \Exception::UNKNOWN);
         }
 
         if ($handle = opendir($dir)) {
@@ -174,7 +174,7 @@ class FileSystem2
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \IpUpdate\Library\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."", \IpUpdate\Library\UpdateException::UNKNOWN);
+            throw new \Exception("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."", \Exception::UNKNOWN);
         }
 
         $dir_handle=opendir($source);
@@ -203,7 +203,7 @@ class FileSystem2
         $errorData = array (
             'file' => $dir
         );
-        throw new \IpUpdate\Library\UpdateException("Can't write directory", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        throw new \Exception("Can't write directory", \Exception::WRITE_PERMISSION, $errorData);
     }
 
     private function getParentPermissions($path)
