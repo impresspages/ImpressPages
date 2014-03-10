@@ -1,63 +1,67 @@
-<div class="ip">
+<div class="ip ipsModuleRepositoryPopup">
     <div class="ipModuleRepositoryPopup">
-        <div class="tabs">
-            <ul>
-                <li><a href="#ipModuleRepositoryTabUpload"><?php _e('Upload new', 'ipAdmin') ?></a></li>
-                <li><a href="#ipModuleRepositoryTabBuy"><?php _e('Buy images', 'ipAdmin') ?></a>
-            </ul>
+        <button type="button" class="ipsClose close">&times;</button>
 
-            <a href="#" class="ipmClose ipsClose ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick"></span></a>
+        <ul class="nav nav-tabs ipsTabs">
+            <li class="active"><a href="#ipsModuleRepositoryTabUpload" data-toggle="tab"><?php _e('Upload new', 'ipAdmin'); ?></a></li>
+            <li><a href="#ipsModuleRepositoryTabBuy" data-toggle="tab"><?php _e('Buy images', 'ipAdmin'); ?></a>
+        </ul>
 
-            <div id="ipModuleRepositoryTabUpload" class="ipmTabUpload">
-                <div id="ipModuleRepositoryDragContainer" class="ipmContainer" >
+        <div class="tab-content">
+            <div id="ipsModuleRepositoryTabUpload" class="tab-pane active _tabUpload">
+                <div id="ipsModuleRepositoryDragContainer" class="_upload ipsUpload" >
                     <div class="ipmFiles"></div>
-                    <div class="ipUploadProgressContainer">
-                        <div class="ipmCurErrors"></div>
-                        <div class="ipmBrowseButtonWrapper">
-                            <span class="impDragdropNotice"><?php _e('Drag&drop files here or click a button to upload.', 'ipAdmin') ?></span>
-                            <a href="#" class="ipAdminButton ipaAction ipmBrowseButton" id="ipModuleRepositoryUploadButton"><?php _e('Add new', 'ipAdmin') ?></a>
+                    <div class="ipUploadProgressContainer ipsUploadProgressContainer">
+                        <div class="ipsCurErrors"></div>
+                        <div class="ipsBrowseButtonWrapper _browseButtonWrapper">
+                            <span class="_label _dragdropNotice"><?php _e('Drag&drop files here or click a button to upload.', 'ipAdmin'); ?></span>
+                            <a href="#" class="btn btn-primary" id="ipsModuleRepositoryUploadButton"><?php _e('Add new', 'ipAdmin'); ?></a>
                         </div>
-                        <div class="ipmBrowseButtonWrapper">
-                            <span class="impDragdropNotice"><?php _e('Need more images? Browse and choose from thousands of them.', 'ipAdmin') ?></span>
-                            <a href="#ipModuleRepositoryTabBuy" class="ipAdminButton ipsConfirm ipmBrowseButton" id="ipModuleRepositoryBuyButton"><?php _e('Buy images', 'ipAdmin') ?></a>
-                        </div>
-                    </div>
-                    <div class="ipUploadProgressItemSample hidden">
-                        <div class="ipUploadProgressItem">
-                            <div class="ipUploadProgressbar"></div>
-                            <p class="ipUploadTitle"></p>
+                        <div class="_browseButtonWrapper">
+                            <span class="_label"><?php _e('Need more images? Browse and choose from thousands of them.', 'ipAdmin'); ?></span>
+                            <a href="#ipsModuleRepositoryTabBuy" class="btn btn-warning" id="ipsModuleRepositoryBuyButton"><?php _e('Buy images', 'ipAdmin'); ?></a>
                         </div>
                     </div>
-                    <p class="ipmErrorSample ipgError hidden"></p>
+                    <div class="ipsUploadProgressItemSample hidden">
+                        <div class="ipUploadProgressItem ipsUploadProgressItem">
+                            <div class="ipUploadProgressbar ipsUploadProgressbar"></div>
+                            <p class="ipUploadTitle ipsUploadTitle"></p>
+                        </div>
+                    </div>
+                    <p class="ipsErrorSample alert alert-danger hidden"></p>
                 </div>
-                <div class="ipmBrowser">
-                    <div class="ipmBrowserControls">
-                        <div class="ipmBrowserSearch">
-                            <form class="ipmForm" action="">
-                                <input type="text" class="ipAdminInput ipmTerm" value="" placeholder="">
-                                <button type="submit" class="ipmButton"><i class="fa fa-search"></i></button>
+                <div class="_browser ipsBrowser">
+                    <div class="_browserControls">
+                        <div class="_search">
+                            <form class="_form ipsBrowserSearch" action="">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control ipsTerm" placeholder="<?php _e('Search by filename', 'ipAdmin'); ?>">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default ipsSubmit" type="submit"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
                             </form>
                         </div>
                     </div>
-                    <div class="ipmBrowserContainer clearfix">
-                        <h2 class="hidden ipmListTitle ipmRecentTitle"><?php _e('Recent files', 'ipAdmin') ?></h2>
-                        <ul class="hidden ipmList clearfix ipmRecentList"></ul>
+                    <div class="_browserContainer ipsBrowserContainer clearfix">
+                        <h2 class="_listTitle _recentTitle ipsListTitle ipsRecentTitle hidden"><?php _e('Recent files', 'ipAdmin'); ?></h2>
+                        <ul class="_list clearfix ipsList ipsRecentList hidden"></ul>
                     </div>
                 </div>
-                <div class="hidden ipmRepositoryActions">
-                    <div class="ipmInner">
-                        <span class="ipmTitle"><?php _e('Selected:', 'ipAdmin') ?> <strong class="ipmSelectionCount"></strong></span>
-                        <a class="ipAdminButton ipaConfirm ipsSelectionConfirm" href="#"><?php _e('Confirm', 'ipAdmin') ?></a>
-                        <a class="ipAdminButton ipsSelectionCancel" href="#"><?php _e('Cancel', 'ipAdmin') ?></a>
-                        <a class="ipAdminButton ipsSelectionDelete" href="#"><?php _e('Delete', 'ipAdmin'); ?> <i class="fa fa-trash-o"></i></a>
+                <div class="_repositoryActions ipsRepositoryActions hidden">
+                    <div class="_container">
+                        <span class="_title"><?php _e('Selected:', 'ipAdmin'); ?> <strong class="ipsSelectionCount"></strong></span>
+                        <button class="btn btn-primary btn-sm ipsSelectionConfirm"><?php _e('Confirm', 'ipAdmin'); ?></button>
+                        <button class="btn btn-default btn-sm ipsSelectionCancel"><?php _e('Cancel', 'ipAdmin'); ?></button>
+                        <button class="btn btn-danger btn-sm ipsSelectionDelete"><?php _e('Delete', 'ipAdmin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
                     </div>
                 </div>
                 <?php // hidden templates for dynamic elements ?>
                 <div class="hidden">
-                    <h2 class="ipmListTitleTemplate ipmListTitle"></h2>
-                    <ul class="ipmListTemplate ipmList clearfix"></ul>
+                    <h2 class="_listTitle ipsListTitle ipsListTitleTemplate"></h2>
+                    <ul class="_list clearfix ipsList ipsListTemplate"></ul>
                     <ul>
-                        <li class="ipmFileTemplate">
+                        <li class="ipsFileTemplate">
                             <i class=""></i>
                             <img src="" alt="" title="" />
                             <span></span>
@@ -65,11 +69,11 @@
                     </ul>
                 </div>
             </div>
-            <div id="ipModuleRepositoryTabBuy" data-marketurl="<?php echo $marketUrl; ?>" class="ipmTabBuy">
-                <div class="ipmContainer" id="ipModuleRepositoryTabBuyContainer"></div>
-                <div class="hidden ipmLoading">
-                    <span class="ipmLoadingText">
-                        <?php _e('Your images are being downloaded to your website. It may take some time to finish. Please wait.', 'ipAdmin') ?>
+            <div id="ipsModuleRepositoryTabBuy" class="tab-pane _tabBuy" data-marketurl="<?php echo $marketUrl; ?>">
+                <div class="_container" id="ipsModuleRepositoryTabBuyContainer"></div>
+                <div class="_loading ipsLoading hidden">
+                    <span class="_loadingText">
+                        <?php _e('Your images are being downloaded to your website. It may take some time to finish. Please wait.', 'ipAdmin'); ?>
                     </span>
                 </div>
             </div>
