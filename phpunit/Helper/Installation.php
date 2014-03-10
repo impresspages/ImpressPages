@@ -183,7 +183,7 @@ class Installation
         file_put_contents($configFile, $configSource);
 
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir().'update/');
         $fs->rm($this->getInstallationDir().'install/');
 
@@ -199,7 +199,7 @@ class Installation
             throw new \Exception("system is not installed");
         }
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir());
     }
 
@@ -236,7 +236,7 @@ class Installation
         );
 
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         foreach($folders as $folder) {
             $fs->rm($this->getInstallationDir().$folder);
         }
@@ -258,7 +258,7 @@ class Installation
         $script = $migrationModel->getScriptToVersion($destinationVersion);
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir().'update');
         mkdir($this->getInstallationDir().'update');
 
