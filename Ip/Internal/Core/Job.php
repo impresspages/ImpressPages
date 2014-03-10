@@ -53,38 +53,39 @@ class Job
 
     public static function ipExecuteController_70($info)
     {
-        $action = $info['action'];
-
-        if (is_callable($action)) {
-            $reflection = new \ReflectionFunction($action);
-
-            $parameters = $reflection->getParameters();
-
-            $arguments = array();
-
-            foreach ($parameters as $parameter) {
-
-                $name = $parameter->getName();
-
-                if (array_key_exists($name, $info)) {
-                    $arguments[]= $info[$name];
-                } elseif ($parameter->isOptional()) {
-                    $arguments[]= $parameter->getDefaultValue();
-                } else {
-                    throw new \Ip\Exception("Controller action requires $name parameter", array('route' => $info, 'requiredParameter' => $name));
-                }
+        if (!is_callable($info['action'])) {
+            $controllerClass = $info['controllerClass'];
+            $controller = new $controllerClass();
+            if (!$controller instanceof \Ip\Controller) {
+                throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
             }
 
-            return call_user_func_array($action, $arguments);
+            $callableAction = array($controller, $info['action']);
+            $reflection = new \ReflectionMethod($controller, $info['action']);
+
+        } else {
+            $callableAction = $info['action'];
+            $reflection = new \ReflectionFunction($callableAction);
         }
 
-        $controllerClass = $info['controllerClass'];
-        $controller = new $controllerClass();
-        if (!$controller instanceof \Ip\Controller) {
-            throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
+        $parameters = $reflection->getParameters();
+
+        $arguments = array();
+
+        foreach ($parameters as $parameter) {
+
+            $name = $parameter->getName();
+
+            if (isset($info[$name])) {
+                $arguments[]= $info[$name];
+            } elseif ($parameter->isOptional()) {
+                $arguments[]= $parameter->getDefaultValue();
+            } else {
+                throw new \Ip\Exception("Controller action requires $name parameter", array('route' => $info, 'requiredParameter' => $name));
+            }
         }
-        $controllerAnswer = $controller->$action();
-        return $controllerAnswer;
+
+        return call_user_func_array($callableAction, $arguments);
     }
 
 }

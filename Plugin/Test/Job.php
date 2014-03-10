@@ -9,6 +9,8 @@ class Job
 {
     public static function ipRouteAction($info)
     {
+        return;
+
         $factory = new RouterFactory();
         $router = $factory->newInstance();
         $router->addValues(array(
