@@ -51,6 +51,36 @@ class Job
         );
     }
 
+    /**
+     * @param $info
+     * @return array|null
+     * @throws \Ip\Exception
+     */
+    public static function ipRouteAction_80($info)
+    {
+        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
+
+        foreach ($plugins as $plugin) {
+            $routesFile = ipFile("Plugin/$plugin/routes.php");
+
+            if (file_exists($routesFile)) {
+                $routes = array();
+                include $routesFile;
+
+                \Ip\ServiceLocator::router()->addRoutes($routes, array(
+                        'plugin' => $plugin,
+                        'controller' => 'PublicController',
+                    ));
+            }
+        }
+
+        $result = \Ip\ServiceLocator::router()->match(rtrim($info['relativeUri'], '/'), ipRequest());
+
+        if ($result) {
+            return $result;
+        }
+    }
+
     public static function ipExecuteController_70($info)
     {
         if (!is_callable($info['action'])) {

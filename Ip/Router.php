@@ -13,32 +13,62 @@ class Router
 
     protected $context;
 
+    protected $routeIndex = 0;
+
     public function __construct()
     {
         $factory = new \Aura\Router\RouterFactory();
         $this->auraRouter = $factory->newInstance();
     }
 
-    public function get($path, $name, $action = null)
+    public function addRoutes($routes, $context = null)
     {
-        $route = $this->auraRouter->add($name, $path);
-        $route->addValues(array(
-            'action' => $action ? $action : $name,
-        ));
+        foreach ($routes as $routeKey => $info) {
+
+            $data = $this->routeData($routeKey, $info, $context);
+
+            $route = $this->auraRouter->add($data['name'], $data['path']);
+            unset($data['name']);
+            unset($data['path']);
+
+            $route->addValues($data);
+        }
     }
 
-    public function group($context, $callable)
+    protected function routeData($key, $value, $context)
     {
-        $this->auraRouter->setValues($context);
+        $data = $context;
 
-        call_user_func($callable, $this);
+        if (!is_numeric($key)) {
+            $data['path'] = $key;
+        } elseif (!empty($value['path'])) {
+            $data['path'] = $value['path'];
+        } else {
+            throw new \Ip\Exception('Invalid route.');
+        }
 
-        $this->auraRouter->setValues(array());
+        if (is_string($value)) {
+            $data['action'] = $value;
+        } elseif (is_callable($value)) {
+            $data['action'] = $value;
+        } elseif (is_array($value)) {
+            $data = array_merge($data, $value);
+        }
+
+        if (empty($data['name'])) {
+            $data['name'] = '_route' . ++$this->routeIndex;
+        }
+
+        return $data;
     }
 
     public function match($path, $request = null)
     {
-        $result = $this->auraRouter->match($path);
+        if (!$request) {
+            $request = ipRequest();
+        }
+
+        $result = $this->auraRouter->match($path, $request->getServer());
 
         if (!$result) {
             return array();
@@ -50,12 +80,11 @@ class Router
             return $result;
         }
 
-        if (strpos($result['action'], '.')) {
-            $tmp = explode('.', $result['action']);
-            $result['plugin'] = $tmp[0];
-            $result['action'] = $tmp[1];
-        }
-
         return $result;
+    }
+
+    public function generate($name, $data = array())
+    {
+        return $this->auraRouter->generate($name, $data);
     }
 }
