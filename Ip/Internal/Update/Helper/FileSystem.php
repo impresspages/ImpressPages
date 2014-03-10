@@ -1,28 +1,26 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
-namespace IpUpdate\Library\Helper;
-
+namespace Ip\Internal\Update\Helper;
 
 class FileSystem
 {
 
     public function createWritableDir($dir)
     {
-        //if (substr($dir, 0, 1) != '/') {
-            //throw new \IpUpdate\Library\Exception('Absolute path required', \IpUpdate\Library\Exception::OTHER);
-        //}
+        if (substr($dir, 0, 1) != '/') {
+            throw new \Ip\Internal\System\UpdateException('Absolute path required');
+        }
         if ($dir == '/' && !is_writable($dir)) {
             $this->throwWritePermissionsError($dir);
         }
 
         $dir = $this->removeTrailingSlash($dir); //remove trailing slash
         $parentDir = $this->getParentDir($dir);
-         
+
 
         if (!file_exists($parentDir) || !is_dir($parentDir)) {
             $this->createWritableDir($parentDir);
@@ -43,34 +41,34 @@ class FileSystem
 
     /**
      * Make directory or file and all subdirs and files writable
-     * @param string $dir
+     * @param string $path
      * @param int $permissions eg 0755. ZERO IS REQUIRED. Applied only to files and folders that are not writable.
      * @return boolean
      */
     function makeWritable($path, $permissions = null)
     {
-
+        if ($permissions == null) {
+            $permissions = $this->getParentPermissions($path);
+        }
 
         $answer = true;
-        if(!file_exists($path)) {
+        if (!file_exists($path)) {
             return false;
         }
 
         if (!is_writable($path)) {
-            if ($permissions == null) {
-                $permissions = $this->getParentPermissions($path);
-            }
+
             $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
 
             try {
+                $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
                 $success = chmod($path, $permissions);
-            }
-            catch (FileSystemException $e) {
+                set_error_handler($originalIpErrorHandler);
+            } catch (FileSystemException $e) {
                 //do nothing. This is just the way to avoid warnings
             }
-            if ($oldErrorHandler) { //dev tools has no oldErrorHandler error handler. So we have to check.
-                set_error_handler($oldErrorHandler);
-            }
+            set_error_handler($oldErrorHandler);
+
             if (!is_writable($path)) {
                 $this->throwWritePermissionsError($path);
             }
@@ -80,30 +78,17 @@ class FileSystem
             $path = $this->removeTrailingSlash($path);
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
-                    if (is_dir($path.'/'.$file)) {
-                        $this->makeWritable($path.'/'.$file, $permissions);
+                    if (is_dir($path . '/' . $file)) {
+                        $this->makeWritable($path . '/' . $file, $permissions);
                     } else {
-                        if (!is_writable($path.'/'.$file)) {
-                            if ($permissions == null) {
-                                $permissions = $this->getParentPermissions($path);
-                            }
-
-
-                            $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
-                            try {
-                                chmod($path.'/'.$file, $permissions);
-                            } catch (FileSystemException $e) {
-                                //do nothing. This is just the way to avoid warnings
-                            }
-                            if ($oldErrorHandler) { //dev tools has no oldErrorHandler error handler. So we have to check.
-                                set_error_handler($oldErrorHandler);
-                            }
+                        if (!is_writable($path . '/' . $file)) {
+                            chmod($path . '/' . $file, $permissions);
                         }
-                        if (!is_writable($path.'/'.$file)) {
-                            $this->throwWritePermissionsError($path.'/'.$file);
+                        if (!is_writable($path . '/' . $file)) {
+                            $this->throwWritePermissionsError($path . '/' . $file);
                         }
                     }
                 }
@@ -115,31 +100,32 @@ class FileSystem
         return $answer;
     }
 
-    public function rm($dir) {
+    public function rm($dir)
+    {
 
         if (!file_exists($dir)) {
             return;
         }
 
+        $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
+        chmod($dir, 0777);
+        set_error_handler($originalIpErrorHandler);
         if (!is_writable($dir)) {
-            $this->makeWritable($dir, 0777);
+            throw new \Ip\Internal\System\UpdateException("Directory is not writable: " . $dir);
         }
 
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
 
-                    $this->rm($dir.'/'.$file);
+                    $this->rm($dir . '/' . $file);
                 }
                 closedir($handle);
             }
 
-            if (!is_writable($this->getParentDir($dir))) {
-                $this->makeWritable($this->getParentDir($dir), 0777);
-            }
             rmdir($dir);
         } else {
             unlink($dir);
@@ -150,21 +136,23 @@ class FileSystem
      * Remove everything from dir. Make it empty
      * @var string $dir
      */
-    public function clean($dir) {
+    public function clean($dir)
+    {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \IpUpdate\Library\UpdateException("Directory doesn't exist: ".$dir, \IpUpdate\Library\UpdateException::UNKNOWN);
+            throw new \Ip\Internal\System\UpdateException("Directory doesn't exist: " . $dir);
         }
 
         if ($handle = opendir($dir)) {
             while (false !== ($file = readdir($handle))) {
-                if($file == ".." || $file == ".") {
+                if ($file == ".." || $file == ".") {
                     continue;
                 }
-                $this->rm($dir.'/'.$file);
+                $this->rm($dir . '/' . $file);
             }
             closedir($handle);
         }
     }
+
     /**
      * This is special copy. It copies all content from source into destination directory. But not the source folder it self.
      * @param string $source
@@ -174,17 +162,17 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \IpUpdate\Library\UpdateException("Source or destination is not a folder. Source: ".$source.". Destination: ".$dest."", \IpUpdate\Library\UpdateException::UNKNOWN);
+            throw new \Ip\Internal\System\UpdateException("Source or destination is not a folder. Source: " . $source . ". Destination: " . $dest . "");
         }
 
-        $dir_handle=opendir($source);
-        while($file=readdir($dir_handle)){
-            if($file!="." && $file!=".."){
-                if(is_dir($source."/".$file)){
-                    mkdir($dest."/".$file);
-                    $this->cpContent($source."/".$file, $dest."/".$file);
+        $dir_handle = opendir($source);
+        while ($file = readdir($dir_handle)) {
+            if ($file != "." && $file != "..") {
+                if (is_dir($source . "/" . $file)) {
+                    mkdir($dest . "/" . $file);
+                    $this->cpContent($source . "/" . $file, $dest . "/" . $file);
                 } else {
-                    copy($source."/".$file, $dest."/".$file);
+                    copy($source . "/" . $file, $dest . "/" . $file);
                 }
             }
         }
@@ -200,10 +188,7 @@ class FileSystem
 
     private function throwWritePermissionsError($dir)
     {
-        $errorData = array (
-            'file' => $dir
-        );
-        throw new \IpUpdate\Library\UpdateException("Can't write directory", \IpUpdate\Library\UpdateException::WRITE_PERMISSION, $errorData);
+        throw new \Ip\Internal\System\UpdateException("Can't write directory " . $dir);
     }
 
     private function getParentPermissions($path)
@@ -218,15 +203,9 @@ class FileSystem
     }
 
 
-
     public static function handleError($errno, $errstr, $errfile, $errline, array $errcontext)
     {
-        // error was suppressed with the @-operator
-        if (0 === error_reporting()) {
-            return false;
-        }
-
-        throw new FileSystemException($errstr, $errno);
+        throw new \Ip\Internal\System\UpdateException($errstr);
     }
 
 
