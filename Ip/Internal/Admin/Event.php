@@ -17,7 +17,7 @@ class Event
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
             $curModule = $parts[0];
-        } elseif (ipIsManagementState()) {
+        } else {
             $curModule = "Content";
         }
 
@@ -84,7 +84,7 @@ class Event
         }
 
         // Show admin toolbar if admin is logged in:
-        if (ipIsManagementState() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
+        if (!ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
             if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminBar')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
