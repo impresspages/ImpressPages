@@ -20,6 +20,7 @@ class Service
     public static function getLatestVersion()
     {
         $curVersion = '4.0';
+        return $curVersion;
 //        $updateModel = new \PhpUnit\Helper\Migration();
 //        $scripts = $updateModel->getScriptsFromVersion($curVersion);
 //        $latestVersion = $curVersion;

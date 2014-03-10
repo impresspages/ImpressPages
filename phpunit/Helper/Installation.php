@@ -184,7 +184,6 @@ class Installation
 
 
         $fs = new \PhpUnit\Helper\FileSystem2();
-        $fs->rm($this->getInstallationDir().'update/');
         $fs->rm($this->getInstallationDir().'install/');
 
 
@@ -225,17 +224,10 @@ class Installation
 
 
         $fs = new \PhpUnit\Helper\FileSystem();
-        $fs->chmod($this->getInstallationDir()."update", 0777);
     }
 
     private function setupDevelopmentFiles()
     {
-
-        $folders = array(
-            'update',
-        );
-
-
         $fs = new \PhpUnit\Helper\FileSystem2();
         foreach($folders as $folder) {
             $fs->rm($this->getInstallationDir().$folder);
@@ -259,15 +251,13 @@ class Installation
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
         $fs = new \PhpUnit\Helper\FileSystem2();
-        $fs->rm($this->getInstallationDir().'update');
-        mkdir($this->getInstallationDir().'update');
 
 
         if (!class_exists('PclZip')) {
             require_once(TEST_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archive);
-        $status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
+        //$status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
 
         if (!$status) {
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
@@ -482,14 +472,15 @@ class Installation
      */
     private function putInstallationFilesDevelopment($destination)
     {
-        mkdir($destination);
+        if (!is_dir($destination)) {
+            mkdir($destination);
+        }
 
         $folders = array(
             'Ip',
             'file',
             'install',
             'Theme',
-            'update',
         );
 
         $files = array(
