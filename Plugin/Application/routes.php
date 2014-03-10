@@ -7,14 +7,6 @@ $routes['hello{/name}'] = function ($name = 'World') {
     return "<h1>Hello $name!</h1>";
 };
 
-$routes['blog/archive/{month}']= array(
-    'where' => array(
-        'month' => '\d\d',
-    ),
-    'action' => 'blogArchive',
-    'name' => 'blog.archive',
-);
-
 $routes['counter{/number}'] = array(
     'where' => array(
         'number' => '\d+',
@@ -26,3 +18,10 @@ $routes['counter{/number}'] = array(
         return $content;
     },
 );
+
+/**
+ * @param \Ip\Page $page
+ */
+$routes['page1'] = function($page) {
+    return $page->getTitle();
+};
