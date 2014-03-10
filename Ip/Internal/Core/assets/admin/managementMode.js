@@ -21,6 +21,9 @@ var ipManagementMode;
                 // todox: remove HTML from JavaScript
                 $('body').append('<div class="ip"><div class="ipModuleContentPublishButton"><button type="button" class="btn btn-primary ipsContentPublish">{{Publish}}</button></div></div>');
             }
+
+            $('.ipsContentPublish').on('click', save);
+
             if ("undefined" !== typeof(ipWidgetSnippets)) {
                 $.each(ipWidgetSnippets, function( index, value ) {
                     $('body').append(value);
@@ -42,7 +45,7 @@ var ipManagementMode;
                 data: {aa: 'Content.setManagementMode', value: mode, securityToken: ip.securityToken},
                 success: function (response) {
                     if (response) {
-                        window.location = window.location.href.split('#')[0];
+                        window.location = window.location.href.split('#')[0] + '?cms_revision=' + ip.revisionId;
                     } else {
                         //login has expired
                         window.location = ip.baseUrl + 'admin';
@@ -54,5 +57,34 @@ var ipManagementMode;
             });
         };
     };
+
+    var save = function(publish) {
+        var $this = $(this);
+        var postData = Object();
+        postData.aa = 'Content.savePage';
+        postData.securityToken = ip.securityToken;
+        postData.revisionId = ip.revisionId;
+        postData.publish = 1;
+
+        $.ajax({
+            type : 'POST',
+            url : ip.baseUrl,
+            data : postData,
+            context : $this,
+            success : savePageResponse,
+            dataType : 'json'
+        });
+    };
+
+    var savePageResponse = function(response) {
+        var $this = $(this);
+        var data = $this.data('ipContentManagement');
+        if (response.status == 'success') {
+            window.location.href = response.newRevisionUrl;
+        } else {
+
+        }
+    };
+
 
 })(ip.jQuery);
