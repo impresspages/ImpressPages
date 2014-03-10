@@ -19,9 +19,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             'plugin' => 'Test',
             'controller' => 'PublicController',
         );
-        $router->group($context, function($router) {
-            $router->get('static-page', 'page');
-        });
+
+        $routes['static-page'] = 'page';
+        $router->addRoutes($routes, $context);
 
         $result = $router->match('static-page');
 
@@ -42,9 +42,12 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             'plugin' => 'Test',
             'controller' => 'PublicController',
         );
-        $router->group($context, function($router) {
-                $router->get('static-page', 'MyTest.page');
-            });
+
+        $routes['static-page'] = array(
+            'plugin' => 'MyTest',
+            'action' => 'page',
+        );
+        $router->addRoutes($routes, $context);
 
         $result = $router->match('static-page');
 
@@ -61,13 +64,14 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             'plugin' => 'Test',
             'controller' => 'PublicController',
         );
-        $router->group($context, function($router) {
-                $router->get('callable-static-page', 'page', function() {
-                    return 'Hello!';
-                });
-            });
 
-        $result = $router->match('callable-static-page');
+        $routes['static-page'] = function() {
+            return 'Hello!';
+        };
+
+        $router->addRoutes($routes, $context);
+
+        $result = $router->match('static-page');
 
         $this->assertNotEmpty($result);
         $this->assertNotEmpty($result['action']);
@@ -82,9 +86,10 @@ class RouterTest extends \PHPUnit_Framework_TestCase
             'plugin' => 'Test',
             'controller' => 'PublicController',
         );
-        $router->group($context, function($router) {
-                $router->get('hello/{world}', 'hello');
-            });
+
+        $routes['hello/{world}'] = 'hello';
+
+        $router->addRoutes($routes, $context);
 
         $result = $router->match('hello/coder');
 
@@ -93,5 +98,38 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('PublicController', $result['controller']);
         $this->assertEquals('hello',            $result['action']);
         $this->assertEquals('coder',            $result['world']);
+    }
+
+    public function testRouteFullFormat()
+    {
+        $router = new \Ip\Router();
+        $context = array(
+            'plugin' => 'Test',
+            'controller' => 'PublicController',
+        );
+
+        $routes[] = array(
+            'path' => 'hello{/world}',
+            'action' => 'hello',
+            'name' => 'hello',
+        );
+
+        $router->addRoutes($routes, $context);
+
+        $result = $router->match('hello/coder');
+
+        $this->assertNotEmpty($result);
+        $this->assertEquals('Test',             $result['plugin']);
+        $this->assertEquals('PublicController', $result['controller']);
+        $this->assertEquals('hello',            $result['action']);
+        $this->assertEquals('coder',            $result['world']);
+
+
+        $uri = $router->generate('hello', array('world' => 'underworld'));
+        $this->assertEquals('hello/underworld', $uri);
+
+
+        $uri = $router->generate('hello');
+        $this->assertEquals('hello', $uri);
     }
 }

@@ -30,6 +30,7 @@ class ServiceLocator
     protected static $permissions;
     protected static $slots;
     protected static $pageAssets = array();
+    protected static $routers = array();
 
     protected static $serviceClasses = array(
         'db' => '\Ip\Db',
@@ -44,6 +45,7 @@ class ServiceLocator
         'permissions' => '\Ip\Internal\Permissions\UserPermissions',
         'slots' => '\Ip\Internal\Slots',
         'pageAssets' => '\Ip\Internal\PageAssets',
+        'router' => '\Ip\Router',
     );
 
     /**
@@ -139,6 +141,7 @@ class ServiceLocator
         self::$responses[] = static::loadService('response');
         self::$slots[] = static::loadService('slots');
         self::$pageAssets[] = static::loadService('pageAssets');
+        self::$routers[] = static::loadService('router');
     }
 
     /**
@@ -153,6 +156,7 @@ class ServiceLocator
             array_pop(self::$responses);
             array_pop(self::$slots);
             array_pop(self::$pageAssets);
+            array_pop(self::$routers);
         }
     }
 
@@ -237,6 +241,14 @@ class ServiceLocator
         }
 
         return static::$permissions;
+    }
+
+    /**
+     * @return \Ip\Router
+     */
+    public static function router()
+    {
+        return end(self::$routers);
     }
 
 }
