@@ -56,7 +56,7 @@ class Job
      * @return array|null
      * @throws \Ip\Exception
      */
-    public static function ipRouteAction_80($info)
+    public static function ipRouteAction_70($info)
     {
         $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
 
@@ -76,9 +76,26 @@ class Job
 
         $result = \Ip\ServiceLocator::router()->match(rtrim($info['relativeUri'], '/'), ipRequest());
 
-        if ($result) {
-            return $result;
+        if (!$result) {
+            return null;
         }
+
+        if (empty($result['page'])) {
+
+            if ($info['relativeUri'] == '') {
+                $pageId = ipJob('ipDefaultPageId');
+                $page = \Ip\Internal\Pages\Service::getPage($pageId);
+            } else {
+                $languageCode = ipContent()->getCurrentLanguage()->getCode();
+                $page = \Ip\Internal\Pages\Service::getPageByUrl($languageCode, $info['relativeUri']);
+            }
+
+            if ($page && (!$page['isSecured'] || !ipAdminId())) {
+                $result['page'] = new \Ip\Page($page);
+            }
+        }
+
+        return $result;
     }
 
     public static function ipExecuteController_70($info)
