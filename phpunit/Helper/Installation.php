@@ -254,7 +254,7 @@ class Installation
     {
         $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($destinationVersion);
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
@@ -526,7 +526,7 @@ class Installation
     {
         $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($this->getVersion());
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
