@@ -43,7 +43,7 @@ class Installation
     {
         if ($version === null) {
             $this->developmentVersion = true;
-            $version = \IpUpdate\Library\Service::getLatestVersion();
+            $version = \PhpUnit\Helper\Service::getLatestVersion();
         } else {
             $this->developmentVersion = false;
         }
@@ -252,9 +252,9 @@ class Installation
 
     private function setupPackageFiles($destinationVersion)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($destinationVersion);
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
@@ -524,9 +524,9 @@ class Installation
      */
     private function putInstallationFilesPackage($destination)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($this->getVersion());
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 

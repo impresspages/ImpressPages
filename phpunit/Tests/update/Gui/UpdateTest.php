@@ -23,7 +23,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //$this->assertNoErrors(); 2.0rc2 throws warnings on PHP 5.4
 
         //check update review page is fine
-        $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $updateService = new \PhpUnit\Helper\Service($installation->getInstallationDir());
         $installation->setupUpdate();
 
         $this->open($url.'update');
@@ -58,7 +58,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //$this->assertNoErrors(); 2.0rc2 throws warnings on PHP 5.4
 
         //checkupdate review page is fine
-        $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $updateService = new \PhpUnit\Helper\Service($installation->getInstallationDir());
         $installation->setupUpdate();
 
         $fs = new \PhpUnit\Helper\FileSystem2();
@@ -108,7 +108,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         //$this->assertNoErrors(); 2.0rc2 throws warnings on PHP 5.4
 
         //setup update
-        $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
+        $updateService = new \PhpUnit\Helper\Service($installation->getInstallationDir());
         $installation->setupUpdate();
 
         //fake another update process in progress
