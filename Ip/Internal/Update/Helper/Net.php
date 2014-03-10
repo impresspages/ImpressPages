@@ -4,7 +4,7 @@
  *
  */
 
-namespace Ip\Internal\System\Helper;
+namespace Ip\Internal\Update\Helper;
 
 
 class Net
