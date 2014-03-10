@@ -36,6 +36,14 @@ var IpWidget_Html;
             });
         };
 
+        var fixOverlay = function () {
+            this.$widgetOverlay
+                .css('position', 'absolute')
+                .css('z-index', 1000) // should be higher enough but lower than widget controls
+                .width(this.widgetObject.width())
+                .height(this.widgetObject.height());
+        }
+
         this.onAdd = function () {
             $.proxy(openPopup, this)();
         };
