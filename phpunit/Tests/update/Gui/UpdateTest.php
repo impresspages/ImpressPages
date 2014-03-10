@@ -61,7 +61,7 @@ class UpdateTest extends \PhpUnit\SeleniumTestCase
         $updateService = new \IpUpdate\Library\Service($installation->getInstallationDir());
         $installation->setupUpdate();
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->clean($installation->getInstallationDir().'Ip/');
         symlink(TEST_UNWRITABLE_DIR, $installation->getInstallationDir().'Ip/unwritableDir');
 
