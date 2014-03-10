@@ -44,11 +44,13 @@ var ipContent;
                     var $columnsWidget = $block.closest('.ipWidget-Columns');
                     if ($columnsWidget.length) {
                         deleteEmptyColumns($columnsWidget.data('widgetinstanceid'), function() {
+                            $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                             if (callback) {
                                 callback();
                             }
                         });
                     } else {
+                        $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
                         if (callback) {
                             callback();
                         }
@@ -60,7 +62,7 @@ var ipContent;
 
         var deleteEmptyColumns = function (columnsWidgetInstanceId, callback) {
             var $columnsWidget = $('#ipWidget-' + columnsWidgetInstanceId);
-            var $columns = $columnsWidget.find('> .ipsCol');
+            var $columns = $columnsWidget.find('> .ipsColsContainer > .ipsCol'); // todo: refactor to remove container selector
 
             var $emptyColumns = new Array();
             var $notEmptyColumns = new Array();
@@ -348,7 +350,7 @@ var ipContent;
                         var newWidget = response.html;
                         var $newWidget = $(newWidget);
                         $newWidget.insertAfter($widget);
-                        $newWidget.trigger('reinitRequired.ipWidget');
+                        $newWidget.trigger('ipWidgetReinit');
 
                         // init any new blocks the widget may have created
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
@@ -359,8 +361,6 @@ var ipContent;
                     }
                 },
                 error: function(response) {
-                    console.log('save error');
-                    console.log(response);
                     if (callback) {
                         callback(null);
                     }
@@ -412,8 +412,8 @@ var ipContent;
                         }
 
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
-                        $block.trigger('reinitRequired.ipWidget');
-                        $block.trigger('addWidget.ipWidget',{
+                        $block.trigger('ipWidgetReinit');
+                        $block.trigger('ipWidgetAdded',{
                             'instanceId': response.instanceId,
                             'widget': $newWidget
                         });
@@ -425,6 +425,10 @@ var ipContent;
                     }
 
                     if (callback) {
+                        $(document).trigger('ipWidgetAdded', {
+                            'instanceId': $newWidget.data('widgetinstanceid'),
+                            'widget': $newWidget
+                        });
                         callback($newWidget.data('widgetinstanceid'));
                     }
                 },
@@ -440,15 +444,18 @@ var ipContent;
                 var $columns = $originalBlock.closest('.ipWidget-Columns');
                 if ($columns.length) {
                     deleteEmptyColumns($columns.data('widgetinstanceid'), function() {
+                        $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
                         if (callback) {
-                            callback(response.newInstanceId);
+                            callback(instanceId);
                         }
                         return;
                     });
                 }
 
+                $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
+
                 if (callback) {
-                    callback(newInstanceId);
+                    callback(instanceId);
                 }
             });
         };
@@ -487,7 +494,7 @@ var ipContent;
                     } else {
                         $newWidget.insertAfter($block.find(' > .ipWidget').eq(position - 1));
                     }
-                    $block.trigger('reinitRequired.ipWidget');
+                    $block.trigger('ipWidgetReinit');
                     $block.find(' > .ipbExampleContent').remove();
                     $block.removeClass('ipbEmpty');
 

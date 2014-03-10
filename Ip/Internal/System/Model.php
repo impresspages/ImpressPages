@@ -39,6 +39,17 @@ class Model
     }
 
 
+    public function getOldUrl()
+    {
+        return ipStorage()->get('Ip', 'cachedBaseUrl');
+    }
+
+    public function getNewUrl()
+    {
+        return ipConfig()->baseUrl();
+    }
+
+
     /**
      * @param string $oldUrl
      * @return bool true on success

@@ -74,7 +74,7 @@
                     $('.ipBlock .ipWidget')
                         .on('dragstart.ipContentManagement', ipStartWidgetDrag)
                         .on('dragstop.ipContentManagement', ipStopWidgetDrag);
-                    $('body').on('reinitRequired.ipWidget', function () {
+                    $('body').on('ipWidgetReinit', function () {
                         $('.ipBlock .ipWidget')
                             .off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag)
                             .off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
@@ -87,7 +87,7 @@
                     $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
-                    $this.trigger('initFinished.ipContentManagement', options);
+                    $this.trigger('ipInitContentManagement', options);
 
                 }
             });

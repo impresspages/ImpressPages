@@ -33,7 +33,7 @@
                 widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
                 $this.children('.ipWidget').ipWidget(widgetOptions);
 
-                $this.on('reinitRequired.ipWidget', function(event) {
+                $this.on('ipWidgetReinit', function(event) {
                     // ignore events which bubble up from nested blocks
                     if ( $(event.target).closest('.ipBlock')[0] != $this[0] ) {
                         return;
@@ -92,13 +92,13 @@
             revert : function(droppable) {
                 if(droppable === false) {
                     // drop was unsuccessful
-                    $this.trigger('unsuccessfulDrop.ipWidget',{
+                    $this.trigger('ipWidgetMoveFailed',{
                         widgetButton: $this
                     });
                     return true;
                 } else {
                     // drop was successful
-                    $this.trigger('successfulDrop.ipWidget',{
+                    $this.trigger('ipWidgetMove',{
                         widgetButton: $this,
                         block: droppable
                     });

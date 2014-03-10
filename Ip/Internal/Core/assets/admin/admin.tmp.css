@@ -7930,10 +7930,10 @@ th {
   background-color: #fff;
   height: 100%;
   left: 0;
-  position: absolute;
+  position: fixed;
   top: 40px;
   width: 100%;
-  z-index: 1050;
+  z-index: 1029;
 }
 .ipModuleDesign ._popup ._back {
   position: absolute;

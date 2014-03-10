@@ -8103,10 +8103,10 @@
   background-color: #fff;
   height: 100%;
   left: 0;
-  position: absolute;
+  position: fixed;
   top: 40px;
   width: 100%;
-  z-index: 1050;
+  z-index: 1029;
 }
 .ip .ipModuleDesign ._popup ._back {
   position: absolute;
@@ -8796,6 +8796,18 @@
 }
 .ipAdminWidgetPlaceholderHorizontal ._marker {
   height: 1px;
+}
+.ipAdminWidgetColsResizeHandler {
+  background: #7ecefd;
+  cursor: col-resize;
+  outline: #019db4 solid 1px;
+  position: absolute;
+  opacity: 0.01;
+  width: 3px;
+  z-index: 1020;
+}
+.ipAdminWidgetColsResizeHandler:hover {
+  opacity: 1;
 }
 .ipModuleInlineManagement._empty {
   outline: #019bd4 dashed 1px;

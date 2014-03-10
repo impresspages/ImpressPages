@@ -128,10 +128,10 @@
         background-color: #fff;
         height: 100%;
         left: 0;
-        position: absolute;
-        top: @navbar-height;
+        position: fixed; // 'absolute' breaks if parent pages is scrolled down
+        top: @navbar-height; // start just below navbar
         width: 100%;
-        z-index: @zindex-modal;
+        z-index: (@zindex-navbar-fixed - 1); // should be lower than top navbar for menu to be visible
 
         ._back {
             position: absolute;

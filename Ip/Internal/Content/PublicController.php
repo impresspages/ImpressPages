@@ -35,6 +35,9 @@ class PublicController extends \Ip\Controller
                 //user has access to the backend
                 ipAddJsVariable('ipContentShowEditButton', 1);
             }
+            if (Model::isRevisionModified()) {
+                ipAddJsVariable('ipContentShowPublishButton', 1);
+            }
         }
 
         //show page content
