@@ -161,7 +161,7 @@ class WidgetController
 
         $skins = array();
         foreach ($views as $viewKey => $view) {
-            $translation = __('Skin_' . $viewKey, $this->pluginName, false);
+            $translation = __(ucfirst($viewKey), $this->pluginName, false);
             $skins[] = array('name' => $viewKey, 'title' => $translation);
         }
 
