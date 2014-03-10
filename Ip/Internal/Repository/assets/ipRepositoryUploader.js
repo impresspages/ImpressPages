@@ -16,12 +16,12 @@
 
                 var data = $this.data('ipRepositoryUploader');
                 if (!data) {
-                    var $popup = $('.ipModuleRepositoryPopup');
+                    var $popup = $('.ipsModuleRepositoryPopup');
                     $this.data('ipRepositoryUploader', {});
 
                     var uploaderConfig = {
                         runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : 'ipModuleRepositoryUploadButton',
+                        browse_button : 'ipsModuleRepositoryUploadButton',
 
                         max_file_size : '10000Mb',
                         chunk_size : '1mb',
@@ -37,9 +37,9 @@
                         silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.silverlight.xap'),
 
                         button_browse_hover : true,
-                        drop_element : "ipModuleRepositoryDragContainer",
+                        drop_element : "ipsModuleRepositoryDragContainer",
                         autostart : true,
-                        container: "ipModuleRepositoryTabUpload"
+                        container: "ipsModuleRepositoryTabUpload"
                     };
 
                     var uploader = new plupload.Uploader(uploaderConfig);
@@ -90,21 +90,21 @@
         },
 
         _error : function(up, err) {
-            var $newError = $(this).find('.ipmErrorSample').clone().removeClass('ipmErrorSample').removeClass('hidden');
+            var $newError = $(this).find('.ipsErrorSample').clone().removeClass('ipsErrorSample').removeClass('hidden');
             $newError.text(err.message);
             setTimeout(function(){$newError.remove();}, 9000);
-            $(this).find('.ipmCurErrors').append($newError);
+            $(this).find('.ipsCurErrors').append($newError);
             up.refresh(); // Reposition Flash/Silverlight
         },
 
         _filesAdded : function(up, files) {
             var $this = $(this);
             $.each(files, function(i, file) {
-                var $newFileProgressbar = $this.find('.ipUploadProgressItemSample .ipUploadProgressItem').clone();
+                var $newFileProgressbar = $this.find('.ipsUploadProgressItemSample .ipsUploadProgressItem').clone();
                 $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
-                $newFileProgressbar.find('.ipUploadTitle').text(file.name);
-                $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
-                $this.find('.ipUploadProgressContainer .ipmBrowseButtonWrapper').first().after($newFileProgressbar);
+                $newFileProgressbar.find('.ipsUploadTitle').text(file.name);
+                $newFileProgressbar.find('.ipsUploadProgressbar').progressbar({value : file.percent});
+                $this.find('.ipsUploadProgressContainer .ipsBrowseButtonWrapper').first().after($newFileProgressbar);
             });
             up.refresh(); // Reposition Flash/Silverlight
             up.start();
@@ -112,7 +112,7 @@
 
         _uploadProgress : function(up, file) {
             var $this = $(this);
-            $this.find('#ipUpload_' + file.id + ' .ipUploadProgressbar').progressbar({value : file.percent});
+            $this.find('#ipUpload_' + file.id + ' .ipsUploadProgressbar').progressbar({value : file.percent});
             $('#' + file.id + " b").html(file.percent + "%");
         },
 
@@ -156,10 +156,10 @@
         },
 
         _resize : function(e) {
-            var $this = $(this);
-            var $block = $this.find('.ipmContainer');
-            var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
-            $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
+            var $popup = $('.ipsModuleRepositoryPopup');
+            var $block = $popup.find('.ipsUpload');
+            var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
+            $block.outerHeight((parseInt($(window).height()) - tabsHeight));
         }
 
     };
