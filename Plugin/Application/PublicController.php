@@ -30,4 +30,9 @@ class PublicController extends \Ip\Controller
 
         return ipView('view/day.php', $data);
     }
+
+    public function blogArchive($month)
+    {
+        return esc($month) . ' archive.';
+    }
 }

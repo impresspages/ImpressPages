@@ -1,31 +1,19 @@
 <?php
 
-/** @var $router \Ip\Router */
+$routes['day{/day}'] = 'day';
 
-$router->get('hello/{name}', 'hello', function ($name = 'World') {
+$routes['hello{/name}'] = function ($name = 'World') {
     $name = ucfirst($name);
     return "<h1>Hello $name!</h1>";
+};
 
-});
-
-$router->get('day{/day}', 'day');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$routes['blog/archive/{month}']= array(
+    'where' => array(
+        'month' => '\d\d',
+    ),
+    'action' => 'blogArchive',
+    'name' => 'blog.archive',
+);
 
 
 
