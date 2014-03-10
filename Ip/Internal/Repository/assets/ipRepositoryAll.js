@@ -17,7 +17,7 @@
 
                 var data = $this.data('ipRepositoryAll');
                 if (!data) {
-                    var $popup = $('.ipModuleRepositoryPopup');
+                    var $popup = $('.ipsModuleRepositoryPopup');
 
                     $this.data('ipRepositoryAll', {});
 
@@ -37,20 +37,20 @@
                         dataType : 'json'
                     });
 
-                    $('#ipModuleRepositoryBuyButton').on('click', function(e){
+                    $('#ipsModuleRepositoryBuyButton').on('click', function(e){
                         e.preventDefault();
-                        $popup.find('a[href*=ipModuleRepositoryTabBuy]').click();
+                        $popup.find('a[href*=ipsModuleRepositoryTabBuy]').click();
                     });
-                    $popup.find('.ipmBrowserSearch .ipmTerm').on('keyup', function(e){
-                        $popup.trigger('ipModuleRepository.search');
-                    });
-                    $popup.find('.ipmBrowserSearch .ipmForm').on('submit', function(e){
+                    $popup.find('.ipsBrowserSearch').on('submit', function(e){
                         e.preventDefault();
                         $popup.trigger('ipModuleRepository.search');
                     });
-                    $popup.find('.ipmBrowserSearch .ipmForm button').on('click', function(e){
+                    $popup.find('.ipsBrowserSearch .ipsTerm').on('keyup change', function(e) {
+                        $popup.trigger('ipModuleRepository.search');
+                    });
+                    $popup.find('.ipsBrowserSearch .ipsSubmit').on('click', function(e) {
                         var $this = $(this);
-                        var $searchField = $this.closest('.ipmBrowserSearch').find('.ipmTerm');
+                        var $searchField = $this.closest('.ipsBrowserSearch').find('.ipsTerm');
                         if ($searchField.val() != '') {
                             $searchField.val('');
                         }
@@ -66,9 +66,9 @@
 
         _filterFilesByTerm : function(e) {
             var $this = $(this);
-            var $lists = $this.find('.ipmBrowser .ipmList');
+            var $lists = $this.find('.ipsBrowser .ipsList');
             var $files = $lists.find('li');
-            var term = $this.find('.ipmBrowserSearch .ipmTerm').val().toLowerCase();
+            var term = $this.find('.ipsBrowserSearch .ipsTerm').val().toLowerCase();
 
             if (term.length > 0) {
                 // if term exists - loop all files
@@ -84,11 +84,11 @@
                         $file.addClass('hidden');
                     }
                 });
-                $this.find('.ipmBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
+                $this.find('.ipsBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
             } else {
                 // show all files if term doesn't exist
                 $files.removeClass('hidden');
-                $this.find('.ipmBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
+                $this.find('.ipsBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
             }
 
             // loop all lists
@@ -101,26 +101,26 @@
                 if (numberOfVisibleChildren > 0) {
                     // if list has at least one visible child display list and title
                     $list.removeClass('hidden');
-                    $list.prev('.ipmListTitle').removeClass('hidden');
+                    $list.prev('.ipsListTitle').removeClass('hidden');
                 } else {
                     // if all children in the list is hidden, hide it and its title
                     $list.addClass('hidden');
-                    $list.prev('.ipmListTitle').addClass('hidden');
+                    $list.prev('.ipsListTitle').addClass('hidden');
                 }
             });
         },
 
         addRecentFiles : function (files) {
             var $this = $(this);
-            $this.find('.ipmRecentTitle').removeClass('hidden');
-            $this.find('.ipmRecentList').removeClass('hidden');
+            $this.find('.ipsRecentTitle').removeClass('hidden');
+            $this.find('.ipsRecentList').removeClass('hidden');
 
-            var $template = $this.find('.ipmFileTemplate');
-            var $newList = $this.find('.ipmRecentList');
-            $newList.addClass('ipmPreview-'+settings.preview);
+            var $template = $this.find('.ipsFileTemplate');
+            var $newList = $this.find('.ipsRecentList');
+            $newList.addClass('_previewType-'+settings.preview);
 
             for(var i in files) {
-                var $newItem = $template.clone().removeClass('ipmFileTemplate');
+                var $newItem = $template.clone().removeClass('ipsFileTemplate');
                 methods._addFileData($newItem,files[i]);
 
                 $newItem.toggleClass('ui-selected');
@@ -208,19 +208,19 @@
             }
 
             var fileGroups = response.fileGroups;
-            var $browserContainer = $this.find('.ipmBrowserContainer');
-            var $template = $this.find('.ipmFileTemplate');
-            var $listTemplate = $this.find('.ipmListTemplate');
-            var $titleTemplate = $this.find('.ipmListTitleTemplate');
+            var $browserContainer = $this.find('.ipsBrowserContainer');
+            var $template = $this.find('.ipsFileTemplate');
+            var $listTemplate = $this.find('.ipsListTemplate');
+            var $titleTemplate = $this.find('.ipsListTitleTemplate');
 
             for(var gi in fileGroups) {
-                var $newList = $listTemplate.clone().detach().removeClass('ipmListTemplate');
-                $newList.addClass('ipmPreview-'+settings.preview);
-                var $newTitle = $titleTemplate.clone().detach().removeClass('ipmListTitleTemplate');
+                var $newList = $listTemplate.clone().detach().removeClass('ipsListTemplate');
+                $newList.addClass('_previewType-'+settings.preview);
+                var $newTitle = $titleTemplate.clone().detach().removeClass('ipsListTitleTemplate');
                 $newTitle.text(gi);
                 for(var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
-                    var $newItem = $template.clone().removeClass('ipmFileTemplate');
+                    var $newItem = $template.clone().removeClass('ipsFileTemplate');
                     methods._addFileData($newItem,files[i]);
                     $newList.append($newItem);
                 }
@@ -229,9 +229,9 @@
 
             }
 
-            $this.find('.ipmRepositoryActions .ipsSelectionConfirm').click($.proxy(methods._confirm, this));
-            $this.find('.ipmRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
-            $this.find('.ipmRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
+            $this.find('.ipsRepositoryActions .ipsSelectionConfirm').click($.proxy(methods._confirm, this));
+            $this.find('.ipsRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
+            $this.find('.ipsRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
 
             $browserContainer.delegate('li', 'click', function(e){
                 $(this).toggleClass('ui-selected');
@@ -248,21 +248,21 @@
             } else {
                 $.proxy(methods._stopSelect, this)();
             }
-            $this.find('.ipmRepositoryActions .ipmSelectionCount').text(count);
+            $this.find('.ipsRepositoryActions .ipsSelectionCount').text(count);
         },
 
         _startSelect : function(e) {
             var $this = $(this);
-            $this.find('.ipmRepositoryActions').removeClass('hidden');
-            $this.find('.ipmBrowserContainer').addClass('ui-selecting');
+            $this.find('.ipsRepositoryActions').removeClass('hidden');
+            $this.find('.ipsBrowserContainer').addClass('ui-selecting');
         },
 
         _stopSelect : function(e) {
             if (e) { e.preventDefault(); }
             var $this = $(this);
-            $this.find('.ipmRepositoryActions').addClass('hidden');
-            $this.find('.ipmBrowserContainer li').removeClass('ui-selected');
-            $this.find('.ipmBrowserContainer').removeClass('ui-selecting');
+            $this.find('.ipsRepositoryActions').addClass('hidden');
+            $this.find('.ipsBrowserContainer li').removeClass('ui-selected');
+            $this.find('.ipsBrowserContainer').removeClass('ui-selecting');
         },
 
         _confirm : function (e) {
@@ -328,7 +328,7 @@
 
             // remove deleted files
             var deletedFiles = response.deletedFiles;
-            var $browser = $this.find('.ipmBrowser');
+            var $browser = $this.find('.ipsBrowser');
             for(var i in deletedFiles) {
 
                 var  animateOptions = {};
@@ -362,10 +362,10 @@
         },
 
         _resize : function(e) {
-            var $this = $(this);
-            var $block = $this.find('.ipmBrowser');
-            var padding = parseInt($block.css('padding-top')) + parseInt($block.css('padding-bottom'));
-            $block.height((parseInt($(window).height()) - (37 + padding)) + 'px');
+            var $popup = $('.ipsModuleRepositoryPopup');
+            var $block = $popup.find('.ipsBrowser');
+            var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
+            $block.outerHeight((parseInt($(window).height()) - tabsHeight));
         }
 
     };

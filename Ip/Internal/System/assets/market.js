@@ -81,7 +81,7 @@ var Market;
                 }
             });
 
-            $('#ipModuleRepositoryTabBuy .ipmLoading').removeClass('hidden');
+            $('#ipsModuleRepositoryTabBuy .ipsLoading').removeClass('hidden');
         };
 
 
