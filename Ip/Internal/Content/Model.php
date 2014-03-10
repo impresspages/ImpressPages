@@ -180,8 +180,8 @@ class Model
                 'title' => __('Skin', 'ipAdmin', false),
                 'attributes' => array(
                     'class' => 'ipsSkin',
-                    'data-layouts' => json_encode($widgetObject->getSkins()),
-                    'data-currentlayout' => $widgetRecord['layout']
+                    'data-skins' => json_encode($widgetObject->getSkins()),
+                    'data-currentskin' => $widgetRecord['layout']
                 )
             );
         }

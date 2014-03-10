@@ -30,14 +30,6 @@ class PublicController extends \Ip\Controller
             if (!ipRequest()->getQuery('ipDesignPreview')) {
                 $this->initManagement();
             }
-        } else {
-            if (\Ip\Internal\Admin\Backend::userId()) {
-                //user has access to the backend
-                ipAddJsVariable('ipContentShowEditButton', 1);
-            }
-            if (Model::isRevisionModified()) {
-                ipAddJsVariable('ipContentShowPublishButton', 1);
-            }
         }
 
         //show page content

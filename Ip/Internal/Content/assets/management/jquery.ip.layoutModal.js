@@ -20,6 +20,7 @@
 
                 $.each(options.layouts, function(key, value) {
                     var $newItem = $itemTemplate.clone().detach().text(value.title).data('layout', value.name);
+                    $newItem.removeClass('hidden');
                     if (value.name == options.currentLayout) {
                         $newItem.addClass('active');
                         $newItem.on('click', function(e){
@@ -42,13 +43,13 @@
         }
     }
 
-    $.fn.ipLayoutModal = function(method) {
+    $.fn.ipSkinModal = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on ipLayoutModal');
+            $.error('Method ' + method + ' does not exist on ipSkinModal');
         }
     };
 
