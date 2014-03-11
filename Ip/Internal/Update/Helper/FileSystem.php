@@ -12,7 +12,7 @@ class FileSystem
     public function createWritableDir($dir)
     {
         if (substr($dir, 0, 1) != '/') {
-            throw new \Ip\Internal\System\UpdateException('Absolute path required');
+            throw new \Ip\Internal\Update\UpdateException('Absolute path required');
         }
         if ($dir == '/' && !is_writable($dir)) {
             $this->throwWritePermissionsError($dir);
@@ -111,7 +111,7 @@ class FileSystem
         chmod($dir, 0777);
         set_error_handler($originalIpErrorHandler);
         if (!is_writable($dir)) {
-            throw new \Ip\Internal\System\UpdateException("Directory is not writable: " . $dir);
+            throw new \Ip\Internal\Update\UpdateException("Directory is not writable: " . $dir);
         }
 
         if (is_dir($dir)) {
@@ -139,7 +139,7 @@ class FileSystem
     public function clean($dir)
     {
         if (!file_exists($dir) || !is_dir($dir)) {
-            throw new \Ip\Internal\System\UpdateException("Directory doesn't exist: " . $dir);
+            throw new \Ip\Internal\Update\UpdateException("Directory doesn't exist: " . $dir);
         }
 
         if ($handle = opendir($dir)) {
@@ -162,7 +162,7 @@ class FileSystem
     public function cpContent($source, $dest)
     {
         if (!is_dir($source) || !is_dir($dest)) {
-            throw new \Ip\Internal\System\UpdateException("Source or destination is not a folder. Source: " . $source . ". Destination: " . $dest . "");
+            throw new \Ip\Internal\Update\UpdateException("Source or destination is not a folder. Source: " . $source . ". Destination: " . $dest . "");
         }
 
         $dir_handle = opendir($source);
@@ -188,7 +188,7 @@ class FileSystem
 
     private function throwWritePermissionsError($dir)
     {
-        throw new \Ip\Internal\System\UpdateException("Can't write directory " . $dir);
+        throw new \Ip\Internal\Update\UpdateException("Can't write directory " . $dir);
     }
 
     private function getParentPermissions($path)
@@ -205,7 +205,7 @@ class FileSystem
 
     public static function handleError($errno, $errstr, $errfile, $errline, array $errcontext)
     {
-        throw new \Ip\Internal\System\UpdateException($errstr);
+        throw new \Ip\Internal\Update\UpdateException($errstr);
     }
 
 

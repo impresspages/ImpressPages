@@ -16,6 +16,8 @@ class UpdateModel
 
     public function prepareForUpdate()
     {
+        new \Ip\Internal\Update\UpdateException(''); //autoload Update exception; As all core files will be deleted soon.
+        new \Ip\Response\Json(array()); //autoload Json; As all core files will be deleted soon.
         $downloadUrl = ipRequest()->getPost('downloadUrl');
         $md5 = ipRequest()->getPost('md5');
 
