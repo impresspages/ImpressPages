@@ -70,11 +70,33 @@ class Model
         // output:
         // - assets/management.min.js
 
-        $items = $this->globRecursive(ipFile('Ip/Internal/Content/assets/management/') . '*.js');
-        $items = array_merge($items, $this->globRecursive(ipFile('Ip/Internal/Content/Widget/*/assets/') . '*.js'));
-        if (!$items) {
-            return false;
-        }
+        $items[] = ipFile('Ip/Internal/Content/assets/management/ipContentManagementInit.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/content.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/jquery.ip.contentManagement.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/jquery.ip.widgetbutton.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/jquery.ip.layoutModal.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/jquery.ip.block.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/jquery.ip.widget.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/exampleContent.js');
+        $items[] = ipFile('Ip/Internal/Content/assets/management/drag.js');
+
+        $items[] = ipFile('Ip/Internal/Content/Widget/Columns/assets/Columns.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/File/assets/File.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFile.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/File/assets/jquery.ipWidgetFileContainer.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Form/assets/Form.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Form/assets/FormContainer.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Form/assets/FormField.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Form/assets/FormOptions.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Html/assets/Html.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Video/assets/Video.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Image/assets/Image.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Gallery/assets/Gallery.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Text/assets/Text.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Title/assets/Title.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Title/assets/TitleModal.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Map/assets/Map.js');
+
 
         $jsFile = ipFile('Ip/Internal/Content/assets/management.min.js');
 
