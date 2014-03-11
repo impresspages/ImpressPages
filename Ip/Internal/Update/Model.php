@@ -12,6 +12,12 @@ namespace Ip\Internal\Update;
 class Model {
     const DB_VERSION = 2;
 
+    public static function migrationsAvailable()
+    {
+        $curDbVersion = ipStorage()->get('Ip', 'dbVersion');
+        return $curDbVersion < self::DB_VERSION;
+    }
+
     public static function runMigrations()
     {
         $curDbVersion = ipStorage()->get('Ip', 'dbVersion');

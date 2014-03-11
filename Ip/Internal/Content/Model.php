@@ -9,7 +9,7 @@ namespace Ip\Internal\Content;
 class Model
 {
     static private $widgetObjects = null;
-    const DEFAULT_LAYOUT = 'default';
+    const DEFAULT_SKIN = 'default';
     const WIDGET_DIR = 'Widget';
     const SNIPPET_DIR = 'snippet';
 
@@ -112,10 +112,10 @@ class Model
         return $result;
     }
 
-    public static function generateWidgetPreviewFromStaticData($widgetName, $data, $layout = null)
+    public static function generateWidgetPreviewFromStaticData($widgetName, $data, $skin = null)
     {
-        if ($layout == null) {
-            $layout = self::DEFAULT_LAYOUT;
+        if ($skin == null) {
+            $skin = self::DEFAULT_SKIN;
         }
         $widgetObject = self::getWidgetObject($widgetName);
         if (!$widgetObject) {
@@ -132,7 +132,7 @@ class Model
         $widgetRecord = array(
             'widgetId' => null,
             'name' => $widgetName,
-            'layout' => $layout,
+            'skin' => $skin,
             'data' => $data,
             'createdAt' => time(),
             'updatedAt' => time(),
@@ -168,9 +168,9 @@ class Model
         }
 
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
+        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['layout']);
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
 
 
         $optionsMenu = array();
@@ -181,7 +181,7 @@ class Model
                 'attributes' => array(
                     'class' => 'ipsSkin',
                     'data-skins' => json_encode($widgetObject->getSkins()),
-                    'data-currentskin' => $widgetRecord['layout']
+                    'data-currentskin' => $widgetRecord['skin']
                 )
             );
         }
@@ -198,7 +198,7 @@ class Model
             'widgetData' => $widgetRecord['data'],
             'widgetInstanceId' => $widgetRecord['instanceId'],
             'widgetName' => $widgetRecord['name'],
-            'widgetLayout' => $widgetRecord['layout'],
+            'widgetSkin' => $widgetRecord['skin'],
             'optionsMenu' => $optionsMenu
         );
 
@@ -214,7 +214,7 @@ class Model
                 i.id AS `instanceId`,
                 w.id AS `widgetId`,
                 w.name AS `name`,
-                w.layout AS `layout`,
+                w.skin AS `skin`,
                 w.data AS `data`,
                 w.updatedAt AS `updatedAt`
             FROM
@@ -353,14 +353,14 @@ class Model
      * @param int $position Real position of widget starting with 0
      * @param string $blockName
      * @param string $widgetName
-     * @param string $layout
+     * @param string $skin
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $layout)
+    public static function createWidget($widgetName, $data, $skin)
     {
         return ipDb()->insert('widget', array(
                 'name' => $widgetName,
-                'layout' => $layout,
+                'skin' => $skin,
                 'createdAt' => time(),
                 'updatedAt' => time(),
                 'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
