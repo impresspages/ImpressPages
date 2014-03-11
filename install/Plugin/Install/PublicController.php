@@ -21,6 +21,10 @@ class PublicController extends \Ip\Controller
         }
 
 
+        if (empty($_SESSION['websiteId'])) {
+            $_SESSION['websiteId'] = Helper::randString(256);
+        }
+
 
         if (empty($_SESSION['step'])) {
             $_SESSION['step'] = 0;
