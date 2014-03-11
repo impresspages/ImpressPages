@@ -195,7 +195,7 @@
             // filename
             $file.find('span').text(data.fileName);
             // file data
-            $file.attr('data-file', data.file); // unique attribute to recognize required element
+            $file.attr('data-file', data.fileName); // unique attribute to recognize required element
             $file.data('fileData', data);
         },
 
