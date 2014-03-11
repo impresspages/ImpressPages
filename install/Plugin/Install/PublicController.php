@@ -22,7 +22,7 @@ class PublicController extends \Ip\Controller
 
 
         if (empty($_SESSION['websiteId'])) {
-            $_SESSION['websiteId'] = Helper::randString(256);
+            $_SESSION['websiteId'] = Helper::randString(255);
         }
 
 
@@ -356,7 +356,7 @@ class PublicController extends \Ip\Controller
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
             Model::generateCronPassword();
             ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
-
+            ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }
