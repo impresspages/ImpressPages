@@ -11,7 +11,6 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        return 'test';
         return new \Ip\Response\PageNotFound();
     }
 }
