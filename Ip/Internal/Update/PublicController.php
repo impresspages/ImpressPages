@@ -11,6 +11,7 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        return new \Ip\Response\PageNotFound();
+        Model::runMigrations();
+        return new \Ip\Response\Json(array('success' => 1));
     }
 }

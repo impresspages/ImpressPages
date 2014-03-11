@@ -220,7 +220,7 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Missing POST variable skin');
         }
         $skin = $_POST['skin'];
-        $updateData['layout'] = $skin;
+        $updateData['skin'] = $skin;
 
 
         Model::updateWidget($record['id'], $updateData);
