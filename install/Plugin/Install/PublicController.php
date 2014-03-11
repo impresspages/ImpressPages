@@ -265,6 +265,43 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
+
+        $tables = array (
+            'page',
+            'pageStorage',
+            'language',
+            'log',
+            'emailQueue',
+            'repositoryFile',
+            'repositoryReflection',
+            'widget',
+            'widgetInstance',
+            'themeStorage',
+            'widgetOrder',
+            'inlineValueGlobal',
+            'inlineValueForLanguage',
+            'inlineValueForPage',
+            'plugin',
+            'storage',
+            'administrator'
+        );
+
+
+        $tableExists = FALSE;
+        foreach ($tables as $table) {
+            try {
+                $sql = 'SELECT 1 FROM `' . $dbConfig['tablePrefix'] . $table . '`';
+                ipDb()->execute($sql);
+                $tableExists = TRUE;
+            } catch (\Exception $e) {
+                //Do nothing. We have expected this error to occur. That means the database is clean
+            }
+        }
+        if ($tableExists && empty($db['replaceTables'])) {
+            return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exist');
+        }
+
+
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
 
         if (!$errors) {
