@@ -22,7 +22,6 @@
         <label for="db_prefix"><?php _e('Table prefix (use underscore to separate prefix).', 'Install'); ?></label>
         <input type="text" maxlength="7" class="form-control" id="db_prefix" name="prefix" value="<?php echo htmlspecialchars($db['tablePrefix']); ?>">
     </div>
-    <p class="alert alert-warning"><?php _e('Important!!! All old tables with the same prefix will be deleted!', 'Install') ?></p>
     <input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />
 </form>
 <p class="text-right">
