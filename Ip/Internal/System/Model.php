@@ -110,7 +110,7 @@ class Model
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
         curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 6);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 12);
         $answer = curl_exec($ch);
         $notices = json_decode($answer);
 
