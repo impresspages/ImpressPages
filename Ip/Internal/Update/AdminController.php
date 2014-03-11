@@ -26,7 +26,7 @@ class AdminController extends \Ip\Controller{
 
         $data = array(
             'status' => 'success',
-            'redirectUrl' => ipFileUrl('update')
+            'redirectUrl' => ipActionUrl(array('pa' => 'Update'))
         );
         return new \Ip\Response\Json($data);
     }

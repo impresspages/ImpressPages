@@ -84,7 +84,7 @@ class Event
         }
 
         // Show admin toolbar if admin is logged in:
-        if (!ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && !empty($_SESSION['backend_session']['userId'])) {
+        if (ipAdminId() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && ipAdminId()) {
             if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminBar')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
                 ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
