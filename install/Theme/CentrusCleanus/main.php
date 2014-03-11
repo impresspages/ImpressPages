@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="page-footer">
-                    Copyright 2009-<?php echo date("Y") ?> by <a href="http://www.impresspages.org">ImpressPages, UAB</a>
+                    This software is brought to you by <a target="_blank" href="http://www.impresspages.org/cms/about/team/">ImpressPages team</a>
                 </div>
             </div>
         </div>
