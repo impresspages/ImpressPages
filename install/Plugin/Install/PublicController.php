@@ -22,7 +22,7 @@ class PublicController extends \Ip\Controller
 
 
         if (empty($_SESSION['websiteId'])) {
-            $_SESSION['websiteId'] = Helper::randString(255);
+            $_SESSION['websiteId'] = Helper::randString(32);
         }
 
 
