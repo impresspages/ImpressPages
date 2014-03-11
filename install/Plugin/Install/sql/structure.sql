@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `ip_cms_widget`;
 CREATE TABLE `ip_cms_widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '0',
-  `layout` varchar(25) NOT NULL,
+  `skin` varchar(25) NOT NULL,
   `data` text NOT NULL,
   `createdAt` int(11) NOT NULL,
   `updatedAt` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
