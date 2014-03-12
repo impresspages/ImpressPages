@@ -101,6 +101,22 @@ class Content
     }
 
     /**
+     * Get specific language object
+     * @param string $code Language code
+     * @return null|Language
+     */
+
+    public function getLanguageByCode($code)
+    {
+        foreach ($this->getLanguages() as $language) {
+            if ($language->getCode() === $code) {
+                return $language;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Get all website languages
      *
      * @return \Ip\Language[] All website languages. Each element is a Language object.

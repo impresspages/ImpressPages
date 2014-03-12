@@ -25,18 +25,26 @@ class Job
             return null;
         }
 
-        $languageUrl = urldecode($urlParts[0]);
+        $languageUrl = $urlParts[0];
 
         $languages = ipContent()->getLanguages();
+        $rootLanguage = null;
         foreach ($languages as $language) {
-            if ($language->getUrl() == $languageUrl) {
+            if ($language->getUrlPath() == $languageUrl) {
                 $result['language'] = $language;
                 break;
+            } elseif ($language->getUrlPath() == '') {
+                $rootLanguage = $language;
             }
         }
 
         if ($result['language']) {
             $result['relativeUri'] = isset($urlParts[1]) ? $urlParts[1] : '';
+            return $result;
+        }
+
+        if ($rootLanguage) {
+            $result['language'] = $rootLanguage;
             return $result;
         }
     }

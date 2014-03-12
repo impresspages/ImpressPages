@@ -35,15 +35,9 @@ class AdminController extends \Ip\GridController
     protected function config()
     {
 
-        $languages = ipContent()->getLanguages();
-        $languageUrls = array();
-        foreach($languages as $language) {
-            $languageUrls[] = $language->getUrl();
-        }
-
         $reservedDirs = ipGetOption('Config.reservedDirs');
-        if (is_array($reservedDirs)) {
-            $languageUrls = array_merge($languageUrls, $reservedDirs);
+        if (!is_array($reservedDirs)) {
+            $reservedDirs = array();
         }
 
         return array(
@@ -83,8 +77,9 @@ class AdminController extends \Ip\GridController
                     'field' => 'url',
                     'showInList' => false,
                     'validators' => array(
-                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', FALSE)),
+                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', false)),
                         array('Unique', array('table' => 'language', 'allowEmpty' => true), __('Language url should be unique', 'ipAdmin', false)),
+                        array('NotInArray', $reservedDirs, __('This is a system directory name.', 'ipAdmin', false)),
                     )
                 ),
                 array(
@@ -193,12 +188,15 @@ class AdminController extends \Ip\GridController
     public function afterUpdate($id, $newData)
     {
         $tmpLanguage = Db::getLanguageById($id);
-        if($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
-            $oldUrl = ipConfig()->baseUrl() . self::$urlBeforeUpdate.'/';
-            $newUrl = ipConfig()->baseUrl() . $tmpLanguage['url'].'/';
+        if ($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
+            $languagePath = $tmpLanguage['url'] == '' ? '' : $tmpLanguage['url'] . '/';
+            $languagePathBefore = self::$urlBeforeUpdate == '' ? '' : self::$urlBeforeUpdate . '/';
+
+            $oldUrl = ipConfig()->baseUrl() . $languagePathBefore;
+            $newUrl = ipConfig()->baseUrl() . $languagePath;
             ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
-            $oldUrl = ipConfig()->baseUrl() . 'index.php/' . self::$urlBeforeUpdate.'/';
-            $newUrl = ipConfig()->baseUrl() . 'index.php/' . $tmpLanguage['url'].'/';
+            $oldUrl = ipConfig()->baseUrl() . 'index.php/' . $languagePathBefore;
+            $newUrl = ipConfig()->baseUrl() . 'index.php/' . $languagePath;
             ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
         }
     }
