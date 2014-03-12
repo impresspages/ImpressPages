@@ -39,7 +39,7 @@
     </div>
 
     <div class="_themes">
-        <div class="_market">
+        <div class="_market hidden">
             <div class="_wrapper">
                 <span class="_title"><?php _e('Marketplace', 'ipAdmin'); ?></span>
                 <span class="_notice"><?php _e('Want a new look? Search for a new theme.', 'ipAdmin'); ?></span>
