@@ -32,6 +32,15 @@ class Application
     }
 
     /**
+     * Get framework version
+     * @return string
+     */
+    public static function getDbVersion()
+    {
+        return '2';
+    }
+
+    /**
      * @ignore
      */
     public function init()
