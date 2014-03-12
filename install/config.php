@@ -1,6 +1,7 @@
 <?php
 
 define('TARGET_VERSION', '4.0.0');
+define('TARGET_DBVERSION', '2');
 
 $baseUrl = '';
 if ($_SERVER["SERVER_PORT"] != "80") {
