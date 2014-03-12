@@ -58,7 +58,7 @@ class Model{
         }
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
-        if (method_exists($workerClass, 'activate')) {
+        if (class_exists($workerClass) && method_exists($workerClass, 'activate')) {
             $worker = new $workerClass($config['version']);
             $worker->activate();
         }
