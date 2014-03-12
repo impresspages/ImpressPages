@@ -567,7 +567,7 @@ function ipHomeUrl()
     }
 
     if (ipGetOption('Config.multilingual')) {
-        $homeUrl .= urlencode(ipContent()->getCurrentLanguage()->getUrlPath()) . '/';
+        $homeUrl .= ipContent()->getCurrentLanguage()->getUrlPath();
     }
 
     return $homeUrl;
