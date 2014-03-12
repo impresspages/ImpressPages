@@ -59,7 +59,9 @@ var ipAdministratorsController = null;
                 addAdministrator(username, email, password);
             });
             setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
-
+            $('.ipsAddModal').find('.ipsAdd').on('click', function () {
+                $('.ipsAddModal form').submit();
+            });
         }
 
         $scope.setEditMode = function (mode) {
