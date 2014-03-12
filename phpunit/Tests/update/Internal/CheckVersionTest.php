@@ -26,7 +26,7 @@ class CheckVersionTest extends \PhpUnit\GeneralTestCase
         $this->assertNotEquals($position, FALSE, 'Ip/Application.php has no version string.');
 
         $position =  strpos($code, '\''.CURRENT_DBVERSION.'\'');
-        $this->assertNotEquals($position, FALSE, 'Ip/Application.php has no version string.');
+        $this->assertNotEquals($position, FALSE, 'Ip/Application.php has no dbversion string.');
 
     }
 
