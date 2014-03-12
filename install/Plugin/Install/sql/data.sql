@@ -1,6 +1,6 @@
 
 INSERT INTO `ip_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
-('EN', 'English', 2, 1, 'en', 'en');
+('EN', 'English', 2, 1, '', 'en');
 
 INSERT INTO `ip_page`
 (`id`, `languageCode`, `urlPath`,       `parentId`, `pageOrder`,  `title`,          `isVisible`, `updatedAt`,      `createdAt`,            `type`,     `alias`) VALUES
