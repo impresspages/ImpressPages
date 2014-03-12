@@ -215,7 +215,8 @@ class Model
 
 
         $sql = str_replace("INSERT INTO `ip_", "INSERT INTO `". $tablePrefix, $sql);
-        $sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $sql);
+        $sql = str_replace("[[[[version]]]]", TARGET_VERSION, $sql);
+        $sql = str_replace("[[[[dbversion]]]]", TARGET_DBVERSION, $sql);
 
         ipDb()->execute($sql);
 

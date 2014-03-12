@@ -18,8 +18,8 @@ INSERT INTO `ip_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`
 
 
 INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
-('Ip', 'version', '"4.0.0"'),
-('Ip', 'dbVersion', '2'),
+('Ip', 'version', '"[[[[version]]]]"'),
+('Ip', 'dbVersion', '[[[[dbversion]]]]'),
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
