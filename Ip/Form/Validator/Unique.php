@@ -19,7 +19,11 @@ class Unique extends \Ip\Form\Validator
 
     public function getError($values, $valueKey, $environment)
     {
-        if (empty($values[$valueKey]) && empty($this->data['allowEmpty'])) {
+        if (!array_key_exists($valueKey, $values)) {
+            return false;
+        }
+
+        if ($values[$valueKey] == '' && empty($this->data['allowEmpty'])) {
             return false;
         }
 
