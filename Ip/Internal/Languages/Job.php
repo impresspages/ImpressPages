@@ -15,14 +15,6 @@ class Job
         /** @var \Ip\Request $request */
         $request = $info['request'];
 
-        // admin pages don't have zones
-//        if (!empty($_SESSION['ipLastLanguageId'])) {
-//            $language = ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
-//        }
-//        if (!$language) {
-//            $language = $languages[0];
-//        }
-
         $result = array(
             'language' => null,
             'relativeUri' => $info['relativeUri']
@@ -33,13 +25,16 @@ class Job
             return null;
         }
 
-        $languageUrl = urldecode($urlParts[0]);
+        $languageUrl = $urlParts[0];
 
         $languages = ipContent()->getLanguages();
+        $rootLanguage = null;
         foreach ($languages as $language) {
-            if ($language->getUrl() == $languageUrl) {
+            if ($language->getUrlPath() == $languageUrl) {
                 $result['language'] = $language;
                 break;
+            } elseif ($language->getUrlPath() == '') {
+                $rootLanguage = $language;
             }
         }
 
@@ -47,24 +42,24 @@ class Job
             $result['relativeUri'] = isset($urlParts[1]) ? $urlParts[1] : '';
             return $result;
         }
-    }
 
-    public static function ipRouteLanguage_75($info)
-    {
-        if (!empty($_SESSION['ipLastLanguageId'])) {
-            return array(
-                'language' => ipContent()->getLanguage($_SESSION['ipLastLanguageId']),
-                'relativeUri' => $info['relativeUri']
-            );
+        if ($rootLanguage) {
+            $result['language'] = $rootLanguage;
+            return $result;
         }
     }
 
-    public static function ipRouteLanguage_80($info)
+    public static function ipRequestLanguage_70($info)
+    {
+        if (!empty($_SESSION['ipLastLanguageId'])) {
+            return ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
+        }
+    }
+
+    public static function ipRequestLanguage_80($info)
     {
         $languages = ipContent()->getLanguages();
-        return array(
-            'language' => $languages[0],
-            'relativeUri' => $info['relativeUri']
-        );
+        return $languages[0];
     }
+
 }

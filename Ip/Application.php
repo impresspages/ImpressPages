@@ -135,24 +135,31 @@ class Application
         }
 
         $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
-        $language = $result['language'];
-        $relativeUri = $result['relativeUri'];
+        if ($result) {
+            $requestLanguage = $result['language'];
+            $routeLanguage = $requestLanguage->getCode();
+            $relativeUri = $result['relativeUri'];
+        } else {
+            $routeLanguage = null;
+            $requestLanguage = ipJob('ipRequestLanguage', array('request' => $request));
+            $relativeUri = $request->getRelativePath();
+        }
 
-        ipContent()->_setCurrentLanguage($language);
+        ipContent()->_setCurrentLanguage($requestLanguage);
 
-        $_SESSION['ipLastLanguageId'] = $language->getId();
+        $_SESSION['ipLastLanguageId'] = $requestLanguage->getId();
 
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
                 $languageCode = $options['translationsLanguageCode'];
             } else {
-                $languageCode = $language->getCode();
+                $languageCode = $requestLanguage->getCode();
             }
             $this->initTranslations($languageCode);
         }
 
 
-        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri));
+        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage));
 
         if (!empty($routeAction)) {
             if (!empty($routeAction['page'])) {
