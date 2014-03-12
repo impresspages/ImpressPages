@@ -28,7 +28,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0';
+        return '4.0.0';
     }
 
     /**
