@@ -157,7 +157,7 @@ class Table extends \Ip\Internal\Grid\Model
         if (empty($data[$this->config->idField()])) {
             throw new \Ip\Exception('Missing parameters');
         }
-        $recordId = $data[$this->config->idField()]];
+        $recordId = $data[$this->config->idField()];
         $display = new Display($this->config);
         $updateForm = $display->updateForm($recordId);
 
