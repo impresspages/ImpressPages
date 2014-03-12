@@ -27,7 +27,7 @@ class NotInArray extends \Ip\Form\Validator {
                 return $this->errorMessage;
             }
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = __('The value can\'t to be one of:', 'ipAdmin');
+                $errorText = __('The value can\'t be one of:', 'ipAdmin');
             } else {
                 $errorText = __('The value can\'t be one of:', 'ipPublic');
             }
