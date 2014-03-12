@@ -208,7 +208,7 @@ class Display
         }
 
         $field = new \Ip\Form\Field\Hidden(array(
-            'name' => 'recordId',
+            'name' => $this->config->idField(),
             'value' => $id
         ));
         $form->addField($field);
