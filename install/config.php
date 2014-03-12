@@ -1,6 +1,5 @@
 <?php
 
-require_once('constants.php');
 
 $baseUrl = '';
 if ($_SERVER["SERVER_PORT"] != "80") {
