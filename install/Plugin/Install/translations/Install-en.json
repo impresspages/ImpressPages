@@ -41,7 +41,7 @@
     "Check again": "Check again",
     "Please fill in required fields.": "Please fill in required fields.",
     "Prefix can't be longer than 7 symbols.": "Prefix can't be longer than 7 symbols.",
-    "Prefix can't contain any special characters and should start with letter.": "Prefix can't contain any special characters and should start with letter.",
+    "Prefix can't contain any special characters and should start with a letter.": "Prefix can't contain any special characters and should start with a letter.",
     "Can't connect to database.": "Can't connect to database.",
     "Specified database does not exists and cannot be created.": "Specified database does not exists and cannot be created.",
     "Do you like to replace existing tables in the database?": "Do you like to replace existing tables in the database?",
