@@ -67,4 +67,4 @@ class Job
             'relativeUri' => $info['relativeUri']
         );
     }
-} 
+}
