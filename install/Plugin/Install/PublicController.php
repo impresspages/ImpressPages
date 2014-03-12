@@ -68,7 +68,7 @@ class PublicController extends \Ip\Controller
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
 
-        $selected_language = isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en';
+        $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
 
         $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
         $data['languages'] = $languages;
