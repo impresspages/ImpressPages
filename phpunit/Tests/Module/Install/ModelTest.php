@@ -85,7 +85,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         \Plugin\Install\Model::importData($config['db']['tablePrefix']);
         $languages = ipDb()->fetchAll('SELECT * FROM `ip_language`');
         $this->assertEquals(1, count($languages));
-        $this->assertEquals('en', $languages[0]['url']);
+        $this->assertEquals('', $languages[0]['url']);
 
         // Cleanup:
         ipDb()->execute('DROP DATABASE ' . $tempDbName);
