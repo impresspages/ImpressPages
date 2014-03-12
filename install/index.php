@@ -23,8 +23,17 @@ require_once(__DIR__ . '/../Ip/Application.php');
         'translationsLanguageCode' => 'en'
     );
 
+    if (isset($_REQUEST['lang'])) {
+        $_SESSION['installationLanguage'] = $_REQUEST['lang'];
+    }
+
+    if (isset($_SESSION['installationLanguage'])) {
+        $options['translationsLanguageCode'] = $_SESSION['installationLanguage'];
+    }
+
     // Because module init is skipped, we have to initialize translations manually
     $translator = \Ip\ServiceLocator::translator();
+    $translator->setLocale($options['translationsLanguageCode']);
 
     $trPluginDir = ipFile('Plugin/Install/translations/');
     $trOverrideDir = ipFile('file/translations/override/');
@@ -36,13 +45,6 @@ require_once(__DIR__ . '/../Ip/Application.php');
     $request->setPost($_POST);
     $request->setServer($_SERVER);
     $request->setRequest($_REQUEST);
-
-    if (isset($_SESSION['installation_language'])) {
-        $options['translationsLanguageCode'] = $_SESSION['installation_language'];
-    }
-    if (isset($_REQUEST['lang'])) {
-        $options['translationsLanguageCode'] = $_REQUEST['lang'];
-    }
 
     \Ip\ServiceLocator::addRequest($request);
 
