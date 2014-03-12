@@ -232,12 +232,12 @@ class PublicController extends \Ip\Controller
             $db['tablePrefix'] = '';
         }
 
-        if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
+        if (strlen($db['tablePrefix']) > 7) {
             return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'Install', false));
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with letter.', 'Install', false));
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with a letter.', 'Install', false));
         }
 
 
