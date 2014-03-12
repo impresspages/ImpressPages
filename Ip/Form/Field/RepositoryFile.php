@@ -11,7 +11,7 @@ use Ip\Form\Field;
 
 /**
  * Repository file browser. Meaningful only in admin interface as public visitors can't access
- * CMS files repository.
+ * files repository.
  * Class RepositoryFile
  * @package Ip\Form\Field
  */

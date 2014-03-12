@@ -9,8 +9,8 @@ namespace Ip;
 
 
 /**
- * Language, page, block and other CMS content
- * Can be treated as a gateway to CMS content.
+ * Language, page, block and other content
+ * Can be treated as a gateway to framework content.
  *
  */
 class Content

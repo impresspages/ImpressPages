@@ -10,7 +10,8 @@ namespace Ip\Internal\Repository;
 
 
 /**
- * IpCmsException class
+ * Exception class
+ * @todo move to \Ip\Exception\Repository namespace
  */
 class TransformException extends \Exception
 {

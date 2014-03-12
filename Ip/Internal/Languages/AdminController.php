@@ -165,10 +165,10 @@ class AdminController extends \Ip\GridController
 
 //        /**
 //         * TODOXX check zone and language url's if they don't match system folder #139
-//         * Beginning of page URL can conflict with CMS system/core folders. This function checks if the folder can be used in URL beginning.
+//         * Beginning of page URL can conflict with system/core folders. This function checks if the folder can be used in URL beginning.
 //         *
 //         * @param $folderName
-//         * @return bool true if URL is reserved for CMS core
+//         * @return bool true if URL is reserved for framework core
 //         *
 //         */
 //        public function usedUrl($folderName)

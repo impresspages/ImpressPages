@@ -16,5 +16,5 @@
 <?php if (isset($footer)) { ?>
     <?php echo $footer ?>
 <?php } else { ?>
-    <p style="text-align: right;"><span style="color: #6d6b70; font-family: Verdana, Tahoma, Arial; font-size: 10px;">Powered by </span><a style="text-decoration: underline; font-family: Verdana, Tahoma, Arial; font-size: 10px; color: #6d6b70;" href="http://www.impresspages.org">ImpressPages CMS</a></p>
+    <p style="text-align: right;"><span style="color: #6d6b70; font-family: Verdana, Tahoma, Arial; font-size: 10px;">Powered by </span><a style="text-decoration: underline; font-family: Verdana, Tahoma, Arial; font-size: 10px; color: #6d6b70;" href="http://www.impresspages.org">ImpressPages</a></p>
 <?php } ?>

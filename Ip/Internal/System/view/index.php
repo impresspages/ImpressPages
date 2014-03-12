@@ -1,6 +1,6 @@
 <div class="ipModuleSystem">
     <div class="page-header">
-        <h1>ImpressPages CMS <small><?php echo esc($version); ?></small></h1>
+        <h1>ImpressPages <small><?php echo esc($version); ?></small></h1>
     </div>
     <?php if (!empty($notes)) { ?>
         <?php foreach ($notes as $note) { ?>

@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="<?php echo esc($favicon, 'attr'); ?>" />
     <meta name="keywords" content="<?php echo esc($keywords, 'attr'); ?>" />
     <meta name="description" content="<?php echo esc($description, 'attr'); ?>" />
-    <meta name="generator" content="ImpressPages CMS" />
+    <meta name="generator" content="ImpressPages" />
 <?php foreach ($css as $key => $file) { ?>
     <link href="<?php echo $file['value']; ?>" rel="stylesheet" type="text/css" <?php
     if (is_array($file['attributes'])) {
