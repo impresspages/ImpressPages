@@ -40,7 +40,7 @@ INSERT INTO `ip_cms_language` (`abbreviation`, `title`, `languageOrder`, `isVisi
 
 INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'version', '"4.0"'),
-('Ip', 'dbVersion', '1'),
+('Ip', 'dbVersion', '2'),
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
