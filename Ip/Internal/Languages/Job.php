@@ -25,7 +25,7 @@ class Job
             return null;
         }
 
-        $languageUrl = $urlParts[0];
+        $languageUrl = $urlParts[0] . '/';
 
         $languages = ipContent()->getLanguages();
         $rootLanguage = null;
