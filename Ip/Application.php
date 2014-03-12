@@ -1,6 +1,6 @@
 <?php
 /**
- * Base class for ImpressPages CMS application.
+ * Base class for ImpressPages application.
  *
  * @package   ImpressPages
  */
@@ -23,7 +23,7 @@ class Application
     }
 
     /**
-     * Get CMS version
+     * Get framework version
      * @return string
      */
     public static function getVersion()

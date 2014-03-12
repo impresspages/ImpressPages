@@ -5,7 +5,7 @@
 
 namespace Ip;
 /*
- * Core CMS configuration
+ * Core configuration
  *
  */
 

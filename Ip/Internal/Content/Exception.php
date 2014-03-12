@@ -7,7 +7,8 @@
 namespace Ip\Internal\Content;
 
 /**
- * IpCmsException class
+ * Exception class
+ * @todo move to \Ip\Exception folder
  */
 class Exception extends \Exception
 {

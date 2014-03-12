@@ -26,7 +26,7 @@ namespace Ip\Internal\Repository;
  * will be deleted from the repository.
  *
  * WARNING
- * you can use this class only for images stored in repository (uploaded using default ImpressPages CMS
+ * you can use this class only for images stored in repository (uploaded using default ImpressPages
  * functionality). Otherwise automatic removal is not going to work.
  *
  * Usage example:

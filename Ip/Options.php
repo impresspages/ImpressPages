@@ -56,7 +56,7 @@ class Options
     }
 
     /**
-     * Set CMS specific option
+     * Set specific option
      * @param string $key Option key
      * @param $value Option value
      * @throws Exception

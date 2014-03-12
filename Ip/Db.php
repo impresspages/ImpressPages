@@ -410,7 +410,7 @@ class Db
     }
 
     /**
-     * Return CMS table prefix
+     * Return table prefix
      * @return mixed
      */
     public function tablePrefix()

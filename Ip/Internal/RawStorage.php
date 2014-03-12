@@ -26,7 +26,7 @@ abstract class RawStorage
     }
 
     /**
-     * Get a value from CMS storage
+     * Get a value from storage
      *
      * @param string $key       Key name
      * @param null $defaultValue Returned if specified key has no value assigned
@@ -39,7 +39,7 @@ abstract class RawStorage
     }
 
     /**
-     * Set CMS storage value
+     * Set storage value
      *
      * @param string $key       Key name
      * @param $value            Value
