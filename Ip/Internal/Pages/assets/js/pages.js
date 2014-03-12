@@ -39,7 +39,7 @@ var ipPagesResize;
                 if (languageCode == null) {
                     languageCode = languageList[0].code;
                 }
-                if (menuName == null) {
+                if (menuName == null && menuList[0]) {
                     menuName = menuList[0].alias;
                 }
             }
