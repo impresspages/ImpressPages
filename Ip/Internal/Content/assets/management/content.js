@@ -359,6 +359,16 @@ var ipContent;
                     if (callback) {
                         callback(response.instanceId);
                     }
+
+                    var data = {};
+                    if ($newWidget) {
+                        data = {
+                            'instanceId': $newWidget.data('widgetinstanceid'),
+                            'widget': $newWidget
+                        }
+                    }
+
+                    $(document).trigger('ipWidgetSaved', data);
                 },
                 error: function(response) {
                     if (callback) {
