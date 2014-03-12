@@ -10,7 +10,7 @@ namespace Ip\Internal\Update;
 
 
 class Model {
-    
+
     public static function migrationsAvailable()
     {
         $curDbVersion = ipStorage()->get('Ip', 'dbVersion');
