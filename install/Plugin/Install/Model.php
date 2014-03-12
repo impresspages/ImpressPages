@@ -215,8 +215,8 @@ class Model
 
 
         $sql = str_replace("INSERT INTO `ip_", "INSERT INTO `". $tablePrefix, $sql);
-        $sql = str_replace("[[[[version]]]]", TARGET_VERSION, $sql);
-        $sql = str_replace("[[[[dbversion]]]]", TARGET_DBVERSION, $sql);
+        $sql = str_replace("[[[[version]]]]", ipApplication()->getVersion(), $sql);
+        $sql = str_replace("[[[[dbversion]]]]", ipApplication()->getDbVersion(), $sql);
         $sql = str_replace("[[[[time]]]]", date('Y-m-d H:i:s'), $sql);
 
         ipDb()->execute($sql);
