@@ -60,7 +60,7 @@ class InternalRequestTest extends \PhpUnit\GeneralTestCase
         $languages = \Ip\Internal\Languages\Service::getLanguages();
         $this->assertNotEmpty($languages);
         $language = array_shift($languages);
-        $this->assertEquals('en', $language['url']);
+        $this->assertEquals('', $language['url']);
     }
 
     public function testUseMinkToRenderEnVersion()
