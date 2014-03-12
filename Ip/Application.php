@@ -194,8 +194,11 @@ class Application
         }
 
         if (empty($routeAction)) {
-
-            return new \Ip\Response\PageNotFound();
+            $routeAction = array(
+                'plugin' => 'Core',
+                'controller' => 'PublicController',
+                'action' => 'pageNotFound'
+            );
         }
         $plugin = $routeAction['plugin'];
         $controller = $routeAction['controller'];

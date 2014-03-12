@@ -53,4 +53,5 @@ class Job
         $languages = ipContent()->getLanguages();
         return $languages[0];
     }
-} 
+
+}
