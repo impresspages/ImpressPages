@@ -1,4 +1,4 @@
-INSERT INTO `ip_cms_page`
+INSERT INTO `ip_page`
 (`id`,`languageCode`,`urlPath`,`parentId`,`pageOrder`,`title`,`isVisible`,`metaTitle`,`keywords`,`description`,`updatedAt`,             `createdAt`,            `type`,     `alias`) VALUES
 (1,   'en',   NULL,	          0,  0,            'Menu1',          1,	      NULL,     NULL,       NULL,	        NULL,                   '2014-02-07 17:13:11',	'default',	'menu1'),
 (3,   'en',   '',	            0,  1,	          'Home',	          1,	      NULL,     NULL,	      NULL,	        '2014-02-07 00:00:00',	'2014-02-07 17:13:21',	'default',	'menu2'),
@@ -16,11 +16,11 @@ INSERT INTO `ip_cms_page`
 
 
 
-INSERT INTO `ip_cms_pageStorage` (`pageId`, `key`, `value`) VALUES
+INSERT INTO `ip_pageStorage` (`pageId`, `key`, `value`) VALUES
 (64, 'layout', '"home.php"');
 
 
-INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
+INSERT INTO `ip_widgetOrder` (`widgetName`, `priority`) VALUES
 ('Title',   10),
 ('Text',    20),
 ('Divider', 30),
@@ -33,12 +33,12 @@ INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
 
 
 
-INSERT INTO `ip_cms_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
+INSERT INTO `ip_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
 ('EN', 'English', 2, 1, 'en', 'en');
 
 
 
-INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
+INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'version', '"4.0"'),
 ('Ip', 'dbVersion', '2'),
 ('Ip', 'theme', '"Air"'),
@@ -49,5 +49,5 @@ INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'cacheVersion', '1');
 
 
-INSERT INTO `ip_cms_plugin` (`title`, `name`, `version`, `isActive`) VALUES
+INSERT INTO `ip_plugin` (`title`, `name`, `version`, `isActive`) VALUES
 ('Application', 'Application', 1.00, 1);
