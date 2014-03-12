@@ -1,5 +1,5 @@
 {
-    "ImpressPages CMS installation wizard": "ImpressPages CMS installation wizard",
+    "ImpressPages installation wizard": "ImpressPages installation wizard",
     "Version %s": "Version %s",
     "ImpressPages Legal Notices": "ImpressPages Legal Notices",
     "Back": "Back",
@@ -9,7 +9,7 @@
     "We use cookies. They help us to improve ImpressPages!": "We use cookies. They help us to improve ImpressPages!",
     "Next": "Next",
     "Finished!": "Finished!",
-    "ImpressPages CMS has been successfully installed.": "ImpressPages CMS has been successfully installed.",
+    "ImpressPages has been successfully installed.": "ImpressPages has been successfully installed.",
     "Front page": "Front page",
     "Administration page": "Administration page",
     "If you wish to repeat the installation, please clear the configuration file \"config.php\".": "If you wish to repeat the installation, please clear the configuration file \"config.php\".",
