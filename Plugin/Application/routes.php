@@ -2,9 +2,9 @@
 
 $routes['day{/day}'] = 'day';
 
-$routes['hello{/name}'] = function ($name = 'World') {
+$routes['hello/{name}'] = function ($name) {
     $name = ucfirst($name);
-    return "<h1>Hello $name!</h1>";
+    return '<h1>Hello ' . esc(ucfirst($name)) . '!</h1>';
 };
 
 $routes['counter{/number}'] = array(
