@@ -20,6 +20,6 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $page = \Ip\Internal\Pages\Service::getPage($firstPageId);
         $this->assertEquals('en', $page['languageCode']);
 
-        $this->assertEquals('http://localhost/en/first-page', ipPage($firstPageId)->getLink());
+        $this->assertEquals('http://localhost/first-page', ipPage($firstPageId)->getLink());
     }
 }
