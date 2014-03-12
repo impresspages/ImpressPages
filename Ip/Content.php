@@ -170,8 +170,8 @@ class Content
         $revision = null;
         $pageId = $this->currentPage->getId();
 
-        if (ipRequest()->getQuery('cms_revision') && ipAdminId()) {
-            $revisionId = ipRequest()->getQuery('cms_revision');
+        if (ipRequest()->getQuery('_revision') && ipAdminId()) {
+            $revisionId = ipRequest()->getQuery('_revision');
             $revision = \Ip\Internal\Revision::getRevision($revisionId);
             if ($revision['pageId'] != $pageId) {
                 $revision = null;
