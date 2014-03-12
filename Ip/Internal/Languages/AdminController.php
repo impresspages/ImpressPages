@@ -84,7 +84,7 @@ class AdminController extends \Ip\GridController
                     'showInList' => false,
                     'validators' => array(
                         array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', FALSE)),
-                        array('Unique', array('table' => 'language'), __('Language url should be unique', 'ipAdmin', false)),
+                        array('Unique', array('table' => 'language', 'allowEmpty' => true), __('Language url should be unique', 'ipAdmin', false)),
                     )
                 ),
                 array(
