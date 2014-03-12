@@ -1,14 +1,11 @@
 <?php
-/**
- * @package ImpressPages
- *
- */
 
-namespace Ip\Form\Validator;
+namespace Ip\Internal\Languages;
 
+use Ip\Form\Validator;
 
-class NotInArray extends \Ip\Form\Validator {
-
+class LanguageUrlValidator extends Validator
+{
     public function __construct($data, $errorMessage = null)
     {
         if (!is_array($data)) {
