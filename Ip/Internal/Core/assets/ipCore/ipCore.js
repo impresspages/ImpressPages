@@ -30,6 +30,14 @@ $(document).ready(function() {
 
     ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
 
+    if (ip.isAdminState) {
+        $(document.body).addClass('ipAdminState');
+    }
+
+    if (ip.isManagementState) {
+        $(document.body).addClass('ipManagementState');
+    }
+
 });
 
 var ipGoogleMapsLoaded = function () {
