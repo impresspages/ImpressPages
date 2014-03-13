@@ -29,7 +29,6 @@ var ipPagesResize;
         $scope.menuList = menuList;
         $scope.initialized = false;
         $scope.allowActions = !getQuery('disableActions');
-        console.log(menuList);
 
         $scope.$on('PathChanged', function (event, path) {
             var menuName = getHashParams().menu;
