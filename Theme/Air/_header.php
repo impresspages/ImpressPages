@@ -14,9 +14,11 @@
             <a href="#" class="topmenuToggle">&nbsp;</a>
             <div class="topmenu">
                 <?php echo ipSlot('menu', 'menu1'); ?>
-                <div class="languages">
-                    <?php echo ipSlot('languages'); ?>
-                </div>
+                <?php if (count(ipContent()->getLanguages()) > 1) { ?>
+                    <div class="languages">
+                        <?php echo ipSlot('languages'); ?>
+                    </div>
+                <?php } ?>
             </div>
 
             <a href="#" class="searchToggle">&nbsp;</a>
