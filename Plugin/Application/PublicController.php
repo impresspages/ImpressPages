@@ -7,7 +7,7 @@ namespace Plugin\Application;
 class PublicController extends \Ip\Controller
 {
     /**
-     * localhost/day to see the result
+     * Go to /day to see the result
      * @return \Ip\View
      */
     public function day($day = null)

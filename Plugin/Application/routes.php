@@ -1,6 +1,6 @@
 <?php
 
-$routes['day{/day}'] = 'day';
+$routes['day{/day}'] = 'day'; // PublicController::day($day) will handle that
 
 $routes['hello/{name}'] = function ($name) {
     $name = ucfirst($name);
