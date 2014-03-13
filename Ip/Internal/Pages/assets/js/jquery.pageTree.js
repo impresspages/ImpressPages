@@ -93,56 +93,54 @@
         var plugins = [ 'themes', 'json_data', 'types'];
         plugins.push('ui');
         plugins.push('crrm');
-        plugins.push('dnd');
         //plugins.push('contextmenu');
 
-        $this.jstree({
+//        $this.jstree({ 'core' : {
+//            'data' : [
+//                'Simple root node',
+//                {
+//                    'text' : 'Root node 2',
+//                    'state' : {
+//                        'opened' : true,
+//                        'selected' : true
+//                    },
+//                    'children' : [
+//                        { 'text' : 'Child 1' },
+//                        'Child 2'
+//                    ]
+//                }
+//            ]
+//        } });
 
-            'plugins': plugins,
-            'json_data': {data: data},
-            'types': {
-                // -2 do not need depth and children count checking
-                'max_depth': -2,
-                'max_children': -2,
-                'types': {
-                    // The default type
-                    'page': {
-                        'valid_children': [ 'page' ],
-                        'icon': {
-                            'image': ipFileUrl('Ip/Internal/Pages/assets/img/file.png')
-                        }
-                    }
-                }
-            },
-            "themes" : {
-                "theme" : "impresspages",
-                "dots" : false,
-                "icons" : false
-            },
+        $this.jstree({ 'core' : {
+            'data' : data
+        } });
 
-//            'ui': {
-//                'select_limit': 1,
-//                'select_multiple_modifier': 'alt',
-//                'selected_parent_close': 'select_parent',
-//                'select_prev_on_delete': true
+
+//        $this.jstree({
+//
+//            'plugins': plugins,
+//            'json_data': {data: data},
+//            'types': {
+//                // -2 do not need depth and children count checking
+//                'max_depth': -2,
+//                'max_children': -2,
+//                'types': {
+//                    // The default type
+//                    'page': {
+//                        'valid_children': [ 'page' ],
+//                        'icon': {
+//                            'image': ipFileUrl('Ip/Internal/Pages/assets/img/file.png')
+//                        }
+//                    }
+//                }
+//            },
+//            "themes" : {
+//                "theme" : "impresspages",
+//                "dots" : false,
+//                "icons" : false
 //            }
-//            'cookies': {
-//                'save_opened': 'PagesOpen',
-//                'save_selected': 'PagesSelected'
-//            }
-            'dnd': {
-                'open_timeout': 1
-            }
-
-// TODO reimplement
-//            'contextmenu': {
-//                'show_at_node': false,
-//                'select_node': true,
-//                'items': jsTreeCustomMenu
-//            }
-
-
-        });
+//        });
 
 
 

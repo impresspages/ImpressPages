@@ -19,11 +19,15 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pages.js');
         ipAddJs('Ip/Internal/Pages/assets/js/menuList.js');
+        ipAddJs('Ip/Internal/Pages/assets/jstree/jstree.min.js');
+        ipAddCss('Ip/Internal/Pages/assets/jstree/default/style.min.css');
+
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageTree.js');
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageProperties.js');
-        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.jstree.js');
-        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.cookie.js');
-        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
+//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.jstree.js');
+//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.cookie.js');
+//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
+
 
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
