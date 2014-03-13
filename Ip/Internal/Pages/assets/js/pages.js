@@ -76,7 +76,11 @@ var ipPagesDropPagePosition;
 
 
         $scope.setMenuHash = function (menu) {
+            console.log('set menu');
+            hashIsBeingApplied = true;
             updateHash(null, menu.alias, false);
+            hashIsBeingApplied = false;
+            console.log('set menu end');
         }
 
         $scope.setLanguageHash = function (language) {
@@ -263,6 +267,7 @@ var ipPagesDropPagePosition;
         }
 
         var showPages = function () {
+            hashIsBeingApplied = true;
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
                 $('.ipsPages').addClass('hidden');
@@ -311,6 +316,7 @@ var ipPagesDropPagePosition;
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
             }
+            hashIsBeingApplied = false;
         }
 
         var getTreeDiv = function () {
@@ -325,7 +331,7 @@ var ipPagesDropPagePosition;
 
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                 getTreeDiv().ipGrid('refresh');
-            } else {
+            } else {console.log('destroy');
                 getTreeDiv().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
