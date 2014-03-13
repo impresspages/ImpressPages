@@ -58,7 +58,6 @@
 
 
         $(window).off('hashchange.grid' + uniqueId).on('hashchange.grid' + uniqueId, function () {
-            console.log('change');
             $.proxy(init, $this)();
         });
     }

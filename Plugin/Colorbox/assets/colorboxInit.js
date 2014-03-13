@@ -1,7 +1,6 @@
 $(document).ready(function () {
     "use strict";
 
-    console.log(ip);
     if (ip.isManagementState) {
         return;
     }

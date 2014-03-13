@@ -119,13 +119,11 @@
                     options.enableChangeHeight = false;
                 }
 
-                console.log($this.data('options'));
                 //loop and assign all inline options assigned by theme author
                 $.each($this.data('options'), function(name, value) {
                     options[name] = value;
                 });
 
-                console.log('6');
                 var $imageUploader = $popup.find('.ipsImage');
                 $imageUploader.ipUploadImage(options);
                 $imageUploader.bind('change.ipUploadImage', $.proxy(methods._preview, $this));
