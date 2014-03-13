@@ -46,7 +46,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="ipsPages"></div>
+                <div class="_tree ipsPages"></div>
             </div>
         </div>
     </div>

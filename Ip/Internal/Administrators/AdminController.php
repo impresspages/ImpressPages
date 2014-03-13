@@ -46,6 +46,7 @@ class AdminController extends \Ip\Controller
         $post = ipRequest()->getPost();
 
         $form = Helper::createForm();
+        $form->removeSpamCheck();
 
         $errors = $form->validate($post);
 
@@ -107,6 +108,7 @@ class AdminController extends \Ip\Controller
 
 
         $form = Helper::updateForm();
+        $form->removeSpamCheck();
         $errors = $form->validate($post);
 
         $userId = $post['id'];

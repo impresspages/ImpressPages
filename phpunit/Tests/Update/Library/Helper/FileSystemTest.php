@@ -5,6 +5,8 @@
  *
  */
 
+namespace Tests\Update\Internal\Helper;
+
 class FileSystemTest extends \PhpUnit\GeneralTestCase
 {
 
