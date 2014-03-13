@@ -33,6 +33,7 @@ class UpdateModel
         $fs->rm($backupDir);
         $fs->createWritableDir($backupDir);
         $fs->cpContent(ipFile('Ip'), $backupDir);
+        $fs->makeWritable(ipFile('Ip'));
         $fs->clean(ipFile('Ip'));
         $fs->cpContent(ipFile('file/tmp/update/extracted/Ip'), ipFile('Ip'));
 
