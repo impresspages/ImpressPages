@@ -37,7 +37,7 @@
 
                         if (messages[i]['code'] == 'update') {
                             var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
-                            var $updateLink = $('<a class="btn btn-primary actStartUpdate" href="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</a>');
+                            var $updateLink = $('<a class="btn btn-primary ipsStartUpdate" href="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</a>');
                             $container.append($downloadLink);
                             $container.append(' ');
                             $container.append($updateLink);
