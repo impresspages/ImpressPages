@@ -651,6 +651,6 @@ var ipPagesDropPagePosition;
 
     $(window).bind('resize.ipPages', ipPagesResize);
 
-})(jQuery);
+})(ip.jQuery);
 
 
