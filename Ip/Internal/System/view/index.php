@@ -27,4 +27,17 @@
         <h2><?php _e('System status', 'ipAdmin'); ?></h2>
     </div>
 
+    <div id="ipWidgetUpdatePopup" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"><?php _e('Update progress', 'ipAdmin'); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient', 'ipAdmin') ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
