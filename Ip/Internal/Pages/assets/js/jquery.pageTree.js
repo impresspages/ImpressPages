@@ -30,9 +30,10 @@
 
         refresh : function() {
             return this.each(function() {
+                console.log('refresh');
                 var $this = $(this);
                 var data = $this.data('ipPageTree');
-                $this.ipPageTree('destroy');
+                $this.ipPageTree('refresh');
 
                 $this.ipPageTree({
                     menuName: data.menuName,
@@ -125,7 +126,7 @@
                     } else {
                         ipPagesDropPageId = null;
                     }
-                    ipPagesDropPagePsition = node_position;
+                    ipPagesDropPagePosition = node_position;
                 }
             },
             'plugins' : [
@@ -177,6 +178,6 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 
