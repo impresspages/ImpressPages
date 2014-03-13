@@ -84,7 +84,6 @@
                     $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
                     $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
                     //ipAddAdminNavBarButton('Page preview', '#', 'test', 'fa-trash');
-                    $this.on('error.ipContentManagement', function (event, error){$(this).ipContentManagement('addError', error);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
                     $this.trigger('ipInitContentManagement', options);
@@ -102,14 +101,6 @@
             if (options.manageableRevision) {
                 blocks.ipBlock(options);
             }
-        },
-
-        addError : function (errorMessage) {
-            var $newError = $('.ipAdminErrorSample .ipAdminError').clone();
-            $newError.text(errorMessage);
-            $('.ipAdminErrorContainer').append($newError);
-            $newError.animate( {opacity: "100%"}, 6000)
-            .animate( { queue: true, opacity: "0%" }, { duration: 3000, complete: function(){$(this).remove();}});
         },
 
 
