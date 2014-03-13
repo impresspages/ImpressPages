@@ -100,11 +100,11 @@ class Actions
         $sortField = $this->config->sortField();
         if ($sortField) {
             if ($this->config->createPosition() == 'top') {
-                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField . ' DESC');
-                $dbData[$sortField] = $orderValue + 1;
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), "MIN(`$sortField`)", array());
+                $dbData[$sortField] = is_numeric($orderValue) ? $orderValue - 1 : 1; // 1 if null
             } else {
-                $orderValue = ipDb()->selectValue($this->config->rawTableName(), $sortField, array(), ' ORDER BY ' . $sortField .  ' ASC');
-                $dbData[$sortField] = $orderValue - 1;
+                $orderValue = ipDb()->selectValue($this->config->rawTableName(), "MAX(`$sortField`)", array());
+                $dbData[$sortField] = is_numeric($orderValue) ? $orderValue + 1 : 1; // 1 if null
             }
         }
 
@@ -132,9 +132,9 @@ class Actions
         FROM
             " . $this->config->tableName() . "
         WHERE
-            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' > ' : ' < ') . "  :rowNumber
+            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' < ' : ' > ') . "  :rowNumber
         ORDER BY
-            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' ASC ' : ' DESC ') . "
+            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' DESC ' : ' ASC ') . "
         ";
 
         $params = array(
