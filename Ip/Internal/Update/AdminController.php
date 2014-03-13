@@ -15,6 +15,7 @@ class AdminController extends \Ip\Controller{
 
         try {
             $updateModel->prepareForUpdate();
+            Model::runMigrations();
         } catch (UpdateException $e) {
             $data = array(
                 'status' => 'error',
@@ -25,8 +26,7 @@ class AdminController extends \Ip\Controller{
 
 
         $data = array(
-            'status' => 'success',
-            'redirectUrl' => ipActionUrl(array('pa' => 'Update'))
+            'status' => 'success'
         );
         return new \Ip\Response\Json($data);
     }

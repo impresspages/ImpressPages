@@ -37,7 +37,7 @@
 
                         if (messages[i]['code'] == 'update') {
                             var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
-                            var $updateLink = $('<span class="btn btn-primary ipsStartUpdate" data-downloadUrl="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</span>');
+                            var $updateLink = $('<span class="btn btn-primary ipsStartUpdate" data-downloadurl="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</span>');
                             $container.append($downloadLink);
                             $container.append(' ');
                             $container.append($updateLink);
@@ -56,7 +56,7 @@
             var postData = {};
             postData.aa = 'Update.startUpdate';
             postData.securityToken = ip.securityToken;
-            postData.downloadUrl = $link.data('downloadUrl');
+            postData.downloadUrl = $link.data('downloadurl');
             postData.md5 = $link.data('md5');
 
             $.ajax({
