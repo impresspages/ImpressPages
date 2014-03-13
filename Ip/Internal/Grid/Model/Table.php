@@ -154,10 +154,10 @@ class Table extends \Ip\Internal\Grid\Model
 
     protected function update($data, $statusVariables)
     {
-        if (empty($data['recordId'])) {
+        if (empty($data[$this->config->idField()])) {
             throw new \Ip\Exception('Missing parameters');
         }
-        $recordId = $data['recordId'];
+        $recordId = $data[$this->config->idField()];
         $display = new Display($this->config);
         $updateForm = $display->updateForm($recordId);
 

@@ -13,7 +13,7 @@ namespace Ip;
 class Storage {
 
     /**
-     * Get a value from CMS storage
+     * Get a value from storage
      *
      * @param string $pluginName Plugin name
      * @param string $key Option name
@@ -49,7 +49,7 @@ class Storage {
 
 
     /**
-     * Set CMS storage value
+     * Set storage value
      *
      * @param string $pluginName Plugin name
      * @param string $key Option key

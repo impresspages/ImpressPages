@@ -29,6 +29,8 @@
         $(document).on('ipWidgetAdded', replacePublishedToPublish);
         $(document).on('ipWidgetDeleted', replacePublishedToPublish);
         $(document).on('ipWidgetMoved', replacePublishedToPublish);
+        $(document).on('ipWidgetSaved', replacePublishedToPublish);
+
 
     });
 })(ip.jQuery);

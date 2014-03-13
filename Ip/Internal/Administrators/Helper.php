@@ -41,14 +41,6 @@ class Helper
         $field->addValidator("Required");
         $form->addField($field);
 
-
-        $field = new \Ip\Form\Field\Submit(
-            array(
-                'value' => __('', 'ipAdmin', false)
-            ));
-        $form->addField($field);
-
-
         return $form;
     }
 
@@ -82,13 +74,6 @@ class Helper
                 'name' => 'password', // HTML "name" attribute
                 'label' => __('New password (optional)', 'ipAdmin', false), // Field label that will be displayed next to input field
                 'value' => ''
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Submit(
-            array(
-                'value' => __('', 'ipAdmin', false)
             ));
         $form->addField($field);
 

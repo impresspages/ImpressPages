@@ -76,30 +76,7 @@ class Slot {
         return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
     }
 
-    public static function string_80($params)
-    {
-        $tag = 'p';
-        $defaultValue = '';
-        $cssClass = '';
-        if (empty($params['id'])) {
-            throw new \Ip\Exception("Ip.string slot requires parameter 'id'");
-        }
-        $key = $params['id'];
 
-        if (isset($params['tag'])) {
-            $tag = $params['tag'];
-        }
-
-        if (isset($params['default'])) {
-            $defaultValue = $params['default'];
-        }
-
-        if (isset($params['class'])) {
-            $cssClass = $params['class'];
-        }
-        $inlineManagementService = new \Ip\Internal\InlineManagement\Service();
-        return $inlineManagementService->generateManagedString($key, $tag, $defaultValue, $cssClass);
-    }
 
     public static function image_80($params)
     {

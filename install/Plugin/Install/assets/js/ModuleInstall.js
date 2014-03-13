@@ -1,6 +1,8 @@
 var ModuleInstall = new function () {
     "use strict";
 
+    var replaceTables = 0;
+    var context = this;
 
     this.step3Click = function () {
         $('#content').hide();
@@ -14,6 +16,10 @@ var ModuleInstall = new function () {
             'database': $('#db_db').val(),
             'tablePrefix': $('#db_prefix').val()
         };
+
+        if (replaceTables) {
+            db.replaceTables = 1;
+        }
 
         var postData = {
             'pa': 'Install.createDatabase',
@@ -31,9 +37,15 @@ var ModuleInstall = new function () {
                 $('#loading').hide();
                 $('#content').show();
 
+                var proceedUrl = 'index.php?step=4';
 
                 if (response && response.result) {
-                    document.location = 'index.php?step=4';
+                    document.location = proceedUrl;
+                } else if (response && response.error && response.error.code && response.error.code == 'table_exist' && response.error.message) {
+                    if (confirm(response.error.message)) {
+                        replaceTables = 1;
+                        context.step3Click();
+                    }
                 } else if (response && response.error && response.error.message) {
                     $('.errorContainer').html('<p class="alert alert-danger">' + response.error.message + '</p>');
                 } else {

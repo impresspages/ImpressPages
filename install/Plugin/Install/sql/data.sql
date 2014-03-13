@@ -1,26 +1,50 @@
-INSERT INTO `ip_cms_page`
-(`id`,`languageCode`,`urlPath`,`parentId`,`pageOrder`,`title`,`isVisible`,`metaTitle`,`keywords`,`description`,`updatedAt`,             `createdAt`,            `type`,     `alias`) VALUES
-(1,   'en',   NULL,	          0,  0,            'Menu1',          1,	      NULL,     NULL,       NULL,	        NULL,                   '2014-02-07 17:13:11',	'default',	'menu1'),
-(3,   'en',   '',	            0,  1,	          'Home',	          1,	      NULL,     NULL,	      NULL,	        '2014-02-07 00:00:00',	'2014-02-07 17:13:21',	'default',	'menu2'),
-(4,   'en',   NULL,	          0,	2,	          'Menu3',	        1,	      NULL,	    NULL,	      NULL,	        NULL,                   '2014-02-07 17:13:25',	'default',	'menu3'),
-(64,  'en',	  'home',	        1,	1,	          'Home',	          1,	      NULL,	    NULL,       NULL,	        '2014-01-27 00:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(65,  'en',	  'lorem-ipsumy', 1,	2,	          'Lorem ipsum',	  1,	      NULL,     NULL,       NULL,	        '2012-01-21 00:00:00',	'2014-02-12 12:02:00',	'default',	NULL),
-(66,  'en',	  'page1',	      3,	1,	          'Page1',	        1,	      NULL,	    NULL,       NULL,	        '2014-02-07 00:00:00',	'2014-02-07 16:34:55',	'default',	NULL),
-(67,  'en',	  'page2',	      3,	2,	          'Page2',	        1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(68,  'en',	  'page3',	      3,	3,	          'Page3',	        1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(69,  'en',	  'page4',	      3,	4,            'Page4',	        1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(70,  'en',	  'page5',	      3,	5,            'Page5',	        1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2014-02-12 12:02:18',	'default',	NULL),
-(72,  'en',	  'examplepage',  4,	1,	          'Example page',	  1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(73,  'en',	  'examplepage2', 4,	2,	          'Example page2',  1,	      NULL,	    NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL),
-(71,  'en',	  'page2/subpage',67,	1,	    'Subpage',	      1,	            NULL,     NULL,	      NULL,	        '2012-01-21 22:00:00',	'2009-08-08 22:00:00',	'default',	NULL);
+
+INSERT INTO `ip_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
+('EN', 'English', 2, 1, '', 'en');
+
+INSERT INTO `ip_page`
+(`id`, `languageCode`, `urlPath`,       `parentId`, `pageOrder`,  `title`,          `isVisible`, `updatedAt`,      `createdAt`,            `type`,     `alias`) VALUES
+(1,    'en',           NULL,            0,          0,            'Menu1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu1'),
+(2,    'en',           NULL,            0,          1,            'Menu2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu2'),
+(3,    'en',           NULL,            0,          2,            'Menu3',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu3'),
+(4,    'en',           'home',          1,          0,            'Home',           1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(5,    'en',           'lorem-ipsumy',  1,          1,            'Lorem ipsum',    1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(6,    'en',           'page1',         2,          0,            'Page1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(7,    'en',           'page2',         2,          1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(8,    'en',           'example1',      3,          0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(9,    'en',           'example2',      3,          1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
+
+INSERT INTO `ip_pageStorage` (`pageId`, `key`, `value`) VALUES
+(4, 'layout', '"home.php"');
+
+INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES
+(1, 4, 0, '[[[[time]]]]'),
+(2, 4, 1, '[[[[time]]]]'),
+(3, 5, 0, '[[[[time]]]]'),
+(4, 5, 1, '[[[[time]]]]'),
+(5, 5, 0, '[[[[time]]]]'),
+(6, 4, 0, '[[[[time]]]]');
 
 
+INSERT INTO `ip_widget` (`id`, `name`, `skin`, `data`, `createdAt`, `updatedAt`) VALUES
+(1, 'Title', 'default', '{"title":"Home page","level":"1"}', '[[[[time]]]]', '[[[[time]]]]'),
+(2, 'Text', 'default', '{"text":"<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, tellus posuere sodales rhoncus, nulla nulla dignissim leo, ac consectetur elit mauris quis leo. Phasellus odio orci, ultricies sit amet tristique ac, varius at nisi. Vivamus eros massa, aliquet at sem ut, placerat interdum elit. Vivamus nisi augue, auctor eget malesuada vel, pulvinar eget orci. Quisque sit amet posuere augue. Aenean sodales augue non aliquam molestie. Nunc feugiat aliquam orci a aliquet. Aenean fermentum enim a luctus posuere. Mauris elementum facilisis urna, a adipiscing tortor congue vel. Nullam facilisis ultrices quam. Donec nunc orci, ullamcorper hendrerit nunc a, fringilla rhoncus est. Suspendisse laoreet posuere sapien.<\\/span>\\u00a0<\\/p>"}', '[[[[time]]]]', '[[[[time]]]]'),
+(3, 'Title', 'default', '{"title":"Page content","level":"1"}', '[[[[time]]]]', '[[[[time]]]]'),
+(4, 'Text', 'default', '{"text":"<p><span>Aliquam erat volutpat. Donec rutrum venenatis dignissim. Duis eu neque in neque venenatis tincidunt sit amet sed velit. Pellentesque quis luctus orci. Phasellus sed aliquam risus, eu varius sapien. Etiam ac adipiscing enim, eu molestie erat. Donec sodales pulvinar lorem, ut sagittis purus suscipit nec. In id velit nec nisi porta egestas. Maecenas rutrum felis vel nunc varius, vel ornare lectus dignissim. Maecenas vitae ante dui. Maecenas sollicitudin dolor at enim porttitor, eu placerat nulla adipiscing. Morbi sed varius nisi, sed posuere risus. Ut velit urna, dignissim ac lobortis id, sollicitudin non libero. Donec arcu massa, facilisis ut sapien et, aliquet porta dui.<\\/span>\\u00a0<\\/p>"}', '[[[[time]]]]', '[[[[time]]]]');
 
-INSERT INTO `ip_cms_pageStorage` (`pageId`, `key`, `value`) VALUES
-(64, 'layout', '"home.php"');
+
+INSERT INTO `ip_widgetInstance` (`id`, `widgetId`, `revisionId`, `languageId`, `blockName`, `position`, `isVisible`, `isDeleted`, `createdAt`, `deletedAt`) VALUES
+(1, 1, 2, 0, 'main', 0, 1, 0, '[[[[time]]]]', NULL),
+(2, 2, 2, 0, 'main', 1, 1, 0, '[[[[time]]]]', NULL),
+(3, 3, 4, 0, 'main', 0, 1, 0, '[[[[time]]]]', NULL),
+(4, 4, 4, 0, 'main', 1, 1, 0, '[[[[time]]]]', NULL),
+(5, 3, 5, 0, 'main', 0, 1, 0, '[[[[time]]]]', NULL),
+(6, 4, 5, 0, 'main', 1, 1, 0, '[[[[time]]]]', NULL),
+(7, 1, 6, 0, 'main', 0, 1, 0, '[[[[time]]]]', NULL),
+(8, 2, 6, 0, 'main', 1, 1, 0, '[[[[time]]]]', NULL);
 
 
-INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
+INSERT INTO `ip_widgetOrder` (`widgetName`, `priority`) VALUES
 ('Title',   10),
 ('Text',    20),
 ('Divider', 30),
@@ -33,14 +57,10 @@ INSERT INTO `ip_cms_widgetOrder` (`widgetName`, `priority`) VALUES
 
 
 
-INSERT INTO `ip_cms_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`, `url`, `code`) VALUES
-('EN', 'English', 2, 1, 'en', 'en');
 
-
-
-INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
-('Ip', 'version', '"4.0"'),
-('Ip', 'dbVersion', '1'),
+INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
+('Ip', 'version', '"[[[[version]]]]"'),
+('Ip', 'dbVersion', '[[[[dbversion]]]]'),
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
@@ -49,5 +69,5 @@ INSERT INTO `ip_cms_storage` (`plugin`, `key`, `value`) VALUES
 ('Ip', 'cacheVersion', '1');
 
 
-INSERT INTO `ip_cms_plugin` (`title`, `name`, `version`, `isActive`) VALUES
+INSERT INTO `ip_plugin` (`title`, `name`, `version`, `isActive`) VALUES
 ('Application', 'Application', 1.00, 1);

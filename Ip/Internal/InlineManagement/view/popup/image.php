@@ -3,7 +3,7 @@
         <div class="ipsImage"></div>
         <div class="_controls form-inline ipsControls clearfix">
             <div class="form-group pull-left">
-                <label><?php _e('Image assignment type', 'ipAdmin'); // todox: simplify description ?></label>
+                <label><?php _e('Apply to', 'ipAdmin'); ?></label>
                 <select class="form-control ipsType">
                     <?php foreach ($types as $key => $type){ ?>
                         <option value="<?php echo esc($type['value']); ?>" <?php echo !empty($type['selected']) ? 'selected="selected"' : ''; ?>><?php echo esc($type['title']); ?></option>

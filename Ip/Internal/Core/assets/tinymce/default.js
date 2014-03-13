@@ -24,7 +24,6 @@ ipTinyMceConfig = function() {
         file_browser_callback: function(field_name, url, type, win) {
             var $input = $('#' + field_name);
             var $dialog = $input.closest('.mce-window');
-            console.log('open dialog');
             $('#mce-modal-block').addClass('hidden');
             $dialog.addClass('hidden');
 

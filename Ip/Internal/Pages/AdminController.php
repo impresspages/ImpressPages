@@ -29,7 +29,7 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 
         ipAddJsVariable('languageList', Helper::languageList());
-        ipAddJsVariable('menuList', Model::getMenuList(ipContent()->getCurrentLanguage()->getCode()));
+        ipAddJsVariable('menuList', Model::getMenuList());
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),

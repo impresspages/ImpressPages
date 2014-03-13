@@ -52,7 +52,7 @@ class Request
     }
 
     /**
-     * Set CMS post variables
+     * Set post variables
      * @param $post
      */
     public function setPost($post)
@@ -62,7 +62,7 @@ class Request
     }
 
     /**
-     * Set CMS server data
+     * Set server data
      * @param $server
      */
     public function setServer($server)
@@ -71,7 +71,7 @@ class Request
     }
 
     /**
-     * Set CMS GET query
+     * Set GET query
      * @param $query
      */
     public function setQuery($query)
@@ -81,7 +81,7 @@ class Request
     }
 
     /**
-     * Set CMS request data
+     * Set request data
      * @param $request
      */
     public function setRequest($request)

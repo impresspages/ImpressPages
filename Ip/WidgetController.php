@@ -75,7 +75,7 @@ class WidgetController
     }
 
     /**
-     * Check if the widget is native ImpressPages CMS widget
+     * Check if the widget is native ImpressPages widget
      *
      * @return bool Returns false, if a widget is provided by installable plugin.
      */

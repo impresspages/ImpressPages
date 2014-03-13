@@ -100,8 +100,8 @@ class Language{
      * @return string
      *
      */
-    public function getUrl(){
-        return $this->url;
+    public function getUrlPath(){
+        return $this->url == '' ? '' : $this->url . '/';
     }
 
     /**
@@ -149,7 +149,7 @@ class Language{
         }
 
         if (ipGetOption('Config.multilingual')) {
-            $link .= urlencode(\Ip\ServiceLocator::content()->getLanguage($this->getId())->getUrl()).'/';
+            $link .= \Ip\ServiceLocator::content()->getLanguage($this->getId())->getUrlPath();
         }
 
         return $link;

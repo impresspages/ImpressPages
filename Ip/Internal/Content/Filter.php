@@ -178,7 +178,7 @@ class Filter
             $managementUrls = array();
             $currentPageLink = ipContent()->getCurrentPage()->getLink();
             foreach ($revisions as $value) {
-                $managementUrls[] = $currentPageLink . '?cms_revision=' . $value['revisionId'];
+                $managementUrls[] = $currentPageLink . '?_revision=' . $value['revisionId'];
             }
 
             $data = array(

@@ -116,7 +116,6 @@
                 $.each(files, function(i, file) {
                     $this.trigger('fileAdded.ipUploadFile', file);
                     $this.ipUploadFile('_fileAdded', up, file)
-                    //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
                 });
                 up.refresh(); // Reposition Flash/Silverlight
                 up.start();
@@ -152,7 +151,6 @@
             $newFileProgressbar.find('.ipUploadTitle').text(file.name);
             $newFileProgressbar.find('.ipUploadProgressbar').progressbar({value : file.percent});
             $this.find('.ipUploadProgressContainer').append($newFileProgressbar);
-            //console.log('File added ' + file.id + ' ' + file.name + ' (' + plupload.formatSize(file.size) + ')');
         },
 
         _uploadedNewFile : function (up, file, response) {

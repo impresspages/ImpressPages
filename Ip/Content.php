@@ -9,8 +9,8 @@ namespace Ip;
 
 
 /**
- * Language, page, block and other CMS content
- * Can be treated as a gateway to CMS content.
+ * Language, page, block and other content
+ * Can be treated as a gateway to framework content.
  *
  */
 class Content
@@ -101,6 +101,22 @@ class Content
     }
 
     /**
+     * Get specific language object
+     * @param string $code Language code
+     * @return null|Language
+     */
+
+    public function getLanguageByCode($code)
+    {
+        foreach ($this->getLanguages() as $language) {
+            if ($language->getCode() === $code) {
+                return $language;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Get all website languages
      *
      * @return \Ip\Language[] All website languages. Each element is a Language object.
@@ -170,8 +186,8 @@ class Content
         $revision = null;
         $pageId = $this->currentPage->getId();
 
-        if (ipRequest()->getQuery('cms_revision') && ipAdminId()) {
-            $revisionId = ipRequest()->getQuery('cms_revision');
+        if (ipRequest()->getQuery('_revision') && ipAdminId()) {
+            $revisionId = ipRequest()->getQuery('_revision');
             $revision = \Ip\Internal\Revision::getRevision($revisionId);
             if ($revision['pageId'] != $pageId) {
                 $revision = null;

@@ -81,10 +81,10 @@ class Service
         }
 
         if (isset($widgetOptions['gallery']['width'])) {
-            ipSetOption('Content.widgetGalleryWidth', $widgetOptions['imageGallery']['width']);
+            ipSetOption('Content.widgetGalleryWidth', $widgetOptions['gallery']['width']);
         }
         if (isset($widgetOptions['gallery']['height'])) {
-            ipSetOption('Content.widgetGalleryHeight', $widgetOptions['imageGallery']['height']);
+            ipSetOption('Content.widgetGalleryHeight', $widgetOptions['gallery']['height']);
         }
 
     }

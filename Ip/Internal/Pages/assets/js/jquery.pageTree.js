@@ -20,8 +20,6 @@
                         menuName: options.menuName,
                         languageId: options.languageId
                     });
-console.log('pagetree init');
-                    console.log(options);
                     $.proxy(refresh, $this)(options.menuName, options.languageId);
                 } else {
                     $this.jstree('deselect_all');
