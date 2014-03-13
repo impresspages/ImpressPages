@@ -5,6 +5,8 @@
  *
  */
 
+namespace Tests\Update\Internal;
+
 class CheckVersionTest extends \PhpUnit\GeneralTestCase
 {
     /**

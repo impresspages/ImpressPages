@@ -4,6 +4,7 @@
  *
  *
  */
+namespace Tests\Update\Internal\Helper;
 
 class NetTest extends \PhpUnit\GeneralTestCase
 {

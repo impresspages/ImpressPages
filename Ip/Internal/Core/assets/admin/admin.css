@@ -8278,6 +8278,9 @@
 .ip .ipAdminPages ._pages ._actions {
   white-space: nowrap;
 }
+.ip .ipAdminPages ._pages ._tree {
+  margin: 0 -20px;
+}
 .ip .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
