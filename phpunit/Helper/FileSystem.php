@@ -22,7 +22,7 @@ class FileSystem
 
         if (is_dir( $source ) ) {
 
-            // TODOX comment out optimization
+            // TODO comment out optimization
             `cp -r $source/. $destination`;
             return;
 
@@ -72,7 +72,7 @@ class FileSystem
             return false;
         }
 
-        // TODOX comment out optimization
+        // TODO comment out optimization
         system(sprintf("chmod -R %o %s", $permissions, $dir));
         return;
 
@@ -116,7 +116,7 @@ class FileSystem
         }
 
         if ($depth > 1) {
-            // TODOX comment out optimization
+            // TODO comment out optimization
             `rm -rf $dir`;
             return;
         }
