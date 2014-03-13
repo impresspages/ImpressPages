@@ -14,7 +14,9 @@
         </nav>
     </div>
     <div class="main col_12 col_md_12 col_lg_8 right">
-        <?php echo ipSlot('breadcrumb'); ?>
+        <div class="breadcrumb">
+            <?php echo ipSlot('breadcrumb'); ?>
+        </div>
         <?php echo ipBlock('main')->render(); ?>
     </div>
     <div class="side col_12 col_md_12 col_lg_3 left">
