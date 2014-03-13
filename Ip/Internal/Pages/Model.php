@@ -121,12 +121,17 @@ class Model
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
-    public static function getMenuList($languageCode)
+    public static function getMenuList($languageCode = null)
     {
+        $where = array('parentId' => 0, 'isDeleted' => 0);
+        if ($languageCode !== null) {
+            $where['languageCode'] = $languageCode;
+        }
+
         $list = ipDb()->selectAll(
             'page',
             '*',
-            array('languageCode' => $languageCode, 'parentId' => 0, 'isDeleted' => 0),
+            $where,
             ' ORDER BY `pageOrder` '
         );
 
