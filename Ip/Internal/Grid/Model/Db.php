@@ -44,7 +44,7 @@ class Db
         WHERE
           " . $where . "
         ORDER BY
-            `" . $sortField . "` DESC
+            `" . $sortField . "`
         LIMIT
             $from, $count
         ";
