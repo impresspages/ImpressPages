@@ -115,6 +115,17 @@
         $this.jstree({
             'core' : {
                 'data' : data,
+                "check_callback" : function (operation, node, node_parent, node_position, more)  {
+
+
+                    if (node_parent.id && node_parent.id != '#') {
+                        var $parentNode = $('#' + node_parent.id);
+                        ipPagesDropPageId = $parentNode.attr('pageid');
+                    } else {
+                        ipPagesDropPageId = null;
+                    }
+                    ipPagesDropPagePsition = node_position;
+                }
             },
             'plugins' : [
                 'dnd', 'wholerow'
@@ -165,6 +176,6 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);
 
 

@@ -1,5 +1,7 @@
 var ipPages = null;
 var ipPagesResize;
+var ipPagesDropPageId;
+var ipPagesDropPagePsition;
 
 (function ($) {
     "use strict";
@@ -285,16 +287,18 @@ var ipPagesResize;
                     $scope.$apply();
                 });
 
-                getTreeDiv().off('move_node.jstree').on('move_node.jstree', function (e, moveData) {
-                    moveData.rslt.o.each(function (i) {
-                        var pageId = $(this).attr("pageId");
-                        var destinationParentId = moveData.rslt.np.attr("pageId");
-                        if (!destinationParentId) { //replace undefined with null;
-                            destinationParentId = $scope.activeMenu.id;
-                        }
-                        var destinationPosition = moveData.rslt.cp + i;
-                        movePage(pageId, destinationParentId, destinationPosition);
-                    });
+                $(document).off('dnd_stop.vakata').on('dnd_stop.vakata', function (e, data) {
+
+                    var $node = $('#' + data.data.nodes[0]);
+                    var pageId = $node.attr('pageid');
+                    var destinationParentId = $scope.activeMenu.id;
+                    if (ipPagesDropPageId) {
+                        destinationParentId = ipPagesDropPageId;
+                    }
+
+
+                    var destinationPosition = ipPagesDropPagePsition;
+                    movePage(pageId, destinationParentId, destinationPosition);
                 });
             }
         }
@@ -631,6 +635,6 @@ var ipPagesResize;
 
     $(window).bind('resize.ipPages', ipPagesResize);
 
-})(ip.jQuery);
+})(jQuery);
 
 
