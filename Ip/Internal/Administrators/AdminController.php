@@ -46,6 +46,7 @@ class AdminController extends \Ip\Controller
         $post = ipRequest()->getPost();
 
         $form = Helper::createForm();
+        $form->removeSpamCheck();
 
         $errors = $form->validate($post);
 
