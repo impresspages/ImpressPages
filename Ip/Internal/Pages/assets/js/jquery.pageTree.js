@@ -116,6 +116,11 @@ console.log('pagetree init');
                     }
                 }
             },
+            "themes" : {
+                "theme" : "impresspages",
+                "dots" : false,
+                "icons" : false
+            },
 
 //            'ui': {
 //                'select_limit': 1,
