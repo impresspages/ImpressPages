@@ -188,6 +188,7 @@ class PageAssets
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => ipIsManagementState(),
+                'isAdminState' => ipAdminId() ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,

@@ -28,6 +28,7 @@ class PageAssets extends \Ip\Internal\PageAssets
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => false,
+                'isAdminState' => false,
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,

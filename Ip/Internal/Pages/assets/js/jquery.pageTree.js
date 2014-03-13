@@ -112,9 +112,14 @@
 //            ]
 //        } });
 
-        $this.jstree({ 'core' : {
-            'data' : data
-        } });
+        $this.jstree({
+            'core' : {
+                'data' : data,
+            },
+            'plugins' : [
+                'dnd', 'wholerow'
+            ]
+        });
 
 
 //        $this.jstree({
