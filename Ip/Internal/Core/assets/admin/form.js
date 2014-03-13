@@ -67,7 +67,6 @@ var ipModuleFormAdmin;
                         },
                         error: function (response) {
                             if (ip.developmentEnvironment || ip.debugMode) {
-                                console.log(response);
                                 alert('Server response: ' + response.responseText);
                             }
                         }
