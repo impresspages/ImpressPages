@@ -8108,6 +8108,9 @@ th {
 .ipAdminPages ._pages ._actions {
   white-space: nowrap;
 }
+.ipAdminPages ._pages ._tree {
+  margin: 0 -20px;
+}
 .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
