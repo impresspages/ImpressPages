@@ -9,7 +9,7 @@
                 // submenu of currently active top menu item
                 //$pages = \Ip\Menu\Helper::getChildItems();
 
-                echo ipSlot('menu', $pages);
+                echo ipSlot('menu', 'menu2');
             ?>
         </nav>
     </div>

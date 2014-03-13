@@ -52,7 +52,7 @@ class Page
     /** bool */
     protected $isVisible;
 
-    protected $inBreadcrumb = false;
+    protected $inBreadcrumb = null;
 
     /**
      * @param int|array $id
