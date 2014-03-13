@@ -1,7 +1,7 @@
 var ipPages = null;
 var ipPagesResize;
 var ipPagesDropPageId;
-var ipPagesDropPagePsition;
+var ipPagesDropPagePosition;
 
 (function ($) {
     "use strict";
@@ -31,6 +31,8 @@ var ipPagesDropPagePsition;
         $scope.menuList = menuList;
         $scope.initialized = false;
         $scope.allowActions = !getQuery('disableActions');
+
+        var hashIsBeingApplied = false;
 
         $scope.$on('PathChanged', function (event, path) {
             var menuName = getHashParams().menu;
@@ -74,7 +76,11 @@ var ipPagesDropPagePsition;
 
 
         $scope.setMenuHash = function (menu) {
+            console.log('set menu');
+            hashIsBeingApplied = true;
             updateHash(null, menu.alias, false);
+            hashIsBeingApplied = false;
+            console.log('set menu end');
         }
 
         $scope.setLanguageHash = function (language) {
@@ -118,8 +124,13 @@ var ipPagesDropPagePsition;
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
             });
-            $('#page_' + $scope.selectedPageId + ' a').first().click();
-
+            var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
+            if (!$nodeLink.hasClass('jstree-clicked')) {
+                hashIsBeingApplied = true;
+                getTreeDiv().jstree("deselect_all");
+                getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                hashIsBeingApplied = false;
+            }
         }
 
         $scope.addPageModal = function () {
@@ -256,6 +267,7 @@ var ipPagesDropPagePsition;
         }
 
         var showPages = function () {
+            hashIsBeingApplied = true;
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
                 $('.ipsPages').addClass('hidden');
@@ -281,6 +293,9 @@ var ipPagesDropPagePsition;
                 });
                 getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
                 getTreeDiv().off('changed.jstree').on('changed.jstree', function (e, data) {
+                    if (hashIsBeingApplied) {
+                        return;
+                    }
                     var id = data.selected;
                     var node = $('#' + id);
                     updateHash(null, null, node.attr('pageId'));
@@ -297,10 +312,11 @@ var ipPagesDropPagePsition;
                     }
 
 
-                    var destinationPosition = ipPagesDropPagePsition;
+                    var destinationPosition = ipPagesDropPagePosition;
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
             }
+            hashIsBeingApplied = false;
         }
 
         var getTreeDiv = function () {
@@ -315,7 +331,7 @@ var ipPagesDropPagePsition;
 
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                 getTreeDiv().ipGrid('refresh');
-            } else {
+            } else {console.log('destroy');
                 getTreeDiv().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
@@ -635,6 +651,6 @@ var ipPagesDropPagePsition;
 
     $(window).bind('resize.ipPages', ipPagesResize);
 
-})(jQuery);
+})(ip.jQuery);
 
 

@@ -93,6 +93,6 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 
