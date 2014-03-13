@@ -3,7 +3,7 @@
     "Config.multilingual": "1",
     "Config.websiteEmail": "test@test.com",
     "Config.automaticCron": "1",
-    "Config.keepOldRevision": "3",
+    "Config.keepOldRevision": "30",
     "Config.cronPassword": "testCronPassword",
 
     "Config.defaultImageQuality": 80,
