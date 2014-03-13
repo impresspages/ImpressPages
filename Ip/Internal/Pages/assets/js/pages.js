@@ -32,6 +32,8 @@ var ipPagesDropPagePosition;
         $scope.initialized = false;
         $scope.allowActions = !getQuery('disableActions');
 
+        var hashIsBeingApplied = false;
+
         $scope.$on('PathChanged', function (event, path) {
             var menuName = getHashParams().menu;
             var languageCode = getHashParams().language;
@@ -118,8 +120,13 @@ var ipPagesDropPagePosition;
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
             });
-            $('#page_' + $scope.selectedPageId + ' a').first().click();
-
+            var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
+            if (!$nodeLink.hasClass('jstree-clicked')) {
+                hashIsBeingApplied = true;
+                getTreeDiv().jstree("deselect_all");
+                getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                hashIsBeingApplied = false;
+            }
         }
 
         $scope.addPageModal = function () {
@@ -281,6 +288,9 @@ var ipPagesDropPagePosition;
                 });
                 getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
                 getTreeDiv().off('changed.jstree').on('changed.jstree', function (e, data) {
+                    if (hashIsBeingApplied) {
+                        return;
+                    }
                     var id = data.selected;
                     var node = $('#' + id);
                     updateHash(null, null, node.attr('pageId'));

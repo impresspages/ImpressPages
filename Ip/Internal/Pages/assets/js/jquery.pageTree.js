@@ -30,6 +30,7 @@
 
         refresh : function() {
             return this.each(function() {
+                console.log('refresh');
                 var $this = $(this);
                 var data = $this.data('ipPageTree');
                 $this.ipPageTree('destroy');
