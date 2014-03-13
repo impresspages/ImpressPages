@@ -12,13 +12,6 @@ var ipAdministratorsController = null;
         });
     });
 
-//    ipAdministratorsController = function ($scope, $location) {
-//        //init
-//        $scope.administrators = ipAdministrators;
-//        $scope.activeAdministrator = null;
-//
-//        console.log(ipAdministrators);
-//    };
 
     ipAdministratorsController = function ($scope, $location) {
 

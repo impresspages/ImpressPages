@@ -32,8 +32,4 @@
             </div>
         </div>
     </div>
-    <div class="ipAdminErrorContainer">{{errors}}</div>
-    <div class="ipAdminErrorSample">
-        <p class="ipAdminError"></p>
-    </div>
 </div>
