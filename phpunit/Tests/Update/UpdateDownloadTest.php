@@ -33,9 +33,7 @@ class UpdateDownloadTest extends \PhpUnit\Helper\MinkTestCase
 
         $this->find('.ipsStartUpdate')->click();
 
-
-        sleep(2000);
-
+        $this->waitForElementPresent('p.bg-success');
     }
 
 }

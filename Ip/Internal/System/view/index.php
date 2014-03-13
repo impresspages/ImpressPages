@@ -32,10 +32,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><?php _e('Update progress', 'ipAdmin'); ?></h4>
+                    <h4 class="modal-title"><?php _e('Update in progress', 'ipAdmin'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient', 'ipAdmin') ?></p>
+                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient it may take up to 2 min. on good line.', 'ipAdmin') ?></p>
                 </div>
             </div>
         </div>
