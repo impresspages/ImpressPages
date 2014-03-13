@@ -177,6 +177,6 @@
 
     };
 
-})(jQuery);
+})(ip.jQuery);
 
 

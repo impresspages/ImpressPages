@@ -49,4 +49,4 @@ var pageMenuList;
             });
         }
     }
-})(jQuery);
+})(ip.jQuery);
