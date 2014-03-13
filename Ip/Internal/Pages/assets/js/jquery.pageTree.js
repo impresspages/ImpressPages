@@ -124,7 +124,7 @@
                     } else {
                         ipPagesDropPageId = null;
                     }
-                    ipPagesDropPagePsition = node_position;
+                    ipPagesDropPagePosition = node_position;
                 }
             },
             'plugins' : [

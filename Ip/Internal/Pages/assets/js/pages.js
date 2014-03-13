@@ -1,7 +1,7 @@
 var ipPages = null;
 var ipPagesResize;
 var ipPagesDropPageId;
-var ipPagesDropPagePsition;
+var ipPagesDropPagePosition;
 
 (function ($) {
     "use strict";
@@ -297,7 +297,7 @@ var ipPagesDropPagePsition;
                     }
 
 
-                    var destinationPosition = ipPagesDropPagePsition;
+                    var destinationPosition = ipPagesDropPagePosition;
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
             }
