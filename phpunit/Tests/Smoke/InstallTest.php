@@ -38,13 +38,6 @@ class InstallTest extends \PHPUnit_Framework_TestCase
         $page = $session->getPage();
 
         $homepageTitle = $page->find('css', 'title');
-        if (!$homepageTitle) {
-            //* TODOX remove
-            var_export($page->getContent());
-            echo __FILE__ . ':' . (__LINE__ - 2);
-            exit();
-            //*/
-        }
         $this->assertNotEmpty($homepageTitle, 'Homepage rendering is broken!');
         $this->assertEquals('Home', $homepageTitle->getText());
 
