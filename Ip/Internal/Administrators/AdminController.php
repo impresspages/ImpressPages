@@ -108,6 +108,7 @@ class AdminController extends \Ip\Controller
 
 
         $form = Helper::updateForm();
+        $form->removeSpamCheck();
         $errors = $form->validate($post);
 
         $userId = $post['id'];
