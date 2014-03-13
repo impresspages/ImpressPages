@@ -54,10 +54,14 @@
             e.preventDefault();
 
             var postData = {};
-            postData.aa = 'Update.startUpdate';
+            postData.aa = 'System.startUpdate';
             postData.securityToken = ip.securityToken;
             postData.downloadUrl = $link.data('downloadurl');
             postData.md5 = $link.data('md5');
+
+            var updateModal  = $('#ipWidgetUpdatePopup');
+
+            updateModal.modal();
 
             $.ajax({
                 url: ip.baseUrl,
@@ -69,16 +73,16 @@
                         return;
                     }
                     if (response.status && response.status == 'success') {
-                        if (response.redirectUrl) {
-                            parent.document.location = response.redirectUrl;
-                        }
+                        window.location.href = window.location.href;
                     } else {
                         if (response.error) {
                             alert(response.error);
                         }
                     }
+                    updateModal.modal('hide');
                 },
                 error: function (response) {
+                    updateModal.modal('hide');
                     alert('Update has failed: ' + response.responseText);
                 }
             });

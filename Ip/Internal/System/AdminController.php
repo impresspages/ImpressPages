@@ -47,6 +47,17 @@ class AdminController extends \Ip\Controller
         return $content;
     }
 
+    public function startUpdate()
+    {
+        \Ip\Internal\Update\Service::update();
+
+        $_SESSION['Ip']['notes'][] = __('ImpressPages has been successfully updated.', 'ipAdmin');
+
+        return new \Ip\Response\Json(array(
+            'status' => 'success'
+        ));
+
+    }
 
     public function updateLinks()
     {
