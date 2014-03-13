@@ -56,7 +56,7 @@ return array(
     ),
 
     'urlOverrides' => array(
-        'Plugin/' => "http://{$baseUrl}/Plugin/",//TODOXX find the way to add domain
+        'Plugin/' => "http://{$baseUrl}/Plugin/",
         'Theme/' => "http://{$baseUrl}/Theme/",
         'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
     ),
