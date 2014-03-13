@@ -114,6 +114,7 @@
 
         $this.jstree({
             'core' : {
+                "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
                 'data' : data,
                 "check_callback" : function (operation, node, node_parent, node_position, more)  {
 
@@ -133,7 +134,7 @@
         });
 
 
-//        $this.jstree({
+//        $this.jstree({ // todox: remove old code
 //
 //            'plugins': plugins,
 //            'json_data': {data: data},
