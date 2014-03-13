@@ -278,8 +278,9 @@ var ipPagesResize;
                     $('#page_' + $scope.selectedPageId + ' a').first().click();
                 });
                 getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
-                getTreeDiv().off('select_node.jstree').on('select_node.jstree', function (e) {
-                    var node = getJsTree().get_selected();
+                getTreeDiv().off('changed.jstree').on('changed.jstree', function (e, data) {
+                    var id = data.selected;
+                    var node = $('#' + id);
                     updateHash(null, null, node.attr('pageId'));
                     $scope.$apply();
                 });
