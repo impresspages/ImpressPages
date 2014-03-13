@@ -11,7 +11,7 @@ class MinkTestCase extends \PHPUnit_Framework_TestCase
      */
     private $session;
 
-    protected $timeout = 5;
+    protected $timeout = 20;
 
     protected function setUp()
     {
