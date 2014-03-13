@@ -25,7 +25,6 @@
                     $this.data('ipFormUrl', {initialized: 1});
 
                     $this.find('.ipsBrowse').on('click', function () {
-                        console.log('browse');
                         ipBrowseLink(function(link) {
                             if (link) {
                                 $input.val(link);

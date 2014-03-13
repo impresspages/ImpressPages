@@ -579,7 +579,6 @@
                                     */
                                     break;
                                 default:
-                                    // console.log(e.which);
                                     break;
                             }
                         }, this))
