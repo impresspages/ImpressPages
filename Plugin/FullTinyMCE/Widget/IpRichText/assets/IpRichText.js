@@ -12,6 +12,10 @@ var IpWidget_IpRichText;
 
         this.init = function($widgetObject, data) {
             var customTinyMceConfig = ipTinyMceConfig();
+            customTinyMceConfig.plugins = customTinyMceConfig.plugins + " advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste";
+            customTinyMceConfig.toolbar = "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image";
+            customTinyMceConfig.menubar = true;
+
             this.$widgetObject = $widgetObject;
             customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
                 $widgetObject.save({text: $widgetObject.find('.ipsContent').html()});
