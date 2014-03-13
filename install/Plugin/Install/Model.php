@@ -268,10 +268,8 @@ class Model
         );
 
         // Override template values:
-        foreach ($configInfo as $key => $info) {
-            if (array_key_exists($key, $config)) {
-                $configInfo[$key]['value'] = $config[$key];
-            }
+        foreach ($config as $key => $info) {
+            $configInfo[$key]['value'] = $config[$key];
         }
 
         // Generate config code:
