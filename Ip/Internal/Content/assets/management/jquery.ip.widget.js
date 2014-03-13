@@ -114,7 +114,7 @@
                         $this.remove();
                     },
                     error: function(response) {
-                        console.log(response);
+                        alert('Error. ' + response.responseText);
                     },
                     dataType: 'json'
                 });

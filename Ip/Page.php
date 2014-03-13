@@ -287,7 +287,8 @@ class Page
     public function getLink()
     {
         if (ipGetOption('Config.multilingual')) {
-            return ipConfig()->baseUrl() . $this->languageCode . '/' . $this->urlPath;
+            $language = ipContent()->getLanguageByCode($this->languageCode);
+            return ipConfig()->baseUrl() . $language->getUrlPath() . $this->urlPath;
         } else {
             return ipConfig()->baseUrl() . $this->urlPath;
         }

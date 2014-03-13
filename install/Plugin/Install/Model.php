@@ -195,8 +195,8 @@ class Model
         $sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
 
         $sql = str_replace("[[[[database]]]]", $database, $sql);
-        $sql = str_replace("DROP TABLE IF EXISTS `ip_cms_", "DROP TABLE IF EXISTS `". $tablePrefix, $sql);
-        $sql = str_replace("CREATE TABLE `ip_cms_", "CREATE TABLE `".$tablePrefix, $sql);
+        $sql = str_replace("DROP TABLE IF EXISTS `ip_", "DROP TABLE IF EXISTS `". $tablePrefix, $sql);
+        $sql = str_replace("CREATE TABLE `ip_", "CREATE TABLE `".$tablePrefix, $sql);
 
         $errors = array();
         ipDb()->execute($sql);
@@ -214,8 +214,10 @@ class Model
         fclose($fh);
 
 
-        $sql = str_replace("INSERT INTO `ip_cms_", "INSERT INTO `". $tablePrefix, $sql);
-        $sql = str_replace("[[[[base_url]]]]", ipConfig()->baseUrl(), $sql);
+        $sql = str_replace("INSERT INTO `ip_", "INSERT INTO `". $tablePrefix, $sql);
+        $sql = str_replace("[[[[version]]]]", ipApplication()->getVersion(), $sql);
+        $sql = str_replace("[[[[dbversion]]]]", ipApplication()->getDbVersion(), $sql);
+        $sql = str_replace("[[[[time]]]]", date('Y-m-d H:i:s'), $sql);
 
         ipDb()->execute($sql);
 
@@ -266,10 +268,8 @@ class Model
         );
 
         // Override template values:
-        foreach ($configInfo as $key => $info) {
-            if (array_key_exists($key, $config)) {
-                $configInfo[$key]['value'] = $config[$key];
-            }
+        foreach ($config as $key => $info) {
+            $configInfo[$key]['value'] = $config[$key];
         }
 
         // Generate config code:

@@ -21,6 +21,10 @@ class PublicController extends \Ip\Controller
         }
 
 
+        if (empty($_SESSION['websiteId'])) {
+            $_SESSION['websiteId'] = Helper::randString(32);
+        }
+
 
         if (empty($_SESSION['step'])) {
             $_SESSION['step'] = 0;
@@ -64,7 +68,7 @@ class PublicController extends \Ip\Controller
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
 
-        $selected_language = isset($_SESSION['installation_language']) ? $_SESSION['installation_language'] : 'en';
+        $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
 
         $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
         $data['languages'] = $languages;
@@ -228,12 +232,12 @@ class PublicController extends \Ip\Controller
             $db['tablePrefix'] = '';
         }
 
-        if (strlen($db['tablePrefix']) > strlen('ip_cms_')) {
+        if (strlen($db['tablePrefix']) > 7) {
             return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'Install', false));
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with letter.', 'Install', false));
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with a letter.', 'Install', false));
         }
 
 
@@ -260,6 +264,43 @@ class PublicController extends \Ip\Controller
         } catch (\Ip\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
+
+
+        $tables = array (
+            'page',
+            'pageStorage',
+            'language',
+            'log',
+            'emailQueue',
+            'repositoryFile',
+            'repositoryReflection',
+            'widget',
+            'widgetInstance',
+            'themeStorage',
+            'widgetOrder',
+            'inlineValueGlobal',
+            'inlineValueForLanguage',
+            'inlineValueForPage',
+            'plugin',
+            'storage',
+            'administrator'
+        );
+
+
+        $tableExists = FALSE;
+        foreach ($tables as $table) {
+            try {
+                $sql = 'SELECT 1 FROM `' . $dbConfig['tablePrefix'] . $table . '`';
+                ipDb()->execute($sql);
+                $tableExists = TRUE;
+            } catch (\Exception $e) {
+                //Do nothing. We have expected this error to occur. That means the database is clean
+            }
+        }
+        if ($tableExists && empty($db['replaceTables'])) {
+            return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exist');
+        }
+
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
 
@@ -352,7 +393,7 @@ class PublicController extends \Ip\Controller
             Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
             Model::generateCronPassword();
             ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
-
+            ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }

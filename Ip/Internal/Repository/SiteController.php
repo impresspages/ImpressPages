@@ -96,42 +96,7 @@ class SiteController extends \Ip\Controller{
 
     }
 
-    /**
-     * Downloads file from $_POST['url'] and stores it in repository as $_POST['filename']. If desired filename is taken,
-     * selects some alternative unoccupied name.
-     *
-     * Outputs repository file properties in JSON format.
-     *
-     * @throws \Ip\Exception
-     */
-    public function addFromUrl()
-    {
 
-        $this->backendOnly();
-
-        if (!isset($_POST['files']) || !is_array($_POST['files'])) {
-            throw new \Ip\Exception('Invalid parameters.');
-        }
-        $files = $_POST['files'];
-
-        if (function_exists('set_time_limit')) {
-            set_time_limit(count($files) * 60 + 30);
-        }
-
-        $answer = array();
-        foreach($files as $file) {
-            if (!empty($file['url']) && !empty($file['title'])) {
-                $fileData = $this->downloadFile($file['url'], $file['title']);
-                if ($fileData) {
-                    $answer[] = $fileData;
-                }
-
-            }
-
-        }
-
-        return new \Ip\Response\Json($answer);
-    }
 
     /**
      * @param string $url
@@ -202,97 +167,14 @@ class SiteController extends \Ip\Controller{
         return $file;
     }
 
-    public function deleteTmpFile()
-    {
-        $this->backendOnly();
-
-        if (!isset($_POST['file'])) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Missing post variable'
-            );
-            return new \Ip\Response\Json($answer);
-        }
-
-        $file = realpath($_POST['file']);
-
-        if (strpos($file, ipFile('file/tmp/')) !== 0) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Trying to access file outside temporary dir'
-            );
-            return new \Ip\Response\Json($answer);
-        }
 
 
-        if (file_exists($file)) {
-            unlink($file);
-        }
-
-        $answer = array(
-            'status' => 'success'
-        );
-        return new \Ip\Response\Json($answer);
-    }
-
-
-    public function deleteFiles()
-    {
-        $this->backendOnly();
-
-        $files = isset($_POST['files']) ? $_POST['files'] : null;
-        $deletedFiles = array();
-        $notRemovedCount = 0;
-
-        foreach ($files as $file) {
-            if (isset($file['file']) && $this->removeFile($file['file'])) {
-                $deletedFiles[] = $file['file'];
-            } else {
-                $notRemovedCount++;
-            }
-        }
-
-        $answer = array(
-            'success' => true,
-            'deletedFiles' => $deletedFiles,
-            'notRemovedCount' => $notRemovedCount
-        );
-
-        return new \Ip\Response\Json($answer);
-    }
-
-    private function removeFile($file)
-    {
-        if (basename($file) == '.htaccess') {
-            //for security reasons we don't allow to remove .htaccess files
-            return false;
-        }
-        
-        $realFile = realpath($file);
-        if (strpos($realFile, ipFile('file/repository/')) !== 0) {
-            return false;
-        }
-
-        $model = Model::instance();
-        $usages = $model->whoUsesFile($file);
-        if (!empty($usages)) {
-            return false;
-        }
-
-        $reflectionModel = ReflectionModel::instance();
-        $reflectionModel->removeReflections($file);
-
-        if (file_exists($realFile) && is_file($realFile) && is_writable($realFile)) {
-            unlink($realFile);
-        }
-        return true;
-    }
 
 
 
     protected function backendOnly()
     {
-        if (!\Ip\Internal\Admin\Backend::loggedIn()) {
+        if (!ipAdminId()) {
             throw new \Exception('This controller can be accessed only by administrator');
         }
     }

@@ -26,8 +26,8 @@ class Installation
     private $siteEmail;
     private $siteTimeZone;
     private $cf;
-    private $conn;
     private $testDbHelper;
+    private $defaultConfig;
 
     /**
      * @var true if this installation represents current development version
@@ -63,7 +63,14 @@ class Installation
         $this->setAdminLogin('admin');
         $this->setAdminPass('admin');
 
+        $this->defaultConfig = array();
+
         $this->installed = false;
+    }
+
+    public function setDefaultConfig($defaultConfig)
+    {
+        $this->defaultConfig = $defaultConfig;
     }
 
 
@@ -95,8 +102,6 @@ class Installation
 
         $config = array();
         $config['sessionName'] = 'ses' . rand();
-        $config['baseDir'] = $this->getInstallationDir();
-        $config['baseUrl'] = substr($this->getInstallationUrl(), strlen('http://'));
         $config['timezone'] = $this->getSiteTimeZone();
         $config['db'] = array(
             'hostname' => $this->getDbHost(),
@@ -106,6 +111,7 @@ class Installation
             'tablePrefix' => $this->getDbPrefix(),
             'charset' => 'utf8'
         );
+        $config = array_merge($config, $this->defaultConfig);
 
         InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'config.php');
 
@@ -478,6 +484,7 @@ class Installation
 
         $folders = array(
             'Ip',
+            'Plugin',
             'file',
             'install',
             'Theme',

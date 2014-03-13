@@ -15,4 +15,9 @@ class PublicController extends \Ip\Controller {
     {
         return new \Ip\Response\Json(array(1));
     }
+
+    public function pageNotFound()
+    {
+        return new \Ip\Response\PageNotFound();
+    }
 }

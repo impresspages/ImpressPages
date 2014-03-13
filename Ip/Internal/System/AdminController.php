@@ -32,7 +32,9 @@ class AdminController extends \Ip\Controller
             'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'),
             'changedUrl' => $model->getOldUrl() != $model->getNewUrl(),
             'oldUrl' => $model->getOldUrl(),
-            'newUrl' => $model->getNewUrl()
+            'newUrl' => $model->getNewUrl(),
+            'migrationsAvailable' => \Ip\Internal\Update\Service::migrationsAvailable(),
+            'migrationsUrl' => ipActionUrl(array('pa' => 'Update'))
         );
 
         $content = ipView('view/index.php', $data)->render();
@@ -40,6 +42,7 @@ class AdminController extends \Ip\Controller
         if ($enableUpdate) {
             ipAddJs('Ip/Internal/System/assets/update.js');
         }
+        ipAddJs('Ip/Internal/System/assets/migrations.js');
 
         return $content;
     }

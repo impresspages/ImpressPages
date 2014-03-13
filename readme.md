@@ -3,11 +3,11 @@
 
 ---
 
-# ImpressPages CMS
+# ImpressPages
 
 ## About ImpressPages
 
-ImpressPages CMS is an open source web content management system with revolutionary drag & drop interface.
+ImpressPages is light php framework with user friendly admin panel.
 
 Please visit the [ImpressPages website] (http://www.impresspages.org) to download the latest version of ImpressPages and read the online documentation. The online documentation contains instructions and tutorials for web designers, developers and content editors. 
 

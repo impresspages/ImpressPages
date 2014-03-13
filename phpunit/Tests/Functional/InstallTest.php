@@ -24,7 +24,7 @@ class InstallTest extends MinkTestCase
 
         $title = $page->find('css', 'title');
         $this->assertNotEmpty($title, 'Title should not be empty');
-        $this->assertEquals('ImpressPages CMS installation wizard', $title->getHtml());
+        $this->assertEquals('ImpressPages installation wizard', $title->getHtml());
 
         $page->find('css', '.btn-primary')->click();
         $this->assertEquals('System check', $page->find('css', 'h1')->getText());
@@ -81,7 +81,7 @@ class InstallTest extends MinkTestCase
 
         $this->assertNotContains('on line', $page->getContent());
         $this->assertFalse($page->has('css', '.error'));
-        $this->assertEquals('ImpressPages CMS has been successfully installed.', $page->find('css', '.alert-success')->getText());
+        $this->assertEquals('ImpressPages has been successfully installed.', $page->find('css', '.alert-success')->getText());
 
         $page->clickLink('Front page');
 

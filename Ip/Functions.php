@@ -6,7 +6,7 @@
 
 
 /**
- * Get CMS application object.
+ * Get application object.
  * @return \Ip\Application Application object
  */
 function ipApplication()
@@ -26,7 +26,7 @@ function ipSecurityToken()
 }
 
 /**
- * Get CMS option value
+ * Get option value
  *
  * Options can be viewed or changed using administration pages. You can use this function to get your plugin settings.
  * @param string $option Option name. Option names use syntax "PluginName.optionName".
@@ -39,7 +39,7 @@ function ipGetOption($option, $defaultValue = null)
 }
 
 /**
- * Get language specific CMS option value
+ * Get language specific option value
  *
  * @param string $option Option name. Option names use syntax "PluginName.optionName".
  * @param int $languageId Language ID.
@@ -53,7 +53,7 @@ function ipGetOptionLang($option, $languageId, $defaultValue = null)
 }
 
 /**
- * Set CMS option value
+ * Set option value
  *
  * You can use this function to set your plugin settings. Also, options can be viewed or changed using administration pages.
  *
@@ -66,7 +66,7 @@ function ipSetOption($option, $value)
 }
 
 /**
- *  Set language specific CMS option value
+ *  Set language specific option value
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param mixed $value Option value.
@@ -78,7 +78,7 @@ function ipSetOptionLang($option, $value, $languageId)
 }
 
 /**
- * Remove CMS option
+ * Remove option
  *
  * Options can be viewed or changed using administration pages.
  * @param $option Option name. Option names use syntax PluginName.optionName.
@@ -89,7 +89,7 @@ function ipRemoveOption($option)
 }
 
 /**
- * Remove language specific CMS option value
+ * Remove language specific option value
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param int $languageId Language ID.
@@ -115,7 +115,7 @@ function ipConfig()
 
 
 /**
- * Get CMS content object
+ * Get content object
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -130,7 +130,7 @@ function ipContent()
  *
  * After adding all JavaScript files, issue ipJs() function to generate JavaScript links HTML code.
  *
- * @param string $file JavaScript file pathname. Can be provided as URL address, a pathname relative to current directory or to CMS root.
+ * @param string $file JavaScript file pathname. Can be provided as URL address, a pathname relative to current directory or to website root.
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
@@ -183,7 +183,7 @@ function ipAddJsContent($name, $value, $priority = 50)
  * Add CSS file from your plugin or theme
  *
  * After adding all CSS files, use ipHead() function to generate HTML head.
- * @param string $file CSS file pathname. Can be provided as URL address, a pathname relative to current directory or to CMS root.
+ * @param string $file CSS file pathname. Can be provided as URL address, a pathname relative to current directory or to website root.
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
  * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
@@ -206,7 +206,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
 }
 
 /**
- * Return CMS log object
+ * Return log object
  *
  * Use this object to create or access log records.
  * @return \Psr\Log\LoggerInterface Logger interface object (\Ip\Internal\Log\Logger)
@@ -255,9 +255,9 @@ function ipSetLayout($file)
 }
 
 /**
- * Get CMS response object
+ * Get response object
  *
- * @return \Ip\Response\Layout | \Ip\Response\Layout CMS response object
+ * @return \Ip\Response\Layout | \Ip\Response\Layout response object
  */
 function ipResponse()
 {
@@ -280,7 +280,7 @@ function ipGetLayout()
 }
 
 /**
- * Get CMS block object
+ * Get block object
  *
  * @param string $block Block name, e.g. "main".
  * @return \Ip\Block Block object.
@@ -292,7 +292,7 @@ function ipBlock($block)
 
 
 /**
- * Get CMS slot object
+ * Get slot object
  *
  * See slot documentation pages for more details.
  *
@@ -464,7 +464,7 @@ function _e($text, $domain, $esc = 'html')
 
 if (!function_exists('ipFile')) {
     /**
-     * Gets absolute CMS file path
+     * Gets absolute file path
      * @param $path A path or a pathname.
      * @return mixed|string Absolute path or pathname.
      */
@@ -492,7 +492,7 @@ if (!function_exists('ipFile')) {
 if (!function_exists('ipFileUrl')) {
     /**
      * Gets URL by a file name
-     * @param $path Pathname relative to current directory or CMS root.
+     * @param $path Pathname relative to current directory or root.
      * @return mixed|string File's URL address.
      */
     function ipFileUrl($path)
@@ -567,7 +567,7 @@ function ipHomeUrl()
     }
 
     if (ipGetOption('Config.multilingual')) {
-        $homeUrl .= urlencode(ipContent()->getCurrentLanguage()->getUrl()) . '/';
+        $homeUrl .= ipContent()->getCurrentLanguage()->getUrlPath();
     }
 
     return $homeUrl;
@@ -734,7 +734,7 @@ function ipDoctypeDeclaration($doctype = null)
 }
 
 /**
- * Get SQL table name by adding CMS database prefix
+ * Get SQL table name by adding database prefix
  *
  * @param $table SQL table name without prefix.
  * @param string|null $as SQL "as" keyword to be added.
@@ -863,9 +863,8 @@ function ipView($file, $data = array(), $_callerDepth = 0)
 }
 
 /**
- * Get CMS storage object
+ * Get Key-Value storage object
  *
- * CMS storage is a key-value storage, where any plugin can store it's data.
  * @return \Ip\Storage Storage object
  */
 function ipStorage()
