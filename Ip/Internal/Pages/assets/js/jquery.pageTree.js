@@ -33,7 +33,7 @@
                 console.log('refresh');
                 var $this = $(this);
                 var data = $this.data('ipPageTree');
-                $this.ipPageTree('destroy');
+                $this.ipPageTree('refresh');
 
                 $this.ipPageTree({
                     menuName: data.menuName,
