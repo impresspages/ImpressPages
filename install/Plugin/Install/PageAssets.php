@@ -29,6 +29,7 @@ class PageAssets extends \Ip\Internal\PageAssets
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => false,
                 'isAdminState' => false,
+                'disableAdminBar' => false
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
