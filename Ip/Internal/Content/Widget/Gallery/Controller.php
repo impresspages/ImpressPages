@@ -239,8 +239,12 @@ class Controller extends \Ip\WidgetController{
                     }
                     $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
+                    ipLog()->log('info', 'Reflection can\'t be created', array('image' => $curImage, 'transform' => $transformSmall));
+                    $curImage['imageSmall'] = '';
                     //do nothing
                 } catch (\Ip\Internal\Repository\Exception $e) {
+                    ipLog()->log('info', 'Reflection can\'t be created', array('image' => $curImage, 'transform' => $transformSmall));
+                    $curImage['imageSmall'] = '';
                     //do nothing
                 }
 
