@@ -1,0 +1,20 @@
+// namespacing all admin styles
+// we cannot compile it directly because of '&' usage at the end of selectors in nested rules (i.e., in Bootstrap)
+.ip {
+    .ipRoot;
+    * {
+        .ipRootAll; // resetting all inner elements, too
+    }
+    @import (less) "admin.tmp.css";
+}
+
+// importing global styles that potentially interferes with theme styles and may cause problems
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+@import "ip/variables.less";
+@import "ip/bootstrapGlobal.less";
+@import "../../../Admin/assets/adminGlobal.less";
+@import "../../../Content/assets/less/contentGlobal.less";
+@import "../../../InlineManagement/assets/inlineManagementGlobal.less";
+
+// todox: how plugins will have their .less generated?

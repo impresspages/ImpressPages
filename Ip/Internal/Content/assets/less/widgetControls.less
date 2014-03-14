@@ -1,0 +1,41 @@
+.ipAdminWidgetControls {
+    margin: 0 -(@admin-widgetControls-height / 2);
+    position: relative;
+    width: auto; // to expand more than 100% with negative margins
+    z-index: @admin-widgetControls-zIndex;
+
+    ._controls {
+        margin-top: -(@admin-widgetControls-height / 2);
+        height: (@admin-widgetControls-height / 2); // forcing height to keep content clear from controls (required for inline text); losing 1/4 of corner buttons for hover
+        position: absolute; // removes container out of flow
+        width: 100%; // stretches to the edges of container
+
+        * {
+            visibility: hidden;
+        }
+
+        &:hover * {
+            visibility: visible;
+        }
+    }
+
+    ._settings {
+        float: left;
+    }
+    ._drag {
+        background-image: url(data:image/gif;base64,R0lGODlhEQAHAJEAAAAAAP///////wAAACH5BAEAAAIALAAAAAARAAcAAAIUTISGomnnVmNw2Yuz3nn6+oCiFBQAOw==); // source: img/icon_drag2.gif
+        background-position: center center;
+        background-repeat: no-repeat;
+        cursor: move;
+        height: 15px;
+        margin-left: -32px; // centering
+        margin-top: floor((@admin-widgetControls-height - 15)/2);
+        left: 50%; // centering
+        overflow: hidden;
+        position: absolute; // centering
+        width: 64px;
+    }
+    ._delete {
+        float: right;
+    }
+}

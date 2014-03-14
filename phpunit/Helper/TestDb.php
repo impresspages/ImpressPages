@@ -15,12 +15,12 @@ class TestDb
 
     public function __construct()
     {
-        $this->createDatabase('ip_test_'.date('Y-m-d-H-i-s'));
+        $this->createDatabase('ip_test_'.date('m-d-H-i') . '_' . rand(0, 999));
     }
 
     public function getPdoConnection()
     {
-        return $this->connection;
+        return ipDb()->getConnection();
     }
 
 
@@ -50,7 +50,7 @@ class TestDb
     public function __destruct()
     {
         if ($this->dbName) {
-            $this->dropDatabase($this->dbName);
+            $this->dropDatabase();
         }
     }
 
@@ -61,40 +61,19 @@ class TestDb
      */
     private function createDatabase($dbName)
     {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
-        }
-
-        $sql = "CREATE DATABASE `".$dbName."` CHARACTER SET utf8";
-        $rs = mysql_query($sql, $connection);
-        if (!$rs) {
-            throw new \Exception("Can't create database. ".$sql);
-        }
-
-        $sql = "ALTER DATABASE `".$dbName."` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
-        $rs = mysql_query($sql, $connection);
-        if (!$rs) {
-            throw new \Exception("Can't create database. ".$sql);
-        }
-        mysql_close($connection);
-
+        \Plugin\Install\Model::createAndUseDatabase($dbName);
         $this->dbName = $dbName;
-        $this->connnection = new \PDO('mysql:host='.TEST_DB_HOST.';dbname='.$this->dbName, TEST_DB_USER, TEST_DB_PASS);
-
     }
 
 
     private function dropDatabase()
     {
-        $connection = mysql_connect(TEST_DB_HOST, TEST_DB_USER, TEST_DB_PASS);
-        if(!$connection) {
-            throw new \Exception('Can\'t connect to database.');
+        try {
+            ipDb()->execute('DROP DATABASE `' . $this->dbName . '`');
+            ipDb()->disconnect();
+        } catch (\Ip\Exception $e) {
+            // TODO catch database exception
         }
-
-        mysql_query("DROP DATABASE `".$this->dbName."`", $connection);
-
-        mysql_close($connection);
 
         $this->dbName = null;
         $this->connection = null;

@@ -1,0 +1,112 @@
+.ipAdminPages {
+    ._container {
+        float: left;
+        overflow: auto;
+        padding: (@grid-gutter-width / 2);
+
+        ._actions {
+            min-height: @grid-gutter-width;
+        }
+    }
+
+    ._languages {
+        background-color: #2f313f; // todox: make variable
+        padding-right: 0;
+        width: (@grid-gutter-width * 1.5);
+
+        ul {
+            list-style: none;
+
+            a {
+                color: #97989f; // todox: make variable
+                display: block;
+                padding: (@grid-gutter-width / 4);
+                overflow: hidden;
+
+                &:hover {
+                    color: #fff; // todox: make variable
+                    text-decoration: none;
+                }
+            }
+
+            .active a {
+                background-color: #eaeaea; // todox: make variable
+                color: #000; // todox: make variable
+                font-weight: bold;
+            }
+        }
+    }
+
+    ._menus {
+        background-color: #eaeaea; // todox: make variable
+        width: (@grid-gutter-width * 5);
+
+        ul {
+            list-style: none;
+
+            li {
+                position: relative; // scope for control button
+
+                &:hover ._control {
+                    visibility: visible;
+                }
+            }
+
+            a {
+                color: @color-silder-dark4;
+                display: block;
+                margin: 0 -(@grid-gutter-width / 2);
+                padding: (@grid-gutter-width / 4)  (@grid-gutter-width / 2);
+
+                &:hover {
+                    color: #000; // todox: make variable
+                    text-decoration: none;
+                }
+            }
+
+            .active a {
+                background-color: #f4f4f4; // todox: make variable
+                color: #000; // todox: make variable
+                font-weight: bold;
+            }
+
+            ._control {
+                margin-top: -15px; // half .btn-sm
+                position: absolute;
+                right: 0;
+                top: 50%;
+                visibility: hidden;
+                z-index: 1; // putting on top
+            }
+        }
+    }
+
+    ._pages {
+        background-color: #f4f4f4; // todox: make variable
+        width: (@grid-gutter-width * 6);
+
+        ._actions {
+            white-space: nowrap; // keeping all controls in one line
+        }
+
+        ._tree {
+            margin: 0 -(@grid-gutter-width / 2);
+        }
+    }
+
+    ._properties {
+        background-color: #fff; // todox: make variable
+        padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+
+        ._actions {
+            margin-bottom: (@grid-gutter-width / 4);
+            margin-top: -(@grid-gutter-width / 4);
+        }
+    }
+
+    ._languages, ._menus {
+        .btn-new {
+            .button-variant(#fff; @color-silder-dark4; @color-silder-dark4);
+        }
+    }
+}

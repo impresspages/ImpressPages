@@ -1,0 +1,104 @@
+/*
+    Disabling default styles
+*/
+html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+}
+body {
+    background: #fff url(img/bg.png) no-repeat center 45%;
+    color: #2f313f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    min-height: 320px;
+    min-width: 472px;
+}
+input, select, textarea, option, table {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+a {
+    text-decoration: none;
+}
+h1, h2, h3 {
+    font-size: 12px;
+}
+
+/*
+    Layout
+*/
+.logo {
+    display: block;
+    margin: 30px;
+    position: absolute;
+}
+.verticalAlign {
+    float: left;
+    height: 50%;
+    margin-top: -167px; /* .login height/2 + border */
+    width: 100%;
+}
+.login {
+    background-color: #fff;
+    border: 7px solid #000;
+    box-shadow: 0 0 20px #000;
+    clear: both;
+    height: 320px;
+    margin: 0 auto;
+    position: relative;
+    width: 472px;
+    z-index: 1;
+}
+.loginFooter {
+    background-color: #4e4e50;
+    border-top: 1px solid #404042;
+    bottom: 0;
+    color: #c6c6c8;
+    font-size: 11px;
+    padding: 5px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+.loginFooter a {
+    color: #c6c6c8;
+}
+.loginFooter a:hover {
+    text-decoration: underline;
+}
+
+/*
+    Form
+*/
+
+.formWrap {
+    padding: 5px 15px;
+}
+
+.loginTitle {
+    border-bottom: 1px solid #000;
+    padding: 5px 15px;
+}
+.loginTitle h1 {
+    color: #000000;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 36px;
+    text-transform: uppercase;
+}
+.loginContent {
+    padding: 20px 15px 10px;
+}
+.loginContent .form-group:last-child {
+    margin-bottom: 0;
+}
+.loginContent .alternativeLink {
+    float: right;
+    margin-top: -2em;
+}
+.ipmErrorMessage { /* todox: fix validator to have this global message optional (if moving to inline) */
+    display: none !important; /* hiding global validator error */
+}

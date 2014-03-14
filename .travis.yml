@@ -1,28 +1,27 @@
-branches:
-  only:
-    - evolution
-    - develop
-    - /^feature-.*$/
 language: php
 php:
   - 5.3
 notifications:
-  email: false
+  email:
+    on_success: change
+    on_failure: change
+env:
+  global:
+    # SAUCE
+    - secure: "fwebeORlyqO1sXaOVSx7sxeAlmWr6q68RpZWSWmp5Kdu3XcfhV/v3jcH2nIpfDLkFq2rtQw1h+dRcSdHClYedDnr/Vp9fKMkscroNWTn+QqYAJtZTWZIDs3B0B+Ea3wNc1chN7iOXdr2wrz+aX7fyw8olSoEz/+lTBNnJEJovlM="
+    - secure: "jlcxYPI1ndqrAV/+IVzFf/BtL0W0oxnFAgl52wFkkgH8c2DHG8Cf2vIF7JVZs0+fhjamuyAiLO9dktowSaWA/SXXbZIBap+DKPpHCp3gjGfXlLF1wwUTT+m5PAMtsoHCs4m3yjTdyAH/Foa8uEbkcZ+mdLEjrcQV8ZxosTSl1jk="
+  matrix:
+    - TEST_GROUP=unit
+    - TEST_GROUP=Sauce
+#matrix:
+#    allow_failures:
+#        - env: "TEST_GROUP=other"
 before_script:
   - cd phpunit
-  - sh -c "if [ `php -r "echo (int) version_compare(PHP_VERSION, '5.3.19', '>=');"` = "1" ]; then ./travis-nginx-install.sh; fi"
-  - pyrus set auto_discover 1
-  - pyrus install --force phpunit/DbUnit
-  - pyrus install --force phpunit/PHPUnit_Selenium
-  - mysql -e 'create database ip_test;'
-  - mysql ip_test < ip_test.sql
-  - wget -P vendor https://github.com/downloads/Behat/Mink/mink.phar
+  - ./travis-db-create.sh
+  - composer --prefer-source install # prefer-source is used to avoid github api limit
+#  - ./travis-nginx-install.sh
+  - ./travis-apache-install.sh
+  - sh -c "if [ $TEST_GROUP = "Sauce" ]; then curl https://gist.githubusercontent.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash; fi"
 
-  # Selenium
-#  - "sh -e /etc/init.d/xvfb start"
-#  - "export DISPLAY=:99.0"
-#  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar -nv"
-#  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
-#  - sleep 5
-
-script: phpunit --configuration config.xml Tests/
+script: ./travis-tests.sh

@@ -1,0 +1,18 @@
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    bootstrap="bootstrap.php"
+    cacheTokens="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="false"
+    mapTestClassNameToCoveredClassName="true"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    strict="false"
+    verbose="true">
+</phpunit>

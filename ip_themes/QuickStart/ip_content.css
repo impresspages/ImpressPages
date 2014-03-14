@@ -1,8 +1,0 @@
-/*
-In order to show ImpressPages widgets well, we use default ip_content.css.
-*/
-@import '../../ip_libs/css/ipContent/ip_content.css';
-
-/*
-If you want to override widget styles, do it bellow.
-*/

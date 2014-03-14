@@ -1,0 +1,33 @@
+.ipModuleContentEditButton {
+    background-color: @navbar-inverse-bg;
+    padding: (@grid-gutter-width / 8);
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+.ipModuleContentPublishButton {
+    .btn {
+        font-size: @font-size-base;
+        line-height: @line-height-base;
+
+        .@{fa-css-prefix}-fw {
+            .text-center();
+        }
+    }
+    .dropdown-toggle {
+        border-left-color: darken(@btn-primary-border, 12%);
+    }
+    ._revisions {
+        max-height: (@grid-gutter-width * 7);
+        overflow: auto;
+
+        ._button {
+            padding: 0 (@grid-gutter-width / 2);
+        }
+    }
+}
+.ipModuleContentFormModal {
+    .nav-tabs {
+        margin-bottom: (@grid-gutter-width / 2);
+    }
+}

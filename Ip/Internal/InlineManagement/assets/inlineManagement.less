@@ -1,0 +1,40 @@
+.ipModuleInlineManagementControls {
+    display: none;
+    position: absolute;
+
+    .ipAdminWidgetControls ._controls * {
+        visibility: visible;
+    }
+}
+
+.ipModuleInlineManagementLogoModal {
+    .nav-tabs {
+        margin-bottom: (@grid-gutter-width / 2);
+    }
+    .input-group-lg > .input-group-btn > .btn {
+        font-size: @font-size-base;
+    }
+    ._colorPicker {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.ipModuleInlineManagementImageModal {
+    outline: @color-silver2 solid 1px;
+    position: absolute;
+    z-index: @zindex-modal;
+
+    ._controls {
+        background-color: @color-silver2;
+        padding: 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+
+        .form-group {
+            margin-top:  (@grid-gutter-width / 2);
+        }
+
+        .pull-left {
+            clear: left;
+        }
+    }
+}

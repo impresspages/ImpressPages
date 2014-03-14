@@ -8,6 +8,7 @@ namespace PhpUnit\Helper;
  *
  */
 
+use \Plugin\Install\Model as InstallModel;
 
 class Installation
 {
@@ -25,8 +26,8 @@ class Installation
     private $siteEmail;
     private $siteTimeZone;
     private $cf;
-    private $conn;
     private $testDbHelper;
+    private $defaultConfig;
 
     /**
      * @var true if this installation represents current development version
@@ -34,14 +35,15 @@ class Installation
     private $developmentVersion;
 
     private $installed;
+
     /**
-     * @param string$version
+     * @param null $version
      */
     public function __construct($version = null)
     {
         if ($version === null) {
             $this->developmentVersion = true;
-            $version = \IpUpdate\Library\Service::getLatestVersion();
+            $version = \PhpUnit\Helper\Service::getLatestVersion();
         } else {
             $this->developmentVersion = false;
         }
@@ -61,13 +63,20 @@ class Installation
         $this->setAdminLogin('admin');
         $this->setAdminPass('admin');
 
+        $this->defaultConfig = array();
+
         $this->installed = false;
     }
 
+    public function setDefaultConfig($defaultConfig)
+    {
+        $this->defaultConfig = $defaultConfig;
+    }
+
+
 
     /**
-     *
-     * @param string $version
+     * @throws \Exception
      */
     public function install()
     {
@@ -83,6 +92,32 @@ class Installation
         $this->testDbHelper = $testDbHelper; //database will be destroyed on this object destruction;
 
         $this->putInstallationFiles($this->getInstallationDir());
+
+        InstallModel::createAndUseDatabase($this->getDbName());
+        InstallModel::createDatabaseStructure($this->getDbName(), $this->getDbPrefix());
+        InstallModel::importData($this->getDbPrefix());
+        InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
+        InstallModel::setSiteEmail($this->getSiteEmail());
+        InstallModel::setSiteName($this->getSiteName());
+
+        $config = array();
+        $config['sessionName'] = 'ses' . rand();
+        $config['timezone'] = $this->getSiteTimeZone();
+        $config['db'] = array(
+            'hostname' => $this->getDbHost(),
+            'username' => $this->getDbPass(),
+            'password' => $this->getDbPass(),
+            'database' => $this->getDbName(),
+            'tablePrefix' => $this->getDbPrefix(),
+            'charset' => 'utf8'
+        );
+        $config = array_merge($config, $this->defaultConfig);
+
+        InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'config.php');
+
+        $this->installed = true;
+
+        return;
 
         // INIT CURL
         $ch = curl_init();
@@ -121,8 +156,8 @@ class Installation
                 'install_pass' => $this->getAdminPass(),
                 'email' => '',
                 'timezone' => $this->getSiteTimezone(),
-                'site_name' => $this->getSiteName(),
-                'site_email' => $this->getSiteEmail()
+                'siteName' => $this->getSiteName(),
+                'siteEmail' => $this->getSiteEmail()
         );
 
         $fieldsString = '';
@@ -134,10 +169,10 @@ class Installation
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        
+
         $answer = curl_exec($ch);
 
-        
+
 
         // RUN CRON
         curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'/ip_cron.php');
@@ -147,21 +182,19 @@ class Installation
 
 
         //Put instalation into test mode:
-        $configFile = $this->getInstallationDir()."ip_config.php";
-        $fh = fopen($configFile, 'a') or die("can't open file");
-        $data = "
-            define('TEST_MODE', 1);
-        ";
-        fwrite($fh, $data);
-        fclose($fh);
+        $configFile = $this->getInstallationDir()."config.php";
+        $config = include ($configFile);
+        $config['testMode'] = true;
+        $configSource = '<?php return ' . var_export($config, true);
+        file_put_contents($configFile, $configSource);
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->rm($this->getInstallationDir().'update/');
+
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir().'install/');
 
 
         $this->installed = true;
-        
+
     }
 
 
@@ -171,10 +204,10 @@ class Installation
             throw new \Exception("system is not installed");
         }
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         $fs->rm($this->getInstallationDir());
     }
-    
+
     public function setupUpdate($destinationVersion = null)
     {
         if (!$this->isInstalled()) {
@@ -197,18 +230,11 @@ class Installation
 
 
         $fs = new \PhpUnit\Helper\FileSystem();
-        $fs->chmod($this->getInstallationDir()."update", 0777);
     }
 
     private function setupDevelopmentFiles()
     {
-
-        $folders = array(
-            'update',
-        );
-
-
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
+        $fs = new \PhpUnit\Helper\FileSystem2();
         foreach($folders as $folder) {
             $fs->rm($this->getInstallationDir().$folder);
         }
@@ -224,22 +250,20 @@ class Installation
 
     private function setupPackageFiles($destinationVersion)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$destinationVersion.'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($destinationVersion);
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 
-        $fs = new \IpUpdate\Library\Helper\FileSystem();
-        $fs->rm($this->getInstallationDir().'update');
-        mkdir($this->getInstallationDir().'update');
+        $fs = new \PhpUnit\Helper\FileSystem2();
 
 
         if (!class_exists('PclZip')) {
             require_once(TEST_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archive);
-        $status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
+        //$status = $zip->extract(PCLZIP_OPT_PATH, $this->getInstallationDir().'update', PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($destinationVersion).'/update');
 
         if (!$status) {
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
@@ -257,9 +281,9 @@ class Installation
             throw new \Exception("Version ".$version." package does not exist");
         }
     }
-    
+
     /**
-     * 
+     *
      * @param string $key configuration value constant
      */
     public function getConfig($key)
@@ -270,25 +294,15 @@ class Installation
         }
         return $this->cf[$key];
     }
-    
+
     /**
      * Return MySQL connection to the database
      */
     public function getDbConn()
     {
-        if (!$this->conn) {
-            $connection = mysql_connect($this->getConfig('DB_SERVER'), $this->getConfig('DB_USERNAME'), $this->getConfig('DB_PASSWORD'));
-            if ($connection) {
-                mysql_select_db($this->getConfig('DB_DATABASE'));
-                mysql_query("SET CHARACTER SET ".$this->getConfig('MYSQL_CHARSET'));
-                $this->conn = $connection;
-            } else {
-                throw new \Exception("Can\'t connect to database.");
-            }
-        }
-        return $this->conn;
+        throw new \Exception("Not implemented.");
     }
-    
+
     public function getSubdir($version)
     {
         $oldVersions = array(
@@ -347,12 +361,12 @@ class Installation
     {
         $this->dbPrefix = $dbPrefix;
     }
-    
+
     public function setAdminLogin($adminLogin)
     {
         $this->adminLogin = $adminLogin;
     }
-    
+
     public function setAdminPass($adminPass)
     {
         $this->adminPass = $adminPass;
@@ -443,7 +457,7 @@ class Installation
     }
 
 
-    private function putInstallationFiles($destinationDir)
+    public function putInstallationFiles($destinationDir)
     {
         if ($this->developmentVersion) {
             $this->putInstallationFilesDevelopment($destinationDir);
@@ -464,34 +478,24 @@ class Installation
      */
     private function putInstallationFilesDevelopment($destination)
     {
-        mkdir($destination);
+        if (!is_dir($destination)) {
+            mkdir($destination);
+        }
 
         $folders = array(
-            'audio',
+            'Ip',
+            'Plugin',
             'file',
-            'image',
             'install',
-            'ip_cms',
-            'ip_configs',
-            'ip_libs',
-            'ip_plugins',
-            'ip_themes',
-            'update',
-            'video'
+            'Theme',
         );
 
         $files = array(
-//            'admin.php',
             'favicon.ico',
             'index.php',
-//            'ip_backend_frames.php',
-            'ip_backend_worker.php',
-            'ip_config.php',
-            'ip_cron.php',
-            'ip_license.html',
+            'license.html',
             'readme.md',
             'robots.txt',
-            'sitemap.php',
             '.htaccess'
         );
 
@@ -506,17 +510,8 @@ class Installation
             $fs->chmod($destination.$file, 0777);
         }
 
-        file_put_contents($destination.'robots.txt', '');
-        $fs->chmod($destination.'robots.txt', 0777);
-        file_put_contents($destination.'ip_config.php',
-            '<?php
-
- if(!isset($_GET[\'install\']))
-    header("location: install/?install=1");
-        ');
-        $fs->chmod($destination.'ip_config.php', 0777);
-
-
+        file_put_contents($destination . 'config.php', '<?php header("Location: install/"); exit();');
+        $fs->chmod($destination . 'config.php', 0777);
     }
 
 
@@ -527,9 +522,9 @@ class Installation
      */
     private function putInstallationFilesPackage($destination)
     {
-        $netHelper = new \IpUpdate\Library\Helper\Net();
+        $netHelper = new \PhpUnit\Helper\Net();
         $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \IpUpdate\Library\Model\Migration();
+        $migrationModel = new \PhpUnit\Helper\Migration();
         $script = $migrationModel->getScriptToVersion($this->getVersion());
         $netHelper->downloadFile($script->getDownloadUrl(), $archive);
 

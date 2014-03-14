@@ -1,7 +1,12 @@
 {
+    "prefer-dist": true,
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
         "phpunit/dbunit": ">=1.2",
-        "phpunit/phpunit-selenium": ">=1.2"
+        "phpunit/phpunit-selenium": ">=1.2",
+        "phpmd/phpmd" : "1.4.*",
+        "behat/mink": "v1.5.0",
+        "behat/mink-goutte-driver": "v1.0.9",
+        "behat/mink-selenium2-driver": "v1.1.1"
     }
 }

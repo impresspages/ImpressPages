@@ -1,0 +1,108 @@
+body {
+    background-color: @bodyBackgroundColor;
+    color: @ipTextColor;
+    font-family: @ipFontFamily;
+    font-size: @ipFontSize;
+}
+a { // Links should look the same everywhere
+    color: @ipLinkColor;
+    text-decoration: none;
+}
+// Common styles
+.left { // todox: remove if unused
+    float: left;
+}
+.right { // todox: remove if unused
+    float: right;
+}
+
+.wrapper {
+    background-color: @ipBackgroundColor;
+    margin: 0 auto; // centering all content
+    max-width: (1200px - @columnPadding*2);
+    padding: 0 @columnPadding;
+    position: relative; // all positioning should be relative to the '.theme' as it may appear in different environment
+
+    // Structure
+    & > header {
+        border-bottom: 1px solid @ipBorderColorActive;
+        margin-bottom: @ipSpaceGlobal;
+        padding-bottom: @ipSpaceGlobal;
+    }
+    & > footer {
+        border-top: 1px solid @ipBorderColorActive;
+        margin-top: @ipSpaceGlobal;
+        padding: (@ipSpaceGlobal / 2) 0;
+
+        p {
+            margin: 0;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.homerow {
+    clear: both;
+    border-top: 1px solid @ipBorderColor;
+    padding-top: @ipSpaceGlobal;
+}
+.side {
+    clear: left; // to keep columns in place
+
+    // changing behavior on mobile and tablet devices
+    @media screen and (max-width: (@screenLarge - 1px)) {
+        .main + & {
+            border-top: 1px solid @ipBorderColor;
+            padding-top: @ipSpaceGlobal;
+        }
+    }
+}
+.sidenav {
+    margin-bottom: 0;
+
+    nav > ul {
+        margin-bottom: (@ipSpaceGlobal * 2);
+    }
+}
+
+// Header
+.logo {
+    margin-top: @ipSpaceGlobal;
+    display: block;
+    float: left;
+
+    a {
+        color: @ipTextColor;
+        font-family: @ipFontFamily;
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+
+// Homepage
+.homeHeadline {
+    font-family: @ipFontFamily;
+    font-size: 60px;
+    font-weight: bold;
+    margin: @ipSpaceGlobal 0;
+    text-align: center;
+
+    // changing behavior on mobile devices
+    @media screen and (max-width: (@screenMedium - 1px)) {
+        font-size: 40px;
+    }
+}
+.homeDescription {
+    font-family: @ipFontFamilyAlternative;
+    font-size: @ipFontSizeBig;
+    margin-bottom: @ipSpaceGlobal;
+}
+.homeDescription p {
+    margin-bottom: @ipSpaceGlobal;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

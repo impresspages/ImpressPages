@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <dataset>
-    <table name="ip_m_content_management_widget">
+    <table name="ip_widget">
         <column>widgetId</column>
         <column>name</column>
         <column>layout</column>
@@ -10,7 +10,7 @@
         <column>predecessor</column>
         <row>
             <value name="widgetId">54</value>
-            <value name="name">IpImage</value>
+            <value name="name">Image</value>
             <value name="layout">default</value>
             <value name="data">{&quot;imageWindowWidth&quot;:&quot;526&quot;,&quot;imageOriginal&quot;:&quot;phpunit\/Tmp\/file\/simple.gif&quot;,&quot;cropX1&quot;:&quot;0&quot;,&quot;cropY1&quot;:&quot;0&quot;,&quot;cropX2&quot;:&quot;720&quot;,&quot;cropY2&quot;:&quot;481&quot;,&quot;scale&quot;:&quot;1.0038167938931297&quot;,&quot;maxWidth&quot;:&quot;540&quot;,&quot;title&quot;:&quot;&quot;}</value>
             <value name="created">1367136019</value>

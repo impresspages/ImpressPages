@@ -1,0 +1,92 @@
+/**
+ * ImpressPages theme: Quick Start
+ *
+ * Main style file for structure, global styles.
+ */
+
+/*
+    Disabling default styles
+*/
+html, body, h1, h2, h3, h4, h5, h6, img, blockquote, form, fieldset, label, p, ul, ol, li, dl, dd, dt {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #ddd;
+    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 20px;
+}
+input, select, textarea, option, table {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+}
+table {
+    border-collapse: collapse;
+}
+a {
+    text-decoration: none;
+}
+h1, h2, h3 {
+    font-size: 14px;
+}
+
+/*
+    Global
+*/
+.clear {
+    clear: both;
+}
+
+/*
+    Structure
+*/
+.content {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    clear: both;
+    margin: auto; /* cross browser way to center */
+    padding: 20px;
+    width: 540px;
+}
+
+/*
+    Top menu
+*/
+.topmenu {
+    margin: auto;  /* cross browser way to center */
+    width: 580px;
+}
+.topmenu ul {
+    float: left;
+    margin-left: 0;
+    padding-left: 0;
+    white-space: nowrap;
+}
+.topmenu li {
+    float: left;
+    list-style-type: none;
+}
+.topmenu a {
+    background: #fff;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 20px;
+}
+.topmenu a {
+    color: #000;
+    background-color: #fff;
+    text-decoration: none;
+}
+.topmenu a:hover {
+    background: #555;
+    color: #fff;
+}
+.topmenu ul ul {
+     /* QuickStart theme doesn't support more than one level deep menu */
+    display: none;
+}

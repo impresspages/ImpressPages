@@ -35,7 +35,7 @@ class IpActions
      */
     public function login()
     {
-        $this->testCase->open($this->installation->getInstallationUrl().'admin.php');
+        $this->testCase->open($this->installation->getInstallationUrl().'admin/');
         $loggedIn = true;
 
         try  {
@@ -44,14 +44,22 @@ class IpActions
             $loggedIn = false;
         }
         if (!$loggedIn) {
-            $this->testCase->type('css=.ipmControlInput[name=login]', $this->installation->getAdminLogin());
-            $this->testCase->type('css=.ipmControlInput[name=password]', $this->installation->getAdminPass());
+            $this->testCase->type('css=.form-control[name=login]', $this->installation->getAdminLogin());
+            $this->testCase->type('css=.form-control[name=password]', $this->installation->getAdminPass());
             $this->testCase->clickAndWait('css=.ipsLoginButton');
         }
-        $this->testCase->waitForElementPresent('css=.ipActionPublish');
+        $this->testCase->waitForElementPresent('css=.ipsContentPublish');
     }
 
 
+    public function selectFirstFileInRepository()
+    {
+        $this->testCase->waitForElementPresent('css=.ipmBrowserContainer ul li');
+        $this->testCase->click('css=.ipmBrowserContainer ul li:first');
+        $this->testCase->waitForElementPresent('css=.ipaSelectionConfirm');
+        $this->testCase->click('css=.ipaSelectionConfirm');
+
+    }
 
     /**
      * @param string $widgetName
@@ -78,10 +86,10 @@ class IpActions
 
     public function publish()
     {
-        $this->testCase->click('css=.ipActionPublish');
+        $this->testCase->click('css=.ipsContentPublish');
         $this->testCase->waitForElementPresent('css=.ipSeleniumProgress');
         $this->testCase->waitForNotVisible('css=.ipSeleniumProgress');
-        $this->testCase->waitForElementPresent('css=.ipActionPublish');
+        $this->testCase->waitForElementPresent('css=.ipsContentPublish');
     }
 
     /**
@@ -91,8 +99,8 @@ class IpActions
     {
         switch ($module) {
             case 'system':
-                $this->testCase->open($this->installation->getInstallationUrl().'?g=administrator&m=system&aa=index');
-                $this->testCase->waitForElementPresent('css=.ipsClearCache');
+                $this->testCase->open($this->installation->getInstallationUrl().'?aa=System.index');
+                $this->testCase->waitForElementPresent('css=.ipsSystemStatus');
                 break;
             default:
                 throw new \Exception("Unknown error");

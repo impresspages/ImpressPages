@@ -2,4 +2,5 @@
 .gitignore export-ignore
 .travis.yml export-ignore
 /phpunit/ export-ignore
+/Plugin/CoreCompiler export-ignore
 

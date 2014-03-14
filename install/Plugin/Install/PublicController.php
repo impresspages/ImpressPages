@@ -1,0 +1,421 @@
+<?php
+/**
+ * @package   ImpressPages
+ */
+
+namespace Plugin\Install;
+
+
+
+class PublicController extends \Ip\Controller
+{
+    protected function init()
+    {
+        if (ipRequest()->getRequest('debug') !== NULL) {
+            $_SESSION['install_debug'] = (int)ipRequest()->getRequest('debug');
+        }
+
+        if (!empty($_SESSION['install_debug'])) {
+            error_reporting(E_ALL);
+            ini_set("display_errors", 1);
+        }
+
+
+        if (empty($_SESSION['websiteId'])) {
+            $_SESSION['websiteId'] = Helper::randString(32);
+        }
+
+
+        if (empty($_SESSION['step'])) {
+            $_SESSION['step'] = 0;
+        }
+
+        if (isset($_GET['lang'])) {
+            $_SESSION['installation_language'] = $_GET['lang'];
+        }
+    }
+
+    public function index ()
+    {
+        $this->init();
+        if (isset($_GET['step'])) {
+            $step = (int)$_GET['step'];
+        } else {
+            $step = 0;
+        }
+        if (!Helper::isInstallAvailable()) {
+            $step = 5;
+        }
+        $_SESSION['step'] = $step;
+
+        $method = 'step' . $step;
+        return $this->$method();
+    }
+
+    protected function step0()
+    {
+        $this->init();
+
+        $languages = array();
+        $languages['cs'] = 'Čeština';
+        $languages['nl'] = 'Dutch';
+        $languages['en'] = 'English';
+        $languages['fr'] = 'French';
+        $languages['de'] = 'Deutsch';
+        $languages['ja'] = '日本語';
+        $languages['lt'] = 'Lietuvių';
+        $languages['pt'] = 'Portugues';
+        $languages['pl'] = 'Polski';
+        $languages['ro'] = 'Română';
+
+        $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
+
+        $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
+        $data['languages'] = $languages;
+
+        $content = ipView('view/step0.php', $data)->render();
+
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    protected function step1()
+    {
+        $this->init();
+
+        Model::completeStep(1);
+
+        $content = Model::checkRequirements();
+
+
+        function get_url()
+        {
+            $pageURL = 'http';
+            if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+                $pageURL .= "s";
+            }
+            $pageURL .= "://";
+            if ($_SERVER["SERVER_PORT"] != "80") {
+                $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+            } else {
+                $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+            }
+
+            return $pageURL;
+        }
+
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    protected function step2()
+    {
+        $this->init();
+
+        Model::completeStep(2);
+
+        $content = ipView('view/step2.php');
+
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    protected function step3()
+    {
+        $this->init();
+
+        if (!isset($_SESSION['db'])) {
+            $_SESSION['db'] = array(
+                'hostname' => 'localhost',
+                'username' => '',
+                'password' => '',
+                'database' => '',
+                'charset' => 'utf8',
+                'tablePrefix' => 'ip_'
+            );
+        }
+
+        $data = array(
+            'db' => $_SESSION['db'],
+        );
+
+        $content = ipView('view/step3.php', $data)->render();
+
+
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step3.js');
+
+        return $response;
+    }
+
+    protected function step4()
+    {
+        $this->init();
+
+        $dateTimeObject = new \DateTime();
+        $currentTimeZone = $dateTimeObject->getTimezone()->getName();
+        $timezoneSelectOptions = '';
+
+        $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::ALL_WITH_BC);
+
+        $lastGroup = '';
+        foreach($timezones as $timezone) {
+            $timezoneParts = explode('/', $timezone);
+            $curGroup = $timezoneParts[0];
+            if ($curGroup != $lastGroup) {
+                if ($lastGroup != '') {
+                    $timezoneSelectOptions .= '</optgroup>';
+                }
+                $timezoneSelectOptions .= '<optgroup label="'.addslashes($curGroup).'">';
+                $lastGroup = $curGroup;
+            }
+            if ($timezone == $currentTimeZone) {
+                $selected = 'selected';
+            } else {
+                $selected = '';
+            }
+            $timezoneSelectOptions .= '<option '.$selected.' value="'.addslashes($timezone).'">'.htmlspecialchars($timezone).'</option>';
+        }
+
+        $data = array(
+            'timezoneSelectOptions' => $timezoneSelectOptions,
+        );
+
+        $content = ipView('view/step4.php', $data)->render();
+
+
+
+        $response = new LayoutResponse();
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/step4.js');
+
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    protected function step5()
+    {
+        $this->init();
+
+        $SESSION['step'] = 5;
+        $content = ipView('view/step5.php')->render();
+
+        $response = new LayoutResponse();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+    public function createDatabase()
+    {
+        $db = ipRequest()->getPost('db');
+
+        foreach (array('hostname', 'username', 'database') as $key) {
+            if (empty($db[$key])) {
+                return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'Install', false));
+            }
+        }
+
+        if (empty($db['tablePrefix'])) {
+            $db['tablePrefix'] = '';
+        }
+
+        if (strlen($db['tablePrefix']) > 7) {
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'Install', false));
+        }
+
+        if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
+            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with a letter.', 'Install', false));
+        }
+
+
+        $dbConfig = array(
+            'hostname' => $db['hostname'],
+            'username' => $db['username'],
+            'password' => $db['password'],
+            'tablePrefix' => $db['tablePrefix'],
+            'database' => '', // if database doesn't exist, we will create it
+            'charset' => 'utf8',
+        );
+
+        ipConfig()->_setRaw('db', $dbConfig);
+        ipConfig()->setTablePrefix($dbConfig['tablePrefix']);
+
+        try {
+            ipDb()->getConnection();
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install'), false);
+        }
+
+        try {
+            Model::createAndUseDatabase($db['database']);
+        } catch (\Ip\Exception $e) {
+            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
+        }
+
+
+        $tables = array (
+            'page',
+            'pageStorage',
+            'language',
+            'log',
+            'emailQueue',
+            'repositoryFile',
+            'repositoryReflection',
+            'widget',
+            'widgetInstance',
+            'themeStorage',
+            'widgetOrder',
+            'inlineValueGlobal',
+            'inlineValueForLanguage',
+            'inlineValueForPage',
+            'plugin',
+            'storage',
+            'administrator'
+        );
+
+
+        $tableExists = FALSE;
+        foreach ($tables as $table) {
+            try {
+                $sql = 'SELECT 1 FROM `' . $dbConfig['tablePrefix'] . $table . '`';
+                ipDb()->execute($sql);
+                $tableExists = TRUE;
+            } catch (\Exception $e) {
+                //Do nothing. We have expected this error to occur. That means the database is clean
+            }
+        }
+        if ($tableExists && empty($db['replaceTables'])) {
+            return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exist');
+        }
+
+
+        $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
+
+        if (!$errors) {
+            $errors = Model::importData($dbConfig['tablePrefix']);
+        }
+
+        if ($errors){
+            if($_SESSION['step'] < 3) {
+                $_SESSION['step'] = 3;
+            }
+        }
+
+        $dbConfig['database'] = $db['database'];
+
+        $_SESSION['db'] = $dbConfig;
+
+        if ($errors) {
+            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
+        } else {
+            \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
+            OptionHelper::import(__DIR__ . '/options.json');
+
+            Model::completeStep(3);
+            return \Ip\Response\JsonRpc::result(true);
+        }
+
+
+
+
+    }
+
+    public function writeConfig()
+    {
+        $this->init();
+
+        if (empty($_SESSION['db'])) {
+            return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'Install', 'false'));
+        }
+
+        // Validate input:
+        $errors = array();
+
+        if (!ipRequest()->getPost('siteName')) {
+            $errors[] = __('Please enter website name.', 'Install', false);
+        }
+
+        if (!ipRequest()->getPost('siteEmail') || !filter_var(ipRequest()->getPost('siteEmail'), FILTER_VALIDATE_EMAIL)) {
+            $errors[] = __('Please enter correct website email.', 'Install', false);
+        }
+
+        if (!ipRequest()->getPost('install_login') || !ipRequest()->getPost('install_pass')) {
+            $errors[] = __('Please enter administrator login and password.', 'Install', false);
+        }
+
+        if (ipRequest()->getPost('timezone')) {
+            $timezone = ipRequest()->getPost('timezone');
+        } else {
+            $errors[] = __('Please choose website time zone.', 'Install', false);
+        }
+
+
+        if (!empty($errors)) {
+            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
+        }
+
+        $config = array();
+        $config['sessionName'] = 'ses' . rand();
+        $config['timezone'] = $timezone;
+        $config['db'] = $_SESSION['db'];
+
+        try {
+            Model::writeConfigFile($config, ipFile('config.php'));
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
+        }
+
+
+
+        try {
+            ipConfig()->_setRaw('db', $config['db']);
+            ipDb()->getConnection();
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install', false));
+        }
+        try {
+
+            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('siteEmail'), ipRequest()->getPost('install_pass'));
+            Model::setSiteName(ipRequest()->getPost('siteName'));
+            Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
+            Model::generateCronPassword();
+            ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
+            ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
+        } catch (\Exception $e) {
+            return \Ip\Response\JsonRpc::error($e->getTraceAsString());
+        }
+
+        Model::completeStep(4);
+
+        return \Ip\Response\JsonRpc::result(true);
+    }
+
+
+    protected function getParentUrl() {
+        $pageURL = '';
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+
+        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
+        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
+        return $pageURL;
+    }
+
+
+}

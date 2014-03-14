@@ -1,0 +1,57 @@
+.ipModuleDesignConfig {
+    .modal-dialog {
+        left: (@grid-gutter-width / 4);
+        position: fixed;
+        top: (@grid-gutter-width / 4);
+        width: (@grid-gutter-width * 10);
+    }
+    .modal-header {
+        cursor: move;
+    }
+    .modal-footer {
+        margin-top: 0;
+    }
+    ._body {
+        overflow: hidden;
+    }
+    .alert {
+        margin-bottom: 0;
+    }
+    .panel { // resetting default styles; we don't need them but we're forced to use this class
+        background-color: transparent;
+        border: 0;
+        border-radius: 0;
+        .box-shadow(none);
+        margin: 0;
+    }
+    fieldset {
+        legend {
+            background-color: #ecebeb; // todox: move to variables
+            cursor: pointer;
+            font-size: @font-size-small;
+            font-weight: bold;
+            margin-bottom: 1px;
+            outline: none;
+            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+
+            &:before {
+                content: '\25BC';
+                display: inline-block;
+                margin-right: (@grid-gutter-width / 4);
+            }
+            &.collapsed {
+                background-color: #dcdcdc; // todox: move to variables
+
+                &:before {
+                    content: '\25BA';
+                }
+            }
+        }
+        .form-group {
+            padding: 0 (@grid-gutter-width / 2);
+        }
+        .collapse {
+            overflow: auto;
+        }
+    }
+}

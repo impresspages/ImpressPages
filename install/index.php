@@ -1,217 +1,72 @@
 <?php
+
 /**
  * @package ImpressPages
- *
- *
  */
-define('INSTALL', 'true');
 
-define('TARGET_VERSION', '3.9');
-
-//$_SESSION['step'] - stores the value of completed steps
-
-
-date_default_timezone_set('Europe/Vilnius'); //PHP 5 requires timezone to be set.
-
-
-if (get_magic_quotes_gpc()) { //fix magic quotes option
-    $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
-    while (list($key, $val) = each($process)) {
-        foreach ($val as $k => $v) {
-            unset($process[$key][$k]);
-            if (is_array($v)) {
-                $process[$key][stripslashes($k)] = $v;
-                $process[] = &$process[$key][stripslashes($k)];
-            } else {
-                $process[$key][stripslashes($k)] = stripslashes($v);
-            }
-        }
-    }
-    unset($process);
+if ((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)) {
+    echo 'Your PHP version is: ' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '. To run ImpressPages you need PHP >= 5.3.*';
+    exit;
 }
 
+require_once(__DIR__ . '/../Ip/Application.php');
 
-function install_available(){
-    if(filesize("../ip_config.php") !== false && filesize("../ip_config.php") < 100){
-        return true;
-    }else{
-        return false;
-    }
+$application = new \Ip\Application(__DIR__ . '/config.php');
+$application->init();
+$options = array(
+    'skipErrorHandler' => true
+);
+$application->prepareEnvironment($options);
+$options = array(
+    'skipInitEvents' => true,
+    'skipModuleInit' => true,
+    'translationsLanguageCode' => 'en'
+);
+
+if (isset($_REQUEST['lang'])) {
+    $_SESSION['installationLanguage'] = $_REQUEST['lang'];
 }
 
-
-
-
-
-function output($html, $requiredJs = array()){
-
-    $jsHtml = '';
-    foreach($requiredJs as $jsFile) {
-        $jsHtml .= '<script type="text/javascript" src="'.$jsFile.'"></script>'."\n";
-    }
-
-    echo
-	'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="robots" content="NOINDEX,NOFOLLOW">
-    <title>'.IP_INSTALLATION.'</title>
-    <link rel="stylesheet" href="design/style.css">
-    <link rel="shortcut icon" href="favicon.ico">
-</head>
-<body>
-
-    <div class="container">
-        <img id="logo" src="design/cms_logo.png" alt="ImpressPages CMS">
-        <div class="clear"></div>
-        <div id="wrapper">
-            <p id="installationNotice">'.IP_INSTALLATION.' <span>'.IP_VERSION.'</span></p>
-            <div class="clear"></div>
-            <img class="border" src="design/cms_main_top.gif" alt="Design">
-            <div id="main">
-                <div id="menu">
-'.gen_menu().'
-                </div>
-                <div id="content">
-'.$html.'
-                </div>
-                <div id="loading">
-                <img src="design/loading.gif" ?>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <img class="border" src="design/cms_main_bottom.gif" alt="Design">
-            <div class="clear"></div>
-        </div>
-        <div class="footer">Copyright 2009-'.date("Y").' by <a href="http://www.impresspages.org">ImpressPages UAB</a></div>
-    </div>
-
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
-    '.$jsHtml.'
-
-</body>';
+if (isset($_SESSION['installationLanguage'])) {
+    $options['translationsLanguageCode'] = $_SESSION['installationLanguage'];
 }
 
+// Because module init is skipped, we have to initialize translations manually
+$translator = \Ip\ServiceLocator::translator();
+$translator->setLocale($options['translationsLanguageCode']);
 
-function gen_menu(){
-    global $cur_step;
-    $steps = array();
-    $steps[] = IP_STEP_LANGUAGE;
-    $steps[] = IP_STEP_CHECK;
-    $steps[] = IP_STEP_LICENSE;
-    $steps[] = IP_STEP_DB;
-    $steps[] = IP_STEP_CONFIGURATION;
-    $steps[] = IP_STEP_COMPLETED;
+$trPluginDir = ipFile('Plugin/Install/translations/');
+$trOverrideDir = ipFile('file/translations/override/');
+$translator->addTranslationFilePattern('json', $trPluginDir, 'Install-%s.json', 'Install');
+$translator->addTranslationFilePattern('json', $trOverrideDir, 'Install-%s.json', 'Install');
 
-    $answer = '
-    <ul>
-';
+$request = new \Plugin\Install\Request();
+$request->setQuery($_GET);
+$request->setPost($_POST);
+$request->setServer($_SERVER);
+$request->setRequest($_REQUEST);
 
-    foreach($steps as $key => $step){
-        $class = "";
-        if($_SESSION['step'] >= $key)
-        $class="completed";
-        else
-        $class="incompleted";
-        if($key == $cur_step)
-        $class="current";
-        if($key < $cur_step)
-        $answer .= '<li onclick="document.location=\'index.php?step='.($key).'\'" class="'.$class.'"><a href="index.php?step='.($key).'">'.$step.'</a></li>';
-        else
-        $answer .= '<li class="'.$class.'"><a>'.$step.'</a></li>';
+\Ip\ServiceLocator::addRequest($request);
 
-    }
+$language = new \Ip\Language(null, $options['translationsLanguageCode'], null, null, null, 0, 'ltr');
+ipContent()->_setCurrentLanguage($language);
 
-    $answer .= '
-    </ul>
-';
-
-    return $answer;
-}
-
-function complete_step($step){
-    //if($_SESSION['step'] < $step)
-    $_SESSION['step'] = $step;
-}
-
-
-function gen_table($table){
-    $answer = '';
-
-    $answer .= '<table>';
-    $i = 0;
-    while(sizeof($table) > ($i + 1)){
-        $answer .= '<tr><td class="label">'.$table[$i].'</td><td class="value">'.$table[$i+1].'</td></tr>';
-        $i += 2;
-    }
-
-    $answer .= '</table>';
-    return $answer;
-}
-
-session_start();
-
-
-
-if(isset($_GET['lang']) && file_exists('translations/'.$_GET['lang'].'.php')){
-    $_SESSION['installation_language'] = $_GET['lang'];
-    require_once('translations/'.$_GET['lang'].'.php');
-} else {
-    if(isset($_SESSION['installation_language'])){
-        require_once('translations/'.$_SESSION['installation_language'].'.php');
+if ($request->isGet()) {
+    $controller = new \Plugin\Install\PublicController();
+    $response = $controller->index();
+} elseif ($request->isPost()) {
+    $route = Ip\Internal\Core\Job::ipRouteAction_20(array('request' => $request));
+    if (!$route || $route['plugin'] != 'Install' || $route['controller'] != 'PublicController') {
+        $response = new \Ip\Response\PageNotFound();
     } else {
-        require_once('translations/en.php');
+        $controller = new \Plugin\Install\PublicController();
+        $response = $controller->{$route['action']}();
     }
 }
 
 
-if(!isset($_SESSION['step']))
-$_SESSION['step'] = 0;
+\Ip\ServiceLocator::removeRequest();
 
-$cur_step = $_SESSION['step'];
+// $response = $application->handleRequest($request, $options);
+$response->send();
 
-
-
-if(isset($_GET['step'])){
-    switch($_GET['step']){
-        case 0:
-            $cur_step = 0;
-            break;
-        case 1:
-            $cur_step = 1;
-            break;
-        case 2:
-            $cur_step = 2;
-            break;
-        case 3:
-            $cur_step = 3;
-            break;
-        case 4:
-            $cur_step = 4;
-            break;
-        case 5:
-            $cur_step = 5;
-            break;
-    }
-
-
-}
-if($cur_step > $_SESSION['step']+1){
-    $cur_step = $_SESSION['step']+1;
-}
-
-if(!install_available()){
-    $_SESSION['step'] = 5;
-    $cur_step = 5;
-}
-
-
-
-require('install_'.$cur_step.'.php');
-
-
-
-?>

@@ -1,0 +1,63 @@
+
+
+
+/**
+ * show the "browse link" modal, and call callback_function with result
+ *
+ * @param {Object} callback
+ */
+
+function ipBrowseLink(callback) {
+
+    var selectedPageId = null;
+    var $ = ip.jQuery,
+        $modal = $('#ipBrowseLinkModal'),
+        $iframe = $modal.find('.ipsPageSelectIframe');
+
+    $iframe.attr('src', $iframe.data('source'));
+
+    $modal.modal();
+    var $iframeContent = $iframe.contents();
+
+    $modal.find('.ipsConfirm').on('click', function () {
+        var iframeWindow = $iframe.get(0).contentWindow;
+        selectedPageId = iframeWindow.angular.element(iframeWindow.$('.ipAdminPages')).scope().selectedPageId;
+        $modal.modal('hide');
+    });
+
+    $modal.on('hide.bs.modal',function () {
+        if (!selectedPageId) {
+            callback('');
+            return;
+        }
+
+        //page selected. Get the URL
+        $.ajax({
+            type: 'GET',
+            url: ip.baseUrl,
+            data: {aa: 'Core.getPageUrl', pageId: selectedPageId},
+            dataType: 'json',
+            success: function (response) {
+                callback(response.url);
+            },
+            error: function (response) {
+                if (ip.developmentEnvironment || ip.debugMode) {
+                    alert('Server response: ' + response.responseText);
+                }
+                callback('');
+            }
+        });
+    });
+
+
+}
+
+
+function ipBrowseFile(callback, options)
+{
+    var repository = new ipRepository(options);
+    repository.bind('ipRepository.filesSelected', function (event, files) {
+        callback(files);
+    });
+}
+

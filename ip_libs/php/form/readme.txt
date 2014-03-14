@@ -1,1 +1,0 @@
-Deprecated ImpressPages 1.x branch form generation class.

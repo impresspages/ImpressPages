@@ -2,6 +2,8 @@
 
 namespace PhpUnit;
 
+use PhpUnit\Helper\TestEnvironment;
+
 class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
 {
 
@@ -16,24 +18,15 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->screenshotPath = TEST_SCREENSHOT_PATH;
         $this->screenshotUrl = TEST_SCREENSHOT_URL;
 
+        TestEnvironment::setup();
 
-        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
-        
         $this->setBrowser('*firefox'); //*googlechrome (can't manipulate file input)
         $this->setBrowserUrl(TEST_TMP_URL);
+        $this->setTimeout(10);
 //        $driver = $this->getDriver(array('*firefox'));
     }
     
-    protected function tearDown()
-    {
-        $fileSystemHelper = new \PhpUnit\Helper\FileSystem();
-        $fileSystemHelper->chmod(TEST_TMP_DIR, 0755);
-        $fileSystemHelper->cleanDir(TEST_TMP_DIR);
-    }
-    
-    protected function assertNoErrors() 
+    protected function assertNoErrors()
     {
         $this->assertElementNotPresent('css=.error');
         $this->assertElementNotPresent('css=.warning');

@@ -1,0 +1,31 @@
+{
+    "Config.websiteTitle": "Title",
+    "Config.multilingual": "1",
+    "Config.websiteEmail": "test@test.com",
+    "Config.automaticCron": "1",
+    "Config.keepOldRevision": "30",
+    "Config.cronPassword": "testCronPassword",
+
+    "Config.defaultImageQuality": 80,
+
+    "Config.availableFonts": "Arial,Arial,Helvetica,sans-serif\nArial Black,Arial Black,Gadget,sans-serif\nComic Sans MS,Comic Sans MS,cursive\nCourier New,Courier New,Courier,monospace\nGeorgia,Georgia,serif\nImpact,Charcoal,sans-serif\nLucida Console,Monaco,monospace\nLucida Sans Unicode,Lucida Grande,sans-serif\nPalatino Linotype,Book Antiqua,Palatino,serif\nTahoma,Geneva,sans-serif\nTimes New Roman,Times,serif\nTrebuchet MS,Helvetica,sans-serif\nVerdana,Geneva,sans-serif\nGill Sans,Geneva,sans-serif",
+    "Config.reservedDirs": ["file", "install", "Ip", "Plugin", "update", "Theme", "index.php", "admin", "admin.php"],
+
+
+
+    "Content.widgetGalleryQuality": 90,
+
+
+    "Content.widgetImageWidth": 1160,
+    "Content.widgetImageHeight": 800,
+    "Content.widgetGalleryWidth": 200,
+    "Content.widgetGalleryHeight": 200,
+    "Config.lightboxWidth": 800,
+    "Config.lightboxHeight": 600,
+
+    "Design.themeDirs": "",
+    "Email.hourlyLimit": 100,
+
+    "Pages.hideNewPages": 0
+
+}

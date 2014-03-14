@@ -1,0 +1,7 @@
+/**
+ * Default ImpressPages installation theme
+ *
+ * @package ImpressPages
+ */
+
+@import '../../../../Ip/Internal/Core/assets/admin/admin.css'; /* loading core admin styles */

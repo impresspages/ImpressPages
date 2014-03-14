@@ -1,0 +1,153 @@
+.ipAdminNavbar {
+    border: 0;
+
+    ._toggle {
+        border: 0;
+        border-radius: 0;
+        display: inline-block;
+        float: left;
+        height: @navbar-height;
+        margin: 0 0 0 (@grid-gutter-width / 2);
+        width: @navbar-height;
+
+        .icon-bar {
+            border-radius: 0;
+            width: 100%;
+        }
+    }
+
+    .nav._active { // current active page
+        margin-left: (@grid-gutter-width / 2);
+
+        > li > a {
+            color: @navbar-inverse-link-active-color;
+            font-size: 16px; // todox: get calculated size (variable)
+        }
+    }
+
+    ._menu {
+        background-color: #2f313f; // todox: default color?
+        .box-shadow(0 0 0 3px rgba(0,0,0,.2));
+        left: (@grid-gutter-width / 4);
+        position: absolute;
+        top: 0;
+        z-index: (@zindex-navbar-fixed + 10);
+
+        .nav {
+            border-top: 1px solid @navbar-inverse-bg;
+
+            > li {
+                border-bottom: 1px solid @navbar-inverse-bg;
+
+                > a {
+                    background-color: #262732; // todox: calculate color?
+                    color: @navbar-inverse-link-color;
+                    padding: 8px (@grid-gutter-width * 2) 8px (@grid-gutter-width / 4); // leaving for space on the right (especially for scrollbar)
+                    white-space: nowrap;
+
+                    &:hover {
+                        background-color: @navbar-inverse-link-hover-bg;
+                        color: @navbar-inverse-link-hover-color;
+                    }
+                }
+            }
+
+            > .active > a {
+                background-color: #1e1f28; // todox: calculate color?
+                color: #019ad2; // todox: default color?
+            }
+
+            &:last-child {
+                border-top: 0;
+
+                > li {
+                    border-bottom-color: #17181f; // todox: calculate color?
+
+                    > a {
+                        background-color: transparent;
+                    }
+                }
+            }
+        }
+
+        .nav-stacked > li + li {
+            margin-top: 0;
+        }
+
+        .@{fa-css-prefix}-fw {
+            width: @grid-gutter-width;
+        }
+    }
+
+    ._menuHeader {
+        background-color: @color-orange;
+        height: @navbar-height;
+        white-space: nowrap;
+
+        ._toggle {
+            cursor: default;
+            margin-left: ((@grid-gutter-width / 2) - (@grid-gutter-width / 4)); // default left margin minus ._menu distance from left border
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+
+        .navbar-text {
+            color: @navbar-inverse-link-active-color;
+            display: inline-block;
+            font-size: 16px; // todox: get calculated size (variable)
+            font-weight: bold;
+            float: none;
+            margin-left: 0;
+        }
+    }
+
+    ._menuContainer {
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        nav {
+            margin-bottom: @navbar-height; // leaving space at the bottom
+        }
+    }
+}
+.ipAdminSubmenu {
+    float: left;
+    height: 100%;
+    padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+    width: (@grid-gutter-width * 5);
+
+
+    ul {
+        list-style: none;
+
+        a {
+            color: #97989f; // todox: make variable
+            display: block;
+            padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+            overflow: hidden;
+
+            &:hover {
+                color: #019bd4; // todox: make variable
+                text-decoration: none;
+            }
+        }
+
+        .active a {
+            background-color: #fff; // todox: make variable
+            color: #000; // todox: make variable
+            font-weight: bold;
+        }
+    }
+}
+.ipAdminContentWrapper {
+    background-color: #fff; // todox: use variable
+    margin-left: (@grid-gutter-width * 0.5);
+    margin-right: (@grid-gutter-width * 1.5);
+    padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+
+    &._hasSubmenu {
+        margin-left: (@grid-gutter-width * 5);
+    }
+}

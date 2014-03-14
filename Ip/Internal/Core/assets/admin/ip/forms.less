@@ -1,0 +1,63 @@
+.help-hint { // to be shown on hover
+    background-color: @input-border;
+    color: #fff;
+    display: none;
+    font-size: @font-size-small;
+    padding: 4px 10px 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    z-index: 1;
+}
+.help-error {
+    background-color: @brand-danger;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; // for max-width to make sense
+    color: #fff;
+    display: none;
+    font-size: @font-size-small;
+    padding: 4px 10px 2px;
+    width: 100%;
+}
+.has-error .help-error {
+    display: block;
+}
+.form-group:hover .help-hint { // hint is shown only on hover
+    display: block;
+}
+.captcha {
+    img {
+        display: block;
+        max-width: 100%;
+    }
+}
+.form-group.type-blank {
+    margin-bottom: 0; // removing from flow
+    label {
+        display: none;
+    }
+    .help-error {
+        margin-bottom: 15px; // keeping space when visible
+    }
+}
+.form-group.type-submit {
+    label {
+        display: none;
+    }
+}
+legend[data-toggle="collapse"] { // auto styling if fieldsets are collapsable
+    cursor: pointer;
+
+    &:after {
+        content: '\25B4';
+        display: inline-block;
+        margin-left: (@grid-gutter-width / 4);
+    }
+    &.collapsed {
+        &:after {
+            content: '\25Be';
+        }
+    }
+}

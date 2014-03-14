@@ -1,0 +1,67 @@
+// style that interfere with theme styles and potentially may cause issues
+.ipWidget {
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    min-height: @admin-widgetControls-height;
+
+    &:hover {
+        outline: @color-silver-dark2 dashed 1px;
+    }
+
+    &.ipWidget-Columns:hover {
+        outline: 0; // Columns widget is automatically deleted; no need for outline
+    }
+
+    &:hover > .ip > .ipAdminWidgetControls ._controls *,
+    .ipMobile &:hover > .ip > .ipAdminWidgetControls ._controls * { // todox: ipMobile class???
+        visibility: visible;
+    }
+}
+
+.ipAdminWidgetDragIcon {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAYAAADhu0ooAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAe5JREFUeNrsm89OwkAQxrdk9QGITRq5yDP4IF68yAmDB04ekUaOJZAePRgPGjlhTLj4HIZnKBdMk/UJSJo6gyXZrPwtQnfLfMmw2dKS/pj5dgvdWoyxI4hbiEsIh22gOI7LbI+yLCvY8JAQYgDxYMFLA07YZzkWfEENBB0C6HnOQYcc2qK8sdVq3fR6vevxeHya5kP/q5xTlOlUpVLpq1qtvnqe9yxtLnJ5J9d1691u987k7GGC2u32fRRFvNPpPMnvBZAFzASzbftT7psayIAscr8gEwshTvLiS5WFrzpgW8/uWgs8OVeBnGK532w268m2WPMI8FwXcST9xaCJZ2MTQvWkysXXrfPkAB3nyLXGlwI7EBEogZoKuu+fWlkIGal0CZRA9RbP8j+gXQ4+VLoESqAESqAESqAESqAESqAESqAESqBZgeLt9LS31HXSPA4qXQIlUM1B8zD4rDM4UekSKIHqraWrUmzb/hZCnCWG1hoEzzV1Rmu12gs0IwMSNsLVY6kziqsjJ5PJcb/fvwrD0NGR0HGcsFKpvPm+/7h0imG/K6zKs/kGW9NvH6ocf+bRVXVuklQWrnoSFyZvc7WU9QrsmVTPctM8mdazB/PwAHr0/QCuFwaYUXzApwFxgR7Owo879K2A+IDwfwQYAKu03z6zSpuwAAAAAElFTkSuQmCC) no-repeat; // source: img/icon_drag.png
+    height: 58px;
+    .opacity(0.45);
+    width: 58px;
+    z-index: (@zindex-navbar-fixed - 10);
+}
+.ipAdminWidgetPlaceholderVertical, .ipAdminWidgetPlaceholderHorizontal {
+    background-color: transparent;
+
+    ._marker {
+        background: @color-blue-light;
+        display: none;
+        outline: @color-blue solid 1px;
+    }
+
+    &.hover ._marker {
+        display: block;
+    }
+}
+.ipAdminWidgetPlaceholderVertical ._marker {
+    width: 1px;
+}
+.ipAdminWidgetPlaceholderHorizontal ._marker {
+    height: 1px;
+}
+
+//TODOX review #widthHandler
+.ipAdminWidgetColsResizeHandler {
+    background: @color-blue-light;
+    cursor: col-resize;
+    outline: @color-blue solid 1px;
+    position: absolute;
+    opacity: 0.01;
+    width: 3px;
+    z-index: (@zindex-navbar-fixed - 10);
+
+    &:hover {
+        opacity: 1;
+    }
+}
