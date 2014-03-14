@@ -2,6 +2,7 @@ var ipPages = null;
 var ipPagesResize;
 var ipPagesDropPageId;
 var ipPagesDropPagePosition;
+var ipPageDragId;
 
 (function ($) {
     "use strict";
@@ -307,8 +308,8 @@ var ipPagesDropPagePosition;
 
                 $(document).off('dnd_stop.vakata.impresspages').on('dnd_stop.vakata.impresspages', function (e, data) {
 
-                    var $node = $('#' + data.data.nodes[0]);
-                    var pageId = $node.attr('pageid');
+                    //var $node = $('#' + data.data.nodes[0]);
+                    var pageId = ipPageDragId;
                     var destinationParentId = $scope.activeMenu.id;
                     if (ipPagesDropPageId) {
                         destinationParentId = ipPagesDropPageId;
