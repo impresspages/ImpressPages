@@ -268,7 +268,7 @@ var ipPageDragId;
         }
 
         var showPages = function () {
-            hashIsBeingApplied = true;
+            //hashIsBeingApplied = true;
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
                 $('.ipsPages').addClass('hidden');
@@ -328,7 +328,7 @@ var ipPageDragId;
                 });
 
             }
-            hashIsBeingApplied = false;
+            //hashIsBeingApplied = false;
         }
 
         var getTreeDiv = function () {
