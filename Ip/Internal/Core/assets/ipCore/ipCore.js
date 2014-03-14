@@ -30,7 +30,7 @@ $(document).ready(function() {
 
     ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
 
-    if (ip.isAdminState) {
+    if (ip.isAdminState && !ipRequest()->getQuery('disableAdminBar')) {
         $(document.body).addClass('ipAdminState');
     }
 
