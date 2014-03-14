@@ -208,9 +208,11 @@ class Controller extends \Ip\WidgetController{
                     $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
                     $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $desiredName, $transformBig));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
+                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
                     $curImage['imageBig'] = '';
                     //do nothing
                 } catch (\Ip\Internal\Repository\Exception $e) {
+                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
                     $curImage['imageBig'] = '';
                     //do nothing
                 }
