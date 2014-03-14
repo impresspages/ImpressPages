@@ -5,11 +5,10 @@ var pageMenuList;
 
     pageMenuList = {
         init: function () {
-            //todox commented out because .sortable doesn't exist in unsocped jquery. restore after jquery unscoping
-//            $('ul.ipsMenuList').sortable({
-//                start: this.startSort,
-//                stop: this.stopSort
-//            });
+            $('ul.ipsMenuList').sortable({
+                start: this.startSort,
+                stop: this.stopSort
+            });
         },
         startSort: function (event, ui) {
             ui.item.data('originIndex', ui.item.index());

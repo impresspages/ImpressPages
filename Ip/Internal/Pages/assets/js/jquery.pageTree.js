@@ -11,17 +11,19 @@
         init : function(options) {
             return this.each(function() {
                 var $this = $(this);
-
+console.log('preinit');
                 var data = $this.data('ipPageTree');
 
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
+                    console.log('refresh');
                     $this.data('ipPageTree', {
                         menuName: options.menuName,
                         languageId: options.languageId
                     });
                     $.proxy(refresh, $this)(options.menuName, options.languageId);
                 } else {
+                    //console.log('deselect');
                     $this.jstree('deselect_all');
                 }
 
@@ -44,6 +46,7 @@
 
         destroy : function() {
             return this.each(function() {
+                console.log('destroy');
                 var $this = $(this);
                 $this.data('ipPageTree', false);
                 $this.jstree('destroy');
@@ -112,7 +115,7 @@
 //                }
 //            ]
 //        } });
-
+console.log('init jstree');
         $this.jstree({
             'core' : {
                 "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
