@@ -4,6 +4,7 @@ namespace Tests\Update;
 
 /**
  * @group ignoreOnTravis
+ * @group Selenium
  */
 
 class UpdateDownloadTest extends \PhpUnit\Helper\MinkTestCase
