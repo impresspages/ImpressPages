@@ -113,8 +113,7 @@ var ipPageDragId;
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                //TODOX set text
-                //getJsTree().set_text(getJsTree().get_selected(), title);
+                getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), title);
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 deletePage($scope.selectedPageId, function () {
