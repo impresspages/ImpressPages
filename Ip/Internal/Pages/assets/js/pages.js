@@ -305,7 +305,9 @@ var ipPageDragId;
                 });
 
                 $(document).off('dnd_stop.vakata.impresspages').on('dnd_stop.vakata.impresspages', function (e, data) {
-
+                    if (ipPageDragId == null) {
+                        return;
+                    }
                     //var $node = $('#' + data.data.nodes[0]);
                     var pageId = ipPageDragId;
                     var destinationParentId = $scope.activeMenu.id;
@@ -317,6 +319,12 @@ var ipPageDragId;
                     var destinationPosition = ipPagesDropPagePosition;
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
+                $(document).off('dnd_move.vakata.impresspages').on('dnd_move.vakata.impresspages', function (e, data) {
+                    ipPageDragId = null;
+                    ipPagesDropPageId = null;
+                    ipPagesDropPagePosition = null;
+                });
+
             }
             hashIsBeingApplied = false;
         }

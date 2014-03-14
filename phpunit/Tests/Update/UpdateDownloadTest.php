@@ -11,10 +11,9 @@ class UpdateDownloadTest extends \PhpUnit\Helper\MinkTestCase
 {
 
     /**
-     * @group Sauce
      * @group Selenium
      */
-    public function testLogin()
+    public function testUpdateButton()
     {
         $session = $this->session();
 
