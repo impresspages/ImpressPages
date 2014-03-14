@@ -24,11 +24,11 @@ ipTinyMceConfig = function() {
         file_browser_callback: function(field_name, url, type, win) {
             var $input = $('#' + field_name);
             var $dialog = $input.closest('.mce-window');
-            $('#mce-modal-block').addClass('hidden');
+            $('#mce-modal-block, .mce-tinymce-inline').addClass('hidden');
             $dialog.addClass('hidden');
 
             ipBrowseLink(function(link) {
-                $('#mce-modal-block').removeClass('hidden');
+                $('#mce-modal-block, .mce-tinymce-inline').removeClass('hidden');
                 $dialog.removeClass('hidden');
                 $input.val(link);
             })
