@@ -47,7 +47,7 @@ class Config
         }
 
         if (empty($this->rawConfig['baseDir'])) {
-            $this->rawConfig['baseDir'] = dirname($server['SCRIPT_FILENAME']);
+            $this->rawConfig['baseDir'] = realpath(dirname($server['SCRIPT_FILENAME']));
         }
 
         if (empty($this->rawConfig['charset'])) {
