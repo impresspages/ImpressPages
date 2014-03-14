@@ -117,8 +117,11 @@ var ipPageDragId;
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 deletePage($scope.selectedPageId, function () {
-                    //TODOX delete page
-                    //getJsTree().remove(getJsTree().get_selected());
+                    if (confirm('Are you sure?')) {
+                        $scope.selectedPageId = null;
+                        getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
+                        $scope.$apply();
+                    }
                 });
             });
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
