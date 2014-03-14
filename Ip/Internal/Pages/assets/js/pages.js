@@ -77,11 +77,9 @@ var ipPageDragId;
 
 
         $scope.setMenuHash = function (menu) {
-            console.log('set menu');
             hashIsBeingApplied = true;
             updateHash(null, menu.alias, false);
             hashIsBeingApplied = false;
-            console.log('set menu end');
         }
 
         $scope.setLanguageHash = function (language) {
@@ -335,7 +333,7 @@ var ipPageDragId;
 
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                 getTreeDiv().ipGrid('refresh');
-            } else {console.log('destroy');
+            } else {
                 getTreeDiv().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
@@ -474,7 +472,6 @@ var ipPageDragId;
         }
 
         var movePage = function (pageId, destinationParentId, destinationPosition, doRefresh) {
-            console.log('move');
             var data = {
                 aa: 'Pages.movePage',
                 pageId: pageId,

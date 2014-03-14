@@ -11,12 +11,10 @@
         init : function(options) {
             return this.each(function() {
                 var $this = $(this);
-console.log('preinit');
                 var data = $this.data('ipPageTree');
 
                 // If the plugin hasn't been initialized yet
                 if ( ! data ) {
-                    console.log('refresh');
                     $this.data('ipPageTree', {
                         menuName: options.menuName,
                         languageId: options.languageId
@@ -32,7 +30,6 @@ console.log('preinit');
 
         refresh : function() {
             return this.each(function() {
-                console.log('refresh');
                 var $this = $(this);
                 var data = $this.data('ipPageTree');
                 $this.ipPageTree('refresh');
@@ -46,7 +43,6 @@ console.log('preinit');
 
         destroy : function() {
             return this.each(function() {
-                console.log('destroy');
                 var $this = $(this);
                 $this.data('ipPageTree', false);
                 $this.jstree('destroy');
@@ -94,28 +90,7 @@ console.log('preinit');
      */
     function initializeTreeManagement(data) {
         var $this = this;
-        var plugins = [ 'themes', 'json_data', 'types'];
-        plugins.push('ui');
-        plugins.push('crrm');
-        //plugins.push('contextmenu');
 
-//        $this.jstree({ 'core' : {
-//            'data' : [
-//                'Simple root node',
-//                {
-//                    'text' : 'Root node 2',
-//                    'state' : {
-//                        'opened' : true,
-//                        'selected' : true
-//                    },
-//                    'children' : [
-//                        { 'text' : 'Child 1' },
-//                        'Child 2'
-//                    ]
-//                }
-//            ]
-//        } });
-console.log('init jstree');
         $this.jstree({
             'core' : {
                 "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
@@ -131,7 +106,6 @@ console.log('init jstree');
                         ipPagesDropPageId = null;
                     }
                     ipPagesDropPagePosition = node_position;
-                    console.log(ipPageDragId  + '-' + ipPagesDropPageId );
                 }
             },
             'plugins' : [
@@ -139,31 +113,6 @@ console.log('init jstree');
             ]
         });
 
-
-//        $this.jstree({ // todox: remove old code
-//
-//            'plugins': plugins,
-//            'json_data': {data: data},
-//            'types': {
-//                // -2 do not need depth and children count checking
-//                'max_depth': -2,
-//                'max_children': -2,
-//                'types': {
-//                    // The default type
-//                    'page': {
-//                        'valid_children': [ 'page' ],
-//                        'icon': {
-//                            'image': ipFileUrl('Ip/Internal/Pages/assets/img/file.png')
-//                        }
-//                    }
-//                }
-//            },
-//            "themes" : {
-//                "theme" : "impresspages",
-//                "dots" : false,
-//                "icons" : false
-//            }
-//        });
 
 
 
