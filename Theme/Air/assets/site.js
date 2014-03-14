@@ -1,19 +1,3 @@
-$(document).ready(function () {
-    "use strict";
-    $('.ipWidget-Gallery li a, .ipWidget-Image a').colorbox({
-        rel: 'ipwImage',
-        maxWidth: '90%',
-        maxHeight: '90%'
-    });
-    $('.topmenu').touchMenuHover(); // mimics iOS behavior allowing to get hover state without clicking
-    $('.topmenuToggle, .searchToggle').on('click', function (e) { // opens menu in mobile view
-        e.preventDefault();
-        $(this).next().css('display', 'block');
-    });
-});
-
-
-
 
 
 /*
