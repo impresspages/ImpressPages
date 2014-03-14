@@ -102,7 +102,7 @@ class Model
         $postFields = 'module_group=service&module_name=communication&action=getInfo&version=1&afterLogin=';
         $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
 
-        $plugins = \Ip\Internal\Plugins\Model::getAllPlugins();
+        $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
             $postFields .= '&plugins[' . $plugin['name'] . ']=' . $plugin['version'];
         }
