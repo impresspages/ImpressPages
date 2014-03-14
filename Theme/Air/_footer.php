@@ -7,6 +7,7 @@
     </div>
 </footer>
 </div>
+<?php echo ipAddJs('assets/site.js'); ?>
 <?php echo ipJs(); ?>
 
 </body>
