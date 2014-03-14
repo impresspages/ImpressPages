@@ -29,7 +29,7 @@ class Service
     public static function isManagementMode()
     {
         $backendLoggedIn = \Ip\Internal\Admin\Backend::loggedIn();
-        return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']) && ipContent()->getCurrentPage();
+        return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']); //we can't check here if we are in a page. It will result in widget rendering in non management mode when widget is rendered using ajax
     }
 
     public static function getPageLayout(\Ip\Page $page)
