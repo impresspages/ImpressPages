@@ -73,17 +73,17 @@ class Service
     public function saveWidgetOptions(Theme $theme)
     {
         $widgetOptions = $theme->getWidgetOptions();
-        if (isset($widgetOptions['image']['width'])) {
+        if (!empty($widgetOptions['image']['width'])) {
             ipSetOption('Content.widgetImageWidth', $widgetOptions['image']['width']);
         }
-        if (isset($widgetOptions['image']['height'])) {
+        if (!empty($widgetOptions['image']['height'])) {
             ipSetOption('Content.widgetImageHeight', $widgetOptions['image']['height']);
         }
 
-        if (isset($widgetOptions['gallery']['width'])) {
+        if (!empty($widgetOptions['gallery']['width'])) {
             ipSetOption('Content.widgetGalleryWidth', $widgetOptions['gallery']['width']);
         }
-        if (isset($widgetOptions['gallery']['height'])) {
+        if (!empty($widgetOptions['gallery']['height'])) {
             ipSetOption('Content.widgetGalleryHeight', $widgetOptions['gallery']['height']);
         }
 
