@@ -188,7 +188,8 @@ class PageAssets
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => ipIsManagementState(),
-                'isAdminState' => ipAdminId() ? 1 : 0
+                'isAdminState' => ipAdminId() ? 1 : 0,
+                'disableAdminBar' => ipRequest()->getQuery('disableAdminBar') ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,
