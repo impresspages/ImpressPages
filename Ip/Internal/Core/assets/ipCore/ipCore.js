@@ -34,8 +34,8 @@ $(document).ready(function() {
         $(document.body).addClass('ipAdminState');
     }
 
-    if (ip.disableAdminBar) {
-        $(document.body).addClass('ipDisabledAdminBar');
+    if (ip.disableNavbar) {
+        $(document.body).addClass('ipDisabledNavbar');
     }
 
     if (ip.isManagementState) {
