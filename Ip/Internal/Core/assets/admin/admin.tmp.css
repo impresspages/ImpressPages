@@ -8961,131 +8961,131 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   background: transparent;
 }
 @media (max-width: 768px) {
-  .jstree-ImpressPages-responsive {
+  .jstree-ImpressPages-responsive-disable {
     /*
         .jstree-open > .jstree-ocl,
         .jstree-closed > .jstree-ocl { border-radius:20px; background-color:white; }
         */
   }
-  .jstree-ImpressPages-responsive .jstree-icon {
+  .jstree-ImpressPages-responsive-disable .jstree-icon {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAAGQAgMAAADtuAXvAAAACVBMVEUAAADS0tIzMzPOa1YgAAAAAnRSTlMAH/ubwM0AAAOxSURBVHja7ZpBkuMgDEWJqyYLjpDVrDlFjjDnyCk4whyBRS/c/5SzsJ0AEm0J1XRXd4kNVSq/mI9B+jgOQd1yMDSHHXb4lwW+3Q3w4+88fMHbPHzF+zx8A+7T8AP4OwtfACqawLHpKsmgogmcct3VkqloAqPUXS35HF6wVl0j+XzYEai6RvL5hCUgv7pW8umjAlBe3ceSe3gBsD67E8k9HAHg2Z1IZuEcUgfzkrlhowR0w+YlcxOGdf+JM8ncowL2wZ9J5hbJ3s4lM8tzbwLJzMbYm0AysyV3OM/AkUqWD3uhksUTdogu5xuSg1MvWb5IDtGCJMTBC5Es3RiH6BIEWYiDUy9ZmgwO0X1MlIZ20WsfkyXATXTpQ7LUu4kmUVnS30TTmKjchBDCstLYTQqHQkNX6bC5dpFOGNsstsJmaExWymTiTPbRZlxNljk47LDDDjvssMNfB/8xwJc3A3yllmmh3n8A36hZi2AsOAs/qE1MYMw/B18YgyqGr8Qap+d5vP+FTCV3DvWCqt0/hh/9MUYBX8gxRgu/zy6S0SldBI9O6SJ4dEoXwUS05lER0Sq4F62Ce9EquBetgnvROrgTrYM70Tq4E62DO9GfCJuGbZow06OyLBLT8jRtDNOWtCQDUxoiCVADk9SrrVXNNaZy81mFzlRibcWd2ArlInmbhomVUm6M+zzc20ddMrAYV5NlVjSHHXbYYYcddvjHw5H525yLheFHCisTo+/TSCAd3yjkPkbfahH4uMlS+hj9Jz6zo0YIce1jdNyZmy6sISR0MWbK8khydZ80eBHHfr0D5LBU9wEGoin8HGruY2fw87uw9LqyiuUTuBx3WUksCuFashiO+4W15PiCiwiuJCvh0kjWwcvaSNbBEY1kHZyQa8k6GCjNMlbC7QZSDrvdusoJa/eP7lFtO/f33CLZJJc5OLUJUAdHIIQ4CS9YQ0iTcECpv1NVwim/MoAajs2F6mTw+TCX7NTZcxKmCV6c9NnSIi03bFETFzqunIpLLFfIxcWdsxBiW8GaF6mhYW2T2Epxhk1s4kz2UdMcdthhhx122GGH/xs8MC8ieGSbRPDIsIngkVWUwEOTKoGH9lgCD425BB4eCWRw22vg8TFIBJdj4qbgbXnOwBElAcAaJc/KYYd/Asx95+oT9l1hUwI0pl5D0jeVG1uhM5VYU3E32QqTobFZKZOJM9lHTXPYYYcd/i5wdthhhx122GGHHXb4S2DB+zBdc9hhhx122GGHHXZ4a/8AnUvLWaCq0xwAAAAASUVORK5CYII=);
   }
-  .jstree-ImpressPages-responsive .jstree-node,
-  .jstree-ImpressPages-responsive .jstree-leaf > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-node,
+  .jstree-ImpressPages-responsive-disable .jstree-leaf > .jstree-ocl {
     background: transparent;
   }
-  .jstree-ImpressPages-responsive .jstree-node {
+  .jstree-ImpressPages-responsive-disable .jstree-node {
     min-height: 40px;
     line-height: 40px;
     margin-left: 40px;
     min-width: 40px;
     white-space: nowrap;
   }
-  .jstree-ImpressPages-responsive .jstree-anchor {
+  .jstree-ImpressPages-responsive-disable .jstree-anchor {
     line-height: 40px;
     height: 40px;
     color: #46495e;
   }
-  .jstree-ImpressPages-responsive .jstree-icon,
-  .jstree-ImpressPages-responsive .jstree-icon:empty {
+  .jstree-ImpressPages-responsive-disable .jstree-icon,
+  .jstree-ImpressPages-responsive-disable .jstree-icon:empty {
     width: 40px;
     height: 40px;
     line-height: 40px;
   }
-  .jstree-ImpressPages-responsive > .jstree-container-ul > .jstree-node {
+  .jstree-ImpressPages-responsive-disable > .jstree-container-ul > .jstree-node {
     margin-left: 0;
   }
-  .jstree-ImpressPages-responsive.jstree-rtl .jstree-node {
+  .jstree-ImpressPages-responsive-disable.jstree-rtl .jstree-node {
     margin-left: 0;
     margin-right: 40px;
   }
-  .jstree-ImpressPages-responsive.jstree-rtl .jstree-container-ul > .jstree-node {
+  .jstree-ImpressPages-responsive-disable.jstree-rtl .jstree-container-ul > .jstree-node {
     margin-right: 0;
   }
-  .jstree-ImpressPages-responsive .jstree-ocl,
-  .jstree-ImpressPages-responsive .jstree-themeicon,
-  .jstree-ImpressPages-responsive .jstree-checkbox {
+  .jstree-ImpressPages-responsive-disable .jstree-ocl,
+  .jstree-ImpressPages-responsive-disable .jstree-themeicon,
+  .jstree-ImpressPages-responsive-disable .jstree-checkbox {
     background-size: 120px 200px;
   }
-  .jstree-ImpressPages-responsive .jstree-leaf > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-leaf > .jstree-ocl {
     background: transparent;
   }
-  .jstree-ImpressPages-responsive .jstree-open > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-open > .jstree-ocl {
     background-position: 0 0px !important;
   }
-  .jstree-ImpressPages-responsive .jstree-closed > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-closed > .jstree-ocl {
     background-position: 0 -40px !important;
   }
-  .jstree-ImpressPages-responsive.jstree-rtl .jstree-closed > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable.jstree-rtl .jstree-closed > .jstree-ocl {
     background-position: -40px 0px !important;
   }
-  .jstree-ImpressPages-responsive .jstree-anchor > .jstree-themeicon {
+  .jstree-ImpressPages-responsive-disable .jstree-anchor > .jstree-themeicon {
     background-position: -40px -40px;
   }
-  .jstree-ImpressPages-responsive .jstree-checkbox,
-  .jstree-ImpressPages-responsive .jstree-checkbox:hover {
+  .jstree-ImpressPages-responsive-disable .jstree-checkbox,
+  .jstree-ImpressPages-responsive-disable .jstree-checkbox:hover {
     background-position: -40px -80px;
   }
-  .jstree-ImpressPages-responsive .jstree-clicked > .jstree-checkbox,
-  .jstree-ImpressPages-responsive .jstree-clicked > .jstree-checkbox:hover {
+  .jstree-ImpressPages-responsive-disable .jstree-clicked > .jstree-checkbox,
+  .jstree-ImpressPages-responsive-disable .jstree-clicked > .jstree-checkbox:hover {
     background-position: 0 -80px;
   }
-  .jstree-ImpressPages-responsive .jstree-anchor > .jstree-undetermined,
-  .jstree-ImpressPages-responsive .jstree-anchor > .jstree-undetermined:hover {
+  .jstree-ImpressPages-responsive-disable .jstree-anchor > .jstree-undetermined,
+  .jstree-ImpressPages-responsive-disable .jstree-anchor > .jstree-undetermined:hover {
     background-position: 0 -120px;
   }
-  .jstree-ImpressPages-responsive .jstree-anchor {
+  .jstree-ImpressPages-responsive-disable .jstree-anchor {
     font-weight: bold;
     font-size: 1.1em;
     text-shadow: 1px 1px white;
   }
-  .jstree-ImpressPages-responsive > .jstree-striped {
+  .jstree-ImpressPages-responsive-disable > .jstree-striped {
     background: transparent;
   }
-  .jstree-ImpressPages-responsive .jstree-wholerow {
+  .jstree-ImpressPages-responsive-disable .jstree-wholerow {
     border-top: 1px solid rgba(255, 255, 255, 0.7);
     border-bottom: 1px solid rgba(64, 64, 64, 0.2);
     background: #ebebeb;
     height: 40px;
   }
-  .jstree-ImpressPages-responsive .jstree-wholerow-hovered {
+  .jstree-ImpressPages-responsive-disable .jstree-wholerow-hovered {
     background: #f0f0f0;
   }
-  .jstree-ImpressPages-responsive .jstree-wholerow-clicked {
+  .jstree-ImpressPages-responsive-disable .jstree-wholerow-clicked {
     background: #beebff;
   }
-  .jstree-ImpressPages-responsive .jstree-children .jstree-last > .jstree-wholerow {
+  .jstree-ImpressPages-responsive-disable .jstree-children .jstree-last > .jstree-wholerow {
     box-shadow: inset 0 -6px 3px -5px #666666;
   }
-  .jstree-ImpressPages-responsive .jstree-children .jstree-open > .jstree-wholerow {
+  .jstree-ImpressPages-responsive-disable .jstree-children .jstree-open > .jstree-wholerow {
     box-shadow: inset 0 6px 3px -5px #666666;
     border-top: 0;
   }
-  .jstree-ImpressPages-responsive .jstree-children .jstree-open + .jstree-open {
+  .jstree-ImpressPages-responsive-disable .jstree-children .jstree-open + .jstree-open {
     box-shadow: none;
   }
-  .jstree-ImpressPages-responsive .jstree-node,
-  .jstree-ImpressPages-responsive .jstree-icon,
-  .jstree-ImpressPages-responsive .jstree-node > .jstree-ocl,
-  .jstree-ImpressPages-responsive .jstree-themeicon,
-  .jstree-ImpressPages-responsive .jstree-checkbox {
+  .jstree-ImpressPages-responsive-disable .jstree-node,
+  .jstree-ImpressPages-responsive-disable .jstree-icon,
+  .jstree-ImpressPages-responsive-disable .jstree-node > .jstree-ocl,
+  .jstree-ImpressPages-responsive-disable .jstree-themeicon,
+  .jstree-ImpressPages-responsive-disable .jstree-checkbox {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAAGQAgMAAADtuAXvAAAACVBMVEUAAADS0tIzMzPOa1YgAAAAAnRSTlMAH/ubwM0AAAOxSURBVHja7ZpBkuMgDEWJqyYLjpDVrDlFjjDnyCk4whyBRS/c/5SzsJ0AEm0J1XRXd4kNVSq/mI9B+jgOQd1yMDSHHXb4lwW+3Q3w4+88fMHbPHzF+zx8A+7T8AP4OwtfACqawLHpKsmgogmcct3VkqloAqPUXS35HF6wVl0j+XzYEai6RvL5hCUgv7pW8umjAlBe3ceSe3gBsD67E8k9HAHg2Z1IZuEcUgfzkrlhowR0w+YlcxOGdf+JM8ncowL2wZ9J5hbJ3s4lM8tzbwLJzMbYm0AysyV3OM/AkUqWD3uhksUTdogu5xuSg1MvWb5IDtGCJMTBC5Es3RiH6BIEWYiDUy9ZmgwO0X1MlIZ20WsfkyXATXTpQ7LUu4kmUVnS30TTmKjchBDCstLYTQqHQkNX6bC5dpFOGNsstsJmaExWymTiTPbRZlxNljk47LDDDjvssMNfB/8xwJc3A3yllmmh3n8A36hZi2AsOAs/qE1MYMw/B18YgyqGr8Qap+d5vP+FTCV3DvWCqt0/hh/9MUYBX8gxRgu/zy6S0SldBI9O6SJ4dEoXwUS05lER0Sq4F62Ce9EquBetgnvROrgTrYM70Tq4E62DO9GfCJuGbZow06OyLBLT8jRtDNOWtCQDUxoiCVADk9SrrVXNNaZy81mFzlRibcWd2ArlInmbhomVUm6M+zzc20ddMrAYV5NlVjSHHXbYYYcddvjHw5H525yLheFHCisTo+/TSCAd3yjkPkbfahH4uMlS+hj9Jz6zo0YIce1jdNyZmy6sISR0MWbK8khydZ80eBHHfr0D5LBU9wEGoin8HGruY2fw87uw9LqyiuUTuBx3WUksCuFashiO+4W15PiCiwiuJCvh0kjWwcvaSNbBEY1kHZyQa8k6GCjNMlbC7QZSDrvdusoJa/eP7lFtO/f33CLZJJc5OLUJUAdHIIQ4CS9YQ0iTcECpv1NVwim/MoAajs2F6mTw+TCX7NTZcxKmCV6c9NnSIi03bFETFzqunIpLLFfIxcWdsxBiW8GaF6mhYW2T2Epxhk1s4kz2UdMcdthhhx122GGH/xs8MC8ieGSbRPDIsIngkVWUwEOTKoGH9lgCD425BB4eCWRw22vg8TFIBJdj4qbgbXnOwBElAcAaJc/KYYd/Asx95+oT9l1hUwI0pl5D0jeVG1uhM5VYU3E32QqTobFZKZOJM9lHTXPYYYcd/i5wdthhhx122GGHHXb4S2DB+zBdc9hhhx122GGHHXZ4a/8AnUvLWaCq0xwAAAAASUVORK5CYII=);
     background-size: 120px 200px;
   }
-  .jstree-ImpressPages-responsive .jstree-node {
+  .jstree-ImpressPages-responsive-disable .jstree-node {
     background-position: -80px 0;
     background-repeat: repeat-y;
   }
-  .jstree-ImpressPages-responsive .jstree-last {
+  .jstree-ImpressPages-responsive-disable .jstree-last {
     background: transparent;
   }
-  .jstree-ImpressPages-responsive .jstree-leaf > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-leaf > .jstree-ocl {
     background-position: -40px -120px;
   }
-  .jstree-ImpressPages-responsive .jstree-last > .jstree-ocl {
+  .jstree-ImpressPages-responsive-disable .jstree-last > .jstree-ocl {
     background-position: -40px -160px;
   }
-  .jstree-ImpressPages-responsive .jstree-themeicon-custom {
+  .jstree-ImpressPages-responsive-disable .jstree-themeicon-custom {
     background-color: transparent;
     background-image: none;
   }
