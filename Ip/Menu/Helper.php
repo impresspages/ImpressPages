@@ -20,16 +20,16 @@ class Helper
      * @param string $menuName
      * @param int $depthFrom
      * @param int $depthTo
+     * @param string $orderBy can be set to 'title' to change ordering
      * @return Item[]
      */
-    public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000)
+    public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000, $orderBy = null)
     {
-
-        $order = func_get_arg(3);
-        if (!$order) {
+        if ($orderBy == 'title') {
+            $order = '`title`';
+        } else {
             $order = '`pageOrder`';
         }
-
 
         //variable check
         if ($depthFrom < 1) {
