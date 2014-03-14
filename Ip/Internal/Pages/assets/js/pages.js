@@ -113,11 +113,13 @@ var ipPageDragId;
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                getJsTree().set_text(getJsTree().get_selected(), title);
+                //TODOX set text
+                //getJsTree().set_text(getJsTree().get_selected(), title);
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 deletePage($scope.selectedPageId, function () {
-                    getJsTree().remove(getJsTree().get_selected());
+                    //TODOX delete page
+                    //getJsTree().remove(getJsTree().get_selected());
                 });
             });
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
@@ -249,9 +251,9 @@ var ipPageDragId;
         }
 
         $scope.pastePage = function () {
-            var tree = getJsTree();
-            var position = tree._get_children(-1).length; //last position
-            var node = tree.get_selected();
+            var position = getTreeDiv().find('ul').first().children.length;
+            //var position = tree._get_children(-1).length; //last position
+            var node = []; //tree.get_selected();
             if (node.length) {
                 var position = node.index() + 1;
             }
@@ -331,10 +333,6 @@ var ipPageDragId;
 
         var getTreeDiv = function () {
             return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
-        }
-
-        var getJsTree = function () {
-            return $.jstree._reference('#pages_' + $scope.activeLanguage.code + '_' + $scope.activeMenu.alias + ' .ipsPages');
         }
 
         var refresh = function () {
