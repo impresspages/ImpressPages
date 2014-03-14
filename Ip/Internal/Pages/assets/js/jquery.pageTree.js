@@ -121,7 +121,8 @@ console.log('init jstree');
                 "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
                 'data' : data,
                 "check_callback" : function (operation, node, node_parent, node_position, more)  {
-
+                    var $node = $('#' + node.id);
+                    ipPageDragId = $node.attr('pageid');
 
                     if (node_parent.id && node_parent.id != '#') {
                         var $parentNode = $('#' + node_parent.id);
@@ -130,6 +131,7 @@ console.log('init jstree');
                         ipPagesDropPageId = null;
                     }
                     ipPagesDropPagePosition = node_position;
+                    console.log(ipPageDragId  + '-' + ipPagesDropPageId );
                 }
             },
             'plugins' : [
