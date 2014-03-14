@@ -288,6 +288,9 @@ var ipPagesDropPagePosition;
                     });
                 }
             } else {
+                if (getTreeDiv().data('ipPageTree')) {
+                    return; //alrady initialized
+                }
                 getTreeDiv().off('loaded.jstree').on('loaded.jstree', function (e) {
                     $('#page_' + $scope.selectedPageId + ' a').first().click();
                 });
@@ -302,7 +305,7 @@ var ipPagesDropPagePosition;
                     $scope.$apply();
                 });
 
-                $(document).off('dnd_stop.vakata').on('dnd_stop.vakata', function (e, data) {
+                $(document).off('dnd_stop.vakata.impresspages').on('dnd_stop.vakata.impresspages', function (e, data) {
 
                     var $node = $('#' + data.data.nodes[0]);
                     var pageId = $node.attr('pageid');
@@ -470,6 +473,7 @@ var ipPagesDropPagePosition;
         }
 
         var movePage = function (pageId, destinationParentId, destinationPosition, doRefresh) {
+            console.log('move');
             var data = {
                 aa: 'Pages.movePage',
                 pageId: pageId,
