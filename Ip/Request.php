@@ -308,11 +308,12 @@ class Request
     public function _isWebsiteRoot()
     {
         $relativePath = $this->getRelativePath();
-        if (empty($relativePath[0]) || $relativePath[0] == '?' || ltrim($relativePath, '/') == 'index.php') {
+        
+        if ((!$relativePath) || (empty($relativePath[0]) || $relativePath[0] == '?' || ltrim($relativePath, '/') == 'index.php')) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     protected function parseControllerAction()
