@@ -179,7 +179,8 @@ var ipPageDragId;
                         $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
                             deletePage(menu.id);
-                            window.location = ip.baseUrl + '?aa=Pages.index';
+                            window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
+                            location.reload();
                         });
                     });
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
@@ -252,12 +253,6 @@ var ipPageDragId;
 
         $scope.pastePage = function () {
             var position = getTreeDiv().find('ul').first().children.length;
-            //var position = tree._get_children(-1).length; //last position
-            var node = []; //tree.get_selected();
-            if (node.length) {
-                var position = node.index() + 1;
-            }
-
             if ($scope.cutPageId) {
                 movePage($scope.cutPageId, $scope.activeMenu.id, position, true);
             } else {
@@ -389,7 +384,8 @@ var ipPageDragId;
                 data: data,
                 context: this,
                 success: function (response) {
-                    window.location = ip.baseUrl + '?aa=Pages.index';
+                    window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code;
+                    location.reload();
                 },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
@@ -493,7 +489,8 @@ var ipPageDragId;
                 context: this,
                 success: function (response) {
                     if (doRefresh) {
-                        window.location = ip.baseUrl + '?aa=Pages.index';
+                        window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
+                        location.reload();
                     }
                 },
                 error: function (response) {
@@ -559,7 +556,8 @@ var ipPageDragId;
                 data: data,
                 context: this,
                 success: function (response) {
-                    window.location = ip.baseUrl + '?aa=Pages.index';
+                    window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
+                    location.reload();
                 },
                 error: function (response) {
                     if (ip.developmentEnvironment || ip.debugMode) {
