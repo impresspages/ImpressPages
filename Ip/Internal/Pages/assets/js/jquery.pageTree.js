@@ -49,9 +49,6 @@
                 $this.html('');
             });
         }
-
-
-
     };
 
     var refresh = function (menuName, languageId) {
@@ -76,11 +73,7 @@
         var $this = this;
 
         $.proxy(initializeTreeManagement, $this)(response.tree);
-
-
     }
-
-
 
     /**
      * Initialize tree management
@@ -112,13 +105,7 @@
                 'dnd', 'wholerow'
             ]
         });
-
-
-
-
     }
-
-
 
     $.fn.ipPageTree = function(method) {
 
