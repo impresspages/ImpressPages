@@ -36,7 +36,7 @@ class Model{
             'email' => $email,
             'hash' => self::passwordHash($password)
         );
-        ipDb()->insert('administrator', $data);
+        return ipDb()->insert('administrator', $data);
     }
 
     public static function sendResetPasswordLink($userId)
