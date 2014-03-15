@@ -17,6 +17,8 @@ class AdminController extends \Ip\GridController
             'allowCreate' => FALSE,
             'allowUpdate' => FALSE,
             'allowDelete' => FALSE,
+            'sortField' => 'id',
+            'sortDirection' => 'desc',
             'fields' => array(
                 array(
                     'label' => __('Time', 'ipAdmin', FALSE),

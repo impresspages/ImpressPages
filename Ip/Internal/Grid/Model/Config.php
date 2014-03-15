@@ -235,6 +235,19 @@ class Config
         return $this->config['sortField'];
     }
 
+    public function sortDirection()
+    {
+        if (empty($this->config['sortDirection'])) {
+            return FALSE;
+        }
+        if ($this->config['sortDirection'] == 'desc') {
+            return 'desc';
+        } else {
+            return 'asc';
+        }
+
+    }
+
     public function createPosition()
     {
         if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'bottom') {

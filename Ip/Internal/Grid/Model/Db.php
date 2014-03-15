@@ -44,7 +44,7 @@ class Db
         WHERE
           " . $where . "
         ORDER BY
-            `" . $sortField . "`
+            `" . $sortField . "` " . $this->config->sortDirection() . "
         LIMIT
             $from, $count
         ";
