@@ -14,6 +14,7 @@ class Helper
     public static function createForm()
     {
         $form = new \Ip\Form();
+        $form->addAttribute('autocomplete', 'off');
 
 
         $field = new \Ip\Form\Field\Text(
@@ -48,6 +49,8 @@ class Helper
     public static function updateForm()
     {
         $form = new \Ip\Form();
+        $form->addAttribute('autocomplete', 'off');
+
 
 
         $field = new \Ip\Form\Field\Text(
