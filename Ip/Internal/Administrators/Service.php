@@ -13,7 +13,7 @@ class Service
 {
     public static function add($username, $email, $password)
     {
-        Model::addAdministrator($username, $email, $password);
+        return Model::addAdministrator($username, $email, $password);
     }
 
     public static function get($userId)

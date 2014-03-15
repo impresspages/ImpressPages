@@ -762,9 +762,9 @@ function ipTable($table, $as = null)
  * @param $plugin Plugin name.
  * @return bool Returns true if user has plugin's administration permission.
  */
-function ipAdminPermission($plugin, $action = NULL)
+function ipAdminPermission($permission, $userId = NULL)
 {
-    return \Ip\ServiceLocator::permissions()->isAllowed($plugin, $action);
+    return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission);
 }
 
 
