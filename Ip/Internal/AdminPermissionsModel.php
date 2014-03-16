@@ -44,8 +44,6 @@ class AdminPermissionsModel
             }
         }
 
-
-        //sort($permissions);
         $permissions = ipFilter('ipAvailablePermissions', $permissions);
         return $permissions;
     }

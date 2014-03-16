@@ -69,11 +69,19 @@ class AdminController extends \Ip\Controller
         $email = $data['email'];
         $password = $data['password'];
 
-        Service::add($username, $email, $password);
+        $administratorId = Service::add($username, $email, $password);
+
+        //set the same permissions as current administrator
+        $curUserPermissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions(ipAdminId());
+        foreach($curUserPermissions as $permission) {
+            \Ip\Internal\AdminPermissionsModel::addPermission($permission, $administratorId);
+        }
 
 
         $data = array (
-            'status' => 'ok'
+            'status' => 'ok',
+            'id' => $administratorId,
+            'permissions' => \Ip\Internal\AdminPermissionsModel::getUserPermissions($administratorId)
         );
         return new \Ip\Response\Json($data);
     }
