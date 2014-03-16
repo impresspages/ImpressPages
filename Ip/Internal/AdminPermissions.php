@@ -21,6 +21,6 @@ class AdminPermissions
         if (!isset($this->permissions[$administratorId])) {
             $this->permissions[$administratorId] = AdminPermissionsModel::getUserPermissions($administratorId);
         }
-        return isset($this->permissions[$administratorId][$permission]) || isset($this->permissions[$administratorId]['superadmin']);
+        return isset($this->permissions[$administratorId][$permission]) || isset($this->permissions[$administratorId]['Super admin']);
     }
 }

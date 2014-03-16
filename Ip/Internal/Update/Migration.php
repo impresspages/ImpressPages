@@ -30,7 +30,7 @@ class Migration {
         if (empty($permissions)) {
             $administrators = \Ip\Internal\Administrators\Model::getAll();
             foreach ($administrators as $administrator) {
-                \Ip\Internal\AdminPermissionsModel::addPermission('superadmin', $administrator['id']);
+                \Ip\Internal\AdminPermissionsModel::addPermission('Super admin', $administrator['id']);
             }
         }
     }
