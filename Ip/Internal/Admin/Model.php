@@ -67,7 +67,9 @@ class Model{
                 $moduleItem->markAsCurrent(true);
             }
 
-            $answer[] = $moduleItem;
+            if (ipAdminPermission($module)) {
+                $answer[] = $moduleItem;
+            }
         }
 
 
@@ -86,7 +88,9 @@ class Model{
             if ($plugin['name'] == $currentModule) {
                 $moduleItem->markAsCurrent(true);
             }
-            $answer[] = $moduleItem;
+            if (ipAdminPermission($plugin['name'])) {
+                $answer[] = $moduleItem;
+            }
         }
 
         $answer = ipFilter('ipAdminMenu', $answer);

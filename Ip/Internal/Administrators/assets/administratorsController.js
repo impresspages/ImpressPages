@@ -143,13 +143,6 @@ var ipAdministratorsController = null;
                 data: data,
                 context: this,
                 success: function (response) {
-//                    //new admin gets the same permissions as current.
-//                    var permissions = [];
-//                    $.each($scope.administrators, function (key, administrator) {
-//                        if (administrator.id == ipAdministratorId) {
-//                            permissions = administrator.permissions;
-//                        }
-//                    });
 
                     $scope.administrators.push({
                         username: username,
