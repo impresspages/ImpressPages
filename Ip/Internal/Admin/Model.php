@@ -43,7 +43,7 @@ class Model{
 
     /**
      * @param $currentModule Name of the current (active) module
-     * @return array
+     * @return \Ip\Internal\Admin\MenuItem[]
      */
     public function getAdminMenuItems($currentModule)
     {
