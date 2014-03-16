@@ -248,7 +248,7 @@ class Request
 
         $relativePath = substr($requestPath, strlen($basePath));
 
-        return $relativePath ? $relativePath : '';
+        return ltrim($relativePath, '/') ? $relativePath : '';
     }
 
     /**
@@ -309,7 +309,7 @@ class Request
     {
         $relativePath = $this->getRelativePath();
         
-        if ((!$relativePath) || (empty($relativePath[0]) || $relativePath[0] == '?' || ltrim($relativePath, '/') == 'index.php')) {
+        if ((!$relativePath) || (empty($relativePath[0]) || $relativePath[0] == '?') == 'index.php') {
             return true;
         }
 
