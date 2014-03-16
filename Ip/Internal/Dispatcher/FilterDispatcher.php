@@ -24,7 +24,7 @@ class FilterDispatcher extends EventListener
      */
     public function filter($eventName, $value, $data = array())
     {
-        if (!isset($this->listeners[$eventName])) {
+        if (empty($this->listeners[$eventName])) {
             return $value;
         }
 
@@ -33,6 +33,7 @@ class FilterDispatcher extends EventListener
             $this->sortedListeners[$eventName] = true;
         }
 
+        reset($this->listeners[$eventName]);
         do {
             foreach (current($this->listeners[$eventName]) as $callable) {
                 $value = call_user_func($callable, $value, $data);

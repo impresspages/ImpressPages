@@ -117,6 +117,16 @@ class SiteController extends \Ip\Controller{
         }
 
         $redirectUrl = ipHomeUrl();
+
+        $model = Model::instance();
+        $adminMenuItems = $model->getAdminMenuItems(null);
+        if (!empty($adminMenuItems)) {
+            //redirect user to the first module
+            $firstMenuItem = $adminMenuItems[0];
+            $redirectUrl = $firstMenuItem->getUrl();
+        }
+
+
         if (empty($errors)) {
             $answer = array(
                 'status' => 'success',
