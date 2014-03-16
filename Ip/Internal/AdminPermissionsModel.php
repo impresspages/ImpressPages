@@ -23,9 +23,6 @@ class AdminPermissionsModel
      */
     public static function availablePermissions()
     {
-//        $modules = \Ip\Internal\Plugins\Model::getModules();
-//        $plugins = \Ip\Internal\Plugins\Model::getActivePluginNames();
-//        $permissions = array_merge($modules, $plugins);
         $permissions = array(
             'Super admin',
             'Content',
@@ -39,6 +36,15 @@ class AdminPermissionsModel
             'Log',
             'Email'
         );
+
+        $plugins = \Ip\Internal\Plugins\Model::getActivePluginNames();
+        foreach ($plugins as $plugin) {
+            if (is_file(ipFile('Plugin/' . $plugin . '/AdminController.php'))) {
+                array_push($permissions, $plugin);
+            }
+        }
+
+
         //sort($permissions);
         $permissions = ipFilter('ipAvailablePermissions', $permissions);
         return $permissions;
