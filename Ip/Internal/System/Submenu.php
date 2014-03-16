@@ -15,7 +15,7 @@ namespace Ip\Internal\System;
 
 
 class Submenu {
-    protected static function getModuleNames()
+    public static function getModuleNames()
     {
         return array('System', 'Administrators', 'Log', 'Email');
     }
@@ -59,7 +59,9 @@ class Submenu {
             if (ipRequest()->getControllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
                 $menuItem->markAsCurrent(TRUE);
             }
-            $submenuItems[] = $menuItem;
+            if (ipAdminPermission($module)) {
+                $submenuItems[] = $menuItem;
+            }
         }
         return $submenuItems;
     }
