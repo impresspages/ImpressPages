@@ -143,10 +143,20 @@ var ipAdministratorsController = null;
                 data: data,
                 context: this,
                 success: function (response) {
+//                    //new admin gets the same permissions as current.
+//                    var permissions = [];
+//                    $.each($scope.administrators, function (key, administrator) {
+//                        if (administrator.id == ipAdministratorId) {
+//                            permissions = administrator.permissions;
+//                        }
+//                    });
+
                     $scope.administrators.push({
                         username: username,
                         email: email,
-                        password: password
+                        password: password,
+                        permissions: response.permissions,
+                        id: response.id
                     });
                     $scope.$apply();
                     $('.ipsAddModal').modal('hide');
