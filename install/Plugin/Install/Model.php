@@ -306,7 +306,7 @@ class Model
     public static function insertAdmin($user, $email, $pass)
     {
         $adminId = \Ip\Internal\Administrators\Service::add($user, $email, $pass);
-        \Ip\Internal\AdminPermissionsModel::addPermission('superadmin', $adminId);
+        \Ip\Internal\AdminPermissionsModel::addPermission('Super admin', $adminId);
     }
 
     public static function setSiteName($siteName)
