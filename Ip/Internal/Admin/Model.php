@@ -121,9 +121,6 @@ class Model{
             case 'Config':
                 $icon = 'fa-cog';
                 break;
-            case 'System':
-                $icon = 'fa-cogs';
-                break;
             case 'Languages':
                 $icon = 'fa-globe';
                 break;
