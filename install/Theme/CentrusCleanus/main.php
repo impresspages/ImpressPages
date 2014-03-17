@@ -21,7 +21,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3">
-                        <?php echo \Plugin\Install\Helper::generateMenu(); ?>
+                        <?php echo \Plugin\Install\Helper::generateMenu(!empty($_GET['step']) ? $_GET['step'] : '0'); ?>
                     </div>
                     <div class="col-md-9">
                         <?php echo ipBlock('main')->render(); ?>
