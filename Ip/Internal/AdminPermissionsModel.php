@@ -10,7 +10,12 @@ class AdminPermissionsModel
         if ($administratorId === null) {
             $administratorId = ipAdminId();
         }
-        return ipDb()->selectColumn('permission', 'permission', array('administratorId' => $administratorId));
+        $permissions = ipDb()->selectColumn('permission', 'permission', array('administratorId' => $administratorId));
+        if (!empty($permissions)) {
+            $permissions = array_combine($permissions, $permissions);
+        }
+
+        return $permissions;
     }
 
     /**
