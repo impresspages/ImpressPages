@@ -23,7 +23,7 @@ $options = array(
     'translationsLanguageCode' => 'en'
 );
 
-if (isset($_REQUEST['lang'])) {
+if (!empty($_REQUEST['lang']) && strlen($_REQUEST['lang']) == 2 && ctype_alpha($_REQUEST['lang'])) {
     $_SESSION['installationLanguage'] = $_REQUEST['lang'];
 }
 

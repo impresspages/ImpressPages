@@ -30,7 +30,7 @@ class PublicController extends \Ip\Controller
             $_SESSION['step'] = 0;
         }
 
-        if (isset($_GET['lang'])) {
+        if (!empty($_GET['lang']) && strlen($_GET['lang']) == 2 && ctype_alpha($_GET['lang'])) {
             $_SESSION['installation_language'] = $_GET['lang'];
         }
     }
