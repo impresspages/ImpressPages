@@ -320,7 +320,7 @@ class PublicController extends \Ip\Controller
 
     public function proceed()
     {
-        if (in_array($_SESSION['step'], array(0, 2))) {
+        if (in_array($_SESSION['step'], array(0, 1, 2))) {//TODO check if there are no errors in step1
             $_SESSION['step'] = $_SESSION['step']+1;
             return new \Ip\Response\Json(array('status' => 'ok'));
         }
@@ -434,7 +434,7 @@ class PublicController extends \Ip\Controller
             \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
             OptionHelper::import(__DIR__ . '/options.json');
 
-            Model::completeStep(3);
+            Model::completeStep(4);
             return \Ip\Response\JsonRpc::result(true);
         }
 
@@ -508,7 +508,7 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }
 
-        Model::completeStep(4);
+        Model::completeStep(5);
 
         return \Ip\Response\JsonRpc::result(true);
     }
