@@ -8,11 +8,11 @@
     </div>
     <div class="form-group">
         <label for="db_user"><?php _e('User name', 'Install'); ?></label>
-        <input type="text" class="form-control" id="db_user" name="db_user" value="<?php echo htmlspecialchars($db['username']); ?>">
+        <input type="text" class="form-control" id="db_user" autocomplete="off" name="db_user" value="<?php echo htmlspecialchars($db['username']); ?>">
     </div>
     <div class="form-group">
         <label for="db_pass"><?php _e('User password', 'Install'); ?></label>
-        <input type="password" class="form-control" id="db_pass" name="db_pass" value="<?php echo htmlspecialchars($db['password']); ?>">
+        <input type="password" class="form-control" id="db_pass" autocomplete="off" name="db_pass" value="<?php echo htmlspecialchars($db['password']); ?>">
     </div>
     <div class="form-group">
         <label for="db_db"><?php _e('Database name', 'Install'); ?></label>
