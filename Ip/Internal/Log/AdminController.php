@@ -27,32 +27,34 @@ class AdminController extends \Ip\GridController
                 array(
                     'label' => __('Message', 'ipAdmin', FALSE),
                     'field' => 'message',
-                    'preview' => __CLASS__ . '::filterMessage'
+                    'preview' => __CLASS__ . '::previewMessage'
                 ),
                 array(
                     'label' => __('Context', 'ipAdmin', FALSE),
                     'field' => 'context',
-                    'preview' => __CLASS__ . '::filterContext'
+                    'preview' => __CLASS__ . '::previewContext'
                 )
             )
         );
     }
 
-    public static function filterMessage($value, $recordData)
+    public static function previewMessage($value, $recordData)
     {
         $context = json_decode($recordData['context'], TRUE);
 
         $replace = array();
         foreach ($context as $key => $val) {
             if (is_string($val) || is_numeric($val)) {
-                $replace['{' . $key . '}'] = '<em>' . $val . '</em>';
+                $replace['{' . $key . '}'] = '<em>' . esc($val) . '</em>';
             }
         }
 
-        return strtr($recordData['message'], $replace);
+        $message = esc($recordData['message']);
+
+        return strtr($message, $replace);
     }
 
-    public static function filterContext($value, $recordData)
+    public static function previewContext($value, $recordData)
     {
         $context = json_decode($recordData['context'], TRUE);
 

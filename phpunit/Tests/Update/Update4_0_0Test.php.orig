@@ -7,7 +7,11 @@ namespace Tests\Update;
  * @group Selenium
  */
 
+<<<<<<< HEAD:phpunit/Tests/Update/Update4_0_0Test.php
 class Update4_0_0Test extends \PhpUnit\Helper\MinkTestCase
+=======
+class UpdateTest extends \PhpUnit\Helper\MinkTestCase
+>>>>>>> f168ed4ae59ac79caa44353c8c4c5ce35c7968cf:phpunit/Tests/Update/UpdateTest.php
 {
 
     /**
@@ -39,5 +43,7 @@ class Update4_0_0Test extends \PhpUnit\Helper\MinkTestCase
 
 
     }
+
+
 
 }

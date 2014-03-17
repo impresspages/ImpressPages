@@ -255,7 +255,7 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
-                $query->bindValue($key, $value);
+                $query->bindValue($key + 1, $value);
             }
 
             $query->execute();

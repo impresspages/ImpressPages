@@ -7,6 +7,7 @@
 
 /**
  * @group ignoreOnTravis
+ * @group Selenium
  */
 
 class UpdateLinkTest extends \PhpUnit\SeleniumTestCase
