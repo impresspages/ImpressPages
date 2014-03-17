@@ -42,7 +42,7 @@ class ServiceLocator
         'dispatcher' => '\Ip\Dispatcher',
         'response' => '\Ip\Response\Layout',
         'content' => '\Ip\Content',
-        'permissions' => '\Ip\Internal\Permissions\UserPermissions',
+        'adminPermissions' => '\Ip\Internal\AdminPermissions',
         'slots' => '\Ip\Internal\Slots',
         'pageAssets' => '\Ip\Internal\PageAssets',
         'router' => '\Ip\Router',
@@ -232,12 +232,12 @@ class ServiceLocator
     }
 
     /**
-     * @return \Ip\Internal\Permissions\UserPermissions
+     * @return \Ip\Internal\AdminPermissions
      */
-    public static function permissions()
+    public static function adminPermissions()
     {
         if (static::$permissions === null) {
-            static::$permissions = static::loadService('permissions');
+            static::$permissions = static::loadService('adminPermissions');
         }
 
         return static::$permissions;

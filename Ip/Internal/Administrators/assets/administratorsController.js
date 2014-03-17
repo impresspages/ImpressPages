@@ -22,6 +22,7 @@ var ipAdministratorsController = null;
         $scope.activeAdministrator = null;
         $scope.editMode = false;
         $scope.ipAdministratorsAdminId = ipAdministratorsAdminId;
+        $scope.availablePermissions = ipAvailablePermissions;
 
 
         $scope.$on('PathChanged', function (event, path) {
@@ -75,6 +76,41 @@ var ipAdministratorsController = null;
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
         }
 
+        $scope.setPermission = function(permission, value, callback)
+        {
+            if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
+                if (!confirm(ipAdministratorsSuperAdminWarning)) {
+                    return;
+                }
+            }
+
+            var data = {
+                aa: 'Administrators.setAdminPermission',
+                securityToken: ip.securityToken,
+                permission: permission,
+                value: value ? 1 : 0,
+                adminId: $scope.activeAdministrator.id
+            }
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: this,
+                success: function (response) {
+                    $scope.activeAdministrator.permissions[permission] = value;
+                    $scope.$apply();
+                    if (callback) {
+                        callback();
+                    }
+                },
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
+                },
+                dataType: 'json'
+            });
+
+        }
+
         $scope.deleteModal = function () {
             $('.ipsDeleteModal').modal();
             $('.ipsDeleteModal .ipsDelete').off('click').on('click', function (e) {
@@ -107,10 +143,13 @@ var ipAdministratorsController = null;
                 data: data,
                 context: this,
                 success: function (response) {
+
                     $scope.administrators.push({
                         username: username,
                         email: email,
-                        password: password
+                        password: password,
+                        permissions: response.permissions,
+                        id: response.id
                     });
                     $scope.$apply();
                     $('.ipsAddModal').modal('hide');

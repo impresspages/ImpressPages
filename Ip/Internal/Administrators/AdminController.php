@@ -27,10 +27,14 @@ class AdminController extends \Ip\Controller
             unset($administrator['hash']);
             unset($administrator['resetSecret']);
             unset($administrator['resetTime']);
+            $administrator['permissions'] = \Ip\Internal\AdminPermissionsModel::getUserPermissions($administrator['id']);
         }
 
         ipAddJsVariable('ipAdministrators', $administrators);
         ipAddJsVariable('ipAdministratorsAdminId', (int)ipAdminId());
+        ipaddJsVariable('ipAvailablePermissions', \Ip\Internal\AdminPermissionsModel::availablePermissions());
+        ipaddJsVariable('ipAdministratorId', ipAdminId());
+        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself. Do you want to continue?', 'ipAdmin', false));
 
         $data = array (
             'createForm' => Helper::createForm(),
@@ -65,11 +69,19 @@ class AdminController extends \Ip\Controller
         $email = $data['email'];
         $password = $data['password'];
 
-        Service::add($username, $email, $password);
+        $administratorId = Service::add($username, $email, $password);
+
+        //set the same permissions as current administrator
+        $curUserPermissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions(ipAdminId());
+        foreach($curUserPermissions as $permission) {
+            \Ip\Internal\AdminPermissionsModel::addPermission($permission, $administratorId);
+        }
 
 
         $data = array (
-            'status' => 'ok'
+            'status' => 'ok',
+            'id' => $administratorId,
+            'permissions' => \Ip\Internal\AdminPermissionsModel::getUserPermissions($administratorId)
         );
         return new \Ip\Response\Json($data);
     }
@@ -140,5 +152,31 @@ class AdminController extends \Ip\Controller
             'status' => 'ok'
         );
         return new \Ip\Response\Json($data);
+    }
+
+    public function setAdminPermission()
+    {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
+
+        if (!isset($post['permission']) || !isset($post['value']) || !isset($post['adminId'])) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+        $permission = $post['permission'];
+        $value = $post['value'];
+        $adminId = $post['adminId'];
+
+        if ($value) {
+            \Ip\Internal\AdminPermissionsModel::addPermission($permission, $adminId);
+        } else {
+            \Ip\Internal\AdminPermissionsModel::removePermission($permission, $adminId);
+        }
+
+        $data = array (
+            'status' => 'ok'
+        );
+        return new \Ip\Response\Json($data);
+
     }
 }

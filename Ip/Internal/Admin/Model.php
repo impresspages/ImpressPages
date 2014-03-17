@@ -43,7 +43,7 @@ class Model{
 
     /**
      * @param $currentModule Name of the current (active) module
-     * @return array
+     * @return \Ip\Internal\Admin\MenuItem[]
      */
     public function getAdminMenuItems($currentModule)
     {
@@ -67,7 +67,9 @@ class Model{
                 $moduleItem->markAsCurrent(true);
             }
 
-            $answer[] = $moduleItem;
+            if (ipAdminPermission($module)) {
+                $answer[] = $moduleItem;
+            }
         }
 
 
@@ -86,7 +88,9 @@ class Model{
             if ($plugin['name'] == $currentModule) {
                 $moduleItem->markAsCurrent(true);
             }
-            $answer[] = $moduleItem;
+            if (ipAdminPermission($plugin['name'])) {
+                $answer[] = $moduleItem;
+            }
         }
 
         $answer = ipFilter('ipAdminMenu', $answer);
@@ -116,9 +120,6 @@ class Model{
                 break;
             case 'Config':
                 $icon = 'fa-cog';
-                break;
-            case 'System':
-                $icon = 'fa-cogs';
                 break;
             case 'Languages':
                 $icon = 'fa-globe';

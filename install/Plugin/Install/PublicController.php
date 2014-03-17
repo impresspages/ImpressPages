@@ -269,6 +269,7 @@ class PublicController extends \Ip\Controller
         $tables = array (
             'page',
             'pageStorage',
+            'permission',
             'language',
             'log',
             'emailQueue',

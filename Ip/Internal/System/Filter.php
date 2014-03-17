@@ -24,12 +24,27 @@ class Filter {
     {
         $urls = Submenu::getSubmenuUrls();
         $filteredMenu = array();
-        $systemUrl = ipActionUrl(array('aa' => 'System.index'));
+
+        $systemSubmenuIsEmpty = true;
+
+        //remove menu items that are in submenu
         foreach ($menu as $menuItem) {
-            if ($menuItem->getUrl() == $systemUrl || !in_array($menuItem->getUrl(), $urls)) {
+            if (!in_array($menuItem->getUrl(), $urls)) {
                 $filteredMenu[] = $menuItem;
             }
         }
+
+
+        $submenuItems = Submenu::getSubmenuItems();
+        if (!empty($submenuItems)) {
+            $firstSubmenuItem = $submenuItems[0];
+            $newItem = new \Ip\Internal\Admin\MenuItem();
+            $newItem->setTitle(__('System', 'ipAdmin', false));
+            $newItem->setUrl($firstSubmenuItem->getUrl());
+            $newItem->setIcon('fa-cogs');
+            $filteredMenu[] = $newItem;
+        }
+
         return $filteredMenu;
     }
 }
