@@ -53,8 +53,11 @@ var ipAdministratorsController = null;
                 addAdministrator(username, email, password);
             });
             setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
-            $('.ipsAddModal').find('.ipsAdd').on('click', function () {
+            $('.ipsAddModal').find('.ipsAdd').off('click').on('click', function () {
                 $('.ipsAddModal form').submit();
+                $(this).find('input[name=email]').val('');
+                $(this).find('input[name=username]').val('');
+                $(this).find('input[name=password]').val('');
             });
         }
 
@@ -72,6 +75,9 @@ var ipAdministratorsController = null;
                 var email = $form.find('input[name=email]').val();
                 var password = $form.find('input[name=password]').val();
                 updateAdministrator($scope.activeAdministrator.id, username, email, password);
+            });
+            $('.ipsUpdateModal').find('.ipsSave').off('click').on('click', function () {
+                $('.ipsUpdateModal form').submit();
             });
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
         }
