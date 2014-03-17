@@ -56,7 +56,7 @@ var ModuleInstall = new function () {
                 $('#loading').hide();
                 $('#content').show();
 
-                alert('Unexpected error. #KJLUH');
+                alert('Error: ' + response.responseText);
             }
         });
     };

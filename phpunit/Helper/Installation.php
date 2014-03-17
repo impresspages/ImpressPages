@@ -293,21 +293,7 @@ class Installation
 
     public function getSubdir($version)
     {
-        $oldVersions = array(
-            '2.0rc1',
-            '2.0rc2',
-            '2.0',
-            '2.1',
-            '2.2',
-            '2.3'
-        );
-
-        if (in_array($version, $oldVersions)) {
-            return 'ImpressPages_'.str_replace('.', '_', $version);
-        } else {
-            return 'ImpressPages';
-        }
-
+        return 'ImpressPages_'.str_replace('.', '_', $version);
     }
 
     public function isInstalled()
