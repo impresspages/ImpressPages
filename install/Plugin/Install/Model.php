@@ -4,10 +4,27 @@
  */
 
 namespace Plugin\Install;
-use \Ip\Db;
+
 
 class Model
 {
+    protected static $installationDir = null;
+
+    public static function setInstallationDir($installationDir)
+    {
+        self::$installationDir = $installationDir;
+    }
+
+    public static function ipFile($path)
+    {
+        $path = str_replace('Plugin/', 'install/Plugin/', $path);
+        if (self::$installationDir) {
+            return self::$installationDir . $path;
+        } else {
+            return ipFile($path);
+        }
+    }
+
     public static function completeStep($step)
     {
         //if($_SESSION['step'] < $step)
@@ -33,11 +50,11 @@ class Model
             $error['mod_pdo'] = 1;
         }
 
-        if (!file_exists(ipFile('.htaccess'))) {
+        if (!file_exists(self::ipFile('.htaccess'))) {
             $error['htaccess'] = 1;
         }
 
-        if (file_exists(ipFile('index.html'))) {
+        if (file_exists(self::ipFile('index.html'))) {
             $error['index.html'] = 1;
         }
 
@@ -124,7 +141,7 @@ class Model
 
         $check = array();
         $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
-        if (!Helper::isDirectoryWritable(ipFile('file/'))) {
+        if (!Helper::isDirectoryWritable(self::ipFile('file/'))) {
             $check['type'] = 'error';
             $error['writable_file'] = 1;
         } else {
@@ -134,7 +151,7 @@ class Model
 
         $check = array();
         $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
-        if (!Helper::isDirectoryWritable(ipFile('Theme'))) {
+        if (!Helper::isDirectoryWritable(self::ipFile('Theme'))) {
             $check['type'] = 'error';
             $error['writable_themes'] = 1;
         } else {
@@ -145,9 +162,9 @@ class Model
         $check = array();
         $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
         if (
-            is_file(ipFile('config.php')) && !is_writable(ipFile('config.php'))
+            is_file(self::ipFile('config.php')) && !is_writable(self::ipFile('config.php'))
             ||
-            !is_file(ipFile('config.php')) && !is_writable(ipFile(''))
+            !is_file(self::ipFile('config.php')) && !is_writable(self::ipFile(''))
         ) {
             $check['type'] = 'error';
             $error['writable_config'] = 1;
@@ -192,7 +209,7 @@ class Model
 
     public static function createDatabaseStructure($database, $tablePrefix)
     {
-        $sql = file_get_contents(ipFile('Plugin/Install/sql/structure.sql'));
+        $sql = file_get_contents(self::ipFile('Plugin/Install/sql/structure.sql'));
 
         $sql = str_replace("[[[[database]]]]", $database, $sql);
         $sql = str_replace("DROP TABLE IF EXISTS `ip_", "DROP TABLE IF EXISTS `". $tablePrefix, $sql);
@@ -208,7 +225,7 @@ class Model
     {
         $errors = array();
 
-        $sqlFile = ipFile('Plugin/Install/sql/data.sql');
+        $sqlFile = self::ipFile('Plugin/Install/sql/data.sql');
         $fh = fopen($sqlFile, 'r');
         $sql = fread($fh, utf8_decode(filesize($sqlFile)));
         fclose($fh);

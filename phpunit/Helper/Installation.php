@@ -93,10 +93,15 @@ class Installation
 
         $this->putInstallationFiles($this->getInstallationDir());
 
+        InstallModel::setInstallationDir($this->getInstallationDir());
         InstallModel::createAndUseDatabase($this->getDbName());
         InstallModel::createDatabaseStructure($this->getDbName(), $this->getDbPrefix());
         InstallModel::importData($this->getDbPrefix());
-        InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
+        if ($this->getVersion() == '4.0.0') {
+            \Ip\Internal\Administrators\Service::add($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
+        } else {
+            InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
+        }
         InstallModel::setSiteEmail($this->getSiteEmail());
         InstallModel::setSiteName($this->getSiteName());
 
@@ -116,85 +121,6 @@ class Installation
         InstallModel::writeConfigFile($config, $this->getInstallationDir() . 'config.php');
 
         $this->installed = true;
-
-        return;
-
-        // INIT CURL
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, "");
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "");
-        curl_setopt($ch, CURLOPT_COOKIE, 'PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxx; path=/' ); //php 5.4 looses session if cookie is not specified (worked fine without that on 5.3
-
-
-        // INSTALL DATABASE
-        $data = array (
-                'action' => 'create_database',
-                'server' => $this->getDbHost(),
-                'db_user' => $this->getDbUser(),
-                'db_pass' => $this->getDbPass(),
-                'db' => $this->getDbName(),
-                'prefix' => $this->getDbPrefix()
-        );
-        $fieldsString = '';
-        foreach($data as $key=>$value) {
-            $fieldsString .= $key.'='.$value.'&';
-        }
-        rtrim($fieldsString,'&');
-        curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'install/worker.php');
-        curl_setopt($ch, CURLOPT_POST, count($data));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $answer = curl_exec($ch);
-
-        // SETUP CONFIG FILE
-
-        $data = array (
-                'action' => 'config',
-                'install_login' => $this->getAdminLogin(),
-                'install_pass' => $this->getAdminPass(),
-                'email' => '',
-                'timezone' => $this->getSiteTimezone(),
-                'siteName' => $this->getSiteName(),
-                'siteEmail' => $this->getSiteEmail()
-        );
-
-        $fieldsString = '';
-        foreach($data as $key=>$value) {
-            $fieldsString .= $key.'='.$value.'&';
-        }
-        rtrim($fieldsString,'&');
-        curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'install/worker.php');
-        curl_setopt($ch, CURLOPT_POST, count($data));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldsString);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $answer = curl_exec($ch);
-
-
-
-        // RUN CRON
-        curl_setopt($ch, CURLOPT_URL, $this->getInstallationUrl().'/ip_cron.php');
-        curl_setopt($ch, CURLOPT_POST, count($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $answer = curl_exec($ch);
-
-
-        //Put instalation into test mode:
-        $configFile = $this->getInstallationDir()."config.php";
-        $config = include ($configFile);
-        $config['testMode'] = true;
-        $configSource = '<?php return ' . var_export($config, true);
-        file_put_contents($configFile, $configSource);
-
-
-        $fs = new \PhpUnit\Helper\FileSystem2();
-        $fs->rm($this->getInstallationDir().'install/');
-
-
-        $this->installed = true;
-
     }
 
 
@@ -496,11 +422,7 @@ class Installation
      */
     private function putInstallationFilesPackage($destination)
     {
-        $netHelper = new \PhpUnit\Helper\Net();
-        $archive = TEST_TMP_DIR.'ImpressPages_'.$this->getVersion().'.zip';
-        $migrationModel = new \PhpUnit\Helper\Migration();
-        $script = $migrationModel->getScriptToVersion($this->getVersion());
-        $netHelper->downloadFile($script->getDownloadUrl(), $archive);
+        $archive = $this->getArchiveFileName($this->getVersion());
 
         mkdir($destination);
 
@@ -508,7 +430,7 @@ class Installation
             require_once(TEST_BASE_DIR.'Helper/PclZip.php');
         }
         $zip = new \PclZip($archive);
-        $success = $zip->extract(PCLZIP_OPT_PATH, $destination, PCLZIP_OPT_REMOVE_PATH, $this->getSubdir($this->getVersion()));
+        $success = $zip->extract(PCLZIP_OPT_PATH, $destination, PCLZIP_OPT_REMOVE_PATH, 'ImpressPages');
 
         if ($success == 0) {
             throw new \Exception("Unrecoverable error: ".$zip->errorInfo(true));
