@@ -28,17 +28,10 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.0';
+        return '4.0.1';
     }
 
-    /**
-     * Get framework version
-     * @return string
-     */
-    public static function getDbVersion()
-    {
-        return '3';
-    }
+
 
     /**
      * @ignore

@@ -34,4 +34,10 @@ class Migration {
             }
         }
     }
+
+    public static function update_4()
+    {
+        $table = ipTable('storage');
+        ipDb()->update('storage', array('value' => '"4.0.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
 }
