@@ -13,7 +13,7 @@ namespace Ip\Internal;
  *
  */
 class Revision{
-    
+
     public static function getLastRevision($pageId)
     {
         if (empty($pageId)) {
@@ -112,32 +112,32 @@ class Revision{
         if (!$wasUpdated) {
             throw new \Ip\Exception\Db("Can't publish page #{$revision['pageId']} revision #{$revisionId}");
         }
-        
+
         ipEvent('ipPageRevisionPublished', array('revisionId' => $revisionId));
     }
 
     public static function duplicateRevision ($oldRevisionId, $pageId = null, $published = null) {
 
         $oldRevision = self::getRevision($oldRevisionId);
-        
+
         if (!$oldRevision) {
             throw new \Ip\Exception\Revision("Can't find old revision: ".$oldRevisionId);
         }
-        
+
         if ($pageId !== null) {
             $oldRevision['pageId'] = $pageId;
         }
-        
+
         $newRevisionId = self::createRevision($oldRevision['pageId'], 0);
 
         if ($published !== null) {
             self::publishRevision($newRevisionId);
         }
-        
-        
+
+
         $eventData = array(
             'newRevisionId' => $newRevisionId,
-            'basedOn' => $oldRevisionId 
+            'basedOn' => $oldRevisionId
         );
         ipEvent('ipPageRevisionDuplicated', $eventData);
 
@@ -155,8 +155,8 @@ class Revision{
     }
 
     /**
-     * 
-     * Delete all not published revisions that are older than X days. 
+     *
+     * Delete all not published revisions that are older than X days.
      * @param int $days
      */
     public static function removeOldRevisions($days)
@@ -165,7 +165,7 @@ class Revision{
 
         $sql = "
             SELECT `revisionId` FROM $table
-            WHERE `createdAt` < ? AND `published` = 0
+            WHERE `createdAt` < ? AND `isPublished` = 0
         ";
 
         $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));
@@ -177,7 +177,7 @@ class Revision{
                 'revisionId' => $revisionId,
             );
             $dispatcher->event('ipPageRevisionRemoved', $eventData);
-            ipDb()->delete('revision', array('id' => $revisionId));
+            ipDb()->delete('revision', array('revisionId' => $revisionId));
         }
     }
 
