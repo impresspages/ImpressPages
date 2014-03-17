@@ -7,18 +7,18 @@ namespace Tests\Update;
  * @group Selenium
  */
 
-class UpdateDownloadTest extends \PhpUnit\Helper\MinkTestCase
+class UpdateDevToDevTest extends \PhpUnit\Helper\MinkTestCase
 {
 
     /**
      * @group Selenium
      */
-    public function testUpdateButton()
+    public function testUpdateDevToDev()
     {
         $session = $this->session();
 
         // install fresh copy of ImpressPages:
-        $installation = new \PhpUnit\Helper\Installation('4.0.0'); //development version
+        $installation = new \PhpUnit\Helper\Installation(); //development version
         $installation->setDefaultConfig(array('testMode' => 1));
         $installation->install();
 
