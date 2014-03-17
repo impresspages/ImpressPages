@@ -402,7 +402,7 @@ class Model
 
     public static function deleteTrashPages()
     {
-        $daysToKeepInTrash = (int)ipGetOption('ipDaysToKeepInTrash', 7);
+        $daysToKeepInTrash = (int)ipGetOption('Ip.daysToKeepInTrash', 30);
 
         if (empty($daysToKeepInTrash)) {
             return;
