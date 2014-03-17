@@ -66,16 +66,19 @@ class PublicController extends \Ip\Controller
         $this->init();
 
         $languages = array();
+        $languages['en'] = 'English';
+        $languages['cn'] = 'Chinese';
         $languages['cs'] = 'Čeština';
         $languages['nl'] = 'Dutch';
-        $languages['en'] = 'English';
-        $languages['fr'] = 'French';
         $languages['de'] = 'Deutsch';
+        $languages['fr'] = 'French';
         $languages['ja'] = '日本語';
         $languages['lt'] = 'Lietuvių';
-        $languages['pt'] = 'Portugues';
+        // $languages['pt'] = 'Portugues'; // something is broken with translations
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
+        $languages['ru'] = 'Руский';
+        $languages['tr'] = 'Türk';
 
         $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
 
