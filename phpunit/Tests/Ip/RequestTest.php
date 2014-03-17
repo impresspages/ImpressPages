@@ -59,5 +59,28 @@ class RequestTest extends \PhpUnit\GeneralTestCase
         $request->setServer($server);
 
         $this->assertEquals('admin/', $request->getRelativePath());
+
+        $server = array(
+            'HTTP_HOST' => 'localhost',
+            'SERVER_NAME' => 'localhost',
+            'SERVER_ADDR' => '127.0.0.1',
+            'SERVER_PORT' => '80',
+            'REMOTE_ADDR' => '127.0.0.1',
+            'DOCUMENT_ROOT' => '/var/www',
+            'REQUEST_SCHEME' => 'http',
+            'CONTEXT_DOCUMENT_ROOT' => '/var/www',
+            'SCRIPT_FILENAME' => '/var/www/index.php',
+            'REDIRECT_URL' => '/admin/',
+            'REQUEST_METHOD' => 'GET',
+            'QUERY_STRING' => NULL,
+            'REQUEST_URI' => '/',
+            'SCRIPT_NAME' => '/index.php',
+            'PHP_SELF' => '/index.php',
+        );
+
+        $request = new \Ip\Request();
+        $request->setServer($server);
+
+        $this->assertEquals('', $request->getRelativePath());
     }
 }
