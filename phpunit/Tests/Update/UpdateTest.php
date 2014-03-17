@@ -7,7 +7,7 @@ namespace Tests\Update;
  * @group Selenium
  */
 
-class UpdateDownloadTest extends \PhpUnit\Helper\MinkTestCase
+class UpdateTest extends \PhpUnit\Helper\MinkTestCase
 {
 
     /**
