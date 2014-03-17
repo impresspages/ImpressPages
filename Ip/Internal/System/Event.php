@@ -29,16 +29,16 @@ class Event
         $systemInfo = $module->getIpNotifications();
         if ($systemInfo != '') { //send an email
             $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageSent');
-            if (!$md5 || $md5 != md5($systemInfo)) { //we have a new message
+            if (!$md5 || $md5 != md5(serialize($systemInfo))) { //we have a new message
                 $message = '';
-                $messages = json_decode($systemInfo);
+                $messages = $systemInfo;
                 if (is_array($messages)) {
-                    foreach ($messages as $messageKey => $messageVal) {
+                    foreach ($messages as $messageVal) {
                         $message .= '<p>' . $messageVal->message . '</p>';
                     }
 
                     $onlyStatusMessages = true;
-                    foreach ($messages as $messageKey => $messageVal) {
+                    foreach ($messages as $messageVal) {
                         if ($messageVal->type != 'status') {
                             $onlyStatusMessages = false;
                         }
@@ -54,7 +54,7 @@ class Event
 
                 ipEvent('ipSystemMessages', array('messages' => $messages));
 
-                \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5($systemInfo));
+                \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageSent', md5(serialize($systemInfo)));
             }
 
 
