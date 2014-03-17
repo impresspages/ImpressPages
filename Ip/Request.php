@@ -17,6 +17,7 @@ class Request
     protected $_POST = array();
     protected $_GET = array();
     protected $_REQUEST = array();
+    protected $_COOKIE = array();
 
 
 
@@ -308,7 +309,7 @@ class Request
     public function _isWebsiteRoot()
     {
         $relativePath = $this->getRelativePath();
-        
+
         if (!$relativePath || (empty($relativePath[0]) || $relativePath[0] == '?' || ltrim($relativePath, '/') == 'index.php')) {
             return true;
         }
