@@ -282,18 +282,6 @@ class Installation
         }
     }
 
-    /**
-     *
-     * @param string $key configuration value constant
-     */
-    public function getConfig($key)
-    {
-        if (!$this->cf) {
-            $configurationParser = new \IpUpdate\Library\Model\ConfigurationParser();
-            $this->cf = $configurationParser->parse($this->getInstallationDir());
-        }
-        return $this->cf[$key];
-    }
 
     /**
      * Return MySQL connection to the database

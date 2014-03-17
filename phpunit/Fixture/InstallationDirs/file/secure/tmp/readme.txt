@@ -1,1 +1,1 @@
-Directory to temporary store publicly not accessible files.
+temporary files
