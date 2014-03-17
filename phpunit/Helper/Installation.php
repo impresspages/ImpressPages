@@ -97,6 +97,14 @@ class Installation
         InstallModel::createAndUseDatabase($this->getDbName());
         InstallModel::createDatabaseStructure($this->getDbName(), $this->getDbPrefix());
         InstallModel::importData($this->getDbPrefix());
+        if (!$this->developmentVersion) {
+            ipStorage()->set('Ip', 'version', $this->getVersion());
+            if ($this->getVersion() == '4.0.0') {
+                ipStorage()->set('Ip', 'dbVersion', 2);
+            } else {
+                throw new \Exception('Other versions are not implemented');
+            }
+        }
         if ($this->getVersion() == '4.0.0') {
             \Ip\Internal\Administrators\Service::add($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
         } else {
