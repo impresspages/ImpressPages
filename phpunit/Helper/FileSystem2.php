@@ -8,6 +8,8 @@
 namespace PhpUnit\Helper;
 
 
+use Ip\Internal\Update\Helper\FileSystemException;
+
 class FileSystem2
 {
 
