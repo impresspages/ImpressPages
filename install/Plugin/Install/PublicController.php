@@ -53,9 +53,10 @@ class PublicController extends \Ip\Controller
             $step = $_SESSION['step'];
         }
 
-        if ($_SESSION['step'] > $step) {
-            $_SESSION['step'] = $step;
-        }
+//        breaks on serveriai.lt too dangerous
+//        if ($_SESSION['step'] > $step) {
+//            $_SESSION['step'] = $step;
+//        }
 
         $method = 'step' . $step;
         return $this->$method();
