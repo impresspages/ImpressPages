@@ -33,6 +33,8 @@ class PublicController extends \Ip\Controller
         if (!empty($_GET['lang']) && strlen($_GET['lang']) == 2 && ctype_alpha($_GET['lang'])) {
             $_SESSION['installation_language'] = $_GET['lang'];
         }
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
+
     }
 
     public function index ()
@@ -46,7 +48,14 @@ class PublicController extends \Ip\Controller
         if (!Helper::isInstallAvailable()) {
             $step = 5;
         }
-        $_SESSION['step'] = $step;
+
+        if ($step > $_SESSION['step']) {
+            $step = $_SESSION['step'];
+        }
+
+        if ($_SESSION['step'] > $step) {
+            $_SESSION['step'] = $step;
+        }
 
         $method = 'step' . $step;
         return $this->$method();
@@ -78,6 +87,8 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
+        ipAddJs('Plugin/Install/assets/js/step0.js');
+
         return $response;
     }
 
@@ -85,29 +96,118 @@ class PublicController extends \Ip\Controller
     {
         $this->init();
 
-        Model::completeStep(1);
+        $checkResults = Model::checkRequirements();
+        $errors = $checkResults['errors'];
+        $warnings = $checkResults['warnings'];
 
-        $content = Model::checkRequirements();
 
+        $requirements = array();
 
-        function get_url()
-        {
-            $pageURL = 'http';
-            if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
-                $pageURL .= "s";
-            }
-            $pageURL .= "://";
-            if ($_SERVER["SERVER_PORT"] != "80") {
-                $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-            } else {
-                $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-            }
+        $check = array();
+        $check['name'] = __('PHP version >= 5.3', 'Install');
+        $check['type'] = isset($errors['php_version']) ? 'error' : 'success';
+        $requirements[] = $check;
 
-            return $pageURL;
+        $check = array();
+        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
+        $check['type'] = isset($errors['mod_rewrite']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('PHP module "PDO"', 'Install');
+        $check['type'] = isset($errors['mod_pdo']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('GD Graphics Library', 'Install');
+        $check['type'] = isset($errors['gd_lib']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        if (!isset($warnings['curl'])) {
+            $check = array();
+            $check['name'] = __('PHP sessions', 'Install');
+            $check['type'] = isset($errors['session']) ? 'error' : 'success';
+            $requirements[] = $check;
         }
+
+        $check = array();
+        $check['name'] = __('.htaccess file', 'Install');
+        $check['type'] = isset($errors['htaccess']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('index.html removed', 'Install');
+        $check['type'] = isset($errors['index.html']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('Magic quotes off (optional)', 'Install');
+        $check['type'] = isset($errors['magic_quotes']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('PHP module "Curl"', 'Install');
+        $check['type'] = isset($errors['curl']) ? 'warning' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
+
+
+        $check['type'] = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 ? 'warning' : 'success';
+
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = '';
+        $check['type'] = '';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
+        if (!Helper::isDirectoryWritable(Model::ipFile('file/'))) {
+            $check['type'] = 'error';
+            $errors['writable_file'] = 1;
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
+        if (!Helper::isDirectoryWritable(Model::ipFile('Theme'))) {
+            $check['type'] = 'error';
+            $errors['writable_themes'] = 1;
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
+        if (
+            is_file(Model::ipFile('config.php')) && !is_writable(Model::ipFile('config.php'))
+            ||
+            !is_file(Model::ipFile('config.php')) && !is_writable(Model::ipFile(''))
+        ) {
+            $check['type'] = 'error';
+            $errors['writable_config'] = 1;
+        } else {
+            $check['type'] = 'success';
+        }
+        $requirements[] = $check;
+
+        $data = array(
+            'requirements' => $requirements,
+            'errors' => count($errors) > 0
+        );
+
+        $content = ipView('view/step1.php', $data)->render();
 
         $response = new LayoutResponse();
         $response->setContent($content);
+
+        ipAddJs('Plugin/Install/assets/js/step1.js');
 
         return $response;
     }
@@ -122,6 +222,7 @@ class PublicController extends \Ip\Controller
 
         $response = new LayoutResponse();
         $response->setContent($content);
+        ipAddJs('Plugin/Install/assets/js/step2.js');
 
         return $response;
     }
@@ -151,7 +252,6 @@ class PublicController extends \Ip\Controller
         $response = new LayoutResponse();
         $response->setContent($content);
 
-        ipAddJs('Plugin/Install/assets/js/jquery.js');
         ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
         ipAddJs('Plugin/Install/assets/js/step3.js');
 
@@ -196,7 +296,6 @@ class PublicController extends \Ip\Controller
 
 
         $response = new LayoutResponse();
-        ipAddJs('Plugin/Install/assets/js/jquery.js');
         ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
         ipAddJs('Plugin/Install/assets/js/step4.js');
 
@@ -216,6 +315,16 @@ class PublicController extends \Ip\Controller
         $response->setContent($content);
 
         return $response;
+    }
+
+
+    public function proceed()
+    {
+        if (in_array($_SESSION['step'], array(0, 2))) {
+            $_SESSION['step'] = $_SESSION['step']+1;
+            return new \Ip\Response\Json(array('status' => 'ok'));
+        }
+        return new \Ip\Response\Json(array('status' => 'error'));
     }
 
     public function createDatabase()

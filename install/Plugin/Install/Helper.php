@@ -46,7 +46,7 @@ class Helper
         }
     }
 
-    public static function generateMenu()
+    public static function generateMenu($curStep)
     {
 
         $steps = array();
@@ -63,13 +63,13 @@ class Helper
 
         foreach ($steps as $key => $step) {
             $class = "";
-            if ($_SESSION['step'] >= $key) {
+            if ($curStep >= $key) {
                 $class = "success";
             }
-            if ($key == $_SESSION['step']) {
+            if ($key == $curStep) {
                 $class = "active";
             }
-            if ($key <= $_SESSION['step']) {
+            if ($key <= $curStep) {
                 $answer .= '<a href="index.php?step=' . ($key) . '" class="list-group-item ' . $class . '">' . $step . '</a>';
             } else {
                 $answer .= '<a href="#" class="list-group-item ' . $class . '">' . $step . '</a>';
@@ -84,33 +84,7 @@ class Helper
         return $answer;
     }
 
-    public static function generateTable($table)
-    {
-        $answer = '';
 
-        $answer .= '<table class="table">';
-        foreach ($table as $row) {
-            $typeLabel = $class = '';
-            switch ($row['type']) {
-                case 'success':
-                    $typeLabel = __('Ok', 'Install');
-                    $class = 'success';
-                    break;
-                case 'warning':
-                    $typeLabel = __('Warning', 'Install');
-                    $class = 'warning';
-                    break;
-                case 'error':
-                    $typeLabel = __('Error', 'Install');
-                    $class = 'danger';
-                    break;
-            }
-            $answer .= '<tr><th>' . $row['name'] . '</th><td class="text-center ' . $class . '">' . $typeLabel . '</td></tr>';
-        }
-
-        $answer .= '</table>';
-        return $answer;
-    }
 
     public static function randString ( $length ) {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

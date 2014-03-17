@@ -73,121 +73,13 @@ class Model
         if (session_id() == '') { //session hasn't been started
             $warning['session'] = 1;
         }
-
-        $answer = '<h1>' . __('System check', 'Install') . "</h1>";
-
-        $requirements = array();
-
-        $check = array();
-        $check['name'] = __('PHP version >= 5.3', 'Install');
-        $check['type'] = isset($error['php_version']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
-        $check['type'] = isset($error['mod_rewrite']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('PHP module "PDO"', 'Install');
-        $check['type'] = isset($error['mod_pdo']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('GD Graphics Library', 'Install');
-        $check['type'] = isset($error['gd_lib']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        //sessions are checked using curl. If there is no curl, session availability hasn't been checked
-        if (!isset($warning['curl'])) {
-            $check = array();
-            $check['name'] = __('PHP sessions', 'Install');
-            $check['type'] = isset($error['session']) ? 'error' : 'success';
-            $requirements[] = $check;
-        }
-
-        $check = array();
-        $check['name'] = __('.htaccess file', 'Install');
-        $check['type'] = isset($error['htaccess']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('index.html removed', 'Install');
-        $check['type'] = isset($error['index.html']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('Magic quotes off (optional)', 'Install');
-        $check['type'] = isset($error['magic_quotes']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('PHP module "Curl"', 'Install');
-        $check['type'] = isset($error['curl']) ? 'warning' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
-
-
-        $check['type'] = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 ? 'warning' : 'success';
-
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '';
-        $check['type'] = '';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
-        if (!Helper::isDirectoryWritable(self::ipFile('file/'))) {
-            $check['type'] = 'error';
-            $error['writable_file'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
-        if (!Helper::isDirectoryWritable(self::ipFile('Theme'))) {
-            $check['type'] = 'error';
-            $error['writable_themes'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
-        if (
-            is_file(self::ipFile('config.php')) && !is_writable(self::ipFile('config.php'))
-            ||
-            !is_file(self::ipFile('config.php')) && !is_writable(self::ipFile(''))
-        ) {
-            $check['type'] = 'error';
-            $error['writable_config'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
-
-
-        $answer .= Helper::generateTable($requirements);
-
-        $answer .= '
-        <p class="text-right">';
-        if (sizeof($error) > 0) {
-            $_SESSION['step'] = 1;
-            $answer .= '<a class="btn btn-primary" href="?step=1">' . __('Check again', 'Install') . '</a>';
-        } else {
-            Model::completeStep(1);
-            $answer .= '<a class="btn btn-default" href="?step=1">' . __('Check again', 'Install') . '</a> <a class="btn btn-primary" href="?step=2">' . __('Next', 'Install') . '</a>';
-        }
-        $answer .= "</p>";
-
+        $answer = array(
+            'errors' => $error,
+            'warnings' => $warning
+        );
         return $answer;
+
+
     }
 
     public static function createAndUseDatabase($database)
