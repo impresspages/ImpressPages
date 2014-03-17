@@ -41,7 +41,13 @@ CREATE TABLE `ip_pageStorage` (
   UNIQUE KEY `pageKey` (`pageId`,`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `ip_permission`;
 
+CREATE TABLE IF NOT EXISTS `ip_permission` (
+  `administratorId` int(11) NOT NULL DEFAULT '0',
+  `permission` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`administratorId`,`permission`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ip_language`;
 

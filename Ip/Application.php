@@ -37,7 +37,7 @@ class Application
      */
     public static function getDbVersion()
     {
-        return '2';
+        return '3';
     }
 
     /**
@@ -214,6 +214,7 @@ class Application
         $action = $routeAction['action'];
 
 
+        $isPlugin = false;
         if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
             $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
         } else {
@@ -221,6 +222,7 @@ class Application
                 throw new \Ip\Exception("Plugin '".$plugin."' doesn't exist or isn't activated.");
             }
             $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
+            $isPlugin = true;
         }
 
         if (!class_exists($controllerClass)) {
@@ -238,8 +240,8 @@ class Application
         }
 
         if ($controller == 'AdminController') {
-            if (!ipAdminPermission($plugin, 'executeAdminAction', array('action' => $action))) {
-                throw new \Ip\Exception('User has no permission to execute ' . $plugin . '.' . $action . ' action');
+            if (!ipAdminPermission($plugin)) {
+                throw new \Ip\Exception('User has no permission to access ' . $plugin . '');
             }
         }
 

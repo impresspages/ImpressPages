@@ -20,6 +20,14 @@
                 <b><?php _e('Email', 'ipAdmin'); ?></b> {{activeAdministrator.email}}
                 <br/>
                 <button class="btn btn-primary" ng-click="updateModal()"><?php _e('Edit', 'ipAdmin'); ?></button>
+
+                <h2><?php _e('Permissions', 'ipAdmin') ?></h2>
+                <div ng-click="setPermission(permission, !activeAdministrator.permissions[permission])" ng-show="permission == 'Super admin' || !activeAdministrator.permissions['Super admin'] " ng-repeat="permission in availablePermissions" >
+                    <span>{{permission}}</span>
+<!--                    activeAdministrator.permissions-->
+                    <button ng-show="activeAdministrator.permissions[permission]" class="btn btn-xs btn-default"><?php _e('On', 'ipAdmin') ?></button>
+<!--                    <button ng-whow="!activeAdministrator.permissions[permission]" class="btn btn-xs btn-default">--><?php //_e('Off', 'ipAdmin') ?><!--</button>-->
+                </div>
             </div>
             <div ng-show="editMode">
                 <?php echo $updateForm->render(); ?>
