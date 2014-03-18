@@ -262,7 +262,19 @@ class Model{
     public static function getPluginConfig($pluginName)
     {
         $configFile = ipFile('Plugin/' . $pluginName . '/');
-        return self::parseConfigFile($configFile);
+        $config = self::parseConfigFile($configFile);
+
+        if (empty($config)) {
+            $config = array(
+                'name' => $pluginName,
+                'version' => '1',
+                'description' => '',
+                'author' => '',
+            );
+
+        }
+
+        return $config;
     }
 
     public static function parseConfigFile($pluginDir)
