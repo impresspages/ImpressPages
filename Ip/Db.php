@@ -330,6 +330,11 @@ class Db
             $params[] = $value;
         }
         $sql = substr($sql, 0, -2);
+        
+        if (empty($params)) {
+            $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " () VALUES()";
+        }
+        
 
         if ($this->execute($sql, $params)) {
             $lastInsertId = $this->getConnection()->lastInsertId();
