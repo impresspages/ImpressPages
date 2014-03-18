@@ -80,6 +80,10 @@ class Job
             return null;
         }
 
+        if (is_callable($result['action'])) {
+            unset($result['plugin'], $result['controller']);
+        }
+
         if (empty($result['page'])) {
 
             if ($info['relativeUri'] == '') {
