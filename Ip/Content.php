@@ -54,6 +54,10 @@ class Content
         $this->currentLanguage = $currentLanguage;
     }
 
+    /**
+     * @param $pageId
+     * @return \Ip\Page
+     */
     public function getPage($pageId)
     {
         try {
