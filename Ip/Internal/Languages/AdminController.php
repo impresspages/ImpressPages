@@ -9,7 +9,7 @@ namespace Ip\Internal\Languages;
 
 class AdminController extends \Ip\GridController
 {
-    static $urlBeforeUpdate;
+    protected $beforeUpdate;
 
     public function index()
     {
@@ -84,7 +84,10 @@ class AdminController extends \Ip\GridController
                 array(
                     'label' => __('RFC 4646 code', 'ipAdmin', false),
                     'field' => 'code',
-                    'showInList' => false
+                    'showInList' => false,
+                    'validators' => array(
+                        array('Unique', array('table' => 'language'), __('Language code should be unique', 'ipAdmin', false)),
+                    )
                 ),
                 array(
                     'type' => 'Select',
@@ -218,16 +221,15 @@ class AdminController extends \Ip\GridController
 //        }
 //    }
 
-        $tmpLanguage = Db::getLanguageById($id);
-        self::$urlBeforeUpdate = $tmpLanguage['url'];
+        $this->beforeUpdate = Db::getLanguageById($id);
     }
 
     public function afterUpdate($id, $newData)
     {
-        $tmpLanguage = Db::getLanguageById($id);
-        if ($tmpLanguage['url'] != self::$urlBeforeUpdate && ipGetOption('Config.multilingual')) {
-            $languagePath = $tmpLanguage['url'] == '' ? '' : $tmpLanguage['url'] . '/';
-            $languagePathBefore = self::$urlBeforeUpdate == '' ? '' : self::$urlBeforeUpdate . '/';
+        $updated = Db::getLanguageById($id);
+        if ($updated['url'] != $this->beforeUpdate['url'] && ipGetOption('Config.multilingual')) {
+            $languagePath = $updated['url'] == '' ? '' : $updated['url'] . '/';
+            $languagePathBefore = $this->beforeUpdate['url'] == '' ? '' : $this->beforeUpdate['url'] . '/';
 
             $oldUrl = ipConfig()->baseUrl() . $languagePathBefore;
             $newUrl = ipConfig()->baseUrl() . $languagePath;
@@ -235,6 +237,10 @@ class AdminController extends \Ip\GridController
             $oldUrl = ipConfig()->baseUrl() . 'index.php/' . $languagePathBefore;
             $newUrl = ipConfig()->baseUrl() . 'index.php/' . $languagePath;
             ipEvent('ipUrlChanged', array('oldUrl' => $oldUrl, 'newUrl' => $newUrl));
+        }
+
+        if ($updated['code'] != $this->beforeUpdate['code']) {
+            // ipDb()->update('page', array('languageCode' => $updated['code']), array('languageCode' => $this->beforeUpdate['code']));
         }
     }
 

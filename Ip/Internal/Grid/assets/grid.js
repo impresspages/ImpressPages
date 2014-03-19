@@ -293,7 +293,6 @@
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
                 $modal.find('.ipsConfirm').off().on('click', function() {
                     $modal.find('.ipsBody form').submit();
-                    $modal.modal('hide');
                 });
                 ipInitForms();
 

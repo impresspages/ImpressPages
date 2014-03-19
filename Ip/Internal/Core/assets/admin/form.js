@@ -48,6 +48,7 @@ var ipModuleFormAdmin;
                     type = 'POST';
                 }
 
+
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
