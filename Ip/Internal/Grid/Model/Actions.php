@@ -126,32 +126,46 @@ class Actions
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
 
-        $sql = "
-        SELECT
-            `".str_replace('`', '', $sortField)."`
-        FROM
-            " . $this->config->tableName() . "
-        WHERE
-            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' < ' : ' > ') . "  :rowNumber
-        ORDER BY
-            `" . $sortField . "` " . ($beforeOrAfter == 'before' ? ' DESC ' : ' ASC ') . "
-        ";
+        $tableName = $this->config->tableName();
+
+        if ($beforeOrAfter == 'before') {
+            $sql = "
+            SELECT
+                `{$sortField}`
+            FROM
+                {$tableName}
+            WHERE
+                `{$sortField}` < :rowNumber
+            ORDER BY
+                `$sortField` DESC";
+        } else {
+            $sql = "
+            SELECT
+                `{$sortField}`
+            FROM
+                {$tableName}
+            WHERE
+                `{$sortField}` > :rowNumber
+            ORDER BY
+                `$sortField` ASC";
+        }
 
         $params = array(
             'rowNumber' => $priority
         );
 
         $priority2 = ipDb()->fetchValue($sql, $params);
+
         if ($priority2 === false) {
             if ($beforeOrAfter == 'before') {
-                $priority2 = $priority + 10;
+                $newPriority = $priority - 5;
             } else {
-                $priority2 = $priority - 10;
+                $newPriority = $priority + 5;
             }
+        } else {
+            $newPriority = ($priority + $priority2) / 2;
         }
 
-        $avgPriority = ($priority + $priority2) / 2;
-
-        ipDb()->update($this->config->rawTableName(), array($this->config->sortField() => $avgPriority), array($this->config->idField() => $id));
+        ipDb()->update($this->config->rawTableName(), array($sortField => $newPriority), array($this->config->idField() => $id));
     }
 }
