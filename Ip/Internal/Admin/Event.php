@@ -69,7 +69,7 @@ class Event
             ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
         }
 
-        $safeMode = $request->getQuery('safeMode');
+        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
 
         if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
             Model::setSafeMode($safeMode);
