@@ -160,7 +160,6 @@ class Application
             $this->initTranslations($languageCode);
         }
 
-
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage));
 
         if (!empty($routeAction)) {
@@ -202,46 +201,47 @@ class Application
                 'action' => 'pageNotFound'
             );
         }
-        $plugin = $routeAction['plugin'];
-        $controller = $routeAction['controller'];
-        $action = $routeAction['action'];
-
-
-        $isPlugin = false;
-        if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
-        } else {
-            if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
-                throw new \Ip\Exception("Plugin '".$plugin."' doesn't exist or isn't activated.");
-            }
-            $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
-            $isPlugin = true;
-        }
-
-        if (!class_exists($controllerClass)) {
-            throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
-        }
-
-        // check if user is logged in
-        if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
-
-            if (ipConfig()->getRaw('rewritesDisabled')) {
-                return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
-            } else {
-                return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
-            }
-        }
-
-        if ($controller == 'AdminController') {
-            if (!ipAdminPermission($plugin)) {
-                throw new \Ip\Exception('User has no permission to access ' . $plugin . '');
-            }
-        }
 
         $eventInfo = $routeAction;
 
-        $eventInfo['controllerClass'] = $controllerClass;
-        $eventInfo['controllerType'] = $controller;
+        if (!empty($routeAction['plugin'])) {
+
+            $plugin = $routeAction['plugin'];
+            $controller = $routeAction['controller'];
+
+            if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
+                $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
+            } else {
+                if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
+                    throw new \Ip\Exception("Plugin '".$plugin."' doesn't exist or isn't activated.");
+                }
+                $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
+            }
+
+            if (!class_exists($controllerClass)) {
+                throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
+            }
+
+            // check if user is logged in
+            if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
+
+                if (ipConfig()->getRaw('rewritesDisabled')) {
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
+                } else {
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+                }
+            }
+
+            if ($controller == 'AdminController') {
+                if (!ipAdminPermission($plugin)) {
+                    throw new \Ip\Exception('User has no permission to access ' . $plugin . '');
+                }
+            }
+
+            $eventInfo['controllerClass'] = $controllerClass;
+            $eventInfo['controllerType'] = $controller;
+        }
+
         if (empty($eventInfo['page'])) {
             $eventInfo['page'] = null;
         }
