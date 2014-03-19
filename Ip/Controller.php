@@ -9,7 +9,7 @@ namespace Ip;
 
 
 /**
- * General MVC Controller
+ * General MVC Controller.
  *
  * Every plugin controller (public, site or administration controller) must extend this class.
  */

@@ -1,11 +1,13 @@
 <?php
 /**
- * Base class for ImpressPages application.
- *
  * @package   ImpressPages
  */
 
 namespace Ip;
+
+/**
+ * Base class for ImpressPages application
+ */
 
 
 class Application
