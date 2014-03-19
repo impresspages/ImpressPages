@@ -6,6 +6,11 @@
 
 namespace Ip\Form;
 
+/**
+ * Form fields and administration grid data validation
+ *
+ * @package Ip
+ */
 
 abstract class Validator
 {
