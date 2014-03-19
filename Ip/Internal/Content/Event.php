@@ -62,6 +62,34 @@ class Event
         }
     }
 
+    public static function ipBeforeController_70($info)
+    {
+        if (empty($info['page']) || empty($info['management']) || !ipIsManagementState()) {
+            return null;
+        }
+
+        //find current page
+        $page = $info['page'];
+
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        } else {
+            ipSetLayout(Service::getPageLayout($page));
+        }
+
+        // initialize management
+        if (!ipRequest()->getQuery('ipDesignPreview')) {
+            Helper::initManagement();
+        }
+
+        //show page content
+        $response = ipResponse();
+        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
+        $response->setKeywords(ipContent()->getKeywords());
+        $response->setTitle(ipContent()->getTitle());
+    }
+
     public static function ipAdminLoginSuccessful($data)
     {
         Service::setManagementMode(1);
