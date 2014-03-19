@@ -57,9 +57,13 @@ class Table extends \Ip\Internal\Grid\Model
         if ($this->config->preventAction()) {
             $preventReason = call_user_func($this->config->preventAction(), $method, $params, $statusVariables);
             if ($preventReason) {
-                return array(
-                    Commands::showMessage($preventReason)
-                );
+                if (is_array($preventReason)) {
+                    return $preventReason;
+                } else {
+                    return array(
+                        Commands::showMessage($preventReason)
+                    );
+                }
             }
         }
 
