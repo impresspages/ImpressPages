@@ -9,7 +9,7 @@ namespace Ip;
 
 
 /**
- * Language, page, block and other content
+ * Language, page, block and other content.
  * Can be treated as a gateway to framework content.
  *
  */
