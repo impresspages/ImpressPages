@@ -8,7 +8,7 @@ class Job
 {
     public static function ipRouteLanguage_70($info)
     {
-        if (!ipGetOption('Config.multilingual') || empty($info['relativeUri'])) {
+        if (!ipGetOption('Config.multilingual')) {
             return null;
         }
 
@@ -20,6 +20,24 @@ class Job
             'relativeUri' => $info['relativeUri']
         );
 
+        $languages = ipContent()->getLanguages();
+
+        if (empty($info['relativeUri'])) {
+
+            if (!empty($_REQUEST['aa']) || !empty($_REQUEST['pa']) || !empty($_REQUEST['sa'])) {
+                return null;
+            }
+
+            $languages = ipContent()->getLanguages();
+            foreach ($languages as $language) {
+                if ($language->getUrlPath() == '') {
+                    $result['language'] = $language;
+                    return $result;
+                }
+            }
+            return null;
+        }
+
         $urlParts = explode('/', rtrim(parse_url($info['relativeUri'], PHP_URL_PATH), '/'), 2);
         if (empty($urlParts[0])) {
             return null;
@@ -27,7 +45,6 @@ class Job
 
         $languageUrl = $urlParts[0] . '/';
 
-        $languages = ipContent()->getLanguages();
         $rootLanguage = null;
         foreach ($languages as $language) {
             if ($language->getUrlPath() == $languageUrl) {
