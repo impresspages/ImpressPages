@@ -105,4 +105,4 @@
 //
 //    $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
 
-})(ip.jQuery);
+})(jQuery);

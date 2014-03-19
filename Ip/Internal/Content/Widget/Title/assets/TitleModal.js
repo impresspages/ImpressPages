@@ -61,4 +61,4 @@
         }
     };
 
-})(ip.jQuery);
+})(jQuery);

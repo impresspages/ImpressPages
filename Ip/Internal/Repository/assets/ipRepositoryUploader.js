@@ -175,4 +175,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

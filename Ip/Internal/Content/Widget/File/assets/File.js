@@ -2,10 +2,9 @@
  * @package ImpressPages
  *
  */
-var IpWidget_File;
-(function($) {
 
     IpWidget_File = function() {
+        "use strict";
         this.widgetObject = null;
         this.filesSelected = null;
 
@@ -119,10 +118,6 @@ var IpWidget_File;
         }
 
     };
-
-})(ip.jQuery);
-
-
 
 
 

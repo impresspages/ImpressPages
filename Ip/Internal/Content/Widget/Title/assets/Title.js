@@ -2,12 +2,10 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Title;
 
-(function($){
-    "use strict";
 
-    IpWidget_Title = function() {
+    var IpWidget_Title = function() {
+        "use strict";
         this.$widgetObject = null;
         this.data = null;
         this.$header = null;
@@ -154,4 +152,3 @@ var IpWidget_Title;
 
     };
 
-})(ip.jQuery);

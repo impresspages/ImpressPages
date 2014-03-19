@@ -73,6 +73,6 @@
 
     $('.ipsModuleFormAdmin .ipsFileContainer').ipFormColor();
 
-})(ip.jQuery);
+})(jQuery);
 
 
