@@ -194,33 +194,6 @@ class AdminController extends \Ip\GridController
 
     public function beforeUpdate($id, $newData)
     {
-
-
-
-//        /**
-//         * TODOXX check zone and language url's if they don't match system folder #139
-//         * Beginning of page URL can conflict with system/core folders. This function checks if the folder can be used in URL beginning.
-//         *
-//         * @param $folderName
-//         * @return bool true if URL is reserved for framework core
-//         *
-//         */
-//        public function usedUrl($folderName)
-//    {
-//        $systemDirs = array();
-//        // TODOXX make it smart with overriden paths #139
-//        $systemDirs['Plugin'] = 1;
-//        $systemDirs['Theme'] = 1;
-//        $systemDirs['File'] = 1;
-//        $systemDirs['install'] = 1;
-//        $systemDirs['update'] = 1;
-//        if(isset($systemDirs[$folderName])){
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
         $this->beforeUpdate = Db::getLanguageById($id);
     }
 
@@ -240,8 +213,10 @@ class AdminController extends \Ip\GridController
         }
 
         if ($updated['code'] != $this->beforeUpdate['code']) {
-            // ipDb()->update('page', array('languageCode' => $updated['code']), array('languageCode' => $this->beforeUpdate['code']));
+            ipDb()->update('page', array('languageCode' => $updated['code']), array('languageCode' => $this->beforeUpdate['code']));
         }
+
+        ipEvent('ipLanguageUpdated', array('old' => $this->beforeUpdate, 'new' => $updated));
     }
 
 }
