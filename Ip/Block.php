@@ -1,12 +1,15 @@
 <?php
 /**
- * Page content block
- *
  * @package   ImpressPages
  */
 
 namespace Ip;
 
+/**
+ * Page content block handling
+ *
+ * @package Ip
+ */
 
 class Block
 {

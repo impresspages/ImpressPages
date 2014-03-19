@@ -5,6 +5,11 @@
 
 namespace Ip;
 
+/**
+ * Webpage processing
+ *
+ * @package Ip
+ */
 
 class Page
 {

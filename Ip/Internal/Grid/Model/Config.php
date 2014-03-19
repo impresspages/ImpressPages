@@ -232,7 +232,7 @@ class Config
         if (empty($this->config['sortField'])) {
             return FALSE;
         }
-        return $this->config['sortField'];
+        return trim($this->config['sortField'], '`');
     }
 
     public function sortDirection()

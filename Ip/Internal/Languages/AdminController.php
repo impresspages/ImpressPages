@@ -7,7 +7,6 @@
 namespace Ip\Internal\Languages;
 
 
-
 class AdminController extends \Ip\GridController
 {
     static $urlBeforeUpdate;
@@ -144,6 +143,44 @@ class AdminController extends \Ip\GridController
             if (count($languages) === 1) {
                 return __('Can\'t delete the last language.', 'ipAdmin', false);
             }
+        } elseif ($method === 'move') {
+            $languages = ipContent()->getLanguages();
+            $firstLanguage = $languages[0];
+
+            if ($firstLanguage->getUrlPath() === '') {
+                if ($params['beforeOrAfter'] == 'before' && $params['targetId'] == $firstLanguage->getId()) { // moving some language to the top slot
+
+                    $commands = array();
+
+                    // revert drag action
+                    $config = new \Ip\Internal\Grid\Model\Config($this->config());
+                    $display = new  \Ip\Internal\Grid\Model\Display($config);
+                    $html = $display->fullHtml($statusVariables);
+                    $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
+
+                    // show message
+                    $pattern = __('Please set %s language url to non empty before moving other language to top.', 'ipAdmin', false);
+                    $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
+
+                    return $commands;
+
+                } elseif ($params['beforeOrAfter'] == 'after' && $params['id'] == $firstLanguage->getId()) { // moving first language down
+
+                    $commands = array();
+
+                    // revert drag action
+                    $config = new \Ip\Internal\Grid\Model\Config($this->config());
+                    $display = new  \Ip\Internal\Grid\Model\Display($config);
+                    $html = $display->fullHtml($statusVariables);
+                    $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
+
+                    // show message
+                    $pattern = __('Please set %s language url to non empty before moving it down.', 'ipAdmin', false);
+                    $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
+
+                    return $commands;
+                }
+            } // $firstLanguage->getUrlPath() === ''
         }
     }
 

@@ -90,7 +90,7 @@ class ReflectionModel
 
 
 
-        if (strpos($absoluteSource, ipFile('file/repository/')) !== 0) {
+        if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
 
