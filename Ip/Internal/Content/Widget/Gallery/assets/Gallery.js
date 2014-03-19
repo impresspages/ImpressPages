@@ -32,7 +32,7 @@ var IpWidget_Gallery;
 
             }, this));
 
-            var $list = this.$widgetObject.find('ul');
+            var $list = this.$widgetObject.find('._container');
             $list.sortable();
             $list.disableSelection();
             $list.on( "sortstart", function( event, ui ) {
