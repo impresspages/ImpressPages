@@ -115,6 +115,12 @@ class Model
         $notices = json_decode($answer);
 
         if (!is_array($notices)) { //json decode error or wrong answer
+            ipLog()->error('System.updateCheckInvalidResponse',
+                array(
+                    'curl_error' => curl_error($ch),
+                    'response' => $answer
+
+                ));
             return array();
         }
 
