@@ -59,7 +59,9 @@ class Helper
 
         $breadcrumb = ipContent()->getBreadcrumb();
 
-        $menuRootId = ipDb()->selectValue('page', 'id', array('alias' => $menuName, 'isDeleted' => 0));
+        $languageCode = ipContent()->getCurrentLanguage()->getCode();
+
+        $menuRootId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
 
         if ($depthFrom == 1) {
             $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
