@@ -1,10 +1,6 @@
-var ipDesignThemeMarket;
 
-
-(function ($) {
-    "use strict";
-    ipDesignThemeMarket = new function () {
-
+    var ipDesignThemeMarket = new function () {
+        "use strict";
         var isThemePreview = false;
         var bodyClassToHideScroll = 'modal-open';
 
@@ -134,4 +130,3 @@ var ipDesignThemeMarket;
             $popup.height(height + 'px');
         };
     };
-})(ip.jQuery);

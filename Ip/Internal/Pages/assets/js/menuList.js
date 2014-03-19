@@ -1,9 +1,7 @@
 
-var pageMenuList;
 
-(function($) {
-
-    pageMenuList = {
+    var pageMenuList = {
+        "use strict";
         init: function () {
             $('ul.ipsMenuList').sortable({
                 start: this.startSort,
@@ -48,4 +46,3 @@ var pageMenuList;
             });
         }
     }
-})(ip.jQuery);

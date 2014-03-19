@@ -3,14 +3,11 @@
  *
  */
 
-// defining global variables
-var ipModuleFormAdmin;
-
-(function($){
-    "use strict";
 
 
-    ipModuleFormAdmin = new function () {
+
+    var ipModuleFormAdmin = new function () {
+        "use strict";
         this.init = function () {
             //if interactive file upload input found, load file upload javascript
             if ($('.ipsModuleFormAdmin .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
@@ -78,5 +75,3 @@ var ipModuleFormAdmin;
 
         };
     };
-})(ip.jQuery);
-

@@ -1,5 +1,3 @@
-(function(jQuery){ // loading all plugins in ip.jQuery object leaving global jQuery untouched
-
 /*!
  * jQuery Tools v1.2.7 - The missing UI library for the Web
  *
@@ -52,4 +50,3 @@ c.each(["email","url","number"],function(b,a){c.expr[":"][a]=function(b){return 
 var c=b.attr("max");return parseFloat(a)<=parseFloat(c)?!0:[c]});d.fn("[min]","Please enter a value of at least $1",function(b,a){if(""===a||m&&b.is(":date"))return!0;var c=b.attr("min");return parseFloat(a)>=parseFloat(c)?!0:[c]});d.fn("[required]","Please complete this mandatory field.",function(b,a){return b.is(":checkbox")?b.is(":checked"):!!a});d.fn("[pattern]",function(b,a){return""===a||RegExp("^"+b.attr("pattern")+"$").test(a)});d.fn(":radio[required]","Please select an option.",function(b){var a=!1;
 c("[name='"+b.attr("name")+"']").each(function(b,d){c(d).is(":checked")&&(a=!0)});return a?!0:!1});c.fn.validator=function(b){var a=this.data("validator");a&&(a.destroy(),this.removeData("validator"));b=c.extend(!0,{},d.conf,b);if(this.is("form"))return this.each(function(){var d=c(this);a=new n(d.find(":input"),d,b);d.data("validator",a)});a=new n(this,this.eq(0).closest("form"),b);return this.data("validator",a)}})(jQuery);
 
-})(jQuery);

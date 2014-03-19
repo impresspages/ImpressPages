@@ -94,4 +94,4 @@
         ipSystem.init();
     });
 
-})(ip.jQuery);
+})(jQuery);

@@ -51,7 +51,7 @@
 
     $('.ipsModuleFormAdmin .type-url').ipFormUrl();
 
-})(ip.jQuery);
+})(jQuery);
 
 
 

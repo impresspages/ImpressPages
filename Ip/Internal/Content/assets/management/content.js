@@ -4,12 +4,9 @@
  *
  */
 
-var ipContent;
 
-(function($) {
-    "use strict";
-    ipContent = new function() {
-
+    var ipContent = new function() {
+        "use strict";
         this.deleteWidget = function (instanceId, callback) {
             var $widget = $('#ipWidget-' + instanceId);
             var $subwidgets = $widget.find('.ipWidget');
@@ -528,5 +525,3 @@ var ipContent;
     };
 
 
-
-})(ip.jQuery);

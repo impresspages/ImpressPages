@@ -1,7 +1,5 @@
-(function($){
-    "use strict";
-
         $(document).bind('ipInitContentManagement', function () {
+            "use strict";
             $('.ipsAdminPanelWidgetButton')
                 .bind('dragstart', function (event, ui) {
                     $('.ipBlock > .ipbExampleContent').each(function () {
@@ -37,6 +35,3 @@
                     });
                 });
         });
-
-
-})(ip.jQuery);

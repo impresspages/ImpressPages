@@ -205,4 +205,4 @@
 
     $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
 
-})(ip.jQuery);
+})(jQuery);

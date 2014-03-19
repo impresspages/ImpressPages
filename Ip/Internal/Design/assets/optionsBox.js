@@ -1,9 +1,7 @@
-var ipDesign;
 
-(function ($) {
-    "use strict";
 
-    ipDesign = new function () {
+    var ipDesign = new function () {
+        "use strict";
         var lastSerialized = null,
             cssUpdateQueue = [], //css files that are in progress to be updated
             cssUpdateInProgress = false,
@@ -388,4 +386,3 @@ var ipDesign;
         ipDesign.init();
     });
 
-})(ip.jQuery);

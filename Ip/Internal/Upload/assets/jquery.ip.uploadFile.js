@@ -185,4 +185,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

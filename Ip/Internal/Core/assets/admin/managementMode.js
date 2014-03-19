@@ -1,14 +1,13 @@
 // defining global variables
-var ipManagementMode;
 
-(function($) {
-    "use strict";
+
     $( document ).ready(function() {
+        "use strict";
         ipManagementMode.init();
     });
 
-    ipManagementMode = new function() {
-
+    var ipManagementMode = new function() {
+        "use strict";
         this.init = function() {
             $(document).on('ipAdminPanelInit', function () {
                 $('.ipsContentEdit').on('click', function() {
@@ -50,5 +49,3 @@ var ipManagementMode;
         };
     };
 
-
-})(ip.jQuery);
