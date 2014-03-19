@@ -235,14 +235,6 @@ abstract class Field{
         $this->validators = $newValidatorsArray;
     }
 
-    /**
-     * Add custom field value validator
-     *
-     * @param \Ip\Form\Validator $validator
-     */
-    public function addCustomValidator(\Ip\Form\Validator $validator) {
-        $this->validators[] = $validator;
-    }
 
     /**
      * Add HTML attribute to input field. Alternative way to setAttributes method.
