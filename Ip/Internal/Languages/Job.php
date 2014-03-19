@@ -24,18 +24,17 @@ class Job
 
         if (empty($info['relativeUri'])) {
 
-            if (!empty($_REQUEST['aa']) || !empty($_REQUEST['pa']) || !empty($_REQUEST['sa'])) {
+            if ($request->getRequest('aa') || $request->getRequest('pa') || $request->getRequest('sa')) {
                 return null;
             }
 
             $languages = ipContent()->getLanguages();
-            foreach ($languages as $language) {
-                if ($language->getUrlPath() == '') {
-                    $result['language'] = $language;
-                    return $result;
-                }
+            if ($languages[0]->getUrlPath() === '') {
+                $result['language'] = $languages[0];
+                return $result;
+            } else {
+                return null;
             }
-            return null;
         }
 
         $urlParts = explode('/', rtrim(parse_url($info['relativeUri'], PHP_URL_PATH), '/'), 2);
@@ -45,13 +44,10 @@ class Job
 
         $languageUrl = $urlParts[0] . '/';
 
-        $rootLanguage = null;
         foreach ($languages as $language) {
             if ($language->getUrlPath() == $languageUrl) {
                 $result['language'] = $language;
                 break;
-            } elseif ($language->getUrlPath() == '') {
-                $rootLanguage = $language;
             }
         }
 
@@ -60,8 +56,8 @@ class Job
             return $result;
         }
 
-        if ($rootLanguage) {
-            $result['language'] = $rootLanguage;
+        if ($languages[0]->getUrlPath() === '') {
+            $result['language'] = $languages[0];
             return $result;
         }
     }
