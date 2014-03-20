@@ -1,0 +1,55 @@
+.@{bootstrap-switch-base} {
+    border-radius: @grid-gutter-width;
+
+    .@{bootstrap-switch-base}-container {
+        border-radius: @grid-gutter-width;
+        line-height: inherit;
+    }
+    .@{bootstrap-switch-base}-handle-on {
+        .border-left-radius(@grid-gutter-width);
+    }
+
+    .@{bootstrap-switch-base}-handle-off {
+        .border-right-radius(@grid-gutter-width);
+    }
+
+    &.@{bootstrap-switch-base}-on {
+        .@{bootstrap-switch-base}-label {
+            background-color: @btn-new-bg;
+            .border-right-radius(@grid-gutter-width);
+        }
+    }
+
+    &.@{bootstrap-switch-base}-off {
+        .@{bootstrap-switch-base}-label {
+            background-color: @btn-default-bg;
+            .border-left-radius(@grid-gutter-width);
+        }
+    }
+
+    .@{bootstrap-switch-base}-handle-on,
+    .@{bootstrap-switch-base}-handle-off {
+        &.@{bootstrap-switch-base}-default {
+            color: #000;
+            background: @btn-default-bg;
+        }
+        &.@{bootstrap-switch-base}-new { // todox: if possible, use default naming from bootstrap
+            color: #fff;
+            background: @btn-new-bg;
+        }
+    }
+
+    &.@{bootstrap-switch-base}-mini {
+        min-width: @grid-gutter-width;
+
+        .@{bootstrap-switch-base}-handle-on,
+        .@{bootstrap-switch-base}-handle-off,
+        .@{bootstrap-switch-base}-label {
+            float: left; // removing whitespace
+            line-height: 10px; // to keep empty label same height
+            margin-top: 0;
+            padding-bottom: 3px; // to keep circle visually centered
+            padding-top: 4px;
+        }
+    }
+}
