@@ -21,6 +21,9 @@ class UpdateModel
         $downloadUrl = ipRequest()->getPost('downloadUrl');
         $md5 = ipRequest()->getPost('md5');
 
+        $fs = new Helper\FileSystem();
+        $fs->rm(ipFile('file/tmp/update/extracted/'));
+
         $this->downloadArchive(
             $downloadUrl,
             $md5,
@@ -28,7 +31,6 @@ class UpdateModel
         );
         $this->extractArchive(ipFile('file/tmp/update/ImpressPages.zip'), ipFile('file/tmp/update/extracted/'));
 
-        $fs = new Helper\FileSystem();
         $backupDir = ipFile('file/tmp/' . date('Y-m-d H.i.s'));
         $fs->rm($backupDir);
         $fs->createWritableDir($backupDir);
