@@ -277,7 +277,7 @@
             context: $grid,
             dataType: 'json',
             success: function (response) {
-                $modal.find('.ipsBody').html(response);
+                $modal.find('.ipsBody').html(response.result);
                 var $form = $modal.find('.ipsBody form');
                 var data = $grid.data('gateway');
                 if (!$form.find('input[name=aa]').length) {
