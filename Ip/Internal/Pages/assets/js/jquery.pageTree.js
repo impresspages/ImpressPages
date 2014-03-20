@@ -38,6 +38,7 @@
 
         destroy : function() {
             return this.each(function() {
+
                 var $this = $(this);
                 $this.data('ipPageTree', false);
                 $this.jstree('destroy');
