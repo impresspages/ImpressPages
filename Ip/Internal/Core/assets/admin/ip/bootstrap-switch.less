@@ -1,3 +1,5 @@
+// changed behavior: on is on the right, off is on the left; predefined label background
+
 .@{bootstrap-switch-base} {
     border-radius: @grid-gutter-width;
 
@@ -6,24 +8,34 @@
         line-height: inherit;
     }
     .@{bootstrap-switch-base}-handle-on {
-        .border-left-radius(@grid-gutter-width);
-    }
-
-    .@{bootstrap-switch-base}-handle-off {
+        .border-left-radius(0);
         .border-right-radius(@grid-gutter-width);
     }
 
+    .@{bootstrap-switch-base}-handle-off {
+        .border-left-radius(@grid-gutter-width);
+        .border-right-radius(0);
+    }
+
     &.@{bootstrap-switch-base}-on {
+        .@{bootstrap-switch-base}-container {
+            margin-left: -50%;
+        }
         .@{bootstrap-switch-base}-label {
             background-color: @btn-new-bg;
-            .border-right-radius(@grid-gutter-width);
+            .border-left-radius(@grid-gutter-width);
+            .border-right-radius(0);
         }
     }
 
     &.@{bootstrap-switch-base}-off {
+        .@{bootstrap-switch-base}-container {
+            margin-left: 0%;
+        }
         .@{bootstrap-switch-base}-label {
             background-color: @btn-default-bg;
-            .border-left-radius(@grid-gutter-width);
+            .border-left-radius(0);
+            .border-right-radius(@grid-gutter-width);
         }
     }
 
