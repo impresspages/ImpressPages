@@ -42,7 +42,6 @@ class Event
 
         if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage() || \Ip\Internal\Admin\Model::isPasswordResetPage()) {
             if (ipConfig()->isDebugMode()) {
-                ipAddJs('Ip/Internal/Core/assets/admin/jquery.js', null, 10); // jQuery for core
                 ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
