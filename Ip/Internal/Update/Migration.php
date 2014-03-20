@@ -51,13 +51,6 @@ class Migration {
         }
     }
 
-
-    public static function update_6()
-    {
-        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
-        ipDb()->update('storage', array('value' => '"4.0.2"'), array('key' => 'version', 'plugin' => 'Ip'));
-    }
-
     /**
      * Rename Title widget to Heading widget.
      */
@@ -65,6 +58,9 @@ class Migration {
     {
         ipDb()->update('widget', array('name' => 'Heading'), array('name' => 'Title'));
         ipDb()->update('widgetOrder', array('widgetName' => 'Heading'), array('widgetName' => 'Title'));
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+
+        ipDb()->update('storage', array('value' => '"4.0.2"'), array('key' => 'version', 'plugin' => 'Ip'));
     }
 
 }
