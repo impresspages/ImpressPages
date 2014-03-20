@@ -15,8 +15,8 @@
             }
 
             if ($('.ipsModuleFormAdmin .ipsColorPicker').length && !$.fn.spectrum) {
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.min.js') + '"></script>');
-                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/admin/spectrum/spectrum.css') + '" type="text/css" />');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
+                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
             $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
