@@ -5953,6 +5953,180 @@
     display: none !important;
   }
 }
+.ip .bootstrap-switch {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #e7e7e7;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  line-height: 8px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  min-width: 100px;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini {
+  min-width: 71px;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  padding-bottom: 4px;
+  padding-top: 4px;
+  font-size: 10px;
+  line-height: 9px;
+}
+.ip .bootstrap-switch.bootstrap-switch-small {
+  min-width: 79px;
+}
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+  padding-bottom: 3px;
+  padding-top: 3px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.ip .bootstrap-switch.bootstrap-switch-large {
+  min-width: 120px;
+}
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
+  padding-bottom: 9px;
+  padding-top: 9px;
+  font-size: 16px;
+  line-height: normal;
+}
+.ip .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+  -webkit-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
+}
+.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
+  margin-left: 0%;
+}
+.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -50%;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled,
+.ip .bootstrap-switch.bootstrap-switch-readonly {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label {
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-focused {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.ip .bootstrap-switch .bootstrap-switch-container {
+  display: inline-block;
+  width: 150%;
+  top: 0;
+  border-radius: 4px;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on,
+.ip .bootstrap-switch .bootstrap-switch-handle-off,
+.ip .bootstrap-switch .bootstrap-switch-label {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block !important;
+  height: 100%;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on,
+.ip .bootstrap-switch .bootstrap-switch-handle-off {
+  text-align: center;
+  z-index: 1;
+  width: 33.333333333%;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
+  color: #fff;
+  background: #66a000;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-info,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-info {
+  color: #fff;
+  background: #5bc0de;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-success,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-success {
+  color: #fff;
+  background: #5cb85c;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+  background: #f0ad4e;
+  color: #fff;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-danger,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-danger {
+  color: #fff;
+  background: #d9534f;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+  color: #000;
+  background: #eeeeee;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch .bootstrap-switch-label {
+  text-align: center;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  z-index: 100;
+  width: 33.333333333%;
+  color: #000000;
+  background: #e7e7e7;
+}
+.ip .bootstrap-switch input[type='radio'],
+.ip .bootstrap-switch input[type='checkbox'] {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  z-index: -1;
+}
 @font-face {
   font-family: 'FontAwesome';
   src: url('font-awesome/fonts/fontawesome-webfont.eot?v=4.0.3');
@@ -7354,6 +7528,53 @@
 .ip [ng-cloak] {
   display: none;
 }
+.ip .bootstrap-switch {
+  border-radius: 40px;
+}
+.ip .bootstrap-switch .bootstrap-switch-container {
+  border-radius: 40px;
+  line-height: inherit;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 40px;
+  border-top-right-radius: 40px;
+}
+.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
+  background-color: #019bd4;
+  border-bottom-right-radius: 40px;
+  border-top-right-radius: 40px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
+  background-color: #e7e7e7;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
+  color: #000;
+  background: #e7e7e7;
+}
+.ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-new,
+.ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-new {
+  color: #fff;
+  background: #019bd4;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini {
+  min-width: 40px;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  float: left;
+  line-height: 10px;
+  margin-top: 0;
+  padding-bottom: 3px;
+  padding-top: 4px;
+}
 .ip .btn {
   font-weight: bold;
   padding: 6px 12px;
@@ -7771,12 +7992,50 @@
   margin-left: 20px;
   margin-right: 60px;
   padding: 20px 40px 40px;
+  position: relative;
 }
 .ip .ipAdminContentWrapper._hasSubmenu {
   margin-left: 200px;
 }
-.ip .ipModuleAdministrators .panel.active .panel-heading {
-  background-color: #ccc;
+.ip .ipModuleAdministrators {
+  float: left;
+  padding-left: 240px;
+  width: 100%;
+}
+.ip .ipModuleAdministrators ._menu {
+  background-color: #f4f4f4;
+  height: 100%;
+  margin-left: -240px;
+  margin-top: -20px;
+  overflow: auto;
+  padding: 20px;
+  position: absolute;
+  width: 200px;
+}
+.ip .ipModuleAdministrators ._menu ._actions {
+  min-height: 40px;
+}
+.ip .ipModuleAdministrators ._menu ul {
+  list-style: none;
+}
+.ip .ipModuleAdministrators ._menu ul a {
+  color: #46495e;
+  display: block;
+  margin: 0 -20px;
+  padding: 10px 20px;
+}
+.ip .ipModuleAdministrators ._menu ul a:hover {
+  color: #000;
+  text-decoration: none;
+}
+.ip .ipModuleAdministrators ._menu ul .active a {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+.ip .ipModuleAdministrators .checkbox .bootstrap-switch {
+  margin-left: -20px;
+  margin-right: 20px;
 }
 .ip .ipAdminPanel {
   background-color: #eaeaea;
