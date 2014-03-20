@@ -1,17 +1,19 @@
 
 
     var pageMenuList = {
-        "use strict";
         init: function () {
+            "use strict";
             $('ul.ipsMenuList').sortable({
                 start: this.startSort,
                 stop: this.stopSort
             });
         },
         startSort: function (event, ui) {
+            "use strict";
             ui.item.data('originIndex', ui.item.index());
         },
         stopSort: function (event, ui) {
+            "use strict";
             var originIndex = ui.item.data('originIndex');
             var menuItem = ui.item;
             var newIndex = menuItem.index();
