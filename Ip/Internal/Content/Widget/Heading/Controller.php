@@ -4,7 +4,7 @@
 
  *
  */
-namespace Ip\Internal\Content\Widget\Title;
+namespace Ip\Internal\Content\Widget\Heading;
 
 
 
@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\Title;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Title', 'ipAdmin', false);
+        return __('Heading', 'ipAdmin', false);
     }
 
 

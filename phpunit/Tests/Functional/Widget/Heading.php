@@ -4,13 +4,13 @@ namespace Tests\Functional;
 
 use PhpUnit\Helper\MinkTestCase;
 
-class WidgetTitleTest extends MinkTestCase
+class WidgetHeadingTest extends MinkTestCase
 {
     /**
      * @group Sauce
      * @group Selenium
      */
-    public function testTitleWidget()
+    public function testHeadingWidget()
     {
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
@@ -31,9 +31,9 @@ class WidgetTitleTest extends MinkTestCase
         //TODO remove all existing widgets
 
         $adminHelper->addWidget('Title');
-        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Title').length != 0");
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Heading').length != 0");
         $page = $session->getPage();
-        $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
+        $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Heading');
 
         //asset we have one and only one Title widget
         $this->assertEquals(1, count($titleWidgets));
@@ -64,20 +64,20 @@ class WidgetTitleTest extends MinkTestCase
         $session->reload();
 
         //wait for page to load
-        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Title').length != 0");
+        $session->wait(10000, "typeof $ !== 'undefined' && $('#ipBlock-main .ipWidget-Heading').length != 0");
 
         //asset we have one and only one Title widget
         $page = $session->getPage();
-        $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Title');
+        $titleWidgets = $page->findAll('css', '#ipBlock-main .ipWidget-Heading');
         $this->assertEquals(1, count($titleWidgets));
 
         //check if we have the same text that we have stored before
-        $titleWidgetText = $session->evaluateScript("return $('#ipBlock-main .ipWidget-Title h2').text()");
+        $titleWidgetText = $session->evaluateScript("return $('#ipBlock-main .ipWidget-Heading h2').text()");
         $this->assertEquals($testText, $titleWidgetText);
 
         //REMOVE THE WIDGET
-        $session->executeScript("$('#ipBlock-main .ipWidget-Title .ipsWidgetDelete').css('visibility', 'visible')");
-        $deleteLink = $page->find('css', '#ipBlock-main .ipWidget-Title .ipsWidgetDelete');
+        $session->executeScript("$('#ipBlock-main .ipWidget-Heading .ipsWidgetDelete').css('visibility', 'visible')");
+        $deleteLink = $page->find('css', '#ipBlock-main .ipWidget-Heading .ipsWidgetDelete');
         $deleteLink->click();
 
         //wait while widget disappears

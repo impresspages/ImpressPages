@@ -4,7 +4,7 @@
  */
 
 
-    var IpWidget_Title = function() {
+    var IpWidget_Heading = function() {
         "use strict";
         this.$widgetObject = null;
         this.data = null;
@@ -16,7 +16,7 @@
             this.$widgetObject = $widgetObject;
             this.data = data;
             this.$header = $widgetObject.find('h1,h2,h3,h4,h5,h6');
-            this.$controls = $('#ipWidgetTitleControls');
+            this.$controls = $('#ipWidgetHeadingControls');
 
             this.$header.tinymce(this.tinyMceConfig());
 
@@ -58,7 +58,7 @@
                 return;
             } else {
                 //mouse click outside of the widget
-                if (this.$controls[0] && ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetTitleOptions')[0], e.target))) {
+                if (this.$controls[0] && ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetHeadingOptions')[0], e.target))) {
                     //widget toolbar click or widget popup click
                     //do nothing
                 } else {
@@ -72,7 +72,7 @@
             this.$controls.addClass('hidden');
             this.$controls.find('.ipsH').off();
             this.$controls.find('.ipsOptions').off();
-            $('body').off('click.ipWidgetTitle');
+            $('body').off('click.ipWidgetHeading');
         }
 
         this.destroy = function() {
@@ -87,9 +87,9 @@
         }
 
         this.openOptions = function () {
-            var $modal = $('#ipWidgetTitleOptions');
+            var $modal = $('#ipWidgetHeadingOptions');
             $modal.removeClass('hidden');
-            $modal.ipWidgetTitleModal({
+            $modal.ipWidgetHeadingModal({
                 anchor: this.data.anchor,
                 link: this.data.link,
                 blank: this.data.blank,
@@ -111,7 +111,7 @@
             $controls.find('.ipsH').removeClass('active');
             $controls.find('.ipsH[data-level="' + this.data.level + '"]').addClass('active');
             $controls.find('.ipsOptions').on('click', $.proxy(this.openOptions, this));
-            $('body').on('click.ipWidgetTitle', $.proxy(this.blur, this));
+            $('body').on('click.ipWidgetHeading', $.proxy(this.blur, this));
         };
 
         this.levelPressed = function (e) {
