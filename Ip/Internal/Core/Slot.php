@@ -23,7 +23,7 @@ class Slot {
 	 * @desc Generate language selection menu
 	 * @author Allan Laal <allan@permanent.ee>
 	 * @param array $params
-	 * @example <br>echo \Ip\Internal\Core\Slot::languages_80(array(<br>'ul' => array(<br>		'id'	=> 'langmenu',<br>		'class'	=> 'floatlist right clearfix',<br>	),<br>	'li' => array(<br>		'class'			=> 'some classes to prepend to all lis', // active/inactive will still work<br>	)<br>));
+	 * @example <br>echo \Ip\Internal\Core\Slot::languages_80(array(<br>'ul' => array(<br>		'id'	=> 'langmenu',<br>		'class'	=> 'floatlist right clearfix',<br>	),<br>	'li' => array(<br>		'class'			=> 'some classes to prepend to all lis'<br>	)<br>));
 	 * 
 	 * @return string
 	 */
@@ -42,16 +42,31 @@ class Slot {
         return $inlineManagementService->generateManagedLogo();
     }
 
-    public static function menu_80($items)
+	
+	/**
+	 * @desc Generate menu with custom ul ID and class
+	 * @author Allan Laal <allan@permanent.ee>
+	 * @param array $params
+	 * @example 		echo ipSlot('menu', array(<br>		'label' => 'top',<br>		'attributes' => array(<br>			'ul'	=> array(<br>				'id'	=> 'mainmenu',<br>				'class'	=> 'floatlist left clearfix',<br>			),<br>		)<br>		));
+	 * 
+	 * @return string
+	 */
+    public static function menu_80($params)
     {
-        if (is_string($items)) {
-            $items = \Ip\Menu\Helper::getMenuItems($items);
-        }
-        $data = array(
-            'items' => $items,
-            'depth' => 1
+		$data = array(
+            'items' => NULL,
+            'depth' => 1,
         );
-
+		
+		if (is_string($params)) {
+			$params = array(
+				'label' => $params,
+			);
+        }
+		
+		$data += $params; // pass params to View along with other data
+		$data['items'] = \Ip\Menu\Helper::getMenuItems($params['label']);
+		
         $viewFile = ipFile('Ip/Internal/Config/view/menu.php');
         $view = ipView($viewFile, $data);
         return $view->render();
