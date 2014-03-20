@@ -75,8 +75,7 @@ class Actions
         ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
 
         foreach($fields as $field) {
-            $fieldObject = $this->config->fieldObject($field);
-            $fieldObject->afterUpdate($id, $oldData, $data);
+            $this->config->fieldObject($field)->afterUpdate($id, $oldData, $data);
         }
 
     }

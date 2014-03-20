@@ -73,4 +73,4 @@
         }
     };
 
-})(ip.jQuery);
+})(jQuery);

@@ -62,6 +62,11 @@ class Event
         }
     }
 
+    /**
+     * Used when management is needed in controller routed using routes.
+     * @param $info
+     * @return null
+     */
     public static function ipBeforeController_70($info)
     {
         if (empty($info['page']) || empty($info['management']) || !ipIsManagementState()) {

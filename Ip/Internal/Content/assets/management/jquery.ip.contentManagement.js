@@ -37,8 +37,8 @@
 
 
                     // case insensitive search
-                    ip.jQuery.expr[':'].icontains = function (a, i, m) {
-                        return ip.jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+                    jQuery.expr[':'].icontains = function (a, i, m) {
+                        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
                     };
 
                     if (isMobile) {
@@ -83,7 +83,6 @@
                     $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
                     $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
-                    //ipAddAdminNavBarButton('Page preview', '#', 'test', 'fa-trash');
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
                     $this.trigger('ipInitContentManagement', options);
@@ -670,4 +669,4 @@
 
 
 
-})(ip.jQuery);
+})(jQuery);

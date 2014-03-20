@@ -88,4 +88,4 @@
         }
     };
 
-})(ip.jQuery);
+})(jQuery);

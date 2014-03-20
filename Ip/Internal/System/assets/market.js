@@ -127,4 +127,4 @@ var Market;
 
     };
 
-})(ip.jQuery);
+})(jQuery);

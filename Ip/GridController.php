@@ -30,6 +30,11 @@ abstract class GridController extends \Ip\Controller
     {
         $worker = new \Ip\Internal\Grid\Worker($this->config());
         $result = $worker->handleMethod(ipRequest());
+
+        if (!empty($result['error']) && !empty($result['errors'])) {
+            return new \Ip\Response\Json($result);
+        }
+
         return new \Ip\Response\JsonRpc($result);
     }
 

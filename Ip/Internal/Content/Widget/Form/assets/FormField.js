@@ -193,4 +193,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

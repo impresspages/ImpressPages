@@ -19,7 +19,7 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsModuleFormPublic .ipsColorPicker').length && !$.spectrum) {
+            if ($('.ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
@@ -28,6 +28,13 @@ var ipModuleFormPublic;
             $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
             $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
             $('.ipsModuleFormPublic .type-color').ipFormColor();
+
+            $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
+            $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormAdmin .type-color').ipFormColor();
+            $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
+            $('.ipsModuleFormAdmin .type-url').ipFormUrl();
+
 
 
             // adding dumb submit element for 'enter' to trigger form submit
@@ -39,7 +46,8 @@ var ipModuleFormPublic;
             });
 
             $('.ipsModuleFormPublic.ipsAjaxSubmit').validator(validatorConfigPublic);
-            $('.ipsModuleFormPublic.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
+            $('.ipsModuleFormAdmin.ipsAjaxSubmit').validator(validatorConfigAdmin);
+            $('.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
                 var $form = $(this);
                 var type = 'GET';
 
@@ -73,6 +81,8 @@ var ipModuleFormPublic;
                 }
                 e.preventDefault();
             });
+
+
 
         };
     };

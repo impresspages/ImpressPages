@@ -87,7 +87,7 @@
         }
     };
 
-})(ip.jQuery);
+})(jQuery);
 
 
 // defining global variables
@@ -97,7 +97,7 @@ var ipWidgetForm_InitWysiwygOptions;
 var ipWidgetForm_SaveWysiwygOptions;
 
 (function($) {
-
+    "use strict";
     // Form widget select options
     ipWidgetForm_InitListOptions = function ($context, currentOptions) {
         var addOption = function (value) {
@@ -161,4 +161,4 @@ var ipWidgetForm_SaveWysiwygOptions;
         return answer;
     };
 
-})(ip.jQuery);
+})(jQuery);

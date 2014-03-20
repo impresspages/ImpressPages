@@ -45,9 +45,6 @@ class PublicController extends \Ip\Controller
         } else {
             $step = 0;
         }
-        if (!Helper::isInstallAvailable()) {
-            $step = 5;
-        }
 
         if ($step > $_SESSION['step']) {
             $step = $_SESSION['step'];
@@ -57,6 +54,10 @@ class PublicController extends \Ip\Controller
 //        if ($_SESSION['step'] > $step) {
 //            $_SESSION['step'] = $step;
 //        }
+
+        if (!Helper::isInstallAvailable()) {
+            $step = 5;
+        }
 
         $method = 'step' . $step;
         return $this->$method();
@@ -333,6 +334,10 @@ class PublicController extends \Ip\Controller
 
     public function createDatabase()
     {
+        if (!Helper::isInstallAvailable()) {
+            return 'Please remove content from config.php file';
+        }
+
         $db = ipRequest()->getPost('db');
 
         foreach (array('hostname', 'username', 'database') as $key) {
@@ -449,6 +454,11 @@ class PublicController extends \Ip\Controller
 
     public function writeConfig()
     {
+        if (!Helper::isInstallAvailable()) {
+            return 'Please remove content from config.php file';
+        }
+
+
         $this->init();
 
         if (empty($_SESSION['db'])) {
