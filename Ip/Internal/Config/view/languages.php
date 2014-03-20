@@ -2,7 +2,7 @@
 /**
 	 * @desc Generate language selection menu with custom ul id and class and custom li class
 	 * @author Allan Laal <allan@permanent.ee>
-	 * @param array $params
+	 * @param array $attributes
 	 * @example 
 			echo \Ip\Internal\Core\Slot::languages_80(array(
 				'ul' => array(
@@ -16,21 +16,21 @@
 	 * @return string
 	 */
 $ul_id = '';
-if (isset($params['ul']['id']))
+if (isset($attributes['ul']['id']))
 {
-	$ul_id = 'id="'.$params['ul']['id'].'"';
+	$ul_id = 'id="'.$attributes['ul']['id'].'"';
 }
 
 $ul_class = '';
-if (isset($params['ul']['class']))
+if (isset($attributes['ul']['class']))
 {
-	$ul_id = 'class="'.$params['ul']['class'].'"';
+	$ul_class = 'class="'.$attributes['ul']['class'].'"';
 }
 
 $li_class_prepend = '';
-if (isset($params['li']['class']))
+if (isset($attributes['li']['class']))
 {
-	$li_class_prepend = $params['li']['class'].' ';
+	$li_class_prepend = $attributes['li']['class'].' ';
 }
 ?>
 <ul <?php echo $ul_id;?> <?php echo $ul_class;?>>
