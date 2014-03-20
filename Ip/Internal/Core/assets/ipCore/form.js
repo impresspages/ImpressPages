@@ -19,7 +19,7 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsModuleFormPublic .ipsColorPicker').length && !$.spectrum) {
+            if ($('.ipsColorPicker').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
