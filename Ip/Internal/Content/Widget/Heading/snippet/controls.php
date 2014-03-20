@@ -1,5 +1,5 @@
 <div class="ip">
-    <div class="hidden" id="ipWidgetTitleControls">
+    <div class="hidden" id="ipWidgetHeadingControls">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
                 <button type="button" data-level="1" class="btn btn-default ipsH"><?php _e('H1', 'ipAdmin') ?></button>

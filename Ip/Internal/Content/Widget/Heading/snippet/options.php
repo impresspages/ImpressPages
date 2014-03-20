@@ -1,5 +1,5 @@
 <div class="ip">
-    <div id="ipWidgetTitleOptions" class="modal fade">
+    <div id="ipWidgetHeadingOptions" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

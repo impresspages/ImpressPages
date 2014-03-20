@@ -86,8 +86,8 @@ class Model
         $items[] = ipFile('Ip/Internal/Content/Widget/Image/assets/Image.js');
         $items[] = ipFile('Ip/Internal/Content/Widget/Gallery/assets/Gallery.js');
         $items[] = ipFile('Ip/Internal/Content/Widget/Text/assets/Text.js');
-        $items[] = ipFile('Ip/Internal/Content/Widget/Title/assets/Title.js');
-        $items[] = ipFile('Ip/Internal/Content/Widget/Title/assets/TitleModal.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Heading/assets/Heading.js');
+        $items[] = ipFile('Ip/Internal/Content/Widget/Heading/assets/HeadingModal.js');
         $items[] = ipFile('Ip/Internal/Content/Widget/Map/assets/Map.js');
 
 
