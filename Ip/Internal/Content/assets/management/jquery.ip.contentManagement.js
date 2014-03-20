@@ -83,7 +83,6 @@
                     $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
                     $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
-                    //ipAddAdminNavBarButton('Page preview', '#', 'test', 'fa-trash');
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
                     $this.trigger('ipInitContentManagement', options);
