@@ -22,6 +22,7 @@
     "Required field": "Required field",
     "The value can't be one of:": "The value can't be one of:",
     "Please enter a valid email address.": "Please enter a valid email address.",
+    "The value should be unique": "The value should be unique",
     "Confirm": "Confirm",
     "Cancel": "Cancel",
     "Incorrect color code": "Incorrect color code",
