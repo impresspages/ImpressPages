@@ -9,6 +9,12 @@
         text-align: right;
         width: 1.5em;
     }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .opacity(.25);
+    }
 }
 .btn-lg {
     // line-height: ensure even-numbered height of button next to large input
