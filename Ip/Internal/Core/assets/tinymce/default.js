@@ -3,7 +3,7 @@ ipTinyMceConfig = function() {
         inline: true,
         visual_table_class: 'ipTableManagement',
         //directionality : 'ltr', //TODO according to the current language
-        plugins: "paste, link, table",
+        plugins: "advlist, paste, link, table",
         entity_encoding : "raw",
         menubar: false,
         statusbar: false,
