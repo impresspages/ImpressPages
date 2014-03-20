@@ -29,6 +29,13 @@ var ipModuleFormPublic;
             $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
             $('.ipsModuleFormPublic .type-color').ipFormColor();
 
+            $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
+            $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormAdmin .type-color').ipFormColor();
+            $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
+            $('.ipsModuleFormAdmin .type-url').ipFormUrl();
+
+
 
             // adding dumb submit element for 'enter' to trigger form submit
             $('.ipsModuleFormPublic').each(function(){
@@ -39,7 +46,8 @@ var ipModuleFormPublic;
             });
 
             $('.ipsModuleFormPublic.ipsAjaxSubmit').validator(validatorConfigPublic);
-            $('.ipsModuleFormPublic.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
+            $('.ipsModuleFormAdmin.ipsAjaxSubmit').validator(validatorConfigAdmin);
+            $('.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
                 var $form = $(this);
                 var type = 'GET';
 
@@ -74,8 +82,6 @@ var ipModuleFormPublic;
                 e.preventDefault();
             });
 
-            $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
-            $('.ipsModuleFormAdmin .type-url').ipFormUrl();
 
 
         };
