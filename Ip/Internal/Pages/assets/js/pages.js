@@ -309,7 +309,7 @@ var ipPageDragId;
                 $(document).off('dnd_start.vakata.impresspages').on('dnd_start.vakata.impresspages', function (e, data) {
                     var $draggedElement = $(data.element).closest('li');
                     ipPagesStartPagePosition = $draggedElement.index();
-                    var $parentElement = $draggedElement.closest('li.jstree-node');
+                    var $parentElement = $draggedElement.parent().closest('li.jstree-node');
                     ipPagesStartPageParentId = $parentElement.attr('pageid');
 
 
@@ -328,6 +328,7 @@ var ipPageDragId;
 
 
                     var destinationPosition = ipPagesDropPagePosition;
+                    console.log('Parents ' + ipPagesStartPageParentId + ' ' + destinationParentId);
                     if (destinationPosition > ipPagesStartPagePosition && ipPagesStartPageParentId == destinationParentId) {
                         //destinationPosition--;
                     }
@@ -355,7 +356,9 @@ var ipPageDragId;
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                 getPagesContainer().ipGrid('refresh');
             } else {
-                getPagesContainer().ipPageTree('refresh');
+                getPagesContainer().ipPageTree('destroy');
+                $scope.activateMenu($scope.activeMenu);
+                $scope.$apply();
             }
         }
 
