@@ -40,7 +40,7 @@ class Config
 
             $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
             if (DIRECTORY_SEPARATOR == '/') { // unix system
-                if (1 || strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
+                if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
                     // show instructions how to set baseUrl manually
                     include __DIR__ . '/Internal/Config/view/couldNotDetectBaseUrl.php';
                     exit();
