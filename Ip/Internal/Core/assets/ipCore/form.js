@@ -74,6 +74,10 @@ var ipModuleFormPublic;
                 e.preventDefault();
             });
 
+            $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
+            $('.ipsModuleFormAdmin .type-url').ipFormUrl();
+
+
         };
     };
 })(jQuery);
