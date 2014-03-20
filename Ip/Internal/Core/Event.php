@@ -44,7 +44,6 @@ class Event
             if (ipConfig()->isDebugMode()) {
                 ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
 
                 ipAddJs('Ip/Internal/Core/assets/admin/form/repositoryFile.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/form/color.js');

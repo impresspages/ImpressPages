@@ -93,8 +93,8 @@
 
                     //if you add "multipart: false," IE fails.
 
-                    flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.flash.swf'),
-                    silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.silverlight.xap')
+                    flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.flash.swf'),
+                    silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap')
             };
 
             if (data.filterExtensions) {

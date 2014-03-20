@@ -17,7 +17,6 @@ class Model
         $items = array();
         $items[] = ipFile('Ip/Internal/Core/assets/admin/managementMode.js');
         $items[] = ipFile('Ip/Internal/Core/assets/admin/functions.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
 
         $items[] = ipFile('Ip/Internal/Core/assets/admin/form/color.js');
         $items[] = ipFile('Ip/Internal/Core/assets/admin/form/file.js');
