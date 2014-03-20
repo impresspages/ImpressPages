@@ -295,7 +295,6 @@ var ipPageDragId;
                     $('#page_' + $scope.selectedPageId + ' a').first().click();
                 });
                 getPagesContainer().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
-                console.log(getTreeDiv());
                 getTreeDiv().off('changed.jstree').on('changed.jstree', function (e, data) {
 
                     if (hashIsBeingApplied) {
@@ -311,7 +310,9 @@ var ipPageDragId;
                     ipPagesStartPagePosition = $draggedElement.index();
                     var $parentElement = $draggedElement.parent().closest('li.jstree-node');
                     ipPagesStartPageParentId = $parentElement.attr('pageid');
-
+                    if (typeof(ipPagesStartPageParentId) == 'undefined') {
+                        ipPagesStartPageParentId = $scope.activeMenu.id;
+                    }
 
                 });
 
@@ -328,9 +329,8 @@ var ipPageDragId;
 
 
                     var destinationPosition = ipPagesDropPagePosition;
-                    console.log('Parents ' + ipPagesStartPageParentId + ' ' + destinationParentId);
                     if (destinationPosition > ipPagesStartPagePosition && ipPagesStartPageParentId == destinationParentId) {
-                        //destinationPosition--;
+                        destinationPosition++;
                     }
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
