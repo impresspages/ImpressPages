@@ -19,13 +19,21 @@ class Slot {
         return \Ip\Internal\Breadcrumb\Service::generateBreadcrumb(' &rsaquo; ', $showHome);
     }
 
+	/**
+	 * @desc Generate language selection menu
+	 * @author Allan Laal <allan@permanent.ee>
+	 * @param array $params
+	 * @example <br>echo \Ip\Internal\Core\Slot::languages_80(array(<br>'ul' => array(<br>		'id'	=> 'langmenu',<br>		'class'	=> 'floatlist right clearfix',<br>	),<br>	'li' => array(<br>		'class'			=> 'some classes to prepend to all lis', // active/inactive will still work<br>	)<br>));
+	 * 
+	 * @return string
+	 */
     public static function languages_80($params)
     {
         if(!ipGetOption('Config.multilingual')) {
             return '';
         }
 
-        return ipView('Ip/Internal/Config/view/languages.php', array('languages' => ipContent()->getLanguages()));
+        return ipView('Ip/Internal/Config/view/languages.php', array('params' => $params, 'languages' => ipContent()->getLanguages()));
     }
 
     public static function logo_80()
