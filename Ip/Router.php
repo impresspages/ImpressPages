@@ -26,8 +26,10 @@ class Router
         foreach ($routes as $routeKey => $info) {
 
             $data = $this->routeData($routeKey, $info, $context);
-
             $route = $this->auraRouter->add($data['name'], $data['path']);
+            if (!empty($data['method']) && in_array($data['method'], array('GET', 'POST'))) {
+                $route->addServer(array('REQUEST_METHOD' => $data['method']));
+            }
             unset($data['name']);
             unset($data['path']);
             if (!empty($data['where'])) {
