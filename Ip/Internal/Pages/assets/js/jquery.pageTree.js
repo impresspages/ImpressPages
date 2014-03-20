@@ -31,13 +31,8 @@
         refresh : function() {
             return this.each(function() {
                 var $this = $(this);
-                var data = $this.data('ipPageTree');
-                $this.ipPageTree('refresh');
-
-                $this.ipPageTree({
-                    menuName: data.menuName,
-                    languageId: data.languageId
-                });
+                var options = $this.data('ipPageTree');
+                $.proxy(refresh, $this)(options.menuName, options.languageId);
             });
         },
 
@@ -46,6 +41,7 @@
                 var $this = $(this);
                 $this.data('ipPageTree', false);
                 $this.jstree('destroy');
+
                 $this.html('');
             });
         }
@@ -53,6 +49,11 @@
 
     var refresh = function (menuName, languageId) {
         var $this = this;
+        var $treeDiv = $this.find('.ipsTreeDiv');
+        $treeDiv.remove();
+        $treeDiv = $('<div class="ipsTreeDiv"></div>');
+        $this.append($treeDiv);
+
         var data = {
             menuName : menuName,
             languageId : languageId,
@@ -83,8 +84,8 @@
      */
     function initializeTreeManagement(data) {
         var $this = this;
-
-        $this.jstree({
+        var $treeDiv = $this.find('.ipsTreeDiv');
+        $treeDiv.jstree({
             'core' : {
                 "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
                 'data' : data,
