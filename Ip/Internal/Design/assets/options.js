@@ -1,10 +1,6 @@
-var ipDesignOptionsOpen;
-var ipDesignOptionsClose;
-var ipDesignOptionsResize;
 
-(function ($) {
-    "use strict";
-    ipDesignOptionsOpen = function (e) {
+    var ipDesignOptionsOpen = function (e) {
+        "use strict";
         e.preventDefault();
 
         var bodyClassToHideScroll = 'modal-open';
@@ -15,7 +11,8 @@ var ipDesignOptionsResize;
         $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignOptionsClose);
     };
 
-    ipDesignOptionsClose = function (e) {
+    var ipDesignOptionsClose = function (e) {
+        "use strict";
         e.preventDefault();
 
         var bodyClassToHideScroll = 'modal-open';
@@ -25,7 +22,8 @@ var ipDesignOptionsResize;
         $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
     };
 
-    ipDesignOptionsResize = function(e) {
+    var ipDesignOptionsResize = function(e) {
+        "use strict";
         var $popup = $('.ipModuleDesign .ipsPreview');
         var height = parseInt($(window).height());
         height -= 40; // leaving place for navbar
@@ -34,4 +32,3 @@ var ipDesignOptionsResize;
 
     ipDesignOptionsResize();
     $(window).bind('resize.ipDesignOptions', ipDesignOptionsResize);
-})(ip.jQuery);

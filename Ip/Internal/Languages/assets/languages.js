@@ -1,12 +1,11 @@
 
-(function ($) {
-    "use strict";
     $(function() {
+        "use strict";
         $('.ipsGrid').on('init.grid', ipLanguages.init);
     });
 
     var ipLanguages = new function() {
-
+        "use strict";
         this.init = function(e) {
             $('.ipsCustomAdd').off('click').on('click', showAddModal);
         };
@@ -58,5 +57,3 @@
 
     };
 
-
-})(ip.jQuery);

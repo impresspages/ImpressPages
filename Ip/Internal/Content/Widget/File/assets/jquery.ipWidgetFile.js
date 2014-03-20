@@ -1,5 +1,5 @@
 (function($) {
-
+    "use strict";
     var methods = {
         init : function(options) {
 
@@ -83,4 +83,4 @@
         }
     };
 
-})(ip.jQuery);
+})(jQuery);

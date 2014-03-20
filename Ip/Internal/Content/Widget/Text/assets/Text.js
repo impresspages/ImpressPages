@@ -2,12 +2,10 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Text;
 
-(function($){
-    "use strict";
 
-    IpWidget_Text = function() {
+    var IpWidget_Text = function() {
+        "use strict";
         this.$widgetObject = null;
 
         this.init = function($widgetObject, data) {
@@ -50,5 +48,3 @@ var IpWidget_Text;
 
 
     };
-
-})(ip.jQuery);

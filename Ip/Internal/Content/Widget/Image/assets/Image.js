@@ -2,12 +2,9 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Image;
 
-(function($){
-    "use strict";
 
-    IpWidget_Image = function() {
+    var IpWidget_Image = function() {
         var controllerScope = this;
         this.$widgetObject = null;
         this.$imageUploader = null;
@@ -280,5 +277,3 @@ var IpWidget_Image;
         };
 
     };
-
-})(ip.jQuery);

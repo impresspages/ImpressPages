@@ -2,13 +2,10 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Columns;
-var ipColumnsInitWidthHandles;
 
-(function($){
-    "use strict";
 
-    IpWidget_Columns = function() {
+    var IpWidget_Columns = function() {
+        "use strict";
         this.$widgetObject = null;
 
         this.init = function($widgetObject, data) {
@@ -16,7 +13,8 @@ var ipColumnsInitWidthHandles;
         }
     }
 
-    ipColumnsInitWidthHandles = function() {
+    var ipColumnsInitWidthHandles = function() {
+        "use strict";
         var $handler = $('<div class="ipAdminWidgetColsResizeHandler ipsAdminWidgetColsWidthHandler"></div>');
 
         function addResizeHandlers($widget){
@@ -111,5 +109,3 @@ var ipColumnsInitWidthHandles;
     $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
     $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
     $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
-
-})(ip.jQuery);

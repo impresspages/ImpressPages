@@ -15,17 +15,8 @@ class Model
         // - assets/admin.min.js
 
         $items = array();
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/jquery.js'); // jQuery for admin
         $items[] = ipFile('Ip/Internal/Core/assets/admin/managementMode.js');
         $items[] = ipFile('Ip/Internal/Core/assets/admin/functions.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
-
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/color.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/file.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/repositoryFile.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/url.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form/richtext.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/form.js');
 
         $items[] = ipFile('Ip/Internal/Core/assets/admin/validator.js');
         $items[] = ipFile('Ip/Internal/Core/assets/admin/bootstrap.js');
@@ -51,6 +42,8 @@ class Model
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/color.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/file.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/richtext.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form/url.js');
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/form.js');
 
         $items[] = ipFile('Ip/Internal/Core/assets/ipCore/validator.js');

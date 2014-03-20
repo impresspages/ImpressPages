@@ -3,12 +3,8 @@
  *
  *
  */
-var IpWidget_Gallery;
 
-(function($){
-    "use strict";
-
-    IpWidget_Gallery = function() {
+    var IpWidget_Gallery = function() {
         this.$widgetObject = null;
         this.data = null;
         this.$controls = null;
@@ -339,4 +335,3 @@ var IpWidget_Gallery;
 
     };
 
-})(ip.jQuery);

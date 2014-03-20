@@ -2,12 +2,11 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Map;
 
-(function($){
-    "use strict";
 
-    IpWidget_Map = function() {
+    var IpWidget_Map = function() {
+        "use strict";
+
         var controllerScope = this;
         this.$widgetObject = null;
         this.data = null;
@@ -157,4 +156,3 @@ var IpWidget_Map;
 
     };
 
-})(ip.jQuery);

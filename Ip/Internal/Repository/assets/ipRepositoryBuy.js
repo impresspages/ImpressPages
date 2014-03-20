@@ -110,4 +110,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

@@ -2,12 +2,8 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Html;
 
-(function($){
-    "use strict";
-
-    IpWidget_Html = function() {
+    var IpWidget_Html = function() {
 
         this.widgetObject = null;
         this.confirmButton = null;
@@ -70,4 +66,3 @@ var IpWidget_Html;
 
     };
 
-})(ip.jQuery);

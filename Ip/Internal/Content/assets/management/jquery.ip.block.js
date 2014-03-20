@@ -121,4 +121,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

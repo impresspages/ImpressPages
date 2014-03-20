@@ -55,4 +55,4 @@
 
 
 
-})(ip.jQuery);
+})(jQuery);
