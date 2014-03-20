@@ -277,7 +277,7 @@
             context: $grid,
             dataType: 'json',
             success: function (response) {
-                $modal.find('.ipsBody').html(response.result);
+                $modal.find('.ipsBody').html(response);
                 var $form = $modal.find('.ipsBody form');
                 var data = $grid.data('gateway');
                 if (!$form.find('input[name=aa]').length) {
@@ -293,7 +293,6 @@
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
                 $modal.find('.ipsConfirm').off().on('click', function() {
                     $modal.find('.ipsBody form').submit();
-                    $modal.modal('hide');
                 });
                 ipInitForms();
 
@@ -354,4 +353,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

@@ -21,4 +21,4 @@
     function migrationResponse(response) {
         window.location.href = window.location.href;
     }
-})(ip.jQuery);
+})(jQuery);

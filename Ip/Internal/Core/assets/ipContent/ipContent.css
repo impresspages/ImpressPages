@@ -1064,17 +1064,17 @@ Move to separate stylesheet if invalid CSS is a problem.
   max-width: 100%;
   overflow: auto;
 }
-.ipWidget-Title {
+.ipWidget-Heading {
   margin-bottom: 10px;
   padding-top: 10px;
 }
-.ipWidget-Title:first-child {
+.ipWidget-Heading:first-child {
   padding-top: 0;
 }
-.ipWidget-Title a {
+.ipWidget-Heading a {
   color: #000000;
   text-decoration: inherit;
 }
-.ipWidget-Title a:hover {
+.ipWidget-Heading a:hover {
   text-decoration: underline;
 }

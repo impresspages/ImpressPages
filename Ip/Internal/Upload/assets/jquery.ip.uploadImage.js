@@ -778,4 +778,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

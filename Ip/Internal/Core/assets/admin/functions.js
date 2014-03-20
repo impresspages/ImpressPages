@@ -10,8 +10,7 @@
 function ipBrowseLink(callback) {
 
     var selectedPageId = null;
-    var $ = ip.jQuery,
-        $modal = $('#ipBrowseLinkModal'),
+    var $modal = $('#ipBrowseLinkModal'),
         $iframe = $modal.find('.ipsPageSelectIframe');
 
     $iframe.attr('src', $iframe.data('source'));

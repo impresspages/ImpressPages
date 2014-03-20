@@ -23,6 +23,7 @@ class Helper
                 'label' => __('User name', 'ipAdmin', false), // Field label that will be displayed next to input field
             ));
         $field->addValidator("Required");
+        $field->addValidator(array('Unique', array('table' => 'administrator')));
         $form->addField($field);
 
 

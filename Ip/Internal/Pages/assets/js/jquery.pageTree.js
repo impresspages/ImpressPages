@@ -119,6 +119,6 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);
 
 

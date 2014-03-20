@@ -49,7 +49,7 @@ class ImageHelper{
 
 
 
-        if (!self::getMemmoryNeeded($imageFile) ) {
+        if (!self::getMemoryNeeded($imageFile) ) {
             throw new \Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
@@ -103,7 +103,7 @@ class ImageHelper{
 
 
 
-        if (!self::getMemmoryNeeded($imageFile) ) {
+        if (!self::getMemoryNeeded($imageFile) ) {
             throw new \Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
@@ -230,7 +230,7 @@ class ImageHelper{
         return true;
     }
 
-    public static function getMemmoryNeeded($imageFile){
+    public static function getMemoryNeeded($imageFile){
         $imageInfo = getimagesize($imageFile);
         if(!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;
