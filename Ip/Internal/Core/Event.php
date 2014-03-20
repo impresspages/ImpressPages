@@ -69,6 +69,14 @@ class Event
                 'ipBrowseLinkModalTemplate',
                 ipView('view/browseLinkModal.php')->render()
             );
+
+
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.full.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.browserplus.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.gears.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
+
+
         }
     }
 
