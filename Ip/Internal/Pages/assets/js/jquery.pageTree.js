@@ -21,7 +21,6 @@
                     });
                     $.proxy(refresh, $this)(options.menuName, options.languageId);
                 } else {
-                    //console.log('deselect');
                     $this.jstree('deselect_all');
                 }
 
@@ -73,7 +72,6 @@
 
     var refreshResponse = function (response) {
         var $this = this;
-
         $.proxy(initializeTreeManagement, $this)(response.tree);
     }
 
