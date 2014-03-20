@@ -29,6 +29,13 @@ var ipAdmin = new function () {
         }
 
         fixLayout();
+
+        if (!ip.isManagementState) {
+            $('.ipsContentPublish').on('click', function(e){save(true)});
+            $('.ipsContentSave').addClass('hidden');
+        }
+
+
         $(document).trigger('ipAdminPanelInit');
     };
 
@@ -61,5 +68,51 @@ var ipAdmin = new function () {
             }
         });
     };
+
+
+
+
+
+
+    //TODO this function is duplicated in jquery.ip.contentManagement
+    var save = function(publish) {
+        var $this = $(this);
+        var data = $this.data('ipContentManagement');
+
+        var postData = Object();
+        postData.aa = 'Content.savePage';
+        postData.securityToken = ip.securityToken;
+        postData.revisionId = ip.revisionId;
+        if (publish) {
+            postData.publish = 1;
+        } else {
+            postData.publish = 0;
+        }
+
+        $.ajax({
+            type : 'POST',
+            url : ip.baseUrl,
+            data : postData,
+            context : $this,
+            success : _savePageResponse,
+            dataType : 'json'
+        });
+    };
+
+    //TODO this function is duplicated in jquery.ip.contentManagement
+    var _savePageResponse = function(response) {
+        if (response.status == 'success') {
+            window.location.href = response.newRevisionUrl;
+        }
+    }
+
+
+
+
+
+
+
+
+
 };
 
