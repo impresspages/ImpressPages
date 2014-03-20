@@ -11,7 +11,7 @@
         this.init = function () {
             //if interactive file upload input found, load file upload javascript
             if ($('.ipsModuleFormAdmin .ipsFileContainer').length && (typeof(plupload) === "undefined")) {
-                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/admin/plupload/plupload.full.js') + '"></script>'));
+                $('body').append($('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.full.js') + '"></script>'));
             }
 
             if ($('.ipsModuleFormAdmin .ipsColorPicker').length && !$.fn.spectrum) {
