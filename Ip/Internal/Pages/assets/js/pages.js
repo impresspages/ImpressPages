@@ -672,6 +672,6 @@ var ipPageDragId;
 
     $(window).bind('resize.ipPages', ipPagesResize);
 
-})(ip.jQuery);
+})(jQuery);
 
 

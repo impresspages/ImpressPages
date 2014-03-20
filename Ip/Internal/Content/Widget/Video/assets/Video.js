@@ -138,4 +138,4 @@ var IpWidget_Video;
 
     };
 
-})(ip.jQuery);
+})(jQuery);

@@ -5,10 +5,9 @@
 
 
 
-(function ($) {
-    "use strict";
 
     function replacePublishedToPublish() {
+        "use strict";
         var $publishButton = $('.ipsContentPublish');
         $publishButton.text(ipPublishTranslation);
         $publishButton.removeClass('btn-default').addClass('btn-primary');
@@ -18,6 +17,8 @@
     }
 
     $(document).ready(function () {
+        "use strict";
+
         $(document).ipContentManagement();
 
         //preinit TinyMCE. Without it edit focus doesn't work after adding a widget
@@ -33,4 +34,3 @@
 
 
     });
-})(ip.jQuery);

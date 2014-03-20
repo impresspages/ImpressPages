@@ -86,4 +86,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

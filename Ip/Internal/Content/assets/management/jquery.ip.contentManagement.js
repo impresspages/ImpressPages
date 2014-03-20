@@ -37,8 +37,8 @@
 
 
                     // case insensitive search
-                    ip.jQuery.expr[':'].icontains = function (a, i, m) {
-                        return ip.jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+                    jQuery.expr[':'].icontains = function (a, i, m) {
+                        return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
                     };
 
                     if (isMobile) {
@@ -670,4 +670,4 @@
 
 
 
-})(ip.jQuery);
+})(jQuery);

@@ -1,16 +1,14 @@
-(function(jQuery){ // loading all plugins in ip.jQuery object leaving global jQuery untouched
-
 /*!
  * jQuery Tools v1.2.7 - The missing UI library for the Web
- *
+ * 
  * dateinput/dateinput.js
  * rangeinput/rangeinput.js
  * validator/validator.js
- *
+ * 
  * NO COPYRIGHTS OR LICENSES. DO WHAT YOU LIKE.
- *
+ * 
  * http://flowplayer.org/tools/
- *
+ * 
  */
 (function(d,D){function M(b,a){b=""+b;for(a=a||2;b.length<a;)b="0"+b;return b}function N(b,a,d,g){var f=a.getDate(),l=a.getDay(),k=a.getMonth(),c=a.getFullYear(),f={d:f,dd:M(f),ddd:r[g].shortDays[l],dddd:r[g].days[l],m:k+1,mm:M(k+1),mmm:r[g].shortMonths[k],mmmm:r[g].months[k],yy:(""+c).slice(2),yyyy:c},b=O[b](d,a,f,g);return S.html(b).html()}function l(b){return parseInt(b,10)}function P(b,a){return b.getFullYear()===a.getFullYear()&&b.getMonth()==a.getMonth()&&b.getDate()==a.getDate()}function w(b){if(b!==
 D){if(b.constructor==Date)return b;if("string"==typeof b){var a=b.split("-");if(3==a.length)return new Date(l(a[0]),l(a[1])-1,l(a[2]));if(!/^-?\d+$/.test(b))return;b=l(b)}a=new Date;a.setDate(a.getDate()+b);return a}}function T(b,a){function j(a,t,c){o=a;z=a.getFullYear();B=a.getMonth();A=a.getDate();c||(c=d.Event("api"));"click"==c.type&&!d.browser.msie&&b.focus();c.type="beforeChange";C.trigger(c,[a]);c.isDefaultPrevented()||(b.val(N(t.formatter,a,t.format,t.lang)),c.type="change",C.trigger(c),
@@ -51,5 +49,3 @@ g||(g=c(a.message).addClass(a.messageClass).appendTo(document.body),e.data("msg.
 c.each(["email","url","number"],function(b,a){c.expr[":"][a]=function(b){return b.getAttribute("type")===a}});c.fn.oninvalid=function(b){return this[b?"on":"trigger"]("OI",b)};d.fn(":email","Please enter a valid email address",function(b,a){return!a||t.test(a)});d.fn(":url","Please enter a valid URL",function(b,a){return!a||u.test(a)});d.fn(":number","Please enter a numeric value.",function(b,a){return s.test(a)});d.fn("[max]","Please enter a value no larger than $1",function(b,a){if(""===a||m&&b.is(":date"))return!0;
 var c=b.attr("max");return parseFloat(a)<=parseFloat(c)?!0:[c]});d.fn("[min]","Please enter a value of at least $1",function(b,a){if(""===a||m&&b.is(":date"))return!0;var c=b.attr("min");return parseFloat(a)>=parseFloat(c)?!0:[c]});d.fn("[required]","Please complete this mandatory field.",function(b,a){return b.is(":checkbox")?b.is(":checked"):!!a});d.fn("[pattern]",function(b,a){return""===a||RegExp("^"+b.attr("pattern")+"$").test(a)});d.fn(":radio[required]","Please select an option.",function(b){var a=!1;
 c("[name='"+b.attr("name")+"']").each(function(b,d){c(d).is(":checked")&&(a=!0)});return a?!0:!1});c.fn.validator=function(b){var a=this.data("validator");a&&(a.destroy(),this.removeData("validator"));b=c.extend(!0,{},d.conf,b);if(this.is("form"))return this.each(function(){var d=c(this);a=new n(d.find(":input"),d,b);d.data("validator",a)});a=new n(this,this.eq(0).closest("form"),b);return this.data("validator",a)}})(jQuery);
-
-})(jQuery);
