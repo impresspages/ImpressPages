@@ -58,7 +58,7 @@ class FileSystem
 
         if (!is_writable($path)) {
 
-            $oldErrorHandler = set_error_handler(array('IpUpdate\Library\Helper\FileSystem', 'handleError'));
+            $oldErrorHandler = set_error_handler(array('Ip\Internal\Update\Helper\FileSystem', 'handleError'));
 
             try {
                 $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
