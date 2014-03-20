@@ -23,7 +23,7 @@ class Slot {
 	 * @desc Generate language selection menu
 	 * @author Allan Laal <allan@permanent.ee>
 	 * @param array $params
-	 * @example <br>echo \Ip\Internal\Core\Slot::languages_80(array(<br>'ul' => array(<br>		'id'	=> 'langmenu',<br>		'class'	=> 'floatlist right clearfix',<br>	),<br>	'li' => array(<br>		'class'			=> 'some classes to prepend to all lis'<br>	)<br>));
+	 * @example <br>echo \Ip\Internal\Core\Slot::languages_80(array(<br>'ul' => array(<br>		'id'	=> 'langmenu',<br>		'class'	=> 'floatlist right clearfix',<br>	),<br>	'li' => array(<br>		'class'			=> 'some classes to prepend to all lis', // active/inactive will still work<br>	)<br>));
 	 * 
 	 * @return string
 	 */
@@ -33,7 +33,7 @@ class Slot {
             return '';
         }
 
-        return ipView('Ip/Internal/Config/view/languages.php', array('params' => $params, 'languages' => ipContent()->getLanguages()));
+        return ipView('Ip/Internal/Config/view/languages.php', array('attributes' => $params, 'languages' => ipContent()->getLanguages()));
     }
 
     public static function logo_80()
