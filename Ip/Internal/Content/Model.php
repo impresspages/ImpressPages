@@ -177,7 +177,7 @@ class Model
 
         if (count($widgetObject->getSkins()) > 1) {
             $optionsMenu[] = array(
-                'title' => __('Skin', 'ipAdmin', false),
+                'title' => __('Skin', 'Ip-admin', false),
                 'attributes' => array(
                     'class' => 'ipsSkin',
                     'data-skins' => json_encode($widgetObject->getSkins()),

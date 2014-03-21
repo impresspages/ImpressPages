@@ -19,9 +19,9 @@ class Number extends Validator {
         $value = $values[$valueKey];
         if (!preg_match('/^[0-9]+$/', $value)) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = __('Must be a number.', 'ipAdmin');
+                $errorText = __('Must be a number.', 'Ip-admin');
             } else {
-                $errorText = __('Must be a number.', 'ipPublic');
+                $errorText = __('Must be a number.', 'Ip');
             }
             return $errorText;
         } else {

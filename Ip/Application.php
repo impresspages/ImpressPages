@@ -109,13 +109,13 @@ class Application
         $translator->addTranslationFilePattern('json', $themeDir,       "$theme-%s.json", $theme);
         $translator->addTranslationFilePattern('json', $overrideDir,    "$theme-%s.json", $theme);
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'ipAdmin-%s.json', 'ipAdmin');
-        $translator->addTranslationFilePattern('json', $ipDir,          'ipAdmin-%s.json', 'ipAdmin');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'ipAdmin-%s.json', 'ipAdmin');
+        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-admin-%s.json', 'Ip-admin');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'ipPublic-%s.json', 'ipPublic');
-        $translator->addTranslationFilePattern('json', $ipDir,          'ipPublic-%s.json', 'ipPublic');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'ipPublic-%s.json', 'ipPublic');
+        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-%s.json', 'Ip');
     }
 
     /**
@@ -189,7 +189,7 @@ class Application
             );
             if (ipConfig()->isDevelopmentEnvironment()) {
                 $data['errors'] = array(
-                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'ipAdmin')
+                    'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'Ip-admin')
                 );
             }
             // TODO JSONRPC

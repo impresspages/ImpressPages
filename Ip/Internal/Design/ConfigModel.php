@@ -142,7 +142,7 @@ class ConfigModel{
         $options = $theme->getOptions();
 
         $generalFieldset = $this->getFieldset($name, $options);
-        $generalFieldset->setLabel(__('General options', 'ipAdmin'));
+        $generalFieldset->setLabel(__('General options', 'Ip-admin'));
         if (count($generalFieldset->getFields())) {
             $form->addFieldset($generalFieldset);
         }

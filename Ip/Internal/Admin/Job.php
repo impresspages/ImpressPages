@@ -17,7 +17,7 @@ class Job
         $antiBruteForce = SecurityModel::instance();
         $failedLogins = $antiBruteForce->failedLoginCount($data['username'], $ip);
         if ($failedLogins > ipGetOption('Admin.allowFailedLogins', 20)) {
-            return __('You have exceeded failed login attempts.', 'ipAdmin', false);
+            return __('You have exceeded failed login attempts.', 'Ip-admin', false);
         }
 
     }

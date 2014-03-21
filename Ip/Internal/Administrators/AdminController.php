@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller
         ipAddJsVariable('ipAdministratorsAdminId', (int)ipAdminId());
         ipaddJsVariable('ipAvailablePermissions', \Ip\Internal\AdminPermissionsModel::availablePermissions());
         ipaddJsVariable('ipAdministratorId', ipAdminId());
-        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself. Do you want to continue?', 'ipAdmin', false));
+        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself. Do you want to continue?', 'Ip-admin', false));
 
         $data = array (
             'createForm' => Helper::createForm(),
@@ -135,7 +135,7 @@ class AdminController extends \Ip\Controller
 
         $existingUser = Service::getByUsername($username);
         if ($existingUser && $existingUser['id'] != $userId) {
-            $errors['username'] = __('Already taken', 'ipAdmin', FALSE);
+            $errors['username'] = __('Already taken', 'Ip-admin', FALSE);
         }
 
         if ($errors) {

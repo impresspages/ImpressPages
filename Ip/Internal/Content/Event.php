@@ -58,7 +58,7 @@ class Event
                     static::addWidgetAssets($widget);
                 }
             }
-            ipAddJsVariable('ipPublishTranslation', __('Publish', 'ipAdmin', FALSE));
+            ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', FALSE));
         }
     }
 

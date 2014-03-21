@@ -6,7 +6,7 @@
             <div class="ipsAdminPanelWidgetsSearch clearfix">
                 <div class="ipaControls">
                     <span class="ipaArrow"></span>
-                    <input type="text" class="ipAdminInput ipaInput ipsInput" value="<?php _e('Search widgets', 'ipAdmin') ?>" />
+                    <input type="text" class="ipAdminInput ipaInput ipsInput" value="<?php _e('Search widgets', 'Ip-admin') ?>" />
                     <a href="#" class="ipaButton ipsButton"></a>
                 </div>
             </div>
@@ -15,9 +15,9 @@
         <?php if(!$manageableRevision){ ?>
             <div class="_disable">
                 <p>
-                    <?php echo __('This is a preview of older revision, created at', 'ipAdmin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['createdAt']) ?>
-                    <a href="#" class="ipsContentPublish"><?php _e('Publish this revision', 'ipAdmin'); ?></a>
-                    <a href="#" class="ipsContentSave"><?php _e('Duplicate and edit this revision', 'ipAdmin'); ?></a>
+                    <?php echo __('This is a preview of older revision, created at', 'Ip-admin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['createdAt']) ?>
+                    <a href="#" class="ipsContentPublish"><?php _e('Publish this revision', 'Ip-admin'); ?></a>
+                    <a href="#" class="ipsContentSave"><?php _e('Duplicate and edit this revision', 'Ip-admin'); ?></a>
                 </p>
             </div>
         <?php } ?>

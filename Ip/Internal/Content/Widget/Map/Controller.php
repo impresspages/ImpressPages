@@ -13,7 +13,7 @@ class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
-        return __('Map', 'ipAdmin', false);
+        return __('Map', 'Ip-admin', false);
     }
 
 
@@ -53,7 +53,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false),
+                'label' => __('Title', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -61,7 +61,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'description',
-                'label' => __('Description', 'ipAdmin', false),
+                'label' => __('Description', 'Ip-admin', false),
             ));
         $form->addField($field);
 

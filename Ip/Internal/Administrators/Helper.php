@@ -20,7 +20,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', // HTML "name" attribute
-                'label' => __('User name', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('User name', 'Ip-admin', false), // Field label that will be displayed next to input field
             ));
         $field->addValidator("Required");
         $field->addValidator(array('Unique', array('table' => 'administrator')));
@@ -30,7 +30,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'email', // HTML "name" attribute
-                'label' => __('Email', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('Email', 'Ip-admin', false), // Field label that will be displayed next to input field
             ));
         $field->addValidator("Required");
         $form->addField($field);
@@ -38,7 +38,7 @@ class Helper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', // HTML "name" attribute
-                'label' => __('Password', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('Password', 'Ip-admin', false), // Field label that will be displayed next to input field
             ));
         $field->addValidator("Required");
         $form->addField($field);
@@ -64,7 +64,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', // HTML "name" attribute
-                'label' => __('User name', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('User name', 'Ip-admin', false), // Field label that will be displayed next to input field
                 'value' => '{{activeAdministrator.username}}'
             ));
         $field->addValidator("Required");
@@ -74,7 +74,7 @@ class Helper
         $field = new \Ip\Form\Field\Email(
             array(
                 'name' => 'email', // HTML "name" attribute
-                'label' => __('Email', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('Email', 'Ip-admin', false), // Field label that will be displayed next to input field
                 'value' => '{{activeAdministrator.email}}'
             ));
         $field->addValidator("Required");
@@ -83,7 +83,7 @@ class Helper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', // HTML "name" attribute
-                'label' => __('New password (optional)', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'label' => __('New password (optional)', 'Ip-admin', false), // Field label that will be displayed next to input field
                 'value' => ''
             ));
         $form->addField($field);

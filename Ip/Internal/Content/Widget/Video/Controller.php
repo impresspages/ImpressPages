@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\Video;
 class Controller extends \Ip\WidgetController
 {
     public function getTitle() {
-        return __('Video', 'ipAdmin', false);
+        return __('Video', 'Ip-admin', false);
     }
 
 
@@ -131,19 +131,19 @@ class Controller extends \Ip\WidgetController
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'url',
-                'label' => __('Url', 'ipAdmin', false),
+                'label' => __('Url', 'Ip-admin', false),
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'size',
-                'label' => __('Size', 'ipAdmin', false),
+                'label' => __('Size', 'Ip-admin', false),
             ));
 
         $values = array(
-            array('auto', __('Auto', 'ipAdmin', false)),
-            array('custom', __('Custom', 'ipAdmin', false)),
+            array('auto', __('Auto', 'Ip-admin', false)),
+            array('custom', __('Custom', 'Ip-admin', false)),
         );
         $field->setValues($values);
 
@@ -152,25 +152,25 @@ class Controller extends \Ip\WidgetController
         $field = new \Ip\Form\Field\Number(
             array(
                 'name' => 'width',
-                'label' => __('Width', 'ipAdmin', false),
+                'label' => __('Width', 'Ip-admin', false),
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Number(
             array(
                 'name' => 'height',
-                'label' => __('Height', 'ipAdmin', false),
+                'label' => __('Height', 'Ip-admin', false),
             ));
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'ratio',
-                'label' => __('Aspect ratio', 'ipAdmin', false),
+                'label' => __('Aspect ratio', 'Ip-admin', false),
             ));
         $values = array(
-            array('16:9', __('16:9', 'ipAdmin', false)),
-            array('4:3', __('4:3', 'ipAdmin', false)),
+            array('16:9', __('16:9', 'Ip-admin', false)),
+            array('4:3', __('4:3', 'Ip-admin', false)),
         );
         $field->setValues($values);
         $form->addField($field);
