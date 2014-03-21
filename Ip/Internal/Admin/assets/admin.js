@@ -29,12 +29,15 @@ var ipAdmin = new function () {
         }
 
         fixLayout();
+        onResize();
 
         if (!ip.isManagementState) {
             $('.ipsContentPublish').on('click', function(e){save(true)});
             $('.ipsContentSave').addClass('hidden');
         }
 
+
+        $(window).bind('resize.ipPages', onResize);
 
         $(document).trigger('ipAdminPanelInit');
     };
@@ -109,8 +112,13 @@ var ipAdmin = new function () {
 
 
 
-
-
+    var onResize = function() {
+        var $window = $(window);
+        var $containers = $('.ipsAdminAutoHeight');
+        var contentHeight = parseInt($window.height());
+        contentHeight -= 40; // leaving place for navbar
+        $containers.innerHeight(contentHeight);
+    }
 
 
 
