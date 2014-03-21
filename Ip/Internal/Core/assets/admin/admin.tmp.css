@@ -7366,45 +7366,31 @@ button.close {
   line-height: inherit;
 }
 .bootstrap-switch .bootstrap-switch-handle-on {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 40px;
-  border-top-right-radius: 40px;
-}
-.bootstrap-switch .bootstrap-switch-handle-off {
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
 }
-.bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
-  margin-left: -50%;
+.bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 40px;
+  border-top-right-radius: 40px;
 }
 .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
   background-color: #019bd4;
-  border-bottom-left-radius: 40px;
-  border-top-left-radius: 40px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
-  margin-left: 0%;
-}
-.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
-  background-color: #e7e7e7;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  color: #fff;
   border-bottom-right-radius: 40px;
   border-top-right-radius: 40px;
 }
+.bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
+  background-color: #e7e7e7;
+  color: #000;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+}
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
-  color: #000;
   background: #e7e7e7;
 }
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-new,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-new {
-  color: #fff;
   background: #019bd4;
 }
 .bootstrap-switch.bootstrap-switch-mini {

@@ -1,52 +1,40 @@
-// changed behavior: on is on the right, off is on the left; predefined label background
-
 .@{bootstrap-switch-base} {
-    border-radius: @grid-gutter-width;
+    border-radius: @bootstrap-switch-border-radius;
 
     .@{bootstrap-switch-base}-container {
-        border-radius: @grid-gutter-width;
+        border-radius: @bootstrap-switch-border-radius;
         line-height: inherit;
     }
     .@{bootstrap-switch-base}-handle-on {
-        .border-left-radius(0);
-        .border-right-radius(@grid-gutter-width);
+        .border-left-radius(@bootstrap-switch-border-radius);
     }
 
     .@{bootstrap-switch-base}-handle-off {
-        .border-left-radius(@grid-gutter-width);
-        .border-right-radius(0);
+        .border-right-radius(@bootstrap-switch-border-radius);
     }
 
     &.@{bootstrap-switch-base}-on {
-        .@{bootstrap-switch-base}-container {
-            margin-left: -50%;
-        }
         .@{bootstrap-switch-base}-label {
             background-color: @btn-new-bg;
-            .border-left-radius(@grid-gutter-width);
-            .border-right-radius(0);
+            color: #fff;
+            .border-right-radius(@bootstrap-switch-border-radius);
         }
     }
 
     &.@{bootstrap-switch-base}-off {
-        .@{bootstrap-switch-base}-container {
-            margin-left: 0%;
-        }
         .@{bootstrap-switch-base}-label {
             background-color: @btn-default-bg;
-            .border-left-radius(0);
-            .border-right-radius(@grid-gutter-width);
+            color: #000;
+            .border-left-radius(@bootstrap-switch-border-radius);
         }
     }
 
     .@{bootstrap-switch-base}-handle-on,
     .@{bootstrap-switch-base}-handle-off {
         &.@{bootstrap-switch-base}-default {
-            color: #000;
             background: @btn-default-bg;
         }
         &.@{bootstrap-switch-base}-new { // todox: if possible, use default naming from bootstrap
-            color: #fff;
             background: @btn-new-bg;
         }
     }
@@ -61,7 +49,7 @@
             line-height: 10px; // to keep empty label same height
             margin-top: 0;
             padding-bottom: 3px; // to keep circle visually centered
-            padding-top: 4px;
+            padding-top: 4px; // to keep circle visually centered
         }
     }
 }
