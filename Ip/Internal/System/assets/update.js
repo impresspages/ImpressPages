@@ -17,7 +17,8 @@
                 type: 'POST',
                 success: notificationsResponse,
                 error: function () {
-                    alert('Unknown error. Please see logs.');
+                    //do nothing
+                    //keep in mind, that error happens if user leaves the page while waiting for response
                 }
             });
 

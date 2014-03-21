@@ -43,11 +43,9 @@ class Migration {
     public static function update_5()
     {
         //remove old installation script which is insecure.
-        $fs = new Helper\FileSystem();
-        try {
-            $fs->rm(ipFile('install'));
-        } catch (\Exception $e) {
-            //do nothing
+        $installFile = ipFile('install/index.php');
+        if (is_file($installFile) && is_writable($installFile)) {
+            unlink($installFile);
         }
     }
 
