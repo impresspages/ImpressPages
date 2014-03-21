@@ -7813,18 +7813,19 @@ th {
   display: block;
   padding: 10px 20px;
   overflow: hidden;
+  text-transform: uppercase;
 }
 .ipAdminSubmenu ul a:hover {
   color: #019bd4;
   text-decoration: none;
 }
 .ipAdminSubmenu ul .active a {
-  background-color: #fff;
-  color: #000;
+  background-color: #ffffff;
+  color: #000000;
   font-weight: bold;
 }
 .ipAdminContentWrapper {
-  background-color: #fff;
+  background-color: #ffffff;
   margin-left: 20px;
   margin-right: 60px;
   padding: 20px 40px 40px;
@@ -7835,7 +7836,7 @@ th {
 }
 .ipModuleAdministrators {
   float: left;
-  padding-left: 240px;
+  padding-left: 200px;
   width: 100%;
 }
 .ipModuleAdministrators ._menu {
