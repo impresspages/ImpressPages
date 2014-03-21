@@ -118,31 +118,31 @@
     padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
     width: (@grid-gutter-width * 5);
 
-
     ul {
         list-style: none;
 
         a {
-            color: #97989f; // todox: make variable
+            color: @color-silver-dark5;
             display: block;
             padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
             overflow: hidden;
+            text-transform: uppercase;
 
             &:hover {
-                color: #019bd4; // todox: make variable
+                color: @color-blue;
                 text-decoration: none;
             }
         }
 
         .active a {
-            background-color: #fff; // todox: make variable
-            color: #000; // todox: make variable
+            background-color: @admin-submenu-active-bg;
+            color: @admin-submenu-active-color;
             font-weight: bold;
         }
     }
 }
 .ipAdminContentWrapper {
-    background-color: #fff; // todox: use variable
+    background-color: @admin-container-bg;
     margin-left: (@grid-gutter-width * 0.5);
     margin-right: (@grid-gutter-width * 1.5);
     padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
