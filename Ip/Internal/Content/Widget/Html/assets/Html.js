@@ -23,7 +23,7 @@ var IpWidget_Html = function () {
                 container.html(this.data.html);
             } else {
 
-                container.html('<p>HTML widget content is hidden in safe mode.</p>'); // todox: translate
+                container.html('<p>HTML widget content is hidden in safe mode.</p>'); // todo: translate
             }
         }
 

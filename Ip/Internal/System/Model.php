@@ -66,28 +66,6 @@ class Model
 
 
 
-    //TODOXX 301
-    public function clearCache($cachedUrl)
-    {
-        \Ip\ServiceLocator::storage()->set('Ip', 'cachedBaseUrl', ipConfig()->baseUrl());
-
-        // TODO move somewhere
-        if (ipConfig()->baseUrl() != $cachedUrl) {
-            ipEvent('ipUrlChanged', array('oldUrl' => $cachedUrl, 'newUrl' => ipConfig()->baseUrl()));
-        }
-
-        static::cacheClear();
-    }
-
-    //TODOXX 301
-    public static function cacheClear()
-    {
-        $oldCacheVersion = \Ip\ServiceLocator::storage()->get('Ip', 'cacheVersion', 1);
-        $newCacheVersion = $oldCacheVersion + 1;
-        \Ip\ServiceLocator::storage()->set('Ip', 'cacheVersion', $newCacheVersion);
-
-        ipEvent('ipCacheClear', array('oldCacheVersion' => $oldCacheVersion, 'newCacheVersion' => $newCacheVersion));
-    }
 
     public static function getIpNotifications()
     {

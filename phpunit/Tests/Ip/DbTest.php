@@ -75,7 +75,6 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('EN', $value);
     }
 
-    //todox #selectColumn
     public function testFetchColumn()
     {
         $values = ipDb()->selectColumn('permission', 'permission', array('administratorId' => 1));
