@@ -686,7 +686,7 @@
 .ip dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -3287,7 +3287,7 @@
   bottom: 100%;
   margin-bottom: 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-right .dropdown-menu {
     left: auto;
     right: 0;
@@ -3814,12 +3814,12 @@
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-header {
     float: left;
   }
@@ -3836,7 +3836,7 @@
 .ip .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3865,7 +3865,7 @@
   margin-right: -20px;
   margin-left: -20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .container > .navbar-header,
   .ip .container-fluid > .navbar-header,
   .ip .container > .navbar-collapse,
@@ -3878,7 +3878,7 @@
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-static-top {
     border-radius: 0;
   }
@@ -3890,7 +3890,7 @@
   left: 0;
   z-index: 1030;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-fixed-top,
   .ip .navbar-fixed-bottom {
     border-radius: 0;
@@ -3916,7 +3916,7 @@
 .ip .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar > .container .navbar-brand,
   .ip .navbar > .container-fluid .navbar-brand {
     margin-left: -20px;
@@ -3946,7 +3946,7 @@
 .ip .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-toggle {
     display: none;
   }
@@ -3959,7 +3959,7 @@
   padding-bottom: 10px;
   line-height: 20px;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .ip .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3981,7 +3981,7 @@
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-nav {
     float: left;
     margin: 0;
@@ -3997,7 +3997,7 @@
     margin-right: -20px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-left {
     float: left !important;
     float: left;
@@ -4053,12 +4053,12 @@
     top: 0;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .ip .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-form {
     width: auto;
     border: 0;
@@ -4098,7 +4098,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .ip .navbar-text {
     float: left;
     margin-left: 20px;
@@ -4163,7 +4163,7 @@
   background-color: #e7e7e7;
   color: #555555;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .ip .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
@@ -4246,7 +4246,7 @@
   background-color: #000000;
   color: #ffffff;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .ip .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #000000;
   }
@@ -7969,6 +7969,12 @@
 .ip .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+@media (max-width: 767px) {
+  .ip .ipAdminNavbar .nav._active,
+  .ip .ipAdminNavbar .nav._right li:not(:last-child) {
+    display: none;
+  }
+}
 .ip .ipAdminSubmenu {
   padding: 20px 0 20px 20px;
   position: absolute;
@@ -8468,8 +8474,15 @@
 .ip .ipModuleInlineManagementImageModal ._controls .pull-left {
   clear: left;
 }
+.ip .ipAdminPages {
+  overflow-y: hidden;
+}
+.ip .ipAdminPages ._outer {
+  height: 100%;
+}
 .ip .ipAdminPages ._container {
   float: left;
+  height: 100%;
   overflow: auto;
   padding: 20px;
 }
@@ -9004,6 +9017,7 @@
   box-shadow: none;
   border-radius: 0;
   color: #000;
+  font-weight: bold;
 }
 .ip .jstree-ImpressPages .jstree-wholerow {
   -moz-box-sizing: border-box;

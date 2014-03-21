@@ -598,7 +598,7 @@ dt {
 dd {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -3108,7 +3108,7 @@ input[type="button"].btn-block {
   bottom: 100%;
   margin-bottom: 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-right .dropdown-menu {
     left: auto;
     right: 0;
@@ -3635,12 +3635,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-header {
     float: left;
   }
@@ -3657,7 +3657,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-collapse {
     width: auto;
     border-top: 0;
@@ -3686,7 +3686,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-right: -20px;
   margin-left: -20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .container > .navbar-header,
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
@@ -3699,7 +3699,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-static-top {
     border-radius: 0;
   }
@@ -3711,7 +3711,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   left: 0;
   z-index: 1030;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom {
     border-radius: 0;
@@ -3737,7 +3737,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
     margin-left: -20px;
@@ -3767,7 +3767,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-toggle {
     display: none;
   }
@@ -3780,7 +3780,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-bottom: 10px;
   line-height: 20px;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -3802,7 +3802,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-nav {
     float: left;
     margin: 0;
@@ -3818,7 +3818,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-right: -20px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-left {
     float: left !important;
     float: left;
@@ -3874,12 +3874,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     top: 0;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-form {
     width: auto;
     border: 0;
@@ -3919,7 +3919,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1px) {
   .navbar-text {
     float: left;
     margin-left: 20px;
@@ -3984,7 +3984,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #e7e7e7;
   color: #555555;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
   }
@@ -4067,7 +4067,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   background-color: #000000;
   color: #ffffff;
 }
-@media (max-width: 767px) {
+@media (max-width: 0px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #000000;
   }
@@ -7799,6 +7799,12 @@ th {
 .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+@media (max-width: 767px) {
+  .ipAdminNavbar .nav._active,
+  .ipAdminNavbar .nav._right li:not(:last-child) {
+    display: none;
+  }
+}
 .ipAdminSubmenu {
   padding: 20px 0 20px 20px;
   position: absolute;
@@ -8298,8 +8304,15 @@ th {
 .ipModuleInlineManagementImageModal ._controls .pull-left {
   clear: left;
 }
+.ipAdminPages {
+  overflow-y: hidden;
+}
+.ipAdminPages ._outer {
+  height: 100%;
+}
 .ipAdminPages ._container {
   float: left;
+  height: 100%;
   overflow: auto;
   padding: 20px;
 }
@@ -8834,6 +8847,7 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   box-shadow: none;
   border-radius: 0;
   color: #000;
+  font-weight: bold;
 }
 .jstree-ImpressPages .jstree-wholerow {
   -moz-box-sizing: border-box;
