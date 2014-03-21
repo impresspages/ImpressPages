@@ -12,7 +12,7 @@
     <div class="hidden" id="ipWidgetGalleryControls">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <button type="button" data-level="1" class="btn btn-default ipsAdd"><?php _e('Add image', 'ipAdmin'); ?></button>
+                <button type="button" data-level="1" class="btn btn-default ipsAdd"><?php _e('Add image', 'Ip-admin'); ?></button>
             </div>
         </div>
     </div>
@@ -21,14 +21,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><?php echo __('Edit image', 'ipAdmin') ?></h4>
+                    <h4 class="modal-title"><?php echo __('Edit image', 'Ip-admin') ?></h4>
                 </div>
                 <div class="modal-body">
                     <div class="ipsEditScreen"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin') ?></button>
                 </div>
             </div>
         </div>
@@ -38,14 +38,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><?php echo __('Link', 'ipAdmin') ?></h4>
+                    <h4 class="modal-title"><?php echo __('Link', 'Ip-admin') ?></h4>
                 </div>
                 <div class="modal-body">
                     <?php echo $linkForm ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin') ?></button>
                 </div>
             </div>
         </div>
@@ -55,14 +55,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><?php echo __('Settings', 'ipAdmin') ?></h4>
+                    <h4 class="modal-title"><?php echo __('Settings', 'Ip-admin') ?></h4>
                 </div>
                 <div class="modal-body">
                     <?php echo $settingsForm ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'ipAdmin') ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'ipAdmin') ?></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin') ?></button>
                 </div>
             </div>
         </div>

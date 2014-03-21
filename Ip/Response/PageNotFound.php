@@ -21,7 +21,7 @@ class PageNotFound extends \Ip\Response\Layout {
         $this->addHeader('HTTP/1.0 404 Not Found');
         $this->setStatusCode(404);
         $this->setContent($content);
-        $this->setTitle(__('Error 404', 'ipPublic', false));
+        $this->setTitle(__('Error 404', 'Ip', false));
         parent::__construct($content);
     }
 
@@ -35,7 +35,7 @@ class PageNotFound extends \Ip\Response\Layout {
 
     protected function generateError404Content() {
         $data = array(
-            'title' => __('Error 404', 'ipPublic', false),
+            'title' => __('Error 404', 'Ip', false),
             'text' => self::error404Message()
         );
         $content = ipView(ipFile('Ip/Internal/Config/view/error404.php'), $data)->render();
@@ -49,12 +49,12 @@ class PageNotFound extends \Ip\Response\Layout {
     protected function error404Message(){
         $message = '';
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
-            $message = __('Config.error_mistyped_url', 'ipPublic', false);
+            $message = __('Config.error_mistyped_url', 'Ip', false);
         } else {
             if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) !== false) {
-                $message = '<p>' . __('Config.error_broken_link_inside', 'ipPublic') . '</p>';
+                $message = '<p>' . __('Config.error_broken_link_inside', 'Ip') . '</p>';
             } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) === false) {
-                $message = '<p>' . __('Config.error_broken_link_outside', 'ipPublic') . '</p>';
+                $message = '<p>' . __('Config.error_broken_link_outside', 'Ip') . '</p>';
             }
         }
         return $message;

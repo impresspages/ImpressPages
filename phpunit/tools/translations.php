@@ -55,7 +55,7 @@ foreach ($all as $key => $values) {
     $domains[$domain][$id] = $id;
 }
 
-foreach (array('ipPublic', 'ipAdmin') as $domain) {
+foreach (array('Ip', 'Ip-admin') as $domain) {
     $contents = file_get_contents($rootDir . '/Ip/Internal/Translations/translations/' . $domain . '-en.json');
     $messages = json_decode($contents, true);
 
@@ -65,8 +65,8 @@ foreach (array('ipPublic', 'ipAdmin') as $domain) {
 `rm all.json`;
 
 $destinations = array(
-    'ipAdmin' => 'Ip/Internal/Translations/translations/',
-    'ipPublic' => 'Ip/Internal/Translations/translations/',
+    'Ip-admin' => 'Ip/Internal/Translations/translations/',
+    'Ip' => 'Ip/Internal/Translations/translations/',
     'Install' => 'install/Plugin/Install/translations/',
     'Air' => 'Theme/Air/translations/',
 );

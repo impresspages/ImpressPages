@@ -39,7 +39,7 @@ class Filter {
         if (!empty($submenuItems)) {
             $firstSubmenuItem = $submenuItems[0];
             $newItem = new \Ip\Internal\Admin\MenuItem();
-            $newItem->setTitle(__('System', 'ipAdmin', false));
+            $newItem->setTitle(__('System', 'Ip-admin', false));
             $newItem->setUrl($firstSubmenuItem->getUrl());
             $newItem->setIcon('fa-cogs');
             $filteredMenu[] = $newItem;

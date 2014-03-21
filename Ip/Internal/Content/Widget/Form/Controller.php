@@ -13,7 +13,7 @@ class Controller extends \Ip\WidgetController{
 
 
     public function getTitle() {
-        return __('Form', 'ipAdmin', false);
+        return __('Form', 'Ip-admin', false);
     }
 
     public function post ($instanceId, $data) {
@@ -68,19 +68,19 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\RichText(
             array(
                 'name' => 'success',
-                'label' => __('Thank you message', 'ipAdmin', false)
+                'label' => __('Thank you message', 'Ip-admin', false)
             ));
         $form->addfield($field);
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'sendTo',
-                'label' => __('Mouse click action', 'ipAdmin', false) . ' (' . ipGetOption('Config.websiteEmail') . ')'
+                'label' => __('Mouse click action', 'Ip-admin', false) . ' (' . ipGetOption('Config.websiteEmail') . ')'
             ));
 
         $values = array(
-            array('default', __('Website\'s email', 'ipAdmin', false)),
-            array('custom', __('Custom emails separated by space', 'ipAdmin', false))
+            array('default', __('Website\'s email', 'Ip-admin', false)),
+            array('custom', __('Custom emails separated by space', 'Ip-admin', false))
         );
         $field->setValues($values);
         $form->addfield($field);
@@ -89,7 +89,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'emails',
-                'label' => __('Custom emails separated by space', 'ipAdmin', false),
+                'label' => __('Custom emails separated by space', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -191,17 +191,17 @@ class Controller extends \Ip\WidgetController{
         $data['fields'] = array();
         $data['fields'][] = array (
             'type' => 'Text',
-            'label' => __('Name', 'ipPublic', false),
+            'label' => __('Name', 'Ip', false),
             'options' => array()
         );
         $data['fields'][] = array (
             'type' => 'Email',
-            'label' => __('Email', 'ipPublic', false),
+            'label' => __('Email', 'Ip', false),
             'options' => array()
         );
         $data['fields'][] = array (
             'type' => 'Textarea',
-            'label' => __('Text', 'ipPublic', false),
+            'label' => __('Text', 'Ip', false),
             'options' => array()
         );
         return $data;
@@ -241,17 +241,17 @@ class Controller extends \Ip\WidgetController{
             $data['fields'] = array();
             $data['fields'][] = array (
                 'type' => 'Text',
-                'label' => __('Name', 'ipPublic', false),
+                'label' => __('Name', 'Ip', false),
                 'options' => array()
             );
             $data['fields'][] = array (
                 'type' => 'Email',
-                'label' => __('Email', 'ipPublic', false),
+                'label' => __('Email', 'Ip', false),
                 'options' => array()
             );
             $data['fields'][] = array (
                 'type' => 'Textarea',
-                'label' => __('Text', 'ipPublic', false),
+                'label' => __('Text', 'Ip', false),
                 'options' => array()
             );
         }
@@ -334,7 +334,7 @@ class Controller extends \Ip\WidgetController{
         //submit
         $field = new \Ip\Form\Field\Submit(
         array(
-            'value' => __('Send', 'ipPublic', false)
+            'value' => __('Send', 'Ip', false)
         ));
         $form->addField($field);
 

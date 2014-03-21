@@ -52,9 +52,19 @@ class Submenu {
 
         $submenuItems = array();
 
+        if (0) { // It is for translation engine to find following strings
+            __('Content', 'Ip-admin');
+            __('Pages', 'Ip-admin');
+            __('Design', 'Ip-admin');
+            __('Plugins', 'Ip-admin');
+            __('Config', 'Ip-admin');
+            __('Languages', 'Ip-admin');
+            __('System', 'Ip-admin');
+        }
+
         foreach ($modules as $module) {
             $menuItem = new \Ip\Menu\Item();
-            $menuItem->setTitle(__($module, 'ipAdmin', FALSE));
+            $menuItem->setTitle(__($module, 'Ip-admin', FALSE)); //
             $menuItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             if (ipRequest()->getControllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
                 $menuItem->markAsCurrent(TRUE);

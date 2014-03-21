@@ -65,7 +65,7 @@ class AdminController extends \Ip\Controller
             'marketUrl' => $model->getMarketUrl(),
             'showConfiguration' => !empty($options),
             'contentManagementUrl' => ipConfig()->baseUrl() . '?aa=Content.index',
-            'contentManagementText' => __('Manage content', 'ipAdmin', false)
+            'contentManagementText' => __('Manage content', 'Ip-admin', false)
         );
         $contentView = ipView('view/index.php', $data);
 
@@ -88,7 +88,7 @@ class AdminController extends \Ip\Controller
         try {
             $model->installThemePlugin($pluginName);
 
-            $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed.', 'ipAdmin');
+            $_SESSION['module']['design']['pluginNote'] = __('Plugin has been successfully installed.', 'Ip-admin');
 
             return JsonRpc::result(1);
         } catch (\Exception $e) {
@@ -105,12 +105,12 @@ class AdminController extends \Ip\Controller
         $themes = ipRequest()->getPost('themes');
 
         if (!is_writable(Model::instance()->getThemeInstallDir())) {
-            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'ipAdmin', false), 777);
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'Ip-admin', false), 777);
         }
 
         try {
             if (!is_array($themes)) {
-                return JsonRpc::error(__('Download failed: invalid parameters', 'ipAdmin', false), 101);
+                return JsonRpc::error(__('Download failed: invalid parameters', 'Ip-admin', false), 101);
             }
 
             if (function_exists('set_time_limit')) {
@@ -127,7 +127,7 @@ class AdminController extends \Ip\Controller
         } catch (\Ip\Exception $e) {
             return JsonRpc::error($e->getMessage(), $e->getCode());
         } catch (\Exception $e) {
-            return JsonRpc::error(__('Unknown error. Please see logs.', 'ipAdmin', false), 987);
+            return JsonRpc::error(__('Unknown error. Please see logs.', 'Ip-admin', false), 987);
         }
 
         return JsonRpc::result(array('themes' => $themes));

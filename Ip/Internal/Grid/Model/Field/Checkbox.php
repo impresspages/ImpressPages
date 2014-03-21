@@ -31,9 +31,9 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     public function preview($recordData)
     {
         if (!empty($recordData[$this->field])) {
-            return __('Yes', 'ipAdmin');
+            return __('Yes', 'Ip-admin');
         } else {
-            return __('No', 'ipAdmin');
+            return __('No', 'Ip-admin');
         }
     }
 
@@ -72,8 +72,8 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     {
         $values = array(
             array(null, ''),
-            array('1', __('Yes', 'ipAdmin', false)),
-            array('0', __('No', 'ipAdmin', false))
+            array('1', __('Yes', 'Ip-admin', false)),
+            array('0', __('No', 'Ip-admin', false))
 
         );
 

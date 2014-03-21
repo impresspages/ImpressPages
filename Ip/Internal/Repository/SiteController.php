@@ -48,7 +48,7 @@ class SiteController extends \Ip\Controller{
 
             switch($e->getCode()){
                 case UploadException::FORBIDDEN_FILE_EXTENSION:
-                    $message = __('Incorrect file type.', 'ipAdmin');
+                    $message = __('Incorrect file type.', 'Ip-admin');
                     ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
                     break;
                 case UploadException::FAILED_TO_MOVE_UPLOADED_FILE:
@@ -57,7 +57,7 @@ class SiteController extends \Ip\Controller{
                 case UploadException::OUTPUT_STREAM_ERROR:
                 default:
                     ipLog()->error('Repository.fileUploadError', array('plugin' => 'Repository', 'exception' => $e));
-                    $message = __('Can\'t store uploaded file. Please check server configuration.', 'ipAdmin');
+                    $message = __('Can\'t store uploaded file. Please check server configuration.', 'Ip-admin');
                     break;
 
             }

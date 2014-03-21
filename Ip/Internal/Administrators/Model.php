@@ -65,7 +65,7 @@ class Model{
 
         $from = ipGetOption('Config.websiteEmail');
         $fromName = ipGetOption('Config.websiteTitle');
-        $subject = __('Password reset instructions', 'ipAdmin', FALSE);
+        $subject = __('Password reset instructions', 'Ip-admin', FALSE);
         $to = $user['email'];
         $toName = $user['username'];
         ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
@@ -97,15 +97,15 @@ class Model{
     {
         $user = self::get($userId);
         if (!$user) {
-            throw new \Ip\Exception(__('User doesn\'t exist', 'ipAdmin', FALSE));
+            throw new \Ip\Exception(__('User doesn\'t exist', 'Ip-admin', FALSE));
         }
 
         if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption('Config.passwordResetLinkExpire', 60 * 60 * 24)) {
-            throw new \Ip\Exception(__('Invalid password reset link', 'ipAdmin', FALSE));
+            throw new \Ip\Exception(__('Invalid password reset link', 'Ip-admin', FALSE));
         }
 
         if ($user['resetSecret'] != $secret) {
-            throw new \Ip\Exception(__('Password reset link has expired', 'ipAdmin', FALSE));
+            throw new \Ip\Exception(__('Password reset link has expired', 'Ip-admin', FALSE));
         }
 
         ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));

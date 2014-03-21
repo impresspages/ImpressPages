@@ -76,7 +76,7 @@ class AdminController extends \Ip\Controller
         $disallow = array('htaccess','php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
         if (in_array($fileExtension, $disallow)) {
             //security risk
-            return JsonRpc::error(sprintf(__('Forbidden file extension: %s', 'ipAdmin'), $fileExtension), 101);
+            return JsonRpc::error(sprintf(__('Forbidden file extension: %s', 'Ip-admin'), $fileExtension), 101);
         }
         
         //end security check
@@ -92,20 +92,20 @@ class AdminController extends \Ip\Controller
         // Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
         if (strpos($contentType, "multipart") !== false) {
             if (!isset($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
-                return JsonRpc::error(__('Failed to move uploaded file.', 'ipAdmin'), 103);
+                return JsonRpc::error(__('Failed to move uploaded file.', 'Ip-admin'), 103);
             }
 
             // Open temp file
             $out = fopen($targetDir . $fileName, $chunk == 0 ? "wb" : "ab");
             if (!$out) {
-                return JsonRpc::error(__('Failed to open output stream.', 'ipAdmin'), 102);
+                return JsonRpc::error(__('Failed to open output stream.', 'Ip-admin'), 102);
             }
 
             // Read binary input stream and append it to temp file
             $in = fopen($_FILES['file']['tmp_name'], "rb");
 
             if (!$in) {
-                return JsonRpc::error(__('Failed to open input stream.', 'ipAdmin'), 101);
+                return JsonRpc::error(__('Failed to open input stream.', 'Ip-admin'), 101);
             }
 
             while ($buff = fread($in, 4096)) {
@@ -120,14 +120,14 @@ class AdminController extends \Ip\Controller
             // Open temp file
             $out = fopen($targetDir . DIRECTORY_SEPARATOR . $fileName, $chunk == 0 ? "wb" : "ab");
             if (!$out) {
-                return JsonRpc::error(__('Failed to open output stream.', 'ipAdmin'), 102);
+                return JsonRpc::error(__('Failed to open output stream.', 'Ip-admin'), 102);
             }
 
             // Read binary input stream and append it to temp file
             $in = fopen("php://input", "rb");
 
             if (!$in) {
-                return JsonRpc::error(__('Failed to open input stream.', 'ipAdmin'), 101);
+                return JsonRpc::error(__('Failed to open input stream.', 'Ip-admin'), 101);
             }
 
             while ($buff = fread($in, 4096)) {
