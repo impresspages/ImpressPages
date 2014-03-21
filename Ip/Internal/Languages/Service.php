@@ -14,8 +14,7 @@ class Service
 
     public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection)
     {
-        $languageId = Model::addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection);
-        return $languageId;
+        return Model::addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection);
     }
 
     public static function getLanguages()

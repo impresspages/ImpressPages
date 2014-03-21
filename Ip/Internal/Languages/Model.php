@@ -32,6 +32,8 @@ class Model{
         );
         $languageId = ipDb()->insert('language', $params);
 
+        ipContent()->_invalidateLanguages();
+
         ipEvent('ipLanguageAdded', array('id' => $languageId));
 
         return $languageId;
@@ -39,8 +41,13 @@ class Model{
 
     public static function delete($id)
     {
-        ipDb()->delete('language', array('id' => $id));
         ipEvent('ipBeforeLanguageDeleted', array('id' => $id));
+
+        ipDb()->delete('language', array('id' => $id));
+
+        ipContent()->_invalidateLanguages();
+
+        ipEvent('ipLanguageDeleted', array('id' => $id));
     }
 
     /**

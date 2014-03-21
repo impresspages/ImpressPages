@@ -101,6 +101,7 @@ class Content
                 return $language;
             }
         }
+
         return false;
     }
 
@@ -136,6 +137,14 @@ class Content
             }
         }
         return $this->languages;
+    }
+
+    /**
+     * @ignore
+     */
+    public function _invalidateLanguages()
+    {
+        $this->languages = null;
     }
 
     /**

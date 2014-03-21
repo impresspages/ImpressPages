@@ -216,6 +216,8 @@ class AdminController extends \Ip\GridController
             ipDb()->update('page', array('languageCode' => $updated['code']), array('languageCode' => $this->beforeUpdate['code']));
         }
 
+        ipContent()->_invalidateLanguages();
+
         ipEvent('ipLanguageUpdated', array('old' => $this->beforeUpdate, 'new' => $updated));
     }
 
