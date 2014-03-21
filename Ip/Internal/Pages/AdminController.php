@@ -18,6 +18,7 @@ class AdminController extends \Ip\Controller
     {
         ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pages.js');
+        ipAddJs('Ip/Internal/Pages/assets/js/pagesLayout.js');
         ipAddJs('Ip/Internal/Pages/assets/js/menuList.js');
         ipAddJs('Ip/Internal/Pages/assets/jstree/jstree.min.js');
 
