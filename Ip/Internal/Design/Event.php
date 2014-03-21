@@ -31,6 +31,7 @@ class Event
     {
         ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
         ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+        ipAddJsVariable('ipTranslationSaving', __('Saving...', 'Ip-admin', false));
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');
         ipAddJsVariable('ipModuleDesignConfiguration', Helper::getConfigurationBoxHtml());
 
@@ -60,10 +61,5 @@ class Event
 
 
 
-    public static function ipCacheClear($info)
-    {
-        $lessCompiler = LessCompiler::instance();
-        $lessCompiler->rebuild(ipConfig()->theme());
-    }
 
 }
