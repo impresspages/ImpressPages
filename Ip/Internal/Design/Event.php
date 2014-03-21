@@ -61,10 +61,5 @@ class Event
 
 
 
-    public static function ipCacheClear($info)
-    {
-        $lessCompiler = LessCompiler::instance();
-        $lessCompiler->rebuild(ipConfig()->theme());
-    }
 
 }
