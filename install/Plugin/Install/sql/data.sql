@@ -70,4 +70,5 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 
 
 INSERT INTO `ip_plugin` (`title`, `name`, `version`, `isActive`) VALUES
-('Application', 'Application', 1.00, 1);
+('Application', 'Application', 1.00, 1),
+('Colorbox', 'Colorbox', 1.00, 1);

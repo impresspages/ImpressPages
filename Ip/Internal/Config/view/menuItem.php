@@ -39,6 +39,6 @@ if ($menuItem->getBlank()) {
         <?php echo esc($menuItem->getTitle()); ?>
     </a>
     <?php if ($menuItem->getChildren()) { ?>
-        <?php echo ipView('Ip/Internal/Config/view/menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1))->render(); ?>
+        <?php echo ipView('Ip/Internal/Config/view/menu.php', array('items' => $menuItem->getChildren(), 'depth' => $depth + 1, 'attributesStr' => 'class="level'.($depth+1).'"'))->render(); ?>
     <?php } ?>
 </li>

@@ -34,7 +34,7 @@
  * @author Andy Prevost
  * @author Marcus Bointon
  * @copyright 2004 - 2009 Andy Prevost
- * @version $Id: class.phpmailer.php 447 2009-05-25 01:36:38Z codeworxtech $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
@@ -1467,14 +1467,12 @@ class PHPMailer {
         }
       }
       if (PHP_VERSION < 6) {
-//         $magic_quotes = get_magic_quotes_runtime();
-//         set_magic_quotes_runtime(0);
+//        $magic_quotes = get_magic_quotes_runtime();
+//        set_magic_quotes_runtime(0);
       }
       $file_buffer  = file_get_contents($path);
       $file_buffer  = $this->EncodeString($file_buffer, $encoding);
-      if (PHP_VERSION < 6) {
-          //set_magic_quotes_runtime($magic_quotes);
-      }
+//      if (PHP_VERSION < 6) { set_magic_quotes_runtime($magic_quotes); }
       return $file_buffer;
     } catch (Exception $e) {
       $this->SetError($e->getMessage());
