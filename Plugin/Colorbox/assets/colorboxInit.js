@@ -8,7 +8,7 @@ $(document).ready(function () {
         rel: 'ipwImage',
         maxWidth: '90%',
         maxHeight: '90%',
-        title: function(){return '<b>' + $(this).attr('title') + '</b> ' + ($(this).data('description') ? $(this).data('description') : '');}
+        title: function(){return $(this).attr('title') + ($(this).data('description') ? '. ' + $(this).data('description') : '');}
     });
     $('a[rel=standaloneLightbox]').colorbox({
         maxWidth: '90%',
