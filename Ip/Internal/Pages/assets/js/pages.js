@@ -1,5 +1,4 @@
 var ipPages = null;
-var ipPagesResize;
 var ipPagesDropPageId;
 var ipPagesDropPagePosition;
 var ipPagesStartPagePosition;
@@ -644,41 +643,9 @@ var ipPageDragId;
                         firstMenu = menu;
                     }
                 }
-            })
+            });
             return firstMenu;
         }
     }
-
-    ipPagesResize = function() {
-        var $window = $(window);
-        var $languages = $('.ipsLanguages');
-        var $menus = $('.ipsMenus');
-        var $pages = $('.ipsPagesContainer');
-        var $properties = $('.ipsProperties');
-
-        var navbarHeight = parseInt($('.ipsAdminNavbarContainer').outerHeight());
-
-        var contentHeight = parseInt($window.height());
-        if (navbarHeight > 0) {
-            contentHeight -= navbarHeight; // leaving place for navbar
-        }
-
-        var contentWidth = parseInt($window.width());
-        contentWidth -= parseInt($languages.outerWidth());
-        contentWidth -= parseInt($menus.outerWidth());
-        contentWidth -= parseInt($pages.outerWidth());
-        contentWidth -= 40 * 1.5; // 1.5 times grid
-
-        $languages.innerHeight(contentHeight);
-        $menus.innerHeight(contentHeight);
-        $pages.innerHeight(contentHeight);
-        $properties.innerHeight(contentHeight).innerWidth(contentWidth);
-    }
-
-    $(document).ready(function() {
-        ipPagesResize();
-    });
-
-    $(window).bind('resize.ipPages,ipAdminPanelInit', ipPagesResize);
 
 })(jQuery);
