@@ -30,4 +30,9 @@ class Email extends Validator {
         }
     }
 
+
+    public function validatorAttributes() {
+        return 'type="email"';
+    }
+
 }
