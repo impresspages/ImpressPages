@@ -12,6 +12,8 @@ class Translator
      */
     protected $translator;
 
+    protected $domains = array();
+
     public function __construct()
     {
         $this->translator = new \Zend\I18n\Translator\Translator();
@@ -28,6 +30,8 @@ class Translator
             $domain
         );
 
+        $this->domains[$domain] = true;
+
         return $this;
     }
 
@@ -40,5 +44,10 @@ class Translator
     {
         $this->translator->setLocale($locale);
         return $this;
+    }
+
+    public function getRegisteredDomains()
+    {
+        return array_keys($this->domains);
     }
 }
