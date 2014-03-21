@@ -656,8 +656,12 @@ var ipPageDragId;
         var $pages = $('.ipsPagesContainer');
         var $properties = $('.ipsProperties');
 
+        var navbarHeight = parseInt($('.ipsAdminNavbarContainer').outerHeight());
+
         var contentHeight = parseInt($window.height());
-        contentHeight -= 40; // leaving place for navbar
+        if (navbarHeight > 0) {
+            contentHeight -= navbarHeight; // leaving place for navbar
+        }
 
         var contentWidth = parseInt($window.width());
         contentWidth -= parseInt($languages.outerWidth());
@@ -675,8 +679,6 @@ var ipPageDragId;
         ipPagesResize();
     });
 
-    $(window).bind('resize.ipPages', ipPagesResize);
+    $(window).bind('resize.ipPages,ipAdminPanelInit', ipPagesResize);
 
 })(jQuery);
-
-
