@@ -7536,45 +7536,31 @@
   line-height: inherit;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  border-bottom-right-radius: 40px;
-  border-top-right-radius: 40px;
-}
-.ip .bootstrap-switch .bootstrap-switch-handle-off {
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
 }
-.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
-  margin-left: -50%;
+.ip .bootstrap-switch .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 40px;
+  border-top-right-radius: 40px;
 }
 .ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
   background-color: #019bd4;
-  border-bottom-left-radius: 40px;
-  border-top-left-radius: 40px;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
-  margin-left: 0%;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
-  background-color: #e7e7e7;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  color: #fff;
   border-bottom-right-radius: 40px;
   border-top-right-radius: 40px;
 }
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
+  background-color: #e7e7e7;
+  color: #000;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+}
 .ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-default,
 .ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-default {
-  color: #000;
   background: #e7e7e7;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-new,
 .ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-new {
-  color: #fff;
   background: #019bd4;
 }
 .ip .bootstrap-switch.bootstrap-switch-mini {
@@ -7997,18 +7983,19 @@
   display: block;
   padding: 10px 20px;
   overflow: hidden;
+  text-transform: uppercase;
 }
 .ip .ipAdminSubmenu ul a:hover {
   color: #019bd4;
   text-decoration: none;
 }
 .ip .ipAdminSubmenu ul .active a {
-  background-color: #fff;
-  color: #000;
+  background-color: #ffffff;
+  color: #000000;
   font-weight: bold;
 }
 .ip .ipAdminContentWrapper {
-  background-color: #fff;
+  background-color: #ffffff;
   margin-left: 20px;
   margin-right: 60px;
   padding: 20px 40px 40px;
@@ -8019,7 +8006,7 @@
 }
 .ip .ipModuleAdministrators {
   float: left;
-  padding-left: 240px;
+  padding-left: 200px;
   width: 100%;
 }
 .ip .ipModuleAdministrators ._menu {

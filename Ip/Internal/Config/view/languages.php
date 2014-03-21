@@ -1,39 +1,10 @@
 <?php
 /**
-	 * @desc Generate language selection menu with custom ul id and class and custom li class
-	 * @author Allan Laal <allan@permanent.ee>
-	 * @param array $attributes
-	 * @example 
-			echo \Ip\Internal\Core\Slot::languages_80(array(
-				'ul' => array(
-					'id'	=> 'langmenu',
-					'class'	=> 'floatlist right clearfix',
-				),
-				'li' => array(
-					'class'			=> '', // will be prepended
-				)
-			));
-	 * @return string
-	 */
-$ul_id = '';
-if (isset($attributes['ul']['id']))
-{
-	$ul_id = 'id="'.$attributes['ul']['id'].'"';
-}
-
-$ul_class = '';
-if (isset($attributes['ul']['class']))
-{
-	$ul_class = 'class="'.$attributes['ul']['class'].'"';
-}
-
-$li_class_prepend = '';
-if (isset($attributes['li']['class']))
-{
-	$li_class_prepend = $attributes['li']['class'].' ';
-}
+ * @desc Generate language selection menu with custom ul id and class and custom li class
+ */
 ?>
-<ul <?php echo $ul_id;?> <?php echo $ul_class;?>>
+
+<ul <?php echo $attributesStr;?>>
     <?php foreach ($languages as $key => $language) { ?>
         <?php /** @var $language \Ip\Language */?>
         <?php if (!$language->isVisible()) { continue; }?>
