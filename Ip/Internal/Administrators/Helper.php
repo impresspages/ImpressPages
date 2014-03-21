@@ -64,7 +64,7 @@ class Helper
         $form->addField($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Email(
             array(
                 'name' => 'email', // HTML "name" attribute
                 'label' => __('Email', 'ipAdmin', false), // Field label that will be displayed next to input field
@@ -77,6 +77,20 @@ class Helper
             array(
                 'name' => 'password', // HTML "name" attribute
                 'label' => __('New password (optional)', 'ipAdmin', false), // Field label that will be displayed next to input field
+                'value' => ''
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa', // HTML "name" attribute
+                'value' => 'Administrators.update'
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'id', // HTML "name" attribute
                 'value' => ''
             ));
         $form->addField($field);
