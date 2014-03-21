@@ -73,13 +73,13 @@ class UploadImage{
         if($error == UPLOAD_ERR_OK){
             $imageSize = getimagesize($_FILES[$postName]['tmp_name']);
             if ($this->resizeRequired($imageSize[0], $imageSize[1], $widthT, $heightT, $type, $forced)) {
-                $memory_success = $this->getMemmoryNeeded($imageSize);
+                $memory_success = $this->getMemoryNeeded($imageSize);
                 if(!$memory_success)
                 return UPLOAD_ERR_INI_SIZE;
                 if($image = $this->createImage($postName)){
                     if($forced || $widthT < $imageSize[0] || $heightT < $imageSize[1])
                     $image = $this->resize($image, $widthT, $heightT, $imageSize[0], $imageSize[1], $type);
-                     
+
                     //generate unocupied file name
                     $newName = $_FILES[$postName]['name'];
                     if($_FILES[$postName]['type'] == "image/gif")
@@ -170,8 +170,8 @@ class UploadImage{
         $sourceProportion = (double)$widthSource / (double)$heightSource;
 
 
-         
-         
+
+
         switch($type){
             case 'fit':
                 if($sourceProportion > $dest_proportion){
@@ -250,7 +250,7 @@ class UploadImage{
                 break;
 
         }
-         
+
 
         return $imageNew;
 
@@ -318,7 +318,7 @@ class UploadImage{
     /**
      * @access private
      */
-    function getMemmoryNeeded($image_info){
+    function getMemoryNeeded($image_info){
         if(!isset($image_info['channels']) || !$image_info['channels'])
         $image_info['channels'] = 4;
         if(!isset($image_info['bits']) || !$image_info['bits'])

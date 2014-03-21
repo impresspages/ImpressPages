@@ -25,7 +25,7 @@ class PagesTest extends MinkTestCase
 
         $page = $session->getPage();
 
-        $session->executeScript("window.location = ip.jQuery('.ipsAdminMenuBlock ul li:nth-child(2) a').attr('href')");
+        $session->executeScript("window.location = jQuery('.ipsAdminMenuBlock ul li:nth-child(2) a').attr('href')");
 
         //wait for page tree to load
         $session->wait(10000, "typeof $ !== 'undefined' && $('.jstree-leaf').length > 0");
@@ -39,17 +39,17 @@ class PagesTest extends MinkTestCase
         $page = $session->getPage();
         $page->find('css', '.ipsAddModal input[name=title]')->setValue($pageTitle);
 
-        $pagesBeforeSubmit = $session->evaluateScript("return ip.jQuery('.ipsPages ul li').length");
+        $pagesBeforeSubmit = $session->evaluateScript("return jQuery('.ipsPages ul li').length");
         $page->find('css', '.ipsAddModal .ipsAdd')->click();
 
-        $session->wait(10000, "typeof $ !== 'undefined' && ip.jQuery('.ipsPages ul li').length > " . $pagesBeforeSubmit);
-        $lastPageTitle = $session->evaluateScript("return ip.jQuery('.ipsPages ul li:last-child a').text()");
+        $session->wait(10000, "typeof $ !== 'undefined' && jQuery('.ipsPages ul li').length > " . $pagesBeforeSubmit);
+        $lastPageTitle = $session->evaluateScript("return jQuery('.ipsPages ul li:last-child a').text()");
         $this->assertEquals(
             $pageTitle,
             substr($lastPageTitle, -strlen($pageTitle))
         ); //stripping some ugly whitespaces from the beginning that can't be removed using trim
 
-        $session->executeScript("ip.jQuery('.ipsPages ul li:last-child a').trigger('click')");
+        $session->executeScript("jQuery('.ipsPages ul li:last-child a').trigger('click')");
 
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipsEdit').is(':visible') ");
         $lastPageLink = $page->find('css', ".ipsEdit");

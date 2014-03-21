@@ -47,4 +47,4 @@ var validatorConfigAdmin = '';
 
 
 
-})(ip.jQuery);
+})(jQuery);

@@ -251,6 +251,6 @@ var ipAdministratorsController = null;
     }
 
 
-})(ip.jQuery);
+})(jQuery);
 
 

@@ -2,16 +2,9 @@
  * @package ImpressPages
  *
  */
-var IpWidget_Form;
 
 
-/**
- * Widget initialization
- */
-(function($){
-    "use strict";
-
-    IpWidget_Form = function() {
+    var IpWidget_Form = function() {
         this.data = null;
         this.modal = null;
         this.container = null;
@@ -151,9 +144,6 @@ var IpWidget_Form;
             return data;
         };
     };
-
-})(ip.jQuery);
-
 
 
 

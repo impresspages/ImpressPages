@@ -159,4 +159,4 @@
         _mouseInit.call(self);
     };
 
-})(ip.jQuery);
+})(jQuery);

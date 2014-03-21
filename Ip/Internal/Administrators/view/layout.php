@@ -1,37 +1,51 @@
-<div ng-app="Administrators" ng-controller="ipAdministratorsController" class="ipModuleAdministrators" >
-    <div class="page-header">
-        <h1><?php _e('Administrators', 'ipAdmin'); ?></h1>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div ng-repeat="administrator in administrators" ng-click="activateAdministrator(administrator)" ng-class="[administrator.id == activeAdministrator.id ? 'active' : '',  'panel', 'panel-default']"  ng-cloak>
-                <div class="panel-heading">{{administrator.username}}</div>
-            </div>
+<div ng-app="Administrators" ng-controller="ipAdministratorsController" class="ipModuleAdministrators ipsModuleAdministrators">
+    <div class="_menu">
+        <div class="_actions">
             <button class="btn btn-new" ng-click="addModal()"><i class="fa fa-plus"></i> <?php _e('Add', 'ipAdmin'); ?></button>
         </div>
-        <div class="col-md-9" ng-show="activeAdministrator"  ng-cloak>
-            <h2><?php _e('Administrator profile', 'ipAdmin'); ?></h2>
-            <br/>
-            <a class="btn btn-danger" ng-show="activeAdministrator.id != ipAdministratorsAdminId" ng-click="deleteModal()"><?php _e('Delete', 'ipAdmin') ?> <i class="fa fa-fw fa-trash-o"></i></a>
-            <br/><br/>
-            <div ng-show="!editMode">
-                <b><?php _e('Username', 'ipAdmin'); ?></b> {{activeAdministrator.username}}
-                <br/>
-                <b><?php _e('Email', 'ipAdmin'); ?></b> {{activeAdministrator.email}}
-                <br/>
-                <button class="btn btn-primary" ng-click="updateModal()"><?php _e('Edit', 'ipAdmin'); ?></button>
-
-                <h2><?php _e('Permissions', 'ipAdmin') ?></h2>
-                <div ng-click="setPermission(permission, !activeAdministrator.permissions[permission])" ng-show="permission == 'Super admin' || !activeAdministrator.permissions['Super admin'] " ng-repeat="permission in availablePermissions" >
-                    <span>{{permission}}</span>
-<!--                    activeAdministrator.permissions-->
-                    <button ng-show="activeAdministrator.permissions[permission]" class="btn btn-xs btn-default"><?php _e('On', 'ipAdmin') ?></button>
-<!--                    <button ng-whow="!activeAdministrator.permissions[permission]" class="btn btn-xs btn-default">--><?php //_e('Off', 'ipAdmin') ?><!--</button>-->
+        <ul>
+            <li ng-repeat="administrator in administrators" ng-class="[administrator.id == activeAdministrator.id ? 'active' : '']" ng-cloak>
+                <a href="" ng-click="activateAdministrator(administrator)">{{administrator.username}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="page-header">
+        <h1><?php _e('Administrator profile', 'ipAdmin'); ?></h1>
+    </div>
+    <div ng-show="activeAdministrator" ng-cloak>
+        <div class="_actions clearfix">
+            <button class="btn btn-danger pull-right" role="button" ng-show="activeAdministrator.id != ipAdministratorsAdminId" ng-click="deleteModal()"><?php _e('Delete', 'ipAdmin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
+            <button class="btn btn-primary" role="button" ng-click="updateModal()"><?php _e('Edit', 'ipAdmin'); ?> <i class="fa fa-fw fa-edit"></i></button>
+        </div>
+        <div ng-show="!editMode">
+            <h2><?php _e('General', 'ipAdmin'); ?></h2>
+            <div class="row">
+                <div class="col-md-5">
+                    <h3><?php _e('Username', 'ipAdmin'); ?></h3>
+                    <p>{{activeAdministrator.username}}</p>
+                </div>
+                <div class="col-md-7">
+                    <h3><?php _e('Email', 'ipAdmin'); ?></h3>
+                    <p>{{activeAdministrator.email}}</p>
                 </div>
             </div>
-            <div ng-show="editMode">
-                <?php echo $updateForm->render(); ?>
+
+            <h2><?php _e('Permissions', 'ipAdmin'); ?></h2>
+            <div class="checkbox" ng-click="setPermission(permission, !activeAdministrator.permissions[permission])" ng-show="permission == 'Super admin' || !activeAdministrator.permissions['Super admin']" ng-repeat="permission in availablePermissions">
+                <label>
+                    <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-mini" ng-class="[activeAdministrator.permissions[permission] ? 'bootstrap-switch-on' : 'bootstrap-switch-off']">
+                        <div class="bootstrap-switch-container">
+                            <span class="bootstrap-switch-handle-off bootstrap-switch-default"><span class="fa fa-circle"></span></span>
+                            <label class="bootstrap-switch-label">&nbsp;</label>
+                            <span class="bootstrap-switch-handle-on bootstrap-switch-new"><span class="fa fa-circle"></span></span>
+                        </div>
+                    </div>
+                    {{permission}}
+                </label>
             </div>
+        </div>
+        <div ng-show="editMode">
+            <?php echo $updateForm->render(); ?>
         </div>
     </div>
     <?php echo ipView('Ip/Internal/Administrators/view/addModal.php', array('createForm' => $createForm))->render(); ?>

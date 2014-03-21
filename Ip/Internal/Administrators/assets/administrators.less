@@ -1,5 +1,49 @@
 .ipModuleAdministrators {
-    .panel.active .panel-heading {
-        background-color: #ccc;
+    float: left; // to keep internal clearfix for inner scope only
+    padding-left: (@grid-gutter-width * 6); // making space for menu
+    width: 100%; // stretch to full width
+
+    ._menu {
+        background-color: #f4f4f4; // todox: make variable
+        height: 100%;
+        margin-left: -(@grid-gutter-width * 6); // pushing back to the center of space
+        margin-top: -(@grid-gutter-width / 2); // pushing to top
+        overflow: auto; // in case content is shorter than this menu
+        padding: (@grid-gutter-width / 2);
+        position: absolute; // removing from flow since float breaks clearfix in content
+        width: (@grid-gutter-width * 5);
+
+        ._actions {
+            min-height: @grid-gutter-width;
+        }
+
+        ul {
+            list-style: none;
+
+            a {
+                color: @color-silder-dark4;
+                display: block;
+                margin: 0 -(@grid-gutter-width / 2);
+                padding: (@grid-gutter-width / 4)  (@grid-gutter-width / 2);
+
+                &:hover {
+                    color: @color-blue;
+                    text-decoration: none;
+                }
+            }
+
+            .active a {
+                background-color: #fff;
+                color: #000; // todox: make variable
+                font-weight: bold;
+            }
+        }
+    }
+
+    .checkbox {
+        .@{bootstrap-switch-base} { // pushing element back to intended place since Bootstrap has hack for checkbox
+            margin-left: -20px;
+            margin-right: (@grid-gutter-width / 2);
+        }
     }
 }

@@ -39,4 +39,26 @@ class Migration {
     {
         ipDb()->update('storage', array('value' => '"4.0.1"'), array('key' => 'version', 'plugin' => 'Ip'));
     }
+
+    public static function update_5()
+    {
+        //remove old installation script which is insecure.
+        $installFile = ipFile('install/index.php');
+        if (is_file($installFile) && is_writable($installFile)) {
+            unlink($installFile);
+        }
+    }
+
+    /**
+     * Rename Title widget to Heading widget.
+     */
+    public static function update_7()
+    {
+        ipDb()->update('widget', array('name' => 'Heading'), array('name' => 'Title'));
+        ipDb()->update('widgetOrder', array('widgetName' => 'Heading'), array('widgetName' => 'Title'));
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+
+        ipDb()->update('storage', array('value' => '"4.0.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
 }

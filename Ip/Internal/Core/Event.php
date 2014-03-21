@@ -20,6 +20,8 @@ class Event
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/color.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/file.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form/richtext.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/form/repositoryFile.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/form/url.js');
             ipAddJs('Ip/Internal/Core/assets/ipCore/form.js');
 
             ipAddJs('Ip/Internal/Core/assets/ipCore/validator.js');
@@ -42,17 +44,9 @@ class Event
 
         if (ipAdminId() || \Ip\Internal\Admin\Model::isLoginPage() || \Ip\Internal\Admin\Model::isPasswordResetPage()) {
             if (ipConfig()->isDebugMode()) {
-                ipAddJs('Ip/Internal/Core/assets/admin/jquery.js', null, 10); // jQuery for core
                 ipAddJs('Ip/Internal/Core/assets/admin/managementMode.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/functions.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/jquery.tools.form.js');
 
-                ipAddJs('Ip/Internal/Core/assets/admin/form/repositoryFile.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/form/color.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/form/file.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/form/richtext.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/form/url.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/form.js');
 
                 ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
                 ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
@@ -75,6 +69,14 @@ class Event
                 'ipBrowseLinkModalTemplate',
                 ipView('view/browseLinkModal.php')->render()
             );
+
+
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.full.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.browserplus.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/plupload.gears.js');
+            ipAddJs('Ip/Internal/Core/assets/ipCore/plupload/jquery.plupload.queue/jquery.plupload.queue.js');
+
+
         }
     }
 

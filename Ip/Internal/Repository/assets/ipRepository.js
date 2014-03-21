@@ -71,4 +71,4 @@ var ipRepositoryESC;
         }
     };
 
-})(ip.jQuery);
+})(jQuery);

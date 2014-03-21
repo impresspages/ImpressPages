@@ -353,4 +353,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);

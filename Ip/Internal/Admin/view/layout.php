@@ -15,7 +15,7 @@
     <?php } ?>
 
     <?php if (empty($removeAdminContentWrapper)) { ?>
-        <div class="ipAdminContentWrapper<?php if (!empty($submenu)) { ?> _hasSubmenu<?php } ?>">
+        <div class="ipAdminContentWrapper clearfix<?php if (!empty($submenu)) { ?> _hasSubmenu<?php } ?>">
     <?php } ?>
 
         <?php echo ipBlock('main'); ?>

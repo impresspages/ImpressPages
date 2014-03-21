@@ -277,7 +277,7 @@ var ipPageDragId;
             $('.ipsPages').removeClass('hidden');
 
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
-                var gridContainer = getTreeDiv();
+                var gridContainer = getPagesContainer();
                 if (!gridContainer.data('gateway')) {
                     gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
                     gridContainer.ipGrid();
@@ -288,14 +288,15 @@ var ipPageDragId;
                     });
                 }
             } else {
-                if (getTreeDiv().data('ipPageTree')) {
+                if (getPagesContainer().data('ipPageTree')) {
                     return; //alrady initialized
                 }
                 getTreeDiv().off('loaded.jstree').on('loaded.jstree', function (e) {
                     $('#page_' + $scope.selectedPageId + ' a').first().click();
                 });
-                getTreeDiv().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
+                getPagesContainer().ipPageTree({languageId: $scope.activeLanguage.id, menuName: $scope.activeMenu.alias});
                 getTreeDiv().off('changed.jstree').on('changed.jstree', function (e, data) {
+
                     if (hashIsBeingApplied) {
                         return;
                     }
@@ -305,11 +306,13 @@ var ipPageDragId;
                     $scope.$apply();
                 });
                 $(document).off('dnd_start.vakata.impresspages').on('dnd_start.vakata.impresspages', function (e, data) {
-                    var draggedElement = $(data.element).closest('li');
-                    ipPagesStartPagePosition = draggedElement.index();
-                    var parentElement = $draggedElement.closest('li.jstree-node');
-                    ipPagesStartPageParentId = parentElement.attr('pageid');
-
+                    var $draggedElement = $(data.element).closest('li');
+                    ipPagesStartPagePosition = $draggedElement.index();
+                    var $parentElement = $draggedElement.parent().closest('li.jstree-node');
+                    ipPagesStartPageParentId = $parentElement.attr('pageid');
+                    if (typeof(ipPagesStartPageParentId) == 'undefined') {
+                        ipPagesStartPageParentId = $scope.activeMenu.id;
+                    }
 
                 });
 
@@ -327,7 +330,7 @@ var ipPageDragId;
 
                     var destinationPosition = ipPagesDropPagePosition;
                     if (destinationPosition > ipPagesStartPagePosition && ipPagesStartPageParentId == destinationParentId) {
-                        destinationPosition--;
+                        destinationPosition++;
                     }
                     movePage(pageId, destinationParentId, destinationPosition);
                 });
@@ -341,20 +344,22 @@ var ipPageDragId;
             //hashIsBeingApplied = false;
         }
 
-        var getTreeDiv = function () {
+        var getPagesContainer = function () {
             return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
         }
 
-        var refresh = function () {
+        var getTreeDiv = function () {
+            return getPagesContainer().find('.ipsTreeDiv');
+        }
 
+        var refresh = function () {
             if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
-                getTreeDiv().ipGrid('refresh');
+                getPagesContainer().ipGrid('refresh');
             } else {
-                getTreeDiv().ipPageTree('destroy');
+                getPagesContainer().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
             }
-
         }
 
 
@@ -672,6 +677,6 @@ var ipPageDragId;
 
     $(window).bind('resize.ipPages', ipPagesResize);
 
-})(ip.jQuery);
+})(jQuery);
 
 
