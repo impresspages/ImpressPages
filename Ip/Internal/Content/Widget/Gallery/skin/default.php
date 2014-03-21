@@ -12,7 +12,9 @@
                 <?php echo $image['blank'] ? ' target="_blank" ' : ''; ?>
             <?php } ?>
             class="_link"
-            title="<?php echo esc($image['title']); ?>">
+            title="<?php echo esc($image['title']); ?>"
+            data-description="<?php echo isset($image['description']) ? esc($image['description'], 'attr') : ''; ?>"
+            >
             <img class="_image ipsImage" src="<?php echo esc($image['imageSmall'], 'attr'); ?>" alt="<?php echo esc($image['title'], 'attr'); ?>" />
         </a>
     </div>
