@@ -209,9 +209,10 @@ class AdminController extends \Ip\Controller
         }
 
 
-        \Ip\Internal\System\Service::cacheClear(); // this should rebuild things
-//        $lessCompiler = LessCompiler::instance();
-//        $lessCompiler->rebuild(ipConfig()->theme());
+        $lessCompiler = LessCompiler::instance();
+        $lessCompiler->rebuild(ipConfig()->theme());
+        \Ip\Internal\Core\Service::invalidateAssetCache();
+
 
         ipAddJsVariable('ipModuleDesignConfiguration', Helper::getConfigurationBoxHtml());
 

@@ -111,6 +111,14 @@
             margin-bottom: @navbar-height; // leaving space at the bottom
         }
     }
+
+    // for small screens we hide some elements
+    @media (max-width: @screen-xs-max) {
+        .nav._active,
+        .nav._right li:not(:last-child) {
+            display: none;
+        }
+    }
 }
 .ipAdminSubmenu {
     padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
