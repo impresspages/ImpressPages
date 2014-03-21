@@ -17,7 +17,7 @@
             <div class="_actions" ng-show="{{allowActions}}">
                 <button ng-click="addMenuModal()" class="btn btn-new" role="button">
                     <i class="fa fa-plus"></i>
-                    <?php _e('Add', 'ipAdmin'); ?>
+                    <?php _e('Add', 'Ip-admin'); ?>
                 </button>
             </div>
             <ul class="ipsMenuList">
@@ -33,16 +33,16 @@
                     <div class="_actions" ng-show="{{allowActions}}">
                         <button class="btn btn-new ipsAddPage" ng-click="addPageModal()" role="button">
                             <i class="fa fa-plus"></i>
-                            <?php _e('Add', 'ipAdmin'); ?>
+                            <?php _e('Add', 'Ip-admin'); ?>
                         </button>
                         <div class="btn-group">
-                            <button class="btn btn-default" title="<?php _e('Cut', 'ipAdmin'); ?>" ng-click="cutPage()" ng-class="{disabled: !selectedPageId}" role="button">
+                            <button class="btn btn-default" title="<?php _e('Cut', 'Ip-admin'); ?>" ng-click="cutPage()" ng-class="{disabled: !selectedPageId}" role="button">
                                 <i class="fa fa-cut"></i>
                             </button>
-                            <button class="btn btn-default" title="<?php _e('Copy', 'ipAdmin'); ?>" ng-click="copyPage()" ng-class="{disabled: !selectedPageId}" role="button">
+                            <button class="btn btn-default" title="<?php _e('Copy', 'Ip-admin'); ?>" ng-click="copyPage()" ng-class="{disabled: !selectedPageId}" role="button">
                                 <i class="fa fa-copy"></i>
                             </button>
-                            <button class="btn btn-default" title="<?php _e('Paste', 'ipAdmin'); ?>" ng-click="pastePage()" ng-class="{disabled: !copyPageId && !cutPageId}" role="button">
+                            <button class="btn btn-default" title="<?php _e('Paste', 'Ip-admin'); ?>" ng-click="pastePage()" ng-class="{disabled: !copyPageId && !cutPageId}" role="button">
                                 <i class="fa fa-paste"></i>
                             </button>
                         </div>

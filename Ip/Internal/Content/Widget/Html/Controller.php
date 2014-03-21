@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\Html;
 class Controller extends \Ip\WidgetController
 {
     public function getTitle() {
-        return __('HTML', 'ipAdmin', false);
+        return __('HTML', 'Ip-admin', false);
     }
 
     public function adminHtmlSnippet()

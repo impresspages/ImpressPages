@@ -60,7 +60,7 @@ class Model{
             }
 
             $moduleItem = new \Ip\Internal\Admin\MenuItem();
-            $moduleItem->setTitle(__($module, 'ipAdmin', false));
+            $moduleItem->setTitle(__($module, 'Ip-admin', false));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             $moduleItem->setIcon($this->getAdminMenuItemIcon($module));
             if ($module == $currentModule) {
@@ -82,7 +82,7 @@ class Model{
                 continue;
             }
             $moduleItem = new \Ip\Internal\Admin\MenuItem();
-            $moduleItem->setTitle(__($plugin['title'], 'ipAdmin', false));
+            $moduleItem->setTitle(__($plugin['title'], 'Ip-admin', false));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin['name'])));
             $moduleItem->setIcon($this->getAdminMenuItemIcon($plugin['name']));
             if ($plugin['name'] == $currentModule) {
@@ -168,7 +168,7 @@ class Model{
         if (!$administrator) {
             \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-            $this->errors = array('login' => __('Following user doesn\'t exist', 'ipAdmin'));
+            $this->errors = array('login' => __('Following user doesn\'t exist', 'Ip-admin'));
             return false;
         }
 
@@ -180,7 +180,7 @@ class Model{
         } else {
             \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
             ipLog()->info('Admin.incorrectLogin: {username} from {ip}', array('username' => $username, 'ip' => $ip));
-            $this->errors = array('password' => __('Incorrect password', 'ipAdmin'));
+            $this->errors = array('password' => __('Incorrect password', 'Ip-admin'));
             return false;
         }
     }

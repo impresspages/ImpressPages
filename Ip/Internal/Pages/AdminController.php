@@ -115,11 +115,11 @@ class AdminController extends \Ip\Controller
 
         $answer = array();
         if (strtotime($data['createdAt']) === FALSE) {
-            $answer['errors']['createdAt'] = __('Incorrect date format. Example:', 'ipAdmin', FALSE).date(" Y-m-d");
+            $answer['errors']['createdAt'] = __('Incorrect date format. Example:', 'Ip-admin', FALSE).date(" Y-m-d");
         }
 
         if (strtotime($data['updatedAt']) === FALSE) {
-            $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'ipAdmin', FALSE).date(" Y-m-d");
+            $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'Ip-admin', FALSE).date(" Y-m-d");
         }
 
 
@@ -169,7 +169,7 @@ class AdminController extends \Ip\Controller
 
         $title = ipRequest()->getPost('title');
         if (empty($title)) {
-            $title = __('Untitled', 'ipAdmin', false);
+            $title = __('Untitled', 'Ip-admin', false);
         }
 
         $isVisible = ipRequest()->getPost('isVisible', 0);
@@ -347,7 +347,7 @@ class AdminController extends \Ip\Controller
         $type = $request->getPost('type');
 
         if (empty($title) || empty($type)) {
-            $title = __('Untitled', 'ipAdmin', false);
+            $title = __('Untitled', 'Ip-admin', false);
         }
 
         $transliterated = \Ip\Internal\Text\Transliteration::transform($title);

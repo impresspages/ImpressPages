@@ -14,12 +14,12 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
 
     public function testDownloadLanguage()
     {
-        $translationFilename = ipFile('file/translations/original/ipPublic-lt.json');
+        $translationFilename = ipFile('file/translations/original/Ip-lt.json');
 
         $this->assertFalse(file_exists($translationFilename), 'Translation file should not exist');
 
         $downloader = new Downloader();
-        $wasDownloaded = $downloader->downloadTranslation('ipPublic', 'lt', '4.0.2');
+        $wasDownloaded = $downloader->downloadTranslation('Ip', 'lt', '4.0.2');
         $this->assertTrue($wasDownloaded, 'Translation was not downloaded');
 
         $this->assertTrue(file_exists($translationFilename), 'Translation file was not downloaded');

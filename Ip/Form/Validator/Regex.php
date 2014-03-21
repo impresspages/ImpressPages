@@ -20,9 +20,9 @@ class Regex extends \Ip\Form\Validator {
                 return $this->errorMessage;
             }
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = __('Please correct this value', 'ipAdmin');
+                $errorText = __('Please correct this value', 'Ip-admin');
             } else {
-                $errorText = __('Please correct this value', 'ipPublic');
+                $errorText = __('Please correct this value', 'Ip');
             }
             return $errorText;
         }

@@ -68,7 +68,7 @@ class Config
         if (!empty($this->config['deleteWarning'])) {
             return $this->config['deleteWarning'];
         }
-        return __('Are you sure you want to delete?', 'ipAdmin', FALSE);
+        return __('Are you sure you want to delete?', 'Ip-admin', FALSE);
     }
 
     public function actions()

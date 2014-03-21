@@ -21,40 +21,40 @@ class AdminController extends \Ip\GridController
             'actions' => array(),
             'fields' => array (
                 array(
-                    'label' => __('Subject', 'ipAdmin', FALSE),
+                    'label' => __('Subject', 'Ip-admin', FALSE),
                     'field' => 'subject'
                 ),
                 array(
-                    'label' => __('Email', 'ipAdmin', FALSE),
+                    'label' => __('Email', 'Ip-admin', FALSE),
                     'field' => 'email',
                     'preview' => __CLASS__ . '::html2text'
                 ),
                 array(
-                    'label' => __('Recipient name', 'ipAdmin', FALSE),
+                    'label' => __('Recipient name', 'Ip-admin', FALSE),
                     'field' => 'toName',
                     'preview' => FALSE
                 ),
                 array(
-                    'label' => __('Recipient email', 'ipAdmin', FALSE),
+                    'label' => __('Recipient email', 'Ip-admin', FALSE),
                     'field' => 'to',
                     'preview' => __CLASS__ . '::to'
                 ),
                 array(
-                    'label' => __('Sender name', 'ipAdmin', FALSE),
+                    'label' => __('Sender name', 'Ip-admin', FALSE),
                     'field' => 'fromName',
                     'preview' => FALSE
                 ),
                 array(
-                    'label' => __('Sender email', 'ipAdmin', FALSE),
+                    'label' => __('Sender email', 'Ip-admin', FALSE),
                     'field' => 'from',
                     'preview' => __CLASS__ . '::from'
                 ),
                 array(
-                    'label' => __('Sent at', 'ipAdmin', FALSE),
+                    'label' => __('Sent at', 'Ip-admin', FALSE),
                     'field' => 'send'
                 ),
                 array(
-                    'label' => __('Attachment', 'ipAdmin', FALSE),
+                    'label' => __('Attachment', 'Ip-admin', FALSE),
                     'field' => 'fileNames'
                 )
 

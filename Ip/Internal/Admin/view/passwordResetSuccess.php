@@ -1,7 +1,7 @@
 <div class="loginTitle">
-    <h1><?php _e('Password reset', 'ipAdmin'); ?></h1>
+    <h1><?php _e('Password reset', 'Ip-admin'); ?></h1>
 </div>
 <div class="ip loginContent">
-    <p><?php _e('Your password has been changed.', 'ipAdmin'); ?></p>
-    <p><a href="<?php echo ipFileUrl('admin'); ?>"><?php echo _e('Login', 'ipAdmin'); ?></a></p>
+    <p><?php _e('Your password has been changed.', 'Ip-admin'); ?></p>
+    <p><a href="<?php echo ipFileUrl('admin'); ?>"><?php echo _e('Login', 'Ip-admin'); ?></a></p>
 </div>

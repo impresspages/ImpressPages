@@ -167,7 +167,7 @@ class SiteController extends \Ip\Controller{
             if ($user) {
                 \Ip\Internal\Administrators\Service::sendResetPasswordLink($user['id']);
             } else {
-                $errors['username'] = __('Following administrator doesn\'t exist', 'ipAdmin', FALSE);
+                $errors['username'] = __('Following administrator doesn\'t exist', 'Ip-admin', FALSE);
             }
 
         }

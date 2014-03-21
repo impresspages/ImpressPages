@@ -93,13 +93,13 @@ class Display
         $actions = array();
         if ($this->config->allowCreate()) {
             $actions[] = array(
-                'label' => __('Add', 'ipAdmin', false),
+                'label' => __('Add', 'Ip-admin', false),
                 'class' => 'ipsCreate'
             );
         }
         if ($this->config->allowSearch()) {
             $actions[] = array(
-                'label' => __('Search', 'ipAdmin', false),
+                'label' => __('Search', 'Ip-admin', false),
                 'class' => 'ipsSearch'
             );
         }
