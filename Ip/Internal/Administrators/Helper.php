@@ -43,6 +43,13 @@ class Helper
         $field->addValidator("Required");
         $form->addField($field);
 
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa', // HTML "name" attribute
+                'value' => 'Administrators.add'
+            ));
+        $form->addField($field);
+
         return $form;
     }
 
