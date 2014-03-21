@@ -113,9 +113,8 @@
     }
 }
 .ipAdminSubmenu {
-    float: left;
-    height: 100%;
     padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2) (@grid-gutter-width / 2);
+    position: absolute; // removing from flow since float breaks clearfix in content
     width: (@grid-gutter-width * 5);
 
     ul {

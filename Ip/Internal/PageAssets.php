@@ -175,12 +175,15 @@ class PageAssets
         $revision = $this->getCurrentRevision();
 
         $page = ipContent()->getCurrentPage();
+
+        $language = ipContent()->getCurrentLanguage();
         $data = array(
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
                 'safeMode' => \Ip\Internal\Admin\Service::isSafeMode(),
-                'languageId' => ipContent()->getCurrentLanguage()->getId(),
-                'languageUrl' => ipContent()->getCurrentLanguage()->getLink(),
+                'languageId' => $language->getId(),
+                'languageUrl' => $language->getLink(),
+                'languageCode' => $language->getCode(),
                 'theme' => ipConfig()->getRaw('theme'),
                 'pageId' => $page ? $page->getId() : null,
                 'revisionId' => $revision['revisionId'],
@@ -189,7 +192,7 @@ class PageAssets
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => ipIsManagementState(),
                 'isAdminState' => ipAdminId() ? 1 : 0,
-                'disableNavbar' => ipRequest()->getQuery('disableAdminBar') ? 1 : 0
+                'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,

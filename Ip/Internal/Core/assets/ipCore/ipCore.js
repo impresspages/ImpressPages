@@ -11,8 +11,6 @@ var ipPingInterval;
 
 $(document).ready(function() {
 
-
-
     // Map widget
     if ($('.ipWidget-Map').length) {
         $('body').on('ipGoogleMapsLoaded', function () {
@@ -30,22 +28,18 @@ $(document).ready(function() {
 
     ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
 
-    if (ip.isAdminState) {
-        $(document.body).addClass('ipAdminState');
-    }
-
-    if (ip.disableNavbar) {
-        $(document.body).addClass('ipDisabledNavbar');
-    }
-
-    if (ip.isManagementState) {
-        $(document.body).addClass('ipManagementState');
-    }
+    // add ipHas... classes when core elements load
+    $(document).on('ipContentManagementInit', function() {
+        $(document.body).addClass('ipHasAdminPanel');
+    });
+    $(document).on('ipAdminPanelInit', function() {
+        $(document.body).addClass('ipHasAdminNavbar');
+    });
 
 });
 
 var ipGoogleMapsLoaded = function () {
-    $('body').trigger('ipGoogleMapsLoaded');
+    $(document.body).trigger('ipGoogleMapsLoaded');
 };
 
 var ipLoadGoogleMaps = function () {

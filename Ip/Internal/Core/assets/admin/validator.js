@@ -7,7 +7,7 @@ var validatorConfigAdmin = '';
 
     var createConfig = function(translationsKey) {
         var config = {
-            'lang' : ip.languageUrl,
+            'lang' : ip.languageCode,
             //'errorClass' : 'ipmControlError',
             'messageClass' : 'hidden', //hide default jqueryTools absolutely positioned error message
             //'position' : 'bottom left',

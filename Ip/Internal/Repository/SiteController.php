@@ -106,7 +106,7 @@ class SiteController extends \Ip\Controller{
     {
 
         //download image to TMP dir and get $resultFilename
-        $net = \Ip\Internal\NetHelper::instance();
+        $net = new \Ip\Internal\NetHelper();
         $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_'.time());
         if (!$tmpFilename) {
             return;
