@@ -43,7 +43,7 @@
         </div>
 
         <?php if ($curModTitle) { ?>
-            <ul class="nav navbar-nav _active">
+            <ul class="_active nav navbar-nav">
                 <li class="ipsItemCurrent">
                     <a href="<?php echo esc($curModUrl); ?>">
                         <?php if ($curModIcon) { ?>
@@ -55,16 +55,16 @@
             </ul>
         <?php } ?>
 
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="_right nav navbar-nav navbar-right">
             <?php foreach ($navbarButtons as $button) { ?>
             <li>
                 <a
-                    href="<?php echo empty($button['url']) ? '#' : esc($button['url'], 'attr') ?>"
-                    class="<?php echo empty($button['class']) ? '' : esc($button['class'], 'attr') ?>"
-                    title="<?php echo empty($button['hint']) ? '' : esc($button['hint'], 'attr') ?>"
+                    href="<?php echo empty($button['url']) ? '#' : esc($button['url'], 'attr'); ?>"
+                    class="<?php echo empty($button['class']) ? '' : esc($button['class'], 'attr'); ?>"
+                    title="<?php echo empty($button['hint']) ? '' : esc($button['hint'], 'attr'); ?>"
                 >
-                    <i class="fa <?php echo empty($button['faIcon']) ? '' : esc($button['faIcon'], 'attr') ?>"></i>
-                    <?php echo empty($button['text']) ? '' : $button['text'] ?>
+                    <i class="fa <?php echo empty($button['faIcon']) ? '' : esc($button['faIcon'], 'attr'); ?>"></i>
+                    <?php echo empty($button['text']) ? '' : $button['text']; ?>
                 </a>
             </li>
             <?php } ?>
