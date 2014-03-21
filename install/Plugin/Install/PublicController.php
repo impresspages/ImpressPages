@@ -65,6 +65,10 @@ class PublicController extends \Ip\Controller
 
     protected function step0()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         $this->init();
 
         $languages = array();
@@ -99,6 +103,10 @@ class PublicController extends \Ip\Controller
 
     protected function step1()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         $this->init();
 
         $checkResults = Model::checkRequirements();
@@ -219,6 +227,10 @@ class PublicController extends \Ip\Controller
 
     protected function step2()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         $this->init();
 
         Model::completeStep(2);
@@ -234,6 +246,10 @@ class PublicController extends \Ip\Controller
 
     protected function step3()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         $this->init();
 
         if (!isset($_SESSION['db'])) {
@@ -265,6 +281,10 @@ class PublicController extends \Ip\Controller
 
     protected function step4()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         $this->init();
 
         $dateTimeObject = new \DateTime();
@@ -325,6 +345,10 @@ class PublicController extends \Ip\Controller
 
     public function proceed()
     {
+        if (!Helper::isInstallAvailable()) {
+            reutrn;
+        }
+
         if (in_array($_SESSION['step'], array(0, 1, 2))) {//TODO check if there are no errors in step1
             $_SESSION['step'] = $_SESSION['step']+1;
             return new \Ip\Response\Json(array('status' => 'ok'));

@@ -7,7 +7,7 @@
 ?>
 <?php if (isset($items[0])){?>
     <?php $firstItem = $items[0]; ?>
-    <ul class="level<?php echo $depth; ?>"><?php
+    <ul <?php echo $attributesStr; ?>><?php
 foreach($items as $item) {
     echo ipView('Ip/Internal/Config/view/menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render();
 } ?></ul>
