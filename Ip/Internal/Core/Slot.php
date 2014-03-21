@@ -91,11 +91,18 @@ class Slot
             );
         }
 
-        $data += $params; // pass params to View along with other data
-        if (is_string($params['items'])) {
-            $data['items'] = \Ip\Menu\Helper::getMenuItems($params['items']);
+        if (!empty($params[0]) && is_object($params[0]) && $params[0] instanceof \Ip\Menu\Item) {
+            $params = array (
+                'items' => $params
+            );
         }
 
+
+        $data = array_merge($data, $params); // pass params to View along with other data
+
+        if (isset($params['items']) && is_string($params['items'])) {
+            $data['items'] = \Ip\Menu\Helper::getMenuItems($params['items']);
+        }
         if (empty($data['attributes']) || !is_array($data['attributes'])) {
             $data['attributes'] = array();
         }
