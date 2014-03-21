@@ -7970,9 +7970,8 @@
   margin-bottom: 40px;
 }
 .ip .ipAdminSubmenu {
-  float: left;
-  height: 100%;
   padding: 20px 0 20px 20px;
+  position: absolute;
   width: 200px;
 }
 .ip .ipAdminSubmenu ul {
@@ -8005,7 +8004,6 @@
   margin-left: 200px;
 }
 .ip .ipModuleAdministrators {
-  float: left;
   padding-left: 200px;
   width: 100%;
 }

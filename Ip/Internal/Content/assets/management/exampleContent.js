@@ -1,4 +1,4 @@
-$(document).bind('ipInitContentManagement', function () {
+$(document).bind('ipContentManagementInit', function () {
     "use strict";
     $('.ipsAdminPanelWidgetButton')
         .bind('dragstart', function (event, ui) {
