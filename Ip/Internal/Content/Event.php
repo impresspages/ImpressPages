@@ -118,10 +118,6 @@ class Event
         Model::removeRevision($info['revisionId']);
     }
 
-    public static function ipPageRevisionPublished($info)
-    {
-        Model::clearCache($info['revisionId']);
-    }
 
     public static function ipPageDeleted($info)
     {
