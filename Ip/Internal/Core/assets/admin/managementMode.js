@@ -36,7 +36,7 @@ var ipManagementMode = new function () {
             data: {aa: 'Content.setManagementMode', value: mode, securityToken: ip.securityToken},
             success: function (response) {
                 if (response) {
-                    window.location = window.location.href.split('?')[0] + '?_revision=' + ip.revisionId;
+                    window.location = window.location.href.split('#')[0].split('?')[0] + '?_revision=' + ip.revisionId;
                 } else {
                     //login has expired
                     window.location = ip.baseUrl + 'admin';
