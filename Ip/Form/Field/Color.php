@@ -13,11 +13,11 @@ class Color extends Field{
 
     public function render($doctype, $environment) {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-            $confirmText = __('Confirm', 'ipAdmin');
-            $cancelText = __('Cancel', 'ipAdmin');
+            $confirmText = __('Confirm', 'Ip-admin');
+            $cancelText = __('Cancel', 'Ip-admin');
         } else {
-            $confirmText = __('Confirm', 'ipPublic');
-            $cancelText = __('Cancel', 'ipPublic');
+            $confirmText = __('Confirm', 'Ip');
+            $cancelText = __('Cancel', 'Ip');
         }
 
         return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />';
@@ -42,9 +42,9 @@ class Color extends Field{
             return false;
         } else {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                return __('Incorrect color code', 'ipAdmin', false);
+                return __('Incorrect color code', 'Ip-admin', false);
             } else {
-                return __('Incorrect color code', 'ipPublic', false);
+                return __('Incorrect color code', 'Ip', false);
             }
         }
     }

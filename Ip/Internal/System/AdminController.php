@@ -58,7 +58,7 @@ class AdminController extends \Ip\Controller
 
         }
 
-        $_SESSION['Ip']['notes'][] = __('ImpressPages has been successfully updated.', 'ipAdmin');
+        $_SESSION['Ip']['notes'][] = __('ImpressPages has been successfully updated.', 'Ip-admin');
 
         return new \Ip\Response\Json(array(
             'status' => 'success'
@@ -81,7 +81,7 @@ class AdminController extends \Ip\Controller
             );
             ipEvent('ipUrlChanged', $eventData);
             ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
-            $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'ipAdmin');
+            $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
         } else {
             //in theory should never happen
         }

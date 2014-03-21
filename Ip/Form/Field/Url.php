@@ -20,7 +20,7 @@ class Url extends Field
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $browseButton = '
     <span class="input-group-btn">
-        <button class="ipsBrowse btn btn-default" type="button">' . __('Browse', 'ipAdmin') . '</button>
+        <button class="ipsBrowse btn btn-default" type="button">' . __('Browse', 'Ip-admin') . '</button>
     </span>
             ';
         }

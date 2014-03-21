@@ -74,9 +74,9 @@ class File extends Field
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                        $error = __('Session has ended. Please remove and re-upload files.', 'ipAdmin', false);
+                        $error = __('Session has ended. Please remove and re-upload files.', 'Ip-admin', false);
                     } else {
-                        $error = __('Session has ended. Please remove and re-upload files.', 'ipPublic', false);
+                        $error = __('Session has ended. Please remove and re-upload files.', 'Ip', false);
                     }
                     return $error;
                 }

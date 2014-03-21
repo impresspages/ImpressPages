@@ -1,1 +1,1 @@
-<?php echo __('Unknown widget.', 'ipAdmin') ?>
+<?php echo __('Unknown widget.', 'Ip-admin') ?>

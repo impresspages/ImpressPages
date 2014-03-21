@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <p class="navbar-text"><?php _e('Menu', 'ipAdmin'); ?></p>
+                <p class="navbar-text"><?php _e('Menu', 'Ip-admin'); ?></p>
             </div>
             <div class="_menuContainer ipsAdminMenuBlockContainer">
                 <nav>
@@ -28,13 +28,13 @@
 <!--                        <li>-->
 <!--                            <a href="--><?php //echo esc($helpUrl); ?><!--" target="_blank">-->
 <!--                                <i class="fa fa-fw fa-info"></i>-->
-<!--                                --><?php //_e('Help', 'ipAdmin'); ?>
+<!--                                --><?php //_e('Help', 'Ip-admin'); ?>
 <!--                            </a>-->
 <!--                        </li>-->
                         <li>
                             <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')); ?>">
                                 <i class="fa fa-fw fa-power-off"></i>
-                                <?php _e('Logout', 'ipAdmin'); ?>
+                                <?php _e('Logout', 'Ip-admin'); ?>
                             </a>
                         </li>
                     </ul>

@@ -21,16 +21,16 @@ class AdminController extends \Ip\GridController
             'sortDirection' => 'desc',
             'fields' => array(
                 array(
-                    'label' => __('Time', 'ipAdmin', FALSE),
+                    'label' => __('Time', 'Ip-admin', FALSE),
                     'field' => 'time'
                 ),
                 array(
-                    'label' => __('Message', 'ipAdmin', FALSE),
+                    'label' => __('Message', 'Ip-admin', FALSE),
                     'field' => 'message',
                     'preview' => __CLASS__ . '::previewMessage'
                 ),
                 array(
-                    'label' => __('Context', 'ipAdmin', FALSE),
+                    'label' => __('Context', 'Ip-admin', FALSE),
                     'field' => 'context',
                     'preview' => __CLASS__ . '::previewContext'
                 )

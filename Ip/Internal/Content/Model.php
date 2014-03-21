@@ -177,7 +177,7 @@ class Model
 
         if (count($widgetObject->getSkins()) > 1) {
             $optionsMenu[] = array(
-                'title' => __('Skin', 'ipAdmin', false),
+                'title' => __('Skin', 'Ip-admin', false),
                 'attributes' => array(
                     'class' => 'ipsSkin',
                     'data-skins' => json_encode($widgetObject->getSkins()),
@@ -440,22 +440,7 @@ class Model
     }
 
 
-    public static function clearCache($revisionId)
-    {
 
-//        $revision = \Ip\Internal\Revision::getRevision($revisionId);
-//        $pageContent = Model::generateBlock('main', $revisionId, false);
-//
-//        $html2text = new \Ip\Internal\Text\Html2Text();
-//        $html2text->set_html($pageContent);
-//        $pageContentText = $html2text->get_text();
-
-//        $params = array(
-//            'cached_html' => $pageContent,
-//            'cached_text' => $pageContentText
-//        );
-//        \Ip\Internal\Pages\Db::updatePage($revision['pageId'], $params);
-    }
 
     public static function updateUrl($oldUrl, $newUrl)
     {

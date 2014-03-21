@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\Gallery;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Gallery', 'ipAdmin', false);
+        return __('Gallery', 'Ip-admin', false);
     }
 
 
@@ -331,13 +331,13 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'type',
-                'label' => __('Mouse click action', 'ipAdmin', false),
+                'label' => __('Mouse click action', 'Ip-admin', false),
             ));
 
         $values = array(
-            array('lightbox', __('Lightbox', 'ipAdmin', false)),
-            array('link', __('URL', 'ipAdmin', false)),
-            array('none', __('None', 'ipAdmin', false)),
+            array('lightbox', __('Lightbox', 'Ip-admin', false)),
+            array('link', __('URL', 'Ip-admin', false)),
+            array('none', __('None', 'Ip-admin', false)),
         );
         $field->setValues($values);
         $form->addfield($field);
@@ -346,7 +346,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'url',
-                'label' => __('Url', 'ipAdmin', false),
+                'label' => __('Url', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -354,7 +354,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'blank',
-                'label' => __('Open in new window', 'ipAdmin', false),
+                'label' => __('Open in new window', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -371,7 +371,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
-                'label' => __('Title', 'ipAdmin', false),
+                'label' => __('Title', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -379,7 +379,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Textarea(
             array(
                 'name' => 'description',
-                'label' => __('Description', 'ipAdmin', false),
+                'label' => __('Description', 'Ip-admin', false),
             ));
         $form->addField($field);
 

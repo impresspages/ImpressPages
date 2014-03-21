@@ -27,9 +27,9 @@ class InArray extends \Ip\Form\Validator {
                 return $this->errorMessage;
             }
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = __('The value has to be one of:', 'ipAdmin');
+                $errorText = __('The value has to be one of:', 'Ip-admin');
             } else {
-                $errorText = __('The value has to be one of:', 'ipPublic');
+                $errorText = __('The value has to be one of:', 'Ip');
             }
             $errorText . ' ' . implode(', ', $this->values);
             return $errorText;

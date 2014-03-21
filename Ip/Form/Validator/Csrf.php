@@ -26,9 +26,9 @@ class Csrf extends Validator {
 
         if ($values[$valueKey] != $session->getSecurityToken()) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = __('Session has expired. Please refresh the page.', 'ipAdmin');
+                $errorText = __('Session has expired. Please refresh the page.', 'Ip-admin');
             } else {
-                $errorText = __('Session has expired. Please refresh the page.', 'ipPublic');
+                $errorText = __('Session has expired. Please refresh the page.', 'Ip');
             }
             $errorText;
         } else {

@@ -5,7 +5,7 @@
 $pages;
 ?>
 <?php if ($homeUrl) { ?>
-    <a href="<?php echo $homeUrl; ?>"><?php _e('Home', 'ipPublic') ?></a>
+    <a href="<?php echo $homeUrl; ?>"><?php _e('Home', 'Ip') ?></a>
     <?php echo $separator; ?>
 <?php } ?>
 <?php foreach ($pages as $key => $page) { ?>

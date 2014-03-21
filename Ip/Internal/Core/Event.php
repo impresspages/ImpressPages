@@ -36,8 +36,8 @@ class Event
         //Form init
 
         $validatorTranslations = array(
-            'ipAdmin' => static::validatorLocalizationData('ipAdmin'),
-            ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('ipPublic')
+            'Ip-admin' => static::validatorLocalizationData('Ip-admin'),
+            ipContent()->getCurrentLanguage()->getCode() => static::validatorLocalizationData('Ip')
         );
         ipAddJsVariable('ipValidatorTranslations', $validatorTranslations);
 
@@ -84,26 +84,26 @@ class Event
     protected static function validatorLocalizationData($namespace)
     {
         // TODO do this localization on client side
-        if ($namespace == 'ipPublic')
+        if ($namespace == 'Ip')
         {
             $answer = array(
-                '*'           => __('Please correct this value', 'ipPublic'),
-                ':email'      => __('Please enter a valid email address', 'ipPublic'),
-                ':number'     => __('Please enter a valid numeric value', 'ipPublic'),
-                ':url'        => __('Please enter a valid URL', 'ipPublic'),
-                '[max]'       => __('Please enter a value no larger than $1', 'ipPublic'),
-                '[min]'       => __('Please enter a value of at least $1', 'ipPublic'),
-                '[required]'  => __('Please complete this mandatory field', 'ipPublic')
+                '*'           => __('Please correct this value', 'Ip'),
+                ':email'      => __('Please enter a valid email address', 'Ip'),
+                ':number'     => __('Please enter a valid numeric value', 'Ip'),
+                ':url'        => __('Please enter a valid URL', 'Ip'),
+                '[max]'       => __('Please enter a value no larger than $1', 'Ip'),
+                '[min]'       => __('Please enter a value of at least $1', 'Ip'),
+                '[required]'  => __('Please complete this mandatory field', 'Ip')
             );
-        } elseif ($namespace == 'ipAdmin') {
+        } elseif ($namespace == 'Ip-admin') {
             $answer = array(
-                '*'           => __('Please correct this value', 'ipAdmin'),
-                ':email'      => __('Please enter a valid email address', 'ipAdmin'),
-                ':number'     => __('Please enter a valid numeric value', 'ipAdmin'),
-                ':url'        => __('Please enter a valid URL', 'ipAdmin'),
-                '[max]'       => __('Please enter a value no larger than $1', 'ipAdmin'),
-                '[min]'       => __('Please enter a value of at least $1', 'ipAdmin'),
-                '[required]'  => __('Please complete this mandatory field', 'ipAdmin')
+                '*'           => __('Please correct this value', 'Ip-admin'),
+                ':email'      => __('Please enter a valid email address', 'Ip-admin'),
+                ':number'     => __('Please enter a valid numeric value', 'Ip-admin'),
+                ':url'        => __('Please enter a valid URL', 'Ip-admin'),
+                '[max]'       => __('Please enter a value no larger than $1', 'Ip-admin'),
+                '[min]'       => __('Please enter a value of at least $1', 'Ip-admin'),
+                '[required]'  => __('Please complete this mandatory field', 'Ip-admin')
             );
         } else {
             throw new \Ip\Exception('Unknown translation domain: ' . $namespace);

@@ -1,5 +1,5 @@
 <div class="file <?php echo $classes ?> ipsRepositoryFileContainer" data-inputname="<?php echo addslashes($inputName) ?>" data-filelimit="<?php echo $fileLimit ?>">
-    <a <?php echo $attributesStr ?> class="btn btn-default ipsSelect ipmFileAddButton"  href="#" ><?php _e('Select', 'ipAdmin') ?></a>
+    <a <?php echo $attributesStr ?> class="btn btn-default ipsSelect ipmFileAddButton"  href="#" ><?php _e('Select', 'Ip-admin') ?></a>
     <div class="ipsFiles ipmFiles">
         <?php if ($value && is_array($value)) { ?>
             <?php foreach($value as $file) {  ?>
