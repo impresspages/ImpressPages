@@ -87,7 +87,7 @@ var ipColumnsInitWidthHandles = function () {
 
 }
 
-$(document).on('ipInitContentManagement', ipColumnsInitWidthHandles);
+$(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);

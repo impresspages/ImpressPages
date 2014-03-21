@@ -189,7 +189,7 @@ class PageAssets
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => ipIsManagementState(),
                 'isAdminState' => ipAdminId() ? 1 : 0,
-                'disableNavbar' => ipRequest()->getQuery('disableAdminBar') ? 1 : 0
+                'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFiles,

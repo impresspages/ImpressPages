@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     "use strict";
     ipAdmin.init();
@@ -10,10 +9,12 @@ var ipAdmin = new function () {
     var $adminMenuContainer;
     var $container;
     var $currentItem;
+    var $navbar;
 
     this.init = function () {
-        $('body').prepend($(ipAdminNavbar));
+        $(document.body).prepend($(ipAdminNavbar));
         $container = $('.ipsAdminNavbarContainer'); // the most top element physically creates a space
+        $navbar = $('.ipsAdminNavbar'); // Administration Panel that stays always visible
         $currentItem = $('.ipsItemCurrent');
 
         $adminMenu = $('.ipsAdminMenuBlock');
@@ -36,8 +37,7 @@ var ipAdmin = new function () {
             $('.ipsContentSave').addClass('hidden');
         }
 
-
-        $(window).bind('resize.ipPages', onResize);
+        $(window).bind('resize.ipAdmin', onResize);
 
         $(document).trigger('ipAdminPanelInit');
     };
@@ -54,10 +54,7 @@ var ipAdmin = new function () {
     };
 
     var fixLayout = function () {
-        var $navbar = $('.ipsAdminNavbar'); // Administration Panel that stays always visible
         $container.height($navbar.outerHeight()); // setting the height to container
-        var containerHeight = $(window).height()-$navbar.outerHeight();
-        $adminMenuContainer.height(containerHeight);
     }
 
     var refreshSession = function () {
@@ -71,11 +68,6 @@ var ipAdmin = new function () {
             }
         });
     };
-
-
-
-
-
 
     //TODO this function is duplicated in jquery.ip.contentManagement
     var save = function(publish) {
@@ -109,18 +101,20 @@ var ipAdmin = new function () {
         }
     }
 
-
-
-
     var onResize = function() {
-        var $window = $(window);
-        var $containers = $('.ipsAdminAutoHeight');
-        var contentHeight = parseInt($window.height());
-        contentHeight -= 40; // leaving place for navbar
-        $containers.css('min-height', contentHeight);
+        // Admin menu height
+        var containerHeight = $(window).height()-$navbar.outerHeight();
+        $adminMenuContainer.height(containerHeight);
+
+        // elements with 'ipsAdminAutoHeight' CSS class
+        var $container = $(window);
+        var $elements = $('.ipsAdminAutoHeight');
+        var containerHeight = parseInt($container.outerHeight());
+        var navbarHeight = parseInt($('.ipsAdminNavbarContainer').outerHeight());
+        if (navbarHeight > 0) {
+            containerHeight -= navbarHeight; // leaving place for navbar
+        }
+        $elements.css('min-height', containerHeight);
     }
 
-
-
 };
-
