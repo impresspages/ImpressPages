@@ -592,7 +592,7 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  *
  * @param $price Numeric price. Multiplied by 100.
  * @param $currency Three letter currency code. E.g. "EUR".
- * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
  * @param null $languageId Language ID.
  * @return string A currency string in specific country format.
  */
@@ -606,7 +606,7 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
  * Get formatted date string
  *
  * @param $unixTimestamp Unix timestamp.
- * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
  * @param null $languageId Language ID.
  * @return string|null A date string formatted according to country format.
  */
@@ -619,7 +619,7 @@ function ipFormatDate($unixTimestamp, $context, $languageId = null)
  * Get formatted time string
  *
  * @param $unixTimestamp Unix timestamp.
- * @param string $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
  * @param null $languageId Language ID.
  * @return string|null A time string formatted according to country format.
  */
@@ -632,7 +632,7 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
  * Get formatted date-time string
  *
  * @param $unixTimestamp Unix timestamp.
- * @param $context A context string: "ipAdmin", "ipPublic" or plugin's name.
+ * @param $context A context string: "Ip", "Ip-admin" or plugin's name.
  * @param null $languageId Language ID.
  * @return bool|mixed|null|string A date-time string formatted according to country format.
  */

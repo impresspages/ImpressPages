@@ -11,7 +11,7 @@ class Controller extends \Ip\WidgetController
 
     public function getTitle()
     {
-        return __('Columns', 'ipAdmin', false);
+        return __('Columns', 'Ip-admin', false);
     }
 
 

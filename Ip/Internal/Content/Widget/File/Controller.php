@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\File;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('File', 'ipAdmin', false);
+        return __('File', 'Ip-admin', false);
     }
 
     public function update($widgetId, $postData, $currentData) {

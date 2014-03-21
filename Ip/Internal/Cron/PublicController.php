@@ -57,7 +57,7 @@ class PublicController extends \Ip\Controller
         ipLog()->info('Cron.finished');
 
         $response = new \Ip\Response();
-        $response->setContent(__('OK', 'ipAdmin'));
+        $response->setContent(__('OK', 'Ip-admin'));
         return $response;
     }
 

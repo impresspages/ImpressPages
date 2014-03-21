@@ -46,7 +46,7 @@ class AdminController extends \Ip\GridController
             'allowSearch' => false,
             'actions' => array(
                 array(
-                    'label' => __('Add', 'ipAdmin', false),
+                    'label' => __('Add', 'Ip-admin', false),
                     'class' => 'ipsCustomAdd'
                 )
             ),
@@ -58,45 +58,45 @@ class AdminController extends \Ip\GridController
             'sortField' => 'languageOrder',
             'fields' => array(
                 array(
-                    'label' => __('Title', 'ipAdmin', false),
+                    'label' => __('Title', 'Ip-admin', false),
                     'field' => 'title',
                 ),
                 array(
-                    'label' => __('Abbreviation', 'ipAdmin', false),
+                    'label' => __('Abbreviation', 'Ip-admin', false),
                     'field' => 'abbreviation',
                     'showInList' => true
                 ),
                 array(
                     'type' => 'Checkbox',
-                    'label' => __('Visible', 'ipAdmin', false),
+                    'label' => __('Visible', 'Ip-admin', false),
                     'field' => 'isVisible'
                 ),
                 array(
-                    'label' => __('Url', 'ipAdmin', false),
+                    'label' => __('Url', 'Ip-admin', false),
                     'field' => 'url',
                     'showInList' => false,
                     'validators' => array(
-                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'ipAdmin', false)),
-                        array('Unique', array('table' => 'language', 'allowEmpty' => true), __('Language url should be unique', 'ipAdmin', false)),
-                        array('NotInArray', $reservedDirs, __('This is a system directory name.', 'ipAdmin', false)),
+                        array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'Ip-admin', false)),
+                        array('Unique', array('table' => 'language', 'allowEmpty' => true), __('Language url should be unique', 'Ip-admin', false)),
+                        array('NotInArray', $reservedDirs, __('This is a system directory name.', 'Ip-admin', false)),
                     )
                 ),
                 array(
-                    'label' => __('RFC 4646 code', 'ipAdmin', false),
+                    'label' => __('RFC 4646 code', 'Ip-admin', false),
                     'field' => 'code',
                     'showInList' => false,
                     'validators' => array(
-                        array('Unique', array('table' => 'language'), __('Language code should be unique', 'ipAdmin', false)),
+                        array('Unique', array('table' => 'language'), __('Language code should be unique', 'Ip-admin', false)),
                     )
                 ),
                 array(
                     'type' => 'Select',
-                    'label' => __('Text direction', 'ipAdmin', false),
+                    'label' => __('Text direction', 'Ip-admin', false),
                     'field' => 'textDirection',
                     'showInList' => false,
                     'values' => array(
-                        array('ltr', __('Left To Right', 'ipAdmin', false)),
-                        array('rtl', __('Right To Left', 'ipAdmin', false))
+                        array('ltr', __('Left To Right', 'Ip-admin', false)),
+                        array('rtl', __('Right To Left', 'Ip-admin', false))
                     )
                 ),
             )
@@ -120,7 +120,7 @@ class AdminController extends \Ip\GridController
             if ($language->getCode() == $code) {
                 return new \Ip\Response\Json(array(
                     'error' => 1,
-                    'errorMessage' => __('This language already exist.', 'ipAdmin', FALSE)
+                    'errorMessage' => __('This language already exist.', 'Ip-admin', FALSE)
                 ));
             }
         }
@@ -144,7 +144,7 @@ class AdminController extends \Ip\GridController
         if ($method === 'delete') {
             $languages = ipContent()->getLanguages();
             if (count($languages) === 1) {
-                return __('Can\'t delete the last language.', 'ipAdmin', false);
+                return __('Can\'t delete the last language.', 'Ip-admin', false);
             }
         } elseif ($method === 'move') {
             $languages = ipContent()->getLanguages();
@@ -162,7 +162,7 @@ class AdminController extends \Ip\GridController
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
-                    $pattern = __('Please set %s language url to non empty before moving other language to top.', 'ipAdmin', false);
+                    $pattern = __('Please set %s language url to non empty before moving other language to top.', 'Ip-admin', false);
                     $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
 
                     return $commands;
@@ -178,7 +178,7 @@ class AdminController extends \Ip\GridController
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
-                    $pattern = __('Please set %s language url to non empty before moving it down.', 'ipAdmin', false);
+                    $pattern = __('Please set %s language url to non empty before moving it down.', 'Ip-admin', false);
                     $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
 
                     return $commands;
