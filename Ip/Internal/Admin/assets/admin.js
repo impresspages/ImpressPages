@@ -117,7 +117,7 @@ var ipAdmin = new function () {
         var $containers = $('.ipsAdminAutoHeight');
         var contentHeight = parseInt($window.height());
         contentHeight -= 40; // leaving place for navbar
-        $containers.innerHeight(contentHeight);
+        $containers.css('min-height', contentHeight);
     }
 
 
