@@ -23,7 +23,7 @@ class Event
 
         if (isset($curModule) && $curModule) {
             $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
-            $curModTitle = __($curModule, 'ipAdmin', FALSE);
+            $curModTitle = __($curModule, 'Ip-admin', FALSE);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
@@ -31,7 +31,7 @@ class Event
         $navbarButtons = array(
             array(
                 'text' => '',
-                'hint' => __('Logout', 'ipAdmin', FALSE),
+                'hint' => __('Logout', 'Ip-admin', FALSE),
                 'url' => ipActionUrl(array('sa' => 'Admin.logout')),
                 'class' => 'ipsAdminLogout',
                 'faIcon' => 'fa-power-off'

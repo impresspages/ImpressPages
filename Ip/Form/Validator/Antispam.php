@@ -18,9 +18,9 @@ class Antispam extends Validator {
 
     public function getError($values, $valueKey, $environment) {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-            $errorText = __("Form security check has failed. Please refresh the page.", 'ipAdmin');
+            $errorText = __("Form security check has failed. Please refresh the page.", 'Ip-admin');
         } else {
-            $errorText = __("Form security check has failed. Please refresh the page.", 'ipPublic');
+            $errorText = __("Form security check has failed. Please refresh the page.", 'Ip');
         }
 
         if (empty($values[$valueKey])) {

@@ -80,9 +80,9 @@ class Captcha extends Field{
     public function validate($values, $valueKey, $environment) {
 
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-            $errorText = __('The characters you entered didn\'t match', 'ipAdmin', false);
+            $errorText = __('The characters you entered didn\'t match', 'Ip-admin', false);
         } else {
-            $errorText = __('The characters you entered didn\'t match', 'ipPublic', false);
+            $errorText = __('The characters you entered didn\'t match', 'Ip', false);
         }
 
 

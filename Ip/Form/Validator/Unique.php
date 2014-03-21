@@ -46,9 +46,9 @@ class Unique extends \Ip\Form\Validator
         }
 
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-            $errorText = __('The value should be unique', 'ipAdmin');
+            $errorText = __('The value should be unique', 'Ip-admin');
         } else {
-            $errorText = __('The value should be unique', 'ipPublic');
+            $errorText = __('The value should be unique', 'Ip');
         }
 
         return $errorText;

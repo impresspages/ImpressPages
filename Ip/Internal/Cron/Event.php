@@ -44,7 +44,7 @@ class Event
             $fakeCronAnswer = \Ip\ServiceLocator::application()->handleRequest($request)->getContent();
         }
 
-        if ($fakeCronAnswer != __('OK', 'ipAdmin', false)) {
+        if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
             ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
         }
     }

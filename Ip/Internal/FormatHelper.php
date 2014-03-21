@@ -60,7 +60,7 @@ class FormatHelper
                     $languageId = ipContent()->getCurrentLanguage()->getId();
                 }
                 $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
-                if ($context == 'ipAdmin') {
+                if ($context == 'Ip-admin') {
                     $code = 'en';
                 } else {
                     $code = $language->getCode();
@@ -88,7 +88,7 @@ class FormatHelper
                     $languageId = ipContent()->getCurrentLanguage()->getId();
                 }
                 $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
-                if ($context == 'ipAdmin') {
+                if ($context == 'Ip-admin') {
                     $code = 'en';
                 } else {
                     $code = $language->getCode();
@@ -116,7 +116,7 @@ class FormatHelper
                     $languageId = ipContent()->getCurrentLanguage()->getId();
                 }
                 $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
-                if ($context == 'ipAdmin') {
+                if ($context == 'Ip-admin') {
                     $code = 'en';
                 } else {
                     $code = $language->getCode();

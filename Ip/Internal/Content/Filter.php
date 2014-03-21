@@ -43,14 +43,14 @@ class Filter
     public static function ipWidgetFormFieldTypes($fieldTypes, $info = null)
     {
 
-        $typeText = __('Text', 'ipAdmin', false);
-        $typeEmail = __('Email', 'ipAdmin', false);
-        $typeTextarea = __('Textarea', 'ipAdmin', false);
-        $typeSelect = __('Select', 'ipAdmin', false);
-        $typeCheckbox = __('Checkbox', 'ipAdmin', false);
-        $typeRadio = __('Radio', 'ipAdmin', false);
-        $typeCaptcha = __('Captcha', 'ipAdmin', false);
-        $typeFile = __('File', 'ipAdmin', false);
+        $typeText = __('Text', 'Ip-admin', false);
+        $typeEmail = __('Email', 'Ip-admin', false);
+        $typeTextarea = __('Textarea', 'Ip-admin', false);
+        $typeSelect = __('Select', 'Ip-admin', false);
+        $typeCheckbox = __('Checkbox', 'Ip-admin', false);
+        $typeRadio = __('Radio', 'Ip-admin', false);
+        $typeCaptcha = __('Captcha', 'Ip-admin', false);
+        $typeFile = __('File', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['Email'] = new FieldType('Email', '\Ip\Form\Field\Email', $typeEmail);
@@ -141,24 +141,24 @@ class Filter
         if (ipContent()->getCurrentPage()) {
             if (ipIsManagementState()) {
                 $buttons[] = array(
-                    'text' => __('Preview', 'ipAdmin', false),
-                    'hint' => __('Hides admin tools', 'ipAdmin', false),
+                    'text' => __('Preview', 'Ip-admin', false),
+                    'hint' => __('Hides admin tools', 'Ip-admin', false),
                     'class' => 'ipsContentPreview',
                     'faIcon' => 'fa-eye',
                     'url' => '#'
                 );
             } else {
                 $buttons[] = array(
-                    'text' => __('Edit', 'ipAdmin', false),
-                    'hint' => __('Show widgets', 'ipAdmin', false),
+                    'text' => __('Edit', 'Ip-admin', false),
+                    'hint' => __('Show widgets', 'Ip-admin', false),
                     'class' => 'ipsContentEdit',
                     'faIcon' => 'fa-edit',
                     'url' => '#'
                 );
             }
             $buttons[] = array(
-                'text' => __('Settings', 'ipAdmin', false),
-                'hint' => __('Page settings', 'ipAdmin', false),
+                'text' => __('Settings', 'Ip-admin', false),
+                'hint' => __('Page settings', 'Ip-admin', false),
                 'class' => 'ipsAdminPageSettings',
                 'faIcon' => 'fa-gear',
                 'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage()->getId()

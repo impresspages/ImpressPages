@@ -12,7 +12,7 @@ namespace Ip\Internal\Content\Widget\Heading;
 class Controller extends \Ip\WidgetController{
 
     public function getTitle() {
-        return __('Heading', 'ipAdmin', false);
+        return __('Heading', 'Ip-admin', false);
     }
 
 
@@ -20,19 +20,19 @@ class Controller extends \Ip\WidgetController{
     {
         return array(
             array (
-                'label' => __('H1', 'ipAdmin'),
+                'label' => __('H1', 'Ip-admin'),
                 'class' => 'ipsH1'
             ),
             array (
-                'label' => __('H2', 'ipAdmin'),
+                'label' => __('H2', 'Ip-admin'),
                 'class' => 'ipsH2'
             ),
             array (
-                'label' => __('H3', 'ipAdmin'),
+                'label' => __('H3', 'Ip-admin'),
                 'class' => 'ipsH3'
             ),
             array (
-                'label' => __('Options', 'ipAdmin'),
+                'label' => __('Options', 'Ip-admin'),
                 'class' => 'ipsOptions'
             )
         );
@@ -76,8 +76,8 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'anchor',
-                'label' => __('Anchor', 'ipAdmin', false),
-                'note' => __('Anchor', 'ipAdmin') .'<span class="ipsAnchorPreview ipmAnchorPreview">'. $curUrl .'#</span>'
+                'label' => __('Anchor', 'Ip-admin', false),
+                'note' => __('Anchor', 'Ip-admin') .'<span class="ipsAnchorPreview ipmAnchorPreview">'. $curUrl .'#</span>'
             ));
         $form->addField($field);
 
@@ -85,7 +85,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'link',
-                'label' => __('Link', 'ipAdmin', false),
+                'label' => __('Link', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -93,7 +93,7 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'blank',
-                'label' => __('Open in new window', 'ipAdmin', false),
+                'label' => __('Open in new window', 'Ip-admin', false),
             ));
         $form->addField($field);
 
