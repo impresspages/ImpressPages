@@ -4,7 +4,7 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo ipRenderWidget('Title', array('title' => 'This is an example title')); ?>
+<?php echo ipRenderWidget('Heading', array('title' => 'This is an example heading')); ?>
 
 <?php echo ipRenderWidget('Text', array('text' => '
     <p>Here is a text block where to can put any information. It supports <b>bold</b>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>. To make lists is really easy:</p>

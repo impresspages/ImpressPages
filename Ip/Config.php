@@ -39,8 +39,18 @@ class Config
             }
 
             $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
-            if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
-                throw new \Exception('Could not detect base URL. Please specify baseUrl in config.php');
+            if (DIRECTORY_SEPARATOR == '/') { // unix system
+                if (strpos($server['REQUEST_URI'], $baseUrl) !== 0) {
+                    // show instructions how to set baseUrl manually
+                    include __DIR__ . '/Internal/Config/view/couldNotDetectBaseUrl.php';
+                    exit();
+                }
+            } else { // windows system
+                if (strpos(strtolower($server['REQUEST_URI']), strtolower($baseUrl)) !== 0) {
+                    // show instructions how to set baseUrl manually
+                    include __DIR__ . '/Internal/Config/view/couldNotDetectBaseUrl.php';
+                    exit();
+                }
             }
 
             $this->rawConfig['baseUrl'].= rtrim($baseUrl, '/') . '/';

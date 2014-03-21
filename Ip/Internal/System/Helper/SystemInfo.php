@@ -41,11 +41,17 @@ class SystemInfo
      */
     public static function allocateMemory($bytesRequired, $extra = 0x1000000)  //~10Mb extra
     {
-        if (!function_exists('memory_get_usage')) {
+        $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
+
+        if (!function_exists('memory_get_usage') && $memoryLimit !== '-1') {
+            //try to allocate as much as we can
+            ini_set('memory_limit', '100M');
+            ini_set('memory_limit', '150M');
+            ini_set('memory_limit', '200M');
+            ini_set('memory_limit', '500M');
             return null; // We can't calculate how much memory should be allocated
         }
 
-        $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
         if ('-1' == $memoryLimit) { // unlimited
             return true;
         }
@@ -64,4 +70,4 @@ class SystemInfo
         return true;
     }
 
-} 
+}

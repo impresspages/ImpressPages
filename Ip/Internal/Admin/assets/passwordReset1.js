@@ -1,10 +1,8 @@
-(function($){
+
+$(document).ready(function() {
     "use strict";
 
-    $(document).ready(function() {
+    $('.ipmControlInput').first().focus();
 
-        $('.ipmControlInput').first().focus();
+});
 
-    });
-
-})(ip.jQuery);

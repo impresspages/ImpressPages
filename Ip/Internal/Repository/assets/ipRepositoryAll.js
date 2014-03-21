@@ -381,4 +381,4 @@
 
     };
 
-})(ip.jQuery);
+})(jQuery);
