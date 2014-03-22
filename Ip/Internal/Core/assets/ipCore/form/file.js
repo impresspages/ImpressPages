@@ -98,9 +98,13 @@
             if (answer.error) {
                 $.proxy(methods._displayError, this)(file.id, answer.error.message);
             } else {
-                var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[file][]" type="hidden" value="' + answer.fileName + '" />');
+                var $fileInput = $('<input class="ipmUploadedData" name="" type="hidden" value="" />');
+                $fileInput.attr('name', $this.data('ipFormFile').inputName + '[file][]');
+                $fileInput.attr('value', answer.fileName);
                 $file.append($fileInput);
-                var $fileInput = $('<input class="ipmUploadedData" name="' + $this.data('ipFormFile').inputName + '[originalFileName][]" type="hidden" value="' + file.name + '" />');
+                var $fileInput = $('<input class="ipmUploadedData" name="" type="hidden" value="" />');
+                $fileInput.attr('name', $this.data('ipFormFile').inputName + '[originalFileName][]');
+                $fileInput.attr('value', file.name);
                 $file.append($fileInput);
                 $file.find('.ipmFileProgress').remove();
             }
