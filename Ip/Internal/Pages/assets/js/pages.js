@@ -118,7 +118,7 @@ var ipPageDragId;
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 deletePage($scope.selectedPageId, function () {
-                    if (confirm('Are you sure?')) {
+                    if (confirm(ipTranslationAreYouSure)) {
                         $scope.selectedPageId = null;
                         getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
                         $scope.$apply();

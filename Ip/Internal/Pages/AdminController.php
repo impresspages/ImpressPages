@@ -16,6 +16,8 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
+        ipAddJsVariable('ipTranslationAreYouSure', __('Are you sure?', 'Ip-admin', false));
+
         ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pages.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pagesLayout.js');
@@ -24,9 +26,6 @@ class AdminController extends \Ip\Controller
 
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageTree.js');
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageProperties.js');
-//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.jstree.js');
-//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.cookie.js');
-//        ipAddJs('Ip/Internal/Pages/assets/jstree/jquery.hotkeys.js');
 
 
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
