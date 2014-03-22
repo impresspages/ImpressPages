@@ -80,6 +80,10 @@ class Application
         if (empty($options['skipSession'])) {
             if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
                 session_name(ipConfig()->getRaw('sessionName'));
+                if (ipGetOption('Ip.httpOnlyCookie', 1)) {
+                    ini_set('session.cookie_httponly', 1);
+                }
+
                 session_start();
             }
         }
