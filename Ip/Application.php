@@ -219,13 +219,13 @@ class Application
                 $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
             } else {
                 if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
-                    throw new \Ip\Exception("Plugin '".$plugin."' doesn't exist or isn't activated.");
+                    throw new \Ip\Exception("Plugin '" . esc($plugin) . "' doesn't exist or isn't activated.");
                 }
                 $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
             }
 
             if (!class_exists($controllerClass)) {
-                throw new \Ip\Exception('Requested controller doesn\'t exist. ' . $controllerClass);
+                throw new \Ip\Exception('Requested controller doesn\'t exist. ' . esc($controllerClass));
             }
 
             // check if user is logged in
@@ -240,7 +240,7 @@ class Application
 
             if ($controller == 'AdminController') {
                 if (!ipAdminPermission($plugin)) {
-                    throw new \Ip\Exception('User has no permission to access ' . $plugin . '');
+                    throw new \Ip\Exception('User has no permission to access ' . esc($plugin) . '');
                 }
             }
 
