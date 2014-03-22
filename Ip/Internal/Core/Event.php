@@ -106,7 +106,7 @@ class Event
                 '[required]'  => __('Please complete this mandatory field', 'Ip-admin')
             );
         } else {
-            throw new \Ip\Exception('Unknown translation domain: ' . $namespace);
+            throw new \Ip\Exception('Unknown translation domain: ' . esc($namespace));
         }
         return $answer;
     }

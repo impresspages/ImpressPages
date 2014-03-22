@@ -169,7 +169,7 @@ class Dispatcher
                 $info = $this->extractEventNamePriority($method->getName());
                 $listener->addListener($info['name'], "{$className}::{$info['method']}", $info['priority']);
             } elseif (ipConfig()->isDevelopmentEnvironment()) {
-                throw new \Ip\Exception("{$plugin}\\{$type}::{$method->getName()} must be static.");
+                throw new \Ip\Exception(esc("{$plugin}\\{$type}::{$method->getName()} must be static."));
             }
         }
     }

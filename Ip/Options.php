@@ -129,7 +129,7 @@ class Options
         $content = file_get_contents($configFile);
         $values = json_decode($content, true);
         if (!is_array($values)) {
-            throw new \Ip\Exception("Can't parse configuration file: " . $configFile);
+            throw new \Ip\Exception("Can't parse configuration file: " . esc($configFile));
         }
         foreach ($values as $key => $value) {
             ipSetOption($key, $value);

@@ -80,7 +80,7 @@ class Model
         }
 
         if (!is_writable(ipFile('Plugin/'))) {
-            throw new \Ip\Exception('Please make plugin dir writable (' . $this->getThemePluginDir() . ')');
+            throw new \Ip\Exception('Please make plugin dir writable (' . esc($this->getThemePluginDir()) . ')');
         }
 
         $helper = Helper::instance();
@@ -169,7 +169,7 @@ class Model
     {
         $themes = $this->getAvailableThemes();
         if (!isset($themes[$themeName])) {
-            throw new \Ip\Exception("Theme '" . $themeName . "' does not exist.");
+            throw new \Ip\Exception("Theme '" . esc($themeName) . "' does not exist.");
         }
         $theme = $themes[$themeName];
 
