@@ -30,7 +30,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
     {
         $model = Model::instance();
         //download theme
-        $net = \Ip\Internal\NetHelper::instance();
+        $net = new \Ip\Internal\NetHelper();
         $themeTempFilename = $net->downloadFile($url, ipFile('file/secure/tmp/'), $name . '.zip');
 
         if (!$themeTempFilename) {

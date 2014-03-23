@@ -203,10 +203,16 @@ class Model
 
     public function getMarketUrl()
     {
-        if (defined('TEST_MARKET_URL')) {
-            $marketUrl = TEST_MARKET_URL . 'themes-v1/';
+        if (ipGetOption('Ip.disableThemeMarket', 0)) {
+            return '';
+        }
+
+        if (ipConfig()->getRaw('themeMarketUrl')) {
+            $marketUrl = ipConfig()->getRaw('themeMarketUrl') . 'themes-v1/?version=4';
+        } elseif(ipConfig()->getRaw('testMode')) {
+            $marketUrl = 'http://local.market.impresspages.org/themes-v1/?version=4';
         } else {
-            $marketUrl = 'http://market.impresspages.org/themes-v1/';
+            $marketUrl = 'http://market.impresspages.org/themes-v1/?version=4';
         }
         return $marketUrl;
     }
