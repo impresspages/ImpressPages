@@ -8425,16 +8425,8 @@
   outline: none;
   padding: 10px 20px;
 }
-.ip .ipModuleDesignConfig fieldset legend:before {
-  content: '\25BC';
-  display: inline-block;
-  margin-right: 10px;
-}
 .ip .ipModuleDesignConfig fieldset legend.collapsed {
   background-color: #dcdcdc;
-}
-.ip .ipModuleDesignConfig fieldset legend.collapsed:before {
-  content: '\25BA';
 }
 .ip .ipModuleDesignConfig fieldset .form-group {
   padding: 0 20px;
