@@ -9908,28 +9908,28 @@
   margin: 0;
   padding: 0;
 }
-.ipWidget {
+.ipHasAdminPanel .ipWidget {
   min-height: 22px;
 }
-.ipWidget:before,
-.ipWidget:after {
+.ipHasAdminPanel .ipWidget:before,
+.ipHasAdminPanel .ipWidget:after {
   content: " ";
   display: table;
 }
-.ipWidget:after {
+.ipHasAdminPanel .ipWidget:after {
   clear: both;
 }
-.ipWidget:hover {
+.ipHasAdminPanel .ipWidget:hover {
   outline: #4d4d4d dashed 1px;
 }
-.ipWidget.ipWidget-Columns:hover {
+.ipHasAdminPanel .ipWidget.ipWidget-Columns:hover {
   outline: 0;
 }
-.ipWidget:hover > .ip > .ipAdminWidgetControls ._controls *,
-.ipMobile .ipWidget:hover > .ip > .ipAdminWidgetControls ._controls * {
+.ipHasAdminPanel .ipWidget:hover > .ip > .ipAdminWidgetControls ._controls *,
+.ipMobile .ipHasAdminPanel .ipWidget:hover > .ip > .ipAdminWidgetControls ._controls * {
   visibility: visible;
 }
-.ipAdminWidgetDragIcon {
+.ipHasAdminPanel .ipAdminWidgetDragIcon {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAYAAADhu0ooAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAe5JREFUeNrsm89OwkAQxrdk9QGITRq5yDP4IF68yAmDB04ekUaOJZAePRgPGjlhTLj4HIZnKBdMk/UJSJo6gyXZrPwtQnfLfMmw2dKS/pj5dgvdWoyxI4hbiEsIh22gOI7LbI+yLCvY8JAQYgDxYMFLA07YZzkWfEENBB0C6HnOQYcc2qK8sdVq3fR6vevxeHya5kP/q5xTlOlUpVLpq1qtvnqe9yxtLnJ5J9d1691u987k7GGC2u32fRRFvNPpPMnvBZAFzASzbftT7psayIAscr8gEwshTvLiS5WFrzpgW8/uWgs8OVeBnGK532w268m2WPMI8FwXcST9xaCJZ2MTQvWkysXXrfPkAB3nyLXGlwI7EBEogZoKuu+fWlkIGal0CZRA9RbP8j+gXQ4+VLoESqAESqAESqAESqAESqAESqAESqBZgeLt9LS31HXSPA4qXQIlUM1B8zD4rDM4UekSKIHqraWrUmzb/hZCnCWG1hoEzzV1Rmu12gs0IwMSNsLVY6kziqsjJ5PJcb/fvwrD0NGR0HGcsFKpvPm+/7h0imG/K6zKs/kGW9NvH6ocf+bRVXVuklQWrnoSFyZvc7WU9QrsmVTPctM8mdazB/PwAHr0/QCuFwaYUXzApwFxgR7Owo879K2A+IDwfwQYAKu03z6zSpuwAAAAAElFTkSuQmCC) no-repeat;
   height: 58px;
   opacity: 0.45;
@@ -9937,27 +9937,27 @@
   width: 58px;
   z-index: 1020;
 }
-.ipAdminWidgetPlaceholderVertical,
-.ipAdminWidgetPlaceholderHorizontal {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical,
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal {
   background-color: transparent;
 }
-.ipAdminWidgetPlaceholderVertical ._marker,
-.ipAdminWidgetPlaceholderHorizontal ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical ._marker,
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal ._marker {
   background: #7ecefd;
   display: none;
   outline: #019bd4 solid 1px;
 }
-.ipAdminWidgetPlaceholderVertical.hover ._marker,
-.ipAdminWidgetPlaceholderHorizontal.hover ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical.hover ._marker,
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal.hover ._marker {
   display: block;
 }
-.ipAdminWidgetPlaceholderVertical ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical ._marker {
   width: 1px;
 }
-.ipAdminWidgetPlaceholderHorizontal ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal ._marker {
   height: 1px;
 }
-.ipAdminWidgetColsResizeHandler {
+.ipHasAdminPanel .ipAdminWidgetColsResizeHandler {
   background: #7ecefd;
   cursor: col-resize;
   outline: #019bd4 solid 1px;
@@ -9966,7 +9966,7 @@
   width: 3px;
   z-index: 1020;
 }
-.ipAdminWidgetColsResizeHandler:hover {
+.ipHasAdminPanel .ipAdminWidgetColsResizeHandler:hover {
   opacity: 1;
 }
 .ipModuleInlineManagement._empty {
