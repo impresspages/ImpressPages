@@ -228,7 +228,7 @@ class Model
         $hasChanged = false;
 
         foreach ($items as $path) {
-            if (filemtime($path) > $lastBuildTime) {
+            if (is_file($path) && filemtime($path) > $lastBuildTime) {
                 $hasChanged = true;
                 break;
             }
@@ -240,7 +240,7 @@ class Model
 
         $js = '';
         foreach ($items as $path) {
-            if (is_readable($path)) {
+            if (is_file($path) && is_readable($path)) {
                 $js .= file_get_contents($path);
             } else {
                 ipLog()->error('Cannot read file to minify it: '. $path);
@@ -260,7 +260,7 @@ class Model
         $hasChanged = false;
 
         foreach ($items as $path) {
-            if (filemtime($path) > $lastBuildTime) {
+            if (is_file($path) && filemtime($path) > $lastBuildTime) {
                 $hasChanged = true;
                 break;
             }
@@ -272,7 +272,7 @@ class Model
 
         $css = '';
         foreach ($items as $path) {
-            if (is_readable($path)) {
+            if (is_file($path) && is_readable($path)) {
                 $css .= file_get_contents($path);
             } else {
                 ipLog()->error('Cannot read file to minify it: '. $path);
