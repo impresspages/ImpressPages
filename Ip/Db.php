@@ -20,9 +20,13 @@ class Db
 
     protected $tablePrefix;
 
-    public function __construct()
+    public function __construct($pdo = null)
     {
-        $this->getConnection();
+        if ($pdo) {
+            $this->pdoConnection = $pdo;
+        } else {
+            $this->getConnection();
+        }
     }
 
     /**
