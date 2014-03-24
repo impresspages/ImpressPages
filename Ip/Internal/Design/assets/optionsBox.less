@@ -26,7 +26,7 @@
     }
     fieldset {
         legend {
-            background-color: #ecebeb; // todox: move to variables
+            background-color: @color-silver5;
             cursor: pointer;
             font-size: @font-size-small;
             font-weight: bold;
@@ -34,17 +34,8 @@
             outline: none;
             padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
 
-            &:before {
-                content: '\25BC';
-                display: inline-block;
-                margin-right: (@grid-gutter-width / 4);
-            }
             &.collapsed {
-                background-color: #dcdcdc; // todox: move to variables
-
-                &:before {
-                    content: '\25BA';
-                }
+                background-color: @color-silver6;
             }
         }
         .form-group {

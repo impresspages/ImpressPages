@@ -68,7 +68,7 @@ class Actions
             $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("updateData method in class " . get_class($fieldObject) . " has to return array.");
+                throw new \Ip\Exception("updateData method in class " . esc(get_class($fieldObject)) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
@@ -91,7 +91,7 @@ class Actions
             $fieldObject->beforeCreate(null, $data);
             $fieldData = $fieldObject->createData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("createData method in class " . get_class($fieldObject) . " has to return array.");
+                throw new \Ip\Exception("createData method in class " . esc(get_class($fieldObject)) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }

@@ -108,7 +108,7 @@ class Job
             $controllerClass = $info['controllerClass'];
             $controller = new $controllerClass();
             if (!$controller instanceof \Ip\Controller) {
-                throw new \Ip\Exception($controllerClass . ".php must extend \\Ip\\Controller class.");
+                throw new \Ip\Exception(esc ($controllerClass) . ".php must extend \\Ip\\Controller class.");
             }
 
             $callableAction = array($controller, $info['action']);
@@ -132,7 +132,7 @@ class Job
             } elseif ($parameter->isOptional()) {
                 $arguments[]= $parameter->getDefaultValue();
             } else {
-                throw new \Ip\Exception("Controller action requires $name parameter", array('route' => $info, 'requiredParameter' => $name));
+                throw new \Ip\Exception("Controller action requires " . esc($name) . " parameter", array('route' => $info, 'requiredParameter' => $name));
             }
         }
 

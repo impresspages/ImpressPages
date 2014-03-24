@@ -500,6 +500,9 @@
         $.each($('.ipBlock .ipWidget').not('.ipbEmpty .ipWidget'), function (widgetKey, widget) {
             var $widget = $(widget);
             var widgetController = $widget.data('widgetController');
+            if (!widgetController) {
+                widgetController = {};
+            }
             if (!widgetController.splitParts) {
                 widgetController.splitParts = function () {return new Array()};
             }

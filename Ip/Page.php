@@ -67,6 +67,7 @@ class Page
         if (!is_array($id)) {
             $page = ipDb()->selectRow('page', '*', array('id' => $id));
             if (!$page) {
+                $id = esc($id);
                 throw new \Ip\Exception("Page #{$id} not found.");
             }
         } else {

@@ -110,7 +110,7 @@ class Revision{
 
 
         if (!$wasUpdated) {
-            throw new \Ip\Exception\Db("Can't publish page #{$revision['pageId']} revision #{$revisionId}");
+            throw new \Ip\Exception\Db("Can't publish page #" . esc($revision['pageId']) . " revision #" . esc($revisionId) . "");
         }
 
         ipEvent('ipPageRevisionPublished', array('revisionId' => $revisionId));
@@ -121,7 +121,7 @@ class Revision{
         $oldRevision = self::getRevision($oldRevisionId);
 
         if (!$oldRevision) {
-            throw new \Ip\Exception\Revision("Can't find old revision: ".$oldRevisionId);
+            throw new \Ip\Exception\Revision("Can't find old revision: " . esc($oldRevisionId));
         }
 
         if ($pageId !== null) {

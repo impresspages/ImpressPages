@@ -53,7 +53,7 @@ class PathHelper
 
         $baseDir = str_replace('\\', '/', $baseDir);
         if (strpos($absoluteFile, $baseDir) !== 0) {
-            throw new \Ip\Exception('Cannot find relative path for file ' . $absoluteFile);
+            throw new \Ip\Exception('Cannot find relative path for file ' . esc($absoluteFile));
         }
 
         $relativeFile = substr($absoluteFile, strlen($baseDir) + 1);
