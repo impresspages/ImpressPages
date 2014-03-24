@@ -131,8 +131,8 @@ var ipPageDragId;
             var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
             if (!$nodeLink.hasClass('jstree-clicked')) {
                 hashIsBeingApplied = true;
-                getTreeDiv().jstree("deselect_all");
                 getTreeDiv().on('ready.jstree', function () {
+                    getTreeDiv().jstree("deselect_all");
                     getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
                 });
                 hashIsBeingApplied = false;
