@@ -35,7 +35,7 @@
                     <h4 class="modal-title"><?php _e('Update in progress', 'Ip-admin'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient it may take up to 2 min. on good line.', 'Ip-admin') ?></p>
+                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient it may take up to 2 min. on a good line.', 'Ip-admin') ?></p>
                 </div>
             </div>
         </div>
