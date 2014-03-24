@@ -461,7 +461,6 @@ var ipPageDragId;
                 data: data,
                 context: this,
                 success: function () {
-                    //$('.ipsProperties').addClass('hidden');
                     updateHash(null, null, 0);
                     $scope.$apply();
 
@@ -596,30 +595,7 @@ var ipPageDragId;
                 dataType: 'json'
             });
         }
-//
-//        var deleteMenu = function (menuAlias) {
-//            var data = {
-//                aa: 'Pages.deleteMenu',
-//                menu: menuAlias,
-//                securityToken: ip.securityToken
-//            };
-//
-//            $.ajax({
-//                type: 'POST',
-//                url: ip.baseUrl,
-//                data: data,
-//                context: this,
-//                success: function (response) {
-//                    window.location = ip.baseUrl + '?aa=Pages.index';
-//                },
-//                error: function (response) {
-//                    if (ip.developmentEnvironment || ip.debugMode) {
-//                        alert('Server response: ' + response.responseText);
-//                    }
-//                },
-//                dataType: 'json'
-//            });
-//        }
+
 
         var getHashParams = function () {
 
