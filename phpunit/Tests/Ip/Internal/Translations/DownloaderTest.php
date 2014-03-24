@@ -19,7 +19,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(file_exists($translationFilename), 'Translation file should not exist');
 
         $downloader = new Downloader();
-        $wasDownloaded = $downloader->downloadTranslation('Ip', 'lt', '4.0.2');
+        $wasDownloaded = $downloader->downloadTranslation('Ip', 'lt', CURRENT_VERSION);
         $this->assertTrue($wasDownloaded, 'Translation was not downloaded');
 
         $this->assertTrue(file_exists($translationFilename), 'Translation file was not downloaded');
