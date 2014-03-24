@@ -400,9 +400,13 @@ class Content
      * Get childre
      * @param string|int $parent
      */
-    public function getChildren($parent, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
+    public function getChildren($parentId = null, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
-        $page = $this->getPage($parent);
+        if ($parentId === null) {
+            $parentId = $this->getCurrentPage()->getId();
+        }
+
+        $page = $this->getPage($parentId);
         if (!$page) {
             return;
         }
