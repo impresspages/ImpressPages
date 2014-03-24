@@ -177,6 +177,8 @@ var ipPageDragId;
                 context: this,
                 success: function (response) {
                     $modal.find('.ipsBody').html(response.html);
+                    ipInitForms();
+
                     $modal.find('.ipsDelete').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').removeClass('hidden');
                         $modal.find('.ipsBody').addClass('hidden');
@@ -196,19 +198,16 @@ var ipPageDragId;
                         $modal.find('.ipsDeleteProceed').off('click');
                     });
 
+
                     $modal.find('.ipsSave').off('click').on('click', function () {
                         $modal.find('form').submit()
                     });
-                    $modal.find('form').off('submit').on('submit', function (e) {
-                        e.preventDefault();
-                        var menuId = $modal.find('input[name=id]').val();
-                        var title = $modal.find('input[name=title]').val();
-                        var alias = $modal.find('input[name=alias]').val();
-                        var layout = $modal.find('select[name=layout]').val();
-                        var type = $modal.find('select[name=type]').val();
-                        var languageCode = $scope.activeLanguage.code;
-                        updateMenu(menuId, alias, title, layout, type);
-                        $modal.modal('hide');
+                    $modal.find('form').off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
+                        if (response.status == 'ok') {
+                            window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
+                            location.reload();
+                            $modal.modal('hide');
+                        }
                     });
 
                 },
@@ -567,34 +566,6 @@ var ipPageDragId;
             $location.path(path);
         }
 
-        var updateMenu = function (menuId, alias, title, layout, type) {
-            var data = {
-                aa: 'Pages.updateMenu',
-                id: menuId,
-                alias: alias,
-                title: title,
-                layout: layout,
-                type: type,
-                securityToken: ip.securityToken
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: ip.baseUrl,
-                data: data,
-                context: this,
-                success: function (response) {
-                    window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
-                    location.reload();
-                },
-                error: function (response) {
-                    if (ip.developmentEnvironment || ip.debugMode) {
-                        alert('Server response: ' + response.responseText);
-                    }
-                },
-                dataType: 'json'
-            });
-        }
 
 
         var getHashParams = function () {

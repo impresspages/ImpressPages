@@ -119,12 +119,6 @@ class Helper
             ));
         $form->addField($field);
 
-        $field = new \Ip\Form\Field\Submit(
-            array(
-                'name' => 'submit',
-                'value' => __('Save', 'Ip-admin', FALSE)
-            ));
-        $form->addField($field);
 
         return $form;
     }
