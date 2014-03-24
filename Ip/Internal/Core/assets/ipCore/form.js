@@ -46,7 +46,9 @@ var ipModuleFormPublic;
             });
 
             $('.ipsModuleFormPublic.ipsAjaxSubmit').validator(validatorConfigPublic);
-            $('.ipsModuleFormAdmin.ipsAjaxSubmit').validator(validatorConfigAdmin);
+            if (typeof(validatorConfigAdmin) !== 'undefined') {
+                $('.ipsModuleFormAdmin.ipsAjaxSubmit').validator(validatorConfigAdmin);
+            }
             $('.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
                 var $form = $(this);
                 var type = 'GET';
