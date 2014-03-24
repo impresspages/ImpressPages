@@ -132,9 +132,12 @@ var ipPageDragId;
             if (!$nodeLink.hasClass('jstree-clicked')) {
                 hashIsBeingApplied = true;
                 getTreeDiv().jstree("deselect_all");
-                getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                getTreeDiv().on('ready.jstree', function () {
+                    getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                });
                 hashIsBeingApplied = false;
             }
+            alert('something');
         }
 
         $scope.addPageModal = function () {
@@ -276,7 +279,6 @@ var ipPageDragId;
         }
 
         var showPages = function () {
-            //hashIsBeingApplied = true;
             $scope.selectedPageId = null;
             if (!$scope.activeMenu) {
                 $('.ipsPages').addClass('hidden');
@@ -350,7 +352,6 @@ var ipPageDragId;
                 });
 
             }
-            //hashIsBeingApplied = false;
         }
 
         var getPagesContainer = function () {
