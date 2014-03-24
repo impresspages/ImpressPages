@@ -64,6 +64,7 @@
             if (response.status && response.status == 'success') {
                 //page has been successfully updated
                 $this.trigger('update.ipPages');
+                $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
             }
         });
 
@@ -76,7 +77,15 @@
             $this.trigger('edit.ipPages');
         });
 
-        ipInitForms();
+
+        $this.find('.ipsSave').off().on('click', function () {
+            $this.find("form").submit();
+        })
+
+        $this.find('input,select').off().on('change keydown input', function () {
+            $this.find('.ipsSave').removeClass('brn-default').addClass('btn-primary');
+        });
+
 
     }
 

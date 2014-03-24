@@ -330,7 +330,7 @@ class AdminController extends \Ip\Controller
         Service::updateMenu($menuId, $alias, $title, $layout, $type);
 
         $answer = array(
-            'status' => 'success'
+            'status' => 'ok'
         );
 
         return new \Ip\Response\Json($answer);
