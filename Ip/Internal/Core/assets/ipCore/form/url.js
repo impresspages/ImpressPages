@@ -27,7 +27,7 @@
                     $this.find('.ipsBrowse').on('click', function () {
                         ipBrowseLink(function(link) {
                             if (link) {
-                                $input.val(link);
+                                $input.val(link).change();
                             }
                         });
                     });
