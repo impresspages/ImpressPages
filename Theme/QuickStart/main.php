@@ -2,7 +2,7 @@
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss('assets/ipContent.css');
+    ipAddCss('Ip/Internal/Core/assets/ipContent/ipContent.css');
     ipAddCss('assets/theme.css');
     echo ipHead();
     ?>
