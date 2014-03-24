@@ -85,7 +85,7 @@ class Logo
                     100
                 );
                 $requestedName = ipGetOption('Config.websiteTitle');
-                $this->image = ipReflection($this->getImageOrig(), $requestedName, $transform);
+                $this->image = ipReflection($this->getImageOrig(), $transform, $requestedName);
             }
         } else {
             $this->image = $defaultLogo;

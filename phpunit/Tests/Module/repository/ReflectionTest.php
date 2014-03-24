@@ -33,7 +33,7 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
         //Create reflection
         $transformSmall = new \Ip\Transform\ImageCrop(11, 12, 23, 24, 15, 16);//nearly random coordinates
-        $reflectionFile = ipReflection($repositoryFile, null, $transformSmall);
+        $reflectionFile = ipReflection($repositoryFile, $transformSmall, null);
         if ($reflectionFile == 'file/') {
             $e = ipReflectionException();
             $data = $e->getData();

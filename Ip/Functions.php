@@ -920,14 +920,14 @@ function ipThemeStorage($theme = NULL)
 /**
  * Get a modified copy of original file in repository
  * @param string $file (just filename. No path required)
- * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
  * @param \Ip\Transform $transform transformation object that does the modification of original file
+ * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
  * @return string path to modified copy starting from website's root. use ipFileUrl and ipFile functions to get full URL or full path to that file
  */
-function ipReflection($file, $desiredName = null, \Ip\Transform $transform = null)
+function ipReflection($file, \Ip\Transform $transform = null, $desiredName = null)
 {
     $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
-    return $reflectionService->getReflection($file, $desiredName, $transform);
+    return $reflectionService->getReflection($file, $transform, $desiredName);
 }
 
 
