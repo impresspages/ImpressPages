@@ -34,7 +34,7 @@
         </div>
     </div>
 </div>
-<iframe style="width: 0px; height: 0px; border: none;" border="0" src="http://www.impresspages.org/installationscript/?step=<?php echo !empty($_GET['step']) ? $_GET['step'] : '0' ?>"></iframe>
+<iframe style="width: 0px; height: 0px; border: none;" border="0" src="http://www.impresspages.org/installationscript/?step=<?php echo !empty($_GET['step']) && $_GET['step'] >=0 ? (int)$_GET['step'] : '0' ?>"></iframe>
 
 <?php if (!empty($requiredJs)) { ?>
     <?php foreach($requiredJs as $jsFile) { ?>
