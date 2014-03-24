@@ -280,12 +280,7 @@ class Helper
         $fieldset = new \Ip\Form\Fieldset();
         $form->addFieldset($fieldset);
 
-        $field = new \Ip\Form\Field\Submit(
-            array(
-                'name' => 'submit',
-                'value' => __('Save', 'Ip-admin', FALSE)
-            ));
-        $form->addField($field);
+
 
         return $form;
     }
