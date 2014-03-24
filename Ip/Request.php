@@ -249,7 +249,7 @@ class Request
 
         $relativePath = substr($requestPath, strlen($basePath));
 
-        return $relativePath ? $relativePath : '';
+        return $relativePath ? ltrim($relativePath, '/') : '';
     }
 
     /**
