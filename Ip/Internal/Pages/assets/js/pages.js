@@ -137,7 +137,6 @@ var ipPageDragId;
                 });
                 hashIsBeingApplied = false;
             }
-            alert('something');
         }
 
         $scope.addPageModal = function () {
