@@ -22,7 +22,7 @@ if(sizeof($menuItem->getChildren()) > 0) {
 $css[] = 'type'.ucwords($menuItem->getType());
 
 if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
-    $href = 'href="'.$menuItem->getUrl().'"';
+    $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
 } else {
     $css[] = 'disabled';
     $href = '';

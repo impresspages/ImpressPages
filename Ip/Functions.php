@@ -846,6 +846,7 @@ function ipView($file, $data = array(), $_callerDepth = 0)
 
     // File was not found, check whether it is in theme override dir
     if (strpos($relativePath, 'Theme/' . ipConfig()->theme() . '/override/') !== 0) {
+        $file = esc($file);
         throw new \Ip\Exception\View("View {$file} not found.");
     }
 
@@ -856,6 +857,7 @@ function ipView($file, $data = array(), $_callerDepth = 0)
     if (file_exists($possiblePath)) {
         $absolutePath = $possiblePath;
     } else {
+        $file = esc($file);
         throw new \Ip\Exception\View("View {$file} not found.");
     }
 

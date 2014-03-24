@@ -42,15 +42,15 @@ class Model{
         $config = Model::getPluginConfig($pluginName);
 
         if (!$config) {
-            throw new \Ip\Exception(ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . ' doesn\'t exist or is incorrect');
+            throw new \Ip\Exception(ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . ' doesn\'t exist or is incorrect');
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
-            throw new \Ip\Exception('Plugin name setting in ' . ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . " doesn't match the folder name.");
+            throw new \Ip\Exception('Plugin name setting in ' . ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . " doesn't match the folder name.");
         }
 
         if (empty($config['version'])) {
-            throw new \Ip\Exception('Missing plugin version number in ' . ipFile('Plugin/' . $pluginName . '/Setup/plugin.json') . " file.");
+            throw new \Ip\Exception('Missing plugin version number in ' . ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . " file.");
         }
 
         if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
@@ -180,10 +180,10 @@ class Model{
         try {
             $result = Helper::removeDir($pluginDir);
             if (!$result) {
-                throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
+                throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . esc($pluginDir));
             }
         } catch (\Ip\PhpException $e) {
-            throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . $pluginDir);
+            throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . esc($pluginDir));
         }
 
         ipLog()->info('Ip.pluginRemoved: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));

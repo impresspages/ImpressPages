@@ -114,11 +114,11 @@ var ipPageDragId;
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), title);
+                getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 deletePage($scope.selectedPageId, function () {
-                    if (confirm('Are you sure?')) {
+                    if (confirm(ipTranslationAreYouSure)) {
                         $scope.selectedPageId = null;
                         getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
                         $scope.$apply();
@@ -263,6 +263,16 @@ var ipPageDragId;
                     refresh();
                 });
             }
+        }
+
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
         var showPages = function () {

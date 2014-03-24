@@ -127,20 +127,6 @@ class Slot
 
 
 
-
-
-        $data['ulId'] = '';
-        if (isset($params['attributes']['ul']['id']))
-        {
-            $data['ulId'] = 'id="'.$params['attributes']['ul']['id'].'"';
-        }
-
-
-        if (isset($params['attributes']['ul']['class']))
-        {
-            $data['ulClass'] .= ' ' . $params['attributes']['ul']['class'];
-        }
-
         $viewFile = ipFile('Ip/Internal/Config/view/menu.php');
         $view = ipView($viewFile, $data);
         return $view->render();

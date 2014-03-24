@@ -56,7 +56,7 @@ class JsTreeHelper
 
             $pageData['li_attr'] = array('id' => $jsTreeId, 'rel' => 'page', 'languageId' => $languageCode, 'pageId' => $page['id']);
             $pageData['data'] = array ('title' => $page['title'] . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
-            $pageData['text'] = $page['title'];
+            $pageData['text'] = htmlspecialchars($page['title']);
             $answer[] = $pageData;
         }
 
