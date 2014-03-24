@@ -58,7 +58,7 @@ class Migration {
         ipDb()->update('widgetOrder', array('widgetName' => 'Heading'), array('widgetName' => 'Title'));
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
 
-        ipDb()->update('storage', array('value' => '"4.0.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+        ipDb()->update('storage', array('value' => '"4.0.3"'), array('key' => 'version', 'plugin' => 'Ip'));
     }
 
 }
