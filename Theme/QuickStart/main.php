@@ -2,9 +2,9 @@
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
     <?php
-    ipAddCss('Ip/Internal/Core/assets/ipContent/ipContent.css');
-    ipAddCss('assets/theme.css');
-    echo ipHead();
+        ipAddCss('Ip/Internal/Core/assets/ipContent/ipContent.css'); // include default CSS for widgets
+        ipAddCss('assets/theme.css');
+        echo ipHead();
     ?>
 </head>
 <body>
