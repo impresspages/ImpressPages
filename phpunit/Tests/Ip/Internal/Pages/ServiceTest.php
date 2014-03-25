@@ -85,4 +85,85 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         Service::deletePage($firstPageId);
     }
 
+    public function testDeletePage()
+    {
+        $pageId = Service::addPage(0, 'To be deleted...', array('languageCode' => 'en'));
+        Service::deletePage($pageId);
+
+        $page = Service::getPage($pageId);
+        $this->assertEmpty($page);
+
+        $page = ipDb()->selectRow('page', '*', array('id' => $pageId));
+        $this->assertNotEmpty($page);
+
+        $this->assertTrue($this->isNear($page['deletedAt']));
+    }
+
+    public function testRemoveDeletedBefore()
+    {
+        $pages = array();
+        $pages[]= Service::addPage(0, 'To be deleted...', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'First', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'Second', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'Third', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'Fourth', array('languageCode' => 'en'));
+
+        Service::deletePage($pages[1]); // this page should be garbage collected
+        Service::deletePage($pages[4]); // this page should be garbage collected
+        $garbageCollectionTime = strtotime('+1 second');
+
+        sleep(2);
+        Service::deletePage($pages[2]); // this page should not be garbage collected
+
+
+        Service::removeDeletedBefore(date('Y-m-d H:i:s', $garbageCollectionTime));
+
+        $leftovers = ipDb()->selectAll('page', '*', array('parentId' => $pages[0]));
+        $this->assertEquals(2, count($leftovers), 'Only two pages should be left');
+        $this->assertEquals($pages[2], $leftovers[0]['id']); // this page is deleted but not garbage collected
+        $this->assertEquals($pages[3], $leftovers[1]['id']);
+
+        $this->assertNotEmpty(ipDb()->selectRow('page', '*', array('id' => $pages[2])));
+        Service::removeDeletedPage($pages[2]);
+        $this->assertEmpty(ipDb()->selectRow('page', '*', array('id' => $pages[2])));
+
+        Service::deletePage($pages[0]);
+    }
+
+    public function testRemoveDeleted()
+    {
+        $pages = array();
+        $pages[]= Service::addPage(0, 'To be deleted...', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'First', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[0], 'Second', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[1], 'Third', array('languageCode' => 'en'));
+        $pages[]= Service::addPage($pages[3], 'Fourth', array('languageCode' => 'en'));
+
+        Service::removeDeletedPage($pages[0]);
+        $this->assertNotEmpty(Service::getPage($pages[0]));
+
+        Service::deletePage($pages[0]);
+        Service::removeDeletedPage($pages[0]);
+
+        foreach ($pages as $pageId) {
+            $this->assertEmpty(Service::getPage($pageId));
+        }
+
+    }
+
+    protected function isNear($actualTime, $expectedTime = null)
+    {
+        if (!$expectedTime) {
+            $expectedTime = time();
+        }
+
+        if ($actualTime == date('Y-m-d H:i:s', $expectedTime)) {
+            return true;
+        }
+
+        $time = strtotime($actualTime);
+
+        return $time > strtotime('-1 minute', $expectedTime) && $time < strtotime('+1 minute', $expectedTime);
+    }
+
 }

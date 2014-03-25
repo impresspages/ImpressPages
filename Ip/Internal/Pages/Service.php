@@ -98,6 +98,36 @@ class Service
         Model::moveToTrash($pageId);
     }
 
+    /**
+     * Removes pages that were deleted before given time.
+     *
+     * @param string $timestamp in mysql format
+     * @return int count of deleted pages
+     */
+    public static function removeDeletedBefore($timestamp)
+    {
+        $table = ipTable('page');
+
+        $pages = ipDb()->fetchAll("SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?", array($timestamp));
+
+        foreach ($pages as $page) {
+            static::removeDeletedPage($page['id']);
+        }
+    }
+
+    /**
+     * Removes deleted page and its children from the trash.
+     *
+     * Does not remove page if it is not deleted.
+     *
+     * @param int $pageId
+     * @return int number of pages deleted
+     */
+    public static function removeDeletedPage($pageId)
+    {
+        return Model::removeDeletedPage($pageId);
+    }
+
     public static function getChildren($pageId, $start = null, $limit = null)
     {
         return Model::getChildren($pageId, $start, $limit);

@@ -10,16 +10,16 @@ namespace Ip\Internal\Pages;
 
 class Model
 {
-    public static function moveToTrash($pageId)
+    public static function moveToTrash($pageId, $deleteType = 1)
     {
         $children = self::getChildren($pageId);
         if ($children) {
             foreach ($children as $child) {
-                self::moveToTrash($child['id']);
+                self::moveToTrash($child['id'], 2);
             }
         }
 
-        ipDb()->update('page', array('isDeleted' => 1, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
+        ipDb()->update('page', array('isDeleted' => $deleteType, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
         ipEvent('ipPageMarkedAsDeleted', array('pageId' => $pageId));
     }
 
@@ -444,4 +444,48 @@ class Model
         $q->execute($params);
     }
 
+    /**
+     * Removes deleted page and its children from the trash.
+     *
+     * Does not remove page if page is not deleted.
+     *
+     * @param int $pageId
+     * @return int number of pages deleted
+     */
+    public static function removeDeletedPage($pageId)
+    {
+        $canBeDeleted = ipDb()->selectValue('page', 'id', array('id' => $pageId, 'isDeleted' => 1));
+        if (!$canBeDeleted) {
+            return false;
+        }
+
+        return static::_removeDeletedPage($pageId);
+    }
+
+    /**
+     * We assume page is safe to delete.
+     *
+     * @param int $pageId
+     * @return int count of deleted pages
+     */
+    protected static function _removeDeletedPage($pageId)
+    {
+        $deletedPageCount = 0;
+        $children = ipDb()->selectAll('page', array('id', 'isDeleted'), array('parentId' => $pageId));
+        foreach ($children as $child) {
+            if ($child['isDeleted']) {
+                $deletedPageCount += static::_removeDeletedPage($child['id']);
+            } else {
+                // this should never happen!
+                ipLog()->error('Page.pageHasDeletedParent: page {pageId}, parent set to null', array('pageId' => $child['id']));
+                ipDb()->update('page', array('parentId' => NULL), array('id' => $child['id']));
+            }
+        }
+
+        ipEvent('ipBeforeRemovePage', array('pageId' => $pageId));
+        $count = ipDb()->delete('page', array('id' => $pageId));
+
+        $deletedPageCount += (int)$count;
+        return $deletedPageCount;
+    }
 }
