@@ -33,14 +33,11 @@ class AdminController extends \Ip\Controller
 
         if ($trash['size']) {
 
-            ipAddJs('Ip/Internal/System/assets/trash.js');
-
             $form = new \Ip\Form();
-            $form->addClass('ipsEmptyTrashForm');
 
             $field = new \Ip\Form\Field\Hidden();
             $field->setName('aa');
-            $field->setValue('Pages.emptyTrash');
+            $field->setValue('System.emptyTrash');
             $form->addField($field);
 
             $submit = new \Ip\Form\Field\Submit(array(
@@ -159,6 +156,13 @@ class AdminController extends \Ip\Controller
         }
 
         return new \Ip\Response\Json($systemInfo);
+    }
+
+    public function emptyTrash()
+    {
+        \Ip\Internal\Pages\Service::emptyTrash();
+
+        return new \Ip\Response\Json(array('redirectUrl' => ipActionUrl(array('aa' => 'System'))));
     }
 
 }
