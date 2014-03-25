@@ -39,11 +39,11 @@ class ReflectionModel
 
     /**
      * @param string $file relative path from BASE_DIR
-     * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param \Ip\Transform $transform - file transformation class
+     * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @return string file name relative to BASE_DIR
      */
-    public function getReflection($file, $desiredName = null, \Ip\Transform $transform = null)
+    public function getReflection($file, \Ip\Transform $transform = null, $desiredName = null)
     {
         if (!$transform) {
             $transform = new \Ip\Transform\None();
@@ -53,7 +53,7 @@ class ReflectionModel
         $reflection = $this->getReflectionRecord($file, $fingerprint);
 
         if (!$reflection) {
-            $reflection = $this->createReflection($file, $desiredName, $transform);
+            $reflection = $this->createReflection($file, $transform, $desiredName);
         }
 
         return $reflection;
@@ -80,7 +80,7 @@ class ReflectionModel
      * @throws \Exception
      */
 
-    private function createReflection($source, $desiredName, \Ip\Transform $transform)
+    private function createReflection($source, \Ip\Transform $transform, $desiredName)
     {
         $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
         if (!$absoluteSource || !is_file($absoluteSource)) {

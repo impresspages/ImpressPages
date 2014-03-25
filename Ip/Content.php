@@ -314,7 +314,7 @@ class Content
      * @param null $position
      * @return mixed
      */
-    public static function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection = 'ltr', $position = null)
+    public function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection = 'ltr', $position = null)
     {
         $languageId = \Ip\Internal\Languages\Service::addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position = null);
         return $languageId;
@@ -325,7 +325,7 @@ class Content
      *
      * @param $languageId
      */
-    public static function deleteLanguage($languageId)
+    public function deleteLanguage($languageId)
     {
         \Ip\Internal\Languages\Service::delete($languageId);
     }
@@ -341,7 +341,7 @@ class Content
      * @param int $pageId
      * @param array $data
      */
-    public static function updatePage($pageId, $data)
+    public function updatePage($pageId, $data)
     {
         \Ip\Internal\Pages\Service::updatePage($pageId, $data);
     }
@@ -354,7 +354,7 @@ class Content
      * @param array $data
      * @return mixed
      */
-    public static function addPage($parentId, $title, $data = array())
+    public function addPage($parentId, $title, $data = array())
     {
         $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data );
         return $newPageId;
@@ -368,7 +368,7 @@ class Content
      * @param int $destinationPosition
      * @return int New copied page ID
      */
-    public static function copyPage($pageId, $destinationParentId, $destinationPosition)
+    public function copyPage($pageId, $destinationParentId, $destinationPosition)
     {
         $pageId = \Ip\Internal\Pages\Service::copyPage($pageId, $destinationParentId, $destinationPosition);
         return $pageId;
@@ -381,7 +381,7 @@ class Content
      * @param int $destinationPosition
      */
 
-    public static function movePage($pageId, $destinationParentId, $destinationPosition)
+    public function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         \Ip\Internal\Pages\Service::movePage($pageId, $destinationParentId, $destinationPosition);
     }
@@ -390,10 +390,27 @@ class Content
      * Delete a page
      * @param int $pageId
      */
-    public static function deletePage($pageId)
+    public function deletePage($pageId)
     {
         \Ip\Internal\Pages\Service::deletePage($pageId);
     }
 
+
+    /**
+     * Get childre
+     * @param string|int $parent
+     */
+    public function getChildren($parentId = null, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
+    {
+        if ($parentId === null) {
+            $parentId = $this->getCurrentPage()->getId();
+        }
+
+        $page = $this->getPage($parentId);
+        if (!$page) {
+            return;
+        }
+        return $page->getChildren($from, $till, $orderBy, $direction);
+    }
 
 }
