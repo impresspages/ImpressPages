@@ -275,6 +275,7 @@ class Helper
         $form->addFieldset($fieldset);
 
 
+        $form = ipFilter('ipPagePropertiesForm', $form, array('pageId' => $pageId));
 
         return $form;
     }

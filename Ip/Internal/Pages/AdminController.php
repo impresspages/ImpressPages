@@ -134,6 +134,8 @@ class AdminController extends \Ip\Controller
             $answer['status'] = 'error';
         }
 
+        ipEvent('ipPageUpdated', $data);
+
         return new \Ip\Response\Json($answer);
     }
 

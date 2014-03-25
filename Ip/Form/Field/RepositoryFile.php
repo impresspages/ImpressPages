@@ -18,7 +18,7 @@ use Ip\Form\Field;
 class RepositoryFile extends Field
 {
 
-    protected $fileLimit = 1;
+    protected $fileLimit = -1;
     public function __construct($options = array())
     {
         if (isset($options['fileLimit'])) {

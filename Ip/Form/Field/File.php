@@ -87,26 +87,46 @@ class File extends Field
 
 
     /**
-     * @param array $values all posted form values
-     * @param string $valueKey this field name
-     * @return Helper\UploadedFile[]
+     * @param $values
+     * @param $valueKey
+     * @return array
+     * @throws \Exception
      */
-    public function getFiles($values, $valueKey)
+    public static function getFiles($values, $valueKey)
+    {
+        if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
+            $answer = array();
+            foreach($values[$valueKey]['file'] as $file) {
+                $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
+                if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
+                    ipLog()->alert('Core.tryToAccessNotUploadedFile', array('file' => $file));
+                    continue;
+                }
+                $answer[] = $uploadModel->getUploadedFilePath($file, true);
+            }
+            return $answer;
+        } else {
+            return array();
+        }
+    }
+
+    public static function originalFileNames($values, $valueKey)
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             $answer = array();
             foreach($values[$valueKey]['file'] as $key => $file) {
+                $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
+                if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
+                    ipLog()->alert('Core.tryToAccessNotUploadedFile', array('file' => $file));
+                    continue;
+                }
                 $originalFileName = $file;
                 if (isset($values[$valueKey]['originalFileName'][$key]) && is_string($values[$valueKey]['originalFileName'][$key])) {
                     $originalFileName = $values[$valueKey]['originalFileName'][$key];
                 }
 
-                $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
-                if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
-                    throw new \Exception("Security risk. Current user doesn't seem to have uploaded this file");
-                }
-                $uploadedFile = new Helper\UploadedFile($uploadModel->getUploadedFilePath($file, true), $originalFileName);
-                $answer[] = $uploadedFile;
+
+                $answer[] = $originalFileName;
             }
             return $answer;
         } else {

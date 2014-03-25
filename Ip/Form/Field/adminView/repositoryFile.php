@@ -11,7 +11,7 @@
             <?php } ?>
         <?php } ?>
     </div>
-    <div class="ipsFile ipmFile ipsFileTemplate">
+    <div class="ipsFile ipmFile ipsFileTemplate hidden">
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
         <div class="ipmFileName ipsFileName"></div>
         <input type="hidden" name="" value="" />
