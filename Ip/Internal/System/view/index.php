@@ -23,6 +23,14 @@
         <p><?php _e('Your database is outdated.', 'Ip-admin') ?></p>
         <a class="btn btn-primary ipsStartMigration" href="<?php echo $migrationsUrl ?>"><?php _e('Update', 'Ip-admin') ?></a>
     <?php } ?>
+
+    <?php if ($trash['size'] > 0) { ?>
+        <h2><?php _e('Trash', 'Ip-admin'); ?></h2>
+        <p><?php printf(__('Trash contains %s deleted pages.', 'Ip-admin'), $trash['size']) ?></p>
+
+        <?php echo $trash['form']->render(); ?>
+    <?php } ?>
+
     <div class="hidden ipsSystemStatus">
         <h2><?php _e('System status', 'Ip-admin'); ?></h2>
     </div>
