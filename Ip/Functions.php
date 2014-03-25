@@ -951,6 +951,28 @@ function ipPage($pageId)
 }
 
 
+function ipRepositoryAddFile($file, $desiredName = null)
+{
+    if (!is_file($file)) {
+        throw new \Ip\Exception("File doesn't exist");
+    }
+
+    $absoluteSource = str_replace('\\', '/', realpath($file));
+    if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) === 0) {
+        throw new \Exception("Requested file (".$file.") is already in the repository");
+    }
+
+    $destination = ipFile('file/repository/');
+
+    if ($desiredName === null) {
+        $desiredName = basename($file['fileName']); //to avoid any tricks with relative paths, etc.
+    }
+
+    $newName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $destination);
+    copy(ipFile('file/tmp/' . $file['fileName']), $destination . $newName);
+}
+
+
 /**
  * Mark repository file as being used by plugin.
  * @param string $file
