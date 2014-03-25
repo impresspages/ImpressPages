@@ -125,5 +125,9 @@ class Config
         }
     }
 
+    public function showErrors()
+    {
+        return !empty($this->rawConfig['showErrors']) || !empty($this->rawConfig['errorsShow']);
+    }
 
 }
