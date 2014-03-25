@@ -950,26 +950,16 @@ function ipPage($pageId)
     return new \Ip\Page($pageId);
 }
 
-
+/**
+ * Add file to the repository.
+ * @param string $file absolute path to file in tmp directory
+ * @param null|string $desiredName desired file name in repository.
+ * @return string relative file name in repository
+ * @throws \Ip\Exception
+ */
 function ipRepositoryAddFile($file, $desiredName = null)
 {
-    if (!is_file($file)) {
-        throw new \Ip\Exception("File doesn't exist");
-    }
-
-    $absoluteSource = str_replace('\\', '/', realpath($file));
-    if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) === 0) {
-        throw new \Exception("Requested file (".$file.") is already in the repository");
-    }
-
-    $destination = ipFile('file/repository/');
-
-    if ($desiredName === null) {
-        $desiredName = basename($file['fileName']); //to avoid any tricks with relative paths, etc.
-    }
-
-    $newName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $destination);
-    copy(ipFile('file/tmp/' . $file['fileName']), $destination . $newName);
+    return \Ip\Internal\Repository\Model::addFile($file, $desiredName);
 }
 
 
