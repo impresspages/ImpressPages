@@ -352,11 +352,11 @@ class Db
     }
 
     /**
-     * Delete a table
+     * Delete rows from a table
      *
      * @param string $table
      * @param array $condition A condition, for example, array("userId" => 5, "card_id" => 8)
-     * @return type
+     * @return int count of rows affected
      */
     public function delete($table, $condition)
     {
