@@ -132,12 +132,10 @@ class Controller extends \Ip\WidgetController{
 
 
             if (get_class($field) == 'Ip\Form\Field\File') {
-                /**
-                 * @var $uploadedFiles \Ip\Form\Field\Helper\UploadedFile[]
-                 */
                 $uploadedFiles = $field->getFiles($postData, $field->getName());
-                foreach($uploadedFiles as $uploadedFile) {
-                    $files[] = array($uploadedFile->getFile(),$uploadedFile->getOriginalFileName());
+                $originalNames = $field->originalFileNames($postData, $field->getName());
+                foreach($uploadedFiles as $key => $uploadedFile) {
+                    $files[] = array($uploadedFile, $originalNames[$key]);
                 }
             }
         }

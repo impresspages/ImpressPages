@@ -18,11 +18,15 @@ use Ip\Form\Field;
 class RepositoryFile extends Field
 {
 
-    protected $fileLimit = 1;
+    protected $fileLimit = -1;
+    protected $preview = 'list'; //list or thumbnails
     public function __construct($options = array())
     {
         if (isset($options['fileLimit'])) {
             $this->fileLimit = $options['fileLimit'];
+        }
+        if (isset($options['preview'])) {
+            $this->preview = $options['preview'];
         }
         parent::__construct($options);
     }
@@ -34,7 +38,8 @@ class RepositoryFile extends Field
             'classes' => implode(' ',$this->getClasses()),
             'inputName' => $this->getName(),
             'fileLimit' => $this->fileLimit,
-            'value' => $this->getValue()
+            'value' => $this->getValue(),
+            'preview' => $this->preview
         );
 
         $viewFile = 'adminView/repositoryFile.php';
