@@ -12,7 +12,7 @@
                 type: 'GET',
                 success: migrationResponse,
                 error: function () {
-                    alert('Error: ' + response.responseText);;
+                    alert('Error: ' + response.responseText);
                 }
             });
         });
