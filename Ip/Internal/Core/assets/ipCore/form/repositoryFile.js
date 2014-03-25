@@ -24,13 +24,15 @@
                 if (!data) {
                     $this.find('.ipsSelect').on('click', function (e) {
                         e.preventDefault();
-                        var repository = new ipRepository({preview: 'list'});
+                        var repository = new ipRepository({preview: $this.data('preview')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     })
+                    console.log({preview: $this.data('preview')});
 
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
-                        limit: parseInt($this.data('filelimit'))
+                        limit: parseInt($this.data('filelimit')),
+                        preview: parseInt($this.data('preview'))
                     });
 
                     $this.find('.ipsFiles .ipsFile .ipsRemove').on('click', $.proxy(removeFile, this));
