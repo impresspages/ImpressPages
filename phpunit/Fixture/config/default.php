@@ -17,7 +17,7 @@ return array(
     'baseUrl' => 'localhost/',
 
     'developmentEnvironment' => 1,
-    'errorsShow' => 1,
+    'showErrors' => 1,
     // END GLOBAL
 
     // FRONTEND
