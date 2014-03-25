@@ -127,8 +127,7 @@ class Slot
 
 
 
-        $viewFile = ipFile('Ip/Internal/Config/view/menu.php');
-        $view = ipView($viewFile, $data);
+        $view = ipView('Ip/Internal/Config/view/menu.php', $data);
         return $view->render();
     }
 
