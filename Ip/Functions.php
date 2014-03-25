@@ -949,3 +949,26 @@ function ipPage($pageId)
 {
     return new \Ip\Page($pageId);
 }
+
+
+/**
+ * Mark repository file as being used by plugin.
+ * @param string $file
+ * @param string $plugin
+ * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those binds by $id. If you sure this can't be the case for your plugin, use 1. You have to use the same id in ipUnbindFile
+ */
+function ipBindFile($file, $plugin, $id)
+{
+    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id);
+}
+
+/**
+ * Release file binding
+ * @param string $file
+ * @param string $plugin
+ * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id
+ */
+function ipUnbindFile($file, $plugin, $id)
+{
+    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
+}
