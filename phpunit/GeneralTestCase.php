@@ -43,9 +43,9 @@ class GeneralTestCase extends \PHPUnit_Extensions_Database_TestCase
 
     protected function setup()
     {
-        \PhpUnit\Helper\TestEnvironment::setup();
-
         parent::setup();
+
+        \PhpUnit\Helper\TestEnvironment::setup();
     }
 
 }
