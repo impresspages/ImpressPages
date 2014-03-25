@@ -8,12 +8,7 @@ namespace Ip\Internal\Pages;
 
 class Event
 {
-    public static function ipCronExecute($info)
-    {
-        if ($info['firstTimeThisDay'] || $info['test']) {
-            Model::deleteTrashPages();
-        }
-    }
+
 
     public static function ipUrlChanged($info)
     {

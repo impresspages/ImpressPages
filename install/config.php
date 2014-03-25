@@ -41,7 +41,7 @@ return array(
     'baseUrl' => $baseUrl, //root url with trailing slash at the end. If you have moved your site to another place, change this line to correspond your new domain.
 
     'developmentEnvironment' => 1, //displays error and debug information. Change to 0 before deployment to production server
-    'errorsShow' => 1,  //0 if you don't wish to display errors on the page
+    'showErrors' => 1,  //0 if you don't wish to display errors on the page
     // END GLOBAL
 
     // FRONTEND

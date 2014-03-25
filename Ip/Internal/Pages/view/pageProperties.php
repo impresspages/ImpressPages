@@ -3,6 +3,7 @@
 </div>
 <div class="_actions clearfix">
     <button class="ipsDelete btn btn-danger pull-right" role="button"><?php _e('Delete', 'Ip-admin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
+    <span class="pull-right">&nbsp;</span>
     <button class="ipsEdit btn btn-default pull-right" role="button"><?php _e('Edit Content', 'Ip-admin'); ?> <i class="fa fa-fw fa-edit"></i></button>
     <button class="ipsSave btn btn-default" role="button"><?php _e('Save', 'Ip-admin'); ?></button>
 </div>
