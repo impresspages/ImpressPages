@@ -135,7 +135,7 @@ class Controller extends \Ip\WidgetController{
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
             $transformBig = new \Ip\Transform\None();
-            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transformBig));
+            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
 
             if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
                 $data['url'] = 'http://' . $data['url'];
@@ -171,7 +171,7 @@ class Controller extends \Ip\WidgetController{
                     $width,
                     $height
                 );
-                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transform));
+                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
@@ -190,7 +190,7 @@ class Controller extends \Ip\WidgetController{
                 );
             }
             try {
-                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $desiredName, $transform));
+                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
             } catch (\Ip\Exception\TransformException $e) {
                 ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             }

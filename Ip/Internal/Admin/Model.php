@@ -173,7 +173,7 @@ class Model{
         }
 
         if (\Ip\Internal\Administrators\Service::checkPassword($administrator['id'], $password)) {
-            $_SESSION['backend_session']['userId'] = $administrator['id'];
+            Backend::login($administrator['id']);
             \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginSuccessful', array('userId' => $administrator['id']));
             ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
             return true;
@@ -192,8 +192,7 @@ class Model{
 
     public function logout()
     {
-        if(isset($_SESSION['backend_session']))
-            unset($_SESSION['backend_session']);
+        Backend::logout();
     }
 
 

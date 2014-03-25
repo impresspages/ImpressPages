@@ -206,7 +206,7 @@ class Controller extends \Ip\WidgetController{
 
                 try {
                     $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
-                    $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $desiredName, $transformBig));
+                    $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformBig, $desiredName));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
                     $curImage['imageBig'] = '';
@@ -239,7 +239,7 @@ class Controller extends \Ip\WidgetController{
                         );
 
                     }
-                    $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $curImage['title'], $transformSmall));
+                    $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     ipLog()->log('info', 'Reflection can\'t be created', array('error' => $e->getMessage(), 'image' => $curImage['imageOriginal']));
                     $curImage['imageSmall'] = '';

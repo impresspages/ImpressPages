@@ -64,14 +64,23 @@ class Page
      */
     public function __construct($id)
     {
-        if (!is_array($id)) {
+        if (is_numeric($id)) {
+            //select by page id from the database
             $page = ipDb()->selectRow('page', '*', array('id' => $id));
             if (!$page) {
                 $id = esc($id);
-                throw new \Ip\Exception("Page #{$id} not found.");
+                throw new \Ip\Exception("Page #" . esc($id) . " not found.");
             }
-        } else {
+        } elseif (is_array($id)) {
+            //construct page out of database record array
             $page = $id;
+        } else {
+            //select by alias from the database
+            $page = ipDb()->selectRow('page', '*', array('alias' => $id));
+            if (!$page) {
+                $id = esc($id);
+                throw new \Ip\Exception("Page #" . esc($id) . " not found.");
+            }
         }
 
         foreach ($page as $key => $value) {
@@ -484,9 +493,46 @@ class Page
         return $pages;
     }
 
-    public function getChildren()
+    public function getChildren($from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
-        $list = ipDb()->selectAll('page', 'id', array('parentId' => $this->id, 'isVisible' => 1, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
+        switch($orderBy) {
+            case 'pageOrder':
+            case 'title':
+            case 'metaTitle':
+            case 'createdAt':
+            case 'updatedAt':
+            case 'deletedAt':
+                //do nothing;
+                break;
+            default:
+                throw new \Ip\Exception("getChildren can't accept " . esc($orderBy) . " as an order field.");
+        }
+        if (strtoupper($direction) == 'ASC') {
+            $direction = 'ASC';
+        } else {
+            $direction = 'DESC';
+        }
+
+        $table = ipTable('page');
+        $sql = "
+        SELECT
+            `id`
+        FROM
+            $table
+        WHERE
+            parentId = :parentId AND
+            isVisible = 1 AND
+            isDeleted = 0 AND
+        ORDER BY
+            :orderBy
+            :direction
+        ";
+
+        if ($from !== null || $till !== null) {
+            $sql .= " LIMIT " . (int) $from . " , " . (int) $till;
+        }
+
+        $list = ipDb()->fetchAll($sql, array('parentId' => $this->id, 'isVisible' => 1, 'isDeleted' => 0, 'orderBy' => $orderBy, 'direction' => $direction));
 
         return static::createList($list);
     }
