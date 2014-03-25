@@ -400,28 +400,7 @@ class Model
         ipDb()->update('page', array('pageOrder' => $newPriority), array('id' => $menuId));
     }
 
-    public static function deleteTrashPages()
-    {
-        $daysToKeepInTrash = (int)ipGetOption('Ip.daysToKeepInTrash', 30);
 
-        if (empty($daysToKeepInTrash)) {
-            return;
-        }
-
-        $deletedBefore = date('Y-m-d H:i:s', strtotime("-$daysToKeepInTrash days"));
-        $deletedPages = ipDb()->selectColumn('page', 'id', array('isDeleted' => 1), " AND `deletedAt` < '$deletedBefore'");
-
-        foreach ($deletedPages as $pageId) {
-            static::deleteForever($pageId);
-        }
-    }
-
-    public static function deleteForever($pageId)
-    {
-        ipDb()->delete('page', array('id' => $pageId));
-        ipPageStorage($pageId)->removeAll();
-        ipEvent('ipPageDeleted', array('pageId' => $pageId));
-    }
 
     public static function updateUrl($oldUrl, $newUrl)
     {
@@ -482,8 +461,9 @@ class Model
             }
         }
 
-        ipEvent('ipBeforeRemovePage', array('pageId' => $pageId));
+        ipEvent('ipBeforePageRemoved', array('pageId' => $pageId));
         $count = ipDb()->delete('page', array('id' => $pageId));
+        ipEvent('ipPageRemoved', array('pageId' => $pageId));
 
         $deletedPageCount += (int)$count;
         return $deletedPageCount;
