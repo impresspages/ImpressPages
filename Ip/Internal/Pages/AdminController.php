@@ -387,5 +387,11 @@ class AdminController extends \Ip\Controller
         ));
     }
 
+    public function emptyTrash()
+    {
+        Service::emptyTrash();
+
+        return \Ip\Response\JsonRpc::result(true);
+    }
 
 }

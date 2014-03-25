@@ -488,4 +488,14 @@ class Model
         $deletedPageCount += (int)$count;
         return $deletedPageCount;
     }
+
+    public static function trashSize()
+    {
+        $table = ipTable('page');
+        $sql = "SELECT COUNT(*)
+                FROM $table
+                WHERE `isDeleted` > 0";
+
+        return ipDb()->fetchValue($sql);
+    }
 }

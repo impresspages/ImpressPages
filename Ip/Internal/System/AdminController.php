@@ -27,6 +27,31 @@ class AdminController extends \Ip\Controller
 
         $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
 
+        $trash = array(
+            'size' => \Ip\Internal\Pages\Service::trashSize(),
+        );
+
+        if ($trash['size']) {
+
+            ipAddJs('Ip/Internal/System/assets/trash.js');
+
+            $form = new \Ip\Form();
+            $form->addClass('ipsEmptyTrashForm');
+
+            $field = new \Ip\Form\Field\Hidden();
+            $field->setName('aa');
+            $field->setValue('Pages.emptyTrash');
+            $form->addField($field);
+
+            $submit = new \Ip\Form\Field\Submit(array(
+                'value' => __('Empty trash', 'Ip-admin')
+            ));
+
+            $form->addField($submit);
+
+            $trash['form'] = $form;
+        }
+
         $data = array(
             'notes' => $notes,
             'version' => \Ip\ServiceLocator::storage()->get('Ip', 'version'),
@@ -34,7 +59,8 @@ class AdminController extends \Ip\Controller
             'oldUrl' => $model->getOldUrl(),
             'newUrl' => $model->getNewUrl(),
             'migrationsAvailable' => \Ip\Internal\Update\Service::migrationsAvailable(),
-            'migrationsUrl' => ipActionUrl(array('pa' => 'Update'))
+            'migrationsUrl' => ipActionUrl(array('pa' => 'Update')),
+            'trash' => $trash,
         );
 
         $content = ipView('view/index.php', $data)->render();

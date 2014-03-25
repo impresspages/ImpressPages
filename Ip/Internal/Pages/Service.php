@@ -116,6 +116,25 @@ class Service
     }
 
     /**
+     * Remove all deleted pages/
+     *
+     * @return int count of deleted pages
+     */
+    public static function emptyTrash()
+    {
+        $pages = ipDb()->selectAll('page', 'id', array('isDeleted' => 1));
+
+        $deleted = 0;
+
+        foreach ($pages as $page) {
+            $deleted += static::removeDeletedPage($page['id']);
+        }
+
+        return $deleted;
+    }
+
+
+    /**
      * Removes deleted page and its children from the trash.
      *
      * Does not remove page if it is not deleted.
@@ -143,7 +162,9 @@ class Service
         return Model::createMenu($languageCode, $alias, $title);
     }
 
-
-
+    public static function trashSize()
+    {
+        return Model::trashSize();
+    }
 
 }
