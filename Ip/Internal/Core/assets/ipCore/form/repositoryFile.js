@@ -24,16 +24,18 @@
                 if (!data) {
                     $this.find('.ipsSelect').on('click', function (e) {
                         e.preventDefault();
-                        var repository = new ipRepository({preview: 'list'});
+                        var repository = new ipRepository({preview: $this.data('preview')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     })
+                    console.log({preview: $this.data('preview')});
 
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
-                        limit: $this.data('filelimit')
+                        limit: parseInt($this.data('filelimit')),
+                        preview: parseInt($this.data('preview'))
                     });
 
-                    $this.find('.ipsFiles .ipsFile .ipsRemove').on('click', removeFile);
+                    $this.find('.ipsFiles .ipsFile .ipsRemove').on('click', $.proxy(removeFile, this));
 
                 }
             });
@@ -65,15 +67,17 @@
 
     var filesSelected = function (event, files) {
         var $this = this;
+        var context = this;
 
         for (var index in files) {
             var fileName = files[index].fileName;
             var $newFile = $this.find('.ipsFileTemplate').clone();
+            $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
             $newFile.removeClass('hidden').removeClass('ipsFileTemplate');
             $newFile.find('.ipsFileName').text(fileName);
             $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
-            $newFile.find('.ipsRemove').click(removeFile);
-            if ($this.data('ipFormRepositoryFile').limit) {
+            $newFile.find('.ipsRemove').click($.proxy(removeFile, context));
+            if ($this.data('ipFormRepositoryFile').limit >= 0) {
                 if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormRepositoryFile').limit) {
                     if ($this.find('.ipsFiles').children().first().length == 1) {
                         $this.find('.ipsFiles').children().first().remove();
@@ -87,7 +91,9 @@
 
     var removeFile = function(e){
         var $this = $(this);
-        var $file = $this.closest('.ipsFile');
+        var $currentTarget = $(e.currentTarget);
+        var $file = $currentTarget.closest('.ipsFile');
+        $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
         $file.remove();
     }
 
