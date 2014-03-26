@@ -340,16 +340,64 @@ class Model
      * @param string $skin
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $skin)
+    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
-        return ipDb()->insert('widget', array(
-                'name' => $widgetName,
-                'skin' => $skin,
-                'createdAt' => time(),
-                'updatedAt' => time(),
-                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
-            ));
+        $positionNumber = self::_calcWidgetPositionNumber($widgetName, $languageId, null, $blockName, $position);
+
+        $row = array(
+            'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
+            'skin' => $skin,
+            'name' => $widgetName,
+            'revisionId' => $revisionId,
+            'languageId' => $languageId,
+            'blockName' => $blockName,
+            'position' => $positionNumber,
+            'isVisible' => (int)$visible,
+            'createdAt' => time(),
+            'updatedAt' => time(),
+            'isDeleted' => 0,
+        );
+
+        return ipDb()->insert('widget', $row);
     }
+
+
+    /**
+     *
+     * Return float number that will position widget in requested position
+     * @param int $instnaceId
+     * @param string $blockName
+     * @param int $newPosition Real position of widget starting with 0
+     */
+    private static function _calcWidgetPositionNumber($revisionId, $languageId, $instanceId, $newBlockName, $newPosition)
+    {
+        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
+
+        $widgets = array();
+
+        foreach ($allWidgets as $instance) {
+            if ($instanceId === null || $instance['id'] != $instanceId) {
+                $widgets[] = $instance;
+            }
+        }
+
+        if (count($widgets) == 0) {
+            $positionNumber = 0;
+        } else {
+            if ($newPosition <= 0) {
+                $positionNumber = $widgets[0]['position'] - 40;
+            } else {
+                if ($newPosition >= count($widgets)) {
+                    $positionNumber = $widgets[count($widgets) - 1]['position'] + 40;
+                } else {
+                    $positionNumber = ($widgets[$newPosition - 1]['position'] + $widgets[$newPosition]['position']) / 2;
+                }
+            }
+        }
+        return $positionNumber;
+    }
+
+
 
 
     public static function updateWidget($widgetId, $data)
