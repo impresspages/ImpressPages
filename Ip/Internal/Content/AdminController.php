@@ -25,7 +25,7 @@ class AdminController extends \Ip\Controller
     {
 
 
-        if (!isset($_POST['instanceId']) ||
+        if (!isset($_POST['widgetId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
             !isset($_POST['revisionId'])||
@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Missing POST variable');
         }
 
-        $widgetId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
@@ -48,7 +48,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
             'oldInstance' => $widgetId,
-            'newInstanceId' => $widgetId,
+            'newwidgetId' => $widgetId,
             'block' => $blockName
         );
 
@@ -145,10 +145,10 @@ class AdminController extends \Ip\Controller
     {
 
         $updateData = array();
-        if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Missing POST variable instanceId');
+        if (!isset($_POST['widgetId'])) {
+            return $this->_errorAnswer('Missing POST variable widgetId');
         }
-        $widgetId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
 
         $record = Model::getWidgetRecord($widgetId);
         if (!$record) {
@@ -186,10 +186,10 @@ class AdminController extends \Ip\Controller
     public function changeSkin()
     {
         $updateData = array();
-        if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Missing POST variable instanceId');
+        if (!isset($_POST['widgetId'])) {
+            return $this->_errorAnswer('Missing POST variable widgetId');
         }
-        $widgetId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
 
         $record = Model::getWidgetRecord($widgetId);
         if (!$record) {
@@ -220,10 +220,10 @@ class AdminController extends \Ip\Controller
     public function deleteWidget()
     {
 
-            if (!isset($_POST['instanceId'])) {
-            return $this->_errorAnswer('Missing instanceId POST variable');
+            if (!isset($_POST['widgetId'])) {
+            return $this->_errorAnswer('Missing widgetId POST variable');
         }
-        $widgetId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
 
         if (is_array($widgetId)) {
             foreach($widgetId as $curId) {

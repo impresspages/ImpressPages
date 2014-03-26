@@ -12,12 +12,12 @@ class SiteController extends \Ip\Controller
 
     public function widgetPost()
     {
-        $widgetId = ipRequest()->getPost('instanceId');
+        $widgetId = ipRequest()->getPost('widgetId');
 
         if (!$widgetId) {
-            return \Ip\Response\JsonRpc::error('Missing instanceId POST variable');
+            return \Ip\Response\JsonRpc::error('Missing widgetId POST variable');
         }
-        $widgetId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
 
         $widgetRecord = Model::getWidgetRecord($widgetId);
 

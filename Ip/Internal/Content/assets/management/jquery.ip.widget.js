@@ -96,7 +96,7 @@
 
                 data.aa = 'Content.changeSkin';
                 data.securityToken = ip.securityToken;
-                data.instanceId = $this.data('widgetid');
+                data.widgetId = $this.data('widgetid');
                 data.skin = skin;
 
                 $.ajax({

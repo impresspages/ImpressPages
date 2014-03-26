@@ -246,7 +246,7 @@
                 top: $(value).offset().top + 1,
                 height: Math.max($(value).height() - 2, 10),
                 width: 20,
-                instanceId: $(value).data('widgetid'),
+                widgetId: $(value).data('widgetid'),
                 leftOrRight: 'left'
             });
 
@@ -256,7 +256,7 @@
                 top: $(value).offset().top + 1,
                 height: Math.max($(value).height() - 2, 10),
                 width: 20,
-                instanceId: $(value).data('widgetid'),
+                widgetId: $(value).data('widgetid'),
                 leftOrRight: 'right'
             });
         });
@@ -269,7 +269,7 @@
             $droppable.css('top', value.top + 'px');
             $droppable.css('height', value.height + 'px');
             $droppable.css('width', value.width + 'px');
-            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('widgetId', value.widgetId);
             $droppable.data('leftOrRight', value.leftOrRight);
             $droppable.data('side', 1);
             $droppable.find('.ipsWidgetDropMarker').height(value.height);
@@ -292,7 +292,7 @@
                         top: $col.find('.ipBlock').offset().top + 1,
                         height: Math.max($(columnsWidget).height() - 2, 10),
                         width: space,
-                        instanceId: $(columnsWidget).data('widgetid'),
+                        widgetId: $(columnsWidget).data('widgetid'),
                         position: colKey
                     });
                 }
@@ -307,7 +307,7 @@
             $droppable.css('top', value.top + 'px');
             $droppable.css('height', value.height + 'px');
             $droppable.css('width', value.width + 'px');
-            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('widgetId', value.widgetId);
             $droppable.data('newCol', 1);
             $droppable.data('position', value.position);
             $droppable.find('.ipsWidgetDropMarker').height(value.height);
@@ -522,7 +522,7 @@
                     left: $widget.offset().left,
                     top: $prevParagraph.offset().top + Math.round($prevParagraph.height() / 2),
                     width: $widget.width(),
-                    instanceId: $widget.data('widgetid'),
+                    widgetId: $widget.data('widgetid'),
                     position: paragraphKey + 1
                 };
 
@@ -543,7 +543,7 @@
             $droppable.css('height', value.height + 'px');
             $droppable.find('.ipsWidgetDropMarker').css('marginTop', value.markerOffset);
             $droppable.data('position', value.position);
-            $droppable.data('instanceId', value.instanceId);
+            $droppable.data('widgetId', value.widgetId);
             $droppable.data('paragraph', 1);
         });
 
@@ -568,7 +568,7 @@
     var ipStopWidgetDrag = function (event, ui) {
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
             //new widget has been dropped
-            var targetwidgetid = lastDroppable.data('instanceId');
+            var targetwidgetid = lastDroppable.data('widgetId');
             var leftOrRight = lastDroppable.data('leftOrRight');
             var widgetName = $(this).data('ipAdminWidgetButton').name;
             var side = lastDroppable.data('side');
@@ -589,7 +589,7 @@
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).hasClass('ipWidget')) {
             //existing widget has been moved
             var $widget = $(event.target);
-            var instanceId = $widget.data('widgetid');
+            var widgetId = $widget.data('widgetid');
             var curPosition = $widget.index();
             var curBlock = $widget.closest('.ipBlock').data('ipBlock').name;
             var position = lastDroppable.data('position');
@@ -597,7 +597,7 @@
             var side = lastDroppable.data('side');
             var newCol = lastDroppable.data('newCol');
             var leftOrRight = lastDroppable.data('leftOrRight');
-            var targetwidgetid = lastDroppable.data('instanceId');
+            var targetwidgetid = lastDroppable.data('widgetId');
             var sourcewidgetid = $widget.data('widgetid');
             var paragraph = lastDroppable.data('paragraph');
 
@@ -612,7 +612,7 @@
                 } else if (paragraph) {
                     ipContent.moveWidgetInsideWidget(sourcewidgetid, targetwidgetid, position);
                 } else {
-                    ipContent.moveWidget(instanceId, position, block);
+                    ipContent.moveWidget(widgetId, position, block);
                 }
             }
         }
