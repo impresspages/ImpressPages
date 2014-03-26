@@ -147,7 +147,6 @@ class Model
             'data' => $data,
             'createdAt' => time(),
             'updatedAt' => time(),
-            'instanceId' => null,
             'revisionId' => null,
             'position' => null,
             'blockName' => null,
