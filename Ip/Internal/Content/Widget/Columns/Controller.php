@@ -77,16 +77,16 @@ class Controller extends \Ip\WidgetController
 
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $data['revisionId'] = $revisionId;
         $data['widgetId'] = $widgetId;
         $data = $this->prepareData($data, $widgetId);
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
     {
         $data = $this->prepareData($data, $widgetId);
 

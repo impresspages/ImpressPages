@@ -189,7 +189,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
 
         if (isset($data['images']) && is_array($data['images'])) {
@@ -270,7 +270,7 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
 

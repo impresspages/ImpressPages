@@ -16,14 +16,14 @@ class Controller extends \Ip\WidgetController
     }
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $videoHtml = $this->generateVideoHtml($data);
         if ($videoHtml) {
             $data['videoHtml'] = $videoHtml;
         }
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
 

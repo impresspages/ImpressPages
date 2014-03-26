@@ -130,7 +130,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
@@ -214,7 +214,7 @@ class Controller extends \Ip\WidgetController{
 
 
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
     public function adminHtmlSnippet()

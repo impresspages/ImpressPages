@@ -46,7 +46,7 @@ class Controller extends \Ip\WidgetController{
         return ipView('snippet/options.php', $variables)->render() . "\n" . ipView('snippet/controls.php')->render();
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $data['showLink'] = false;
         if (!empty($data['link']) && !preg_match('/^((http|https):\/\/)/i', $data['link'])) {
@@ -62,7 +62,7 @@ class Controller extends \Ip\WidgetController{
             $data['level'] = 1;
         }
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
     protected function optionsForm()
