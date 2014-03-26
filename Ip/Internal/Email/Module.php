@@ -135,7 +135,7 @@ class Module
                     $mail->AddReplyTo($email['from'], $email['fromName']);
 
                     $mail->WordWrap = 50; // set word wrap
-                    $mail->CharSet = ipConfig()->getRaw('charset');
+                    $mail->CharSet = ipConfig()->get('charset');
                     $mail->Subject = $email['subject'];
 
                     /*	foreach($this->posted_files as $file){

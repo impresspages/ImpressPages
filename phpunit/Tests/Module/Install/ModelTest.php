@@ -67,7 +67,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $config = include TEST_FIXTURE_DIR . 'config/default.php';
         unset($config['db']['database']);
-        ipConfig()->_setRaw('db', $config['db']);
+        ipConfig()->set('db', $config['db']);
 
         $tempDbName = 'ip_test_install' . date('md_Hi_') . rand(1, 100);
         \Plugin\Install\Model::createAndUseDatabase($tempDbName);

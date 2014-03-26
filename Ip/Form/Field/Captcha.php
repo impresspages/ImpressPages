@@ -41,7 +41,7 @@ class Captcha extends Field{
               'maxtry'         => 3,       // integer: [1-9]
 
               'badguys_url'    => '/',     // string: URL
-              'secretstring'   => md5(ipConfig()->getRaw('sessionName')),//'A very, very secret string which is used to generate a md5-key!',
+              'secretstring'   => md5(ipConfig()->get('sessionName')),//'A very, very secret string which is used to generate a md5-key!',
               'secretposition' => 9        // integer: [1-32]
         );
 
