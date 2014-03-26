@@ -40,7 +40,7 @@ class Storage {
 
 
         $row = ipDb()->fetchRow($sql, $params);
-        if ($row === false) {
+        if (!$row) {
             if ($defaultValue instanceof \Closure) {
                 return $defaultValue();
             } else {
