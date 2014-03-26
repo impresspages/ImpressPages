@@ -3,7 +3,6 @@
 
 namespace Ip\Internal\Content;
 
-use Ip\WidgetController;
 
 class Event
 {

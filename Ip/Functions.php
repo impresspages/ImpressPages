@@ -421,7 +421,7 @@ function escAttr($value)
  * Translate and escape a string
  *
  * @param $text Original value in English.
- * @param $domain Context, e.g. plugin name.
+ * @param string $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
  * @throws Ip\Exception

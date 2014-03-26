@@ -18,7 +18,7 @@ class Helper
 
     /**
      * @param $data
-     * @return Language
+     * @return \Ip\Language
      */
     public static function createLanguage($data)
     {
