@@ -130,6 +130,7 @@ class Controller extends \Ip\WidgetController{
     * @param int $oldId old widget id
     * @param int $newId duplicated widget id
     * @param array $data data that has been duplicated from old widget to the new one
+    * @return array
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
