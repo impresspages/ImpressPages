@@ -131,7 +131,7 @@ class AdminController extends \Ip\Controller
             'position' => $position,
             'widgetId' => $widgetId,
             'block' => $blockName,
-            'instanceId' => $widgetId
+            'widgetId' => $widgetId
         );
 
         return new \Ip\Response\Json($data);
@@ -172,7 +172,7 @@ class AdminController extends \Ip\Controller
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
-            'instanceId' => $widgetId
+            'widgetId' => $widgetId
         );
 
         if (!empty($_POST['generatePreview'])) {
@@ -211,7 +211,7 @@ class AdminController extends \Ip\Controller
             'status' => 'success',
             'action' => '_updateWidget',
             'html' => $previewHtml,
-            'instanceId' => $widgetId
+            'widgetId' => $widgetId
         );
 
         return new \Ip\Response\Json($data);
