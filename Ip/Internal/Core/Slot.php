@@ -81,6 +81,12 @@ class Slot
         $data = array(
             'items' => null,
             'depth' => 1,
+            'active' => 'active',
+            'selected' => 'selected',
+            'disabled' => 'disabled',
+            'breadcrumb' => 'breadcrumb',
+            'parent' => 'parent',
+            'children' => 'children'
         );
 
         if (is_string($params)) {
@@ -121,13 +127,6 @@ class Slot
                 array_keys($data['attributes'])
             )
         );
-
-        $data['classActive'] = isset($params['active']) ? $params['active'] : 'active';
-        $data['classSelected'] = isset($params['selected']) ? $params['selected'] : 'selected';
-        $data['classDisabled'] = isset($params['disabled']) ? $params['disabled'] : 'disabled';
-        $data['classBreadcrumb'] = isset($params['breadcrumb']) ? $params['breadcrumb'] : 'breadcrumb';
-        $data['classParent'] = isset($params['parent']) ? $params['parent'] : 'parent';
-        $data['classChildren'] = isset($params['children']) ? $params['children'] : 'children';
 
         $view = ipView('Ip/Internal/Config/view/menu.php', $data);
         return $view->render();

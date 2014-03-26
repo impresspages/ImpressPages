@@ -14,16 +14,16 @@
         $class = '';
 
         if($menuItem->isCurrent()) {
-            $css[] = $classActive;
+            $css[] = $active;
         } elseif ($menuItem->isInCurrentBreadcrumb()) {
-            $css[] = $classBreadcrumb;
+            $css[] = $breadcrumb;
         }
         if(sizeof($menuItem->getChildren()) > 0) {
-            $css[] = $classParent;
+            $css[] = $parent;
         }
         if ($menuItem->isDisabled()) {
             $href = '';
-            $css[] = $classDisabled;
+            $css[] = $disabled;
         } else {
             $href = ' href="' . escAttr($menuItem->getUrl()) . '"';
         }
@@ -36,7 +36,7 @@
             $submenuData = array(
                 'items' => $menuItem->getChildren(),
                 'depth' => $depth + 1,
-                'attributesStr' => 'class="level'.($depth+1).' ' . $classChildren . '"'
+                'attributesStr' => 'class="level'.($depth+1).' ' . $children . '"'
             );
             $submenuData = array_merge($this->getVariables(), $submenuData);
             $submenu = ipView('menu.php', $submenuData)->render();
@@ -48,6 +48,7 @@
         ?>
         <li<?php echo $class; ?>>
             <a<?php echo $href; ?><?php echo $target; ?> title="<?php echo escAttr($menuItem->getTitle()); ?>">
+                <i class="fa fa-fw <?php echo esc($menuItem->getIcon()); ?>"></i>
                 <?php echo esc($menuItem->getTitle()); ?>
             </a>
             <?php echo $submenu; ?>
