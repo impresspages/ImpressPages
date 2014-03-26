@@ -84,7 +84,7 @@ class Slot
             'active' => 'active',
             'selected' => 'selected',
             'disabled' => 'disabled',
-            'breadcrumb' => 'breadcrumb',
+            'crumb' => 'crumb',
             'parent' => 'parent',
             'children' => 'children'
         );

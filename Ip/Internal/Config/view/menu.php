@@ -16,7 +16,7 @@
         if($menuItem->isCurrent()) {
             $css[] = $active;
         } elseif ($menuItem->isInCurrentBreadcrumb()) {
-            $css[] = $breadcrumb;
+            $css[] = $crumb;
         }
         if(sizeof($menuItem->getChildren()) > 0) {
             $css[] = $parent;
