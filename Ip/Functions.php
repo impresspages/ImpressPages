@@ -950,6 +950,18 @@ function ipPage($pageId)
     return new \Ip\Page($pageId);
 }
 
+/**
+ * Add file to the repository.
+ * @param string $file absolute path to file in tmp directory
+ * @param null|string $desiredName desired file name in repository.
+ * @return string relative file name in repository
+ * @throws \Ip\Exception
+ */
+function ipRepositoryAddFile($file, $desiredName = null)
+{
+    return \Ip\Internal\Repository\Model::addFile($file, $desiredName);
+}
+
 
 /**
  * Mark repository file as being used by plugin.

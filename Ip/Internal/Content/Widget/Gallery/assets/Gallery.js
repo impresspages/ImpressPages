@@ -72,6 +72,12 @@ var IpWidget_Gallery = function () {
 
         }, this));
 
+        $(document).on(
+            'ipWidgetDeleted.galleryWidget ' +
+                'ipWidgetAdded.galleryWidget ' +
+                'ipWidgetMoved.galleryWidget'
+            , $.proxy(currentScope.blur, currentScope));
+
 
     }
 

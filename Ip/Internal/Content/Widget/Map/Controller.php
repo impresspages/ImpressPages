@@ -35,6 +35,19 @@ class Controller extends \Ip\WidgetController{
             $data['height'] = '250px';
         }
 
+        if (empty($data['mapTypeId'])) {
+            $data['mapTypeId'] = null;
+        }
+        if (empty($data['zoom'])) {
+            $data['zoom'] = null;
+        }
+        if (empty($data['lat'])) {
+            $data['lat'] = null;
+        }
+        if (empty($data['lng'])) {
+            $data['lng'] = null;
+        }
+
         return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
     }
 
