@@ -2519,7 +2519,7 @@ a {
 .topmenu .active > a {
   font-weight: bold;
 }
-.topmenu .breadcrumb > a {
+.topmenu .crumb > a {
   color: #000000;
   font-weight: bold;
 }
@@ -2537,7 +2537,7 @@ a {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   display: none;
   position: absolute;
-  z-index: 10;
+  z-index: 2000;
 }
 .topmenu li:hover > ul {
   display: block;
@@ -2607,7 +2607,7 @@ a {
 .sidenav nav .active > a {
   font-weight: bold;
 }
-.sidenav nav .breadcrumb > a {
+.sidenav nav .crumb > a {
   color: #000000;
   font-weight: bold;
 }
@@ -2615,7 +2615,7 @@ a {
   display: none;
 }
 .sidenav nav.collapse .active > ul,
-.sidenav nav.collapse .breadcrumb > ul {
+.sidenav nav.collapse .crumb > ul {
   display: block;
 }
 @media screen and (max-width: 479px) {

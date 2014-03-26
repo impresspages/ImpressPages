@@ -20,8 +20,5 @@
                     </div>
                 <?php } ?>
             </div>
-
-            <a href="#" class="searchToggle">&nbsp;</a>
-            <?php echo ipSlot('search'); ?>
         </div>
     </header>
