@@ -59,14 +59,14 @@ class Service
 
     public static function addWidgetInstance($widgetId, $revisionId, $languageId, $block, $position, $visible = true)
     {
-        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $languageId, $block, $position, $visible);
+        $instanceId = WidgetModel::addInstance($widgetId, $revisionId, $languageId, $block, $position, $visible);
         return $instanceId;
     }
 
 
-    public static function deleteWidgetInstance($instanceId)
+    public static function deleteWidget($widgetId)
     {
-        InstanceModel::deleteInstance($instanceId);
+        WidgetModel::delete($widgetId);
     }
 
 
