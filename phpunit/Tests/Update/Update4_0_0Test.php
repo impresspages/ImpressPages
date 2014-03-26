@@ -33,7 +33,7 @@ class Update4_0_0Test extends \PhpUnit\Helper\MinkTestCase
 
         $this->find('.ipsStartUpdate')->click();
 
-        $this->waitForElementPresent('p.bg-success');
+        $this->waitForElementPresent('p.alert-success');
         $versionSpan = $this->find('div.page-header small');
         $this->assertEquals(\Ip\Application::getVersion(), $versionSpan->getText());
 

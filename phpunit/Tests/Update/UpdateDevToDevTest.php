@@ -33,7 +33,7 @@ class UpdateDevToDevTest extends \PhpUnit\Helper\MinkTestCase
 
         $this->find('.ipsStartUpdate')->click();
 
-        $this->waitForElementPresent('p.bg-success');
+        $this->waitForElementPresent('p.alert-success');
     }
 
 }
