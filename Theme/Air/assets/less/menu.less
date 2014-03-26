@@ -43,16 +43,16 @@
         }
     }
 
-    .current > a {
+    .active > a {
         font-weight: bold;
     }
 
-    .selected > a {
+    .breadcrumb > a {
         color: @ipTextColor;
         font-weight: bold;
     }
 
-    .subnodes > a {
+    .parent > a {
         padding-right: 30px;
 
         &:after {
@@ -148,11 +148,11 @@
             }
         }
 
-        .current > a {
+        .active > a {
             font-weight: bold;
         }
 
-        .selected > a {
+        .breadcrumb > a {
             color: @ipTextColor;
             font-weight: bold;
         }
@@ -163,8 +163,8 @@
                 display: none;
             }
 
-            .current, .selected {
-                ul { // displaying 2nd level
+            .active, .breadcrumb {
+                > ul { // displaying one level deeper
                     display: block;
                 }
             }
