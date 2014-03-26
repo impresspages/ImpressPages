@@ -353,7 +353,7 @@ var ipContent = new function () {
                     $widget.remove();
                 }
                 if (callback) {
-                    callback(response.instanceId);
+                    callback(response.widgetId);
                 }
 
                 var data = {};
@@ -420,7 +420,7 @@ var ipContent = new function () {
                     $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                     $block.trigger('ipWidgetReinit');
                     $block.trigger('ipWidgetAdded', {
-                        'instanceId': response.instanceId,
+                        'instanceId': response.widgetId,
                         'widget': $newWidget
                     });
 
