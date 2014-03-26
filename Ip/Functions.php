@@ -421,7 +421,7 @@ function escAttr($value)
  * Translate and escape a string
  *
  * @param $text Original value in English.
- * @param $domain Context, e.g. plugin name.
+ * @param string $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
  * @throws Ip\Exception
@@ -733,17 +733,18 @@ function ipDoctypeDeclaration($doctype = null)
  * @param string|null $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
-function ipTable($table, $as = null)
+function ipTable($table, $as = false)
 {
     $prefix = ipConfig()->tablePrefix();
     $answer = '`' . $prefix . $table . '`';
-    if ($as != false) {
-        if ($as !== null) {
-            $answer .= ' as `' . $as . '`';
-        } elseif ($prefix) { // if table prefix is empty we don't need to use `tableName` as `tableName`
-            $answer .= ' as `' . $table . '`';
+    if ($as === true) {
+        if ($prefix) {  // if table prefix is empty we don't need to use `tableName` as `tableName`
+            $answer .= ' as `' . $table . '` ';
         }
+    } elseif ($as) {
+        $answer .= ' as `' . $as . '` ';
     }
+
     return $answer;
 }
 

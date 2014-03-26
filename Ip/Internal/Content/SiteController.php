@@ -12,19 +12,19 @@ class SiteController extends \Ip\Controller
 
     public function widgetPost()
     {
-        $instanceId = ipRequest()->getPost('instanceId');
+        $widgetId = ipRequest()->getPost('widgetId');
 
-        if (!$instanceId) {
-            return \Ip\Response\JsonRpc::error('Missing instanceId POST variable');
+        if (!$widgetId) {
+            return \Ip\Response\JsonRpc::error('Missing widgetId POST variable');
         }
-        $instanceId = $_POST['instanceId'];
+        $widgetId = $_POST['widgetId'];
 
-        $widgetRecord = Model::getWidgetFullRecord($instanceId);
+        $widgetRecord = Model::getWidgetRecord($widgetId);
 
         try {
             if (!$widgetRecord) {
                 return \Ip\Response\JsonRpc::error(
-                    "Can't find requested Widget: " . $instanceId,
+                    "Can't find requested Widget: " . $widgetId,
                     Exception::UNKNOWN_INSTANCE
                 );
             }
@@ -37,7 +37,7 @@ class SiteController extends \Ip\Controller
                 );
             }
 
-            return $widgetObject->post($instanceId, $widgetRecord['data']);
+            return $widgetObject->post($widgetId, $widgetRecord['data']);
         } catch (Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }
