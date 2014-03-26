@@ -12,7 +12,11 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
-    public static function update_16()
+
+
+
+
+    public static function update_17()
     {
         $widgetTable = ipTable('widget');
         $sql = "
@@ -21,7 +25,7 @@ class Migration {
         ipDb()->execute($sql);
     }
 
-    public static function update_15()
+    public static function update_16()
     {
         $widgetTable = ipTable('widget');
         $sql = "
@@ -30,7 +34,7 @@ class Migration {
         ipDb()->execute($sql);
     }
 
-    public static function update_14()
+    public static function update_15()
     {
         $widgetTable = ipTable('widget');
         $instanceTable = ipTable('widgetInstance');
@@ -42,7 +46,7 @@ class Migration {
 
 
 
-    public static function update_13()
+    public static function update_14()
     {
         $widgetTable = ipTable('widget');
         $sql = "
@@ -51,7 +55,8 @@ class Migration {
         ipDb()->execute($sql);
     }
 
-    public static function update_12()
+
+    public static function update_13()
     {
         $instanceTable = ipTable('widgetInstance');
         $sql = "
@@ -60,6 +65,24 @@ class Migration {
         ipDb()->execute($sql);
 
     }
+
+
+    public static function update_12()
+    {
+        $table = ipTable('widgetInstance');
+
+        $sql = "
+        UPDATE
+            $table
+        SET
+            `data` = REPLACE(`data`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_')),
+            `blockName` = REPLACE(`blockName`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_'))
+        WHERE
+            `revisionId` = :newRevisionId
+        ";
+        ipDb()->execute($sql);
+    }
+
 
     public static function update_11()
     {
