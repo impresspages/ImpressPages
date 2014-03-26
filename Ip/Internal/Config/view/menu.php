@@ -5,10 +5,48 @@
  * @var $this \Ip\View
  */
 ?>
-<?php if (isset($items[0])){?>
-    <?php $firstItem = $items[0]; ?>
-    <ul <?php echo $attributesStr; ?>><?php
-foreach($items as $item) {
-    echo ipView('Ip/Internal/Config/view/menuItem.php', array('menuItem' => $item, 'depth' => $depth))->render();
-} ?></ul>
-<?php } ?>
+<?php if (!empty($items)){ ?>
+<ul <?php echo $attributesStr; ?>><?php
+        foreach($items as $menuItem) {
+            $css = array();
+            if($menuItem->isCurrent()) {
+                $css[] = $activeClass;
+            } elseif ($menuItem->isInCurrentBreadcrumb()) {
+                $css[] = $breadcrumbClass;
+            }
+            if(sizeof($menuItem->getChildren()) > 0) {
+                $css[] = $parentClass;
+            }
+            if ($menuItem->isDisabled()) {
+                $href = '';
+                $css[] = $disabledClass;
+            } else {
+                $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
+            }
+            if ($menuItem->getBlank()) {
+                $target = 'target="_blank"';
+            } else {
+                $target = '';
+            }
+            if ($menuItem->getChildren()) {
+                $submenuData = array(
+                    'items' => $menuItem->getChildren(),
+                    'depth' => $depth + 1,
+                    'attributesStr' => 'class="level'.($depth+1).'"'
+                );
+                $submenuData = array_merge($this->getVariables, $submenuData);
+                $submenu = ipView('menu.php', $submenuData)->render();
+            } else {
+                $submenu = '';
+            }
+
+            ?>
+            <li class="<?php echo implode(' ', $css); ?>">
+                <a <?php echo $href ?> <?php echo $target ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">
+                    <?php echo esc($menuItem->getTitle()); ?>
+                </a>
+                <?php echo $submenu; ?>
+            </li><?php
+        } ?>
+</ul>
+<?php }
