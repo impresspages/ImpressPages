@@ -77,16 +77,16 @@ class Controller extends \Ip\WidgetController
 
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $data['revisionId'] = $revisionId;
         $data['widgetId'] = $widgetId;
         $data = $this->prepareData($data, $widgetId);
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
     {
         $data = $this->prepareData($data, $widgetId);
 
@@ -124,5 +124,28 @@ class Controller extends \Ip\WidgetController
         return $data;
     }
 
+    /**
+     * Duplicate widget action
+     *
+     * This function is executed after the widget has been duplicated.
+     * All widget data is duplicated automatically. This method is used only in case a widget
+     * needs to do some maintenance tasks on duplication.
+     *
+     * @param int $oldId Old widget ID
+     * @param int $newId Duplicated widget ID
+     * @param array $data Data that has been duplicated from old widget to the new one
+     */
+    public function duplicate($oldId, $newId, $data)
+    {
+        $data = $this->prepareData($data, $newId);
+        $cols = $data['cols'];
+        $newCols = array();
+        foreach ($cols as $col) {
+            $newCols[] = str_replace('column' . $oldId, 'column' . $newId, $col);
+        }
+        $data['cols'] = $newCols;
+
+        return $data;
+    }
 
 }

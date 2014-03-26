@@ -195,7 +195,7 @@ class WidgetController
      * If you pass the following parameters:
      * sa=Content.widgetPost
      * securityToken=actualSecurityToken
-     * instanceId=actualWidgetInstanceId
+     * widgetId=actualWidgetId
      *
      * then that post request will be redirected to the specified method.
      *
@@ -203,10 +203,10 @@ class WidgetController
      *
      * Attention: this method is accessible for website visitors without admin login.
      *
-     * @param int $instanceId Widget instance ID
+     * @param int $widgetId Widget ID
      * @param array $data Widget Data array
      */
-    public function post ($instanceId, $data)
+    public function post ($widgetId, $data)
     {
 
     }
@@ -214,7 +214,7 @@ class WidgetController
     /**
      * Duplicate widget action
      *
-     * This function is executed after the widget is being duplicated.
+     * This function is executed after the widget has been duplicated.
      * All widget data is duplicated automatically. This method is used only in case a widget
      * needs to do some maintenance tasks on duplication.
      *
@@ -224,7 +224,7 @@ class WidgetController
      */
     public function duplicate($oldId, $newId, $data)
     {
-
+        return $data;
     }
 
     /**
@@ -269,13 +269,13 @@ class WidgetController
      *
      * @param $revisionId Widget revision ID
      * @param $widgetId Widget ID
-     * @param $instanceId Widget instance ID
+     * @param $widgetId Widget instance ID
      * @param array|null $data Widget data array
      * @param string $skin Skin name
      * @return string Widget's HTML code
      */
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $answer = '';
         try {
@@ -299,12 +299,12 @@ class WidgetController
      *
      * @param $revisionId Widget revision ID
      * @param $widgetId Widget ID
-     * @param $instanceId Widget instance ID
+     * @param $widgetId Widget instance ID
      * @param $data Widget data array
      * @param $skin Widget skin name
      * @return array Data array
      */
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
     {
         return $data;
     }
