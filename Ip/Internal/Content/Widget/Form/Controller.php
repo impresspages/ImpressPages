@@ -16,10 +16,10 @@ class Controller extends \Ip\WidgetController{
         return __('Form', 'Ip-admin', false);
     }
 
-    public function post ($instanceId, $data) {
+    public function post ($widgetId, $data) {
         $postData = ipRequest()->getPost();
 
-        $form = $this->createForm($instanceId, $data);
+        $form = $this->createForm($widgetId, $data);
         $errors = $form->validate($postData);
 
         if ($errors) {
@@ -151,7 +151,7 @@ class Controller extends \Ip\WidgetController{
 
 
         //get page where this widget sits :)
-        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($postData['instanceId']);
+        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($postData['widgetId']);
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
@@ -207,7 +207,7 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $data, $skin) {
 
-        $data['form'] = $this->createForm($instanceId, $data);
+        $data['form'] = $this->createForm($widgetId, $data);
 
         if (!isset($data['success'])) {
             $data['success'] = '';
@@ -262,11 +262,11 @@ class Controller extends \Ip\WidgetController{
     /**
      *
      *
-     * @param int $instanceId
+     * @param int $widgetId
      * @param array $data
      * @return \Ip\Form
      */
-    protected function createForm($instanceId, $data) {
+    protected function createForm($widgetId, $data) {
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_PUBLIC);
 
@@ -317,8 +317,8 @@ class Controller extends \Ip\WidgetController{
 
         $field = new \Ip\Form\Field\Hidden(
         array(
-        'name' => 'instanceId',
-        'value' => $instanceId
+        'name' => 'widgetId',
+        'value' => $widgetId
         ));
         $form->addField($field);
 
