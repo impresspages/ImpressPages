@@ -18,11 +18,11 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
 
         if (ipIsManagementState()) {
-            return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+            return parent::generateHtml($revisionId, $widgetId, $data, $skin);
         } else {
             return '';
         }

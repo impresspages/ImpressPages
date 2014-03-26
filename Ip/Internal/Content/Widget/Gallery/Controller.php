@@ -189,7 +189,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
 
         if (isset($data['images']) && is_array($data['images'])) {
@@ -270,7 +270,7 @@ class Controller extends \Ip\WidgetController{
 
             }
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
 
@@ -305,6 +305,7 @@ class Controller extends \Ip\WidgetController{
     * @param int $oldId old widget id
     * @param int $newId duplicated widget id
     * @param array $data data that has been duplicated from old widget to the new one
+    * @return array
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['images']) || !is_array($data['images'])) {
@@ -319,7 +320,7 @@ class Controller extends \Ip\WidgetController{
                 \Ip\Internal\Repository\Model::bindFile($image['imageOriginal'], 'Content', $newId);
             }
         }
-
+        return $data;
     }
 
 

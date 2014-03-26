@@ -34,6 +34,10 @@ class Job
         return $result;
     }
 
+    /**
+     * @param $info
+     * @return \Ip\Response\Redirect
+     */
     public static function ipExecuteController($info)
     {
         $page = ipContent()->getCurrentPage();
@@ -43,6 +47,9 @@ class Job
 
     }
 
+    /**
+     * @return mixed
+     */
     public static function ipDefaultPageId_70()
     {
         $languageCode = ipContent()->getCurrentLanguage()->getCode();

@@ -417,7 +417,6 @@ class PublicController extends \Ip\Controller
             'repositoryFile',
             'repositoryReflection',
             'widget',
-            'widgetInstance',
             'themeStorage',
             'widgetOrder',
             'inlineValueGlobal',

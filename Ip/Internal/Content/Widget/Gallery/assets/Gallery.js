@@ -87,7 +87,7 @@ var IpWidget_Gallery = function () {
         var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
         repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
         repository.on('ipModuleRepository.cancel', function () {
-            ipContent.deleteWidget(thisContext.$widgetObject.data('widgetinstanceid'));
+            ipContent.deleteWidget(thisContext.$widgetObject.data('widgetid'));
         });
 
     }
@@ -152,7 +152,7 @@ var IpWidget_Gallery = function () {
     this.deleteImage = function (position) {
         if (!this.data.images[1]) { //if last image
             //remove the whole widget
-            ipContent.deleteWidget(this.$widgetObject.data('widgetinstanceid'));
+            ipContent.deleteWidget(this.$widgetObject.data('widgetid'));
             return;
         }
 

@@ -23,7 +23,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (!empty($data['width'])) {
             $data['width'] = ((int)$data['width']) . 'px';
         } else {
@@ -48,7 +48,7 @@ class Controller extends \Ip\WidgetController{
             $data['lng'] = null;
         }
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
     public function adminHtmlSnippet()
