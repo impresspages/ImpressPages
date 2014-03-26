@@ -6,7 +6,7 @@
                 <div class="ipsFile ipmFile">
                     <button type="button" class="close ipsRemove">&times;</button>
                     <div class="ipmFileName"><?php echo esc($file) ?></div>
-                    <input type="hidden" name="<?php echo esc($inputName, 'attr') ?>[]" value="<?php echo esc($file, 'attr') ?>" />
+                    <input type="hidden" name="<?php echo escAttr($inputName) ?>[]" value="<?php echo escAttr($file) ?>" />
                 </div>
             <?php } ?>
         <?php } ?>

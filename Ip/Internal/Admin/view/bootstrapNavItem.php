@@ -28,7 +28,7 @@ if ($menuItem->isDisabled()) {
 ?>
 
 <li class="<?php echo implode(' ', $css) ?>">
-    <?php if ($href) { ?><a <?php echo esc($href, 'attr') ?> title="<?php esc($menuItem->getTitle()) ?>"><?php } ?>
+    <?php if ($href) { ?><a <?php echo escAttr($href) ?> title="<?php esc($menuItem->getTitle()) ?>"><?php } ?>
         <?php echo esc($menuItem->getTitle()) ?>
         <?php if ($href) { ?></a><?php } ?>
     <?php if ($menuItem->getChildren()){ ?>
