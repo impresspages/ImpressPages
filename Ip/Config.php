@@ -83,6 +83,11 @@ class Config
         return $this->config['tablePrefix'];
     }
 
+    /**
+     * Returns absolute base url.
+     *
+     * @return string
+     */
     public function baseUrl()
     {
         return $this->protocol . $this->config['baseUrl'];
