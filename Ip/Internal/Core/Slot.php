@@ -95,7 +95,6 @@ class Slot
             );
         }
 
-
         $data = array_merge($data, $params); // pass params to View along with other data
 
         if (isset($params['items']) && is_string($params['items'])) {
@@ -123,13 +122,12 @@ class Slot
             )
         );
 
-        $data['activeClass'] = isset($params['active']) ? $params['active'] : 'active';
-        $data['selectedClass'] = isset($params['selected']) ? $params['selected'] : 'selected';
-        $data['breadcrumbClass'] = isset($params['breadcrumb']) ? $params['breadcrumb'] : 'breadcrumb';
-        $data['parentClass'] = isset($params['parent']) ? $params['parent'] : 'selected';
-        $data['disabledClass'] = isset($params['disabled']) ? $params['disabled'] : 'disabled';
-        $data['children'] = isset($params['children']) ? $params['children'] : 'children';
-
+        $data['classActive'] = isset($params['active']) ? $params['active'] : 'active';
+        $data['classSelected'] = isset($params['selected']) ? $params['selected'] : 'selected';
+        $data['classDisabled'] = isset($params['disabled']) ? $params['disabled'] : 'disabled';
+        $data['classBreadcrumb'] = isset($params['breadcrumb']) ? $params['breadcrumb'] : 'breadcrumb';
+        $data['classParent'] = isset($params['parent']) ? $params['parent'] : 'parent';
+        $data['classChildren'] = isset($params['children']) ? $params['children'] : 'children';
 
         $view = ipView('Ip/Internal/Config/view/menu.php', $data);
         return $view->render();
