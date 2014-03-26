@@ -37,31 +37,40 @@ class Specialchars
     public static function url($string){
         $url = mb_strtolower($string);
         $url = \Ip\Internal\Text\Transliteration::transform($url);
-        $url = str_replace(" ", "-", $url);
-        $url = str_replace("/", "-", $url);
-        $url = str_replace("\\", "-", $url);
-        $url = str_replace("\"", "-", $url);
-        $url = str_replace("\'", "-", $url);
-        $url = str_replace("„", "-", $url);
-        $url = str_replace("“", "-", $url);
-        $url = str_replace("&", "-", $url);
-        $url = str_replace("%", "-", $url);
-        $url = str_replace("`", "-", $url);
-        $url = str_replace("!", "-", $url);
-        $url = str_replace("@", "-", $url);
-        $url = str_replace("#", "-", $url);
-        $url = str_replace("$", "-", $url);
-        $url = str_replace("^", "-", $url);
-        $url = str_replace("*", "-", $url);
-        $url = str_replace("(", "-", $url);
-        $url = str_replace(")", "-", $url);
-        $url = str_replace("{", "-", $url);
-        $url = str_replace("}", "-", $url);
-        $url = str_replace("[", "-", $url);
-        $url = str_replace("]", "-", $url);
-        $url = str_replace("|", "-", $url);
-        $url = str_replace("~", "-", $url);
+        $replace = array(
+            " " => "-",
+            "/" => "-",
+            "\\" => "-",
+            "\"" => "-",
+            "\'" => "-",
+            "„" => "-",
+            "“" => "-",
+            "&" => "-",
+            "%" => "-",
+            "`" => "-",
+            "!" => "-",
+            "@" => "-",
+            "#" => "-",
+            "$" => "-",
+            "^" => "-",
+            "*" => "-",
+            "(" => "-",
+            ")" => "-",
+            "{" => "-",
+            "}" => "-",
+            "[" => "-",
+            "]" => "-",
+            "|" => "-",
+            "~" => "-",
+            "." => "-",
+            "'" => "",
+            "?" => "",
+            ":" => "",
+            ";" => "",
+        );
+        $url = strtr($url, $replace);
 
+        $url = preg_replace('/-+/', '-', $url);
 
         return $url;
 
