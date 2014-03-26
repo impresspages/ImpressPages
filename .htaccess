@@ -6,10 +6,10 @@
     RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
 </IfModule>
 
-# Disable directory listing (highly recommended)
+# Disable directory listing (highly recommended). Commented out as might not work on some hosts
 # Options -Indexes
 
-# Disable accessing files without extension (recommended)
+# Disable accessing files without extension (recommended). Commented out as might not work on some hosts
 # Options -MultiViews
 
 #Modified rules for 1and1 hosting
