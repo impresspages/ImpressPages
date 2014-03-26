@@ -203,7 +203,7 @@ class WidgetController
      *
      * Attention: this method is accessible for website visitors without admin login.
      *
-     * @param int $instanceId Widget instance ID
+     * @param int $widgetId Widget ID
      * @param array $data Widget Data array
      */
     public function post ($widgetId, $data)
@@ -269,7 +269,7 @@ class WidgetController
      *
      * @param $revisionId Widget revision ID
      * @param $widgetId Widget ID
-     * @param $instanceId Widget instance ID
+     * @param $widgetId Widget instance ID
      * @param array|null $data Widget data array
      * @param string $skin Skin name
      * @return string Widget's HTML code
@@ -299,7 +299,7 @@ class WidgetController
      *
      * @param $revisionId Widget revision ID
      * @param $widgetId Widget ID
-     * @param $instanceId Widget instance ID
+     * @param $widgetId Widget instance ID
      * @param $data Widget data array
      * @param $skin Widget skin name
      * @return array Data array
