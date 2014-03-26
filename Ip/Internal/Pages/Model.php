@@ -152,6 +152,11 @@ class Model
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
+    public static function getPageByAlias($languageCode, $alias)
+    {
+        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+    }
+
     protected static function getNextPageOrder($where)
     {
         if (empty($where['isDeleted'])) {
@@ -310,11 +315,22 @@ class Model
         ipPageStorage($menuId)->set('menuType', $type);
     }
 
+    /**
+     * @param string $languageCode
+     * @param string $alias
+     * @param string $title
+     * @return string alias
+     */
     public static function createMenu($languageCode, $alias, $title)
     {
         $data = array();
         $data['languageCode'] = $languageCode;
-        $data['alias'] = $alias;
+
+        if (empty($alias)) {
+            $alias = \Ip\Internal\Text\Specialchars::url($title);
+        }
+
+        $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
 
         $data['parentId'] = 0;
@@ -328,6 +344,22 @@ class Model
         return $menuId ? $alias : null;
     }
 
+    protected static function allocateUniqueAlias($languageCode, $alias)
+    {
+        $condition = array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0);
+
+        $exists = ipDb()->selectValue('page', 'id', $condition);
+        if (!$exists) {
+            return $alias;
+        }
+
+        $i = 2;
+        while (ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $alias . '-' . $i, 'isDeleted' => 0))) {
+            $i++;
+        }
+
+        return $alias . '-' . $i;
+    }
 
     /**
      *
