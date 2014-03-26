@@ -6,7 +6,7 @@
 namespace Ip\Internal\Content;
 
 
-class InstanceModel
+class WidgetModel
 {
 
 
@@ -78,14 +78,15 @@ class InstanceModel
         return $positionNumber;
     }
 
+
     /**
-     *
-     * Mark instance as deleted. Instance will be remove completely, when revision will be deleted.
-     * @param int $instanceId
+     * Mark widget as deleted. Widget will be removed completely, when revision will be removed.
+     * @param $widgetId
+     * @return bool
      */
-    public static function deleteInstance($instanceId)
+    public static function delete($widgetId)
     {
-        ipDb()->update('widget', array('isDeleted' => 1, 'deletedAt' => time()), array('id' => $instanceId));
+        ipDb()->update('widget', array('isDeleted' => 1, 'deletedAt' => time()), array('id' => $widgetId));
         return true;
     }
 

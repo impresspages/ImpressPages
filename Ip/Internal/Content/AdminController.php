@@ -47,7 +47,7 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Unknown instance ' . $instanceId);
         }
 
-        Service::deleteWidgetInstance($instanceId);
+        Service::deleteWidget($instanceId);
 
         $newInstanceId = Service::addWidgetInstance(
             $record['widgetId'],
