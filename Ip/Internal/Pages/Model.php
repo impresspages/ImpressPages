@@ -152,6 +152,11 @@ class Model
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
+    public static function getPageByAlias($languageCode, $alias)
+    {
+        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+    }
+
     protected static function getNextPageOrder($where)
     {
         if (empty($where['isDeleted'])) {
