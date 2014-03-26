@@ -157,9 +157,9 @@ class Model
     }
 
 
-    public static function generateWidgetPreview($instanceId, $managementState)
+    public static function generateWidgetPreview($widgetId, $managementState)
     {
-        $widgetRecord = self::getWidgetRecord($instanceId);
+        $widgetRecord = self::getWidgetRecord($widgetId);
         return self::_generateWidgetPreview($widgetRecord, $managementState);
     }
 
@@ -200,7 +200,7 @@ class Model
             'managementState' => $managementState,
             'html' => $previewHtml,
             'widgetData' => $widgetRecord['data'],
-            'widgetInstanceId' => $widgetRecord['id'],
+            'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
             'widgetSkin' => $widgetRecord['skin'],
             'optionsMenu' => $optionsMenu
@@ -250,14 +250,14 @@ class Model
             ORDER BY `position` ASC
         ';
 
-        $instances = ipDb()->fetchAll($sql, array($oldRevisionId));
+        $widgets = ipDb()->fetchAll($sql, array($oldRevisionId));
 
-        foreach ($instances as $instance) {
+        foreach ($widgets as $widget) {
 
-            unset($instance['id']);
-            $instance['revisionId'] = $newRevisionId;
+            unset($widget['id']);
+            $widget['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widget', $instance);
+            ipDb()->insert('widget', $widget);
         }
 
     }
@@ -358,15 +358,15 @@ class Model
      * @param string $blockName
      * @param int $newPosition Real position of widget starting with 0
      */
-    private static function _calcWidgetPositionNumber($revisionId, $languageId, $instanceId, $newBlockName, $newPosition)
+    private static function _calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $newBlockName, $newPosition)
     {
         $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
 
         $widgets = array();
 
-        foreach ($allWidgets as $instance) {
-            if ($instanceId === null || $instance['id'] != $instanceId) {
-                $widgets[] = $instance;
+        foreach ($allWidgets as $widget) {
+            if ($widgetId === null || $widget['id'] != $widgetId) {
+                $widgets[] = $widget;
             }
         }
 

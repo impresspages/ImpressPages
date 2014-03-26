@@ -148,11 +148,11 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable instanceId');
         }
-        $instanceId = $_POST['instanceId'];
+        $widgetId = $_POST['instanceId'];
 
-        $record = Model::getWidgetRecord($instanceId);
+        $record = Model::getWidgetRecord($widgetId);
         if (!$record) {
-            return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
+            return $this->_errorAnswer('Unknown widget. ' . $widgetId);
         }
 
 
@@ -172,11 +172,11 @@ class AdminController extends \Ip\Controller
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
-            'instanceId' => $instanceId
+            'instanceId' => $widgetId
         );
 
         if (!empty($_POST['generatePreview'])) {
-            $data['html'] = Model::generateWidgetPreview($instanceId, true);
+            $data['html'] = Model::generateWidgetPreview($widgetId, true);
         }
 
 
@@ -189,11 +189,11 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing POST variable instanceId');
         }
-        $instanceId = $_POST['instanceId'];
+        $widgetId = $_POST['instanceId'];
 
-        $record = Model::getWidgetRecord($instanceId);
+        $record = Model::getWidgetRecord($widgetId);
         if (!$record) {
-            return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
+            return $this->_errorAnswer('Unknown widget. ' . $widgetId);
         }
 
 
@@ -205,13 +205,13 @@ class AdminController extends \Ip\Controller
 
 
         Model::updateWidget($record['id'], $updateData);
-        $previewHtml = Model::generateWidgetPreview($instanceId, true);
+        $previewHtml = Model::generateWidgetPreview($widgetId, true);
 
         $data = array(
             'status' => 'success',
             'action' => '_updateWidget',
             'html' => $previewHtml,
-            'instanceId' => $instanceId
+            'instanceId' => $widgetId
         );
 
         return new \Ip\Response\Json($data);
@@ -223,15 +223,15 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing instanceId POST variable');
         }
-        $instanceId = $_POST['instanceId'];
+        $widgetId = $_POST['instanceId'];
 
-        if (is_array($instanceId)) {
-            foreach($instanceId as $curInstanceId) {
-                Service::deleteWidget($curInstanceId);
+        if (is_array($widgetId)) {
+            foreach($widgetId as $curId) {
+                Service::deleteWidget($curId);
             }
         } else {
-            $instanceId = (int)$instanceId;
-            Service::deleteWidget($instanceId);
+            $widgetId = (int)$widgetId;
+            Service::deleteWidget($widgetId);
         }
 
 
