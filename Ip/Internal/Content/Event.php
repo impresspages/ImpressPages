@@ -100,12 +100,7 @@ class Event
         Service::setManagementMode(1);
     }
 
-    public static function ipCronExecute($info)
-    {
-        if ($info['firstTimeThisDay'] || $info['test']) {
-            Model::deleteUnusedWidgets();
-        }
-    }
+
 
     public static function ipPageRevisionDuplicated($info)
     {

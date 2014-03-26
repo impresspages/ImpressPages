@@ -210,22 +210,14 @@ class Model
     public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
         $sql = '
-            SELECT i.*,
-                i.id AS `instanceId`,
-                w.id AS `widgetId`,
-                w.name AS `name`,
-                w.skin AS `skin`,
-                w.data AS `data`,
-                w.updatedAt AS `updatedAt`
+            SELECT *
             FROM
-                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.isDeleted = 0 AND
-                i.widgetId = w.id AND
-                i.blockName = :blockName AND
-                i.revisionId = :revisionId AND
-                i.languageId = :languageId
+                `isDeleted` = 0 AND
+                `blockName` = :blockName AND
+                `revisionId` = :revisionId AND
+                `languageId` = :languageId
             ORDER BY `position` ASC
         ';
 
@@ -247,7 +239,7 @@ class Model
         $sql = '
             SELECT *
             FROM
-                ' . ipTable('widgetInstance', 'i') . '
+                ' . ipTable('widget', 'i') . '
             WHERE
                 i.revisionId = ? AND
                 i.isDeleted = 0
@@ -261,7 +253,7 @@ class Model
             unset($instance['id']);
             $instance['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widgetInstance', $instance);
+            ipDb()->insert('widget', $instance);
         }
 
     }
@@ -319,12 +311,10 @@ class Model
     public static function getWidgetFullRecord($instanceId)
     {
         $sql = '
-            SELECT *, i.id as instanceId FROM
-                ' . ipTable('widgetInstance', 'i') . ',
+            SELECT * FROM
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.`id` = ? AND
-                i.widgetId = w.id
+                `id` = ?
         ';
         $row = ipDb()->fetchRow($sql, array($instanceId));
         if (!$row) {
@@ -382,8 +372,11 @@ class Model
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widgetInstance', array('revisionId' => $revisionId));
+        ipDb()->delete('widget', array('revisionId' => $revisionId));
+
+        //TODOX execute widget's delete method
         ipdb()->delete('revision', array('revisionId' => $revisionId));
+        //TODOX revision remove event
     }
 
 
@@ -394,33 +387,9 @@ class Model
             self::removeRevision($revision['revisionId']);
         }
 
-        self::deleteUnusedWidgets();
     }
 
 
-    /**
-     *
-     * Each widget might be used many times. That is controlled using instanaces. This method destroys all widgets that has no instances.
-     * @throws Exception
-     */
-    public static function deleteUnusedWidgets()
-    {
-        $sql = "
-            SELECT `widget`.`id`
-            FROM " . ipTable('widget', 'widget') . "
-            LEFT JOIN " . ipTable('widgetInstance', 'widgetInstance') . "
-            ON `widgetInstance`.`widgetId` = `widget`.`id`
-            WHERE `widgetInstance`.`id` IS NULL
-        ";
-
-        $db = ipDb();
-
-        $widgetList = $db->fetchColumn($sql);
-
-        foreach ($widgetList as $widgetId) {
-            self::deleteWidget($widgetId);
-        }
-    }
 
     /**
      *
@@ -500,7 +469,7 @@ class Model
 
     protected static function revisionWidgetIds($revisionId)
     {
-        $table = ipTable('widgetInstance');
+        $table = ipTable('widget');
         //compare revision content
         $sql = "
             SELECT

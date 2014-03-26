@@ -14,12 +14,12 @@ class InstanceModel
 
     public static function getInstance($instanceId)
     {
-        return ipDb()->selectRow('widgetInstance', '*', array('id' => $instanceId));
+        return ipDb()->selectRow('widget', '*', array('id' => $instanceId));
     }
 
     public static function updateInstance($instanceId, $data)
     {
-        return ipDb()->update('widgetInstance', $data, array('id' => $instanceId));
+        return ipDb()->update('widget', $data, array('id' => $instanceId));
     }
 
 
@@ -40,7 +40,7 @@ class InstanceModel
             'isDeleted' => 0,
         );
 
-        return ipDb()->insert('widgetInstance', $row);
+        return ipDb()->insert('widget', $row);
     }
 
     /**
@@ -85,7 +85,7 @@ class InstanceModel
      */
     public static function deleteInstance($instanceId)
     {
-        ipDb()->update('widgetInstance', array('isDeleted' => 1, 'deletedAt' => time()), array('id' => $instanceId));
+        ipDb()->update('widget', array('isDeleted' => 1, 'deletedAt' => time()), array('id' => $instanceId));
         return true;
     }
 
@@ -100,7 +100,7 @@ class InstanceModel
     {
         $record = Model::getWidgetFullRecord($instanceId);
 
-        $table = ipTable('widgetInstance');
+        $table = ipTable('widget');
         $sql = "
             SELECT count(*) as position
             FROM $table

@@ -733,17 +733,18 @@ function ipDoctypeDeclaration($doctype = null)
  * @param string|null $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
-function ipTable($table, $as = null)
+function ipTable($table, $as = false)
 {
     $prefix = ipConfig()->tablePrefix();
     $answer = '`' . $prefix . $table . '`';
-    if ($as != false) {
-        if ($as !== null) {
-            $answer .= ' as `' . $as . '`';
-        } elseif ($prefix) { // if table prefix is empty we don't need to use `tableName` as `tableName`
-            $answer .= ' as `' . $table . '`';
+    if ($as === true) {
+        if ($prefix) {  // if table prefix is empty we don't need to use `tableName` as `tableName`
+            $answer .= ' as `' . $table . '` ';
         }
+    } elseif ($as) {
+        $answer .= ' as `' . $as . '` ';
     }
+
     return $answer;
 }
 
