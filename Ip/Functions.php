@@ -506,7 +506,7 @@ if (!function_exists('ipFileUrl')) {
 /**
  * Generate URL-encoded query string
  *
- * @param $query Associative (or indexed) array.
+ * @param array $query Associative (or indexed) array.
  * @return string URL string.
  */
 function ipActionUrl($query)

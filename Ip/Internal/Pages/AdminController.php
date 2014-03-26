@@ -329,6 +329,24 @@ class AdminController extends \Ip\Controller
             throw new \Ip\Exception('Missing required parameters');
         }
 
+        // validate page alias
+        $page = Model::getPage($menuId);
+
+        $errors = array();
+
+        if ($page['alias'] != $alias) {
+            if (Model::getPageByAlias($page['languageCode'], $alias)) {
+                $errors['alias'] = __('This name is already occupied', 'Ip-admin');
+            }
+        }
+
+        if ($errors) {
+            return new \Ip\Response\Json(array(
+                    'status' => 'error',
+                    'errors' => $errors,
+                ));
+        }
+
         Service::updateMenu($menuId, $alias, $title, $layout, $type);
 
         $answer = array(
