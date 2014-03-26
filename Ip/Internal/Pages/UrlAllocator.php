@@ -26,7 +26,7 @@ class UrlAllocator
         }
 
         $i = 2;
-        while (!self::isPathAvailable($languageCode, $path . '-' . $i)) {
+        while (!static::isPathAvailable($languageCode, $path . '-' . $i)) {
             $i++;
         }
 

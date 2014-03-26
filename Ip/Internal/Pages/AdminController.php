@@ -351,10 +351,7 @@ class AdminController extends \Ip\Controller
             $title = __('Untitled', 'Ip-admin', false);
         }
 
-        $transliterated = \Ip\Internal\Text\Transliteration::transform($title);
-        $alias = preg_replace('/[^a-z0-9_\-]/i', '', strtolower($transliterated));
-
-        $menuAlias = Service::createMenu($languageCode, $alias, $title);
+        $menuAlias = Service::createMenu($languageCode, null, $title);
 
         $menu = Service::getMenu($languageCode, $menuAlias);
 
