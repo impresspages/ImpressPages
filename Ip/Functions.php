@@ -424,10 +424,23 @@ function escAttr($value)
  * @param $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
+ * @throws Ip\Exception
  */
 function __($text, $domain, $esc = 'html')
 {
-    return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
+    $translation = \Ip\ServiceLocator::translator()->translate($text, $domain);
+
+    if ('html' == $esc) {
+        return escHtml($translation);
+    } elseif (false === $esc) {
+        return $translation;
+    } elseif ('attr' == $esc) {
+        return escAttr($translation);
+    } elseif ('textarea' == $esc) {
+        return escTextarea($translation);
+    }
+
+    throw new \Ip\Exception('Unknown escape method: {$esc}');
 }
 
 /**
