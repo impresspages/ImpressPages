@@ -57,12 +57,6 @@ class Service
         return $widgetId;
     }
 
-    public static function addWidgetInstance($widgetId, $revisionId, $languageId, $block, $position, $visible = true)
-    {
-        $instanceId = WidgetModel::addInstance($widgetId, $revisionId, $languageId, $block, $position, $visible);
-        return $instanceId;
-    }
-
 
     public static function deleteWidget($widgetId)
     {
