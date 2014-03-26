@@ -123,6 +123,11 @@ class Slot
             )
         );
 
+        $data['activeClass'] = isset($params['active']) ? $params['active'] : 'active';
+        $data['selectedClass'] = isset($params['selected']) ? $params['selected'] : 'selected';
+        $data['breadcrumbClass'] = isset($params['breadcrumb']) ? $params['breadcrumb'] : 'breadcrumb';
+        $data['parentClass'] = isset($params['parent']) ? $params['parent'] : 'selected';
+        $data['disabledClass'] = isset($params['disabled']) ? $params['disabled'] : 'disabled';
 
 
         $view = ipView('Ip/Internal/Config/view/menu.php', $data);
