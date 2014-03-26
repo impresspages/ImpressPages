@@ -59,11 +59,11 @@
             <?php foreach ($navbarButtons as $button) { ?>
             <li>
                 <a
-                    href="<?php echo empty($button['url']) ? '#' : esc($button['url'], 'attr'); ?>"
-                    class="<?php echo empty($button['class']) ? '' : esc($button['class'], 'attr'); ?>"
-                    title="<?php echo empty($button['hint']) ? '' : esc($button['hint'], 'attr'); ?>"
+                    href="<?php echo empty($button['url']) ? '#' : escAttr($button['url']); ?>"
+                    class="<?php echo empty($button['class']) ? '' : escAttr($button['class']); ?>"
+                    title="<?php echo empty($button['hint']) ? '' : escAttr($button['hint']); ?>"
                 >
-                    <i class="fa <?php echo empty($button['faIcon']) ? '' : esc($button['faIcon'], 'attr'); ?>"></i>
+                    <i class="fa <?php echo empty($button['faIcon']) ? '' : escAttr($button['faIcon']); ?>"></i>
                     <?php echo empty($button['text']) ? '' : $button['text']; ?>
                 </a>
             </li>

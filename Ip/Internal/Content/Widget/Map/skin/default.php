@@ -1,15 +1,15 @@
 <div
-data-maptypeid="<?php echo esc($mapTypeId, 'attr'); ?>"
-data-zoom="<?php echo esc($zoom, 'attr'); ?>"
-data-lat="<?php echo esc($lat, 'attr'); ?>"
-data-lng="<?php echo esc($lng, 'attr'); ?>"
+data-maptypeid="<?php echo escAttr($mapTypeId); ?>"
+data-zoom="<?php echo escAttr($zoom); ?>"
+data-lat="<?php echo escAttr($lat); ?>"
+data-lng="<?php echo escAttr($lng); ?>"
 
 <?php if (isset($markerlat)) { ?>
-    data-markerlat="<?php echo esc($markerlat, 'attr'); ?>"
+    data-markerlat="<?php echo escAttr($markerlat); ?>"
 <?php } ?>
 
 <?php if (isset($markerlng)) { ?>
-    data-markerlng="<?php echo esc($markerlng, 'attr'); ?>"
+    data-markerlng="<?php echo escAttr($markerlng); ?>"
 <?php } ?>
 
 style="height: <?php echo ($height); ?>; width: <?php echo ($width); ?>;"

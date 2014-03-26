@@ -21,7 +21,7 @@
                 $href = '';
                 $css[] = $disabledClass;
             } else {
-                $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
+                $href = 'href="' . escAttr($menuItem->getUrl()) . '"';
             }
             if ($menuItem->getBlank()) {
                 $target = 'target="_blank"';
@@ -42,7 +42,7 @@
 
             ?>
             <li class="<?php echo implode(' ', $css); ?>">
-                <a <?php echo $href ?> <?php echo $target ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">
+                <a <?php echo $href ?> <?php echo $target ?> title="<?php echo escAttr($menuItem->getTitle()); ?>">
                     <?php echo esc($menuItem->getTitle()); ?>
                 </a>
                 <?php echo $submenu; ?>
