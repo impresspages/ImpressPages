@@ -21,18 +21,14 @@ if(sizeof($menuItem->getChildren()) > 0) {
     $css[] = 'subnodes';
 }
 
-$css[] = 'type'.ucwords($menuItem->getType());
-
-if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
-    $href = 'href="'.$menuItem->getUrl().'"';
-} else {
-    $css[] = 'typeHeader';
-    $href = '';
+if ($menuItem->isDisabled()) {
+    $css[] = 'disabled';
 }
+
 ?>
 
 <li class="<?php echo implode(' ', $css) ?>">
-    <?php if ($href) { ?><a <?php echo $href ?> title="<?php esc($menuItem->getTitle()) ?>"><?php } ?>
+    <?php if ($href) { ?><a <?php echo esc($href, 'attr') ?> title="<?php esc($menuItem->getTitle()) ?>"><?php } ?>
         <?php echo esc($menuItem->getTitle()) ?>
         <?php if ($href) { ?></a><?php } ?>
     <?php if ($menuItem->getChildren()){ ?>

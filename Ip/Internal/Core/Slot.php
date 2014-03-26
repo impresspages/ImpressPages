@@ -81,8 +81,6 @@ class Slot
         $data = array(
             'items' => null,
             'depth' => 1,
-            'ulId' => '',
-            'ulClass' => ''
         );
 
         if (is_string($params)) {

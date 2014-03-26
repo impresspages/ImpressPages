@@ -107,7 +107,7 @@ class Controller extends \Ip\WidgetController{
         $from = $websiteEmail;
         $files = array();
 
-        foreach($form->getFields() as $fieldKey => $field) {
+        foreach($form->getFields() as $field) {
 
             if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {

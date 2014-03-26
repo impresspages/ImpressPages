@@ -77,10 +77,12 @@ class Helper
         return $items;
     }
 
+
     /**
-     * @param array $pages
+     * @param $pages
      * @param $depth
      * @param $curDepth
+     * @param $order
      * @return Item[]
      */
     private static function arrayToMenuItem($pages, $depth, $curDepth, $order)
@@ -97,13 +99,12 @@ class Helper
                     $item->setChildren($childrenItems);
                 }
             }
-            if ($page->isCurrent() || $page->getType() == 'redirect' && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+            if ($page->isCurrent() || $page->getRedirectUrl() && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
                 $item->markAsCurrent(true);
-            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getType() == 'redirect' && self::existInBreadcrumb($page->getLink())) {
+            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getRedirectUrl() && self::existInBreadcrumb($page->getLink())) {
                 $item->markAsInCurrentBreadcrumb(true);
             }
 
-            $item->setType($page->getType());
             if ($page->isDisabled() && !ipIsManagementState()) {
                 $item->setUrl('');
             } elseif ($page->getRedirectUrl() && !ipIsManagementState()) {
@@ -118,6 +119,7 @@ class Helper
             $item->setBlank($page->isBlank() && !ipIsManagementState());
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
+            $item->setDisabled($page->isDisabled());
             $items[] = $item;
         }
 
@@ -129,7 +131,7 @@ class Helper
     {
         $breadcrumb = ipContent()->getBreadcrumb();
         foreach ($breadcrumb as $element) {
-            if ($element->getLink() == $link && $element->getType() != 'redirect' && $element->getType() != 'subpage') {
+            if ($element->getLink() == $link && !$element->getRedirectUrl()) {
                 return true;
             }
         }
