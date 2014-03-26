@@ -90,32 +90,6 @@ class InstanceModel
     }
 
 
-    /**
-     *
-     * Find position of widget in current block
-     * @param int $instanceId
-     * @return int position of widget or null if widget does not exist
-     */
-    public static function getInstancePosition($instanceId)
-    {
-        $record = Model::getWidgetFullRecord($instanceId);
 
-        $table = ipTable('widget');
-        $sql = "
-            SELECT count(*) as position
-            FROM $table
-            WHERE
-                `revisionId` = :revisionId AND
-                `blockName` = :blockName AND
-                `position` < :position AND
-                `isDeleted` = 0
-        ";
-
-        return ipDb()->fetchValue($sql, array(
-                'revisionId' => $record['revisionId'],
-                'blockName' => $record['blockName'],
-                'position' => $record['position'],
-            ));
-    }
 
 }
