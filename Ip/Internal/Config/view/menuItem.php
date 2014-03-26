@@ -19,14 +19,16 @@ if(sizeof($menuItem->getChildren()) > 0) {
     $css[] = 'dropdown';
 }
 
-$css[] = 'type'.ucwords($menuItem->getType());
-
-if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
-    $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
-} else {
-    $css[] = 'disabled';
+if ($menuItem->isDisabled()) {
     $href = '';
+    $css[] = 'disabled';
+} else {
+    $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
 }
+
+
+
+
 
 if ($menuItem->getBlank()) {
     $target = 'target="_blank"';

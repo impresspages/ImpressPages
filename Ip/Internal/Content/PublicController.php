@@ -14,7 +14,7 @@ class PublicController extends \Ip\Controller
         $page = ipContent()->getCurrentPage();
 
         // redirect if needed
-        if (in_array($page->getType(), array('subpage', 'redirect')) && !ipIsManagementState()) {
+        if ($page->getRedirectUrl() && !ipIsManagementState()) {
             return new \Ip\Response\Redirect($page->getLink());
         }
 
