@@ -128,6 +128,7 @@ class Slot
         $data['breadcrumbClass'] = isset($params['breadcrumb']) ? $params['breadcrumb'] : 'breadcrumb';
         $data['parentClass'] = isset($params['parent']) ? $params['parent'] : 'selected';
         $data['disabledClass'] = isset($params['disabled']) ? $params['disabled'] : 'disabled';
+        $data['children'] = isset($params['children']) ? $params['children'] : 'children';
 
 
         $view = ipView('Ip/Internal/Config/view/menu.php', $data);
