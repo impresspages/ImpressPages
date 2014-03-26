@@ -431,7 +431,7 @@ function __($text, $domain, $esc = 'html')
     $translation = \Ip\ServiceLocator::translator()->translate($text, $domain);
 
     if ('html' == $esc) {
-        return escHtml($translation);
+        return esc($translation);
     } elseif (false === $esc) {
         return $translation;
     } elseif ('attr' == $esc) {
