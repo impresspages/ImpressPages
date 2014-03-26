@@ -91,3 +91,5 @@ $(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
+$(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
+$(document).on('ipWidgetSaved', ipColumnsInitWidthHandles);

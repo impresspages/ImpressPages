@@ -40,6 +40,11 @@ var IpWidget_Image = function () {
 
         }, this));
 
+        $(document).on(
+            'ipWidgetDeleted.imageWidget ' +
+            'ipWidgetAdded.imageWidget ' +
+            'ipWidgetMoved.imageWidget'
+            , $.proxy(this.blurImage, controllerScope));
 
     }
 

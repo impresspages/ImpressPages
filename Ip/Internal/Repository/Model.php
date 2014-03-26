@@ -8,8 +8,8 @@ namespace Ip\Internal\Repository;
 
 
 /**
- * 
- * Centralized repository to store files. Often the same image needs to be used by many 
+ *
+ * Centralized repository to store files. Often the same image needs to be used by many
  * modules / widgets. This class handles these dependences. Use this module to add new files to global
  * files repository. Bind new modules to already existing files. When the file is not bind to any module,
  * it is automatically removed. So bind to existing files, undbind from them and don't whorry if some other
@@ -44,7 +44,7 @@ class Model{
         return self::$instance;
     }
 
-    
+
     public static function bindFile($file, $plugin, $instanceId) {
         $row = array(
             'filename' => $file,
@@ -77,12 +77,12 @@ class Model{
         }
 
     }
-    
+
     public static function whoUsesFile($file)
     {
         return ipDb()->selectAll('repositoryFile', '*', array('fileName' => $file));
     }
-    
+
     /**
      * Find all files bind to particular module
      */
@@ -98,6 +98,36 @@ class Model{
 
         return ipDb()->selectAll('repositoryFile', '*', $where);
     }
-    
-    
+
+
+    /**
+     * Add file to the repository.
+     * @param string $file absolute path to file in tmp directory
+     * @param null|string $desiredName desired file name in repository.
+     * @return string relative file name in repository
+     * @throws \Ip\Exception
+     */
+    public function addFile($file, $desiredName)
+    {
+        if (!is_file($file)) {
+            throw new \Ip\Exception("File doesn't exist");
+        }
+
+        $absoluteSource = str_replace('\\', '/', realpath($file));
+        if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) === 0) {
+            throw new \Ip\Exception("Requested file (".$file.") is already in the repository");
+        }
+
+        $destination = ipFile('file/repository/');
+
+        if ($desiredName === null) {
+            $desiredName = basename($file['fileName']); //to avoid any tricks with relative paths, etc.
+        }
+
+        $newName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $destination);
+        copy(ipFile('file/tmp/' . $file['fileName']), $destination . $newName);
+        return $newName;
+    }
+
+
 }
