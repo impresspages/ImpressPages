@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         <?php foreach ($data as $row) { ?>
-            <tr class="ipsRow" data-id="<?php echo esc($row['id'], 'attr'); ?>">
+            <tr class="ipsRow" data-id="<?php echo escAttr($row['id']); ?>">
                 <?php foreach($row['values'] as $fieldValue) { ?>
                 <td>
                     <?php echo $fieldValue; ?>
