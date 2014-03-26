@@ -184,7 +184,7 @@ class PageAssets
                 'languageId' => $language->getId(),
                 'languageUrl' => $language->getLink(),
                 'languageCode' => $language->getCode(),
-                'theme' => ipConfig()->getRaw('theme'),
+                'theme' => ipConfig()->get('theme'),
                 'pageId' => $page ? $page->getId() : null,
                 'revisionId' => $revision['revisionId'],
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),

@@ -466,8 +466,8 @@ if (!function_exists('ipFile')) {
         global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot
 
         if (!$ipFile_baseDir) {
-            $ipFile_baseDir = ipConfig()->getRaw('baseDir');
-            $ipFile_overrides = ipConfig()->getRaw('fileOverrides');
+            $ipFile_baseDir = ipConfig()->get('baseDir');
+            $ipFile_overrides = ipConfig()->get('fileOverrides');
         }
 
         if ($ipFile_overrides) {
@@ -490,7 +490,7 @@ if (!function_exists('ipFileUrl')) {
      */
     function ipFileUrl($path)
     {
-        $overrides = ipConfig()->getRaw('urlOverrides');
+        $overrides = ipConfig()->get('urlOverrides');
         if ($overrides) {
             foreach ($overrides as $prefix => $newPath) {
                 if (strpos($path, $prefix) === 0) {
@@ -555,7 +555,7 @@ function ipThemeFile($path)
 function ipHomeUrl()
 {
     $homeUrl = ipConfig()->baseUrl();
-    if (ipConfig()->getRaw('rewritesDisabled')) {
+    if (ipConfig()->get('rewritesDisabled')) {
         $homeUrl .= 'index.php/';
     }
 
@@ -659,7 +659,7 @@ function ipHtmlAttributes($doctype = null)
 {
     $content = \Ip\ServiceLocator::content();
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
+        $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {
@@ -695,7 +695,7 @@ function ipHtmlAttributes($doctype = null)
 function ipDoctypeDeclaration($doctype = null)
 {
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
+        $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {

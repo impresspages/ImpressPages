@@ -35,7 +35,7 @@ class PathHelper
             $absoluteFile = str_replace('\\', '/', $absoluteFile);
         }
 
-        $overrides = ipConfig()->getRaw('fileOverrides');
+        $overrides = ipConfig()->get('fileOverrides');
         if ($overrides) {
             foreach ($overrides as $relativePath => $fullPath) {
                 if (DIRECTORY_SEPARATOR == '\\') {
@@ -49,7 +49,7 @@ class PathHelper
             }
         }
 
-        $baseDir = ipConfig()->getRaw('baseDir');
+        $baseDir = ipConfig()->get('baseDir');
 
         $baseDir = str_replace('\\', '/', $baseDir);
         if (strpos($absoluteFile, $baseDir) !== 0) {

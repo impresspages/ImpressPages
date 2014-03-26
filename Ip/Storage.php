@@ -39,12 +39,16 @@ class Storage {
         );
 
 
-        $jsonValue = ipDb()->fetchValue($sql, $params);
-        if ($jsonValue === false) {
-            return $defaultValue;
+        $row = ipDb()->fetchRow($sql, $params);
+        if ($row === false) {
+            if ($defaultValue instanceof \Closure) {
+                return $defaultValue();
+            } else {
+                return $defaultValue;
+            }
         }
 
-        return json_decode($jsonValue, TRUE);
+        return json_decode($row['value'], TRUE);
     }
 
 

@@ -113,7 +113,7 @@ class Model{
 
     private static function generatePasswordResetSecret($userId)
     {
-        $secret = md5(ipConfig()->getRaw('sessionName') . uniqid());
+        $secret = md5(ipConfig()->get('sessionName') . uniqid());
         $data = array(
             'resetSecret' => $secret,
             'resetTime' => time()

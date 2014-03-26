@@ -49,7 +49,7 @@ class Layout extends \Ip\Response {
     public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
     {
         $this->setFavicon(ipFileUrl('favicon.ico'));
-        $this->setCharset(ipConfig()->getRaw('charset'));
+        $this->setCharset(ipConfig()->get('charset'));
         parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
     }
 
