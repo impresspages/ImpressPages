@@ -158,9 +158,6 @@ class Model
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
-        //check if we don't need to recreate the widget
-        $themeChanged = \Ip\ServiceLocator::storage()->get('Ip', 'themeChanged');
-
 
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
@@ -188,9 +185,6 @@ class Model
 
 
         $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
-        $data = array(
-            'optionsMenu' => $optionsMenu,
-        );
 
         $variables = array(
             'managementState' => $managementState,
