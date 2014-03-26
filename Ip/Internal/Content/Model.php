@@ -38,6 +38,17 @@ class Model
         return $answer;
     }
 
+    public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
+    {
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $blockName, $position);
+        $data = array(
+            'position' => $positionNumber,
+            'languageId' => $languageId,
+            'blockName' => $blockName
+        );
+        self::updateWidget($widgetId, $data);
+    }
+
     public static function initManagementData()
     {
 
@@ -149,7 +160,7 @@ class Model
 
     public static function generateWidgetPreview($instanceId, $managementState)
     {
-        $widgetRecord = self::getWidgetFullRecord($instanceId);
+        $widgetRecord = self::getWidgetRecord($instanceId);
         return self::_generateWidgetPreview($widgetRecord, $managementState);
     }
 
@@ -296,28 +307,7 @@ class Model
         }
     }
 
-    /**
-     *
-     * getWidgetFullRecord differ from getWidgetRecord by including the information from widgetInstance table.
-     * @param int $instanceId
-     * @throws Exception
-     */
-    public static function getWidgetFullRecord($instanceId)
-    {
-        $sql = '
-            SELECT * FROM
-                ' . ipTable('widget', 'w') . '
-            WHERE
-                `id` = ?
-        ';
-        $row = ipDb()->fetchRow($sql, array($instanceId));
-        if (!$row) {
-            return null;
-        }
 
-        $row['data'] = json_decode($row['data'], true);
-        return $row;
-    }
 
     public static function getRevisions($pageId)
     {

@@ -70,5 +70,11 @@ class Service
     }
 
 
+    public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
+    {
+        Model::moveWidget($widgetId, $position, $blockName, $revisionId, $languageId);
+    }
+
+
 
 }

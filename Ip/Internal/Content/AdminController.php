@@ -34,38 +34,21 @@ class AdminController extends \Ip\Controller
             return $this->_errorAnswer('Missing POST variable');
         }
 
-        $instanceId = $_POST['instanceId'];
+        $widgetId = $_POST['instanceId'];
         $position = (int)$_POST['position'];
         $blockName = $_POST['blockName'];
         $revisionId = isset($_POST['revisionId']) ? $_POST['revisionId'] : 0;
         $languageId = isset($_POST['languageId']) ? $_POST['languageId'] : 0;
 
+        Service::moveWidget($widgetId, $position, $blockName, $revisionId, $languageId);
 
-        $record = Model::getWidgetFullRecord($instanceId);
-
-        if (!$record) {
-            return $this->_errorAnswer('Unknown instance ' . $instanceId);
-        }
-
-        Service::deleteWidget($instanceId);
-
-        $newInstanceId = Service::addWidgetInstance(
-            $record['widgetId'],
-            $revisionId,
-            $languageId,
-            $blockName,
-            $position,
-            $record['isVisible']
-        );
-
-
-        $widgetHtml = Model::generateWidgetPreview($newInstanceId, true);
+        $widgetHtml = Model::generateWidgetPreview($widgetId, true);
 
         $data = array(
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
-            'oldInstance' => $instanceId,
-            'newInstanceId' => $newInstanceId,
+            'oldInstance' => $widgetId,
+            'newInstanceId' => $widgetId,
             'block' => $blockName
         );
 
@@ -167,7 +150,7 @@ class AdminController extends \Ip\Controller
         }
         $instanceId = $_POST['instanceId'];
 
-        $record = Model::getWidgetFullRecord($instanceId);
+        $record = Model::getWidgetRecord($instanceId);
         if (!$record) {
             return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
         }
@@ -208,7 +191,7 @@ class AdminController extends \Ip\Controller
         }
         $instanceId = $_POST['instanceId'];
 
-        $record = Model::getWidgetFullRecord($instanceId);
+        $record = Model::getWidgetRecord($instanceId);
         if (!$record) {
             return $this->_errorAnswer('Unknown widget instance id. ' . $instanceId);
         }
