@@ -319,7 +319,7 @@ class Controller extends \Ip\WidgetController{
                 \Ip\Internal\Repository\Model::bindFile($image['imageOriginal'], 'Content', $newId);
             }
         }
-
+        return $data;
     }
 
 
