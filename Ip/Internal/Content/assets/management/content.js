@@ -7,8 +7,8 @@
 
 var ipContent = new function () {
     "use strict";
-    this.deleteWidget = function (instanceId, callback) {
-        var $widget = $('#ipWidget-' + instanceId);
+    this.deleteWidget = function (widgetId, callback) {
+        var $widget = $('#ipWidget-' + widgetId);
         var $subwidgets = $widget.find('.ipWidget');
 
         var $this = $(this);
@@ -16,14 +16,14 @@ var ipContent = new function () {
         var data = Object();
         data.aa = 'Content.deleteWidget';
         data.securityToken = ip.securityToken;
-        data.instanceId = Array();
+        data.widgetId = Array();
 
         $.each($subwidgets, function (key, widget) {
             var $widget = $(widget);
-            data.instanceId.push($widget.data('widgetid'));
+            data.widgetId.push($widget.data('widgetid'));
         });
 
-        data.instanceId.push(instanceId);
+        data.widgetId.push(widgetId);
 
 
         $.ajax({
@@ -41,13 +41,13 @@ var ipContent = new function () {
                 var $columnsWidget = $block.closest('.ipWidget-Columns');
                 if ($columnsWidget.length) {
                     deleteEmptyColumns($columnsWidget.data('widgetid'), function () {
-                        $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
+                        $(document).trigger('ipWidgetDeleted', {widgetId: widgetId});
                         if (callback) {
                             callback();
                         }
                     });
                 } else {
-                    $(document).trigger('ipWidgetDeleted', {instanceId: instanceId});
+                    $(document).trigger('ipWidgetDeleted', {widgetId: widgetId});
                     if (callback) {
                         callback();
                     }
@@ -119,9 +119,9 @@ var ipContent = new function () {
             var $firstWidget = $('#ipWidget-' + firstwidgetid);
             var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
             var firstWidgetPosition = $firstWidget.index();
-            ipContent.createWidget(blockName, widgetName, firstWidgetPosition + 1, function (instanceId) {
+            ipContent.createWidget(blockName, widgetName, firstWidgetPosition + 1, function (widgetId) {
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
             });
         });
@@ -133,9 +133,9 @@ var ipContent = new function () {
             var $firstWidget = $('#ipWidget-' + firstwidgetid);
             var blockName = $firstWidget.closest('.ipBlock').data('ipBlock').name;
             var firstWidgetPosition = $firstWidget.index();
-            ipContent.moveWidget(sourcewidgetid, firstWidgetPosition + 1, blockName, function (instanceId) {
+            ipContent.moveWidget(sourcewidgetid, firstWidgetPosition + 1, blockName, function (widgetId) {
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
             });
         });
@@ -179,11 +179,11 @@ var ipContent = new function () {
 
     this.createWidgetToColumn = function (widgetName, targetwidgetid, position, callback) {
         addColumn(targetwidgetid, position, function (newWidgetBlockName) {
-            ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
+            ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (widgetId) {
                 var $block = $('#ipBlock-' + newWidgetBlockName);
                 $block.find('.ipbExampleContent').remove();
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
             });
         });
@@ -192,9 +192,9 @@ var ipContent = new function () {
 
     this.moveWidgetToColumn = function (sourcewidgetid, targetwidgetid, position, callback) {
         addColumn(targetwidgetid, position, function (newWidgetBlockName) {
-            ipContent.moveWidget(sourcewidgetid, 0, newWidgetBlockName, function (instanceId) {
+            ipContent.moveWidget(sourcewidgetid, 0, newWidgetBlockName, function (widgetId) {
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
 
             });
@@ -207,9 +207,9 @@ var ipContent = new function () {
             return;
         }
         createSpace(targetwidgetid, leftOrRight, function (newWidgetBlockName) {
-            ipContent.moveWidget(sourcewidgetid, 0, newWidgetBlockName, function (instanceId) {
+            ipContent.moveWidget(sourcewidgetid, 0, newWidgetBlockName, function (widgetId) {
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
 
             });
@@ -219,11 +219,11 @@ var ipContent = new function () {
     this.createWidgetToSide = function (widgetName, targetwidgetid, leftOrRight, callback) {
 
         createSpace(targetwidgetid, leftOrRight, function (newWidgetBlockName) {
-            ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (instanceId) {
+            ipContent.createWidget(newWidgetBlockName, widgetName, 0, function (widgetId) {
                 var $block = $('#ipBlock-' + newWidgetBlockName);
                 $block.find('.ipbExampleContent').remove();
                 if (callback) {
-                    callback(instanceId);
+                    callback(widgetId);
                 }
             });
         });
@@ -236,9 +236,9 @@ var ipContent = new function () {
             method: 'deleteColumn',
             columnName: columnNames
         }
-        ipContent.updateWidget(columnswidgetid, widgetData, 1, function (instanceId) {
+        ipContent.updateWidget(columnswidgetid, widgetData, 1, function (widgetId) {
             if (callback) {
-                callback(instanceId);
+                callback(widgetId);
             }
         });
 
@@ -250,8 +250,8 @@ var ipContent = new function () {
             method: 'addColumn',
             position: newColPos
         }
-        ipContent.updateWidget(columnwidgetid, updateData, true, function (newInstanceId) {
-            var $colsWidget = $('#ipWidget-' + newInstanceId);
+        ipContent.updateWidget(columnwidgetid, updateData, true, function (newwidgetId) {
+            var $colsWidget = $('#ipWidget-' + newwidgetId);
             var $newCol = $colsWidget.find('.ipsCol').eq(newColPos);
             var $newBlock = $newCol.find('.ipBlock');
             var newBlockName = $newBlock.data('ipBlock').name;
@@ -283,8 +283,8 @@ var ipContent = new function () {
                 method: 'addColumn',
                 position: newColPos
             }
-            ipContent.updateWidget(targetwidgetid, updateData, true, function (newInstanceId) {
-                var $colsWidget = $('#ipWidget-' + newInstanceId);
+            ipContent.updateWidget(targetwidgetid, updateData, true, function (newwidgetId) {
+                var $colsWidget = $('#ipWidget-' + newwidgetId);
                 var $newCol = $colsWidget.find('.ipsCol').eq(newColPos);
                 var $newBlock = $newCol.find('.ipBlock');
                 var newBlockName = $newBlock.data('ipBlock').name;
@@ -295,8 +295,8 @@ var ipContent = new function () {
 
         } else {
             //create columns widget above target widget
-            ipContent.createWidget(targetBlockName, 'Columns', targetPosition, function (instanceId) {
-                var columnwidgetid = instanceId;
+            ipContent.createWidget(targetBlockName, 'Columns', targetPosition, function (widgetId) {
+                var columnwidgetid = widgetId;
                 var $columnWidget = $('#ipWidget-' + columnwidgetid);
                 if (leftOrRight == 'left') {
                     //put target widget to right
@@ -310,7 +310,7 @@ var ipContent = new function () {
                 var existingWidgetBlockName = $existingWidgetBlock.data('ipBlock').name;
                 newWidgetBlockName = $newWidgetBlock.data('ipBlock').name;
                 //move target widget to right / left column
-                ipContent.moveWidget(targetwidgetid, 0, existingWidgetBlockName, function (newInstanceId) {
+                ipContent.moveWidget(targetwidgetid, 0, existingWidgetBlockName, function (newwidgetId) {
                     var staticBlock = $('.ipBlock-existingWidgetBlockName').data('revisionId') == 0;
                     $columnWidget.ipWidget('save', {}, 1, function ($widget) {
                         $widget.closest('.ipBlock').find('.ipbExampleContent').remove();
@@ -326,12 +326,12 @@ var ipContent = new function () {
     }
 
 
-    this.updateWidget = function (instanceId, widgetData, regeneratePreview, callback) {
+    this.updateWidget = function (widgetId, widgetData, regeneratePreview, callback) {
         var data = Object();
-        var $widget = $('#ipWidget-' + instanceId);
+        var $widget = $('#ipWidget-' + widgetId);
         data.aa = 'Content.updateWidget';
         data.securityToken = ip.securityToken;
-        data.instanceId = instanceId;
+        data.widgetId = widgetId;
         data.widgetData = widgetData;
         if (regeneratePreview) {
             data.generatePreview = 1
@@ -359,7 +359,7 @@ var ipContent = new function () {
                 var data = {};
                 if ($newWidget) {
                     data = {
-                        'instanceId': $newWidget.data('widgetid'),
+                        'widgetId': $newWidget.data('widgetid'),
                         'widget': $newWidget
                     }
                 }
@@ -420,7 +420,7 @@ var ipContent = new function () {
                     $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                     $block.trigger('ipWidgetReinit');
                     $block.trigger('ipWidgetAdded', {
-                        'instanceId': response.widgetId,
+                        'widgetId': response.widgetId,
                         'widget': $newWidget
                     });
 
@@ -432,7 +432,7 @@ var ipContent = new function () {
 
                 if (callback) {
                     $(document).trigger('ipWidgetAdded', {
-                        'instanceId': $newWidget.data('widgetid'),
+                        'widgetId': $newWidget.data('widgetid'),
                         'widget': $newWidget
                     });
                     callback($newWidget.data('widgetid'));
@@ -444,34 +444,34 @@ var ipContent = new function () {
     };
 
 
-    this.moveWidget = function (instanceId, position, block, callback) {
-        var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
-        moveWidgetHelper(instanceId, position, block, function (newInstanceId) {
+    this.moveWidget = function (widgetId, position, block, callback) {
+        var $originalBlock = $('#ipWidget-' + widgetId).closest('.ipBlock');
+        moveWidgetHelper(widgetId, position, block, function (newwidgetId) {
             var $columns = $originalBlock.closest('.ipWidget-Columns');
             if ($columns.length) {
                 deleteEmptyColumns($columns.data('widgetid'), function () {
-                    $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
+                    $(document).trigger('ipWidgetMoved', {widgetId: widgetId});
                     if (callback) {
-                        callback(instanceId);
+                        callback(widgetId);
                     }
                     return;
                 });
             }
 
-            $(document).trigger('ipWidgetMoved', {instanceId: instanceId});
+            $(document).trigger('ipWidgetMoved', {widgetId: widgetId});
 
             if (callback) {
-                callback(instanceId);
+                callback(widgetId);
             }
         });
     };
 
 
-    var moveWidgetHelper = function (instanceId, position, block, callback) {
+    var moveWidgetHelper = function (widgetId, position, block, callback) {
         var data = Object();
         data.aa = 'Content.moveWidget';
         data.securityToken = ip.securityToken;
-        data.instanceId = instanceId;
+        data.widgetId = widgetId;
         data.position = position;
         data.blockName = block;
         var $block = $('#ipBlock-' + block);
@@ -479,9 +479,9 @@ var ipContent = new function () {
         data.languageId = $block.data('languageid');
 
 
-        var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
+        var $originalBlock = $('#ipWidget-' + widgetId).closest('.ipBlock');
 
-        var $widget = $('#ipWidget-' + instanceId);
+        var $widget = $('#ipWidget-' + widgetId);
         $widget.detach();
 
 
@@ -513,7 +513,7 @@ var ipContent = new function () {
 
 
                 if (callback) {
-                    callback(response.newInstanceId);
+                    callback(response.newwidgetId);
                 }
             },
             dataType: 'json'
