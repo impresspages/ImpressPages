@@ -141,6 +141,7 @@ class Controller extends \Ip\WidgetController{
                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $newId);
             }
         };
+        return $data;
     }
 
 

@@ -220,7 +220,7 @@ class AdminController extends \Ip\Controller
     public function deleteWidget()
     {
 
-        if (!isset($_POST['instanceId'])) {
+            if (!isset($_POST['instanceId'])) {
             return $this->_errorAnswer('Missing instanceId POST variable');
         }
         $widgetId = $_POST['instanceId'];

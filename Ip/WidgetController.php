@@ -214,7 +214,7 @@ class WidgetController
     /**
      * Duplicate widget action
      *
-     * This function is executed after the widget is being duplicated.
+     * This function is executed after the widget has been duplicated.
      * All widget data is duplicated automatically. This method is used only in case a widget
      * needs to do some maintenance tasks on duplication.
      *
@@ -224,7 +224,7 @@ class WidgetController
      */
     public function duplicate($oldId, $newId, $data)
     {
-
+        return $data;
     }
 
     /**

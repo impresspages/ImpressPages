@@ -481,6 +481,10 @@ var ipContent = new function () {
 
         var $originalBlock = $('#ipWidget-' + instanceId).closest('.ipBlock');
 
+        var $widget = $('#ipWidget-' + instanceId);
+        $widget.detach();
+
+
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
@@ -491,10 +495,7 @@ var ipContent = new function () {
                 }
                 var $block = $('#ipBlock-' + response.block);
 
-                var $widget = $('#ipWidget-' + response.oldInstance);
                 var $newWidget = $(response.widgetHtml);
-                $widget.replaceWith($newWidget);
-                $newWidget.detach();
                 if (position == 0) {
                     $block.prepend($newWidget);
                 } else {

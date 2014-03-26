@@ -240,24 +240,50 @@ class Model
 
     public static function duplicateRevision($oldRevisionId, $newRevisionId)
     {
-        $sql = '
+        $widgetTable = ipTable('widget');
+
+        $sql = "
             SELECT *
             FROM
-                ' . ipTable('widget', 'i') . '
+                $widgetTable
             WHERE
-                i.revisionId = ? AND
-                i.isDeleted = 0
+                `revisionId` = ? AND
+                `isDeleted` = 0
             ORDER BY `position` ASC
-        ';
+        ";
 
         $widgets = ipDb()->fetchAll($sql, array($oldRevisionId));
 
+        $widgetIdTransition = array();
         foreach ($widgets as $widget) {
+            $widgetObject = Model::getWidgetObject($widget['name']);
 
+            $oldWidgetId = $widget['id'];
             unset($widget['id']);
             $widget['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widget', $widget);
+            $newWidgetId = ipDb()->insert('widget', $widget);
+
+            if ($widgetObject) {
+                $decodedData = json_decode($widget['data'], true);
+                $newData = $widgetObject->duplicate($oldWidgetId, $newWidgetId, $decodedData);
+            }
+            self::updateWidget($newWidgetId, array('data' => $newData));
+
+            $widgetIdTransition[$oldWidgetId] = $newWidgetId;
+        }
+
+        foreach ($widgetIdTransition as $oldId => $newId) {
+            $sql = "
+            UPDATE
+                $widgetTable
+            SET
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."', 'column" . (int)$newId . "')
+            WHERE
+                `revisionId` = :newRevisionId
+            ";
+            ipDb()->execute($sql, array('newRevisionId' => $newRevisionId));
+
         }
 
     }

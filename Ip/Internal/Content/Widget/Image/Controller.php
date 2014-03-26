@@ -121,11 +121,12 @@ class Controller extends \Ip\WidgetController{
     */
     public function duplicate($oldId, $newId, $data) {
         if (!is_array($data)) {
-            return;
+            return $data;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
             \Ip\Internal\Repository\Model::bindFile($data['imageOriginal'], 'Content', $newId);
         }
+        return $data;
     }
 
 
