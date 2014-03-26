@@ -11,7 +11,7 @@ class FileSystem
 
     public function createWritableDir($dir)
     {
-        if (substr($dir, 0, 1) != '/') {
+        if (substr($dir, 0, 1) != '/' && $dir[1] != ':') { // Check if absolute path: '/' for unix, 'C:' for Windows
             throw new \Ip\Internal\Update\UpdateException('Absolute path required');
         }
         if ($dir == '/' && !is_writable($dir)) {
