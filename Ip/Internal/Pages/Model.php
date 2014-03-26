@@ -92,7 +92,6 @@ class Model
         $copy['parentId'] = $newParentId;
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
-        //TODOX ensure unique alias
 
         return ipDb()->insert('page', $copy);
     }
