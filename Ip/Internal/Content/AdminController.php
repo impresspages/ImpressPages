@@ -47,7 +47,6 @@ class AdminController extends \Ip\Controller
         $data = array(
             'status' => 'success',
             'widgetHtml' => $widgetHtml,
-            'oldInstance' => $widgetId,
             'newwidgetId' => $widgetId,
             'block' => $blockName
         );
