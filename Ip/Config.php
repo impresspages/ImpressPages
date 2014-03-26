@@ -11,11 +11,8 @@ namespace Ip;
 
 class Config
 {
-    protected $config = array();
-    protected $protocol = null;
-    protected $corePath = null;
-    protected $pluginUrl = null;
-    protected $tablePrefix = null;
+    protected $config;
+    protected $protocol;
 
     /**
      * @param $config
@@ -112,8 +109,8 @@ class Config
 
     public function set($name, $value)
     {
-        if ($name == 'db') {
-            $this->set('tablePrefix', !empty($value['tablePrefix']) ? $value['tablePrefix'] : '');
+        if ($name == 'db' && $value) {
+            $this->set('tablePrefix', $value['tablePrefix']);
         }
 
         if ($value === null) {
