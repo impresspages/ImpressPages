@@ -195,7 +195,7 @@ class WidgetController
      * If you pass the following parameters:
      * sa=Content.widgetPost
      * securityToken=actualSecurityToken
-     * instanceId=actualWidgetInstanceId
+     * widgetId=actualWidgetId
      *
      * then that post request will be redirected to the specified method.
      *
@@ -206,7 +206,7 @@ class WidgetController
      * @param int $instanceId Widget instance ID
      * @param array $data Widget Data array
      */
-    public function post ($instanceId, $data)
+    public function post ($widgetId, $data)
     {
 
     }
@@ -275,7 +275,7 @@ class WidgetController
      * @return string Widget's HTML code
      */
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $answer = '';
         try {
@@ -304,7 +304,7 @@ class WidgetController
      * @param $skin Widget skin name
      * @return array Data array
      */
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin)
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
     {
         return $data;
     }

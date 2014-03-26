@@ -130,7 +130,7 @@ class Model
         }
 
         $widgetRecord = array(
-            'widgetId' => null,
+            'id' => null,
             'name' => $widgetName,
             'skin' => $skin,
             'data' => $data,
@@ -168,9 +168,9 @@ class Model
         }
 
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
+        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
 
 
         $optionsMenu = array();
@@ -196,7 +196,7 @@ class Model
             'managementState' => $managementState,
             'html' => $previewHtml,
             'widgetData' => $widgetRecord['data'],
-            'widgetInstanceId' => $widgetRecord['instanceId'],
+            'widgetInstanceId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
             'widgetSkin' => $widgetRecord['skin'],
             'optionsMenu' => $optionsMenu
@@ -473,7 +473,7 @@ class Model
         //compare revision content
         $sql = "
             SELECT
-                `widgetId`
+                `id`
             FROM
                 $table
             WHERE
