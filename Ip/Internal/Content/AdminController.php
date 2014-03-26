@@ -244,11 +244,11 @@ class AdminController extends \Ip\Controller
 
         if (is_array($instanceId)) {
             foreach($instanceId as $curInstanceId) {
-                Service::deleteWidgetInstance($curInstanceId);
+                Service::deleteWidget($curInstanceId);
             }
         } else {
             $instanceId = (int)$instanceId;
-            Service::deleteWidgetInstance($instanceId);
+            Service::deleteWidget($instanceId);
         }
 
 

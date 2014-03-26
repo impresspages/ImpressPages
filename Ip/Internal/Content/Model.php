@@ -431,14 +431,22 @@ class Model
 
     }
 
-
+    /**
+     *
+     * Mark widget as deleted
+     * @param int $widgetId
+     */
+    public static function deleteWidget($widgetId)
+    {
+        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array ("id" => $widgetId));
+    }
 
     /**
      *
      * Completely remove widget.
      * @param int $widgetId
      */
-    public static function deleteWidget($widgetId)
+    public static function removeWidget($widgetId)
     {
         $widgetRecord = self::getWidgetRecord($widgetId);
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
