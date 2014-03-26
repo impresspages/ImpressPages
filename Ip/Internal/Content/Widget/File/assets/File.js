@@ -108,7 +108,7 @@ IpWidget_File = function () {
         if (notDeletedCount == 0) {
             //remove the whole widget
             this.modal.modal('hide');
-            ipContent.deleteWidget(this.widgetObject.data('widgetinstanceid'));
+            ipContent.deleteWidget(this.widgetObject.data('widgetid'));
             return;
         }
 
