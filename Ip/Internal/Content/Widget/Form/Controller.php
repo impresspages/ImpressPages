@@ -151,7 +151,7 @@ class Controller extends \Ip\WidgetController{
 
 
         //get page where this widget sits :)
-        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetFullRecord($postData['instanceId']);
+        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($postData['instanceId']);
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);

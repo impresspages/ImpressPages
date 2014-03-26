@@ -19,7 +19,7 @@ class SiteController extends \Ip\Controller
         }
         $instanceId = $_POST['instanceId'];
 
-        $widgetRecord = Model::getWidgetFullRecord($instanceId);
+        $widgetRecord = Model::getWidgetRecord($instanceId);
 
         try {
             if (!$widgetRecord) {
