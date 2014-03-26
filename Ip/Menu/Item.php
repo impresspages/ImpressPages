@@ -57,9 +57,9 @@ class Item
     protected $depth;
 
     /**
-     * @var string
+     * @var bool
      */
-    protected $type;
+    protected $disabled;
 
     /**
      * @var bool
@@ -136,14 +136,6 @@ class Item
         $this->depth = $depth;
     }
 
-    public function getType(){
-        return $this->type;
-    }
-
-    public function setType($type){
-        $this->type = $type;
-    }
-
     public function getBlank(){
         return (bool) $this->blank;
     }
@@ -151,4 +143,22 @@ class Item
     public function setBlank($blank){
         $this->blank = $blank;
     }
+
+    public function getDisabled(){
+        return (bool) $this->disabled;
+    }
+
+    public function setDisabled($disabled){
+        $this->disabled = $disabled;
+    }
+
+    public function isDisabled(){
+        return $this->getDisabled();
+    }
+
+    public function isBlank(){
+        return $this->getBlank();
+    }
+
+
 }

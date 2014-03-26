@@ -10,7 +10,7 @@ if($menuItem->isCurrent()) {
     $css[] = 'active';
     $selected = true;
 } elseif ($menuItem->isInCurrentBreadcrumb()) {
-    $css[] = 'selected';
+    $css[] = 'inBreadcrumb';
     $selected = true;
 }
 
@@ -18,14 +18,19 @@ if(sizeof($menuItem->getChildren()) > 0) {
     $css[] = 'dropdown';
 }
 
-$css[] = 'type'.ucwords($menuItem->getType());
-
-if ($menuItem->getType() != 'inactive' && $menuItem->getUrl()) {
-    $href = 'href="'.$menuItem->getUrl().'"';
-} else {
+if ($menuItem->isDisabled()) {
     $css[] = 'disabled';
-    $href = '';
 }
+
+
+if ($menuItem->isDisabled()) {
+    $href = '';
+    $css[] = 'disabled';
+} else {
+    $href = 'href="' . esc($menuItem->getUrl(), 'attr') . '"';
+}
+
+
 
 ?><li class="<?php echo implode(' ', $css); ?>">
     <a <?php echo $href ?> title="<?php echo esc($menuItem->getTitle(), 'attr'); ?>">

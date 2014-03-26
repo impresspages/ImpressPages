@@ -428,6 +428,9 @@ function escTextarea($value)
 
 /**
  * Get escaped HTML attribute.
+ * QUOTES ARE MANDATORY!!!
+ * Correct example <div css="<?php echo escAttr() ?>">
+ * Incorrect example <div css="<?php echo escAttr() ?>">
  * @param $value Unescaped HTML attribute.
  * @return string Escaped string.
  */
