@@ -278,7 +278,7 @@ class Model
             UPDATE
                 $widgetTable
             SET
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."', 'column" . (int)$newId . "')
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."_', 'column" . (int)$newId . "_')
             WHERE
                 `revisionId` = :newRevisionId
             ";
