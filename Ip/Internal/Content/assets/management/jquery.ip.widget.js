@@ -41,7 +41,7 @@
                 // binding delete action
                 $widgetControls.find('.ipsWidgetDelete').on('click', function(e) {
                     e.preventDefault();
-                    ipContent.deleteWidget($this.data('widgetinstanceid'));
+                    ipContent.deleteWidget($this.data('widgetid'));
                 });
 
                 // binding z-index fix for open dropdown
@@ -96,7 +96,7 @@
 
                 data.aa = 'Content.changeSkin';
                 data.securityToken = ip.securityToken;
-                data.instanceId = $this.data('widgetinstanceid');
+                data.widgetId = $this.data('widgetid');
                 data.skin = skin;
 
                 $.ajax({
@@ -154,7 +154,7 @@
             }
         });
 
-        ipContent.updateWidget($this.data('widgetinstanceid'), $queue[$queue.length - 1].widgetData, refresh, function(newInstanceId) {
+        ipContent.updateWidget($this.data('widgetid'), $queue[$queue.length - 1].widgetData, refresh, function(newInstanceId) {
             var $this = $widget;
 
 

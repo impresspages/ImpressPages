@@ -70,7 +70,7 @@ class Controller extends \Ip\WidgetController{
         return $newData;
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (empty($data['files']) || !is_array($data['files'])) {
             $data['files'] = array();
         }
@@ -86,7 +86,7 @@ class Controller extends \Ip\WidgetController{
             $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];
             $newData['files'][] = $newFile;
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $newData, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $newData, $skin);
     }
 
 
@@ -130,6 +130,7 @@ class Controller extends \Ip\WidgetController{
     * @param int $oldId old widget id
     * @param int $newId duplicated widget id
     * @param array $data data that has been duplicated from old widget to the new one
+    * @return array
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
@@ -141,6 +142,7 @@ class Controller extends \Ip\WidgetController{
                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $newId);
             }
         };
+        return $data;
     }
 
 

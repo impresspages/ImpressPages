@@ -37,7 +37,7 @@ class Service
         return ipPageStorage($page->getId())->get('layout', 'main.php');
     }
 
-    public static function createWidget($widgetName, $data = null, $skin = null)
+    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
@@ -53,20 +53,20 @@ class Service
             $skin = $skins[0]['name'];
         }
 
-        $widgetId = Model::createWidget($widgetName, $data, $skin);
+        $widgetId = Model::createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible);
         return $widgetId;
     }
 
-    public static function addWidgetInstance($widgetId, $revisionId, $languageId, $block, $position, $visible = true)
+
+    public static function deleteWidget($widgetId)
     {
-        $instanceId = InstanceModel::addInstance($widgetId, $revisionId, $languageId, $block, $position, $visible);
-        return $instanceId;
+        Model::deleteWidget($widgetId);
     }
 
 
-    public static function deleteWidgetInstance($instanceId)
+    public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
     {
-        InstanceModel::deleteInstance($instanceId);
+        Model::moveWidget($widgetId, $position, $blockName, $revisionId, $languageId);
     }
 
 
