@@ -34,7 +34,7 @@ class View
         self::checkData($data);
         $this->file = $file;
         $this->data = $data;
-        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
+        $doctypeConstant = ipConfig()->get('defaultDoctype');
         $this->doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
 

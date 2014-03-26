@@ -41,7 +41,7 @@ class Event
     public static function ipBeforeController()
     {
 
-        $ipUrlOverrides = ipConfig()->getRaw('urlOverrides');
+        $ipUrlOverrides = ipConfig()->get('urlOverrides');
         if (!$ipUrlOverrides) {
             $ipUrlOverrides = array();
         }

@@ -11,7 +11,7 @@ namespace Ip;
 
 class Config
 {
-    protected $rawConfig = array();
+    protected $config = array();
     protected $protocol = null;
     protected $corePath = null;
     protected $pluginUrl = null;
@@ -23,19 +23,21 @@ class Config
      */
     public function __construct($config, $server = NULL)
     {
-        $this->rawConfig = $config;
+        $this->config = $config;
 
-        $this->tablePrefix = $this->rawConfig['db']['tablePrefix'];
+        if (!isset($this->config['tablePrefix'])) {
+            $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
+        }
 
         if (!$server) {
             $server = $_SERVER;
         }
 
-        if (empty($this->rawConfig['baseUrl'])) {
-            $this->rawConfig['baseUrl'] = $server["SERVER_NAME"];
+        if (empty($this->config['baseUrl'])) {
+            $this->config['baseUrl'] = $server["SERVER_NAME"];
 
             if ($server["SERVER_PORT"] != "80") {
-                $this->rawConfig['baseUrl'].= ":".$server["SERVER_PORT"];
+                $this->config['baseUrl'].= ":".$server["SERVER_PORT"];
             }
 
             $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
@@ -53,19 +55,19 @@ class Config
                 }
             }
 
-            $this->rawConfig['baseUrl'].= rtrim($baseUrl, '/') . '/';
+            $this->config['baseUrl'].= rtrim($baseUrl, '/') . '/';
         }
 
-        if (empty($this->rawConfig['baseDir'])) {
-            $this->rawConfig['baseDir'] = realpath(dirname($server['SCRIPT_FILENAME']));
+        if (empty($this->config['baseDir'])) {
+            $this->config['baseDir'] = realpath(dirname($server['SCRIPT_FILENAME']));
         }
 
-        if (empty($this->rawConfig['charset'])) {
-            $this->rawConfig['charset'] = 'UTF-8';
+        if (empty($this->config['charset'])) {
+            $this->config['charset'] = 'UTF-8';
         }
 
-        if (empty($this->rawConfig['defaultDoctype'])) {
-            $this->rawConfig['defaultDoctype'] = 'DOCTYPE_HTML5';
+        if (empty($this->config['defaultDoctype'])) {
+            $this->config['defaultDoctype'] = 'DOCTYPE_HTML5';
         }
 
 
@@ -78,48 +80,59 @@ class Config
 
     public function tablePrefix()
     {
-        return $this->tablePrefix;
-    }
-
-    public function setTablePrefix($tablePrefix)
-    {
-        $this->tablePrefix = $tablePrefix;
+        return $this->config['tablePrefix'];
     }
 
     public function baseUrl()
     {
-        return $this->protocol . $this->rawConfig['baseUrl'];
+        return $this->protocol . $this->config['baseUrl'];
     }
 
-    public function getRaw($name)
+    /**
+     * @param string $name
+     * @param mixed $default
+     * @return mixed
+     */
+    public function get($name, $default = null)
     {
-        return array_key_exists($name, $this->rawConfig) ? $this->rawConfig[$name] : null;
-    }
-
-    //TODOXX refactor to removeDb #removeSetRaw
-    public function _setRaw($name, $value)
-    {
-        if ($name == 'db' && $value !== null) {
-            $this->tablePrefix = $value['tablePrefix'];
+        if (array_key_exists($name, $this->config)) {
+            return $this->config[$name];
+        } elseif ($default instanceof \Closure) {
+            /** @var $default \Closure */
+            return $default();
+        } else {
+            return $default;
         }
-        $this->rawConfig[$name] = $value;
+    }
+
+    public function set($name, $value)
+    {
+        if ($name == 'db') {
+            $this->set('tablePrefix', !empty($value['tablePrefix']) ? $value['tablePrefix'] : '');
+        }
+
+        if ($value === null) {
+            unset($this->config[$name]);
+        } else {
+            $this->config[$name] = $value;
+        }
     }
 
     public function isDevelopmentEnvironment()
     {
-        return !empty($this->rawConfig['developmentEnvironment']);
+        return !empty($this->config['developmentEnvironment']);
     }
 
 
     public function isDebugMode()
     {
-        return !empty($this->rawConfig['debugMode']);
+        return !empty($this->config['debugMode']);
     }
 
     public function theme()
     {
-        if (!empty($this->rawConfig['theme'])) {
-            return $this->rawConfig['theme'];
+        if (!empty($this->config['theme'])) {
+            return $this->config['theme'];
         } else {
             return ipStorage()->get('Ip', 'theme');
         }
@@ -127,7 +140,7 @@ class Config
 
     public function showErrors()
     {
-        return !empty($this->rawConfig['showErrors']) || !empty($this->rawConfig['errorsShow']);
+        return !empty($this->config['showErrors']) || !empty($this->config['errorsShow']);
     }
 
 }

@@ -28,11 +28,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $ipConfig = new \Ip\Config($config);
         \Ip\ServiceLocator::setConfig($ipConfig);
 
-        $this->assertNotEmpty(ipConfig()->getRaw('db'));
+        $this->assertNotEmpty(ipConfig()->get('db'));
 
         ipDb()->getConnection();
 
-        $this->assertEmpty(ipConfig()->getRaw('db'));
+        $this->assertEmpty(ipConfig()->get('db'));
     }
 
     public function testDisconnect()

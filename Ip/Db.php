@@ -41,7 +41,7 @@ class Db
             return $this->pdoConnection;
         }
 
-        $dbConfig = ipConfig()->getRaw('db');
+        $dbConfig = ipConfig()->get('db');
 
         if (empty($dbConfig)) {
             throw new \Ip\Exception\Db("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.");
@@ -67,7 +67,7 @@ class Db
         }
 
         $this->tablePrefix = $dbConfig['tablePrefix'];
-        ipConfig()->_setRaw('db', null);
+        ipConfig()->set('db', null);
 
         return $this->pdoConnection;
     }
@@ -77,7 +77,7 @@ class Db
      */
     public function disconnect()
     {
-        ipConfig()->_setRaw('db', null);
+        ipConfig()->set('db', null);
         $this->pdoConnection = null;
     }
 

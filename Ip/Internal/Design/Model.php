@@ -207,9 +207,9 @@ class Model
             return '';
         }
 
-        if (ipConfig()->getRaw('themeMarketUrl')) {
-            $marketUrl = ipConfig()->getRaw('themeMarketUrl') . 'themes-v1/?version=4';
-        } elseif(ipConfig()->getRaw('testMode')) {
+        if (ipConfig()->get('themeMarketUrl')) {
+            $marketUrl = ipConfig()->get('themeMarketUrl') . 'themes-v1/?version=4';
+        } elseif(ipConfig()->get('testMode')) {
             $marketUrl = 'http://local.market.impresspages.org/themes-v1/?version=4';
         } else {
             $marketUrl = 'http://market.impresspages.org/themes-v1/?version=4';
