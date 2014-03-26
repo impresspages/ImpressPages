@@ -19,7 +19,14 @@
                     <?php
                         $data = array(
                             'items' => $menuItems,
-                            'depth' => 1
+                            'depth' => 1,
+                            'attributesStr' => 'class="nav nav-stacked"',
+                            'active' => 'active',
+                            'selected' => 'selected',
+                            'disabled' => 'disabled',
+                            'breadcrumb' => 'breadcrumb',
+                            'parent' => 'parent',
+                            'children' => 'children'
                         );
                         $view = ipView('menu.php', $data);
                         echo $view->render();
