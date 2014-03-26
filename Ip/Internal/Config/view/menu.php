@@ -32,7 +32,7 @@
                 $submenuData = array(
                     'items' => $menuItem->getChildren(),
                     'depth' => $depth + 1,
-                    'attributesStr' => 'class="level'.($depth+1).'"'
+                    'attributesStr' => 'class="level'.($depth+1).' ' . $childrenClass . '"'
                 );
                 $submenuData = array_merge($this->getVariables, $submenuData);
                 $submenu = ipView('menu.php', $submenuData)->render();
