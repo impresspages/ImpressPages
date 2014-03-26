@@ -43,7 +43,7 @@
                 $this.on('click', '> .ipbExampleContent', function () {
                     var $block = $this;
                     var $exampleContent = $(this);
-                    ipContent.createWidget($block.data('ipBlock').name, 'Title', 0);
+                    ipContent.createWidget($block.data('ipBlock').name, 'Heading', 0);
                     $exampleContent.remove();
                 });
 
