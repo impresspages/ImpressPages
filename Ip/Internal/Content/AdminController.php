@@ -128,16 +128,14 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $widgetId = Service::createWidget($widgetName);
+            $widgetId = Service::createWidget($widgetName, null, null, $revisionId, $languageId, $blockName, $position, true);
             if ($widgetName == 'Columns' && $revisionId == 0) {
                 $widgetRecord = Model::getWidgetRecord($widgetId);
                 $data = array_merge($widgetRecord['data'], array('static' => true));
                 Model::updateWidget($widgetId, array('data' => $data));
 
             }
-
-            $instanceId = Service::addWidgetInstance($widgetId, $revisionId, $languageId, $blockName, $position, true);
-            $widgetHtml = Model::generateWidgetPreview($instanceId, 1);
+            $widgetHtml = Model::generateWidgetPreview($widgetId, 1);
         } catch (Exception $e) {
             return $this->_errorAnswer($e);
         }
@@ -150,7 +148,7 @@ class AdminController extends \Ip\Controller
             'position' => $position,
             'widgetId' => $widgetId,
             'block' => $blockName,
-            'instanceId' => $instanceId
+            'instanceId' => $widgetId
         );
 
         return new \Ip\Response\Json($data);
