@@ -43,16 +43,6 @@ class Page
     /** int - unique string identificator of a page.*/
     protected $alias;
 
-    /** string - element type<br />
-     * <br />
-     * Available values:<br />
-     * default - show content<br />
-     * inactive - without link on it<br />
-     * subpage - redirect to first subpage<br />
-     * redirect - redirect to external page<br />
-     * error404
-     */
-    protected $type;
 
     /** bool */
     protected $isVisible;
@@ -366,16 +356,6 @@ class Page
         return $this->type;
     }
 
-    /**
-     * Set the page type
-     * @ignore
-     *
-     * @param $type string Page type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
 
     /**
      * Get page redirect address URL
