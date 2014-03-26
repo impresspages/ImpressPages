@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
 <?php } ?>
     <title><?php echo esc($title); ?></title>
-    <link rel="shortcut icon" href="<?php echo esc($favicon, 'attr'); ?>" />
-    <meta name="keywords" content="<?php echo esc($keywords, 'attr'); ?>" />
-    <meta name="description" content="<?php echo esc($description, 'attr'); ?>" />
+    <link rel="shortcut icon" href="<?php echo escAttr($favicon); ?>" />
+    <meta name="keywords" content="<?php echo escAttr($keywords); ?>" />
+    <meta name="description" content="<?php echo escAttr($description); ?>" />
     <meta name="generator" content="ImpressPages" />
 <?php foreach ($css as $key => $file) { ?>
     <link href="<?php echo $file['value']; ?>" rel="stylesheet" type="text/css" <?php

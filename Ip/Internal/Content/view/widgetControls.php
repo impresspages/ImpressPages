@@ -10,7 +10,7 @@
                                 <?php
                                 if (is_array($menuItem['attributes'])) {
                                     foreach ($menuItem['attributes'] as $key => $value) {
-                                        echo esc($key, 'attr') . '="' . esc($value, 'attr') . '"';
+                                        echo escAttr($key) . '="' . escAttr($value) . '"';
                                     }
                                 }
                                 ?>

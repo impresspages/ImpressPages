@@ -19,7 +19,7 @@
             break;
     }
     ?>
-    <tr><th><?php echo $row['name'] /*Do not escape. HTML is used*/ ?></th><td class="text-center <?php echo esc($class, 'attr') ?>"><?php echo esc($typeLabel) ?></td></tr>
+    <tr><th><?php echo $row['name'] /*Do not escape. HTML is used*/ ?></th><td class="text-center <?php echo escAttr($class) ?>"><?php echo esc($typeLabel) ?></td></tr>
 <?php } ?>
 </table>
 <p class="text-right">

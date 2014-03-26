@@ -384,36 +384,13 @@ function ipDb()
  * Get escaped text string
  *
  * @param string $string Unescaped string.
- * @param string|bool $esc String type "html"|"attr"|"textarea"|"url"|"urlRaw"|"raw" or false.
  * @return string Escaped string.
  */
-function esc($string, $esc = 'html')
-{
-    if (!$esc) {
-        return $string;
-    }
-
-    if ('html' == $esc) {
-        return escHtml($string);
-    } elseif ('attr' == $esc) {
-        return escAttr($string);
-    } elseif ('textarea' == $esc) {
-        return escTextarea($string);
-    }
-
-    throw new \Ip\Exception('Unknown escape method: {$esc}');
-}
-
-
-/**
- * Get escaped HTML string
- * @param $string Unescaped HTML string.
- * @return string Escaped string.
- */
-function escHtml($string)
+function esc($string)
 {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
+
 
 /**
  * Get escaped HTML text area content
@@ -447,10 +424,23 @@ function escAttr($value)
  * @param $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
+ * @throws Ip\Exception
  */
 function __($text, $domain, $esc = 'html')
 {
-    return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
+    $translation = \Ip\ServiceLocator::translator()->translate($text, $domain);
+
+    if ('html' == $esc) {
+        return esc($translation);
+    } elseif (false === $esc) {
+        return $translation;
+    } elseif ('attr' == $esc) {
+        return escAttr($translation);
+    } elseif ('textarea' == $esc) {
+        return escTextarea($translation);
+    }
+
+    throw new \Ip\Exception('Unknown escape method: {$esc}');
 }
 
 /**
