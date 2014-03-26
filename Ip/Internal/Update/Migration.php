@@ -12,7 +12,23 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_16()
+    {
+        $widgetTable = ipTable('widget');
+        $sql = "
+           UPDATE $widgetTable SET  `updatedAt` = `createdAt` WHERE 1
+        ";
+        ipDb()->execute($sql);
+    }
 
+    public static function update_15()
+    {
+        $widgetTable = ipTable('widget');
+        $sql = "
+           ALTER TABLE $widgetTable ADD  `updatedAt` INT NOT NULL AFTER  `createdAt`
+        ";
+        ipDb()->execute($sql);
+    }
 
     public static function update_14()
     {
