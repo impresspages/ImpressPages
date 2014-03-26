@@ -4,7 +4,7 @@
     </div>
     <?php if (!empty($notes)) { ?>
         <?php foreach ($notes as $note) { ?>
-            <p class="bg-success">
+            <p class="alert alert-success">
                 <?php echo $note; ?>
             </p>
         <?php } ?>
