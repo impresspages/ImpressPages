@@ -409,4 +409,28 @@ class Content
         return $page->getChildren($from, $till, $orderBy, $direction);
     }
 
+    /**
+     * Get root page of current breadcrumb or breadcrumb from defined pageId.
+     * This method is used to check if page is in some of menus or not.
+     * Eg. if (getRootPage()->getAlias() == 'menu1') //if current page is one of pages in menu1
+     * @param null $pageId
+     * @return bool|Page
+     */
+    public function getRootPage($pageId = null)
+    {
+        if ($pageId === null) {
+            $page = $this->getCurrentPage();
+        } else {
+            $page = $this->getPage($pageId);
+        }
+        if (!$page) {
+            return false;
+        }
+        $rootPage = $page;
+        while ($page = $this->getPage($page->getParentId())) {
+            $rootPage = $page;
+        }
+        return $rootPage;
+    }
+
 }
