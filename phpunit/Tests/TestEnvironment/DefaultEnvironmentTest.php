@@ -23,7 +23,7 @@ class DefaultEnvironmentTest extends \PHPUnit_Framework_TestCase
         $tables = ipDb()->fetchColumn('SHOW TABLES');
 
         $this->assertTrue(in_array('ip_page', $tables));
-        $this->assertTrue(in_array('ip_pageStorage', $tables));
+        $this->assertTrue(in_array('ip_page_storage', $tables));
     }
 
 

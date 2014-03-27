@@ -10,11 +10,11 @@ class Db{
 
     public static function getEmail($id)
     {
-        return ipDb()->selectRow('emailQueue', '*', array('id' => $id));
+        return ipDb()->selectRow('email_queue', '*', array('id' => $id));
     }
 
     public static function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $filesStr, $fileNamesStr, $mimeTypesStr){
-        return ipDb()->insert('emailQueue', array(
+        return ipDb()->insert('email_queue', array(
                 'from' => $from,
                 'fromName' => $fromName,
                 'to' => $to,
@@ -31,7 +31,7 @@ class Db{
 
     public static function lock($count, $key)
     {
-        $table = ipTable('emailQueue');
+        $table = ipTable('email_queue');
 
         $sql = "update $table set
 		`lock` = ?, `lockedAt` = NOW()
@@ -43,7 +43,7 @@ class Db{
 
     public static function lockOnlyImmediate($count, $key)
     {
-        $table = ipTable('emailQueue');
+        $table = ipTable('email_queue');
 
         $sql = "update $table set
 		`lock` = ?, `lockedAt` = NOW()
@@ -54,7 +54,7 @@ class Db{
     }
 
     public static function unlock($key){
-        return ipDb()->update('emailQueue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => NULL,
                 'lockedAt' => NULL,
@@ -65,7 +65,7 @@ class Db{
 
     public static function unlockOne($id)
     {
-        return ipDb()->update('emailQueue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => NULL,
                 'lockedAt' => NULL,
@@ -77,12 +77,12 @@ class Db{
 
     public static function getLocked($key)
     {
-        return ipDb()->selectAll('emailQueue', '*', array('lock' => $key));
+        return ipDb()->selectAll('email_queue', '*', array('lock' => $key));
     }
 
     public static function markSend($key)
     {
-        return ipDb()->update('emailQueue', array(
+        return ipDb()->update('email_queue', array(
                 'send' => date('Y-m-d H:i:s'),
             ), array(
                 'lock' => $key
@@ -91,7 +91,7 @@ class Db{
 
     public static function delteOldSent($hours)
     {
-        $table = ipTable('emailQueue');
+        $table = ipTable('email_queue');
         $sql = "delete from $table where
 		`send` is not NULL
 		and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`, NOW())";
@@ -101,7 +101,7 @@ class Db{
     /*apparently there were some errors if exists old locked records. */
     public static function deleteOld($hours)
     {
-        $table = ipTable('emailQueue');
+        $table = ipTable('email_queue');
         $sql = "delete from $table where
 		(`lock` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`lockedAt`,NOW()))
 		or
@@ -113,7 +113,7 @@ class Db{
 
     public static function sentOrLockedCount($minutes)
     {
-        $table = ipTable('emailQueue');
+        $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
 		(`send` is not NULL and ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
 		or

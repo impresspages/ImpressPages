@@ -32,9 +32,9 @@ CREATE TABLE `ip_page` (
 
 
 
-DROP TABLE IF EXISTS `ip_pageStorage`;
+DROP TABLE IF EXISTS `ip_page_storage`;
 
-CREATE TABLE `ip_pageStorage` (
+CREATE TABLE `ip_page_storage` (
   `pageId` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL,
@@ -80,9 +80,9 @@ CREATE TABLE `ip_log` (
 
 
 
-DROP TABLE IF EXISTS `ip_emailQueue`;
+DROP TABLE IF EXISTS `ip_email_queue`;
 
-CREATE TABLE `ip_emailQueue` (
+CREATE TABLE `ip_email_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
@@ -103,9 +103,9 @@ CREATE TABLE `ip_emailQueue` (
 
 
 
-DROP TABLE IF EXISTS `ip_repositoryFile`;
+DROP TABLE IF EXISTS `ip_repository_file`;
 
-CREATE TABLE `ip_repositoryFile` (
+CREATE TABLE `ip_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `plugin` varchar(255) NOT NULL,
@@ -169,9 +169,9 @@ CREATE TABLE `ip_widgetOrder` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueGlobal`;
+DROP TABLE IF EXISTS `ip_inline_value_global`;
 
-CREATE TABLE `ip_inlineValueGlobal` (
+CREATE TABLE `ip_inline_value_global` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
@@ -180,9 +180,9 @@ CREATE TABLE `ip_inlineValueGlobal` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueForLanguage`;
+DROP TABLE IF EXISTS `ip_inline_value_language`;
 
-CREATE TABLE `ip_inlineValueForLanguage` (
+CREATE TABLE `ip_inline_value_language` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -192,9 +192,9 @@ CREATE TABLE `ip_inlineValueForLanguage` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueForPage`;
+DROP TABLE IF EXISTS `ip_inline_value_page`;
 
-CREATE TABLE `ip_inlineValueForPage` (
+CREATE TABLE `ip_inline_value_page` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `pageId` int(11) NOT NULL,
