@@ -135,7 +135,9 @@ class Controller extends \Ip\WidgetController{
         if (isset($data['imageOriginal'])) {
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
-            $transformBig = new \Ip\Transform\None();
+            $transformBig = array (
+                'type' => 'copy'
+            );
             $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
 
             if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
@@ -164,13 +166,14 @@ class Controller extends \Ip\WidgetController{
                 }
                 $height = round($width / $ratio);
 
-                $transform = new \Ip\Transform\ImageCrop(
-                    $data['cropX1'],
-                    $data['cropY1'],
-                    $data['cropX2'],
-                    $data['cropY2'],
-                    $width,
-                    $height
+                $transform = array(
+                    'type' => 'crop',
+                    'x1' => $data['cropX1'],
+                    'y1' => $data['cropY1'],
+                    'x2' => $data['cropX2'],
+                    'y2' => $data['cropY2'],
+                    'width' => $width,
+                    'height' => $height
                 );
                 $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
             } else {
@@ -185,9 +188,10 @@ class Controller extends \Ip\WidgetController{
                 } else {
                     $height = ipGetOption('Content.widgetImageHeight', 900);
                 }
-                $transform = new \Ip\Transform\ImageFit(
-                    $width,
-                    $height
+                $transform = array(
+                    'type' => 'fit',
+                    'width' => $width,
+                    'height' => $height
                 );
             }
             try {
