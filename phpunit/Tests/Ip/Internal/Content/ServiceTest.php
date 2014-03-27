@@ -39,12 +39,9 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /*
          * When first revision is duplicated
          */
-        $secondRevisionId = \Ip\Internal\Revision::duplicateRevision($firstRevisionId);
-
-        /*
-         * and second revision is published
-         */
-        $secondRevisionId = \Ip\Internal\Revision::publishRevision($secondRevisionId);
+        $secondRevisionId = \Ip\Internal\Revision::duplicateRevision($firstRevisionId, null, true);
+        $widgetCount = ipDb()->selectValue('widget', 'COUNT(*)', array('revisionId' => $secondRevisionId));
+        $this->assertEquals(3, $widgetCount);
 
         /*
          * and first revision is deleted
@@ -65,6 +62,6 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
          * and new revision should contain copies of those widgets
          */
         $widgetCount = ipDb()->selectValue('widget', 'COUNT(*)', array('revisionId' => $secondRevisionId));
-        $this->assertEquals(0, $widgetCount);
+        $this->assertEquals(3, $widgetCount);
     }
 } 
