@@ -357,7 +357,7 @@ class Model
      */
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
-        $positionNumber = self::_calcWidgetPositionNumber($widgetName, $languageId, null, $blockName, $position);
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
         $row = array(
             'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
