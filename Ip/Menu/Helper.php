@@ -63,10 +63,12 @@ class Helper
 
         $menuRootId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
 
+
         if ($depthFrom == 1) {
             $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
-        } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And he is at position 0. This is where -2 comes from.
-            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $breadcrumb[$depthFrom - 2]->getId(), 'isDeleted' => 0), "ORDER BY $order");
+        } elseif (ipContent()->getRootPage()->getAlias() == $menuName && isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And it is at position 0. This is where -2 comes from.
+            $parent = $breadcrumb[$depthFrom - 2];
+            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0), "ORDER BY $order");
         }
 
         $items = array();
