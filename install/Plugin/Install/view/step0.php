@@ -9,7 +9,7 @@
     <br/>
 <?php } ?>
 <p>&nbsp;</p>
-<p>›<?php _e('We use cookies. They help us to improve ImpressPages!', 'Install') ?></p>
+<p><?php _e('We use cookies. They help us to improve ImpressPages!', 'Install') ?></p>
 <p class="text-right">
     <a class="btn btn-primary ipsStep0" href="?step=1"><?php _e('Next', 'Install') ?></a>
 </p>
