@@ -69,6 +69,11 @@ class Service
         Model::moveWidget($widgetId, $position, $blockName, $revisionId, $languageId);
     }
 
+    public static function removeRevision($revisionId)
+    {
+        Model::removeRevision($revisionId);
+    }
+
 
 
 }
