@@ -44,7 +44,8 @@ class Model
         $data = array(
             'position' => $positionNumber,
             'languageId' => $languageId,
-            'blockName' => $blockName
+            'blockName' => $blockName,
+            'revisionId' => $revisionId
         );
         self::updateWidget($widgetId, $data);
     }
