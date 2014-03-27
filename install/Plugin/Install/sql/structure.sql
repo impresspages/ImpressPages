@@ -117,9 +117,9 @@ CREATE TABLE `ip_repository_file` (
 
 
 
-DROP TABLE IF EXISTS `ip_repositoryReflection`;
+DROP TABLE IF EXISTS `ip_repository_reflection`;
 
-CREATE TABLE `ip_repositoryReflection` (
+CREATE TABLE `ip_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
@@ -148,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `ip_widget` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `ip_themeStorage`;
+DROP TABLE IF EXISTS `ip_theme_storage`;
 
-CREATE TABLE `ip_themeStorage` (
+CREATE TABLE `ip_theme_storage` (
   `theme` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
@@ -159,9 +159,9 @@ CREATE TABLE `ip_themeStorage` (
 
 
 
-DROP TABLE IF EXISTS `ip_widgetOrder`;
+DROP TABLE IF EXISTS `ip_widget_order`;
 
-CREATE TABLE `ip_widgetOrder` (
+CREATE TABLE `ip_widget_order` (
   `widgetName` varchar(255) NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '0',
   UNIQUE KEY `widgetName` (`widgetName`)
