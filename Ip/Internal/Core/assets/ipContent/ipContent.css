@@ -222,7 +222,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin: 0;
 }
 .ipWidget td {
-  border-bottom: 1px solid #b2b2b2;
+  border-bottom: 1px solid #747474;
   font-size: 14px;
   padding: 9px;
 }
