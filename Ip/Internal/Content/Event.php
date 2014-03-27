@@ -106,13 +106,6 @@ class Event
         Model::duplicateRevision($info['basedOn'], $info['newRevisionId']);
     }
 
-
-    public static function ipPageRevisionRemoved($info)
-    {
-        Model::removeRevision($info['revisionId']);
-    }
-
-
     public static function ipPageRemoved($info)
     {
         Model::removePageRevisions($info['pageId']);

@@ -50,6 +50,14 @@ class Service
         Model::updatePageProperties($pageId, $data);
     }
 
+    /**
+     * @param int $parentId
+     * @param string $title
+     * @param array $data
+     * @return int page id
+     *
+     * @throws \Ip\Exception
+     */
     public static function addPage($parentId, $title, $data = array())
     {
         $data['title'] = $title;
