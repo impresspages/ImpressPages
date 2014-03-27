@@ -71,16 +71,36 @@ class Migration {
     {
         $table = ipTable('widgetInstance');
 
+        //some column widgets might have empty data field. Fix that as next query rely on that
         $sql = "
-        UPDATE
-            $table
-        SET
-            `data` = REPLACE(`data`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_')),
-            `blockName` = REPLACE(`blockName`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_'))
-        WHERE
-            `revisionId` = :newRevisionId
-        ";
+            UPDATE
+                $table
+            SET
+                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}'))
+            WHERE
+                1
+            ";
+
         ipDb()->execute($sql);
+
+
+
+        $allRecords = ipDb()->selectAll('widgetInstance', '*');
+        foreach ($allRecords as $record) {
+                $sql = "
+            UPDATE
+                $table
+            SET
+                `data` = REPLACE(`data`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_'),
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
+            WHERE
+                1
+            ";
+
+            ipDb()->execute($sql);
+        }
+
+
     }
 
 
