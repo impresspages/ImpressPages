@@ -427,7 +427,7 @@ class Model
 
     public static function removeRevisionWidgets($revisionId)
     {
-        $widgets = ipDb()->selectRow('widget', 'id', array('revisionId' => $revisionId));
+        $widgets = ipDb()->selectColumn('widget', 'id', array('revisionId' => $revisionId));
 
         foreach ($widgets as $widgetId) {
             static::removeWidget($widgetId);
