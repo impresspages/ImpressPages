@@ -49,7 +49,8 @@ class Event
 
 
                 ipAddJs('Ip/Internal/Core/assets/admin/validator.js');
-                ipAddJs('Ip/Internal/Core/assets/admin/bootstrap.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/bootstrap/bootstrap.js');
+                ipAddJs('Ip/Internal/Core/assets/admin/bootstrap-switch/bootstrap-switch.js');
             } else {
                 ipAddJs('Ip/Internal/Core/assets/admin.min.js', null, 10);
             }
