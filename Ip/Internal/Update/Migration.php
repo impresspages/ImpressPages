@@ -12,6 +12,16 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_27()
+    {
+        $fromTable = ipTable('respository_file');
+        $toTable = ipTable('repository_file');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
     public static function update_26()
     {
         $fromTable = ipTable('widgetOrder');
