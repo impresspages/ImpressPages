@@ -17,7 +17,7 @@ class Slot
     public static function breadcrumb_80($params)
     {
         $showHome = isset($params['showHome']) ? $params['showHome'] : true;
-        return \Ip\Internal\Breadcrumb\Service::generateBreadcrumb(' &rsaquo; ', $showHome);
+        return \Ip\Internal\Breadcrumb\Service::generateBreadcrumb($showHome);
     }
 
     /**
@@ -81,8 +81,12 @@ class Slot
         $data = array(
             'items' => null,
             'depth' => 1,
-            'ulId' => '',
-            'ulClass' => ''
+            'active' => 'active',
+            'selected' => 'selected',
+            'disabled' => 'disabled',
+            'crumb' => 'crumb',
+            'parent' => 'parent',
+            'children' => 'children'
         );
 
         if (is_string($params)) {
@@ -96,7 +100,6 @@ class Slot
                 'items' => $params
             );
         }
-
 
         $data = array_merge($data, $params); // pass params to View along with other data
 
@@ -124,8 +127,6 @@ class Slot
                 array_keys($data['attributes'])
             )
         );
-
-
 
         $view = ipView('Ip/Internal/Config/view/menu.php', $data);
         return $view->render();

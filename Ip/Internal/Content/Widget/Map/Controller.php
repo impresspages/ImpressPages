@@ -23,7 +23,7 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (!empty($data['width'])) {
             $data['width'] = ((int)$data['width']) . 'px';
         } else {
@@ -35,7 +35,20 @@ class Controller extends \Ip\WidgetController{
             $data['height'] = '250px';
         }
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        if (empty($data['mapTypeId'])) {
+            $data['mapTypeId'] = null;
+        }
+        if (empty($data['zoom'])) {
+            $data['zoom'] = null;
+        }
+        if (empty($data['lat'])) {
+            $data['lat'] = null;
+        }
+        if (empty($data['lng'])) {
+            $data['lng'] = null;
+        }
+
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
     public function adminHtmlSnippet()

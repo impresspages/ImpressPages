@@ -19,7 +19,7 @@ class LayoutResponse extends \Ip\Response\Layout
             $layout = 'main.php';
         }
 
-        if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
+        if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for Windows
             $viewFile = $layout;
         } else {
             $viewFile = ipThemeFile($layout);

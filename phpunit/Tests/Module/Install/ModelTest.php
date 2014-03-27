@@ -13,25 +13,18 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        TestEnvironment::setupCode();
+        TestEnvironment::setup();
     }
 
     public function testCreateAndUseDatabase()
     {
         ipDb()->disconnect();
 
-        $configObj = ipConfig();
-
         // Create and use database if it doesn't exist:
         $config = include TEST_FIXTURE_DIR . 'config/default.php';
         unset($config['db']['database']);
 
-        // We modify config object through reflection
-        $rawConfigProperty = new \ReflectionProperty($configObj, 'rawConfig');
-        $rawConfigProperty->setAccessible(true);
-        $rawConfig = $rawConfigProperty->getValue($configObj);
-        $rawConfig['db'] = $config['db'];
-        $rawConfigProperty->setValue($configObj, $rawConfig);
+        ipConfig()->set('db', $config['db']);
 
         $tempDbName = 'ip_test_create' . date('md_Hi_') . rand(1, 100);
 
@@ -46,9 +39,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         // Use database if it already exists:
         ipDb()->disconnect();
 
-        $rawConfig = $rawConfigProperty->getValue($configObj);
-        $rawConfig['db'] = $config['db'];
-        $rawConfigProperty->setValue($configObj, $rawConfig);
+        ipConfig()->set('db', $config['db']);
 
         \Plugin\Install\Model::createAndUseDatabase($tempDbName);
 
@@ -67,7 +58,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
 
         $config = include TEST_FIXTURE_DIR . 'config/default.php';
         unset($config['db']['database']);
-        ipConfig()->_setRaw('db', $config['db']);
+        ipConfig()->set('db', $config['db']);
 
         $tempDbName = 'ip_test_install' . date('md_Hi_') . rand(1, 100);
         \Plugin\Install\Model::createAndUseDatabase($tempDbName);

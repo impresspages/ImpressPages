@@ -40,6 +40,11 @@ var IpWidget_Image = function () {
 
         }, this));
 
+        $(document).on(
+            'ipWidgetDeleted.imageWidget ' +
+            'ipWidgetAdded.imageWidget ' +
+            'ipWidgetMoved.imageWidget'
+            , $.proxy(this.blurImage, controllerScope));
 
     }
 
@@ -146,7 +151,7 @@ var IpWidget_Image = function () {
         var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
         repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
         repository.on('ipModuleRepository.cancel', function () {
-            ipContent.deleteWidget(thisContext.$widgetObject.data('widgetinstanceid'));
+            ipContent.deleteWidget(thisContext.$widgetObject.data('widgetid'));
         });
 
     }

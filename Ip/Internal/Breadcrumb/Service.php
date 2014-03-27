@@ -12,21 +12,21 @@ namespace Ip\Internal\Breadcrumb;
  * class to ouput current breadcrumb
  * @package ImpressPages
  */
-class Service{
+class Service
+{
 
     /**
      * @return string HTML with links to website languages
      */
-    static function generateBreadcrumb($separator, $showHome = true){
+    static function generateBreadcrumb($showHome = true)
+    {
         $data = array (
             'homeUrl' => $showHome ? ipHomeUrl() : null,
-            'pages' => ipContent()->getBreadcrumb(),
-            'separator' => $separator,
+            'pages' => ipContent()->getBreadcrumb()
         );
 
         $breadcrumb = ipView('view/breadcrumb.php', $data)->render();
 
         return $breadcrumb;
-
     }
 }

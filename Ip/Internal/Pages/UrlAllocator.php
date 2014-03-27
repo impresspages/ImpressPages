@@ -4,49 +4,6 @@ namespace Ip\Internal\Pages;
 
 class UrlAllocator
 {
-    public static function slugify($string)
-    {
-        $string = mb_strtolower($string);
-        $string = \Ip\Internal\Text\Transliteration::transform($string);
-
-        $replace = array(
-            " " => "-",
-            "/" => "-",
-            "\\" => "-",
-            "\"" => "-",
-            "\'" => "-",
-            "„" => "-",
-            "“" => "-",
-            "&" => "-",
-            "%" => "-",
-            "`" => "-",
-            "!" => "-",
-            "@" => "-",
-            "#" => "-",
-            "$" => "-",
-            "^" => "-",
-            "*" => "-",
-            "(" => "-",
-            ")" => "-",
-            "{" => "-",
-            "}" => "-",
-            "[" => "-",
-            "]" => "-",
-            "|" => "-",
-            "~" => "-",
-            "." => "-",
-            "'" => "",
-            "?" => "",
-            ":" => "",
-            ";" => "",
-        );
-        $string = strtr($string, $replace);
-
-        $string = preg_replace('/-+/', '-', $string);
-
-        return $string;
-    }
-
     public static function allocatePathForNewPage(array $page)
     {
         if (array_key_exists('urlPath', $page)) {
@@ -57,7 +14,7 @@ class UrlAllocator
             $path = 'page';
         }
 
-        $path = static::slugify($path);
+        $path = \Ip\Internal\Text\Specialchars::url($path);
 
         return static::allocatePath($page['languageCode'], $path);
     }
@@ -69,7 +26,7 @@ class UrlAllocator
         }
 
         $i = 2;
-        while (!self::isPathAvailable($languageCode, $path . '-' . $i)) {
+        while (!static::isPathAvailable($languageCode, $path . '-' . $i)) {
             $i++;
         }
 

@@ -16,10 +16,10 @@ class Controller extends \Ip\WidgetController{
         return __('Form', 'Ip-admin', false);
     }
 
-    public function post ($instanceId, $data) {
+    public function post ($widgetId, $data) {
         $postData = ipRequest()->getPost();
 
-        $form = $this->createForm($instanceId, $data);
+        $form = $this->createForm($widgetId, $data);
         $errors = $form->validate($postData);
 
         if ($errors) {
@@ -107,7 +107,7 @@ class Controller extends \Ip\WidgetController{
         $from = $websiteEmail;
         $files = array();
 
-        foreach($form->getFields() as $fieldKey => $field) {
+        foreach($form->getFields() as $field) {
 
             if ($field->getType() == \Ip\Form\Field::TYPE_REGULAR) {
                 if (!isset($postData[$field->getName()])) {
@@ -151,7 +151,7 @@ class Controller extends \Ip\WidgetController{
 
 
         //get page where this widget sits :)
-        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetFullRecord($postData['instanceId']);
+        $fullWidgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($postData['widgetId']);
         $pageTitle = '';
         if (isset($fullWidgetRecord['revisionId'])) {
             $revision = \Ip\Internal\Revision::getRevision($fullWidgetRecord['revisionId']);
@@ -205,9 +205,9 @@ class Controller extends \Ip\WidgetController{
         return $data;
     }
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
 
-        $data['form'] = $this->createForm($instanceId, $data);
+        $data['form'] = $this->createForm($widgetId, $data);
 
         if (!isset($data['success'])) {
             $data['success'] = '';
@@ -215,11 +215,11 @@ class Controller extends \Ip\WidgetController{
 
 
 
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
 
-    public function dataForJs($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function dataForJs($revisionId, $widgetId, $data, $skin) {
         //collect available field types
         $fieldTypeObjects = Model::getAvailableFieldTypes();
 
@@ -262,11 +262,11 @@ class Controller extends \Ip\WidgetController{
     /**
      *
      *
-     * @param int $instanceId
+     * @param int $widgetId
      * @param array $data
      * @return \Ip\Form
      */
-    protected function createForm($instanceId, $data) {
+    protected function createForm($widgetId, $data) {
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_PUBLIC);
 
@@ -317,8 +317,8 @@ class Controller extends \Ip\WidgetController{
 
         $field = new \Ip\Form\Field\Hidden(
         array(
-        'name' => 'instanceId',
-        'value' => $instanceId
+        'name' => 'widgetId',
+        'value' => $widgetId
         ));
         $form->addField($field);
 

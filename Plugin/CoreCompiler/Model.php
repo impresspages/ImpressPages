@@ -19,7 +19,8 @@ class Model
         $items[] = ipFile('Ip/Internal/Core/assets/admin/functions.js');
 
         $items[] = ipFile('Ip/Internal/Core/assets/admin/validator.js');
-        $items[] = ipFile('Ip/Internal/Core/assets/admin/bootstrap.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/bootstrap/bootstrap.js');
+        $items[] = ipFile('Ip/Internal/Core/assets/admin/bootstrap-switch/bootstrap-switch.js');
 
         $jsFile = ipFile('Ip/Internal/Core/assets/admin.min.js');
 

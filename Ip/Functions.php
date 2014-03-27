@@ -384,36 +384,13 @@ function ipDb()
  * Get escaped text string
  *
  * @param string $string Unescaped string.
- * @param string|bool $esc String type "html"|"attr"|"textarea"|"url"|"urlRaw"|"raw" or false.
  * @return string Escaped string.
  */
-function esc($string, $esc = 'html')
-{
-    if (!$esc) {
-        return $string;
-    }
-
-    if ('html' == $esc) {
-        return escHtml($string);
-    } elseif ('attr' == $esc) {
-        return escAttr($string);
-    } elseif ('textarea' == $esc) {
-        return escTextarea($string);
-    }
-
-    throw new \Ip\Exception('Unknown escape method: {$esc}');
-}
-
-
-/**
- * Get escaped HTML string
- * @param $string Unescaped HTML string.
- * @return string Escaped string.
- */
-function escHtml($string)
+function esc($string)
 {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
+
 
 /**
  * Get escaped HTML text area content
@@ -428,6 +405,9 @@ function escTextarea($value)
 
 /**
  * Get escaped HTML attribute.
+ * QUOTES ARE MANDATORY!!!
+ * Correct example <div css="<?php echo escAttr() ?>">
+ * Incorrect example <div css="<?php echo escAttr() ?>">
  * @param $value Unescaped HTML attribute.
  * @return string Escaped string.
  */
@@ -441,13 +421,26 @@ function escAttr($value)
  * Translate and escape a string
  *
  * @param $text Original value in English.
- * @param $domain Context, e.g. plugin name.
+ * @param string $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
+ * @throws Ip\Exception
  */
 function __($text, $domain, $esc = 'html')
 {
-    return esc(\Ip\ServiceLocator::translator()->translate($text, $domain), $esc);
+    $translation = \Ip\ServiceLocator::translator()->translate($text, $domain);
+
+    if ('html' == $esc) {
+        return esc($translation);
+    } elseif (false === $esc) {
+        return $translation;
+    } elseif ('attr' == $esc) {
+        return escAttr($translation);
+    } elseif ('textarea' == $esc) {
+        return escTextarea($translation);
+    }
+
+    throw new \Ip\Exception('Unknown escape method: {$esc}');
 }
 
 /**
@@ -473,8 +466,8 @@ if (!function_exists('ipFile')) {
         global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot
 
         if (!$ipFile_baseDir) {
-            $ipFile_baseDir = ipConfig()->getRaw('baseDir');
-            $ipFile_overrides = ipConfig()->getRaw('fileOverrides');
+            $ipFile_baseDir = ipConfig()->get('baseDir');
+            $ipFile_overrides = ipConfig()->get('fileOverrides');
         }
 
         if ($ipFile_overrides) {
@@ -497,7 +490,7 @@ if (!function_exists('ipFileUrl')) {
      */
     function ipFileUrl($path)
     {
-        $overrides = ipConfig()->getRaw('urlOverrides');
+        $overrides = ipConfig()->get('urlOverrides');
         if ($overrides) {
             foreach ($overrides as $prefix => $newPath) {
                 if (strpos($path, $prefix) === 0) {
@@ -513,7 +506,7 @@ if (!function_exists('ipFileUrl')) {
 /**
  * Generate URL-encoded query string
  *
- * @param $query Associative (or indexed) array.
+ * @param array $query Associative (or indexed) array.
  * @return string URL string.
  */
 function ipActionUrl($query)
@@ -562,7 +555,7 @@ function ipThemeFile($path)
 function ipHomeUrl()
 {
     $homeUrl = ipConfig()->baseUrl();
-    if (ipConfig()->getRaw('rewritesDisabled')) {
+    if (ipConfig()->get('rewritesDisabled')) {
         $homeUrl .= 'index.php/';
     }
 
@@ -666,7 +659,7 @@ function ipHtmlAttributes($doctype = null)
 {
     $content = \Ip\ServiceLocator::content();
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
+        $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {
@@ -702,7 +695,7 @@ function ipHtmlAttributes($doctype = null)
 function ipDoctypeDeclaration($doctype = null)
 {
     if ($doctype === null) {
-        $doctypeConstant = ipConfig()->getRaw('defaultDoctype');
+        $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
     switch ($doctype) {
@@ -740,17 +733,18 @@ function ipDoctypeDeclaration($doctype = null)
  * @param string|null $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
-function ipTable($table, $as = null)
+function ipTable($table, $as = false)
 {
     $prefix = ipConfig()->tablePrefix();
     $answer = '`' . $prefix . $table . '`';
-    if ($as != false) {
-        if ($as !== null) {
-            $answer .= ' as `' . $as . '`';
-        } elseif ($prefix) { // if table prefix is empty we don't need to use `tableName` as `tableName`
-            $answer .= ' as `' . $table . '`';
+    if ($as === true) {
+        if ($prefix) {  // if table prefix is empty we don't need to use `tableName` as `tableName`
+            $answer .= ' as `' . $table . '` ';
         }
+    } elseif ($as) {
+        $answer .= ' as `' . $as . '` ';
     }
+
     return $answer;
 }
 

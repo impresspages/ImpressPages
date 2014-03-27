@@ -32,9 +32,9 @@ CREATE TABLE `ip_page` (
 
 
 
-DROP TABLE IF EXISTS `ip_pageStorage`;
+DROP TABLE IF EXISTS `ip_page_storage`;
 
-CREATE TABLE `ip_pageStorage` (
+CREATE TABLE `ip_page_storage` (
   `pageId` int(10) unsigned NOT NULL,
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL,
@@ -80,9 +80,9 @@ CREATE TABLE `ip_log` (
 
 
 
-DROP TABLE IF EXISTS `ip_emailQueue`;
+DROP TABLE IF EXISTS `ip_email_queue`;
 
-CREATE TABLE `ip_emailQueue` (
+CREATE TABLE `ip_email_queue` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` mediumtext NOT NULL,
   `to` varchar(255) NOT NULL,
@@ -103,9 +103,9 @@ CREATE TABLE `ip_emailQueue` (
 
 
 
-DROP TABLE IF EXISTS `ip_repositoryFile`;
+DROP TABLE IF EXISTS `ip_repository_file`;
 
-CREATE TABLE `ip_repositoryFile` (
+CREATE TABLE `ip_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `plugin` varchar(255) NOT NULL,
@@ -117,9 +117,9 @@ CREATE TABLE `ip_repositoryFile` (
 
 
 
-DROP TABLE IF EXISTS `ip_repositoryReflection`;
+DROP TABLE IF EXISTS `ip_repository_reflection`;
 
-CREATE TABLE `ip_repositoryReflection` (
+CREATE TABLE `ip_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
   `transformFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
@@ -129,27 +129,13 @@ CREATE TABLE `ip_repositoryReflection` (
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
 
-
-
 DROP TABLE IF EXISTS `ip_widget`;
 
-CREATE TABLE `ip_widget` (
+CREATE TABLE IF NOT EXISTS `ip_widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL,
   `skin` varchar(25) NOT NULL,
   `data` text NOT NULL,
-  `createdAt` int(11) NOT NULL,
-  `updatedAt` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-
-
-DROP TABLE IF EXISTS `ip_widgetInstance`;
-
-CREATE TABLE `ip_widgetInstance` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `widgetId` int(11) NOT NULL,
   `revisionId` int(11) NOT NULL,
   `languageId` int(11) NOT NULL,
   `blockName` varchar(25) NOT NULL,
@@ -157,15 +143,14 @@ CREATE TABLE `ip_widgetInstance` (
   `isVisible` tinyint(1) NOT NULL DEFAULT '1',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `createdAt` int(11) NOT NULL COMMENT 'unix timestamp',
+  `updatedAt` int(11) NOT NULL,
   `deletedAt` int(11) DEFAULT NULL COMMENT 'unix timestamp',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `ip_theme_storage`;
 
-
-DROP TABLE IF EXISTS `ip_themeStorage`;
-
-CREATE TABLE `ip_themeStorage` (
+CREATE TABLE `ip_theme_storage` (
   `theme` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
@@ -174,9 +159,9 @@ CREATE TABLE `ip_themeStorage` (
 
 
 
-DROP TABLE IF EXISTS `ip_widgetOrder`;
+DROP TABLE IF EXISTS `ip_widget_order`;
 
-CREATE TABLE `ip_widgetOrder` (
+CREATE TABLE `ip_widget_order` (
   `widgetName` varchar(255) NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '0',
   UNIQUE KEY `widgetName` (`widgetName`)
@@ -184,9 +169,9 @@ CREATE TABLE `ip_widgetOrder` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueGlobal`;
+DROP TABLE IF EXISTS `ip_inline_value_global`;
 
-CREATE TABLE `ip_inlineValueGlobal` (
+CREATE TABLE `ip_inline_value_global` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
@@ -195,9 +180,9 @@ CREATE TABLE `ip_inlineValueGlobal` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueForLanguage`;
+DROP TABLE IF EXISTS `ip_inline_value_language`;
 
-CREATE TABLE `ip_inlineValueForLanguage` (
+CREATE TABLE `ip_inline_value_language` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `languageId` int(11) NOT NULL,
@@ -207,9 +192,9 @@ CREATE TABLE `ip_inlineValueForLanguage` (
 
 
 
-DROP TABLE IF EXISTS `ip_inlineValueForPage`;
+DROP TABLE IF EXISTS `ip_inline_value_page`;
 
-CREATE TABLE `ip_inlineValueForPage` (
+CREATE TABLE `ip_inline_value_page` (
   `plugin` varchar(100) NOT NULL,
   `key` varchar(100) NOT NULL,
   `pageId` int(11) NOT NULL,

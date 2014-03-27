@@ -121,16 +121,17 @@ class Controller extends \Ip\WidgetController{
     */
     public function duplicate($oldId, $newId, $data) {
         if (!is_array($data)) {
-            return;
+            return $data;
         }
         if (isset($data['imageOriginal']) && $data['imageOriginal']) {
             \Ip\Internal\Repository\Model::bindFile($data['imageOriginal'], 'Content', $newId);
         }
+        return $data;
     }
 
 
 
-    public function generateHtml($revisionId, $widgetId, $instanceId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
             $desiredName = isset($data['title']) ? $data['title'] : 'image';
 
@@ -214,7 +215,7 @@ class Controller extends \Ip\WidgetController{
 
 
         }
-        return parent::generateHtml($revisionId, $widgetId, $instanceId, $data, $skin);
+        return parent::generateHtml($revisionId, $widgetId, $data, $skin);
     }
 
     public function adminHtmlSnippet()

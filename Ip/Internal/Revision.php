@@ -170,14 +170,8 @@ class Revision{
 
         $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));
 
-        $dispatcher = \Ip\ServiceLocator::dispatcher();
-
         foreach ($revisionList as $revisionId) {
-            $eventData = array(
-                'revisionId' => $revisionId,
-            );
-            $dispatcher->event('ipPageRevisionRemoved', $eventData);
-            ipDb()->delete('revision', array('revisionId' => $revisionId));
+            \Ip\Internal\Content\Service::removeRevision($revisionId);
         }
     }
 

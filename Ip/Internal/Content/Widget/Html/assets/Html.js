@@ -31,6 +31,8 @@ var IpWidget_Html = function () {
         container.click(function () {
             $.proxy(openPopup, context)();
         });
+
+        container.css('min-height', '30px');
     };
 
 

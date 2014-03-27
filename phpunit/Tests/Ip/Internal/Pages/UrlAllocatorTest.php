@@ -47,6 +47,5 @@ class UrlAllocatorTest extends \PHPUnit_Framework_TestCase
         $page['parentId'] = $examplePageId;
         $path = UrlAllocator::allocatePathForNewPage($page);
         $this->assertEquals('my-precious', $path);
-
     }
 } 

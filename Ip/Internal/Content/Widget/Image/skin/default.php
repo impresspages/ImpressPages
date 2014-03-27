@@ -2,16 +2,16 @@
     <a
         <?php if ($type == 'lightbox' && !ipIsManagementState()){ ?>
             rel="lightbox"
-            href="<?php echo esc($imageBig, 'attr') ?>"
+            href="<?php echo escAttr($imageBig) ?>"
         <?php } ?>
         <?php if ($type == 'link'){ ?>
-            href="<?php echo esc($url, 'attr') ?>"
+            href="<?php echo escAttr($url) ?>"
             <?php echo $blank ? ' target="_blank" ' : '' ?>
         <?php } ?>
-        title="<?php echo isset($title) ? esc($title, 'attr') : '' ?>"
-        data-description="<?php echo isset($description) ? esc($description, 'attr') : ''; ?>"
+        title="<?php echo isset($title) ? escAttr($title) : '' ?>"
+        data-description="<?php echo isset($description) ? escAttr($description) : ''; ?>"
         >
-        <img class="ipsImage" src="<?php echo esc($imageSmall) ?>" alt="<?php echo isset($title) ? esc($title, 'attr') : ''; ?>" title="<?php echo isset($title) ? esc($title, 'attr') : ''; ?>" />
+        <img class="ipsImage" src="<?php echo escAttr($imageSmall) ?>" alt="<?php echo isset($title) ? escAttr($title) : ''; ?>" title="<?php echo isset($title) ? escAttr($title) : ''; ?>" />
     </a>
 <?php } else { ?>
     <div class="ipsImage">&nbsp;</div>

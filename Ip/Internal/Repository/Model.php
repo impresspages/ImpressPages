@@ -52,7 +52,7 @@ class Model{
             'instanceId' => $instanceId,
             'createdAt' => time()
         );
-        ipDb()->insert('repositoryFile', $row);
+        ipDb()->insert('repository_file', $row);
     }
 
     public static function unbindFile($file, $plugin, $instanceId) {
@@ -62,7 +62,7 @@ class Model{
             'instanceId' => $instanceId
         );
 
-        $sql= 'DELETE FROM ' . ipTable('repositoryFile') . '
+        $sql= 'DELETE FROM ' . ipTable('repository_file') . '
                 WHERE filename = :fileName
                 AND plugin = :plugin
                 AND instanceId = :instanceId
@@ -80,7 +80,7 @@ class Model{
 
     public static function whoUsesFile($file)
     {
-        return ipDb()->selectAll('repositoryFile', '*', array('fileName' => $file));
+        return ipDb()->selectAll('repository_file', '*', array('fileName' => $file));
     }
 
     /**
@@ -96,7 +96,7 @@ class Model{
             $where['instanceId'] = $instanceId;
         }
 
-        return ipDb()->selectAll('repositoryFile', '*', $where);
+        return ipDb()->selectAll('repository_file', '*', $where);
     }
 
 

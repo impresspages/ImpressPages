@@ -2,7 +2,7 @@
 
     <ul class="pagination">
         <?php if ($currentPage > 1) { ?>
-            <li><a href="#" class="ipsAction" data-method="page" data-params="<?php echo esc(json_encode(array('page' => $currentPage - 1))) ?>">&laquo;</a></li>
+            <li><a href="#" class="ipsAction" data-method="page" data-params="<?php echo escAttr(json_encode(array('page' => $currentPage - 1))) ?>">&laquo;</a></li>
         <?php } else { ?>
             <li class="disabled"><a href="#">&laquo;</a></li>
         <?php } ?>
@@ -16,7 +16,7 @@
         <?php } ?>
 
         <?php if ($currentPage < $totalPages) { ?>
-            <li><a href="#" class="ipsAction" data-method="page" data-params="<?php echo esc(json_encode(array('page' => $currentPage + 1))) ?>">&raquo;</a></li>
+            <li><a href="#" class="ipsAction" data-method="page" data-params="<?php echo escAttr(json_encode(array('page' => $currentPage + 1))) ?>">&raquo;</a></li>
         <?php } else { ?>
             <li class="disabled"><a href="#">&raquo;</a></li>
         <?php } ?>

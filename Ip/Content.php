@@ -248,18 +248,14 @@ class Content
                 $parentPageId = $parentPage->getParentId();
             }
         }
-        if (empty($pages)) {
-            return array();
+        $breadcrumb = array();
+        if (!empty($pages)) {
+            array_pop($pages);
+            $breadcrumb = $pages;
         }
 
-        array_pop($pages);
-
-        if (empty($pages)) {
-            return array();
-        }
-
-        $breadcrumb = array_reverse($pages);
-
+        $breadcrumb = array_reverse($breadcrumb);
+        $breadcrumb = ipFilter('ipBreadcrumb', $breadcrumb);
         return $breadcrumb;
     }
 

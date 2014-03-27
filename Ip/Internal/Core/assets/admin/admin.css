@@ -32,7 +32,6 @@
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
   /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
   /*!
@@ -79,13 +78,11 @@
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
   color: inherit;
   cursor: inherit;
   font-size: inherit;
   text-align: inherit;
-  white-space: inherit;
 }
 .ip .ipRoot {
   font-family: sans-serif;
@@ -7480,7 +7477,6 @@
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
 }
 .ip .ipRootAll {
@@ -7517,13 +7513,11 @@
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
   color: inherit;
   cursor: inherit;
   font-size: inherit;
   text-align: inherit;
-  white-space: inherit;
 }
 .ip [ng-cloak] {
   display: none;
@@ -7848,7 +7842,7 @@
 .ip .navbar-center {
   margin: 0 auto;
   position: relative;
-  width: 400px;
+  width: 320px;
 }
 .ip .navbar-center .navbar-center-container {
   position: absolute;

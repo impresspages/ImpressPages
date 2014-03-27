@@ -144,7 +144,7 @@ class Language{
     {
         $link = ipConfig()->baseUrl();
 
-        if (ipConfig()->getRaw('rewritesDisabled')) {
+        if (ipConfig()->get('rewritesDisabled')) {
             $link .= 'index.php/';
         }
 

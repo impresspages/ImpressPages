@@ -3,7 +3,6 @@
 
 namespace Ip\Internal\Content;
 
-use Ip\WidgetController;
 
 class Event
 {
@@ -41,7 +40,7 @@ class Event
     public static function ipBeforeController()
     {
 
-        $ipUrlOverrides = ipConfig()->getRaw('urlOverrides');
+        $ipUrlOverrides = ipConfig()->get('urlOverrides');
         if (!$ipUrlOverrides) {
             $ipUrlOverrides = array();
         }
@@ -100,26 +99,14 @@ class Event
         Service::setManagementMode(1);
     }
 
-    public static function ipCronExecute($info)
-    {
-        if ($info['firstTimeThisDay'] || $info['test']) {
-            Model::deleteUnusedWidgets();
-        }
-    }
+
 
     public static function ipPageRevisionDuplicated($info)
     {
         Model::duplicateRevision($info['basedOn'], $info['newRevisionId']);
     }
 
-
-    public static function ipPageRevisionRemoved($info)
-    {
-        Model::removeRevision($info['revisionId']);
-    }
-
-
-    public static function ipPageDeleted($info)
+    public static function ipPageRemoved($info)
     {
         Model::removePageRevisions($info['pageId']);
     }

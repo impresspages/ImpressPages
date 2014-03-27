@@ -38,6 +38,18 @@ class Model
         return $answer;
     }
 
+    public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
+    {
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $blockName, $position);
+        $data = array(
+            'position' => $positionNumber,
+            'languageId' => $languageId,
+            'blockName' => $blockName,
+            'revisionId' => $revisionId
+        );
+        self::updateWidget($widgetId, $data);
+    }
+
     public static function initManagementData()
     {
 
@@ -103,7 +115,7 @@ class Model
 
     private static function _getPriorities()
     {
-        $list = ipDb()->selectAll('widgetOrder', '*', array(), 'ORDER BY `priority` ASC');
+        $list = ipDb()->selectAll('widget_order', '*', array(), 'ORDER BY `priority` ASC');
         $result = array();
         foreach ($list as $widgetOrder) {
             $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
@@ -130,13 +142,12 @@ class Model
         }
 
         $widgetRecord = array(
-            'widgetId' => null,
+            'id' => null,
             'name' => $widgetName,
             'skin' => $skin,
             'data' => $data,
             'createdAt' => time(),
             'updatedAt' => time(),
-            'instanceId' => null,
             'revisionId' => null,
             'position' => null,
             'blockName' => null,
@@ -147,9 +158,9 @@ class Model
     }
 
 
-    public static function generateWidgetPreview($instanceId, $managementState)
+    public static function generateWidgetPreview($widgetId, $managementState)
     {
-        $widgetRecord = self::getWidgetFullRecord($instanceId);
+        $widgetRecord = self::getWidgetRecord($widgetId);
         return self::_generateWidgetPreview($widgetRecord, $managementState);
     }
 
@@ -158,9 +169,6 @@ class Model
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
-        //check if we don't need to recreate the widget
-        $themeChanged = \Ip\ServiceLocator::storage()->get('Ip', 'themeChanged');
-
 
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
@@ -168,9 +176,9 @@ class Model
         }
 
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
+        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['widgetId'], $widgetRecord['instanceId'], $widgetData, $widgetRecord['skin']);
+        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
 
 
         $optionsMenu = array();
@@ -188,15 +196,12 @@ class Model
 
 
         $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
-        $data = array(
-            'optionsMenu' => $optionsMenu,
-        );
 
         $variables = array(
             'managementState' => $managementState,
             'html' => $previewHtml,
             'widgetData' => $widgetRecord['data'],
-            'widgetInstanceId' => $widgetRecord['instanceId'],
+            'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
             'widgetSkin' => $widgetRecord['skin'],
             'optionsMenu' => $optionsMenu
@@ -210,22 +215,14 @@ class Model
     public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
         $sql = '
-            SELECT i.*,
-                i.id AS `instanceId`,
-                w.id AS `widgetId`,
-                w.name AS `name`,
-                w.skin AS `skin`,
-                w.data AS `data`,
-                w.updatedAt AS `updatedAt`
+            SELECT *
             FROM
-                ' . ipTable('widgetInstance', 'i') . ',
                 ' . ipTable('widget', 'w') . '
             WHERE
-                i.isDeleted = 0 AND
-                i.widgetId = w.id AND
-                i.blockName = :blockName AND
-                i.revisionId = :revisionId AND
-                i.languageId = :languageId
+                `isDeleted` = 0 AND
+                `blockName` = :blockName AND
+                `revisionId` = :revisionId AND
+                `languageId` = :languageId
             ORDER BY `position` ASC
         ';
 
@@ -244,24 +241,50 @@ class Model
 
     public static function duplicateRevision($oldRevisionId, $newRevisionId)
     {
-        $sql = '
+        $widgetTable = ipTable('widget');
+
+        $sql = "
             SELECT *
             FROM
-                ' . ipTable('widgetInstance', 'i') . '
+                $widgetTable
             WHERE
-                i.revisionId = ? AND
-                i.isDeleted = 0
+                `revisionId` = ? AND
+                `isDeleted` = 0
             ORDER BY `position` ASC
-        ';
+        ";
 
-        $instances = ipDb()->fetchAll($sql, array($oldRevisionId));
+        $widgets = ipDb()->fetchAll($sql, array($oldRevisionId));
 
-        foreach ($instances as $instance) {
+        $widgetIdTransition = array();
+        foreach ($widgets as $widget) {
+            $widgetObject = Model::getWidgetObject($widget['name']);
 
-            unset($instance['id']);
-            $instance['revisionId'] = $newRevisionId;
+            $oldWidgetId = $widget['id'];
+            unset($widget['id']);
+            $widget['revisionId'] = $newRevisionId;
 
-            ipDb()->insert('widgetInstance', $instance);
+            $newWidgetId = ipDb()->insert('widget', $widget);
+
+            if ($widgetObject) {
+                $decodedData = json_decode($widget['data'], true);
+                $newData = $widgetObject->duplicate($oldWidgetId, $newWidgetId, $decodedData);
+            }
+            self::updateWidget($newWidgetId, array('data' => $newData));
+
+            $widgetIdTransition[$oldWidgetId] = $newWidgetId;
+        }
+
+        foreach ($widgetIdTransition as $oldId => $newId) {
+            $sql = "
+            UPDATE
+                $widgetTable
+            SET
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."_', 'column" . (int)$newId . "_')
+            WHERE
+                `revisionId` = :newRevisionId
+            ";
+            ipDb()->execute($sql, array('newRevisionId' => $newRevisionId));
+
         }
 
     }
@@ -310,30 +333,7 @@ class Model
         }
     }
 
-    /**
-     *
-     * getWidgetFullRecord differ from getWidgetRecord by including the information from widgetInstance table.
-     * @param int $instanceId
-     * @throws Exception
-     */
-    public static function getWidgetFullRecord($instanceId)
-    {
-        $sql = '
-            SELECT *, i.id as instanceId FROM
-                ' . ipTable('widgetInstance', 'i') . ',
-                ' . ipTable('widget', 'w') . '
-            WHERE
-                i.`id` = ? AND
-                i.widgetId = w.id
-        ';
-        $row = ipDb()->fetchRow($sql, array($instanceId));
-        if (!$row) {
-            return null;
-        }
 
-        $row['data'] = json_decode($row['data'], true);
-        return $row;
-    }
 
     public static function getRevisions($pageId)
     {
@@ -356,16 +356,64 @@ class Model
      * @param string $skin
      * @throws Exception
      */
-    public static function createWidget($widgetName, $data, $skin)
+    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
-        return ipDb()->insert('widget', array(
-                'name' => $widgetName,
-                'skin' => $skin,
-                'createdAt' => time(),
-                'updatedAt' => time(),
-                'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data))
-            ));
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
+
+        $row = array(
+            'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
+            'skin' => $skin,
+            'name' => $widgetName,
+            'revisionId' => $revisionId,
+            'languageId' => $languageId,
+            'blockName' => $blockName,
+            'position' => $positionNumber,
+            'isVisible' => (int)$visible,
+            'createdAt' => time(),
+            'updatedAt' => time(),
+            'isDeleted' => 0,
+        );
+
+        return ipDb()->insert('widget', $row);
     }
+
+
+    /**
+     *
+     * Return float number that will position widget in requested position
+     * @param int $instnaceId
+     * @param string $blockName
+     * @param int $newPosition Real position of widget starting with 0
+     */
+    private static function _calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $newBlockName, $newPosition)
+    {
+        $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
+
+        $widgets = array();
+
+        foreach ($allWidgets as $widget) {
+            if ($widgetId === null || $widget['id'] != $widgetId) {
+                $widgets[] = $widget;
+            }
+        }
+
+        if (count($widgets) == 0) {
+            $positionNumber = 0;
+        } else {
+            if ($newPosition <= 0) {
+                $positionNumber = $widgets[0]['position'] - 40;
+            } else {
+                if ($newPosition >= count($widgets)) {
+                    $positionNumber = $widgets[count($widgets) - 1]['position'] + 40;
+                } else {
+                    $positionNumber = ($widgets[$newPosition - 1]['position'] + $widgets[$newPosition]['position']) / 2;
+                }
+            }
+        }
+        return $positionNumber;
+    }
+
+
 
 
     public static function updateWidget($widgetId, $data)
@@ -377,12 +425,21 @@ class Model
         return ipDb()->update('widget', $data, array('id' => $widgetId));
     }
 
+    public static function removeRevisionWidgets($revisionId)
+    {
+        $widgets = ipDb()->selectRow('widget', 'id', array('revisionId' => $revisionId));
 
+        foreach ($widgets as $widgetId) {
+            static::removeWidget($widgetId);
+        }
 
+    }
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widgetInstance', array('revisionId' => $revisionId));
+        static::removeRevisionWidgets($revisionId);
+
+        ipEvent('ipBeforeRevisionDelete', array('revisionId' => $revisionId));
         ipdb()->delete('revision', array('revisionId' => $revisionId));
     }
 
@@ -394,32 +451,16 @@ class Model
             self::removeRevision($revision['revisionId']);
         }
 
-        self::deleteUnusedWidgets();
     }
-
 
     /**
      *
-     * Each widget might be used many times. That is controlled using instanaces. This method destroys all widgets that has no instances.
-     * @throws Exception
+     * Mark widget as deleted
+     * @param int $widgetId
      */
-    public static function deleteUnusedWidgets()
+    public static function deleteWidget($widgetId)
     {
-        $sql = "
-            SELECT `widget`.`id`
-            FROM " . ipTable('widget', 'widget') . "
-            LEFT JOIN " . ipTable('widgetInstance', 'widgetInstance') . "
-            ON `widgetInstance`.`widgetId` = `widget`.`id`
-            WHERE `widgetInstance`.`id` IS NULL
-        ";
-
-        $db = ipDb();
-
-        $widgetList = $db->fetchColumn($sql);
-
-        foreach ($widgetList as $widgetId) {
-            self::deleteWidget($widgetId);
-        }
+        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array ("id" => $widgetId));
     }
 
     /**
@@ -427,7 +468,7 @@ class Model
      * Completely remove widget.
      * @param int $widgetId
      */
-    public static function deleteWidget($widgetId)
+    public static function removeWidget($widgetId)
     {
         $widgetRecord = self::getWidgetRecord($widgetId);
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
@@ -438,9 +479,6 @@ class Model
 
         ipDb()->delete('widget', array('id' => $widgetId));
     }
-
-
-
 
     public static function updateUrl($oldUrl, $newUrl)
     {
@@ -500,11 +538,11 @@ class Model
 
     protected static function revisionWidgetIds($revisionId)
     {
-        $table = ipTable('widgetInstance');
+        $table = ipTable('widget');
         //compare revision content
         $sql = "
             SELECT
-                `widgetId`
+                `id`
             FROM
                 $table
             WHERE

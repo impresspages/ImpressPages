@@ -188,7 +188,7 @@ class PublicController extends \Ip\Controller
 
         $check = array();
         $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
-        if (!Helper::isDirectoryWritable(Model::ipFile('Theme'))) {
+        if (!Helper::isDirectoryWritable(Model::ipFile('Theme/'))) {
             $check['type'] = 'error';
             $errors['writable_themes'] = 1;
         } else {
@@ -392,8 +392,7 @@ class PublicController extends \Ip\Controller
             'charset' => 'utf8',
         );
 
-        ipConfig()->_setRaw('db', $dbConfig);
-        ipConfig()->setTablePrefix($dbConfig['tablePrefix']);
+        ipConfig()->set('db', $dbConfig);
 
         try {
             ipDb()->getConnection();
@@ -410,20 +409,19 @@ class PublicController extends \Ip\Controller
 
         $tables = array (
             'page',
-            'pageStorage',
+            'page_storage',
             'permission',
             'language',
             'log',
-            'emailQueue',
-            'repositoryFile',
-            'repositoryReflection',
+            'email_queue',
+            'repository_file',
+            'repository_reflection',
             'widget',
-            'widgetInstance',
-            'themeStorage',
-            'widgetOrder',
-            'inlineValueGlobal',
-            'inlineValueForLanguage',
-            'inlineValueForPage',
+            'theme_storage',
+            'widget_order',
+            'inline_value_global',
+            'inline_value_language',
+            'inline_value_page',
             'plugin',
             'storage',
             'administrator'
@@ -464,7 +462,7 @@ class PublicController extends \Ip\Controller
         if ($errors) {
             return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
         } else {
-            \Ip\ServiceLocator::config()->_setRaw('db', $dbConfig);
+            \Ip\ServiceLocator::config()->set('db', $dbConfig);
             OptionHelper::import(__DIR__ . '/options.json');
 
             Model::completeStep(4);
@@ -529,7 +527,7 @@ class PublicController extends \Ip\Controller
 
 
         try {
-            ipConfig()->_setRaw('db', $config['db']);
+            ipConfig()->set('db', $config['db']);
             ipDb()->getConnection();
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install', false));

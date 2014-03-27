@@ -43,16 +43,16 @@
         }
     }
 
-    .current > a {
+    .active > a {
         font-weight: bold;
     }
 
-    .selected > a {
+    .crumb > a {
         color: @ipTextColor;
         font-weight: bold;
     }
 
-    .subnodes > a {
+    .parent > a {
         padding-right: 30px;
 
         &:after {
@@ -68,7 +68,7 @@
         box-shadow: 0 1px 3px rgba(0,0,0,.5);
         display: none;
         position: absolute;
-        z-index: 10; //should be higher than widget controls
+        z-index: 2000; //should be higher than widget controls
     }
     li:hover > ul {
         display: block;
@@ -148,11 +148,11 @@
             }
         }
 
-        .current > a {
+        .active > a {
             font-weight: bold;
         }
 
-        .selected > a {
+        .crumb > a {
             color: @ipTextColor;
             font-weight: bold;
         }
@@ -163,8 +163,8 @@
                 display: none;
             }
 
-            .current, .selected {
-                ul { // displaying 2nd level
+            .active, .crumb {
+                > ul { // displaying one level deeper
                     display: block;
                 }
             }

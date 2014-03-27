@@ -79,8 +79,8 @@ class Application
 
         if (empty($options['skipSession'])) {
             if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-                session_name(ipConfig()->getRaw('sessionName'));
-                if (!ipConfig()->getRaw('disableHttpOnlySetting')) {
+                session_name(ipConfig()->get('sessionName'));
+                if (!ipConfig()->get('disableHttpOnlySetting')) {
                     ini_set('session.cookie_httponly', 1);
                 }
 
@@ -89,11 +89,11 @@ class Application
         }
 
         if (empty($options['skipEncoding'])) {
-            mb_internal_encoding(ipConfig()->getRaw('charset'));
+            mb_internal_encoding(ipConfig()->get('charset'));
         }
 
         if (empty($options['skipTimezone'])) {
-            date_default_timezone_set(ipConfig()->getRaw('timezone')); //PHP 5 requires timezone to be set.
+            date_default_timezone_set(ipConfig()->get('timezone')); //PHP 5 requires timezone to be set.
         }
     }
 
@@ -231,7 +231,7 @@ class Application
             // check if user is logged in
             if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
-                if (ipConfig()->getRaw('rewritesDisabled')) {
+                if (ipConfig()->get('rewritesDisabled')) {
                     return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
                 } else {
                     return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');

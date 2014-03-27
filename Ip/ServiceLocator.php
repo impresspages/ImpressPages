@@ -87,11 +87,14 @@ class ServiceLocator
         return self::$config;
     }
 
+    /**
+     * @param \Ip\Config $config
+     */
     public static function setConfig($config)
     {
         self::$config = $config;
 
-        $serviceClasses = $config->getRaw('services');
+        $serviceClasses = $config->get('services');
         if ($serviceClasses) {
             static::$serviceClasses = array_merge(static::$serviceClasses, $serviceClasses);
         }
