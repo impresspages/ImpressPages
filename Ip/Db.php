@@ -152,7 +152,7 @@ class Db
             $result = $query->fetchAll(\PDO::FETCH_ASSOC);
 
             return $result ? $result : array();
-        } catch (\Exception $e) {
+        } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
     }
