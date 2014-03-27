@@ -30,7 +30,7 @@ INSERT INTO `ip_widget` (`id`, `revisionId`, `position`, `languageId`, `blockNam
 
 
 
-INSERT INTO `ip_widgetOrder` (`widgetName`, `priority`) VALUES
+INSERT INTO `ip_widget_order` (`widgetName`, `priority`) VALUES
 ('Heading',   10),
 ('Text',    20),
 ('Divider', 30),

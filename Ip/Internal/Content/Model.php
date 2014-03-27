@@ -115,7 +115,7 @@ class Model
 
     private static function _getPriorities()
     {
-        $list = ipDb()->selectAll('widgetOrder', '*', array(), 'ORDER BY `priority` ASC');
+        $list = ipDb()->selectAll('widget_order', '*', array(), 'ORDER BY `priority` ASC');
         $result = array();
         foreach ($list as $widgetOrder) {
             $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
