@@ -494,6 +494,7 @@ class Model
 
         ipEvent('ipBeforePageRemoved', array('pageId' => $pageId));
         $count = ipDb()->delete('page', array('id' => $pageId));
+        ipPageStorage($pageId)->removeAll();
         ipEvent('ipPageRemoved', array('pageId' => $pageId));
 
         $deletedPageCount += (int)$count;
