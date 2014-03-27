@@ -6,6 +6,6 @@ namespace Ip;
 
 class PageStorage extends \Ip\Internal\ValueStorage
 {
-    protected $tableName = 'pageStorage';
+    protected $tableName = 'page_storage';
     protected $namespaceColumn = 'pageId';
 }

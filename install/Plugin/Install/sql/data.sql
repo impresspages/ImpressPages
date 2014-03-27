@@ -14,7 +14,7 @@ INSERT INTO `ip_page`
 (8,    'en',           'example1',      3,          0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
 (9,    'en',           'example2',      3,          1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
 
-INSERT INTO `ip_pageStorage` (`pageId`, `key`, `value`) VALUES
+INSERT INTO `ip_page_storage` (`pageId`, `key`, `value`) VALUES
 (4, 'layout', '"home.php"');
 
 INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES

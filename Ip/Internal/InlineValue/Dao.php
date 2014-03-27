@@ -103,7 +103,7 @@ class Dao
             'key' => $key,
         );
 
-        return ipDb()->selectValue('inlineValueForPage', 'value', $where);
+        return ipDb()->selectValue('inline_value_page', 'value', $where);
     }
 
     public function getLanguageValue($key, $languageId)
@@ -119,7 +119,7 @@ class Dao
             SELECT
                 value
             FROM
-                ' . ipTable('inlineValueForLanguage') . '
+                ' . ipTable('inline_value_language') . '
             WHERE
                 `plugin` = :module AND
                 `key` = :key AND
@@ -151,7 +151,7 @@ class Dao
             SELECT
                 value
             FROM
-                ' . ipTable('inlineValueGlobal') . '
+                ' . ipTable('inline_value_global') . '
             WHERE
                 `plugin` = :module AND
                 `key` = :key
@@ -176,7 +176,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlineValueForPage') . '
+                ' . ipTable('inline_value_page') . '
             SET
                 `plugin` = :module,
                 `key` = :key,
@@ -203,7 +203,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlineValueForLanguage') . '
+                ' . ipTable('inline_value_language') . '
             SET
                 `plugin` = :module,
                 `key` = :key,
@@ -228,7 +228,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             INSERT INTO
-                ' . ipTable('inlineValueGlobal') . '
+                ' . ipTable('inline_value_global') . '
             SET
                 `plugin` = :module,
                 `key` = :key,
@@ -252,7 +252,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlineValueForPage') . '
+                ' . ipTable('inline_value_page') . '
             WHERE
                 `plugin` = :module
                 AND `key` = :key
@@ -273,7 +273,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlineValueForLanguage') . '
+                ' . ipTable('inline_value_language') . '
             WHERE
                 `plugin` = :module and
                 `key` = :key and
@@ -294,7 +294,7 @@ class Dao
         $dbh = ipDb()->getConnection();
         $sql = '
             DELETE FROM
-                ' . ipTable('inlineValueGlobal') . '
+                ' . ipTable('inline_value_global') . '
             WHERE
                 `plugin` = :module
                 AND `key` = :key
