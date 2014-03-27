@@ -114,7 +114,7 @@ class Job {
                 return true;
                 break;
             case 'copy':
-                cp($data['source'], $data['destination']);
+                copy($data['source'], $data['destination']);
                 return true;
                 break;
             default:
