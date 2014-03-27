@@ -148,6 +148,9 @@ class Model
 
     public static function getPageByUrl($languageCode, $urlPath)
     {
+        if (substr($urlPath, -1) == '/') {
+            $urlPath = substr($urlPath, 0, -1);
+        }
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
