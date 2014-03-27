@@ -75,11 +75,12 @@ class Migration {
         UPDATE
             $table
         SET
-            `data` = REPLACE(`data`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_')),
-            `blockName` = REPLACE(`blockName`, concat('column', `widgetId`, '_'), concat('column', `instanceId`, '_'))
+            `data` = REPLACE(`data`, concat('column', `widgetId`, '_'), concat('column', `id`, '_')),
+            `blockName` = REPLACE(`blockName`, concat('column', `widgetId`, '_'), concat('column', `id`, '_'))
         WHERE
-            `revisionId` = :newRevisionId
+            1
         ";
+
         ipDb()->execute($sql);
     }
 
