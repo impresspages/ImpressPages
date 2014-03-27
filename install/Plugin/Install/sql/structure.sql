@@ -129,27 +129,13 @@ CREATE TABLE `ip_repositoryReflection` (
   KEY `transformFingerprint` (`transformFingerprint`,`original`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
 
-
-
 DROP TABLE IF EXISTS `ip_widget`;
 
-CREATE TABLE `ip_widget` (
+CREATE TABLE IF NOT EXISTS `ip_widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '0',
+  `name` varchar(50) NOT NULL,
   `skin` varchar(25) NOT NULL,
   `data` text NOT NULL,
-  `createdAt` int(11) NOT NULL,
-  `updatedAt` int(11) DEFAULT NULL COMMENT 'when last time the images were cropped freshly :)',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-
-
-DROP TABLE IF EXISTS `ip_widgetInstance`;
-
-CREATE TABLE `ip_widgetInstance` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `widgetId` int(11) NOT NULL,
   `revisionId` int(11) NOT NULL,
   `languageId` int(11) NOT NULL,
   `blockName` varchar(25) NOT NULL,
@@ -157,11 +143,10 @@ CREATE TABLE `ip_widgetInstance` (
   `isVisible` tinyint(1) NOT NULL DEFAULT '1',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `createdAt` int(11) NOT NULL COMMENT 'unix timestamp',
+  `updatedAt` int(11) NOT NULL,
   `deletedAt` int(11) DEFAULT NULL COMMENT 'unix timestamp',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-
 
 DROP TABLE IF EXISTS `ip_themeStorage`;
 

@@ -912,10 +912,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipWidget-Heading {
   margin-bottom: 10px;
-  padding-top: 10px;
+  margin-top: 30px;
 }
 .ipWidget-Heading:first-child {
-  padding-top: 0;
+  margin-top: 0;
 }
 .ipWidget-Heading a {
   color: #000000;
