@@ -112,9 +112,9 @@ class Helper
                 $item->markAsInCurrentBreadcrumb(true);
             }
 
-            if ($page->isDisabled() && !ipIsManagementState()) {
+            if ($page->isDisabled()) {
                 $item->setUrl('');
-            } elseif ($page->getRedirectUrl() && !ipIsManagementState()) {
+            } elseif ($page->getRedirectUrl()) {
                 $url = $page->getRedirectUrl();
                 if (!preg_match('/^((http|https):\/\/)/i', $url)) {
                     $url = 'http://' . $url;
@@ -123,7 +123,7 @@ class Helper
             } else {
                 $item->setUrl($page->getLink());
             }
-            $item->setBlank($page->isBlank() && !ipIsManagementState());
+            $item->setBlank($page->isBlank());
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $item->setDisabled($page->isDisabled());
