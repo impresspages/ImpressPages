@@ -215,6 +215,7 @@ Move to separate stylesheet if invalid CSS is a problem.
   color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
+  margin-bottom: 1em;
   width: 100%;
 }
 .ipWidget table p {
