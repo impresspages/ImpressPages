@@ -75,14 +75,15 @@ class Logo
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
-                $transform = new \Ip\Transform\ImageCrop(
-                    $this->getX1(),
-                    $this->getY1(),
-                    $this->getX2(),
-                    $this->getY2(),
-                    $this->getRequiredWidth(),
-                    $this->getRequiredHeight(),
-                    100
+                $transform = array(
+                    'type' => 'crop',
+                    'x1' => $this->getX1(),
+                    'y1' => $this->getY1(),
+                    'x2' => $this->getX2(),
+                    'y2' => $this->getY2(),
+                    'width' => $this->getRequiredWidth(),
+                    'height' => $this->getRequiredHeight(),
+                    'quality' => 100
                 );
                 $requestedName = ipGetOption('Config.websiteTitle');
                 $this->image = ipReflection($this->getImageOrig(), $transform, $requestedName);

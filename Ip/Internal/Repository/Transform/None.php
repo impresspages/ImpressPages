@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Transform;
+namespace Ip\Internal\Transform;
 
 class None extends \Ip\Transform
 {
