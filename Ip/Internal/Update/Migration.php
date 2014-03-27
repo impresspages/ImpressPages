@@ -12,8 +12,96 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_26()
+    {
+        $fromTable = ipTable('widgetOrder');
+        $toTable = ipTable('widget_order');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_25()
+    {
+        $fromTable = ipTable('themeStorage');
+        $toTable = ipTable('theme_storage');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_24()
+    {
+        $fromTable = ipTable('repositoryReflection');
+        $toTable = ipTable('repository_reflection');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_23()
+    {
+        $fromTable = ipTable('repositoryFile');
+        $toTable = ipTable('respository_file');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_22()
+    {
+        $fromTable = ipTable('pageStorage');
+        $toTable = ipTable('page_storage');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_21()
+    {
+        $fromTable = ipTable('inlineValueGlobal');
+        $toTable = ipTable('inline_value_global');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_20()
+    {
+        $fromTable = ipTable('inlineValueForPage');
+        $toTable = ipTable('inline_value_page');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
+    public static function update_19()
+    {
+        $fromTable = ipTable('inlineValueForLanguage');
+        $toTable = ipTable('inline_value_language');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
 
 
+    public static function update_18()
+    {
+        $fromTable = ipTable('emailQueue');
+        $toTable = ipTable('email_queue');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
 
 
     public static function update_17()
