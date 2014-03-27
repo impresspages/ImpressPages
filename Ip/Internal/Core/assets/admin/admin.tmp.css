@@ -7310,7 +7310,6 @@ button.close {
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
 }
 .ipRootAll {
@@ -7347,13 +7346,11 @@ button.close {
   -ms-transition: none;
   transition: none;
   vertical-align: baseline;
-  white-space: normal;
   width: auto;
   color: inherit;
   cursor: inherit;
   font-size: inherit;
   text-align: inherit;
-  white-space: inherit;
 }
 [ng-cloak] {
   display: none;
