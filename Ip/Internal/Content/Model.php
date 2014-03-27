@@ -424,16 +424,22 @@ class Model
         return ipDb()->update('widget', $data, array('id' => $widgetId));
     }
 
+    public static function removeRevisionWidgets($revisionId)
+    {
+        $widgets = ipDb()->selectRow('widget', 'id', array('revisionId' => $revisionId));
 
+        foreach ($widgets as $widgetId) {
+            static::removeWidget($widgetId);
+        }
 
+    }
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widget', array('revisionId' => $revisionId));
+        static::removeRevisionWidgets($revisionId);
 
-        //TODOX execute widget's delete method
+        ipEvent('ipBeforeRevisionDelete', array('revisionId' => $revisionId));
         ipdb()->delete('revision', array('revisionId' => $revisionId));
-        //TODOX revision remove event
     }
 
 
@@ -472,9 +478,6 @@ class Model
 
         ipDb()->delete('widget', array('id' => $widgetId));
     }
-
-
-
 
     public static function updateUrl($oldUrl, $newUrl)
     {
