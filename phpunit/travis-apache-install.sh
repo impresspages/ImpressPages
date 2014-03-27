@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # Install everything
+# We need apt-get update to fix "E: Unable to fetch some archives, maybe run apt-get update"
+sudo apt-get update
 sudo apt-get install -qq apache2 libapache2-mod-fastcgi
 # enable php-fpm
 sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf

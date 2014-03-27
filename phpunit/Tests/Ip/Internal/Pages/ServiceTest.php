@@ -148,8 +148,44 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         foreach ($pages as $pageId) {
             $this->assertEmpty(Service::getPage($pageId));
         }
-
     }
+
+    public function testRemovePageRevisions()
+    {
+        /*
+         * When we have a page
+         */
+        $pageId = Service::addPage(0, 'To be deleted...', array('languageCode' => 'en'));
+
+        /*
+         * with two revision
+         */
+        $firstRevisionId = \Ip\Internal\Revision::getPublishedRevision($pageId);
+        $secondRevisionId = \Ip\Internal\Revision::duplicateRevision($firstRevisionId);
+
+        /*
+         * (1) when we delete page
+         */
+        Service::deletePage($pageId);
+
+        /*
+         * revisions should exist.
+         */
+        $this->assertNotEmpty(ipDb()->selectRow('revision', 'id', array('id' => $firstRevisionId)));
+        $this->assertNotEmpty(ipDb()->selectRow('revision', 'id', array('id' => $secondRevisionId)));
+
+        /*
+         * (2) When we remove deleted page
+         */
+        Service::removeDeletedPage($pageId);
+
+        /*
+         * revisions should not exist any more.
+         */
+        $this->assertEmpty(ipDb()->selectRow('revision', 'id', array('id' => $firstRevisionId)));
+        $this->assertEmpty(ipDb()->selectRow('revision', 'id', array('id' => $secondRevisionId)));
+    }
+
 
     protected function isNear($actualTime, $expectedTime = null)
     {
