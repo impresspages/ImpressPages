@@ -76,8 +76,7 @@ class Migration {
             UPDATE
                 $table
             SET
-                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}')),
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
+                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}'))
             WHERE
                 1
             ";
