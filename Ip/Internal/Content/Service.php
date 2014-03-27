@@ -74,6 +74,4 @@ class Service
         Model::removeRevision($revisionId);
     }
 
-
-
 }
