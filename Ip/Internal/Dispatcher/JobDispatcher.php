@@ -32,6 +32,8 @@ class JobDispatcher extends EventListener
             $this->sortedListeners[$eventName] = true;
         }
 
+        reset($this->listeners[$eventName]);
+
         do {
             foreach (current($this->listeners[$eventName]) as $callable) {
                 $result = call_user_func($callable, $data);

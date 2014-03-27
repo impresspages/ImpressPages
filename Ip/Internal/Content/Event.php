@@ -113,7 +113,7 @@ class Event
     }
 
 
-    public static function ipPageDeleted($info)
+    public static function ipPageRemoved($info)
     {
         Model::removePageRevisions($info['pageId']);
     }

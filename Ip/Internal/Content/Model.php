@@ -44,7 +44,8 @@ class Model
         $data = array(
             'position' => $positionNumber,
             'languageId' => $languageId,
-            'blockName' => $blockName
+            'blockName' => $blockName,
+            'revisionId' => $revisionId
         );
         self::updateWidget($widgetId, $data);
     }
@@ -357,7 +358,7 @@ class Model
      */
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
-        $positionNumber = self::_calcWidgetPositionNumber($widgetName, $languageId, null, $blockName, $position);
+        $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
         $row = array(
             'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
@@ -424,16 +425,22 @@ class Model
         return ipDb()->update('widget', $data, array('id' => $widgetId));
     }
 
+    public static function removeRevisionWidgets($revisionId)
+    {
+        $widgets = ipDb()->selectRow('widget', 'id', array('revisionId' => $revisionId));
 
+        foreach ($widgets as $widgetId) {
+            static::removeWidget($widgetId);
+        }
 
+    }
 
     public static function removeRevision($revisionId)
     {
-        ipDb()->delete('widget', array('revisionId' => $revisionId));
+        static::removeRevisionWidgets($revisionId);
 
-        //TODOX execute widget's delete method
+        ipEvent('ipBeforeRevisionDelete', array('revisionId' => $revisionId));
         ipdb()->delete('revision', array('revisionId' => $revisionId));
-        //TODOX revision remove event
     }
 
 
@@ -472,9 +479,6 @@ class Model
 
         ipDb()->delete('widget', array('id' => $widgetId));
     }
-
-
-
 
     public static function updateUrl($oldUrl, $newUrl)
     {
