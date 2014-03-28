@@ -6,7 +6,7 @@
 namespace Ip\Internal\Repository;
 
 
-class Job {
+class Filter {
     public static function ipReflectionExtension($data)
     {
         if (empty($data['source']) || empty($data['destination']) || empty($data['options']) || empty($data['options']['type'])) {
