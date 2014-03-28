@@ -86,7 +86,7 @@ class Db
      *
      * @param string $sql
      * @param array $params
-     * @return string
+     * @return string|null
      * @throws DbException
      */
     public function fetchValue($sql, $params = array())
@@ -98,7 +98,8 @@ class Db
             }
 
             $query->execute();
-            return $query->fetchColumn(0);
+            $result = $query->fetchColumn(0);
+            return $result === false ? null : $result;
         } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
@@ -109,7 +110,7 @@ class Db
      *
      * @param $sql
      * @param array $params
-     * @return null
+     * @return array|null
      * @throws DbException
      */
 
@@ -124,7 +125,7 @@ class Db
             $query->execute();
             $result = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-            return $result ? $result[0] : array();
+            return $result ? $result[0] : null;
         } catch (\PDOException $e) {
             throw new DbException($e->getMessage(), $e->getCode(), $e);
         }
@@ -206,12 +207,12 @@ class Db
      * @param array|string $columns List of columns as array or string. For example array('id', 'name') or '*'.
      * @param array $where Conditional array. For example array('id' => 20)
      * @param string $sqlEnd SQL string appended at the end of the query. For example 'ORDER BY `createdAt` DESC'
-     * @return array
+     * @return array|null
      */
     public function selectRow($table, $columns, $where, $sqlEnd = '')
     {
         $result = $this->selectAll($table, $columns, $where, $sqlEnd . ' LIMIT 1');
-        return $result ? $result[0] : array();
+        return $result ? $result[0] : null;
     }
 
     /**
