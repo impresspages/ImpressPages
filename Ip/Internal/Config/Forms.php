@@ -68,19 +68,6 @@ class Forms {
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
 
-        $field = new \Ip\Form\Field\Number(
-            array(
-                'name' => 'keepOldRevision', //html "name" attribute
-                'value' => ipGetOption('Config.keepOldRevision', 1),
-                'label' => __('Days to keep old content revisions', 'Ip-admin'), //field label that will be displayed next to input field
-            ));
-        $field->addClass('ipsAutoSave');
-        $field->addAttribute('data-fieldid',  $field->getName());
-        $field->addAttribute('id', $field->getName());
-        $field->addAttribute('data-fieldname', $field->getName());
-        $form->addField($field);
-
-
 
 
         return $form;

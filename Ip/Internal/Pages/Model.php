@@ -172,6 +172,11 @@ class Model
     {
         $pageBeforeChange = ipPage($pageId);
 
+        if (mb_substr($newUrlPath, -1) == '/') {
+            $newUrlPath = mb_substr($newUrlPath, 0, -1);
+        }
+
+
         if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
             return false;
         }

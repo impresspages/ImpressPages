@@ -197,17 +197,6 @@ class Migration {
     {
         $table = ipTable('widgetInstance');
 
-//        //some column widgets might have empty data field. Fix that as next query rely on that
-//        $sql = "
-//            UPDATE
-//                $table
-//            SET
-//                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}'))
-//            WHERE
-//                1
-//            ";
-//
-//        ipDb()->execute($sql);
 
         $sql = "
             UPDATE

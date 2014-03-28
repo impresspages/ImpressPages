@@ -16,9 +16,6 @@ class Event
     public static function ipCronExecute($info)
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
-            if (ipGetOption('Config.keepOldRevision') != 0) {
-                \Ip\Internal\Revision::removeOldRevisions(ipGetOption('Config.keepOldRevision'));
-            }
             static::checkForUpdates();
         }
     }

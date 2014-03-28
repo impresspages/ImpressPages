@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     $('.ipsConfigForm').validator(validatorConfigAdmin);
     $('.ipsConfigForm').data("validator").checkValidity();
+    $('.ipsConfigForm').on('submit', function(e) {e.preventDefault();});
 
 });
 
