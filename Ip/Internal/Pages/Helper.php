@@ -255,6 +255,15 @@ class Helper
             ));
         $form->addField($field);
 
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'alias',
+                'label' => __('Alias (used in code)', 'Ip-admin', FALSE),
+                'value' => $page->getAlias()
+            ));
+        $form->addField($field);
+
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'createdAt',
