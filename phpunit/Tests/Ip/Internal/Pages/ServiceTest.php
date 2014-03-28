@@ -139,11 +139,16 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $pages[]= Service::addPage($pages[1], 'Third', array('languageCode' => 'en'));
         $pages[]= Service::addPage($pages[3], 'Fourth', array('languageCode' => 'en'));
 
+        ipPageStorage($pages[3])->set('bump', 'it');
+
         Service::removeDeletedPage($pages[0]);
         $this->assertNotEmpty(Service::getPage($pages[0]));
 
         Service::deletePage($pages[0]);
+        $this->assertEquals('it', ipPageStorage($pages[3])->get('bump'));
+
         Service::removeDeletedPage($pages[0]);
+        $this->assertNull(ipPageStorage($pages[3])->get('bump'));
 
         foreach ($pages as $pageId) {
             $this->assertEmpty(Service::getPage($pageId));
@@ -160,7 +165,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /*
          * with two revision
          */
-        $firstRevisionId = \Ip\Internal\Revision::getPublishedRevision($pageId);
+        $firstRevision = \Ip\Internal\Revision::getPublishedRevision($pageId);
+        $firstRevisionId = $firstRevision['revisionId'];
         $secondRevisionId = \Ip\Internal\Revision::duplicateRevision($firstRevisionId);
 
         /*
@@ -171,8 +177,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /*
          * revisions should exist.
          */
-        $this->assertNotEmpty(ipDb()->selectRow('revision', 'id', array('id' => $firstRevisionId)));
-        $this->assertNotEmpty(ipDb()->selectRow('revision', 'id', array('id' => $secondRevisionId)));
+        $this->assertNotEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $firstRevisionId)));
+        $this->assertNotEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $secondRevisionId)));
 
         /*
          * (2) When we remove deleted page
@@ -182,8 +188,8 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /*
          * revisions should not exist any more.
          */
-        $this->assertEmpty(ipDb()->selectRow('revision', 'id', array('id' => $firstRevisionId)));
-        $this->assertEmpty(ipDb()->selectRow('revision', 'id', array('id' => $secondRevisionId)));
+        $this->assertEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $firstRevisionId)));
+        $this->assertEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $secondRevisionId)));
     }
 
 

@@ -111,6 +111,10 @@ class AdminController extends \Ip\Controller
             throw new \Ip\Exception("Missing required parameters");
         }
         $pageId = (int)$data['pageId'];
+        $page = ipContent()->getPage($pageId);
+        if (!$page) {
+            throw new \Ip\Exception("Page doesn't exist");
+        }
 
         $answer = array();
         if (strtotime($data['createdAt']) === FALSE) {
@@ -119,6 +123,12 @@ class AdminController extends \Ip\Controller
 
         if (strtotime($data['updatedAt']) === FALSE) {
             $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'Ip-admin', FALSE).date(" Y-m-d");
+        }
+
+        if ($data['alias'] != $page->getAlias()) {
+            if (Model::getPageByAlias($page->getLanguageCode(), $data['alias'])) {
+                $answer['errors']['alias'] = __('This alias is already occupied', 'Ip-admin');
+            }
         }
 
 
@@ -336,7 +346,7 @@ class AdminController extends \Ip\Controller
 
         if ($page['alias'] != $alias) {
             if (Model::getPageByAlias($page['languageCode'], $alias)) {
-                $errors['alias'] = __('This name is already occupied', 'Ip-admin');
+                $errors['alias'] = __('This alias is already occupied', 'Ip-admin');
             }
         }
 

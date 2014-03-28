@@ -204,55 +204,33 @@ class Controller extends \Ip\WidgetController{
                 $bigWidth = ipGetOption('Config.lightboxWidth', 800);
                 $bigHeight = ipGetOption('Config.lightboxHeight', 600);
 
-                try {
-                    $transformBig = array(
-                        'type' => 'fit',
-                        'width' => $bigWidth,
-                        'height' => $bigHeight
+                $transformBig = array(
+                    'type' => 'fit',
+                    'width' => $bigWidth,
+                    'height' => $bigHeight
+                );
+                $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformBig, $desiredName));
+
+                if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
+                    $transformSmall = array (
+                        'type' => 'crop',
+                        'x1' => $curImage['cropX1'],
+                        'y1' => $curImage['cropY1'],
+                        'x2' => $curImage['cropX2'],
+                        'y2' => $curImage['cropY2'],
+                        'width' => ipGetOption('Content.widgetGalleryWidth'),
+                        'height' => ipGetOption('Content.widgetGalleryHeight'),
+                        'quality' => ipGetOption('Content.widgetGalleryQuality')
                     );
-                    $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformBig, $desiredName));
-                } catch (\Ip\Internal\Repository\TransformException $e) {
-                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
-                    $curImage['imageBig'] = '';
-                    //do nothing
-                } catch (\Ip\Internal\Repository\Exception $e) {
-                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
-                    $curImage['imageBig'] = '';
-                    //do nothing
+                } else {
+                    $transformSmall = array (
+                        'type' => 'center',
+                        'width' => ipGetOption('Content.widgetGalleryWidth'),
+                        'height' => ipGetOption('Content.widgetGalleryHeight'),
+                        'quality' => ipGetOption('Content.widgetGalleryQuality')
+                    );
                 }
-
-
-
-                try {
-                    if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
-                        $transformSmall = array (
-                            'type' => 'crop',
-                            'x1' => $curImage['cropX1'],
-                            'y1' => $curImage['cropY1'],
-                            'x2' => $curImage['cropX2'],
-                            'y2' => $curImage['cropY2'],
-                            'width' => ipGetOption('Content.widgetGalleryWidth'),
-                            'height' => ipGetOption('Content.widgetGalleryHeight'),
-                            'quality' => ipGetOption('Content.widgetGalleryQuality')
-                        );
-                    } else {
-                        $transformSmall = array (
-                            'type' => 'center',
-                            'width' => ipGetOption('Content.widgetGalleryWidth'),
-                            'height' => ipGetOption('Content.widgetGalleryHeight'),
-                            'quality' => ipGetOption('Content.widgetGalleryQuality')
-                        );
-                    }
-                    $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
-                } catch (\Ip\Internal\Repository\TransformException $e) {
-                    ipLog()->log('info', 'Reflection can\'t be created', array('error' => $e->getMessage(), 'image' => $curImage['imageOriginal']));
-                    $curImage['imageSmall'] = '';
-                    //do nothing
-                } catch (\Ip\Internal\Repository\Exception $e) {
-                    ipLog()->log('info', 'Reflection can\'t be created', array('error' => $e->getMessage(), 'image' => $curImage['imageOriginal']));
-                    $curImage['imageSmall'] = '';
-                    //do nothing
-                }
+                $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
 
                 if (empty($curImage['type'])) {
                     $curImage['type'] = 'lightbox';
