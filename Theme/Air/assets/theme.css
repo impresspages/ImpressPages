@@ -2583,7 +2583,7 @@ a {
 .languages a:hover {
   text-decoration: underline;
 }
-.languages .current a {
+.languages .active a {
   font-weight: bold;
 }
 .sidenav nav {
