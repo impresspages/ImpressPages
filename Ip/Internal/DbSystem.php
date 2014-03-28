@@ -34,14 +34,6 @@ class DbSystem{    //system variables
         $sql = 'UPDATE ' . ipTable('storage') . ' SET `value` = REPLACE(`value`, ?, ?)';
         $db->execute($sql, array($oldUrl,  $newUrl));
         
-        $fromJsonUrl = json_encode($oldUrl);
-        $fromJsonUrl = substr($fromJsonUrl, 1, -1);
-        $toJsonUrl = json_encode($newUrl);
-        $toJsonUrl = substr($toJsonUrl, 1, -1);
-        
-        $sql = 'UPDATE ' . ipTable('widget') . ' SET `data` = REPLACE(`data`, ?, ?)';
-        $db->execute($sql, array($fromJsonUrl, $toJsonUrl));
-
         return true;
     }
 
