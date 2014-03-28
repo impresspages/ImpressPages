@@ -2,14 +2,16 @@
     <div class="sidenav col_12 col_md_12 col_lg_3 left">
         <nav<?php if (ipGetThemeOption('collapseSidebarMenu') == 'yes') { echo ' class="collapse"'; }?>>
             <?php
-                // generate 2 - 7 levels submenu of top menu.
-                // please note that it is possible to generate second level only if first level item is selected
-                $pages = \Ip\Menu\Helper::getMenuItems('menu1', 2, 7);
+                // generate 2 - 7 levels submenu
+                // please note that it is possible to generate second level only if first level item is in breadcrumb
+                // $pages = \Ip\Menu\Helper::getMenuItems('menu1', 2, 7);
+                // echo ipSlot('menu', $pages);
 
-                // submenu of currently active top menu item
-                //$pages = \Ip\Menu\Helper::getChildItems();
+                // submenu of currently active menu item
+                // $pages = \Ip\Menu\Helper::getChildItems();
+                // echo ipSlot('menu', $pages);
 
-                echo ipSlot('menu', array('items' => 'menu2', 'attributes' => array('id' => 'testid', 'class' => 'testclass')));
+                echo ipSlot('menu', 'menu2');
             ?>
         </nav>
     </div>

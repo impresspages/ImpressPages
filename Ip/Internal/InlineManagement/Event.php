@@ -27,7 +27,6 @@ class Event
             ipAddJsVariable('ipModuleInlineManagementControls', ipView('view/management/controls.php')->render());
 
             ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
-            ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
             ipAddCss('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.css');
             ipAddJs('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.js');
