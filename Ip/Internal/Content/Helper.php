@@ -83,7 +83,6 @@ class Helper
 
 
         ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
-        ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadFile.js');
 
         ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 

@@ -51,10 +51,6 @@ IpWidget_File = function () {
         var context = this;
 
 
-        var uploader = this.modal.find('.ipsUpload');
-        var options = new Object;
-        uploader.ipUploadFile(options);
-
         var container = this.modal.find('.ipWidget_ipFile_container');
         var options = new Object;
         if (this.data.files) {
@@ -66,8 +62,6 @@ IpWidget_File = function () {
         container.ipWidget_ipFile_container('destroy');
         container.ipWidget_ipFile_container(options);
         this.confirmButton.off().on('click', $.proxy(save, this));
-
-        this.modal.off('filesSelected.ipUploadFile').on('filesSelected.ipUploadFile', this.filesSelected);
 
         var widgetObject = this.widgetObject;
         this.modal.find('.ipsUpload').click(function (e) {
