@@ -139,12 +139,7 @@ class Controller extends \Ip\WidgetController{
                 'type' => 'copy'
             );
 
-            try {
-                $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
-            } catch (\Ip\Exception\TransformException $e) {
-                $data['imageBig'] = '';
-                ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
-            }
+            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
 
             if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
                 $data['url'] = 'http://' . $data['url'];
@@ -181,12 +176,7 @@ class Controller extends \Ip\WidgetController{
                     'width' => $width,
                     'height' => $height
                 );
-                try {
-                    $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
-                } catch (\Ip\Exception\TransformException $e) {
-                    $data['imageSmall'] = '';
-                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
-                }
+                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
@@ -205,11 +195,7 @@ class Controller extends \Ip\WidgetController{
                     'height' => $height
                 );
             }
-            try {
-                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
-            } catch (\Ip\Exception\TransformException $e) {
-                ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
-            }
+            $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
 
 
             if (empty($data['type'])) {
