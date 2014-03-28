@@ -522,17 +522,19 @@ class Page
         WHERE
             parentId = :parentId AND
             isVisible = 1 AND
-            isDeleted = 0 AND
+            isDeleted = 0
         ORDER BY
             :orderBy
             :direction
         ";
 
+        $params = array('parentId' => $this->id, 'orderBy' => $orderBy, 'direction' => $direction);
+
         if ($from !== null || $till !== null) {
             $sql .= " LIMIT " . (int) $from . " , " . (int) $till;
         }
 
-        $list = ipDb()->fetchAll($sql, array('parentId' => $this->id, 'isVisible' => 1, 'isDeleted' => 0, 'orderBy' => $orderBy, 'direction' => $direction));
+        $list = ipDb()->fetchAll($sql, $params);
 
         return static::createList($list);
     }
