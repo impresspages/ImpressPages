@@ -68,7 +68,6 @@ class Page
             //select by alias from the database
             $page = ipDb()->selectRow('page', '*', array('alias' => $id));
             if (!$page) {
-                $id = esc($id);
                 throw new \Ip\Exception("Page #" . esc($id) . " not found.");
             }
         }

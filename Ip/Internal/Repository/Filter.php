@@ -7,9 +7,9 @@ namespace Ip\Internal\Repository;
 
 
 class Filter {
-    public static function ipReflectionExtension($data)
+    public static function ipReflectionExtension($ext, $data)
     {
-        if (empty($data['source']) || empty($data['destination']) || empty($data['options']) || empty($data['options']['type'])) {
+        if (empty($data['source']) || empty($data['options'])) {
             return;
         }
         $options = $data['options'];
@@ -30,8 +30,7 @@ class Filter {
                     $quality = null;
                 }
                 $transform = new Transform\ImageCrop($options['x1'], $options['y1'], $options['x2'], $options['y2'], $options['width'], $options['height'], $quality);
-                $transform->transform($data['source'], $data['destination']);
-                return true;
+                return $transform->getNewExtension($data['source'], $ext);
                 break;
             case 'center':
                 $requiredParams = array(
@@ -47,8 +46,7 @@ class Filter {
                     $quality = null;
                 }
                 $transform = new Transform\ImageCropCenter($options['width'], $options['height'], $quality);
-                $transform->transform($data['source'], $data['destination']);
-                return true;
+                return $transform->getNewExtension($data['source'], $ext);
                 break;
             case 'fit':
                 $requiredParams = array(
@@ -69,12 +67,11 @@ class Filter {
                     $forced = false;
                 }
                 $transform = new Transform\ImageFit($options['width'], $options['height'], $quality, $forced);
-                $transform->transform($data['source'], $data['destination']);
-                return true;
+                return $transform->getNewExtension($data['source'], $ext);
                 break;
             case 'copy':
-                copy($data['source'], $data['destination']);
-                return true;
+
+                return $ext;
                 break;
             default:
                 return;

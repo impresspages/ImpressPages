@@ -50,6 +50,11 @@ class ReflectionTest extends \PhpUnit\GeneralTestCase
 
         $reflectionAbsolutePath = ipFile($reflectionFile);
         $this->assertEquals('file/' . date('Y/m/d/') . $repositoryFile, $reflectionFile);
+
+        $this->assertFalse(file_exists($reflectionAbsolutePath));
+
+        $reflectionFile = ipReflection($repositoryFile, $transformSmall, null, false);
+
         $this->assertTrue(file_exists($reflectionAbsolutePath));
 
 

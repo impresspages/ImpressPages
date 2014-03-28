@@ -73,12 +73,18 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         $value = ipDb()->fetchValue('SELECT `abbreviation` FROM ' . ipTable('language') . ' WHERE `code` = ?', array('en'));
         $this->assertEquals('EN', $value);
+
+        $value = ipDb()->fetchValue('SELECT `abbreviation` FROM ' . ipTable('language') . ' WHERE `code` = ?', array('not/existent/code/'));
+        $this->assertNull($value);
     }
 
-    public function testFetchColumn()
+    public function testSelectColumn()
     {
         $values = ipDb()->selectColumn('permission', 'permission', array('administratorId' => 1));
         $this->assertEquals(json_encode($values), json_encode(array('Super admin')));
+
+        $values = ipDb()->selectColumn('permission', 'permission', array('administratorId' => 77));
+        $this->assertEquals(array(), $values);
     }
 
 }
