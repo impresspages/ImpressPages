@@ -238,11 +238,14 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $a[]= '<a href="http://localhost/docs4/child">docs4/child</a>';
         $b[]= '<a href="http://localhost/docs4/child">docs4/child</a>';
 
-//        $a[]= '<a href="http://localhost/docs4/">docs4/</a>';
-//        $b[]= '<a href="http://localhost/docs5/">docs4/</a>';
+        $a[]= '<a href="https://localhost/docs4/">docs4/</a>';
+        $b[]= '<a href="https://localhost/docs5/">docs4/</a>';
 
         $a[]= '<a href="http://localhost/docs4?expand=true/">docs4?expand=true/</a>';
         $b[]= '<a href="http://localhost/docs5?expand=true/">docs4?expand=true/</a>';
+
+        $a[]= 'http://localhost/docs4';
+        $b[]= 'http://localhost/docs5';
 
         $widgetId = ContentService::createWidget('Text', array('text' => implode("\n\n\n", $a)), 'default', $revisionId, 0, 'test', 1);
 
