@@ -23,7 +23,7 @@ class JsTreeHelper
      */
     protected static function getList ($languageCode, $parentId)
     {
-        $pages = ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isVisible' => 1, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
+        $pages = ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
 
         $answer = array();
 
