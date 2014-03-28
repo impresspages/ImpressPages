@@ -66,7 +66,7 @@ class PublicController extends \Ip\Controller
     protected function step0()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         $this->init();
@@ -104,7 +104,7 @@ class PublicController extends \Ip\Controller
     protected function step1()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         $this->init();
@@ -228,7 +228,7 @@ class PublicController extends \Ip\Controller
     protected function step2()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         $this->init();
@@ -247,7 +247,7 @@ class PublicController extends \Ip\Controller
     protected function step3()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         $this->init();
@@ -282,7 +282,7 @@ class PublicController extends \Ip\Controller
     protected function step4()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         $this->init();
@@ -346,7 +346,7 @@ class PublicController extends \Ip\Controller
     public function proceed()
     {
         if (!Helper::isInstallAvailable()) {
-            reutrn;
+            return;
         }
 
         if (in_array($_SESSION['step'], array(0, 1, 2))) {//TODO check if there are no errors in step1

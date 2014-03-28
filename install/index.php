@@ -62,6 +62,8 @@ if ($request->isGet()) {
         $controller = new \Plugin\Install\PublicController();
         $response = $controller->{$route['action']}();
     }
+} else {
+    exit('HTTP Method not supported.');
 }
 
 
