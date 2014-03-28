@@ -4,6 +4,7 @@ namespace Tests\Ip\Internal\Pages;
 
 use Ip\Internal\Pages\Service;
 use PhpUnit\Helper\TestEnvironment;
+use \Ip\Internal\Content\Service as ContentService;
 
 class ServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -190,6 +191,87 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
          */
         $this->assertEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $firstRevisionId)));
         $this->assertEmpty(ipDb()->selectRow('revision', 'revisionId', array('revisionId' => $secondRevisionId)));
+    }
+
+    public function testChangeUrlPath()
+    {
+        $menuAlias = Service::createMenu('en', 'testMenu', 'Test menu');
+        $menu = Service::getMenu('en', $menuAlias);
+
+        $pages = array();
+
+        /*
+         * If we have pages with urls 'docs4', 'docs4/child' and 'docs44'
+         */
+        $pages['docs4']= Service::addPage($menu['id'], 'Docs4', array('languageCode' => 'en', 'urlPath' => 'docs4'));
+        $pages['docs4/child']= Service::addPage($pages['docs4'], 'Docs4 First', array('languageCode' => 'en', 'urlPath' => 'docs4/child'));
+        $pages['docs44']= Service::addPage($menu['id'], 'Docs44', array('languageCode' => 'en', 'urlPath' => 'docs44'));
+
+        // helper functions
+        $urlPath = function ($key) use ($pages) {
+            $page = Service::getPage($pages[$key]);
+            return $page['urlPath'];
+        };
+
+        $pageUrl = function ($key) use ($pages) {
+            return ipPage($pages[$key])->getLink();
+        };
+
+        foreach ($pages as $path => $pageId) {
+            $this->assertEquals($path, $urlPath($path));
+        }
+
+        /*
+         * And have a widgets with paths 'docs4', 'docs44', 'docs4/child', 'docs4/', 'docs4?expand=true'
+         */
+
+        $revisionId = \Ip\Internal\Revision::createRevision($pages['docs44'], true);
+        $a = array();
+        $b = array();
+
+        $a[]= '<a href="http://localhost/docs4">docs4</a>';
+        $b[]= '<a href="http://localhost/docs5">docs4</a>';
+
+        $a[]= '<a href="http://localhost/docs44">docs44</a>';
+        $b[]= '<a href="http://localhost/docs44">docs44</a>';
+
+        $a[]= '<a href="http://localhost/docs4/child">docs4/child</a>';
+        $b[]= '<a href="http://localhost/docs4/child">docs4/child</a>';
+
+//        $a[]= '<a href="http://localhost/docs4/">docs4/</a>';
+//        $b[]= '<a href="http://localhost/docs5/">docs4/</a>';
+
+        $a[]= '<a href="http://localhost/docs4?expand=true/">docs4?expand=true/</a>';
+        $b[]= '<a href="http://localhost/docs5?expand=true/">docs4?expand=true/</a>';
+
+        $widgetId = ContentService::createWidget('Text', array('text' => implode("\n\n\n", $a)), 'default', $revisionId, 0, 'test', 1);
+
+        /*
+         * When we change 'docs4' page path to 'docs5'
+         */
+        Service::changePageUrlPath($pages['docs4'], 'docs5');
+
+        /*
+         * `docs4' page path should be 'docs5'
+         */
+        $this->assertEquals('docs5', $urlPath('docs4'));
+
+        /*
+         * other page paths should not be changed
+         */
+        $this->assertEquals('docs4/child', $urlPath('docs4/child'));
+        $this->assertEquals('docs44', $urlPath('docs44'));
+
+        /*
+         * 'docs4' link should be changed to 'docs5'
+         */
+        $widgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($widgetId);
+
+        $result = explode("\n\n\n", $widgetRecord['data']['text']);
+
+        for ($i = 0; $i < count($b); $i++) {
+            $this->assertEquals($b[$i], $result[$i]);
+        }
     }
 
 

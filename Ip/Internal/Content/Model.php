@@ -482,25 +482,27 @@ class Model
 
     public static function updateUrl($oldUrl, $newUrl)
     {
-        $oldUrl = str_replace('\/', '\\\/', $oldUrl);
-        $newUrl = str_replace('\/', '\\\/', $newUrl);
-        $dbh = ipDb()->getConnection();
-        $table = ipTable('widget');
-        $sql = "
-            UPDATE
-              $table
-            SET
-              `data` = REPLACE(`data`, :oldUrl, :newUrl)
-            WHERE
-                1
-        ";
+        $search = substr(json_encode(substr(ipDb()->getConnection()->quote($oldUrl), 1, -1)), 1, -1);
 
-        $params = array (
-            ':oldUrl' => $oldUrl,
-            ':newUrl' => $newUrl
-        );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        $table = ipTable('widget');
+
+        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE LOCATE(? , `data`) > 0", array($search));
+
+        if (!$records) {
+            return;
+        }
+
+        $search = '%\b' . preg_quote($oldUrl, '%') . '(?=["\'?]|\s)%';
+
+        foreach ($records as $row) {
+            $data = json_decode($row['data'], true);
+            $after = preg_replace($search, $newUrl, $data['text']);
+            if ($after != $data['text']) {
+                $data['text'] = $after;
+
+                ipDb()->update('widget', array('data' => json_encode($data)), array('id' => $row['id']));
+            }
+        }
     }
 
     public static function isRevisionModified($revisionId = null)
