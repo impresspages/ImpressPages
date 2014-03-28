@@ -121,6 +121,7 @@ DROP TABLE IF EXISTS `ip_repository_reflection`;
 
 CREATE TABLE `ip_repository_reflection` (
   `reflectionId` int(11) NOT NULL AUTO_INCREMENT,
+  `options` text CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `optionsFingerprint` char(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'unique cropping options key',
   `original` varchar(255) NOT NULL,
   `reflection` varchar(255) NOT NULL COMMENT 'Cropped version of original file.',
