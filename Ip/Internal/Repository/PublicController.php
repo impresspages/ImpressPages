@@ -48,8 +48,6 @@ class PublicController extends \Ip\Controller {
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: public");
-//        header("Content-Description: File Transfer");
-//        header("Content-Type: $mtype");
         header('Content-type: ' . $mime);
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: " . $fsize);
@@ -68,6 +66,7 @@ class PublicController extends \Ip\Controller {
             }
             @fclose($file);
         }
+        //TODO provide method to stop any output by ImpressPages
         ipDb()->disconnect();
         exit;
 
