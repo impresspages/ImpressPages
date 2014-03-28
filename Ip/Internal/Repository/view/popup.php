@@ -11,7 +11,7 @@
             <div id="ipsModuleRepositoryTabUpload" class="tab-pane active _tabUpload">
                 <div id="ipsModuleRepositoryDragContainer" class="_upload ipsUpload" >
                     <div class="ipmFiles"></div>
-                    <div class="ipUploadProgressContainer ipsUploadProgressContainer">
+                    <div class="ipsUploadProgressContainer">
                         <div class="ipsCurErrors"></div>
                         <div class="ipsBrowseButtonWrapper _browseButtonWrapper">
                             <span class="_label _dragdropNotice"><?php _e('Drag&drop files here or click a button to upload.', 'Ip-admin'); ?></span>
@@ -23,9 +23,9 @@
                         </div>
                     </div>
                     <div class="ipsUploadProgressItemSample hidden">
-                        <div class="ipUploadProgressItem ipsUploadProgressItem">
-                            <div class="ipUploadProgressbar ipsUploadProgressbar"></div>
-                            <p class="ipUploadTitle ipsUploadTitle"></p>
+                        <div class="ipModuleUploadProgressItem ipsUploadProgressItem">
+                            <div class="_progressbar ipsUploadProgressbar"></div>
+                            <p class="_title ipsUploadTitle"></p>
                         </div>
                     </div>
                     <p class="ipsErrorSample alert alert-danger hidden"></p>
