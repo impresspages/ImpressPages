@@ -8,11 +8,6 @@ namespace Ip\Internal\System;
 
 class Event
 {
-    public static function ipUrlChanged($info)
-    {
-        \Ip\Internal\DbSystem::replaceUrls($info['oldUrl'], $info['newUrl']);
-    }
-
     public static function ipCronExecute($info)
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
