@@ -148,6 +148,9 @@ class Model
 
     public static function getPageByUrl($languageCode, $urlPath)
     {
+        if (substr($urlPath, -1) == '/') {
+            $urlPath = substr($urlPath, 0, -1);
+        }
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
@@ -494,6 +497,7 @@ class Model
 
         ipEvent('ipBeforePageRemoved', array('pageId' => $pageId));
         $count = ipDb()->delete('page', array('id' => $pageId));
+        ipPageStorage($pageId)->removeAll();
         ipEvent('ipPageRemoved', array('pageId' => $pageId));
 
         $deletedPageCount += (int)$count;

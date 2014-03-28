@@ -36,24 +36,33 @@ class ReflectionModel
         return self::$instance;
     }
 
+    public function getReflectionByReflection($reflection)
+    {
+        $reflectionRecord = ipDb()->selectRow('repository_reflection', '*', array('reflection' => $reflection));
+        if (!empty($reflectionRecord)) { //because selectRow may return empty array
+            return $reflectionRecord;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * @param string $file relative path from BASE_DIR
-     * @param \Ip\Transform $transform - file transformation class
+     * @param array $options image transform options
      * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
      * @return string file name relative to BASE_DIR
      */
-    public function getReflection($file, \Ip\Transform $transform = null, $desiredName = null)
+    public function getReflection($file, $options, $desiredName = null, $onDemand = true)
     {
-        if (!$transform) {
-            $transform = new \Ip\Transform\None();
-        }
-
-        $fingerprint = $transform->getFingerprint();
+        $fingerprint = md5(json_encode($options));
         $reflection = $this->getReflectionRecord($file, $fingerprint);
 
         if (!$reflection) {
-            $reflection = $this->createReflection($file, $transform, $desiredName);
+            $reflection = $this->createReflectionRecord($file, $options, $desiredName);
+            if (!$onDemand) {
+                $this->createReflection($file, $reflection, $options);
+            }
         }
 
         return $reflection;
@@ -72,29 +81,16 @@ class ReflectionModel
 
     }
 
-    /**
-     * @param string $source
-     * @param string $desiredName
-     * @param \Ip\Transform $transform
-     * @return string
-     * @throws \Exception
-     */
-
-    private function createReflection($source, \Ip\Transform $transform, $desiredName)
+    private function createReflectionRecord($source, $options, $desiredName)
     {
         $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
         }
 
-
-
-
         if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
-
-
 
         //if desired name ends with .jpg, .gif, etc., remove extension
         $desiredPathInfo = pathinfo($desiredName);
@@ -106,38 +102,112 @@ class ReflectionModel
         //update destination file extension
         $pathInfo = pathinfo($absoluteSource);
         if (isset($pathInfo['extension'])) {
-            $ext = $transform->getNewExtension($absoluteSource, $pathInfo['extension']);
+            $ext = $pathInfo['extension'];
         } else {
             $ext = '';
         }
+
+        $ext = ipFilter('ipReflectionExtension', $ext, array('file' => $absoluteSource, 'options' => $options));
+
         if ($desiredName == '') {
+            $pathInfo = pathinfo($absoluteSource);
             $desiredName = $pathInfo['filename'];
         }
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
 
+        $relativeDestinationPath = date('Y/m/d/');
+        $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName));
 
+        $destinationFileName = $this->getUnocupiedName($desiredName, $relativeDestinationPath);
+        $reflection = $relativeDestinationPath . $destinationFileName;
 
-        $relativeDestinationPath = date('Y/m/d/') . $desiredName;
-        $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'transform' => $transform, 'desiredName' => $desiredName));
+        $this->storeReflectionRecord($source, $reflection, $options);
 
-        $absoluteDestinationDir = dirname(ipFile('file/' . $relativeDestinationPath));
+        return $reflection;
+    }
+
+    private function getUnocupiedName($file, $destDir, $suffix = '')
+    {
+        $newName = basename($file);
+        $extPos = strrpos($newName, ".");
+        if ($extPos !== false) {
+            $newExtension = substr($newName, $extPos, strlen($file));
+            $newName = substr($newName, 0, $extPos);
+        } else {
+            $newExtension = '';
+        }
+
+        if ($newName == "") {
+            $newName = "file_";
+        }
+        if ($this->availableFile($destDir . $newName . $newExtension)) {
+            $i = 1;
+            while (!$this->availableFile($destDir . $newName . '_' . $i . $suffix . $newExtension)) {
+                $i++;
+            }
+            $newName = $newName . '_' . $i . $suffix;
+        }
+        $newName .= $newExtension;
+        return $newName;
+    }
+
+    /**
+     * Check if such file doesn't exist and is not reserved for reflection
+     * @param $file
+     */
+    private function availableFile($file)
+    {
+        if (is_file(ipFile('file/' . $file))) {
+            return false;
+        };
+
+        $exists = ipDb()->selectRow('repository_reflection', '*', array('reflection' => $file));
+        if (!empty($exists)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param string $source
+     * @param string $destination
+     * @param array $options
+     * @return string
+     */
+    public function createReflection($source, $destination, $options)
+    {
+        $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
+
+        $absoluteDestinationDir = dirname(ipFile('file/' . $destination));
+        $destinationFileName = basename($destination);
         if (!is_dir($absoluteDestinationDir)) {
             mkdir($absoluteDestinationDir, 0777, $recursive = true);
         }
-        $destinationFileName = basename($relativeDestinationPath);
-        $relativeDestinationDir = substr($relativeDestinationPath, 0, -strlen($destinationFileName));
-        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($destinationFileName, $absoluteDestinationDir . '/');
-        $transform->transform($absoluteSource, $absoluteDestinationDir . '/' . $destinationFileName);
-        $transformFingerprint = $transform->getFingerprint();
-        $this->storeReflectionRecord($source, $relativeDestinationDir . $destinationFileName, $transformFingerprint);
 
-        return $relativeDestinationDir . $destinationFileName;
+        if (!is_file($absoluteSource)) {
+            return false;
+        }
+
+        $data = array (
+            'source' => $absoluteSource,
+            'destination' => $absoluteDestinationDir . '/' . $destinationFileName,
+            'options' => $options
+        );
+
+        ipJob('ipCreateReflection', $data);
+
+        if (is_file($absoluteDestinationDir . '/' . $destinationFileName)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
-    private function storeReflectionRecord($file, $reflection, $transformFingerprint)
+    private function storeReflectionRecord($file, $reflection, $options)
     {
         $dbh = ipDb()->getConnection();
         $sql = "
@@ -146,14 +216,18 @@ class ReflectionModel
         SET
           original = :original,
           reflection = :reflection,
-          transformFingerprint = :transformFingerprint,
+          options = :options,
+          optionsFingerprint = :optionsFingerprint,
           createdAt = :createdAt
         ";
+
+        $jsonOptions = json_encode($options);
 
         $params = array(
             'original' => $file,
             'reflection' => $reflection,
-            'transformFingerprint' => $transformFingerprint,
+            'options' => $jsonOptions,
+            'optionsFingerprint' => md5($jsonOptions),
             'createdAt' => time()
         );
 
@@ -162,7 +236,7 @@ class ReflectionModel
 
     }
 
-    private function getReflectionRecord($file, $transformFingerprint)
+    private function getReflectionRecord($file, $optionsFingerprint)
     {
         $dbh = ipDb()->getConnection();
         $sql = "
@@ -173,12 +247,12 @@ class ReflectionModel
         WHERE
           original = :original
           AND
-          transformFingerprint = :transformFingerprint
+          optionsFingerprint = :optionsFingerprint
         ";
 
         $params = array(
             'original' => $file,
-            'transformFingerprint' => $transformFingerprint
+            'optionsFingerprint' => $optionsFingerprint
         );
 
         $q = $dbh->prepare($sql);

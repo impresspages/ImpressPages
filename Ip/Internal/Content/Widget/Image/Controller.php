@@ -133,10 +133,18 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
-            $desiredName = isset($data['title']) ? $data['title'] : 'image';
+            $desiredName = isset($data['title']) ? $data['title'] : null;
 
-            $transformBig = new \Ip\Transform\None();
-            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
+            $transformBig = array (
+                'type' => 'copy'
+            );
+
+            try {
+                $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
+            } catch (\Ip\Exception\TransformException $e) {
+                $data['imageBig'] = '';
+                ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
+            }
 
             if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
                 $data['url'] = 'http://' . $data['url'];
@@ -164,15 +172,21 @@ class Controller extends \Ip\WidgetController{
                 }
                 $height = round($width / $ratio);
 
-                $transform = new \Ip\Transform\ImageCrop(
-                    $data['cropX1'],
-                    $data['cropY1'],
-                    $data['cropX2'],
-                    $data['cropY2'],
-                    $width,
-                    $height
+                $transform = array(
+                    'type' => 'crop',
+                    'x1' => $data['cropX1'],
+                    'y1' => $data['cropY1'],
+                    'x2' => $data['cropX2'],
+                    'y2' => $data['cropY2'],
+                    'width' => $width,
+                    'height' => $height
                 );
-                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
+                try {
+                    $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
+                } catch (\Ip\Exception\TransformException $e) {
+                    $data['imageSmall'] = '';
+                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
+                }
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
@@ -185,9 +199,10 @@ class Controller extends \Ip\WidgetController{
                 } else {
                     $height = ipGetOption('Content.widgetImageHeight', 900);
                 }
-                $transform = new \Ip\Transform\ImageFit(
-                    $width,
-                    $height
+                $transform = array(
+                    'type' => 'fit',
+                    'width' => $width,
+                    'height' => $height
                 );
             }
             try {

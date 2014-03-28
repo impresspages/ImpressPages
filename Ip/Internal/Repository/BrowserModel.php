@@ -112,7 +112,11 @@ class BrowserModel{
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
         $baseName = $pathInfo['basename'];
         if (in_array($ext, $this->supportedImageExtensions)) {
-            $transform = new \Ip\Transform\ImageFit(140, 140, null, TRUE);
+            $transform = array(
+                'type' => 'fit',
+                'width' => 140,
+                'height' => 140,
+                'forced' => true);
             $reflection = ipReflection($file, $transform, $baseName);
             if ($reflection){
                 return ipFileUrl($reflection);

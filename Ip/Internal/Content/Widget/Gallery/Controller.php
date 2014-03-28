@@ -198,14 +198,18 @@ class Controller extends \Ip\WidgetController{
                 if (empty($curImage['imageOriginal'])) {
                     continue;
                 }
-                $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
+                $desiredName = isset($curImage['title']) ? $curImage['title'] : null;
 
                 //create big image reflection
                 $bigWidth = ipGetOption('Config.lightboxWidth', 800);
                 $bigHeight = ipGetOption('Config.lightboxHeight', 600);
 
                 try {
-                    $transformBig = new \Ip\Transform\ImageFit($bigWidth, $bigHeight);
+                    $transformBig = array(
+                        'type' => 'fit',
+                        'width' => $bigWidth,
+                        'height' => $bigHeight
+                    );
                     $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformBig, $desiredName));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
                     ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
@@ -221,23 +225,23 @@ class Controller extends \Ip\WidgetController{
 
                 try {
                     if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
-                        $transformSmall = new \Ip\Transform\ImageCrop(
-                            $curImage['cropX1'],
-                            $curImage['cropY1'],
-                            $curImage['cropX2'],
-                            $curImage['cropY2'],
-                            ipGetOption('Content.widgetGalleryWidth'),
-                            ipGetOption('Content.widgetGalleryHeight'),
-                            ipGetOption('Content.widgetGalleryQuality')
+                        $transformSmall = array (
+                            'type' => 'crop',
+                            'x1' => $curImage['cropX1'],
+                            'y1' => $curImage['cropY1'],
+                            'x2' => $curImage['cropX2'],
+                            'y2' => $curImage['cropY2'],
+                            'width' => ipGetOption('Content.widgetGalleryWidth'),
+                            'height' => ipGetOption('Content.widgetGalleryHeight'),
+                            'quality' => ipGetOption('Content.widgetGalleryQuality')
                         );
-
                     } else {
-                        $transformSmall = new \Ip\Transform\ImageCropCenter(
-                            ipGetOption('Content.widgetGalleryWidth'),
-                            ipGetOption('Content.widgetGalleryHeight'),
-                            ipGetOption('Content.widgetGalleryQuality')
+                        $transformSmall = array (
+                            'type' => 'center',
+                            'width' => ipGetOption('Content.widgetGalleryWidth'),
+                            'height' => ipGetOption('Content.widgetGalleryHeight'),
+                            'quality' => ipGetOption('Content.widgetGalleryQuality')
                         );
-
                     }
                     $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
                 } catch (\Ip\Internal\Repository\TransformException $e) {
