@@ -447,23 +447,23 @@ class Model
 
     public static function updateUrl($oldUrl, $newUrl)
     {
-        $dbh = ipDb()->getConnection();
-        $table = ipTable('page');
-        $sql = "
-            UPDATE
-              $table
-            SET
-              `redirectUrl` = REPLACE(`redirectUrl`, :oldUrl, :newUrl)
-            WHERE
-                1
-        ";
+        $old = parse_url($oldUrl);
+        $new = parse_url($newUrl);
 
-        $params = array (
-            ':oldUrl' => $oldUrl,
-            ':newUrl' => $newUrl
+        $oldPart = $old['host'] . rtrim($old['path'], '/');
+        $newPart = $new['host'] . rtrim($new['path'], '/');
+
+        $replaces = array(
+            'http://' . $oldPart => 'http://' . $newPart,
+            'http://' . $oldPart . '/' => 'http://' . $newPart . '/',
+
+            'https://' . $oldPart => 'https://' . $newPart,
+            'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+
+        foreach ($replaces as $search => $replace) {
+            ipDb()->update('page', array('redirectUrl' => $replace), array('redirectUrl' => $search));
+        }
     }
 
     /**
