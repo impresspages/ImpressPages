@@ -42,7 +42,7 @@ class AdminController extends \Ip\Controller{
         }
         $value = $post['value'];
 
-        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'keepOldRevision', 'websiteTitle', 'websiteEmail'))) {
+        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'websiteTitle', 'websiteEmail'))) {
             throw new \Exception('Unknown config value');
         }
 
@@ -54,9 +54,6 @@ class AdminController extends \Ip\Controller{
 
         $numberValidator = new \Ip\Form\Validator\Number();
         $error = $numberValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
-        if ($fieldName === 'keepOldRevision' && ($error !== false || $value == '')) { //if user enters some text, browser sends empty message and $error becomes false. We have to check that.
-            return $this->returnError($numberValidator->getError(array('value' => 'for sure incorrect value'), 'value', \Ip\Form::ENVIRONMENT_ADMIN)); //this is to get original Number error message instead of hardcoding text once again
-        }
 
 
         if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {
