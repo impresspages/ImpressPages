@@ -107,7 +107,7 @@ class ReflectionModel
             $ext = '';
         }
 
-        $ext = ipFilter('ipReflectionExtension', $ext, array('file' => $absoluteSource, 'options' => $options));
+        $ext = ipFilter('ipReflectionExtension', $ext, array('source' => $absoluteSource, 'options' => $options));
 
         if ($desiredName == '') {
             $pathInfo = pathinfo($absoluteSource);
