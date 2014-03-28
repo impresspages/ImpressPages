@@ -17,7 +17,7 @@ class Model {
      */
     public static function getDbVersion()
     {
-        return 29; //CHANGE_ON_VERSION_UPDATE
+        return 30; //CHANGE_ON_VERSION_UPDATE
     }
 
     public static function migrationsAvailable()
