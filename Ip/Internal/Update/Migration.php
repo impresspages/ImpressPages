@@ -197,17 +197,30 @@ class Migration {
     {
         $table = ipTable('widgetInstance');
 
-        //some column widgets might have empty data field. Fix that as next query rely on that
+//        //some column widgets might have empty data field. Fix that as next query rely on that
+//        $sql = "
+//            UPDATE
+//                $table
+//            SET
+//                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}'))
+//            WHERE
+//                1
+//            ";
+//
+//        ipDb()->execute($sql);
+
         $sql = "
             UPDATE
                 $table
             SET
-                `data` = REPLACE(`data`, '[]', concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}'))
+                `data` = concat('{\"cols\":[\"column', `widgetId`, '_1\",\"column', `widgetId`, '_2\"]}')
             WHERE
-                1
+                `name` = 'Columns' AND
+                `data` not like '%\"cols\":%'
             ";
 
         ipDb()->execute($sql);
+
 
 
 
@@ -217,13 +230,24 @@ class Migration {
             UPDATE
                 $table
             SET
-                `data` = REPLACE(`data`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_'),
+                `data` = REPLACE(`data`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
+            WHERE
+                `name` = 'Columns'
+            ";
+
+            ipDb()->execute($sql);
+
+            $sql = "
+            UPDATE
+                $table
+            SET
                 `blockName` = REPLACE(`blockName`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
             WHERE
                 1
             ";
 
             ipDb()->execute($sql);
+
         }
 
 
