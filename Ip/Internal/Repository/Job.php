@@ -34,11 +34,11 @@ class Job {
             $reflectionModel->createReflection($reflectionRecord['original'], $reflectionRecord['reflection'], json_decode($reflectionRecord['options'], true));
             if (is_file(ipFile('file/' . $reflection))) {
                 //supply file route
-                $result['page'] = new \Ip\Page($page);
-                $result['plugin'] = 'Content';
+
+                $result['page'] = null;
+                $result['plugin'] = 'Repository';
                 $result['controller'] = 'PublicController';
-                $result['action'] = 'index';
-                $result['urlParts'] = isset($urlParts[1]) ? explode('/', $urlParts[1]) : array();
+                $result['action'] = 'download';
 
                 return $result;
             }
