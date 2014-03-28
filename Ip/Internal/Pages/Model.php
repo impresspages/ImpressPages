@@ -243,6 +243,10 @@ class Model
             $update['isVisible'] = $properties['isVisible'];
         }
 
+        if (isset($properties['alias'])) {
+            $update['alias'] = $properties['alias'];
+        }
+
         if (isset($properties['isBlank'])) {
             $update['isBlank'] = $properties['isBlank'];
         }
