@@ -117,13 +117,11 @@ class ReflectionModel
             $desiredName = $desiredName.'.'.$ext;
         }
 
-        $relativeDestinationPath = date('Y/m/d/') . $desiredName;
+        $relativeDestinationPath = date('Y/m/d/');
         $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName));
 
-        $destinationFileName = basename($relativeDestinationPath);
-        $relativeDestinationDir = substr($relativeDestinationPath, 0, -strlen($destinationFileName));
-        $destinationFileName = $this->getUnocupiedName($destinationFileName, $relativeDestinationPath . '/');
-        $reflection = $relativeDestinationDir . $destinationFileName;
+        $destinationFileName = $this->getUnocupiedName($desiredName, $relativeDestinationPath);
+        $reflection = $relativeDestinationPath . $destinationFileName;
 
         $this->storeReflectionRecord($source, $reflection, $options);
 
@@ -146,7 +144,7 @@ class ReflectionModel
         }
         if ($this->availableFile($destDir . $newName . $newExtension)) {
             $i = 1;
-            while ($this->availableFile($destDir . $newName . '_' . $i . $suffix . $newExtension)) {
+            while (!$this->availableFile($destDir . $newName . '_' . $i . $suffix . $newExtension)) {
                 $i++;
             }
             $newName = $newName . '_' . $i . $suffix;
@@ -166,7 +164,7 @@ class ReflectionModel
         };
 
         $exists = ipDb()->selectRow('repository_reflection', '*', array('reflection' => $file));
-        if (empty($exists)) {
+        if (!empty($exists)) {
             return false;
         }
 
