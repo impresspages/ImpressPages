@@ -198,7 +198,7 @@ class Controller extends \Ip\WidgetController{
                 if (empty($curImage['imageOriginal'])) {
                     continue;
                 }
-                $desiredName = isset($curImage['title']) ? $curImage['title'] : '';
+                $desiredName = isset($curImage['title']) ? $curImage['title'] : null;
 
                 //create big image reflection
                 $bigWidth = ipGetOption('Config.lightboxWidth', 800);
