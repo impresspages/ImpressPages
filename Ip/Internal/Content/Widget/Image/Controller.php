@@ -138,7 +138,13 @@ class Controller extends \Ip\WidgetController{
             $transformBig = array (
                 'type' => 'copy'
             );
-            $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
+
+            try {
+                $data['imageBig'] = ipFileUrl(ipReflection($data['imageOriginal'], $transformBig, $desiredName));
+            } catch (\Ip\Exception\TransformException $e) {
+                $data['imageBig'] = '';
+                ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
+            }
 
             if (!empty($data['url']) && !preg_match('/^((http|https):\/\/)/i', $data['url'])) {
                 $data['url'] = 'http://' . $data['url'];
@@ -175,7 +181,12 @@ class Controller extends \Ip\WidgetController{
                     'width' => $width,
                     'height' => $height
                 );
-                $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
+                try {
+                    $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
+                } catch (\Ip\Exception\TransformException $e) {
+                    $data['imageSmall'] = '';
+                    ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
+                }
             } else {
                 if (!empty($data['width'])) {
                     $width = $data['width'];
