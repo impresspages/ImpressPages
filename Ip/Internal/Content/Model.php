@@ -482,7 +482,15 @@ class Model
 
     public static function updateUrl($oldUrl, $newUrl)
     {
-        $search = substr(json_encode(substr(ipDb()->getConnection()->quote($oldUrl), 1, -1)), 1, -1);
+        $old = parse_url($oldUrl);
+        $new = parse_url($newUrl);
+
+        $oldPart = $old['host'] . $old['path'];
+        $newPart = $new['host'] . $new['path'];
+
+        $quotedPart = substr(ipDb()->getConnection()->quote('://' . $oldPart), 1, -1);
+
+        $search = substr(json_encode($quotedPart, 1, -1), 1, -1);
 
         $table = ipTable('widget');
 
@@ -492,11 +500,18 @@ class Model
             return;
         }
 
-        $search = '%\b' . preg_quote($oldUrl, '%') . '(?=["\'?]|\s)%';
+        // \b - start at word boundary
+        // (https?://) - protocol
+        // (/?) - allow optional slash at the end of url
+        // (?= ) - symbols expected after url
+        // \Z - end of subject or end of line
+        $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '(/?)(?=["\'?]|\s|\Z)%';
 
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
-            $after = preg_replace($search, $newUrl, $data['text']);
+
+            // ${1} - protocol, ${2} - optional '/'
+            $after = preg_replace($search, '${1}' . $newPart . '${2}', $data['text']);
             if ($after != $data['text']) {
                 $data['text'] = $after;
 
