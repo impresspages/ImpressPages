@@ -83,11 +83,9 @@ class ReflectionService
         $reflectionModel = ReflectionModel::instance();
         try {
             $reflection = $reflectionModel->getReflection($file, $options, $desiredName, $onDemand);
-        } catch (\Ip\Exception $e) {
+        } catch (\Exception $e) {
+            ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             $this->lastException = $e;
-            return false;
-        } catch (\Ip\PhpException $e) {
-            $this->lastExceptin = $e;
             return false;
         }
 
