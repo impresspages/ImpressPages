@@ -5,7 +5,7 @@
  *
  */
 
-namespace Ip\Transform;
+namespace Ip\Internal\Repository\Transform;
 
 class ImageCropCenter extends Image
 {

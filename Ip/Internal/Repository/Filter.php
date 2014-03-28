@@ -1,0 +1,84 @@
+<?php
+/**
+ * @package   ImpressPages
+ */
+
+namespace Ip\Internal\Repository;
+
+
+class Job {
+    public static function ipReflectionExtension($data)
+    {
+        if (empty($data['source']) || empty($data['destination']) || empty($data['options']) || empty($data['options']['type'])) {
+            return;
+        }
+        $options = $data['options'];
+
+
+        switch($options['type']) {
+            case 'crop':
+                $requiredParams = array(
+                    'x1', 'y1', 'x2', 'y2', 'width', 'height'
+                );
+                $missing = array_diff($requiredParams, array_keys($options));
+                if ($missing) {
+                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                }
+                if (isset($options['quality'])) {
+                    $quality = $options['quality'];
+                } else {
+                    $quality = null;
+                }
+                $transform = new Transform\ImageCrop($options['x1'], $options['y1'], $options['x2'], $options['y2'], $options['width'], $options['height'], $quality);
+                $transform->transform($data['source'], $data['destination']);
+                return true;
+                break;
+            case 'center':
+                $requiredParams = array(
+                    'width', 'height'
+                );
+                $missing = array_diff($requiredParams, array_keys($options));
+                if ($missing) {
+                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                }
+                if (isset($options['quality'])) {
+                    $quality = $options['quality'];
+                } else {
+                    $quality = null;
+                }
+                $transform = new Transform\ImageCropCenter($options['width'], $options['height'], $quality);
+                $transform->transform($data['source'], $data['destination']);
+                return true;
+                break;
+            case 'fit':
+                $requiredParams = array(
+                    'width', 'height'
+                );
+                $missing = array_diff($requiredParams, array_keys($options));
+                if ($missing) {
+                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                }
+                if (isset($options['quality'])) {
+                    $quality = $options['quality'];
+                } else {
+                    $quality = null;
+                }
+                if (isset($options['forced'])) {
+                    $forced = $options['forced'];
+                } else {
+                    $forced = false;
+                }
+                $transform = new Transform\ImageFit($options['width'], $options['height'], $quality, $forced);
+                $transform->transform($data['source'], $data['destination']);
+                return true;
+                break;
+            case 'copy':
+                copy($data['source'], $data['destination']);
+                return true;
+                break;
+            default:
+                return;
+        }
+    }
+
+}

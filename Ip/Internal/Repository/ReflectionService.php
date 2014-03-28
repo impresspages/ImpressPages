@@ -71,17 +71,18 @@ class ReflectionService
 
     /**
      * @param string $file relative path from file/repository
-     * @param \Ip\Transform $transform - how to crop the image. Leave null if you want original file to be reflected.
-     * @param $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param array $options - image cropping options
+     * @param string $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
      * @return string - file name from BASE_DIR
      * @throws TransformException
      */
-    public function getReflection($file, \Ip\Transform $transform = null, $desiredName = null)
+    public function getReflection($file, $options, $desiredName = null, $onDemand = true)
     {
 
         $reflectionModel = ReflectionModel::instance();
         try {
-            $reflection = $reflectionModel->getReflection($file, $transform, $desiredName);
+            $reflection = $reflectionModel->getReflection($file, $options, $desiredName, $onDemand);
         } catch (\Ip\Exception $e) {
             $this->lastException = $e;
             return false;

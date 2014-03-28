@@ -12,6 +12,39 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+
+
+    public static function update_29()
+    {
+        $table = ipTable('repository_reflection');
+        $sql = "
+           ALTER TABLE $table ADD  `options` TEXT CHARACTER SET ASCII COLLATE ascii_bin NOT NULL AFTER  `reflectionId`
+        ";
+        ipDb()->execute($sql);
+    }
+
+
+
+    public static function update_28()
+    {
+        $table = ipTable('repository_reflection');
+        $sql = "
+           ALTER TABLE $table CHANGE  `transformFingerprint`  `optionsFingerprint` CHAR( 32 ) CHARACTER SET ASCII COLLATE ascii_bin NOT NULL COMMENT  'unique cropping options key'
+        ";
+        ipDb()->execute($sql);
+    }
+
+
+    public static function update_27()
+    {
+        $fromTable = ipTable('respository_file');
+        $toTable = ipTable('repository_file');
+        $sql = "
+           RENAME TABLE  $fromTable TO  $toTable ;
+        ";
+        ipDb()->execute($sql);
+    }
+
     public static function update_26()
     {
         $fromTable = ipTable('widgetOrder');
