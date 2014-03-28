@@ -133,7 +133,7 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (isset($data['imageOriginal'])) {
-            $desiredName = isset($data['title']) ? $data['title'] : 'image';
+            $desiredName = isset($data['title']) ? $data['title'] : null;
 
             $transformBig = array (
                 'type' => 'copy'
