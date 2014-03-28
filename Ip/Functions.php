@@ -922,7 +922,7 @@ function ipThemeStorage($theme = NULL)
 function ipReflection($file, $options, $desiredName = null, $onDemand = true)
 {
     $reflectionService = \Ip\Internal\Repository\ReflectionService::instance();
-    $reflection = $reflectionService->getReflection($file, $options, $desiredName);
+    $reflection = $reflectionService->getReflection($file, $options, $desiredName, $onDemand);
     return $reflection;
 }
 

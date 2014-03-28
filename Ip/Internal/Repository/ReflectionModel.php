@@ -60,9 +60,10 @@ class ReflectionModel
 
         if (!$reflection) {
             $reflection = $this->createReflectionRecord($file, $options, $desiredName);
-            if (!$onDemand) {
-                $this->createReflection($file, $reflection, $options);
-            }
+        }
+
+        if (!$onDemand && !is_file($reflection['reflection'])) {
+            $this->createReflection($file, $reflection, $options);
         }
 
         return $reflection;
@@ -142,7 +143,7 @@ class ReflectionModel
         if ($newName == "") {
             $newName = "file_";
         }
-        if ($this->availableFile($destDir . $newName . $newExtension)) {
+        if (!$this->availableFile($destDir . $newName . $newExtension)) {
             $i = 1;
             while (!$this->availableFile($destDir . $newName . '_' . $i . $suffix . $newExtension)) {
                 $i++;
