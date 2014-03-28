@@ -15,6 +15,10 @@ class AdminPermissions
 
     public function hasPermission($permission, $administratorId = null)
     {
+        if ($permission == 'Repository') {
+            return true; //all admins allowed to access repository
+        }
+
         if ($administratorId == null) {
             $administratorId = ipAdminId();
         }
