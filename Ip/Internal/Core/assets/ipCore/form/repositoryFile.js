@@ -27,7 +27,6 @@
                         var repository = new ipRepository({preview: $this.data('preview')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     })
-                    console.log({preview: $this.data('preview')});
 
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
