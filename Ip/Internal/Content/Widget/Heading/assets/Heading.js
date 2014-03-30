@@ -10,6 +10,7 @@
         this.data = null;
         this.$header = null;
         this.$controls = null;
+        var ctrlKeyDown = false;
 
         this.init = function ($widgetObject, data) {
             var thisScope = this;
@@ -30,8 +31,10 @@
                 this.$header.css('min-height', this.$header.css('font-size')); //Firefox can't handle focus without min height defined
             }
 
+
             this.$header.on('keyup', function(e) {
-                if (event.which == 13) {
+                console.log(e);
+                if (event.which == 13 && !e.shiftKey==1) {
                     ipContent.createWidget(thisScope.$widgetObject.closest('.ipBlock').data('ipBlock').name, 'Text', thisScope.$widgetObject.index() + 1);
                 }
             });
