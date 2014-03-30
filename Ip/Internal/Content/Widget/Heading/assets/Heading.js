@@ -122,7 +122,7 @@
 
         this.save = function (refresh) {
             var saveData = {
-                title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').text(),
+                title: this.$widgetObject.find('h1,h2,h3,h4,h5,h6').html(),
                 level: this.data.level,
                 anchor: this.data.anchor,
                 link: this.data.link,
@@ -145,7 +145,7 @@
                 //ed.on('init', function(){$(this).trigger('init.tinymce')});
             };
             customTinyMceConfig.paste_as_text = true;
-            customTinyMceConfig.valid_elements = '';
+            customTinyMceConfig.valid_elements = 'br';
             customTinyMceConfig.custom_shortcuts = false;
             return customTinyMceConfig;
         };
