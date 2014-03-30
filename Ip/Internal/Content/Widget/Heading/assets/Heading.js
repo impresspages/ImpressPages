@@ -33,7 +33,6 @@
 
 
             this.$header.on('keyup', function(e) {
-                console.log(e);
                 if (event.which == 13 && !e.shiftKey==1) {
                     ipContent.createWidget(thisScope.$widgetObject.closest('.ipBlock').data('ipBlock').name, 'Text', thisScope.$widgetObject.index() + 1);
                 }
