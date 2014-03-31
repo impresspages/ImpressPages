@@ -13,6 +13,7 @@ ipTinyMceConfig = function() {
         valid_elements : "@[class|style],table,tbody,tr,td,th,strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li",
         paste_word_valid_elements: "table,tbody,tr,td,th,strong,em,br,sup,sub,p,span,b,u,i,a,ul,ol,li",
         style_formats : [
+            {title : 'Quote', inline : 'span', classes : 'quote'},
             {title : 'Note', inline : 'span', classes : 'note'},
             {title : 'Button', inline : 'span', classes : 'button'}
         ],
@@ -36,7 +37,7 @@ ipTinyMceConfig = function() {
         },
 
         paste_preprocess: function(pl, o) {
-            ipTinyMceConfigPastePreprocess(pl, o, new Array('caption', 'signature', 'note', 'button'));
+            ipTinyMceConfigPastePreprocess(pl, o, new Array('quote', 'note', 'button'));
         }
     }
 };
