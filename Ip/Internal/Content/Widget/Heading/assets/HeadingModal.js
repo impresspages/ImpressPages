@@ -12,20 +12,27 @@
         init: function (options) {
             return this.each(function () {
                 var $this = $(this);
+                var $context = $this;
                 var saveCallback = options.saveCallback;
                 $this.modal();
-                $this.find('.ipsConfirm').on('click', function() {
+
+                $this.find('form').append('<input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />');
+                $this.find('form').off().on('submit', function (e) {
+                    e.preventDefault();
                     saveCallback({
-                        anchor: $this.find('input[name=anchor]').val(),
-                        link: $this.find('input[name=link]').val(),
-                        blank: $this.find('input[name=blank]').prop('checked') ? 1 : 0
+                        anchor: $context.find('input[name=anchor]').val(),
+                        link: $context.find('input[name=link]').val(),
+                        blank: $context.find('input[name=blank]').prop('checked') ? 1 : 0
                     });
                     $this.modal('hide');
                 });
+                $this.find('.ipsConfirm').off().on('click', function() {
+                    $context.find('form').submit();
+                });
 
-                $this.find('input[name=anchor]').on('keydown', $.proxy(methods.updateAnchor, $this));
-                $this.find('input[name=anchor]').on('change', $.proxy(methods.updateAnchor, $this));
-                $this.find('input[name=anchor]').on('keyup', $.proxy(methods.updateAnchor, $this));
+                $this.find('input[name=anchor]').off().on('keydown', $.proxy(methods.updateAnchor, $this));
+                $this.find('input[name=anchor]').off().on('change', $.proxy(methods.updateAnchor, $this));
+                $this.find('input[name=anchor]').off().on('keyup', $.proxy(methods.updateAnchor, $this));
 
                 $this.find('input[name=anchor]').val(options.anchor);
                 $this.find('input[name=link]').val(options.link);
