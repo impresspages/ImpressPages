@@ -472,6 +472,14 @@ class Page
         return $pages;
     }
 
+    /**
+     * @param null $from
+     * @param null $till
+     * @param string $orderBy
+     * @param string $direction
+     * @return \Ip\Page[]
+     * @throws Exception
+     */
     public function getChildren($from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
         switch($orderBy) {
