@@ -3,6 +3,7 @@
 namespace Tests\Ip\Internal\Pages;
 
 use Ip\Internal\Pages\Service;
+use Ip\Internal\Pages\Model;
 use PhpUnit\Helper\TestEnvironment;
 use \Ip\Internal\Content\Service as ContentService;
 
@@ -252,7 +253,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         /*
          * When we change 'docs4' page path to 'docs5'
          */
-        Service::changePageUrlPath($pages['docs4'], 'docs5');
+        Model::updatePageProperties($pages['docs4'], array('urlPath' => 'docs5'));
 
         /*
          * `docs4' page path should be 'docs5'
