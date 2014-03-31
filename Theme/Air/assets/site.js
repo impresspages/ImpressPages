@@ -1,11 +1,6 @@
 $(document).ready(function () {
     "use strict";
 
-//    $('.ipWidget-IpImageGallery li a, .ipWidget-IpImage a').colorbox({
-//        rel: 'ipwImage',
-//        maxWidth: '90%',
-//        maxHeight: '90%'
-//    });
     $('.topmenu').touchMenuHover(); // mimics iOS behavior allowing to get hover state without clicking
     $('.topmenuToggle').on('click', function (e) { // opens menu in mobile view
         e.preventDefault();
