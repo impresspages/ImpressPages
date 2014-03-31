@@ -27,6 +27,7 @@ class Job {
         }
 
         $reflection = mb_substr($curUrl, mb_strlen($fileDirUrl));
+        $reflection = urldecode($reflection);
 
         $reflectionModel = ReflectionModel::instance();
         $reflectionRecord = $reflectionModel->getReflectionByReflection($reflection);
