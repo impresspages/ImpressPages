@@ -503,7 +503,7 @@ class Page
         $table = ipTable('page');
         $sql = "
         SELECT
-            `id`
+            *
         FROM
             $table
         WHERE
@@ -511,11 +511,11 @@ class Page
             isVisible = 1 AND
             isDeleted = 0
         ORDER BY
-            :orderBy
-            :direction
+            " . $orderBy . "
+            " . $direction . "
         ";
 
-        $params = array('parentId' => $this->id, 'orderBy' => $orderBy, 'direction' => $direction);
+        $params = array('parentId' => $this->id);
 
         if ($from !== null || $till !== null) {
             $sql .= " LIMIT " . (int) $from . " , " . (int) $till;
