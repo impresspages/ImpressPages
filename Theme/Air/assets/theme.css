@@ -36,19 +36,15 @@ body {
   margin: 0;
   padding: 0;
 }
-.caption {
+.quote {
   color: #000000;
+  display: block;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
-  font-style: normal;
-  font-weight: normal;
-}
-.signature {
-  color: #000000;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
   font-style: italic;
   font-weight: normal;
+  margin: 1em;
+  text-align: center;
 }
 .note {
   background-color: transparent;
@@ -124,19 +120,15 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget:last-child {
   margin-bottom: 0;
 }
-.ipWidget .caption {
+.ipWidget .quote {
   color: #000000;
+  display: block;
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 24px;
-  font-style: normal;
-  font-weight: normal;
-}
-.ipWidget .signature {
-  color: #000000;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
   font-style: italic;
   font-weight: normal;
+  margin: 1em;
+  text-align: center;
 }
 .ipWidget .note {
   background-color: transparent;

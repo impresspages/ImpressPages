@@ -37,19 +37,15 @@ html, body {
 }
 
 // Global styles mostly used in rich text editor
-.caption {
-    color: @ipCaptionColor;
-    font-family: @ipCaptionFontFamily;
-    font-size: @ipCaptionFontSize;
-    font-style: @ipCaptionFontStyle;
-    font-weight: @ipCaptionFontWeight;
-}
-.signature {
-    color: @ipSignatureColor;
-    font-family: @ipSignatureFontFamily;
-    font-size: @ipSignatureFontSize;
-    font-style: @ipSignatureFontStyle;
-    font-weight: @ipSignatureFontWeight;
+.quote {
+    color: @ipQuoteColor;
+    display: block;
+    font-family: @ipQuoteFontFamily;
+    font-size: @ipQuoteFontSize;
+    font-style: @ipQuoteFontStyle;
+    font-weight: @ipQuoteFontWeight;
+    margin: @ipQuoteMargin;
+    text-align: @ipQuoteTextAlign;
 }
 .note {
     background-color: @ipNoteBackgroundColor;
@@ -98,8 +94,7 @@ html, body {
     }
 
     // restoring specificity for global classes
-    .caption { .caption; }
-    .signature { .signature; }
+    .quote { .quote; }
     .note { .note; }
     .button { .button; }
 
