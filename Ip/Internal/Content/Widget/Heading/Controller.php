@@ -84,7 +84,7 @@ class Controller extends \Ip\WidgetController{
         $form->addField($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'link',
                 'label' => __('Link', 'Ip-admin', false),
