@@ -16,6 +16,7 @@
                 var saveCallback = options.saveCallback;
                 $this.modal();
 
+                ipInitForms();
                 $this.find('form').append('<input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />');
                 $this.find('form').off().on('submit', function (e) {
                     e.preventDefault();
@@ -36,7 +37,12 @@
 
                 $this.find('input[name=anchor]').val(options.anchor);
                 $this.find('input[name=link]').val(options.link);
-                $this.find('input[name=blank]').attr('checked', options.blank);
+                if (options.blank) {
+                    $this.find('input[name=blank]').attr('checked', 'checked');
+                } else {
+                    $this.find('input[name=blank]').removeAttr('checked');
+                }
+
                 $.proxy(methods.updateAnchor, $this)();
             });
         },
