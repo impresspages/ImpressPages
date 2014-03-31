@@ -30,4 +30,21 @@ class PublicController extends \Ip\Controller
         return ipView('view/day.php', $data);
     }
 
+    public function hmvc()
+    {
+        $request = new \Ip\Request();
+        $request->setQuery(
+            array(
+                'pa' => 'Colorbox.hmvcTest', // 'pa' key means public controller.
+                // A value contains a plugin name 'MyPlugin' and action name 'index'.
+            )
+        );
+        $answer = ipApplication()->handleRequest($request)->getContent();
+        //return 'test5';
+        echo htmlspecialchars($answer); exit;
+
+    }
+
+
+
 }

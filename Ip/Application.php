@@ -273,6 +273,7 @@ class Application
         $rawResponse = $this->_handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
+            \Ip\ServiceLocator::removeRequest();
             return $rawResponse;
         }
 
@@ -288,10 +289,12 @@ class Application
             $response->setContent($rawResponse);
         } elseif ($rawResponse instanceof \Ip\Response) {
             \Ip\ServiceLocator::setResponse($rawResponse);
+            \Ip\ServiceLocator::removeRequest();
             return $rawResponse;
         } elseif ($rawResponse === null) {
             $response = \Ip\ServiceLocator::response();
         } else {
+            \Ip\ServiceLocator::removeRequest();
             throw new \Ip\Exception('Unknown response');
         }
 
