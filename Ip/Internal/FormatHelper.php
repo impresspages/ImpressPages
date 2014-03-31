@@ -31,7 +31,7 @@ class FormatHelper
             'currency' => $currency,
             'context' => $context
         );
-        $formattedPrice = ipJob('ipFormatCurrency', $data);
+        $formattedPrice = ipJob('ipFormatPrice', $data);
         if ($formattedPrice === NULL) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
                 $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
