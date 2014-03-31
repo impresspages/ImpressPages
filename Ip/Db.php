@@ -87,7 +87,7 @@ class Db
      * @param string $sql
      * @param array $params
      * @return string|null
-     * @throws DbException
+     * @throws \Ip\Exception\Db
      */
     public function fetchValue($sql, $params = array())
     {
@@ -101,7 +101,7 @@ class Db
             $result = $query->fetchColumn(0);
             return $result === false ? null : $result;
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -111,7 +111,7 @@ class Db
      * @param $sql
      * @param array $params
      * @return array|null
-     * @throws DbException
+     * @throws \Ip\Exception\Db
      */
 
     public function fetchRow($sql, $params = array())
@@ -127,7 +127,7 @@ class Db
 
             return $result ? $result[0] : null;
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -137,7 +137,7 @@ class Db
      * @param $sql
      * @param array $params
      * @return array
-     * @throws DbException
+     * @throws \Ip\Exception\Db
      */
     public function fetchAll($sql, $params = array())
     {
@@ -154,7 +154,7 @@ class Db
 
             return $result ? $result : array();
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -266,7 +266,7 @@ class Db
             $query->execute();
             return $query->fetchAll(\PDO::FETCH_COLUMN);
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -289,7 +289,7 @@ class Db
 
             return $query->rowCount();
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -299,7 +299,7 @@ class Db
      * @param string $sql query
      * @param array $params The array represents each row as either an array of column values.
      * @return array
-     * @throws DbException
+     * @throws \Ip\Exception\Db
      */
     public function fetchColumn($sql, $params = array())
     {
@@ -312,7 +312,7 @@ class Db
             $query->execute();
             return $query->fetchAll(\PDO::FETCH_COLUMN);
         } catch (\PDOException $e) {
-            throw new DbException($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
         }
     }
 
