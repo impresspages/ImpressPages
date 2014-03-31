@@ -175,9 +175,5 @@ class Service
         return Model::trashSize();
     }
 
-    public static function changePageUrlPath($pageId, $newUrlPath)
-    {
-        return Model::changePageUrlPath($pageId, $newUrlPath);
-    }
 
 }
