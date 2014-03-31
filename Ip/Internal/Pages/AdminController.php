@@ -136,9 +136,11 @@ class AdminController extends \Ip\Controller
         $data['isDisabled'] = !empty($data['isDisabled']);
         $data['isSecured'] = !empty($data['isSecured']);
         $data['isBlank'] = !empty($data['isBlank']);
+        if ($page->getUrlPath() == $data['urlPath']) {
+            unset($data['urlPath']);
+        }
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
-            Model::changePageUrlPath($pageId, $data['urlPath']);
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
