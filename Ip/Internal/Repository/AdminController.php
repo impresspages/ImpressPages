@@ -193,6 +193,9 @@ class AdminController extends \Ip\Controller{
     public function addFromUrl()
     {
 
+        if (!ipAdminPermission('Repository upload')) {
+            throw new \Ip\Exception("Permission denied");
+        }
         $this->backendOnly();
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
