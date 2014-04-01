@@ -149,7 +149,7 @@
 
 
                     var data = Object();
-                    data.aa = 'Upload.getImageContainerHtml';
+                    data.aa = 'Content.getImageContainerHtml';
 
                     $.ajax({
                         type : 'GET',
