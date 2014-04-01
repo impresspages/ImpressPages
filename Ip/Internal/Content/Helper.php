@@ -82,7 +82,7 @@ class Helper
         ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.ui.scrollable.js');
 
 
-        ipAddJs('Ip/Internal/Upload/assets/jquery.ip.uploadImage.js');
+        ipAddJs('Ip/Internal/Content/assets/jquery.ip.uploadImage.js');
 
         ipAddJsVariable('isMobile', \Ip\Internal\Browser::isMobile());
 

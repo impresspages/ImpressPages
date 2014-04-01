@@ -37,6 +37,9 @@ class SiteController extends \Ip\Controller{
         } else {
             $secureFolder = false;
             $this->backendOnly();
+            if (!ipAdminPermission('Repository upload')) {
+                throw new \Ip\Exception('Permission denied');
+            }
         }
 
 
