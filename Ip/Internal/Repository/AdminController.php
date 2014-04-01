@@ -32,12 +32,21 @@ class AdminController extends \Ip\Controller{
 
         $newFiles = array();
 
+
         $destination = ipFile('file/repository/');
         foreach ($files as $file) {
-            basename($file['fileName']); //to avoid any tricks with relative paths, etc.
+            $source = ipFile('file/tmp/' . $file['fileName']);
+            $source = realpath($source); //to avoid any tricks with relative paths, etc.
+            if (strpos($source, ipFile('file/tmp/')) !== 0) {
+                ipLog()->alert('Core.triedToAccessNonPublicFile', array('file' => $file['fileName']));
+                continue;
+            }
+
+
+
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(ipFile('file/tmp/' . $file['fileName']), $destination.$newName);
-            unlink(ipFile('file/tmp/' . $file['fileName'])); //this is a temporary file
+            copy($source, $destination.$newName);
+            unlink($source); //this is a temporary file
             $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;
