@@ -1,16 +1,8 @@
 <?php
-/**
- * @package ImpressPages
- *
- */
 
-namespace Ip\Internal\Content;
+namespace Ip\Exception;
 
-/**
- * Exception class
- * @todo move to \Ip\Exception folder
- */
-class Exception extends \Exception
+class Content extends \Ip\Exception
 {
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null)

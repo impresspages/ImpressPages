@@ -298,7 +298,7 @@ class Controller extends \Ip\WidgetController{
                 try {
                     $newField = $fieldType->createField($fieldData);
                     $form->addField($newField);
-                } catch (\Ip\Internal\Content\Exception $e) {
+                } catch (\Ip\Exception\Content $e) {
                     ipLog()->error('FormWidget.failedAddField: Widget failed to add field.', array('widget' => 'Form', 'exception' => $e, 'fieldData' => $fieldData));
                 }
 
