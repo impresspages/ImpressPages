@@ -10,7 +10,7 @@
         <div class="tab-content">
             <div id="ipsModuleRepositoryTabUpload" class="tab-pane active _tabUpload">
                 <div id="ipsModuleRepositoryDragContainer" class="_upload ipsUpload" >
-                    <div class="ipmFiles"></div>
+                    <div class="ipsFiles"></div>
                     <div class="ipsUploadProgressContainer">
                         <div class="ipsCurErrors"></div>
                         <div class="ipsBrowseButtonWrapper _browseButtonWrapper">

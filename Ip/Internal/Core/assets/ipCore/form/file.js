@@ -44,8 +44,8 @@
         _displayError : function (fileId, errorMessage, fileName) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + fileId);
-            $file.find('.ipmUploadError').text(errorMessage);
-            $file.find('.ipmFileProgress').remove();
+            $file.find('.ipsUploadError').text(errorMessage);
+            $file.find('.ipsFileProgress').remove();
 
         },
 
@@ -54,14 +54,14 @@
             $.each(files, function(i, file) {
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
-                    var $newFile = $this.find('.ipmFileTemplate').clone();
+                    var $newFile = $this.find('.ipsFileTemplate').clone();
                     $newFile.data('fileId', file.id);
-                    $newFile.removeClass('hidden').removeClass('ipmFileTemplate');
+                    $newFile.removeClass('hidden');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
-                    $newFile.find('.ipmFileName').text(file.name);
+                    $newFile.find('.ipsFileName').text(file.name);
                     $newFile.find('.ipsRemove').click(function(e){
                         var $this = $(this);
-                        var $file = $this.closest('.ipmFile');
+                        var $file = $this.closest('.ipsFile');
                         var fileId = $file.data('fileId');
 
                         /* Seems that removeFile method is used just for files that are not started to be upload
@@ -72,7 +72,7 @@
 
                         $file.remove();
                     });
-                    $this.find('.ipmFiles').append($newFile);
+                    $this.find('.ipsFiles').append($newFile);
                 }
             });
             up.refresh(); // Reposition Flash/Silverlight
@@ -82,7 +82,7 @@
         _uploadProgress : function(up, file) {
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
-            $file.find('.ipmFileProgressValue').width(file.percent + '%');
+            $file.find('.ipsFileProgressValue').width(file.percent + '%');
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
@@ -106,7 +106,7 @@
                 $fileInput.attr('name', $this.data('ipFormFile').inputName + '[originalFileName][]');
                 $fileInput.attr('value', file.name);
                 $file.append($fileInput);
-                $file.find('.ipmFileProgress').remove();
+                $file.find('.ipsFileProgress').remove();
             }
 
         },
@@ -114,7 +114,7 @@
         _getFiles : function () {
             var $this = $(this);
             var files = new Array();
-            $this.find('.ipmFiles div').each(function(){
+            $this.find('.ipsFiles div').each(function(){
 
                 var $this = $(this);
 
@@ -148,7 +148,7 @@
         var $this = field;
 
         var uniqueNumber = Math.floor(Math.random()*100000000);
-        var $uploadButton = $this.find('.ipmFileAddButton');
+        var $uploadButton = $this.find('.ipsFileAddButton');
         if (!$uploadButton.attr('id')) {
             $uploadButton.attr('id', 'ipModFormFileAddButton_' + uniqueNumber);
         }
