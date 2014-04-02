@@ -937,7 +937,7 @@ function ipThemeStorage($theme = NULL)
 
 /**
  * Get a modified copy of original file in repository
- * @param string $file (just filename. No path required)
+ * @param string $file filename relative to /file/repository directory. Full path will not work.
  * @param array $options image transformation options
  * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
  * @param bool $onDemand transformation will be create on the fly when image accessed for the first time

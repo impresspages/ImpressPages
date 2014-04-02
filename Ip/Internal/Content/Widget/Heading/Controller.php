@@ -49,8 +49,10 @@ class Controller extends \Ip\WidgetController{
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $data['showLink'] = false;
-        if (!empty($data['link']) && !preg_match('/^((http|https):\/\/)/i', $data['link'])) {
-            $data['link'] = 'http://' . $data['link'];
+        if (!empty($data['link'])) {
+            if (!preg_match('/^((http|https):\/\/)/i', $data['link'])) {
+                $data['link'] = 'http://' . $data['link'];
+            }
 
             // hiding link in administration
             if (!ipIsManagementState()) {
@@ -82,7 +84,7 @@ class Controller extends \Ip\WidgetController{
         $form->addField($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'link',
                 'label' => __('Link', 'Ip-admin', false),

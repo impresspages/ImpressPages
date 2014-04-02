@@ -256,11 +256,10 @@ class Model
             $update['isBlank'] = $properties['isBlank'];
         }
 
-        if (count($update) == 0) {
-            return true; //nothing to update.
+        if (count($update) != 0) {
+            ipDb()->update('page', $update, array('id' => $pageId));
         }
 
-        ipDb()->update('page', $update, array('id' => $pageId));
 
         if (!empty($properties['layout'])) {
             ipPageStorage($pageId)->set('layout', $properties['layout']);

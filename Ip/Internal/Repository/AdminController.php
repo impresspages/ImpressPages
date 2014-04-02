@@ -32,12 +32,21 @@ class AdminController extends \Ip\Controller{
 
         $newFiles = array();
 
+
         $destination = ipFile('file/repository/');
         foreach ($files as $file) {
-            basename($file['fileName']); //to avoid any tricks with relative paths, etc.
+            $source = ipFile('file/tmp/' . $file['fileName']);
+            $source = realpath($source); //to avoid any tricks with relative paths, etc.
+            if (strpos($source, ipFile('file/tmp/')) !== 0) {
+                ipLog()->alert('Core.triedToAccessNonPublicFile', array('file' => $file['fileName']));
+                continue;
+            }
+
+
+
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy(ipFile('file/tmp/' . $file['fileName']), $destination.$newName);
-            unlink(ipFile('file/tmp/' . $file['fileName'])); //this is a temporary file
+            copy($source, $destination.$newName);
+            unlink($source); //this is a temporary file
             $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
             $newFiles[] = $newFile;
@@ -184,6 +193,9 @@ class AdminController extends \Ip\Controller{
     public function addFromUrl()
     {
 
+        if (!ipAdminPermission('Repository upload')) {
+            throw new \Ip\Exception("Permission denied");
+        }
         $this->backendOnly();
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
@@ -209,5 +221,80 @@ class AdminController extends \Ip\Controller{
 
         return new \Ip\Response\Json($answer);
     }
+
+
+
+    /**
+     * @param string $url
+     * @return string
+     */
+    protected function downloadFile($url, $title)
+    {
+
+        //download image to TMP dir and get $resultFilename
+        $net = new \Ip\Internal\NetHelper();
+        $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_'.time());
+        if (!$tmpFilename) {
+            return;
+        }
+
+
+        //find out file mime type to know required extension
+        try {
+            $mime = \Ip\Internal\File\Functions::getMimeType(ipFile('file/tmp/' . $tmpFilename));
+            switch($mime) {
+                case 'image/png':
+                    $ext = '.jpg';
+                    break;
+                case 'image/gif':
+                    $ext = '.gif';
+                    break;
+                case 'image/bmp':
+                    $ext = '.bmp';
+                    break;
+                case 'image/pjpeg':
+                case 'image/jpeg':
+                default:
+                    $ext = '.jpg';
+                    break;
+            }
+
+        } catch (\Ip\PhpException $e) {
+            $ext = '.jpg';
+        }
+
+        //get real nice new file name
+        $title = \Ip\Internal\File\Functions::cleanupFileName($title);
+        $words = explode(' ', $title);
+        $cleanTitle = '';
+        foreach($words as $word) { //limit file name to 30 symbols
+            if (strlen($cleanTitle.'_'.$word) > 30) {
+                break;
+            }
+            if ($cleanTitle != '') {
+                $cleanTitle .= '_';
+            }
+            $cleanTitle .= $word;
+        }
+        if ($cleanTitle == '') {
+            $cleanTitle = 'file';
+        }
+
+        $niceFileName = $cleanTitle.$ext;
+        $destinationDir = ipFile('file/repository/');
+        $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
+
+        copy(ipFile('file/tmp/' . $tmpFilename), $destinationDir . $destinationFileName);
+
+        unlink(ipFile('file/tmp/' . $tmpFilename));
+
+        $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
+        $file = $browserModel->getFile($destinationFileName);
+        return $file;
+    }
+
+
+
+
 
 }

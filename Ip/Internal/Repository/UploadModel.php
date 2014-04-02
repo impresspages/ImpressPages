@@ -47,7 +47,7 @@ class UploadModel{
      */
     public function handlePlupload($secureFolder)
     {
-        if (!$secureFolder && !isset($_SESSION['backend_session']['userId'])) {
+        if (!$secureFolder && !ipAdminId()) {
             throw new UploadException("Try to upload image to temporary directory without permission.", UploadException::NO_PERMISSION);
         }
 

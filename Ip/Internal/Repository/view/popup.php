@@ -3,15 +3,15 @@
         <button type="button" class="ipsClose close">&times;</button>
 
         <ul class="nav nav-tabs ipsTabs">
-            <li class="active"><a href="#ipsModuleRepositoryTabUpload" data-toggle="tab"><?php _e('Upload new', 'Ip-admin'); ?></a></li>
-            <li><a href="#ipsModuleRepositoryTabBuy" data-toggle="tab"><?php _e('Buy images', 'Ip-admin'); ?></a>
+            <li class="active"><a href="#ipsModuleRepositoryTabUpload" data-toggle="tab"><?php _e('File repository', 'Ip-admin'); ?></a></li>
+            <li class="<?php echo $allowUpload ? '' : 'hidden' ?>"><a href="#ipsModuleRepositoryTabBuy" data-toggle="tab"><?php _e('Buy images', 'Ip-admin'); ?></a>
         </ul>
 
         <div class="tab-content">
             <div id="ipsModuleRepositoryTabUpload" class="tab-pane active _tabUpload">
                 <div id="ipsModuleRepositoryDragContainer" class="_upload ipsUpload" >
                     <div class="ipmFiles"></div>
-                    <div class="ipsUploadProgressContainer">
+                    <div class="ipsUploadProgressContainer  <?php echo $allowUpload ? '' : 'hidden' ?>">
                         <div class="ipsCurErrors"></div>
                         <div class="ipsBrowseButtonWrapper _browseButtonWrapper">
                             <span class="_label _dragdropNotice"><?php _e('Drag&drop files here or click a button to upload.', 'Ip-admin'); ?></span>
@@ -44,8 +44,12 @@
                         </div>
                     </div>
                     <div class="_browserContainer ipsBrowserContainer clearfix">
-                        <h2 class="_listTitle _recentTitle ipsListTitle ipsRecentTitle hidden"><?php _e('Recent files', 'Ip-admin'); ?></h2>
-                        <ul class="_list clearfix ipsList ipsRecentList hidden"></ul>
+                        <?php if ($allowRepository) { ?>
+                            <h2 class="_listTitle _recentTitle ipsListTitle ipsRecentTitle hidden"><?php _e('Recent files', 'Ip-admin'); ?></h2>
+                            <ul class="_list clearfix ipsList ipsRecentList hidden"></ul>
+                        <?php } else { ?>
+                            <h2 class="ipsPermissionError"><?php _e('You have no right to browse the repository', 'Ip-admin') ?></h2>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="_repositoryActions ipsRepositoryActions hidden">

@@ -64,7 +64,7 @@ var Market;
 
             $.ajax(ip.baseUrl, {
                 'type': 'POST',
-                'data': {'g': 'administrator', 'm': 'repository', 'a': 'addFromUrl', 'files': toDownload, 'securityToken': ip.securityToken},
+                'data': {'aa': 'Repository.addFromUrl', 'files': toDownload, 'securityToken': ip.securityToken},
                 'dataType': 'json',
                 'success': function (data) {
                     $('body').trigger('ipMarketOrderImageDownload', data);

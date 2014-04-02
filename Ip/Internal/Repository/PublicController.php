@@ -18,6 +18,7 @@ class PublicController extends \Ip\Controller {
         }
 
         $file = mb_substr($curUrl, mb_strlen($fileDirUrl));
+        $file = urldecode($file);
 
         if (empty($file)) {
             throw new \Ip\Exception('Required parameter is missing');

@@ -26,16 +26,18 @@
                     data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
 
-                    $.ajax ({
-                        type : 'POST',
-                        url : ip.baseUrl,
-                        data : data,
-                        context : this,
-                        //success : $.proxy(methods._storeFilesResponse, this),
-                        success : methods._getAllFilesResponse,
-                        error : function(){}, //TODO report error
-                        dataType : 'json'
-                    });
+                    if ($popup.find('.ipsPermissionError').length == 0) {
+                        $.ajax ({
+                            type : 'POST',
+                            url : ip.baseUrl,
+                            data : data,
+                            context : this,
+                            //success : $.proxy(methods._storeFilesResponse, this),
+                            success : methods._getAllFilesResponse,
+                            error : function(){}, //TODO report error
+                            dataType : 'json'
+                        });
+                    }
 
                     $('#ipsModuleRepositoryBuyButton').on('click', function(e){
                         e.preventDefault();
