@@ -82,7 +82,6 @@ class Slot
             'items' => null,
             'depth' => 1,
             'active' => 'active',
-            'selected' => 'selected',
             'disabled' => 'disabled',
             'crumb' => 'crumb',
             'parent' => 'parent',
