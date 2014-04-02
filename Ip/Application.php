@@ -103,6 +103,10 @@ class Application
         $translator = \Ip\ServiceLocator::translator();
         $translator->setLocale($languageCode);
 
+        if (ipConfig()->get('adminLocale')) {
+            $translator->setAdminLocale(ipConfig()->get('adminLocale'));
+        }
+
         $theme = ipConfig()->theme();
         $originalDir = ipFile('file/translations/original/');
         $overrideDir = ipFile('file/translations/override/');
