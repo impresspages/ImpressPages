@@ -542,10 +542,10 @@ class Model
             return FALSE;
         }
 
-        $currentWidgetIds = self::revisionWidgetIds($currentRevision['revisionId']);
-        $publishedWidgetIds = self::revisionWidgetIds($publishedRevision['revisionId']);
-        $currentFingerprint = implode(',', $currentWidgetIds);
-        $publishedFingerprint = implode(',', $publishedWidgetIds);
+        $currentFingerprint = self::revisionWidgetIds($currentRevision['revisionId']);
+        $publishedFingerprint = self::revisionWidgetIds($publishedRevision['revisionId']);
+//        $currentFingerprint = implode(',', $currentWidgetIds);
+//        $publishedFingerprint = implode(',', $publishedWidgetIds);
 
         $modified = $currentFingerprint != $publishedFingerprint;
 
@@ -559,7 +559,7 @@ class Model
         //compare revision content
         $sql = "
             SELECT
-                `id`
+                `name`
             FROM
                 $table
             WHERE
@@ -572,8 +572,29 @@ class Model
             'revisionId' => $revisionId
         );
 
-        $widgetIds = ipDb()->fetchColumn($sql, $params);
-        return $widgetIds;
+        $widgetNames = ipDb()->fetchColumn($sql, $params);
+
+        //compare revision content
+        $sql = "
+            SELECT
+                `data`
+            FROM
+                $table
+            WHERE
+              `revisionId` = :revisionId
+            ORDER BY
+              blockName, `position`
+        ";
+
+        $params = array(
+            'revisionId' => $revisionId
+        );
+
+        $widgetData = ipDb()->fetchColumn($sql, $params);
+
+        $fingerprint = implode('***|***', $widgetNames) . '|||' . implode('***|***', $widgetData);
+
+        return $fingerprint;
     }
 
 
