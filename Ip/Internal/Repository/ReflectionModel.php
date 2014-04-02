@@ -86,7 +86,7 @@ class ReflectionModel
     {
         $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
         if (!$absoluteSource || !is_file($absoluteSource)) {
-            throw new TransformException("File doesn't exist", TransformException::MISSING_FILE);
+            throw new \Ip\Exception\Repository\Transform("File doesn't exist", array('filename' => $absoluteSource));
         }
 
         if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) !== 0) {

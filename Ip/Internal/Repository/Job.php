@@ -64,7 +64,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -81,7 +81,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -98,7 +98,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];

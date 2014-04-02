@@ -27,7 +27,7 @@ class PublicController extends \Ip\Controller {
 
         $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/' . $file)));
         if (!$absoluteSource || !is_file($absoluteSource)) {
-            throw new \Ip\Exception("File doesn't exist", TransformException::MISSING_FILE);
+            throw new \Ip\Exception\Repository\Transform("File doesn't exist", array('filename' => $absoluteSource));
         }
 
         if (
