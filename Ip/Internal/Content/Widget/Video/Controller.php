@@ -66,6 +66,21 @@ class Controller extends \Ip\WidgetController
             return $this->renderView('view/youtube.php', $url, $data);
         }
 
+        if (preg_match('/^((http|https):\/\/)?(www.)?youtu.be/i', $url)) {
+            //youtube video
+
+            $url = str_replace('youtu.be/', 'youtube.com/embed/', $url);
+            if (ipIsManagementState()) {
+                if (preg_match('/\?/s', $url)) {
+                    $url .= '&wmode=opaque';
+                } else {
+                    $url .= '?wmode=opaque';
+                }
+
+            }
+            return $this->renderView('view/youtube.php', $url, $data);
+        }
+
         if (preg_match('/^((http|https):\/\/)?(www.)?(player.)?vimeo.com/i', $url)) {
             if (preg_match('%www.vimeo.com%i', $url)) {
                 $url = str_replace('www.vimeo.com', 'player.vimeo.com', $url);
