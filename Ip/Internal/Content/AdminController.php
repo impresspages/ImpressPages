@@ -66,6 +66,20 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
     }
 
+
+    public function getImageContainerHtml() {
+        $html = ipView('view/imageContainer.php', array())->render();
+
+        $result = array(
+            "status" => "success",
+            "html" => $html
+        );
+
+        // TODO JsonRpc
+        return new \Ip\Response\Json($result);
+    }
+
+
     public function createWidget()
     {
         ipRequest()->mustBePost();

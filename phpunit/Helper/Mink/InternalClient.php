@@ -39,10 +39,10 @@ class InternalClient extends BaseClient
         }
 
         $application = new \Ip\Application(NULL);
-        $ipResponse = $application->handleRequest($ipRequest);
+        $ipResponse = $application->handleRequest($ipRequest, array(), false);
 
         $response = new Response($ipResponse->render(), $ipResponse->getStatusCode(), $ipResponse->getHeaders());
 
         return $response;
     }
-} 
+}

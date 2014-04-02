@@ -34,7 +34,9 @@ class AdminPermissionsModel
             'System',
             'Administrators',
             'Log',
-            'Email'
+            'Email',
+            'Repository',
+            'Repository upload'
         );
 
         $plugins = \Ip\Internal\Plugins\Model::getActivePluginNames();
