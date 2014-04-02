@@ -268,7 +268,7 @@ class Content
     public function getTitle()
     {
         if ($this->currentPage) {
-            return $this->currentPage->getTitle();
+            return $this->currentPage->getMetaTitle() ? $this->currentPage->getMetaTitle() : $this->currentPage->getTitle();
         }
     }
 
