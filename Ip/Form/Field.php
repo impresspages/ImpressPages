@@ -181,16 +181,17 @@ abstract class Field{
      * Add a validator to a field.
      *
      * Available validators are located at Ip/Form/Field/Validator folder. \
-     * E.g., to add required field validator use addValidator('Required') method.
+     * E.g., to add required field validator use $field->addValidator('Required') method.
+     * @param $validator
+     * @throws \Ip\Exception
      *
-     * @param string $validator
      */
     public function addValidator($validator) {
-        if (is_string($validator)) {
+        if (!is_array($validator)) {
             $validator = array($validator);
         }
 
-        if (!isset($validator[0])) {
+        if (empty($validator)) {
             throw new \Ip\Exception("Empty validator");
         }
 
