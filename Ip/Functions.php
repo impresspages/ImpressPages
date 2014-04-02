@@ -444,6 +444,30 @@ function __($text, $domain, $esc = 'html')
 }
 
 /**
+ * You can change translation locale for some code.
+ *
+ * @param string $languageCode
+ * @param callable $closure this code will be executed in given language
+ * @return mixed old language or the result of closure
+ */
+function ipSetTranslationLanguage($languageCode, \Closure $closure = null) {
+    if ($closure) {
+        $oldLanguage = ipSetTranslationLanguage($languageCode);
+
+        $result = $closure();
+
+        ipSetTranslationLanguage($oldLanguage);
+
+        return $result;
+    } else {
+        $oldLanguage = \Ip\ServiceLocator::translator()->getLocale();
+        \Ip\ServiceLocator::translator()->setLocale($languageCode);
+
+        return $oldLanguage;
+    }
+}
+
+/**
  * Translate, escape and then output a string
  *
  * @param $text Original value in English.

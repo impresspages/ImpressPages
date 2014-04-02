@@ -46,6 +46,11 @@ class Translator
         return $this;
     }
 
+    public function getLocale()
+    {
+        return $this->translator->getLocale();
+    }
+
     public function getRegisteredDomains()
     {
         return array_keys($this->domains);
