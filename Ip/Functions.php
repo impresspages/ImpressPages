@@ -444,6 +444,30 @@ function __($text, $domain, $esc = 'html')
 }
 
 /**
+ * You can change translation locale for some code.
+ *
+ * @param string $languageCode
+ * @param callable $closure this code will be executed in given language
+ * @return mixed old language or the result of closure
+ */
+function ipSetTranslationLanguage($languageCode, \Closure $closure = null) {
+    if ($closure) {
+        $oldLanguage = ipSetTranslationLanguage($languageCode);
+
+        $result = $closure();
+
+        ipSetTranslationLanguage($oldLanguage);
+
+        return $result;
+    } else {
+        $oldLanguage = \Ip\ServiceLocator::translator()->getLocale();
+        \Ip\ServiceLocator::translator()->setLocale($languageCode);
+
+        return $oldLanguage;
+    }
+}
+
+/**
  * Translate, escape and then output a string
  *
  * @param $text Original value in English.
@@ -913,7 +937,7 @@ function ipThemeStorage($theme = NULL)
 
 /**
  * Get a modified copy of original file in repository
- * @param string $file (just filename. No path required)
+ * @param string $file filename relative to /file/repository directory. Full path will not work.
  * @param array $options image transformation options
  * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
  * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
@@ -929,7 +953,7 @@ function ipReflection($file, $options, $desiredName = null, $onDemand = true)
 
 /**
  * Get last exception of ipReflection method
- * @return \Ip\Internal\Repository\TransformException|null
+ * @return \Ip\Exception\Repository\Transform|null
  */
 function ipReflectionException()
 {

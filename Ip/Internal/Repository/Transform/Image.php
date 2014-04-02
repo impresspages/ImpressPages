@@ -14,7 +14,7 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      * Create image resource from image file and alocate required memory
      * @param $imageFile
      * @return resource
-     * @throws \Ip\Internal\Repository\TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     protected function createImageImage($imageFile){
 
@@ -39,7 +39,7 @@ abstract class Image extends \Ip\Internal\Repository\Transform
                 imageSaveAlpha($image, true);
                 break;
             default:
-                throw new \Ip\Internal\Repository\TransformException("Incompatible type. Type detected: ".$mime, \Ip\Internal\Repository\TransformException::UNKNOWN_MIME_TYPE);
+                throw new \Ip\Exception\Repository\Transform("Incompatible type. Type detected: ". esc($mime), array('mime' => $mime));
         }
 
         return $image;
@@ -89,11 +89,11 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      * @param string $fileName
      * @param int $quality from 0 to 100
      * @return bool
-     * @throws \Ip\Internal\Repository\TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     protected function saveJpeg($image, $fileName, $quality) {
         if(!imagejpeg($image, $fileName, (int)$quality)){
-            throw new \Ip\Internal\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Internal\Repository\TransformException::WRITE_PERMISSION);
+            throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc($fileName), array('filename' => $filename));
         }
         return true;
     }
@@ -103,11 +103,11 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      * @param string $fileName
      * @param int $quality - from 0 to 9
      * @return bool
-     * @throws \Ip\Internal\Repository\TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     protected function savePng($image, $fileName, $compression) {
         if (!imagepng($image, $fileName, $compression)) {
-            throw new \Ip\Internal\Repository\TransformException("Can't write to file: ".$fileName , \Ip\Internal\Repository\TransformException::WRITE_PERMISSION);
+            throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc($fileName), array('filename' => $fileName));
         }
         return true;
     }
@@ -121,14 +121,14 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      * Get mime type of an image file
      * @param string $imageFile
      * @return int mixed
-     * @throws \Ip\Internal\Repository\TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     protected function getMimeType($imageFile) {
         $imageInfo = getimagesize($imageFile);
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
         } else {
-            throw new \Ip\Internal\Repository\TransformException("Incompatible type.", \Ip\Internal\Repository\TransformException::UNKNOWN_MIME_TYPE);
+            throw new \Ip\Exception\Repository\Transform("Incompatible type.", array('filename' => $imageFile));
         }
 
     }
@@ -138,7 +138,7 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      * @param resource $imageNew
      * @param string $newFile
      * @param int $quality from 0 to 100
-     * @throws \Ip\Internal\Repository\TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     protected function saveImage ($imageNew, $newFile, $quality){
 

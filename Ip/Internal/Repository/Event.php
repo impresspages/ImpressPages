@@ -28,7 +28,9 @@ class Event
             }
 
             $popupData = array(
-                'marketUrl' => $marketUrl
+                'marketUrl' => $marketUrl,
+                'allowUpload' => ipAdminPermission('Repository upload'),
+                'allowRepository' => ipAdminPermission('Repository')
             );
 
             ipAddJsVariable('ipRepositoryHtml', ipView('view/popup.php', $popupData)->render());

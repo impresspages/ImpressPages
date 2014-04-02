@@ -5,6 +5,6 @@
         <a href="#" class="_button _zoomOut ipsButtonScaleDown" title="<?php _e('Zoom out', 'Ip-admin'); ?>"></a>
     </div>
     <div class="_container">
-        <img class="ipsImage" src="<?php echo ipFileUrl('Ip/Internal/Upload/assets/empty.gif'); ?>" alt="" />
+        <img class="ipsImage" src="<?php echo ipFileUrl('Ip/Internal/Content/assets/img/empty.gif'); ?>" alt="" />
     </div>
 </div>

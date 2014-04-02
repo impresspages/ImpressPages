@@ -56,7 +56,7 @@ class ImageHelper{
         try {
             $image = self::createImageImage($imageFile);
         } catch (\Exception $e) {
-            throw new \Exception ($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception($e->getMessage(), $e->getCode(), $e);
         }
 
 
@@ -70,7 +70,7 @@ class ImageHelper{
         try {
             self::saveImage($imageNew, $newFile, $quality, $mime);
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception($e->getMessage(), $e->getCode(), $e);
         }
 
 
@@ -104,13 +104,13 @@ class ImageHelper{
 
 
         if (!self::getMemoryNeeded($imageFile) ) {
-            throw new \Exception("Can't get memory needed", self::ERROR_MEMORY);
+            throw new \Ip\Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
         try {
             $image = self::createImageImage($imageFile);
         } catch (\Exception $e) {
-            throw new \Exception ($e->getMessage(), $e->getCode(), $e);
+            throw new \Ip\Exception($e->getMessage(), $e->getCode(), $e);
         }
 
         if ($x2 - $x1 > imagesx($image) || $y2 - $y1 > imagesy($image) || $x1 < 0 || $y1 < 0) { //cropping area goes out of image edge. Fill transparent.

@@ -27,6 +27,7 @@ class Job {
         }
 
         $reflection = mb_substr($curUrl, mb_strlen($fileDirUrl));
+        $reflection = urldecode($reflection);
 
         $reflectionModel = ReflectionModel::instance();
         $reflectionRecord = $reflectionModel->getReflectionByReflection($reflection);
@@ -63,7 +64,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -80,7 +81,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -97,7 +98,7 @@ class Job {
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new TransformException("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];

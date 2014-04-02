@@ -30,4 +30,6 @@ class PublicController extends \Ip\Controller
         return ipView('view/day.php', $data);
     }
 
+
+
 }

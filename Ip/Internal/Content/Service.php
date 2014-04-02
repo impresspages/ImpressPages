@@ -6,8 +6,6 @@
 namespace Ip\Internal\Content;
 
 
-use Ip\Form\Exception;
-
 class Service
 {
 

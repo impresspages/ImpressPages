@@ -4,13 +4,8 @@
  * @var $this \Ip\View
  */
 ?>
-<?php echo ipRenderWidget('Heading', array('title' => 'This is an example heading')); ?>
+<?php echo ipRenderWidget('Heading', array('title' => 'Drag & drop here')); ?>
 
 <?php echo ipRenderWidget('Text', array('text' => '
-    <p>Here is a text block where to can put any information. It supports <b>bold</b>, <em>italics</em>, <span style="text-decoration: underline;">underline</span>, <a href="http://www.impresspages.org">various links</a>. To make lists is really easy:</p>
-    <ul>
-        <li>Add widgets to any block by simply dragging and dropping;</li>
-        <li>Paste any content to a text widget and it will adapt to your website\'s styles automatically;</li>
-        <li>And many more.</li>
-    </ul>
+    <p>Add widgets from the top menu by dragging and dropping.</p>
 ')); ?>

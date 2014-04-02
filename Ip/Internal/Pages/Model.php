@@ -168,7 +168,7 @@ class Model
         return $nextPageOrder ? $nextPageOrder : 1;
     }
 
-    public static function changePageUrlPath($pageId, $newUrlPath)
+    protected static function changePageUrlPath($pageId, $newUrlPath)
     {
         $pageBeforeChange = ipPage($pageId);
 
@@ -256,15 +256,19 @@ class Model
             $update['isBlank'] = $properties['isBlank'];
         }
 
-        if (count($update) == 0) {
-            return true; //nothing to update.
+        if (count($update) != 0) {
+            ipDb()->update('page', $update, array('id' => $pageId));
         }
 
-        ipDb()->update('page', $update, array('id' => $pageId));
 
         if (!empty($properties['layout'])) {
             ipPageStorage($pageId)->set('layout', $properties['layout']);
         }
+
+        if (isset($properties['urlPath'])) {
+            self::changePageUrlPath($pageId, $properties['urlPath']);
+        }
+
 
         return true;
     }
