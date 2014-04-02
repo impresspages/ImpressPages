@@ -112,3 +112,27 @@
     -webkit-animation: @animation;
     animation: @animation;
 }
+
+// Creates a wrapper for a series of columns
+.make-row(@gutter: @grid-gutter-width) {
+    margin-left:  (@gutter / -2);
+    margin-right: (@gutter / -2);
+    &:extend(.clearfix all);
+}
+
+// User select
+// For selecting text on the page
+.user-select(@select) {
+    -webkit-user-select: @select;
+    -moz-user-select: @select;
+    -ms-user-select: @select; // IE10+
+    user-select: @select;
+}
+
+// Opacity
+.opacity(@opacity) {
+    opacity: @opacity;
+    // IE8 filter
+    @opacity-ie: (@opacity * 100);
+    filter: ~"alpha(opacity=@{opacity-ie})";
+}

@@ -7,7 +7,9 @@
   visibility: hidden;
   width: 0;
 }
-.clearfix {
+.clearfix,
+.ipModuleForm .form-horizontal .form-group,
+.ipModuleForm.form-horizontal .form-group {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
 The following zoom:1 rule is specifically for IE6 + IE7.
@@ -16,7 +18,11 @@ Move to separate stylesheet if invalid CSS is a problem.
   zoom: 1;
 }
 .clearfix:before,
-.clearfix:after {
+.clearfix:after,
+.ipModuleForm .form-horizontal .form-group:before,
+.ipModuleForm .form-horizontal .form-group:after,
+.ipModuleForm.form-horizontal .form-group:before,
+.ipModuleForm.form-horizontal .form-group:after {
   content: '.';
   display: block;
   font-size: 0;
@@ -26,7 +32,9 @@ Move to separate stylesheet if invalid CSS is a problem.
   visibility: hidden;
   width: 0;
 }
-.clearfix:after {
+.clearfix:after,
+.ipModuleForm .form-horizontal .form-group:after,
+.ipModuleForm.form-horizontal .form-group:after {
   clear: both;
 }
 html,
@@ -236,68 +244,22 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipWidget ol:last-child {
   margin-bottom: 0;
 }
-.ipModuleForm {
-  /*!
-    * Bootstrap v3.0.2
-    *
-    * Copyright 2013 Twitter, Inc
-    * Licensed under the Apache License v2.0
-    * http://www.apache.org/licenses/LICENSE-2.0
-    *
-    * Designed and built with all the love in the world @twitter by @mdo and @fat.
-    *
-    */
-  /*
-    .ipmFileContainer {
-        .ipmHiddenInput { // hide input inside div. Input needed for jQuery Tools library to position error message
-            width: 0;
-            height: 0;
-            overflow: hidden;
-
-            input { // margins on input makes error message to appear lower than it should
-                margin: 0;
-                padding: 0;
-            }
-        }
-
-        .ipmFile {
-
-    }
-    */
-}
-.ipModuleForm input,
-.ipModuleForm button,
-.ipModuleForm select,
-.ipModuleForm textarea {
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 14px;
-  line-height: inherit;
-}
-.ipModuleForm .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
 .ipModuleForm fieldset {
   padding: 0;
   margin: 0;
   border: 0;
+  min-width: 0;
 }
 .ipModuleForm legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 21px;
   font-size: 21px;
   line-height: inherit;
-  color: #333333;
+  color: #000000;
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #747474;
 }
 .ipModuleForm label {
   display: inline-block;
@@ -319,115 +281,91 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm input[type="file"] {
   display: block;
 }
+.ipModuleForm input[type="range"] {
+  display: block;
+  width: 100%;
+}
 .ipModuleForm select[multiple],
 .ipModuleForm select[size] {
   height: auto;
 }
-.ipModuleForm select optgroup {
-  font-size: inherit;
-  font-style: inherit;
-  font-family: inherit;
-}
 .ipModuleForm input[type="file"]:focus,
 .ipModuleForm input[type="radio"]:focus,
 .ipModuleForm input[type="checkbox"]:focus {
-  outline: thin dotted #333;
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
-}
-.ipModuleForm input[type="number"]::-webkit-outer-spin-button,
-.ipModuleForm input[type="number"]::-webkit-inner-spin-button {
-  height: auto;
 }
 .ipModuleForm output {
   display: block;
   padding-top: 7px;
   font-size: 14px;
-  line-height: 1.428571429;
-  color: #555555;
-  vertical-align: middle;
+  line-height: 1.5;
+  color: #000000;
 }
 .ipModuleForm .form-control {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  max-width: 380px;
   display: block;
   width: 100%;
-  padding: 0.5em;
-  color: #777777;
-  vertical-align: middle;
+  height: 35px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000000;
   background-color: #ffffff;
   background-image: none;
   border: 1px solid #747474;
   border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .ipModuleForm .form-control:focus {
-  background-color: #ffffff;
   border-color: #000000;
-  color: #000000;
-}
-.ipModuleForm .form-control:-moz-placeholder {
-  color: #999999;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 0, 0, 0.6);
 }
 .ipModuleForm .form-control::-moz-placeholder {
-  color: #999999;
+  color: #777777;
+  opacity: 1;
 }
 .ipModuleForm .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #777777;
 }
 .ipModuleForm .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #777777;
 }
 .ipModuleForm .form-control[disabled],
 .ipModuleForm .form-control[readonly],
-.ipModuleForm fieldset[disabled] .form-control {
+fieldset[disabled] .ipModuleForm .form-control {
   cursor: not-allowed;
   background-color: #eeeeee;
+  opacity: 1;
 }
-.ipModuleForm textarea.form-control {
-  height: 10em;
-  overflow: auto;
+textarea.ipModuleForm .form-control {
+  height: auto;
+}
+.ipModuleForm input[type="search"] {
+  -webkit-appearance: none;
+}
+.ipModuleForm input[type="date"] {
+  line-height: 35px;
 }
 .ipModuleForm .form-group {
-  margin-bottom: 20px;
-  position: relative;
-  /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
-  /*
-The following zoom:1 rule is specifically for IE6 + IE7.
-Move to separate stylesheet if invalid CSS is a problem.
-*/
-  zoom: 1;
-}
-.ipModuleForm .form-group:before,
-.ipModuleForm .form-group:after {
-  content: '.';
-  display: block;
-  font-size: 0;
-  height: 0;
-  line-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  width: 0;
-}
-.ipModuleForm .form-group:after {
-  clear: both;
-}
-.ipModuleForm .form-group:last-child {
-  margin-bottom: 0;
+  margin-bottom: 15px;
 }
 .ipModuleForm .radio,
 .ipModuleForm .checkbox {
   display: block;
-  min-height: 20px;
+  min-height: 21px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding-left: 20px;
-  vertical-align: middle;
 }
 .ipModuleForm .radio label,
 .ipModuleForm .checkbox label {
   display: inline;
-  margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
 }
@@ -462,13 +400,81 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm .radio-inline[disabled],
 .ipModuleForm .checkbox[disabled],
 .ipModuleForm .checkbox-inline[disabled],
-.ipModuleForm fieldset[disabled] input[type="radio"],
-.ipModuleForm fieldset[disabled] input[type="checkbox"],
-.ipModuleForm fieldset[disabled] .radio,
-.ipModuleForm fieldset[disabled] .radio-inline,
-.ipModuleForm fieldset[disabled] .checkbox,
-.ipModuleForm fieldset[disabled] .checkbox-inline {
+fieldset[disabled] .ipModuleForm input[type="radio"],
+fieldset[disabled] .ipModuleForm input[type="checkbox"],
+fieldset[disabled] .ipModuleForm .radio,
+fieldset[disabled] .ipModuleForm .radio-inline,
+fieldset[disabled] .ipModuleForm .checkbox,
+fieldset[disabled] .ipModuleForm .checkbox-inline {
   cursor: not-allowed;
+}
+.ipModuleForm .has-feedback {
+  position: relative;
+}
+.ipModuleForm .has-feedback .form-control {
+  padding-right: 43.75px;
+}
+.ipModuleForm .has-feedback .form-control-feedback {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  display: block;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+}
+.ipModuleForm .has-success .help-block,
+.ipModuleForm .has-success .control-label,
+.ipModuleForm .has-success .radio,
+.ipModuleForm .has-success .checkbox,
+.ipModuleForm .has-success .radio-inline,
+.ipModuleForm .has-success .checkbox-inline {
+  color: #3c763d;
+}
+.ipModuleForm .has-success .form-control {
+  border-color: #3c763d;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.ipModuleForm .has-success .form-control:focus {
+  border-color: #2b542c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
+}
+.ipModuleForm .has-success .input-group-addon {
+  color: #3c763d;
+  border-color: #3c763d;
+  background-color: #dff0d8;
+}
+.ipModuleForm .has-success .form-control-feedback {
+  color: #3c763d;
+}
+.ipModuleForm .has-warning .help-block,
+.ipModuleForm .has-warning .control-label,
+.ipModuleForm .has-warning .radio,
+.ipModuleForm .has-warning .checkbox,
+.ipModuleForm .has-warning .radio-inline,
+.ipModuleForm .has-warning .checkbox-inline {
+  color: #8a6d3b;
+}
+.ipModuleForm .has-warning .form-control {
+  border-color: #8a6d3b;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.ipModuleForm .has-warning .form-control:focus {
+  border-color: #66512c;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
+}
+.ipModuleForm .has-warning .input-group-addon {
+  color: #8a6d3b;
+  border-color: #8a6d3b;
+  background-color: #fcf8e3;
+}
+.ipModuleForm .has-warning .form-control-feedback {
+  color: #8a6d3b;
 }
 .ipModuleForm .has-error .help-block,
 .ipModuleForm .has-error .control-label,
@@ -483,15 +489,27 @@ Move to separate stylesheet if invalid CSS is a problem.
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
+.ipModuleForm .has-error .form-control:focus {
+  border-color: #850000;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ff1f1f;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ff1f1f;
+}
+.ipModuleForm .has-error .input-group-addon {
+  color: #b80000;
+  border-color: #b80000;
+  background-color: #f2dede;
+}
+.ipModuleForm .has-error .form-control-feedback {
+  color: #b80000;
+}
 .ipModuleForm .form-control-static {
   margin-bottom: 0;
 }
 .ipModuleForm .help-block {
-  font-size: 12px;
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #333333;
+  color: #737373;
 }
 @media (min-width: 768px) {
   .ipModuleForm .form-inline .form-group {
@@ -501,6 +519,15 @@ Move to separate stylesheet if invalid CSS is a problem.
   }
   .ipModuleForm .form-inline .form-control {
     display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  .ipModuleForm .form-inline .input-group > .form-control {
+    width: 100%;
+  }
+  .ipModuleForm .form-inline .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
   }
   .ipModuleForm .form-inline .radio,
   .ipModuleForm .form-inline .checkbox {
@@ -508,11 +535,15 @@ Move to separate stylesheet if invalid CSS is a problem.
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 0;
+    vertical-align: middle;
   }
   .ipModuleForm .form-inline .radio input[type="radio"],
   .ipModuleForm .form-inline .checkbox input[type="checkbox"] {
     float: none;
     margin-left: 0;
+  }
+  .ipModuleForm .form-inline .has-feedback .form-control-feedback {
+    top: 0;
   }
 }
 .ipModuleForm .form-horizontal .control-label,
@@ -524,19 +555,13 @@ Move to separate stylesheet if invalid CSS is a problem.
   margin-bottom: 0;
   padding-top: 7px;
 }
+.ipModuleForm .form-horizontal .radio,
+.ipModuleForm .form-horizontal .checkbox {
+  min-height: 28px;
+}
 .ipModuleForm .form-horizontal .form-group {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-.ipModuleForm .form-horizontal .form-group:before,
-.ipModuleForm .form-horizontal .form-group:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-.ipModuleForm .form-horizontal .form-group:after {
-  clear: both;
+  margin-left: -20px;
+  margin-right: -20px;
 }
 .ipModuleForm .form-horizontal .form-control-static {
   padding-top: 7px;
@@ -546,44 +571,30 @@ Move to separate stylesheet if invalid CSS is a problem.
     text-align: right;
   }
 }
-.ipModuleForm .btn {
-  display: inline-block;
-  margin-bottom: 0;
-  font-weight: normal;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  border: 1px solid transparent;
-  white-space: nowrap;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  border-radius: 3px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
+.ipModuleForm .form-horizontal .has-feedback .form-control-feedback {
+  top: 0;
+  right: 20px;
 }
-.ipModuleForm .btn-default {
-  background: #019bd4;
-  border: none;
-  border-radius: 3px;
-  color: #ffffff;
-  cursor: pointer;
-  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: bold;
-  margin: 0;
-  padding: 0.5em 1em;
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
-.ipModuleForm .btn-default:hover {
-  box-shadow: 0 0 0 1px #019bd4 inset;
-  background: #01516e;
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 40px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
 }
 .ipModuleForm .progress {
-  height: 10px;
   overflow: hidden;
+  height: 21px;
+  margin-bottom: 21px;
   background-color: #f5f5f5;
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -591,31 +602,44 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .progress-bar {
   float: left;
-  width: 0;
+  width: 0%;
   height: 100%;
   font-size: 12px;
+  line-height: 21px;
   color: #ffffff;
   text-align: center;
-  background-color: #428bca;
+  background-color: #019bd4;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .ipModuleForm .progress-striped .progress-bar {
-  background-color: #428bca;
-  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
 .ipModuleForm .progress.active .progress-bar {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
-  -moz-animation: progress-bar-stripes 2s linear infinite;
-  -ms-animation: progress-bar-stripes 2s linear infinite;
-  -o-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
+}
+.ipModuleForm * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ipModuleForm .form-group {
+  margin-bottom: 20px;
+}
+.ipModuleForm .form-control {
+  max-width: 380px;
+}
+.ipModuleForm textarea.form-control {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  height: 10em;
+}
+.ipModuleForm .progress {
+  margin-bottom: 0;
 }
 .ipModuleForm .help-hint {
   background-color: #747474;
@@ -631,9 +655,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm .help-error {
   background-color: #b80000;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   color: #fff;
   display: none;
   font-size: 12px;
@@ -663,7 +684,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm .form-group.type-submit label {
   display: none;
 }
-.ipModuleForm .ipmFile {
+.ipModuleForm ._file {
   min-height: 20px;
   padding: 0.5em;
   margin-top: 5px;
@@ -675,72 +696,131 @@ Move to separate stylesheet if invalid CSS is a problem.
   max-width: 380px;
   position: relative;
 }
-.ipModuleForm .ipmFile .close {
+.ipModuleForm ._file .close {
   float: right;
   font-size: 21px;
   font-weight: bold;
   line-height: 1;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
-.ipModuleForm .ipmFile .close:hover,
-.ipModuleForm .ipmFile .close:focus {
-  color: #000000;
+.ipModuleForm ._file .close:hover,
+.ipModuleForm ._file .close:focus {
   text-decoration: none;
   cursor: pointer;
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-.ipModuleForm .ipmFile button.close {
+.ipModuleForm ._file button.close {
   padding: 0;
   cursor: pointer;
   background: transparent;
   border: 0;
   -webkit-appearance: none;
 }
-.ipModuleForm .ipmFile .ipmUploadError {
+.ipModuleForm ._file ._error {
   color: #b80000;
   font-size: 12px;
 }
-.ipModuleForm .ipmFileTemplate {
-  display: none;
+.ipModuleForm .btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 3px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-@-webkit-keyframes progress-bar-stripes {
-  0% {
-    background-position: 40px 0;
+.ipModuleForm .btn-default {
+  background: #019bd4;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+.ipModuleForm .btn-default:hover {
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
+}
+@media (min-width: 768px) {
+  .ipModuleForm.form-inline .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
   }
-  100% {
-    background-position: 0 0;
+  .ipModuleForm.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  .ipModuleForm.form-inline .input-group > .form-control {
+    width: 100%;
+  }
+  .ipModuleForm.form-inline .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+  .ipModuleForm.form-inline .radio,
+  .ipModuleForm.form-inline .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    vertical-align: middle;
+  }
+  .ipModuleForm.form-inline .radio input[type="radio"],
+  .ipModuleForm.form-inline .checkbox input[type="checkbox"] {
+    float: none;
+    margin-left: 0;
+  }
+  .ipModuleForm.form-inline .has-feedback .form-control-feedback {
+    top: 0;
   }
 }
-@-moz-keyframes progress-bar-stripes {
-  0% {
-    background-position: 40px 0;
-  }
-  100% {
-    background-position: 0 0;
+.ipModuleForm.form-horizontal .control-label,
+.ipModuleForm.form-horizontal .radio,
+.ipModuleForm.form-horizontal .checkbox,
+.ipModuleForm.form-horizontal .radio-inline,
+.ipModuleForm.form-horizontal .checkbox-inline {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 7px;
+}
+.ipModuleForm.form-horizontal .radio,
+.ipModuleForm.form-horizontal .checkbox {
+  min-height: 28px;
+}
+.ipModuleForm.form-horizontal .form-group {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+.ipModuleForm.form-horizontal .form-control-static {
+  padding-top: 7px;
+}
+@media (min-width: 768px) {
+  .ipModuleForm.form-horizontal .control-label {
+    text-align: right;
   }
 }
-@-o-keyframes progress-bar-stripes {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 40px 0;
-  }
-}
-@keyframes progress-bar-stripes {
-  0% {
-    background-position: 40px 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-.ipmErrorMessage {
-  display: none !important;
+.ipModuleForm.form-horizontal .has-feedback .form-control-feedback {
+  top: 0;
+  right: 20px;
 }
 .ipBlock {
   min-height: 10px;
