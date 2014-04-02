@@ -43,12 +43,12 @@ class UploadModel{
     /**
      * Handle uploads made using PlUpload library
      * @param bool $secureFolder
-     * @throws UploadException
+     * @throws \Ip\Exception\Repository\Upload
      */
     public function handlePlupload($secureFolder)
     {
         if (!$secureFolder && !ipAdminId()) {
-            throw new UploadException("Try to upload image to temporary directory without permission.", UploadException::NO_PERMISSION);
+            throw new \Ip\Exception\Repository\Upload("Trying to upload image to temporary directory without permission.");
         }
 
         if ($secureFolder) {
@@ -82,7 +82,7 @@ class UploadModel{
 
         if (in_array($fileExtension, $forbiddenExtensions)) {
             //security risk
-            throw new UploadException("Files with extension (.".$fileExtension.") are not permitted for security reasons.", UploadException::FORBIDDEN_FILE_EXTENSION);
+            throw new \Ip\Exception\Repository\Upload\ForbiddenFileExtension("Files with extension (.". esc($fileExtension).") are not permitted for security reasons.", array('extension' => $fileExtension, 'filename' => $fileName));
         }
 
         //end security check
@@ -97,55 +97,57 @@ class UploadModel{
 
         // Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
         if (strpos($contentType, "multipart") !== false) {
-            if (isset($_FILES['file']['tmp_name']) && is_uploaded_file($_FILES['file']['tmp_name'])) {
-                // Open temp file
-                $out = fopen($targetDir.$fileName, $chunk == 0 ? "wb" : "ab");
-
-                if ($out) {
-                    //mark this file as uploaded by current user
-                    $this->setFileUploadedByThisUser($targetDir.$fileName);
-
-                    // Read binary input stream and append it to temp file
-                    $in = fopen($_FILES['file']['tmp_name'], "rb");
-
-                    if ($in) {
-                        while ($buff = fread($in, 4096))
-                            fwrite($out, $buff);
-                    } else {
-                        throw new UploadException("Failed to open input stream.", UploadException::INPUT_STREAM_ERROR);
-                    }
-                    fclose($in);
-                    fclose($out);
-                    @unlink($_FILES['file']['tmp_name']);
-                } else {
-                    throw new UploadException("Failed to open output stream.", UploadException::OUTPUT_STREAM_ERROR);
-                }
-            } else {
-                throw new UploadException("Failed to move uploaded file.", UploadException::FAILED_TO_MOVE_UPLOADED_FILE);
+            if (!isset($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+                throw new \Ip\Exception\Repository\Upload("Failed to move uploaded file.");
             }
+
+            // Open temp file
+            $out = fopen($targetDir.$fileName, $chunk == 0 ? "wb" : "ab");
+            if (!$out) {
+                throw new \Ip\Exception\Repository\Upload("Failed to open output stream.");
+            }
+
+            //mark this file as uploaded by current user
+            $this->setFileUploadedByThisUser($targetDir.$fileName);
+
+            // Read binary input stream and append it to temp file
+            $in = fopen($_FILES['file']['tmp_name'], "rb");
+
+            if (!$in) {
+                throw new \Ip\Exception\Repository\Upload("Failed to open input stream.");
+            }
+
+            while ($buff = fread($in, 4096)) {
+                fwrite($out, $buff);
+            }
+
+            fclose($in);
+            fclose($out);
+            @unlink($_FILES['file']['tmp_name']);
         } else {
             // Open temp file
             $out = fopen($targetDir . '/' . $fileName, $chunk == 0 ? "wb" : "ab");
-            if ($out) {
-                // Read binary input stream and append it to temp file
-                $in = fopen("php://input", "rb");
-
-                if ($in) {
-                    while ($buff = fread($in, 4096)) {
-                        if(function_exists('set_time_limit'))
-                        {
-                            set_time_limit(30);
-                        }
-                        fwrite($out, $buff);
-                    }
-                } else {
-                    throw new UploadException("Failed to open input stream.", UploadException::INPUT_STREAM_ERROR);
-                }
-                fclose($in);
-                fclose($out);
-            } else {
-                throw new UploadException("Failed to open output stream.", UploadException::OUTPUT_STREAM_ERROR);
+            if (!$out) {
+                throw new \Ip\Exception\Repository\Upload("Failed to open output stream.");
             }
+
+            // Read binary input stream and append it to temp file
+            $in = fopen("php://input", "rb");
+
+            if (!$in) {
+                throw new \Ip\Exception\Repository\Upload("Failed to open input stream.");
+            }
+
+            while ($buff = fread($in, 4096)) {
+                if(function_exists('set_time_limit'))
+                {
+                    set_time_limit(30);
+                }
+                fwrite($out, $buff);
+            }
+
+            fclose($in);
+            fclose($out);
         }
 
         $this->uploadedFileName = $fileName;
@@ -216,11 +218,11 @@ class UploadModel{
      */
     public function getUploadedFilePath($fileName, $secure)
     {
-        if ($this->isFileUploadedByCurrentUser($fileName, $secure)) {
-            return ipFile('file/secure/tmp/' . $fileName);
-        } else {
-            throw new UploadException("This user didn't upload this file or session has ended.", UploadException::SESSION_NOT_FOUND);
+        if (!$this->isFileUploadedByCurrentUser($fileName, $secure)) {
+            throw new \Ip\Exception\Repository\Upload("This user didn't upload this file or session has ended.");
         }
+
+        return ipFile('file/secure/tmp/' . $fileName);
     }
 
 }
