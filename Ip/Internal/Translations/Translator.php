@@ -18,6 +18,8 @@ class Translator
 
     protected $domains = array();
 
+    protected $adminDomains = array();
+
     public function __construct()
     {
         $this->translator = new \Zend\I18n\Translator\Translator();
@@ -36,10 +38,10 @@ class Translator
             $domain
         );
 
+        $this->domains[$domain] = true;
+
         if (substr($domain, -6) == '-admin') {
-            $this->domains[$domain] = 'admin';
-        } else {
-            $this->domains[$domain] = 'public';
+            $this->adminDomains[$domain] = 'admin';
         }
 
         return $this;
@@ -47,7 +49,7 @@ class Translator
 
     public function translate($text, $domain)
     {
-        if ($this->domains[$domain] == 'admin' && $this->adminLocale != $this->publicLocale) {
+        if (isset($this->adminDomains[$domain]) && $this->adminLocale != $this->publicLocale) {
             $this->translator->setLocale($this->adminLocale);
             $result = $this->translator->translate($text, $domain);
             $this->translator->setLocale($this->publicLocale);
