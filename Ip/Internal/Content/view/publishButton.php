@@ -3,7 +3,7 @@ if ($isPublished) {
     $publishClass = 'btn-default';
     $buttonText = __('Published', 'Ip-admin', FALSE);
 } else {
-    $publishClass = 'btn-primary';
+    $publishClass = 'btn-warning';
     $buttonText = __('Publish', 'Ip-admin', FALSE);
 }
 ?>

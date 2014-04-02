@@ -75,7 +75,7 @@ class ReflectionService
      * @param string $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
      * @return string - file name from BASE_DIR
-     * @throws TransformException
+     * @throws \Ip\Exception\Repository\Transform
      */
     public function getReflection($file, $options, $desiredName = null, $onDemand = true)
     {
@@ -93,7 +93,7 @@ class ReflectionService
     }
 
     /**
-     * @return TransformException
+     * @return \Ip\Exception\Repository\Transform
      */
     public function getLastException()
     {

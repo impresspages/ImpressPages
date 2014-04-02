@@ -10,10 +10,10 @@ function replacePublishedToPublish() {
     "use strict";
     var $publishButton = $('.ipsContentPublish');
     $publishButton.text(ipPublishTranslation);
-    $publishButton.removeClass('btn-default').addClass('btn-primary');
+    $publishButton.removeClass('btn-default').addClass('btn-warning');
 
     var $revisionsButton = $('.ipsContentRevisions');
-    $revisionsButton.removeClass('btn-default').addClass('btn-primary');
+    $revisionsButton.removeClass('btn-default').addClass('btn-warning');
 }
 
 $(document).ready(function () {

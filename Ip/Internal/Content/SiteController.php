@@ -24,8 +24,7 @@ class SiteController extends \Ip\Controller
         try {
             if (!$widgetRecord) {
                 return \Ip\Response\JsonRpc::error(
-                    "Can't find requested Widget: " . $widgetId,
-                    Exception::UNKNOWN_INSTANCE
+                    "Can't find requested Widget: " . $widgetId, 10
                 );
             }
 
@@ -33,12 +32,12 @@ class SiteController extends \Ip\Controller
             if (!$widgetObject) {
                 return \Ip\Response\JsonRpc::error(
                     "Can't find requested Widget: " . $widgetRecord['name'],
-                    Exception::UNKNOWN_WIDGET
+                    20
                 );
             }
 
             return $widgetObject->post($widgetId, $widgetRecord['data']);
-        } catch (Exception $e) {
+        } catch (\Ip\Exception\Content $e) {
             return \Ip\Response\JsonRpc::error($e->getMessage());
         }
     }

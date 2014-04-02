@@ -21,8 +21,8 @@ class Model
         foreach ($widgets as $widget) {
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
-            } catch (Exception $e) {
-                throw new Exception('Error when generating widget preview', null, $e);
+            } catch (\Ip\Exception\Content $e) {
+                throw new \Ip\Exception\Content('Error when generating widget preview', null, $e);
             }
         }
 
@@ -138,7 +138,7 @@ class Model
                 $source = '';
             }
 
-            throw new Exception('Widget ' . $widgetName . ' does not exist. ' . $source, Exception::UNKNOWN_WIDGET);
+            throw new \Ip\Exception\Content('Widget ' . esc($widgetName) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
         }
 
         $widgetRecord = array(
@@ -354,7 +354,6 @@ class Model
      * @param string $blockName
      * @param string $widgetName
      * @param string $skin
-     * @throws Exception
      */
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
@@ -542,10 +541,10 @@ class Model
             return FALSE;
         }
 
-        $currentWidgetIds = self::revisionWidgetIds($currentRevision['revisionId']);
-        $publishedWidgetIds = self::revisionWidgetIds($publishedRevision['revisionId']);
-        $currentFingerprint = implode(',', $currentWidgetIds);
-        $publishedFingerprint = implode(',', $publishedWidgetIds);
+        $currentFingerprint = self::revisionWidgetIds($currentRevision['revisionId']);
+        $publishedFingerprint = self::revisionWidgetIds($publishedRevision['revisionId']);
+//        $currentFingerprint = implode(',', $currentWidgetIds);
+//        $publishedFingerprint = implode(',', $publishedWidgetIds);
 
         $modified = $currentFingerprint != $publishedFingerprint;
 
@@ -559,7 +558,7 @@ class Model
         //compare revision content
         $sql = "
             SELECT
-                `id`
+                `name`
             FROM
                 $table
             WHERE
@@ -572,8 +571,29 @@ class Model
             'revisionId' => $revisionId
         );
 
-        $widgetIds = ipDb()->fetchColumn($sql, $params);
-        return $widgetIds;
+        $widgetNames = ipDb()->fetchColumn($sql, $params);
+
+        //compare revision content
+        $sql = "
+            SELECT
+                `data`
+            FROM
+                $table
+            WHERE
+              `revisionId` = :revisionId
+            ORDER BY
+              blockName, `position`
+        ";
+
+        $params = array(
+            'revisionId' => $revisionId
+        );
+
+        $widgetData = ipDb()->fetchColumn($sql, $params);
+
+        $fingerprint = implode('***|***', $widgetNames) . '|||' . implode('***|***', $widgetData);
+
+        return $fingerprint;
     }
 
 

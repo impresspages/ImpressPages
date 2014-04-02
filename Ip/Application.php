@@ -103,6 +103,10 @@ class Application
         $translator = \Ip\ServiceLocator::translator();
         $translator->setLocale($languageCode);
 
+        if (ipConfig()->get('adminLocale')) {
+            $translator->setAdminLocale(ipConfig()->get('adminLocale'));
+        }
+
         $theme = ipConfig()->theme();
         $originalDir = ipFile('file/translations/original/');
         $overrideDir = ipFile('file/translations/override/');
@@ -273,6 +277,9 @@ class Application
         $rawResponse = $this->_handleOnlyRequest($request, $options, $subrequest);
 
         if (!empty($options['returnRawResponse'])) {
+            if ($subrequest) {
+                \Ip\ServiceLocator::removeRequest();
+            }
             return $rawResponse;
         }
 
@@ -288,10 +295,14 @@ class Application
             $response->setContent($rawResponse);
         } elseif ($rawResponse instanceof \Ip\Response) {
             \Ip\ServiceLocator::setResponse($rawResponse);
+            if ($subrequest) {
+                \Ip\ServiceLocator::removeRequest();
+            }
             return $rawResponse;
         } elseif ($rawResponse === null) {
             $response = \Ip\ServiceLocator::response();
         } else {
+            \Ip\ServiceLocator::removeRequest();
             throw new \Ip\Exception('Unknown response');
         }
 
@@ -299,7 +310,9 @@ class Application
             $response = $response->execute();
         }
 
-        \Ip\ServiceLocator::removeRequest();
+        if ($subrequest) {
+            \Ip\ServiceLocator::removeRequest();
+        }
 
         return $response;
     }

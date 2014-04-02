@@ -55,18 +55,26 @@
         }
 
         this.blur = function(e) {
-            if (this.$widgetObject[0] && ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target)) {
-                //mouse click inside the widget
-                return;
-            } else {
-                //mouse click outside of the widget
-                if (this.$controls[0] && ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetHeadingOptions')[0], e.target))) {
-                    //widget toolbar click or widget popup click
-                    //do nothing
-                } else {
-                    this.removeControls()
-                }
+            var $target = $(e.target);
+            var $closestWidget = $target.closest('.ipWidget-Heading');
+
+            if (!$target.hasClass('ipWidget-Heading') && !$closestWidget.hasClass('ipWidget-Heading')) {
+                this.removeControls()
             }
+
+
+//            if (this.$widgetObject[0] && ($.contains(this.$widgetObject[0], e.target) || this.$widgetObject[0] == e.target)) {
+//                //mouse click inside the widget
+//                return;
+//            } else {
+//                //mouse click outside of the widget
+//                if (this.$controls[0] && ($.contains(this.$controls[0], e.target) || $.contains($('#ipWidgetHeadingOptions')[0], e.target))) {
+//                    //widget toolbar click or widget popup click
+//                    //do nothing
+//                } else {
+//                    this.removeControls()
+//                }
+//            }
 
         };
 
@@ -102,6 +110,9 @@
         this.initControls = function () {
             var $controls = this.$controls;
             var $widgetObject = this.$widgetObject;
+            this.$controls.find('.ipsH').off();
+            this.$controls.find('.ipsOptions').off();
+
             $controls.removeClass('hidden');
             $controls.css('left', $widgetObject.offsetLeft);
             $controls.css('top', $widgetObject.offsetTop);

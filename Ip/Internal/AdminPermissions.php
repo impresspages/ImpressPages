@@ -15,9 +15,6 @@ class AdminPermissions
 
     public function hasPermission($permission, $administratorId = null)
     {
-        if (in_array($permission, array('Repository', 'Upload'))) {
-            return true; //all admins allowed to access repository and repository upload
-        }
         if (in_array($permission, array('InlineManagement'))) {
             $permission = 'Content';
         }

@@ -126,7 +126,7 @@ class WidgetController
      * Get all widget skins
      *
      * @return array List of skins
-     * @throws Internal\Content\Exception
+     * @throws \Ip\Exception\Content
      */
     public function getSkins()
     {
@@ -139,7 +139,7 @@ class WidgetController
 
 
         if (!is_dir($skinDir)) {
-            throw new \Ip\Internal\Content\Exception('Skins directory does not exist. ' . $skinDir, \Ip\Internal\Content\Exception::NO_SKIN);
+            throw new \Ip\Exception\Content('Skins directory does not exist. ' . esc($skinDir));
         }
 
         $availableViewFiles = scandir($skinDir);
@@ -166,7 +166,7 @@ class WidgetController
         }
 
         if (empty($skins)) {
-            throw new \Ip\Internal\Content\Exception('No skins', Exception::NO_SKIN);
+            throw new \Ip\Exception\Content('No skins');
         }
 
         return $skins;
@@ -280,9 +280,9 @@ class WidgetController
         $answer = '';
         try {
             if ($this->core) {
-                $answer = ipView(ipFile('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $answer = ipView(('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
             } else {
-                $answer = ipView(ipFile('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $answer = ipView(('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
