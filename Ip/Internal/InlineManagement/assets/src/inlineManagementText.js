@@ -24,6 +24,7 @@
                     var htmlTag = $this.data('ipInlineManagementText').htmlTag;
                     var customTinyMceConfig = ipTinyMceConfig();
                     customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
+                        console.log('change');
                         save($this.html(), key, cssClass, htmlTag);
                     })};
                     $this.tinymce(customTinyMceConfig);
@@ -39,7 +40,6 @@
     };
 
     var save = function (html, key, cssClass, htmlTag) {
-        event.preventDefault();
         var $this = $(this);
         var data = Object();
         data.aa = 'InlineManagement.saveText';
