@@ -1,0 +1,142 @@
+// Fixing Bootstrap layout
+* { // Reset the box-sizing
+    .box-sizing(border-box);
+}
+.form-group { // adding our own bottom margin
+    margin-bottom: @ipFormFieldSpace;
+}
+.form-control {
+    max-width: @ipFormInputMaxWidth;
+}
+textarea.form-control { // fixing font and height
+    font-family: @ipFormInputFontFamily;
+    height: @ipFormTextareaHeight;
+}
+.progress {
+    margin-bottom: 0;
+}
+
+// Extra elements in forms
+.help-hint { // to be shown on hover
+    background-color: @ipBorderColor;
+    color: #fff;
+    display: none;
+    font-size: @ipFontSizeSmall;
+    padding: 4px 10px 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    z-index: 1;
+}
+.help-error {
+    background-color: @ipErrorColor;
+    color: #fff;
+    display: none;
+    font-size: @ipFontSizeSmall;
+    max-width: @ipFormInputMaxWidth; // to be the same size as controls
+    padding: 4px 10px 2px;
+    width: 100%;
+}
+.has-error .help-error {
+    display: block;
+}
+.form-group:hover .help-hint { // hint is shown only on hover
+    display: block;
+}
+.captcha {
+    img {
+        display: block;
+        max-width: 100%;
+    }
+}
+.form-group.type-blank {
+    margin-bottom: 0; // removing from flow
+    label {
+        display: none;
+    }
+    .help-error {
+        margin-bottom: @ipFormFieldSpace; // keeping space when visible
+    }
+}
+.form-group.type-submit {
+    label {
+        display: none;
+    }
+}
+
+// File upload
+._file {
+    min-height: 20px;
+    padding: (@ipSpaceElement / 2);
+    margin-top: (@ipSpaceGroup / 2);
+    background-color: lighten(@ipBorderColor, 20);
+    border: 1px solid @ipBorderColor;
+    border-radius: @ipFormInputBorderRadius;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    max-width: @ipFormInputMaxWidth; // to be the same size as controls
+    position: relative;
+
+    .close {
+        float: right;
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        .opacity(0.2);
+    }
+    .close:hover,
+    .close:focus {
+        text-decoration: none;
+        cursor: pointer;
+        .opacity(0.5);
+    }
+    button.close {
+        padding: 0;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        -webkit-appearance: none;
+    }
+
+    ._error {
+        color: @ipErrorColor;
+        font-size: @ipFontSizeSmall;
+    }
+}
+
+// Buttons
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: @ipFormInputLineHeight;
+    border-radius: @ipFormButtonBorderRadius;
+    .user-select(none);
+}
+.btn-default {
+    background: @ipFormButtonBackground;
+    border: none;
+    border-radius: @ipFormButtonBorderRadius;
+    color: @ipFormButtonColor;
+    cursor: pointer;
+    font-family: @ipFormButtonFontFamily;
+    font-weight: bold;
+    margin: 0; // reseting default styles on some browsers
+    padding: (@ipSpaceElement / 2) @ipSpaceElement;
+
+    &:hover {
+        box-shadow: 0 0 0 1px @ipFormButtonBackground inset;
+        background: darken(@ipFormButtonBackground, 20);
+    }
+}

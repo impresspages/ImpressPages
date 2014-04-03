@@ -1,19 +1,9 @@
 <?php
-/**
- * @package ImpressPages
- *
- */
 
-namespace Ip\Form;
+namespace Ip\Exception;
 
-
-class Exception extends \Exception
+class Content extends \Ip\Exception
 {
-    //error codes
-    const INCORRECT_METHOD_TYPE = 0;
-    const UNKNOWN_VALIDATOR = 1;
-
-
     // Redefine the exception so message isn't optional
     public function __construct($message, $code = 0, \Exception $previous = null)
     {

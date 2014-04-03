@@ -21,8 +21,8 @@ class Model
         foreach ($widgets as $widget) {
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
-            } catch (Exception $e) {
-                throw new Exception('Error when generating widget preview', null, $e);
+            } catch (\Ip\Exception\Content $e) {
+                throw new \Ip\Exception\Content('Error when generating widget preview', null, $e);
             }
         }
 
@@ -138,7 +138,7 @@ class Model
                 $source = '';
             }
 
-            throw new Exception('Widget ' . $widgetName . ' does not exist. ' . $source, Exception::UNKNOWN_WIDGET);
+            throw new \Ip\Exception\Content('Widget ' . esc($widgetName) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
         }
 
         $widgetRecord = array(
@@ -354,7 +354,6 @@ class Model
      * @param string $blockName
      * @param string $widgetName
      * @param string $skin
-     * @throws Exception
      */
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
