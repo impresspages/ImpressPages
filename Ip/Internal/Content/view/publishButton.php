@@ -3,12 +3,14 @@
 $buttonAction = 'ipsContentPublish';
 $buttonText = __('Published', 'Ip-admin', false);
 $buttonClass = 'btn-default';
+$button2Class = 'btn-default';
 $revisionClass = 'btn-default';
 $button2Action = 'ipsContentSave';
 $button2Text = __('Save', 'Ip-admin', false);
 if (!$isPublished) {
     $buttonText = __('Publish', 'Ip-admin', false);
     $buttonClass = 'btn-warning';
+    $revisionClass = 'btn-warning';
 }
 
 if (!$isVisible) {
