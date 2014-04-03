@@ -55,6 +55,7 @@
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
                     var $newFile = $this.find('.ipsFileTemplate').clone();
+                    $newFile.removeClass('ipsFileTemplate');
                     $newFile.data('fileId', file.id);
                     $newFile.removeClass('hidden');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
