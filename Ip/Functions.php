@@ -984,9 +984,11 @@ function ipRepositoryAddFile($file, $desiredName = null)
 
 
 /**
- * Mark repository file as being used by plugin.
- * @param string $file
- * @param string $plugin
+ * Mark repository file as being used by a plugin. The point of this is to
+ * instruct ImpressPages to prevent original file in repository from accidental deletion.
+ * See ipUnbindFile on how to undo this action and mark asset as not being  used by the plugin.
+ * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $plugin plugin name that uses the asset
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those binds by $id. If you sure this can't be the case for your plugin, use 1. You have to use the same id in ipUnbindFile
  */
 function ipBindFile($file, $plugin, $id)
@@ -995,9 +997,9 @@ function ipBindFile($file, $plugin, $id)
 }
 
 /**
- * Release file binding
- * @param string $file
- * @param string $plugin
+ * Release file binding. See ipBindFile for more details.
+ * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $plugin plugin name that uses the asset
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id
  */
 function ipUnbindFile($file, $plugin, $id)
