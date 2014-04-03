@@ -541,10 +541,8 @@ class Model
             return FALSE;
         }
 
-        $currentFingerprint = self::revisionWidgetIds($currentRevision['revisionId']);
-        $publishedFingerprint = self::revisionWidgetIds($publishedRevision['revisionId']);
-//        $currentFingerprint = implode(',', $currentWidgetIds);
-//        $publishedFingerprint = implode(',', $publishedWidgetIds);
+        $currentFingerprint = self::revisionFingerprint($currentRevision['revisionId']);
+        $publishedFingerprint = self::revisionFingerprint($publishedRevision['revisionId']);
 
         $modified = $currentFingerprint != $publishedFingerprint;
 
@@ -552,7 +550,7 @@ class Model
     }
 
 
-    protected static function revisionWidgetIds($revisionId)
+    protected static function revisionFingerprint($revisionId)
     {
         $table = ipTable('widget');
         //compare revision content
@@ -563,6 +561,8 @@ class Model
                 $table
             WHERE
               `revisionId` = :revisionId
+              AND
+              `name` != 'Columns'
             ORDER BY
               blockName, `position`
         ";
@@ -581,6 +581,8 @@ class Model
                 $table
             WHERE
               `revisionId` = :revisionId
+              AND
+              `name` != 'Columns'
             ORDER BY
               blockName, `position`
         ";
