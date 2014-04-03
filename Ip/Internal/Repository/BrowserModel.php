@@ -84,7 +84,7 @@ class BrowserModel{
     {
         $file = ipFile('file/repository/' . $fileName);
         if (!file_exists($file) || !is_file($file)) {
-            throw new Exception("File doesn't exist ".$file);
+            throw new \Ip\Exception\Repository("File doesn't exist " . esc($file));
         }
 
         $pathInfo = pathinfo($file);

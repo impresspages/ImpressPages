@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller
             $revisionRecord = \Ip\Internal\Revision::getRevision($revisionId);
 
             if (!$revisionRecord) {
-                throw new Exception("Can't find required revision " . $revisionId, Exception::UNKNOWN_REVISION);
+                throw new \Ip\Exception\Content("Can't find required revision " . esc($revisionId), array('revisionId' => $revisionId));
             }
 
             $pageId = $revisionRecord['pageId'];
@@ -132,7 +132,7 @@ class AdminController extends \Ip\Controller
 
             }
             $widgetHtml = Model::generateWidgetPreview($widgetId, 1);
-        } catch (Exception $e) {
+        } catch (\Ip\Exception\Content $e) {
             return $this->_errorAnswer($e);
         }
 

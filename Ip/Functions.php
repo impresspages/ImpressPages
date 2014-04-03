@@ -953,7 +953,7 @@ function ipReflection($file, $options, $desiredName = null, $onDemand = true)
 
 /**
  * Get last exception of ipReflection method
- * @return \Ip\Internal\Repository\TransformException|null
+ * @return \Ip\Exception\Repository\Transform|null
  */
 function ipReflectionException()
 {
