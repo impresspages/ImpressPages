@@ -153,6 +153,8 @@
             var customTinyMceConfig = ipTinyMceConfig();
             customTinyMceConfig.menubar = false;
             customTinyMceConfig.toolbar = false;
+            customTinyMceConfig.toolbar1 = false;
+            customTinyMceConfig.toolbar2 = false;
             customTinyMceConfig.setup = function(ed, l) {
                 ed.on('change', function(e){$.proxy(self.save, self)(false)});
                 //ed.on('init', function(){$(this).trigger('init.tinymce')});
