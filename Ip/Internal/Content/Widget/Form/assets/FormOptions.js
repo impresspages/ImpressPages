@@ -124,8 +124,11 @@ var ipWidgetForm_SaveWysiwygOptions;
             addOption(); //add first empty option
         }
 
-        $context.find(".ipsFieldOptionsContainer").sortable();
-        $context.find(".ipsFieldOptionsContainer").sortable('option', 'handle', '.ipsOptionMove');
+
+        $( ".ipsFieldOptionsContainer" ).sortable({
+            handle: '.ipsOptionMove',
+            cancel: false
+        });
     };
 
     ipWidgetForm_SaveListOptions = function ($context) {
