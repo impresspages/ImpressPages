@@ -28,7 +28,7 @@ class Helper
      * Please note, that it is illogical to slice second level of menu if page on the first level is not selected.
      * In that case the function will return an empty array.
      *
-     * @param string $menuName
+     * @param string $menuName eg menu1
      * @param int $depthFrom
      * @param int $depthTo
      * @param string $orderBy can be set to 'title' to change ordering
@@ -93,6 +93,43 @@ class Helper
         $items = array();
         if (!empty($elements)) {
             $items = self::arrayToMenuItem($elements, $depthTo, $depthFrom, $order);
+        }
+
+        return $items;
+    }
+
+
+    /**
+     * Get children items of current or specified page.
+     * @param int|string $pageId pageId or an alias
+     * @param int $depthLimit limit the depth of items to be returned
+     * @param null $orderBy can be set to 'title' to change ordering
+     * @return array|Item[]
+     */
+    public static function getChildItems($pageId = null, $depthLimit = 1000, $orderBy = null)
+    {
+        if ($orderBy == 'title') {
+            $order = '`title`';
+        } else {
+            $order = '`pageOrder`';
+        }
+
+        if (is_string($pageId) && !ctype_digit($pageId)) {
+            //$pageId is an alias. Get the real id;
+            $pageId = ipContent()->getPage($pageId)->getId();
+            if (!$pageId) {
+                return array();
+            }
+        }
+        if ($pageId === null) {
+            $pageId = ipContent()->getCurrentPage()->getId();
+        }
+
+        $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
+
+        $items = array();
+        if (!empty($elements)) {
+            $items = self::arrayToMenuItem($elements, $depthLimit, 1, $order);
         }
 
         return $items;

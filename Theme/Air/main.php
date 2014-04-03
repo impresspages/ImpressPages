@@ -7,9 +7,9 @@
                 // $pages = \Ip\Menu\Helper::getMenuItems('menu1', 2, 7);
                 // echo ipSlot('menu', $pages);
 
-                // submenu of currently active menu item
-                // $pages = \Ip\Menu\Helper::getChildItems();
-                // echo ipSlot('menu', $pages);
+                 //submenu of currently active menu item
+                 //$pages = \Ip\Menu\Helper::getChildItems();
+                 //echo ipSlot('menu', $pages);
 
                 echo ipSlot('menu', 'menu2');
             ?>
