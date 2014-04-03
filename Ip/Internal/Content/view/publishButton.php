@@ -1,17 +1,34 @@
 <?php
-if ($isPublished) {
-    $publishClass = 'btn-default';
-    $buttonText = __('Published', 'Ip-admin', FALSE);
-} else {
-    $publishClass = 'btn-warning';
-    $buttonText = __('Publish', 'Ip-admin', FALSE);
+
+$buttonAction = 'ipsContentPublish';
+$buttonText = __('Published', 'Ip-admin', false);
+$buttonClass = 'btn-default';
+$revisionClass = 'btn-default';
+$button2Action = 'ipsContentSave';
+$button2Text = __('Save', 'Ip-admin', false);
+if (!$isPublished) {
+    $buttonText = __('Publish', 'Ip-admin', false);
+    $buttonClass = 'btn-warning';
 }
+
+if (!$isVisible) {
+    $buttonAction = 'ipsContentSave';
+    $button2Action = 'ipsContentPublish';
+
+    $button2Class = 'btn-warning';
+    $revisionClass = 'btn-warning';
+    $buttonClass = 'btn-default';
+
+    $buttonText = __('Save', 'Ip-admin', false);
+    $button2Text = __('Publish', 'Ip-admin', false);
+}
+
 ?>
 <div class="ipModuleContentPublishButton btn-group">
-    <button type="button" class="btn <?php echo $publishClass ?> navbar-btn ipsContentPublish"><?php echo esc($buttonText) ?></button>
-    <button type="button" class="btn <?php echo $publishClass ?> navbar-btn dropdown-toggle ipsContentRevisions" data-toggle="dropdown"><i class="fa fa-fw fa-caret-down"></i></button>
+    <button type="button" class="btn <?php echo $buttonClass ?> navbar-btn <?php echo $buttonAction ?>"><?php echo esc($buttonText) ?></button>
+    <button type="button" class="btn <?php echo $revisionClass ?> navbar-btn dropdown-toggle ipsContentRevisions" data-toggle="dropdown"><i class="fa fa-fw fa-caret-down"></i></button>
     <ul class="_revisions dropdown-menu" role="menu">
-        <li class="_button"><button type="button" class="btn btn-default btn-block ipsContentSave"><?php _e('Save now', 'Ip-admin') ?></button></li>
+        <li class="_button"><button type="button" class="btn <?php echo $button2Class ?>  btn-block <?php echo $button2Action ?>"><?php echo esc($button2Text) ?></button></li>
         <li class="divider"></li>
         <?php foreach ($revisions as $revisionKey => $revision){
             $revisionClass = '';
