@@ -56,7 +56,7 @@ class Page
     {
         if (is_numeric($id)) {
             //select by page id from the database
-            $page = ipDb()->selectRow('page', '*', array('id' => $id));
+            $page = ipDb()->selectRow('page', '*', array('id' => $id, 'isDeleted' => 0));
             if (!$page) {
                 $id = esc($id);
                 throw new \Ip\Exception("Page #" . esc($id) . " not found.");
@@ -66,7 +66,7 @@ class Page
             $page = $id;
         } else {
             //select by alias from the database
-            $page = ipDb()->selectRow('page', '*', array('alias' => $id));
+            $page = ipDb()->selectRow('page', '*', array('alias' => $id, 'isDeleted' => 0));
             if (!$page) {
                 throw new \Ip\Exception("Page #" . esc($id) . " not found.");
             }
