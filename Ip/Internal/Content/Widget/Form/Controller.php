@@ -75,11 +75,11 @@ class Controller extends \Ip\WidgetController{
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'sendTo',
-                'label' => __('Mouse click action', 'Ip-admin', false) . ' (' . ipGetOption('Config.websiteEmail') . ')'
+                'label' => __('Recipient', 'Ip-admin', false)
             ));
 
         $values = array(
-            array('default', __('Website\'s email', 'Ip-admin', false)),
+            array('default', __('Website\'s email', 'Ip-admin', false). ' (' . ipGetOption('Config.websiteEmail') . ')'),
             array('custom', __('Custom emails separated by space', 'Ip-admin', false))
         );
         $field->setValues($values);
