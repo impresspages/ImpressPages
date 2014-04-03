@@ -16,12 +16,24 @@ namespace Ip\Menu;
 class Helper
 {
 
-    /**
+    /**     *
+     * Get specific levels of menu.
+     *
+     * Common usage:
+     * Get items of first level (to display on top of the site): getMenuItems('menu1', 1, 1);
+     * Get 7 levels of children of selected page on top menu (to display on a side): getMenuItems('menu1', 2,  7);
+     *
+     * Pass the result to ipSlot('menu', arra('items' => $result));
+     *
+     * Please note, that it is illogical to slice second level of menu if page on the first level is not selected.
+     * In that case the function will return an empty array.
+     *
      * @param string $menuName
      * @param int $depthFrom
      * @param int $depthTo
      * @param string $orderBy can be set to 'title' to change ordering
      * @return Item[]
+     * @throws \Ip\Exception
      */
     public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000, $orderBy = null)
     {
@@ -35,25 +47,23 @@ class Helper
         if ($depthFrom < 1) {
             $backtrace = debug_backtrace();
             if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                trigger_error(
+                throw new \Ip\Exception(
                     '$depthFrom can\'t be less than one. (Error source: ' . $backtrace[0]['file'] . ' line: ' . $backtrace[0]['line'] . ' ) '
                 );
             } else {
-                trigger_error('$depthFrom can\'t be less than one.');
+                throw new \Ip\Exception ('$depthFrom can\'t be less than one.');
             }
-            return;
         }
 
         if ($depthTo < $depthFrom) {
             $backtrace = debug_backtrace();
             if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                trigger_error(
+                throw new \Ip\Exception(
                     '$depthTo can\'t be lower than $depthFrom. (Error source: ' . $backtrace[0]['file'] . ' line: ' . $backtrace[0]['line'] . ' ) '
                 );
             } else {
-                trigger_error('$depthTo can\'t be lower than $depthFrom.');
+                throw new \Ip\Exception('$depthTo can\'t be lower than $depthFrom.');
             }
-            return;
         }
         //end variable check
 
