@@ -1040,8 +1040,12 @@ class HnCaptcha
         /** @private **/
         public function get_filename_url($public='')
         {
-            if($public==='') $public = $this->public_key;
-            return str_replace(ipFile(''), '', $this->tempfolder).$public.'.jpg';
+            if ($public === '') {
+                $public = $this->public_key;
+            }
+            $root = ipFile('');
+            $root = str_replace(array('\\'), array('/'), $root); //HnCaptcha has done this on tempfolder. We need to do this on $root too.
+            return str_replace($root, '', $this->tempfolder).$public.'.jpg';
         }
 
         /** @private **/
