@@ -245,7 +245,7 @@ DROP TABLE IF EXISTS `ip_administrator`;
 CREATE TABLE `ip_administrator` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL DEFAULT '',
-  `hash` text NOT NULL DEFAULT '',
+  `hash` text NOT NULL,
   `email` varchar(255) NOT NULL DEFAULT '',
   `resetSecret` varchar(32) DEFAULT NULL,
   `resetTime` int(11) DEFAULT NULL,
