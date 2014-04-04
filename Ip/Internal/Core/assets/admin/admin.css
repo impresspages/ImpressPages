@@ -3623,6 +3623,7 @@
   display: block;
 }
 .ip .nav > li > a {
+  cursor: pointer;
   position: relative;
   display: block;
   padding: 10px 15px;
@@ -7859,6 +7860,9 @@
 .ip .navbar-center .dropdown-menu > li > a * {
   white-space: inherit;
 }
+.ip .dropdown-menu > li > a {
+  cursor: pointer;
+}
 .ip th {
   font-weight: bold;
 }
@@ -8095,6 +8099,7 @@
 }
 .ip .ipAdminPanel ._widgets ._scrollButton {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
+  cursor: pointer;
   display: block;
   height: 100%;
   position: absolute;
@@ -8117,6 +8122,9 @@
 }
 .ip .ipAdminPanel ._widgets ._container {
   margin: 0 40px;
+}
+.ip .ipAdminPanel ._widgets ._container li {
+  cursor: move;
 }
 .ip .ipAdminPanel ._widgets ._container:before,
 .ip .ipAdminPanel ._widgets ._container:after {
