@@ -335,11 +335,11 @@ class Db
             $params[] = $value;
         }
         $sql = substr($sql, 0, -2);
-        
+
         if (empty($params)) {
             $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " () VALUES()";
         }
-        
+
 
         if ($this->execute($sql, $params)) {
             $lastInsertId = $this->getConnection()->lastInsertId();
@@ -395,6 +395,9 @@ class Db
         $params = array();
         foreach ($update as $column => $value) {
             $sql .= "`{$column}` = ? , ";
+            if (is_bool($value)) {
+                $value = $value ? 1 : 0;
+            }
             $params[] = $value;
         }
         $sql = substr($sql, 0, -2);
@@ -407,6 +410,9 @@ class Db
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
                     $params[] = $value;
                 }
             }
