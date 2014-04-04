@@ -11,7 +11,7 @@ class Migration {
 
 
     //CHANGE_ON_VERSION_UPDATE
-    
+
     public static function update_34()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
