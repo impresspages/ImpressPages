@@ -87,4 +87,15 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $values);
     }
 
+    public function testInstallDbStructure()
+    {
+        $installStructureFile = ipFile('install/Plugin/Install/sql/structure.sql');
+
+        $sql = file_get_contents($installStructureFile);
+
+        $this->assertNotEmpty($sql);
+
+        $this->assertEquals(false, strpos($sql, 'CREATE TABLE IF NOT EXISTS'));
+    }
+
 }
