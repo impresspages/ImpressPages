@@ -18,15 +18,15 @@ INSERT INTO `ip_page_storage` (`pageId`, `key`, `value`) VALUES
 (4, 'layout', '"home.php"');
 
 INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES
-(1, 4, 1, '[[[[time]]]]'),
-(2, 5, 1, '[[[[time]]]]');
+(1, 4, 1, '[[[[timestamp]]]]'),
+(2, 5, 1, '[[[[timestamp]]]]');
 
 
 INSERT INTO `ip_widget` (`id`, `revisionId`, `position`, `languageId`, `blockName`, `isVisible`, `isDeleted`, `name`, `skin`, `data`, `createdAt`, `updatedAt`) VALUES
-(1, 1, 50, 0, 'main', 1, 0, 'Heading', 'default', '{"title":"Home page","level":"1"}', '[[[[time]]]]', '[[[[time]]]]'),
-(2, 1, 90, 0, 'main', 1, 0, 'Text', 'default', '{"text":"<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, tellus posuere sodales rhoncus, nulla nulla dignissim leo, ac consectetur elit mauris quis leo. Phasellus odio orci, ultricies sit amet tristique ac, varius at nisi. Vivamus eros massa, aliquet at sem ut, placerat interdum elit. Vivamus nisi augue, auctor eget malesuada vel, pulvinar eget orci. Quisque sit amet posuere augue. Aenean sodales augue non aliquam molestie. Nunc feugiat aliquam orci a aliquet. Aenean fermentum enim a luctus posuere. Mauris elementum facilisis urna, a adipiscing tortor congue vel. Nullam facilisis ultrices quam. Donec nunc orci, ullamcorper hendrerit nunc a, fringilla rhoncus est. Suspendisse laoreet posuere sapien.<\\/span>\\u00a0<\\/p>"}', '[[[[time]]]]', '[[[[time]]]]'),
-(3, 2, 50, 0, 'main', 1, 0, 'Heading', 'default', '{"title":"Page content","level":"1"}', '[[[[time]]]]', '[[[[time]]]]'),
-(4, 2, 90, 0, 'main', 1, 0, 'Text', 'default', '{"text":"<p><span>Aliquam erat volutpat. Donec rutrum venenatis dignissim. Duis eu neque in neque venenatis tincidunt sit amet sed velit. Pellentesque quis luctus orci. Phasellus sed aliquam risus, eu varius sapien. Etiam ac adipiscing enim, eu molestie erat. Donec sodales pulvinar lorem, ut sagittis purus suscipit nec. In id velit nec nisi porta egestas. Maecenas rutrum felis vel nunc varius, vel ornare lectus dignissim. Maecenas vitae ante dui. Maecenas sollicitudin dolor at enim porttitor, eu placerat nulla adipiscing. Morbi sed varius nisi, sed posuere risus. Ut velit urna, dignissim ac lobortis id, sollicitudin non libero. Donec arcu massa, facilisis ut sapien et, aliquet porta dui.<\\/span>\\u00a0<\\/p>"}', '[[[[time]]]]', '[[[[time]]]]');
+(1, 1, 50, 0, 'main', 1, 0, 'Heading', 'default', '{"title":"Home page","level":"1"}', '[[[[timestamp]]]]', '[[[[timestamp]]]]'),
+(2, 1, 90, 0, 'main', 1, 0, 'Text', 'default', '{"text":"<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec accumsan, tellus posuere sodales rhoncus, nulla nulla dignissim leo, ac consectetur elit mauris quis leo. Phasellus odio orci, ultricies sit amet tristique ac, varius at nisi. Vivamus eros massa, aliquet at sem ut, placerat interdum elit. Vivamus nisi augue, auctor eget malesuada vel, pulvinar eget orci. Quisque sit amet posuere augue. Aenean sodales augue non aliquam molestie. Nunc feugiat aliquam orci a aliquet. Aenean fermentum enim a luctus posuere. Mauris elementum facilisis urna, a adipiscing tortor congue vel. Nullam facilisis ultrices quam. Donec nunc orci, ullamcorper hendrerit nunc a, fringilla rhoncus est. Suspendisse laoreet posuere sapien.<\\/span>\\u00a0<\\/p>"}', '[[[[timestamp]]]]', '[[[[timestamp]]]]'),
+(3, 2, 50, 0, 'main', 1, 0, 'Heading', 'default', '{"title":"Page content","level":"1"}', '[[[[timestamp]]]]', '[[[[timestamp]]]]'),
+(4, 2, 90, 0, 'main', 1, 0, 'Text', 'default', '{"text":"<p><span>Aliquam erat volutpat. Donec rutrum venenatis dignissim. Duis eu neque in neque venenatis tincidunt sit amet sed velit. Pellentesque quis luctus orci. Phasellus sed aliquam risus, eu varius sapien. Etiam ac adipiscing enim, eu molestie erat. Donec sodales pulvinar lorem, ut sagittis purus suscipit nec. In id velit nec nisi porta egestas. Maecenas rutrum felis vel nunc varius, vel ornare lectus dignissim. Maecenas vitae ante dui. Maecenas sollicitudin dolor at enim porttitor, eu placerat nulla adipiscing. Morbi sed varius nisi, sed posuere risus. Ut velit urna, dignissim ac lobortis id, sollicitudin non libero. Donec arcu massa, facilisis ut sapien et, aliquet porta dui.<\\/span>\\u00a0<\\/p>"}', '[[[[timestamp]]]]', '[[[[timestamp]]]]');
 
 
 
