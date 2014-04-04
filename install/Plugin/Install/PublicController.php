@@ -188,7 +188,10 @@ class PublicController extends \Ip\Controller
 
         $check = array();
         $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
-        if (!Helper::isDirectoryWritable(Model::ipFile('Theme/'))) {
+
+        // We cannot use Model::ipFile('Theme/') cause it is overriden
+        // and points to install/Theme
+        if (!Helper::isDirectoryWritable(Model::ipFile('') . 'Theme')) {
             $check['type'] = 'error';
             $errors['writable_themes'] = 1;
         } else {

@@ -132,7 +132,7 @@ CREATE TABLE `ip_repository_reflection` (
 
 DROP TABLE IF EXISTS `ip_widget`;
 
-CREATE TABLE IF NOT EXISTS `ip_widget` (
+CREATE TABLE `ip_widget` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `skin` varchar(25) NOT NULL,
