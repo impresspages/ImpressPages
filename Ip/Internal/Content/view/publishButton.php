@@ -13,7 +13,7 @@ if (!$isPublished) {
     $revisionClass = 'btn-warning';
 }
 
-if (!$isVisible) {
+if (!$isVisible && ipIsManagementState()) {
     $buttonAction = 'ipsContentSave';
     $button2Action = 'ipsContentPublish';
 
