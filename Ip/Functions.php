@@ -911,7 +911,7 @@ function ipPageStorage($pageId = NULL)
 {
     if (!$pageId) {
         $page = ipContent()->getCurrentPage();
-        if (!$pageId) {
+        if (!$page) {
             return null;
         }
 

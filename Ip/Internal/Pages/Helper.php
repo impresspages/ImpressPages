@@ -251,7 +251,7 @@ class Helper
             array(
                 'name' => 'isBlank',
                 'label' => __('Open in new window', 'Ip-admin', FALSE),
-                'value' => $page->isSecured()
+                'value' => $page->isBlank()
             ));
         $form->addField($field);
 
