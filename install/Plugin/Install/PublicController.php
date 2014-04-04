@@ -83,7 +83,7 @@ class PublicController extends \Ip\Controller
         // $languages['pt'] = 'Portugues'; // something is broken with translations
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
-        $languages['ru'] = 'Руский';
+        $languages['ru'] = 'Русский';
         $languages['tr'] = 'Türk';
 
         $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
