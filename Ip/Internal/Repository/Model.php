@@ -121,11 +121,11 @@ class Model{
         $destination = ipFile('file/repository/');
 
         if ($desiredName === null) {
-            $desiredName = basename($file['fileName']); //to avoid any tricks with relative paths, etc.
+            $desiredName = basename($file); //to avoid any tricks with relative paths, etc.
         }
 
         $newName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $destination);
-        copy(ipFile('file/tmp/' . $file['fileName']), $destination . $newName);
+        copy($file, $destination . $newName);
         return $newName;
     }
 

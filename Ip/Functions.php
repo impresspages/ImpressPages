@@ -980,7 +980,7 @@ function ipPage($pageId)
 function ipRepositoryAddFile($file, $desiredName = null)
 {
     $repositoryModel = \Ip\Internal\Repository\Model::instance();
-    $repositoryModel->addFile($file, $desiredName);
+    return $repositoryModel->addFile($file, $desiredName);
 }
 
 
