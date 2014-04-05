@@ -393,8 +393,9 @@ class Content
 
 
     /**
-     * Get childre
+     * Get children
      * @param string|int $parent
+     * @return \Ip\Page[]
      */
     public function getChildren($parentId = null, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
@@ -404,7 +405,7 @@ class Content
 
         $page = $this->getPage($parentId);
         if (!$page) {
-            return;
+            return array();
         }
         return $page->getChildren($from, $till, $orderBy, $direction);
     }
