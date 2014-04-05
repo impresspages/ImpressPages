@@ -7756,7 +7756,7 @@
   color: #fff;
   display: none;
   font-size: 12px;
-  padding: 4px 10px 2px;
+  padding: 4px 10px;
   position: absolute;
   right: 0;
   top: 0;
@@ -7765,13 +7765,14 @@
 }
 .ip .help-error {
   background-color: #d9534f;
+  border-radius: 4px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   color: #fff;
   display: none;
   font-size: 12px;
-  padding: 4px 10px 2px;
+  padding: 4px 10px
   width: 100%;
 }
 .ip .has-error .help-error {
