@@ -1,6 +1,5 @@
-
 $(document).ready(function() {
     "use strict";
-    $('.ipmControlInput').first().focus();
+    $('input[name="password"]').focus();
 
 });
