@@ -123,6 +123,7 @@
 }
 .ip a {
   background: transparent;
+  cursor: pointer;
 }
 .ip a:active,
 .ip a:hover {
@@ -8117,6 +8118,10 @@
 }
 .ip .ipAdminPanel ._widgets ._container {
   margin: 0 40px;
+}
+.ip .ipAdminPanel ._widgets ._container li,
+.ip .ipAdminPanel ._widgets ._container li a {
+  cursor: move;
 }
 .ip .ipAdminPanel ._widgets ._container:before,
 .ip .ipAdminPanel ._widgets ._container:after {
