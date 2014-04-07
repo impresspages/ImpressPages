@@ -113,8 +113,7 @@ class Model{
             throw new \Ip\Exception("File doesn't exist");
         }
 
-        $absoluteSource = str_replace('\\', '/', realpath($file));
-        if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) === 0) {
+        if (strpos(realpath($file), realpath(ipFile('file/repository/'))) === 0) {
             throw new \Ip\Exception("Requested file (".$file.") is already in the repository");
         }
 
