@@ -290,15 +290,7 @@ class Page
      */
     public function getLink()
     {
-        if (ipGetOption('Config.multilingual')) {
-            $language = ipContent()->getLanguageByCode($this->languageCode);
-            if (!$language) {
-                return '';
-            }
-            return ipConfig()->baseUrl() . $language->getUrlPath() . $this->urlPath;
-        } else {
-            return ipConfig()->baseUrl() . $this->urlPath;
-        }
+        return ipHomeUrl() . $this->urlPath;
     }
 
     /**
