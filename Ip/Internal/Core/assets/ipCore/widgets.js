@@ -61,7 +61,10 @@ jQuery.fn.ipWidgetMap = function() {
                     position: new google.maps.LatLng($map.data('markerlat'), $map.data('markerlng')),
                     map: map
                 });
+
             }
+
+            $widget.trigger('ipWidgetMapInit', {map: map, marker: marker});
 
         }
 
