@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller{
         foreach ($files as $file) {
             $source = ipFile('file/tmp/' . $file['fileName']);
             $source = realpath($source); //to avoid any tricks with relative paths, etc.
-            if (strpos($source, ipFile('file/tmp/')) !== 0) {
+            if (strpos($source, realpath(ipFile('file/tmp/'))) !== 0) {
                 ipLog()->alert('Core.triedToAccessNonPublicFile', array('file' => $file['fileName']));
                 continue;
             }
