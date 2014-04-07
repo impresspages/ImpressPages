@@ -25,15 +25,15 @@ class PublicController extends \Ip\Controller {
         }
 
 
-        $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/' . $file)));
+        $absoluteSource = realpath(ipFile('file/' . $file));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new \Ip\Exception\Repository\Transform("File doesn't exist", array('filename' => $absoluteSource));
         }
 
         if (
-            strpos($absoluteSource, str_replace('\\', '/',ipFile('file/'))) !== 0
+            strpos($absoluteSource, realpath(ipFile('file/'))) !== 0
             ||
-            strpos($absoluteSource, str_replace('\\', '/',ipFile('file/secure'))) === 0
+            strpos($absoluteSource, realpath(ipFile('file/secure'))) === 0
         ) {
             throw new \Exception("Requested file (".$file.") is outside of public dir");
         }
