@@ -242,11 +242,11 @@ class Request
             return $requestPath;
         }
 
-        if (strpos($requestPath, '/index.php') === 0) { // remove index.php if needed
-            $requestPath = substr($requestPath, 10);
-        }
-
         $relativePath = substr($requestPath, strlen($basePath));
+
+        if (strpos($relativePath, 'index.php') === 0) { // remove index.php if needed
+            $relativePath = substr($relativePath, 9);
+        }
 
         return $relativePath ? ltrim($relativePath, '/') : '';
     }
