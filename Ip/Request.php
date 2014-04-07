@@ -47,7 +47,7 @@ class Request
         $server['REDIRECT_QUERY_STRING'] = '';
         $server['REDIRECT_URL'] = '';
         $server['QUERY_STRING'] = '';
-        $server['REQUEST_URI'] = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH);
+        $server['REQUEST_URI'] = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH); // default uri points to root
         $this->setServer($server);
     }
 
