@@ -1,15 +1,13 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Core;
 
 
-
-class AdminController extends \Ip\Controller{
-
+class AdminController extends \Ip\Controller
+{
 
     public function getPageUrl()
     {
@@ -29,7 +27,6 @@ class AdminController extends \Ip\Controller{
             'url' => $url,
             'success' => $success
         );
-
 
         return new \Ip\Response\Json($answer);
     }
