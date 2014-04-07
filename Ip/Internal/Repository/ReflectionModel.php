@@ -84,12 +84,12 @@ class ReflectionModel
 
     private function createReflectionRecord($source, $options, $desiredName)
     {
-        $absoluteSource = str_replace('\\', '/', realpath(ipFile('file/repository/' . $source)));
+        $absoluteSource = realpath(ipFile('file/repository/' . $source));
         if (!$absoluteSource || !is_file($absoluteSource)) {
             throw new \Ip\Exception\Repository\Transform("File doesn't exist", array('filename' => $absoluteSource));
         }
 
-        if (strpos($absoluteSource, str_replace('\\', '/',ipFile('file/repository/'))) !== 0) {
+        if (strpos($absoluteSource, realpath(ipFile('file/repository/'))) !== 0) {
             throw new \Exception("Requested file (".$source.") is outside repository dir");
         }
 

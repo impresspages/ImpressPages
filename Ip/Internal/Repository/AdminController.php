@@ -129,7 +129,7 @@ class AdminController extends \Ip\Controller{
         }
 
         $realFile = realpath(ipFile('file/repository/' . $file));
-        if (strpos($realFile, ipFile('file/repository/')) !== 0) {
+        if (strpos($realFile, realpath(ipFile('file/repository/'))) !== 0) {
             return false;
         }
 
