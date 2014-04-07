@@ -100,6 +100,8 @@ var IpWidget_Map = function () {
             $.proxy(placeMarker, context)(event.latLng);
         });
 
+        $widget.trigger('ipWidgetMapInit', {map: map, marker: this.marker});
+
 
     }
 
