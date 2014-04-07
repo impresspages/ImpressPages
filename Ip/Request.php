@@ -47,9 +47,8 @@ class Request
         $server['REDIRECT_QUERY_STRING'] = '';
         $server['REDIRECT_URL'] = '';
         $server['QUERY_STRING'] = '';
-        $server['REQUEST_URI'] = '/';
+        $server['REQUEST_URI'] = parse_url(ipConfig()->baseUrl(), PHP_URL_PATH);
         $this->setServer($server);
-
     }
 
     /**
@@ -310,7 +309,7 @@ class Request
     {
         $relativePath = $this->getRelativePath();
 
-        if (!$relativePath || (empty($relativePath[0]) || $relativePath[0] == '?' || ltrim($relativePath, '/') == 'index.php')) {
+        if (!$relativePath || (empty($relativePath[0]) || $relativePath[0] == '?' || $relativePath == 'index.php')) {
             return true;
         }
 
