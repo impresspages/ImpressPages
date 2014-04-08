@@ -701,7 +701,7 @@ function ipHtmlAttributes($doctype = null)
             break;
         case \Ip\Response\Layout::DOCTYPE_HTML5:
             $lang = $content->getCurrentLanguage()->getCode();
-            $answer = ' lang="'.$lang.'"';
+            $answer = ' lang="' . escAttr($lang) . '"';
             break;
     }
     return  $answer;
