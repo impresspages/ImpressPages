@@ -184,9 +184,11 @@ var ipPageDragId;
                         $modal.find('.ipsDelete').addClass('hidden');
                         $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
-                            deletePage(menu.id);
-                            window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
-                            location.reload();
+                            deletePage(menu.id, function () {
+                                window.location = ip.baseUrl + '?aa=Pages.index#/hash=&language=' + $scope.activeLanguage.code + '&menu=' + $scope.activeMenu.alias;
+                                location.reload();
+                            });
+
                         });
                     });
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
