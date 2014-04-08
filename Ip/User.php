@@ -19,7 +19,7 @@ class User
      */
     function loggedIn()
     {
-        return isset($_SESSION['ipUser']['userId']);
+        return isset($_SESSION['ipUserId']);
     }
 
     /**
@@ -28,9 +28,9 @@ class User
      */
     function logout()
     {
-        if (isset($_SESSION['ipUser']['userId'])) {
+        if (isset($_SESSION['ipUserId'])) {
             ipEvent('ipBeforeUserLogout', array('userId' => $this->userId()));
-            unset($_SESSION['ipUser']['userId']);
+            unset($_SESSION['ipUserId']);
             ipEvent('ipUserLogout', array('userId' => $this->userId()));
         }
     }
@@ -41,8 +41,8 @@ class User
      */
     function userId()
     {
-        if (isset($_SESSION['ipUser']['userId'])) {
-            return $_SESSION['ipUser']['userId'];
+        if (isset($_SESSION['ipUserId'])) {
+            return $_SESSION['ipUserId'];
         } else {
             return false;
         }
@@ -56,7 +56,7 @@ class User
     function login($id)
     {
         ipEvent('ipUserLogin', array('userId' => $id));
-        $_SESSION['ipUser']['userId'] = $id;
+        $_SESSION['ipUserId'] = $id;
     }
 
 
