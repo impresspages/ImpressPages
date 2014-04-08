@@ -12,6 +12,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
     public function setup()
     {
         TestEnvironment::setupCode();
+        ipContent()->_setCurrentLanguage(ipContent()->getLanguageByCode('en'));
     }
 
     public function testCreateMenu()
@@ -212,10 +213,6 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $urlPath = function ($key) use ($pages) {
             $page = Service::getPage($pages[$key]);
             return $page['urlPath'];
-        };
-
-        $pageUrl = function ($key) use ($pages) {
-            return ipPage($pages[$key])->getLink();
         };
 
         foreach ($pages as $path => $pageId) {
