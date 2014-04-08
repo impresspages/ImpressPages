@@ -92,6 +92,19 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         $config = include TEST_TMP_DIR . 'config-testWriteConfig1.php';
 
         $this->assertNotEmpty($config);
+        $this->assertTrue(!array_key_exists('rewritesDisabled', $config), 'rewritesDisabled should not be set');
+
+
+        // test whether rewritesDisabled works
+        $settings = array(
+            'rewritesDisabled' => true,
+        );
+        \Plugin\Install\Model::writeConfigFile($settings, TEST_TMP_DIR . 'config-testWriteConfig1.php');
+
+        $config = include TEST_TMP_DIR . 'config-testWriteConfig1.php';
+
+        $this->assertTrue(array_key_exists('rewritesDisabled', $config), 'config does not contain rewritesDisabled entry');
+        $this->assertTrue($config['rewritesDisabled'], 'rewritesDisabled is false');
     }
 
     public function testConfigBeauty()

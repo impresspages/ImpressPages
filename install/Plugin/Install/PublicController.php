@@ -122,11 +122,6 @@ class PublicController extends \Ip\Controller
         $requirements[] = $check;
 
         $check = array();
-        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
-        $check['type'] = isset($errors['mod_rewrite']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
         $check['name'] = __('PHP module "PDO"', 'Install');
         $check['type'] = isset($errors['mod_pdo']) ? 'error' : 'success';
         $requirements[] = $check;
@@ -156,6 +151,11 @@ class PublicController extends \Ip\Controller
         $check = array();
         $check['name'] = __('Magic quotes off (optional)', 'Install');
         $check['type'] = isset($errors['magic_quotes']) ? 'error' : 'success';
+        $requirements[] = $check;
+
+        $check = array();
+        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
+        $check['type'] = isset($warnings['mod_rewrite']) ? 'warning' : 'success';
         $requirements[] = $check;
 
         $check = array();
@@ -520,6 +520,10 @@ class PublicController extends \Ip\Controller
         $config['sessionName'] = 'ses' . rand();
         $config['timezone'] = $timezone;
         $config['db'] = $_SESSION['db'];
+
+        if (empty($_SESSION['rewritesEnabled'])) {
+            $config['rewritesDisabled'] = true;
+        }
 
         try {
             Model::writeConfigFile($config, ipFile('config.php'));
