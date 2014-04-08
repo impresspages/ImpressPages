@@ -56,6 +56,8 @@ class TestEnvironment
         \Ip\ServiceLocator::addRequest(new \Ip\Request());
 
         \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
+
+        ipContent()->_setCurrentLanguage(ipContent()->getLanguageByCode('en'));
     }
 
     public static function filesSetup()
