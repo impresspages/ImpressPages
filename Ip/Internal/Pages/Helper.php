@@ -24,7 +24,7 @@ class Helper
         'sortField' => 'pageOrder',
         'pageSize' => ipGetOption('Pages.pageListSize', 30),
         'pageVariableName' => 'gpage',
-        'filter' => 'parentId = ' . (int) $parentId, //rename to sqlWhere
+        'filter' => 'isDeleted = 0 and parentId = ' . (int) $parentId, //rename to sqlWhere
         'fields' => array(
             array(
                 'label' => __('Title', 'Ip-admin', FALSE),
