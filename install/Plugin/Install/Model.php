@@ -36,16 +36,6 @@ class Model
         $error = array();
         $warning = array();
 
-        if (function_exists('apache_get_modules')) {
-            if (!in_array('mod_rewrite', apache_get_modules()))
-                $error['mod_rewrite'] = 1;
-        }
-
-        if (function_exists('apache_get_modules')) {
-            if (!in_array('mod_rewrite', apache_get_modules()))
-                $error['mod_rewrite'] = 1;
-        }
-
         if (!class_exists('PDO')) {
             $error['mod_pdo'] = 1;
         }
@@ -60,6 +50,14 @@ class Model
 
         if (!extension_loaded('gd') || !function_exists('gd_info')) {
             $error['gd_lib'] = 1;
+        }
+
+        if (empty($_SESSION['rewritesEnabled'])) { // this test is done through ajax in step 0
+            $warning['mod_rewrite'] = 1;
+
+            // old way to test
+            // if (function_exists('apache_get_modules'))
+            //    if (!in_array('mod_rewrite', apache_get_modules())
         }
 
         if (get_magic_quotes_gpc()) {
@@ -154,6 +152,10 @@ class Model
                 'value' => 0,
                 'comment' => "Debug mode loads raw unminified JS files, alerts AJAX errors.",
             ),
+            'rewritesDisabled' => array(
+                'value' => null, // this value will not be written to config if not changed
+                'comment' => 'Install has not detected mod_rewrite. Delete this line if mod_rewrite is enabled'
+            ),
             // END GLOBAL
 
 
@@ -185,6 +187,9 @@ class Model
         // Generate config code:
         $configCode = "";
         foreach ($configInfo as $key => $info) {
+            if (is_null($info['value'])) {
+                continue;
+            }
             $exportedString = var_export($info['value'], true);
             if (is_array($info['value'])) {
                 $exportedString = self::addSpacesOnNewLines($exportedString);
