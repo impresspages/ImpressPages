@@ -59,7 +59,7 @@ class UploadModel{
 
         if ($secureFolder) {
             $sizeLimit = ipGetOption('Repository.publicUploadLimit', 4000);
-            if ($this->folderSize($targetDir) > $sizeLimit * 1000000git s) { //4000 Mb by default
+            if ($this->folderSize($targetDir) > $sizeLimit * 1000000) { //4000 Mb by default
                 ipLog()->error("Repository.publicUploadLimitReached: IP: `{ip}`. CurrentLimit `{limit}Mb`. Please update Repository.publicUploadLimit option to increase the limits.", array('ip' => $_SERVER['REMOTE_ADDR'], 'limit' => $sizeLimit));
                 throw new \Ip\Exception("Upload limit reached");
             }
