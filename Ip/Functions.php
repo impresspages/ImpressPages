@@ -1007,3 +1007,14 @@ function ipUnbindFile($file, $plugin, $id)
 {
     \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
 }
+
+
+/**
+ * Get user login manipulation object
+ * @return \Ip\User
+ */
+function ipUser()
+{
+    $user = new \Ip\User();
+    return $user;
+}
