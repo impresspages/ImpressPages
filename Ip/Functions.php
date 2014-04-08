@@ -701,7 +701,7 @@ function ipHtmlAttributes($doctype = null)
             break;
         case \Ip\Response\Layout::DOCTYPE_HTML5:
             $lang = $content->getCurrentLanguage()->getCode();
-            $answer = ' lang="'.$lang.'"';
+            $answer = ' lang="' . escAttr($lang) . '"';
             break;
     }
     return  $answer;
@@ -1006,4 +1006,15 @@ function ipBindFile($file, $plugin, $id)
 function ipUnbindFile($file, $plugin, $id)
 {
     \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
+}
+
+
+/**
+ * Get user login manipulation object
+ * @return \Ip\User
+ */
+function ipUser()
+{
+    $user = new \Ip\User();
+    return $user;
 }
