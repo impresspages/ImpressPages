@@ -94,6 +94,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
 
@@ -119,6 +122,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql . " LIMIT 1");
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
 
@@ -144,6 +150,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
 
@@ -182,6 +191,9 @@ class Db
                 if ($value === NULL) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
                     $sql .= "`{$column}` = ? AND ";
                     $params[] = $value;
                 }
@@ -244,6 +256,9 @@ class Db
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
                     $params[] = $value;
                 }
             }
@@ -260,6 +275,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue($key + 1, $value);
             }
 
@@ -282,6 +300,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
 
@@ -306,6 +327,9 @@ class Db
         try {
             $query = $this->getConnection()->prepare($sql);
             foreach ($params as $key => $value) {
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $query->bindValue(is_numeric($key) ? $key + 1 : $key, $value);
             }
 
@@ -332,6 +356,9 @@ class Db
 
         foreach ($row as $column => $value) {
             $sql .= "`{$column}` = ?, ";
+            if (is_bool($value)) {
+                $value = $value ? 1 : 0;
+            }
             $params[] = $value;
         }
         $sql = substr($sql, 0, -2);
@@ -368,6 +395,9 @@ class Db
                 $sql .= "`{$column}` IS NULL AND ";
             } else {
                 $sql .= "`{$column}` = ? AND ";
+                if (is_bool($value)) {
+                    $value = $value ? 1 : 0;
+                }
                 $params[] = $value;
             }
         }
