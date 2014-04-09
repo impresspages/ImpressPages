@@ -41,10 +41,12 @@ class View
     /**
      * Set view variables
      * @param $variables
+     * @return $this
      */
     public function setVariables($variables)
     {
         $this->data = $variables;
+        return $this;
     }
 
     /**
@@ -61,19 +63,23 @@ class View
      * Set a single view variable
      * @param string $name
      * @param $value
+     * @return $this
      */
     public function setVariable($name, $value)
     {
         $this->data[$name] = $value;
+        return $this;
     }
 
     /**
      * Unset a view variable
      * @param $name
+     * @return $this
      */
     public function unsetVariable($name)
     {
         unset($this->data[$name]);
+        return $this;
     }
 
     /**
@@ -141,9 +147,11 @@ class View
     /**
      * Set DOCTYPE declaration.
      * @param $doctype
+     * @return $this
      */
     public function setDoctype ($doctype) {
         $this->doctype = $doctype;
+        return $this;
     }
 
     /**
@@ -177,7 +185,4 @@ class View
             }
         }
     }
-
-
-
 }
