@@ -30,7 +30,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.1.0'; //CHANGE_ON_VERSION_UPDATE
+        return '4.0.10'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
