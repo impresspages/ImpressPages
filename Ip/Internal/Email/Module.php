@@ -192,6 +192,9 @@ class Module
                     }
 
                     $mail->AddAddress($email['to'], $email['toName']);
+
+                    $mail = ipFilter('ipSendEmailPHPMailerObject', $mail, $email);
+
                     if (!$mail->Send()) {
                         ipLog()->error(
                             'Email.sendFailed: {subject} to {to}',
