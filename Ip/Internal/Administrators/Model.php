@@ -131,7 +131,7 @@ class Model{
     private static function passwordHash($password)
     {
         $stretching = ipGetOption('Admin.passwordStretchingIterations', 8);
-        $hasher = new PasswordHash($stretching, FALSE);
+        $hasher = new PasswordHash($stretching, ipGetOption('Ip.portableAdminHashes', true));
         return $hasher->HashPassword($password);
     }
 
