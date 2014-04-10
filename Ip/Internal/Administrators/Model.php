@@ -137,7 +137,7 @@ class Model{
 
     private static function checkHash($password, $storedHash)
     {
-        $hasher = new PasswordHash(8, FALSE);
+        $hasher = new PasswordHash(8, ipGetOption('Ip.portableAdminHashes', true));
         $hasher->CheckPassword($password, $storedHash);
         return $hasher->CheckPassword($password, $storedHash);
     }
