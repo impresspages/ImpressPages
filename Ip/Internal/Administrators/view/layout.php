@@ -15,7 +15,7 @@
     <div ng-show="activeAdministrator" ng-cloak>
         <div class="_actions clearfix">
             <button class="btn btn-danger pull-right" role="button" ng-show="activeAdministrator.id != ipAdministratorsAdminId" ng-click="deleteModal()"><?php _e('Delete', 'Ip-admin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
-            <button class="btn btn-primary" role="button" ng-click="updateModal()"><?php _e('Edit', 'Ip-admin'); ?> <i class="fa fa-fw fa-edit"></i></button>
+            <button class="btn btn-new" role="button" ng-click="updateModal()"><?php _e('Edit', 'Ip-admin'); ?> <i class="fa fa-fw fa-edit"></i></button>
         </div>
         <div ng-show="!editMode">
             <h2><?php _e('General', 'Ip-admin'); ?></h2>
