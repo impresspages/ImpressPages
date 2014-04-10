@@ -306,10 +306,6 @@ class Application
             throw new \Ip\Exception('Unknown response');
         }
 
-        if (method_exists($response, 'execute')) {
-            $response = $response->execute();
-        }
-
         if ($subrequest) {
             \Ip\ServiceLocator::removeRequest();
         }
@@ -364,6 +360,9 @@ class Application
     {
         $response = ipFilter('ipSendResponse', $response);
         ipEvent('ipBeforeResponseSent', array('response' => $response));
+        if (method_exists($response, 'execute')) {
+            $response = $response->execute();
+        }
         $response->send();
     }
 
