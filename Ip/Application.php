@@ -41,21 +41,19 @@ class Application
     public function init()
     {
         $config = require($this->configPath);
-
-        $coreDir = !empty($config['CORE_DIR']) ? $config['CORE_DIR'] : dirname(__DIR__) . '/';
-
-        require_once $coreDir . 'Ip/Config.php';
+ 
+        require_once __DIR__ . '/Config.php';
 
         $config = new \Ip\Config($config);
-        require_once $coreDir . 'Ip/ServiceLocator.php';
+        require_once __DIR__ . '/ServiceLocator.php';
         \Ip\ServiceLocator::setConfig($config);
 
-        require_once $coreDir . 'Ip/Internal/Autoloader.php';
+        require_once __DIR__ . '/Internal/Autoloader.php';
 
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
 
-        require_once $coreDir . 'Ip/Functions.php';
+        require_once __DIR__ . '/Functions.php';
     }
 
     /**
