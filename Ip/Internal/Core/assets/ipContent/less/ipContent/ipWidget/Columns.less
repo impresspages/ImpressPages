@@ -10,5 +10,15 @@
         min-height: 1px; // to keep empty block in place
         padding: 0 (@ipWidgetSpace / 2);
         position: relative;
+
+        @media screen and (max-width: @ipWidgetColumnsScreenSmall) {
+            float: none;
+            margin-bottom: @ipWidgetSpace; //
+            width: auto !important; // overriding inline width definition
+
+            &:last-child {
+                margin-bottom: 0; // fixing bottom margin duplication
+            }
+        }
     }
 }
