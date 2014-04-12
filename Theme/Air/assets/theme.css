@@ -908,6 +908,16 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   padding: 0 10px;
   position: relative;
 }
+@media screen and (max-width: 768px) {
+  .ipWidget-Columns ._col {
+    float: none;
+    margin-bottom: 20px;
+    width: auto !important;
+  }
+  .ipWidget-Columns ._col:last-child {
+    margin-bottom: 0;
+  }
+}
 .ipWidget-Divider.ipSkin-default {
   border-bottom: 1px solid #747474;
   height: 0;
