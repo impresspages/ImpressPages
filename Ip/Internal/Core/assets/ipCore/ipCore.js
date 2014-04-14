@@ -3,6 +3,7 @@ ImpressPages core init
  */
 
 var ipGoogleMapsLoading = false;
+var ipGoogleMapsLoaded = false;
 var ipPingInterval;
 
 /*
@@ -39,10 +40,16 @@ $(document).ready(function() {
 });
 
 var ipGoogleMapsLoaded = function () {
+    ipGoogleMapsLoading = false;
+    ipGoogleMapsLoaded = true;
     $(document.body).trigger('ipGoogleMapsLoaded');
 };
 
 var ipLoadGoogleMaps = function () {
+    if (ipGoogleMapsLoaded) {
+        ipGoogleMapsLoaded();
+    }
+
     if (ipGoogleMapsLoading) {
         return;
     }
