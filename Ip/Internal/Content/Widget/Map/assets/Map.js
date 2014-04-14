@@ -46,7 +46,7 @@ var IpWidget_Map = function () {
         if (typeof(google) !== 'undefined' && typeof(google.maps) !== 'undefined' && typeof(google.maps.LatLng) !== 'undefined') {
             $.proxy(initMap, this)();
         } else {
-            jQuery('body').on('ipGoogleMapsLoaded', jQuery.proxy(initMap, this));
+            jQuery(document).on('ipGoogleMapsLoaded', jQuery.proxy(initMap, this));
             ipLoadGoogleMaps();
         }
 
