@@ -40,13 +40,6 @@
             "default": "#fff"
         },
         {
-            "label": "Lightbox style",
-            "name": "lightboxStyle",
-            "type": "select",
-            "default": "2",
-            "values": [1, 2, 3, 4, 5]
-        },
-        {
             "label": "Collapse sidebar menu",
             "name": "collapseSidebarMenu",
             "type": "select",

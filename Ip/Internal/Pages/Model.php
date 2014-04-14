@@ -406,7 +406,8 @@ class Model
             'createdAt',
             'updatedAt',
             'type',
-            'isVisible'
+            'isVisible',
+            'alias'
         );
 
         foreach ($fields as $column) {
