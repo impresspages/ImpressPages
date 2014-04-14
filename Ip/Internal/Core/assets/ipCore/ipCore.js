@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     // Map widget
     if ($('.ipWidget-Map').length) {
-        $('body').on('ipGoogleMapsLoaded', function () {
+        $(document).on('ipGoogleMapsLoaded', function () {
             $('.ipWidget-Map').ipWidgetMap();
         });
 
@@ -39,15 +39,15 @@ $(document).ready(function() {
 
 });
 
-var ipGoogleMapsLoaded = function () {
+var ipGoogleMapsLoadedCallback = function () {
     ipGoogleMapsLoading = false;
     ipGoogleMapsLoaded = true;
-    $(document.body).trigger('ipGoogleMapsLoaded');
+    $(document).trigger('ipGoogleMapsLoaded');
 };
 
 var ipLoadGoogleMaps = function () {
     if (ipGoogleMapsLoaded) {
-        ipGoogleMapsLoaded();
+        ipGoogleMapsLoadedCallback();
     }
 
     if (ipGoogleMapsLoading) {
@@ -57,7 +57,7 @@ var ipLoadGoogleMaps = function () {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&' +
-        'callback=ipGoogleMapsLoaded';
+        'callback=ipGoogleMapsLoadedCallback';
     document.body.appendChild(script);
 };
 
