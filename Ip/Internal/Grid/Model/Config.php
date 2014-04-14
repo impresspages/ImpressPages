@@ -168,7 +168,7 @@ class Config
             if (class_exists($field['type'])) {
                 $class = $field['type']; //type is full class name
             } else {
-                throw new \Ip\Exception('Cass doesn\'t exist "' . esc($field['type']) . '"');
+                throw new \Ip\Exception('Class doesn\'t exist "' . esc($field['type']) . '"');
             }
 
         }
