@@ -117,13 +117,13 @@ var ipPageDragId;
                 getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
             });
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
-                deletePage($scope.selectedPageId, function () {
-                    if (confirm(ipTranslationAreYouSure)) {
+                if (confirm(ipTranslationAreYouSure)) {
+                    deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
                         getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
                         $scope.$apply();
-                    }
-                });
+                    });
+                }
             });
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
