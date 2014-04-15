@@ -47,7 +47,7 @@
     "Prefix can't contain any special characters and should start with a letter.": "Префикс не может содержать спец. символы и должен начинаться с буквы.",
     "Can't connect to database.": "Не удается подключиться к базе данных",
     "Specified database does not exists and cannot be created.": "Указанная база данных не существует и не может быть создана.",
-    "Do you like to replace existing tables in the database?": "Do you like to replace existing tables in the database?",
+    "Do you like to replace existing tables in the database?": "Хотите ли вы перезаписать существующие таблицы в базе данных?",
     "There were errors while executing install queries. ": "Во время выполнения запросов установки возникли ошибки.",
     "Session has expired. Please restart your install.": "Срок сессии истек. Пожалуйста, возобновите вашу установку.",
     "Please enter website name.": "Пожалуйста, введите имя Веб-сайта.",
