@@ -1,0 +1,16 @@
+[main]
+host = https://www.transifex.com
+minimum_perc = 70
+
+[impresspages.Ip]
+file_filter = Ip-<lang>.json
+source_lang = en
+
+[impresspages.Ip-admin]
+file_filter = Ip-admin-<lang>.json
+source_lang = en
+
+[impresspages.Install]
+file_filter = ../../install/Plugin/Install/translations/Install-<lang>.json
+source_lang = en
+
