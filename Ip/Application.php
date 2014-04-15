@@ -30,7 +30,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.10'; //CHANGE_ON_VERSION_UPDATE
+        return '4.0.11'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -41,7 +41,7 @@ class Application
     public function init()
     {
         $config = require($this->configPath);
- 
+
         require_once __DIR__ . '/Config.php';
 
         $config = new \Ip\Config($config);
