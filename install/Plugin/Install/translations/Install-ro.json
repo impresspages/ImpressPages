@@ -55,7 +55,7 @@
     "Please enter administrator login and password.": "Te rugam sa introduci numele si parola de administrare.",
     "Please choose website time zone.": "Te rugam sa alegi timpul si zona pentru site.",
     "Please correct errors.": "Please correct errors.",
-    "Can't write configuration \"\/config.php\"": "Can't write configuration \"\/config.php\"",
+    "Can't write configuration \"/config.php\"": "Can't write configuration \"/config.php\"",
     "Language selection": "Selectie limba",
     "License": "Licienta",
     "Database": "Baza de date",
