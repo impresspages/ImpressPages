@@ -120,7 +120,11 @@ var ipPageDragId;
                 if (confirm(ipTranslationAreYouSure)) {
                     deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
-                        getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
+                        if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                            getPagesContainer().ipGrid('refresh');
+                        } else {
+                            getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
+                        }
                         $scope.$apply();
                     });
                 }
