@@ -97,9 +97,17 @@
                 if(!options.windowWidth) {
                     options.windowWidth = $this.width(); //default width;
                 }
+                if (options.windowWidth < 10) {
+                    options.windowWidth = 300;
+                }
+
                 if(!options.windowHeight) {
                     options.windowHeight= $this.height(); //default height;
                 }
+                if (options.windowHeight < 10) {
+                    options.windowHeight = 100;
+                }
+
 
                 options.enableChangeWidth = true;
                 options.enableChangeHeight = true;
