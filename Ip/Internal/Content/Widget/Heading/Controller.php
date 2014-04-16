@@ -79,7 +79,7 @@ class Controller extends \Ip\WidgetController{
             array(
                 'name' => 'anchor',
                 'label' => __('Anchor', 'Ip-admin', false),
-                'note' => __('Anchor', 'Ip-admin') .'<span class="ipsAnchorPreview ipmAnchorPreview">'. $curUrl .'#</span>'
+                'note' => __('Anchor', 'Ip-admin') .' <span class="ipsAnchorPreview">'. $curUrl .'#</span>'
             ));
         $form->addField($field);
 
