@@ -1,6 +1,6 @@
 <?php
 
-$baseUrl .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
+$baseUrl = $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 
 $baseUrl = substr($baseUrl, 0, strrpos($baseUrl, '/'));
 
