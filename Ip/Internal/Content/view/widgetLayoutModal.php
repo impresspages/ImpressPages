@@ -5,13 +5,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><?php echo __('Choose widget skin', 'Ip-admin') ?></h4>
+                    <h4 class="modal-title"><?php _e('Choose widget skin', 'Ip-admin'); ?></h4>
                 </div>
                 <div class="modal-body">
                     <ul class="ipsList list-group"></ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'Ip-admin') ?></button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin'); ?></button>
                 </div>
             </div>
         </div>

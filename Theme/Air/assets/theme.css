@@ -38,6 +38,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm.form-horizontal .form-group:after {
   clear: both;
 }
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
 html,
 body {
   border: none;
@@ -1500,6 +1504,7 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 }
 @media screen and (min-width: 480px) {
   .hidden_md {
+    visibility: hidden !important;
     display: none !important;
   }
   .col_md_1 {
@@ -1973,6 +1978,7 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 }
 @media screen and (min-width: 980px) {
   .hidden_lg {
+    visibility: hidden !important;
     display: none !important;
   }
   .col_lg_1 {
