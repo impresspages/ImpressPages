@@ -58,8 +58,8 @@ var IpWidget_Image = function () {
 
         $controls.removeClass('hidden');
         $controls.css('position', 'absolute');
-        $controls.css('left', $img.offset().left + 5);
-        $controls.css('top', $img.offset().top + 5);
+        $controls.css('left', $img.offset().left + 10);
+        $controls.css('top', $img.offset().top + 10);
 
         $controls.find('.ipsDelete').off().on('click', function (e) {
             $.proxy(context.deleteImage, context)();
