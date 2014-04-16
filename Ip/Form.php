@@ -40,11 +40,11 @@ class Form
         $this->classes = array();
         $this->ajaxSubmit = TRUE;
         $this->validate= TRUE;
-        $this->addClass('ipModuleForm');
         $this->addClass('ipsAjaxSubmit');
         if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
             $this->setEnvironment(self::ENVIRONMENT_ADMIN);
         } else {
+            $this->addClass('ipModuleForm');
             $this->setEnvironment(self::ENVIRONMENT_PUBLIC);
         }
 
@@ -81,9 +81,11 @@ class Form
     {
         if ($environment == self::ENVIRONMENT_ADMIN) {
             $this->addClass('ipsModuleFormAdmin');
+            $this->removeClass('ipModuleForm');
             $this->removeClass('ipsModuleFormPublic');
         } else {
             $this->addClass('ipsModuleFormPublic');
+            $this->addClass('ipModuleForm');
             $this->removeClass('ipsModuleFormAdmin');
         }
 
