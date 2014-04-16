@@ -123,7 +123,7 @@ var ipPageDragId;
                         if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
                             getPagesContainer().ipGrid('refresh');
                         } else {
-                            rgetTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
+                            getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
                         }
                         $scope.$apply();
                     });
