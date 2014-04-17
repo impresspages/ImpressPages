@@ -24,6 +24,7 @@
                     type: 'GET',
                     url: ip.baseUrl,
                     data: data,
+                    encoding:"UTF-8",
                     context: $this,
                     success: formResponse,
                     dataType: 'json'
@@ -42,7 +43,7 @@
     var formResponse = function (response) {
         var $this = this;
         $this.html(response.html);
-
+console.log(response.html);
         // wrap fields in a div so accordion would work
         $this.find('fieldset').each(function (index, fieldset) {
             var $fieldset = $(fieldset);
