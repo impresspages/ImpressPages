@@ -25,9 +25,6 @@ function ipHomeUrl()
 
 
 function ipInitForms () {
-    if (typeof(ipModuleFormAdmin) !== 'undefined') {
-        ipModuleFormAdmin.init();
-    }
     if (typeof(ipModuleFormPublic) !== 'undefined') {
         ipModuleFormPublic.init();
     }

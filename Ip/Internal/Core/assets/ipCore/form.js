@@ -35,6 +35,8 @@ var ipModuleFormPublic;
             $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
             $('.ipsModuleFormAdmin .type-url').ipFormUrl();
 
+            $(document).trigger('ipInitForms');
+
 
 
             // adding dumb submit element for 'enter' to trigger form submit
