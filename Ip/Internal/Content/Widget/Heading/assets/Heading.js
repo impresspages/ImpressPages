@@ -118,7 +118,7 @@
             $controls.css('top', $widgetObject.offsetTop);
             $controls.css('position', 'absolute');
             $controls.css('left', $widgetObject.offset().left);
-            $controls.css('top', $widgetObject.offset().top - $controls.height() - 5);
+            $controls.css('top', $widgetObject.offset().top - $controls.height());
             $controls.find('.ipsH').on('click', $.proxy(this.levelPressed, this));
 
             $controls.find('.ipsH').removeClass('active');

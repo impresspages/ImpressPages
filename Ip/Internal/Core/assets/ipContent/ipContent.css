@@ -37,6 +37,10 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm.form-horizontal .form-group:after {
   clear: both;
 }
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
 html,
 body {
   border: none;
