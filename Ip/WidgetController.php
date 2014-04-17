@@ -149,7 +149,11 @@ class WidgetController
             }
         }
         //collect overridden theme view files
-        $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+        if ($this->isCore()) {
+            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+        } else {
+            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+        }
         if (is_dir($themeViewsFolder)){
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
