@@ -52,6 +52,7 @@
 
         this.focus = function () {
             $.proxy(this.initControls, this)();
+            this.$widgetObject.find('h1,h2,h3,h4,h5,h6').attr('spellcheck', true);
         }
 
         this.blur = function(e) {

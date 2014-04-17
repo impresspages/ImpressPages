@@ -16,6 +16,8 @@
             })};
 
             $widgetObject.find('.ipsContainer').tinymce(customTinyMceConfig);
+            $widgetObject.find('.ipsContainer').attr('spellcheck', true);
+
         };
 
         this.onAdd = function () {
