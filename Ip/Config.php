@@ -31,11 +31,7 @@ class Config
         }
 
         if (empty($this->config['baseUrl'])) {
-            $this->config['baseUrl'] = $server["SERVER_NAME"];
-
-            if ($server["SERVER_PORT"] != "80") {
-                $this->config['baseUrl'].= ":".$server["SERVER_PORT"];
-            }
+            $this->config['baseUrl'] = $server["HTTP_HOST"];
 
             $baseUrl = substr($server['SCRIPT_NAME'], 0, strrpos($server['SCRIPT_NAME'], '/') + 1);
             if (DIRECTORY_SEPARATOR == '/') { // unix system

@@ -17,7 +17,7 @@ var IpWidget_Gallery = function () {
         this.$widgetControls = $('#ipWidgetGalleryControls');
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
-        $('body').on('click', $.proxy(function (e) { //detect mouse click outside of the widget
+        $(document.body).on('click', $.proxy(function (e) { //detect mouse click outside of the widget
             var $target = $(e.target);
             if (!$target.hasClass('ipWidget-Gallery')) {
                 $target = $target.closest('.ipWidget-Gallery');
@@ -134,7 +134,7 @@ var IpWidget_Gallery = function () {
         $widgetControls.css('top', $widgetObject.offsetTop);
         $widgetControls.css('position', 'absolute');
         $widgetControls.css('left', $widgetObject.offset().left);
-        $widgetControls.css('top', $widgetObject.offset().top - $widgetControls.height() - 5);
+        $widgetControls.css('top', $widgetObject.offset().top - $widgetControls.height());
         $widgetControls.find('.ipsAdd').off().on('click', function (e) {
             e.preventDefault();
             var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});

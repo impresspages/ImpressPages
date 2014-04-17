@@ -1,12 +1,6 @@
 <?php
 
-
-$baseUrl = '';
-if ($_SERVER["SERVER_PORT"] != "80") {
-    $baseUrl .= $_SERVER["HTTP_HOST"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
-} else {
-    $baseUrl .= $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-}
+$baseUrl = $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 
 $baseUrl = substr($baseUrl, 0, strrpos($baseUrl, '/'));
 
