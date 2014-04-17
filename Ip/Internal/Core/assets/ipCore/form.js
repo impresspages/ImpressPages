@@ -72,6 +72,9 @@ var ipModuleFormPublic;
                             if (response.errors) {
                                 $form.data("validator").invalidate(response.errors);
                             }
+                            if (response.replaceHtml) {
+                                $form.replaceWith(response.replaceHtml);
+                            }
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
                             }
