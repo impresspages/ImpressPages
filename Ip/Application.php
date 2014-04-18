@@ -328,6 +328,22 @@ class Application
             $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
         }
+
+        $router = \Ip\ServiceLocator::router();
+
+        foreach ($plugins as $plugin) {
+            $routesFile = ipFile("Plugin/$plugin/routes.php");
+
+            if (file_exists($routesFile)) {
+                $routes = array();
+                include $routesFile;
+
+                $router->addRoutes($routes, array(
+                        'plugin' => $plugin,
+                        'controller' => 'PublicController',
+                    ));
+            }
+        }
     }
 
     /**

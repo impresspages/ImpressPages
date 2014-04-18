@@ -19,24 +19,6 @@ class Router
     {
         $factory = new \Aura\Router\RouterFactory();
         $this->auraRouter = $factory->newInstance();
-
-
-        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
-
-        foreach ($plugins as $plugin) {
-            $routesFile = ipFile("Plugin/$plugin/routes.php");
-
-            if (file_exists($routesFile)) {
-                $routes = array();
-                include $routesFile;
-
-                $this->addRoutes($routes, array(
-                        'plugin' => $plugin,
-                        'controller' => 'PublicController',
-                    ));
-            }
-        }
-
     }
 
     public function addRoutes($routes, $context = null)
