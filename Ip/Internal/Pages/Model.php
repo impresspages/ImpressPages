@@ -424,6 +424,7 @@ class Model
             $row['updatedAt'] = date('Y-m-d H:i:s');
         }
 
+        ipEvent('ipPageAdded', $row);
 
         return ipDb()->insert('page', $row);
     }
