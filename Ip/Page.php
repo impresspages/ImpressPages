@@ -54,7 +54,7 @@ class Page
      */
     public function __construct($id)
     {
-        if (is_numeric($id)) {
+        if (is_int($id) || ctype_digit($id)) {
             //select by page id from the database
             $page = ipDb()->selectRow('page', '*', array('id' => $id, 'isDeleted' => 0));
             if (!$page) {
