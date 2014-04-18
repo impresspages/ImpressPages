@@ -424,9 +424,15 @@ class Model
             $row['updatedAt'] = date('Y-m-d H:i:s');
         }
 
+
+        $pageId = ipDb()->insert('page', $row);
+
+        $row['id'] = $pageId;
+
         ipEvent('ipPageAdded', $row);
 
-        return ipDb()->insert('page', $row);
+        return $pageId;
+
     }
 
     public static function changeMenuOrder($menuId, $newIndex)
