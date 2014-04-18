@@ -63,10 +63,29 @@ class Content
         try {
             $page = new \Ip\Page($pageId);
         } catch (\Ip\Exception $e) {
-            return FALSE;
+            return NULL;
         }
         return $page;
 
+    }
+
+    /**
+     * @param string        $alias
+     * @param string|null   $languageCode
+     * @return \Ip\Page
+     */
+    public function getPageByAlias($alias, $languageCode = NULL)
+    {
+        if ($languageCode === NULL) {
+            $languageCode = ipContent()->getCurrentLanguage()->getCode();
+        }
+
+        $row = ipDb()->selectRow('page', '*', array('alias' => $alias, 'languageCode' => $languageCode, 'isDeleted' => 0));
+        if (!$row) {
+            return null;
+        }
+
+        return new \Ip\Page($row);
     }
 
     /**
