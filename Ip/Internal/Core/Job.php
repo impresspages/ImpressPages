@@ -58,21 +58,7 @@ class Job
      */
     public static function ipRouteAction_70($info)
     {
-        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
 
-        foreach ($plugins as $plugin) {
-            $routesFile = ipFile("Plugin/$plugin/routes.php");
-
-            if (file_exists($routesFile)) {
-                $routes = array();
-                include $routesFile;
-
-                \Ip\ServiceLocator::router()->addRoutes($routes, array(
-                        'plugin' => $plugin,
-                        'controller' => 'PublicController',
-                    ));
-            }
-        }
 
         $result = \Ip\ServiceLocator::router()->match(rtrim($info['relativeUri'], '/'), ipRequest());
 
