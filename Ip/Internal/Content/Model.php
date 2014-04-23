@@ -31,7 +31,7 @@ class Model
         $variables = array(
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,
-            'revisionId' => $revisionId ? $revisionId : $currentRevision['id'],
+            'revisionId' => $revisionId ? $revisionId : $currentRevision['revisionId'],
             'languageId' => $languageId,
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
