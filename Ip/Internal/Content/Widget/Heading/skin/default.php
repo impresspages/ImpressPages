@@ -1,4 +1,4 @@
-<h<?php echo (int)$level; ?> class="_title"<?php echo isset($id) ? ' id="' . esc($id) . '"': ''; ?>>
+<h<?php echo (int)$level; ?> class="_title"<?php echo isset($anchor) ? ' id="' . esc($anchor) . '"': ''; ?>>
     <?php if ($showLink) { ?>
         <a href="<?php echo escAttr($link); ?>"<?php echo !empty($blank) ? ' target="_blank"' : ''; ?>>
     <?php } ?>
