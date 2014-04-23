@@ -46,7 +46,7 @@ class Block
                 return $predefinedContent;
             }
 
-            if (ipContent()->getCurrentPage() == null && $revisionId == 0) {
+            if (ipContent()->getCurrentPage() == null && $revisionId == 0 && !$this->isStatic) {
                 return '';
             }
 
