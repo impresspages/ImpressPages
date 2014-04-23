@@ -31,7 +31,7 @@ class Model
         $variables = array(
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,
-            'revisionId' => $revisionId ? $revisionId : $currentRevision['revisionId'],
+            'revisionId' => $revisionId,
             'languageId' => $languageId,
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
@@ -175,6 +175,11 @@ class Model
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
             $widgetData = array();
+        }
+
+        if (!$widgetRecord['revisionId']) {
+            $currentRevision = ipContent()->getCurrentRevision();
+            $widgetRecord['revisionId'] = $currentRevision['revisionId'];
         }
 
 
