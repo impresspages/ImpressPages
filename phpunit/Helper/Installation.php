@@ -110,8 +110,10 @@ class Installation
         } else {
             InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
         }
-        InstallModel::setSiteEmail($this->getSiteEmail());
-        InstallModel::setSiteName($this->getSiteName());
+
+
+        ipSetOptionLang('Config.websiteTitle', $this->getSiteName(), 'en');
+        ipSetOptionLang('Config.websiteEmail', $this->getSiteEmail(), 'en');
 
         $config = array();
         $config['sessionName'] = 'ses' . rand();
