@@ -168,6 +168,13 @@ class Application
             $this->initTranslations($languageCode);
         }
 
+        if (empty($options['skipModuleInit'])) {
+            $this->modulesInit();
+        }
+        ipEvent('ipInitFinished');
+
+
+
         $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage));
 
         if (!empty($routeAction)) {
@@ -175,11 +182,6 @@ class Application
                 ipContent()->_setCurrentPage($routeAction['page']);
             }
         }
-
-        if (empty($options['skipModuleInit'])) {
-            $this->modulesInit();
-        }
-        ipEvent('ipInitFinished');
 
 
 

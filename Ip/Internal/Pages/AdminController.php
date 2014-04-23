@@ -146,8 +146,6 @@ class AdminController extends \Ip\Controller
             $answer['status'] = 'error';
         }
 
-        ipEvent('ipPageUpdated', $data);
-
         return new \Ip\Response\Json($answer);
     }
 
@@ -381,17 +379,17 @@ class AdminController extends \Ip\Controller
             $title = __('Untitled', 'Ip-admin', false);
         }
 
-        $menuAlias = Service::createMenu($languageCode, null, $title);
+        $pageId = Service::createMenu($languageCode, null, $title);
 
-        $menu = Service::getMenu($languageCode, $menuAlias);
+        $menu = ipContent()->getPage($pageId);
 
 
-        ipPageStorage($menu['id'])->set('menuType', $type);
+        ipPageStorage($menu->getId())->set('menuType', $type);
 
 
         $answer = array(
             'status' => 'success',
-            'menuName' => $menuAlias
+            'menuName' => $menu->getAlias()
         );
 
         return new \Ip\Response\Json($answer);

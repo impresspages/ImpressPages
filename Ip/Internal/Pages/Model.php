@@ -265,10 +265,16 @@ class Model
             ipPageStorage($pageId)->set('layout', $properties['layout']);
         }
 
+        if (!empty($properties['type'])) {
+            ipPageStorage($pageId)->set('menuType', $properties['type']);
+        }
+
         if (isset($properties['urlPath'])) {
             self::changePageUrlPath($pageId, $properties['urlPath']);
         }
 
+        $properties['id'] = $pageId;
+        ipEvent('ipPageUpdated', $properties);
 
         return true;
     }
@@ -325,9 +331,14 @@ class Model
             'title' => $title,
         );
 
-        ipDb()->update('page', $update, array('id' => $menuId));
-        ipPageStorage($menuId)->set('layout', $layout);
-        ipPageStorage($menuId)->set('menuType', $type);
+        $properties = array(
+            'alias' => $alias,
+            'title' => $title,
+            'layout' => $layout,
+            'type' => $type
+        );
+
+        self::updatePageProperties($menuId, $properties);
     }
 
     /**
@@ -354,9 +365,7 @@ class Model
         );
         $data['isVisible'] = 1;
 
-        $menuId = ipDb()->insert('page', $data);
-
-        return $menuId ? $alias : null;
+        return self::addPage(0, $data);
     }
 
     protected static function allocateUniqueAlias($languageCode, $alias)

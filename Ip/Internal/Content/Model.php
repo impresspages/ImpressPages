@@ -26,10 +26,12 @@ class Model
             }
         }
 
+        $currentRevision = ipContent()->getCurrentRevision();
+
         $variables = array(
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,
-            'revisionId' => $revisionId,
+            'revisionId' => $revisionId ? $revisionId : $currentRevision['revisionId'],
             'languageId' => $languageId,
             'managementState' => $managementState,
             'exampleContent' => $exampleContent
