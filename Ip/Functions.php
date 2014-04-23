@@ -42,14 +42,17 @@ function ipGetOption($option, $defaultValue = null)
  * Get language specific option value
  *
  * @param string $option Option name. Option names use syntax "PluginName.optionName".
- * @param int $languageId Language ID.
+ * @param int $languageCode Language code.
  * @param mixed|null $defaultValue Default value. Returned if the option was not set.
  * @return mixed Option value.
 */
 
-function ipGetOptionLang($option, $languageId, $defaultValue = null)
+function ipGetOptionLang($option, $languageCode = null, $defaultValue = null)
 {
-    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId, $defaultValue);
+    if ($languageCode == null) {
+        $languageCode = ipContent()->getCurrentLanguage()->getCode();
+    }
+    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageCode, $defaultValue);
 }
 
 /**
@@ -70,11 +73,15 @@ function ipSetOption($option, $value)
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param mixed $value Option value.
- * @param int $languageId Language ID.
+ * @param int $languageCode Language code string.
  */
-function ipSetOptionLang($option, $value, $languageId)
+function ipSetOptionLang($option, $value, $languageCode = null)
 {
-    \Ip\ServiceLocator::options()->setOptionLang($option, $languageId, $value);
+    if ($languageCode == null) {
+        $languageCode = ipContent()->getCurrentLanguage()->getCode();
+    }
+
+    \Ip\ServiceLocator::options()->setOptionLang($option, $languageCode, $value);
 }
 
 /**

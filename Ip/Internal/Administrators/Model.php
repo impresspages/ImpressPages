@@ -63,8 +63,8 @@ class Model{
 
         $email = ipEmailTemplate($emailData);
 
-        $from = ipGetOption('Config.websiteEmail');
-        $fromName = ipGetOption('Config.websiteTitle');
+        $from = ipGetOptionLang('Config.websiteEmail');
+        $fromName = ipGetOptionLang('Config.websiteTitle');
         $subject = __('Password reset instructions', 'Ip-admin', FALSE);
         $to = $user['email'];
         $toName = $user['username'];

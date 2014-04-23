@@ -32,7 +32,7 @@ class Forms {
             array(
                 'optionName' => 'Config.websiteEmail',
                 'name' => 'websiteEmail', //html "name" attribute
-                'value' => ipGetOption('Config.websiteEmail'),
+                'value' => ipGetOptionLang('Config.websiteEmail'),
                 'label' => __('Website email', 'Ip-admin'), //field label that will be displayed next to input field
                 'hint' => __('Email address used as a sender to send emails on behalf of the website.', 'Ip-admin')
             ));
