@@ -79,7 +79,7 @@ class Controller extends \Ip\WidgetController{
             ));
 
         $values = array(
-            array('default', __('Website\'s email', 'Ip-admin', false). ' (' . ipGetOption('Config.websiteEmail') . ')'),
+            array('default', __('Website\'s email', 'Ip-admin', false). ' (' . ipGetOptionLang('Config.websiteEmail') . ')'),
             array('custom', __('Custom emails separated by space', 'Ip-admin', false))
         );
         $field->setValues($values);
@@ -100,8 +100,8 @@ class Controller extends \Ip\WidgetController{
 
         $contentData = array();
 
-        $websiteName = ipGetOption('Config.websiteTitle');
-        $websiteEmail = ipGetOption('Config.websiteEmail');
+        $websiteName = ipGetOptionLang('Config.websiteTitle');
+        $websiteEmail = ipGetOptionLang('Config.websiteEmail');
 
 
         $from = $websiteEmail;
