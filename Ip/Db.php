@@ -75,7 +75,6 @@ class Db
      */
     public function disconnect()
     {
-        ipConfig()->set('db', null);
         $this->pdoConnection = null;
     }
 
