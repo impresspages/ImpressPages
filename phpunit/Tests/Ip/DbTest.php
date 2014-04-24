@@ -37,6 +37,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function testDisconnect()
     {
+        ipDb()->getConnection();
         ipDb()->disconnect();
 
         try {
