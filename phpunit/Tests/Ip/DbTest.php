@@ -35,18 +35,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty(ipConfig()->get('db'));
     }
 
-    public function testDisconnect()
-    {
-        ipDb()->getConnection();
-        ipDb()->disconnect();
 
-        try {
-            ipDb()->getConnection();
-            $this->assertFalse(true, 'Not disconnected');
-        } catch (\Ip\Exception\Db $e) {
-            $this->assertTrue(true);
-        }
-    }
 
     public function testException()
     {
