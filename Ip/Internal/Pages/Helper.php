@@ -38,8 +38,7 @@ class Helper
     {
         $answer = array();
         $languages = ipContent()->getLanguages();
-        foreach($languages as $language)
-        {
+        foreach($languages as $language) {
             $answer[] = array(
                 'id' => $language->getId(),
                 'title' => $language->getTitle(),

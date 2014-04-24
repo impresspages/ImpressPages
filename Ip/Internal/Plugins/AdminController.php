@@ -19,10 +19,9 @@ class AdminController extends \Ip\Controller{
             $plugins[] = $plugin;
         }
 
-        $data = array (
-            'plugins' => $plugins
-        );
+        ipAddJsVariable('pluginList', $plugins);
 
+        $data = array ();
         $view = ipView('view/layout.php', $data);
 
         ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
