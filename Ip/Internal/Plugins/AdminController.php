@@ -6,51 +6,50 @@ class AdminController extends \Ip\Controller{
 
     public function index()
     {
-        $activePlugins = Service::getActivePluginNames();
+        ipAddJs('Ip/Internal/Core/assets/js/angular.js');
+        ipAddJs('Ip/Internal/Plugins/assets/plugins.js');
+        ipAddJs('Ip/Internal/Plugins/assets/jquery.pluginProperties.js');
+        ipAddJs('Ip/Internal/Plugins/assets/pluginsLayout.js');
+
         $allPlugins = Model::getAllPlugins();
 
         $plugins = array();
-        foreach($allPlugins as $pluginName)
-        {
-            $pluginRecord = array(
-                'description' => '',
-                'title' => $pluginName,
-                'name' => $pluginName,
-                'version' => '',
-                'author' => ''
-            );
-            $pluginRecord['active'] = in_array($pluginName, $activePlugins);
-            $config = Model::getPluginConfig($pluginName);
-            if (isset($config['description'])) {
-                $pluginRecord['description'] = $config['description'];
-            }
-            if (isset($config['version'])) {
-                $pluginRecord['version'] = $config['version'];
-            }
-            if (isset($config['title'])) {
-                $pluginRecord['title'] = $config['title'];
-            }
-            if (isset($config['author'])) {
-                $pluginRecord['author'] = $config['author'];
-            }
-            if (isset($config['name'])) {
-                $pluginRecord['name'] = $config['name'];
-            }
-            $plugins[] = $pluginRecord;
+        foreach($allPlugins as $pluginName) {
+            $plugin = Helper::getPluginData($pluginName);
+            $plugins[] = $plugin;
         }
 
         $data = array (
             'plugins' => $plugins
         );
 
-        $view = ipView('view/admin/index.php', $data);
+        $view = ipView('view/layout.php', $data);
 
-        ipAddJs('Ip/Internal/Plugins/assets/admin.js');
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
 
         return $view->render();
     }
 
-    public function activate ()
+    public function pluginPropertiesForm()
+    {
+        $pluginName = ipRequest()->getQuery('pluginName');
+        if (!$pluginName) {
+            throw new \Ip\Exception("Missing required parameters");
+        }
+
+        $variables = array(
+            'plugin' => Helper::getPluginData($pluginName),
+            'form' => Helper::pluginPropertiesForm($pluginName)
+        );
+        $layout = ipView('view/pluginProperties.php', $variables)->render();
+
+        $data = array (
+            'html' => $layout
+        );
+        return new \Ip\Response\Json($data);
+    }
+
+    public function activate()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
@@ -85,7 +84,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
-    public function deactivate ()
+    public function deactivate()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
@@ -120,7 +119,7 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
-    public function remove ()
+    public function remove()
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
@@ -156,4 +155,3 @@ class AdminController extends \Ip\Controller{
     }
 
 }
-

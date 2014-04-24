@@ -7869,6 +7869,43 @@
 .ip .page-header h1 {
   margin-top: 0;
 }
+.ip .ipModuleUploadWindow {
+  background: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
+  overflow: hidden;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ip .ipModuleUploadWindow ._buttons {
+  margin-left: 5px;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 1010;
+}
+.ip .ipModuleUploadProgressItem {
+  margin-bottom: 10px;
+}
+.ip .ipModuleUploadProgressItem ._progressbar {
+  background: #ebebeb;
+  border: 1px solid #d3d3d3;
+  height: 20px;
+}
+.ip .ipModuleUploadProgressItem ._progressbar .ui-progressbar-value {
+  background: #019bd4;
+  border: 1px solid #018bbe;
+  height: 100%;
+  margin: -1px;
+}
+.ip .ipModuleUploadProgressItem ._title {
+  color: #000000;
+  font-size: 11px;
+  line-height: 20px;
+  margin-top: -20px;
+  padding: 0 5px;
+  text-shadow: 1px 1px 0 #ffffff;
+}
 .ip .ipAdminNavbar {
   border: 0;
 }
@@ -9549,6 +9586,85 @@
   margin-left: 0;
   margin-right: 0;
 }
+.ip .ipModulePlugins {
+  overflow-y: hidden;
+}
+.ip .ipModulePlugins ._outer {
+  height: 100%;
+}
+.ip .ipModulePlugins ._container {
+  float: left;
+  height: 100%;
+  overflow: auto;
+  padding: 20px;
+}
+.ip .ipModulePlugins ._container ._actions {
+  min-height: 40px;
+}
+.ip .ipModulePlugins ._plugins {
+  width: 340px;
+}
+.ip .ipModulePlugins ._plugins ul {
+  list-style: none;
+}
+.ip .ipModulePlugins ._plugins li {
+  border-top: 1px solid #c9ccdd;
+}
+.ip .ipModulePlugins ._plugin {
+  color: #46495e;
+  display: block;
+  padding: 20px;
+}
+.ip .ipModulePlugins ._plugin:hover {
+  background-color: #d4d4d4;
+  color: #2f313f;
+  text-decoration: none;
+}
+.ip .ipModulePlugins ._plugin.active {
+  background-color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px 0;
+  color: #2f313f;
+  margin: -1px -20px -1px 0;
+  position: relative;
+  z-index: 1;
+}
+.ip .ipModulePlugins ._plugin.active ._heading {
+  color: #81aa2b;
+}
+.ip .ipModulePlugins ._plugin.active ._name {
+  font-weight: bold;
+}
+.ip .ipModulePlugins ._plugin.disabled {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.ip .ipModulePlugins ._plugin .fa {
+  margin-left: -20px;
+  text-align: center;
+  width: 40px;
+}
+.ip .ipModulePlugins ._plugin ._name {
+  text-transform: uppercase;
+}
+.ip .ipModulePlugins ._plugin .label {
+  font-size: 11px;
+  margin-left: 20px;
+}
+.ip .ipModulePlugins ._plugin ._description {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.ip .ipModulePlugins ._properties {
+  background-color: #fff;
+  padding: 20px 40px 40px;
+  width: 680px;
+}
+.ip .ipModulePlugins ._properties ._actions {
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
 .ip .ipModuleRepositoryPopup {
   background-color: #fff;
   height: 100%;
@@ -9784,43 +9900,6 @@
   text-align: center;
   top: 50%;
   width: 320px;
-}
-.ip .ipModuleUploadWindow {
-  background: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
-  overflow: hidden;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.ip .ipModuleUploadWindow ._buttons {
-  margin-left: 5px;
-  margin-top: 10px;
-  position: absolute;
-  z-index: 1010;
-}
-.ip .ipModuleUploadProgressItem {
-  margin-bottom: 10px;
-}
-.ip .ipModuleUploadProgressItem ._progressbar {
-  background: #ebebeb;
-  border: 1px solid #d3d3d3;
-  height: 20px;
-}
-.ip .ipModuleUploadProgressItem ._progressbar .ui-progressbar-value {
-  background: #019bd4;
-  border: 1px solid #018bbe;
-  height: 100%;
-  margin: -1px;
-}
-.ip .ipModuleUploadProgressItem ._title {
-  color: #000000;
-  font-size: 11px;
-  line-height: 20px;
-  margin-top: -20px;
-  padding: 0 5px;
-  text-shadow: 1px 1px 0 #ffffff;
 }
 .hidden {
   display: none !important;

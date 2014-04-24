@@ -83,4 +83,77 @@ class Helper
     }
 
 
+    public static function pluginPropertiesForm($pluginName)
+    {
+
+        $plugin = self::getPluginData($pluginName);
+
+        $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa',
+                'value' => 'Plugins.updatePlugin'
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'pluginName',
+                'value' => $pluginName
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'title',
+                'label' => __('Title', 'Ip-admin', FALSE),
+                'value' => $plugin['title']
+            ));
+        $form->addField($field);
+
+        $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
+
+        return $form;
+    }
+
+    public static function getPluginData($pluginName)
+    {
+        $activePlugins = Service::getActivePluginNames();
+        $config = Model::getPluginConfig($pluginName);
+        $pluginRecord = array(
+            'description' => '',
+            'title' => $pluginName,
+            'name' => $pluginName,
+            'version' => '',
+            'author' => '',
+            'labelType' => 'default', // Bootstrap class
+            'label' => __('Inactive', 'Ip-admin'),
+            'active' => false
+        );
+        if (in_array($pluginName, $activePlugins)) {
+            $pluginRecord['active'] = true;
+            $pluginRecord['labelType'] = 'success'; // Bootstrap class
+            $pluginRecord['label'] = __('Active', 'Ip-admin');
+        }
+        if (isset($config['description'])) {
+            $pluginRecord['description'] = $config['description'];
+        }
+        if (isset($config['version'])) {
+            $pluginRecord['version'] = $config['version'];
+        }
+        if (isset($config['title'])) {
+            $pluginRecord['title'] = $config['title'];
+        }
+        if (isset($config['author'])) {
+            $pluginRecord['author'] = $config['author'];
+        }
+        if (isset($config['name'])) {
+            $pluginRecord['name'] = $config['name'];
+        }
+
+        return $pluginRecord;
+    }
+
 }
