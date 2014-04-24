@@ -105,7 +105,7 @@ class Installation
                 throw new \Exception('Other versions are not implemented');
             }
         }
-        if ($this->getVersion() == '4.0.10') {
+        if ($this->getVersion() == '4.0.10' && false) {
             \Ip\Internal\Administrators\Service::add($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
         } else {
             InstallModel::insertAdmin($this->getAdminLogin(), $this->getSiteEmail(), $this->getAdminPass());
