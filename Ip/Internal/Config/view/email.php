@@ -7,9 +7,9 @@
     <?php if (isset($signature)) { ?>
         <?php echo $signature ?>
     <?php } else { ?>
-        <?php echo esc(ipGetOption('Config.websiteTitle')); ?>
+        <?php echo esc(ipGetOptionLang('Config.websiteTitle')); ?>
         <br/>
-        <a href="mailto:<?php echo esc(ipGetOption('Config.websiteEmail')); ?>"><?php echo esc(ipGetOption('Config.websiteEmail')); ?></a>
+        <a href="mailto:<?php echo esc(ipGetOptionLang('Config.websiteEmail')); ?>"><?php echo esc(ipGetOptionLang('Config.websiteEmail')); ?></a>
     <?php } ?>
 </p>
 <p> </p>

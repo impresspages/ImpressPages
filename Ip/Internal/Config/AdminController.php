@@ -61,7 +61,8 @@ class AdminController extends \Ip\Controller{
                 throw new \Exception('Missing required parameter');
             }
             $languageId = $post['languageId'];
-            ipSetOptionLang('Config.' . $fieldName, $value, $languageId);
+            $language = ipContent()->getLanguage($languageId);
+            ipSetOptionLang('Config.' . $fieldName, $value, $language->getCode());
         } else {
             ipSetOption('Config.' . $fieldName, $value);
         }

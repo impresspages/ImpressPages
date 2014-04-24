@@ -65,6 +65,7 @@ class Page
             //construct page out of database record array
             $page = $id;
         } else {
+            // TODO remove
             //select by alias from the database
             $page = ipDb()->selectRow('page', '*', array('alias' => $id, 'isDeleted' => 0));
             if (!$page) {

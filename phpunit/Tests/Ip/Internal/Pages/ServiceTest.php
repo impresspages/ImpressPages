@@ -32,13 +32,13 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testCreatePage()
     {
-        $pageId = Service::addPage(0, 'Test page', array('languageCode' => 'en'));
+        $pageId = Service::addPage(0, 'In Test Page', array('languageCode' => 'en'));
         $this->assertNotEmpty($pageId);
 
         $page = Service::getPage($pageId);
         $this->assertNotEmpty($page);
-        $this->assertEquals('Test page', $page['title']);
-        $this->assertEquals('test-page', $page['urlPath']);
+        $this->assertEquals('In Test Page', $page['title']);
+        $this->assertEquals('in-test-page', $page['urlPath']);
 
         $subpageId = Service::addPage($pageId, 'Test subpage');
         $this->assertNotEmpty($subpageId);

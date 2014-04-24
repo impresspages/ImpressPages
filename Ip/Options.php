@@ -36,19 +36,19 @@ class Options
     /**
      * Get language specific option value
      * @param string $key Option key
-     * @param int $languageId Language ID
+     * @param int $languageCode Language code
      * @param null $defaultValue A value to return if the option is not set
      * @return string Option value
      * @throws Exception
      */
-    public function getOptionLang($key, $languageId, $defaultValue = null)
+    public function getOptionLang($key, $languageCode, $defaultValue = null)
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
             throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
 
-        $answer = \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $languageId . '.' . $parts[1]);
+        $answer = \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $languageCode . '.' . $parts[1]);
         if ($answer === null) {
             $answer = ipGetOption($key, $defaultValue);
         }
@@ -73,17 +73,17 @@ class Options
     /**
      * Set language specific option
      * @param string $key Option key
-     * @param int $languageId Language ID
+     * @param int $languageCode Language code
      * @param $value Option value
      * @throws Exception
      */
-    public function setOptionLang($key, $languageId, $value)
+    public function setOptionLang($key, $languageCode, $value)
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
             throw new \Ip\Exception("Option key must have plugin name separated by dot.");
         }
-        \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $languageId . '.' . $parts[1], $value);
+        \Ip\ServiceLocator::storage()->set('Config', $parts[0] . '.' . $languageCode . '.' . $parts[1], $value);
     }
 
 

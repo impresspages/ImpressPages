@@ -26,6 +26,8 @@ class Model
             }
         }
 
+        $currentRevision = ipContent()->getCurrentRevision();
+
         $variables = array(
             'widgetsHtml' => $widgetsHtml,
             'blockName' => $blockName,
@@ -173,6 +175,11 @@ class Model
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
             $widgetData = array();
+        }
+
+        if (!$widgetRecord['revisionId']) {
+            $currentRevision = ipContent()->getCurrentRevision();
+            $widgetRecord['revisionId'] = $currentRevision['revisionId'];
         }
 
 
