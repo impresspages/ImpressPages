@@ -56,6 +56,7 @@ class InstallTest extends MinkTestCase
         $page->findById('db_user')->setValue($testDbHelper->getDbUser());
         $page->findById('db_pass')->setValue('wrong');
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
+        $page->findById('db_prefix')->setValue('ipt_');
         $page->find('css', '.btn-primary')->click();
         sleep(1);
         $alert = $page->find('css', '.errorContainer .alert');
