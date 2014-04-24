@@ -18,7 +18,7 @@ class JsTreeHelper
 
     /**
      * @param string $languageCode
-     * @param \Ip\Page[] $pages
+     * @param int $parentId
      * @return array
      */
     protected static function getList ($languageCode, $parentId)
