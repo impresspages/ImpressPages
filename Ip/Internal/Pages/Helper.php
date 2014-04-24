@@ -280,10 +280,6 @@ class Helper
             ));
         $form->addField($field);
 
-        $fieldset = new \Ip\Form\Fieldset();
-        $form->addFieldset($fieldset);
-
-
         $form = ipFilter('ipPagePropertiesForm', $form, array('pageId' => $pageId));
 
         return $form;

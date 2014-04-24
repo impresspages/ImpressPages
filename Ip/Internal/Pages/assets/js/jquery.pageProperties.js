@@ -43,7 +43,7 @@
     var formResponse = function (response) {
         var $this = this;
         $this.html(response.html);
-console.log(response.html);
+
         // wrap fields in a div so accordion would work
         $this.find('fieldset').each(function (index, fieldset) {
             var $fieldset = $(fieldset);
@@ -84,7 +84,7 @@ console.log(response.html);
         })
 
         $this.find('input,select').off().on('change keydown input', function () {
-            $this.find('.ipsSave').removeClass('brn-default').addClass('btn-primary');
+            $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
 
 
@@ -98,7 +98,7 @@ console.log(response.html);
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipAdminWidgetButton');
+            $.error('Method ' + method + ' does not exist on jQuery.ipPageProperties');
         }
 
     };
