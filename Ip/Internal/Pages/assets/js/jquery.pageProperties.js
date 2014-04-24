@@ -69,7 +69,6 @@
             }
         });
 
-
         $this.find('.ipsDelete').on('click', function(e) {
             $this.trigger('delete.ipPages');
         });
@@ -81,15 +80,12 @@
 
         $this.find('.ipsSave').off().on('click', function () {
             $this.find("form").submit();
-        })
-
-        $this.find('input,select').off().on('change keydown input', function () {
-            $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
 
-
+        $this.find('input,select,textarea').off().on('change keydown input', function () {
+            $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
+        });
     }
-
 
     $.fn.ipPageProperties = function(method) {
 
