@@ -67,7 +67,7 @@ class AdminController extends \Ip\Controller
             'contentManagementUrl' => ipConfig()->baseUrl() . '?aa=Content.index',
             'contentManagementText' => __('Manage content', 'Ip-admin', false)
         );
-        $contentView = ipView('view/index.php', $data);
+        $contentView = ipView('view/layout.php', $data);
 
         ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
 
