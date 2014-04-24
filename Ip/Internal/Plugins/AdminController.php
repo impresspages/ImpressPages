@@ -140,7 +140,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -154,8 +153,9 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
-    public function updateOptions()
+    public function updatePlugin()
     {
+
         return \Ip\Response\JsonRpc::result(true);
     }
 
