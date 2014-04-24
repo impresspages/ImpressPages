@@ -9453,6 +9453,10 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   color: #2f313f;
   text-decoration: none;
 }
+.ipModulePlugins ._plugin.disabled {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
 .ipModulePlugins ._plugin.active {
   background-color: #fff;
   border-color: #fff;
@@ -9460,6 +9464,8 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   border-width: 1px 0;
   color: #2f313f;
   margin: -1px -20px -1px 0;
+  opacity: 1;
+  filter: alpha(opacity=100);
   position: relative;
   z-index: 1;
 }
@@ -9468,10 +9474,6 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 }
 .ipModulePlugins ._plugin.active ._name {
   font-weight: bold;
-}
-.ipModulePlugins ._plugin.disabled {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
 }
 .ipModulePlugins ._plugin .fa {
   margin-left: -20px;

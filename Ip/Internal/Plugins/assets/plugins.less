@@ -37,6 +37,9 @@
             color: #2f313f; // todox: make variable
             text-decoration: none;
         }
+        &.disabled {
+            .opacity(.5);
+        }
         &.active {
             background-color: #fff; // todox: make variable
             border-color: #fff; // todox: make variable
@@ -44,6 +47,7 @@
             border-width: 1px 0;
             color: #2f313f; // todox: make variable
             margin: -1px -20px -1px 0; // expanding to hover other borders and to touch to properties
+            .opacity(1); // in case this is disabled
             position: relative; // to be on top of other borders
             z-index: 1; // to be on top of other borders
 
@@ -53,9 +57,6 @@
             ._name {
                 font-weight: bold;
             }
-        }
-        &.disabled {
-            .opacity(.5);
         }
 
         ._heading {
