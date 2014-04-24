@@ -56,7 +56,9 @@ var ipPlugins = null;
                 activate($scope.selectedPlugin.name);
             });
             $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
-                deletePlugin($scope.selectedPlugin.name);
+                if (confirm(ipTranslationAreYouSure)) {
+                    deletePlugin($scope.selectedPlugin.name);
+                }
             });
         }
 
