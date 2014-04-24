@@ -69,7 +69,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -104,7 +103,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -154,8 +152,7 @@ class AdminController extends \Ip\Controller{
 
     public function updatePlugin()
     {
-
-        return \Ip\Response\JsonRpc::result(true);
+        return \Ip\Response\JsonRpc::result(ipRequest()->getPost());
     }
 
 }
