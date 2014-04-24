@@ -42,7 +42,7 @@ function ipGetOption($option, $defaultValue = null)
  * Get language specific option value
  *
  * @param string $option Option name. Option names use syntax "PluginName.optionName".
- * @param int $languageCode Language code.
+ * @param string $languageCode Language code.
  * @param mixed|null $defaultValue Default value. Returned if the option was not set.
  * @return mixed Option value.
 */
@@ -73,7 +73,7 @@ function ipSetOption($option, $value)
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param mixed $value Option value.
- * @param int $languageCode Language code string.
+ * @param string $languageCode Language code string.
  */
 function ipSetOptionLang($option, $value, $languageCode = null)
 {
