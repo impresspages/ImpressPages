@@ -18,12 +18,12 @@ class Page404 extends Page
 
     public function getTitle()
     {
-        return ipGetOption('Config.websiteTitle', 'Page not found');
+        return ipGetOptionLang('Config.websiteTitle', 'Page not found');
     }
 
     public function getMetaTitle()
     {
-        return ipGetOption('Config.websiteTitle', 'Page not found');
+        return ipGetOptionLang('Config.websiteTitle', 'Page not found');
     }
 
     public function generateContent()

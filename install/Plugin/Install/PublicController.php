@@ -542,8 +542,8 @@ class PublicController extends \Ip\Controller
         try {
 
             Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('siteEmail'), ipRequest()->getPost('install_pass'));
-            Model::setSiteName(ipRequest()->getPost('siteName'));
-            Model::setSiteEmail(ipRequest()->getPost('siteEmail'));
+            ipSetOptionLang('Config.websiteTitle', ipRequest()->getPost('siteName'), 'en');
+            ipSetOptionLang('Config.websiteEmail', ipRequest()->getPost('siteEmail'), 'en');
             Model::generateCronPassword();
             ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
             ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
