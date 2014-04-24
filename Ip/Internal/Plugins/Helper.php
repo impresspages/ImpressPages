@@ -105,6 +105,7 @@ class Helper
             ));
         $form->addField($field);
 
+        $initialFieldCount = count($form->getFields());
 
         if (!empty($plugin['options'])) {
             static::getOptionsForm($form, $plugin['options']);
@@ -112,7 +113,7 @@ class Helper
 
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
 
-        if (count($form->getFields()) > 4) { // if there is at least one non standard field
+        if (count($form->getFields()) > $initialFieldCount) { // if there is at least one non standard field
             $field = new \Ip\Form\Field\Submit(array(
                 'value' => __('Save', 'Ip-admin', false),
             ));
@@ -122,11 +123,18 @@ class Helper
         return $form;
     }
 
+    public static function savePluginOptions($pluginName, $data)
+    {
+        // save options data
+        $plugin = self::getPluginData($pluginName);
+
+    }
+
     /**
      * @param \Ip\Form  $form
      * @param array     $options
      */
-    protected static function getOptionsForm($form, $options)
+    public static function getOptionsForm($form, $options)
     {
         foreach ($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
