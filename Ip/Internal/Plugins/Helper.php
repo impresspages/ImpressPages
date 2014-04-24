@@ -105,17 +105,69 @@ class Helper
             ));
         $form->addField($field);
 
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'title',
-                'label' => __('Title', 'Ip-admin', FALSE),
-                'value' => $plugin['title']
-            ));
-        $form->addField($field);
+
+        if (!empty($plugin['options'])) {
+            static::getOptionsForm($form, $plugin['options']);
+        }
 
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
 
         return $form;
+    }
+
+    /**
+     * @param \Ip\Form  $form
+     * @param array     $options
+     */
+    protected static function getOptionsForm($form, $options)
+    {
+        foreach ($options as $option) {
+            if (empty($option['type']) || empty($option['name'])) {
+                continue;
+            }
+
+            switch ($option['type']) {
+                case 'select':
+                    $newField = new Form\Field\Select();
+                    $values = array();
+                    if (!empty($option['values']) && is_array($option['values'])) {
+                        foreach($option['values'] as $value) {
+                            $values[] = array($value, $value);
+                        }
+                    }
+                    $newField->setValues($values);
+                    break;
+                case 'text':
+                    $newField = new Form\Field\Text();
+                    break;
+                case 'textarea':
+                    $newField = new Form\Field\Textarea();
+                    break;
+                case 'color':
+                    $newField = new Form\Field\Color();
+                    break;
+                case 'range':
+                    $newField = new Form\Field\Range();
+                    break;
+                case 'checkbox':
+                    $newField = new Form\Field\Checkbox();
+                    break;
+                default:
+                    //do nothing
+            }
+            if (!isset($newField)) {
+                //field type is not recognised
+                continue;
+            }
+
+            $newField->setName($option['name']);
+            $newField->setLabel(empty($option['label']) ? '' : $option['label']);
+            $default = isset($option['default']) ? $option['default'] : null;
+
+            $newField->setValue($default);
+
+            $form->addfield($newField);
+        }
     }
 
     public static function getPluginData($pluginName)
@@ -151,6 +203,10 @@ class Helper
         }
         if (isset($config['name'])) {
             $pluginRecord['name'] = $config['name'];
+        }
+
+        if (isset($config['options'])) {
+            $pluginRecord['options'] = $config['options'];
         }
 
         return $pluginRecord;
