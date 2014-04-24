@@ -36,7 +36,7 @@ class Options
     /**
      * Get language specific option value
      * @param string $key Option key
-     * @param int $languageCode Language code
+     * @param string $languageCode Language code
      * @param null $defaultValue A value to return if the option is not set
      * @return string Option value
      * @throws Exception
@@ -73,7 +73,7 @@ class Options
     /**
      * Set language specific option
      * @param string $key Option key
-     * @param int $languageCode Language code
+     * @param string $languageCode Language code
      * @param $value Option value
      * @throws Exception
      */
