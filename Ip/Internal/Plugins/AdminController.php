@@ -20,6 +20,7 @@ class AdminController extends \Ip\Controller{
         }
 
         ipAddJsVariable('pluginList', $plugins);
+        ipAddJsVariable('ipTranslationAreYouSure', __('Are you sure?', 'Ip-admin', false));
 
         $data = array ();
         $view = ipView('view/layout.php', $data);
