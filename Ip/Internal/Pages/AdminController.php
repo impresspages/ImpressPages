@@ -27,7 +27,6 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageTree.js');
         ipAddJs('Ip/Internal/Pages/assets/js/jquery.pageProperties.js');
 
-
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
 

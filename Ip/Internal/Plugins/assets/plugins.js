@@ -13,25 +13,144 @@ var ipPlugins = null;
 
     ipPlugins = function ($scope, $location) {
         //init
-        $scope.selectedPluginName = null;
+        $scope.selectedPlugin = {name: null, title: null};
+        $scope.pluginList = pluginList;
 
         $scope.$on('PathChanged', function (event, path) {
             var pluginName = getHashParams().plugin;
 
-            if (!$scope.selectedPluginName) {
-                pluginName = $('.ipsPlugin')[0];
+            // selecting first active plugin
+            if (!pluginName) {
+                $.each(pluginList, function (key, value) {
+                    if (value.active && !pluginName) {
+                        pluginName = value.name;
+                    }
+                });
+
+                // if we don't have active, selected first from the list
+                if (!pluginName && pluginList[0]) {
+                    pluginName = pluginList[0].name;
+                }
             }
 
-            if (pluginName && pluginName != $scope.selectedPluginName) {
-                $scope.showPlugin(pluginName);
+            if (pluginName && pluginName != $scope.selectedPlugin.name) {
+                $.each(pluginList, function (key, value) {
+                    if (value.name == pluginName) {
+                        $scope.showPlugin(value);
+                    }
+                });
             }
         });
 
-        $scope.showPlugin = function (pluginName) {
-            $scope.selectedPluginName = pluginName;
+        $scope.showPlugin = function (plugin) {
+            $scope.selectedPlugin = plugin;
             var $properties = $('.ipsProperties');
             $properties.ipPluginProperties({
-                pluginName: pluginName
+                pluginName: plugin.name
+            });
+
+            $properties.off('deactivate.ipPlugins').on('deactivate.ipPlugins', function () {
+                deactivate($scope.selectedPlugin.name);
+            });
+            $properties.off('activate.ipPlugins').on('activate.ipPlugins', function () {
+                activate($scope.selectedPlugin.name);
+            });
+            $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
+                deletePlugin($scope.selectedPlugin.name);
+            });
+        }
+
+        $scope.setPluginHash = function (plugin) {
+            updateHash(plugin.name);
+        }
+
+
+        var activate = function (pluginName) {
+            var postData = {};
+            postData.aa = 'Plugins.activate';
+            postData.securityToken = ip.securityToken;
+            postData.jsonrpc = '2.0';
+            postData.params = {pluginName : pluginName};
+
+            $.ajax({
+                url: ip.baseUrl,
+                data: postData,
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    if (response && response.result) {
+                        window.location = window.location.href.split('#')[0];
+                    } else {
+                        if (response && response.error && response.error.message) {
+                            alert(response.error.message);
+                        } else {
+                            alert('Unknown error. Please see logs.');
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Unknown error. Please see logs.');
+                }
+            });
+
+        };
+
+        var deactivate = function (pluginName) {
+            var postData = {};
+            postData.aa = 'Plugins.deactivate';
+            postData.securityToken = ip.securityToken;
+            postData.jsonrpc = '2.0';
+            postData.params = {pluginName : pluginName};
+
+            $.ajax({
+                url: ip.baseUrl,
+                data: postData,
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    if (response && response.result) {
+                        window.location = window.location.href.split('#')[0];
+                    } else {
+                        if (response && response.error && response.error.message) {
+                            alert(response.error.message);
+                        } else {
+                            alert('Unknown error. Please see logs.');
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Unknown error. Please see logs.');
+                }
+            });
+        }
+
+        // 'delete' is predefined class
+        var deletePlugin = function (pluginName) {
+            var postData = {};
+            postData.aa = 'Plugins.remove';
+            postData.securityToken = ip.securityToken;
+            postData.jsonrpc = '2.0';
+            postData.params = {pluginName : pluginName};
+
+            $.ajax({
+                url: ip.baseUrl,
+                data: postData,
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    if (response && response.result) {
+                        window.location = window.location.href.split('#')[0];
+                    } else {
+                        if (response && response.error && response.error.message) {
+                            alert(response.error.message);
+                        } else {
+                            alert('Unknown error. Please see logs.');
+                        }
+                    }
+                },
+                error: function () {
+                    alert('Unknown error. Please see logs.');
+                }
             });
         }
 
@@ -70,99 +189,6 @@ var ipPlugins = null;
         }
     }
 
-    var activate = function () {
-        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
-
-        var postData = {};
-        postData.aa = 'Plugins.activate';
-        postData.securityToken = ip.securityToken;
-        postData.jsonrpc = '2.0';
-        postData.params = {pluginName : pluginName};
-
-        $.ajax({
-            url: ip.baseUrl,
-            data: postData,
-            dataType: 'json',
-            type: 'POST',
-            success: function (response) {
-                if (response && response.result) {
-                    window.location = window.location.href.split('#')[0];
-                } else {
-                    if (response && response.error && response.error.message) {
-                        alert(response.error.message);
-                    } else {
-                        alert('Unknown error. Please see logs.');
-                    }
-                }
-            },
-            error: function () {
-                alert('Unknown error. Please see logs.');
-            }
-        });
-
-    };
-
-    var deactivate = function () {
-        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
-
-        var postData = {};
-        postData.aa = 'Plugins.deactivate';
-        postData.securityToken = ip.securityToken;
-        postData.jsonrpc = '2.0';
-        postData.params = {pluginName : pluginName};
-
-        $.ajax({
-            url: ip.baseUrl,
-            data: postData,
-            dataType: 'json',
-            type: 'POST',
-            success: function (response) {
-                if (response && response.result) {
-                    window.location = window.location.href.split('#')[0];
-                } else {
-                    if (response && response.error && response.error.message) {
-                        alert(response.error.message);
-                    } else {
-                        alert('Unknown error. Please see logs.');
-                    }
-                }
-            },
-            error: function () {
-                alert('Unknown error. Please see logs.');
-            }
-        });
-    }
-
-    var remove = function () {
-        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
-
-        var postData = {};
-        postData.aa = 'Plugins.remove';
-        postData.securityToken = ip.securityToken;
-        postData.jsonrpc = '2.0';
-        postData.params = {pluginName : pluginName};
-
-        $.ajax({
-            url: ip.baseUrl,
-            data: postData,
-            dataType: 'json',
-            type: 'POST',
-            success: function (response) {
-                if (response && response.result) {
-                    window.location = window.location.href.split('#')[0];
-                } else {
-                    if (response && response.error && response.error.message) {
-                        alert(response.error.message);
-                    } else {
-                        alert('Unknown error. Please see logs.');
-                    }
-                }
-            },
-            error: function () {
-                alert('Unknown error. Please see logs.');
-            }
-        });
-    }
 
 //    this.init = function () {
 //        $('.ipsModulePlugins .ipsActivate').on('click', activate);
