@@ -1,0 +1,92 @@
+.ipModulePlugins {
+    overflow-y: hidden;
+
+    ._outer {
+        height: 100%;
+    }
+
+    ._container {
+        float: left;
+        height: 100%;
+        overflow: auto;
+        padding: (@grid-gutter-width / 2);
+
+        ._actions {
+            min-height: @grid-gutter-width;
+        }
+    }
+
+    ._plugins {
+        width: (@grid-gutter-width * 8.5);
+
+        ul {
+            list-style: none;
+        }
+        li {
+            border-top: 1px solid #c9ccdd; // todox: make variable
+        }
+    }
+
+    ._plugin {
+        color: #46495e; // make variable
+        display: block;
+        padding: (@grid-gutter-width / 2);
+
+        &:hover {
+            background-color: #d4d4d4; // todox: make variable
+            color: #2f313f; // todox: make variable
+            text-decoration: none;
+        }
+        &.active {
+            background-color: #fff; // todox: make variable
+            border-color: #fff; // todox: make variable
+            border-style: solid;
+            border-width: 1px 0;
+            color: #2f313f; // todox: make variable
+            margin: -1px -20px -1px 0; // expanding to hover other borders and to touch to properties
+            position: relative; // to be on top of other borders
+            z-index: 1; // to be on top of other borders
+
+            ._heading {
+                color: #81aa2b; // todox: make variable
+            }
+            ._name {
+                font-weight: bold;
+            }
+        }
+        &.disabled {
+            .opacity(.5);
+        }
+
+        ._heading {
+        }
+        .@{fa-css-prefix} {
+            margin-left: -(@grid-gutter-width / 2);
+            text-align: center;
+            width: @grid-gutter-width;
+        }
+        ._name {
+            text-transform: uppercase;
+        }
+        .label {
+            font-size: @font-size-xsmall;
+            margin-left: (@grid-gutter-width / 2);
+        }
+        ._description {
+            font-size: @font-size-small;
+            margin-top: (@grid-gutter-width / 4);
+        }
+
+    }
+
+    ._properties {
+        background-color: #fff; // todox: make variable
+        padding: (@grid-gutter-width / 2) @grid-gutter-width @grid-gutter-width;
+        width: (@grid-gutter-width * 17);
+
+        ._actions {
+            margin-bottom: (@grid-gutter-width / 4);
+            margin-top: -(@grid-gutter-width / 4);
+        }
+    }
+}

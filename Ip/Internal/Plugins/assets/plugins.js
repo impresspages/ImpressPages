@@ -1,13 +1,77 @@
+var ipPlugins = null;
 
-$( document ).ready(function () {
-    ipModulePlugins.init();
-});
-
-var ipModulePlugins = new function () {
+(function ($) {
     "use strict";
 
+    var app = angular.module('Plugins', []);
+
+    app.run(function ($rootScope) {
+        $rootScope.$on('$locationChangeSuccess', function (e, newUrl, oldUrl) {
+            $rootScope.$broadcast('PathChanged', newUrl);
+        });
+    });
+
+    ipPlugins = function ($scope, $location) {
+        //init
+        $scope.selectedPluginName = null;
+
+        $scope.$on('PathChanged', function (event, path) {
+            var pluginName = getHashParams().plugin;
+
+            if (!$scope.selectedPluginName) {
+                pluginName = $('.ipsPlugin')[0];
+            }
+
+            if (pluginName && pluginName != $scope.selectedPluginName) {
+                $scope.showPlugin(pluginName);
+            }
+        });
+
+        $scope.showPlugin = function (pluginName) {
+            $scope.selectedPluginName = pluginName;
+            var $properties = $('.ipsProperties');
+            $properties.ipPluginProperties({
+                pluginName: pluginName
+            });
+        }
+
+        var updateHash = function (pluginName) {
+            var curVariables = getHashParams();
+            curVariables['/hash'] = '';
+
+            curVariables.plugin = pluginName ? pluginName : null;
+
+            var path = '';
+            $.each(curVariables, function(key, value){
+                if (value != null) {
+                    if (path != '') {
+                        path = path + '&';
+                    }
+                    path = path + key + '=' + value;
+                }
+            });
+            $location.path(path);
+        }
+
+        var getHashParams = function () {
+            var hashParams = {};
+            var e,
+                a = /\+/g,  // Regex for replacing addition symbol with a space
+                r = /([^&;=]+)=?([^&;]*)/g,
+                d = function (s) {
+                    return decodeURIComponent(s.replace(a, " "));
+                },
+                q = window.location.hash.substring(1);
+
+            while (e = r.exec(q))
+                hashParams[d(e[1])] = d(e[2]);
+
+            return hashParams;
+        }
+    }
+
     var activate = function () {
-        var pluginName = $(this).closest('.panel').data('pluginname');
+        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
 
         var postData = {};
         postData.aa = 'Plugins.activate';
@@ -39,7 +103,7 @@ var ipModulePlugins = new function () {
     };
 
     var deactivate = function () {
-        var pluginName = $(this).closest('.panel').data('pluginname');
+        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
 
         var postData = {};
         postData.aa = 'Plugins.deactivate';
@@ -70,7 +134,7 @@ var ipModulePlugins = new function () {
     }
 
     var remove = function () {
-        var pluginName = $(this).closest('.panel').data('pluginname');
+        var pluginName = $(this).closest('.ipsPlugin').data('pluginname');
 
         var postData = {};
         postData.aa = 'Plugins.remove';
@@ -100,11 +164,10 @@ var ipModulePlugins = new function () {
         });
     }
 
-    this.init = function () {
-        $('.ipModulePlugins .ipsActivate').on('click', activate);
-        $('.ipModulePlugins .ipsDeactivate').on('click', deactivate);
-        $('.ipModulePlugins .ipsRemove').on('click', remove);
-    };
-};
+//    this.init = function () {
+//        $('.ipsModulePlugins .ipsActivate').on('click', activate);
+//        $('.ipsModulePlugins .ipsDeactivate').on('click', deactivate);
+//        $('.ipsModulePlugins .ipsRemove').on('click', remove);
+//    };
 
-
+})(jQuery);

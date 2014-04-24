@@ -83,4 +83,133 @@ class Helper
     }
 
 
+    public static function pluginPropertiesForm($pluginName)
+    {
+
+        $plugin = self::getPluginData($pluginName);
+
+        $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'aa',
+                'value' => 'Plugins.updatePlugin'
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Hidden(
+            array(
+                'name' => 'pluginName',
+                'value' => $pluginName
+            ));
+        $form->addField($field);
+
+
+        if (!empty($plugin['options'])) {
+            static::getOptionsForm($form, $plugin['options']);
+        }
+
+        $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
+
+        return $form;
+    }
+
+    /**
+     * @param \Ip\Form  $form
+     * @param array     $options
+     */
+    protected static function getOptionsForm($form, $options)
+    {
+        foreach ($options as $option) {
+            if (empty($option['type']) || empty($option['name'])) {
+                continue;
+            }
+
+            switch ($option['type']) {
+                case 'select':
+                    $newField = new Form\Field\Select();
+                    $values = array();
+                    if (!empty($option['values']) && is_array($option['values'])) {
+                        foreach($option['values'] as $value) {
+                            $values[] = array($value, $value);
+                        }
+                    }
+                    $newField->setValues($values);
+                    break;
+                case 'text':
+                    $newField = new Form\Field\Text();
+                    break;
+                case 'textarea':
+                    $newField = new Form\Field\Textarea();
+                    break;
+                case 'color':
+                    $newField = new Form\Field\Color();
+                    break;
+                case 'range':
+                    $newField = new Form\Field\Range();
+                    break;
+                case 'checkbox':
+                    $newField = new Form\Field\Checkbox();
+                    break;
+                default:
+                    //do nothing
+            }
+            if (!isset($newField)) {
+                //field type is not recognised
+                continue;
+            }
+
+            $newField->setName($option['name']);
+            $newField->setLabel(empty($option['label']) ? '' : $option['label']);
+            $default = isset($option['default']) ? $option['default'] : null;
+
+            $newField->setValue($default);
+
+            $form->addfield($newField);
+        }
+    }
+
+    public static function getPluginData($pluginName)
+    {
+        $activePlugins = Service::getActivePluginNames();
+        $config = Model::getPluginConfig($pluginName);
+        $pluginRecord = array(
+            'description' => '',
+            'title' => $pluginName,
+            'name' => $pluginName,
+            'version' => '',
+            'author' => '',
+            'labelType' => 'default', // Bootstrap class
+            'label' => __('Inactive', 'Ip-admin'),
+            'active' => false
+        );
+        if (in_array($pluginName, $activePlugins)) {
+            $pluginRecord['active'] = true;
+            $pluginRecord['labelType'] = 'success'; // Bootstrap class
+            $pluginRecord['label'] = __('Active', 'Ip-admin');
+        }
+        if (isset($config['description'])) {
+            $pluginRecord['description'] = $config['description'];
+        }
+        if (isset($config['version'])) {
+            $pluginRecord['version'] = $config['version'];
+        }
+        if (isset($config['title'])) {
+            $pluginRecord['title'] = $config['title'];
+        }
+        if (isset($config['author'])) {
+            $pluginRecord['author'] = $config['author'];
+        }
+        if (isset($config['name'])) {
+            $pluginRecord['name'] = $config['name'];
+        }
+
+        if (isset($config['options'])) {
+            $pluginRecord['options'] = $config['options'];
+        }
+
+        return $pluginRecord;
+    }
+
 }
