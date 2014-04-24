@@ -224,15 +224,7 @@ class Model
         \Ip\Internal\AdminPermissionsModel::addPermission('Super admin', $adminId);
     }
 
-    public static function setSiteName($siteName)
-    {
-        ipSetOption('Config.websiteTitle', $siteName);
-    }
 
-    public static function setSiteEmail($siteEmail)
-    {
-        ipSetOption('Config.websiteEmail', $siteEmail);
-    }
 
     public static function generateCronPassword()
     {

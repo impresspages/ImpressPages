@@ -42,14 +42,13 @@ class Db
         }
 
         $dbConfig = ipConfig()->get('db');
+        ipConfig()->set('db', null);
 
         if (empty($dbConfig)) {
             throw new \Ip\Exception\Db("Can't connect to database. No connection config found or \\Ip\\Db::disconnect() has been used.");
         }
 
         try {
-
-
             $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
             if (!empty($dbConfig['database'])) {
                 $dsn .= ';dbname=' . $dbConfig['database'];
@@ -67,7 +66,6 @@ class Db
         }
 
         $this->tablePrefix = $dbConfig['tablePrefix'];
-        ipConfig()->set('db', null);
 
         return $this->pdoConnection;
     }
