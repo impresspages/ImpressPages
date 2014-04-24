@@ -9,8 +9,8 @@ class Model{
         return array(
             "Core",
             "Content",
-            "Pages",
             "Admin",
+            "Pages",
             "Administrators",
             "Design",
             "Plugins",
@@ -19,7 +19,6 @@ class Model{
             "Config",
             "Breadcrumb",
             "Repository",
-            "Upload",
             "InlineManagement",
             "Languages",
             "Cron",

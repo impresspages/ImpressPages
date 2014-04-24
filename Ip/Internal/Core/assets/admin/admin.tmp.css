@@ -7702,6 +7702,43 @@ th {
 .page-header h1 {
   margin-top: 0;
 }
+.ipModuleUploadWindow {
+  background: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
+  overflow: hidden;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ipModuleUploadWindow ._buttons {
+  margin-left: 5px;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 1010;
+}
+.ipModuleUploadProgressItem {
+  margin-bottom: 10px;
+}
+.ipModuleUploadProgressItem ._progressbar {
+  background: #ebebeb;
+  border: 1px solid #d3d3d3;
+  height: 20px;
+}
+.ipModuleUploadProgressItem ._progressbar .ui-progressbar-value {
+  background: #019bd4;
+  border: 1px solid #018bbe;
+  height: 100%;
+  margin: -1px;
+}
+.ipModuleUploadProgressItem ._title {
+  color: #000000;
+  font-size: 11px;
+  line-height: 20px;
+  margin-top: -20px;
+  padding: 0 5px;
+  text-shadow: 1px 1px 0 #ffffff;
+}
 .ipAdminNavbar {
   border: 0;
 }
@@ -9382,6 +9419,85 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   margin-left: 0;
   margin-right: 0;
 }
+.ipModulePlugins {
+  overflow-y: hidden;
+}
+.ipModulePlugins ._outer {
+  height: 100%;
+}
+.ipModulePlugins ._container {
+  float: left;
+  height: 100%;
+  overflow: auto;
+  padding: 20px;
+}
+.ipModulePlugins ._container ._actions {
+  min-height: 40px;
+}
+.ipModulePlugins ._plugins {
+  width: 340px;
+}
+.ipModulePlugins ._plugins ul {
+  list-style: none;
+}
+.ipModulePlugins ._plugins li {
+  border-top: 1px solid #c9ccdd;
+}
+.ipModulePlugins ._plugin {
+  color: #46495e;
+  display: block;
+  padding: 20px;
+}
+.ipModulePlugins ._plugin:hover {
+  background-color: #d4d4d4;
+  color: #2f313f;
+  text-decoration: none;
+}
+.ipModulePlugins ._plugin.active {
+  background-color: #fff;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 1px 0;
+  color: #2f313f;
+  margin: -1px -20px -1px 0;
+  position: relative;
+  z-index: 1;
+}
+.ipModulePlugins ._plugin.active ._heading {
+  color: #81aa2b;
+}
+.ipModulePlugins ._plugin.active ._name {
+  font-weight: bold;
+}
+.ipModulePlugins ._plugin.disabled {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+.ipModulePlugins ._plugin .fa {
+  margin-left: -20px;
+  text-align: center;
+  width: 40px;
+}
+.ipModulePlugins ._plugin ._name {
+  text-transform: uppercase;
+}
+.ipModulePlugins ._plugin .label {
+  font-size: 11px;
+  margin-left: 20px;
+}
+.ipModulePlugins ._plugin ._description {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.ipModulePlugins ._properties {
+  background-color: #fff;
+  padding: 20px 40px 40px;
+  width: 680px;
+}
+.ipModulePlugins ._properties ._actions {
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
 .ipModuleRepositoryPopup {
   background-color: #fff;
   height: 100%;
@@ -9617,41 +9733,4 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   text-align: center;
   top: 50%;
   width: 320px;
-}
-.ipModuleUploadWindow {
-  background: url(data:image/gif;base64,R0lGODlhAgACAIAAANXV1fn5+SH5BAAAAAAALAAAAAACAAIAAAIDDBAFADs=);
-  overflow: hidden;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.ipModuleUploadWindow ._buttons {
-  margin-left: 5px;
-  margin-top: 10px;
-  position: absolute;
-  z-index: 1010;
-}
-.ipModuleUploadProgressItem {
-  margin-bottom: 10px;
-}
-.ipModuleUploadProgressItem ._progressbar {
-  background: #ebebeb;
-  border: 1px solid #d3d3d3;
-  height: 20px;
-}
-.ipModuleUploadProgressItem ._progressbar .ui-progressbar-value {
-  background: #019bd4;
-  border: 1px solid #018bbe;
-  height: 100%;
-  margin: -1px;
-}
-.ipModuleUploadProgressItem ._title {
-  color: #000000;
-  font-size: 11px;
-  line-height: 20px;
-  margin-top: -20px;
-  padding: 0 5px;
-  text-shadow: 1px 1px 0 #ffffff;
 }
