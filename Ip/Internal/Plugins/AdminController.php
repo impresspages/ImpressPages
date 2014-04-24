@@ -153,6 +153,18 @@ class AdminController extends \Ip\Controller{
 
     public function updatePlugin()
     {
+        $pluginName = ipRequest()->getPost('pluginName');
+        $data = ipRequest()->getPost();
+
+        $form = Helper::pluginPropertiesForm($pluginName);
+
+        $errors = $form->validate($data);
+        if ($errors) {
+            return \Ip\Response\JsonRpc::error(__('Invalid plugin options data', 'Ip-admin'));
+        }
+
+        Helper::savePluginOptions($pluginName, $data);
+
         return \Ip\Response\JsonRpc::result(ipRequest()->getPost());
     }
 
