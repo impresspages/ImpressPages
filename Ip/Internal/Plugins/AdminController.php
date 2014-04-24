@@ -155,8 +155,9 @@ class AdminController extends \Ip\Controller{
 
     public function updatePlugin()
     {
-
-        return \Ip\Response\JsonRpc::result(true);
+        $answer['status'] = 'success';
+        return new \Ip\Response\Json($answer);
+//        return \Ip\Response\JsonRpc::result($result);
     }
 
 }
