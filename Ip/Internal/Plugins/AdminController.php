@@ -153,4 +153,9 @@ class AdminController extends \Ip\Controller{
         return new \Ip\Response\Json($answer);
     }
 
+    public function updateOptions()
+    {
+        return \Ip\Response\JsonRpc::result(true);
+    }
+
 }
