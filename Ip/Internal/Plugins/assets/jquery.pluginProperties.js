@@ -64,26 +64,27 @@
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
             }
         });
-//
-//        $this.find('.ipsDelete').on('click', function(e) {
-//            $this.trigger('delete.ipPages');
-//        });
-//
-//        $this.find('.ipsEdit').on('click', function(e) {
-//            $this.trigger('edit.ipPages');
-//        });
-//
-//
-        $this.find('.ipsSave').off().on('click', function () {
-            $this.find("form").submit();
-        })
 
-        $this.find('input,select').off().on('change keydown input', function () {
-            $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
+        $this.find('.ipsDeactivate').on('click', function(e) {
+            $this.trigger('deactivate.ipPlugins');
         });
 
-    }
+        $this.find('.ipsActivate').on('click', function(e) {
+            $this.trigger('activate.ipPlugins');
+        });
 
+        $this.find('.ipsDelete').on('click', function(e) {
+            $this.trigger('delete.ipPlugins');
+        });
+
+        $this.find('.ipsSave').off().on('click', function () {
+            $this.find("form").submit();
+        });
+
+        $this.find('input,select,textarea').off().on('change keydown input', function () {
+            $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
+        });
+    }
 
     $.fn.ipPluginProperties = function(method) {
 
