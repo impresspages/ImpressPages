@@ -38,7 +38,7 @@ class Dao
 
         foreach ($breadcrumb as $position => $element) {
             $value = $this->getPageValue($key, $languageId, $element->getId());
-            if ($value !== false) {
+            if ($value) {
                 if ($position == 0) {
                     $scope = new Entity\Scope();
                     $scope->settype(Entity\Scope::SCOPE_PAGE);
