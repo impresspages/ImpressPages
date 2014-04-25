@@ -7601,13 +7601,10 @@ fieldset[disabled] .btn-new.active {
 }
 .help-error {
   background-color: #d9534f;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   color: #fff;
   display: none;
   font-size: 12px;
-  padding: 4px 10px 2px;
+  padding: 4px 10px;
   width: 100%;
 }
 .has-error .help-error {
