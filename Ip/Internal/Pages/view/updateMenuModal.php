@@ -14,9 +14,9 @@
                 <div class="ipsBody"></div>
             </div>
             <div class="modal-footer ipsModalActions">
-                <button type="button" class="ipsSave btn btn-primary"><?php _e('Save', 'Ip-admin'); ?></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin'); ?></button>
                 <button class="btn btn-danger ipsDelete" type="button" role="button"><?php _e('Delete', 'Ip-admin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
+                <button type="button" class="ipsSave btn btn-primary"><?php _e('Save', 'Ip-admin'); ?></button>
             </div>
         </div>
     </div>
