@@ -58,7 +58,7 @@
 
         ipInitForms();
         $this.find('form').on('ipSubmitResponse', function (e, response) {
-            if (response.status && response.status == 'success') {
+            if (response.result) {
                 //plugin has been successfully updated
                 $this.trigger('update.ipPlugins');
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');

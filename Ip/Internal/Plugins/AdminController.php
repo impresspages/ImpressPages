@@ -70,7 +70,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -105,7 +104,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -144,7 +142,7 @@ class AdminController extends \Ip\Controller{
 
         $answer = array(
             'jsonrpc' => '2.0',
-            'result' => array(
+            'result' => array( 
                 1
             ),
             'id' => null,
@@ -155,8 +153,19 @@ class AdminController extends \Ip\Controller{
 
     public function updatePlugin()
     {
+        $pluginName = ipRequest()->getPost('pluginName');
+        $data = ipRequest()->getPost();
 
-        return \Ip\Response\JsonRpc::result(true);
+        $form = Helper::pluginPropertiesForm($pluginName);
+
+        $errors = $form->validate($data);
+        if ($errors) {
+            return \Ip\Response\JsonRpc::error(__('Invalid plugin options data', 'Ip-admin'));
+        }
+
+        Helper::savePluginOptions($pluginName, $data);
+
+        return \Ip\Response\JsonRpc::result(ipRequest()->getPost());
     }
 
 }

@@ -1690,8 +1690,8 @@ output {
   color: #555555;
   background-color: #ffffff;
   background-image: none;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
+  border: 1px solid #a3a4af;
+  border-radius: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -1704,14 +1704,14 @@ output {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control::-moz-placeholder {
-  color: #999999;
+  color: #97989f;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .form-control[disabled],
 .form-control[readonly],
@@ -3370,7 +3370,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  border: 1px solid #a3a4af;
   border-radius: 4px;
 }
 .input-group-addon.input-sm {
@@ -7584,8 +7584,11 @@ fieldset[disabled] .btn-new.active {
   color: #019bd4;
   background-color: #ffffff;
 }
+.form-control {
+  font-size: 18px;
+}
 .help-hint {
-  background-color: #cccccc;
+  background-color: #a3a4af;
   color: #fff;
   display: none;
   font-size: 12px;
@@ -9499,6 +9502,9 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 .ipModulePlugins ._properties ._actions {
   margin-bottom: 10px;
   margin-top: -10px;
+}
+.ipModulePlugins ._properties ._details {
+  list-style: none;
 }
 .ipModuleRepositoryPopup {
   background-color: #fff;
