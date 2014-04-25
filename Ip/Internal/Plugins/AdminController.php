@@ -37,10 +37,15 @@ class AdminController extends \Ip\Controller{
             throw new \Ip\Exception("Missing required parameters");
         }
 
+
         $variables = array(
             'plugin' => Helper::getPluginData($pluginName),
-            'form' => Helper::pluginPropertiesForm($pluginName)
         );
+
+        if (in_array($pluginName, Model::getActivePluginNames())) {
+            $variables['form'] = Helper::pluginPropertiesForm($pluginName);
+        }
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
         $data = array (

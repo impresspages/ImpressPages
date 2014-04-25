@@ -93,8 +93,8 @@ class Model{
         $q->execute($params);
 
         // set default plugin options
-        if (!empty($pluginRecord['options'])) {
-            static::importDefaultOptions($pluginName, $pluginRecord['options']);
+        if (!empty($config['options'])) {
+            static::importDefaultOptions($pluginName, $config['options']);
         }
 
         ipLog()->info('Ip.pluginActivated: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
