@@ -180,12 +180,17 @@ var ipPageDragId;
                 context: this,
                 success: function (response) {
                     $modal.find('.ipsBody').html(response.html);
+
+                    // initial state
+                    $modal.find('.ipsDeleteConfirmation').addClass('hidden');
+                    $modal.find('.ipsBody').removeClass('hidden');
+                    $modal.find('.ipsModalActions').removeClass('hidden');
+
                     ipInitForms();
 
                     $modal.find('.ipsDelete').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').removeClass('hidden');
                         $modal.find('.ipsBody').addClass('hidden');
-                        $modal.find('.ipsDelete').addClass('hidden');
                         $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
                             deletePage(menu.id, function () {
@@ -198,11 +203,9 @@ var ipPageDragId;
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').addClass('hidden');
                         $modal.find('.ipsBody').removeClass('hidden');
-                        $modal.find('.ipsDelete').removeClass('hidden');
                         $modal.find('.ipsModalActions').removeClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click');
                     });
-
 
                     $modal.find('.ipsSave').off('click').on('click', function () {
                         $modal.find('form').submit()
