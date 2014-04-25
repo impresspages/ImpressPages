@@ -6,10 +6,10 @@
     "author": "ImpressPages",
     "widget": { /* Image cropping settings for widgets. Require theme reinstall to take affect. */
         "image": {
-            "width": 1180,
+            "width": 1180, /* For responsiveness and optimization it should be the same as the widest block */
             "height": 400
         },
-        "gallery": {
+        "gallery": { /* For responsiveness and optimization it should the size as it would appear on the widest block */
             "width": 295,
             "height": 164
         }
