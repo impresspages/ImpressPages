@@ -56,9 +56,7 @@ var ipPlugins = null;
                 activate($scope.selectedPlugin.name);
             });
             $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
-                if (confirm(ipTranslationAreYouSure)) {
-                    deletePlugin($scope.selectedPlugin.name);
-                }
+                deletePlugin($scope.selectedPlugin.name);
             });
         }
 
@@ -86,12 +84,12 @@ var ipPlugins = null;
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
 
@@ -116,12 +114,12 @@ var ipPlugins = null;
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
         }
@@ -146,12 +144,12 @@ var ipPlugins = null;
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
         }
