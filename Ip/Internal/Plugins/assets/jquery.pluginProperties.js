@@ -77,9 +77,9 @@
             $this.trigger('delete.ipPlugins');
         });
 
-        $this.find('.ipsSave').off().on('click', function () {
-            $this.find("form").submit();
-        });
+//        $this.find('.ipsSave').off().on('click', function () {
+//            $this.find('form').submit();
+//        });
 
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
