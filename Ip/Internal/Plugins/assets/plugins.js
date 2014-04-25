@@ -81,7 +81,7 @@ var ipPlugins = null;
                 type: 'POST',
                 success: function (response) {
                     if (response && response.result) {
-                        window.location = window.location.href.split('#')[0];
+                        location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
@@ -111,7 +111,7 @@ var ipPlugins = null;
                 type: 'POST',
                 success: function (response) {
                     if (response && response.result) {
-                        window.location = window.location.href.split('#')[0];
+                        location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);

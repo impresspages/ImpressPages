@@ -113,11 +113,8 @@ class Helper
 
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
 
-        if (count($form->getFields()) > $initialFieldCount) { // if there is at least one non standard field
-            $field = new \Ip\Form\Field\Submit(array(
-                'value' => __('Save', 'Ip-admin', false),
-            ));
-            $form->addField($field);
+        if (count($form->getFields()) == $initialFieldCount) {
+            return null;
         }
 
         return $form;

@@ -142,7 +142,7 @@ class AdminController extends \Ip\Controller{
 
         $answer = array(
             'jsonrpc' => '2.0',
-            'result' => array(
+            'result' => array( 
                 1
             ),
             'id' => null,

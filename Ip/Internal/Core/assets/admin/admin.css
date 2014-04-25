@@ -9667,6 +9667,9 @@
   margin-bottom: 10px;
   margin-top: -10px;
 }
+.ip .ipModulePlugins ._properties ._details {
+  list-style: none;
+}
 .ip .ipModuleRepositoryPopup {
   background-color: #fff;
   height: 100%;
