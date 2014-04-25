@@ -107,14 +107,33 @@ class Helper
 
         $initialFieldCount = count($form->getFields());
 
-        if (!empty($plugin['options'])) {
-            static::getOptionsForm($form, $plugin['options']);
-        }
-
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
 
         if (count($form->getFields()) == $initialFieldCount) {
             return null;
+        }
+
+        $field = new \Ip\Form\Field\Submit(array(
+            'value' => __('Save', 'Ip-admin'),
+        ));
+
+        $field->addClass('ipsSave');
+        $form->addField($field);
+
+        return $form;
+    }
+
+    /**
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @return \Ip\Form $form
+     */
+    public static function pluginPropertiesFormFields($pluginName, $form)
+    {
+        $plugin = self::getPluginData($pluginName);
+
+        if (!empty($plugin['options'])) {
+            static::getOptionsForm($form, $plugin['options']);
         }
 
         return $form;
@@ -122,9 +141,17 @@ class Helper
 
     public static function savePluginOptions($pluginName, $data)
     {
-        // save options data
-        $plugin = self::getPluginData($pluginName);
+        $form = self::pluginPropertiesForm($pluginName);
 
+        $errors = $form->validate($data);
+
+        if ($errors) {
+            return $errors;
+        }
+
+        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName));
+
+        return true;
     }
 
     /**

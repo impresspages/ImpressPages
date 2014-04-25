@@ -18,5 +18,4 @@
 </ul>
 <?php if ($form) { ?>
     <?php echo $form->render(); ?>
-    <button class="ipsSave btn btn-default" type="button" role="button"><?php _e('Save', 'Ip-admin'); ?></button>
 <?php } ?>
