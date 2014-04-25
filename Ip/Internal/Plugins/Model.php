@@ -261,10 +261,11 @@ class Model{
             return array();
         }
         foreach ($files as $file) {
-            if (in_array($file, array('.', '..')) || !is_dir($pluginDir . $file)) {
+            if (in_array($file, array('.', '..')) || !is_dir($pluginDir . $file) || !empty($file[0]) && $file[0] == '.') {
                 continue;
             }
             $answer[] = $file;
+
         }
 
         //TODO add filter for plugins in other directories

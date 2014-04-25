@@ -1,3 +1,6 @@
+.form-control {
+    font-size: 18px; // todox: make variable
+}
 .help-hint { // to be shown on hover
     background-color: @input-border;
     color: #fff;
@@ -12,13 +15,10 @@
 }
 .help-error {
     background-color: @brand-danger;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; // for max-width to make sense
     color: #fff;
     display: none;
     font-size: @font-size-small;
-    padding: 4px 10px 2px;
+    padding: 4px 10px;
     width: 100%;
 }
 .has-error .help-error {
