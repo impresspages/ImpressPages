@@ -33,7 +33,6 @@ class Display
             }
         }
 
-
         if (empty($searchVariables)) {
             $where = $this->config->filter();
         } else {
@@ -49,9 +48,6 @@ class Display
                 }
             }
         }
-
-
-
 
         $pageVariableName = $this->config->pageVariableName();
         $currentPage = !empty($statusVariables[$pageVariableName]) ? (int)$statusVariables[$pageVariableName] : 1;
@@ -71,6 +67,7 @@ class Display
         $pagination = new \Ip\Pagination\Pagination(array(
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
+            'pagerSize' => $this->config->pagerSize()
         ));
 
         $variables = array(
