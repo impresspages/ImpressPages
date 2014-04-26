@@ -35,6 +35,10 @@ class Config
             $this->config['pageSize'] = 10;
         }
 
+        if (empty($this->config['pagerSize'])) {
+            $this->config['pagerSize'] = 10;
+        }
+
         foreach ($this->config['fields'] as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
@@ -209,6 +213,11 @@ class Config
     public function pageSize()
     {
         return $this->config['pageSize'];
+    }
+
+    public function pagerSize()
+    {
+        return $this->config['pagerSize'];
     }
 
     public function idField()
