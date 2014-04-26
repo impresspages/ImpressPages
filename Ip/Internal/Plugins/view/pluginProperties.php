@@ -16,7 +16,6 @@
     <li><strong><?php _e('Name', 'Ip-admin'); ?>:</strong> <?php echo esc($plugin['name']); ?></li>
     <li><strong><?php _e('Version', 'Ip-admin'); ?>:</strong> <?php echo esc($plugin['version']); ?></li>
 </ul>
-<?php if ($form) { ?>
+<?php if (!empty($form)) { ?>
     <?php echo $form->render(); ?>
-    <button class="ipsSave btn btn-default" type="button" role="button"><?php _e('Save', 'Ip-admin'); ?></button>
 <?php } ?>
