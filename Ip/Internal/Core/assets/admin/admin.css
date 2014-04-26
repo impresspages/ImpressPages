@@ -7751,38 +7751,8 @@
   color: #019bd4;
   background-color: #ffffff;
 }
-.ip .form-control {
-  font-size: 18px;
-}
-.ip .help-hint {
-  background-color: #a3a4af;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50%;
-  z-index: 1;
-}
-.ip .help-error {
-  background-color: #d9534f;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px;
-  width: 100%;
-}
-.ip .has-error .help-error {
-  display: block;
-}
-.ip .form-group:hover .help-hint {
-  display: block;
-}
-.ip .captcha img {
-  display: block;
-  max-width: 100%;
+.ip .form-group {
+  position: relative;
 }
 .ip .form-group.type-blank {
   margin-bottom: 0;
@@ -7795,6 +7765,42 @@
 }
 .ip .form-group.type-submit label {
   display: none;
+}
+.ip .form-control {
+  font-size: 18px;
+}
+.ip .form-control + .input-group-addon {
+  border-left: 0;
+}
+.ip .help-hint {
+  background-color: #a3a4af;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  z-index: 2;
+}
+.ip .form-group:hover .help-hint {
+  display: block;
+}
+.ip .help-error {
+  background-color: #d9534f;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  width: 100%;
+}
+.ip .has-error .help-error {
+  display: block;
+}
+.ip .captcha img {
+  display: block;
+  max-width: 100%;
 }
 .ip legend[data-toggle="collapse"] {
   cursor: pointer;
