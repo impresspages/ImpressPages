@@ -92,12 +92,44 @@ class Model{
         $q = $dbh->prepare($sql);
         $q->execute($params);
 
+        // set default plugin options
+        if (!empty($config['options'])) {
+            static::importDefaultOptions($pluginName, $config['options']);
+        }
+
         ipLog()->info('Ip.pluginActivated: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
 
         ipEvent('ipPluginActivated', array(
                 'name' => $pluginName,
                 'version' => $config['version'],
             ));
+    }
+
+    protected static function importDefaultOptions($pluginName, $options)
+    {
+        $form = new \Ip\Form();
+
+        /* @var $form \Ip\Form */
+        $form = Helper::pluginPropertiesFormFields($pluginName, $form);
+
+        foreach ($options as $option) {
+            if (empty($option['name'])) {
+                continue;
+            }
+
+            $field = $form->getField($option['name']);
+            if (!$field) {
+                continue;
+            }
+
+            $optionKey = $pluginName . '.' . $option['name'];
+            if (!is_null(ipGetOption($optionKey))) { // option already exists
+                continue;
+            }
+
+            ipSetOption($pluginName . '.' . $option['name'], $field->getValue());
+
+        }
     }
 
     public static function deactivatePlugin($pluginName)

@@ -37,10 +37,15 @@ class AdminController extends \Ip\Controller{
             throw new \Ip\Exception("Missing required parameters");
         }
 
+
         $variables = array(
             'plugin' => Helper::getPluginData($pluginName),
-            'form' => Helper::pluginPropertiesForm($pluginName)
         );
+
+        if (in_array($pluginName, Model::getActivePluginNames())) {
+            $variables['form'] = Helper::pluginPropertiesForm($pluginName);
+        }
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
         $data = array (
@@ -156,16 +161,13 @@ class AdminController extends \Ip\Controller{
         $pluginName = ipRequest()->getPost('pluginName');
         $data = ipRequest()->getPost();
 
-        $form = Helper::pluginPropertiesForm($pluginName);
+        $result = Helper::savePluginOptions($pluginName, $data);
 
-        $errors = $form->validate($data);
-        if ($errors) {
-            return \Ip\Response\JsonRpc::error(__('Invalid plugin options data', 'Ip-admin'));
+        if ($result === true) {
+            return \Ip\Response\JsonRpc::result($result);
+        } else {
+            return \Ip\Response\JsonRpc::error('Validation failed');
         }
-
-        Helper::savePluginOptions($pluginName, $data);
-
-        return \Ip\Response\JsonRpc::result(ipRequest()->getPost());
     }
 
 }
