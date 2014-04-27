@@ -133,7 +133,7 @@ class Helper
         $plugin = self::getPluginData($pluginName);
 
         if (!empty($plugin['options'])) {
-            static::getOptionsForm($form, $plugin['options']);
+            static::getOptionsForm($pluginName, $form, $plugin['options']);
         }
 
         return $form;
@@ -158,7 +158,7 @@ class Helper
      * @param \Ip\Form  $form
      * @param array     $options
      */
-    public static function getOptionsForm($form, $options)
+    public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
@@ -203,7 +203,7 @@ class Helper
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
 
-            $newField->setValue($default);
+            $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
 
             $form->addfield($newField);
         }
