@@ -93,9 +93,6 @@ class Job
         if (!is_callable($info['action'])) {
             $controllerClass = $info['controllerClass'];
             $controller = new $controllerClass();
-            if (!$controller instanceof \Ip\Controller) {
-                throw new \Ip\Exception(esc ($controllerClass) . ".php must extend \\Ip\\Controller class.");
-            }
 
             $callableAction = array($controller, $info['action']);
             $reflection = new \ReflectionMethod($controller, $info['action']);
