@@ -1,50 +1,59 @@
+.form-group {
+    position: relative; // to allow .help-hint to be positioned relatively
+
+    &.type-blank {
+        margin-bottom: 0; // removing from flow
+        label {
+            display: none;
+        }
+        .help-error {
+            margin-bottom: 15px; // keeping space when visible
+        }
+    }
+
+    &.type-submit {
+        label {
+            display: none;
+        }
+    }
+}
+.form-control {
+    font-size: 18px; // todox: make variable
+
+    & + .input-group-addon {
+        border-left: 0; // fixing form modal UI (with lots of input group mixing)
+    }
+}
 .help-hint { // to be shown on hover
     background-color: @input-border;
-    color: #fff;
+    color: #fff; // todox: make variable
     display: none;
     font-size: @font-size-small;
-    padding: 4px 10px 2px;
+    padding: 4px 10px;
     position: absolute;
     right: 0;
     top: 0;
     width: 50%;
-    z-index: 1;
+    z-index: 2;
+}
+.form-group:hover .help-hint { // hint is shown only on hover
+    display: block;
 }
 .help-error {
     background-color: @brand-danger;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box; // for max-width to make sense
-    color: #fff;
+    color: #fff; // todox: make variable
     display: none;
     font-size: @font-size-small;
-    padding: 4px 10px 2px;
+    padding: 4px 10px;
     width: 100%;
 }
 .has-error .help-error {
     display: block;
 }
-.form-group:hover .help-hint { // hint is shown only on hover
-    display: block;
-}
-.captcha {
+.captcha { // same as checkbox or radio
     img {
         display: block;
         max-width: 100%;
-    }
-}
-.form-group.type-blank {
-    margin-bottom: 0; // removing from flow
-    label {
-        display: none;
-    }
-    .help-error {
-        margin-bottom: 15px; // keeping space when visible
-    }
-}
-.form-group.type-submit {
-    label {
-        display: none;
     }
 }
 legend[data-toggle="collapse"] { // auto styling if fieldsets are collapsable

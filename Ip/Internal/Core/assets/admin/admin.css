@@ -1866,8 +1866,8 @@
   color: #555555;
   background-color: #ffffff;
   background-image: none;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
+  border: 1px solid #a3a4af;
+  border-radius: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -1880,14 +1880,14 @@
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .ip .form-control::-moz-placeholder {
-  color: #999999;
+  color: #97989f;
   opacity: 1;
 }
 .ip .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .ip .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .ip .form-control[disabled],
 .ip .form-control[readonly],
@@ -3546,7 +3546,7 @@
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  border: 1px solid #a3a4af;
   border-radius: 4px;
 }
 .ip .input-group-addon.input-sm {
@@ -7751,38 +7751,8 @@
   color: #019bd4;
   background-color: #ffffff;
 }
-.ip .help-hint {
-  background-color: #cccccc;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50%;
-  z-index: 1;
-}
-.ip .help-error {
-  background-color: #d9534f;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  width: 100%;
-}
-.ip .has-error .help-error {
-  display: block;
-}
-.ip .form-group:hover .help-hint {
-  display: block;
-}
-.ip .captcha img {
-  display: block;
-  max-width: 100%;
+.ip .form-group {
+  position: relative;
 }
 .ip .form-group.type-blank {
   margin-bottom: 0;
@@ -7795,6 +7765,42 @@
 }
 .ip .form-group.type-submit label {
   display: none;
+}
+.ip .form-control {
+  font-size: 18px;
+}
+.ip .form-control + .input-group-addon {
+  border-left: 0;
+}
+.ip .help-hint {
+  background-color: #a3a4af;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  z-index: 2;
+}
+.ip .form-group:hover .help-hint {
+  display: block;
+}
+.ip .help-error {
+  background-color: #d9534f;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  width: 100%;
+}
+.ip .has-error .help-error {
+  display: block;
+}
+.ip .captcha img {
+  display: block;
+  max-width: 100%;
 }
 .ip legend[data-toggle="collapse"] {
   cursor: pointer;
@@ -9666,6 +9672,9 @@
 .ip .ipModulePlugins ._properties ._actions {
   margin-bottom: 10px;
   margin-top: -10px;
+}
+.ip .ipModulePlugins ._properties ._details {
+  list-style: none;
 }
 .ip .ipModuleRepositoryPopup {
   background-color: #fff;

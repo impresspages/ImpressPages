@@ -105,21 +105,60 @@ class Helper
             ));
         $form->addField($field);
 
-
-        if (!empty($plugin['options'])) {
-            static::getOptionsForm($form, $plugin['options']);
-        }
+        $initialFieldCount = count($form->getFields());
 
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
 
+        if (count($form->getFields()) == $initialFieldCount) {
+            return null;
+        }
+
+        $field = new \Ip\Form\Field\Submit(array(
+            'value' => __('Save', 'Ip-admin'),
+        ));
+
+        $field->addClass('ipsSave');
+        $form->addField($field);
+
         return $form;
+    }
+
+    /**
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @return \Ip\Form $form
+     */
+    public static function pluginPropertiesFormFields($pluginName, $form)
+    {
+        $plugin = self::getPluginData($pluginName);
+
+        if (!empty($plugin['options'])) {
+            static::getOptionsForm($pluginName, $form, $plugin['options']);
+        }
+
+        return $form;
+    }
+
+    public static function savePluginOptions($pluginName, $data)
+    {
+        $form = self::pluginPropertiesForm($pluginName);
+
+        $errors = $form->validate($data);
+
+        if ($errors) {
+            return $errors;
+        }
+
+        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName));
+
+        return true;
     }
 
     /**
      * @param \Ip\Form  $form
      * @param array     $options
      */
-    protected static function getOptionsForm($form, $options)
+    public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
@@ -164,7 +203,7 @@ class Helper
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
 
-            $newField->setValue($default);
+            $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
 
             $form->addfield($newField);
         }

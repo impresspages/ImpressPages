@@ -188,7 +188,7 @@ class Application
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
-                ) != $this->getSecurityToken()) && !$request->getPost('pa')
+                ) != $this->getSecurityToken()) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
