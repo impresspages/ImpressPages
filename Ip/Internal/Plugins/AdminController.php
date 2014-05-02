@@ -37,10 +37,15 @@ class AdminController extends \Ip\Controller{
             throw new \Ip\Exception("Missing required parameters");
         }
 
+
         $variables = array(
             'plugin' => Helper::getPluginData($pluginName),
-            'form' => Helper::pluginPropertiesForm($pluginName)
         );
+
+        if (in_array($pluginName, Model::getActivePluginNames())) {
+            $variables['form'] = Helper::pluginPropertiesForm($pluginName);
+        }
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
         $data = array (
@@ -70,7 +75,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -105,7 +109,6 @@ class AdminController extends \Ip\Controller{
             );
 
             return new \Ip\Response\Json($answer);
-            return;
         }
 
         $answer = array(
@@ -144,7 +147,7 @@ class AdminController extends \Ip\Controller{
 
         $answer = array(
             'jsonrpc' => '2.0',
-            'result' => array(
+            'result' => array( 
                 1
             ),
             'id' => null,
@@ -155,8 +158,16 @@ class AdminController extends \Ip\Controller{
 
     public function updatePlugin()
     {
+        $pluginName = ipRequest()->getPost('pluginName');
+        $data = ipRequest()->getPost();
 
-        return \Ip\Response\JsonRpc::result(true);
+        $result = Helper::savePluginOptions($pluginName, $data);
+
+        if ($result === true) {
+            return \Ip\Response\JsonRpc::result($result);
+        } else {
+            return \Ip\Response\JsonRpc::error('Validation failed');
+        }
     }
 
 }

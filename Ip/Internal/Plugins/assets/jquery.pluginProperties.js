@@ -58,7 +58,7 @@
 
         ipInitForms();
         $this.find('form').on('ipSubmitResponse', function (e, response) {
-            if (response.status && response.status == 'success') {
+            if (response.result) {
                 //plugin has been successfully updated
                 $this.trigger('update.ipPlugins');
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
@@ -77,9 +77,9 @@
             $this.trigger('delete.ipPlugins');
         });
 
-        $this.find('.ipsSave').off().on('click', function () {
-            $this.find("form").submit();
-        });
+//        $this.find('.ipsSave').off().on('click', function () {
+//            $this.find('form').submit();
+//        });
 
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');

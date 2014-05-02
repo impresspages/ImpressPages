@@ -23,6 +23,7 @@ class Helper
         'allowUpdate' => FALSE,
         'sortField' => 'pageOrder',
         'pageSize' => ipGetOption('Pages.pageListSize', 30),
+        'pagerSize' => 5,
         'pageVariableName' => 'gpage',
         'filter' => 'isDeleted = 0 and parentId = ' . (int) $parentId, //rename to sqlWhere
         'fields' => array(
