@@ -24,6 +24,11 @@ class Model{
         return ipDb()->selectRow('administrator', '*', array('username' => $username));
     }
 
+    public static function getById($id)
+    {
+        return ipDb()->selectRow('administrator', '*', array('id' => $id));
+    }
+
     public static function getByEmail($email)
     {
         return ipDb()->selectRow('administrator', '*', array('email' => $email));

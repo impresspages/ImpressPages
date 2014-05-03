@@ -26,6 +26,11 @@ class Service
         return Model::getByUsername($username);
     }
 
+
+    public static function getById($id)
+    {
+        return Model::getById($id);
+    }
     public static function getByEmail($email)
     {
         return Model::getByEmail($email);
