@@ -20,6 +20,7 @@ class ServiceLocator
     protected static $requests = array();
     protected static $dispatchers = array();
     protected static $contents = array();
+    protected static $ecommerce = array();
     protected static $responses = array();
     protected static $config = null;
     protected static $log = null;
@@ -46,6 +47,7 @@ class ServiceLocator
         'slots' => '\Ip\Internal\Slots',
         'pageAssets' => '\Ip\Internal\PageAssets',
         'router' => '\Ip\Router',
+        'ecommerce' => '\Ip\Ecommerce',
     );
 
     /**
@@ -145,6 +147,7 @@ class ServiceLocator
         self::$slots[] = static::loadService('slots');
         self::$pageAssets[] = static::loadService('pageAssets');
         self::$routers[] = static::loadService('router');
+        self::$ecommerce[] = static::loadService('ecommerce');
     }
 
     /**
@@ -160,6 +163,7 @@ class ServiceLocator
             array_pop(self::$slots);
             array_pop(self::$pageAssets);
             array_pop(self::$routers);
+            array_pop(self::$ecommerce);
         }
     }
 
@@ -177,6 +181,14 @@ class ServiceLocator
     public static function content()
     {
         return end(self::$contents);
+    }
+
+    /**
+     * @return \Ip\Ecommerce
+     */
+    public static function ecommerce()
+    {
+        return end(self::$ecommerce);
     }
 
     /**

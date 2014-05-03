@@ -1033,3 +1033,15 @@ function ipUser()
     $user = new \Ip\User();
     return $user;
 }
+
+
+/**
+ * Get ecommerce object
+ * Use this object to access ecommerce related methods
+ * @return \Ip\Ecommerce
+ */
+function ipEcommerce()
+{
+    return \Ip\ServiceLocator::ecommerce();
+}
+
