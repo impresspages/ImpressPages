@@ -173,9 +173,7 @@ class Model{
         }
 
         if (\Ip\Internal\Administrators\Service::checkPassword($administrator['id'], $password)) {
-            Backend::login($administrator['id']);
-            \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginSuccessful', array('userId' => $administrator['id']));
-            ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
+            Service::setAdminLogin($administrator['id']);
             return true;
         } else {
             \Ip\ServiceLocator::dispatcher()->event('ipAdminLoginFailed', array('username' => $username, 'ip' => ipRequest()->getServer('REMOTE_ADDR')));
@@ -183,6 +181,16 @@ class Model{
             $this->errors = array('password' => __('Incorrect password', 'Ip-admin'));
             return false;
         }
+    }
+
+    public function setAdminLogin($administratorId)
+    {
+        $ip = ipRequest()->getServer('REMOTE_ADDR');
+        Backend::login($administratorId);
+        ipEvent('ipAdminLoginSuccessful', array('userId' => $administratorId));
+        $admin = \Ip\Internal\Administrators\Service::getById($administratorId);
+        ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $admin['username'], 'ip' => $ip));
+
     }
 
     public function getErrors()
