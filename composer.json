@@ -8,9 +8,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "impresspages/impresspages": "dev-master"
-    },
     "autoload": {
         "psr-0": {
             "Ip": "Ip/"
