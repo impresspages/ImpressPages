@@ -203,8 +203,8 @@ class Config
     public function allowSort()
     {
 		if (!empty($this->config['sortField'])){
-			if (!empty($this->config['allowSort'])){
-				return (mb_strtoupper(trim($this->config['allowSort'])) === mb_strtoupper("true")) ? TRUE : FALSE;
+			if (isset($this->config['allowSort'])){
+				return $this->config['allowSort'];
 			} else {
 				return TRUE;
 			}
