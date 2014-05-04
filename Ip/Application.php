@@ -14,6 +14,7 @@ class Application
 {
     const ASSETS_DIR = 'assets';
     protected $configPath = null;
+    protected $config = null;
 
     /**
      * @ignore
@@ -21,7 +22,11 @@ class Application
      */
     public function __construct($configPath)
     {
-        $this->configPath = $configPath;
+        if (is_array($configPath)) {
+            $this->config = $configPath;
+        } else {
+            $this->configPath = $configPath;
+        }
     }
 
     /**
@@ -40,7 +45,13 @@ class Application
      */
     public function init()
     {
-        $config = require($this->configPath);
+        if ($this->config) {
+            $config = $this->config;
+        } else {
+            $config = require($this->configPath);
+        }
+
+
 
         require_once __DIR__ . '/Config.php';
 
