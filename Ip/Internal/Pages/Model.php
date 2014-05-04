@@ -3,13 +3,18 @@
 /**
  * @package ImpressPages
  *
- *
  */
+
 namespace Ip\Internal\Pages;
+
 
 
 class Model
 {
+    /**
+     * @param int $pageId
+     * @param int $deleteType
+     */
     public static function moveToTrash($pageId, $deleteType = 1)
     {
         $children = self::getChildren($pageId);
@@ -24,15 +29,14 @@ class Model
     }
 
     /**
-     *
      * Copy page
+     *
      * @param int $pageId
      * @param int $newParentId
      * @param int $position page position in the subtree //TODO implement
      */
     public static function copyPage($pageId, $destinationPageId, $position = null)
     {
-
         $children = self::getChildren($destinationPageId);
 
         if (!empty($children)) {
@@ -41,26 +45,21 @@ class Model
             $rowNumber = 0;
         }
 
-
         return self::_copyPageRecursion($pageId, $destinationPageId, $rowNumber);
-
     }
 
     /**
-     *
      * Copy page internal recursion
-     * @param unknown_type $nodeId
-     * @param unknown_type $destinationPageId
-     * @param unknown_type $newIndex
-     * @param unknown_type $newPages
+     *
+     * @param int $nodeId
+     * @param int $destinationPageId
+     * @param int $rowNumber
+     * @param array $newPages
+     * @return int
      */
-    private static function _copyPageRecursion(
-        $nodeId,
-        $destinationPageId,
-        $rowNumber,
-        $newPages = null
-    ) {
-        //$newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self
+    private static function _copyPageRecursion($nodeId, $destinationPageId, $rowNumber, $newPages = null)
+    {
+        // $newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self
         if ($newPages == null) {
             $newPages = array();
         }
@@ -77,10 +76,15 @@ class Model
                 }
             }
         }
-        return $newNodeId;
 
+        return $newNodeId;
     }
 
+    /**
+     * @param int $nodeId
+     * @param int $newParentId
+     * @param int $newIndex
+     */
     public static function copySinglePage($nodeId, $newParentId, $newIndex)
     {
         $copy = ipDb()->selectRow('page', '*', array('id' => $nodeId));
@@ -96,18 +100,30 @@ class Model
         return ipDb()->insert('page', $copy);
     }
 
+    /**
+     * @param int $sourceId
+     * @param int $targetId
+     */
     private static function _copyWidgets($sourceId, $targetId)
     {
         $oldRevision = \Ip\Internal\Revision::getPublishedRevision($sourceId);
         \Ip\Internal\Revision::duplicateRevision($oldRevision['revisionId'], $targetId, 1);
     }
 
+    /**
+     * @param string $languageCode
+     * @param string $alias
+     */
     public static function getMenu($languageCode, $alias)
     {
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
     }
 
-
+    /**
+     * @param int $parentId
+     * @param int $start
+     * @param int $limit
+     */
     public static function getChildren($parentId, $start = null, $limit = null)
     {
         $sqlEnd = 'ORDER BY `pageOrder`';
@@ -120,6 +136,9 @@ class Model
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
+    /**
+     * @param string $languageCode
+     */
     public static function getMenuList($languageCode = null)
     {
         $where = array('parentId' => 0, 'isDeleted' => 0);
@@ -141,11 +160,18 @@ class Model
         return $list;
     }
 
+    /**
+     * @param int $pageId
+     */
     public static function getPage($pageId)
     {
         return ipDb()->selectRow('page', '*', array('id' => $pageId, 'isDeleted' => 0));
     }
 
+    /**
+     * @param string $languageCode
+     * @param string $urlPath
+     */
     public static function getPageByUrl($languageCode, $urlPath)
     {
         if (substr($urlPath, -1) == '/') {
@@ -154,11 +180,19 @@ class Model
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
     }
 
+    /**
+     * @param string $languageCode
+     * @param string $alias
+     */
     public static function getPageByAlias($languageCode, $alias)
     {
         return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
     }
 
+    /**
+     * @param array $where
+     * @return int
+     */
     protected static function getNextPageOrder($where)
     {
         if (empty($where['isDeleted'])) {
@@ -168,6 +202,10 @@ class Model
         return $nextPageOrder ? $nextPageOrder : 1;
     }
 
+    /**
+     * @param string $pageId
+     * @param string $newUrlPath
+     */
     protected static function changePageUrlPath($pageId, $newUrlPath)
     {
         $pageBeforeChange = ipPage($pageId);
@@ -175,7 +213,6 @@ class Model
         if (mb_substr($newUrlPath, -1) == '/') {
             $newUrlPath = mb_substr($newUrlPath, 0, -1);
         }
-
 
         if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
             return false;
@@ -196,8 +233,8 @@ class Model
     }
 
     /**
-     * @param $pageId
-     * @param $properties
+     * @param int $pageId
+     * @param array $properties
      * @return bool
      */
     public static function updatePageProperties($pageId, $properties)
@@ -279,6 +316,10 @@ class Model
         return true;
     }
 
+    /**
+     * @param int $pageId
+     * @param int $parentId
+     */
     public static function isChild($pageId, $parentId)
     {
         $page = self::getPage($pageId);
@@ -296,6 +337,11 @@ class Model
         return false;
     }
 
+    /**
+     * @param int $menuId
+     * @param int $destinationParentId
+     * @param int $destinationPosition
+     */
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         if ((int)$pageId === (int)$destinationParentId || static::isChild($destinationParentId, $pageId)) {
@@ -324,6 +370,13 @@ class Model
         ipDb()->update('page', $update, array('id' => $pageId));
     }
 
+    /**
+     * @param int $menuId
+     * @param string $alias
+     * @param string $title
+     * @param string $layout
+     * @param string $type
+     */
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
         $update = array(
@@ -368,6 +421,10 @@ class Model
         return self::addPage(0, $data);
     }
 
+    /**
+     * @param string $languageCode
+     * @param string $alias
+     */
     protected static function allocateUniqueAlias($languageCode, $alias)
     {
         $condition = array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0);
@@ -390,6 +447,7 @@ class Model
      * Insert new page
      * @param int $parentId
      * @param array $params
+     * @return int
      */
     public static function addPage($parentId, $params)
     {
@@ -441,9 +499,12 @@ class Model
         ipEvent('ipPageAdded', $row);
 
         return $pageId;
-
     }
 
+    /**
+     * @param int $menuId
+     * @param int $newIndex
+     */
     public static function changeMenuOrder($menuId, $newIndex)
     {
         $menu = static::getPage($menuId);
@@ -464,8 +525,10 @@ class Model
         ipDb()->update('page', array('pageOrder' => $newPriority), array('id' => $menuId));
     }
 
-
-
+    /**
+     * @param string $oldUrl
+     * @param string $newUrl
+     */
     public static function updateUrl($oldUrl, $newUrl)
     {
         $old = parse_url($oldUrl);
