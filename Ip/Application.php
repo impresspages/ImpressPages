@@ -45,6 +45,10 @@ class Application
      */
     public function init()
     {
+        global $ipFile_baseDir, $ipFile_overrides;
+        $ipFile_baseDir = null; //required for MultiSite when several application instances are initialized one after another
+        $ipFile_overrides = null; //required for MultiSite when several application instances are initialized one after another
+
         if ($this->config) {
             $config = $this->config;
         } else {
