@@ -202,7 +202,15 @@ class Config
 
     public function allowSort()
     {
-        return !empty($this->config['sortField']);
+		if (!empty($this->config['sortField'])){
+			if (!empty($this->config['allowSort'])){
+				return (mb_strtoupper(trim($this->config['allowSort'])) === mb_strtoupper("true")) ? TRUE : FALSE;
+			} else {
+				return TRUE;
+			}
+		} else {
+			return FALSE;
+		}
     }
 
     public function allowDelete()
