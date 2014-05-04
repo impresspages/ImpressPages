@@ -85,6 +85,8 @@ var ipColumnsInitWidthHandles = function () {
         addResizeHandlers($(widget));
     });
 
+
+    $(document).trigger('ipWidgetColumnsDragHandlersInit');
 }
 
 $(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
