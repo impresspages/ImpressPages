@@ -155,7 +155,7 @@ class Actions
 
         $priority2 = ipDb()->fetchValue($sql, $params);
 
-        if ($priority2 === false) {
+        if ($priority2 === null) {
             if ($beforeOrAfter == 'before') {
                 $newPriority = $priority - 5;
             } else {
