@@ -25,6 +25,10 @@ class AdminPermissions
         if (!isset($this->permissions[$administratorId])) {
             $this->permissions[$administratorId] = AdminPermissionsModel::getUserPermissions($administratorId);
         }
-        return isset($this->permissions[$administratorId][$permission]) || isset($this->permissions[$administratorId]['Super admin']);
+
+        $answer = isset($this->permissions[$administratorId][$permission]) || isset($this->permissions[$administratorId]['Super admin']);
+        $answer = ipFilter('ipAdminPermission', $answer, array('permission' => $permission, 'administratorId' => $administratorId));
+
+        return $answer;
     }
 }

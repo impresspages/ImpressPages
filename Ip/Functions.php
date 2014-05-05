@@ -792,12 +792,13 @@ function ipTable($table, $as = false)
  *
  * Check if user has a right to access plugin's Admin controller.
  *
- * @param $plugin Plugin name.
+ * @param $permission
+ * @param null $administratorId
  * @return bool Returns true if user has plugin's administration permission.
  */
-function ipAdminPermission($permission, $userId = NULL)
+function ipAdminPermission($permission, $administratorId = NULL)
 {
-    return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission);
+    return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission, $administratorId);
 }
 
 
