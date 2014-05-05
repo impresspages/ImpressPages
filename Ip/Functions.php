@@ -591,7 +591,7 @@ function ipThemeFile($path)
  *
  * @return string Homepage URL address.
  */
-function ipHomeUrl()
+function ipHomeUrl($languageCode = null)
 {
     $homeUrl = ipConfig()->baseUrl();
     if (ipConfig()->get('rewritesDisabled')) {
@@ -599,7 +599,12 @@ function ipHomeUrl()
     }
 
     if (ipGetOption('Config.multilingual')) {
-        $homeUrl .= ipContent()->getCurrentLanguage()->getUrlPath();
+        if ($languageCode == null) {
+            $language = ipContent()->getCurrentLanguage();
+        } else {
+            $language = ipContent()->getLanguageByCode($languageCode);
+        }
+        $homeUrl .= $language->getUrlPath();
     }
 
     return $homeUrl;
