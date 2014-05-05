@@ -57,7 +57,7 @@ class Storage {
      *
      * @param string $pluginName Plugin name
      * @param string $key Option key
-     * @param $value Option value
+     * @param mixed $value Option value
      */
     public function set($pluginName, $key, $value)
     {
