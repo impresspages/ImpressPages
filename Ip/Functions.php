@@ -586,10 +586,10 @@ function ipThemeFile($path)
     return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
 }
 
+
 /**
- * Get homepage URL
- *
- * @return string Homepage URL address.
+ * @param string|null $languageCode
+ * @return string
  */
 function ipHomeUrl($languageCode = null)
 {
