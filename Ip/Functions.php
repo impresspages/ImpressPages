@@ -836,8 +836,6 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
 }
 
 /**
- * Generate e-mail HTML using template
- *
  * Generates e-mail message HTML using given template data, such as title, content, signature, footer, etc.
  * To send a message generated using ipEmailTemplate() function, use ipSendEmail() function.
  *
