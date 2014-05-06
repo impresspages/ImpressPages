@@ -17,6 +17,8 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
+            'sortField' => 'id',
+            'sortDirection' => 'desc',
             'table' => 'email_queue',
             'actions' => array(),
             'fields' => array (
