@@ -180,10 +180,10 @@ class LessCompiler
      */
     protected function globRecursive($pattern, $flags = 0)
     {
+        //some systems return false instead of empty array if no matches found in glob function
         $files = glob($pattern, $flags);
         if (!is_array($files)) {
-			//some systems return false instead of empty array if no matches found in glob function
-            $files = array();
+            return array();
         }
 
         $dirs = glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT);
