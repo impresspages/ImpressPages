@@ -16,7 +16,7 @@ namespace Ip\Menu;
 class Helper
 {
 
-    /**     *
+    /**
      * Get specific levels of menu.
      *
      * Common usage:
@@ -32,7 +32,7 @@ class Helper
      * @param int $depthFrom
      * @param int $depthTo
      * @param string $orderBy can be set to 'title' to change ordering
-     * @return Item[]
+     * @return array
      * @throws \Ip\Exception
      */
     public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000, $orderBy = null)
@@ -43,7 +43,7 @@ class Helper
             $order = '`pageOrder`';
         }
 
-        //variable check
+        // variable check
         if ($depthFrom < 1) {
             $backtrace = debug_backtrace();
             if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
@@ -65,14 +65,13 @@ class Helper
                 throw new \Ip\Exception('$depthTo can\'t be lower than $depthFrom.');
             }
         }
-        //end variable check
+        // end variable check
 
         $breadcrumb = ipContent()->getBreadcrumb();
 
         $languageCode = ipContent()->getCurrentLanguage()->getCode();
 
         $menuRootId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
-
 
         if ($depthFrom == 1) {
             $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
@@ -98,13 +97,13 @@ class Helper
         return $items;
     }
 
-
     /**
      * Get children items of current or specified page.
+     *
      * @param int|string $pageId pageId or an alias
      * @param int $depthLimit limit the depth of items to be returned
-     * @param null $orderBy can be set to 'title' to change ordering
-     * @return array|Item[]
+     * @param string $orderBy can be set to 'title' to change ordering
+     * @return array
      */
     public static function getChildItems($pageId = null, $depthLimit = 1000, $orderBy = null)
     {
@@ -115,7 +114,7 @@ class Helper
         }
 
         if (is_string($pageId) && !ctype_digit($pageId)) {
-            //$pageId is an alias. Get the real id;
+            // $pageId is an alias. Get the real id;
             $pageId = ipContent()->getPage($pageId)->getId();
             if (!$pageId) {
                 return array();
@@ -135,13 +134,12 @@ class Helper
         return $items;
     }
 
-
     /**
-     * @param $pages
-     * @param $depth
-     * @param $curDepth
-     * @param $order
-     * @return Item[]
+     * @param array $pages
+     * @param int $depth
+     * @param int $curDepth
+     * @param string $order
+     * @return array
      */
     private static function arrayToMenuItem($pages, $depth, $curDepth, $order)
     {
@@ -184,7 +182,10 @@ class Helper
         return $items;
     }
 
-
+    /**
+     * @param string $link
+     * @return bool
+     */
     private static function existInBreadcrumb($link)
     {
         $breadcrumb = ipContent()->getBreadcrumb();
@@ -196,7 +197,5 @@ class Helper
 
         return false;
     }
-
-
 
 }
