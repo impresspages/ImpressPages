@@ -290,7 +290,7 @@ class WidgetController
             }
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
-                $answer = $e->getTraceAsString();
+                $answer = $e->getMessage() . "\n " . $e->getTraceAsString();
             } else {
                 $answer = '';
             }

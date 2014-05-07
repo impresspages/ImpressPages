@@ -16,17 +16,17 @@ namespace Ip\Menu;
 class Helper
 {
 
-    /**     *
-     * Get specific levels of menu.
+    /**
+     * Get specific levels of a menu.
      *
      * Common usage:
-     * Get items of first level (to display on top of the site): getMenuItems('menu1', 1, 1);
-     * Get 7 levels of children of selected page on top menu (to display on a side): getMenuItems('menu1', 2,  7);
+     * Get items of a first menu level (to display on top of the site), e.g., $result = \Ip\Menu\Helper::getMenuItems('menu1', 1, 1);
+     * Get 7 levels of children of selected page on top menu (to display on a side): $result = \Ip\Menu\Helper::getMenuItems('menu1', 2,  7);
      *
-     * Pass the result to ipSlot('menu', arra('items' => $result));
+     * Pass the result to ipSlot('menu', array('items' => $result));
      *
-     * Please note, that it is illogical to slice second level of menu if page on the first level is not selected.
-     * In that case the function will return an empty array.
+     * Please note, that items of a child level can only be returned if a selected page is in a breadcrumb parent page.
+     * In opposite case, the function returns an empty array.
      *
      * @param string $menuName eg menu1
      * @param int $depthFrom
