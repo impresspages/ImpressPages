@@ -35,7 +35,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.13'; //CHANGE_ON_VERSION_UPDATE
+        return '4.0.14'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -155,9 +155,7 @@ class Application
             \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
         }
 
-        if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
-            $request->fixMagicQuotes();
-        }
+
 
         $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
         if ($result) {
@@ -371,6 +369,9 @@ class Application
     {
         $this->prepareEnvironment($options);
         $request = new \Ip\Request();
+
+        $request->fixMagicQuotes();
+
         $request->setQuery($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);

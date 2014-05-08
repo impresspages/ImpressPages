@@ -8,7 +8,6 @@
 namespace Ip\Internal\Pages;
 
 
-
 class Model
 {
     /**
@@ -66,7 +65,6 @@ class Model
         $newNodeId = static::copySinglePage($nodeId, $destinationPageId, $rowNumber);
         $newPages[$newNodeId] = 1;
         self::_copyWidgets($nodeId, $newNodeId);
-
 
         $children = self::getChildren($nodeId);
         if ($children) {
@@ -138,6 +136,7 @@ class Model
 
     /**
      * @param string $languageCode
+     * @return array
      */
     public static function getMenuList($languageCode = null)
     {
@@ -297,7 +296,6 @@ class Model
             ipDb()->update('page', $update, array('id' => $pageId));
         }
 
-
         if (!empty($properties['layout'])) {
             ipPageStorage($pageId)->set('layout', $properties['layout']);
         }
@@ -319,6 +317,7 @@ class Model
     /**
      * @param int $pageId
      * @param int $parentId
+     * @return bool
      */
     public static function isChild($pageId, $parentId)
     {
@@ -349,14 +348,14 @@ class Model
         }
 
         $newParentChildren = self::getChildren($destinationParentId);
-        $newPageOrder = 0; //initial value
+        $newPageOrder = 0; // initial value
 
         if (count($newParentChildren) > 0) {
-            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1; //set as first page
+            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1; // set as first page
             if ($destinationPosition > 0) {
-                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { //new position is in the middle of other pages
+                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { // new position is in the middle of other pages
                     $newPageOrder = ($newParentChildren[$destinationPosition - 1]['pageOrder'] + $newParentChildren[$destinationPosition]['pageOrder']) / 2; //average
-                } else { //new position is at the end
+                } else { // new position is at the end
                     $newPageOrder = $newParentChildren[count($newParentChildren) - 1]['pageOrder'] + 1;
                 }
             }
@@ -424,6 +423,7 @@ class Model
     /**
      * @param string $languageCode
      * @param string $alias
+     * @return string
      */
     protected static function allocateUniqueAlias($languageCode, $alias)
     {
@@ -443,8 +443,8 @@ class Model
     }
 
     /**
-     *
      * Insert new page
+     *
      * @param int $parentId
      * @param array $params
      * @return int
@@ -490,7 +490,6 @@ class Model
         if (empty($row['updatedAt'])) {
             $row['updatedAt'] = date('Y-m-d H:i:s');
         }
-
 
         $pageId = ipDb()->insert('page', $row);
 
@@ -552,7 +551,6 @@ class Model
 
     /**
      * Removes deleted page and its children from the trash.
-     *
      * Does not remove page if page is not deleted.
      *
      * @param int $pageId
@@ -606,4 +604,5 @@ class Model
 
         return ipDb()->fetchValue($sql);
     }
+
 }
