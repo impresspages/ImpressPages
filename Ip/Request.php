@@ -260,7 +260,7 @@ class Request
             return;
         }
 
-        $process = array(&$this->_GET, &$this->_POST, &$this->_COOKIE, &$this->_REQUEST);
+        $process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
         while (list($key, $val) = each($process)) {
             foreach ($val as $k => $v) {
                 unset($process[$key][$k]);
