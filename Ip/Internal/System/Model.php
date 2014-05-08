@@ -1,11 +1,10 @@
 <?php
 
 /**
- * @package   ImpressPages
+ * @package ImpressPages
  *
  *
  */
-
 
 namespace Ip\Internal\System;
 
@@ -27,6 +26,7 @@ class Model
 
     /**
      * Get singleton instance
+     *
      * @return Model
      */
     public static function instance()
@@ -38,21 +38,21 @@ class Model
         return self::$instance;
     }
 
-
     public function getOldUrl()
     {
         return ipStorage()->get('Ip', 'cachedBaseUrl');
     }
 
+    /**
+     * @return string
+     */
     public function getNewUrl()
     {
         return ipConfig()->baseUrl();
     }
 
-
     /**
-     * @param string $oldUrl
-     * @return bool true on success
+     * @return string
      */
     public function getImpressPagesAPIUrl()
     {
@@ -61,12 +61,11 @@ class Model
         } else {
             return 'http://service.impresspages.org';
         }
-
     }
 
-
-
-
+    /**
+     * @return array|string
+     */
     public static function getIpNotifications()
     {
         if (!function_exists('curl_init')) {
@@ -92,7 +91,7 @@ class Model
         $answer = curl_exec($ch);
         $notices = json_decode($answer);
 
-        if (!is_array($notices)) { //json decode error or wrong answer
+        if (!is_array($notices)) { // json decode error or wrong answer
             ipLog()->error('System.updateCheckInvalidResponse',
                 array(
                     'curl_error' => curl_error($ch),
@@ -104,7 +103,5 @@ class Model
 
         return $notices;
     }
-
-
 
 }
