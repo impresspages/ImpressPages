@@ -111,4 +111,50 @@ class Event
         }
         return $answer;
     }
+
+    public static function ipCronExecute($info)
+    {
+        if ($info['firstTimeThisDay'] || $info['test']) {
+            self::cleanDirRecursive(ipFile('file/tmp/'));
+            self::cleanDirRecursive(ipFile('file/secure/tmp/'));
+        }
+    }
+
+
+    protected static function cleanDirRecursive($dir, $depth = 0)
+    {
+        if ($depth > 100) {
+            return;
+        }
+        if (!is_dir($dir)) {
+            return;
+        }
+        if ($handle = opendir($dir)) {
+            $now = time();
+            // List all the files
+            while (false !== ($file = readdir($handle))) {
+                if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
+                    if (filectime($dir.$file) + 3600 * 24 * ipGetOption('Config.tmpFileExistance', 14) < $now){  //delete if a file is created more than two weeks ago
+                        if (is_dir($dir.$file)) {
+                            self::cleanDirRecursive($dir.$file.'/', $depth + 1);
+                            if (self::dirIsEmpty($dir.$file)) {
+                                rmdir($dir.$file);
+                            }
+                        } else {
+                            if ($file != '.htaccess' && ($file != 'readme.txt' || $depth > 0) && ($file != 'readme.md' || $depth > 0)) {
+                                unlink($dir.$file);
+                            }
+                        }
+                    }
+                }
+            }
+            closedir($handle);
+        }
+    }
+
+    private static function dirIsEmpty($dir)
+    {
+        if (!is_readable($dir)) return NULL;
+        return (count(scandir($dir)) == 2);
+    }
 }
