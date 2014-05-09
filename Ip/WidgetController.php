@@ -282,15 +282,27 @@ class WidgetController
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
         $answer = '';
+
         try {
             if ($this->core) {
-                $answer = ipView(('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
             } else {
-                $answer = ipView(('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
             }
+            if (!is_file($skinFile)) {
+                $skin = 'default';
+                if ($this->core) {
+                    $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                } else {
+                    $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                }
+            }
+
+            $answer = ipView($skinFile, $data)->render();
+
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
-                $answer = $e->getTraceAsString();
+                $answer = $e->getMessage() . "\n " . $e->getTraceAsString();
             } else {
                 $answer = '';
             }

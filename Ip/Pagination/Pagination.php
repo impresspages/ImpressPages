@@ -34,6 +34,9 @@ class Pagination
         }
 
         $pagesLeft = floor($this->pagerSize / 2) - 2;
+        if ($pagesLeft < 0) {
+            $pagesLeft = 0;
+        }
 
         $firstPage = max(1, $this->currentPage - $pagesLeft);
         if ($firstPage <= 3) {
