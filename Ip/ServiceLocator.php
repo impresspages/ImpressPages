@@ -230,6 +230,16 @@ class ServiceLocator
     }
 
     /**
+     * @param $db
+     */
+    public static function setDb($db)
+    {
+        $curDb = self::db();
+        static::$db = $db;
+        return $curDb;
+    }
+
+    /**
      * @return \Ip\Internal\Translations\Translator
      */
     public static function translator()
