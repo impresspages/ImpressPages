@@ -95,7 +95,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     public function searchQuery($searchVariables)
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return $this->field . ' like \'%'.mysql_real_escape_string($searchVariables[$this->field]) . '%\' ';
+            return $this->field . ' like ' . ipDb()->getConnection()->quote('%' . $searchVariables[$this->field] . '%') . ' ';
         }
     }
 
