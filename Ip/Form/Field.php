@@ -57,11 +57,7 @@ abstract class Field{
             $this->setValue($options['value']);
         }
         if (!empty($options['css'])) {
-            if (is_array($options['css'])) {
-                $this->setCssClasses($options['css']);
-            } else {
-                $this->classes = array($options['css']);
-            }
+            $this->setCssClasses($options['css']);
         } else {
             $this->classes = array();
         }
@@ -467,5 +463,14 @@ abstract class Field{
             $answer .= ' '.$class;
         }
         return 'class="'.$answer.'"';
+    }
+
+    public function setCssClasses($classes)
+    {
+        if (!is_array($classes)) {
+            $classes = explode(' ', $classes);
+        }
+
+        $this->classes = array_flip($classes);
     }
 }
