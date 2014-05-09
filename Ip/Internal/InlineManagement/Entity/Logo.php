@@ -85,7 +85,7 @@ class Logo
                     'height' => $this->getRequiredHeight(),
                     'quality' => 100
                 );
-                $requestedName = ipGetOptionLang('Config.websiteTitle');
+                $requestedName = \Ip\Internal\Text\Specialchars::url(ipGetOptionLang('Config.websiteTitle'));
                 $this->image = ipReflection($this->getImageOrig(), $transform, $requestedName);
             }
         } else {
