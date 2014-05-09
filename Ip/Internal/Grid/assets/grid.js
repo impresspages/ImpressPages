@@ -51,11 +51,6 @@
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
                     $this.html(response.responseText);
-//                    var $div = $('<div>' + response.responseText + '</div>');
-//                    $div.modal();
-
-//                    $.dialog();
-//                    alert('Error: ' + response.responseText);
                 }
             },
             dataType: 'json'
@@ -79,6 +74,7 @@
             switch (value.command) {
                 case 'setHtml':
                     $this.html(value.html);
+                    $this.trigger('htmlChanged.grid');
                     $.proxy(bindEvents, $this)();
                     $this.trigger('init.grid');
                     ipInitForms();
