@@ -39,6 +39,7 @@ class Config
             $this->config['pagerSize'] = 10;
         }
 
+
         foreach ($this->config['fields'] as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
@@ -298,5 +299,13 @@ class Config
         }
 
         return $result;
+    }
+
+    public function layout()
+    {
+        if (empty($this->config['layout'])) {
+            return 'Ip/Internal/Grid/view/layout.php';
+        }
+        return $this->config['layout'];
     }
 }
