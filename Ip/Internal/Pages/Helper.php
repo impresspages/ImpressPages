@@ -23,13 +23,14 @@ class Helper
         'allowUpdate' => FALSE,
         'sortField' => 'pageOrder',
         'pageSize' => ipGetOption('Pages.pageListSize', 30),
+        'layout' => 'Ip/Internal/Pages/view/grid/layout.php',
         'pagerSize' => 5,
         'pageVariableName' => 'gpage',
         'filter' => 'isDeleted = 0 and parentId = ' . (int) $parentId, //rename to sqlWhere
         'fields' => array(
             array(
                 'label' => __('Title', 'Ip-admin', FALSE),
-                'field' => 'title',
+                'field' => 'title'
             ))
         );
     }

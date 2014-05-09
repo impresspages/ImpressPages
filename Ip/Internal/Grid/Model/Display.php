@@ -81,7 +81,8 @@ class Display
             'title' => $this->config->getTitle()
         );
 
-        $html = ipView('../view/layout.php', $variables)->render();
+
+        $html = ipView($this->config->layout(), $variables)->render();
         return $html;
     }
 
