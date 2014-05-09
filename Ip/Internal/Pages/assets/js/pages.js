@@ -384,12 +384,17 @@ var ipPageDragId;
 
 
         var addPage = function (title, isvisible) {
+            var parentId = $scope.activeMenu.id;
+            if($scope.selectedPageId && $scope.activeMenu.menuType != 'list') {
+                parentId = $scope.selectedPageId;
+            }
+
             var data = {
                 aa: 'Pages.addPage',
                 securityToken: ip.securityToken,
                 title: title,
                 isVisible: isvisible,
-                parentId: $scope.activeMenu.id
+                parentId: parentId
             };
 
             $.ajax({

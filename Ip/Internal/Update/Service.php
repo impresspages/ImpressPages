@@ -22,4 +22,9 @@ class Service {
     {
         return Model::migrationsAvailable();
     }
+
+    public static function runMigrations()
+    {
+        Model::runMigrations();
+    }
 }

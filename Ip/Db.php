@@ -70,6 +70,12 @@ class Db
         return $this->pdoConnection;
     }
 
+
+    public function setConnection($connection)
+    {
+        $this->pdoConnection = $connection;
+    }
+
     /**
      * Disconnect from the database
      */

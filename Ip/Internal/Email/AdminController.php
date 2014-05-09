@@ -17,6 +17,8 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
+            'sortField' => 'id',
+            'sortDirection' => 'desc',
             'table' => 'email_queue',
             'actions' => array(),
             'fields' => array (
@@ -66,6 +68,7 @@ class AdminController extends \Ip\GridController
     {
         $html2text = new \Ip\Internal\Text\Html2Text('<html><body>'.$value.'</body></html>', false);
         $text = esc($html2text->get_text());
+        $text = str_replace("\n", '<br/>', $text);
         return $text;
     }
 

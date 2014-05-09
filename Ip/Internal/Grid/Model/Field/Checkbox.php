@@ -95,9 +95,9 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
             if ($searchVariables[$this->field]) {
-                return $this->field;
+                return '`' . $this->field . '`';
             } else {
-                return 'not '.$this->field;
+                return 'not `' . $this->field . '`';
             }
 
         }

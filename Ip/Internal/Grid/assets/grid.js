@@ -50,7 +50,12 @@
             success: initResponse,
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
+                    $this.html(response.responseText);
+//                    var $div = $('<div>' + response.responseText + '</div>');
+//                    $div.modal();
+
+//                    $.dialog();
+//                    alert('Error: ' + response.responseText);
                 }
             },
             dataType: 'json'

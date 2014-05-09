@@ -420,13 +420,14 @@ class PublicController extends \Ip\Controller
             'repository_file',
             'repository_reflection',
             'widget',
-            'theme_storage',
             'widget_order',
+            'theme_storage',
             'inline_value_global',
             'inline_value_language',
             'inline_value_page',
             'plugin',
             'storage',
+            'revision',
             'administrator'
         );
 

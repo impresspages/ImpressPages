@@ -182,6 +182,9 @@ class Helper
                 case 'textarea':
                     $newField = new Form\Field\Textarea();
                     break;
+                case 'richText':
+                    $newField = new Form\Field\RichText();
+                    break;
                 case 'color':
                     $newField = new Form\Field\Color();
                     break;
