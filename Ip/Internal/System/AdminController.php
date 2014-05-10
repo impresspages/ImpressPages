@@ -1,14 +1,15 @@
 <?php
+
 /**
  * @package ImpressPages
  *
  */
+
 namespace Ip\Internal\System;
 
 
 class AdminController extends \Ip\Controller
 {
-
 
     public function index()
     {
@@ -24,8 +25,7 @@ class AdminController extends \Ip\Controller
 
         unset($_SESSION['Ip']['notes']);
 
-
-        $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
+        $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); // Disable update in MultiSite installation.
 
         $trash = array(
             'size' => \Ip\Internal\Pages\Service::trashSize(),
@@ -41,12 +41,27 @@ class AdminController extends \Ip\Controller
             $form->addField($field);
 
             $submit = new \Ip\Form\Field\Submit(array(
-                'value' => __('Empty trash', 'Ip-admin')
+                'value' => __('Empty', 'Ip-admin')
             ));
 
             $form->addField($submit);
 
-            $trash['form'] = $form;
+            $trash['form_empty'] = $form;
+
+            $form = new \Ip\Form();
+
+            $field = new \Ip\Form\Field\Hidden();
+            $field->setName('aa');
+            $field->setValue('System.recoveryTrash');
+            $form->addField($field);
+
+            $submit = new \Ip\Form\Field\Submit(array(
+                'value' => __('Recovery', 'Ip-admin')
+            ));
+
+            $form->addField($submit);
+
+            $trash['form_recovery'] = $form;
         }
 
         $data = array(
@@ -86,7 +101,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array(
             'status' => 'success'
         ));
-
     }
 
     public function updateLinks()
@@ -106,7 +120,7 @@ class AdminController extends \Ip\Controller
             ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
             $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
         } else {
-            //in theory should never happen
+            // In theory should never happen.
         }
 
         return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')));
@@ -119,22 +133,18 @@ class AdminController extends \Ip\Controller
         return ipConfig()->baseUrl() . '?aa=System.index';
     }
 
-
-
-
     public function getIpNotifications()
     {
 
         $systemInfo = Model::getIpNotifications();
 
-
-        if (isset($_REQUEST['afterLogin'])) { // request after login.
+        if (isset($_REQUEST['afterLogin'])) { // Request after login.
             if ($systemInfo == '') {
-                $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+                $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
                 return;
             } else {
                 $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
-                if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { //we have a new message
+                if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { // We have a new message.
                     $newMessage = false;
 
                     foreach (json_decode($systemInfo) as $infoValue) {
@@ -143,16 +153,16 @@ class AdminController extends \Ip\Controller
                         }
                     }
 
-                    $_SESSION['ipSystem']['show_system_message'] = $newMessage; //display system alert
-                } else { //this message was already seen.
-                    $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+                    $_SESSION['ipSystem']['show_system_message'] = $newMessage; // Display system alert.
+                } else { // This message was already seen.
+                    $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
                     return;
                 }
 
             }
-        } else { //administrator/system tab.
+        } else { // administrator/system tab.
             \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageShown', md5(serialize($systemInfo)));
-            $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+            $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
         }
 
         return new \Ip\Response\Json($systemInfo);
@@ -161,6 +171,13 @@ class AdminController extends \Ip\Controller
     public function emptyTrash()
     {
         \Ip\Internal\Pages\Service::emptyTrash();
+
+        return new \Ip\Response\Json(array('redirectUrl' => ipActionUrl(array('aa' => 'System'))));
+    }
+
+    public function recoveryTrash()
+    {
+        \Ip\Internal\Pages\Service::recoveryTrash();
 
         return new \Ip\Response\Json(array('redirectUrl' => ipActionUrl(array('aa' => 'System'))));
     }
