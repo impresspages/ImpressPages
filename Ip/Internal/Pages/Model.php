@@ -580,7 +580,7 @@ class Model
             if ($child['isDeleted']) {
                 $deletedPageCount += static::_removeDeletedPage($child['id']);
             } else {
-                // this should never happen!
+                // This should never happen!
                 ipLog()->error('Page.pageHasDeletedParent: page {pageId}, parent set to null', array('pageId' => $child['id']));
                 ipDb()->update('page', array('parentId' => NULL), array('id' => $child['id']));
             }
@@ -595,6 +595,28 @@ class Model
         return $deletedPageCount;
     }
 
+    /**
+     * Recorvery deleted page and its children from the trash.
+     * Does not recovery page if page is not deleted.
+     *
+     * @param int $pageId
+     * @return int number of pages recorvered
+     */
+    public static function recoveryDeletedPage($pageId)
+    {
+        $canBeRecovery = ipDb()->selectValue('page', 'id', array('id' => $pageId, 'isDeleted' => 1));
+        if (!$canBeRecovery) {
+            return false;
+        }
+
+        ipDb()->update('page', array('isDeleted' => 0), array('id' => $pageId));
+
+        return 1;
+    }
+
+    /**
+     * @return int number of trash pages
+     */
     public static function trashSize()
     {
         $table = ipTable('page');
