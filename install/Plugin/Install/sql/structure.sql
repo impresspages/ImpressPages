@@ -17,6 +17,7 @@ CREATE TABLE `ip_page` (
   `description` mediumtext,
   `type` varchar(255) NOT NULL DEFAULT 'default',
   `alias` varchar(255) DEFAULT NULL,
+  `layout` varchar(255) DEFAULT NULL,
   `redirectUrl` varchar(255) DEFAULT NULL,
   `isVisible` tinyint(1) NOT NULL DEFAULT '0',
   `isDisabled` tinyint(1) NOT NULL DEFAULT '0',
