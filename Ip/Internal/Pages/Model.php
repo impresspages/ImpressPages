@@ -294,6 +294,11 @@ class Model
 
         if (isset($properties['layout'])) {
             $update['layout'] = $properties['layout'];
+            $menu = ipContent()->getPageMenu($pageId);
+            if ($menu && $menu->getLayout() == $properties['layout']) {
+                $update['layout'] = null;
+            }
+
         }
 
         if (count($update) != 0) {
