@@ -13,7 +13,6 @@ INSERT INTO `ip_page`
 (7,    'en',           'page2',         2,          NULL,     1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
 (8,    'en',           'example1',      3,          NULL,     0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
 (9,    'en',           'example2',      3,          NULL,     1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
-git 
 
 INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES
 (1, 4, 1, '[[[[timestamp]]]]'),
