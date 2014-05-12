@@ -42,6 +42,8 @@ class Page
     protected $parentId;
     /** int - unique string identificator of a page.*/
     protected $alias;
+    /** string - page layout */
+    protected $layout;
 
 
     /** bool */
@@ -541,5 +543,29 @@ class Page
     public function setAlias($alias)
     {
         $this->type = $alias;
+    }
+
+    /**
+     * Get page layout
+     * @return string
+     */
+    public function getLayout()
+    {
+        if ($this->layout) {
+            return $this->layout;
+        } else {
+            $menu = ipContent()->getPageMenu($this->id);
+            $layout = $menu->getLayout();
+            return $layout;
+        }
+    }
+
+    /**
+     * set layout
+     * @param string $layout
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
     }
 }

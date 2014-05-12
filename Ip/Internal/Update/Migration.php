@@ -11,6 +11,28 @@ class Migration {
 
 
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_42()
+    {
+        ipDb()->delete('page_storage', array('key' => 'layout'));
+    }
+
+    public static function update_41()
+    {
+        $layouts = ipDb()->selectAll('page_storage', '*', array('key' => 'layout'));
+        foreach ($layouts as $layout) {
+            ipDb()->update('page', array('layout' => json_decode($layout['value'])), array('id' => $layout['pageId']));
+        }
+    }
+
+    public static function update_40()
+    {
+        $table = ipTable('page');
+        $sql = "
+        ALTER TABLE  " . $table . " ADD  `layout` VARCHAR( 255 ) NULL AFTER  `alias`
+        ";
+        ipDb()->execute($sql);
+    }
+
     public static function update_39()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

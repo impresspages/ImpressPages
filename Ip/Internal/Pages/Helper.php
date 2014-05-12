@@ -102,7 +102,7 @@ class Helper
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'Ip-admin', FALSE),
-                'value' => ipPageStorage($menu['id'])->get('layout', 'main.php'),
+                'value' => $menu['layout'],
                 'values' => $values,
             ));
         $form->addField($field);
@@ -179,14 +179,13 @@ class Helper
             $options[] = array ($layout, $layout);
         }
 
-        $layout = ipPageStorage($pageId)->get('layout', 'main.php');
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'Ip-admin', FALSE),
                 'values' => $options,
-                'value' => $layout
+                'value' => $page->getLayout()
             ));
         $form->addField($field);
 

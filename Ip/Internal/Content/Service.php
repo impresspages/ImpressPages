@@ -30,10 +30,7 @@ class Service
         return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']); //we can't check here if we are in a page. It will result in widget rendering in non management mode when widget is rendered using ajax
     }
 
-    public static function getPageLayout(\Ip\Page $page)
-    {
-        return ipPageStorage($page->getId())->get('layout', 'main.php');
-    }
+
 
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
