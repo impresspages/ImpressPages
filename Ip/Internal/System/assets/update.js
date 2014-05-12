@@ -16,9 +16,8 @@
                 dataType: 'json',
                 type: 'POST',
                 success: notificationsResponse,
-                error: function () {
-                    //do nothing
-                    //keep in mind, that error happens if user leaves the page while waiting for response
+                error: function (response) {
+                    alert(response.responseText);
                 }
             });
 

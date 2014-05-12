@@ -292,12 +292,12 @@ class Model
             $update['isBlank'] = $properties['isBlank'];
         }
 
-        if (count($update) != 0) {
-            ipDb()->update('page', $update, array('id' => $pageId));
+        if (isset($properties['layout'])) {
+            $update['layout'] = $properties['layout'];
         }
 
-        if (!empty($properties['layout'])) {
-            ipPageStorage($pageId)->set('layout', $properties['layout']);
+        if (count($update) != 0) {
+            ipDb()->update('page', $update, array('id' => $pageId));
         }
 
         if (!empty($properties['type'])) {

@@ -22,7 +22,7 @@ class PublicController extends \Ip\Controller
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
             ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
         } else {
-            ipSetLayout(Service::getPageLayout($page));
+            ipSetLayout($page->getLayout());
         }
 
         // initialize management
