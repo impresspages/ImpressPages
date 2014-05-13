@@ -34,9 +34,8 @@ class AdminController extends \Ip\Controller{
     {
         $pluginName = ipRequest()->getQuery('pluginName');
         if (!$pluginName) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception(__('Missing required parameters', 'Ip-admin'));
         }
-
 
         $variables = array(
             'plugin' => Helper::getPluginData($pluginName),
@@ -58,7 +57,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception("Missing parameter");
+            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
         }
         $pluginName = $post['params']['pluginName'];
 
@@ -92,7 +91,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception("Missing parameter");
+            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
         }
         $pluginName = $post['params']['pluginName'];
 
@@ -126,7 +125,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception("Missing parameter");
+            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
         }
         $pluginName = $post['params']['pluginName'];
 
@@ -147,7 +146,7 @@ class AdminController extends \Ip\Controller{
 
         $answer = array(
             'jsonrpc' => '2.0',
-            'result' => array( 
+            'result' => array(
                 1
             ),
             'id' => null,
@@ -166,7 +165,7 @@ class AdminController extends \Ip\Controller{
         if ($result === true) {
             return \Ip\Response\JsonRpc::result($result);
         } else {
-            return \Ip\Response\JsonRpc::error('Validation failed');
+            return \Ip\Response\JsonRpc::error(__('Validation failed', 'Ip-admin', false));
         }
     }
 
