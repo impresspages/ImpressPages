@@ -3,7 +3,7 @@
 </div>
 <div class="_actions clearfix">
     <?php if ($plugin['active']) { ?>
-        <button class="ipsDeactivate btn btn-new" type="button" role="button"><?php _e('Deactivate', 'Ip-admin'); ?></button>
+        <button class="ipsDeactivate btn btn-default" type="button" role="button"><?php _e('Deactivate', 'Ip-admin'); ?></button>
     <?php } else { ?>
         <button class="ipsDelete btn btn-danger pull-right" type="button" role="button"><?php _e('Delete', 'Ip-admin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
         <button class="ipsActivate btn btn-new" type="button" role="button"><?php _e('Activate', 'Ip-admin'); ?></button>
