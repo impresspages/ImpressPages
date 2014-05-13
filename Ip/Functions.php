@@ -605,16 +605,17 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
 }
 
 /**
- * Formatted bytes
+ * Get formatted byte string
  *
- * @param int $bytes
- * @return string A currency string in specific format.
+ * Returns a string containing a rounded numeric value and appropriate 'B', 'KB', 'MB', 'GB', 'TB', 'PB' modifiers.
+ *
+ * @param int $bytes Size in bytes.
+ * @return string A string formatted in byte size units.
  */
 function ipFormatBytes($bytes)
 {
     return \Ip\Internal\FormatHelper::formatBytes($bytes);
 }
-
 /**
  * Get formatted currency string
  *
