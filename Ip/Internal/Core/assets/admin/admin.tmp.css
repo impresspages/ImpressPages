@@ -8265,6 +8265,7 @@ th {
   position: fixed;
   top: 10px;
   width: 400px;
+  z-index: 1050;
 }
 .ipModuleDesignConfig .modal-header {
   cursor: move;
