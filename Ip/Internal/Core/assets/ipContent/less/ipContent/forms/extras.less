@@ -29,6 +29,9 @@ textarea.form-control { // fixing font and height
     width: 50%;
     z-index: 1;
 }
+.form-group:hover .help-hint { // hint is shown only on hover
+    display: block;
+}
 .help-error {
     background-color: @ipErrorColor;
     color: #fff;
@@ -39,9 +42,6 @@ textarea.form-control { // fixing font and height
     width: 100%;
 }
 .has-error .help-error {
-    display: block;
-}
-.form-group:hover .help-hint { // hint is shown only on hover
     display: block;
 }
 .captcha {
