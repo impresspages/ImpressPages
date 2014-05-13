@@ -18,6 +18,11 @@
             $widgetObject.find('.ipsContainer').tinymce(customTinyMceConfig);
             $widgetObject.find('.ipsContainer').attr('spellcheck', true);
 
+            // hiding active editor (and re-enabling) to make sure it doesn't appear on top of repository window
+            $(document).on('ipWidgetAdded', function(e, data) {
+                tinymce.activeEditor.hide();
+                tinymce.activeEditor.show();
+            });
         };
 
         this.onAdd = function () {
