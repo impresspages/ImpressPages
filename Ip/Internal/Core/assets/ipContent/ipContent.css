@@ -657,6 +657,9 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   width: 50%;
   z-index: 1;
 }
+.ipModuleForm .form-group:hover .help-hint {
+  display: block;
+}
 .ipModuleForm .help-error {
   background-color: #b80000;
   color: #fff;
@@ -667,9 +670,6 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   width: 100%;
 }
 .ipModuleForm .has-error .help-error {
-  display: block;
-}
-.ipModuleForm .form-group:hover .help-hint {
   display: block;
 }
 .ipModuleForm .captcha img {

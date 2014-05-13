@@ -12,7 +12,6 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -58,7 +57,6 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -80,7 +78,6 @@
   vertical-align: baseline;
   width: auto;
   color: inherit;
-  cursor: inherit;
   font-size: inherit;
   text-align: inherit;
 }
@@ -7457,7 +7454,6 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7493,7 +7489,6 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7515,7 +7510,6 @@
   vertical-align: baseline;
   width: auto;
   color: inherit;
-  cursor: inherit;
   font-size: inherit;
   text-align: inherit;
 }
