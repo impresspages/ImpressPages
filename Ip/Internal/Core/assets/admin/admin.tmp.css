@@ -8442,6 +8442,10 @@ th {
   color: #000;
   font-weight: bold;
 }
+.ipAdminPages ._pages ._tree .ui-sortable-helper td {
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
 .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
