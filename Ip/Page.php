@@ -555,6 +555,9 @@ class Page
             return $this->layout;
         } else {
             $menu = ipContent()->getPageMenu($this->id);
+            if ($menu->getId() == $this->id) { // do not allow infinite recursion
+                return 'main.php';
+            }
             $layout = $menu->getLayout();
             return $layout;
         }
