@@ -48,7 +48,7 @@
                 $widgetControls.find('.ipsControls')
                     .on('shown.bs.dropdown', function () {
                         // increase z-index on .ipsWidgetControls
-                        $widgetControls.css('z-index', ($widgetControls.zIndex() + 1));
+                        $widgetControls.css('z-index', ($widgetControls.zIndex() + 11));
                     })
                     .on('hidden.bs.dropdown', function () {
                         $widgetControls.css('z-index', '');
