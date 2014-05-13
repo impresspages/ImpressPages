@@ -8421,6 +8421,27 @@ th {
 .ipAdminPages ._pages ._tree {
   margin: 0 -20px;
 }
+.ipAdminPages ._pages ._tree ._table td {
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.ipAdminPages ._pages ._tree ._table > thead > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > tbody > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > thead > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > tbody > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > thead > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > tbody > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > thead > tr.active > th,
+.ipAdminPages ._pages ._tree ._table > tbody > tr.active > th,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > th {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
 .ipAdminPages ._properties {
   background-color: #fff;
   padding: 20px 40px 40px;
