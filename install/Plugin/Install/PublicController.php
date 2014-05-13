@@ -1,10 +1,11 @@
 <?php
+
 /**
- * @package   ImpressPages
+ * @package ImpressPages
+ *
  */
 
 namespace Plugin\Install;
-
 
 
 class PublicController extends \Ip\Controller
@@ -17,9 +18,8 @@ class PublicController extends \Ip\Controller
 
         if (!empty($_SESSION['install_debug'])) {
             error_reporting(E_ALL);
-            ini_set("display_errors", 1);
+            ini_set('display_errors', 1);
         }
-
 
         if (empty($_SESSION['websiteId'])) {
             $_SESSION['websiteId'] = Helper::randString(32);
@@ -33,8 +33,8 @@ class PublicController extends \Ip\Controller
         if (!empty($_GET['lang']) && strlen($_GET['lang']) == 2 && ctype_alpha($_GET['lang'])) {
             $_SESSION['installation_language'] = $_GET['lang'];
         }
-        ipAddJs('Plugin/Install/assets/js/jquery.js');
 
+        ipAddJs('Plugin/Install/assets/js/jquery.js');
     }
 
     public function index ()
@@ -50,10 +50,10 @@ class PublicController extends \Ip\Controller
             $step = $_SESSION['step'];
         }
 
-//        breaks on serveriai.lt too dangerous
-//        if ($_SESSION['step'] > $step) {
-//            $_SESSION['step'] = $step;
-//        }
+//      Breaks on serveriai.lt too dangerous.
+//      if ($_SESSION['step'] > $step) {
+//          $_SESSION['step'] = $step;
+//      }
 
         if (!Helper::isInstallAvailable()) {
             $step = 5;
@@ -80,7 +80,8 @@ class PublicController extends \Ip\Controller
         $languages['fr'] = 'French';
         $languages['ja'] = '日本語';
         $languages['lt'] = 'Lietuvių';
-        // $languages['pt'] = 'Portugues'; // something is broken with translations
+        $languages['hu'] = 'Magyar';
+//      $languages['pt'] = 'Portugues'; // Something is broken with translations.
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
         $languages['ru'] = 'Русский';
@@ -112,7 +113,6 @@ class PublicController extends \Ip\Controller
         $checkResults = Model::checkRequirements();
         $errors = $checkResults['errors'];
         $warnings = $checkResults['warnings'];
-
 
         $requirements = array();
 
@@ -165,7 +165,6 @@ class PublicController extends \Ip\Controller
 
         $check = array();
         $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
-
 
         $check['type'] = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 ? 'warning' : 'success';
 
@@ -272,7 +271,6 @@ class PublicController extends \Ip\Controller
 
         $content = ipView('view/step3.php', $data)->render();
 
-
         $response = new LayoutResponse();
         $response->setContent($content);
 
@@ -321,8 +319,6 @@ class PublicController extends \Ip\Controller
 
         $content = ipView('view/step4.php', $data)->render();
 
-
-
         $response = new LayoutResponse();
         ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
         ipAddJs('Plugin/Install/assets/js/step4.js');
@@ -352,10 +348,11 @@ class PublicController extends \Ip\Controller
             return;
         }
 
-        if (in_array($_SESSION['step'], array(0, 1, 2))) {//TODO check if there are no errors in step1
-            $_SESSION['step'] = $_SESSION['step']+1;
+        if (in_array($_SESSION['step'], array(0, 1, 2))) { // TODO check if there are no errors in step1
+            $_SESSION['step'] = $_SESSION['step'] + 1;
             return new \Ip\Response\Json(array('status' => 'ok'));
         }
+
         return new \Ip\Response\Json(array('status' => 'error'));
     }
 
@@ -385,13 +382,12 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with a letter.', 'Install', false));
         }
 
-
         $dbConfig = array(
             'hostname' => $db['hostname'],
             'username' => $db['username'],
             'password' => $db['password'],
             'tablePrefix' => $db['tablePrefix'],
-            'database' => '', // if database doesn't exist, we will create it
+            'database' => '', // If database doesn't exist, we will create it.
             'charset' => 'utf8',
         );
 
@@ -409,8 +405,7 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
-
-        $tables = array (
+        $tables = array(
             'page',
             'page_storage',
             'permission',
@@ -420,32 +415,29 @@ class PublicController extends \Ip\Controller
             'repository_file',
             'repository_reflection',
             'widget',
-            'widget_order',
             'theme_storage',
+            'widget_order',
             'inline_value_global',
             'inline_value_language',
             'inline_value_page',
             'plugin',
             'storage',
-            'revision',
             'administrator'
         );
 
-
-        $tableExists = FALSE;
+        $tableExists = false;
         foreach ($tables as $table) {
             try {
                 $sql = 'SELECT 1 FROM `' . $dbConfig['tablePrefix'] . $table . '`';
                 ipDb()->execute($sql);
-                $tableExists = TRUE;
+                $tableExists = true;
             } catch (\Exception $e) {
-                //Do nothing. We have expected this error to occur. That means the database is clean
+                // Do nothing. We have expected this error to occur. That means the database is clean.
             }
         }
         if ($tableExists && empty($db['replaceTables'])) {
             return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exist');
         }
-
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
 
@@ -453,7 +445,7 @@ class PublicController extends \Ip\Controller
             $errors = Model::importData($dbConfig['tablePrefix']);
         }
 
-        if ($errors){
+        if ($errors) {
             if($_SESSION['step'] < 3) {
                 $_SESSION['step'] = 3;
             }
@@ -472,10 +464,6 @@ class PublicController extends \Ip\Controller
             Model::completeStep(4);
             return \Ip\Response\JsonRpc::result(true);
         }
-
-
-
-
     }
 
     public function writeConfig()
@@ -483,7 +471,6 @@ class PublicController extends \Ip\Controller
         if (!Helper::isInstallAvailable()) {
             return 'Please remove content from config.php file';
         }
-
 
         $this->init();
 
@@ -512,7 +499,6 @@ class PublicController extends \Ip\Controller
             $errors[] = __('Please choose website time zone.', 'Install', false);
         }
 
-
         if (!empty($errors)) {
             return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
         }
@@ -531,8 +517,6 @@ class PublicController extends \Ip\Controller
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
-
-
 
         try {
             ipConfig()->set('db', $config['db']);
@@ -557,19 +541,18 @@ class PublicController extends \Ip\Controller
         return \Ip\Response\JsonRpc::result(true);
     }
 
-
     protected function getParentUrl() {
         $pageURL = '';
-        if ($_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        if ($_SERVER['SERVER_PORT'] != '80') {
+            $pageURL .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
         } else {
-            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            $pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
         }
 
         $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
         $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
+
         return $pageURL;
     }
-
 
 }
