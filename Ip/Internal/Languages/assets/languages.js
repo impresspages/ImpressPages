@@ -1,6 +1,6 @@
 $(function () {
     "use strict";
-    $('.ipsGrid').on('init.grid', ipLanguages.init);
+    $('.ipsGrid').on('init.ipGrid', ipLanguages.init);
 });
 
 var ipLanguages = new function () {
