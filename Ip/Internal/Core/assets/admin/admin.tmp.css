@@ -7290,7 +7290,6 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7326,7 +7325,6 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7348,7 +7346,6 @@ button.close {
   vertical-align: baseline;
   width: auto;
   color: inherit;
-  cursor: inherit;
   font-size: inherit;
   text-align: inherit;
 }
