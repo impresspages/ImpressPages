@@ -74,9 +74,9 @@
             switch (value.command) {
                 case 'setHtml':
                     $this.html(value.html);
-                    $this.trigger('htmlChanged.grid');
+                    $this.trigger('htmlChanged.ipGrid');
                     $.proxy(bindEvents, $this)();
-                    $this.trigger('init.grid');
+                    $this.trigger('init.ipGrid');
                     ipInitForms();
                     break;
                 case 'setHash':

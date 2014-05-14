@@ -102,15 +102,15 @@ class Model{
     {
         $user = self::get($userId);
         if (!$user) {
-            throw new \Ip\Exception(__('User doesn\'t exist', 'Ip-admin', FALSE));
+            throw new \Ip\Exception("User doesn't exist");
         }
 
         if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption('Config.passwordResetLinkExpire', 60 * 60 * 24)) {
-            throw new \Ip\Exception(__('Invalid password reset link', 'Ip-admin', FALSE));
+            throw new \Ip\Exception('Invalid password reset link');
         }
 
         if ($user['resetSecret'] != $secret) {
-            throw new \Ip\Exception(__('Password reset link has expired', 'Ip-admin', FALSE));
+            throw new \Ip\Exception('Password reset link has expired');
         }
 
         ipDb()->update('administrator', array('hash' => self::passwordHash($password)), array('id' => $userId));

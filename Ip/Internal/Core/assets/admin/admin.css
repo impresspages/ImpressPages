@@ -8429,6 +8429,7 @@
   position: fixed;
   top: 10px;
   width: 400px;
+  z-index: 1050;
 }
 .ip .ipModuleDesignConfig .modal-header {
   cursor: move;
@@ -8583,6 +8584,31 @@
 }
 .ip .ipAdminPages ._pages ._tree {
   margin: 0 -20px;
+}
+.ip .ipAdminPages ._pages ._tree ._table td {
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.ip .ipAdminPages ._pages ._tree ._table > thead > tr > td.active,
+.ip .ipAdminPages ._pages ._tree ._table > tbody > tr > td.active,
+.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr > td.active,
+.ip .ipAdminPages ._pages ._tree ._table > thead > tr > th.active,
+.ip .ipAdminPages ._pages ._tree ._table > tbody > tr > th.active,
+.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr > th.active,
+.ip .ipAdminPages ._pages ._tree ._table > thead > tr.active > td,
+.ip .ipAdminPages ._pages ._tree ._table > tbody > tr.active > td,
+.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr.active > td,
+.ip .ipAdminPages ._pages ._tree ._table > thead > tr.active > th,
+.ip .ipAdminPages ._pages ._tree ._table > tbody > tr.active > th,
+.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr.active > th {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+.ip .ipAdminPages ._pages ._tree .ui-sortable-helper td {
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 .ip .ipAdminPages ._properties {
   background-color: #fff;
