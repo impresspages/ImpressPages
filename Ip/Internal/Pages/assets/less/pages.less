@@ -98,6 +98,35 @@
 
         ._tree {
             margin: 0 -(@grid-gutter-width / 2);
+
+            // blog/list view (visible as grid)
+            ._table {
+                td {
+                    border: none;
+                    cursor: pointer;
+                    padding: (@grid-gutter-width / 4) (@grid-gutter-width / 2);
+                }
+
+                // mixin from Bootstrap
+                @state: active;
+                & > thead > tr,
+                & > tbody > tr,
+                & > tfoot > tr {
+                    > td.@{state},
+                    > th.@{state},
+                    &.@{state} > td,
+                    &.@{state} > th {
+                        background-color: #fff;
+                        color: #000;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .ui-sortable-helper td {
+                cursor: -moz-grab;
+                cursor: -webkit-grab;
+            }
         }
     }
 

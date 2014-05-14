@@ -349,7 +349,7 @@ class Model
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
         if ((int)$pageId === (int)$destinationParentId || static::isChild($destinationParentId, $pageId)) {
-            throw new \Ip\Exception(__("Can't move page inside itself.", 'Ip-admin', false));
+            throw new \Ip\Exception("Can't move page inside itself.");
         }
 
         $newParentChildren = self::getChildren($destinationParentId);

@@ -109,18 +109,26 @@ var ipPageDragId;
             $properties.ipPageProperties({
                 pageId: pageId
             });
+
+            // updating title dynamically
             $properties.off('update.ipPages').on('update.ipPages', function () {
                 var title = $properties.find('input[name=title]').val();
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
+                if ($scope.activeMenu.menuType == 'list') { // list view
+                    getTreeDiv().find('.ipsRow.active .ipsDrag').text(escapeHtml(title));
+                } else { // tree view
+                    getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
+                }
             });
+
+            // removing element from list/tree
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 if (confirm(ipTranslationAreYouSure)) {
                     deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
-                        if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                        if ($scope.activeMenu.menuType == 'list') { // list view
                             getPagesContainer().ipGrid('refresh');
                         } else {
                             getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
@@ -132,14 +140,21 @@ var ipPageDragId;
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
             });
-            var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
-            if (!$nodeLink.hasClass('jstree-clicked')) {
-                hashIsBeingApplied = true;
-                getTreeDiv().on('ready.jstree', function () {
-                    getTreeDiv().jstree("deselect_all");
-                    getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
-                });
-                hashIsBeingApplied = false;
+
+            // making page visually active
+            if ($scope.activeMenu.menuType == 'list') { // list view
+                getTreeDiv().find('.ipsRow').removeClass('active');
+                getTreeDiv().find('[data-id="' + $scope.selectedPageId + '"]').addClass('active');
+            } else { // tree view
+                var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
+                if (!$nodeLink.hasClass('jstree-clicked')) {
+                    hashIsBeingApplied = true;
+                    getTreeDiv().on('ready.jstree', function () {
+                        getTreeDiv().jstree("deselect_all");
+                        getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                    });
+                    hashIsBeingApplied = false;
+                }
             }
         }
 
@@ -297,7 +312,7 @@ var ipPageDragId;
 
             $('.ipsPages').removeClass('hidden');
 
-            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+            if ($scope.activeMenu.menuType == 'list') { // list view
                 var gridContainer = getPagesContainer();
                 if (!gridContainer.data('gateway')) {
                     gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
@@ -306,6 +321,11 @@ var ipPageDragId;
                         var $row = $(e.currentTarget);
                         updateHash(null, null, $row.data('id'));
                         $scope.$apply();
+                    });
+
+                    // setting active
+                    gridContainer.on('htmlChanged.ipGrid', function (e) {
+                        getTreeDiv().find('[data-id="' + $scope.selectedPageId + '"]').addClass('active');
                     });
                 }
             } else {
@@ -373,7 +393,7 @@ var ipPageDragId;
         }
 
         var refresh = function () {
-            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+            if ($scope.activeMenu.menuType == 'list') { // list view
                 getPagesContainer().ipGrid('refresh');
             } else {
                 getPagesContainer().ipPageTree('destroy');
