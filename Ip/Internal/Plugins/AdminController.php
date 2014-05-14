@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller{
     {
         $pluginName = ipRequest()->getQuery('pluginName');
         if (!$pluginName) {
-            throw new \Ip\Exception(__('Missing required parameters', 'Ip-admin'));
+            throw new \Ip\Exception('Missing required parameters');
         }
 
         $variables = array(
@@ -57,7 +57,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
+            throw new \Ip\Exception('Missing parameter');
         }
         $pluginName = $post['params']['pluginName'];
 
@@ -91,7 +91,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
+            throw new \Ip\Exception('Missing parameter');
         }
         $pluginName = $post['params']['pluginName'];
 
@@ -125,7 +125,7 @@ class AdminController extends \Ip\Controller{
     {
         $post = ipRequest()->getPost();
         if (empty($post['params']['pluginName'])) {
-            throw new \Ip\Exception(__('Missing parameter', 'Ip-admin'));
+            throw new \Ip\Exception('Missing parameter');
         }
         $pluginName = $post['params']['pluginName'];
 
