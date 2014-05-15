@@ -326,5 +326,22 @@ class Model{
             return array();
         }
     }
+
+    public static function marketUrl()
+    {
+        if (ipGetOption('Ip.disablePluginMarket', 0)) {
+            return '';
+        }
+
+        if (ipConfig()->get('pluginMarketUrl')) {
+            $marketUrl = ipConfig()->get('pluginMarketUrl') . 'plugins-v1/';
+        } elseif(ipConfig()->get('testMode')) {
+            $marketUrl = 'http://local.market.impresspages.org/plugins-v1/';
+        } else {
+            $marketUrl = 'http://market.impresspages.org/plugins-v1/';
+        }
+        return $marketUrl;
+    }
+
 }
 
