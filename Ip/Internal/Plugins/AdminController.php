@@ -1,6 +1,7 @@
 <?php
 namespace Ip\Internal\Plugins;
 
+use Ip\Response\JsonRpc;
 
 class AdminController extends \Ip\Controller{
 
@@ -227,6 +228,40 @@ class AdminController extends \Ip\Controller{
         ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
 
         return $contentView->render();
+    }
+
+    public function downloadPlugins()
+    {
+        ipRequest()->mustBePost();
+        $plugins = ipRequest()->getPost('plugins');
+
+        if (!is_writable(Model::pluginInstallDir())) {
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'Ip-admin', false), 777);
+        }
+
+        try {
+            if (!is_array($plugins)) {
+                return JsonRpc::error(__('Download failed: invalid parameters', 'Ip-admin', false), 101);
+            }
+
+            if (function_exists('set_time_limit')) {
+                set_time_limit(count($plugins) * 180 + 30);
+            }
+
+            $pluginDownloader = new PluginDownloader();
+
+            foreach ($plugins as $plugin) {
+                if (!empty($plugin['url']) && !empty($plugin['name']) && !empty($plugin['signature'])) {
+                    $pluginDownloader->downloadPlugin($plugin['name'], $plugin['url'], $plugin['signature']);
+                }
+            }
+        } catch (\Ip\Exception $e) {
+            return JsonRpc::error($e->getMessage(), $e->getCode());
+        } catch (\Exception $e) {
+            return JsonRpc::error(__('Unknown error. Please see logs.', 'Ip-admin', false), 987);
+        }
+
+        return JsonRpc::result(array('plugins' => $plugins));
     }
 
 }

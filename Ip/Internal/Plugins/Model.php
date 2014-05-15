@@ -343,5 +343,40 @@ class Model{
         return $marketUrl;
     }
 
+    public static function pluginInstallDir()
+    {
+        $themeDirs = Model::pluginDirs();
+        return array_shift($themeDirs);
+    }
+
+    /**
+     * first dir themes will override the themes from last ones
+     * @return array
+     */
+    protected static function pluginDirs()
+    {
+        //the order of dirs is very important. First dir themes overrides following ones.
+
+        $cleanDirs = array();
+
+        $optionDirs = ipGetOption('Plugins.pluginDirs');
+        if ($optionDirs) {
+            $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
+            $lines = explode("\n", $optionDirs);
+            foreach ($lines as $line) {
+                if (!empty($line)) {
+                    $cleanDirs[] = trim($line);
+                }
+            }
+            $cleanDirs = array_merge($cleanDirs, array(ipFile('Theme/')));
+        } else {
+            $cleanDirs = array(ipFile('Plugin/'));
+        }
+
+        return $cleanDirs;
+    }
+
+
+
 }
 
