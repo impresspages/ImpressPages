@@ -17,11 +17,11 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
     public function __construct()
     {
-        if (!defined('IP_DESIGN_PHPSECLIB_DIR')) {
-            define('IP_DESIGN_PHPSECLIB_DIR', ipFile('Ip/Internal/Design/phpseclib/'));
+        if (!defined('IP_PHPSECLIB_DIR')) {
+            define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
         }
 
-        require_once IP_DESIGN_PHPSECLIB_DIR . 'Crypt/RSA.php';
+        require_once IP_PHPSECLIB_DIR . 'Crypt/RSA.php';
     }
 
     public function downloadPlugin($name, $url, $signature)

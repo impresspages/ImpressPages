@@ -57,7 +57,7 @@
  * Include Crypt_DES
  */
 if (!class_exists('Crypt_DES')) {
-    require_once(IP_DESIGN_PHPSECLIB_DIR.'DES.php');
+    require_once(IP_PHPSECLIB_DIR.'DES.php');
 }
 
 /**
@@ -273,7 +273,7 @@ class Crypt_TripleDES extends Crypt_DES {
                 }
 
                 if (!class_exists('Crypt_Hash')) {
-                    require_once(IP_DESIGN_PHPSECLIB_DIR . 'Crypt/Hash.php');
+                    require_once(IP_PHPSECLIB_DIR . 'Crypt/Hash.php');
                 }
 
                 $i = 1;
