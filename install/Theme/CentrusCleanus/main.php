@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="page-footer">
-                    <?php _e('This software is brought to you by <a target="_blank" href="http://www.impresspages.org/cms/about/team/">ImpressPages team</a>') ?>
+                    <?php _e('This software is brought to you by <a target="_blank" href="http://www.impresspages.org/cms/about/team/">ImpressPages team</a>', 'Install') ?>
                 </div>
             </div>
         </div>
