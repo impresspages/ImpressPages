@@ -194,6 +194,16 @@ class Application
             if (!empty($routeAction['page'])) {
                 ipContent()->_setCurrentPage($routeAction['page']);
             }
+            if (!empty($routeAction['controller'])) {
+                ipRequest()->setControllerClass($routeAction['controller']);
+            }
+            if (!empty($routeAction['plugin'])) {
+                ipRequest()->setControllerPlugin($routeAction['plugin']);
+            }
+            if (!empty($routeAction['action'])) {
+                ipRequest()->setControllerAction($routeAction['action']);
+            }
+
         }
 
 
