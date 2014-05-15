@@ -25,7 +25,7 @@ class Request
     protected $controllerAction = null;
     protected $controllerClass = null;
     protected $controllerType = null;
-    protected $controllerModule = null;
+    protected $controllerPlugin = null;
 
     const CONTROLLER_TYPE_PUBLIC = 0;
     const CONTROLLER_TYPE_SITE = 1;
@@ -285,7 +285,7 @@ class Request
     /**
      * Gets MVC controller action class
      *
-     * @return null
+     * @return string
      */
     public function getControllerClass()
     {
@@ -308,6 +308,16 @@ class Request
     }
 
 
+    /**
+     * Get plugin name which controller is being executed
+     * @return string
+     */
+    public function getControllerPlugin()
+    {
+        return $this->controllerClass;
+    }
+
+
 
     /**
      * Get controller type: public, site or admin
@@ -318,50 +328,24 @@ class Request
         return $this->controllerType;
     }
 
-    /**
-     * Set a controller action
-     *
-     * @param string $module controller module name
-     * @param string $action controller action name
-     * @param $type public, site or admin controller
-     * @throws Exception
-     */
-    public function setAction($module, $action, $type)
-    {
-        if (!in_array($type, array (self::CONTROLLER_TYPE_ADMIN, self::CONTROLLER_TYPE_PUBLIC, self::CONTROLLER_TYPE_SITE))) {
-            throw new \Ip\Exception("Incorrect controller type");
-        }
-        $this->controllerType = $type;
-        $this->controller = null;
-        $this->controllerClass = $this->generateControllerClass($module, $type);
 
+    public function setControllerType($type)
+    {
+        $this->controllerType = $type;
+    }
+
+    public function setControllerAction($action)
+    {
         $this->controllerAction = $action;
     }
 
-    private function generateControllerClass($module, $type)
+    public function setControllerClass($class)
     {
-        switch ($type) {
-            case self::CONTROLLER_TYPE_ADMIN:
-                $className = 'AdminController';
-                break;
-            case self::CONTROLLER_TYPE_SITE:
-                $className = 'SiteController';
-                break;
-            case self::CONTROLLER_TYPE_PUBLIC:
-                $className = 'PublicController';
-                break;
-        }
-
-
-        if (in_array($module, \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$module.'\\'.$className;
-        } else {
-            $controllerClass = 'Plugin\\'.$module.'\\'.$className;
-        }
-        return $controllerClass;
+        $this->controllerClass = $class;
     }
 
-
-
-
+    public function setControllerPlugin($plugin)
+    {
+        $this->controllerPlugin = $plugin;
+    }
 }
