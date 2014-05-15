@@ -49,6 +49,7 @@ var ipPluginMarket = new function () {
                     handle: function (action, data) {
                         switch (action) {
                             case 'installPlugin':
+                                console.log('handle: installPlugin:', data);
                                 $('body').bind('ipMarketOrderComplete', function (e, data) {
                                     location.reload();
                                 });

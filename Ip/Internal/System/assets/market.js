@@ -13,8 +13,11 @@ var Market;
         var imagesData; //downloaded images data
         var themesDownloaded; //true if images have been downloaded
         var themesData; //downloaded themes data
+        var pluginsDownloaded; // true if images have been downloaded
+        var pluginsData; // downloaded themes data
 
         this.processOrder = function (order) {
+            console.log('processOrder:', order);
             $('body').trigger('ipMarketOrderStart');
 
 
@@ -32,13 +35,19 @@ var Market;
                 themesDownloaded = true;
             }
 
+            if (typeof(order.plugins) != "undefined" && order.plugins.length) {
+                pluginsDownloaded = false;
+                downloadPlugins(order.plugins);
+            } else {
+                pluginsDownloaded = true;
+            }
 
         };
 
         var checkComplete = function () {
-            if (imagesDownloaded && themesDownloaded) {
+            if (imagesDownloaded && themesDownloaded && pluginsDownloaded) {
                 $('body').trigger('ipMarketOrderComplete', [
-                    {images: imagesData, themes: themesData}
+                    {images: imagesData, themes: themesData, plugins: pluginsData}
                 ]);
             }
         };
@@ -120,6 +129,52 @@ var Market;
                     checkComplete();
                 },
                 'error': function () {
+                    alert('Unknown error. Please see logs.');
+                }
+            });
+        };
+
+        var downloadPlugins = function (plugins) {
+
+            if (plugins.length == 0) {
+                $('body').trigger('ipMarketOrderPluginDownload', {});
+                pluginsDownloaded = true;
+                pluginsData = {};
+                checkComplete();
+                return;
+            }
+
+            var toDownload = new Array();
+
+            for (var i = 0; i < plugins.length; i++) {
+                toDownload.push({
+                    url: plugins[i].downloadUrl,
+                    name: plugins[i].name,
+                    signature: plugins[i].signature
+                });
+            }
+
+            $.ajax(ip.baseUrl, {
+                'type': 'POST',
+                'data': {'aa': 'Plugins.downloadPlugins', 'plugins': toDownload, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
+                'dataType': 'json',
+                'success': function (response) {
+                    if (!response || response.error || !response.result || !response.result.plugins) {
+
+                        if (response.error.message) {
+                            alert(response.error.message);
+                        } else {
+                            alert('Unknown error. Please see logs.');
+                        }
+                        return;
+                    }
+
+                    pluginsDownloaded = true;
+                    pluginsData = response.result.plugins;
+                    checkComplete();
+                },
+                'error': function () {
+                    console.log('error response');
                     alert('Unknown error. Please see logs.');
                 }
             });
