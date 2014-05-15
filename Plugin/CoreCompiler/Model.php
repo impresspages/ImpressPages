@@ -198,6 +198,8 @@ class Model
         }
 
         try {
+            set_time_limit(300); // Compiling might take some time
+
             require_once ipFile('Ip/Lib/less.php/Less.php');
             $parserOptions = array(
                 'cache_dir' => ipFile('file/tmp/less/'),

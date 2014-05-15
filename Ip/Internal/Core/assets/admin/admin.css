@@ -9696,6 +9696,30 @@
 .ip .ipModulePlugins ._properties ._details {
   list-style: none;
 }
+.ip .ipModulePlugins ._popup {
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  z-index: 1029;
+}
+.ip .ipModulePlugins ._popup ._back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.ip .ipModulePlugins ._popup ._close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+.ip .ipModulePlugins ._popup ._container,
+.ip .ipModulePlugins ._popup iframe {
+  height: 100%;
+  width: 100%;
+}
 .ip .ipModuleRepositoryPopup {
   background-color: #fff;
   height: 100%;
