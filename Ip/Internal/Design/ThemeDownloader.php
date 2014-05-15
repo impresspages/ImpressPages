@@ -55,7 +55,8 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $helper = Helper::instance();
         $secureTmpDir = ipFile('file/secure/tmp/');
         $tmpExtractedDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, $secureTmpDir);
-        $helper->extractZip($secureTmpDir . $themeTempFilename, $secureTmpDir . $tmpExtractedDir);
+
+        \Ip\Internal\Helper\Zip::extract($secureTmpDir . $themeTempFilename, $secureTmpDir . $tmpExtractedDir);
         unlink($archivePath);
 
         //install

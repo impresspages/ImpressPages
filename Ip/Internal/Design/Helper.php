@@ -69,25 +69,6 @@ class Helper
         }
     }
 
-    public function extractZip($archivePath, $destinationDir)
-    {
-        if (class_exists('\\ZipArchive')) {
-            $zip = new \ZipArchive();
-            if ($zip->open($archivePath) === true) {
-                $zip->extractTo($destinationDir);
-                $zip->close();
-            } else {
-                throw new \Ip\Exception('Theme extraction failed.');
-            }
-        } else {
-            require_once(ipFile('Ip/Internal/PclZip.php'));
-            $zip = new \PclZip($archivePath);
-            if (!$zip->extract(PCLZIP_OPT_PATH, $destinationDir)) {
-                throw new \Ip\Exception('Theme extraction failed.');
-            }
-        }
-    }
-
     /**
      * Clean comments of json content and decode it with json_decode().
      * Work like the original php json_decode() function with the same params
