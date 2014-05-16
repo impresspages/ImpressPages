@@ -98,6 +98,7 @@ h1, h2, h3 {
 .loginContent .alternativeLink {
     float: right;
     margin-top: -2em;
+    position: relative;
 }
 .ipmErrorMessage { /* todox: fix validator to have this global message optional (if moving to inline) */
     display: none !important; /* hiding global validator error */
