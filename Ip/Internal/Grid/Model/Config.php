@@ -315,4 +315,13 @@ class Config
         }
         return $this->config['layout'];
     }
+
+    public function updateFilter()
+    {
+        if (empty($this->config['updateFilter'])) {
+            return false;
+        }
+        return $this->config['updateFilter'];
+
+    }
 }
