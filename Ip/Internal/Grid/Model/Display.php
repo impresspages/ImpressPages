@@ -264,6 +264,9 @@ class Display
 
         $form->removeCsrfCheck();
         foreach ($this->config->fields() as $fieldData) {
+            if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {
+                continue;
+            }
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->searchField($searchVariables);
             if ($field) {
