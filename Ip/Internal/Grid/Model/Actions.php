@@ -67,7 +67,11 @@ class Actions
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {
+            if ($field['field'] == $this->config->idField()) {
+                continue;
+            }
             $fieldObject = $this->config->fieldObject($field);
+
             $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
@@ -75,13 +79,49 @@ class Actions
             }
             $dbData = array_merge($dbData, $fieldData);
         }
-        ipDb()->update($this->config->rawTableName(), $dbData, array($this->config->idField() => $id));
+
+        $this->updateDb($this->config->rawTableName(), $dbData, $id);
 
         foreach($fields as $field) {
             $this->config->fieldObject($field)->afterUpdate($id, $oldData, $data);
         }
 
     }
+
+    protected function updateDb($table, $update, $id)
+    {
+        if (empty($update)) {
+            return false;
+        }
+
+        $sql = "UPDATE " . ipTable($table) . " " . $this->config->joinQuery() . " SET ";
+        $params = array();
+        foreach ($update as $column => $value) {
+            if ($column == $this->config->idField()) {
+                continue; //don't update id field
+            }
+            $sql .= "`{$column}` = ? , ";
+            if (is_bool($value)) {
+                $value = $value ? 1 : 0;
+            }
+            $params[] = $value;
+        }
+        $sql = substr($sql, 0, -2);
+
+        $sql .= " WHERE ";
+
+
+        $sql .= " " . ipTable($table) . ".`" . $this->config->idField() . "` = ? ";
+        $params[] = $id;
+
+
+
+        return ipDb()->execute($sql, $params);
+    }
+
+
+
+
 
     public function create($data)
     {
