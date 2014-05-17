@@ -80,6 +80,10 @@ class Actions
             $dbData = array_merge($dbData, $fieldData);
         }
 
+        if ($this->config->updateFilter()) {
+            $dbData = call_user_func($this->config->updateFilter(), $id, $dbData);
+        }
+
         $this->updateDb($this->config->rawTableName(), $dbData, $id);
 
         foreach($fields as $field) {
