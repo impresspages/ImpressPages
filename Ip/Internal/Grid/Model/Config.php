@@ -203,15 +203,15 @@ class Config
 
     public function allowSort()
     {
-		if (!empty($this->config['sortField'])){
-			if (isset($this->config['allowSort'])){
-				return $this->config['allowSort'];
-			} else {
-				return TRUE;
-			}
-		} else {
-			return FALSE;
-		}
+        if (!empty($this->config['sortField'])) {
+            if (isset($this->config['allowSort'])) {
+                return $this->config['allowSort'];
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     public function allowDelete()
@@ -239,6 +239,13 @@ class Config
         return ipTable(str_replace("`", "", $this->config['table']));
     }
 
+    public function joinQuery()
+    {
+        if (empty($this->config['joinQuery'])) {
+            return false;
+        }
+        return trim($this->config['joinQuery'], '`');
+    }
 
     public function rawTableName()
     {
@@ -248,7 +255,7 @@ class Config
     public function sortField()
     {
         if (empty($this->config['sortField'])) {
-            return FALSE;
+            return false;
         }
         return trim($this->config['sortField'], '`');
     }
@@ -256,7 +263,7 @@ class Config
     public function sortDirection()
     {
         if (empty($this->config['sortDirection'])) {
-            return FALSE;
+            return false;
         }
         if ($this->config['sortDirection'] == 'desc') {
             return 'desc';
@@ -286,7 +293,7 @@ class Config
 
     protected function getTableFields($tableName)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName() . "";
+        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->config->joinQuery() . " ";
 
         $fields = ipDb()->fetchColumn($sql);
 

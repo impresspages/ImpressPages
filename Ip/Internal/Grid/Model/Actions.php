@@ -39,6 +39,7 @@ class Actions
         $sql = "
         DELETE FROM
             " . $this->config->tableName() . "
+            " . $this->config->joinQuery() . "
         WHERE
             " . $this->config->idField() . " = :id
         ";
@@ -133,6 +134,7 @@ class Actions
                 `{$sortField}`
             FROM
                 {$tableName}
+                " . $this->config->joinQuery() . "
             WHERE
                 `{$sortField}` < :rowNumber
             ORDER BY
