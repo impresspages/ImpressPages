@@ -37,11 +37,13 @@ class Actions
 
 
         $sql = "
-        DELETE FROM
+        DELETE
+            " . $this->config->tableName() . "
+        FROM
             " . $this->config->tableName() . "
             " . $this->config->joinQuery() . "
         WHERE
-            " . $this->config->idField() . " = :id
+            " . $this->config->tableName() . "." . $this->config->idField() . " = :id
         ";
 
         $params = array(
