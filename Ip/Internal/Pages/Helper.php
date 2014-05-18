@@ -233,7 +233,7 @@ class Helper
                 'name' => 'isDisabled',
                 'label' => __('Disabled', 'Ip-admin', FALSE),
                 'value' => $page->isDisabled(),
-                'note' => 'Won\'t be clickable in menu if selected.'
+                'note' => __('Won\'t be clickable in menu if selected.', 'Ip-admin', FALSE),
             ));
         $form->addField($field);
 
@@ -243,7 +243,7 @@ class Helper
                 'name' => 'isSecured',
                 'label' => __('Secured', 'Ip-admin', FALSE),
                 'value' => $page->isSecured(),
-                'note' => 'Won\'t be accessible to view even knowing the URL.'
+                'note' => __('Won\'t be accessible to view even knowing the URL.', 'Ip-admin', FALSE),
             ));
         $form->addField($field);
 
