@@ -289,9 +289,9 @@ function ipBlock($block)
 }
 
 /**
- * Get slot object
+ * Genearte slot HTML
+ * http://www.impresspages.org/docs/slots
  *
- * See slot documentation pages for more details.
  * @param string $slot Slot name.
  * @param array|null $params Slot parameters.
  */
