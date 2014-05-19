@@ -23,7 +23,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
             $this->repositoryBindKey = 'Table_' . $wholeConfig['table'] . '_' . $this->field;
         }
 
-        if (!empty($fieldFieldConfig['fileLimit'])) {
+        if (array_key_exists('fileLimit', $fieldFieldConfig)) {
             $this->fileLimit = $fieldFieldConfig['fileLimit'];
         } else {
             $this->fileLimit = 1;
