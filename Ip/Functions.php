@@ -1004,7 +1004,7 @@ function ipBindFile($file, $plugin, $id)
 
 /**
  * Release file binding. See ipBindFile for more details.
- * 
+ *
  * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
  * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id.
@@ -1034,4 +1034,14 @@ function ipUser()
 function ipEcommerce()
 {
     return \Ip\ServiceLocator::ecommerce();
+}
+
+
+/**
+ * Get info about current route
+ * @return \Ip\Route
+ */
+function ipRoute()
+{
+    return \Ip\ServiceLocator::route();
 }

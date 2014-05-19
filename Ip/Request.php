@@ -21,17 +21,6 @@ class Request
 
 
 
-
-    protected $controllerAction = null;
-    protected $controllerClass = null;
-    protected $controllerType = null;
-    protected $controllerPlugin = null;
-
-    const CONTROLLER_TYPE_PUBLIC = 0;
-    const CONTROLLER_TYPE_SITE = 1;
-    const CONTROLLER_TYPE_ADMIN = 2;
-
-
     /**
      * @var \Ip\controller
      */
@@ -272,25 +261,7 @@ class Request
         unset($process);
     }
 
-    /**
-     * Gets MVC controller action
-     *
-     * @return string controller action name
-     */
-    public function getControllerAction()
-    {
-        return $this->controllerAction;
-    }
 
-    /**
-     * Gets MVC controller action class
-     *
-     * @return string
-     */
-    public function getControllerClass()
-    {
-        return $this->controllerClass;
-    }
 
     /**
      * @ignore
@@ -308,44 +279,4 @@ class Request
     }
 
 
-    /**
-     * Get plugin name which controller is being executed
-     * @return string
-     */
-    public function getControllerPlugin()
-    {
-        return $this->controllerClass;
-    }
-
-
-
-    /**
-     * Get controller type: public, site or admin
-     * @return string
-     */
-    public function getControllerType()
-    {
-        return $this->controllerType;
-    }
-
-
-    public function setControllerType($type)
-    {
-        $this->controllerType = $type;
-    }
-
-    public function setControllerAction($action)
-    {
-        $this->controllerAction = $action;
-    }
-
-    public function setControllerClass($class)
-    {
-        $this->controllerClass = $class;
-    }
-
-    public function setControllerPlugin($plugin)
-    {
-        $this->controllerPlugin = $plugin;
-    }
 }
