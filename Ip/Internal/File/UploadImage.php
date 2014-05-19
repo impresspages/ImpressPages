@@ -1,100 +1,102 @@
 <?php
+
 /**
- * @package		Library
- *
+ * @package ImpressPages
  *
  */
+
 namespace Ip\Internal\File;
 
 
-
-
 /**
+ * Resizes and moves uploaded image to directory
  *
- * resizes and moves uploaded image to directory.
  * Usage:<br /><br />
  *		$answer = ->upload($postName, $widthT, $heightT, $destDir, $type, $forced, $quality);<br />
- *     if($answer == UPLOAD_ERR_OK)<br />
+ *     if ($answer == UPLOAD_ERR_OK)<br />
  *       echo ->fileName;<br />
  *     else<br />
  *       echo "error";<br />
  *
  * @package Library
  */
-class UploadImage{
-    /** @var file name of successfully uploaded image */
+class UploadImage
+{
+    /** @var string File name of successfully uploaded image. */
     var $fileName;
 
     /** @access private */
-    function __construct(){
+    function __construct() {
         $fileName = null;
     }
 
-
     /**
-     * Check if the file is correct.
-     * @access private
-     * @param string $postName name of file input
-     * @return int returns error code or UPLOAD_ERR_OK if no error.
+     * Check if the file is correct
+     *
+     * @param string $postName name of file input.
+     * @return int Returns error code or UPLOAD_ERR_OK if no error.
      */
-    function getError($postName){
-        if(isset($_FILES[$postName]) && $_FILES[$postName]['error'] == UPLOAD_ERR_OK){
-            if($this->supportedFile($postName)){
+    function getError($postName) {
+        if (isset($_FILES[$postName]) && $_FILES[$postName]['error'] == UPLOAD_ERR_OK) {
+            if ($this->supportedFile($postName)) {
                 return UPLOAD_ERR_OK;
-            }else
-            return UPLOAD_ERR_EXTENSION;
-        }elseif(isset($_FILES[$postName]))
-        return $_FILES[$postName]['error'];
-        else
-        return UPLOAD_ERR_NO_FILE;
+            } else {
+                return UPLOAD_ERR_EXTENSION;
+            }
+        } elseif (isset($_FILES[$postName])) {
+            return $_FILES[$postName]['error'];
+        } else {
+            return UPLOAD_ERR_NO_FILE;
+        }
     }
 
     /**
      * @param string $postName
-     * @param int $widthT required width
-     * @param int $heightT required height
-     * @param string $destDir typicaly IMAGE_URL or TMP_IMAGE_URL
+     * @param int $widthT Required width.
+     * @param int $heightT Required height.
+     * @param string $destDir Typicaly IMAGE_URL or TMP_IMAGE_URL
      * @param string $type
      * Available types:
      *  fit - resize to fit
      *  crop - crop image if it don't fit
      *  width - resize to width
      *  height - resize to height
-     * @param bool $forced if true, resizes image even if she fits to specified size (is smaller than required)
-     * @param int $quality from 0 (biggest compression) to  100 (best quality)
-     * @return int error code. UPLOAD_ERR_OK on success
+     * @param bool $forced if true, resizes image even if she fits to specified size (is smaller than required).
+     * @param int $quality from 0 (biggest compression) to  100 (best quality).
+     * @return int|bool Error code or false. UPLOAD_ERR_OK on success.
      */
-    function upload($postName, $widthT, $heightT, $destDir, $type, $forced, $quality){
+    function upload($postName, $widthT, $heightT, $destDir, $type, $forced, $quality) {
         $this->fileName = '';
         $answer['name'] = '';
 
-
         $error = $this->getError($postName);
-        if($error == UPLOAD_ERR_OK){
+        if ($error == UPLOAD_ERR_OK) {
             $imageSize = getimagesize($_FILES[$postName]['tmp_name']);
             if ($this->resizeRequired($imageSize[0], $imageSize[1], $widthT, $heightT, $type, $forced)) {
                 $memory_success = $this->getMemoryNeeded($imageSize);
-                if(!$memory_success)
-                return UPLOAD_ERR_INI_SIZE;
-                if($image = $this->createImage($postName)){
-                    if($forced || $widthT < $imageSize[0] || $heightT < $imageSize[1])
+                if (!$memory_success) {
+                    return UPLOAD_ERR_INI_SIZE;
+                }
+                if ($image = $this->createImage($postName)) {
+                    if ($forced || $widthT < $imageSize[0] || $heightT < $imageSize[1])
                     $image = $this->resize($image, $widthT, $heightT, $imageSize[0], $imageSize[1], $type);
 
-                    //generate unocupied file name
+                    // Generate unocupied file name.
                     $newName = $_FILES[$postName]['name'];
-                    if($_FILES[$postName]['type'] == "image/gif")
-                    $newName = substr($newName, -4, 4).'.png'; //gif are converted top PNG
+                    if ($_FILES[$postName]['type'] == 'image/gif')
+                    $newName = substr($newName, -4, 4) . '.png'; // GIF are converted top PNG.
                     $newName = \Ip\Internal\File\Functions::genUnoccupiedName($newName, $destDir);
 
                     switch ($_FILES[$postName]['type']) {
                         case 'image/gif':
                         case 'image/png':
-                            //png quality is from 0 (no compression) to 9
-                            $tmpQuality = $quality/10;
+                            // PNG quality is from 0 (no compression) to 9.
+                            $tmpQuality = $quality / 10;
                             $tmpQuality = 9 - $tmpQuality;
-                            if($tmpQuality < 0)
-                            $tmpQuality = 0;
-                            if (imagepng($image, $destDir.$newName, $tmpQuality)) {
+                            if ($tmpQuality < 0) {
+                                $tmpQuality = 0;
+                            }
+                            if (imagepng($image, $destDir . $newName, $tmpQuality)) {
                                 $this->fileName = $newName;
                                 return UPLOAD_ERR_OK;
                             } else {
@@ -104,32 +106,42 @@ class UploadImage{
                         case 'image/pjpeg':
                         case 'image/jpeg':
                         default:
-                            if(imagejpeg($image, $destDir.$newName, $quality)){
+                            if (imagejpeg($image, $destDir . $newName, $quality)) {
                                 $this->fileName = $newName;
                                 return UPLOAD_ERR_OK;
-                            }else{
+                            } else {
                                 return UPLOAD_ERR_CANT_WRITE;
                             }
                             break;
                     }
-                }else{
+                } else {
                     return UPLOAD_ERR_CANT_WRITE;
                 }
             } else {
                 $newName = \Ip\Internal\File\Functions::genUnoccupiedName($_FILES[$postName]['name'], $destDir);
-                copy($_FILES[$postName]['tmp_name'], $destDir.$newName);
+                copy($_FILES[$postName]['tmp_name'], $destDir . $newName);
                 $this->fileName = $newName;
                 return UPLOAD_ERR_OK;
             }
 
-        }else{
+        } else {
             return $error;
         }
+
         return false;
     }
 
+    /**
+     * @param int $widthS
+     * @param int $heightS
+     * @param int $widthT
+     * @param int $heightT
+     * @param string $type
+     * @param bool $forced
+     * @return bool
+     */
     public function resizeRequired($widthS, $heightS, $widthT, $heightT, $type, $forced) {
-        switch($type){
+        switch ($type) {
             case 'fit':
                 if ($forced) {
                     return $widthS != $widthT || $heightS != $heightT;
@@ -162,137 +174,139 @@ class UploadImage{
     }
 
     /**
-     * @access private
+     * @param string $image
+     * @param int $widthDest
+     * @param int $heightDest
+     * @param int $widthSource
+     * @param int $heightSource
+     * @param string $type
+     * @return string
      */
-    function resize($image, $widthDest, $heightDest, $widthSource, $heightSource, $type){
-
+    function resize($image, $widthDest, $heightDest, $widthSource, $heightSource, $type) {
         $dest_proportion = $widthDest / $heightDest;
         $sourceProportion = (double)$widthSource / (double)$heightSource;
 
-
-
-
-        switch($type){
+        switch ($type) {
             case 'fit':
-                if($sourceProportion > $dest_proportion){
+                if ($sourceProportion > $dest_proportion) {
                     $width_skirtumas = 0;
-                    $height_skirtumas = ($heightDest - $widthDest/($sourceProportion))/2;
-                }else{
-                    $width_skirtumas = ($widthDest - $heightDest*($sourceProportion))/2;
+                    $height_skirtumas = ($heightDest - $widthDest / ($sourceProportion)) / 2;
+                } else {
+                    $width_skirtumas = ($widthDest - $heightDest * ($sourceProportion)) / 2;
                     $height_skirtumas = 0;
                 }
 
-                if($height_skirtumas == 0 && $width_skirtumas != 0)
-                $widthDest = $heightDest * $sourceProportion;
-                elseif($height_skirtumas != 0 && $width_skirtumas == 0){
+                if ($height_skirtumas == 0 && $width_skirtumas != 0) {
+                    $widthDest = $heightDest * $sourceProportion;
+                }
+                elseif ($height_skirtumas != 0 && $width_skirtumas == 0) {
                     $heightDest = $widthDest / $sourceProportion;
                 }
 
                 $imageNew = imagecreatetruecolor($widthDest, $heightDest);
                 imagealphablending($imageNew, false);
-                imagesavealpha($imageNew,true);
+                imagesavealpha($imageNew, true);
                 $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-                imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
+                imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
                 imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightDest, $widthSource, $heightSource);
                 break;
             case 'crop':
-                if($sourceProportion > $dest_proportion){
-                    $width_skirtumas = ($widthSource - $heightSource*($dest_proportion))/2;
+                if ($sourceProportion > $dest_proportion) {
+                    $width_skirtumas = ($widthSource - $heightSource * ($dest_proportion)) / 2;
                     $height_skirtumas = 0;
-                }else{
+                } else {
                     $width_skirtumas = 0;
-                    $height_skirtumas = ($heightSource - $widthSource/$dest_proportion)/2;
+                    $height_skirtumas = ($heightSource - $widthSource / $dest_proportion) / 2;
                 }
 
                 $imageNew = imagecreatetruecolor($widthDest, $heightDest);
                 imagealphablending($imageNew, false);
-                imagesavealpha($imageNew,true);
+                imagesavealpha($imageNew, true);
                 $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-                imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
-                imagecopyresampled($imageNew, $image, 0, 0, $width_skirtumas, $height_skirtumas, $widthDest, $heightDest, $widthSource-$width_skirtumas*2, $heightSource-$height_skirtumas*2);
+                imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
+                imagecopyresampled($imageNew, $image, 0, 0, $width_skirtumas, $height_skirtumas, $widthDest, $heightDest, $widthSource - $width_skirtumas * 2, $heightSource-$height_skirtumas*2);
                 break;
             case 'width':
-
-                $heightTmp = $widthDest/$sourceProportion;
+                $heightTmp = $widthDest / $sourceProportion;
 
                 $imageNew = imagecreatetruecolor($widthDest, $heightTmp);
                 imagealphablending($imageNew, false);
-                imagesavealpha($imageNew,true);
+                imagesavealpha($imageNew, true);
                 $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-                imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightTmp, $color );
+                imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightTmp, $color);
                 imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightTmp, $widthSource, $heightSource);
 
-                if($heightTmp > $heightDest){
+                if ($heightTmp > $heightDest) {
                     $image = $imageNew;
                     $imageNew = imagecreatetruecolor($widthDest, $heightDest);
-                    $color = imagecolorallocate ($imageNew, 255, 255, 255 );
-                    imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
+                    $color = imagecolorallocate($imageNew, 255, 255, 255);
+                    imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
                     imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightDest, $widthDest, $heightDest);
                 }
                 break;
             case 'height':
-                $widthTmp = $heightDest*$sourceProportion;
+                $widthTmp = $heightDest * $sourceProportion;
 
                 $imageNew = imagecreatetruecolor($widthTmp, $heightDest);
                 imagealphablending($imageNew, false);
-                imagesavealpha($imageNew,true);
+                imagesavealpha($imageNew, true);
                 $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-                imagefilledrectangle ( $imageNew, 0, 0, $widthTmp, $heightDest, $color );
+                imagefilledrectangle($imageNew, 0, 0, $widthTmp, $heightDest, $color);
                 imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthTmp, $heightDest, $widthSource, $heightSource);
 
-                if($widthTmp > $widthDest){
+                if ($widthTmp > $widthDest) {
                     $image = $imageNew;
                     $imageNew = imagecreatetruecolor($widthDest, $heightDest);
-                    $color = imagecolorallocate ($imageNew, 255, 255, 255 );
-                    imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
+                    $color = imagecolorallocate($imageNew, 255, 255, 255);
+                    imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
                     imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightDest, $widthDest, $heightDest);
                 }
                 break;
-
         }
-
 
         return $imageNew;
-
     }
 
-
     /**
-     * @access private
+     * @param string $postName
+     * @param string $destDir
+     * @return string
      */
-    function genName($postName, $destDir){
+    function genName($postName, $destDir) {
         $newName = basename($_FILES[$postName]['name']);
-        $newName = substr($newName, 0, strrpos($newName, ".") );
+        $newName = substr($newName, 0, strrpos($newName, '.'));
         $spec = array("?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ".", ",", "!", ":", "\"", "?", "|");
-        $newName = str_replace($spec, "_", $newName);
-        if($newName == "")
-        $newName = "image_";
-        if (file_exists($destDir.$newName.'.jpg')){
+        $newName = str_replace($spec, '_', $newName);
+        if ($newName == '') {
+            $newName = 'image_';
+        }
+
+        if (file_exists($destDir . $newName . '.jpg')) {
             $i = 1;
-            while(file_exists($destDir.$newName.'_'.$i.'.jpg')){
+            while (file_exists($destDir . $newName . '_' . $i . '.jpg')) {
                 $i++;
             }
-            $newName = $newName.'_'.$i;
+            $newName = $newName . '_' . $i;
         }
-        $newName .= ".jpg";
+        $newName .= '.jpg';
+
         return $newName;
     }
 
-
-
     /**
-     * @access private
+     * @param string $postName
+     * @return string
      */
-    function createImage($postName){
-
+    function createImage($postName) {
         $image = false;
+
         switch ($_FILES[$postName]['type']) {
             case 'image/jpeg':
             case 'image/pjpeg':
                 $image = imagecreatefromjpeg($_FILES[$postName]['tmp_name']);
                 break;
             case 'image/gif':
-                $image = imagecreatefromgif($_FILES[$postName]['tmp_name']);
+                $image = imagecreatefromgif ($_FILES[$postName]['tmp_name']);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -307,21 +321,24 @@ class UploadImage{
     }
 
     /**
-     * @access private
+     * @param string $postName
+     * @param bool
      */
-    function supportedFile($postName){
-        return(($_FILES[$postName]['type'] == "image/jpeg") ||
-        ($_FILES[$postName]['type'] == "image/pjpeg") ||
-        ($_FILES[$postName]['type'] == "image/png") ||
-        ($_FILES[$postName]['type'] == "image/gif"));
+    function supportedFile($postName) {
+        return (($_FILES[$postName]['type'] == 'image/jpeg') ||
+        ($_FILES[$postName]['type'] == 'image/pjpeg') ||
+        ($_FILES[$postName]['type'] == 'image/png') ||
+        ($_FILES[$postName]['type'] == 'image/gif'));
     }
+
     /**
-     * @access private
+     * @param array $image_info
+     * @return int
      */
-    function getMemoryNeeded($image_info){
-        if(!isset($image_info['channels']) || !$image_info['channels'])
+    function getMemoryNeeded($image_info) {
+        if (!isset($image_info['channels']) || !$image_info['channels'])
         $image_info['channels'] = 4;
-        if(!isset($image_info['bits']) || !$image_info['bits'])
+        if (!isset($image_info['bits']) || !$image_info['bits'])
         $image_info['bits'] = 8;
 
         $bytesRequired = round(($image_info[0] * $image_info[1] * $image_info['bits'] * $image_info['channels'] / 8 + Pow(2, 16)) * 1.65);
@@ -330,5 +347,3 @@ class UploadImage{
     }
 
 }
-
-
