@@ -289,7 +289,7 @@ class WidgetController
             } else {
                 $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
             }
-            if (!is_file($skinFile)) {
+            if (!is_file(ipFile($skinFile)) && !is_file(ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $skinFile))) {
                 $skin = 'default';
                 if ($this->core) {
                     $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';

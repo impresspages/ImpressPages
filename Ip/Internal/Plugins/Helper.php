@@ -204,6 +204,9 @@ class Helper
 
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
+            if (!empty($option['note'])) {
+                $newField->setNote($option['note']);
+               }
             $default = isset($option['default']) ? $option['default'] : null;
 
             $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
