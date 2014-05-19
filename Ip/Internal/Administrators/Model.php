@@ -136,13 +136,13 @@ class Model{
     private static function passwordHash($password)
     {
         $stretching = ipGetOption('Admin.passwordStretchingIterations', 8);
-        $hasher = new PasswordHash($stretching, ipGetOption('Ip.portableAdminHashes', true));
+        $hasher = new \Ip\Lib\PasswordHash($stretching, ipGetOption('Ip.portableAdminHashes', true));
         return $hasher->HashPassword($password);
     }
 
     private static function checkHash($password, $storedHash)
     {
-        $hasher = new PasswordHash(8, ipGetOption('Ip.portableAdminHashes', true));
+        $hasher = new \Ip\Lib\PasswordHash(8, ipGetOption('Ip.portableAdminHashes', true));
         $hasher->CheckPassword($password, $storedHash);
         return $hasher->CheckPassword($password, $storedHash);
     }
