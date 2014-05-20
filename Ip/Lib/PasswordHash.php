@@ -1,6 +1,6 @@
 <?php
 
-namespace Ip\Internal\Administrators;
+namespace Ip\Lib;
 #
 # Portable PHP password hashing framework.
 #
