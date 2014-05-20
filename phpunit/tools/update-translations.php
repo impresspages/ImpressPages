@@ -29,11 +29,9 @@ $aliases = array(
 
 foreach ($installTranslations as $language) {
 
-    if (isset($aliases[$language])) {
-        $language = $aliases[$language];
-    }
+    $transifexLanguage = isset($aliases[$language]) ? $aliases[$language] : $language;
 
-    $url = "http://www.transifex.com/api/2/project/impresspages/resource/Install/translation/{$language}/";
+    $url = "http://www.transifex.com/api/2/project/impresspages/resource/Install/translation/{$transifexLanguage}/";
 
     $content = file_get_contents($url, false, $context);
 

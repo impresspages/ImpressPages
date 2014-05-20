@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="page-footer">
-                    This software is brought to you by <a target="_blank" href="http://www.impresspages.org/cms/about/team/">ImpressPages team</a>
+                    <?php printf(__('This software is brought to you by <a target="_blank" href="%s">ImpressPages team</a>', 'Install', false), 'http://www.impresspages.org/cms/about/team/'); ?>
                 </div>
             </div>
         </div>

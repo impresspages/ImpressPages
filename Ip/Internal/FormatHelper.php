@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -16,7 +17,7 @@ class FormatHelper
      */
     public static function formatBytes($bytes)
     {
-        $data = array (
+        $data = array(
             'bytes' => $bytes
         );
 
@@ -24,7 +25,7 @@ class FormatHelper
         if ($formattedBytes === NULL) {
 
             $sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-            $decimal = array('au', 'bn', 'bw', 'ch', 'cn', 'do', 'eg', 'gt', 'hk', 'hn', 'ie', 'il', 'in', 'jp', 'ke', 'kp', 'kr', 'lb', 'lk', 'mn', 'mo', 'mt', 'mx', 'my', 'ng', 'ni', 'np', 'nz', 'pa', 'ph', 'pk', 'sg', 'th', 'tw', 'tz', 'ug', 'uk', 'us', 'zw', '', '', '', '', '', '', '');
+            $decimal = array('au', 'bn', 'bw', 'ch', 'cn', 'do', 'eg', 'gt', 'hk', 'hn', 'ie', 'il', 'in', 'jp', 'ke', 'kp', 'kr', 'lb', 'lk', 'mn', 'mo', 'mt', 'mx', 'my', 'ng', 'ni', 'np', 'nz', 'pa', 'ph', 'pk', 'sg', 'th', 'tw', 'tz', 'ug', 'uk', 'us', 'zw');
 
             $languageId = ipContent()->getCurrentLanguage()->getId();
             $language = \Ip\ServiceLocator::content()->getLanguage($languageId);

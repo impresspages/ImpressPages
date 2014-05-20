@@ -76,7 +76,7 @@ class Event
         }
 
         //show admin submenu if needed
-        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (ipRoute()->isAdmin()) {
             $submenu = Submenu::getSubmenuItems();
             if ($submenu) {
                 ipResponse()->setLayoutVariable('submenu', $submenu);
