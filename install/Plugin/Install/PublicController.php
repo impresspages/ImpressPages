@@ -74,6 +74,7 @@ class PublicController extends \Ip\Controller
         $languages = array();
         $languages['en'] = 'English';
         $languages['cn'] = 'Chinese';
+        $languages['ar'] = 'Arabic';
         $languages['cs'] = 'Čeština';
         $languages['nl'] = 'Dutch';
         $languages['de'] = 'Deutsch';
