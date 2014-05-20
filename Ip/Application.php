@@ -194,6 +194,25 @@ class Application
             if (!empty($routeAction['page'])) {
                 ipContent()->_setCurrentPage($routeAction['page']);
             }
+            if (!empty($routeAction['environment'])) {
+                ipRoute()->setEnvironment($routeAction['environment']);
+            } else {
+                if ($routeAction['controller'] == 'AdminController') {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
+                } else {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
+                }
+            }
+            if (!empty($routeAction['controller'])) {
+                ipRoute()->setController($routeAction['controller']);
+            }
+            if (!empty($routeAction['plugin'])) {
+                ipRoute()->setPlugin($routeAction['plugin']);
+            }
+            if (!empty($routeAction['action'])) {
+                ipRoute()->setAction($routeAction['action']);
+            }
+
         }
 
 
