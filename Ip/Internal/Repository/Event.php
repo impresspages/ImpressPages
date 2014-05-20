@@ -21,11 +21,7 @@ class Event
             ipAddJs('Ip/Internal/System/assets/market.js');
             ipAddJs('Ip/Internal/Core/assets/js/easyXDM/easyXDM.min.js');
 
-            if (defined('TEST_MARKET_URL')) {
-                $marketUrl = TEST_MARKET_URL.'images-v1/';
-            } else {
-                $marketUrl = 'http://market.impresspages.org/images-v1/';
-            }
+            $marketUrl = ipConfig()->get('imageMarketUrl', 'http://market.impresspages.org/images-v1/');
 
             $popupData = array(
                 'marketUrl' => $marketUrl,

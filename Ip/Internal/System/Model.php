@@ -56,11 +56,7 @@ class Model
      */
     public function getImpressPagesAPIUrl()
     {
-        if (ipConfig()->get('testMode')) {
-            return 'http://test.service.impresspages.org';
-        } else {
-            return 'http://service.impresspages.org';
-        }
+        return ipConfig()->get('serviceUrl', 'http://service.impresspages.org/');
     }
 
     /**
