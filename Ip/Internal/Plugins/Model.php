@@ -148,7 +148,7 @@ class Model{
         }
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
-        if (method_exists($workerClass, 'deactivate')) {
+        if (class_exists($workerClass) && method_exists($workerClass, 'deactivate')) {
             $worker = new $workerClass($pluginRecord['version']);
             $worker->deactivate();
         }
