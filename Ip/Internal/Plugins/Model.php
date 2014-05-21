@@ -333,13 +333,8 @@ class Model{
             return '';
         }
 
-        if (ipConfig()->get('pluginMarketUrl')) {
-            $marketUrl = ipConfig()->get('pluginMarketUrl') . 'plugins-v1/';
-        } elseif(ipConfig()->get('testMode')) {
-            $marketUrl = 'http://local.market.impresspages.org/plugins-v1/';
-        } else {
-            $marketUrl = 'http://market.impresspages.org/plugins-v1/';
-        }
+        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/');
+
         return $marketUrl;
     }
 
