@@ -2,22 +2,24 @@
     <div class="page-header">
         <h1>ImpressPages <small><?php echo esc($version); ?></small></h1>
     </div>
+
     <?php if (!empty($notes)) { ?>
         <?php foreach ($notes as $note) { ?>
-            <p class="alert alert-success">
-                <?php echo $note; ?>
-            </p>
+        <p class="alert alert-success">
+            <?php echo $note; ?>
+        </p>
         <?php } ?>
     <?php } ?>
 
     <?php if ($changedUrl) { ?>
-    <h2><?php _e('Website\'s URL seems to be changed', 'Ip-admin'); ?></h2>
-    <p><?php echo sprintf(__(
+        <h2><?php _e('Website\'s URL seems to be changed', 'Ip-admin'); ?></h2>
+        <p><?php echo sprintf(__(
             'We have detected that website\'s URL has changed. Would you like to update links on your website from %s to %s ?',
             'Ip-admin'
         ), '<b>' . $oldUrl . '</b>', '<b>' . $newUrl . '</b>') ?></p>
-    <a href="<?php echo ipActionUrl(array('aa' => 'System.updateLinks')) ?>" class="ipsUpdateLinks btn btn-primary"><?php _e('Update links', 'Ip-admin'); ?></a>
+        <a href="<?php echo ipActionUrl(array('aa' => 'System.updateLinks')) ?>" class="ipsUpdateLinks btn btn-primary"><?php _e('Update links', 'Ip-admin'); ?></a>
     <?php } ?>
+
     <?php if ($migrationsAvailable) { ?>
         <h2><?php _e('Database migrations', 'Ip-admin'); ?></h2>
         <p><?php _e('Your database is outdated.', 'Ip-admin') ?></p>
@@ -27,8 +29,9 @@
     <?php if ($trash['size'] > 0) { ?>
         <h2><?php _e('Trash', 'Ip-admin'); ?></h2>
         <p><?php printf(__('Trash contains %s deleted pages.', 'Ip-admin'), $trash['size']) ?></p>
-
-        <?php echo $trash['form']->render(); ?>
+        <div class="pull-left"><?php echo $trash['form_empty']->render(); ?></div>
+        <div class="pull-left" style="margin-left:10px;"><?php echo $trash['form_recovery']->render(); ?></div>
+        <div class="clearfix"></div>
     <?php } ?>
 
     <div class="hidden ipsSystemStatus">
