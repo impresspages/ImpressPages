@@ -12,20 +12,6 @@ var ipPluginMarket = new function () {
         Market.processOrder(order);
     };
 
-    var navigateBackToMyPlugin = function () {
-        ipPluginMarket.closeMarketWindow();
-    };
-
-    var beforeOpenPluginPreview = function () {
-        isPluginPreview = true;
-        ipPluginMarket.resize();
-    };
-
-    var afterClosePluginPreview = function () {
-        isPluginPreview = false;
-        ipPluginMarket.resize();
-    };
-
     var showMarketIframe = function () {
 
         var remote = new easyXDM.Rpc({
@@ -65,12 +51,6 @@ var ipPluginMarket = new function () {
                             case 'navigateBackToMyPlugin':
                                 navigateBackToMyPlugin();
                                 break;
-                            case 'beforeOpenPluginPreview':
-                                beforeOpenPluginPreview();
-                                break;
-                            case 'afterClosePluginPreview':
-                                afterClosePluginPreview();
-                                break;
                             case 'closePluginMarket':
                                 ipPluginMarket.closeMarketWindow();
                                 break;
@@ -79,15 +59,6 @@ var ipPluginMarket = new function () {
                 }
             }
         );
-    };
-
-    /**
-     * Event to handle ESC to close PluginMarket window
-     */
-    var onMarketKeyUp = function (e) {
-        if (e.keyCode == 27) { // ESC pressed
-            ipPluginMarket.closeMarketWindow();
-        }
     };
 
     this.openMarketWindow = function (e) {
@@ -102,24 +73,6 @@ var ipPluginMarket = new function () {
         showMarketIframe();
         ipPluginMarket.resize();
         $(window).bind('resize.ipPluginMarketAll', ipPluginMarket.resize);
-
-        $(document).on('keyup', onMarketKeyUp);
-    };
-
-    this.closeMarketWindow = function (e) {
-
-        if (e != null) {
-            e.preventDefault();
-        }
-
-        $(document).off('keyup', onMarketKeyUp);
-
-        var $popup = $('.ipModulePlugins .ipsPluginMarketPopup');
-        $popup.addClass('hidden');
-
-        $('#ipsModulePluginMarketContainer iframe').remove();
-
-        $(document.body).removeClass(bodyClassToHideScroll);
     };
 
     this.resize = function (e) {
