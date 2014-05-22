@@ -66,7 +66,10 @@ class Event
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
             }
-            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+            if ($sessionLifetime > 20) {
+                $sessionLifetime = $sessionLifetime - 20;
+            }
+            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
         }
 
         $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
