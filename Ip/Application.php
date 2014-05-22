@@ -197,7 +197,7 @@ class Application
             if (!empty($routeAction['environment'])) {
                 ipRoute()->setEnvironment($routeAction['environment']);
             } else {
-                if ($routeAction['controller'] == 'AdminController') {
+                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
                 } else {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
