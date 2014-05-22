@@ -25,61 +25,6 @@ class Model
         }
     }
 
-    public static function completeStep($step)
-    {
-        //if($_SESSION['step'] < $step)
-        $_SESSION['step'] = $step;
-    }
-
-    public static function checkRequirements()
-    {
-        $error = array();
-        $warning = array();
-
-        if (!class_exists('PDO')) {
-            $error['mod_pdo'] = 1;
-        }
-
-        if (!file_exists(self::ipFile('.htaccess'))) {
-            $error['htaccess'] = 1;
-        }
-
-        if (file_exists(self::ipFile('index.html'))) {
-            $error['index.html'] = 1;
-        }
-
-        if (!extension_loaded('gd') || !function_exists('gd_info')) {
-            $error['gd_lib'] = 1;
-        }
-
-        if (empty($_SESSION['rewritesEnabled'])) { // this test is done through ajax in step 0
-            $warning['mod_rewrite'] = 1;
-
-            // old way to test
-            // if (function_exists('apache_get_modules'))
-            //    if (!in_array('mod_rewrite', apache_get_modules())
-        }
-
-        if (get_magic_quotes_gpc()) {
-            $warning['magic_quotes'] = 1;
-        }
-
-        if (!function_exists('curl_init')) {
-            $warning['curl'] = 1;
-        }
-
-        if (session_id() == '') { //session hasn't been started
-            $warning['session'] = 1;
-        }
-        $answer = array(
-            'errors' => $error,
-            'warnings' => $warning
-        );
-        return $answer;
-
-
-    }
-
     public static function createAndUseDatabase($database)
     {
         $db = ipDb();
@@ -150,7 +95,7 @@ class Model
             ),
             'debugMode' => array(
                 'value' => 0,
-                'comment' => "Debug mode loads raw unminified JS files, alerts AJAX errors.",
+                'comment' => "Debug mode loads raw unminified JavaScript files, alerts AJAX errors.",
             ),
             'rewritesDisabled' => array(
                 'value' => null, // this value will not be written to config if not changed
