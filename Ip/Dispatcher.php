@@ -143,6 +143,14 @@ class Dispatcher
         }
     }
 
+    /**
+     * @ignore
+     */
+    public function _bindInstallEvents()
+    {
+        $this->bindPluginEvents('Install');
+    }
+
     private function bindPluginEvents($plugin, $namespace = '\Plugin')
     {
         $this->bindPluginEventType($plugin, 'event', $namespace);

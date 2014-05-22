@@ -4,10 +4,8 @@ var ModuleInstall = new function () {
     var replaceTables = 0;
     var context = this;
 
-    this.step3Click = function () {
-        $('#content').hide();
-        $('#loading').show();
-        $('.errorContainer').empty();
+    this.submitDatabase = function () {
+        $('.ipsErrorContainer').empty();
 
         var db = {
             'hostname': $('#db_server').val(),
@@ -33,45 +31,43 @@ var ModuleInstall = new function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-
-                $('#loading').hide();
-                $('#content').show();
-
-                var proceedUrl = 'index.php?step=4';
-
+                var $errorContainer = $('.ipsErrorContainer');
                 if (response && response.result) {
-                    document.location = proceedUrl;
-                } else if (response && response.error && response.error.code && response.error.code == 'table_exist' && response.error.message) {
+                    $errorContainer.html('');
+                    document.location = response.result.redirect;
+                } else if (response && response.error && response.error.code && response.error.code == 'table_exists' && response.error.message) {
                     if (confirm(response.error.message)) {
                         replaceTables = 1;
-                        context.step3Click();
+                        context.submitDatabase();
                     }
                 } else if (response && response.error && response.error.message) {
-                    $('.errorContainer').html('<p class="alert alert-danger">' + response.error.message + '</p>');
+                    $errorContainer.html('<p class="alert alert-danger">' + response.error.message + '</p>');
                 } else {
                     alert('Unknown response. #FYLBK');
                 }
             },
             error: function (response) {
-                $('#loading').hide();
-                $('#content').show();
-
                 alert('Error: ' + response.responseText);
             }
         });
     };
 
-    this.step4Click = function() {
-        $('.errorContainer').empty();
+    this.submitConfiguration = function() {
+        $('.ipsErrorContainer').empty();
 
         var postData = {
-            'pa': 'Install.writeConfig',
-            'siteName': $('#configSiteName').val(),
-            'siteEmail': $('#configSiteEmail').val(),
-            'install_login': $('#config_login').val(),
-            'install_pass': $('#config_pass').val(),
-            'email': $('#config_email').val(),
-            'timezone': $('#config_timezone').val(),
+            'pa': 'Install.testConfiguration',
+            'configWebsiteName': $('#ipsConfigWebsiteName').val(),
+            'configWebsiteEmail': $('#ipsConfigWebsiteEmail').val(),
+            'configTimezone': $('#ipsConfigTimezone').val(),
+            'configSupport': $('#ipsConfigSupport').prop('checked') ? 1 : 0,
+            'configExpanded': $('#ipsConfigExpanded').val(),
+            'configAdminUsername': $('#ipsConfigAdminUsername').val(),
+            'configAdminPassword': $('#ipsConfigAdminPassword').val(),
+            'configAdminEmail': $('#ipsConfigAdminEmail').val(),
+            'configDevelopmentEnvironment': $('#ipsConfigDevelopmentEnvironment').prop('checked') ? 1 : 0,
+            'configShowErrors': $('#ipsConfigShowErrors').prop('checked') ? 1 : 0,
+            'configDebugMode': $('#ipsConfigDebugMode').prop('checked') ? 1 : 0,
             'jsonrpc': '2.0'
         };
 
@@ -81,12 +77,17 @@ var ModuleInstall = new function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-                var $errorContainer = $('.errorContainer');
+                var $errorContainer = $('.ipsErrorContainer');
                 if (response && response.result) {
                     $errorContainer.html('');
-                    document.location = 'index.php?step=5';
+                    document.location = response.result.redirect;
                 } else if (response && response.error && response.error.message) {
-                    $errorContainer.html('<p class="alert alert-danger">' + response.error.message + '</p>');
+                    var errors = response.error.errors;
+                    var errorsText = '';
+                    for (var i = 0; i < errors.length; ++i) {
+                        errorsText += '<br>- ' + errors[i];
+                    }
+                    $errorContainer.html('<p class="alert alert-danger">' + response.error.message + errorsText + '</p>');
                 } else {
                     alert('Unknown response. #FYLXK');
                 }
