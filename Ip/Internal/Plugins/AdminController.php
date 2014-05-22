@@ -236,7 +236,7 @@ class AdminController extends \Ip\Controller{
         $plugins = ipRequest()->getPost('plugins');
 
         if (!is_writable(Model::pluginInstallDir())) {
-            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'Ip-admin', false), 777);
+            return JsonRpc::error(__('Directory is not writable. Please check your email and install the plugin manually.', 'Ip-admin', false), 777);
         }
 
         try {
