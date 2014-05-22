@@ -251,7 +251,7 @@ class Helper
         if (file_exists(Model::ipFile('index.html'))) {
             return 'error';
         }
-        return 'warning';
+        return 'success';
     }
 
     public static function checkMagicQuotes()
