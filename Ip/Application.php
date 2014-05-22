@@ -288,6 +288,15 @@ class Application
             $eventInfo['page'] = null;
         }
 
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        } else {
+            if ($eventInfo['page']) {
+                ipSetLayout($eventInfo['page']->getLayout());
+            }
+        }
+
         ipEvent('ipBeforeController', $eventInfo);
 
         $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
