@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -6,19 +7,23 @@
 
 namespace Ip\Form\Field;
 
-
 use Ip\Form\Field;
+
 
 class File extends Field
 {
 
-
-
-    public function render($doctype, $environment)
-    {
+    /**
+     * Render field
+     *
+     * @param string $doctype
+     * @param $environment
+     * @return string
+     */
+    public function render($doctype, $environment) {
         $data = array (
             'attributesStr' => $this->getAttributesStr($doctype),
-            'classes' => implode(' ',$this->getClasses()),
+            'classes' => implode(' ', $this->getClasses()),
             'inputName' => $this->getName()
         );
 
@@ -33,44 +38,42 @@ class File extends Field
     }
 
     /**
-    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
-    */
-    public function getTypeClass()
-    {
+     * Get class type
+     *
+     * CSS class that should be applied to surrounding element of this field.
+     * By default empty. Extending classes should specify their value.
+     * @return string
+     */
+    public function getTypeClass() {
         return 'file';
     }
 
-
     /**
-     * @param array $values all posted form values
-     * @param string $valueKey this field name
+     * Get values as string
+     *
+     * @param array $values All posted form values.
+     * @param string $value Key this field name.
      * @return string
      */
-    public function getValueAsString($values, $valueKey)
-    {
+    public function getValueAsString($values, $valueKey) {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
-            return implode(', ',$values[$valueKey]['file']);
+            return implode(', ', $values[$valueKey]['file']);
         } else {
             return '';
         }
     }
 
-
     /**
-     *
      * Validate if field passes validation
      *
-     */
-    /**
-     * Validate field
-     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
+     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field).
      * @param string $valueKey This value key could not exist in values array.
-     * @return string return string on error or false on success
+     * @return string Return string on error or false on success.
      */
     public function validate($values, $valueKey, $environment)
     {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
-            foreach($values[$valueKey]['file'] as $file) {
+            foreach ($values[$valueKey]['file'] as $file) {
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
@@ -78,25 +81,27 @@ class File extends Field
                     } else {
                         $error = __('Session has ended. Please remove and re-upload files.', 'Ip', false);
                     }
+
                     return $error;
                 }
             }
         }
+
         return parent::validate($values, $valueKey, $environment);
     }
 
-
     /**
+     * Get files
+     *
      * @param $values
      * @param $valueKey
      * @return array
      * @throws \Exception
      */
-    public static function getFiles($values, $valueKey)
-    {
+    public static function getFiles($values, $valueKey) {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             $answer = array();
-            foreach($values[$valueKey]['file'] as $file) {
+            foreach ($values[$valueKey]['file'] as $file) {
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     ipLog()->alert('Core.tryToAccessNotUploadedFile', array('file' => $file));
@@ -104,17 +109,25 @@ class File extends Field
                 }
                 $answer[] = $uploadModel->getUploadedFilePath($file, true);
             }
+
             return $answer;
         } else {
             return array();
         }
     }
 
-    public static function originalFileNames($values, $valueKey)
-    {
+    /**
+     * Original file names
+     *
+     * @param $values
+     * @param $valueKey
+     * @return array
+     * @throws \Exception
+     */
+    public static function originalFileNames($values, $valueKey) {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             $answer = array();
-            foreach($values[$valueKey]['file'] as $key => $file) {
+            foreach ($values[$valueKey]['file'] as $key => $file) {
                 $uploadModel = \Ip\Internal\Repository\UploadModel::instance();
                 if (!$uploadModel->isFileUploadedByCurrentUser($file, true)) {
                     ipLog()->alert('Core.tryToAccessNotUploadedFile', array('file' => $file));
@@ -125,12 +138,13 @@ class File extends Field
                     $originalFileName = $values[$valueKey]['originalFileName'][$key];
                 }
 
-
                 $answer[] = $originalFileName;
             }
+
             return $answer;
         } else {
             return array();
         }
     }
+
 }
