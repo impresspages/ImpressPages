@@ -272,9 +272,10 @@ class AdminController extends \Ip\Controller
         $pageId = (int)$data['pageId'];
 
 
-        if (!empty($data['destinationParentId'])) {
-            $destinationParentId = $data['destinationParentId'];
+        if (!isset($data['destinationParentId'])) {
+            throw new \Ip\Exception("Missing required parameter");
         }
+        $destinationParentId = $data['destinationParentId'];
 
         if (!isset($data['destinationPosition'])) {
             throw new \Ip\Exception("Destination position is not set");
