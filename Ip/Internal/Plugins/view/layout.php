@@ -2,7 +2,7 @@
     <div class="_outer ipsModulePluginsContainer">
         <div class="_container _plugins ipsPlugins" ng-cloak>
             <div class="_actions">
-<!--                <a href="#" class="btn btn-new"><i class="fa fa-plus"></i> --><?php //_e('Add', 'Ip-admin'); ?><!--</a>-->
+                <a href="<?php echo ipActionUrl(array('aa' => 'Plugins.market')); ?>" class="btn btn-new"><i class="fa fa-plus"></i> <?php _e('Add', 'Ip-admin'); ?></a>
             </div>
             <ul>
                 <li ng-repeat="plugin in pluginList">
