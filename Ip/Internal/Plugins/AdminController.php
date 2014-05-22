@@ -264,4 +264,17 @@ class AdminController extends \Ip\Controller{
         return JsonRpc::result(array('plugins' => $plugins));
     }
 
+    public function pluginExists()
+    {
+        $plugin = ipRequest()->getPost('plugin');
+
+        if (!$plugin) {
+            return JsonRpc::error('Invalid parameters');
+        }
+
+        $result = is_dir(ipFile('Plugin/' . $plugin. '/'));
+
+        return JsonRpc::result($result);
+    }
+
 }
