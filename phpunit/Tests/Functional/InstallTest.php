@@ -56,7 +56,7 @@ class InstallTest extends MinkTestCase
         $page->findById('db_db')->setValue($testDbHelper->getDbName());
         $page->findById('db_prefix')->setValue('ipt_');
         $page->find('css', '.btn-primary')->click();
-        sleep(1);
+        sleep(2);
         $alert = $page->find('css', '.ipsErrorContainer .alert');
         $this->assertNotEmpty($alert);
         $this->assertEquals('Can\'t connect to database.', $alert->getText());
