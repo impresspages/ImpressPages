@@ -232,6 +232,9 @@ class Display
     {
         $form = new \Ip\Form();
         foreach ($this->config->fields() as $fieldData) {
+            if (isset($fieldData['allowCreate']) && !$fieldData['allowCreate']) {
+                continue;
+            }
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->createField();
             if ($field) {
