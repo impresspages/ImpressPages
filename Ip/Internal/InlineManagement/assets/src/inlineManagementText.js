@@ -48,8 +48,8 @@
         data.key = key;
         data.htmlTag = htmlTag;
 
-        data['values'] = [];
-        data['values'][ip.languageId] = html;
+        data.value = html;
+        data.languageId = ip.languageId];
 
         //SAVE
         $.ajax({
