@@ -95,7 +95,7 @@ var ipPluginMarket = new function () {
             e.preventDefault();
         }
 
-        var $popup = $('.ipModulePlugins .ipsPluginMarketPopup');
+        var $popup = $('.ipsPluginMarketPopup');
 
         $(document.body).addClass(bodyClassToHideScroll);
         $popup.removeClass('hidden');
@@ -114,7 +114,7 @@ var ipPluginMarket = new function () {
 
         $(document).off('keyup', onMarketKeyUp);
 
-        var $popup = $('.ipModulePlugins .ipsPluginMarketPopup');
+        var $popup = $('.ipsPluginMarketPopup');
         $popup.addClass('hidden');
 
         $('#ipsModulePluginMarketContainer iframe').remove();
