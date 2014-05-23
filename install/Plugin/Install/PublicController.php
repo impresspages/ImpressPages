@@ -397,7 +397,7 @@ class PublicController extends \Ip\Controller
             ipSetOptionLang('Config.websiteTitle', $_SESSION['config']['websiteName'], 'en');
             ipSetOptionLang('Config.websiteEmail', $_SESSION['config']['websiteEmail'], 'en');
             Model::generateCronPassword();
-            ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
+            ipStorage()->set('Ip', 'cachedBaseUrl', substr(rtrim(ipConfig()->baseUrl(),"/"), 0, - strlen('install')));
             ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
         } catch (\Exception $e) {
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
