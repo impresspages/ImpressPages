@@ -5,25 +5,10 @@ var ipPluginMarket = new function () {
 
     var processOrder = function (order) {
         $('body').bind('ipMarketOrderComplete', function (e, data) {
-            ipPluginMarket.closeMarketWindow();
             window.location = window.location.href.split('#')[0];
         });
 
         Market.processOrder(order);
-    };
-
-    var navigateBackToMyPlugin = function () {
-        ipPluginMarket.closeMarketWindow();
-    };
-
-    var beforeOpenPluginPreview = function () {
-        isPluginPreview = true;
-        ipPluginMarket.resize();
-    };
-
-    var afterClosePluginPreview = function () {
-        isPluginPreview = false;
-        ipPluginMarket.resize();
     };
 
     var showMarketIframe = function () {
@@ -50,44 +35,54 @@ var ipPluginMarket = new function () {
                         switch (action) {
                             case 'installPlugin':
                                 console.log('handle: installPlugin:', data);
-                                $('body').bind('ipMarketOrderComplete', function (e, data) {
-                                    location.reload();
+
+                                var installPlugin = function (data) {
+                                    $('body').bind('ipMarketOrderComplete', function (e, data) {
+                                        location.reload();
+                                    });
+                                    var fakeOrder = {
+                                        images: [],
+                                        plugins: [data]
+                                    };
+                                    processOrder(fakeOrder);
+                                }
+
+                                $.ajax(ip.baseUrl, {
+                                    'type': 'POST',
+                                    'data': {'aa': 'Plugins.pluginExists', 'plugin': data.name, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
+                                    'dataType': 'json',
+                                    'success': function (response) {
+                                        if (!response || response.error) {
+
+                                            if (response.error.message) {
+                                                alert(response.error.message);
+                                            } else {
+                                                alert('Unknown error. Please see logs.');
+                                            }
+                                            return;
+                                        }
+
+                                        if (response.result === true) {
+                                            alert('Plugin "' + data.name + '" already exists.');
+                                        } else {
+                                            installPlugin(data);
+                                        }
+
+                                    },
+                                    'error': function () {
+                                        alert('Unknown error. Please see logs.');
+                                    }
                                 });
-                                var fakeOrder = {
-                                    images: [],
-                                    plugins: [data]
-                                };
-                                processOrder(fakeOrder);
+
                                 break;
                             case 'processOrder':
                                 processOrder(data);
-                                break;
-                            case 'navigateBackToMyPlugin':
-                                navigateBackToMyPlugin();
-                                break;
-                            case 'beforeOpenPluginPreview':
-                                beforeOpenPluginPreview();
-                                break;
-                            case 'afterClosePluginPreview':
-                                afterClosePluginPreview();
-                                break;
-                            case 'closePluginMarket':
-                                ipPluginMarket.closeMarketWindow();
                                 break;
                         }
                     }
                 }
             }
         );
-    };
-
-    /**
-     * Event to handle ESC to close PluginMarket window
-     */
-    var onMarketKeyUp = function (e) {
-        if (e.keyCode == 27) { // ESC pressed
-            ipPluginMarket.closeMarketWindow();
-        }
     };
 
     this.openMarketWindow = function (e) {
@@ -102,24 +97,6 @@ var ipPluginMarket = new function () {
         showMarketIframe();
         ipPluginMarket.resize();
         $(window).bind('resize.ipPluginMarketAll', ipPluginMarket.resize);
-
-        $(document).on('keyup', onMarketKeyUp);
-    };
-
-    this.closeMarketWindow = function (e) {
-
-        if (e != null) {
-            e.preventDefault();
-        }
-
-        $(document).off('keyup', onMarketKeyUp);
-
-        var $popup = $('.ipsPluginMarketPopup');
-        $popup.addClass('hidden');
-
-        $('#ipsModulePluginMarketContainer iframe').remove();
-
-        $(document.body).removeClass(bodyClassToHideScroll);
     };
 
     this.resize = function (e) {

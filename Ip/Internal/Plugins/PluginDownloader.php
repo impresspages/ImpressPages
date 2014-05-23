@@ -26,6 +26,10 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
 
     public function downloadPlugin($name, $url, $signature)
     {
+        if (is_dir(ipFile("Plugin/{$name}/"))) {
+            throw new \Ip\Exception("Plugin '{$name}' already exists.");
+        }
+
         //download plugin
         $net = new \Ip\Internal\NetHelper();
         $pluginTempFilename = $net->downloadFile($url, ipFile('file/secure/tmp/'), $name . '.zip');
