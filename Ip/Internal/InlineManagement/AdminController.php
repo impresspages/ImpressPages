@@ -216,18 +216,16 @@ class AdminController extends \Ip\Controller{
     {
         $inlineManagementService = new Service();
 
-        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['values']) || !is_array($_POST['values'])) {
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['value']) || !isset($_POST['languageId'])) {
             throw new \Exception("Required parameters missing");
         }
         $key = $_POST['key'];
         $tag = $_POST['htmlTag'];
         $cssClass = $_POST['cssClass'];
-        $values = $_POST['values'];
+        $value = $_POST['value'];
+        $languageId = $_POST['languageId'];
 
-
-        foreach($values as $languageId => $value) {
-            $this->dao->setLanguageValue(Dao::PREFIX_TEXT, $key, $languageId, $value);
-        }
+        $this->dao->setLanguageValue(Dao::PREFIX_TEXT, $key, $languageId, $value);
 
         $data = array(
             "status" => "success",
