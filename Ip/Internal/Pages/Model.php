@@ -100,7 +100,14 @@ class Model
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
 
-        return ipDb()->insert('page', $copy);
+
+        $pageId = ipDb()->insert('page', $copy);
+
+        $eventInfo = ipContent()->getPage($pageId);
+        $eventInfo['sourceId'] = $nodeId;
+
+        ipEvent('ipPageDuplicated', $eventInfo);
+        return $pageId;
     }
 
     /**
