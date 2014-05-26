@@ -49,7 +49,7 @@
         data.htmlTag = htmlTag;
 
         data.value = html;
-        data.languageId = ip.languageId];
+        data.languageId = ip.languageId;
 
         //SAVE
         $.ajax({
