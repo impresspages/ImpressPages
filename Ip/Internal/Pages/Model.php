@@ -103,7 +103,7 @@ class Model
 
         $pageId = ipDb()->insert('page', $copy);
 
-        $eventInfo = ipDb()->select('page', '*', array('id' => $pageId));
+        $eventInfo = ipDb()->selectRow('page', '*', array('id' => $pageId));
         $eventInfo['sourceId'] = $nodeId;
 
         ipEvent('ipPageDuplicated', $eventInfo);
