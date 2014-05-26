@@ -9,7 +9,7 @@ class Service
         return Model::getActivePluginNames();
     }
 
-    public static function getActiveAllPluginNames()
+    public static function getAllPluginNames()
     {
         return Model::getAllPluginNames();
     }
