@@ -625,7 +625,7 @@ function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
  * @param int $price Numeric price. Multiplied by 100.
  * @param string $currency Three letter currency code. E.g. "EUR".
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageCode Language ID.
+ * @param string $languageCode
  * @return string A currency string in specific country format.
  */
 function ipFormatPrice($price, $currency, $context, $languageCode = null)
@@ -638,12 +638,12 @@ function ipFormatPrice($price, $currency, $context, $languageCode = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A date string formatted according to country format.
  */
-function ipFormatDate($unixTimestamp, $context, $languageId = null)
+function ipFormatDate($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageCode);
 }
 
 /**
@@ -651,12 +651,12 @@ function ipFormatDate($unixTimestamp, $context, $languageId = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A time string formatted according to country format.
  */
-function ipFormatTime($unixTimestamp, $context, $languageId = null)
+function ipFormatTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
@@ -664,12 +664,12 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return bool|mixed|null|string A date-time string formatted according to country format.
  */
-function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
+function ipFormatDateTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
