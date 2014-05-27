@@ -6,7 +6,7 @@ namespace Tests\Ip;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class PageTest extends \PHPUnit_Framework_TestCase
+class FunctionsTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
