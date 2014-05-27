@@ -185,7 +185,7 @@ class Filter
                 'revisions' => $revisions,
                 'currentRevision' => $revision,
                 'managementUrls' => $managementUrls,
-                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']),
+                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']) && ipContent()->getCurrentPage()->isVisible(),
                 'isVisible' => ipContent()->getCurrentPage()->isvisible()
             );
 
