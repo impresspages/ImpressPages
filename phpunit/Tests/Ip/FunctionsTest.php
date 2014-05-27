@@ -45,6 +45,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testIpFormatDate()
     {
+        date_default_timezone_set('Europe/London');
         $answer = ipFormatDate(1401190316, 'test');
         $this->assertEquals('5/27/14', $answer);
 
