@@ -2,20 +2,9 @@ $(document).ready(function() {
     "use strict";
 
     // Website configuration
-    $('#configSiteName').focus();
+    $('#ipsConfigWebsiteName').focus();
     $('.ipsTOS').on('click', function() {
         $('#ipsTOS').modal();
-    });
-    $('.ipsMoreConfiguration').on('click', function () {
-        var $block = $('#ipsMoreConfiguration');
-        var $input = $('#ipsConfigExpanded');
-        if ($block.hasClass('hidden')) {
-            $block.removeClass('hidden');
-            $input.val(1);
-        } else {
-            $block.addClass('hidden');
-            $input.val(0);
-        }
     });
     $('.ipsConfigurationForm').on('submit', function (e) {
         e.preventDefault();
@@ -28,7 +17,6 @@ $(document).ready(function() {
         e.preventDefault();
         ModuleInstall.submitDatabase();
     });
-
 
     // URL rewrites check
 
