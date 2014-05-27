@@ -610,11 +610,14 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  * Returns a string containing a rounded numeric value and appropriate 'B', 'KB', 'MB', 'GB', 'TB', 'PB' modifiers.
  *
  * @param int $bytes Size in bytes.
+ * @param $context plugin name
+ * @param int $precision number of digits after the decimal point
+ * @param string $languageCode
  * @return string A string formatted in byte size units.
  */
-function ipFormatBytes($bytes)
+function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatBytes($bytes);
+    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode = null);
 }
 /**
  * Get formatted currency string
@@ -622,12 +625,12 @@ function ipFormatBytes($bytes)
  * @param int $price Numeric price. Multiplied by 100.
  * @param string $currency Three letter currency code. E.g. "EUR".
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string A currency string in specific country format.
  */
-function ipFormatPrice($price, $currency, $context, $languageId = null)
+function ipFormatPrice($price, $currency, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageCode);
 }
 
 /**
@@ -635,12 +638,12 @@ function ipFormatPrice($price, $currency, $context, $languageId = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A date string formatted according to country format.
  */
-function ipFormatDate($unixTimestamp, $context, $languageId = null)
+function ipFormatDate($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageCode);
 }
 
 /**
@@ -648,12 +651,12 @@ function ipFormatDate($unixTimestamp, $context, $languageId = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A time string formatted according to country format.
  */
-function ipFormatTime($unixTimestamp, $context, $languageId = null)
+function ipFormatTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
@@ -661,12 +664,12 @@ function ipFormatTime($unixTimestamp, $context, $languageId = null)
  *
  * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return bool|mixed|null|string A date-time string formatted according to country format.
  */
-function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
+function ipFormatDateTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
