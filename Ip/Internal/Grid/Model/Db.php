@@ -25,7 +25,7 @@ class Db
 
     public function recordCount($where)
     {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " WHERE " . $where . " ");
+        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery() . " WHERE " . $where . " ");
     }
 
     public function fetch($from, $count, $where = 1)
@@ -41,10 +41,11 @@ class Db
           *
         FROM
           " . $this->config->tableName() . "
+          " . $this->config->joinQuery() . "
         WHERE
           " . $where . "
         ORDER BY
-            `" . $sortField . "` " . $this->config->sortDirection() . "
+            " . $this->config->tableName() . ".`" . $sortField . "` " . $this->config->sortDirection() . "
         LIMIT
             $from, $count
         ";
@@ -62,8 +63,9 @@ class Db
           *
         FROM
           " . $this->config->tableName() . "
+          " . $this->config->joinQuery() . "
         WHERE
-          `" . $this->config->idField() . "` = :id
+          " . $this->config->tableName() . ".`" . $this->config->idField() . "` = :id
         ";
 
         $params = array(

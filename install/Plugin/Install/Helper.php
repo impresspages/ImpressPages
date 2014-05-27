@@ -17,6 +17,7 @@ class Helper
     {
         $languages = array();
         $languages['en'] = 'English';
+        $languages['ar'] = 'Arabic';
         $languages['cn'] = 'Chinese';
         $languages['cs'] = 'Čeština';
         $languages['nl'] = 'Dutch';

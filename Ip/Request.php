@@ -21,20 +21,6 @@ class Request
 
 
 
-
-    protected $controllerAction = null;
-    protected $controllerClass = null;
-    protected $controllerType = null;
-    protected $controllerModule = null;
-    protected $defaultControllerAction = 'index';
-    protected $defaultControllerClass = '\\Ip\\Internal\\Content\\PublicController';
-    protected $defaultControllerModule = 'Content';
-
-    const CONTROLLER_TYPE_PUBLIC = 0;
-    const CONTROLLER_TYPE_SITE = 1;
-    const CONTROLLER_TYPE_ADMIN = 2;
-
-
     /**
      * @var \Ip\controller
      */
@@ -275,31 +261,7 @@ class Request
         unset($process);
     }
 
-    /**
-     * Gets MVC controller action
-     *
-     * @return string controller action name
-     */
-    public function getControllerAction()
-    {
-        if (!$this->controllerAction) {
-            $this->parseControllerAction();
-        }
-        return $this->controllerAction;
-    }
 
-    /**
-     * Gets MVC controller action class
-     *
-     * @return null
-     */
-    public function getControllerClass()
-    {
-        if (!$this->controllerClass) {
-            $this->parseControllerAction();
-        }
-        return $this->controllerClass;
-    }
 
     /**
      * @ignore
@@ -314,121 +276,6 @@ class Request
         }
 
         return false;
-    }
-
-    protected function parseControllerAction()
-    {
-        $action = $this->defaultControllerAction;
-        $controllerClass = $this->defaultControllerClass;
-        $controllerType = self::CONTROLLER_TYPE_PUBLIC;
-        $controllerModule = $this->defaultControllerModule;
-
-        if (!$this->_isWebsiteRoot()) {
-            if (isset($this->_REQUEST['aa']) || isset($this->_REQUEST['sa']) || isset($this->_REQUEST['pa'])) {
-                throw new \Ip\Exception('Controller action can be requested only at website root.');
-            }
-            $this->controllerClass = $controllerClass;
-            $this->controllerAction = $action;
-            $this->controllerType = $controllerType;
-            return; //default controller to display page content.
-        }
-
-        if (sizeof($this->getRequest()) > 0) {
-            $actionString = null;
-            if(isset($this->_REQUEST['aa'])) {
-                $actionString = $this->_REQUEST['aa'];
-                $controllerClass = 'AdminController';
-                $controllerType = self::CONTROLLER_TYPE_ADMIN;
-            } elseif(isset($this->_REQUEST['sa'])) {
-                $actionString = $this->_REQUEST['sa'];
-                $controllerClass = 'SiteController';
-                $controllerType = self::CONTROLLER_TYPE_SITE;
-            } elseif(isset($this->_REQUEST['pa'])) {
-                $actionString = $this->_REQUEST['pa'];
-                $controllerClass = 'PublicController';
-                $controllerType = self::CONTROLLER_TYPE_PUBLIC;
-            }
-
-            if ($actionString) {
-                $parts = explode('.', $actionString);
-                $controllerModule = array_shift($parts);
-                if (isset($parts[0])) {
-                    $action = $parts[0];
-                }
-
-                $controllerClass = $this->generateControllerClass($controllerModule, $controllerType);
-            }
-
-        }
-
-        $this->controllerClass = $controllerClass;
-        $this->controllerAction = $action;
-        $this->controllerType = $controllerType;
-        $this->controllerModule = $controllerModule;
-    }
-
-    /**
-     * Get controller type: public, site or admin
-     * @return string
-     */
-    public function getControllerType()
-    {
-        if ($this->controllerType === null) {
-            $this->parseControllerAction();
-        }
-        return $this->controllerType;
-    }
-
-    /**
-     * Set a controller action
-     *
-     * @param string $module controller module name
-     * @param string $action controller action name
-     * @param $type public, site or admin controller
-     * @throws Exception
-     */
-    public function setAction($module, $action, $type)
-    {
-        if (!in_array($type, array (self::CONTROLLER_TYPE_ADMIN, self::CONTROLLER_TYPE_PUBLIC, self::CONTROLLER_TYPE_SITE))) {
-            throw new \Ip\Exception("Incorrect controller type");
-        }
-        $this->controllerType = $type;
-        $this->controller = null;
-        $this->controllerClass = $this->generateControllerClass($module, $type);
-
-        $this->controllerAction = $action;
-    }
-
-    private function generateControllerClass($module, $type)
-    {
-        switch ($type) {
-            case self::CONTROLLER_TYPE_ADMIN:
-                $className = 'AdminController';
-                break;
-            case self::CONTROLLER_TYPE_SITE:
-                $className = 'SiteController';
-                break;
-            case self::CONTROLLER_TYPE_PUBLIC:
-                $className = 'PublicController';
-                break;
-        }
-
-
-        if (in_array($module, \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$module.'\\'.$className;
-        } else {
-            $controllerClass = 'Plugin\\'.$module.'\\'.$className;
-        }
-        return $controllerClass;
-    }
-
-    /**
-     * Check if this is the default controller action
-     * @return bool Returns true for default controller action
-     */
-    public function isDefaultAction()
-    {
-        return $this->getControllerClass() == $this->defaultControllerClass && $this->getControllerAction() == $this->defaultControllerAction;
     }
 
 
