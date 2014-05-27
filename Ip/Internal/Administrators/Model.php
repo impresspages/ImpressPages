@@ -2,7 +2,8 @@
 namespace Ip\Internal\Administrators;
 
 
-class Model{
+class Model
+{
 
     public static function get($id)
     {
