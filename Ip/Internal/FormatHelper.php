@@ -15,33 +15,39 @@ class FormatHelper
      * @param int $bytes
      * @return string
      */
-    public static function formatBytes($bytes)
+    public static function formatBytes($bytes, $context, $precision, $languageCode = null)
     {
         $data = array(
-            'bytes' => $bytes
+            'bytes' => $bytes,
+            'context' => $context,
+            'precision' => $precision,
+            'languageCode' => $languageCode
         );
 
         $formattedBytes = ipJob('ipFormatBytes', $data);
-        if ($formattedBytes === NULL) {
 
-            $sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-            $decimal = array('au', 'bn', 'bw', 'ch', 'cn', 'do', 'eg', 'gt', 'hk', 'hn', 'ie', 'il', 'in', 'jp', 'ke', 'kp', 'kr', 'lb', 'lk', 'mn', 'mo', 'mt', 'mx', 'my', 'ng', 'ni', 'np', 'nz', 'pa', 'ph', 'pk', 'sg', 'th', 'tw', 'tz', 'ug', 'uk', 'us', 'zw');
-
-            $languageId = ipContent()->getCurrentLanguage()->getId();
-            $language = \Ip\ServiceLocator::content()->getLanguage($languageId);
-            $code = $language->getCode();
-
-            for ($i = 0; $bytes >= 1024; $i++) {
-                $bytes /= 1024;
-                if ($i < 1) $bytes = round($bytes, 0);
-                else $bytes = round($bytes, 1);
-            }
-
-            if (in_array($code, $decimal)) $formattedBytes = $bytes;
-            else $formattedBytes = str_replace('.', ',', $bytes);
-
-            $formattedBytes .= ' '.$sizes[$i];
+        if ($formattedBytes !== null) {
+            return $formattedBytes;
         }
+
+
+        $sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
+        $decimal = array('au', 'bn', 'bw', 'ch', 'cn', 'do', 'eg', 'gt', 'hk', 'hn', 'ie', 'il', 'in', 'jp', 'ke', 'kp', 'kr', 'lb', 'lk', 'mn', 'mo', 'mt', 'mx', 'my', 'ng', 'ni', 'np', 'nz', 'pa', 'ph', 'pk', 'sg', 'th', 'tw', 'tz', 'ug', 'uk', 'us', 'zw');
+
+        if ($languageCode === null) {
+            $languageCode = ipContent()->getCurrentLanguage()->getCode();
+        }
+
+        for ($i = 0; $bytes >= 1024; $i++) {
+            $bytes /= 1024;
+            if ($i < 1) $bytes = round($bytes, 0);
+            else $bytes = round($bytes, 1);
+        }
+
+        if (in_array($languageCode, $decimal)) $formattedBytes = $bytes;
+        else $formattedBytes = str_replace('.', ',', $bytes);
+
+        $formattedBytes .= ' '.$sizes[$i];
 
         return $formattedBytes;
     }
@@ -50,7 +56,7 @@ class FormatHelper
      * @param int $price Price in cents
      * @param string $currency Three letter currency code
      * @param string $context
-     * @param int $languageId
+     * @param string $languageId
      * @return string
      */
     public static function formatPrice($price, $currency, $context, $languageId = null)
