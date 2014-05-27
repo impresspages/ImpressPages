@@ -253,7 +253,7 @@ class Model{
         return $row;
     }
 
-    public static function getAllPlugins()
+    public static function getAllPluginNames()
     {
         $answer = array();
         $pluginDir = ipFile('Plugin/');

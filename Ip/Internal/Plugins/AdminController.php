@@ -11,7 +11,7 @@ class AdminController extends \Ip\Controller{
         ipAddJs('Ip/Internal/Plugins/assets/jquery.pluginProperties.js');
         ipAddJs('Ip/Internal/Plugins/assets/pluginsLayout.js');
 
-        $allPlugins = Model::getAllPlugins();
+        $allPlugins = Model::getAllPluginNames();
 
         $plugins = array();
         foreach($allPlugins as $pluginName) {

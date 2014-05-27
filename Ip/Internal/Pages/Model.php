@@ -90,6 +90,11 @@ class Model
             trigger_error("Element does not exist");
         }
 
+        $menu = ipContent()->getPageMenu($newParentId);
+        if ($menu) {
+            $copy['languageCode'] = $menu->getLanguageCode();
+        }
+
         unset($copy['id']);
         $copy['parentId'] = $newParentId;
         $copy['pageOrder'] = $newIndex;

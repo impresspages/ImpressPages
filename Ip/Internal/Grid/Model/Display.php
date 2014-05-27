@@ -193,6 +193,10 @@ class Display
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
         foreach ($this->config->fields() as $fieldData) {
+            if (isset($fieldData['allowUpdate']) && !$fieldData['allowUpdate']) {
+                continue;
+            }
+
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->updateField($curData);
             if ($field) {
@@ -260,6 +264,9 @@ class Display
 
         $form->removeCsrfCheck();
         foreach ($this->config->fields() as $fieldData) {
+            if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {
+                continue;
+            }
             $fieldObject = $this->config->fieldObject($fieldData);
             $field = $fieldObject->searchField($searchVariables);
             if ($field) {

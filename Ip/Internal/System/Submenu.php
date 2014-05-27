@@ -43,7 +43,7 @@ class Submenu {
 
     public static function isControllerInSystemSubmenu()
     {
-        return in_array(ipRequest()->getControllerClass(), self::getControllerNames());
+        return in_array(ipRoute()->controllerClass(), self::getControllerNames());
     }
 
     public static function getSubmenuItems()
@@ -66,7 +66,7 @@ class Submenu {
             $menuItem = new \Ip\Menu\Item();
             $menuItem->setTitle(__($module, 'Ip-admin', FALSE)); //
             $menuItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
-            if (ipRequest()->getControllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
+            if (ipRoute()->controllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
                 $menuItem->markAsCurrent(TRUE);
             }
             if (ipAdminPermission($module)) {

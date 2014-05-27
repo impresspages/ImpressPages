@@ -18,6 +18,7 @@ namespace Ip;
 class ServiceLocator
 {
     protected static $requests = array();
+    protected static $routes = array();
     protected static $dispatchers = array();
     protected static $contents = array();
     protected static $ecommerce = array();
@@ -48,6 +49,7 @@ class ServiceLocator
         'pageAssets' => '\Ip\Internal\PageAssets',
         'router' => '\Ip\Router',
         'ecommerce' => '\Ip\Ecommerce',
+        'route' => '\Ip\Route',
     );
 
     /**
@@ -148,6 +150,7 @@ class ServiceLocator
         self::$pageAssets[] = static::loadService('pageAssets');
         self::$routers[] = static::loadService('router');
         self::$ecommerce[] = static::loadService('ecommerce');
+        self::$routes[] = static::loadService('route');
     }
 
     /**
@@ -164,6 +167,7 @@ class ServiceLocator
             array_pop(self::$pageAssets);
             array_pop(self::$routers);
             array_pop(self::$ecommerce);
+            array_pop(self::$routes);
         }
     }
 
@@ -275,5 +279,14 @@ class ServiceLocator
     {
         return end(self::$routers);
     }
+
+    /**
+     * @return \Ip\Route
+     */
+    public static function route()
+    {
+        return end(self::$routes);
+    }
+
 
 }

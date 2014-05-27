@@ -41,7 +41,7 @@ class Form
         $this->ajaxSubmit = TRUE;
         $this->validate= TRUE;
         $this->addClass('ipsAjaxSubmit');
-        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (ipRoute()->isAdmin()) {
             $this->setEnvironment(self::ENVIRONMENT_ADMIN);
         } else {
             $this->addClass('ipModuleForm');

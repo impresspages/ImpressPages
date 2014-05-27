@@ -66,7 +66,10 @@ class Event
             if (!$sessionLifetime) {
                 $sessionLifetime = 120;
             }
-            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime - 10);
+            if ($sessionLifetime > 20) {
+                $sessionLifetime = $sessionLifetime - 20;
+            }
+            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
         }
 
         $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
@@ -76,7 +79,7 @@ class Event
         }
 
         //show admin submenu if needed
-        if (ipRequest()->getControllerType() == \Ip\Request::CONTROLLER_TYPE_ADMIN) {
+        if (ipRoute()->isAdmin()) {
             $submenu = Submenu::getSubmenuItems();
             if ($submenu) {
                 ipResponse()->setLayoutVariable('submenu', $submenu);
