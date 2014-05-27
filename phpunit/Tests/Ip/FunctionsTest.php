@@ -45,7 +45,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testIpFormatDate()
     {
-        date_default_timezone_set('Europe/London');
+        date_default_timezone_set('GMT');
         $answer = ipFormatDate(1401190316, 'test');
         $this->assertEquals('5/27/14', $answer);
 
@@ -53,7 +53,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testIpFormatTime()
     {
-        date_default_timezone_set('Europe/London');
+        date_default_timezone_set('GMT');
         $answer = ipFormatTime(1401190316, 'test');
         $this->assertEquals('2:31 PM', $answer);
 
@@ -61,7 +61,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
 
     public function testIpFormatDateTime()
     {
-        date_default_timezone_set('Europe/London');
+        date_default_timezone_set('GMT');
         $answer = ipFormatDateTime(1401190316, 'test');
         $this->assertEquals('5/27/14 2:31 PM', $answer);
 
