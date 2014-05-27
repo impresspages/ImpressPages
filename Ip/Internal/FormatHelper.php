@@ -40,12 +40,18 @@ class FormatHelper
 
         for ($i = 0; $bytes >= 1024; $i++) {
             $bytes /= 1024;
-            if ($i < 1) $bytes = round($bytes, 0);
-            else $bytes = round($bytes, 1);
+            if ($i < 1) {
+                $bytes = round($bytes, 0);
+            } else {
+                $bytes = round($bytes, $precision);
+            }
         }
 
-        if (in_array($languageCode, $decimal)) $formattedBytes = $bytes;
-        else $formattedBytes = str_replace('.', ',', $bytes);
+        if (in_array(strtolower($languageCode), $decimal)) {
+            $formattedBytes = $bytes;
+        } else {
+            $formattedBytes = str_replace('.', ',', $bytes);
+        }
 
         $formattedBytes .= ' '.$sizes[$i];
 
