@@ -6,10 +6,8 @@
  */
 namespace Ip\Internal\Content\Widget\Heading;
 
-
-
-
-class Controller extends \Ip\WidgetController{
+class Controller extends \Ip\WidgetController
+{
 
     public function getTitle() {
         return __('Heading', 'Ip-admin', false);

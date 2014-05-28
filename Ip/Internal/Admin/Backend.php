@@ -12,7 +12,8 @@ namespace Ip\Internal\Admin;
  * Event dispatcher class
  *
  */
-class Backend{
+class Backend
+{
 
     public static function userId(){
         if(isset($_SESSION['backend_session']['userId'])){

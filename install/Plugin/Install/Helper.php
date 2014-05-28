@@ -194,20 +194,6 @@ class Helper
         return true;
     }
 
-    public static function validateAdminEmail($email)
-    {
-        // field is optional
-        if (!$email) {
-            return true;
-        }
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-        return true;
-    }
-
     public static function checkPhpVersion()
     {
         // this is checked in index.php
@@ -357,49 +343,5 @@ class Helper
         }
 
         return $tableExists;
-    }
-
-    public static function getImpressPagesSupportUrl($test)
-    {
-        if ($test) {
-            return 'http://local.impresspages.org/?pa=Followup.logInstall';
-        } else {
-            return 'http://www.impresspages.org/?pa=Followup.logInstall';
-        }
-    }
-
-    public static function registerWebsite($step, $data = array())
-    {
-        if (!function_exists('curl_init')) {
-            return;
-        }
-
-        // data: id, timestamp, IP, websiteId, website url, email, version, step, data, do support, status
-
-        $websiteId = $_SESSION['websiteId'];
-        $websiteUrl = ipConfig()->baseUrl();
-        $email = !empty($_SESSION['config']['adminEmail']) ? $_SESSION['config']['adminEmail'] : $_SESSION['config']['websiteEmail'];
-        $version = \Ip\Application::getVersion();
-        $step = $step;
-        $data = urlencode(json_encode($data));
-        $doSupport = $_SESSION['config']['support'];
-
-        $postFields = 'websiteId=' . $websiteId;
-        $postFields .= '&websiteUrl=' . $websiteUrl;
-        $postFields .= '&email=' . $email;
-        $postFields .= '&version=' . $version;
-        $postFields .= '&step=' . $step;
-        $postFields .= '&data=' . $data;
-        $postFields .= '&support=' . $doSupport;
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, self::getImpressPagesSupportUrl($test = true));
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-//        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-        $answer = curl_exec($ch);
     }
 }

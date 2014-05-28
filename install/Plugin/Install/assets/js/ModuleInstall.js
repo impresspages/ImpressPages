@@ -61,13 +61,6 @@ var ModuleInstall = new function () {
             'configWebsiteEmail': $('#ipsConfigWebsiteEmail').val(),
             'configTimezone': $('#ipsConfigTimezone').val(),
             'configSupport': $('#ipsConfigSupport').prop('checked') ? 1 : 0,
-            'configExpanded': $('#ipsConfigExpanded').val(),
-            'configAdminUsername': $('#ipsConfigAdminUsername').val(),
-            'configAdminPassword': $('#ipsConfigAdminPassword').val(),
-            'configAdminEmail': $('#ipsConfigAdminEmail').val(),
-            'configDevelopmentEnvironment': $('#ipsConfigDevelopmentEnvironment').prop('checked') ? 1 : 0,
-            'configShowErrors': $('#ipsConfigShowErrors').prop('checked') ? 1 : 0,
-            'configDebugMode': $('#ipsConfigDebugMode').prop('checked') ? 1 : 0,
             'jsonrpc': '2.0'
         };
 

@@ -92,7 +92,6 @@ class Model
                 array(
                     'curl_error' => curl_error($ch),
                     'response' => $answer
-
                 ));
             return array();
         }
@@ -100,4 +99,42 @@ class Model
         return $notices;
     }
 
+    public static function sendUsageStatistics($data = array())
+    {
+        if (!function_exists('curl_init')) {
+            return;
+        }
+
+        if (!isset($data['action'])) { $data['action'] = 'Ping.default'; }
+        if (!isset($data['data'])) { $data['data'] = array(); }
+        if (!isset($data['websiteId'])) { $data['websiteId'] = ipStorage()->get('Ip', 'websiteId'); }
+        if (!isset($data['websiteUrl'])) { $data['websiteUrl'] = ipConfig()->baseUrl(); }
+        if (!isset($data['version'])) { $data['version'] = \Ip\Application::getVersion(); }
+        if (!isset($data['doSupport'])) { $data['doSupport'] = ipStorage()->get('Ip', 'getImpressPagesSupport'); }
+        if (!isset($data['administrators'])) {
+            $administrators = \Ip\Internal\Administrators\Model::getAll();
+            $adminCollection = array();
+            foreach ($administrators as $admin) {
+                $permissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions($admin['id']);
+                $adminCollection[] = array(
+                    'id' => $admin['id'],
+                    'email' => $admin['email'],
+                    'permissions' => $permissions
+                );
+            }
+            $data['administrators'] = $adminCollection;
+        }
+
+        $postFields = 'data=' . urlencode(serialize($data));
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://local.impresspages.org/?pa=UsageStatistics.getData');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+//        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        $answer = curl_exec($ch);
+    }
 }
