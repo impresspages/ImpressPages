@@ -158,28 +158,29 @@ class Model
             }
             $data['plugins'] = $pluginCollection;
         }
-        if (!isset($data['languages'])) { $data['languages'] = \Ip\Internal\Languages\Model::getLanguages(); }
+        if (!isset($data['languages'])) { $data['languages'] = \Ip\Internal\Languages\Model::getLanguages(); } //todox change to ipContent()->getLanguages()
         if (!isset($data['pages'])) {
             $result = array();
             try {
-                $result = ipDb()->fetchAll('SELECT `languageCode` AS `language`, COUNT( 1 ) AS `quantity` FROM `ip_page` GROUP BY `languageCode`');
+                $result = ipDb()->fetchAll('SELECT `languageCode` AS `language`, COUNT( 1 ) AS `quantity` FROM `ip_page` GROUP BY `languageCode`');// hardcoded table prefix!!!
             } catch (\Exception $e) {
                 // Do nothing.
             }
             $data['pages'] = $result;
         }
 
-        $postFields = 'pa=UsageStatistics.getData';
+        $postFields = 'pa=UsageStatistics.getData';//CHANGE TO ROUTE
         $postFields .= '&data=' . urlencode(serialize($data));
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, ipConfig()->get('usageStatisticsUrl', 'http://www.impresspages.org/'));
+        curl_setopt($ch, CURLOPT_URL, ipConfig()->get('usageStatisticsUrl', 'http://www.impresspages.org/')); //CHANGE TO service.impresspages.org/stats
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
 //        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); //todox remove or set to false if you don't actually use the answer
 //        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);  //TODOX set 1s. as CURL blocks the execution. Ideal solution would be to use the socket.
         $answer = curl_exec($ch);
     }
 }
