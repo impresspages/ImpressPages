@@ -115,7 +115,7 @@ class Helper
             array(
                 'name' => 'type',
                 'label' => __('Type', 'Ip-admin', FALSE),
-                'value' => ipPageStorage($menu['id'])->get('menuType', 'main.php'),
+                'value' => $menu['type'],
                 'values' => $values,
             ));
         $form->addField($field);
