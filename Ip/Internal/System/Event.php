@@ -12,6 +12,7 @@ class Event
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
             static::checkForUpdates();
+            Model::sendUsageStatistics(array('action' => 'Cron.default'));
         }
     }
 
