@@ -372,7 +372,7 @@ class AdminController extends \Ip\Controller
         $title = $request->getPost('title');
         $type = $request->getPost('type');
 
-        if (empty($title) || empty($type)) {
+        if (empty($title)) {
             $title = __('Untitled', 'Ip-admin', false);
         }
 
@@ -380,9 +380,7 @@ class AdminController extends \Ip\Controller
 
         $menu = ipContent()->getPage($pageId);
 
-
         ipPageStorage($menu->getId())->set('menuType', $type);
-
 
         $answer = array(
             'status' => 'success',
