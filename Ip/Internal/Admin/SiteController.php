@@ -189,7 +189,14 @@ class SiteController extends \Ip\Controller
             );
         }
 
-        \Ip\Internal\System\Model::sendUsageStatistics(array('action' => 'Admin.login', 'data' => $answer));
+        $usageStatistics = array(
+            'action' => 'Admin.login',
+            'data' => array(
+                'admin' => ipAdminId() ? ipAdminId() : $username,
+                'answer' => $answer
+            )
+        );
+        \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
         if (ipRequest()->getPost('ajax', 1)) {
             $response =  new \Ip\Response\Json($answer);

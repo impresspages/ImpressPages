@@ -344,4 +344,29 @@ class Helper
 
         return $tableExists;
     }
+
+    public static function setUsageStatistics($action, $data)
+    {
+        $usageStatistics = array(
+            'action' => $action,
+            'data' => $data,
+            'websiteId' => $_SESSION['websiteId'],
+            'plugins' => array(),
+            'languages' => array(),
+            'pages' => array(),
+            'locale' => isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : \Plugin\Install\Helper::$defaultLanguageCode,
+            'doSupport' => $_SESSION['config']['support'],
+            'administrators' => array(array(
+                'id' => 'install',
+                'email' => $_SESSION['config']['websiteEmail'],
+                'permissions' => array('install' => 'install')
+            )),
+            'themes' => array(
+                'active' => ipConfig()->theme(),
+                'all' => null
+            )
+        );
+
+        return $usageStatistics;
+    }
 }
