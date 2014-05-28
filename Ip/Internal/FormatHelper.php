@@ -151,7 +151,7 @@ class FormatHelper
                     $code = $languageCode;
                 }
                 $locale = str_replace('-', '_', $code);
-                $fmt = datefmt_create($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT);
+                $fmt = datefmt_create($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT, date_default_timezone_get());
                 $formattedDate = datefmt_format($fmt, $unixTimestamp);
             } else {
                 $formattedDate = date('H:i', $unixTimestamp);
@@ -187,7 +187,7 @@ class FormatHelper
                     $code = $languageCode;
                 }
                 $locale = str_replace('-', '_', $code);
-                $fmt = datefmt_create($locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
+                $fmt = datefmt_create($locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT, date_default_timezone_get());
                 $formattedDate = datefmt_format($fmt, $unixTimestamp);
             } else {
                 $formattedDate = date('Y-m-d H:i', $unixTimestamp);
