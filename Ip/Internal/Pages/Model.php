@@ -164,9 +164,6 @@ class Model
             ' ORDER BY `pageOrder` '
         );
 
-        foreach ($list as &$menu) {
-            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
-        }
 
         return $list;
     }
@@ -318,7 +315,7 @@ class Model
         }
 
         if (!empty($properties['type'])) {
-            ipPageStorage($pageId)->set('menuType', $properties['type']);
+            $update['type'] = $properties['type'];
         }
 
         if (isset($properties['urlPath'])) {

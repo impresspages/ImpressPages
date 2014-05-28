@@ -380,8 +380,6 @@ class AdminController extends \Ip\Controller
 
         $menu = ipContent()->getPage($pageId);
 
-        ipPageStorage($menu->getId())->set('menuType', $type);
-
         $answer = array(
             'status' => 'success',
             'menuName' => $menu->getAlias()
