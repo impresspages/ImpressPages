@@ -170,17 +170,7 @@ class PublicController extends \Ip\Controller
         );
 
         // Send usage statistics
-        $usageStatistics = array(
-            'action' => 'Install.systemCheck',
-            'data' => $notSuccess,
-            'websiteId' => $_SESSION['websiteId'],
-            'administrators' => array(array(
-                'id' => 'install',
-                'email' => $_SESSION['config']['websiteEmail'],
-                'permissions' => array('install' => 'install')
-            )),
-            'doSupport' => $_SESSION['config']['support']
-        );
+        $usageStatistics = Helper::setUsageStatistics('Install.systemCheck', $notSuccess);
         \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
         if ($autoForward) {
@@ -214,9 +204,9 @@ class PublicController extends \Ip\Controller
     protected function finish()
     {
         // cleaning session data (logins, passwords, etc.)
-//        if (isset($_SESSION['config'])) { $_SESSION['config'] = null; }
-//        if (isset($_SESSION['db'])) { $_SESSION['db'] = null; }
-        var_dump($_SESSION['config']['support']);
+        if (isset($_SESSION['config'])) { $_SESSION['config'] = null; }
+        if (isset($_SESSION['db'])) { $_SESSION['db'] = null; }
+        if (isset($_SESSION['db_errors'])) { $_SESSION['db_errors'] = null; }
 
         $showInfo = false;
         // Showing extra info if user tries to get back when installation is finished
@@ -273,17 +263,7 @@ class PublicController extends \Ip\Controller
         }
 
         // Send usage statistics
-        $usageStatistics = array(
-            'action' => 'Install.configuration',
-            'data' => $errors,
-            'websiteId' => $_SESSION['websiteId'],
-            'administrators' => array(array(
-                'id' => 'install',
-                'email' => $_SESSION['config']['websiteEmail'],
-                'permissions' => array('install' => 'install')
-            )),
-            'doSupport' => $_SESSION['config']['support']
-        );
+        $usageStatistics = Helper::setUsageStatistics('Install.configuration', $errors);
         \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
         if (!empty($errors)) {
@@ -300,9 +280,13 @@ class PublicController extends \Ip\Controller
         }
 
         $db = ipRequest()->getPost('db');
+        if (!isset($_SESSION['db_errors'])) {
+            $_SESSION['db_errors'] = array();
+        }
 
         foreach (array('hostname', 'username', 'database') as $key) {
             if (empty($db[$key])) {
+                $_SESSION['db_errors'][] = 'Required fields';
                 return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'Install', false));
             }
         }
@@ -312,10 +296,12 @@ class PublicController extends \Ip\Controller
         }
 
         if (strlen($db['tablePrefix']) > 7) {
+            $_SESSION['db_errors'][] = 'Prefix too long';
             return \Ip\Response\JsonRpc::error(__("Prefix can't be longer than 7 symbols.", 'Install', false));
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
+            $_SESSION['db_errors'][] = 'Prefix is bad';
             return \Ip\Response\JsonRpc::error(__("Prefix can't contain any special characters and should start with a letter.", 'Install', false));
         }
 
@@ -333,16 +319,19 @@ class PublicController extends \Ip\Controller
         try {
             ipDb()->getConnection();
         } catch (\Exception $e) {
+            $_SESSION['db_errors'][] = 'Cannot connect';
             return \Ip\Response\JsonRpc::error(__("Can't connect to database.", 'Install'), false);
         }
 
         try {
             Model::createAndUseDatabase($db['database']);
         } catch (\Ip\Exception $e) {
+            $_SESSION['db_errors'][] = 'DB cannot be created';
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
         if (Helper::testDBTables($db['tablePrefix']) && empty($db['replaceTables'])) {
+            $_SESSION['db_errors'][] = 'Replace tables';
             return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exists');
         }
 
@@ -353,6 +342,7 @@ class PublicController extends \Ip\Controller
         }
 
         if ($errors) {
+            $_SESSION['db_errors'][] = 'Failed install';
             return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
         }
 
@@ -392,26 +382,19 @@ class PublicController extends \Ip\Controller
             ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
             ipStorage()->set('Ip', 'getImpressPagesSupport', $_SESSION['config']['support']);
         } catch (\Exception $e) {
+            $_SESSION['db_errors'][] = $e->getTraceAsString();
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }
 
         try {
             Model::writeConfigFile($configToFile, ipFile('config.php'));
         } catch (\Exception $e) {
+            $_SESSION['db_errors'][] = 'Cannot write config file';
             return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
 
         // Send usage statistics
-        $usageStatistics = array(
-            'action' => 'Install.database',
-            'websiteId' => $_SESSION['websiteId'],
-            'administrators' => array(array(
-                'id' => 'install',
-                'email' => $_SESSION['config']['websiteEmail'],
-                'permissions' => array('install' => 'install')
-            )),
-            'doSupport' => $_SESSION['config']['support']
-        );
+        $usageStatistics = Helper::setUsageStatistics('Install.database', $_SESSION['db_errors']);
         \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
         $redirect = $cachedBaseUrl . 'admin';
