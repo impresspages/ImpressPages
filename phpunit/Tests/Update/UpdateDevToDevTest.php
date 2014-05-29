@@ -24,6 +24,7 @@ class UpdateDevToDevTest extends \PhpUnit\Helper\MinkTestCase
             'themeMarketUrl'    => 'http://local.market.impresspages.org/themes-v1/?version=4',
             'imageMarketUrl'    => 'http://local.market.impresspages.org/images-v1/',
             'pluginMarketUrl'   => 'http://local.market.impresspages.org/plugins-v1/',
+            'usageStatisticsUrl'   => 'http://example.com',
         ));
         $installation->install();
 
