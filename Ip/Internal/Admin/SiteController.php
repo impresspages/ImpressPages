@@ -161,6 +161,14 @@ class SiteController extends \Ip\Controller
                 'status' => 'error',
                 'errors' => $errors
             );
+            $usageStatistics = array(
+                'action' => 'Admin.loginFailed',
+                'data' => array(
+                    'admin' => $username,
+                    'errors' => $errors
+                )
+            );
+            \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
         }
 
         if (ipRequest()->getPost('ajax', 1)) {
