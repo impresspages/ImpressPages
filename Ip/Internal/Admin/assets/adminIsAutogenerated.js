@@ -48,7 +48,6 @@ $(document).ready(function() {
                 } else if (response && response.error && response.error.message) {
                     alert(response.error.message);
                 } else {
-                    console.log(response);
                     alert('Unknown response. #QITYF');
                 }
             },
