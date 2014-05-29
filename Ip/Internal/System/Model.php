@@ -99,7 +99,7 @@ class Model
         return $notices;
     }
 
-    public static function sendUsageStatistics($data = array())
+    public static function sendUsageStatistics($data = array(), $timeout = 3)
     {
         if (!function_exists('curl_init')) {
             return;
@@ -158,29 +158,37 @@ class Model
             }
             $data['plugins'] = $pluginCollection;
         }
-        if (!isset($data['languages'])) { $data['languages'] = \Ip\Internal\Languages\Model::getLanguages(); } //todox change to ipContent()->getLanguages()
+        if (!isset($data['languages'])) { $data['languages'] = ipContent()->getLanguages(); }
         if (!isset($data['pages'])) {
             $result = array();
             try {
-                $result = ipDb()->fetchAll('SELECT `languageCode` AS `language`, COUNT( 1 ) AS `quantity` FROM `ip_page` GROUP BY `languageCode`');// hardcoded table prefix!!!
+                $table = ipTable('page');
+                $sql = "
+                    SELECT
+                        `languageCode` AS `language`, COUNT( 1 ) AS `quantity`
+                    FROM
+                        $table
+                    GROUP BY
+                        `languageCode`
+                ";
+                $result = ipDb()->fetchAll($sql);
             } catch (\Exception $e) {
                 // Do nothing.
             }
             $data['pages'] = $result;
         }
 
-        $postFields = 'pa=UsageStatistics.getData';//CHANGE TO ROUTE
-        $postFields .= '&data=' . urlencode(serialize($data));
+        $postFields = 'data=' . urlencode(serialize($data));
 
+        // Use sockets instead of CURL
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, ipConfig()->get('usageStatisticsUrl', 'http://www.impresspages.org/')); //CHANGE TO service.impresspages.org/stats
+        curl_setopt($ch, CURLOPT_URL, ipConfig()->get('usageStatisticsUrl', 'http://service.impresspages.org/stats'));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
 //        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); //todox remove or set to false if you don't actually use the answer
-//        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);  //TODOX set 1s. as CURL blocks the execution. Ideal solution would be to use the socket.
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         $answer = curl_exec($ch);
     }
 }

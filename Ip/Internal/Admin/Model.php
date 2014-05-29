@@ -189,7 +189,7 @@ class Model{
         $administrator = \Ip\Internal\Administrators\Service::getByUsername($username);
         $ip = ipRequest()->getServer('REMOTE_ADDR');
         Backend::login($administrator['id']);
-        ipEvent('ipAdminLoginSuccessful', array('userId' => $username));
+        ipEvent('ipAdminLoginSuccessful', array('username' => $username, 'id' => $administrator['id']));
         ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
 
     }
