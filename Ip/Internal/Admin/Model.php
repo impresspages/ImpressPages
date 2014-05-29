@@ -142,7 +142,8 @@ class Model{
         return false;
     }
 
-    public static function getUserId(){
+    public static function getUserId()
+    {
         if (isset($_SESSION['backend_session']['userId'])) {
             return $_SESSION['backend_session']['userId'];
         } else {

@@ -15,20 +15,23 @@ namespace Ip\Internal\Admin;
 class Backend
 {
 
-    public static function userId(){
-        if(isset($_SESSION['backend_session']['userId'])){
+    public static function userId()
+    {
+        if (isset($_SESSION['backend_session']['userId'])) {
             return $_SESSION['backend_session']['userId'];
-        }else {
+        } else {
             return false;
         }
     }
 
-    public static function loggedIn(){
+    public static function loggedIn()
+    {
         return isset($_SESSION['backend_session']['userId']) && $_SESSION['backend_session']['userId'] != null;
     }
 
-    public static function logout(){
-        if(isset($_SESSION['backend_session'])){
+    public static function logout()
+    {
+        if (isset($_SESSION['backend_session'])) {
             unset($_SESSION['backend_session']);
         }
         session_destroy();

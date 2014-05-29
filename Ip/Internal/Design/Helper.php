@@ -25,9 +25,8 @@ class Helper
         return new Helper();
     }
 
-
-
-    public function cpDir( $source, $destination ) {
+    public function cpDir($source, $destination)
+    {
         $source = $this->removeTrailingSlash($source);
         $destination = $this->removeTrailingSlash($destination);
         if (is_dir( $source ) ) {
@@ -98,7 +97,8 @@ class Helper
      * @param   integer $options Bitmask of JSON decode options. (>=5.4)
      * @return  string
      */
-    function json_clean_decode($json, $assoc = false, $depth = 512, $options = 0) {
+    function json_clean_decode($json, $assoc = false, $depth = 512, $options = 0)
+    {
 
         // search and remove comments like /* */ and //
         $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
@@ -120,7 +120,7 @@ class Helper
 
     private function backendSecurityToken()
     {
-        if(!isset($_SESSION['backend_session']['security_token'])){
+        if (!isset($_SESSION['backend_session']['security_token'])) {
             $_SESSION['backend_session']['security_token'] =  md5(uniqid(rand(), true));
         }
         return $_SESSION['backend_session']['security_token'];
