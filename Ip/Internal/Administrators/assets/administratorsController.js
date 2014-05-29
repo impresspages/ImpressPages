@@ -19,6 +19,8 @@ var ipAdministratorsController = null;
         $scope.ipAdministratorsAdminId = ipAdministratorsAdminId;
         $scope.availablePermissions = ipAvailablePermissions;
 
+        $scope.activeAdministratorEmail = 'null'; //to avoid chrome Autocomplete.
+
         $scope.$on('PathChanged', function (event, path) {
             var administratorId = getHashParams().administrator;
             for (var i=0; i < ipAdministrators.length; i++) {
@@ -34,6 +36,7 @@ var ipAdministratorsController = null;
 
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
+            $scope.activeAdministratorEmail = administrator.email; //to avoid chrome Autocomplete.
         }
 
         $scope.addModal = function () {
