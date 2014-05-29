@@ -116,7 +116,7 @@ var ipPageDragId;
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                if ($scope.activeMenu.menuType == 'list') { // list view
+                if ($scope.activeMenu.type == 'list') { // list view
                     getTreeDiv().find('.ipsRow.active .ipsDrag').text(escapeHtml(title));
                 } else { // tree view
                     getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
@@ -128,7 +128,7 @@ var ipPageDragId;
                 if (confirm(ipTranslationAreYouSure)) {
                     deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
-                        if ($scope.activeMenu.menuType == 'list') { // list view
+                        if ($scope.activeMenu.type == 'list') { // list view
                             getPagesContainer().ipGrid('refresh');
                         } else {
                             getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
@@ -142,7 +142,7 @@ var ipPageDragId;
             });
 
             // making page visually active
-            if ($scope.activeMenu.menuType == 'list') { // list view
+            if ($scope.activeMenu.type == 'list') { // list view
                 getTreeDiv().find('.ipsRow').removeClass('active');
                 getTreeDiv().find('[data-id="' + $scope.selectedPageId + '"]').addClass('active');
             } else { // tree view
@@ -312,7 +312,7 @@ var ipPageDragId;
 
             $('.ipsPages').removeClass('hidden');
 
-            if ($scope.activeMenu.menuType == 'list') { // list view
+            if ($scope.activeMenu.type == 'list') { // list view
                 var gridContainer = getPagesContainer();
                 if (!gridContainer.data('gateway')) {
                     gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
@@ -393,7 +393,7 @@ var ipPageDragId;
         }
 
         var refresh = function () {
-            if ($scope.activeMenu.menuType == 'list') { // list view
+            if ($scope.activeMenu.type == 'list') { // list view
                 getPagesContainer().ipGrid('refresh');
             } else {
                 getPagesContainer().ipPageTree('destroy');
@@ -405,7 +405,8 @@ var ipPageDragId;
 
         var addPage = function (title, isvisible) {
             var parentId = $scope.activeMenu.id;
-            if($scope.selectedPageId && $scope.activeMenu.menuType != 'list') {
+
+            if($scope.selectedPageId && $scope.activeMenu.type != 'list') {
                 parentId = $scope.selectedPageId;
             }
 
