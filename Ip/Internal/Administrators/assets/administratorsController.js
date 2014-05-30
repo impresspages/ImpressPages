@@ -3,7 +3,6 @@ var ipAdministratorsController = null;
 (function ($) {
     "use strict";
 
-
     var app = angular.module('Administrators', []);
 
     app.run(function ($rootScope) {
@@ -12,11 +11,7 @@ var ipAdministratorsController = null;
         });
     });
 
-
     ipAdministratorsController = function ($scope, $location) {
-
-
-
         //init
         $scope.administrators = ipAdministrators;
         $scope.activeAdministrator = null;
@@ -24,21 +19,24 @@ var ipAdministratorsController = null;
         $scope.ipAdministratorsAdminId = ipAdministratorsAdminId;
         $scope.availablePermissions = ipAvailablePermissions;
 
+        $scope.activeAdministratorEmail = 'null'; //to avoid chrome Autocomplete.
 
         $scope.$on('PathChanged', function (event, path) {
             var administratorId = getHashParams().administrator;
-            if (administratorId) {
-                $scope.activateAdministrator(administratorId);
+            for (var i=0; i < ipAdministrators.length; i++) {
+                if (administratorId == ipAdministrators[i]['id']) {
+                    $scope.activateAdministrator(ipAdministrators[i]);
+                }
             }
         });
 
-
         $scope.setAdministratorHash = function (administrator) {
             updateHash(null, administrator.id, false);
-        }
+        };
 
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
+            $scope.activeAdministratorEmail = administrator.email; //to avoid chrome Autocomplete.
         }
 
         $scope.addModal = function () {
@@ -69,7 +67,6 @@ var ipAdministratorsController = null;
             $scope.editMode = mode;
         }
 
-
         $scope.updateModal = function () {
             $('.ipsUpdateModal').modal();
             var $form = $('.ipsUpdateModal form');
@@ -88,8 +85,7 @@ var ipAdministratorsController = null;
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
         }
 
-        $scope.setPermission = function(permission, value, callback)
-        {
+        $scope.setPermission = function(permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
                 if (!confirm(ipAdministratorsSuperAdminWarning)) {
                     return;

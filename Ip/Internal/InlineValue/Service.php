@@ -1,7 +1,7 @@
 <?php
+
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -17,6 +17,7 @@ class Service
 
     private $module;
     private $dao;
+
     /**
      * @param string $module
      */
@@ -26,29 +27,54 @@ class Service
         $this->dao = new Dao($this->module);
     }
 
-    // GET
+    /**
+     * Get value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     */
     public function getValue($key, $languageId, $pageId)
     {
         return $this->dao->getValue($key, $languageId, $pageId);
     }
 
+    /**
+     * Get page value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     */
     public function getPageValue($key, $languageId, $pageId)
     {
         return $this->dao->getPageValue($key, $languageId, $pageId);
     }
 
+    /**
+     * Get language value
+     *
+     * @param string $key
+     * @param int $languageId
+     */
     public function getLanguageValue($key, $languageId)
     {
         return $this->dao->getLanguageValue($key, $languageId);
     }
 
+    /**
+     * Get global value
+     *
+     * @param string $key
+     */
     public function getGlobalValue($key)
     {
         return $this->dao->getGlobalValue($key);
     }
 
     /**
-     * Last get operation scope
+     * Get last operation scope
+     *
      * @return int
      */
     public function getLastOperationScope()
@@ -56,34 +82,69 @@ class Service
         return $this->dao->getLastOperationScope();
     }
 
-    // SET
+    /**
+     * Set page value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     * @param string $value
+     */
     public function setPageValue($key, $languageId, $pageId, $value)
     {
         return $this->dao->setPageValue($key, $languageId, $pageId, $value);
     }
 
-
+    /**
+     * Set language value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param string $value
+     */
     public function setLanguageValue($key, $languageId, $value)
     {
         return $this->dao->setLanguageValue($key, $languageId, $value);
     }
 
+    /**
+     * Get global value
+     *
+     * @param string $key
+     * @param string $value
+     */
     public function setGlobalValue($key, $value)
     {
         return $this->dao->setGlobalValue($key, $value);
     }
 
-    // DELETE
+    /**
+     * Delete page value
+     *
+     * @param string $key
+     * @param int $pageId
+     */
     public function deletePageValue($key, $pageId)
     {
         $this->dao->deletePageValue($key, $pageId);
     }
 
+    /**
+     * Delete language value
+     *
+     * @param string $key
+     * @param int $languageId
+     */
     public function deleteLanguageValue($key, $languageId)
     {
         $this->dao->deleteLanguageValue($key, $languageId);
     }
 
+    /**
+     * Delete global value
+     *
+     * @param string $key
+     */
     public function deleteGlobalValue($key)
     {
         $this->dao->deleteGlobalValue($key);

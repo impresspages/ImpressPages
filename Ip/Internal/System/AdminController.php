@@ -119,9 +119,6 @@ class AdminController extends \Ip\Controller
         return ipConfig()->baseUrl() . '?aa=System.index';
     }
 
-
-
-
     public function getIpNotifications()
     {
 
@@ -165,4 +162,32 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array('redirectUrl' => ipActionUrl(array('aa' => 'System'))));
     }
 
+    public function sendUsageStatisticsAjax()
+    {
+        ipRequest()->mustBePost();
+
+        $usageStatistics = false;
+
+        $data = ipRequest()->getPost('data');
+
+        // Send stats just after admin login
+        if (isset($_SESSION['module']['system']['adminJustLoggedIn'])) {
+            $usageStatistics = array(
+                'action' => 'Admin.login',
+                'data' => array(
+                    'admin' => ipAdminId()
+                )
+            );
+
+            // Removing session variable to send these stats only once
+            unset($_SESSION['module']['system']['adminJustLoggedIn']);
+        }
+
+        // if we have some kind of definition then we send data
+        if ($usageStatistics !== false) {
+            \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
+        }
+
+        return \Ip\Response\JsonRpc::result('ok');
+    }
 }

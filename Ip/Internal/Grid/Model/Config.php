@@ -239,6 +239,14 @@ class Config
         return ipTable(str_replace("`", "", $this->config['table']));
     }
 
+    public function selectFields()
+    {
+        if (empty($this->config['selectFields'])) {
+            return '*';
+        }
+        return $this->config['selectFields'];
+    }
+
     public function joinQuery()
     {
         if (empty($this->config['joinQuery'])) {

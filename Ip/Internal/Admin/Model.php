@@ -142,7 +142,8 @@ class Model{
         return false;
     }
 
-    public static function getUserId(){
+    public static function getUserId()
+    {
         if (isset($_SESSION['backend_session']['userId'])) {
             return $_SESSION['backend_session']['userId'];
         } else {
@@ -188,7 +189,7 @@ class Model{
         $administrator = \Ip\Internal\Administrators\Service::getByUsername($username);
         $ip = ipRequest()->getServer('REMOTE_ADDR');
         Backend::login($administrator['id']);
-        ipEvent('ipAdminLoginSuccessful', array('userId' => $username));
+        ipEvent('ipAdminLoginSuccessful', array('username' => $username, 'id' => $administrator['id']));
         ipLog()->info('Admin.loggedIn: {username} from {ip}', array('username' => $username, 'ip' => $ip));
 
     }
@@ -203,6 +204,16 @@ class Model{
         Backend::logout();
     }
 
+    public static function randString($length)
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $str = '';
+        $size = strlen( $chars );
+        for( $i = 0; $i < $length; $i++ ) {
+            $str .= $chars[ rand( 0, $size - 1 ) ];
+        }
 
+        return $str;
+    }
 
 }

@@ -54,7 +54,7 @@ class AdminController extends \Ip\GridController
             'beforeUpdate' => array($this, 'beforeUpdate'),
             'afterUpdate' => array($this, 'afterUpdate'),
             'beforeDelete' => array($this, 'beforeDelete'),
-            'deleteWarning' => 'Are you sure you want to delete? All pages and other language related content will be lost forever!',
+            'deleteWarning' => __('Are you sure you want to delete? All pages and other language related content will be lost forever!', 'Ip-admin', false),
             'sortField' => 'languageOrder',
             'fields' => array(
                 array(

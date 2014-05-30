@@ -1,7 +1,7 @@
 <h1><?php _e('Database installation', 'Install'); ?></h1>
 
-<div class="errorContainer"></div>
-<form role="form" class="ipsForm">
+<div class="ipsErrorContainer"></div>
+<form role="form" class="ipsDatabaseForm">
     <div class="form-group">
         <label for="db_server"><?php _e('Database Host (eg. localhost or 127.0.0.1)', 'Install'); ?></label>
         <input type="text" class="form-control" id="db_server" name="server" value="<?php echo htmlspecialchars($db['hostname']); ?>">
@@ -22,9 +22,7 @@
         <label for="db_prefix"><?php _e('Table prefix (use underscore to separate prefix).', 'Install'); ?></label>
         <input type="text" maxlength="7" class="form-control" id="db_prefix" name="prefix" value="<?php echo htmlspecialchars($db['tablePrefix']); ?>">
     </div>
-    <input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />
+    <p class="text-right">
+        <button type="submit" class="btn btn-primary ipsDatabaseSubmit"><?php _e('Next', 'Install'); ?></button>
+    </p>
 </form>
-<p class="text-right">
-    <a class="btn btn-default" href="?step=2"><?php _e('Back', 'Install') ?></a>
-    <a class="btn btn-primary ipsStep3" href="#"><?php _e('Next', 'Install') ?></a>
-</p>
