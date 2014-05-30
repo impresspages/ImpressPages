@@ -38,7 +38,7 @@ class Db
 
         $sql = "
         SELECT
-          *
+          " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
           " . $this->config->joinQuery() . "
@@ -60,7 +60,7 @@ class Db
     {
         $sql = "
         SELECT
-          *
+          " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
           " . $this->config->joinQuery() . "

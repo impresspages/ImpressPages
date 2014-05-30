@@ -92,7 +92,6 @@ class Model
                 array(
                     'curl_error' => curl_error($ch),
                     'response' => $answer
-
                 ));
             return array();
         }
@@ -100,4 +99,96 @@ class Model
         return $notices;
     }
 
+    public static function sendUsageStatistics($data = array(), $timeout = 3)
+    {
+        if (!function_exists('curl_init')) {
+            return;
+        }
+
+        if (!isset($data['action'])) { $data['action'] = 'Ping.default'; }
+        if (!isset($data['php'])) { $data['php'] = phpversion(); }
+        if (!isset($data['db'])) {
+            $data['db'] = null;
+            // todo: make a db type/version check stable to work during install and later on
+//            if (class_exists('PDO')) {
+//                $pdo = ipDb()->getConnection();
+//                if ($pdo) {
+//                    $data['db'] = $pdo->getAttribute(\PDO::ATTR_SERVER_VERSION);
+//                }
+//            }
+        }
+        if (!isset($data['developmentEnvironment'])) { $data['developmentEnvironment'] = ipConfig()->get('developmentEnvironment'); }
+        if (!isset($data['showErrors'])) { $data['showErrors'] = ipConfig()->get('showErrors'); }
+        if (!isset($data['debugMode'])) { $data['debugMode'] = ipConfig()->get('debugMode'); }
+        if (!isset($data['timezone'])) { $data['timezone'] = ipConfig()->get('timezone'); }
+        if (!isset($data['data'])) { $data['data'] = array(); }
+        if (!isset($data['websiteId'])) { $data['websiteId'] = ipStorage()->get('Ip', 'websiteId'); }
+        if (!isset($data['websiteUrl'])) { $data['websiteUrl'] = ipConfig()->baseUrl(); }
+        if (!isset($data['version'])) { $data['version'] = \Ip\Application::getVersion(); }
+        if (!isset($data['locale'])) { $data['locale'] = \Ip\ServiceLocator::translator()->getAdminLocale(); }
+        if (!isset($data['doSupport'])) { $data['doSupport'] = ipStorage()->get('Ip', 'getImpressPagesSupport'); }
+        if (!isset($data['administrators'])) {
+            $administrators = \Ip\Internal\Administrators\Model::getAll();
+            $adminCollection = array();
+            foreach ($administrators as $admin) {
+                $permissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions($admin['id']);
+                $adminCollection[] = array(
+                    'id' => $admin['id'],
+                    'email' => $admin['email'],
+                    'permissions' => $permissions
+                );
+            }
+            $data['administrators'] = $adminCollection;
+        }
+        if (!isset($data['themes'])) {
+            $data['themes'] = array(
+                'active' => ipConfig()->theme(),
+                'all' => \Ip\Internal\Design\Model::instance()->getAvailableThemes()
+            );
+        }
+        if (!isset($data['plugins'])) {
+            $plugins = \Ip\Internal\Plugins\Model::getAllPluginNames();
+            $activePlugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
+            $pluginCollection = array();
+            foreach ($plugins as $pluginName) {
+                $pluginCollection[] = array(
+                    'name' => $pluginName,
+                    'active' => in_array($pluginName, $activePlugins) ? true : false
+                );
+            }
+            $data['plugins'] = $pluginCollection;
+        }
+        if (!isset($data['languages'])) { $data['languages'] = ipContent()->getLanguages(); }
+        if (!isset($data['pages'])) {
+            $result = array();
+            try {
+                $table = ipTable('page');
+                $sql = "
+                    SELECT
+                        `languageCode` AS `language`, COUNT( 1 ) AS `quantity`
+                    FROM
+                        $table
+                    GROUP BY
+                        `languageCode`
+                ";
+                $result = ipDb()->fetchAll($sql);
+            } catch (\Exception $e) {
+                // Do nothing.
+            }
+            $data['pages'] = $result;
+        }
+
+        $postFields = 'data=' . urlencode(serialize($data));
+
+        // Use sockets instead of CURL
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, ipConfig()->get('usageStatisticsUrl', 'http://service.impresspages.org/stats'));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+//        curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        $answer = curl_exec($ch);
+    }
 }

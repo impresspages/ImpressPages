@@ -18,12 +18,7 @@ class PublicController extends \Ip\Controller
             return new \Ip\Response\Redirect($page->getLink());
         }
 
-        // change layout if safe mode
-        if (\Ip\Internal\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
-        } else {
-            ipSetLayout($page->getLayout());
-        }
+
 
         // initialize management
         if (ipIsManagementState()) {

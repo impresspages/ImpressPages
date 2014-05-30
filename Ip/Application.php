@@ -35,7 +35,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.16'; //CHANGE_ON_VERSION_UPDATE
+        return '4.0.17'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -197,7 +197,7 @@ class Application
             if (!empty($routeAction['environment'])) {
                 ipRoute()->setEnvironment($routeAction['environment']);
             } else {
-                if ($routeAction['controller'] == 'AdminController') {
+                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
                 } else {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
@@ -286,6 +286,15 @@ class Application
 
         if (empty($eventInfo['page'])) {
             $eventInfo['page'] = null;
+        }
+
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        } else {
+            if ($eventInfo['page']) {
+                ipSetLayout($eventInfo['page']->getLayout());
+            }
         }
 
         ipEvent('ipBeforeController', $eventInfo);

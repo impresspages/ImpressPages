@@ -7,7 +7,6 @@
 
 namespace Plugin\Install;
 
-
 class PublicController extends \Ip\Controller
 {
     protected function init()
@@ -25,236 +24,165 @@ class PublicController extends \Ip\Controller
             $_SESSION['websiteId'] = Helper::randString(32);
         }
 
-
-        if (empty($_SESSION['step'])) {
-            $_SESSION['step'] = 0;
-        }
-
-        if (!empty($_GET['lang']) && strlen($_GET['lang']) == 2 && ctype_alpha($_GET['lang'])) {
-            $_SESSION['installation_language'] = $_GET['lang'];
-        }
-
         ipAddJs('Plugin/Install/assets/js/jquery.js');
+        ipAddJs('Plugin/Install/assets/js/bootstrap.js');
+        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
+        ipAddJs('Plugin/Install/assets/js/install.js');
     }
 
-    public function index ()
+    public function index()
     {
         $this->init();
+
         if (isset($_GET['step'])) {
             $step = (int)$_GET['step'];
         } else {
-            $step = 0;
+            $step = Helper::$firstStep;
         }
 
-        if ($step > $_SESSION['step']) {
-            $step = $_SESSION['step'];
+        if ($step < Helper::$firstStep) {
+            $step = Helper::$firstStep;
         }
 
-//      Breaks on serveriai.lt too dangerous.
-//      if ($_SESSION['step'] > $step) {
-//          $_SESSION['step'] = $step;
-//      }
-
-        if (!Helper::isInstallAvailable()) {
-            $step = 5;
+        // going to the last step
+        if (!Helper::isInstallAvailable() || $step > Helper::$lastStep) {
+            $step = Helper::$lastStep;
         }
 
-        $method = 'step' . $step;
-        return $this->$method();
-    }
-
-    protected function step0()
-    {
-        if (!Helper::isInstallAvailable()) {
-            return;
+        switch ($step) {
+            case '1':
+                $response = $this->configuration();
+                break;
+            case '2':
+                $response = $this->systemCheck();
+                break;
+            case '3':
+                $response = $this->database();
+                break;
+            case '4':
+                $response = $this->finish();
+                break;
+            default:
+                $response = new LayoutResponse();
         }
-
-        $this->init();
-
-        $languages = array();
-        $languages['en'] = 'English';
-        $languages['cn'] = 'Chinese';
-        $languages['ar'] = 'Arabic';
-        $languages['cs'] = 'Čeština';
-        $languages['nl'] = 'Dutch';
-        $languages['de'] = 'Deutsch';
-        $languages['fr'] = 'French';
-        $languages['ja'] = '日本語';
-        $languages['lt'] = 'Lietuvių';
-        $languages['hu'] = 'Magyar';
-//      $languages['pt'] = 'Portugues'; // Something is broken with translations.
-        $languages['pl'] = 'Polski';
-        $languages['ro'] = 'Română';
-        $languages['ru'] = 'Русский';
-        $languages['tr'] = 'Türk';
-
-        $selected_language = isset($_SESSION['installationLanguage']) ? $_SESSION['installationLanguage'] : 'en';
-
-        $data['selectedLanguage'] = array_key_exists($selected_language, $languages) ? $selected_language : 'en';
-        $data['languages'] = $languages;
-
-        $content = ipView('view/step0.php', $data)->render();
-
-        $response = new LayoutResponse();
-        $response->setContent($content);
-
-        ipAddJs('Plugin/Install/assets/js/step0.js');
 
         return $response;
     }
 
-    protected function step1()
+    protected function configuration()
     {
-        if (!Helper::isInstallAvailable()) {
-            return;
+        $timezoneSelectOptions = Helper::getTimezoneSelectOptions();
+
+        if (!isset($_SESSION['config'])) {
+            $_SESSION['config'] = array(
+                'websiteName' => '',
+                'websiteEmail' => '',
+                'timezone' => '',
+                'support' => 1
+            );
         }
 
-        $this->init();
+        $data = array(
+            'config' => $_SESSION['config'],
+            'timezoneSelectOptions' => $timezoneSelectOptions,
+        );
 
-        $checkResults = Model::checkRequirements();
-        $errors = $checkResults['errors'];
-        $warnings = $checkResults['warnings'];
+        return Helper::renderLayout('view/configuration.php', $data);
+    }
+
+    protected function systemCheck()
+    {
 
         $requirements = array();
 
-        $check = array();
-        $check['name'] = __('PHP version >= 5.3', 'Install');
-        $check['type'] = isset($errors['php_version']) ? 'error' : 'success';
-        $requirements[] = $check;
+        $requirements[] = array(
+            'name' => __('PHP version >= 5.3', 'Install'),
+            'type' => Helper::checkPhpVersion()
+        );
+        $requirements[] = array(
+            'name' => __('PHP module "PDO"', 'Install'),
+            'type' => Helper::checkPDO()
+        );
+        $requirements[] = array(
+            'name' => __('GD Graphics Library', 'Install'),
+            'type' => Helper::checkGD()
+        );
+        $requirements[] = array(
+            'name' => __('PHP sessions', 'Install'),
+            'type' => Helper::checkPhpSessions()
+        );
+        $requirements[] = array(
+            'name' => __('.htaccess file', 'Install'),
+            'type' => Helper::checkFileDotHtaccess()
+        );
+        $requirements[] = array(
+            'name' => __('index.html removed', 'Install'),
+            'type' => Helper::checkFileIndexDotHtml()
+        );
+        $requirements[] = array(
+            'name' => __('Magic quotes off (optional)', 'Install'),
+            'type' => Helper::checkMagicQuotes()
+        );
+        $requirements[] = array(
+            'name' => __('Apache module "mod_rewrite"', 'Install'),
+            'type' => Helper::checkModRewrite()
+        );
+        $requirements[] = array(
+            'name' => __('PHP module "Curl"', 'Install'),
+            'type' => Helper::checkCurl()
+        );
+        $requirements[] = array(
+            'name' => sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit')),
+            'type' => Helper::checkMemoryLimit()
+        );
+        $requirements[] = array(
+            'name' => '/file/ ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install'),
+            'type' => Helper::checkFolderFile()
+        );
+        $requirements[] = array(
+            'name' => '/Theme/ ' . __('writable', 'Install'),
+            'type' => Helper::checkFolderTheme()
+        );
+        $requirements[] = array(
+            'name' => '/config.php ' . __('writable', 'Install'),
+            'type' => Helper::checkFileConfigPhp()
+        );
 
-        $check = array();
-        $check['name'] = __('PHP module "PDO"', 'Install');
-        $check['type'] = isset($errors['mod_pdo']) ? 'error' : 'success';
-        $requirements[] = $check;
+        $showNextStep = true;
+        $autoForward = true;
+        $notSuccess = array();
+        foreach ($requirements as $req) {
+            if ($req['type'] == 'success') { continue; } // skipping
 
-        $check = array();
-        $check['name'] = __('GD Graphics Library', 'Install');
-        $check['type'] = isset($errors['gd_lib']) ? 'error' : 'success';
-        $requirements[] = $check;
+            // Force to repeat system check
+            if ($req['type'] == 'error') {
+                $showNextStep = false;
+            }
 
-        if (!isset($warnings['curl'])) {
-            $check = array();
-            $check['name'] = __('PHP sessions', 'Install');
-            $check['type'] = isset($errors['session']) ? 'error' : 'success';
-            $requirements[] = $check;
+            // If something isn't perfect we collect and show to user
+            $autoForward = false;
+            $notSuccess[] = $req;
         }
-
-        $check = array();
-        $check['name'] = __('.htaccess file', 'Install');
-        $check['type'] = isset($errors['htaccess']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('index.html removed', 'Install');
-        $check['type'] = isset($errors['index.html']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('Magic quotes off (optional)', 'Install');
-        $check['type'] = isset($errors['magic_quotes']) ? 'error' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('Apache module "mod_rewrite"', 'Install');
-        $check['type'] = isset($warnings['mod_rewrite']) ? 'warning' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = __('PHP module "Curl"', 'Install');
-        $check['type'] = isset($errors['curl']) ? 'warning' : 'success';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = sprintf( __('PHP memory limit (%s)', 'Install'), ini_get('memory_limit'));
-
-        $check['type'] = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 ? 'warning' : 'success';
-
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '';
-        $check['type'] = '';
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/file/</b> ' . __('writable', 'Install') . ' ' . __('(including subfolders and files)', 'Install');
-        if (!Helper::isDirectoryWritable(Model::ipFile('file/'))) {
-            $check['type'] = 'error';
-            $errors['writable_file'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/Theme/</b> ' . __('writable', 'Install');
-
-        // We cannot use Model::ipFile('Theme/') cause it is overriden
-        // and points to install/Theme
-        if (!Helper::isDirectoryWritable(Model::ipFile('') . 'Theme')) {
-            $check['type'] = 'error';
-            $errors['writable_themes'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
-
-        $check = array();
-        $check['name'] = '<b>/config.php</b> ' . __('writable', 'Install');
-        if (
-            is_file(Model::ipFile('config.php')) && !is_writable(Model::ipFile('config.php'))
-            ||
-            !is_file(Model::ipFile('config.php')) && !is_writable(Model::ipFile(''))
-        ) {
-            $check['type'] = 'error';
-            $errors['writable_config'] = 1;
-        } else {
-            $check['type'] = 'success';
-        }
-        $requirements[] = $check;
 
         $data = array(
             'requirements' => $requirements,
-            'errors' => count($errors) > 0
+            'showNextStep' => $showNextStep
         );
 
-        $content = ipView('view/step1.php', $data)->render();
+        // Send usage statistics
+        $usageStatistics = Helper::setUsageStatistics('Install.systemCheck', $notSuccess);
+        \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
-        $response = new LayoutResponse();
-        $response->setContent($content);
-
-        ipAddJs('Plugin/Install/assets/js/step1.js');
-
-        return $response;
-    }
-
-    protected function step2()
-    {
-        if (!Helper::isInstallAvailable()) {
-            return;
+        if ($autoForward) {
+            header('Location: ' . ipConfig()->baseUrl() . 'index.php?step=3') ;
+            exit;
         }
 
-        $this->init();
-
-        Model::completeStep(2);
-
-        $content = ipView('view/step2.php');
-
-        $response = new LayoutResponse();
-        $response->setContent($content);
-        ipAddJs('Plugin/Install/assets/js/step2.js');
-
-        return $response;
+        return Helper::renderLayout('view/system.php', $data);
     }
 
-    protected function step3()
+    protected function database()
     {
-        if (!Helper::isInstallAvailable()) {
-            return;
-        }
-
-        $this->init();
-
         if (!isset($_SESSION['db'])) {
             $_SESSION['db'] = array(
                 'hostname' => 'localhost',
@@ -270,103 +198,95 @@ class PublicController extends \Ip\Controller
             'db' => $_SESSION['db'],
         );
 
-        $content = ipView('view/step3.php', $data)->render();
-
-        $response = new LayoutResponse();
-        $response->setContent($content);
-
-        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
-        ipAddJs('Plugin/Install/assets/js/step3.js');
-
-        return $response;
+        return Helper::renderLayout('view/database.php', $data);
     }
 
-    protected function step4()
+    protected function finish()
     {
-        if (!Helper::isInstallAvailable()) {
-            return;
-        }
+        // cleaning session data (logins, passwords, etc.)
+        if (isset($_SESSION['config'])) { $_SESSION['config'] = null; }
+        if (isset($_SESSION['db'])) { $_SESSION['db'] = null; }
+        if (isset($_SESSION['db_errors'])) { $_SESSION['db_errors'] = null; }
 
-        $this->init();
-
-        $dateTimeObject = new \DateTime();
-        $currentTimeZone = $dateTimeObject->getTimezone()->getName();
-        $timezoneSelectOptions = '';
-
-        $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::ALL_WITH_BC);
-
-        $lastGroup = '';
-        foreach($timezones as $timezone) {
-            $timezoneParts = explode('/', $timezone);
-            $curGroup = $timezoneParts[0];
-            if ($curGroup != $lastGroup) {
-                if ($lastGroup != '') {
-                    $timezoneSelectOptions .= '</optgroup>';
-                }
-                $timezoneSelectOptions .= '<optgroup label="'.addslashes($curGroup).'">';
-                $lastGroup = $curGroup;
-            }
-            if ($timezone == $currentTimeZone) {
-                $selected = 'selected';
-            } else {
-                $selected = '';
-            }
-            $timezoneSelectOptions .= '<option '.$selected.' value="'.addslashes($timezone).'">'.htmlspecialchars($timezone).'</option>';
+        $showInfo = false;
+        // Showing extra info if user tries to get back when installation is finished
+        if (isset($_GET['step']) && (int)$_GET['step'] < Helper::$lastStep) {
+            $showInfo = true;
         }
 
         $data = array(
-            'timezoneSelectOptions' => $timezoneSelectOptions,
+            'showInfo' => $showInfo,
         );
 
-        $content = ipView('view/step4.php', $data)->render();
-
-        $response = new LayoutResponse();
-        ipAddJs('Plugin/Install/assets/js/ModuleInstall.js');
-        ipAddJs('Plugin/Install/assets/js/step4.js');
-
-        $response->setContent($content);
-
-        return $response;
+        return Helper::renderLayout('view/finish.php', $data);
     }
 
-    protected function step5()
-    {
-        $this->init();
-
-        $SESSION['step'] = 5;
-        $content = ipView('view/step5.php')->render();
-
-        $response = new LayoutResponse();
-        $response->setContent($content);
-
-        return $response;
-    }
-
-
-    public function proceed()
+    public function testConfiguration()
     {
         if (!Helper::isInstallAvailable()) {
-            return;
+            return sprintf(__('Please remove content from %s file.', 'Install', false), 'config.php');
         }
 
-        if (in_array($_SESSION['step'], array(0, 1, 2))) { // TODO check if there are no errors in step1
-            $_SESSION['step'] = $_SESSION['step'] + 1;
-            return new \Ip\Response\Json(array('status' => 'ok'));
+        // Validating input
+        $errors = array();
+
+        // Website name
+        if (!Helper::validateWebsiteName(ipRequest()->getPost('configWebsiteName'))) {
+            $errors[] = __('Please enter website name.', 'Install', false);
         }
 
-        return new \Ip\Response\Json(array('status' => 'error'));
+        // Website email
+        if (!Helper::validateWebsiteEmail(ipRequest()->getPost('configWebsiteEmail'))) {
+            $errors[] = __('Please enter correct website email.', 'Install', false);
+        }
+
+        // Website timezone
+        if (!Helper::validateTimezone(ipRequest()->getPost('configTimezone'))) {
+            $errors[] = __('Please choose website time zone.', 'Install', false);
+        }
+
+        // Support
+        // ipRequest()->getPost('configSupport')
+
+        // Let's save config data to user session
+        if (ipRequest()->getPost('configWebsiteName')) {
+            $_SESSION['config']['websiteName'] = ipRequest()->getPost('configWebsiteName');
+        }
+        if (ipRequest()->getPost('configWebsiteEmail')) {
+            $_SESSION['config']['websiteEmail'] = ipRequest()->getPost('configWebsiteEmail');
+        }
+        if (ipRequest()->getPost('configTimezone')) {
+            $_SESSION['config']['timezone'] = ipRequest()->getPost('configTimezone');
+        }
+        if (ipRequest()->getPost('configSupport') !== null) {
+            $_SESSION['config']['support'] = ipRequest()->getPost('configSupport');
+        }
+
+        // Send usage statistics
+        $usageStatistics = Helper::setUsageStatistics('Install.configuration', $errors);
+        \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
+
+        if (!empty($errors)) {
+            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
+        }
+
+        return \Ip\Response\JsonRpc::result(array('redirect' => 'index.php?step=2'));
     }
 
     public function createDatabase()
     {
         if (!Helper::isInstallAvailable()) {
-            return 'Please remove content from config.php file';
+            return sprintf(__('Please remove content from %s file.', 'Install', false), 'config.php');
         }
 
         $db = ipRequest()->getPost('db');
+        if (!isset($_SESSION['db_errors'])) {
+            $_SESSION['db_errors'] = array();
+        }
 
         foreach (array('hostname', 'username', 'database') as $key) {
             if (empty($db[$key])) {
+                $_SESSION['db_errors'][] = 'Required fields';
                 return \Ip\Response\JsonRpc::error(__('Please fill in required fields.', 'Install', false));
             }
         }
@@ -376,11 +296,13 @@ class PublicController extends \Ip\Controller
         }
 
         if (strlen($db['tablePrefix']) > 7) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t be longer than 7 symbols.', 'Install', false));
+            $_SESSION['db_errors'][] = 'Prefix too long';
+            return \Ip\Response\JsonRpc::error(__("Prefix can't be longer than 7 symbols.", 'Install', false));
         }
 
         if ($db['tablePrefix'] != '' && !preg_match('/^([A-Za-z_][A-Za-z0-9_]*)$/', $db['tablePrefix'])) {
-            return \Ip\Response\JsonRpc::error(__('Prefix can\'t contain any special characters and should start with a letter.', 'Install', false));
+            $_SESSION['db_errors'][] = 'Prefix is bad';
+            return \Ip\Response\JsonRpc::error(__("Prefix can't contain any special characters and should start with a letter.", 'Install', false));
         }
 
         $dbConfig = array(
@@ -397,48 +319,20 @@ class PublicController extends \Ip\Controller
         try {
             ipDb()->getConnection();
         } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install'), false);
+            $_SESSION['db_errors'][] = 'Cannot connect';
+            return \Ip\Response\JsonRpc::error(__("Can't connect to database.", 'Install'), false);
         }
 
         try {
             Model::createAndUseDatabase($db['database']);
         } catch (\Ip\Exception $e) {
+            $_SESSION['db_errors'][] = 'DB cannot be created';
             return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
         }
 
-        $tables = array(
-            'page',
-            'page_storage',
-            'permission',
-            'language',
-            'log',
-            'email_queue',
-            'repository_file',
-            'repository_reflection',
-            'widget',
-            'widget_order',
-            'theme_storage',
-            'inline_value_global',
-            'inline_value_language',
-            'inline_value_page',
-            'plugin',
-            'storage',
-            'revision',
-            'administrator'
-        );
-
-        $tableExists = false;
-        foreach ($tables as $table) {
-            try {
-                $sql = 'SELECT 1 FROM `' . $dbConfig['tablePrefix'] . $table . '`';
-                ipDb()->execute($sql);
-                $tableExists = true;
-            } catch (\Exception $e) {
-                // Do nothing. We have expected this error to occur. That means the database is clean.
-            }
-        }
-        if ($tableExists && empty($db['replaceTables'])) {
-            return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exist');
+        if (Helper::testDBTables($db['tablePrefix']) && empty($db['replaceTables'])) {
+            $_SESSION['db_errors'][] = 'Replace tables';
+            return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exists');
         }
 
         $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
@@ -448,113 +342,63 @@ class PublicController extends \Ip\Controller
         }
 
         if ($errors) {
-            if($_SESSION['step'] < 3) {
-                $_SESSION['step'] = 3;
-            }
+            $_SESSION['db_errors'][] = 'Failed install';
+            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
         }
 
         $dbConfig['database'] = $db['database'];
-
         $_SESSION['db'] = $dbConfig;
 
-        if ($errors) {
-            return \Ip\Response\JsonRpc::error(__('There were errors while executing install queries. ' . serialize($errors), 'Install', false));
-        } else {
-            \Ip\ServiceLocator::config()->set('db', $dbConfig);
+        $configToFile = array();
+        $configToFile['sessionName'] = 'ses' . rand();
+        $configToFile['db'] = $_SESSION['db'];
+        $configToFile['timezone'] = $_SESSION['config']['timezone'];
+
+        if (Helper::checkModRewrite() != 'success') {
+            $configToFile['rewritesDisabled'] = true;
+        }
+
+        $admin = ipRequest()->getPost('admin');
+        if ($admin) {
+            $adminUsername = $admin['username'];
+            $adminEmail = $admin['email'];
+            $adminPassword = $admin['password'];
+        }
+
+        $cachedBaseUrl = substr(rtrim(ipConfig()->baseUrl(),"/"), 0, - strlen('install'));
+
+        try {
+            ipConfig()->set('db', $dbConfig);
             OptionHelper::import(__DIR__ . '/options.json');
 
-            Model::completeStep(4);
-            return \Ip\Response\JsonRpc::result(true);
-        }
-    }
-
-    public function writeConfig()
-    {
-        if (!Helper::isInstallAvailable()) {
-            return 'Please remove content from config.php file';
-        }
-
-        $this->init();
-
-        if (empty($_SESSION['db'])) {
-            return \Ip\Response\JsonRpc::error(__('Session has expired. Please restart your install.', 'Install', 'false'));
-        }
-
-        // Validate input:
-        $errors = array();
-
-        if (!ipRequest()->getPost('siteName')) {
-            $errors[] = __('Please enter website name.', 'Install', false);
-        }
-
-        if (!ipRequest()->getPost('siteEmail') || !filter_var(ipRequest()->getPost('siteEmail'), FILTER_VALIDATE_EMAIL)) {
-            $errors[] = __('Please enter correct website email.', 'Install', false);
-        }
-
-        if (!ipRequest()->getPost('install_login') || !ipRequest()->getPost('install_pass')) {
-            $errors[] = __('Please enter administrator login and password.', 'Install', false);
-        }
-
-        if (ipRequest()->getPost('timezone')) {
-            $timezone = ipRequest()->getPost('timezone');
-        } else {
-            $errors[] = __('Please choose website time zone.', 'Install', false);
-        }
-
-        if (!empty($errors)) {
-            return \Ip\Response\JsonRpc::error(__('Please correct errors.', 'Install', false))->addErrorData('errors', $errors);
-        }
-
-        $config = array();
-        $config['sessionName'] = 'ses' . rand();
-        $config['timezone'] = $timezone;
-        $config['db'] = $_SESSION['db'];
-
-        if (empty($_SESSION['rewritesEnabled'])) {
-            $config['rewritesDisabled'] = true;
-        }
-
-        try {
-            Model::writeConfigFile($config, ipFile('config.php'));
-        } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
-        }
-
-        try {
-            ipConfig()->set('db', $config['db']);
-            ipDb()->getConnection();
-        } catch (\Exception $e) {
-            return \Ip\Response\JsonRpc::error(__('Can\'t connect to database.', 'Install', false));
-        }
-        try {
-
-            Model::insertAdmin(ipRequest()->getPost('install_login'), ipRequest()->getPost('siteEmail'), ipRequest()->getPost('install_pass'));
-            ipSetOptionLang('Config.websiteTitle', ipRequest()->getPost('siteName'), 'en');
-            ipSetOptionLang('Config.websiteEmail', ipRequest()->getPost('siteEmail'), 'en');
+            // if admin data is posted then user will be created
+            if ($admin) {
+                Model::insertAdmin($adminUsername, $adminEmail, $adminPassword);
+            }
+            ipSetOptionLang('Config.websiteTitle', $_SESSION['config']['websiteName'], 'en');
+            ipSetOptionLang('Config.websiteEmail', $_SESSION['config']['websiteEmail'], 'en');
             Model::generateCronPassword();
-            ipStorage()->set('Ip', 'cachedBaseUrl', substr(ipConfig()->baseUrl(), 0, - strlen('install')));
+            ipStorage()->set('Ip', 'cachedBaseUrl', $cachedBaseUrl);
             ipStorage()->set('Ip', 'websiteId', $_SESSION['websiteId']);
+            ipStorage()->set('Ip', 'getImpressPagesSupport', $_SESSION['config']['support']);
         } catch (\Exception $e) {
+            $_SESSION['db_errors'][] = $e->getTraceAsString();
             return \Ip\Response\JsonRpc::error($e->getTraceAsString());
         }
 
-        Model::completeStep(5);
-
-        return \Ip\Response\JsonRpc::result(true);
-    }
-
-    protected function getParentUrl() {
-        $pageURL = '';
-        if ($_SERVER['SERVER_PORT'] != '80') {
-            $pageURL .= $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];
-        } else {
-            $pageURL .= $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+        try {
+            Model::writeConfigFile($configToFile, ipFile('config.php'));
+        } catch (\Exception $e) {
+            $_SESSION['db_errors'][] = 'Cannot write config file';
+            return \Ip\Response\JsonRpc::error(__('Can\'t write configuration "/config.php"', 'Install', false));
         }
 
-        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/'));
-        $pageURL = substr($pageURL, 0, strrpos($pageURL, '/') + 1);
+        // Send usage statistics
+        $usageStatistics = Helper::setUsageStatistics('Install.database', $_SESSION['db_errors']);
+        \Ip\Internal\System\Model::sendUsageStatistics($usageStatistics);
 
-        return $pageURL;
+        $redirect = $cachedBaseUrl . 'admin';
+
+        return \Ip\Response\JsonRpc::result(array('redirect' => $redirect));
     }
-
 }

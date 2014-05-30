@@ -4,6 +4,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
+
+#    Redirect www urls to non-www.
+#    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
 </IfModule>
 
 # Disable directory listing (highly recommended). Commented out as might not work on some hosts

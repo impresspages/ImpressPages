@@ -75,7 +75,7 @@ class Helper
             array(
                 'name' => 'email', // HTML "name" attribute
                 'label' => __('Email', 'Ip-admin', false), // Field label that will be displayed next to input field
-                'value' => '{{activeAdministrator.email}}'
+                'value' => '{{activeAdministratorEmail}}'
             ));
         $field->addValidator("Required");
         $form->addField($field);

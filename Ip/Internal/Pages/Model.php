@@ -90,12 +90,24 @@ class Model
             trigger_error("Element does not exist");
         }
 
+        $menu = ipContent()->getPageMenu($newParentId);
+        if ($menu) {
+            $copy['languageCode'] = $menu->getLanguageCode();
+        }
+
         unset($copy['id']);
         $copy['parentId'] = $newParentId;
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
 
-        return ipDb()->insert('page', $copy);
+
+        $pageId = ipDb()->insert('page', $copy);
+
+        $eventInfo = ipDb()->selectRow('page', '*', array('id' => $pageId));
+        $eventInfo['sourceId'] = $nodeId;
+
+        ipEvent('ipPageDuplicated', $eventInfo);
+        return $pageId;
     }
 
     /**
@@ -152,9 +164,6 @@ class Model
             ' ORDER BY `pageOrder` '
         );
 
-        foreach ($list as &$menu) {
-            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
-        }
 
         return $list;
     }
@@ -306,7 +315,7 @@ class Model
         }
 
         if (!empty($properties['type'])) {
-            ipPageStorage($pageId)->set('menuType', $properties['type']);
+            $update['type'] = $properties['type'];
         }
 
         if (isset($properties['urlPath'])) {

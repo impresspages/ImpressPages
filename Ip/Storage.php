@@ -10,7 +10,8 @@ namespace Ip;
  * Key-value storage, where any plugin can store it's data
  */
 
-class Storage {
+class Storage
+{
 
     /**
      * Get a value from storage
