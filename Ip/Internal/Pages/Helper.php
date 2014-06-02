@@ -275,7 +275,7 @@ class Helper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'updatedAt',
-                'label' => __('Update on', 'Ip-admin', FALSE),
+                'label' => __('Updated on', 'Ip-admin', FALSE),
                 'value' => date('Y-m-d', strtotime($page->getUpdatedAt()))
             ));
         $form->addField($field);
