@@ -27,7 +27,8 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
     public function downloadPlugin($name, $url, $signature)
     {
         if (is_dir(ipFile("Plugin/{$name}/"))) {
-            throw new \Ip\Exception("Plugin '{$name}' already exists.");
+            Service::deactivatePlugin($name);
+            Helper::removeDir(ipFile("Plugin/{$name}/"));
         }
 
         //download plugin
@@ -63,6 +64,9 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         $installDir = Model::pluginInstallDir();
         $newPluginDir = \Ip\Internal\File\Functions::genUnoccupiedName($name, $installDir);
         rename($secureTmpDir . $tmpExtractedDir . '/' . $extractedDir, $installDir . $newPluginDir);
+
+        Service::activatePlugin($name);
+
     }
 
     protected function getFirstDir($path)

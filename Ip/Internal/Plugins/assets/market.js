@@ -1,11 +1,17 @@
+
 var ipPluginMarket = new function () {
     "use strict";
     var isPluginPreview = false;
     var bodyClassToHideScroll = 'modal-open';
+    var redirectUrl = '';
 
     var processOrder = function (order) {
         $('body').bind('ipMarketOrderComplete', function (e, data) {
-            window.location = window.location.href.split('#')[0];
+            if (redirectUrl) {
+                window.location = redirectUrl;
+            } else {
+                window.location = ip.baseUrl + '?aa=Plugins.index';
+            }
         });
 
         Market.processOrder(order);
@@ -34,7 +40,6 @@ var ipPluginMarket = new function () {
                     handle: function (action, data) {
                         switch (action) {
                             case 'installPlugin':
-                                console.log('handle: installPlugin:', data);
 
                                 var installPlugin = function (data) {
                                     $('body').bind('ipMarketOrderComplete', function (e, data) {
@@ -47,32 +52,10 @@ var ipPluginMarket = new function () {
                                     processOrder(fakeOrder);
                                 }
 
-                                $.ajax(ip.baseUrl, {
-                                    'type': 'POST',
-                                    'data': {'aa': 'Plugins.pluginExists', 'plugin': data.name, 'securityToken': ip.securityToken, 'jsonrpc': '2.0'},
-                                    'dataType': 'json',
-                                    'success': function (response) {
-                                        if (!response || response.error) {
 
-                                            if (response.error.message) {
-                                                alert(response.error.message);
-                                            } else {
-                                                alert('Unknown error. Please see logs.');
-                                            }
-                                            return;
-                                        }
+                                redirectUrl = ip.baseUrl + '?aa=Plugins.index#/hash=&plugin=' + encodeURIComponent(data.name);
 
-                                        if (response.result === true) {
-                                            alert('Plugin "' + data.name + '" already exists.');
-                                        } else {
-                                            installPlugin(data);
-                                        }
-
-                                    },
-                                    'error': function () {
-                                        alert('Unknown error. Please see logs.');
-                                    }
-                                });
+                                installPlugin(data);
 
                                 break;
                             case 'processOrder':
