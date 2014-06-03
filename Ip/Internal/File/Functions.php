@@ -104,6 +104,17 @@ class Functions
         $fileName = str_replace($spec, '_', $fileName);
         $fileName = preg_replace('/[^\w\._]+/', '_', $fileName); // It overlaps with above replace file. But for historical reasons let it be.
         $fileName = preg_replace('/_+/', '_', $fileName);
+
+
+        //leave only the last dot in filenames. Files with double extensions might be executed on most of the servers. Eg. hack.php.jpgx
+        $pathParts = pathinfo($fileName);
+        $fileName = str_replace('.', '_', $pathParts['filename']);
+        if (!empty($pathParts['extension'])) {
+            $fileName .= '.' . $pathParts['extension'];
+        }
+
+
+
         if ($fileName == '') {
             $fileName = 'file';
         }
