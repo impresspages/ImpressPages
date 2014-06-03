@@ -48,7 +48,7 @@ class SiteController extends \Ip\Controller{
             $uploadModel->handlePlupload($secureFolder);
         } catch (\Ip\Exception\Repository\Upload\ForbiddenFileExtension $e) {
             // Return JSON-RPC response
-            $message = __('Incorrect file type.', 'Ip-admin');
+            $message = __('Forbidden file type.', 'Ip-admin');
             ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
 
             // TODO JSONRPC
