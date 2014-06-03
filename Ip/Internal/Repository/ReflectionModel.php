@@ -117,6 +117,7 @@ class ReflectionModel
         if ($ext != '') {
             $desiredName = $desiredName.'.'.$ext;
         }
+        $desiredName = \Ip\Internal\File\Functions::cleanupFileName($desiredName); //remove double dots if file name. For security reasons.
 
         $relativeDestinationPath = date('Y/m/d/');
         $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName));
