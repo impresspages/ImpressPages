@@ -34,7 +34,7 @@ class AdminController extends \Ip\Controller
         ipAddJsVariable('ipAdministratorsAdminId', (int)ipAdminId());
         ipaddJsVariable('ipAvailablePermissions', \Ip\Internal\AdminPermissionsModel::availablePermissions());
         ipaddJsVariable('ipAdministratorId', ipAdminId());
-        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself. Do you want to continue?', 'Ip-admin', false));
+        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself!', 'Ip-admin', false));
 
         $data = array (
             'createForm' => Helper::createForm(),
