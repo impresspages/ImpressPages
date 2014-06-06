@@ -176,7 +176,7 @@ var IpWidget_Image = function () {
             height: height
         };
 
-        if (this.$widgetObject.width() - width <= 2) {
+        if (this.$widgetObject.width() - width <= 2 && width < this.data.originalWidth) {
             data = {
                 method: 'autosize'
             }
