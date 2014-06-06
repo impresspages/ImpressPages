@@ -174,25 +174,30 @@ class Controller extends \Ip\WidgetController{
                     'x2' => $data['cropX2'],
                     'y2' => $data['cropY2'],
                     'width' => $width,
-                    'height' => $height
+                    'height' => $height,
+                    'forced' => true
                 );
                 $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
             } else {
+                $forced = false;
                 if (!empty($data['width'])) {
                     $width = $data['width'];
+                    $forced = true;
                 } else {
                     $width = ipGetOption('Content.widgetImageWidth', 1200);
                 }
 
                 if (!empty($data['height'])) {
                     $height = $data['height'];
+                    $forced = true;
                 } else {
                     $height = ipGetOption('Content.widgetImageHeight', 900);
                 }
                 $transform = array(
                     'type' => 'fit',
                     'width' => $width,
-                    'height' => $height
+                    'height' => $height,
+                    'forced' => $forced
                 );
             }
             $data['imageSmall'] = ipFileUrl(ipReflection($data['imageOriginal'], $transform, $desiredName));
@@ -228,6 +233,40 @@ class Controller extends \Ip\WidgetController{
         return ipView('snippet/image.php', $variables)->render();
 
     }
+
+    /**
+     * Process data which is passed to widget's JavaScript file for processing
+     *
+     * @param $revisionId Widget revision ID
+     * @param $widgetId Widget ID
+     * @param $widgetId Widget instance ID
+     * @param $data Widget data array
+     * @param $skin Widget skin name
+     * @return array Data array
+     */
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
+    {
+        $originalWidth = ipGetOption('Content.widgetImageWidth', 1200);
+        if (isset($data['x2']) && isset($data['x1'])) {
+            $originalWidth = $data['x2'] - $data['x1'];
+        } else {
+            if (!empty($data['imageOriginal'])) {
+                $image = ipFile('file/repository/' . $data['imageOriginal']);
+                if (is_file($image)) {
+                    $imageInfo = getimagesize($image);
+                    if (!empty($imageInfo[0])) {
+                        $originalWidth = $imageInfo[0];
+                    }
+                }
+            }
+        }
+
+        $data['originalWidth'] = $originalWidth;
+        return $data;
+    }
+
+
+
 
     protected function linkForm()
     {
