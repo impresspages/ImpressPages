@@ -91,26 +91,10 @@ class AdminController extends \Ip\Controller
 
     public function updateLinks()
     {
-        $model = Model::instance();
-        $oldUrl = $model->getOldUrl();
-        $newUrl = $model->getNewUrl();
-
-        $httpExpression = '/^((http|https):\/\/)/i';
-
-        if ($oldUrl != $newUrl && preg_match($httpExpression, $oldUrl) && preg_match($httpExpression, $newUrl)) {
-            $eventData = array(
-                'oldUrl' => $oldUrl,
-                'newUrl' => $newUrl
-            );
-            ipEvent('ipUrlChanged', $eventData);
-            ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
-            $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
-        } else {
-            //in theory should never happen
-        }
+        Service::updateLinks();
+        $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
 
         return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')));
-        ipRequest()->mustBePost();
 
     }
 
