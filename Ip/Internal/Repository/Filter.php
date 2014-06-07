@@ -74,7 +74,7 @@ class Filter {
                 return $ext;
                 break;
             default:
-                return;
+                return $ext;
         }
     }
 
