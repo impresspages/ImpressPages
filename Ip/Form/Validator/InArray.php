@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -7,19 +8,33 @@
 namespace Ip\Form\Validator;
 
 
-class InArray extends \Ip\Form\Validator {
+class InArray extends \Ip\Form\Validator
+{
 
-    public function __construct($data, $errorMessage = null)
-    {
+    /**
+     * Constructor
+     *
+     * @param array $data
+     * @param string $errorMessage
+     */
+    public function __construct($data, $errorMessage = null) {
         if (!is_array($data)) {
-            throw \Ip\Exception("InArray validator expect array of strings");
+            throw \Ip\Exception('InArray validator expect array of strings');
         }
         parent::__construct($data, $errorMessage);
     }
 
+    /**
+     * Get error
+     *
+     * @param array $values
+     * @param int $valueKey
+     * @param $environment
+     * @return string|bool
+     */
     public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
-            return FALSE;
+            return false;
         }
 
         if (!in_array($values[$valueKey], $this->data)) {
@@ -31,11 +46,12 @@ class InArray extends \Ip\Form\Validator {
             } else {
                 $errorText = __('The value has to be one of:', 'Ip');
             }
-            $errorText . ' ' . implode(', ', $this->values);
+            $errorText .= ' ' . implode(', ', $this->values);
+
             return $errorText;
         }
 
-        return FALSE;
+        return false;
     }
 
 }
