@@ -142,7 +142,7 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
 
-        if (empty($data['pages'])) {
+        if (!isset($data['pages'])) {
             throw new \Ip\Exception('Missing required parameters');
         }
 
@@ -163,7 +163,7 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
 
-        if (empty($data['pages'])) {
+        if (!isset($data['pages'])) {
             throw new \Ip\Exception('Missing required parameters');
         }
 

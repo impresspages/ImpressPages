@@ -23,7 +23,7 @@ class Helper
                 array(
                     'name' => 'page[]',
                     'label' => $page['title'],
-                    'value' => true,
+                    'value' => false,
                     'postValue' => $page['id']
                 ));
             $form->addField($field);
