@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -6,11 +7,19 @@
 
 namespace Ip\Form\Field;
 
-
 use Ip\Form\Field;
 
-class Color extends Field{
 
+class Color extends Field
+{
+
+    /**
+     * Render field
+     *
+     * @param string $doctype
+     * @param $environment
+     * @return string
+     */
     public function render($doctype, $environment) {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $confirmText = __('Confirm', 'Ip-admin');
@@ -20,17 +29,23 @@ class Color extends Field{
             $cancelText = __('Cancel', 'Ip');
         }
 
-        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' '.$this->getAttributesStr($doctype).' class="ipmControlInput ipsColorPicker '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />';
+        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' ' . $this->getAttributesStr($doctype) . ' class="ipmControlInput ipsColorPicker ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
-    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
-    */
+     * Get class type
+     *
+     * CSS class that should be applied to surrounding element of this field.
+     * By default empty. Extending classes should specify their value.
+     * @return string
+     */
     public function getTypeClass() {
         return 'color';
     }
 
     /**
+     * Validate input value
+     *
      * @param array $values all values of the form
      * @param string $valueKey key of value in values array that needs to be validated
      * @param \Ip\Form $environment
