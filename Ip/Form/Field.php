@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -6,18 +7,22 @@
 
 namespace Ip\Form;
 
+
 /**
  * Web page form field
+ *
  * @package Ip\Form
  */
-abstract class Field{
-    //layouts define how field should be treated in the view
+abstract class Field
+{
+    
+    // Layouts define how field should be treated in the view.
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
 
-    //types define how field values should be used in controller. Eg. 'system' fields
-    //should not be sent by email as form post data. They are just helpers to deliver
-    //form to the controller (eg. hidden fields, submit button, captcha).
+    // Types define how field values should be used in controller. Eg. 'system' fields.
+    // Should not be sent by email as form post data. They are just helpers to deliver.
+    // Form to the controller (eg. hidden fields, submit button, captcha).
     const TYPE_REGULAR = 'regular';
     const TYPE_SYSTEM = 'system';
 
@@ -25,13 +30,18 @@ abstract class Field{
     protected $note;
     protected $hint;
     protected $name;
-    protected $dbField; //where in db this value should be stored by the method writeToDatabase
+    protected $dbField; // Where in db this value should be stored by the method writeToDatabase.
     protected $value;
     protected $validators;
     protected $attributes;
-    protected $classes; // CSS classes to be added to input field
+    protected $classes; // CSS classes to be added to input field.
     protected $environment;
 
+    /**
+     * Constructor
+     *
+     * @param array $options
+     */
     public function __construct($options = array()) {
         $this->validators = array();
 
@@ -67,14 +77,14 @@ abstract class Field{
             $this->setAttributes(array());
         }
         if (!isset($this->attributes['id'])) {
-            $this->addAttribute('id', 'field_'.rand(1, PHP_INT_MAX));
+            $this->addAttribute('id', 'field_' . rand(1, PHP_INT_MAX));
         }
-
 
     }
 
     /**
      * Render field's HTML code
+     *
      * @param $doctype \Ip\View doctype constant
      * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return string
@@ -108,16 +118,18 @@ abstract class Field{
     public function getAttributesStr($doctype) {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
-            $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
+            $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
         }
+
         return $answer;
     }
 
     /**
      * Get a value from posted form values array
      *
-     * @param array $values All posted form values
-     * @param string $valueKey This field name
+     * @param array $values All posted form values.
+     * @param string $valueKey This field name.
+     * @return string
      */
     public function getValueAsString($values, $valueKey) {
         if (isset($values[$valueKey])) {
@@ -127,13 +139,18 @@ abstract class Field{
         }
     }
 
-
+    /**
+     * Get validators
+     *
+     * @return array
+     */
     public function getValidators() {
         return $this->validators;
     }
 
     /**
      * Check if the field is required
+     *
      * @return bool
      */
     public function isRequired() {
@@ -143,24 +160,17 @@ abstract class Field{
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     *
      * Check if field passes validation
      *
-     * Validate field
-     * @param array $data all data posted. Usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field)
-     * @param string $valueKey This value key could not exist in values array.
-     * @return string string on error or false on success
-     */
-
-    /**
-     * @param $values
-     * @param $valueKey
+     * @param string $values
+     * @param string $valueKey
      * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
-     * @return bool | string
+     * @return bool|string
      */
     public function validate($values, $valueKey, $environment) {
         $validators = $this->getValidators();
@@ -170,17 +180,17 @@ abstract class Field{
                 return $error;
             }
         }
+
         return false;
     }
 
     /**
-     * Add a validator to a field.
+     * Add a validator to a field
      *
-     * Available validators are located at Ip/Form/Field/Validator folder. \
+     * Available validators are located at Ip/Form/Field/Validator folder.
      * E.g., to add required field validator use $field->addValidator('Required') method.
      * @param $validator
      * @throws \Ip\Exception
-     *
      */
     public function addValidator($validator) {
         if (!is_array($validator)) {
@@ -188,7 +198,7 @@ abstract class Field{
         }
 
         if (empty($validator)) {
-            throw new \Ip\Exception("Empty validator");
+            throw new \Ip\Exception('Empty validator');
         }
 
         if (is_string($validator[0])) {
@@ -204,16 +214,14 @@ abstract class Field{
             } elseif (count($validator) == 1) {
                 $validatorObject = new $validatorClass();
             } else {
-                throw new \Ip\Exception("Incorrect validator");
+                throw new \Ip\Exception('Incorrect validator');
             }
 
         } else {
             $validatorObject = $validator[0];
         }
 
-
         $this->validators[] = $validatorObject;
-
     }
 
     /**
@@ -232,12 +240,12 @@ abstract class Field{
         $this->validators = $newValidatorsArray;
     }
 
-
     /**
-     * Add HTML attribute to input field. Alternative way to setAttributes method.
+     * Add HTML attribute to input field
      *
-     * @param string $name Attribute name
-     * @param string $value Attribute value
+     * Alternative way to setAttributes method.
+     * @param string $name Attribute name.
+     * @param string $value Attribute value.
      *
      */
     public function addAttribute($name, $value) {
@@ -255,9 +263,9 @@ abstract class Field{
 
     /**
      * Get validator HTML attributes
-     * Needed for JavaScript validator.
      *
-     * @param $doctype \Ip\View doctype constant
+     * Needed for JavaScript validator.
+     * @param $doctype \Ip\View doctype constant.
      * @return string
      */
     public function getValidationAttributesStr($doctype) {
@@ -265,20 +273,21 @@ abstract class Field{
         foreach($this->getValidators() as $validator) {
             $tmpArgs = $validator->validatorAttributes();
             if ($tmpArgs != '') {
-                $attributesStr .= ' '.$tmpArgs;
+                $attributesStr .= ' ' . $tmpArgs;
             }
         }
+
         return $attributesStr;
     }
 
     /**
      * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their constant value.
      * This field is not used to identify fields by their type. So each extending class should return its own unique and constant string.
+     * @return string
      */
     public function getTypeClass() {
         return '';
     }
-
 
     /* GETTERS AND SETTERS  */
 
@@ -322,7 +331,7 @@ abstract class Field{
     /**
      * Get field note text
      *
-     * @return string Text note
+     * @return string Text note.
      */
     public function getNote() {
         return $this->note;
@@ -331,7 +340,7 @@ abstract class Field{
     /**
      * Set field note text
      *
-     * @param string $note Note text
+     * @param string $note Note text.
      */
     public function setNote($note) {
         $this->note = $note;
@@ -340,25 +349,26 @@ abstract class Field{
     /**
      * Get field name attribute
      *
-     * @return string Field name
+     * @return string Field name.
      */
     public function getName() {
         return $this->name;
     }
 
     /**
-     * If your input has many input fields. Eg. field[id], field[code], ... Return the name of input that should hold error message
+     * If your input has many input fields
      *
+     * Eg. field[id], field[code], ... Return the name of input that should hold error message.
      * @return string
      */
-    public function getValidationInputName(){
+    public function getValidationInputName() {
         return $this->name;
     }
 
     /**
      * Set field name attribute
      *
-     * @param string $name Field name
+     * @param string $name Field name.
      */
     public function setName($name) {
         $this->name = $name;
@@ -367,7 +377,7 @@ abstract class Field{
      /**
      * Get field value
      *
-     * @return mixed Field value
+     * @return mixed Field value.
      */
     public function getValue() {
         return $this->value;
@@ -376,7 +386,7 @@ abstract class Field{
     /**
      * Set field value
      *
-     * @param string $value Field value
+     * @param string $value Field value.
      */
     public function setValue($value) {
         $this->value = $value;
@@ -385,7 +395,7 @@ abstract class Field{
     /**
      * Get all HTML attributes of the field
      *
-     * @return array Field HTML attributes
+     * @return array Field HTML attributes.
      */
     public function getAttributes() {
         return $this->attributes;
@@ -409,7 +419,7 @@ abstract class Field{
      * Set extra HTML attributes from associative array
      *
      * Does not affect default class, name, required, type and value attributes.
-     * @param $attributes Associative array with keys as attribute names and values as attribute values.
+     * @param array $attributes Associative array with keys as attribute names and values as attribute values.
      */
     public function setAttributes($attributes) {
         $this->attributes = $attributes;
@@ -423,7 +433,6 @@ abstract class Field{
     public function getId() {
         return $this->getAttribute('id');
     }
-
 
     /**
     * Add CSS class to form field
@@ -460,17 +469,21 @@ abstract class Field{
     public function getClassesStr() {
         $answer = '';
         foreach ($this->getClasses() as $class) {
-            $answer .= ' '.$class;
+            $answer .= ' ' . $class;
         }
-        return 'class="'.$answer.'"';
+
+        return 'class="' . $answer . '"';
     }
 
-    public function setCssClasses($classes)
-    {
+    /**
+     * Set css class
+     */
+    public function setCssClasses($classes) {
         if (!is_array($classes)) {
             $classes = explode(' ', $classes);
         }
 
         $this->classes = array_flip($classes);
     }
+
 }
