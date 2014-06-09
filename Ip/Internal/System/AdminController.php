@@ -1,14 +1,15 @@
 <?php
+
 /**
  * @package ImpressPages
  *
  */
+
 namespace Ip\Internal\System;
 
 
 class AdminController extends \Ip\Controller
 {
-
 
     public function index()
     {
@@ -24,30 +25,11 @@ class AdminController extends \Ip\Controller
 
         unset($_SESSION['Ip']['notes']);
 
-
-        $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); //disable update in MultiSite installation
+        $enableUpdate = !defined('MULTISITE_WEBSITES_DIR'); // Disable update in MultiSite installation.
 
         $trash = array(
-            'size' => \Ip\Internal\Pages\Service::trashSize(),
+            'size' => \Ip\Internal\Pages\Service::trashSize()
         );
-
-        if ($trash['size']) {
-
-            $form = new \Ip\Form();
-
-            $field = new \Ip\Form\Field\Hidden();
-            $field->setName('aa');
-            $field->setValue('System.emptyTrash');
-            $form->addField($field);
-
-            $submit = new \Ip\Form\Field\Submit(array(
-                'value' => __('Empty trash', 'Ip-admin')
-            ));
-
-            $form->addField($submit);
-
-            $trash['form'] = $form;
-        }
 
         $data = array(
             'notes' => $notes,
@@ -57,6 +39,8 @@ class AdminController extends \Ip\Controller
             'newUrl' => $model->getNewUrl(),
             'migrationsAvailable' => \Ip\Internal\Update\Service::migrationsAvailable(),
             'migrationsUrl' => ipActionUrl(array('pa' => 'Update')),
+            'recoveryPageForm' => \Ip\Internal\System\Helper::recoveryPageForm(),
+            'emptyPageForm' => \Ip\Internal\System\Helper::emptyPageForm(),
             'trash' => $trash,
         );
 
@@ -64,6 +48,10 @@ class AdminController extends \Ip\Controller
 
         if ($enableUpdate) {
             ipAddJs('Ip/Internal/System/assets/update.js');
+        }
+        if ($trash['size'] > 0) {
+            ipAddJs('Ip/Internal/Core/assets/js/angular.js');
+            ipAddJs('Ip/Internal/System/assets/trash.js');
         }
         ipAddJs('Ip/Internal/System/assets/migrations.js');
 
@@ -78,7 +66,6 @@ class AdminController extends \Ip\Controller
             return new \Ip\Response\Json(array(
                 'error' => $e->getMessage()
             ));
-
         }
 
         $_SESSION['Ip']['notes'][] = __('ImpressPages has been successfully updated.', 'Ip-admin');
@@ -86,7 +73,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json(array(
             'status' => 'success'
         ));
-
     }
 
     public function updateLinks()
@@ -106,12 +92,11 @@ class AdminController extends \Ip\Controller
             ipStorage()->set('Ip', 'cachedBaseUrl', $newUrl);
             $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
         } else {
-            //in theory should never happen
+            // In theory should never happen.
         }
 
         return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')));
         ipRequest()->mustBePost();
-
     }
 
     protected function indexUrl()
@@ -121,17 +106,15 @@ class AdminController extends \Ip\Controller
 
     public function getIpNotifications()
     {
-
         $systemInfo = Model::getIpNotifications();
 
-
-        if (isset($_REQUEST['afterLogin'])) { // request after login.
+        if (isset($_REQUEST['afterLogin'])) { // Request after login.
             if ($systemInfo == '') {
-                $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+                $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
                 return;
             } else {
                 $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
-                if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { //we have a new message
+                if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { // We have a new message.
                     $newMessage = false;
 
                     foreach (json_decode($systemInfo) as $infoValue) {
@@ -140,26 +123,60 @@ class AdminController extends \Ip\Controller
                         }
                     }
 
-                    $_SESSION['ipSystem']['show_system_message'] = $newMessage; //display system alert
-                } else { //this message was already seen.
-                    $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+                    $_SESSION['ipSystem']['show_system_message'] = $newMessage; // Display system alert.
+                } else { // This message was already seen.
+                    $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
                     return;
                 }
-
             }
-        } else { //administrator/system tab.
+        } else { // administrator/system tab.
             \Ip\ServiceLocator::storage()->set('Ip', 'lastSystemMessageShown', md5(serialize($systemInfo)));
-            $_SESSION['ipSystem']['show_system_message'] = false; //don't display system alert at the top.
+            $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
         }
 
         return new \Ip\Response\Json($systemInfo);
     }
 
+    public function recoveryTrash()
+    {
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
+
+        if (!isset($data['pages'])) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+        $data['pages'] = explode('|', $data['pages']);
+        unset($data['pages'][0]);
+
+        \Ip\Internal\Pages\Service::recoveryTrash($data['pages']);
+
+        $answer = array(
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
+    }
+
     public function emptyTrash()
     {
-        \Ip\Internal\Pages\Service::emptyTrash();
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
 
-        return new \Ip\Response\Json(array('redirectUrl' => ipActionUrl(array('aa' => 'System'))));
+        if (!isset($data['pages'])) {
+            throw new \Ip\Exception('Missing required parameters');
+        }
+
+        $data['pages'] = explode('|', $data['pages']);
+        unset($data['pages'][0]);
+
+        \Ip\Internal\Pages\Service::emptyTrash($data['pages']);
+
+        $answer = array(
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
     }
 
     public function sendUsageStatisticsAjax()
