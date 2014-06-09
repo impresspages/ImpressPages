@@ -17,6 +17,7 @@
 @text-inverse:                   #ffffff;
 @text-disabled:                  #aaaaaa;
 @text-shadow:                    0 1px 1px hsla(hue(@text-inverse), saturation(@text-inverse), lightness(@text-inverse), 0.75);
+@text-error:                     #a94442;
 
 // Button
 @btn-text:                       #e2e2e2;
@@ -85,8 +86,8 @@
 // Window
 @window-border:                  #dadbe4;
 @window-head-border:             @window-border;
-@window-head-close:              mix(@text, @window-bg, 60%);
-@window-head-close-hover:        mix(@text, @window-bg, 40%);
+@window-head-close:              mix(@panel-bg, @window-bg, 60%);
+@window-head-close-hover:        mix(@panel-bg, @window-bg, 40%);
 @window-foot-border:             @window-border;
 @window-foot-bg:                 @window-bg;
 @window-fullscreen-bg:           #FFF;
@@ -139,3 +140,17 @@
 // Misc
 @colorbtn-backcolor-bg:          #586570;
 @iframe-border:                  @panel-border;
+
+// ImpressPages theme fixes
+.@{prefix}-window {
+    *,
+    .@{prefix}-textbox {
+        color: @panel-bg;
+    }
+    .@{prefix}-charmap td:hover div {
+        color: @text;
+    }
+}
+.@{prefix}-menu * {
+    color: @panel-bg;
+}
