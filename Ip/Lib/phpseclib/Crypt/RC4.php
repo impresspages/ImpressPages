@@ -267,7 +267,7 @@ class Crypt_RC4 {
                 }
 
                 if (!class_exists('Crypt_Hash')) {
-                    require_once(IP_DESIGN_PHPSECLIB_DIR . 'Crypt/Hash.php');
+                    require_once(IP_PHPSECLIB_DIR . 'Crypt/Hash.php');
                 }
 
                 $i = 1;

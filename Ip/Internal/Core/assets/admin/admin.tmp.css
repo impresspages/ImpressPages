@@ -9532,6 +9532,25 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 .ipModulePlugins ._properties ._details {
   list-style: none;
 }
+.ipModulePluginsMarket ._popup {
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  z-index: 1029;
+}
+.ipModulePluginsMarket ._popup ._back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.ipModulePluginsMarket ._popup ._container,
+.ipModulePluginsMarket ._popup iframe {
+  height: 100%;
+  width: 100%;
+}
 .ipModuleRepositoryPopup {
   background-color: #fff;
   height: 100%;

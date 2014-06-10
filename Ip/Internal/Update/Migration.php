@@ -11,6 +11,25 @@ class Migration {
 
 
     //CHANGE_ON_VERSION_UPDATE
+
+    public static function update_47()
+    {
+        $table = ipTable('plugin');
+        ipDb()->execute("ALTER TABLE  $table CHANGE  `name`  `name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL");
+    }
+
+
+
+
+    public static function update_46()
+    {
+        $table = ipTable('page');
+
+        ipDb()->execute("ALTER TABLE $table CHANGE  `createdAt`  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+    }
+
+
+
     public static function update_45()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

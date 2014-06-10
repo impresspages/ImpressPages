@@ -66,7 +66,7 @@
  * Include Crypt_Rijndael
  */
 if (!class_exists('Crypt_Rijndael')) {
-    require_once IP_DESIGN_PHPSECLIB_DIR.'Rijndael.php';
+    require_once IP_PHPSECLIB_DIR.'Rijndael.php';
 }
 
 /**#@+

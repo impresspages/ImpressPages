@@ -5,6 +5,7 @@
                 <button class="btn btn-controls ipsEdit" role="button"><i class="fa fa-edit"></i></button>
                 <button class="btn btn-controls ipsLink" role="button"><i class="fa fa-link"></i></button>
                 <button class="btn btn-controls ipsSettings" role="button"><i class="fa fa-gears"></i></button>
+                <button class="btn btn-controls ipsActualSize" role="button"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
     </div>

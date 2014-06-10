@@ -135,7 +135,7 @@ class Net_SFTP_Stream {
     function Net_SFTP_Stream()
     {
         if (!class_exists('Net_SFTP')) {
-            require_once(IP_DESIGN_PHPSECLIB_DIR . 'Net/SFTP.php');
+            require_once(IP_PHPSECLIB_DIR . 'Net/SFTP.php');
         }
     }
 
