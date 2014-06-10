@@ -12,6 +12,13 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_48()
+    {
+        $table = ipTable('plugin');
+        ipDb()->execute("ALTER TABLE  $table CHANGE  `name`  `name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL");
+    }
+
+
     public static function update_47()
     {
         $table = ipTable('plugin');
