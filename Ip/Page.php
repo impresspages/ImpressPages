@@ -44,6 +44,8 @@ class Page
     protected $alias;
     /** string - page layout */
     protected $layout;
+    /** string - redirectUrl */
+    protected $redirectUrl;
 
 
     /** bool */

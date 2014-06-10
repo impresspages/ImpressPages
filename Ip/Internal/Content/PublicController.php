@@ -13,11 +13,6 @@ class PublicController extends \Ip\Controller
         //find current page
         $page = ipContent()->getCurrentPage();
 
-        // redirect if needed
-        if ($page->getRedirectUrl() && !ipIsManagementState()) {
-            return new \Ip\Response\Redirect($page->getLink());
-        }
-
 
 
         // initialize management
