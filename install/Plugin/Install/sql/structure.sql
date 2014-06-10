@@ -210,7 +210,7 @@ DROP TABLE IF EXISTS `ip_plugin`;
 
 CREATE TABLE `ip_plugin` (
   `title` varchar(100) NOT NULL,
-  `name` varchar(30) NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `version` decimal(10,2) NOT NULL,
   `isActive` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`name`)

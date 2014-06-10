@@ -252,7 +252,7 @@ class File_ASN1 {
         if (!$static_init) {
             $static_init = true;
             if (!class_exists('Math_BigInteger')) {
-                require_once(IP_DESIGN_PHPSECLIB_DIR . 'Math/BigInteger.php');
+                require_once(IP_PHPSECLIB_DIR . 'Math/BigInteger.php');
             }
         }
     }

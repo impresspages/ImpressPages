@@ -11,19 +11,13 @@ var IpWidget_Image = function () {
     this.data = null;
 
     this.init = function ($widgetObject, data) {
+        var context = this;
         this.$widgetObject = $widgetObject;
         this.data = data;
 
 
         this.$widgetObject.find('.ipsImage').on('click', function () {
-            var $this = $(this);
-            $this.resizable({
-                aspectRatio: true,
-                maxWidth: controllerScope.$widgetObject.width(),
-                resize: function (event, ui) {
-                    controllerScope.resize(Math.round(ui.size.width), Math.round(ui.size.height));
-                }
-            });
+            $.proxy(makeResizable, context)();
         });
 
         this.$controls = $('#ipWidgetImageMenu');
@@ -72,6 +66,9 @@ var IpWidget_Image = function () {
         });
         $controls.find('.ipsSettings').off().on('click', function (e) {
             $.proxy(settingsPopup, context)();
+        });
+        $controls.find('.ipsActualSize').off().on('click', function (e) {
+            $.proxy(actualSize, context)();
         });
     };
 
@@ -179,7 +176,7 @@ var IpWidget_Image = function () {
             height: height
         };
 
-        if (this.$widgetObject.width() - width <= 2) {
+        if (this.$widgetObject.width() - width <= 2 && width < this.data.originalWidth) {
             data = {
                 method: 'autosize'
             }
@@ -277,5 +274,30 @@ var IpWidget_Image = function () {
         this.$widgetObject.save(data, 1); // save and reload widget
         this.settingsPopup.modal('hide');
     };
+
+    var actualSize = function(){
+        var $image = this.$widgetObject.find('.ipsImage');
+        $image.resizable('destroy');
+
+        $image.width(this.data.originalWidth);
+        $image.height('auto');
+
+        $.proxy(makeResizable, this)();
+        this.resize(this.data.originalWidth, $image.height());
+
+    }
+
+    var makeResizable = function()
+    {
+        this.$widgetObject.find('.ipsImage').resizable({
+            aspectRatio: true,
+            maxWidth: controllerScope.$widgetObject.width(),
+            resize: function (event, ui) {
+                controllerScope.resize(Math.round(ui.size.width), Math.round(ui.size.height));
+            }
+        });
+
+    }
+
 
 };
