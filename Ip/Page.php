@@ -239,32 +239,9 @@ class Page
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @ignore
-     * @param $modifyFrequency int represents average amount of days between changes
-     */
-    public function setModifyFrequency($modifyFrequency)
-    {
-        $this->modifyFrequency = $modifyFrequency;
-    }
 
-    /**
-     * @ignore
-     * @return float
-     */
-    public function getPriority()
-    {
-        return $this->priority;
-    }
 
-    /**
-     * @ignore
-     * @param $priority float
-     */
-    public function setPriority($priority)
-    {
-        $this->priority = $priority;
-    }
+
 
     /**
      * Get parent page ID
@@ -341,16 +318,6 @@ class Page
             $this->inBreadcrumb = in_array($this->getId(), $ids);
         }
         return $this->inBreadcrumb;
-    }
-
-    /**
-     * Get the page type (e.g., default, redirect or other types)
-     *
-     * @return string Page type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
 
