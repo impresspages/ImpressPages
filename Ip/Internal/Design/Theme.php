@@ -43,11 +43,6 @@ class Theme
         return $this->name;
     }
 
-    public function getPath()
-    {
-        return $this->path;
-    }
-
     public function getTitle()
     {
         return $this->title;
