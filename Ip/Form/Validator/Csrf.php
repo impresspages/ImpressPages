@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -10,13 +11,19 @@ use Ip\Form\Validator;
 
 
 /**
- *
- * 'Check' antispam field validator
- *
+ * Check antispam field validator
  */
+class Csrf extends Validator
+{
 
-class Csrf extends Validator {
-
+    /**
+     * Get error
+     *
+     * @param array $values
+     * @param int $valueKey
+     * @param $environment
+     * @return string|bool
+     */
     public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
             return 'error';
@@ -30,11 +37,11 @@ class Csrf extends Validator {
             } else {
                 $errorText = __('Session has expired. Please refresh the page.', 'Ip');
             }
-            $errorText;
+
+            return $errorText;
         } else {
             return false;
         }
-
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -9,16 +10,29 @@ namespace Ip\Form\Validator;
 
 class Unique extends \Ip\Form\Validator
 {
-    public function __construct($data, $errorMessage = null)
-    {
+
+    /**
+     * Constructor
+     *
+     * @param array $data
+     * @param string $errorMessage
+     */
+    public function __construct($data, $errorMessage = null) {
         if (empty($data['table'])) {
-            throw \Ip\Exception("Unique validator expect table name");
+            throw \Ip\Exception('Unique validator expect table name');
         }
         parent::__construct($data, $errorMessage);
     }
 
-    public function getError($values, $valueKey, $environment)
-    {
+    /**
+     * Get error
+     *
+     * @param array $values
+     * @param int $valueKey
+     * @param $environment
+     * @return string|bool
+     */
+    public function getError($values, $valueKey, $environment) {
         if (!array_key_exists($valueKey, $values)) {
             return false;
         }

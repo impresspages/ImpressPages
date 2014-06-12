@@ -87,10 +87,10 @@ class UploadModel{
         //security check
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
-        $forbiddenExtensions = array('htaccess', 'htpasswd', 'php', 'php2','php3','php4','php5','php6','cfm','cfc','bat','exe','com','dll','vbs','js','reg','asis','phtm','phtml','pwml','inc','pl','py','jsp','asp','aspx','ascx','shtml','sh','cgi', 'cgi4', 'pcgi', 'pcgi5');
-        $forbiddenExtensions = ipFilter('ipForbiddenExtensions', $forbiddenExtensions);
+        $whiteListExtensions = array('jpg','jpeg','jpe','gif','png','bmp','tif','tiff','ico','asf','asx','wmv','wmx','wm','avi','divx','flv','mov','qt','mpeg','mpg','mpe','mp4','m4v','ogv','webm','mkv','txt','asc','c','cc','h','csv','tsv','ics','rtx','css','htm','html','vtt','mp3','m4a','m4b','ra','ram','wav','ogg','oga','mid','midi','wma','wax','mka','rtf','js','pdf','class','tar','zip','gz','gzip','rar','7z','doc','pot','pps','ppt','wri','xla','xls','xlt','xlw','mdb','mpp','docx','docm','dotx','dotm','xlsx','xlsm','xlsb','xltx','xltm','xlam','pptx','pptm','ppsx','ppsm','potx','potm','ppam','sldx','sldm','onetoc','onetoc2','onetmp','onepkg','odt','odp','ods','odg','odc','odb','odf','wp','wpd','key','numbers','pages', 'xml', 'json', 'iso', 'aac', 'img', 'psd', 'ai', 'sql', 'swf');
+        $whiteListExtensions = ipFilter('ipWhiteListExtensions', $whiteListExtensions);
 
-        if (in_array($fileExtension, $forbiddenExtensions)) {
+        if (!empty($fileExtension) && !in_array($fileExtension, $whiteListExtensions)) {
             //security risk
             throw new \Ip\Exception\Repository\Upload\ForbiddenFileExtension("Files with extension (.". esc($fileExtension).") are not permitted for security reasons.", array('extension' => $fileExtension, 'filename' => $fileName));
         }

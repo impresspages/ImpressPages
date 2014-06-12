@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -9,12 +10,17 @@ namespace Ip\Form;
 
 class Fieldset
 {
+
     protected $fields;
     protected $label;
     protected $attributes;
 
-    public function __construct($label = null)
-    {
+    /**
+     * Constructor
+     *
+     * @param string $label
+     */
+    public function __construct($label = null) {
         if ($label) {
             $this->setLabel($label);
         }
@@ -23,22 +29,22 @@ class Fieldset
     }
 
     /**
+     * Add field to last fielset
      *
-     * Add field to last fielset. Create fieldset if does not exist.
+     * Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(\Ip\Form\Field $field)
-    {
+    public function addField(\Ip\Form\Field $field) {
         $this->fields[] = $field;
     }
 
     /**
      * Remove field from fieldset
+     *
      * @param string $fieldName
-     * @return int removed fields count
+     * @return int Removed fields count.
      */
-    public function removeField($fieldName)
-    {
+    public function removeField($fieldName) {
         $count = 0;
         foreach ($this->fields as $key => $field) {
             if ($field->getName() == $fieldName) {
@@ -46,36 +52,49 @@ class Fieldset
                 $count++;
             }
         }
+
         return $count;
     }
 
     /**
-     *
      * Return all fields
      */
-    public function getFields()
-    {
+    public function getFields() {
         return $this->fields;
     }
 
-    public function getField($name)
-    {
+    /**
+     * Get field name
+     *
+     * @param string $name
+     * @return object|bool
+     */
+    public function getField($name) {
         $allFields = $this->getFields();
         foreach ($allFields as $key => $field) {
             if ($field->getName() == $name) {
                 return $field;
             }
         }
+
         return false;
     }
 
-    public function getLabel()
-    {
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel() {
         return $this->label;
     }
 
-    public function setLabel($label)
-    {
+    /**
+     * Set label
+     *
+     * @param string $label
+     */
+    public function setLabel($label) {
         $this->label = $label;
     }
 
@@ -88,25 +107,27 @@ class Fieldset
     public function getAttributesStr($doctype) {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
-            $answer .= ' '.htmlspecialchars($attributeKey).'="'.htmlspecialchars($attributeValue).'"';
+            $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
         }
+
         return $answer;
     }
 
     /**
      * Get all HTML attributes of the field
      *
-     * @return array Field HTML attributes
+     * @return array Field HTML attributes.
      */
     public function getAttributes() {
         return $this->attributes;
     }
 
     /**
-     * Add HTML attribute to input field. Alternative way to setAttributes method.
+     * Add HTML attribute to input field.
      *
-     * @param string $name Attribute name
-     * @param string $value Attribute value
+     * Alternative way to setAttributes method.
+     * @param string $name Attribute name.
+     * @param string $value Attribute value.
      *
      */
     public function addAttribute($name, $value) {
@@ -116,11 +137,10 @@ class Fieldset
     /**
      * Remove HTML attribute
      *
-     * @param $name
+     * @param string $name
      */
     public function removeAttribute($name) {
         unset($this->attributes[$name]);
     }
-
 
 }

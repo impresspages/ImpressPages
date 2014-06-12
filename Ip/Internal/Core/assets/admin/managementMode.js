@@ -36,7 +36,12 @@ var ipManagementMode = new function () {
             data: {aa: 'Content.setManagementMode', value: mode, securityToken: ip.securityToken},
             success: function (response) {
                 if (response) {
-                    window.location = window.location.href.split('#')[0].split('?')[0] + '?_revision=' + ip.revisionId;
+                    if (getParameterByName('_revision')) {
+                        window.location = window.location.href.split('#')[0].split('?')[0] + '?_revision=' + ip.revisionId;
+                    } else {
+                        window.location = window.location.href.split('#')[0].split('?')[0]
+                    }
+
                 } else {
                     //login has expired
                     window.location = ip.baseUrl + 'admin';
@@ -47,5 +52,12 @@ var ipManagementMode = new function () {
             }
         });
     };
+
+    var getParameterByName = function(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
 };
 
