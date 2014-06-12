@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -7,12 +8,20 @@
 namespace Ip\Form\Validator;
 
 
-class Regex extends \Ip\Form\Validator {
+class Regex extends \Ip\Form\Validator
+{
 
-
+    /**
+     * Get error
+     *
+     * @param array $values
+     * @param int $valueKey
+     * @param $environment
+     * @return string|bool
+     */
     public function getError($values, $valueKey, $environment) {
         if (empty($values[$valueKey])) {
-            return FALSE;
+            return false;
         }
 
         if (!preg_match($this->data, $values[$valueKey])) {
@@ -27,7 +36,7 @@ class Regex extends \Ip\Form\Validator {
             return $errorText;
         }
 
-        return FALSE;
+        return false;
     }
 
 }

@@ -87,9 +87,8 @@ var ipAdministratorsController = null;
 
         $scope.setPermission = function(permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
-                if (!confirm(ipAdministratorsSuperAdminWarning)) {
-                    return;
-                }
+                alert(ipAdministratorsSuperAdminWarning);
+                return;
             }
 
             var data = {

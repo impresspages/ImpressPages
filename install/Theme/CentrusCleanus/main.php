@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-<iframe style="width:0;height:0;border:none;" border="0" src="http://www.impresspages.org/installationscript2/?step=<?php echo !empty($_GET['step']) && $_GET['step'] >=0 ? (int)$_GET['step'] : '0'; ?>"></iframe>
+<iframe style="width:0;height:0;border:none;" border="0" src="http://www.impresspages.org/installationscript2/?step=<?php echo !empty($_GET['step']) && $_GET['step'] >=\Plugin\Install\Helper::$firstStep ? (int)$_GET['step'] : \Plugin\Install\Helper::$firstStep; ?>"></iframe>
 
 <?php if (!empty($requiredJs)) { ?>
     <?php foreach($requiredJs as $jsFile) { ?>
