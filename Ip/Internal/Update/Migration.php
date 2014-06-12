@@ -12,6 +12,12 @@ class Migration {
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_49()
+    {
+        ipDb()->update('storage', array('value' => '"4.1.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
     public static function update_48()
     {
         $table = ipTable('plugin');
