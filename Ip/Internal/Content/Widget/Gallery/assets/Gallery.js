@@ -315,7 +315,7 @@ var IpWidget_Gallery = function () {
     var settingsPopup = function (index) {
         var data = this.data.images[index];
         var context = this;
-        this.settingsPopup = $('#ipWidgetImageSettingsPopup');
+        this.settingsPopup = $('#ipWidgetGallerySettingsPopup');
         this.confirmButton = this.settingsPopup.find('.ipsConfirm');
         this.title = this.settingsPopup.find('input[name=title]');
         this.description = this.settingsPopup.find('textarea[name=description]');
