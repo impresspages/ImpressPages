@@ -41,31 +41,37 @@ class Block
             }
             return (string)$content;
         } else {
-            $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
-            if ($predefinedContent !== null) {
-                return $predefinedContent;
-            }
-
-            if (ipContent()->getCurrentPage() == null && $revisionId == 0 && !$this->isStatic) {
-                return '';
-            }
-
-            if ($this->isStatic) {
-                $languageId = ipContent()->getCurrentLanguage()->getId();
-                $revisionId = 0;
-            } else {
-                if ($revisionId === 0) {
-                    $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
-                    if ($revision) {
-                        $revisionId = $revision['revisionId'];
-                    }
-                }
-
-                $languageId = 0;
-            }
-
-            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, $languageId, ipIsManagementState(), $this->exampleContent);
+            $content = $this->generateBlockHtml($revisionId);
         }
+        return ipFilter('ipBlockContent', $content, $data);
+    }
+
+    private function generateBlockHtml($revisionId)
+    {
+        $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
+        if ($predefinedContent !== null) {
+            return $predefinedContent;
+        }
+
+        if (ipContent()->getCurrentPage() == null && $revisionId == 0 && !$this->isStatic) {
+            return '';
+        }
+
+        if ($this->isStatic) {
+            $languageId = ipContent()->getCurrentLanguage()->getId();
+            $revisionId = 0;
+        } else {
+            if ($revisionId === 0) {
+                $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+                if ($revision) {
+                    $revisionId = $revision['revisionId'];
+                }
+            }
+
+            $languageId = 0;
+        }
+
+        return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, $languageId, ipIsManagementState(), $this->exampleContent);
     }
 
     /**
