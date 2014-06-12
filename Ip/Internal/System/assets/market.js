@@ -174,7 +174,6 @@ var Market;
                     checkComplete();
                 },
                 'error': function () {
-                    console.log('error response');
                     alert('Unknown error. Please see logs.');
                 }
             });
