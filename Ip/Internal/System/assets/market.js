@@ -17,7 +17,6 @@ var Market;
         var pluginsData; // downloaded themes data
 
         this.processOrder = function (order) {
-            console.log('processOrder:', order);
             $('body').trigger('ipMarketOrderStart');
 
 
