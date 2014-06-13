@@ -10,23 +10,7 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        //find current page
-        $page = ipContent()->getCurrentPage();
 
-
-
-        // initialize management
-        if (ipIsManagementState()) {
-            if (!ipRequest()->getQuery('ipDesignPreview')) {
-                Helper::initManagement();
-            }
-        }
-
-        //show page content
-        $response = ipResponse();
-        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
-        $response->setKeywords(ipContent()->getKeywords());
-        $response->setTitle(ipContent()->getTitle());
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
         if ($revision) {

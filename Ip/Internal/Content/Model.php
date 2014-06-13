@@ -140,7 +140,7 @@ class Model
     }
 
     /**
-     * @return array 
+     * @return array
      */
     private static function _getPriorities()
     {
