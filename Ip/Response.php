@@ -73,11 +73,12 @@ class Response
         return $this->statusCode;
     }
 
+
     /**
      * Set HTTP status message
      *
-     * @param string $reasonPhrase Status message text
-     * @return Response
+     * @param $message Status message text
+     * @return $this
      */
     public function setStatusMessage($message)
     {

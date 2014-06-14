@@ -24,8 +24,8 @@ class Block
 
     /**
      * Render page block content
-     * @param null $revisionId
-     * @return null|string
+     * @param int $revisionId
+     * @return string
      */
     public function render($revisionId = 0)
     {

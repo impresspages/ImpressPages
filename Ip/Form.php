@@ -432,8 +432,10 @@ class Form
         $this->validate = $validate;
     }
 
+
     /**
      * Get validate property
+     * @param $validate
      * @return bool
      */
     public function getValidate($validate)

@@ -414,10 +414,15 @@ class Content
     }
 
 
+
     /**
      * Get children
-     * @param string|int $parent
-     * @return \Ip\Page[]
+     * @param null $parentId
+     * @param null $from
+     * @param null $till
+     * @param string $orderBy
+     * @param string $direction
+     * @return Page[]
      */
     public function getChildren($parentId = null, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {

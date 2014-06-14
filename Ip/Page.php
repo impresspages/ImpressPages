@@ -285,9 +285,10 @@ class Page
         return $this->urlPath;
     }
 
+
     /**
      * @ignore
-     * @param $url string
+     * @param $urlPath
      */
     public function setUrlPath($urlPath)
     {
@@ -504,11 +505,11 @@ class Page
         return $this->alias;
     }
 
+
     /**
      * Set the page alias
      * @ignore
-     *
-     * @param $type string Page alias
+     * @param $alias
      */
     public function setAlias($alias)
     {

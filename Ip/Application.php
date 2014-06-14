@@ -306,11 +306,13 @@ class Application
 
     /**
      * Handle HMVC request
-     * @param Request $request Request object with MVC query
-     * @return Response
+     * @param Request $request
+     * @param array $options
+     * @param bool $subrequest
+     * @return Response\Json|Response\Layout|Response\PageNotFound|Response\Redirect|string
      * @throws Exception
      */
-    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    public function handleRequest(Request $request, $options = array(), $subrequest = true)
     {
 
         \Ip\ServiceLocator::addRequest($request);
