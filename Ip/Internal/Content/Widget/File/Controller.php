@@ -134,7 +134,7 @@ class Controller extends \Ip\WidgetController{
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
-            return;
+            return null;
         }
 
         foreach($data['files'] as $fileKey => $file) {

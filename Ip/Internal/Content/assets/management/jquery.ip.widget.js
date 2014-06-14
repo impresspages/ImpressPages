@@ -177,7 +177,7 @@
         });
 
 
-    }
+    };
 
 
     var openLayoutModal = function(e) {
@@ -194,7 +194,7 @@
             currentLayout: currentSkin,
             widgetObject: $this
         })
-    }
+    };
 
     $.fn.ipWidget = function (method) {
         if (methods[method]) {

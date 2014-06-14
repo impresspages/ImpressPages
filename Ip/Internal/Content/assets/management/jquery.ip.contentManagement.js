@@ -76,7 +76,7 @@
                         $('.ipBlock .ipWidget')
                             .off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag)
                             .off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
-                    })
+                    });
 
                     $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
                     $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
@@ -169,7 +169,7 @@
             event.preventDefault();
             scrollableAPI.move(-scrollBy);
         });
-    }
+    };
 
     /**
      *
@@ -215,7 +215,7 @@
                 $this.removeClass('ipaClear'); // makes button look default
             }
         });
-    }
+    };
 
     /**
      *
@@ -231,7 +231,7 @@
         var $panel = $('.ipsAdminPanel'); // Administration Panel that stays always visible
         $container.height($panel.outerHeight()); // setting the height to container
         $panel.css('top', $('.ipsAdminNavbarContainer').outerHeight()); // move down to leave space for top navbar
-    }
+    };
 
     var ipStartWidgetDrag = function (event, ui) {
         var draggingElement = ui.item;
@@ -563,7 +563,7 @@
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
             }
         });
-    }
+    };
 
     var ipStopWidgetDrag = function (event, ui) {
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
@@ -618,7 +618,7 @@
         }
 
         $('.ipsWidgetDropPlaceholder').remove();
-    }
+    };
 
     $.fn.ipContentManagement = function(method) {
         if (methods[method]) {

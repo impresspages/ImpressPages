@@ -178,7 +178,7 @@
                 $this.data('ipUploadImage', null);
                 $this.data('originalWidth', null);
                 $this.data('originalHeight', null);
-                $this.data('firstImageLoaded', null)
+                $this.data('firstImageLoaded', null);
                 $this.html('');
                 $this.off();
             });
@@ -757,7 +757,7 @@
         }
         $.proxy(configureManagement, $this)(centerPercentageX, centerPercentageY);
 
-    }
+    };
 
 
     $.fn.ipUploadImage = function(method) {

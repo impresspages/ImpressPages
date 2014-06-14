@@ -79,7 +79,7 @@ var IpWidget_Gallery = function () {
             , $.proxy(currentScope.blur, currentScope));
 
 
-    }
+    };
 
     this.onAdd = function (e) {
         this.$widgetObject.click();
@@ -90,7 +90,7 @@ var IpWidget_Gallery = function () {
             ipContent.deleteWidget(thisContext.$widgetObject.data('widgetid'));
         });
 
-    }
+    };
 
     this.focusImage = function (e) {
         var context = this;
@@ -141,7 +141,7 @@ var IpWidget_Gallery = function () {
             repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
         });
 
-    }
+    };
 
     this.blur = function () {
         var $widgetControls = this.$widgetControls;
@@ -208,7 +208,7 @@ var IpWidget_Gallery = function () {
             $.proxy(thisContext.updateImage, thisContext)(position, crop.x1, crop.y1, crop.x2, crop.y2, curImage);
             $modal.modal('hide');
         });
-    }
+    };
 
     this.updateImage = function (imageIndex, x1, y1, x2, y2, image, callback) {
         var data = {
@@ -228,7 +228,7 @@ var IpWidget_Gallery = function () {
                 callback($widget);
             }
         });
-    }
+    };
 
     this.filesSelected = function (event, files) {
         var data = {
@@ -247,7 +247,7 @@ var IpWidget_Gallery = function () {
         this.$widgetObject.save(data, 1, function ($widget) {
             $widget.click();
         });
-    }
+    };
 
     var linkPopup = function (index) {
         var context = this;
@@ -309,7 +309,7 @@ var IpWidget_Gallery = function () {
             this.popup.find('.form-group.name-url').hide();
             this.popup.find('.form-group.name-blank').hide();
         }
-    }
+    };
 
 
     var settingsPopup = function (index) {

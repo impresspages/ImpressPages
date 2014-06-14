@@ -41,7 +41,7 @@
 
             });
         }
-    }
+    };
 
     $.fn.ipSkinModal = function(method) {
         if (methods[method]) {
