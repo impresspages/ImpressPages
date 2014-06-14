@@ -37,7 +37,7 @@ ipTinyMceConfig = function() {
         },
 
         paste_preprocess: function(pl, o) {
-            ipTinyMceConfigPastePreprocess(pl, o, new Array('quote', 'note', 'button'));
+            ipTinyMceConfigPastePreprocess(pl, o, ['quote', 'note', 'button']);
         }
     }
 };

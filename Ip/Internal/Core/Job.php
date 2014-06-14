@@ -28,6 +28,8 @@ class Job
         } elseif (isset($req['pa'])) {
             $actionString = $req['pa'];
             $controller = 'PublicController';
+        } else {
+            return null;
         }
 
         if (!$actionString) {

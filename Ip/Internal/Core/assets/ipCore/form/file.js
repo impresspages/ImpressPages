@@ -114,7 +114,7 @@
 
         _getFiles : function () {
             var $this = $(this);
-            var files = new Array();
+            var files = [];
             $this.find('.ipsFiles div').each(function(){
 
                 var $this = $(this);
