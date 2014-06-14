@@ -142,7 +142,7 @@ abstract class Field
     /**
      * Get validators
      *
-     * @return array
+     * @return \Ip\Form\Validator[]
      */
     public function getValidators() {
         return $this->validators;

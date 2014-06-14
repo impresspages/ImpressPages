@@ -19,7 +19,7 @@ class Unique extends \Ip\Form\Validator
      */
     public function __construct($data, $errorMessage = null) {
         if (empty($data['table'])) {
-            throw \Ip\Exception('Unique validator expect table name');
+            throw new \Ip\Exception('Unique validator expect table name');
         }
         parent::__construct($data, $errorMessage);
     }

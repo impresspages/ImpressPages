@@ -11,7 +11,13 @@ namespace Ip\Form;
 class Fieldset
 {
 
+    /**
+     * @var \Ip\Form\Field[]
+     */
     protected $fields;
+    /**
+     * @var string $label
+     */
     protected $label;
     protected $attributes;
 
@@ -58,6 +64,7 @@ class Fieldset
 
     /**
      * Return all fields
+     * @return \Ip\Form\Field[]
      */
     public function getFields() {
         return $this->fields;
