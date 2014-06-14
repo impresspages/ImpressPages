@@ -136,6 +136,18 @@ class Config
         }
     }
 
+    public function adminLocale()
+    {
+        if (!empty($_COOKIE["ipAdminLocale"])) {
+            return $_COOKIE["ipAdminLocale"];
+        }
+        if (!empty($this->config['adminLocale'])) {
+            return $this->config['adminLocale'];
+        }
+
+        return 'en';
+    }
+
     public function showErrors()
     {
         return !empty($this->config['showErrors']) || !empty($this->config['errorsShow']);

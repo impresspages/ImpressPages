@@ -116,8 +116,8 @@ class Application
         $translator = \Ip\ServiceLocator::translator();
         $translator->setLocale($languageCode);
 
-        if (ipConfig()->get('adminLocale')) {
-            $translator->setAdminLocale(ipConfig()->get('adminLocale'));
+        if (ipConfig()->adminLocale()) {
+            $translator->setAdminLocale(ipConfig()->adminLocale());
         }
 
         $theme = ipConfig()->theme();
