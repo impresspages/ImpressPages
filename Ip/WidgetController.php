@@ -181,9 +181,9 @@ class WidgetController
      *
      * This method is executed each time the widget data is updated.
      *
-     * @param $widgetId Widget ID
-     * @param $postData
-     * @param $currentData
+     * @param int $widgetId Widget ID
+     * @param array $postData
+     * @param array $currentData
      * @return array Data to be stored to the database
      */
     public function update ($widgetId, $postData, $currentData)

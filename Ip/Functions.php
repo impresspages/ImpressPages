@@ -104,7 +104,7 @@ function ipRemoveOption($option)
  */
 function ipRemoveOptionLang($option, $languageId)
 {
-    return \Ip\ServiceLocator::options()->removeOptionLang($option, $languageId);
+    \Ip\ServiceLocator::options()->removeOptionLang($option, $languageId);
 }
 
 /**
@@ -613,7 +613,7 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  * Returns a string containing a rounded numeric value and appropriate 'B', 'KB', 'MB', 'GB', 'TB', 'PB' modifiers.
  *
  * @param int $bytes Size in bytes.
- * @param $context plugin name
+ * @param string $context plugin name
  * @param int $precision number of digits after the decimal point
  * @param string $languageCode
  * @return string A string formatted in byte size units.

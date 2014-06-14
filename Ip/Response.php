@@ -77,7 +77,7 @@ class Response
     /**
      * Set HTTP status message
      *
-     * @param $message Status message text
+     * @param string $message Status message text
      * @return $this
      */
     public function setStatusMessage($message)
