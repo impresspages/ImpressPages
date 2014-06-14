@@ -20,7 +20,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'languageCode',
-                'values' => self::getAvaliableLocales()
+                'values' => self::getAvailableLocales()
             ));
         $field->setValue(ipConfig()->adminLocale());
         $form->addfield($field);
@@ -28,7 +28,7 @@ class FormHelper
         return $form;
     }
 
-    protected static function getAvaliableLocales()
+    protected static function getAvailableLocales()
     {
         $locales = array();
         $files = scandir(ipFile('Ip/Internal/Translations/translations'));
