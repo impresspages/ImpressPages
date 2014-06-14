@@ -100,10 +100,11 @@ function ipRemoveOption($option)
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param int $languageId Language ID.
+ * @return null
  */
 function ipRemoveOptionLang($option, $languageId)
 {
-    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId);
+    return \Ip\ServiceLocator::options()->removeOptionLang($option, $languageId);
 }
 
 /**
@@ -275,6 +276,7 @@ function ipGetLayout()
     } else {
         ipLog()->error('Response.cantGetLayout: Response method has no method getLayout', array('response' => $response));
     }
+    return null;
 }
 
 /**
@@ -289,11 +291,12 @@ function ipBlock($block)
 }
 
 /**
- * Genearte slot HTML
+ * Generate slot HTML
  * http://www.impresspages.org/docs/slots
  *
  * @param string $slot Slot name.
  * @param array|null $params Slot parameters.
+ * @return string
  */
 function ipSlot($slot, $params = array())
 {
@@ -845,7 +848,9 @@ function ipEmailTemplate($data)
  * Get a view object using specified view file and data array.
  * @param string $file MVC view file pathname.
  * @param array $data View's data.
+ * @param int $_callerDepth
  * @return \Ip\View
+ * @throws \Ip\Exception\View
  */
 function ipView($file, $data = array(), $_callerDepth = 0)
 {

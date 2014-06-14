@@ -174,6 +174,7 @@ class Response
     /**
      * Set webpage content
      * @param String $content
+     * @return null
      */
     public function setContent($content)
     {

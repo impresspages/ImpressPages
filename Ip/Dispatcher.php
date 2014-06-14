@@ -180,6 +180,7 @@ class Dispatcher
                 throw new \Ip\Exception(esc("{$plugin}\\{$type}::{$method->getName()} must be static."));
             }
         }
+        return null;
     }
 
     private function extractEventNamePriority($methodName)

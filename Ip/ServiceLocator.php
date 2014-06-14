@@ -235,6 +235,7 @@ class ServiceLocator
 
     /**
      * @param $db
+     * @return Db
      */
     public static function setDb($db)
     {

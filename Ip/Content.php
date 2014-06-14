@@ -289,6 +289,7 @@ class Content
         if ($this->currentPage) {
             return $this->currentPage->getMetaTitle() ? $this->currentPage->getMetaTitle() : $this->currentPage->getTitle();
         }
+        return '';
     }
 
     /**
@@ -302,6 +303,7 @@ class Content
         if ($this->currentPage) {
             return $this->currentPage->getDescription();
         }
+        return '';
     }
 
     /**
@@ -315,6 +317,7 @@ class Content
         if ($this->currentPage) {
             return $this->currentPage->getKeywords();
         }
+        return '';
     }
 
     /**
