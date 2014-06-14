@@ -55,7 +55,7 @@ var ipAdmin = new function () {
 
     var fixLayout = function () {
         $container.height($navbar.outerHeight()); // setting the height to container
-    }
+    };
 
     var refreshSession = function () {
         $.ajax({
@@ -99,7 +99,7 @@ var ipAdmin = new function () {
         if (response.status == 'success') {
             window.location.href = response.newRevisionUrl;
         }
-    }
+    };
 
     var onResize = function() {
         // Admin menu height

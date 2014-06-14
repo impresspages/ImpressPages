@@ -19,7 +19,7 @@ class Job
         if ($failedLogins > ipGetOption('Admin.allowFailedLogins', 20)) {
             return __('You have exceeded failed login attempts.', 'Ip-admin', false);
         }
-
+        return null;
     }
 
     public static function ipRouteAction_5($info)
@@ -31,6 +31,7 @@ class Job
                 'action' => 'login',
             );
         }
+        return null;
     }
 
 }
