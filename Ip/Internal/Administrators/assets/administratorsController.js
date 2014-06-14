@@ -30,35 +30,32 @@ var ipAdministratorsController = null;
             }
         });
 
-        $scope.setAdministratorHash = function (administrator) {
-            updateHash(null, administrator.id, false);
-        };
-
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
             $scope.activeAdministratorEmail = administrator.email; //to avoid chrome Autocomplete.
         };
 
         $scope.addModal = function () {
-            $('.ipsAddModal').find('input[name=email]').val('');
-            $('.ipsAddModal').find('input[name=username]').val('');
-            $('.ipsAddModal').find('input[name=password]').val('');
-            $('.ipsAddModal').modal();
+            var $modal = $('.ipsAddModal');
+            $modal.find('input[name=email]').val('');
+            $modal.find('input[name=username]').val('');
+            $modal.find('input[name=password]').val('');
+            $modal.modal();
             //$('.ipsAddModal').find("input[name=username]").hide();
             $('.ipsAddModal form').off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
                 if (response && response.status == 'ok') {
                     $scope.administrators.push({
-                        username: $('.ipsAddModal').find('input[name=username]').val(),
-                        email: $('.ipsAddModal').find('input[name=email]').val(),
+                        username: $modal.find('input[name=username]').val(),
+                        email: $modal.find('input[name=email]').val(),
                         permissions: response.permissions,
                         id: response.id
                     });
                     $scope.$apply();
-                    $('.ipsAddModal').modal('hide');
+                    $modal.modal('hide');
                 }
             });
             setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
-            $('.ipsAddModal').find('.ipsAdd').off('click').on('click', function () {
+            $modal.find('.ipsAdd').off('click').on('click', function () {
                 $('.ipsAddModal form').submit();
             });
         };
@@ -68,7 +65,8 @@ var ipAdministratorsController = null;
         };
 
         $scope.updateModal = function () {
-            $('.ipsUpdateModal').modal();
+            var $modal = $('.ipsUpdateModal')
+            $modal.modal();
             var $form = $('.ipsUpdateModal form');
             $form.find('input[name=id]').val($scope.activeAdministrator.id);
             $form.off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
@@ -76,10 +74,10 @@ var ipAdministratorsController = null;
                     $scope.activeAdministrator.username = $form.find('input[name=username]').val();
                     $scope.activeAdministrator.email= $form.find('input[name=email]').val();
                     $scope.$apply();
-                    $('.ipsUpdateModal').modal('hide');
+                    $modal.modal('hide');
                 }
             });
-            $('.ipsUpdateModal').find('.ipsSave').off('click').on('click', function () {
+            $modal.find('.ipsSave').off('click').on('click', function () {
                 $('.ipsUpdateModal form').submit();
             });
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
