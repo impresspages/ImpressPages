@@ -195,7 +195,7 @@
             inputName: $this.data('inputname'),
             uploader: uploader
         });
-    }
+    };
 
     $.fn.ipFormFile = function(method) {
         if (methods[method]) {

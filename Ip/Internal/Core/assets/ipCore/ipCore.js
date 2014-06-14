@@ -68,4 +68,4 @@ var ipPing = function () {
         data: {pa: 'Core.ping'},
         method: 'GET'
     })
-}
+};

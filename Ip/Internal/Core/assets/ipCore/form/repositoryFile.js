@@ -26,7 +26,7 @@
                         e.preventDefault();
                         var repository = new ipRepository({preview: $this.data('preview')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
-                    })
+                    });
 
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
@@ -86,7 +86,7 @@
             $this.find('.ipsFiles').append($newFile);
 
         }
-    }
+    };
 
     var removeFile = function(e){
         var $this = $(this);
@@ -94,7 +94,7 @@
         var $file = $currentTarget.closest('.ipsFile');
         $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
         $file.remove();
-    }
+    };
 
 
     $.fn.ipFormRepositoryFile = function(method) {
