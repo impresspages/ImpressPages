@@ -114,6 +114,7 @@ class Revision{
         }
 
         ipEvent('ipPageRevisionPublished', array('revisionId' => $revisionId));
+        return null;
     }
 
     public static function duplicateRevision ($oldRevisionId, $pageId = null, $published = null) {

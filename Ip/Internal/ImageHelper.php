@@ -36,6 +36,8 @@ class ImageHelper
      * @param bool $forced if true, resizes image even if she fits to specified size (is smaller than required)
      * @param int $quality from 0 (biggest compression) to 100 (best quality)
      * @return string file name of resized image in destDir folder
+     * @throws \Exception
+     * @throws \Ip\Exception
      */
     public static function resize($imageFile, $widthDest, $heightDest, $destDir, $type, $forced, $quality) {
         $imageInfo = getimagesize($imageFile);
@@ -82,6 +84,8 @@ class ImageHelper
      * @param int $widthDest
      * @param int $heightDest
      * @return string
+     * @throws \Ip\Exception
+     * @throws \Exception
      */
     public static function crop($imageFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
         if ($widthDest === null) {
@@ -200,10 +204,11 @@ class ImageHelper
     }
 
     /**
-     * @param string $image
+     * @param resource $image
      * @param string $fileName
      * @param int $quality
      * @return bool
+     * @throws \Exception
      */
     public static function saveJpeg($image, $fileName, $quality) {
         if (!imagejpeg($image, $fileName, $quality)) {
@@ -213,10 +218,11 @@ class ImageHelper
     }
 
     /**
-     * @param string $image
+     * @param resource $image
      * @param string $fileName
      * @param int $quality
      * @return bool
+     * @throws \Exception
      */
     public static function savePng($image, $fileName, $quality) {
         // Png quality is from 0 (no compression) to 9.
@@ -232,7 +238,8 @@ class ImageHelper
     }
 
     /**
-     * @param string $imageFile
+     * @param $imageFile
+     * @return bool|null
      */
     public static function getMemoryNeeded($imageFile) {
         $imageInfo = getimagesize($imageFile);
@@ -259,7 +266,8 @@ class ImageHelper
 
     /**
      * @param string $image
-     * @return string
+     * @return resource
+     * @throws \Exception
      */
     public static function createImageImage($image) {
         $mime = self::getMimeType($image);
@@ -289,6 +297,7 @@ class ImageHelper
     /**
      * @param string $imageFile
      * @return string
+     * @throws \Exception
      */
     public static function getMimeType($imageFile) {
         $imageInfo = getimagesize($imageFile);
@@ -299,13 +308,17 @@ class ImageHelper
         }
     }
 
+
+
     /**
-     * @param string $image
-     * @param int $widthDest
-     * @param int $heightDest
-     * @param double $widthSource
-     * @param double $heightSource
-     * @param string $type
+     * @param $image
+     * @param $widthDest
+     * @param $heightDest
+     * @param $widthSource
+     * @param $heightSource
+     * @param $type
+     * @return resource
+     * @throws \Exception
      */
     private static function resizeImage($image, $widthDest, $heightDest, $widthSource, $heightSource, $type) {
         $dest_proportion = $widthDest / $heightDest;
@@ -393,13 +406,17 @@ class ImageHelper
         return $imageNew;
     }
 
+
+
     /**
-     * @param int $widthS
-     * @param int $heightS
-     * @param int $widthT
-     * @param int $heightT
-     * @param string $type
-     * @param bool $forced
+     * @param $widthS
+     * @param $heightS
+     * @param $widthT
+     * @param $heightT
+     * @param $type
+     * @param $forced
+     * @return bool
+     * @throws \Exception
      */
     private static function resizeRequired($widthS, $heightS, $widthT, $heightT, $type, $forced) {
         switch ($type) {
@@ -441,6 +458,7 @@ class ImageHelper
      * @param string $newFile
      * @param int $quality
      * @param string $mime
+     * @throws \Exception
      */
     private static function saveImage($imageNew, $newFile, $quality, $mime) {
         switch ($mime) {
@@ -461,7 +479,7 @@ class ImageHelper
                     imagecopymerge($imageBg, $imageNew, 0, 0, 0, 0, $width, $height, 50);
                     */
                     self::savePng($imageNew, $newFile, 9); // 9 - Maximum compression. PNG is always lossless.
-                } catch (\Exceptin $e) {
+                } catch (\Exception $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
                 }
                 break;
@@ -470,7 +488,7 @@ class ImageHelper
             default:
                 try {
                     self::saveJpeg($imageNew, $newFile, $quality);
-                } catch (\Exceptin $e) {
+                } catch (\Exception $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
                 }
                 break;
