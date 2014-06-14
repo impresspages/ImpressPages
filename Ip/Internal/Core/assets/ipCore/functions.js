@@ -3,7 +3,7 @@ Default ImpressPages functions
  */
 function ipFileUrl(path)
 {
-    for (prefix in ipUrlOverrides) {
+    for (var prefix in ipUrlOverrides) {
         if (path.indexOf(prefix) == 0) {
             return ipUrlOverrides[prefix] + path.substr(prefix.length);
         }

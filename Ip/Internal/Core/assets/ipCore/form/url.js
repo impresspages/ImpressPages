@@ -10,9 +10,6 @@
 
         init : function(options) {
 
-            if (typeof(options) === 'undefined') {
-                options = {};
-            }
 
             return this.each(function() {
 
