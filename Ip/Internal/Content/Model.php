@@ -17,11 +17,13 @@ class Model
     const SNIPPET_DIR = 'snippet';
 
     /**
-     * @param $blockName
+     * @param string $blockName
      * @param int $revisionId
      * @param int $languageId
-     * @param $managementState
+     * @param bool $managementState
      * @param string $exampleContent
+     * @return string
+     * @throws \Ip\Exception\Content
      */
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
@@ -157,6 +159,8 @@ class Model
      * @param string $widgetName
      * @param string $data
      * @param string $skin
+     * @return string
+     * @throws \Ip\Exception\Content
      */
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $skin = null)
     {
@@ -194,6 +198,7 @@ class Model
     /**
      * @param int $widgetId
      * @param $managementState
+     * @return string
      */
     public static function generateWidgetPreview($widgetId, $managementState)
     {
@@ -204,6 +209,7 @@ class Model
     /**
      * @param array $widgetRecord
      * @param $managementState
+     * @return string
      */
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
@@ -256,6 +262,7 @@ class Model
      * @param string $blockName
      * @param int $revisionId
      * @param int $languageId
+     * @return array
      */
     public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
@@ -384,6 +391,7 @@ class Model
 
     /**
      * @param int $pageId
+     * @return array
      */
     public static function getRevisions($pageId)
     {
@@ -401,6 +409,7 @@ class Model
      * @param string $blockName
      * @param int $position Real position of widget starting with 0
      * @param bool $visible
+     * @return int
      */
     public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
     {
@@ -431,6 +440,7 @@ class Model
      * @param int $widgetId
      * @param string $newBlockName
      * @param int $newPosition Real position of widget starting with 0
+     * @return float
      */
     private static function _calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $newBlockName, $newPosition)
     {
@@ -464,6 +474,7 @@ class Model
     /**
      * @param int $widgetId
      * @param array $data
+     * @return int row count
      */
     public static function updateWidget($widgetId, $data)
     {
