@@ -19,7 +19,7 @@ class Storage
      * @param string $pluginName Plugin name
      * @param string $key Option name
      * @param null $defaultValue Returned if specified key has no value assigned
-     * @return string
+     * @return mixed
      */
     public function get($pluginName, $key, $defaultValue = null)
     {

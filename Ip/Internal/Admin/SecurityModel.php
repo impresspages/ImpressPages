@@ -45,7 +45,9 @@ class SecurityModel
     }
 
 
-
+    /**
+     * @return array
+     */
     private function failedLogins()
     {
         $failedLogins = ipStorage()->get('Admin', 'failedLogins', array());

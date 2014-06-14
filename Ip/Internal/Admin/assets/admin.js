@@ -72,7 +72,6 @@ var ipAdmin = new function () {
     //TODO this function is duplicated in jquery.ip.contentManagement
     var save = function(publish) {
         var $this = $(this);
-        var data = $this.data('ipContentManagement');
 
         var postData = Object();
         postData.aa = 'Content.savePage';
