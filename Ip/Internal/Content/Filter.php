@@ -40,7 +40,7 @@ class Filter
      * Form widget
      * @param $fieldTypes
      * @param null $info
-     * @return
+     * @return \Ip\Internal\Content\FieldType[]
      * @internal param array $value
      */
     public static function ipWidgetFormFieldTypes($fieldTypes, $info = null)
