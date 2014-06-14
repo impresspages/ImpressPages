@@ -211,7 +211,7 @@ class Form
                 $this->method = $method;
                 break;
             default:
-                throw new Exception ('Unknown method "' . $method . '"', Exception::INCORRECT_METHOD_TYPE);
+                throw new Exception ('Unknown method "' . $method . '"');
         }
     }
 
