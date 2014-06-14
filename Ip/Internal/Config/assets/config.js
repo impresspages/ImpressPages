@@ -18,7 +18,7 @@ var IpConfig = new function () {
 
     this.init = function () {
         updateCronUrl();
-    }
+    };
 
     var queueAdd = function (fieldid) {
         queue = removeFromArray(queue, fieldid);
@@ -33,17 +33,17 @@ var IpConfig = new function () {
         }
 
         return $field.val();
-    }
+    };
 
     var getFieldLanguage = function (fieldid) {
         var $field = $('#' + fieldid);
         return $field.data('languageid');
-    }
+    };
 
     var getFieldName = function (fieldid) {
         var $field = $('#' + fieldid);
         return $field.data('fieldname');
-    }
+    };
 
     var queueProcess = function () {
         if (processing) {
@@ -93,7 +93,7 @@ var IpConfig = new function () {
                 queueProcess();
             }
         });
-    }
+    };
 
     var updateCronUrl = function () {
         var $note = $('.name-cronPassword .ipsUrlLabel');
@@ -103,7 +103,7 @@ var IpConfig = new function () {
         var url = ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val();
         $urlText.text(url);
         $urlText.attr('href', url);
-    }
+    };
 
     this.autoSaveValue = function () {
         var $this = $(this);
