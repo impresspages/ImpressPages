@@ -9,7 +9,7 @@ class SetupWorker{
     protected $lastVersion = null;
 
     /**
-     * @param $lastVersion version number of this plugin when it had been initialized for last time. Or nul if it is fresh install
+     * @param double $lastVersion version number of this plugin when it had been initialized for last time. Or nul if it is fresh install
      */
     final public function __construct($lastVersion)
     {

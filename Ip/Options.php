@@ -58,7 +58,7 @@ class Options
     /**
      * Set specific option
      * @param string $key Option key
-     * @param $value Option value
+     * @param mixed $value Option value
      * @throws Exception
      */
     public function setOption($key, $value)

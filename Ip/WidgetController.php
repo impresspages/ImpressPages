@@ -272,10 +272,10 @@ class WidgetController
      *
      * You can extend this method when generating widget's HTML.
      *
-     * @param $revisionId Widget revision ID
-     * @param $widgetId Widget ID
-     * @param $widgetId Widget instance ID
-     * @param array|null $data Widget data array
+     * @param int $revisionId Widget revision ID
+     * @param int $widgetId Widget ID
+     * @param int $widgetId Widget instance ID
+     * @param array $data Widget data array
      * @param string $skin Skin name
      * @return string Widget's HTML code
      */
@@ -314,11 +314,11 @@ class WidgetController
     /**
      * Process data which is passed to widget's JavaScript file for processing
      *
-     * @param $revisionId Widget revision ID
-     * @param $widgetId Widget ID
-     * @param $widgetId Widget instance ID
-     * @param $data Widget data array
-     * @param $skin Widget skin name
+     * @param int $revisionId Widget revision ID
+     * @param int $widgetId Widget ID
+     * @param int $widgetId Widget instance ID
+     * @param array $data Widget data array
+     * @param string $skin Widget skin name
      * @return array Data array
      */
     public function dataForJs($revisionId, $widgetId, $data, $skin)

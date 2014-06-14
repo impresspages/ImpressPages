@@ -92,7 +92,7 @@ function ipSetOptionLang($option, $value, $languageCode = null)
  */
 function ipRemoveOption($option)
 {
-    return \Ip\ServiceLocator::options()->removeOption($option);
+    \Ip\ServiceLocator::options()->removeOption($option);
 }
 
 /**
@@ -762,7 +762,7 @@ function ipDoctypeDeclaration($doctype = null)
             $answer = '<!DOCTYPE html>';
             break;
         default:
-            throw new Exception('Unknown doctype: '.$doctype, Exception::VIEW);
+            throw new Exception('Unknown doctype: ' . $doctype);
     }
 
     return $answer;
