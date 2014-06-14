@@ -28,15 +28,6 @@ class Layout extends \Ip\Response {
      */
     protected $layout = null;
 
-    /** array js variables */
-    private $javascriptVariables = array();
-
-    /** array required javascript files */
-    private $requiredJavascript = array();
-
-    /** array required css files */
-    private $requiredCss = array();
-
     private $layoutVariables = array();
 
     private $title;

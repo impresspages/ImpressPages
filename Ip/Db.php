@@ -32,7 +32,7 @@ class Db
     /**
      * Get database connection object
      *
-     * @throws \Ip\Exception
+     * @throws \Ip\Exception\Db
      * @return \PDO
      */
     public function getConnection()
@@ -297,6 +297,7 @@ class Db
      * @param string $sql
      * @param array $params
      * @return int The number of rows affected by the last SQL statement
+     * @throws \Ip\Exception\Db
      */
     public function execute($sql, $params = array())
     {

@@ -21,7 +21,7 @@ class Json extends \Ip\Response {
 
     public function render()
     {
-        return json_encode($this->utf8Encode($this->content));;
+        return json_encode($this->utf8Encode($this->content));
     }
 
     public function send()
@@ -31,9 +31,9 @@ class Json extends \Ip\Response {
     }
 
     /**
-     *
-     *  Returns $dat encoded to UTF8
+     * Returns $dat encoded to UTF8
      * @param mixed $dat array or string
+     * @return string
      */
     private function utf8Encode($dat)
     {

@@ -20,6 +20,7 @@ abstract class Transform
      * Transform function might want to change file extension.
      * @param string $sourceFile original file
      * @param string $ext original file extension
+     * @return string
      */
     public function getNewExtension($sourceFile, $ext)
     {

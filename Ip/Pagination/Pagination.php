@@ -27,6 +27,9 @@ class Pagination
         $this->options = $options;
     }
 
+    /**
+     * @return array
+     */
     public function pages()
     {
         if ($this->totalPages < 1) {

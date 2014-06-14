@@ -55,6 +55,7 @@ class Page
 
     /**
      * @param int|array $id
+     * @throws \Ip\Exception
      */
     public function __construct($id)
     {
