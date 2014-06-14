@@ -40,7 +40,6 @@ class Radio extends Field
      * @return string
      */
     public function render($doctype, $environment) {
-        $attributesStr = '';
         $answer = '';
 
         foreach ($this->getValues() as $key => $value) {

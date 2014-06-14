@@ -15,7 +15,7 @@ namespace Ip\Form;
  */
 abstract class Field
 {
-    
+
     // Layouts define how field should be treated in the view.
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
@@ -46,7 +46,7 @@ abstract class Field
         $this->validators = array();
 
         if (!empty($options['validators'])) {
-            foreach($options['validators'] as $validatorKey => $validator) {
+            foreach($options['validators'] as $validator) {
                 $this->addValidator($validator);
             }
         }

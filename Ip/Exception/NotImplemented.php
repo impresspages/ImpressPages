@@ -4,6 +4,7 @@
 namespace Ip\Exception;
 
 
+/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 class NotImplemented extends \Ip\Exception {
 
     public function __construct($message = null, $data = null, $code = 0, \Exception $previous = null)

@@ -21,8 +21,6 @@ class Password extends Field
      * @return string
      */
     public function render($doctype, $environment) {
-        $attributesStr = '';
-
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="password" value="'.htmlspecialchars($this->getValue()) . '" />';
     }
 

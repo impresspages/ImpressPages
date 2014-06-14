@@ -71,7 +71,7 @@ class Fieldset
      */
     public function getField($name) {
         $allFields = $this->getFields();
-        foreach ($allFields as $key => $field) {
+        foreach ($allFields as $field) {
             if ($field->getName() == $name) {
                 return $field;
             }
