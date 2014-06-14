@@ -94,7 +94,7 @@ class Event
         $response->setTitle(ipContent()->getTitle());
     }
 
-    public static function ipAdminLoginSuccessful($data)
+    public static function ipAdminLoginSuccessful($info)
     {
         Service::setManagementMode(1);
     }
