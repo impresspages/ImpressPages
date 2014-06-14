@@ -34,7 +34,7 @@
                 <?php $scrollWidth = count($widgets)*(55 + 30 + 2*3); // to keep all elements on one line ?>
                 <ul<?php echo ' style="width: '.$scrollWidth.'px;"'; ?>>
                     <?php foreach ($widgets as $widgetKey => $widget) { ?>
-                        <li><?php echo get_class($widget); exit ?>
+                        <li>
                             <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="_button ipsAdminPanelWidgetButton">
                                 <a href="#" title="<?php echo esc($widget->getTitle()); ?>">
                                     <span class="_title"><span><?php echo esc($widget->getTitle()); ?></span></span>

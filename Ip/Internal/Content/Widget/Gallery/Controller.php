@@ -175,7 +175,7 @@ class Controller extends \Ip\WidgetController{
         }
 
         $answer = false;
-        foreach ($allImages as $imageKey => $image) {
+        foreach ($allImages as $image) {
             if (isset($image['imageOriginal']) && $image['imageOriginal'] == $imageOriginalFile) {
                 $answer = $image;
                 break;
@@ -261,7 +261,7 @@ class Controller extends \Ip\WidgetController{
             return;
         }
 
-        foreach($data['images'] as $imageKey => $image) {
+        foreach($data['images'] as $image) {
             self::_deleteOneImage($image, $widgetId);
         };
     }
@@ -294,7 +294,7 @@ class Controller extends \Ip\WidgetController{
             return null;
         }
 
-        foreach($data['images'] as $imageKey => $image) {
+        foreach($data['images'] as $image) {
             if (!is_array($image)) {
                 return null;
             }
