@@ -74,7 +74,7 @@ class Options
      * Set language specific option
      * @param string $key Option key
      * @param string $languageCode Language code
-     * @param $value Option value
+     * @param mixed $value Option value
      * @throws Exception
      */
     public function setOptionLang($key, $languageCode, $value)

@@ -384,7 +384,7 @@ class Form
     /**
      * Get a list of classes used in the form as HTML string
      *
-     * @return Attributes, provided in attribute="value" style
+     * @return string Attributes, provided in attribute="value" style
      */
     public function getClassesStr()
     {
