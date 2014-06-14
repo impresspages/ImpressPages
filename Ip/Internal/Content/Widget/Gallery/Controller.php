@@ -168,24 +168,6 @@ class Controller extends \Ip\WidgetController{
 
 
 
-    private function _findExistingImage ($imageOriginalFile, $allImages) {
-
-        if (!is_array($allImages)) {
-            return false;
-        }
-
-        $answer = false;
-        foreach ($allImages as $image) {
-            if (isset($image['imageOriginal']) && $image['imageOriginal'] == $imageOriginalFile) {
-                $answer = $image;
-                break;
-            }
-        }
-
-        return $answer;
-
-    }
-
 
 
 
