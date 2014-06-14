@@ -12,8 +12,11 @@ class FormatHelper
 {
 
     /**
-     * @param int $bytes
-     * @return string
+     * @param $bytes
+     * @param $context
+     * @param $precision
+     * @param null $languageCode
+     * @return mixed|null|string
      */
     public static function formatBytes($bytes, $context, $precision, $languageCode = null)
     {
@@ -180,7 +183,6 @@ class FormatHelper
                 if ($languageCode === null) {
                     $languageCode = ipContent()->getCurrentLanguage()->getId();
                 }
-                $language = \Ip\ServiceLocator::content()->getLanguage($languageCode);
                 if ($context == 'Ip-admin') {
                     $code = 'en';
                 } else {

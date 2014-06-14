@@ -11,7 +11,7 @@ class ErrorHandler {
 
 
     public static function ipErrorHandler ($errno, $errstr, $errfile, $errline) {
-        $originalIpErrorHandler = set_error_handler(__CLASS__ . '::ipSilentErrorHandler');
+        set_error_handler(__CLASS__ . '::ipSilentErrorHandler');
 
         $type = '';
         switch ($errno) {

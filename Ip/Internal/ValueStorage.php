@@ -24,8 +24,8 @@ abstract class ValueStorage extends RawStorage
     /**
      * Set storage value
      *
-     * @param string $key       Key name
-     * @param $value            Value
+     * @param string $key Key name
+     * @param mixed $value Value
      */
     public function set($key, $value)
     {
@@ -47,4 +47,4 @@ abstract class ValueStorage extends RawStorage
         }
         return $result;
     }
-} 
+}
