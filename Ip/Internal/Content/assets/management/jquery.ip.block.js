@@ -107,7 +107,7 @@
             }
 
         });
-    }
+    };
 
 
     $.fn.ipBlock = function(method) {

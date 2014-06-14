@@ -10,13 +10,13 @@ var IpWidget_Columns = function () {
 
     this.init = function ($widgetObject, data) {
         $(document).trigger('ipWidgetColumnsInit');
-    }
+    };
 
     this.onAdd = function () {
         $(document).trigger('ipWidgetColumnsOnAdd');
-    }
+    };
 
-}
+};
 
 var ipColumnsInitWidthHandles = function () {
     "use strict";
@@ -92,7 +92,7 @@ var ipColumnsInitWidthHandles = function () {
 
 
     $(document).trigger('ipWidgetColumnsDragHandlersInit');
-}
+};
 
 $(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);

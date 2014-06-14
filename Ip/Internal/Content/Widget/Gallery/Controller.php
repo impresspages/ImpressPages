@@ -291,12 +291,12 @@ class Controller extends \Ip\WidgetController{
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['images']) || !is_array($data['images'])) {
-            return;
+            return null;
         }
 
         foreach($data['images'] as $imageKey => $image) {
             if (!is_array($image)) {
-                return;
+                return null;
             }
             if (isset($image['imageOriginal']) && $image['imageOriginal']) {
                 \Ip\Internal\Repository\Model::bindFile($image['imageOriginal'], 'Content', $newId);

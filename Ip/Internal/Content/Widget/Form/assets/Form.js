@@ -38,7 +38,7 @@
                 .css('z-index', 1000) // should be higher enough but lower than widget controls
                 .width(this.widgetObject.width())
                 .height(this.widgetObject.height());
-        }
+        };
 
         var openPopup = function() {
             var context = this;
@@ -102,7 +102,7 @@
             this.container.ipWidget_ipForm_container('destroy');
             this.addButton.off();
             this.confirmButton.off();
-        }
+        };
 
         var addField = function (e) {
             this.container.ipWidget_ipForm_container('addField');

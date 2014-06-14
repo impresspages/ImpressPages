@@ -34,7 +34,7 @@ IpWidget_File = function () {
             .css('z-index', 1000) // should be higher enough but lower than widget controls
             .width(this.widgetObject.width())
             .height(this.widgetObject.height());
-    }
+    };
 
     this.onAdd = function (e) {
         $.proxy(openPopup, this)();
@@ -77,7 +77,7 @@ IpWidget_File = function () {
         for (var index in files) {
             container.ipWidget_ipFile_container('addFile', files[index].fileName, files[index].fileName, 'new');
         }
-    }
+    };
 
     var save = function () {
         var data = Object();

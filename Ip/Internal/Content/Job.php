@@ -44,7 +44,7 @@ class Job
         if ($page && $page->getRedirectUrl() && !ipAdminId()) {
             return new \Ip\Response\Redirect($page->getRedirectUrl());
         }
-
+        return null;
     }
 
     /**
@@ -70,6 +70,6 @@ class Job
             }
         }
 
-
+        return null;
     }
 }
