@@ -37,7 +37,7 @@ var ipAdministratorsController = null;
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
             $scope.activeAdministratorEmail = administrator.email; //to avoid chrome Autocomplete.
-        }
+        };
 
         $scope.addModal = function () {
             $('.ipsAddModal').find('input[name=email]').val('');
@@ -61,11 +61,11 @@ var ipAdministratorsController = null;
             $('.ipsAddModal').find('.ipsAdd').off('click').on('click', function () {
                 $('.ipsAddModal form').submit();
             });
-        }
+        };
 
         $scope.setEditMode = function (mode) {
             $scope.editMode = mode;
-        }
+        };
 
         $scope.updateModal = function () {
             $('.ipsUpdateModal').modal();
@@ -83,7 +83,7 @@ var ipAdministratorsController = null;
                 $('.ipsUpdateModal form').submit();
             });
             setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
-        }
+        };
 
         $scope.setPermission = function(permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
@@ -97,7 +97,7 @@ var ipAdministratorsController = null;
                 permission: permission,
                 value: value ? 1 : 0,
                 adminId: $scope.activeAdministrator.id
-            }
+            };
             $.ajax({
                 type: 'POST',
                 url: ip.baseUrl,
@@ -116,7 +116,7 @@ var ipAdministratorsController = null;
                 dataType: 'json'
             });
 
-        }
+        };
 
         $scope.deleteModal = function () {
             $('.ipsDeleteModal').modal();
@@ -133,7 +133,7 @@ var ipAdministratorsController = null;
                     $scope.$apply();
                 });
             });
-        }
+        };
 
 
 
@@ -161,13 +161,13 @@ var ipAdministratorsController = null;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
 
         var updateHash = function (administrator) {
             var path = 'hash&administrator=' + administrator.id;
             $location.path(path);
-        }
+        };
 
         var getHashParams = function () {
 
