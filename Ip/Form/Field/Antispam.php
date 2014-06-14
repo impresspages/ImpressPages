@@ -12,7 +12,7 @@ use Ip\Form\Field;
 
 /**
  * Antispam field
- * 
+ *
  * Add it to the form and you will be protected against spam bots.
  * Add captcha if you like to protect your self from human bots :)
  * This field is not called antispam because some templates might
@@ -56,8 +56,6 @@ class Antispam extends Field
      * @return string
      */
     public function render($doctype, $environment) {
-        $attributesStr = '';
-
         return '
 <input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="" />
 <input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="'.htmlspecialchars(md5(date('Y-m-d') . ipConfig()->get('sessionName'))) . '" />

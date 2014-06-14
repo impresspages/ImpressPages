@@ -21,8 +21,6 @@ class Textarea extends Field
      * @return string
      */
     public function render($doctype, $environment) {
-        $attributesStr = '';
-
         return '<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . escattr($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' >' . escTextarea($this->getValue()) . '</textarea>';
     }
 

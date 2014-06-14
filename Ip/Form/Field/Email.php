@@ -31,8 +31,6 @@ class Email extends Field
      * @return string
      */
     public function render($doctype, $environment) {
-        $attributesStr = '';
-
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="email" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
