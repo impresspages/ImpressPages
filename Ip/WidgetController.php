@@ -209,6 +209,7 @@ class WidgetController
      *
      * @param int $widgetId Widget ID
      * @param array $data Widget Data array
+     * @return mixed
      */
     public function post ($widgetId, $data)
     {

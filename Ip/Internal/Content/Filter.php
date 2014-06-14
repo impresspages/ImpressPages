@@ -38,7 +38,10 @@ class Filter
 
     /**
      * Form widget
-     * @param array $value
+     * @param $fieldTypes
+     * @param null $info
+     * @return
+     * @internal param array $value
      */
     public static function ipWidgetFormFieldTypes($fieldTypes, $info = null)
     {
