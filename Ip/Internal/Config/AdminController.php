@@ -52,9 +52,6 @@ class AdminController extends \Ip\Controller{
             return $this->returnError($error);
         }
 
-        $numberValidator = new \Ip\Form\Validator\Number();
-        $error = $numberValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
-
 
         if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {
             if (!isset($post['languageId'])) {
