@@ -263,7 +263,6 @@
 
     /**
      * cofigure management tools. It just fixes everything after image or window size changes.
-     * @param e
      * @param imageCenterXPercentage
      * @param imageCenterYPercentage
      */

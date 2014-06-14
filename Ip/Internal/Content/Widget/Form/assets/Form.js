@@ -53,7 +53,7 @@
 
             var instanceData = this.data;
 
-            var options = new Object;
+            var options = {};
             if (instanceData['fields']) {
                 options.fields = instanceData.fields;
             } else {
@@ -117,7 +117,7 @@
         this.getData = function() {
             var data = Object();
 
-            data.fields = new Array();
+            data.fields = [];
             var $fields = this.container.ipWidget_ipForm_container('getFields');
             $fields.each(function(index) {
                 var $this = $(this);

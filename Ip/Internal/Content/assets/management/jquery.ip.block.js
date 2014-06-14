@@ -29,7 +29,7 @@
                     widgetControlsHtml : options.widgetControlsHtml
                 });
 
-                var widgetOptions = new Object;
+                var widgetOptions = {};
                 widgetOptions.widgetControlls = $this.data('ipBlock').widgetControlsHtml;
                 $this.children('.ipWidget').ipWidget(widgetOptions);
 
