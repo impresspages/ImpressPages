@@ -79,7 +79,7 @@ class Radio extends Field
     /**
      * Get values
      *
-     * @return string
+     * @return array
      */
     public function getValues() {
         return $this->values;
