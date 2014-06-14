@@ -43,6 +43,8 @@ class SiteController extends \Ip\Controller
         $response = ipResponse();
         $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
+        ipAddJs('assets/languageSelect.js');
+        $response->setLayoutVariable('languageSelectForm', FormHelper::getLanguageSelectForm());
 
         return $response;
     }
@@ -62,6 +64,9 @@ class SiteController extends \Ip\Controller
         $response = ipResponse();
         $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
+        ipAddJs('assets/languageSelect.js');
+        $response->setLayoutVariable('languageSelectForm', FormHelper::getLanguageSelectForm());
+
 
         return $response;
 
@@ -81,6 +86,9 @@ class SiteController extends \Ip\Controller
         $response = ipResponse();
         $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
+        ipAddJs('assets/languageSelect.js');
+        $response->setLayoutVariable('languageSelectForm', FormHelper::getLanguageSelectForm());
+
 
         return $response;
 
@@ -100,6 +108,9 @@ class SiteController extends \Ip\Controller
         $response = ipResponse();
         $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
+        ipAddJs('assets/languageSelect.js');
+        $response->setLayoutVariable('languageSelectForm', FormHelper::getLanguageSelectForm());
+
 
         return $response;
 
@@ -120,6 +131,9 @@ class SiteController extends \Ip\Controller
         $response = ipResponse();
         $response->setLayout('Ip/Internal/Admin/view/loginLayout.php');
         $response->setLayoutVariable('content', $content);
+        ipAddJs('assets/languageSelect.js');
+        $response->setLayoutVariable('languageSelectForm', FormHelper::getLanguageSelectForm());
+
 
         return $response;
     }
@@ -268,6 +282,14 @@ class SiteController extends \Ip\Controller
     }
 
 
+    public function changeLanguage()
+    {
+        $locale = ipRequest()->getPost('languageCode', 'en');
+        $hour = 60 * 60;
+        $day = $hour * 24;
+        setcookie("ipAdminLocale", $locale, time() + $day * ipGetOption('Config.adminLocaleCookieExpire', 10 * 365));
+        return new \Ip\Response\Json(array('success' => 1));
+    }
 
 
 }
