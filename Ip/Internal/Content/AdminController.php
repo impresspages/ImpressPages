@@ -105,7 +105,7 @@ class AdminController extends \Ip\Controller
             $revisionRecord = \Ip\Internal\Revision::getRevision($revisionId);
 
             if (!$revisionRecord) {
-                throw new \Ip\Exception\Content("Can't find required revision " . esc($revisionId), array('revisionId' => $revisionId));
+                throw new \Ip\Exception\Content("Can't find required revision " . esc($revisionId));
             }
 
             $pageId = $revisionRecord['pageId'];
@@ -143,8 +143,7 @@ class AdminController extends \Ip\Controller
             'widgetHtml' => $widgetHtml,
             'position' => $position,
             'widgetId' => $widgetId,
-            'block' => $blockName,
-            'widgetId' => $widgetId
+            'block' => $blockName
         );
 
         return new \Ip\Response\Json($data);

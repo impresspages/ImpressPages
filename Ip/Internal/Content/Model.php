@@ -22,8 +22,8 @@ class Model
      * @param int $languageId
      * @param bool $managementState
      * @param string $exampleContent
-     * @return string
      * @throws \Ip\Exception\Content
+     * @return string
      */
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
@@ -159,8 +159,8 @@ class Model
      * @param string $widgetName
      * @param string $data
      * @param string $skin
-     * @return string
      * @throws \Ip\Exception\Content
+     * @return string
      */
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $skin = null)
     {
