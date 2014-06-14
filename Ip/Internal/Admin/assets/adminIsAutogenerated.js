@@ -55,5 +55,5 @@ $(document).ready(function() {
                 alert('Unexpected error.' + response.responseText);
             }
         });
-    };
+    }
 });
