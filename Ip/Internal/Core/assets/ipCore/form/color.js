@@ -57,7 +57,7 @@
             }
 
         });
-    }
+    };
 
 
     $.fn.ipFormColor = function(method) {

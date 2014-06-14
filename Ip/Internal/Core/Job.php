@@ -8,13 +8,13 @@ class Job
     public static function ipRouteAction_20($info)
     {
         if (!$info['request']->_isWebsiteRoot()) {
-            return;
+            return null;
         }
 
         $req = $info['request']->getRequest();
 
         if (empty($req)) {
-            return;
+            return null;
         }
 
         $actionString = null;
@@ -31,13 +31,13 @@ class Job
         }
 
         if (!$actionString) {
-            return;
+            return null;
         }
 
         $parts = explode('.', $actionString);
         if (count($parts) > 2) {
             ipLog()->warning('Request.invalidControllerAction: {action}', array('action' => $actionString));
-            return;
+            return null;
         }
 
         if (empty($parts[1])) {
