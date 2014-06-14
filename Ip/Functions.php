@@ -768,11 +768,11 @@ function ipDoctypeDeclaration($doctype = null)
     return $answer;
 }
 
+
 /**
  * Get SQL table name by adding database prefix
- *
  * @param string $table SQL table name without prefix.
- * @param string|null $as SQL "as" keyword to be added.
+ * @param bool $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
 function ipTable($table, $as = false)

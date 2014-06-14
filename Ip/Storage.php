@@ -85,10 +85,11 @@ class Storage
         ipDb()->execute($sql, $params);
     }
 
+
+
     /**
      * Get all storage values for the plugin
-     *
-     * @param string $pluginName Plugin name
+     * @param string $plugin
      * @return array Key=>value array of plugin options
      */
     public function getAll($plugin)

@@ -29,14 +29,13 @@ class Language{
 
 
     /**
-     *
-     * @param $id int
-     * @param $code string
-     * @param $url string
-     * @param $longDescription string
-     * @param $shortDescription string
-     * @return Language
-     *
+     * @param $id
+     * @param $code
+     * @param $url
+     * @param $longDescription
+     * @param $shortDescription
+     * @param $visible
+     * @param $textDirection
      */
     public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible, $textDirection){
         $this->id = (int)$id;

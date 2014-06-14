@@ -344,12 +344,13 @@ class Db
         }
     }
 
+
     /**
      * Execute query, insert values from associative array
-     *
-     * @param string $table
-     * @param array $row
-     * @return mixed
+     * @param $table
+     * @param $row
+     * @param bool $ignore
+     * @return bool|string
      */
     public function insert($table, $row, $ignore = false)
     {
