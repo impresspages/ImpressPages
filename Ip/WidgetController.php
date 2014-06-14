@@ -282,7 +282,6 @@ class WidgetController
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
-        $answer = '';
 
         try {
             if ($this->core) {

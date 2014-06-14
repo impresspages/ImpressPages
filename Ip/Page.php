@@ -53,6 +53,10 @@ class Page
 
     protected $inBreadcrumb = null;
 
+    protected $isDisabled = false;
+    protected $isSecured = false;
+    protected $isBlank = false;
+
     /**
      * @param int|array $id
      * @throws \Ip\Exception
@@ -513,7 +517,7 @@ class Page
      */
     public function setAlias($alias)
     {
-        $this->type = $alias;
+        $this->alias = $alias;
     }
 
     /**
