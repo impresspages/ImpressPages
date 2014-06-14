@@ -85,8 +85,8 @@ abstract class Field
     /**
      * Render field's HTML code
      *
-     * @param $doctype \Ip\View doctype constant
-     * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
+     * @param string $doctype \Ip\View doctype constant
+     * @param string $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return string
      */
     public abstract function render($doctype, $environment);
@@ -112,7 +112,7 @@ abstract class Field
     /**
      * Get field attributes as HTML string
      *
-     * @param $doctype \Ip\View doctype constant
+     * @param string $doctype \Ip\View doctype constant
      * @return string
      */
     public function getAttributesStr($doctype) {
@@ -169,8 +169,8 @@ abstract class Field
      *
      * @param string $values
      * @param string $valueKey
-     * @param $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
-     * @return bool|string
+     * @param string $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
+     * @return bool
      */
     public function validate($values, $valueKey, $environment) {
         $validators = $this->getValidators();
@@ -265,7 +265,7 @@ abstract class Field
      * Get validator HTML attributes
      *
      * Needed for JavaScript validator.
-     * @param $doctype \Ip\View doctype constant.
+     * @param string $doctype \Ip\View doctype constant.
      * @return string
      */
     public function getValidationAttributesStr($doctype) {
