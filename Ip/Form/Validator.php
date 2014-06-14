@@ -21,7 +21,7 @@ abstract class Validator
      * All validators has to have the same constructor to make it easier to use them
      *
      * Thanks to this rule, you can add new validator to the form field without actually creating validator object, but just passing
-     * validator class and data for the constructor. Eg. $field->addValidator('validatorClass', $validationDAta);
+     * validator class and data for the constructor. Eg. $field->addValidator('validatorClass', $validationData);
      * @param array $data additional parameters to tune up the validator. Like regular expression for Regex validator.
      * @param string $errorMessage Override default error message.
      */

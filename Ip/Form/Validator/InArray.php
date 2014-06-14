@@ -47,7 +47,7 @@ class InArray extends \Ip\Form\Validator
             } else {
                 $errorText = __('The value has to be one of:', 'Ip');
             }
-            $errorText .= ' ' . implode(', ', $this->values);
+            $errorText .= ' ' . implode(', ', $this->data);
 
             return $errorText;
         }
