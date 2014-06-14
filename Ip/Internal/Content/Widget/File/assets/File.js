@@ -56,7 +56,7 @@ IpWidget_File = function () {
         if (this.data.files) {
             options.files = this.data.files;
         } else {
-            options.files = new Array();
+            options.files = [];
         }
         options.fileTemplate = this.modal.find('.ipsFileTemplate');
         container.ipWidget_ipFile_container('destroy');
@@ -88,7 +88,7 @@ IpWidget_File = function () {
         var notDeletedCount = 0;
         $files.each(function (index) {
             var $this = $(this);
-            var tmpFile = new Object();
+            var tmpFile = {};
             tmpFile.title = $this.ipWidget_ipFile_file('getTitle');
             tmpFile.fileName = $this.ipWidget_ipFile_file('getFileName');
             tmpFile.status = $this.ipWidget_ipFile_file('getStatus');

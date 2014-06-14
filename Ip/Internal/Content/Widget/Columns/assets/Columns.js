@@ -82,7 +82,7 @@ var ipColumnsInitWidthHandles = function () {
 
             $('body').append($newHandler);
         });
-    };
+    }
 
     $('.ipsAdminWidgetColsWidthHandler').remove();
 

@@ -16,7 +16,7 @@ var ipContent = new function () {
         var data = Object();
         data.aa = 'Content.deleteWidget';
         data.securityToken = ip.securityToken;
-        data.widgetId = Array();
+        data.widgetId = new Array();
 
         $.each($subwidgets, function (key, widget) {
             var $widget = $(widget);
@@ -61,8 +61,8 @@ var ipContent = new function () {
         var $columnsWidget = $('#ipWidget-' + columnswidgetid);
         var $columns = $columnsWidget.find('> .ipsColsContainer > .ipsCol'); // todo: refactor to remove container selector
 
-        var $emptyColumns = new Array();
-        var $notEmptyColumns = new Array();
+        var $emptyColumns = [];
+        var $notEmptyColumns = [];
         var columnsWidgetBlockName = $columnsWidget.closest('.ipBlock').data('ipBlock').name;
         var columnsWidgetPosition = $columnsWidget.index();
 
@@ -479,9 +479,9 @@ var ipContent = new function () {
         data.languageId = $block.data('languageid');
 
 
-        var $originalBlock = $('#ipWidget-' + widgetId).closest('.ipBlock');
-
         var $widget = $('#ipWidget-' + widgetId);
+        var $originalBlock = $widget.closest('.ipBlock');
+
         $widget.detach();
 
 

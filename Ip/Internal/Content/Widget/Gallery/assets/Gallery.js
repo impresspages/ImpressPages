@@ -166,7 +166,7 @@ var IpWidget_Gallery = function () {
     this.editImage = function (position) {
         var thisContext = this;
         var $modal = $('#ipWidgetGalleryEditPopup');
-        var options = new Object;
+        var options = {};
         var data = this.data.images[position];
 
         $modal.modal();

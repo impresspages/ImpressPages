@@ -7,7 +7,6 @@
 var IpWidget_Image = function () {
     var controllerScope = this;
     this.$widgetObject = null;
-    this.$imageUploader = null;
     this.data = null;
 
     this.init = function ($widgetObject, data) {
@@ -80,7 +79,7 @@ var IpWidget_Image = function () {
     this.editImage = function (position) {
         var thisContext = this;
         var $modal = $('#ipWidgetImageEditPopup');
-        var options = new Object;
+        var options = {};
         var data = this.data;
 
         $modal.modal();

@@ -47,24 +47,25 @@
                     $(document.body).prepend(ipContentInit.saveProgressHtml);
                     $(document.body).prepend(ipContentInit.controlPanelHtml);
 
-                    var options = new Object;
+                    var options = {};
                     options.pageId = ip.pageId;
                     options.revisionId = ip.revisionId;
                     options.widgetControlsHtml = ipContentInit.widgetControlsHtml;
                     options.contentManagementObject = $this;
                     options.manageableRevision = ipContentInit.manageableRevision;
 
-                    var data = $this.data('ipContentManagement');
+                    data = $this.data('ipContentManagement');
                     data.initInfo = options;
                     $this.data('ipContentManagement', data);
 
-                    $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
+                    var $panelButton = $('.ipsAdminPanelWidgetButton');
+                    $panelButton.ipAdminWidgetButton();
 
                     ipSpaceForWidgets();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
 
-                    $('.ipsAdminPanelWidgetButton')
+                    $panelButton
                         .on('dragstart', ipStartWidgetDrag)
                         .on('dragstop', ipStopWidgetDrag);
 
@@ -140,7 +141,6 @@
      *
      * Function used to paginate Widgets on Administration Panel
      *
-     * @param none
      * @returns nothing
      *
      *
@@ -175,7 +175,6 @@
      *
      * Function used to search Widgets on Administration Panel
      *
-     * @param none
      * @returns nothing
      *
      *
@@ -189,12 +188,12 @@
             if (this.value == this.defaultValue) {
                 this.value = '';
             }
-            ;
+
         }).blur(function () {
                 if (this.value == '') {
                     this.value = this.defaultValue;
                 }
-                ;
+
             }).keyup(function () {
                 var value = this.value;
                 $widgets.css('display', ''); // restate visibility
@@ -221,7 +220,6 @@
      *
      * Function used to create a space on a page for Administration Panel
      *
-     * @param none
      * @returns nothing
      *
      *
@@ -237,7 +235,7 @@
         var draggingElement = ui.item;
 
         //drop side
-        var sidePlaceholders = new Array();
+        var sidePlaceholders = [];
 
         $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
             //left placeholder
@@ -317,7 +315,7 @@
         //------------------------------------------------------
 
         //drop between the widgets horizontally
-        var horizontalPlaceholders = new Array();
+        var horizontalPlaceholders = [];
         $.each($('.ipBlock'), function (blockKey, block) {
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
@@ -337,7 +335,7 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return new Array()};
+                        widgetController.splitParts = function () {return []};
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the first paragraph
@@ -365,7 +363,7 @@
 
                         var widgetController = $widget.data('widgetController');
                         if (!widgetController.splitParts) {
-                            widgetController.splitParts = function () {return new Array()};
+                            widgetController.splitParts = function () {return []};
                         }
                         if (widgetController.splitParts && widgetController.splitParts().length) {
                             //middle of the first paragraph
@@ -394,7 +392,7 @@
 
                     var prevWidgetController = $prevWidget.data('widgetController');
                     if (!prevWidgetController.splitParts) {
-                        prevWidgetController.splitParts = function () {return new Array()};
+                        prevWidgetController.splitParts = function () {return []};
                     }
                     if (prevWidgetController.splitParts() && prevWidgetController.splitParts().length) {
                         //start placeholder from the middle of last paragraph
@@ -404,7 +402,7 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return new Array()};
+                        widgetController.splitParts = function () {return []};
                     }
                     if (widgetController.splitParts() && widgetController.splitParts().length) {
                         //placeholder touches center of first paragraph
@@ -439,7 +437,7 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return new Array()};
+                        widgetController.splitParts = function () {return []};
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
@@ -496,7 +494,7 @@
         });
 
         //drop between paragraphs inside widget
-        var paragraphPlaceholders = new Array();
+        var paragraphPlaceholders = [];
         $.each($('.ipBlock .ipWidget').not('.ipbEmpty .ipWidget'), function (widgetKey, widget) {
             var $widget = $(widget);
             var widgetController = $widget.data('widgetController');
@@ -504,7 +502,7 @@
                 widgetController = {};
             }
             if (!widgetController.splitParts) {
-                widgetController.splitParts = function () {return new Array()};
+                widgetController.splitParts = function () {return []};
             }
             var $paragraphs = widgetController.splitParts();
             if($paragraphs.length <= 1) {
