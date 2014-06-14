@@ -19,7 +19,7 @@ class NotInArray extends \Ip\Form\Validator
      */
     public function __construct($data, $errorMessage = null) {
         if (!is_array($data)) {
-            throw \Ip\Exception('InArray validator expect array of strings');
+            throw new \Ip\Exception('InArray validator expect array of strings');
         }
         parent::__construct($data, $errorMessage);
     }
