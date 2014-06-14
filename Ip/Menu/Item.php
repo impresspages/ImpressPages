@@ -47,7 +47,7 @@ class Item
     protected $current;
 
     /**
-     * @var MenuItem[]
+     * @var Item[]
      */
     protected $children;
 
