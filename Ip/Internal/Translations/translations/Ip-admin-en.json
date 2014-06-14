@@ -287,6 +287,7 @@
     "Failed to move uploaded file.": "Failed to move uploaded file.",
     "Failed to open output stream.": "Failed to open output stream.",
     "Failed to open input stream.": "Failed to open input stream.",
+    "Downloading new files and migrating the database. Please don't refresh the page. Be patient it may take up to 2 min. on good line.": "Downloading new files and migrating the database. Please don't refresh the page. Be patient it may take up to 2 min. on good line.",
     "Administrators": "Administrators",
     "On": "On",
     "Image assignment type": "Image assignment type",
