@@ -39,7 +39,7 @@ class Farbtastic extends Field
     /**
      * Validate field
      *
-     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field).
+     * @param array $values usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field).
      * @param string $valueKey This value key could not exist in values array.
      * @return bool|string Return string on error or false on success.
      */

@@ -16,6 +16,7 @@ class Unique extends \Ip\Form\Validator
      *
      * @param array $data
      * @param string $errorMessage
+     * @throws \Ip\Exception
      */
     public function __construct($data, $errorMessage = null) {
         if (empty($data['table'])) {

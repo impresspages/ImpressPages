@@ -16,6 +16,7 @@ class NotInArray extends \Ip\Form\Validator
      *
      * @param array $data
      * @param string $errorMessage
+     * @throws \Ip\Exception
      */
     public function __construct($data, $errorMessage = null) {
         if (!is_array($data)) {

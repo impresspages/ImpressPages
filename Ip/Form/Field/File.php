@@ -52,7 +52,7 @@ class File extends Field
      * Get values as string
      *
      * @param array $values All posted form values.
-     * @param string $value Key this field name.
+     * @param string $valueKey this field name.
      * @return string
      */
     public function getValueAsString($values, $valueKey) {
@@ -66,8 +66,9 @@ class File extends Field
     /**
      * Validate if field passes validation
      *
-     * @param array $data usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field).
+     * @param array $values usually array of string. But some elements could be null or even array (eg. password confirmation field, or multiple file upload field).
      * @param string $valueKey This value key could not exist in values array.
+     * @param string $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return string Return string on error or false on success.
      */
     public function validate($values, $valueKey, $environment)
