@@ -1,5 +1,5 @@
 /*!
-ImpressPages core init
+ ImpressPages core init
  */
 
 var ipGoogleMapsLoading = false;
@@ -10,7 +10,7 @@ var ipPingInterval;
  * hook all widgets with plugins
  */
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     // Map widget
     if ($('.ipWidget-Map').length) {
@@ -30,10 +30,10 @@ $(document).ready(function() {
     ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
 
     // add ipHas... classes when core elements load
-    $(document).on('ipContentManagementInit', function() {
+    $(document).on('ipContentManagementInit', function () {
         $(document.body).addClass('ipHasAdminPanel');
     });
-    $(document).on('ipAdminPanelInit', function() {
+    $(document).on('ipAdminPanelInit', function () {
         $(document.body).addClass('ipHasAdminNavbar');
     });
 
