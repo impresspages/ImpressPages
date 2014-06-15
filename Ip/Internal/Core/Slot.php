@@ -95,7 +95,7 @@ class Slot
         }
 
         if (!empty($params[0]) && is_object($params[0]) && $params[0] instanceof \Ip\Menu\Item) {
-            $params = array (
+            $params = array(
                 'items' => $params
             );
         }

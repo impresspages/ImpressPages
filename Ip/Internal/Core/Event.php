@@ -85,26 +85,25 @@ class Event
     protected static function validatorLocalizationData($namespace)
     {
         // TODO do this localization on client side
-        if ($namespace == 'Ip')
-        {
+        if ($namespace == 'Ip') {
             $answer = array(
-                '*'           => __('Please correct this value', 'Ip'),
-                ':email'      => __('Please enter a valid email address', 'Ip'),
-                ':number'     => __('Please enter a valid numeric value', 'Ip'),
-                ':url'        => __('Please enter a valid URL', 'Ip'),
-                '[max]'       => __('Please enter a value no larger than $1', 'Ip'),
-                '[min]'       => __('Please enter a value of at least $1', 'Ip'),
-                '[required]'  => __('Please complete this mandatory field', 'Ip')
+                '*' => __('Please correct this value', 'Ip'),
+                ':email' => __('Please enter a valid email address', 'Ip'),
+                ':number' => __('Please enter a valid numeric value', 'Ip'),
+                ':url' => __('Please enter a valid URL', 'Ip'),
+                '[max]' => __('Please enter a value no larger than $1', 'Ip'),
+                '[min]' => __('Please enter a value of at least $1', 'Ip'),
+                '[required]' => __('Please complete this mandatory field', 'Ip')
             );
         } elseif ($namespace == 'Ip-admin') {
             $answer = array(
-                '*'           => __('Please correct this value', 'Ip-admin'),
-                ':email'      => __('Please enter a valid email address', 'Ip-admin'),
-                ':number'     => __('Please enter a valid numeric value', 'Ip-admin'),
-                ':url'        => __('Please enter a valid URL', 'Ip-admin'),
-                '[max]'       => __('Please enter a value no larger than $1', 'Ip-admin'),
-                '[min]'       => __('Please enter a value of at least $1', 'Ip-admin'),
-                '[required]'  => __('Please complete this mandatory field', 'Ip-admin')
+                '*' => __('Please correct this value', 'Ip-admin'),
+                ':email' => __('Please enter a valid email address', 'Ip-admin'),
+                ':number' => __('Please enter a valid numeric value', 'Ip-admin'),
+                ':url' => __('Please enter a valid URL', 'Ip-admin'),
+                '[max]' => __('Please enter a value no larger than $1', 'Ip-admin'),
+                '[min]' => __('Please enter a value of at least $1', 'Ip-admin'),
+                '[required]' => __('Please complete this mandatory field', 'Ip-admin')
             );
         } else {
             throw new \Ip\Exception('Unknown translation domain: ' . esc($namespace));
@@ -133,16 +132,20 @@ class Event
             $now = time();
             // List all the files
             while (false !== ($file = readdir($handle))) {
-                if(file_exists($dir.$file) && $file != ".."  && $file != ".") {
-                    if (filectime($dir.$file) + 3600 * 24 * ipGetOption('Config.tmpFileExistance', 14) < $now){  //delete if a file is created more than two weeks ago
-                        if (is_dir($dir.$file)) {
-                            self::cleanDirRecursive($dir.$file.'/', $depth + 1);
-                            if (self::dirIsEmpty($dir.$file)) {
-                                rmdir($dir.$file);
+                if (file_exists($dir . $file) && $file != ".." && $file != ".") {
+                    if (filectime($dir . $file) + 3600 * 24 * ipGetOption(
+                            'Config.tmpFileExistance',
+                            14
+                        ) < $now
+                    ) { //delete if a file is created more than two weeks ago
+                        if (is_dir($dir . $file)) {
+                            self::cleanDirRecursive($dir . $file . '/', $depth + 1);
+                            if (self::dirIsEmpty($dir . $file)) {
+                                rmdir($dir . $file);
                             }
                         } else {
                             if ($file != '.htaccess' && ($file != 'readme.txt' || $depth > 0) && ($file != 'readme.md' || $depth > 0)) {
-                                unlink($dir.$file);
+                                unlink($dir . $file);
                             }
                         }
                     }
@@ -154,7 +157,9 @@ class Event
 
     private static function dirIsEmpty($dir)
     {
-        if (!is_readable($dir)) return NULL;
+        if (!is_readable($dir)) {
+            return null;
+        }
         return (count(scandir($dir)) == 2);
     }
 }
