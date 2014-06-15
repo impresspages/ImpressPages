@@ -28,7 +28,7 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['widgetId']) ||
             !isset($_POST['position']) ||
             !isset($_POST['blockName']) ||
-            !isset($_POST['revisionId'])||
+            !isset($_POST['revisionId']) ||
             !isset($_POST['languageId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
@@ -67,7 +67,8 @@ class AdminController extends \Ip\Controller
     }
 
 
-    public function getImageContainerHtml() {
+    public function getImageContainerHtml()
+    {
         $html = ipView('view/imageContainer.php', array())->render();
 
         $result = array(
@@ -88,7 +89,7 @@ class AdminController extends \Ip\Controller
         if (!isset($_POST['widgetName']) ||
             !isset($_POST['position']) ||
             !isset($_POST['block']) ||
-            !isset($_POST['revisionId'])||
+            !isset($_POST['revisionId']) ||
             !isset($_POST['languageId'])
         ) {
             return $this->_errorAnswer('Missing POST variable');
@@ -124,7 +125,16 @@ class AdminController extends \Ip\Controller
 
 
         try {
-            $widgetId = Service::createWidget($widgetName, null, null, $revisionId, $languageId, $blockName, $position, true);
+            $widgetId = Service::createWidget(
+                $widgetName,
+                null,
+                null,
+                $revisionId,
+                $languageId,
+                $blockName,
+                $position,
+                true
+            );
             if ($widgetName == 'Columns' && $revisionId == 0) {
                 $widgetRecord = Model::getWidgetRecord($widgetId);
                 $data = array_merge($widgetRecord['data'], array('static' => true));
@@ -149,8 +159,6 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($data);
 
     }
-
-
 
 
     public function updateWidget()
@@ -217,7 +225,6 @@ class AdminController extends \Ip\Controller
         $updateData['skin'] = $skin;
 
 
-
         Model::updateWidget($record['id'], $updateData);
         $previewHtml = Model::generateWidgetPreview($widgetId, true);
 
@@ -234,20 +241,19 @@ class AdminController extends \Ip\Controller
     public function deleteWidget()
     {
 
-            if (!isset($_POST['widgetId'])) {
+        if (!isset($_POST['widgetId'])) {
             return $this->_errorAnswer('Missing widgetId POST variable');
         }
         $widgetId = $_POST['widgetId'];
 
         if (is_array($widgetId)) {
-            foreach($widgetId as $curId) {
+            foreach ($widgetId as $curId) {
                 Service::deleteWidget($curId);
             }
         } else {
             $widgetId = (int)$widgetId;
             Service::deleteWidget($widgetId);
         }
-
 
 
         $data = array(
@@ -299,34 +305,36 @@ class AdminController extends \Ip\Controller
 
     }
 
-	private function _addPageToTree(\Ip\Page $page) {
-		$children = array(
+    private function _addPageToTree(\Ip\Page $page)
+    {
+        $children = array(
             'text' => $page->getTitle(),
             'icon' => 'fa fa-file-text',
-            'li_attr' => (object) array(
-            	'data-url' => $page->getLink()
-			),
-			'children' => array()
-		);
+            'li_attr' => (object)array(
+                    'data-url' => $page->getLink()
+                ),
+            'children' => array()
+        );
         foreach ($page->getChildren() as $child) {
-        	$children['children'][] = $this->_addPageToTree($child);
+            $children['children'][] = $this->_addPageToTree($child);
         }
         return $children;
-	}
+    }
 
-	public function getPageTree() {
+    public function getPageTree()
+    {
 
         $language = ipContent()->getCurrentLanguage();
 
         $sitemap = array(
-			array(
-			   'text' => $language->getAbbreviation(),
-			   'type' => 'language',
-			   'icon' => 'fa fa-flag-o',
-			   'state' => array('opened' => true),
-			   'children' => array()
-			)
-		);
+            array(
+                'text' => $language->getAbbreviation(),
+                'type' => 'language',
+                'icon' => 'fa fa-flag-o',
+                'state' => array('opened' => true),
+                'children' => array()
+            )
+        );
 
         $menuList = \Ip\Internal\Pages\Model::getMenuList($language->getCode());
 
@@ -355,6 +363,6 @@ class AdminController extends \Ip\Controller
         );
 
         return new \Ip\Response\Json($data);
-	}
+    }
 
 }

@@ -176,7 +176,9 @@ class Model
                 $source = '';
             }
 
-            throw new \Ip\Exception\Content('Widget ' . esc($widgetName) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
+            throw new \Ip\Exception\Content('Widget ' . esc(
+                $widgetName
+            ) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
         }
 
         $widgetRecord = array(
@@ -225,9 +227,19 @@ class Model
             $widgetRecord['revisionId'] = $currentRevision['revisionId'];
         }
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
+        $previewHtml = $widgetObject->generateHtml(
+            $widgetRecord['revisionId'],
+            $widgetRecord['id'],
+            $widgetData,
+            $widgetRecord['skin']
+        );
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
+        $widgetRecord['data'] = $widgetObject->dataForJs(
+            $widgetRecord['revisionId'],
+            $widgetRecord['id'],
+            $widgetData,
+            $widgetRecord['skin']
+        );
 
         $optionsMenu = array();
 
@@ -278,11 +290,14 @@ class Model
             ORDER BY `position` ASC
         ';
 
-        $list = ipDb()->fetchAll($sql, array(
+        $list = ipDb()->fetchAll(
+            $sql,
+            array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
                 'languageId' => $languageId
-            ));
+            )
+        );
 
         foreach ($list as &$item) {
             $item['data'] = json_decode($item['data'], true);
@@ -335,7 +350,7 @@ class Model
             UPDATE
                 $widgetTable
             SET
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."_', 'column" . (int)$newId . "_')
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId . "_', 'column" . (int)$newId . "_')
             WHERE
                 `revisionId` = :newRevisionId
             ";
@@ -411,8 +426,16 @@ class Model
      * @param bool $visible
      * @return int
      */
-    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
-    {
+    public static function createWidget(
+        $widgetName,
+        $data,
+        $skin,
+        $revisionId,
+        $languageId,
+        $blockName,
+        $position,
+        $visible = true
+    ) {
         $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
         $row = array(
@@ -526,7 +549,7 @@ class Model
      */
     public static function deleteWidget($widgetId)
     {
-        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array ("id" => $widgetId));
+        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array("id" => $widgetId));
     }
 
     /**
@@ -603,17 +626,17 @@ class Model
 
         $currentRevision = \Ip\Internal\Revision::getRevision($revisionId);
         if (!$currentRevision) {
-            return FALSE;
+            return false;
         }
         $pageId = $currentRevision['pageId'];
 
         $publishedRevision = \Ip\Internal\Revision::getPublishedRevision($pageId);
         if (!$publishedRevision) {
-            return TRUE;
+            return true;
         }
 
         if ($publishedRevision['revisionId'] == $currentRevision['revisionId']) {
-            return FALSE;
+            return false;
         }
 
         $currentFingerprint = self::revisionFingerprint($currentRevision['revisionId']);
