@@ -22,13 +22,13 @@ class Service
     }
 
 
-
     /**
      * @param $themeName
      * @param $filename
      * @return string url to real time compiled less. Available only with admin login.
      */
-    public function getRealTimeUrl($themeName, $filename) {
+    public function getRealTimeUrl($themeName, $filename)
+    {
         $configModel = ConfigModel::instance();
         $data = array(
             'aa' => 'Design.realTimeLess',
@@ -65,7 +65,6 @@ class Service
     }
 
 
-
     public function saveWidgetOptions(Theme $theme)
     {
         $widgetOptions = $theme->getWidgetOptions();
@@ -89,7 +88,6 @@ class Service
     {
         return Model::instance()->getThemeLayouts();
     }
-
 
 
 }
