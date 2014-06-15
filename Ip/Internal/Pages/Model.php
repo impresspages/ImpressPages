@@ -33,8 +33,10 @@ class Model
      * Copy page
      *
      * @param int $pageId
-     * @param int $newParentId
+     * @param $destinationPageId
      * @param int $position page position in the subtree //TODO implement
+     * @internal param int $newParentId
+     * @return int
      */
     public static function copyPage($pageId, $destinationPageId, $position = null)
     {
@@ -86,6 +88,7 @@ class Model
      * @param int $nodeId
      * @param int $newParentId
      * @param int $newIndex
+     * @return bool|string
      */
     public static function copySinglePage($nodeId, $newParentId, $newIndex)
     {
@@ -129,6 +132,7 @@ class Model
      *
      * @param string $languageCode
      * @param string $alias
+     * @return array|null
      */
     public static function getMenu($languageCode, $alias)
     {
@@ -141,6 +145,7 @@ class Model
      * @param int $parentId
      * @param int $start
      * @param int $limit
+     * @return array
      */
     public static function getChildren($parentId, $start = null, $limit = null)
     {
@@ -178,6 +183,7 @@ class Model
      * Get page
      *
      * @param int $pageId
+     * @return array|null
      */
     public static function getPage($pageId)
     {
@@ -189,6 +195,7 @@ class Model
      *
      * @param string $languageCode
      * @param string $urlPath
+     * @return array|null
      */
     public static function getPageByUrl($languageCode, $urlPath)
     {
@@ -204,6 +211,7 @@ class Model
      *
      * @param string $languageCode
      * @param string $alias
+     * @return array|null
      */
     public static function getPageByAlias($languageCode, $alias)
     {
@@ -231,6 +239,7 @@ class Model
      *
      * @param string $pageId
      * @param string $newUrlPath
+     * @return bool|null
      */
     protected static function changePageUrlPath($pageId, $newUrlPath)
     {
@@ -256,6 +265,7 @@ class Model
                 'newUrl' => $pageAfterChange->getLink(),
             )
         );
+        return null;
     }
 
     /**
@@ -374,10 +384,11 @@ class Model
     /**
      * Move page
      *
-     * @param int $menuId
+     * @param $pageId
      * @param int $destinationParentId
      * @param int $destinationPosition
      * @throws \Ip\Exception
+     * @internal param int $menuId
      */
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
@@ -418,11 +429,6 @@ class Model
      */
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
-        $update = array(
-            'alias' => $alias,
-            'title' => $title,
-        );
-
         $properties = array(
             'alias' => $alias,
             'title' => $title,

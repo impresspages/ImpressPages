@@ -85,7 +85,7 @@
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
-    }
+    };
 
     $.fn.ipPageProperties = function(method) {
 
