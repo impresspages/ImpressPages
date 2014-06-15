@@ -12,9 +12,11 @@ namespace Ip\Response;
  * Event dispatcher class
  *
  */
-class PageNotFound extends \Ip\Response\Layout {
+class PageNotFound extends \Ip\Response\Layout
+{
 
-    public function __construct($content = null) {
+    public function __construct($content = null)
+    {
         if ($content === null) {
             $content = $this->generateError404Content();
         }
@@ -33,7 +35,8 @@ class PageNotFound extends \Ip\Response\Layout {
         return is_file(ipThemeFile('404.php')) ? '404.php' : 'main.php';
     }
 
-    protected function generateError404Content() {
+    protected function generateError404Content()
+    {
         $data = array(
             'title' => __('Error 404', 'Ip', false),
             'text' => self::error404Message()
@@ -46,12 +49,17 @@ class PageNotFound extends \Ip\Response\Layout {
      * Find the reason why the user come to non-existent URL
      * @return string error message
      */
-    protected function error404Message(){
+    protected function error404Message()
+    {
         $message = '';
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
             $message = __('Config.error_mistyped_url', 'Ip', false);
         } else {
-            if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) !== false) {
+            if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos(
+                    $_SERVER['HTTP_REFERER'],
+                    ipConfig()->baseUrl()
+                ) !== false
+            ) {
                 $message = '<p>' . __('Config.error_broken_link_inside', 'Ip') . '</p>';
             } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) === false) {
                 $message = '<p>' . __('Config.error_broken_link_outside', 'Ip') . '</p>';
@@ -59,7 +67,6 @@ class PageNotFound extends \Ip\Response\Layout {
         }
         return $message;
     }
-
 
 
 }

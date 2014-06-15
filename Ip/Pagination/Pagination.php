@@ -66,8 +66,8 @@ class Pagination
         }
 
         if ($lastPage < $this->totalPages) {
-            $pages[]= '..';
-            $pages[]= $this->totalPages;
+            $pages[] = '..';
+            $pages[] = $this->totalPages;
         }
 
         if (isset($pages[1]) && $pages[1] == '..') {
@@ -88,7 +88,7 @@ class Pagination
         return $pages;
     }
 
-    public function render($view = NULL)
+    public function render($view = null)
     {
         if ($this->totalPages < 1) {
             return null;
