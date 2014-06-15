@@ -129,8 +129,6 @@ class Actions
 
     public function create($data)
     {
-        $db = new Db($this->config);
-
         $fields = $this->config->fields();
         $dbData = array();
         foreach($fields as $field) {

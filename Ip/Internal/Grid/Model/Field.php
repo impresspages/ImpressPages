@@ -66,14 +66,14 @@ abstract class Field
      * submitted data. Use this method to process submitted data and return associative array of values to be
      * stored to the database. If you need to do some other actions on other tables or process files after new
      * record has been created, use onCreate method.
-     * @param $postData user posted data
+     * @param array $postData user posted data
      * @return array
      */
     public abstract function createData($postData);
 
     /**
      * Return an object which can be used as a field for standard Ip\Form class.
-     * @param $curData current record data
+     * @param array $curData current record data
      * @return \Ip\Form\Field
      */
     public abstract function updateField($curData);
@@ -82,7 +82,7 @@ abstract class Field
      * Grid doesn't put user's input directly into the database. Each field type decides how to process
      * submitted data. Use this method to process submitted data and return associative array of values to be
      * stored to the database. If you need to do some other actions on other tables or process files after update, use onUpdate method.
-     * @param $postData user posted data
+     * @param array $postData user posted data
      * @return array
      */
     public abstract function updateData($postData);

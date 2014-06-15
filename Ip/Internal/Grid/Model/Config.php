@@ -8,6 +8,9 @@ namespace Ip\Internal\Grid\Model;
 
 class Config
 {
+    /**
+     * @var Config
+     */
     protected $config = null;
 
     /**
