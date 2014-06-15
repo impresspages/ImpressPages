@@ -285,7 +285,7 @@ class Table extends \Ip\Internal\Grid\Model
 
 
             foreach ($newData as $key => $value) {
-                $statusVariables['s_'.$key] = $value;
+                $statusVariables['s_' . $key] = $value;
             }
 
             $commands[] = Commands::setHash(Status::build($statusVariables));

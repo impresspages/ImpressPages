@@ -9,14 +9,15 @@ namespace Ip\Internal\Grid\Model;
 class Status
 {
 
-    public static function parse($statusVariable) {
+    public static function parse($statusVariable)
+    {
         if (!empty($statusVariable[0]) && $statusVariable[0] == '#') {
             $statusVariable = substr($statusVariable, 1);
         }
 
         $variables = array();
         $parts = explode('&', $statusVariable);
-        foreach($parts as $part) {
+        foreach ($parts as $part) {
             $tmp = explode('=', $part);
             if (isset($tmp[1])) {
                 $variables[$tmp[0]] = urldecode($tmp[1]);

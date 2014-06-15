@@ -36,7 +36,7 @@ class Select extends \Ip\Internal\Grid\Model\Field
     public function preview($recordData)
     {
         $previewValue = $recordData[$this->field];
-        foreach($this->values as $value) {
+        foreach ($this->values as $value) {
             if (is_array($value) && isset($value[1]) && $value[0] == $previewValue) {
                 $previewValue = $value[1];
                 break;
