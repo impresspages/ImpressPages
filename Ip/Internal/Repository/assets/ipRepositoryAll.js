@@ -1,17 +1,17 @@
-(function($) {
+(function ($) {
     "use strict";
 
     var settings = {};
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
             // defaults are set in ipRepository.js
             // otherwise here we should extend defaults with custom options
             settings = options;
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
 
@@ -27,30 +27,31 @@
                     data.filter = settings.filter;
 
                     if ($popup.find('.ipsPermissionError').length == 0) {
-                        $.ajax ({
-                            type : 'POST',
-                            url : ip.baseUrl,
-                            data : data,
-                            context : this,
+                        $.ajax({
+                            type: 'POST',
+                            url: ip.baseUrl,
+                            data: data,
+                            context: this,
                             //success : $.proxy(methods._storeFilesResponse, this),
-                            success : methods._getAllFilesResponse,
-                            error : function(){}, //TODO report error
-                            dataType : 'json'
+                            success: methods._getAllFilesResponse,
+                            error: function () {
+                            }, //TODO report error
+                            dataType: 'json'
                         });
                     }
 
-                    $('#ipsModuleRepositoryBuyButton').on('click', function(e){
+                    $('#ipsModuleRepositoryBuyButton').on('click', function (e) {
                         e.preventDefault();
                         $popup.find('a[href*=ipsModuleRepositoryTabBuy]').click();
                     });
-                    $popup.find('.ipsBrowserSearch').on('submit', function(e){
+                    $popup.find('.ipsBrowserSearch').on('submit', function (e) {
                         e.preventDefault();
                         $popup.trigger('ipModuleRepository.search');
                     });
-                    $popup.find('.ipsBrowserSearch .ipsTerm').on('keyup change', function(e) {
+                    $popup.find('.ipsBrowserSearch .ipsTerm').on('keyup change', function (e) {
                         $popup.trigger('ipModuleRepository.search');
                     });
-                    $popup.find('.ipsBrowserSearch .ipsSubmit').on('click', function(e) {
+                    $popup.find('.ipsBrowserSearch .ipsSubmit').on('click', function (e) {
                         var $this = $(this);
                         var $searchField = $this.closest('.ipsBrowserSearch').find('.ipsTerm');
                         if ($searchField.val() != '') {
@@ -66,7 +67,7 @@
             });
         },
 
-        _filterFilesByTerm : function(e) {
+        _filterFilesByTerm: function (e) {
             var $this = $(this);
             var $lists = $this.find('.ipsBrowser .ipsList');
             var $files = $lists.find('li');
@@ -74,7 +75,7 @@
 
             if (term.length > 0) {
                 // if term exists - loop all files
-                $files.each(function(){
+                $files.each(function () {
                     var $file = $(this);
                     var fileName = $file.data('fileData').fileName.toLowerCase();
                     // check in files' data whether filename include term
@@ -94,7 +95,7 @@
             }
 
             // loop all lists
-            $lists.each(function(){
+            $lists.each(function () {
                 var $list = $(this);
                 var totalFiles = $list.find('li').length;
                 var hiddenFiles = $list.find('li.hidden').length;
@@ -112,18 +113,18 @@
             });
         },
 
-        addRecentFiles : function (files) {
+        addRecentFiles: function (files) {
             var $this = $(this);
             $this.find('.ipsRecentTitle').removeClass('hidden');
             $this.find('.ipsRecentList').removeClass('hidden');
 
             var $template = $this.find('.ipsFileTemplate');
             var $newList = $this.find('.ipsRecentList');
-            $newList.addClass('_previewType-'+settings.preview);
+            $newList.addClass('_previewType-' + settings.preview);
 
-            for(var i in files) {
+            for (var i in files) {
                 var $newItem = $template.clone().removeClass('ipsFileTemplate');
-                methods._addFileData($newItem,files[i]);
+                methods._addFileData($newItem, files[i]);
 
                 $newItem.toggleClass('ui-selected');
                 $newList.append($newItem);
@@ -133,7 +134,7 @@
 
         },
 
-        _addFileData : function($file, data) {
+        _addFileData: function ($file, data) {
             // icon
             var iconClass = 'fa fa-file-o';
             switch (data.ext) {
@@ -201,7 +202,7 @@
             $file.data('fileData', data);
         },
 
-        _getAllFilesResponse : function(response) {
+        _getAllFilesResponse: function (response) {
             var $this = $(this);
             var repositoryContainer = this;
 
@@ -215,15 +216,15 @@
             var $listTemplate = $this.find('.ipsListTemplate');
             var $titleTemplate = $this.find('.ipsListTitleTemplate');
 
-            for(var gi in fileGroups) {
+            for (var gi in fileGroups) {
                 var $newList = $listTemplate.clone().detach().removeClass('ipsListTemplate');
-                $newList.addClass('_previewType-'+settings.preview);
+                $newList.addClass('_previewType-' + settings.preview);
                 var $newTitle = $titleTemplate.clone().detach().removeClass('ipsListTitleTemplate');
                 $newTitle.text(gi);
-                for(var i in fileGroups[gi]) {
+                for (var i in fileGroups[gi]) {
                     var files = fileGroups[gi];
                     var $newItem = $template.clone().removeClass('ipsFileTemplate');
-                    methods._addFileData($newItem,files[i]);
+                    methods._addFileData($newItem, files[i]);
                     $newList.append($newItem);
                 }
                 $browserContainer.append($newTitle);
@@ -235,14 +236,14 @@
             $this.find('.ipsRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
             $this.find('.ipsRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
 
-            $browserContainer.delegate('li', 'click', function(e){
+            $browserContainer.delegate('li', 'click', function (e) {
                 $(this).toggleClass('ui-selected');
                 $.proxy(methods._countSelected, repositoryContainer)();
             });
 
         },
 
-        _countSelected : function(e) {
+        _countSelected: function (e) {
             var $this = $(this);
             var count = $this.find('li.ui-selected').length;
             if (count) {
@@ -253,26 +254,28 @@
             $this.find('.ipsRepositoryActions .ipsSelectionCount').text(count);
         },
 
-        _startSelect : function(e) {
+        _startSelect: function (e) {
             var $this = $(this);
             $this.find('.ipsRepositoryActions').removeClass('hidden');
             $this.find('.ipsBrowserContainer').addClass('ui-selecting');
         },
 
-        _stopSelect : function(e) {
-            if (e) { e.preventDefault(); }
+        _stopSelect: function (e) {
+            if (e) {
+                e.preventDefault();
+            }
             var $this = $(this);
             $this.find('.ipsRepositoryActions').addClass('hidden');
             $this.find('.ipsBrowserContainer li').removeClass('ui-selected');
             $this.find('.ipsBrowserContainer').removeClass('ui-selecting');
         },
 
-        _confirm : function (e) {
+        _confirm: function (e) {
             e.preventDefault();
             var $this = $(this);
 
             var files = new Array();
-            $this.find('li.ui-selected').each(function(){
+            $this.find('li.ui-selected').each(function () {
                 var $this = $(this);
                 files.push($this.data('fileData'));
             });
@@ -280,19 +283,19 @@
             $this.trigger('ipModuleRepository.confirm', [files]);
         },
 
-        _cancel : function(e) {
+        _cancel: function (e) {
             e.preventDefault();
             $(this).trigger('ipModuleRepository.cancel');
         },
 
-        _delete : function(e) {
+        _delete: function (e) {
             e.preventDefault();
 
             if (confirm(ipRepositoryTranslate_confirm_delete)) {
                 var $this = $(this);
 
                 var files = new Array();
-                $this.find('li.ui-selected').each(function(){
+                $this.find('li.ui-selected').each(function () {
                     var $this = $(this);
                     files.push($this.data('fileData'));
                 });
@@ -302,20 +305,21 @@
                 data.files = files;
                 data.securityToken = ip.securityToken;
 
-                $.ajax ({
-                    type : 'POST',
-                    url : ip.baseUrl,
-                    data : data,
-                    context : this,
+                $.ajax({
+                    type: 'POST',
+                    url: ip.baseUrl,
+                    data: data,
+                    context: this,
                     //success : $.proxy(methods._storeFilesResponse, this),
-                    success : methods._getDeleteFilesResponse,
-                    error : function(){}, //TODO report error
-                    dataType : 'json'
+                    success: methods._getDeleteFilesResponse,
+                    error: function () {
+                    }, //TODO report error
+                    dataType: 'json'
                 });
             }
         },
 
-        _getDeleteFilesResponse : function(response) {
+        _getDeleteFilesResponse: function (response) {
             var $this = $(this);
             var repositoryContainer = this;
 
@@ -331,9 +335,9 @@
             // remove deleted files
             var deletedFiles = response.deletedFiles;
             var $browser = $this.find('.ipsBrowser');
-            for(var i in deletedFiles) {
+            for (var i in deletedFiles) {
 
-                var  animateOptions = {};
+                var animateOptions = {};
 
                 switch (settings.preview) {
                     case 'thumbnails':
@@ -345,11 +349,11 @@
                 }
 
 
-                $browser.find("li[data-file='"+deletedFiles[i]+"']")
+                $browser.find("li[data-file='" + deletedFiles[i] + "']")
                     .css('overflow', 'hidden')
                     .css('border-bottom', 'none')
                     .animate(animateOptions, 'slow')
-                    .hide(0, function() {
+                    .hide(0, function () {
                         $(this).remove();
                         // recalculating selected files
                         $.proxy(methods._countSelected, repositoryContainer)();
@@ -359,11 +363,11 @@
         },
 
         // set back our element
-        _teardown : function() {
+        _teardown: function () {
             $(window).unbind('resize.ipRepositoryAll');
         },
 
-        _resize : function(e) {
+        _resize: function (e) {
             var $popup = $('.ipsModuleRepositoryPopup');
             var $block = $popup.find('.ipsBrowser');
             var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
@@ -372,7 +376,7 @@
 
     };
 
-    $.fn.ipRepositoryAll = function(method) {
+    $.fn.ipRepositoryAll = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
