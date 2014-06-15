@@ -4,11 +4,11 @@
  */
 
 
-
 namespace Ip\Internal\Ecommerce;
 
 
-class Job {
+class Job
+{
     public static function ipSubscriptionPaymentUrl($data)
     {
         /**
