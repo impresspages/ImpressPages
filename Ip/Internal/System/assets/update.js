@@ -1,10 +1,9 @@
-
-(function($){
+(function ($) {
     "use strict";
 
-    var ipSystem = new function() {
+    var ipSystem = new function () {
 
-        this.init = function() {
+        this.init = function () {
             var postData = {};
             postData.aa = 'System.getIpNotifications';
             postData.securityToken = ip.securityToken;
@@ -59,7 +58,7 @@
             postData.downloadUrl = $link.data('downloadurl');
             postData.md5 = $link.data('md5');
 
-            var updateModal  = $('#ipWidgetUpdatePopup');
+            var updateModal = $('#ipWidgetUpdatePopup');
 
             updateModal.modal();
 
@@ -90,7 +89,7 @@
 
     };
 
-    $(function() {
+    $(function () {
         ipSystem.init();
     });
 

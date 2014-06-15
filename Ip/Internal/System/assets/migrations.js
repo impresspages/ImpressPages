@@ -1,4 +1,4 @@
-(function($){
+(function ($) {
     "use strict";
     if ($('.ipsStartMigration').length) {
         $('.ipsStartMigration').on('click', function (e) {
