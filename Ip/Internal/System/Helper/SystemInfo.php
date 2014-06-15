@@ -39,7 +39,7 @@ class SystemInfo
      * @param int $extra in bytes
      * @return bool|null true if enough memory, false if could not allocate, null if there is no way to know
      */
-    public static function allocateMemory($bytesRequired, $extra = 0x1000000)  //~10Mb extra
+    public static function allocateMemory($bytesRequired, $extra = 0x1000000) //~10Mb extra
     {
         $memoryLimit = \Ip\Internal\System\Helper\SystemInfo::getMemoryLimit();
 
@@ -62,8 +62,11 @@ class SystemInfo
         }
 
         $megabytesNeeded = ceil($memoryRequired + $extra / 0x100000) . 'M';
-        if ( ! ini_set('memory_limit', $megabytesNeeded)) {
-            ipLog()->warning('Could not allocate enough memory. Please increase memory limit to {memoryNeeded}', array('memoryNeeded' => $megabytesNeeded));
+        if (!ini_set('memory_limit', $megabytesNeeded)) {
+            ipLog()->warning(
+                'Could not allocate enough memory. Please increase memory limit to {memoryNeeded}',
+                array('memoryNeeded' => $megabytesNeeded)
+            );
             return false;
         }
 
