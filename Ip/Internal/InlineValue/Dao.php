@@ -101,7 +101,7 @@ class Dao
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
 
-        $where = array (
+        $where = array(
             'plugin' => $this->module,
             'pageId' => $pageId,
             'key' => $key,
@@ -136,7 +136,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -173,7 +173,7 @@ class Dao
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );
@@ -219,7 +219,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId,
@@ -251,7 +251,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId,
@@ -281,7 +281,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':value' => $value
@@ -308,7 +308,7 @@ class Dao
                 AND `pageId` = :pageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId
@@ -335,7 +335,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -360,7 +360,7 @@ class Dao
                 AND `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );
