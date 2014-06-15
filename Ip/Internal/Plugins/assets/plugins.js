@@ -70,7 +70,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.activate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -100,7 +100,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.deactivate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -130,7 +130,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.remove';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -161,7 +161,7 @@ var ipPlugins = null;
             curVariables.plugin = pluginName ? pluginName : null;
 
             var path = '';
-            $.each(curVariables, function(key, value){
+            $.each(curVariables, function (key, value) {
                 if (value != null) {
                     if (path != '') {
                         path = path + '&';
