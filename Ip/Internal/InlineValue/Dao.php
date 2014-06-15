@@ -27,6 +27,7 @@ class Dao
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return Entity\Scope
      */
     public function getValue($key, $languageId, $pageId)
     {

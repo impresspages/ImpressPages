@@ -29,6 +29,7 @@ class Logo
 
     /**
      * @param array|string $data
+     * @param string $defaultLogo
      */
     public function __construct($data, $defaultLogo = null)
     {

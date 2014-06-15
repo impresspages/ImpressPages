@@ -75,7 +75,7 @@ class Service
     /**
      * Get last operation scope
      *
-     * @return int
+     * @return Entity\Scope
      */
     public function getLastOperationScope()
     {
