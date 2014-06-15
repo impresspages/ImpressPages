@@ -5,21 +5,21 @@
  */
 
 
-(function($) {
+(function ($) {
     "use strict";
     var lastDroppable = false;
 
     var methods = {
-        init : function(options) {
+        init: function (options) {
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
 
                 var data = $this.data('ipContentManagement');
 
                 // If the plugin hasn't been initialized yet
-                if ( ! data ) {
+                if (!data) {
                     $this.data('ipContentManagement', {
                     });
 
@@ -79,9 +79,16 @@
                             .off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
                     });
 
-                    $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
-                    $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
-                    $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
+                    $('.ipsContentSave').on('click', function (e) {
+                        $.proxy(methods.save, $this)(false)
+                    });
+                    $('.ipsContentPublish').on('click', function (e) {
+                        $.proxy(methods.save, $this)(true)
+                    });
+                    $('.ipsContentPreview').on('click', function (e) {
+                        e.preventDefault();
+                        ipManagementMode.setManagementMode(0);
+                    });
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
                     $this.trigger('ipContentManagementInit', options);
@@ -90,7 +97,7 @@
             });
         },
 
-        initBlocks : function(blocks) {
+        initBlocks: function (blocks) {
             var $this = this;
             var data = $this.data('ipContentManagement');
             var options = data.initInfo;
@@ -99,8 +106,8 @@
             }
         },
 
-        save : function(publish) {
-            return this.each(function() {
+        save: function (publish) {
+            return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipContentManagement');
 
@@ -115,17 +122,17 @@
                 }
 
                 $.ajax({
-                    type : 'POST',
-                    url : ip.baseUrl,
-                    data : postData,
-                    context : $this,
-                    success : methods._savePageResponse,
-                    dataType : 'json'
+                    type: 'POST',
+                    url: ip.baseUrl,
+                    data: postData,
+                    context: $this,
+                    success: methods._savePageResponse,
+                    dataType: 'json'
                 });
             });
         },
 
-        _savePageResponse: function(response) {
+        _savePageResponse: function (response) {
             var $this = $(this);
             var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
@@ -190,21 +197,21 @@
             }
 
         }).blur(function () {
-                if (this.value == '') {
-                    this.value = this.defaultValue;
-                }
+            if (this.value == '') {
+                this.value = this.defaultValue;
+            }
 
-            }).keyup(function () {
-                var value = this.value;
-                $widgets.css('display', ''); // restate visibility
-                if (value && value != this.defaultValue) {
-                    $widgets.not(':icontains(' + value + ')').css('display', 'none');
-                    $button.addClass('ipaClear');
-                } else {
-                    $button.removeClass('ipaClear');
-                }
-                ipAdminWidgetsScroll(); // reinitiate scrollable
-            });
+        }).keyup(function () {
+            var value = this.value;
+            $widgets.css('display', ''); // restate visibility
+            if (value && value != this.defaultValue) {
+                $widgets.not(':icontains(' + value + ')').css('display', 'none');
+                $button.addClass('ipaClear');
+            } else {
+                $button.removeClass('ipaClear');
+            }
+            ipAdminWidgetsScroll(); // reinitiate scrollable
+        });
 
         $button.click(function (event) {
             event.preventDefault();
@@ -330,12 +337,14 @@
                         width: $widget.width(),
                         blockName: $(block).data('ipBlock').name,
                         position: 0,
-                        markerOffset: space/2
+                        markerOffset: space / 2
                     };
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return []};
+                        widgetController.splitParts = function () {
+                            return []
+                        };
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the first paragraph
@@ -346,8 +355,8 @@
                     }
 
                     if ($widget.hasClass("ipWidget-Columns")) { //if this is a columns widget, make a 3/4 space for droping. Leave 1/4 for column placeholders
-                        newPlaceholder.height = space*3/4;
-                        newPlaceholder.markerOffset = space*3/4 / 2;
+                        newPlaceholder.height = space * 3 / 4;
+                        newPlaceholder.markerOffset = space * 3 / 4 / 2;
                     }
 
                     if ($widget.closest('.ipWidget-Columns').length && !$widget.hasClass("ipWidget-Columns")) {//if this is first widget inside a column. Take 1/4 of space for placeholder
@@ -363,7 +372,9 @@
 
                         var widgetController = $widget.data('widgetController');
                         if (!widgetController.splitParts) {
-                            widgetController.splitParts = function () {return []};
+                            widgetController.splitParts = function () {
+                                return []
+                            };
                         }
                         if (widgetController.splitParts && widgetController.splitParts().length) {
                             //middle of the first paragraph
@@ -392,7 +403,9 @@
 
                     var prevWidgetController = $prevWidget.data('widgetController');
                     if (!prevWidgetController.splitParts) {
-                        prevWidgetController.splitParts = function () {return []};
+                        prevWidgetController.splitParts = function () {
+                            return []
+                        };
                     }
                     if (prevWidgetController.splitParts() && prevWidgetController.splitParts().length) {
                         //start placeholder from the middle of last paragraph
@@ -402,7 +415,9 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return []};
+                        widgetController.splitParts = function () {
+                            return []
+                        };
                     }
                     if (widgetController.splitParts() && widgetController.splitParts().length) {
                         //placeholder touches center of first paragraph
@@ -415,7 +430,7 @@
 
                     if ($widget.hasClass('ipWidget-Columns')) {
                         newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
-                        newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
+                        newPlaceholder.markerOffset = newPlaceholder.height - 1;
                     }
 
                     newPlaceholder.markerOffset = ($prevWidget.offset().top + $prevWidget.height() + $widget.offset().top) / 2 - newPlaceholder.top;
@@ -437,7 +452,9 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {return []};
+                        widgetController.splitParts = function () {
+                            return []
+                        };
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
@@ -452,7 +469,7 @@
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
-                        lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.height = columnsEnd - lastPlaceholder.top + space * 1 / 4;
                     }
 
                     if ($widget.hasClass('ipWidget-Columns')) {
@@ -502,10 +519,12 @@
                 widgetController = {};
             }
             if (!widgetController.splitParts) {
-                widgetController.splitParts = function () {return []};
+                widgetController.splitParts = function () {
+                    return []
+                };
             }
             var $paragraphs = widgetController.splitParts();
-            if($paragraphs.length <= 1) {
+            if ($paragraphs.length <= 1) {
                 return;
             }
             $.each($paragraphs, function (paragraphKey, paragraph) {
@@ -618,7 +637,7 @@
         $('.ipsWidgetDropPlaceholder').remove();
     };
 
-    $.fn.ipContentManagement = function(method) {
+    $.fn.ipContentManagement = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
