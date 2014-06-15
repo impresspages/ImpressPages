@@ -392,7 +392,7 @@ class Html2Text
      * and newlines to a readable format, and word wraps the text to
      * $this->_options['width'] characters.
      *
-     * @param string Reference to HTML content string
+     * @param string $text Reference to HTML content string
      */
     protected function _converter(&$text)
     {
@@ -447,8 +447,9 @@ class Html2Text
      * appeared. Also makes an effort at identifying and handling absolute
      * and relative links.
      *
-     * @param  string $link    URL of the link
+     * @param  string $link URL of the link
      * @param  string $display Part of the text to associate number with
+     * @param null $link_override
      * @return string
      */
     protected function _build_link_list($link, $display, $link_override = null)
@@ -491,7 +492,7 @@ class Html2Text
     /**
      * Helper function for PRE body conversion.
      *
-     * @param string HTML content
+     * @param string $text HTML content
      */
     protected function _convert_pre(&$text)
     {
@@ -573,7 +574,7 @@ class Html2Text
     /**
      * Callback function for preg_replace_callback use.
      *
-     * @param  array PREG matches
+     * @param  array $matches PREG matches
      * @return string
      */
     protected function _preg_callback($matches)
@@ -597,12 +598,13 @@ class Html2Text
 
                 return $this->_build_link_list($url, $matches[5], $link_override);
         }
+        return null;
     }
 
     /**
      * Callback function for preg_replace_callback use in PRE content handler.
      *
-     * @param  array PREG matches
+     * @param  array $matches PREG matches
      * @return string
      */
     protected function _preg_pre_callback($matches)

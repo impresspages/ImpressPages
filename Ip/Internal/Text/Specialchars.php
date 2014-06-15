@@ -15,7 +15,7 @@ class Specialchars
 {
     /**
      * replace special characters for directory
-     * @param $string directory name to replace
+     * @param string $string directory name to replace
      * @return string string without special characters
      */
     public static function dirName($string){
@@ -25,7 +25,7 @@ class Specialchars
     }
     /**
      * replace special characters for file name
-     * @param $string file name to replace
+     * @param string $string file name to replace
      * @return string string without special characters
      */
     public static function fileName($string){
