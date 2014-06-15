@@ -35,8 +35,8 @@ class SecurityModel
         $allFailedLogins = $this->failedLogins();
 
         $count = 0;
-        foreach($allFailedLogins as $login) {
-            if ($login['time'] > time() - 60*60 && $login['username'] == $username && $login['ip'] == $ip) {
+        foreach ($allFailedLogins as $login) {
+            if ($login['time'] > time() - 60 * 60 && $login['username'] == $username && $login['ip'] == $ip) {
                 $count++;
             }
         }
@@ -58,8 +58,8 @@ class SecurityModel
     {
         $failedLogins = $this->failedLogins();
         $filtered = array();
-        foreach($failedLogins as $login) {
-            if ($login['time'] > time() - 60*60) {
+        foreach ($failedLogins as $login) {
+            if ($login['time'] > time() - 60 * 60) {
                 $filtered[] = $login;
             }
         }
@@ -70,7 +70,6 @@ class SecurityModel
     {
         ipStorage()->set('Admin', 'failedLogins', $failedLogins);
     }
-
 
 
 }

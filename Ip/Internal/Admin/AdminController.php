@@ -15,7 +15,9 @@ class AdminController extends \Ip\Controller
         // If user wants to change credentials, redirecting to Administrators list
         if (ipRequest()->getPost('action') == 'change') {
             // todo: redirect and automatically select user and open popup
-            $redirect = ipActionUrl(array('aa' => 'Administrators.index')) . "#/hash=&administrator=" . \Ip\Internal\Admin\Backend::userId();
+            $redirect = ipActionUrl(
+                    array('aa' => 'Administrators.index')
+                ) . "#/hash=&administrator=" . \Ip\Internal\Admin\Backend::userId();
 
             \Ip\Internal\System\Model::sendUsageStatistics(array('action' => 'Install.adminChange'));
             return \Ip\Response\JsonRpc::result(array('redirect' => $redirect));
