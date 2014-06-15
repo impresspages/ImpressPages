@@ -88,11 +88,13 @@ class Model
         $notices = json_decode($answer);
 
         if (!is_array($notices)) { // json decode error or wrong answer
-            ipLog()->error('System.updateCheckInvalidResponse',
+            ipLog()->error(
+                'System.updateCheckInvalidResponse',
                 array(
                     'curl_error' => curl_error($ch),
                     'response' => $answer
-                ));
+                )
+            );
             return array();
         }
 
@@ -105,8 +107,12 @@ class Model
             return;
         }
 
-        if (!isset($data['action'])) { $data['action'] = 'Ping.default'; }
-        if (!isset($data['php'])) { $data['php'] = phpversion(); }
+        if (!isset($data['action'])) {
+            $data['action'] = 'Ping.default';
+        }
+        if (!isset($data['php'])) {
+            $data['php'] = phpversion();
+        }
         if (!isset($data['db'])) {
             $data['db'] = null;
             // todo: make a db type/version check stable to work during install and later on
@@ -117,16 +123,36 @@ class Model
 //                }
 //            }
         }
-        if (!isset($data['developmentEnvironment'])) { $data['developmentEnvironment'] = ipConfig()->get('developmentEnvironment'); }
-        if (!isset($data['showErrors'])) { $data['showErrors'] = ipConfig()->get('showErrors'); }
-        if (!isset($data['debugMode'])) { $data['debugMode'] = ipConfig()->get('debugMode'); }
-        if (!isset($data['timezone'])) { $data['timezone'] = ipConfig()->get('timezone'); }
-        if (!isset($data['data'])) { $data['data'] = array(); }
-        if (!isset($data['websiteId'])) { $data['websiteId'] = ipStorage()->get('Ip', 'websiteId'); }
-        if (!isset($data['websiteUrl'])) { $data['websiteUrl'] = ipConfig()->baseUrl(); }
-        if (!isset($data['version'])) { $data['version'] = \Ip\Application::getVersion(); }
-        if (!isset($data['locale'])) { $data['locale'] = \Ip\ServiceLocator::translator()->getAdminLocale(); }
-        if (!isset($data['doSupport'])) { $data['doSupport'] = ipStorage()->get('Ip', 'getImpressPagesSupport'); }
+        if (!isset($data['developmentEnvironment'])) {
+            $data['developmentEnvironment'] = ipConfig()->get('developmentEnvironment');
+        }
+        if (!isset($data['showErrors'])) {
+            $data['showErrors'] = ipConfig()->get('showErrors');
+        }
+        if (!isset($data['debugMode'])) {
+            $data['debugMode'] = ipConfig()->get('debugMode');
+        }
+        if (!isset($data['timezone'])) {
+            $data['timezone'] = ipConfig()->get('timezone');
+        }
+        if (!isset($data['data'])) {
+            $data['data'] = array();
+        }
+        if (!isset($data['websiteId'])) {
+            $data['websiteId'] = ipStorage()->get('Ip', 'websiteId');
+        }
+        if (!isset($data['websiteUrl'])) {
+            $data['websiteUrl'] = ipConfig()->baseUrl();
+        }
+        if (!isset($data['version'])) {
+            $data['version'] = \Ip\Application::getVersion();
+        }
+        if (!isset($data['locale'])) {
+            $data['locale'] = \Ip\ServiceLocator::translator()->getAdminLocale();
+        }
+        if (!isset($data['doSupport'])) {
+            $data['doSupport'] = ipStorage()->get('Ip', 'getImpressPagesSupport');
+        }
         if (!isset($data['administrators'])) {
             $administrators = \Ip\Internal\Administrators\Model::getAll();
             $adminCollection = array();
@@ -158,7 +184,9 @@ class Model
             }
             $data['plugins'] = $pluginCollection;
         }
-        if (!isset($data['languages'])) { $data['languages'] = ipContent()->getLanguages(); }
+        if (!isset($data['languages'])) {
+            $data['languages'] = ipContent()->getLanguages();
+        }
         if (!isset($data['pages'])) {
             $result = array();
             try {

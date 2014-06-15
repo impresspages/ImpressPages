@@ -14,7 +14,8 @@
 namespace Ip\Internal\System;
 
 
-class Submenu {
+class Submenu
+{
     public static function getModuleNames()
     {
         return array('System', 'Administrators', 'Log', 'Email');
@@ -67,10 +68,10 @@ class Submenu {
 
         foreach ($modules as $module) {
             $menuItem = new \Ip\Menu\Item();
-            $menuItem->setTitle(__($module, 'Ip-admin', FALSE)); //
+            $menuItem->setTitle(__($module, 'Ip-admin', false)); //
             $menuItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             if (ipRoute()->controllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
-                $menuItem->markAsCurrent(TRUE);
+                $menuItem->markAsCurrent(true);
             }
             if (ipAdminPermission($module)) {
                 $submenuItems[] = $menuItem;
