@@ -2,18 +2,18 @@
 var validatorConfigAdmin = '';
 
 
-(function($){
+(function ($) {
     "use strict";
 
-    var createConfig = function(translationsKey) {
+    var createConfig = function (translationsKey) {
         var config = {
-            'lang' : ip.languageCode,
+            'lang': ip.languageCode,
             //'errorClass' : 'ipmControlError',
-            'messageClass' : 'hidden', //hide default jqueryTools absolutely positioned error message
+            'messageClass': 'hidden', //hide default jqueryTools absolutely positioned error message
             //'position' : 'bottom left',
             //'offset' : [-3, 0],
-            'onFail' : function(e, errors) {
-                $.each(errors, function() {
+            'onFail': function (e, errors) {
+                $.each(errors, function () {
                     var err = this;
                     var $control = this.input;
                     $control.parents('.form-group')
@@ -27,8 +27,8 @@ var validatorConfigAdmin = '';
                     }
                 });
             },
-            'onSuccess' : function(e, valids) {
-                $.each(valids, function() {
+            'onSuccess': function (e, valids) {
+                $.each(valids, function () {
                     var $control = $(this);
                     $control.parents('.form-group').removeClass('has-error');
                 });
@@ -37,14 +37,12 @@ var validatorConfigAdmin = '';
         return config;
     };
 
-    $.each(ipValidatorTranslations, function(key, value) {
+    $.each(ipValidatorTranslations, function (key, value) {
         if (validatorConfigAdmin === '') {
             validatorConfigAdmin = createConfig(key);
         }
         $.tools.validator.localize(key, value);
     });
-
-
 
 
 })(jQuery);

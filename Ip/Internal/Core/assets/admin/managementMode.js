@@ -53,7 +53,7 @@ var ipManagementMode = new function () {
         });
     };
 
-    var getParameterByName = function(name) {
+    var getParameterByName = function (name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
