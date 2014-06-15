@@ -86,6 +86,9 @@ class Controller extends \Ip\WidgetController
             if (preg_match('%//vimeo.com%i', $url)) {
                 $url = str_replace('//vimeo.com', '//player.vimeo.com', $url);
             }
+            if (strpos($url, '/video') === false) {
+                $url = str_replace('vimeo.com', 'vimeo.com/video', $url);
+            }
 
             return $this->renderView('view/vimeo.php', $url, $data);
         }
