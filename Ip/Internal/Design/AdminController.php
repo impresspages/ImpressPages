@@ -7,8 +7,6 @@
 namespace Ip\Internal\Design;
 
 
-
-
 use Ip\ServiceLocator;
 use Ip\Response\JsonRpc;
 
@@ -29,7 +27,6 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/System/assets/market.js');
 
 
-
         $model = Model::instance();
 
         $themes = $model->getAvailableThemes();
@@ -44,7 +41,10 @@ class AdminController extends \Ip\Controller
 
         //filter plugins that are already installed
         foreach ($themePlugins as $plugin) {
-            if (!empty($plugin['name']) && (!in_array($plugin['name'], $installedPlugins) || !is_dir(ipFile('Plugin/' . $plugin['name'])))) {
+            if (!empty($plugin['name']) && (!in_array($plugin['name'], $installedPlugins) || !is_dir(
+                        ipFile('Plugin/' . $plugin['name'])
+                    ))
+            ) {
                 $notInstalledPlugins[] = $plugin;
             }
         }
@@ -69,7 +69,7 @@ class AdminController extends \Ip\Controller
         );
         $contentView = ipView('view/layout.php', $data);
 
-        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper', true);
 
         return $contentView->render();
     }
@@ -105,7 +105,14 @@ class AdminController extends \Ip\Controller
         $themes = ipRequest()->getPost('themes');
 
         if (!is_writable(Model::instance()->getThemeInstallDir())) {
-            return JsonRpc::error(__('Directory is not writable. Please check your email and install the theme manually.', 'Ip-admin', false), 777);
+            return JsonRpc::error(
+                __(
+                    'Directory is not writable. Please check your email and install the theme manually.',
+                    'Ip-admin',
+                    false
+                ),
+                777
+            );
         }
 
         try {
@@ -183,7 +190,7 @@ class AdminController extends \Ip\Controller
 
         $options = $theme->getOptionsAsArray();
 
-        foreach($options as $option) {
+        foreach ($options as $option) {
             if (empty($option['name'])) {
                 continue;
             }
@@ -193,7 +200,7 @@ class AdminController extends \Ip\Controller
                 continue;
             }
 
-            switch($option['type']) {
+            switch ($option['type']) {
                 case 'checkbox':
                     /**
                      * @var \Ip\Form\Field\Checkbox $field
