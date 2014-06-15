@@ -20,8 +20,14 @@ class Textarea extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . escattr($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' >' . escTextarea($this->getValue()) . '</textarea>';
+    public function render($doctype, $environment)
+    {
+        return '<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . escattr($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' >' . escTextarea($this->getValue()) . '</textarea>';
     }
 
     /**
@@ -31,7 +37,8 @@ class Textarea extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'textarea';
     }
 

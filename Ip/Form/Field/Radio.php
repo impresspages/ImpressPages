@@ -21,7 +21,8 @@ class Radio extends Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         if (isset($options['values'])) {
             $this->values = $options['values'];
         } else {
@@ -29,7 +30,9 @@ class Radio extends Field
         }
         parent::__construct($options);
         $this->stolenId = $this->getAttribute('id');
-        $this->removeAttribute('id'); // We need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId.
+        $this->removeAttribute(
+            'id'
+        ); // We need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId.
     }
 
     /**
@@ -39,17 +42,18 @@ class Radio extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         $answer = '';
 
         foreach ($this->getValues() as $key => $value) {
-            if ($value[0]== $this->value) {
+            if ($value[0] == $this->value) {
                 $checked = ' checked="checked"';
             } else {
                 $checked = '';
             }
             if ($key == 0) {
-                $id = ' id="'.$this->stolenId.'"';
+                $id = ' id="' . $this->stolenId . '"';
             } else {
                 $id = '';
             }
@@ -57,7 +61,14 @@ class Radio extends Field
             $answer .= '
             <div class="radio">
                 <label>
-                    <input ' . $this->getAttributesStr($doctype) . $id . ' class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" type="radio" ' . $this->getValidationAttributesStr($doctype) . $checked . ' value="' . htmlspecialchars($value[0]) . '" />
+                    <input ' . $this->getAttributesStr($doctype) . $id . ' class="' . implode(
+                    ' ',
+                    $this->getClasses()
+                ) . '" name="' . htmlspecialchars(
+                    $this->getName()
+                ) . '" type="radio" ' . $this->getValidationAttributesStr(
+                    $doctype
+                ) . $checked . ' value="' . htmlspecialchars($value[0]) . '" />
                     ' . htmlspecialchars($value[1]) . '
                 </label>
             </div>
@@ -72,7 +83,8 @@ class Radio extends Field
      *
      * @param string $values
      */
-    public function setValues($values) {
+    public function setValues($values)
+    {
         $this->values = $values;
     }
 
@@ -81,7 +93,8 @@ class Radio extends Field
      *
      * @return array
      */
-    public function getValues() {
+    public function getValues()
+    {
         return $this->values;
     }
 
@@ -92,7 +105,8 @@ class Radio extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'radio';
     }
 
@@ -101,7 +115,8 @@ class Radio extends Field
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->stolenId;
     }
 

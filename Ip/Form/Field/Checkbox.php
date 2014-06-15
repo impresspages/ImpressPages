@@ -22,11 +22,12 @@ class Checkbox extends Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         if (isset($options['checked'])) {
             $this->checked = $options['checked'];
         } else {
-            if(isset($options['value']) && ($options['value'] === true || $options['value'] === 1)) {
+            if (isset($options['value']) && ($options['value'] === true || $options['value'] === 1)) {
                 $this->checked = true;
             } else {
                 $this->checked = false;
@@ -52,7 +53,8 @@ class Checkbox extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         $answer = '';
         if ($this->getChecked()) {
             $attributes = ' checked="checked"';
@@ -69,7 +71,12 @@ class Checkbox extends Field
         $answer .= '
         <div class="checkbox">
             <label>
-                <input ' . $this->getAttributesStr($doctype) . ' class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" type="checkbox"' . $attributes . ' ' . $this->getValidationAttributesStr($doctype) . $value . ' />
+                <input ' . $this->getAttributesStr($doctype) . ' class="' . implode(
+                ' ',
+                $this->getClasses()
+            ) . '" name="' . htmlspecialchars(
+                $this->getName()
+            ) . '" type="checkbox"' . $attributes . ' ' . $this->getValidationAttributesStr($doctype) . $value . ' />
                 ' . $this->getText() . '
             </label>
         </div>
@@ -83,7 +90,8 @@ class Checkbox extends Field
      *
      * @param int| $checked
      */
-    public function setChecked($checked) {
+    public function setChecked($checked)
+    {
         $this->checked = $checked;
     }
 
@@ -92,7 +100,8 @@ class Checkbox extends Field
      *
      * @return bool
      */
-    public function getChecked() {
+    public function getChecked()
+    {
         return $this->checked;
     }
 
@@ -101,7 +110,8 @@ class Checkbox extends Field
      *
      * @param string $postValue
      */
-    public function setPostValue($postValue) {
+    public function setPostValue($postValue)
+    {
         $this->postValue = $postValue;
     }
 
@@ -110,7 +120,8 @@ class Checkbox extends Field
      *
      * @return string
      */
-    public function getPostValue() {
+    public function getPostValue()
+    {
         return $this->postValue;
     }
 
@@ -119,7 +130,8 @@ class Checkbox extends Field
      *
      * @param string $text
      */
-    public function setText($text) {
+    public function setText($text)
+    {
         $this->text = $text;
     }
 
@@ -128,7 +140,8 @@ class Checkbox extends Field
      *
      * @return string
      */
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
@@ -139,7 +152,8 @@ class Checkbox extends Field
      * @param string $valueKey
      * @return string
      */
-    public function getValueAsString($values, $valueKey) {
+    public function getValueAsString($values, $valueKey)
+    {
         if ($this->isChecked($values, $valueKey)) {
             return 'Yes';
         } else {
@@ -154,7 +168,8 @@ class Checkbox extends Field
      * @param string $valueKey
      * @return int
      */
-    public function isChecked($values, $valueKey) {
+    public function isChecked($values, $valueKey)
+    {
         if (isset($values[$valueKey]) && $values[$valueKey]) {
             return 1;
         } else {
@@ -169,7 +184,8 @@ class Checkbox extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'confirm';
     }
 
@@ -178,7 +194,8 @@ class Checkbox extends Field
      *
      * @param string $value
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         if ($value) {
             $this->setChecked(1);
         }

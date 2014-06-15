@@ -28,8 +28,14 @@ class Blank extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<input ' . $this->getAttributesStr($doctype) . ' class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="' . htmlspecialchars($this->getValue()) . '" />';
+    public function render($doctype, $environment)
+    {
+        return '<input ' . $this->getAttributesStr($doctype) . ' class="' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '"  ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="hidden" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
@@ -39,7 +45,8 @@ class Blank extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'blank';
     }
 

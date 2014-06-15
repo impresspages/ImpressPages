@@ -19,7 +19,8 @@ class Select extends \Ip\Form\Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         if (isset($options['values'])) {
             $this->values = $options['values'];
         } else {
@@ -39,7 +40,8 @@ class Select extends \Ip\Form\Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         $options = '';
 
         foreach ($this->getValues() as $value) {
@@ -47,17 +49,23 @@ class Select extends \Ip\Form\Field
                 $value = array($value, $value);
             }
 
-            if ($value[0] === $this->value || is_int($value[0]) && (string) $value[0] === $this->value) {
+            if ($value[0] === $this->value || is_int($value[0]) && (string)$value[0] === $this->value) {
                 $selected = ' selected="selected"';
             } else {
                 $selected = '';
             }
 
-            $options .= '<option' . $selected . ' value="' . htmlspecialchars($value[0]) . '">' . htmlspecialchars($value[1]) . '</option>' . "\n";
+            $options .= '<option' . $selected . ' value="' . htmlspecialchars($value[0]) . '">' . htmlspecialchars(
+                    $value[1]
+                ) . '</option>' . "\n";
         }
         $answer =
-'
-<select ' . $this->getAttributesStr($doctype) . ' id="'.$this->stolenId . '" name="' . htmlspecialchars($this->getName()) . '" class="form-control ' . implode(' ', $this->getClasses()) . '" ' . $this->getValidationAttributesStr($doctype) . ' >
+            '
+            <select ' . $this->getAttributesStr($doctype) . ' id="' . $this->stolenId . '" name="' . htmlspecialchars(
+                $this->getName()
+            ) . '" class="form-control ' . implode(' ', $this->getClasses()) . '" ' . $this->getValidationAttributesStr(
+                $doctype
+            ) . ' >
 ' . $options . '
 </select>
 ';
@@ -69,7 +77,8 @@ class Select extends \Ip\Form\Field
      *
      * @return array
      */
-    public function getValues() {
+    public function getValues()
+    {
         return $this->values;
     }
 
@@ -78,7 +87,8 @@ class Select extends \Ip\Form\Field
      *
      * @param string $values
      */
-    public function setValues($values) {
+    public function setValues($values)
+    {
         $this->values = $values;
     }
 
@@ -90,7 +100,8 @@ class Select extends \Ip\Form\Field
      * @param string $doctype
      * @return string
      */
-    public function getValidationAttributesStr($doctype) {
+    public function getValidationAttributesStr($doctype)
+    {
         $attributesStr = '';
         $values = $this->getValues();
         if (!isset($values[0])) {
@@ -127,7 +138,8 @@ class Select extends \Ip\Form\Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'select';
     }
 
@@ -136,7 +148,8 @@ class Select extends \Ip\Form\Field
      *
      * @return int
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->stolenId;
     }
 

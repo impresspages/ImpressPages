@@ -42,9 +42,12 @@ class Antispam extends Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         parent::__construct($options);
-        $this->removeAttribute('id'); // This field has two inputs. We need to implement support of two different ID's or remove such feature :)
+        $this->removeAttribute(
+            'id'
+        ); // This field has two inputs. We need to implement support of two different ID's or remove such feature :)
         $this->addValidator('Antispam');
     }
 
@@ -55,24 +58,35 @@ class Antispam extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         return '
-<input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="" />
-<input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="'.htmlspecialchars(md5(date('Y-m-d') . ipConfig()->get('sessionName'))) . '" />
+<input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="" />
+<input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="hidden" value="' . htmlspecialchars(md5(date('Y-m-d') . ipConfig()->get('sessionName'))) . '" />
 ';
     }
 
     /**
      * Get layout
      */
-    public function getLayout() {
+    public function getLayout()
+    {
         return self::LAYOUT_BLANK;
     }
 
     /**
      * Get type
      */
-    public function getType() {
+    public function getType()
+    {
         return self::TYPE_SYSTEM;
     }
 
@@ -83,7 +97,8 @@ class Antispam extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'antispam';
     }
 

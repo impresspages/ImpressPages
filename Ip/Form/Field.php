@@ -42,11 +42,12 @@ abstract class Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         $this->validators = array();
 
         if (!empty($options['validators'])) {
-            foreach($options['validators'] as $validator) {
+            foreach ($options['validators'] as $validator) {
                 $this->addValidator($validator);
             }
         }
@@ -63,7 +64,7 @@ abstract class Field
         if (!empty($options['name'])) {
             $this->setName($options['name']);
         }
-         if (!empty($options['value'])) {
+        if (!empty($options['value'])) {
             $this->setValue($options['value']);
         }
         if (!empty($options['css'])) {
@@ -96,7 +97,8 @@ abstract class Field
      *
      * @return string
      */
-    public function getLayout() {
+    public function getLayout()
+    {
         return self::LAYOUT_DEFAULT;
     }
 
@@ -105,7 +107,8 @@ abstract class Field
      *
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return self::TYPE_REGULAR;
     }
 
@@ -115,7 +118,8 @@ abstract class Field
      * @param string $doctype \Ip\View doctype constant
      * @return string
      */
-    public function getAttributesStr($doctype) {
+    public function getAttributesStr($doctype)
+    {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
             $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
@@ -131,7 +135,8 @@ abstract class Field
      * @param string $valueKey This field name.
      * @return string
      */
-    public function getValueAsString($values, $valueKey) {
+    public function getValueAsString($values, $valueKey)
+    {
         if (isset($values[$valueKey])) {
             return $values[$valueKey];
         } else {
@@ -144,7 +149,8 @@ abstract class Field
      *
      * @return \Ip\Form\Validator[]
      */
-    public function getValidators() {
+    public function getValidators()
+    {
         return $this->validators;
     }
 
@@ -153,9 +159,10 @@ abstract class Field
      *
      * @return bool
      */
-    public function isRequired() {
+    public function isRequired()
+    {
         $validators = $this->getValidators();
-        foreach($validators as $validator) {
+        foreach ($validators as $validator) {
             if (get_class($validator) == 'Ip\Form\Validator\Required') {
                 return true;
             }
@@ -172,9 +179,10 @@ abstract class Field
      * @param string $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Form::ENVIRONMENT_PUBLIC
      * @return bool
      */
-    public function validate($values, $valueKey, $environment) {
+    public function validate($values, $valueKey, $environment)
+    {
         $validators = $this->getValidators();
-        foreach($validators as $validator) {
+        foreach ($validators as $validator) {
             $error = $validator->getError($values, $valueKey, $environment);
             if ($error) {
                 return $error;
@@ -192,7 +200,8 @@ abstract class Field
      * @param $validator
      * @throws \Ip\Exception
      */
-    public function addValidator($validator) {
+    public function addValidator($validator)
+    {
         if (!is_array($validator)) {
             $validator = array($validator);
         }
@@ -229,10 +238,11 @@ abstract class Field
      *
      * @param $validator
      */
-    public function removeValidator($validator) {
+    public function removeValidator($validator)
+    {
         $validatorClass = 'Modules\\developer\\form\\Validator\\' . $validator;
         $newValidatorsArray = array();
-        foreach($this->validators as $validator) {
+        foreach ($this->validators as $validator) {
             if (get_class($validator) != $validatorClass) {
                 $newValidatorsArray[] = $validator;
             }
@@ -248,7 +258,8 @@ abstract class Field
      * @param string $value Attribute value.
      *
      */
-    public function addAttribute($name, $value) {
+    public function addAttribute($name, $value)
+    {
         $this->attributes[$name] = $value;
     }
 
@@ -257,7 +268,8 @@ abstract class Field
      *
      * @param $name
      */
-    public function removeAttribute($name) {
+    public function removeAttribute($name)
+    {
         unset($this->attributes[$name]);
     }
 
@@ -268,9 +280,10 @@ abstract class Field
      * @param string $doctype \Ip\View doctype constant.
      * @return string
      */
-    public function getValidationAttributesStr($doctype) {
+    public function getValidationAttributesStr($doctype)
+    {
         $attributesStr = '';
-        foreach($this->getValidators() as $validator) {
+        foreach ($this->getValidators() as $validator) {
             $tmpArgs = $validator->validatorAttributes();
             if ($tmpArgs != '') {
                 $attributesStr .= ' ' . $tmpArgs;
@@ -285,7 +298,8 @@ abstract class Field
      * This field is not used to identify fields by their type. So each extending class should return its own unique and constant string.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return '';
     }
 
@@ -297,7 +311,8 @@ abstract class Field
      * @return string Field label
      */
 
-    public function getLabel() {
+    public function getLabel()
+    {
         return $this->label;
     }
 
@@ -306,7 +321,8 @@ abstract class Field
      *
      * @param string $label
      */
-    public function setLabel($label) {
+    public function setLabel($label)
+    {
         $this->label = $label;
     }
 
@@ -315,7 +331,8 @@ abstract class Field
      *
      * @return string Hint
      */
-    public function getHint() {
+    public function getHint()
+    {
         return $this->hint;
     }
 
@@ -324,7 +341,8 @@ abstract class Field
      *
      * @param string $hint Hint
      */
-    public function setHint($hint) {
+    public function setHint($hint)
+    {
         $this->hint = $hint;
     }
 
@@ -333,7 +351,8 @@ abstract class Field
      *
      * @return string Text note.
      */
-    public function getNote() {
+    public function getNote()
+    {
         return $this->note;
     }
 
@@ -342,7 +361,8 @@ abstract class Field
      *
      * @param string $note Note text.
      */
-    public function setNote($note) {
+    public function setNote($note)
+    {
         $this->note = $note;
     }
 
@@ -351,7 +371,8 @@ abstract class Field
      *
      * @return string Field name.
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -361,7 +382,8 @@ abstract class Field
      * Eg. field[id], field[code], ... Return the name of input that should hold error message.
      * @return string
      */
-    public function getValidationInputName() {
+    public function getValidationInputName()
+    {
         return $this->name;
     }
 
@@ -370,16 +392,18 @@ abstract class Field
      *
      * @param string $name Field name.
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-     /**
+    /**
      * Get field value
      *
      * @return mixed Field value.
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
@@ -388,7 +412,8 @@ abstract class Field
      *
      * @param string $value Field value.
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
@@ -397,7 +422,8 @@ abstract class Field
      *
      * @return array Field HTML attributes.
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 
@@ -407,7 +433,8 @@ abstract class Field
      * @param string $attribute
      * @return string|bool
      */
-    public function getAttribute($attribute) {
+    public function getAttribute($attribute)
+    {
         if (isset($this->attributes[$attribute])) {
             return $this->attributes[$attribute];
         } else {
@@ -421,7 +448,8 @@ abstract class Field
      * Does not affect default class, name, required, type and value attributes.
      * @param array $attributes Associative array with keys as attribute names and values as attribute values.
      */
-    public function setAttributes($attributes) {
+    public function setAttributes($attributes)
+    {
         $this->attributes = $attributes;
     }
 
@@ -430,16 +458,18 @@ abstract class Field
      *
      * @return string HTML "id" attribute value
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->getAttribute('id');
     }
 
     /**
-    * Add CSS class to form field
+     * Add CSS class to form field
      *
-    * @param string $cssClass
-    */
-    public function addClass($cssClass) {
+     * @param string $cssClass
+     */
+    public function addClass($cssClass)
+    {
         $this->classes[$cssClass] = 1;
     }
 
@@ -448,7 +478,8 @@ abstract class Field
      *
      * @param $cssClass
      */
-    public function removeClass($cssClass) {
+    public function removeClass($cssClass)
+    {
         unset($this->classes[$cssClass]);
     }
 
@@ -457,7 +488,8 @@ abstract class Field
      *
      * @return array
      */
-    public function getClasses() {
+    public function getClasses()
+    {
         return array_keys($this->classes);
     }
 
@@ -466,7 +498,8 @@ abstract class Field
      *
      * @return string
      */
-    public function getClassesStr() {
+    public function getClassesStr()
+    {
         $answer = '';
         foreach ($this->getClasses() as $class) {
             $answer .= ' ' . $class;
@@ -478,7 +511,8 @@ abstract class Field
     /**
      * Set css class
      */
-    public function setCssClasses($classes) {
+    public function setCssClasses($classes)
+    {
         if (!is_array($classes)) {
             $classes = explode(' ', $classes);
         }
