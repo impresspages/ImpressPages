@@ -113,5 +113,5 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
             }
         })
     });
-}
+};
 
