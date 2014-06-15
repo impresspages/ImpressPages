@@ -18,7 +18,7 @@ class PathHelper
     {
         if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $callLevel + 1);
-        } elseif (PHP_VERSION_ID >= 50306)  { // PHP 5.3.6 supports DEBUG_BACKTRACE_IGNORE_ARGS
+        } elseif (PHP_VERSION_ID >= 50306) { // PHP 5.3.6 supports DEBUG_BACKTRACE_IGNORE_ARGS
             $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         } else {
             $backtrace = debug_backtrace();

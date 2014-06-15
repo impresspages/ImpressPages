@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -12,7 +11,8 @@ namespace Ip\Internal;
  * View class
  *
  */
-class Revision{
+class Revision
+{
 
     public static function getLastRevision($pageId)
     {
@@ -39,7 +39,8 @@ class Revision{
         return $revision;
     }
 
-    public static function getPublishedRevision($pageId) {
+    public static function getPublishedRevision($pageId)
+    {
         assert('$pageId > 0');
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
         $revisionTable = ipTable('revision');
@@ -61,13 +62,15 @@ class Revision{
         return $revision;
     }
 
-    public static function getRevision($revisionId) {
+    public static function getRevision($revisionId)
+    {
 
         return ipDb()->selectRow('revision', '*', array('revisionId' => $revisionId));
     }
 
 
-    public static function createRevision ($pageId, $published) {
+    public static function createRevision($pageId, $published)
+    {
 
         assert('$pageId > 0');
 
@@ -85,13 +88,15 @@ class Revision{
         return $revisionId;
     }
 
-    public static function publishRevision ($revisionId) {
+    public static function publishRevision($revisionId)
+    {
         $revision = self::getRevision($revisionId);
         if (!$revision) {
             return false;
         }
 
-        ipDb()->update('revision',
+        ipDb()->update(
+            'revision',
             array(
                 'isPublished' => 0
             ),
@@ -99,7 +104,8 @@ class Revision{
                 'pageId' => (int)$revision['pageId'],
             )
         );
-        $wasUpdated = ipDb()->update('revision',
+        $wasUpdated = ipDb()->update(
+            'revision',
             array(
                 'isPublished' => 1
             ),
@@ -110,14 +116,17 @@ class Revision{
 
 
         if (!$wasUpdated) {
-            throw new \Ip\Exception\Db("Can't publish page #" . esc($revision['pageId']) . " revision #" . esc($revisionId) . "");
+            throw new \Ip\Exception\Db("Can't publish page #" . esc($revision['pageId']) . " revision #" . esc(
+                $revisionId
+            ) . "");
         }
 
         ipEvent('ipPageRevisionPublished', array('revisionId' => $revisionId));
         return null;
     }
 
-    public static function duplicateRevision ($oldRevisionId, $pageId = null, $published = null) {
+    public static function duplicateRevision($oldRevisionId, $pageId = null, $published = null)
+    {
 
         $oldRevision = self::getRevision($oldRevisionId);
 
@@ -149,7 +158,7 @@ class Revision{
     public static function getPageRevisions($pageId)
     {
         $where = array(
-           'pageId' => $pageId,
+            'pageId' => $pageId,
         );
 
         return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `createdAt` DESC, `revisionId` DESC');

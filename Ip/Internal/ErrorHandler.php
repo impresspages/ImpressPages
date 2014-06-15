@@ -6,11 +6,12 @@
 namespace Ip\Internal;
 
 
-class ErrorHandler {
+class ErrorHandler
+{
 
 
-
-    public static function ipErrorHandler ($errno, $errstr, $errfile, $errline) {
+    public static function ipErrorHandler($errno, $errstr, $errfile, $errline)
+    {
         set_error_handler(__CLASS__ . '::ipSilentErrorHandler');
 
         $type = '';
@@ -57,7 +58,7 @@ class ErrorHandler {
             ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
         }
 
-        if(ipConfig()->showErrors()){
+        if (ipConfig()->showErrors()) {
             echo "{$errstr} in {$errfile}:{$errline}";
         }
 
@@ -66,7 +67,8 @@ class ErrorHandler {
     }
 
 
-    public static function ipSilentErrorHandler($errno, $errstr, $errfile, $errline) {
+    public static function ipSilentErrorHandler($errno, $errstr, $errfile, $errline)
+    {
         //do nothing
     }
 }
