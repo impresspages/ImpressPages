@@ -406,7 +406,7 @@ var ipPageDragId;
         var addPage = function (title, isvisible) {
             var parentId = $scope.activeMenu.id;
 
-            if($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+            if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
                 parentId = $scope.selectedPageId;
             }
 
@@ -593,7 +593,7 @@ var ipPageDragId;
             curVariables.page = pageId ? pageId : null;
 
             var path = '';
-            $.each(curVariables, function(key, value){
+            $.each(curVariables, function (key, value) {
                 if (value != null) {
                     if (path != '') {
                         path = path + '&';
@@ -603,7 +603,6 @@ var ipPageDragId;
             });
             $location.path(path);
         };
-
 
 
         var getHashParams = function () {

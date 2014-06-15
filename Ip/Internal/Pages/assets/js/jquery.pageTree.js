@@ -4,17 +4,17 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipPageTree');
 
                 // If the plugin hasn't been initialized yet
-                if ( ! data ) {
+                if (!data) {
                     $this.data('ipPageTree', {
                         menuName: options.menuName,
                         languageId: options.languageId
@@ -27,16 +27,16 @@
             });
         },
 
-        refresh : function() {
-            return this.each(function() {
+        refresh: function () {
+            return this.each(function () {
                 var $this = $(this);
                 var options = $this.data('ipPageTree');
                 $.proxy(refresh, $this)(options.menuName, options.languageId);
             });
         },
 
-        destroy : function() {
-            return this.each(function() {
+        destroy: function () {
+            return this.each(function () {
 
                 var $this = $(this);
                 $this.data('ipPageTree', false);
@@ -55,18 +55,18 @@
         $this.append($treeDiv);
 
         var data = {
-            menuName : menuName,
-            languageId : languageId,
-            aa : 'Pages.getPages'
+            menuName: menuName,
+            languageId: languageId,
+            aa: 'Pages.getPages'
         };
 
         $.ajax({
-            type : 'GET',
-            url : ip.baseUrl,
-            data : data,
-            context : $this,
-            success : refreshResponse,
-            dataType : 'json'
+            type: 'GET',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: refreshResponse,
+            dataType: 'json'
         });
     };
 
@@ -84,10 +84,10 @@
         var $this = this;
         var $treeDiv = $this.find('.ipsTreeDiv');
         $treeDiv.jstree({
-            'core' : {
-                "themes" : { "name" : 'ImpressPages', "stripes" : false, "icons" : false },
-                'data' : data,
-                "check_callback" : function (operation, node, node_parent, node_position, more)  {
+            'core': {
+                "themes": { "name": 'ImpressPages', "stripes": false, "icons": false },
+                'data': data,
+                "check_callback": function (operation, node, node_parent, node_position, more) {
                     var $node = $('#' + node.id);
                     ipPageDragId = $node.attr('pageid');
 
@@ -100,13 +100,13 @@
                     ipPagesDropPagePosition = node_position;
                 }
             },
-            'plugins' : [
+            'plugins': [
                 'dnd', 'wholerow'
             ]
         });
     }
 
-    $.fn.ipPageTree = function(method) {
+    $.fn.ipPageTree = function (method) {
 
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
