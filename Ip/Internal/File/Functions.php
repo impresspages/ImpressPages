@@ -103,7 +103,11 @@ class Functions
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
 
         $fileName = str_replace($spec, '_', $fileName);
-        $fileName = preg_replace('/[^\w\._]+/', '_', $fileName); // It overlaps with above replace file. But for historical reasons let it be.
+        $fileName = preg_replace(
+            '/[^\w\._]+/',
+            '_',
+            $fileName
+        ); // It overlaps with above replace file. But for historical reasons let it be.
         $fileName = preg_replace('/_+/', '_', $fileName);
 
 
@@ -113,7 +117,6 @@ class Functions
         if (!empty($pathParts['extension'])) {
             $fileName .= '.' . $pathParts['extension'];
         }
-
 
 
         if ($fileName == '') {
@@ -156,7 +159,11 @@ class Functions
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
         if (!copy(ipFile('file/tmp/' . $relativePath), $destinationDir . $newBasename)) {
-            trigger_error("Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . ' to ' . htmlspecialchars($destinationDir . $newBasename));
+            trigger_error(
+                "Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . ' to ' . htmlspecialchars(
+                    $destinationDir . $newBasename
+                )
+            );
         }
 
         return $newBasename;
