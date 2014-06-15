@@ -75,7 +75,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         if (!$files) {
             return false;
         }
-        foreach($files as $file) {
+        foreach ($files as $file) {
             if ($file != '.' && $file != '..' && is_dir($path . '/' . $file)) {
                 return $file;
             }

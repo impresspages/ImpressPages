@@ -3,7 +3,8 @@ namespace Ip\Internal\Plugins;
 
 use Ip\Response\JsonRpc;
 
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
     public function index()
     {
@@ -15,7 +16,7 @@ class AdminController extends \Ip\Controller{
         $allPlugins = Model::getAllPluginNames();
 
         $plugins = array();
-        foreach($allPlugins as $pluginName) {
+        foreach ($allPlugins as $pluginName) {
             $plugin = Helper::getPluginData($pluginName);
             $plugins[] = $plugin;
         }
@@ -23,10 +24,10 @@ class AdminController extends \Ip\Controller{
         ipAddJsVariable('pluginList', $plugins);
         ipAddJsVariable('ipTranslationAreYouSure', __('Are you sure?', 'Ip-admin', false));
 
-        $data = array ();
+        $data = array();
         $view = ipView('view/layout.php', $data);
 
-        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper', true);
 
         return $view->render();
     }
@@ -48,7 +49,7 @@ class AdminController extends \Ip\Controller{
 
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
-        $data = array (
+        $data = array(
             'html' => $layout
         );
         return new \Ip\Response\Json($data);
@@ -64,7 +65,7 @@ class AdminController extends \Ip\Controller{
 
         try {
             Service::activatePlugin($pluginName);
-        } catch (\Ip\Exception $e){
+        } catch (\Ip\Exception $e) {
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
@@ -98,7 +99,7 @@ class AdminController extends \Ip\Controller{
 
         try {
             Service::deactivatePlugin($pluginName);
-        } catch (\Ip\Exception $e){
+        } catch (\Ip\Exception $e) {
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
@@ -132,7 +133,7 @@ class AdminController extends \Ip\Controller{
 
         try {
             Service::removePlugin($pluginName);
-        } catch (\Ip\Exception $e){
+        } catch (\Ip\Exception $e) {
             $answer = array(
                 'jsonrpc' => '2.0',
                 'error' => array(
@@ -183,7 +184,6 @@ class AdminController extends \Ip\Controller{
 //        ipAddJs('Ip/Internal/System/assets/market.js');
 
 
-
 //        $model = Model::instance();
 //
 //        $themes = $model->getAvailableThemes();
@@ -225,7 +225,7 @@ class AdminController extends \Ip\Controller{
 
         $contentView = ipView('view/market.php', $data);
 
-        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper', true);
 
         return $contentView->render();
     }
@@ -236,7 +236,14 @@ class AdminController extends \Ip\Controller{
         $plugins = ipRequest()->getPost('plugins');
 
         if (!is_writable(Model::pluginInstallDir())) {
-            return JsonRpc::error(__('Directory is not writable. Please check your email and install the plugin manually.', 'Ip-admin', false), 777);
+            return JsonRpc::error(
+                __(
+                    'Directory is not writable. Please check your email and install the plugin manually.',
+                    'Ip-admin',
+                    false
+                ),
+                777
+            );
         }
 
         try {
@@ -263,7 +270,6 @@ class AdminController extends \Ip\Controller{
 
         return JsonRpc::result(array('plugins' => $plugins));
     }
-
 
 
 }
