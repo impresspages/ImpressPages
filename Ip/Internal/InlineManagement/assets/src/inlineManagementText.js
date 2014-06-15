@@ -3,29 +3,31 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipInlineManagementText');
                 // If the plugin hasn't been initialized yet
-                if ( ! data ) {
+                if (!data) {
                     $this.data('ipInlineManagementText', {
-                            key: $this.data('key'),
-                            cssClass: $this.data('cssclass'),
-                            htmlTag: $this.data('htmltag'),
-                            defaultValue: $this.data('defaultvalue')
-                        });
+                        key: $this.data('key'),
+                        cssClass: $this.data('cssclass'),
+                        htmlTag: $this.data('htmltag'),
+                        defaultValue: $this.data('defaultvalue')
+                    });
                     var cssClass = $this.data('ipInlineManagementText').cssClass;
                     var key = $this.data('ipInlineManagementText').key;
                     var htmlTag = $this.data('ipInlineManagementText').htmlTag;
                     var customTinyMceConfig = ipTinyMceConfig();
-                    customTinyMceConfig.setup = function(ed, l) {ed.on('change', function(e) {
-                        save($this.html(), key, cssClass, htmlTag);
-                    })};
+                    customTinyMceConfig.setup = function (ed, l) {
+                        ed.on('change', function (e) {
+                            save($this.html(), key, cssClass, htmlTag);
+                        })
+                    };
                     $this.tinymce(customTinyMceConfig);
                 }
             });
@@ -53,12 +55,12 @@
 
         //SAVE
         $.ajax({
-            type : 'POST',
-            url : ip.baseUrl,
-            data : data,
-            context : $this,
-            success : saveResponse,
-            dataType : 'json'
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: saveResponse,
+            dataType: 'json'
         });
     };
 
@@ -77,7 +79,7 @@
     };
 
 
-    $.fn.ipModuleInlineManagementText = function(method) {
+    $.fn.ipModuleInlineManagementText = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
