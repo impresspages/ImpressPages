@@ -39,7 +39,7 @@ var ipPluginsResize;
         $container.innerHeight(contentHeight);
         $containerForScroll.innerWidth(containerWidth);
         $properties.innerWidth(propertiesWidth);
-    }
+    };
 
     $(document).ready(function() {
         ipPluginsResize();

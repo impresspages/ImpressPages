@@ -58,11 +58,11 @@ var ipPlugins = null;
             $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
                 deletePlugin($scope.selectedPlugin.name);
             });
-        }
+        };
 
         $scope.setPluginHash = function (plugin) {
             updateHash(plugin.name);
-        }
+        };
 
 
         var activate = function (pluginName) {
@@ -122,7 +122,7 @@ var ipPlugins = null;
                     alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         // 'delete' is predefined class
         var deletePlugin = function (pluginName) {
@@ -152,7 +152,7 @@ var ipPlugins = null;
                     alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         var updateHash = function (pluginName) {
             var curVariables = getHashParams();
@@ -170,7 +170,7 @@ var ipPlugins = null;
                 }
             });
             $location.path(path);
-        }
+        };
 
         var getHashParams = function () {
             var hashParams = {};
@@ -187,7 +187,7 @@ var ipPlugins = null;
 
             return hashParams;
         }
-    }
+    };
 
 
 //    this.init = function () {

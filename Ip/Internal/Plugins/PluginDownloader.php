@@ -80,6 +80,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
                 return $file;
             }
         }
+        return null;
     }
 
 

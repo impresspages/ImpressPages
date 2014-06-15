@@ -50,7 +50,7 @@ var ipPluginMarket = new function () {
                                         plugins: [data]
                                     };
                                     processOrder(fakeOrder);
-                                }
+                                };
 
 
                                 redirectUrl = ip.baseUrl + '?aa=Plugins.index#/hash=&plugin=' + encodeURIComponent(data.name);
