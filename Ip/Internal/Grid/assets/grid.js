@@ -60,7 +60,7 @@
         $(window).off('hashchange.grid' + uniqueId).on('hashchange.grid' + uniqueId, function () {
             $.proxy(init, $this)();
         });
-    }
+    };
 
 
     var initResponse = function (response) {
@@ -147,7 +147,6 @@
 
 
         $grid.find('.ipsCreate').off().on('click', function() {
-            var $this = $(this);
             var $modal = $grid.find('.ipsCreateModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -169,7 +168,6 @@
         });
 
         $grid.find('.ipsSearch').off().on('click', function() {
-            var $this = $(this);
             var $modal = $grid.find('.ipsSearchModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -207,7 +205,7 @@
 
     var startDrag = function(event, ui) {
             ui.item.data('originIndex', ui.item.index());
-    }
+    };
 
     var dragStop = function(event, ui) {
         var originIndex = ui.item.data('originIndex');
@@ -252,7 +250,7 @@
                 }
             }
         });
-    }
+    };
 
     var dragFix = function(e, tr) {
         var $originals = tr.children();
@@ -305,7 +303,7 @@
             }
         });
 
-    }
+    };
 
 
 
@@ -329,7 +327,7 @@
             },
             dataType: 'json'
         });
-    }
+    };
 
     var deleteResponse = function (response) {
         var $this = this;
@@ -341,7 +339,7 @@
             }
         }
 
-    }
+    };
 
     $.fn.ipGrid = function (method) {
         if (methods[method]) {

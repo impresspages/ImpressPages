@@ -102,6 +102,6 @@ class Select extends \Ip\Internal\Grid\Model\Field
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
             return '`' . $this->field . '` = ' . ipDb()->getConnection()->quote($searchVariables[$this->field]) . ' ';
         }
-
+        return null;
     }
 }

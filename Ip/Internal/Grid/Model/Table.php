@@ -97,6 +97,7 @@ class Table extends \Ip\Internal\Grid\Model
                 return $this->search($params, $statusVariables);
                 break;
         }
+        return null;
     }
 
     protected function init($statusVariables)
