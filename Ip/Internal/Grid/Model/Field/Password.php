@@ -10,8 +10,6 @@ class Password extends \Ip\Internal\Grid\Model\Field
 {
 
 
-
-
     public function createField()
     {
         $field = new \Ip\Form\Field\Password(array(
@@ -41,7 +39,7 @@ class Password extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        if (empty($postData[$this->field])){
+        if (empty($postData[$this->field])) {
             return array();
         }
         return array($this->field => $this->passwordHash($postData[$this->field]));
@@ -53,8 +51,6 @@ class Password extends \Ip\Internal\Grid\Model\Field
         $hasher = new \Ip\Lib\PasswordHash($stretching, ipGetOption('Ip.portableAdminHashes', true));
         return $hasher->HashPassword($password);
     }
-
-
 
 
     public function searchField($searchVariables)

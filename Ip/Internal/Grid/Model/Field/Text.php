@@ -10,8 +10,6 @@ class Text extends \Ip\Internal\Grid\Model\Field
 {
 
 
-
-
     public function createField()
     {
         $field = new \Ip\Form\Field\Text(array(
@@ -61,7 +59,9 @@ class Text extends \Ip\Internal\Grid\Model\Field
     public function searchQuery($searchVariables)
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return ' `' . $this->field . '` like '.ipDb()->getConnection()->quote('%' . $searchVariables[$this->field] . '%') . '';
+            return ' `' . $this->field . '` like ' . ipDb()->getConnection()->quote(
+                '%' . $searchVariables[$this->field] . '%'
+            ) . '';
         }
         return null;
     }

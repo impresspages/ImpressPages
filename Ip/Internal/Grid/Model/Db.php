@@ -25,7 +25,10 @@ class Db
 
     public function recordCount($where)
     {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery() . " WHERE " . $where . " ");
+        return ipDb()->fetchValue(
+            "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery(
+            ) . " WHERE " . $where . " "
+        );
     }
 
     public function fetch($from, $count, $where = 1)
