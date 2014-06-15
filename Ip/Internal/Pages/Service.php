@@ -156,7 +156,10 @@ class Service
     {
         $table = ipTable('page');
 
-        $pages = ipDb()->fetchAll("SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?", array($timestamp));
+        $pages = ipDb()->fetchAll(
+            "SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?",
+            array($timestamp)
+        );
 
         foreach ($pages as $page) {
             static::removeDeletedPage($page['id']);
