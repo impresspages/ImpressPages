@@ -31,13 +31,16 @@ class Module
      * Newsletters, greetings always can wait a litle. So they are not immediate and will not be send if is less than 20% of traffic left.
      *
      * @param string $from email address from whish an email should be send
-     * @param string @fromName
+     * @param $fromName
      * @param string $to email address where an email should be send
-     * @param string @toName
+     * @param $toName
+     * @param $subject
      * @param string $email email html text
      * @param bool $immediate indicate hurry of an email.
      * @param bool $html true if email message should be send as html
      * @param array $files files that should be attached to the email. Files should be accessible for php at this moment. They will be cached until send time.
+     * @internal param $string @fromName
+     * @internal param $string @toName
      */
     function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $files = null)
     {
@@ -212,7 +215,7 @@ class Module
 
             }
         }
-
+        return null;
     }
 
 }
