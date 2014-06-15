@@ -92,7 +92,8 @@ class Functions
     }
 
     /**
-     * @param string $file File name.
+     * @param $fileName
+     * @internal param string $file File name.
      * @return string New (or the same) file without special characters.
      */
     public static function cleanupFileName($fileName)
@@ -138,9 +139,6 @@ class Functions
             finfo_close($finfo);
         } elseif (function_exists('mime_content_type')) {
             $mtype = mime_content_type($file_path);
-        } elseif (class_exists('finfo')) {
-            $fi = new finfo(FILEINFO_MIME);
-            $mtype = $fi->buffer(file_get_contents($files[$i]));
         } else {
             // Any other ideas?
         }
