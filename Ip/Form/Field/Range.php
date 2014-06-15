@@ -20,8 +20,14 @@ class Range extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="range" value="' . htmlspecialchars($this->getValue()) . '" />';
+    public function render($doctype, $environment)
+    {
+        return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="range" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
@@ -31,7 +37,8 @@ class Range extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'text';
     }
 

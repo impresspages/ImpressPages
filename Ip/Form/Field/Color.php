@@ -20,7 +20,8 @@ class Color extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $confirmText = __('Confirm', 'Ip-admin');
             $cancelText = __('Cancel', 'Ip-admin');
@@ -29,7 +30,14 @@ class Color extends Field
             $cancelText = __('Cancel', 'Ip');
         }
 
-        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' ' . $this->getAttributesStr($doctype) . ' class="ipmControlInput ipsColorPicker ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
+        return '<input data-confirmtext=\'' . $confirmText . '\' data-canceltext=\'' . $cancelText . '\' ' . $this->getAttributesStr(
+            $doctype
+        ) . ' class="ipmControlInput ipsColorPicker ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
@@ -39,7 +47,8 @@ class Color extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'color';
     }
 

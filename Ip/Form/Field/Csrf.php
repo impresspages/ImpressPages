@@ -21,7 +21,8 @@ class Csrf extends Blank
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         parent::__construct($options);
         $this->addValidator('Csrf');
     }
@@ -33,11 +34,17 @@ class Csrf extends Blank
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         $session = \Ip\ServiceLocator::application();
 
         return '
-            <input ' . $this->getAttributesStr($doctype) . ' class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="' . addslashes($session->getSecurityToken()) . '" />
+            <input ' . $this->getAttributesStr($doctype) . ' class="' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '"  ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="hidden" value="' . addslashes($session->getSecurityToken()) . '" />
         ';
     }
 
@@ -46,7 +53,8 @@ class Csrf extends Blank
      *
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return self::TYPE_SYSTEM;
     }
 

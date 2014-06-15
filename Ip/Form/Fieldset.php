@@ -26,7 +26,8 @@ class Fieldset
      *
      * @param string $label
      */
-    public function __construct($label = null) {
+    public function __construct($label = null)
+    {
         if ($label) {
             $this->setLabel($label);
         }
@@ -40,7 +41,8 @@ class Fieldset
      * Create fieldset if does not exist.
      * @param Field $field
      */
-    public function addField(\Ip\Form\Field $field) {
+    public function addField(\Ip\Form\Field $field)
+    {
         $this->fields[] = $field;
     }
 
@@ -50,7 +52,8 @@ class Fieldset
      * @param string $fieldName
      * @return int Removed fields count.
      */
-    public function removeField($fieldName) {
+    public function removeField($fieldName)
+    {
         $count = 0;
         foreach ($this->fields as $key => $field) {
             if ($field->getName() == $fieldName) {
@@ -66,7 +69,8 @@ class Fieldset
      * Return all fields
      * @return \Ip\Form\Field[]
      */
-    public function getFields() {
+    public function getFields()
+    {
         return $this->fields;
     }
 
@@ -76,7 +80,8 @@ class Fieldset
      * @param string $name
      * @return object|bool
      */
-    public function getField($name) {
+    public function getField($name)
+    {
         $allFields = $this->getFields();
         foreach ($allFields as $field) {
             if ($field->getName() == $name) {
@@ -92,7 +97,8 @@ class Fieldset
      *
      * @return string
      */
-    public function getLabel() {
+    public function getLabel()
+    {
         return $this->label;
     }
 
@@ -101,7 +107,8 @@ class Fieldset
      *
      * @param string $label
      */
-    public function setLabel($label) {
+    public function setLabel($label)
+    {
         $this->label = $label;
     }
 
@@ -111,7 +118,8 @@ class Fieldset
      * @param $doctype \Ip\View doctype constant
      * @return string
      */
-    public function getAttributesStr($doctype) {
+    public function getAttributesStr($doctype)
+    {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
             $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
@@ -125,7 +133,8 @@ class Fieldset
      *
      * @return array Field HTML attributes.
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 
@@ -137,7 +146,8 @@ class Fieldset
      * @param string $value Attribute value.
      *
      */
-    public function addAttribute($name, $value) {
+    public function addAttribute($name, $value)
+    {
         $this->attributes[$name] = $value;
     }
 
@@ -146,7 +156,8 @@ class Fieldset
      *
      * @param string $name
      */
-    public function removeAttribute($name) {
+    public function removeAttribute($name)
+    {
         unset($this->attributes[$name]);
     }
 

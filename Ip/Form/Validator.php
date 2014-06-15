@@ -25,7 +25,8 @@ abstract class Validator
      * @param array $data additional parameters to tune up the validator. Like regular expression for Regex validator.
      * @param string $errorMessage Override default error message.
      */
-    public function __construct($data = array(), $errorMessage = null) {
+    public function __construct($data = array(), $errorMessage = null)
+    {
         $this->data = $data;
         $this->errorMessage = $errorMessage;
     }
@@ -46,7 +47,8 @@ abstract class Validator
      *
      * @return string
      */
-    public function validatorAttributes() {
+    public function validatorAttributes()
+    {
         return '';
     }
 

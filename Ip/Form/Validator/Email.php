@@ -24,7 +24,8 @@ class Email extends Validator
      * @param $environment
      * @return string|bool
      */
-    public function getError($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment)
+    {
         if (empty($values[$valueKey])) {
             return false;
         }
@@ -48,7 +49,8 @@ class Email extends Validator
      *
      * @return string
      */
-    public function validatorAttributes() {
+    public function validatorAttributes()
+    {
         return 'type="email"';
     }
 

@@ -20,8 +20,14 @@ class Submit extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<button ' . $this->getAttributesStr($doctype) . ' class="btn btn-default ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="submit">' . htmlspecialchars($this->getValue()) . '</button>';
+    public function render($doctype, $environment)
+    {
+        return '<button ' . $this->getAttributesStr($doctype) . ' class="btn btn-default ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="submit">' . htmlspecialchars($this->getValue()) . '</button>';
     }
 
     /**
@@ -29,7 +35,8 @@ class Submit extends Field
      *
      * @return string
      */
-    public function getLayout() {
+    public function getLayout()
+    {
         return self::LAYOUT_DEFAULT;
     }
 
@@ -38,7 +45,8 @@ class Submit extends Field
      *
      * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return self::TYPE_SYSTEM;
     }
 
@@ -49,7 +57,8 @@ class Submit extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'submit';
     }
 
