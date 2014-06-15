@@ -9,7 +9,9 @@ $(document).ready(function () {
     var $configForm = $('.ipsConfigForm');
     $configForm.validator(validatorConfigAdmin);
     $configForm.data("validator").checkValidity();
-    $configForm.on('submit', function(e) {e.preventDefault();});
+    $configForm.on('submit', function (e) {
+        e.preventDefault();
+    });
 
 });
 
