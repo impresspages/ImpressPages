@@ -23,7 +23,7 @@ var ipAdministratorsController = null;
 
         $scope.$on('PathChanged', function (event, path) {
             var administratorId = getHashParams().administrator;
-            for (var i=0; i < ipAdministrators.length; i++) {
+            for (var i = 0; i < ipAdministrators.length; i++) {
                 if (administratorId == ipAdministrators[i]['id']) {
                     $scope.activateAdministrator(ipAdministrators[i]);
                 }
@@ -54,7 +54,9 @@ var ipAdministratorsController = null;
                     $modal.modal('hide');
                 }
             });
-            setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
+            setTimeout(function () {
+                $('.ipsAddModal input[name=username]').focus();
+            }, 500);
             $modal.find('.ipsAdd').off('click').on('click', function () {
                 $('.ipsAddModal form').submit();
             });
@@ -72,7 +74,7 @@ var ipAdministratorsController = null;
             $form.off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
                 if (response && response.status == 'ok') {
                     $scope.activeAdministrator.username = $form.find('input[name=username]').val();
-                    $scope.activeAdministrator.email= $form.find('input[name=email]').val();
+                    $scope.activeAdministrator.email = $form.find('input[name=email]').val();
                     $scope.$apply();
                     $modal.modal('hide');
                 }
@@ -80,10 +82,12 @@ var ipAdministratorsController = null;
             $modal.find('.ipsSave').off('click').on('click', function () {
                 $('.ipsUpdateModal form').submit();
             });
-            setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
+            setTimeout(function () {
+                $('.ipsUpdateModal input[name=username]').focus();
+            }, 500);
         };
 
-        $scope.setPermission = function(permission, value, callback) {
+        $scope.setPermission = function (permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
                 alert(ipAdministratorsSuperAdminWarning);
                 return;
@@ -132,11 +136,6 @@ var ipAdministratorsController = null;
                 });
             });
         };
-
-
-
-
-
 
 
         var deleteAdministrator = function (id, successCallback) {
