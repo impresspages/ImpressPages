@@ -14,7 +14,7 @@
             return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipGridInit');
-                var uniqueId = Math.floor((Math.random()*10000000)+1);
+                var uniqueId = Math.floor((Math.random() * 10000000) + 1);
                 // If the plugin hasn't been initialized yet
                 if (!data) {
                     $this.data('ipGridInit', Object());
@@ -92,7 +92,7 @@
     var bindEvents = function () {
         var $grid = this;
 
-        $grid.find('.ipsAction[data-method]').off().on('click', function(e) {
+        $grid.find('.ipsAction[data-method]').off().on('click', function (e) {
             e.preventDefault();
             var $this = $(this);
             var data = $grid.data('gateway');
@@ -121,20 +121,20 @@
             });
         });
 
-        $grid.find('.ipsDelete').off().on('click', function() {
+        $grid.find('.ipsDelete').off().on('click', function () {
             var $this = $(this);
             var $row = $this.closest('.ipsRow');
             var id = $row.data('id');
             var $modal = $grid.find('.ipsDeleteModal');
             $modal.modal();
             $modal.find('.ipsConfirm').focus();
-            $modal.find('.ipsConfirm').off().on('click', function() {
+            $modal.find('.ipsConfirm').off().on('click', function () {
                 $.proxy(deleteRecord, $grid)(id);
                 $modal.modal('hide');
             });
         });
 
-        $grid.find('.ipsUpdate').off().on('click', function() {
+        $grid.find('.ipsUpdate').off().on('click', function () {
             var $this = $(this);
             var $row = $this.closest('.ipsRow');
             var id = $row.data('id');
@@ -145,8 +145,7 @@
         });
 
 
-
-        $grid.find('.ipsCreate').off().on('click', function() {
+        $grid.find('.ipsCreate').off().on('click', function () {
             var $modal = $grid.find('.ipsCreateModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -162,12 +161,12 @@
                     $.proxy(doCommands, $grid)(response.result.commands);
                 }
             });
-            $modal.find('.ipsConfirm').off().on('click', function() {
+            $modal.find('.ipsConfirm').off().on('click', function () {
                 $modal.find('.ipsBody form').submit();
             });
         });
 
-        $grid.find('.ipsSearch').off().on('click', function() {
+        $grid.find('.ipsSearch').off().on('click', function () {
             var $modal = $grid.find('.ipsSearchModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -184,7 +183,7 @@
                 }
             });
 
-            $modal.find('.ipsSearch').off().on('click', function() {
+            $modal.find('.ipsSearch').off().on('click', function () {
                 $modal.find('.ipsBody form').submit();
             });
         });
@@ -203,11 +202,11 @@
 
     };
 
-    var startDrag = function(event, ui) {
-            ui.item.data('originIndex', ui.item.index());
+    var startDrag = function (event, ui) {
+        ui.item.data('originIndex', ui.item.index());
     };
 
-    var dragStop = function(event, ui) {
+    var dragStop = function (event, ui) {
         var originIndex = ui.item.data('originIndex');
         var curRow = ui.item;
         var currentIndex = curRow.index();
@@ -252,17 +251,16 @@
         });
     };
 
-    var dragFix = function(e, tr) {
+    var dragFix = function (e, tr) {
         var $originals = tr.children();
         var $helper = tr.clone();
-        $helper.children().each(function(index)
-        {
+        $helper.children().each(function (index) {
             $(this).width($originals.eq(index).width())
         });
         return $helper;
     };
 
-    var loadUpdateForm = function($modal, id){
+    var loadUpdateForm = function ($modal, id) {
         var $grid = this;
         var data = $grid.data('gateway');
         data.method = 'updateForm';
@@ -290,7 +288,7 @@
                     }
                 });
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
-                $modal.find('.ipsConfirm').off().on('click', function() {
+                $modal.find('.ipsConfirm').off().on('click', function () {
                     $modal.find('.ipsBody form').submit();
                 });
                 ipInitForms();
@@ -306,8 +304,7 @@
     };
 
 
-
-    var deleteRecord = function(id) {
+    var deleteRecord = function (id) {
         var $grid = this;
         var data = $grid.data('gateway');
         data.method = 'delete';
