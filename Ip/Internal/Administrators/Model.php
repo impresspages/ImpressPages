@@ -58,12 +58,12 @@ class Model
             'secret' => self::generatePasswordResetSecret($userId)
         );
 
-        $contentData = array (
+        $contentData = array(
             'link' => ipActionUrl($urlData)
         );
         $content = ipView('view/passwordResetContent.php', $contentData)->render();
 
-        $emailData = array (
+        $emailData = array(
             'content' => $content
         );
 
@@ -71,7 +71,7 @@ class Model
 
         $from = ipGetOptionLang('Config.websiteEmail');
         $fromName = ipGetOptionLang('Config.websiteTitle');
-        $subject = __('Password reset instructions', 'Ip-admin', FALSE);
+        $subject = __('Password reset instructions', 'Ip-admin', false);
         $to = $user['email'];
         $toName = $user['username'];
         ipSendEmail($from, $fromName, $to, $toName, $subject, $email);
@@ -106,7 +106,11 @@ class Model
             throw new \Ip\Exception("User doesn't exist");
         }
 
-        if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption('Config.passwordResetLinkExpire', 60 * 60 * 24)) {
+        if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption(
+                'Config.passwordResetLinkExpire',
+                60 * 60 * 24
+            )
+        ) {
             throw new \Ip\Exception('Invalid password reset link');
         }
 
