@@ -7,9 +7,8 @@
 namespace Ip\Internal\Config;
 
 
-
-
-class Forms {
+class Forms
+{
     public static function getForm()
     {
         $form = new \Ip\Form();
@@ -43,13 +42,18 @@ class Forms {
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
-                'name' => 'automaticCron', //html "name" attribute
+                'name' => 'automaticCron',
+                //html "name" attribute
                 'value' => ipGetOption('Config.automaticCron', 1),
-                'label' => __('Execute cron automatically', 'Ip-admin'), //field label that will be displayed next to input field
-                'hint' => __('ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.', 'Ip-admin'),
+                'label' => __('Execute cron automatically', 'Ip-admin'),
+                //field label that will be displayed next to input field
+                'hint' => __(
+                    'ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.',
+                    'Ip-admin'
+                ),
             ));
         $field->addClass('ipsAutoSave');
-        $field->addAttribute('data-fieldid',  $field->getName());
+        $field->addAttribute('data-fieldid', $field->getName());
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
@@ -60,14 +64,16 @@ class Forms {
                 'value' => ipGetOption('Config.cronPassword', 1),
                 'label' => __('Cron password', 'Ip-admin'), //field label that will be displayed next to input field
                 'hint' => __('Protect cron from being abusively executed by the strangers.', 'Ip-admin'),
-                'note' => '<span class="ipsUrlLabel">' . __('Cron URL: ', 'Ip-admin') . '</span><a target="_blank" class="ipsUrl"></a>'
+                'note' => '<span class="ipsUrlLabel">' . __(
+                        'Cron URL: ',
+                        'Ip-admin'
+                    ) . '</span><a target="_blank" class="ipsUrl"></a>'
             ));
         $field->addClass('ipsAutoSave');
-        $field->addAttribute('data-fieldid',  $field->getName());
+        $field->addAttribute('data-fieldid', $field->getName());
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
-
 
 
         return $form;
