@@ -1,11 +1,10 @@
 <?php
-    /**
-     * @package ImpressPages
+/**
+ * @package ImpressPages
+ *
+ */
 
-     *
-     */
-
-    namespace Ip\Internal\InlineManagement;
+namespace Ip\Internal\InlineManagement;
 
 
 class Service
@@ -51,7 +50,7 @@ class Service
     public function generateImageLogo($cssClass = null)
     {
         $data = $this->getLogoData();
-        $data['type']  = Entity\Logo::TYPE_IMAGE;
+        $data['type'] = Entity\Logo::TYPE_IMAGE;
         $data['cssClass'] = $cssClass;
         return ipView('view/display/logo.php', $data)->render();
     }
@@ -64,11 +63,10 @@ class Service
     public function generateTextLogo($cssClass)
     {
         $data = $this->getLogoData();
-        $data['type']  = Entity\Logo::TYPE_TEXT;
+        $data['type'] = Entity\Logo::TYPE_TEXT;
         $data['cssClass'] = $cssClass;
         return ipView('view/display/logo.php', $data)->render();
     }
-
 
 
     public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
@@ -81,7 +79,7 @@ class Service
         }
 
 
-        $data = array (
+        $data = array(
             'defaultValue' => $defaultValue,
             'value' => $curValue,
             'key' => $key,
@@ -122,7 +120,7 @@ class Service
 
         $image = new Entity\Image($imageStr, $defaultValue);
 
-        $data = array (
+        $data = array(
             'value' => $image->getImage(),
             'defaultValue' => $defaultValue,
             'empty' => ($image->getImage() == '' || $image->getImage() == $defaultPlaceholder),
@@ -145,7 +143,7 @@ class Service
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
 
-        $data = array (
+        $data = array(
             'type' => $logo->getType(),
             'link' => ipContent()->getCurrentLanguage()->getLink(),
             'text' => $logo->getText(),

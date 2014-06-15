@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -18,7 +17,7 @@ class Image
     private $y2;
     private $requiredWidth;
     private $requiredHeight;
-    /** @var int randomly created hopefully unique id   */
+    /** @var int randomly created hopefully unique id */
     private $id;
 
     /**
@@ -27,14 +26,14 @@ class Image
      */
     public function __construct($data, $defaultImage = null)
     {
-        if(is_string($data)) {
+        if (is_string($data)) {
             $data = $this->parseStr($data);
         }
 
         if (!empty($data['imageOrig']) && file_exists(ipFile('file/repository/' . $data['imageOrig']))) {
             $this->imageOrig = $data['imageOrig'];
 
-            if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {
+            if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2'])) {
                 $this->x1 = $data['x1'];
                 $this->y1 = $data['y1'];
                 $this->x2 = $data['x2'];
