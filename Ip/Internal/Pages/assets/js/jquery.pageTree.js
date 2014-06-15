@@ -73,13 +73,12 @@
     var refreshResponse = function (response) {
         var $this = this;
         $.proxy(initializeTreeManagement, $this)(response.tree);
-    }
+    };
 
     /**
      * Initialize tree management
      *
-     * @param id
-     *            id of div where management should be initialized
+     * @param data
      */
     function initializeTreeManagement(data) {
         var $this = this;

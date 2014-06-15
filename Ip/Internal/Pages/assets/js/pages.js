@@ -81,16 +81,16 @@ var ipPageDragId;
             hashIsBeingApplied = true;
             updateHash(null, menu.alias, false);
             hashIsBeingApplied = false;
-        }
+        };
 
         $scope.setLanguageHash = function (language) {
             updateHash(language.code, null, false);
-        }
+        };
 
         $scope.activateLanguage = function (language) {
             $scope.activeLanguage = language;
             showPages();
-        }
+        };
 
         $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
@@ -101,7 +101,7 @@ var ipPageDragId;
             }
 
             showPages();
-        }
+        };
 
         $scope.activatePage = function (pageId) {
             $scope.selectedPageId = pageId;
@@ -156,7 +156,7 @@ var ipPageDragId;
                     hashIsBeingApplied = false;
                 }
             }
-        }
+        };
 
         $scope.addPageModal = function () {
             var $modal = $('.ipsAddModal');
@@ -177,7 +177,7 @@ var ipPageDragId;
                 addPage(title, isVisible);
                 $modal.modal('hide');
             });
-        }
+        };
 
         $scope.updateMenuModal = function (menu) {
             var $modal = $('.ipsUpdateMenuModal');
@@ -186,7 +186,7 @@ var ipPageDragId;
             var data = {
                 aa: 'Pages.updateMenuForm',
                 id: menu.id
-            }
+            };
 
             $.ajax({
                 type: 'GET',
@@ -241,7 +241,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         $scope.addMenuModal = function () {
             var $modal = $('.ipsAddMenuModal');
@@ -262,17 +262,17 @@ var ipPageDragId;
                 addMenu(title, type);
                 $modal.modal('hide');
             });
-        }
+        };
 
         $scope.cutPage = function () {
             $scope.copyPageId = false;
             $scope.cutPageId = $scope.selectedPageId
-        }
+        };
 
         $scope.copyPage = function () {
             $scope.cutPageId = false;
             $scope.copyPageId = $scope.selectedPageId;
-        }
+        };
 
         $scope.menuTitle = function (menu) {
             if (menu.title) {
@@ -280,7 +280,7 @@ var ipPageDragId;
             }
 
             return 'Untitled';
-        }
+        };
 
         $scope.pastePage = function () {
             var position = getTreeDiv().find('ul').first().children.length;
@@ -291,7 +291,7 @@ var ipPageDragId;
                     refresh();
                 });
             }
-        }
+        };
 
 
         function escapeHtml(text) {
@@ -382,15 +382,15 @@ var ipPageDragId;
                 });
 
             }
-        }
+        };
 
         var getPagesContainer = function () {
             return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
-        }
+        };
 
         var getTreeDiv = function () {
             return getPagesContainer().find('.ipsTreeDiv');
-        }
+        };
 
         var refresh = function () {
             if ($scope.activeMenu.type == 'list') { // list view
@@ -400,7 +400,7 @@ var ipPageDragId;
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
             }
-        }
+        };
 
 
         var addPage = function (title, isvisible) {
@@ -433,7 +433,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var addMenu = function (title, type) {
             var data = {
@@ -460,7 +460,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var editPage = function (pageId, successCallback) {
             var data = {
@@ -483,7 +483,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var deletePage = function (pageId, successCallback) {
             var data = {
@@ -512,7 +512,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var copyPage = function (pageId, destinationParentId, destinationPosition, callback) {
             var data = {
@@ -536,7 +536,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var movePage = function (pageId, destinationParentId, destinationPosition, doRefresh) {
             var data = {
@@ -565,14 +565,14 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         /**
          * null values = current
          * false = unset
-         * @param string|null languageCode
-         * @param string|null|false menuName
-         * @param string|null|false pageId
+         * @param languageCode
+         * @param menuName
+         * @param pageId
          */
         var updateHash = function (languageCode, menuName, pageId) {
             var curVariables = getHashParams();
@@ -602,7 +602,7 @@ var ipPageDragId;
                 }
             });
             $location.path(path);
-        }
+        };
 
 
 
@@ -621,7 +621,7 @@ var ipPageDragId;
                 hashParams[d(e[1])] = d(e[2]);
 
             return hashParams;
-        }
+        };
 
         function getQuery(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

@@ -35,6 +35,7 @@ class UrlAllocator
 
     /**
      * @parem string $languageCode
+     * @param $languageCode
      * @param string $urlPath
      * @returns bool true if url is available
      */

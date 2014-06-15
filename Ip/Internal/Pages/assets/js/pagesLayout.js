@@ -57,7 +57,7 @@ var ipPagesResize;
 //        $pages.innerHeight(contentHeight);
 //        $properties.innerHeight(contentHeight);
         $properties.innerWidth(propertiesWidth);
-    }
+    };
 
     $(document).ready(function() {
         ipPagesResize();
