@@ -7,8 +7,6 @@
 namespace Ip\Internal\Administrators;
 
 
-
-
 class Helper
 {
     public static function createForm()
@@ -60,7 +58,6 @@ class Helper
         $form->addAttribute('autocomplete', 'off');
 
 
-
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', // HTML "name" attribute
@@ -82,8 +79,10 @@ class Helper
 
         $field = new \Ip\Form\Field\Password(
             array(
-                'name' => 'password', // HTML "name" attribute
-                'label' => __('New password (optional)', 'Ip-admin', false), // Field label that will be displayed next to input field
+                'name' => 'password',
+                // HTML "name" attribute
+                'label' => __('New password (optional)', 'Ip-admin', false),
+                // Field label that will be displayed next to input field
                 'value' => ''
             ));
         $form->addField($field);
