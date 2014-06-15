@@ -57,7 +57,7 @@ class Event
                     static::addWidgetAssets($widget);
                 }
             }
-            ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', FALSE));
+            ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', false));
         }
     }
 
@@ -98,7 +98,6 @@ class Event
     {
         Service::setManagementMode(1);
     }
-
 
 
     public static function ipPageRevisionDuplicated($info)

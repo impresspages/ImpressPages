@@ -95,7 +95,9 @@ class FieldType
         }
 
         if (!class_exists($fieldClass)) {
-            throw new \Ip\Exception\Content('Required field type class doesn\'t exist. ' . esc($fieldClass), array('fieldClass' => $fieldClass));
+            throw new \Ip\Exception\Content('Required field type class doesn\'t exist. ' . esc(
+                $fieldClass
+            ), array('fieldClass' => $fieldClass));
         }
         $field = new $fieldClass($fieldOptions);
 

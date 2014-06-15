@@ -63,7 +63,7 @@ class Job
         $menus = \Ip\Internal\Pages\Service::getMenus($languageCode);
 
 
-        foreach($menus as $menu) {
+        foreach ($menus as $menu) {
             $pages = \Ip\Internal\Pages\Service::getChildren($menu['id'], 0, 1);
             if (!empty($pages[0]['id'])) {
                 return $pages[0]['id'];
