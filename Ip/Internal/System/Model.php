@@ -189,6 +189,6 @@ class Model
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        $answer = curl_exec($ch);
+        curl_exec($ch);
     }
 }
