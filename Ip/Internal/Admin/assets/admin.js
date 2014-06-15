@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
     ipAdmin.init();
 });
@@ -20,9 +20,13 @@ var ipAdmin = new function () {
         $adminMenu = $('.ipsAdminMenuBlock');
         $adminMenuContainer = $('.ipsAdminMenuBlockContainer');
 
-        $('.ipsAdminMenu').on('mouseenter', function (e) { showAdminMenu(); });
+        $('.ipsAdminMenu').on('mouseenter', function (e) {
+            showAdminMenu();
+        });
 
-        $adminMenu.on('mouseleave', function (e) { hideAdminMenu(); });
+        $adminMenu.on('mouseleave', function (e) {
+            hideAdminMenu();
+        });
 
         //prevent session expire
         if (typeof(ipAdminSessionRefresh) !== 'undefined') {
@@ -33,7 +37,9 @@ var ipAdmin = new function () {
         onResize();
 
         if (!ip.isManagementState) {
-            $('.ipsContentPublish').on('click', function(e){save(true)});
+            $('.ipsContentPublish').on('click', function (e) {
+                save(true)
+            });
             $('.ipsContentSave').addClass('hidden');
         }
 
@@ -61,7 +67,7 @@ var ipAdmin = new function () {
         $.ajax({
             url: ip.baseUrl, //we assume that for already has m, g, a parameters which will lead this request to required controller
             dataType: 'json',
-            type : 'GET',
+            type: 'GET',
             data: {sa: 'Admin.sessionRefresh'},
             success: function (response) {
                 //do nothing
@@ -70,7 +76,7 @@ var ipAdmin = new function () {
     };
 
     //TODO this function is duplicated in jquery.ip.contentManagement
-    var save = function(publish) {
+    var save = function (publish) {
         var $this = $(this);
 
         var postData = Object();
@@ -84,25 +90,25 @@ var ipAdmin = new function () {
         }
 
         $.ajax({
-            type : 'POST',
-            url : ip.baseUrl,
-            data : postData,
-            context : $this,
-            success : _savePageResponse,
-            dataType : 'json'
+            type: 'POST',
+            url: ip.baseUrl,
+            data: postData,
+            context: $this,
+            success: _savePageResponse,
+            dataType: 'json'
         });
     };
 
     //TODO this function is duplicated in jquery.ip.contentManagement
-    var _savePageResponse = function(response) {
+    var _savePageResponse = function (response) {
         if (response.status == 'success') {
             window.location.href = response.newRevisionUrl;
         }
     };
 
-    var onResize = function() {
+    var onResize = function () {
         // Admin menu height
-        var containerHeight = $(window).height()-$navbar.outerHeight();
+        var containerHeight = $(window).height() - $navbar.outerHeight();
         $adminMenuContainer.height(containerHeight);
 
         // elements with 'ipsAdminAutoHeight' CSS class
