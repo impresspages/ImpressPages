@@ -7,33 +7,41 @@
 namespace Ip\Internal\Cron;
 
 
-
 class PublicController extends \Ip\Controller
 {
     /** true if cron is executed first time this year
-     * @var bool */
+     * @var bool
+     */
     protected $firstTimeThisYear;
     /** true if cron is executed first time this month
-     * @var bool */
+     * @var bool
+     */
     protected $firstTimeThisMonth;
     /** true if cron is executed first time this week
-     * @var bool */
+     * @var bool
+     */
     protected $firstTimeThisWeek;
     /** true if cron is executed first time this day
-     * @var bool */
+     * @var bool
+     */
     protected $firstTimeThisDay;
     /** true if cron is executed first time this hour
-     * @var bool */
+     * @var bool
+     */
     protected $firstTimeThisHour;
     /** last cron execution time
-     * @var string */
+     * @var string
+     */
     protected $lastTime;
 
     public function index()
     {
         $this->init();
         if (ipRequest()->getRequest('pass', '') != ipGetOption('Config.cronPassword')) {
-            ipLog()->notice('Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.', array('ip' => ipRequest()->getServer('REMOTE_ADDR')));
+            ipLog()->notice(
+                'Cron.incorrectPassword: Incorrect cron password from ip `{ip}`.',
+                array('ip' => ipRequest()->getServer('REMOTE_ADDR'))
+            );
             $response = new \Ip\Response();
             $response->setContent('Fail. Please see logs for details.');
             return $response;
@@ -70,8 +78,8 @@ class PublicController extends \Ip\Controller
         $this->firstTimeThisHour = true;
         $this->lastTime = null;
 
-        $lastExecution = ipStorage()->get('Cron', 'lastExecutionEnd', NULL);
-        $lastExecutionStart = ipStorage()->get('Cron', 'lastExecutionStart', NULL);
+        $lastExecution = ipStorage()->get('Cron', 'lastExecutionEnd', null);
+        $lastExecutionStart = ipStorage()->get('Cron', 'lastExecutionStart', null);
         if ($lastExecution < $lastExecutionStart) { // if last cron execution failed to finish
             $lastExecution = $lastExecutionStart;
         }
