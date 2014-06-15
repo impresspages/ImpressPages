@@ -22,7 +22,7 @@ class Service
      */
     static function generateBreadcrumb($showHome = true)
     {
-        $data = array (
+        $data = array(
             'homeUrl' => $showHome ? ipHomeUrl() : null,
             'pages' => ipContent()->getBreadcrumb()
         );
