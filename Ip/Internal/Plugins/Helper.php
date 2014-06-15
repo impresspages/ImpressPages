@@ -86,8 +86,6 @@ class Helper
     public static function pluginPropertiesForm($pluginName)
     {
 
-        $plugin = self::getPluginData($pluginName);
-
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
@@ -155,8 +153,9 @@ class Helper
     }
 
     /**
-     * @param \Ip\Form  $form
-     * @param array     $options
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @param array $options
      */
     public static function getOptionsForm($pluginName, $form, $options)
     {

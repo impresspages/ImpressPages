@@ -104,6 +104,7 @@ class Model{
                 'name' => $pluginName,
                 'version' => $config['version'],
             ));
+        return null;
     }
 
     protected static function importDefaultOptions($pluginName, $options)
@@ -171,6 +172,7 @@ class Model{
                 'name' => $pluginName,
                 'version' => $pluginRecord['version'],
             ));
+        return null;
     }
 
     public static function removePlugin($pluginName)
