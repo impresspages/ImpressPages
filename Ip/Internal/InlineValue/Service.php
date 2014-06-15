@@ -33,6 +33,7 @@ class Service
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return \Ip\Internal\InlineValue\Entity\Scope
      */
     public function getValue($key, $languageId, $pageId)
     {
@@ -45,6 +46,7 @@ class Service
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return mixed|null
      */
     public function getPageValue($key, $languageId, $pageId)
     {
@@ -56,6 +58,7 @@ class Service
      *
      * @param string $key
      * @param int $languageId
+     * @return bool
      */
     public function getLanguageValue($key, $languageId)
     {
@@ -66,6 +69,7 @@ class Service
      * Get global value
      *
      * @param string $key
+     * @return bool
      */
     public function getGlobalValue($key)
     {
@@ -92,7 +96,7 @@ class Service
      */
     public function setPageValue($key, $languageId, $pageId, $value)
     {
-        return $this->dao->setPageValue($key, $languageId, $pageId, $value);
+        $this->dao->setPageValue($key, $languageId, $pageId, $value);
     }
 
     /**
@@ -104,7 +108,7 @@ class Service
      */
     public function setLanguageValue($key, $languageId, $value)
     {
-        return $this->dao->setLanguageValue($key, $languageId, $value);
+        $this->dao->setLanguageValue($key, $languageId, $value);
     }
 
     /**
@@ -115,7 +119,7 @@ class Service
      */
     public function setGlobalValue($key, $value)
     {
-        return $this->dao->setGlobalValue($key, $value);
+        $this->dao->setGlobalValue($key, $value);
     }
 
     /**

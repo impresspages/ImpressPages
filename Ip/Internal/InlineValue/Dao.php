@@ -91,6 +91,7 @@ class Dao
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return mixed|null
      */
     public function getPageValue($key, $languageId, $pageId)
     {
@@ -114,6 +115,7 @@ class Dao
      *
      * @param string $key
      * @param int $languageId
+     * @return bool
      */
     public function getLanguageValue($key, $languageId)
     {
@@ -152,6 +154,7 @@ class Dao
      * Get global value
      *
      * @param string $key
+     * @return bool
      */
     public function getGlobalValue($key)
     {
