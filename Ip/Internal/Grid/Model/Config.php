@@ -161,6 +161,7 @@ class Config
 
     /**
      * @param $field
+     * @throws \Ip\Exception
      * @return \Ip\Internal\Grid\Model\Field
      */
     public function fieldObject($field)

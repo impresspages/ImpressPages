@@ -63,5 +63,6 @@ class Text extends \Ip\Internal\Grid\Model\Field
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
             return ' `' . $this->field . '` like '.ipDb()->getConnection()->quote('%' . $searchVariables[$this->field] . '%') . '';
         }
+        return null;
     }
 }

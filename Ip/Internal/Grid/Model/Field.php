@@ -17,6 +17,7 @@ abstract class Field
      * Create field object for grid
      * @param array $fieldFieldConfig config of this particular field
      * @param $wholeConfig whole grid setup config
+     * @throws \Ip\Exception
      */
     public function __construct($fieldFieldConfig, $wholeConfig)
     {
@@ -41,7 +42,8 @@ abstract class Field
 
     /**
      * Generate field value preview for table view. HTML is allowed
-     * @param array() $data current record data
+     * @param $recordData
+     * @internal param array $data current record data
      * @return string
      */
     public function preview($recordData)
