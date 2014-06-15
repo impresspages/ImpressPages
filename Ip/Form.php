@@ -38,8 +38,8 @@ class Form
         $this->action = ipConfig()->baseUrl();
         $this->attributes = array();
         $this->classes = array();
-        $this->ajaxSubmit = TRUE;
-        $this->validate= TRUE;
+        $this->ajaxSubmit = true;
+        $this->validate = true;
         $this->addClass('ipsAjaxSubmit');
         if (ipRoute()->isAdmin()) {
             $this->setEnvironment(self::ENVIRONMENT_ADMIN);
@@ -180,7 +180,6 @@ class Form
     }
 
 
-
     /**
      * Add field to last fieldset. Create fieldset if does not exist.
      * @param Form\Field $field
@@ -192,9 +191,6 @@ class Form
         }
         end($this->fieldsets)->addField($field);
     }
-
-
-
 
 
     /**
@@ -276,7 +272,6 @@ class Form
     {
         return $this->fieldsets;
     }
-
 
 
     /**
@@ -415,7 +410,7 @@ class Form
      */
     public function getAjaxSubmit()
     {
-        return (bool) $this->ajaxSubmit;
+        return (bool)$this->ajaxSubmit;
     }
 
     /**
@@ -440,7 +435,7 @@ class Form
      */
     public function getValidate($validate)
     {
-        return (bool) $this->validate;
+        return (bool)$this->validate;
     }
 
     /**

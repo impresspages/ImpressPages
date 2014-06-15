@@ -100,14 +100,15 @@ class View
      * Render a view and return HTML, XML, or any other string.
      * @return string
      */
-    public function render () {
+    public function render()
+    {
 
 
         extract($this->data);
 
         ob_start();
 
-        require ($this->file);      // file existence has been checked in constructor
+        require($this->file); // file existence has been checked in constructor
 
         $output = ob_get_contents();
         ob_end_clean();
@@ -115,7 +116,6 @@ class View
         return $output;
 
     }
-
 
 
     /**
@@ -132,7 +132,10 @@ class View
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            ipLog()->error('View.toStringException: Exception in View::__toString() method.', array('exception' => $e, 'view' => $this->file));
+            ipLog()->error(
+                'View.toStringException: Exception in View::__toString() method.',
+                array('exception' => $e, 'view' => $this->file)
+            );
 
             if (ipConfig()->isDevelopmentEnvironment()) {
                 return "<pre class=\"error\">\n" . $e->getMessage() . "\n" . $e->getTraceAsString() . "\n</pre>";
@@ -149,7 +152,8 @@ class View
      * @param $doctype
      * @return $this
      */
-    public function setDoctype ($doctype) {
+    public function setDoctype($doctype)
+    {
         $this->doctype = $doctype;
         return $this;
     }
@@ -158,7 +162,8 @@ class View
      * Return DOCTYPE declaration.
      * @return mixed
      */
-    public function getDoctype () {
+    public function getDoctype()
+    {
         return $this->doctype;
     }
 
@@ -174,14 +179,15 @@ class View
         return $themeService->getThemeOption($name, $default);
     }
 
-    private static function checkData ($data) {
+    private static function checkData($data)
+    {
         foreach ($data as $key => $value) {
-            if (! preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
+            if (!preg_match('/^[a-zA-Z0-9_-]+$/', $key) || $key == '') {
                 $source = '';
-                if(isset($backtrace[0]['file']) && $backtrace[0]['line']) {
-                    $source = "(Error source: ".($backtrace[0]['file'])." line: ".($backtrace[0]['line'])." ) ";
+                if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
+                    $source = "(Error source: " . ($backtrace[0]['file']) . " line: " . ($backtrace[0]['line']) . " ) ";
                 }
-                throw new \Ip\Exception\View("Incorrect view variable name '".esc($key)."' ".esc($source));
+                throw new \Ip\Exception\View("Incorrect view variable name '" . esc($key) . "' " . esc($source));
             }
         }
     }

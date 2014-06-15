@@ -191,7 +191,7 @@ class Db
         $sql .= ' WHERE ';
         if ($where) {
             foreach ($where as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     if (is_bool($value)) {
@@ -255,7 +255,7 @@ class Db
         $sql .= ' WHERE ';
         if ($where) {
             foreach ($where as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";
@@ -393,10 +393,10 @@ class Db
      */
     public function delete($table, $condition)
     {
-        $sql = "DELETE FROM " . ipTable($table, FALSE) . " WHERE ";
+        $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
         $params = array();
         foreach ($condition as $column => $value) {
-            if ($value === NULL) {
+            if ($value === null) {
                 $sql .= "`{$column}` IS NULL AND ";
             } else {
                 $sql .= "`{$column}` = ? AND ";
@@ -441,7 +441,7 @@ class Db
 
         if (is_array($condition)) {
             foreach ($condition as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";

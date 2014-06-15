@@ -5,7 +5,8 @@
 
 namespace Ip;
 
-class SetupWorker{
+class SetupWorker
+{
     protected $lastVersion = null;
 
     /**

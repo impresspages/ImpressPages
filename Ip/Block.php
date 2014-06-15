@@ -29,7 +29,7 @@ class Block
      */
     public function render($revisionId = 0)
     {
-        $data = array (
+        $data = array(
             'blockName' => $this->name,
         );
 
@@ -71,7 +71,13 @@ class Block
             $languageId = 0;
         }
 
-        return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, $languageId, ipIsManagementState(), $this->exampleContent);
+        return \Ip\Internal\Content\Model::generateBlock(
+            $this->name,
+            $revisionId,
+            $languageId,
+            ipIsManagementState(),
+            $this->exampleContent
+        );
     }
 
     /**
@@ -125,7 +131,10 @@ class Block
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            ipLog()->error('Block.toStringException: Exception in block `{block}` __toString() method.', array('block' => $this->name, 'exception' => $e));
+            ipLog()->error(
+                'Block.toStringException: Exception in block `{block}` __toString() method.',
+                array('block' => $this->name, 'exception' => $e)
+            );
             return $e->getTraceAsString();
         }
         return $content;

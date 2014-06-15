@@ -8,7 +8,6 @@
 namespace Ip;
 
 
-
 class Page404 extends Page
 {
     public function __construct()

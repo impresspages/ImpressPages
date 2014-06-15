@@ -247,9 +247,6 @@ class Page
     }
 
 
-
-
-
     /**
      * Get parent page ID
      *
@@ -320,7 +317,7 @@ class Page
         if ($this->inBreadcrumb === null) {
             $breadcrumb = ipContent()->getBreadcrumb();
             $ids = array();
-            foreach($breadcrumb as $page) {
+            foreach ($breadcrumb as $page) {
                 $ids[] = $page->getId();
             }
             $this->inBreadcrumb = in_array($this->getId(), $ids);
@@ -455,7 +452,7 @@ class Page
      */
     public function getChildren($from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
-        switch($orderBy) {
+        switch ($orderBy) {
             case 'pageOrder':
             case 'title':
             case 'metaTitle':
@@ -491,7 +488,7 @@ class Page
         $params = array('parentId' => $this->id);
 
         if ($from !== null || $till !== null) {
-            $sql .= " LIMIT " . (int) $from . " , " . (int) $till;
+            $sql .= " LIMIT " . (int)$from . " , " . (int)$till;
         }
 
         $list = ipDb()->fetchAll($sql, $params);
