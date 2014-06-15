@@ -73,7 +73,7 @@ class BrowserModel{
     }
 
     /**
-     * @param $fileName file within file repository directory
+     * @param string $fileName file within file repository directory
      */
     public function getFile($fileName)
     {

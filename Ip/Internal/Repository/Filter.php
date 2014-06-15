@@ -10,7 +10,7 @@ class Filter {
     public static function ipReflectionExtension($ext, $data)
     {
         if (empty($data['source']) || empty($data['options'])) {
-            return;
+            return null;
         }
         $options = $data['options'];
 

@@ -93,7 +93,7 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      */
     protected function saveJpeg($image, $fileName, $quality) {
         if(!imagejpeg($image, $fileName, (int)$quality)){
-            throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc($fileName), array('filename' => $filename));
+            throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc($fileName), array('filename' => $fileName));
         }
         return true;
     }

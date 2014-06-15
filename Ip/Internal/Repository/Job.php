@@ -16,14 +16,14 @@ class Job {
     public static function ipRouteAction_150($info)
     {
         if (ipRequest()->getRelativePath() != $info['relativeUri']) {
-            return; //language specific url.
+            return null; //language specific url.
         }
 
         $fileDirUrl = ipFileUrl('file/');
         $curUrl = ipConfig()->baseUrl() . $info['relativeUri'];
 
         if (mb_strpos($curUrl, $fileDirUrl) !== 0) {
-            return;
+            return null;
         }
 
         $reflection = mb_substr($curUrl, mb_strlen($fileDirUrl));
@@ -52,7 +52,7 @@ class Job {
     public static function ipCreateReflection($data)
     {
         if (empty($data['source']) || empty($data['destination']) || empty($data['options']) || empty($data['options']['type'])) {
-            return;
+            return null;
         }
         $options = $data['options'];
 

@@ -47,7 +47,7 @@
                                         var fakeOrder = {
                                             images: [],
                                             themes: [data]
-                                        }
+                                        };
                                         processOrder(fakeOrder);
                                         $(document.body).bind('ipMarketOrderComplete', function (e, data) {
                                             location.reload();
