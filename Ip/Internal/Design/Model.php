@@ -177,8 +177,6 @@ class Model
         \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
 
 
-        $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
-
         $service = Service::instance();
         $service->saveWidgetOptions($theme);
 

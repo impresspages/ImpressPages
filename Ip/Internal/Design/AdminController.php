@@ -171,11 +171,6 @@ class AdminController extends \Ip\Controller
         $errors = $form->validate($post);
 
         if ($errors) {
-            $data = array(
-                'status' => 'error',
-                'errors' => $errors
-            );
-
             return JsonRpc::error('Invalid form');
         }
 
@@ -200,6 +195,9 @@ class AdminController extends \Ip\Controller
 
             switch($option['type']) {
                 case 'checkbox':
+                    /**
+                     * @var \Ip\Form\Field\Checkbox $field
+                     */
                     $value = $field->isChecked($post, $option['name']);
                     break;
                 default:
