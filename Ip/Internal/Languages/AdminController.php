@@ -185,6 +185,7 @@ class AdminController extends \Ip\GridController
                 }
             } // $firstLanguage->getUrlPath() === ''
         }
+        return null;
     }
 
     public function beforeDelete($id)
