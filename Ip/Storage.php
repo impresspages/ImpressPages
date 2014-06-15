@@ -34,7 +34,7 @@ class Storage
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key
         );
@@ -49,7 +49,7 @@ class Storage
             }
         }
 
-        return json_decode($row['value'], TRUE);
+        return json_decode($row['value'], true);
     }
 
 
@@ -65,7 +65,7 @@ class Storage
 
         $sql = '
             INSERT INTO
-                '.ipTable('storage').'
+                ' . ipTable('storage') . '
             SET
                 `plugin` = :plugin,
                 `key` = :key,
@@ -76,7 +76,7 @@ class Storage
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key,
             ':value' => json_encode($value)
@@ -84,7 +84,6 @@ class Storage
 
         ipDb()->execute($sql, $params);
     }
-
 
 
     /**
@@ -105,17 +104,17 @@ class Storage
             ';
 
 
-        $params = array (
+        $params = array(
             ':plugin' => $plugin
         );
 
         $records = ipDb()->fetchAll($sql, $params);
         $values = array();
 
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $values[] = array(
                 'key' => $record['key'],
-                'value' => json_decode($record['value'], TRUE)
+                'value' => json_decode($record['value'], true)
             );
         }
         return $values;
@@ -138,7 +137,7 @@ class Storage
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key
         );

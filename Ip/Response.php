@@ -14,17 +14,17 @@ class Response
     protected $headers = array();
     protected $content = null;
 
-    public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
+    public function __construct($content = null, $headers = null, $statusCode = null)
     {
-        if ($content !== NULL) {
+        if ($content !== null) {
             $this->setContent($content);
         }
 
-        if ($statusCode !== NULL) {
+        if ($statusCode !== null) {
             $this->setStatusCode($statusCode);
         }
 
-        if ($headers !== NULL) {
+        if ($headers !== null) {
             if (is_array($headers)) {
                 $this->headers = $headers;
             } elseif (is_string($headers)) {
@@ -59,7 +59,7 @@ class Response
      */
     public function setStatusCode($code)
     {
-        $this->statusCode = (int) $code;
+        $this->statusCode = (int)$code;
         return $this;
     }
 
@@ -145,7 +145,7 @@ class Response
     public function isServerError()
     {
         $code = $this->getStatusCode();
-        $error =  500 <= $code && 600 > $code;
+        $error = 500 <= $code && 600 > $code;
         return $error;
     }
 
@@ -217,7 +217,7 @@ class Response
     public function send()
     {
         $headers = $this->getHeaders();
-        foreach($headers as $header) {
+        foreach ($headers as $header) {
             header($header);
         }
         if ($this->getStatusCode()) {

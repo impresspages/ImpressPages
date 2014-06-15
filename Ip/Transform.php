@@ -1,9 +1,9 @@
 <?php
-    /**
-     * @package   ImpressPages
-     *
-     *
-     */
+/**
+ * @package   ImpressPages
+ *
+ *
+ */
 
 namespace Ip;
 
@@ -35,7 +35,7 @@ abstract class Transform
 
     final public function getFingerprint()
     {
-        return md5(__CLASS__.':'.$this->getParamStr());
+        return md5(__CLASS__ . ':' . $this->getParamStr());
     }
 
 }

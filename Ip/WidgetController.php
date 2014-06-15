@@ -150,11 +150,15 @@ class WidgetController
         }
         //collect overridden theme view files
         if ($this->isCore()) {
-            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+            $themeViewsFolder = ipThemeFile(
+                \Ip\View::OVERRIDE_DIR . '/Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR
+            );
         } else {
-            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+            $themeViewsFolder = ipThemeFile(
+                \Ip\View::OVERRIDE_DIR . '/Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR
+            );
         }
-        if (is_dir($themeViewsFolder)){
+        if (is_dir($themeViewsFolder)) {
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
                 if (is_file($themeViewsFolder . '/' . $viewFile) && substr($viewFile, -4) == '.php') {
@@ -186,7 +190,7 @@ class WidgetController
      * @param array $currentData
      * @return array Data to be stored to the database
      */
-    public function update ($widgetId, $postData, $currentData)
+    public function update($widgetId, $postData, $currentData)
     {
         return $postData;
     }
@@ -211,7 +215,7 @@ class WidgetController
      * @param array $data Widget Data array
      * @return mixed
      */
-    public function post ($widgetId, $data)
+    public function post($widgetId, $data)
     {
 
     }
@@ -286,16 +290,16 @@ class WidgetController
 
         try {
             if ($this->core) {
-                $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
             } else {
-                $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
             }
             if (!is_file(ipFile($skinFile)) && !is_file(ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $skinFile))) {
                 $skin = 'default';
                 if ($this->core) {
-                    $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                    $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
                 } else {
-                    $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php';
+                    $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
                 }
             }
 

@@ -11,7 +11,8 @@ namespace Ip;
  * Website language support class
  *
  */
-class Language{
+class Language
+{
     /** string - eg. EN */
     public $shortDescription;
     /** string - eg. English */
@@ -37,7 +38,8 @@ class Language{
      * @param $visible
      * @param $textDirection
      */
-    public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible, $textDirection){
+    public function __construct($id, $code, $url, $longDescription, $shortDescription, $visible, $textDirection)
+    {
         $this->id = (int)$id;
         $this->code = $code;
         $this->url = $url;
@@ -62,7 +64,8 @@ class Language{
      * @return string Eg. English
      *
      */
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->longDescription;
     }
 
@@ -71,7 +74,8 @@ class Language{
      * @return string Eg. en
      *
      */
-    public function getAbbreviation(){
+    public function getAbbreviation()
+    {
         return $this->shortDescription;
     }
 
@@ -80,7 +84,8 @@ class Language{
      * @return int
      *
      */
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -90,7 +95,8 @@ class Language{
      * @return string Eg. en, en-us
      *
      */
-    public function getCode(){
+    public function getCode()
+    {
         return $this->code;
     }
 
@@ -99,7 +105,8 @@ class Language{
      * @return string
      *
      */
-    public function getUrlPath(){
+    public function getUrlPath()
+    {
         return $this->url == '' ? '' : $this->url . '/';
     }
 
@@ -108,7 +115,8 @@ class Language{
      *
      * @return bool Returns true, if visible
      */
-    public function isVisible(){
+    public function isVisible()
+    {
         return $this->visible;
     }
 
@@ -117,7 +125,8 @@ class Language{
      *
      * @return string Returns either "ltr" or "rtl"
      */
-    public function getTextDirection(){
+    public function getTextDirection()
+    {
         return $this->textDirection;
     }
 
@@ -126,7 +135,8 @@ class Language{
      * Check if the language is current page language
      * @returns boolean Returns true if this language is the language of currently displayed page
      */
-    public function isCurrent() {
+    public function isCurrent()
+    {
         if ($this->getId() == ipContent()->getCurrentLanguage()->getId()) {
             return true;
         } else {

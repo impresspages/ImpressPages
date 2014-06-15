@@ -4,6 +4,7 @@
  */
 
 namespace Ip;
+
 /*
  * Core configuration
  *
@@ -18,7 +19,7 @@ class Config
      * @param $config
      * @param array|null $server $_SERVER
      */
-    public function __construct($config, $server = NULL)
+    public function __construct($config, $server = null)
     {
         $this->config = $config;
 
@@ -48,7 +49,7 @@ class Config
                 }
             }
 
-            $this->config['baseUrl'].= rtrim($baseUrl, '/') . '/';
+            $this->config['baseUrl'] .= rtrim($baseUrl, '/') . '/';
         }
 
         if (empty($this->config['baseDir'])) {

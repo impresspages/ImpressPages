@@ -7,7 +7,8 @@
 namespace Ip;
 
 
-abstract class SubscriptionPayment {
+abstract class SubscriptionPayment
+{
 
     public abstract function name();
 

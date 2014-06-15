@@ -56,7 +56,7 @@ class Dispatcher
      *
      * @param string $name job name
      * @param callable $callable method name. This method is called by specified job.
-     * @param int $priority. Lower number means higher priority. Only the job with highest priority is processed.
+     * @param int $priority . Lower number means higher priority. Only the job with highest priority is processed.
      */
     public function addJobListener($name, $callable, $priority = 50)
     {
@@ -191,7 +191,7 @@ class Dispatcher
             'priority' => 50,
         );
 
-        $lastUnderscore =  strrpos($methodName , '_');
+        $lastUnderscore = strrpos($methodName, '_');
         if ($lastUnderscore) {
             $priority = substr($methodName, $lastUnderscore + 1);
             if (ctype_digit($priority)) {

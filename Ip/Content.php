@@ -63,24 +63,28 @@ class Content
         try {
             $page = new \Ip\Page($pageId);
         } catch (\Ip\Exception $e) {
-            return NULL;
+            return null;
         }
         return $page;
 
     }
 
     /**
-     * @param string        $alias
-     * @param string|null   $languageCode
+     * @param string $alias
+     * @param string|null $languageCode
      * @return \Ip\Page
      */
-    public function getPageByAlias($alias, $languageCode = NULL)
+    public function getPageByAlias($alias, $languageCode = null)
     {
-        if ($languageCode === NULL) {
+        if ($languageCode === null) {
             $languageCode = ipContent()->getCurrentLanguage()->getCode();
         }
 
-        $row = ipDb()->selectRow('page', '*', array('alias' => $alias, 'languageCode' => $languageCode, 'isDeleted' => 0));
+        $row = ipDb()->selectRow(
+            'page',
+            '*',
+            array('alias' => $alias, 'languageCode' => $languageCode, 'isDeleted' => 0)
+        );
         if (!$row) {
             return null;
         }
@@ -287,7 +291,8 @@ class Content
     public function getTitle()
     {
         if ($this->currentPage) {
-            return $this->currentPage->getMetaTitle() ? $this->currentPage->getMetaTitle() : $this->currentPage->getTitle();
+            return $this->currentPage->getMetaTitle() ? $this->currentPage->getMetaTitle(
+            ) : $this->currentPage->getTitle();
         }
         return '';
     }
@@ -334,7 +339,15 @@ class Content
      */
     public function addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection = 'ltr', $position = null)
     {
-        $languageId = \Ip\Internal\Languages\Service::addLanguage($title, $abbreviation, $code, $url, $visible, $textDirection, $position = null);
+        $languageId = \Ip\Internal\Languages\Service::addLanguage(
+            $title,
+            $abbreviation,
+            $code,
+            $url,
+            $visible,
+            $textDirection,
+            $position = null
+        );
         return $languageId;
     }
 
@@ -347,11 +360,6 @@ class Content
     {
         \Ip\Internal\Languages\Service::delete($languageId);
     }
-
-
-
-
-
 
 
     /**
@@ -374,7 +382,7 @@ class Content
      */
     public function addPage($parentId, $title, $data = array())
     {
-        $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data );
+        $newPageId = \Ip\Internal\Pages\Service::addPage($parentId, $title, $data);
         return $newPageId;
     }
 
@@ -414,7 +422,6 @@ class Content
     }
 
 
-
     /**
      * Get children
      * @param null $parentId
@@ -424,8 +431,13 @@ class Content
      * @param string $direction
      * @return Page[]
      */
-    public function getChildren($parentId = null, $from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
-    {
+    public function getChildren(
+        $parentId = null,
+        $from = null,
+        $till = null,
+        $orderBy = 'pageOrder',
+        $direction = 'ASC'
+    ) {
         if ($parentId === null) {
             $parentId = $this->getCurrentPage()->getId();
         }
