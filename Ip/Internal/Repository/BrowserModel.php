@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -12,10 +11,11 @@ namespace Ip\Internal\Repository;
  * Functions required by files repository browser
  *
  */
-class BrowserModel{
+class BrowserModel
+{
     protected static $instance;
 
-    protected $supportedImageExtensions = array('jpg','jpeg','gif','png');
+    protected $supportedImageExtensions = array('jpg', 'jpeg', 'gif', 'png');
 
     protected function __construct()
     {
@@ -116,15 +116,15 @@ class BrowserModel{
                 'type' => 'fit',
                 'width' => 140,
                 'height' => 140,
-                'forced' => true);
+                'forced' => true
+            );
             $reflection = ipReflection($file, $transform, $baseName);
-            if ($reflection){
+            if ($reflection) {
                 return ipFileUrl($reflection);
             }
         }
         return ipFileUrl('Ip/Internal/Repository/assets/icons/general.png');
     }
-
 
 
 }

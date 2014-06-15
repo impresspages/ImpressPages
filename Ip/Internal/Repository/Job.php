@@ -6,7 +6,8 @@
 namespace Ip\Internal\Repository;
 
 
-class Job {
+class Job
+{
 
     /**
      * @param $info
@@ -32,7 +33,11 @@ class Job {
         $reflectionModel = ReflectionModel::instance();
         $reflectionRecord = $reflectionModel->getReflectionByReflection($reflection);
         if ($reflectionRecord) {
-            $reflectionModel->createReflection($reflectionRecord['original'], $reflectionRecord['reflection'], json_decode($reflectionRecord['options'], true));
+            $reflectionModel->createReflection(
+                $reflectionRecord['original'],
+                $reflectionRecord['reflection'],
+                json_decode($reflectionRecord['options'], true)
+            );
             if (is_file(ipFile('file/' . $reflection))) {
                 //supply file route
 
@@ -57,14 +62,22 @@ class Job {
         $options = $data['options'];
 
 
-        switch($options['type']) {
+        switch ($options['type']) {
             case 'crop':
                 $requiredParams = array(
-                    'x1', 'y1', 'x2', 'y2', 'width', 'height'
+                    'x1',
+                    'y1',
+                    'x2',
+                    'y2',
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -77,11 +90,15 @@ class Job {
                 break;
             case 'center':
                 $requiredParams = array(
-                    'width', 'height'
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -94,11 +111,15 @@ class Job {
                 break;
             case 'fit':
                 $requiredParams = array(
-                    'width', 'height'
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
