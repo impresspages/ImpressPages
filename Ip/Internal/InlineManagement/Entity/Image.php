@@ -18,11 +18,12 @@ class Image
     private $y2;
     private $requiredWidth;
     private $requiredHeight;
-    /** @var randomly created hopefully unique id   */
+    /** @var int randomly created hopefully unique id   */
     private $id;
 
     /**
      * @param array|string $data
+     * @param null $defaultImage
      */
     public function __construct($data, $defaultImage = null)
     {

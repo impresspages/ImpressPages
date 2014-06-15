@@ -43,21 +43,20 @@ class Dao
         return $this->inlineValueService->getGlobalValue($prefix.$key);
     }
 
-    // SET
     public function setPageValue($prefix, $key, $languageId, $pageId, $value)
     {
-        return $this->inlineValueService->setPageValue($prefix.$key, $languageId, $pageId, $value);
+        $this->inlineValueService->setPageValue($prefix.$key, $languageId, $pageId, $value);
     }
 
 
     public function setLanguageValue($prefix, $key, $languageId, $value)
     {
-        return $this->inlineValueService->setLanguageValue($prefix.$key, $languageId, $value);
+        $this->inlineValueService->setLanguageValue($prefix.$key, $languageId, $value);
     }
 
     public function setGlobalValue($prefix, $key, $value)
     {
-        return $this->inlineValueService->setGlobalValue($prefix.$key, $value);
+        $this->inlineValueService->setGlobalValue($prefix.$key, $value);
     }
 
     // DELETE
@@ -78,7 +77,7 @@ class Dao
 
     /**
      * Last get operation scope
-     * @return int
+     * @return \Ip\Internal\InlineValue\Entity\Scope
      */
     public function getLastOperationScope()
     {

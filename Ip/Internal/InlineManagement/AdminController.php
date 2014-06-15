@@ -41,7 +41,6 @@ class AdminController extends \Ip\Controller{
         $logoStr = $this->dao->getGlobalValue(Dao::PREFIX_LOGO, '');
         $logo = new Entity\Logo($logoStr);
         $logoData = array(
-            'type' => $logo->getType(),
             'image' => $logo->getImage() ? $logo->getImage() : '',
             'imageOrig' => $logo->getImageOrig() ? $logo->getImageOrig() : '',
             'requiredWidth' => $logo->getRequiredWidth(),
@@ -439,6 +438,11 @@ class AdminController extends \Ip\Controller{
 
     }
 
+    /**
+     * @param Entity\Image $image
+     * @param string $key
+     * @param \Ip\Internal\InlineValue\Entity\Scope $scope
+     */
     private function removeImageRecord($image, $key, $scope)
     {
         if ($scope) {
