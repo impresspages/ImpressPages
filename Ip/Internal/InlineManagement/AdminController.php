@@ -1,15 +1,15 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\InlineManagement;
+
 use Ip\Internal\InlineValue\Entity\Scope as Scope;
 
 
-
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
     var $dao;
 
@@ -18,7 +18,6 @@ class AdminController extends \Ip\Controller{
 
         $this->dao = new Dao();
     }
-
 
 
     public function getManagementPopupLogo()
@@ -67,9 +66,6 @@ class AdminController extends \Ip\Controller{
     }
 
 
-
-
-
     public function getManagementPopupImage()
     {
         if (!isset($_POST['key'])) {
@@ -100,10 +96,17 @@ class AdminController extends \Ip\Controller{
         if ($scope && $scope->getType() == Scope::SCOPE_PARENT_PAGE) {
             $pageName = '';
             $scopeParentPageTitle = str_replace('[[page]]', $pageName, $scopeParentPageTitle);
-            $types[Scope::SCOPE_PARENT_PAGE] = array('title' => $scopeParentPageTitle, 'value' => Scope::SCOPE_PARENT_PAGE);
+            $types[Scope::SCOPE_PARENT_PAGE] = array(
+                'title' => $scopeParentPageTitle,
+                'value' => Scope::SCOPE_PARENT_PAGE
+            );
         }
 
-        $scopeLanguageTitle = str_replace('[[language]]', ipContent()->getLanguage($languageId)->getAbbreviation(), $scopeLanguageTitle);
+        $scopeLanguageTitle = str_replace(
+            '[[language]]',
+            ipContent()->getLanguage($languageId)->getAbbreviation(),
+            $scopeLanguageTitle
+        );
         $types[Scope::SCOPE_LANGUAGE] = array('title' => $scopeLanguageTitle, 'value' => Scope::SCOPE_LANGUAGE);
         $types[Scope::SCOPE_GLOBAL] = array('title' => $scopeAllPagesTitle, 'value' => Scope::SCOPE_GLOBAL);
 
@@ -121,8 +124,6 @@ class AdminController extends \Ip\Controller{
         );
 
         $html = ipView('view/popup/image.php', $popupData)->render();
-
-
 
 
         $image = new Entity\Logo($imageStr);
@@ -171,15 +172,23 @@ class AdminController extends \Ip\Controller{
 
             //remove old image
             if ($logo->getImageOrig()) {
-                \Ip\Internal\Repository\Model::unbindFile($logo->getImageOrig(), 'developer/inline_management', 1); //1 means logo
+                \Ip\Internal\Repository\Model::unbindFile(
+                    $logo->getImageOrig(),
+                    'developer/inline_management',
+                    1
+                ); //1 means logo
             }
 
-            \Ip\Internal\Repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', 1); //1 means logo
+            \Ip\Internal\Repository\Model::bindFile(
+                $_POST['newImage'],
+                'developer/inline_management',
+                1
+            ); //1 means logo
             $logo->setImageOrig($_POST['newImage']);
 
         }
 
-        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
+        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth']) && isset($_POST['windowHeight'])) {
 
             //new small image
             $logo->setX1($_POST['cropX1']);
@@ -210,12 +219,11 @@ class AdminController extends \Ip\Controller{
     }
 
 
-
     public function saveText()
     {
         $inlineManagementService = new Service();
 
-        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag'])  ||  !isset($_POST['value']) || !isset($_POST['languageId'])) {
+        if (!isset($_POST['key']) || !isset($_POST['cssClass']) || !isset($_POST['htmlTag']) || !isset($_POST['value']) || !isset($_POST['languageId'])) {
             throw new \Exception("Required parameters missing");
         }
         $key = $_POST['key'];
@@ -288,23 +296,35 @@ class AdminController extends \Ip\Controller{
             //remove old image
             if ($image->getImageOrig() && is_file(ipFile($image->getImageOrig()))) {
                 if ($sameScope) { //otherwise we need to leave image for original scope
-                    \Ip\Internal\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Internal\Repository\Model::unbindFile(
+                        $image->getImageOrig(),
+                        'developer/inline_management',
+                        $image->getId()
+                    );
                 }
             }
 
 
-            \Ip\Internal\Repository\Model::bindFile($_POST['newImage'], 'developer/inline_management', $image->getId()); //1 means logo
+            \Ip\Internal\Repository\Model::bindFile(
+                $_POST['newImage'],
+                'developer/inline_management',
+                $image->getId()
+            ); //1 means logo
             $image->setImageOrig($_POST['newImage']);
         } else {
             if (!$sameScope) { //duplicate original image if we are resaving it in different scope
                 if ($image->getImageOrig() && is_file(ipFile($image->getImageOrig()))) {
-                    \Ip\Internal\Repository\Model::bindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Internal\Repository\Model::bindFile(
+                        $image->getImageOrig(),
+                        'developer/inline_management',
+                        $image->getId()
+                    );
                     $image->setImageOrig($image->getImageOrig());
                 }
             }
-         }
+        }
 
-        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth'])&& isset($_POST['windowHeight'])) {
+        if (isset($_POST['cropX1']) && isset($_POST['cropY1']) && isset($_POST['cropX2']) && isset($_POST['cropY2']) && isset($_POST['windowWidth']) && isset($_POST['windowHeight'])) {
             //new small image
             $image->setX1($_POST['cropX1']);
             $image->setY1($_POST['cropY1']);
@@ -319,16 +339,18 @@ class AdminController extends \Ip\Controller{
         }
 
 
-
         if (!$sameScope) {
             //we are trying to save into different scope. We need to delete any images that could exist there
-            switch($type) {
+            switch ($type) {
                 case Scope::SCOPE_PAGE:
                     //this always should return false. But just in case JS part would change, we implement it.
                     $oldImageStr = $this->dao->getPageValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);
                     break;
                 case Scope::SCOPE_PARENT_PAGE:
-                    trigger_error("developer/inline_management", "Unexpected situation"); //there is no option to save to parent if $sameScope is true.
+                    trigger_error(
+                        "developer/inline_management",
+                        "Unexpected situation"
+                    ); //there is no option to save to parent if $sameScope is true.
                     break;
                 case Scope::SCOPE_LANGUAGE:
                     $oldImageStr = $this->dao->getLanguageValue(Dao::PREFIX_IMAGE, $key, $languageId);
@@ -340,7 +362,8 @@ class AdminController extends \Ip\Controller{
 
             if ($oldImageStr) {
                 $oldScope = $this->dao->getLastOperationScope();
-                if ($oldScope->getType() == $type) { //if really have old image in this scope. If $oldScope != $type, we got global image - not from the scope we are saving in
+                if ($oldScope->getType() == $type
+                ) { //if really have old image in this scope. If $oldScope != $type, we got global image - not from the scope we are saving in
                     $oldImage = new Entity\Image($oldImageStr);
                     $this->removeImageRecord($oldImage, $key, $oldScope);
                 }
@@ -348,13 +371,18 @@ class AdminController extends \Ip\Controller{
         }
 
 
-
-        switch($type) {
+        switch ($type) {
             case Scope::SCOPE_PAGE:
                 $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId, $image->getValueStr());
                 break;
             case Scope::SCOPE_PARENT_PAGE:
-                $this->dao->setPageValue(Dao::PREFIX_IMAGE, $key, $scope->getLanguageId(), $scope->getPageId(), $image->getValueStr());
+                $this->dao->setPageValue(
+                    Dao::PREFIX_IMAGE,
+                    $key,
+                    $scope->getLanguageId(),
+                    $scope->getPageId(),
+                    $image->getValueStr()
+                );
                 break;
             case Scope::SCOPE_LANGUAGE:
                 $this->dao->setLanguageValue(Dao::PREFIX_IMAGE, $key, $languageId, $image->getValueStr());
@@ -364,7 +392,6 @@ class AdminController extends \Ip\Controller{
                 $this->dao->setGlobalValue(Dao::PREFIX_IMAGE, $key, $image->getValueStr());
                 break;
         }
-
 
 
         $inlineManagementService = new Service();
@@ -378,7 +405,6 @@ class AdminController extends \Ip\Controller{
         );
         return new \Ip\Response\Json($data);
     }
-
 
 
     public function removeImage()
@@ -446,7 +472,7 @@ class AdminController extends \Ip\Controller{
     private function removeImageRecord($image, $key, $scope)
     {
         if ($scope) {
-            switch($scope->getType()) {
+            switch ($scope->getType()) {
                 case Scope::SCOPE_PAGE:
                 case Scope::SCOPE_PARENT_PAGE:
                     $this->dao->deletePageValue(Dao::PREFIX_IMAGE, $key, $scope->getPageId());
@@ -460,12 +486,15 @@ class AdminController extends \Ip\Controller{
             }
             if ($image) {
                 if ($image->getImageOrig() && is_file(ipFile($image->getImageOrig()))) {
-                    \Ip\Internal\Repository\Model::unbindFile($image->getImageOrig(), 'developer/inline_management', $image->getId());
+                    \Ip\Internal\Repository\Model::unbindFile(
+                        $image->getImageOrig(),
+                        'developer/inline_management',
+                        $image->getId()
+                    );
                 }
             }
         }
     }
-
 
 
     private function jsonError($errorMessage)
@@ -476,7 +505,6 @@ class AdminController extends \Ip\Controller{
         );
         return new \Ip\Response\Json($data);
     }
-
 
 
 }
