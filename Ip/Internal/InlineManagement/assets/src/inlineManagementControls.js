@@ -44,7 +44,7 @@
                             left : objOffset.left,
                             top : objOffset.top
                         })
-                        .show()
+                        .show();
                         for (var key in options) {
                             $controls
                             .find('.ipActionWidget'+key).show().off().on('click', function(event){

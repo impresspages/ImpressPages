@@ -73,7 +73,7 @@
                 //initialize image browser
                 var imageData = response.imageData;
 
-                var options = new Object;
+                var options = {};
 
                 options.image = imageData.imageOrig;
                 options.cropX1 = imageData.x1;

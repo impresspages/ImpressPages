@@ -17,7 +17,7 @@
                         'originalLogo' : $this.clone(),
                         'imageUploadInitialized' : false,
                         'cssClass' : $this.data('cssClass')
-                    })
+                    });
 
                     $this.bind('ipModuleInlineManagementLogo.openEditPopup', $.proxy(openEditPopup, $this ));
 
@@ -152,7 +152,7 @@
         data.imageUploadInitialized = false;
         $this.data('ipInlineManagementLogo', data);
         $this.trigger('ipInlineManagement.logoCancel');
-    }
+    };
 
     var popupContentResponse = function(response) {
         var $this = this;
@@ -188,7 +188,7 @@
         $this.data('curFont', curFont);
 
         //init image editing
-        var options = new Object;
+        var options = {};
 
         var logoData = response.logoData;
 

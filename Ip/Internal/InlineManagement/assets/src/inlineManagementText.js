@@ -67,14 +67,14 @@
 
         if (answer && answer.status == 'success') {
             if (answer.stringHtml) {
-                var $newElement = $(answer.stringHtml)
+                var $newElement = $(answer.stringHtml);
                 $this.replaceWith($newElement);
                 $newElement.ipModuleInlineManagementText();
             }
             $this.trigger('ipInlineManagement.stringConfirm');
             $('.ipModuleInlineManagementPopupText').dialog('close');
         }
-    }
+    };
 
 
     $.fn.ipModuleInlineManagementText = function(method) {
