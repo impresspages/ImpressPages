@@ -25,7 +25,11 @@ class Model
             }
         }
 
-        ipDb()->update('page', array('isDeleted' => $deleteType, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
+        ipDb()->update(
+            'page',
+            array('isDeleted' => $deleteType, 'deletedAt' => date('Y-m-d H:i:s')),
+            array('id' => $pageId)
+        );
         ipEvent('ipPageMarkedAsDeleted', array('pageId' => $pageId));
     }
 
@@ -136,7 +140,11 @@ class Model
      */
     public static function getMenu($languageCode, $alias)
     {
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0)
+        );
     }
 
     /**
@@ -203,7 +211,11 @@ class Model
             $urlPath = substr($urlPath, 0, -1);
         }
 
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
+        );
     }
 
     /**
@@ -215,7 +227,11 @@ class Model
      */
     public static function getPageByAlias($languageCode, $alias)
     {
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0)
+        );
     }
 
     /**
@@ -485,7 +501,11 @@ class Model
         }
 
         $i = 2;
-        while (ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $alias . '-' . $i, 'isDeleted' => 0))) {
+        while (ipDb()->selectValue(
+            'page',
+            'id',
+            array('languageCode' => $languageCode, 'alias' => $alias . '-' . $i, 'isDeleted' => 0)
+        )) {
             $i++;
         }
 
@@ -593,7 +613,6 @@ class Model
         $replaces = array(
             'http://' . $oldPart => 'http://' . $newPart,
             'http://' . $oldPart . '/' => 'http://' . $newPart . '/',
-
             'https://' . $oldPart => 'https://' . $newPart,
             'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
@@ -635,8 +654,11 @@ class Model
                 $deletedPageCount += static::_removeDeletedPage($child['id']);
             } else {
                 // This should never happen!
-                ipLog()->error('Page.pageHasDeletedParent: page {pageId}, parent set to null', array('pageId' => $child['id']));
-                ipDb()->update('page', array('parentId' => NULL), array('id' => $child['id']));
+                ipLog()->error(
+                    'Page.pageHasDeletedParent: page {pageId}, parent set to null',
+                    array('pageId' => $child['id'])
+                );
+                ipDb()->update('page', array('parentId' => null), array('id' => $child['id']));
             }
         }
 
