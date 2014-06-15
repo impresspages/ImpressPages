@@ -1,9 +1,8 @@
 <?php
-    /**
-     * @package ImpressPages
-
-     *
-     */
+/**
+ * @package ImpressPages
+ *
+ */
 namespace Ip\Internal\Repository;
 
 
@@ -99,9 +98,6 @@ class ReflectionService
     {
         return $this->lastException;
     }
-
-
-
 
 
 }

@@ -6,7 +6,8 @@
 namespace Ip\Internal\Repository;
 
 
-class PublicController extends \Ip\Controller {
+class PublicController extends \Ip\Controller
+{
     public static function download()
     {
 
@@ -35,7 +36,7 @@ class PublicController extends \Ip\Controller {
             ||
             strpos($absoluteSource, realpath(ipFile('file/secure'))) === 0
         ) {
-            throw new \Exception("Requested file (".$file.") is outside of public dir");
+            throw new \Exception("Requested file (" . $file . ") is outside of public dir");
         }
 
 
@@ -55,12 +56,12 @@ class PublicController extends \Ip\Controller {
 
         // download
         // @readfile($file_path);
-        $file = @fopen($absoluteSource,"rb");
+        $file = @fopen($absoluteSource, "rb");
         if ($file) {
-            while(!feof($file)) {
-                print(fread($file, 1024*8));
+            while (!feof($file)) {
+                print(fread($file, 1024 * 8));
                 flush();
-                if (connection_status()!=0) {
+                if (connection_status() != 0) {
                     @fclose($file);
                     die();
                 }

@@ -1,12 +1,10 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
 namespace Ip\Internal\Repository;
-
 
 
 class ReflectionModel
@@ -90,12 +88,15 @@ class ReflectionModel
         }
 
         if (strpos($absoluteSource, realpath(ipFile('file/repository/'))) !== 0) {
-            throw new \Exception("Requested file (".$source.") is outside repository dir");
+            throw new \Exception("Requested file (" . $source . ") is outside repository dir");
         }
 
         //if desired name ends with .jpg, .gif, etc., remove extension
         $desiredPathInfo = pathinfo($desiredName);
-        if (!empty($desiredPathInfo['filename']) && isset($desiredPathInfo['extension']) && strlen($desiredPathInfo['extension']) <= 4) {
+        if (!empty($desiredPathInfo['filename']) && isset($desiredPathInfo['extension']) && strlen(
+                $desiredPathInfo['extension']
+            ) <= 4
+        ) {
             $desiredName = $desiredPathInfo['filename'];
         }
 
@@ -115,12 +116,18 @@ class ReflectionModel
             $desiredName = $pathInfo['filename'];
         }
         if ($ext != '') {
-            $desiredName = $desiredName.'.'.$ext;
+            $desiredName = $desiredName . '.' . $ext;
         }
-        $desiredName = \Ip\Internal\File\Functions::cleanupFileName($desiredName); //remove double dots if file name. For security reasons.
+        $desiredName = \Ip\Internal\File\Functions::cleanupFileName(
+            $desiredName
+        ); //remove double dots if file name. For security reasons.
 
         $relativeDestinationPath = date('Y/m/d/');
-        $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName));
+        $relativeDestinationPath = ipFilter(
+            'ipRepositoryNewReflectionFileName',
+            $relativeDestinationPath,
+            array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName)
+        );
 
         $destinationFileName = $this->getUnocupiedName($desiredName, $relativeDestinationPath);
         $reflection = $relativeDestinationPath . $destinationFileName;
@@ -193,7 +200,7 @@ class ReflectionModel
             return false;
         }
 
-        $data = array (
+        $data = array(
             'source' => $absoluteSource,
             'destination' => $absoluteDestinationDir . '/' . $destinationFileName,
             'options' => $options
@@ -263,7 +270,7 @@ class ReflectionModel
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['reflection'];
         }
-        return  null;
+        return null;
     }
 
 

@@ -22,8 +22,7 @@ class ImageFit extends Image
      */
     public function __construct($width, $height, $quality = null, $forced = false)
     {
-        if ($quality === null)
-        {
+        if ($quality === null) {
             $quality = ipGetOption('Config.defaultImageQuality');
         }
 
@@ -49,7 +48,6 @@ class ImageFit extends Image
     }
 
 
-
     public function crop($image, $widthDest, $heightDest, $forced)
     {
         if ($heightDest <= 0 || $widthDest <= 0) {
@@ -64,34 +62,45 @@ class ImageFit extends Image
 
         if ($sourceProportion > $destProportion) {
             $widthDiff = 0;
-            $heightDiff = ($heightDest - $widthDest/($sourceProportion))/2;
+            $heightDiff = ($heightDest - $widthDest / ($sourceProportion)) / 2;
         } else {
-            $widthDiff = ($widthDest - $heightDest*($sourceProportion))/2;
+            $widthDiff = ($widthDest - $heightDest * ($sourceProportion)) / 2;
             $heightDiff = 0;
         }
 
         $startX = 0;
         $startY = 0;
         if ($forced) {
-            if($heightDiff == 0 && $widthDiff != 0) {
+            if ($heightDiff == 0 && $widthDiff != 0) {
                 $startX = round(($widthDest - $heightDest * $sourceProportion) / 2);
-            } elseif($heightDiff != 0 && $widthDiff == 0) {
+            } elseif ($heightDiff != 0 && $widthDiff == 0) {
                 $startY = round(($heightDest - $widthDest / $sourceProportion) / 2);
             }
         } else {
-            if($heightDiff == 0 && $widthDiff != 0) {
+            if ($heightDiff == 0 && $widthDiff != 0) {
                 $widthDest = $heightDest * $sourceProportion;
-            } elseif($heightDiff != 0 && $widthDiff == 0) {
+            } elseif ($heightDiff != 0 && $widthDiff == 0) {
                 $heightDest = $widthDest / $sourceProportion;
             }
         }
 
         $imageNew = imagecreatetruecolor($widthDest, $heightDest);
         imagealphablending($imageNew, false);
-        imagesavealpha($imageNew,true);
+        imagesavealpha($imageNew, true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
-        imagefilledrectangle ( $imageNew, 0, 0, $widthDest, $heightDest, $color );
-        imagecopyresampled($imageNew, $image, $startX, $startY, 0, 0, $widthDest - $startX*2, $heightDest - $startY*2, $widthSource, $heightSource);
+        imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
+        imagecopyresampled(
+            $imageNew,
+            $image,
+            $startX,
+            $startY,
+            0,
+            0,
+            $widthDest - $startX * 2,
+            $heightDest - $startY * 2,
+            $widthSource,
+            $heightSource
+        );
         return $imageNew;
     }
 
