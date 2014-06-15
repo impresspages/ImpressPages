@@ -127,7 +127,8 @@ class PageAssets
                     $pathinfo = pathinfo($file['value']);
 
                     if ($pathinfo['extension'] == 'css'
-                        && $themeAssetsUrl . $pathinfo['basename'] == $file['value']) {
+                        && $themeAssetsUrl . $pathinfo['basename'] == $file['value']
+                    ) {
                         $themeFile = \Ip\Application::ASSETS_DIR . '/' . $pathinfo['filename'] . '.less';
                         if (file_exists(ipThemeFile($themeFile))) {
                             $file['value'] = $designService->getRealTimeUrl($theme, $themeFile);

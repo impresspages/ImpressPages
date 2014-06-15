@@ -63,7 +63,7 @@ class AdminPermissionsModel
         if ($administratorId === null) {
             $administratorId = ipAdminId();
         }
-        $data =  array(
+        $data = array(
             'permission' => $permission,
             'administratorId' => $administratorId
         );
@@ -75,7 +75,7 @@ class AdminPermissionsModel
         if ($administratorId === null) {
             $administratorId = ipAdminId();
         }
-        $condition =  array(
+        $condition = array(
             'permission' => $permission,
             'administratorId' => $administratorId
         );

@@ -35,7 +35,47 @@ class FormatHelper
 
 
         $sizes = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
-        $decimal = array('au', 'bn', 'bw', 'ch', 'cn', 'do', 'eg', 'gt', 'hk', 'hn', 'ie', 'il', 'in', 'jp', 'ke', 'kp', 'kr', 'lb', 'lk', 'mn', 'mo', 'mt', 'mx', 'my', 'ng', 'ni', 'np', 'nz', 'pa', 'ph', 'pk', 'sg', 'th', 'tw', 'tz', 'ug', 'uk', 'us', 'zw');
+        $decimal = array(
+            'au',
+            'bn',
+            'bw',
+            'ch',
+            'cn',
+            'do',
+            'eg',
+            'gt',
+            'hk',
+            'hn',
+            'ie',
+            'il',
+            'in',
+            'jp',
+            'ke',
+            'kp',
+            'kr',
+            'lb',
+            'lk',
+            'mn',
+            'mo',
+            'mt',
+            'mx',
+            'my',
+            'ng',
+            'ni',
+            'np',
+            'nz',
+            'pa',
+            'ph',
+            'pk',
+            'sg',
+            'th',
+            'tw',
+            'tz',
+            'ug',
+            'uk',
+            'us',
+            'zw'
+        );
 
         if ($languageCode === null) {
             $languageCode = ipContent()->getCurrentLanguage()->getCode();
@@ -56,7 +96,7 @@ class FormatHelper
             $formattedBytes = str_replace('.', ',', $bytes);
         }
 
-        $formattedBytes .= ' '.$sizes[$i];
+        $formattedBytes .= ' ' . $sizes[$i];
 
         return $formattedBytes;
     }
@@ -81,13 +121,13 @@ class FormatHelper
         );
 
         $formattedPrice = ipJob('ipFormatPrice', $data);
-        if ($formattedPrice === NULL) {
+        if ($formattedPrice === null) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
                 $locale = str_replace('-', '_', $languageCode);
                 $fmt = numfmt_create($locale, \NumberFormatter::CURRENCY);
                 $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
             } else {
-                $formattedPrice = ($data['price'] / 100).' '.$data['currency'];
+                $formattedPrice = ($data['price'] / 100) . ' ' . $data['currency'];
             }
         }
 
@@ -108,7 +148,7 @@ class FormatHelper
         );
 
         $formattedDate = ipJob('ipFormatDate', $data);
-        if ($formattedDate === NULL) {
+        if ($formattedDate === null) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageCode === null) {
                     $languageCode = ipContent()->getCurrentLanguage()->getCode();
@@ -143,7 +183,7 @@ class FormatHelper
         );
 
         $formattedDate = ipJob('ipFormatTime', $data);
-        if ($formattedDate === NULL) {
+        if ($formattedDate === null) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageCode === null) {
                     $languageCode = ipContent()->getCurrentLanguage()->getId();
@@ -154,7 +194,12 @@ class FormatHelper
                     $code = $languageCode;
                 }
                 $locale = str_replace('-', '_', $code);
-                $fmt = datefmt_create($locale, \IntlDateFormatter::NONE, \IntlDateFormatter::SHORT, date_default_timezone_get());
+                $fmt = datefmt_create(
+                    $locale,
+                    \IntlDateFormatter::NONE,
+                    \IntlDateFormatter::SHORT,
+                    date_default_timezone_get()
+                );
                 $formattedDate = datefmt_format($fmt, $unixTimestamp);
             } else {
                 $formattedDate = date('H:i', $unixTimestamp);
@@ -178,7 +223,7 @@ class FormatHelper
         );
 
         $formattedDate = ipJob('ipFormatDateTime', $data);
-        if ($formattedDate === NULL) {
+        if ($formattedDate === null) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageCode === null) {
                     $languageCode = ipContent()->getCurrentLanguage()->getId();
@@ -189,7 +234,12 @@ class FormatHelper
                     $code = $languageCode;
                 }
                 $locale = str_replace('-', '_', $code);
-                $fmt = datefmt_create($locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT, date_default_timezone_get());
+                $fmt = datefmt_create(
+                    $locale,
+                    \IntlDateFormatter::SHORT,
+                    \IntlDateFormatter::SHORT,
+                    date_default_timezone_get()
+                );
                 $formattedDate = datefmt_format($fmt, $unixTimestamp);
             } else {
                 $formattedDate = date('Y-m-d H:i', $unixTimestamp);

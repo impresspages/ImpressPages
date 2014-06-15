@@ -27,7 +27,11 @@ class AdminPermissions
         }
 
         $answer = isset($this->permissions[$administratorId][$permission]) || isset($this->permissions[$administratorId]['Super admin']);
-        $answer = ipFilter('ipAdminPermission', $answer, array('permission' => $permission, 'administratorId' => $administratorId));
+        $answer = ipFilter(
+            'ipAdminPermission',
+            $answer,
+            array('permission' => $permission, 'administratorId' => $administratorId)
+        );
 
         return $answer;
     }
