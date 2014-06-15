@@ -61,7 +61,7 @@ var Market;
                 return;
             }
 
-            var toDownload = new Array();
+            var toDownload = [];
 
             for (var i = 0; i < images.length; i++) {
                 toDownload.push({
@@ -89,7 +89,7 @@ var Market;
                 }
             });
 
-            $('#ipsModuleRepositoryTabBuy .ipsLoading').removeClass('hidden');
+            $('#ipsModuleRepositoryTabBuy').find('.ipsLoading').removeClass('hidden');
         };
 
 
@@ -103,7 +103,7 @@ var Market;
                 return;
             }
 
-            var toDownload = new Array();
+            var toDownload = [];
 
             for (var i = 0; i < themes.length; i++) {
                 toDownload.push({
@@ -143,7 +143,7 @@ var Market;
                 return;
             }
 
-            var toDownload = new Array();
+            var toDownload = [];
 
             for (var i = 0; i < plugins.length; i++) {
                 toDownload.push({

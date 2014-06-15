@@ -95,7 +95,7 @@ class AdminController extends \Ip\Controller
         if (isset($_REQUEST['afterLogin'])) { // Request after login.
             if ($systemInfo == '') {
                 $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
-                return;
+                return null;
             } else {
                 $md5 = \Ip\ServiceLocator::storage()->get('Ip', 'lastSystemMessageShown');
                 if ($systemInfo && (!$md5 || $md5 != md5(serialize($systemInfo)))) { // We have a new message.
@@ -110,7 +110,7 @@ class AdminController extends \Ip\Controller
                     $_SESSION['ipSystem']['show_system_message'] = $newMessage; // Display system alert.
                 } else { // This message was already seen.
                     $_SESSION['ipSystem']['show_system_message'] = false; // Don't display system alert at the top.
-                    return;
+                    return null;
                 }
             }
         } else { // administrator/system tab.
@@ -168,8 +168,6 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
 
         $usageStatistics = false;
-
-        $data = ipRequest()->getPost('data');
 
         // Send stats just after admin login
         if (isset($_SESSION['module']['system']['adminJustLoggedIn'])) {

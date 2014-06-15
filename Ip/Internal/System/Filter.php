@@ -13,7 +13,7 @@ class Filter {
             $menu = array_merge($menu, Submenu::getSubmenuItems());
             return $menu;
         }
-
+        return null;
     }
 
     /**
@@ -24,8 +24,6 @@ class Filter {
     {
         $urls = Submenu::getSubmenuUrls();
         $filteredMenu = array();
-
-        $systemSubmenuIsEmpty = true;
 
         //remove menu items that are in submenu
         foreach ($menu as $menuItem) {

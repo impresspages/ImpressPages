@@ -46,6 +46,9 @@ class Submenu {
         return in_array(ipRoute()->controllerClass(), self::getControllerNames());
     }
 
+    /**
+     * @return \Ip\Menu\Item[]
+     */
     public static function getSubmenuItems()
     {
         $modules = self::getModuleNames();

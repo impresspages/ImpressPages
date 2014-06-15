@@ -24,12 +24,12 @@ var ipTrash = null;
                 e.preventDefault();
                 var pages = '';
                 $modal.find('input[name="page[]"]:checked').each(function () {
-                    pages += '|' + $(this).val(); 
+                    pages += '|' + $(this).val();
                 });
                 recoveryPage(pages);
                 $modal.modal('hide');
             });
-        }
+        };
 
         $scope.emptyPageModal = function () {
             var $modal = $('.ipsEmptyPageModal');
@@ -42,21 +42,21 @@ var ipTrash = null;
                 e.preventDefault();
                 var pages = '';
                 $modal.find('input[name="page[]"]:checked').each(function () {
-                    pages += '|' + $(this).val(); 
+                    pages += '|' + $(this).val();
                 });
                 emptyPage(pages);
                 $modal.modal('hide');
             });
         }
 
-    }
+    };
 
     var recoveryPage = function (pages) {
         var data = {
             aa: 'System.recoveryTrash',
             pages: pages,
             securityToken: ip.securityToken
-        }
+        };
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
@@ -76,14 +76,14 @@ var ipTrash = null;
             },
             dataType: 'json'
         });
-    }
+    };
 
     var emptyPage = function (pages) {
         var data = {
             aa: 'System.emptyTrash',
             pages: pages,
             securityToken: ip.securityToken
-        }
+        };
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
