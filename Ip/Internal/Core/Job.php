@@ -113,11 +113,13 @@ class Job
             $name = $parameter->getName();
 
             if (isset($info[$name])) {
-                $arguments[]= $info[$name];
+                $arguments[] = $info[$name];
             } elseif ($parameter->isOptional()) {
-                $arguments[]= $parameter->getDefaultValue();
+                $arguments[] = $parameter->getDefaultValue();
             } else {
-                throw new \Ip\Exception("Controller action requires " . esc($name) . " parameter", array('route' => $info, 'requiredParameter' => $name));
+                throw new \Ip\Exception("Controller action requires " . esc(
+                    $name
+                ) . " parameter", array('route' => $info, 'requiredParameter' => $name));
             }
         }
 
