@@ -62,7 +62,7 @@ class LessCompiler
             $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
