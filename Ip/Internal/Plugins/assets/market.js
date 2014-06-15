@@ -1,4 +1,3 @@
-
 var ipPluginMarket = new function () {
     "use strict";
     var isPluginPreview = false;
@@ -93,6 +92,6 @@ var ipPluginMarket = new function () {
     };
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     ipPluginMarket.openMarketWindow();
 });
