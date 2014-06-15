@@ -49,7 +49,7 @@ class ReflectionModel
     /**
      * @param string $file relative path from BASE_DIR
      * @param array $options image transform options
-     * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param string $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
      * @return string file name relative to BASE_DIR
      */
@@ -263,6 +263,7 @@ class ReflectionModel
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['reflection'];
         }
+        return  null;
     }
 
 

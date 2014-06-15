@@ -55,12 +55,8 @@ var ipRepositoryESC;
 
         $(document.body).addClass('modal-open');
 
-        //$popup.bind('dialogclose', function(){$('.ipsModuleRepositoryPopup').remove(); $('body').removeClass('stopScrolling')});
-
         return $popup;
 
-        function browserPopupHtmlResponse(response) {
-        }
     };
 
 

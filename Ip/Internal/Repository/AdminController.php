@@ -15,7 +15,8 @@ namespace Ip\Internal\Repository;
  * But files from frontend can be uploaded only to
  * secured folder not accessible from the Internet
  */
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
 
     /**
@@ -149,38 +150,6 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function deleteTmpFile()
-    {
-        $this->backendOnly();
-
-        if (!isset($_POST['file'])) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Missing post variable'
-            );
-            return new \Ip\Response\Json($answer);
-        }
-
-        $file = realpath($_POST['file']);
-
-        if (strpos($file, ipFile('file/tmp/')) !== 0) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Trying to access file outside temporary dir'
-            );
-            return new \Ip\Response\Json($answer);
-        }
-
-
-        if (file_exists($file)) {
-            unlink($file);
-        }
-
-        $answer = array(
-            'status' => 'success'
-        );
-        return new \Ip\Response\Json($answer);
-    }
 
     /**
      * Downloads file from $_POST['url'] and stores it in repository as $_POST['filename']. If desired filename is taken,
@@ -196,7 +165,6 @@ class AdminController extends \Ip\Controller{
         if (!ipAdminPermission('Repository upload')) {
             throw new \Ip\Exception("Permission denied");
         }
-        $this->backendOnly();
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
             throw new \Ip\Exception('Invalid parameters.');
@@ -235,7 +203,7 @@ class AdminController extends \Ip\Controller{
         $net = new \Ip\Internal\NetHelper();
         $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_'.time());
         if (!$tmpFilename) {
-            return;
+            return null;
         }
 
 
