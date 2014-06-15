@@ -3,14 +3,14 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
 
@@ -20,38 +20,38 @@
                     $this.data('ipRepositoryUploader', {});
 
                     var uploaderConfig = {
-                        runtimes : 'gears,html5,flash,silverlight,browserplus',
-                        browse_button : 'ipsModuleRepositoryUploadButton',
+                        runtimes: 'gears,html5,flash,silverlight,browserplus',
+                        browse_button: 'ipsModuleRepositoryUploadButton',
 
-                        max_file_size : '10000Mb',
-                        chunk_size : '1mb',
-                        url : ip.baseUrl, //website root (available globally in ImpressPages environment)
-                        multipart_params : {
-                            sa : 'Repository.upload',
-                            securityToken : ip.securityToken
+                        max_file_size: '10000Mb',
+                        chunk_size: '1mb',
+                        url: ip.baseUrl, //website root (available globally in ImpressPages environment)
+                        multipart_params: {
+                            sa: 'Repository.upload',
+                            securityToken: ip.securityToken
                         },
 
                         //if you add "multipart: false," IE fails.
 
-                        flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.flash.swf'),
-                        silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap'),
+                        flash_swf_url: ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.flash.swf'),
+                        silverlight_xap_url: ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap'),
 
-                        button_browse_hover : true,
-                        drop_element : "ipsModuleRepositoryDragContainer",
-                        autostart : true,
+                        button_browse_hover: true,
+                        drop_element: "ipsModuleRepositoryDragContainer",
+                        autostart: true,
                         container: "ipsModuleRepositoryTabUpload"
                     };
 
                     var uploader = new plupload.Uploader(uploaderConfig);
-                    uploader.bind('Init', function(up) {
+                    uploader.bind('Init', function (up) {
                         // if dragdrop is possible, we'll enhance UI
                         if (up.features.dragdrop) {
-                            $('#'+uploaderConfig.drop_element)
+                            $('#' + uploaderConfig.drop_element)
                                 .addClass('dragdrop')
-                                .bind('dragover', function(){
+                                .bind('dragover', function () {
                                     $(this).addClass('hover');
                                 })
-                                .bind('dragexit drop', function(){
+                                .bind('dragexit drop', function () {
                                     $(this).removeClass('hover');
                                 });
                         }
@@ -74,7 +74,7 @@
         },
 
 
-        _storeFilesResponse : function(response) {
+        _storeFilesResponse: function (response) {
             var $this = $(this);
 
             if (!response || !response.status || response.status == 'error') {
@@ -84,39 +84,41 @@
             $this.ipRepositoryAll('addRecentFiles', response.files);
         },
 
-        _cancel : function(e) {
+        _cancel: function (e) {
             e.preventDefault();
             $(this).trigger('ipModuleRepository.cancel');
         },
 
-        _error : function(up, err) {
+        _error: function (up, err) {
             var $newError = $(this).find('.ipsErrorSample').clone().removeClass('ipsErrorSample').removeClass('hidden');
             $newError.text(err.message);
-            setTimeout(function(){$newError.remove();}, 9000);
+            setTimeout(function () {
+                $newError.remove();
+            }, 9000);
             $(this).find('.ipsCurErrors').append($newError);
             up.refresh(); // Reposition Flash/Silverlight
         },
 
-        _filesAdded : function(up, files) {
+        _filesAdded: function (up, files) {
             var $this = $(this);
-            $.each(files, function(i, file) {
+            $.each(files, function (i, file) {
                 var $newFileProgressbar = $this.find('.ipsUploadProgressItemSample .ipsUploadProgressItem').clone();
                 $newFileProgressbar.attr('id', 'ipUpload_' + file.id);
                 $newFileProgressbar.find('.ipsUploadTitle').text(file.name);
-                $newFileProgressbar.find('.ipsUploadProgressbar').progressbar({value : file.percent});
+                $newFileProgressbar.find('.ipsUploadProgressbar').progressbar({value: file.percent});
                 $this.find('.ipsUploadProgressContainer .ipsBrowseButtonWrapper').first().after($newFileProgressbar);
             });
             up.refresh(); // Reposition Flash/Silverlight
             up.start();
         },
 
-        _uploadProgress : function(up, file) {
+        _uploadProgress: function (up, file) {
             var $this = $(this);
-            $this.find('#ipUpload_' + file.id + ' .ipsUploadProgressbar').progressbar({value : file.percent});
+            $this.find('#ipUpload_' + file.id + ' .ipsUploadProgressbar').progressbar({value: file.percent});
             $('#' + file.id + " b").html(file.percent + "%");
         },
 
-        _fileUploaded : function(up, file, response) {
+        _fileUploaded: function (up, file, response) {
             var $this = $(this);
             var answer = jQuery.parseJSON(response.response);
             if (answer.error) {
@@ -125,8 +127,8 @@
 
                 var files = new Array();
                 files.push({
-                    fileName : answer.fileName,
-                    renameTo : answer.fileName,
+                    fileName: answer.fileName,
+                    renameTo: answer.fileName,
                 });
 
                 var data = $this.data('ipRepositoryUploader');
@@ -136,13 +138,13 @@
                 data.files = files;
                 data.securityToken = ip.securityToken;
 
-                $.ajax ({
-                    type : 'POST',
-                    url : ip.baseUrl,
-                    data : data,
-                    context : $this,
-                    success : $.proxy(methods._storeFilesResponse, this),
-                    dataType : 'json'
+                $.ajax({
+                    type: 'POST',
+                    url: ip.baseUrl,
+                    data: data,
+                    context: $this,
+                    success: $.proxy(methods._storeFilesResponse, this),
+                    dataType: 'json'
                 });
 
             }
@@ -151,11 +153,11 @@
         },
 
         // set back our element
-        _teardown: function() {
+        _teardown: function () {
             $(window).unbind('resize.ipRepositoryUploader');
         },
 
-        _resize : function(e) {
+        _resize: function (e) {
             var $popup = $('.ipsModuleRepositoryPopup');
             var $block = $popup.find('.ipsUpload');
             var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
@@ -164,7 +166,7 @@
 
     };
 
-    $.fn.ipRepositoryUploader = function(method) {
+    $.fn.ipRepositoryUploader = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
