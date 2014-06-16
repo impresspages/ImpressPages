@@ -100,7 +100,7 @@ class FormatHelper
     public static function formatDate($unixTimestamp, $context = null, $languageCode = null)
     {
         $data = array(
-            'timestamp' => $context,
+            'timestamp' => $unixTimestamp,
             'context' => $context
         );
 
@@ -135,7 +135,7 @@ class FormatHelper
     public static function formatTime($unixTimestamp, $context = null, $languageCode = null)
     {
         $data = array(
-            'timestamp' => $context,
+            'timestamp' => $unixTimestamp,
             'context' => $context
         );
 
@@ -170,7 +170,7 @@ class FormatHelper
     public static function formatDateTime($unixTimestamp, $context = null, $languageCode = null)
     {
         $data = array(
-            'timestamp' => $context,
+            'timestamp' => $unixTimestamp,
             'context' => $context
         );
 
