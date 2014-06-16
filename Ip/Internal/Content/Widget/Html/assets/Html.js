@@ -28,12 +28,32 @@ var IpWidget_Html = function () {
         }
 
         var context = this; // set this so $.proxy would work below
-        container.click(function () {
-            $.proxy(openPopup, context)();
+
+
+        this.$widgetOverlay = $('<div></div>');
+        this.widgetObject.prepend(this.$widgetOverlay);
+        this.$widgetOverlay.on('click', $.proxy(openPopup, this));
+
+        $(document).on('ipWidgetResized', function () {
+            $.proxy(fixOverlay, context)();
         });
+        $(window).on('resize', function () {
+            $.proxy(fixOverlay, context)();
+        });
+        $.proxy(fixOverlay, context)();
+
 
         container.css('min-height', '30px');
     };
+
+
+    var fixOverlay = function () {
+        this.$widgetOverlay
+            .css('position', 'absolute')
+            .css('z-index', 1000) // should be higher enough but lower than widget controls
+            .width(this.widgetObject.width())
+            .height(this.widgetObject.height());
+    }
 
 
     this.onAdd = function () {
