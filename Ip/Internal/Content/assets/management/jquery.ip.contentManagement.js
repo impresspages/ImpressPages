@@ -5,21 +5,21 @@
  */
 
 
-(function ($) {
+(function($) {
     "use strict";
     var lastDroppable = false;
 
     var methods = {
-        init: function (options) {
+        init : function(options) {
 
-            return this.each(function () {
+            return this.each(function() {
 
                 var $this = $(this);
 
                 var data = $this.data('ipContentManagement');
 
                 // If the plugin hasn't been initialized yet
-                if (!data) {
+                if ( ! data ) {
                     $this.data('ipContentManagement', {
                     });
 
@@ -47,25 +47,24 @@
                     $(document.body).prepend(ipContentInit.saveProgressHtml);
                     $(document.body).prepend(ipContentInit.controlPanelHtml);
 
-                    var options = {};
+                    var options = new Object;
                     options.pageId = ip.pageId;
                     options.revisionId = ip.revisionId;
                     options.widgetControlsHtml = ipContentInit.widgetControlsHtml;
                     options.contentManagementObject = $this;
                     options.manageableRevision = ipContentInit.manageableRevision;
 
-                    data = $this.data('ipContentManagement');
+                    var data = $this.data('ipContentManagement');
                     data.initInfo = options;
                     $this.data('ipContentManagement', data);
 
-                    var $panelButton = $('.ipsAdminPanelWidgetButton');
-                    $panelButton.ipAdminWidgetButton();
+                    $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
 
                     ipSpaceForWidgets();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
 
-                    $panelButton
+                    $('.ipsAdminPanelWidgetButton')
                         .on('dragstart', ipStartWidgetDrag)
                         .on('dragstop', ipStopWidgetDrag);
 
@@ -77,18 +76,11 @@
                         $('.ipBlock .ipWidget')
                             .off('dragstart.ipContentManagement').on('dragstart.ipContentManagement', ipStartWidgetDrag)
                             .off('dragstop.ipContentManagement').on('dragstop.ipContentManagement', ipStopWidgetDrag);
-                    });
+                    })
 
-                    $('.ipsContentSave').on('click', function (e) {
-                        $.proxy(methods.save, $this)(false)
-                    });
-                    $('.ipsContentPublish').on('click', function (e) {
-                        $.proxy(methods.save, $this)(true)
-                    });
-                    $('.ipsContentPreview').on('click', function (e) {
-                        e.preventDefault();
-                        ipManagementMode.setManagementMode(0);
-                    });
+                    $('.ipsContentSave').on('click', function(e){$.proxy(methods.save, $this)(false)});
+                    $('.ipsContentPublish').on('click', function(e){$.proxy(methods.save, $this)(true)});
+                    $('.ipsContentPreview').on('click', function(e){e.preventDefault(); ipManagementMode.setManagementMode(0);});
                     $.proxy(methods.initBlocks, $this)($('.ipBlock'));
 
                     $this.trigger('ipContentManagementInit', options);
@@ -97,7 +89,7 @@
             });
         },
 
-        initBlocks: function (blocks) {
+        initBlocks : function(blocks) {
             var $this = this;
             var data = $this.data('ipContentManagement');
             var options = data.initInfo;
@@ -106,8 +98,8 @@
             }
         },
 
-        save: function (publish) {
-            return this.each(function () {
+        save : function(publish) {
+            return this.each(function() {
                 var $this = $(this);
                 var data = $this.data('ipContentManagement');
 
@@ -122,17 +114,17 @@
                 }
 
                 $.ajax({
-                    type: 'POST',
-                    url: ip.baseUrl,
-                    data: postData,
-                    context: $this,
-                    success: methods._savePageResponse,
-                    dataType: 'json'
+                    type : 'POST',
+                    url : ip.baseUrl,
+                    data : postData,
+                    context : $this,
+                    success : methods._savePageResponse,
+                    dataType : 'json'
                 });
             });
         },
 
-        _savePageResponse: function (response) {
+        _savePageResponse: function(response) {
             var $this = $(this);
             var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
@@ -148,6 +140,7 @@
      *
      * Function used to paginate Widgets on Administration Panel
      *
+     * @param none
      * @returns nothing
      *
      *
@@ -176,12 +169,13 @@
             event.preventDefault();
             scrollableAPI.move(-scrollBy);
         });
-    };
+    }
 
     /**
      *
      * Function used to search Widgets on Administration Panel
      *
+     * @param none
      * @returns nothing
      *
      *
@@ -195,23 +189,23 @@
             if (this.value == this.defaultValue) {
                 this.value = '';
             }
-
+            ;
         }).blur(function () {
-            if (this.value == '') {
-                this.value = this.defaultValue;
-            }
-
-        }).keyup(function () {
-            var value = this.value;
-            $widgets.css('display', ''); // restate visibility
-            if (value && value != this.defaultValue) {
-                $widgets.not(':icontains(' + value + ')').css('display', 'none');
-                $button.addClass('ipaClear');
-            } else {
-                $button.removeClass('ipaClear');
-            }
-            ipAdminWidgetsScroll(); // reinitiate scrollable
-        });
+                if (this.value == '') {
+                    this.value = this.defaultValue;
+                }
+                ;
+            }).keyup(function () {
+                var value = this.value;
+                $widgets.css('display', ''); // restate visibility
+                if (value && value != this.defaultValue) {
+                    $widgets.not(':icontains(' + value + ')').css('display', 'none');
+                    $button.addClass('ipaClear');
+                } else {
+                    $button.removeClass('ipaClear');
+                }
+                ipAdminWidgetsScroll(); // reinitiate scrollable
+            });
 
         $button.click(function (event) {
             event.preventDefault();
@@ -221,12 +215,13 @@
                 $this.removeClass('ipaClear'); // makes button look default
             }
         });
-    };
+    }
 
     /**
      *
      * Function used to create a space on a page for Administration Panel
      *
+     * @param none
      * @returns nothing
      *
      *
@@ -236,15 +231,15 @@
         var $panel = $('.ipsAdminPanel'); // Administration Panel that stays always visible
         $container.height($panel.outerHeight()); // setting the height to container
         $panel.css('top', $('.ipsAdminNavbarContainer').outerHeight()); // move down to leave space for top navbar
-    };
+    }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = ui.item;
+        var draggingElement = event.currentTarget;
 
         //drop side
-        var sidePlaceholders = [];
+        var sidePlaceholders = new Array();
 
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
+        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
             //left placeholder
             sidePlaceholders.push({
                 left: $(value).offset().left - 20,
@@ -322,8 +317,8 @@
         //------------------------------------------------------
 
         //drop between the widgets horizontally
-        var horizontalPlaceholders = [];
-        $.each($('.ipBlock'), function (blockKey, block) {
+        var horizontalPlaceholders = new Array();
+        $.each($('.ipBlock').not($(draggingElement).find('.ipBlock')), function (blockKey, block) {
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
                 var $widget = $(value);
@@ -331,20 +326,19 @@
                 if ($widget.index() == 0) { //first widget
                     var space = 15;
                     //first placeholder
+//                    console.log(block);
                     newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top - space,
                         width: $widget.width(),
                         blockName: $(block).data('ipBlock').name,
                         position: 0,
-                        markerOffset: space / 2
+                        markerOffset: space/2
                     };
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {
-                            return []
-                        };
+                        widgetController.splitParts = function () {return new Array()};
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the first paragraph
@@ -355,8 +349,8 @@
                     }
 
                     if ($widget.hasClass("ipWidget-Columns")) { //if this is a columns widget, make a 3/4 space for droping. Leave 1/4 for column placeholders
-                        newPlaceholder.height = space * 3 / 4;
-                        newPlaceholder.markerOffset = space * 3 / 4 / 2;
+                        newPlaceholder.height = space*3/4;
+                        newPlaceholder.markerOffset = space*3/4 / 2;
                     }
 
                     if ($widget.closest('.ipWidget-Columns').length && !$widget.hasClass("ipWidget-Columns")) {//if this is first widget inside a column. Take 1/4 of space for placeholder
@@ -372,9 +366,7 @@
 
                         var widgetController = $widget.data('widgetController');
                         if (!widgetController.splitParts) {
-                            widgetController.splitParts = function () {
-                                return []
-                            };
+                            widgetController.splitParts = function () {return new Array()};
                         }
                         if (widgetController.splitParts && widgetController.splitParts().length) {
                             //middle of the first paragraph
@@ -403,9 +395,7 @@
 
                     var prevWidgetController = $prevWidget.data('widgetController');
                     if (!prevWidgetController.splitParts) {
-                        prevWidgetController.splitParts = function () {
-                            return []
-                        };
+                        prevWidgetController.splitParts = function () {return new Array()};
                     }
                     if (prevWidgetController.splitParts() && prevWidgetController.splitParts().length) {
                         //start placeholder from the middle of last paragraph
@@ -415,9 +405,7 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {
-                            return []
-                        };
+                        widgetController.splitParts = function () {return new Array()};
                     }
                     if (widgetController.splitParts() && widgetController.splitParts().length) {
                         //placeholder touches center of first paragraph
@@ -430,7 +418,7 @@
 
                     if ($widget.hasClass('ipWidget-Columns')) {
                         newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
-                        newPlaceholder.markerOffset = newPlaceholder.height - 1;
+                        newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
                     }
 
                     newPlaceholder.markerOffset = ($prevWidget.offset().top + $prevWidget.height() + $widget.offset().top) / 2 - newPlaceholder.top;
@@ -452,9 +440,7 @@
 
                     var widgetController = $widget.data('widgetController');
                     if (!widgetController.splitParts) {
-                        widgetController.splitParts = function () {
-                            return []
-                        };
+                        widgetController.splitParts = function () {return new Array()};
                     }
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
@@ -469,7 +455,7 @@
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
-                        lastPlaceholder.height = columnsEnd - lastPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
                     }
 
                     if ($widget.hasClass('ipWidget-Columns')) {
@@ -511,7 +497,7 @@
         });
 
         //drop between paragraphs inside widget
-        var paragraphPlaceholders = [];
+        var paragraphPlaceholders = new Array();
         $.each($('.ipBlock .ipWidget').not('.ipbEmpty .ipWidget'), function (widgetKey, widget) {
             var $widget = $(widget);
             var widgetController = $widget.data('widgetController');
@@ -519,12 +505,10 @@
                 widgetController = {};
             }
             if (!widgetController.splitParts) {
-                widgetController.splitParts = function () {
-                    return []
-                };
+                widgetController.splitParts = function () {return new Array()};
             }
             var $paragraphs = widgetController.splitParts();
-            if ($paragraphs.length <= 1) {
+            if($paragraphs.length <= 1) {
                 return;
             }
             $.each($paragraphs, function (paragraphKey, paragraph) {
@@ -580,7 +564,7 @@
                 //this method on jQuery-ui is buggy and fires fake drop events. So we better handle stop event on draggable. This is just for widget side drops.
             }
         });
-    };
+    }
 
     var ipStopWidgetDrag = function (event, ui) {
         if (lastDroppable && lastDroppable.data('hover') && $(event.target).data('ipAdminWidgetButton')) {
@@ -635,9 +619,9 @@
         }
 
         $('.ipsWidgetDropPlaceholder').remove();
-    };
+    }
 
-    $.fn.ipContentManagement = function (method) {
+    $.fn.ipContentManagement = function(method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
