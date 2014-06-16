@@ -326,7 +326,6 @@
                 if ($widget.index() == 0) { //first widget
                     var space = 15;
                     //first placeholder
-//                    console.log(block);
                     newPlaceholder = {
                         left: $widget.offset().left,
                         top: $widget.offset().top - space,
