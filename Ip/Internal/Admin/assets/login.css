@@ -72,6 +72,21 @@ h1, h2, h3 {
 }
 
 /*
+    Languages
+*/
+.languageSelect {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.languageSelect .form-group {
+    margin-bottom: 0;
+}
+.languageSelect label {
+    display: none;
+}
+
+/*
     Form
 */
 
