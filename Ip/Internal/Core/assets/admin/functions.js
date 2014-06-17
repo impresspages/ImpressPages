@@ -21,7 +21,7 @@ function ipBrowseLink(callback) {
         $modal.modal('hide');
     });
 
-    $modal.on('hide.bs.modal', function () {
+    $modal.off('hide.bs.modal').on('hide.bs.modal', function () {
         if (!selectedPageId) {
             callback('');
             return;
