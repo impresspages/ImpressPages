@@ -90,6 +90,8 @@
                 }
             })
 
+            this.modal.find('input[name=buttonText]').val(instanceData.buttonText);
+
 
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
@@ -140,6 +142,7 @@
 
             data.sendTo =this.modal.find('select[name=sendTo]').val();
             data.emails = this.modal.find('input[name=emails]').val();
+            data.buttonText = this.modal.find('input[name=buttonText]').val();
 
             return data;
         };
