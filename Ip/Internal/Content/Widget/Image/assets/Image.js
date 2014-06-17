@@ -7,7 +7,6 @@
 var IpWidget_Image = function () {
     var controllerScope = this;
     this.$widgetObject = null;
-    this.$imageUploader = null;
     this.data = null;
 
     this.init = function ($widgetObject, data) {
@@ -40,7 +39,7 @@ var IpWidget_Image = function () {
             'ipWidgetMoved.imageWidget'
             , $.proxy(this.blurImage, controllerScope));
 
-    }
+    };
 
     this.focusImage = function (e) {
         var context = this;
@@ -80,7 +79,7 @@ var IpWidget_Image = function () {
     this.editImage = function (position) {
         var thisContext = this;
         var $modal = $('#ipWidgetImageEditPopup');
-        var options = new Object;
+        var options = {};
         var data = this.data;
 
         $modal.modal();
@@ -122,7 +121,7 @@ var IpWidget_Image = function () {
             $.proxy(thisContext.updateImage, thisContext)(crop.x1, crop.y1, crop.x2, crop.y2, curImage);
             $modal.modal('hide');
         });
-    }
+    };
 
     this.updateImage = function (x1, y1, x2, y2, image, callback) {
         var data = {
@@ -141,7 +140,7 @@ var IpWidget_Image = function () {
                 callback($widget);
             }
         });
-    }
+    };
 
     this.onAdd = function (e) {
         var thisContext = this;
@@ -151,7 +150,7 @@ var IpWidget_Image = function () {
             ipContent.deleteWidget(thisContext.$widgetObject.data('widgetid'));
         });
 
-    }
+    };
 
 
     this.filesSelected = function (event, files) {
@@ -165,7 +164,7 @@ var IpWidget_Image = function () {
         });
 
         this.$widgetObject.save(data, 1);
-    }
+    };
 
     this.resize = function (width, height) {
         var $this = $(this);
@@ -183,7 +182,7 @@ var IpWidget_Image = function () {
         }
 
         this.$widgetObject.save(data, 0);
-    }
+    };
 
     var linkPopup = function () {
         var context = this;
@@ -245,7 +244,7 @@ var IpWidget_Image = function () {
             this.popup.find('.form-group.name-url').hide();
             this.popup.find('.form-group.name-blank').hide();
         }
-    }
+    };
 
 
     var settingsPopup = function () {
@@ -285,7 +284,7 @@ var IpWidget_Image = function () {
         $.proxy(makeResizable, this)();
         this.resize(this.data.originalWidth, $image.height());
 
-    }
+    };
 
     var makeResizable = function()
     {

@@ -370,7 +370,6 @@ class AdminController extends \Ip\Controller
         $request->mustBePost();
         $languageCode = $request->getPost('languageCode');
         $title = $request->getPost('title');
-        $type = $request->getPost('type');
 
         if (empty($title)) {
             $title = __('Untitled', 'Ip-admin', false);
@@ -391,7 +390,6 @@ class AdminController extends \Ip\Controller
     public function changeMenuOrder()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
         $menuId = ipRequest()->getPost('menuId');
         $newIndex = ipRequest()->getPost('newIndex');

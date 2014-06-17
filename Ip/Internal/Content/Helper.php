@@ -39,8 +39,6 @@ class Helper
         ipAddJsVariable('ipWidgetSnippets', $snippets);
 
 
-
-
         ipAddJsVariable('ipContentInit', Model::initManagementData());
 
         if (ipConfig()->isDebugMode()) {

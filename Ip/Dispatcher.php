@@ -42,8 +42,8 @@ class Dispatcher
     /**
      * Register filter listener
      *
-     * @param $name Filter name
-     * @param $callable Method name. This method is called on specified event.
+     * @param string $name Filter name
+     * @param callable $callable Method name. This method is called on specified event.
      * @param int $priority Filter priority. Lower number means higher priority.
      */
     public function addFilterListener($name, $callable, $priority = 50)
@@ -54,9 +54,9 @@ class Dispatcher
     /**
      * Register job listener
      *
-     * @param $name job name
-     * @param $callable method name. This method is called by specified job.
-     * @param int $priority. Lower number means higher priority. Only the job with highest priority is processed.
+     * @param string $name job name
+     * @param callable $callable method name. This method is called by specified job.
+     * @param int $priority . Lower number means higher priority. Only the job with highest priority is processed.
      */
     public function addJobListener($name, $callable, $priority = 50)
     {
@@ -79,8 +79,8 @@ class Dispatcher
     /**
      * Filter a value
      *
-     * @param $eventName filter Event name
-     * @param $value Data for filtering
+     * @param string $eventName filter Event name
+     * @param mixed $value Data for filtering
      * @param array $data Additional information which may be used for filter processing
      * @return mixed
      */
@@ -116,7 +116,7 @@ class Dispatcher
     /**
      * Trigger an event
      *
-     * @param $eventName Event name
+     * @param string $eventName Event name
      * @param array $data Data for event processing
      * @return null
      */
@@ -180,6 +180,7 @@ class Dispatcher
                 throw new \Ip\Exception(esc("{$plugin}\\{$type}::{$method->getName()} must be static."));
             }
         }
+        return null;
     }
 
     private function extractEventNamePriority($methodName)
@@ -190,7 +191,7 @@ class Dispatcher
             'priority' => 50,
         );
 
-        $lastUnderscore =  strrpos($methodName , '_');
+        $lastUnderscore = strrpos($methodName, '_');
         if ($lastUnderscore) {
             $priority = substr($methodName, $lastUnderscore + 1);
             if (ctype_digit($priority)) {

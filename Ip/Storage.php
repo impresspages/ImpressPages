@@ -19,7 +19,7 @@ class Storage
      * @param string $pluginName Plugin name
      * @param string $key Option name
      * @param null $defaultValue Returned if specified key has no value assigned
-     * @return string
+     * @return mixed
      */
     public function get($pluginName, $key, $defaultValue = null)
     {
@@ -34,7 +34,7 @@ class Storage
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key
         );
@@ -49,7 +49,7 @@ class Storage
             }
         }
 
-        return json_decode($row['value'], TRUE);
+        return json_decode($row['value'], true);
     }
 
 
@@ -65,7 +65,7 @@ class Storage
 
         $sql = '
             INSERT INTO
-                '.ipTable('storage').'
+                ' . ipTable('storage') . '
             SET
                 `plugin` = :plugin,
                 `key` = :key,
@@ -76,7 +76,7 @@ class Storage
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key,
             ':value' => json_encode($value)
@@ -85,10 +85,10 @@ class Storage
         ipDb()->execute($sql, $params);
     }
 
+
     /**
      * Get all storage values for the plugin
-     *
-     * @param string $pluginName Plugin name
+     * @param string $plugin
      * @return array Key=>value array of plugin options
      */
     public function getAll($plugin)
@@ -104,17 +104,17 @@ class Storage
             ';
 
 
-        $params = array (
+        $params = array(
             ':plugin' => $plugin
         );
 
         $records = ipDb()->fetchAll($sql, $params);
         $values = array();
 
-        foreach($records as $record) {
+        foreach ($records as $record) {
             $values[] = array(
                 'key' => $record['key'],
-                'value' => json_decode($record['value'], TRUE)
+                'value' => json_decode($record['value'], true)
             );
         }
         return $values;
@@ -137,7 +137,7 @@ class Storage
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':plugin' => $pluginName,
             ':key' => $key
         );

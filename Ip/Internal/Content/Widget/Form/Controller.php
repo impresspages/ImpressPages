@@ -39,6 +39,7 @@ class Controller extends \Ip\WidgetController{
         return new \Ip\Response\Json($data);
     }
 
+
     public function adminHtmlSnippet()
     {
 
@@ -96,6 +97,12 @@ class Controller extends \Ip\WidgetController{
         return $form; // Output a string with generated HTML form
     }
 
+
+    /**
+     * @param \Ip\Form $form
+     * @param array $postData
+     * @param array $data
+     */
     public function sendEmail ($form, $postData, $data) {
 
         $contentData = array();

@@ -7,8 +7,6 @@
 namespace Ip\Internal\Administrators;
 
 
-
-
 class Service
 {
     public static function add($username, $email, $password)
@@ -31,6 +29,7 @@ class Service
     {
         return Model::getById($id);
     }
+
     public static function getByEmail($email)
     {
         return Model::getByEmail($email);

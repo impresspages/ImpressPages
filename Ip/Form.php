@@ -38,8 +38,8 @@ class Form
         $this->action = ipConfig()->baseUrl();
         $this->attributes = array();
         $this->classes = array();
-        $this->ajaxSubmit = TRUE;
-        $this->validate= TRUE;
+        $this->ajaxSubmit = true;
+        $this->validate = true;
         $this->addClass('ipsAjaxSubmit');
         if (ipRoute()->isAdmin()) {
             $this->setEnvironment(self::ENVIRONMENT_ADMIN);
@@ -180,7 +180,6 @@ class Form
     }
 
 
-
     /**
      * Add field to last fieldset. Create fieldset if does not exist.
      * @param Form\Field $field
@@ -192,9 +191,6 @@ class Form
         }
         end($this->fieldsets)->addField($field);
     }
-
-
-
 
 
     /**
@@ -211,7 +207,7 @@ class Form
                 $this->method = $method;
                 break;
             default:
-                throw new Exception ('Unknown method "' . $method . '"', Exception::INCORRECT_METHOD_TYPE);
+                throw new Exception ('Unknown method "' . $method . '"');
         }
     }
 
@@ -278,7 +274,6 @@ class Form
     }
 
 
-
     /**
      * Get all form fields
      *
@@ -303,7 +298,7 @@ class Form
     public function getField($name)
     {
         $allFields = $this->getFields();
-        foreach ($allFields as $key => $field) {
+        foreach ($allFields as $field) {
             if ($field->getName() == $name) {
                 return $field;
             }
@@ -384,7 +379,7 @@ class Form
     /**
      * Get a list of classes used in the form as HTML string
      *
-     * @return Attributes, provided in attribute="value" style
+     * @return string Attributes, provided in attribute="value" style
      */
     public function getClassesStr()
     {
@@ -415,7 +410,7 @@ class Form
      */
     public function getAjaxSubmit()
     {
-        return (bool) $this->ajaxSubmit;
+        return (bool)$this->ajaxSubmit;
     }
 
     /**
@@ -432,13 +427,15 @@ class Form
         $this->validate = $validate;
     }
 
+
     /**
      * Get validate property
+     * @param $validate
      * @return bool
      */
     public function getValidate($validate)
     {
-        return (bool) $this->validate;
+        return (bool)$this->validate;
     }
 
     /**

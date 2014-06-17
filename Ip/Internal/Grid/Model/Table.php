@@ -97,6 +97,7 @@ class Table extends \Ip\Internal\Grid\Model
                 return $this->search($params, $statusVariables);
                 break;
         }
+        return null;
     }
 
     protected function init($statusVariables)
@@ -284,7 +285,7 @@ class Table extends \Ip\Internal\Grid\Model
 
 
             foreach ($newData as $key => $value) {
-                $statusVariables['s_'.$key] = $value;
+                $statusVariables['s_' . $key] = $value;
             }
 
             $commands[] = Commands::setHash(Status::build($statusVariables));

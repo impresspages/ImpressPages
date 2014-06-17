@@ -17,8 +17,8 @@ class FilterDispatcher extends EventListener
     /**
      * Trigger an event
      *
-     * @param $eventName Event name
-     * @param $value Data for filtering
+     * @param string $eventName Event name
+     * @param mixed $value Data for filtering
      * @param array $data Data for event processing
      * @return null
      */

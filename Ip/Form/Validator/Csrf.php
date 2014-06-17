@@ -24,7 +24,8 @@ class Csrf extends Validator
      * @param $environment
      * @return string|bool
      */
-    public function getError($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment)
+    {
         if (empty($values[$valueKey])) {
             return 'error';
         }

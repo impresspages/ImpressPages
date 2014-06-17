@@ -101,5 +101,6 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
             }
 
         }
+        return null;
     }
 }

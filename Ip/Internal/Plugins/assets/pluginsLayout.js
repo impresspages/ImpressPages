@@ -3,7 +3,7 @@ var ipPluginsResize;
 (function ($) {
     "use strict";
 
-    ipPluginsResize = function() {
+    ipPluginsResize = function () {
         var $window = $(window);
         var $container = $('.ipsModulePlugins');
         var $containerForScroll = $('.ipsModulePluginsContainer');
@@ -39,9 +39,9 @@ var ipPluginsResize;
         $container.innerHeight(contentHeight);
         $containerForScroll.innerWidth(containerWidth);
         $properties.innerWidth(propertiesWidth);
-    }
+    };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         ipPluginsResize();
     });
 

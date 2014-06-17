@@ -1,26 +1,26 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Content\Widget\Image;
 
 
+class Controller extends \Ip\WidgetController
+{
 
 
-class Controller extends \Ip\WidgetController{
-
-
-    public function getTitle() {
+    public function getTitle()
+    {
         return __('Image', 'Ip-admin', false);
     }
 
 
-    public function update($widgetId, $postData, $currentData) {
+    public function update($widgetId, $postData, $currentData)
+    {
 
         if (isset($postData['method'])) {
-            switch($postData['method']) {
+            switch ($postData['method']) {
 
                 case 'resize':
                     $newData = $currentData;
@@ -43,7 +43,11 @@ class Controller extends \Ip\WidgetController{
                     if (isset($postData['fileName']) && is_file(ipFile('file/repository/' . $postData['fileName']))) {
                         //unbind old image
                         if (isset($currentData['imageOriginal']) && $currentData['imageOriginal']) {
-                            \Ip\Internal\Repository\Model::unbindFile($currentData['imageOriginal'], 'Content', $widgetId);
+                            \Ip\Internal\Repository\Model::unbindFile(
+                                $currentData['imageOriginal'],
+                                'Content',
+                                $widgetId
+                            );
                         }
 
                         //bind new image
@@ -96,11 +100,13 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    public function delete($widgetId, $data) {
+    public function delete($widgetId, $data)
+    {
         self::_deleteImage($data, $widgetId);
     }
 
-    private function _deleteImage($data, $widgetId) {
+    private function _deleteImage($data, $widgetId)
+    {
         if (!is_array($data)) {
             return;
         }
@@ -111,15 +117,17 @@ class Controller extends \Ip\WidgetController{
 
 
     /**
-    *
-    * Duplicate widget action. This function is executed after the widget is being duplicated.
-    * All widget data is duplicated automatically. This method is used only in case a widget
-    * needs to do some maintenance tasks on duplication.
-    * @param int $oldId old widget id
-    * @param int $newId duplicated widget id
-    * @param array $data data that has been duplicated from old widget to the new one
-    */
-    public function duplicate($oldId, $newId, $data) {
+     *
+     * Duplicate widget action. This function is executed after the widget is being duplicated.
+     * All widget data is duplicated automatically. This method is used only in case a widget
+     * needs to do some maintenance tasks on duplication.
+     * @param int $oldId old widget id
+     * @param int $newId duplicated widget id
+     * @param array $data data that has been duplicated from old widget to the new one
+     * @return array
+     */
+    public function duplicate($oldId, $newId, $data)
+    {
         if (!is_array($data)) {
             return $data;
         }
@@ -130,12 +138,12 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-
-    public function generateHtml($revisionId, $widgetId, $data, $skin) {
+    public function generateHtml($revisionId, $widgetId, $data, $skin)
+    {
         if (isset($data['imageOriginal'])) {
             $desiredName = isset($data['title']) ? $data['title'] : null;
 
-            $transformBig = array (
+            $transformBig = array(
                 'type' => 'copy'
             );
 
@@ -226,7 +234,7 @@ class Controller extends \Ip\WidgetController{
 
     public function adminHtmlSnippet()
     {
-        $variables = array (
+        $variables = array(
             'linkForm' => $this->linkForm(),
             'settingsForm' => $this->settingsForm()
         );
@@ -264,8 +272,6 @@ class Controller extends \Ip\WidgetController{
         $data['originalWidth'] = $originalWidth;
         return $data;
     }
-
-
 
 
     protected function linkForm()
@@ -312,7 +318,6 @@ class Controller extends \Ip\WidgetController{
         $form = new \Ip\Form();
 
 
-
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
@@ -327,7 +332,6 @@ class Controller extends \Ip\WidgetController{
                 'label' => __('Description', 'Ip-admin', false),
             ));
         $form->addField($field);
-
 
 
         return $form; // Output a string with generated HTML form

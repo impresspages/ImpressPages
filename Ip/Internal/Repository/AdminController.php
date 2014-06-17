@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -15,7 +14,8 @@ namespace Ip\Internal\Repository;
  * But files from frontend can be uploaded only to
  * secured folder not accessible from the Internet
  */
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
 
     /**
@@ -43,9 +43,8 @@ class AdminController extends \Ip\Controller{
             }
 
 
-
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($file['renameTo'], $destination);
-            copy($source, $destination.$newName);
+            copy($source, $destination . $newName);
             unlink($source); //this is a temporary file
             $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
             $newFile = $browserModel->getFile($newName);
@@ -63,17 +62,17 @@ class AdminController extends \Ip\Controller{
     public function getAll()
     {
 
-        $seek = isset($_POST['seek']) ? (int) $_POST['seek'] : 0;
+        $seek = isset($_POST['seek']) ? (int)$_POST['seek'] : 0;
         $limit = 10000;
         $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
 
         $browserModel = BrowserModel::instance();
         $files = $browserModel->getAvailableFiles($seek, $limit, $filter);
 
-        usort ($files , array($this, 'sortFiles') );
+        usort($files, array($this, 'sortFiles'));
 
         $fileGroups = array();
-        foreach($files as $file) {
+        foreach ($files as $file) {
             $fileGroups[date("Y-m-d", $file['modified'])][] = $file;
         }
 
@@ -120,7 +119,6 @@ class AdminController extends \Ip\Controller{
     }
 
 
-
     private function removeFile($file)
     {
         if (basename($file) == '.htaccess') {
@@ -149,39 +147,6 @@ class AdminController extends \Ip\Controller{
     }
 
 
-    public function deleteTmpFile()
-    {
-        $this->backendOnly();
-
-        if (!isset($_POST['file'])) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Missing post variable'
-            );
-            return new \Ip\Response\Json($answer);
-        }
-
-        $file = realpath($_POST['file']);
-
-        if (strpos($file, ipFile('file/tmp/')) !== 0) {
-            $answer = array(
-                'status' => 'error',
-                'error' => 'Trying to access file outside temporary dir'
-            );
-            return new \Ip\Response\Json($answer);
-        }
-
-
-        if (file_exists($file)) {
-            unlink($file);
-        }
-
-        $answer = array(
-            'status' => 'success'
-        );
-        return new \Ip\Response\Json($answer);
-    }
-
     /**
      * Downloads file from $_POST['url'] and stores it in repository as $_POST['filename']. If desired filename is taken,
      * selects some alternative unoccupied name.
@@ -196,7 +161,6 @@ class AdminController extends \Ip\Controller{
         if (!ipAdminPermission('Repository upload')) {
             throw new \Ip\Exception("Permission denied");
         }
-        $this->backendOnly();
 
         if (!isset($_POST['files']) || !is_array($_POST['files'])) {
             throw new \Ip\Exception('Invalid parameters.');
@@ -208,7 +172,7 @@ class AdminController extends \Ip\Controller{
         }
 
         $answer = array();
-        foreach($files as $file) {
+        foreach ($files as $file) {
             if (!empty($file['url']) && !empty($file['title'])) {
                 $fileData = $this->downloadFile($file['url'], $file['title']);
                 if ($fileData) {
@@ -223,7 +187,6 @@ class AdminController extends \Ip\Controller{
     }
 
 
-
     /**
      * @param string $url
      * @return string
@@ -233,16 +196,16 @@ class AdminController extends \Ip\Controller{
 
         //download image to TMP dir and get $resultFilename
         $net = new \Ip\Internal\NetHelper();
-        $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_'.time());
+        $tmpFilename = $net->downloadFile($url, ipFile('file/tmp/'), 'bigstock_' . time());
         if (!$tmpFilename) {
-            return;
+            return null;
         }
 
 
         //find out file mime type to know required extension
         try {
             $mime = \Ip\Internal\File\Functions::getMimeType(ipFile('file/tmp/' . $tmpFilename));
-            switch($mime) {
+            switch ($mime) {
                 case 'image/png':
                     $ext = '.jpg';
                     break;
@@ -267,8 +230,8 @@ class AdminController extends \Ip\Controller{
         $title = \Ip\Internal\File\Functions::cleanupFileName($title);
         $words = explode(' ', $title);
         $cleanTitle = '';
-        foreach($words as $word) { //limit file name to 30 symbols
-            if (strlen($cleanTitle.'_'.$word) > 30) {
+        foreach ($words as $word) { //limit file name to 30 symbols
+            if (strlen($cleanTitle . '_' . $word) > 30) {
                 break;
             }
             if ($cleanTitle != '') {
@@ -280,7 +243,7 @@ class AdminController extends \Ip\Controller{
             $cleanTitle = 'file';
         }
 
-        $niceFileName = $cleanTitle.$ext;
+        $niceFileName = $cleanTitle . $ext;
         $destinationDir = ipFile('file/repository/');
         $destinationFileName = \Ip\Internal\File\Functions::genUnoccupiedName($niceFileName, $destinationDir);
 
@@ -292,9 +255,6 @@ class AdminController extends \Ip\Controller{
         $file = $browserModel->getFile($destinationFileName);
         return $file;
     }
-
-
-
 
 
 }

@@ -4,12 +4,12 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var $this = $(this);
 
                 $this.html('');
@@ -23,7 +23,7 @@
                     type: 'GET',
                     url: ip.baseUrl,
                     data: data,
-                    encoding:"UTF-8",
+                    encoding: "UTF-8",
                     context: $this,
                     success: formResponse,
                     dataType: 'json'
@@ -31,7 +31,7 @@
 
             });
         },
-        destroy : function() {
+        destroy: function () {
             // TODO
         }
     };
@@ -65,15 +65,15 @@
             }
         });
 
-        $this.find('.ipsDeactivate').on('click', function(e) {
+        $this.find('.ipsDeactivate').on('click', function (e) {
             $this.trigger('deactivate.ipPlugins');
         });
 
-        $this.find('.ipsActivate').on('click', function(e) {
+        $this.find('.ipsActivate').on('click', function (e) {
             $this.trigger('activate.ipPlugins');
         });
 
-        $this.find('.ipsDelete').on('click', function(e) {
+        $this.find('.ipsDelete').on('click', function (e) {
             $this.trigger('delete.ipPlugins');
         });
 
@@ -84,9 +84,9 @@
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
-    }
+    };
 
-    $.fn.ipPluginProperties = function(method) {
+    $.fn.ipPluginProperties = function (method) {
 
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));

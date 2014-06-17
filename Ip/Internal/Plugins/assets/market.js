@@ -1,4 +1,3 @@
-
 var ipPluginMarket = new function () {
     "use strict";
     var isPluginPreview = false;
@@ -50,7 +49,7 @@ var ipPluginMarket = new function () {
                                         plugins: [data]
                                     };
                                     processOrder(fakeOrder);
-                                }
+                                };
 
 
                                 redirectUrl = ip.baseUrl + '?aa=Plugins.index#/hash=&plugin=' + encodeURIComponent(data.name);
@@ -93,6 +92,6 @@ var ipPluginMarket = new function () {
     };
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     ipPluginMarket.openMarketWindow();
 });

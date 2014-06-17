@@ -25,7 +25,8 @@ class Info extends Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         parent::__construct($options);
 
         if (!empty($options['html'])) {
@@ -40,7 +41,8 @@ class Info extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         return $this->getHtml();
     }
 
@@ -51,7 +53,8 @@ class Info extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'info';
     }
 
@@ -60,7 +63,8 @@ class Info extends Field
      *
      * @param string $html
      */
-    public function setHtml($html) {
+    public function setHtml($html)
+    {
         $this->html = $html;
     }
 
@@ -69,7 +73,8 @@ class Info extends Field
      *
      * @return string
      */
-    public function getHtml() {
+    public function getHtml()
+    {
         return $this->html;
     }
 

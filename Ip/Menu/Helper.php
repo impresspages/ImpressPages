@@ -71,16 +71,30 @@ class Helper
 
         $languageCode = ipContent()->getCurrentLanguage()->getCode();
 
-        $menuRootId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
+        $menuRootId = ipDb()->selectValue(
+            'page',
+            'id',
+            array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0)
+        );
 
         if ($depthFrom == 1) {
-            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
+            $elements = ipDb()->selectAll(
+                'page',
+                '*',
+                array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0),
+                "ORDER BY $order"
+            ); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And it is at position 0. This is where -2 comes from.
             if (!empty($breadcrumb[0])) {
                 $rootPage = ipContent()->getPage($breadcrumb[0]->getParentId());
                 if ($rootPage && $rootPage->getAlias() == $menuName) {
                     $parent = $breadcrumb[$depthFrom - 2];
-                    $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0), "ORDER BY $order");
+                    $elements = ipDb()->selectAll(
+                        'page',
+                        '*',
+                        array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0),
+                        "ORDER BY $order"
+                    );
                 } else {
                     $elements = array();
                 }
@@ -124,7 +138,12 @@ class Helper
             $pageId = ipContent()->getCurrentPage()->getId();
         }
 
-        $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
+        $elements = ipDb()->selectAll(
+            'page',
+            '*',
+            array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0),
+            "ORDER BY $order"
+        ); //get first level elements
 
         $items = array();
         if (!empty($elements)) {
@@ -149,15 +168,24 @@ class Helper
             $item = new Item();
             $subSelected = false;
             if ($curDepth < $depth) {
-                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1, 'isSecured' => 0, 'isDeleted' => 0), "ORDER BY $order");
+                $children = ipDb()->selectAll(
+                    'page',
+                    '*',
+                    array('parentId' => $page->getId(), 'isVisible' => 1, 'isSecured' => 0, 'isDeleted' => 0),
+                    "ORDER BY $order"
+                );
                 if ($children) {
                     $childrenItems = self::arrayToMenuItem($children, $depth, $curDepth + 1, $order);
                     $item->setChildren($childrenItems);
                 }
             }
-            if ($page->isCurrent() || $page->getRedirectUrl() && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+            if ($page->isCurrent() || $page->getRedirectUrl() && $page->getLink(
+                ) == \Ip\Internal\UrlHelper::getCurrentUrl()
+            ) {
                 $item->markAsCurrent(true);
-            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getRedirectUrl() && self::existInBreadcrumb($page->getLink())) {
+            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getRedirectUrl(
+                ) && self::existInBreadcrumb($page->getLink())
+            ) {
                 $item->markAsInCurrentBreadcrumb(true);
             }
 

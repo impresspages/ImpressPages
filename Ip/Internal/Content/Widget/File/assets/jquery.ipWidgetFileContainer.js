@@ -15,7 +15,7 @@
                 if (options.files) {
                     files = options.files;
                 } else {
-                    files = new Array();
+                    files = [];
                 }
 
                 if (!data) {

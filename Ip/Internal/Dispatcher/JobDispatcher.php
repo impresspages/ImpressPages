@@ -17,7 +17,7 @@ class JobDispatcher extends EventListener
     /**
      * Trigger an event
      *
-     * @param $eventName Event name
+     * @param string $eventName Event name
      * @param array $data Data for event processing
      * @return null
      */

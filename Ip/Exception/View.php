@@ -2,4 +2,6 @@
 
 namespace Ip\Exception;
 
-class View extends \Ip\Exception {}
+class View extends \Ip\Exception
+{
+}

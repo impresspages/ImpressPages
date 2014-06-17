@@ -22,6 +22,4 @@ class PublicController extends \Ip\Controller
     }
 
 
-
-
 }

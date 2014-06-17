@@ -12,7 +12,8 @@ namespace Ip\Internal\Languages;
  * class to ouput the languages
  * @package ImpressPages
  */
-class Model{
+class Model
+{
 
     public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection)
     {
@@ -21,7 +22,7 @@ class Model{
             $languageOrder = 1;
         }
 
-        $params = array (
+        $params = array(
             'title' => $title,
             'abbreviation' => $abbreviation,
             'code' => $code,
@@ -57,10 +58,6 @@ class Model{
     {
         return ipDb()->selectAll('language', '*', array(), 'ORDER BY `languageOrder`');
     }
-
-
-
-
 
 
 }

@@ -15,12 +15,14 @@ namespace Ip\Internal\Breadcrumb;
 class Service
 {
 
+
     /**
+     * @param bool $showHome
      * @return string HTML with links to website languages
      */
     static function generateBreadcrumb($showHome = true)
     {
-        $data = array (
+        $data = array(
             'homeUrl' => $showHome ? ipHomeUrl() : null,
             'pages' => ipContent()->getBreadcrumb()
         );

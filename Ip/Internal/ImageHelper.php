@@ -11,15 +11,15 @@ namespace Ip\Internal;
 class ImageHelper
 {
 
-    const ERROR_MEMORY = 1;            // Can't get required memory.
-    const ERROR_INCOMPATIBLE = 2;      // Incompatible file MIME type.
-    const ERROR_WRITE = 3;             // Can't write destination file.
-    const ERROR_UNKNOWN_MIME = 4;      // Can't write destination file.
+    const ERROR_MEMORY = 1; // Can't get required memory.
+    const ERROR_INCOMPATIBLE = 2; // Incompatible file MIME type.
+    const ERROR_WRITE = 3; // Can't write destination file.
+    const ERROR_UNKNOWN_MIME = 4; // Can't write destination file.
     const ERROR_UNKNOWN_CROP_TYPE = 5; // Unknown crop type.
 
-    const CROP_TYPE_FIT = 1;    // Resize to fit
-    const CROP_TYPE_CROP = 2;   // Crop image if it don't fit
-    const CROP_TYPE_WIDTH = 3;  // Resize to width
+    const CROP_TYPE_FIT = 1; // Resize to fit
+    const CROP_TYPE_CROP = 2; // Crop image if it don't fit
+    const CROP_TYPE_WIDTH = 3; // Resize to width
     const CROP_TYPE_HEIGHT = 4; // Resize to height
 
     /**
@@ -36,13 +36,16 @@ class ImageHelper
      * @param bool $forced if true, resizes image even if she fits to specified size (is smaller than required)
      * @param int $quality from 0 (biggest compression) to 100 (best quality)
      * @return string file name of resized image in destDir folder
+     * @throws \Exception
+     * @throws \Ip\Exception
      */
-    public static function resize($imageFile, $widthDest, $heightDest, $destDir, $type, $forced, $quality) {
+    public static function resize($imageFile, $widthDest, $heightDest, $destDir, $type, $forced, $quality)
+    {
         $imageInfo = getimagesize($imageFile);
 
         if (!self::resizeRequired($imageInfo[0], $imageInfo[1], $widthDest, $heightDest, $type, $forced)) {
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
-            copy($imageFile, $destDir.$newName);
+            copy($imageFile, $destDir . $newName);
             return $newName;
         }
 
@@ -59,7 +62,7 @@ class ImageHelper
         $imageNew = self::resizeImage($image, $widthDest, $heightDest, $imageInfo[0], $imageInfo[1], $type);
 
         $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
-        $newFile = $destDir.$newName;
+        $newFile = $destDir . $newName;
 
         $mime = self::getMimeType($imageFile);
         try {
@@ -82,8 +85,11 @@ class ImageHelper
      * @param int $widthDest
      * @param int $heightDest
      * @return string
+     * @throws \Ip\Exception
+     * @throws \Exception
      */
-    public static function crop($imageFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest) {
+    public static function crop($imageFile, $destDir, $x1, $y1, $x2, $y2, $quality, $widthDest, $heightDest)
+    {
         if ($widthDest === null) {
             $widthDest = $x2 - $x1;
         }
@@ -95,11 +101,11 @@ class ImageHelper
 
         if ($imageInfo[0] == $widthDest && $imageInfo[1] == $heightDest && $x1 == 0 && $y1 == 0) { // Don't need to crop or resize.
             $newName = \Ip\Internal\File\Functions::genUnoccupiedName($imageFile, $destDir);
-            copy($imageFile, $destDir.$newName);
+            copy($imageFile, $destDir . $newName);
             return $newName;
         }
 
-        if (!self::getMemoryNeeded($imageFile) ) {
+        if (!self::getMemoryNeeded($imageFile)) {
             throw new \Ip\Exception("Can't get memory needed", self::ERROR_MEMORY);
         }
 
@@ -109,7 +115,10 @@ class ImageHelper
             throw new \Ip\Exception($e->getMessage(), $e->getCode(), $e);
         }
 
-        if ($x2 - $x1 > imagesx($image) || $y2 - $y1 > imagesy($image) || $x1 < 0 || $y1 < 0) { // Cropping area goes out of image edge. Fill transparent.
+        if ($x2 - $x1 > imagesx($image) || $y2 - $y1 > imagesy(
+                $image
+            ) || $x1 < 0 || $y1 < 0
+        ) { // Cropping area goes out of image edge. Fill transparent.
             /**
              * Negative coordinates x1, y1 are possible.
              * This part of code just adds tarnsparent edges in this way making $image required proportions.
@@ -117,7 +126,7 @@ class ImageHelper
              */
             $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
             imagealphablending($tmpImage, false);
-            imagesavealpha($tmpImage,true);
+            imagesavealpha($tmpImage, true);
             $color = imagecolorallocatealpha($tmpImage, 255, 255, 255, 127);
             imagefilledrectangle($tmpImage, 0, 0, $x2 - $x1, $y2 - $y1, $color);
             if ($x1 >= 0) {
@@ -150,7 +159,18 @@ class ImageHelper
                 $dy2 = imagesy($tmpImage);
             }
 
-            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $dx2 - $dx1, $dy2 - $dy1, $sx2 - $sx1, $sy2 - $sy1);
+            imagecopyresampled(
+                $tmpImage,
+                $image,
+                $dx1,
+                $dy1,
+                $sx1,
+                $sy1,
+                $dx2 - $dx1,
+                $dy2 - $dy1,
+                $sx2 - $sx1,
+                $sy2 - $sy1
+            );
             $image = $tmpImage;
 
             $sx1 = 0;
@@ -163,7 +183,7 @@ class ImageHelper
 
             $path_parts = pathinfo($imageFile);
             if ($path_parts['extension'] != 'png') {
-                $tmpImageName = $path_parts['filename'].'.png';
+                $tmpImageName = $path_parts['filename'] . '.png';
             } else {
                 $tmpImageName = $imageFile;
             }
@@ -186,9 +206,9 @@ class ImageHelper
         imagesavealpha($imageNew, true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
         imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
-        imagecopyresampled($imageNew, $image, 0,  0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
+        imagecopyresampled($imageNew, $image, 0, 0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
 
-        $newFile = $destDir.$newName;
+        $newFile = $destDir . $newName;
 
         try {
             self::saveImage($imageNew, $newFile, $quality, $mime);
@@ -200,41 +220,47 @@ class ImageHelper
     }
 
     /**
-     * @param string $image
+     * @param resource $image
      * @param string $fileName
      * @param int $quality
      * @return bool
+     * @throws \Exception
      */
-    public static function saveJpeg($image, $fileName, $quality) {
+    public static function saveJpeg($image, $fileName, $quality)
+    {
         if (!imagejpeg($image, $fileName, $quality)) {
-            throw new \Exception("Can't write to file: ".$fileName , self::ERROR_WRITE);
+            throw new \Exception("Can't write to file: " . $fileName, self::ERROR_WRITE);
         }
         return true;
     }
 
     /**
-     * @param string $image
+     * @param resource $image
      * @param string $fileName
      * @param int $quality
      * @return bool
+     * @throws \Exception
      */
-    public static function savePng($image, $fileName, $quality) {
+    public static function savePng($image, $fileName, $quality)
+    {
         // Png quality is from 0 (no compression) to 9.
-        $tmpQuality = $quality/10;
+        $tmpQuality = $quality / 10;
         $tmpQuality = 9 - $tmpQuality;
         if ($tmpQuality < 0) {
             $tmpQuality = 0;
         }
         if (!imagepng($image, $fileName, $tmpQuality)) {
-            throw new \Exception("Can't write to file: ".$fileName , self::ERROR_WRITE);
+            throw new \Exception("Can't write to file: " . $fileName, self::ERROR_WRITE);
         }
         return true;
     }
 
     /**
-     * @param string $imageFile
+     * @param $imageFile
+     * @return bool|null
      */
-    public static function getMemoryNeeded($imageFile) {
+    public static function getMemoryNeeded($imageFile)
+    {
         $imageInfo = getimagesize($imageFile);
         if (!isset($imageInfo['channels']) || !$imageInfo['channels']) {
             $imageInfo['channels'] = 4;
@@ -252,16 +278,20 @@ class ImageHelper
         }
 
         $a64kb = 65536;
-        $bytesNeeded = round(($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $a64kb) * 1.65);
+        $bytesNeeded = round(
+            ($imageInfo[0] * $imageInfo[1] * $imageInfo['bits'] * $imageInfo['channels'] / 8 + $a64kb) * 1.65
+        );
 
         return \Ip\Internal\System\Helper\SystemInfo::allocateMemory($bytesNeeded);
     }
 
     /**
      * @param string $image
-     * @return string
+     * @return resource
+     * @throws \Exception
      */
-    public static function createImageImage($image) {
+    public static function createImageImage($image)
+    {
         $mime = self::getMimeType($image);
 
         switch ($mime) {
@@ -270,7 +300,7 @@ class ImageHelper
                 $image = imagecreatefromjpeg($image);
                 break;
             case IMAGETYPE_GIF:
-                $image = imagecreatefromgif ($image);
+                $image = imagecreatefromgif($image);
                 imageAlphaBlending($image, false);
                 imageSaveAlpha($image, true);
                 break;
@@ -280,7 +310,7 @@ class ImageHelper
                 imageSaveAlpha($image, true);
                 break;
             default:
-                throw new \Exception("Incompatible type. Type detected: ".$mime, self::ERROR_INCOMPATIBLE);
+                throw new \Exception("Incompatible type. Type detected: " . $mime, self::ERROR_INCOMPATIBLE);
         }
 
         return $image;
@@ -289,8 +319,10 @@ class ImageHelper
     /**
      * @param string $imageFile
      * @return string
+     * @throws \Exception
      */
-    public static function getMimeType($imageFile) {
+    public static function getMimeType($imageFile)
+    {
         $imageInfo = getimagesize($imageFile);
         if (isset($imageInfo[2])) {
             return $imageInfo[2];
@@ -299,19 +331,23 @@ class ImageHelper
         }
     }
 
+
     /**
-     * @param string $image
-     * @param int $widthDest
-     * @param int $heightDest
-     * @param double $widthSource
-     * @param double $heightSource
-     * @param string $type
+     * @param $image
+     * @param $widthDest
+     * @param $heightDest
+     * @param $widthSource
+     * @param $heightSource
+     * @param $type
+     * @return resource
+     * @throws \Exception
      */
-    private static function resizeImage($image, $widthDest, $heightDest, $widthSource, $heightSource, $type) {
+    private static function resizeImage($image, $widthDest, $heightDest, $widthSource, $heightSource, $type)
+    {
         $dest_proportion = $widthDest / $heightDest;
         $sourceProportion = (double)$widthSource / (double)$heightSource;
 
-        switch($type) {
+        switch ($type) {
             case self::CROP_TYPE_FIT:
                 if ($sourceProportion > $dest_proportion) {
                     $width_skirtumas = 0;
@@ -321,8 +357,9 @@ class ImageHelper
                     $height_skirtumas = 0;
                 }
 
-                if ($height_skirtumas == 0 && $width_skirtumas != 0)
+                if ($height_skirtumas == 0 && $width_skirtumas != 0) {
                     $widthDest = $heightDest * $sourceProportion;
+                }
                 elseif ($height_skirtumas != 0 && $width_skirtumas == 0) {
                     $heightDest = $widthDest / $sourceProportion;
                 }
@@ -348,7 +385,18 @@ class ImageHelper
                 imagesavealpha($imageNew, true);
                 $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
                 imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
-                imagecopyresampled($imageNew, $image, 0, 0, $width_skirtumas, $height_skirtumas, $widthDest, $heightDest, $widthSource-$width_skirtumas*2, $heightSource-$height_skirtumas*2);
+                imagecopyresampled(
+                    $imageNew,
+                    $image,
+                    0,
+                    0,
+                    $width_skirtumas,
+                    $height_skirtumas,
+                    $widthDest,
+                    $heightDest,
+                    $widthSource - $width_skirtumas * 2,
+                    $heightSource - $height_skirtumas * 2
+                );
                 break;
             case self::CROP_TYPE_WIDTH:
                 $heightTmp = $widthDest / $sourceProportion;
@@ -363,7 +411,7 @@ class ImageHelper
                 if ($heightTmp > $heightDest) {
                     $image = $imageNew;
                     $imageNew = imagecreatetruecolor($widthDest, $heightDest);
-                    $color = imagecolorallocate ($imageNew, 255, 255, 255 );
+                    $color = imagecolorallocate($imageNew, 255, 255, 255);
                     imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
                     imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightDest, $widthDest, $heightDest);
                 }
@@ -381,27 +429,31 @@ class ImageHelper
                 if ($widthTmp > $widthDest) {
                     $image = $imageNew;
                     $imageNew = imagecreatetruecolor($widthDest, $heightDest);
-                    $color = imagecolorallocate ($imageNew, 255, 255, 255 );
+                    $color = imagecolorallocate($imageNew, 255, 255, 255);
                     imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
                     imagecopyresampled($imageNew, $image, 0, 0, 0, 0, $widthDest, $heightDest, $widthDest, $heightDest);
                 }
                 break;
             default:
-                throw new \Exception("Unknown crop type: ".$type, self::ERROR_UNKNOWN_CROP_TYPE);
+                throw new \Exception("Unknown crop type: " . $type, self::ERROR_UNKNOWN_CROP_TYPE);
         }
 
         return $imageNew;
     }
 
+
     /**
-     * @param int $widthS
-     * @param int $heightS
-     * @param int $widthT
-     * @param int $heightT
-     * @param string $type
-     * @param bool $forced
+     * @param $widthS
+     * @param $heightS
+     * @param $widthT
+     * @param $heightT
+     * @param $type
+     * @param $forced
+     * @return bool
+     * @throws \Exception
      */
-    private static function resizeRequired($widthS, $heightS, $widthT, $heightT, $type, $forced) {
+    private static function resizeRequired($widthS, $heightS, $widthT, $heightT, $type, $forced)
+    {
         switch ($type) {
             case self::CROP_TYPE_FIT:
                 if ($forced) {
@@ -432,7 +484,7 @@ class ImageHelper
                 }
                 break;
             default:
-                throw new \Exception("Unknown crop type: ".$type, self::ERROR_UNKNOWN_CROP_TYPE);
+                throw new \Exception("Unknown crop type: " . $type, self::ERROR_UNKNOWN_CROP_TYPE);
         }
     }
 
@@ -441,8 +493,10 @@ class ImageHelper
      * @param string $newFile
      * @param int $quality
      * @param string $mime
+     * @throws \Exception
      */
-    private static function saveImage($imageNew, $newFile, $quality, $mime) {
+    private static function saveImage($imageNew, $newFile, $quality, $mime)
+    {
         switch ($mime) {
             case IMAGETYPE_GIF:
             case IMAGETYPE_PNG:
@@ -461,7 +515,7 @@ class ImageHelper
                     imagecopymerge($imageBg, $imageNew, 0, 0, 0, 0, $width, $height, 50);
                     */
                     self::savePng($imageNew, $newFile, 9); // 9 - Maximum compression. PNG is always lossless.
-                } catch (\Exceptin $e) {
+                } catch (\Exception $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
                 }
                 break;
@@ -470,7 +524,7 @@ class ImageHelper
             default:
                 try {
                     self::saveJpeg($imageNew, $newFile, $quality);
-                } catch (\Exceptin $e) {
+                } catch (\Exception $e) {
                     throw new \Exception ($e->getMessage(), $e->getCode(), $e);
                 }
                 break;

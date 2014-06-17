@@ -7,12 +7,13 @@
 
 namespace Ip\Response;
 
-class Redirect extends \Ip\Response {
+class Redirect extends \Ip\Response
+{
 
-    public function __construct($url, $content = NULL, $headers = NULL, $statusCode = NULL)
+    public function __construct($url, $content = null, $headers = null, $statusCode = null)
     {
         header('HTTP/1.1 301 Moved Permanently');
-        header('Location: '.$url);
+        header('Location: ' . $url);
         parent::__construct($content, $headers, $statusCode);
     }
 

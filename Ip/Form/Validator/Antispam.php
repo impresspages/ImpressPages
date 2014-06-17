@@ -24,7 +24,8 @@ class Antispam extends Validator
      * @param $environment
      * @return string|bool
      */
-    public function getError($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment)
+    {
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
             $errorText = __('Form security check has failed. Please refresh the page.', 'Ip-admin');
         } else {
@@ -46,7 +47,11 @@ class Antispam extends Validator
         }
 
         // Second value should be encoded today or yesterday date. Yesterday date is needed if user started to fill in data at 23:59
-        if (!isset($value[1]) || ($value[1] != md5(date('Y-m-d').ipConfig()->get('sessionName')) && $value[1] != date('Y-m-d', time() - 24 * 60 * 60))) {
+        if (!isset($value[1]) || ($value[1] != md5(date('Y-m-d') . ipConfig()->get('sessionName')) && $value[1] != date(
+                    'Y-m-d',
+                    time() - 24 * 60 * 60
+                ))
+        ) {
             return $errorText;
         }
 

@@ -32,10 +32,10 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
     }
 
     var settings = $.extend({
-        'hide_fallbacks':false,
-        'selected':function (style) {
+        'hide_fallbacks': false,
+        'selected': function (style) {
         },
-        'initial':''
+        'initial': ''
     }, options);
 
     return this.each(function () {
@@ -56,7 +56,7 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
                 }
             });
             if (!curFontExists) {
-                var defaultFontLabel =  root.find('.ipsDefaultFont').html();
+                var defaultFontLabel = root.find('.ipsDefaultFont').html();
                 root.find('.ipsFontName').html(defaultFontLabel.substr(0, defaultFontLabel.indexOf(',')));
                 root.css('font-family', root.find('.ipsDefaultFont').css('font-family'));
             } else {
@@ -113,5 +113,5 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
             }
         })
     });
-}
+};
 

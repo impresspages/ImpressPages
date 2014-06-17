@@ -4,18 +4,15 @@
  */
 
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
-            if (typeof(options) === 'undefined') {
-                options = {};
-            }
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
                 var context = $this;
@@ -26,7 +23,7 @@
                         e.preventDefault();
                         var repository = new ipRepository({preview: $this.data('preview')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
-                    })
+                    });
 
                     $this.data('ipFormRepositoryFile', {
                         inputName: $this.data('inputname'),
@@ -41,10 +38,10 @@
         },
 
 
-        _getFiles : function () {
+        _getFiles: function () {
             var $this = $(this);
             var files = new Array();
-            $this.find('.ipsFiles div').each(function(){
+            $this.find('.ipsFiles div').each(function () {
 
                 var $this = $(this);
 
@@ -53,10 +50,10 @@
                 }
 
                 files.push({
-                    fileName : $this.data('fileName'),
-                    file : $this.data('file'),
-                    renameTo : $this.find('.ipsRenameTo').val(),
-                    dir : $this.data('dir')
+                    fileName: $this.data('fileName'),
+                    file: $this.data('file'),
+                    renameTo: $this.find('.ipsRenameTo').val(),
+                    dir: $this.data('dir')
                 });
             });
             return files;
@@ -86,18 +83,18 @@
             $this.find('.ipsFiles').append($newFile);
 
         }
-    }
+    };
 
-    var removeFile = function(e){
+    var removeFile = function (e) {
         var $this = $(this);
         var $currentTarget = $(e.currentTarget);
         var $file = $currentTarget.closest('.ipsFile');
         $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
         $file.remove();
-    }
+    };
 
 
-    $.fn.ipFormRepositoryFile = function(method) {
+    $.fn.ipFormRepositoryFile = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {

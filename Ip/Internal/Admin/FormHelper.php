@@ -8,7 +8,7 @@ class FormHelper
 {
 
 
-    public static  function getLanguageSelectForm()
+    public static function getLanguageSelectForm()
     {
         //create form object
         $form = new \Ip\Form();
@@ -35,7 +35,7 @@ class FormHelper
 
         foreach ($files as $file) {
             if (preg_match('/^Ip-admin-([a-z\_A-Z]+)\.json$/', $file, $matches)) {
-                $locales[] = array($matches[1],  strtoupper($matches[1]));
+                $locales[] = array($matches[1], strtoupper($matches[1]));
             }
         }
         if (empty($locales)) {
@@ -44,7 +44,7 @@ class FormHelper
         return $locales;
     }
 
-    public static  function getLoginForm()
+    public static function getLoginForm()
     {
         //create form object
         $form = new \Ip\Form();

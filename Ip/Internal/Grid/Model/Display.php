@@ -132,7 +132,7 @@ class Display
                 $fieldObject = $this->config->fieldObject($fieldData);
                 $preview = $fieldObject->preview($row);
 
-                if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], TRUE)) {
+                if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], true)) {
                     $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
                 }
                 $preparedRowData[] = $preview;
@@ -146,11 +146,6 @@ class Display
         }
         return $rows;
     }
-
-
-
-
-
 
 
     protected function getColumnData()
@@ -201,7 +196,7 @@ class Display
             $field = $fieldObject->updateField($curData);
             if ($field) {
                 if (!empty($fieldData['validators'])) {
-                    foreach($fieldData['validators'] as $validator) {
+                    foreach ($fieldData['validators'] as $validator) {
                         $field->addValidator($validator);
                     }
                 }
@@ -239,7 +234,7 @@ class Display
             $field = $fieldObject->createField();
             if ($field) {
                 if (!empty($fieldData['validators'])) {
-                    foreach($fieldData['validators'] as $validator) {
+                    foreach ($fieldData['validators'] as $validator) {
                         $field->addValidator($validator);
                     }
                 }

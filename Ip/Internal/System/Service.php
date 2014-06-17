@@ -14,7 +14,8 @@
 namespace Ip\Internal\System;
 
 
-class Service {
+class Service
+{
 
     public static function updateLinks()
     {
