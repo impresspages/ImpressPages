@@ -60,15 +60,15 @@ class Route
             return $this->controllerClass;
         }
 
-        if ($this->plugin == null ) {
+        if ($this->plugin == null) {
             return null;
         }
 
 
         if (in_array($this->plugin, \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$this->plugin.'\\'.$this->controller;
+            $controllerClass = 'Ip\\Internal\\' . $this->plugin . '\\' . $this->controller;
         } else {
-            $controllerClass = 'Plugin\\'.$this->plugin.'\\'.$this->controller;
+            $controllerClass = 'Plugin\\' . $this->plugin . '\\' . $this->controller;
         }
 
         $this->controllerClass = $controllerClass;
@@ -131,7 +131,6 @@ class Route
     {
         return $this->environment == self::ENVIRONMENT_ADMIN;
     }
-
 
 
 }

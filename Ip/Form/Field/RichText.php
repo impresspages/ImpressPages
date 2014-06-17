@@ -20,8 +20,14 @@ class RichText extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . esc($this->getName(), 'attr') . '" ' . $this->getValidationAttributesStr($doctype) . ' >' . esc($this->getValue(), 'textarea') . '</textarea>';
+    public function render($doctype, $environment)
+    {
+        return '<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . esc($this->getName(), 'attr') . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' >' . esc($this->getValue(), 'textarea') . '</textarea>';
     }
 
     /**
@@ -31,7 +37,8 @@ class RichText extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'richtext';
     }
 

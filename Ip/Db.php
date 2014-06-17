@@ -32,7 +32,7 @@ class Db
     /**
      * Get database connection object
      *
-     * @throws \Ip\Exception
+     * @throws \Ip\Exception\Db
      * @return \PDO
      */
     public function getConnection()
@@ -191,7 +191,7 @@ class Db
         $sql .= ' WHERE ';
         if ($where) {
             foreach ($where as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     if (is_bool($value)) {
@@ -255,7 +255,7 @@ class Db
         $sql .= ' WHERE ';
         if ($where) {
             foreach ($where as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";
@@ -297,6 +297,7 @@ class Db
      * @param string $sql
      * @param array $params
      * @return int The number of rows affected by the last SQL statement
+     * @throws \Ip\Exception\Db
      */
     public function execute($sql, $params = array())
     {
@@ -343,12 +344,13 @@ class Db
         }
     }
 
+
     /**
      * Execute query, insert values from associative array
-     *
-     * @param string $table
-     * @param array $row
-     * @return mixed
+     * @param $table
+     * @param $row
+     * @param bool $ignore
+     * @return bool|string
      */
     public function insert($table, $row, $ignore = false)
     {
@@ -391,10 +393,10 @@ class Db
      */
     public function delete($table, $condition)
     {
-        $sql = "DELETE FROM " . ipTable($table, FALSE) . " WHERE ";
+        $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
         $params = array();
         foreach ($condition as $column => $value) {
-            if ($value === NULL) {
+            if ($value === null) {
                 $sql .= "`{$column}` IS NULL AND ";
             } else {
                 $sql .= "`{$column}` = ? AND ";
@@ -439,7 +441,7 @@ class Db
 
         if (is_array($condition)) {
             foreach ($condition as $column => $value) {
-                if ($value === NULL) {
+                if ($value === null) {
                     $sql .= "`{$column}` IS NULL AND ";
                 } else {
                     $sql .= "`{$column}` = ? AND ";

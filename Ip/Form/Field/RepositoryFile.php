@@ -21,7 +21,8 @@ class RepositoryFile extends Field
     protected $fileLimit = -1;
     protected $preview = 'list'; // List or thumbnails.
 
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         if (isset($options['fileLimit'])) {
             $this->fileLimit = $options['fileLimit'];
         }
@@ -38,8 +39,9 @@ class RepositoryFile extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        $data = array (
+    public function render($doctype, $environment)
+    {
+        $data = array(
             'attributesStr' => $this->getAttributesStr($doctype),
             'classes' => implode(' ', $this->getClasses()),
             'inputName' => $this->getName(),
@@ -61,7 +63,8 @@ class RepositoryFile extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'repositoryFile';
     }
 
@@ -70,7 +73,8 @@ class RepositoryFile extends Field
      *
      * @param int $fileLimit
      */
-    public function setFileLimit($fileLimit) {
+    public function setFileLimit($fileLimit)
+    {
         $this->fileLimit = $fileLimit;
     }
 
@@ -79,7 +83,8 @@ class RepositoryFile extends Field
      *
      * @return int
      */
-    public function getFileLimit() {
+    public function getFileLimit()
+    {
         return $this->fileLimit;
     }
 
@@ -90,7 +95,8 @@ class RepositoryFile extends Field
      * @param string $valueKey this field name
      * @return string
      */
-    public function getValueAsString($values, $valueKey) {
+    public function getValueAsString($values, $valueKey)
+    {
         if (isset($values[$valueKey]) && is_array($values[$valueKey])) {
             return implode(', ', $values[$valueKey]);
         } else {

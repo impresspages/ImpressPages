@@ -20,9 +20,15 @@ class Farbtastic extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         return '<div class="ipmFarbtasticPopup ipsFarbtasticPopup"></div>
-        <input ' . $this->getAttributesStr($doctype) . ' class="form-control ipsControlInput ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
+        <input ' . $this->getAttributesStr($doctype) . ' class="form-control ipsControlInput ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
@@ -32,7 +38,8 @@ class Farbtastic extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'farbtastic';
     }
 
@@ -43,7 +50,8 @@ class Farbtastic extends Field
      * @param string $valueKey This value key could not exist in values array.
      * @return bool|string Return string on error or false on success.
      */
-    public function validate($values, $valueKey) {
+    public function validate($values, $valueKey)
+    {
         return false;
     }
 

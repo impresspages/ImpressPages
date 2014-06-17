@@ -90,9 +90,6 @@ h1, h2, h3 {
     Form
 */
 
-.formWrap {
-    padding: 5px 15px;
-}
 
 .loginTitle {
     border-bottom: 1px solid #000;
@@ -114,7 +111,4 @@ h1, h2, h3 {
     float: right;
     margin-top: -2em;
     position: relative;
-}
-.ipmErrorMessage { /* todox: fix validator to have this global message optional (if moving to inline) */
-    display: none !important; /* hiding global validator error */
 }

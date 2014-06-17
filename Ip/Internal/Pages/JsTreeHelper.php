@@ -21,9 +21,14 @@ class JsTreeHelper
      * @param int $parentId
      * @return array
      */
-    protected static function getList ($languageCode, $parentId)
+    protected static function getList($languageCode, $parentId)
     {
-        $pages = ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), 'ORDER BY `pageOrder`');
+        $pages = ipDb()->selectAll(
+            'page',
+            '*',
+            array('parentId' => $parentId, 'isDeleted' => 0),
+            'ORDER BY `pageOrder`'
+        );
 
         $answer = array();
 
@@ -54,8 +59,16 @@ class JsTreeHelper
                 $icon = ipFileUrl('Ip/Internal/Pages/assets/img/file_hidden.png');
             }
 
-            $pageData['li_attr'] = array('id' => $jsTreeId, 'rel' => 'page', 'languageId' => $languageCode, 'pageId' => $page['id']);
-            $pageData['data'] = array ('title' => $page['title'] . '', 'icon' => $icon); //transform null into empty string. Null break JStree into infinite loop
+            $pageData['li_attr'] = array(
+                'id' => $jsTreeId,
+                'rel' => 'page',
+                'languageId' => $languageCode,
+                'pageId' => $page['id']
+            );
+            $pageData['data'] = array(
+                'title' => $page['title'] . '',
+                'icon' => $icon
+            ); //transform null into empty string. Null break JStree into infinite loop
             $pageData['text'] = htmlspecialchars($page['title']);
             $answer[] = $pageData;
         }
@@ -65,7 +78,7 @@ class JsTreeHelper
 
     protected static function _jsTreeId($languageId, $pageId)
     {
-        return 'page_' . $languageId . '_'. $pageId;
+        return 'page_' . $languageId . '_' . $pageId;
     }
 
 

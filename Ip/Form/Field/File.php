@@ -20,8 +20,9 @@ class File extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        $data = array (
+    public function render($doctype, $environment)
+    {
+        $data = array(
             'attributesStr' => $this->getAttributesStr($doctype),
             'classes' => implode(' ', $this->getClasses()),
             'inputName' => $this->getName()
@@ -44,7 +45,8 @@ class File extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'file';
     }
 
@@ -55,7 +57,8 @@ class File extends Field
      * @param string $valueKey this field name.
      * @return string
      */
-    public function getValueAsString($values, $valueKey) {
+    public function getValueAsString($values, $valueKey)
+    {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             return implode(', ', $values[$valueKey]['file']);
         } else {
@@ -99,7 +102,8 @@ class File extends Field
      * @return array
      * @throws \Exception
      */
-    public static function getFiles($values, $valueKey) {
+    public static function getFiles($values, $valueKey)
+    {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             $answer = array();
             foreach ($values[$valueKey]['file'] as $file) {
@@ -125,7 +129,8 @@ class File extends Field
      * @return array
      * @throws \Exception
      */
-    public static function originalFileNames($values, $valueKey) {
+    public static function originalFileNames($values, $valueKey)
+    {
         if (isset($values[$valueKey]['file']) && is_array($values[$valueKey]['file'])) {
             $answer = array();
             foreach ($values[$valueKey]['file'] as $key => $file) {
@@ -135,7 +140,10 @@ class File extends Field
                     continue;
                 }
                 $originalFileName = $file;
-                if (isset($values[$valueKey]['originalFileName'][$key]) && is_string($values[$valueKey]['originalFileName'][$key])) {
+                if (isset($values[$valueKey]['originalFileName'][$key]) && is_string(
+                        $values[$valueKey]['originalFileName'][$key]
+                    )
+                ) {
                     $originalFileName = $values[$valueKey]['originalFileName'][$key];
                 }
 

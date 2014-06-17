@@ -12,7 +12,8 @@ namespace Ip\Response;
  * Event dispatcher class
  *
  */
-class Layout extends \Ip\Response {
+class Layout extends \Ip\Response
+{
 
     const DOCTYPE_XHTML1_STRICT = 1;
     const DOCTYPE_XHTML1_TRANSITIONAL = 2;
@@ -28,15 +29,6 @@ class Layout extends \Ip\Response {
      */
     protected $layout = null;
 
-    /** array js variables */
-    private $javascriptVariables = array();
-
-    /** array required javascript files */
-    private $requiredJavascript = array();
-
-    /** array required css files */
-    private $requiredCss = array();
-
     private $layoutVariables = array();
 
     private $title;
@@ -46,11 +38,11 @@ class Layout extends \Ip\Response {
     private $charset;
 
 
-    public function __construct($content = NULL, $headers = NULL, $statusCode = NULL)
+    public function __construct($content = null, $headers = null, $statusCode = null)
     {
         $this->setFavicon(ipFileUrl('favicon.ico'));
         $this->setCharset(ipConfig()->get('charset'));
-        parent::__construct($content = NULL, $headers = NULL, $statusCode = NULL);
+        parent::__construct($content = null, $headers = null, $statusCode = null);
     }
 
     public function render()
@@ -71,7 +63,7 @@ class Layout extends \Ip\Response {
 
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
-        } elseif(strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
+        } elseif (strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
             $viewFile = ipFile($layout);
         } else { //layout file. Like main.php
             $viewFile = ipThemeFile($layout);
@@ -124,43 +116,53 @@ class Layout extends \Ip\Response {
         return $this->layoutVariables;
     }
 
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function setTitle($title){
+    public function setTitle($title)
+    {
         $this->title = $title;
     }
 
-    public function getKeywords(){
+    public function getKeywords()
+    {
         return $this->keywords;
     }
 
-    public function setKeywords($keywords){
+    public function setKeywords($keywords)
+    {
         $this->keywords = $keywords;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function setDescription($description){
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    public function getFavicon(){
+    public function getFavicon()
+    {
         return $this->favicon;
     }
 
-    public function setFavicon($favicon){
+    public function setFavicon($favicon)
+    {
         $this->favicon = $favicon;
     }
 
-    public function getCharset(){
+    public function getCharset()
+    {
         return $this->charset;
     }
 
-    public function setCharset($charset){
+    public function setCharset($charset)
+    {
         $this->charset = $charset;
     }
 

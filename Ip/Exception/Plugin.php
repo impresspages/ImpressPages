@@ -4,4 +4,6 @@
 namespace Ip\Exception;
 
 
-class Plugin extends \Ip\Exception {}
+class Plugin extends \Ip\Exception
+{
+}

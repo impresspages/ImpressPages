@@ -234,12 +234,12 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = ui.item;
+        var draggingElement = event.currentTarget;
 
         //drop side
         var sidePlaceholders = new Array();
 
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
+        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
             //left placeholder
             sidePlaceholders.push({
                 left: $(value).offset().left - 20,
@@ -318,7 +318,7 @@
 
         //drop between the widgets horizontally
         var horizontalPlaceholders = new Array();
-        $.each($('.ipBlock'), function (blockKey, block) {
+        $.each($('.ipBlock').not($(draggingElement).find('.ipBlock')), function (blockKey, block) {
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
                 var $widget = $(value);

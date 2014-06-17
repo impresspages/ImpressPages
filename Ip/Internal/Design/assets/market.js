@@ -114,7 +114,7 @@ var ipDesignThemeMarket = new function () {
         var $popup = $('.ipModuleDesign .ipsThemeMarketPopup');
         $popup.addClass('hidden');
 
-        $('#ipsModuleThemeMarketContainer iframe').remove();
+        $('#ipsModuleThemeMarketContainer').find('iframe').remove();
 
         $(document.body).removeClass(bodyClassToHideScroll);
     };

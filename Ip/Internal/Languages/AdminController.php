@@ -15,7 +15,7 @@ class AdminController extends \Ip\GridController
     {
         ipAddJs('Ip/Internal/Languages/assets/languages.js');
         $response = parent::index() . $this->helperHtml();
-        return $response ;
+        return $response;
     }
 
 
@@ -27,8 +27,6 @@ class AdminController extends \Ip\GridController
         );
         return ipView('view/helperHtml.php', $helperData)->render();
     }
-
-
 
 
     protected function config()
@@ -54,7 +52,11 @@ class AdminController extends \Ip\GridController
             'beforeUpdate' => array($this, 'beforeUpdate'),
             'afterUpdate' => array($this, 'afterUpdate'),
             'beforeDelete' => array($this, 'beforeDelete'),
-            'deleteWarning' => __('Are you sure you want to delete? All pages and other language related content will be lost forever!', 'Ip-admin', false),
+            'deleteWarning' => __(
+                'Are you sure you want to delete? All pages and other language related content will be lost forever!',
+                'Ip-admin',
+                false
+            ),
             'sortField' => 'languageOrder',
             'fields' => array(
                 array(
@@ -77,7 +79,11 @@ class AdminController extends \Ip\GridController
                     'showInList' => false,
                     'validators' => array(
                         array('Regex', '/^([^\/\\\])+$/', __('You can\'t use slash in URL.', 'Ip-admin', false)),
-                        array('Unique', array('table' => 'language', 'allowEmpty' => true), __('Language url should be unique', 'Ip-admin', false)),
+                        array(
+                            'Unique',
+                            array('table' => 'language', 'allowEmpty' => true),
+                            __('Language url should be unique', 'Ip-admin', false)
+                        ),
                         array('NotInArray', $reservedDirs, __('This is a system directory name.', 'Ip-admin', false)),
                     )
                 ),
@@ -86,7 +92,11 @@ class AdminController extends \Ip\GridController
                     'field' => 'code',
                     'showInList' => false,
                     'validators' => array(
-                        array('Unique', array('table' => 'language'), __('Language code should be unique', 'Ip-admin', false)),
+                        array(
+                            'Unique',
+                            array('table' => 'language'),
+                            __('Language code should be unique', 'Ip-admin', false)
+                        ),
                     )
                 ),
                 array(
@@ -116,11 +126,11 @@ class AdminController extends \Ip\GridController
         $url = $code;
 
         $languages = ipContent()->getLanguages();
-        foreach($languages as $language) {
+        foreach ($languages as $language) {
             if ($language->getCode() == $code) {
                 return new \Ip\Response\Json(array(
                     'error' => 1,
-                    'errorMessage' => __('This language already exist.', 'Ip-admin', FALSE)
+                    'errorMessage' => __('This language already exist.', 'Ip-admin', false)
                 ));
             }
         }
@@ -151,7 +161,8 @@ class AdminController extends \Ip\GridController
             $firstLanguage = $languages[0];
 
             if ($firstLanguage->getUrlPath() === '') {
-                if ($params['beforeOrAfter'] == 'before' && $params['targetId'] == $firstLanguage->getId()) { // moving some language to the top slot
+                if ($params['beforeOrAfter'] == 'before' && $params['targetId'] == $firstLanguage->getId()
+                ) { // moving some language to the top slot
 
                     $commands = array();
 
@@ -162,12 +173,19 @@ class AdminController extends \Ip\GridController
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
-                    $pattern = __('Please set %s language url to non empty before moving other language to top.', 'Ip-admin', false);
-                    $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
+                    $pattern = __(
+                        'Please set %s language url to non empty before moving other language to top.',
+                        'Ip-admin',
+                        false
+                    );
+                    $commands[] = \Ip\Internal\Grid\Model\Commands::showMessage(
+                        sprintf($pattern, $firstLanguage->getAbbreviation())
+                    );
 
                     return $commands;
 
-                } elseif ($params['beforeOrAfter'] == 'after' && $params['id'] == $firstLanguage->getId()) { // moving first language down
+                } elseif ($params['beforeOrAfter'] == 'after' && $params['id'] == $firstLanguage->getId()
+                ) { // moving first language down
 
                     $commands = array();
 
@@ -179,12 +197,15 @@ class AdminController extends \Ip\GridController
 
                     // show message
                     $pattern = __('Please set %s language url to non empty before moving it down.', 'Ip-admin', false);
-                    $commands[]= \Ip\Internal\Grid\Model\Commands::showMessage(sprintf($pattern, $firstLanguage->getAbbreviation()));
+                    $commands[] = \Ip\Internal\Grid\Model\Commands::showMessage(
+                        sprintf($pattern, $firstLanguage->getAbbreviation())
+                    );
 
                     return $commands;
                 }
             } // $firstLanguage->getUrlPath() === ''
         }
+        return null;
     }
 
     public function beforeDelete($id)
@@ -213,7 +234,11 @@ class AdminController extends \Ip\GridController
         }
 
         if ($updated['code'] != $this->beforeUpdate['code']) {
-            ipDb()->update('page', array('languageCode' => $updated['code']), array('languageCode' => $this->beforeUpdate['code']));
+            ipDb()->update(
+                'page',
+                array('languageCode' => $updated['code']),
+                array('languageCode' => $this->beforeUpdate['code'])
+            );
         }
 
         ipContent()->_invalidateLanguages();

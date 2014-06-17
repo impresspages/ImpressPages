@@ -6,23 +6,32 @@
 namespace Ip\Internal\Repository;
 
 
-class Filter {
+class Filter
+{
     public static function ipReflectionExtension($ext, $data)
     {
         if (empty($data['source']) || empty($data['options'])) {
-            return;
+            return null;
         }
         $options = $data['options'];
 
 
-        switch($options['type']) {
+        switch ($options['type']) {
             case 'crop':
                 $requiredParams = array(
-                    'x1', 'y1', 'x2', 'y2', 'width', 'height'
+                    'x1',
+                    'y1',
+                    'x2',
+                    'y2',
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -34,11 +43,15 @@ class Filter {
                 break;
             case 'center':
                 $requiredParams = array(
-                    'width', 'height'
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];
@@ -50,11 +63,15 @@ class Filter {
                 break;
             case 'fit':
                 $requiredParams = array(
-                    'width', 'height'
+                    'width',
+                    'height'
                 );
                 $missing = array_diff($requiredParams, array_keys($options));
                 if ($missing) {
-                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(', ', $missing));
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                        ', ',
+                        $missing
+                    ));
                 }
                 if (isset($options['quality'])) {
                     $quality = $options['quality'];

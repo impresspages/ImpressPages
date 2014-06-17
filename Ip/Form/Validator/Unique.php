@@ -18,7 +18,8 @@ class Unique extends \Ip\Form\Validator
      * @param string $errorMessage
      * @throws \Ip\Exception
      */
-    public function __construct($data, $errorMessage = null) {
+    public function __construct($data, $errorMessage = null)
+    {
         if (empty($data['table'])) {
             throw new \Ip\Exception('Unique validator expect table name');
         }
@@ -33,7 +34,8 @@ class Unique extends \Ip\Form\Validator
      * @param $environment
      * @return string|bool
      */
-    public function getError($values, $valueKey, $environment) {
+    public function getError($values, $valueKey, $environment)
+    {
         if (!array_key_exists($valueKey, $values)) {
             return false;
         }

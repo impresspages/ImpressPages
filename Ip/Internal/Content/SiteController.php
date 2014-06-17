@@ -24,7 +24,8 @@ class SiteController extends \Ip\Controller
         try {
             if (!$widgetRecord) {
                 return \Ip\Response\JsonRpc::error(
-                    "Can't find requested Widget: " . $widgetId, 10
+                    "Can't find requested Widget: " . $widgetId,
+                    10
                 );
             }
 

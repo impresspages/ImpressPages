@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -15,9 +14,8 @@ namespace Ip\Internal\Repository;
  * But files from frontend can be uploaded only to
  * secured folder not accessible from the Internet
  */
-class SiteController extends \Ip\Controller{
-
-
+class SiteController extends \Ip\Controller
+{
 
 
     /**
@@ -49,7 +47,10 @@ class SiteController extends \Ip\Controller{
         } catch (\Ip\Exception\Repository\Upload\ForbiddenFileExtension $e) {
             // Return JSON-RPC response
             $message = __('Forbidden file type.', 'Ip-admin');
-            ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
+            ipLog()->info(
+                'Repository.invalidUploadedFileExtension: ' . $e->getMessage(),
+                array('plugin' => 'Repository')
+            );
 
             // TODO JSONRPC
             $answer = array(
@@ -98,9 +99,6 @@ class SiteController extends \Ip\Controller{
         return new \Ip\Response\Json($answerArray);
 
     }
-
-
-
 
 
     protected function backendOnly()

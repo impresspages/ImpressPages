@@ -59,8 +59,10 @@ class User
         $_SESSION['ipUserId'] = $id;
     }
 
+
     /**
      * Get all user info collected from all user specific plugins.
+     * @param int $userId
      * @return array
      */
     function data($userId = null)

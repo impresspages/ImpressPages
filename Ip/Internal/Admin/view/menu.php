@@ -1,7 +1,7 @@
 <?php
 /**
  * This comment block is used just to make IDE suggestions to work
- * @var $items \Ip\Menu\Item[]
+ * @var $items \Ip\Internal\Admin\MenuItem[]
  * @var $this \Ip\View
  */
 ?>

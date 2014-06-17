@@ -4,13 +4,16 @@
  */
 
 
-
 namespace Ip\Internal\Ecommerce;
 
 
-class Job {
+class Job
+{
     public static function ipSubscriptionPaymentUrl($data)
     {
+        /**
+         * @var \Ip\SubscriptionPayment[] $paymentMethods
+         */
         $paymentMethods = ipFilter('ipSubscriptionPaymentMethods', array(), $data);
         if (empty($paymentMethods)) {
             return '';
@@ -23,6 +26,6 @@ class Job {
         }
 
         //show payment selection window
-
+        return null;
     }
 }

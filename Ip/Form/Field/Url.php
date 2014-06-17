@@ -20,7 +20,8 @@ class Url extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
+    public function render($doctype, $environment)
+    {
         $browseButton = '';
 
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
@@ -33,7 +34,12 @@ class Url extends Field
 
         return '
 <div class="input-group">
-    <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />
+    <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />
     ' . $browseButton . '
 </div>
 ';
@@ -46,7 +52,8 @@ class Url extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'url';
     }
 

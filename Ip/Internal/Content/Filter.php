@@ -38,7 +38,10 @@ class Filter
 
     /**
      * Form widget
-     * @param array $value
+     * @param $fieldTypes
+     * @param null $info
+     * @return \Ip\Internal\Content\FieldType[]
+     * @internal param array $value
      */
     public static function ipWidgetFormFieldTypes($fieldTypes, $info = null)
     {
@@ -59,7 +62,8 @@ class Filter
             'view/formFieldOptions/list.php'
         )->render());
         $fieldTypes['Checkbox'] = new FieldType('Checkbox', '\Ip\Form\Field\Checkbox', $typeCheckbox, 'ipWidgetForm_InitWysiwygOptions', 'ipWidgetForm_SaveWysiwygOptions', ipView(
-            'view/formFieldOptions/wysiwyg.php', array('form' => self::wysiwygForm())
+            'view/formFieldOptions/wysiwyg.php',
+            array('form' => self::wysiwygForm())
         )->render());
         $fieldTypes['Radio'] = new FieldType('Radio', '\Ip\Form\Field\Radio', $typeRadio, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
             'view/formFieldOptions/list.php'
@@ -74,7 +78,7 @@ class Filter
     {
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
-        $field = new \Ip\Form\Field\RichText(array (
+        $field = new \Ip\Form\Field\RichText(array(
             'name' => 'text'
         ));
         $form->addField($field);
@@ -161,7 +165,9 @@ class Filter
                 'hint' => __('Page settings', 'Ip-admin', false),
                 'class' => 'ipsAdminPageSettings',
                 'faIcon' => 'fa-gear',
-                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent()->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage()->getId()
+                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent(
+                    )->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage(
+                    )->getId()
             );
         }
 
@@ -185,7 +191,8 @@ class Filter
                 'revisions' => $revisions,
                 'currentRevision' => $revision,
                 'managementUrls' => $managementUrls,
-                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']) && ipContent()->getCurrentPage()->isVisible(),
+                'isPublished' => !\Ip\Internal\Content\Model::isRevisionModified($revision['revisionId']) && ipContent(
+                    )->getCurrentPage()->isVisible(),
                 'isVisible' => ipContent()->getCurrentPage()->isvisible()
             );
 

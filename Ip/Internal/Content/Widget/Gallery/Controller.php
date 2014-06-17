@@ -1,26 +1,25 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Content\Widget\Gallery;
 
 
+class Controller extends \Ip\WidgetController
+{
 
-
-class Controller extends \Ip\WidgetController{
-
-    public function getTitle() {
+    public function getTitle()
+    {
         return __('Gallery', 'Ip-admin', false);
     }
 
 
-
-    public function update($widgetId, $postData, $currentData) {
+    public function update($widgetId, $postData, $currentData)
+    {
 
         if (isset($postData['method'])) {
-            switch($postData['method']) {
+            switch ($postData['method']) {
                 case 'move':
                     if (!isset($postData['originalPosition'])) {
                         throw new \Ip\Exception("Missing required parameter");
@@ -45,8 +44,8 @@ class Controller extends \Ip\WidgetController{
                     }
 
 
-                    foreach($postData['images'] as $image){
-                        if (!isset($image['fileName']) || !isset($image['status'])){ //check if all required data present
+                    foreach ($postData['images'] as $image) {
+                        if (!isset($image['fileName']) || !isset($image['status'])) { //check if all required data present
                             continue;
                         }
 
@@ -150,43 +149,19 @@ class Controller extends \Ip\WidgetController{
         }
 
 
-
-
         return $currentData;
     }
 
 
     public function adminHtmlSnippet()
     {
-        $variables = array (
+        $variables = array(
             'linkForm' => $this->linkForm(),
             'settingsForm' => $this->settingsForm()
         );
         return ipView('snippet/gallery.php', $variables)->render();
 
     }
-
-
-
-    private function _findExistingImage ($imageOriginalFile, $allImages) {
-
-        if (!is_array($allImages)) {
-            return false;
-        }
-
-        $answer = false;
-        foreach ($allImages as $imageKey => $image) {
-            if (isset($image['imageOriginal']) && $image['imageOriginal'] == $imageOriginalFile) {
-                $answer = $image;
-                break;
-            }
-        }
-
-        return $answer;
-
-    }
-
-
 
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
@@ -209,10 +184,12 @@ class Controller extends \Ip\WidgetController{
                     'width' => $bigWidth,
                     'height' => $bigHeight
                 );
-                $curImage['imageBig'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformBig, $desiredName));
+                $curImage['imageBig'] = ipFileUrl(
+                    ipReflection($curImage['imageOriginal'], $transformBig, $desiredName)
+                );
 
-                if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2']) ) {
-                    $transformSmall = array (
+                if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2'])) {
+                    $transformSmall = array(
                         'type' => 'crop',
                         'x1' => $curImage['cropX1'],
                         'y1' => $curImage['cropY1'],
@@ -223,14 +200,16 @@ class Controller extends \Ip\WidgetController{
                         'quality' => ipGetOption('Content.widgetGalleryQuality')
                     );
                 } else {
-                    $transformSmall = array (
+                    $transformSmall = array(
                         'type' => 'center',
                         'width' => ipGetOption('Content.widgetGalleryWidth'),
                         'height' => ipGetOption('Content.widgetGalleryHeight'),
                         'quality' => ipGetOption('Content.widgetGalleryQuality')
                     );
                 }
-                $curImage['imageSmall'] = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
+                $curImage['imageSmall'] = ipFileUrl(
+                    ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title'])
+                );
 
                 if (empty($curImage['type'])) {
                     $curImage['type'] = 'lightbox';
@@ -256,17 +235,19 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-    public function delete($widgetId, $data) {
+    public function delete($widgetId, $data)
+    {
         if (!isset($data['images']) || !is_array($data['images'])) {
             return;
         }
 
-        foreach($data['images'] as $imageKey => $image) {
+        foreach ($data['images'] as $image) {
             self::_deleteOneImage($image, $widgetId);
         };
     }
 
-    private function _deleteOneImage($image, $widgetId) {
+    private function _deleteOneImage($image, $widgetId)
+    {
         if (!is_array($image)) {
             return;
         }
@@ -276,27 +257,25 @@ class Controller extends \Ip\WidgetController{
     }
 
 
-
-
-
     /**
-    *
-    * Duplicate widget action. This function is executed after the widget is being duplicated.
-    * All widget data is duplicated automatically. This method is used only in case a widget
-    * needs to do some maintenance tasks on duplication.
-    * @param int $oldId old widget id
-    * @param int $newId duplicated widget id
-    * @param array $data data that has been duplicated from old widget to the new one
-    * @return array
-    */
-    public function duplicate($oldId, $newId, $data) {
+     *
+     * Duplicate widget action. This function is executed after the widget is being duplicated.
+     * All widget data is duplicated automatically. This method is used only in case a widget
+     * needs to do some maintenance tasks on duplication.
+     * @param int $oldId old widget id
+     * @param int $newId duplicated widget id
+     * @param array $data data that has been duplicated from old widget to the new one
+     * @return array
+     */
+    public function duplicate($oldId, $newId, $data)
+    {
         if (!isset($data['images']) || !is_array($data['images'])) {
-            return;
+            return null;
         }
 
-        foreach($data['images'] as $imageKey => $image) {
+        foreach ($data['images'] as $image) {
             if (!is_array($image)) {
-                return;
+                return null;
             }
             if (isset($image['imageOriginal']) && $image['imageOriginal']) {
                 \Ip\Internal\Repository\Model::bindFile($image['imageOriginal'], 'Content', $newId);
@@ -350,7 +329,6 @@ class Controller extends \Ip\WidgetController{
         $form = new \Ip\Form();
 
 
-
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'title',
@@ -365,7 +343,6 @@ class Controller extends \Ip\WidgetController{
                 'label' => __('Description', 'Ip-admin', false),
             ));
         $form->addField($field);
-
 
 
         return $form; // Output a string with generated HTML form

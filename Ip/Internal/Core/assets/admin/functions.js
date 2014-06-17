@@ -1,6 +1,3 @@
-
-
-
 /**
  * show the "browse link" modal, and call callback_function with result
  *
@@ -24,7 +21,7 @@ function ipBrowseLink(callback) {
         $modal.modal('hide');
     });
 
-    $modal.on('hide.bs.modal',function () {
+    $modal.on('hide.bs.modal', function () {
         if (!selectedPageId) {
             callback('');
             return;
@@ -52,8 +49,7 @@ function ipBrowseLink(callback) {
 }
 
 
-function ipBrowseFile(callback, options)
-{
+function ipBrowseFile(callback, options) {
     if (typeof options === 'undefined') {
         options = {};
     }

@@ -18,7 +18,8 @@ class Email extends Field
      *
      * @param array $options
      */
-    public function __construct($options = array()) {
+    public function __construct($options = array())
+    {
         parent::__construct($options);
         $this->addValidator('Email');
     }
@@ -30,8 +31,14 @@ class Email extends Field
      * @param $environment
      * @return string
      */
-    public function render($doctype, $environment) {
-        return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr($doctype) . ' type="email" value="' . htmlspecialchars($this->getValue()) . '" />';
+    public function render($doctype, $environment)
+    {
+        return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="email" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
     /**
@@ -41,7 +48,8 @@ class Email extends Field
      * By default empty. Extending classes should specify their value.
      * @return string
      */
-    public function getTypeClass() {
+    public function getTypeClass()
+    {
         return 'email';
     }
 

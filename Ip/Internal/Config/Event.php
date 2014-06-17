@@ -7,7 +7,8 @@
 namespace Ip\Internal\Config;
 
 
-class Event {
+class Event
+{
     public static function ipLanguageAdded($data)
     {
         $language = ipContent()->getLanguage($data['id']);

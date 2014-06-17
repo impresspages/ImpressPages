@@ -21,8 +21,14 @@ class Required extends Validator
      * @param $environment
      * @return string|bool
      */
-    public function getError($values, $valueKey, $environment) {
-        if (!array_key_exists($valueKey, $values) || in_array($values[$valueKey], array(null, false, '', array()), true)) {
+    public function getError($values, $valueKey, $environment)
+    {
+        if (!array_key_exists($valueKey, $values) || in_array(
+                $values[$valueKey],
+                array(null, false, '', array()),
+                true
+            )
+        ) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
                 $errorText = __('Required field', 'Ip-admin');
             } else {
@@ -40,7 +46,8 @@ class Required extends Validator
      *
      * @return string
      */
-    public function validatorAttributes() {
+    public function validatorAttributes()
+    {
         return 'required="required"';
     }
 

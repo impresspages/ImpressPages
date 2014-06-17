@@ -23,7 +23,6 @@ class Actions
     }
 
 
-
     public function delete($id)
     {
         $db = new Db($this->config);
@@ -66,7 +65,7 @@ class Actions
 
         $fields = $this->config->fields();
         $dbData = array();
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             if ($field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate']) {
                 continue;
             }
@@ -75,7 +74,9 @@ class Actions
             $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("updateData method in class " . esc(get_class($fieldObject)) . " has to return array.");
+                throw new \Ip\Exception("updateData method in class " . esc(
+                    get_class($fieldObject)
+                ) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
@@ -86,7 +87,7 @@ class Actions
 
         $this->updateDb($this->config->rawTableName(), $dbData, $id);
 
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $this->config->fieldObject($field)->afterUpdate($id, $oldData, $data);
         }
 
@@ -119,26 +120,22 @@ class Actions
         $params[] = $id;
 
 
-
         return ipDb()->execute($sql, $params);
     }
 
 
-
-
-
     public function create($data)
     {
-        $db = new Db($this->config);
-
         $fields = $this->config->fields();
         $dbData = array();
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
             $fieldObject->beforeCreate(null, $data);
             $fieldData = $fieldObject->createData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("createData method in class " . esc(get_class($fieldObject)) . " has to return array.");
+                throw new \Ip\Exception("createData method in class " . esc(
+                    get_class($fieldObject)
+                ) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
@@ -156,7 +153,7 @@ class Actions
 
         $recordId = ipDb()->insert($this->config->rawTableName(), $dbData);
 
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $fieldObject = $this->config->fieldObject($field);
             $fieldObject->afterCreate($recordId, $data);
         }
@@ -213,6 +210,10 @@ class Actions
             $newPriority = ($priority + $priority2) / 2;
         }
 
-        ipDb()->update($this->config->rawTableName(), array($sortField => $newPriority), array($this->config->idField() => $id));
+        ipDb()->update(
+            $this->config->rawTableName(),
+            array($sortField => $newPriority),
+            array($this->config->idField() => $id)
+        );
     }
 }

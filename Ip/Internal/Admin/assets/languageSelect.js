@@ -1,7 +1,5 @@
-
-
 //select language in login screen
-$('.ipsLanguageSelect').find('select').on('change', function() {
+$('.ipsLanguageSelect').find('select').on('change', function () {
     "use strict";
     var $select = $(this);
     var data = {

@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -30,8 +29,14 @@ class Event
             );
 
             ipAddJsVariable('ipRepositoryHtml', ipView('view/popup.php', $popupData)->render());
-            ipAddJsVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'Ip-admin'));
-            ipAddJsVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'Ip-admin'));
+            ipAddJsVariable(
+                'ipRepositoryTranslate_confirm_delete',
+                __('Are you sure you want to delete selected files?', 'Ip-admin')
+            );
+            ipAddJsVariable(
+                'ipRepositoryTranslate_delete_warning',
+                __('Some of the selected files cannot be deleted because they are used.', 'Ip-admin')
+            );
         }
 
 

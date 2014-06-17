@@ -17,31 +17,31 @@ class Helper
      * Clean comments of json content and decode it with json_decode().
      * Work like the original php json_decode() function with the same params
      *
-     * @param   string  $json    The json string being decoded
-     * @param   bool    $assoc   When TRUE, returned objects will be converted into associative arrays.
-     * @param   integer $depth   User specified recursion depth. (>=5.3)
+     * @param   string $json The json string being decoded
+     * @param   bool $assoc When TRUE, returned objects will be converted into associative arrays.
+     * @param   integer $depth User specified recursion depth. (>=5.3)
      * @param   integer $options Bitmask of JSON decode options. (>=5.4)
      * @return  string
      */
-    public static function jsonCleanDecode($json, $assoc = false, $depth = 512, $options = 0) {
+    public static function jsonCleanDecode($json, $assoc = false, $depth = 512, $options = 0)
+    {
 
         // search and remove comments like /* */ and //
         $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
 
-        if(version_compare(phpversion(), '5.4.0', '>=')) {
+        if (version_compare(phpversion(), '5.4.0', '>=')) {
             $json = json_decode($json, $assoc, $depth, $options);
-        }
-        elseif(version_compare(phpversion(), '5.3.0', '>=')) {
+        } elseif (version_compare(phpversion(), '5.3.0', '>=')) {
             $json = json_decode($json, $assoc, $depth);
-        }
-        else {
+        } else {
             $json = json_decode($json, $assoc);
         }
 
         return $json;
     }
 
-    public static function removeDir($dir, $depth = 0) {
+    public static function removeDir($dir, $depth = 0)
+    {
 
         if (!file_exists($dir)) {
             //already removed
@@ -57,11 +57,11 @@ class Helper
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
 
-                    $result = self::removeDir($dir.'/'.$file, $depth + 1);
+                    $result = self::removeDir($dir . '/' . $file, $depth + 1);
                     if (!$result) {
                         return false;
                     }
@@ -85,8 +85,6 @@ class Helper
 
     public static function pluginPropertiesForm($pluginName)
     {
-
-        $plugin = self::getPluginData($pluginName);
 
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
@@ -155,8 +153,9 @@ class Helper
     }
 
     /**
-     * @param \Ip\Form  $form
-     * @param array     $options
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @param array $options
      */
     public static function getOptionsForm($pluginName, $form, $options)
     {
@@ -170,7 +169,7 @@ class Helper
                     $newField = new Form\Field\Select();
                     $values = array();
                     if (!empty($option['values']) && is_array($option['values'])) {
-                        foreach($option['values'] as $value) {
+                        foreach ($option['values'] as $value) {
                             $values[] = array($value, $value);
                         }
                     }
@@ -206,7 +205,7 @@ class Helper
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             if (!empty($option['note'])) {
                 $newField->setNote($option['note']);
-               }
+            }
             $default = isset($option['default']) ? $option['default'] : null;
 
             $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));

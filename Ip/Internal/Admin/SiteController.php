@@ -186,7 +186,7 @@ class SiteController extends \Ip\Controller
         }
 
         if (ipRequest()->getPost('ajax', 1)) {
-            $response =  new \Ip\Response\Json($answer);
+            $response = new \Ip\Response\Json($answer);
             return $response;
         } else {
             //MultiSite autologin
@@ -213,7 +213,7 @@ class SiteController extends \Ip\Controller
             if ($user) {
                 \Ip\Internal\Administrators\Service::sendResetPasswordLink($user['id']);
             } else {
-                $errors['username'] = __('Following administrator doesn\'t exist', 'Ip-admin', FALSE);
+                $errors['username'] = __('Following administrator doesn\'t exist', 'Ip-admin', false);
             }
 
         }
@@ -230,7 +230,7 @@ class SiteController extends \Ip\Controller
             );
         }
 
-        $response =  new \Ip\Response\Json($answer);
+        $response = new \Ip\Response\Json($answer);
         return $response;
     }
 
@@ -266,7 +266,7 @@ class SiteController extends \Ip\Controller
             );
         }
 
-        $response =  new \Ip\Response\Json($answer);
+        $response = new \Ip\Response\Json($answer);
         return $response;
     }
 

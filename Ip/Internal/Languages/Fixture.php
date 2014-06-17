@@ -13,914 +13,914 @@ class Fixture
     public static function languageList()
     {
 
-        $languages = array (
+        $languages = array(
             'ab' =>
-                array (
+                array(
                     'name' => 'Abkhaz',
                     'nativeName' => 'аҧсуа',
                 ),
             'aa' =>
-                array (
+                array(
                     'name' => 'Afar',
                     'nativeName' => 'Afaraf',
                 ),
             'af' =>
-                array (
+                array(
                     'name' => 'Afrikaans',
                     'nativeName' => 'Afrikaans',
                 ),
             'ak' =>
-                array (
+                array(
                     'name' => 'Akan',
                     'nativeName' => 'Akan',
                 ),
             'sq' =>
-                array (
+                array(
                     'name' => 'Albanian',
                     'nativeName' => 'Shqip',
                 ),
             'am' =>
-                array (
+                array(
                     'name' => 'Amharic',
                     'nativeName' => 'አማርኛ',
                 ),
             'ar' =>
-                array (
+                array(
                     'name' => 'Arabic',
                     'nativeName' => 'العربية',
                 ),
             'an' =>
-                array (
+                array(
                     'name' => 'Aragonese',
                     'nativeName' => 'Aragonés',
                 ),
             'hy' =>
-                array (
+                array(
                     'name' => 'Armenian',
                     'nativeName' => 'Հայերեն',
                 ),
             'as' =>
-                array (
+                array(
                     'name' => 'Assamese',
                     'nativeName' => 'অসমীয়া',
                 ),
             'av' =>
-                array (
+                array(
                     'name' => 'Avaric',
                     'nativeName' => 'авар мацӀ, магӀарул мацӀ',
                 ),
             'ae' =>
-                array (
+                array(
                     'name' => 'Avestan',
                     'nativeName' => 'avesta',
                 ),
             'ay' =>
-                array (
+                array(
                     'name' => 'Aymara',
                     'nativeName' => 'aymar aru',
                 ),
             'az' =>
-                array (
+                array(
                     'name' => 'Azerbaijani',
                     'nativeName' => 'azərbaycan dili',
                 ),
             'bm' =>
-                array (
+                array(
                     'name' => 'Bambara',
                     'nativeName' => 'bamanankan',
                 ),
             'ba' =>
-                array (
+                array(
                     'name' => 'Bashkir',
                     'nativeName' => 'башҡорт теле',
                 ),
             'eu' =>
-                array (
+                array(
                     'name' => 'Basque',
                     'nativeName' => 'euskara, euskera',
                 ),
             'be' =>
-                array (
+                array(
                     'name' => 'Belarusian',
                     'nativeName' => 'Беларуская',
                 ),
             'bn' =>
-                array (
+                array(
                     'name' => 'Bengali',
                     'nativeName' => 'বাংলা',
                 ),
             'bh' =>
-                array (
+                array(
                     'name' => 'Bihari',
                     'nativeName' => 'भोजपुरी',
                 ),
             'bi' =>
-                array (
+                array(
                     'name' => 'Bislama',
                     'nativeName' => 'Bislama',
                 ),
             'bs' =>
-                array (
+                array(
                     'name' => 'Bosnian',
                     'nativeName' => 'bosanski jezik',
                 ),
             'br' =>
-                array (
+                array(
                     'name' => 'Breton',
                     'nativeName' => 'brezhoneg',
                 ),
             'bg' =>
-                array (
+                array(
                     'name' => 'Bulgarian',
                     'nativeName' => 'български език',
                 ),
             'my' =>
-                array (
+                array(
                     'name' => 'Burmese',
                     'nativeName' => 'ဗမာစာ',
                 ),
             'ca' =>
-                array (
+                array(
                     'name' => 'Catalan; Valencian',
                     'nativeName' => 'Català',
                 ),
             'ch' =>
-                array (
+                array(
                     'name' => 'Chamorro',
                     'nativeName' => 'Chamoru',
                 ),
             'ce' =>
-                array (
+                array(
                     'name' => 'Chechen',
                     'nativeName' => 'нохчийн мотт',
                 ),
             'ny' =>
-                array (
+                array(
                     'name' => 'Chichewa; Chewa; Nyanja',
                     'nativeName' => 'chiCheŵa, chinyanja',
                 ),
             'zh' =>
-                array (
+                array(
                     'name' => 'Chinese',
                     'nativeName' => '中文 (Zhōngwén), 汉语, 漢語',
                 ),
             'cv' =>
-                array (
+                array(
                     'name' => 'Chuvash',
                     'nativeName' => 'чӑваш чӗлхи',
                 ),
             'kw' =>
-                array (
+                array(
                     'name' => 'Cornish',
                     'nativeName' => 'Kernewek',
                 ),
             'co' =>
-                array (
+                array(
                     'name' => 'Corsican',
                     'nativeName' => 'corsu, lingua corsa',
                 ),
             'cr' =>
-                array (
+                array(
                     'name' => 'Cree',
                     'nativeName' => 'ᓀᐦᐃᔭᐍᐏᐣ',
                 ),
             'hr' =>
-                array (
+                array(
                     'name' => 'Croatian',
                     'nativeName' => 'hrvatski',
                 ),
             'cs' =>
-                array (
+                array(
                     'name' => 'Czech',
                     'nativeName' => 'česky, čeština',
                 ),
             'da' =>
-                array (
+                array(
                     'name' => 'Danish',
                     'nativeName' => 'dansk',
                 ),
             'dv' =>
-                array (
+                array(
                     'name' => 'Divehi; Dhivehi; Maldivian;',
                     'nativeName' => 'ދިވެހި',
                 ),
             'nl' =>
-                array (
+                array(
                     'name' => 'Dutch',
                     'nativeName' => 'Nederlands, Vlaams',
                 ),
             'en' =>
-                array (
+                array(
                     'name' => 'English',
                     'nativeName' => 'English',
                 ),
             'eo' =>
-                array (
+                array(
                     'name' => 'Esperanto',
                     'nativeName' => 'Esperanto',
                 ),
             'et' =>
-                array (
+                array(
                     'name' => 'Estonian',
                     'nativeName' => 'eesti, eesti keel',
                 ),
             'ee' =>
-                array (
+                array(
                     'name' => 'Ewe',
                     'nativeName' => 'Eʋegbe',
                 ),
             'fo' =>
-                array (
+                array(
                     'name' => 'Faroese',
                     'nativeName' => 'føroyskt',
                 ),
             'fj' =>
-                array (
+                array(
                     'name' => 'Fijian',
                     'nativeName' => 'vosa Vakaviti',
                 ),
             'fi' =>
-                array (
+                array(
                     'name' => 'Finnish',
                     'nativeName' => 'suomi, suomen kieli',
                 ),
             'fr' =>
-                array (
+                array(
                     'name' => 'French',
                     'nativeName' => 'français, langue française',
                 ),
             'ff' =>
-                array (
+                array(
                     'name' => 'Fula; Fulah; Pulaar; Pular',
                     'nativeName' => 'Fulfulde, Pulaar, Pular',
                 ),
             'gl' =>
-                array (
+                array(
                     'name' => 'Galician',
                     'nativeName' => 'Galego',
                 ),
             'ka' =>
-                array (
+                array(
                     'name' => 'Georgian',
                     'nativeName' => 'ქართული',
                 ),
             'de' =>
-                array (
+                array(
                     'name' => 'German',
                     'nativeName' => 'Deutsch',
                 ),
             'el' =>
-                array (
+                array(
                     'name' => 'Greek, Modern',
                     'nativeName' => 'Ελληνικά',
                 ),
             'gn' =>
-                array (
+                array(
                     'name' => 'Guaraní',
                     'nativeName' => 'Avañeẽ',
                 ),
             'gu' =>
-                array (
+                array(
                     'name' => 'Gujarati',
                     'nativeName' => 'ગુજરાતી',
                 ),
             'ht' =>
-                array (
+                array(
                     'name' => 'Haitian; Haitian Creole',
                     'nativeName' => 'Kreyòl ayisyen',
                 ),
             'ha' =>
-                array (
+                array(
                     'name' => 'Hausa',
                     'nativeName' => 'Hausa, هَوُسَ',
                 ),
             'he' =>
-                array (
+                array(
                     'name' => 'Hebrew (modern)',
                     'nativeName' => 'עברית',
                 ),
             'hz' =>
-                array (
+                array(
                     'name' => 'Herero',
                     'nativeName' => 'Otjiherero',
                 ),
             'hi' =>
-                array (
+                array(
                     'name' => 'Hindi',
                     'nativeName' => 'हिन्दी, हिंदी',
                 ),
             'ho' =>
-                array (
+                array(
                     'name' => 'Hiri Motu',
                     'nativeName' => 'Hiri Motu',
                 ),
             'hu' =>
-                array (
+                array(
                     'name' => 'Hungarian',
                     'nativeName' => 'Magyar',
                 ),
             'ia' =>
-                array (
+                array(
                     'name' => 'Interlingua',
                     'nativeName' => 'Interlingua',
                 ),
             'id' =>
-                array (
+                array(
                     'name' => 'Indonesian',
                     'nativeName' => 'Bahasa Indonesia',
                 ),
             'ie' =>
-                array (
+                array(
                     'name' => 'Interlingue',
                     'nativeName' => 'Originally called Occidental; then Interlingue after WWII',
                 ),
             'ga' =>
-                array (
+                array(
                     'name' => 'Irish',
                     'nativeName' => 'Gaeilge',
                 ),
             'ig' =>
-                array (
+                array(
                     'name' => 'Igbo',
                     'nativeName' => 'Asụsụ Igbo',
                 ),
             'ik' =>
-                array (
+                array(
                     'name' => 'Inupiaq',
                     'nativeName' => 'Iñupiaq, Iñupiatun',
                 ),
             'io' =>
-                array (
+                array(
                     'name' => 'Ido',
                     'nativeName' => 'Ido',
                 ),
             'is' =>
-                array (
+                array(
                     'name' => 'Icelandic',
                     'nativeName' => 'Íslenska',
                 ),
             'it' =>
-                array (
+                array(
                     'name' => 'Italian',
                     'nativeName' => 'Italiano',
                 ),
             'iu' =>
-                array (
+                array(
                     'name' => 'Inuktitut',
                     'nativeName' => 'ᐃᓄᒃᑎᑐᑦ',
                 ),
             'ja' =>
-                array (
+                array(
                     'name' => 'Japanese',
                     'nativeName' => '日本語 (にほんご／にっぽんご)',
                 ),
             'jv' =>
-                array (
+                array(
                     'name' => 'Javanese',
                     'nativeName' => 'basa Jawa',
                 ),
             'kl' =>
-                array (
+                array(
                     'name' => 'Kalaallisut, Greenlandic',
                     'nativeName' => 'kalaallisut, kalaallit oqaasii',
                 ),
             'kn' =>
-                array (
+                array(
                     'name' => 'Kannada',
                     'nativeName' => 'ಕನ್ನಡ',
                 ),
             'kr' =>
-                array (
+                array(
                     'name' => 'Kanuri',
                     'nativeName' => 'Kanuri',
                 ),
             'ks' =>
-                array (
+                array(
                     'name' => 'Kashmiri',
                     'nativeName' => 'कश्मीरी, كشميري‎',
                 ),
             'kk' =>
-                array (
+                array(
                     'name' => 'Kazakh',
                     'nativeName' => 'Қазақ тілі',
                 ),
             'km' =>
-                array (
+                array(
                     'name' => 'Khmer',
                     'nativeName' => 'ភាសាខ្មែរ',
                 ),
             'ki' =>
-                array (
+                array(
                     'name' => 'Kikuyu, Gikuyu',
                     'nativeName' => 'Gĩkũyũ',
                 ),
             'rw' =>
-                array (
+                array(
                     'name' => 'Kinyarwanda',
                     'nativeName' => 'Ikinyarwanda',
                 ),
             'ky' =>
-                array (
+                array(
                     'name' => 'Kirghiz, Kyrgyz',
                     'nativeName' => 'кыргыз тили',
                 ),
             'kv' =>
-                array (
+                array(
                     'name' => 'Komi',
                     'nativeName' => 'коми кыв',
                 ),
             'kg' =>
-                array (
+                array(
                     'name' => 'Kongo',
                     'nativeName' => 'KiKongo',
                 ),
             'ko' =>
-                array (
+                array(
                     'name' => 'Korean',
                     'nativeName' => '한국어 (韓國語), 조선말 (朝鮮語)',
                 ),
             'ku' =>
-                array (
+                array(
                     'name' => 'Kurdish',
                     'nativeName' => 'Kurdî, كوردی‎',
                 ),
             'kj' =>
-                array (
+                array(
                     'name' => 'Kwanyama, Kuanyama',
                     'nativeName' => 'Kuanyama',
                 ),
             'la' =>
-                array (
+                array(
                     'name' => 'Latin',
                     'nativeName' => 'latine, lingua latina',
                 ),
             'lb' =>
-                array (
+                array(
                     'name' => 'Luxembourgish, Letzeburgesch',
                     'nativeName' => 'Lëtzebuergesch',
                 ),
             'lg' =>
-                array (
+                array(
                     'name' => 'Luganda',
                     'nativeName' => 'Luganda',
                 ),
             'li' =>
-                array (
+                array(
                     'name' => 'Limburgish, Limburgan, Limburger',
                     'nativeName' => 'Limburgs',
                 ),
             'ln' =>
-                array (
+                array(
                     'name' => 'Lingala',
                     'nativeName' => 'Lingála',
                 ),
             'lo' =>
-                array (
+                array(
                     'name' => 'Lao',
                     'nativeName' => 'ພາສາລາວ',
                 ),
             'lt' =>
-                array (
+                array(
                     'name' => 'Lithuanian',
                     'nativeName' => 'lietuvių kalba',
                 ),
             'lu' =>
-                array (
+                array(
                     'name' => 'Luba-Katanga',
                     'nativeName' => '',
                 ),
             'lv' =>
-                array (
+                array(
                     'name' => 'Latvian',
                     'nativeName' => 'latviešu valoda',
                 ),
             'gv' =>
-                array (
+                array(
                     'name' => 'Manx',
                     'nativeName' => 'Gaelg, Gailck',
                 ),
             'mk' =>
-                array (
+                array(
                     'name' => 'Macedonian',
                     'nativeName' => 'македонски јазик',
                 ),
             'mg' =>
-                array (
+                array(
                     'name' => 'Malagasy',
                     'nativeName' => 'Malagasy fiteny',
                 ),
             'ms' =>
-                array (
+                array(
                     'name' => 'Malay',
                     'nativeName' => 'bahasa Melayu, بهاس ملايو‎',
                 ),
             'ml' =>
-                array (
+                array(
                     'name' => 'Malayalam',
                     'nativeName' => 'മലയാളം',
                 ),
             'mt' =>
-                array (
+                array(
                     'name' => 'Maltese',
                     'nativeName' => 'Malti',
                 ),
             'mi' =>
-                array (
+                array(
                     'name' => 'Māori',
                     'nativeName' => 'te reo Māori',
                 ),
             'mr' =>
-                array (
+                array(
                     'name' => 'Marathi (Marāṭhī)',
                     'nativeName' => 'मराठी',
                 ),
             'mh' =>
-                array (
+                array(
                     'name' => 'Marshallese',
                     'nativeName' => 'Kajin M̧ajeļ',
                 ),
             'mn' =>
-                array (
+                array(
                     'name' => 'Mongolian',
                     'nativeName' => 'монгол',
                 ),
             'na' =>
-                array (
+                array(
                     'name' => 'Nauru',
                     'nativeName' => 'Ekakairũ Naoero',
                 ),
             'nv' =>
-                array (
+                array(
                     'name' => 'Navajo, Navaho',
                     'nativeName' => 'Diné bizaad, Dinékʼehǰí',
                 ),
             'nb' =>
-                array (
+                array(
                     'name' => 'Norwegian Bokmål',
                     'nativeName' => 'Norsk bokmål',
                 ),
             'nd' =>
-                array (
+                array(
                     'name' => 'North Ndebele',
                     'nativeName' => 'isiNdebele',
                 ),
             'ne' =>
-                array (
+                array(
                     'name' => 'Nepali',
                     'nativeName' => 'नेपाली',
                 ),
             'ng' =>
-                array (
+                array(
                     'name' => 'Ndonga',
                     'nativeName' => 'Owambo',
                 ),
             'nn' =>
-                array (
+                array(
                     'name' => 'Norwegian Nynorsk',
                     'nativeName' => 'Norsk nynorsk',
                 ),
             'no' =>
-                array (
+                array(
                     'name' => 'Norwegian',
                     'nativeName' => 'Norsk',
                 ),
             'ii' =>
-                array (
+                array(
                     'name' => 'Nuosu',
                     'nativeName' => 'Nuosuhxop',
                 ),
             'nr' =>
-                array (
+                array(
                     'name' => 'South Ndebele',
                     'nativeName' => 'isiNdebele',
                 ),
             'oc' =>
-                array (
+                array(
                     'name' => 'Occitan',
                     'nativeName' => 'Occitan',
                 ),
             'oj' =>
-                array (
+                array(
                     'name' => 'Ojibwe, Ojibwa',
                     'nativeName' => 'ᐊᓂᔑᓈᐯᒧᐎᓐ',
                 ),
             'cu' =>
-                array (
+                array(
                     'name' => 'Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic',
                     'nativeName' => 'ѩзыкъ словѣньскъ',
                 ),
             'om' =>
-                array (
+                array(
                     'name' => 'Oromo',
                     'nativeName' => 'Afaan Oromoo',
                 ),
             'or' =>
-                array (
+                array(
                     'name' => 'Oriya',
                     'nativeName' => 'ଓଡ଼ିଆ',
                 ),
             'os' =>
-                array (
+                array(
                     'name' => 'Ossetian, Ossetic',
                     'nativeName' => 'ирон æвзаг',
                 ),
             'pa' =>
-                array (
+                array(
                     'name' => 'Panjabi, Punjabi',
                     'nativeName' => 'ਪੰਜਾਬੀ, پنجابی‎',
                 ),
             'pi' =>
-                array (
+                array(
                     'name' => 'Pāli',
                     'nativeName' => 'पाऴि',
                 ),
             'fa' =>
-                array (
+                array(
                     'name' => 'Persian',
                     'nativeName' => 'فارسی',
                 ),
             'pl' =>
-                array (
+                array(
                     'name' => 'Polish',
                     'nativeName' => 'polski',
                 ),
             'ps' =>
-                array (
+                array(
                     'name' => 'Pashto, Pushto',
                     'nativeName' => 'پښتو',
                 ),
             'pt' =>
-                array (
+                array(
                     'name' => 'Portuguese',
                     'nativeName' => 'Português',
                 ),
             'qu' =>
-                array (
+                array(
                     'name' => 'Quechua',
                     'nativeName' => 'Runa Simi, Kichwa',
                 ),
             'rm' =>
-                array (
+                array(
                     'name' => 'Romansh',
                     'nativeName' => 'rumantsch grischun',
                 ),
             'rn' =>
-                array (
+                array(
                     'name' => 'Kirundi',
                     'nativeName' => 'kiRundi',
                 ),
             'ro' =>
-                array (
+                array(
                     'name' => 'Romanian, Moldavian, Moldovan',
                     'nativeName' => 'română',
                 ),
             'ru' =>
-                array (
+                array(
                     'name' => 'Russian',
                     'nativeName' => 'русский язык',
                 ),
             'sa' =>
-                array (
+                array(
                     'name' => 'Sanskrit (Saṁskṛta)',
                     'nativeName' => 'संस्कृतम्',
                 ),
             'sc' =>
-                array (
+                array(
                     'name' => 'Sardinian',
                     'nativeName' => 'sardu',
                 ),
             'sd' =>
-                array (
+                array(
                     'name' => 'Sindhi',
                     'nativeName' => 'सिन्धी, سنڌي، سندھی‎',
                 ),
             'se' =>
-                array (
+                array(
                     'name' => 'Northern Sami',
                     'nativeName' => 'Davvisámegiella',
                 ),
             'sm' =>
-                array (
+                array(
                     'name' => 'Samoan',
                     'nativeName' => 'gagana faa Samoa',
                 ),
             'sg' =>
-                array (
+                array(
                     'name' => 'Sango',
                     'nativeName' => 'yângâ tî sängö',
                 ),
             'sr' =>
-                array (
+                array(
                     'name' => 'Serbian',
                     'nativeName' => 'српски језик',
                 ),
             'gd' =>
-                array (
+                array(
                     'name' => 'Scottish Gaelic; Gaelic',
                     'nativeName' => 'Gàidhlig',
                 ),
             'sn' =>
-                array (
+                array(
                     'name' => 'Shona',
                     'nativeName' => 'chiShona',
                 ),
             'si' =>
-                array (
+                array(
                     'name' => 'Sinhala, Sinhalese',
                     'nativeName' => 'සිංහල',
                 ),
             'sk' =>
-                array (
+                array(
                     'name' => 'Slovak',
                     'nativeName' => 'slovenčina',
                 ),
             'sl' =>
-                array (
+                array(
                     'name' => 'Slovene',
                     'nativeName' => 'slovenščina',
                 ),
             'so' =>
-                array (
+                array(
                     'name' => 'Somali',
                     'nativeName' => 'Soomaaliga, af Soomaali',
                 ),
             'st' =>
-                array (
+                array(
                     'name' => 'Southern Sotho',
                     'nativeName' => 'Sesotho',
                 ),
             'es' =>
-                array (
+                array(
                     'name' => 'Spanish; Castilian',
                     'nativeName' => 'español, castellano',
                 ),
             'su' =>
-                array (
+                array(
                     'name' => 'Sundanese',
                     'nativeName' => 'Basa Sunda',
                 ),
             'sw' =>
-                array (
+                array(
                     'name' => 'Swahili',
                     'nativeName' => 'Kiswahili',
                 ),
             'ss' =>
-                array (
+                array(
                     'name' => 'Swati',
                     'nativeName' => 'SiSwati',
                 ),
             'sv' =>
-                array (
+                array(
                     'name' => 'Swedish',
                     'nativeName' => 'svenska',
                 ),
             'ta' =>
-                array (
+                array(
                     'name' => 'Tamil',
                     'nativeName' => 'தமிழ்',
                 ),
             'te' =>
-                array (
+                array(
                     'name' => 'Telugu',
                     'nativeName' => 'తెలుగు',
                 ),
             'tg' =>
-                array (
+                array(
                     'name' => 'Tajik',
                     'nativeName' => 'тоҷикӣ, toğikī, تاجیکی‎',
                 ),
             'th' =>
-                array (
+                array(
                     'name' => 'Thai',
                     'nativeName' => 'ไทย',
                 ),
             'ti' =>
-                array (
+                array(
                     'name' => 'Tigrinya',
                     'nativeName' => 'ትግርኛ',
                 ),
             'bo' =>
-                array (
+                array(
                     'name' => 'Tibetan Standard, Tibetan, Central',
                     'nativeName' => 'བོད་ཡིག',
                 ),
             'tk' =>
-                array (
+                array(
                     'name' => 'Turkmen',
                     'nativeName' => 'Türkmen, Түркмен',
                 ),
             'tl' =>
-                array (
+                array(
                     'name' => 'Tagalog',
                     'nativeName' => 'Wikang Tagalog',
                 ),
             'tn' =>
-                array (
+                array(
                     'name' => 'Tswana',
                     'nativeName' => 'Setswana',
                 ),
             'to' =>
-                array (
+                array(
                     'name' => 'Tonga (Tonga Islands)',
                     'nativeName' => 'faka Tonga',
                 ),
             'tr' =>
-                array (
+                array(
                     'name' => 'Turkish',
                     'nativeName' => 'Türkçe',
                 ),
             'ts' =>
-                array (
+                array(
                     'name' => 'Tsonga',
                     'nativeName' => 'Xitsonga',
                 ),
             'tt' =>
-                array (
+                array(
                     'name' => 'Tatar',
                     'nativeName' => 'татарча, tatarça, تاتارچا‎',
                 ),
             'tw' =>
-                array (
+                array(
                     'name' => 'Twi',
                     'nativeName' => 'Twi',
                 ),
             'ty' =>
-                array (
+                array(
                     'name' => 'Tahitian',
                     'nativeName' => 'Reo Tahiti',
                 ),
             'ug' =>
-                array (
+                array(
                     'name' => 'Uighur, Uyghur',
                     'nativeName' => 'Uyƣurqə, ئۇيغۇرچە‎',
                 ),
             'uk' =>
-                array (
+                array(
                     'name' => 'Ukrainian',
                     'nativeName' => 'українська',
                 ),
             'ur' =>
-                array (
+                array(
                     'name' => 'Urdu',
                     'nativeName' => 'اردو',
                 ),
             'uz' =>
-                array (
+                array(
                     'name' => 'Uzbek',
                     'nativeName' => 'zbek, Ўзбек, أۇزبېك‎',
                 ),
             've' =>
-                array (
+                array(
                     'name' => 'Venda',
                     'nativeName' => 'Tshivenḓa',
                 ),
             'vi' =>
-                array (
+                array(
                     'name' => 'Vietnamese',
                     'nativeName' => 'Tiếng Việt',
                 ),
             'vo' =>
-                array (
+                array(
                     'name' => 'Volapük',
                     'nativeName' => 'Volapük',
                 ),
             'wa' =>
-                array (
+                array(
                     'name' => 'Walloon',
                     'nativeName' => 'Walon',
                 ),
             'cy' =>
-                array (
+                array(
                     'name' => 'Welsh',
                     'nativeName' => 'Cymraeg',
                 ),
             'wo' =>
-                array (
+                array(
                     'name' => 'Wolof',
                     'nativeName' => 'Wollof',
                 ),
             'fy' =>
-                array (
+                array(
                     'name' => 'Western Frisian',
                     'nativeName' => 'Frysk',
                 ),
             'xh' =>
-                array (
+                array(
                     'name' => 'Xhosa',
                     'nativeName' => 'isiXhosa',
                 ),
             'yi' =>
-                array (
+                array(
                     'name' => 'Yiddish',
                     'nativeName' => 'ייִדיש',
                 ),
             'yo' =>
-                array (
+                array(
                     'name' => 'Yoruba',
                     'nativeName' => 'Yorùbá',
                 ),
             'za' =>
-                array (
+                array(
                     'name' => 'Zhuang, Chuang',
                     'nativeName' => 'Saɯ cueŋƅ, Saw cuengh',
                 ),

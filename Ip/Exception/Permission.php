@@ -4,4 +4,6 @@
 namespace Ip\Exception;
 
 
-class Permission extends \Ip\Exception {}
+class Permission extends \Ip\Exception
+{
+}

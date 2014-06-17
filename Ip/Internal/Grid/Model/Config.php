@@ -8,6 +8,9 @@ namespace Ip\Internal\Grid\Model;
 
 class Config
 {
+    /**
+     * @var Config
+     */
     protected $config = null;
 
     /**
@@ -73,7 +76,7 @@ class Config
         if (!empty($this->config['deleteWarning'])) {
             return $this->config['deleteWarning'];
         }
-        return __('Are you sure you want to delete?', 'Ip-admin', FALSE);
+        return __('Are you sure you want to delete?', 'Ip-admin', false);
     }
 
     public function actions()
@@ -87,7 +90,7 @@ class Config
     public function beforeDelete()
     {
         if (empty($this->config['beforeDelete'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeDelete'];
     }
@@ -95,7 +98,7 @@ class Config
     public function afterDelete()
     {
         if (empty($this->config['afterDelete'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterDelete'];
     }
@@ -103,7 +106,7 @@ class Config
     public function beforeUpdate()
     {
         if (empty($this->config['beforeUpdate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeUpdate'];
     }
@@ -111,7 +114,7 @@ class Config
     public function afterUpdate()
     {
         if (empty($this->config['afterUpdate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterUpdate'];
     }
@@ -120,7 +123,7 @@ class Config
     public function beforeCreate()
     {
         if (empty($this->config['beforeCreate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeCreate'];
     }
@@ -128,7 +131,7 @@ class Config
     public function afterCreate()
     {
         if (empty($this->config['afterCreate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterCreate'];
     }
@@ -137,7 +140,7 @@ class Config
     public function beforeMove()
     {
         if (empty($this->config['beforeMove'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeMove'];
     }
@@ -145,7 +148,7 @@ class Config
     public function afterMove()
     {
         if (empty($this->config['afterMove'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterMove'];
     }
@@ -153,7 +156,7 @@ class Config
     public function preventAction()
     {
         if (empty($this->config['preventAction'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['preventAction'];
     }
@@ -161,6 +164,7 @@ class Config
 
     /**
      * @param $field
+     * @throws \Ip\Exception
      * @return \Ip\Internal\Grid\Model\Field
      */
     public function fieldObject($field)

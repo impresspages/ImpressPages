@@ -92,7 +92,7 @@ function ipSetOptionLang($option, $value, $languageCode = null)
  */
 function ipRemoveOption($option)
 {
-    return \Ip\ServiceLocator::options()->removeOption($option);
+    \Ip\ServiceLocator::options()->removeOption($option);
 }
 
 /**
@@ -100,10 +100,11 @@ function ipRemoveOption($option)
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param int $languageId Language ID.
+ * @return null
  */
 function ipRemoveOptionLang($option, $languageId)
 {
-    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId);
+    \Ip\ServiceLocator::options()->removeOptionLang($option, $languageId);
 }
 
 /**
@@ -273,8 +274,12 @@ function ipGetLayout()
     if (method_exists($response, 'getLayout')) {
         return $response->getLayout();
     } else {
-        ipLog()->error('Response.cantGetLayout: Response method has no method getLayout', array('response' => $response));
+        ipLog()->error(
+            'Response.cantGetLayout: Response method has no method getLayout',
+            array('response' => $response)
+        );
     }
+    return null;
 }
 
 /**
@@ -289,11 +294,12 @@ function ipBlock($block)
 }
 
 /**
- * Genearte slot HTML
+ * Generate slot HTML
  * http://www.impresspages.org/docs/slots
  *
  * @param string $slot Slot name.
  * @param array|null $params Slot parameters.
+ * @return string
  */
 function ipSlot($slot, $params = array())
 {
@@ -446,7 +452,8 @@ function __($text, $domain, $esc = 'html')
  * @param callable $closure this code will be executed in given language.
  * @return mixed old language or the result of closure.
  */
-function ipSetTranslationLanguage($languageCode, \Closure $closure = null) {
+function ipSetTranslationLanguage($languageCode, \Closure $closure = null)
+{
     if ($closure) {
         $oldLanguage = ipSetTranslationLanguage($languageCode);
 
@@ -610,7 +617,7 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  * Returns a string containing a rounded numeric value and appropriate 'B', 'KB', 'MB', 'GB', 'TB', 'PB' modifiers.
  *
  * @param int $bytes Size in bytes.
- * @param $context plugin name
+ * @param string $context plugin name
  * @param int $precision number of digits after the decimal point
  * @param string $languageCode
  * @return string A string formatted in byte size units.
@@ -619,6 +626,7 @@ function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 {
     return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode = null);
 }
+
 /**
  * Get formatted currency string
  *
@@ -705,7 +713,7 @@ function ipHtmlAttributes($doctype = null)
         case \Ip\Response\Layout::DOCTYPE_XHTML1_TRANSITIONAL:
         case \Ip\Response\Layout::DOCTYPE_XHTML1_FRAMESET:
             $lang = $content->getCurrentLanguage()->getCode();
-            $answer = ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
+            $answer = ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $lang . '" lang="' . $lang . '"';
             break;
         case \Ip\Response\Layout::DOCTYPE_HTML4_STRICT:
         case \Ip\Response\Layout::DOCTYPE_HTML4_TRANSITIONAL:
@@ -759,17 +767,17 @@ function ipDoctypeDeclaration($doctype = null)
             $answer = '<!DOCTYPE html>';
             break;
         default:
-            throw new Exception('Unknown doctype: '.$doctype, Exception::VIEW);
+            throw new Exception('Unknown doctype: ' . $doctype);
     }
 
     return $answer;
 }
 
+
 /**
  * Get SQL table name by adding database prefix
- *
  * @param string $table SQL table name without prefix.
- * @param string|null $as SQL "as" keyword to be added.
+ * @param bool $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
 function ipTable($table, $as = false)
@@ -795,7 +803,7 @@ function ipTable($table, $as = false)
  * @param null $administratorId
  * @return bool Returns true if user has plugin's administration permission.
  */
-function ipAdminPermission($permission, $administratorId = NULL)
+function ipAdminPermission($permission, $administratorId = null)
 {
     return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission, $administratorId);
 }
@@ -812,14 +820,14 @@ function ipAdminPermission($permission, $administratorId = NULL)
  * @param string $from Sender's e-mail address
  * @param string $fromName Sender's name
  * @param string $to Recipient's email address
- * @param string $toName  Recipient's name
+ * @param string $toName Recipient's name
  * @param string $subject Message subject
  * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
  * @param bool $urgent E-mail urgency
  * @param bool $html HTML mode. Set to false for plain text mode.
  * @param string|array|null $files Full pathname of the file to be attached or array of the pathnames.
  */
-function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
+function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent = true, $html = true, $files = null)
 {
     $emailQueue = new \Ip\Internal\Email\Module();
     $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
@@ -845,7 +853,9 @@ function ipEmailTemplate($data)
  * Get a view object using specified view file and data array.
  * @param string $file MVC view file pathname.
  * @param array $data View's data.
+ * @param int $_callerDepth
  * @return \Ip\View
+ * @throws \Ip\Exception\View
  */
 function ipView($file, $data = array(), $_callerDepth = 0)
 {
@@ -915,7 +925,7 @@ function ipAdminId()
  * @param int|null $pageId
  * @return \Ip\PageStorage
  */
-function ipPageStorage($pageId = NULL)
+function ipPageStorage($pageId = null)
 {
     if (!$pageId) {
         $page = ipContent()->getCurrentPage();
@@ -933,7 +943,7 @@ function ipPageStorage($pageId = NULL)
  * @param string|null $theme
  * @return \Ip\ThemeStorage
  */
-function ipThemeStorage($theme = NULL)
+function ipThemeStorage($theme = null)
 {
     if (!$theme) {
         $theme = ipConfig()->theme();

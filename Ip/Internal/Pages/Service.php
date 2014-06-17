@@ -38,6 +38,7 @@ class Service
      *
      * @param string $languageCode
      * @param string $alias
+     * @return array|null
      */
     public static function getMenu($languageCode, $alias)
     {
@@ -48,6 +49,7 @@ class Service
      * Get menus
      *
      * @param string $languageCode
+     * @return array
      */
     public static function getMenus($languageCode)
     {
@@ -115,6 +117,7 @@ class Service
      * @param int $pageId
      * @param int $destinationParentId
      * @param int $destinationPosition
+     * @return int
      */
     public static function copyPage($pageId, $destinationParentId, $destinationPosition)
     {
@@ -153,7 +156,10 @@ class Service
     {
         $table = ipTable('page');
 
-        $pages = ipDb()->fetchAll("SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?", array($timestamp));
+        $pages = ipDb()->fetchAll(
+            "SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?",
+            array($timestamp)
+        );
 
         foreach ($pages as $page) {
             static::removeDeletedPage($page['id']);
@@ -163,6 +169,7 @@ class Service
     /**
      * Remove selected deleted pages
      *
+     * @param $pages
      * @return int Count of deleted pages.
      */
     public static function emptyTrash($pages)
@@ -191,6 +198,7 @@ class Service
     /**
      * Recovery selected deleted pages
      *
+     * @param $pages
      * @return int Count of recovered pages.
      */
     public static function recoveryTrash($pages)
@@ -222,6 +230,7 @@ class Service
      * @param int $pageId
      * @param int $start
      * @param int $limit
+     * @return array
      */
     public static function getChildren($pageId, $start = null, $limit = null)
     {
@@ -248,6 +257,7 @@ class Service
      * @param string $languageCode
      * @param string $alias
      * @param string $title
+     * @return string
      */
     public static function createMenu($languageCode, $alias, $title)
     {

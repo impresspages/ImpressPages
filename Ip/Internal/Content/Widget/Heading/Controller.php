@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Content\Widget\Heading;
@@ -9,7 +8,8 @@ namespace Ip\Internal\Content\Widget\Heading;
 class Controller extends \Ip\WidgetController
 {
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return __('Heading', 'Ip-admin', false);
     }
 
@@ -17,19 +17,19 @@ class Controller extends \Ip\WidgetController
     public function getActionButtons()
     {
         return array(
-            array (
+            array(
                 'label' => __('H1', 'Ip-admin'),
                 'class' => 'ipsH1'
             ),
-            array (
+            array(
                 'label' => __('H2', 'Ip-admin'),
                 'class' => 'ipsH2'
             ),
-            array (
+            array(
                 'label' => __('H3', 'Ip-admin'),
                 'class' => 'ipsH3'
             ),
-            array (
+            array(
                 'label' => __('Options', 'Ip-admin'),
                 'class' => 'ipsOptions'
             )
@@ -77,7 +77,7 @@ class Controller extends \Ip\WidgetController
             array(
                 'name' => 'anchor',
                 'label' => __('Anchor', 'Ip-admin', false),
-                'note' => __('Anchor', 'Ip-admin') .' <span class="ipsAnchorPreview">'. $curUrl .'#</span>'
+                'note' => __('Anchor', 'Ip-admin') . ' <span class="ipsAnchorPreview">' . $curUrl . '#</span>'
             ));
         $form->addField($field);
 

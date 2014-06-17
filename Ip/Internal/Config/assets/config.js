@@ -2,12 +2,16 @@ $(document).ready(function () {
     "use strict";
     IpConfig.init();
 
-    $('.ipsAutoSave').on('change', IpConfig.autoSaveValue);
-    $('.ipsAutoSave').on('keyup', IpConfig.autoSaveValue);
+    var $autoSave = $('.ipsAutoSave');
+    $autoSave.on('change', IpConfig.autoSaveValue);
+    $autoSave.on('keyup', IpConfig.autoSaveValue);
 
-    $('.ipsConfigForm').validator(validatorConfigAdmin);
-    $('.ipsConfigForm').data("validator").checkValidity();
-    $('.ipsConfigForm').on('submit', function(e) {e.preventDefault();});
+    var $configForm = $('.ipsConfigForm');
+    $configForm.validator(validatorConfigAdmin);
+    $configForm.data("validator").checkValidity();
+    $configForm.on('submit', function (e) {
+        e.preventDefault();
+    });
 
 });
 
@@ -18,7 +22,7 @@ var IpConfig = new function () {
 
     this.init = function () {
         updateCronUrl();
-    }
+    };
 
     var queueAdd = function (fieldid) {
         queue = removeFromArray(queue, fieldid);
@@ -33,17 +37,17 @@ var IpConfig = new function () {
         }
 
         return $field.val();
-    }
+    };
 
     var getFieldLanguage = function (fieldid) {
         var $field = $('#' + fieldid);
         return $field.data('languageid');
-    }
+    };
 
     var getFieldName = function (fieldid) {
         var $field = $('#' + fieldid);
         return $field.data('fieldname');
-    }
+    };
 
     var queueProcess = function () {
         if (processing) {
@@ -93,17 +97,15 @@ var IpConfig = new function () {
                 queueProcess();
             }
         });
-    }
+    };
 
     var updateCronUrl = function () {
-        var $note = $('.name-cronPassword .ipsUrlLabel');
         var $urlText = $('.name-cronPassword .ipsUrl');
         // cron should work without password for admin
-        var $passField = $('.name-cronPassword');
         var url = ip.baseUrl + '?pa=Cron&pass=' + $('#cronPassword').val();
         $urlText.text(url);
         $urlText.attr('href', url);
-    }
+    };
 
     this.autoSaveValue = function () {
         var $this = $(this);

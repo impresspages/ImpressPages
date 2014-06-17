@@ -31,15 +31,22 @@ class Service
     }
 
 
-
-    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
-    {
+    public static function createWidget(
+        $widgetName,
+        $data,
+        $skin,
+        $revisionId,
+        $languageId,
+        $blockName,
+        $position,
+        $visible = true
+    ) {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
             throw new \Ip\Exception("Widget '" . esc($widgetName) . "' doesn't exist");
         }
 
-        if ($data ===  null) {
+        if ($data === null) {
             $data = $widgetObject->defaultData();
         }
 
@@ -48,7 +55,16 @@ class Service
             $skin = $skins[0]['name'];
         }
 
-        $widgetId = Model::createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible);
+        $widgetId = Model::createWidget(
+            $widgetName,
+            $data,
+            $skin,
+            $revisionId,
+            $languageId,
+            $blockName,
+            $position,
+            $visible
+        );
         return $widgetId;
     }
 

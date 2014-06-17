@@ -1,9 +1,8 @@
 <?php
-    /**
-     * @package ImpressPages
-
-     *
-     */
+/**
+ * @package ImpressPages
+ *
+ */
 namespace Ip\Internal\Repository;
 
 
@@ -16,7 +15,8 @@ namespace Ip\Internal\Repository;
  * modules uses the same files. This class will take care.
  *
  */
-class UploadModel{
+class UploadModel
+{
 
     protected $uploadedFileName;
     protected $uploadedFile;
@@ -60,14 +60,17 @@ class UploadModel{
         if ($secureFolder) {
             $sizeLimit = ipGetOption('Repository.publicUploadLimit', 4000);
             if ($this->folderSize($targetDir) > $sizeLimit * 1000000) { //4000 Mb by default
-                ipLog()->error("Repository.publicUploadLimitReached: IP: `{ip}`. CurrentLimit `{limit}Mb`. Please update Repository.publicUploadLimit option to increase the limits.", array('ip' => $_SERVER['REMOTE_ADDR'], 'limit' => $sizeLimit));
+                ipLog()->error(
+                    "Repository.publicUploadLimitReached: IP: `{ip}`. CurrentLimit `{limit}Mb`. Please update Repository.publicUploadLimit option to increase the limits.",
+                    array('ip' => $_SERVER['REMOTE_ADDR'], 'limit' => $sizeLimit)
+                );
                 throw new \Ip\Exception("Upload limit reached");
             }
 
         }
 
 
-            // Get parameters
+        // Get parameters
         $chunk = isset($_REQUEST["chunk"]) ? $_REQUEST["chunk"] : 0;
         $chunks = isset($_REQUEST["chunks"]) ? $_REQUEST["chunks"] : 0;
         $fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
@@ -76,34 +79,158 @@ class UploadModel{
         $fileName = \Ip\Internal\File\Functions::cleanupFileName($fileName);
 
         // Make sure the fileName is unique but only if chunking is disabled
-        if ($chunks < 2 && file_exists($targetDir.$fileName)) {
+        if ($chunks < 2 && file_exists($targetDir . $fileName)) {
             $fileName = \Ip\Internal\File\Functions::genUnoccupiedName($fileName, $targetDir);
         }
-
-
-
 
 
         //security check
         $fileExtension = strtolower(substr($fileName, strrpos($fileName, '.') + 1));
 
-        $whiteListExtensions = array('jpg','jpeg','jpe','gif','png','bmp','tif','tiff','ico','asf','asx','wmv','wmx','wm','avi','divx','flv','mov','qt','mpeg','mpg','mpe','mp4','m4v','ogv','webm','mkv','txt','asc','c','cc','h','csv','tsv','ics','rtx','css','htm','html','vtt','mp3','m4a','m4b','ra','ram','wav','ogg','oga','mid','midi','wma','wax','mka','rtf','js','pdf','class','tar','zip','gz','gzip','rar','7z','doc','pot','pps','ppt','wri','xla','xls','xlt','xlw','mdb','mpp','docx','docm','dotx','dotm','xlsx','xlsm','xlsb','xltx','xltm','xlam','pptx','pptm','ppsx','ppsm','potx','potm','ppam','sldx','sldm','onetoc','onetoc2','onetmp','onepkg','odt','odp','ods','odg','odc','odb','odf','wp','wpd','key','numbers','pages', 'xml', 'json', 'iso', 'aac', 'img', 'psd', 'ai', 'sql', 'swf');
+        $whiteListExtensions = array(
+            'jpg',
+            'jpeg',
+            'jpe',
+            'gif',
+            'png',
+            'bmp',
+            'tif',
+            'tiff',
+            'ico',
+            'asf',
+            'asx',
+            'wmv',
+            'wmx',
+            'wm',
+            'avi',
+            'divx',
+            'flv',
+            'mov',
+            'qt',
+            'mpeg',
+            'mpg',
+            'mpe',
+            'mp4',
+            'm4v',
+            'ogv',
+            'webm',
+            'mkv',
+            'txt',
+            'asc',
+            'c',
+            'cc',
+            'h',
+            'csv',
+            'tsv',
+            'ics',
+            'rtx',
+            'css',
+            'htm',
+            'html',
+            'vtt',
+            'mp3',
+            'm4a',
+            'm4b',
+            'ra',
+            'ram',
+            'wav',
+            'ogg',
+            'oga',
+            'mid',
+            'midi',
+            'wma',
+            'wax',
+            'mka',
+            'rtf',
+            'js',
+            'pdf',
+            'class',
+            'tar',
+            'zip',
+            'gz',
+            'gzip',
+            'rar',
+            '7z',
+            'doc',
+            'pot',
+            'pps',
+            'ppt',
+            'wri',
+            'xla',
+            'xls',
+            'xlt',
+            'xlw',
+            'mdb',
+            'mpp',
+            'docx',
+            'docm',
+            'dotx',
+            'dotm',
+            'xlsx',
+            'xlsm',
+            'xlsb',
+            'xltx',
+            'xltm',
+            'xlam',
+            'pptx',
+            'pptm',
+            'ppsx',
+            'ppsm',
+            'potx',
+            'potm',
+            'ppam',
+            'sldx',
+            'sldm',
+            'onetoc',
+            'onetoc2',
+            'onetmp',
+            'onepkg',
+            'odt',
+            'odp',
+            'ods',
+            'odg',
+            'odc',
+            'odb',
+            'odf',
+            'wp',
+            'wpd',
+            'key',
+            'numbers',
+            'pages',
+            'xml',
+            'json',
+            'iso',
+            'aac',
+            'img',
+            'psd',
+            'ai',
+            'sql',
+            'swf'
+        );
         $whiteListExtensions = ipFilter('ipWhiteListExtensions', $whiteListExtensions);
 
         if (!empty($fileExtension) && !in_array($fileExtension, $whiteListExtensions)) {
             //security risk
-            throw new \Ip\Exception\Repository\Upload\ForbiddenFileExtension("Files with extension (.". esc($fileExtension).") are not permitted for security reasons.", array('extension' => $fileExtension, 'filename' => $fileName));
+            throw new \Ip\Exception\Repository\Upload\ForbiddenFileExtension("Files with extension (." . esc(
+                $fileExtension
+            ) . ") are not permitted for security reasons.", array(
+                'extension' => $fileExtension,
+                'filename' => $fileName
+            ));
         }
 
         //end security check
 
 
         // Look for the content type header
-        if (isset($_SERVER["HTTP_CONTENT_TYPE"]))
+        $contentType = null;
+        if (isset($_SERVER["HTTP_CONTENT_TYPE"])) {
             $contentType = $_SERVER["HTTP_CONTENT_TYPE"];
+        }
 
-        if (isset($_SERVER["CONTENT_TYPE"]))
+        if (isset($_SERVER["CONTENT_TYPE"])) {
             $contentType = $_SERVER["CONTENT_TYPE"];
+        }
 
         // Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
         if (strpos($contentType, "multipart") !== false) {
@@ -112,13 +239,13 @@ class UploadModel{
             }
 
             // Open temp file
-            $out = fopen($targetDir.$fileName, $chunk == 0 ? "wb" : "ab");
+            $out = fopen($targetDir . $fileName, $chunk == 0 ? "wb" : "ab");
             if (!$out) {
                 throw new \Ip\Exception\Repository\Upload("Failed to open output stream.");
             }
 
             //mark this file as uploaded by current user
-            $this->setFileUploadedByThisUser($targetDir.$fileName);
+            $this->setFileUploadedByThisUser($targetDir . $fileName);
 
             // Read binary input stream and append it to temp file
             $in = fopen($_FILES['file']['tmp_name'], "rb");
@@ -149,8 +276,7 @@ class UploadModel{
             }
 
             while ($buff = fread($in, 4096)) {
-                if(function_exists('set_time_limit'))
-                {
+                if (function_exists('set_time_limit')) {
                     set_time_limit(30);
                 }
                 fwrite($out, $buff);
@@ -161,7 +287,7 @@ class UploadModel{
         }
 
         $this->uploadedFileName = $fileName;
-        $this->uploadedFile = $targetDir.$fileName;
+        $this->uploadedFile = $targetDir . $fileName;
         $this->targetDir = $targetDir;
     }
 
@@ -178,7 +304,8 @@ class UploadModel{
      * @param bool $secure true if we are checking file, uploaded to secure folder. False otherwise
      * @return bool
      */
-    public function isFileUploadedByCurrentUser($file, $secure) {
+    public function isFileUploadedByCurrentUser($file, $secure)
+    {
         if (!isset($_SESSION['modules']['administrator']['repository']['userFiles'])) {
             return false;
         }
@@ -188,7 +315,7 @@ class UploadModel{
             $targetDir = ipFile('file/tmp/');
         }
 
-        $isUploaded = in_array($targetDir.$file, $_SESSION['modules']['administrator']['repository']['userFiles']);
+        $isUploaded = in_array($targetDir . $file, $_SESSION['modules']['administrator']['repository']['userFiles']);
         return $isUploaded;
     }
 
@@ -242,7 +369,7 @@ class UploadModel{
         $files = scandir($path);
         $cleanPath = rtrim($path, '/') . '/';
 
-        foreach($files as $t) {
+        foreach ($files as $t) {
             if ($t != "." && $t != "..") {
                 $currentFile = $cleanPath . $t;
                 if (is_dir($currentFile)) {

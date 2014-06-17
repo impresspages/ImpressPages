@@ -36,7 +36,7 @@ class Helper
     {
         $answer = array();
         $languages = Fixture::languageList();
-        foreach($languages as $key => $language) {
+        foreach ($languages as $key => $language) {
             $answer[] = array(
                 $key,
                 $language['name'] . ' (' . $language['nativeName'] . ')'
@@ -44,12 +44,10 @@ class Helper
         }
 
 
-
         usort($answer, array(__CLASS__, 'cmp'));
 
         return $answer;
     }
-
 
 
     protected static function cmp($a, $b)
