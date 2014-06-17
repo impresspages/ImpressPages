@@ -108,7 +108,12 @@ class Service
         if (isset($options['pageId'])) {
             $pageId = $options['pageId'];
         } else {
-            $pageId = ipContent()->getCurrentPage()->getId();
+            if (ipContent()->getCurrentPage()) {
+                $pageId = ipContent()->getCurrentPage()->getId();
+            } else {
+                $pageId = null;
+            }
+
         }
 
         // if default value is not defined, we'll add it
