@@ -267,6 +267,7 @@ class Model
         );
 
         $answer = ipView('view/widget.php', $variables)->render();
+        $answer = ipFilter('ipWidgetHtml', $answer, $variables);
         return $answer;
     }
 
@@ -562,11 +563,17 @@ class Model
         $widgetRecord = self::getWidgetRecord($widgetId);
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
 
+        ipEvent('ipBeforeWidgetRemoved', $widgetRecord);
+
+
         if ($widgetObject) {
             $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
 
         ipDb()->delete('widget', array('id' => $widgetId));
+
+        ipEvent('ipAfterWidgetRemoved', $widgetRecord);
+
     }
 
     /**
