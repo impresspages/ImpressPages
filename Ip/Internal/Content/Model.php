@@ -256,6 +256,9 @@ class Model
 
         $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
 
+        $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
+
+
         $variables = array(
             'managementState' => $managementState,
             'html' => $previewHtml,
@@ -267,7 +270,7 @@ class Model
         );
 
         $answer = ipView('view/widget.php', $variables)->render();
-        $answer = ipFilter('ipWidgetHtml', $answer, $variables);
+
         return $answer;
     }
 
@@ -356,7 +359,10 @@ class Model
                 `revisionId` = :newRevisionId
             ";
             ipDb()->execute($sql, array('newRevisionId' => $newRevisionId));
+            ipEvent('ipWidgetDuplicated', array('oldWidgetId' => $oldId, 'newWidgetId' => $newId));
         }
+
+
     }
 
     /**
