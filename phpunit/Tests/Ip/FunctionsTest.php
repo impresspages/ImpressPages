@@ -63,7 +63,7 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('Etc/GMT-0');
         $answer = ipFormatDateTime(1401190316, 'test');
-        $this->assertEquals('5/27/14 11:31 AM', $answer);
+        $this->assertEquals(1, in_array($answer, array('5/27/14 11:31 AM', '5/27/14, 11:31 AM'))); //different PHP versions give different results
 
     }
 

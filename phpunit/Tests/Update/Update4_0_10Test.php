@@ -37,12 +37,15 @@ class Update4_0_10Test extends \PhpUnit\Helper\MinkTestCase
 
         $this->session()->executeScript("$('.ipsAdminMenuBlock').removeClass('hidden');");
         $this->find('.ipsAdminMenuBlockContainer a[title=System]')->click();
-
+        sleep(1);
         $this->find('.ipsStartUpdate')->click();
 
         $this->waitForElementPresent('p.alert-success');
+
         $versionSpan = $this->find('div.page-header small');
-        $this->assertEquals(\Ip\Application::getVersion(), $versionSpan->getText());
+        $curVersion = \Ip\Application::getVersion();
+        $spanVersion = $versionSpan->getText();
+        $this->assertEquals($curVersion, $spanVersion);
 
 
     }
