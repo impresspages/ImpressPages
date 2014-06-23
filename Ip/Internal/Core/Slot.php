@@ -85,7 +85,8 @@ class Slot
             'crumb' => 'crumb',
             'disabled' => 'disabled',
             'parent' => 'parent',
-            'children' => 'children'
+            'children' => 'children',
+            'view' => 'Ip/Internal/Config/view/menu.php'
         );
 
         if (is_string($params)) {
@@ -127,7 +128,7 @@ class Slot
             )
         );
 
-        $view = ipView('Ip/Internal/Config/view/menu.php', $data);
+        $view = ipView($data['view'], $data);
         return $view->render();
     }
 
