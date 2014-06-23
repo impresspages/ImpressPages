@@ -36,10 +36,11 @@
             $submenuData = array(
                 'items' => $menuItem->getChildren(),
                 'depth' => $depth + 1,
-                'attributesStr' => 'class="level'.($depth+1).' ' . $children . '"'
+                'attributesStr' => 'class="level'.($depth+1).' ' . $children . '"',
+                'view' => $view
             );
             $submenuData = array_merge($this->getVariables(), $submenuData);
-            $submenu = ipView('menu.php', $submenuData)->render();
+            $submenu = ipView($view, $submenuData)->render();
         }
 
         if (!empty($css)) {
