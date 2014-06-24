@@ -1,25 +1,31 @@
 <?php
+
 /**
- * @package   ImpressPages
+ * @package ImpressPages
+ *
  */
 
 namespace Ip\Internal\Translations;
 
+
+/**
+ * Translator
+ */
 class Translator
 {
+
     /**
      * @var $translator \Zend\I18n\Translator\Translator
      */
     protected $translator;
-
     protected $publicLocale;
     protected $adminLocale;
-
-
     protected $domains = array();
-
     protected $adminDomains = array();
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->translator = new \Zend\I18n\Translator\Translator();
@@ -29,6 +35,15 @@ class Translator
         $this->setAdminLocale('en');
     }
 
+    /**
+     * Add translation file pattern
+     *
+     * @param string $type
+     * @param string $directory
+     * @param string $pattern
+     * @param string $domain
+     * @return array
+     */
     public function addTranslationFilePattern($type, $directory, $pattern, $domain)
     {
         $this->translator->addTranslationFilePattern(
@@ -47,6 +62,13 @@ class Translator
         return $this;
     }
 
+    /**
+     * Translate
+     *
+     * @param string $text
+     * @param string $domain
+     * @return string
+     */
     public function translate($text, $domain)
     {
         if (isset($this->adminDomains[$domain]) && $this->adminLocale != $this->publicLocale) {
@@ -60,6 +82,12 @@ class Translator
         return $this->translator->translate($text, $domain);
     }
 
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     * @return string
+     */
     public function setLocale($locale)
     {
         $this->publicLocale = $locale;
@@ -67,24 +95,46 @@ class Translator
         return $this;
     }
 
+    /**
+     * Get locale
+     *
+     * @return string
+     */
     public function getLocale()
     {
         return $this->publicLocale;
     }
 
+    /**
+     * Set admin locale
+     *
+     * @param string $locale
+     * @return object
+     */
     public function setAdminLocale($locale)
     {
         $this->adminLocale = $locale;
         return $this;
     }
 
+    /**
+     * Get admin locale
+     *
+     * @return string
+     */
     public function getAdminLocale()
     {
         return $this->adminLocale;
     }
 
+    /**
+     * Get registered domains
+     *
+     * @return array
+     */
     public function getRegisteredDomains()
     {
         return array_keys($this->domains);
     }
+
 }
