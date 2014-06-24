@@ -1,11 +1,24 @@
 <?php
 
+/**
+ * @package ImpressPages
+ *
+ */
 
 namespace Ip\Internal\Translations;
 
 
+/**
+ * Event
+ */
 class Event
 {
+
+    /**
+     * Add language
+     *
+     * @param array $info
+     */
     public static function ipLanguageAdded_20($info)
     {
         $downloader = new Downloader();
@@ -19,6 +32,11 @@ class Event
         }
     }
 
+    /**
+     * Update language
+     *
+     * @param array $info
+     */
     public static function ipLanguageUpdated($info)
     {
         if ($info['new']['code'] == $info['old']['code']) {
@@ -36,4 +54,5 @@ class Event
         }
 
     }
+
 } 
