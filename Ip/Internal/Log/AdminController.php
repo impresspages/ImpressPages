@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -9,6 +10,12 @@ namespace Ip\Internal\Log;
 
 class AdminController extends \Ip\GridController
 {
+
+    /**
+     * Config
+     *
+     * @return array
+     */
     protected function config()
     {
         return array(
@@ -38,6 +45,13 @@ class AdminController extends \Ip\GridController
         );
     }
 
+    /**
+     * Preview message
+     *
+     * @param $value
+     * @param array $recordData
+     * @return 
+     */
     public static function previewMessage($value, $recordData)
     {
         $context = json_decode($recordData['context'], true);
@@ -54,6 +68,13 @@ class AdminController extends \Ip\GridController
         return strtr($message, $replace);
     }
 
+    /**
+     * Preview context
+     *
+     * @param $value
+     * @param array $recordData
+     * @return 
+     */
     public static function previewContext($value, $recordData)
     {
         $context = json_decode($recordData['context'], true);
@@ -68,4 +89,5 @@ class AdminController extends \Ip\GridController
             return var_export($context, true);
         }
     }
+
 }

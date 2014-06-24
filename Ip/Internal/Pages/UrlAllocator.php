@@ -1,9 +1,21 @@
 <?php
 
+/**
+ * @package ImpressPages
+ *
+ */
+
 namespace Ip\Internal\Pages;
+
 
 class UrlAllocator
 {
+
+    /**
+     * Allocate path for new page
+     *
+     * @param array $page
+     */
     public static function allocatePathForNewPage(array $page)
     {
         if (array_key_exists('urlPath', $page)) {
@@ -19,6 +31,13 @@ class UrlAllocator
         return static::allocatePath($page['languageCode'], $path);
     }
 
+    /**
+     * Path available
+     *
+     * @param string $languageCode
+     * @param string $path
+     * @return string
+     */
     public static function allocatePath($languageCode, $path)
     {
         if (self::isPathAvailable($languageCode, $path)) {
@@ -34,10 +53,11 @@ class UrlAllocator
     }
 
     /**
-     * @parem string $languageCode
-     * @param $languageCode
+     * Path available
+     *
+     * @param string $languageCode
      * @param string $urlPath
-     * @returns bool true if url is available
+     * @return bool
      */
     public static function isPathAvailable($languageCode, $urlPath)
     {
@@ -53,4 +73,5 @@ class UrlAllocator
 
         return false;
     }
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -10,6 +11,12 @@ namespace Ip\Internal\Pages;
 class Helper
 {
 
+    /**
+     * Pages grid config
+     *
+     * @param int $parentId
+     * @return array
+     */
     public static function pagesGridConfig($parentId)
     {
         return array(
@@ -23,7 +30,7 @@ class Helper
             'layout' => 'Ip/Internal/Pages/view/grid/layout.php',
             'pagerSize' => 5,
             'pageVariableName' => 'gpage',
-            'filter' => 'isDeleted = 0 and parentId = ' . (int)$parentId, //rename to sqlWhere
+            'filter' => 'isDeleted = 0 and parentId = ' . (int)$parentId, // Rename to sqlWhere
             'fields' => array(
                 array(
                     'label' => __('Title', 'Ip-admin', false),
@@ -33,11 +40,16 @@ class Helper
         );
     }
 
-
+    /**
+     * List language
+     *
+     * @return array
+     */
     public static function languageList()
     {
         $answer = array();
         $languages = ipContent()->getLanguages();
+
         foreach ($languages as $language) {
             $answer[] = array(
                 'id' => $language->getId(),
@@ -46,9 +58,15 @@ class Helper
                 'code' => $language->getCode(),
             );
         }
+
         return $answer;
     }
 
+    /**
+     * Menu form
+     *
+     * @param int $menuId
+     */
     public static function menuForm($menuId)
     {
         $menu = Model::getPage((int)$menuId);
@@ -92,6 +110,7 @@ class Helper
 
         $layouts = \Ip\Internal\Design\Service::getLayouts();
         $values = array();
+
         foreach ($layouts as $layout) {
             $values[] = array($layout, $layout);
         }
@@ -118,10 +137,14 @@ class Helper
             ));
         $form->addField($field);
 
-
         return $form;
     }
 
+    /**
+     * Page properties form
+     *
+     * @param int $pageId
+     */
     public static function pagePropertiesForm($pageId)
     {
         $page = new \Ip\Page($pageId);
@@ -129,14 +152,12 @@ class Helper
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
-
         $field = new \Ip\Form\Field\Hidden(
             array(
                 'name' => 'aa',
                 'value' => 'Pages.updatePage'
             ));
         $form->addField($field);
-
 
         $field = new \Ip\Form\Field\Hidden(
             array(
@@ -161,7 +182,6 @@ class Helper
             ));
         $form->addField($field);
 
-
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isVisible',
@@ -170,13 +190,12 @@ class Helper
             ));
         $form->addField($field);
 
-
         $layouts = \Ip\Internal\Design\Service::getLayouts();
         $options = array();
+
         foreach ($layouts as $layout) {
             $options[] = array($layout, $layout);
         }
-
 
         $field = new \Ip\Form\Field\Select(
             array(
@@ -214,7 +233,6 @@ class Helper
             ));
         $form->addField($field);
 
-
         $fieldset = new \Ip\Form\Fieldset(__('Other', 'Ip-admin', false));
         $form->addFieldset($fieldset);
 
@@ -235,7 +253,6 @@ class Helper
             ));
         $form->addField($field);
 
-
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'isSecured',
@@ -252,7 +269,6 @@ class Helper
                 'value' => $page->isBlank()
             ));
         $form->addField($field);
-
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -283,11 +299,14 @@ class Helper
         return $form;
     }
 
+    /**
+     * Add page form
+     *
+     */
     public static function addPageForm()
     {
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
-
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -307,11 +326,14 @@ class Helper
         return $form;
     }
 
+    /**
+     * Add menu form
+     *
+     */
     public static function addMenuForm()
     {
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
-
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -324,6 +346,7 @@ class Helper
             array('tree', __('Tree (for menu)', 'Ip-admin', false)),
             array('list', __('List (for blogs)', 'Ip-admin', false)),
         );
+
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'type',
@@ -334,6 +357,5 @@ class Helper
 
         return $form;
     }
-
 
 }

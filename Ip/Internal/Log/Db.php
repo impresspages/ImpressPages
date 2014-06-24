@@ -1,13 +1,21 @@
 <?php
+
 /**
  * @package ImpressPages
  *
- *
  */
+
 namespace Ip\Internal\Log;
+
 
 class Db
 {
+
+    /**
+     * Delete old logs
+     *
+     * @param int $days
+     */
     public static function deleteOldLogs($days)
     {
         $logTable = ipTable('log');
@@ -18,6 +26,3 @@ class Db
     }
 
 }
-
-
-

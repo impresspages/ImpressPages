@@ -1,13 +1,22 @@
 <?php
+
 /**
  * @package ImpressPages
  *
  */
+
 namespace Ip\Internal\Pages;
 
 
 class Event
 {
+
+    /**
+     * Changed url
+     *
+     * @param array $info 
+     * @return null
+     */
     public static function ipUrlChanged($info)
     {
         $httpExpression = '/^((http|https):\/\/)/i';
@@ -20,6 +29,11 @@ class Event
         Model::updateUrl($info['oldUrl'], $info['newUrl']);
     }
 
+    /**
+     * Added language
+     *
+     * @param array $data 
+     */
     public static function ipLanguageAdded($data)
     {
         $languageId = $data['id'];
@@ -35,4 +49,5 @@ class Event
             Service::updateMenu($menuId, $menu['alias'], $menu['title'], $menu['layout'], $menu['type']);
         }
     }
+
 }

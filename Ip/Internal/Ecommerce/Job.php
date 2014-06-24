@@ -1,14 +1,22 @@
 <?php
-/**
- * @package   ImpressPages
- */
 
+/**
+ * @package ImpressPages
+ *
+ */
 
 namespace Ip\Internal\Ecommerce;
 
 
 class Job
 {
+
+    /**
+     * Subscription payment Url
+     *
+     * @param array $data
+     * @return null
+     */
     public static function ipSubscriptionPaymentUrl($data)
     {
         /**
@@ -20,12 +28,13 @@ class Job
         }
 
         if (count($paymentMethods) == 1) {
-            //redirect to payment method
+            // Redirect to payment method.
             $paymentUrl = $paymentMethods[0]->paymentUrl($data);
             return $paymentUrl;
         }
 
-        //show payment selection window
+        // Show payment selection window.
         return null;
     }
+
 }
