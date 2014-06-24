@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -10,6 +11,12 @@ namespace Ip\Internal\Pages;
 class JsTreeHelper
 {
 
+    /**
+     * Get page tree
+     *
+     * @param string $languageCode
+     * @param int $parentId
+     */
     public static function getPageTree($languageCode, $parentId)
     {
         $answer = self::getList($languageCode, $parentId);
@@ -17,6 +24,8 @@ class JsTreeHelper
     }
 
     /**
+     * Get list
+     *
      * @param string $languageCode
      * @param int $parentId
      * @return array
@@ -32,7 +41,7 @@ class JsTreeHelper
 
         $answer = array();
 
-        //generate jsTree response array
+        // Generate jsTree response array.
         foreach ($pages as $page) {
 
             $pageData = array();
@@ -52,7 +61,6 @@ class JsTreeHelper
             }
             $pageData['children'] = $children;
 
-
             if ($page['isVisible']) {
                 $icon = '';
             } else {
@@ -68,7 +76,9 @@ class JsTreeHelper
             $pageData['data'] = array(
                 'title' => $page['title'] . '',
                 'icon' => $icon
-            ); //transform null into empty string. Null break JStree into infinite loop
+            );
+
+            // Transform null into empty string. Null break JStree into infinite loop.
             $pageData['text'] = htmlspecialchars($page['title']);
             $answer[] = $pageData;
         }
@@ -76,10 +86,16 @@ class JsTreeHelper
         return $answer;
     }
 
+    /**
+     * JS tree id
+     *
+     * @param int $languageId
+     * @param int $pageId
+     * @return string
+     */
     protected static function _jsTreeId($languageId, $pageId)
     {
         return 'page_' . $languageId . '_' . $pageId;
     }
-
 
 }
