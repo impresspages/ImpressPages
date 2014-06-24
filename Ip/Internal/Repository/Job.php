@@ -135,6 +135,31 @@ class Job
                 $transform->transform($data['source'], $data['destination']);
                 return true;
                 break;
+            case 'width':
+                $requiredParams = array(
+                    'width'
+                );
+                $missing = array_diff($requiredParams, array_keys($options));
+                if ($missing) {
+                    throw new \Ip\Exception\Repository\Transform("Missing required parameters: " . implode(
+                            ', ',
+                            $missing
+                        ));
+                }
+                if (isset($options['quality'])) {
+                    $quality = $options['quality'];
+                } else {
+                    $quality = null;
+                }
+                if (isset($options['forced'])) {
+                    $forced = $options['forced'];
+                } else {
+                    $forced = false;
+                }
+                $transform = new Transform\ImageWidth($options['width'], $quality, $forced);
+                $transform->transform($data['source'], $data['destination']);
+                return true;
+                break;
             case 'copy':
                 copy($data['source'], $data['destination']);
                 return true;
