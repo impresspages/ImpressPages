@@ -1,11 +1,18 @@
 <?php
 
+/**
+ * @package ImpressPages
+ *
+ */
+
 namespace Ip\Internal\Log;
+
 
 class Logger extends \Psr\Log\AbstractLogger
 {
+
     /**
-     * Logs with an arbitrary level.
+     * Logs with an arbitrary level
      *
      * @param mixed $level
      * @param string $message
@@ -14,7 +21,7 @@ class Logger extends \Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        if (!ipDb()->isConnected()) { // do not log things if we have no database connection
+        if (!ipDb()->isConnected()) { // Do not log things if we have no database connection.
             return;
         }
 
@@ -38,4 +45,5 @@ class Logger extends \Psr\Log\AbstractLogger
 
         ipDb()->insert('log', $row);
     }
+
 }
