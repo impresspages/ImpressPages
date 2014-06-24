@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -10,7 +11,10 @@ namespace Ip\Internal\Pages;
 class AdminController extends \Ip\Controller
 {
 
-
+    /**
+     * Index
+     *
+     */
     public function index()
     {
         ipAddJsVariable('ipTranslationAreYouSure', __('Are you sure?', 'Ip-admin', false));
@@ -42,6 +46,10 @@ class AdminController extends \Ip\Controller
         return $layout->render();
     }
 
+    /**
+     * Pages grid gateway
+     *
+     */
     public function pagesGridGateway()
     {
         $parentId = ipRequest()->getRequest('parentId');
@@ -51,23 +59,28 @@ class AdminController extends \Ip\Controller
 
         $worker = new \Ip\Internal\Grid\Worker(Helper::pagesGridConfig($parentId));
         $result = $worker->handleMethod(ipRequest());
+
         return new \Ip\Response\JsonRpc($result);
     }
 
+    /**
+     * Get pages
+     *
+     */
     public function getPages()
     {
         $data = ipRequest()->getRequest();
         if (empty($data['languageId'])) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
         $language = ipContent()->getLanguage($data['languageId']);
         if (!$language) {
-            throw new \Ip\Exception("Language doesn't exist. " . $data['languageId']);
+            throw new \Ip\Exception('Language doesn\'t exist. ' . $data['languageId']);
         }
         $languageCode = $language->getCode();
 
         if (empty($data['menuName'])) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
         $menuName = $data['menuName'];
 
@@ -81,14 +94,17 @@ class AdminController extends \Ip\Controller
         );
 
         return new \Ip\Response\Json($responseData);
-
     }
 
+    /**
+     * Page properties form
+     *
+     */
     public function pagePropertiesForm()
     {
         $pageId = ipRequest()->getQuery('pageId');
         if (!$pageId) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
 
         $variables = array(
@@ -99,21 +115,27 @@ class AdminController extends \Ip\Controller
         $data = array(
             'html' => $layout
         );
+
         return new \Ip\Response\Json($data);
     }
 
+    /**
+     * Update page
+     *
+     */
     public function updatePage()
     {
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
 
         if (empty($data['pageId'])) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
+
         $pageId = (int)$data['pageId'];
         $page = ipContent()->getPage($pageId);
         if (!$page) {
-            throw new \Ip\Exception("Page doesn't exist");
+            throw new \Ip\Exception('Page doesn\'t exist');
         }
 
         $answer = array();
@@ -131,11 +153,11 @@ class AdminController extends \Ip\Controller
             }
         }
 
-
         $data['isVisible'] = !empty($data['isVisible']);
         $data['isDisabled'] = !empty($data['isDisabled']);
         $data['isSecured'] = !empty($data['isSecured']);
         $data['isBlank'] = !empty($data['isBlank']);
+
         if ($page->getUrlPath() == $data['urlPath']) {
             unset($data['urlPath']);
         }
@@ -149,11 +171,15 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    /**
+     * Update menu form
+     *
+     */
     public function updateMenuForm()
     {
         $menuId = (int)ipRequest()->getQuery('id');
         if (empty($menuId)) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
 
         $form = Helper::menuForm($menuId);
@@ -162,17 +188,21 @@ class AdminController extends \Ip\Controller
         $data = array(
             'html' => $html
         );
+
         return new \Ip\Response\Json($data);
     }
 
-
+    /**
+     * Add page
+     *
+     */
     public function addPage()
     {
         ipRequest()->mustBePost();
 
         $parentId = ipRequest()->getPost('parentId');
         if (empty($parentId)) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
 
         $title = ipRequest()->getPost('title');
@@ -184,23 +214,25 @@ class AdminController extends \Ip\Controller
 
         $pageId = Service::addPage($parentId, $title, array('isVisible' => $isVisible));
 
-
         $answer = array(
             'status' => 'success',
             'pageId' => $pageId
         );
 
         return new \Ip\Response\Json($answer);
-
     }
 
+    /**
+     * Delete page
+     *
+     */
     public function deletePage()
     {
         ipRequest()->mustBePost();
 
         $pageId = (int)ipRequest()->getPost('pageId');
         if (!$pageId) {
-            throw new \Ip\Exception("Page id is not set");
+            throw new \Ip\Exception('Page id is not set');
         }
 
         Service::deletePage($pageId);
@@ -211,33 +243,33 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    /**
+     * Move page
+     *
+     */
     public function movePage()
     {
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
 
-
         if (!isset($data['pageId'])) {
-            throw new \Ip\Exception("Page id is not set");
+            throw new \Ip\Exception('Page id is not set');
         }
         $pageId = (int)$data['pageId'];
-
 
         if (!empty($data['destinationParentId'])) {
             $destinationParentId = $data['destinationParentId'];
         } else {
             if (!isset($data['languageId'])) {
-                throw new \Ip\Exception("Missing required parameters");
+                throw new \Ip\Exception('Missing required parameters');
             }
             throw new \Ip\Exception\NotImplemented();
         }
-
 
         if (!isset($data['destinationPosition'])) {
             throw new \Ip\Exception("Destination position is not set");
         }
         $destinationPosition = $data['destinationPosition'];
-
 
         try {
             Model::movePage($pageId, $destinationParentId, $destinationPosition);
@@ -249,39 +281,36 @@ class AdminController extends \Ip\Controller
             return new \Ip\Response\Json($answer);
         }
 
-
         $answer = array(
             'status' => 'success'
         );
 
         return new \Ip\Response\Json($answer);
-
-
     }
 
-
+    /**
+     * Copy page
+     *
+     */
     public function copyPage()
     {
         ipRequest()->mustBePost();
         $data = ipRequest()->getPost();
 
-
         if (!isset($data['pageId'])) {
-            throw new \Ip\Exception("Page id is not set");
+            throw new \Ip\Exception('Page id is not set');
         }
         $pageId = (int)$data['pageId'];
 
-
         if (!isset($data['destinationParentId'])) {
-            throw new \Ip\Exception("Missing required parameter");
+            throw new \Ip\Exception('Missing required parameter');
         }
         $destinationParentId = $data['destinationParentId'];
 
         if (!isset($data['destinationPosition'])) {
-            throw new \Ip\Exception("Destination position is not set");
+            throw new \Ip\Exception('Destination position is not set');
         }
         $destinationPosition = $data['destinationPosition'];
-
 
         try {
             Service::copyPage($pageId, $destinationParentId, $destinationPosition);
@@ -293,23 +322,23 @@ class AdminController extends \Ip\Controller
             return new \Ip\Response\Json($answer);
         }
 
-
         $answer = array(
             'status' => 'success'
         );
 
         return new \Ip\Response\Json($answer);
-
-
     }
 
+    /**
+     * Get page url
+     *
+     */
     public function getPageUrl()
     {
         $data = ipRequest()->getQuery();
 
-
         if (!isset($data['pageId'])) {
-            throw new \Ip\Exception("Page id is not set");
+            throw new \Ip\Exception('Page id is not set');
         }
         $pageId = (int)$data['pageId'];
 
@@ -322,6 +351,10 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    /**
+     * update menu
+     *
+     */
     public function updateMenu()
     {
         $request = ipRequest();
@@ -336,7 +369,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\Exception('Missing required parameters');
         }
 
-        // validate page alias
+        // Validate page alias.
         $page = Model::getPage($menuId);
 
         $errors = array();
@@ -363,7 +396,10 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
-
+    /**
+     * Create menu
+     *
+     */
     public function createMenu()
     {
         $request = ipRequest();
@@ -387,6 +423,10 @@ class AdminController extends \Ip\Controller
         return new \Ip\Response\Json($answer);
     }
 
+    /**
+     * Change menu order
+     *
+     */
     public function changeMenuOrder()
     {
         ipRequest()->mustBePost();
@@ -395,7 +435,7 @@ class AdminController extends \Ip\Controller
         $newIndex = ipRequest()->getPost('newIndex');
 
         if (empty($menuId) || !isset($newIndex)) {
-            throw new \Ip\Exception("Missing required parameters");
+            throw new \Ip\Exception('Missing required parameters');
         }
 
         Model::changeMenuOrder($menuId, $newIndex);
