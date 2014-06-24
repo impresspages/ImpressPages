@@ -1,17 +1,25 @@
 <?php
 
+/**
+ * @package ImpressPages
+ *
+ */
+
 namespace Ip\Internal\Translations;
+
 
 use Zend\I18n\Translator\Loader\FileLoaderInterface;
 use Zend\I18n\Exception;
 use Zend\I18n\Translator\Plural\Rule as PluralRule;
 use Zend\I18n\Translator\TextDomain;
 
+
 /**
- * PHP array loader.
+ * PHP array loader
  */
 class JsonLoader implements FileLoaderInterface
 {
+
     /**
      * load(): defined by FileLoaderInterface.
      *
@@ -57,4 +65,5 @@ class JsonLoader implements FileLoaderInterface
 
         return $textDomain;
     }
+
 }
