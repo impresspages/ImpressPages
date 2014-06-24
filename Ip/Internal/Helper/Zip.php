@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * @package ImpressPages
+ *
+ */
 
 namespace Ip\Internal\Helper;
 
 
 class Zip
 {
+
+    /**
+     * Extract files
+     *
+     * @param string $archivePath
+     * @param string $destinationDir
+     */
     public static function extract($archivePath, $destinationDir)
     {
         if (class_exists('\\ZipArchive')) {
@@ -25,4 +36,4 @@ class Zip
         }
     }
 
-} 
+}
