@@ -118,6 +118,7 @@ class Helper
             ));
         $form->addField($field);
 
+        $form = ipFilter('ipMenuForm', $form, array('menuId' => $menuId));
 
         return $form;
     }

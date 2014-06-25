@@ -141,6 +141,9 @@ class AdminController extends \Ip\Controller
         }
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
+
+            ipEvent('ipFormUpdatePageSubmitted', array($data));
+
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
@@ -183,6 +186,10 @@ class AdminController extends \Ip\Controller
         $isVisible = ipRequest()->getPost('isVisible', 0);
 
         $pageId = Service::addPage($parentId, $title, array('isVisible' => $isVisible));
+
+        $eventData = ipRequest()->getPost();
+        ipEvent('ipFormCreatePageSubmitted', $eventData);
+
 
 
         $answer = array(
@@ -356,6 +363,11 @@ class AdminController extends \Ip\Controller
 
         Service::updateMenu($menuId, $alias, $title, $layout, $type);
 
+        $eventData = $request->getPost();
+        ipEvent('ipFormUpdateMenuSubmitted', $eventData);
+
+
+
         $answer = array(
             'status' => 'ok'
         );
@@ -378,6 +390,10 @@ class AdminController extends \Ip\Controller
         $pageId = Service::createMenu($languageCode, null, $title);
 
         $menu = ipContent()->getPage($pageId);
+
+        $eventData = $request->getPost();
+        $eventData['id'] = $pageId;
+        ipEvent('ipFormCreateMenuSubmitted', $eventData);
 
         $answer = array(
             'status' => 'success',
