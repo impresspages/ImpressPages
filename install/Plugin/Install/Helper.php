@@ -284,6 +284,23 @@ class Helper
         return 'success';
     }
 
+
+    public static function checkFolderIp()
+    {
+        if (!Helper::isDirectoryWritable(Model::ipFile('Ip/'))) {
+            return 'warning';
+        }
+        return 'success';
+    }
+
+    public static function checkFolderPlugin()
+    {
+        if (!Helper::isDirectoryWritable(Model::ipFile('Plugin/'))) {
+            return 'warning';
+        }
+        return 'success';
+    }
+
     public static function checkFolderTheme()
     {
         // We cannot use Model::ipFile('Theme/') cause it is overriden
@@ -368,5 +385,15 @@ class Helper
         );
 
         return $usageStatistics;
+    }
+
+    public static function isApache()
+    {
+        return stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== false;
+    }
+
+    public static function isNginx()
+    {
+        return stripos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false;
     }
 }
