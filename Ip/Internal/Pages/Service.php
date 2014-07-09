@@ -252,14 +252,13 @@ class Service
     }
 
     /**
-     * Create new menu
-     *
-     * @param string $languageCode
-     * @param string $alias
-     * @param string $title
+     * @param $languageCode
+     * @param $alias
+     * @param $title
+     * @param string $type
      * @return string
      */
-    public static function createMenu($languageCode, $alias, $title, $type)
+    public static function createMenu($languageCode, $alias, $title, $type = 'tree')
     {
         return Model::createMenu($languageCode, $alias, $title, $type);
     }
