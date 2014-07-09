@@ -259,9 +259,9 @@ class Service
      * @param string $title
      * @return string
      */
-    public static function createMenu($languageCode, $alias, $title)
+    public static function createMenu($languageCode, $alias, $title, $type)
     {
-        return Model::createMenu($languageCode, $alias, $title);
+        return Model::createMenu($languageCode, $alias, $title, $type);
     }
 
     /**
