@@ -463,7 +463,7 @@ class Model
      * @param string $title
      * @return string alias
      */
-    public static function createMenu($languageCode, $alias, $title)
+    public static function createMenu($languageCode, $alias, $title, $type)
     {
         $data = array();
         $data['languageCode'] = $languageCode;
@@ -474,6 +474,7 @@ class Model
 
         $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
+        $date['type'] = $type; 
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(
