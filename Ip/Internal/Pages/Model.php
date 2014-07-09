@@ -474,7 +474,7 @@ class Model
 
         $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
-        $date['type'] = $type;
+        $date['type'] = $type; 
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(
