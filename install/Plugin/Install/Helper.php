@@ -350,7 +350,7 @@ class Helper
         $usageStatistics = array(
             'action' => $action,
             'data' => $data,
-            'websiteId' => $_SESSION['websiteId'],
+            'websiteId' =>  isset($_SESSION['websiteId']) ? $_SESSION['websiteId'] : "0",
             'plugins' => array(),
             'languages' => array(),
             'pages' => array(),
