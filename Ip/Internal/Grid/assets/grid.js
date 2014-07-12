@@ -49,9 +49,7 @@
             context: $this,
             success: initResponse,
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    $this.html(response.responseText);
-                }
+                $this.html(response.responseText);
             },
             dataType: 'json'
         });
