@@ -73,6 +73,7 @@ var ipModuleFormPublic;
                             }
                             if (response.replaceHtml) {
                                 $form.replaceWith(response.replaceHtml);
+                                ipInitForms();
                             }
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
