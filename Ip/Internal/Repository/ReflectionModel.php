@@ -207,6 +207,7 @@ class ReflectionModel
         );
 
         ipJob('ipCreateReflection', $data);
+        ipEvent('ipCreatedReflection', $data);
 
         if (is_file($absoluteDestinationDir . '/' . $destinationFileName)) {
             return true;
