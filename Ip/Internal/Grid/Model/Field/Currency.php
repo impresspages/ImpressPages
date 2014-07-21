@@ -9,6 +9,39 @@ namespace Ip\Internal\Grid\Model\Field;
 class Currency extends \Ip\Internal\Grid\Model\Field
 {
 
+    protected $currency;
+
+    /**
+     * Create field object for grid
+     * @param array $fieldFieldConfig config of this particular field
+     * @param $wholeConfig whole grid setup config
+     * @throws \Ip\Exception
+     */
+    public function __construct($fieldFieldConfig, $wholeConfig)
+    {
+        if (!empty($fieldFieldConfig['currency'])) {
+            $this->currency = $fieldFieldConfig['currency'];
+        } else {
+            $this->currency = 'USD';
+        }
+        if (!empty($fieldFieldConfig['defaultValue'])) {
+            $fieldFieldConfig['defaultValue'] = $fieldFieldConfig['defaultValue'] / 100;
+        }
+
+        return parent::__construct($fieldFieldConfig, $wholeConfig);
+    }
+
+    /**
+     * Generate field value preview for table view. HTML is allowed
+     * @param $recordData
+     * @internal param array $data current record data
+     * @return string
+     */
+    public function preview($recordData)
+    {
+        //$recordData[$this->field] = $recordData[$this->field]/100;
+        return ipFormatPrice($recordData[$this->field], $this->getCurrency(), 'Grid');
+    }
 
     public function createField()
     {
@@ -23,7 +56,7 @@ class Currency extends \Ip\Internal\Grid\Model\Field
     public function createData($postData)
     {
         if (isset($postData[$this->field])) {
-            return array($this->field => $postData[$this->field]);
+            return array($this->field => $postData[$this->field]*100);
         }
         return array();
     }
@@ -34,13 +67,16 @@ class Currency extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field
         ));
+        if (!empty($curData[$this->field])) {
+            $curData[$this->field] = $curData[$this->field] / 100;
+        }
         $field->setValue($curData[$this->field]);
         return $field;
     }
 
     public function updateData($postData)
     {
-        return array($this->field => $postData[$this->field]);
+        return array($this->field => $postData[$this->field]*100);
     }
 
 
@@ -59,10 +95,15 @@ class Currency extends \Ip\Internal\Grid\Model\Field
     public function searchQuery($searchVariables)
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return ' `' . $this->field . '` like ' . ipDb()->getConnection()->quote(
-                '%' . $searchVariables[$this->field] . '%'
+            return ' `' . $this->field . '` = ' . ipDb()->getConnection()->quote(
+                $searchVariables[$this->field]*100
             ) . '';
         }
         return null;
+    }
+
+    public function getCurrency()
+    {
+        return $this->currency;
     }
 }
