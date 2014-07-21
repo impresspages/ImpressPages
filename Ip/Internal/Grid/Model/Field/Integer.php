@@ -23,7 +23,7 @@ class Integer extends \Ip\Internal\Grid\Model\Field
     public function createData($postData)
     {
         if (isset($postData[$this->field])) {
-            return array($this->field => $postData[$this->field]);
+            return array($this->field => $this->nullIfEmpty($postData[$this->field]));
         }
         return array();
     }
@@ -40,7 +40,7 @@ class Integer extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array($this->field => $postData[$this->field]);
+        return array($this->field => $this->nullIfEmpty($postData[$this->field]));
     }
 
 
@@ -64,5 +64,13 @@ class Integer extends \Ip\Internal\Grid\Model\Field
             ) . '';
         }
         return null;
+    }
+
+    protected function nullIfEmpty($value)
+    {
+        if ($value == '') {
+            return null;
+        }
+        return $value;
     }
 }
