@@ -285,6 +285,19 @@ class Config
 
     }
 
+    public function orderBy()
+    {
+        if (!empty($this->config['orderBy'])) {
+            return $this->config['orderBy'];
+        } else {
+            if ($this->sortField()) {
+                return $this->tableName() . ".`" . $this->sortField() . "` " . $this->sortDirection();
+            } else {
+                return $this->tableName() . ".`" . $this->idField() . "` " . $this->sortDirection();
+            }
+        }
+    }
+
     public function createPosition()
     {
         if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'bottom') {
