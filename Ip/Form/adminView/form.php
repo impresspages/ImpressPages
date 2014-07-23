@@ -12,6 +12,7 @@
                 <?php
                 switch ($field->getLayout()) {
                     case \Ip\Form\Field::LAYOUT_DEFAULT:
+                    case \Ip\Form\Field::LAYOUT_NO_LABEL:
                         echo ipView('Ip/Form/adminView/field.php', array('field' => $field))->render() . "\n";
                         break;
                     case \Ip\Form\Field::LAYOUT_BLANK:
