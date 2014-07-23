@@ -4,9 +4,9 @@
     echo " required";
 } ?>">
     <?php if ($field->getLayout() !== \Ip\Form\Field::LAYOUT_NO_LABEL){ ?>
-    <label for="<?php echo $field->getId(); ?>">
-        <?php echo esc($field->getLabel()); ?>
-    </label>
+        <label for="<?php echo $field->getId(); ?>">
+            <?php echo esc($field->getLabel()); ?>
+        </label>
     <?php } ?>
     <?php echo $field->render($this->getDoctype(), \Ip\Form::ENVIRONMENT_ADMIN); ?>
     <div class="help-error"></div>
