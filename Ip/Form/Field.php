@@ -67,11 +67,15 @@ abstract class Field
         if (!empty($options['value'])) {
             $this->setValue($options['value']);
         }
-        if (!empty($options['css'])) {
+
+        $this->classes = array();
+        if (!empty($options['css'])) { //alias of 'class'
             $this->setCssClasses($options['css']);
-        } else {
-            $this->classes = array();
         }
+        if (!empty($options['class'])) {
+            $this->setCssClasses($options['class']);
+        }
+
         if (!empty($options['attributes'])) {
             $this->setAttributes($options['attributes']);
         } else {

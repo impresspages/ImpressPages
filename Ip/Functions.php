@@ -624,7 +624,7 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  */
 function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode = null);
+    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode);
 }
 
 /**
@@ -1057,4 +1057,68 @@ function ipEcommerce()
 function ipRoute()
 {
     return \Ip\ServiceLocator::route();
+}
+
+
+/**
+ * Initialize grid in controller
+ * @param $config array
+ * @throws Ip\Exception
+ * @throws Ip\Exception\View
+ * @return \Ip\Response\Json|\Ip\Response\JsonRpc
+ */
+function ipGridController($config)
+{
+    $request = ipRequest()->getRequest();
+
+    if (empty($request['method'])) {
+        //Grid initialization. Add JS and display GRID's HTML
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+
+        $backtrace = debug_backtrace();
+        if (empty($backtrace[1]['object']) || empty($backtrace[1]['function']) || empty($backtrace[1]['class'])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller.');
+        }
+        $method = $backtrace[1]['function'];
+
+        $controllerClassParts = explode('\\', $backtrace[1]['class']);
+        if (empty($controllerClassParts[2])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+        $plugin = $controllerClassParts[1];
+
+        switch($controllerClassParts[2]) {
+            case 'AdminController':
+                $gateway = array('aa' => $plugin . '.' . $method);
+                break;
+            case 'SiteController':
+                $gateway = array('sa' => $plugin . '.' . $method);
+                break;
+            case 'PublicController':
+                $gateway = array('pa' => $plugin . '.' . $method);
+                break;
+            default:
+                throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+
+        $variables = array(
+            'gateway' => $gateway
+        );
+
+        $content = ipView('Ip/Internal/Grid/view/placeholder.php', $variables);
+        return $content;
+    } else {
+        //GRID AJAX method
+        $worker = new \Ip\Internal\Grid\Worker($config);
+        $result = $worker->handleMethod(ipRequest());
+
+        if (is_array($result) && !empty($result['error']) && !empty($result['errors'])) {
+            return new \Ip\Response\Json($result);
+        }
+
+        return new \Ip\Response\JsonRpc($result);
+    }
+
+
 }
