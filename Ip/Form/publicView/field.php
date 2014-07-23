@@ -3,9 +3,11 @@
 } ?><?php if ($field->isRequired()) {
     echo " required";
 } ?>">
+    <?php if ($field->getLayout() !== \Ip\Form\Field::LAYOUT_NO_LABEL){ ?>
     <label for="<?php echo $field->getId(); ?>">
         <?php echo esc($field->getLabel()); ?>
-    </label>
+            </label>
+    <? } ?>
     <?php echo $field->render($this->getDoctype(), \Ip\Form::ENVIRONMENT_PUBLIC); ?>
     <div class="help-error"></div>
     <?php if ($field->getNote()) { ?>
