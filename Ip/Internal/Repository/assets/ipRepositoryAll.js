@@ -19,12 +19,13 @@
                 if (!data) {
                     var $popup = $('.ipsModuleRepositoryPopup');
 
-                    $this.data('ipRepositoryAll', {});
+                    $this.data('ipRepositoryAll', options);
 
                     var data = Object();
                     data.aa = 'Repository.getAll';
                     data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
+                    data.secure = settings.secure;
 
                     if ($popup.find('.ipsPermissionError').length == 0) {
                         $.ajax({
@@ -304,6 +305,7 @@
                 data.aa = 'Repository.deleteFiles';
                 data.files = files;
                 data.securityToken = ip.securityToken;
+                data.secure = $this.data('ipRepositoryAll').secure;
 
                 $.ajax({
                     type: 'POST',

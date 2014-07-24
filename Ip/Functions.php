@@ -989,7 +989,9 @@ function ipPage($pageId)
 }
 
 /**
- * Add file to the repository
+ * This method copy provided file into repository assuring unique name.
+ * Usually the file you want to add to the repository reside in tmp dir or so. Where you had been working on it.
+ * After this function is executed, you can safely remove the source file.
  *
  * @param string $file absolute path to file in tmp directory.
  * @param null|string $desiredName desired file name in repository.
@@ -1006,25 +1008,27 @@ function ipRepositoryAddFile($file, $desiredName = null)
  * Mark repository file as being used by a plugin. The point of this is to
  * instruct ImpressPages to prevent original file in repository from accidental deletion.
  * See ipUnbindFile on how to undo this action and mark asset as not being used by the plugin.
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
  * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those binds by $id. If you sure this can't be the case for your plugin, use 1. You have to use the same id in ipUnbindFile
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure' dir, pass this value here.
  */
-function ipBindFile($file, $plugin, $id)
+function ipBindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id, $baseDir);
 }
 
 /**
  * Release file binding. See ipBindFile for more details.
  *
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
  * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id.
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure/' dir, pass this value here.
  */
-function ipUnbindFile($file, $plugin, $id)
+function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id, $baseDir);
 }
 
 /**
