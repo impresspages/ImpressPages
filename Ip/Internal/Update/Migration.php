@@ -9,9 +9,23 @@ namespace Ip\Internal\Update;
 
 class Migration
 {
-
-
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_52()
+    {
+        $table = ipTable('repository_file');
+        ipDb()->execute(
+            "UPDATE  $table SET `baseDir` = 'file/repository/' "
+        );
+    }
+
+    public static function update_51()
+    {
+        $table = ipTable('repository_file');
+        ipDb()->execute(
+            "ALTER TABLE  $table ADD `baseDir` VARCHAR(255) NOT NULL AFTER `plugin`"
+        );
+    }
+
     public static function update_50()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
