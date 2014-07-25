@@ -26,7 +26,7 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($languages as $key => $language) { ?>
                                     <li<?php if ($key == $currentLanguage) { echo ' class="active"'; } ?>>
-                                        <a href="index.php?step=<?php echo !empty($_GET['step']) ? $_GET['step'] : \Plugin\Install\Helper::$firstStep; ?>&amp;lang=<?php echo htmlspecialchars($key); ?>">
+                                        <a href="index.php?step=<?php echo !empty($_GET['step']) ? ((int)$_GET['step']) : \Plugin\Install\Helper::$firstStep; ?>&amp;lang=<?php echo htmlspecialchars($key); ?>">
                                             <?php echo htmlspecialchars($language); ?>
                                         </a>
                                     </li>

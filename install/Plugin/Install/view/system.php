@@ -19,7 +19,7 @@
                 break;
         }
         ?>
-        <tr><th><?php echo $row['name'] /*Do not escape. HTML is used*/ ?></th><td class="text-center <?php echo escAttr($class); ?>"><?php echo esc($typeLabel); ?></td></tr>
+        <tr><th><?php echo $row['name'] . (!empty($row['helpUrl']) ? ' <a href="' . $row['helpUrl'] . '" target="_blank">(?)</a>' : '') /*Do not escape. HTML is used*/ ?></th><td class="text-center <?php echo escAttr($class); ?>"><?php echo esc($typeLabel); ?></td></tr>
     <?php } ?>
 </table>
 <p class="text-right">

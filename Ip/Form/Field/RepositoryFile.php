@@ -20,6 +20,7 @@ class RepositoryFile extends Field
 
     protected $fileLimit = -1;
     protected $preview = 'list'; // List or thumbnails.
+    protected $secure = false;
 
     public function __construct($options = array())
     {
@@ -28,6 +29,9 @@ class RepositoryFile extends Field
         }
         if (isset($options['preview'])) {
             $this->preview = $options['preview'];
+        }
+        if (isset($options['secure'])) {
+            $this->secure = (bool)$options['secure'];
         }
         parent::__construct($options);
     }
@@ -47,7 +51,8 @@ class RepositoryFile extends Field
             'inputName' => $this->getName(),
             'fileLimit' => $this->fileLimit,
             'value' => $this->getValue(),
-            'preview' => $this->preview
+            'preview' => $this->preview,
+            'secure' => $this->secure
         );
 
         $viewFile = 'adminView/repositoryFile.php';

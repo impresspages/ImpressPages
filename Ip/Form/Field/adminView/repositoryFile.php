@@ -1,6 +1,7 @@
-<div class="file <?php echo $classes; ?> ipsRepositoryFileContainer"
-     data-inputname="<?php echo addslashes($inputName); ?>" data-filelimit="<?php echo $fileLimit; ?>"
-     data-preview="<?php echo $preview; ?>">
+<div class="file <?php echo escAttr($classes); ?> ipsRepositoryFileContainer"
+     data-inputname="<?php echo escAttr($inputName); ?>" data-filelimit="<?php echo (int)$fileLimit; ?>"
+     data-preview="<?php echo escAttr($preview); ?>"
+     data-secure="<?php echo escAttr($secure); ?>">
     <a <?php echo $attributesStr; ?> class="btn btn-default ipsSelect ipsFileAddButton" href="#"><?php _e(
             'Select',
             'Ip-admin'

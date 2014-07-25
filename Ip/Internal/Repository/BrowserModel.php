@@ -45,17 +45,22 @@ class BrowserModel
      * @param int $seek
      * @param int $limit
      * @param string $filter
+     * @param bool $secure use secure folder instead of repository root
      * @return array
      */
-    public function getAvailableFiles($seek, $limit, $filter)
+    public function getAvailableFiles($seek, $limit, $filter, $secure = false)
     {
         $answer = array();
 
-        $iterator = new \DirectoryIterator(ipFile('file/repository/'));
+        $repositoryDir = ipFile('file/repository/');
+        if ($secure) {
+            $repositoryDir = ipFile('file/secure/');
+        }
+        $iterator = new \DirectoryIterator($repositoryDir);
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
-                $fileData = $this->getFileData($iterator->getFilename());
+                $fileData = $this->getFileData($iterator->getFilename(), $secure);
                 switch ($filter) {
                     case 'image':
                         if (in_array($fileData['ext'], $this->supportedImageExtensions)) {
@@ -74,15 +79,22 @@ class BrowserModel
 
     /**
      * @param string $fileName file within file repository directory
+     * @param string $secure
+     * @return array
+     * @throws \Ip\Exception\Repository
      */
-    public function getFile($fileName)
+    public function getFile($fileName, $secure = false)
     {
-        return $this->getFileData($fileName);
+        return $this->getFileData($fileName, $secure);
     }
 
-    private function getFileData($fileName)
+    private function getFileData($fileName, $secure)
     {
-        $file = ipFile('file/repository/' . $fileName);
+        $baseDir = 'file/repository/';
+        if ($secure) {
+            $baseDir = 'file/secure/';
+        }
+        $file = ipFile($baseDir . $fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new \Ip\Exception\Repository("File doesn't exist " . esc($file));
         }
@@ -94,9 +106,13 @@ class BrowserModel
             'fileName' => $fileName,
             'ext' => $ext,
             'previewUrl' => $this->createPreview($fileName),
-            'originalUrl' => ipFileUrl('file/repository/' . $fileName),
+            'originalUrl' => ipFileUrl($baseDir . $fileName),
             'modified' => filemtime($file)
         );
+        if ($secure) {
+            $data['originalUrl'] = null; //secure dir can't be accessed via URL.
+        }
+
         return $data;
 
     }

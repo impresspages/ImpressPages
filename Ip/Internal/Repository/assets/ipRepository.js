@@ -14,12 +14,16 @@ var ipRepositoryESC;
         options.preview = options.preview || 'list';
         options.filter = options.filter || null;
 
+        if (options.secure) {
+            options.preview = 'list';
+        }
+
 
         $(document.body).append(ipRepositoryHtml);
         var $popup = $('.ipsModuleRepositoryPopup');
 
         //initialize first tab
-        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader();
+        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader({secure:options.secure});
         $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryAll(options);
 
         // todox: initialize each tab

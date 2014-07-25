@@ -23,21 +23,35 @@ class AdminController extends \Ip\Controller
      */
     public function storeNewFiles()
     {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
+        $secure = !empty($post['secure']);
 
-        if (!isset($_POST['files']) || !is_array($_POST['files'])) {
+        if (!isset($post['files']) || !is_array($post['files'])) {
             return new \Ip\Response\Json(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
         }
 
-        $files = isset($_POST['files']) ? $_POST['files'] : array();
+        $files = isset($post['files']) ? $post['files'] : array();
 
         $newFiles = array();
 
 
         $destination = ipFile('file/repository/');
+        if ($secure) {
+            $destination = ipFile('file/secure/');
+        }
+
+
         foreach ($files as $file) {
-            $source = ipFile('file/tmp/' . $file['fileName']);
+            $sourceDir = 'file/tmp/';
+            if ($secure) {
+                $sourceDir = 'file/secure/tmp/';
+            }
+
+
+            $source = ipFile($sourceDir . $file['fileName']);
             $source = realpath($source); //to avoid any tricks with relative paths, etc.
-            if (strpos($source, realpath(ipFile('file/tmp/'))) !== 0) {
+            if (strpos($source, realpath(ipFile($sourceDir))) !== 0) {
                 ipLog()->alert('Core.triedToAccessNonPublicFile', array('file' => $file['fileName']));
                 continue;
             }
@@ -47,7 +61,7 @@ class AdminController extends \Ip\Controller
             copy($source, $destination . $newName);
             unlink($source); //this is a temporary file
             $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
-            $newFile = $browserModel->getFile($newName);
+            $newFile = $browserModel->getFile($newName, $secure);
             $newFiles[] = $newFile;
         }
         $answer = array(
@@ -61,13 +75,15 @@ class AdminController extends \Ip\Controller
 
     public function getAll()
     {
-
-        $seek = isset($_POST['seek']) ? (int)$_POST['seek'] : 0;
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
+        $seek = isset($post['seek']) ? (int)$post['seek'] : 0;
         $limit = 10000;
-        $filter = isset($_POST['filter']) ? $_POST['filter'] : null;
+        $filter = isset($post['filter']) ? $post['filter'] : null;
+        $secure = isset($post['secure']) ? (int)$post['secure'] : null;
 
         $browserModel = BrowserModel::instance();
-        $files = $browserModel->getAvailableFiles($seek, $limit, $filter);
+        $files = $browserModel->getAvailableFiles($seek, $limit, $filter, $secure);
 
         usort($files, array($this, 'sortFiles'));
 
@@ -95,14 +111,16 @@ class AdminController extends \Ip\Controller
 
     public function deleteFiles()
     {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
+        $secure = !empty($post['secure']);
 
-
-        $files = isset($_POST['files']) ? $_POST['files'] : null;
+        $files = isset($post['files']) ? $post['files'] : null;
         $deletedFiles = array();
         $notRemovedCount = 0;
 
         foreach ($files as $file) {
-            if (isset($file['fileName']) && $this->removeFile($file['fileName'])) {
+            if (isset($file['fileName']) && $this->removeFile($file['fileName'], $secure)) {
                 $deletedFiles[] = $file['fileName'];
             } else {
                 $notRemovedCount++;
@@ -119,15 +137,19 @@ class AdminController extends \Ip\Controller
     }
 
 
-    private function removeFile($file)
+    private function removeFile($file, $secure)
     {
         if (basename($file) == '.htaccess') {
             //for security reasons we don't allow to remove .htaccess files
             return false;
         }
 
-        $realFile = realpath(ipFile('file/repository/' . $file));
-        if (strpos($realFile, realpath(ipFile('file/repository/'))) !== 0) {
+        $baseDir = 'file/repository/';
+        if ($secure) {
+            $baseDir = 'file/secure/';
+        }
+        $realFile = realpath(ipFile($baseDir . $file));
+        if (strpos($realFile, realpath(ipFile($baseDir))) !== 0) {
             return false;
         }
 
@@ -137,8 +159,10 @@ class AdminController extends \Ip\Controller
             return false;
         }
 
-        $reflectionModel = ReflectionModel::instance();
-        $reflectionModel->removeReflections($file);
+        if (!$secure) {
+            $reflectionModel = ReflectionModel::instance();
+            $reflectionModel->removeReflections($file);
+        }
 
         if (file_exists($realFile) && is_file($realFile) && is_writable($realFile)) {
             unlink($realFile);

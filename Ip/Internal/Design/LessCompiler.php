@@ -99,7 +99,9 @@ class LessCompiler
             }
 
             switch ($option['type']) {
+                case 'select':
                 case 'color':
+                default:
                     $lessValue = $rawValue;
                     break;
                 case 'hidden':
@@ -109,8 +111,6 @@ class LessCompiler
                         $lessValue .= $option['units'];
                     }
                     break;
-                default:
-                    $lessValue = json_encode($rawValue);
             }
 
             $less .= "\n@{$option['name']}: {$lessValue};";

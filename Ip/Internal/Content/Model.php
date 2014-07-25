@@ -58,7 +58,7 @@ class Model
      * @param int $position
      * @param string $blockName
      * @param int $revisionId
-     * @param int $languageI
+     * @param int $languageId
      */
     public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
     {
@@ -69,7 +69,12 @@ class Model
             'blockName' => $blockName,
             'revisionId' => $revisionId
         );
+        $eventData = $data;
+        $eventData['widgetId'] = $widgetId;
+
+        ipEvent('ipBeforeWidgetMove', $eventData);
         self::updateWidget($widgetId, $data);
+        ipEvent('ipAfterWidgetMove', $eventData);
     }
 
     /**

@@ -17,7 +17,7 @@
                 var data = $this.data('ipRepositoryUploader');
                 if (!data) {
                     var $popup = $('.ipsModuleRepositoryPopup');
-                    $this.data('ipRepositoryUploader', {});
+                    $this.data('ipRepositoryUploader', options);
 
                     var uploaderConfig = {
                         runtimes: 'gears,html5,flash,silverlight,browserplus',
@@ -28,6 +28,7 @@
                         url: ip.baseUrl, //website root (available globally in ImpressPages environment)
                         multipart_params: {
                             sa: 'Repository.upload',
+                            secureFolder: options.secure,
                             securityToken: ip.securityToken
                         },
 
@@ -128,15 +129,16 @@
                 var files = new Array();
                 files.push({
                     fileName: answer.fileName,
-                    renameTo: answer.fileName,
+                    renameTo: answer.fileName
                 });
 
-                var data = $this.data('ipRepositoryUploader');
+                var options = $this.data('ipRepositoryUploader');
 
                 var data = Object();
                 data.aa = 'Repository.storeNewFiles';
                 data.files = files;
                 data.securityToken = ip.securityToken;
+                data.secure = options.secure;
 
                 $.ajax({
                     type: 'POST',
