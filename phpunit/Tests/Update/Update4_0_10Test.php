@@ -37,7 +37,7 @@ class Update4_0_10Test extends \PhpUnit\Helper\MinkTestCase
 
         $this->session()->executeScript("$('.ipsAdminMenuBlock').removeClass('hidden');");
         $this->find('.ipsAdminMenuBlockContainer a[title=System]')->click();
-        sleep(1);
+        $this->waitForElementPresent('.ipsStartUpdate');
         $this->find('.ipsStartUpdate')->click();
 
         $this->waitForElementPresent('p.alert-success');
