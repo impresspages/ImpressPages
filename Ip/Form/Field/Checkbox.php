@@ -33,12 +33,16 @@ class Checkbox extends Field
                 $this->checked = false;
             }
         }
-        if (isset($options['value']) && $options['value']) {
-            $this->setChecked(1);
+        if (isset($options['text']) && $options['text']) {
+            $this->setText($options['text']);
         }
         if (isset($options['options']) && isset($options['options']['text']) && $options['options']['text']) {
             $this->setText($options['options']['text']);
         }
+        if (isset($options['value']) && $options['value']) {
+            $this->setChecked(1);
+        }
+
         if (isset($options['postValue']) && $options['postValue']) {
             $this->setPostValue($options['postValue']);
         }
