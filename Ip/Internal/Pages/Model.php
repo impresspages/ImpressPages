@@ -456,14 +456,13 @@ class Model
     }
 
     /**
-     * Create new menu
-     *
-     * @param string $languageCode
-     * @param string $alias
-     * @param string $title
-     * @return string alias
+     * @param $languageCode
+     * @param $alias
+     * @param $title
+     * @param string $type
+     * @return int
      */
-    public static function createMenu($languageCode, $alias, $title)
+    public static function createMenu($languageCode, $alias, $title, $type = 'tree')
     {
         $data = array();
         $data['languageCode'] = $languageCode;
@@ -474,6 +473,7 @@ class Model
 
         $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
+        $date['type'] = $type;
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(

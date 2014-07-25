@@ -382,12 +382,13 @@ class AdminController extends \Ip\Controller
         $request->mustBePost();
         $languageCode = $request->getPost('languageCode');
         $title = $request->getPost('title');
+        $type = $request->getPost('type');
 
         if (empty($title)) {
             $title = __('Untitled', 'Ip-admin', false);
         }
 
-        $pageId = Service::createMenu($languageCode, null, $title);
+        $pageId = Service::createMenu($languageCode, null, $title, $type);
 
         $menu = ipContent()->getPage($pageId);
 
