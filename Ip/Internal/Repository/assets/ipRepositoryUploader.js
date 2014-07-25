@@ -28,7 +28,7 @@
                         url: ip.baseUrl, //website root (available globally in ImpressPages environment)
                         multipart_params: {
                             sa: 'Repository.upload',
-                            secureFolder: options.secure,
+                            secureFolder: options.secure || 0,
                             securityToken: ip.securityToken
                         },
 
