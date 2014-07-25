@@ -81,6 +81,7 @@ class Event
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
             $submenu = Submenu::getSubmenuItems();
+            $submenu = ipFilter('ipAdminSubmenu', $submenu);
             if ($submenu) {
                 ipResponse()->setLayoutVariable('submenu', $submenu);
             }
