@@ -318,7 +318,7 @@ class Config
 
     protected function getTableFields($tableName)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->config->joinQuery() . " ";
+        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->joinQuery() . " ";
 
         $fields = ipDb()->fetchColumn($sql);
 
