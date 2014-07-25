@@ -33,11 +33,7 @@ class Db
 
     public function fetch($from, $count, $where = 1)
     {
-        if ($this->config->sortField()) {
-            $sortField = $this->config->sortField();
-        } else {
-            $sortField = 'id';
-        }
+
 
         $sql = "
         SELECT
@@ -48,7 +44,7 @@ class Db
         WHERE
           " . $where . "
         ORDER BY
-            " . $this->config->tableName() . ".`" . $sortField . "` " . $this->config->sortDirection() . "
+            " . $this->config->orderBy() . "
         LIMIT
             $from, $count
         ";

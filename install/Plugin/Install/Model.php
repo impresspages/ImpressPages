@@ -99,7 +99,7 @@ class Model
             ),
             'rewritesDisabled' => array(
                 'value' => null, // this value will not be written to config if not changed
-                'comment' => 'Install has not detected mod_rewrite. Delete this line if mod_rewrite is enabled'
+                'comment' => 'Install has not detected mod_rewrite. Delete this line if mod_rewrite (http://www.impresspages.org/help/mod-rewrite) is enabled or you are using Nginx and have made required changes to the configuration file (http://www.impresspages.org/help/nginx).'
             ),
             // END GLOBAL
 

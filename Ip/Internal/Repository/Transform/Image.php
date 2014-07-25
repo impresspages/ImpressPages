@@ -27,7 +27,11 @@ abstract class Image extends \Ip\Internal\Repository\Transform
         switch ($mime) {
             case IMAGETYPE_JPEG:
             case IMAGETYPE_JPEG2000:
+                $originalSetting = ini_set('gd.jpeg_ignore_warning', 1);
                 $image = imagecreatefromjpeg($imageFile);
+                if ($originalSetting !== false) {
+                    ini_set('gd.jpeg_ignore_warning', $originalSetting);
+                }
                 break;
             case IMAGETYPE_GIF:
                 $image = imagecreatefromgif($imageFile);

@@ -64,6 +64,9 @@ class Model
             throw new \Ip\Exception\Plugin\Setup("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.");
         }
 
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/activate.sql'));
+
+
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
         if (class_exists($workerClass) && method_exists($workerClass, 'activate')) {
             $worker = new $workerClass($config['version']);
@@ -161,6 +164,8 @@ class Model
             return true;
         }
 
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/deactivate.sql'));
+
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
         if (class_exists($workerClass) && method_exists($workerClass, 'deactivate')) {
             $worker = new $workerClass($pluginRecord['version']);
@@ -208,6 +213,9 @@ class Model
         } else {
             $version = null;
         }
+
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/remove.sql'));
+
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
         if (method_exists($workerClass, 'remove')) {
@@ -401,6 +409,14 @@ class Model
         return $cleanDirs;
     }
 
+    protected static function executeSqlIfExists($file)
+    {
+        if (is_file($file)) {
+            $sql = file_get_contents($file);
+            str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            ipDb()->execute($sql);
+        }
 
+    }
 }
 

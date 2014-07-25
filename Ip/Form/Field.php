@@ -19,6 +19,7 @@ abstract class Field
     // Layouts define how field should be treated in the view.
     const LAYOUT_DEFAULT = 'default';
     const LAYOUT_BLANK = 'blank';
+    const LAYOUT_NO_LABEL = 'noLabel';
 
     // Types define how field values should be used in controller. Eg. 'system' fields.
     // Should not be sent by email as form post data. They are just helpers to deliver.
@@ -36,6 +37,7 @@ abstract class Field
     protected $attributes;
     protected $classes; // CSS classes to be added to input field.
     protected $environment;
+    protected $layout;
 
     /**
      * Constructor
@@ -67,11 +69,18 @@ abstract class Field
         if (!empty($options['value'])) {
             $this->setValue($options['value']);
         }
-        if (!empty($options['css'])) {
-            $this->setCssClasses($options['css']);
-        } else {
-            $this->classes = array();
+        if (!empty($options['layout'])) {
+            $this->setLayout($options['layout']);
         }
+
+        $this->classes = array();
+        if (!empty($options['css'])) { //alias of 'class'
+            $this->setCssClasses($options['css']);
+        }
+        if (!empty($options['class'])) {
+            $this->setCssClasses($options['class']);
+        }
+
         if (!empty($options['attributes'])) {
             $this->setAttributes($options['attributes']);
         } else {
@@ -99,7 +108,10 @@ abstract class Field
      */
     public function getLayout()
     {
-        return self::LAYOUT_DEFAULT;
+        if (empty($this->layout) || !in_array($this->layout, array(self::LAYOUT_BLANK, self::LAYOUT_DEFAULT, self::LAYOUT_NO_LABEL))) {
+            return self::LAYOUT_DEFAULT;
+        }
+        return $this->layout;
     }
 
     /**
@@ -416,6 +428,17 @@ abstract class Field
     {
         $this->value = $value;
     }
+
+    /**
+     * Set field layout. Use constants \Ip\Form\Field::LAYOUT_DEFAULT, \Ip\Form\Field::LAYOUT_BLANK, \Ip\Form\Field::LAYOUT_NO_LABEL,
+     *
+     * @param string $layout.
+     */
+    public function setLayout($layout)
+    {
+        $this->layout= $layout;
+    }
+
 
     /**
      * Get all HTML attributes of the field

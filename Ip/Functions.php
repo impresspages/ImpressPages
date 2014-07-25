@@ -624,7 +624,7 @@ function ipRenderWidget($widgetName, $data = array(), $skin = null)
  */
 function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode = null);
+    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode);
 }
 
 /**
@@ -989,7 +989,9 @@ function ipPage($pageId)
 }
 
 /**
- * Add file to the repository
+ * This method copy provided file into repository assuring unique name.
+ * Usually the file you want to add to the repository reside in tmp dir or so. Where you had been working on it.
+ * After this function is executed, you can safely remove the source file.
  *
  * @param string $file absolute path to file in tmp directory.
  * @param null|string $desiredName desired file name in repository.
@@ -1006,25 +1008,27 @@ function ipRepositoryAddFile($file, $desiredName = null)
  * Mark repository file as being used by a plugin. The point of this is to
  * instruct ImpressPages to prevent original file in repository from accidental deletion.
  * See ipUnbindFile on how to undo this action and mark asset as not being used by the plugin.
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
  * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those binds by $id. If you sure this can't be the case for your plugin, use 1. You have to use the same id in ipUnbindFile
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure' dir, pass this value here.
  */
-function ipBindFile($file, $plugin, $id)
+function ipBindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id, $baseDir);
 }
 
 /**
  * Release file binding. See ipBindFile for more details.
  *
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
  * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id.
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure/' dir, pass this value here.
  */
-function ipUnbindFile($file, $plugin, $id)
+function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id, $baseDir);
 }
 
 /**
@@ -1057,4 +1061,68 @@ function ipEcommerce()
 function ipRoute()
 {
     return \Ip\ServiceLocator::route();
+}
+
+
+/**
+ * Initialize grid in controller
+ * @param $config array
+ * @throws Ip\Exception
+ * @throws Ip\Exception\View
+ * @return \Ip\Response\Json|\Ip\Response\JsonRpc
+ */
+function ipGridController($config)
+{
+    $request = ipRequest()->getRequest();
+
+    if (empty($request['method'])) {
+        //Grid initialization. Add JS and display GRID's HTML
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+
+        $backtrace = debug_backtrace();
+        if (empty($backtrace[1]['object']) || empty($backtrace[1]['function']) || empty($backtrace[1]['class'])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller.');
+        }
+        $method = $backtrace[1]['function'];
+
+        $controllerClassParts = explode('\\', $backtrace[1]['class']);
+        if (empty($controllerClassParts[2])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+        $plugin = $controllerClassParts[1];
+
+        switch($controllerClassParts[2]) {
+            case 'AdminController':
+                $gateway = array('aa' => $plugin . '.' . $method);
+                break;
+            case 'SiteController':
+                $gateway = array('sa' => $plugin . '.' . $method);
+                break;
+            case 'PublicController':
+                $gateway = array('pa' => $plugin . '.' . $method);
+                break;
+            default:
+                throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+
+        $variables = array(
+            'gateway' => $gateway
+        );
+
+        $content = ipView('Ip/Internal/Grid/view/placeholder.php', $variables);
+        return $content;
+    } else {
+        //GRID AJAX method
+        $worker = new \Ip\Internal\Grid\Worker($config);
+        $result = $worker->handleMethod(ipRequest());
+
+        if (is_array($result) && !empty($result['error']) && !empty($result['errors'])) {
+            return new \Ip\Response\Json($result);
+        }
+
+        return new \Ip\Response\JsonRpc($result);
+    }
+
+
 }

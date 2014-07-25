@@ -45,29 +45,32 @@ class Model
     }
 
 
-    public static function bindFile($file, $plugin, $instanceId)
+    public static function bindFile($file, $plugin, $instanceId, $baseDir = 'file/repository/')
     {
         $row = array(
             'filename' => $file,
             'plugin' => $plugin,
             'instanceId' => $instanceId,
-            'createdAt' => time()
+            'createdAt' => time(),
+            'baseDir' => $baseDir
         );
         ipDb()->insert('repository_file', $row);
     }
 
-    public static function unbindFile($file, $plugin, $instanceId)
+    public static function unbindFile($file, $plugin, $instanceId, $baseDir = 'file/repository/')
     {
         $condition = array(
             'fileName' => $file,
             'plugin' => $plugin,
-            'instanceId' => $instanceId
+            'instanceId' => $instanceId,
+            'baseDir' => $baseDir
         );
 
         $sql = 'DELETE FROM ' . ipTable('repository_file') . '
                 WHERE filename = :fileName
                 AND plugin = :plugin
                 AND instanceId = :instanceId
+                AND baseDir = :baseDir
                 LIMIT 1'; // it is important to delete only one record
 
         ipDb()->execute($sql, $condition);
