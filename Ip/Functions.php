@@ -1126,3 +1126,17 @@ function ipGridController($config)
 
 
 }
+
+
+/**
+ * Get unocupied file name in directory. Very useful when storing uploaded files.
+ *
+ * @param string $dir
+ * @param string $desiredName
+ * @param bool $sanitize clean up supicious symbols from file name
+ */
+function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
+{
+    $availableFileName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $dir, '', $sanitize);
+    return $availableFileName;
+}
