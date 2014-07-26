@@ -61,8 +61,16 @@ class Functions
      * @param string $suffix
      * @return string
      */
-    public static function genUnoccupiedName($file, $destDir, $suffix = '')
+    public static function genUnoccupiedName($file, $destDir, $suffix = '', $cleanup = true)
     {
+        if (substr($destDir, -1) != '/' && substr($destDir, -1) != '\\') {
+            $destDir .= '/';
+        }
+
+        if ($cleanup) {
+            $file = self::cleanupFileName($file);
+        }
+
         $newName = basename($file);
         $extPos = strrpos($newName, '.');
 
@@ -73,7 +81,7 @@ class Functions
             $newExtension = '';
         }
 
-        $newName = self::cleanupFileName($newName);
+
 
         if ($newName == '') {
             $newName = 'file_';
