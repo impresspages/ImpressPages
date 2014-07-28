@@ -223,8 +223,8 @@ class Controller extends \Ip\WidgetController{
 
         $data['form'] = $this->createForm($widgetId, $data);
 
-        if (!isset($data['success'])) {
-            $data['success'] = '';
+        if (empty($data['success'])) {
+            $data['success'] = __('Thank You', 'Ip');
         }
 
 
