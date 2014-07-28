@@ -38,6 +38,7 @@ class Update4_0_10Test extends \PhpUnit\Helper\MinkTestCase
         $this->session()->executeScript("$('.ipsAdminMenuBlock').removeClass('hidden');");
         $this->find('.ipsAdminMenuBlockContainer a[title=System]')->click();
         $this->waitForElementPresent('.ipsStartUpdate');
+        sleep(1); //can't explain. But it won't work witout this. Probably we need some js to do some initialization with .iposStartUpdate
         $this->find('.ipsStartUpdate')->click();
 
         $this->waitForElementPresent('p.alert-success');
