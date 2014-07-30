@@ -473,4 +473,40 @@ class Content
         return $rootPage;
     }
 
+
+    /**
+     * Get menus of the website.
+     * Menu list may be different on each language. That's why there is $languageCode parameter.
+     * If $languageCode is omitted, current language is used by default.
+     *
+     * @param string $languageCode
+     * @return array
+     */
+    public function getMenus($languageCode = null)
+    {
+        $result = \Ip\Internal\Pages\Service::getMenus($languageCode);
+        $objectArray = array();
+        foreach ($result as $menuData)
+        {
+            $objectArray[] = new \Ip\Page($menuData);
+        }
+        return $objectArray;
+    }
+
+    /**
+     * Get menu.
+     *
+     * @param string $languageCode
+     * @param string $alias unique menu identificator within the language
+     * @return array|null
+     */
+    public static function getMenu($languageCode, $alias)
+    {
+        $result = \Ip\Internal\Pages\Service::getMenu($languageCode, $alias);
+        if ($result) {
+            return new \Ip\Page($result);
+        }
+        return $result;
+    }
+
 }
