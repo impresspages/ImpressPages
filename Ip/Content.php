@@ -480,7 +480,7 @@ class Content
      * If $languageCode is omitted, current language is used by default.
      *
      * @param string $languageCode
-     * @return array
+     * @return \Ip\Page[]
      */
     public function getMenus($languageCode = null)
     {
@@ -498,7 +498,7 @@ class Content
      *
      * @param string $languageCode
      * @param string $alias unique menu identificator within the language
-     * @return array|null
+     * @return \Ip\Page[]
      */
     public static function getMenu($languageCode, $alias)
     {
