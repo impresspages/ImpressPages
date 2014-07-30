@@ -10,6 +10,7 @@ class Currency extends \Ip\Internal\Grid\Model\Field
 {
 
     protected $currency;
+    protected $currencyField;
 
     /**
      * Create field object for grid
@@ -24,6 +25,10 @@ class Currency extends \Ip\Internal\Grid\Model\Field
         } else {
             $this->currency = 'USD';
         }
+        if (!empty($fieldFieldConfig['currencyField'])) {
+            $this->currencyField = $fieldFieldConfig['currencyField'];
+        }
+
         if (!empty($fieldFieldConfig['defaultValue'])) {
             $fieldFieldConfig['defaultValue'] = $fieldFieldConfig['defaultValue'] / 100;
         }
@@ -40,7 +45,12 @@ class Currency extends \Ip\Internal\Grid\Model\Field
     public function preview($recordData)
     {
         //$recordData[$this->field] = $recordData[$this->field]/100;
-        return ipFormatPrice($recordData[$this->field], $this->getCurrency(), 'Grid');
+
+        $currency = $this->getCurrency();
+        if ($this->getCurrencyField() && !empty($recordData[$this->getCurrencyField()])) {
+            $currency = $recordData[$this->getCurrencyField()];
+        }
+        return ipFormatPrice($recordData[$this->field], $currency, 'Grid');
     }
 
     public function createField()
@@ -105,5 +115,10 @@ class Currency extends \Ip\Internal\Grid\Model\Field
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    public function getCurrencyField()
+    {
+        return $this->currencyField;
     }
 }
