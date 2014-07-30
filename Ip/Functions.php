@@ -1134,6 +1134,7 @@ function ipGridController($config)
  * @param string $dir
  * @param string $desiredName
  * @param bool $sanitize clean up supicious symbols from file name
+ * @return string
  */
 function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
 {
