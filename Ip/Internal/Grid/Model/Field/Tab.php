@@ -38,6 +38,6 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function searchQuery($searchVariables)
     {
-        return new \Ip\Form\Field\Info();
+        return array();
     }
 }

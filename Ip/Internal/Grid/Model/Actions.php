@@ -66,7 +66,7 @@ class Actions
         $fields = $this->config->fields();
         $dbData = array();
         foreach ($fields as $field) {
-            if (empty($field['field']) ||  $field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate']) {
+            if (empty($field['field']) ||  $field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab') {
                 continue;
             }
             $fieldObject = $this->config->fieldObject($field);
@@ -129,6 +129,10 @@ class Actions
         $fields = $this->config->fields();
         $dbData = array();
         foreach ($fields as $field) {
+            if (!empty($field['type']) && $field['type'] == 'Tab') {
+                continue;
+            }
+
             $fieldObject = $this->config->fieldObject($field);
             $fieldObject->beforeCreate(null, $data);
             $fieldData = $fieldObject->createData($data);
