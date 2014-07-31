@@ -226,20 +226,36 @@ class Display
     public function createForm()
     {
         $form = new \Ip\Form();
+        $fields = $this->config->fields();
 
-        $firstFieldset = true;
-        foreach ($this->config->fields() as $fieldData) {
+        //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
+        if (!empty($fields[0]['type']) && $fields[0]['type'] != 'Tab') {
+            $tabExist = false;
+            foreach ($fields as $key => $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    $tabExist = true;
+                    break;
+                }
+            }
+            if ($tabExist) {
+                array_unshift($fields, array('label' => __('General', 'Ip-admin', false), 'type' => 'Tab'));
+            }
+
+        }
+
+        foreach ($fields as $key => $fieldData) {
             if (isset($fieldData['allowCreate']) && !$fieldData['allowCreate']) {
                 continue;
             }
 
             if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
                 $title = '';
                 if (!empty($fieldData['label'])) {
                     $title = $fieldData['label'];
                 }
 
-                if ($firstFieldset) {
+                if ($key == 0) {
                     $fieldsets = $form->getFieldsets();
                     $fieldset = $fieldsets[0];
                     $fieldset->setLabel($title);
@@ -247,22 +263,22 @@ class Display
                     $fieldset = new \Ip\Form\Fieldset($title);
                     $form->addFieldset($fieldset);
                 }
-                if (empty($fieldData['id'])) {
-                    throw new \Ip\Exception('Tab requires an unique \'id\' attribute to be set');
+                if (!empty($fieldData['id'])) {
+                    $id = $fieldData['id'];
+                } else {
+                    $id = 'autoGridTabId' . rand(0, 100000000000);
                 }
-                $fieldset->addAttribute('id', $fieldData['id']);
+                $fieldset->addAttribute('id', $id);
                 $fieldset->addAttribute('data-toggle', 'tab');
-                if ($firstFieldset) {
+                if ($key == 0) {
                     $fieldset->addAttribute('class', 'tab-pane active');
                 } else {
                     $fieldset->addAttribute('class', 'tab-pane');
                 }
 
 
-
-                $firstFieldset = false;
-
             } else {
+                //fields
                 $fieldObject = $this->config->fieldObject($fieldData);
 
                 $field = $fieldObject->createField();
