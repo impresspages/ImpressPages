@@ -228,20 +228,8 @@ class Display
         $form = new \Ip\Form();
         $fields = $this->config->fields();
 
-        //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
-        if (!empty($fields[0]['type']) && $fields[0]['type'] != 'Tab') {
-            $tabExist = false;
-            foreach ($fields as $key => $fieldData) {
-                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
-                    $tabExist = true;
-                    break;
-                }
-            }
-            if ($tabExist) {
-                array_unshift($fields, array('label' => __('General', 'Ip-admin', false), 'type' => 'Tab'));
-            }
 
-        }
+
 
         foreach ($fields as $key => $fieldData) {
             if (isset($fieldData['allowCreate']) && !$fieldData['allowCreate']) {
@@ -339,6 +327,7 @@ class Display
 
         return $form;
     }
+
 
 
 }
