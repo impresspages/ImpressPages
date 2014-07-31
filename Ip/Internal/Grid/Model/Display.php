@@ -38,6 +38,9 @@ class Display
         } else {
             $where = $this->config->filter();
             foreach ($this->config->fields() as $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    continue;
+                }
                 $fieldObject = $this->config->fieldObject($fieldData);
                 $fieldQuery = $fieldObject->searchQuery($searchVariables);
                 if ($fieldQuery) {
@@ -331,14 +334,41 @@ class Display
         $form->setMethod('get');
 
         $form->removeCsrfCheck();
-        foreach ($this->config->fields() as $fieldData) {
+        foreach ($this->config->fields() as $key => $fieldData) {
             if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {
                 continue;
             }
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->searchField($searchVariables);
-            if ($field) {
-                $form->addField($field);
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
+                }
+
+                if ($key == 0) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
+                if ($key == 0) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+            } else {
+
+                $fieldObject = $this->config->fieldObject($fieldData);
+                $field = $fieldObject->searchField($searchVariables);
+                if ($field) {
+                    $form->addField($field);
+                }
             }
         }
 
@@ -351,6 +381,10 @@ class Display
 
         $field = new \Ip\Form\Field\HiddenSubmit();
         $form->addField($field);
+
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
+        }
 
         return $form;
     }

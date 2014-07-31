@@ -197,6 +197,24 @@
             $modal.find('.ipsSearch').off().on('click', function () {
                 $modal.find('.ipsBody form').submit();
             });
+
+            $modal.find(".nav-tabs").on("click", "a", function(e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+            $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
+                var $form = $(this);
+                var $errorField = $form.find('.form-group.has-error');
+                var $errorPane = $errorField.closest('.tab-pane');
+                if ($errorPane.length) {
+                    var id = $errorPane.attr('id')
+                    $modal.find('.nav-tabs li a[href=#' + id + ']').tab('show');
+                    $modal.animate({
+                        scrollTop: $errorField.offset().top
+                    }, 300);
+                }
+            });
         });
 
 
@@ -306,7 +324,6 @@
 
 
                 $modal.find(".nav-tabs").on("click", "a", function(e) {
-                    console.log(this);
                     e.preventDefault();
                     $(this).tab('show');
                 });
