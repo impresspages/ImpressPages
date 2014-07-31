@@ -257,7 +257,6 @@ class Display
                     $id = 'autoGridTabId' . rand(0, 100000000000);
                 }
                 $fieldset->addAttribute('id', $id);
-                $fieldset->addAttribute('data-toggle', 'tab');
                 if ($key == 0) {
                     $fieldset->addAttribute('class', 'tab-pane active');
                 } else {
