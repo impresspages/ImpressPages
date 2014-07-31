@@ -226,20 +226,59 @@ class Display
     public function createForm()
     {
         $form = new \Ip\Form();
+
+        $firstFieldset = true;
         foreach ($this->config->fields() as $fieldData) {
             if (isset($fieldData['allowCreate']) && !$fieldData['allowCreate']) {
                 continue;
             }
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->createField();
-            if ($field) {
-                if (!empty($fieldData['validators'])) {
-                    foreach ($fieldData['validators'] as $validator) {
-                        $field->addValidator($validator);
-                    }
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
                 }
-                $form->addField($field);
+
+                if ($firstFieldset) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                if (empty($fieldData['id'])) {
+                    throw new \Ip\Exception('Tab requires an unique \'id\' attribute to be set');
+                }
+                $fieldset->addAttribute('id', $fieldData['id']);
+                $fieldset->addAttribute('data-toggle', 'tab');
+                if ($firstFieldset) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+
+                $firstFieldset = false;
+
+            } else {
+                $fieldObject = $this->config->fieldObject($fieldData);
+
+                $field = $fieldObject->createField();
+                if ($field) {
+                    if (!empty($fieldData['validators'])) {
+                        foreach ($fieldData['validators'] as $validator) {
+                            $field->addValidator($validator);
+                        }
+                    }
+                    $form->addField($field);
+                }
             }
+        }
+
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
         }
 
 
