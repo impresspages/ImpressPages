@@ -66,7 +66,7 @@ class Actions
         $fields = $this->config->fields();
         $dbData = array();
         foreach ($fields as $field) {
-            if ($field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate']) {
+            if (empty($field['field']) ||  $field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate']) {
                 continue;
             }
             $fieldObject = $this->config->fieldObject($field);
