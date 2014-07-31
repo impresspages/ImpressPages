@@ -26,6 +26,13 @@ var validatorConfigAdmin = '';
                         $control.parents('.form-group').find('.help-error').show()
                     }
                 });
+
+                if (!isScrolledIntoView(errors[0].input) && !$(errors[0].input).hasClass('ipsDisableAutoscrollOnError')) {
+                    $('html, body').animate({
+                        scrollTop: Math.max($(errors[0].input).offset().top - 70, 0)
+                    }, 300);
+
+                }
             },
             'onSuccess': function (e, valids) {
                 $.each(valids, function () {
@@ -36,6 +43,18 @@ var validatorConfigAdmin = '';
         };
         return config;
     };
+
+
+    var isScrolledIntoView = function (elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
 
     $.each(ipValidatorTranslations, function (key, value) {
         if (validatorConfigAdmin === '') {
