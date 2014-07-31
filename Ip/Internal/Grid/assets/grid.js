@@ -163,6 +163,7 @@
                 $modal.find('.ipsBody form').submit();
             });
 
+            console.log('bind');
             $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
                 var $form = $(this);
                 var $errorField = $form.find('.form-group.has-error');

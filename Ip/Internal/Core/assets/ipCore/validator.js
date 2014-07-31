@@ -32,6 +32,7 @@ var validatorConfigPublic = '';
                     }, 300);
 
                 }
+                $(e.target).trigger('ipOnFail', [e, errors]);
             },
             'onSuccess': function (e, valids) {
                 $.each(valids, function () {
