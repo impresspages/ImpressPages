@@ -187,21 +187,50 @@ class Display
         $db = new Db($this->config);
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
-        foreach ($this->config->fields() as $fieldData) {
+        foreach ($this->config->fields() as $key => $fieldData) {
             if (isset($fieldData['allowUpdate']) && !$fieldData['allowUpdate']) {
                 continue;
             }
 
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->updateField($curData);
-            if ($field) {
-                if (!empty($fieldData['validators'])) {
-                    foreach ($fieldData['validators'] as $validator) {
-                        $field->addValidator($validator);
-                    }
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
                 }
-                $form->addField($field);
+
+                if ($key == 0) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
+                if ($key == 0) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+            } else {
+                //fields
+                $fieldObject = $this->config->fieldObject($fieldData);
+                $field = $fieldObject->updateField($curData);
+                if ($field) {
+                    if (!empty($fieldData['validators'])) {
+                        foreach ($fieldData['validators'] as $validator) {
+                            $field->addValidator($validator);
+                        }
+                    }
+                    $form->addField($field);
+                }
+
             }
+
         }
 
         $field = new \Ip\Form\Field\Hidden(array(
@@ -218,6 +247,10 @@ class Display
 
         $field = new \Ip\Form\Field\HiddenSubmit();
         $form->addField($field);
+
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
+        }
 
         return $form;
     }
@@ -251,12 +284,7 @@ class Display
                     $fieldset = new \Ip\Form\Fieldset($title);
                     $form->addFieldset($fieldset);
                 }
-                if (!empty($fieldData['id'])) {
-                    $id = $fieldData['id'];
-                } else {
-                    $id = 'autoGridTabId' . rand(0, 100000000000);
-                }
-                $fieldset->addAttribute('id', $id);
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
                 if ($key == 0) {
                     $fieldset->addAttribute('class', 'tab-pane active');
                 } else {

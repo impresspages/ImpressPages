@@ -82,7 +82,9 @@ class Table extends \Ip\Internal\Grid\Model
                 return $this->delete($params, $statusVariables);
                 break;
             case 'updateForm':
-                return $this->updateForm($params, $statusVariables)->render();
+                $updateForm = $this->updateForm($params, $statusVariables);
+                $view = ipView('../view/updateForm.php', array('updateForm' => $updateForm))->render();
+                return $view;
                 break;
             case 'update':
                 return $this->update($params, $statusVariables);

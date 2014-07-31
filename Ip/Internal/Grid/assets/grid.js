@@ -139,7 +139,6 @@
             var $modal = $grid.find('.ipsUpdateModal');
             $modal.modal();
             $.proxy(loadUpdateForm, $grid)($modal, id);
-
         });
 
 
@@ -163,7 +162,6 @@
                 $modal.find('.ipsBody form').submit();
             });
 
-            console.log('bind');
             $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
                 var $form = $(this);
                 var $errorField = $form.find('.form-group.has-error');
@@ -306,6 +304,25 @@
                 });
                 ipInitForms();
 
+
+                $modal.find(".nav-tabs").on("click", "a", function(e) {
+                    console.log(this);
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+
+                $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
+                    var $form = $(this);
+                    var $errorField = $form.find('.form-group.has-error');
+                    var $errorPane = $errorField.closest('.tab-pane');
+                    if ($errorPane.length) {
+                        var id = $errorPane.attr('id')
+                        $modal.find('.nav-tabs li a[href=#' + id + ']').tab('show');
+                        $modal.animate({
+                            scrollTop: $errorField.offset().top
+                        }, 300);
+                    }
+                });
             },
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
