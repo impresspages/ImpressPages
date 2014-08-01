@@ -287,6 +287,13 @@ class Table extends \Ip\Internal\Grid\Model
 
 
             foreach ($newData as $key => $value) {
+                if (in_array($key, array('antispam', 'securityToken')) ) {
+                    continue;
+                }
+                if(empty($value)) {
+                    continue;
+                }
+
                 $statusVariables['s_' . $key] = $value;
             }
 
