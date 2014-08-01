@@ -12,7 +12,7 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function createField()
     {
-        return new \Ip\Form\Field\Info();
+        return false;
     }
 
     public function createData($postData)
@@ -22,7 +22,7 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function updateField($curData)
     {
-        return new \Ip\Form\Field\Info();
+        return false;
     }
 
     public function updateData($postData)
@@ -33,7 +33,7 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function searchField($searchVariables)
     {
-        return new \Ip\Form\Field\Info();
+        return false;
     }
 
     public function searchQuery($searchVariables)
