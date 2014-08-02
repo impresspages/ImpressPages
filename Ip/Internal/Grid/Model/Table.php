@@ -30,7 +30,7 @@ class Table extends \Ip\Internal\Grid\Model
         $this->subgridConfig = $this->config->subgridConfig($this->statusVariables);
 
 
-        $this->actions = new Actions($this->subgridConfig);
+        $this->actions = $this->getActions();
     }
 
     public function handleMethod()
@@ -150,7 +150,7 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         try {
-            $actions = new Actions($this->subgridConfig);
+            $actions = $this->getActions();
             $actions->delete($params['id']);
             $display = $this->getDisplay();
             $html = $display->fullHtml($this->statusVariables);
@@ -198,7 +198,7 @@ class Table extends \Ip\Internal\Grid\Model
                 call_user_func($this->subgridConfig->beforeUpdate(), $recordId, $newData);
             }
 
-            $actions = new Actions($this->subgridConfig);
+            $actions = $this->getActions();
             $actions->update($recordId, $newData);
 
             if ($this->subgridConfig->afterUpdate()) {
@@ -240,7 +240,7 @@ class Table extends \Ip\Internal\Grid\Model
                 call_user_func($this->subgridConfig->beforeCreate(), $newData);
             }
 
-            $actions = new Actions($this->subgridConfig);
+            $actions = $this->getActions();
             $recordId = $actions->create($newData);
 
             if ($this->subgridConfig->afterCreate()) {
@@ -274,7 +274,7 @@ class Table extends \Ip\Internal\Grid\Model
         $targetId = $params['targetId'];
         $beforeOrAfter = $params['beforeOrAfter'];
 
-        $actions = new Actions($this->subgridConfig);
+        $actions = $this->getActions();
         $actions->move($id, $targetId, $beforeOrAfter);
         $display = $this->getDisplay();
         $html = $display->fullHtml();
@@ -358,6 +358,11 @@ class Table extends \Ip\Internal\Grid\Model
     protected function getDisplay()
     {
         return new Display($this->config, $this->subgridConfig, $this->statusVariables);
+    }
+
+    protected function getActions()
+    {
+        return new Actions($this->subgridConfig, $this->statusVariables);
     }
 
 }

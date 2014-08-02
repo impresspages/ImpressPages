@@ -16,10 +16,12 @@ class Actions
      * @var $subgridConfig Config
      */
     protected $subgridConfig;
+    protected $statusVariables;
 
-    public function __construct($subgridConfig)
+    public function __construct($subgridConfig, $statusVariables)
     {
         $this->subgridConfig = $subgridConfig;
+        $this->statusVariables = $statusVariables;
     }
 
 
@@ -153,6 +155,11 @@ class Actions
                 $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX(`$sortField`)", array());
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue + 1 : 1; // 1 if null
             }
+        }
+
+        $depth = Status::depth($this->statusVariables);
+        if ($depth > 1) {
+            $dbData[$this->subgridConfig->connectionField()] = $this->statusVariables['gridParentId' . ($depth - 1)];
         }
 
         $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
