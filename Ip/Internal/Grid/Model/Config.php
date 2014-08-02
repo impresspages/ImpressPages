@@ -391,4 +391,32 @@ class Config
     }
 
 
+
+    /**
+     * Return nested grid config object
+     * @param $statusVariables
+     * @return Config
+     * @throws \Ip\Exception
+     */
+    public function subgridConfig($statusVariables)
+    {
+        $this->checkConfig();
+        $depth = Status::depth($statusVariables);
+        $config = $this->config;
+        for ($i = 1; $i < $depth; $i++) {
+            $found = false;
+            foreach ($config['fields'] as $field) {
+                if ($field['type'] == 'Grid' && $field['gridId'] == $statusVariables['gridId' . $i]) {
+                    $config = $field['config'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                throw new \Ip\Exception('Unknown subgrid');
+            }
+        }
+        return new self($config);
+    }
+
 }

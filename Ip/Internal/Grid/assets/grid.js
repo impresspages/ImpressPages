@@ -151,6 +151,8 @@
             if (!$form.find('input[name=aa]').length) {
                 $form.append($('<input type="hidden" name="aa" />').val(data.aa));
             }
+            $form.find('input[name=hash]').remove();
+            $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
                     $modal.modal('hide');

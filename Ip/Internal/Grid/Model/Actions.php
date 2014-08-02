@@ -17,9 +17,9 @@ class Actions
      */
     protected $config;
 
-    public function __construct($config)
+    public function __construct($subgridConfig)
     {
-        $this->config = $config;
+        $this->config = $subgridConfig;
     }
 
 
