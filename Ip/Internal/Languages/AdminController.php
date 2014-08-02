@@ -168,8 +168,8 @@ class AdminController extends \Ip\GridController
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());
-                    $display = new  \Ip\Internal\Grid\Model\Display($config);
-                    $html = $display->fullHtml($statusVariables);
+                    $display = new  \Ip\Internal\Grid\Model\Display($config, $config,$statusVariables);
+                    $html = $display->fullHtml();
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
@@ -191,8 +191,8 @@ class AdminController extends \Ip\GridController
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());
-                    $display = new  \Ip\Internal\Grid\Model\Display($config);
-                    $html = $display->fullHtml($statusVariables);
+                    $display = new  \Ip\Internal\Grid\Model\Display($config, $config, $statusVariables);
+                    $html = $display->fullHtml();
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message

@@ -17,31 +17,36 @@ class Display
      */
     protected $config = null;
 
-    public function __construct(Config $config)
+    public function __construct(Config $config, Config $subgridConfig, $statusVariables)
     {
         $this->config = $config;
+        $this->subgridConfig = $subgridConfig;
+        $this->statusVariables = $statusVariables;
     }
 
-    public function fullHtml($statusVariables)
+    public function fullHtml()
     {
-        $db = new Db($this->config);
+        $subgridConfig = $this->subgridConfig;
+
+
+        $db = new Db($this->subgridConfig);
 
         $searchVariables = array();
-        foreach ($statusVariables as $key => $value) {
+        foreach ($this->statusVariables as $key => $value) {
             if (preg_match('/^s_/', $key)) {
                 $searchVariables[substr($key, 2)] = $value;
             }
         }
 
         if (empty($searchVariables)) {
-            $where = $this->config->filter();
+            $where = $subgridConfig->filter();
         } else {
-            $where = $this->config->filter();
-            foreach ($this->config->fields() as $fieldData) {
+            $where = $subgridConfig->filter();
+            foreach ($subgridConfig->fields() as $fieldData) {
                 if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
                     continue;
                 }
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $subgridConfig->fieldObject($fieldData);
                 $fieldQuery = $fieldObject->searchQuery($searchVariables);
                 if ($fieldQuery) {
                     if ($where != ' ') {
@@ -52,13 +57,13 @@ class Display
             }
         }
 
-        $pageVariableName = $this->config->pageVariableName();
-        $currentPage = !empty($statusVariables[$pageVariableName]) ? (int)$statusVariables[$pageVariableName] : 1;
+        $pageVariableName = $subgridConfig->pageVariableName();
+        $currentPage = !empty($this->statusVariables[$pageVariableName]) ? (int)$this->statusVariables[$pageVariableName] : 1;
         if ($currentPage < 1) {
             $currentPage = 1;
         }
 
-        $pageSize = $this->config->pageSize();
+        $pageSize = $subgridConfig->pageSize();
         $from = ($currentPage - 1) * $pageSize;
 
         $totalPages = ceil($db->recordCount($where) / $pageSize);
@@ -70,7 +75,7 @@ class Display
         $pagination = new \Ip\Pagination\Pagination(array(
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
-            'pagerSize' => $this->config->pagerSize()
+            'pagerSize' => $subgridConfig->pagerSize()
         ));
 
         $variables = array(
@@ -78,14 +83,14 @@ class Display
             'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
-            'deleteWarning' => $this->config->deleteWarning(),
+            'deleteWarning' => $subgridConfig->deleteWarning(),
             'createForm' => $this->createForm(),
             'searchForm' => $this->searchForm($searchVariables),
-            'title' => $this->config->getTitle()
+            'title' => $subgridConfig->getTitle()
         );
 
 
-        $html = ipView($this->config->layout(), $variables)->render();
+        $html = ipView($subgridConfig->layout(), $variables)->render();
         return $html;
     }
 
@@ -262,7 +267,9 @@ class Display
     public function createForm()
     {
         $form = new \Ip\Form();
-        $fields = $this->config->fields();
+
+        $subgridConfig = $this->subgridConfig;
+        $fields = $subgridConfig->fields();
 
 
 
@@ -297,7 +304,7 @@ class Display
 
             } else {
                 //fields
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $subgridConfig->fieldObject($fieldData);
 
                 $field = $fieldObject->createField();
                 if ($field) {
