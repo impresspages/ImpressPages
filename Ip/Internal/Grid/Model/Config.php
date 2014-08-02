@@ -32,10 +32,6 @@ class Config
             $this->config['fields'] = $this->getTableFields($this->config['table']);
         }
 
-        if (empty($this->config['idField'])) {
-            $this->config['idField'] = 'id';
-        }
-
         if (empty($this->config['pageSize'])) {
             $this->config['pageSize'] = 10;
         }
@@ -240,7 +236,11 @@ class Config
 
     public function idField()
     {
-        return $this->config['idField'];
+        if (!empty($this->config['idField'])) {
+            return $this->config['idField'];
+        } else {
+            return 'id';
+        }
     }
 
     public function tableName()

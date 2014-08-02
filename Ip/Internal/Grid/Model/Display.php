@@ -97,19 +97,19 @@ class Display
     protected function getActions()
     {
         $actions = array();
-        if ($this->config->allowCreate()) {
+        if ($this->subgridConfig->allowCreate()) {
             $actions[] = array(
                 'label' => __('Add', 'Ip-admin', false),
                 'class' => 'ipsCreate'
             );
         }
-        if ($this->config->allowSearch()) {
+        if ($this->subgridConfig->allowSearch()) {
             $actions[] = array(
                 'label' => __('Search', 'Ip-admin', false),
                 'class' => 'ipsSearch'
             );
         }
-        $actions = array_merge($actions, $this->config->actions());
+        $actions = array_merge($actions, $this->subgridConfig->actions());
         return $actions;
     }
 
@@ -121,23 +121,23 @@ class Display
         $rows = array();
         foreach ($data as $row) {
             $preparedRow = array(
-                'id' => $row[$this->config->idField()]
+                'id' => $row[$this->subgridConfig->idField()]
             );
             $preparedRowData = array();
-            if ($this->config->allowSort()) {
+            if ($this->subgridConfig->allowSort()) {
                 $preparedRowData[] = $dragButtonHtml;
             }
 
-            if ($this->config->allowUpdate()) {
+            if ($this->subgridConfig->allowUpdate()) {
                 $preparedRowData[] = $editButtonHtml;
             }
-            foreach ($this->config->fields() as $fieldData) {
+            foreach ($this->subgridConfig->fields() as $fieldData) {
 
                 if (isset($fieldData['preview']) && !$fieldData['preview']) {
                     continue;
                 }
 
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
                 $preview = $fieldObject->preview($row);
 
                 if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], true)) {
@@ -145,7 +145,7 @@ class Display
                 }
                 $preparedRowData[] = $preview;
             }
-            if ($this->config->allowDelete()) {
+            if ($this->subgridConfig->allowDelete()) {
                 $preparedRowData[] = $deleteButtonHtml;
             }
 
@@ -159,19 +159,19 @@ class Display
     protected function getColumnData()
     {
         $columns = array();
-        if ($this->config->allowSort()) {
+        if ($this->subgridConfig->allowSort()) {
             $column = array(
                 'label' => ''
             );
             $columns[] = $column;
         }
-        if ($this->config->allowUpdate()) {
+        if ($this->subgridConfig->allowUpdate()) {
             $column = array(
                 'label' => ''
             );
             $columns[] = $column;
         }
-        foreach ($this->config->fields() as $field) {
+        foreach ($this->subgridConfig->fields() as $field) {
             if (isset($field['preview']) && !$field['preview']) {
                 continue;
             }
@@ -180,7 +180,7 @@ class Display
             );
             $columns[] = $column;
         }
-        if ($this->config->allowDelete()) {
+        if ($this->subgridConfig->allowDelete()) {
             $column = array(
                 'label' => ''
             );
@@ -192,10 +192,10 @@ class Display
 
     public function updateForm($id)
     {
-        $db = new Db($this->config);
+        $db = new Db($this->subgridConfig);
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
-        foreach ($this->config->fields() as $key => $fieldData) {
+        foreach ($this->subgridConfig->fields() as $key => $fieldData) {
             if (isset($fieldData['allowUpdate']) && !$fieldData['allowUpdate']) {
                 continue;
             }
@@ -226,7 +226,7 @@ class Display
 
             } else {
                 //fields
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
                 $field = $fieldObject->updateField($curData);
                 if ($field) {
                     if (!empty($fieldData['validators'])) {
@@ -242,7 +242,7 @@ class Display
         }
 
         $field = new \Ip\Form\Field\Hidden(array(
-            'name' => $this->config->idField(),
+            'name' => $this->subgridConfig->idField(),
             'value' => $id
         ));
         $form->addField($field);
@@ -341,7 +341,7 @@ class Display
         $form->setMethod('get');
 
         $form->removeCsrfCheck();
-        foreach ($this->config->fields() as $key => $fieldData) {
+        foreach ($this->subgridConfig->fields() as $key => $fieldData) {
             if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {
                 continue;
             }
@@ -371,7 +371,7 @@ class Display
 
             } else {
 
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
                 $field = $fieldObject->searchField($searchVariables);
                 if ($field) {
                     $form->addField($field);
