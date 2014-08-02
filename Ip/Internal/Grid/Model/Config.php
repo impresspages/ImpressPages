@@ -69,6 +69,19 @@ class Config
         return '1';
     }
 
+    /**
+     * Get field name responsible for connection of subgrid to the parent grid.
+     * You can think of it as a foreign key in SQL
+     * @return string
+     */
+    public function connectionField()
+    {
+        if (!empty($this->config['connectionField'])) {
+            return $this->config['connectionField'];
+        }
+        return '1';
+    }
+
     public function deleteWarning()
     {
         if (!empty($this->config['deleteWarning'])) {
