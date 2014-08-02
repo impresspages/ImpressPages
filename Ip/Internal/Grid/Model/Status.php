@@ -33,6 +33,24 @@ class Status
         return 'grid&' . http_build_query($variables);
     }
 
+
+    /**
+     * Get the depth of nesting
+     * @param $statusVariables
+     * @return int
+     */
+    public static function depth($statusVariables)
+    {
+        $depth = 1;
+        while (isset($statusVariables['gridId' . $depth]) && isset($statusVariables['gridParentId' . $depth])) {
+            $depth++;
+        }
+        return $depth;
+    }
+
+
+
+
 //    protected $config = null;
 //
 //    public function __construct($hash)

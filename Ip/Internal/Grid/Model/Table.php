@@ -98,12 +98,19 @@ class Table extends \Ip\Internal\Grid\Model
             case 'search':
                 return $this->search($params, $statusVariables);
                 break;
+            case 'subgrid':
+                return $this->subgrid($params, $statusVariables);
+                break;
         }
         return null;
     }
 
+
+
+
     protected function init($statusVariables)
     {
+
         $display = new Display($this->config);
         $commands = array();
         $html = $display->fullHtml($statusVariables);
@@ -291,6 +298,7 @@ class Table extends \Ip\Internal\Grid\Model
                     continue;
                 }
                 if(empty($value)) {
+                    unset($statusVariables['s_' . $key]);
                     continue;
                 }
 
@@ -308,5 +316,32 @@ class Table extends \Ip\Internal\Grid\Model
         return $data;
     }
 
+
+    protected function subgrid($params, $statusVariables)
+    {
+        if (empty($params['gridId'])) {
+            throw new \Ip\Exception('girdId GET variable missing');
+        }
+        if (empty($params['gridParentId'])) {
+            throw new \Ip\Exception('girdParentId GET variable missing');
+        }
+
+        $newStatusVariables = array();
+
+        $depth = Status::depth($statusVariables);
+
+        for($i=1; $i<$depth; $i++) {
+            $newStatusVariables['gridId' . $i] = $statusVariables['gridId' . $i];
+            $newStatusVariables['gridParentId' . $i] = $statusVariables['gridParentId' . $i];
+        }
+
+
+        $newStatusVariables['gridId' . $depth] = $params['gridId'];
+        $newStatusVariables['gridParentId' . $depth] = $params['gridParentId'];
+
+        $commands[] = Commands::setHash(Status::build($newStatusVariables));
+
+        return $commands;
+    }
 
 }
