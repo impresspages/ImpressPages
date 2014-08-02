@@ -1079,6 +1079,7 @@ function ipGridController($config)
         //Grid initialization. Add JS and display GRID's HTML
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
 
         $backtrace = debug_backtrace();
         if (empty($backtrace[1]['object']) || empty($backtrace[1]['function']) || empty($backtrace[1]['class'])) {

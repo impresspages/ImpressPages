@@ -356,7 +356,7 @@ class Config
     }
 
 
-    protected function checkConfig()
+    protected function checkConfig($depth = 1)
     {
         $fields = $this->config['fields'];
         //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
@@ -373,6 +373,19 @@ class Config
             }
 
         }
+
+        //automatically add gridId to grid fields
+        $gridIndex = 0;
+        foreach ($fields as $key => &$fieldData) {
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Grid') {
+                $gridIndex++;
+                if (empty($fieldData['gridId'])) {
+                    $fieldData['gridId'] = 'grid' . $gridIndex;
+                }
+
+            }
+        }
+
         $this->config['fields'] = $fields;
         $this->configChecked = true;
     }
