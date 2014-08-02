@@ -38,10 +38,16 @@ class Display
             }
         }
 
-        if (empty($searchVariables)) {
-            $where = $subgridConfig->filter();
-        } else {
-            $where = $subgridConfig->filter();
+        $where = $subgridConfig->filter();
+
+        $depth = Status::depth($this->statusVariables);
+        if ($depth > 1) {
+            $where = '(' . $where . ') and `' . $subgridConfig->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
+        }
+
+
+        if (!empty($searchVariables)) {
+
             foreach ($subgridConfig->fields() as $fieldData) {
                 if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
                     continue;
