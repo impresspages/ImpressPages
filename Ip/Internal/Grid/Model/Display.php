@@ -17,6 +17,11 @@ class Display
      */
     protected $config = null;
 
+    /**
+     * @var Config|null
+     */
+    protected $subgridConfig = null;
+
     public function __construct(Config $config, Config $subgridConfig, $statusVariables)
     {
         $this->config = $config;
@@ -26,6 +31,9 @@ class Display
 
     public function fullHtml()
     {
+        /**
+         * @var Config
+         */
         $subgridConfig = $this->subgridConfig;
 
 
@@ -42,7 +50,7 @@ class Display
 
         $depth = Status::depth($this->statusVariables);
         if ($depth > 1) {
-            $where = '(' . $where . ') and `' . $subgridConfig->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
+            $where = '(' . $where . ') and ' . $subgridConfig->tableName() . '.`' . $subgridConfig->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
         }
 
 
