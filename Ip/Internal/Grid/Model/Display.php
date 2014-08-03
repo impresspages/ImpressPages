@@ -37,7 +37,7 @@ class Display
         $subgridConfig = $this->subgridConfig;
 
 
-        $db = new Db($this->subgridConfig);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
 
         $searchVariables = array();
         foreach ($this->statusVariables as $key => $value) {
@@ -46,12 +46,8 @@ class Display
             }
         }
 
-        $where = $subgridConfig->filter();
 
-        $depth = Status::depth($this->statusVariables);
-        if ($depth > 1) {
-            $where = '(' . $where . ') and ' . $subgridConfig->tableName() . '.`' . $subgridConfig->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
-        }
+        $where = $db->buildSqlWhere();
 
 
         if (!empty($searchVariables)) {
@@ -206,7 +202,7 @@ class Display
 
     public function updateForm($id)
     {
-        $db = new Db($this->subgridConfig);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
         foreach ($this->subgridConfig->fields() as $key => $fieldData) {

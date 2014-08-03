@@ -337,18 +337,7 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('girdParentId GET variable missing');
         }
 
-        $newStatusVariables = array();
-
-        $depth = Status::depth($this->statusVariables);
-
-        for($i=1; $i<$depth; $i++) {
-            $newStatusVariables['gridId' . $i] = $this->statusVariables['gridId' . $i];
-            $newStatusVariables['gridParentId' . $i] = $this->statusVariables['gridParentId' . $i];
-        }
-
-
-        $newStatusVariables['gridId' . $depth] = $params['gridId'];
-        $newStatusVariables['gridParentId' . $depth] = $params['gridParentId'];
+        $newStatusVariables = Status::genSubgridVariables($this->statusVariables, $params['gridId'], $params['gridParentId']);
 
         $commands[] = Commands::setHash(Status::build($newStatusVariables));
 

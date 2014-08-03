@@ -27,7 +27,7 @@ class Actions
 
     public function delete($id)
     {
-        $db = new Db($this->subgridConfig);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
 
         $fields = $this->subgridConfig->fields();
         $curData = $db->fetchRow($id);
@@ -53,13 +53,31 @@ class Actions
 
         ipDb()->execute($sql, $params);
 
+        //remove records in child grids
         foreach ($fields as $field) {
             $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->afterDelete($id, $curData);
 
             if ($field['type'] == 'Grid') {
-                $subActions = new Actions($field['config'], $this->statusVariables);
-                $subActions->delete($id);
+                $childStatusVariables = Status::genSubgridVariables($this->statusVariables, $field['gridId'], $id);
+
+                $subActions = new Actions(new Config($field['config']), $childStatusVariables);
+                $childConfig = new Config($field['config']);
+                $db = new Db($childConfig, $childStatusVariables);
+                $where = $db->buildSqlWhere();
+                $sql = "
+                    SELECT
+                        `" . $childConfig->idField() . "`
+                    FROM
+                        " . $childConfig->tableName() . "
+                    WHERE
+                        $where
+                ";
+                $idsToDelete = ipDb()->fetchColumn($sql);
+                foreach ($idsToDelete as $idToDelete) {
+                    $subActions->delete($idToDelete);
+                }
+
             }
         }
 
@@ -67,7 +85,7 @@ class Actions
 
     public function update($id, $data)
     {
-        $db = new Db($this->subgridConfig);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         $oldData = $db->fetchRow($id);
 
         $fields = $this->subgridConfig->fields();
