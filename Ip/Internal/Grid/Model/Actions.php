@@ -56,6 +56,11 @@ class Actions
         foreach ($fields as $field) {
             $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->afterDelete($id, $curData);
+
+            if ($field['type'] == 'Grid') {
+                $subActions = new Actions($field['config'], $this->statusVariables);
+                $subActions->delete($id);
+            }
         }
 
     }
