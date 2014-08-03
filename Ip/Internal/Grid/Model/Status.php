@@ -49,7 +49,20 @@ class Status
     }
 
 
+    public static function genSubgridVariables($curStatusVariables, $gridId, $gridParentId)
+    {
+        $newStatusVariables = array();
+        $depth = Status::depth($curStatusVariables);
 
+        for($i=1; $i<$depth; $i++) {
+            $newStatusVariables['gridId' . $i] = $curStatusVariables['gridId' . $i];
+            $newStatusVariables['gridParentId' . $i] = $curStatusVariables['gridParentId' . $i];
+        }
+
+        $newStatusVariables['gridId' . $depth] = $gridId;
+        $newStatusVariables['gridParentId' . $depth] = $gridParentId;
+        return $newStatusVariables;
+    }
 
 //    protected $config = null;
 //
