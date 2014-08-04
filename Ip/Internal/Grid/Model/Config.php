@@ -408,7 +408,7 @@ class Config
                     }
                 }
                 if (!$loop) {
-                    $newBreadcrumb = array_merge($gridBreadcrumb, array($fieldData['config']));
+                    $newBreadcrumb = array_merge($gridBreadcrumb, array($config));
                     $this->checkConfig($fieldData['config'], $depth + 1, $newBreadcrumb);
                 }
 
