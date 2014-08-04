@@ -199,7 +199,7 @@ class Config
     public function fields()
     {
         if (!$this->configChecked) {
-            $this->checkConfig();
+            $this->checkConfig($this->config);
         }
         return $this->config['fields'];
     }
@@ -369,9 +369,14 @@ class Config
     }
 
 
-    protected function checkConfig($depth = 1)
+    /**
+     * @param int $depth
+     * @param array $gridBreadcrumb //to detect loop
+     * @throws \Ip\Exception
+     */
+    protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = array())
     {
-        $fields = $this->config['fields'];
+        $fields = &$config['fields'];
         //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
         if (!empty($fields[0]['type']) && $fields[0]['type'] != 'Tab') {
             $tabExist = false;
@@ -395,12 +400,24 @@ class Config
                 if (empty($fieldData['gridId'])) {
                     $fieldData['gridId'] = 'grid' . $gridIndex;
                 }
+                $subConfig = $fieldData['config'];
+                $loop = false;
+                foreach($gridBreadcrumb as $crumb) {
+                    if ($subConfig == $crumb) {
+                        $loop = true;
+                    }
+                }
+                if (!$loop) {
+                    $newBreadcrumb = array_merge($gridBreadcrumb, array($fieldData['config']));
+                    $this->checkConfig($fieldData['config'], $depth + 1, $newBreadcrumb);
+                }
 
             }
         }
 
-        $this->config['fields'] = $fields;
-        $this->configChecked = true;
+        if($depth == 1) {
+            $this->configChecked = true;
+        }
     }
 
 
@@ -413,7 +430,7 @@ class Config
      */
     public function subgridConfig($statusVariables)
     {
-        $this->checkConfig();
+        $this->checkConfig($this->config);
         $depth = Status::depth($statusVariables);
         $config = $this->config;
         for ($i = 1; $i < $depth; $i++) {

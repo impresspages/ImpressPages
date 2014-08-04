@@ -36,6 +36,7 @@ class Db
     }
 
 
+
     public function recordCount($where)
     {
         return ipDb()->fetchValue(
