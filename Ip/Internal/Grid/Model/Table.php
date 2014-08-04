@@ -145,9 +145,6 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('Missing parameters');
         }
 
-        if ($this->subgridConfig->beforeDelete()) {
-            call_user_func($this->subgridConfig->beforeDelete(), $params['id']);
-        }
 
         try {
             $actions = $this->getActions();
@@ -160,9 +157,6 @@ class Table extends \Ip\Internal\Grid\Model
             $commands[] = Commands::showMessage($e->getMessage());
         }
 
-        if ($this->subgridConfig->afterDelete()) {
-            call_user_func($this->subgridConfig->afterDelete(), $params['id']);
-        }
         return $commands;
 
     }
