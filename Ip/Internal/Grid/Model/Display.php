@@ -125,11 +125,11 @@ class Display
 
         for ($i = 2; $i <= $depth; $i++) {
             $lastStatusVariables = Status::genSubgridVariables($lastStatusVariables, $this->statusVariables['gridId' . ($i - 1)], $this->statusVariables['gridParentId' . ($i - 1)]);
-            $gridConfig = $gridConfig->subgridConfig($lastStatusVariables);
+            $tmpGridConfig = $gridConfig->subgridConfig($lastStatusVariables);
             $hash = Status::build($lastStatusVariables);
 
             $breadcrumb[] = array(
-                'title' => $gridConfig->getTitle(),
+                'title' => $tmpGridConfig->getTitle(),
                 'url' => '#' . $hash
             );
         }
