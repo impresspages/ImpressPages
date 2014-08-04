@@ -51,7 +51,14 @@ class Actions
             'id' => $id
         );
 
+        if ($this->subgridConfig->beforeDelete()) {
+            call_user_func($this->subgridConfig->beforeDelete(), $params['id']);
+        }
+
         ipDb()->execute($sql, $params);
+        if ($this->subgridConfig->afterDelete()) {
+            call_user_func($this->subgridConfig->afterDelete(), $params['id']);
+        }
 
         //remove records in child grids
         foreach ($fields as $field) {
