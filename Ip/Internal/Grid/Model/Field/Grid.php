@@ -8,7 +8,6 @@ namespace Ip\Internal\Grid\Model\Field;
 
 class Grid extends \Ip\Internal\Grid\Model\Field
 {
-    protected $parentField = null;
     protected $config = array();
 
     /**
@@ -19,15 +18,7 @@ class Grid extends \Ip\Internal\Grid\Model\Field
      */
     public function __construct($fieldConfig, $wholeConfig)
     {
-        if (empty($fieldConfig['field'])) {
-            throw new \Ip\Exception('Grid field needs \'field\' setting to be set. The value has to be foreign key field name of nested table.');
-        }
-
         $this->parentField = 'id';
-
-        if (!empty($fieldConfig['parentField'])) {
-            $this->parentField = $fieldConfig['parentField'];
-        }
 
         if (empty($fieldConfig['gridId'])) {
             throw new \Ip\Exception('Grid field needs \'gridId\' - a unique identificator of a subgrid.');
