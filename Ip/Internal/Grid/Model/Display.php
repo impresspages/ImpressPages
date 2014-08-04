@@ -88,6 +88,10 @@ class Display
             'pagerSize' => $subgridConfig->pagerSize()
         ));
 
+
+
+
+
         $variables = array(
             'columns' => $this->getColumnData(),
             'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
@@ -96,12 +100,40 @@ class Display
             'deleteWarning' => $subgridConfig->deleteWarning(),
             'createForm' => $this->createForm(),
             'searchForm' => $this->searchForm($searchVariables),
-            'title' => $subgridConfig->getTitle()
+            'title' => $subgridConfig->getTitle(),
+            'breadcrumb' => $this->getBreadcrumb()
         );
 
 
         $html = ipView($subgridConfig->layout(), $variables)->render();
         return $html;
+    }
+
+    protected function getBreadcrumb()
+    {
+        $depth = Status::depth($this->statusVariables);
+        $breadcrumb = [];
+        $gridConfig = $this->config;
+
+
+        $breadcrumb[] = array(
+            'title' => $gridConfig->getTitle(),
+            'url' => '#'
+        );
+
+        $lastStatusVariables = array();
+
+        for ($i = 2; $i <= $depth; $i++) {
+            $lastStatusVariables = Status::genSubgridVariables($lastStatusVariables, $this->statusVariables['gridId' . ($i - 1)], $this->statusVariables['gridParentId' . ($i - 1)]);
+            $gridConfig = $gridConfig->subgridConfig($lastStatusVariables);
+            $hash = Status::build($lastStatusVariables);
+
+            $breadcrumb[] = array(
+                'title' => $gridConfig->getTitle(),
+                'url' => '#' . $hash
+            );
+        }
+        return $breadcrumb;
     }
 
     protected function getActions()

@@ -419,7 +419,7 @@ class Config
         for ($i = 1; $i < $depth; $i++) {
             $found = false;
             foreach ($config['fields'] as $field) {
-                if ($field['type'] == 'Grid' && $field['gridId'] == $statusVariables['gridId' . $i]) {
+                if (!empty($field['type']) && $field['type'] == 'Grid' && $field['gridId'] == $statusVariables['gridId' . $i]) {
                     $config = $field['config'];
                     $found = true;
                     break;
