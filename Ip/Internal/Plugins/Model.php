@@ -371,7 +371,7 @@ class Model
             return '';
         }
 
-        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/');
+        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/?version=4&cms=1');
 
         return $marketUrl;
     }
