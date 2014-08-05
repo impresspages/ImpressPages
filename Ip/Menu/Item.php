@@ -67,6 +67,16 @@ class Item
     protected $blank;
 
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var string
+     */
+    protected $alias;
+
+    /**
      * @return string
      */
     public function getTitle()
@@ -231,6 +241,38 @@ class Item
     public function setDisabled($disabled)
     {
         $this->disabled = $disabled;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
     }
 
     /**
