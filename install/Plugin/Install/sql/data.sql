@@ -40,8 +40,8 @@ INSERT INTO `ip_widget_order` (`widgetName`, `priority`) VALUES
 
 
 INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
-('Ip', 'version', '"4.1.2"'),  /* //CHANGE_ON_VERSION_UPDATE */
-('Ip', 'dbVersion', '53'), /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'version', '"4.1.3"'),  /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'dbVersion', '54'), /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),

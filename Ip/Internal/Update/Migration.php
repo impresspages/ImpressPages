@@ -10,6 +10,13 @@ namespace Ip\Internal\Update;
 class Migration
 {
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_54()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
     public static function update_53()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
