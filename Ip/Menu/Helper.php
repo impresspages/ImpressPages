@@ -204,6 +204,8 @@ class Helper
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $item->setDisabled($page->isDisabled());
+            $item->setId($page->getId());
+            $item->setAlias($page->getAlias());
             $items[] = $item;
         }
 
