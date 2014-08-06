@@ -14,7 +14,7 @@
     "Incorrect file type.": "பிழையாக கோப்பு வகை",
     "Can't store uploaded file. Please check server configuration.": "தரவிறக்கப்பட்ட கோப்புக்களை சேமிக்க முடியவில்லை. உங்கள் வழங்கி கட்டமைப்பை பரிசோதியுங்கள்.",
     "Are you sure you want to delete selected files?": "நிச்சயமாக தேர்ந்தெடுக்கப்பட்ட கோப்புக்களை நீக்க விரும்புகின்றீர்களா?",
-    "Some of the selected files cannot be deleted because they are used.": "நீங்கள் தேர்ந்தெடுத்த சில கோப்புக்கள் பயன்படுத்தப்பட்டுக்கொண்டிருப்பதனால் நீக்கப்பட முடியவில்லை. ",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "நீங்கள் தேர்ந்தெடுத்த சில கோப்புக்கள் பயன்படுத்தப்பட்டுக்கொண்டிருப்பதனால் நீக்கப்பட முடியவில்லை. ",
     "Select Link Target": "Select Link Target",
     "Select": "தேர்ந்தெடு",
     "Please correct this value": "தயவுசெய்து இந்த பெறுமதியை சரிசெய்யுங்கள்",

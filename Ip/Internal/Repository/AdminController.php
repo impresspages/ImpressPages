@@ -119,8 +119,10 @@ class AdminController extends \Ip\Controller
         $deletedFiles = array();
         $notRemovedCount = 0;
 
+        $forced = ipRequest()->getPost('forced', false);
+
         foreach ($files as $file) {
-            if (isset($file['fileName']) && $this->removeFile($file['fileName'], $secure)) {
+            if (isset($file['fileName']) && $this->removeFile($file['fileName'], $secure, $forced)) {
                 $deletedFiles[] = $file['fileName'];
             } else {
                 $notRemovedCount++;
@@ -137,7 +139,7 @@ class AdminController extends \Ip\Controller
     }
 
 
-    private function removeFile($file, $secure)
+    private function removeFile($file, $secure, $forced = false)
     {
         if (basename($file) == '.htaccess') {
             //for security reasons we don't allow to remove .htaccess files
@@ -155,7 +157,7 @@ class AdminController extends \Ip\Controller
 
         $model = Model::instance();
         $usages = $model->whoUsesFile($file);
-        if (!empty($usages)) {
+        if (!$forced && !empty($usages)) {
             return false;
         }
 

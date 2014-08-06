@@ -14,7 +14,7 @@
     "Incorrect file type.": "Incorrect bestandstype.",
     "Can't store uploaded file. Please check server configuration.": "Er ging iets mis met uploaden.",
     "Are you sure you want to delete selected files?": "Weet je zeker dat je de selectie wilt verwijderen?",
-    "Some of the selected files cannot be deleted because they are used.": "Sommige bestanden kunnen niet verwijderd worden omdat ze in gebruik zijn.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Sommige bestanden kunnen niet verwijderd worden omdat ze in gebruik zijn.",
     "Select Link Target": "Selecteer een target",
     "Select": "Selecteer",
     "Please correct this value": "Verbeter dit veld",

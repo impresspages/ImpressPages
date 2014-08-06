@@ -14,7 +14,7 @@
     "Incorrect file type.": "Неправильный тип файла.",
     "Can't store uploaded file. Please check server configuration.": "Невозможно хранить загруженный файл. Пожалуйста, проверьте конфигурацию сервера.",
     "Are you sure you want to delete selected files?": "Вы уверены, что хотите удалить выбранные файлы?",
-    "Some of the selected files cannot be deleted because they are used.": "Некоторые из выбранных файлов не могут быть удалены, поскольку они используются.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Некоторые из выбранных файлов не могут быть удалены, поскольку они используются.",
     "Select Link Target": "Выберите цель ссылки",
     "Select": "Выделить",
     "Please correct this value": "Пожалуйста, исправьте это значение",

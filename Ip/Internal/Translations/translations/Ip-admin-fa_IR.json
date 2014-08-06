@@ -14,7 +14,7 @@
     "Incorrect file type.": "نوع فایل غیر صحیح است.",
     "Can't store uploaded file. Please check server configuration.": "امکان ذخیره سازی فایل های بارگذاری شده نیست. لطفا تنظیمات سرور را بررسی نمائید.",
     "Are you sure you want to delete selected files?": "از حذف کردن فایل های انتخاب شده اطمینان دارید?",
-    "Some of the selected files cannot be deleted because they are used.": "برخی فایل های انتخاب شده را نمی توان حذف کرد. آنها هنوز استفاده می شوند.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "برخی فایل های انتخاب شده را نمی توان حذف کرد. آنها هنوز استفاده می شوند.",
     "Select Link Target": "برای پیوند خود مورد هدف برگزینید",
     "Select": "انتخاب",
     "Please correct this value": "لطفا مقدار این فیلد را تصحیح نمائید",

@@ -14,7 +14,7 @@
     "Incorrect file type.": "不正なファイル形式",
     "Can't store uploaded file. Please check server configuration.": "アップロードされたファイルを保存できません。サーバの設定を確認して下さい。",
     "Are you sure you want to delete selected files?": "本当に選択したファイルを削除してよろしいですか？",
-    "Some of the selected files cannot be deleted because they are used.": "選択した幾つかのファイルは、使用中であるために削除できません。",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "選択した幾つかのファイルは、使用中であるために削除できません。",
     "Select Link Target": "リンクターゲットを選択",
     "Select": "セレクトボックス",
     "Please correct this value": "この値を修正して下さい",

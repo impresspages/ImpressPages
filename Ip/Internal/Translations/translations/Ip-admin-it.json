@@ -14,7 +14,7 @@
     "Incorrect file type.": "Tipo di file errato",
     "Can't store uploaded file. Please check server configuration.": "Impossibile memorizzare il file caricato. Controlla la configurazione del server.",
     "Are you sure you want to delete selected files?": "Vuoi cancellare i file selezionati?",
-    "Some of the selected files cannot be deleted because they are used.": "Alcuni dei file selezionati non possono essere cancellati perché sono utilizzati.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Alcuni dei file selezionati non possono essere cancellati perché sono utilizzati.",
     "Select Link Target": "Seleziona destinazione del link",
     "Select": "Seleziona",
     "Please correct this value": "Correggi questo valore",

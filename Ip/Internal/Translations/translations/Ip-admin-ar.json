@@ -14,7 +14,7 @@
     "Incorrect file type.": "صنف الملف خاطئ",
     "Can't store uploaded file. Please check server configuration.": "لا يمكن حفظ الملفات التي تم رفعها، يرجى تفحص إعدادات الخادم",
     "Are you sure you want to delete selected files?": "هل أنت متأكد من أنك تريد حذف الملفات التي تم إختيارها ؟",
-    "Some of the selected files cannot be deleted because they are used.": "لا يمكن حذف بعض من الملفات التي تم إختيارها وذلك لننها مستعملة في الوقت الحالي.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "لا يمكن حذف بعض من الملفات التي تم إختيارها وذلك لننها مستعملة في الوقت الحالي.",
     "Select Link Target": "إختيار نوعية الرابط",
     "Select": "إختيار",
     "Please correct this value": "يرجى تصحيح هذه المادة",

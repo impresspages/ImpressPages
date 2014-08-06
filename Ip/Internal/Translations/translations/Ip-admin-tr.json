@@ -14,7 +14,7 @@
     "Incorrect file type.": "Geçersiz dosya tipi.",
     "Can't store uploaded file. Please check server configuration.": "Yüklenen dosya sunucuda saklanamıyor. Lütfen sunucu yapılandırmanızı kontrol edin.",
     "Are you sure you want to delete selected files?": "Seçili dosyaları silmek istediğinize emin misiniz?",
-    "Some of the selected files cannot be deleted because they are used.": "Seçilen dosyaların bazıları kullanımda olduğu için silinemiyor.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Seçilen dosyaların bazıları kullanımda olduğu için silinemiyor.",
     "Select Link Target": "Select Link Target",
     "Select": "Seçim kutusu",
     "Please correct this value": "Lütfen bu değeri düzeltin",

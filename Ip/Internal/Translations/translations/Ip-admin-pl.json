@@ -14,7 +14,7 @@
     "Incorrect file type.": "Niepoprawny typ pliku",
     "Can't store uploaded file. Please check server configuration.": "Nie można zapisać przesłanego pliku. Sprawdź ustawienia serwera.",
     "Are you sure you want to delete selected files?": "Czy na pewno chcesz usunąć zaznaczone pliki?",
-    "Some of the selected files cannot be deleted because they are used.": "Niektóre zaznaczone pliki nie mogą zostać usunięte ponieważ są używane.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Niektóre zaznaczone pliki nie mogą zostać usunięte ponieważ są używane.",
     "Select Link Target": "Wybierz link docelowy",
     "Select": "Wybierz",
     "Please correct this value": "Wprowadź poprawną wartość.",

@@ -14,7 +14,7 @@
     "Incorrect file type.": "Nesprávny typ súboru.",
     "Can't store uploaded file. Please check server configuration.": "Nemôžem uložiť nahraný súbor. Prosím, skontrolujte nastavenie servera.",
     "Are you sure you want to delete selected files?": "Ste si istí, že chcete vymazať označené súbory?",
-    "Some of the selected files cannot be deleted because they are used.": "Niektoré z označených súborov nemôžu byť vymazané, pretože sa používajú.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Niektoré z označených súborov nemôžu byť vymazané, pretože sa používajú.",
     "Select Link Target": "Vybrať cieľ odkazu",
     "Select": "Zoznam",
     "Please correct this value": "Prosím, opravte túto hodnotu",
