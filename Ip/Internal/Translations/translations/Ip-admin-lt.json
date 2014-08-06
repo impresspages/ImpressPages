@@ -14,7 +14,7 @@
     "Incorrect file type.": "Netinkamas failo tipas.",
     "Can't store uploaded file. Please check server configuration.": "Neįmanoma saugoti atsiųsto failo. Prašome patikrinti serverio konfigūraciją.",
     "Are you sure you want to delete selected files?": "Ar tikrai norite ištrinti pasirinktus failus?",
-    "Some of the selected files cannot be deleted because they are used.": "Kai kurių iš pasirinktų failų ištrinti negalima, nes jie yra naudojami.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Kai kurių iš pasirinktų failų ištrinti negalima, nes jie yra naudojami.",
     "Select Link Target": "Pasirinktos nuorodos tikslas",
     "Select": "Pasirinkti",
     "Please correct this value": "Prašome ištaisyti šią reikšmę",

@@ -35,7 +35,7 @@ class Event
             );
             ipAddJsVariable(
                 'ipRepositoryTranslate_delete_warning',
-                __('Some of the selected files cannot be deleted because they are used.', 'Ip-admin')
+                __('Some of the selected files are still used somewhere on your website. Do you still want to remove them? ', 'Ip-admin')
             );
         }
 

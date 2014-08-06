@@ -14,7 +14,7 @@
     "Incorrect file type.": "文件类型不正确。",
     "Can't store uploaded file. Please check server configuration.": "无法存储上传文件。请检查服务器配置。",
     "Are you sure you want to delete selected files?": "您确定要删除选定的文件？",
-    "Some of the selected files cannot be deleted because they are used.": "一些选定的文件不能被删除，因为它们在使用中。",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "一些选定的文件不能被删除，因为它们在使用中。",
     "Select Link Target": "选择链接对象",
     "Select": "选择",
     "Please correct this value": "请修正此值",

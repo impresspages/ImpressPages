@@ -291,6 +291,7 @@
 
         _delete: function (e) {
             e.preventDefault();
+            var context = this;
 
             if (confirm(ipRepositoryTranslate_confirm_delete)) {
                 var $this = $(this);
@@ -301,68 +302,80 @@
                     files.push($this.data('fileData'));
                 });
 
-                var data = Object();
-                data.aa = 'Repository.deleteFiles';
-                data.files = files;
-                data.securityToken = ip.securityToken;
-                data.secure = $this.data('ipRepositoryAll').secure;
+                $.proxy(methods._executeDelete, context)(files);
 
-                $.ajax({
-                    type: 'POST',
-                    url: ip.baseUrl,
-                    data: data,
-                    context: this,
-                    //success : $.proxy(methods._storeFilesResponse, this),
-                    success: methods._getDeleteFilesResponse,
-                    error: function () {
-                    }, //TODO report error
-                    dataType: 'json'
-                });
             }
         },
 
-        _getDeleteFilesResponse: function (response) {
+        _executeDelete: function(files, forced) {
+            var context = this;
             var $this = $(this);
-            var repositoryContainer = this;
+            var data = Object();
+            data.aa = 'Repository.deleteFiles';
+            data.files = files;
+            data.securityToken = ip.securityToken;
+            data.secure = $this.data('ipRepositoryAll').secure;
+            data.forced = forced;
 
-            if (!response || !response.success) {
-                return; //TODO report error
-            }
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: this,
+                //success : $.proxy(methods._storeFilesResponse, this),
+                success: function (response) {
+                    var $this = $(this);
+                    var repositoryContainer = this;
 
-            // notify that not all files were deleted
-            if (parseInt(response.notRemovedCount) > 0) {
-                alert(ipRepositoryTranslate_delete_warning);
-            }
-
-            // remove deleted files
-            var deletedFiles = response.deletedFiles;
-            var $browser = $this.find('.ipsBrowser');
-            for (var i in deletedFiles) {
-
-                var animateOptions = {};
-
-                switch (settings.preview) {
-                    case 'thumbnails':
-                        animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
-                        break;
-                    default:
-                        animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
-                        break;
-                }
+                    if (!response || !response.success) {
+                        return; //TODO report error
+                    }
 
 
-                $browser.find("li[data-file='" + deletedFiles[i] + "']")
-                    .css('overflow', 'hidden')
-                    .css('border-bottom', 'none')
-                    .animate(animateOptions, 'slow')
-                    .hide(0, function () {
-                        $(this).remove();
-                        // recalculating selected files
-                        $.proxy(methods._countSelected, repositoryContainer)();
-                    })
-                ;
-            }
+                    // remove deleted files
+                    var deletedFiles = response.deletedFiles;
+                    var $browser = $this.find('.ipsBrowser');
+                    for (var i in deletedFiles) {
+
+                        var animateOptions = {};
+
+                        switch (settings.preview) {
+                            case 'thumbnails':
+                                animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
+                                break;
+                            default:
+                                animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
+                                break;
+                        }
+
+
+                        $browser.find("li[data-file='" + deletedFiles[i] + "']")
+                            .css('overflow', 'hidden')
+                            .css('border-bottom', 'none')
+                            .animate(animateOptions, 'slow')
+                            .hide(0, function () {
+                                $(this).remove();
+                                // recalculating selected files
+                                $.proxy(methods._countSelected, repositoryContainer)();
+                            })
+                        ;
+                    }
+
+
+                    // notify that not all files were deleted
+                    if (parseInt(response.notRemovedCount) > 0) {
+                        if (confirm(ipRepositoryTranslate_delete_warning)) {
+                            $.proxy(methods._executeDelete, context)(files, true);
+                        }
+                    }
+                },
+                error: function () {
+                }, //TODO report error
+                dataType: 'json'
+            });
+
         },
+
 
         // set back our element
         _teardown: function () {

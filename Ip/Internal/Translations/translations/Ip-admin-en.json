@@ -15,7 +15,7 @@
     "Forbidden file type.": "Forbidden file type.",
     "Can't store uploaded file. Please check server configuration.": "Can't store uploaded file. Please check server configuration.",
     "Are you sure you want to delete selected files?": "Are you sure you want to delete selected files?",
-    "Some of the selected files cannot be deleted because they are used.": "Some of the selected files cannot be deleted because they are used.",
+    "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ",
     "Select Link Target": "Select Link Target",
     "Select": "Select",
     "Please correct this value": "Please correct this value",
