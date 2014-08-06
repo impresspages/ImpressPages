@@ -76,7 +76,13 @@ class Controller extends \Ip\WidgetController
                     if (empty($currentData['images']) || !is_array($currentData['images'])) {
                         $currentData['images'] = array();
                     }
-                    $currentData['images'] = array_merge($newImages, $currentData['images']);
+
+                    if(ipGetOption('Content.imageGalleryPosition') == 'bottom') {
+                        $currentData['images'] = array_merge($currentData['images'], $newImages);
+                    } else {
+                        $currentData['images'] = array_merge($newImages, $currentData['images']);
+                    }
+
 
                     return $currentData;
                 case 'crop':
