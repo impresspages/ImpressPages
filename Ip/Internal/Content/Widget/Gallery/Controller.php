@@ -43,6 +43,7 @@ class Controller extends \Ip\WidgetController
                         throw new \Ip\Exception("Missing required parameter");
                     }
 
+                    $newImages = array();
 
                     foreach ($postData['images'] as $image) {
                         if (!isset($image['fileName']) || !isset($image['status'])) { //check if all required data present
@@ -70,8 +71,12 @@ class Controller extends \Ip\WidgetController
                             'title' => $title,
                         );
 
-                        $currentData['images'][] = $newImage;
+                        $newImages[] = $newImage;
                     }
+                    if (empty($currentData['images']) || !is_array($currentData['images'])) {
+                        $currentData['images'] = array();
+                    }
+                    $currentData['images'] = array_merge($newImages, $currentData['images']);
 
                     return $currentData;
                 case 'crop':
