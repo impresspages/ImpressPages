@@ -8,13 +8,13 @@ class Job
     public static function ipRouteAction_20($info)
     {
         if (!$info['request']->_isWebsiteRoot()) {
-            return;
+            return null;
         }
 
         $req = $info['request']->getRequest();
 
         if (empty($req)) {
-            return;
+            return null;
         }
 
         $actionString = null;
@@ -28,16 +28,18 @@ class Job
         } elseif (isset($req['pa'])) {
             $actionString = $req['pa'];
             $controller = 'PublicController';
+        } else {
+            return null;
         }
 
         if (!$actionString) {
-            return;
+            return null;
         }
 
         $parts = explode('.', $actionString);
         if (count($parts) > 2) {
             ipLog()->warning('Request.invalidControllerAction: {action}', array('action' => $actionString));
-            return;
+            return null;
         }
 
         if (empty($parts[1])) {
@@ -111,11 +113,13 @@ class Job
             $name = $parameter->getName();
 
             if (isset($info[$name])) {
-                $arguments[]= $info[$name];
+                $arguments[] = $info[$name];
             } elseif ($parameter->isOptional()) {
-                $arguments[]= $parameter->getDefaultValue();
+                $arguments[] = $parameter->getDefaultValue();
             } else {
-                throw new \Ip\Exception("Controller action requires " . esc($name) . " parameter", array('route' => $info, 'requiredParameter' => $name));
+                throw new \Ip\Exception("Controller action requires " . esc(
+                    $name
+                ) . " parameter", array('route' => $info, 'requiredParameter' => $name));
             }
         }
 

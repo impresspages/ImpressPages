@@ -22,7 +22,7 @@ class Controller extends \Ip\WidgetController{
         $newData['files'] = array(); //we will create new files array.
 
         if (isset($postData['files']) && is_array($postData['files'])) {//check if files array is set
-            foreach($postData['files'] as $filesKey => $file){
+            foreach($postData['files'] as $file){
                 if (isset($file['title']) && isset($file['fileName']) && isset($file['status'])){ //check if all require data present
                     switch($file['status']){
                         case 'new':
@@ -134,10 +134,10 @@ class Controller extends \Ip\WidgetController{
     */
     public function duplicate($oldId, $newId, $data) {
         if (!isset($data['files']) || !is_array($data['files'])) {
-            return;
+            return null;
         }
 
-        foreach($data['files'] as $fileKey => $file) {
+        foreach($data['files'] as $file) {
             if (isset($file['fileName']) && $file['fileName']) {
                 \Ip\Internal\Repository\Model::bindFile($file['fileName'], 'Content', $newId);
             }

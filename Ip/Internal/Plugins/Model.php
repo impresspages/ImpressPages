@@ -2,7 +2,8 @@
 namespace Ip\Internal\Plugins;
 
 
-class Model{
+class Model
+{
 
     public static function getModules()
     {
@@ -42,20 +43,29 @@ class Model{
         $config = Model::getPluginConfig($pluginName);
 
         if (!$config) {
-            throw new \Ip\Exception(ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . ' doesn\'t exist or is incorrect');
+            throw new \Ip\Exception(ipFile(
+                'Plugin/' . esc($pluginName) . '/Setup/plugin.json'
+            ) . ' doesn\'t exist or is incorrect');
         }
 
         if (empty($config['name']) || $config['name'] !== $pluginName) {
-            throw new \Ip\Exception('Plugin name setting in ' . ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . " doesn't match the folder name.");
+            throw new \Ip\Exception('Plugin name setting in ' . ipFile(
+                'Plugin/' . esc($pluginName) . '/Setup/plugin.json'
+            ) . " doesn't match the folder name.");
         }
 
         if (empty($config['version'])) {
-            throw new \Ip\Exception('Missing plugin version number in ' . ipFile('Plugin/' . esc($pluginName) . '/Setup/plugin.json') . " file.");
+            throw new \Ip\Exception('Missing plugin version number in ' . ipFile(
+                'Plugin/' . esc($pluginName) . '/Setup/plugin.json'
+            ) . " file.");
         }
 
-        if (!empty($pluginRecord['version']) && (float) $pluginRecord['version'] > (float) $config['version']) {
+        if (!empty($pluginRecord['version']) && (float)$pluginRecord['version'] > (float)$config['version']) {
             throw new \Ip\Exception\Plugin\Setup("You can't downgrade the plugin. Please remove the plugin completely and reinstall if you want to use older version.");
         }
+
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/activate.sql'));
+
 
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
         if (class_exists($workerClass) && method_exists($workerClass, 'activate')) {
@@ -85,7 +95,7 @@ class Model{
             $pluginTitle = $pluginName;
         }
 
-        $params = array (
+        $params = array(
             'title' => $pluginTitle,
             'pluginName' => $pluginName,
             'version' => $config['version']
@@ -98,12 +108,19 @@ class Model{
             static::importDefaultOptions($pluginName, $config['options']);
         }
 
-        ipLog()->info('Ip.pluginActivated: {plugin} {version} activated.', array('plugin' => $pluginName, 'version' => $config['version']));
+        ipLog()->info(
+            'Ip.pluginActivated: {plugin} {version} activated.',
+            array('plugin' => $pluginName, 'version' => $config['version'])
+        );
 
-        ipEvent('ipPluginActivated', array(
+        ipEvent(
+            'ipPluginActivated',
+            array(
                 'name' => $pluginName,
                 'version' => $config['version'],
-            ));
+            )
+        );
+        return null;
     }
 
     protected static function importDefaultOptions($pluginName, $options)
@@ -147,8 +164,10 @@ class Model{
             return true;
         }
 
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/deactivate.sql'));
+
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
-        if (method_exists($workerClass, 'deactivate')) {
+        if (class_exists($workerClass) && method_exists($workerClass, 'deactivate')) {
             $worker = new $workerClass($pluginRecord['version']);
             $worker->deactivate();
         }
@@ -164,13 +183,20 @@ class Model{
 
         ipDb()->execute($sql, array($pluginName));
 
-        ipLog()->info('Ip.pluginDeactivated: {plugin} {version} deactivated.', array('plugin' => $pluginName, 'version' => $pluginRecord['version']));
+        ipLog()->info(
+            'Ip.pluginDeactivated: {plugin} {version} deactivated.',
+            array('plugin' => $pluginName, 'version' => $pluginRecord['version'])
+        );
 
         // TODO remove plugin event listeners
-        ipEvent('ipPluginDeactivated', array(
+        ipEvent(
+            'ipPluginDeactivated',
+            array(
                 'name' => $pluginName,
                 'version' => $pluginRecord['version'],
-            ));
+            )
+        );
+        return null;
     }
 
     public static function removePlugin($pluginName)
@@ -188,6 +214,9 @@ class Model{
             $version = null;
         }
 
+        self::executeSqlIfExists(ipFile('Plugin/' . esc($pluginName) . '/Setup/remove.sql'));
+
+
         $workerClass = 'Plugin\\' . $pluginName . '\\Setup\\Worker';
         if (method_exists($workerClass, 'remove')) {
             $worker = new $workerClass($version);
@@ -202,7 +231,7 @@ class Model{
             `name` = :pluginName
         ';
 
-        $params = array (
+        $params = array(
             'pluginName' => $pluginName
         );
         $q = $dbh->prepare($sql);
@@ -218,12 +247,18 @@ class Model{
             throw new \Ip\Exception\Plugin\Setup('Can\'t remove folder ' . esc($pluginDir));
         }
 
-        ipLog()->info('Ip.pluginRemoved: {plugin} {version} removed.', array('plugin' => $pluginName, 'version' => $version));
+        ipLog()->info(
+            'Ip.pluginRemoved: {plugin} {version} removed.',
+            array('plugin' => $pluginName, 'version' => $version)
+        );
 
-        ipEvent('ipPluginRemoved', array(
+        ipEvent(
+            'ipPluginRemoved',
+            array(
                 'name' => $pluginName,
                 'version' => $version,
-            ));
+            )
+        );
 
     }
 
@@ -244,7 +279,7 @@ class Model{
                 `name` = :pluginName
         ';
 
-        $params = array (
+        $params = array(
             'pluginName' => $pluginName
         );
         $q = $dbh->prepare($sql);
@@ -253,7 +288,7 @@ class Model{
         return $row;
     }
 
-    public static function getAllPlugins()
+    public static function getAllPluginNames()
     {
         $answer = array();
         $pluginDir = ipFile('Plugin/');
@@ -262,7 +297,10 @@ class Model{
             return array();
         }
         foreach ($files as $file) {
-            if (in_array($file, array('.', '..')) || !is_dir($pluginDir . $file) || !empty($file[0]) && $file[0] == '.') {
+            if (in_array($file, array('.', '..')) || !is_dir(
+                    $pluginDir . $file
+                ) || !empty($file[0]) && $file[0] == '.'
+            ) {
                 continue;
             }
             $answer[] = $file;
@@ -285,7 +323,7 @@ class Model{
                 `isActive` = 1
         ';
 
-        $params = array ();
+        $params = array();
         $q = $dbh->prepare($sql);
         $q->execute($params);
         $data = $q->fetchAll(\PDO::FETCH_COLUMN); //fetch all rows as an array
@@ -325,6 +363,60 @@ class Model{
         } else {
             return array();
         }
+    }
+
+    public static function marketUrl()
+    {
+        if (ipGetOption('Ip.disablePluginMarket', 0)) {
+            return '';
+        }
+
+        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/?version=4&cms=1');
+
+        return $marketUrl;
+    }
+
+    public static function pluginInstallDir()
+    {
+        $themeDirs = Model::pluginDirs();
+        return array_shift($themeDirs);
+    }
+
+    /**
+     * first dir themes will override the themes from last ones
+     * @return array
+     */
+    protected static function pluginDirs()
+    {
+        //the order of dirs is very important. First dir themes overrides following ones.
+
+        $cleanDirs = array();
+
+        $optionDirs = ipGetOption('Plugins.pluginDirs');
+        if ($optionDirs) {
+            $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
+            $lines = explode("\n", $optionDirs);
+            foreach ($lines as $line) {
+                if (!empty($line)) {
+                    $cleanDirs[] = trim($line);
+                }
+            }
+            $cleanDirs = array_merge($cleanDirs, array(ipFile('Theme/')));
+        } else {
+            $cleanDirs = array(ipFile('Plugin/'));
+        }
+
+        return $cleanDirs;
+    }
+
+    protected static function executeSqlIfExists($file)
+    {
+        if (is_file($file)) {
+            $sql = file_get_contents($file);
+            str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            ipDb()->execute($sql);
+        }
+
     }
 }
 

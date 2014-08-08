@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var Ip\WidgetController[] $widgets
+ */
+?>
 <div class="ip ipsAdminPanelContainer">
     <div class="ipAdminPanel ipsAdminPanel">
 <?php /*

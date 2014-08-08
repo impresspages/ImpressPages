@@ -8,8 +8,6 @@
 namespace Ip;
 
 
-use Ip\Page;
-
 class Page404 extends Page
 {
     public function __construct()
@@ -18,12 +16,12 @@ class Page404 extends Page
 
     public function getTitle()
     {
-        return ipGetOptionLang('Config.websiteTitle', 'Page not found');
+        return ipGetOptionLang('Config.websiteTitle', null, 'Page not found');
     }
 
     public function getMetaTitle()
     {
-        return ipGetOptionLang('Config.websiteTitle', 'Page not found');
+        return ipGetOptionLang('Config.websiteTitle', null, 'Page not found');
     }
 
     public function generateContent()

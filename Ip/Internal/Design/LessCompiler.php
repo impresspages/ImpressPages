@@ -36,7 +36,7 @@ class LessCompiler
         $config = $configModel->getAllConfigValues($themeName);
 
         $less = "@import '{$lessFile}';";
-        $less.= $this->generateLessVariables($options, $config);
+        $less .= $this->generateLessVariables($options, $config);
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
@@ -62,7 +62,7 @@ class LessCompiler
             $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
-        } catch(Exception $e) {
+        } catch (\Exception $e) {
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
@@ -76,7 +76,7 @@ class LessCompiler
         $uri = ''; // relative path doesn't work correctly
 
         // if file exists in theme directory it means we want to override the default path
-        if( file_exists($full_path) ) {
+        if (file_exists($full_path)) {
             return array($full_path, $uri);
         }
     }
@@ -99,7 +99,9 @@ class LessCompiler
             }
 
             switch ($option['type']) {
+                case 'select':
                 case 'color':
+                default:
                     $lessValue = $rawValue;
                     break;
                 case 'hidden':
@@ -109,8 +111,6 @@ class LessCompiler
                         $lessValue .= $option['units'];
                     }
                     break;
-                default:
-                    $lessValue = json_encode($rawValue);
             }
 
             $less .= "\n@{$option['name']}: {$lessValue};";
@@ -171,7 +171,12 @@ class LessCompiler
         foreach ($lessFiles as $file) {
             $lessFile = basename($file);
             $css = $this->compileFile($themeName, basename($lessFile));
-            file_put_contents(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/' . substr($lessFile, 0, -4) . 'css'), $css);
+            file_put_contents(
+                ipFile(
+                    'Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/' . substr($lessFile, 0, -4) . 'css'
+                ),
+                $css
+            );
         }
     }
 

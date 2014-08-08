@@ -13,7 +13,8 @@ namespace Ip\Internal\Text;
  */
 class Transliteration
 {
-    public static function transform($string){
+    public static function transform($string)
+    {
 
         $chars_from = array(
             'À',
@@ -1145,8 +1146,6 @@ class Transliteration
         );
 
 
-
-
         $chars_to = array(
             'A',
             'A',
@@ -1560,7 +1559,8 @@ class Transliteration
             'o',
             'o',
             'o',
-            'o','o',
+            'o',
+            'o',
             'o',
             'o',
             'o',

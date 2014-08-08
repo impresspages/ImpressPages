@@ -7,8 +7,6 @@
 namespace Ip\Internal\Administrators;
 
 
-
-
 class AdminController extends \Ip\Controller
 {
 
@@ -18,25 +16,28 @@ class AdminController extends \Ip\Controller
         $administrators = Model::getAll();
 
 
-
         ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Administrators/assets/administratorsController.js');
 
-        foreach($administrators as &$administrator)
-        {
+        foreach ($administrators as &$administrator) {
             unset($administrator['hash']);
             unset($administrator['resetSecret']);
             unset($administrator['resetTime']);
-            $administrator['permissions'] = \Ip\Internal\AdminPermissionsModel::getUserPermissions($administrator['id']);
+            $administrator['permissions'] = \Ip\Internal\AdminPermissionsModel::getUserPermissions(
+                $administrator['id']
+            );
         }
 
         ipAddJsVariable('ipAdministrators', $administrators);
         ipAddJsVariable('ipAdministratorsAdminId', (int)ipAdminId());
         ipaddJsVariable('ipAvailablePermissions', \Ip\Internal\AdminPermissionsModel::availablePermissions());
         ipaddJsVariable('ipAdministratorId', ipAdminId());
-        ipaddJsVariable('ipAdministratorsSuperAdminWarning', __('You will not be able to set other permissions for yourself. Do you want to continue?', 'Ip-admin', false));
+        ipaddJsVariable(
+            'ipAdministratorsSuperAdminWarning',
+            __('You will not be able to set other permissions for yourself!', 'Ip-admin', false)
+        );
 
-        $data = array (
+        $data = array(
             'createForm' => Helper::createForm(),
             'updateForm' => Helper::updateForm()
         );
@@ -55,7 +56,7 @@ class AdminController extends \Ip\Controller
         $errors = $form->validate($post);
 
         if (!empty($errors)) {
-            $data = array (
+            $data = array(
                 'status' => 'error',
                 'errors' => $errors
             );
@@ -73,12 +74,12 @@ class AdminController extends \Ip\Controller
 
         //set the same permissions as current administrator
         $curUserPermissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions(ipAdminId());
-        foreach($curUserPermissions as $permission) {
+        foreach ($curUserPermissions as $permission) {
             \Ip\Internal\AdminPermissionsModel::addPermission($permission, $administratorId);
         }
 
 
-        $data = array (
+        $data = array(
             'status' => 'ok',
             'id' => $administratorId,
             'permissions' => \Ip\Internal\AdminPermissionsModel::getUserPermissions($administratorId)
@@ -102,7 +103,7 @@ class AdminController extends \Ip\Controller
 
         Service::delete($userId);
 
-        $data = array (
+        $data = array(
             'status' => 'ok'
         );
         return new \Ip\Response\Json($data);
@@ -116,7 +117,6 @@ class AdminController extends \Ip\Controller
         if (!isset($post['id']) || !isset($post['username']) || !isset($post['email'])) {
             throw new \Ip\Exception('Missing required parameters');
         }
-
 
 
         $form = Helper::updateForm();
@@ -135,11 +135,11 @@ class AdminController extends \Ip\Controller
 
         $existingUser = Service::getByUsername($username);
         if ($existingUser && $existingUser['id'] != $userId) {
-            $errors['username'] = __('Already taken', 'Ip-admin', FALSE);
+            $errors['username'] = __('Already taken', 'Ip-admin', false);
         }
 
         if ($errors) {
-            $data = array (
+            $data = array(
                 'status' => 'error',
                 'errors' => $errors
             );
@@ -148,7 +148,7 @@ class AdminController extends \Ip\Controller
 
         Service::update($userId, $username, $email, $password);
 
-        $data = array (
+        $data = array(
             'status' => 'ok'
         );
         return new \Ip\Response\Json($data);
@@ -173,7 +173,7 @@ class AdminController extends \Ip\Controller
             \Ip\Internal\AdminPermissionsModel::removePermission($permission, $adminId);
         }
 
-        $data = array (
+        $data = array(
             'status' => 'ok'
         );
         return new \Ip\Response\Json($data);

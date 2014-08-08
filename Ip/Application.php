@@ -35,9 +35,8 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.16'; //CHANGE_ON_VERSION_UPDATE
+        return '4.1.3'; //CHANGE_ON_VERSION_UPDATE
     }
-
 
 
     /**
@@ -54,7 +53,6 @@ class Application
         } else {
             $config = require($this->configPath);
         }
-
 
 
         require_once __DIR__ . '/Config.php';
@@ -116,8 +114,8 @@ class Application
         $translator = \Ip\ServiceLocator::translator();
         $translator->setLocale($languageCode);
 
-        if (ipConfig()->get('adminLocale')) {
-            $translator->setAdminLocale(ipConfig()->get('adminLocale'));
+        if (ipConfig()->adminLocale()) {
+            $translator->setAdminLocale(ipConfig()->adminLocale());
         }
 
         $theme = ipConfig()->theme();
@@ -126,17 +124,17 @@ class Application
         $themeDir = ipFile("Theme/$theme/translations/");
         $ipDir = ipFile('Ip/Internal/Translations/translations/');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    "$theme-%s.json", $theme);
-        $translator->addTranslationFilePattern('json', $themeDir,       "$theme-%s.json", $theme);
-        $translator->addTranslationFilePattern('json', $overrideDir,    "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $originalDir, "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $themeDir, "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $overrideDir, "$theme-%s.json", $theme);
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-admin-%s.json', 'Ip-admin');
-        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-admin-%s.json', 'Ip-admin');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $originalDir, 'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $ipDir, 'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $overrideDir, 'Ip-admin-%s.json', 'Ip-admin');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-%s.json', 'Ip');
-        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-%s.json', 'Ip');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $originalDir, 'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $ipDir, 'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $overrideDir, 'Ip-%s.json', 'Ip');
     }
 
     /**
@@ -154,7 +152,6 @@ class Application
         if (empty($options['skipInitEvents'])) {
             \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
         }
-
 
 
         $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
@@ -187,8 +184,10 @@ class Application
         ipEvent('ipInitFinished');
 
 
-
-        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage));
+        $routeAction = ipJob(
+            'ipRouteAction',
+            array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage)
+        );
 
         if (!empty($routeAction)) {
             if (!empty($routeAction['page'])) {
@@ -197,7 +196,7 @@ class Application
             if (!empty($routeAction['environment'])) {
                 ipRoute()->setEnvironment($routeAction['environment']);
             } else {
-                if ($routeAction['controller'] == 'AdminController') {
+                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
                 } else {
                     ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
@@ -216,11 +215,11 @@ class Application
         }
 
 
-
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
-                ) != $this->getSecurityToken()) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
+                ) != $this->getSecurityToken(
+                )) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
@@ -252,12 +251,12 @@ class Application
             $controller = $routeAction['controller'];
 
             if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
-                $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
+                $controllerClass = 'Ip\\Internal\\' . $plugin . '\\' . $controller;
             } else {
                 if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
                     throw new \Ip\Exception("Plugin '" . esc($plugin) . "' doesn't exist or isn't activated.");
                 }
-                $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
+                $controllerClass = 'Plugin\\' . $plugin . '\\' . $controller;
             }
 
             if (!class_exists($controllerClass)) {
@@ -288,6 +287,15 @@ class Application
             $eventInfo['page'] = null;
         }
 
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        } else {
+            if ($eventInfo['page']) {
+                ipSetLayout($eventInfo['page']->getLayout());
+            }
+        }
+
         ipEvent('ipBeforeController', $eventInfo);
 
         $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
@@ -297,11 +305,13 @@ class Application
 
     /**
      * Handle HMVC request
-     * @param Request $request Request object with MVC query
-     * @return Response
+     * @param Request $request
+     * @param array $options
+     * @param bool $subrequest
+     * @return Response\Json|Response\Layout|Response\PageNotFound|Response\Redirect|string
      * @throws Exception
      */
-    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    public function handleRequest(Request $request, $options = array(), $subrequest = true)
     {
 
         \Ip\ServiceLocator::addRequest($request);
@@ -358,9 +368,9 @@ class Application
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");
-            $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", $plugin);
-            $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
-            $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
         }
 
         $router = \Ip\ServiceLocator::router();
@@ -372,10 +382,13 @@ class Application
                 $routes = array();
                 include $routesFile;
 
-                $router->addRoutes($routes, array(
+                $router->addRoutes(
+                    $routes,
+                    array(
                         'plugin' => $plugin,
                         'controller' => 'PublicController',
-                    ));
+                    )
+                );
             }
         }
     }

@@ -6,26 +6,25 @@
 namespace Ip\Internal\System;
 
 
-class Filter {
-    public static function ipAdminSystemSubmenu ($menu, $info)
+class Filter
+{
+    public static function ipAdminSystemSubmenu($menu, $info)
     {
         if (Submenu::isControllerInSystemSubmenu()) {
             $menu = array_merge($menu, Submenu::getSubmenuItems());
             return $menu;
         }
-
+        return null;
     }
 
     /**
      * @param \Ip\Menu\Item[] $menu
      * @param $info
      */
-    public static function ipAdminMenu ($menu, $info)
+    public static function ipAdminMenu($menu, $info)
     {
         $urls = Submenu::getSubmenuUrls();
         $filteredMenu = array();
-
-        $systemSubmenuIsEmpty = true;
 
         //remove menu items that are in submenu
         foreach ($menu as $menuItem) {

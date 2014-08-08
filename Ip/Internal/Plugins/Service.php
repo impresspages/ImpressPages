@@ -9,6 +9,11 @@ class Service
         return Model::getActivePluginNames();
     }
 
+    public static function getAllPluginNames()
+    {
+        return Model::getAllPluginNames();
+    }
+
     public static function getActivePlugins()
     {
         return Model::getActivePlugins();

@@ -11,6 +11,7 @@ if ((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)
 
 require_once(__DIR__ . '/../Ip/Application.php');
 
+
 $application = new \Ip\Application(__DIR__ . '/config.php');
 $application->init();
 $options = array(
@@ -20,7 +21,7 @@ $application->prepareEnvironment($options);
 $options = array(
     'skipInitEvents' => true,
     'skipModuleInit' => true,
-    'translationsLanguageCode' => 'en'
+    'translationsLanguageCode' => \Plugin\Install\Helper::$defaultLanguageCode
 );
 
 if (!empty($_REQUEST['lang']) && strlen($_REQUEST['lang']) == 2 && ctype_alpha($_REQUEST['lang'])) {
@@ -51,6 +52,8 @@ $request->setRequest($_REQUEST);
 $language = new \Ip\Language(null, $options['translationsLanguageCode'], null, null, null, 0, 'ltr');
 ipContent()->_setCurrentLanguage($language);
 
+\Ip\ServiceLocator::dispatcher()->_bindInstallEvents();
+
 if ($request->isGet()) {
     $controller = new \Plugin\Install\PublicController();
     $response = $controller->index();
@@ -69,6 +72,6 @@ if ($request->isGet()) {
 
 \Ip\ServiceLocator::removeRequest();
 
-// $response = $application->handleRequest($request, $options);
-$response->send();
+\Ip\ServiceLocator::setResponse($response);
+$application->handleResponse($response);
 

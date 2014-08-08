@@ -1,0 +1,162 @@
+// Variables
+// Syntax: <control>-(<sub control>)-<bg|border|text>-(<state>)-(<extra>);
+// Example: @btn-primary-bg-hover-hlight;
+
+@prefix:                         mce;
+
+// Default font
+@font-family:                    "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-size:                      14px;
+@line-height:                    20px;
+@has-gradients:                  false;
+@has-radius:                     false;
+@has-boxshadow:                  false;
+
+// Text colors
+@text:                           #e2e2e2;
+@text-inverse:                   #ffffff;
+@text-disabled:                  #aaaaaa;
+@text-shadow:                    0 1px 1px hsla(hue(@text-inverse), saturation(@text-inverse), lightness(@text-inverse), 0.75);
+@text-error:                     #a94442;
+
+// Button
+@btn-text:                       #e2e2e2;
+@btn-text-shadow:                #46495e;
+@btn-border-top:                 rgba(134,134,134,0);
+@btn-border-right:               rgba(134,134,134,0);
+@btn-border-bottom:              rgba(134,134,134,0);
+@btn-border-left:                rgba(134,134,134,0);
+@btn-split-border:               #3a3d4e;
+@btn-caret-border:               @btn-text;
+@btn-text-disabled:              @text-disabled;
+@btn-box-shadow:                 inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+@btn-box-shadow-active:          inset 0 2px 4px rgba(0, 0, 0, .15), 0 1px 2px rgba(0, 0, 0, .05);
+@btn-box-disabled-opacity:       0.4;
+@btn-bg:                         #46495e;
+@btn-bg-hlight:                  #46495e;
+@btn-bg-hover:                   darken(@btn-bg, 5%);
+@btn-bg-hlight-hover:            darken(@btn-bg-hlight, 5%);
+
+@btn-primary-bg:                 #019bd4;
+@btn-primary-bg-hlight:          #019bd4;
+@btn-primary-bg-hover:           darken(@btn-primary-bg, 5%);
+@btn-primary-bg-hover-hlight:    darken(@btn-primary-bg-hlight, 5%);
+@btn-primary-text:               #ffffff;
+@btn-primary-text-shadow:        #019bd4;
+@btn-primary-border-top:         mix(@btn-border-top, @btn-primary-bg, 50%);
+@btn-primary-border-right:       mix(@btn-border-right, @btn-primary-bg, 50%);
+@btn-primary-border-bottom:      mix(@btn-border-bottom, @btn-primary-bg, 50%);
+@btn-primary-border-left:        mix(@btn-border-left, @btn-primary-bg, 50%);
+
+// Menu
+@menuitem-text:                  #000000;
+@menu-bg:                        #ffffff;
+@menu-border:                    #a3a4af;
+@menubar-border:                 mix(@panel-border, @panel-bg, 60%);
+@menuitem-text-inverse:          #ffffff;
+@menubar-bg-active:              darken(@btn-bg, 10%);
+@menuitem-bg-hover:              #0081C2;
+@menuitem-bg-selected:           #3a3d4e;
+@menuitem-bg-selected-hlight:    #3a3d4e;
+@menuitem-bg-disabled:           #CCC;
+@menuitem-caret:                 @menuitem-text;
+@menuitem-caret-selected:        @menuitem-text-inverse;
+@menuitem-separator-top:         #ffffff;
+@menuitem-separator-bottom:      #dadbe4;
+@menuitem-bg-active:             #019bd4;
+@menuitem-text-active:           #ffffff;
+@menuitem-preview-border-active: #019bd4;
+
+// Panel
+@panel-border:                   #050505;
+@panel-bg:                       #2f313f;
+@panel-bg-hlight:                #2f313f;
+
+// Tabs
+@tab-border:                     #dadbe4;
+@tab-bg:                         #ffffff;
+@tab-bg-hover:                   #cccfe3;
+@tab-bg-active:                  #019bd4;
+
+// Tooltip
+@tooltip-bg:                     #000;
+@tooltip-text:                   white;
+@tooltip-font-size:              11px;
+
+// Window
+@window-border:                  #dadbe4;
+@window-head-border:             @window-border;
+@window-head-close:              mix(@panel-bg, @window-bg, 60%);
+@window-head-close-hover:        mix(@panel-bg, @window-bg, 40%);
+@window-foot-border:             @window-border;
+@window-foot-bg:                 @window-bg;
+@window-fullscreen-bg:           #FFF;
+@window-modalblock-bg:           #000;
+@window-modalblock-opacity:      0.3;
+@window-box-shadow:              0 3px 7px rgba(0, 0, 0, 0.3);
+@window-bg:                      #ffffff;
+@window-title-font-size:         20px;
+
+// Popover
+@popover-bg:                     @window-bg;
+@popover-arrow-width:            10px;
+@popover-arrow:                  @window-bg;
+@popover-arrow-outer-width:      @popover-arrow-width + 1;
+@popover-arrow-outer:            rgba(0, 0, 0, 0.25);
+
+// Floatpanel
+@floatpanel-box-shadow:          0 5px 10px rgba(0, 0, 0, .2);
+
+// Checkbox
+@checkbox-bg:                    @btn-bg;
+@checkbox-bg-hlight:             @btn-bg-hlight;
+@checkbox-box-shadow:            inset 0 1px 0 rgba(255, 255, 255, .2), 0 1px 2px rgba(0, 0, 0, .05);
+@checkbox-border:                #8f8f8f;
+@checkbox-border-focus:          #019bd4;
+
+// Path
+@path-text:                      @text;
+@path-bg-focus:                  #666;
+@path-text-focus:                #fff;
+
+// Textbox
+@textbox-text-placeholder:       #aaa;
+@textbox-box-shadow:             inset 0 1px 1px rgba(0, 0, 0, 0.075);
+@textbox-bg:                     #f9f9f9;
+@textbox-border:                 #a3a4af;
+@textbox-border-focus:           #019bd4;
+
+// Throbber
+@throbber-bg:                    #fff url('img/loader.gif') no-repeat center center;
+
+// Combobox
+@combobox-border:                @textbox-border;
+
+// Grid
+@grid-bg-active:                 @menuitem-bg-active;
+@grid-border-active:             #d6d6d6;
+@grid-border:                    #d6d6d6;
+
+// Misc
+@colorbtn-backcolor-bg:          #586570;
+@iframe-border:                  @panel-border;
+
+// ImpressPages theme fixes
+.@{prefix}-window {
+    *,
+    .@{prefix}-textbox {
+        color: @panel-bg;
+    }
+    .@{prefix}-charmap td:hover div {
+        color: @text;
+    }
+    .@{prefix}-panel {
+        background-color: @menu-bg;
+    }
+    .mce-tab.mce-active {
+        color: @text-inverse;
+    }
+}
+.@{prefix}-menu * {
+    color: @panel-bg;
+}

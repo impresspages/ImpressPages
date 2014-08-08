@@ -44,6 +44,8 @@ class Page
     protected $alias;
     /** string - page layout */
     protected $layout;
+    /** string - redirectUrl */
+    protected $redirectUrl;
 
 
     /** bool */
@@ -51,8 +53,13 @@ class Page
 
     protected $inBreadcrumb = null;
 
+    protected $isDisabled = false;
+    protected $isSecured = false;
+    protected $isBlank = false;
+
     /**
      * @param int|array $id
+     * @throws \Ip\Exception
      */
     public function __construct($id)
     {
@@ -239,32 +246,6 @@ class Page
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @ignore
-     * @param $modifyFrequency int represents average amount of days between changes
-     */
-    public function setModifyFrequency($modifyFrequency)
-    {
-        $this->modifyFrequency = $modifyFrequency;
-    }
-
-    /**
-     * @ignore
-     * @return float
-     */
-    public function getPriority()
-    {
-        return $this->priority;
-    }
-
-    /**
-     * @ignore
-     * @param $priority float
-     */
-    public function setPriority($priority)
-    {
-        $this->priority = $priority;
-    }
 
     /**
      * Get parent page ID
@@ -305,9 +286,10 @@ class Page
         return $this->urlPath;
     }
 
+
     /**
      * @ignore
-     * @param $url string
+     * @param $urlPath
      */
     public function setUrlPath($urlPath)
     {
@@ -335,22 +317,12 @@ class Page
         if ($this->inBreadcrumb === null) {
             $breadcrumb = ipContent()->getBreadcrumb();
             $ids = array();
-            foreach($breadcrumb as $page) {
+            foreach ($breadcrumb as $page) {
                 $ids[] = $page->getId();
             }
             $this->inBreadcrumb = in_array($this->getId(), $ids);
         }
         return $this->inBreadcrumb;
-    }
-
-    /**
-     * Get the page type (e.g., default, redirect or other types)
-     *
-     * @return string Page type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
 
@@ -480,7 +452,7 @@ class Page
      */
     public function getChildren($from = null, $till = null, $orderBy = 'pageOrder', $direction = 'ASC')
     {
-        switch($orderBy) {
+        switch ($orderBy) {
             case 'pageOrder':
             case 'title':
             case 'metaTitle':
@@ -516,7 +488,7 @@ class Page
         $params = array('parentId' => $this->id);
 
         if ($from !== null || $till !== null) {
-            $sql .= " LIMIT " . (int) $from . " , " . (int) $till;
+            $sql .= " LIMIT " . (int)$from . " , " . (int)$till;
         }
 
         $list = ipDb()->fetchAll($sql, $params);
@@ -534,15 +506,15 @@ class Page
         return $this->alias;
     }
 
+
     /**
      * Set the page alias
      * @ignore
-     *
-     * @param $type string Page alias
+     * @param $alias
      */
     public function setAlias($alias)
     {
-        $this->type = $alias;
+        $this->alias = $alias;
     }
 
     /**

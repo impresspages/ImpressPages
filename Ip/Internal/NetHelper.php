@@ -138,9 +138,9 @@ class NetHelper
                 curl_close($rch);
 
                 if (!$mr) {
-                    if ($maxredirect === null)
+                    if ($maxredirect === null) {
                         trigger_error('Too many redirects.', E_USER_WARNING);
-                    else {
+                    } else {
                         $maxredirect = 0;
                     }
 

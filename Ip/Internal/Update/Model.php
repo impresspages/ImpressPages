@@ -4,12 +4,11 @@
  */
 
 
-
 namespace Ip\Internal\Update;
 
 
-
-class Model {
+class Model
+{
 
     /**
      * DON'T USE THIS FUNCTION IN THE CORE. UPDATE SCRIPT WILL FAIL IF THIS CLASS WILL BE LOADED BEFORE NEW CORE IS DOWNLOADED.
@@ -17,7 +16,7 @@ class Model {
      */
     public static function getDbVersion()
     {
-        return 44; //CHANGE_ON_VERSION_UPDATE
+        return 54; //CHANGE_ON_VERSION_UPDATE
     }
 
     public static function migrationsAvailable()
@@ -29,7 +28,7 @@ class Model {
     public static function runMigrations()
     {
         $curDbVersion = ipStorage()->get('Ip', 'dbVersion');
-        for($i = $curDbVersion + 1; $i <= Model::getDbVersion(); $i++) {
+        for ($i = $curDbVersion + 1; $i <= Model::getDbVersion(); $i++) {
             $migrationMethod = 'update_' . $i;
             if (method_exists(__NAMESPACE__ . '\Migration', $migrationMethod)) {
                 Migration::$migrationMethod();

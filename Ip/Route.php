@@ -6,7 +6,11 @@
 
 namespace Ip;
 
-
+/**
+ *
+ * Information about current request route
+ * @package Ip
+ */
 class Route
 {
     protected $action = null;
@@ -27,13 +31,17 @@ class Route
         return $this->plugin;
     }
 
+    /**
+     * @private
+     * @param $plugin
+     */
     public function setPlugin($plugin)
     {
         $this->plugin = $plugin;
     }
 
     /**
-     * Gets MVC controller file name relative to plugin dir
+     * Gets controller file name relative to plugin dir
      *
      * @return string
      */
@@ -42,27 +50,35 @@ class Route
         return $this->controller;
     }
 
+    /**
+     * Get controller class
+     * @return string
+     */
     public function controllerClass()
     {
         if ($this->controllerClass != null) {
             return $this->controllerClass;
         }
 
-        if ($this->plugin == null ) {
+        if ($this->plugin == null) {
             return null;
         }
 
 
         if (in_array($this->plugin, \Ip\Internal\Plugins\Model::getModules())) {
-            $controllerClass = 'Ip\\Internal\\'.$this->plugin.'\\'.$this->controller;
+            $controllerClass = 'Ip\\Internal\\' . $this->plugin . '\\' . $this->controller;
         } else {
-            $controllerClass = 'Plugin\\'.$this->plugin.'\\'.$this->controller;
+            $controllerClass = 'Plugin\\' . $this->plugin . '\\' . $this->controller;
         }
 
         $this->controllerClass = $controllerClass;
         return $this->controllerClass;
     }
 
+    /**
+     * @private
+     * @param $controller
+     */
     public function setController($controller)
     {
         $this->controller = $controller;
@@ -70,7 +86,7 @@ class Route
 
 
     /**
-     * Gets MVC controller action
+     * Gets Controller action
      *
      * @return string controller action name
      */
@@ -80,6 +96,7 @@ class Route
     }
 
     /**
+     * @private
      * Sets MVC controller action
      */
     public function setAction($action)
@@ -98,6 +115,7 @@ class Route
 
     /**
      * Set route environment 'admin' or public'
+     * @private
      * @param $environment
      */
     public function setEnvironment($environment)
@@ -113,7 +131,6 @@ class Route
     {
         return $this->environment == self::ENVIRONMENT_ADMIN;
     }
-
 
 
 }

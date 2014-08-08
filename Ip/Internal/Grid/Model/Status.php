@@ -9,14 +9,15 @@ namespace Ip\Internal\Grid\Model;
 class Status
 {
 
-    public static function parse($statusVariable) {
+    public static function parse($statusVariable)
+    {
         if (!empty($statusVariable[0]) && $statusVariable[0] == '#') {
             $statusVariable = substr($statusVariable, 1);
         }
 
         $variables = array();
         $parts = explode('&', $statusVariable);
-        foreach($parts as $part) {
+        foreach ($parts as $part) {
             $tmp = explode('=', $part);
             if (isset($tmp[1])) {
                 $variables[$tmp[0]] = urldecode($tmp[1]);
@@ -30,6 +31,37 @@ class Status
     public static function build($variables)
     {
         return 'grid&' . http_build_query($variables);
+    }
+
+
+    /**
+     * Get the depth of nesting
+     * @param $statusVariables
+     * @return int
+     */
+    public static function depth($statusVariables)
+    {
+        $depth = 1;
+        while (isset($statusVariables['gridId' . $depth]) && isset($statusVariables['gridParentId' . $depth])) {
+            $depth++;
+        }
+        return $depth;
+    }
+
+
+    public static function genSubgridVariables($curStatusVariables, $gridId, $gridParentId)
+    {
+        $newStatusVariables = array();
+        $depth = Status::depth($curStatusVariables);
+
+        for($i=1; $i<$depth; $i++) {
+            $newStatusVariables['gridId' . $i] = $curStatusVariables['gridId' . $i];
+            $newStatusVariables['gridParentId' . $i] = $curStatusVariables['gridParentId' . $i];
+        }
+
+        $newStatusVariables['gridId' . $depth] = $gridId;
+        $newStatusVariables['gridParentId' . $depth] = $gridParentId;
+        return $newStatusVariables;
     }
 
 //    protected $config = null;

@@ -43,11 +43,6 @@ class Theme
         return $this->name;
     }
 
-    public function getPath()
-    {
-        return $this->path;
-    }
-
     public function getTitle()
     {
         return $this->title;
@@ -87,7 +82,7 @@ class Theme
     protected function getGroupOptions($groupOptions)
     {
         $answer = $groupOptions;
-        foreach($groupOptions as $option) {
+        foreach ($groupOptions as $option) {
             if (!empty($option['type']) && $option['type'] === 'group' && !empty($option['options'])) {
                 $answer = array_merge($answer, $this->getGroupOptions($option['options']));
             }

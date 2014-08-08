@@ -7,7 +7,8 @@
 namespace Ip\Internal\Core;
 
 
-class PublicController extends \Ip\Controller {
+class PublicController extends \Ip\Controller
+{
     /**
      * Dummy function used to preserve user session
      */

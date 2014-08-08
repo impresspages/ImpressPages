@@ -7,9 +7,6 @@
 namespace Ip\Internal\Pages;
 
 
-
-
-
 class AdminController extends \Ip\Controller
 {
 
@@ -29,6 +26,8 @@ class AdminController extends \Ip\Controller
 
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
+
 
         ipAddJsVariable('languageList', Helper::languageList());
         ipAddJsVariable('menuList', Model::getMenuList());
@@ -40,7 +39,7 @@ class AdminController extends \Ip\Controller
         );
         $layout = ipView('view/layout.php', $variables);
 
-        ipResponse()->setLayoutVariable('removeAdminContentWrapper',true);
+        ipResponse()->setLayoutVariable('removeAdminContentWrapper', true);
 
         return $layout->render();
     }
@@ -74,8 +73,12 @@ class AdminController extends \Ip\Controller
         }
         $menuName = $data['menuName'];
 
-        $parentId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
-        $responseData = array (
+        $parentId = ipDb()->selectValue(
+            'page',
+            'id',
+            array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0)
+        );
+        $responseData = array(
             'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
         );
 
@@ -95,7 +98,7 @@ class AdminController extends \Ip\Controller
         );
         $layout = ipView('view/pageProperties.php', $variables)->render();
 
-        $data = array (
+        $data = array(
             'html' => $layout
         );
         return new \Ip\Response\Json($data);
@@ -116,12 +119,12 @@ class AdminController extends \Ip\Controller
         }
 
         $answer = array();
-        if (strtotime($data['createdAt']) === FALSE) {
-            $answer['errors']['createdAt'] = __('Incorrect date format. Example:', 'Ip-admin', FALSE).date(" Y-m-d");
+        if (strtotime($data['createdAt']) === false) {
+            $answer['errors']['createdAt'] = __('Incorrect date format. Example:', 'Ip-admin', false) . date(" Y-m-d");
         }
 
-        if (strtotime($data['updatedAt']) === FALSE) {
-            $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'Ip-admin', FALSE).date(" Y-m-d");
+        if (strtotime($data['updatedAt']) === false) {
+            $answer['errors']['updatedAt'] = __('Incorrect date format. Example:', 'Ip-admin', false) . date(" Y-m-d");
         }
 
         if ($data['alias'] != $page->getAlias()) {
@@ -140,6 +143,9 @@ class AdminController extends \Ip\Controller
         }
         if (empty($answer['errors'])) {
             Model::updatePageProperties($pageId, $data);
+
+            ipEvent('ipFormUpdatePageSubmitted', array($data));
+
             $answer['status'] = 'success';
         } else {
             $answer['status'] = 'error';
@@ -158,14 +164,11 @@ class AdminController extends \Ip\Controller
         $form = Helper::menuForm($menuId);
         $html = $form->render();
 
-        $data = array (
+        $data = array(
             'html' => $html
         );
         return new \Ip\Response\Json($data);
     }
-
-
-
 
 
     public function addPage()
@@ -185,6 +188,10 @@ class AdminController extends \Ip\Controller
         $isVisible = ipRequest()->getPost('isVisible', 0);
 
         $pageId = Service::addPage($parentId, $title, array('isVisible' => $isVisible));
+
+        $eventData = ipRequest()->getPost();
+        ipEvent('ipFormCreatePageSubmitted', $eventData);
+
 
 
         $answer = array(
@@ -207,7 +214,7 @@ class AdminController extends \Ip\Controller
 
         Service::deletePage($pageId);
 
-        $answer = array ();
+        $answer = array();
         $answer['status'] = 'success';
 
         return new \Ip\Response\Json($answer);
@@ -244,7 +251,7 @@ class AdminController extends \Ip\Controller
         try {
             Model::movePage($pageId, $destinationParentId, $destinationPosition);
         } catch (\Ip\Exception $e) {
-            $answer = array (
+            $answer = array(
                 'status' => 'error',
                 'error' => $e->getMessage()
             );
@@ -252,12 +259,11 @@ class AdminController extends \Ip\Controller
         }
 
 
-        $answer = array (
+        $answer = array(
             'status' => 'success'
         );
 
         return new \Ip\Response\Json($answer);
-
 
 
     }
@@ -265,42 +271,43 @@ class AdminController extends \Ip\Controller
 
     public function copyPage()
     {
-            ipRequest()->mustBePost();
-            $data = ipRequest()->getPost();
+        ipRequest()->mustBePost();
+        $data = ipRequest()->getPost();
 
 
-            if (!isset($data['pageId'])) {
-                throw new \Ip\Exception("Page id is not set");
-            }
-            $pageId = (int)$data['pageId'];
+        if (!isset($data['pageId'])) {
+            throw new \Ip\Exception("Page id is not set");
+        }
+        $pageId = (int)$data['pageId'];
 
 
-            if (!empty($data['destinationParentId'])) {
-                $destinationParentId = $data['destinationParentId'];
-            }
+        if (!isset($data['destinationParentId'])) {
+            throw new \Ip\Exception("Missing required parameter");
+        }
+        $destinationParentId = $data['destinationParentId'];
 
-            if (!isset($data['destinationPosition'])) {
-                throw new \Ip\Exception("Destination position is not set");
-            }
-            $destinationPosition = $data['destinationPosition'];
-
-
-            try {
-                Service::copyPage($pageId, $destinationParentId, $destinationPosition);
-            } catch (\Ip\Exception $e) {
-                $answer = array (
-                    'status' => 'error',
-                    'error' => $e->getMessage()
-                );
-                return new \Ip\Response\Json($answer);
-            }
+        if (!isset($data['destinationPosition'])) {
+            throw new \Ip\Exception("Destination position is not set");
+        }
+        $destinationPosition = $data['destinationPosition'];
 
 
-            $answer = array (
-                'status' => 'success'
+        try {
+            Service::copyPage($pageId, $destinationParentId, $destinationPosition);
+        } catch (\Ip\Exception $e) {
+            $answer = array(
+                'status' => 'error',
+                'error' => $e->getMessage()
             );
-
             return new \Ip\Response\Json($answer);
+        }
+
+
+        $answer = array(
+            'status' => 'success'
+        );
+
+        return new \Ip\Response\Json($answer);
 
 
     }
@@ -317,7 +324,7 @@ class AdminController extends \Ip\Controller
 
         $page = new \Ip\Page($pageId);
 
-        $answer = array (
+        $answer = array(
             'pageUrl' => $page->getLink()
         );
 
@@ -351,12 +358,17 @@ class AdminController extends \Ip\Controller
 
         if ($errors) {
             return new \Ip\Response\Json(array(
-                    'status' => 'error',
-                    'errors' => $errors,
-                ));
+                'status' => 'error',
+                'errors' => $errors,
+            ));
         }
 
         Service::updateMenu($menuId, $alias, $title, $layout, $type);
+
+        $eventData = $request->getPost();
+        ipEvent('ipFormUpdateMenuSubmitted', $eventData);
+
+
 
         $answer = array(
             'status' => 'ok'
@@ -374,17 +386,17 @@ class AdminController extends \Ip\Controller
         $title = $request->getPost('title');
         $type = $request->getPost('type');
 
-        if (empty($title) || empty($type)) {
+        if (empty($title)) {
             $title = __('Untitled', 'Ip-admin', false);
         }
 
-        $pageId = Service::createMenu($languageCode, null, $title);
+        $pageId = Service::createMenu($languageCode, null, $title, $type);
 
         $menu = ipContent()->getPage($pageId);
 
-
-        ipPageStorage($menu->getId())->set('menuType', $type);
-
+        $eventData = $request->getPost();
+        $eventData['id'] = $pageId;
+        ipEvent('ipFormCreateMenuSubmitted', $eventData);
 
         $answer = array(
             'status' => 'success',
@@ -397,7 +409,6 @@ class AdminController extends \Ip\Controller
     public function changeMenuOrder()
     {
         ipRequest()->mustBePost();
-        $data = ipRequest()->getPost();
 
         $menuId = ipRequest()->getPost('menuId');
         $newIndex = ipRequest()->getPost('newIndex');

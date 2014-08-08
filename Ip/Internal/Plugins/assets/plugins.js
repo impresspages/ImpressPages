@@ -58,11 +58,11 @@ var ipPlugins = null;
             $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
                 deletePlugin($scope.selectedPlugin.name);
             });
-        }
+        };
 
         $scope.setPluginHash = function (plugin) {
             updateHash(plugin.name);
-        }
+        };
 
 
         var activate = function (pluginName) {
@@ -70,7 +70,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.activate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -100,7 +100,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.deactivate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -122,7 +122,7 @@ var ipPlugins = null;
                     alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         // 'delete' is predefined class
         var deletePlugin = function (pluginName) {
@@ -130,7 +130,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.remove';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -152,7 +152,7 @@ var ipPlugins = null;
                     alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         var updateHash = function (pluginName) {
             var curVariables = getHashParams();
@@ -161,7 +161,7 @@ var ipPlugins = null;
             curVariables.plugin = pluginName ? pluginName : null;
 
             var path = '';
-            $.each(curVariables, function(key, value){
+            $.each(curVariables, function (key, value) {
                 if (value != null) {
                     if (path != '') {
                         path = path + '&';
@@ -170,7 +170,7 @@ var ipPlugins = null;
                 }
             });
             $location.path(path);
-        }
+        };
 
         var getHashParams = function () {
             var hashParams = {};
@@ -187,7 +187,7 @@ var ipPlugins = null;
 
             return hashParams;
         }
-    }
+    };
 
 
 //    this.init = function () {

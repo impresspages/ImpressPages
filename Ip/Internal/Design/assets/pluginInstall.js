@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     "use strict";
     $('.ipsInstallPlugin').on('click', function (e) {
@@ -8,7 +7,7 @@ $(document).ready(function () {
         postData.aa = 'Design.installPlugin';
         postData.securityToken = ip.securityToken;
         postData.params = {
-            'pluginName' : $this.data('pluginname')
+            'pluginName': $this.data('pluginname')
         };
 
         postData.jsonrpc = '2.0';

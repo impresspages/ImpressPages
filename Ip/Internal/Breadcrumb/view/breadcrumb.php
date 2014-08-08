@@ -2,7 +2,6 @@
 /**
  * @var $pages \Ip\Page[]
  */
-$pages;
 ?>
 <ol class="breadcrumb">
 <?php if ($homeUrl) { ?>

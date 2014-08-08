@@ -13,81 +13,114 @@ namespace Ip\Internal\Grid\Model;
 class Actions
 {
     /**
-     * @var $config Config
+     * @var $subgridConfig Config
      */
-    protected $config;
+    protected $subgridConfig;
+    protected $statusVariables;
 
-    public function __construct($config)
+    public function __construct($subgridConfig, $statusVariables)
     {
-        $this->config = $config;
+        $this->subgridConfig = $subgridConfig;
+        $this->statusVariables = $statusVariables;
     }
-
 
 
     public function delete($id)
     {
-        $db = new Db($this->config);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
 
-        $fields = $this->config->fields();
+        $fields = $this->subgridConfig->fields();
         $curData = $db->fetchRow($id);
         foreach ($fields as $field) {
-            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->beforeDelete($id, $curData);
         }
 
 
         $sql = "
         DELETE
-            " . $this->config->tableName() . "
+            " . $this->subgridConfig->tableName() . "
         FROM
-            " . $this->config->tableName() . "
-            " . $this->config->joinQuery() . "
+            " . $this->subgridConfig->tableName() . "
+            " . $this->subgridConfig->joinQuery() . "
         WHERE
-            " . $this->config->tableName() . "." . $this->config->idField() . " = :id
+            " . $this->subgridConfig->tableName() . "." . $this->subgridConfig->idField() . " = :id
         ";
 
         $params = array(
             'id' => $id
         );
 
-        ipDb()->execute($sql, $params);
+        if ($this->subgridConfig->beforeDelete()) {
+            call_user_func($this->subgridConfig->beforeDelete(), $params['id']);
+        }
 
+        ipDb()->execute($sql, $params);
+        if ($this->subgridConfig->afterDelete()) {
+            call_user_func($this->subgridConfig->afterDelete(), $params['id']);
+        }
+
+        //remove records in child grids
         foreach ($fields as $field) {
-            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->afterDelete($id, $curData);
+
+            if ($field['type'] == 'Grid') {
+                $childStatusVariables = Status::genSubgridVariables($this->statusVariables, $field['gridId'], $id);
+
+                $subActions = new Actions(new Config($field['config']), $childStatusVariables);
+                $childConfig = new Config($field['config']);
+                $db = new Db($childConfig, $childStatusVariables);
+                $where = $db->buildSqlWhere();
+                $sql = "
+                    SELECT
+                        `" . $childConfig->idField() . "`
+                    FROM
+                        " . $childConfig->tableName() . "
+                    WHERE
+                        $where
+                ";
+                $idsToDelete = ipDb()->fetchColumn($sql);
+                foreach ($idsToDelete as $idToDelete) {
+                    $subActions->delete($idToDelete);
+                }
+
+            }
         }
 
     }
 
     public function update($id, $data)
     {
-        $db = new Db($this->config);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         $oldData = $db->fetchRow($id);
 
-        $fields = $this->config->fields();
+        $fields = $this->subgridConfig->fields();
         $dbData = array();
-        foreach($fields as $field) {
-            if ($field['field'] == $this->config->idField() || isset($field['allowUpdate']) && !$field['allowUpdate']) {
+        foreach ($fields as $field) {
+            if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab') {
                 continue;
             }
-            $fieldObject = $this->config->fieldObject($field);
+            $fieldObject = $this->subgridConfig->fieldObject($field);
 
             $fieldObject->beforeUpdate($id, $oldData, $data);
             $fieldData = $fieldObject->updateData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("updateData method in class " . esc(get_class($fieldObject)) . " has to return array.");
+                throw new \Ip\Exception("updateData method in class " . esc(
+                    get_class($fieldObject)
+                ) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
 
-        if ($this->config->updateFilter()) {
-            $dbData = call_user_func($this->config->updateFilter(), $id, $dbData);
+        if ($this->subgridConfig->updateFilter()) {
+            $dbData = call_user_func($this->subgridConfig->updateFilter(), $id, $dbData);
         }
 
-        $this->updateDb($this->config->rawTableName(), $dbData, $id);
+        $this->updateDb($this->subgridConfig->rawTableName(), $dbData, $id);
 
-        foreach($fields as $field) {
-            $this->config->fieldObject($field)->afterUpdate($id, $oldData, $data);
+        foreach ($fields as $field) {
+            $this->subgridConfig->fieldObject($field)->afterUpdate($id, $oldData, $data);
         }
 
     }
@@ -98,10 +131,10 @@ class Actions
             return false;
         }
 
-        $sql = "UPDATE " . ipTable($table) . " " . $this->config->joinQuery() . " SET ";
+        $sql = "UPDATE " . ipTable($table) . " " . $this->subgridConfig->joinQuery() . " SET ";
         $params = array();
         foreach ($update as $column => $value) {
-            if ($column == $this->config->idField()) {
+            if ($column == $this->subgridConfig->idField()) {
                 continue; //don't update id field
             }
             $sql .= "`{$column}` = ? , ";
@@ -115,49 +148,54 @@ class Actions
         $sql .= " WHERE ";
 
 
-        $sql .= " " . ipTable($table) . ".`" . $this->config->idField() . "` = ? ";
+        $sql .= " " . ipTable($table) . ".`" . $this->subgridConfig->idField() . "` = ? ";
         $params[] = $id;
-
 
 
         return ipDb()->execute($sql, $params);
     }
 
 
-
-
-
     public function create($data)
     {
-        $db = new Db($this->config);
-
-        $fields = $this->config->fields();
+        $fields = $this->subgridConfig->fields();
         $dbData = array();
-        foreach($fields as $field) {
-            $fieldObject = $this->config->fieldObject($field);
+        foreach ($fields as $field) {
+            if (!empty($field['type']) && $field['type'] == 'Tab') {
+                continue;
+            }
+
+            $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->beforeCreate(null, $data);
             $fieldData = $fieldObject->createData($data);
             if (!is_array($fieldData)) {
-                throw new \Ip\Exception("createData method in class " . esc(get_class($fieldObject)) . " has to return array.");
+                throw new \Ip\Exception("createData method in class " . esc(
+                    get_class($fieldObject)
+                ) . " has to return array.");
             }
             $dbData = array_merge($dbData, $fieldData);
         }
 
-        $sortField = $this->config->sortField();
+        $sortField = $this->subgridConfig->sortField();
         if ($sortField) {
-            if ($this->config->createPosition() == 'top') {
-                $orderValue = ipDb()->selectValue($this->config->rawTableName(), "MIN(`$sortField`)", array());
+            if ($this->subgridConfig->createPosition() == 'top') {
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MIN(`$sortField`)", array());
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue - 1 : 1; // 1 if null
             } else {
-                $orderValue = ipDb()->selectValue($this->config->rawTableName(), "MAX(`$sortField`)", array());
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX(`$sortField`)", array());
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue + 1 : 1; // 1 if null
             }
         }
 
-        $recordId = ipDb()->insert($this->config->rawTableName(), $dbData);
+        $depth = Status::depth($this->statusVariables);
+        if ($depth > 1) {
+            $dbData[$this->subgridConfig->connectionField()] = $this->statusVariables['gridParentId' . ($depth - 1)];
+        }
 
-        foreach($fields as $field) {
-            $fieldObject = $this->config->fieldObject($field);
+        $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
+
+        foreach ($fields as $field) {
+            $fieldObject = $this->subgridConfig->fieldObject($field);
             $fieldObject->afterCreate($recordId, $data);
         }
         return $recordId;
@@ -165,14 +203,14 @@ class Actions
 
     public function move($id, $targetId, $beforeOrAfter)
     {
-        $sortField = $this->config->sortField();
+        $sortField = $this->subgridConfig->sortField();
 
-        $priority = ipDb()->selectValue($this->config->rawTableName(), $sortField, array('id' => $targetId));
+        $priority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array('id' => $targetId));
         if ($priority === false) {
             throw new \Ip\Exception('Target record doesn\'t exist');
         }
 
-        $tableName = $this->config->tableName();
+        $tableName = $this->subgridConfig->tableName();
 
         if ($beforeOrAfter == 'before') {
             $sql = "
@@ -180,7 +218,7 @@ class Actions
                 `{$sortField}`
             FROM
                 {$tableName}
-                " . $this->config->joinQuery() . "
+                " . $this->subgridConfig->joinQuery() . "
             WHERE
                 `{$sortField}` < :rowNumber
             ORDER BY
@@ -213,6 +251,10 @@ class Actions
             $newPriority = ($priority + $priority2) / 2;
         }
 
-        ipDb()->update($this->config->rawTableName(), array($sortField => $newPriority), array($this->config->idField() => $id));
+        ipDb()->update(
+            $this->subgridConfig->rawTableName(),
+            array($sortField => $newPriority),
+            array($this->subgridConfig->idField() => $id)
+        );
     }
 }

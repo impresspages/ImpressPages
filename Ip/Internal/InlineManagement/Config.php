@@ -1,9 +1,8 @@
 <?php
-    /**
-     * @package ImpressPages
-
-     *
-     */
+/**
+ * @package ImpressPages
+ *
+ */
 
 namespace Ip\Internal\InlineManagement;
 
@@ -20,10 +19,10 @@ class Config
 
         $tmpFonts = explode("\n", $fontsString);
         $fonts = array();
-        foreach($tmpFonts as &$font) {
+        foreach ($tmpFonts as &$font) {
             $tmpFont = trim($font);
             if ($tmpFont != '') {
-               $fonts[] = $tmpFont;
+                $fonts[] = $tmpFont;
             }
         }
         return $fonts;

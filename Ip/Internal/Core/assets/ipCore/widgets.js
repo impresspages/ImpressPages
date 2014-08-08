@@ -1,4 +1,3 @@
-
 /*************
  * Form widget
  **************/
@@ -13,16 +12,15 @@ jQuery('.ipWidget-Form').on('ipSubmitResponse', function (e, response) {
 });
 
 
-
 /*************
  * Map widget
  **************/
 
 
-jQuery.fn.ipWidgetMap = function() {
+jQuery.fn.ipWidgetMap = function () {
     "use strict";
 
-    return this.each(function() {
+    return this.each(function () {
         if (ip.isManagementState) {
             return; //management part will initialize script by itself
         }
@@ -67,7 +65,6 @@ jQuery.fn.ipWidgetMap = function() {
             $widget.trigger('ipWidgetMapInit', {map: map, marker: marker});
 
         }
-
 
 
     });

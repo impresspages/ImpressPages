@@ -6,7 +6,6 @@
 namespace Ip\Internal\Languages;
 
 
-
 class Service
 {
     const TEXT_DIRECTION_LTR = 'ltr';

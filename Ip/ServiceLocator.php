@@ -1,13 +1,10 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
 namespace Ip;
-
-
 
 
 /**
@@ -124,7 +121,6 @@ class ServiceLocator
     }
 
 
-
     /**
      * @return \Ip\Application
      */
@@ -158,7 +154,7 @@ class ServiceLocator
      */
     public static function removeRequest()
     {
-        if (count(self::$requests) >1 ) {
+        if (count(self::$requests) > 1) {
             array_pop(self::$dispatchers);
             array_pop(self::$requests);
             array_pop(self::$contents);
@@ -235,6 +231,7 @@ class ServiceLocator
 
     /**
      * @param $db
+     * @return Db
      */
     public static function setDb($db)
     {

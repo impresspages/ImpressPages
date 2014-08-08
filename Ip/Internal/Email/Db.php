@@ -6,15 +6,30 @@
  */
 namespace Ip\Internal\Email;
 
-class Db{
+class Db
+{
 
     public static function getEmail($id)
     {
         return ipDb()->selectRow('email_queue', '*', array('id' => $id));
     }
 
-    public static function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $filesStr, $fileNamesStr, $mimeTypesStr){
-        return ipDb()->insert('email_queue', array(
+    public static function addEmail(
+        $from,
+        $fromName,
+        $to,
+        $toName,
+        $subject,
+        $email,
+        $immediate,
+        $html,
+        $filesStr,
+        $fileNamesStr,
+        $mimeTypesStr
+    ) {
+        return ipDb()->insert(
+            'email_queue',
+            array(
                 'from' => $from,
                 'fromName' => $fromName,
                 'to' => $to,
@@ -26,7 +41,8 @@ class Db{
                 'files' => $filesStr,
                 'fileNames' => $fileNamesStr,
                 'fileMimeTypes' => $mimeTypesStr,
-            ));
+            )
+        );
     }
 
     public static function lock($count, $key)
@@ -36,7 +52,7 @@ class Db{
         $sql = "update $table set
 		`lock` = ?, `lockedAt` = NOW()
 		where `lock` is NULL and send is NULL order by
-		immediate desc, id asc limit ".$count;
+		immediate desc, id asc limit " . $count;
 
         return ipDb()->execute($sql, array($key));
     }
@@ -48,30 +64,39 @@ class Db{
         $sql = "update $table set
 		`lock` = ?, `lockedAt` = NOW()
 		where `immediate` and `lock` is NULL and `send` is NULL order by
-		`id` asc limit ".$count;
+		`id` asc limit " . $count;
 
         return ipDb()->execute($sql, array($key));
     }
 
-    public static function unlock($key){
-        return ipDb()->update('email_queue', array(
+    public static function unlock($key)
+    {
+        return ipDb()->update(
+            'email_queue',
+            array(
                 'send' => date('Y-m-d H:i:s'),
-                'lock' => NULL,
-                'lockedAt' => NULL,
-            ), array(
+                'lock' => null,
+                'lockedAt' => null,
+            ),
+            array(
                 'lock' => $key
-            ));
+            )
+        );
     }
 
     public static function unlockOne($id)
     {
-        return ipDb()->update('email_queue', array(
+        return ipDb()->update(
+            'email_queue',
+            array(
                 'send' => date('Y-m-d H:i:s'),
-                'lock' => NULL,
-                'lockedAt' => NULL,
-            ), array(
+                'lock' => null,
+                'lockedAt' => null,
+            ),
+            array(
                 'id' => $id,
-            ));
+            )
+        );
     }
 
 
@@ -82,11 +107,15 @@ class Db{
 
     public static function markSend($key)
     {
-        return ipDb()->update('email_queue', array(
+        return ipDb()->update(
+            'email_queue',
+            array(
                 'send' => date('Y-m-d H:i:s'),
-            ), array(
+            ),
+            array(
                 'lock' => $key
-            ));
+            )
+        );
     }
 
     public static function delteOldSent($hours)
@@ -94,7 +123,7 @@ class Db{
         $table = ipTable('email_queue');
         $sql = "delete from $table where
 		`send` is not NULL
-		and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`, NOW())";
+		and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`send`, NOW())";
         return ipDb()->execute($sql);
     }
 
@@ -103,9 +132,9 @@ class Db{
     {
         $table = ipTable('email_queue');
         $sql = "delete from $table where
-		(`lock` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`lockedAt`,NOW()))
+		(`lock` is not NULL and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`lockedAt`,NOW()))
 		or
-		(`send` is not NULL and ".((int)$hours)." < TIMESTAMPDIFF(HOUR,`send`,NOW()))
+		(`send` is not NULL and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`send`,NOW()))
 		";
 
         return ipDb()->execute($sql);
@@ -115,7 +144,7 @@ class Db{
     {
         $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
-		(`send` is not NULL and ".((int)$minutes)." > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
+		(`send` is not NULL and " . ((int)$minutes) . " > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
 		or
 		(`lock` is not NULL and send is null) ";
 

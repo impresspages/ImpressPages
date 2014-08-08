@@ -14,7 +14,7 @@
             return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipGridInit');
-                var uniqueId = Math.floor((Math.random()*10000000)+1);
+                var uniqueId = Math.floor((Math.random() * 10000000) + 1);
                 // If the plugin hasn't been initialized yet
                 if (!data) {
                     $this.data('ipGridInit', Object());
@@ -49,9 +49,7 @@
             context: $this,
             success: initResponse,
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    $this.html(response.responseText);
-                }
+                $this.html(response.responseText);
             },
             dataType: 'json'
         });
@@ -60,7 +58,7 @@
         $(window).off('hashchange.grid' + uniqueId).on('hashchange.grid' + uniqueId, function () {
             $.proxy(init, $this)();
         });
-    }
+    };
 
 
     var initResponse = function (response) {
@@ -92,7 +90,7 @@
     var bindEvents = function () {
         var $grid = this;
 
-        $grid.find('.ipsAction[data-method]').off().on('click', function(e) {
+        $grid.find('.ipsAction[data-method]').off().on('click', function (e) {
             e.preventDefault();
             var $this = $(this);
             var data = $grid.data('gateway');
@@ -121,33 +119,30 @@
             });
         });
 
-        $grid.find('.ipsDelete').off().on('click', function() {
+        $grid.find('.ipsDelete').off().on('click', function () {
             var $this = $(this);
             var $row = $this.closest('.ipsRow');
             var id = $row.data('id');
             var $modal = $grid.find('.ipsDeleteModal');
             $modal.modal();
             $modal.find('.ipsConfirm').focus();
-            $modal.find('.ipsConfirm').off().on('click', function() {
+            $modal.find('.ipsConfirm').off().on('click', function () {
                 $.proxy(deleteRecord, $grid)(id);
                 $modal.modal('hide');
             });
         });
 
-        $grid.find('.ipsUpdate').off().on('click', function() {
+        $grid.find('.ipsUpdate').off().on('click', function () {
             var $this = $(this);
             var $row = $this.closest('.ipsRow');
             var id = $row.data('id');
             var $modal = $grid.find('.ipsUpdateModal');
             $modal.modal();
             $.proxy(loadUpdateForm, $grid)($modal, id);
-
         });
 
 
-
-        $grid.find('.ipsCreate').off().on('click', function() {
-            var $this = $(this);
+        $grid.find('.ipsCreate').off().on('click', function () {
             var $modal = $grid.find('.ipsCreateModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -156,6 +151,8 @@
             if (!$form.find('input[name=aa]').length) {
                 $form.append($('<input type="hidden" name="aa" />').val(data.aa));
             }
+            $form.find('input[name=hash]').remove();
+            $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
                     $modal.modal('hide');
@@ -163,13 +160,26 @@
                     $.proxy(doCommands, $grid)(response.result.commands);
                 }
             });
-            $modal.find('.ipsConfirm').off().on('click', function() {
+            $modal.find('.ipsConfirm').off().on('click', function () {
                 $modal.find('.ipsBody form').submit();
             });
+
+            $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
+                var $form = $(this);
+                var $errorField = $form.find('.form-group.has-error');
+                var $errorPane = $errorField.closest('.tab-pane');
+                if ($errorPane.length) {
+                    var id = $errorPane.attr('id')
+                    $modal.find('.nav-tabs li a[href=#' + id + ']').tab('show');
+                    $modal.animate({
+                        scrollTop: $errorField.offset().top
+                    }, 300);
+                }
+            });
+
         });
 
-        $grid.find('.ipsSearch').off().on('click', function() {
-            var $this = $(this);
+        $grid.find('.ipsSearch').off().on('click', function () {
             var $modal = $grid.find('.ipsSearchModal');
             var $form = $modal.find('.ipsBody form');
             var data = $grid.data('gateway');
@@ -178,6 +188,9 @@
             if (!$form.find('input[name=aa]').length) {
                 $form.append($('<input type="hidden" name="aa" />').val(data.aa));
             }
+            $form.find('input[name=hash]').remove();
+            $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
+
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
                     $modal.modal('hide');
@@ -186,8 +199,26 @@
                 }
             });
 
-            $modal.find('.ipsSearch').off().on('click', function() {
+            $modal.find('.ipsSearch').off().on('click', function () {
                 $modal.find('.ipsBody form').submit();
+            });
+
+            $modal.find(".nav-tabs").on("click", "a", function(e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+            $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
+                var $form = $(this);
+                var $errorField = $form.find('.form-group.has-error');
+                var $errorPane = $errorField.closest('.tab-pane');
+                if ($errorPane.length) {
+                    var id = $errorPane.attr('id')
+                    $modal.find('.nav-tabs li a[href=#' + id + ']').tab('show');
+                    $modal.animate({
+                        scrollTop: $errorField.offset().top
+                    }, 300);
+                }
             });
         });
 
@@ -205,11 +236,11 @@
 
     };
 
-    var startDrag = function(event, ui) {
-            ui.item.data('originIndex', ui.item.index());
-    }
+    var startDrag = function (event, ui) {
+        ui.item.data('originIndex', ui.item.index());
+    };
 
-    var dragStop = function(event, ui) {
+    var dragStop = function (event, ui) {
         var originIndex = ui.item.data('originIndex');
         var curRow = ui.item;
         var currentIndex = curRow.index();
@@ -252,19 +283,18 @@
                 }
             }
         });
-    }
+    };
 
-    var dragFix = function(e, tr) {
+    var dragFix = function (e, tr) {
         var $originals = tr.children();
         var $helper = tr.clone();
-        $helper.children().each(function(index)
-        {
+        $helper.children().each(function (index) {
             $(this).width($originals.eq(index).width())
         });
         return $helper;
     };
 
-    var loadUpdateForm = function($modal, id){
+    var loadUpdateForm = function ($modal, id) {
         var $grid = this;
         var data = $grid.data('gateway');
         data.method = 'updateForm';
@@ -284,6 +314,9 @@
                 if (!$form.find('input[name=aa]').length) {
                     $form.append($('<input type="hidden" name="aa" />').val(data.aa));
                 }
+                $form.find('input[name=hash]').remove();
+                $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
+
                 $form.on('ipSubmitResponse', function (e, response) {
                     if (!response.error) {
                         $modal.modal('hide');
@@ -292,11 +325,29 @@
                     }
                 });
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
-                $modal.find('.ipsConfirm').off().on('click', function() {
+                $modal.find('.ipsConfirm').off().on('click', function () {
                     $modal.find('.ipsBody form').submit();
                 });
                 ipInitForms();
 
+
+                $modal.find(".nav-tabs").on("click", "a", function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+
+                $modal.find('.ipsBody form').off('ipOnFail.gridTabs').on('ipOnFail.gridTabs', function(e, errors) {
+                    var $form = $(this);
+                    var $errorField = $form.find('.form-group.has-error');
+                    var $errorPane = $errorField.closest('.tab-pane');
+                    if ($errorPane.length) {
+                        var id = $errorPane.attr('id')
+                        $modal.find('.nav-tabs li a[href=#' + id + ']').tab('show');
+                        $modal.animate({
+                            scrollTop: $errorField.offset().top
+                        }, 300);
+                    }
+                });
             },
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
@@ -305,11 +356,10 @@
             }
         });
 
-    }
+    };
 
 
-
-    var deleteRecord = function(id) {
+    var deleteRecord = function (id) {
         var $grid = this;
         var data = $grid.data('gateway');
         data.method = 'delete';
@@ -329,7 +379,7 @@
             },
             dataType: 'json'
         });
-    }
+    };
 
     var deleteResponse = function (response) {
         var $this = this;
@@ -341,7 +391,7 @@
             }
         }
 
-    }
+    };
 
     $.fn.ipGrid = function (method) {
         if (methods[method]) {
