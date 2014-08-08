@@ -61,8 +61,16 @@ class Functions
      * @param string $suffix
      * @return string
      */
-    public static function genUnoccupiedName($file, $destDir, $suffix = '')
+    public static function genUnoccupiedName($file, $destDir, $suffix = '', $cleanup = true)
     {
+        if (substr($destDir, -1) != '/' && substr($destDir, -1) != '\\') {
+            $destDir .= '/';
+        }
+
+        if ($cleanup) {
+            $file = self::cleanupFileName($file);
+        }
+
         $newName = basename($file);
         $extPos = strrpos($newName, '.');
 
@@ -73,7 +81,7 @@ class Functions
             $newExtension = '';
         }
 
-        $newName = self::cleanupFileName($newName);
+
 
         if ($newName == '') {
             $newName = 'file_';
@@ -92,7 +100,8 @@ class Functions
     }
 
     /**
-     * @param string $file File name.
+     * @param $fileName
+     * @internal param string $file File name.
      * @return string New (or the same) file without special characters.
      */
     public static function cleanupFileName($fileName)
@@ -102,8 +111,22 @@ class Functions
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
 
         $fileName = str_replace($spec, '_', $fileName);
-        $fileName = preg_replace('/[^\w\._]+/', '_', $fileName); // It overlaps with above replace file. But for historical reasons let it be.
+        $fileName = preg_replace(
+            '/[^\w\._]+/',
+            '_',
+            $fileName
+        ); // It overlaps with above replace file. But for historical reasons let it be.
         $fileName = preg_replace('/_+/', '_', $fileName);
+
+
+        //leave only the last dot in filenames. Files with double extensions might be executed on most of the servers. Eg. hack.php.jpgx
+        $pathParts = pathinfo($fileName);
+        $fileName = str_replace('.', '_', $pathParts['filename']);
+        if (!empty($pathParts['extension'])) {
+            $fileName .= '.' . $pathParts['extension'];
+        }
+
+
         if ($fileName == '') {
             $fileName = 'file';
         }
@@ -127,9 +150,6 @@ class Functions
             finfo_close($finfo);
         } elseif (function_exists('mime_content_type')) {
             $mtype = mime_content_type($file_path);
-        } elseif (class_exists('finfo')) {
-            $fi = new finfo(FILEINFO_MIME);
-            $mtype = $fi->buffer(file_get_contents($files[$i]));
         } else {
             // Any other ideas?
         }
@@ -147,7 +167,11 @@ class Functions
         $newBasename = \Ip\Internal\File\Functions::genUnoccupiedName($relativePath, $destinationDir);
 
         if (!copy(ipFile('file/tmp/' . $relativePath), $destinationDir . $newBasename)) {
-            trigger_error("Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . ' to ' . htmlspecialchars($destinationDir . $newBasename));
+            trigger_error(
+                "Can't copy file from " . htmlspecialchars(ipThemeFile('') . $relativePath) . ' to ' . htmlspecialchars(
+                    $destinationDir . $newBasename
+                )
+            );
         }
 
         return $newBasename;

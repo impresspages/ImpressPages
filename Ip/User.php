@@ -59,17 +59,22 @@ class User
         $_SESSION['ipUserId'] = $id;
     }
 
+
     /**
      * Get all user info collected from all user specific plugins.
+     * @param int $userId
      * @return array
      */
-    function data()
+    function data($userId = null)
     {
+        if ($userId === null) {
+            $userId = $this->userId();
+        }
         $info = array(
-            'userId' => $this->userId()
+            'userId' => $userId
         );
         $data = array(
-            'id' => $this->userId()
+            'id' => $userId
         );
         return ipFilter('ipUserData', $data, $info);
     }

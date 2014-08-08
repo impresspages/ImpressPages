@@ -35,7 +35,6 @@ class Model
     }
 
 
-
     public function getThemePlugins()
     {
         if (!is_dir($this->getThemePluginDir())) {
@@ -47,7 +46,10 @@ class Model
         $plugins = scandir($this->getThemePluginDir());
         foreach ($plugins as $plugin) {
             $pluginDir = ipThemeFile('Plugin/' . $plugin);
-            if (is_dir($pluginDir) && $plugin[0] != '.' && $plugin[0] != '..') { //don't add slash before is_dir check as it throws open basedir error
+            if (is_dir(
+                    $pluginDir
+                ) && $plugin[0] != '.' && $plugin[0] != '..'
+            ) { //don't add slash before is_dir check as it throws open basedir error
                 $pluginDir .= '/';
                 $pluginConfiguration = \Ip\Internal\Plugins\Service::parsePluginConfigFile($pluginDir);
                 if ($pluginConfiguration) {
@@ -96,7 +98,7 @@ class Model
         $dirs = $this->getThemeDirs();
         $dirs = array_reverse($dirs); //first dir themes will override the themes from last ones
         $themes = array();
-        foreach($dirs as $dir) {
+        foreach ($dirs as $dir) {
             $themes = array_merge($themes, $this->getFolderThemes($dir));
         }
         return $themes;
@@ -177,17 +179,13 @@ class Model
         \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
 
 
-        $parametersFile = ipThemeFile('Theme/' . $themeName . '/'. Model::INSTALL_DIR . '/' . Model::PARAMETERS_FILE);
-
         $service = Service::instance();
         $service->saveWidgetOptions($theme);
 
 
-
-
         //write down default theme options
         $options = $theme->getOptionsAsArray();
-        foreach($options as $option) {
+        foreach ($options as $option) {
             if (empty($option['name']) || empty($option['default'])) {
                 continue;
             }
@@ -207,14 +205,7 @@ class Model
             return '';
         }
 
-        if (ipConfig()->get('themeMarketUrl')) {
-            $marketUrl = ipConfig()->get('themeMarketUrl') . 'themes-v1/?version=4';
-        } elseif(ipConfig()->get('testMode')) {
-            $marketUrl = 'http://local.market.impresspages.org/themes-v1/?version=4';
-        } else {
-            $marketUrl = 'http://market.impresspages.org/themes-v1/?version=4';
-        }
-        return $marketUrl;
+        return ipConfig()->get('themeMarketUrl', 'http://market.impresspages.org/themes-v1/?version=4&cms=1');
     }
 
     /**
@@ -262,7 +253,7 @@ class Model
         }
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {
-            $metadata->setDoctype('DOCTYPE_'.$config['doctype']);
+            $metadata->setDoctype('DOCTYPE_' . $config['doctype']);
         } else {
             $metadata->setDoctype('DOCTYPE_HTML5');
         }
@@ -319,7 +310,6 @@ class Model
 
 
     }
-
 
 
     /**

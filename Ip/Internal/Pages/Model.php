@@ -11,6 +11,8 @@ namespace Ip\Internal\Pages;
 class Model
 {
     /**
+     * Move page to trash
+     *
      * @param int $pageId
      * @param int $deleteType
      */
@@ -23,7 +25,11 @@ class Model
             }
         }
 
-        ipDb()->update('page', array('isDeleted' => $deleteType, 'deletedAt' => date('Y-m-d H:i:s')), array('id' => $pageId));
+        ipDb()->update(
+            'page',
+            array('isDeleted' => $deleteType, 'deletedAt' => date('Y-m-d H:i:s')),
+            array('id' => $pageId)
+        );
         ipEvent('ipPageMarkedAsDeleted', array('pageId' => $pageId));
     }
 
@@ -31,8 +37,10 @@ class Model
      * Copy page
      *
      * @param int $pageId
-     * @param int $newParentId
+     * @param $destinationPageId
      * @param int $position page position in the subtree //TODO implement
+     * @internal param int $newParentId
+     * @return int
      */
     public static function copyPage($pageId, $destinationPageId, $position = null)
     {
@@ -58,7 +66,7 @@ class Model
      */
     private static function _copyPageRecursion($nodeId, $destinationPageId, $rowNumber, $newPages = null)
     {
-        // $newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self
+        // $newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self.
         if ($newPages == null) {
             $newPages = array();
         }
@@ -79,15 +87,23 @@ class Model
     }
 
     /**
+     * Copy single page
+     *
      * @param int $nodeId
      * @param int $newParentId
      * @param int $newIndex
+     * @return bool|string
      */
     public static function copySinglePage($nodeId, $newParentId, $newIndex)
     {
         $copy = ipDb()->selectRow('page', '*', array('id' => $nodeId));
         if (!$copy) {
-            trigger_error("Element does not exist");
+            trigger_error('Element does not exist');
+        }
+
+        $menu = ipContent()->getPageMenu($newParentId);
+        if ($menu) {
+            $copy['languageCode'] = $menu->getLanguageCode();
         }
 
         unset($copy['id']);
@@ -95,7 +111,14 @@ class Model
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
 
-        return ipDb()->insert('page', $copy);
+
+        $pageId = ipDb()->insert('page', $copy);
+
+        $eventInfo = ipDb()->selectRow('page', '*', array('id' => $pageId));
+        $eventInfo['sourceId'] = $nodeId;
+
+        ipEvent('ipPageDuplicated', $eventInfo);
+        return $pageId;
     }
 
     /**
@@ -109,18 +132,28 @@ class Model
     }
 
     /**
+     * Get properties of menu
+     *
      * @param string $languageCode
      * @param string $alias
+     * @return array|null
      */
     public static function getMenu($languageCode, $alias)
     {
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0)
+        );
     }
 
     /**
+     * Get children
+     *
      * @param int $parentId
      * @param int $start
      * @param int $limit
+     * @return array
      */
     public static function getChildren($parentId, $start = null, $limit = null)
     {
@@ -131,10 +164,13 @@ class Model
         if ($limit !== null) {
             $sqlEnd .= ', ' . (int)$limit;
         }
+
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
     /**
+     * Get menu list
+     *
      * @param string $languageCode
      * @return array
      */
@@ -145,22 +181,17 @@ class Model
             $where['languageCode'] = $languageCode;
         }
 
-        $list = ipDb()->selectAll(
-            'page',
-            '*',
-            $where,
-            ' ORDER BY `pageOrder` '
-        );
+        $list = ipDb()->selectAll('page', '*', $where, ' ORDER BY `pageOrder` ');
 
-        foreach ($list as &$menu) {
-            $menu['menuType'] = ipPageStorage($menu['id'])->get('menuType', 'tree');
-        }
 
         return $list;
     }
 
     /**
+     * Get page
+     *
      * @param int $pageId
+     * @return array|null
      */
     public static function getPage($pageId)
     {
@@ -168,27 +199,44 @@ class Model
     }
 
     /**
+     * Get pages by URL
+     *
      * @param string $languageCode
      * @param string $urlPath
+     * @return array|null
      */
     public static function getPageByUrl($languageCode, $urlPath)
     {
         if (substr($urlPath, -1) == '/') {
             $urlPath = substr($urlPath, 0, -1);
         }
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0));
+
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
+        );
     }
 
     /**
+     * Get pages by alias
+     *
      * @param string $languageCode
      * @param string $alias
+     * @return array|null
      */
     public static function getPageByAlias($languageCode, $alias)
     {
-        return ipDb()->selectRow('page', '*', array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0));
+        return ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'alias' => $alias, 'isDeleted' => 0)
+        );
     }
 
     /**
+     * Get next page order
+     *
      * @param array $where
      * @return int
      */
@@ -198,12 +246,16 @@ class Model
             $where['isDeleted'] = 0;
         }
         $nextPageOrder = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+
         return $nextPageOrder ? $nextPageOrder : 1;
     }
 
     /**
+     * Change URL path of page
+     *
      * @param string $pageId
      * @param string $newUrlPath
+     * @return bool|null
      */
     protected static function changePageUrlPath($pageId, $newUrlPath)
     {
@@ -229,9 +281,12 @@ class Model
                 'newUrl' => $pageAfterChange->getLink(),
             )
         );
+        return null;
     }
 
     /**
+     * Update properties of page
+     *
      * @param int $pageId
      * @param array $properties
      * @return bool
@@ -292,13 +347,12 @@ class Model
             $update['isBlank'] = $properties['isBlank'];
         }
 
-        if (isset($properties['layout'])) {
+        if (!empty($properties['layout'])) {
             $update['layout'] = $properties['layout'];
             $menu = ipContent()->getPageMenu($pageId);
             if ($menu && $menu->getLayout() == $properties['layout']) {
                 $update['layout'] = null;
             }
-
         }
 
         if (count($update) != 0) {
@@ -306,7 +360,7 @@ class Model
         }
 
         if (!empty($properties['type'])) {
-            ipPageStorage($pageId)->set('menuType', $properties['type']);
+            $update['type'] = $properties['type'];
         }
 
         if (isset($properties['urlPath'])) {
@@ -320,6 +374,8 @@ class Model
     }
 
     /**
+     * Is child page?
+     *
      * @param int $pageId
      * @param int $parentId
      * @return bool
@@ -342,9 +398,13 @@ class Model
     }
 
     /**
-     * @param int $menuId
+     * Move page
+     *
+     * @param $pageId
      * @param int $destinationParentId
      * @param int $destinationPosition
+     * @throws \Ip\Exception
+     * @internal param int $menuId
      */
     public static function movePage($pageId, $destinationParentId, $destinationPosition)
     {
@@ -353,14 +413,14 @@ class Model
         }
 
         $newParentChildren = self::getChildren($destinationParentId);
-        $newPageOrder = 0; // initial value
+        $newPageOrder = 0; // Initial value.
 
         if (count($newParentChildren) > 0) {
-            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1; // set as first page
+            $newPageOrder = $newParentChildren[0]['pageOrder'] - 1; // Set as first page.
             if ($destinationPosition > 0) {
-                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { // new position is in the middle of other pages
-                    $newPageOrder = ($newParentChildren[$destinationPosition - 1]['pageOrder'] + $newParentChildren[$destinationPosition]['pageOrder']) / 2; //average
-                } else { // new position is at the end
+                if (isset($newParentChildren[$destinationPosition - 1]) && isset($newParentChildren[$destinationPosition])) { // New position is in the middle of other pages.
+                    $newPageOrder = ($newParentChildren[$destinationPosition - 1]['pageOrder'] + $newParentChildren[$destinationPosition]['pageOrder']) / 2; // Average
+                } else { // New position is at the end.
                     $newPageOrder = $newParentChildren[count($newParentChildren) - 1]['pageOrder'] + 1;
                 }
             }
@@ -375,6 +435,8 @@ class Model
     }
 
     /**
+     * Update properties of menu
+     *
      * @param int $menuId
      * @param string $alias
      * @param string $title
@@ -383,11 +445,6 @@ class Model
      */
     public static function updateMenu($menuId, $alias, $title, $layout, $type)
     {
-        $update = array(
-            'alias' => $alias,
-            'title' => $title,
-        );
-
         $properties = array(
             'alias' => $alias,
             'title' => $title,
@@ -399,12 +456,13 @@ class Model
     }
 
     /**
-     * @param string $languageCode
-     * @param string $alias
-     * @param string $title
-     * @return string alias
+     * @param $languageCode
+     * @param $alias
+     * @param $title
+     * @param string $type
+     * @return int
      */
-    public static function createMenu($languageCode, $alias, $title)
+    public static function createMenu($languageCode, $alias, $title, $type = 'tree')
     {
         $data = array();
         $data['languageCode'] = $languageCode;
@@ -415,6 +473,7 @@ class Model
 
         $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
+        $date['type'] = $type;
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(
@@ -426,6 +485,8 @@ class Model
     }
 
     /**
+     * Allocate unique alias
+     *
      * @param string $languageCode
      * @param string $alias
      * @return string
@@ -440,7 +501,11 @@ class Model
         }
 
         $i = 2;
-        while (ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $alias . '-' . $i, 'isDeleted' => 0))) {
+        while (ipDb()->selectValue(
+            'page',
+            'id',
+            array('languageCode' => $languageCode, 'alias' => $alias . '-' . $i, 'isDeleted' => 0)
+        )) {
             $i++;
         }
 
@@ -506,6 +571,8 @@ class Model
     }
 
     /**
+     * Change menu order
+     *
      * @param int $menuId
      * @param int $newIndex
      */
@@ -530,6 +597,8 @@ class Model
     }
 
     /**
+     * Update URL
+     *
      * @param string $oldUrl
      * @param string $newUrl
      */
@@ -544,7 +613,6 @@ class Model
         $replaces = array(
             'http://' . $oldPart => 'http://' . $newPart,
             'http://' . $oldPart . '/' => 'http://' . $newPart . '/',
-
             'https://' . $oldPart => 'https://' . $newPart,
             'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
@@ -556,10 +624,10 @@ class Model
 
     /**
      * Removes deleted page and its children from the trash.
-     * Does not remove page if page is not deleted.
      *
+     * Does not remove page if page is not deleted.
      * @param int $pageId
-     * @return int number of pages deleted
+     * @return int Number of pages deleted.
      */
     public static function removeDeletedPage($pageId)
     {
@@ -575,7 +643,7 @@ class Model
      * We assume page is safe to delete.
      *
      * @param int $pageId
-     * @return int count of deleted pages
+     * @return int Count of deleted pages.
      */
     protected static function _removeDeletedPage($pageId)
     {
@@ -585,9 +653,12 @@ class Model
             if ($child['isDeleted']) {
                 $deletedPageCount += static::_removeDeletedPage($child['id']);
             } else {
-                // this should never happen!
-                ipLog()->error('Page.pageHasDeletedParent: page {pageId}, parent set to null', array('pageId' => $child['id']));
-                ipDb()->update('page', array('parentId' => NULL), array('id' => $child['id']));
+                // This should never happen!
+                ipLog()->error(
+                    'Page.pageHasDeletedParent: page {pageId}, parent set to null',
+                    array('pageId' => $child['id'])
+                );
+                ipDb()->update('page', array('parentId' => null), array('id' => $child['id']));
             }
         }
 
@@ -600,6 +671,30 @@ class Model
         return $deletedPageCount;
     }
 
+    /**
+     * Recorvery deleted page and its children from the trash.
+     *
+     * Does not recovery page if page is not deleted.
+     * @param int $pageId
+     * @return int Number of pages recorvered.
+     */
+    public static function recoveryDeletedPage($pageId)
+    {
+        $canBeRecovery = ipDb()->selectValue('page', 'id', array('id' => $pageId, 'isDeleted' => 1));
+        if (!$canBeRecovery) {
+            return false;
+        }
+
+        ipDb()->update('page', array('isDeleted' => 0), array('id' => $pageId));
+
+        return 1;
+    }
+
+    /**
+     * Trash size
+     *
+     * @return int Number of trash pages.
+     */
     public static function trashSize()
     {
         $table = ipTable('page');

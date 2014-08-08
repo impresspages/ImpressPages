@@ -20,7 +20,6 @@ class Request
     protected $_COOKIE = array();
 
 
-
     /**
      * @var \Ip\controller
      */
@@ -118,7 +117,6 @@ class Request
     }
 
 
-
     /**
      * Get request method, such as 'GET', 'HEAD', 'POST', or 'PUT'
      *
@@ -133,8 +131,8 @@ class Request
     /**
      * Return GET query parameter if $name is passed. Returns all query parameters if name == null.
      *
-     * @param string    $name       query parameter name
-     * @param mixed     $default    default value if no GET parameter exists
+     * @param string $name query parameter name
+     * @param mixed $default default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
     public function getQuery($name = null, $default = null)
@@ -145,8 +143,8 @@ class Request
     /**
      * Returns POST parameter if $name is passed. Returns all query parameters if name == null.
      *
-     * @param string    $name       query parameter name
-     * @param mixed     $default    default value if no GET parameter exists
+     * @param string $name query parameter name
+     * @param mixed $default default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
     public function getPost($name = null, $default = null)
@@ -157,8 +155,8 @@ class Request
     /**
      * Return request parameter if $name is passed. Returns all request parameters if $name == null.
      *
-     * @param string    $name       query parameter name
-     * @param mixed     $default    default value if no GET parameter exists
+     * @param string $name query parameter name
+     * @param mixed $default default value if no GET parameter exists
      * @return mixed    GET query variable (all query variables if $name == null)
      */
     public function getRequest($name = null, $default = null)
@@ -184,7 +182,7 @@ class Request
         if ($name === null) {
             return $values;
         }
-        if (!array_key_exists($name,  $values)) {
+        if (!array_key_exists($name, $values)) {
             return $default;
         }
         return $values[$name];
@@ -195,16 +193,17 @@ class Request
      *
      * @return string URL address
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         $pageURL = 'http';
         if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
             $pageURL .= "s";
         }
         $pageURL .= '://';
         if ($this->_SERVER["SERVER_PORT"] != "80") {
-            $pageURL .= $this->_SERVER["SERVER_NAME"].":".$this->_SERVER["SERVER_PORT"].$this->_SERVER["REQUEST_URI"];
+            $pageURL .= $this->_SERVER["SERVER_NAME"] . ":" . $this->_SERVER["SERVER_PORT"] . $this->_SERVER["REQUEST_URI"];
         } else {
-            $pageURL .= $this->_SERVER["SERVER_NAME"].$this->_SERVER["REQUEST_URI"];
+            $pageURL .= $this->_SERVER["SERVER_NAME"] . $this->_SERVER["REQUEST_URI"];
         }
         return $pageURL;
     }
@@ -234,7 +233,7 @@ class Request
             $relativePath = substr($relativePath, 9);
         }
 
-        return $relativePath ? ltrim($relativePath, '/') : '';
+        return $relativePath ? ltrim(urldecode($relativePath), '/') : '';
     }
 
     /**
@@ -260,7 +259,6 @@ class Request
         }
         unset($process);
     }
-
 
 
     /**

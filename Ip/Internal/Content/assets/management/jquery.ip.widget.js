@@ -17,7 +17,9 @@
                 // If the plugin hasn't been initialized yet
                 if (!data) {
                     $this.prepend(options.widgetControlls);
-                    $this.save = function(data, refresh, callback){$(this).ipWidget('save', data, refresh, callback);};
+                    $this.save = function (data, refresh, callback) {
+                        $(this).ipWidget('save', data, refresh, callback);
+                    };
                     $this.data('ipWidgetInit', Object());
 
                     var widgetName = $this.data('widgetname');
@@ -39,7 +41,7 @@
                 var $widgetControls = $this.find(' > .ip > .ipsWidgetControls');
 
                 // binding delete action
-                $widgetControls.find('.ipsWidgetDelete').on('click', function(e) {
+                $widgetControls.find('.ipsWidgetDelete').on('click', function (e) {
                     e.preventDefault();
                     ipContent.deleteWidget($this.data('widgetid'));
                 });
@@ -88,7 +90,7 @@
         },
 
 
-        changeSkin: function(skin) {
+        changeSkin: function (skin) {
             return this.each(function () {
                 var $this = $(this);
                 var data = Object();
@@ -104,7 +106,7 @@
                     url: ip.baseUrl,
                     data: data,
                     context: $this,
-                    success: function(response) {
+                    success: function (response) {
                         var $newWidget = $(response.html);
                         $($newWidget).insertAfter($this);
                         $newWidget.trigger('ipWidgetReinit');
@@ -113,7 +115,7 @@
                         $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                         $this.remove();
                     },
-                    error: function(response) {
+                    error: function (response) {
                         alert('Error. ' + response.responseText);
                     },
                     dataType: 'json'
@@ -125,7 +127,7 @@
     };
 
 
-    var processSaveQueue = function() {
+    var processSaveQueue = function () {
         var $this = this;
         var $widget = $this;
 
@@ -145,7 +147,7 @@
 
         var refresh = false;
         var callbacks = [];
-        $.each($queue, function(key, value) {
+        $.each($queue, function (key, value) {
             if (value.refresh) {
                 refresh = true;
             }
@@ -154,7 +156,7 @@
             }
         });
 
-        ipContent.updateWidget($this.data('widgetid'), $queue[$queue.length - 1].widgetData, refresh, function(newInstanceId) {
+        ipContent.updateWidget($this.data('widgetid'), $queue[$queue.length - 1].widgetData, refresh, function (newInstanceId) {
             var $this = $widget;
 
 
@@ -162,11 +164,11 @@
 
             if (callbacks.length) {
                 if (refresh) {
-                    $.each(callbacks, function(key, value){
+                    $.each(callbacks, function (key, value) {
                         value($newWidget);
                     });
                 } else {
-                    $.each(callbacks, function(key, value){
+                    $.each(callbacks, function (key, value) {
                         value($newWidget);
                     });
                 }
@@ -177,10 +179,10 @@
         });
 
 
-    }
+    };
 
 
-    var openLayoutModal = function(e) {
+    var openLayoutModal = function (e) {
         e.preventDefault();
         var $this = $(this);
         var $skinButton = $this.find('.ipsSkin');
@@ -194,7 +196,7 @@
             currentLayout: currentSkin,
             widgetObject: $this
         })
-    }
+    };
 
     $.fn.ipWidget = function (method) {
         if (methods[method]) {

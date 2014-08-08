@@ -110,6 +110,7 @@ CREATE TABLE `ip_repository_file` (
   `fileId` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(255) NOT NULL,
   `plugin` varchar(255) NOT NULL,
+  `baseDir` VARCHAR(255) NOT NULL,
   `instanceId` int(11) NOT NULL COMMENT 'Unique identificator. Tells in which part of the module the file is used. Teoretically there could be two identical records. The same module binds the same file to the same instance. For example: gallery widget adds the same photo twice.',
   `createdAt` int(11) NOT NULL COMMENT 'Time, when this module started to use this resource.',
   PRIMARY KEY (`fileId`),
@@ -210,7 +211,7 @@ DROP TABLE IF EXISTS `ip_plugin`;
 
 CREATE TABLE `ip_plugin` (
   `title` varchar(100) NOT NULL,
-  `name` varchar(30) NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `version` decimal(10,2) NOT NULL,
   `isActive` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`name`)

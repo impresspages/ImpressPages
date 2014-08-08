@@ -17,35 +17,48 @@ class Db
      */
     protected $config = null;
 
-    public function __construct(Config $config)
+    protected $statusVariables = null;
+
+    public function __construct(Config $config, $statusVariables)
     {
         $this->config = $config;
+        $this->statusVariables = $statusVariables;
     }
+
+    public function buildSqlWhere()
+    {
+        $where = $this->config->filter();
+        $depth = Status::depth($this->statusVariables);
+        if ($depth > 1) {
+            $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.`' . $this->config->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
+        }
+        return $where;
+    }
+
 
 
     public function recordCount($where)
     {
-        return ipDb()->fetchValue("SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery() . " WHERE " . $where . " ");
+        return ipDb()->fetchValue(
+            "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery(
+            ) . " WHERE " . $where . " "
+        );
     }
 
     public function fetch($from, $count, $where = 1)
     {
-        if ($this->config->sortField()) {
-            $sortField = $this->config->sortField();
-        } else {
-            $sortField = 'id';
-        }
+
 
         $sql = "
         SELECT
-          *
+          " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
           " . $this->config->joinQuery() . "
         WHERE
           " . $where . "
         ORDER BY
-            " . $this->config->tableName() . ".`" . $sortField . "` " . $this->config->sortDirection() . "
+            " . $this->config->orderBy() . "
         LIMIT
             $from, $count
         ";
@@ -60,7 +73,7 @@ class Db
     {
         $sql = "
         SELECT
-          *
+          " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
           " . $this->config->joinQuery() . "

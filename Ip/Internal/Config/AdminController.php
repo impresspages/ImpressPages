@@ -7,9 +7,8 @@
 namespace Ip\Internal\Config;
 
 
-
-
-class AdminController extends \Ip\Controller{
+class AdminController extends \Ip\Controller
+{
 
     public function index()
     {
@@ -18,7 +17,7 @@ class AdminController extends \Ip\Controller{
         ipAddJs('Ip/Internal/Config/assets/config.js');
 
         $form = Forms::getForm();
-        $data = array (
+        $data = array(
             'form' => $form
         );
         return ipView('view/configWindow.php', $data)->render();
@@ -51,9 +50,6 @@ class AdminController extends \Ip\Controller{
         if ($fieldName === 'websiteEmail' && $error !== false) {
             return $this->returnError($error);
         }
-
-        $numberValidator = new \Ip\Form\Validator\Number();
-        $error = $numberValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
 
 
         if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {

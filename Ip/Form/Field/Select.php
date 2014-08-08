@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -7,13 +8,17 @@
 namespace Ip\Form\Field;
 
 
-
 class Select extends \Ip\Form\Field
 {
 
     private $values;
     private $stolenId;
 
+    /**
+     * Constructor
+     *
+     * @param array $options
+     */
     public function __construct($options = array())
     {
         if (isset($options['values'])) {
@@ -25,10 +30,16 @@ class Select extends \Ip\Form\Field
         $this->stolenId = $this->getAttribute('id');
         $this->removeAttribute(
             'id'
-        ); //we need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId;
-
+        ); // We need to put id only on the first input. So we will remove it from attributes list. And put it temporary to stolenId.
     }
 
+    /**
+     * Render field
+     *
+     * @param string $doctype
+     * @param $environment
+     * @return string
+     */
     public function render($doctype, $environment)
     {
         $options = '';
@@ -38,36 +49,56 @@ class Select extends \Ip\Form\Field
                 $value = array($value, $value);
             }
 
-            if ($value[0] === $this->value || is_int($value[0]) && (string) $value[0] === $this->value) {
-                $selected = 'selected="selected"';
+            if ($value[0] === $this->value || is_int($value[0]) && (string)$value[0] === $this->value) {
+                $selected = ' selected="selected"';
             } else {
                 $selected = '';
             }
 
-            $options .= '<option '.$selected.' value="'.htmlspecialchars($value[0]).'">'.htmlspecialchars($value[1]).'</option>'."\n";
+            $options .= '<option' . $selected . ' value="' . htmlspecialchars($value[0]) . '">' . htmlspecialchars(
+                    $value[1]
+                ) . '</option>' . "\n";
         }
         $answer =
-'
-<select '.$this->getAttributesStr($doctype).' id="'.$this->stolenId.'" name="'.htmlspecialchars($this->getName()).'" class="form-control '.implode(' ',$this->getClasses()).'" '.$this->getValidationAttributesStr($doctype).' >
-'.$options.'
+            '
+            <select ' . $this->getAttributesStr($doctype) . ' id="' . $this->stolenId . '" name="' . htmlspecialchars(
+                $this->getName()
+            ) . '" class="form-control ' . implode(' ', $this->getClasses()) . '" ' . $this->getValidationAttributesStr(
+                $doctype
+            ) . ' >
+' . $options . '
 </select>
 ';
         return $answer;
     }
 
+    /**
+     * Get values
+     *
+     * @return array
+     */
     public function getValues()
     {
         return $this->values;
     }
 
+    /**
+     * Set values
+     *
+     * @param string $values
+     */
     public function setValues($values)
     {
         $this->values = $values;
     }
 
     /**
+     * Get validation attributes
+     *
      * HTML5 spec: The first child option element of a select element with a required attribute and without a multiple attribute, and whose size is 1, must have either an empty value attribute, or must have no text content.
      * @see Ip\Form\Field.Field::getValidationAttributesStr()
+     * @param string $doctype
+     * @return string
      */
     public function getValidationAttributesStr($doctype)
     {
@@ -96,24 +127,30 @@ class Select extends \Ip\Form\Field
                 $attributesStr .= ' ' . $tmpArgs;
             }
         }
+
         return $attributesStr;
     }
 
     /**
-     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
+     * Get class type
+     *
+     * CSS class that should be applied to surrounding element of this field.
+     * By default empty. Extending classes should specify their value.
+     * @return string
      */
     public function getTypeClass()
     {
         return 'select';
     }
 
+    /**
+     * Get id
+     *
+     * @return int
+     */
     public function getId()
     {
         return $this->stolenId;
     }
 
-
 }
-
-
-

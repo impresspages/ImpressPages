@@ -27,6 +27,7 @@ class Dao
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return Entity\Scope
      */
     public function getValue($key, $languageId, $pageId)
     {
@@ -90,6 +91,7 @@ class Dao
      * @param string $key
      * @param int $languageId
      * @param int $pageId
+     * @return mixed|null
      */
     public function getPageValue($key, $languageId, $pageId)
     {
@@ -99,7 +101,7 @@ class Dao
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
 
-        $where = array (
+        $where = array(
             'plugin' => $this->module,
             'pageId' => $pageId,
             'key' => $key,
@@ -113,6 +115,7 @@ class Dao
      *
      * @param string $key
      * @param int $languageId
+     * @return bool
      */
     public function getLanguageValue($key, $languageId)
     {
@@ -133,7 +136,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -151,6 +154,7 @@ class Dao
      * Get global value
      *
      * @param string $key
+     * @return bool
      */
     public function getGlobalValue($key)
     {
@@ -169,7 +173,7 @@ class Dao
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );
@@ -215,7 +219,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId,
@@ -247,7 +251,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId,
@@ -277,7 +281,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':value' => $value
@@ -304,7 +308,7 @@ class Dao
                 AND `pageId` = :pageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId
@@ -331,7 +335,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -356,7 +360,7 @@ class Dao
                 AND `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );

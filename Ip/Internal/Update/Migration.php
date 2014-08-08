@@ -7,10 +7,88 @@
 namespace Ip\Internal\Update;
 
 
-class Migration {
-
-
+class Migration
+{
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_54()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_53()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_52()
+    {
+        $table = ipTable('repository_file');
+        ipDb()->execute(
+            "UPDATE  $table SET `baseDir` = 'file/repository/' "
+        );
+    }
+
+    public static function update_51()
+    {
+        $table = ipTable('repository_file');
+        ipDb()->execute(
+            "ALTER TABLE  $table ADD `baseDir` VARCHAR(255) NOT NULL AFTER `plugin`"
+        );
+    }
+
+    public static function update_50()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+
+    public static function update_49()
+    {
+        ipDb()->update('storage', array('value' => '"4.1.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_48()
+    {
+        $table = ipTable('plugin');
+        ipDb()->execute(
+            "ALTER TABLE  $table CHANGE  `name`  `name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL"
+        );
+    }
+
+
+    public static function update_47()
+    {
+        $table = ipTable('plugin');
+        ipDb()->execute(
+            "ALTER TABLE  $table CHANGE  `name`  `name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL"
+        );
+    }
+
+
+    public static function update_46()
+    {
+        $table = ipTable('page');
+
+        ipDb()->execute(
+            "ALTER TABLE $table CHANGE  `createdAt`  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP"
+        );
+    }
+
+
+    public static function update_45()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.0.17"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
     public static function update_44()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
@@ -62,6 +140,7 @@ class Migration {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
         ipDb()->update('storage', array('value' => '"4.0.12"'), array('key' => 'version', 'plugin' => 'Ip'));
     }
+
     public static function update_36()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
@@ -102,7 +181,6 @@ class Migration {
     }
 
 
-
     public static function update_30()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
@@ -118,7 +196,6 @@ class Migration {
         ";
         ipDb()->execute($sql);
     }
-
 
 
     public static function update_28()
@@ -262,7 +339,6 @@ class Migration {
     }
 
 
-
     public static function update_14()
     {
         $widgetTable = ipTable('widget');
@@ -302,11 +378,9 @@ class Migration {
         ipDb()->execute($sql);
 
 
-
-
         $allRecords = ipDb()->selectAll('widgetInstance', '*');
         foreach ($allRecords as $record) {
-                $sql = "
+            $sql = "
             UPDATE
                 $table
             SET
@@ -434,9 +508,6 @@ class Migration {
         $sql = "ALTER TABLE $table CHANGE  `layout`  `skin` VARCHAR( 25 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL";
         ipDb()->execute($sql);
     }
-
-
-
 
 
 }

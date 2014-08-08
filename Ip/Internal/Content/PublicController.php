@@ -10,33 +10,7 @@ class PublicController extends \Ip\Controller
 {
     public function index()
     {
-        //find current page
-        $page = ipContent()->getCurrentPage();
 
-        // redirect if needed
-        if ($page->getRedirectUrl() && !ipIsManagementState()) {
-            return new \Ip\Response\Redirect($page->getLink());
-        }
-
-        // change layout if safe mode
-        if (\Ip\Internal\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
-        } else {
-            ipSetLayout($page->getLayout());
-        }
-
-        // initialize management
-        if (ipIsManagementState()) {
-            if (!ipRequest()->getQuery('ipDesignPreview')) {
-                Helper::initManagement();
-            }
-        }
-
-        //show page content
-        $response = ipResponse();
-        $response->setDescription(\Ip\ServiceLocator::content()->getDescription());
-        $response->setKeywords(ipContent()->getKeywords());
-        $response->setTitle(ipContent()->getTitle());
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
         if ($revision) {
@@ -46,8 +20,6 @@ class PublicController extends \Ip\Controller
         }
 
     }
-
-
 
 
 }

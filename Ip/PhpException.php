@@ -18,7 +18,8 @@ class PhpException extends \Exception
      * @param int $code PHP err code E_USER_WARNING, E_USER_NOTICE, E_WARNING, etc.
      * @param \Exception $previous
      */
-    public function __construct($message, $code = 0, \Exception $previous = null) {
+    public function __construct($message, $code = 0, \Exception $previous = null)
+    {
         // make sure everything is assigned properly
         parent::__construct($message, $code, $previous);
     }

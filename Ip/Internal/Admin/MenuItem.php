@@ -15,11 +15,13 @@ class MenuItem extends \Ip\Menu\Item
      */
     protected $icon;
 
-    public function getIcon(){
+    public function getIcon()
+    {
         return $this->icon;
     }
 
-    public function setIcon($icon){
+    public function setIcon($icon)
+    {
         $this->icon = $icon;
     }
 }

@@ -17,11 +17,13 @@ class Model
     const SNIPPET_DIR = 'snippet';
 
     /**
-     * @param $blockName
+     * @param string $blockName
      * @param int $revisionId
      * @param int $languageId
-     * @param $managementState
+     * @param bool $managementState
      * @param string $exampleContent
+     * @throws \Ip\Exception\Content
+     * @return string
      */
     public static function generateBlock($blockName, $revisionId, $languageId, $managementState, $exampleContent = '')
     {
@@ -56,7 +58,7 @@ class Model
      * @param int $position
      * @param string $blockName
      * @param int $revisionId
-     * @param int $languageI
+     * @param int $languageId
      */
     public static function moveWidget($widgetId, $position, $blockName, $revisionId, $languageId)
     {
@@ -67,7 +69,12 @@ class Model
             'blockName' => $blockName,
             'revisionId' => $revisionId
         );
+        $eventData = $data;
+        $eventData['widgetId'] = $widgetId;
+
+        ipEvent('ipBeforeWidgetMove', $eventData);
         self::updateWidget($widgetId, $data);
+        ipEvent('ipAfterWidgetMove', $eventData);
     }
 
     /**
@@ -140,7 +147,7 @@ class Model
     }
 
     /**
-     * @return array 
+     * @return array
      */
     private static function _getPriorities()
     {
@@ -157,6 +164,8 @@ class Model
      * @param string $widgetName
      * @param string $data
      * @param string $skin
+     * @throws \Ip\Exception\Content
+     * @return string
      */
     public static function generateWidgetPreviewFromStaticData($widgetName, $data, $skin = null)
     {
@@ -172,7 +181,9 @@ class Model
                 $source = '';
             }
 
-            throw new \Ip\Exception\Content('Widget ' . esc($widgetName) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
+            throw new \Ip\Exception\Content('Widget ' . esc(
+                $widgetName
+            ) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
         }
 
         $widgetRecord = array(
@@ -194,6 +205,7 @@ class Model
     /**
      * @param int $widgetId
      * @param $managementState
+     * @return string
      */
     public static function generateWidgetPreview($widgetId, $managementState)
     {
@@ -204,6 +216,7 @@ class Model
     /**
      * @param array $widgetRecord
      * @param $managementState
+     * @return string
      */
     private static function _generateWidgetPreview($widgetRecord, $managementState)
     {
@@ -219,9 +232,19 @@ class Model
             $widgetRecord['revisionId'] = $currentRevision['revisionId'];
         }
 
-        $previewHtml = $widgetObject->generateHtml($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
+        $previewHtml = $widgetObject->generateHtml(
+            $widgetRecord['revisionId'],
+            $widgetRecord['id'],
+            $widgetData,
+            $widgetRecord['skin']
+        );
 
-        $widgetRecord['data'] = $widgetObject->dataForJs($widgetRecord['revisionId'], $widgetRecord['id'], $widgetData, $widgetRecord['skin']);
+        $widgetRecord['data'] = $widgetObject->dataForJs(
+            $widgetRecord['revisionId'],
+            $widgetRecord['id'],
+            $widgetData,
+            $widgetRecord['skin']
+        );
 
         $optionsMenu = array();
 
@@ -238,6 +261,9 @@ class Model
 
         $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
 
+        $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
+
+
         $variables = array(
             'managementState' => $managementState,
             'html' => $previewHtml,
@@ -249,6 +275,7 @@ class Model
         );
 
         $answer = ipView('view/widget.php', $variables)->render();
+
         return $answer;
     }
 
@@ -256,6 +283,7 @@ class Model
      * @param string $blockName
      * @param int $revisionId
      * @param int $languageId
+     * @return array
      */
     public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
@@ -271,11 +299,14 @@ class Model
             ORDER BY `position` ASC
         ';
 
-        $list = ipDb()->fetchAll($sql, array(
+        $list = ipDb()->fetchAll(
+            $sql,
+            array(
                 'blockName' => $blockName,
                 'revisionId' => $revisionId,
                 'languageId' => $languageId
-            ));
+            )
+        );
 
         foreach ($list as &$item) {
             $item['data'] = json_decode($item['data'], true);
@@ -328,12 +359,15 @@ class Model
             UPDATE
                 $widgetTable
             SET
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId ."_', 'column" . (int)$newId . "_')
+                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId . "_', 'column" . (int)$newId . "_')
             WHERE
                 `revisionId` = :newRevisionId
             ";
             ipDb()->execute($sql, array('newRevisionId' => $newRevisionId));
+            ipEvent('ipWidgetDuplicated', array('oldWidgetId' => $oldId, 'newWidgetId' => $newId));
         }
+
+
     }
 
     /**
@@ -384,6 +418,7 @@ class Model
 
     /**
      * @param int $pageId
+     * @return array
      */
     public static function getRevisions($pageId)
     {
@@ -401,9 +436,18 @@ class Model
      * @param string $blockName
      * @param int $position Real position of widget starting with 0
      * @param bool $visible
+     * @return int
      */
-    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
-    {
+    public static function createWidget(
+        $widgetName,
+        $data,
+        $skin,
+        $revisionId,
+        $languageId,
+        $blockName,
+        $position,
+        $visible = true
+    ) {
         $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
         $row = array(
@@ -431,6 +475,7 @@ class Model
      * @param int $widgetId
      * @param string $newBlockName
      * @param int $newPosition Real position of widget starting with 0
+     * @return float
      */
     private static function _calcWidgetPositionNumber($revisionId, $languageId, $widgetId, $newBlockName, $newPosition)
     {
@@ -464,6 +509,7 @@ class Model
     /**
      * @param int $widgetId
      * @param array $data
+     * @return int row count
      */
     public static function updateWidget($widgetId, $data)
     {
@@ -515,7 +561,7 @@ class Model
      */
     public static function deleteWidget($widgetId)
     {
-        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array ("id" => $widgetId));
+        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array("id" => $widgetId));
     }
 
     /**
@@ -528,11 +574,17 @@ class Model
         $widgetRecord = self::getWidgetRecord($widgetId);
         $widgetObject = self::getWidgetObject($widgetRecord['name']);
 
+        ipEvent('ipBeforeWidgetRemoved', $widgetRecord);
+
+
         if ($widgetObject) {
             $widgetObject->delete($widgetId, $widgetRecord['data']);
         }
 
         ipDb()->delete('widget', array('id' => $widgetId));
+
+        ipEvent('ipAfterWidgetRemoved', $widgetRecord);
+
     }
 
     /**
@@ -592,17 +644,17 @@ class Model
 
         $currentRevision = \Ip\Internal\Revision::getRevision($revisionId);
         if (!$currentRevision) {
-            return FALSE;
+            return false;
         }
         $pageId = $currentRevision['pageId'];
 
         $publishedRevision = \Ip\Internal\Revision::getPublishedRevision($pageId);
         if (!$publishedRevision) {
-            return TRUE;
+            return true;
         }
 
         if ($publishedRevision['revisionId'] == $currentRevision['revisionId']) {
-            return FALSE;
+            return false;
         }
 
         $currentFingerprint = self::revisionFingerprint($currentRevision['revisionId']);

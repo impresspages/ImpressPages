@@ -4,12 +4,11 @@
  */
 
 
-
-
 namespace Ip\Internal\Update;
 
 
-class Service {
+class Service
+{
 
     public static function update()
     {

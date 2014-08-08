@@ -39,6 +39,7 @@ class Controller extends \Ip\WidgetController{
         return new \Ip\Response\Json($data);
     }
 
+
     public function adminHtmlSnippet()
     {
 
@@ -93,9 +94,22 @@ class Controller extends \Ip\WidgetController{
             ));
         $form->addField($field);
 
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'buttonText',
+                'label' => __('Submit button text (leave empty for default)', 'Ip-admin', false)
+            ));
+        $form->addField($field);
+
         return $form; // Output a string with generated HTML form
     }
 
+
+    /**
+     * @param \Ip\Form $form
+     * @param array $postData
+     * @param array $data
+     */
     public function sendEmail ($form, $postData, $data) {
 
         $contentData = array();
@@ -209,8 +223,8 @@ class Controller extends \Ip\WidgetController{
 
         $data['form'] = $this->createForm($widgetId, $data);
 
-        if (!isset($data['success'])) {
-            $data['success'] = '';
+        if (empty($data['success'])) {
+            $data['success'] = __('Thank You', 'Ip');
         }
 
 
@@ -330,9 +344,15 @@ class Controller extends \Ip\WidgetController{
         $form->addField($field);
 
         //submit
+        if (!empty($data['buttonText'])) {
+            $value = $data['buttonText'];
+        } else {
+            $value = __('Send', 'Ip', false);
+        }
+
         $field = new \Ip\Form\Field\Submit(
         array(
-            'value' => __('Send', 'Ip', false)
+            'value' => $value
         ));
         $form->addField($field);
 

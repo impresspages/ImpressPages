@@ -4,4 +4,7 @@
 namespace Ip\Exception;
 
 
-class Dispatcher extends \Ip\Exception {}
+/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
+class Dispatcher extends \Ip\Exception
+{
+}

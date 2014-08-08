@@ -24,12 +24,12 @@ class Block
 
     /**
      * Render page block content
-     * @param null $revisionId
-     * @return null|string
+     * @param int $revisionId
+     * @return string
      */
     public function render($revisionId = 0)
     {
-        $data = array (
+        $data = array(
             'blockName' => $this->name,
         );
 
@@ -41,31 +41,43 @@ class Block
             }
             return (string)$content;
         } else {
-            $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
-            if ($predefinedContent !== null) {
-                return $predefinedContent;
-            }
-
-            if (ipContent()->getCurrentPage() == null && $revisionId == 0 && !$this->isStatic) {
-                return '';
-            }
-
-            if ($this->isStatic) {
-                $languageId = ipContent()->getCurrentLanguage()->getId();
-                $revisionId = 0;
-            } else {
-                if ($revisionId === 0) {
-                    $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
-                    if ($revision) {
-                        $revisionId = $revision['revisionId'];
-                    }
-                }
-
-                $languageId = 0;
-            }
-
-            return \Ip\Internal\Content\Model::generateBlock($this->name, $revisionId, $languageId, ipIsManagementState(), $this->exampleContent);
+            $content = $this->generateBlockHtml($revisionId);
         }
+        return ipFilter('ipBlockContent', $content, $data);
+    }
+
+    private function generateBlockHtml($revisionId)
+    {
+        $predefinedContent = \Ip\ServiceLocator::content()->getBlockContent($this->name);
+        if ($predefinedContent !== null) {
+            return $predefinedContent;
+        }
+
+        if (ipContent()->getCurrentPage() == null && $revisionId == 0 && !$this->isStatic) {
+            return '';
+        }
+
+        if ($this->isStatic) {
+            $languageId = ipContent()->getCurrentLanguage()->getId();
+            $revisionId = 0;
+        } else {
+            if ($revisionId === 0) {
+                $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
+                if ($revision) {
+                    $revisionId = $revision['revisionId'];
+                }
+            }
+
+            $languageId = 0;
+        }
+
+        return \Ip\Internal\Content\Model::generateBlock(
+            $this->name,
+            $revisionId,
+            $languageId,
+            ipIsManagementState(),
+            $this->exampleContent
+        );
     }
 
     /**
@@ -119,7 +131,10 @@ class Block
             __toString method can't throw exceptions. In case of exception you will end with unclear error message.
             We can't avoid that here. So just logging clear error message in logs and rethrowing the same exception.
             */
-            ipLog()->error('Block.toStringException: Exception in block `{block}` __toString() method.', array('block' => $this->name, 'exception' => $e));
+            ipLog()->error(
+                'Block.toStringException: Exception in block `{block}` __toString() method.',
+                array('block' => $this->name, 'exception' => $e)
+            );
             return $e->getTraceAsString();
         }
         return $content;

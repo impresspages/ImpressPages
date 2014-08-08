@@ -1,4 +1,4 @@
-ipTinyMceConfigPastePreprocess = function(pl, o, allowedClasses) {
+ipTinyMceConfigPastePreprocess = function (pl, o, allowedClasses) {
 
     var tmpContent = o.content;
 
@@ -11,14 +11,16 @@ ipTinyMceConfigPastePreprocess = function(pl, o, allowedClasses) {
     tmpContent = tmpContent.replace(/(<(\ )*\/h[123](\ )*>)/ig, "</b>");
 
     /* remove unknown classes */
-    var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi; /* find all tags containing classes */
+    var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi;
+    /* find all tags containing classes */
     var matches = tmpContent.match(pattern);
-    for ( var i = 0; matches && i < matches.length; i++) { /* loop through found tags */
-        var pattern2 = /class="[^"]+"/gi; /* find class name */
+    for (var i = 0; matches && i < matches.length; i++) { /* loop through found tags */
+        var pattern2 = /class="[^"]+"/gi;
+        /* find class name */
         var matches2 = matches[i].match(pattern2);
-        for ( var i2 = 0; matches2 && i2 < matches2.length; i2++) { /* throw away unknown classes */
+        for (var i2 = 0; matches2 && i2 < matches2.length; i2++) { /* throw away unknown classes */
             var classExist = false;
-            for ( var classKey = 0; classKey < allowedClasses.length; classKey++) {
+            for (var classKey = 0; classKey < allowedClasses.length; classKey++) {
                 if ('class="' + allowedClasses[classKey] + '"' == matches2[i2]) {
                     classExist = true;
                 }

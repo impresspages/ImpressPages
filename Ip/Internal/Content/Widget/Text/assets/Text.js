@@ -28,11 +28,11 @@
 
         this.onAdd = function () {
             this.$widgetObject.find('.ipsContainer').focus();
-        }
+        };
 
         this.splitParts = function () {
             return this.$widgetObject.find('.ipsContainer > *');
-        }
+        };
 
         this.splitData = function (curData, position) {
             //we ignore curData value as it holds data from the database. While actual data in editor might be already changed

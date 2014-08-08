@@ -42,7 +42,6 @@ class UpdateModel
     }
 
 
-
     private function downloadArchive($scriptUrl, $md5checksum, $archivePath)
     {
 

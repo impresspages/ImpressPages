@@ -42,8 +42,11 @@ class Filter
                 continue;
             }
 
-            switch($option['type']) {
+            switch ($option['type']) {
                 case 'checkbox':
+                    /**
+                     * @var \Ip\Form\Field\Checkbox $field
+                     */
                     $value = $field->isChecked($data, $option['name']);
                     break;
                 default:

@@ -28,8 +28,7 @@ class ImageCropCenter extends Image
         if ($heightDest <= 0 || $widthDest <= 0) {
             throw new \Ip\Exception\Repository\Transform("Incorrect width or height");
         }
-        if ($quality === null)
-        {
+        if ($quality === null) {
             $quality = ipGetOption('Config.defaultImageQuality');
         }
         $this->widthDest = $widthDest;
@@ -59,18 +58,17 @@ class ImageCropCenter extends Image
         $destinationProportions = $this->widthDest / $this->heightDest;
         if ($sourceProportions > $destinationProportions) {
             //cut left and right edges
-            $x1 = round($widthSource/2 - $heightSource * $destinationProportions / 2);
-            $x2 = round($widthSource/2 + $heightSource * $destinationProportions / 2);
+            $x1 = round($widthSource / 2 - $heightSource * $destinationProportions / 2);
+            $x2 = round($widthSource / 2 + $heightSource * $destinationProportions / 2);
             $y1 = 0;
             $y2 = $heightSource;
         } else {
             //cut top and bottom edges
             $x1 = 0;
             $x2 = $widthSource;
-            $y1 = round($heightSource/2 - $widthSource / $destinationProportions / 2);
-            $y2 = round($heightSource/2 + $widthSource / $destinationProportions / 2);
+            $y1 = round($heightSource / 2 - $widthSource / $destinationProportions / 2);
+            $y2 = round($heightSource / 2 + $widthSource / $destinationProportions / 2);
         }
-
 
 
         //modify image
@@ -86,10 +84,6 @@ class ImageCropCenter extends Image
 
         self::saveImage($croppedImage, $destinationFile, $this->quality);
     }
-
-
-
-
 
 
     public function crop($sourceFile, $x1, $y1, $x2, $y2, $widthDest, $heightDest)
@@ -108,7 +102,14 @@ class ImageCropCenter extends Image
             throw new \Ip\Exception\Repository\Transform("Incorrect width or height");
         }
 
-        if ($this->croppingGoesOutOfImage($sourceFile, $x1, $y1, $x2, $y2)) { //cropping area goes out of image edge. Fill transparent.
+        if ($this->croppingGoesOutOfImage(
+            $sourceFile,
+            $x1,
+            $y1,
+            $x2,
+            $y2
+        )
+        ) { //cropping area goes out of image edge. Fill transparent.
             /*
             * Negative coordinates x1, y1 are possible.
             * This part of code just adds transparent edges in this way making $image required proportions.
@@ -117,7 +118,7 @@ class ImageCropCenter extends Image
             * */
             $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
             imagealphablending($tmpImage, false);
-            imagesavealpha($tmpImage,true);
+            imagesavealpha($tmpImage, true);
             $color = imagecolorallocatealpha($tmpImage, 255, 255, 255, 127);
             imagefilledrectangle($tmpImage, 0, 0, $x2 - $x1, $y2 - $y1, $color);
             if ($x1 >= 0) {
@@ -150,7 +151,18 @@ class ImageCropCenter extends Image
 
             }
 
-            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $dx2 - $dx1, $dy2 - $dy1, $sx2 - $sx1, $sy2 - $sy1);
+            imagecopyresampled(
+                $tmpImage,
+                $image,
+                $dx1,
+                $dy1,
+                $sx1,
+                $sy1,
+                $dx2 - $dx1,
+                $dy2 - $dy1,
+                $sx2 - $sx1,
+                $sy2 - $sy1
+            );
             $image = $tmpImage;
 
             $sx1 = 0;
@@ -171,10 +183,10 @@ class ImageCropCenter extends Image
 
         $imageNew = $this->createEmptyImage($widthDest, $heightDest);
         imagealphablending($imageNew, false);
-        imagesavealpha($imageNew,true);
+        imagesavealpha($imageNew, true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
         imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
-        imagecopyresampled($imageNew, $image, 0,  0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
+        imagecopyresampled($imageNew, $image, 0, 0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
 
         return $imageNew;
     }
@@ -188,7 +200,6 @@ class ImageCropCenter extends Image
         $goesOut = $x2 - $x1 > $widthSource || $y2 - $y1 > $heightSource || $x1 < 0 || $y1 < 0;
         return $goesOut;
     }
-
 
 
     private function resizeRequired($imageFile)

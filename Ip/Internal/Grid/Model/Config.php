@@ -8,7 +8,12 @@ namespace Ip\Internal\Grid\Model;
 
 class Config
 {
+    /**
+     * @var Config
+     */
     protected $config = null;
+
+    protected $configChecked = false;
 
     /**
      * @var Field[]
@@ -25,10 +30,6 @@ class Config
 
         if (empty($this->config['fields'])) {
             $this->config['fields'] = $this->getTableFields($this->config['table']);
-        }
-
-        if (empty($this->config['idField'])) {
-            $this->config['idField'] = 'id';
         }
 
         if (empty($this->config['pageSize'])) {
@@ -68,12 +69,25 @@ class Config
         return '1';
     }
 
+    /**
+     * Get field name responsible for connection of subgrid to the parent grid.
+     * You can think of it as a foreign key in SQL
+     * @return string
+     */
+    public function connectionField()
+    {
+        if (!empty($this->config['connectionField'])) {
+            return $this->config['connectionField'];
+        }
+        return '1';
+    }
+
     public function deleteWarning()
     {
         if (!empty($this->config['deleteWarning'])) {
             return $this->config['deleteWarning'];
         }
-        return __('Are you sure you want to delete?', 'Ip-admin', FALSE);
+        return __('Are you sure you want to delete?', 'Ip-admin', false);
     }
 
     public function actions()
@@ -87,7 +101,7 @@ class Config
     public function beforeDelete()
     {
         if (empty($this->config['beforeDelete'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeDelete'];
     }
@@ -95,7 +109,7 @@ class Config
     public function afterDelete()
     {
         if (empty($this->config['afterDelete'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterDelete'];
     }
@@ -103,7 +117,7 @@ class Config
     public function beforeUpdate()
     {
         if (empty($this->config['beforeUpdate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeUpdate'];
     }
@@ -111,7 +125,7 @@ class Config
     public function afterUpdate()
     {
         if (empty($this->config['afterUpdate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterUpdate'];
     }
@@ -120,7 +134,7 @@ class Config
     public function beforeCreate()
     {
         if (empty($this->config['beforeCreate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeCreate'];
     }
@@ -128,7 +142,7 @@ class Config
     public function afterCreate()
     {
         if (empty($this->config['afterCreate'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterCreate'];
     }
@@ -137,7 +151,7 @@ class Config
     public function beforeMove()
     {
         if (empty($this->config['beforeMove'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['beforeMove'];
     }
@@ -145,7 +159,7 @@ class Config
     public function afterMove()
     {
         if (empty($this->config['afterMove'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['afterMove'];
     }
@@ -153,7 +167,7 @@ class Config
     public function preventAction()
     {
         if (empty($this->config['preventAction'])) {
-            return FALSE;
+            return false;
         }
         return $this->config['preventAction'];
     }
@@ -161,6 +175,7 @@ class Config
 
     /**
      * @param $field
+     * @throws \Ip\Exception
      * @return \Ip\Internal\Grid\Model\Field
      */
     public function fieldObject($field)
@@ -183,6 +198,9 @@ class Config
 
     public function fields()
     {
+        if (!$this->configChecked) {
+            $this->checkConfig($this->config);
+        }
         return $this->config['fields'];
     }
 
@@ -231,12 +249,24 @@ class Config
 
     public function idField()
     {
-        return $this->config['idField'];
+        if (!empty($this->config['idField'])) {
+            return $this->config['idField'];
+        } else {
+            return 'id';
+        }
     }
 
     public function tableName()
     {
         return ipTable(str_replace("`", "", $this->config['table']));
+    }
+
+    public function selectFields()
+    {
+        if (empty($this->config['selectFields'])) {
+            return '*';
+        }
+        return $this->config['selectFields'];
     }
 
     public function joinQuery()
@@ -273,6 +303,19 @@ class Config
 
     }
 
+    public function orderBy()
+    {
+        if (!empty($this->config['orderBy'])) {
+            return $this->config['orderBy'];
+        } else {
+            if ($this->sortField()) {
+                return $this->tableName() . ".`" . $this->sortField() . "` " . $this->sortDirection();
+            } else {
+                return $this->tableName() . ".`" . $this->idField() . "` " . $this->sortDirection();
+            }
+        }
+    }
+
     public function createPosition()
     {
         if (!empty($this->config['createPosition']) && $this->config['createPosition'] == 'bottom') {
@@ -293,7 +336,7 @@ class Config
 
     protected function getTableFields($tableName)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->config->joinQuery() . " ";
+        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->joinQuery() . " ";
 
         $fields = ipDb()->fetchColumn($sql);
 
@@ -324,4 +367,86 @@ class Config
         return $this->config['updateFilter'];
 
     }
+
+
+    /**
+     * @param int $depth
+     * @param array $gridBreadcrumb //to detect loop
+     * @throws \Ip\Exception
+     */
+    protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = array())
+    {
+        $fields = &$config['fields'];
+        //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
+        if (!empty($fields[0]['type']) && $fields[0]['type'] != 'Tab') {
+            $tabExist = false;
+            foreach ($fields as $key => $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    $tabExist = true;
+                    break;
+                }
+            }
+            if ($tabExist) {
+                array_unshift($fields, array('label' => __('General', 'Ip-admin', false), 'type' => 'Tab'));
+            }
+
+        }
+
+        //automatically add gridId to grid fields
+        $gridIndex = 0;
+        foreach ($fields as $key => &$fieldData) {
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Grid') {
+                $gridIndex++;
+                if (empty($fieldData['gridId'])) {
+                    $fieldData['gridId'] = 'grid' . $gridIndex;
+                }
+                $subConfig = $fieldData['config'];
+                $loop = false;
+                foreach($gridBreadcrumb as $crumb) {
+                    if ($subConfig == $crumb) {
+                        $loop = true;
+                    }
+                }
+                if (!$loop) {
+                    $newBreadcrumb = array_merge($gridBreadcrumb, array($config));
+                    $this->checkConfig($fieldData['config'], $depth + 1, $newBreadcrumb);
+                }
+
+            }
+        }
+
+        if($depth == 1) {
+            $this->configChecked = true;
+        }
+    }
+
+
+
+    /**
+     * Return nested grid config object
+     * @param $statusVariables
+     * @return Config
+     * @throws \Ip\Exception
+     */
+    public function subgridConfig($statusVariables)
+    {
+        $this->checkConfig($this->config);
+        $depth = Status::depth($statusVariables);
+        $config = $this->config;
+        for ($i = 1; $i < $depth; $i++) {
+            $found = false;
+            foreach ($config['fields'] as $field) {
+                if (!empty($field['type']) && $field['type'] == 'Grid' && $field['gridId'] == $statusVariables['gridId' . $i]) {
+                    $config = $field['config'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                throw new \Ip\Exception('Unknown subgrid');
+            }
+        }
+        return new self($config);
+    }
+
 }

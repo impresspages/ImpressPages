@@ -60,6 +60,7 @@ class Job
             $result['language'] = $languages[0];
             return $result;
         }
+        return null;
     }
 
     public static function ipRequestLanguage_70($info)
@@ -67,6 +68,7 @@ class Job
         if (!empty($_SESSION['ipLastLanguageId'])) {
             return ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
         }
+        return null;
     }
 
     public static function ipRequestLanguage_80($info)

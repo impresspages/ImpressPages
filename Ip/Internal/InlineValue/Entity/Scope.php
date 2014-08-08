@@ -51,7 +51,7 @@ class Scope
 
     /**
      * Get type
-     * 
+     *
      * @return
      */
     public function getType()

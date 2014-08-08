@@ -12,6 +12,7 @@ class Event
     {
         if ($info['firstTimeThisDay'] || $info['test']) {
             static::checkForUpdates();
+            Model::sendUsageStatistics(array('action' => 'Cron.default'), 10);
         }
     }
 
@@ -51,6 +52,22 @@ class Event
 
 
         }
+    }
+
+    public static function ipBeforeController()
+    {
+        if (ipIsManagementState()) {
+            // Works only if admin is logged in (AJAX is sent to Admin Controller)
+            if (isset($_SESSION['module']['system']['adminJustLoggedIn'])) {
+                ipAddJs('Ip/Internal/System/assets/usageStatistics.js');
+                ipAddJsVariable('ipSystemSendUsageStatistics', 1);
+            }
+        }
+    }
+
+    public static function ipAdminLoginSuccessful($data)
+    {
+        $_SESSION['module']['system']['adminJustLoggedIn'] = $data;
     }
 
 }
