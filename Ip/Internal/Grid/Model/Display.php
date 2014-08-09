@@ -112,7 +112,7 @@ class Display
     protected function getBreadcrumb()
     {
         $depth = Status::depth($this->statusVariables);
-        $breadcrumb = [];
+        $breadcrumb = array();
         $gridConfig = $this->config;
 
 
