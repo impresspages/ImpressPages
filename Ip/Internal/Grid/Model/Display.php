@@ -276,6 +276,10 @@ class Display
                             $field->addValidator($validator);
                         }
                     }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+
                     $form->addField($field);
                 }
 
@@ -354,6 +358,9 @@ class Display
                         foreach ($fieldData['validators'] as $validator) {
                             $field->addValidator($validator);
                         }
+                    }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
                     }
                     $form->addField($field);
                 }
