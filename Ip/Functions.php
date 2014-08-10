@@ -1128,6 +1128,12 @@ function ipGridController($config)
 
 }
 
+function ipConvertCurrency($amount, $sourceCurrency, $destinationCurrency)
+{
+    $result = ipJob('ipConvertCurrency', compact('amount', 'sourceCurrency', 'destinationCurrency'));
+    return $result;
+}
+
 
 /**
  * Get unocupied file name in directory. Very useful when storing uploaded files.
