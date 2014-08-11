@@ -20,7 +20,7 @@ abstract class Payment
      * 1 write down all passed data to database table
      * 2 return URL which starts payment method execution
      *
-     * @param array $data subscription data
+     * @param array $data payment data
      */
     public abstract function paymentUrl($data);
 }
