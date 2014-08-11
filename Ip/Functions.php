@@ -1128,6 +1128,14 @@ function ipGridController($config)
 
 }
 
+/**
+ * This method notify ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion not covered by any of the plugins, you will get null as the result.
+ * @param int $amount amount in cents
+ * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
+ * @param $destinationCurrency three letter uppercase currency code. Eg. USD
+ * @return int amount in cents
+ */
 function ipConvertCurrency($amount, $sourceCurrency, $destinationCurrency)
 {
     $result = ipJob('ipConvertCurrency', compact('amount', 'sourceCurrency', 'destinationCurrency'));
