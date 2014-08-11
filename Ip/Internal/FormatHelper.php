@@ -126,9 +126,12 @@ class FormatHelper
                 $locale = str_replace('-', '_', $languageCode);
                 $fmt = numfmt_create($locale, \NumberFormatter::CURRENCY);
                 $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
-            } else {
-                $formattedPrice = ($data['price'] / 100) . ' ' . $data['currency'];
+                if ($formattedPrice !== false) {
+                    return $formattedPrice;
+                }
             }
+
+            $formattedPrice = ($data['price'] / 100) . ' ' . $data['currency'];
         }
 
         return $formattedPrice;
