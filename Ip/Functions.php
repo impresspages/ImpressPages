@@ -628,11 +628,11 @@ function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 }
 
 /**
- * Get formatted currency string
+ * Get formatted currency string. If you don't like the way the price is formatted by default, catch ipFormatPrice job and provide your own formatting method.
  *
  * @param int $price Numeric price. Multiplied by 100.
  * @param string $currency Three letter currency code. E.g. "EUR".
- * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
+ * @param string $context Plugins name that's requesting the operation. This makes it possible to render the price differently for each plugin.
  * @param string $languageCode
  * @return string A currency string in specific country format.
  */
