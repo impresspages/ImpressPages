@@ -119,7 +119,7 @@ function ipConfig()
 }
 
 /**
- * Get content object
+ * Get content object.
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -1129,8 +1129,9 @@ function ipGridController($config)
 }
 
 /**
- * This method notify ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
- * This method has no default implementation. So if you will request currency conversion not covered by any of the plugins, you will get null as the result.
+ * Convert price from one currency to another.
+ * This method throws ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion that's not covered by any of the plugins, you will get null as the result.
  * @param int $amount amount in cents
  * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
  * @param $destinationCurrency three letter uppercase currency code. Eg. USD
