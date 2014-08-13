@@ -619,6 +619,9 @@ class Model
         $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '(/?)(?=["\'?]|\s|\Z)%';
 
         foreach ($records as $row) {
+            if (empty($data['text'])) {
+                continue;
+            }
             $data = json_decode($row['data'], true);
 
             // ${1} - protocol, ${2} - optional '/'
