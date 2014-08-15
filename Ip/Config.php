@@ -65,7 +65,7 @@ class Config
         }
 
 
-        if (isset($server['HTTPS']) && $server['HTTPS'] == "on") {
+        if (isset($server['HTTPS']) && strtolower($server['HTTPS']) == "on") {
             $this->protocol = 'https://';
         } else {
             $this->protocol = 'http://';

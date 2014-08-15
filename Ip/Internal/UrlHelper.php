@@ -15,7 +15,7 @@ class UrlHelper
     public static function getCurrentUrl()
     {
         $pageURL = 'http';
-        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        if (isset($_SERVER["HTTPS"]) && strtolower($_SERVER["HTTPS"]) == "on") {
             $pageURL .= "s";
         }
         $pageURL .= '://';
