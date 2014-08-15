@@ -96,7 +96,7 @@ class Module
     }
 
     /**
-     * Checks if there is some emails waiting in queue and sends them if possible.
+     * Checks if there are some emails waiting in queue and sends them if possible.
      */
     function send()
     {

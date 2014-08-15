@@ -173,6 +173,9 @@ class Table extends \Ip\Internal\Grid\Model
         if (empty($data[$this->subgridConfig->idField()])) {
             throw new \Ip\Exception('Missing parameters');
         }
+
+        $this->runTransformations($data);
+
         $recordId = $data[$this->subgridConfig->idField()];
         $display = $this->getDisplay();
         $updateForm = $display->updateForm($recordId);
@@ -212,11 +215,56 @@ class Table extends \Ip\Internal\Grid\Model
         return $data;
     }
 
+    protected function runTransformations(&$data)
+    {
+        foreach($this->subgridConfig->fields() as $field) {
+            if (!empty($field['transformations']) && !empty($field['field']) && array_key_exists($field['field'], $data)) {
+                foreach($field['transformations'] as $transformation) {
+                    $transformationObject = $this->createTransformationObject($transformation);
+                    $options = array();
+                    if (is_array($transformation) && isset($transformation[1])) {
+                        $options = $transformation[1];
+                    }
+                    $data[$field['field']] = $transformationObject->transform($data[$field['field']], $options);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $transformationSetting
+     * @return \Ip\Internal\Grid\Model\Transformation
+     * @throws \Ip\Exception
+     */
+    protected function createTransformationObject($transformationSetting)
+    {
+        if(is_array($transformationSetting)) {
+            $transformationSetting = $transformationSetting[0];
+        }
+
+        if (is_object($transformationSetting)) {
+            if (!$transformationSetting instanceof \Ip\Internal\Grid\Model\Transformation) {
+                throw new \Ip\Exception('Transformation object has to implement Ip\Internal\Grid\Model\Table\Transformation interface');
+            }
+            return $transformationSetting;
+        }
+        if (is_string($transformationSetting)) {
+            if (strpos($transformationSetting, '\\') === false) {
+                $transformationSetting = 'Ip\\Internal\\Grid\\Model\\Transformation\\' . $transformationSetting;
+            }
+            $object = new $transformationSetting();
+            return $object;
+        }
+    }
+
+
     protected function create($data)
     {
         $display = $this->getDisplay();
         $createForm = $display->createForm();
 
+
+        $this->runTransformations($data);
 
         $errors = $createForm->validate($data);
 

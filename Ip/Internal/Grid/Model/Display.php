@@ -276,6 +276,13 @@ class Display
                             $field->addValidator($validator);
                         }
                     }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
                     $form->addField($field);
                 }
 
@@ -355,6 +362,13 @@ class Display
                             $field->addValidator($validator);
                         }
                     }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
                     $form->addField($field);
                 }
             }
