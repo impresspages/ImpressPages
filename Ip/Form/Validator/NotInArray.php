@@ -36,7 +36,7 @@ class NotInArray extends \Ip\Form\Validator
      */
     public function getError($values, $valueKey, $environment)
     {
-        if (empty($values[$valueKey])) {
+        if ($values[$valueKey] == '') {
             return false;
         }
 
