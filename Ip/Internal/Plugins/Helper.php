@@ -160,7 +160,10 @@ class Helper
     public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
-            if (empty($option['type']) || empty($option['name'])) {
+            if (empty($options['type'])) {
+                $option['type'] = 'text';
+            }
+            if (empty($option['name'])) {
                 continue;
             }
 
