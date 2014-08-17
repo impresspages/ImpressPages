@@ -212,7 +212,7 @@ class ConfigModel
                     $newField = new Form\Field\Checkbox();
                     break;
                 default:
-                    //do nothing
+                    $newField = new Form\Field\Text();
             }
             if (!isset($newField)) {
                 //field type is not recognised
