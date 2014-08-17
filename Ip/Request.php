@@ -113,7 +113,7 @@ class Request
      */
     public function isHttps()
     {
-        return (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on");
+        return (isset($this->_SERVER["HTTPS"]) && strtolower($this->_SERVER["HTTPS"]) == "on");
     }
 
 
@@ -196,7 +196,7 @@ class Request
     public function getUrl()
     {
         $pageURL = 'http';
-        if (isset($this->_SERVER["HTTPS"]) && $this->_SERVER["HTTPS"] == "on") {
+        if (isset($this->_SERVER["HTTPS"]) && strtolower($this->_SERVER["HTTPS"]) == "on") {
             $pageURL .= "s";
         }
         $pageURL .= '://';
