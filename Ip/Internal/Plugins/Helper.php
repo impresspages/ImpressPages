@@ -160,7 +160,7 @@ class Helper
     public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
-            if (empty($options['type'])) {
+            if (empty($option['type'])) {
                 $option['type'] = 'text';
             }
             if (empty($option['name'])) {
@@ -196,6 +196,9 @@ class Helper
                 case 'checkbox':
                     $newField = new Form\Field\Checkbox();
                     break;
+                case 'password':
+                    $newField = new Form\Field\Password();
+                break;
                 default:
                     //do nothing
             }
