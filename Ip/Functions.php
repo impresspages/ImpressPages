@@ -1157,3 +1157,37 @@ function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
     $availableFileName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $dir, '', $sanitize);
     return $availableFileName;
 }
+
+
+/**
+ * Replace placeholders with actual values in string or array of strings. Default placeholders:
+ * websiteTitle
+ * websiteEmail
+ * websiteUrl
+ * userId
+ * userEmail
+ * userName
+ *
+ * @param string $content
+ * @param array $customValues
+ * @param string $context plugin name which executes the function. Makes possible to have different values in different context.
+ * @return string
+ */
+function ipFillPlaceholders($content, $context = 'Ip', $customValues = array())
+{
+
+    $info = array (
+        'content' => $content,
+        'context' => $context,
+        'customValues' => $customValues
+    );
+    if (is_array($content)) {
+        $answer = array();
+        foreach($content as $item) {
+            $answer[] = ipJob('ipFillPlaceholders', $info);
+        }
+        return $answer;
+    } else {
+        return ipJob('ipFillPlaceholders', $info);
+    }
+}
