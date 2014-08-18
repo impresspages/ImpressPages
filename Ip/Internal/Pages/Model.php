@@ -431,7 +431,14 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
+        $eventData = array(
+            'pageId' => $pageId,
+            'destinationParentId' => $destinationParentId,
+            'destinationPosition' => $destinationPosition
+        );
+        ipEvent('ipBeforePageMoved', $eventData);
         ipDb()->update('page', $update, array('id' => $pageId));
+        ipEvent('ipPageMoved', $eventData);
     }
 
     /**
