@@ -52,7 +52,7 @@ var IpWidget_Html = function () {
             .css('position', 'absolute')
             .css('z-index', 1000) // should be higher enough but lower than widget controls
             .width(this.widgetObject.width())
-            .height(this.widgetObject.height());
+            .height(Math.max(this.widgetObject.height(), 30));
     }
 
 
