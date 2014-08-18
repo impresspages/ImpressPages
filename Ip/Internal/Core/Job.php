@@ -134,12 +134,12 @@ class Job
         $userName = !empty($userData['name']) ? $userData['name'] : '';
 
         $values = array(
-            '[[websiteTitle]]' => ipGetOptionLang('Config.websiteTitle'),
-            '[[websiteEmail]]' => ipGetOptionLang('Config.websiteEmail'),
-            '[[websiteUrl]]' => ipConfig()->baseUrl(),
-            '[[userId]]' => ipUser()->userId(),
-            '[[userEmail]]' => $userEmail,
-            '[[userName]]' => $userName
+            '{websiteTitle}' => ipGetOptionLang('Config.websiteTitle'),
+            '{websiteEmail}' => ipGetOptionLang('Config.websiteEmail'),
+            '{websiteUrl}' => ipConfig()->baseUrl(),
+            '{userId}' => ipUser()->userId(),
+            '{userEmail}' => $userEmail,
+            '{userName}' => $userName
         );
         $values = array_merge($values, $info['customValues']);
 
