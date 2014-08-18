@@ -70,11 +70,11 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
     public function testIpFillPlaceholders()
     {
         $content = '<p>Test {websiteTitle}</p>';
-        $content = ipFillPlaceholders($content);
+        $content = ipReplacePlaceholders($content);
         $this->assertEquals('<p>Test TestSite</p>', $content);
 
         $content = '<p>Test {CUSTOM}</p>';
-        $content = ipFillPlaceholders($content, 'Plugin', array('{CUSTOM}' => 'REPLACED'));
+        $content = ipReplacePlaceholders($content, 'Plugin', array('CUSTOM' => 'REPLACED'));
         $this->assertEquals('<p>Test REPLACED</p>', $content);
 
 

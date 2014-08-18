@@ -1173,7 +1173,7 @@ function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
  * @param string $context plugin name which executes the function. Makes possible to have different values in different context.
  * @return string
  */
-function ipFillPlaceholders($content, $context = 'Ip', $customValues = array())
+function ipReplacePlaceholders($content, $context = 'Ip', $customValues = array())
 {
 
     $info = array (
@@ -1184,10 +1184,10 @@ function ipFillPlaceholders($content, $context = 'Ip', $customValues = array())
     if (is_array($content)) {
         $answer = array();
         foreach($content as $item) {
-            $answer[] = ipJob('ipFillPlaceholders', $info);
+            $answer[] = ipJob('ipReplacePlaceholders', $info);
         }
         return $answer;
     } else {
-        return ipJob('ipFillPlaceholders', $info);
+        return ipJob('ipReplacePlaceholders', $info);
     }
 }
