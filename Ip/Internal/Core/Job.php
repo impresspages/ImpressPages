@@ -126,7 +126,7 @@ class Job
         return call_user_func_array($callableAction, $arguments);
     }
 
-    public static function ipFillPlaceholders($info)
+    public static function ipReplacePlaceholders($info)
     {
         $content = $info['content'];
         $userData = ipUser()->data();
@@ -141,11 +141,14 @@ class Job
             '{userEmail}' => $userEmail,
             '{userName}' => $userName
         );
-        $values = array_merge($values, $info['customValues']);
+        foreach ($info['customValues'] as $key => $value) {
+            $values['{' . $key . '}'] = $value;
+        }
 
-        $values = ipFilter('ipFillPlaceholdersValues', $values, $info);
+
+        $values = ipFilter('ipReplacePlaceholdersValues', $values, $info);
         $answer = strtr($content, $values);
-        $answer = ipFilter('ipFillPlaceholders', $answer, $info);
+        $answer = ipFilter('ipReplacePlaceholders', $answer, $info);
         return $answer;
 
     }
