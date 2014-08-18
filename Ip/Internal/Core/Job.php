@@ -126,4 +126,27 @@ class Job
         return call_user_func_array($callableAction, $arguments);
     }
 
+    public static function ipFillPlaceholders($info)
+    {
+        $content = $info['content'];
+        $userData = ipUser()->data();
+        $userEmail = !empty($userData['email']) ? $userData['email'] : '';
+        $userName = !empty($userData['name']) ? $userData['name'] : '';
+
+        $values = array(
+            '[[websiteTitle]]' => ipGetOptionLang('Config.websiteTitle'),
+            '[[websiteEmail]]' => ipGetOptionLang('Config.websiteEmail'),
+            '[[websiteUrl]]' => ipConfig()->baseUrl(),
+            '[[userId]]' => ipUser()->userId(),
+            '[[userEmail]]' => $userEmail,
+            '[[userName]]' => $userName
+        );
+
+        $values = ipFilter('ipFillPlaceholdersValues', $values, $info);
+        $answer = strtr($content, $values);
+        $answer = ipFilter('ipFillPlaceholders', $answer, $info);
+        return $answer;
+
+    }
+
 }
