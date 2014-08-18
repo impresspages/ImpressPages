@@ -141,6 +141,7 @@ class Job
             '[[userEmail]]' => $userEmail,
             '[[userName]]' => $userName
         );
+        $values = array_merge($values, $info['customValues']);
 
         $values = ipFilter('ipFillPlaceholdersValues', $values, $info);
         $answer = strtr($content, $values);
