@@ -12,10 +12,8 @@ $( document ).ready(function () {
             dataType: 'json',
             type: 'POST',
             success: function (response) {
-                if (response && response.result) {
-                    if (response.result.redirect) {
-                        document.location = response.result.redirect;
-                    }
+                if (response && response.redirect) {
+                    document.location = response.redirect;
                 } else if (response && response.error && response.error.message) {
                     alert(response.error.message);
                 } else {
