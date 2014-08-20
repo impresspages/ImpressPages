@@ -24,6 +24,7 @@ class SiteController
 
         $paymentMethodName = ipRequest()->getPost('paymentMethod');
         if ($paymentMethodName) {
+            //redirect to selected payment page
             foreach($paymentMethods as $paymentMethod) {
                 if ($paymentMethod->name() == $paymentMethodName) {
                     return new \Ip\Response\Json(array('redirectUrl' => $paymentMethod->paymentUrl($data)));
@@ -31,6 +32,7 @@ class SiteController
             }
         }
 
+        //display all available payment methods
         ipAddJs('assets/paymentSelection.js');
         $response = ipView('view/selectPayment.php', array('paymentMethods' => $paymentMethods));
         $response = ipFilter('ipPaymentSelectPageResponse', $response, array('paymentKey' => $key));
