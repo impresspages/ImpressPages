@@ -27,7 +27,8 @@ class SiteController
             //redirect to selected payment page
             foreach($paymentMethods as $paymentMethod) {
                 if ($paymentMethod->name() == $paymentMethodName) {
-                    return new \Ip\Response\Json(array('redirectUrl' => $paymentMethod->paymentUrl($data)));
+                    $paymentUrl = $paymentMethod->paymentUrl($data['data']);
+                    return new \Ip\Response\Json(array('redirect' => $paymentUrl));
                 }
             }
         }
