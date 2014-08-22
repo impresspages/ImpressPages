@@ -35,6 +35,7 @@ class SiteController
 
         //display all available payment methods
         ipAddJs('assets/paymentSelection.js');
+        ipAddCss('assets/payments.css');
         $response = ipView('view/selectPayment.php', array('paymentMethods' => $paymentMethods));
         $response = ipFilter('ipPaymentSelectPageResponse', $response, array('paymentKey' => $key));
         return $response;
