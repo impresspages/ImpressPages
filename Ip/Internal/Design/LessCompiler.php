@@ -112,8 +112,8 @@ class LessCompiler
                     }
                     break;
             }
-
-            $less .= "\n@{$option['name']}: {$lessValue};";
+            $escapedValue = escAttr($lessValue);
+            $less .= "\n@{$option['name']}: '{$escapedValue}';";
         }
 
         return $less;
