@@ -1,0 +1,9 @@
+.ipEcommerce ._paymentMethod img {
+    height: 40px;
+}
+
+.ipEcommerce ._paymentMethod {
+    margin-bottom: 20px;
+    margin-right: 20px;
+    float: left;
+}
