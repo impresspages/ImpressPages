@@ -119,7 +119,7 @@ function ipConfig()
 }
 
 /**
- * Get content object
+ * Get content object.
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -628,11 +628,11 @@ function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 }
 
 /**
- * Get formatted currency string
+ * Get formatted currency string. If you don't like the way the price is formatted by default, catch ipFormatPrice job and provide your own formatting method.
  *
  * @param int $price Numeric price. Multiplied by 100.
  * @param string $currency Three letter currency code. E.g. "EUR".
- * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
+ * @param string $context Plugins name that's requesting the operation. This makes it possible to render the price differently for each plugin.
  * @param string $languageCode
  * @return string A currency string in specific country format.
  */
@@ -1126,6 +1126,21 @@ function ipGridController($config)
     }
 
 
+}
+
+/**
+ * Convert price from one currency to another.
+ * This method throws ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion that's not covered by any of the plugins, you will get null as the result.
+ * @param int $amount amount in cents
+ * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
+ * @param $destinationCurrency three letter uppercase currency code. Eg. USD
+ * @return int amount in cents
+ */
+function ipConvertCurrency($amount, $sourceCurrency, $destinationCurrency)
+{
+    $result = ipJob('ipConvertCurrency', compact('amount', 'sourceCurrency', 'destinationCurrency'));
+    return $result;
 }
 
 

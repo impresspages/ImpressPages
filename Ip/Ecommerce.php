@@ -20,8 +20,8 @@ class Ecommerce
 
     public function paymentUrl($options)
     {
-        if (empty($options['item'])) {
-            throw new \Ip\Exception('"item" setting is missing in paymentUrl function');
+        if (empty($options['id'])) {
+            throw new \Ip\Exception('"id" setting is missing in paymentUrl function');
         }
         if (empty($options['price'])){
             throw new \Ip\Exception('"price" setting is missing in paymentUrl function');

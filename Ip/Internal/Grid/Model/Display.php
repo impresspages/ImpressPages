@@ -112,7 +112,7 @@ class Display
     protected function getBreadcrumb()
     {
         $depth = Status::depth($this->statusVariables);
-        $breadcrumb = [];
+        $breadcrumb = array();
         $gridConfig = $this->config;
 
 
@@ -182,8 +182,15 @@ class Display
                 $fieldObject = $this->subgridConfig->fieldObject($fieldData);
                 $preview = $fieldObject->preview($row);
 
-                if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], true)) {
-                    $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
+                if (!empty($fieldData['preview']) && $fieldData['preview'] !== true) {
+                    if (is_callable($fieldData['preview'])) {
+                        $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
+                    } elseif (is_string($fieldData['preview'])) {
+                        $preview = $fieldData['preview'];
+                    } else {
+                        throw new \Ip\Exception('Field \'preivew\' value must be PHP callable or string');
+                    }
+
                 }
                 $preparedRowData[] = $preview;
             }
@@ -276,6 +283,13 @@ class Display
                             $field->addValidator($validator);
                         }
                     }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
                     $form->addField($field);
                 }
 
@@ -355,6 +369,13 @@ class Display
                             $field->addValidator($validator);
                         }
                     }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
                     $form->addField($field);
                 }
             }
