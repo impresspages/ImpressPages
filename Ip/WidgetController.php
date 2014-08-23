@@ -331,4 +331,7 @@ class WidgetController
     }
 
 
+    public function getCssClasses(){
+        return '';
+    }
 }
