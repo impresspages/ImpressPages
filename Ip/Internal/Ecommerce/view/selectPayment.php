@@ -3,9 +3,10 @@
 ?>
 <?php echo ipRenderWidget('Heading', array('title' => __('Choose a payment method', 'Ip', false))) ?>
 <div class="ipEcommerce">
+<?php echo ipRenderWidget('Divider', array(), 'space') ?>
 <?php foreach($paymentMethods as $paymentMethod) { ?>
-    <div class="_paymentMethod">
-        <a href="#" class="ipsPaymentMethod" data-name="<?php echo escAttr($paymentMethod->name()) ?>"><img src="<?php echo $paymentMethod->icon() ?>" alt="<?php echo escAttr($paymentMethod->name()) ?>" /></a>
-    </div>
+    <?php
+        echo ipRenderWidget('Html', array('html' => '<div class="_paymentMethod _paymentMethod_' . escAttr($paymentMethod->name()) .'"><a href="#" class="ipsPaymentMethod" data-name="'. escAttr($paymentMethod->name()) .'">'. $paymentMethod->html() .'</a></div>'));
+    ?>
 <?php } ?>
 </div>
