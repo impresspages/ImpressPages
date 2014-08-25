@@ -26,6 +26,16 @@ class Model
     }
 
     /**
+     * @param $paymentData
+     * @return \Ip\SubscriptionPayment[]
+     */
+    public static function collectSubscriptionPaymentMethods($paymentData)
+    {
+        return ipFilter('ipSubscriptionPaymentMethods', array(), $paymentData);
+    }
+
+
+    /**
      * @param array $paymentData
      * @return string unique 32 character key of stored data
      */
