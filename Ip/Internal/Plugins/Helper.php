@@ -163,45 +163,22 @@ class Helper
             if (empty($option['type'])) {
                 $option['type'] = 'text';
             }
-            if (empty($option['name'])) {
-                continue;
+
+
+            if (in_array($option['type'], array('select', 'text', 'textarea', 'richText', 'color', 'range', 'checkbox', 'password'))) {
+                $option['type'] = ucfirst($option['type']);
             }
 
-            switch ($option['type']) {
-                case 'select':
-                    $newField = new Form\Field\Select();
-                    $values = array();
-                    if (!empty($option['values']) && is_array($option['values'])) {
-                        foreach ($option['values'] as $value) {
-                            $values[] = array($value, $value);
-                        }
-                    }
-                    $newField->setValues($values);
-                    break;
-                case 'text':
-                    $newField = new Form\Field\Text();
-                    break;
-                case 'textarea':
-                    $newField = new Form\Field\Textarea();
-                    break;
-                case 'richText':
-                    $newField = new Form\Field\RichText();
-                    break;
-                case 'color':
-                    $newField = new Form\Field\Color();
-                    break;
-                case 'range':
-                    $newField = new Form\Field\Range();
-                    break;
-                case 'checkbox':
-                    $newField = new Form\Field\Checkbox();
-                    break;
-                case 'password':
-                    $newField = new Form\Field\Password();
-                break;
-                default:
-                    //do nothing
+            $className = $option['type'];
+            if (class_exists($className)) {
+                $newField = new $className($option);
+            } else {
+                $className = 'Ip\\Form\\Field\\' . $option['type'];
+                if (class_exists($className)) {
+                    $newField = new $className($option);
+                }
             }
+
             if (!isset($newField)) {
                 //field type is not recognised
                 continue;
