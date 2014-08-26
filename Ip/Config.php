@@ -26,6 +26,9 @@ class Config
         if (!isset($this->config['tablePrefix'])) {
             $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
         }
+        if (!isset($this->config['database'])) {
+            $this->config['database'] = $this->config['db']['database'];
+        }
 
         if (!$server) {
             $server = $_SERVER;
