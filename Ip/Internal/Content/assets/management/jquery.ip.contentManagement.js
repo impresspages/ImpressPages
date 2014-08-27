@@ -239,7 +239,7 @@
         //drop side
         var sidePlaceholders = new Array();
 
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
+        $('.ipBlock > .ipWidget').not(".ipWidget-Columns .ipWidget").not($(draggingElement)).each(function (key, value) {
             //left placeholder
             sidePlaceholders.push({
                 left: $(value).offset().left - 20,
