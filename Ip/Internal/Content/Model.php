@@ -271,8 +271,7 @@ class Model
             'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
             'widgetSkin' => $widgetRecord['skin'],
-            'optionsMenu' => $optionsMenu,
-            'cssClasses' => $widgetObject->getCssClasses()
+            'optionsMenu' => $optionsMenu
         );
 
         $answer = ipView('view/widget.php', $variables)->render();
