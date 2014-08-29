@@ -206,6 +206,7 @@ class Helper
             $item->setDisabled($page->isDisabled());
             $item->setId($page->getId());
             $item->setAlias($page->getAlias());
+            $item->setPageTitle(empty ($page->getMetaTitle()) ? $page->getTitle() : $page->getMetaTitle());
             $items[] = $item;
         }
 
