@@ -9,6 +9,11 @@ namespace Ip\Internal\Log;
 
 class AdminController extends \Ip\GridController
 {
+    public function index()
+    {
+        ipAddJs('assets/log.js');
+        return parent::index();
+    }
     protected function config()
     {
         return array(
@@ -17,8 +22,13 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
-            'sortField' => 'id',
-            'sortDirection' => 'desc',
+            'orderBy' => '`id` desc',
+            'actions' => array(
+                array(
+                'label' => __('Clear all', 'Ip-admin', false),
+                'class' => 'ipsClearAll'
+                )
+            ),
             'fields' => array(
                 array(
                     'label' => __('Time', 'Ip-admin', false),
@@ -67,5 +77,11 @@ class AdminController extends \Ip\GridController
         } else {
             return var_export($context, true);
         }
+    }
+
+    public function clear()
+    {
+        ipDb()->delete('log', array());
+        return new \Ip\Response\Json(array('status' => 'success'));
     }
 }

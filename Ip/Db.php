@@ -395,6 +395,9 @@ class Db
     {
         $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
         $params = array();
+        if (empty($condition)) {
+            $sql .= ' 1 AND ';
+        }
         foreach ($condition as $column => $value) {
             if ($value === null) {
                 $sql .= "`{$column}` IS NULL AND ";
