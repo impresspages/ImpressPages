@@ -80,6 +80,9 @@ class Event
 
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+            ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
+
             $submenu = Submenu::getSubmenuItems();
             $submenu = ipFilter('ipAdminSubmenu', $submenu);
             if ($submenu) {
