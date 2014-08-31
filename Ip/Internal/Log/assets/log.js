@@ -2,6 +2,9 @@
 $('.ipsGrid').on('init.ipGrid', function () {
     "use strict";
     $('.ipsClearAll').on('click', function (e) {
+        if (!confirm(clearConfirmTranslation)) {
+            return;
+        }
         var postData = {
             'aa': 'Log.clear',
             'securityToken': ip.securityToken

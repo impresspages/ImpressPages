@@ -12,6 +12,7 @@ class AdminController extends \Ip\GridController
     public function index()
     {
         ipAddJs('assets/log.js');
+        ipAddJsVariable('clearConfirmTranslation', __('Are you sure you want to delete all log records?', 'Ip-admin', false));
         return parent::index();
     }
     protected function config()
@@ -25,8 +26,8 @@ class AdminController extends \Ip\GridController
             'orderBy' => '`id` desc',
             'actions' => array(
                 array(
-                'label' => __('Clear all', 'Ip-admin', false),
-                'class' => 'ipsClearAll'
+                    'label' => __('Clear all', 'Ip-admin', false),
+                    'class' => 'ipsClearAll'
                 )
             ),
             'fields' => array(
