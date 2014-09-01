@@ -505,7 +505,7 @@ var ipContent = new function () {
                 $block.find(' > .ipbExampleContent').remove();
                 $block.removeClass('ipbEmpty');
 
-
+                $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                 //check if we need to remove column from original place
                 if ($originalBlock.children('.ipWidget').length == 0) {
                     $originalBlock.addClass('ipbEmpty');
