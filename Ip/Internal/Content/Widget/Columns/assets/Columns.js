@@ -25,8 +25,8 @@ var ipColumnsInitWidthHandles = function () {
     function addResizeHandlers($widget) {
 
 
-        var $cols = $widget.find('.ipsCol');
-        $.each($widget.find('.ipsCol'), function (index, col) {
+        var $cols = $widget.find('> .ipsColsContainer > .ipsCol');
+        $.each($cols, function (index, col) {
             if (index >= $cols.length - 1) {
                 //skip last col
                 return;
@@ -97,6 +97,5 @@ var ipColumnsInitWidthHandles = function () {
 $(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
-$(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetSaved', ipColumnsInitWidthHandles);
