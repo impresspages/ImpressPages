@@ -13,6 +13,7 @@ class Event
         $languageCode = ipContent()->getLanguage($info['id'])->getCode();
 
         $domains = \Ip\ServiceLocator::translator()->getRegisteredDomains();
+        $domains = array('Ip');
 
         foreach ($domains as $domain) {
             $downloader->downloadTranslation($domain, $languageCode, ipApplication()->getVersion());
@@ -36,4 +37,4 @@ class Event
         }
 
     }
-} 
+}
