@@ -255,6 +255,8 @@
             }
         });
 
+        $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
+
         //type selection
         if (logoData.type == 'text') {
             $modal.find('a[data-logotype="text"]').tab('show');
@@ -263,9 +265,7 @@
         }
 
         $modal.find('.ipsImage').one('ready.ipUploadImage', $.proxy(preview, $this));
-        $.proxy(updateType, $this)(); //initialize current type tab
 
-        $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
         $modal.find('.ipsConfirm').bind('click', $.proxy(confirm, $this));
         $modal.on('hide.bs.modal', function () {
             $.proxy(cancel, $this)();

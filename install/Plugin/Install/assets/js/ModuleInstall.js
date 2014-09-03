@@ -43,7 +43,7 @@ var ModuleInstall = new function () {
                 } else if (response && response.error && response.error.message) {
                     $errorContainer.html('<p class="alert alert-danger">' + response.error.message + '</p>');
                 } else {
-                    alert('Unknown response. #FYLBK');
+                    alert(response.responseText);
                 }
             },
             error: function (response) {
@@ -82,7 +82,7 @@ var ModuleInstall = new function () {
                     }
                     $errorContainer.html('<p class="alert alert-danger">' + response.error.message + errorsText + '</p>');
                 } else {
-                    alert('Unknown response. #FYLXK');
+                    alert(response.responseText);
                 }
             },
             error: function (response) {

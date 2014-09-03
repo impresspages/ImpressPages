@@ -9,6 +9,9 @@ namespace Ip\Internal\Email;
 
 class AdminController extends \Ip\GridController
 {
+
+
+
     protected function config()
     {
         return array(
@@ -16,8 +19,7 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
-            'sortField' => 'id',
-            'sortDirection' => 'desc',
+            'orderBy' => '`id` desc',
             'table' => 'email_queue',
             'actions' => array(),
             'fields' => array(
@@ -52,16 +54,52 @@ class AdminController extends \Ip\GridController
                 ),
                 array(
                     'label' => __('Sent at', 'Ip-admin', false),
-                    'field' => 'send'
+                    'field' => 'send',
+                    'preview' => true
                 ),
                 array(
                     'label' => __('Attachment', 'Ip-admin', false),
                     'field' => 'fileNames'
+                ),
+                array(
+                    'label' => '',
+                    'field' => 'id',
+                    'preview' => '<a href="#" class="ipsEmailPreview">' . __('Preview', 'SimpleProduct') . '</a>',
+                    'allowUpdate' => false,
+                    'allowInsert' => false,
+                    'allowSearch' => false
                 )
-
             )
         );
     }
+
+    public function index()
+    {
+        ipAddJs('assets/email.js');
+        ipAddCss('assets/email.css');
+
+        $previewModal = ipView('view/previewModal.php');
+        return parent::index() . $previewModal;
+    }
+
+
+    public function preview()
+    {
+        $id = ipRequest()->getQuery('id');
+        if (!$id) {
+            throw new \Ip\Exception('Email not found');
+        }
+        $email = Db::getEmail($id);
+        $viewData = array(
+            'email' => $email
+        );
+        $content = ipView('view/preview.php', $viewData);
+        $response = new \Ip\Response($content);
+        return $response;
+    }
+
+
+
 
     public static function html2text($value, $recordData)
     {

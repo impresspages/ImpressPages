@@ -26,6 +26,9 @@ class Config
         if (!isset($this->config['tablePrefix'])) {
             $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
         }
+        if (!isset($this->config['database'])) {
+            $this->config['database'] = $this->config['db']['database'];
+        }
 
         if (!$server) {
             $server = $_SERVER;
@@ -72,6 +75,11 @@ class Config
         }
     }
 
+    public function database()
+    {
+        return $this->config['database'];
+    }
+
     public function tablePrefix()
     {
         return $this->config['tablePrefix'];
@@ -108,6 +116,7 @@ class Config
     {
         if ($name == 'db' && $value) {
             $this->set('tablePrefix', $value['tablePrefix']);
+            $this->set('database', $value['database']);
         }
 
         if ($value === null) {

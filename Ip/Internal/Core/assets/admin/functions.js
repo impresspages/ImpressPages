@@ -31,10 +31,10 @@ function ipBrowseLink(callback) {
         $.ajax({
             type: 'GET',
             url: ip.baseUrl,
-            data: {aa: 'Core.getPageUrl', pageId: selectedPageId},
+            data: {aa: 'Pages.getPageUrl', pageId: selectedPageId},
             dataType: 'json',
             success: function (response) {
-                callback(response.url);
+                callback(response.pageUrl);
             },
             error: function (response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
