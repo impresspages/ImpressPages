@@ -10,15 +10,16 @@ class PublicController extends \Ip\Controller
 {
     public static function download()
     {
+        $requestFile = ipFile('') . ipRequest()->getRelativePath();
+        $fileDir = ipFile('file');
 
-        $fileDirUrl = ipFileUrl('file/');
-        $curUrl = ipRequest()->getUrl();
-
-        if (mb_strpos($curUrl, $fileDirUrl) !== 0) {
-            throw new \Ip\Exception('Access denied');
+        if (mb_strpos($requestFile, $fileDir) !== 0) {
+            return null;
         }
 
-        $file = mb_substr($curUrl, mb_strlen($fileDirUrl));
+
+
+        $file = mb_substr($requestFile, mb_strlen($fileDir) + 1);
         $file = urldecode($file);
 
         if (empty($file)) {
