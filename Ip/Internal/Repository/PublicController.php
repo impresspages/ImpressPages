@@ -11,7 +11,7 @@ class PublicController extends \Ip\Controller
     public static function download()
     {
         $requestFile = ipFile('') . ipRequest()->getRelativePath();
-        $fileDir = ipFile('file');
+        $fileDir = ipFile('file/');
 
         if (mb_strpos($requestFile, $fileDir) !== 0) {
             return null;
@@ -19,7 +19,7 @@ class PublicController extends \Ip\Controller
 
 
 
-        $file = mb_substr($requestFile, mb_strlen($fileDir) + 1);
+        $file = mb_substr($requestFile, mb_strlen($fileDir));
         $file = urldecode($file);
 
         if (empty($file)) {

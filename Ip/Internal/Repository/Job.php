@@ -17,7 +17,7 @@ class Job
     public static function ipRouteAction_150($info)
     {
         $requestFile = ipFile('') . $info['relativeUri'];
-        $fileDir = ipFile('file');
+        $fileDir = ipFile('file/');
 
         if (ipRequest()->getRelativePath() != $info['relativeUri']) {
             return null; //language specific url.
@@ -29,7 +29,7 @@ class Job
             return null;
         }
 
-        $reflection = mb_substr($requestFile, mb_strlen($fileDir) + 1);
+        $reflection = mb_substr($requestFile, mb_strlen($fileDir));
         $reflection = urldecode($reflection);
 
         $reflectionModel = ReflectionModel::instance();
