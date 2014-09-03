@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="page-footer">
-                    <?php printf(__('This software is brought to you by <a target="_blank" href="%s">ImpressPages team</a>', 'Install', false), 'http://www.impresspages.org/cms/about/team/'); ?>
+                    <?php printf(__('This software is brought to you by <a target="_blank" href="%s">ImpressPages team</a>', 'Install', false), 'http://www.impresspages.org/about-us/'); ?>
                 </div>
             </div>
         </div>
