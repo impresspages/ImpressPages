@@ -373,23 +373,29 @@ class Application
             $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
         }
 
-        $router = \Ip\ServiceLocator::router();
 
         foreach ($plugins as $plugin) {
             $routesFile = ipFile("Plugin/$plugin/routes.php");
+            $this->addFileRoutes($routesFile, $plugin);
+        }
+        $this->addFileRoutes(ipFile('Ip/Internal/Ecommerce/routes.php'), 'Ecommerce');
 
-            if (file_exists($routesFile)) {
-                $routes = array();
-                include $routesFile;
+    }
 
-                $router->addRoutes(
-                    $routes,
-                    array(
-                        'plugin' => $plugin,
-                        'controller' => 'PublicController',
-                    )
-                );
-            }
+    protected function addFileRoutes($routesFile, $plugin)
+    {
+        $router = \Ip\ServiceLocator::router();
+        if (file_exists($routesFile)) {
+            $routes = array();
+            include $routesFile;
+
+            $router->addRoutes(
+                $routes,
+                array(
+                    'plugin' => $plugin,
+                    'controller' => 'PublicController',
+                )
+            );
         }
     }
 

@@ -49,6 +49,8 @@ class AdminController extends \Ip\Controller
 
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
+        $layout = ipFilter('ipPluginPropertiesHtml', $layout, array('pluginName' => $pluginName));
+
         $data = array(
             'html' => $layout
         );

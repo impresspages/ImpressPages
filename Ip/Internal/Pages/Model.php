@@ -431,7 +431,14 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
+        $eventData = array(
+            'pageId' => $pageId,
+            'destinationParentId' => $destinationParentId,
+            'destinationPosition' => $destinationPosition
+        );
+        ipEvent('ipBeforePageMoved', $eventData);
         ipDb()->update('page', $update, array('id' => $pageId));
+        ipEvent('ipPageMoved', $eventData);
     }
 
     /**
@@ -604,6 +611,7 @@ class Model
      */
     public static function updateUrl($oldUrl, $newUrl)
     {
+
         $old = parse_url($oldUrl);
         $new = parse_url($newUrl);
 
@@ -617,8 +625,26 @@ class Model
             'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
 
-        foreach ($replaces as $search => $replace) {
-            ipDb()->update('page', array('redirectUrl' => $replace), array('redirectUrl' => $search));
+        if ($newUrl == ipConfig()->baseUrl()) {
+            //the whole website URL has changed
+            $table = ipTable('page');
+            $sql = "
+            UPDATE
+              $table
+            SET
+              `redirectUrl` = REPLACE(`redirectUrl`, :search, :replace)
+            WHERE
+            1
+            ";
+            foreach ($replaces as $search => $replace) {
+                ipDb()->execute($sql, array('search' => $search, 'replace' => $replace));
+            }
+        } else {
+            //single page URL has changed
+            foreach ($replaces as $search => $replace) {
+                ipDb()->update('page', array('redirectUrl' => $replace), array('redirectUrl' => $search));
+            }
+
         }
     }
 

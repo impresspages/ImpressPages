@@ -119,7 +119,7 @@ function ipConfig()
 }
 
 /**
- * Get content object
+ * Get content object.
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -1032,7 +1032,12 @@ function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 }
 
 /**
- * Get user login manipulation object
+ * Get user login manipulation object.
+ * Eg.
+ *
+ * ipUser()->loggedIn(); //check if user is logged in
+ * ipUser()->userId(); //get logged in user id
+ * ipUser()->data(); //get all user related data. All plugins can contribute their input and add values to this array by catching ipUserData filter.
  *
  * @return \Ip\User
  */
@@ -1129,8 +1134,9 @@ function ipGridController($config)
 }
 
 /**
- * This method notify ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
- * This method has no default implementation. So if you will request currency conversion not covered by any of the plugins, you will get null as the result.
+ * Convert price from one currency to another.
+ * This method throws ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion that's not covered by any of the plugins, you will get null as the result.
  * @param int $amount amount in cents
  * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
  * @param $destinationCurrency three letter uppercase currency code. Eg. USD
@@ -1155,4 +1161,38 @@ function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
 {
     $availableFileName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $dir, '', $sanitize);
     return $availableFileName;
+}
+
+
+/**
+ * Replace placeholders with actual values in string or array of strings. Default placeholders:
+ * websiteTitle
+ * websiteEmail
+ * websiteUrl
+ * userId
+ * userEmail
+ * userName
+ *
+ * @param string $content
+ * @param array $customValues
+ * @param string $context plugin name which executes the function. Makes possible to have different values in different context.
+ * @return string
+ */
+function ipReplacePlaceholders($content, $context = 'Ip', $customValues = array())
+{
+
+    $info = array (
+        'content' => $content,
+        'context' => $context,
+        'customValues' => $customValues
+    );
+    if (is_array($content)) {
+        $answer = array();
+        foreach($content as $item) {
+            $answer[] = ipJob('ipReplacePlaceholders', $info);
+        }
+        return $answer;
+    } else {
+        return ipJob('ipReplacePlaceholders', $info);
+    }
 }

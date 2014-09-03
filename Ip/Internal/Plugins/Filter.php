@@ -33,6 +33,10 @@ class Filter
         $form = Helper::pluginPropertiesFormFields($info['pluginName'], $form);
 
         foreach ($plugin['options'] as $option) {
+            if (empty($option['type'])) {
+                $option['type'] = 'text';
+            }
+
             if (empty($option['name'])) {
                 continue;
             }

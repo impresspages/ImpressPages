@@ -19,9 +19,16 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsColorPicker').length && !$.spectrum) {
+            if ($('.ipsModuleFormPublic .type-color').length && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
+            }
+
+            if ($('.ipsModuleFormPublic .type-richtext').length && (typeof(ipTinyMceConfig) === "undefined")) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/pastePreprocess.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/default.js') + '"></script>');
             }
 
 

@@ -620,6 +620,9 @@ class Model
 
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
+            if (empty($data['text'])) {
+                continue;
+            }
 
             // ${1} - protocol, ${2} - optional '/'
             $after = preg_replace($search, '${1}' . $newPart . '${2}', $data['text']);
