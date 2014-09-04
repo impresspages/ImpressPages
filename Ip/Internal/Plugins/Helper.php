@@ -184,6 +184,8 @@ class Helper
                 continue;
             }
 
+            $default = isset($option['default']) ? $option['default'] : null;
+
             if (!empty($option['name'])) {
                 $newField->setName($option['name']);
                 $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
@@ -192,7 +194,6 @@ class Helper
             if (!empty($option['note'])) {
                 $newField->setNote($option['note']);
             }
-            $default = isset($option['default']) ? $option['default'] : null;
 
 
             $form->addfield($newField);
