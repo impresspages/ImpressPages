@@ -47,6 +47,10 @@ class AdminController extends \Ip\Controller
             $variables['form'] = Helper::pluginPropertiesForm($pluginName);
         }
 
+        if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.svg'))) {
+            $variables['icon'] = ipFileUrl('Plugin/' . $pluginName . '/assets/icon.svg');
+        }
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
         $layout = ipFilter('ipPluginPropertiesHtml', $layout, array('pluginName' => $pluginName));
