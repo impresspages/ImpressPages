@@ -15,7 +15,9 @@ abstract class Payment
     public abstract function icon($width = null, $height = null);
 
     /**
-     * HTML to be displayed in payment selection window. All this HTML will be surrounded by A tag to be clickable.
+     * HTML to be displayed in payment selection window.
+     * Used only if there are more than one payment method installed.
+     * All this HTML will be surrounded by A tag to be clickable.
      * @return string
      */
     public function html()

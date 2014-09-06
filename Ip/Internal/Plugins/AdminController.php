@@ -18,6 +18,7 @@ class AdminController extends \Ip\Controller
         $plugins = array();
         foreach ($allPlugins as $pluginName) {
             $plugin = Helper::getPluginData($pluginName);
+            $plugin['icon'] = $this->pluginIcon($pluginName);
             $plugins[] = $plugin;
         }
 
@@ -47,6 +48,8 @@ class AdminController extends \Ip\Controller
             $variables['form'] = Helper::pluginPropertiesForm($pluginName);
         }
 
+        $variables['icon'] = $this->pluginIcon($pluginName);
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
 
         $layout = ipFilter('ipPluginPropertiesHtml', $layout, array('pluginName' => $pluginName));
@@ -55,6 +58,13 @@ class AdminController extends \Ip\Controller
             'html' => $layout
         );
         return new \Ip\Response\Json($data);
+    }
+
+    protected function pluginIcon($pluginName)
+    {
+        if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.svg'))) {
+            return ipFileUrl('Plugin/' . $pluginName . '/assets/icon.svg');
+        }
     }
 
     public function activate()

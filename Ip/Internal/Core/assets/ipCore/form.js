@@ -85,6 +85,9 @@ var ipModuleFormPublic;
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
                             }
+                            if (response.alert) {
+                                alert(response.alert);
+                            }
                         },
                         error: function (response) {
                             if (ip.developmentEnvironment || ip.debugMode) {

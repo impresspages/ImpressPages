@@ -12,7 +12,8 @@ class Event
 
         $languageCode = ipContent()->getLanguage($info['id'])->getCode();
 
-        $domains = \Ip\ServiceLocator::translator()->getRegisteredDomains();
+        $domains = \Ip\ServiceLocator::translator()->getRegisteredDomains(); //it was nice idea. But it takes too much time.
+        $domains = array('Ip');
 
         foreach ($domains as $domain) {
             $downloader->downloadTranslation($domain, $languageCode, ipApplication()->getVersion());
@@ -36,4 +37,4 @@ class Event
         }
 
     }
-} 
+}
