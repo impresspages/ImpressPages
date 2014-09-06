@@ -120,7 +120,9 @@ class Config
     {
         if ($name == 'db' && $value) {
             $this->set('tablePrefix', $value['tablePrefix']);
-            $this->set('database', $value['database']);
+            if (!empty($value['database'])) {
+                $this->set('database', $value['database']);
+            }
         }
 
         if ($value === null) {
