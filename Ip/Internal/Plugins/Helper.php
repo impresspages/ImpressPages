@@ -184,14 +184,17 @@ class Helper
                 continue;
             }
 
-            $newField->setName($option['name']);
+            $default = isset($option['default']) ? $option['default'] : null;
+
+            if (!empty($option['name'])) {
+                $newField->setName($option['name']);
+                $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
+            }
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             if (!empty($option['note'])) {
                 $newField->setNote($option['note']);
             }
-            $default = isset($option['default']) ? $option['default'] : null;
 
-            $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
 
             $form->addfield($newField);
         }

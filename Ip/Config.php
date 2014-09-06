@@ -87,12 +87,16 @@ class Config
 
     /**
      * Returns absolute base url.
-     *
+     * @param string $protocol 'http:// https:// or //. Current protocol will be used if null
      * @return string
      */
-    public function baseUrl()
+    public function baseUrl($protocol = null)
     {
-        return $this->protocol . $this->config['baseUrl'];
+        $prot = $this->protocol;
+        if ($protocol !== null) {
+            $prot = $protocol;
+        }
+        return $prot . $this->config['baseUrl'];
     }
 
     /**
@@ -116,7 +120,9 @@ class Config
     {
         if ($name == 'db' && $value) {
             $this->set('tablePrefix', $value['tablePrefix']);
-            $this->set('database', $value['database']);
+            if (!empty($value['database'])) {
+                $this->set('database', $value['database']);
+            }
         }
 
         if ($value === null) {

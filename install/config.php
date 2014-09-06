@@ -50,9 +50,9 @@ return array(
     ),
 
     'urlOverrides' => array(
-        'Plugin/' => "http://{$baseUrl}Plugin/",
-        'Theme/' => "http://{$baseUrl}Theme/",
-        'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
+        'Plugin/' => "//{$baseUrl}Plugin/",
+        'Theme/' => "//{$baseUrl}Theme/",
+        'Ip/' => '//' . dirname($baseUrl) . '/Ip/',
     ),
 
     'services' => array(
