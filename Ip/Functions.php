@@ -1032,7 +1032,12 @@ function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 }
 
 /**
- * Get user login manipulation object
+ * Get user login manipulation object.
+ * Eg.
+ *
+ * ipUser()->loggedIn(); //check if user is logged in
+ * ipUser()->userId(); //get logged in user id
+ * ipUser()->data(); //get all user related data. All plugins can contribute their input and add values to this array by catching ipUserData filter.
  *
  * @return \Ip\User
  */

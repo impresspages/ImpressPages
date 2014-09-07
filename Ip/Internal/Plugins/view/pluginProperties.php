@@ -1,5 +1,9 @@
 <div class="page-header">
-    <h1><?php _e('Plugin configuration', 'Ip-admin'); ?></h1>
+    <?php if (!empty($icon)) { ?>
+        <img class="_icon" src="<?php echo escAttr($icon) ?>" alt="Plugin icon" />
+    <?php } ?>
+
+    <h1><?php echo esc($plugin['title']) ?></h1>
 </div>
 <div class="_actions clearfix">
     <?php if ($plugin['active']) { ?>
@@ -9,7 +13,6 @@
         <button class="ipsActivate btn btn-new" type="button" role="button"><?php _e('Activate', 'Ip-admin'); ?></button>
     <?php } ?>
 </div>
-<h2><?php echo esc($plugin['title']); ?></h2>
 <p><?php echo esc($plugin['description']); ?></p>
 <ul class="_details">
     <li><strong><?php _e('Author', 'Ip-admin'); ?>:</strong> <?php echo esc($plugin['author']); ?></li>

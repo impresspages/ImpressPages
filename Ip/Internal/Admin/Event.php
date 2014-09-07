@@ -12,7 +12,7 @@ class Event
         $curModTitle = '';
         $curModUrl = '';
         $curModIcon = '';
-        $helpUrl = 'http://www.impresspages.org/help2';
+        $helpUrl = 'http://www.impresspages.org/help2'; //TODOX check if used
 
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
@@ -22,7 +22,7 @@ class Event
         }
 
         if (isset($curModule) && $curModule) {
-            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
+            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule; //TODOX check if used
             $curModTitle = __($curModule, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
@@ -80,6 +80,9 @@ class Event
 
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+            ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
+
             $submenu = Submenu::getSubmenuItems();
             $submenu = ipFilter('ipAdminSubmenu', $submenu);
             if ($submenu) {
