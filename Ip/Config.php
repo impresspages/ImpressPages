@@ -26,6 +26,9 @@ class Config
         if (!isset($this->config['tablePrefix'])) {
             $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
         }
+        if (!isset($this->config['database'])) {
+            $this->config['database'] = $this->config['db']['database'];
+        }
 
         if (!$server) {
             $server = $_SERVER;
@@ -72,6 +75,11 @@ class Config
         }
     }
 
+    public function database()
+    {
+        return $this->config['database'];
+    }
+
     public function tablePrefix()
     {
         return $this->config['tablePrefix'];
@@ -79,12 +87,16 @@ class Config
 
     /**
      * Returns absolute base url.
-     *
+     * @param string $protocol 'http:// https:// or //. Current protocol will be used if null
      * @return string
      */
-    public function baseUrl()
+    public function baseUrl($protocol = null)
     {
-        return $this->protocol . $this->config['baseUrl'];
+        $prot = $this->protocol;
+        if ($protocol !== null) {
+            $prot = $protocol;
+        }
+        return $prot . $this->config['baseUrl'];
     }
 
     /**
@@ -108,6 +120,9 @@ class Config
     {
         if ($name == 'db' && $value) {
             $this->set('tablePrefix', $value['tablePrefix']);
+            if (!empty($value['database'])) {
+                $this->set('database', $value['database']);
+            }
         }
 
         if ($value === null) {

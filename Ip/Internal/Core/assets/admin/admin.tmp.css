@@ -9536,6 +9536,11 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 .ipModulePlugins ._properties ._details {
   list-style: none;
 }
+.ipModulePlugins ._icon {
+  height: 25px;
+  margin-right: 10px;
+  float: left;
+}
 .ipModulePluginsMarket ._popup {
   background-color: #fff;
   height: 100%;

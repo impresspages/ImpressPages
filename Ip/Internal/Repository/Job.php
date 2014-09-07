@@ -16,18 +16,20 @@ class Job
      */
     public static function ipRouteAction_150($info)
     {
+        $requestFile = ipFile('') . $info['relativeUri'];
+        $fileDir = ipFile('file/');
+
         if (ipRequest()->getRelativePath() != $info['relativeUri']) {
             return null; //language specific url.
         }
 
-        $fileDirUrl = ipFileUrl('file/');
-        $curUrl = ipConfig()->baseUrl() . $info['relativeUri'];
 
-        if (mb_strpos($curUrl, $fileDirUrl) !== 0) {
+
+        if (mb_strpos($requestFile, $fileDir) !== 0) {
             return null;
         }
 
-        $reflection = mb_substr($curUrl, mb_strlen($fileDirUrl));
+        $reflection = mb_substr($requestFile, mb_strlen($fileDir));
         $reflection = urldecode($reflection);
 
         $reflectionModel = ReflectionModel::instance();

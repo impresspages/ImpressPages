@@ -9696,6 +9696,11 @@
 .ip .ipModulePlugins ._properties ._details {
   list-style: none;
 }
+.ip .ipModulePlugins ._icon {
+  height: 25px;
+  margin-right: 10px;
+  float: left;
+}
 .ip .ipModulePluginsMarket ._popup {
   background-color: #fff;
   height: 100%;

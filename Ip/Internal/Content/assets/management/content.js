@@ -79,7 +79,7 @@ var ipContent = new function () {
             //move widgets from not empty column above columns widget
             if ($notEmptyColumns.length == 1) {
                 var $notEmptyColumn = $notEmptyColumns[0];
-                $.each($notEmptyColumn.find('.ipWidget'), function (key, widget) {
+                $.each($notEmptyColumn.find(' > .ipBlock > .ipWidget'), function (key, widget) {
                     var $widget = $(widget);
                     moveWidgetHelper($widget.data('widgetid'), columnsWidgetPosition + key, columnsWidgetBlockName, null);
                 });
@@ -505,7 +505,7 @@ var ipContent = new function () {
                 $block.find(' > .ipbExampleContent').remove();
                 $block.removeClass('ipbEmpty');
 
-
+                $(document).ipContentManagement('initBlocks', $newWidget.find('.ipBlock'));
                 //check if we need to remove column from original place
                 if ($originalBlock.children('.ipWidget').length == 0) {
                     $originalBlock.addClass('ipbEmpty');

@@ -6,3 +6,10 @@ $routes['select-payment-method/{key}'] = array(
     'controller' => 'SiteController',
     'action' => 'paymentSelection'
 );
+
+$routes['select-subscription-payment-method/{key}'] = array(
+    'name' => 'Ecommerce_subscriptionPaymentSelect',
+    'plugin' => 'Ecommerce',
+    'controller' => 'SiteController',
+    'action' => 'subscriptionPaymentSelection'
+);

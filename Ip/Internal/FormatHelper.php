@@ -131,7 +131,7 @@ class FormatHelper
                 }
             }
 
-            $formattedPrice = ($data['price'] / 100) . ' ' . $data['currency'];
+            $formattedPrice = round(($data['price'] / 100), 2) . ' ' . $data['currency'];
         }
 
         return $formattedPrice;
