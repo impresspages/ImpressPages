@@ -107,9 +107,9 @@ class LessCompiler
             switch ($option['type']) {
                 case 'select':
                 case 'color':
-                default:
                     $lessValue = $rawValue;
                     break;
+                default:
                 case 'hidden':
                 case 'range':
                     $lessValue = $rawValue;
