@@ -31,7 +31,7 @@ class Event
             );
             curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, ipGetOption('Config.cronTimeout', 10));
             $fakeCronAnswer = curl_exec($ch);
         } else {
             $request = new \Ip\Request();
