@@ -22,12 +22,6 @@
             "default": "#000"
         },
         {
-            "label": "Text color",
-            "name": "aaa",
-            "type": "text",
-            "default": "#000"
-        },
-        {
             "label": "Link color",
             "name": "linkColor",
             "type": "color",
