@@ -12,6 +12,8 @@
  *
  * Contributors:
  *    Jevon Wright - initial API and implementation
+ *
+ *    ImpressPages team - objectify the code
  ****************************************************************************/
 
 namespace Ip\Internal\Text;
