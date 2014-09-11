@@ -88,6 +88,10 @@ class LessCompiler
         $less = '';
 
         foreach ($options as $option) {
+            if (isset($option['addToLess']) && !$option['addToLess']) {
+                continue;
+            }
+
             if (empty($option['name']) || empty($option['type'])) {
                 continue; // ignore invalid nodes
             }
@@ -112,10 +116,12 @@ class LessCompiler
                     if (!empty($option['units'])) {
                         $lessValue .= $option['units'];
                     }
+                    if (!isset($option['escape']) || $option['escape']) {
+                        $lessValue = "'" . escAttr($lessValue) . "'";
+                    }
                     break;
             }
-            $escapedValue = escAttr($lessValue);
-            $less .= "\n@{$option['name']}: '{$escapedValue}';";
+            $less .= "\n@{$option['name']}: {$lessValue};";
         }
 
         return $less;
