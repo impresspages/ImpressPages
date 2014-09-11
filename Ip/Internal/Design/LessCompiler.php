@@ -38,6 +38,8 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less .= $this->generateLessVariables($options, $config);
 
+        $css = '';
+
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
@@ -62,11 +64,11 @@ class LessCompiler
             $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
+            $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         } catch (\Exception $e) {
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
-        $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         return $css;
     }
 
