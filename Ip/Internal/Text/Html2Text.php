@@ -29,8 +29,6 @@ class Html2TextException extends \Exception {
 class Html2Text
 {
 
-
-
     /**
      * Tries to convert the given HTML into a plain text format - best suited for
      * e-mail display, etc.
@@ -43,16 +41,17 @@ class Html2Text
      *
      * @param string html the input HTML
      * @return string the HTML converted, as best as possible, to text
-     * @throws Html2TextException if the HTML could not be loaded as a {@link DOMDocument}
+     * @throws Html2TextException if the HTML could not be loaded as a {@link \DOMDocument}
      */
-    function convert_html_to_text($html) {
-        $html = fix_newlines($html);
+    public static function convert($html)
+    {
+        $html = self::fix_newlines($html);
 
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         if (!$doc->loadHTML($html))
             throw new Html2TextException("Could not load HTML - badly formed?", $html);
 
-        $output = iterate_over_node($doc);
+        $output = self::iterate_over_node($doc);
 
         // remove leading and trailing spaces on each line
         $output = preg_replace("/[ \t]*\n[ \t]*/im", "\n", $output);
@@ -63,6 +62,8 @@ class Html2Text
         return $output;
     }
 
+
+
     /**
      * Unify newlines; in particular, \r\n becomes \n, and
      * then \r becomes \n. This means that all newlines (Unix, Windows, Mac)
@@ -71,7 +72,7 @@ class Html2Text
      * @param string text text with any number of \r, \r\n and \n combinations
      * @return string the fixed text
      */
-    function fix_newlines($text) {
+    protected static function fix_newlines($text) {
         // replace \r\n to \n
         $text = str_replace("\r\n", "\n", $text);
         // remove \rs
@@ -80,7 +81,7 @@ class Html2Text
         return $text;
     }
 
-    function next_child_name($node) {
+    protected static function next_child_name($node) {
         // get the next child
         $nextNode = $node->nextSibling;
         while ($nextNode != null) {
@@ -96,7 +97,7 @@ class Html2Text
 
         return $nextName;
     }
-    function prev_child_name($node) {
+    protected static function prev_child_name($node) {
         // get the previous child
         $nextNode = $node->previousSibling;
         while ($nextNode != null) {
@@ -113,17 +114,17 @@ class Html2Text
         return $nextName;
     }
 
-    function iterate_over_node($node) {
-        if ($node instanceof DOMText) {
+    protected static function iterate_over_node($node) {
+        if ($node instanceof \DOMText) {
             return preg_replace("/[\\t\\n\\v\\f\\r ]+/im", " ", $node->wholeText);
         }
-        if ($node instanceof DOMDocumentType) {
+        if ($node instanceof \DOMDocumentType) {
             // ignore
             return "";
         }
 
-        $nextName = next_child_name($node);
-        $prevName = prev_child_name($node);
+        $nextName = self::next_child_name($node);
+        $prevName = self::prev_child_name($node);
 
         $name = strtolower($node->nodeName);
 
@@ -169,7 +170,7 @@ class Html2Text
             for ($i = 0; $i < $node->childNodes->length; $i++) {
                 $n = $node->childNodes->item($i);
 
-                $text = iterate_over_node($n);
+                $text = self::iterate_over_node($n);
 
                 $output .= $text;
             }
