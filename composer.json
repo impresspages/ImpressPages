@@ -1,0 +1,16 @@
+{
+    "name": "meskis/impresspages",
+    "description": "ImpressPages",
+    "authors": [
+        {
+            "name": "Martynas Eskis",
+            "email": "eskis.martynas@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Ip\\": "Ip/"
+        }
+    }
+}
