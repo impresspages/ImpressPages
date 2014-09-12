@@ -101,14 +101,6 @@ class AdminController extends \Ip\GridController
 
 
 
-    public static function html2text($value, $recordData)
-    {
-        $html2text = new \Ip\Internal\Text\Html2Text('<html><body>' . $value . '</body></html>', false);
-        $text = esc($html2text->get_text());
-        $text = str_replace("\n", '<br/>', $text);
-        return $text;
-    }
-
     public static function to($value, $recordData)
     {
         return esc($recordData['toName'] . ' ' . $value);
