@@ -40,6 +40,7 @@
         clearInterval(loadInterval);
 
         $this.find('.ipsColorPicker').spectrum({
+            preferredFormat: 'RGB',
             showInput: true,
             cancelText: $this.find('.ipsColorPicker').data('canceltext'),
             chooseText: $this.find('.ipsColorPicker').data('confirmtext'),
