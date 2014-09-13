@@ -7290,6 +7290,7 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7297,6 +7298,7 @@ button.close {
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -7325,6 +7327,7 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7332,6 +7335,7 @@ button.close {
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
