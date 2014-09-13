@@ -60,7 +60,7 @@ class ReflectionModel
             $reflection = $this->createReflectionRecord($file, $options, $desiredName);
         }
 
-        if (!$onDemand && !is_file($reflection['reflection'])) {
+        if (!$onDemand && !is_file($reflection)) {
             $this->createReflection($file, $reflection, $options);
         }
 
