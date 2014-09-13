@@ -350,7 +350,7 @@ class Table extends \Ip\Internal\Grid\Model
                 if (in_array($key, array('antispam', 'securityToken')) ) {
                     continue;
                 }
-                if(empty($value)) {
+                if($value == '') {
                     unset($statusVariables['s_' . $key]);
                     continue;
                 }
