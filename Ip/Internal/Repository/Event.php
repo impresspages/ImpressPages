@@ -11,7 +11,7 @@ class Event
     public static function ipBeforeController()
     {
 
-        if (ipIsManagementState()) {
+        if (ipAdminId()) {
             ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepository.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryUploader.js');
