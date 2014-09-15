@@ -68,7 +68,11 @@ class Submenu
 
         foreach ($modules as $module) {
             $menuItem = new \Ip\Menu\Item();
-            $menuItem->setTitle(__($module, 'Ip-admin', false)); //
+            $title = $module;
+            if ($title == 'Email') {
+                $title = 'Email log';
+            }
+            $menuItem->setTitle(__($title, 'Ip-admin', false)); //
             $menuItem->setUrl(ipActionUrl(array('aa' => $module . '.index')));
             if (ipRoute()->controllerClass() == 'Ip\Internal\\' . $module . '\AdminController') {
                 $menuItem->markAsCurrent(true);
