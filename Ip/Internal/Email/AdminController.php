@@ -28,11 +28,6 @@ class AdminController extends \Ip\GridController
                     'field' => 'subject'
                 ),
                 array(
-                    'label' => __('Email', 'Ip-admin', false),
-                    'field' => 'email',
-                    'preview' => __CLASS__ . '::html2text'
-                ),
-                array(
                     'label' => __('Recipient name', 'Ip-admin', false),
                     'field' => 'toName',
                     'preview' => false
