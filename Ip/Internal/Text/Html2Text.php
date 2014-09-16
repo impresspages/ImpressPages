@@ -47,11 +47,18 @@ class Html2Text
      */
     public static function convert($html)
     {
+        if ($html == '') {
+            return '';
+        }
         $html = self::fix_newlines($html);
 
         $doc = new \DOMDocument();
-        if (!$doc->loadHTML($html))
+        $prevValue = libxml_use_internal_errors(true);
+        $loaded = $doc->loadHTML($html);
+        libxml_use_internal_errors($prevValue);
+        if (!$loaded) {
             throw new Html2TextException("Could not load HTML - badly formed?", $html);
+        }
 
         $output = self::iterate_over_node($doc);
 
