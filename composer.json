@@ -5,7 +5,7 @@
     "description": "ImpressPages framework & CMS",
     "keywords": ["impresspages","frameword","CMS"],
     "homepage": "http://www.impresspages.org",
-    "license": "MIT, LGPL-3.0+",
+    "license": "MIT",
     "authors": [
         {
             "name": "Mangirdas Skripka",
