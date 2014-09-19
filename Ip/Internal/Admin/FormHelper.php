@@ -31,9 +31,19 @@ class FormHelper
     protected static function getAvailableLocales()
     {
         $locales = array();
-        $files = scandir(ipFile('Ip/Internal/Translations/translations'));
-        $files = array_merge($files, scandir(ipFile('file/translations/original')));
-        $files = array_merge($files, scandir(ipFile('file/translations/override')));
+        $translationDirectories = array(
+            ipFile('Ip/Internal/Translations/translations'),
+            ipFile('file/translations/original'),
+            ipFile('file/translations/override')
+        );
+        $files = array();
+        foreach($translationDirectories as $dir) {
+            if (!is_dir($dir)) {
+                continue;
+            }
+            $files = array_merge($files, scandir($dir));
+        }
+
 
         $files = array_unique($files, SORT_STRING);
         sort($files);
