@@ -28,8 +28,7 @@ class ImageCrop extends Image
      */
     public function __construct($x1, $y1, $x2, $y2, $widthDest, $heightDest, $quality = null)
     {
-        if ($quality === null)
-        {
+        if ($quality === null) {
             $quality = ipGetOption('Config.defaultImageQuality');
         }
 
@@ -100,7 +99,6 @@ class ImageCrop extends Image
     }
 
 
-
     public function crop($sourceFile, $x1, $y1, $x2, $y2, $widthDest, $heightDest)
     {
         $image = $this->createImageImage($sourceFile);
@@ -114,8 +112,14 @@ class ImageCrop extends Image
         }
 
 
-
-        if ($this->croppingGoesOutOfImage($sourceFile, $x1, $y1, $x2, $y2)) { //cropping area goes out of image edge. Fill transparent.
+        if ($this->croppingGoesOutOfImage(
+            $sourceFile,
+            $x1,
+            $y1,
+            $x2,
+            $y2
+        )
+        ) { //cropping area goes out of image edge. Fill transparent.
             /*
             * Negative coordinates x1, y1 are possible.
             * This part of code just adds transparent edges in this way making $image required proportions.
@@ -124,7 +128,7 @@ class ImageCrop extends Image
             * */
             $tmpImage = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
             imagealphablending($tmpImage, false);
-            imagesavealpha($tmpImage,true);
+            imagesavealpha($tmpImage, true);
             $color = imagecolorallocatealpha($tmpImage, 255, 255, 255, 127);
             imagefilledrectangle($tmpImage, 0, 0, $x2 - $x1, $y2 - $y1, $color);
             if ($x1 >= 0) {
@@ -157,7 +161,18 @@ class ImageCrop extends Image
 
             }
 
-            imagecopyresampled($tmpImage, $image, $dx1, $dy1, $sx1, $sy1, $dx2 - $dx1, $dy2 - $dy1, $sx2 - $sx1, $sy2 - $sy1);
+            imagecopyresampled(
+                $tmpImage,
+                $image,
+                $dx1,
+                $dy1,
+                $sx1,
+                $sy1,
+                $dx2 - $dx1,
+                $dy2 - $dy1,
+                $sx2 - $sx1,
+                $sy2 - $sy1
+            );
             $image = $tmpImage;
 
             $sx1 = 0;
@@ -178,10 +193,10 @@ class ImageCrop extends Image
 
         $imageNew = imagecreatetruecolor($widthDest, $heightDest);
         imagealphablending($imageNew, false);
-        imagesavealpha($imageNew,true);
+        imagesavealpha($imageNew, true);
         $color = imagecolorallocatealpha($imageNew, 255, 255, 255, 127);
         imagefilledrectangle($imageNew, 0, 0, $widthDest, $heightDest, $color);
-        imagecopyresampled($imageNew, $image, 0,  0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
+        imagecopyresampled($imageNew, $image, 0, 0, $sx1, $sy1, $widthDest, $heightDest, $sx2 - $sx1, $sy2 - $sy1);
 
         return $imageNew;
     }

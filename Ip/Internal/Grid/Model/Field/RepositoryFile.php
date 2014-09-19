@@ -23,7 +23,11 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
             $this->repositoryBindKey = 'Table_' . $wholeConfig['table'] . '_' . $this->field;
         }
 
-        $this->fileLimit = 1;
+        if (array_key_exists('fileLimit', $fieldFieldConfig)) {
+            $this->fileLimit = $fieldFieldConfig['fileLimit'];
+        } else {
+            $this->fileLimit = 1;
+        }
 
         if (!empty($this->defaultValue) && !is_array($this->defaultValue)) {
             $this->defaultValue = array($this->defaultValue);
@@ -33,7 +37,16 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
     public function preview($recordData)
     {
-        return esc($recordData[$this->field]);
+        if ($this->fileLimit == 1) {
+            return esc($recordData[$this->field]);
+        } else {
+            $data = json_decode($recordData[$this->field]);
+            if (is_array($data)) {
+                $data = implode(', ', $data);
+            }
+            return esc($data);
+        }
+
     }
 
     public function createField()
@@ -45,14 +58,27 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
         }
-        $field->setValue($this->defaultValue);
+        $field->setValue(json_decode($this->defaultValue));
         return $field;
     }
 
     public function createData($postData)
     {
         if (isset($postData[$this->field][0])) {
-            return array($this->field => $postData[$this->field][0]);
+            if ($this->fileLimit == 1) {
+                if (!isset($postData[$this->field][0])) {
+                    $value = null;
+                } else {
+                    $value = $postData[$this->field][0];
+                }
+            } else {
+                if (!isset($postData[$this->field][0])) {
+                    $value = json_encode(array());
+                } else {
+                    $value = json_encode($postData[$this->field]);
+                }
+            }
+            return array($this->field => $value);
         }
         return array();
     }
@@ -66,17 +92,31 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
         }
-        $field->setValue(array($curData[$this->field]));
+
+        if ($this->fileLimit == 1) {
+            $field->setValue(array($curData[$this->field]));
+        } else {
+            $field->setValue(json_decode($curData[$this->field]));
+        }
         return $field;
     }
 
     public function updateData($postData)
     {
-        $field = new \Ip\Form\Field\RepositoryFile(array(
-            'label' => $this->label,
-            'name' => $this->field
-        ));
-        return array ($this->field => $field->getValueAsString($postData, $this->field));
+        if ($this->fileLimit == 1) {
+            if (!isset($postData[$this->field][0])) {
+                $value = null;
+            } else {
+                $value = $postData[$this->field][0];
+            }
+        } else {
+            if (!isset($postData[$this->field][0])) {
+                $value = json_encode(array());
+            } else {
+                $value = json_encode($postData[$this->field]);
+            }
+        }
+        return array($this->field => $value);
     }
 
 
@@ -95,8 +135,11 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     public function searchQuery($searchVariables)
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return $this->field . ' like \'%'.mysql_real_escape_string($searchVariables[$this->field]) . '%\' ';
+            return '`' . $this->field . '` like ' . ipDb()->getConnection()->quote(
+                '%' . $searchVariables[$this->field] . '%'
+            ) . ' ';
         }
+        return null;
     }
 
     public function afterDelete($recordId, $curData)

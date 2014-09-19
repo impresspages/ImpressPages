@@ -30,19 +30,23 @@ class Service
         return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']); //we can't check here if we are in a page. It will result in widget rendering in non management mode when widget is rendered using ajax
     }
 
-    public static function getPageLayout(\Ip\Page $page)
-    {
-        return ipPageStorage($page->getId())->get('layout', 'main.php');
-    }
 
-    public static function createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible = true)
-    {
+    public static function createWidget(
+        $widgetName,
+        $data,
+        $skin,
+        $revisionId,
+        $languageId,
+        $blockName,
+        $position,
+        $visible = true
+    ) {
         $widgetObject = Model::getWidgetObject($widgetName);
         if (!$widgetObject) {
             throw new \Ip\Exception("Widget '" . esc($widgetName) . "' doesn't exist");
         }
 
-        if ($data ===  null) {
+        if ($data === null) {
             $data = $widgetObject->defaultData();
         }
 
@@ -51,7 +55,16 @@ class Service
             $skin = $skins[0]['name'];
         }
 
-        $widgetId = Model::createWidget($widgetName, $data, $skin, $revisionId, $languageId, $blockName, $position, $visible);
+        $widgetId = Model::createWidget(
+            $widgetName,
+            $data,
+            $skin,
+            $revisionId,
+            $languageId,
+            $blockName,
+            $position,
+            $visible
+        );
         return $widgetId;
     }
 

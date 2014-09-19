@@ -18,4 +18,10 @@ class Service
         return Model::getUserId();
     }
 
+    public static function setAdminLogin($username)
+    {
+        $model = Model::instance();
+        $model->setAdminLogin($username);
+    }
+
 }

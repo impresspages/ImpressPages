@@ -15,6 +15,7 @@ namespace Ip\Internal\Email;
 
 /** @private */
 require_once(ipFile('Ip/Lib/PHPMailer/class.phpmailer.php'));
+
 /**
  * Class to send emails. Typically all emails should be send trouht this class.
  * @package ImpressPages
@@ -31,13 +32,16 @@ class Module
      * Newsletters, greetings always can wait a litle. So they are not immediate and will not be send if is less than 20% of traffic left.
      *
      * @param string $from email address from whish an email should be send
-     * @param string @fromName
+     * @param $fromName
      * @param string $to email address where an email should be send
-     * @param string @toName
+     * @param $toName
+     * @param $subject
      * @param string $email email html text
      * @param bool $immediate indicate hurry of an email.
      * @param bool $html true if email message should be send as html
      * @param array $files files that should be attached to the email. Files should be accessible for php at this moment. They will be cached until send time.
+     * @internal param $string @fromName
+     * @internal param $string @toName
      */
     function addEmail($from, $fromName, $to, $toName, $subject, $email, $immediate, $html, $files = null)
     {
@@ -92,7 +96,7 @@ class Module
     }
 
     /**
-     * Checks if there is some emails waiting in queue and sends them if possible.
+     * Checks if there are some emails waiting in queue and sends them if possible.
      */
     function send()
     {
@@ -181,10 +185,13 @@ class Module
                     if ($email['html']) {
                         $mail->IsHTML(true); // send as HTML
 
-                        $h2t = new \Ip\Internal\Text\Html2Text($email['email'], false);
-                        //$mail->Body = $email['email'];
                         $mail->MsgHTML($email['email']);
-                        $mail->AltBody = $h2t->get_text();
+                        try {
+                            $altBody = \Ip\Internal\Text\Html2Text::convert($email['email']);
+                        } catch (\Ip\Internal\Text\Html2TextException $e) {
+                            $altBody = $email['email'];
+                        }
+                        $mail->AltBody = $altBody;
                     } else {
                         /*$h2t = new \Ip\Internal\Text\Html2Text($content, false);
                          $mail->Body  =  $h2t->get_text();*/
@@ -212,7 +219,7 @@ class Module
 
             }
         }
-
+        return null;
     }
 
 }

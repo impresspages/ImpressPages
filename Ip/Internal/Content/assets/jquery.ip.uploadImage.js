@@ -34,18 +34,18 @@
  */
 
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
+        init: function (options) {
 
-            return this.each(function() {
+            return this.each(function () {
                 var $this = $(this);
 
                 var data = $this.data('ipUploadImage');
                 // If the plugin hasn't been initialized yet
-                if ( ! data ) {
+                if (!data) {
                     var defaultImage;
                     if (options.defaultImage) {
                         defaultImage = options.defaultImage;
@@ -120,31 +120,31 @@
                     }
 
 
-                    var uniqueId = Math.floor(Math.random()*9999999999999999) + 1;
+                    var uniqueId = Math.floor(Math.random() * 9999999999999999) + 1;
                     $this.data('ipUploadImage', {
-                        windowWidth : options.windowWidth,
-                        windowHeight : options.windowHeight,
-                        enableChangeWidth : options.enableChangeWidth,
-                        enableChangeHeight : options.enableChangeHeight,
-                        enableScale : options.enableScale,
-                        enableUnderscale : options.enableUnderscale,
-                        enableFraming : options.enableFraming,
-                        autosizeType : options.autosizeType,
-                        maxWindowWidth : options.maxWindowWidth,
-                        maxWindowHeight : options.maxWindowHeight,
-                        minWindowWidth : options.minWindowWidth,
-                        minWindowHeight : options.minWindowHeight,
-                        cropX1 : options.cropX1,
-                        cropY1 : options.cropY1,
-                        cropX2 : options.cropX2,
-                        cropY2 : options.cropY2,
+                        windowWidth: options.windowWidth,
+                        windowHeight: options.windowHeight,
+                        enableChangeWidth: options.enableChangeWidth,
+                        enableChangeHeight: options.enableChangeHeight,
+                        enableScale: options.enableScale,
+                        enableUnderscale: options.enableUnderscale,
+                        enableFraming: options.enableFraming,
+                        autosizeType: options.autosizeType,
+                        maxWindowWidth: options.maxWindowWidth,
+                        maxWindowHeight: options.maxWindowHeight,
+                        minWindowWidth: options.minWindowWidth,
+                        minWindowHeight: options.minWindowHeight,
+                        cropX1: options.cropX1,
+                        cropY1: options.cropY1,
+                        cropX2: options.cropX2,
+                        cropY2: options.cropY2,
 
-                        defaultImage : defaultImage,
-                        imageChanged : false,
-                        coordinatesChanged : false,
+                        defaultImage: defaultImage,
+                        imageChanged: false,
+                        coordinatesChanged: false,
 
-                        curImage : curImage,
-                        uniqueId : uniqueId
+                        curImage: curImage,
+                        uniqueId: uniqueId
                     });
 
 
@@ -152,16 +152,16 @@
                     data.aa = 'Content.getImageContainerHtml';
 
                     $.ajax({
-                        type : 'GET',
-                        url : ip.baseUrl,
-                        data : data,
-                        context : $this,
-                        success : containerHtmlResponse,
-                        dataType : 'json'
+                        type: 'GET',
+                        url: ip.baseUrl,
+                        data: data,
+                        context: $this,
+                        success: containerHtmlResponse,
+                        dataType: 'json'
                     });
 
 
-                    $this.on('scaleUp.ipUploadImage scaleDown.ipUploadImage resize.ipUploadImage framed.ipUploadImage addImage.ipUploadImage', function() {
+                    $this.on('scaleUp.ipUploadImage scaleDown.ipUploadImage resize.ipUploadImage framed.ipUploadImage addImage.ipUploadImage', function () {
                         $(this).trigger('change.ipUploadImage');
                     })
 
@@ -173,18 +173,18 @@
         },
 
         destroy: function () {
-            return this.each(function() {
+            return this.each(function () {
                 var $this = $(this);
                 $this.data('ipUploadImage', null);
                 $this.data('originalWidth', null);
                 $this.data('originalHeight', null);
-                $this.data('firstImageLoaded', null)
+                $this.data('firstImageLoaded', null);
                 $this.html('');
                 $this.off();
             });
         },
 
-        getCurImage : function () {
+        getCurImage: function () {
             var $this = this;
             if ($this.data('ipUploadImage').curImage !== $this.data('ipUploadImage').defaultImage) {
                 return $this.data('ipUploadImage').curImage;
@@ -193,17 +193,17 @@
             }
         },
 
-        getNewImageUploaded : function () {
+        getNewImageUploaded: function () {
             var $this = this;
             return $this.data('ipUploadImage').imageChanged;
         },
 
-        getCropCoordinatesChanged : function () {
+        getCropCoordinatesChanged: function () {
             var $this = this;
             return $this.data('ipUploadImage').coordinatesChanged || this.ipUploadImage('getNewImageUploaded');
         },
 
-        getCropCoordinates : function () {
+        getCropCoordinates: function () {
             var $this = this;
 
             var $image = $this.find('.ipsImage');
@@ -212,8 +212,8 @@
 
             var coordinates = new Object;
 
-            var offsetX = - parseInt($dragContainer.css('margin-left')) - parseInt($image.css('left'));
-            var offsetY = - parseInt($dragContainer.css('margin-top')) - parseInt($image.css('top'));
+            var offsetX = -parseInt($dragContainer.css('margin-left')) - parseInt($image.css('left'));
+            var offsetY = -parseInt($dragContainer.css('margin-top')) - parseInt($image.css('top'));
 
 
             var currentWidth = $image.width();
@@ -229,17 +229,17 @@
             return coordinates;
         },
 
-        getImageWidth : function() {
+        getImageWidth: function () {
             var $this = this;
             return $this.find('.ipsModuleUploadWindow').width();
         },
 
-        getImageHeight : function() {
+        getImageHeight: function () {
             var $this = this;
             return $this.find('.ipsModuleUploadWindow').height();
         },
 
-        width : function () {
+        width: function () {
             var $this = this;
             $this.find('.ipsButtons').hide();
             var answer = $this.find('.ipsModuleUploadWindow').width();
@@ -247,7 +247,7 @@
             return answer;
         },
 
-        height : function () {
+        height: function () {
             var $this = this;
             $this.find('.ipsButtons').hide();
             var answer = $this.find('.ipsModuleUploadWindow').height();
@@ -260,14 +260,12 @@
     };
 
 
-
     /**
      * cofigure management tools. It just fixes everything after image or window size changes.
-     * @param e
      * @param imageCenterXPercentage
      * @param imageCenterYPercentage
      */
-    var configureManagement = function(imageCenterXPercentage, imageCenterYPercentage) {
+    var configureManagement = function (imageCenterXPercentage, imageCenterYPercentage) {
         var $this = $(this);
         var $image = $this.find('.ipsImage');
         var $window = $image.parent().parent();
@@ -297,15 +295,14 @@
 
         $dragContainer.css('margin-left', -marginHorizontal);
         $dragContainer.css('margin-right', -marginHorizontal);
-        $dragContainer.width($window.width() + marginHorizontal*2);
+        $dragContainer.width($window.width() + marginHorizontal * 2);
         $image.css('left', Math.round($dragContainer.width() / 2 - imageCenterX));
-        if (parseInt($image.css('left')) < 0){
+        if (parseInt($image.css('left')) < 0) {
             $image.css('left', 0);
         }
-        if (parseInt($image.css('left')) > $dragContainer.width() - $image.width()){
+        if (parseInt($image.css('left')) > $dragContainer.width() - $image.width()) {
             $image.css('left', $dragContainer.width() - $image.width());
         }
-
 
 
         var marginVertical = $image.height() - $window.height();
@@ -315,12 +312,12 @@
 
         $dragContainer.css('margin-top', -marginVertical);
         $dragContainer.css('margin-bottom', -marginVertical);
-        $dragContainer.height($window.height() + marginVertical*2);
+        $dragContainer.height($window.height() + marginVertical * 2);
         $image.css('top', Math.round($dragContainer.height() / 2 - imageCenterY));
-        if (parseInt($image.css('top')) < 0){
+        if (parseInt($image.css('top')) < 0) {
             $image.css('top', 0);
         }
-        if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()){
+        if (parseInt($image.css('top')) > $dragContainer.height() - $image.height()) {
             $image.css('top', $dragContainer.height() - $image.height());
         }
 
@@ -328,7 +325,7 @@
     };
 
 
-    var scaleUp = function(e){
+    var scaleUp = function (e) {
         var $this = $(this);
         var scaleFactor = 1.1;
 
@@ -355,7 +352,7 @@
         $this.trigger('scaleUp.ipUploadImage');
     };
 
-    var scaleDown = function(e){
+    var scaleDown = function (e) {
         var $this = $(this);
 
         var scaleFactor = 1.1;
@@ -416,14 +413,14 @@
             resizableOptions.minHeight = data.minWindowHeight;
             $uploadWindow.resizable(resizableOptions);
 
-            $uploadWindow.bind( "resize", function(event, ui) {
+            $uploadWindow.bind("resize", function (event, ui) {
                 $.proxy(resizedWindow, $this)(event, ui);
             });
         }
 
         var $buttonScaleUp = $this.find('.ipsButtonScaleUp');
         if (data.enableScale) {
-            $buttonScaleUp.click(function(e) {
+            $buttonScaleUp.click(function (e) {
                 e.preventDefault();
                 $.proxy(scaleUp, $this)(e);
             });
@@ -433,7 +430,7 @@
 
         var $buttonScaleDown = $this.find('.ipsButtonScaleDown');
         if (data.enableScale) {
-            $buttonScaleDown.click(function(e) {
+            $buttonScaleDown.click(function (e) {
                 e.preventDefault();
                 $.proxy(scaleDown, $this)(e);
             });
@@ -442,7 +439,7 @@
         }
 
         //uploaded new photo and loaded. Reinit drag container
-        $this.find('.ipsImage').on('load', function (){
+        $this.find('.ipsImage').on('load', function () {
             $.proxy(imageLoaded, $this)();
         });
 
@@ -453,17 +450,19 @@
         $this.find('.ipsImage').draggable({
             containment: "parent",
             disabled: !data.enableFraming,
-            stop: jQuery.proxy(function(event, ui) { $(this).trigger('framed.ipUploadImage'); }, $this)
+            stop: jQuery.proxy(function (event, ui) {
+                $(this).trigger('framed.ipUploadImage');
+            }, $this)
         });
 
-        $this.bind( "dragstop", function(event, ui) {
+        $this.bind("dragstop", function (event, ui) {
             $this = $(this);
             var data = $this.data('ipUploadImage');
             data.coordinatesChanged = true;
             $this.data('ipUploadImage', data);
         });
 
-        $this.find('#ipUploadButton_' + data.uniqueId).click(function(e){
+        $this.find('#ipUploadButton_' + data.uniqueId).click(function (e) {
             e.preventDefault();
             var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
             repository.bind('ipRepository.filesSelected', $.proxy(uploadedNewFile, $this));
@@ -514,11 +513,10 @@
     };
 
 
-
     /**
      * img onLoad event
      */
-    var imageLoaded = function() {
+    var imageLoaded = function () {
         var $this = $(this);
         var $image = $this.find('.ipsImage');
         var $window = $image.parent().parent();
@@ -665,19 +663,7 @@
     };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    var restoreOriginalDimensions = function(){
+    var restoreOriginalDimensions = function () {
         var $this = $(this);
         var $image = $this.find('.ipsImage');
         var $window = $image.parent().parent();
@@ -757,10 +743,10 @@
         }
         $.proxy(configureManagement, $this)(centerPercentageX, centerPercentageY);
 
-    }
+    };
 
 
-    $.fn.ipUploadImage = function(method) {
+    $.fn.ipUploadImage = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {

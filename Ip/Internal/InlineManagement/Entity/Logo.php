@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -29,10 +28,11 @@ class Logo
 
     /**
      * @param array|string $data
+     * @param string $defaultLogo
      */
     public function __construct($data, $defaultLogo = null)
     {
-        if(is_string($data)) {
+        if (is_string($data)) {
             $data = $this->parseStr($data);
         }
 
@@ -44,7 +44,7 @@ class Logo
             }
         }
 
-        switch($data['type']) {
+        switch ($data['type']) {
             case self::TYPE_TEXT:
                 $this->type = self::TYPE_TEXT;
                 break;
@@ -59,7 +59,7 @@ class Logo
         if (!empty($data['imageOrig']) && file_exists(ipFile('file/repository/' . $data['imageOrig']))) {
             $this->imageOrig = $data['imageOrig'];
 
-            if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2']) ) {
+            if (isset($data['x1']) && isset($data['y1']) && isset($data['x2']) && isset($data['y2'])) {
                 $this->x1 = $data['x1'];
                 $this->y1 = $data['y1'];
                 $this->x2 = $data['x2'];
@@ -85,7 +85,7 @@ class Logo
                     'height' => $this->getRequiredHeight(),
                     'quality' => 100
                 );
-                $requestedName = ipGetOptionLang('Config.websiteTitle');
+                $requestedName = \Ip\Internal\Text\Specialchars::url(ipGetOptionLang('Config.websiteTitle'));
                 $this->image = ipReflection($this->getImageOrig(), $transform, $requestedName);
             }
         } else {

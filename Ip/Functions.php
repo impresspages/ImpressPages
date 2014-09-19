@@ -1,12 +1,14 @@
 <?php
 
 /**
- * ImpressPages sugar methods
+ * @package ImpressPages
+ *
  */
 
 
 /**
  * Get application object.
+ *
  * @return \Ip\Application Application object
  */
 function ipApplication()
@@ -45,8 +47,7 @@ function ipGetOption($option, $defaultValue = null)
  * @param string $languageCode Language code.
  * @param mixed|null $defaultValue Default value. Returned if the option was not set.
  * @return mixed Option value.
-*/
-
+ */
 function ipGetOptionLang($option, $languageCode = null, $defaultValue = null)
 {
     if ($languageCode == null) {
@@ -59,7 +60,6 @@ function ipGetOptionLang($option, $languageCode = null, $defaultValue = null)
  * Set option value
  *
  * You can use this function to set your plugin settings. Also, options can be viewed or changed using administration pages.
- *
  * @param string $option Option name. Option names use syntax "PluginName.optionName".
  * @param mixed $value Option value.
  */
@@ -69,7 +69,7 @@ function ipSetOption($option, $value)
 }
 
 /**
- *  Set language specific option value
+ * Set language specific option value
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param mixed $value Option value.
@@ -88,11 +88,11 @@ function ipSetOptionLang($option, $value, $languageCode = null)
  * Remove option
  *
  * Options can be viewed or changed using administration pages.
- * @param $option Option name. Option names use syntax PluginName.optionName.
+ * @param string $option Option name. Option names use syntax PluginName.optionName.
  */
 function ipRemoveOption($option)
 {
-    return \Ip\ServiceLocator::options()->removeOption($option);
+    \Ip\ServiceLocator::options()->removeOption($option);
 }
 
 /**
@@ -100,18 +100,17 @@ function ipRemoveOption($option)
  *
  * @param string $option Option name. Option names use syntax PluginName.optionName.
  * @param int $languageId Language ID.
+ * @return null
  */
 function ipRemoveOptionLang($option, $languageId)
 {
-    return \Ip\ServiceLocator::options()->getOptionLang($option, $languageId);
+    \Ip\ServiceLocator::options()->removeOptionLang($option, $languageId);
 }
-
 
 /**
  * Get website configuration object
  *
  * Use website configuration object to access configuration values, such as base URL, debug mode, current theme, etc.
- *
  * @return \Ip\Config Configuration object.
  */
 function ipConfig()
@@ -119,10 +118,8 @@ function ipConfig()
     return \Ip\ServiceLocator::config();
 }
 
-
-
 /**
- * Get content object
+ * Get content object.
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -136,7 +133,6 @@ function ipContent()
  * Add JavaScript file to a web page
  *
  * After adding all JavaScript files, issue ipJs() function to generate JavaScript links HTML code.
- *
  * @param string $file JavaScript file pathname. Can be provided as URL address, a pathname relative to current directory or to website root.
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
@@ -163,7 +159,6 @@ function ipAddJs($file, $attributes = null, $priority = 50)
  * Add JavaScript variable
  *
  * Generates JavaScript code which sets variables using specified values.
- *
  * @param string $name JavaScript variable name.
  * @param mixed $value Variable value. Note: Do not use object as a value.
  */
@@ -176,7 +171,6 @@ function ipAddJsVariable($name, $value)
  * Add JavaScript script. $value will be put inside <script> tags inline into HTML
  *
  * Generates JavaScript code which sets variables using specified values.
- *
  * @param string $name JavaScript variable name.
  * @param mixed $value Variable value. Note: Do not use object as a value.
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
@@ -229,7 +223,6 @@ function ipLog()
  * Generate HTML code which loads JavaScript files added by ipAddJs() function.
  * @return string HTML code with links to JavaScript files.
  */
-
 function ipJs()
 {
     return \Ip\ServiceLocator::pageAssets()->generateJavascript();
@@ -250,7 +243,6 @@ function ipHead()
  *
  * @param string $file Layout file name, e.g. "main.php".
  */
-
 function ipSetLayout($file)
 {
     $response = \Ip\ServiceLocator::response();
@@ -282,8 +274,12 @@ function ipGetLayout()
     if (method_exists($response, 'getLayout')) {
         return $response->getLayout();
     } else {
-        ipLog()->error('Response.cantGetLayout: Response method has no method getLayout', array('response' => $response));
+        ipLog()->error(
+            'Response.cantGetLayout: Response method has no method getLayout',
+            array('response' => $response)
+        );
     }
+    return null;
 }
 
 /**
@@ -297,14 +293,13 @@ function ipBlock($block)
     return \Ip\ServiceLocator::content()->generateBlock($block);
 }
 
-
 /**
- * Get slot object
- *
- * See slot documentation pages for more details.
+ * Generate slot HTML
+ * http://www.impresspages.org/docs/slots
  *
  * @param string $slot Slot name.
  * @param array|null $params Slot parameters.
+ * @return string
  */
 function ipSlot($slot, $params = array())
 {
@@ -327,7 +322,6 @@ function ipIsManagementState()
  * Get HTTP request object
  *
  * HTTP request object can be used to get HTTP POST, GET and SERVER variables, and to perform other HTTP request related tasks.
- *
  * @return \Ip\Request Request object.
  */
 
@@ -352,7 +346,6 @@ function ipEvent($event, $data = array())
  * Filter data
  *
  * Fires an event for transforming a value.
- *
  * @param string $event Filter name, e.g. "MyPlugin_myFilter".
  * @param mixed $value Value to filter.
  * @param array $data Context array.
@@ -366,7 +359,7 @@ function ipFilter($event, $value, $data = array())
 /**
  * Create a job
  *
- * @param $eventName Job event name, e.g. "MyPlugin_myJob"
+ * @param string $eventName Job event name, e.g. "MyPlugin_myJob"
  * @param array $data Data for job processing.
  * @return mixed|null Job result value.
  */
@@ -374,7 +367,6 @@ function ipJob($eventName, $data = array())
 {
     return \Ip\ServiceLocator::dispatcher()->job($eventName, $data);
 }
-
 
 /**
  * Get database object
@@ -398,11 +390,10 @@ function esc($string)
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }
 
-
 /**
  * Get escaped HTML text area content
  *
- * @param $value Unescaped string, containing HTML <textarea> tag content.
+ * @param string $value Unescaped string, containing HTML <textarea> tag content.
  * @return string Escaped string.
  */
 function escTextarea($value)
@@ -413,20 +404,16 @@ function escTextarea($value)
 /**
  * Get escaped HTML attribute.
  *
- *
  * QUOTES ARE MANDATORY!!!
- *
  *
  * Correct example:
  * &lt;div css=&quot;&lt;?php echo escAttr() ?&gt;&quot;&gt;
  *
- *
  * Incorrect example:
  * &lt;div css=&lt;?php echo escAttr() ?&gt;&gt;
- * @param $value Unescaped HTML attribute.
+ * @param string $value Unescaped HTML attribute.
  * @return string Escaped string.
  */
-
 function escAttr($value)
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
@@ -435,7 +422,7 @@ function escAttr($value)
 /**
  * Translate and escape a string
  *
- * @param $text Original value in English.
+ * @param string $text Original value in English.
  * @param string $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  * @return string Translated string or original string if no translation exists.
@@ -462,10 +449,11 @@ function __($text, $domain, $esc = 'html')
  * You can change translation locale for some code.
  *
  * @param string $languageCode
- * @param callable $closure this code will be executed in given language
- * @return mixed old language or the result of closure
+ * @param callable $closure this code will be executed in given language.
+ * @return mixed old language or the result of closure.
  */
-function ipSetTranslationLanguage($languageCode, \Closure $closure = null) {
+function ipSetTranslationLanguage($languageCode, \Closure $closure = null)
+{
     if ($closure) {
         $oldLanguage = ipSetTranslationLanguage($languageCode);
 
@@ -485,8 +473,8 @@ function ipSetTranslationLanguage($languageCode, \Closure $closure = null) {
 /**
  * Translate, escape and then output a string
  *
- * @param $text Original value in English.
- * @param $domain Context, e.g. plugin name.
+ * @param string $text Original value in English.
+ * @param string $domain Context, e.g. plugin name.
  * @param string $esc Escape type. Available values: false, 'html', 'attr', 'textarea'.
  */
 function _e($text, $domain, $esc = 'html')
@@ -497,12 +485,13 @@ function _e($text, $domain, $esc = 'html')
 if (!function_exists('ipFile')) {
     /**
      * Gets absolute file path
-     * @param $path A path or a pathname.
+     *
+     * @param string $path A path or a pathname.
      * @return mixed|string Absolute path or pathname.
      */
     function ipFile($path)
     {
-        global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot
+        global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot.
 
         if (!$ipFile_baseDir) {
             $ipFile_baseDir = ipConfig()->get('baseDir');
@@ -524,7 +513,8 @@ if (!function_exists('ipFile')) {
 if (!function_exists('ipFileUrl')) {
     /**
      * Gets URL by a file name
-     * @param $path Pathname relative to current directory or root.
+     *
+     * @param string $path Pathname relative to current directory or root.
      * @return mixed|string File's URL address.
      */
     function ipFileUrl($path)
@@ -566,7 +556,7 @@ function ipRouteUrl($route, $params = array())
 /**
  * Get URL address of current theme folder
  *
- * @param $path Path or pathname relative to current theme directory.
+ * @param string $path Path or pathname relative to current theme directory.
  * @return mixed|string Theme's URL path
  */
 function ipThemeUrl($path)
@@ -577,21 +567,19 @@ function ipThemeUrl($path)
 /**
  * Gets the file path of the current theme folder
  *
- * @param $path  A path or a pathname relative to Theme/ directory.
+ * @param string $path A path or a pathname relative to Theme/ directory.
  * @return mixed|string Absolute path or pathname.
  */
-
 function ipThemeFile($path)
 {
     return ipFile('Theme/' . ipConfig()->theme() . '/' . $path);
 }
 
 /**
- * Get homepage URL
- *
- * @return string Homepage URL address.
+ * @param string|null $languageCode
+ * @return string
  */
-function ipHomeUrl()
+function ipHomeUrl($languageCode = null)
 {
     $homeUrl = ipConfig()->baseUrl();
     if (ipConfig()->get('rewritesDisabled')) {
@@ -599,7 +587,12 @@ function ipHomeUrl()
     }
 
     if (ipGetOption('Config.multilingual')) {
-        $homeUrl .= ipContent()->getCurrentLanguage()->getUrlPath();
+        if ($languageCode == null) {
+            $language = ipContent()->getCurrentLanguage();
+        } else {
+            $language = ipContent()->getLanguageByCode($languageCode);
+        }
+        $homeUrl .= $language->getUrlPath();
     }
 
     return $homeUrl;
@@ -608,80 +601,93 @@ function ipHomeUrl()
 /**
  * Generate widget HTML
  *
- * @param $widgetName Widget name.
+ * @param string $widgetName Widget name.
  * @param array $data Widget's data.
  * @param null $skin Widget skin name.
  * @return string Widget HTML.
  */
 function ipRenderWidget($widgetName, $data = array(), $skin = null)
 {
-    $answer = \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $skin);
-    return $answer;
+    return \Ip\Internal\Content\Model::generateWidgetPreviewFromStaticData($widgetName, $data, $skin);
 }
 
 /**
- * Get formatted currency string
+ * Get formatted byte string
  *
- * @param $price Numeric price. Multiplied by 100.
- * @param $currency Three letter currency code. E.g. "EUR".
- * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * Returns a string containing a rounded numeric value and appropriate 'B', 'KB', 'MB', 'GB', 'TB', 'PB' modifiers.
+ *
+ * @param int $bytes Size in bytes.
+ * @param string $context plugin name
+ * @param int $precision number of digits after the decimal point
+ * @param string $languageCode
+ * @return string A string formatted in byte size units.
+ */
+function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
+{
+    return \Ip\Internal\FormatHelper::formatBytes($bytes, $context, $precision, $languageCode);
+}
+
+/**
+ * Get formatted currency string. If you don't like the way the price is formatted by default, catch ipFormatPrice job and provide your own formatting method.
+ *
+ * @param int $price Numeric price. Multiplied by 100.
+ * @param string $currency Three letter currency code. E.g. "EUR".
+ * @param string $context Plugins name that's requesting the operation. This makes it possible to render the price differently for each plugin.
+ * @param string $languageCode
  * @return string A currency string in specific country format.
  */
-
-function ipFormatPrice($price, $currency, $context, $languageId = null)
+function ipFormatPrice($price, $currency, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatPrice($price, $currency, $context, $languageCode);
 }
 
 /**
  * Get formatted date string
  *
- * @param $unixTimestamp Unix timestamp.
+ * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A date string formatted according to country format.
  */
-function ipFormatDate($unixTimestamp, $context, $languageId = null)
+function ipFormatDate($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDate($unixTimestamp, $context, $languageCode);
 }
 
 /**
  * Get formatted time string
  *
- * @param $unixTimestamp Unix timestamp.
+ * @param int $unixTimestamp Unix timestamp.
  * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param string $languageCode
  * @return string|null A time string formatted according to country format.
  */
-function ipFormatTime($unixTimestamp, $context, $languageId = null)
+function ipFormatTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
  * Get formatted date-time string
  *
- * @param $unixTimestamp Unix timestamp.
- * @param $context A context string: "Ip", "Ip-admin" or plugin's name.
- * @param null $languageId Language ID.
+ * @param int $unixTimestamp Unix timestamp.
+ * @param string $context A context: "Ip", "Ip-admin" or plugin's name.
+ * @param string $languageCode
  * @return bool|mixed|null|string A date-time string formatted according to country format.
  */
-function ipFormatDateTime($unixTimestamp, $context, $languageId = null)
+function ipFormatDateTime($unixTimestamp, $context, $languageCode = null)
 {
-    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageId);
+    return \Ip\Internal\FormatHelper::formatDateTime($unixTimestamp, $context, $languageCode);
 }
 
 /**
  * Get a theme option value.
  *
  * Theme options ar used for changing theme design. These options can be managed using administration page.
- * @param $name Option name.
+ * @param string $name Option name.
  * @param mixed|null $default A value returned if the option was not set.
  * @return string Theme option value.
  */
-
 function ipGetThemeOption($name, $default = null)
 {
     $themeService = \Ip\Internal\Design\Service::instance();
@@ -701,12 +707,13 @@ function ipHtmlAttributes($doctype = null)
         $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
+
     switch ($doctype) {
         case \Ip\Response\Layout::DOCTYPE_XHTML1_STRICT:
         case \Ip\Response\Layout::DOCTYPE_XHTML1_TRANSITIONAL:
         case \Ip\Response\Layout::DOCTYPE_XHTML1_FRAMESET:
             $lang = $content->getCurrentLanguage()->getCode();
-            $answer = ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="'.$lang.'" lang="'.$lang.'"';
+            $answer = ' xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $lang . '" lang="' . $lang . '"';
             break;
         case \Ip\Response\Layout::DOCTYPE_HTML4_STRICT:
         case \Ip\Response\Layout::DOCTYPE_HTML4_TRANSITIONAL:
@@ -719,8 +726,8 @@ function ipHtmlAttributes($doctype = null)
             $answer = ' lang="' . escAttr($lang) . '"';
             break;
     }
-    return  $answer;
 
+    return $answer;
 }
 
 /**
@@ -730,13 +737,13 @@ function ipHtmlAttributes($doctype = null)
  * @return string Document type declaration string.
  * @throws Exception
  */
-
 function ipDoctypeDeclaration($doctype = null)
 {
     if ($doctype === null) {
         $doctypeConstant = ipConfig()->get('defaultDoctype');
         $doctype = constant('\Ip\Response\Layout::' . $doctypeConstant);
     }
+
     switch ($doctype) {
         case \Ip\Response\Layout::DOCTYPE_XHTML1_STRICT:
             $answer = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
@@ -760,16 +767,17 @@ function ipDoctypeDeclaration($doctype = null)
             $answer = '<!DOCTYPE html>';
             break;
         default:
-            throw new Exception('Unknown doctype: '.$doctype, Exception::VIEW);
+            throw new Exception('Unknown doctype: ' . $doctype);
     }
+
     return $answer;
 }
 
+
 /**
  * Get SQL table name by adding database prefix
- *
- * @param $table SQL table name without prefix.
- * @param string|null $as SQL "as" keyword to be added.
+ * @param string $table SQL table name without prefix.
+ * @param bool $as SQL "as" keyword to be added.
  * @return string Actual SQL table name.
  */
 function ipTable($table, $as = false)
@@ -777,7 +785,7 @@ function ipTable($table, $as = false)
     $prefix = ipConfig()->tablePrefix();
     $answer = '`' . $prefix . $table . '`';
     if ($as === true) {
-        if ($prefix) {  // if table prefix is empty we don't need to use `tableName` as `tableName`
+        if ($prefix) { // If table prefix is empty we don't need to use `tableName` as `tableName`.
             $answer .= ' as `' . $table . '` ';
         }
     } elseif ($as) {
@@ -791,16 +799,14 @@ function ipTable($table, $as = false)
  * Check the permission to access plugin's administration
  *
  * Check if user has a right to access plugin's Admin controller.
- *
- * @param $plugin Plugin name.
+ * @param $permission
+ * @param null $administratorId
  * @return bool Returns true if user has plugin's administration permission.
  */
-function ipAdminPermission($permission, $userId = NULL)
+function ipAdminPermission($permission, $administratorId = null)
 {
-    return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission);
+    return \Ip\ServiceLocator::adminPermissions()->hasPermission($permission, $administratorId);
 }
-
-
 
 /**
  * Send e-mail message
@@ -811,18 +817,17 @@ function ipAdminPermission($permission, $userId = NULL)
  * just added thousands of non urgent e-mails, urgent e-mails will still be sent immediately.
  * Set $urgent parameter to false when delivery time is not so important, like newsletters, etc.
  * And set $urgent to true, when sending notification about purchase, etc.
- *
  * @param string $from Sender's e-mail address
  * @param string $fromName Sender's name
  * @param string $to Recipient's email address
- * @param string $toName  Recipient's name
+ * @param string $toName Recipient's name
  * @param string $subject Message subject
  * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
  * @param bool $urgent E-mail urgency
  * @param bool $html HTML mode. Set to false for plain text mode.
  * @param string|array|null $files Full pathname of the file to be attached or array of the pathnames.
  */
-function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent=true, $html = true, $files = null)
+function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent = true, $html = true, $files = null)
 {
     $emailQueue = new \Ip\Internal\Email\Module();
     $emailQueue->addEmail($from, $fromName, $to, $toName, $subject, $content, $urgent, $html, $files);
@@ -830,8 +835,6 @@ function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent
 }
 
 /**
- * Generate e-mail HTML using template
- *
  * Generates e-mail message HTML using given template data, such as title, content, signature, footer, etc.
  * To send a message generated using ipEmailTemplate() function, use ipSendEmail() function.
  *
@@ -848,10 +851,11 @@ function ipEmailTemplate($data)
  * Get MVC view object
  *
  * Get a view object using specified view file and data array.
- *
- * @param $file MVC view file pathname
- * @param array $data View's data
+ * @param string $file MVC view file pathname.
+ * @param array $data View's data.
+ * @param int $_callerDepth
  * @return \Ip\View
+ * @throws \Ip\Exception\View
  */
 function ipView($file, $data = array(), $_callerDepth = 0)
 {
@@ -873,11 +877,11 @@ function ipView($file, $data = array(), $_callerDepth = 0)
 
     $absolutePath = ipFile($relativePath);
     if (file_exists($absolutePath)) {
-        // the most common case
+        // The most common case
         return new \Ip\View($absolutePath, $data);
     }
 
-    // File was not found, check whether it is in theme override dir
+    // File was not found, check whether it is in theme override dir.
     if (strpos($relativePath, 'Theme/' . ipConfig()->theme() . '/override/') !== 0) {
         $file = esc($file);
         throw new \Ip\Exception\View("View {$file} not found.");
@@ -907,11 +911,10 @@ function ipStorage()
     return \Ip\ServiceLocator::storage();
 }
 
-
 /**
  * Get currently logged-in administrator ID
  *
- * @return int | bool Administrator ID. Returns false if not logged-in as administrator.
+ * @return int|bool Administrator ID. Returns false if not logged-in as administrator.
  */
 function ipAdminId()
 {
@@ -922,7 +925,7 @@ function ipAdminId()
  * @param int|null $pageId
  * @return \Ip\PageStorage
  */
-function ipPageStorage($pageId = NULL)
+function ipPageStorage($pageId = null)
 {
     if (!$pageId) {
         $page = ipContent()->getCurrentPage();
@@ -940,7 +943,7 @@ function ipPageStorage($pageId = NULL)
  * @param string|null $theme
  * @return \Ip\ThemeStorage
  */
-function ipThemeStorage($theme = NULL)
+function ipThemeStorage($theme = null)
 {
     if (!$theme) {
         $theme = ipConfig()->theme();
@@ -949,14 +952,14 @@ function ipThemeStorage($theme = NULL)
     return new \Ip\ThemeStorage($theme);
 }
 
-
 /**
  * Get a modified copy of original file in repository
+ *
  * @param string $file filename relative to /file/repository directory. Full path will not work.
- * @param array $options image transformation options
+ * @param array $options image transformation options.
  * @param string|null $desiredName desired filename of modified copy. A number will be added if desired name is already taken.
- * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
- * @return string path to modified copy starting from website's root. use ipFileUrl and ipFile functions to get full URL or full path to that file
+ * @param bool $onDemand transformation will be create on the fly when image accessed for the first time.
+ * @return string path to modified copy starting from website's root. Use ipFileUrl and ipFile functions to get full URL or full path to that file.
  */
 function ipReflection($file, $options, $desiredName = null, $onDemand = true)
 {
@@ -965,9 +968,9 @@ function ipReflection($file, $options, $desiredName = null, $onDemand = true)
     return $reflection;
 }
 
-
 /**
  * Get last exception of ipReflection method
+ *
  * @return \Ip\Exception\Repository\Transform|null
  */
 function ipReflectionException()
@@ -986,10 +989,13 @@ function ipPage($pageId)
 }
 
 /**
- * Add file to the repository.
- * @param string $file absolute path to file in tmp directory
+ * This method copy provided file into repository assuring unique name.
+ * Usually the file you want to add to the repository reside in tmp dir or so. Where you had been working on it.
+ * After this function is executed, you can safely remove the source file.
+ *
+ * @param string $file absolute path to file in tmp directory.
  * @param null|string $desiredName desired file name in repository.
- * @return string relative file name in repository
+ * @return string relative file name in repository.
  * @throws \Ip\Exception
  */
 function ipRepositoryAddFile($file, $desiredName = null)
@@ -998,38 +1004,195 @@ function ipRepositoryAddFile($file, $desiredName = null)
     return $repositoryModel->addFile($file, $desiredName);
 }
 
-
 /**
  * Mark repository file as being used by a plugin. The point of this is to
  * instruct ImpressPages to prevent original file in repository from accidental deletion.
- * See ipUnbindFile on how to undo this action and mark asset as not being  used by the plugin.
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
- * @param string $plugin plugin name that uses the asset
+ * See ipUnbindFile on how to undo this action and mark asset as not being used by the plugin.
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $plugin plugin name that uses the asset.
  * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those binds by $id. If you sure this can't be the case for your plugin, use 1. You have to use the same id in ipUnbindFile
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure' dir, pass this value here.
  */
-function ipBindFile($file, $plugin, $id)
+function ipBindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::bindFile($file, $plugin, $id, $baseDir);
 }
 
 /**
  * Release file binding. See ipBindFile for more details.
- * @param string $file file name relative to file/repository. Eg. 'im-naked-in-the-shower.jpg'
- * @param string $plugin plugin name that uses the asset
- * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id
+ *
+ * @param string $file file name relative to file/repository/. Eg. 'im-naked-in-the-shower.jpg'
+ * @param string $plugin plugin name that uses the asset.
+ * @param int $id single plugin might bind to the same file several times. In that case plugin might differentiate those bind by $id.
+ * @param string $baseDir by default repository locate files in 'file/repository/'. If you work with 'file/secure/' dir, pass this value here.
  */
-function ipUnbindFile($file, $plugin, $id)
+function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 {
-    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id);
+    \Ip\Internal\Repository\Model::unbindFile($file, $plugin, $id, $baseDir);
 }
 
-
 /**
- * Get user login manipulation object
+ * Get user login manipulation object.
+ * Eg.
+ *
+ * ipUser()->loggedIn(); //check if user is logged in
+ * ipUser()->userId(); //get logged in user id
+ * ipUser()->data(); //get all user related data. All plugins can contribute their input and add values to this array by catching ipUserData filter.
+ *
  * @return \Ip\User
  */
 function ipUser()
 {
     $user = new \Ip\User();
     return $user;
+}
+
+/**
+ * Get ecommerce object
+ *
+ * Use this object to access ecommerce related methods.
+ * @return \Ip\Ecommerce
+ */
+function ipEcommerce()
+{
+    return \Ip\ServiceLocator::ecommerce();
+}
+
+
+/**
+ * Get info about current route
+ * @return \Ip\Route
+ */
+function ipRoute()
+{
+    return \Ip\ServiceLocator::route();
+}
+
+
+/**
+ * Initialize grid in controller
+ * @param $config array
+ * @throws Ip\Exception
+ * @throws Ip\Exception\View
+ * @return \Ip\Response\Json|\Ip\Response\JsonRpc
+ */
+function ipGridController($config)
+{
+    $request = ipRequest()->getRequest();
+
+    if (empty($request['method'])) {
+        //Grid initialization. Add JS and display GRID's HTML
+        ipAddJs('Ip/Internal/Grid/assets/grid.js');
+        ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
+
+        $backtrace = debug_backtrace();
+        if (empty($backtrace[1]['object']) || empty($backtrace[1]['function']) || empty($backtrace[1]['class'])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller.');
+        }
+        $method = $backtrace[1]['function'];
+
+        $controllerClassParts = explode('\\', $backtrace[1]['class']);
+        if (empty($controllerClassParts[2])) {
+            throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+        $plugin = $controllerClassParts[1];
+
+        switch($controllerClassParts[2]) {
+            case 'AdminController':
+                $gateway = array('aa' => $plugin . '.' . $method);
+                break;
+            case 'SiteController':
+                $gateway = array('sa' => $plugin . '.' . $method);
+                break;
+            case 'PublicController':
+                $gateway = array('pa' => $plugin . '.' . $method);
+                break;
+            default:
+                throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
+        }
+
+        $variables = array(
+            'gateway' => $gateway
+        );
+
+        $content = ipView('Ip/Internal/Grid/view/placeholder.php', $variables);
+        return $content;
+    } else {
+        //GRID AJAX method
+        $worker = new \Ip\Internal\Grid\Worker($config);
+        $result = $worker->handleMethod(ipRequest());
+
+        if (is_array($result) && !empty($result['error']) && !empty($result['errors'])) {
+            return new \Ip\Response\Json($result);
+        }
+
+        return new \Ip\Response\JsonRpc($result);
+    }
+
+
+}
+
+/**
+ * Convert price from one currency to another.
+ * This method throws ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion that's not covered by any of the plugins, you will get null as the result.
+ * @param int $amount amount in cents
+ * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
+ * @param $destinationCurrency three letter uppercase currency code. Eg. USD
+ * @return int amount in cents
+ */
+function ipConvertCurrency($amount, $sourceCurrency, $destinationCurrency)
+{
+    $result = ipJob('ipConvertCurrency', compact('amount', 'sourceCurrency', 'destinationCurrency'));
+    return $result;
+}
+
+
+/**
+ * Get unocupied file name in directory. Very useful when storing uploaded files.
+ *
+ * @param string $dir
+ * @param string $desiredName
+ * @param bool $sanitize clean up supicious symbols from file name
+ * @return string
+ */
+function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
+{
+    $availableFileName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $dir, '', $sanitize);
+    return $availableFileName;
+}
+
+
+/**
+ * Replace placeholders with actual values in string or array of strings. Default placeholders:
+ * websiteTitle
+ * websiteEmail
+ * websiteUrl
+ * userId
+ * userEmail
+ * userName
+ *
+ * @param string $content
+ * @param array $customValues
+ * @param string $context plugin name which executes the function. Makes possible to have different values in different context.
+ * @return string
+ */
+function ipReplacePlaceholders($content, $context = 'Ip', $customValues = array())
+{
+
+    $info = array (
+        'content' => $content,
+        'context' => $context,
+        'customValues' => $customValues
+    );
+    if (is_array($content)) {
+        $answer = array();
+        foreach($content as $item) {
+            $answer[] = ipJob('ipReplacePlaceholders', $info);
+        }
+        return $answer;
+    } else {
+        return ipJob('ipReplacePlaceholders', $info);
+    }
 }

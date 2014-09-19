@@ -3,19 +3,16 @@ INSERT INTO `ip_language` (`abbreviation`, `title`, `languageOrder`, `isVisible`
 ('EN', 'English', 2, 1, '', 'en');
 
 INSERT INTO `ip_page`
-(`id`, `languageCode`, `urlPath`,       `parentId`, `pageOrder`,  `title`,          `isVisible`, `updatedAt`,      `createdAt`,            `type`,     `alias`) VALUES
-(1,    'en',           NULL,            0,          0,            'Menu1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu1'),
-(2,    'en',           NULL,            0,          1,            'Menu2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu2'),
-(3,    'en',           NULL,            0,          2,            'Menu3',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu3'),
-(4,    'en',           'home',          1,          0,            'Home',           1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(5,    'en',           'lorem-ipsumy',  1,          1,            'Lorem ipsum',    1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(6,    'en',           'page1',         2,          0,            'Page1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(7,    'en',           'page2',         2,          1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(8,    'en',           'example1',      3,          0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(9,    'en',           'example2',      3,          1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
-
-INSERT INTO `ip_page_storage` (`pageId`, `key`, `value`) VALUES
-(4, 'layout', '"home.php"');
+(`id`, `languageCode`, `urlPath`,       `parentId`, `layout`, `pageOrder`,  `title`,          `isVisible`, `updatedAt`,      `createdAt`,            `type`,     `alias`) VALUES
+(1,    'en',           NULL,            0,          'main.php',     0,            'Menu1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu1'),
+(2,    'en',           NULL,            0,          'main.php',     1,            'Menu2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu2'),
+(3,    'en',           NULL,            0,          'main.php',     2,            'Menu3',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu3'),
+(4,    'en',           'home',          1,          'home.php',     0,            'Home',           1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(5,    'en',           'lorem-ipsumy',  1,          NULL,     1,            'Lorem ipsum',    1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(6,    'en',           'page1',         2,          NULL,     0,            'Page1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(7,    'en',           'page2',         2,          NULL,     1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(8,    'en',           'example1',      3,          NULL,     0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(9,    'en',           'example2',      3,          NULL,     1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
 
 INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES
 (1, 4, 1, '[[[[timestamp]]]]'),
@@ -43,8 +40,8 @@ INSERT INTO `ip_widget_order` (`widgetName`, `priority`) VALUES
 
 
 INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
-('Ip', 'version', '"4.0.12"'),  /* //CHANGE_ON_VERSION_UPDATE */
-('Ip', 'dbVersion', '37'), /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'version', '"4.2.0"'),  /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'dbVersion', '56'), /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),

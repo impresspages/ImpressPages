@@ -57,7 +57,7 @@ class Event
                     static::addWidgetAssets($widget);
                 }
             }
-            ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', FALSE));
+            ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', false));
         }
     }
 
@@ -79,7 +79,7 @@ class Event
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
             ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
         } else {
-            ipSetLayout(Service::getPageLayout($page));
+            ipSetLayout($page->getLayout());
         }
 
         // initialize management
@@ -94,11 +94,10 @@ class Event
         $response->setTitle(ipContent()->getTitle());
     }
 
-    public static function ipAdminLoginSuccessful($data)
+    public static function ipAdminLoginSuccessful($info)
     {
         Service::setManagementMode(1);
     }
-
 
 
     public static function ipPageRevisionDuplicated($info)

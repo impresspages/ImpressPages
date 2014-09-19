@@ -7,7 +7,50 @@ namespace Ip\Internal\Admin;
 class FormHelper
 {
 
-    public static  function getLoginForm()
+
+    public static function getLanguageSelectForm()
+    {
+        //create form object
+        $form = new \Ip\Form();
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
+
+        $form->addClass('ipsLanguageSelect');
+
+        //add text field to form object
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'languageCode',
+                'values' => self::getAvailableLocales()
+            ));
+        $field->setValue(ipConfig()->adminLocale());
+        $form->addfield($field);
+
+        return $form;
+    }
+
+    protected static function getAvailableLocales()
+    {
+        $locales = array();
+        $files = scandir(ipFile('Ip/Internal/Translations/translations'));
+        $files = array_merge($files, scandir(ipFile('file/translations/original')));
+        $files = array_merge($files, scandir(ipFile('file/translations/override')));
+
+        $files = array_unique($files, SORT_STRING);
+        sort($files);
+
+        foreach ($files as $file) {
+            if (preg_match('/^Ip-admin-([a-z\_A-Z]+)\.json$/', $file, $matches)) {
+                $locales[] = array($matches[1], strtoupper($matches[1]));
+            }
+        }
+
+        if (empty($locales)) {
+            $locales = array(array('en', 'EN'));
+        }
+        return $locales;
+    }
+
+    public static function getLoginForm()
     {
         //create form object
         $form = new \Ip\Form();

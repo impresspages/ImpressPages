@@ -1,6 +1,3 @@
-
-
-
 /**
  * show the "browse link" modal, and call callback_function with result
  *
@@ -24,7 +21,7 @@ function ipBrowseLink(callback) {
         $modal.modal('hide');
     });
 
-    $modal.on('hide.bs.modal',function () {
+    $modal.off('hide.bs.modal').on('hide.bs.modal', function () {
         if (!selectedPageId) {
             callback('');
             return;
@@ -34,10 +31,10 @@ function ipBrowseLink(callback) {
         $.ajax({
             type: 'GET',
             url: ip.baseUrl,
-            data: {aa: 'Core.getPageUrl', pageId: selectedPageId},
+            data: {aa: 'Pages.getPageUrl', pageId: selectedPageId},
             dataType: 'json',
             success: function (response) {
-                callback(response.url);
+                callback(response.pageUrl);
             },
             error: function (response) {
                 if (ip.developmentEnvironment || ip.debugMode) {
@@ -52,8 +49,7 @@ function ipBrowseLink(callback) {
 }
 
 
-function ipBrowseFile(callback, options)
-{
+function ipBrowseFile(callback, options) {
     if (typeof options === 'undefined') {
         options = {};
     }

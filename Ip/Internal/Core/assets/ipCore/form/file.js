@@ -4,14 +4,14 @@
  */
 
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
 
@@ -20,7 +20,7 @@
                     $this.data('ipFormFile', {});
 
 
-                    var loadInterval = setInterval(function() {
+                    var loadInterval = setInterval(function () {
                         initPlupload($this, loadInterval);
                     }, 1000);
 
@@ -29,7 +29,7 @@
             });
         },
 
-        _error : function(up, err) {
+        _error: function (up, err) {
             var $this = this;
 
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + err.file.id);
@@ -41,7 +41,7 @@
             $.proxy(methods._displayError, this)(err.file.id, err.message);
         },
 
-        _displayError : function (fileId, errorMessage, fileName) {
+        _displayError: function (fileId, errorMessage, fileName) {
             var $this = $(this);
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + fileId);
             $file.find('.ipsUploadError').text(errorMessage);
@@ -49,9 +49,9 @@
 
         },
 
-        _filesAdded : function(up, files) {
+        _filesAdded: function (up, files) {
             var $this = this;
-            $.each(files, function(i, file) {
+            $.each(files, function (i, file) {
                 var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                 if (!$file.length) {//in some cases _error method creates file record. This line is to avoid adding the same file twice
                     var $newFile = $this.find('.ipsFileTemplate').clone();
@@ -60,7 +60,7 @@
                     $newFile.removeClass('hidden');
                     $newFile.attr('id', 'ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
                     $newFile.find('.ipsFileName').text(file.name);
-                    $newFile.find('.ipsRemove').click(function(e){
+                    $newFile.find('.ipsRemove').click(function (e) {
                         var $this = $(this);
                         var $file = $this.closest('.ipsFile');
                         var fileId = $file.data('fileId');
@@ -80,14 +80,14 @@
             up.start();
         },
 
-        _uploadProgress : function(up, file) {
+        _uploadProgress: function (up, file) {
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipsFileProgressValue').width(file.percent + '%');
             $file.trigger('progress.ipModuleFormFile', [file.percent]);
         },
 
-        _fileUploaded : function(up, file, response) {
+        _fileUploaded: function (up, file, response) {
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             if (!$file.length) {
@@ -112,10 +112,10 @@
 
         },
 
-        _getFiles : function () {
+        _getFiles: function () {
             var $this = $(this);
-            var files = new Array();
-            $this.find('.ipsFiles div').each(function(){
+            var files = [];
+            $this.find('.ipsFiles div').each(function () {
 
                 var $this = $(this);
 
@@ -124,10 +124,10 @@
                 }
 
                 files.push({
-                    fileName : $this.data('fileName'),
-                    file : $this.data('file'),
-                    renameTo : $this.find('.ipsRenameTo').val(),
-                    dir : $this.data('dir')
+                    fileName: $this.data('fileName'),
+                    file: $this.data('file'),
+                    renameTo: $this.find('.ipsRenameTo').val(),
+                    dir: $this.data('dir')
                 });
             });
             return files;
@@ -148,7 +148,7 @@
 
         var $this = field;
 
-        var uniqueNumber = Math.floor(Math.random()*100000000);
+        var uniqueNumber = Math.floor(Math.random() * 100000000);
         var $uploadButton = $this.find('.ipsFileAddButton');
         if (!$uploadButton.attr('id')) {
             $uploadButton.attr('id', 'ipModFormFileAddButton_' + uniqueNumber);
@@ -159,26 +159,26 @@
         }
 
         var uploaderConfig = {
-            runtimes : 'gears,html5,flash,silverlight,browserplus',
-            browse_button : $uploadButton.attr('id'),
+            runtimes: 'gears,html5,flash,silverlight,browserplus',
+            browse_button: $uploadButton.attr('id'),
 
-            max_file_size : '10000Mb',
-            chunk_size : '1mb',
-            url : ip.baseUrl, //website root (available globally in ImpressPages environment)
-            multipart_params : {
-                sa : 'Repository.upload',
-                secureFolder : 1,
-                securityToken : ip.securityToken
+            max_file_size: '10000Mb',
+            chunk_size: '1mb',
+            url: ip.baseUrl, //website root (available globally in ImpressPages environment)
+            multipart_params: {
+                sa: 'Repository.upload',
+                secureFolder: 1,
+                securityToken: ip.securityToken
             },
 
             //if you add "multipart: false," IE fails.
 
-            flash_swf_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.flash.swf'),
-            silverlight_xap_url : ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap'),
+            flash_swf_url: ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.flash.swf'),
+            silverlight_xap_url: ipFileUrl('Ip/Internal/Core/assets/ipCore/plupload/plupload.silverlight.xap'),
 
-            button_browse_hover : true,
+            button_browse_hover: true,
             //drop_element : "ipModuleRepositoryDragContainer",
-            autostart : true,
+            autostart: true,
             container: $uploadContainer.attr('id')
         };
         var uploader = new plupload.Uploader(uploaderConfig);
@@ -195,9 +195,9 @@
             inputName: $this.data('inputname'),
             uploader: uploader
         });
-    }
+    };
 
-    $.fn.ipFormFile = function(method) {
+    $.fn.ipFormFile = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {

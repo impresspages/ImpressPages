@@ -150,11 +150,15 @@ class WidgetController
         }
         //collect overridden theme view files
         if ($this->isCore()) {
-            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+            $themeViewsFolder = ipThemeFile(
+                \Ip\View::OVERRIDE_DIR . '/Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR
+            );
         } else {
-            $themeViewsFolder = ipThemeFile(\Ip\View::OVERRIDE_DIR . '/Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR);
+            $themeViewsFolder = ipThemeFile(
+                \Ip\View::OVERRIDE_DIR . '/Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR
+            );
         }
-        if (is_dir($themeViewsFolder)){
+        if (is_dir($themeViewsFolder)) {
             $availableViewFiles = scandir($themeViewsFolder);
             foreach ($availableViewFiles as $viewFile) {
                 if (is_file($themeViewsFolder . '/' . $viewFile) && substr($viewFile, -4) == '.php') {
@@ -165,7 +169,11 @@ class WidgetController
 
         $skins = array();
         foreach ($views as $viewKey => $view) {
-            $translation = __(ucfirst($viewKey), $this->pluginName, false);
+            if ($this->isCore()) {
+                $translation = __(ucfirst($viewKey), 'Ip-admin', false);
+            } else {
+                $translation = __(ucfirst($viewKey), $this->pluginName, false);
+            }
             $skins[] = array('name' => $viewKey, 'title' => $translation);
         }
 
@@ -181,12 +189,12 @@ class WidgetController
      *
      * This method is executed each time the widget data is updated.
      *
-     * @param $widgetId Widget ID
-     * @param $postData
-     * @param $currentData
+     * @param int $widgetId Widget ID
+     * @param array $postData
+     * @param array $currentData
      * @return array Data to be stored to the database
      */
-    public function update ($widgetId, $postData, $currentData)
+    public function update($widgetId, $postData, $currentData)
     {
         return $postData;
     }
@@ -209,8 +217,9 @@ class WidgetController
      *
      * @param int $widgetId Widget ID
      * @param array $data Widget Data array
+     * @return mixed
      */
-    public function post ($widgetId, $data)
+    public function post($widgetId, $data)
     {
 
     }
@@ -225,6 +234,7 @@ class WidgetController
      * @param int $oldId Old widget ID
      * @param int $newId Duplicated widget ID
      * @param array $data Data that has been duplicated from old widget to the new one
+     * @return array
      */
     public function duplicate($oldId, $newId, $data)
     {
@@ -271,26 +281,37 @@ class WidgetController
      *
      * You can extend this method when generating widget's HTML.
      *
-     * @param $revisionId Widget revision ID
-     * @param $widgetId Widget ID
-     * @param $widgetId Widget instance ID
-     * @param array|null $data Widget data array
+     * @param int $revisionId Widget revision ID
+     * @param int $widgetId Widget ID
+     * @param int $widgetId Widget instance ID
+     * @param array $data Widget data array
      * @param string $skin Skin name
      * @return string Widget's HTML code
      */
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
-        $answer = '';
+
         try {
             if ($this->core) {
-                $answer = ipView(('Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
             } else {
-                $answer = ipView(('Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR.'/'.$skin.'.php'), $data)->render();
+                $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
             }
+            if (!is_file(ipFile($skinFile)) && !is_file(ipThemeFile(\Ip\View::OVERRIDE_DIR . '/' . $skinFile))) {
+                $skin = 'default';
+                if ($this->core) {
+                    $skinFile = 'Ip/Internal/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
+                } else {
+                    $skinFile = 'Plugin/' . $this->pluginName . '/' . Model::WIDGET_DIR . '/' . $this->name . '/' . self::SKIN_DIR . '/' . $skin . '.php';
+                }
+            }
+
+            $answer = ipView($skinFile, $data)->render();
+
         } catch (\Ip\Exception $e) {
             if (ipIsManagementState()) {
-                $answer = $e->getTraceAsString();
+                $answer = $e->getMessage() . "\n " . $e->getTraceAsString();
             } else {
                 $answer = '';
             }
@@ -301,11 +322,11 @@ class WidgetController
     /**
      * Process data which is passed to widget's JavaScript file for processing
      *
-     * @param $revisionId Widget revision ID
-     * @param $widgetId Widget ID
-     * @param $widgetId Widget instance ID
-     * @param $data Widget data array
-     * @param $skin Widget skin name
+     * @param int $revisionId Widget revision ID
+     * @param int $widgetId Widget ID
+     * @param int $widgetId Widget instance ID
+     * @param array $data Widget data array
+     * @param string $skin Widget skin name
      * @return array Data array
      */
     public function dataForJs($revisionId, $widgetId, $data, $skin)

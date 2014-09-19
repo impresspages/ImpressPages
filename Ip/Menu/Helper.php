@@ -16,23 +16,23 @@ namespace Ip\Menu;
 class Helper
 {
 
-    /**     *
+    /**
      * Get specific levels of menu.
      *
      * Common usage:
-     * Get items of first level (to display on top of the site): getMenuItems('menu1', 1, 1);
-     * Get 7 levels of children of selected page on top menu (to display on a side): getMenuItems('menu1', 2,  7);
+     * Get items of a first menu level (to display on top of the site), e.g., $result = \Ip\Menu\Helper::getMenuItems('menu1', 1, 1);
+     * Get 7 levels of children of selected page on top menu (to display on a side): $result = \Ip\Menu\Helper::getMenuItems('menu1', 2,  7);
      *
-     * Pass the result to ipSlot('menu', arra('items' => $result));
+     * Pass the result to ipSlot('menu', array('items' => $result));
      *
-     * Please note, that it is illogical to slice second level of menu if page on the first level is not selected.
-     * In that case the function will return an empty array.
+     * Please note, that items of a child level can only be returned if a selected page is in a breadcrumb parent page.
+     * In opposite case, the function returns an empty array.
      *
      * @param string $menuName eg menu1
      * @param int $depthFrom
      * @param int $depthTo
      * @param string $orderBy can be set to 'title' to change ordering
-     * @return Item[]
+     * @return array
      * @throws \Ip\Exception
      */
     public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000, $orderBy = null)
@@ -43,7 +43,7 @@ class Helper
             $order = '`pageOrder`';
         }
 
-        //variable check
+        // variable check
         if ($depthFrom < 1) {
             $backtrace = debug_backtrace();
             if (isset($backtrace[0]['file']) && $backtrace[0]['line']) {
@@ -65,23 +65,36 @@ class Helper
                 throw new \Ip\Exception('$depthTo can\'t be lower than $depthFrom.');
             }
         }
-        //end variable check
+        // end variable check
 
         $breadcrumb = ipContent()->getBreadcrumb();
 
         $languageCode = ipContent()->getCurrentLanguage()->getCode();
 
-        $menuRootId = ipDb()->selectValue('page', 'id', array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0));
-
+        $menuRootId = ipDb()->selectValue(
+            'page',
+            'id',
+            array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0)
+        );
 
         if ($depthFrom == 1) {
-            $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
+            $elements = ipDb()->selectAll(
+                'page',
+                '*',
+                array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0),
+                "ORDER BY $order"
+            ); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And it is at position 0. This is where -2 comes from.
             if (!empty($breadcrumb[0])) {
                 $rootPage = ipContent()->getPage($breadcrumb[0]->getParentId());
                 if ($rootPage && $rootPage->getAlias() == $menuName) {
                     $parent = $breadcrumb[$depthFrom - 2];
-                    $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0), "ORDER BY $order");
+                    $elements = ipDb()->selectAll(
+                        'page',
+                        '*',
+                        array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0),
+                        "ORDER BY $order"
+                    );
                 } else {
                     $elements = array();
                 }
@@ -98,13 +111,13 @@ class Helper
         return $items;
     }
 
-
     /**
      * Get children items of current or specified page.
+     *
      * @param int|string $pageId pageId or an alias
      * @param int $depthLimit limit the depth of items to be returned
-     * @param null $orderBy can be set to 'title' to change ordering
-     * @return array|Item[]
+     * @param string $orderBy can be set to 'title' to change ordering
+     * @return array
      */
     public static function getChildItems($pageId = null, $depthLimit = 1000, $orderBy = null)
     {
@@ -115,7 +128,7 @@ class Helper
         }
 
         if (is_string($pageId) && !ctype_digit($pageId)) {
-            //$pageId is an alias. Get the real id;
+            // $pageId is an alias. Get the real id;
             $pageId = ipContent()->getPage($pageId)->getId();
             if (!$pageId) {
                 return array();
@@ -125,7 +138,12 @@ class Helper
             $pageId = ipContent()->getCurrentPage()->getId();
         }
 
-        $elements = ipDb()->selectAll('page', '*', array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0), "ORDER BY $order"); //get first level elements
+        $elements = ipDb()->selectAll(
+            'page',
+            '*',
+            array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0),
+            "ORDER BY $order"
+        ); //get first level elements
 
         $items = array();
         if (!empty($elements)) {
@@ -135,13 +153,12 @@ class Helper
         return $items;
     }
 
-
     /**
-     * @param $pages
-     * @param $depth
-     * @param $curDepth
-     * @param $order
-     * @return Item[]
+     * @param array $pages
+     * @param int $depth
+     * @param int $curDepth
+     * @param string $order
+     * @return array
      */
     private static function arrayToMenuItem($pages, $depth, $curDepth, $order)
     {
@@ -151,15 +168,24 @@ class Helper
             $item = new Item();
             $subSelected = false;
             if ($curDepth < $depth) {
-                $children = ipDb()->selectAll('page', '*', array('parentId' => $page->getId(), 'isVisible' => 1, 'isSecured' => 0, 'isDeleted' => 0), "ORDER BY $order");
+                $children = ipDb()->selectAll(
+                    'page',
+                    '*',
+                    array('parentId' => $page->getId(), 'isVisible' => 1, 'isSecured' => 0, 'isDeleted' => 0),
+                    "ORDER BY $order"
+                );
                 if ($children) {
                     $childrenItems = self::arrayToMenuItem($children, $depth, $curDepth + 1, $order);
                     $item->setChildren($childrenItems);
                 }
             }
-            if ($page->isCurrent() || $page->getRedirectUrl() && $page->getLink() == \Ip\Internal\UrlHelper::getCurrentUrl()) {
+            if ($page->isCurrent() || $page->getRedirectUrl() && $page->getLink(
+                ) == \Ip\Internal\UrlHelper::getCurrentUrl()
+            ) {
                 $item->markAsCurrent(true);
-            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getRedirectUrl() && self::existInBreadcrumb($page->getLink())) {
+            } elseif ($page->isInCurrentBreadcrumb() || $subSelected || $page->getRedirectUrl(
+                ) && self::existInBreadcrumb($page->getLink())
+            ) {
                 $item->markAsInCurrentBreadcrumb(true);
             }
 
@@ -174,17 +200,24 @@ class Helper
             } else {
                 $item->setUrl($page->getLink());
             }
+            $metaTitle = $page->getMetaTitle();
             $item->setBlank($page->isBlank());
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $item->setDisabled($page->isDisabled());
+            $item->setId($page->getId());
+            $item->setAlias($page->getAlias());
+            $item->setPageTitle(empty ($metaTitle) ? $page->getTitle() : $metaTitle);
             $items[] = $item;
         }
 
         return $items;
     }
 
-
+    /**
+     * @param string $link
+     * @return bool
+     */
     private static function existInBreadcrumb($link)
     {
         $breadcrumb = ipContent()->getBreadcrumb();
@@ -196,7 +229,5 @@ class Helper
 
         return false;
     }
-
-
 
 }

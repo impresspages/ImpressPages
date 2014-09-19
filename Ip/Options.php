@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -58,7 +57,7 @@ class Options
     /**
      * Set specific option
      * @param string $key Option key
-     * @param $value Option value
+     * @param mixed $value Option value
      * @throws Exception
      */
     public function setOption($key, $value)
@@ -74,7 +73,7 @@ class Options
      * Set language specific option
      * @param string $key Option key
      * @param string $languageCode Language code
-     * @param $value Option value
+     * @param mixed $value Option value
      * @throws Exception
      */
     public function setOptionLang($key, $languageCode, $value)
@@ -115,7 +114,6 @@ class Options
         }
         \Ip\ServiceLocator::storage()->remove('Config', $parts[0] . '.' . $languageId . '.' . $parts[1]);
     }
-
 
 
     /**

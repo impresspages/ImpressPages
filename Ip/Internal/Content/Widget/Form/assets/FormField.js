@@ -25,7 +25,7 @@
 
                 // If the plugin hasn't been initialized yet
                 if (!data) {
-                    var data = {
+                    data = {
                         label : '',
                         type : 'Text',
                         required : false,

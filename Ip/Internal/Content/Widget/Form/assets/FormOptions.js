@@ -21,7 +21,7 @@
                 var data = $this.data('ipWidget_ipForm_options');
                 // If the plugin hasn't been initialized yet
                 if (!data) {
-                    var data = {
+                    data = {
                         fieldTypes : options.fieldTypes
                     };
                     $this.data('ipWidget_ipForm_options', data);

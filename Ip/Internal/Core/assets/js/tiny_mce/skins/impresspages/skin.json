@@ -1,7 +1,7 @@
 {
 	"skin-name": "impresspages",
 	"preview-bg": "#ffffff",
-	"text": "#2f313f",
+	"text": "#e2e2e2",
 	"text-inverse": "#ffffff",
 	"text-disabled": "#aaaaaa",
 	"has-gradients": false,

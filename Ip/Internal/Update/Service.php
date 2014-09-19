@@ -4,12 +4,11 @@
  */
 
 
-
-
 namespace Ip\Internal\Update;
 
 
-class Service {
+class Service
+{
 
     public static function update()
     {
@@ -21,5 +20,10 @@ class Service {
     public static function migrationsAvailable()
     {
         return Model::migrationsAvailable();
+    }
+
+    public static function runMigrations()
+    {
+        Model::runMigrations();
     }
 }

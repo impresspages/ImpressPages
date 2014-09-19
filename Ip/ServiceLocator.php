@@ -1,13 +1,10 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
 namespace Ip;
-
-
 
 
 /**
@@ -18,8 +15,10 @@ namespace Ip;
 class ServiceLocator
 {
     protected static $requests = array();
+    protected static $routes = array();
     protected static $dispatchers = array();
     protected static $contents = array();
+    protected static $ecommerce = array();
     protected static $responses = array();
     protected static $config = null;
     protected static $log = null;
@@ -46,6 +45,8 @@ class ServiceLocator
         'slots' => '\Ip\Internal\Slots',
         'pageAssets' => '\Ip\Internal\PageAssets',
         'router' => '\Ip\Router',
+        'ecommerce' => '\Ip\Ecommerce',
+        'route' => '\Ip\Route',
     );
 
     /**
@@ -120,7 +121,6 @@ class ServiceLocator
     }
 
 
-
     /**
      * @return \Ip\Application
      */
@@ -145,6 +145,8 @@ class ServiceLocator
         self::$slots[] = static::loadService('slots');
         self::$pageAssets[] = static::loadService('pageAssets');
         self::$routers[] = static::loadService('router');
+        self::$ecommerce[] = static::loadService('ecommerce');
+        self::$routes[] = static::loadService('route');
     }
 
     /**
@@ -152,7 +154,7 @@ class ServiceLocator
      */
     public static function removeRequest()
     {
-        if (count(self::$requests) >1 ) {
+        if (count(self::$requests) > 1) {
             array_pop(self::$dispatchers);
             array_pop(self::$requests);
             array_pop(self::$contents);
@@ -160,6 +162,8 @@ class ServiceLocator
             array_pop(self::$slots);
             array_pop(self::$pageAssets);
             array_pop(self::$routers);
+            array_pop(self::$ecommerce);
+            array_pop(self::$routes);
         }
     }
 
@@ -177,6 +181,14 @@ class ServiceLocator
     public static function content()
     {
         return end(self::$contents);
+    }
+
+    /**
+     * @return \Ip\Ecommerce
+     */
+    public static function ecommerce()
+    {
+        return end(self::$ecommerce);
     }
 
     /**
@@ -218,6 +230,17 @@ class ServiceLocator
     }
 
     /**
+     * @param $db
+     * @return Db
+     */
+    public static function setDb($db)
+    {
+        $curDb = self::db();
+        static::$db = $db;
+        return $curDb;
+    }
+
+    /**
      * @return \Ip\Internal\Translations\Translator
      */
     public static function translator()
@@ -253,5 +276,14 @@ class ServiceLocator
     {
         return end(self::$routers);
     }
+
+    /**
+     * @return \Ip\Route
+     */
+    public static function route()
+    {
+        return end(self::$routes);
+    }
+
 
 }

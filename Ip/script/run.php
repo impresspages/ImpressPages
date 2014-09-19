@@ -8,7 +8,7 @@ try {
     $application->run();
 } catch (\Exception $e) {
     if (isset($log)) {
-        $log->log('System', 'Exception caught', $e->getMessage().' in '.$e->getFile().':'.$e->getLine());
+        $log->log('System', 'Exception caught', $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
     }
     throw $e;
 }

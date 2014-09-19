@@ -85,7 +85,8 @@ class Slot
             'crumb' => 'crumb',
             'disabled' => 'disabled',
             'parent' => 'parent',
-            'children' => 'children'
+            'children' => 'children',
+            'view' => 'Ip/Internal/Config/view/menu.php'
         );
 
         if (is_string($params)) {
@@ -95,7 +96,7 @@ class Slot
         }
 
         if (!empty($params[0]) && is_object($params[0]) && $params[0] instanceof \Ip\Menu\Item) {
-            $params = array (
+            $params = array(
                 'items' => $params
             );
         }
@@ -127,7 +128,7 @@ class Slot
             )
         );
 
-        $view = ipView('Ip/Internal/Config/view/menu.php', $data);
+        $view = ipView($data['view'], $data);
         return $view->render();
     }
 

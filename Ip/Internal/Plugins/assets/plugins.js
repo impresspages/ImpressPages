@@ -56,15 +56,13 @@ var ipPlugins = null;
                 activate($scope.selectedPlugin.name);
             });
             $properties.off('delete.ipPlugins').on('delete.ipPlugins', function () {
-                if (confirm(ipTranslationAreYouSure)) {
-                    deletePlugin($scope.selectedPlugin.name);
-                }
+                deletePlugin($scope.selectedPlugin.name);
             });
-        }
+        };
 
         $scope.setPluginHash = function (plugin) {
             updateHash(plugin.name);
-        }
+        };
 
 
         var activate = function (pluginName) {
@@ -72,7 +70,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.activate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -81,17 +79,17 @@ var ipPlugins = null;
                 type: 'POST',
                 success: function (response) {
                     if (response && response.result) {
-                        window.location = window.location.href.split('#')[0];
+                        location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
 
@@ -102,7 +100,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.deactivate';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -111,20 +109,20 @@ var ipPlugins = null;
                 type: 'POST',
                 success: function (response) {
                     if (response && response.result) {
-                        window.location = window.location.href.split('#')[0];
+                        location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         // 'delete' is predefined class
         var deletePlugin = function (pluginName) {
@@ -132,7 +130,7 @@ var ipPlugins = null;
             postData.aa = 'Plugins.remove';
             postData.securityToken = ip.securityToken;
             postData.jsonrpc = '2.0';
-            postData.params = {pluginName : pluginName};
+            postData.params = {pluginName: pluginName};
 
             $.ajax({
                 url: ip.baseUrl,
@@ -146,15 +144,15 @@ var ipPlugins = null;
                         if (response && response.error && response.error.message) {
                             alert(response.error.message);
                         } else {
-                            alert('Unknown error. Please see logs.');
+                            alert('Error: ' + response.responseText);
                         }
                     }
                 },
-                error: function () {
-                    alert('Unknown error. Please see logs.');
+                error: function (response) {
+                    alert('Error: ' + response.responseText);
                 }
             });
-        }
+        };
 
         var updateHash = function (pluginName) {
             var curVariables = getHashParams();
@@ -163,7 +161,7 @@ var ipPlugins = null;
             curVariables.plugin = pluginName ? pluginName : null;
 
             var path = '';
-            $.each(curVariables, function(key, value){
+            $.each(curVariables, function (key, value) {
                 if (value != null) {
                     if (path != '') {
                         path = path + '&';
@@ -172,7 +170,7 @@ var ipPlugins = null;
                 }
             });
             $location.path(path);
-        }
+        };
 
         var getHashParams = function () {
             var hashParams = {};
@@ -189,7 +187,7 @@ var ipPlugins = null;
 
             return hashParams;
         }
-    }
+    };
 
 
 //    this.init = function () {

@@ -10,7 +10,7 @@ var ipPagesResize;
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
-    ipPagesResize = function() {
+    ipPagesResize = function () {
         var $window = $(window);
         var $container = $('.ipsAdminPages');
         var $containerForScroll = $('.ipsAdminPagesContainer');
@@ -57,9 +57,9 @@ var ipPagesResize;
 //        $pages.innerHeight(contentHeight);
 //        $properties.innerHeight(contentHeight);
         $properties.innerWidth(propertiesWidth);
-    }
+    };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         ipPagesResize();
     });
 

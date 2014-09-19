@@ -3,18 +3,15 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
-            if (typeof(options) === 'undefined') {
-                options = {};
-            }
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
                 var $textarea = $this.find('textarea');
@@ -34,7 +31,7 @@
     };
 
 
-    $.fn.ipFormRichtext = function(method) {
+    $.fn.ipFormRichtext = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {

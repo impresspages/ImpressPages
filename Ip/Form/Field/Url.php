@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package ImpressPages
  *
@@ -6,15 +7,21 @@
 
 namespace Ip\Form\Field;
 
-
 use Ip\Form\Field;
+
 
 class Url extends Field
 {
 
+    /**
+     * Render field
+     *
+     * @param string $doctype
+     * @param $environment
+     * @return string
+     */
     public function render($doctype, $environment)
     {
-
         $browseButton = '';
 
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
@@ -27,15 +34,24 @@ class Url extends Field
 
         return '
 <div class="input-group">
-    <input '.$this->getAttributesStr($doctype).' class="form-control '.implode(' ',$this->getClasses()).'" name="'.htmlspecialchars($this->getName()).'" '.$this->getValidationAttributesStr($doctype).' type="text" value="'.htmlspecialchars($this->getValue()).'" />
+    <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />
     ' . $browseButton . '
 </div>
 ';
     }
 
     /**
-    * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their value.
-    */
+     * Get class type
+     *
+     * CSS class that should be applied to surrounding element of this field.
+     * By default empty. Extending classes should specify their value.
+     * @return string
+     */
     public function getTypeClass()
     {
         return 'url';

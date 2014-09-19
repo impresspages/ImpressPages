@@ -81,16 +81,16 @@ var ipPageDragId;
             hashIsBeingApplied = true;
             updateHash(null, menu.alias, false);
             hashIsBeingApplied = false;
-        }
+        };
 
         $scope.setLanguageHash = function (language) {
             updateHash(language.code, null, false);
-        }
+        };
 
         $scope.activateLanguage = function (language) {
             $scope.activeLanguage = language;
             showPages();
-        }
+        };
 
         $scope.activateMenu = function (menu) {
             $scope.activeMenu = menu;
@@ -101,7 +101,7 @@ var ipPageDragId;
             }
 
             showPages();
-        }
+        };
 
         $scope.activatePage = function (pageId) {
             $scope.selectedPageId = pageId;
@@ -109,18 +109,26 @@ var ipPageDragId;
             $properties.ipPageProperties({
                 pageId: pageId
             });
+
+            // updating title dynamically
             $properties.off('update.ipPages').on('update.ipPages', function () {
                 var title = $properties.find('input[name=title]').val();
                 if (!title) {
                     title = $properties.find('input[name=metaTitle]').val();
                 }
-                getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
+                if ($scope.activeMenu.type == 'list') { // list view
+                    getTreeDiv().find('.ipsRow.active .ipsDrag').text(escapeHtml(title));
+                } else { // tree view
+                    getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
+                }
             });
+
+            // removing element from list/tree
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 if (confirm(ipTranslationAreYouSure)) {
                     deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
-                        if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+                        if ($scope.activeMenu.type == 'list') { // list view
                             getPagesContainer().ipGrid('refresh');
                         } else {
                             getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
@@ -132,16 +140,23 @@ var ipPageDragId;
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
             });
-            var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
-            if (!$nodeLink.hasClass('jstree-clicked')) {
-                hashIsBeingApplied = true;
-                getTreeDiv().on('ready.jstree', function () {
-                    getTreeDiv().jstree("deselect_all");
-                    getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
-                });
-                hashIsBeingApplied = false;
+
+            // making page visually active
+            if ($scope.activeMenu.type == 'list') { // list view
+                getTreeDiv().find('.ipsRow').removeClass('active');
+                getTreeDiv().find('[data-id="' + $scope.selectedPageId + '"]').addClass('active');
+            } else { // tree view
+                var $nodeLink = $('#page_' + $scope.selectedPageId + ' a');
+                if (!$nodeLink.hasClass('jstree-clicked')) {
+                    hashIsBeingApplied = true;
+                    getTreeDiv().on('ready.jstree', function () {
+                        getTreeDiv().jstree("deselect_all");
+                        getTreeDiv().jstree("select_node", '#page_' + $scope.selectedPageId);
+                    });
+                    hashIsBeingApplied = false;
+                }
             }
-        }
+        };
 
         $scope.addPageModal = function () {
             var $modal = $('.ipsAddModal');
@@ -162,7 +177,7 @@ var ipPageDragId;
                 addPage(title, isVisible);
                 $modal.modal('hide');
             });
-        }
+        };
 
         $scope.updateMenuModal = function (menu) {
             var $modal = $('.ipsUpdateMenuModal');
@@ -171,7 +186,7 @@ var ipPageDragId;
             var data = {
                 aa: 'Pages.updateMenuForm',
                 id: menu.id
-            }
+            };
 
             $.ajax({
                 type: 'GET',
@@ -180,12 +195,17 @@ var ipPageDragId;
                 context: this,
                 success: function (response) {
                     $modal.find('.ipsBody').html(response.html);
+
+                    // initial state
+                    $modal.find('.ipsDeleteConfirmation').addClass('hidden');
+                    $modal.find('.ipsBody').removeClass('hidden');
+                    $modal.find('.ipsModalActions').removeClass('hidden');
+
                     ipInitForms();
 
                     $modal.find('.ipsDelete').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').removeClass('hidden');
                         $modal.find('.ipsBody').addClass('hidden');
-                        $modal.find('.ipsDelete').addClass('hidden');
                         $modal.find('.ipsModalActions').addClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click').on('click', function () {
                             deletePage(menu.id, function () {
@@ -198,11 +218,9 @@ var ipPageDragId;
                     $modal.find('.ipsDeleteCancel').off('click').on('click', function () {
                         $modal.find('.ipsDeleteConfirmation').addClass('hidden');
                         $modal.find('.ipsBody').removeClass('hidden');
-                        $modal.find('.ipsDelete').removeClass('hidden');
                         $modal.find('.ipsModalActions').removeClass('hidden');
                         $modal.find('.ipsDeleteProceed').off('click');
                     });
-
 
                     $modal.find('.ipsSave').off('click').on('click', function () {
                         $modal.find('form').submit()
@@ -223,7 +241,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         $scope.addMenuModal = function () {
             var $modal = $('.ipsAddMenuModal');
@@ -244,17 +262,17 @@ var ipPageDragId;
                 addMenu(title, type);
                 $modal.modal('hide');
             });
-        }
+        };
 
         $scope.cutPage = function () {
             $scope.copyPageId = false;
             $scope.cutPageId = $scope.selectedPageId
-        }
+        };
 
         $scope.copyPage = function () {
             $scope.cutPageId = false;
             $scope.copyPageId = $scope.selectedPageId;
-        }
+        };
 
         $scope.menuTitle = function (menu) {
             if (menu.title) {
@@ -262,7 +280,7 @@ var ipPageDragId;
             }
 
             return 'Untitled';
-        }
+        };
 
         $scope.pastePage = function () {
             var position = getTreeDiv().find('ul').first().children.length;
@@ -273,7 +291,7 @@ var ipPageDragId;
                     refresh();
                 });
             }
-        }
+        };
 
 
         function escapeHtml(text) {
@@ -294,7 +312,7 @@ var ipPageDragId;
 
             $('.ipsPages').removeClass('hidden');
 
-            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+            if ($scope.activeMenu.type == 'list') { // list view
                 var gridContainer = getPagesContainer();
                 if (!gridContainer.data('gateway')) {
                     gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
@@ -303,6 +321,11 @@ var ipPageDragId;
                         var $row = $(e.currentTarget);
                         updateHash(null, null, $row.data('id'));
                         $scope.$apply();
+                    });
+
+                    // setting active
+                    gridContainer.on('htmlChanged.ipGrid', function (e) {
+                        getTreeDiv().find('[data-id="' + $scope.selectedPageId + '"]').addClass('active');
                     });
                 }
             } else {
@@ -359,34 +382,40 @@ var ipPageDragId;
                 });
 
             }
-        }
+        };
 
         var getPagesContainer = function () {
             return $('#pages_' + $scope.activeMenu.languageCode + '_' + $scope.activeMenu.alias).find('.ipsPages');
-        }
+        };
 
         var getTreeDiv = function () {
             return getPagesContainer().find('.ipsTreeDiv');
-        }
+        };
 
         var refresh = function () {
-            if ( $scope.activeMenu.menuType == 'list' ) { // if blog structure
+            if ($scope.activeMenu.type == 'list') { // list view
                 getPagesContainer().ipGrid('refresh');
             } else {
                 getPagesContainer().ipPageTree('destroy');
                 $scope.activateMenu($scope.activeMenu);
                 $scope.$apply();
             }
-        }
+        };
 
 
         var addPage = function (title, isvisible) {
+            var parentId = $scope.activeMenu.id;
+
+            if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                parentId = $scope.selectedPageId;
+            }
+
             var data = {
                 aa: 'Pages.addPage',
                 securityToken: ip.securityToken,
                 title: title,
                 isVisible: isvisible,
-                parentId: $scope.activeMenu.id
+                parentId: parentId
             };
 
             $.ajax({
@@ -404,7 +433,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var addMenu = function (title, type) {
             var data = {
@@ -431,7 +460,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var editPage = function (pageId, successCallback) {
             var data = {
@@ -454,7 +483,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var deletePage = function (pageId, successCallback) {
             var data = {
@@ -483,7 +512,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var copyPage = function (pageId, destinationParentId, destinationPosition, callback) {
             var data = {
@@ -507,7 +536,7 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         var movePage = function (pageId, destinationParentId, destinationPosition, doRefresh) {
             var data = {
@@ -536,14 +565,14 @@ var ipPageDragId;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
         /**
          * null values = current
          * false = unset
-         * @param string|null languageCode
-         * @param string|null|false menuName
-         * @param string|null|false pageId
+         * @param languageCode
+         * @param menuName
+         * @param pageId
          */
         var updateHash = function (languageCode, menuName, pageId) {
             var curVariables = getHashParams();
@@ -564,7 +593,7 @@ var ipPageDragId;
             curVariables.page = pageId ? pageId : null;
 
             var path = '';
-            $.each(curVariables, function(key, value){
+            $.each(curVariables, function (key, value) {
                 if (value != null) {
                     if (path != '') {
                         path = path + '&';
@@ -573,8 +602,7 @@ var ipPageDragId;
                 }
             });
             $location.path(path);
-        }
-
+        };
 
 
         var getHashParams = function () {
@@ -592,7 +620,7 @@ var ipPageDragId;
                 hashParams[d(e[1])] = d(e[2]);
 
             return hashParams;
-        }
+        };
 
         function getQuery(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

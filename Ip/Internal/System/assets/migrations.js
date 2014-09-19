@@ -1,4 +1,4 @@
-(function($){
+(function ($) {
     "use strict";
     if ($('.ipsStartMigration').length) {
         $('.ipsStartMigration').on('click', function (e) {
@@ -11,8 +11,8 @@
                 dataType: 'json',
                 type: 'GET',
                 success: migrationResponse,
-                error: function () {
-                    alert('Error: ' + response.responseText);
+                error: function (response) {
+                    alert(response.responseText);
                 }
             });
         });

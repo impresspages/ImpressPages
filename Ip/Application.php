@@ -14,6 +14,7 @@ class Application
 {
     const ASSETS_DIR = 'assets';
     protected $configPath = null;
+    protected $config = null;
 
     /**
      * @ignore
@@ -21,7 +22,11 @@ class Application
      */
     public function __construct($configPath)
     {
-        $this->configPath = $configPath;
+        if (is_array($configPath)) {
+            $this->config = $configPath;
+        } else {
+            $this->configPath = $configPath;
+        }
     }
 
     /**
@@ -30,9 +35,8 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.0.12'; //CHANGE_ON_VERSION_UPDATE
+        return '4.2.0'; //CHANGE_ON_VERSION_UPDATE
     }
-
 
 
     /**
@@ -40,7 +44,16 @@ class Application
      */
     public function init()
     {
-        $config = require($this->configPath);
+        global $ipFile_baseDir, $ipFile_overrides;
+        $ipFile_baseDir = null; //required for MultiSite when several application instances are initialized one after another
+        $ipFile_overrides = null; //required for MultiSite when several application instances are initialized one after another
+
+        if ($this->config) {
+            $config = $this->config;
+        } else {
+            $config = require($this->configPath);
+        }
+
 
         require_once __DIR__ . '/Config.php';
 
@@ -101,8 +114,8 @@ class Application
         $translator = \Ip\ServiceLocator::translator();
         $translator->setLocale($languageCode);
 
-        if (ipConfig()->get('adminLocale')) {
-            $translator->setAdminLocale(ipConfig()->get('adminLocale'));
+        if (ipConfig()->adminLocale()) {
+            $translator->setAdminLocale(ipConfig()->adminLocale());
         }
 
         $theme = ipConfig()->theme();
@@ -111,17 +124,17 @@ class Application
         $themeDir = ipFile("Theme/$theme/translations/");
         $ipDir = ipFile('Ip/Internal/Translations/translations/');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    "$theme-%s.json", $theme);
-        $translator->addTranslationFilePattern('json', $themeDir,       "$theme-%s.json", $theme);
-        $translator->addTranslationFilePattern('json', $overrideDir,    "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $originalDir, "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $themeDir, "$theme-%s.json", $theme);
+        $translator->addTranslationFilePattern('json', $overrideDir, "$theme-%s.json", $theme);
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-admin-%s.json', 'Ip-admin');
-        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-admin-%s.json', 'Ip-admin');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $originalDir, 'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $ipDir, 'Ip-admin-%s.json', 'Ip-admin');
+        $translator->addTranslationFilePattern('json', $overrideDir, 'Ip-admin-%s.json', 'Ip-admin');
 
-        $translator->addTranslationFilePattern('json', $originalDir,    'Ip-%s.json', 'Ip');
-        $translator->addTranslationFilePattern('json', $ipDir,          'Ip-%s.json', 'Ip');
-        $translator->addTranslationFilePattern('json', $overrideDir,    'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $originalDir, 'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $ipDir, 'Ip-%s.json', 'Ip');
+        $translator->addTranslationFilePattern('json', $overrideDir, 'Ip-%s.json', 'Ip');
     }
 
     /**
@@ -140,9 +153,6 @@ class Application
             \Ip\ServiceLocator::dispatcher()->_bindApplicationEvents();
         }
 
-        if (!$subrequest) { // Do not fix magic quotes for internal requests because php didn't touched it
-            $request->fixMagicQuotes();
-        }
 
         $result = ipJob('ipRouteLanguage', array('request' => $request, 'relativeUri' => $request->getRelativePath()));
         if ($result) {
@@ -174,21 +184,42 @@ class Application
         ipEvent('ipInitFinished');
 
 
-
-        $routeAction = ipJob('ipRouteAction', array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage));
+        $routeAction = ipJob(
+            'ipRouteAction',
+            array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage)
+        );
 
         if (!empty($routeAction)) {
             if (!empty($routeAction['page'])) {
                 ipContent()->_setCurrentPage($routeAction['page']);
             }
-        }
+            if (!empty($routeAction['environment'])) {
+                ipRoute()->setEnvironment($routeAction['environment']);
+            } else {
+                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
+                } else {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
+                }
+            }
+            if (!empty($routeAction['controller'])) {
+                ipRoute()->setController($routeAction['controller']);
+            }
+            if (!empty($routeAction['plugin'])) {
+                ipRoute()->setPlugin($routeAction['plugin']);
+            }
+            if (!empty($routeAction['action'])) {
+                ipRoute()->setAction($routeAction['action']);
+            }
 
+        }
 
 
         //check for CSRF attack
         if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
-                ) != $this->getSecurityToken()) && !$request->getPost('pa')
+                ) != $this->getSecurityToken(
+                )) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
@@ -220,12 +251,12 @@ class Application
             $controller = $routeAction['controller'];
 
             if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
-                $controllerClass = 'Ip\\Internal\\'.$plugin.'\\'.$controller;
+                $controllerClass = 'Ip\\Internal\\' . $plugin . '\\' . $controller;
             } else {
                 if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
                     throw new \Ip\Exception("Plugin '" . esc($plugin) . "' doesn't exist or isn't activated.");
                 }
-                $controllerClass = 'Plugin\\'.$plugin.'\\'.$controller;
+                $controllerClass = 'Plugin\\' . $plugin . '\\' . $controller;
             }
 
             if (!class_exists($controllerClass)) {
@@ -256,6 +287,15 @@ class Application
             $eventInfo['page'] = null;
         }
 
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        } else {
+            if ($eventInfo['page']) {
+                ipSetLayout($eventInfo['page']->getLayout());
+            }
+        }
+
         ipEvent('ipBeforeController', $eventInfo);
 
         $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
@@ -265,11 +305,13 @@ class Application
 
     /**
      * Handle HMVC request
-     * @param Request $request Request object with MVC query
-     * @return Response
+     * @param Request $request
+     * @param array $options
+     * @param bool $subrequest
+     * @return Response\Json|Response\Layout|Response\PageNotFound|Response\Redirect|string
      * @throws Exception
      */
-    public function handleRequest(\Ip\Request $request, $options = array(), $subrequest = true)
+    public function handleRequest(Request $request, $options = array(), $subrequest = true)
     {
 
         \Ip\ServiceLocator::addRequest($request);
@@ -326,25 +368,34 @@ class Application
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");
-            $translator->addTranslationFilePattern('json', $originalDir,        "$plugin-%s.json", $plugin);
-            $translator->addTranslationFilePattern('json', $translationsDir,    "$plugin-%s.json", $plugin);
-            $translator->addTranslationFilePattern('json', $overrideDir,        "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-%s.json", $plugin);
+            $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
         }
 
-        $router = \Ip\ServiceLocator::router();
 
         foreach ($plugins as $plugin) {
             $routesFile = ipFile("Plugin/$plugin/routes.php");
+            $this->addFileRoutes($routesFile, $plugin);
+        }
+        $this->addFileRoutes(ipFile('Ip/Internal/Ecommerce/routes.php'), 'Ecommerce');
 
-            if (file_exists($routesFile)) {
-                $routes = array();
-                include $routesFile;
+    }
 
-                $router->addRoutes($routes, array(
-                        'plugin' => $plugin,
-                        'controller' => 'PublicController',
-                    ));
-            }
+    protected function addFileRoutes($routesFile, $plugin)
+    {
+        $router = \Ip\ServiceLocator::router();
+        if (file_exists($routesFile)) {
+            $routes = array();
+            include $routesFile;
+
+            $router->addRoutes(
+                $routes,
+                array(
+                    'plugin' => $plugin,
+                    'controller' => 'PublicController',
+                )
+            );
         }
     }
 
@@ -356,6 +407,9 @@ class Application
     {
         $this->prepareEnvironment($options);
         $request = new \Ip\Request();
+
+        $request->fixMagicQuotes();
+
         $request->setQuery($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);

@@ -234,12 +234,12 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = ui.item;
+        var draggingElement = event.currentTarget;
 
         //drop side
         var sidePlaceholders = new Array();
 
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not(draggingElement).each(function (key, value) {
+        $('*:not(.ipsCol) > .ipBlock > .ipWidget').not(".ipWidget .ipWidget .ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
             //left placeholder
             sidePlaceholders.push({
                 left: $(value).offset().left - 20,
@@ -318,7 +318,7 @@
 
         //drop between the widgets horizontally
         var horizontalPlaceholders = new Array();
-        $.each($('.ipBlock'), function (blockKey, block) {
+        $.each($('.ipBlock').not($(draggingElement).find('.ipBlock')), function (blockKey, block) {
             var $widgets = $(block).find('> .ipWidget');
             $.each($widgets, function (key, value) {
                 var $widget = $(value);
@@ -347,13 +347,13 @@
                         newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
                     }
 
-                    if ($widget.hasClass("ipWidget-Columns")) { //if this is a columns widget, make a 3/4 space for droping. Leave 1/4 for column placeholders
+                    if ($widget.find(".ipBlock").length) { //if this is a columns widget, make a 3/4 space for dropping. Leave 1/4 for column placeholders
                         newPlaceholder.height = space*3/4;
                         newPlaceholder.markerOffset = space*3/4 / 2;
                     }
 
-                    if ($widget.closest('.ipWidget-Columns').length && !$widget.hasClass("ipWidget-Columns")) {//if this is first widget inside a column. Take 1/4 of space for placeholder
-                        var $aboveColumnsWidget = $widget.closest('.ipWidget-Columns').prev();
+                    if ($widget.parent().closest('.ipWidget').find('.ipBlock').length && !$widget.find('.ipBlock').length) {//if this is first widget inside a column. Take 1/4 of space for placeholder
+                        var $aboveColumnsWidget = $widget.parent().closest('.ipWidget').prev();
                         if ($aboveColumnsWidget.length) {
                             space = $widget.offset().top - ($aboveColumnsWidget.offset().top + $aboveColumnsWidget.height());
                             newPlaceholder.top = $widget.offset().top - space / 2;
@@ -388,7 +388,7 @@
                         blockName: $(block).data('ipBlock').name,
                         position: $widget.index()
                     };
-                    if ($prevWidget.hasClass("ipWidget-Columns")) { //if above is columns widget
+                    if ($prevWidget.find(".ipBlock").length) { //if above is columns widget
                         newPlaceholder.top = $prevWidget.offset().top + $prevWidget.height() + space * 1 / 4; //the end of column widget
                     }
 
@@ -415,7 +415,7 @@
                         newPlaceholder.height = $widget.offset().top + ($widget.height() / 2) - newPlaceholder.top;
                     }
 
-                    if ($widget.hasClass('ipWidget-Columns')) {
+                    if ($widget.find(".ipBlock").length) {
                         newPlaceholder.height = $widget.offset().top - newPlaceholder.top - (space / 2);
                         newPlaceholder.markerOffset = newPlaceholder.height - 1 ;
                     }
@@ -447,8 +447,8 @@
                         lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
                     }
 
-                    var $columnsWidget = $widget.closest('.ipWidget-Columns');
-                    if ($columnsWidget.length && !$widget.hasClass("ipWidget-Columns")) {
+                    var $columnsWidget = $widget.closest('.ipWidget').find('.ipBlock');
+                    if ($columnsWidget.length && !$widget.find(".ipBlock").length) {
                         //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
@@ -457,7 +457,7 @@
                         lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
                     }
 
-                    if ($widget.hasClass('ipWidget-Columns')) {
+                    if ($widget.find(".ipBlock").length) {
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;

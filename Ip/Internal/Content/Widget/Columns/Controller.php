@@ -134,6 +134,7 @@ class Controller extends \Ip\WidgetController
      * @param int $oldId Old widget ID
      * @param int $newId Duplicated widget ID
      * @param array $data Data that has been duplicated from old widget to the new one
+     * @return array new widget data
      */
     public function duplicate($oldId, $newId, $data)
     {

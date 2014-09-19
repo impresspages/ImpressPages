@@ -103,7 +103,7 @@ var IpWidget_Map = function () {
         $widget.trigger('ipWidgetMapInit', {map: map, marker: this.marker});
 
 
-    }
+    };
 
     function placeMarker(location) {
         if (this.marker) {

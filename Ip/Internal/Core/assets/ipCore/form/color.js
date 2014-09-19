@@ -4,14 +4,14 @@
  */
 
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
 
-        init : function(options) {
+        init: function (options) {
 
-            return this.each(function() {
+            return this.each(function () {
 
                 var $this = $(this);
 
@@ -20,7 +20,7 @@
                     $this.data('ipFormColor', {});
 
 
-                    var loadInterval = setInterval(function() {
+                    var loadInterval = setInterval(function () {
                         initSpectrum($this, loadInterval);
                     }, 1000);
                 }
@@ -40,10 +40,11 @@
         clearInterval(loadInterval);
 
         $this.find('.ipsColorPicker').spectrum({
+            preferredFormat: 'RGB',
             showInput: true,
             cancelText: $this.find('.ipsColorPicker').data('canceltext'),
             chooseText: $this.find('.ipsColorPicker').data('confirmtext'),
-            move: function(color) {
+            move: function (color) {
                 $this.find('.ipsColorPicker').spectrum("set", color.toHexString());
             },
             show: function (color) {
@@ -57,10 +58,10 @@
             }
 
         });
-    }
+    };
 
 
-    $.fn.ipFormColor = function(method) {
+    $.fn.ipFormColor = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {

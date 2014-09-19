@@ -1,10 +1,9 @@
-
-(function($){
+(function ($) {
     "use strict";
 
-    var ipSystem = new function() {
+    var ipSystem = new function () {
 
-        this.init = function() {
+        this.init = function () {
             var postData = {};
             postData.aa = 'System.getIpNotifications';
             postData.securityToken = ip.securityToken;
@@ -16,9 +15,8 @@
                 dataType: 'json',
                 type: 'POST',
                 success: notificationsResponse,
-                error: function () {
-                    //do nothing
-                    //keep in mind, that error happens if user leaves the page while waiting for response
+                error: function (response) {
+                    alert(response.responseText);
                 }
             });
 
@@ -48,7 +46,7 @@
                     }
                 }
             }
-        }
+        };
 
         var startUpdate = function (e) {
             var $link = $(this);
@@ -60,7 +58,7 @@
             postData.downloadUrl = $link.data('downloadurl');
             postData.md5 = $link.data('md5');
 
-            var updateModal  = $('#ipWidgetUpdatePopup');
+            var updateModal = $('#ipWidgetUpdatePopup');
 
             updateModal.modal();
 
@@ -91,7 +89,7 @@
 
     };
 
-    $(function() {
+    $(function () {
         ipSystem.init();
     });
 
