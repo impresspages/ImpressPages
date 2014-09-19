@@ -27,7 +27,8 @@
             "Ip\\": "Ip/",
             "Plugin\\": "Plugin/",
             "Plugin\\Install\\": "install/Plugin/Install/",
-            "Theme\\": "Theme/"
+            "Theme\\": "Theme/",
+            "Aura\\Router\\": "Ip/Internal/Vendor/Aura/Router/"
         }
     }
 }
