@@ -12,6 +12,11 @@
             "email": "mangirdas@impresspages.org",
             "homepage": "http://www.linkedin.com/in/mangirdasskripka/",
             "role": "Developer"
+        },
+        {
+            "name": "Martynas Eskis",
+            "email": "eskis.martynas@gmailc.com",
+            "role": "Developer"
         }
     ],
     "require": {
