@@ -9,13 +9,16 @@ namespace Ip\Internal\Design;
 
 use \Ip\Form as Form;
 
-class ConfigModel{
+class ConfigModel
+{
 
     protected $isInPreviewState;
 
     protected function __construct()
     {
-        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || ipRequest()->getRequest('ipDesignPreview') && $this->hasPermission();
+        $this->isInPreviewState = defined('IP_ALLOW_PUBLIC_THEME_CONFIG') || ipRequest()->getRequest(
+                'ipDesignPreview'
+            ) && $this->hasPermission();
     }
 
     /**
@@ -43,14 +46,12 @@ class ConfigModel{
         $data = ipRequest()->getRequest();
 
 
-
-
         if (isset($data['restoreDefault'])) {
             //overwrite current config with default theme values
             $model = Model::instance();
             $theme = $model->getTheme(ipConfig()->theme());
             $options = $theme->getOptionsAsArray();
-            foreach($options as $option) {
+            foreach ($options as $option) {
                 if (isset($option['name']) && $option['name'] == $name && isset($option['default'])) {
                     return $option['default'];
                 }
@@ -69,7 +70,7 @@ class ConfigModel{
 
         $result = ipThemeStorage($themeName)->get($name);
 
-        if ($result !== NULL) {
+        if ($result !== null) {
             return $result;
         }
 
@@ -77,7 +78,7 @@ class ConfigModel{
             $model = Model::instance();
             $theme = $model->getTheme($themeName);
             $options = $theme->getOptionsAsArray();
-            foreach($options as $option) {
+            foreach ($options as $option) {
                 if (!empty($option['name']) && $option['name'] == $name && isset($option['name']) && isset($option['default'])) {
                     return $option['default'];
                 }
@@ -97,7 +98,7 @@ class ConfigModel{
             $model = Model::instance();
             $theme = $model->getTheme(ipConfig()->theme());
             $options = $theme->getOptionsAsArray();
-            foreach($options as $option) {
+            foreach ($options as $option) {
                 if (isset($option['name']) && isset($option['default'])) {
                     $config[$option['name']] = $option['default'];
                 }
@@ -136,7 +137,6 @@ class ConfigModel{
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
         $form->addClass('ipsForm');
-
 
 
         $options = $theme->getOptions();
@@ -181,7 +181,7 @@ class ConfigModel{
     {
         $fieldset = new \Ip\Form\Fieldset();
 
-        foreach($options as $option) {
+        foreach ($options as $option) {
             if (empty($option['type']) || empty($option['name'])) {
                 continue;
             }
@@ -190,7 +190,7 @@ class ConfigModel{
                     $newField = new Form\Field\Select();
                     $values = array();
                     if (!empty($option['values']) && is_array($option['values'])) {
-                        foreach($option['values'] as $value) {
+                        foreach ($option['values'] as $value) {
                             $values[] = array($value, $value);
                         }
                     }
@@ -212,7 +212,7 @@ class ConfigModel{
                     $newField = new Form\Field\Checkbox();
                     break;
                 default:
-                    //do nothing
+                    $newField = new Form\Field\Text();
             }
             if (!isset($newField)) {
                 //field type is not recognised
@@ -232,7 +232,7 @@ class ConfigModel{
     protected function getLiveConfig()
     {
         $data = ipRequest()->getRequest();
-        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])){
+        if ($this->isInPreviewState() && isset($data['ipDesign']['pCfg'])) {
             return $data['ipDesign']['pCfg'];
         }
 

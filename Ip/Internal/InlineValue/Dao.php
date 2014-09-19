@@ -1,7 +1,7 @@
 <?php
+
 /**
  * @package ImpressPages
-
  *
  */
 
@@ -13,7 +13,6 @@ class Dao
     private $module;
     private $lastValueScope;
 
-
     /**
      * @param string $module
      */
@@ -22,19 +21,26 @@ class Dao
         $this->module = $module;
     }
 
-    // GET
+    /**
+     * Get value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     * @return Entity\Scope
+     */
     public function getValue($key, $languageId, $pageId)
     {
-        //Find value in breadcrumb
+        // Find value in breadcrumb.
         if ($pageId === null) {
-            //we can't get breadcrumb if page id is null
+            // We can't get breadcrumb if page id is null.
             $breadcrumb = array();
         } else {
             $breadcrumb = ipContent()->getBreadcrumb($pageId);
-            //var_dump($breadcrumb);exit;
+            // var_dump($breadcrumb);
+            // exit;
         }
         $breadcrumb = array_reverse($breadcrumb);
-
 
         foreach ($breadcrumb as $position => $element) {
             $value = $this->getPageValue($key, $languageId, $element->getId());
@@ -56,7 +62,7 @@ class Dao
             }
         }
 
-        //Find language value
+        // Find language value.
         $value = $this->getLanguageValue($key, $languageId);
         if ($value !== false) {
             $scope = new Entity\Scope();
@@ -66,7 +72,7 @@ class Dao
             return $value;
         }
 
-        //Find global value
+        // Find global value.
         $value = $this->getGlobalValue($key);
         if ($value !== false) {
             $scope = new Entity\Scope();
@@ -80,15 +86,13 @@ class Dao
     }
 
     /**
-     * Last get operation scope
-     * @return int
+     * Get page value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     * @return mixed|null
      */
-    public function getLastOperationScope()
-    {
-        return $this->lastValueScope;
-    }
-
-
     public function getPageValue($key, $languageId, $pageId)
     {
         $scope = new Entity\Scope();
@@ -97,7 +101,7 @@ class Dao
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
 
-        $where = array (
+        $where = array(
             'plugin' => $this->module,
             'pageId' => $pageId,
             'key' => $key,
@@ -106,13 +110,19 @@ class Dao
         return ipDb()->selectValue('inline_value_page', 'value', $where);
     }
 
+    /**
+     * Get language value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @return bool
+     */
     public function getLanguageValue($key, $languageId)
     {
         $scope = new Entity\Scope();
         $scope->settype(Entity\Scope::SCOPE_LANGUAGE);
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
-
 
         $dbh = ipDb()->getConnection();
         $sql = '
@@ -126,7 +136,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -140,6 +150,12 @@ class Dao
         }
     }
 
+    /**
+     * Get global value
+     *
+     * @param string $key
+     * @return bool
+     */
     public function getGlobalValue($key)
     {
         $scope = new Entity\Scope();
@@ -157,7 +173,7 @@ class Dao
                 `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );
@@ -170,7 +186,24 @@ class Dao
         }
     }
 
-    // SET
+    /**
+     * Get last operation scope
+     *
+     * @return int
+     */
+    public function getLastOperationScope()
+    {
+        return $this->lastValueScope;
+    }
+
+    /**
+     * Set page value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param int $pageId
+     * @param string $value
+     */
     public function setPageValue($key, $languageId, $pageId, $value)
     {
         $dbh = ipDb()->getConnection();
@@ -186,7 +219,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId,
@@ -194,10 +227,15 @@ class Dao
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
-
     }
 
-
+    /**
+     * Set language value
+     *
+     * @param string $key
+     * @param int $languageId
+     * @param string $value
+     */
     public function setLanguageValue($key, $languageId, $value)
     {
         $dbh = ipDb()->getConnection();
@@ -213,7 +251,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId,
@@ -223,6 +261,12 @@ class Dao
         $q->execute($params);
     }
 
+    /**
+     * Get global value
+     *
+     * @param string $key
+     * @param string $value
+     */
     public function setGlobalValue($key, $value)
     {
         $dbh = ipDb()->getConnection();
@@ -237,7 +281,7 @@ class Dao
                 `value` = :value
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':value' => $value
@@ -246,7 +290,12 @@ class Dao
         $q->execute($params);
     }
 
-    // DELETE
+    /**
+     * Delete page value
+     *
+     * @param string $key
+     * @param int $pageId
+     */
     public function deletePageValue($key, $pageId)
     {
         $dbh = ipDb()->getConnection();
@@ -259,7 +308,7 @@ class Dao
                 AND `pageId` = :pageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':pageId' => $pageId
@@ -268,6 +317,12 @@ class Dao
         $q->execute($params);
     }
 
+    /**
+     * Delete language value
+     *
+     * @param string $key
+     * @param int $languageId
+     */
     public function deleteLanguageValue($key, $languageId)
     {
         $dbh = ipDb()->getConnection();
@@ -280,7 +335,7 @@ class Dao
                 `languageId` = :languageId
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key,
             ':languageId' => $languageId
@@ -289,6 +344,11 @@ class Dao
         $q->execute($params);
     }
 
+    /**
+     * Delete global value
+     *
+     * @param string $key
+     */
     public function deleteGlobalValue($key)
     {
         $dbh = ipDb()->getConnection();
@@ -300,13 +360,12 @@ class Dao
                 AND `key` = :key
         ';
 
-        $params = array (
+        $params = array(
             ':module' => $this->module,
             ':key' => $key
         );
         $q = $dbh->prepare($sql);
         $q->execute($params);
     }
-
 
 }

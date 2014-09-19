@@ -1690,8 +1690,8 @@ output {
   color: #555555;
   background-color: #ffffff;
   background-image: none;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
+  border: 1px solid #a3a4af;
+  border-radius: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
@@ -1704,14 +1704,14 @@ output {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control::-moz-placeholder {
-  color: #999999;
+  color: #97989f;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999999;
+  color: #97989f;
 }
 .form-control[disabled],
 .form-control[readonly],
@@ -3370,7 +3370,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  border: 1px solid #a3a4af;
   border-radius: 4px;
 }
 .input-group-addon.input-sm {
@@ -7290,7 +7290,7 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7298,6 +7298,7 @@ button.close {
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -7326,7 +7327,7 @@ button.close {
   background: transparent;
   border: 0;
   border-collapse: collapse;
-  cursor: auto;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7334,6 +7335,7 @@ button.close {
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -7348,7 +7350,6 @@ button.close {
   vertical-align: baseline;
   width: auto;
   color: inherit;
-  cursor: inherit;
   font-size: inherit;
   text-align: inherit;
 }
@@ -7584,38 +7585,8 @@ fieldset[disabled] .btn-new.active {
   color: #019bd4;
   background-color: #ffffff;
 }
-.help-hint {
-  background-color: #cccccc;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 50%;
-  z-index: 1;
-}
-.help-error {
-  background-color: #d9534f;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #fff;
-  display: none;
-  font-size: 12px;
-  padding: 4px 10px 2px;
-  width: 100%;
-}
-.has-error .help-error {
-  display: block;
-}
-.form-group:hover .help-hint {
-  display: block;
-}
-.captcha img {
-  display: block;
-  max-width: 100%;
+.form-group {
+  position: relative;
 }
 .form-group.type-blank {
   margin-bottom: 0;
@@ -7628,6 +7599,42 @@ fieldset[disabled] .btn-new.active {
 }
 .form-group.type-submit label {
   display: none;
+}
+.form-control {
+  font-size: 18px;
+}
+.form-control + .input-group-addon {
+  border-left: 0;
+}
+.help-hint {
+  background-color: #a3a4af;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  z-index: 2;
+}
+.form-group:hover .help-hint {
+  display: block;
+}
+.help-error {
+  background-color: #d9534f;
+  color: #fff;
+  display: none;
+  font-size: 12px;
+  padding: 4px 10px;
+  width: 100%;
+}
+.has-error .help-error {
+  display: block;
+}
+.captcha img {
+  display: block;
+  max-width: 100%;
 }
 legend[data-toggle="collapse"] {
   cursor: pointer;
@@ -8262,6 +8269,7 @@ th {
   position: fixed;
   top: 10px;
   width: 400px;
+  z-index: 1050;
 }
 .ipModuleDesignConfig .modal-header {
   cursor: move;
@@ -8416,6 +8424,31 @@ th {
 }
 .ipAdminPages ._pages ._tree {
   margin: 0 -20px;
+}
+.ipAdminPages ._pages ._tree ._table td {
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+.ipAdminPages ._pages ._tree ._table > thead > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > tbody > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr > td.active,
+.ipAdminPages ._pages ._tree ._table > thead > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > tbody > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr > th.active,
+.ipAdminPages ._pages ._tree ._table > thead > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > tbody > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > td,
+.ipAdminPages ._pages ._tree ._table > thead > tr.active > th,
+.ipAdminPages ._pages ._tree ._table > tbody > tr.active > th,
+.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > th {
+  background-color: #fff;
+  color: #000;
+  font-weight: bold;
+}
+.ipAdminPages ._pages ._tree .ui-sortable-helper td {
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 .ipAdminPages ._properties {
   background-color: #fff;
@@ -9499,6 +9532,33 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 .ipModulePlugins ._properties ._actions {
   margin-bottom: 10px;
   margin-top: -10px;
+}
+.ipModulePlugins ._properties ._details {
+  list-style: none;
+}
+.ipModulePlugins ._icon {
+  height: 25px;
+  margin-right: 10px;
+  float: left;
+}
+.ipModulePluginsMarket ._popup {
+  background-color: #fff;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  z-index: 1029;
+}
+.ipModulePluginsMarket ._popup ._back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.ipModulePluginsMarket ._popup ._container,
+.ipModulePluginsMarket ._popup iframe {
+  height: 100%;
+  width: 100%;
 }
 .ipModuleRepositoryPopup {
   background-color: #fff;

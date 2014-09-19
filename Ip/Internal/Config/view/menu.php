@@ -36,10 +36,11 @@
             $submenuData = array(
                 'items' => $menuItem->getChildren(),
                 'depth' => $depth + 1,
-                'attributesStr' => 'class="level'.($depth+1).' ' . $children . '"'
+                'attributesStr' => 'class="level'.($depth+1).' ' . $children . '"',
+                'view' => $view
             );
             $submenuData = array_merge($this->getVariables(), $submenuData);
-            $submenu = ipView('menu.php', $submenuData)->render();
+            $submenu = ipView($view, $submenuData)->render();
         }
 
         if (!empty($css)) {
@@ -47,7 +48,7 @@
         }
         ?>
         <li<?php echo $class; ?>>
-            <a<?php echo $href; ?><?php echo $target; ?> title="<?php echo escAttr($menuItem->getTitle()); ?>">
+            <a<?php echo $href; ?><?php echo $target; ?> title="<?php echo escAttr($menuItem->getPageTitle()); ?>">
                 <?php echo esc($menuItem->getTitle()); ?>
             </a>
             <?php echo $submenu; ?>

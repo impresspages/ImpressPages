@@ -7,8 +7,6 @@
 namespace Ip\Internal\Administrators;
 
 
-
-
 class Helper
 {
     public static function createForm()
@@ -60,7 +58,6 @@ class Helper
         $form->addAttribute('autocomplete', 'off');
 
 
-
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', // HTML "name" attribute
@@ -75,15 +72,17 @@ class Helper
             array(
                 'name' => 'email', // HTML "name" attribute
                 'label' => __('Email', 'Ip-admin', false), // Field label that will be displayed next to input field
-                'value' => '{{activeAdministrator.email}}'
+                'value' => '{{activeAdministratorEmail}}'
             ));
         $field->addValidator("Required");
         $form->addField($field);
 
         $field = new \Ip\Form\Field\Password(
             array(
-                'name' => 'password', // HTML "name" attribute
-                'label' => __('New password (optional)', 'Ip-admin', false), // Field label that will be displayed next to input field
+                'name' => 'password',
+                // HTML "name" attribute
+                'label' => __('New password (optional)', 'Ip-admin', false),
+                // Field label that will be displayed next to input field
                 'value' => ''
             ));
         $form->addField($field);

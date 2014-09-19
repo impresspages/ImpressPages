@@ -19,6 +19,7 @@ class FieldType
     /**
      *
      * $jsOptionsFunction and $jsSaveOptionsFunction should both present or both be skipped.
+     * @param string $key
      * @param string $fieldClass
      * @param string $title
      * @param string $jsOptionsInitFunction
@@ -45,6 +46,8 @@ class FieldType
      *
      * Create field that could be used in form class.
      * @param array $fieldData will be passed to field constructor
+     * @throws \Ip\Exception\Content
+     * @throws \Exception
      * @return \Ip\Form\Field
      */
     public function createField($fieldData)
@@ -92,7 +95,9 @@ class FieldType
         }
 
         if (!class_exists($fieldClass)) {
-            throw new \Ip\Exception\Content('Required field type class doesn\'t exist. ' . esc($fieldClass), array('fieldClass' => $fieldClass));
+            throw new \Ip\Exception\Content('Required field type class doesn\'t exist. ' . esc(
+                $fieldClass
+            ), array('fieldClass' => $fieldClass));
         }
         $field = new $fieldClass($fieldOptions);
 

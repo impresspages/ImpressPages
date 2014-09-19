@@ -39,9 +39,12 @@ class Helper
         ipAddJsVariable('ipWidgetSnippets', $snippets);
 
 
-
-
         ipAddJsVariable('ipContentInit', Model::initManagementData());
+
+
+
+        ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+        ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
 
         if (ipConfig()->isDebugMode()) {
             ipAddJs('Ip/Internal/Content/assets/management/ipContentManagementInit.js');
@@ -76,8 +79,6 @@ class Helper
         }
 
 
-        ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
-        ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
 
         ipAddJs('Ip/Internal/Core/assets/js/jquery-tools/jquery.tools.ui.scrollable.js');
 

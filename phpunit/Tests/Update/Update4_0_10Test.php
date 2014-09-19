@@ -19,7 +19,14 @@ class Update4_0_10Test extends \PhpUnit\Helper\MinkTestCase
 
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation('4.0.10'); //development version
-        $installation->setDefaultConfig(array('testMode' => 1));
+        $installation->setDefaultConfig(array(
+            'testMode' => 1,
+            'serviceUrl'        => 'http://test.service.impresspages.org/',
+            'themeMarketUrl'    => 'http://local.market.impresspages.org/themes-v1/?version=4',
+            'imageMarketUrl'    => 'http://local.market.impresspages.org/images-v1/',
+            'pluginMarketUrl'   => 'http://local.market.impresspages.org/plugins-v1/',
+            'usageStatisticsUrl'   => 'http://example.com',
+        ));
         $installation->install();
 
 
@@ -30,12 +37,16 @@ class Update4_0_10Test extends \PhpUnit\Helper\MinkTestCase
 
         $this->session()->executeScript("$('.ipsAdminMenuBlock').removeClass('hidden');");
         $this->find('.ipsAdminMenuBlockContainer a[title=System]')->click();
-
+        $this->waitForElementPresent('.ipsStartUpdate');
+        sleep(1); //can't explain. But it won't work witout this. Probably we need some js to do some initialization with .iposStartUpdate
         $this->find('.ipsStartUpdate')->click();
 
         $this->waitForElementPresent('p.alert-success');
+
         $versionSpan = $this->find('div.page-header small');
-        $this->assertEquals(\Ip\Application::getVersion(), $versionSpan->getText());
+        $curVersion = \Ip\Application::getVersion();
+        $spanVersion = $versionSpan->getText();
+        $this->assertEquals($curVersion, $spanVersion);
 
 
     }

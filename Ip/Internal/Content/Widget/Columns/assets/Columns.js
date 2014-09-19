@@ -9,9 +9,14 @@ var IpWidget_Columns = function () {
     this.$widgetObject = null;
 
     this.init = function ($widgetObject, data) {
+        $(document).trigger('ipWidgetColumnsInit');
+    };
 
-    }
-}
+    this.onAdd = function () {
+        $(document).trigger('ipWidgetColumnsOnAdd');
+    };
+
+};
 
 var ipColumnsInitWidthHandles = function () {
     "use strict";
@@ -20,8 +25,8 @@ var ipColumnsInitWidthHandles = function () {
     function addResizeHandlers($widget) {
 
 
-        var $cols = $widget.find('.ipsCol');
-        $.each($widget.find('.ipsCol'), function (index, col) {
+        var $cols = $widget.find('> .ipsColsContainer > .ipsCol');
+        $.each($cols, function (index, col) {
             if (index >= $cols.length - 1) {
                 //skip last col
                 return;
@@ -77,7 +82,7 @@ var ipColumnsInitWidthHandles = function () {
 
             $('body').append($newHandler);
         });
-    };
+    }
 
     $('.ipsAdminWidgetColsWidthHandler').remove();
 
@@ -85,11 +90,12 @@ var ipColumnsInitWidthHandles = function () {
         addResizeHandlers($(widget));
     });
 
-}
+
+    $(document).trigger('ipWidgetColumnsDragHandlersInit');
+};
 
 $(document).on('ipContentManagementInit', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetAdded', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetDeleted', ipColumnsInitWidthHandles);
-$(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetMoved', ipColumnsInitWidthHandles);
 $(document).on('ipWidgetSaved', ipColumnsInitWidthHandles);

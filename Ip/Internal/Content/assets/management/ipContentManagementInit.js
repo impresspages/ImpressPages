@@ -27,7 +27,7 @@ $(document).ready(function () {
     $emptyDiv.tinymce(ipTinyMceConfig());
     setTimeout(function () {
         $emptyDiv.remove()
-    }, '10000');
+    }, 10000);
 
     $(document).on('ipWidgetAdded', replacePublishedToPublish);
     $(document).on('ipWidgetDeleted', replacePublishedToPublish);

@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -15,9 +14,8 @@ namespace Ip\Internal\Repository;
  * But files from frontend can be uploaded only to
  * secured folder not accessible from the Internet
  */
-class SiteController extends \Ip\Controller{
-
-
+class SiteController extends \Ip\Controller
+{
 
 
     /**
@@ -25,11 +23,13 @@ class SiteController extends \Ip\Controller{
      */
     public function upload()
     {
+        ipRequest()->mustBePost();
+        $post = ipRequest()->getPost();
 
-        if (isset($_POST['secureFolder']) && $_POST['secureFolder']) {
+        if (isset($post['secureFolder']) && $post['secureFolder']) {
             //upload to secure publicly not accessible folder.
             if (!ipGetOption('Config.allowAnonymousUploads', 1)) {
-                throw new \Exception('Anonymous uploads are not enabled. You can enable them in config.');
+                throw new \Exception('Anonymous uploads are not enabled. You can enable them by adding Config.allowAnonymousUploads value to storage table in the database.');
             } else {
                 //do nothing. Anonymous uploads are allowed to secure folder
             }
@@ -48,8 +48,11 @@ class SiteController extends \Ip\Controller{
             $uploadModel->handlePlupload($secureFolder);
         } catch (\Ip\Exception\Repository\Upload\ForbiddenFileExtension $e) {
             // Return JSON-RPC response
-            $message = __('Incorrect file type.', 'Ip-admin');
-            ipLog()->info('Repository.invalidUploadedFileExtension: ' . $e->getMessage(), array('plugin' => 'Repository'));
+            $message = __('Forbidden file type.', 'Ip-admin');
+            ipLog()->info(
+                'Repository.invalidUploadedFileExtension: ' . $e->getMessage(),
+                array('plugin' => 'Repository')
+            );
 
             // TODO JSONRPC
             $answer = array(
@@ -98,9 +101,6 @@ class SiteController extends \Ip\Controller{
         return new \Ip\Response\Json($answerArray);
 
     }
-
-
-
 
 
     protected function backendOnly()

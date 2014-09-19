@@ -36,7 +36,9 @@ class LessCompiler
         $config = $configModel->getAllConfigValues($themeName);
 
         $less = "@import '{$lessFile}';";
-        $less.= $this->generateLessVariables($options, $config);
+        $less .= $this->generateLessVariables($options, $config);
+
+        $css = '';
 
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
@@ -62,11 +64,11 @@ class LessCompiler
             $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
-        } catch(Exception $e) {
+            $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
+        } catch (\Exception $e) {
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
-        $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         return $css;
     }
 
@@ -76,7 +78,7 @@ class LessCompiler
         $uri = ''; // relative path doesn't work correctly
 
         // if file exists in theme directory it means we want to override the default path
-        if( file_exists($full_path) ) {
+        if (file_exists($full_path)) {
             return array($full_path, $uri);
         }
     }
@@ -86,6 +88,10 @@ class LessCompiler
         $less = '';
 
         foreach ($options as $option) {
+            if (isset($option['addToLess']) && !$option['addToLess']) {
+                continue;
+            }
+
             if (empty($option['name']) || empty($option['type'])) {
                 continue; // ignore invalid nodes
             }
@@ -99,20 +105,22 @@ class LessCompiler
             }
 
             switch ($option['type']) {
+                case 'select':
                 case 'color':
                     $lessValue = $rawValue;
                     break;
+                default:
                 case 'hidden':
                 case 'range':
                     $lessValue = $rawValue;
                     if (!empty($option['units'])) {
                         $lessValue .= $option['units'];
                     }
+                    if (!isset($option['escape']) || $option['escape']) {
+                        $lessValue = "'" . escAttr($lessValue) . "'";
+                    }
                     break;
-                default:
-                    $lessValue = json_encode($rawValue);
             }
-
             $less .= "\n@{$option['name']}: {$lessValue};";
         }
 
@@ -171,7 +179,12 @@ class LessCompiler
         foreach ($lessFiles as $file) {
             $lessFile = basename($file);
             $css = $this->compileFile($themeName, basename($lessFile));
-            file_put_contents(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/' . substr($lessFile, 0, -4) . 'css'), $css);
+            file_put_contents(
+                ipFile(
+                    'Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/' . substr($lessFile, 0, -4) . 'css'
+                ),
+                $css
+            );
         }
     }
 
@@ -180,10 +193,10 @@ class LessCompiler
      */
     protected function globRecursive($pattern, $flags = 0)
     {
-        //some systems return false instead of empty array if no matches found in glob function
         $files = glob($pattern, $flags);
         if (!is_array($files)) {
-            return array();
+            //some systems return false instead of empty array if no matches found in glob function
+            $files = array();
         }
 
         $dirs = glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT);

@@ -18,15 +18,21 @@
             $widgetObject.find('.ipsContainer').tinymce(customTinyMceConfig);
             $widgetObject.find('.ipsContainer').attr('spellcheck', true);
 
+            // hiding active editor to make sure it doesn't appear on top of repository window
+            $(document).on('ipWidgetAdded', function(e, data) {
+                if (tinymce.activeEditor.theme.panel) {
+                    tinymce.activeEditor.theme.panel.hide();
+                }
+            });
         };
 
         this.onAdd = function () {
             this.$widgetObject.find('.ipsContainer').focus();
-        }
+        };
 
         this.splitParts = function () {
             return this.$widgetObject.find('.ipsContainer > *');
-        }
+        };
 
         this.splitData = function (curData, position) {
             //we ignore curData value as it holds data from the database. While actual data in editor might be already changed

@@ -4,12 +4,12 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var $this = $(this);
 
                 $this.html('');
@@ -24,7 +24,7 @@
                     type: 'GET',
                     url: ip.baseUrl,
                     data: data,
-                    encoding:"UTF-8",
+                    encoding: "UTF-8",
                     context: $this,
                     success: formResponse,
                     dataType: 'json'
@@ -32,7 +32,7 @@
 
             });
         },
-        destroy : function() {
+        destroy: function () {
             // TODO
         }
 
@@ -54,9 +54,9 @@
                 // adding required attributes to make collapse() to work
                 $legend
                     .attr('data-toggle', 'collapse')
-                    .attr('data-target', '#propertiesCollapse'+index)
+                    .attr('data-target', '#propertiesCollapse' + index)
                     .addClass('collapsed');
-                $fieldset.find('.form-group').wrapAll('<div class="collapse" id="propertiesCollapse'+index+'" />');
+                $fieldset.find('.form-group').wrapAll('<div class="collapse" id="propertiesCollapse' + index + '" />');
             }
         });
 
@@ -69,11 +69,11 @@
             }
         });
 
-        $this.find('.ipsDelete').on('click', function(e) {
+        $this.find('.ipsDelete').on('click', function (e) {
             $this.trigger('delete.ipPages');
         });
 
-        $this.find('.ipsEdit').on('click', function(e) {
+        $this.find('.ipsEdit').on('click', function (e) {
             $this.trigger('edit.ipPages');
         });
 
@@ -85,9 +85,9 @@
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
-    }
+    };
 
-    $.fn.ipPageProperties = function(method) {
+    $.fn.ipPageProperties = function (method) {
 
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));

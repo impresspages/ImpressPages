@@ -45,4 +45,4 @@ var pageMenuList = {
             }
         });
     }
-}
+};

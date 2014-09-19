@@ -2,18 +2,18 @@
 var validatorConfigAdmin = '';
 
 
-(function($){
+(function ($) {
     "use strict";
 
-    var createConfig = function(translationsKey) {
+    var createConfig = function (translationsKey) {
         var config = {
-            'lang' : ip.languageCode,
+            'lang': ip.languageCode,
             //'errorClass' : 'ipmControlError',
-            'messageClass' : 'hidden', //hide default jqueryTools absolutely positioned error message
+            'messageClass': 'hidden', //hide default jqueryTools absolutely positioned error message
             //'position' : 'bottom left',
             //'offset' : [-3, 0],
-            'onFail' : function(e, errors) {
-                $.each(errors, function() {
+            'onFail': function (e, errors) {
+                $.each(errors, function () {
                     var err = this;
                     var $control = this.input;
                     $control.parents('.form-group')
@@ -26,9 +26,17 @@ var validatorConfigAdmin = '';
                         $control.parents('.form-group').find('.help-error').show()
                     }
                 });
+
+                if (!isScrolledIntoView(errors[0].input) && !$(errors[0].input).hasClass('ipsDisableAutoscrollOnError')) {
+                    $('html, body').animate({
+                        scrollTop: Math.max($(errors[0].input).offset().top - 70, 0)
+                    }, 300);
+
+                }
+                $(e.target).trigger('ipOnFail', [e, errors]);
             },
-            'onSuccess' : function(e, valids) {
-                $.each(valids, function() {
+            'onSuccess': function (e, valids) {
+                $.each(valids, function () {
                     var $control = $(this);
                     $control.parents('.form-group').removeClass('has-error');
                 });
@@ -37,14 +45,24 @@ var validatorConfigAdmin = '';
         return config;
     };
 
-    $.each(ipValidatorTranslations, function(key, value) {
+
+    var isScrolledIntoView = function (elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
+    $.each(ipValidatorTranslations, function (key, value) {
         if (validatorConfigAdmin === '') {
             validatorConfigAdmin = createConfig(key);
         }
         $.tools.validator.localize(key, value);
     });
-
-
 
 
 })(jQuery);

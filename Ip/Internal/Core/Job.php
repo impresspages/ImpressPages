@@ -8,13 +8,13 @@ class Job
     public static function ipRouteAction_20($info)
     {
         if (!$info['request']->_isWebsiteRoot()) {
-            return;
+            return null;
         }
 
         $req = $info['request']->getRequest();
 
         if (empty($req)) {
-            return;
+            return null;
         }
 
         $actionString = null;
@@ -28,16 +28,18 @@ class Job
         } elseif (isset($req['pa'])) {
             $actionString = $req['pa'];
             $controller = 'PublicController';
+        } else {
+            return null;
         }
 
         if (!$actionString) {
-            return;
+            return null;
         }
 
         $parts = explode('.', $actionString);
         if (count($parts) > 2) {
             ipLog()->warning('Request.invalidControllerAction: {action}', array('action' => $actionString));
-            return;
+            return null;
         }
 
         if (empty($parts[1])) {
@@ -93,9 +95,6 @@ class Job
         if (!is_callable($info['action'])) {
             $controllerClass = $info['controllerClass'];
             $controller = new $controllerClass();
-            if (!$controller instanceof \Ip\Controller) {
-                throw new \Ip\Exception(esc ($controllerClass) . ".php must extend \\Ip\\Controller class.");
-            }
 
             $callableAction = array($controller, $info['action']);
             $reflection = new \ReflectionMethod($controller, $info['action']);
@@ -114,15 +113,44 @@ class Job
             $name = $parameter->getName();
 
             if (isset($info[$name])) {
-                $arguments[]= $info[$name];
+                $arguments[] = $info[$name];
             } elseif ($parameter->isOptional()) {
-                $arguments[]= $parameter->getDefaultValue();
+                $arguments[] = $parameter->getDefaultValue();
             } else {
-                throw new \Ip\Exception("Controller action requires " . esc($name) . " parameter", array('route' => $info, 'requiredParameter' => $name));
+                throw new \Ip\Exception("Controller action requires " . esc(
+                    $name
+                ) . " parameter", array('route' => $info, 'requiredParameter' => $name));
             }
         }
 
         return call_user_func_array($callableAction, $arguments);
+    }
+
+    public static function ipReplacePlaceholders($info)
+    {
+        $content = $info['content'];
+        $userData = ipUser()->data();
+        $userEmail = !empty($userData['email']) ? $userData['email'] : '';
+        $userName = !empty($userData['name']) ? $userData['name'] : '';
+
+        $values = array(
+            '{websiteTitle}' => ipGetOptionLang('Config.websiteTitle'),
+            '{websiteEmail}' => ipGetOptionLang('Config.websiteEmail'),
+            '{websiteUrl}' => ipConfig()->baseUrl(),
+            '{userId}' => ipUser()->userId(),
+            '{userEmail}' => $userEmail,
+            '{userName}' => $userName
+        );
+        foreach ($info['customValues'] as $key => $value) {
+            $values['{' . $key . '}'] = $value;
+        }
+
+
+        $values = ipFilter('ipReplacePlaceholdersValues', $values, $info);
+        $answer = strtr($content, $values);
+        $answer = ipFilter('ipReplacePlaceholders', $answer, $info);
+        return $answer;
+
     }
 
 }

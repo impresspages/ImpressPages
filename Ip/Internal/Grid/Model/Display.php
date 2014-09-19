@@ -17,29 +17,46 @@ class Display
      */
     protected $config = null;
 
-    public function __construct(Config $config)
+    /**
+     * @var Config|null
+     */
+    protected $subgridConfig = null;
+
+    public function __construct(Config $config, Config $subgridConfig, $statusVariables)
     {
         $this->config = $config;
+        $this->subgridConfig = $subgridConfig;
+        $this->statusVariables = $statusVariables;
     }
 
-    public function fullHtml($statusVariables)
+    public function fullHtml()
     {
-        $db = new Db($this->config);
+        /**
+         * @var Config
+         */
+        $subgridConfig = $this->subgridConfig;
+
+
+        $db = new Db($this->subgridConfig, $this->statusVariables);
 
         $searchVariables = array();
-        foreach ($statusVariables as $key => $value) {
+        foreach ($this->statusVariables as $key => $value) {
             if (preg_match('/^s_/', $key)) {
                 $searchVariables[substr($key, 2)] = $value;
             }
         }
 
 
-        if (empty($searchVariables)) {
-            $where = $this->config->filter();
-        } else {
-            $where = $this->config->filter();
-            foreach ($this->config->fields() as $fieldData) {
-                $fieldObject = $this->config->fieldObject($fieldData);
+        $where = $db->buildSqlWhere();
+
+
+        if (!empty($searchVariables)) {
+
+            foreach ($subgridConfig->fields() as $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    continue;
+                }
+                $fieldObject = $subgridConfig->fieldObject($fieldData);
                 $fieldQuery = $fieldObject->searchQuery($searchVariables);
                 if ($fieldQuery) {
                     if ($where != ' ') {
@@ -50,16 +67,13 @@ class Display
             }
         }
 
-
-
-
-        $pageVariableName = $this->config->pageVariableName();
-        $currentPage = !empty($statusVariables[$pageVariableName]) ? (int)$statusVariables[$pageVariableName] : 1;
+        $pageVariableName = $subgridConfig->pageVariableName();
+        $currentPage = !empty($this->statusVariables[$pageVariableName]) ? (int)$this->statusVariables[$pageVariableName] : 1;
         if ($currentPage < 1) {
             $currentPage = 1;
         }
 
-        $pageSize = $this->config->pageSize();
+        $pageSize = $subgridConfig->pageSize();
         $from = ($currentPage - 1) * $pageSize;
 
         $totalPages = ceil($db->recordCount($where) / $pageSize);
@@ -71,39 +85,73 @@ class Display
         $pagination = new \Ip\Pagination\Pagination(array(
             'currentPage' => $currentPage,
             'totalPages' => $totalPages,
+            'pagerSize' => $subgridConfig->pagerSize()
         ));
+
+
+
+
 
         $variables = array(
             'columns' => $this->getColumnData(),
             'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
             'actions' => $this->getActions(),
             'pagination' => $pagination,
-            'deleteWarning' => $this->config->deleteWarning(),
+            'deleteWarning' => $subgridConfig->deleteWarning(),
             'createForm' => $this->createForm(),
             'searchForm' => $this->searchForm($searchVariables),
-            'title' => $this->config->getTitle()
+            'title' => $subgridConfig->getTitle(),
+            'breadcrumb' => $this->getBreadcrumb()
         );
 
-        $html = ipView('../view/layout.php', $variables)->render();
+
+        $html = ipView($subgridConfig->layout(), $variables)->render();
         return $html;
+    }
+
+    protected function getBreadcrumb()
+    {
+        $depth = Status::depth($this->statusVariables);
+        $breadcrumb = array();
+        $gridConfig = $this->config;
+
+
+        $breadcrumb[] = array(
+            'title' => $gridConfig->getTitle(),
+            'url' => '#'
+        );
+
+        $lastStatusVariables = array();
+
+        for ($i = 2; $i <= $depth; $i++) {
+            $lastStatusVariables = Status::genSubgridVariables($lastStatusVariables, $this->statusVariables['gridId' . ($i - 1)], $this->statusVariables['gridParentId' . ($i - 1)]);
+            $tmpGridConfig = $gridConfig->subgridConfig($lastStatusVariables);
+            $hash = Status::build($lastStatusVariables);
+
+            $breadcrumb[] = array(
+                'title' => $tmpGridConfig->getTitle(),
+                'url' => '#' . $hash
+            );
+        }
+        return $breadcrumb;
     }
 
     protected function getActions()
     {
         $actions = array();
-        if ($this->config->allowCreate()) {
+        if ($this->subgridConfig->allowCreate()) {
             $actions[] = array(
                 'label' => __('Add', 'Ip-admin', false),
                 'class' => 'ipsCreate'
             );
         }
-        if ($this->config->allowSearch()) {
+        if ($this->subgridConfig->allowSearch()) {
             $actions[] = array(
                 'label' => __('Search', 'Ip-admin', false),
                 'class' => 'ipsSearch'
             );
         }
-        $actions = array_merge($actions, $this->config->actions());
+        $actions = array_merge($actions, $this->subgridConfig->actions());
         return $actions;
     }
 
@@ -115,31 +163,38 @@ class Display
         $rows = array();
         foreach ($data as $row) {
             $preparedRow = array(
-                'id' => $row[$this->config->idField()]
+                'id' => $row[$this->subgridConfig->idField()]
             );
             $preparedRowData = array();
-            if ($this->config->allowSort()) {
+            if ($this->subgridConfig->allowSort()) {
                 $preparedRowData[] = $dragButtonHtml;
             }
 
-            if ($this->config->allowUpdate()) {
+            if ($this->subgridConfig->allowUpdate()) {
                 $preparedRowData[] = $editButtonHtml;
             }
-            foreach ($this->config->fields() as $fieldData) {
+            foreach ($this->subgridConfig->fields() as $fieldData) {
 
                 if (isset($fieldData['preview']) && !$fieldData['preview']) {
                     continue;
                 }
 
-                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
                 $preview = $fieldObject->preview($row);
 
-                if (!empty($fieldData['preview']) && is_callable($fieldData['preview'], TRUE)) {
-                    $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
+                if (!empty($fieldData['preview']) && $fieldData['preview'] !== true) {
+                    if (is_callable($fieldData['preview'])) {
+                        $preview = call_user_func($fieldData['preview'], $row[$fieldData['field']], $row);
+                    } elseif (is_string($fieldData['preview'])) {
+                        $preview = $fieldData['preview'];
+                    } else {
+                        throw new \Ip\Exception('Field \'preivew\' value must be PHP callable or string');
+                    }
+
                 }
                 $preparedRowData[] = $preview;
             }
-            if ($this->config->allowDelete()) {
+            if ($this->subgridConfig->allowDelete()) {
                 $preparedRowData[] = $deleteButtonHtml;
             }
 
@@ -150,27 +205,22 @@ class Display
     }
 
 
-
-
-
-
-
     protected function getColumnData()
     {
         $columns = array();
-        if ($this->config->allowSort()) {
+        if ($this->subgridConfig->allowSort()) {
             $column = array(
                 'label' => ''
             );
             $columns[] = $column;
         }
-        if ($this->config->allowUpdate()) {
+        if ($this->subgridConfig->allowUpdate()) {
             $column = array(
                 'label' => ''
             );
             $columns[] = $column;
         }
-        foreach ($this->config->fields() as $field) {
+        foreach ($this->subgridConfig->fields() as $field) {
             if (isset($field['preview']) && !$field['preview']) {
                 continue;
             }
@@ -179,7 +229,7 @@ class Display
             );
             $columns[] = $column;
         }
-        if ($this->config->allowDelete()) {
+        if ($this->subgridConfig->allowDelete()) {
             $column = array(
                 'label' => ''
             );
@@ -191,24 +241,64 @@ class Display
 
     public function updateForm($id)
     {
-        $db = new Db($this->config);
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
-        foreach ($this->config->fields() as $fieldData) {
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->updateField($curData);
-            if ($field) {
-                if (!empty($fieldData['validators'])) {
-                    foreach($fieldData['validators'] as $validator) {
-                        $field->addValidator($validator);
-                    }
-                }
-                $form->addField($field);
+        foreach ($this->subgridConfig->fields() as $key => $fieldData) {
+            if (isset($fieldData['allowUpdate']) && !$fieldData['allowUpdate']) {
+                continue;
             }
+
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
+                }
+
+                if ($key == 0) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
+                if ($key == 0) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+            } else {
+                //fields
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
+                $field = $fieldObject->updateField($curData);
+                if ($field) {
+                    if (!empty($fieldData['validators'])) {
+                        foreach ($fieldData['validators'] as $validator) {
+                            $field->addValidator($validator);
+                        }
+                    }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
+                    $form->addField($field);
+                }
+
+            }
+
         }
 
         $field = new \Ip\Form\Field\Hidden(array(
-            'name' => $this->config->idField(),
+            'name' => $this->subgridConfig->idField(),
             'value' => $id
         ));
         $form->addField($field);
@@ -222,6 +312,10 @@ class Display
         $field = new \Ip\Form\Field\HiddenSubmit();
         $form->addField($field);
 
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
+        }
+
         return $form;
     }
 
@@ -229,17 +323,66 @@ class Display
     public function createForm()
     {
         $form = new \Ip\Form();
-        foreach ($this->config->fields() as $fieldData) {
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->createField();
-            if ($field) {
-                if (!empty($fieldData['validators'])) {
-                    foreach($fieldData['validators'] as $validator) {
-                        $field->addValidator($validator);
-                    }
-                }
-                $form->addField($field);
+
+        $subgridConfig = $this->subgridConfig;
+        $fields = $subgridConfig->fields();
+
+
+
+
+        foreach ($fields as $key => $fieldData) {
+            if (isset($fieldData['allowCreate']) && !$fieldData['allowCreate']) {
+                continue;
             }
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
+                }
+
+                if ($key == 0) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
+                if ($key == 0) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+            } else {
+                //fields
+                $fieldObject = $subgridConfig->fieldObject($fieldData);
+
+                $field = $fieldObject->createField();
+                if ($field) {
+                    if (!empty($fieldData['validators'])) {
+                        foreach ($fieldData['validators'] as $validator) {
+                            $field->addValidator($validator);
+                        }
+                    }
+                    if (!empty($fieldData['note'])) {
+                        $field->setNote($fieldData['note']);
+                    }
+                    if (!empty($fieldData['hint'])) {
+                        $field->setHint($fieldData['hint']);
+                    }
+
+                    $form->addField($field);
+                }
+            }
+        }
+
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
         }
 
 
@@ -261,11 +404,41 @@ class Display
         $form->setMethod('get');
 
         $form->removeCsrfCheck();
-        foreach ($this->config->fields() as $fieldData) {
-            $fieldObject = $this->config->fieldObject($fieldData);
-            $field = $fieldObject->searchField($searchVariables);
-            if ($field) {
-                $form->addField($field);
+        foreach ($this->subgridConfig->fields() as $key => $fieldData) {
+            if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {
+                continue;
+            }
+
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                //tabs (fieldsets)
+                $title = '';
+                if (!empty($fieldData['label'])) {
+                    $title = $fieldData['label'];
+                }
+
+                if ($key == 0) {
+                    $fieldsets = $form->getFieldsets();
+                    $fieldset = $fieldsets[0];
+                    $fieldset->setLabel($title);
+                } else {
+                    $fieldset = new \Ip\Form\Fieldset($title);
+                    $form->addFieldset($fieldset);
+                }
+                $fieldset->addAttribute('id', 'autoGridTabId' . rand(0, 100000000000));
+                if ($key == 0) {
+                    $fieldset->addAttribute('class', 'tab-pane active');
+                } else {
+                    $fieldset->addAttribute('class', 'tab-pane');
+                }
+
+
+            } else {
+
+                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
+                $field = $fieldObject->searchField($searchVariables);
+                if ($field) {
+                    $form->addField($field);
+                }
             }
         }
 
@@ -279,8 +452,13 @@ class Display
         $field = new \Ip\Form\Field\HiddenSubmit();
         $form->addField($field);
 
+        if (count($form->getFieldsets()) > 1) {
+            $form->addClass('tab-content');
+        }
+
         return $form;
     }
+
 
 
 }

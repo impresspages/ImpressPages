@@ -1,6 +1,6 @@
 $(function () {
     "use strict";
-    $('.ipsGrid').on('init.grid', ipLanguages.init);
+    $('.ipsGrid').on('init.ipGrid', ipLanguages.init);
 });
 
 var ipLanguages = new function () {
@@ -30,7 +30,7 @@ var ipLanguages = new function () {
             aa: 'Languages.addLanguage',
             code: code,
             securityToken: ip.securityToken
-        }
+        };
         $.ajax({
             type: 'POST',
             url: ip.baseUrl,
@@ -50,7 +50,7 @@ var ipLanguages = new function () {
             },
             dataType: 'json'
         });
-    }
+    };
 
     var refresh = function () {
         $('.ipsGrid').ipGrid('refresh');

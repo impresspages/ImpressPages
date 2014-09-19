@@ -12,7 +12,8 @@ namespace Ip;
  * Autoloader class
  */
 
-class Autoloader {
+class Autoloader
+{
     public function load($name)
     {
 

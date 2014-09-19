@@ -12,7 +12,8 @@ namespace Ip\Response;
  * Event dispatcher class
  *
  */
-class Json extends \Ip\Response {
+class Json extends \Ip\Response
+{
 
     public function __construct($data)
     {
@@ -21,7 +22,7 @@ class Json extends \Ip\Response {
 
     public function render()
     {
-        return json_encode($this->utf8Encode($this->content));;
+        return json_encode($this->utf8Encode($this->content));
     }
 
     public function send()
@@ -31,9 +32,9 @@ class Json extends \Ip\Response {
     }
 
     /**
-     *
-     *  Returns $dat encoded to UTF8
+     * Returns $dat encoded to UTF8
      * @param mixed $dat array or string
+     * @return string
      */
     private function utf8Encode($dat)
     {
@@ -46,7 +47,7 @@ class Json extends \Ip\Response {
         }
         if (is_array($dat)) {
             $answer = array();
-            foreach($dat as $i=>$d) {
+            foreach ($dat as $i => $d) {
                 $answer[$i] = $this->utf8Encode($d);
             }
             return $answer;

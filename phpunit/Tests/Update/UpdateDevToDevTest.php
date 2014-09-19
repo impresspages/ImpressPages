@@ -19,7 +19,13 @@ class UpdateDevToDevTest extends \PhpUnit\Helper\MinkTestCase
 
         // install fresh copy of ImpressPages:
         $installation = new \PhpUnit\Helper\Installation(); //development version
-        $installation->setDefaultConfig(array('testMode' => 1));
+        $installation->setDefaultConfig(array(
+            'serviceUrl'        => 'http://test.service.impresspages.org/',
+            'themeMarketUrl'    => 'http://local.market.impresspages.org/themes-v1/?version=4',
+            'imageMarketUrl'    => 'http://local.market.impresspages.org/images-v1/',
+            'pluginMarketUrl'   => 'http://local.market.impresspages.org/plugins-v1/',
+            'usageStatisticsUrl'   => 'http://example.com',
+        ));
         $installation->install();
 
 

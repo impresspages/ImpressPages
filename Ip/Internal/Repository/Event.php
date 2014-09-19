@@ -1,7 +1,6 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Repository;
@@ -12,7 +11,7 @@ class Event
     public static function ipBeforeController()
     {
 
-        if (ipIsManagementState()) {
+        if (ipIsManagementState() || ipRoute()->isAdmin()) {
             ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepository.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryUploader.js');
@@ -21,11 +20,7 @@ class Event
             ipAddJs('Ip/Internal/System/assets/market.js');
             ipAddJs('Ip/Internal/Core/assets/js/easyXDM/easyXDM.min.js');
 
-            if (defined('TEST_MARKET_URL')) {
-                $marketUrl = TEST_MARKET_URL.'images-v1/';
-            } else {
-                $marketUrl = 'http://market.impresspages.org/images-v1/';
-            }
+            $marketUrl = ipConfig()->get('imageMarketUrl', 'http://market.impresspages.org/images-v1/');
 
             $popupData = array(
                 'marketUrl' => $marketUrl,
@@ -34,8 +29,14 @@ class Event
             );
 
             ipAddJsVariable('ipRepositoryHtml', ipView('view/popup.php', $popupData)->render());
-            ipAddJsVariable('ipRepositoryTranslate_confirm_delete', __('Are you sure you want to delete selected files?', 'Ip-admin'));
-            ipAddJsVariable('ipRepositoryTranslate_delete_warning', __('Some of the selected files cannot be deleted because they are used.', 'Ip-admin'));
+            ipAddJsVariable(
+                'ipRepositoryTranslate_confirm_delete',
+                __('Are you sure you want to delete selected files?', 'Ip-admin')
+            );
+            ipAddJsVariable(
+                'ipRepositoryTranslate_delete_warning',
+                __('Some of the selected files are still used somewhere on your website. Do you still want to remove them? ', 'Ip-admin')
+            );
         }
 
 

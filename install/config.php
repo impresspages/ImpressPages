@@ -2,10 +2,10 @@
 
 $baseUrl = $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
 
-$baseUrl = substr($baseUrl, 0, strrpos($baseUrl, '/'));
+$baseUrl = substr($baseUrl, 0, strrpos($baseUrl, '/')) . '/';
 
 if (getenv('TRAVIS')) {
-    $baseUrl =  'localhost/phpunit/tmp/installTest/install';
+    $baseUrl =  'localhost/phpunit/tmp/installTest/install/';
 }
 
 try {
@@ -50,9 +50,9 @@ return array(
     ),
 
     'urlOverrides' => array(
-        'Plugin/' => "http://{$baseUrl}/Plugin/",
-        'Theme/' => "http://{$baseUrl}/Theme/",
-        'Ip/' => 'http://' . dirname($baseUrl) . '/Ip/',
+        'Plugin/' => "//{$baseUrl}Plugin/",
+        'Theme/' => "//{$baseUrl}Theme/",
+        'Ip/' => '//' . dirname($baseUrl) . '/Ip/',
     ),
 
     'services' => array(

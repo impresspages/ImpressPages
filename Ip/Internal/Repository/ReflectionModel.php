@@ -1,12 +1,10 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 
 namespace Ip\Internal\Repository;
-
 
 
 class ReflectionModel
@@ -49,7 +47,7 @@ class ReflectionModel
     /**
      * @param string $file relative path from BASE_DIR
      * @param array $options image transform options
-     * @param strong $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
+     * @param string $desiredName - desired file name. If reflection is missing, service will try to create new one with name as possible similar to desired
      * @param bool $onDemand transformation will be create on the fly when image accessed for the first time
      * @return string file name relative to BASE_DIR
      */
@@ -62,7 +60,7 @@ class ReflectionModel
             $reflection = $this->createReflectionRecord($file, $options, $desiredName);
         }
 
-        if (!$onDemand && !is_file($reflection['reflection'])) {
+        if (!$onDemand && !is_file($reflection)) {
             $this->createReflection($file, $reflection, $options);
         }
 
@@ -90,12 +88,15 @@ class ReflectionModel
         }
 
         if (strpos($absoluteSource, realpath(ipFile('file/repository/'))) !== 0) {
-            throw new \Exception("Requested file (".$source.") is outside repository dir");
+            throw new \Exception("Requested file (" . $source . ") is outside repository dir");
         }
 
         //if desired name ends with .jpg, .gif, etc., remove extension
         $desiredPathInfo = pathinfo($desiredName);
-        if (!empty($desiredPathInfo['filename']) && isset($desiredPathInfo['extension']) && strlen($desiredPathInfo['extension']) <= 4) {
+        if (!empty($desiredPathInfo['filename']) && isset($desiredPathInfo['extension']) && strlen(
+                $desiredPathInfo['extension']
+            ) <= 4
+        ) {
             $desiredName = $desiredPathInfo['filename'];
         }
 
@@ -115,11 +116,18 @@ class ReflectionModel
             $desiredName = $pathInfo['filename'];
         }
         if ($ext != '') {
-            $desiredName = $desiredName.'.'.$ext;
+            $desiredName = $desiredName . '.' . $ext;
         }
+        $desiredName = \Ip\Internal\File\Functions::cleanupFileName(
+            $desiredName
+        ); //remove double dots if file name. For security reasons.
 
         $relativeDestinationPath = date('Y/m/d/');
-        $relativeDestinationPath = ipFilter('ipRepositoryNewReflectionFileName', $relativeDestinationPath, array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName));
+        $relativeDestinationPath = ipFilter(
+            'ipRepositoryNewReflectionFileName',
+            $relativeDestinationPath,
+            array('originalFile' => $source, 'options' => $options, 'desiredName' => $desiredName)
+        );
 
         $destinationFileName = $this->getUnocupiedName($desiredName, $relativeDestinationPath);
         $reflection = $relativeDestinationPath . $destinationFileName;
@@ -192,13 +200,14 @@ class ReflectionModel
             return false;
         }
 
-        $data = array (
+        $data = array(
             'source' => $absoluteSource,
             'destination' => $absoluteDestinationDir . '/' . $destinationFileName,
             'options' => $options
         );
 
         ipJob('ipCreateReflection', $data);
+        ipEvent('ipReflectionCreated', $data);
 
         if (is_file($absoluteDestinationDir . '/' . $destinationFileName)) {
             return true;
@@ -262,6 +271,7 @@ class ReflectionModel
         if ($lock = $q->fetch(\PDO::FETCH_ASSOC)) {
             return $lock['reflection'];
         }
+        return null;
     }
 
 

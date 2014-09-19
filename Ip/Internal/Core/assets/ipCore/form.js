@@ -6,7 +6,7 @@
 // defining global variables
 var ipModuleFormPublic;
 
-(function($){
+(function ($) {
     "use strict";
 
 
@@ -19,9 +19,16 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsColorPicker').length && !$.spectrum) {
+            if (($('.ipsModuleFormPublic .type-color').length || $('.ipsModuleFormAdmin .type-color').length) && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
+            }
+
+            if ($('.ipsModuleFormPublic .type-richtext').length && (typeof(ipTinyMceConfig) === "undefined")) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/pastePreprocess.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/default.js') + '"></script>');
             }
 
 
@@ -38,11 +45,10 @@ var ipModuleFormPublic;
             $(document).trigger('ipInitForms');
 
 
-
             // adding dumb submit element for 'enter' to trigger form submit
-            $('.ipsModuleFormPublic, .ipsModuleFormAdmin').each(function(){
+            $('.ipsModuleFormPublic, .ipsModuleFormAdmin').each(function () {
                 var $form = $(this);
-                if ($form.find(":submit").length==0) {
+                if ($form.find(":submit").length == 0) {
                     $form.append('<input type="submit" style="position: absolute; left: -999999px; width: 1px; height: 1px; visibility: hidden;" tabindex="-1" />');
                 }
             });
@@ -64,7 +70,7 @@ var ipModuleFormPublic;
                     $.ajax({
                         url: ip.baseUrl,
                         dataType: 'json',
-                        type : type,
+                        type: type,
                         data: $form.serialize(),
                         success: function (response) {
                             $form.trigger('ipSubmitResponse', [response]);
@@ -74,9 +80,13 @@ var ipModuleFormPublic;
                             }
                             if (response.replaceHtml) {
                                 $form.replaceWith(response.replaceHtml);
+                                ipInitForms();
                             }
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
+                            }
+                            if (response.alert) {
+                                alert(response.alert);
                             }
                         },
                         error: function (response) {
@@ -88,7 +98,6 @@ var ipModuleFormPublic;
                 }
                 e.preventDefault();
             });
-
 
 
         };

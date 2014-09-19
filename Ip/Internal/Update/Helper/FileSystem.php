@@ -62,7 +62,7 @@ class FileSystem
 
             try {
                 $originalIpErrorHandler = set_error_handler('Ip\Internal\ErrorHandler::ipSilentErrorHandler');
-                $success = chmod($path, $permissions);
+                chmod($path, $permissions);
                 set_error_handler($originalIpErrorHandler);
             } catch (FileSystemException $e) {
                 //do nothing. This is just the way to avoid warnings
@@ -135,6 +135,7 @@ class FileSystem
     /**
      * Remove everything from dir. Make it empty
      * @var string $dir
+     * @throws \Ip\Internal\Update\UpdateException
      */
     public function clean($dir)
     {

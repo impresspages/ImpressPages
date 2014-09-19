@@ -48,12 +48,12 @@
                 var $headTag = this.$widgetObject.find('h1,h2,h3,h4,h5,h6');
                 $headTag.focus();
             }
-        }
+        };
 
         this.focus = function () {
             $.proxy(this.initControls, this)();
             this.$widgetObject.find('h1,h2,h3,h4,h5,h6').attr('spellcheck', true);
-        }
+        };
 
         this.blur = function(e) {
             var $target = $(e.target);
@@ -84,7 +84,7 @@
             this.$controls.find('.ipsH').off();
             this.$controls.find('.ipsOptions').off();
             $('body').off('click.ipWidgetHeading');
-        }
+        };
 
         this.destroy = function() {
             this.removeControls();
@@ -95,7 +95,7 @@
             this.data.link = data.link;
             this.data.blank = data.blank;
             this.save(false);
-        }
+        };
 
         this.openOptions = function () {
             var $modal = $('#ipWidgetHeadingOptions');

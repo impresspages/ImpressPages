@@ -17,31 +17,31 @@ class Helper
      * Clean comments of json content and decode it with json_decode().
      * Work like the original php json_decode() function with the same params
      *
-     * @param   string  $json    The json string being decoded
-     * @param   bool    $assoc   When TRUE, returned objects will be converted into associative arrays.
-     * @param   integer $depth   User specified recursion depth. (>=5.3)
+     * @param   string $json The json string being decoded
+     * @param   bool $assoc When TRUE, returned objects will be converted into associative arrays.
+     * @param   integer $depth User specified recursion depth. (>=5.3)
      * @param   integer $options Bitmask of JSON decode options. (>=5.4)
      * @return  string
      */
-    public static function jsonCleanDecode($json, $assoc = false, $depth = 512, $options = 0) {
+    public static function jsonCleanDecode($json, $assoc = false, $depth = 512, $options = 0)
+    {
 
         // search and remove comments like /* */ and //
         $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
 
-        if(version_compare(phpversion(), '5.4.0', '>=')) {
+        if (version_compare(phpversion(), '5.4.0', '>=')) {
             $json = json_decode($json, $assoc, $depth, $options);
-        }
-        elseif(version_compare(phpversion(), '5.3.0', '>=')) {
+        } elseif (version_compare(phpversion(), '5.3.0', '>=')) {
             $json = json_decode($json, $assoc, $depth);
-        }
-        else {
+        } else {
             $json = json_decode($json, $assoc);
         }
 
         return $json;
     }
 
-    public static function removeDir($dir, $depth = 0) {
+    public static function removeDir($dir, $depth = 0)
+    {
 
         if (!file_exists($dir)) {
             //already removed
@@ -57,11 +57,11 @@ class Helper
         if (is_dir($dir)) {
             if ($handle = opendir($dir)) {
                 while (false !== ($file = readdir($handle))) {
-                    if($file == ".." || $file == ".") {
+                    if ($file == ".." || $file == ".") {
                         continue;
                     }
 
-                    $result = self::removeDir($dir.'/'.$file, $depth + 1);
+                    $result = self::removeDir($dir . '/' . $file, $depth + 1);
                     if (!$result) {
                         return false;
                     }
@@ -86,8 +86,6 @@ class Helper
     public static function pluginPropertiesForm($pluginName)
     {
 
-        $plugin = self::getPluginData($pluginName);
-
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
@@ -105,66 +103,98 @@ class Helper
             ));
         $form->addField($field);
 
-
-        if (!empty($plugin['options'])) {
-            static::getOptionsForm($form, $plugin['options']);
-        }
+        $initialFieldCount = count($form->getFields());
 
         $form = ipFilter('ipPluginPropertiesForm', $form, array('pluginName' => $pluginName));
+
+        if (count($form->getFields()) == $initialFieldCount) {
+            return null;
+        }
+
+        $field = new \Ip\Form\Field\Submit(array(
+            'value' => __('Save', 'Ip-admin'),
+        ));
+
+        $field->addClass('ipsSave');
+        $form->addField($field);
 
         return $form;
     }
 
     /**
-     * @param \Ip\Form  $form
-     * @param array     $options
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @return \Ip\Form $form
      */
-    protected static function getOptionsForm($form, $options)
+    public static function pluginPropertiesFormFields($pluginName, $form)
+    {
+        $plugin = self::getPluginData($pluginName);
+
+        if (!empty($plugin['options'])) {
+            static::getOptionsForm($pluginName, $form, $plugin['options']);
+        }
+
+        return $form;
+    }
+
+    public static function savePluginOptions($pluginName, $data)
+    {
+        $form = self::pluginPropertiesForm($pluginName);
+
+        $errors = $form->validate($data);
+
+        if ($errors) {
+            return $errors;
+        }
+
+        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName));
+
+        return true;
+    }
+
+    /**
+     * @param string $pluginName
+     * @param \Ip\Form $form
+     * @param array $options
+     */
+    public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
-            if (empty($option['type']) || empty($option['name'])) {
-                continue;
+            if (empty($option['type'])) {
+                $option['type'] = 'text';
             }
 
-            switch ($option['type']) {
-                case 'select':
-                    $newField = new Form\Field\Select();
-                    $values = array();
-                    if (!empty($option['values']) && is_array($option['values'])) {
-                        foreach($option['values'] as $value) {
-                            $values[] = array($value, $value);
-                        }
-                    }
-                    $newField->setValues($values);
-                    break;
-                case 'text':
-                    $newField = new Form\Field\Text();
-                    break;
-                case 'textarea':
-                    $newField = new Form\Field\Textarea();
-                    break;
-                case 'color':
-                    $newField = new Form\Field\Color();
-                    break;
-                case 'range':
-                    $newField = new Form\Field\Range();
-                    break;
-                case 'checkbox':
-                    $newField = new Form\Field\Checkbox();
-                    break;
-                default:
-                    //do nothing
+
+            if (in_array($option['type'], array('select', 'text', 'textarea', 'richText', 'color', 'range', 'checkbox', 'password'))) {
+                $option['type'] = ucfirst($option['type']);
             }
+
+            $className = $option['type'];
+            if (class_exists($className)) {
+                $newField = new $className($option);
+            } else {
+                $className = 'Ip\\Form\\Field\\' . $option['type'];
+                if (class_exists($className)) {
+                    $newField = new $className($option);
+                }
+            }
+
             if (!isset($newField)) {
                 //field type is not recognised
                 continue;
             }
 
-            $newField->setName($option['name']);
-            $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
 
-            $newField->setValue($default);
+            if (!empty($option['name'])) {
+                $newField->setName($option['name']);
+                $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
+            }
+            $newField->setLabel(empty($option['label']) ? '' : $option['label']);
+            if (!empty($option['note'])) {
+                $newField->setNote($option['note']);
+            }
+
 
             $form->addfield($newField);
         }

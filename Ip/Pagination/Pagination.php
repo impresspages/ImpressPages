@@ -27,6 +27,9 @@ class Pagination
         $this->options = $options;
     }
 
+    /**
+     * @return array
+     */
     public function pages()
     {
         if ($this->totalPages < 1) {
@@ -34,6 +37,9 @@ class Pagination
         }
 
         $pagesLeft = floor($this->pagerSize / 2) - 2;
+        if ($pagesLeft < 0) {
+            $pagesLeft = 0;
+        }
 
         $firstPage = max(1, $this->currentPage - $pagesLeft);
         if ($firstPage <= 3) {
@@ -60,8 +66,8 @@ class Pagination
         }
 
         if ($lastPage < $this->totalPages) {
-            $pages[]= '..';
-            $pages[]= $this->totalPages;
+            $pages[] = '..';
+            $pages[] = $this->totalPages;
         }
 
         if (isset($pages[1]) && $pages[1] == '..') {
@@ -82,7 +88,7 @@ class Pagination
         return $pages;
     }
 
-    public function render($view = NULL)
+    public function render($view = null)
     {
         if ($this->totalPages < 1) {
             return null;

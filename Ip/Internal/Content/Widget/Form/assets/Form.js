@@ -38,7 +38,7 @@
                 .css('z-index', 1000) // should be higher enough but lower than widget controls
                 .width(this.widgetObject.width())
                 .height(this.widgetObject.height());
-        }
+        };
 
         var openPopup = function() {
             var context = this;
@@ -53,7 +53,7 @@
 
             var instanceData = this.data;
 
-            var options = new Object;
+            var options = {};
             if (instanceData['fields']) {
                 options.fields = instanceData.fields;
             } else {
@@ -90,6 +90,8 @@
                 }
             })
 
+            this.modal.find('input[name=buttonText]').val(instanceData.buttonText);
+
 
             this.modal.find('input[name=emails]').val(instanceData.emails);
 
@@ -102,7 +104,7 @@
             this.container.ipWidget_ipForm_container('destroy');
             this.addButton.off();
             this.confirmButton.off();
-        }
+        };
 
         var addField = function (e) {
             this.container.ipWidget_ipForm_container('addField');
@@ -117,7 +119,7 @@
         this.getData = function() {
             var data = Object();
 
-            data.fields = new Array();
+            data.fields = [];
             var $fields = this.container.ipWidget_ipForm_container('getFields');
             $fields.each(function(index) {
                 var $this = $(this);
@@ -140,6 +142,7 @@
 
             data.sendTo =this.modal.find('select[name=sendTo]').val();
             data.emails = this.modal.find('input[name=emails]').val();
+            data.buttonText = this.modal.find('input[name=buttonText]').val();
 
             return data;
         };

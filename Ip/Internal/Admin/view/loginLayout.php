@@ -11,6 +11,9 @@
 
 
 <a href="http://www.impresspages.org/" class="logo" target="_blank"><img src="<?php echo ipFileUrl('Ip/Internal/Admin/assets/img/logo.png'); ?>"></a>
+<div class="ip languageSelect">
+    <?php echo $languageSelectForm->render(); ?>
+</div>
 <div class="verticalAlign"></div>
 <div class="login">
     <?php echo $content; ?>

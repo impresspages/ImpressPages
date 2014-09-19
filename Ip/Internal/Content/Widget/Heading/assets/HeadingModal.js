@@ -62,7 +62,7 @@
 
             });
         }
-    }
+    };
 
     $.fn.ipWidgetHeadingModal = function(method) {
         if (methods[method]) {

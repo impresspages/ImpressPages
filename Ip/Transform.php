@@ -1,9 +1,9 @@
 <?php
-    /**
-     * @package   ImpressPages
-     *
-     *
-     */
+/**
+ * @package   ImpressPages
+ *
+ *
+ */
 
 namespace Ip;
 
@@ -20,6 +20,7 @@ abstract class Transform
      * Transform function might want to change file extension.
      * @param string $sourceFile original file
      * @param string $ext original file extension
+     * @return string
      */
     public function getNewExtension($sourceFile, $ext)
     {
@@ -34,7 +35,7 @@ abstract class Transform
 
     final public function getFingerprint()
     {
-        return md5(__CLASS__.':'.$this->getParamStr());
+        return md5(__CLASS__ . ':' . $this->getParamStr());
     }
 
 }

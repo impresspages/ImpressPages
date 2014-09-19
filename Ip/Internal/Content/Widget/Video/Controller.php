@@ -1,17 +1,15 @@
 <?php
 /**
  * @package ImpressPages
-
  *
  */
 namespace Ip\Internal\Content\Widget\Video;
 
 
-
-
 class Controller extends \Ip\WidgetController
 {
-    public function getTitle() {
+    public function getTitle()
+    {
         return __('Video', 'Ip-admin', false);
     }
 
@@ -88,6 +86,9 @@ class Controller extends \Ip\WidgetController
             if (preg_match('%//vimeo.com%i', $url)) {
                 $url = str_replace('//vimeo.com', '//player.vimeo.com', $url);
             }
+            if (strpos($url, '/video') === false) {
+                $url = str_replace('vimeo.com', 'vimeo.com/video', $url);
+            }
 
             return $this->renderView('view/vimeo.php', $url, $data);
         }
@@ -96,7 +97,8 @@ class Controller extends \Ip\WidgetController
         return false;
     }
 
-    protected function renderView($viewFile, $url, $data) {
+    protected function renderView($viewFile, $url, $data)
+    {
         $variables = array(
             'url' => $url,
             'style' => '',
@@ -189,7 +191,6 @@ class Controller extends \Ip\WidgetController
         );
         $field->setValues($values);
         $form->addField($field);
-
 
 
         return $form; // Output a string with generated HTML form

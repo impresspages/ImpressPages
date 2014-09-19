@@ -5,11 +5,12 @@
     background: transparent;
     border: 0;
     border-collapse: collapse;
+    box-shadow: none;
 //bootstrap    box-sizing: content-box;
 //bootstrap    -moz-box-sizing: content-box;
 //bootstrap    -webkit-box-sizing: content-box;
 //bootstrap    color: #000;
-    cursor: auto;
+//breaks defaults    cursor: auto;
     direction: ltr;
     float: none;
     font-style: normal;
@@ -20,6 +21,7 @@
     height: auto;
 //bootstrap    line-height: normal;
     margin: 0;
+    min-width: 0;
     max-width: none;
     outline: 0;
     padding: 0;
@@ -41,7 +43,7 @@
     .ipRoot;
     // todox: extend .ipRoot class and rewrite all styles that should be inherited to keep expected behavior; http://www.w3.org/TR/CSS2/propidx.html
     color: inherit;
-    cursor: inherit;
+//breaks defaults    cursor: inherit;
     font-size: inherit;
     text-align: inherit;
 //textarea    white-space: inherit;

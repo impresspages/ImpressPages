@@ -1,9 +1,8 @@
 /*!
-Default ImpressPages functions
+ Default ImpressPages functions
  */
-function ipFileUrl(path)
-{
-    for (prefix in ipUrlOverrides) {
+function ipFileUrl(path) {
+    for (var prefix in ipUrlOverrides) {
         if (path.indexOf(prefix) == 0) {
             return ipUrlOverrides[prefix] + path.substr(prefix.length);
         }
@@ -12,19 +11,16 @@ function ipFileUrl(path)
     return ip.baseUrl + path;
 }
 
-function ipThemeUrl(path)
-{
+function ipThemeUrl(path) {
     return ipFileUrl('Theme/' + ip.theme + '/' + path);
 }
 
-function ipHomeUrl()
-{
+function ipHomeUrl() {
     return ip.homeUrl;
 }
 
 
-
-function ipInitForms () {
+function ipInitForms() {
     if (typeof(ipModuleFormPublic) !== 'undefined') {
         ipModuleFormPublic.init();
     }

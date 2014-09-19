@@ -14,14 +14,13 @@ class Commands
 {
 
 
-     public static function setHtml($html)
-     {
-         return array(
-             'command' => 'setHtml',
-             'html' => $html
-         );
-     }
-
+    public static function setHtml($html)
+    {
+        return array(
+            'command' => 'setHtml',
+            'html' => $html
+        );
+    }
 
 
     public static function setHash($hash)

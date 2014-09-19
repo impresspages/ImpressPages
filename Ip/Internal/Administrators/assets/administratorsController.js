@@ -3,7 +3,6 @@ var ipAdministratorsController = null;
 (function ($) {
     "use strict";
 
-
     var app = angular.module('Administrators', []);
 
     app.run(function ($rootScope) {
@@ -12,11 +11,7 @@ var ipAdministratorsController = null;
         });
     });
 
-
     ipAdministratorsController = function ($scope, $location) {
-
-
-
         //init
         $scope.administrators = ipAdministrators;
         $scope.activeAdministrator = null;
@@ -24,76 +19,78 @@ var ipAdministratorsController = null;
         $scope.ipAdministratorsAdminId = ipAdministratorsAdminId;
         $scope.availablePermissions = ipAvailablePermissions;
 
+        $scope.activeAdministratorEmail = 'null'; //to avoid chrome Autocomplete.
 
         $scope.$on('PathChanged', function (event, path) {
             var administratorId = getHashParams().administrator;
-            if (administratorId) {
-                $scope.activateAdministrator(administratorId);
+            for (var i = 0; i < ipAdministrators.length; i++) {
+                if (administratorId == ipAdministrators[i]['id']) {
+                    $scope.activateAdministrator(ipAdministrators[i]);
+                }
             }
         });
 
-
-        $scope.setAdministratorHash = function (administrator) {
-            updateHash(null, administrator.id, false);
-        }
-
         $scope.activateAdministrator = function (administrator) {
             $scope.activeAdministrator = administrator;
-        }
+            $scope.activeAdministratorEmail = administrator.email; //to avoid chrome Autocomplete.
+        };
 
         $scope.addModal = function () {
-            $('.ipsAddModal').find('input[name=email]').val('');
-            $('.ipsAddModal').find('input[name=username]').val('');
-            $('.ipsAddModal').find('input[name=password]').val('');
-            $('.ipsAddModal').modal();
+            var $modal = $('.ipsAddModal');
+            $modal.find('input[name=email]').val('');
+            $modal.find('input[name=username]').val('');
+            $modal.find('input[name=password]').val('');
+            $modal.modal();
             //$('.ipsAddModal').find("input[name=username]").hide();
             $('.ipsAddModal form').off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
                 if (response && response.status == 'ok') {
                     $scope.administrators.push({
-                        username: $('.ipsAddModal').find('input[name=username]').val(),
-                        email: $('.ipsAddModal').find('input[name=email]').val(),
+                        username: $modal.find('input[name=username]').val(),
+                        email: $modal.find('input[name=email]').val(),
                         permissions: response.permissions,
                         id: response.id
                     });
                     $scope.$apply();
-                    $('.ipsAddModal').modal('hide');
+                    $modal.modal('hide');
                 }
             });
-            setTimeout(function() {$('.ipsAddModal input[name=username]').focus();}, 500);
-            $('.ipsAddModal').find('.ipsAdd').off('click').on('click', function () {
+            setTimeout(function () {
+                $('.ipsAddModal input[name=username]').focus();
+            }, 500);
+            $modal.find('.ipsAdd').off('click').on('click', function () {
                 $('.ipsAddModal form').submit();
             });
-        }
+        };
 
         $scope.setEditMode = function (mode) {
             $scope.editMode = mode;
-        }
-
+        };
 
         $scope.updateModal = function () {
-            $('.ipsUpdateModal').modal();
+            var $modal = $('.ipsUpdateModal')
+            $modal.modal();
             var $form = $('.ipsUpdateModal form');
             $form.find('input[name=id]').val($scope.activeAdministrator.id);
             $form.off('ipSubmitResponse').on('ipSubmitResponse', function (e, response) {
                 if (response && response.status == 'ok') {
                     $scope.activeAdministrator.username = $form.find('input[name=username]').val();
-                    $scope.activeAdministrator.email= $form.find('input[name=email]').val();
+                    $scope.activeAdministrator.email = $form.find('input[name=email]').val();
                     $scope.$apply();
-                    $('.ipsUpdateModal').modal('hide');
+                    $modal.modal('hide');
                 }
             });
-            $('.ipsUpdateModal').find('.ipsSave').off('click').on('click', function () {
+            $modal.find('.ipsSave').off('click').on('click', function () {
                 $('.ipsUpdateModal form').submit();
             });
-            setTimeout(function() {$('.ipsUpdateModal input[name=username]').focus();}, 500);
-        }
+            setTimeout(function () {
+                $('.ipsUpdateModal input[name=username]').focus();
+            }, 500);
+        };
 
-        $scope.setPermission = function(permission, value, callback)
-        {
+        $scope.setPermission = function (permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
-                if (!confirm(ipAdministratorsSuperAdminWarning)) {
-                    return;
-                }
+                alert(ipAdministratorsSuperAdminWarning);
+                return;
             }
 
             var data = {
@@ -102,7 +99,7 @@ var ipAdministratorsController = null;
                 permission: permission,
                 value: value ? 1 : 0,
                 adminId: $scope.activeAdministrator.id
-            }
+            };
             $.ajax({
                 type: 'POST',
                 url: ip.baseUrl,
@@ -121,7 +118,7 @@ var ipAdministratorsController = null;
                 dataType: 'json'
             });
 
-        }
+        };
 
         $scope.deleteModal = function () {
             $('.ipsDeleteModal').modal();
@@ -138,12 +135,7 @@ var ipAdministratorsController = null;
                     $scope.$apply();
                 });
             });
-        }
-
-
-
-
-
+        };
 
 
         var deleteAdministrator = function (id, successCallback) {
@@ -166,13 +158,13 @@ var ipAdministratorsController = null;
                 },
                 dataType: 'json'
             });
-        }
+        };
 
 
         var updateHash = function (administrator) {
             var path = 'hash&administrator=' + administrator.id;
             $location.path(path);
-        }
+        };
 
         var getHashParams = function () {
 

@@ -89,5 +89,38 @@
             margin-bottom: (@grid-gutter-width / 4);
             margin-top: -(@grid-gutter-width / 4);
         }
+
+        ._details {
+            list-style: none;
+        }
+    }
+
+    ._icon {
+        height: 25px;
+        margin-right: 10px;
+        float: left;
+    }
+}
+.ipModulePluginsMarket {
+    ._popup {
+        background-color: #fff;
+        height: 100%;
+        left: 0;
+        position: fixed; // 'absolute' breaks if parent pages is scrolled down
+        top: @navbar-height; // start just below navbar
+        width: 100%;
+        z-index: (@zindex-navbar-fixed - 1); // should be lower than top navbar for menu to be visible
+
+        ._back {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        ._container,
+        iframe {
+            height: 100%;
+            width: 100%;
+        }
     }
 }

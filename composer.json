@@ -1,14 +1,27 @@
 {
-    "name": "meskis/impresspages",
-    "description": "ImpressPages",
+    "name": "impresspages/impresspages",
+    "version": "4.2.0",
+    "type": "project",
+    "description": "ImpressPages framework & CMS",
+    "keywords": ["impresspages","frameword","CMS"],
+    "homepage": "http://www.impresspages.org",
+    "license": "MIT",
     "authors": [
         {
-            "name": "Martynas Eskis",
-            "email": "eskis.martynas@gmail.com"
+            "name": "Mangirdas Skripka",
+            "email": "mangirdas@impresspages.org",
+            "homepage": "http://www.linkedin.com/in/mangirdasskripka/",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3"
+    },
     "autoload": {
+        "psr-0": {
+            "Plugin": "Plugin",
+            "Theme": "Theme"
+        },
         "psr-4": {
             "Ip\\": "Ip/"
         }

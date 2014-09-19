@@ -3,26 +3,26 @@
  *
  */
 
-(function($) {
+(function ($) {
     "use strict";
 
     var methods = {
-        init : function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var $this = $(this);
                 var data = $this.data('ipInlineManagementLogo');
                 // If the plugin hasn't been initialized yet
-                if ( ! data ) {
+                if (!data) {
                     $this.data('ipInlineManagementLogo', {
-                        'originalLogo' : $this.clone(),
-                        'imageUploadInitialized' : false,
-                        'cssClass' : $this.data('cssClass')
-                    })
+                        'originalLogo': $this.clone(),
+                        'imageUploadInitialized': false,
+                        'cssClass': $this.data('cssClass')
+                    });
 
-                    $this.bind('ipModuleInlineManagementLogo.openEditPopup', $.proxy(openEditPopup, $this ));
+                    $this.bind('ipModuleInlineManagementLogo.openEditPopup', $.proxy(openEditPopup, $this));
 
                     $this.ipModuleInlineManagementControls({
-                        'Manage' : function() {
+                        'Manage': function () {
                             $this.trigger('ipModuleInlineManagementLogo.openEditPopup');
                         }
                     });
@@ -50,7 +50,7 @@
         $.proxy(preview, $this)();
     };
 
-    var openEditPopup = function(event) {
+    var openEditPopup = function (event) {
         event.preventDefault();
         var $this = $(this);
 
@@ -63,12 +63,12 @@
         data.cssClass = $this.data('cssclass');
 
         $.ajax({
-            type : 'POST',
-            url : ip.baseUrl,
-            data : data,
-            context : $this,
-            success : popupContentResponse,
-            dataType : 'json'
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: popupContentResponse,
+            dataType: 'json'
         });
     };
 
@@ -118,12 +118,12 @@
 
         //SAVE
         $.ajax({
-            type : 'POST',
-            url : ip.baseUrl,
-            data : data,
-            context : $this,
-            success : confirmResponse,
-            dataType : 'json'
+            type: 'POST',
+            url: ip.baseUrl,
+            data: data,
+            context: $this,
+            success: confirmResponse,
+            dataType: 'json'
         });
     };
 
@@ -152,9 +152,9 @@
         data.imageUploadInitialized = false;
         $this.data('ipInlineManagementLogo', data);
         $this.trigger('ipInlineManagement.logoCancel');
-    }
+    };
 
-    var popupContentResponse = function(response) {
+    var popupContentResponse = function (response) {
         var $this = this;
 
         var $responseHtml = $(response.html);
@@ -188,7 +188,7 @@
         $this.data('curFont', curFont);
 
         //init image editing
-        var options = new Object;
+        var options = {};
 
         var logoData = response.logoData;
 
@@ -207,11 +207,11 @@
         if (logoData.y2 && !options.windowHeight) {
             options.windowHeight = logoData.y2 - logoData.y1;
         }
-        if(!options.windowWidth) {
+        if (!options.windowWidth) {
             options.windowWidth = 400; //default width;
         }
-        if(!options.windowHeight) {
-            options.windowHeight= 100; //default height;
+        if (!options.windowHeight) {
+            options.windowHeight = 100; //default height;
         }
         options.enableChangeHeight = true;
         options.enableChangeWidth = true;
@@ -228,9 +228,9 @@
         $this.data('logoText').on('change keyup', $.proxy(preview, $this));
 
         $this.data('fontSelect').ipInlineManagementFontSelector({
-            'hide_fallbacks' : true,
-            'initial' : curFont,
-            'selected' : function(style) {
+            'hide_fallbacks': true,
+            'initial': curFont,
+            'selected': function (style) {
                 $this.data('fontSelect').find('.ipsFontName').css('font-family', style);
                 $this.data('curFont', style);
                 $.proxy(preview, $this)();
@@ -255,6 +255,8 @@
             }
         });
 
+        $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
+
         //type selection
         if (logoData.type == 'text') {
             $modal.find('a[data-logotype="text"]').tab('show');
@@ -263,14 +265,14 @@
         }
 
         $modal.find('.ipsImage').one('ready.ipUploadImage', $.proxy(preview, $this));
-        $.proxy(updateType, $this)(); //initialize current type tab
 
-        $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
         $modal.find('.ipsConfirm').bind('click', $.proxy(confirm, $this));
-        $modal.on('hide.bs.modal', function () {$.proxy(cancel, $this)();});
+        $modal.on('hide.bs.modal', function () {
+            $.proxy(cancel, $this)();
+        });
     };
 
-    var preview = function() {
+    var preview = function () {
         var $this = this;
         var $modal = $('.ipsModuleInlineManagementLogoModal');
 
@@ -298,7 +300,7 @@
         }
     };
 
-    $.fn.ipModuleInlineManagementLogo = function(method) {
+    $.fn.ipModuleInlineManagementLogo = function (method) {
         if (methods[method]) {
             return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
