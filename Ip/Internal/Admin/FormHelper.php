@@ -32,12 +32,18 @@ class FormHelper
     {
         $locales = array();
         $files = scandir(ipFile('Ip/Internal/Translations/translations'));
+        $files = array_merge($files, scandir(ipFile('file/translations/original')));
+        $files = array_merge($files, scandir(ipFile('file/translations/override')));
+
+        $files = array_unique($files, SORT_STRING);
+        sort($files);
 
         foreach ($files as $file) {
             if (preg_match('/^Ip-admin-([a-z\_A-Z]+)\.json$/', $file, $matches)) {
                 $locales[] = array($matches[1], strtoupper($matches[1]));
             }
         }
+
         if (empty($locales)) {
             $locales = array(array('en', 'EN'));
         }
