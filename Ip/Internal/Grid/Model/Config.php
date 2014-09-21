@@ -369,6 +369,16 @@ class Config
     }
 
 
+    public function createFilter()
+    {
+        if (empty($this->config['createFilter'])) {
+            return false;
+        }
+        return $this->config['createFilter'];
+
+    }
+
+
     /**
      * @param int $depth
      * @param array $gridBreadcrumb //to detect loop
