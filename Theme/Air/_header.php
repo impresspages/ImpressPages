@@ -6,17 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<?php
-$options = array(
-    'id' => 'testImage',
-    'width' => '940',
-    'height'=>'200',
-    'class' => 'cssclass(optional)',
-    'default' => ipThemeUrl('assets/defaultImage.png')
-);
-echo ipSlot('image', $options);
-?>
-- See more at: http://www.impresspages.org/docs/slots#sthash.vJJZFqz6.dpuf
 <div class="wrapper clearfix">
     <header class="clearfix col_12">
         <?php echo ipSlot('logo'); ?>
