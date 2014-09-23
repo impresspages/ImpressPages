@@ -1112,8 +1112,12 @@ function ipGridController($config)
                 throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
         }
 
+        if (!empty($config['gatewayData'])) {
+            $gateway = array_merge($config['gatewayData'], $gateway);
+        }
+
         $variables = array(
-            'gateway' => $gateway
+            'gateway' => ipActionUrl($gateway)
         );
 
         $content = ipView('Ip/Internal/Grid/view/placeholder.php', $variables);
