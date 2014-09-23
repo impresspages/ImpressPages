@@ -49,17 +49,23 @@ class Db
         }
 
         try {
-            $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
-            if (!empty($dbConfig['database'])) {
-                $dsn .= ';dbname=' . $dbConfig['database'];
+            if (array_key_exists('driver', $dbConfig) && $dbConfig['driver'] == 'sqlite') {
+                $dsn = 'sqlite:' . $dbConfig['database'];
+                $this->pdoConnection = new \PDO($dsn);
+                $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            } else {
+                $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
+                if (!empty($dbConfig['database'])) {
+                    $dsn .= ';dbname=' . $dbConfig['database'];
+                }
+                $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
+                $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $dt = new \DateTime();
+                $offset = $dt->format("P");
+                $this->pdoConnection->exec("SET time_zone='$offset';");
+                $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
             }
 
-            $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
-            $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $dt = new \DateTime();
-            $offset = $dt->format("P");
-            $this->pdoConnection->exec("SET time_zone='$offset';");
-            $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
         } catch (\PDOException $e) {
             throw new \Ip\Exception\Db("Can't connect to database. Stack trace hidden for security reasons");
             //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
@@ -355,18 +361,22 @@ class Db
     public function insert($table, $row, $ignore = false)
     {
         $params = array();
-        $_ignore = $ignore ? "IGNORE" : "";
+        $values = '';
+        $_ignore = $ignore ? ($this->isSqlite()?"OR IGNORE":"IGNORE") : "";
 
-        $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " SET ";
+        $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " (";
 
         foreach ($row as $column => $value) {
-            $sql .= "`{$column}` = ?, ";
+            $sql .= "`{$column}`, ";
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;
             }
             $params[] = $value;
+            $values.='?, ';
         }
         $sql = substr($sql, 0, -2);
+        $values = substr($values, 0, -2);
+        $sql .= ") VALUES (${values})";
 
         if (empty($params)) {
             $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " () VALUES()";
@@ -464,6 +474,19 @@ class Db
     }
 
     /**
+     * insert or update row of $table identified by $keys with $values
+     *
+     * @param string $table
+     * @param array $keys
+     * @param array $values
+     */
+    public function upsert($table, $keys, $values) {
+        if ($this->insert($table, array_merge($keys, $values), true) == false) {
+            $this->update($table, $values, $keys);
+        }
+    }
+
+    /**
      * Return table prefix
      * @return mixed
      */
@@ -480,5 +503,34 @@ class Db
     public function isConnected()
     {
         return $this->pdoConnection ? true : false;
+    }
+
+    /**
+     * Return name of current driver
+     */
+    public function getDriverName()
+    {
+        return $this->pdoConnection->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    }
+
+
+    /**
+     * Return true if database is sqlite
+     *
+     * @return bool
+     */
+    public function isSQLite()
+    {
+        return $this->getDriverName() == 'sqlite';
+    }
+
+    /**
+     * Return true if database is mysql
+     *
+     * @return bool
+     */
+    public function isMySQL()
+    {
+        return $this->getDriverName() == 'mysql';
     }
 }
