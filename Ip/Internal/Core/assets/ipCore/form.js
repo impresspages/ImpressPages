@@ -68,7 +68,7 @@ var ipModuleFormPublic;
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
-                        url: ip.baseUrl,
+                        url: $form.attr('action') ? $form.attr('action') : ip.baseUrl,
                         dataType: 'json',
                         type: type,
                         data: $form.serialize(),
