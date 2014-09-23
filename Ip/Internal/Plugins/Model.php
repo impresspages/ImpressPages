@@ -72,36 +72,22 @@ class Model
             $worker = new $workerClass($config['version']);
             $worker->activate();
         }
-
-
-        $dbh = ipDb()->getConnection();
-        $sql = '
-        INSERT INTO
-            ' . ipTable('plugin') . '
-        SET
-            `title` = :title,
-            `name` = :pluginName,
-            `isActive` = 1,
-            `version` = :version
-        ON DUPLICATE KEY UPDATE
-            `title` = :title,
-            `isActive` = 1,
-            `version` = :version
-        ';
-
+        
         if (!empty($config['title'])) {
             $pluginTitle = $config['title'];
         } else {
             $pluginTitle = $pluginName;
         }
+        $keys = array(
+            'pluginName' => $pluginName
+        );
 
-        $params = array(
+        $values = array(
             'title' => $pluginTitle,
-            'pluginName' => $pluginName,
+            'isActive' => 1,
             'version' => $config['version']
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        IpDb()->upsert('plugin', $keys, $values);
 
         // set default plugin options
         if (!empty($config['options'])) {
