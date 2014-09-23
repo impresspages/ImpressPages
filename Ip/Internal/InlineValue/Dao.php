@@ -207,7 +207,7 @@ class Dao
     public function setPageValue($key, $languageId, $pageId, $value)
     {
         $keys = array(
-            'module' => $this->module,
+            'plugin' => $this->module,
             'key' => $key,
             'pageId' => $pageId
         );
@@ -227,7 +227,7 @@ class Dao
     public function setLanguageValue($key, $languageId, $value)
     {
         $keys = array(
-            'module' => $this->module,
+            'plugin' => $this->module,
             'key' => $key,
             'languageId' => $languageId
         );
@@ -246,7 +246,7 @@ class Dao
     public function setGlobalValue($key, $value)
     {
         $keys = array(
-            'module' => $this->module,
+            'plugin' => $this->module,
             'key' => $key
         );
         $values = array(
