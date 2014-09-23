@@ -13,8 +13,6 @@ abstract class RawStorage
     protected $valueColumn = 'value';
     protected $namespace;
 
-    protected $fullTableName;
-
     public function __construct($namespace)
     {
         $this->namespace = $namespace;
@@ -22,7 +20,6 @@ abstract class RawStorage
         if (empty($this->tableName)) {
             throw new \Ip\Exception('Storage table name is not defined.');
         }
-        $this->fullTableName = ipTable($this->tableName);
     }
 
     /**
@@ -50,26 +47,15 @@ abstract class RawStorage
      */
     public function set($key, $value)
     {
-        $sql = "
-            INSERT INTO
-                {$this->fullTableName}
-            SET
-                `{$this->namespaceColumn}` = :namespace,
-                `{$this->keyColumn}` = :key,
-                `{$this->valueColumn}` = :value
-            ON DUPLICATE KEY UPDATE
-                `{$this->namespaceColumn}` = :namespace,
-                `{$this->keyColumn}` = :key,
-                `{$this->valueColumn}` = :value
-        ";
-
-        $params = array(
-            ':namespace' => $this->namespace,
-            ':key' => $key,
-            ':value' => $value
+        $keys = array(
+            $this->namespaceColumn => $this->namespace,
+            $this->keyColumn => $key,
+        );
+        $values = array(
+            $this->valueColumn => $value
         );
 
-        ipDb()->execute($sql, $params);
+        ipDb()->upsert($this->tableName, $keys, $values);
     }
 
     /**

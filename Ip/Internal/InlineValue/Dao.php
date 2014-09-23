@@ -206,27 +206,15 @@ class Dao
      */
     public function setPageValue($key, $languageId, $pageId, $value)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            INSERT INTO
-                ' . ipTable('inline_value_page') . '
-            SET
-                `plugin` = :module,
-                `key` = :key,
-                `pageId` = :pageId,
-                `value` = :value
-            ON DUPLICATE KEY UPDATE
-                `value` = :value
-        ';
-
-        $params = array(
-            ':module' => $this->module,
-            ':key' => $key,
-            ':pageId' => $pageId,
-            ':value' => $value
+        $keys = array(
+            'module' => $this->module,
+            'key' => $key,
+            'pageId' => $pageId
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        $values = array(
+            'value' => $value
+        );
+        ipDb()->upsert('inline_value_page', $keys, $values);
     }
 
     /**
@@ -238,27 +226,15 @@ class Dao
      */
     public function setLanguageValue($key, $languageId, $value)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            INSERT INTO
-                ' . ipTable('inline_value_language') . '
-            SET
-                `plugin` = :module,
-                `key` = :key,
-                `languageId` = :languageId,
-                `value` = :value
-            ON DUPLICATE KEY UPDATE
-                `value` = :value
-        ';
-
-        $params = array(
-            ':module' => $this->module,
-            ':key' => $key,
-            ':languageId' => $languageId,
-            ':value' => $value
+        $keys = array(
+            'module' => $this->module,
+            'key' => $key,
+            'languageId' => $languageId
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        $values = array(
+            'value' => $value
+        );
+        ipDb()->upsert('inline_value_language', $keys, $values);
     }
 
     /**
@@ -269,25 +245,14 @@ class Dao
      */
     public function setGlobalValue($key, $value)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = '
-            INSERT INTO
-                ' . ipTable('inline_value_global') . '
-            SET
-                `plugin` = :module,
-                `key` = :key,
-                `value` = :value
-            ON DUPLICATE KEY UPDATE
-                `value` = :value
-        ';
-
-        $params = array(
-            ':module' => $this->module,
-            ':key' => $key,
-            ':value' => $value
+        $keys = array(
+            'module' => $this->module,
+            'key' => $key
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        $values = array(
+            'value' => $value
+        );
+        ipDb()->upsert('inline_value_global', $keys, $values);
     }
 
     /**
