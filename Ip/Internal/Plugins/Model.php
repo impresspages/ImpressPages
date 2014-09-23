@@ -72,14 +72,14 @@ class Model
             $worker = new $workerClass($config['version']);
             $worker->activate();
         }
-        
+
         if (!empty($config['title'])) {
             $pluginTitle = $config['title'];
         } else {
             $pluginTitle = $pluginName;
         }
         $keys = array(
-            'pluginName' => $pluginName
+            'name' => $pluginName
         );
 
         $values = array(
