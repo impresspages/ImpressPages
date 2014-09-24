@@ -12,7 +12,6 @@ class Event
         $curModTitle = '';
         $curModUrl = '';
         $curModIcon = '';
-        $helpUrl = 'http://www.impresspages.org/help2';
 
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
@@ -22,7 +21,6 @@ class Event
         }
 
         if (isset($curModule) && $curModule) {
-            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
             $curModTitle = __($curModule, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
@@ -47,7 +45,6 @@ class Event
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
             'curModIcon' => $curModIcon,
-            'helpUrl' => $helpUrl,
             'navbarButtons' => array_reverse($navbarButtons),
             'navbarCenterElements' => $navbarCenterElements
         );
@@ -80,6 +77,9 @@ class Event
 
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+            ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
+
             $submenu = Submenu::getSubmenuItems();
             $submenu = ipFilter('ipAdminSubmenu', $submenu);
             if ($submenu) {

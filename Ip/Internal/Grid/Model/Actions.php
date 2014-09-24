@@ -192,6 +192,10 @@ class Actions
             $dbData[$this->subgridConfig->connectionField()] = $this->statusVariables['gridParentId' . ($depth - 1)];
         }
 
+        if ($this->subgridConfig->createFilter()) {
+            $dbData = call_user_func($this->subgridConfig->createFilter(), $dbData);
+        }
+
         $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
 
         foreach ($fields as $field) {

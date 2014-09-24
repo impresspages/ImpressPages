@@ -38,6 +38,8 @@ class LessCompiler
         $less = "@import '{$lessFile}';";
         $less .= $this->generateLessVariables($options, $config);
 
+        $css = '';
+
         try {
             require_once ipFile('Ip/Lib/less.php/Less.php');
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
@@ -62,11 +64,11 @@ class LessCompiler
             $parser->SetImportDirs($directories);
             $parser->parse($less);
             $css = $parser->getCss();
+            $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         } catch (\Exception $e) {
             ipLog()->error('Less compilation error: Theme - ' . $e->getMessage());
         }
 
-        $css = "/* Edit {$lessFile}, not this file. */" . "\n" . $css;
         return $css;
     }
 
@@ -86,6 +88,10 @@ class LessCompiler
         $less = '';
 
         foreach ($options as $option) {
+            if (isset($option['addToLess']) && !$option['addToLess']) {
+                continue;
+            }
+
             if (empty($option['name']) || empty($option['type'])) {
                 continue; // ignore invalid nodes
             }
@@ -101,19 +107,21 @@ class LessCompiler
             switch ($option['type']) {
                 case 'select':
                 case 'color':
-                default:
                     $lessValue = $rawValue;
                     break;
+                default:
                 case 'hidden':
                 case 'range':
                     $lessValue = $rawValue;
                     if (!empty($option['units'])) {
                         $lessValue .= $option['units'];
                     }
+                    if (!isset($option['escape']) || $option['escape']) {
+                        $lessValue = "'" . escAttr($lessValue) . "'";
+                    }
                     break;
             }
-            $escapedValue = escAttr($lessValue);
-            $less .= "\n@{$option['name']}: '{$escapedValue}';";
+            $less .= "\n@{$option['name']}: {$lessValue};";
         }
 
         return $less;

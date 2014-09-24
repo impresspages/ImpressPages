@@ -11,6 +11,19 @@ class Migration
 {
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_57()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_56()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
     public static function update_55()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

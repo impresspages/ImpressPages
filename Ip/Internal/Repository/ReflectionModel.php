@@ -60,7 +60,7 @@ class ReflectionModel
             $reflection = $this->createReflectionRecord($file, $options, $desiredName);
         }
 
-        if (!$onDemand && !is_file($reflection['reflection'])) {
+        if (!$onDemand && !is_file($reflection)) {
             $this->createReflection($file, $reflection, $options);
         }
 
@@ -219,18 +219,6 @@ class ReflectionModel
 
     private function storeReflectionRecord($file, $reflection, $options)
     {
-        $dbh = ipDb()->getConnection();
-        $sql = "
-        INSERT INTO
-          " . ipTable('repository_reflection') . "
-        SET
-          original = :original,
-          reflection = :reflection,
-          options = :options,
-          optionsFingerprint = :optionsFingerprint,
-          createdAt = :createdAt
-        ";
-
         $jsonOptions = json_encode($options);
 
         $params = array(
@@ -241,8 +229,7 @@ class ReflectionModel
             'createdAt' => time()
         );
 
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        ipDb()->insert('repository_reflection', $params);
 
     }
 

@@ -22,7 +22,7 @@ abstract class GridController extends \Ip\Controller
         $gateway = array('aa' => $aa);
 
         $variables = array(
-            'gateway' => $gateway
+            'gateway' => ipActionurl($gateway)
         );
         $content = ipView('Internal/Grid/view/placeholder.php', $variables)->render();
         return $content;
