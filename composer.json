@@ -1,0 +1,39 @@
+{
+    "name": "impresspages/impresspages",
+    "version": "4.2.1",
+    "type": "project",
+    "description": "ImpressPages framework & CMS",
+    "keywords": ["impresspages","frameword","CMS"],
+    "homepage": "http://www.impresspages.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ImpressPages",
+            "email": "mangirdas@impresspages.org",
+            "homepage": "http://www.impresspages.org",
+            "role": "Open Source company"
+        },
+        {
+            "name": "Mangirdas Skripka",
+            "email": "mangirdas@impresspages.org",
+            "role": "Developer"
+        },
+        {
+            "name": "Martynas Eskis",
+            "email": "eskis.martynas@gmailc.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ip\\": "Ip/",
+            "Plugin\\": "Plugin/",
+            "Plugin\\Install\\": "install/Plugin/Install/",
+            "Theme\\": "Theme/",
+            "Aura\\Router\\": "Ip/Internal/Vendor/Aura/Router/"
+        }
+    }
+}

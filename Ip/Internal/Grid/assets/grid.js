@@ -36,7 +36,7 @@
 
     var init = function (uniqueId) {
         var $this = this;
-        var data = $this.data('gateway');
+        var data = urlParams($this.data('gateway'));
         data.jsonrpc = '2.0';
         data.method = 'init';
         data.hash = window.location.hash;
@@ -44,7 +44,7 @@
 
         $.ajax({
             type: 'GET',
-            url: ip.baseUrl,
+            url: $this.data('gateway').split('?')[0],
             data: data,
             context: $this,
             success: initResponse,
@@ -93,7 +93,7 @@
         $grid.find('.ipsAction[data-method]').off().on('click', function (e) {
             e.preventDefault();
             var $this = $(this);
-            var data = $grid.data('gateway');
+            var data = urlParams($grid.data('gateway'));
             data.jsonrpc = '2.0';
             data.method = $this.data('method');
 
@@ -106,7 +106,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: ip.baseUrl,
+                url: $grid.data('gateway').split('?')[0],
                 data: data,
                 context: $grid,
                 success: initResponse,
@@ -149,7 +149,8 @@
             $modal.modal();
             $modal.find('.form-group').not('.type-blank').first().find('input').focus();
             if (!$form.find('input[name=aa]').length) {
-                $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                //$form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                $form.attr('action', data);
             }
             $form.find('input[name=hash]').remove();
             $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
@@ -186,7 +187,9 @@
             $modal.modal();
             $modal.find('.form-group').not('.type-blank').first().find('input').focus();
             if (!$form.find('input[name=aa]').length) {
-                $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                //$form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                $form.attr('action', data);
+
             }
             $form.find('input[name=hash]').remove();
             $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
@@ -260,7 +263,7 @@
 
         var $grid = this;
         var id = ui.item.data('id');
-        var data = $grid.data('gateway');
+        var data = {};
         data.method = 'move';
         data.params = {};
         data.params.id = id;
@@ -270,7 +273,7 @@
         data.hash = window.location.hash;
         $.ajax({
             type: 'POST',
-            url: ip.baseUrl,
+            url: $grid.data('gateway'),
             data: data,
             context: $grid,
             dataType: 'json',
@@ -296,14 +299,14 @@
 
     var loadUpdateForm = function ($modal, id) {
         var $grid = this;
-        var data = $grid.data('gateway');
+        var data = urlParams($grid.data('gateway'));
         data.method = 'updateForm';
         data.params = {};
         data.params.id = id;
         data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',
-            url: ip.baseUrl,
+            url: $grid.data('gateway').split('?')[0],
             data: data,
             context: $grid,
             dataType: 'json',
@@ -312,7 +315,9 @@
                 var $form = $modal.find('.ipsBody form');
                 var data = $grid.data('gateway');
                 if (!$form.find('input[name=aa]').length) {
-                    $form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                    //$form.append($('<input type="hidden" name="aa" />').val(data.aa));
+                    $form.attr('action', data);
+
                 }
                 $form.find('input[name=hash]').remove();
                 $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
@@ -361,14 +366,14 @@
 
     var deleteRecord = function (id) {
         var $grid = this;
-        var data = $grid.data('gateway');
+        var data = {};
         data.method = 'delete';
         data.params = {};
         data.params.id = id;
         data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',
-            url: ip.baseUrl,
+            url: $grid.data('gateway'),
             data: data,
             context: $grid,
             success: deleteResponse,
@@ -391,6 +396,22 @@
             }
         }
 
+    };
+
+    var urlParams = function (url) {
+        url = '?' + url;
+        var parts = url.split('?'),
+            query = parts[parts.length - 1],
+            urlParams = {},
+            match,
+            pl     = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
+
+        while (match = search.exec(query)) {
+            urlParams[decode(match[1])] = decode(match[2]);
+        }
+        return urlParams;
     };
 
     $.fn.ipGrid = function (method) {

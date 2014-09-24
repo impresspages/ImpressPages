@@ -30,7 +30,10 @@ class AdminController extends \Ip\Controller
 
 
         ipAddJsVariable('languageList', Helper::languageList());
-        ipAddJsVariable('menuList', Model::getMenuList());
+
+        $menus = Model::getMenuList();
+        $menus = ipFilter('ipPagesMenuList', $menus);
+        ipAddJsVariable('menuList', $menus);
 
         $variables = array(
             'addPageForm' => Helper::addPageForm(),

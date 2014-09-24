@@ -30,7 +30,7 @@ class Helper
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
         $languages['ru'] = 'Русский';
-        $languages['tr'] = 'Türk';
+        $languages['tr'] = 'Türkçe';
 
         return $languages;
     }

@@ -48,7 +48,7 @@
         }
         ?>
         <li<?php echo $class; ?>>
-            <a<?php echo $href; ?><?php echo $target; ?> title="<?php echo escAttr($menuItem->getTitle()); ?>">
+            <a<?php echo $href; ?><?php echo $target; ?> title="<?php echo escAttr($menuItem->getPageTitle()); ?>">
                 <?php echo esc($menuItem->getTitle()); ?>
             </a>
             <?php echo $submenu; ?>

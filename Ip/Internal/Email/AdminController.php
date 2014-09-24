@@ -28,11 +28,6 @@ class AdminController extends \Ip\GridController
                     'field' => 'subject'
                 ),
                 array(
-                    'label' => __('Email', 'Ip-admin', false),
-                    'field' => 'email',
-                    'preview' => __CLASS__ . '::html2text'
-                ),
-                array(
                     'label' => __('Recipient name', 'Ip-admin', false),
                     'field' => 'toName',
                     'preview' => false
@@ -100,14 +95,6 @@ class AdminController extends \Ip\GridController
 
 
 
-
-    public static function html2text($value, $recordData)
-    {
-        $html2text = new \Ip\Internal\Text\Html2Text('<html><body>' . $value . '</body></html>', false);
-        $text = esc($html2text->get_text());
-        $text = str_replace("\n", '<br/>', $text);
-        return $text;
-    }
 
     public static function to($value, $recordData)
     {

@@ -19,9 +19,16 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsColorPicker').length && !$.spectrum) {
+            if (($('.ipsModuleFormPublic .type-color').length || $('.ipsModuleFormAdmin .type-color').length) && !$.spectrum) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
+            }
+
+            if ($('.ipsModuleFormPublic .type-richtext').length && (typeof(ipTinyMceConfig) === "undefined")) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/pastePreprocess.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/default.js') + '"></script>');
             }
 
 
@@ -61,7 +68,7 @@ var ipModuleFormPublic;
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
                     $.ajax({
-                        url: ip.baseUrl,
+                        url: $form.attr('action') ? $form.attr('action') : ip.baseUrl,
                         dataType: 'json',
                         type: type,
                         data: $form.serialize(),
@@ -77,6 +84,9 @@ var ipModuleFormPublic;
                             }
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
+                            }
+                            if (response.alert) {
+                                alert(response.alert);
                             }
                         },
                         error: function (response) {

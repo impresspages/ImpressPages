@@ -15,16 +15,15 @@ namespace Ip\Response;
 class PageNotFound extends \Ip\Response\Layout
 {
 
-    public function __construct($content = null)
+    public function __construct($content = null, $headers = null, $statusCode = 404)
     {
         if ($content === null) {
             $content = $this->generateError404Content();
         }
+        parent::__construct($content, $headers, $statusCode);
         $this->addHeader('HTTP/1.0 404 Not Found');
-        $this->setStatusCode(404);
-        $this->setContent($content);
         $this->setTitle(__('Error 404', 'Ip', false));
-        parent::__construct($content);
+
     }
 
     public function getLayout()

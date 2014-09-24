@@ -38,11 +38,11 @@ class Layout extends \Ip\Response
     private $charset;
 
 
-    public function __construct($content = null, $headers = null, $statusCode = null)
+    public function __construct($content = null, $headers = null, $statusCode = 200)
     {
         $this->setFavicon(ipFileUrl('favicon.ico'));
         $this->setCharset(ipConfig()->get('charset'));
-        parent::__construct($content = null, $headers = null, $statusCode = null);
+        parent::__construct($content, $headers, $statusCode);
     }
 
     public function render()

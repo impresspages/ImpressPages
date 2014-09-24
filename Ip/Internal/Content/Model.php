@@ -619,10 +619,10 @@ class Model
         $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '(/?)(?=["\'?]|\s|\Z)%';
 
         foreach ($records as $row) {
+            $data = json_decode($row['data'], true);
             if (empty($data['text'])) {
                 continue;
             }
-            $data = json_decode($row['data'], true);
 
             // ${1} - protocol, ${2} - optional '/'
             $after = preg_replace($search, '${1}' . $newPart . '${2}', $data['text']);

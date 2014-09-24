@@ -185,10 +185,13 @@ class Module
                     if ($email['html']) {
                         $mail->IsHTML(true); // send as HTML
 
-                        $h2t = new \Ip\Internal\Text\Html2Text($email['email'], false);
-                        //$mail->Body = $email['email'];
                         $mail->MsgHTML($email['email']);
-                        $mail->AltBody = $h2t->get_text();
+                        try {
+                            $altBody = \Ip\Internal\Text\Html2Text::convert($email['email']);
+                        } catch (\Ip\Internal\Text\Html2TextException $e) {
+                            $altBody = $email['email'];
+                        }
+                        $mail->AltBody = $altBody;
                     } else {
                         /*$h2t = new \Ip\Internal\Text\Html2Text($content, false);
                          $mail->Body  =  $h2t->get_text();*/
