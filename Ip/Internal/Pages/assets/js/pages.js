@@ -315,7 +315,7 @@ var ipPageDragId;
             if ($scope.activeMenu.type == 'list') { // list view
                 var gridContainer = getPagesContainer();
                 if (!gridContainer.data('gateway')) {
-                    gridContainer.data('gateway', {aa: 'Pages.pagesGridGateway', parentId: $scope.activeMenu.id});
+                    gridContainer.data('gateway', ip.baseUrl + '?aa=Pages.pagesGridGateway&parentId=' + $scope.activeMenu.id);
                     gridContainer.ipGrid();
                     gridContainer.on('click', '.ipsRow', function (e) {
                         var $row = $(e.currentTarget);
