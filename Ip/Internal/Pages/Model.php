@@ -110,6 +110,8 @@ class Model
         $copy['parentId'] = $newParentId;
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
+        $copy['createdAt'] = date('Y-m-d H:i:s');
+        $copy['updatedAt'] = date('Y-m-d H:i:s');
 
 
         $pageId = ipDb()->insert('page', $copy);
