@@ -25,7 +25,13 @@
                     var customTinyMceConfig = $this.data('tinyMceConfig');
                     if (!customTinyMceConfig) {
                         if (typeof(inlineManagementTinyMceConfig) !== 'undefined') {
-                            customTinyMceConfig = inlineManagementTinyMceConfig($this.data());
+                            var options = {
+                                id: $this.data('key'),
+                                class: $this.data('cssclass'),
+                                tag: $this.data('htmltag'),
+                                default: $this.data('defaultvalue')
+                            }
+                            customTinyMceConfig = inlineManagementTinyMceConfig(options);
                         }
                         if (!customTinyMceConfig) {
                             customTinyMceConfig = ipTinyMceConfig();
