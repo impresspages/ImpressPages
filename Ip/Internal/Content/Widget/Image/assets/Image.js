@@ -275,14 +275,11 @@ var IpWidget_Image = function () {
     };
 
     var actualSize = function(){
-        var $image = this.$widgetObject.find('.ipsImage');
-        $image.resizable('destroy');
+        var data = {
+            method: 'autosize'
+        }
 
-        $image.width(this.data.originalWidth);
-        $image.height('auto');
-
-        $.proxy(makeResizable, this)();
-        this.resize(this.data.originalWidth, $image.height());
+        this.$widgetObject.save(data, 1);
 
     };
 

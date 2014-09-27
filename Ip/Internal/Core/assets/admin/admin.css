@@ -12,6 +12,7 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -19,6 +20,7 @@
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -57,6 +59,7 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -64,6 +67,7 @@
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -7454,6 +7458,7 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7461,6 +7466,7 @@
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -7489,6 +7495,7 @@
   background: transparent;
   border: 0;
   border-collapse: collapse;
+  box-shadow: none;
   direction: ltr;
   float: none;
   font-style: normal;
@@ -7496,6 +7503,7 @@
   font-weight: normal;
   height: auto;
   margin: 0;
+  min-width: 0;
   max-width: none;
   outline: 0;
   padding: 0;
@@ -10045,6 +10053,10 @@
 }
 .ipHasAdminPanel .ipAdminWidgetColsResizeHandler:hover {
   opacity: 1;
+}
+.ipModuleInlineManagement {
+  min-width: 10px;
+  min-height: 10px;
 }
 .ipModuleInlineManagement._empty {
   outline: #019bd4 dashed 1px;
