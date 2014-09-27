@@ -1179,7 +1179,7 @@ function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
  *
  * @param string $content
  * @param array $customValues
- * @param string $context plugin name which executes the function. Makes possible to have different values in different context.
+ * @param string $context plugin name which executes the function. Makes possible to have different values in different contexts.
  * @return string
  */
 function ipReplacePlaceholders($content, $context = 'Ip', $customValues = array())
