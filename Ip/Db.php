@@ -533,4 +533,33 @@ class Db
     {
         return $this->getDriverName() == 'mysql';
     }
+
+    /**
+     * Return SQL condition to select rows with minimum age (database-dependent)
+     *
+     * @param string $fieldname field to compare
+     * @param int    $minAge    minimum age
+     * @param string $unit      unit for age (HOUR or MINUTE)
+     * @return string           sql condition
+     */
+    public function sqlMinAge($fieldname, $minAge, $unit='HOUR') {
+        if (ipDb()->isMySQL()) {
+            $sql = ((int)$minAge) . " < TIMESTAMPDIFF(".$unit.",`".$fieldname."`, NOW()) ";
+        } else {
+            switch($unit) {
+                case 'HOUR':
+                    $divider = 60*60;
+                    break;
+                case 'MINUTE':
+                    $divider = 60;
+                    break;
+            }
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldname.
+                "`)/".$divider.")>". ((int)$minAge). ") ";
+        }
+
+        return $sql;
+    }
+
+
 }
