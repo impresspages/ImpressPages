@@ -50,7 +50,7 @@ class Db
         $table = ipTable('email_queue');
 
         $sql = "update $table set
-		`lock` = ?, `lockedAt` = NOW()
+		`lock` = ?, `lockedAt` = CURRENT_TIMESTAMP
 		where `lock` is NULL and send is NULL order by
 		immediate desc, id asc limit " . $count;
 
@@ -62,7 +62,7 @@ class Db
         $table = ipTable('email_queue');
 
         $sql = "update $table set
-		`lock` = ?, `lockedAt` = NOW()
+		`lock` = ?, `lockedAt` = CURRENT_TIMESTAMP
 		where `immediate` and `lock` is NULL and `send` is NULL order by
 		`id` asc limit " . $count;
 
@@ -91,7 +91,7 @@ class Db
             array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => null,
-                'lockedAt' => null,
+                'lockedAt' => '0000-00-00 00:00:00',
             ),
             array(
                 'id' => $id,
@@ -121,9 +121,7 @@ class Db
     public static function delteOldSent($hours)
     {
         $table = ipTable('email_queue');
-        $sql = "delete from $table where
-		`send` is not NULL
-		and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`send`, NOW())";
+        $sql = "delete from $table where `send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR');
         return ipDb()->execute($sql);
     }
 
@@ -132,10 +130,8 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "delete from $table where
-		(`lock` is not NULL and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`lockedAt`,NOW()))
-		or
-		(`send` is not NULL and " . ((int)$hours) . " < TIMESTAMPDIFF(HOUR,`send`,NOW()))
-		";
+		(`lock` is not NULL and " . ipDb()->sqlMinAge('lockedAt', $hours, 'HOUR') ."
+		or (`send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR');
 
         return ipDb()->execute($sql);
     }
@@ -144,9 +140,8 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
-		(`send` is not NULL and " . ((int)$minutes) . " > TIMESTAMPDIFF(MINUTE,`send`,NOW()))
-		or
-		(`lock` is not NULL and send is null) ";
+		(`send` is not NULL and " . ipDb()->sqlMinAge('send', $minutes, 'MINUTE') .")
+		or (`lock` is not NULL and send is null) ";
 
         return ipDb()->fetchValue($sql);
     }

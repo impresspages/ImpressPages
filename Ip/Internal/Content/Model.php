@@ -601,11 +601,11 @@ class Model
 
         $quotedPart = substr(ipDb()->getConnection()->quote('://' . $oldPart), 1, -1);
 
-        $search = substr(json_encode($quotedPart), 1, -1);
+        $search = '%'. substr(json_encode($quotedPart), 1, -1) . '%';
 
         $table = ipTable('widget');
 
-        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE LOCATE(? , `data`) > 0", array($search));
+        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE `data` LIKE ? > 0", array($search));
 
         if (!$records) {
             return;
