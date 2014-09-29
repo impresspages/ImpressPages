@@ -498,7 +498,7 @@ class Content
      *
      * @param string $languageCode
      * @param string $alias unique menu identificator within the language
-     * @return \Ip\Page[]
+     * @return \Ip\Page
      */
     public static function getMenu($languageCode, $alias)
     {
@@ -507,6 +507,27 @@ class Content
             return new \Ip\Page($result);
         }
         return $result;
+    }
+
+    /**
+     * @param $languageCode
+     * @param $alias
+     * @param $title
+     * @param string $type 'tree' or 'list'
+     * @return int
+     */
+    public static function addMenu($languageCode, $alias, $title, $type = 'tree')
+    {
+        return \Ip\Internal\Pages\Service::createMenu($languageCode, $alias, $title, $type);
+    }
+
+    /**
+     * @param $id menu id
+     */
+    public static function deleteMenu($languageCode, $alias)
+    {
+        $menu = self::getMenu($languageCode, $alias);
+        self::deletePage($menu->getId());
     }
 
 }

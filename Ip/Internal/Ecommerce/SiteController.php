@@ -63,7 +63,7 @@ class SiteController
         ipAddJs('assets/paymentSelection.js');
         ipAddCss('assets/payments.css');
         $response = ipView('view/selectPayment.php', array('paymentMethods' => $paymentMethods));
-        $response = ipFilter('ipPaymentSelectPageResponse', $response, array('paymentKey' => $key));
+        $response = ipFilter('ipSubscriptionPaymentSelectPageResponse', $response, array('paymentKey' => $key));
         return $response;
 
     }
