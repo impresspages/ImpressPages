@@ -147,7 +147,7 @@ class Helper
             return $errors;
         }
 
-        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName));
+        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName)); //for internal use only. Don't use in your plugins as it is going to change
 
         return true;
     }
