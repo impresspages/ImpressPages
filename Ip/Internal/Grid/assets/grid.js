@@ -303,6 +303,7 @@
         data.method = 'updateForm';
         data.params = {};
         data.params.id = id;
+        data.hash = window.location.hash;
         data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',
