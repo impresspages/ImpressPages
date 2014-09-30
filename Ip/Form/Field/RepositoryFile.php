@@ -19,7 +19,7 @@ class RepositoryFile extends Field
 {
 
     protected $fileLimit = -1;
-    protected $preview = 'list'; // List or thumbnails.
+    protected $preview = 'thumbnails'; // List or thumbnails.
     protected $secure = false;
 
     public function __construct($options = array())
