@@ -62,6 +62,25 @@ class RepositoryFile extends Field
     }
 
     /**
+     * Get field value
+     *
+     * @return string[]
+     */
+    public function getValue()
+    {
+        if (is_string($this->value)) {
+            if (!empty($this->value)) {
+                return array($this->value);
+            } else {
+                return array();
+            }
+
+        } else {
+            return $this->value;
+        }
+    }
+
+    /**
      * Get class type
      *
      * CSS class that should be applied to surrounding element of this field.

@@ -106,12 +106,20 @@ class LessCompiler
 
             switch ($option['type']) {
                 case 'select':
+                case 'Select':
                 case 'color':
+                case 'Color':
                     $lessValue = $rawValue;
+                    break;
+                case 'RepositoryFile':
+                    $lessValue = $rawValue;
+                    $lessValue = "'" . escAttr($lessValue) . "'";
                     break;
                 default:
                 case 'hidden':
+                case 'Hidden':
                 case 'range':
+                case 'Range':
                     $lessValue = $rawValue;
                     if (!empty($option['units'])) {
                         $lessValue .= $option['units'];
