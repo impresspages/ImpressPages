@@ -605,7 +605,7 @@ class Model
 
         $table = ipTable('widget');
 
-        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE `data` LIKE ? > 0", array($search));
+        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE `data` LIKE ?", array($search));
 
         if (!$records) {
             return;
