@@ -207,6 +207,12 @@ class AdminController extends \Ip\Controller
                      */
                     $value = $field->isChecked($post, $option['name']);
                     break;
+                case 'RepositoryFile':
+                    $value = '';
+                    if (!empty($post[$option['name']][0])) {
+                        $value = $post[$option['name']][0];
+                    }
+                    break;
                 default:
                     $value = $field->getValueAsString($post, $option['name']);
             }
