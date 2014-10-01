@@ -113,7 +113,7 @@ class LessCompiler
                     break;
                 case 'RepositoryFile':
                     $lessValue = $rawValue;
-                    $lessValue = "'" . escAttr($lessValue) . "'";
+                    $lessValue = "'" . ipFileUrl('file/repository/' . escAttr($lessValue)) . "'";
                     break;
                 default:
                 case 'hidden':
