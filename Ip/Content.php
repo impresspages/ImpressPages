@@ -516,7 +516,7 @@ class Content
      * @param string $type 'tree' or 'list'
      * @return int
      */
-    public static function addMenu($languageCode, $alias, $title, $type = 'tree')
+    public function addMenu($languageCode, $alias, $title, $type = 'tree')
     {
         return \Ip\Internal\Pages\Service::createMenu($languageCode, $alias, $title, $type);
     }
@@ -524,10 +524,12 @@ class Content
     /**
      * @param $id menu id
      */
-    public static function deleteMenu($languageCode, $alias)
+    public function deleteMenu($languageCode, $alias)
     {
-        $menu = self::getMenu($languageCode, $alias);
-        self::deletePage($menu->getId());
+        $menu = $this->getMenu($languageCode, $alias);
+        if ($menu) {
+            $this->deletePage($menu->getId());
+        }
     }
 
 }
