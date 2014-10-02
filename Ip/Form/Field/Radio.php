@@ -47,6 +47,10 @@ class Radio extends Field
         $answer = '';
 
         foreach ($this->getValues() as $key => $value) {
+            if (is_string($value)) {
+                $value = array($value, $value);
+            }
+
             if ($value[0] == $this->value) {
                 $checked = ' checked="checked"';
             } else {
