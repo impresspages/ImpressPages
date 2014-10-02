@@ -70,7 +70,9 @@
             var $newFile = $this.find('.ipsFileTemplate').clone();
             $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
             $newFile.removeClass('hidden').removeClass('ipsFileTemplate');
-            $newFile.find('.ipsFileName').text(fileName);
+
+            $newFile.find('.ipsLink').text(fileName);
+            $newFile.find('.ipsLink').attr('href', files[index].originalUrl);
             $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
             $newFile.find('.ipsRemove').click($.proxy(removeFile, context));
             if ($this.data('ipFormRepositoryFile').limit >= 0) {
