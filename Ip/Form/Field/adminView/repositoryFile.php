@@ -12,7 +12,7 @@
             <?php foreach ($value as $file) { ?>
                 <div class="_file ipsFile">
                     <button type="button" class="close ipsRemove">&times;</button>
-                    <div class="ipsFileName"><?php echo esc($file); ?></div>
+                    <div class="ipsFileName"><a target="_blank" class="ipsLink" href="<?php echo ipFileUrl('file/repository/' . $file) ?>"><?php echo esc($file); ?></a></div>
                     <input type="hidden" name="<?php echo escAttr($inputName); ?>[]"
                            value="<?php echo escAttr($file); ?>"/>
                 </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="_file ipsFile ipsFileTemplate hidden">
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
-        <div class="ipsFileName"></div>
+        <div class="ipsFileName"><a target="_blank" class="ipsLink" href=""></a></div>
         <input type="hidden" name="" value=""/>
     </div>
 </div>
