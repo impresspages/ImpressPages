@@ -15,9 +15,19 @@ class User
 {
 
     /**
+     * Alias of isLoggedIn
+     * @private
      * @return bool true if user is logged in
      */
     function loggedIn()
+    {
+        return $this->isLoggedIn();
+    }
+
+    /**
+     * @return bool true if user is logged in
+     */
+    function isLoggedIn()
     {
         return isset($_SESSION['ipUserId']);
     }
