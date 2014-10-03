@@ -601,7 +601,7 @@ class Model
 
         $quotedPart = substr(ipDb()->getConnection()->quote('://' . $oldPart), 1, -1);
 
-        $search = '%'. substr(json_encode($quotedPart), 1, -1) . '%';
+        $search = '%'. addslashes(substr(json_encode($quotedPart), 1, -1)) . '%';
 
         $table = ipTable('widget');
 
