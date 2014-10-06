@@ -123,13 +123,35 @@ class Display
 
         $lastStatusVariables = array();
 
-        for ($i = 2; $i <= $depth; $i++) {
-            $lastStatusVariables = Status::genSubgridVariables($lastStatusVariables, $this->statusVariables['gridId' . ($i - 1)], $this->statusVariables['gridParentId' . ($i - 1)]);
+        $db = new Db($this->config, $this->statusVariables);
+
+
+
+        for ($i = 1; $i <= $depth - 1; $i++) {
+            if (isset($this->statusVariables['gridParentId' . ($i)])) {
+                $parentId = $this->statusVariables['gridParentId' . ($i)];
+            } else {
+                $parentId = null;
+            }
+            if (isset($this->statusVariables['gridId' . ($i)])) {
+                $gridId = $this->statusVariables['gridId' . ($i)];
+            } else {
+                $gridId = null;
+            }
+            $lastStatusVariables = Status::genSubgridVariables($lastStatusVariables, $gridId, $parentId);
             $tmpGridConfig = $gridConfig->subgridConfig($lastStatusVariables);
             $hash = Status::build($lastStatusVariables);
 
+            $breadcrumbGridconfig = $gridConfig->subgridConfig($lastStatusVariables, $i - 1);
+            if ($breadcrumbGridconfig->getBreadcrumbField()) {
+                $title = $db->breadcrumbTitle($i);
+            } else {
+                $title = $tmpGridConfig->getTitle();
+            }
+
+
             $breadcrumb[] = array(
-                'title' => $tmpGridConfig->getTitle(),
+                'title' => $title,
                 'url' => '#' . $hash
             );
         }

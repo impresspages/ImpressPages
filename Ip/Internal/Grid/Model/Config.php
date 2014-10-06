@@ -438,10 +438,13 @@ class Config
      * @return Config
      * @throws \Ip\Exception
      */
-    public function subgridConfig($statusVariables)
+    public function subgridConfig($statusVariables, $depthLimit = null)
     {
         $this->checkConfig($this->config);
         $depth = Status::depth($statusVariables);
+        if ($depthLimit !== null && $depthLimit < $depth) {
+            $depth = $depthLimit;
+        }
         $config = $this->config;
         for ($i = 1; $i < $depth; $i++) {
             $found = false;
@@ -457,6 +460,15 @@ class Config
             }
         }
         return new self($config);
+    }
+
+
+    public function getBreadcrumbField()
+    {
+        if (empty($this->config['breadcrumbField'])) {
+            return '';
+        }
+        return $this->config['breadcrumbField'];
     }
 
 }
