@@ -59,8 +59,12 @@ class Status
             $newStatusVariables['gridParentId' . $i] = $curStatusVariables['gridParentId' . $i];
         }
 
-        $newStatusVariables['gridId' . $depth] = $gridId;
-        $newStatusVariables['gridParentId' . $depth] = $gridParentId;
+        if ($gridId !== null) {
+            $newStatusVariables['gridId' . $depth] = $gridId;
+        }
+        if ($gridParentId !== null) {
+            $newStatusVariables['gridParentId' . $depth] = $gridParentId;
+        }
         return $newStatusVariables;
     }
 

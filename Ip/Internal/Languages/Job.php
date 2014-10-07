@@ -29,12 +29,8 @@ class Job
             }
 
             $languages = ipContent()->getLanguages();
-            if ($languages[0]->getUrlPath() === '') {
-                $result['language'] = $languages[0];
-                return $result;
-            } else {
-                return null;
-            }
+            $result['language'] = $languages[0];
+            return $result;
         }
 
         $urlParts = explode('/', rtrim(parse_url($info['relativeUri'], PHP_URL_PATH), '/'), 2);

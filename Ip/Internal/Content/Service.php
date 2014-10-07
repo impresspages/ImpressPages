@@ -85,4 +85,10 @@ class Service
         Model::removeRevision($revisionId);
     }
 
+
+    public static function getWidget($widgetId)
+    {
+        return Model::getWidgetRecord($widgetId);
+    }
+
 }
