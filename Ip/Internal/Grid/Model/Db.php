@@ -35,6 +35,21 @@ class Db
         return $where;
     }
 
+    public function breadcrumbTitle($depth)
+    {
+        if ($depth == 0) {
+            return $this->config->getTitle();
+        }
+        $subgridConfig = $this->config->subgridConfig($this->statusVariables, $depth - 1);
+        $id = $this->statusVariables['gridParentId' . $depth];
+
+        $title = ipDb()->fetchValue(
+            "SELECT " . $subgridConfig->tableName() . ".`" . $subgridConfig->getBreadcrumbField() . "` FROM " . $subgridConfig->tableName() . " " . $subgridConfig->joinQuery(
+            ) . " WHERE " . $subgridConfig->tableName() . '.`' . $subgridConfig->idField() . '` = ' . ipDb()->getConnection()->quote($id) . " "
+        );
+        return $title;
+    }
+
 
 
     public function recordCount($where)
