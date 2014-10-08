@@ -50,7 +50,7 @@ abstract class Field
         if ($this->previewMethod) {
             return call_user_func($this->previewMethod, $recordData);
         } else {
-            if (!empty($recordData[$this->field])) {
+            if (isset($recordData[$this->field])) {
                 return esc($recordData[$this->field]);
             }
         }
