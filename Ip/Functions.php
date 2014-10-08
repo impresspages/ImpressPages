@@ -825,7 +825,7 @@ function ipAdminPermission($permission, $administratorId = null)
  * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
  * @param bool $urgent E-mail urgency
  * @param bool $html HTML mode. Set to false for plain text mode.
- * @param string|array|null $files Full pathname of the file to be attached or array of the pathnames.
+ * @param string|array|null $files Full pathname of the file to be attached or array of pathnames.
  */
 function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent = true, $html = true, $files = null)
 {
