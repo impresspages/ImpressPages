@@ -1043,9 +1043,7 @@ class HnCaptcha
             if ($public === '') {
                 $public = $this->public_key;
             }
-            $root = ipFile('');
-            $root = str_replace(array('\\'), array('/'), $root); //HnCaptcha has done this on tempfolder. We need to do this on $root too.
-            return str_replace($root, '', $this->tempfolder).$public.'.jpg';
+            return 'file/tmp/'.$public.'.jpg';
         }
 
         /** @private **/
