@@ -35,4 +35,15 @@ class Event
             Service::updateMenu($menuId, $menu['alias'], $menu['title'], $menu['layout'], $menu['type']);
         }
     }
+
+    public static function ipBeforeLanguageDeleted($data)
+    {
+        $languageId = $data['id'];
+        $language = ipContent()->getLanguage($languageId);
+        $menus = Service::getMenus($language->getCode());
+
+        foreach ($menus as $menu) {
+            Service::deletePage($menu['id']);
+        }
+    }
 }
