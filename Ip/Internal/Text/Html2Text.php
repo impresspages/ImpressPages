@@ -42,11 +42,15 @@ class Html2Text
      * </ul>
      *
      * @param string html the input HTML
+     * @param boolean partial states if provided HTML is partial or not. Partial means without head / body sections. If null, function tries to autodetect.
      * @return string the HTML converted, as best as possible, to text
      * @throws Html2TextException if the HTML could not be loaded as a {@link \DOMDocument}
      */
-    public static function convert($html)
+    public static function convert($html, $partial = null)
     {
+        if ($partial || $partial === null && mb_strpos($html, '<html ') === false) {
+            $html = '<html lang="en"><head><meta charset="UTF-8" /></head><body>' . $html .'</body>';
+        }
         if ($html == '') {
             return '';
         }
