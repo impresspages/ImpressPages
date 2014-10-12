@@ -134,5 +134,27 @@ class Storage
         ipDb()->execute($sql, $params);
 
     }
+    
+    /**
+     * Remove all storage values for the plugin
+     *
+     * @param string $pluginName Plugin name
+     */
+    public function removeAll($pluginName)
+    {
+        $sql = '
+            DELETE FROM
+                ' . ipTable('storage') . '
+            WHERE
+                `plugin` = :plugin
+        ';
+
+        $params = array(
+            ':plugin' => $pluginName
+        );
+
+        ipDb()->execute($sql, $params);
+
+    }
 
 }
