@@ -178,7 +178,6 @@ var ipPageDragId;
 
                 var parentId = $scope.activeMenu.id;
                 var position = 0;
-                console.log('position ' + $modal.find('select[name=position]').val());
                 switch($modal.find('select[name=position]').val()) {
                     default:
                     case 'top':
