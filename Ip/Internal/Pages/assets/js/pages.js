@@ -170,6 +170,23 @@ var ipPageDragId;
             $modal.find('.ipsAdd').off('click').on('click', function () {
                 $modal.find('form').submit()
             });
+
+            var $positionSelect = $modal.find('form select[name=position]');
+            if ($scope.selectedPageId) {
+                $positionSelect.find('option[value=above]').show();
+                $positionSelect.find('option[value=child]').show();
+                $positionSelect.find('option[value=bellow]').show();
+                $positionSelect.val($scope.activeMenu.defaultPositionWhenSelected);
+                if ($scope.activeMenu.type == 'list') {
+                    $positionSelect.find('option[value=child]').hide();
+                }
+            } else {
+                $positionSelect.val($scope.activeMenu.defaultPosition);
+                $positionSelect.find('option[value=above]').hide();
+                $positionSelect.find('option[value=child]').hide();
+                $positionSelect.find('option[value=bellow]').hide();
+            }
+
             $modal.find('form').off('submit').on('submit', function (e) {
 
                 e.preventDefault();
@@ -188,6 +205,10 @@ var ipPageDragId;
                             position = $('#page_' + $scope.selectedPageId).index();
                         } else {
                             position = $('.ipsTreeDiv .active').index();
+                            var curVariables = getHashParams();
+                            if (curVariables.gpage) {
+                                position = position + (curVariables.gpage - 1) * listStylePageSize;
+                            }
                         }
                         break;
                     case 'child':
@@ -200,6 +221,10 @@ var ipPageDragId;
                             position = $('#page_' + $scope.selectedPageId).index() + 1;
                         } else {
                             position = $('.ipsTreeDiv .active').index() + 1;
+                            var curVariables = getHashParams();
+                            if (curVariables.gpage) {
+                                position = position + (curVariables.gpage - 1) * listStylePageSize;
+                            }
                         }
 
                         break;
@@ -207,14 +232,16 @@ var ipPageDragId;
                         if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
                             position = getTreeDiv().find('ul').first().children().length;
                         } else {
-                            position = $('.ipsTreeDiv ul').children().length;
+                            position = $('.ipsTreeDiv tr').length;
+                            var curVariables = getHashParams();
+                            if (curVariables.gpage) {
+                                position = position + (curVariables.gpage - 1) * listStylePageSize;
+                            }
                         }
-
                         break;
                 }
 
-
-
+                setDefaultPositionForNextTime($scope.activeMenu.alias, $modal.find('select[name=position]').val(), $scope.selectedPageId ? 1 : 0);
                 addPage(title, isVisible, parentId, position);
                 $modal.modal('hide');
             });
@@ -443,6 +470,23 @@ var ipPageDragId;
             }
         };
 
+
+        var setDefaultPositionForNextTime = function (alias, position, isPageSelected) {
+            var data = {
+                aa: 'Pages.setDefaultPagePosition',
+                securityToken: ip.securityToken,
+                alias: alias,
+                isPageSelected: isPageSelected,
+                position: position
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                dataType: 'json'
+            });
+        };
 
         var addPage = function (title, isvisible, parentId, position) {
 

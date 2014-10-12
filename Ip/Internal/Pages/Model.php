@@ -170,6 +170,24 @@ class Model
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
+    public static function getDefaultMenuPagePosition($menuAlias, $whenPageIsSelected, $default)
+    {
+        $key = 'menu_' . $menuAlias . '_default_position';
+        if ($whenPageIsSelected) {
+            $key .= '_selected';
+        }
+        return ipStorage()->get('Pages', $key, $default);
+    }
+
+    public static function setDefaultMenuPagePosition($menuAlias, $whenPageIsSelected, $position)
+    {
+        $key = 'menu_' . $menuAlias . '_default_position';
+        if ($whenPageIsSelected) {
+            $key .= '_selected';
+        }
+        ipStorage()->set('Pages', $key, $position);
+    }
+
     /**
      * Get menu list
      *
