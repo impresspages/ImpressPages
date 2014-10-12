@@ -289,6 +289,7 @@ class Helper
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
+        $form->setAjaxSubmit(false);
 
         $field = new \Ip\Form\Field\Text(
             array(
@@ -302,6 +303,22 @@ class Helper
                 'name' => 'isVisible',
                 'label' => __('Visible', 'Ip-admin', false),
                 'value' => !ipGetOption('Pages.hideNewPages', 0)
+            ));
+        $form->addField($field);
+
+        $values = array(
+            array('top', __('Top', 'Ip-admin', false)),
+            array('above', __('Above selected', 'Ip-admin', false)),
+            array('child', __('Child of selected', 'Ip-admin', false)),
+            array('bellow', __('Bellow selected', 'Ip-admin', false)),
+            array('bottom', __('Bottom', 'Ip-admin', false)),
+        );
+        $field = new \Ip\Form\Field\Select(
+            array(
+                'name' => 'position',
+                'label' => __('Position', 'Ip-admin', false),
+                'values' => $values,
+                'value' => 'bellow'
             ));
         $form->addField($field);
 

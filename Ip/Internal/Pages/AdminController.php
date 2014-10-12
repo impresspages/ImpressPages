@@ -184,13 +184,17 @@ class AdminController extends \Ip\Controller
         }
 
         $title = ipRequest()->getPost('title');
-        if (empty($title)) {
+        if ($title === '') {
             $title = __('Untitled', 'Ip-admin', false);
         }
 
         $isVisible = ipRequest()->getPost('isVisible', 0);
 
         $pageId = Service::addPage($parentId, $title, array('isVisible' => $isVisible));
+        $position = ipRequest()->getPost('position');
+        if ($position !== null) {
+            Service::movePage($pageId, $parentId, $position);
+        }
 
         $eventData = ipRequest()->getPost();
         ipEvent('ipFormCreatePageSubmitted', $eventData);
