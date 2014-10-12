@@ -171,10 +171,52 @@ var ipPageDragId;
                 $modal.find('form').submit()
             });
             $modal.find('form').off('submit').on('submit', function (e) {
+
                 e.preventDefault();
                 var title = $modal.find('input[name=title]').val();
                 var isVisible = $modal.find('input[name=isVisible]').is(':checked') ? 1 : 0;
-                addPage(title, isVisible);
+
+                var parentId = $scope.activeMenu.id;
+                var position = 0;
+                console.log('position ' + $modal.find('select[name=position]').val());
+                switch($modal.find('select[name=position]').val()) {
+                    default:
+                    case 'top':
+                        //Default settings are just fine
+                        break;
+                    case 'above':
+                        if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                            position = $('#page_' + $scope.selectedPageId).index();
+                        } else {
+                            position = $('.ipsTreeDiv .active').index();
+                        }
+                        break;
+                    case 'child':
+                        if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                            parentId = $scope.selectedPageId;
+                        }
+                        break;
+                    case 'bellow':
+                        if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                            position = $('#page_' + $scope.selectedPageId).index() + 1;
+                        } else {
+                            position = $('.ipsTreeDiv .active').index() + 1;
+                        }
+
+                        break;
+                    case 'bottom':
+                        if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                            position = getTreeDiv().find('ul').first().children().length;
+                        } else {
+                            position = $('.ipsTreeDiv ul').children().length;
+                        }
+
+                        break;
+                }
+
+
+
+                addPage(title, isVisible, parentId, position);
                 $modal.modal('hide');
             });
         };
@@ -403,19 +445,15 @@ var ipPageDragId;
         };
 
 
-        var addPage = function (title, isvisible) {
-            var parentId = $scope.activeMenu.id;
-
-            if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
-                parentId = $scope.selectedPageId;
-            }
+        var addPage = function (title, isvisible, parentId, position) {
 
             var data = {
                 aa: 'Pages.addPage',
                 securityToken: ip.securityToken,
                 title: title,
                 isVisible: isvisible,
-                parentId: parentId
+                parentId: parentId,
+                position: position
             };
 
             $.ajax({
