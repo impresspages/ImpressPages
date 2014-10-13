@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<dataset>
+    <table name="ip_email_queue">
+        <column>lockedAt</column>
+        <row>
+            <value>2010-04-24 17:15:23</value>
+        </row>
+        <row>
+            <value>2010-04-26 12:14:20</value>
+        </row>
+    </table>
+</dataset>
+

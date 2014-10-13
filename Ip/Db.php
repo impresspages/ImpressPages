@@ -537,15 +537,20 @@ class Db
     /**
      * Return SQL condition to select rows with minimum age (database-dependent)
      *
-     * @param string $fieldname field to compare
+     * @param string $fieldName field to compare
      * @param int    $minAge    minimum age
      * @param string $unit      unit for age (HOUR or MINUTE)
      * @return string           sql condition
      */
-    public function sqlMinAge($fieldname, $minAge, $unit='HOUR') {
+    public function sqlMinAge($fieldName, $minAge, $unit='HOUR') {
+        if (!in_array($unit, array('MINUTE', 'HOUR'))) {
+            throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
+        }
+
         if (ipDb()->isMySQL()) {
-            $sql = ((int)$minAge) . " < TIMESTAMPDIFF(".$unit.",`".$fieldname."`, NOW()) ";
+            $sql = "`".$fieldName."` < NOW() - INTERVAL " . ((int)$minAge) . " ".$unit;
         } else {
+            $divider = 1;
             switch($unit) {
                 case 'HOUR':
                     $divider = 60*60;
@@ -554,7 +559,7 @@ class Db
                     $divider = 60;
                     break;
             }
-            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldname.
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
                 "`)/".$divider.")>". ((int)$minAge). ") ";
         }
 
@@ -564,14 +569,19 @@ class Db
     /**
      * Return SQL condition to select rows with minimum age (database-dependent)
      *
-     * @param string $fieldname field to compare
+     * @param string $fieldName field to compare
      * @param int    $maxAge    minimum age
      * @param string $unit      unit for age (HOUR or MINUTE)
      * @return string           sql condition
      */
-    public function sqlMaxAge($fieldname, $maxAge, $unit='HOUR') {
+    public function sqlMaxAge($fieldName, $maxAge, $unit='HOUR') {
+        if (!in_array($unit, array('MINUTE', 'HOUR'))) {
+            throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
+        }
+
+//        SELECT DATE(NOW()-INTERVAL 15 DAY)
         if (ipDb()->isMySQL()) {
-            $sql = `".$fieldname."`((int)$maxAge) . " < TIMESTAMPDIFF(".$unit.",`".$fieldname."`, NOW()) ";
+            $sql = "`".$fieldName."` > NOW() - INTERVAL " . ((int)$maxAge) . " ".$unit;
         } else {
             switch($unit) {
                 case 'HOUR':
@@ -581,7 +591,7 @@ class Db
                     $divider = 60;
                     break;
             }
-            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldname.
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
                 "`)/".$divider.")>". ((int)$maxAge). ") ";
         }
 
