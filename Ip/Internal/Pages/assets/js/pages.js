@@ -126,12 +126,47 @@ var ipPageDragId;
             // removing element from list/tree
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
                 if (confirm(ipTranslationAreYouSure)) {
+                    var nextId = null;
+
+                    //detect which page has to be selected after this one is deleted
+                    if ($scope.activeMenu.type === 'list') { // list view
+                        var cur = $('.ipsTreeDiv tr[data-id=' + $scope.selectedPageId + ']');
+                        var next = $('.ipsTreeDiv tr').eq(cur.index() + 1).first();
+                        if (next.length) {
+                            nextId = next.data('id');
+                        } else {
+                            var prev = $('.ipsTreeDiv tr').eq(cur.index() - 1).first();
+                            if (prev.length) {
+                                nextId = prev.data('id');
+                            }
+                        }
+                    } else {
+                        var $cur = $('.ipsTreeDiv li[pageid=' + $scope.selectedPageId + ']');
+                        var $next = $cur.next();
+                        if ($next.length) {
+                            nextId = $next.attr('pageid');
+                        } else {
+                            var $prev = $cur.prev();
+                            if ($prev.length) {
+                                nextId = $prev.attr('pageid');
+                            }
+                        }
+                    }
+
+                    //actually delete the page
                     deletePage($scope.selectedPageId, function () {
                         $scope.selectedPageId = null;
-                        if ($scope.activeMenu.type == 'list') { // list view
+                        if ($scope.activeMenu.type === 'list') { // list view
                             getPagesContainer().ipGrid('refresh');
+                            if (nextId) {
+                                $scope.activatePage(nextId, $scope.activeMenu.alias);
+                            }
                         } else {
                             getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
+                            if (nextId) {
+                                getTreeDiv().find('#page_' + nextId + ' a').click();
+                                console.log(getTreeDiv().find('#page_' + nextId));
+                            }
                         }
                         $scope.$apply();
                     });
@@ -352,6 +387,19 @@ var ipPageDragId;
 
         $scope.pastePage = function () {
             var position = getTreeDiv().find('ul').first().children.length;
+            if ($scope.selectedPageId) {
+                if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                    position = $('#page_' + $scope.selectedPageId).index() + 1;
+                } else {
+                    position = $('.ipsTreeDiv .active').index() + 1;
+                    var curVariables = getHashParams();
+                    if (curVariables.gpage) {
+                        position = position + (curVariables.gpage - 1) * listStylePageSize;
+                    }
+                }
+            }
+            //alert(position);return;
+
             if ($scope.cutPageId) {
                 movePage($scope.cutPageId, $scope.activeMenu.id, position, true);
             } else {
