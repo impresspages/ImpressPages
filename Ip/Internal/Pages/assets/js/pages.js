@@ -525,6 +525,12 @@ var ipPageDragId;
 
 
         var setDefaultPositionForNextTime = function (alias, position, isPageSelected) {
+            if (isPageSelected) {
+                $scope.activeMenu.defaultPositionWhenSelected = position;
+            } else {
+                $scope.activeMenu.defaultPosition = position;
+            }
+
             var data = {
                 aa: 'Pages.setDefaultPagePosition',
                 securityToken: ip.securityToken,
