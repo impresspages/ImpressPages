@@ -73,6 +73,12 @@
             $this.trigger('delete.ipPages');
         });
 
+        $('html').off('keyup.pageProperties').on('keyup.pageProperties', function(e) {
+            if (e.keyCode === 46) {
+                $this.find('.ipsDelete').click();
+            }
+        });
+
         $this.find('.ipsEdit').on('click', function (e) {
             $this.trigger('edit.ipPages');
         });
