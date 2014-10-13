@@ -140,7 +140,7 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
-		(`send` is not NULL and " . ipDb()->sqlMinAge('send', $minutes, 'MINUTE') .")
+		(`send` is not NULL and " . ipDb()->sqlMaxAge('send', $minutes, 'MINUTE') .")
 		or (`lock` is not NULL and send is null) ";
 
         return ipDb()->fetchValue($sql);
