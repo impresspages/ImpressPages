@@ -102,7 +102,7 @@ class Module
     {
         $alreadySent = Db::sentOrLockedCount(60);
         if ($alreadySent !== false) {
-            $available = floor(ipGetOption('Email.hourlyLimit') * 0.8 - $alreadySent); //20% for imediate emails
+            $available = floor(ipGetOption('Email.hourlyLimit') * 0.8 - $alreadySent); //20% for immediate emails
             $lockKey = md5(uniqid(rand(), true));
             if ($available > 0) {
                 if ($available > 5 && !defined('CRON')) { //only cron job can send many emails at once.
@@ -115,10 +115,12 @@ class Module
             }
 
             if ($locked == $available) { //if in queue left some messages
-                $locked = $locked + Db::lockOnlyImmediate(
-                        ipGetOption('Email.hourlyLimit') - ($alreadySent + $available),
-                        $lockKey
-                    );
+                if (ipGetOption('Email.hourlyLimit') - ($alreadySent + $available) > 0) {
+                    $locked = $locked + Db::lockOnlyImmediate(
+                            ipGetOption('Email.hourlyLimit') - ($alreadySent + $available),
+                            $lockKey
+                        );
+                }
             }
             if ($locked) {
                 $emails = Db::getLocked($lockKey);
