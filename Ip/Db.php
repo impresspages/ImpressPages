@@ -561,5 +561,32 @@ class Db
         return $sql;
     }
 
+    /**
+     * Return SQL condition to select rows with minimum age (database-dependent)
+     *
+     * @param string $fieldname field to compare
+     * @param int    $maxAge    minimum age
+     * @param string $unit      unit for age (HOUR or MINUTE)
+     * @return string           sql condition
+     */
+    public function sqlMaxAge($fieldname, $maxAge, $unit='HOUR') {
+        if (ipDb()->isMySQL()) {
+            $sql = `".$fieldname."`((int)$maxAge) . " < TIMESTAMPDIFF(".$unit.",`".$fieldname."`, NOW()) ";
+        } else {
+            switch($unit) {
+                case 'HOUR':
+                    $divider = 60*60;
+                    break;
+                case 'MINUTE':
+                    $divider = 60;
+                    break;
+            }
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldname.
+                "`)/".$divider.")>". ((int)$maxAge). ") ";
+        }
+
+        return $sql;
+    }
+
 
 }
