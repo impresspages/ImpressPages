@@ -2,5 +2,7 @@
 <dataset>
     <table name="ip_widget">
     </table>
+    <table name="ip_max_min_age">
+    </table>
 </dataset>
 
