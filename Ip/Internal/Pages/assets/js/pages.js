@@ -237,7 +237,12 @@ var ipPageDragId;
                         break;
                     case 'above':
                         if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
-                            position = $('#page_' + $scope.selectedPageId).index();
+                            var $selectedPage = $('#page_' + $scope.selectedPageId);
+                            var $parent = $selectedPage.parent().closest('li');
+                            if ($parent.length) {
+                                parentId = $parent.attr('pageid');
+                            }
+                            position = $selectedPage.index();
                         } else {
                             position = $('.ipsTreeDiv .active').index();
                             var curVariables = getHashParams();
@@ -253,6 +258,11 @@ var ipPageDragId;
                         break;
                     case 'bellow':
                         if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                            var $selectedPage = $('#page_' + $scope.selectedPageId);
+                            var $parent = $selectedPage.parent().closest('li');
+                            if ($parent.length) {
+                                parentId = $parent.attr('pageid');
+                            }
                             position = $('#page_' + $scope.selectedPageId).index() + 1;
                         } else {
                             position = $('.ipsTreeDiv .active').index() + 1;
