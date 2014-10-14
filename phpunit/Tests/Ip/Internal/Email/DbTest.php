@@ -31,9 +31,6 @@ class DbTest extends \PhpUnit\GeneralTestCase
         ipDb()->insert('email_queue', array('lockedAt' => date("Y-m-d H:i:s", time() - $minute * 100), 'send' => date("Y-m-d H:i:s", time() - $minute * 12)));
         ipDb()->insert('email_queue', array('send' => date("Y-m-d H:i:s", time() - $minute * 21)));
 
-        $time = ipDb()->fetchValue('select NOW()');
-        $this->assertEquals(date('Y-m-d H:i:s'), $time);
-
         $locked = \Ip\Internal\Email\Db::sentOrLockedCount(20);
         $this->assertEquals(3, $locked);
 
