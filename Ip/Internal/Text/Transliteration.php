@@ -15,6 +15,15 @@ class Transliteration
 {
     public static function transform($string)
     {
+        if (!function_exists('transliterator_transliterate')) {
+            return self::simpleTransform($string);
+        }
+
+        return transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0100-\u7fff] remove', $string);
+    }
+
+    protected static function simpleTransform($string)
+    {
 
         $chars_from = array(
             'À',
