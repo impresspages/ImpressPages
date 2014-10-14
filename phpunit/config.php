@@ -22,4 +22,4 @@ define ('TEST_SCREENSHOT_PATH', __DIR__ . '/screenshots/');
 define ('TEST_SCREENSHOT_URL', $isTravis ? 'http://localhost/phpunit/screenshots/' : 'http://localhost/ip4.x/phpunit/screenshots/');
 
 define('CURRENT_VERSION', '4.2.3'); //CHANGE_ON_VERSION_UPDATE
-define('CURRENT_DBVERSION', 59); //CHANGE_ON_VERSION_UPDATE
+define('CURRENT_DBVERSION', 60); //CHANGE_ON_VERSION_UPDATE

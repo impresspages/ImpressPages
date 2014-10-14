@@ -11,6 +11,12 @@ class Migration
 {
     //CHANGE_ON_VERSION_UPDATE
 
+
+    public static function update_60()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('imp_page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;")
+    }
+
     public static function update_59()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
