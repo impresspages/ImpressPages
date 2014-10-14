@@ -5,10 +5,7 @@
 
 namespace Tests\Ip\Internal\Email;
 
-/**
- * @group ignoreOnTravis
- * @group Selenium
- */
+
 class DbTest extends \PhpUnit\GeneralTestCase
 {
 
@@ -27,6 +24,14 @@ class DbTest extends \PhpUnit\GeneralTestCase
     public function testSentOrLockedCount()
     {
         $minute = 60;
+
+        $dt = new \DateTime();
+        $offset = $dt->format("P");
+        ipDb()->execute("SET time_zone='$offset';");
+        $curOffset = ipDb()->fetchValue('SELECT TIMEDIFF(NOW(), UTC_TIMESTAMP);');
+        $this->assertEquals($offset, $curOffset);
+
+
         ipDb()->insert('email_queue', array('lockedAt' => date("Y-m-d H:i:s", time() + $minute * 100)));
         ipDb()->insert('email_queue', array('lockedAt' => date("Y-m-d H:i:s", time() - $minute * 11)));
         ipDb()->insert('email_queue', array('lockedAt' => date("Y-m-d H:i:s", time() - $minute * 12), 'send' => date("Y-m-d H:i:s", time() - $minute * 12)));
