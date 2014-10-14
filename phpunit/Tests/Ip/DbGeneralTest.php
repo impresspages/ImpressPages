@@ -7,7 +7,7 @@ namespace Tests\Ip;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class DbTest extends \PhpUnit\GeneralTestCase
+class DbGeneralTest extends \PhpUnit\GeneralTestCase
 {
 
 
