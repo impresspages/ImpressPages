@@ -60,5 +60,6 @@
     "License": "Lisans",
     "Database": "Veritaban\u0131",
     "Configuration": "Yap\u0131land\u0131rma",
-    "Finish": "Son"
+    "Finish": "Son",
+    "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "Bu yaz\u0131l\u0131m <a target=\"_blank\" href=\"%s\">ImpressPages ekibi<\\/a> taraf\u0131ndan sa\u011flanmaktad\u0131r."
 }
