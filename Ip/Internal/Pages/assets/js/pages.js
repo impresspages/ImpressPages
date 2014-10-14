@@ -165,7 +165,6 @@ var ipPageDragId;
                             getTreeDiv().jstree('delete_node', getTreeDiv().jstree('get_selected'));
                             if (nextId) {
                                 getTreeDiv().find('#page_' + nextId + ' a').click();
-                                console.log(getTreeDiv().find('#page_' + nextId));
                             }
                         }
                         $scope.$apply();
