@@ -14,7 +14,7 @@ class Migration
 
     public static function update_60()
     {
-        ipDb()->execute("ALTER TABLE " . ipTable('imp_page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;")
+        ipDb()->execute("ALTER TABLE " . ipTable('page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;");
     }
 
     public static function update_59()
