@@ -57,7 +57,7 @@ class Html2Text
         }
         $html = self::fix_newlines($html);
 
-        $doc = new \DOMDocument();
+        $doc = new \DOMDocument('1.0', 'UTF-8');
         $prevValue = libxml_use_internal_errors(true);
         $loaded = $doc->loadHTML($html);
         libxml_use_internal_errors($prevValue);
