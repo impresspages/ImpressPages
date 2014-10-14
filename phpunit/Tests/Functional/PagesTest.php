@@ -43,13 +43,13 @@ class PagesTest extends MinkTestCase
         $page->find('css', '.ipsAddModal .ipsAdd')->click();
 
         $session->wait(10000, "typeof $ !== 'undefined' && jQuery('.ipsPages ul li').length > " . $pagesBeforeSubmit);
-        $lastPageTitle = $session->evaluateScript("return jQuery('.ipsPages ul li:last-child a').text()");
+        $lastPageTitle = $session->evaluateScript("return jQuery('.ipsPages ul li:first-child a').text()");
         $this->assertEquals(
             $pageTitle,
             substr($lastPageTitle, -strlen($pageTitle))
         ); //stripping some ugly whitespaces from the beginning that can't be removed using trim
 
-        $session->executeScript("jQuery('.ipsPages ul li:last-child a').trigger('click')");
+        $session->executeScript("jQuery('.ipsPages ul li:first-child a').trigger('click')");
 
         $session->wait(10000, "typeof $ !== 'undefined' && $('.ipsEdit').is(':visible') ");
         $lastPageLink = $page->find('css', ".ipsEdit");
