@@ -117,7 +117,7 @@ var ipPageDragId;
                     title = $properties.find('input[name=metaTitle]').val();
                 }
                 if ($scope.activeMenu.type == 'list') { // list view
-                    getTreeDiv().find('.ipsRow.active .ipsDrag').text(escapeHtml(title));
+                    getTreeDiv().find('.ipsRow.active .ipsDrag').text(title);
                 } else { // tree view
                     getTreeDiv().jstree('rename_node', getTreeDiv().jstree('get_selected'), escapeHtml(title));
                 }
