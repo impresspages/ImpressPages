@@ -130,8 +130,8 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "delete from $table where
-		(`lock` is not NULL and " . ipDb()->sqlMinAge('lockedAt', $hours, 'HOUR') .")
-		or (`send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR') . ")";
+        (`lock` is not NULL and " . ipDb()->sqlMinAge('lockedAt', $hours, 'HOUR') .")
+        or (`send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR') . ")";
 
         return ipDb()->execute($sql);
     }
@@ -140,8 +140,8 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "select count(*) as `sent` from $table where
-		(`send` is not NULL and " . ipDb()->sqlMaxAge('send', $minutes, 'MINUTE') .")
-		or (`lock` is not NULL and send is null) ";
+        (`send` is not NULL and " . ipDb()->sqlMaxAge('send', $minutes, 'MINUTE') .")
+        or (`lock` is not NULL and send is null) ";
 
         return ipDb()->fetchValue($sql);
     }
