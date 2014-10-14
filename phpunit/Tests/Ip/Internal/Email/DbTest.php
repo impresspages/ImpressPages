@@ -5,7 +5,10 @@
 
 namespace Tests\Ip\Internal\Email;
 
-
+/**
+ * @group ignoreOnTravis
+ * @group Selenium
+ */
 class DbTest extends \PhpUnit\GeneralTestCase
 {
 
