@@ -23,6 +23,7 @@ class Helper
         $languages['nl'] = 'Dutch';
         $languages['de'] = 'Deutsch';
         $languages['fr'] = 'French';
+        $languages['it'] = 'Italiano';
         $languages['ja'] = '日本語';
         $languages['lt'] = 'Lietuvių';
         $languages['hu'] = 'Magyar';
