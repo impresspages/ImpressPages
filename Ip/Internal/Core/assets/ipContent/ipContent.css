@@ -82,6 +82,9 @@ body {
   padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
+.ipWidget .button a {
+  color: #ffffff;
+}
 .ipWidget {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
