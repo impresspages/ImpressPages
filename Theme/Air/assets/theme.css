@@ -83,6 +83,16 @@ body {
   padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
 }
+.button:hover {
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
+}
+.button a {
+  color: inherit;
+}
+.button a:hover {
+  text-decoration: inherit;
+}
 .ipWidget {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
@@ -166,6 +176,16 @@ Move to separate stylesheet if invalid CSS is a problem.
   font-weight: bold;
   padding: 0.5em 1em 0.5em 1em;
   text-decoration: none;
+}
+.ipWidget .button:hover {
+  box-shadow: 0 0 0 1px #019bd4 inset;
+  background: #01516e;
+}
+.ipWidget .button a {
+  color: inherit;
+}
+.ipWidget .button a:hover {
+  text-decoration: inherit;
 }
 .ipWidget h1 {
   color: #000000;
@@ -762,6 +782,7 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 .ipModuleForm .btn-default:hover {
   box-shadow: 0 0 0 1px #019bd4 inset;
   background: #01516e;
+  text-decoration: inherit;
 }
 @media (min-width: 768px) {
   .ipModuleForm.form-inline .form-group {
