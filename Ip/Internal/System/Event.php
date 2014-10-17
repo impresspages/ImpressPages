@@ -58,7 +58,7 @@ class Event
     {
         if (ipIsManagementState()) {
             // Works only if admin is logged in (AJAX is sent to Admin Controller)
-            if (isset($_SESSION['module']['system']['adminJustLoggedIn'])) {
+            if (isset($_SESSION['module']['system']['adminJustLoggedIn']) && ipAdminPermission('Super admin')) {
                 ipAddJs('Ip/Internal/System/assets/usageStatistics.js');
                 ipAddJsVariable('ipSystemSendUsageStatistics', 1);
             }
