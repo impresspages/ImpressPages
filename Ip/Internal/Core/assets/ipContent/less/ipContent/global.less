@@ -78,6 +78,19 @@ html, body {
     font-weight: @ipButtonFontWeight;
     padding: @ipButtonPaddingTop @ipButtonPaddingRight @ipButtonPaddingBottom @ipButtonPaddingLeft;
     text-decoration: @ipButtonTextDecoration;
+
+    &:hover { // same logic as for form submit button
+        box-shadow: 0 0 0 1px @ipButtonBgColor inset;
+        background: darken(@ipButtonBgColor, 20);
+    }
+
+    a { // if link is inside
+        color: inherit;
+
+        &:hover {
+            text-decoration: inherit;
+        }
+    }
 }
 
 .ipWidget .button a {

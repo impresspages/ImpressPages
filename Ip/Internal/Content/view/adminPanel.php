@@ -38,7 +38,7 @@
                             <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="_button ipsAdminPanelWidgetButton">
                                 <a href="#" title="<?php echo esc($widget->getTitle()); ?>">
                                     <span class="_title"><span><?php echo esc($widget->getTitle()); ?></span></span>
-                                    <img src="<?php echo esc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
+                                    <img class="_icon" src="<?php echo esc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>" />
                                 </a>
                             </div>
                         </li>
