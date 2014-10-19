@@ -286,6 +286,8 @@ var IpWidget_Gallery = function () {
 
         this.popup.modal(); // open modal popup
 
+        ipInitForms();
+
         this.confirmButton.off().on('click', $.proxy(saveLink, this));
     };
 

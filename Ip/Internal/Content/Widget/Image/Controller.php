@@ -295,7 +295,7 @@ class Controller extends \Ip\WidgetController
         $form->addfield($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'url',
                 'label' => __('Url', 'Ip-admin', false),
