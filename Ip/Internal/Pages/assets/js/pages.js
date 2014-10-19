@@ -33,6 +33,7 @@ var ipPageDragId;
         $scope.menuList = menuList;
         $scope.initialized = false;
         $scope.allowActions = !getQuery('disableActions');
+        $scope.ipPagesLanguagesPermission = ipPagesLanguagesPermission;
 
         var hashIsBeingApplied = false;
 
