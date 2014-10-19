@@ -8,7 +8,7 @@
                 <li ng-repeat="language in languageList" ng-class="{active: language == activeLanguage}">
                     <a href="" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
                 </li>
-                <li ng-show="{{allowActions}}">
+                <li ng-show="{{allowActions&&ipPagesLanguagesPermission}}">
                     <a href="<?php echo $languagesUrl; ?>"><i class="fa fa-cog"></i></a>
                 </li>
             </ul>
