@@ -8235,6 +8235,10 @@
 .ip .ipAdminPanel ._widgets li ._button.ui-draggable-dragging {
   z-index: 1040;
 }
+.ip .ipAdminPanel ._widgets li ._icon {
+  height: 55px;
+  width: 55px;
+}
 .ip .ipModuleContentEditButton {
   background-color: #000000;
   padding: 5px;

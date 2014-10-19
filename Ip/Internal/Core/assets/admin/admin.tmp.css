@@ -8067,6 +8067,10 @@ th {
 .ipAdminPanel ._widgets li ._button.ui-draggable-dragging {
   z-index: 1040;
 }
+.ipAdminPanel ._widgets li ._icon {
+  height: 55px;
+  width: 55px;
+}
 .ipModuleContentEditButton {
   background-color: #000000;
   padding: 5px;
