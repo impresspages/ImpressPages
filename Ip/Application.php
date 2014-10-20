@@ -165,6 +165,16 @@ class Application
             $relativeUri = $request->getRelativePath();
         }
 
+        //find out and set locale
+        $locale = $requestLanguage->getCode();
+        if (strlen($locale) == '2') {
+            $locale = strtolower($locale) . '_' . strtoupper($locale);
+        } else {
+            $locale = str_replace('-', '_', $locale);
+        }
+        $locale .= '.utf8';
+        setLocale(LC_ALL, $locale);
+
         ipContent()->_setCurrentLanguage($requestLanguage);
 
         $_SESSION['ipLastLanguageId'] = $requestLanguage->getId();
