@@ -30,6 +30,7 @@ class AdminController extends \Ip\Controller
 
 
         ipAddJsVariable('languageList', Helper::languageList());
+        ipAddJsVariable('ipPagesLanguagesPermission', ipAdminPermission('Languages'));
 
         $menus = Model::getMenuList();
         foreach($menus as $key => &$menu) {
