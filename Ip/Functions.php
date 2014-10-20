@@ -168,13 +168,12 @@ function ipAddJsVariable($name, $value)
 }
 
 /**
- * Add JavaScript script. $value will be put inside <script> tags inline into HTML
- *
- * Generates JavaScript code which sets variables using specified values.
+ * Add inline JavaScript.
  * @param string $name JavaScript variable name.
- * @param mixed $value Variable value. Note: Do not use object as a value.
+ * @param string $value JavaScript
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
  */
+
 function ipAddJsContent($name, $value, $priority = 50)
 {
     \Ip\ServiceLocator::pageAssets()->addJavascriptContent($name, $value, $priority);
