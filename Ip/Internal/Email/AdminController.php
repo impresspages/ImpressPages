@@ -59,7 +59,7 @@ class AdminController extends \Ip\GridController
                 array(
                     'label' => '',
                     'field' => 'id',
-                    'preview' => '<a href="#" class="ipsEmailPreview">' . __('Preview', 'SimpleProduct') . '</a>',
+                    'preview' => '<a href="#" class="ipsEmailPreview">' . __('Preview', 'Ip-admin') . '</a>',
                     'allowUpdate' => false,
                     'allowInsert' => false,
                     'allowSearch' => false
