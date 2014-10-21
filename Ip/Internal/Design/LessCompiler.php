@@ -96,9 +96,9 @@ class LessCompiler
                 continue; // ignore invalid nodes
             }
 
-            if (!empty($config[$option['name']])) {
+            if (!empty($config[$option['name']]) || $config[$option['name']] === '0') {
                 $rawValue = $config[$option['name']];
-            } elseif (!empty($option['default'])) {
+            } elseif (!empty($option['default']) || $option['default'] === '0') {
                 $rawValue = $option['default'];
             } else {
                 continue; // ignore empty values
