@@ -64,7 +64,7 @@ class Layout extends \Ip\Response
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } elseif (strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
-            $viewFile = ipFile($layout);
+            $viewFile = $layout;
         } else { //layout file. Like main.php
             $viewFile = ipThemeFile($layout);
         }
@@ -82,9 +82,9 @@ class Layout extends \Ip\Response
     protected function chooseLayout()
     {
         if (ipRoute()->isAdmin()) {
-            $this->layout = ipFile('Ip/Internal/Admin/view/layout.php');
+            $this->layout = 'Ip/Internal/Admin/view/layout.php';
         } elseif (\Ip\Internal\Admin\Model::isSafeMode()) {
-            $this->layout = '/Admin/view/safeModeLayout.php';
+            $this->layout = 'Ip/Internal/Admin/view/safeModeLayout.php';
         } else {
             $this->layout = 'main.php';
         }
