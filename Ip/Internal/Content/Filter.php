@@ -143,7 +143,9 @@ class Filter
 
 
         if (ipContent()->getCurrentPage()) {
-            if (ipIsManagementState()) {
+            if (!ipAdminPermission('Content')) {
+                //Do nothing
+            } elseif (ipIsManagementState()) {
                 $buttons[] = array(
                     'text' => __('Preview', 'Ip-admin', false),
                     'hint' => __('Hides admin tools', 'Ip-admin', false),
@@ -160,15 +162,19 @@ class Filter
                     'url' => '#'
                 );
             }
-            $buttons[] = array(
-                'text' => __('Settings', 'Ip-admin', false),
-                'hint' => __('Page settings', 'Ip-admin', false),
-                'class' => 'ipsAdminPageSettings',
-                'faIcon' => 'fa-gear',
-                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent(
-                    )->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage(
-                    )->getId()
-            );
+
+            if (ipAdminPermission('Pages')) {
+                $buttons[] = array(
+                    'text' => __('Settings', 'Ip-admin', false),
+                    'hint' => __('Page settings', 'Ip-admin', false),
+                    'class' => 'ipsAdminPageSettings',
+                    'faIcon' => 'fa-gear',
+                    'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent(
+                        )->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage(
+                        )->getId()
+                );
+            }
+
         }
 
         return $buttons;
@@ -177,7 +183,7 @@ class Filter
 
     public static function ipAdminNavbarCenterElements($elements, $info)
     {
-        if (ipContent()->getCurrentPage()) {
+        if (ipContent()->getCurrentPage() && ipAdminPermission('Content')) {
             $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
             $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
