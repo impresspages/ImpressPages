@@ -6,9 +6,9 @@ ipTinyMceConfigPastePreprocess = function (pl, o, allowedClasses) {
     tmpContent = tmpContent.replace(/(<strong>)/ig, "<b>");
     tmpContent = tmpContent.replace(/(<\/strong>)/ig, "</b>");
 
-    /* replace h1 h2 h3 with bold */
-    tmpContent = tmpContent.replace(/(<(\ )*h[123][^<>]*>)/ig, "<b>");
-    tmpContent = tmpContent.replace(/(<(\ )*\/h[123](\ )*>)/ig, "</b>");
+    /* replace h1 h2 h3 h4 h5 h6 h7 h8 h9 with bold */
+    tmpContent = tmpContent.replace(/(<(\ )*h[123456789][^<>]*>)/ig, "<b>");
+    tmpContent = tmpContent.replace(/(<(\ )*\/h[123456789](\ )*>)/ig, "</b>");
 
     /* remove unknown classes */
     var pattern = /<[^<>]+class="[^"]+"[^<>]*>/gi;
