@@ -1,4 +1,6 @@
-<div class="file <?php echo $classes; ?> ipsFileContainer" data-inputname='<?php echo addslashes($inputName); ?>'>
+<div class="file <?php echo $classes; ?> ipsFileContainer"
+     data-inputname="<?php echo addslashes($inputName);?>"
+     data-filelimit="<?php echo (int)$fileLimit; ?>">
     <a <?php echo $attributesStr; ?> class="btn btn-default ipsFileAddButton" href="#"><?php _e(
             'Upload',
             'Ip-admin'
