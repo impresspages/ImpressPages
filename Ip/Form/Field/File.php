@@ -13,6 +13,16 @@ use Ip\Form\Field;
 class File extends Field
 {
 
+    protected $fileLimit = -1;
+
+    public function __construct($options = array())
+    {
+        if (isset($options['fileLimit'])) {
+            $this->fileLimit = $options['fileLimit'];
+        }
+        return parent::__construct($options);
+    }
+
     /**
      * Render field
      *
@@ -25,7 +35,8 @@ class File extends Field
         $data = array(
             'attributesStr' => $this->getAttributesStr($doctype),
             'classes' => implode(' ', $this->getClasses()),
-            'inputName' => $this->getName()
+            'inputName' => $this->getName(),
+            'fileLimit' => $this->fileLimit
         );
 
         if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
@@ -154,6 +165,26 @@ class File extends Field
         } else {
             return array();
         }
+    }
+
+    /**
+     * Set file limit
+     *
+     * @param int $fileLimit
+     */
+    public function setFileLimit($fileLimit)
+    {
+        $this->fileLimit = $fileLimit;
+    }
+
+    /**
+     * Get file limit
+     *
+     * @return int
+     */
+    public function getFileLimit()
+    {
+        return $this->fileLimit;
     }
 
 }

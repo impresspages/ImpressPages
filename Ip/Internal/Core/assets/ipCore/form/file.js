@@ -15,9 +15,11 @@
 
                 var $this = $(this);
 
-                var data = $this.data('ipFormFile');
+                var data = $this.data('ipFormFileSettings');
                 if (!data) {
-                    $this.data('ipFormFile', {});
+                    $this.data('ipFormFileSettings', {
+                        limit: parseInt($this.data('filelimit'))
+                    });
 
 
                     var loadInterval = setInterval(function () {
@@ -73,6 +75,13 @@
 
                         $file.remove();
                     });
+                    if ($this.data('ipFormFileSettings').limit >= 0) {
+                        if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormFileSettings').limit) {
+                            if ($this.find('.ipsFiles').children().first().length === 1) {
+                                $this.find('.ipsFiles').children().first().remove();
+                            }
+                        }
+                    }
                     $this.find('.ipsFiles').append($newFile);
                 }
             });
