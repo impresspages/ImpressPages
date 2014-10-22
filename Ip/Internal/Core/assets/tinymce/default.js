@@ -37,7 +37,14 @@ ipTinyMceConfig = function () {
         },
 
         paste_preprocess: function (pl, o) {
-            ipTinyMceConfigPastePreprocess(pl, o, ['quote', 'note', 'button']);
+            var validClasses = [];
+            var allFormats = ipTinyMceConfig().style_formats;
+            $.each(allFormats, function (key, value) {
+                if (value.classes) {
+                    validClasses.push(value.classes);
+                }
+            });
+            ipTinyMceConfigPastePreprocess(pl, o, validClasses);
         }
     }
 };
