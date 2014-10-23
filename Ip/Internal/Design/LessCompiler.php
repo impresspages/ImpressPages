@@ -96,12 +96,12 @@ class LessCompiler
                 continue; // ignore invalid nodes
             }
 
-            if (!empty($config[$option['name']]) || $config[$option['name']] === '0') {
+            if (isset($config[$option['name']])) {
                 $rawValue = $config[$option['name']];
-            } elseif (!empty($option['default']) || $option['default'] === '0') {
+            } elseif (isset($option['default'])) {
                 $rawValue = $option['default'];
             } else {
-                continue; // ignore empty values
+                $rawValue = '';//continue;
             }
 
             switch ($option['type']) {
