@@ -365,5 +365,11 @@
     "Logo gallery": "Logo gallery",
     "Photo gallery": "Photo gallery",
     "Table": "Table",
-    "Email preview" : "Email preview"
+    "Email preview" : "Email preview",
+    "Top": "Top",
+    "Above selected": "Above selected",
+    "Child of selected": "Child of selected",
+    "Bellow selected": "Bellow selected",
+    "Bottom": "Bottom",
+    "Position": "Position"
 }
