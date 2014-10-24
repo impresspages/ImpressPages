@@ -365,5 +365,11 @@
     "Logo gallery": "Logo galerisi",
     "Photo gallery": "Fotoğraf galerisi",
     "Table": "Tablo",
-	"Email preview" : "Eposta önizlemesi"
+    "Email preview" : "Eposta önizlemesi",
+    "Top": "En Üst",
+    "Above selected": "Seçilenin Üzeri",
+    "Child of selected": "Seçilenin Alt Öğesi",
+    "Bellow selected": "Seçilenin Aşağısı",
+    "Bottom": "En Alt",
+    "Position": "Pozisyon"
 }
