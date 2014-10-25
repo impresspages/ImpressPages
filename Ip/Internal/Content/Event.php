@@ -122,4 +122,17 @@ class Event
         Model::updateUrl($info['oldUrl'], $info['newUrl']);
     }
 
+
+
+
+
+    public static function ipCronExecute($info)
+    {
+        if ($info['firstTimeThisDay'] || $info['test']) {
+            if (ipGetOption('Config.removeOldRevisions', 0)) {
+                \Ip\Internal\Revision::removeOldRevisions(ipGetOption('Config.removeOldRevisionsDays', 720));
+            }
+        }
+    }
+
 }
