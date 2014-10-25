@@ -47,4 +47,24 @@ class RevisionTest extends \PHPUnit_Framework_TestCase
         $widgetCount = ipDb()->selectValue('widget', 'COUNT(*)', array('revisionId' => $secondRevisionId));
         $this->assertEquals(3, $widgetCount);
     }
-} 
+
+    public function testRemoveOldRevisions()
+    {
+        $day = 60 * 60 * 24;
+        ipDb()->delete('revision', array());
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 1)));
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 5)));
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 10)));
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 100)));
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 1000)));
+        ipDb()->insert('revision', array('createdAt' => date("Y-m-d H:i:s", time() + $day * 10000)));
+
+        \Ip\Internal\Revision::removeOldRevisions(15);
+
+        $records = ipDb()->selectAll('revision', '*');
+        $this->assertEquals(2, count($records));
+
+    }
+
+
+}
