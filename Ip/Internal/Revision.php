@@ -77,7 +77,7 @@ class Revision
         $revision = array(
             'pageId' => $pageId,
             'isPublished' => (int)$published,
-            'createdAt' => time(),
+            'createdAt' => date('Y-m-d H:i:s'),
         );
 
         $revisionId = ipDb()->insert('revision', $revision);

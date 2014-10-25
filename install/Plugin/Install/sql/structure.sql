@@ -225,7 +225,7 @@ CREATE TABLE `ip_revision` (
   `revisionId` int(11) NOT NULL AUTO_INCREMENT,
   `pageId` int(11) NOT NULL DEFAULT '0',
   `isPublished` tinyint(1) NOT NULL DEFAULT '0',
-  `createdAt` int(11) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
   PRIMARY KEY (`revisionId`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

@@ -9,7 +9,32 @@ namespace Ip\Internal\Update;
 
 class Migration
 {
+
+
     //CHANGE_ON_VERSION_UPDATE
+
+    public static function update_66()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." DROP `createdAtBkp`");
+    }
+
+    public static function update_65()
+    {
+        ipDb()->execute("UPDATE " . ipTable('revision') ." SET `createdAt` = FROM_UNIXTIME(`createdAtBkp`) WHERE 1");
+    }
+
+    public static function update_64()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." ADD `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+    }
+
+    public static function update_63()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." CHANGE `createdAt` `createdAtBkp` INT(11) NOT NULL");
+    }
+
+
+
     public static function update_62()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
