@@ -51,7 +51,7 @@ class AdminController extends \Ip\Controller
             !in_array($fieldName, array('websiteTitle', 'websiteEmail'))
             &&
             !(
-                in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays'))
+                in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads'))
                 &&
                 ipAdminPermission('Config advanced')
             )
