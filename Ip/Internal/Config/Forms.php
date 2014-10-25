@@ -20,7 +20,7 @@ class Forms
             array(
                 'optionName' => 'Config.websiteTitle',
                 'name' => 'websiteTitle', //html "name" attribute
-                'label' => __('Website title', 'Ip-admin'), //field label that will be displayed next to input field
+                'label' => __('Website title', 'Ip-admin', false), //field label that will be displayed next to input field
                 'hint' => __('Used as a sender name in emails and as default website logo.', 'Ip-admin')
             ));
         $field->addClass('ipsAutoSave');
@@ -32,7 +32,7 @@ class Forms
                 'optionName' => 'Config.websiteEmail',
                 'name' => 'websiteEmail', //html "name" attribute
                 'value' => ipGetOptionLang('Config.websiteEmail'),
-                'label' => __('Website email', 'Ip-admin'), //field label that will be displayed next to input field
+                'label' => __('Website email', 'Ip-admin', false), //field label that will be displayed next to input field
                 'hint' => __('Email address used as a sender to send emails on behalf of the website.', 'Ip-admin')
             ));
         $field->addValidator('Email');
@@ -40,12 +40,14 @@ class Forms
         $form->addField($field);
 
 
+        $form->addfieldset(__('Advanced', 'Ip-admin', false));
+
         $field = new \Ip\Form\Field\Checkbox(
             array(
                 'name' => 'automaticCron',
                 //html "name" attribute
                 'value' => ipGetOption('Config.automaticCron', 1),
-                'label' => __('Execute cron automatically', 'Ip-admin'),
+                'label' => __('Execute cron automatically', 'Ip-admin', false),
                 //field label that will be displayed next to input field
                 'hint' => __(
                     'ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.',
@@ -62,8 +64,8 @@ class Forms
             array(
                 'name' => 'cronPassword', //html "name" attribute
                 'value' => ipGetOption('Config.cronPassword', 1),
-                'label' => __('Cron password', 'Ip-admin'), //field label that will be displayed next to input field
-                'hint' => __('Protect cron from being abusively executed by the strangers.', 'Ip-admin'),
+                'label' => __('Cron password', 'Ip-admin', false), //field label that will be displayed next to input field
+                'hint' => __('Protect cron from being abusively executed by the strangers.', 'Ip-admin', false),
                 'note' => '<span class="ipsUrlLabel">' . __(
                         'Cron URL: ',
                         'Ip-admin'
@@ -74,6 +76,76 @@ class Forms
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
+
+
+
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'removeOldEmails',
+                //html "name" attribute
+                'value' => ipGetOption('Config.removeOldEmails', 0),
+                'label' => __('Remove old emails from the log', 'Ip-admin', false)
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'removeOldEmailsDays',
+                //html "name" attribute
+                'value' => ipGetOption('Config.removeOldEmailsDays', 720),
+                'label' => __('Days to keep emails', 'Ip-admin', false),
+                'hint' => __('Meaningful only if "Remove old emails" is on.', 'Ip-admin', false)
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'removeOldRevisions',
+                //html "name" attribute
+                'value' => ipGetOption('Config.removeOldRevisions', 0),
+                'label' => __('Remove old page revisions', 'Ip-admin', false)
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+
+
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'removeOldRevisionsDays',
+                //html "name" attribute
+                'value' => ipGetOption('Config.removeOldRevisionsDays', 720),
+                'label' => __('Days to keep revisions', 'Ip-admin', false),
+                'hint' => __('Meaningful only if "Remove old page revisions" is on.', 'Ip-admin', false)
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+
+
+
 
 
         return $form;
