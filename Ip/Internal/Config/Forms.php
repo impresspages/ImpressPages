@@ -40,7 +40,19 @@ class Forms
         $form->addField($field);
 
 
-        $form->addfieldset(__('Advanced', 'Ip-admin', false));
+
+        return $form;
+    }
+
+
+    public static function getAdvancedForm()
+    {
+        $form = new \Ip\Form();
+        $form->addClass('ipsConfigForm');
+        $form->addClass('ipsConfigFormAdvanced');
+        $form->addClass('hidden');
+        $form->setAjaxSubmit(0);
+
 
         $field = new \Ip\Form\Field\Checkbox(
             array(
@@ -76,7 +88,6 @@ class Forms
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
-
 
 
 
@@ -141,11 +152,6 @@ class Forms
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
-
-
-
-
-
 
 
         return $form;
