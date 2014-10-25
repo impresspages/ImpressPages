@@ -65,6 +65,9 @@ class AdminController extends \Ip\Controller
         if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.svg'))) {
             return ipFileUrl('Plugin/' . $pluginName . '/assets/icon.svg');
         }
+        if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.png'))) {
+            return ipFileUrl('Plugin/' . $pluginName . '/assets/icon.png');
+        }
     }
 
     public function activate()
