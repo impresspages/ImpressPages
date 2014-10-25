@@ -30,6 +30,7 @@ class AdminPermissionsModel
             'Design',
             'Plugins',
             'Config',
+            'Config advanced',
             'Languages',
             'System',
             'Administrators',
