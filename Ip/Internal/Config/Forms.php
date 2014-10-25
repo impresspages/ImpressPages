@@ -154,6 +154,22 @@ class Forms
         $form->addField($field);
 
 
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'allowAnonymousUploads',
+                //html "name" attribute
+                'value' => ipGetOption('Config.allowAnonymousUploads', 1),
+                'label' => __('Allow anonymous uploads', 'Ip-admin', false),
+                'hint' => __('Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+
         return $form;
     }
 }
