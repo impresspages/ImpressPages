@@ -20,7 +20,7 @@
         <?php if(!$manageableRevision){ ?>
             <div class="_disable">
                 <p>
-                    <?php echo __('This is a preview of older revision, created at', 'Ip-admin'); ?> <?php echo date("Y-m-d H:i", $currentRevision['createdAt']) ?>
+                    <?php echo __('This is a preview of older revision, created at', 'Ip-admin'); ?> <?php echo ipFormatDateTime(strtotime($currentRevision['createdAt']), 'Ip-admin') ?>
                     <a href="#" class="ipsContentPublish"><?php _e('Publish this revision', 'Ip-admin'); ?></a>
                     <a href="#" class="ipsContentSave"><?php _e('Duplicate and edit this revision', 'Ip-admin'); ?></a>
                 </p>

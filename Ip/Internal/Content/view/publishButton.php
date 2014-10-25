@@ -41,7 +41,7 @@ if (!$isVisible && ipIsManagementState()) {
             ?>
             <li<?php echo $revisionClass ? ' class="'.$revisionClass.'"' : ''; ?>>
                 <a href="<?php echo $managementUrls[$revisionKey]; ?>">
-                    <strong><?php echo (int)$revision['revisionId']; ?></strong> - <?php echo date("Y-m-d H:i", $revision['createdAt']); echo $revision['isPublished'] ? ' '.esc(__('Published', 'Ip-admin')) . ' ' : ''; ?>
+                    <strong><?php echo (int)$revision['revisionId']; ?></strong> - <?php echo ipFormatDateTime(strtotime($currentRevision['createdAt']), 'Ip-admin'); echo $revision['isPublished'] ? ' '.esc(__('Published', 'Ip-admin')) . ' ' : ''; ?>
                 </a>
             </li>
         <?php } ?>
