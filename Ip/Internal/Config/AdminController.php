@@ -15,6 +15,7 @@ class AdminController extends \Ip\Controller
 
 
         ipAddJs('Ip/Internal/Config/assets/config.js');
+        ipAddCss('Ip/Internal/Config/assets/config.css');
 
         $form = Forms::getForm();
         $data = array(
@@ -41,7 +42,7 @@ class AdminController extends \Ip\Controller
         }
         $value = $post['value'];
 
-        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'websiteTitle', 'websiteEmail'))) {
+        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'websiteTitle', 'websiteEmail', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays'))) {
             throw new \Exception('Unknown config value');
         }
 

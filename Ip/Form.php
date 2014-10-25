@@ -172,7 +172,7 @@ class Form
 
     /**
      * Add a fieldset to a form
-     * @param $fieldset
+     * @param \Ip\Form\Fieldset | string $fieldset
      */
     public function addFieldset($fieldset)
     {
