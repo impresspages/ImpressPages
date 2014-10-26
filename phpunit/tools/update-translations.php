@@ -3,45 +3,52 @@
 $username = $argv[1];
 $password = $argv[2];
 
-$installTranslationsDir = dirname(dirname(__DIR__)) . '/install/Plugin/Install/translations';
+function updateDirTranslations($dir, $transifexSourceKey) {
+    global $username;
+    global $password;
+    $translationsDir = dirname(dirname(__DIR__)) . '/' . $dir;
 
-$files = glob("$installTranslationsDir/*.json");
+    $files = glob("$translationsDir/*.json");
 
-$installTranslations = array();
+    $allTranslations = array();
 
-foreach ($files as $filename) {
-    if (preg_match('%-([a-z]{2})[.]json%', $filename, $matches)) {
-        if ($matches[1] != 'en') {
-            $installTranslations[] = $matches[1];
+    foreach ($files as $filename) {
+        if (preg_match('%-([a-z]{2})[.]json%', $filename, $matches)) {
+            if ($matches[1] != 'en') {
+                $allTranslations[] = $matches[1];
+            }
         }
     }
+
+    $context = stream_context_create(array(
+            'http' => array(
+                'header'  => "Authorization: Basic " . base64_encode("$username:$password")
+            )
+        ));
+
+    $aliases = array(
+        'cn' => 'zh_CN',
+    );
+
+    foreach ($allTranslations as $language) {
+
+        $transifexLanguage = isset($aliases[$language]) ? $aliases[$language] : $language;
+
+        $url = "http://www.transifex.com/api/2/project/impresspages/resource/".$transifexSourceKey."/translation/{$transifexLanguage}/";
+
+        $content = file_get_contents($url, false, $context);
+
+        $json = json_decode($content, true);
+        $data = json_decode($json['content'], true);
+
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        file_put_contents("$translationsDir/".$transifexSourceKey."-$language.json", $json);
+    }
+
 }
 
-$context = stream_context_create(array(
-        'http' => array(
-            'header'  => "Authorization: Basic " . base64_encode("$username:$password")
-        )
-    ));
-
-$aliases = array(
-   'cn' => 'zh_CN',
-);
-
-foreach ($installTranslations as $language) {
-
-    $transifexLanguage = isset($aliases[$language]) ? $aliases[$language] : $language;
-
-    $url = "http://www.transifex.com/api/2/project/impresspages/resource/Install/translation/{$transifexLanguage}/";
-
-    $content = file_get_contents($url, false, $context);
-
-    $json = json_decode($content, true);
-    $data = json_decode($json['content'], true);
-
-    $json = json_encode($data, JSON_PRETTY_PRINT);
-
-    file_put_contents("$installTranslationsDir/Install-$language.json", $json);
-}
 
 
+updateDirTranslations('install/Plugin/Install/translations', 'Install');
 
