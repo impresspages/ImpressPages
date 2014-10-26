@@ -53,4 +53,5 @@ function updateDirTranslations($dir, $transifexSourceKey) {
 
 updateDirTranslations('install/Plugin/Install/translations', 'Install');
 updateDirTranslations('Ip/Internal/Translations/translations', 'Ip-admin');
+updateDirTranslations('Ip/Internal/Translations/translations', 'Ip');
 
