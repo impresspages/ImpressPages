@@ -3,7 +3,7 @@
 $username = $argv[1];
 $password = $argv[2];
 
-function updateDirTranslations($dir, $transifexSourceKey) {
+function updateDirTranslations($dir, $transifexSourceKey, $aliases = array()) {
     global $username;
     global $password;
     $translationsDir = dirname(dirname(__DIR__)) . '/' . $dir;
@@ -19,6 +19,9 @@ function updateDirTranslations($dir, $transifexSourceKey) {
                 $allTranslations[] = $matches[1];
             }
         }
+        if (preg_match('%-([a-z]{2})_([A-Z]{2})[.]json%', $filename, $matches)) {
+            $allTranslations[] = $matches[1].'_'.$matches[2];
+        }
     }
 
     $context = stream_context_create(array(
@@ -27,9 +30,7 @@ function updateDirTranslations($dir, $transifexSourceKey) {
             )
         ));
 
-    $aliases = array(
-        'cn' => 'zh_CN',
-    );
+
 
     foreach ($allTranslations as $language) {
 
@@ -50,8 +51,11 @@ function updateDirTranslations($dir, $transifexSourceKey) {
 }
 
 
+$installAliases = array(
+    'cn' => 'zh_CN',
+);
 
-updateDirTranslations('install/Plugin/Install/translations', 'Install');
+updateDirTranslations('install/Plugin/Install/translations', 'Install', $installAliases);
 updateDirTranslations('Ip/Internal/Translations/translations', 'Ip-admin');
 updateDirTranslations('Ip/Internal/Translations/translations', 'Ip');
 
