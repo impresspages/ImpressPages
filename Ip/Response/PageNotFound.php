@@ -52,16 +52,19 @@ class PageNotFound extends \Ip\Response\Layout
     {
         $message = '';
         if (!isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') {
-            $message = __('Config.error_mistyped_url', 'Ip', false);
+            //mistyped URL
+            $message = __('Sorry, but the page you were trying to get to does not exist.', 'Ip', false);
         } else {
             if (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) < 5 && strpos(
                     $_SERVER['HTTP_REFERER'],
                     ipConfig()->baseUrl()
                 ) !== false
             ) {
-                $message = '<p>' . __('Config.error_broken_link_inside', 'Ip') . '</p>';
+                //Broken internal link
+                $message = '<p>' . __('Sorry, but the page you were trying to get to does not exist.', 'Ip') . '</p>';
             } elseif (strpos($_SERVER['HTTP_REFERER'], ipConfig()->baseUrl()) === false) {
-                $message = '<p>' . __('Config.error_broken_link_outside', 'Ip') . '</p>';
+                //Broken external link
+                $message = '<p>' . __('Sorry, but the page you were trying to get to does not exist.', 'Ip') . '</p>';
             }
         }
         return $message;
