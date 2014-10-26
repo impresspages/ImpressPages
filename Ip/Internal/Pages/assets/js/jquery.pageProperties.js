@@ -74,7 +74,7 @@
         });
 
         $('html').off('keyup.pageProperties').on('keyup.pageProperties', function(e) {
-            if (e.keyCode === 46) {
+            if (e.keyCode === 46 && e.ctrlKey && $this.find('.ipsDelete').is(":visible")) {
                 $this.find('.ipsDelete').click();
             }
         });
