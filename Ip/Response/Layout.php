@@ -64,7 +64,7 @@ class Layout extends \Ip\Response
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
         } elseif (strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
-            $viewFile = $layout;
+            $viewFile = ipFile($layout);
         } else { //layout file. Like main.php
             $viewFile = ipThemeFile($layout);
         }
