@@ -57,5 +57,13 @@ $installAliases = array(
 
 updateDirTranslations('install/Plugin/Install/translations', 'Install', $installAliases);
 updateDirTranslations('Ip/Internal/Translations/translations', 'Ip-admin');
-updateDirTranslations('Ip/Internal/Translations/translations', 'Ip');
+
+
+$ipAliases = array(
+    'pt' => 'pt_BR',
+    'fa' => 'fa_IR',
+    'zh' => 'zh_CN',
+);
+
+updateDirTranslations('Ip/Internal/Translations/translations', 'Ip', $ipAliases);
 
