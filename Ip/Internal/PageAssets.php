@@ -159,7 +159,9 @@ class PageAssets
             'css' => $cssFiles
         );
 
-        return ipView('Ip/Internal/Config/view/head.php', $data)->render();
+        $head = ipView('Ip/Internal/Config/view/head.php', $data)->render();
+        $head = ipFilter('ipHead', $head);
+        return $head;
     }
 
     public function generateJavascript()
