@@ -9,7 +9,7 @@ function updateDirTranslations($dir, $transifexSourceKey) {
     $translationsDir = dirname(dirname(__DIR__)) . '/' . $dir;
 
     $files = glob("$translationsDir/".$transifexSourceKey."-??.json");
-    $files = array_merge($files, glob("$translationsDir/".$transifexSourceKey."-??-??.json"));
+    $files = array_merge($files, glob("$translationsDir/".$transifexSourceKey."-??_??.json"));
 
     $allTranslations = array();
 
