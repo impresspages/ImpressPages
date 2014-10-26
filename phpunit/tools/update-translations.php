@@ -8,7 +8,8 @@ function updateDirTranslations($dir, $transifexSourceKey) {
     global $password;
     $translationsDir = dirname(dirname(__DIR__)) . '/' . $dir;
 
-    $files = glob("$translationsDir/*.json");
+    $files = glob("$translationsDir/".$transifexSourceKey."-??.json");
+    $files = array_merge($files, glob("$translationsDir/".$transifexSourceKey."-??-??.json"));
 
     $allTranslations = array();
 
@@ -51,4 +52,5 @@ function updateDirTranslations($dir, $transifexSourceKey) {
 
 
 updateDirTranslations('install/Plugin/Install/translations', 'Install');
+updateDirTranslations('Ip/Internal/Translations/translations', 'Ip-admin');
 
