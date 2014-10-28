@@ -246,6 +246,11 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
         $b[]= 'http://localhost/docs5';
 
         $widgetId = ContentService::createWidget('Text', array('text' => implode("\n\n\n", $a)), 'default', $revisionId, 0, 'test', 1);
+        $inlineValueService = new \Ip\Internal\InlineValue\Service('Test');
+        $inlineValueService->setGlobalValue('test', implode("\n\n\n", $a));
+        $inlineValueService->setLanguageValue('test', 1, implode("\n\n\n", $a));
+        $inlineValueService->setPageValue('test', 1, 1, implode("\n\n\n", $a));
+
 
         /*
          * When we change 'docs4' page path to 'docs5'
@@ -267,11 +272,20 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
          * 'docs4' link should be changed to 'docs5'
          */
         $widgetRecord = \Ip\Internal\Content\Model::getWidgetRecord($widgetId);
-
         $result = explode("\n\n\n", $widgetRecord['data']['text']);
+
+        /**
+         * 'docs4' link should be changed to 'docs5' in iline values table
+         */
+        $resultInlineGlobal = explode("\n\n\n", $inlineValueService->getGlobalValue('test'));
+        $resultInlineLanguage = explode("\n\n\n", $inlineValueService->getLanguageValue('test', 1));
+        $resultInlinePage = explode("\n\n\n", $inlineValueService->getPageValue('test', 1, 1));
 
         for ($i = 0; $i < count($b); $i++) {
             $this->assertEquals($b[$i], $result[$i]);
+            $this->assertEquals($b[$i], $resultInlineGlobal[$i]);
+            $this->assertEquals($b[$i], $resultInlineLanguage[$i]);
+            $this->assertEquals($b[$i], $resultInlinePage[$i]);
         }
     }
 

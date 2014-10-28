@@ -30,6 +30,20 @@ class Event
             ipAddCss('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.css');
             ipAddJs('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.js');
         }
+
+
+    }
+
+    public static function ipUrlChanged($info)
+    {
+        $httpExpression = '/^((http|https):\/\/)/i';
+        if (!preg_match($httpExpression, $info['oldUrl'])) {
+            return;
+        }
+        if (!preg_match($httpExpression, $info['newUrl'])) {
+            return;
+        }
+        Model::updateUrl($info['oldUrl'], $info['newUrl']);
     }
 }
 
