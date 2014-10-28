@@ -138,6 +138,8 @@ class Slot
         $tag = 'div';
         $defaultValue = '';
         $cssClass = '';
+        $attributes = null;
+        $attributesStr = '';
         if (empty($params['id'])) {
             throw new \Ip\Exception("Ip.text slot requires parameter 'id'");
         }
@@ -155,8 +157,12 @@ class Slot
             $cssClass = $params['class'];
         }
 
+        if (isset($params['attributes'])) {
+            $attributes = $params['attributes'];
+        }
+
         $inlineManagementService = new \Ip\Internal\InlineManagement\Service();
-        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass);
+        return $inlineManagementService->generateManagedText($key, $tag, $defaultValue, $cssClass, $attributes);
     }
 
 
