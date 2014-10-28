@@ -381,6 +381,10 @@ class Application
             $translator->addTranslationFilePattern('json', $originalDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
+
+            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-admin-%s.json", $plugin . '-admin');
+            $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-admin-%s.json", $plugin . '-admin');
+            $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-admin-%s.json", $plugin . '-admin');
         }
 
 
