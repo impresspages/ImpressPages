@@ -611,12 +611,20 @@ class Model
             return;
         }
 
-        // \b - start at word boundary
-        // (https?://) - protocol
-        // (/?) - allow optional slash at the end of url
-        // (?= ) - symbols expected after url
-        // \Z - end of subject or end of line
-        $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '(/?)(?=["\'?]|\s|\Z)%';
+        if ($newUrl == ipConfig()->baseUrl()) {
+            //the website has been moved
+
+            $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '%';
+        } else {
+            //internal page url has changed
+
+            // \b - start at word boundary
+            // (https?://) - protocol
+            // (/?) - allow optional slash at the end of url
+            // (?= ) - symbols expected after url
+            // \Z - end of subject or end of line
+            $search = '%\b(https?://)' . preg_quote($oldPart, '%') . '(/?)(?=["\'?]|\s|\Z)%';
+        }
 
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
