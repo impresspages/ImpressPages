@@ -371,18 +371,15 @@ class Application
     public function modulesInit()
     {
         $translator = \Ip\ServiceLocator::translator();
-        $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
 
         $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");
-            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
 
-            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-admin-%s.json", $plugin . '-admin');
             $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-admin-%s.json", $plugin . '-admin');
             $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-admin-%s.json", $plugin . '-admin');
         }
