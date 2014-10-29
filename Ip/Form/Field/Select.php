@@ -109,10 +109,17 @@ class Select extends \Ip\Form\Field
         }
 
         $firstValue = $values[0];
+        if (is_array($firstValue)) {
+            $key = $firstValue[0];
+            $value = $firstValue[1];
+        } else {
+            $key = $firstValue;
+            $value = $firstValue;
+        }
 
         $html5Important = ($doctype == \Ip\Response\Layout::DOCTYPE_HTML5 && $this->getAttribute(
                 'size'
-            ) <= 1 && $this->getAttribute('multiple') === false && ($firstValue[0] != '' && $firstValue[1] != ''));
+            ) <= 1 && $this->getAttribute('multiple') === false && ($key != '' && $value != ''));
 
         if (!$html5Important) {
             return parent::getValidationAttributesStr($doctype);
