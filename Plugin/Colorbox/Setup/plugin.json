@@ -1,7 +1,16 @@
 {
     "title": "Colorbox lightbox",
-    "version": "1.00",
+    "version": "1.01",
     "name": "Colorbox",
     "description": "Open images in a nice lightbox",
-    "author": "ImpressPages"
+    "author": "ImpressPages",
+    "options": [
+        {
+            "label": "Style",
+            "name": "style",
+            "type": "Select",
+            "values": [["1", "Default dark"], ["2", "Minimalistic"], ["3", "Black"], ["4", "White"], ["5", "Extra border"]],
+            "default": "1"
+        }
+    ]
 }
