@@ -276,6 +276,8 @@ class Model
 
         $answer = ipView('view/widget.php', $variables)->render();
 
+        $answer = ipFilter('ipWidgetHtmlFull', $answer, $widgetRecord);
+
         return $answer;
     }
 
@@ -610,6 +612,7 @@ class Model
         if (!$records) {
             return;
         }
+
 
         if ($newUrl == ipConfig()->baseUrl()) {
             //the website has been moved
