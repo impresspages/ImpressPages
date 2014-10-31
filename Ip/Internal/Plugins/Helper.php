@@ -195,6 +195,10 @@ class Helper
                 $newField->setNote($option['note']);
             }
 
+            if (!empty($option['validators'])) {
+                $newField->addValidator($option['validators']);
+            }
+
 
             $form->addfield($newField);
         }
