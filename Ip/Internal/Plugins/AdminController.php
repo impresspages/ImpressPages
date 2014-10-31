@@ -182,7 +182,12 @@ class AdminController extends \Ip\Controller
         if ($result === true) {
             return \Ip\Response\JsonRpc::result($result);
         } else {
-            return \Ip\Response\JsonRpc::error(__('Validation failed', 'Ip-admin', false));
+            $errors = $result;
+            $data = array (
+                'status' => 'error',
+                'errors' => $errors
+            );
+            return new \Ip\Response\Json($data);
         }
     }
 
