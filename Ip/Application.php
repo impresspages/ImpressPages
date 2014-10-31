@@ -173,7 +173,16 @@ class Application
             $locale = str_replace('-', '_', $locale);
         }
         $locale .= '.utf8';
-        setLocale(LC_ALL, $locale);
+        if($locale ==  "tr_TR.utf8" && PHP_MINOR_VERSION < 5) { //Overcoming this bug https://bugs.php.net/bug.php?id=18556
+            setlocale(LC_COLLATE, $locale);
+            setlocale(LC_MONETARY, $locale);
+            setlocale(LC_NUMERIC, $locale);
+            setlocale(LC_TIME, $locale);
+            setlocale(LC_MESSAGES, $locale);
+            setlocale(LC_CTYPE, "en_US.utf8");
+        } else {
+            setLocale(LC_ALL, $locale);
+        }
 
         ipContent()->_setCurrentLanguage($requestLanguage);
 
