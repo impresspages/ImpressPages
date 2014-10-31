@@ -25,9 +25,9 @@ class Text extends Field
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . escAttr($this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' type="text" value="' . escAttr($this->getValue()) . '" />';
     }
 
     /**
