@@ -10,6 +10,7 @@
             <?php if ($image['type'] == 'link') { ?>
                 href="<?php echo escAttr($image['url']); ?>"
                 <?php echo $image['blank'] ? ' target="_blank" ' : ''; ?>
+                <?php echo $image['nofollow'] ? ' rel="nofollow" ' : ''; ?>
             <?php } ?>
             class="_link"
             title="<?php echo esc($image['title']); ?>"
