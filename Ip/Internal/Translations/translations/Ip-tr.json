@@ -1,12 +1,12 @@
 {
     "The characters you entered didn't match": "Girdi\u011finiz karakterler uyu\u015fmuyor",
     "Upload": "Y\u00fckle",
-    "Integer required": "Integer required",
-    "Confirm": "Onay",
+    "Integer required": "Tam say\u0131 gerekli",
+    "Confirm": "Onayla",
     "Cancel": "\u0130ptal",
     "Incorrect color code": "Ge\u00e7ersiz renk kodu",
     "Session has ended. Please remove and re-upload files.": "Oturum ge\u00e7ersiz. L\u00fctfen dosyalar\u0131 kald\u0131r\u0131n ve yeniden y\u00fckleyin.",
-    "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
+    "Please enter correct currency format. Eg. 10.50": "L\u00fctfen do\u011fru para birimi bi\u00e7imini girin. \u00d6rn: 10.50",
     "Form security check has failed. Please refresh the page.": "Form g\u00fcvenlik do\u011frulamas\u0131 ba\u015far\u0131s\u0131z oldu. L\u00fctfen sayfay\u0131 yeniden y\u00fckleyin.",
     "Please enter a valid email address.": "L\u00fctfen ge\u00e7erli bir e-posta adresi girin.",
     "Session has expired. Please refresh the page.": "Oturum ge\u00e7ersiz. L\u00fctfen sayfay\u0131 yeniden y\u00fckleyin.",
@@ -23,7 +23,7 @@
     "Name": "\u0130sim",
     "Email": "E-Posta",
     "Text": "Metin",
-    "Thank You": "Thank You",
+    "Thank You": "Te\u015fekk\u00fcrler",
     "Send": "G\u00f6nder",
     "Please enter a valid email address": "L\u00fctfen ge\u00e7erli bir e-posta adresi girin",
     "Please enter a valid numeric value": "L\u00fctfen ge\u00e7erli bir say\u0131 girin",
@@ -31,6 +31,6 @@
     "Please enter a value no larger than $1": "L\u00fctfen $1 de\u011ferinden b\u00fcy\u00fck olmayan bir de\u011fer girin",
     "Please enter a value of at least $1": "L\u00fctfen $1 de\u011ferinden k\u00fc\u00e7\u00fck olmayan bir de\u011fer girin",
     "Please complete this mandatory field": "L\u00fctfen bu zorunlu alan\u0131 doldurun",
-    "Choose a payment method": "Choose a payment method",
+    "Choose a payment method": "L\u00fctfen bir \u00f6deme metodu se\u00e7in",
     "Home": "Ana Sayfa"
 }

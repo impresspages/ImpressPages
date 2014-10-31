@@ -1,12 +1,12 @@
 {
     "The characters you entered didn't match": "Die eingegebenen Zeichen stimmen nicht \u00fcberein.",
     "Upload": "Hochladen",
-    "Integer required": "Integer required",
+    "Integer required": "Ganzzahl erforderlich",
     "Confirm": "Best\u00e4tigen",
     "Cancel": "Abbrechen",
     "Incorrect color code": "Ung\u00fcltiger Farbcode",
     "Session has ended. Please remove and re-upload files.": "Sitzung abgelaufen. Bitte entfernen und neu hochladen.",
-    "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
+    "Please enter correct currency format. Eg. 10.50": "Bitte ein g\u00fcltiges W\u00e4hrungsformat eingeben, z.B. 10.50.",
     "Form security check has failed. Please refresh the page.": "Sicherheitspr\u00fcfung fehlgeschlagen. Bitte aktualisieren Sie die Seite.",
     "Please enter a valid email address.": "Bitte geben Sie eine g\u00fcltige E-Mail Adresse ein.",
     "Session has expired. Please refresh the page.": "Die Sitzung ist abgelaufen. Bitte aktualisieren Sie die Seite.",
@@ -23,7 +23,7 @@
     "Name": "Name",
     "Email": "Email",
     "Text": "Text",
-    "Thank You": "Thank You",
+    "Thank You": "Vielen Dank",
     "Send": "Senden",
     "Please enter a valid email address": "Bitte eine g\u00fcltige Emailadresse eingeben",
     "Please enter a valid numeric value": "Bitte eine g\u00fcltige Ziffer eingeben",
@@ -31,6 +31,6 @@
     "Please enter a value no larger than $1": "Bitte einen H\u00f6chstwert von $1 eingeben",
     "Please enter a value of at least $1": "Bitte einen Mindestwert von $1 eingeben",
     "Please complete this mandatory field": "Bitte dieses Pflichtfeld ausf\u00fcllen",
-    "Choose a payment method": "Choose a payment method",
+    "Choose a payment method": "Zahlungsmethode ausw\u00e4hlen",
     "Home": "Home"
 }
