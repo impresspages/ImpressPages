@@ -49,6 +49,9 @@ abstract class Field
         $this->validators = array();
 
         if (!empty($options['validators'])) {
+            if (!is_array($options['validators'])) {
+                $options['validators'] = array($options['validators']);
+            }
             foreach ($options['validators'] as $validator) {
                 $this->addValidator($validator);
             }
