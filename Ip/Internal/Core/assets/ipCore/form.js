@@ -24,7 +24,7 @@ var ipModuleFormPublic;
                 $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
             }
 
-            if ($('.ipsModuleFormPublic .type-richtext').length && (typeof(ipTinyMceConfig) === "undefined")) {
+            if ($('.ipsModuleFormPublic .type-richText').length && (typeof(ipTinyMceConfig) === "undefined")) {
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js') + '"></script>');
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js') + '"></script>');
                 $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/pastePreprocess.js') + '"></script>');
@@ -33,11 +33,11 @@ var ipModuleFormPublic;
 
 
             $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
-            $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormPublic .type-richText').ipFormRichtext();
             $('.ipsModuleFormPublic .type-color').ipFormColor();
 
             $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
-            $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormAdmin .type-richText').ipFormRichtext();
             $('.ipsModuleFormAdmin .type-color').ipFormColor();
             $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
             $('.ipsModuleFormAdmin .type-url').ipFormUrl();
