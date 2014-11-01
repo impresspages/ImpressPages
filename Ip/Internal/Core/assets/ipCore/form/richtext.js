@@ -42,7 +42,7 @@
 
     };
 
-    $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+    $('.ipsModuleFormAdmin .type-richText').ipFormRichtext();
 
 })(jQuery);
 
