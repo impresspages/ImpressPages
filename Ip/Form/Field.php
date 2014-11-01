@@ -316,7 +316,7 @@ abstract class Field
     public function getTypeClass()
     {
         $classParts = explode('\\', get_class($this));
-        $last = array_pop($classParts);
+        $last = lcfirst(array_pop($classParts));
         return $last;
     }
 
