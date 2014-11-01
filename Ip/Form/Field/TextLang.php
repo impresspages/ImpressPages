@@ -30,13 +30,18 @@ class TextLang extends \Ip\Form\FieldLang
                     $langValue = $fieldValue[$language->getCode()];
                 }
             }
+            if (!is_string($langValue)) {
+                //just in case we have array or something else incompatible with bellow code in the database
+                $langValue = '';
+            }
+
             $answer .= '
 <div class="input-group">
   <span class="input-group-addon">' . esc($language->getAbbreviation()) . '</span>
   <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
                     ' ',
                     $this->getClasses()
-                ) . '" name="' . htmlspecialchars($this->getName()) . '[' . $language->getCode() . ']" ' . $this->getValidationAttributesStr(
+                ) . '" name="' . escAttr($this->getName() . '[' . $language->getCode() . ']" ') . $this->getValidationAttributesStr(
                     $doctype
                 ) . ' type="text" value="' . escAttr($langValue) . '" />
 </div>
