@@ -188,7 +188,17 @@ class Helper
 
             if (!empty($option['name'])) {
                 $newField->setName($option['name']);
-                $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
+                $optionKey = "{$pluginName}.{$option['name']}";
+                if ($newField instanceof \Ip\Form\FieldLang) {
+                    $value = array();
+                    foreach(ipContent()->getLanguages() as $language) {
+                        $value[$language->getCode()] = ipGetOptionLang($optionKey, $language->getCode(), $default);
+                    }
+                    $newField->setValue($value);
+                } else {
+                    $newField->setValue(ipGetOption($optionKey, $default));
+                }
+
             }
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             if (!empty($option['note'])) {
