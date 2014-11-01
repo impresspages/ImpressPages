@@ -30,16 +30,6 @@ class Password extends Field
         ) . ' type="password" value="' . htmlspecialchars($this->getValue()) . '" />';
     }
 
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'password';
-    }
+
 
 }
