@@ -24,7 +24,7 @@ CREATE TABLE `ip_page` (
   `isSecured` tinyint(1) NOT NULL DEFAULT '0',
   `isDeleted` tinyint(1) NOT NULL DEFAULT '0',
   `isBlank` BOOLEAN NOT NULL DEFAULT FALSE COMMENT  'Open page in new window',
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `deletedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
