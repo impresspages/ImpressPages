@@ -13,6 +13,12 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_69()
+    {
+        //this change was already applied in 60 version. But installation script wasn't changed accordingly. So we are reexecuting this query for installations between 60 and 69
+        ipDb()->execute("ALTER TABLE " . ipTable('page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;");
+    }
+
     public static function update_68()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
