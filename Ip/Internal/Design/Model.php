@@ -195,7 +195,6 @@ class Model
             $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
-        \Ip\ServiceLocator::storage()->set('Ip', 'themeChanged', time());
 
     }
 

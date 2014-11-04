@@ -407,7 +407,6 @@ class PublicController extends \Ip\Controller
 
         try {
             ipConfig()->set('db', $dbConfig);
-            OptionHelper::import(__DIR__ . '/options.json');
 
             // if admin data is posted then user will be created
             if ($admin) {

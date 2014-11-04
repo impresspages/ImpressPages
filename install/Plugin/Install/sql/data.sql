@@ -40,14 +40,37 @@ INSERT INTO `ip_widget_order` (`widgetName`, `priority`) VALUES
 
 
 INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
+('Admin', 'failedLogins', '[]'),
+('Config', 'Config.en.websiteTitle', '""'),
+('Config', 'Config.en.websiteEmail', '"example@example.com"'),
+('Config', 'Config.multilingual', '"1"'),
+('Config', 'Config.automaticCron', '"1"'),
+('Config', 'Config.cronPassword', '123456'),
+('Config', 'Config.defaultImageQuality', '80'),
+('Config', 'Config.availableFonts', '"Arial,Arial,Helvetica,sans-serif\\nArial Black,Arial Black,Gadget,sans-serif\\nComic Sans MS,Comic Sans MS,cursive\\nCourier New,Courier New,Courier,monospace\\nGeorgia,Georgia,serif\\nImpact,Charcoal,sans-serif\\nLucida Console,Monaco,monospace\\nLucida Sans Unicode,Lucida Grande,sans-serif\\nPalatino Linotype,Book Antiqua,Palatino,serif\\nTahoma,Geneva,sans-serif\\nTimes New Roman,Times,serif\\nTrebuchet MS,Helvetica,sans-serif\\nVerdana,Geneva,sans-serif\\nGill Sans,Geneva,sans-serif"'),
+('Config', 'Config.reservedDirs', '["file","install","Ip","Plugin","update","Theme","index.php","admin","admin.php"]'),
+('Config', 'Content.widgetGalleryQuality', '90'),
+('Config', 'Content.widgetImageWidth', '1160'),
+('Config', 'Content.widgetImageHeight', '800'),
+('Config', 'Content.widgetGalleryWidth', '200'),
+('Config', 'Content.widgetGalleryHeight', '200'),
+('Config', 'Config.lightboxWidth', '800'),
+('Config', 'Config.lightboxHeight', '600'),
+('Config', 'Design.themeDirs', '""'),
+('Config', 'Email.hourlyLimit', '100'),
+('Config', 'Pages.hideNewPages', '0'),
+('Cron', 'lastExecutionStart', '[[[[time]]]]'),
+('Cron', 'lastExecutionEnd', '[[[[time]]]]'),
 ('Ip', 'version', '"4.2.7"'),  /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'dbVersion', '69'), /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
 ('Ip', 'lastSystemMessageShown', ''),
-('Ip', 'themeChanged', '0'),
-('Ip', 'cacheVersion', '1');
+('Ip', 'cacheVersion', '1'),
+('Ip', 'websiteId', '"123456789"'),
+('Ip', 'getImpressPagesSupport', '"0"');
+
 
 
 INSERT INTO `ip_plugin` (`title`, `name`, `version`, `isActive`) VALUES
