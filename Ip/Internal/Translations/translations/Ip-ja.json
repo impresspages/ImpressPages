@@ -1,36 +1,36 @@
 {
-    "The characters you entered didn't match": "å¥åãããæå­ãåãã¾ãã",
-    "Upload": "ã¢ããã­ã¼ã",
+    "The characters you entered didn't match": "入力された文字が合いません",
+    "Upload": "アップロード",
     "Integer required": "Integer required",
-    "Confirm": "ç¢ºèª",
-    "Cancel": "ã­ã£ã³ã»ã«",
-    "Incorrect color code": "è²ã³ã¼ãã«èª¤ã",
-    "Session has ended. Please remove and re-upload files.": "ã»ãã·ã§ã³ãçµãã£ã¦ãã¾ãããã¡ã¤ã«ãåãé¤ããååº¦ã¢ããã­ã¼ããã¦ä¸ããã",
+    "Confirm": "確認",
+    "Cancel": "キャンセル",
+    "Incorrect color code": "色コードに誤り",
+    "Session has ended. Please remove and re-upload files.": "セッションが終わっています。ファイルを取り除き、再度アップロードして下さい。",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
-    "Form security check has failed. Please refresh the page.": "ã»ã­ã¥ãªãã£ãã§ãã¯ã§å¤±æãã¾ããããã¼ã¸ã®åèª­ã¿è¾¼ã¿ãè¡ã£ã¦ä¸ããã",
-    "Please enter a valid email address.": "æå¹ãªã¡ã¼ã«ã¢ãã¬ã¹ãå¥ãã¦ä¸ããã",
-    "Session has expired. Please refresh the page.": "ã»ãã·ã§ã³ãæéåãã«ãªã£ã¦ãã¾ãããã¼ã¸ã®åèª­ã¿è¾¼ã¿ãè¡ã£ã¦ä¸ããã",
-    "Must be a number.": "åè§æ°å­ã§ãªããã°ããã¾ããã",
-    "The value should be unique": "ãã®å¤ã¯ãä»ã¨ç°ãªããªãã¨ãããªã:",
-    "Please correct this value": "ãã®å¤ãä¿®æ­£ãã¦ä¸ãã",
-    "Required field": "å¿é é ç®",
-    "The value can't be one of:": "ãã®å¤ã¯ããããä»¥å¤ã§ã:",
-    "The value has to be one of:": "ãã®å¤ã¯ãã©ããä¸ã¤ã§ã:",
+    "Form security check has failed. Please refresh the page.": "セキュリティチェックで失敗しました。ページの再読み込みを行って下さい。",
+    "Please enter a valid email address.": "有効なメールアドレスを入れて下さい。",
+    "Session has expired. Please refresh the page.": "セッションが期限切れになっています。ページの再読み込みを行って下さい。",
+    "Must be a number.": "半角数字でなければいけません。",
+    "The value should be unique": "この値は、他と異ならないといけない:",
+    "Please correct this value": "この値を修正して下さい",
+    "Required field": "必須項目",
+    "The value can't be one of:": "この値は、これら以外です:",
+    "The value has to be one of:": "この値は、どれか一つです:",
     "Error 404": "Error 404",
     "Config.error_mistyped_url": "Config.error_mistyped_url",
     "Config.error_broken_link_inside": "Config.error_broken_link_inside",
     "Config.error_broken_link_outside": "Config.error_broken_link_outside",
-    "Name": "åå",
-    "Email": "ã¡ã¼ã«",
-    "Text": "ãã­ã¹ã",
+    "Name": "名前",
+    "Email": "メール",
+    "Text": "テキスト",
     "Thank You": "Thank You",
-    "Send": "éä¿¡",
-    "Please enter a valid email address": "æå¹ãªã¡ã¼ã«ã¢ãã¬ã¹ãå¥ãã¦ä¸ãã",
-    "Please enter a valid numeric value": "æå¹ãªæ°å¤ãå¥ãã¦ä¸ãã",
-    "Please enter a valid URL": "æå¹ãªURLãå¥ãã¦ä¸ãã",
-    "Please enter a value no larger than $1": "$1 ä»¥ä¸ã®å¤ãå¥ãã¦ä¸ãã",
-    "Please enter a value of at least $1": "$1 ä»¥ä¸ã®å¤ãå¥ãã¦ä¸ãã",
-    "Please complete this mandatory field": "å¿é é ç®ãå¥ãã¦ä¸ãã",
+    "Send": "送信",
+    "Please enter a valid email address": "有効なメールアドレスを入れて下さい",
+    "Please enter a valid numeric value": "有効な数値を入れて下さい",
+    "Please enter a valid URL": "有効なURLを入れて下さい",
+    "Please enter a value no larger than $1": "$1 以下の値を入れて下さい",
+    "Please enter a value of at least $1": "$1 以上の値を入れて下さい",
+    "Please complete this mandatory field": "必須項目を入れて下さい",
     "Choose a payment method": "Choose a payment method",
-    "Home": "ãã¼ã "
+    "Home": "ホーム"
 }

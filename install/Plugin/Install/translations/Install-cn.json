@@ -1,60 +1,60 @@
 {
-    "ImpressPages installation wizard": "impressPagesï¼å°è±¡é¡µï¼ å®è£åå¯¼",
-    "Version %s": "çæ¬ %s",
-    "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "ç¨åºæºèª <a target=\"_blank\" href=\"%s\">IMPRESSPAGES TEAM<\/a>",
+    "ImpressPages installation wizard": "impressPages（印象页） 安装向导",
+    "Version %s": "版本 %s",
+    "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "程序源自 <a target=\"_blank\" href=\"%s\">IMPRESSPAGES TEAM<\/a>",
     "Apache or Nginx required": "Apache or Nginx required",
     "Nginx configuration required": "Nginx configuration required",
     "PHP version >= 5.3.3": "PHP version >= 5.3.3",
-    "PHP module \"PDO\"": "PHP æ¨¡åé¡»æ¯æ \"PDO\"",
-    "GD Graphics Library": "GDåº",
+    "PHP module \"PDO\"": "PHP 模块须支持 \"PDO\"",
+    "GD Graphics Library": "GD库",
     "PHP sessions": "PHP sessions",
-    "index.html removed": "å é¤ index.html",
-    "Magic quotes off (optional)": "Magic quotes å³é­ (å¯é)",
-    "Apache module \"mod_rewrite\"": "Apache æ¨¡å \"mod_rewrite\"",
-    ".htaccess file": ".htaccess æä»¶",
-    "PHP module \"Curl\"": "PHP æ¨¡å \"Curl\"",
-    "PHP memory limit (%s)": "PHP çåå­éå¶ (%s)",
-    "writable": "å¯å",
-    "(including subfolders and files)": "(åæ¬å­æä»¶å¤¹åæä»¶)",
+    "index.html removed": "删除 index.html",
+    "Magic quotes off (optional)": "Magic quotes 关闭 (可选)",
+    "Apache module \"mod_rewrite\"": "Apache 模块 \"mod_rewrite\"",
+    ".htaccess file": ".htaccess 文件",
+    "PHP module \"Curl\"": "PHP 模块 \"Curl\"",
+    "PHP memory limit (%s)": "PHP 的内存限制 (%s)",
+    "writable": "可写",
+    "(including subfolders and files)": "(包括子文件夹和文件)",
     "writable (including subfolders and files)": "writable (including subfolders and files)",
-    "Please remove content from %s file.": "è¯·ç§»é¤ %s æä»¶çåå®¹",
-    "Please enter website name.": "è¯·è¾å¥ç½ç«åç§°ã",
-    "Please enter correct website email.": "è¯·è¾å¥æ­£ç¡®çç½ç«ççµå­é®ä»¶ã",
-    "Please choose website time zone.": "è¯·éæ©ç½ç«æ¶åº",
-    "Please correct errors.": "è¯·æ´æ­£éè¯¯ã",
-    "Please fill in required fields.": "è¯·å¡«åå¿å¡«å­æ®µã",
-    "Prefix can't be longer than 7 symbols.": "åç¼çé¿åº¦ä¸è½è¶è¿7ä¸ªç¬¦å·",
-    "Prefix can't contain any special characters and should start with a letter.": "åç¼ä¸è½åå«ä»»ä½ç¹æ®å­ç¬¦ï¼å¿é¡»ä»¥å­æ¯å¼å§ã",
-    "Can't connect to database.": "ä¸è½è¿æ¥å°æ°æ®åº",
-    "Specified database does not exists and cannot be created.": "æå®çæ°æ®åºä¸å­å¨ï¼æ æ³åå»ºã",
-    "Do you like to replace existing tables in the database?": "ä½ ç¡®å®è¦æ¿æ¢ç°æçæ°æ®åºä¸­çè¡¨ï¼",
-    "There were errors while executing install queries. ": "å¨æ§è¡çæ¥è¯¢å®è£æéã",
-    "Can't write configuration \"\/config.php\"": "æ æ³åå¥éç½®  \"\/config.php\"",
-    "Database installation": "æ°æ®åºå®è£",
-    "Database Host (eg. localhost or 127.0.0.1)": "æ°æ®åºä½ç½® (ä¾å¦ localhost æè 127.0.0.1  ) éå¸¸å¡«localhost",
-    "User name": "æ°æ®åºç¨æ·å",
-    "User password": "æ°æ®åºå¯ç ",
-    "Database name": "æ°æ®åºå",
-    "Table prefix (use underscore to separate prefix).": "è¡¨åç¼(ç¨ä¸åçº¿åå¼åç¼)",
-    "Next": "ä¸ä¸æ­¥",
-    "Finished!": "å®æ",
-    "If you wish to repeat the installation, please clear the configuration file \"config.php\".": "å¦æä½ æ³éæ°å®è£ï¼è¯·æ¸é¤\"config.PHP æä»¶éç½®\"ã",
-    "ImpressPages has been successfully installed.": "ImpressPages å·²ç»æåå®è£ï¼å¦æçé®ï¼å¯è³bbs.impressPages.cn å¯»æ±å¸®å©ï¼",
-    "Front page": "åå¾ç½ç«åå°é¡µé¢",
-    "Administration page": "åå¾åå°ç®¡çé¡µé¢",
-    "System check": "ç³»ç»æ£æ¥",
-    "Ok": "æ­£ç¡®",
-    "Warning": "è­¦å",
-    "Error": "éè¯¯",
-    "Check again": "åæ¬¡æ£æ¥",
-    "Website configuration": "ç½ç«éç½®",
-    "Website name": "ç«ç¹åç§°",
-    "Website e-mail address": "ç½ç«çµå­é®ç®±",
-    "Time zone": "æ¶åº",
-    "Get ImpressPages support and updates": "è·åIMPRESSPAGESçæ¯æåæ´æ°",
-    "By proceeding you agree with <a href=\"#\" class=\"%s\">Terms of Use<\/a>.": "åæ <a href=\"#\" class=\"%s\">ä½¿ç¨æ¡æ¬¾<\/a>.",
-    "ImpressPages Terms of Use": "IMPRESSPAGESä½¿ç¨æ¡æ¬¾",
-    "Configuration": "éç½®",
-    "Database": "æ°æ®åº",
-    "Finish": "å®æ"
+    "Please remove content from %s file.": "请移除 %s 文件的内容",
+    "Please enter website name.": "请输入网站名称。",
+    "Please enter correct website email.": "请输入正确的网站的电子邮件。",
+    "Please choose website time zone.": "请选择网站时区",
+    "Please correct errors.": "请更正错误。",
+    "Please fill in required fields.": "请填写必填字段。",
+    "Prefix can't be longer than 7 symbols.": "前缀的长度不能超过7个符号",
+    "Prefix can't contain any special characters and should start with a letter.": "前缀不能包含任何特殊字符，必须以字母开始。",
+    "Can't connect to database.": "不能连接到数据库",
+    "Specified database does not exists and cannot be created.": "指定的数据库不存在，无法创建。",
+    "Do you like to replace existing tables in the database?": "你确定要替换现有的数据库中的表？",
+    "There were errors while executing install queries. ": "在执行的查询安装有错。",
+    "Can't write configuration \"\/config.php\"": "无法写入配置  \"\/config.php\"",
+    "Database installation": "数据库安装",
+    "Database Host (eg. localhost or 127.0.0.1)": "数据库位置 (例如 localhost 或者 127.0.0.1  ) 通常填localhost",
+    "User name": "数据库用户名",
+    "User password": "数据库密码",
+    "Database name": "数据库名",
+    "Table prefix (use underscore to separate prefix).": "表前缀(用下划线分开前缀)",
+    "Next": "下一步",
+    "Finished!": "完成",
+    "If you wish to repeat the installation, please clear the configuration file \"config.php\".": "如果你想重新安装，请清除\"config.PHP 文件配置\"。",
+    "ImpressPages has been successfully installed.": "ImpressPages 已经成功安装（如有疑问，可至bbs.impressPages.cn 寻求帮助）",
+    "Front page": "前往网站前台页面",
+    "Administration page": "前往后台管理页面",
+    "System check": "系统检查",
+    "Ok": "正确",
+    "Warning": "警告",
+    "Error": "错误",
+    "Check again": "再次检查",
+    "Website configuration": "网站配置",
+    "Website name": "站点名称",
+    "Website e-mail address": "网站电子邮箱",
+    "Time zone": "时区",
+    "Get ImpressPages support and updates": "获取IMPRESSPAGES的支持和更新",
+    "By proceeding you agree with <a href=\"#\" class=\"%s\">Terms of Use<\/a>.": "同意 <a href=\"#\" class=\"%s\">使用条款<\/a>.",
+    "ImpressPages Terms of Use": "IMPRESSPAGES使用条款",
+    "Configuration": "配置",
+    "Database": "数据库",
+    "Finish": "完成"
 }

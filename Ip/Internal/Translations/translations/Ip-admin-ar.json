@@ -1,247 +1,247 @@
 {
-    "The characters you entered didn't match": "Ø§ÙØ­Ø±ÙÙ Ø§ÙØªÙ Ø£Ø¯Ø®ÙØªÙØ§ ÙØ§ ØªØªØ´Ø§Ø¨Ù",
+    "The characters you entered didn't match": "الحروف التي أدخلتها لا تتشابه",
     "Integer required": "Integer required",
-    "Confirm": "ØªØ£ÙÙØ¯",
-    "Cancel": "Ø¥ÙØºØ§Ø¡",
-    "Incorrect color code": "Ø±ÙÙ ÙÙÙ Ø®Ø§Ø·Ø¦",
-    "Session has ended. Please remove and re-upload files.": "ÙÙØ¯ Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø­Ø°Ù ÙØ¥Ø¹Ø§Ø¯Ø© Ø±ÙØ¹ Ø§ÙÙÙÙØ§Øª",
-    "Browse": "ØªØµÙØ­",
+    "Confirm": "تأكيد",
+    "Cancel": "إلغاء",
+    "Incorrect color code": "رقم لون خاطئ",
+    "Session has ended. Please remove and re-upload files.": "لقد إنتهت صلاحية الدورة , يرجى حذف وإعادة رفع الملفات",
+    "Browse": "تصفح",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
-    "Select": "Ø¥Ø®ØªÙØ§Ø±",
-    "Upload": "Ø±ÙØ¹",
-    "Form security check has failed. Please refresh the page.": "Ø®Ø§ÙØ© Ø§ÙØ£ÙØ§Ù ØºÙØ± ØµØ­ÙØ­Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
-    "Please enter a valid email address.": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
-    "Session has expired. Please refresh the page.": "Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
-    "Must be a number.": "ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ© Ø¹Ø¯Ø¯ÙØ©",
-    "The value should be unique": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ²Ø©",
-    "Please correct this value": "ÙØ±Ø¬Ù ØªØµØ­ÙØ­ ÙØ°Ù Ø§ÙÙØ§Ø¯Ø©",
-    "Required field": "Ø®Ø§ÙØ© ÙØ·ÙÙØ¨Ø©",
-    "The value can't be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ÙØ§ ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ",
-    "The value has to be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ :",
-    "Publish": "Ø£ÙØ´Ø±",
-    "Text": "Ø§ÙÙØµ",
-    "Email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ",
-    "Textarea": "Ø®Ø§ÙØ© Ø±Ø³Ø§ÙØ©",
-    "Checkbox": "Ø¹ÙØ¨Ø© Ø¹Ø¯Ø© Ø¥Ø®ØªÙØ§Ø±Ø§Øª",
-    "Radio": "Ø¹ÙØ¨Ø© Ø®ÙØ§Ø± ÙØ§Ø­Ø¯",
-    "Captcha": "ØµÙØ±Ø© Ø§ÙØ£ÙØ§Ù",
-    "File": "ÙÙÙ",
-    "Preview": "ÙØ¹Ø§ÙÙØ©",
-    "Hides admin tools": "Ø¥Ø®ÙØ§Ø¡ ÙØ³Ø§Ø¦Ù Ø§ÙÙØ´Ø±Ù",
-    "Edit": "ØªØ­Ø±ÙØ±",
-    "Show widgets": "Ø¥Ø¸ÙØ§Ø± Ø§ÙØ£Ø¯ÙØ§Øª",
-    "Settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª",
-    "Page settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª Ø§ÙØµÙØ­Ø©",
-    "Choose widget skin": "Ø¥Ø®ØªØ± ØªØµÙÙÙ Ø§ÙØ£Ø¯Ø§Øª",
-    "Upload new": "Ø¥Ø±ÙØ¹ Ø§ÙØ¬Ø¯ÙØ¯",
-    "Zoom in": "ØªÙØ¨ÙØ±",
-    "Zoom out": "ØªØµØºÙØ±",
+    "Select": "إختيار",
+    "Upload": "رفع",
+    "Form security check has failed. Please refresh the page.": "خانة الأمان غير صحيحة , يرجى إعادة تحميل الصفحة",
+    "Please enter a valid email address.": "يرجى إدخال بريد إلكتروني صحيح",
+    "Session has expired. Please refresh the page.": "إنتهت صلاحية الدورة , يرجى إعادة تحميل الصفحة",
+    "Must be a number.": "يجب أن تكون قيمة عددية",
+    "The value should be unique": "القيمة يجب أن تكون مميزة",
+    "Please correct this value": "يرجى تصحيح هذه المادة",
+    "Required field": "خانة مطلوبة",
+    "The value can't be one of:": "القيمة يجب أن لا تكون واحدة من بين",
+    "The value has to be one of:": "القيمة يجب أن تكون واحدة من بين :",
+    "Publish": "أنشر",
+    "Text": "النص",
+    "Email": "البريد الإلكتروني",
+    "Textarea": "خانة رسالة",
+    "Checkbox": "علبة عدة إختيارات",
+    "Radio": "علبة خيار واحد",
+    "Captcha": "صورة الأمان",
+    "File": "ملف",
+    "Preview": "معاينة",
+    "Hides admin tools": "إخفاء وسائل المشرف",
+    "Edit": "تحرير",
+    "Show widgets": "إظهار الأدوات",
+    "Settings": "إعددات",
+    "Page settings": "إعددات الصفحة",
+    "Choose widget skin": "إختر تصميم الأدات",
+    "Upload new": "إرفع الجديد",
+    "Zoom in": "تكبير",
+    "Zoom out": "تصغير",
     "Click and type": "Click and type",
-    "Published": "ØªÙ ÙØ´Ø±",
-    "Save": "Ø­ÙØ¸",
-    "Drag": "Ø³Ø­Ø¨",
-    "Delete": "Ø­Ø°Ù",
-    "Add new": "Ø¥Ø¶Ø§ÙØ© Ø¬Ø¯ÙØ¯",
+    "Published": "تم نشر",
+    "Save": "حفظ",
+    "Drag": "سحب",
+    "Delete": "حذف",
+    "Add new": "إضافة جديد",
     "Drag & drop here": "Drag & drop here",
     "Add widgets from the top menu by dragging and dropping.": "Add widgets from the top menu by dragging and dropping.",
-    "This is a preview of older revision, created at": "ÙØ°Ù ÙØ¹Ø§ÙÙØ© ÙÙÙØ±Ø§Ø¬Ø¹Ø© Ø§ÙÙØ¯ÙÙØ© Ø ØªÙ Ø§ÙØ¥ÙØ´Ø§Ø¡ ÙÙ ",
-    "Publish this revision": "ÙØ´Ø± ÙØ°Ù Ø§ÙÙØ±Ø§Ø¬Ø¹Ø©",
-    "Duplicate and edit this revision": "Ø£ÙØ³Ø® Ù ÙÙ Ø¨ØªØ­Ø±ÙØ± ÙØ°Ù Ø§ÙÙØ±Ø§Ø¬Ø¹Ø©",
-    "Skin": "ØªØµÙÙÙ",
-    "Form": "Ø§ÙØ´ÙÙ",
-    "Thank you message": "Ø±Ø³Ø§ÙØ© Ø§ÙØ´ÙØ±",
+    "This is a preview of older revision, created at": "هذه معاينة للمراجعة القديمة ، تم الإنشاء في ",
+    "Publish this revision": "نشر هذه المراجعة",
+    "Duplicate and edit this revision": "أنسخ و قم بتحرير هذه المراجعة",
+    "Skin": "تصميم",
+    "Form": "الشكل",
+    "Thank you message": "رسالة الشكر",
     "Recipient": "Recipient",
-    "Website's email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙÙÙØ¹",
-    "Custom emails separated by space": "Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ Ø®Ø§Øµ ÙÙÙØµÙ Ø¨ÙØ±Ø§Øº ",
+    "Website's email": "البريد الإلكتروني للموقع",
+    "Custom emails separated by space": "بريد إلكتروني خاص منفصل بفراغ ",
     "Submit button text (leave empty for default)": "Submit button text (leave empty for default)",
-    "Form options": "Ø¥Ø®ØªÙØ§Ø±Ø§Øª Ø§ÙØ´ÙÙ",
-    "Fields": "Ø®Ø§ÙØ§Øª",
-    "Options": "Ø¥Ø®ØªÙØ§Ø±Ø§Øª",
-    "Required": "ÙØ·ÙÙØ¨",
-    "Optional": "Ø¥Ø®ØªÙØ§Ø±Ù",
-    "Field options": "Ø®ØµØ§Ø¦Øµ Ø§ÙØ®Ø§ÙØ©",
-    "Video": "ÙÙØ¯ÙÙ",
-    "Url": "Ø§ÙØ±Ø§Ø¨Ø·",
-    "Size": "Ø§ÙØ­Ø¬Ù",
-    "Auto": "ØªÙÙØ§Ø¦Ù",
-    "Custom": "Ø®Ø§Øµ",
-    "Width": "Ø§ÙØ¹Ø±Ø¶",
-    "Height": "Ø§ÙØ§Ø±ØªÙØ§Ø¹",
-    "Aspect ratio": "ÙØ³Ø¨Ø© Ø§ÙØ¹Ø±Ø¶ Ø¥ÙÙ Ø§ÙØ§Ø±ØªÙØ§Ø¹",
+    "Form options": "إختيارات الشكل",
+    "Fields": "خانات",
+    "Options": "إختيارات",
+    "Required": "مطلوب",
+    "Optional": "إختياري",
+    "Field options": "خصائص الخانة",
+    "Video": "فيديو",
+    "Url": "الرابط",
+    "Size": "الحجم",
+    "Auto": "تلقائي",
+    "Custom": "خاص",
+    "Width": "العرض",
+    "Height": "الارتفاع",
+    "Aspect ratio": "نسبة العرض إلى الارتفاع",
     "16:9": "16:9 ",
     "4:3": "4:3",
-    "Video widget settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª Ø£Ø¯Ø§Øª Ø§ÙÙÙØ¯ÙÙ",
-    "Gallery": "ÙØ¹Ø±Ø¶ ØµÙØ±",
-    "Mouse click action": "Ø¹ÙÙÙØ© Ø¸ØºØ· Ø¹ÙÙ Ø§ÙÙØ£Ø±Ø©",
-    "Lightbox": "Ø¹ÙØ¨Ø© Ø¥Ø¸ÙØ§Ø± Ø§ÙØµÙØ±",
-    "URL": "Ø±Ø§Ø¨Ø· Ø§ÙØµÙØ­Ø©",
-    "None": "ÙØ§ ÙÙØ¬Ø¯",
-    "Open in new window": "Ø§ÙÙØªØ­ ÙÙ ÙØ§ÙØ°Ø© Ø¬Ø¯ÙØ¯Ø©",
-    "Title": "Ø§ÙØ¹ÙÙØ§Ù",
-    "Description": "ÙØµÙ",
-    "Add image": "Ø¥Ø¶Ø§ÙØ© ØµÙØ±Ø©",
-    "Edit image": "ØªÙØ³ÙÙ ØµÙØ±Ø©",
-    "Link": "Ø§ÙØ±Ø§Ø¨Ø·",
-    "Files": "ÙÙÙØ§Øª",
-    "Heading": "Ø§ÙØ¹ÙÙØ§Ù",
-    "H1": "Ø§ÙØ¹ÙÙØ§Ù 1",
-    "H2": "Ø§ÙØ¹ÙÙØ§Ù 2",
-    "H3": "Ø§ÙØ¹ÙÙØ§Ù 3",
-    "Anchor": "Ø¥Ø®ØªØµØ§Ø±",
+    "Video widget settings": "إعددات أدات الفيديو",
+    "Gallery": "معرض صور",
+    "Mouse click action": "عملية ظغط على الفأرة",
+    "Lightbox": "علبة إظهار الصور",
+    "URL": "رابط الصفحة",
+    "None": "لا يوجد",
+    "Open in new window": "الفتح في نافذة جديدة",
+    "Title": "العنوان",
+    "Description": "وصف",
+    "Add image": "إضافة صورة",
+    "Edit image": "تنسيق صورة",
+    "Link": "الرابط",
+    "Files": "ملفات",
+    "Heading": "العنوان",
+    "H1": "العنوان 1",
+    "H2": "العنوان 2",
+    "H3": "العنوان 3",
+    "Anchor": "إختصار",
     "HTML": "HTML",
-    "Edit HTML": "ØªÙØ³ÙÙ ÙÙØ¯ ÙØºØ© Ø§ÙÙÙØ¨",
-    "Map": "Ø®Ø±ÙØ·Ø©",
-    "Unknown widget.": "Ø£Ø¯Ø§Øª ØºÙØ± ÙØ¹Ø±ÙÙØ©",
-    "Missing": "ÙÙÙÙØ¯Ø©",
-    "Divider": "Ø§ÙÙØ§ØµÙ",
-    "Image": "ØµÙØ±Ø©",
-    "Columns": "Ø£Ø¹ÙØ¯Ø©",
-    "Please enter a valid email address": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
-    "Please enter a valid numeric value": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø±ÙÙÙØ© ØµØ­ÙØ­Ø©",
-    "Please enter a valid URL": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø±Ø§Ø¨Ø· ØµØ­ÙØ­",
-    "Please enter a value no larger than $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© ÙØ§ ØªØªØ¹Ø¯Ù $1",
-    "Please enter a value of at least $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø¹ÙÙ Ø§ÙØ£ÙÙ  $1",
-    "Please complete this mandatory field": "ÙØ±Ø¬Ù Ø¥ÙÙØ§Ù ÙÙØ¦ Ø§ÙØ®Ø§ÙØ§Øª Ø§ÙØ¥Ø¬Ø¨Ø§Ø±ÙØ©",
-    "Select Link Target": "Ø¥Ø®ØªÙØ§Ø± ÙÙØ¹ÙØ© Ø§ÙØ±Ø§Ø¨Ø·",
-    "Edit record": "ØªØ­Ø±ÙØ± Ø§ÙÙØ§Ø¯Ø© Ø§ÙÙØ­ÙÙØ¸Ø©",
+    "Edit HTML": "تنسيق كود لغة الويب",
+    "Map": "خريطة",
+    "Unknown widget.": "أدات غير معروفة",
+    "Missing": "مفقودة",
+    "Divider": "الفاصل",
+    "Image": "صورة",
+    "Columns": "أعمدة",
+    "Please enter a valid email address": "يرجى إدخال بريد إلكتروني صحيح",
+    "Please enter a valid numeric value": "يرجى إدخال قيمة رقمية صحيحة",
+    "Please enter a valid URL": "يرجى إدخال رابط صحيح",
+    "Please enter a value no larger than $1": "يرجى إدخال قيمة لا تتعدى $1",
+    "Please enter a value of at least $1": "يرجى إدخال قيمة على الأقل  $1",
+    "Please complete this mandatory field": "يرجى إكمال ملئ الخانات الإجبارية",
+    "Select Link Target": "إختيار نوعية الرابط",
+    "Edit record": "تحرير المادة المحفوظة",
     "Add record": "Add record",
-    "Search": "Ø§ÙØ¨Ø­Ø«",
-    "Yes": "ÙØ¹Ù",
-    "No": "ÙØ§",
-    "Are you sure you want to delete?": "ÙÙ Ø£ÙØª ÙØªØ£ÙØ¯ ÙÙ Ø§ÙØ¥Ø³ØªÙØ±Ø§Ø± ÙÙ Ø¹ÙÙÙØ© Ø§ÙØ­Ø°Ù Ø",
-    "General": "Ø¹Ø§ÙØ©",
-    "Add": "Ø¥Ø¶Ø§ÙØ©",
-    "Administrator profile": "ÙØ¹ÙÙÙØ§Øª Ø§ÙÙØ´Ø±Ù Ø¹ÙÙ Ø§ÙÙÙÙØ¹",
-    "To reset your password follow the link below:": "ÙØ¥Ø¹Ø§Ø¯Ø© ØªÙØ¹ÙÙ ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© Ø§ÙØ±Ø¬Ø§Ø¡ Ø§ÙÙÙØ± Ø¹ÙÙ Ø§ÙØ±Ø§Ø¨Ø· Ø§ÙØªØ§ÙÙ :",
-    "You will then be able to reset your password.": "Ø³ØªÙÙÙ ÙØ§Ø¯Ø±Ø§ Ø¹ÙÙ Ø§ÙØ­ØµÙÙ Ø¹ÙÙ ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© .",
-    "Username": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù",
-    "Permissions": "Ø§ÙØ¥Ø°Ù",
+    "Search": "البحث",
+    "Yes": "نعم",
+    "No": "لا",
+    "Are you sure you want to delete?": "هل أنت متأكد من الإستمرار في عملية الحذف ؟",
+    "General": "عامة",
+    "Add": "إضافة",
+    "Administrator profile": "معلومات المشرف على الموقع",
+    "To reset your password follow the link below:": "لإعادة تفعيل كلمة سر جديدة الرجاء النفر على الرابط التالي :",
+    "You will then be able to reset your password.": "ستكون قادرا على الحصول على كلمة سر جديدة .",
+    "Username": "إسم المستخدم",
+    "Permissions": "الإذن",
     "You will not be able to set other permissions for yourself!": "You will not be able to set other permissions for yourself!",
-    "Already taken": "ØªÙ Ø£Ø®Ø°Ù ÙÙ ÙØ¨Ù",
-    "Password reset instructions": "Ø®Ø·ÙØ§Øª Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±",
-    "User name": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù",
-    "Password": "ÙÙÙØ© Ø§ÙØ³Ø±",
-    "New password (optional)": "ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© (Ø¥Ø®ØªÙØ§Ø±ÙØ©)",
-    "Add language": "Ø¥Ø¶Ø§ÙØ© ÙØºØ© Ø¬Ø¯ÙØ¯Ø©",
+    "Already taken": "تم أخذه من قبل",
+    "Password reset instructions": "خطوات إعادة كلمة السر",
+    "User name": "إسم المستخدم",
+    "Password": "كلمة السر",
+    "New password (optional)": "كلمة سر جديدة (إختيارية)",
+    "Add language": "إضافة لغة جديدة",
     "Are you sure you want to delete? All pages and other language related content will be lost forever!": "Are you sure you want to delete? All pages and other language related content will be lost forever!",
-    "Abbreviation": "Ø§ÙØ¥Ø®ØªØµØ§Ø±",
-    "Visible": "Ø¥Ø¸ÙØ§Ø±",
-    "You can't use slash in URL.": "ÙÙÙÙÙ Ø¥Ø³ØªØ¹ÙØ§Ù \"\/\" ÙÙ Ø±Ø§Ø¨Ø· ",
-    "Language url should be unique": "Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© ÙØ¬Ø¨ Ø£Ù ÙÙÙÙ ÙÙÙØ²",
-    "This is a system directory name.": "ÙØ°Ø§ Ø¥Ø³Ù Ø§ÙÙÙÙ Ø§ÙØ®Ø§Øµ Ø¨ÙØ¸Ø§Ù",
-    "RFC 4646 code": "ÙÙØ¯ RFC 4646",
-    "Language code should be unique": "ÙÙØ¯ Ø§ÙÙØºØ© ÙØ¬Ø¨ Ø£Ù ÙÙÙÙ ÙÙÙØ²",
-    "Text direction": "ÙØ¬ÙØ© Ø§ÙÙØµ",
-    "Left To Right": "ÙÙ Ø§ÙÙØ³Ø§Ø± Ø¥ÙÙ Ø§ÙÙÙÙÙ",
-    "Right To Left": "ÙÙ Ø§ÙÙÙÙÙ Ø¥ÙÙ Ø§ÙÙØ³Ø§Ø±",
-    "This language already exist.": "ÙØ°Ù Ø§ÙÙØºØ© ÙÙØ¬ÙØ¯Ø© ÙÙ ÙØ¨Ù",
-    "Can't delete the last language.": "ÙØ§ ÙÙÙÙ Ø­Ø°Ù Ø§ÙÙØºØ© Ø§ÙØ£Ø®ÙØ±Ø©",
-    "Please set %s language url to non empty before moving other language to top.": "ÙØ±Ø¬Ù ØªØ­Ø¯ÙØ¯ Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© %s Ø¥ÙÙ Ø¹Ø¯Ù Ø§ÙÙØ±Ø§Øº ÙØ¨Ù Ø§ÙÙÙØ§Ù Ø¨ÙÙÙ ÙØºØ© Ø£Ø®Ø±Ù ÙØ­ÙÙ Ø§ÙØ£Ø¹ÙÙ",
-    "Please set %s language url to non empty before moving it down.": "ÙØ±Ø¬Ù ØªØ­Ø¯ÙØ¯ Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© %s Ø¥ÙÙ Ø¹Ø¯Ù Ø§ÙÙØ±Ø§Øº ÙØ¨Ù Ø§ÙÙÙØ§Ù Ø¨ÙÙÙ ÙØºØ© Ø£Ø®Ø±Ù ÙØ­ÙÙ Ø§ÙØ£Ø³ÙÙ",
+    "Abbreviation": "الإختصار",
+    "Visible": "إظهار",
+    "You can't use slash in URL.": "يمكنك إستعمال \"\/\" في رابط ",
+    "Language url should be unique": "رابط اللغة يجب أن يكون مميز",
+    "This is a system directory name.": "هذا إسم الملف الخاص بنظام",
+    "RFC 4646 code": "كود RFC 4646",
+    "Language code should be unique": "كود اللغة يجب أن يكون مميز",
+    "Text direction": "وجهة النص",
+    "Left To Right": "من اليسار إلى اليمين",
+    "Right To Left": "من اليمين إلى اليسار",
+    "This language already exist.": "هذه اللغة موجودة من قبل",
+    "Can't delete the last language.": "لا يمكن حذف اللغة الأخيرة",
+    "Please set %s language url to non empty before moving other language to top.": "يرجى تحديد رابط اللغة %s إلى عدم الفراغ قبل القيام بنقل لغة أخرى نحوى الأعلى",
+    "Please set %s language url to non empty before moving it down.": "يرجى تحديد رابط اللغة %s إلى عدم الفراغ قبل القيام بنقل لغة أخرى نحوى الأسفل",
     "Email preview": "Email preview",
-    "Ok": "ÙÙØ§ÙÙ",
-    "Subject": "Ø§ÙÙÙØ¶ÙØ¹",
-    "Recipient name": "Ø¥Ø³Ù Ø§ÙÙØ±Ø³Ù Ø¥ÙÙÙ",
-    "Recipient email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙØ±Ø³Ù Ø¥ÙÙÙ",
-    "Sender name": "Ø¥Ø³Ù Ø§ÙÙØ±Ø³Ù",
-    "Sender email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙØ±Ø³Ù",
-    "Sent at": "ØªÙ Ø§ÙØ¥Ø±Ø³Ø§Ù ÙÙ",
-    "Attachment": "ÙÙÙØ§Øª ÙÙØ­ÙØ©",
-    "System": "Ø§ÙÙØ¸Ø§Ù",
-    "Website's URL seems to be changed": "ÙØ¨Ø¯Ù Ø±Ø§Ø¨Ø· Ø¹ÙÙØ§Ù Ø§ÙÙÙÙØ¹ ØªÙ ØªØºÙÙØ±Ù",
-    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "ÙÙØ¯ Ø§ÙØªØ´ÙÙØ§ Ø£Ù Ø±Ø§Ø¨Ø· Ø¹ÙÙØ§Ù Ø§ÙÙÙÙØ¹ ÙØ¯ ØªÙ ØªØºÙØ±Ù. ÙÙ ØªØ±ØºØ¨ ÙÙ ØªØ­Ø¯ÙØ« Ø±ÙØ§Ø¨Ø· ÙÙÙØ¹Ù ÙÙ %s Ø¥ÙÙ %s Ø",
-    "Update links": "ØªØ­Ø¯ÙØ« Ø§ÙØ±ÙØ§Ø¨Ø·",
-    "Database migrations": "ÙØ¬Ø±Ø© ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
-    "Your database is outdated.": "ÙÙØ¯ ØªØ¬Ø§ÙØ²Øª ÙØ§Ø¹Ø¯Ø© Ø¨ÙØ§ÙØ§Øª Ø§ÙÙÙÙØ¹ Ø§ÙÙØ³Ø§Ø­Ø© Ø§ÙÙØ³ÙÙØ­Ø© ÙÙØ§.",
-    "Update": "ØªØ­Ø¯ÙØ«",
+    "Ok": "موافق",
+    "Subject": "الموضوع",
+    "Recipient name": "إسم المرسل إليه",
+    "Recipient email": "البريد الإلكتروني للمرسل إليه",
+    "Sender name": "إسم المرسل",
+    "Sender email": "البريد الإلكتروني للمرسل",
+    "Sent at": "تم الإرسال في",
+    "Attachment": "ملفات ملحقة",
+    "System": "النظام",
+    "Website's URL seems to be changed": "يبدو رابط عنوان الموقع تم تغييره",
+    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "لقد اكتشفنا أن رابط عنوان الموقع قد تم تغيره. هل ترغب في تحديث روابط موقعك من %s إلى %s ؟",
+    "Update links": "تحديث الروابط",
+    "Database migrations": "هجرة قاعدة البيانات",
+    "Your database is outdated.": "لقد تجاوزت قاعدة بيانات الموقع المساحة المسموحة لها.",
+    "Update": "تحديث",
     "Trash": "Trash",
     "Trash contains %s deleted pages.": "Trash contains %s deleted pages.",
     "Recovery": "Recovery",
     "Empty": "Empty",
-    "System status": "ÙØ¶Ø¹ÙØ© Ø§ÙÙØ¸Ø§Ù",
-    "Update in progress": "ØªØªÙ Ø§ÙØ£Ù Ø¹ÙÙÙØ© Ø§ÙØªØ­Ø¯ÙØ« ",
+    "System status": "وضعية النظام",
+    "Update in progress": "تتم الأن عملية التحديث ",
     "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.": "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.",
     "Empty pages": "Empty pages",
     "Recovery pages": "Recovery pages",
-    "Content": "Ø§ÙÙØ­ØªÙÙ",
-    "Pages": "Ø§ÙØµÙØ­Ø§Øª",
-    "Design": "Ø§ÙØªØµÙÙÙ",
-    "Plugins": "Ø§ÙØ¥Ø¶Ø§ÙØ§Øª",
-    "Config": "Ø¥Ø¹Ø¯Ø§Ø¯",
-    "Languages": "Ø§ÙÙÙØºØ§Øª",
-    "ImpressPages has been successfully updated.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ­Ø¯ÙØ« Ø§ÙØ£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬ Ø¨ÙØ¬Ø§Ø­.",
-    "Links have been successfully updated.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ­Ø¯ÙØ« Ø§ÙØ±ÙØ§Ø¨Ø· Ø¨ÙØ¬Ø§Ø­.",
+    "Content": "المحتوى",
+    "Pages": "الصفحات",
+    "Design": "التصميم",
+    "Plugins": "الإضافات",
+    "Config": "إعداد",
+    "Languages": "الللغات",
+    "ImpressPages has been successfully updated.": "تمت عملية تحديث الأمبراس بايج بنجاح.",
+    "Links have been successfully updated.": "تمت عملية تحديث الروابط بنجاح.",
     "Forbidden file type.": "Forbidden file type.",
-    "Can't store uploaded file. Please check server configuration.": "ÙØ§ ÙÙÙÙ Ø­ÙØ¸ Ø§ÙÙÙÙØ§Øª Ø§ÙØªÙ ØªÙ Ø±ÙØ¹ÙØ§Ø ÙØ±Ø¬Ù ØªÙØ­Øµ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§ÙØ®Ø§Ø¯Ù",
-    "Are you sure you want to delete selected files?": "ÙÙ Ø£ÙØª ÙØªØ£ÙØ¯ ÙÙ Ø£ÙÙ ØªØ±ÙØ¯ Ø­Ø°Ù Ø§ÙÙÙÙØ§Øª Ø§ÙØªÙ ØªÙ Ø¥Ø®ØªÙØ§Ø±ÙØ§ Ø",
+    "Can't store uploaded file. Please check server configuration.": "لا يمكن حفظ الملفات التي تم رفعها، يرجى تفحص إعدادات الخادم",
+    "Are you sure you want to delete selected files?": "هل أنت متأكد من أنك تريد حذف الملفات التي تم إختيارها ؟",
     "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Some of the selected files are still used somewhere on your website. Do you still want to remove them?",
-    "Drag&drop files here or click a button to upload.": "Ø¥Ø³Ø­Ø¨ Ù ÙÙØ¦ ÙÙÙØ§ØªÙ ÙÙØ§ Ø£Ù Ø£ÙÙØ± Ø¹ÙÙ Ø§ÙØ²Ø± ÙÙ Ø£Ø¬Ù Ø±ÙØ¹",
-    "Need more images? Browse and choose from thousands of them.": "ÙÙ ØªØ±ÙØ¯ Ø§ÙÙØ²ÙØ¯ ÙÙ Ø§ÙØµÙØ± Ø ØªØµÙØ­ ÙØ¥Ø®ØªØ± ÙÙ Ø¨ÙÙ Ø£ÙØ§Ù Ø§ÙØµÙØ±",
-    "Buy images": "Ø´Ø±Ø§Ø¡ ØµÙØ±",
+    "Drag&drop files here or click a button to upload.": "إسحب و ملئ ملفاتك هنا أو أنقر على الزر من أجل رفع",
+    "Need more images? Browse and choose from thousands of them.": "هل تريد المزيد من الصور ؟ تصفح وإختر من بين ألاف الصور",
+    "Buy images": "شراء صور",
     "File repository": "File repository",
-    "Search by filename": "Ø§ÙØ¨Ø­Ø« Ø¹Ù Ø·Ø±ÙÙ Ø¥Ø³Ù Ø§ÙÙÙÙ",
-    "Recent files": "Ø¢Ø®Ø± Ø§ÙÙÙÙØ§Øª",
+    "Search by filename": "البحث عن طريق إسم الملف",
+    "Recent files": "آخر الملفات",
     "You have no right to browse the repository": "You have no right to browse the repository",
-    "Selected:": "ØªÙ Ø¥Ø®ØªÙØ§Ø± :",
-    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "ÙÙØ¯ ØªÙ Ø¨Ø¯Ø£ Ø±ÙØ¹ ØµÙØ±Ù Ø¥ÙÙ Ø§ÙÙÙÙØ¹ Ø ÙØ¯ ÙØ£Ø®Ø° Ø°ÙÙ Ø¨Ø¹Ø¶ ÙÙ Ø§ÙÙÙØª ÙÙØ¥ÙØªÙØ§Ø¡Ø ÙÙØ±Ø¬Ù Ø§ÙØ¥ÙØªØ¸Ø§Ø±.",
-    "Deactivate": "ØªØ¹Ø·ÙÙ",
-    "Activate": "ØªØ´ØºÙÙ",
+    "Selected:": "تم إختيار :",
+    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "لقد تم بدأ رفع صورك إلى الموقع ، قد يأخذ ذلك بعض من الوقت للإنتهاء، فيرجى الإنتظار.",
+    "Deactivate": "تعطيل",
+    "Activate": "تشغيل",
     "Author": "Author",
-    "Name": "Ø§ÙØ¥Ø³Ù ",
+    "Name": "الإسم ",
     "Version": "Version",
     "My Plugins": "My Plugins",
     "This action will remove plugin's files and database records. Do you want to proceed.?": "This action will remove plugin's files and database records. Do you want to proceed.?",
     "Validation failed": "Validation failed",
     "Directory is not writable. Please check your email and install the plugin manually.": "Directory is not writable. Please check your email and install the plugin manually.",
-    "Download failed: invalid parameters": "ÙØ´Ù ØªØ­ÙÙÙ : Ø®ØµØ§Ø¦Øµ ØºÙØ± ØµØ§ÙØ­Ø©",
-    "Unknown error. Please see logs.": "Ø®Ø·Ø£ ØºÙØ± ÙØ¹Ø±ÙÙ. ÙØ±Ø¬Ù Ø§ÙØ§Ø·ÙØ§Ø¹ Ø¹ÙÙ Ø§ÙØ³Ø¬ÙØ§Øª.",
+    "Download failed: invalid parameters": "فشل تحميل : خصائص غير صالحة",
+    "Unknown error. Please see logs.": "خطأ غير معروف. يرجى الاطلاع على السجلات.",
     "Inactive": "Inactive",
     "Active": "Active",
-    "Edit logo": "ØªØºÙÙØ± Ø´Ø¹Ø§Ø±",
-    "Image logo": "ØµÙØ±Ø±Ø© Ø´Ø¹Ø§Ø±",
-    "Default": "ÙÙØ§Ø³Ù",
-    "Apply to": "ÙÙØªØ·Ø¨ÙÙ Ø¹ÙÙ",
-    "Remove this image": "Ø¥Ø­Ø°Ù ÙØ°Ù Ø§ÙØµÙØ±Ø©",
-    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "ÙØ§ ÙÙØ¬Ø¯ Ø¥Ø®ØªÙØ§Ø±Ø§Øª ÙØªØ±Ø§Ø¬Ø¹ Ø¹Ù ÙØ°Ù Ø§ÙØ¹ÙÙÙØ©. Ø§ÙØµÙØ­Ø© Ø§ÙØ£Ù ÙÙØµÙØ±Ø© Ø£Ù Ø§ÙØµÙØ­Ø© Ø§ÙÙÙØ§Ø³ÙØ© Ø³ÙØªÙ ØªØ·Ø¨ÙÙÙØ§ Ø¹ÙÙ ÙØ°Ù Ø§ÙØµÙØ­Ø©Ø ÙÙ ØªØ±ÙØ¯ Ø¥ØªÙØ§Ù Ø§ÙØ¹ÙÙÙØ©.",
-    "Current page and sub-pages": "Ø§ÙØµÙØ­Ø© Ø§ÙØ­Ø§ÙÙØ© Ù Ø§ÙØµÙØ­Ø§Øª Ø§ÙÙØ±Ø¹ÙØ©",
-    "Page \"[[page]]\" and all sub-pages": "Ø§ÙØµÙØ­Ø© \"[[page]]\" Ù Ø¬ÙÙØ¹ Ø§ÙØµÙØ­Ø§Øª Ø§ÙÙØ±Ø¹ÙØ©",
-    "All [[language]] pages": "Ø¬ÙÙØ¹ ØµÙØ­Ø§Øª Ø§ÙÙØºØ© [[language]] ",
-    "All pages": "Ø¬ÙÙØ¹ ØµÙØ­Ø§Øª",
+    "Edit logo": "تغيير شعار",
+    "Image logo": "صوررة شعار",
+    "Default": "قياسي",
+    "Apply to": "للتطبيق على",
+    "Remove this image": "إحذف هذه الصورة",
+    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "لا يوجد إختيارات لتراجع عن هذه العملية. الصفحة الأم للصورة أو الصفحة القياسية سيتم تطبيقها على هذه الصفحة، هل تريد إتمام العملية.",
+    "Current page and sub-pages": "الصفحة الحالية و الصفحات الفرعية",
+    "Page \"[[page]]\" and all sub-pages": "الصفحة \"[[page]]\" و جميع الصفحات الفرعية",
+    "All [[language]] pages": "جميع صفحات اللغة [[language]] ",
+    "All pages": "جميع صفحات",
     "Are you sure you want to delete all log records?": "Are you sure you want to delete all log records?",
     "Clear all": "Clear all",
-    "Time": "Ø§ÙØ²ÙÙ",
-    "Message": "Ø§ÙØ±Ø³Ø§ÙØ©",
-    "Context": "Ø§ÙØ³ÙØ§Ù",
-    "Add new page": "Ø£Ø¶Ù ÙØºØ© Ø¬Ø¯ÙØ¯Ø©",
-    "Page properties": "Ø®ØµØ§Ø¦Øµ Ø§ÙØµÙØ­Ø©",
-    "Edit Content": "ØªØ­Ø±ÙØ± Ø§ÙÙØ­ØªÙÙ ",
-    "Add new menu": "Ø¥Ø¶Ø§ÙØ© ÙØ§Ø¦ÙØ© Ø¬Ø¯ÙØ¯Ø©",
-    "Cut": "ÙØµ",
-    "Copy": "ÙØ³Ø®",
-    "Paste": "ÙØµÙ",
-    "Update menu": "ØªØ­Ø¯ÙØ« Ø§ÙÙØ§Ø¦ÙØ©",
+    "Time": "الزمن",
+    "Message": "الرسالة",
+    "Context": "السياق",
+    "Add new page": "أضف لغة جديدة",
+    "Page properties": "خصائص الصفحة",
+    "Edit Content": "تحرير المحتوى ",
+    "Add new menu": "إضافة قائمة جديدة",
+    "Cut": "قص",
+    "Copy": "نسخ",
+    "Paste": "لصق",
+    "Update menu": "تحديث القائمة",
     "All pages inside this menu will be deleted. Are you sure you want to delete?": "All pages inside this menu will be deleted. Are you sure you want to delete?",
     "Are you sure?": "Are you sure?",
-    "Incorrect date format. Example:": "ØªÙØ³ÙÙ Ø§ÙØªØ§Ø±ÙØ® Ø®Ø§Ø·Ø¦",
+    "Incorrect date format. Example:": "تنسيق التاريخ خاطئ",
     "This alias is already occupied": "This alias is already occupied",
-    "Untitled": "ÙÙ Ø¯ÙÙ Ø¹ÙÙØ§Ù",
-    "Menu name (used in PHP code)": "Ø¥Ø³Ù Ø§ÙÙØ§Ø¦ÙØ© (ÙØªØ¹ÙÙØ© Ø¨Ø§ÙØ¨Ø±ÙØ¬Ø©)",
-    "Layout": "Ø§ÙÙÙÙØ°Ø¬",
-    "Tree (for menu)": "Ø¹ÙÙ Ø´ÙÙ ÙØªÙØ±Ø¹ (Ø®Ø§Øµ Ø¨ÙØ§Ø¦ÙØ© Ø§ÙØªØµÙØ­)",
-    "List (for blogs)": "Ø¹ÙÙ Ø´ÙÙ ÙØ§Ø¦Ø­Ø© (Ø®Ø§ØµØ© Ø¨Ø§ÙÙØ¯ÙÙØ©)",
-    "Type": "Ø§ÙØµÙÙ",
-    "URL path": "Ø·Ø±ÙÙ Ø§ÙØ±Ø§Ø¨Ø·",
-    "Seo": "ØªÙÙØ¦Ø© Ø§ÙÙÙØ§ÙØ¹ ÙÙØ­Ø±ÙØ§Øª Ø§ÙØ¨Ø­Ø«",
-    "Meta title": "Ø¹ÙÙØ§Ù Ø§ÙØµÙØ­Ø© ",
-    "Keywords": "Ø§ÙÙÙÙØ§Øª Ø§ÙÙÙØªØ§Ø­ÙØ©",
-    "Other": "Ø£Ø®Ø±Ù",
-    "Redirect": "Ø¥Ø¹Ø§Ø¯Ø© Ø¥Ø±Ø³Ø§Ù",
-    "Disabled": "ÙØ¹Ø·Ù",
+    "Untitled": "من دون عنوان",
+    "Menu name (used in PHP code)": "إسم القائمة (متعلقة بالبرمجة)",
+    "Layout": "النموذج",
+    "Tree (for menu)": "على شكل متفرع (خاص بقائمة التصفح)",
+    "List (for blogs)": "على شكل لائحة (خاصة بالمدونة)",
+    "Type": "الصنف",
+    "URL path": "طريق الرابط",
+    "Seo": "تهيئة المواقع لمحركات البحث",
+    "Meta title": "عنوان الصفحة ",
+    "Keywords": "الكلمات المفتاحية",
+    "Other": "أخرى",
+    "Redirect": "إعادة إرسال",
+    "Disabled": "معطل",
     "Won't be clickable in menu if selected.": "Won't be clickable in menu if selected.",
-    "Secured": "ÙØ¤ÙÙ",
+    "Secured": "مؤمن",
     "Won't be accessible to view even knowing the URL.": "Won't be accessible to view even knowing the URL.",
     "Alias (used in code)": "Alias (used in code)",
-    "Created on": "ØªÙ Ø§ÙØ¥ÙØ´Ø§Ø¡ ÙÙ",
+    "Created on": "تم الإنشاء في",
     "Updated on": "Updated on",
     "Top": "Top",
     "Above selected": "Above selected",
@@ -250,32 +250,32 @@
     "Bottom": "Bottom",
     "Position": "Position",
     "Saving...": "Saving...",
-    "Theme options": "Ø®ÙØ§Ø±Ø§Øª Ø§ÙØªØµÙÙÙ",
-    "Reload preview": "Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙÙØ¹Ø§ÙÙØ©",
-    "Preview defaults": "Ø§ÙÙØ¹Ø§ÙÙØ© ØªÙÙØ§Ø¦ÙØ©",
-    "My theme": "Ø§ÙØªØµÙÙÙ Ø§ÙØ­Ø§ÙÙ",
-    "Available plugins": "Ø§ÙØ¥Ø¶Ø§ÙØ§Øª Ø§ÙÙØªÙÙØ±Ø©",
-    "Install": "ØªØ«Ø¨ÙØª",
-    "Marketplace": "ÙØ±ÙØ² Ø§ÙØªØ³ÙÙ",
-    "Want a new look? Search for a new theme.": "ÙØ§ ÙÙ Ø¢Ø®Ø± Ø§ÙÙÙØ¶Ø§Øª Ø Ø¥Ø¨Ø­Ø« Ø¹Ù ØªØµÙÙÙ Ø¬Ø¯ÙØ¯",
-    "Browse themes": "ØªØµÙØ­ Ø§ÙØµØ§ÙÙÙ",
-    "Local themes": "Ø§ÙØªØµØ§ÙÙÙ Ø§ÙÙØ­ÙÙØ©",
-    "Back to Design": "Ø§ÙØ±Ø¬ÙØ¹ Ø¥ÙÙ Ø§ÙØªØµÙÙÙ",
-    "Close": "Ø¥ØºÙØ§Ù",
-    "General options": "Ø®ÙØ§Ø±Ø§Øª Ø¹Ø§ÙØ©",
-    "Manage content": "ØªØ³ÙÙØ± Ø§ÙÙØ­ØªÙÙ",
-    "Plugin has been successfully installed.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ«Ø¨ÙØª Ø§ÙØ¥Ø¶Ø§ÙØ© Ø¨ÙØ¬Ø§Ø­.",
-    "Directory is not writable. Please check your email and install the theme manually.": "Ø¯ÙÙÙ Ø§ÙÙÙÙØ§Øª ØºÙØ± ÙØ§Ø¨Ù ÙÙÙØªØ§Ø¨Ø©. ÙØ±Ø¬Ù Ø§ÙØªØ­ÙÙ ÙÙ Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ Ø§ÙØ®Ø§Øµ Ø¨Ù ÙØªØ«Ø¨ÙØª ÙØ§ÙØ¨ Ø§ÙØªØµÙÙÙ ÙØ¯ÙÙØ§.",
-    "Configuration": "Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª",
+    "Theme options": "خيارات التصميم",
+    "Reload preview": "إعادة تحميل المعاينة",
+    "Preview defaults": "المعاينة تلقائية",
+    "My theme": "التصميم الحالي",
+    "Available plugins": "الإضافات المتوفرة",
+    "Install": "تثبيت",
+    "Marketplace": "مركز التسوق",
+    "Want a new look? Search for a new theme.": "ما هي آخر الومضات ؟ إبحث عن تصميم جديد",
+    "Browse themes": "تصفح الصاميم",
+    "Local themes": "التصاميم المحلية",
+    "Back to Design": "الرجوع إلى التصميم",
+    "Close": "إغلاق",
+    "General options": "خيارات عامة",
+    "Manage content": "تسيير المحتوى",
+    "Plugin has been successfully installed.": "تمت عملية تثبيت الإضافة بنجاح.",
+    "Directory is not writable. Please check your email and install the theme manually.": "دليل الملفات غير قابل للكتابة. يرجى التحقق من البريد الإلكتروني الخاص بك وتثبيت قالب التصميم يدويا.",
+    "Configuration": "الإعدادات",
     "Advanced options": "Advanced options",
-    "Website title": "Ø¥Ø³Ù Ø§ÙÙÙÙØ¹",
-    "Used as a sender name in emails and as default website logo.": "Ø¥Ø³ØªØ®Ø¯Ø§Ù ÙØ¥Ø³Ù Ø§ÙÙØ±Ø³Ù ÙÙ Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙØ°Ø§ ÙØ´Ø¹Ø§Ø± ØªÙÙØ§Ø¦Ù ÙÙÙÙÙØ¹.",
-    "Website email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙÙÙØ¹",
-    "Email address used as a sender to send emails on behalf of the website.": "Ø¥Ø³ØªØ®Ø¯Ø§Ù Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙØ¥Ø³Ù Ø§ÙÙØ±Ø³Ù  ÙÙØ¥Ø±Ø³Ø§Ù Ø§ÙØ±Ø³Ø§Ø¦Ù Ø§ÙØ¥ÙÙØªØ±ÙÙÙØ© Ø¨Ø¥Ø³Ù Ø§ÙÙÙÙØ¹.",
-    "Execute cron automatically": "ØªÙÙÙØ° ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ØªÙÙØ§Ø¦ÙØ§",
-    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "Ø£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬ ÙÙÙÙ Ø¨ØªÙÙÙØ° ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ÙØ±Ø© ÙØ§Ø­Ø¯Ø© ÙÙ ÙÙ Ø³Ø§Ø¹Ø© Ø¨Ø´ÙÙ Ø¹Ø´ÙØ§Ø¦Ù ÙÙØ°Ø§ Ø¨Ø¥Ø®ØªÙØ§Ø± ØµÙØ­Ø© ÙØªÙ Ø²ÙØ§Ø±ØªÙØ§ Ø®ÙØ§Ù ÙØ±Ø­Ø§Ø© ØªØ­ÙÙÙÙØ§. ÙÙ ÙÙØª Ø¨ØªØ«Ø¨ÙØª ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ Ø¨Ø´Ù ÙØ¯ÙÙ Ø ÙÙÙÙÙ ØªØ¹Ø·ÙÙ ØªÙÙØ§Ø¦ÙØ© ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ. ",
-    "Cron password": "ÙÙÙØ© Ø³Ø± ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ",
-    "Protect cron from being abusively executed by the strangers.": "Ø­ÙØ§ÙØ© ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ÙÙ Ø¹Ø¨Ø« Ø§ÙØºØ±Ø¨Ø§Ø¡.",
+    "Website title": "إسم الموقع",
+    "Used as a sender name in emails and as default website logo.": "إستخدام كإسم المرسل في البريد الإلكتروني وكذا كشعار تلقائي للموقع.",
+    "Website email": "البريد الإلكتروني للموقع",
+    "Email address used as a sender to send emails on behalf of the website.": "إستخدام البريد الإلكتروني كإسم المرسل  للإرسال الرسائل الإلكترونية بإسم الموقع.",
+    "Execute cron automatically": "تنفيذ تطبيق الكرون تلقائيا",
+    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "أمبراس بايج يقوم بتنفيذ تطبيق الكرون مرة واحدة في كل ساعة بشكل عشوائي وهذا بإختيار صفحة يتم زيارتها خلال مرحاة تحميلها. هل قمت بتثبيت تطبيق الكرون بشل يدوي ، يمكنك تعطيل تلقائية تطبيق الكرون. ",
+    "Cron password": "كلمة سر تطبيق الكرون",
+    "Protect cron from being abusively executed by the strangers.": "حماية تطبيق الكرون من عبث الغرباء.",
     "Cron URL: ": "Cron URL:",
     "Remove old emails from the log": "Remove old emails from the log",
     "Days to keep emails": "Days to keep emails",
@@ -285,30 +285,30 @@
     "Meaningful only if \"Remove old page revisions\" is on.": "Meaningful only if \"Remove old page revisions\" is on.",
     "Allow anonymous uploads": "Allow anonymous uploads",
     "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.": "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.",
-    "Following administrator doesn't exist": "Ø§ÙÙØ´Ø±Ù Ø§ÙÙØ·ÙÙØ¨ ØºÙØ± ÙÙØ¬ÙØ¯",
-    "You have exceeded failed login attempts.": "ÙÙØ¯ ØªØ¬Ø§ÙØ²Øª Ø§ÙÙØ±Øµ Ø§ÙÙØªØ§Ø­Ø© ÙØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ",
-    "Logout": "ØªØ³Ø¬ÙÙ Ø§ÙØ®Ø±ÙØ¬",
-    "Password reset": "Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø³Ø±",
-    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": " Ø³ØªÙÙÙ Ø¨Ø¥Ø³ØªÙØ§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ÙÙÙ Ø±Ø§Ø¨Ø· ÙØ¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±. ÙØ±Ø¬Ù Ø¸ØºØ· Ø¹ÙÙ Ø±Ø§Ø¨Ø· Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
-    "Login": "ØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ",
-    "Reset password": "Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±",
-    "Please enter your new password": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
-    "Your password has been changed.": "ÙÙØ¯ ØªÙ ØªØºÙÙØ± ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ®Ø§ØµØ© Ø¨Ù.",
-    "Menu": "Ø§ÙÙØ§Ø¦ÙØ©",
+    "Following administrator doesn't exist": "المشرف المطلوب غير موجود",
+    "You have exceeded failed login attempts.": "لقد تجاوزت الفرص المتاحة لتسجيل الدخول",
+    "Logout": "تسجيل الخروج",
+    "Password reset": "إعادة كلمة سر",
+    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": " ستقوم بإستلام بريد إلكتروني فيه رابط لإعادة كلمة السر. يرجى ظغط على رابط و إدخال كلمة السر الجديدة",
+    "Login": "تسجيل الدخول",
+    "Reset password": "إعادة كلمة السر",
+    "Please enter your new password": "يرجى إدخال كلمة السر الجديدة",
+    "Your password has been changed.": "لقد تم تغيير كلمة السر الخاصة بك.",
+    "Menu": "القائمة",
     "Important Account Information": "Important Account Information",
     "Your user credentials were automatically generated.": "Your user credentials were automatically generated.",
     "You were automatically logged in with the following details.": "You were automatically logged in with the following details.",
     "URL to log in": "URL to log in",
     "Administrator username": "Administrator username",
-    "Administrator password": "ÙÙÙØ© Ø³Ø± Ø§ÙÙØ´Ø±Ù",
+    "Administrator password": "كلمة سر المشرف",
     "Administrator email": "Administrator email",
     "Change credentials": "Change credentials",
     "Yes, I understand how to log in next time": "Yes, I understand how to log in next time",
-    "Following user doesn't exist": "Ø§ÙÙØ³ØªØ®Ø¯Ù Ø§ÙÙØ·ÙÙØ¨ ØºÙØ± ÙÙØ¬ÙØ¯",
-    "Incorrect password": "ÙÙÙØ© Ø³Ø± ØºÙØ± ØµØ­ÙØ­Ø©",
-    "Username or email": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù Ø£Ù Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ",
-    "Reset": "Ø¥Ø¹Ø§Ø¯Ø©",
-    "New password": "ÙÙÙØ© Ø³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
-    "OK": "ÙÙØ§ÙÙ",
-    "Possible CSRF attack. Please pass correct securityToken.": "Ø¥ÙÙØ§ÙÙØ© ÙØ¬ÙØ¯ ÙØ¬ÙÙ ÙÙ ÙÙØ¹ÙØ© CSRF . ÙØ±Ø¬Ù ØªÙØ±ÙØ± Ø±ÙØ² Ø§ÙØ£ÙØ§Ù  Ø§ÙØµØ­ÙØ­."
+    "Following user doesn't exist": "المستخدم المطلوب غير موجود",
+    "Incorrect password": "كلمة سر غير صحيحة",
+    "Username or email": "إسم المستخدم أو البريد الإلكتروني",
+    "Reset": "إعادة",
+    "New password": "كلمة سر الجديدة",
+    "OK": "موافق",
+    "Possible CSRF attack. Please pass correct securityToken.": "إمكانية وجود هجوم من نوعية CSRF . يرجى تمرير رمز الأمان  الصحيح."
 }

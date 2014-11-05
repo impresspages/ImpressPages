@@ -1,36 +1,36 @@
 {
-    "The characters you entered didn't match": "Ø§ÙØ­Ø±ÙÙ Ø§ÙØªÙ Ø£Ø¯Ø®ÙØªÙØ§ ÙØ§ ØªØªØ´Ø§Ø¨Ù",
-    "Upload": "Ø±ÙØ¹",
+    "The characters you entered didn't match": "الحروف التي أدخلتها لا تتشابه",
+    "Upload": "رفع",
     "Integer required": "Integer required",
-    "Confirm": "ØªØ£ÙÙØ¯",
-    "Cancel": "Ø¥ÙØºØ§Ø¡",
-    "Incorrect color code": "Ø±ÙÙ ÙÙÙ Ø®Ø§Ø·Ø¦",
-    "Session has ended. Please remove and re-upload files.": "ÙÙØ¯ Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø­Ø°Ù ÙØ¥Ø¹Ø§Ø¯Ø© Ø±ÙØ¹ Ø§ÙÙÙÙØ§Øª",
+    "Confirm": "تأكيد",
+    "Cancel": "إلغاء",
+    "Incorrect color code": "رقم لون خاطئ",
+    "Session has ended. Please remove and re-upload files.": "لقد إنتهت صلاحية الدورة , يرجى حذف وإعادة رفع الملفات",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
-    "Form security check has failed. Please refresh the page.": "Ø®Ø§ÙØ© Ø§ÙØ£ÙØ§Ù ØºÙØ± ØµØ­ÙØ­Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
-    "Please enter a valid email address.": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
-    "Session has expired. Please refresh the page.": "Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
-    "Must be a number.": "ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ© Ø¹Ø¯Ø¯ÙØ©",
-    "The value should be unique": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ²Ø©",
-    "Please correct this value": "ÙØ±Ø¬Ù ØªØµØ­ÙØ­ ÙØ°Ù Ø§ÙÙØ§Ø¯Ø©",
-    "Required field": "Ø®Ø§ÙØ© ÙØ·ÙÙØ¨Ø©",
-    "The value can't be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ÙØ§ ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ",
-    "The value has to be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ :",
-    "Error 404": "Ø§ÙØ®Ø·Ø§Ø¡ 404",
+    "Form security check has failed. Please refresh the page.": "خانة الأمان غير صحيحة , يرجى إعادة تحميل الصفحة",
+    "Please enter a valid email address.": "يرجى إدخال بريد إلكتروني صحيح",
+    "Session has expired. Please refresh the page.": "إنتهت صلاحية الدورة , يرجى إعادة تحميل الصفحة",
+    "Must be a number.": "يجب أن تكون قيمة عددية",
+    "The value should be unique": "القيمة يجب أن تكون مميزة",
+    "Please correct this value": "يرجى تصحيح هذه المادة",
+    "Required field": "خانة مطلوبة",
+    "The value can't be one of:": "القيمة يجب أن لا تكون واحدة من بين",
+    "The value has to be one of:": "القيمة يجب أن تكون واحدة من بين :",
+    "Error 404": "الخطاء 404",
     "Config.error_mistyped_url": "Config.error_mistyped_url",
     "Config.error_broken_link_inside": "Config.error_broken_link_inside",
     "Config.error_broken_link_outside": "Config.error_broken_link_outside",
-    "Name": "Ø§ÙØ¥Ø³Ù ",
-    "Email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ",
-    "Text": "Ø§ÙÙØµ",
+    "Name": "الإسم ",
+    "Email": "البريد الإلكتروني",
+    "Text": "النص",
     "Thank You": "Thank You",
-    "Send": "Ø¥Ø±Ø³ÙÙØ§Ù",
-    "Please enter a valid email address": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
-    "Please enter a valid numeric value": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø±ÙÙÙØ© ØµØ­ÙØ­Ø©",
-    "Please enter a valid URL": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø±Ø§Ø¨Ø· ØµØ­ÙØ­",
-    "Please enter a value no larger than $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© ÙØ§ ØªØªØ¹Ø¯Ù $1",
-    "Please enter a value of at least $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø¹ÙÙ Ø§ÙØ£ÙÙ  $1",
-    "Please complete this mandatory field": "ÙØ±Ø¬Ù Ø¥ÙÙØ§Ù ÙÙØ¦ Ø§ÙØ®Ø§ÙØ§Øª Ø§ÙØ¥Ø¬Ø¨Ø§Ø±ÙØ©",
+    "Send": "إرســال",
+    "Please enter a valid email address": "يرجى إدخال بريد إلكتروني صحيح",
+    "Please enter a valid numeric value": "يرجى إدخال قيمة رقمية صحيحة",
+    "Please enter a valid URL": "يرجى إدخال رابط صحيح",
+    "Please enter a value no larger than $1": "يرجى إدخال قيمة لا تتعدى $1",
+    "Please enter a value of at least $1": "يرجى إدخال قيمة على الأقل  $1",
+    "Please complete this mandatory field": "يرجى إكمال ملئ الخانات الإجبارية",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Ø§ÙØµÙØ­Ø© Ø§ÙØ±Ø¦ÙØ³ÙØ©"
+    "Home": "الصفحة الرئيسية"
 }

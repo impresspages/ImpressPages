@@ -1,6 +1,6 @@
 {
-    "ImpressPages installation wizard": "Ø¹ÙÙÙØ© ØªØ«Ø¨ÙØª Ø§ÙØ£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬",
-    "Version %s": "Ø§ÙØ¥ØµØ¯Ø§Ø± %",
+    "ImpressPages installation wizard": "عملية تثبيت الأمبراس بايج",
+    "Version %s": "الإصدار %",
     "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>",
     "Apache or Nginx required": "Apache or Nginx required",
     "Nginx configuration required": "Nginx configuration required",
@@ -8,53 +8,53 @@
     "PHP module \"PDO\"": "PHP module \"PDO\"",
     "GD Graphics Library": "GD Graphics Library",
     "PHP sessions": "PHP sessions",
-    "index.html removed": "Ø­Ø°Ù index.html",
+    "index.html removed": "حذف index.html",
     "Magic quotes off (optional)": "Magic quotes off (optional)",
     "Apache module \"mod_rewrite\"": "Apache module \"mod_rewrite\"",
     ".htaccess file": ".htaccess file",
     "PHP module \"Curl\"": "PHP module \"Curl\"",
     "PHP memory limit (%s)": "PHP memory limit (%s)",
-    "writable": "ÙÙÙØªØ§Ø¨Ø©",
-    "(including subfolders and files)": "(Ø¨ÙØ§ ÙÙ Ø°ÙÙ Ø§ÙÙØ¬ÙØ¯Ø§Øª Ø§ÙÙØ±Ø¹ÙØ© ÙØ§ÙÙØ«Ø§Ø¦Ù)",
+    "writable": "للكتابة",
+    "(including subfolders and files)": "(بما في ذلك المجلدات الفرعية والوثائق)",
     "writable (including subfolders and files)": "writable (including subfolders and files)",
     "Please remove content from %s file.": "Please remove content from %s file.",
-    "Please enter website name.": "ÙØ±Ø¬Ù  Ø¥Ø¯Ø®Ø§Ù Ø¥Ø³Ù Ø§ÙÙÙÙØ¹",
-    "Please enter correct website email.": "ÙØ±Ø¬Ù  Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙØ§ ØµØ­ÙØ­Ø§ ÙÙÙÙÙØ¹ ",
-    "Please choose website time zone.": "Ø¥Ø®ØªØ± Ø§ÙØªÙÙÙØª Ø§ÙØ²ÙÙÙ ÙÙÙÙÙØ¹",
-    "Please correct errors.": "ÙØ±Ø¬Ù ØªØµØ­ÙØ­ Ø§ÙØ£Ø®Ø·Ø§Ø¡.",
-    "Please fill in required fields.": "ÙØ±Ø¬Ù ÙÙØ¦ ÙÙ Ø§ÙØ®Ø§ÙØ§Øª Ø§ÙÙØ·ÙÙØ¨Ø©",
-    "Prefix can't be longer than 7 symbols.": "Ø§ÙØ¥Ø³Ù Ø§ÙÙØ¨ÙÙ ÙØ§ ÙØ³ØªØ·ÙØ¹ Ø£Ù ÙÙÙÙ Ø£ÙØ«Ø± ÙÙ 7 Ø­Ø±ÙÙ",
-    "Prefix can't contain any special characters and should start with a letter.": "Ø§ÙØ¥Ø³Ù Ø§ÙÙØ¨ÙÙ ÙØ§ ÙÙÙÙ Ø£Ù ÙØ­ØªÙÙ Ø¹ÙÙ Ø£Ù Ø±ÙØ² Ø®Ø§Øµ ÙÙØ¬Ø¨ Ø£Ù ÙØ¨Ø¯Ø£Ø¨Ø­Ø±Ù",
-    "Can't connect to database.": "Ø§Ø¥ØªØµØ§Ù Ø¨ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª ØºÙØ± ÙÙÙÙ",
-    "Specified database does not exists and cannot be created.": "ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª Ø§ÙÙØ·ÙÙØ¨Ø© ØºÙØ± ÙÙØ¬ÙØ¯Ø© ÙÙØ§ ÙÙÙÙ Ø¨ÙØ§Ø¦ÙØ§",
-    "Do you like to replace existing tables in the database?": "ÙÙ ØªØ±ÙØ¯ Ø¥Ø³ØªØ¨Ø¯Ø§Ù Ø§ÙØ¬Ø¯Ø§ÙÙ Ø§ÙÙÙØ¬ÙØ¯Ø© ÙÙ ÙØ§Ø¹Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
+    "Please enter website name.": "يرجى  إدخال إسم الموقع",
+    "Please enter correct website email.": "يرجى  إدخال بريد إلكترونيا صحيحا للموقع ",
+    "Please choose website time zone.": "إختر التوقيت الزمني للموقع",
+    "Please correct errors.": "يرجى تصحيح الأخطاء.",
+    "Please fill in required fields.": "يرجى ملئ كل الخانات المطلوبة",
+    "Prefix can't be longer than 7 symbols.": "الإسم القبلي لا يستطيع أن يكون أكثر من 7 حروف",
+    "Prefix can't contain any special characters and should start with a letter.": "الإسم القبلي لا يمكن أن يحتوي على أي رمز خاص ويجب أن يبدأبحرف",
+    "Can't connect to database.": "اإتصال بقاعدة البيانات غير ممكن",
+    "Specified database does not exists and cannot be created.": "قاعدة البيانات المطلوبة غير موجودة ولا يمكن بنائها",
+    "Do you like to replace existing tables in the database?": "هل تريد إستبدال الجداول الموجودة في قاعة البيانات",
     "There were errors while executing install queries. ": "There were errors while executing install queries.",
-    "Can't write configuration \"\/config.php\"": "ØªÙ Ø¥Ø³ØªØ­Ø§ÙØ© ÙØªØ§ÙØ© ÙÙÙ Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª  \"\/config.php\"",
-    "Database installation": "ØªØ«Ø¨ÙØª ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
-    "Database Host (eg. localhost or 127.0.0.1)": "Ø¹ÙÙØ§Ù ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª (ÙØ«Ø§Ù : localhost Ø£Ù 127.0.0.1)",
-    "User name": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù",
-    "User password": "ÙÙÙØ© Ø§ÙØ³Ø±",
-    "Database name": "Ø§Ø³Ù ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
-    "Table prefix (use underscore to separate prefix).": "Ø§Ø³Ù Ø§ÙÙØ¨ÙÙ ÙØ¬Ø¯ÙÙ Ø§ÙØ¨ÙØ§ÙØ§Øª (ÙØ¥Ø³ØªØ®Ø¯Ø§ÙÙ ÙØªÙØ±ÙÙ Ø¨ÙÙ Ø§ÙØ¬Ø¯Ø§ÙÙ Ø§ÙØ£Ø®Ø±Ù)",
-    "Next": "Ø§ÙØªØ§ÙÙ",
-    "Finished!": "ØªÙ Ø§ÙØ¥ÙØªÙØ§Ø¡",
-    "If you wish to repeat the installation, please clear the configuration file \"config.php\".": "Ø¥Ù Ø£Ø±Ø¯Ø¯Øª ØªØ«Ø¨ÙØª Ø§ÙÙÙÙØ¹ ÙÙ Ø¬Ø¯ÙØ¯ Ø ÙØ±Ø¬Ù ÙØ³Ø­ Ø¨ÙØ§ÙØ§Øª Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª ÙÙÙÙ config.php",
-    "ImpressPages has been successfully installed.": "ØªÙ ØªØ¨ÙØª Ø§ÙØ£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬ Ø¨ÙØ¬Ø§Ø­",
-    "Front page": "ÙØ¬ÙØ© Ø§ÙÙÙÙØ¹",
-    "Administration page": "Ø¥Ø¯Ø§Ø±Ø© Ø§ÙÙÙÙØ¹",
-    "System check": "ØªØ­ÙÙ ÙÙ Ø§ÙÙØ¸Ø§Ù",
-    "Ok": "ÙÙØ§ÙÙ",
-    "Warning": "ØªØ­Ø°ÙØ±",
-    "Error": "Ø®Ø·Ø§Ø¡",
-    "Check again": "ØªØ­ÙÙ ÙÙ Ø¬Ø¯ÙØ¯",
-    "Website configuration": "ØªÙÙÙÙ ÙØªÙÙØ¦Ø© Ø§ÙÙÙÙØ¹",
-    "Website name": "Ø¥Ø³Ù Ø§ÙÙÙÙØ¹",
-    "Website e-mail address": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙÙÙØ¹",
+    "Can't write configuration \"\/config.php\"": "تم إستحالة كتالة ملف الإعدادات  \"\/config.php\"",
+    "Database installation": "تثبيت قاعدة البيانات",
+    "Database Host (eg. localhost or 127.0.0.1)": "عنوان قاعدة البيانات (مثال : localhost أو 127.0.0.1)",
+    "User name": "إسم المستخدم",
+    "User password": "كلمة السر",
+    "Database name": "اسم قاعدة البيانات",
+    "Table prefix (use underscore to separate prefix).": "اسم القبلي لجدول البيانات (لإستخدامه لتفريق بين الجداول الأخرى)",
+    "Next": "التالي",
+    "Finished!": "تم الإنتهاء",
+    "If you wish to repeat the installation, please clear the configuration file \"config.php\".": "إن أرددت تثبيت الموقع من جديد ، يرجى مسح بيانات الإعدادات لملف config.php",
+    "ImpressPages has been successfully installed.": "تم تبيت الأمبراس بايج بنجاح",
+    "Front page": "وجهة الموقع",
+    "Administration page": "إدارة الموقع",
+    "System check": "تحقق من النظام",
+    "Ok": "موافق",
+    "Warning": "تحذير",
+    "Error": "خطاء",
+    "Check again": "تحقق من جديد",
+    "Website configuration": "تكوين وتهيئة الموقع",
+    "Website name": "إسم الموقع",
+    "Website e-mail address": "البريد الإلكتروني للموقع",
     "Time zone": "Time zone",
     "Get ImpressPages support and updates": "Get ImpressPages support and updates",
     "By proceeding you agree with <a href=\"#\" class=\"%s\">Terms of Use<\/a>.": "By proceeding you agree with <a href=\"#\" class=\"%s\">Terms of Use<\/a>.",
     "ImpressPages Terms of Use": "ImpressPages Terms of Use",
-    "Configuration": "Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª",
-    "Database": "ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
-    "Finish": "ØªÙ Ø§Ø¥ÙØªÙØ§Ø¡"
+    "Configuration": "الإعدادات",
+    "Database": "قاعدة البيانات",
+    "Finish": "تم اإنتهاء"
 }
