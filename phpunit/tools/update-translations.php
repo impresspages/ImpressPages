@@ -43,8 +43,6 @@ function updateDirTranslations($dir, $transifexSourceKey, $aliases = array()) {
         $json = json_decode($content, true);
         $data = json_decode($json['content'], true);
 
-        $data = array_map('utf8_encode', $data);
-
         $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 

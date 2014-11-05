@@ -1,247 +1,247 @@
 {
-    "The characters you entered didn't match": "Ú©Ø§Ø±Ø§Ú©ØªØ±ÙØ§ÛÛ Ú©Ù Ø´ÙØ§ ÙØ§Ø±Ø¯ ÙÙÙØ¯Ù Ø§ÛØ¯ ÛÚ©Ø³Ø§Ù ÙÛØ³ØªÙØ¯",
+    "The characters you entered didn't match": "کاراکترهایی که شما وارد نموده اید یکسان نیستند",
     "Integer required": "Integer required",
-    "Confirm": "ØªØ§Ø¦ÛØ¯",
-    "Cancel": "Ø±Ø¯",
-    "Incorrect color code": "Ú©Ø¯ Ø±ÙÚ¯ ØµØ­ÛØ­Û ÙÙÛ Ø¨Ø§Ø´Ø¯",
-    "Session has ended. Please remove and re-upload files.": "ÙÙØ¦Ø¯ ÙØ¬ÙØ² Ø³Ù¾Ø±Û Ø´Ø¯Ù Ø§Ø³Øª. ÙØ·ÙØ§ ÙØ§ÛÙ ÙØ§ Ø±Ø§ Ø­Ø°Ù ÙÙÙØ¯Ù Ù ÙØ¬Ø¯Ø¯ Ø§ÙØ¯Ø§Ù Ø¨Ù Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±Û Ø¢ÙÙØ§ ÙÙØ§Ø¦ÛØ¯.",
-    "Browse": "ÙØ±ÙØ±",
+    "Confirm": "تائید",
+    "Cancel": "رد",
+    "Incorrect color code": "کد رنگ صحیحی نمی باشد",
+    "Session has ended. Please remove and re-upload files.": "موئد مجوز سپری شده است. لطفا فایل ها را حذف نموده و مجدد اقدام به بارگذاری آنها نمائید.",
+    "Browse": "مرور",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
-    "Select": "Ø§ÙØªØ®Ø§Ø¨",
+    "Select": "انتخاب",
     "Upload": "Upload",
-    "Form security check has failed. Please refresh the page.": "Ø¨Ø±Ø±Ø³Û Ø§ÙÙÛØª ÙØ±Ù Ø­Ø§ØµÙ ÙØ´Ø¯. ÙØ·ÙØ§ ØµÙØ­Ù Ø±Ø§ ÙØ¬Ø¯Ø¯Ø§ Ø¨Ø§Ø±Ú¯ÛØ±Û ÙÙØ§Ø¦ÛØ¯.",
-    "Please enter a valid email address.": "ÙØ·ÙØ§ Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ ÙØ¹ØªØ¨Ø±Û ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯.",
-    "Session has expired. Please refresh the page.": "ÙÙØ¦Ø¯ ÙØ¬ÙØ² Ø³Ù¾Ø±Û Ø´Ø¯Ù Ø§Ø³Øª. ÙØ·ÙØ§ ØµÙØ­Ù Ø±Ø§ ÙØ¬Ø¯Ø¯Ø§ Ø¨Ø§Ø±Ú¯ÛØ±Û ÙÙØ§Ø¦ÛØ¯.",
-    "Must be a number.": "Ø§ÛÙ Ø¨Ø§ÛØ¯ ÛÚ© Ø¹Ø¯Ø¯ Ø¨Ø§Ø´Ø¯.",
-    "The value should be unique": "Ø§ÛÙ ÙÙØ¯Ø§Ø± Ø¨Ø§ÛØ¯ ÙÙØ­ØµØ± Ø¨Ù ÙØ±Ø¯ Ø¨Ø§Ø´Ø¯",
-    "Please correct this value": "ÙØ·ÙØ§ ÙÙØ¯Ø§Ø± Ø§ÛÙ ÙÛÙØ¯ Ø±Ø§ ØªØµØ­ÛØ­ ÙÙØ§Ø¦ÛØ¯",
-    "Required field": "ÙÛÙØ¯ Ø§ÙØ²Ø§ÙÛ",
-    "The value can't be one of:": "ÙÙØ¯Ø§Ø± Ø§ÙØªØ®Ø§Ø¨Û ÙÙÛ ØªÙØ§ÙØ¯ ÛÚ©Û Ø§Ø² Ø§ÛÙ ÙÙØ§Ø¯ÛØ± Ø¯Ø§Ø¯Ù Ø´Ø¯Ù Ø¨Ø§Ø´Ø¯:",
-    "The value has to be one of:": "ÙÙØ¯Ø§Ø± Ø§ÙØªØ®Ø§Ø¨Û Ø¨Ø§ÛØ¯ ÛÚ©Û Ø§Ø² ÙÙØ§Ø¯ÛØ± Ø¯Ø§Ø¯Ù Ø´Ø¯Ù Ø¨Ø§Ø´Ø¯:",
-    "Publish": "Ø§ÙØªØ´Ø§Ø±",
-    "Text": "ÙØªÙ",
-    "Email": "Ø§ÛÙÛÙ",
-    "Textarea": "ÙÛØ±Ø§ÛØ´ ÙØªÙ (Textarea)",
-    "Checkbox": "ÚÚ© Ø¨Ø§Ú©Ø³ (Checkbox)",
-    "Radio": "Ø±Ø§Ø¯ÛÙ (Radio)",
-    "Captcha": "Ú©Ù¾ØªØ´Ø§ (Captcha)",
-    "File": "ÙØ§ÛÙ",
-    "Preview": "Ù¾ÛØ´ ÙÙØ§ÛØ´",
-    "Hides admin tools": "Ø§Ø¨Ø²Ø§Ø±ÙØ§Û ÙØ¯ÛØ±ÛØª Ø±Ø§ ÙØ®ÙÛ ÙÛ Ú©ÙØ¯",
-    "Edit": "ÙÛØ±Ø§ÛØ´",
-    "Show widgets": "ÙÙØ§ÛØ´ Ø§Ø¨Ø²Ø§Ø±Ú© ÙØ§",
-    "Settings": "ØªÙØ¸ÛÙØ§Øª",
-    "Page settings": "ØªÙØ¸ÛÙØ§Øª ØµÙØ­Ù",
-    "Choose widget skin": "Ø§ÙØªØ®Ø§Ø¨ Ù¾ÙØ³ØªÙ Ø¨Ø±Ø§Û Ø§Ø¨Ø²Ø§Ø±Ú©",
-    "Upload new": "Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±Û Ø§Ø² ÙÙ",
-    "Zoom in": "Ø¨Ø²Ø±Ú¯ÙÙØ§ÛÛ",
-    "Zoom out": "Ú©ÙÚÚ© ÙÙØ§ÛÛ",
+    "Form security check has failed. Please refresh the page.": "بررسی امنیت فرم حاصل نشد. لطفا صفحه را مجددا بارگیری نمائید.",
+    "Please enter a valid email address.": "لطفا آدرس ایمیل معتبری وارد نمائید.",
+    "Session has expired. Please refresh the page.": "موئد مجوز سپری شده است. لطفا صفحه را مجددا بارگیری نمائید.",
+    "Must be a number.": "این باید یک عدد باشد.",
+    "The value should be unique": "این مقدار باید منحصر به فرد باشد",
+    "Please correct this value": "لطفا مقدار این فیلد را تصحیح نمائید",
+    "Required field": "فیلد الزامی",
+    "The value can't be one of:": "مقدار انتخابی نمی تواند یکی از این مقادیر داده شده باشد:",
+    "The value has to be one of:": "مقدار انتخابی باید یکی از مقادیر داده شده باشد:",
+    "Publish": "انتشار",
+    "Text": "متن",
+    "Email": "ایمیل",
+    "Textarea": "ویرایش متن (Textarea)",
+    "Checkbox": "چک باکس (Checkbox)",
+    "Radio": "رادیو (Radio)",
+    "Captcha": "کپتشا (Captcha)",
+    "File": "فایل",
+    "Preview": "پیش نمایش",
+    "Hides admin tools": "ابزارهای مدیریت را مخفی می کند",
+    "Edit": "ویرایش",
+    "Show widgets": "نمایش ابزارک ها",
+    "Settings": "تنظیمات",
+    "Page settings": "تنظیمات صفحه",
+    "Choose widget skin": "انتخاب پوسته برای ابزارک",
+    "Upload new": "بارگذاری از نو",
+    "Zoom in": "بزرگنمایی",
+    "Zoom out": "کوچک نمایی",
     "Click and type": "Click and type",
-    "Published": "Ø§ÙØªØ´Ø§Ø± ÛØ§ÙØªÙ",
-    "Save": "Ø°Ø®ÛØ±Ù",
-    "Drag": "Ú©Ø´ÛØ¯Ù",
-    "Delete": "Ø­Ø°Ù",
-    "Add new": "Ø§ÙØ²ÙØ¯Ù Ø§Ø² ÙÙ",
+    "Published": "انتشار یافته",
+    "Save": "ذخیره",
+    "Drag": "کشیدن",
+    "Delete": "حذف",
+    "Add new": "افزودن از نو",
     "Drag & drop here": "Drag & drop here",
     "Add widgets from the top menu by dragging and dropping.": "Add widgets from the top menu by dragging and dropping.",
-    "This is a preview of older revision, created at": "Ø§ÛÙ ÛÚ© Ù¾ÛØ´ ÙÙØ§ÛØ´ Ø§Ø² ÙØ³Ø®Ù Ø§Û ÙØ¯ÛÙÛ Ø§Ø³Øª Ú©Ù Ø¨Ø§Ø²Ø¨ÛÙÛ Ø´Ø¯Ù Ø§Ø³Øª. ØªØ§Ø±ÛØ® Ø§ÛØ¬Ø§Ø¯:",
-    "Publish this revision": "Ø§ÙØªØ´Ø§Ø± Ø§ÛÙ ÙØ³Ø®Ù Û Ø¨Ø§Ø²Ø¨ÛÙÛ Ø´Ø¯Ù",
-    "Duplicate and edit this revision": "Ø§ÛØ¬Ø§Ø¯ ÙØ³Ø®Ù Û ØªÚ©Ø±Ø§Ø±Û Ù ÙÛØ±Ø§ÛØ´ Ø¢Ù",
-    "Skin": "Ù¾ÙØ³ØªÙ",
-    "Form": "ÙØ±Ù",
-    "Thank you message": "Ù¾ÛØºØ§Ù Ø³Ù¾Ø§Ø³Ú¯Ø°Ø§Ø±Û",
+    "This is a preview of older revision, created at": "این یک پیش نمایش از نسخه ای قدیمی است که بازبینی شده است. تاریخ ایجاد:",
+    "Publish this revision": "انتشار این نسخه ی بازبینی شده",
+    "Duplicate and edit this revision": "ایجاد نسخه ی تکراری و ویرایش آن",
+    "Skin": "پوسته",
+    "Form": "فرم",
+    "Thank you message": "پیغام سپاسگذاری",
     "Recipient": "Recipient",
-    "Website's email": "Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ ÙØ¨ Ø³Ø§ÛØª",
-    "Custom emails separated by space": "Ø§ÛÙÛÙ ÙØ§Û Ø¯ÛÚ¯Ø±. Ø¨Ø§ ÙØ§ØµÙÙ Ø§Ø² ÙÙ Ø¬Ø¯Ø§ Ú©ÙÛØ¯",
+    "Website's email": "آدرس ایمیل وب سایت",
+    "Custom emails separated by space": "ایمیل های دیگر. با فاصله از هم جدا کنید",
     "Submit button text (leave empty for default)": "Submit button text (leave empty for default)",
-    "Form options": "Ø§Ø®ØªÛØ§Ø±Ø§Øª ÙØ±Ù",
-    "Fields": "ÙÛÙØ¯ÙØ§",
-    "Options": "Ø§Ø®ØªÛØ§Ø±Ø§Øª",
-    "Required": "Ø§ÙØ²Ø§ÙÛ",
-    "Optional": "Ø§Ø®ØªÛØ§Ø±Û",
-    "Field options": "Ø§Ø®ØªÛØ§Ø±Ø§Øª ÙÛÙØ¯",
-    "Video": "ÙÛØ¯Ø¦Ù",
-    "Url": "Ø¢Ø¯Ø±Ø³ Ù¾ÛÙÙØ¯",
-    "Size": "Ø§ÙØ¯Ø§Ø²Ù",
-    "Auto": "Ø§ØªÙÙØ§ØªÛÚ©",
-    "Custom": "Ø¯ÙØ®ÙØ§Ù",
-    "Width": "Ø¹Ø±Ø¶",
-    "Height": "Ø§Ø±ØªÙØ§Ø¹",
-    "Aspect ratio": "ÙØ³Ø¨Øª Ø§Ø¨Ø¹Ø§Ø¯",
+    "Form options": "اختیارات فرم",
+    "Fields": "فیلدها",
+    "Options": "اختیارات",
+    "Required": "الزامی",
+    "Optional": "اختیاری",
+    "Field options": "اختیارات فیلد",
+    "Video": "ویدئو",
+    "Url": "آدرس پیوند",
+    "Size": "اندازه",
+    "Auto": "اتوماتیک",
+    "Custom": "دلخواه",
+    "Width": "عرض",
+    "Height": "ارتفاع",
+    "Aspect ratio": "نسبت ابعاد",
     "16:9": "16:9",
     "4:3": "4:3",
-    "Video widget settings": "ØªÙØ¸ÛÙØ§Øª Ø§Ø¨Ø²Ø§Ø±Ú© Ù¾Ø®Ø´ ÙÛØ¯Ø¦Ù",
-    "Gallery": "Ú¯Ø§ÙØ±Û",
-    "Mouse click action": "ØªÙØ¸ÛÙ Ú©Ø§Ø±Ú©Ø±Ø¯ Ú©ÙÛÚ© ÙÙØ³",
-    "Lightbox": "ÙØ§ÛØª Ø¨Ø§Ú©Ø³",
-    "URL": "Ø¢Ø¯Ø±Ø³",
-    "None": "Ø¨Ø¯ÙÙ ÙÛÚ Ø¹ÙÙÛ",
-    "Open in new window": "Ú¯Ø´ÙØ¯Ù Ø¯Ø± Ù¾ÙØ¬Ø±Ù Ø§Û Ø¯ÛÚ¯Ø±",
-    "Title": "Ø¹ÙÙØ§Ù",
-    "Description": "ØªÙØ¶ÛØ­Ø§Øª",
-    "Add image": "Ø§ÙØ²ÙØ¯Ù ØªØµÙÛØ±",
-    "Edit image": "ÙÛØ±Ø§ÛØ´ ØªØµÙÛØ±",
-    "Link": "Ù¾ÛÙÙØ¯",
-    "Files": "ÙØ§ÛÙ ÙØ§",
-    "Heading": "Ø³Ø±ØµÙØ­Ù",
+    "Video widget settings": "تنظیمات ابزارک پخش ویدئو",
+    "Gallery": "گالری",
+    "Mouse click action": "تنظیم کارکرد کلیک موس",
+    "Lightbox": "لایت باکس",
+    "URL": "آدرس",
+    "None": "بدون هیچ عملی",
+    "Open in new window": "گشودن در پنجره ای دیگر",
+    "Title": "عنوان",
+    "Description": "توضیحات",
+    "Add image": "افزودن تصویر",
+    "Edit image": "ویرایش تصویر",
+    "Link": "پیوند",
+    "Files": "فایل ها",
+    "Heading": "سرصفحه",
     "H1": "H1",
     "H2": "H2",
     "H3": "H3",
-    "Anchor": "Ù¾ÛÙÙØ¯",
-    "HTML": "Ø³ÙØ±Ø³ (HTML)",
-    "Edit HTML": "ÙÛØ±Ø§ÛØ´ Ø³ÙØ±Ø³ (HTML)",
-    "Map": "ÙÙØ´Ù",
-    "Unknown widget.": "Ø§Ø¨Ø²Ø§Ø±Ú© ÙØ§ Ø´ÙØ§Ø®ØªÙ.",
-    "Missing": "ÙÙÙÙØ¯",
-    "Divider": "Ø¬Ø¯Ø§ Ú©ÙÙØ¯Ù",
-    "Image": "ØªØµÙÛØ±",
-    "Columns": "Ø³ØªÙÙ ÙØ§",
-    "Please enter a valid email address": "ÙØ·ÙØ§ ÛÚ© Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ ÙØ¹ØªØ¨Ø± ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯",
-    "Please enter a valid numeric value": "ÙØ·ÙØ§ ÙÙØ¯Ø§Ø± Ø¹Ø¯Ø¯Û ÙØ¹ØªØ¨Ø± ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯",
-    "Please enter a valid URL": "ÙØ·ÙØ§ ÛÚ© Ø¢Ø¯Ø±Ø³ Ù¾ÛÙÙØ¯ ÙØ¹ØªØ¨Ø± ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯",
-    "Please enter a value no larger than $1": "ÙØ·ÙØ§ ÙÙØ¯Ø§Ø±Û ÙØ§Ø±Ø¯ Ú©ÙÛØ¯ Ú©Ù Ø¨ÛØ´ØªØ± Ø§Ø² $1 ÙØ¨Ø§Ø´Ø¯",
-    "Please enter a value of at least $1": "ÙØ·ÙØ§ ÙÙØ¯Ø§Ø±Û ÙØ§Ø±Ø¯ Ú©ÙÛØ¯ Ú©Ù Ú©ÙØªØ± Ø§Ø² $1 ÙØ¨Ø§Ø´Ø¯",
-    "Please complete this mandatory field": "Ø§ÛÙ ÙÛÙØ¯ Ø§Ø¬Ø¨Ø§Ø±Û Ø§Ø³ØªØ ÙØ·ÙØ§ Ø§ÛÙ ÙÛÙØ¯ Ø±Ø§ ØªÚ©ÙÛÙ Ú©ÙÛØ¯",
-    "Select Link Target": "Ø¨Ø±Ø§Û Ù¾ÛÙÙØ¯ Ø®ÙØ¯ ÙÙØ±Ø¯ ÙØ¯Ù Ø¨Ø±Ú¯Ø²ÛÙÛØ¯",
-    "Edit record": "ÙÛØ±Ø§ÛØ´ Ø±Ú©ÙØ±Ø¯",
+    "Anchor": "پیوند",
+    "HTML": "سورس (HTML)",
+    "Edit HTML": "ویرایش سورس (HTML)",
+    "Map": "نقشه",
+    "Unknown widget.": "ابزارک نا شناخته.",
+    "Missing": "مفقود",
+    "Divider": "جدا کننده",
+    "Image": "تصویر",
+    "Columns": "ستون ها",
+    "Please enter a valid email address": "لطفا یک آدرس ایمیل معتبر وارد نمائید",
+    "Please enter a valid numeric value": "لطفا مقدار عددی معتبر وارد نمائید",
+    "Please enter a valid URL": "لطفا یک آدرس پیوند معتبر وارد نمائید",
+    "Please enter a value no larger than $1": "لطفا مقداری وارد کنید که بیشتر از $1 نباشد",
+    "Please enter a value of at least $1": "لطفا مقداری وارد کنید که کمتر از $1 نباشد",
+    "Please complete this mandatory field": "این فیلد اجباری است، لطفا این فیلد را تکمیل کنید",
+    "Select Link Target": "برای پیوند خود مورد هدف برگزینید",
+    "Edit record": "ویرایش رکورد",
     "Add record": "Add record",
-    "Search": "Ø¬Ø³ØªØ¬Ù",
-    "Yes": "Ø¨ÙÙ",
-    "No": "Ø®ÛØ±",
-    "Are you sure you want to delete?": "Ø§Ø² Ø­Ø°Ù Ú©Ø±Ø¯Ù Ø§Ø·ÙÛÙØ§Ù Ø¯Ø§Ø±ÛØ¯?",
-    "General": "Ø¹ÙÙÙÛ",
-    "Add": "Ø§ÙØ²ÙØ¯Ù",
-    "Administrator profile": "Ù¾Ø±ÙÙØ§ÛÙ ÙØ¯ÛØ±ÛØª",
-    "To reset your password follow the link below:": "Ø¨Ù ÙÙØ¸ÙØ± Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø¹Ø¨ÙØ± Ø®ÙØ¯ ÙØ·ÙØ§ Ø¨Ù Ø¢Ø¯Ø±Ø³ Ø²ÛØ± ÙØ±Ø§Ø¬Ø¹Ù Ú©ÙÛØ¯:",
-    "You will then be able to reset your password.": "Ø³Ù¾Ø³ Ø§ÙØ¯Ø§Ù Ø¨Ù Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø®ÙØ¯ ÙÙØ§Ø¦ÛØ¯.",
-    "Username": "ÙØ§Ù Ú©Ø§Ø±Ø¨Ø±Û",
-    "Permissions": "ÙØ¬ÙØ²ÙØ§",
+    "Search": "جستجو",
+    "Yes": "بله",
+    "No": "خیر",
+    "Are you sure you want to delete?": "از حذف کردن اطمینان دارید?",
+    "General": "عمومی",
+    "Add": "افزودن",
+    "Administrator profile": "پروفایل مدیریت",
+    "To reset your password follow the link below:": "به منظور بازسازی رمز عبور خود لطفا به آدرس زیر مراجعه کنید:",
+    "You will then be able to reset your password.": "سپس اقدام به بازسازی رمز خود نمائید.",
+    "Username": "نام کاربری",
+    "Permissions": "مجوزها",
     "You will not be able to set other permissions for yourself!": "You will not be able to set other permissions for yourself!",
     "Already taken": "Already taken",
-    "Password reset instructions": "Ø¯Ø³ØªÙØ±Ø§ÙØ¹ÙÙ Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø¹Ø¨ÙØ±",
-    "User name": "ÙØ§Ù Ú©Ø§Ø±Ø¨Ø±Û",
-    "Password": "Ø±ÙØ² Ø¹Ø¨ÙØ±",
-    "New password (optional)": "Ø±ÙØ² Ø¹Ø¨ÙØ± ÙÙ (Ø§Ø®ØªÛØ§Ø±Û)",
-    "Add language": "Ø§ÙØ²ÙØ¯Ù Ø²Ø¨Ø§Ù",
+    "Password reset instructions": "دستورالعمل بازسازی رمز عبور",
+    "User name": "نام کاربری",
+    "Password": "رمز عبور",
+    "New password (optional)": "رمز عبور نو (اختیاری)",
+    "Add language": "افزودن زبان",
     "Are you sure you want to delete? All pages and other language related content will be lost forever!": "Are you sure you want to delete? All pages and other language related content will be lost forever!",
-    "Abbreviation": "ÙØ®ÙÙ",
-    "Visible": "ÙÙÛØ¯Ø§",
-    "You can't use slash in URL.": "Ø§ÙÚ©Ø§Ù Ø§Ø³ØªÙØ§Ø¯Ù Ø§Ø² Ø§Ø³ÙØ´ Ø¯Ø± Ø¢Ø¯Ø±Ø³ ÙØ¬ÙØ¯ ÙØ¯Ø§Ø±Ø¯.",
-    "Language url should be unique": "Ø¢Ø¯Ø±Ø³ Ø²Ø¨Ø§Ù Ø¨Ø§ÛØ¯ ÙÙØ­ØµØ± Ø¨Ù ÙØ±Ø¯ Ø¨Ø§Ø´Ø¯",
-    "This is a system directory name.": "Ø§ÛÙ ÙØ§Ù Ø±Ø²Ø±Ù Ø´Ø¯Ù Ø¨Ø±Ø§Û Ø³ÛØ³ØªÙ ÙÛ Ø¨Ø§Ø´Ø¯.",
-    "RFC 4646 code": "Ú©Ø¯ RFC 4646",
-    "Language code should be unique": "Ú©Ø¯ Ø²Ø¨Ø§Ù Ø¨Ø§Ø´Ø¯ ÙÙØ­ØµØ± Ø¨Ù ÙØ±Ø¯ Ø¨Ø§Ø´Ø¯",
-    "Text direction": "ÚÛÙØ´ ÙØªÙ",
-    "Left To Right": "ÚÙ¾ Ø¨Ù Ø±Ø§Ø³Øª",
-    "Right To Left": "Ø±Ø§Ø³Øª Ø¨Ù ÚÙ¾",
-    "This language already exist.": "Ø§ÛÙ Ø²Ø¨Ø§Ù ÙØ¨ÙØ§ Ø§ÛØ¬Ø§Ø¯ Ø´Ø¯Ù Ø§Ø³Øª.",
-    "Can't delete the last language.": "Ø¢Ø®Ø±ÛÙ Ø²Ø¨Ø§Ù ÙÙØ¬ÙØ¯ Ø±Ø§ ÙÙÛ ØªÙØ§Ù Ø­Ø°Ù Ú©Ø±Ø¯.",
-    "Please set %s language url to non empty before moving other language to top.": "ÙØ·ÙØ§ Ø¢Ø¯Ø±Ø³ Ø²Ø¨Ø§Ù %s Ø±Ø§ ØªÙØ¸ÛÙ Ú©ÙÛØ¯ Ù Ø³Ù¾Ø³ Ø§ÙØ¯Ø§Ù Ø¨Ù Ø§ÙØªÙØ§Ù Ø²Ø¨Ø§ÙÛ Ø¯ÛÚ¯Ø± Ø¨Ù Ø¨Ø§ÙØ§Û ÙÛØ³Øª ÙÙØ§Ø¦ÛØ¯.",
-    "Please set %s language url to non empty before moving it down.": "ÙØ·ÙØ§ Ø¢Ø¯Ø±Ø³ Ø²Ø¨Ø§Ù %s Ø±Ø§ ØªÙØ¸ÛÙ Ú©ÙÛØ¯ Ø³Ù¾Ø³ Ø§ÙØ¯Ø§Ù Ø¨Ù Ø§ÙØªÙØ§Ù Ø¢Ù Ø¨Ù Ù¾Ø§Ø¦ÛÙ ÙÛØ³Øª ÙÙØ§Ø¦ÛØ¯.",
+    "Abbreviation": "مخفف",
+    "Visible": "هویدا",
+    "You can't use slash in URL.": "امکان استفاده از اسلش در آدرس وجود ندارد.",
+    "Language url should be unique": "آدرس زبان باید منحصر به فرد باشد",
+    "This is a system directory name.": "این نام رزرو شده برای سیستم می باشد.",
+    "RFC 4646 code": "کد RFC 4646",
+    "Language code should be unique": "کد زبان باشد منحصر به فرد باشد",
+    "Text direction": "چینش متن",
+    "Left To Right": "چپ به راست",
+    "Right To Left": "راست به چپ",
+    "This language already exist.": "این زبان قبلا ایجاد شده است.",
+    "Can't delete the last language.": "آخرین زبان موجود را نمی توان حذف کرد.",
+    "Please set %s language url to non empty before moving other language to top.": "لطفا آدرس زبان %s را تنظیم کنید و سپس اقدام به انتقال زبانی دیگر به بالای لیست نمائید.",
+    "Please set %s language url to non empty before moving it down.": "لطفا آدرس زبان %s را تنظیم کنید سپس اقدام به انتقال آن به پائین لیست نمائید.",
     "Email preview": "Email preview",
     "Ok": "Ok",
-    "Subject": "ÙÙØ¶ÙØ¹",
-    "Recipient name": "ÙØ§Ù Ú¯ÛØ±ÙØ¯Ù",
-    "Recipient email": "Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ Ú¯ÛØ±ÙØ¯Ù",
-    "Sender name": "ÙØ§Ù ÙØ±Ø³ØªÙØ¯Ù",
-    "Sender email": "Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ ÙØ±Ø³ØªÙØ¯Ù",
-    "Sent at": "Ø§Ø±Ø³Ø§Ù Ø´Ø¯Ù Ø¯Ø±",
-    "Attachment": "Ø¶ÙÛÙÙ",
-    "System": "Ø³ÛØ³ØªÙ",
-    "Website's URL seems to be changed": "Ø¨Ù ÙØ¸Ø± ÙÛ Ø±Ø³Ø¯ Ø¢Ø¯Ø±Ø³ ÙØ¨ Ø³Ø§ÛØª ØªØºÛÛØ± ÛØ§ÙØªÙ Ø§Ø³Øª",
-    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "Ø¢Ø¯Ø±Ø³ ÙØ¨ Ø³Ø§ÛØª ØªØºÛÛØ± ÛØ§ÙØªÙ Ø§Ø³Øª. ØªÙØ§ÛÙ Ø¨Ù ØªØºÛÛØ± Ù¾ÛÙÙØ¯ÙØ§ Ø§Ø² %s Ø¨Ù %s Ø±Ø§ Ø¯Ø§Ø±ÛØ¯?",
-    "Update links": "Ø¨Ù Ø±ÙØ²Ø±Ø³Ø§ÙÛ Ù¾ÛÙÙØ¯ÙØ§",
-    "Database migrations": "Ø¯Ø±Ø¬ÛØ§Øª Ù¾Ø§ÛÚ¯Ø§Ù Ø¯Ø§Ø¯Ù",
-    "Your database is outdated.": "Ù¾Ø§ÛÚ¯Ø§Ù Ø¯Ø§Ø¯Ù Ø´ÙØ§ Ø¨Ù Ø±ÙØ² ÙÛØ³Øª.",
-    "Update": "Ø¨Ù Ø±ÙØ²Ø±Ø³Ø§ÙÛ",
+    "Subject": "موضوع",
+    "Recipient name": "نام گیرنده",
+    "Recipient email": "آدرس ایمیل گیرنده",
+    "Sender name": "نام فرستنده",
+    "Sender email": "آدرس ایمیل فرستنده",
+    "Sent at": "ارسال شده در",
+    "Attachment": "ضمیمه",
+    "System": "سیستم",
+    "Website's URL seems to be changed": "به نظر می رسد آدرس وب سایت تغییر یافته است",
+    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "آدرس وب سایت تغییر یافته است. تمایل به تغییر پیوندها از %s به %s را دارید?",
+    "Update links": "به روزرسانی پیوندها",
+    "Database migrations": "درجیات پایگاه داده",
+    "Your database is outdated.": "پایگاه داده شما به روز نیست.",
+    "Update": "به روزرسانی",
     "Trash": "Trash",
     "Trash contains %s deleted pages.": "Trash contains %s deleted pages.",
     "Recovery": "Recovery",
     "Empty": "Empty",
-    "System status": "ÙØ¶Ø¹ÛØª Ø³ÛØ³ØªÙ",
-    "Update in progress": "Ø¯Ø±Ø­Ø§Ù Ø¨Ù Ø±ÙØ²Ø±Ø³Ø§ÙÛ",
+    "System status": "وضعیت سیستم",
+    "Update in progress": "درحال به روزرسانی",
     "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.": "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.",
     "Empty pages": "Empty pages",
     "Recovery pages": "Recovery pages",
-    "Content": "ÙØ­ØªÙØ§",
-    "Pages": "ØµÙØ­Ø§Øª",
-    "Design": "Ø·Ø±Ø§Ø­Û",
-    "Plugins": "Ø§ÙØ²ÙÙÙ ÙØ§",
-    "Config": "Ù¾ÛÚ©Ø±Ø¨ÙØ¯Û",
-    "Languages": "Ø²Ø¨Ø§Ù ÙØ§",
-    "ImpressPages has been successfully updated.": "Ø³ÛØ³ØªÙ Ø¨Ø§ÙÙÙÙÛØª Ø¨Ù Ø±ÙØ² Ø´Ø¯.",
-    "Links have been successfully updated.": "Ù¾ÛÙÙØ¯ÙØ§ Ø¨Ø§ ÙÙÙÙÛØª Ø¨Ù Ø±ÙØ² Ø´Ø¯ÙØ¯.",
+    "Content": "محتوا",
+    "Pages": "صفحات",
+    "Design": "طراحی",
+    "Plugins": "افزونه ها",
+    "Config": "پیکربندی",
+    "Languages": "زبان ها",
+    "ImpressPages has been successfully updated.": "سیستم باموفقیت به روز شد.",
+    "Links have been successfully updated.": "پیوندها با موفقیت به روز شدند.",
     "Forbidden file type.": "Forbidden file type.",
-    "Can't store uploaded file. Please check server configuration.": "Ø§ÙÚ©Ø§Ù Ø°Ø®ÛØ±Ù Ø³Ø§Ø²Û ÙØ§ÛÙ ÙØ§Û Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±Û Ø´Ø¯Ù ÙÛØ³Øª. ÙØ·ÙØ§ ØªÙØ¸ÛÙØ§Øª Ø³Ø±ÙØ± Ø±Ø§ Ø¨Ø±Ø±Ø³Û ÙÙØ§Ø¦ÛØ¯.",
-    "Are you sure you want to delete selected files?": "Ø§Ø² Ø­Ø°Ù Ú©Ø±Ø¯Ù ÙØ§ÛÙ ÙØ§Û Ø§ÙØªØ®Ø§Ø¨ Ø´Ø¯Ù Ø§Ø·ÙÛÙØ§Ù Ø¯Ø§Ø±ÛØ¯?",
+    "Can't store uploaded file. Please check server configuration.": "امکان ذخیره سازی فایل های بارگذاری شده نیست. لطفا تنظیمات سرور را بررسی نمائید.",
+    "Are you sure you want to delete selected files?": "از حذف کردن فایل های انتخاب شده اطمینان دارید?",
     "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Some of the selected files are still used somewhere on your website. Do you still want to remove them?",
-    "Drag&drop files here or click a button to upload.": "ÙØ§ÛÙ ÙØ§ Ø±Ø§ Ø¨Ú©Ø´ÛØ¯ Ù Ø§ÛÙØ¬Ø§ Ø±ÙØ§ Ú©ÙÛØ¯ ÛØ§ Ø¨Ø§ ÙØ´Ø±Ø¯Ù Ø¯Ú©ÙÙ Û Ø²ÛØ± Ø¢Ù ÙØ§ Ø±Ø§ Ø§ÙØªØ®Ø§Ø¨ Ú©ÙÛØ¯.",
-    "Need more images? Browse and choose from thousands of them.": "Ø§Ú¯Ø± Ø¨Ù ØªØµØ§ÙÛØ± Ø¨ÛØ´ØªØ±Û ÙÛØ§Ø² Ø¯Ø§Ø±ÛØ¯Ø Ø§Ø² Ø·Ø±ÛÙ Ø¯Ú©ÙÙ Û Ø²ÛØ± ÙØ²Ø§Ø±Ø§Ù ØªØµÙÛØ± Ø±Ø§ ÙØ±ÙØ± Ú©ÙÛØ¯ Ù Ø¯ÙØ®ÙØ§Ù Ø®ÙØ¯ Ø±Ø§ Ø§ÙØªØ®Ø§Ø¨ Ú©ÙÛØ¯.",
-    "Buy images": "Ø®Ø±ÛØ¯ ØªØµØ§ÙÛØ± Ù¾Ø±ÙÛÙÙ",
+    "Drag&drop files here or click a button to upload.": "فایل ها را بکشید و اینجا رها کنید یا با فشردن دکمه ی زیر آن ها را انتخاب کنید.",
+    "Need more images? Browse and choose from thousands of them.": "اگر به تصاویر بیشتری نیاز دارید، از طریق دکمه ی زیر هزاران تصویر را مرور کنید و دلخواه خود را انتخاب کنید.",
+    "Buy images": "خرید تصاویر پرمیوم",
     "File repository": "File repository",
-    "Search by filename": "Ø¬Ø³ØªØ¬Ù Ø¨Ø±Ø§Ø³Ø§Ø³ ÙØ§Ù ÙØ§ÛÙ",
-    "Recent files": "ÙØ§ÛÙ ÙØ§Û Ø§Ø®ÛØ±",
+    "Search by filename": "جستجو براساس نام فایل",
+    "Recent files": "فایل های اخیر",
     "You have no right to browse the repository": "You have no right to browse the repository",
-    "Selected:": "Ø§ÙØªØ®Ø§Ø¨ Ø´Ø¯Ù:",
-    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "ØªØµØ§ÙÛØ± Ø§ÙØªØ®Ø§Ø¨Û Ø´ÙØ§ Ø¯Ø±Ø­Ø§Ù Ø§Ø±Ø³Ø§Ù Ø¨Ù ÙØ¨ Ø³Ø§ÛØª Ø´ÙØ§ ÙÛ Ø¨Ø§Ø´ÙØ¯. ÙÙÚ©Ù Ø§Ø³Øª Ø§ÛÙ Ù¾Ø±ÙØ³Ù Ú©ÙÛ Ø²ÙØ§Ù Ø¨Ø± Ø¨Ø§Ø´Ø¯. ÙØ·ÙØ§ ØµØ¨ÙØ± Ø¨Ø§Ø´ÛØ¯.",
-    "Deactivate": "ØºÛØ±ÙØ¹Ø§Ù Ø³Ø§Ø²Û",
-    "Activate": "ÙØ¹Ø§Ù Ø³Ø§Ø²Û",
+    "Selected:": "انتخاب شده:",
+    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "تصاویر انتخابی شما درحال ارسال به وب سایت شما می باشند. ممکن است این پروسه کمی زمان بر باشد. لطفا صبور باشید.",
+    "Deactivate": "غیرفعال سازی",
+    "Activate": "فعال سازی",
     "Author": "Author",
-    "Name": "ÙØ§Ù",
+    "Name": "نام",
     "Version": "Version",
     "My Plugins": "My Plugins",
     "This action will remove plugin's files and database records. Do you want to proceed.?": "This action will remove plugin's files and database records. Do you want to proceed.?",
     "Validation failed": "Validation failed",
     "Directory is not writable. Please check your email and install the plugin manually.": "Directory is not writable. Please check your email and install the plugin manually.",
-    "Download failed: invalid parameters": "Ø¯Ø±ÛØ§ÙØª ÙØ§ÙÙÙÙ Ø¨ÙØ¯: Ù¾Ø§Ø±Ø§ÙØªØ±ÙØ§ ØµØ­ÛØ­ ÙØ¨ÙØ¯ÙØ¯",
-    "Unknown error. Please see logs.": "Ø®Ø·Ø§Û ÙØ§Ø´ÙØ§Ø®ØªÙ. ÙØ·ÙØ§ Ú¯Ø²Ø§Ø±Ø´Ø§Øª Ø±Ø§ ÙÙØ§Ø­Ø¸Ù ÙÙØ§Ø¦ÛØ¯.",
+    "Download failed: invalid parameters": "دریافت ناموفق بود: پارامترها صحیح نبودند",
+    "Unknown error. Please see logs.": "خطای ناشناخته. لطفا گزارشات را ملاحظه نمائید.",
     "Inactive": "Inactive",
     "Active": "Active",
-    "Edit logo": "ÙÛØ±Ø§ÛØ´ ÙÙÚ¯Ù",
-    "Image logo": "ÙÙÚ¯Ù ØªØµÙÛØ±Û",
-    "Default": "Ù¾ÛØ´ÙØ±Ø¶",
-    "Apply to": "ÙÙØ±Ø¯ Ø§Ø³ØªÙØ§Ø¯Ù Ø¯Ø±",
-    "Remove this image": "Ø­Ø°Ù Ø§ÛÙ ØªØµÙÛØ±",
-    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "Ø§ÙÚ©Ø§Ù Ø¨Ø§Ø²Ú¯Ø±Ø¯Ø§ÙØ¯Ù Ø¨Ø±Ø§Û Ø§ÛÙ Ø§ÙØ¯Ø§Ù ÙØ¬ÙØ¯ ÙØ¯Ø§Ø±Ø¯. ØªØµÙÛØ± ØµÙØ­Ù Û ÙØ§ÙØ¯ ÛØ§ ÛÚ© ØªØµÙÛØ± Ù¾ÛØ´ÙØ±Ø¶ Ø¯Ø± Ø§ÛÙ ØµÙØ­Ù Ø¨Ù Ú©Ø§Ø± Ú¯Ø±ÙØªÙ Ø®ÙØ§ÙØ¯ Ø´Ø¯. Ø¢ÛØ§ ÙÛ Ø®ÙØ§ÙÛØ¯ Ø§Ø¯Ø§ÙÙ Ø¯ÙÛØ¯?",
-    "Current page and sub-pages": "ØµÙØ­Ù Û Ú©ÙÙÙÛ Ù ØµÙØ­Ø§Øª Ø²ÛØ±ÛÙ",
-    "Page \"[[page]]\" and all sub-pages": "ØµÙØ­Ù Û \"[[page]]\" Ù ØªÙØ§ÙÛ ØµÙØ­Ø§Øª Ø²ÛØ±ÛÙ",
-    "All [[language]] pages": "ØªÙØ§ÙÛ ØµÙØ­Ø§Øª Ø¨Ù Ø²Ø¨Ø§Ù [[language]]",
-    "All pages": "ØªÙØ§ÙÛ ØµÙØ­Ø§Øª",
+    "Edit logo": "ویرایش لوگو",
+    "Image logo": "لوگو تصویری",
+    "Default": "پیشفرض",
+    "Apply to": "مورد استفاده در",
+    "Remove this image": "حذف این تصویر",
+    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "امکان بازگرداندن برای این اقدام وجود ندارد. تصویر صفحه ی والد یا یک تصویر پیشفرض در این صفحه به کار گرفته خواهد شد. آیا می خواهید ادامه دهید?",
+    "Current page and sub-pages": "صفحه ی کنونی و صفحات زیرین",
+    "Page \"[[page]]\" and all sub-pages": "صفحه ی \"[[page]]\" و تمامی صفحات زیرین",
+    "All [[language]] pages": "تمامی صفحات به زبان [[language]]",
+    "All pages": "تمامی صفحات",
     "Are you sure you want to delete all log records?": "Are you sure you want to delete all log records?",
     "Clear all": "Clear all",
-    "Time": "Ø²ÙØ§Ù",
-    "Message": "Ù¾ÛØ§Ù",
-    "Context": "ÙØªÙ",
-    "Add new page": "Ø§ÙØ²ÙØ¯Ù ØµÙØ­Ù Ø§Û ØªØ§Ø²Ù",
-    "Page properties": "ÙØ´Ø®ØµØ§Øª ØµÙØ­Ù",
-    "Edit Content": "ÙÛØ±Ø§ÛØ´ ÙØ­ØªÙØ§",
-    "Add new menu": "Ø§ÙØ²ÙØ¯Ù ÙÙØ±Ø³ØªÛ ØªØ§Ø²Ù",
-    "Cut": "Ø¨Ø±ÚÛØ¯Ù (Cut)",
-    "Copy": "ØªÚ©Ø«ÛØ± (Copy)",
-    "Paste": "ÚØ³Ø¨Ø§ÙØ¯Ù (Paste)",
-    "Update menu": "Ø¨Ù Ø±ÙØ² Ø±Ø³Ø§ÙÛ ÙÙØ±Ø³Øª",
+    "Time": "زمان",
+    "Message": "پیام",
+    "Context": "متن",
+    "Add new page": "افزودن صفحه ای تازه",
+    "Page properties": "مشخصات صفحه",
+    "Edit Content": "ویرایش محتوا",
+    "Add new menu": "افزودن فهرستی تازه",
+    "Cut": "برچیدن (Cut)",
+    "Copy": "تکثیر (Copy)",
+    "Paste": "چسباندن (Paste)",
+    "Update menu": "به روز رسانی فهرست",
     "All pages inside this menu will be deleted. Are you sure you want to delete?": "All pages inside this menu will be deleted. Are you sure you want to delete?",
     "Are you sure?": "Are you sure?",
-    "Incorrect date format. Example:": "ÙØ±ÙØª ØªØ§Ø±ÛØ® ØµØ­ÛØ­ ÙÙÛ Ø¨Ø§Ø´Ø¯. ÙÙÙÙÙ ØµØ­ÛØ­:",
+    "Incorrect date format. Example:": "فرمت تاریخ صحیح نمی باشد. نمونه صحیح:",
     "This alias is already occupied": "This alias is already occupied",
-    "Untitled": "Ø¨Ø¯ÙÙ Ø¹ÙÙØ§Ù",
-    "Menu name (used in PHP code)": "ÙØ§Ù Ø¨Ø±Ø§Û ÙÙØ±Ø³Øª (Ø§Ø³ØªÙØ§Ø¯Ù Ø´Ø¯Ù Ø¯Ø± Ú©Ø¯ PHP)",
-    "Layout": "Ø·Ø±Ø­ Ø¨ÙØ¯Û",
-    "Tree (for menu)": "ÙØ§ÙØ¨ Ø¯Ø±Ø®ØªÛ (Ø¨Ø±Ø§Û ÙÙØ±Ø³Øª)",
-    "List (for blogs)": "ÙÛØ³Øª (Ø¨Ø±Ø§Û Ø¨ÙØ§Ú¯ ÙØ§)",
-    "Type": "ÙÙØ¹",
-    "URL path": "Ø¢Ø¯Ø±Ø³ Ø¯ÙÛ",
-    "Seo": "Ø³Ø¦Ù (SEO)",
-    "Meta title": "Ø¹ÙÙØ§Ù ÙØªØ§ (Meta)",
-    "Keywords": "Ú©ÙÙØ§Øª Ú©ÙÛØ¯Û (Keywords)",
-    "Other": "Ø§Ø¶Ø§ÙØ§Øª",
-    "Redirect": "ØªØºÛÛØ± ÙØ³ÛØ±",
-    "Disabled": "ØºÛØ± ÙØ¹Ø§Ù",
+    "Untitled": "بدون عنوان",
+    "Menu name (used in PHP code)": "نام برای فهرست (استفاده شده در کد PHP)",
+    "Layout": "طرح بندی",
+    "Tree (for menu)": "قالب درختی (برای فهرست)",
+    "List (for blogs)": "لیست (برای بلاگ ها)",
+    "Type": "نوع",
+    "URL path": "آدرس دهی",
+    "Seo": "سئو (SEO)",
+    "Meta title": "عنوان متا (Meta)",
+    "Keywords": "کلمات کلیدی (Keywords)",
+    "Other": "اضافات",
+    "Redirect": "تغییر مسیر",
+    "Disabled": "غیر فعال",
     "Won't be clickable in menu if selected.": "Won't be clickable in menu if selected.",
-    "Secured": "Ø­ÙØ§Ø¸Øª",
+    "Secured": "حفاظت",
     "Won't be accessible to view even knowing the URL.": "Won't be accessible to view even knowing the URL.",
     "Alias (used in code)": "Alias (used in code)",
-    "Created on": "Ø§ÛØ¬Ø§Ø¯ Ø´Ø¯Ù Ø¯Ø±",
+    "Created on": "ایجاد شده در",
     "Updated on": "Updated on",
     "Top": "Top",
     "Above selected": "Above selected",
@@ -250,32 +250,32 @@
     "Bottom": "Bottom",
     "Position": "Position",
     "Saving...": "Saving...",
-    "Theme options": "Ø§Ø®ØªÛØ§Ø±Ø§Øª ÙØ§ÙØ¨",
-    "Reload preview": "Ø¨Ø§Ø±Ú¯ÛØ±Û ÙØ¬Ø¯Ø¯ Ù¾ÛØ´ ÙÙØ§ÛØ´",
-    "Preview defaults": "Ù¾ÛØ´ÙØ±Ø¶ ÙØ§Û Ù¾ÛØ´ ÙÙØ§ÛØ´",
-    "My theme": "ÙØ§ÙØ¨ ÙÙ",
-    "Available plugins": "Ø§ÙØ²ÙÙÙ ÙØ§Û Ø¯Ø± Ø¯Ø³ØªØ±Ø³",
-    "Install": "ÙØµØ¨",
-    "Marketplace": "ÙØ±ÙØ´Ú¯Ø§Ù",
-    "Want a new look? Search for a new theme.": "ÙÛØ§Ø² Ø¨Ù ØªØºÛÛØ± ÙØ§ÙØ¨ Ø¯Ø§Ø±ÛØ¯Ø ÙÛ ØªÙØ§ÙÛØ¯ ÙØ§ÙØ¨ ÙÙØ±Ø¯ ÙØ¸Ø± Ø®ÙØ¯ Ø±Ø§ Ø¬Ø³ØªØ¬Ù Ú©ÙÛØ¯.",
-    "Browse themes": "ÙØ±ÙØ± ÙØ§ÙØ¨ ÙØ§",
-    "Local themes": "ÙØ§ÙØ¨ ÙØ§Û ÙØ­ÙÛ",
-    "Back to Design": "Ø¨Ø±Ú¯Ø´Øª Ø¨Ù Ø·Ø±Ø§Ø­Û",
-    "Close": "Ø¨Ø³ØªÙ",
-    "General options": "Ø§Ø®ØªÛØ§Ø±Ø§Øª Ø¹ÙÙÙÛ",
-    "Manage content": "ÙØ¯ÛØ±ÛØª ÙØ­ØªÙÛ",
-    "Plugin has been successfully installed.": "Ø§ÙØ²ÙÙÙ Ø¨Ø§ ÙÙÙÙÛØª ÙØµØ¨ Ø´Ø¯.",
-    "Directory is not writable. Please check your email and install the theme manually.": "Ø§ÙÚ©Ø§Ù ÙÙØ´ØªÙ Ø¯Ø± Ø¯Ø§ÛØ±Ú©ØªÙØ±Û ÙØ¬ÙØ¯ ÙØ¯Ø§Ø±Ø¯. ÙØ·ÙØ§ Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ Ø®ÙØ¯ Ø±Ø§ ÚÚ© Ú©ÙÛØ¯ Ù ÙØ§ÙØ¨ Ø±Ø§ Ø¨Ù ØµÙØ±Øª Ø¯Ø³ØªÛ ÙØµØ¨ Ú©ÙÛØ¯.",
-    "Configuration": "Ù¾ÛÚ©Ø±Ø¨ÙØ¯Û",
+    "Theme options": "اختیارات قالب",
+    "Reload preview": "بارگیری مجدد پیش نمایش",
+    "Preview defaults": "پیشفرض های پیش نمایش",
+    "My theme": "قالب من",
+    "Available plugins": "افزونه های در دسترس",
+    "Install": "نصب",
+    "Marketplace": "فروشگاه",
+    "Want a new look? Search for a new theme.": "نیاز به تغییر قالب دارید؟ می توانید قالب مورد نظر خود را جستجو کنید.",
+    "Browse themes": "مرور قالب ها",
+    "Local themes": "قالب های محلی",
+    "Back to Design": "برگشت به طراحی",
+    "Close": "بستن",
+    "General options": "اختیارات عمومی",
+    "Manage content": "مدیریت محتوی",
+    "Plugin has been successfully installed.": "افزونه با موفقیت نصب شد.",
+    "Directory is not writable. Please check your email and install the theme manually.": "امکان نوشتن در دایرکتوری وجود ندارد. لطفا آدرس ایمیل خود را چک کنید و قالب را به صورت دستی نصب کنید.",
+    "Configuration": "پیکربندی",
     "Advanced options": "Advanced options",
-    "Website title": "Ø¹ÙÙØ§Ù ÙØ¨ Ø³Ø§ÛØª",
-    "Used as a sender name in emails and as default website logo.": "Ø¨Ù Ø¹ÙÙØ§Ù ÙØ§Ù ÙØ±Ø³ØªÙØ¯Ù Ø¯Ø± Ø§ÛÙÛÙ ÙØ§ Ù ÙÛØ² Ø¨Ù Ø¹ÙÙØ§Ù ÙÙÚ¯ÙÛ Ù¾ÛØ´ÙØ±Ø¶ ÙØ¨ Ø³Ø§ÛØª Ø§Ø³ØªÙØ§Ø¯Ù Ø´Ø¯Ù Ø§Ø³Øª.",
+    "Website title": "عنوان وب سایت",
+    "Used as a sender name in emails and as default website logo.": "به عنوان نام فرستنده در ایمیل ها و نیز به عنوان لوگوی پیشفرض وب سایت استفاده شده است.",
     "Website email": "Website email",
-    "Email address used as a sender to send emails on behalf of the website.": "Ø¢Ø¯Ø±Ø³ Ø§ÛÙÛÙ Ø¨Ù Ø¹ÙÙØ§Ù ÙØ±Ø³ØªÙØ¯Ù Ø¨Ø±Ø§Û ÙØ§ÙÙ ÙØ§Û Ø§Ø±Ø³Ø§ÙÛ Ø§Ø² Ø·Ø±ÛÙ ÙØ¨ Ø³Ø§ÛØª Ø¨Ø±Ú¯Ø²ÛØ¯Ù Ø´Ø¯Ù Ø§Ø³Øª.",
-    "Execute cron automatically": "Ø§Ø¬Ø±Ø§Û ØªÚ©ÙÛÙ (Cron) Ø¨Ù ØµÙØ±Øª Ø§ØªÙÙØ§ØªÛÚ©",
-    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "Ø³ÛØ³ØªÙ ÙØ± Ø³Ø§Ø¹Øª ÛÚ© ØªÚ©ÙÛÙ (Cron) Ø±Ø§ Ø§Ø¬Ø±Ø§ ÙÛ Ú©ÙØ¯. Ø§Ø¬Ø±Ø§Û ØªÚ©ÙÛÙ Ø¯Ø± Ø²ÙØ§Ù Ø¨Ø§Ø±Ú¯Ø°Ø§Ø±Û ØµÙØ­Ù Ù Ø¨Ø§Ø²Ø¯ÛØ¯ Ú©Ø§Ø±Ø¨Ø± ØµÙØ±Øª ÙÛ Ù¾Ø°ÛØ±Ø¯. Ø§Ú¯Ø± Ø¨Ù ØµÙØ±Øª Ø¯Ø³ØªÛ ØªÚ©ÙÛÙ Ø±Ø§ ØªÙØ¸ÛÙ ÙÛ Ú©ÙÛØ¯Ø ÙÛ ØªÙØ§ÙÛØ¯ Ø§Ø¬Ø±Ø§Û Ø§ØªÙÙØ§ØªÛÚ© Ø¢Ù Ø±Ø§ ØºÛØ± ÙØ¹Ø§Ù Ú©ÙÛØ¯.",
-    "Cron password": "Ø±ÙØ² Ø¹Ø¨ÙØ± Ø¨Ø±Ø§Û Ø§Ø¬Ø±Ø§Û ØªÚ©ÙÛÙ (Cron)",
-    "Protect cron from being abusively executed by the strangers.": "Ø§Ø² Ø§Ø¬Ø±Ø§Û Ø¯Ø²Ø¯Ú©Û ØªÚ©ÙÛÙ (Cron) ØªÙØ³Ø· ØºØ±ÛØ¨Ù ÙØ§ ÙØ­Ø§ÙØ¸Øª Ú©ÙÛØ¯.",
+    "Email address used as a sender to send emails on behalf of the website.": "آدرس ایمیل به عنوان فرستنده برای نامه های ارسالی از طریق وب سایت برگزیده شده است.",
+    "Execute cron automatically": "اجرای تکلیف (Cron) به صورت اتوماتیک",
+    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "سیستم هر ساعت یک تکلیف (Cron) را اجرا می کند. اجرای تکلیف در زمان بارگذاری صفحه و بازدید کاربر صورت می پذیرد. اگر به صورت دستی تکلیف را تنظیم می کنید، می توانید اجرای اتوماتیک آن را غیر فعال کنید.",
+    "Cron password": "رمز عبور برای اجرای تکلیف (Cron)",
+    "Protect cron from being abusively executed by the strangers.": "از اجرای دزدکی تکلیف (Cron) توسط غریبه ها محافظت کنید.",
     "Cron URL: ": "Cron URL:",
     "Remove old emails from the log": "Remove old emails from the log",
     "Days to keep emails": "Days to keep emails",
@@ -285,16 +285,16 @@
     "Meaningful only if \"Remove old page revisions\" is on.": "Meaningful only if \"Remove old page revisions\" is on.",
     "Allow anonymous uploads": "Allow anonymous uploads",
     "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.": "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.",
-    "Following administrator doesn't exist": "ÙØ¯ÛØ± Ø¯Ø±Ø®ÙØ§Ø³Øª Ø´Ø¯Ù ÙØ¬ÙØ¯ ÙØ¯Ø§Ø±Ø¯",
-    "You have exceeded failed login attempts.": "Ø¯ÙØ¹Ø§Øª ØªÙØ§Ø´ Ø¨Ø±Ø§Û ÙØ±ÙØ¯ Ø¨ÛØ´ Ø§Ø² Ø­Ø¯ Ø¨ÙØ¯Ù Ø§Ø³Øª.",
-    "Logout": "Ø®Ø±ÙØ¬",
-    "Password reset": "Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø¹Ø¨ÙØ±",
-    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": "Ø´ÙØ§ Ø§ÛÙÛÙÛ Ø¯Ø±ÛØ§ÙØª Ø®ÙØ§ÙÛØ¯ ÙÙÙØ¯ Ú©Ù Ø­Ø§ÙÛ ÙÛÙÚ© Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø¹Ø¨ÙØ± ÙÛ Ø¨Ø§Ø´Ø¯. ÙØ·ÙØ§ Ø¨Ù ÙÛÙÚ© Ø¯Ø§Ø¯Ù Ø´Ø¯Ù Ø±Ø¬ÙØ¹ Ú©ÙÛØ¯ Ù Ø±ÙØ² Ø¹Ø¨ÙØ± ØªØ§Ø²Ù Ø§Û Ø¨Ø±Ø§Û Ø®ÙØ¯ Ø¨Ø±Ú¯Ø²ÛÙÛØ¯.",
-    "Login": "ÙØ±ÙØ¯",
-    "Reset password": "Ø¨Ø§Ø²Ø³Ø§Ø²Û Ø±ÙØ² Ø¹Ø¨ÙØ±",
-    "Please enter your new password": "ÙØ·ÙØ§ Ø±ÙØ² Ø¹Ø¨ÙØ± ØªØ§Ø²Ù Û Ø®ÙØ¯ Ø±Ø§ ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯",
-    "Your password has been changed.": "Ø±ÙØ² Ø¹Ø¨ÙØ± Ø´ÙØ§ ØªØºÛÛØ± ÛØ§ÙØª.",
-    "Menu": "ÙÙØ±Ø³Øª",
+    "Following administrator doesn't exist": "مدیر درخواست شده وجود ندارد",
+    "You have exceeded failed login attempts.": "دفعات تلاش برای ورود بیش از حد بوده است.",
+    "Logout": "خروج",
+    "Password reset": "بازسازی رمز عبور",
+    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": "شما ایمیلی دریافت خواهید نمود که حاوی لینک بازسازی رمز عبور می باشد. لطفا به لینک داده شده رجوع کنید و رمز عبور تازه ای برای خود برگزینید.",
+    "Login": "ورود",
+    "Reset password": "بازسازی رمز عبور",
+    "Please enter your new password": "لطفا رمز عبور تازه ی خود را وارد نمائید",
+    "Your password has been changed.": "رمز عبور شما تغییر یافت.",
+    "Menu": "فهرست",
     "Important Account Information": "Important Account Information",
     "Your user credentials were automatically generated.": "Your user credentials were automatically generated.",
     "You were automatically logged in with the following details.": "You were automatically logged in with the following details.",
@@ -304,11 +304,11 @@
     "Administrator email": "Administrator email",
     "Change credentials": "Change credentials",
     "Yes, I understand how to log in next time": "Yes, I understand how to log in next time",
-    "Following user doesn't exist": "Ú©Ø§Ø±Ø¨Ø± Ø¯Ø±Ø®ÙØ§Ø³Øª Ø´Ø¯Ù ÙØ¬ÙØ¯ ÙØ¯Ø§Ø±Ø¯",
-    "Incorrect password": "Ø±ÙØ² Ø¹Ø¨ÙØ± ØºÛØ±ØµØ­ÛØ­ ÙÛ Ø¨Ø§Ø´Ø¯",
-    "Username or email": "ÙØ§Ù Ú©Ø§Ø±Ø¨Ø±Û ÛØ§ Ø§ÛÙÛÙ",
-    "Reset": "Ø¨Ø§Ø²Ø³Ø§Ø²Û",
-    "New password": "Ø±ÙØ² Ø¹Ø¨ÙØ± ÙÙ",
-    "OK": "Ø§ÙÚ©Û",
-    "Possible CSRF attack. Please pass correct securityToken.": "Ø§ÙÚ©Ø§Ù Ø­ÙÙÙ Û CSRF ÙØ¬ÙØ¯ Ø¯Ø§Ø±Ø¯. ÙØ·ÙØ§ Ø±ÙØ² Ø§ÙÙÛØªÛ ØµØ­ÛØ­ Ø±Ø§ ÙØ§Ø±Ø¯ ÙÙØ§Ø¦ÛØ¯."
+    "Following user doesn't exist": "کاربر درخواست شده وجود ندارد",
+    "Incorrect password": "رمز عبور غیرصحیح می باشد",
+    "Username or email": "نام کاربری یا ایمیل",
+    "Reset": "بازسازی",
+    "New password": "رمز عبور نو",
+    "OK": "اوکی",
+    "Possible CSRF attack. Please pass correct securityToken.": "امکان حمله ی CSRF وجود دارد. لطفا رمز امنیتی صحیح را وارد نمائید."
 }
