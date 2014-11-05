@@ -1,247 +1,247 @@
 {
-    "The characters you entered didn't match": "\u0627\u0644\u062d\u0631\u0648\u0641 \u0627\u0644\u062a\u064a \u0623\u062f\u062e\u0644\u062a\u0647\u0627 \u0644\u0627 \u062a\u062a\u0634\u0627\u0628\u0647",
+    "The characters you entered didn't match": "Ø§ÙØ­Ø±ÙÙ Ø§ÙØªÙ Ø£Ø¯Ø®ÙØªÙØ§ ÙØ§ ØªØªØ´Ø§Ø¨Ù",
     "Integer required": "Integer required",
-    "Confirm": "\u062a\u0623\u0643\u064a\u062f",
-    "Cancel": "\u0625\u0644\u063a\u0627\u0621",
-    "Incorrect color code": "\u0631\u0642\u0645 \u0644\u0648\u0646 \u062e\u0627\u0637\u0626",
-    "Session has ended. Please remove and re-upload files.": "\u0644\u0642\u062f \u0625\u0646\u062a\u0647\u062a \u0635\u0644\u0627\u062d\u064a\u0629 \u0627\u0644\u062f\u0648\u0631\u0629 , \u064a\u0631\u062c\u0649 \u062d\u0630\u0641 \u0648\u0625\u0639\u0627\u062f\u0629 \u0631\u0641\u0639 \u0627\u0644\u0645\u0644\u0641\u0627\u062a",
-    "Browse": "\u062a\u0635\u0641\u062d",
+    "Confirm": "ØªØ£ÙÙØ¯",
+    "Cancel": "Ø¥ÙØºØ§Ø¡",
+    "Incorrect color code": "Ø±ÙÙ ÙÙÙ Ø®Ø§Ø·Ø¦",
+    "Session has ended. Please remove and re-upload files.": "ÙÙØ¯ Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø­Ø°Ù ÙØ¥Ø¹Ø§Ø¯Ø© Ø±ÙØ¹ Ø§ÙÙÙÙØ§Øª",
+    "Browse": "ØªØµÙØ­",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
-    "Select": "\u0625\u062e\u062a\u064a\u0627\u0631",
-    "Upload": "\u0631\u0641\u0639",
-    "Form security check has failed. Please refresh the page.": "\u062e\u0627\u0646\u0629 \u0627\u0644\u0623\u0645\u0627\u0646 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d\u0629 , \u064a\u0631\u062c\u0649 \u0625\u0639\u0627\u062f\u0629 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0635\u0641\u062d\u0629",
-    "Please enter a valid email address.": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0628\u0631\u064a\u062f \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0635\u062d\u064a\u062d",
-    "Session has expired. Please refresh the page.": "\u0625\u0646\u062a\u0647\u062a \u0635\u0644\u0627\u062d\u064a\u0629 \u0627\u0644\u062f\u0648\u0631\u0629 , \u064a\u0631\u062c\u0649 \u0625\u0639\u0627\u062f\u0629 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0635\u0641\u062d\u0629",
-    "Must be a number.": "\u064a\u062c\u0628 \u0623\u0646 \u062a\u0643\u0648\u0646 \u0642\u064a\u0645\u0629 \u0639\u062f\u062f\u064a\u0629",
-    "The value should be unique": "\u0627\u0644\u0642\u064a\u0645\u0629 \u064a\u062c\u0628 \u0623\u0646 \u062a\u0643\u0648\u0646 \u0645\u0645\u064a\u0632\u0629",
-    "Please correct this value": "\u064a\u0631\u062c\u0649 \u062a\u0635\u062d\u064a\u062d \u0647\u0630\u0647 \u0627\u0644\u0645\u0627\u062f\u0629",
-    "Required field": "\u062e\u0627\u0646\u0629 \u0645\u0637\u0644\u0648\u0628\u0629",
-    "The value can't be one of:": "\u0627\u0644\u0642\u064a\u0645\u0629 \u064a\u062c\u0628 \u0623\u0646 \u0644\u0627 \u062a\u0643\u0648\u0646 \u0648\u0627\u062d\u062f\u0629 \u0645\u0646 \u0628\u064a\u0646",
-    "The value has to be one of:": "\u0627\u0644\u0642\u064a\u0645\u0629 \u064a\u062c\u0628 \u0623\u0646 \u062a\u0643\u0648\u0646 \u0648\u0627\u062d\u062f\u0629 \u0645\u0646 \u0628\u064a\u0646 :",
-    "Publish": "\u0623\u0646\u0634\u0631",
-    "Text": "\u0627\u0644\u0646\u0635",
-    "Email": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a",
-    "Textarea": "\u062e\u0627\u0646\u0629 \u0631\u0633\u0627\u0644\u0629",
-    "Checkbox": "\u0639\u0644\u0628\u0629 \u0639\u062f\u0629 \u0625\u062e\u062a\u064a\u0627\u0631\u0627\u062a",
-    "Radio": "\u0639\u0644\u0628\u0629 \u062e\u064a\u0627\u0631 \u0648\u0627\u062d\u062f",
-    "Captcha": "\u0635\u0648\u0631\u0629 \u0627\u0644\u0623\u0645\u0627\u0646",
-    "File": "\u0645\u0644\u0641",
-    "Preview": "\u0645\u0639\u0627\u064a\u0646\u0629",
-    "Hides admin tools": "\u0625\u062e\u0641\u0627\u0621 \u0648\u0633\u0627\u0626\u0644 \u0627\u0644\u0645\u0634\u0631\u0641",
-    "Edit": "\u062a\u062d\u0631\u064a\u0631",
-    "Show widgets": "\u0625\u0638\u0647\u0627\u0631 \u0627\u0644\u0623\u062f\u0648\u0627\u062a",
-    "Settings": "\u0625\u0639\u062f\u062f\u0627\u062a",
-    "Page settings": "\u0625\u0639\u062f\u062f\u0627\u062a \u0627\u0644\u0635\u0641\u062d\u0629",
-    "Choose widget skin": "\u0625\u062e\u062a\u0631 \u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u0623\u062f\u0627\u062a",
-    "Upload new": "\u0625\u0631\u0641\u0639 \u0627\u0644\u062c\u062f\u064a\u062f",
-    "Zoom in": "\u062a\u0643\u0628\u064a\u0631",
-    "Zoom out": "\u062a\u0635\u063a\u064a\u0631",
+    "Select": "Ø¥Ø®ØªÙØ§Ø±",
+    "Upload": "Ø±ÙØ¹",
+    "Form security check has failed. Please refresh the page.": "Ø®Ø§ÙØ© Ø§ÙØ£ÙØ§Ù ØºÙØ± ØµØ­ÙØ­Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
+    "Please enter a valid email address.": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
+    "Session has expired. Please refresh the page.": "Ø¥ÙØªÙØª ØµÙØ§Ø­ÙØ© Ø§ÙØ¯ÙØ±Ø© , ÙØ±Ø¬Ù Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙØµÙØ­Ø©",
+    "Must be a number.": "ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ© Ø¹Ø¯Ø¯ÙØ©",
+    "The value should be unique": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙÙÙØ²Ø©",
+    "Please correct this value": "ÙØ±Ø¬Ù ØªØµØ­ÙØ­ ÙØ°Ù Ø§ÙÙØ§Ø¯Ø©",
+    "Required field": "Ø®Ø§ÙØ© ÙØ·ÙÙØ¨Ø©",
+    "The value can't be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ÙØ§ ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ",
+    "The value has to be one of:": "Ø§ÙÙÙÙØ© ÙØ¬Ø¨ Ø£Ù ØªÙÙÙ ÙØ§Ø­Ø¯Ø© ÙÙ Ø¨ÙÙ :",
+    "Publish": "Ø£ÙØ´Ø±",
+    "Text": "Ø§ÙÙØµ",
+    "Email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ",
+    "Textarea": "Ø®Ø§ÙØ© Ø±Ø³Ø§ÙØ©",
+    "Checkbox": "Ø¹ÙØ¨Ø© Ø¹Ø¯Ø© Ø¥Ø®ØªÙØ§Ø±Ø§Øª",
+    "Radio": "Ø¹ÙØ¨Ø© Ø®ÙØ§Ø± ÙØ§Ø­Ø¯",
+    "Captcha": "ØµÙØ±Ø© Ø§ÙØ£ÙØ§Ù",
+    "File": "ÙÙÙ",
+    "Preview": "ÙØ¹Ø§ÙÙØ©",
+    "Hides admin tools": "Ø¥Ø®ÙØ§Ø¡ ÙØ³Ø§Ø¦Ù Ø§ÙÙØ´Ø±Ù",
+    "Edit": "ØªØ­Ø±ÙØ±",
+    "Show widgets": "Ø¥Ø¸ÙØ§Ø± Ø§ÙØ£Ø¯ÙØ§Øª",
+    "Settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª",
+    "Page settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª Ø§ÙØµÙØ­Ø©",
+    "Choose widget skin": "Ø¥Ø®ØªØ± ØªØµÙÙÙ Ø§ÙØ£Ø¯Ø§Øª",
+    "Upload new": "Ø¥Ø±ÙØ¹ Ø§ÙØ¬Ø¯ÙØ¯",
+    "Zoom in": "ØªÙØ¨ÙØ±",
+    "Zoom out": "ØªØµØºÙØ±",
     "Click and type": "Click and type",
-    "Published": "\u062a\u0645 \u0646\u0634\u0631",
-    "Save": "\u062d\u0641\u0638",
-    "Drag": "\u0633\u062d\u0628",
-    "Delete": "\u062d\u0630\u0641",
-    "Add new": "\u0625\u0636\u0627\u0641\u0629 \u062c\u062f\u064a\u062f",
+    "Published": "ØªÙ ÙØ´Ø±",
+    "Save": "Ø­ÙØ¸",
+    "Drag": "Ø³Ø­Ø¨",
+    "Delete": "Ø­Ø°Ù",
+    "Add new": "Ø¥Ø¶Ø§ÙØ© Ø¬Ø¯ÙØ¯",
     "Drag & drop here": "Drag & drop here",
     "Add widgets from the top menu by dragging and dropping.": "Add widgets from the top menu by dragging and dropping.",
-    "This is a preview of older revision, created at": "\u0647\u0630\u0647 \u0645\u0639\u0627\u064a\u0646\u0629 \u0644\u0644\u0645\u0631\u0627\u062c\u0639\u0629 \u0627\u0644\u0642\u062f\u064a\u0645\u0629 \u060c \u062a\u0645 \u0627\u0644\u0625\u0646\u0634\u0627\u0621 \u0641\u064a ",
-    "Publish this revision": "\u0646\u0634\u0631 \u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629",
-    "Duplicate and edit this revision": "\u0623\u0646\u0633\u062e \u0648 \u0642\u0645 \u0628\u062a\u062d\u0631\u064a\u0631 \u0647\u0630\u0647 \u0627\u0644\u0645\u0631\u0627\u062c\u0639\u0629",
-    "Skin": "\u062a\u0635\u0645\u064a\u0645",
-    "Form": "\u0627\u0644\u0634\u0643\u0644",
-    "Thank you message": "\u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u0634\u0643\u0631",
+    "This is a preview of older revision, created at": "ÙØ°Ù ÙØ¹Ø§ÙÙØ© ÙÙÙØ±Ø§Ø¬Ø¹Ø© Ø§ÙÙØ¯ÙÙØ© Ø ØªÙ Ø§ÙØ¥ÙØ´Ø§Ø¡ ÙÙ ",
+    "Publish this revision": "ÙØ´Ø± ÙØ°Ù Ø§ÙÙØ±Ø§Ø¬Ø¹Ø©",
+    "Duplicate and edit this revision": "Ø£ÙØ³Ø® Ù ÙÙ Ø¨ØªØ­Ø±ÙØ± ÙØ°Ù Ø§ÙÙØ±Ø§Ø¬Ø¹Ø©",
+    "Skin": "ØªØµÙÙÙ",
+    "Form": "Ø§ÙØ´ÙÙ",
+    "Thank you message": "Ø±Ø³Ø§ÙØ© Ø§ÙØ´ÙØ±",
     "Recipient": "Recipient",
-    "Website's email": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0644\u0644\u0645\u0648\u0642\u0639",
-    "Custom emails separated by space": "\u0628\u0631\u064a\u062f \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u062e\u0627\u0635 \u0645\u0646\u0641\u0635\u0644 \u0628\u0641\u0631\u0627\u063a ",
+    "Website's email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙÙÙØ¹",
+    "Custom emails separated by space": "Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ Ø®Ø§Øµ ÙÙÙØµÙ Ø¨ÙØ±Ø§Øº ",
     "Submit button text (leave empty for default)": "Submit button text (leave empty for default)",
-    "Form options": "\u0625\u062e\u062a\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u0634\u0643\u0644",
-    "Fields": "\u062e\u0627\u0646\u0627\u062a",
-    "Options": "\u0625\u062e\u062a\u064a\u0627\u0631\u0627\u062a",
-    "Required": "\u0645\u0637\u0644\u0648\u0628",
-    "Optional": "\u0625\u062e\u062a\u064a\u0627\u0631\u064a",
-    "Field options": "\u062e\u0635\u0627\u0626\u0635 \u0627\u0644\u062e\u0627\u0646\u0629",
-    "Video": "\u0641\u064a\u062f\u064a\u0648",
-    "Url": "\u0627\u0644\u0631\u0627\u0628\u0637",
-    "Size": "\u0627\u0644\u062d\u062c\u0645",
-    "Auto": "\u062a\u0644\u0642\u0627\u0626\u064a",
-    "Custom": "\u062e\u0627\u0635",
-    "Width": "\u0627\u0644\u0639\u0631\u0636",
-    "Height": "\u0627\u0644\u0627\u0631\u062a\u0641\u0627\u0639",
-    "Aspect ratio": "\u0646\u0633\u0628\u0629 \u0627\u0644\u0639\u0631\u0636 \u0625\u0644\u0649 \u0627\u0644\u0627\u0631\u062a\u0641\u0627\u0639",
+    "Form options": "Ø¥Ø®ØªÙØ§Ø±Ø§Øª Ø§ÙØ´ÙÙ",
+    "Fields": "Ø®Ø§ÙØ§Øª",
+    "Options": "Ø¥Ø®ØªÙØ§Ø±Ø§Øª",
+    "Required": "ÙØ·ÙÙØ¨",
+    "Optional": "Ø¥Ø®ØªÙØ§Ø±Ù",
+    "Field options": "Ø®ØµØ§Ø¦Øµ Ø§ÙØ®Ø§ÙØ©",
+    "Video": "ÙÙØ¯ÙÙ",
+    "Url": "Ø§ÙØ±Ø§Ø¨Ø·",
+    "Size": "Ø§ÙØ­Ø¬Ù",
+    "Auto": "ØªÙÙØ§Ø¦Ù",
+    "Custom": "Ø®Ø§Øµ",
+    "Width": "Ø§ÙØ¹Ø±Ø¶",
+    "Height": "Ø§ÙØ§Ø±ØªÙØ§Ø¹",
+    "Aspect ratio": "ÙØ³Ø¨Ø© Ø§ÙØ¹Ø±Ø¶ Ø¥ÙÙ Ø§ÙØ§Ø±ØªÙØ§Ø¹",
     "16:9": "16:9 ",
     "4:3": "4:3",
-    "Video widget settings": "\u0625\u0639\u062f\u062f\u0627\u062a \u0623\u062f\u0627\u062a \u0627\u0644\u0641\u064a\u062f\u064a\u0648",
-    "Gallery": "\u0645\u0639\u0631\u0636 \u0635\u0648\u0631",
-    "Mouse click action": "\u0639\u0645\u0644\u064a\u0629 \u0638\u063a\u0637 \u0639\u0644\u0649 \u0627\u0644\u0641\u0623\u0631\u0629",
-    "Lightbox": "\u0639\u0644\u0628\u0629 \u0625\u0638\u0647\u0627\u0631 \u0627\u0644\u0635\u0648\u0631",
-    "URL": "\u0631\u0627\u0628\u0637 \u0627\u0644\u0635\u0641\u062d\u0629",
-    "None": "\u0644\u0627 \u064a\u0648\u062c\u062f",
-    "Open in new window": "\u0627\u0644\u0641\u062a\u062d \u0641\u064a \u0646\u0627\u0641\u0630\u0629 \u062c\u062f\u064a\u062f\u0629",
-    "Title": "\u0627\u0644\u0639\u0646\u0648\u0627\u0646",
-    "Description": "\u0648\u0635\u0641",
-    "Add image": "\u0625\u0636\u0627\u0641\u0629 \u0635\u0648\u0631\u0629",
-    "Edit image": "\u062a\u0646\u0633\u064a\u0642 \u0635\u0648\u0631\u0629",
-    "Link": "\u0627\u0644\u0631\u0627\u0628\u0637",
-    "Files": "\u0645\u0644\u0641\u0627\u062a",
-    "Heading": "\u0627\u0644\u0639\u0646\u0648\u0627\u0646",
-    "H1": "\u0627\u0644\u0639\u0646\u0648\u0627\u0646 1",
-    "H2": "\u0627\u0644\u0639\u0646\u0648\u0627\u0646 2",
-    "H3": "\u0627\u0644\u0639\u0646\u0648\u0627\u0646 3",
-    "Anchor": "\u0625\u062e\u062a\u0635\u0627\u0631",
+    "Video widget settings": "Ø¥Ø¹Ø¯Ø¯Ø§Øª Ø£Ø¯Ø§Øª Ø§ÙÙÙØ¯ÙÙ",
+    "Gallery": "ÙØ¹Ø±Ø¶ ØµÙØ±",
+    "Mouse click action": "Ø¹ÙÙÙØ© Ø¸ØºØ· Ø¹ÙÙ Ø§ÙÙØ£Ø±Ø©",
+    "Lightbox": "Ø¹ÙØ¨Ø© Ø¥Ø¸ÙØ§Ø± Ø§ÙØµÙØ±",
+    "URL": "Ø±Ø§Ø¨Ø· Ø§ÙØµÙØ­Ø©",
+    "None": "ÙØ§ ÙÙØ¬Ø¯",
+    "Open in new window": "Ø§ÙÙØªØ­ ÙÙ ÙØ§ÙØ°Ø© Ø¬Ø¯ÙØ¯Ø©",
+    "Title": "Ø§ÙØ¹ÙÙØ§Ù",
+    "Description": "ÙØµÙ",
+    "Add image": "Ø¥Ø¶Ø§ÙØ© ØµÙØ±Ø©",
+    "Edit image": "ØªÙØ³ÙÙ ØµÙØ±Ø©",
+    "Link": "Ø§ÙØ±Ø§Ø¨Ø·",
+    "Files": "ÙÙÙØ§Øª",
+    "Heading": "Ø§ÙØ¹ÙÙØ§Ù",
+    "H1": "Ø§ÙØ¹ÙÙØ§Ù 1",
+    "H2": "Ø§ÙØ¹ÙÙØ§Ù 2",
+    "H3": "Ø§ÙØ¹ÙÙØ§Ù 3",
+    "Anchor": "Ø¥Ø®ØªØµØ§Ø±",
     "HTML": "HTML",
-    "Edit HTML": "\u062a\u0646\u0633\u064a\u0642 \u0643\u0648\u062f \u0644\u063a\u0629 \u0627\u0644\u0648\u064a\u0628",
-    "Map": "\u062e\u0631\u064a\u0637\u0629",
-    "Unknown widget.": "\u0623\u062f\u0627\u062a \u063a\u064a\u0631 \u0645\u0639\u0631\u0648\u0641\u0629",
-    "Missing": "\u0645\u0641\u0642\u0648\u062f\u0629",
-    "Divider": "\u0627\u0644\u0641\u0627\u0635\u0644",
-    "Image": "\u0635\u0648\u0631\u0629",
-    "Columns": "\u0623\u0639\u0645\u062f\u0629",
-    "Please enter a valid email address": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0628\u0631\u064a\u062f \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0635\u062d\u064a\u062d",
-    "Please enter a valid numeric value": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0642\u064a\u0645\u0629 \u0631\u0642\u0645\u064a\u0629 \u0635\u062d\u064a\u062d\u0629",
-    "Please enter a valid URL": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0631\u0627\u0628\u0637 \u0635\u062d\u064a\u062d",
-    "Please enter a value no larger than $1": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0642\u064a\u0645\u0629 \u0644\u0627 \u062a\u062a\u0639\u062f\u0649 $1",
-    "Please enter a value of at least $1": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0642\u064a\u0645\u0629 \u0639\u0644\u0649 \u0627\u0644\u0623\u0642\u0644  $1",
-    "Please complete this mandatory field": "\u064a\u0631\u062c\u0649 \u0625\u0643\u0645\u0627\u0644 \u0645\u0644\u0626 \u0627\u0644\u062e\u0627\u0646\u0627\u062a \u0627\u0644\u0625\u062c\u0628\u0627\u0631\u064a\u0629",
-    "Select Link Target": "\u0625\u062e\u062a\u064a\u0627\u0631 \u0646\u0648\u0639\u064a\u0629 \u0627\u0644\u0631\u0627\u0628\u0637",
-    "Edit record": "\u062a\u062d\u0631\u064a\u0631 \u0627\u0644\u0645\u0627\u062f\u0629 \u0627\u0644\u0645\u062d\u0641\u0648\u0638\u0629",
+    "Edit HTML": "ØªÙØ³ÙÙ ÙÙØ¯ ÙØºØ© Ø§ÙÙÙØ¨",
+    "Map": "Ø®Ø±ÙØ·Ø©",
+    "Unknown widget.": "Ø£Ø¯Ø§Øª ØºÙØ± ÙØ¹Ø±ÙÙØ©",
+    "Missing": "ÙÙÙÙØ¯Ø©",
+    "Divider": "Ø§ÙÙØ§ØµÙ",
+    "Image": "ØµÙØ±Ø©",
+    "Columns": "Ø£Ø¹ÙØ¯Ø©",
+    "Please enter a valid email address": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ØµØ­ÙØ­",
+    "Please enter a valid numeric value": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø±ÙÙÙØ© ØµØ­ÙØ­Ø©",
+    "Please enter a valid URL": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù Ø±Ø§Ø¨Ø· ØµØ­ÙØ­",
+    "Please enter a value no larger than $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© ÙØ§ ØªØªØ¹Ø¯Ù $1",
+    "Please enter a value of at least $1": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø¹ÙÙ Ø§ÙØ£ÙÙ  $1",
+    "Please complete this mandatory field": "ÙØ±Ø¬Ù Ø¥ÙÙØ§Ù ÙÙØ¦ Ø§ÙØ®Ø§ÙØ§Øª Ø§ÙØ¥Ø¬Ø¨Ø§Ø±ÙØ©",
+    "Select Link Target": "Ø¥Ø®ØªÙØ§Ø± ÙÙØ¹ÙØ© Ø§ÙØ±Ø§Ø¨Ø·",
+    "Edit record": "ØªØ­Ø±ÙØ± Ø§ÙÙØ§Ø¯Ø© Ø§ÙÙØ­ÙÙØ¸Ø©",
     "Add record": "Add record",
-    "Search": "\u0627\u0644\u0628\u062d\u062b",
-    "Yes": "\u0646\u0639\u0645",
-    "No": "\u0644\u0627",
-    "Are you sure you want to delete?": "\u0647\u0644 \u0623\u0646\u062a \u0645\u062a\u0623\u0643\u062f \u0645\u0646 \u0627\u0644\u0625\u0633\u062a\u0645\u0631\u0627\u0631 \u0641\u064a \u0639\u0645\u0644\u064a\u0629 \u0627\u0644\u062d\u0630\u0641 \u061f",
-    "General": "\u0639\u0627\u0645\u0629",
-    "Add": "\u0625\u0636\u0627\u0641\u0629",
-    "Administrator profile": "\u0645\u0639\u0644\u0648\u0645\u0627\u062a \u0627\u0644\u0645\u0634\u0631\u0641 \u0639\u0644\u0649 \u0627\u0644\u0645\u0648\u0642\u0639",
-    "To reset your password follow the link below:": "\u0644\u0625\u0639\u0627\u062f\u0629 \u062a\u0641\u0639\u064a\u0644 \u0643\u0644\u0645\u0629 \u0633\u0631 \u062c\u062f\u064a\u062f\u0629 \u0627\u0644\u0631\u062c\u0627\u0621 \u0627\u0644\u0646\u0641\u0631 \u0639\u0644\u0649 \u0627\u0644\u0631\u0627\u0628\u0637 \u0627\u0644\u062a\u0627\u0644\u064a :",
-    "You will then be able to reset your password.": "\u0633\u062a\u0643\u0648\u0646 \u0642\u0627\u062f\u0631\u0627 \u0639\u0644\u0649 \u0627\u0644\u062d\u0635\u0648\u0644 \u0639\u0644\u0649 \u0643\u0644\u0645\u0629 \u0633\u0631 \u062c\u062f\u064a\u062f\u0629 .",
-    "Username": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645",
-    "Permissions": "\u0627\u0644\u0625\u0630\u0646",
+    "Search": "Ø§ÙØ¨Ø­Ø«",
+    "Yes": "ÙØ¹Ù",
+    "No": "ÙØ§",
+    "Are you sure you want to delete?": "ÙÙ Ø£ÙØª ÙØªØ£ÙØ¯ ÙÙ Ø§ÙØ¥Ø³ØªÙØ±Ø§Ø± ÙÙ Ø¹ÙÙÙØ© Ø§ÙØ­Ø°Ù Ø",
+    "General": "Ø¹Ø§ÙØ©",
+    "Add": "Ø¥Ø¶Ø§ÙØ©",
+    "Administrator profile": "ÙØ¹ÙÙÙØ§Øª Ø§ÙÙØ´Ø±Ù Ø¹ÙÙ Ø§ÙÙÙÙØ¹",
+    "To reset your password follow the link below:": "ÙØ¥Ø¹Ø§Ø¯Ø© ØªÙØ¹ÙÙ ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© Ø§ÙØ±Ø¬Ø§Ø¡ Ø§ÙÙÙØ± Ø¹ÙÙ Ø§ÙØ±Ø§Ø¨Ø· Ø§ÙØªØ§ÙÙ :",
+    "You will then be able to reset your password.": "Ø³ØªÙÙÙ ÙØ§Ø¯Ø±Ø§ Ø¹ÙÙ Ø§ÙØ­ØµÙÙ Ø¹ÙÙ ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© .",
+    "Username": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù",
+    "Permissions": "Ø§ÙØ¥Ø°Ù",
     "You will not be able to set other permissions for yourself!": "You will not be able to set other permissions for yourself!",
-    "Already taken": "\u062a\u0645 \u0623\u062e\u0630\u0647 \u0645\u0646 \u0642\u0628\u0644",
-    "Password reset instructions": "\u062e\u0637\u0648\u0627\u062a \u0625\u0639\u0627\u062f\u0629 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631",
-    "User name": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645",
-    "Password": "\u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631",
-    "New password (optional)": "\u0643\u0644\u0645\u0629 \u0633\u0631 \u062c\u062f\u064a\u062f\u0629 (\u0625\u062e\u062a\u064a\u0627\u0631\u064a\u0629)",
-    "Add language": "\u0625\u0636\u0627\u0641\u0629 \u0644\u063a\u0629 \u062c\u062f\u064a\u062f\u0629",
+    "Already taken": "ØªÙ Ø£Ø®Ø°Ù ÙÙ ÙØ¨Ù",
+    "Password reset instructions": "Ø®Ø·ÙØ§Øª Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±",
+    "User name": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù",
+    "Password": "ÙÙÙØ© Ø§ÙØ³Ø±",
+    "New password (optional)": "ÙÙÙØ© Ø³Ø± Ø¬Ø¯ÙØ¯Ø© (Ø¥Ø®ØªÙØ§Ø±ÙØ©)",
+    "Add language": "Ø¥Ø¶Ø§ÙØ© ÙØºØ© Ø¬Ø¯ÙØ¯Ø©",
     "Are you sure you want to delete? All pages and other language related content will be lost forever!": "Are you sure you want to delete? All pages and other language related content will be lost forever!",
-    "Abbreviation": "\u0627\u0644\u0625\u062e\u062a\u0635\u0627\u0631",
-    "Visible": "\u0625\u0638\u0647\u0627\u0631",
-    "You can't use slash in URL.": "\u064a\u0645\u0643\u0646\u0643 \u0625\u0633\u062a\u0639\u0645\u0627\u0644 \"\/\" \u0641\u064a \u0631\u0627\u0628\u0637 ",
-    "Language url should be unique": "\u0631\u0627\u0628\u0637 \u0627\u0644\u0644\u063a\u0629 \u064a\u062c\u0628 \u0623\u0646 \u064a\u0643\u0648\u0646 \u0645\u0645\u064a\u0632",
-    "This is a system directory name.": "\u0647\u0630\u0627 \u0625\u0633\u0645 \u0627\u0644\u0645\u0644\u0641 \u0627\u0644\u062e\u0627\u0635 \u0628\u0646\u0638\u0627\u0645",
-    "RFC 4646 code": "\u0643\u0648\u062f RFC 4646",
-    "Language code should be unique": "\u0643\u0648\u062f \u0627\u0644\u0644\u063a\u0629 \u064a\u062c\u0628 \u0623\u0646 \u064a\u0643\u0648\u0646 \u0645\u0645\u064a\u0632",
-    "Text direction": "\u0648\u062c\u0647\u0629 \u0627\u0644\u0646\u0635",
-    "Left To Right": "\u0645\u0646 \u0627\u0644\u064a\u0633\u0627\u0631 \u0625\u0644\u0649 \u0627\u0644\u064a\u0645\u064a\u0646",
-    "Right To Left": "\u0645\u0646 \u0627\u0644\u064a\u0645\u064a\u0646 \u0625\u0644\u0649 \u0627\u0644\u064a\u0633\u0627\u0631",
-    "This language already exist.": "\u0647\u0630\u0647 \u0627\u0644\u0644\u063a\u0629 \u0645\u0648\u062c\u0648\u062f\u0629 \u0645\u0646 \u0642\u0628\u0644",
-    "Can't delete the last language.": "\u0644\u0627 \u064a\u0645\u0643\u0646 \u062d\u0630\u0641 \u0627\u0644\u0644\u063a\u0629 \u0627\u0644\u0623\u062e\u064a\u0631\u0629",
-    "Please set %s language url to non empty before moving other language to top.": "\u064a\u0631\u062c\u0649 \u062a\u062d\u062f\u064a\u062f \u0631\u0627\u0628\u0637 \u0627\u0644\u0644\u063a\u0629 %s \u0625\u0644\u0649 \u0639\u062f\u0645 \u0627\u0644\u0641\u0631\u0627\u063a \u0642\u0628\u0644 \u0627\u0644\u0642\u064a\u0627\u0645 \u0628\u0646\u0642\u0644 \u0644\u063a\u0629 \u0623\u062e\u0631\u0649 \u0646\u062d\u0648\u0649 \u0627\u0644\u0623\u0639\u0644\u0649",
-    "Please set %s language url to non empty before moving it down.": "\u064a\u0631\u062c\u0649 \u062a\u062d\u062f\u064a\u062f \u0631\u0627\u0628\u0637 \u0627\u0644\u0644\u063a\u0629 %s \u0625\u0644\u0649 \u0639\u062f\u0645 \u0627\u0644\u0641\u0631\u0627\u063a \u0642\u0628\u0644 \u0627\u0644\u0642\u064a\u0627\u0645 \u0628\u0646\u0642\u0644 \u0644\u063a\u0629 \u0623\u062e\u0631\u0649 \u0646\u062d\u0648\u0649 \u0627\u0644\u0623\u0633\u0641\u0644",
+    "Abbreviation": "Ø§ÙØ¥Ø®ØªØµØ§Ø±",
+    "Visible": "Ø¥Ø¸ÙØ§Ø±",
+    "You can't use slash in URL.": "ÙÙÙÙÙ Ø¥Ø³ØªØ¹ÙØ§Ù \"\/\" ÙÙ Ø±Ø§Ø¨Ø· ",
+    "Language url should be unique": "Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© ÙØ¬Ø¨ Ø£Ù ÙÙÙÙ ÙÙÙØ²",
+    "This is a system directory name.": "ÙØ°Ø§ Ø¥Ø³Ù Ø§ÙÙÙÙ Ø§ÙØ®Ø§Øµ Ø¨ÙØ¸Ø§Ù",
+    "RFC 4646 code": "ÙÙØ¯ RFC 4646",
+    "Language code should be unique": "ÙÙØ¯ Ø§ÙÙØºØ© ÙØ¬Ø¨ Ø£Ù ÙÙÙÙ ÙÙÙØ²",
+    "Text direction": "ÙØ¬ÙØ© Ø§ÙÙØµ",
+    "Left To Right": "ÙÙ Ø§ÙÙØ³Ø§Ø± Ø¥ÙÙ Ø§ÙÙÙÙÙ",
+    "Right To Left": "ÙÙ Ø§ÙÙÙÙÙ Ø¥ÙÙ Ø§ÙÙØ³Ø§Ø±",
+    "This language already exist.": "ÙØ°Ù Ø§ÙÙØºØ© ÙÙØ¬ÙØ¯Ø© ÙÙ ÙØ¨Ù",
+    "Can't delete the last language.": "ÙØ§ ÙÙÙÙ Ø­Ø°Ù Ø§ÙÙØºØ© Ø§ÙØ£Ø®ÙØ±Ø©",
+    "Please set %s language url to non empty before moving other language to top.": "ÙØ±Ø¬Ù ØªØ­Ø¯ÙØ¯ Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© %s Ø¥ÙÙ Ø¹Ø¯Ù Ø§ÙÙØ±Ø§Øº ÙØ¨Ù Ø§ÙÙÙØ§Ù Ø¨ÙÙÙ ÙØºØ© Ø£Ø®Ø±Ù ÙØ­ÙÙ Ø§ÙØ£Ø¹ÙÙ",
+    "Please set %s language url to non empty before moving it down.": "ÙØ±Ø¬Ù ØªØ­Ø¯ÙØ¯ Ø±Ø§Ø¨Ø· Ø§ÙÙØºØ© %s Ø¥ÙÙ Ø¹Ø¯Ù Ø§ÙÙØ±Ø§Øº ÙØ¨Ù Ø§ÙÙÙØ§Ù Ø¨ÙÙÙ ÙØºØ© Ø£Ø®Ø±Ù ÙØ­ÙÙ Ø§ÙØ£Ø³ÙÙ",
     "Email preview": "Email preview",
-    "Ok": "\u0645\u0648\u0627\u0641\u0642",
-    "Subject": "\u0627\u0644\u0645\u0648\u0636\u0648\u0639",
-    "Recipient name": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0631\u0633\u0644 \u0625\u0644\u064a\u0647",
-    "Recipient email": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0644\u0644\u0645\u0631\u0633\u0644 \u0625\u0644\u064a\u0647",
-    "Sender name": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0631\u0633\u0644",
-    "Sender email": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0644\u0644\u0645\u0631\u0633\u0644",
-    "Sent at": "\u062a\u0645 \u0627\u0644\u0625\u0631\u0633\u0627\u0644 \u0641\u064a",
-    "Attachment": "\u0645\u0644\u0641\u0627\u062a \u0645\u0644\u062d\u0642\u0629",
-    "System": "\u0627\u0644\u0646\u0638\u0627\u0645",
-    "Website's URL seems to be changed": "\u064a\u0628\u062f\u0648 \u0631\u0627\u0628\u0637 \u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u0648\u0642\u0639 \u062a\u0645 \u062a\u063a\u064a\u064a\u0631\u0647",
-    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "\u0644\u0642\u062f \u0627\u0643\u062a\u0634\u0641\u0646\u0627 \u0623\u0646 \u0631\u0627\u0628\u0637 \u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0645\u0648\u0642\u0639 \u0642\u062f \u062a\u0645 \u062a\u063a\u064a\u0631\u0647. \u0647\u0644 \u062a\u0631\u063a\u0628 \u0641\u064a \u062a\u062d\u062f\u064a\u062b \u0631\u0648\u0627\u0628\u0637 \u0645\u0648\u0642\u0639\u0643 \u0645\u0646 %s \u0625\u0644\u0649 %s \u061f",
-    "Update links": "\u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0631\u0648\u0627\u0628\u0637",
-    "Database migrations": "\u0647\u062c\u0631\u0629 \u0642\u0627\u0639\u062f\u0629 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a",
-    "Your database is outdated.": "\u0644\u0642\u062f \u062a\u062c\u0627\u0648\u0632\u062a \u0642\u0627\u0639\u062f\u0629 \u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0645\u0648\u0642\u0639 \u0627\u0644\u0645\u0633\u0627\u062d\u0629 \u0627\u0644\u0645\u0633\u0645\u0648\u062d\u0629 \u0644\u0647\u0627.",
-    "Update": "\u062a\u062d\u062f\u064a\u062b",
+    "Ok": "ÙÙØ§ÙÙ",
+    "Subject": "Ø§ÙÙÙØ¶ÙØ¹",
+    "Recipient name": "Ø¥Ø³Ù Ø§ÙÙØ±Ø³Ù Ø¥ÙÙÙ",
+    "Recipient email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙØ±Ø³Ù Ø¥ÙÙÙ",
+    "Sender name": "Ø¥Ø³Ù Ø§ÙÙØ±Ø³Ù",
+    "Sender email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙØ±Ø³Ù",
+    "Sent at": "ØªÙ Ø§ÙØ¥Ø±Ø³Ø§Ù ÙÙ",
+    "Attachment": "ÙÙÙØ§Øª ÙÙØ­ÙØ©",
+    "System": "Ø§ÙÙØ¸Ø§Ù",
+    "Website's URL seems to be changed": "ÙØ¨Ø¯Ù Ø±Ø§Ø¨Ø· Ø¹ÙÙØ§Ù Ø§ÙÙÙÙØ¹ ØªÙ ØªØºÙÙØ±Ù",
+    "We have detected that website's URL has changed. Would you like to update links on your website from %s to %s ?": "ÙÙØ¯ Ø§ÙØªØ´ÙÙØ§ Ø£Ù Ø±Ø§Ø¨Ø· Ø¹ÙÙØ§Ù Ø§ÙÙÙÙØ¹ ÙØ¯ ØªÙ ØªØºÙØ±Ù. ÙÙ ØªØ±ØºØ¨ ÙÙ ØªØ­Ø¯ÙØ« Ø±ÙØ§Ø¨Ø· ÙÙÙØ¹Ù ÙÙ %s Ø¥ÙÙ %s Ø",
+    "Update links": "ØªØ­Ø¯ÙØ« Ø§ÙØ±ÙØ§Ø¨Ø·",
+    "Database migrations": "ÙØ¬Ø±Ø© ÙØ§Ø¹Ø¯Ø© Ø§ÙØ¨ÙØ§ÙØ§Øª",
+    "Your database is outdated.": "ÙÙØ¯ ØªØ¬Ø§ÙØ²Øª ÙØ§Ø¹Ø¯Ø© Ø¨ÙØ§ÙØ§Øª Ø§ÙÙÙÙØ¹ Ø§ÙÙØ³Ø§Ø­Ø© Ø§ÙÙØ³ÙÙØ­Ø© ÙÙØ§.",
+    "Update": "ØªØ­Ø¯ÙØ«",
     "Trash": "Trash",
     "Trash contains %s deleted pages.": "Trash contains %s deleted pages.",
     "Recovery": "Recovery",
     "Empty": "Empty",
-    "System status": "\u0648\u0636\u0639\u064a\u0629 \u0627\u0644\u0646\u0638\u0627\u0645",
-    "Update in progress": "\u062a\u062a\u0645 \u0627\u0644\u0623\u0646 \u0639\u0645\u0644\u064a\u0629 \u0627\u0644\u062a\u062d\u062f\u064a\u062b ",
+    "System status": "ÙØ¶Ø¹ÙØ© Ø§ÙÙØ¸Ø§Ù",
+    "Update in progress": "ØªØªÙ Ø§ÙØ£Ù Ø¹ÙÙÙØ© Ø§ÙØªØ­Ø¯ÙØ« ",
     "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.": "Downloading new files and migrating the database. Please don't refresh the page. Be patient. It may take up to 2 min. on a good line.",
     "Empty pages": "Empty pages",
     "Recovery pages": "Recovery pages",
-    "Content": "\u0627\u0644\u0645\u062d\u062a\u0648\u0649",
-    "Pages": "\u0627\u0644\u0635\u0641\u062d\u0627\u062a",
-    "Design": "\u0627\u0644\u062a\u0635\u0645\u064a\u0645",
-    "Plugins": "\u0627\u0644\u0625\u0636\u0627\u0641\u0627\u062a",
-    "Config": "\u0625\u0639\u062f\u0627\u062f",
-    "Languages": "\u0627\u0644\u0644\u0644\u063a\u0627\u062a",
-    "ImpressPages has been successfully updated.": "\u062a\u0645\u062a \u0639\u0645\u0644\u064a\u0629 \u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0623\u0645\u0628\u0631\u0627\u0633 \u0628\u0627\u064a\u062c \u0628\u0646\u062c\u0627\u062d.",
-    "Links have been successfully updated.": "\u062a\u0645\u062a \u0639\u0645\u0644\u064a\u0629 \u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0631\u0648\u0627\u0628\u0637 \u0628\u0646\u062c\u0627\u062d.",
+    "Content": "Ø§ÙÙØ­ØªÙÙ",
+    "Pages": "Ø§ÙØµÙØ­Ø§Øª",
+    "Design": "Ø§ÙØªØµÙÙÙ",
+    "Plugins": "Ø§ÙØ¥Ø¶Ø§ÙØ§Øª",
+    "Config": "Ø¥Ø¹Ø¯Ø§Ø¯",
+    "Languages": "Ø§ÙÙÙØºØ§Øª",
+    "ImpressPages has been successfully updated.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ­Ø¯ÙØ« Ø§ÙØ£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬ Ø¨ÙØ¬Ø§Ø­.",
+    "Links have been successfully updated.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ­Ø¯ÙØ« Ø§ÙØ±ÙØ§Ø¨Ø· Ø¨ÙØ¬Ø§Ø­.",
     "Forbidden file type.": "Forbidden file type.",
-    "Can't store uploaded file. Please check server configuration.": "\u0644\u0627 \u064a\u0645\u0643\u0646 \u062d\u0641\u0638 \u0627\u0644\u0645\u0644\u0641\u0627\u062a \u0627\u0644\u062a\u064a \u062a\u0645 \u0631\u0641\u0639\u0647\u0627\u060c \u064a\u0631\u062c\u0649 \u062a\u0641\u062d\u0635 \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u062e\u0627\u062f\u0645",
-    "Are you sure you want to delete selected files?": "\u0647\u0644 \u0623\u0646\u062a \u0645\u062a\u0623\u0643\u062f \u0645\u0646 \u0623\u0646\u0643 \u062a\u0631\u064a\u062f \u062d\u0630\u0641 \u0627\u0644\u0645\u0644\u0641\u0627\u062a \u0627\u0644\u062a\u064a \u062a\u0645 \u0625\u062e\u062a\u064a\u0627\u0631\u0647\u0627 \u061f",
+    "Can't store uploaded file. Please check server configuration.": "ÙØ§ ÙÙÙÙ Ø­ÙØ¸ Ø§ÙÙÙÙØ§Øª Ø§ÙØªÙ ØªÙ Ø±ÙØ¹ÙØ§Ø ÙØ±Ø¬Ù ØªÙØ­Øµ Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª Ø§ÙØ®Ø§Ø¯Ù",
+    "Are you sure you want to delete selected files?": "ÙÙ Ø£ÙØª ÙØªØ£ÙØ¯ ÙÙ Ø£ÙÙ ØªØ±ÙØ¯ Ø­Ø°Ù Ø§ÙÙÙÙØ§Øª Ø§ÙØªÙ ØªÙ Ø¥Ø®ØªÙØ§Ø±ÙØ§ Ø",
     "Some of the selected files are still used somewhere on your website. Do you still want to remove them? ": "Some of the selected files are still used somewhere on your website. Do you still want to remove them?",
-    "Drag&drop files here or click a button to upload.": "\u0625\u0633\u062d\u0628 \u0648 \u0645\u0644\u0626 \u0645\u0644\u0641\u0627\u062a\u0643 \u0647\u0646\u0627 \u0623\u0648 \u0623\u0646\u0642\u0631 \u0639\u0644\u0649 \u0627\u0644\u0632\u0631 \u0645\u0646 \u0623\u062c\u0644 \u0631\u0641\u0639",
-    "Need more images? Browse and choose from thousands of them.": "\u0647\u0644 \u062a\u0631\u064a\u062f \u0627\u0644\u0645\u0632\u064a\u062f \u0645\u0646 \u0627\u0644\u0635\u0648\u0631 \u061f \u062a\u0635\u0641\u062d \u0648\u0625\u062e\u062a\u0631 \u0645\u0646 \u0628\u064a\u0646 \u0623\u0644\u0627\u0641 \u0627\u0644\u0635\u0648\u0631",
-    "Buy images": "\u0634\u0631\u0627\u0621 \u0635\u0648\u0631",
+    "Drag&drop files here or click a button to upload.": "Ø¥Ø³Ø­Ø¨ Ù ÙÙØ¦ ÙÙÙØ§ØªÙ ÙÙØ§ Ø£Ù Ø£ÙÙØ± Ø¹ÙÙ Ø§ÙØ²Ø± ÙÙ Ø£Ø¬Ù Ø±ÙØ¹",
+    "Need more images? Browse and choose from thousands of them.": "ÙÙ ØªØ±ÙØ¯ Ø§ÙÙØ²ÙØ¯ ÙÙ Ø§ÙØµÙØ± Ø ØªØµÙØ­ ÙØ¥Ø®ØªØ± ÙÙ Ø¨ÙÙ Ø£ÙØ§Ù Ø§ÙØµÙØ±",
+    "Buy images": "Ø´Ø±Ø§Ø¡ ØµÙØ±",
     "File repository": "File repository",
-    "Search by filename": "\u0627\u0644\u0628\u062d\u062b \u0639\u0646 \u0637\u0631\u064a\u0642 \u0625\u0633\u0645 \u0627\u0644\u0645\u0644\u0641",
-    "Recent files": "\u0622\u062e\u0631 \u0627\u0644\u0645\u0644\u0641\u0627\u062a",
+    "Search by filename": "Ø§ÙØ¨Ø­Ø« Ø¹Ù Ø·Ø±ÙÙ Ø¥Ø³Ù Ø§ÙÙÙÙ",
+    "Recent files": "Ø¢Ø®Ø± Ø§ÙÙÙÙØ§Øª",
     "You have no right to browse the repository": "You have no right to browse the repository",
-    "Selected:": "\u062a\u0645 \u0625\u062e\u062a\u064a\u0627\u0631 :",
-    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "\u0644\u0642\u062f \u062a\u0645 \u0628\u062f\u0623 \u0631\u0641\u0639 \u0635\u0648\u0631\u0643 \u0625\u0644\u0649 \u0627\u0644\u0645\u0648\u0642\u0639 \u060c \u0642\u062f \u064a\u0623\u062e\u0630 \u0630\u0644\u0643 \u0628\u0639\u0636 \u0645\u0646 \u0627\u0644\u0648\u0642\u062a \u0644\u0644\u0625\u0646\u062a\u0647\u0627\u0621\u060c \u0641\u064a\u0631\u062c\u0649 \u0627\u0644\u0625\u0646\u062a\u0638\u0627\u0631.",
-    "Deactivate": "\u062a\u0639\u0637\u064a\u0644",
-    "Activate": "\u062a\u0634\u063a\u064a\u0644",
+    "Selected:": "ØªÙ Ø¥Ø®ØªÙØ§Ø± :",
+    "Your images are being downloaded to your website. It may take some time to finish. Please wait.": "ÙÙØ¯ ØªÙ Ø¨Ø¯Ø£ Ø±ÙØ¹ ØµÙØ±Ù Ø¥ÙÙ Ø§ÙÙÙÙØ¹ Ø ÙØ¯ ÙØ£Ø®Ø° Ø°ÙÙ Ø¨Ø¹Ø¶ ÙÙ Ø§ÙÙÙØª ÙÙØ¥ÙØªÙØ§Ø¡Ø ÙÙØ±Ø¬Ù Ø§ÙØ¥ÙØªØ¸Ø§Ø±.",
+    "Deactivate": "ØªØ¹Ø·ÙÙ",
+    "Activate": "ØªØ´ØºÙÙ",
     "Author": "Author",
-    "Name": "\u0627\u0644\u0625\u0633\u0645 ",
+    "Name": "Ø§ÙØ¥Ø³Ù ",
     "Version": "Version",
     "My Plugins": "My Plugins",
     "This action will remove plugin's files and database records. Do you want to proceed.?": "This action will remove plugin's files and database records. Do you want to proceed.?",
     "Validation failed": "Validation failed",
     "Directory is not writable. Please check your email and install the plugin manually.": "Directory is not writable. Please check your email and install the plugin manually.",
-    "Download failed: invalid parameters": "\u0641\u0634\u0644 \u062a\u062d\u0645\u064a\u0644 : \u062e\u0635\u0627\u0626\u0635 \u063a\u064a\u0631 \u0635\u0627\u0644\u062d\u0629",
-    "Unknown error. Please see logs.": "\u062e\u0637\u0623 \u063a\u064a\u0631 \u0645\u0639\u0631\u0648\u0641. \u064a\u0631\u062c\u0649 \u0627\u0644\u0627\u0637\u0644\u0627\u0639 \u0639\u0644\u0649 \u0627\u0644\u0633\u062c\u0644\u0627\u062a.",
+    "Download failed: invalid parameters": "ÙØ´Ù ØªØ­ÙÙÙ : Ø®ØµØ§Ø¦Øµ ØºÙØ± ØµØ§ÙØ­Ø©",
+    "Unknown error. Please see logs.": "Ø®Ø·Ø£ ØºÙØ± ÙØ¹Ø±ÙÙ. ÙØ±Ø¬Ù Ø§ÙØ§Ø·ÙØ§Ø¹ Ø¹ÙÙ Ø§ÙØ³Ø¬ÙØ§Øª.",
     "Inactive": "Inactive",
     "Active": "Active",
-    "Edit logo": "\u062a\u063a\u064a\u064a\u0631 \u0634\u0639\u0627\u0631",
-    "Image logo": "\u0635\u0648\u0631\u0631\u0629 \u0634\u0639\u0627\u0631",
-    "Default": "\u0642\u064a\u0627\u0633\u064a",
-    "Apply to": "\u0644\u0644\u062a\u0637\u0628\u064a\u0642 \u0639\u0644\u0649",
-    "Remove this image": "\u0625\u062d\u0630\u0641 \u0647\u0630\u0647 \u0627\u0644\u0635\u0648\u0631\u0629",
-    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "\u0644\u0627 \u064a\u0648\u062c\u062f \u0625\u062e\u062a\u064a\u0627\u0631\u0627\u062a \u0644\u062a\u0631\u0627\u062c\u0639 \u0639\u0646 \u0647\u0630\u0647 \u0627\u0644\u0639\u0645\u0644\u064a\u0629. \u0627\u0644\u0635\u0641\u062d\u0629 \u0627\u0644\u0623\u0645 \u0644\u0644\u0635\u0648\u0631\u0629 \u0623\u0648 \u0627\u0644\u0635\u0641\u062d\u0629 \u0627\u0644\u0642\u064a\u0627\u0633\u064a\u0629 \u0633\u064a\u062a\u0645 \u062a\u0637\u0628\u064a\u0642\u0647\u0627 \u0639\u0644\u0649 \u0647\u0630\u0647 \u0627\u0644\u0635\u0641\u062d\u0629\u060c \u0647\u0644 \u062a\u0631\u064a\u062f \u0625\u062a\u0645\u0627\u0645 \u0627\u0644\u0639\u0645\u0644\u064a\u0629.",
-    "Current page and sub-pages": "\u0627\u0644\u0635\u0641\u062d\u0629 \u0627\u0644\u062d\u0627\u0644\u064a\u0629 \u0648 \u0627\u0644\u0635\u0641\u062d\u0627\u062a \u0627\u0644\u0641\u0631\u0639\u064a\u0629",
-    "Page \"[[page]]\" and all sub-pages": "\u0627\u0644\u0635\u0641\u062d\u0629 \"[[page]]\" \u0648 \u062c\u0645\u064a\u0639 \u0627\u0644\u0635\u0641\u062d\u0627\u062a \u0627\u0644\u0641\u0631\u0639\u064a\u0629",
-    "All [[language]] pages": "\u062c\u0645\u064a\u0639 \u0635\u0641\u062d\u0627\u062a \u0627\u0644\u0644\u063a\u0629 [[language]] ",
-    "All pages": "\u062c\u0645\u064a\u0639 \u0635\u0641\u062d\u0627\u062a",
+    "Edit logo": "ØªØºÙÙØ± Ø´Ø¹Ø§Ø±",
+    "Image logo": "ØµÙØ±Ø±Ø© Ø´Ø¹Ø§Ø±",
+    "Default": "ÙÙØ§Ø³Ù",
+    "Apply to": "ÙÙØªØ·Ø¨ÙÙ Ø¹ÙÙ",
+    "Remove this image": "Ø¥Ø­Ø°Ù ÙØ°Ù Ø§ÙØµÙØ±Ø©",
+    "There is no option to undo this action. Parent page image or the default one will be applied to this page. Do you want to proceed?": "ÙØ§ ÙÙØ¬Ø¯ Ø¥Ø®ØªÙØ§Ø±Ø§Øª ÙØªØ±Ø§Ø¬Ø¹ Ø¹Ù ÙØ°Ù Ø§ÙØ¹ÙÙÙØ©. Ø§ÙØµÙØ­Ø© Ø§ÙØ£Ù ÙÙØµÙØ±Ø© Ø£Ù Ø§ÙØµÙØ­Ø© Ø§ÙÙÙØ§Ø³ÙØ© Ø³ÙØªÙ ØªØ·Ø¨ÙÙÙØ§ Ø¹ÙÙ ÙØ°Ù Ø§ÙØµÙØ­Ø©Ø ÙÙ ØªØ±ÙØ¯ Ø¥ØªÙØ§Ù Ø§ÙØ¹ÙÙÙØ©.",
+    "Current page and sub-pages": "Ø§ÙØµÙØ­Ø© Ø§ÙØ­Ø§ÙÙØ© Ù Ø§ÙØµÙØ­Ø§Øª Ø§ÙÙØ±Ø¹ÙØ©",
+    "Page \"[[page]]\" and all sub-pages": "Ø§ÙØµÙØ­Ø© \"[[page]]\" Ù Ø¬ÙÙØ¹ Ø§ÙØµÙØ­Ø§Øª Ø§ÙÙØ±Ø¹ÙØ©",
+    "All [[language]] pages": "Ø¬ÙÙØ¹ ØµÙØ­Ø§Øª Ø§ÙÙØºØ© [[language]] ",
+    "All pages": "Ø¬ÙÙØ¹ ØµÙØ­Ø§Øª",
     "Are you sure you want to delete all log records?": "Are you sure you want to delete all log records?",
     "Clear all": "Clear all",
-    "Time": "\u0627\u0644\u0632\u0645\u0646",
-    "Message": "\u0627\u0644\u0631\u0633\u0627\u0644\u0629",
-    "Context": "\u0627\u0644\u0633\u064a\u0627\u0642",
-    "Add new page": "\u0623\u0636\u0641 \u0644\u063a\u0629 \u062c\u062f\u064a\u062f\u0629",
-    "Page properties": "\u062e\u0635\u0627\u0626\u0635 \u0627\u0644\u0635\u0641\u062d\u0629",
-    "Edit Content": "\u062a\u062d\u0631\u064a\u0631 \u0627\u0644\u0645\u062d\u062a\u0648\u0649 ",
-    "Add new menu": "\u0625\u0636\u0627\u0641\u0629 \u0642\u0627\u0626\u0645\u0629 \u062c\u062f\u064a\u062f\u0629",
-    "Cut": "\u0642\u0635",
-    "Copy": "\u0646\u0633\u062e",
-    "Paste": "\u0644\u0635\u0642",
-    "Update menu": "\u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0642\u0627\u0626\u0645\u0629",
+    "Time": "Ø§ÙØ²ÙÙ",
+    "Message": "Ø§ÙØ±Ø³Ø§ÙØ©",
+    "Context": "Ø§ÙØ³ÙØ§Ù",
+    "Add new page": "Ø£Ø¶Ù ÙØºØ© Ø¬Ø¯ÙØ¯Ø©",
+    "Page properties": "Ø®ØµØ§Ø¦Øµ Ø§ÙØµÙØ­Ø©",
+    "Edit Content": "ØªØ­Ø±ÙØ± Ø§ÙÙØ­ØªÙÙ ",
+    "Add new menu": "Ø¥Ø¶Ø§ÙØ© ÙØ§Ø¦ÙØ© Ø¬Ø¯ÙØ¯Ø©",
+    "Cut": "ÙØµ",
+    "Copy": "ÙØ³Ø®",
+    "Paste": "ÙØµÙ",
+    "Update menu": "ØªØ­Ø¯ÙØ« Ø§ÙÙØ§Ø¦ÙØ©",
     "All pages inside this menu will be deleted. Are you sure you want to delete?": "All pages inside this menu will be deleted. Are you sure you want to delete?",
     "Are you sure?": "Are you sure?",
-    "Incorrect date format. Example:": "\u062a\u0646\u0633\u064a\u0642 \u0627\u0644\u062a\u0627\u0631\u064a\u062e \u062e\u0627\u0637\u0626",
+    "Incorrect date format. Example:": "ØªÙØ³ÙÙ Ø§ÙØªØ§Ø±ÙØ® Ø®Ø§Ø·Ø¦",
     "This alias is already occupied": "This alias is already occupied",
-    "Untitled": "\u0645\u0646 \u062f\u0648\u0646 \u0639\u0646\u0648\u0627\u0646",
-    "Menu name (used in PHP code)": "\u0625\u0633\u0645 \u0627\u0644\u0642\u0627\u0626\u0645\u0629 (\u0645\u062a\u0639\u0644\u0642\u0629 \u0628\u0627\u0644\u0628\u0631\u0645\u062c\u0629)",
-    "Layout": "\u0627\u0644\u0646\u0645\u0648\u0630\u062c",
-    "Tree (for menu)": "\u0639\u0644\u0649 \u0634\u0643\u0644 \u0645\u062a\u0641\u0631\u0639 (\u062e\u0627\u0635 \u0628\u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u062a\u0635\u0641\u062d)",
-    "List (for blogs)": "\u0639\u0644\u0649 \u0634\u0643\u0644 \u0644\u0627\u0626\u062d\u0629 (\u062e\u0627\u0635\u0629 \u0628\u0627\u0644\u0645\u062f\u0648\u0646\u0629)",
-    "Type": "\u0627\u0644\u0635\u0646\u0641",
-    "URL path": "\u0637\u0631\u064a\u0642 \u0627\u0644\u0631\u0627\u0628\u0637",
-    "Seo": "\u062a\u0647\u064a\u0626\u0629 \u0627\u0644\u0645\u0648\u0627\u0642\u0639 \u0644\u0645\u062d\u0631\u0643\u0627\u062a \u0627\u0644\u0628\u062d\u062b",
-    "Meta title": "\u0639\u0646\u0648\u0627\u0646 \u0627\u0644\u0635\u0641\u062d\u0629 ",
-    "Keywords": "\u0627\u0644\u0643\u0644\u0645\u0627\u062a \u0627\u0644\u0645\u0641\u062a\u0627\u062d\u064a\u0629",
-    "Other": "\u0623\u062e\u0631\u0649",
-    "Redirect": "\u0625\u0639\u0627\u062f\u0629 \u0625\u0631\u0633\u0627\u0644",
-    "Disabled": "\u0645\u0639\u0637\u0644",
+    "Untitled": "ÙÙ Ø¯ÙÙ Ø¹ÙÙØ§Ù",
+    "Menu name (used in PHP code)": "Ø¥Ø³Ù Ø§ÙÙØ§Ø¦ÙØ© (ÙØªØ¹ÙÙØ© Ø¨Ø§ÙØ¨Ø±ÙØ¬Ø©)",
+    "Layout": "Ø§ÙÙÙÙØ°Ø¬",
+    "Tree (for menu)": "Ø¹ÙÙ Ø´ÙÙ ÙØªÙØ±Ø¹ (Ø®Ø§Øµ Ø¨ÙØ§Ø¦ÙØ© Ø§ÙØªØµÙØ­)",
+    "List (for blogs)": "Ø¹ÙÙ Ø´ÙÙ ÙØ§Ø¦Ø­Ø© (Ø®Ø§ØµØ© Ø¨Ø§ÙÙØ¯ÙÙØ©)",
+    "Type": "Ø§ÙØµÙÙ",
+    "URL path": "Ø·Ø±ÙÙ Ø§ÙØ±Ø§Ø¨Ø·",
+    "Seo": "ØªÙÙØ¦Ø© Ø§ÙÙÙØ§ÙØ¹ ÙÙØ­Ø±ÙØ§Øª Ø§ÙØ¨Ø­Ø«",
+    "Meta title": "Ø¹ÙÙØ§Ù Ø§ÙØµÙØ­Ø© ",
+    "Keywords": "Ø§ÙÙÙÙØ§Øª Ø§ÙÙÙØªØ§Ø­ÙØ©",
+    "Other": "Ø£Ø®Ø±Ù",
+    "Redirect": "Ø¥Ø¹Ø§Ø¯Ø© Ø¥Ø±Ø³Ø§Ù",
+    "Disabled": "ÙØ¹Ø·Ù",
     "Won't be clickable in menu if selected.": "Won't be clickable in menu if selected.",
-    "Secured": "\u0645\u0624\u0645\u0646",
+    "Secured": "ÙØ¤ÙÙ",
     "Won't be accessible to view even knowing the URL.": "Won't be accessible to view even knowing the URL.",
     "Alias (used in code)": "Alias (used in code)",
-    "Created on": "\u062a\u0645 \u0627\u0644\u0625\u0646\u0634\u0627\u0621 \u0641\u064a",
+    "Created on": "ØªÙ Ø§ÙØ¥ÙØ´Ø§Ø¡ ÙÙ",
     "Updated on": "Updated on",
     "Top": "Top",
     "Above selected": "Above selected",
@@ -250,32 +250,32 @@
     "Bottom": "Bottom",
     "Position": "Position",
     "Saving...": "Saving...",
-    "Theme options": "\u062e\u064a\u0627\u0631\u0627\u062a \u0627\u0644\u062a\u0635\u0645\u064a\u0645",
-    "Reload preview": "\u0625\u0639\u0627\u062f\u0629 \u062a\u062d\u0645\u064a\u0644 \u0627\u0644\u0645\u0639\u0627\u064a\u0646\u0629",
-    "Preview defaults": "\u0627\u0644\u0645\u0639\u0627\u064a\u0646\u0629 \u062a\u0644\u0642\u0627\u0626\u064a\u0629",
-    "My theme": "\u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u0627\u0644\u062d\u0627\u0644\u064a",
-    "Available plugins": "\u0627\u0644\u0625\u0636\u0627\u0641\u0627\u062a \u0627\u0644\u0645\u062a\u0648\u0641\u0631\u0629",
-    "Install": "\u062a\u062b\u0628\u064a\u062a",
-    "Marketplace": "\u0645\u0631\u0643\u0632 \u0627\u0644\u062a\u0633\u0648\u0642",
-    "Want a new look? Search for a new theme.": "\u0645\u0627 \u0647\u064a \u0622\u062e\u0631 \u0627\u0644\u0648\u0645\u0636\u0627\u062a \u061f \u0625\u0628\u062d\u062b \u0639\u0646 \u062a\u0635\u0645\u064a\u0645 \u062c\u062f\u064a\u062f",
-    "Browse themes": "\u062a\u0635\u0641\u062d \u0627\u0644\u0635\u0627\u0645\u064a\u0645",
-    "Local themes": "\u0627\u0644\u062a\u0635\u0627\u0645\u064a\u0645 \u0627\u0644\u0645\u062d\u0644\u064a\u0629",
-    "Back to Design": "\u0627\u0644\u0631\u062c\u0648\u0639 \u0625\u0644\u0649 \u0627\u0644\u062a\u0635\u0645\u064a\u0645",
-    "Close": "\u0625\u063a\u0644\u0627\u0642",
-    "General options": "\u062e\u064a\u0627\u0631\u0627\u062a \u0639\u0627\u0645\u0629",
-    "Manage content": "\u062a\u0633\u064a\u064a\u0631 \u0627\u0644\u0645\u062d\u062a\u0648\u0649",
-    "Plugin has been successfully installed.": "\u062a\u0645\u062a \u0639\u0645\u0644\u064a\u0629 \u062a\u062b\u0628\u064a\u062a \u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u0628\u0646\u062c\u0627\u062d.",
-    "Directory is not writable. Please check your email and install the theme manually.": "\u062f\u0644\u064a\u0644 \u0627\u0644\u0645\u0644\u0641\u0627\u062a \u063a\u064a\u0631 \u0642\u0627\u0628\u0644 \u0644\u0644\u0643\u062a\u0627\u0628\u0629. \u064a\u0631\u062c\u0649 \u0627\u0644\u062a\u062d\u0642\u0642 \u0645\u0646 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0627\u0644\u062e\u0627\u0635 \u0628\u0643 \u0648\u062a\u062b\u0628\u064a\u062a \u0642\u0627\u0644\u0628 \u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u064a\u062f\u0648\u064a\u0627.",
-    "Configuration": "\u0627\u0644\u0625\u0639\u062f\u0627\u062f\u0627\u062a",
+    "Theme options": "Ø®ÙØ§Ø±Ø§Øª Ø§ÙØªØµÙÙÙ",
+    "Reload preview": "Ø¥Ø¹Ø§Ø¯Ø© ØªØ­ÙÙÙ Ø§ÙÙØ¹Ø§ÙÙØ©",
+    "Preview defaults": "Ø§ÙÙØ¹Ø§ÙÙØ© ØªÙÙØ§Ø¦ÙØ©",
+    "My theme": "Ø§ÙØªØµÙÙÙ Ø§ÙØ­Ø§ÙÙ",
+    "Available plugins": "Ø§ÙØ¥Ø¶Ø§ÙØ§Øª Ø§ÙÙØªÙÙØ±Ø©",
+    "Install": "ØªØ«Ø¨ÙØª",
+    "Marketplace": "ÙØ±ÙØ² Ø§ÙØªØ³ÙÙ",
+    "Want a new look? Search for a new theme.": "ÙØ§ ÙÙ Ø¢Ø®Ø± Ø§ÙÙÙØ¶Ø§Øª Ø Ø¥Ø¨Ø­Ø« Ø¹Ù ØªØµÙÙÙ Ø¬Ø¯ÙØ¯",
+    "Browse themes": "ØªØµÙØ­ Ø§ÙØµØ§ÙÙÙ",
+    "Local themes": "Ø§ÙØªØµØ§ÙÙÙ Ø§ÙÙØ­ÙÙØ©",
+    "Back to Design": "Ø§ÙØ±Ø¬ÙØ¹ Ø¥ÙÙ Ø§ÙØªØµÙÙÙ",
+    "Close": "Ø¥ØºÙØ§Ù",
+    "General options": "Ø®ÙØ§Ø±Ø§Øª Ø¹Ø§ÙØ©",
+    "Manage content": "ØªØ³ÙÙØ± Ø§ÙÙØ­ØªÙÙ",
+    "Plugin has been successfully installed.": "ØªÙØª Ø¹ÙÙÙØ© ØªØ«Ø¨ÙØª Ø§ÙØ¥Ø¶Ø§ÙØ© Ø¨ÙØ¬Ø§Ø­.",
+    "Directory is not writable. Please check your email and install the theme manually.": "Ø¯ÙÙÙ Ø§ÙÙÙÙØ§Øª ØºÙØ± ÙØ§Ø¨Ù ÙÙÙØªØ§Ø¨Ø©. ÙØ±Ø¬Ù Ø§ÙØªØ­ÙÙ ÙÙ Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ Ø§ÙØ®Ø§Øµ Ø¨Ù ÙØªØ«Ø¨ÙØª ÙØ§ÙØ¨ Ø§ÙØªØµÙÙÙ ÙØ¯ÙÙØ§.",
+    "Configuration": "Ø§ÙØ¥Ø¹Ø¯Ø§Ø¯Ø§Øª",
     "Advanced options": "Advanced options",
-    "Website title": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0648\u0642\u0639",
-    "Used as a sender name in emails and as default website logo.": "\u0625\u0633\u062a\u062e\u062f\u0627\u0645 \u0643\u0625\u0633\u0645 \u0627\u0644\u0645\u0631\u0633\u0644 \u0641\u064a \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0648\u0643\u0630\u0627 \u0643\u0634\u0639\u0627\u0631 \u062a\u0644\u0642\u0627\u0626\u064a \u0644\u0644\u0645\u0648\u0642\u0639.",
-    "Website email": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0644\u0644\u0645\u0648\u0642\u0639",
-    "Email address used as a sender to send emails on behalf of the website.": "\u0625\u0633\u062a\u062e\u062f\u0627\u0645 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0643\u0625\u0633\u0645 \u0627\u0644\u0645\u0631\u0633\u0644  \u0644\u0644\u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u0631\u0633\u0627\u0626\u0644 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629 \u0628\u0625\u0633\u0645 \u0627\u0644\u0645\u0648\u0642\u0639.",
-    "Execute cron automatically": "\u062a\u0646\u0641\u064a\u0630 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646 \u062a\u0644\u0642\u0627\u0626\u064a\u0627",
-    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "\u0623\u0645\u0628\u0631\u0627\u0633 \u0628\u0627\u064a\u062c \u064a\u0642\u0648\u0645 \u0628\u062a\u0646\u0641\u064a\u0630 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646 \u0645\u0631\u0629 \u0648\u0627\u062d\u062f\u0629 \u0641\u064a \u0643\u0644 \u0633\u0627\u0639\u0629 \u0628\u0634\u0643\u0644 \u0639\u0634\u0648\u0627\u0626\u064a \u0648\u0647\u0630\u0627 \u0628\u0625\u062e\u062a\u064a\u0627\u0631 \u0635\u0641\u062d\u0629 \u064a\u062a\u0645 \u0632\u064a\u0627\u0631\u062a\u0647\u0627 \u062e\u0644\u0627\u0644 \u0645\u0631\u062d\u0627\u0629 \u062a\u062d\u0645\u064a\u0644\u0647\u0627. \u0647\u0644 \u0642\u0645\u062a \u0628\u062a\u062b\u0628\u064a\u062a \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646 \u0628\u0634\u0644 \u064a\u062f\u0648\u064a \u060c \u064a\u0645\u0643\u0646\u0643 \u062a\u0639\u0637\u064a\u0644 \u062a\u0644\u0642\u0627\u0626\u064a\u0629 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646. ",
-    "Cron password": "\u0643\u0644\u0645\u0629 \u0633\u0631 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646",
-    "Protect cron from being abusively executed by the strangers.": "\u062d\u0645\u0627\u064a\u0629 \u062a\u0637\u0628\u064a\u0642 \u0627\u0644\u0643\u0631\u0648\u0646 \u0645\u0646 \u0639\u0628\u062b \u0627\u0644\u063a\u0631\u0628\u0627\u0621.",
+    "Website title": "Ø¥Ø³Ù Ø§ÙÙÙÙØ¹",
+    "Used as a sender name in emails and as default website logo.": "Ø¥Ø³ØªØ®Ø¯Ø§Ù ÙØ¥Ø³Ù Ø§ÙÙØ±Ø³Ù ÙÙ Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙØ°Ø§ ÙØ´Ø¹Ø§Ø± ØªÙÙØ§Ø¦Ù ÙÙÙÙÙØ¹.",
+    "Website email": "Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙÙÙÙÙØ¹",
+    "Email address used as a sender to send emails on behalf of the website.": "Ø¥Ø³ØªØ®Ø¯Ø§Ù Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ ÙØ¥Ø³Ù Ø§ÙÙØ±Ø³Ù  ÙÙØ¥Ø±Ø³Ø§Ù Ø§ÙØ±Ø³Ø§Ø¦Ù Ø§ÙØ¥ÙÙØªØ±ÙÙÙØ© Ø¨Ø¥Ø³Ù Ø§ÙÙÙÙØ¹.",
+    "Execute cron automatically": "ØªÙÙÙØ° ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ØªÙÙØ§Ø¦ÙØ§",
+    "ImpressPages execute cron once every hour on randomly selected visitor page load. I you have setup cron manually, you can disable automatic cron functionality.": "Ø£ÙØ¨Ø±Ø§Ø³ Ø¨Ø§ÙØ¬ ÙÙÙÙ Ø¨ØªÙÙÙØ° ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ÙØ±Ø© ÙØ§Ø­Ø¯Ø© ÙÙ ÙÙ Ø³Ø§Ø¹Ø© Ø¨Ø´ÙÙ Ø¹Ø´ÙØ§Ø¦Ù ÙÙØ°Ø§ Ø¨Ø¥Ø®ØªÙØ§Ø± ØµÙØ­Ø© ÙØªÙ Ø²ÙØ§Ø±ØªÙØ§ Ø®ÙØ§Ù ÙØ±Ø­Ø§Ø© ØªØ­ÙÙÙÙØ§. ÙÙ ÙÙØª Ø¨ØªØ«Ø¨ÙØª ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ Ø¨Ø´Ù ÙØ¯ÙÙ Ø ÙÙÙÙÙ ØªØ¹Ø·ÙÙ ØªÙÙØ§Ø¦ÙØ© ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ. ",
+    "Cron password": "ÙÙÙØ© Ø³Ø± ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ",
+    "Protect cron from being abusively executed by the strangers.": "Ø­ÙØ§ÙØ© ØªØ·Ø¨ÙÙ Ø§ÙÙØ±ÙÙ ÙÙ Ø¹Ø¨Ø« Ø§ÙØºØ±Ø¨Ø§Ø¡.",
     "Cron URL: ": "Cron URL:",
     "Remove old emails from the log": "Remove old emails from the log",
     "Days to keep emails": "Days to keep emails",
@@ -285,30 +285,30 @@
     "Meaningful only if \"Remove old page revisions\" is on.": "Meaningful only if \"Remove old page revisions\" is on.",
     "Allow anonymous uploads": "Allow anonymous uploads",
     "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.": "Disabling this feature will prevent users from uploading files to your website. E.g. in contact forms.",
-    "Following administrator doesn't exist": "\u0627\u0644\u0645\u0634\u0631\u0641 \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u063a\u064a\u0631 \u0645\u0648\u062c\u0648\u062f",
-    "You have exceeded failed login attempts.": "\u0644\u0642\u062f \u062a\u062c\u0627\u0648\u0632\u062a \u0627\u0644\u0641\u0631\u0635 \u0627\u0644\u0645\u062a\u0627\u062d\u0629 \u0644\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
-    "Logout": "\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062e\u0631\u0648\u062c",
-    "Password reset": "\u0625\u0639\u0627\u062f\u0629 \u0643\u0644\u0645\u0629 \u0633\u0631",
-    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": " \u0633\u062a\u0642\u0648\u0645 \u0628\u0625\u0633\u062a\u0644\u0627\u0645 \u0628\u0631\u064a\u062f \u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a \u0641\u064a\u0647 \u0631\u0627\u0628\u0637 \u0644\u0625\u0639\u0627\u062f\u0629 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631. \u064a\u0631\u062c\u0649 \u0638\u063a\u0637 \u0639\u0644\u0649 \u0631\u0627\u0628\u0637 \u0648 \u0625\u062f\u062e\u0627\u0644 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629",
-    "Login": "\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644",
-    "Reset password": "\u0625\u0639\u0627\u062f\u0629 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631",
-    "Please enter your new password": "\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629",
-    "Your password has been changed.": "\u0644\u0642\u062f \u062a\u0645 \u062a\u063a\u064a\u064a\u0631 \u0643\u0644\u0645\u0629 \u0627\u0644\u0633\u0631 \u0627\u0644\u062e\u0627\u0635\u0629 \u0628\u0643.",
-    "Menu": "\u0627\u0644\u0642\u0627\u0626\u0645\u0629",
+    "Following administrator doesn't exist": "Ø§ÙÙØ´Ø±Ù Ø§ÙÙØ·ÙÙØ¨ ØºÙØ± ÙÙØ¬ÙØ¯",
+    "You have exceeded failed login attempts.": "ÙÙØ¯ ØªØ¬Ø§ÙØ²Øª Ø§ÙÙØ±Øµ Ø§ÙÙØªØ§Ø­Ø© ÙØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ",
+    "Logout": "ØªØ³Ø¬ÙÙ Ø§ÙØ®Ø±ÙØ¬",
+    "Password reset": "Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø³Ø±",
+    "You will receive an e-mail with password reset link. Please follow the link and enter a new password.": " Ø³ØªÙÙÙ Ø¨Ø¥Ø³ØªÙØ§Ù Ø¨Ø±ÙØ¯ Ø¥ÙÙØªØ±ÙÙÙ ÙÙÙ Ø±Ø§Ø¨Ø· ÙØ¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±. ÙØ±Ø¬Ù Ø¸ØºØ· Ø¹ÙÙ Ø±Ø§Ø¨Ø· Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
+    "Login": "ØªØ³Ø¬ÙÙ Ø§ÙØ¯Ø®ÙÙ",
+    "Reset password": "Ø¥Ø¹Ø§Ø¯Ø© ÙÙÙØ© Ø§ÙØ³Ø±",
+    "Please enter your new password": "ÙØ±Ø¬Ù Ø¥Ø¯Ø®Ø§Ù ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
+    "Your password has been changed.": "ÙÙØ¯ ØªÙ ØªØºÙÙØ± ÙÙÙØ© Ø§ÙØ³Ø± Ø§ÙØ®Ø§ØµØ© Ø¨Ù.",
+    "Menu": "Ø§ÙÙØ§Ø¦ÙØ©",
     "Important Account Information": "Important Account Information",
     "Your user credentials were automatically generated.": "Your user credentials were automatically generated.",
     "You were automatically logged in with the following details.": "You were automatically logged in with the following details.",
     "URL to log in": "URL to log in",
     "Administrator username": "Administrator username",
-    "Administrator password": "\u0643\u0644\u0645\u0629 \u0633\u0631 \u0627\u0644\u0645\u0634\u0631\u0641",
+    "Administrator password": "ÙÙÙØ© Ø³Ø± Ø§ÙÙØ´Ø±Ù",
     "Administrator email": "Administrator email",
     "Change credentials": "Change credentials",
     "Yes, I understand how to log in next time": "Yes, I understand how to log in next time",
-    "Following user doesn't exist": "\u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0627\u0644\u0645\u0637\u0644\u0648\u0628 \u063a\u064a\u0631 \u0645\u0648\u062c\u0648\u062f",
-    "Incorrect password": "\u0643\u0644\u0645\u0629 \u0633\u0631 \u063a\u064a\u0631 \u0635\u062d\u064a\u062d\u0629",
-    "Username or email": "\u0625\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645 \u0623\u0648 \u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a",
-    "Reset": "\u0625\u0639\u0627\u062f\u0629",
-    "New password": "\u0643\u0644\u0645\u0629 \u0633\u0631 \u0627\u0644\u062c\u062f\u064a\u062f\u0629",
-    "OK": "\u0645\u0648\u0627\u0641\u0642",
-    "Possible CSRF attack. Please pass correct securityToken.": "\u0625\u0645\u0643\u0627\u0646\u064a\u0629 \u0648\u062c\u0648\u062f \u0647\u062c\u0648\u0645 \u0645\u0646 \u0646\u0648\u0639\u064a\u0629 CSRF . \u064a\u0631\u062c\u0649 \u062a\u0645\u0631\u064a\u0631 \u0631\u0645\u0632 \u0627\u0644\u0623\u0645\u0627\u0646  \u0627\u0644\u0635\u062d\u064a\u062d."
+    "Following user doesn't exist": "Ø§ÙÙØ³ØªØ®Ø¯Ù Ø§ÙÙØ·ÙÙØ¨ ØºÙØ± ÙÙØ¬ÙØ¯",
+    "Incorrect password": "ÙÙÙØ© Ø³Ø± ØºÙØ± ØµØ­ÙØ­Ø©",
+    "Username or email": "Ø¥Ø³Ù Ø§ÙÙØ³ØªØ®Ø¯Ù Ø£Ù Ø§ÙØ¨Ø±ÙØ¯ Ø§ÙØ¥ÙÙØªØ±ÙÙÙ",
+    "Reset": "Ø¥Ø¹Ø§Ø¯Ø©",
+    "New password": "ÙÙÙØ© Ø³Ø± Ø§ÙØ¬Ø¯ÙØ¯Ø©",
+    "OK": "ÙÙØ§ÙÙ",
+    "Possible CSRF attack. Please pass correct securityToken.": "Ø¥ÙÙØ§ÙÙØ© ÙØ¬ÙØ¯ ÙØ¬ÙÙ ÙÙ ÙÙØ¹ÙØ© CSRF . ÙØ±Ø¬Ù ØªÙØ±ÙØ± Ø±ÙØ² Ø§ÙØ£ÙØ§Ù  Ø§ÙØµØ­ÙØ­."
 }
