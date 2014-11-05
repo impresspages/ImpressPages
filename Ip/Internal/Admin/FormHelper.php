@@ -86,7 +86,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login', //html "name" attribute
-                'label' => __('Username', 'Ip-admin')
+                'label' => __('Username', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -95,7 +95,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
-                'label' => __('Password', 'Ip-admin')
+                'label' => __('Password', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -104,7 +104,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Login', 'Ip-admin')
+                'value' => __('Login', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
@@ -138,7 +138,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', //html "name" attribute
-                'label' => __('Username or email', 'Ip-admin')
+                'label' => __('Username or email', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -146,7 +146,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Reset', 'Ip-admin')
+                'value' => __('Reset', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
@@ -197,7 +197,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
-                'label' => __('New password', 'Ip-admin')
+                'label' => __('New password', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -205,7 +205,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Save', 'Ip-admin')
+                'value' => __('Save', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
