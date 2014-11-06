@@ -217,7 +217,7 @@ class Filter
             }
         } else {
             if (substr($relativePath, -1) == '/') {
-                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . substr($relativePath, 0, -1)) . '/" />' . "\n";
+                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . substr($relativePath, 0, -1)) . '" />' . "\n";
             }
         }
         $head .= $append;
