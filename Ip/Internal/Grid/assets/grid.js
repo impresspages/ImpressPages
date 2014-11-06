@@ -127,8 +127,10 @@
             $modal.modal();
             $modal.find('.ipsConfirm').focus();
             $modal.find('.ipsConfirm').off().on('click', function () {
+                $this.trigger('beforeRecordDeleted.ipGrid', id);
                 $.proxy(deleteRecord, $grid)(id);
                 $modal.modal('hide');
+                $this.trigger('afterRecordDeleted.ipGrid', id);
             });
         });
 
@@ -178,6 +180,8 @@
                 }
             });
 
+            $grid.trigger('createModalOpen.ipGrid', $modal);
+
         });
 
         $grid.find('.ipsSearch').off().on('click', function () {
@@ -223,6 +227,8 @@
                     }, 300);
                 }
             });
+
+            $grid.trigger('searchModalOpen.ipGrid', $modal);
         });
 
 
@@ -354,6 +360,10 @@
                         }, 300);
                     }
                 });
+
+
+                $grid.trigger('updateModalOpen.ipGrid', $modal);
+
             },
             error: function (response) {
                 if (ip.debugMode || ip.developmentMode) {
