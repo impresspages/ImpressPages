@@ -13,6 +13,11 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_70()
+    {
+        ipSetOption('Config.trailingSlash', 0); // to keep the system as it was before. New default value is 1;
+    }
+
     public static function update_69()
     {
         //this change was already applied in 60 version. But installation script wasn't changed accordingly. So we are reexecuting this query for installations between 60 and 69
