@@ -170,6 +170,21 @@ class Forms
 
 
 
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'trailingSlash',
+                //html "name" attribute
+                'value' => ipGetOption('Config.trailingSlash', 1),
+                'label' => __('Add trailing slash at the end of page URL', 'Ip-admin', false),
+                'hint' => __('This won\'t change existing URLs. Only new and updated pages will get slash at the end.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
         return $form;
     }
 }
