@@ -64,6 +64,9 @@
         $this.find('form').on('ipSubmitResponse', function (e, response) {
             if (response.status && response.status == 'success') {
                 //page has been successfully updated
+                if (response.newPageUrl) {
+                    $this.find('input[name=urlPath]').val(response.newPageUrl);
+                }
                 $this.trigger('update.ipPages');
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
             }
