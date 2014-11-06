@@ -206,4 +206,22 @@ class Filter
         }
         return $elements;
     }
+
+    public static function ipHead($head, $info)
+    {
+        $append = '';
+        $relativePath = ipRequest()->getRelativePath();
+        if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
+            if (substr($relativePath, -1) != '/') {
+                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . $relativePath) . '/" />' . "\n";
+            }
+        } else {
+            if (substr($relativePath, -1) == '/') {
+                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . substr($relativePath, 0, -1)) . '/" />' . "\n";
+            }
+        }
+        $head .= $append;
+        return $head;
+
+    }
 }

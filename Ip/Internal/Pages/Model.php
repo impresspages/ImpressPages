@@ -227,15 +227,29 @@ class Model
      */
     public static function getPageByUrl($languageCode, $urlPath)
     {
-        if (substr($urlPath, -1) == '/') {
-            $urlPath = substr($urlPath, 0, -1);
-        }
-
-        return ipDb()->selectRow(
+        $page = ipDb()->selectRow(
             'page',
             '*',
             array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
         );
+
+        if ($page) {
+            return $page;
+        }
+
+        //if lash exists, remove. If there is no slash, add it.
+        if (substr($urlPath, -1) == '/') {
+            $urlPath = substr($urlPath, 0, -1);
+        } else {
+            $urlPath .= '/';
+        }
+
+        $page = ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
+        );
+        return $page;
     }
 
     /**
@@ -281,8 +295,14 @@ class Model
     {
         $pageBeforeChange = ipPage($pageId);
 
-        if (mb_substr($newUrlPath, -1) == '/') {
-            $newUrlPath = mb_substr($newUrlPath, 0, -1);
+        if (ipGetOption('Config.trailingSlash', 1)) {
+            if (mb_substr($newUrlPath, -1) != '/') {
+                $newUrlPath .= '/';
+            }
+        } else {
+            if (mb_substr($newUrlPath, -1) == '/') {
+                $newUrlPath = mb_substr($newUrlPath, 0, -1);
+            }
         }
 
         if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
@@ -294,11 +314,19 @@ class Model
 
         $pageAfterChange = ipPage($pageId);
 
+        $oldUrl = $pageBeforeChange->getLink();
+        if (substr($oldUrl, -1) == '/') {
+            $oldUrl = substr($oldUrl, 0, -1);
+        }
+        $newUrl = $pageAfterChange->getLink();
+        if (substr($newUrl, -1) == '/') {
+            $newUrl = substr($newUrl, 0, -1);
+        }
         ipEvent(
             'ipUrlChanged',
             array(
-                'oldUrl' => $pageBeforeChange->getLink(),
-                'newUrl' => $pageAfterChange->getLink(),
+                'oldUrl' => $oldUrl,
+                'newUrl' => $newUrl,
             )
         );
         return null;
@@ -578,6 +606,10 @@ class Model
             if (array_key_exists($column, $params)) {
                 $row[$column] = $params[$column];
             }
+        }
+
+        if (!empty($row['urlPath']) && ipGetOption('Config.trailingSlash', 1) && substr($row['urlPath'], -1) != '/') {
+            $row['urlPath'] .= '/';
         }
 
         if (empty($row['createdAt'])) {
