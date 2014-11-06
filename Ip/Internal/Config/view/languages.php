@@ -10,7 +10,7 @@
         <?php if (!$language->isVisible()) { continue; }?>
         <?php $activeClass = ($language->isCurrent()) ? ' class="active"' : ''; ?>
         <li <?php echo $activeClass; ?>>
-            <a title="<?php echo esc($language->getTitle()); ?>" href="<?php echo $language->getLink(); ?>">
+            <a title="<?php echo escAttr($language->getTitle()); ?>" href="<?php echo escAttr($language->getLink()); ?>">
                 <?php echo esc($language->getAbbreviation()); ?>
             </a>
         </li>
