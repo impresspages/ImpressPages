@@ -112,7 +112,7 @@ class Controller extends \Ip\WidgetController
         }
 
         if (count($data['widths']) < count($data['cols']) || $totalWidth > 101 || $totalWidth < 99) {
-            $colWidth = (float)100 / count($data['cols']);
+            $colWidth = bcdiv(100, count($data['cols']), 12);
             for($i = 0; $i < count($data['cols']); $i++) {
                 $data['widths'][] = $colWidth;
             }
