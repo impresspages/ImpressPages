@@ -161,6 +161,7 @@ class AdminController extends \Ip\Controller
             ipEvent('ipFormUpdatePageSubmitted', array($data));
 
             $answer['status'] = 'success';
+            $answer['newPageUrl'] = ipPage($pageId)->getUrlPath();
         } else {
             $answer['status'] = 'error';
         }
