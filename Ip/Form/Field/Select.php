@@ -45,7 +45,7 @@ class Select extends \Ip\Form\Field
         $options = '';
 
         foreach ($this->getValues() as $value) {
-            if (is_string($value)) {
+            if (!is_array($value)) {
                 $value = array($value, $value);
             }
 
