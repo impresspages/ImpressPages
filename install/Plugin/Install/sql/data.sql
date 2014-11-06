@@ -63,7 +63,7 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Cron', 'lastExecutionStart', '[[[[time]]]]'),
 ('Cron', 'lastExecutionEnd', '[[[[time]]]]'),
 ('Ip', 'version', '"4.2.7"'),  /* //CHANGE_ON_VERSION_UPDATE */
-('Ip', 'dbVersion', '69'), /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'dbVersion', '70'), /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
