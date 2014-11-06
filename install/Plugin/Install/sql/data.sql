@@ -7,12 +7,12 @@ INSERT INTO `ip_page`
 (1,    'en',           NULL,            0,          'main.php',     0,            'Menu1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu1'),
 (2,    'en',           NULL,            0,          'main.php',     1,            'Menu2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu2'),
 (3,    'en',           NULL,            0,          'main.php',     2,            'Menu3',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  'menu3'),
-(4,    'en',           'home',          1,          'home.php',     0,            'Home',           1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(5,    'en',           'lorem-ipsumy',  1,          NULL,     1,            'Lorem ipsum',    1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(6,    'en',           'page1',         2,          NULL,     0,            'Page1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(7,    'en',           'page2',         2,          NULL,     1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(8,    'en',           'example1',      3,          NULL,     0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
-(9,    'en',           'example2',      3,          NULL,     1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
+(4,    'en',           'home/',          1,          'home.php',     0,            'Home',           1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(5,    'en',           'lorem-ipsumy/',  1,          NULL,     1,            'Lorem ipsum',    1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(6,    'en',           'page1/',         2,          NULL,     0,            'Page1',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(7,    'en',           'page2/',         2,          NULL,     1,            'Page2',          1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(8,    'en',           'example1/',      3,          NULL,     0,            'Example 1',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL),
+(9,    'en',           'example2/',      3,          NULL,     1,            'Example 2',      1,           '[[[[time]]]]',   '[[[[time]]]]',  'default',  NULL);
 
 INSERT INTO `ip_revision` (`revisionId`, `pageId`, `isPublished`, `createdAt`) VALUES
 (1, 4, 1, '[[[[timestamp]]]]'),
@@ -56,6 +56,7 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Config', 'Content.widgetGalleryHeight', '200'),
 ('Config', 'Config.lightboxWidth', '800'),
 ('Config', 'Config.lightboxHeight', '600'),
+('Config', 'Config.trailingSlash', '1'),
 ('Config', 'Design.themeDirs', '""'),
 ('Config', 'Email.hourlyLimit', '100'),
 ('Config', 'Pages.hideNewPages', '0'),
