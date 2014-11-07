@@ -58,4 +58,9 @@ class Csrf extends Blank
         return self::TYPE_SYSTEM;
     }
 
+    public function getLayout()
+    {
+//        return self::LAYOUT_BLANK;
+    }
+
 }
