@@ -54,6 +54,16 @@ class Event
         return $html;
     }
 
+    public static function ipInitFinished ()
+    {
+        $request = \Ip\ServiceLocator::request();
+        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
+
+        if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
+            Model::setSafeMode($safeMode);
+        }
+    }
+
     public static function ipBeforeController()
     {
         $request = \Ip\ServiceLocator::request();
@@ -69,11 +79,6 @@ class Event
             ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
         }
 
-        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
-
-        if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
-            Model::setSafeMode($safeMode);
-        }
 
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
