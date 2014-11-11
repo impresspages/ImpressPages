@@ -62,7 +62,10 @@ class Job
     public static function ipRequestLanguage_70($info)
     {
         if (!empty($_SESSION['ipLastLanguageId'])) {
-            return ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
+            $language = ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
+            if ($language) { //language may be missing if user has just deleted the language stored in the session
+                return $language;
+            }
         }
         return null;
     }
