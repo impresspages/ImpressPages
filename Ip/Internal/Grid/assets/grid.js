@@ -119,6 +119,35 @@
             });
         });
 
+        $grid.find('.ipsPageSizeForm select').on('change', function () {
+            var $this = $(this);
+
+            var data = urlParams($grid.data('gateway'));
+            data.jsonrpc = '2.0';
+            data.method = 'setPageSize';
+
+            data.params = {};
+            data.params.pageSize = $this.val();
+
+            data.hash = window.location.hash;
+
+            $.ajax({
+                type: 'GET',
+                url: $grid.data('gateway').split('?')[0],
+                data: data,
+                context: $grid,
+                success: initResponse,
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+
+
         $grid.find('.ipsDelete').off().on('click', function () {
             var $this = $(this);
             var $row = $this.closest('.ipsRow');

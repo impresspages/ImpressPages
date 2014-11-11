@@ -84,6 +84,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'page':
                 return $this->page($params);
                 break;
+            case 'setPageSize':
+                return $this->setPageSize($params);
+                break;
             case 'delete':
                 return $this->delete($params);
                 break;
@@ -134,6 +137,21 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         $statusVariables[$pageVariableName] = $params['page'];
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
+
+    protected function setPageSize($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['pageSize'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        $statusVariables['pageSize'] = $params['pageSize'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
