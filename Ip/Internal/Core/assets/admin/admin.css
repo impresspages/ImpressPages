@@ -9968,6 +9968,12 @@
   top: 50%;
   width: 320px;
 }
+.ip .ipModuleGrid ._actions {
+  float: left;
+}
+.ip .ipModuleGrid ._pageSize {
+  float: right;
+}
 .hidden {
   display: none !important;
   visibility: hidden !important;

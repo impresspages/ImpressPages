@@ -74,6 +74,15 @@ class Display
         }
 
         $pageSize = $subgridConfig->pageSize();
+        if (!empty($this->statusVariables['pageSize'])) {
+            $pageSize = (int) $this->statusVariables['pageSize'];
+        }
+        if ($pageSize < 1) {
+            $pageSize = 1;
+        }
+
+
+
         $from = ($currentPage - 1) * $pageSize;
 
         $totalPages = ceil($db->recordCount($where) / $pageSize);
@@ -101,7 +110,8 @@ class Display
             'createForm' => $this->createForm(),
             'searchForm' => $this->searchForm($searchVariables),
             'title' => $subgridConfig->getTitle(),
-            'breadcrumb' => $this->getBreadcrumb()
+            'breadcrumb' => $this->getBreadcrumb(),
+            'pageSizeForm' => $this->pageSizeForm()
         );
 
 
@@ -346,8 +356,39 @@ class Display
         return $form;
     }
 
+    public function pageSizeForm()
+    {
+        $form = new \Ip\Form();
+        $form->addclass('ipsPageSizeForm');
 
-    public function createForm()
+        $values = array(
+            10, 20, 50, 100, 1000, 10000
+        );
+        $pageSize = (int)$this->config->pageSize();
+        if (!empty($this->statusVariables['pageSize'])) {
+            $pageSize = (int) $this->statusVariables['pageSize'];
+        }
+        if ($pageSize < 1) {
+            $pageSize = 1;
+        }
+
+        if (!in_array($pageSize, $values)) {
+            $values[] = $pageSize;
+        }
+        asort($values);
+        $field = new \Ip\Form\Field\Select();
+        $field->setName('pageSize');
+        $field->setLabel(__('Rows', 'Ip-admin', false));
+        $field->setValues($values);
+        $field->setValue($pageSize);
+        $form->addfield($field);
+
+        return $form;
+
+    }
+
+
+        public function createForm()
     {
         $form = new \Ip\Form();
 
