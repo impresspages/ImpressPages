@@ -212,4 +212,19 @@ class PageAssets
     {
         return \Ip\ServiceLocator::content()->getCurrentRevision();
     }
+
+    public function removeAllCss()
+    {
+        $this->requiredCss = array();
+    }
+
+    public function removeAllJs()
+    {
+        $this->requiredJs = array();
+    }
+
+    public function removeAllJsVariables()
+    {
+        $this->javascriptVariables = array();
+    }
 }
