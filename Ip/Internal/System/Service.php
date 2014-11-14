@@ -48,4 +48,9 @@ class Service
         }
     }
 
+    public static function clearCache()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+    }
+
 }
