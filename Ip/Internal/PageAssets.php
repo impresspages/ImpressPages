@@ -149,6 +149,8 @@ class PageAssets
             }
         }
 
+        $cssFiles = ipFilter('ipCss', $cssFiles);
+
         $response = ipResponse();
         $data = array(
             'title' => $response->getTitle(),
@@ -168,16 +170,22 @@ class PageAssets
     {
         $cacheVersion = $this->getCacheVersion();
         $javascriptFiles = $this->getJavascript();
-        foreach ($javascriptFiles as &$level) {
+        $javascriptFilesSorted = array();
+        foreach ($javascriptFiles as $level) {
             foreach ($level as &$file) {
                 if ($file['type'] == 'file' && $file['cacheFix']) {
                     $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }
+            $javascriptFilesSorted = array_merge($javascriptFilesSorted, $level);
         }
         $revision = $this->getCurrentRevision();
 
         $page = ipContent()->getCurrentPage();
+
+
+        $javascriptFilesSorted = ipFilter('ipJs', $javascriptFilesSorted);
+
 
         $language = ipContent()->getCurrentLanguage();
         $data = array(
@@ -198,7 +206,7 @@ class PageAssets
                 'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
-            'javascript' => $javascriptFiles,
+            'javascript' => $javascriptFilesSorted,
         );
         return ipView('Ip/Internal/Config/view/javascript.php', $data)->render();
     }
