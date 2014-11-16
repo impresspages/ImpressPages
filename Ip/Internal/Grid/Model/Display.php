@@ -114,6 +114,8 @@ class Display
             $values[] = $pageSize;
         }
 
+        asort($values);
+
 
 
         $variables = array(
