@@ -4,12 +4,12 @@ ipTinyMceConfig = function () {
         skin: 'impresspages',
         visual_table_class: 'ipTableManagement',
         //directionality : 'ltr', //TODO according to the current language
-        plugins: "advlist, paste, link, table, colorpicker, textcolor",
+        plugins: "advlist, paste, link, table, colorpicker, textcolor, impresspages, anchor, autolink",
         entity_encoding: "raw",
         menubar: false,
         statusbar: false,
-        toolbar1: 'bold italic alignleft aligncenter alignright styleselect removeformat table',
-        toolbar2: 'link bullist numlist outdent indent subscript superscript undo redo',
+        toolbar1: 'bold italic alignrollup styleselect removeformat table, undo redo',
+        toolbar2: 'link bullist numlist outdent indent subscript superscript forecolor backcolor',
         valid_elements: "@[class|style],table[border],tbody,tr[rowspan],td[colspan|rowspan],th[colspan],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,h1,h2,h3,h4,h5,h6",
         paste_word_valid_elements: "table,tbody,tr,td,th,strong,em,br,sup,sub,p,span,b,u,i,a,ul,ol,li",
         style_formats: [
