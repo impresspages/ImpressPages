@@ -99,6 +99,21 @@ class Display
 
 
 
+        $values = array(
+            10, 20, 50, 100, 1000, 10000
+        );
+        $pageSize = (int)$this->config->pageSize();
+        if (!empty($this->statusVariables['pageSize'])) {
+            $pageSize = (int) $this->statusVariables['pageSize'];
+        }
+        if ($pageSize < 1) {
+            $pageSize = 1;
+        }
+
+        if (!in_array($pageSize, $values)) {
+            $values[] = $pageSize;
+        }
+
 
 
         $variables = array(
@@ -111,7 +126,8 @@ class Display
             'searchForm' => $this->searchForm($searchVariables),
             'title' => $subgridConfig->getTitle(),
             'breadcrumb' => $this->getBreadcrumb(),
-            'pageSizeForm' => $this->pageSizeForm()
+            'pageSize' => $pageSize,
+            'pageSizes' => $values
         );
 
 
@@ -356,40 +372,8 @@ class Display
         return $form;
     }
 
-    public function pageSizeForm()
-    {
-        $form = new \Ip\Form();
-        $form->addClass('ipsPageSizeForm');
-        $form->addClass('form-inline');
 
-        $values = array(
-            10, 20, 50, 100, 1000, 10000
-        );
-        $pageSize = (int)$this->config->pageSize();
-        if (!empty($this->statusVariables['pageSize'])) {
-            $pageSize = (int) $this->statusVariables['pageSize'];
-        }
-        if ($pageSize < 1) {
-            $pageSize = 1;
-        }
-
-        if (!in_array($pageSize, $values)) {
-            $values[] = $pageSize;
-        }
-        asort($values);
-        $field = new \Ip\Form\Field\Select();
-        $field->setName('pageSize');
-        $field->setLabel(__('Items per page', 'Ip-admin', false));
-        $field->setValues($values);
-        $field->setValue($pageSize);
-        $form->addfield($field);
-
-        return $form;
-
-    }
-
-
-        public function createForm()
+    public function createForm()
     {
         $form = new \Ip\Form();
 

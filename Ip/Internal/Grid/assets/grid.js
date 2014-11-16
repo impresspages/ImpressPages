@@ -119,7 +119,8 @@
             });
         });
 
-        $grid.find('.ipsPageSizeForm select').on('change', function () {
+        $grid.find('.ipsPageSize .ipsPageSizeSetting').on('click', function (e) {
+            e.preventDefault();
             var $this = $(this);
 
             var data = urlParams($grid.data('gateway'));
@@ -127,7 +128,7 @@
             data.method = 'setPageSize';
 
             data.params = {};
-            data.params.pageSize = $this.val();
+            data.params.pageSize = $this.data('rows');
 
             data.hash = window.location.hash;
 
