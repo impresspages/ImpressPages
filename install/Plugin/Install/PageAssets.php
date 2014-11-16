@@ -10,13 +10,18 @@ class PageAssets extends \Ip\Internal\PageAssets
     {
         $cacheVersion = $this->getCacheVersion();
         $javascriptFiles = $this->getJavascript();
-        foreach ($javascriptFiles as &$level) {
+
+        $javascriptFilesSorted = array();
+        foreach ($javascriptFiles as $level) {
             foreach ($level as &$file) {
                 if ($file['type'] == 'file' && $file['cacheFix']) {
                     $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }
+            $javascriptFilesSorted = array_merge($javascriptFilesSorted, $level);
         }
+
+
         $data = array(
             'ip' => array(
                 'baseUrl' => ipConfig()->baseUrl(),
@@ -32,7 +37,7 @@ class PageAssets extends \Ip\Internal\PageAssets
                 'isAdminNavbarDisabled' => false
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
-            'javascript' => $javascriptFiles,
+            'javascript' => $javascriptFilesSorted,
         );
         return ipView(ipFile('Ip/Internal/Config/view/javascript.php'), $data)->render();
     }
