@@ -396,10 +396,16 @@ var ipPageDragId;
         };
 
         $scope.pastePage = function () {
-            var position = getTreeDiv().find('ul').first().children.length;
+            var position = getTreeDiv().find('ul').first().children().length;
+            var parentId = $scope.activeMenu.id;
             if ($scope.selectedPageId) {
                 if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
-                    position = $('#page_' + $scope.selectedPageId).index() + 1;
+                    var $selectedPage = $('#page_' + $scope.selectedPageId);
+                    position = $selectedPage.index() + 1;
+                    var $parent = $selectedPage.parent().closest('li');
+                    if ($parent.length) {
+                        parentId = $parent.attr('pageid');
+                    }
                 } else {
                     position = $('.ipsTreeDiv .active').index() + 1;
                     var curVariables = getHashParams();
@@ -411,9 +417,9 @@ var ipPageDragId;
             //alert(position);return;
 
             if ($scope.cutPageId) {
-                movePage($scope.cutPageId, $scope.activeMenu.id, position, true);
+                movePage($scope.cutPageId, parentId, position, true);
             } else {
-                copyPage($scope.copyPageId, $scope.activeMenu.id, position, function () {
+                copyPage($scope.copyPageId, parentId, position, function () {
                     refresh();
                 });
             }
