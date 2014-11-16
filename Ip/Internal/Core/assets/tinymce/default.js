@@ -4,7 +4,7 @@ ipTinyMceConfig = function () {
         skin: 'impresspages',
         visual_table_class: 'ipTableManagement',
         //directionality : 'ltr', //TODO according to the current language
-        plugins: "advlist, paste, link, table",
+        plugins: "advlist, paste, link, table, colorpicker, textcolor",
         entity_encoding: "raw",
         menubar: false,
         statusbar: false,
