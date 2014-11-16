@@ -21,7 +21,12 @@ class Event
         }
 
         if (isset($curModule) && $curModule) {
-            $curModTitle = __($curModule, 'Ip-admin', false);
+            $title = $curModule;
+            $plugin = \Ip\Internal\Plugins\Service::getPluginConfig($curModule);
+            if ($plugin) {
+                $title = $plugin['title'];
+            }
+            $curModTitle = __($title, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
