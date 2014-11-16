@@ -341,6 +341,10 @@ class Model
 
         }
 
+        if (empty($config['title'])) {
+            $config['title'] = $config['name'];
+        }
+
         return $config;
     }
 

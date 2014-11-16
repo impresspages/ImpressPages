@@ -24,19 +24,24 @@ class Service
         return Model::parseConfigFile($pluginDir);
     }
 
+    public static function getPluginConfig($pluginName)
+    {
+        return Model::getPluginConfig($pluginName);
+    }
+
     public static function activatePlugin($pluginName)
     {
-        Model::activatePlugin($pluginName);
+        return Model::activatePlugin($pluginName);
     }
 
     public static function deactivatePlugin($pluginName)
     {
-        Model::deactivatePlugin($pluginName);
+        return Model::deactivatePlugin($pluginName);
     }
 
     public static function removePlugin($pluginName)
     {
-        Model::removePlugin($pluginName);
+        return Model::removePlugin($pluginName);
     }
 
 
