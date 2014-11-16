@@ -23,7 +23,7 @@
     "Name": "Vardas",
     "Email": "El. paštas",
     "Text": "Tekstas",
-    "Thank You": "Thank You",
+    "Thank You": "Ačiū",
     "Send": "Siųsti",
     "Please enter a valid email address": "Prašome įvesti galiojantį el.pašto adresą",
     "Please enter a valid numeric value": "Prašome įvesti tinkamą skaitmenų reikšmę",
@@ -31,6 +31,6 @@
     "Please enter a value no larger than $1": "Prašome įvesti reikšmę ne didesnę nei $1",
     "Please enter a value of at least $1": "Prašome įvesti reikšmę bent $1",
     "Please complete this mandatory field": "Prašome užpildyti šį privalomą lauką",
-    "Choose a payment method": "Choose a payment method",
+    "Choose a payment method": "Pasirinkite mokėjimo būdą",
     "Home": "Titulinis"
 }
