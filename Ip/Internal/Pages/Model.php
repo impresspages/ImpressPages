@@ -42,17 +42,22 @@ class Model
      * @internal param int $newParentId
      * @return int
      */
-    public static function copyPage($pageId, $destinationPageId, $position = null)
+    public static function copyPage($pageId, $destinationPageId, $destinationPosition = null)
     {
         $children = self::getChildren($destinationPageId);
 
-        if (!empty($children)) {
-            $rowNumber = $children[count($children) - 1]['pageOrder'] + 1;
-        } else {
-            $rowNumber = 0;
+        if (count($children) > 0) {
+            $newPageOrder = $children[0]['pageOrder'] - 1; // Set as first page.
+            if ($destinationPosition > 0) {
+                if (isset($children[$destinationPosition - 1]) && isset($children[$destinationPosition])) { // New position is in the middle of other pages.
+                    $newPageOrder = ($children[$destinationPosition - 1]['pageOrder'] + $children[$destinationPosition]['pageOrder']) / 2; // Average
+                } else { // New position is at the end.
+                    $newPageOrder = $children[count($children) - 1]['pageOrder'] + 1;
+                }
+            }
         }
 
-        return self::_copyPageRecursion($pageId, $destinationPageId, $rowNumber);
+        return self::_copyPageRecursion($pageId, $destinationPageId, $newPageOrder);
     }
 
     /**
