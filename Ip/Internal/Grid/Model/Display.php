@@ -359,7 +359,8 @@ class Display
     public function pageSizeForm()
     {
         $form = new \Ip\Form();
-        $form->addclass('ipsPageSizeForm');
+        $form->addClass('ipsPageSizeForm');
+        $form->addClass('form-inline');
 
         $values = array(
             10, 20, 50, 100, 1000, 10000
@@ -378,7 +379,7 @@ class Display
         asort($values);
         $field = new \Ip\Form\Field\Select();
         $field->setName('pageSize');
-        $field->setLabel(__('Rows', 'Ip-admin', false));
+        $field->setLabel(__('Items per page', 'Ip-admin', false));
         $field->setValues($values);
         $field->setValue($pageSize);
         $form->addfield($field);
