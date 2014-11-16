@@ -9800,9 +9800,3 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   top: 50%;
   width: 320px;
 }
-.ipModuleGrid ._actions {
-  float: left;
-}
-.ipModuleGrid ._pageSize {
-  float: right;
-}
