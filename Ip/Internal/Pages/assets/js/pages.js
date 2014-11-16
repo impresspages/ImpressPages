@@ -396,25 +396,41 @@ var ipPageDragId;
         };
 
         $scope.pastePage = function () {
-            var position = getTreeDiv().find('ul').first().children().length;
+            var position = 0;
             var parentId = $scope.activeMenu.id;
-            if ($scope.selectedPageId) {
-                if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+            if ($scope.activeMenu.type != 'list') {
+                if ($scope.selectedPageId) {
+                    //add bellow selected
                     var $selectedPage = $('#page_' + $scope.selectedPageId);
                     position = $selectedPage.index() + 1;
                     var $parent = $selectedPage.parent().closest('li');
                     if ($parent.length) {
                         parentId = $parent.attr('pageid');
                     }
+
                 } else {
+                    //add to the bottom
+                    position = getTreeDiv().find('ul').first().children().length;
+                }
+            } else {
+                if ($scope.selectedPageId) {
+                    //add bellow selected
                     position = $('.ipsTreeDiv .active').index() + 1;
                     var curVariables = getHashParams();
                     if (curVariables.gpage) {
                         position = position + (curVariables.gpage - 1) * listStylePageSize;
                     }
+                } else {
+                    //add to the bottom
+                    position = $('.ipsTreeDiv tr').length;
+                    var curVariables = getHashParams();
+                    if (curVariables.gpage) {
+                        position = position + (curVariables.gpage - 1) * listStylePageSize;
+                    }
                 }
+
             }
-            //alert(position);return;
+
 
             if ($scope.cutPageId) {
                 movePage($scope.cutPageId, parentId, position, true);
