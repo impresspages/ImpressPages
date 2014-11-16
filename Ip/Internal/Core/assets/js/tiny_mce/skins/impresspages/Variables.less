@@ -132,6 +132,11 @@
 // Combobox
 @combobox-border:                @textbox-border;
 
+// Colorpicker
+@colorpicker-border:             @textbox-border;
+@colorpicker-hue-bg:             #fff;
+@colorpicker-hue-border:         #333;
+
 // Grid
 @grid-bg-active:                 @menuitem-bg-active;
 @grid-border-active:             #d6d6d6;
@@ -155,6 +160,22 @@
     }
     .mce-tab.mce-active {
         color: @text-inverse;
+    }
+}
+.@{prefix}-colorbutton-grid {
+    .@{prefix}-colorbtn-trans div {
+        color: @panel-bg;
+    }
+    .@{prefix}-custom-color-btn {
+        .@{prefix}-btn {
+            button {
+                color: @panel-bg;
+            }
+
+            &:hover button {
+                color: @btn-text;
+            }
+        }
     }
 }
 .@{prefix}-menu * {
