@@ -112,7 +112,7 @@ class Controller extends \Ip\WidgetController
         }
 
         if (count($data['widths']) < count($data['cols']) || $totalWidth > 101 || $totalWidth < 99) {
-            $colWidth = bcdiv(100, count($data['cols']), 12);
+            $colWidth = 100 / count($data['cols']);
             for($i = 0; $i < count($data['cols']); $i++) {
                 $data['widths'][] = $colWidth;
             }
@@ -120,6 +120,10 @@ class Controller extends \Ip\WidgetController
 
 
         $data['cols'] = array_values($data['cols']);
+
+        foreach($data['widths'] as &$width) {
+            $width = str_replace(',', '.', $width); //in some locales (e.g. PL, 100 / 3 gives comma instead of dot)
+        }
 
         return $data;
     }
