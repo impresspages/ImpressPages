@@ -4,8 +4,9 @@ echo ipView('Ip/Internal/Grid/view/header.php', $this->getVariables());
 
 // Actions
 echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
-
-echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+if ($pagination->pagerSize() * ($pagination->currentPage() - 1) + count($data) > 100) {
+    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+}
 
 // Main content
 echo ipView('table.php', $this->getVariables());

@@ -74,10 +74,10 @@
                     $this.html(value.html);
                     $this.trigger('htmlChanged.ipGrid');
                     $.proxy(bindEvents, $this)();
-
-                    if ($this.find('.ipsRow').length < 1000) {
-                        $this.find('.ipsPages').first().hide();
-                    }
+                    $this.find('.ipsPages .disabled a').on('click', function(e) {
+                        e.preventDefault();
+                        //By default last link is just a #. Clicking on it resets pages section to the root. Prevent that from happening.
+                    });
 
                     $this.trigger('init.ipGrid');
                     ipInitForms();

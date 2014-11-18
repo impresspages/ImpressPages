@@ -5,7 +5,9 @@
     // Actions
     echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
     // Top pagination. JavaScript hides this line if there are not many rows on the screen
-    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+    if ($pagination->pagerSize() * ($pagination->currentPage() - 1) + count($data) > 100) {
+        echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+    }
 
     // Main content
     echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());
@@ -21,4 +23,5 @@
 
     // Footer
     echo ipView('Ip/Internal/Grid/view/footer.php', $this->getVariables());
+
 ?>
