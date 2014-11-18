@@ -132,11 +132,11 @@ class Table extends \Ip\Internal\Grid\Model
 
         $statusVariables = $this->statusVariables;
         $pageVariableName = $this->subgridConfig->pageVariableName();
-        if (empty($params[$pageVariableName])) {
+        if (empty($params['page'])) {
             throw new \Ip\Exception('Missing parameters');
         }
 
-        $statusVariables[$pageVariableName] = $params[$pageVariableName];
+        $statusVariables[$pageVariableName] = $params['page'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;

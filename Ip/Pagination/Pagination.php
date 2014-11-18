@@ -106,4 +106,20 @@ class Pagination
         return ipView($view, $data)->render();
     }
 
+    public function pagerSize()
+    {
+        return $this->pagerSize;
+    }
+
+    public function currentPage()
+    {
+        return $this->currentPage;
+    }
+
+    public function totalPages()
+    {
+        return $this->totalPages;
+    }
+
+
 }
