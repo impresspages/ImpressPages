@@ -74,6 +74,11 @@
                     $this.html(value.html);
                     $this.trigger('htmlChanged.ipGrid');
                     $.proxy(bindEvents, $this)();
+
+                    if ($this.find('.ipsRow').length < 1000) {
+                        $this.find('.ipsPages').first().hide();
+                    }
+
                     $this.trigger('init.ipGrid');
                     ipInitForms();
                     break;

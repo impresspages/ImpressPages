@@ -4,9 +4,8 @@
 
     // Actions
     echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
-    if ($pageSize >= 1000) {
-        echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
-    }
+    // Top pagination. JavaScript hides this line if there are not many rows on the screen
+    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
 
     // Main content
     echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());
