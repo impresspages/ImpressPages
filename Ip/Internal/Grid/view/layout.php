@@ -4,7 +4,9 @@
 
     // Actions
     echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
-//    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+    if ($pageSize >= 1000) {
+        echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+    }
 
     // Main content
     echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());

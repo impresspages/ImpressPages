@@ -33,7 +33,7 @@ class Config
         }
 
         if (empty($this->config['pageSize'])) {
-            $this->config['pageSize'] = 10;
+            $this->config['pageSize'] = 20;
         }
 
         if (empty($this->config['pagerSize'])) {
