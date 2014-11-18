@@ -1,12 +1,23 @@
-<?php echo ipView('Ip/Internal/Grid/view/head.php', $this->getVariables()); ?>
-<?php echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables()); ?>
-<?php echo $pagination->render(ipFile('Ip/Internal/Grid/view/pagination.php')); ?>
-<?php echo ipView('Ip/Internal/Grid/view/pageSize.php', array_merge($this->getVariables(), array('position' => 'top'))); ?>
-<?php echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables()); ?>
-<?php echo $pagination->render(ipFile('Ip/Internal/Grid/view/pagination.php')); ?>
-<?php echo ipView('Ip/Internal/Grid/view/pageSize.php', array_merge($this->getVariables(), array('position' => 'bottom'))); ?>
-<?php echo ipView('Ip/Internal/Grid/view/deleteModal.php', $this->getVariables()); ?>
-<?php echo ipView('Ip/Internal/Grid/view/updateModal.php', $this->getVariables()); ?>
-<?php echo ipView('Ip/Internal/Grid/view/createModal.php', $this->getVariables()); ?>
-<?php echo ipView('Ip/Internal/Grid/view/searchModal.php', $this->getVariables()); ?>
-<?php echo ipView('Ip/Internal/Grid/view/foot.php', $this->getVariables()); ?>
+<?php
+    // Header
+    echo ipView('Ip/Internal/Grid/view/header.php', $this->getVariables());
+
+    // Actions
+    echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
+//    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
+
+    // Main content
+    echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());
+
+    // Actions
+    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'bottom')));
+
+    // Modals
+    echo ipView('Ip/Internal/Grid/view/deleteModal.php', $this->getVariables());
+    echo ipView('Ip/Internal/Grid/view/updateModal.php', $this->getVariables());
+    echo ipView('Ip/Internal/Grid/view/createModal.php', $this->getVariables());
+    echo ipView('Ip/Internal/Grid/view/searchModal.php', $this->getVariables());
+
+    // Footer
+    echo ipView('Ip/Internal/Grid/view/footer.php', $this->getVariables());
+?>

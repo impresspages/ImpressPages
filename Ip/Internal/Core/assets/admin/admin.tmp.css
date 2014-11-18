@@ -9800,6 +9800,16 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   top: 50%;
   width: 320px;
 }
-.ipModuleGrid ._pageSize {
-  display: inline-block;
+.ipModuleGrid ._actions {
+  margin-bottom: 20px;
+}
+.ipModuleGrid ._pages {
+  margin-bottom: 20px;
+}
+.ipModuleGrid ._pages .pagination {
+  margin: 0;
+  vertical-align: middle;
+}
+.ipModuleGrid ._pages .pagination + .btn-group {
+  margin-left: 20px;
 }
