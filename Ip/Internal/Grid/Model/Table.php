@@ -132,11 +132,11 @@ class Table extends \Ip\Internal\Grid\Model
 
         $statusVariables = $this->statusVariables;
         $pageVariableName = $this->subgridConfig->pageVariableName();
-        if (empty($params['page'])) {
+        if (empty($params[$pageVariableName])) {
             throw new \Ip\Exception('Missing parameters');
         }
 
-        $statusVariables[$pageVariableName] = $params['page'];
+        $statusVariables[$pageVariableName] = $params[$pageVariableName];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
@@ -152,6 +152,8 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         $statusVariables['pageSize'] = $params['pageSize'];
+        $pageVariableName = $this->subgridConfig->pageVariableName();
+        $statusVariables[$pageVariableName] = 1;
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
