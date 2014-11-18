@@ -1,5 +1,4 @@
 <?php if ($totalPages > 1) { ?>
-
     <ul class="pagination">
         <?php if ($currentPage > 1) { ?>
             <li><a href="#" class="ipsAction" data-method="page" data-params="<?php echo escAttr(json_encode(array('page' => $currentPage - 1))) ?>">&laquo;</a></li>

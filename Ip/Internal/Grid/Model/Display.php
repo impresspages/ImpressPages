@@ -116,8 +116,6 @@ class Display
 
         asort($values);
 
-
-
         $variables = array(
             'columns' => $this->getColumnData(),
             'data' => $this->rowsData($db->fetch($from, $pageSize, $where)),
@@ -131,7 +129,6 @@ class Display
             'pageSize' => $pageSize,
             'pageSizes' => $values
         );
-
 
         $html = ipView($subgridConfig->layout(), $variables)->render();
         return $html;

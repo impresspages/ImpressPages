@@ -9968,8 +9968,18 @@
   top: 50%;
   width: 320px;
 }
-.ip .ipModuleGrid ._pageSize {
-  display: inline-block;
+.ip .ipModuleGrid ._actions {
+  margin-bottom: 20px;
+}
+.ip .ipModuleGrid ._pages {
+  margin-bottom: 20px;
+}
+.ip .ipModuleGrid ._pages .pagination {
+  margin: 0;
+  vertical-align: middle;
+}
+.ip .ipModuleGrid ._pages .pagination + .btn-group {
+  margin-left: 20px;
 }
 .hidden {
   display: none !important;
