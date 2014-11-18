@@ -12,7 +12,9 @@ if ($pagination->pagerSize() * ($pagination->currentPage() - 1) + count($data) >
 echo ipView('table.php', $this->getVariables());
 
 // Actions
-echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'bottom')));
+if ($pagination->currentPage() > 1 || count($data) > 10) {
+    echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'bottom')));
+}
 
 // Modals
 echo ipView('Ip/Internal/Grid/view/deleteModal.php', $this->getVariables());
