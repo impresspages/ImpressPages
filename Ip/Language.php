@@ -157,9 +157,7 @@ class Language
             $link .= 'index.php/';
         }
 
-        if (ipGetOption('Config.multilingual')) {
-            $link .= \Ip\ServiceLocator::content()->getLanguage($this->getId())->getUrlPath();
-        }
+        $link .= \Ip\ServiceLocator::content()->getLanguage($this->getId())->getUrlPath();
 
         return $link;
     }

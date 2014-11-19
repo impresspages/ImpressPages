@@ -13,6 +13,10 @@ class Job
      */
     public static function ipRouteAction_80($info)
     {
+        if ($info['routeLanguage'] == null) {
+            return null;
+        }
+
         if ($info['relativeUri'] == '') {
             $pageId = ipJob('ipDefaultPageId');
             $page = \Ip\Internal\Pages\Service::getPage($pageId);

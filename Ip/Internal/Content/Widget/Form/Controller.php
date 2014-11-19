@@ -22,6 +22,12 @@ class Controller extends \Ip\WidgetController{
         $form = $this->createForm($widgetId, $data);
         $errors = $form->validate($postData);
 
+        if (empty($data['success'])) {
+            $data['success'] = __('Thank You', 'Ip');
+        }
+        $successHtml = ipView('helperView/success.php', array('success' => $data['success']));
+
+
         if ($errors) {
             $data = array(
                 'status' => 'error',
@@ -31,7 +37,8 @@ class Controller extends \Ip\WidgetController{
             $this->sendEmail($form, $postData, $data);
 
             $data = array(
-                'status' => 'success'
+                'status' => 'success',
+                'replaceHtml' => $successHtml
             );
         }
 

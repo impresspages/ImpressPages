@@ -8,10 +8,6 @@ class Job
 {
     public static function ipRouteLanguage_70($info)
     {
-        if (!ipGetOption('Config.multilingual')) {
-            return null;
-        }
-
         /** @var \Ip\Request $request */
         $request = $info['request'];
 
