@@ -28,10 +28,6 @@ class Slot
      */
     public static function languages_80($params)
     {
-        if (!ipGetOption('Config.multilingual')) {
-            return '';
-        }
-
         $data = array(
             'languages' => ipContent()->getLanguages()
         );
