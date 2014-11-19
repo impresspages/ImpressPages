@@ -195,6 +195,7 @@ class PageAssets
                 'languageId' => $language->getId(),
                 'languageUrl' => $language->getLink(),
                 'languageCode' => $language->getCode(),
+                'languageTextDirection' => $language->getTextDirection(),
                 'theme' => ipConfig()->theme(),
                 'pageId' => $page ? $page->getId() : null,
                 'revisionId' => $revision['revisionId'],

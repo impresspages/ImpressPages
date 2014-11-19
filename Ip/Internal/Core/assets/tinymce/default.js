@@ -3,7 +3,7 @@ ipTinyMceConfig = function () {
         inline: true,
         skin: 'impresspages',
         visual_table_class: 'ipTableManagement',
-        //directionality : 'ltr', //TODO according to the current language
+        directionality : ip.languageTextDirection,
         plugins: "advlist, paste, link, table, colorpicker, textcolor, impresspages, anchor, autolink",
         entity_encoding: "raw",
         menubar: false,
@@ -47,4 +47,5 @@ ipTinyMceConfig = function () {
             ipTinyMceConfigPastePreprocess(pl, o, validClasses);
         }
     }
+
 };

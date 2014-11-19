@@ -93,6 +93,9 @@ body {
 .button a:hover {
   text-decoration: inherit;
 }
+.ipWidget .button a {
+  color: #ffffff;
+}
 .ipWidget {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
@@ -2499,6 +2502,9 @@ body {
   color: #000000;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 14px;
+}
+body.rtl {
+  direction: rtl;
 }
 a {
   color: #019bd4;

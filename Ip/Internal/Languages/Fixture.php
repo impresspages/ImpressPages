@@ -48,6 +48,7 @@ class Fixture
                 array(
                     'name' => 'Arabic',
                     'nativeName' => 'العربية',
+                    'directionality' => 'rtl'
                 ),
             'an' =>
                 array(
@@ -73,6 +74,7 @@ class Fixture
                 array(
                     'name' => 'Avestan',
                     'nativeName' => 'avesta',
+                    'directionality' => 'rtl'
                 ),
             'ay' =>
                 array(
@@ -203,6 +205,7 @@ class Fixture
                 array(
                     'name' => 'Divehi; Dhivehi; Maldivian;',
                     'nativeName' => 'ދިވެހި',
+                    'directionality' => 'rtl'
                 ),
             'nl' =>
                 array(
@@ -298,6 +301,7 @@ class Fixture
                 array(
                     'name' => 'Hebrew (modern)',
                     'nativeName' => 'עברית',
+                    'directionality' => 'rtl'
                 ),
             'hz' =>
                 array(
