@@ -1,7 +1,6 @@
 {
     "Config.en.websiteTitle": "Title",
     "Config.en.websiteEmail": "test@test.com",
-    "Config.multilingual": "1",
     "Config.automaticCron": "1",
     "Config.cronPassword": "testCronPassword",
 

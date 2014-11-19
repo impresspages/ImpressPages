@@ -221,7 +221,7 @@ class AdminController extends \Ip\GridController
     public function afterUpdate($id, $newData)
     {
         $updated = Db::getLanguageById($id);
-        if ($updated['url'] != $this->beforeUpdate['url'] && ipGetOption('Config.multilingual')) {
+        if ($updated['url'] != $this->beforeUpdate['url']) {
             $languagePath = $updated['url'] == '' ? '' : $updated['url'] . '/';
             $languagePathBefore = $this->beforeUpdate['url'] == '' ? '' : $this->beforeUpdate['url'] . '/';
 

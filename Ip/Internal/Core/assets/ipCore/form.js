@@ -9,6 +9,17 @@ var ipModuleFormPublic;
 (function ($) {
     "use strict";
 
+    function isScrolledIntoView(elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
 
     ipModuleFormPublic = new function () {
         this.init = function () {
@@ -80,6 +91,11 @@ var ipModuleFormPublic;
                             }
                             if (response.replaceHtml) {
                                 $form.replaceWith(response.replaceHtml);
+                                if (!isScrolledIntoView($form)) {
+                                    $('html, body').animate({
+                                        scrollTop: $form.offset().top
+                                    }, 500);
+                                }
                                 ipInitForms();
                             }
                             if (response.redirectUrl) {
