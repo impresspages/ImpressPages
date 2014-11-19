@@ -585,14 +585,12 @@ function ipHomeUrl($languageCode = null)
         $homeUrl .= 'index.php/';
     }
 
-    if (ipGetOption('Config.multilingual')) {
-        if ($languageCode == null) {
-            $language = ipContent()->getCurrentLanguage();
-        } else {
-            $language = ipContent()->getLanguageByCode($languageCode);
-        }
-        $homeUrl .= $language->getUrlPath();
+    if ($languageCode == null) {
+        $language = ipContent()->getCurrentLanguage();
+    } else {
+        $language = ipContent()->getLanguageByCode($languageCode);
     }
+    $homeUrl .= $language->getUrlPath();
 
     return $homeUrl;
 }

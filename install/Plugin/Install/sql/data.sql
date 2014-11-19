@@ -43,7 +43,6 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Admin', 'failedLogins', '[]'),
 ('Config', 'Config.en.websiteTitle', '""'),
 ('Config', 'Config.en.websiteEmail', '"example@example.com"'),
-('Config', 'Config.multilingual', '"1"'),
 ('Config', 'Config.automaticCron', '"1"'),
 ('Config', 'Config.cronPassword', '123456'),
 ('Config', 'Config.defaultImageQuality', '80'),
