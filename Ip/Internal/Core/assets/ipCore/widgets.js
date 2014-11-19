@@ -1,33 +1,3 @@
-/*************
- * Form widget
- **************/
-
-// Form widget
-jQuery('.ipWidget-Form').on('ipSubmitResponse', function (e, response) {
-
-    function isScrolledIntoView(elem)
-    {
-        var docViewTop = $(window).scrollTop();
-        var docViewBottom = docViewTop + $(window).height();
-
-        var elemTop = $(elem).offset().top;
-        var elemBottom = elemTop + $(elem).height();
-
-        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-    }
-
-    var $widget = $(this);
-    if (response.status && response.status == 'success') {
-        var $success = $widget.find('.ipwSuccess');
-        $success.show();
-        $widget.find('.ipwForm').hide();
-        if (!isScrolledIntoView($widget.find('.ipwSuccess'))) {
-            $('html, body').animate({
-                scrollTop: $success.offset().top
-            }, 500);
-        }
-    }
-});
 
 
 /*************
