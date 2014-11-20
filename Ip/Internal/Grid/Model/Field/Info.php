@@ -9,6 +9,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
 {
 
     protected $html = '';
+    protected $layout = \Ip\Form\Field::LAYOUT_NO_LABEL;
 
 
     /**
@@ -22,6 +23,9 @@ class Info extends \Ip\Internal\Grid\Model\Field
         if (!empty($fieldFieldConfig['html'])) {
             $this->html = $fieldFieldConfig['html'];
         }
+        if (!empty($fieldFieldConfig['layout'])) {
+            $this->layout = $fieldFieldConfig['layout'];
+        }
         return parent::__construct($fieldFieldConfig, $wholeConfig);
     }
 
@@ -30,7 +34,8 @@ class Info extends \Ip\Internal\Grid\Model\Field
         $field = new \Ip\Form\Field\Info(array(
             'label' => $this->label,
             'name' => $this->field,
-            'html' => $this->html
+            'html' => $this->html,
+            'layout' => $this->layout
         ));
         return $field;
     }
@@ -40,7 +45,8 @@ class Info extends \Ip\Internal\Grid\Model\Field
         $field = new \Ip\Form\Field\Info(array(
             'label' => $this->label,
             'name' => $this->field,
-            'html' => $this->html
+            'html' => $this->html,
+            'layout' => $this->layout
         ));
         return $field;
     }
@@ -55,6 +61,17 @@ class Info extends \Ip\Internal\Grid\Model\Field
     {
         return $this->html;
     }
+
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
 
     /**
      * Return an object which can be used as a field for standard Ip\Form class.
