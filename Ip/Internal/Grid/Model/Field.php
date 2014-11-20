@@ -11,6 +11,7 @@ abstract class Field
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
+    protected $html = '';
     protected $previewMethod = '';
 
     /**
@@ -31,6 +32,10 @@ abstract class Field
 
         if (!empty($fieldFieldConfig['defaultValue'])) {
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
+        }
+        
+        if (!empty($fieldFieldConfig['html'])) {
+            $this->html = $fieldFieldConfig['html'];
         }
 
         if (!empty($fieldFieldConfig['previewMethod'])) {
