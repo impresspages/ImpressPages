@@ -45,6 +45,17 @@ class Info extends \Ip\Internal\Grid\Model\Field
         return $field;
     }
 
+
+    public function setHtml($html)
+    {
+        $this->html = $html;
+    }
+
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
     /**
      * Return an object which can be used as a field for standard Ip\Form class.
      * @param array $searchVariables current search filter values
