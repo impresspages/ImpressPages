@@ -9,7 +9,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
 {
 
     protected $html = '';
-    protected $layout = \Ip\Form\Field::LAYOUT_NO_LABEL;
+    protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
 
     /**
@@ -62,6 +62,9 @@ class Info extends \Ip\Internal\Grid\Model\Field
         return $this->html;
     }
 
+    /**
+     * @param $layout (\Ip\Form\Field::LAYOUT_DEFAULT, \Ip\Form\Field::LAYOUT_NO_LABEL, \Ip\Form\Field::BLANK)
+     */
     public function setLayout($layout)
     {
         $this->layout = $layout;
