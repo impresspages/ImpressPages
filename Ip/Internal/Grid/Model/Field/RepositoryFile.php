@@ -53,7 +53,8 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\RepositoryFile(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout
         ));
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
@@ -87,7 +88,8 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\RepositoryFile(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout
         ));
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
@@ -124,7 +126,8 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Text(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout
         ));
         if (!empty($searchVariables[$this->field])) {
             $field->setValue($searchVariables[$this->field]);

@@ -13,7 +13,8 @@ class Textarea extends \Ip\Internal\Grid\Model\Field\Text
     {
         $field = new \Ip\Form\Field\Textarea(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -23,7 +24,8 @@ class Textarea extends \Ip\Internal\Grid\Model\Field\Text
     {
         $field = new \Ip\Form\Field\Textarea(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout
         ));
         $field->setValue($curData[$this->field]);
         return $field;
