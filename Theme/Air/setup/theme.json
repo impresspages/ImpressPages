@@ -42,7 +42,7 @@
         {
             "label": "Collapse sidebar menu",
             "name": "collapseSidebarMenu",
-            "type": "Ip\\Form\\Field\\Select",
+            "type": "select",
             "default": "no",
             "values": ["no", "yes"]
         }
