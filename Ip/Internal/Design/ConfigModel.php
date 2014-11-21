@@ -240,6 +240,9 @@ class ConfigModel
                 continue;
             }
 
+            if (!empty($option['note'])) {
+                $newField->setNote($option['note']);
+            }
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
