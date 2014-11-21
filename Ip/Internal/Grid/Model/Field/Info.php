@@ -9,7 +9,6 @@ class Info extends \Ip\Internal\Grid\Model\Field
 {
 
     protected $html = '';
-    protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
 
     /**
@@ -22,9 +21,6 @@ class Info extends \Ip\Internal\Grid\Model\Field
     {
         if (!empty($fieldFieldConfig['html'])) {
             $this->html = $fieldFieldConfig['html'];
-        }
-        if (!empty($fieldFieldConfig['layout'])) {
-            $this->layout = $fieldFieldConfig['layout'];
         }
         return parent::__construct($fieldFieldConfig, $wholeConfig);
     }
@@ -62,18 +58,6 @@ class Info extends \Ip\Internal\Grid\Model\Field
         return $this->html;
     }
 
-    /**
-     * @param $layout (\Ip\Form\Field::LAYOUT_DEFAULT, \Ip\Form\Field::LAYOUT_NO_LABEL, \Ip\Form\Field::BLANK)
-     */
-    public function setLayout($layout)
-    {
-        $this->layout = $layout;
-    }
-
-    public function getLayout()
-    {
-        return $this->layout;
-    }
 
 
     /**
@@ -83,7 +67,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
      */
     public function searchField($searchVariables)
     {
-        return null;
+        return false;
     }
 
     /**
@@ -116,7 +100,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
      * @return string
      */
     public function searchQuery($searchVariables) {
-        return null;
+        return false;
     }
 
 
