@@ -309,6 +309,9 @@ class Model
 
     public static function getActivePluginNames()
     {
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            return array();
+        }
         $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
