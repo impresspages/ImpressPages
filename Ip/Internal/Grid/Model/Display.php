@@ -281,7 +281,7 @@ class Display
                 'label' => $field['label']
             );
 
-            if (empty($field['allowOrder']) || $field['allowOrder']) {
+            if ((empty($field['allowOrder']) || $field['allowOrder']) && !empty($field['field'])) {
                 if ($this->subgridConfig->orderField($this->statusVariables) == $field['field']) {
                     $symbol = ' ▲';
                     if ($this->subgridConfig->orderDirection($this->statusVariables) == 'desc') {
