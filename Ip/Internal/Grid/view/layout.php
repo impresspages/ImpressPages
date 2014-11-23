@@ -13,7 +13,7 @@
     echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());
 
     // Actions
-    if ($pagination->pagerSize() * ($pagination->totalPages() - 1) + count($data) > 10) {
+    if ($pagination->pagerSize() * ($pagination->totalPages() - 1) + count($data) > 10 || $pagination->currentPage() > 1) {
         //show pagination if we have more than 10 records
         echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'bottom')));
     }
