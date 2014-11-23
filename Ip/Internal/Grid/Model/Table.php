@@ -168,10 +168,31 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('Missing parameters');
         }
 
+        $commands = array();
 
         try {
             $actions = $this->getActions();
             $actions->delete($params['id']);
+
+            //If we are not on the first page and we have removed the last record, move user to the previous page
+            if (!empty($this->statusVariables[$this->config->pageVariableName()]) && $this->statusVariables[$this->config->pageVariableName()] > 1) {
+                //We are not on the first page
+
+                $db = new Db($this->subgridConfig, $this->statusVariables);
+                $where = $db->buildSqlWhere();
+                $pageSize = $this->subgridConfig->pageSize($this->statusVariables);
+                $totalPages = ceil($db->recordCount($where) / $pageSize);
+                if ($totalPages < $this->statusVariables[$this->config->pageVariableName()]) {
+                    //set maximal page that has at least one record.
+                    $statusVariables = $this->statusVariables;
+                    $statusVariables[$this->config->pageVariableName()] = $totalPages;
+                    $commands[] = Commands::setHash(Status::build($statusVariables));
+                    return $commands;
+                }
+
+            }
+
+
             $display = $this->getDisplay();
             $html = $display->fullHtml($this->statusVariables);
             $commands[] = Commands::setHtml($html);
