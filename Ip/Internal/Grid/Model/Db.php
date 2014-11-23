@@ -32,6 +32,32 @@ class Db
         if ($depth > 1) {
             $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.`' . $this->config->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
         }
+
+        $searchVariables = array();
+        foreach ($this->statusVariables as $key => $value) {
+            if (preg_match('/^s_/', $key)) {
+                $searchVariables[substr($key, 2)] = $value;
+            }
+        }
+
+        if (!empty($searchVariables)) {
+
+            foreach ($this->config->fields() as $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    continue;
+                }
+                $fieldObject = $this->config->fieldObject($fieldData);
+                $fieldQuery = $fieldObject->searchQuery($searchVariables);
+                if ($fieldQuery) {
+                    if ($where != ' ') {
+                        $where .= ' and ';
+                    }
+                    $where .= $fieldQuery;
+                }
+            }
+        }
+
+
         return $where;
     }
 
