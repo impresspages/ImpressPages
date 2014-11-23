@@ -276,6 +276,7 @@ class Display
             if (isset($field['preview']) && !$field['preview']) {
                 continue;
             }
+
             $column = array(
                 'label' => $field['label'],
                 'actionAttributes' => 'class="ipsAction _clickable" data-method="order" data-params="' . escAttr(json_encode(array('order' => $field['field']))) . '"'
