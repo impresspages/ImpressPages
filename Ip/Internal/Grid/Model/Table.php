@@ -428,20 +428,23 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('Missing parameters');
         }
 
-        if (!empty($statusVariables['order']) && $statusVariables['order'] == $params['order']) {
-            //the same field has been clicked twice. Change order direction
-            if (isset($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
-                //we are already i descending mode. Restore the default ascending mode
-                unset($statusVariables['direction']);
-            } else {
-                //set descending mode
-                $statusVariables['direction'] = 'desc';
-            }
-
-        } elseif(isset($statusVariables['direction'])) {
+        if (empty($statusVariables['order']) || $statusVariables['order'] != $params['order']) {
+            //new field selected to order records. Use ascending order
+            $statusVariables['order'] = $params['order'];
             unset($statusVariables['direction']);
+        } else {
+            //the same field has been clicked repeatedly.
+
+            if (empty($statusVariables['direction']) || $statusVariables['direction'] == 'asc') {
+                //the same field has been clicked twice. Change order direction to descending
+                $statusVariables['order'] = $params['order'];
+                $statusVariables['direction'] = 'desc';
+            } else {
+                //the same field has been clicked for the third time. Remove ordering
+                unset($statusVariables['order']);
+                unset($statusVariables['direction']);
+            }
         }
-        $statusVariables['order'] = $params['order'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
