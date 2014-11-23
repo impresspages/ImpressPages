@@ -303,9 +303,28 @@ class Config
 
     }
 
-    public function orderBy()
+    public function orderBy($statusVariables)
     {
-        if (!empty($this->config['orderBy'])) {
+        $manualOrder = false;
+
+        //check if order field is set manually and if it allowed to order by that field
+        if (!empty($statusVariables['order'])) {
+            $orderField = $statusVariables['order'];
+            foreach($this->config['fields'] as $field) {
+                if ($field['field'] == $orderField && (empty($field['allowOrder']) || $field['allowOrder'])) {
+                    $manualOrder = true;
+                    break;
+                }
+            }
+        }
+
+        if ($manualOrder) {
+            $direction = 'asc';
+            if (!empty($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
+                $direction = 'desc';
+            }
+            return $this->tableName() . ".`" . $statusVariables['order'] . "` " . $direction;
+        } elseif (!empty($this->config['orderBy'])) {
             return $this->config['orderBy'];
         } else {
             if ($this->sortField()) {
