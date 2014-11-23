@@ -39,33 +39,11 @@ class Display
 
         $db = new Db($this->subgridConfig, $this->statusVariables);
 
-        $searchVariables = array();
-        foreach ($this->statusVariables as $key => $value) {
-            if (preg_match('/^s_/', $key)) {
-                $searchVariables[substr($key, 2)] = $value;
-            }
-        }
 
 
         $where = $db->buildSqlWhere();
 
 
-        if (!empty($searchVariables)) {
-
-            foreach ($subgridConfig->fields() as $fieldData) {
-                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
-                    continue;
-                }
-                $fieldObject = $subgridConfig->fieldObject($fieldData);
-                $fieldQuery = $fieldObject->searchQuery($searchVariables);
-                if ($fieldQuery) {
-                    if ($where != ' ') {
-                        $where .= ' and ';
-                    }
-                    $where .= $fieldQuery;
-                }
-            }
-        }
 
         $pageVariableName = $subgridConfig->pageVariableName();
         $currentPage = !empty($this->statusVariables[$pageVariableName]) ? (int)$this->statusVariables[$pageVariableName] : 1;
@@ -115,6 +93,14 @@ class Display
         }
 
         asort($values);
+
+        $searchVariables = array();
+        foreach ($this->statusVariables as $key => $value) {
+            if (preg_match('/^s_/', $key)) {
+                $searchVariables[substr($key, 2)] = $value;
+            }
+        }
+
 
         $variables = array(
             'columns' => $this->getColumnData(),
