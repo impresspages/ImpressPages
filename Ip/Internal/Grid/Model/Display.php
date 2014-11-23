@@ -60,7 +60,7 @@ class Display
         $totalPages = ceil($db->recordCount($where) / $pageSize);
 
         if ($currentPage > $totalPages) {
-            $currentPage = $totalPages;
+            $totalPages = $currentPage;
         }
 
         $pagination = new \Ip\Pagination\Pagination(array(

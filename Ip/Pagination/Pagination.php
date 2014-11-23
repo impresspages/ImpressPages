@@ -90,7 +90,7 @@ class Pagination
 
     public function render($view = null)
     {
-        if ($this->totalPages < 1) {
+        if ($this->totalPages < 1 && $this->currentPage == 1) {
             return null;
         }
 
