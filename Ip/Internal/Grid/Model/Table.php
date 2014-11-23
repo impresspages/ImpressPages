@@ -110,6 +110,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'subgrid':
                 return $this->subgrid($params);
                 break;
+            case 'order':
+                return $this->order($params);
+                break;
         }
         return null;
     }
@@ -415,5 +418,34 @@ class Table extends \Ip\Internal\Grid\Model
     {
         return new Actions($this->subgridConfig, $this->statusVariables);
     }
+
+
+    protected function order($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['order'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if (!empty($statusVariables['order']) && $statusVariables['order'] == $params['order']) {
+            //the same field has been clicked twice. Change order direction
+            if (isset($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
+                //we are already i descending mode. Restore the default ascending mode
+                unset($statusVariables['direction']);
+            } else {
+                //set descending mode
+                $statusVariables['direction'] = 'desc';
+            }
+
+        } elseif(isset($statusVariables['direction'])) {
+            unset($statusVariables['direction']);
+        }
+        $statusVariables['order'] = $params['order'];
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
 
 }

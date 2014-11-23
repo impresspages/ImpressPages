@@ -9981,6 +9981,9 @@
 .ip .ipModuleGrid ._pages .pagination + .btn-group {
   margin-left: 20px;
 }
+.ip .ipModuleGrid ._clickable {
+  cursor: pointer;
+}
 .hidden {
   display: none !important;
   visibility: hidden !important;

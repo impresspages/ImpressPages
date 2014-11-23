@@ -9813,3 +9813,6 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
 .ipModuleGrid ._pages .pagination + .btn-group {
   margin-left: 20px;
 }
+.ipModuleGrid ._clickable {
+  cursor: pointer;
+}

@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <?php foreach($columns as $column) { ?>
-                <th>
+                <th <?php echo !empty($column['actionAttributes']) ? $column['actionAttributes'] : '' ?>>
                     <?php echo esc($column['label']); ?>
                 </th>
             <?php } ?>

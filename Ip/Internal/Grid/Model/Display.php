@@ -277,7 +277,8 @@ class Display
                 continue;
             }
             $column = array(
-                'label' => $field['label']
+                'label' => $field['label'],
+                'actionAttributes' => 'class="ipsAction _clickable" data-method="order" data-params="' . escAttr(json_encode(array('order' => $field['field']))) . '"'
             );
             $columns[] = $column;
         }

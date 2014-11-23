@@ -73,7 +73,7 @@ class Db
         WHERE
           " . $where . "
         ORDER BY
-            " . $this->config->orderBy() . "
+            " . $this->config->orderBy($this->statusVariables) . "
         LIMIT
             $from, $count
         ";
