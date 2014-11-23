@@ -4,7 +4,7 @@
 
     // Actions
     echo ipView('Ip/Internal/Grid/view/actions.php', $this->getVariables());
-    if ($pagination->pagerSize() * ($pagination->currentPage() - 1) + count($data) > 100) {
+    if ($pagination->pagerSize() * ($pagination->totalPages() - 1) + count($data) > 100) {
         // Show top pagination if we have more than 100 records.
         echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'top')));
     }
@@ -13,7 +13,7 @@
     echo ipView('Ip/Internal/Grid/view/table.php', $this->getVariables());
 
     // Actions
-    if ($pagination->currentPage() > 1 || count($data) > 10) {
+    if ($pagination->pagerSize() * ($pagination->totalPages() - 1) + count($data) > 10) {
         //show pagination if we have more than 10 records
         echo ipView('Ip/Internal/Grid/view/pages.php', array_merge($this->getVariables(), array('position' => 'bottom')));
     }
