@@ -237,8 +237,16 @@ class Config
         return !array_key_exists('allowDelete', $this->config) || $this->config['allowDelete'];
     }
 
-    public function pageSize()
+    public function pageSize($statusVariables)
     {
+        if (!empty($statusVariables['pageSize'])) {
+            $pageSize = (int) $statusVariables['pageSize'];
+            if ($pageSize < 1) {
+                $pageSize = 1;
+            }
+            return $pageSize;
+        }
+
         return $this->config['pageSize'];
     }
 

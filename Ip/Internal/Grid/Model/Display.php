@@ -51,13 +51,7 @@ class Display
             $currentPage = 1;
         }
 
-        $pageSize = $subgridConfig->pageSize();
-        if (!empty($this->statusVariables['pageSize'])) {
-            $pageSize = (int) $this->statusVariables['pageSize'];
-        }
-        if ($pageSize < 1) {
-            $pageSize = 1;
-        }
+        $pageSize = $subgridConfig->pageSize($this->statusVariables);
 
 
 
@@ -80,13 +74,6 @@ class Display
         $values = array(
             10, 20, 50, 100, 1000, 10000
         );
-        $pageSize = (int)$this->config->pageSize();
-        if (!empty($this->statusVariables['pageSize'])) {
-            $pageSize = (int) $this->statusVariables['pageSize'];
-        }
-        if ($pageSize < 1) {
-            $pageSize = 1;
-        }
 
         if (!in_array($pageSize, $values)) {
             $values[] = $pageSize;
