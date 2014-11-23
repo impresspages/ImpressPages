@@ -305,6 +305,15 @@ class Config
 
     public function orderBy($statusVariables)
     {
+        if (!empty($this->config['orderBy'])) {
+            return $this->config['orderBy'];
+        } else {
+            return $this->tableName() . ".`" . $this->orderField($statusVariables) . "` " . $this->orderDirection($statusVariables);
+        }
+    }
+
+    public function orderField($statusVariables)
+    {
         $manualOrder = false;
 
         //check if order field is set manually and if it allowed to order by that field
@@ -319,20 +328,23 @@ class Config
         }
 
         if ($manualOrder) {
-            $direction = 'asc';
-            if (!empty($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
-                $direction = 'desc';
-            }
-            return $this->tableName() . ".`" . $statusVariables['order'] . "` " . $direction;
-        } elseif (!empty($this->config['orderBy'])) {
-            return $this->config['orderBy'];
+            return $statusVariables['order'];
         } else {
             if ($this->sortField()) {
-                return $this->tableName() . ".`" . $this->sortField() . "` " . $this->sortDirection();
+                return $this->sortField();
             } else {
-                return $this->tableName() . ".`" . $this->idField() . "` " . $this->sortDirection();
+                return $this->idField();
             }
         }
+    }
+
+    public function orderDirection($statusVariables)
+    {
+        $direction = 'asc';
+        if (!empty($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
+            $direction = 'desc';
+        }
+        return $direction;
     }
 
     public function createPosition()
