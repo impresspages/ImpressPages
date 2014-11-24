@@ -271,7 +271,7 @@ class Helper
 
     public static function checkMemoryLimit()
     {
-        if (\Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100) {
+        if (\Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 && \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() != -1) {
             return 'warning';
         }
         return 'success';
