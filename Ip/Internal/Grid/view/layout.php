@@ -23,6 +23,7 @@
     echo ipView('Ip/Internal/Grid/view/updateModal.php', $this->getVariables());
     echo ipView('Ip/Internal/Grid/view/createModal.php', $this->getVariables());
     echo ipView('Ip/Internal/Grid/view/searchModal.php', $this->getVariables());
+    echo ipView('Ip/Internal/Grid/view/moveModal.php', $this->getVariables());
 
     // Footer
     echo ipView('Ip/Internal/Grid/view/footer.php', $this->getVariables());

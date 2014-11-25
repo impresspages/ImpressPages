@@ -97,6 +97,7 @@ class Display
             'deleteWarning' => $subgridConfig->deleteWarning(),
             'createForm' => $this->createForm(),
             'searchForm' => $this->searchForm($searchVariables),
+            'moveForm' => $this->moveForm(),
             'title' => $subgridConfig->getTitle(),
             'breadcrumb' => $this->getBreadcrumb(),
             'pageSize' => $pageSize,
@@ -497,6 +498,26 @@ class Display
         return $form;
     }
 
+
+    public function moveForm()
+    {
+        $form = new \Ip\Form();
+
+        $field = new \Ip\Form\Field\Integer(array(
+                'name' => 'position',
+                'value' => ''
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Hidden(array(
+                'name' => 'id',
+                'value' => ''
+            ));
+        $form->addField($field);
+
+        return $form;
+    }
 
 
 }

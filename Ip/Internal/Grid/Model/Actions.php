@@ -261,4 +261,70 @@ class Actions
             array($this->subgridConfig->idField() => $id)
         );
     }
+
+    public function movePosition($id, $position)
+    {
+        if ($position < 1) {
+            $position = 1;
+        }
+        $sortField = $this->subgridConfig->sortField();
+
+        $sql = "
+            SELECT
+                `" . $sortField . "`
+            FROM
+                " . $this->subgridConfig->tableName() . "
+            WHERE
+                " . $this->subgridConfig->idField() . " != " . (int)$id . " and (" . $this->subgridConfig->filter() . ")
+            ORDER BY
+               `" . $sortField . "` " . $this->subgridConfig->sortDirection() . "
+            LIMIT ?, 1
+        ";
+
+        if ($position == 1) {
+            $record1 = null;
+        } else {
+            $preparedSql = str_replace('?', $position - 2, $sql);
+            $record1 = ipDb()->fetchAll($preparedSql);
+        }
+        $preparedSql = str_replace('?', $position - 1, $sql);
+        $record2 = ipDb()->fetchAll($preparedSql);
+
+        if (!isset($record1[0][$sortField]) && !isset($record2[0][$sortField])) {
+            if ($position == 0) {
+                return;
+            }
+
+            $orderBy = 'ORDER BY ' . $sortField . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
+            $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array(), $orderBy);
+            $newPriority = $highestPriority + 5;
+        } else {
+            if (isset($record1[0][$sortField])) {
+                $priority1 = $record1[0][$sortField];
+            } else {
+                if (isset($record2[0][$sortField])) {
+                    $priority1 = $record2[0][$sortField] - 5;
+                }
+            }
+
+            if (isset($record2[0][$sortField])) {
+                $priority2 = $record2[0][$sortField];
+            } else {
+                if (isset($record1[0][$sortField])) {
+                    $priority2 = $record1[0][$sortField] + 5;
+                }
+            }
+
+            $newPriority = ($priority1 + $priority2) / 2;
+        }
+
+
+
+        ipDb()->update(
+            $this->subgridConfig->rawTableName(),
+            array($sortField => $newPriority),
+            array($this->subgridConfig->idField() => $id)
+        );
+    }
+
 }

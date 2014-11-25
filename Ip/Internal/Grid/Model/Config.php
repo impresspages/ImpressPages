@@ -301,7 +301,7 @@ class Config
     public function sortDirection()
     {
         if (empty($this->config['sortDirection'])) {
-            return false;
+            return 'asc';
         }
         if ($this->config['sortDirection'] == 'desc') {
             return 'desc';
