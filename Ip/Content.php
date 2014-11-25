@@ -532,4 +532,13 @@ class Content
         }
     }
 
+    public function getDefaultPageId($languageCode = null)
+    {
+        if ($languageCode == null) {
+            $languageCode = ipContent()->getCurrentLanguage()->getCode();
+        }
+        $pageId = ipJob('ipDefaultPageId', array('languageCode' => $languageCode));
+        return $pageId;
+    }
+
 }
