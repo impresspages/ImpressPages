@@ -75,7 +75,7 @@ class Job
         if (empty($result['page'])) {
 
             if ($info['relativeUri'] == '') {
-                $pageId = ipJob('ipDefaultPageId');
+                $pageId = ipContent()->getDefaultPageId();
                 $page = \Ip\Internal\Pages\Service::getPage($pageId);
             } else {
                 $languageCode = ipContent()->getCurrentLanguage()->getCode();
