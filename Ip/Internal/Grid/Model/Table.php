@@ -101,6 +101,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'move':
                 return $this->move($params);
                 break;
+            case 'movePosition':
+                return $this->movePosition($params);
+                break;
             case 'create':
                 return $this->create($params);
                 break;
@@ -362,6 +365,31 @@ class Table extends \Ip\Internal\Grid\Model
 
         $actions = $this->getActions();
         $actions->move($id, $targetId, $beforeOrAfter);
+        $display = $this->getDisplay();
+        $html = $display->fullHtml();
+        $commands[] = Commands::setHtml($html);
+
+        if ($this->subgridConfig->afterMove()) {
+            call_user_func($this->subgridConfig->afterMove(), $params['id']);
+        }
+        return $commands;
+    }
+
+    protected function movePosition($params)
+    {
+        if (empty($params['id']) || !isset($params['position'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if ($this->subgridConfig->beforeMove()) {
+            call_user_func($this->subgridConfig->beforeMove(), $params['id']);
+        }
+
+        $id = $params['id'];
+        $position = $params['position'];
+
+        $actions = $this->getActions();
+        $actions->movePosition($id, $position);
         $display = $this->getDisplay();
         $html = $display->fullHtml();
         $commands[] = Commands::setHtml($html);

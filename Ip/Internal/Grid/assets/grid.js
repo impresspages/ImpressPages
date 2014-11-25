@@ -278,6 +278,59 @@
             });
         }
 
+        $grid.find('.ipsMoveModal .ipsConfirm').off('click.grid').on('click.grid', function (e) {
+            $('.ipsMoveModal form').submit();
+        });
+        $grid.find('.ipsDrag').off('click.grid').on('click.grid', function(e) {
+            e.preventDefault();
+            $('.ipsMoveModal').modal();
+            $('.ipsMoveModal input[name=position]').focus();
+            $('.ipsMoveModal').find('input[name=id]').val($(this).closest('.ipsRow').data('id'));
+        });
+
+        $('.ipsMoveModal form').off('submit.grid').on('submit.grid', $.proxy(moveToPosition, $grid));
+
+    };
+
+    var moveToPosition = function (event, ui) {
+        event.preventDefault();
+        var $form = $(event.currentTarget);
+        var position = $form.find('input[name=position]').val();
+        if (position == '') {
+            alert('Please enter an integer number');
+            return;
+        }
+
+        var id = $form.find('input[name=id]').val();
+
+
+
+        var $grid = this;
+        var data = {};
+        data.method = 'movePosition';
+        data.params = {};
+        data.params.id = id;
+        data.params.position = position;
+        data.securityToken = ip.securityToken;
+        data.hash = window.location.hash;
+        $.ajax({
+            type: 'POST',
+            url: $grid.data('gateway'),
+            data: data,
+            context: $grid,
+            dataType: 'json',
+            success: function (response) {
+                $.proxy(doCommands, $grid)(response.result);
+            },
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            }
+
+        });
+        $('.ipsMoveModal').modal('hide');
+
     };
 
     var startDrag = function (event, ui) {
