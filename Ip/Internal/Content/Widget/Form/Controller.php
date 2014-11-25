@@ -25,7 +25,7 @@ class Controller extends \Ip\WidgetController{
         if (empty($data['success'])) {
             $data['success'] = __('Thank You', 'Ip');
         }
-        $successHtml = ipView('helperView/success.php', array('success' => $data['success']));
+        $successHtml = ipView('helperView/success.php', array('success' => $data['success']))->render();
 
 
         if ($errors) {

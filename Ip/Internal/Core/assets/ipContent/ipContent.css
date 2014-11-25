@@ -92,6 +92,9 @@ body {
 .button a:hover {
   text-decoration: inherit;
 }
+.ipWidget .button a {
+  color: #ffffff;
+}
 .ipWidget {
   /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
   /*
@@ -960,10 +963,9 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 .ipWidget-File a:hover {
   text-decoration: underline;
 }
-.ipWidget-Form .ipwSuccess {
+.ipWidget-Form .ipwThankYou {
   /* mimicking the same styles as for form to keep message 'inside' the box */
   border: 1px solid #888;
-  display: none;
   padding: 20px 25px;
 }
 .ipWidget-Gallery {
