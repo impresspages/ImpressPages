@@ -25,6 +25,8 @@ class Request
      */
     protected $controller = null;
 
+    protected $routePath = null;
+
 
     public function __construct()
     {
@@ -234,6 +236,20 @@ class Request
         }
 
         return $relativePath ? ltrim(urldecode($relativePath), '/') : '';
+    }
+
+    /**
+     * @private
+     * for internal ImpressPages uses only
+     */
+    public function _setRoutePath($routePath)
+    {
+        $this->routePath = $routePath;
+    }
+
+    public function getRoutePath()
+    {
+        return $this->routePath;
     }
 
     /**

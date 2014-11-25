@@ -158,11 +158,11 @@ class Application
         if ($result) {
             $requestLanguage = $result['language'];
             $routeLanguage = $requestLanguage->getCode();
-            $relativeUri = $result['relativeUri'];
+            ipRequest()->_setRoutePath($result['relativeUri']);
         } else {
             $routeLanguage = null;
             $requestLanguage = ipJob('ipRequestLanguage', array('request' => $request));
-            $relativeUri = $request->getRelativePath();
+            ipRequest()->_setRoutePath($request->getRelativePath());
         }
 
         //find out and set locale
@@ -205,7 +205,7 @@ class Application
 
         $routeAction = ipJob(
             'ipRouteAction',
-            array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage)
+            array('request' => $request, 'relativeUri' => ipRequest()->getRoutePath(), 'routeLanguage' => $routeLanguage)
         );
 
         if (!empty($routeAction)) {
@@ -230,7 +230,6 @@ class Application
             if (!empty($routeAction['action'])) {
                 ipRoute()->setAction($routeAction['action']);
             }
-
         }
 
 
