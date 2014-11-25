@@ -269,6 +269,15 @@ class Actions
         }
         $sortField = $this->subgridConfig->sortField();
 
+        //$directionInverse gives opposite sign number when increasing or decresing values depending on sort direction
+        if ($this->subgridConfig->sortDirection() == 'asc') {
+            $directionInverse = 1;
+        } else {
+            $directionInverse = -1;
+        }
+
+
+
         $sql = "
             SELECT
                 `" . $sortField . "`
@@ -297,13 +306,13 @@ class Actions
 
             $orderBy = 'ORDER BY ' . $sortField . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
             $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array(), $orderBy);
-            $newPriority = $highestPriority + 5;
+            $newPriority = $highestPriority + 5 * $directionInverse;
         } else {
             if (isset($record1[0][$sortField])) {
                 $priority1 = $record1[0][$sortField];
             } else {
                 if (isset($record2[0][$sortField])) {
-                    $priority1 = $record2[0][$sortField] - 5;
+                    $priority1 = $record2[0][$sortField] - 5 * $directionInverse;
                 }
             }
 
@@ -311,7 +320,7 @@ class Actions
                 $priority2 = $record2[0][$sortField];
             } else {
                 if (isset($record1[0][$sortField])) {
-                    $priority2 = $record1[0][$sortField] + 5;
+                    $priority2 = $record1[0][$sortField] + 5 * $directionInverse;
                 }
             }
 
