@@ -211,16 +211,49 @@ class Filter
     {
         $append = '';
         $relativePath = ipRequest()->getRelativePath();
-        if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
-            if (substr($relativePath, -1) != '/') {
-                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . $relativePath) . '/" />' . "\n";
+
+
+
+        $canonicalUrl = null;
+        //detect if we need to add canonical meta tag because we are on the home page
+        if (ipContent()->getCurrentPage() && ipContent()->getCurrentPage()->getId() == ipContent()->getDefaultPageId() && ipRequest()->getRelativePath() != '') {
+            //if current page is the default page of current language and relative path is not empty
+            $languages = ipContent()->getLanguages();
+            $firstLanguage = $languages[0];
+
+            if (ipContent()->getCurrentLanguage()->getId() == $firstLanguage->getId()) {
+                //if current language is the first language, set canonical to the base URL.
+                $canonicalUrl = ipConfig()->baseUrl();
+            } elseif(ipRequest()->getRoutePath() != '') {
+                //if current URL is not equal to the language URL, set canonical as language URL
+                $canonicalUrl = ipContent()->getcurrentLanguage()->getLink();
             }
-        } else {
-            if (substr($relativePath, -1) == '/') {
-                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . substr($relativePath, 0, -1)) . '" />' . "\n";
-            }
+
+
+
         }
-        $head .= $append;
+
+        //detect if we need to add canonical tag because of missing trailing slash
+        if (!$canonicalUrl) {
+            //if canonicalUrl is not set yet
+            if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
+                if (substr($relativePath, -1) != '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . $relativePath . '/';
+                }
+            } else {
+                if (substr($relativePath, -1) == '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . substr($relativePath, 0, -1);
+                }
+            }
+
+        }
+
+        if ($canonicalUrl) {
+            $append = '    <link rel="canonical" href="' . escAttr($canonicalUrl) . '" />' . "\n";
+            $head .= $append;
+        }
+
+
         return $head;
 
     }
