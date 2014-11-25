@@ -532,6 +532,11 @@ class Content
         }
     }
 
+    /**
+     * Get Id of the default page in current or specified language
+     * @param string $languageCode
+     * @return int
+     */
     public function getDefaultPageId($languageCode = null)
     {
         if ($languageCode == null) {
