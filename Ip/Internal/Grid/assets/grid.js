@@ -281,7 +281,7 @@
         $grid.find('.ipsMoveModal .ipsConfirm').off('click.grid').on('click.grid', function (e) {
             $('.ipsMoveModal form').submit();
         });
-        $grid.find('.ipsDrag').off('click.grid').on('click.grid', function(e) {
+        $grid.find('.ipsSetPosition').off('click.grid').on('click.grid', function(e) {
             e.preventDefault();
             $('.ipsMoveModal').modal();
             $('.ipsMoveModal input[name=position]').focus();

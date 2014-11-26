@@ -8587,40 +8587,43 @@
   visibility: hidden;
   z-index: 1;
 }
-.ip .ipAdminPages ._pages {
+.ip .ipAdminPages ._pagesListing {
   background-color: #f4f4f4;
   width: 240px;
 }
-.ip .ipAdminPages ._pages ._actions {
+.ip .ipAdminPages ._pagesListing ._actions {
   white-space: nowrap;
 }
-.ip .ipAdminPages ._pages ._tree {
+.ip .ipAdminPages ._pagesListing ._tree {
   margin: 0 -20px;
 }
-.ip .ipAdminPages ._pages ._tree ._table td {
+.ip .ipAdminPages ._pagesListing ._tree ._table td {
   border: none;
   cursor: pointer;
   padding: 10px 20px;
 }
-.ip .ipAdminPages ._pages ._tree ._table > thead > tr > td.active,
-.ip .ipAdminPages ._pages ._tree ._table > tbody > tr > td.active,
-.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr > td.active,
-.ip .ipAdminPages ._pages ._tree ._table > thead > tr > th.active,
-.ip .ipAdminPages ._pages ._tree ._table > tbody > tr > th.active,
-.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr > th.active,
-.ip .ipAdminPages ._pages ._tree ._table > thead > tr.active > td,
-.ip .ipAdminPages ._pages ._tree ._table > tbody > tr.active > td,
-.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr.active > td,
-.ip .ipAdminPages ._pages ._tree ._table > thead > tr.active > th,
-.ip .ipAdminPages ._pages ._tree ._table > tbody > tr.active > th,
-.ip .ipAdminPages ._pages ._tree ._table > tfoot > tr.active > th {
+.ip .ipAdminPages ._pagesListing ._tree ._table > thead > tr > td.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tbody > tr > td.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tfoot > tr > td.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > thead > tr > th.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tbody > tr > th.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tfoot > tr > th.active,
+.ip .ipAdminPages ._pagesListing ._tree ._table > thead > tr.active > td,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tbody > tr.active > td,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tfoot > tr.active > td,
+.ip .ipAdminPages ._pagesListing ._tree ._table > thead > tr.active > th,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tbody > tr.active > th,
+.ip .ipAdminPages ._pagesListing ._tree ._table > tfoot > tr.active > th {
   background-color: #fff;
   color: #000;
   font-weight: bold;
 }
-.ip .ipAdminPages ._pages ._tree .ui-sortable-helper td {
+.ip .ipAdminPages ._pagesListing ._tree .ui-sortable-helper td {
   cursor: -moz-grab;
   cursor: -webkit-grab;
+}
+.ip .ipAdminPages ._pagesListing ._pages {
+  margin-left: 20px;
 }
 .ip .ipAdminPages ._properties {
   background-color: #fff;
