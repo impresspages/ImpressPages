@@ -8419,40 +8419,43 @@ th {
   visibility: hidden;
   z-index: 1;
 }
-.ipAdminPages ._pages {
+.ipAdminPages ._pagesListing {
   background-color: #f4f4f4;
   width: 240px;
 }
-.ipAdminPages ._pages ._actions {
+.ipAdminPages ._pagesListing ._actions {
   white-space: nowrap;
 }
-.ipAdminPages ._pages ._tree {
+.ipAdminPages ._pagesListing ._tree {
   margin: 0 -20px;
 }
-.ipAdminPages ._pages ._tree ._table td {
+.ipAdminPages ._pagesListing ._tree ._table td {
   border: none;
   cursor: pointer;
   padding: 10px 20px;
 }
-.ipAdminPages ._pages ._tree ._table > thead > tr > td.active,
-.ipAdminPages ._pages ._tree ._table > tbody > tr > td.active,
-.ipAdminPages ._pages ._tree ._table > tfoot > tr > td.active,
-.ipAdminPages ._pages ._tree ._table > thead > tr > th.active,
-.ipAdminPages ._pages ._tree ._table > tbody > tr > th.active,
-.ipAdminPages ._pages ._tree ._table > tfoot > tr > th.active,
-.ipAdminPages ._pages ._tree ._table > thead > tr.active > td,
-.ipAdminPages ._pages ._tree ._table > tbody > tr.active > td,
-.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > td,
-.ipAdminPages ._pages ._tree ._table > thead > tr.active > th,
-.ipAdminPages ._pages ._tree ._table > tbody > tr.active > th,
-.ipAdminPages ._pages ._tree ._table > tfoot > tr.active > th {
+.ipAdminPages ._pagesListing ._tree ._table > thead > tr > td.active,
+.ipAdminPages ._pagesListing ._tree ._table > tbody > tr > td.active,
+.ipAdminPages ._pagesListing ._tree ._table > tfoot > tr > td.active,
+.ipAdminPages ._pagesListing ._tree ._table > thead > tr > th.active,
+.ipAdminPages ._pagesListing ._tree ._table > tbody > tr > th.active,
+.ipAdminPages ._pagesListing ._tree ._table > tfoot > tr > th.active,
+.ipAdminPages ._pagesListing ._tree ._table > thead > tr.active > td,
+.ipAdminPages ._pagesListing ._tree ._table > tbody > tr.active > td,
+.ipAdminPages ._pagesListing ._tree ._table > tfoot > tr.active > td,
+.ipAdminPages ._pagesListing ._tree ._table > thead > tr.active > th,
+.ipAdminPages ._pagesListing ._tree ._table > tbody > tr.active > th,
+.ipAdminPages ._pagesListing ._tree ._table > tfoot > tr.active > th {
   background-color: #fff;
   color: #000;
   font-weight: bold;
 }
-.ipAdminPages ._pages ._tree .ui-sortable-helper td {
+.ipAdminPages ._pagesListing ._tree .ui-sortable-helper td {
   cursor: -moz-grab;
   cursor: -webkit-grab;
+}
+.ipAdminPages ._pagesListing ._pages {
+  margin-left: 20px;
 }
 .ipAdminPages ._properties {
   background-color: #fff;
