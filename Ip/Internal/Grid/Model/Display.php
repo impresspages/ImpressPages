@@ -185,7 +185,9 @@ class Display
     {
         $editButtonHtml = ipView('../view/updateButton.php');
         $deleteButtonHtml = ipView('../view/deleteButton.php');
-        $dragButtonHtml = ipView('../view/dragHandle.php');
+
+        $disabledSorting = !empty($this->statusVariables['order']);
+        $dragButtonHtml = ipView('../view/dragHandle.php', array('disabled' => $disabledSorting));
         $rows = array();
         foreach ($data as $row) {
             $preparedRow = array(
