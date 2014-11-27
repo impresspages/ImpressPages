@@ -193,6 +193,7 @@ class Checkbox extends Field
         if ($value) {
             $this->setChecked(1);
         }
+        parent::setValue($value);
     }
 
 }
