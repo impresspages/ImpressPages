@@ -10058,8 +10058,8 @@
   display: none;
   outline: #019bd4 solid 1px;
 }
-.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical.hover ._marker,
-.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal.hover ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical.ipHover ._marker,
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal.ipHover ._marker {
   display: block;
 }
 .ipHasAdminPanel .ipAdminWidgetPlaceholderVertical ._marker {
