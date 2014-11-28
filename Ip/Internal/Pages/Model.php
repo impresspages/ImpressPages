@@ -46,6 +46,7 @@ class Model
     {
         $children = self::getChildren($destinationPageId);
 
+        $newPageOrder = 1;
         if (count($children) > 0) {
             $newPageOrder = $children[0]['pageOrder'] - 1; // Set as first page.
             if ($destinationPosition > 0) {
