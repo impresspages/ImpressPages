@@ -449,14 +449,15 @@
                         lastPlaceholder.markerOffset = Math.round($lastParagraph.height() / 2) + space;
                     }
 
-                    var $columnsWidget = $widget.closest('.ipWidget').find('.ipBlock');
-                    if ($columnsWidget.length && !$widget.find(".ipBlock").length) {
+                    var $columnsWidget = $widget.parent().closest('.ipWidget');
+                    if ($columnsWidget.find('.ipBlock').length && !$widget.find(".ipBlock").length) {
                         //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
                         lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.markerOffset = lastPlaceholder.markerOffset - space * 1/4
                     }
 
                     if ($widget.find(".ipBlock").length) {
