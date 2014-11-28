@@ -274,7 +274,7 @@ var ipPageDragId;
 
                         break;
                     case 'bottom':
-                        if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
+                        if ($scope.activeMenu.type != 'list') {
                             position = getTreeDiv().find('ul').first().children().length;
                         } else {
                             position = $('.ipsTreeDiv tr').length;
