@@ -444,7 +444,9 @@
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
                         var $lastParagraph = widgetController.splitParts().last();
-                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.height = Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.markerOffset = Math.round($lastParagraph.height() / 2) + space;
                     }
 
                     var $columnsWidget = $widget.closest('.ipWidget').find('.ipBlock');
@@ -458,7 +460,10 @@
                     }
 
                     if ($widget.find(".ipBlock").length) {
+
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        //var columnsEnd = $widget.offset().top + $widget.height(); //$columnsWidget.offset().top + $columnsWidget.height();
+                        lastPlaceholder.left = 10;
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;
                         lastPlaceholder.markerOffset = 5;
