@@ -460,10 +460,7 @@
                     }
 
                     if ($widget.find(".ipBlock").length) {
-
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
-                        //var columnsEnd = $widget.offset().top + $widget.height(); //$columnsWidget.offset().top + $columnsWidget.height();
-                        lastPlaceholder.left = 10;
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;
                         lastPlaceholder.markerOffset = 5;
