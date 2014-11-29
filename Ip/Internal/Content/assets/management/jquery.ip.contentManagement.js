@@ -461,7 +461,8 @@
                     }
 
                     if ($widget.find(".ipBlock").length) {
-                        var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        //if last widget has blocks inside (columns widget)
+                        var columnsEnd = $widget.offset().top + $widget.height();
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;
                         lastPlaceholder.markerOffset = 5;
