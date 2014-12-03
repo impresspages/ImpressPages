@@ -404,9 +404,15 @@ class Config
             return false;
         }
         return $this->config['updateFilter'];
-
     }
 
+    public function updateFormFilter()
+    {
+        if (empty($this->config['updateFormFilter'])) {
+            return false;
+        }
+        return $this->config['updateFormFilter'];
+    }
 
     public function createFilter()
     {
@@ -414,9 +420,17 @@ class Config
             return false;
         }
         return $this->config['createFilter'];
-
     }
 
+
+
+    public function createFormFilter()
+    {
+        if (empty($this->config['createFormFilter'])) {
+            return false;
+        }
+        return $this->config['createFormFilter'];
+    }
 
     /**
      * @param int $depth

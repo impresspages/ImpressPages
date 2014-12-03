@@ -357,6 +357,10 @@ class Display
             $form->addClass('tab-content');
         }
 
+        if ($this->subgridConfig->updateFormFilter()) {
+            $form = call_user_func($this->subgridConfig->updateFormFilter(), $form);
+        }
+
         return $form;
     }
 
@@ -435,6 +439,11 @@ class Display
 
         $field = new \Ip\Form\Field\HiddenSubmit();
         $form->addField($field);
+
+
+        if ($this->subgridConfig->createFormFilter()) {
+            $form = call_user_func($this->subgridConfig->createFormFilter(), $form);
+        }
 
         return $form;
     }
