@@ -83,7 +83,7 @@
                 }
             }
             $this.find('.ipsFiles').append($newFile);
-
+            $this.trigger('ipFieldFileAdded', [fileName]);
         }
     };
 
@@ -93,6 +93,7 @@
         var $file = $currentTarget.closest('.ipsFile');
         $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
         $file.remove();
+        $this.trigger('ipFieldFileRemoved');
     };
 
 
