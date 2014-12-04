@@ -1,6 +1,7 @@
 var ipDesign = new function () {
     "use strict";
     var lastSerialized = null,
+        lastSerializedArray = null,
         cssUpdateQueue = [], //css files that are in progress to be updated
         cssUpdateInProgress = false,
         saveButtonDown = false;
@@ -230,6 +231,9 @@ var ipDesign = new function () {
 
         $('.ipModuleDesignConfig .ipsForm input').on('change', ipDesign.livePreviewUpdate);
         $('.ipModuleDesignConfig .ipsForm select').on('change', ipDesign.livePreviewUpdate);
+        $('.ipModuleDesignConfig .ipsForm .type-repositoryFile').on('ipFieldFileAdded', ipDesign.livePreviewUpdate);
+        $('.ipModuleDesignConfig .ipsForm .type-repositoryFile').on('ipFieldFileRemoved', ipDesign.livePreviewUpdate);
+
 
         initAccordion();
         initLayout();
@@ -240,6 +244,7 @@ var ipDesign = new function () {
         });
 
         lastSerialized = $('.ipModuleDesignConfig .ipsForm').serialize();
+        lastSerializedArray = $('.ipModuleDesignConfig .ipsForm').serializeArray();
 
         //setup config groups
 
@@ -333,14 +338,18 @@ var ipDesign = new function () {
 
 
         var curSerialized = $form.serialize();
+        var curSerializedArray = $form.serializeArray();
 
         if (curSerialized != lastSerialized) {
             for (var optionNameIndex in ipModuleDesignOptionNames) {
                 var optionName = ipModuleDesignOptionNames[optionNameIndex];
-                var curValue = getValueByName(optionName, curSerialized);
-                var lastValue = getValueByName(optionName, lastSerialized);
+                var curValue = getValueByName(optionName, curSerializedArray);
+                var lastValue = getValueByName(optionName, lastSerializedArray);
                 if (lastValue != curValue) {
                     if (typeof(ipDesignOptions[optionName]) === 'function') {
+                        if ($('.type-repositoryFile.name-bodyBackgroundColor').length) {
+                            curValue = ipRepositoryUrl + curValue; //add base URL if we deal with RepositoryFile input
+                        }
                         ipDesignOptions[optionName](curValue);
                     } else {
                         //live preview doesn't exist. Tell user to reload the page
@@ -351,6 +360,7 @@ var ipDesign = new function () {
         }
 
         lastSerialized = curSerialized;
+        lastSerializedArray = curSerializedArray;
     };
 
     this.fixLayout = function (e) {
@@ -364,18 +374,25 @@ var ipDesign = new function () {
 
 
     var getValueByName = function (name, values) {
-        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-            results = regex.exec('?' + values);
-        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
+        var results = "";
+
+        $.each(values, function (key, value) {
+            if (value && value.name && value.value) {
+                if (value.name == name || value.name == name + '[]') { //array for RepositoryFile
+                    results = value.value;
+                }
+            }
+        });
+
+        return results;
+    };
 
     var getParameterByName = function (name) {
         name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
         return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
+    };
 
 };
 
