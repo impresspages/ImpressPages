@@ -39,4 +39,20 @@ $(document).ready(function() {
         }
     });
 
+
+    $.ajax({
+        url: 'index.php',
+        dataType: 'json',
+        data: {pa: 'Install.testSessions'},
+        type: 'GET',
+        success: function (response) {
+            if (response && response.html) {
+                $('.ipsContent').html(response.html);
+            }
+        },
+        error: function (response) {
+            
+        }
+    });
+
 });
