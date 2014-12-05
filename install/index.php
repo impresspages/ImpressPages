@@ -56,7 +56,11 @@ ipContent()->_setCurrentLanguage($language);
 
 if ($request->isGet()) {
     $controller = new \Plugin\Install\PublicController();
-    $response = $controller->index();
+    if (!empty($_GET['pa']) && $_GET['pa'] == 'Install.testSessions') {
+        $response = $controller->testSessions();
+    } else {
+        $response = $controller->index();
+    }
 } elseif ($request->isPost()) {
     $route = Ip\Internal\Core\Job::ipRouteAction_20(array('request' => $request));
     if (!$route || $route['plugin'] != 'Install' || $route['controller'] != 'PublicController') {
