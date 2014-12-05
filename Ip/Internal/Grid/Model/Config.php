@@ -324,11 +324,11 @@ class Config
     {
         $manualOrder = false;
 
-        //check if order field is set manually and if it allowed to order by that field
+        //check if order field is set manually and if it is allowed to order by that field
         if (!empty($statusVariables['order'])) {
             $orderField = $statusVariables['order'];
             foreach($this->config['fields'] as $field) {
-                if ($field['field'] == $orderField && (empty($field['allowOrder']) || $field['allowOrder'])) {
+                if (!empty($field['field']) && $field['field'] == $orderField && (empty($field['allowOrder']) || $field['allowOrder'])) {
                     $manualOrder = true;
                     break;
                 }
