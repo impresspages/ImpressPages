@@ -30,6 +30,18 @@ class Controller extends \Ip\WidgetController
                 'class' => 'ipsH3'
             ),
             array(
+                'label' => __('H4', 'Ip-admin'),
+                'class' => 'ipsH4'
+            ),
+            array(
+                'label' => __('H5', 'Ip-admin'),
+                'class' => 'ipsH5'
+            ),
+            array(
+                'label' => __('H6', 'Ip-admin'),
+                'class' => 'ipsH6'
+            ),
+            array(
                 'label' => __('Options', 'Ip-admin'),
                 'class' => 'ipsOptions'
             )
