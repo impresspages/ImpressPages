@@ -81,7 +81,9 @@ class Service
         if (!empty($widgetOptions['gallery']['height'])) {
             ipSetOption('Content.widgetGalleryHeight', $widgetOptions['gallery']['height']);
         }
-
+        if (!empty($widgetOptions['heading']['maxLevel'])) {
+            ipSetOption('Content.widgetHeadingMaxLevel', $widgetOptions['heading']['maxLevel']);
+        }
     }
 
     public static function getLayouts()

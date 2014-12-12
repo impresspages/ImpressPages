@@ -50,10 +50,20 @@ class Controller extends \Ip\WidgetController
 
     public function adminHtmlSnippet()
     {
+        $maxLevel = (int) ipGetOption('Content.widgetHeadingMaxLevel', 6);
+        if ($maxLevel > 6) {
+            $maxLevel = 6;
+        }
+        if ($maxLevel < 1) {
+            $maxLevel = 1;
+        }
         $variables = array(
-            'optionsForm' => $this->optionsForm()
+            'optionsForm' => $this->optionsForm(),
         );
-        return ipView('snippet/options.php', $variables)->render() . "\n" . ipView('snippet/controls.php')->render();
+        $variables2 = array(
+            'maxLevel' => $maxLevel
+        );
+        return ipView('snippet/options.php', $variables)->render() . "\n" . ipView('snippet/controls.php', $variables2)->render();
     }
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
