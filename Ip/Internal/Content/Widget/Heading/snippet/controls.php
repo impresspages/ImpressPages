@@ -5,6 +5,9 @@
                 <button type="button" data-level="1" class="btn btn-controls ipsH"><?php _e('H1', 'Ip-admin'); ?></button>
                 <button type="button" data-level="2" class="btn btn-controls ipsH"><?php _e('H2', 'Ip-admin'); ?></button>
                 <button type="button" data-level="3" class="btn btn-controls ipsH"><?php _e('H3', 'Ip-admin'); ?></button>
+                <button type="button" data-level="4" class="btn btn-controls ipsH"><?php _e('H4', 'Ip-admin'); ?></button>
+                <button type="button" data-level="5" class="btn btn-controls ipsH"><?php _e('H5', 'Ip-admin'); ?></button>
+                <button type="button" data-level="6" class="btn btn-controls ipsH"><?php _e('H6', 'Ip-admin'); ?></button>
                 <button type="button" class="btn btn-controls ipsOptions"><?php _e('Options', 'Ip-admin'); ?></button>
             </div>
         </div>
