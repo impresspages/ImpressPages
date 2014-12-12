@@ -12,6 +12,13 @@ class Migration
 
 
     //CHANGE_ON_VERSION_UPDATE
+
+
+    public static function update_76()
+    {
+        ipSetOption('Content.widgetHeadingMaxLevel', 3);
+    }
+
     public static function update_75()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
