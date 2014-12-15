@@ -12,6 +12,9 @@
         "gallery": { /* For responsiveness and optimization it should the size as it would appear on the widest block */
             "width": 295,
             "height": 164
+        },
+        "heading": {
+            "maxLevel": 3
         }
     },
     "options": [
