@@ -13,6 +13,7 @@
                 var $this = $(this);
 
                 $this.html('');
+                $this.data('pluginName', options.pluginName);
 
                 var data = Object();
                 data.pluginName = options.pluginName;
@@ -68,6 +69,9 @@
         $this.find('input,select,textarea').off().on('change keydown input', function () {
             $this.find('.ipsSave').removeClass('btn-default').addClass('btn-primary');
         });
+
+        $this.trigger('pluginSelected.ipPlugins', [$this.data('pluginName')]);
+
     };
 
     $.fn.ipPluginProperties = function (method) {
