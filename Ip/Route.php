@@ -18,6 +18,7 @@ class Route
     protected $plugin = null;
     protected $environment = 'public';
     protected $controllerClass = null;
+    protected $name = null;
 
     const ENVIRONMENT_ADMIN = 'admin';
     const ENVIRONMENT_PUBLIC = 'public';
@@ -132,5 +133,23 @@ class Route
         return $this->environment == self::ENVIRONMENT_ADMIN;
     }
 
+
+    /**
+     * Set route name
+     * @param $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get route name
+     * @return mixed
+     */
+    public function name()
+    {
+        return $this->name;
+    }
 
 }
