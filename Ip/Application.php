@@ -227,6 +227,9 @@ class Application
             if (!empty($routeAction['plugin'])) {
                 ipRoute()->setPlugin($routeAction['plugin']);
             }
+            if (!empty($routeAction['name'])) {
+                ipRoute()->setName($routeAction['name']);
+            }
             if (!empty($routeAction['action'])) {
                 ipRoute()->setAction($routeAction['action']);
             }
