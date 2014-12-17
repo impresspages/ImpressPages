@@ -606,6 +606,10 @@ class Db
                         $sql .= "`{$realCol}` = ? AND ";
                     }
 
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
+
                     $params[] = $value;
                 }
             }
