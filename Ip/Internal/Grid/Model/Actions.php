@@ -207,6 +207,14 @@ class Actions
 
     public function move($id, $targetId, $beforeOrAfter)
     {
+        if($this->subgridConfig->sortDirection() == 'desc') {
+            //switch $beforeOrAfter value
+            if ($beforeOrAfter == 'before') {
+                $beforeOrAfter = 'after';
+            } else {
+                $beforeOrAfter = 'before';
+            }
+        }
         $sortField = $this->subgridConfig->sortField();
 
         $priority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array('id' => $targetId));
