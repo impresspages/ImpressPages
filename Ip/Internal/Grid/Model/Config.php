@@ -348,9 +348,11 @@ class Config
 
     public function orderDirection($statusVariables)
     {
-        $direction = 'asc';
         if (!empty($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
             $direction = 'desc';
+        } else {
+            $direction = $this->sortDirection();
+
         }
         return $direction;
     }
