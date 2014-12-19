@@ -18,6 +18,15 @@ class Ecommerce
         return $paymentUrl;
     }
 
+    public function subscriptionCancelUrl($options)
+    {
+        if (empty($options['item'])) {
+            throw new \Ip\Exception('"item" setting is missing in subscriptionPaymentUrl function');
+        }
+        $cancelUrl = ipJob('ipSubscriptionCancelUrl', $options);
+        return $cancelUrl;
+    }
+
     public function paymentUrl($options)
     {
         if (empty($options['id'])) {
