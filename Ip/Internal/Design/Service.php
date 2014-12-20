@@ -92,4 +92,18 @@ class Service
     }
 
 
+    public function getTheme($name = null, $dir = null, $url = null)
+    {
+        if($name == null) {
+            $name = ipConfig()->theme();
+        }
+        if ($dir == null) {
+            $dir = ipFile('Theme/');
+        }
+        $model = Model::instance();
+        $theme = $model->getTheme($name, $dir, $url);
+        return $theme;
+    }
+
+
 }
