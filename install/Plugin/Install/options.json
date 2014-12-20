@@ -21,7 +21,6 @@
     "Config.lightboxWidth": 800,
     "Config.lightboxHeight": 600,
 
-    "Design.themeDirs": "",
     "Email.hourlyLimit": 100,
 
     "Pages.hideNewPages": 0

@@ -72,6 +72,11 @@ class ThemeMetadata
         $this->metadata['path'] = $path;
     }
 
+    public function setUrl($url)
+    {
+        $this->metadata['url'] = $url;
+    }
+
     public function getMetadata()
     {
         return $this->metadata;
