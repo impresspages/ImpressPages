@@ -30,7 +30,7 @@ class Router
             if (!empty($data['method']) && in_array($data['method'], array('GET', 'POST'))) {
                 $route->addServer(array('REQUEST_METHOD' => $data['method']));
             }
-            unset($data['name']);
+//            unset($data['name']);
             unset($data['path']);
             if (!empty($data['where'])) {
                 $route->addTokens($data['where']);
