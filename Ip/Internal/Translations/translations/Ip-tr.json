@@ -17,9 +17,7 @@
     "The value can't be one of:": "Değer şunlardan biri olamaz:",
     "The value has to be one of:": "Değer şunlardan biri olmalı:",
     "Error 404": "404 Hatası",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "İsim",
     "Email": "E-Posta",
     "Text": "Metin",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "Lütfen $1 değerinden küçük olmayan bir değer girin",
     "Please complete this mandatory field": "Lütfen bu zorunlu alanı doldurun",
     "Choose a payment method": "Lütfen bir ödeme metodu seçin",
-    "Home": "Ana Sayfa"
+    "Home": "Ana Sayfa",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }

@@ -17,9 +17,7 @@
     "The value can't be one of:": "Hodnota nesmie byť jedna z:",
     "The value has to be one of:": "Hodnota musí byť jedna z:",
     "Error 404": "Chyba 404",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "Meno",
     "Email": "E-mail",
     "Text": "Text",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "Prosím, zadajte hodnotu najmenej $1",
     "Please complete this mandatory field": "Prosím, vyplňte toto povinné pole",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Domov"
+    "Home": "Domov",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }

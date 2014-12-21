@@ -17,9 +17,7 @@
     "The value can't be one of:": "القيمة يجب أن لا تكون واحدة من بين",
     "The value has to be one of:": "القيمة يجب أن تكون واحدة من بين :",
     "Error 404": "الخطاء 404",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "الإسم ",
     "Email": "البريد الإلكتروني",
     "Text": "النص",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "يرجى إدخال قيمة على الأقل  $1",
     "Please complete this mandatory field": "يرجى إكمال ملئ الخانات الإجبارية",
     "Choose a payment method": "Choose a payment method",
-    "Home": "الصفحة الرئيسية"
+    "Home": "الصفحة الرئيسية",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }

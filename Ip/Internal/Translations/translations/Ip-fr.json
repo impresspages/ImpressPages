@@ -17,9 +17,7 @@
     "The value can't be one of:": "La valeur ne peut pas être dans:",
     "The value has to be one of:": "La valeur doit être dans:",
     "Error 404": "Erreur 404: Page introuvable",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "Nom",
     "Email": "Email",
     "Text": "Texte",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "Veuillez svp entrer une valeur d'au moins $1",
     "Please complete this mandatory field": "Veuillez svp remplir ce champ obligatoire",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Accueil"
+    "Home": "Accueil",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }

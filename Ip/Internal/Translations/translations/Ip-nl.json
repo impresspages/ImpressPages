@@ -17,9 +17,7 @@
     "The value can't be one of:": "Mag niet overeenkomen met:",
     "The value has to be one of:": "De waarde moet een van de volgende zijn:",
     "Error 404": "404 Fout",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "Naam",
     "Email": "Email",
     "Text": "Tekst",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "Geef een waarde van minimaal $1 in",
     "Please complete this mandatory field": "Vul dit verplichte veld in",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Home"
+    "Home": "Home",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }
