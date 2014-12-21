@@ -18,10 +18,10 @@
     "The value has to be one of:": "Значение должно быть одним из:",
     "Error 404": "Ошибка 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "Имя",
     "Email": "Эл. Почта",
     "Text": "Текст",
-    "Thank You": "Thank You",
     "Send": "Послать",
     "Please enter a valid email address": "Пожалуйста, введите действующий адрес электронной почты",
     "Please enter a valid numeric value": "Пожалуйста, введите допустимое числовое значение",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Пожалуйста, введите значение, по меньшей мере $1",
     "Please complete this mandatory field": "Пожалуйста, заполните это обязательное поле",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Домой",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Домой"
 }

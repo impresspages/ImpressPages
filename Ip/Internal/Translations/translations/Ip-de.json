@@ -18,10 +18,10 @@
     "The value has to be one of:": "Wert muss entsprechen:",
     "Error 404": "Fehler 404",
     "Sorry, but the page you were trying to get to does not exist.": "Die von Ihnen gewählte Seite ist nicht vorhanden.",
+    "Thank You": "Vielen Dank",
     "Name": "Name",
     "Email": "Email",
     "Text": "Text",
-    "Thank You": "Vielen Dank",
     "Send": "Senden",
     "Please enter a valid email address": "Bitte eine gültige Emailadresse eingeben",
     "Please enter a valid numeric value": "Bitte eine gültige Ziffer eingeben",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Bitte einen Mindestwert von $1 eingeben",
     "Please complete this mandatory field": "Bitte dieses Pflichtfeld ausfüllen",
     "Choose a payment method": "Zahlungsmethode auswählen",
-    "Home": "Home",
-    "Config.error_mistyped_url": "Falsch geschriebene URL",
-    "Config.error_broken_link_inside": "Ungültiger interner Link",
-    "Config.error_broken_link_outside": "Ungültiger externer Link"
+    "Home": "Home"
 }

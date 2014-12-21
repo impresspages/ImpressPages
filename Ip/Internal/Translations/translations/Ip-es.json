@@ -18,10 +18,10 @@
     "The value has to be one of:": "El valor tiene que ser uno de:",
     "Error 404": "Error 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "Nombre",
     "Email": "Email",
     "Text": "Texto",
-    "Thank You": "Thank You",
     "Send": "Enviar",
     "Please enter a valid email address": "Por favor, introduzca una dirección de correo electrónico válida",
     "Please enter a valid numeric value": "Por favor, introduzca un valor numérico válido",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Por favor, introduzca un valor de al menos $1",
     "Please complete this mandatory field": "Por favor complete este campo obligatorio",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Home",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Home"
 }

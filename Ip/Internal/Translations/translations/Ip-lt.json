@@ -18,10 +18,10 @@
     "The value has to be one of:": "Tinkamos reikšmės yra ",
     "Error 404": "Klaida 404",
     "Sorry, but the page you were trying to get to does not exist.": "Apgailestaujame, tačiau puslapis, kurį norite pasiekti, neegzistuoja.",
+    "Thank You": "Ačiū",
     "Name": "Vardas",
     "Email": "El. paštas",
     "Text": "Tekstas",
-    "Thank You": "Ačiū",
     "Send": "Siųsti",
     "Please enter a valid email address": "Prašome įvesti galiojantį el.pašto adresą",
     "Please enter a valid numeric value": "Prašome įvesti tinkamą skaitmenų reikšmę",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Prašome įvesti reikšmę bent $1",
     "Please complete this mandatory field": "Prašome užpildyti šį privalomą lauką",
     "Choose a payment method": "Pasirinkite mokėjimo būdą",
-    "Home": "Titulinis",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Titulinis"
 }

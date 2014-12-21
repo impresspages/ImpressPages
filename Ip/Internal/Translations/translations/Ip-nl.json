@@ -18,10 +18,10 @@
     "The value has to be one of:": "De waarde moet een van de volgende zijn:",
     "Error 404": "404 Fout",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "Naam",
     "Email": "Email",
     "Text": "Tekst",
-    "Thank You": "Thank You",
     "Send": "Verzenden",
     "Please enter a valid email address": "Vul een geldig emailadres in",
     "Please enter a valid numeric value": "Geef een geldig getal in",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Geef een waarde van minimaal $1 in",
     "Please complete this mandatory field": "Vul dit verplichte veld in",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Home",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Home"
 }

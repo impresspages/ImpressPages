@@ -18,10 +18,10 @@
     "The value has to be one of:": "القيمة يجب أن تكون واحدة من بين :",
     "Error 404": "الخطاء 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "الإسم ",
     "Email": "البريد الإلكتروني",
     "Text": "النص",
-    "Thank You": "Thank You",
     "Send": "إرســال",
     "Please enter a valid email address": "يرجى إدخال بريد إلكتروني صحيح",
     "Please enter a valid numeric value": "يرجى إدخال قيمة رقمية صحيحة",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "يرجى إدخال قيمة على الأقل  $1",
     "Please complete this mandatory field": "يرجى إكمال ملئ الخانات الإجبارية",
     "Choose a payment method": "Choose a payment method",
-    "Home": "الصفحة الرئيسية",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "الصفحة الرئيسية"
 }

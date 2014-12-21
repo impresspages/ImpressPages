@@ -18,10 +18,10 @@
     "The value has to be one of:": "The value has to be one of:",
     "Error 404": "Virhe 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "Nimi",
     "Email": "Sähköposti",
     "Text": "Teksti",
-    "Thank You": "Thank You",
     "Send": "Lähetä",
     "Please enter a valid email address": "Anna kelvollinen sähköpostiosoite",
     "Please enter a valid numeric value": "Anna kelvollinen numero",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Anna numero, joka on suurempi kuin  $1",
     "Please complete this mandatory field": "Täytä tämä pakollinen kenttä",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Etusivu",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Etusivu"
 }
