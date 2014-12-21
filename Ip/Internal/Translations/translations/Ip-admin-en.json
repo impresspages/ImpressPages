@@ -322,7 +322,5 @@
     "Reset": "Reset",
     "New password": "New password",
     "OK": "OK",
-    "Possible CSRF attack. Please pass correct securityToken.": "Possible CSRF attack. Please pass correct securityToken.",
-    "Rows": "Rows",
-    "Validation failed": "Validation failed"
+    "Possible CSRF attack. Please pass correct securityToken.": "Possible CSRF attack. Please pass correct securityToken."
 }
