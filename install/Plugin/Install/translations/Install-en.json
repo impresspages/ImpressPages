@@ -47,6 +47,8 @@
     "Warning": "Warning",
     "Error": "Error",
     "Check again": "Check again",
+    "PHP session error": "PHP session error",
+    "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.": "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.",
     "Website configuration": "Website configuration",
     "Website name": "Website name",
     "Website e-mail address": "Website e-mail address",
