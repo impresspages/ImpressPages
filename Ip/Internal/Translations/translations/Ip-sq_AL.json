@@ -18,10 +18,10 @@
     "The value has to be one of:": "Vlera duhet të jetë një nga:",
     "Error 404": "Gabim 404",
     "Sorry, but the page you were trying to get to does not exist.": "Na vjen keq, por faqja të cilën ju po kërkoni nuk egziston.",
+    "Thank You": "Faleminderit",
     "Name": "Emri",
     "Email": "E-maili",
     "Text": "Porosia",
-    "Thank You": "Faleminderit",
     "Send": "Dërgo",
     "Please enter a valid email address": "Ju lutem shenoni e-mail adresë valide",
     "Please enter a valid numeric value": "Ju lutem shenoni vlerë numerike",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Ju lutemi shkruani vlerë më të madhe se $1",
     "Please complete this mandatory field": "Ju lutem plotësoni fushat e kërkuara",
     "Choose a payment method": "Caktoni formën e pagesës",
-    "Home": "Ballina",
-    "Config.error_mistyped_url": "URL e shenuar gabimisht",
-    "Config.error_broken_link_inside": "URL e brendshme e shkëputur",
-    "Config.error_broken_link_outside": "URL e jashtme e shkëptur"
+    "Home": "Ballina"
 }

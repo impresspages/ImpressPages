@@ -18,10 +18,10 @@
     "The value has to be one of:": "Hodnota musí byť jedna z:",
     "Error 404": "Chyba 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "Meno",
     "Email": "E-mail",
     "Text": "Text",
-    "Thank You": "Thank You",
     "Send": "Odoslať",
     "Please enter a valid email address": "Prosím, zadajte platnú e-mailovú adresu",
     "Please enter a valid numeric value": "Prosím, zadajte platnú číselnú hodnotu",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "Prosím, zadajte hodnotu najmenej $1",
     "Please complete this mandatory field": "Prosím, vyplňte toto povinné pole",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Domov",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Domov"
 }

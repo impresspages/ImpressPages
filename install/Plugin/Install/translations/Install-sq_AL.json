@@ -47,6 +47,8 @@
     "Warning": "Kujdes",
     "Error": "Gabim",
     "Check again": "Kontrollo sërish",
+    "PHP session error": "PHP session error",
+    "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.": "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.",
     "Website configuration": "Konfigurimi i uebfaqes",
     "Website name": "Emri i uebfaqes",
     "Website e-mail address": "E-mail adresa e uebfaqes",

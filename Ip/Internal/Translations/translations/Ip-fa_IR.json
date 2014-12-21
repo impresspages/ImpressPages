@@ -18,10 +18,10 @@
     "The value has to be one of:": "این مقدار باید یکی از مقادیر داده شده باشد:",
     "Error 404": "خطای 404",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Thank You",
     "Name": "نام",
     "Email": "ایمیل",
     "Text": "متن",
-    "Thank You": "Thank You",
     "Send": "ارسال",
     "Please enter a valid email address": "لطفا آدرس ایمیل معتبری وارد نمائید",
     "Please enter a valid numeric value": "لطفا مقدار عددی معتبری وارد نمائید",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "لطفا مقداری وارد کنید که کمتر از $1 نباشد",
     "Please complete this mandatory field": "این فیلد اجباری است، لطفا این فیلد را تکمیل کنید",
     "Choose a payment method": "Choose a payment method",
-    "Home": "خانه",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "خانه"
 }

@@ -18,10 +18,10 @@
     "The value has to be one of:": "Az értéknek egyezni kell a felsoroltak valamelyikével:",
     "Error 404": "404-es hiba",
     "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
+    "Thank You": "Köszönjük",
     "Name": "Név",
     "Email": "E-mail",
     "Text": "Szöveg",
-    "Thank You": "Köszönjük",
     "Send": "Küldés",
     "Please enter a valid email address": "Helytelen email cím lett megadva",
     "Please enter a valid numeric value": "Csak szám írható be a mezőbe",
@@ -30,8 +30,5 @@
     "Please enter a value of at least $1": "A beírt érték nagyobb legyen mint $1",
     "Please complete this mandatory field": "A mező kitöltése kötelező",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Kezdőlap",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
+    "Home": "Kezdőlap"
 }
