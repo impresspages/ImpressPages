@@ -304,6 +304,9 @@ class Model
         }
 
         $fileOverrides = ipConfig()->get('fileOverrides');
+        if (!is_array($fileOverrides)) {
+            $fileOverrides = array();
+        }
         $overrideKeys = array_keys($fileOverrides);
         if (!is_array($overrideKeys)) {
             $overrideKeys = array();
