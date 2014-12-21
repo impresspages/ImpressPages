@@ -17,9 +17,7 @@
     "The value can't be one of:": "இந்த பெறுமதி இவற்றில் ஒன்றாய் இருக்க முடியாது:",
     "The value has to be one of:": "இந்த பெறுமதி இவற்றில் ஒன்றாய் இருக்க வேண்டும்:",
     "Error 404": "404 தவறு",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "பெயர்",
     "Email": "மின்னஞ்சல்",
     "Text": "உரை",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "தயவுசெய்து $1 இனைவிட அதிகமான ஒரு பெறுமதியை உள்ளிடுங்கள்",
     "Please complete this mandatory field": "தயவுசெய்து இந்த கட்டாயமான புலத்தை பூர்த்தி செய்யுங்கள்.",
     "Choose a payment method": "Choose a payment method",
-    "Home": "முகப்பு"
+    "Home": "முகப்பு",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }

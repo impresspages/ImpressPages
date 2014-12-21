@@ -17,9 +17,7 @@
     "The value can't be one of:": "Värdet kan inte vara ett av:",
     "The value has to be one of:": "Värdet måste vara ett av:",
     "Error 404": "Fel 404",
-    "Config.error_mistyped_url": "Config.error_mistyped_url",
-    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
-    "Config.error_broken_link_outside": "Config.error_broken_link_outside",
+    "Sorry, but the page you were trying to get to does not exist.": "Sorry, but the page you were trying to get to does not exist.",
     "Name": "Namn",
     "Email": "E-postadress",
     "Text": "Text",
@@ -32,5 +30,8 @@
     "Please enter a value of at least $1": "Ange ett värde av minst $1",
     "Please complete this mandatory field": "Fyll i detta obligatoriska fält",
     "Choose a payment method": "Välj betalningsmetod",
-    "Home": "Hem"
+    "Home": "Hem",
+    "Config.error_mistyped_url": "Config.error_mistyped_url",
+    "Config.error_broken_link_inside": "Config.error_broken_link_inside",
+    "Config.error_broken_link_outside": "Config.error_broken_link_outside"
 }
