@@ -696,6 +696,8 @@ class Model
               `revisionId` = :revisionId
               AND
               `name` != 'Columns'
+              AND
+              `isDeleted` = 0
             ORDER BY
               blockName, `position`
         ";
@@ -716,6 +718,8 @@ class Model
               `revisionId` = :revisionId
               AND
               `name` != 'Columns'
+              AND
+              `isDeleted` = 0
             ORDER BY
               blockName, `position`
         ";
