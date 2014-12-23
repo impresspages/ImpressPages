@@ -7,7 +7,7 @@ var ip = <?php echo json_encode($ip) ?>;
 <?php
 foreach ($javascript as $recordKey => $record) {
     if ($record['type'] == 'file') {
-        echo '  <script type="text/javascript" src="' . $record['value'] . '"';
+        echo '  <script type="text/javascript" src="' . escAttr($record['value']) . '"';
         if (is_array($record['attributes'])) {
             echo join(
                 ' ',
