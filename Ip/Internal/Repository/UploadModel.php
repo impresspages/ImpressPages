@@ -166,6 +166,7 @@ class UploadModel
             'docm',
             'dotx',
             'dotm',
+            'eps',
             'xlsx',
             'xlsm',
             'xlsb',
