@@ -69,17 +69,12 @@ class Filter
 
             } else {
                 //standard field
-                switch ($option['type']) {
-                    case 'checkbox':
-                        /**
-                         * @var \Ip\Form\Field\Checkbox $field
-                         */
-                        $value = $field->isChecked($data, $option['name']);
-                        break;
-                    default:
-                        $value = $field->getValueAsString($data, $option['name']);
+                if (method_exists($field, 'isChecked')) {
+                    //checkbox uniqueness
+                    $value = $field->isChecked($data, $option['name']);
+                } else {
+                    $value = $field->getValueAsString($data, $option['name']);
                 }
-
 
                 ipSetOption($optionName, $value);
             }
