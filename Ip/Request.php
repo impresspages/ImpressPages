@@ -97,6 +97,11 @@ class Request
         return $this->getMethod() == 'POST';
     }
 
+    public function isAjax()
+    {
+        return strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
+    }
+
     /**
      * Require to provide HTTP request data using POST method
      *
