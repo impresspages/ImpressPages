@@ -25,9 +25,9 @@ class Password extends Field
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . escAttr($this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="password" value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' type="password" value="' . escAttr($this->getValue()) . '" />';
     }
 
 
