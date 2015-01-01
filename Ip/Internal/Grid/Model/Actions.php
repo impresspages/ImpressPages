@@ -42,9 +42,9 @@ class Actions
             " . $this->subgridConfig->tableName() . "
         FROM
             " . $this->subgridConfig->tableName() . "
-            " . $this->subgridConfig->joinQuery() . "
+            " . $db->joinQuery() . "
         WHERE
-            " . $this->subgridConfig->tableName() . "." . $this->subgridConfig->idField() . " = :id
+            " . $this->subgridConfig->tableName() . ".`" . $this->subgridConfig->idField() . "` = :id
         ";
 
         $params = array(
@@ -56,6 +56,20 @@ class Actions
         }
 
         ipDb()->execute($sql, $params);
+
+        if ($this->subgridConfig->multilingual()) {
+            $sql = "
+            DELETE
+
+            FROM
+                " . $this->subgridConfig->languageTableName() . "
+            WHERE
+                " . $this->subgridConfig->languageTableName() . ".`" . $this->subgridConfig->languageForeignKeyField() . "` = :id
+            ";
+
+            ipDb()->execute($sql, $params);
+        }
+
         if ($this->subgridConfig->afterDelete()) {
             call_user_func($this->subgridConfig->afterDelete(), $params['id']);
         }
@@ -97,20 +111,46 @@ class Actions
 
         $fields = $this->subgridConfig->fields();
         $dbData = array();
+        $languageData = array();
+        $languages = ipContent()->getLanguages();
         foreach ($fields as $field) {
             if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab') {
                 continue;
             }
-            $fieldObject = $this->subgridConfig->fieldObject($field);
 
-            $fieldObject->beforeUpdate($id, $oldData, $data);
-            $fieldData = $fieldObject->updateData($data);
-            if (!is_array($fieldData)) {
-                throw new \Ip\Exception("updateData method in class " . esc(
-                    get_class($fieldObject)
-                ) . " has to return array.");
+            if (empty($field['multilingual'])) {
+                $fieldObject = $this->subgridConfig->fieldObject($field);
+
+                $fieldObject->beforeUpdate($id, $oldData, $data);
+                $fieldData = $fieldObject->updateData($data);
+                if (!is_array($fieldData)) {
+                    throw new \Ip\Exception("updateData method in class " . esc(
+                            get_class($fieldObject)
+                        ) . " has to return array.");
+                }
+                $dbData = array_merge($dbData, $fieldData);
+            } else {
+                foreach($languages as $language) {
+                    $tmpData = $data;
+                    if (isset($data[$field['field'] . '_' . $language->getCode()])) {
+                        $tmpData[$field['field']] = $data[$field['field'] . '_' . $language->getCode()];
+                    }
+
+                    $fieldObject = $this->subgridConfig->fieldObject($field);
+                    $fieldObject->beforeCreate(null, $tmpData);
+                    $fieldData = $fieldObject->createData($tmpData);
+                    if (!is_array($fieldData)) {
+                        throw new \Ip\Exception("createData method in class " . esc(
+                                get_class($fieldObject)
+                            ) . " has to return array.");
+                    }
+
+                    if (empty($languageData[$language->getCode()])) {
+                        $languageData[$language->getCode()] = array();
+                    }
+                    $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
+                }
             }
-            $dbData = array_merge($dbData, $fieldData);
         }
 
         if ($this->subgridConfig->updateFilter()) {
@@ -118,6 +158,11 @@ class Actions
         }
 
         $this->updateDb($this->subgridConfig->rawTableName(), $dbData, $id);
+        if (!empty($languageData)) {
+            foreach($languageData as $languageCode => $rawData) {
+                $this->updateDb($this->subgridConfig->rawTableName(), $rawData, $id, $languageCode);
+            }
+        }
 
         foreach ($fields as $field) {
             $this->subgridConfig->fieldObject($field)->afterUpdate($id, $oldData, $data);
@@ -125,13 +170,17 @@ class Actions
 
     }
 
-    protected function updateDb($table, $update, $id)
+    protected function updateDb($table, $update, $id, $languageCode = null)
     {
         if (empty($update)) {
             return false;
         }
 
-        $sql = "UPDATE " . ipTable($table) . " " . $this->subgridConfig->joinQuery() . " SET ";
+
+        $db = new Db($this->subgridConfig, $this->statusVariables);
+        $db->setDefaultLanguageCode($languageCode);
+
+        $sql = "UPDATE " . ipTable($table) . " " . $db->joinQuery() . " SET ";
         $params = array();
         foreach ($update as $column => $value) {
             if ($column == $this->subgridConfig->idField()) {
@@ -152,28 +201,59 @@ class Actions
         $params[] = $id;
 
 
-        return ipDb()->execute($sql, $params);
+        $result = ipDb()->execute($sql, $params);
+
+
+
+        return $result;
     }
 
 
     public function create($data)
     {
+        $languages = ipContent()->getlanguages();
         $fields = $this->subgridConfig->fields();
         $dbData = array();
+        $languageData = array();
         foreach ($fields as $field) {
             if (!empty($field['type']) && $field['type'] == 'Tab') {
                 continue;
             }
 
-            $fieldObject = $this->subgridConfig->fieldObject($field);
-            $fieldObject->beforeCreate(null, $data);
-            $fieldData = $fieldObject->createData($data);
-            if (!is_array($fieldData)) {
-                throw new \Ip\Exception("createData method in class " . esc(
-                    get_class($fieldObject)
-                ) . " has to return array.");
+            if (empty($field['multilingual'])) {
+                $fieldObject = $this->subgridConfig->fieldObject($field);
+                $fieldObject->beforeCreate(null, $data);
+                $fieldData = $fieldObject->createData($data);
+                if (!is_array($fieldData)) {
+                    throw new \Ip\Exception("createData method in class " . esc(
+                            get_class($fieldObject)
+                        ) . " has to return array.");
+                }
+                $dbData = array_merge($dbData, $fieldData);
+            } else {
+                foreach($languages as $language) {
+                    $tmpData = $data;
+                    if (isset($data[$field['field'] . '_' . $language->getCode()])) {
+                        $tmpData[$field['field']] = $data[$field['field'] . '_' . $language->getCode()];
+                    }
+
+                    $fieldObject = $this->subgridConfig->fieldObject($field);
+                    $fieldObject->beforeCreate(null, $tmpData);
+                    $fieldData = $fieldObject->createData($tmpData);
+                    if (!is_array($fieldData)) {
+                        throw new \Ip\Exception("createData method in class " . esc(
+                                get_class($fieldObject)
+                            ) . " has to return array.");
+                    }
+
+                    if (empty($languageData[$language->getCode()])) {
+                        $languageData[$language->getCode()] = array();
+                    }
+                    $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
+                }
+
             }
-            $dbData = array_merge($dbData, $fieldData);
+
         }
 
         $sortField = $this->subgridConfig->sortField();
@@ -196,7 +276,17 @@ class Actions
             $dbData = call_user_func($this->subgridConfig->createFilter(), $dbData);
         }
 
+
+
+
         $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
+        if (!empty($languageData)) {
+            foreach($languageData as $languageCode => $rawData) {
+                $rawData['language'] = $languageCode;
+                $rawData['itemId'] = $recordId;
+                ipDb()->insert($this->subgridConfig->rawLanguageTableName(), $rawData);
+            }
+        }
 
         foreach ($fields as $field) {
             $fieldObject = $this->subgridConfig->fieldObject($field);
@@ -224,13 +314,14 @@ class Actions
 
         $tableName = $this->subgridConfig->tableName();
 
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         if ($beforeOrAfter == 'before') {
             $sql = "
             SELECT
                 `{$sortField}`
             FROM
                 {$tableName}
-                " . $this->subgridConfig->joinQuery() . "
+                " . $db->joinQuery() . "
             WHERE
                 `{$sortField}` < :rowNumber
             ORDER BY

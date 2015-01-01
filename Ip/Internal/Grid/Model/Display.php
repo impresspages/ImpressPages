@@ -166,18 +166,78 @@ class Display
     {
         $actions = array();
         if ($this->subgridConfig->allowCreate()) {
-            $actions[] = array(
+            $actions['add'] = array(
                 'label' => __('Add', 'Ip-admin', false),
                 'class' => 'ipsCreate'
             );
         }
         if ($this->subgridConfig->allowSearch()) {
-            $actions[] = array(
+            $actions['search'] = array(
                 'label' => __('Search', 'Ip-admin', false),
                 'class' => 'ipsSearch'
             );
         }
+
+        //select language in multilingual grid
+        $values = array();
+        $languages = ipContent()->getLanguages();
+        foreach($languages as $language) {
+            $values[] = array('label' => $language->getAbbreviation(), 'value' => $language->getCode());
+        }
+        $db = new Db($this->subgridConfig, $this->statusVariables);
+        if ($this->subgridConfig->multilingual()) {
+            $actions['language'] = array(
+                'type' => 'Select',
+                'label' => ipContent()->getLanguageByCode($db->getDefaultLanguageCode())->getAbbreviation(),
+                'values' => $values,
+                'itemClass' => 'ipsGridLanguageSetting'
+            );
+        }
+
         $actions = array_merge($actions, $this->subgridConfig->actions());
+
+        $actionsFilter = $this->subgridConfig->actionsFilter();
+        if ($actionsFilter) {
+            $actions = $actionsFilter($actions);
+        }
+
+        //make sure the configuration is correct
+        foreach ($actions as &$action) {
+            if (empty($action['type'])) {
+                $action['type'] = 'Button';
+            }
+            if (!isset($action['label'])) {
+                $action['label'] = '';
+            }
+            if (!isset($action['values']) || !is_array($action['values'])) {
+                $action['values'] = array();
+            }
+            foreach ($action['values'] as &$value) {
+                if (!is_array($value)) {
+                    $tmpVal = $value;
+                    $value = array();
+                    $value['value'] = $tmpVal;
+                }
+                if (!isset($value['value'])) {
+                    $value['value'] = '';
+                }
+                if (!isset($value['label'])) {
+                    $value['label'] = $value['value'];
+                }
+
+            }
+            if ($action['type'] == 'Html' && !isset($action['html'])) {
+                $action['html'] = '';
+            }
+            if (!isset($action['class'])) {
+                $action['class'] = '';
+            }
+            if ($action['type'] == 'Select' && !isset($value['itemClass'])) {
+                $value['itemClass'] = '';
+            }
+
+        }
+
         return $actions;
     }
 
@@ -285,6 +345,18 @@ class Display
         $db = new Db($this->subgridConfig, $this->statusVariables);
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
+        $curDataMultilingual = array();
+        if ($this->subgridConfig->multilingual()) {
+            //fetch multilingual data
+            $languages = ipContent()->getLanguages();
+            foreach($languages as $language) {
+                $langDb = new Db($this->subgridConfig, $this->statusVariables);
+                $langDb->setDefaultLanguageCode($language->getCode());
+                $curDataMultilingual[$language->getCode()] = $langDb->fetchRow($id);
+            }
+
+        }
+
         foreach ($this->subgridConfig->fields() as $key => $fieldData) {
             if (isset($fieldData['allowUpdate']) && !$fieldData['allowUpdate']) {
                 continue;
@@ -316,24 +388,23 @@ class Display
 
             } else {
                 //fields
-                $fieldObject = $this->subgridConfig->fieldObject($fieldData);
-                $field = $fieldObject->updateField($curData);
-                if ($field) {
-                    if (!empty($fieldData['validators'])) {
-                        foreach ($fieldData['validators'] as $validator) {
-                            $field->addValidator($validator);
+                if (!empty($fieldData['multilingual'])) {
+                    $languages = ipContent()->getLanguages();
+                    foreach($languages as $language) {
+                        $tmpFieldData = $fieldData;
+                        $field = $this->updateField($tmpFieldData, $curDataMultilingual[$language->getCode()]);
+                        $field->setName($field->getName() . '_' . $language->getCode());
+                        if ($field) {
+                            $field->setLabel($field->getLabel() . ' ' . $language->getAbbreviation());
+                            $form->addField($field);
                         }
                     }
-                    if (!empty($fieldData['note'])) {
-                        $field->setNote($fieldData['note']);
+                } else {
+                    $field = $this->updateField($fieldData, $curData);
+                    if ($field) {
+                        $form->addField($field);
                     }
-                    if (!empty($fieldData['hint'])) {
-                        $field->setHint($fieldData['hint']);
-                    }
-
-                    $form->addField($field);
                 }
-
             }
 
         }
@@ -364,6 +435,33 @@ class Display
         return $form;
     }
 
+    /**
+     * @param $fieldData
+     * @param $curData
+     * @return \Ip\Form\Field
+     * @throws \Ip\Exception
+     */
+    protected function updateField($fieldData, $curData)
+    {
+        $fieldObject = $this->subgridConfig->fieldObject($fieldData);
+        $field = $fieldObject->updateField($curData);
+        if ($field) {
+            if (!empty($fieldData['validators'])) {
+                foreach ($fieldData['validators'] as $validator) {
+                    $field->addValidator($validator);
+                }
+            }
+            if (!empty($fieldData['note'])) {
+                $field->setNote($fieldData['note']);
+            }
+            if (!empty($fieldData['hint'])) {
+                $field->setHint($fieldData['hint']);
+            }
+
+
+        }
+        return $field;
+    }
 
     public function createForm()
     {
@@ -405,23 +503,22 @@ class Display
 
             } else {
                 //fields
-                $fieldObject = $subgridConfig->fieldObject($fieldData);
-
-                $field = $fieldObject->createField();
-                if ($field) {
-                    if (!empty($fieldData['validators'])) {
-                        foreach ($fieldData['validators'] as $validator) {
-                            $field->addValidator($validator);
+                if (!empty($fieldData['multilingual'])) {
+                    $languages = ipContent()->getLanguages();
+                    foreach($languages as $language) {
+                        $tmpFieldData = $fieldData;
+                        $field = $this->createField($tmpFieldData);
+                        $field->setName($field->getName() . '_' . $language->getCode());
+                        if ($field) {
+                            $field->setLabel($field->getLabel() . ' ' . $language->getAbbreviation());
+                            $form->addField($field);
                         }
                     }
-                    if (!empty($fieldData['note'])) {
-                        $field->setNote($fieldData['note']);
+                } else {
+                    $field = $this->createField($fieldData);
+                    if ($field) {
+                        $form->addField($field);
                     }
-                    if (!empty($fieldData['hint'])) {
-                        $field->setHint($fieldData['hint']);
-                    }
-
-                    $form->addField($field);
                 }
             }
         }
@@ -446,6 +543,29 @@ class Display
         }
 
         return $form;
+    }
+
+    protected function createField($fieldData)
+    {
+        $fieldObject = $this->subgridConfig->fieldObject($fieldData);
+
+        $field = $fieldObject->createField();
+        if ($field) {
+            if (!empty($fieldData['validators'])) {
+                foreach ($fieldData['validators'] as $validator) {
+                    $field->addValidator($validator);
+                }
+            }
+            if (!empty($fieldData['note'])) {
+                $field->setNote($fieldData['note']);
+            }
+            if (!empty($fieldData['hint'])) {
+                $field->setHint($fieldData['hint']);
+            }
+
+            return $field;
+        }
+        return false;
     }
 
     public function searchForm($searchVariables)

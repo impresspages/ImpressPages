@@ -15,6 +15,9 @@ class Config
 
     protected $configChecked = false;
 
+    protected $multilingual = null;
+
+
     /**
      * @var Field[]
      */
@@ -28,10 +31,6 @@ class Config
             throw new \Ip\Exception('\'table\' configuration value missing.');
         }
 
-        if (empty($this->config['fields'])) {
-            $this->config['fields'] = $this->getTableFields($this->config['table']);
-        }
-
         if (empty($this->config['pageSize'])) {
             $this->config['pageSize'] = 20;
         }
@@ -40,13 +39,15 @@ class Config
             $this->config['pagerSize'] = 10;
         }
 
-
-        foreach ($this->config['fields'] as &$field) {
-            if (empty($field['type'])) {
-                $field['type'] = 'Text';
-            }
+        if (!isset($this->config['fields']) || !is_array($this->config['fields'])) {
+            $this->config['fields'] = $this->getTableFields($this->tableName(), $this->languageTableName());
         }
+
+        $this->checkConfig($this->config);
+
     }
+
+
 
 
     public function pageVariableName()
@@ -96,6 +97,17 @@ class Config
             return $this->config['actions'];
         }
         return array();
+    }
+
+    /**
+     * @return string
+     */
+    public function actionsFilter()
+    {
+        if (!empty($this->config['actionsFilter'])) {
+            return $this->config['actionsFilter'];
+        }
+        return false;
     }
 
     public function beforeDelete()
@@ -269,6 +281,33 @@ class Config
         return ipTable(str_replace("`", "", $this->config['table']));
     }
 
+    public function languageTableName()
+    {
+        $tableName = $this->rawTableName() . '_language';
+        if (!empty($this->config['languageTable'])) {
+            $tableName = $this->config['languageTable'];
+        }
+        return ipTable(str_replace("`", "", $tableName));
+    }
+
+    public function languageForeignKeyField()
+    {
+        $field = 'itemId';
+        if (!empty($this->config['foreignKeyField'])) {
+            $field = $this->config['foreignKeyField'];
+        }
+        return $field;
+    }
+
+    public function languageCodeField()
+    {
+        $field = 'language';
+        if (!empty($this->config['languageCodeField'])) {
+            $field = $this->config['languageCodeField'];
+        }
+        return $field;
+    }
+
     public function selectFields()
     {
         if (empty($this->config['selectFields'])) {
@@ -277,17 +316,19 @@ class Config
         return $this->config['selectFields'];
     }
 
-    public function joinQuery()
-    {
-        if (empty($this->config['joinQuery'])) {
-            return false;
-        }
-        return trim($this->config['joinQuery'], '`');
-    }
 
     public function rawTableName()
     {
         return $this->config['table'];
+    }
+
+    public function rawLanguageTableName()
+    {
+        if (!empty($this->config['languageTable'])) {
+            return $this->config['languageTable'];
+        } else {
+            return $this->rawTableName() . '_language';
+        }
     }
 
     public function sortField()
@@ -316,7 +357,25 @@ class Config
         if (!empty($this->config['orderBy'])) {
             return $this->config['orderBy'];
         } else {
-            return $this->tableName() . ".`" . $this->orderField($statusVariables) . "` " . $this->orderDirection($statusVariables);
+            $orderFieldName = $this->orderField($statusVariables);
+
+            $orderField = $this->getField($orderFieldName);
+            if (!empty($orderField['multilingual'])) {
+                $table = $this->languageTableName();
+            } else {
+                $table = $this->tableName();
+            }
+            return $table . ".`" . $orderFieldName . "` " . $this->orderDirection($statusVariables);
+        }
+    }
+
+    public function getField($fieldName)
+    {
+        $fields = $this->fields();
+        foreach($fields as $field) {
+            if ($field['field'] == $fieldName) {
+                return $field;
+            }
         }
     }
 
@@ -375,13 +434,14 @@ class Config
     }
 
 
-    protected function getTableFields($tableName)
+    protected function getTableFields($tableName, $languageTable)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->joinQuery() . " ";
+        $result = array();
+
+        $sql = "SHOW COLUMNS FROM " . $tableName . " " . $this->joinQuery() . " ";
 
         $fields = ipDb()->fetchColumn($sql);
 
-        $result = array();
         foreach ($fields as $fieldName) {
             $result[] = array(
                 'label' => $fieldName,
@@ -389,7 +449,32 @@ class Config
             );
         }
 
+        if ($this->multilingual()) {
+            $sql = "SHOW COLUMNS FROM " . $languageTable . " ";
+
+            $fields = ipDb()->fetchColumn($sql);
+
+            foreach ($fields as $fieldName) {
+                if (in_array($fieldName, array($this->languageCodeField(), $this->languageForeignKeyField()))) {
+                    continue;
+                }
+                $result[] = array(
+                    'label' => $fieldName,
+                    'field' => $fieldName,
+                    'multilingual' => 1
+                );
+            }
+        }
+
         return $result;
+    }
+
+    public function joinQuery()
+    {
+        if (!empty($this->config['joinQuery'])) {
+            return $this->config['joinQuery'];
+        }
+        return false;
     }
 
     public function layout()
@@ -442,8 +527,15 @@ class Config
     protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = array())
     {
         $fields = &$config['fields'];
+
+        foreach($fields as &$field) {
+            if (empty($field['type'])) {
+                $field['type'] = 'Text';
+            }
+        }
+
         //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
-        if (!empty($fields[0]['type']) && $fields[0]['type'] != 'Tab') {
+        if ($fields[0]['type'] != 'Tab') {
             $tabExist = false;
             foreach ($fields as $key => $fieldData) {
                 if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
@@ -495,7 +587,6 @@ class Config
      */
     public function subgridConfig($statusVariables, $depthLimit = null)
     {
-        $this->checkConfig($this->config);
         $depth = Status::depth($statusVariables);
         if ($depthLimit !== null && $depthLimit < $depth) {
             $depth = $depthLimit;
@@ -524,6 +615,36 @@ class Config
             return '';
         }
         return $this->config['breadcrumbField'];
+    }
+
+    public function multilingual()
+    {
+        if ($this->multilingual !== null) {
+            return $this->multilingual;
+        }
+
+        if ($this->languageTableName()) {
+            $this->multilingual = true;
+            return true;
+        }
+
+
+        $fields = $this->fields();
+        if (!$fields) {
+            $this->multilingual = false;
+            return false;
+        }
+
+        $multilingual = false;
+        foreach($fields as $field) {
+            if (!empty($field['multilingual'])) {
+                $multilingual = true;
+                break;
+            }
+        }
+
+        $this->multilingual = $multilingual;
+        return $multilingual;
     }
 
 }

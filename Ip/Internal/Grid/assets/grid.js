@@ -153,6 +153,35 @@
 
         });
 
+        $grid.find('.ipsGridLanguageSetting').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            var data = urlParams($grid.data('gateway'));
+            data.jsonrpc = '2.0';
+            data.method = 'setLanguage';
+
+            data.params = {};
+            data.params.language = $this.data('value');
+
+            data.hash = window.location.hash;
+
+            $.ajax({
+                type: 'GET',
+                url: $grid.data('gateway').split('?')[0],
+                data: data,
+                context: $grid,
+                success: initResponse,
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+
 
         $grid.find('.ipsDelete').off().on('click', function () {
             var $this = $(this);
