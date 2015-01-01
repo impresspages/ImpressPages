@@ -19,6 +19,8 @@ class Db
 
     protected $statusVariables = null;
 
+    protected $defaultLanguageCode = null;
+
     public function __construct(Config $config, $statusVariables)
     {
         $this->config = $config;
@@ -70,18 +72,74 @@ class Db
         $id = $this->statusVariables['gridParentId' . $depth];
 
         $title = ipDb()->fetchValue(
-            "SELECT " . $subgridConfig->tableName() . ".`" . $subgridConfig->getBreadcrumbField() . "` FROM " . $subgridConfig->tableName() . " " . $subgridConfig->joinQuery(
+            "SELECT " . $subgridConfig->tableName() . ".`" . $subgridConfig->getBreadcrumbField() . "` FROM " . $subgridConfig->tableName() . " " . $this->joinQuery(
             ) . " WHERE " . $subgridConfig->tableName() . '.`' . $subgridConfig->idField() . '` = ' . ipDb()->getConnection()->quote($id) . " "
         );
         return $title;
     }
 
+    /**
+     * Set default language for multilingual fields
+     * Meaningful only in multilingual mode
+     * @param $languageCode
+     * @return null|string
+     */
+    public function setDefaultLanguageCode($languageCode)
+    {
+        $curCode = $this->getDefaultLanguageCode();
+        $this->defaultLanguageCode = $languageCode;
+        return $curCode;
+    }
 
+    /**
+     * Meaningful only in multilingual mode
+     * @return null|string
+     */
+    public function getDefaultLanguageCode()
+    {
+        if ($this->defaultLanguageCode == null) {
+            if (!empty($this->statusVariables['language'])) {
+                //language selected by the user
+                $this->defaultLanguageCode = $this->statusVariables['language'];
+            } else {
+                //first language
+                $languages = ipContent()->getLanguages();
+                $firstLanguage = $languages[0];
+                $this->defaultLanguageCode = $firstLanguage->getCode();
+            }
+        }
+        return $this->defaultLanguageCode;
+    }
+
+    public function joinQuery($languageCode = null)
+    {
+        $joinQuery = false;
+        if ($languageCode == null) {
+            $languageCode = $this->getDefaultLanguageCode();
+        }
+
+        if ($this->config->multilingual()) {
+            // join language table
+            $languageTable = $this->config->languageTableName();
+            $idField = $this->config->tableName() . '.`' . $this->config->idField() . '`';
+            $languageReferenceField = $languageTable . '.`' . $this->config->languageForeignKeyField() . '`';
+            $languageCodeField =  $languageTable . '.`' . $this->config->languageCodeField() . '`';
+            $joinQuery .= " LEFT OUTER JOIN $languageTable ON $idField = $languageReferenceField AND $languageCodeField = " . ipDb()->getConnection()->quote($languageCode) . "";
+        }
+
+        if ($this->config->joinQuery()) {
+            if ($joinQuery != '') {
+                $joinQuery .= ' ';
+            }
+            $joinQuery .= $this->config->joinQuery();
+        }
+        return $joinQuery;
+    }
 
     public function recordCount($where)
     {
         return ipDb()->fetchValue(
-            "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->config->joinQuery(
+            "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->joinQuery(
             ) . " WHERE " . $where . " "
         );
     }
@@ -95,7 +153,7 @@ class Db
           " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
-          " . $this->config->joinQuery() . "
+          " . $this->joinQuery() . "
         WHERE
           " . $where . "
         ORDER BY
@@ -117,7 +175,7 @@ class Db
           " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
-          " . $this->config->joinQuery() . "
+          " . $this->joinQuery() . "
         WHERE
           " . $this->config->tableName() . ".`" . $this->config->idField() . "` = :id
         ";

@@ -87,6 +87,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'setPageSize':
                 return $this->setPageSize($params);
                 break;
+            case 'setLanguage':
+                return $this->setLanguage($params);
+                break;
             case 'delete':
                 return $this->delete($params);
                 break;
@@ -160,6 +163,20 @@ class Table extends \Ip\Internal\Grid\Model
         $statusVariables['pageSize'] = $params['pageSize'];
         $pageVariableName = $this->subgridConfig->pageVariableName();
         $statusVariables[$pageVariableName] = 1;
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
+    protected function setLanguage($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['language'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        $statusVariables['language'] = $params['language'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
