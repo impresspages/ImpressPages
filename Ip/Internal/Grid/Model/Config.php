@@ -373,7 +373,7 @@ class Config
     {
         $fields = $this->fields();
         foreach($fields as $field) {
-            if ($field['field'] == $fieldName) {
+            if (!empty($field['field']) && $field['field'] == $fieldName) {
                 return $field;
             }
         }
