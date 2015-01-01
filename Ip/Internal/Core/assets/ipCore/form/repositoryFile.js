@@ -75,7 +75,7 @@
             $newFile.find('.ipsLink').attr('href', files[index].originalUrl);
             $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
             $newFile.find('.ipsRemove').click($.proxy(removeFile, context));
-            if ($this.data('ipFormRepositoryFile').limit >= 0) {
+            if ($this.data('ipFormRepositoryFile').limit > 0) {
                 if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormRepositoryFile').limit) {
                     if ($this.find('.ipsFiles').children().first().length === 1) {
                         $this.find('.ipsFiles').children().first().remove();
