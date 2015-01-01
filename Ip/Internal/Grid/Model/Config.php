@@ -80,7 +80,7 @@ class Config
         if (!empty($this->config['connectionField'])) {
             return $this->config['connectionField'];
         }
-        return '1';
+        return false;
     }
 
     public function deleteWarning()

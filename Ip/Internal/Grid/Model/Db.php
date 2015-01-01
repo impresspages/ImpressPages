@@ -32,6 +32,9 @@ class Db
         $where = $this->config->filter();
         $depth = Status::depth($this->statusVariables);
         if ($depth > 1) {
+            if (!$this->config->connectionField()) {
+                throw new \Ip\Exception("Nested GRID require 'connectionField' setting to be set.");
+            }
             $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.`' . $this->config->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
         }
 
@@ -138,10 +141,8 @@ class Db
 
     public function recordCount($where)
     {
-        return ipDb()->fetchValue(
-            "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->joinQuery(
-            ) . " WHERE " . $where . " "
-        );
+        $sql = "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->joinQuery() . " WHERE " . $where . " ";
+        return ipDb()->fetchValue($sql);
     }
 
     public function fetch($from, $count, $where = 1)
