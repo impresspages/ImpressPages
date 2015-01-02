@@ -57,7 +57,7 @@ class Actions
 
         ipDb()->execute($sql, $params);
 
-        if ($this->subgridConfig->multilingual()) {
+        if ($this->subgridConfig->isMultilingual()) {
             $sql = "
             DELETE
 
