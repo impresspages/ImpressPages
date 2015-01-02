@@ -293,8 +293,8 @@ class Config
     public function languageForeignKeyField()
     {
         $field = 'itemId';
-        if (!empty($this->config['foreignKeyField'])) {
-            $field = $this->config['foreignKeyField'];
+        if (!empty($this->config['languageForeignKeyField'])) {
+            $field = $this->config['languageForeignKeyField'];
         }
         return $field;
     }
