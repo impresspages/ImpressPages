@@ -449,7 +449,7 @@ class Config
             );
         }
 
-        if ($this->multilingual()) {
+        if ($this->isMultilingual()) {
             $sql = "SHOW COLUMNS FROM " . $languageTable . " ";
 
             $fields = ipDb()->fetchColumn($sql);
@@ -617,13 +617,13 @@ class Config
         return $this->config['breadcrumbField'];
     }
 
-    public function multilingual()
+    public function isMultilingual()
     {
         if ($this->multilingual !== null) {
             return $this->multilingual;
         }
 
-        if ($this->languageTableName()) {
+        if (!empty($this->config['languageTable'])) {
             $this->multilingual = true;
             return true;
         }

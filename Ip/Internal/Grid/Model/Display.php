@@ -185,7 +185,7 @@ class Display
             $values[] = array('label' => $language->getAbbreviation(), 'value' => $language->getCode());
         }
         $db = new Db($this->subgridConfig, $this->statusVariables);
-        if ($this->subgridConfig->multilingual()) {
+        if ($this->subgridConfig->isMultilingual()) {
             $actions['language'] = array(
                 'type' => 'Select',
                 'label' => ipContent()->getLanguageByCode($db->getDefaultLanguageCode())->getAbbreviation(),
@@ -346,7 +346,7 @@ class Display
         $form = new \Ip\Form();
         $curData = $db->fetchRow($id);
         $curDataMultilingual = array();
-        if ($this->subgridConfig->multilingual()) {
+        if ($this->subgridConfig->isMultilingual()) {
             //fetch multilingual data
             $languages = ipContent()->getLanguages();
             foreach($languages as $language) {

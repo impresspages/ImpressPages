@@ -121,7 +121,7 @@ class Db
             $languageCode = $this->getDefaultLanguageCode();
         }
 
-        if ($this->config->multilingual()) {
+        if ($this->config->isMultilingual()) {
             // join language table
             $languageTable = $this->config->languageTableName();
             $idField = $this->config->tableName() . '.`' . $this->config->idField() . '`';
