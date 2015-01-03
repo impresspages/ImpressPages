@@ -157,6 +157,10 @@ class Actions
             $dbData = call_user_func($this->subgridConfig->updateFilter(), $id, $dbData);
         }
 
+        if ($this->subgridConfig->isMultilingual() && $this->subgridConfig->updateLanguageFilter()) {
+            $languageData = call_user_func($this->subgridConfig->updateLanguageFilter(), $id, $languageData);
+        }
+
         $this->updateDb($this->subgridConfig->rawTableName(), $dbData, $id);
         if (!empty($languageData)) {
             foreach($languageData as $languageCode => $rawData) {
@@ -276,6 +280,9 @@ class Actions
             $dbData = call_user_func($this->subgridConfig->createFilter(), $dbData);
         }
 
+        if ($this->subgridConfig->isMultilingual() && $this->subgridConfig->createLanguageFilter()) {
+            $languageData = call_user_func($this->subgridConfig->createLanguageFilter(), $languageData);
+        }
 
 
 
