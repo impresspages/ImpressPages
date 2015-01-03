@@ -118,10 +118,10 @@ class Actions
                 continue;
             }
 
-            if (empty($field['multilingual'])) {
-                $fieldObject = $this->subgridConfig->fieldObject($field);
+            $fieldObject = $this->subgridConfig->fieldObject($field);
+            $fieldObject->beforeUpdate($id, $oldData, $data); //the same event for both: multilingual and non multilingual fields. Each field may store it's multilingual state from constructor and act differently on this event if needed. $oldData is not very correct in multilingual context. But that's still the bets way to go.
 
-                $fieldObject->beforeUpdate($id, $oldData, $data);
+            if (empty($field['multilingual'])) {
                 $fieldData = $fieldObject->updateData($data);
                 if (!is_array($fieldData)) {
                     throw new \Ip\Exception("updateData method in class " . esc(
@@ -137,8 +137,7 @@ class Actions
                     }
 
                     $fieldObject = $this->subgridConfig->fieldObject($field);
-                    $fieldObject->beforeCreate(null, $tmpData);
-                    $fieldData = $fieldObject->createData($tmpData);
+                    $fieldData = $fieldObject->updateData($tmpData);
                     if (!is_array($fieldData)) {
                         throw new \Ip\Exception("createData method in class " . esc(
                                 get_class($fieldObject)
@@ -224,9 +223,10 @@ class Actions
                 continue;
             }
 
+            $fieldObject = $this->subgridConfig->fieldObject($field);
+            $fieldObject->beforeCreate(null, $data); //one vent for multilingual and non-multilingual fields.
+
             if (empty($field['multilingual'])) {
-                $fieldObject = $this->subgridConfig->fieldObject($field);
-                $fieldObject->beforeCreate(null, $data);
                 $fieldData = $fieldObject->createData($data);
                 if (!is_array($fieldData)) {
                     throw new \Ip\Exception("createData method in class " . esc(
@@ -242,7 +242,6 @@ class Actions
                     }
 
                     $fieldObject = $this->subgridConfig->fieldObject($field);
-                    $fieldObject->beforeCreate(null, $tmpData);
                     $fieldData = $fieldObject->createData($tmpData);
                     if (!is_array($fieldData)) {
                         throw new \Ip\Exception("createData method in class " . esc(
