@@ -309,7 +309,7 @@ class Display
             $columns[] = $column;
         }
         foreach ($this->subgridConfig->fields() as $field) {
-            if (isset($field['preview']) && !$field['preview']) {
+            if (isset($field['preview']) && !$field['preview'] || !isset($field['preview']) && $field['type'] == 'Tab') {
                 continue;
             }
 
