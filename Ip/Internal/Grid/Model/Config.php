@@ -493,6 +493,15 @@ class Config
         return $this->config['updateFilter'];
     }
 
+
+    public function updateLanguageFilter()
+    {
+        if (empty($this->config['updateLanguageFilter'])) {
+            return false;
+        }
+        return $this->config['updateLanguageFilter'];
+    }
+
     public function updateFormFilter()
     {
         if (empty($this->config['updateFormFilter'])) {
@@ -510,6 +519,13 @@ class Config
     }
 
 
+    public function createLanguageFilter()
+    {
+        if (empty($this->config['createLanguageFilter'])) {
+            return false;
+        }
+        return $this->config['createLanguageFilter'];
+    }
 
     public function createFormFilter()
     {
