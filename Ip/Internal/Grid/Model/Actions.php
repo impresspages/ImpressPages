@@ -219,7 +219,7 @@ class Actions
         $dbData = array();
         $languageData = array();
         foreach ($fields as $field) {
-            if (!empty($field['type']) && $field['type'] == 'Tab') {
+            if (!empty($field['type']) && $field['type'] == 'Tab' && empty($field['preview'])) {
                 continue;
             }
 
@@ -288,8 +288,8 @@ class Actions
         $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
         if (!empty($languageData)) {
             foreach($languageData as $languageCode => $rawData) {
-                $rawData['language'] = $languageCode;
-                $rawData['itemId'] = $recordId;
+                $rawData[$this->subgridConfig->languageCodeField()] = $languageCode;
+                $rawData[$this->subgridConfig->languageForeignKeyField()] = $recordId;
                 ipDb()->insert($this->subgridConfig->rawLanguageTableName(), $rawData);
             }
         }
