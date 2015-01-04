@@ -263,7 +263,7 @@ class Display
             }
             foreach ($this->subgridConfig->fields() as $fieldData) {
 
-                if (isset($fieldData['preview']) && !$fieldData['preview']) {
+                if (isset($fieldData['preview']) && !$fieldData['preview'] || $fieldData['type'] == 'Tab' && empty($fieldData['preview'])) {
                     continue;
                 }
 
