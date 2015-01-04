@@ -163,6 +163,13 @@ class Actions
         $this->updateDb($this->subgridConfig->rawTableName(), $dbData, $id);
         if (!empty($languageData)) {
             foreach($languageData as $languageCode => $rawData) {
+                $translationExists = ipDb()->selectRow($this->subgridConfig->rawLanguageTableName(), '*', array($this->subgridConfig->languageCodeField() => $languageCode, $this->subgridConfig->languageForeignKeyField() => $id));
+                if (!$translationExists) {
+                    $insertData = $rawData;
+                    $insertData[$this->subgridConfig->languageCodeField()] = $languageCode;
+                    $insertData[$this->subgridConfig->languageForeignKeyField()] = $id;
+                    ipDb()->insert($this->subgridConfig->rawLanguageTableName(), $insertData);
+                }
                 $this->updateDb($this->subgridConfig->rawTableName(), $rawData, $id, $languageCode);
             }
         }
