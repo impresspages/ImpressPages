@@ -206,7 +206,8 @@ class UploadModel
             'psd',
             'ai',
             'sql',
-            'swf'
+            'swf',
+            'svg'
         );
         $whiteListExtensions = ipFilter('ipWhiteListExtensions', $whiteListExtensions);
 
