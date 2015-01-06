@@ -190,6 +190,7 @@ class AdminController extends \Ip\Controller
 
         $options = $theme->getOptionsAsArray();
 
+        $valuesToStore = array();
         foreach ($options as $option) {
             if (empty($option['name'])) {
                 continue;
@@ -216,8 +217,17 @@ class AdminController extends \Ip\Controller
                 default:
                     $value = $field->getValueAsString($post, $option['name']);
             }
-            $configModel->setConfigValue(ipConfig()->theme(), $option['name'], $value);
+            $valuesToStore[$option['name']] = $value;
         }
+
+
+        $valuesToStore = ipFilter('ipDesignOptionsSave', $valuesToStore);
+
+        foreach($valuesToStore as $key => $value) {
+            $configModel->setConfigValue(ipConfig()->theme(), $key, $value);
+        }
+
+
 
 
         $lessCompiler = LessCompiler::instance();
