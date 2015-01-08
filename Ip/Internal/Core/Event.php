@@ -57,6 +57,9 @@ class Event
 
             ipAddJs('Ip/Internal/Core/assets/tinymce/pastePreprocess.js');
             ipAddJs('Ip/Internal/Core/assets/tinymce/default.js');
+            if (is_file(ipThemeFile('setup/admin.js'))) {
+                ipAddJs(ipThemeUrl('setup/admin.js'));
+            }
 
             ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
         }

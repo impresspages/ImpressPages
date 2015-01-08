@@ -17,6 +17,23 @@
             "maxLevel": 3
         }
     },
+    "textStyles": [
+        {
+            "title": "Quote",
+            "inline": "span",
+            "classes": "quote"
+        },
+        {
+            "title": "Note",
+            "inline": "span",
+            "classes": "note"
+        },
+        {
+            "title": "Button",
+            "inline": "span",
+            "classes": "button"
+        }
+    ],
     "options": [
         {
             "label": "Text color",
