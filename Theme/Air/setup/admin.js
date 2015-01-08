@@ -9,7 +9,12 @@ var ipTinyMceConfigOriginalFunction = ipTinyMceConfig; //ipTinyMceConfig is defi
 var ipTinyMceConfig = function () {
     var customizedConfig = ipTinyMceConfigOriginalFunction();
 
-    customizedConfig.style_formats.push({title: 'Button2', inline: 'span', classes: 'button2'}); //adding Button2 style to the existing styles
+    //adding Button2 style to the existing styles
+    //more details on TinyMCE website http://www.tinymce.com/wiki.php/Configuration:style_formats
+    customizedConfig.style_formats.push({title: 'Button2', inline: 'span', classes: 'button2'});
+
+    //replace any other default setting
+    //customizedConfig.configName = 'customValue';
 
     return customizedConfig;
 };
