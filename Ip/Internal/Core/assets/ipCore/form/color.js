@@ -19,10 +19,11 @@
                 if (!data) {
                     $this.data('ipFormColor', {});
 
+                    //the only reliable way to wait till Spectrum loads is to periodically check if it has been loaded
 
                     var loadInterval = setInterval(function () {
                         initSpectrum($this, loadInterval);
-                    }, 1000);
+                    }, 400);
                 }
             });
         }
