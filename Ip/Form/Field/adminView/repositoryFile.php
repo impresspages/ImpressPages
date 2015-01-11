@@ -20,7 +20,7 @@
             <?php } ?>
         <?php } ?>
     </div>
-    <div class="_file ipsFile ipsFileTemplate hidden">
+    <div class="well _file ipsFile ipsFileTemplate hidden">
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
         <div><a target="_blank" class="ipsLink ipsFileName" href=""></a></div>
         <input type="hidden" name="" value=""/>

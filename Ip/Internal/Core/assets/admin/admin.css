@@ -7815,6 +7815,17 @@
 .ip legend[data-toggle="collapse"].collapsed:after {
   content: '\25Be';
 }
+.ip .file ._file {
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 10px;
+  word-break: break-all;
+}
+.ip .file ._file .progress {
+  height: 5px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
 .ip a.list-group-item.success,
 .ip a.list-group-item.success:hover,
 .ip a.list-group-item.success:focus {
@@ -10058,8 +10069,8 @@
   display: none;
   outline: #019bd4 solid 1px;
 }
-.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical.ipHover ._marker,
-.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal.ipHover ._marker {
+.ipHasAdminPanel .ipAdminWidgetPlaceholderVertical.hover ._marker,
+.ipHasAdminPanel .ipAdminWidgetPlaceholderHorizontal.hover ._marker {
   display: block;
 }
 .ipHasAdminPanel .ipAdminWidgetPlaceholderVertical ._marker {
