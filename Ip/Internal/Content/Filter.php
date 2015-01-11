@@ -209,7 +209,6 @@ class Filter
 
     public static function ipHead($head, $info)
     {
-        $append = '';
         $relativePath = ipRequest()->getRelativePath();
 
 
