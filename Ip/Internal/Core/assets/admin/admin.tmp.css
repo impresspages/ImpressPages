@@ -7647,6 +7647,17 @@ legend[data-toggle="collapse"]:after {
 legend[data-toggle="collapse"].collapsed:after {
   content: '\25Be';
 }
+.file ._file {
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 10px;
+  word-break: break-all;
+}
+.file ._file .progress {
+  height: 5px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
 a.list-group-item.success,
 a.list-group-item.success:hover,
 a.list-group-item.success:focus {
