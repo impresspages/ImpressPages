@@ -298,6 +298,14 @@ class Controller extends \Ip\WidgetController{
             if (!isset($field['type']) || !isset($field['label'])) {
                 continue;
             }
+
+
+            if ($field['type'] == 'Heading') {
+                $label = empty($field['label']) ? '' : $field['label'];
+                $form->addFieldset(new \Ip\Form\Fieldset($label));
+                continue;
+            }
+
             if (!isset($field['options'])) {
                 $field['options'] = array();
             }
