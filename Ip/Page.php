@@ -274,11 +274,8 @@ class Page
      */
     public function getLink()
     {
-        //Some code for the future if we decide to escape all URLs
-        //$path = implode('/', array_map('rawurlencode', explode('/', $this->urlPath)));
-        //or
-        //$path = str_replace('%2F', '/', rawurlencode($this->urlPath));
-        return ipHomeUrl($this->getLanguageCode()) . $this->urlPath;
+        $path = str_replace('%2F', '/', rawurlencode($this->urlPath));
+        return ipHomeUrl($this->getLanguageCode()) . $path;
     }
 
     /**
