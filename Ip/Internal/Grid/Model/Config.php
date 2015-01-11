@@ -644,6 +644,9 @@ class Config
             return true;
         }
 
+        if (empty($this->config['fields'])) { //without this, isMultilingual check in getFields function will result in error.
+            return false;
+        }
 
         $fields = $this->fields();
         if (!$fields) {
