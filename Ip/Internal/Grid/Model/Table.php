@@ -235,7 +235,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function update($data)
     {
         if (empty($data[$this->subgridConfig->idField()])) {
-            throw new \Ip\Exception('Missing parameters');
+            throw new \Ip\Exception('Missing parameters. Most likely \'AUTO_INCREMENT\' attribute is missing on the database id field');
         }
 
         $this->runTransformations($data);
