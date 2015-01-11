@@ -300,7 +300,7 @@ class Controller extends \Ip\WidgetController{
             }
 
 
-            if ($field['type'] == 'Heading') {
+            if ($field['type'] == 'Fieldset') {
                 $label = empty($field['label']) ? '' : $field['label'];
                 $form->addFieldset(new \Ip\Form\Fieldset($label));
                 continue;
