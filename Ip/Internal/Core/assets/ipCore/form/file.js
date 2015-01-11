@@ -21,10 +21,11 @@
                         limit: parseInt($this.data('filelimit'))
                     });
 
+                    //the only reliable way to wait till PLupload loads is to periodically check if it has been loaded
 
                     var loadInterval = setInterval(function () {
                         initPlupload($this, loadInterval);
-                    }, 1000);
+                    }, 300);
 
 
                 }
