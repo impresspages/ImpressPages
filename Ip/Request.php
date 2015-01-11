@@ -207,7 +207,7 @@ class Request
             $pageURL .= "s";
         }
         $pageURL .= '://';
-        if ($this->_SERVER["SERVER_PORT"] != "80") {
+        if ($this->_SERVER["SERVER_PORT"] != "80" && $this->_SERVER["SERVER_PORT"] != "443") {
             $pageURL .= $this->_SERVER["SERVER_NAME"] . ":" . $this->_SERVER["SERVER_PORT"] . $this->_SERVER["REQUEST_URI"];
         } else {
             $pageURL .= $this->_SERVER["SERVER_NAME"] . $this->_SERVER["REQUEST_URI"];
