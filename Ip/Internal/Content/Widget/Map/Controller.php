@@ -53,7 +53,7 @@ class Controller extends \Ip\WidgetController
 
     public function adminHtmlSnippet()
     {
-        return '';
+        return ipView('snippet/searchbox.php')->render();
     }
 
     protected function settingsForm()
