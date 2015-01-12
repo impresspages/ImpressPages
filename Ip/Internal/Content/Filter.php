@@ -54,6 +54,7 @@ class Filter
         $typeRadio = __('Radio', 'Ip-admin', false);
         $typeCaptcha = __('Captcha', 'Ip-admin', false);
         $typeFile = __('File', 'Ip-admin', false);
+        $typeRichText = __('Rich text', 'Ip-admin', false);
         $typeFieldset= __('Fieldset', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
@@ -71,6 +72,7 @@ class Filter
         )->render());
         $fieldTypes['Captcha'] = new FieldType('Captcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
+        $fieldTypes['RichText'] = new FieldType('RichText', '\Ip\Form\Field\RichText', $typeRichText);
         $fieldTypes['Fieldset'] = new FieldType('Fieldset', '\Ip\Form\Fieldset', $typeFieldset);
 
         return $fieldTypes;
