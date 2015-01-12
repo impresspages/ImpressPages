@@ -1,3 +1,9 @@
+/**
+ * TinyMCE configuration for admin form fields. The ones that appear in administration panel.
+ * https://www.impresspages.org/docs/tinymce
+ */
+
+
 ipTinyMceConfig = function () {
     return {
         inline: true,
@@ -22,6 +28,8 @@ ipTinyMceConfig = function () {
         document_base_url: ip.baseUrl,
         remove_script_host: false,
         relative_urls: false,
+
+        allow_script_urls: true,
 
         file_browser_callback: function (field_name, url, type, win) {
             var $input = $('#' + field_name);
