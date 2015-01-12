@@ -10,7 +10,7 @@ ipTinyMceConfig = function () {
         skin: 'impresspages',
         visual_table_class: 'ipTableManagement',
         directionality : ip.languageTextDirection,
-        plugins: "advlist, paste, link, table, colorpicker, textcolor, impresspages, anchor, autolink",
+        plugins: "advlist, paste, link, table, colorpicker, textcolor, alignrollup, anchor, autolink",
         entity_encoding: "raw",
         menubar: false,
         statusbar: false,
