@@ -554,7 +554,7 @@
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipsAdminPanelWidgetButton, .ipWidget",
             activeClass: "",
-            hoverClass: "ipHover",
+            hoverClass: "_hover",
             greedy: true,
             over: function (event, ui) {
                 lastDroppable = $(this);
