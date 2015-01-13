@@ -33,12 +33,12 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
         }
     }
 
-    public function preview($recordData) 
+    public function preview($recordData)
     {
         if ($this->previewMethod) {
-        return call_user_func($this->previewMethod, $recordData);
+            return call_user_func($this->previewMethod, $recordData);
         } else {
-        return '';
+            return '';
         }
     }
 
@@ -104,4 +104,7 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
         }
         return null;
     }
+
+
+
 }
