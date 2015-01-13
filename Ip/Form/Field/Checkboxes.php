@@ -46,7 +46,7 @@ class Checkboxes extends Field
         $answer = '';
 
         foreach ($this->getValues() as $key => $value) {
-            if (in_array($value[0], $this->value)) {
+            if ($this->value && in_array($value[0], $this->value)) {
                 $checked = ' checked="checked"';
             } 
             else {
