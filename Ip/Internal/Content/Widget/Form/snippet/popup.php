@@ -32,8 +32,6 @@
                                         <div class="input-group-btn">
                                             <button href="#" class="btn btn-default hidden ipsFieldRequired" title="<?php _e('Required', 'Ip-admin'); ?>"><?php _e('Required', 'Ip-admin'); ?></button>
                                             <button href="#" class="btn btn-default ipsFieldOptional" title="<?php _e('Optional', 'Ip-admin'); ?>"><?php _e('Optional', 'Ip-admin'); ?></button>
-                                        </div>
-                                        <div class="input-group-btn">
                                             <button href="#" class="btn btn-default ipsFieldOptions" title="<?php _e('Options', 'Ip-admin'); ?>"><i class="fa fa-cogs"></i></button>
                                             <button class="btn btn-danger ipsFieldRemove" type="button" title="<?php _e('Delete', 'Ip-admin'); ?>"><i class="fa fa-trash-o"></i></button>
                                         </div>
