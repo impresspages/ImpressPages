@@ -66,7 +66,7 @@ class Checkboxes extends Field
             }
 
             $answer .= '
-            <div class="checkboxes">
+            <div class="checkbox">
                 <label>
                     <input ' . $this->getAttributesStr($doctype) . $id . ' class="' . implode(
                     ' ',
