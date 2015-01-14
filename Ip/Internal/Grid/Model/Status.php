@@ -20,9 +20,15 @@ class Status
         foreach ($parts as $part) {
             $tmp = explode('=', $part);
             if (isset($tmp[1])) {
-                $variables[$tmp[0]] = urldecode($tmp[1]);
+                $key = $tmp[0];
+                $val = urldecode($tmp[1]);
+                if (substr($key, -5) == '_json') {
+                    $key = substr($key, 0, -5);
+                    $val = json_decode($val);
+                }
+                $variables[urldecode($key)] = $val;
             } else {
-                $variables[$tmp[0]] = null;
+                $variables[urldecode($tmp[0])] = null;
             }
         }
         return $variables;
