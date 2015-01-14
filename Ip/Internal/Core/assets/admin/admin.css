@@ -7524,6 +7524,13 @@
 .ip [ng-cloak] {
   display: none;
 }
+.ip .colorpicker {
+  left: 0;
+  min-width: 130px;
+  padding: 4px;
+  margin-top: 1px;
+  *zoom: 1;
+}
 .ip .bootstrap-switch {
   border-radius: 40px;
 }
@@ -7617,9 +7624,6 @@
 .ip .btn-xs,
 .ip .btn-group-xs > .btn {
   padding: 1px 5px;
-}
-.ip .input-group-btn > .btn {
-  line-height: 20px;
 }
 .ip .btn-danger {
   color: #000000;
@@ -7825,6 +7829,13 @@
   height: 5px;
   margin-top: 5px;
   margin-bottom: 0;
+}
+.ip .input-group-btn > .btn {
+  line-height: 20px;
+}
+.ip .input-group-btn .btn-default,
+.ip .input-group-btn .btn-danger {
+  border-color: #a3a4af;
 }
 .ip a.list-group-item.success,
 .ip a.list-group-item.success:hover,
@@ -8506,8 +8517,20 @@
   font-size: 14px;
 }
 .ip .ipModuleInlineManagementLogoModal ._colorPicker {
+  position: relative;
+  width: 34px;
+}
+.ip .ipModuleInlineManagementLogoModal ._colorPicker > i {
+  border: 1px solid #a3a4af;
+  cursor: pointer;
   display: inline-block;
-  vertical-align: middle;
+  height: 17px;
+  vertical-align: text-top;
+  width: 17px;
+}
+.ip .ipModuleInlineManagementLogoModal ._colorPickerValue {
+  font-size: 12px;
+  width: 50px;
 }
 .ip .ipModuleInlineManagementImageModal {
   outline: #e7e7e7 solid 1px;

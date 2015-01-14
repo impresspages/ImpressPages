@@ -15,8 +15,21 @@
         font-size: @font-size-base;
     }
     ._colorPicker {
-        display: inline-block;
-        vertical-align: middle;
+        position: relative;
+        width: @input-height-base;
+
+        > i { // element to preview the color
+            border: 1px solid @input-border;
+            cursor: pointer;
+            display: inline-block;
+            height: (@input-height-base / 2);
+            vertical-align: text-top;
+            width: (@input-height-base / 2);
+        }
+    }
+    ._colorPickerValue {
+        font-size: @font-size-small;
+        width: 50px;
     }
 }
 
