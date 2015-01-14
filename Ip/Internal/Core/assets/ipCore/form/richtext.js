@@ -10,16 +10,45 @@
 
         init: function (options) {
 
-
             return this.each(function () {
-
                 var $this = $(this);
                 var data = $this.data('ipFormRichText');
                 if (!data) {
-                    //the only reliable way to wait till TinyMCE loads is to periodically check if it has been loaded
-                    var loadInterval = setInterval(function () {
-                        initTinyMCE($this, loadInterval);
-                    }, 300);
+                    $this.data('ipFormRichText', 1);
+                    if (isPublic($this)) {
+                        if (typeof(ipTinyMceConfigPublic) == 'undefined') {
+                            //Wait for TinyMCE config to load
+                            var loadInterval = setInterval(function () {
+                                if (typeof(ipTinyMceConfigPublic) == 'undefined') {
+                                    return; //Wait for TinyMCE config to load
+                                }
+                                clearInterval(loadInterval);
+                                initTinyMCE($this, ipTinyMceConfigPublic());
+                            }, 300);
+
+                        } else {
+                            initTinyMCE($this, ipTinyMceConfigPublic());
+                        }
+                    } else {
+                        //the only reliable way to wait till TinyMCE loads is to periodically check if it has been loaded
+                        if (typeof(ipTinyMceConfig) == 'undefined') {
+                            //Wait for TinyMCE config to load
+                            var loadInterval = setInterval(function () {
+                                if (typeof(ipTinyMceConfig) == 'undefined') {
+                                    return; //Wait for TinyMCE config to load
+                                }
+                                clearInterval(loadInterval);
+                                var customTinyMceConfig = ipTinyMceConfig();
+                                customTinyMceConfig.inline = false;
+                                initTinyMCE($this, customTinyMceConfig);
+                            }, 300);
+
+                        } else {
+                            var customTinyMceConfig = ipTinyMceConfig();
+                            customTinyMceConfig.inline = false;
+                            initTinyMCE($this, customTinyMceConfig);
+                        }
+                    }
                 }
             });
         }
@@ -27,22 +56,19 @@
 
     };
 
-    var initTinyMCE = function ($field, loadInterval) {
-        if (typeof(ipTinyMceConfig) == 'undefined') {
-            //Wait for TinyMCE config to load
-            return;
+    var isPublic = function ($field) {
+        var $form = $field.closest('form');
+        return $form.hasClass('ipsModuleFormPublic');
+    };
 
-        }
+    var initTinyMCE = function ($field, config) {
         var $this = $field;
-
-        clearInterval(loadInterval);
-
         var $textarea = $this.find('textarea');
         $this.data('ipFormRichText', {initialized: 1});
-        var customTinyMceConfig = ipTinyMceConfig();
-        customTinyMceConfig.inline = false;
-        $textarea.tinymce(customTinyMceConfig);
+        $textarea.tinymce(config);
     };
+
+
 
 
     $.fn.ipFormRichtext = function (method) {
