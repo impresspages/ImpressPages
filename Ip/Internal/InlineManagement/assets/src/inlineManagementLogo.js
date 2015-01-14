@@ -91,7 +91,7 @@
 
         //TEXT LOGO
         data.text = $this.data('logoText').val();
-        data.color = $this.data('colorPicker').css('background-color');
+        data.color = $this.data('logoColor').val();
         data.font = $this.data('fontSelect').ipInlineManagementFontSelector('getFont');
         //IMAGE LOGO
         if ($this.data('ipInlineManagementLogo').imageUploadInitialized) {
@@ -165,6 +165,7 @@
         $this.data('fontSelect', $modal.find('.ipsFontSelect'));
         $this.data('colorPicker', $modal.find('.ipsColorPicker'));
         $this.data('logoText', $modal.find('.ipsLogoText'));
+        $this.data('logoColor', $modal.find('.ipsLogoColor'));
         $this.data('previewText', $(response.textPreview));
         $this.data('previewImage', $(response.imagePreview));
         $this.after($this.data('previewText'));
@@ -237,23 +238,27 @@
             }
         });
 
-        $this.data('colorPicker').css('backgroundColor', curColor);
-        $this.data('colorPicker').ColorPicker({
-            color: curColor,
-            onShow: function (colpkr) {
-                $(colpkr).css('zIndex', 2000);
-                $(colpkr).fadeIn(300);
-                return false;
-            },
-            onHide: function (colpkr) {
-                $(colpkr).fadeOut(300);
-                return false;
-            },
-            onChange: function (hsb, hex, rgb) {
-                $this.data('colorPicker').css('backgroundColor', '#' + hex);
+        $this.data('colorPicker').find('i').css('background-color', curColor);
+        $this.data('logoColor').val(rgb2hex(curColor));
+        $this.data('colorPicker')
+            .parent().colorpicker({ // selecting parent to get default behavior of plugin
+                format: 'hex',
+                color: rgb2hex(curColor),
+                container: $this.data('colorPicker'),
+                input: $this.data('logoColor')
+            })
+            .on('changeColor.colorpicker', function (ev) {
+                $this.data('colorPicker').find('i').css('background-color', ev.color.toHex());
                 $.proxy(preview, $this)();
-            }
-        });
+            })
+            /*.on('showPicker.colorpicker', function (ev) {
+                $this.data('logoText').addClass('hidden');
+                $this.data('logoColor').removeClass('hidden');
+            })
+            .on('hidePicker.colorpicker', function (ev) {
+                $this.data('logoText').removeClass('hidden');
+                $this.data('logoColor').addClass('hidden');
+            })*/;
 
         $modal.find('a[data-logotype]').on('shown.bs.tab', $.proxy(updateType, $this));
 
@@ -283,7 +288,7 @@
             $this.data('previewText').removeClass('hidden');
             $this.data('previewText').find('a')
                 .text($this.data('logoText').val())
-                .css('color', $this.data('colorPicker').css('background-color'))
+                .css('color', $this.data('logoColor').val())
                 .css('font-family', $this.data('curFont'));
 //            $this.data('logoText')
 //                .css('font', $this.data('previewText').find('a').css('font'))
@@ -298,6 +303,14 @@
             $this.data('previewImage').find('.ipsButtons').remove();
             $this.data('previewImage').find('.ui-resizable-handle').remove();
         }
+    };
+
+    var rgb2hex = function (rgb) {
+        rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+        return (rgb && rgb.length === 4) ? "#" +
+        ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : rgb;
     };
 
     $.fn.ipModuleInlineManagementLogo = function (method) {

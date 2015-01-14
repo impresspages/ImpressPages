@@ -27,8 +27,8 @@ class Event
 
             ipAddJs('Ip/Internal/Content/assets/jquery.ip.uploadImage.js');
 
-            ipAddCss('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.css');
-            ipAddJs('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.js');
+            ipAddJs('Ip/Internal/Core/assets/js/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js');
+            ipAddCss('Ip/Internal/Core/assets/js/bootstrap-colorpicker/css/bootstrap-colorpicker.css');
         }
 
 
