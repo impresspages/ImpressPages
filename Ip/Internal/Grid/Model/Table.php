@@ -441,10 +441,25 @@ class Table extends \Ip\Internal\Grid\Model
                 }
                 if($value == '') {
                     unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
                     continue;
                 }
 
-                $statusVariables['s_' . $key] = $value;
+                if (is_array($value)) {
+                    foreach($value as $subkey => $subval) {
+                        $statusVariables['s_' . $key . '_json'] = json_encode($value);
+                        unset($statusVariables['s_' . $key]);
+                    }
+                } else {
+                    $statusVariables['s_' . $key] = $value;
+                }
+            }
+
+            foreach($searchForm->getFields() as $field) {
+                if (!isset($newData[$field->getName()])) { //script above fails to remove search made based on checkbox as empty checkbox doesn't post anything
+                    unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
+                }
             }
 
             $commands[] = Commands::setHash(Status::build($statusVariables));
