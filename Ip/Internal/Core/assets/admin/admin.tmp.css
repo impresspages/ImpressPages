@@ -7356,6 +7356,13 @@ button.close {
 [ng-cloak] {
   display: none;
 }
+.colorpicker {
+  left: 0;
+  min-width: 130px;
+  padding: 4px;
+  margin-top: 1px;
+  *zoom: 1;
+}
 .bootstrap-switch {
   border-radius: 40px;
 }
@@ -7449,9 +7456,6 @@ fieldset[disabled] .btn {
 .btn-xs,
 .btn-group-xs > .btn {
   padding: 1px 5px;
-}
-.input-group-btn > .btn {
-  line-height: 20px;
 }
 .btn-danger {
   color: #000000;
@@ -7657,6 +7661,13 @@ legend[data-toggle="collapse"].collapsed:after {
   height: 5px;
   margin-top: 5px;
   margin-bottom: 0;
+}
+.input-group-btn > .btn {
+  line-height: 20px;
+}
+.input-group-btn .btn-default,
+.input-group-btn .btn-danger {
+  border-color: #a3a4af;
 }
 a.list-group-item.success,
 a.list-group-item.success:hover,
@@ -8338,8 +8349,20 @@ th {
   font-size: 14px;
 }
 .ipModuleInlineManagementLogoModal ._colorPicker {
+  position: relative;
+  width: 34px;
+}
+.ipModuleInlineManagementLogoModal ._colorPicker > i {
+  border: 1px solid #a3a4af;
+  cursor: pointer;
   display: inline-block;
-  vertical-align: middle;
+  height: 17px;
+  vertical-align: text-top;
+  width: 17px;
+}
+.ipModuleInlineManagementLogoModal ._colorPickerValue {
+  font-size: 12px;
+  width: 50px;
 }
 .ipModuleInlineManagementImageModal {
   outline: #e7e7e7 solid 1px;

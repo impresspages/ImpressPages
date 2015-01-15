@@ -72,6 +72,7 @@ class FieldType
             switch ($fieldClass) {
                 case '\Ip\Form\Field\Select':
                 case '\Ip\Form\Field\Radio':
+                case '\Ip\Form\Field\Checkboxes':
                     $selectValues = array();
                     if (isset($fieldData['options']['list']) && is_array($fieldData['options']['list'])) {
                         foreach ($fieldData['options']['list'] as $option) {

@@ -55,6 +55,7 @@ class Filter
         $typeCaptcha = __('Captcha', 'Ip-admin', false);
         $typeFile = __('File', 'Ip-admin', false);
         $typeRichText = __('Rich text', 'Ip-admin', false);
+        $typeCheckboxes = __('Checkboxes', 'Ip-admin', false);
         $typeFieldset= __('Fieldset', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
@@ -73,6 +74,9 @@ class Filter
         $fieldTypes['Captcha'] = new FieldType('Captcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
         $fieldTypes['RichText'] = new FieldType('RichText', '\Ip\Form\Field\RichText', $typeRichText);
+        $fieldTypes['Checkboxes'] = new FieldType('Checkboxes', '\Ip\Form\Field\Checkboxes', $typeCheckboxes, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
+        'view/formFieldOptions/list.php'
+    )->render());
         $fieldTypes['Fieldset'] = new FieldType('Fieldset', '\Ip\Form\Fieldset', $typeFieldset);
 
         return $fieldTypes;
