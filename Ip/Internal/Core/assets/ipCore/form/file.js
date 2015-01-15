@@ -73,8 +73,9 @@
                          var uploaderFile = uploader.getFile(fileId)
                          uploader.removeFile(uploaderFile);
                          */
-
+                        $file.trigger('removed.ipFileField');
                         $file.remove();
+
                     });
                     if ($this.data('ipFormFileSettings').limit >= 0) {
                         if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormFileSettings').limit) {
@@ -84,6 +85,8 @@
                         }
                     }
                     $this.find('.ipsFiles').append($newFile);
+                    $newFile.trigger('added.ipFileField');
+
                 }
             });
             up.refresh(); // Reposition Flash/Silverlight
@@ -94,7 +97,7 @@
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipsFileProgressValue').width(file.percent + '%');
-            $file.trigger('progress.ipModuleFormFile', [file.percent]);
+            $file.trigger('progress.ipFileField', [file.percent]);
         },
 
         _fileUploaded: function (up, file, response) {
@@ -118,6 +121,8 @@
                 $fileInput.attr('value', file.name);
                 $file.append($fileInput);
                 $file.find('.ipsFileProgress').remove();
+                $file.trigger('uploaded.ipFileField', [file.percent]);
+
             }
 
         },
