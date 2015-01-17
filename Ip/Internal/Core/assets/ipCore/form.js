@@ -76,6 +76,7 @@ var ipModuleFormPublic;
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
+                    $form.trigger('ipSubmit');
                     $.ajax({
                         url: $form.attr('action') ? $form.attr('action') : ip.baseUrl,
                         dataType: 'json',
