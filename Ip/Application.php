@@ -183,6 +183,7 @@ class Application
         } else {
             setLocale(LC_ALL, $locale);
         }
+        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
 
         ipContent()->_setCurrentLanguage($requestLanguage);
 
