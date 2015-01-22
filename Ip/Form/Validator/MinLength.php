@@ -10,16 +10,16 @@ namespace Ip\Form\Validator;
 use Ip\Form\Validator;
 
 
-class MaxLength extends Validator
+class MinLength extends Validator
 {
-    protected $maxLength;
+    protected $minLength;
 
     public function __construct($data = array(), $errorMessage = null)
     {
-        $this->maxLength = (int)$data;
+        $this->minLength = (int)$data;
         $this->errorMessage = $errorMessage;
         if (!is_numeric($data)) {
-            throw new \Ip\Exception('MaxLength validator expect integer number as a first parameter');
+            throw new \Ip\Exception('minLength validator expect integer number as a first parameter');
         }
         parent::__construct($data, $errorMessage);
     }
@@ -34,11 +34,11 @@ class MaxLength extends Validator
      */
     public function getError($values, $valueKey, $environment)
     {
-        if (array_key_exists($valueKey, $values) && mb_strlen($values[$valueKey]) > $this->maxLength ) {
+        if (!empty($values[$valueKey]) && mb_strlen($values[$valueKey]) < $this->minLength ) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
-                $errorText = sprintf(__('The value can\'t exceed %d characters in length', 'Ip-admin'), $this->maxLength);
+                $errorText = sprintf(__('Min %d characters', 'Ip-admin'), $this->minLength);
             } else {
-                $errorText = sprintf(__('The value can\'t exceed %d characters in length', 'Ip'), $this->maxLength);;
+                $errorText = sprintf(__('Min %d character', 'Ip'), $this->minLength);;
             }
 
             return $errorText;
@@ -47,14 +47,6 @@ class MaxLength extends Validator
         }
     }
 
-    /**
-     * Validator attributes
-     *
-     * @return string
-     */
-    public function validatorAttributes()
-    {
-        return 'maxlength="'.$this->maxLength.'"';
-    }
+
 
 }
