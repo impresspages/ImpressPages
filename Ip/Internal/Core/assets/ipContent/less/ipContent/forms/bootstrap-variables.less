@@ -1,12 +1,21 @@
 // Common
 @border-radius-base: @ipFormInputBorderRadius;
+@border-radius-small: @ipFormInputBorderRadius;
+@border-radius-large: @ipFormInputBorderRadius;
 @font-size-base: @ipFormInputFontSize;
 @font-size-small: @ipFormInputFontSizeSmall;
+@font-size-large: @font-size-small * 1.5;
 @grid-gutter-width: (@ipSpaceGlobal * 2);
 @line-height-base: @ipFormInputLineHeight;
 @line-height-computed: floor((@font-size-base * @line-height-base));
+@line-height-large: 1.3333333;
+@line-height-small: 1.5;
 @padding-base-vertical: @ipFormInputPaddingVertical;
 @padding-base-horizontal: @ipFormInputPaddingHorizontal;
+@padding-large-vertical: 10px;
+@padding-large-horizontal: 16px;
+@padding-small-vertical: 5px;
+@padding-small-horizontal: 10px;
 @screen-sm-min: @ipFormScreenSmall;
 @text-color: lighten(#000, 20%);   // #333
 
@@ -20,15 +29,25 @@
 @input-border: @ipBorderColor;
 @input-border-focus: @ipFormInputFocus;
 @input-border-radius: @ipFormInputBorderRadius;
+@input-border-radius-small: @ipFormInputBorderRadius;
+@input-border-radius-large: @ipFormInputBorderRadius;
 @input-height-base: (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large: (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small: (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
 @state-success-text: #3c763d;
 @state-success-bg: #dff0d8;
 @state-warning-text: #8a6d3b;
 @state-warning-bg: #fcf8e3;
 @state-danger-text: @ipErrorColor;
 @state-danger-bg: #f2dede;
+@cursor-disabled: not-allowed;
+
+// Bootstrap input groups
+@input-group-addon-bg: lighten(@ipBorderColor, 40);
+@input-group-addon-border-color: @ipBorderColor;
 
 // Bootstrap progress bars
 @progress-bg: #f5f5f5;
 @progress-bar-color: #fff;
 @progress-bar-bg: @ipLinkColor;
+@progress-border-radius: @ipFormInputBorderRadius;

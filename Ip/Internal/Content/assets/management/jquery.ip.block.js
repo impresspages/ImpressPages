@@ -43,9 +43,13 @@
                         $(this).ipBlock('reinit');
                     });
                     $this.on('click', '> .ipbExampleContent', function () {
+                        var widgetOnClick = 'Heading';
                         var $block = $this;
                         var $exampleContent = $(this);
-                        ipContent.createWidget($block.data('ipBlock').name, 'Heading', 0);
+                        if (typeof ipDefaultWidget !== "undefined") {
+                            widgetOnClick = ipDefaultWidget;
+                        }
+                        ipContent.createWidget($block.data('ipBlock').name, widgetOnClick, 0);
                         $exampleContent.remove();
                     });
 
