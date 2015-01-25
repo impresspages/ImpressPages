@@ -36,8 +36,8 @@ abstract class Validator
      * Return false on success or string on error
      *
      * Add extra params at the end if you need.
-     * @param array $values
-     * @param string $valueKey
+     * @param array $values all submitted data
+     * @param string $valueKey key of value to be validated
      * @param string $environment \Ip\Form::ENVIRONMENT_ADMIN or \Ip\Fomr::ENVIRONEMNT_PUBLIC
      */
     public abstract function getError($values, $valueKey, $environment);
