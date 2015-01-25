@@ -12,8 +12,8 @@
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
         <div class="_error ipsUploadError"></div>
         <div class="ipsFileName"></div>
-        <div class="progress progress-striped active ipsFileProgress">
-            <div class="progress-bar ipsFileProgressValue"></div>
+        <div class="progress ipsFileProgress">
+            <div class="progress-bar progress-bar-striped active ipsFileProgressValue"></div>
         </div>
     </div>
 </div>
