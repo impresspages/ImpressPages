@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "The characters you entered didn't match",
     "Upload": "Upload",
     "Integer required": "Integer required",
-    "Confirm": "Confirm",
-    "Cancel": "Cancel",
     "Incorrect color code": "Incorrect color code",
     "Session has ended. Please remove and re-upload files.": "Session has ended. Please remove and re-upload files.",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Please enter a valid email address.",
     "Session has expired. Please refresh the page.": "Session has expired. Please refresh the page.",
     "Must be a number.": "Must be a number.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "The value should be unique",
     "Please correct this value": "Please correct this value",
+    "Max %d characters": "Max %d characters",
     "Required field": "Required field",
     "The value can't be one of:": "The value can't be one of:",
     "The value has to be one of:": "The value has to be one of:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Please enter a value of at least $1",
     "Please complete this mandatory field": "Please complete this mandatory field",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Home"
+    "Home": "Home",
+    "Confirm": "Confirm",
+    "Cancel": "Cancel"
 }

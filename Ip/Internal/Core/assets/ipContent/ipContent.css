@@ -290,6 +290,7 @@ Move to separate stylesheet if invalid CSS is a problem.
 }
 .ipModuleForm label {
   display: inline-block;
+  max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -302,7 +303,6 @@ Move to separate stylesheet if invalid CSS is a problem.
 .ipModuleForm input[type="checkbox"] {
   margin: 4px 0 0;
   margin-top: 1px \9;
-  /* IE8-9 */
   line-height: normal;
 }
 .ipModuleForm input[type="file"] {
@@ -376,23 +376,49 @@ textarea.ipModuleForm .form-control {
 .ipModuleForm input[type="search"] {
   -webkit-appearance: none;
 }
-.ipModuleForm input[type="date"] {
-  line-height: 35px;
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .ipModuleForm input[type="date"],
+  .ipModuleForm input[type="time"],
+  .ipModuleForm input[type="datetime-local"],
+  .ipModuleForm input[type="month"] {
+    line-height: 35px;
+  }
+  .ipModuleForm input[type="date"].input-sm,
+  .ipModuleForm input[type="time"].input-sm,
+  .ipModuleForm input[type="datetime-local"].input-sm,
+  .ipModuleForm input[type="month"].input-sm,
+  .input-group-sm .ipModuleForm input[type="date"],
+  .input-group-sm .ipModuleForm input[type="time"],
+  .input-group-sm .ipModuleForm input[type="datetime-local"],
+  .input-group-sm .ipModuleForm input[type="month"] {
+    line-height: 30px;
+  }
+  .ipModuleForm input[type="date"].input-lg,
+  .ipModuleForm input[type="time"].input-lg,
+  .ipModuleForm input[type="datetime-local"].input-lg,
+  .ipModuleForm input[type="month"].input-lg,
+  .input-group-lg .ipModuleForm input[type="date"],
+  .input-group-lg .ipModuleForm input[type="time"],
+  .input-group-lg .ipModuleForm input[type="datetime-local"],
+  .input-group-lg .ipModuleForm input[type="month"] {
+    line-height: 46px;
+  }
 }
 .ipModuleForm .form-group {
   margin-bottom: 15px;
 }
 .ipModuleForm .radio,
 .ipModuleForm .checkbox {
+  position: relative;
   display: block;
-  min-height: 21px;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding-left: 20px;
 }
 .ipModuleForm .radio label,
 .ipModuleForm .checkbox label {
-  display: inline;
+  min-height: 21px;
+  padding-left: 20px;
+  margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
 }
@@ -400,8 +426,9 @@ textarea.ipModuleForm .form-control {
 .ipModuleForm .radio-inline input[type="radio"],
 .ipModuleForm .checkbox input[type="checkbox"],
 .ipModuleForm .checkbox-inline input[type="checkbox"] {
-  float: left;
+  position: absolute;
   margin-left: -20px;
+  margin-top: 4px \9;
 }
 .ipModuleForm .radio + .radio,
 .ipModuleForm .checkbox + .checkbox {
@@ -423,17 +450,105 @@ textarea.ipModuleForm .form-control {
 }
 .ipModuleForm input[type="radio"][disabled],
 .ipModuleForm input[type="checkbox"][disabled],
-.ipModuleForm .radio[disabled],
-.ipModuleForm .radio-inline[disabled],
-.ipModuleForm .checkbox[disabled],
-.ipModuleForm .checkbox-inline[disabled],
+.ipModuleForm input[type="radio"].disabled,
+.ipModuleForm input[type="checkbox"].disabled,
 fieldset[disabled] .ipModuleForm input[type="radio"],
-fieldset[disabled] .ipModuleForm input[type="checkbox"],
-fieldset[disabled] .ipModuleForm .radio,
+fieldset[disabled] .ipModuleForm input[type="checkbox"] {
+  cursor: not-allowed;
+}
+.ipModuleForm .radio-inline.disabled,
+.ipModuleForm .checkbox-inline.disabled,
 fieldset[disabled] .ipModuleForm .radio-inline,
-fieldset[disabled] .ipModuleForm .checkbox,
 fieldset[disabled] .ipModuleForm .checkbox-inline {
   cursor: not-allowed;
+}
+.ipModuleForm .radio.disabled label,
+.ipModuleForm .checkbox.disabled label,
+fieldset[disabled] .ipModuleForm .radio label,
+fieldset[disabled] .ipModuleForm .checkbox label {
+  cursor: not-allowed;
+}
+.ipModuleForm .form-control-static {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
+}
+.ipModuleForm .form-control-static.input-lg,
+.ipModuleForm .form-control-static.input-sm {
+  padding-left: 0;
+  padding-right: 0;
+}
+.ipModuleForm .input-sm {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+select.ipModuleForm .input-sm {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.ipModuleForm .input-sm,
+select[multiple].ipModuleForm .input-sm {
+  height: auto;
+}
+.ipModuleForm .form-group-sm .form-control {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+select.ipModuleForm .form-group-sm .form-control {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.ipModuleForm .form-group-sm .form-control,
+select[multiple].ipModuleForm .form-group-sm .form-control {
+  height: auto;
+}
+.ipModuleForm .form-group-sm .form-control-static {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ipModuleForm .input-lg {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 3px;
+}
+select.ipModuleForm .input-lg {
+  height: 46px;
+  line-height: 46px;
+}
+textarea.ipModuleForm .input-lg,
+select[multiple].ipModuleForm .input-lg {
+  height: auto;
+}
+.ipModuleForm .form-group-lg .form-control {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 3px;
+}
+select.ipModuleForm .form-group-lg .form-control {
+  height: 46px;
+  line-height: 46px;
+}
+textarea.ipModuleForm .form-group-lg .form-control,
+select[multiple].ipModuleForm .form-group-lg .form-control {
+  height: auto;
+}
+.ipModuleForm .form-group-lg .form-control-static {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
 }
 .ipModuleForm .has-feedback {
   position: relative;
@@ -441,15 +556,27 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 .ipModuleForm .has-feedback .form-control {
   padding-right: 43.75px;
 }
-.ipModuleForm .has-feedback .form-control-feedback {
+.ipModuleForm .form-control-feedback {
   position: absolute;
-  top: 26px;
+  top: 0;
   right: 0;
+  z-index: 2;
   display: block;
   width: 35px;
   height: 35px;
   line-height: 35px;
   text-align: center;
+  pointer-events: none;
+}
+.ipModuleForm .input-lg + .form-control-feedback {
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+}
+.ipModuleForm .input-sm + .form-control-feedback {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
 }
 .ipModuleForm .has-success .help-block,
 .ipModuleForm .has-success .control-label,
@@ -529,8 +656,11 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 .ipModuleForm .has-error .form-control-feedback {
   color: #b80000;
 }
-.ipModuleForm .form-control-static {
-  margin-bottom: 0;
+.ipModuleForm .has-feedback label ~ .form-control-feedback {
+  top: 26px;
+}
+.ipModuleForm .has-feedback label.sr-only ~ .form-control-feedback {
+  top: 0;
 }
 .ipModuleForm .help-block {
   display: block;
@@ -549,6 +679,18 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
     width: auto;
     vertical-align: middle;
   }
+  .ipModuleForm .form-inline .form-control-static {
+    display: inline-block;
+  }
+  .ipModuleForm .form-inline .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .ipModuleForm .form-inline .input-group .input-group-addon,
+  .ipModuleForm .form-inline .input-group .input-group-btn,
+  .ipModuleForm .form-inline .input-group .form-control {
+    width: auto;
+  }
   .ipModuleForm .form-inline .input-group > .form-control {
     width: 100%;
   }
@@ -561,19 +703,21 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 0;
     vertical-align: middle;
+  }
+  .ipModuleForm .form-inline .radio label,
+  .ipModuleForm .form-inline .checkbox label {
+    padding-left: 0;
   }
   .ipModuleForm .form-inline .radio input[type="radio"],
   .ipModuleForm .form-inline .checkbox input[type="checkbox"] {
-    float: none;
+    position: relative;
     margin-left: 0;
   }
   .ipModuleForm .form-inline .has-feedback .form-control-feedback {
     top: 0;
   }
 }
-.ipModuleForm .form-horizontal .control-label,
 .ipModuleForm .form-horizontal .radio,
 .ipModuleForm .form-horizontal .checkbox,
 .ipModuleForm .form-horizontal .radio-inline,
@@ -590,17 +734,179 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   margin-left: -20px;
   margin-right: -20px;
 }
-.ipModuleForm .form-horizontal .form-control-static {
-  padding-top: 7px;
-}
 @media (min-width: 768px) {
   .ipModuleForm .form-horizontal .control-label {
     text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px;
   }
 }
 .ipModuleForm .form-horizontal .has-feedback .form-control-feedback {
-  top: 0;
   right: 20px;
+}
+@media (min-width: 768px) {
+  .ipModuleForm .form-horizontal .form-group-lg .control-label {
+    padding-top: 14.333333px;
+  }
+}
+@media (min-width: 768px) {
+  .ipModuleForm .form-horizontal .form-group-sm .control-label {
+    padding-top: 6px;
+  }
+}
+.ipModuleForm .input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+.ipModuleForm .input-group[class*="col-"] {
+  float: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.ipModuleForm .input-group .form-control {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+}
+.ipModuleForm .input-group-lg > .form-control,
+.ipModuleForm .input-group-lg > .input-group-addon,
+.ipModuleForm .input-group-lg > .input-group-btn > .btn {
+  height: 46px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 3px;
+}
+select.ipModuleForm .input-group-lg > .form-control,
+select.ipModuleForm .input-group-lg > .input-group-addon,
+select.ipModuleForm .input-group-lg > .input-group-btn > .btn {
+  height: 46px;
+  line-height: 46px;
+}
+textarea.ipModuleForm .input-group-lg > .form-control,
+textarea.ipModuleForm .input-group-lg > .input-group-addon,
+textarea.ipModuleForm .input-group-lg > .input-group-btn > .btn,
+select[multiple].ipModuleForm .input-group-lg > .form-control,
+select[multiple].ipModuleForm .input-group-lg > .input-group-addon,
+select[multiple].ipModuleForm .input-group-lg > .input-group-btn > .btn {
+  height: auto;
+}
+.ipModuleForm .input-group-sm > .form-control,
+.ipModuleForm .input-group-sm > .input-group-addon,
+.ipModuleForm .input-group-sm > .input-group-btn > .btn {
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}
+select.ipModuleForm .input-group-sm > .form-control,
+select.ipModuleForm .input-group-sm > .input-group-addon,
+select.ipModuleForm .input-group-sm > .input-group-btn > .btn {
+  height: 30px;
+  line-height: 30px;
+}
+textarea.ipModuleForm .input-group-sm > .form-control,
+textarea.ipModuleForm .input-group-sm > .input-group-addon,
+textarea.ipModuleForm .input-group-sm > .input-group-btn > .btn,
+select[multiple].ipModuleForm .input-group-sm > .form-control,
+select[multiple].ipModuleForm .input-group-sm > .input-group-addon,
+select[multiple].ipModuleForm .input-group-sm > .input-group-btn > .btn {
+  height: auto;
+}
+.ipModuleForm .input-group-addon,
+.ipModuleForm .input-group-btn,
+.ipModuleForm .input-group .form-control {
+  display: table-cell;
+}
+.ipModuleForm .input-group-addon:not(:first-child):not(:last-child),
+.ipModuleForm .input-group-btn:not(:first-child):not(:last-child),
+.ipModuleForm .input-group .form-control:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.ipModuleForm .input-group-addon,
+.ipModuleForm .input-group-btn {
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.ipModuleForm .input-group-addon {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  color: #000000;
+  text-align: center;
+  background-color: #dadada;
+  border: 1px solid #747474;
+  border-radius: 3px;
+}
+.ipModuleForm .input-group-addon.input-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 3px;
+}
+.ipModuleForm .input-group-addon.input-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  border-radius: 3px;
+}
+.ipModuleForm .input-group-addon input[type="radio"],
+.ipModuleForm .input-group-addon input[type="checkbox"] {
+  margin-top: 0;
+}
+.ipModuleForm .input-group .form-control:first-child,
+.ipModuleForm .input-group-addon:first-child,
+.ipModuleForm .input-group-btn:first-child > .btn,
+.ipModuleForm .input-group-btn:first-child > .btn-group > .btn,
+.ipModuleForm .input-group-btn:first-child > .dropdown-toggle,
+.ipModuleForm .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.ipModuleForm .input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.ipModuleForm .input-group-addon:first-child {
+  border-right: 0;
+}
+.ipModuleForm .input-group .form-control:last-child,
+.ipModuleForm .input-group-addon:last-child,
+.ipModuleForm .input-group-btn:last-child > .btn,
+.ipModuleForm .input-group-btn:last-child > .btn-group > .btn,
+.ipModuleForm .input-group-btn:last-child > .dropdown-toggle,
+.ipModuleForm .input-group-btn:first-child > .btn:not(:first-child),
+.ipModuleForm .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.ipModuleForm .input-group-addon:last-child {
+  border-left: 0;
+}
+.ipModuleForm .input-group-btn {
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
+}
+.ipModuleForm .input-group-btn > .btn {
+  position: relative;
+}
+.ipModuleForm .input-group-btn > .btn + .btn {
+  margin-left: -1px;
+}
+.ipModuleForm .input-group-btn > .btn:hover,
+.ipModuleForm .input-group-btn > .btn:focus,
+.ipModuleForm .input-group-btn > .btn:active {
+  z-index: 2;
+}
+.ipModuleForm .input-group-btn:first-child > .btn,
+.ipModuleForm .input-group-btn:first-child > .btn-group {
+  margin-right: -1px;
+}
+.ipModuleForm .input-group-btn:last-child > .btn,
+.ipModuleForm .input-group-btn:last-child > .btn-group {
+  margin-left: -1px;
 }
 @-webkit-keyframes progress-bar-stripes {
   from {
@@ -641,12 +947,14 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
-.ipModuleForm .progress-striped .progress-bar {
+.ipModuleForm .progress-striped .progress-bar,
+.ipModuleForm .progress-bar-striped {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
-.ipModuleForm .progress.active .progress-bar {
+.ipModuleForm .progress.active .progress-bar,
+.ipModuleForm .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
@@ -658,7 +966,8 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
 .ipModuleForm .form-group {
   margin-bottom: 20px;
 }
-.ipModuleForm .form-control {
+.ipModuleForm .form-control,
+.ipModuleForm .input-group {
   max-width: 380px;
 }
 .ipModuleForm textarea.form-control {
@@ -712,16 +1021,17 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   display: none;
 }
 .ipModuleForm ._file {
-  min-height: 20px;
-  padding: 0.5em;
-  margin-top: 5px;
-  background-color: #a7a7a7;
+  background-color: #dadada;
   border: 1px solid #747474;
   border-radius: 3px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-top: 5px;
   max-width: 380px;
+  min-height: 20px;
+  padding: 0.5em;
   position: relative;
+  word-wrap: break-word;
 }
 .ipModuleForm ._file .close {
   float: right;
@@ -797,6 +1107,18 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
     width: auto;
     vertical-align: middle;
   }
+  .ipModuleForm.form-inline .form-control-static {
+    display: inline-block;
+  }
+  .ipModuleForm.form-inline .input-group {
+    display: inline-table;
+    vertical-align: middle;
+  }
+  .ipModuleForm.form-inline .input-group .input-group-addon,
+  .ipModuleForm.form-inline .input-group .input-group-btn,
+  .ipModuleForm.form-inline .input-group .form-control {
+    width: auto;
+  }
   .ipModuleForm.form-inline .input-group > .form-control {
     width: 100%;
   }
@@ -809,19 +1131,21 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 0;
     vertical-align: middle;
+  }
+  .ipModuleForm.form-inline .radio label,
+  .ipModuleForm.form-inline .checkbox label {
+    padding-left: 0;
   }
   .ipModuleForm.form-inline .radio input[type="radio"],
   .ipModuleForm.form-inline .checkbox input[type="checkbox"] {
-    float: none;
+    position: relative;
     margin-left: 0;
   }
   .ipModuleForm.form-inline .has-feedback .form-control-feedback {
     top: 0;
   }
 }
-.ipModuleForm.form-horizontal .control-label,
 .ipModuleForm.form-horizontal .radio,
 .ipModuleForm.form-horizontal .checkbox,
 .ipModuleForm.form-horizontal .radio-inline,
@@ -838,17 +1162,25 @@ fieldset[disabled] .ipModuleForm .checkbox-inline {
   margin-left: -20px;
   margin-right: -20px;
 }
-.ipModuleForm.form-horizontal .form-control-static {
-  padding-top: 7px;
-}
 @media (min-width: 768px) {
   .ipModuleForm.form-horizontal .control-label {
     text-align: right;
+    margin-bottom: 0;
+    padding-top: 7px;
   }
 }
 .ipModuleForm.form-horizontal .has-feedback .form-control-feedback {
-  top: 0;
   right: 20px;
+}
+@media (min-width: 768px) {
+  .ipModuleForm.form-horizontal .form-group-lg .control-label {
+    padding-top: 14.333333px;
+  }
+}
+@media (min-width: 768px) {
+  .ipModuleForm.form-horizontal .form-group-sm .control-label {
+    padding-top: 6px;
+  }
 }
 .ipBlock {
   min-height: 10px;

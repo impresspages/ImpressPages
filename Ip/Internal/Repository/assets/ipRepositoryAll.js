@@ -143,16 +143,76 @@
                 case 'jpeg':
                 case 'jpg':
                 case 'png':
-                    iconClass = 'fa fa-picture-o';
+                case 'svg':
+                    iconClass = 'fa fa-file-image-o';
                     break;
                 case 'pdf':
-                    iconClass = 'fa fa-print';
+                    iconClass = 'fa fa-file-pdf-o';
                     break;
                 case 'txt':
                     iconClass = 'fa fa-file-text-o';
                     break;
+                case 'doc':
+                case 'docb':
+                case 'docm':
+                case 'docx':
+                case 'dot':
+                case 'dotm':
+                case 'dotx':
+                case 'odt':
+                case 'rtf':
+                    iconClass = 'fa fa-file-word-o';
+                    break;
+                case 'csv':
+                case 'ods':
+                case 'xla':
+                case 'xlam':
+                case 'xll':
+                case 'xlm':
+                case 'xls':
+                case 'xlsb':
+                case 'xlsm':
+                case 'xlsx':
+                case 'xlt':
+                case 'xltm':
+                case 'xltx':
+                case 'xlw':
+                    iconClass = 'fa fa-file-excel-o';
+                    break;
+                case 'odp':
+                case 'pot':
+                case 'potm':
+                case 'ppam':
+                case 'pps':
+                case 'ppsm':
+                case 'ppsx':
+                case 'ppt':
+                case 'pptm':
+                case 'pptx':
+                case 'sldm':
+                case 'sldx':
+                    iconClass = 'fa fa-file-powerpoint-o';
+                    break;
+                case 'asp':
+                case 'aspx':
+                case 'cgi':
+                case 'css':
+                case 'dll':
                 case 'exe':
-                    iconClass = 'fa fa-windows';
+                case 'htm':
+                case 'html':
+                case 'jsp':
+                case 'js':
+                case 'less':
+                case 'php':
+                case 'pl':
+                case 'py':
+                case 'rb':
+                case 'rss':
+                case 'sass':
+                case 'scss':
+                case 'xml':
+                    iconClass = 'fa fa-file-code-o';
                     break;
                 case '7z':
                 case 'apk':
@@ -166,7 +226,7 @@
                 case 'tar.gz':
                 case 'tgz':
                 case 'zip':
-                    iconClass = 'fa fa-archive';
+                    iconClass = 'fa fa-file-archive-o';
                     break;
                 case 'aac':
                 case 'cda':
@@ -176,7 +236,7 @@
                 case 'ogg':
                 case 'wav':
                 case 'wma':
-                    iconClass = 'fa fa-music';
+                    iconClass = 'fa fa-file-audio-o';
                     break;
                 case 'aaf':
                 case 'avi':
@@ -187,7 +247,7 @@
                 case 'mpg':
                 case 'mov':
                 case 'wmv':
-                    iconClass = 'fa fa-film';
+                    iconClass = 'fa fa-file-video-o';
                     break;
             }
             $file.find('i').addClass(iconClass);
