@@ -30,9 +30,9 @@ var ipModuleFormPublic;
             }
 
 
-            if (($('.ipsModuleFormPublic .type-color').length || $('.ipsModuleFormAdmin .type-color').length) && !$.spectrum) {
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
-                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
+            if (($('.ipsModuleFormPublic .type-color').length || $('.ipsModuleFormAdmin .type-color').length) && !$.fn.colorpicker) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') + '"></script>');
+                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/js/bootstrap-colorpicker/css/bootstrap-colorpicker.css') + '" type="text/css" />');
             }
 
             if ($('.ipsModuleFormPublic .type-richText').length && (typeof(ipTinyMceConfigPublic) === "undefined")) {
@@ -76,6 +76,7 @@ var ipModuleFormPublic;
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
+                    $form.trigger('ipSubmit');
                     $.ajax({
                         url: $form.attr('action') ? $form.attr('action') : ip.baseUrl,
                         dataType: 'json',

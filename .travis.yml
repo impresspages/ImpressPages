@@ -19,7 +19,8 @@ env:
 before_script:
   - cd phpunit
   - ./travis-db-create.sh
-  - composer --prefer-source install # prefer-source is used to avoid github api limit
+#  - composer --prefer-source install # prefer-source is used to avoid github api limit
+  - composer install # prefer-source is used to avoid github api limit
 #  - ./travis-nginx-install.sh
   - ./travis-apache-install.sh
   - sh -c "if [ $TEST_GROUP = "Sauce" ] && [ $TRAVIS_SECURE_ENV_VARS = "true" ]; then curl https://gist.githubusercontent.com/santiycr/5139565/raw/sauce_connect_setup.sh | bash; fi"

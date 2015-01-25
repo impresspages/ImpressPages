@@ -35,7 +35,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.4.2'; //CHANGE_ON_VERSION_UPDATE
+        return '4.5.0'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -183,6 +183,7 @@ class Application
         } else {
             setLocale(LC_ALL, $locale);
         }
+        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
 
         ipContent()->_setCurrentLanguage($requestLanguage);
 
