@@ -9173,7 +9173,8 @@ th {
   margin: 0 -20px;
   padding: 10px 20px;
 }
-.ipModuleAdministrators ._menu ul a:hover {
+.ipModuleAdministrators ._menu ul a:hover,
+.ipModuleAdministrators ._menu ul a:focus {
   color: #019bd4;
   text-decoration: none;
 }
@@ -10775,7 +10776,8 @@ fieldset[disabled] .ipAdminPages ._menus .btn-new.active {
   display: block;
   padding: 20px;
 }
-.ipModulePlugins ._plugin:hover {
+.ipModulePlugins ._plugin:hover,
+.ipModulePlugins ._plugin:focus {
   background-color: #d4d4d4;
   color: #2f313f;
   text-decoration: none;
