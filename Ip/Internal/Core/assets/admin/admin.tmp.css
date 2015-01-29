@@ -8581,6 +8581,7 @@ button.close {
 }
 .colorpicker {
   left: 0;
+  z-index: 1060;
   min-width: 130px;
   padding: 4px;
   margin-top: 1px;
