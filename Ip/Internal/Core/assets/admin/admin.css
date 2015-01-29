@@ -9278,6 +9278,9 @@
 .ip .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+.ip .ipAdminNavbar ._right {
+  margin-right: 0;
+}
 @media (max-width: 767px) {
   .ip .ipAdminNavbar .nav._active,
   .ip .ipAdminNavbar .nav._right li:not(:last-child) {
