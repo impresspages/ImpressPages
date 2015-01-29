@@ -9103,6 +9103,9 @@ th {
 .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+.ipAdminNavbar ._right {
+  margin-right: 0;
+}
 @media (max-width: 767px) {
   .ipAdminNavbar .nav._active,
   .ipAdminNavbar .nav._right li:not(:last-child) {
