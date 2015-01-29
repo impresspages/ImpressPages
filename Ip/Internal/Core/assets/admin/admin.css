@@ -5844,7 +5844,8 @@
   border: 0;
   -webkit-appearance: none;
 }
-.ip .modal-open {
+.ip .modal-open,
+.modal-open {
   overflow: hidden;
 }
 .ip .modal {
@@ -5875,7 +5876,9 @@
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-.ip .modal-open .modal {
+.ip .modal-open .modal,
+.modal-open .modal,
+.modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -5895,18 +5898,21 @@
   background-clip: padding-box;
   outline: 0;
 }
-.ip .modal-backdrop {
+.ip .modal-backdrop,
+.modal-backdrop {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   background-color: #000000;
 }
-.ip .modal-backdrop.fade {
+.ip .modal-backdrop.fade,
+.modal-backdrop.fade {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.ip .modal-backdrop.in {
+.ip .modal-backdrop.in,
+.modal-backdrop.in {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
@@ -6491,7 +6497,8 @@
   background-color: transparent;
   border: 0;
 }
-.ip .hidden {
+.ip .hidden,
+.hidden {
   display: none !important;
   visibility: hidden !important;
 }
@@ -11262,28 +11269,6 @@
 }
 .ip .ipModuleGrid ._clickable {
   cursor: pointer;
-}
-.hidden {
-  display: none !important;
-  visibility: hidden !important;
-}
-.modal-open {
-  overflow: hidden;
-}
-.modal-backdrop {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #000000;
-}
-.modal-backdrop.fade {
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-.modal-backdrop.in {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
 }
 .ipAdminBody {
   background-color: #eaeaea;
