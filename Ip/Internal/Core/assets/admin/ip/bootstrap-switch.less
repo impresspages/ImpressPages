@@ -4,6 +4,7 @@
     .@{bootstrap-switch-base}-container {
         border-radius: @bootstrap-switch-border-radius;
         line-height: inherit;
+        width: (@grid-gutter-width / 2 * 3); // width for 3 elements
     }
     .@{bootstrap-switch-base}-handle-on {
         .border-left-radius(@bootstrap-switch-border-radius);
@@ -22,6 +23,9 @@
     }
 
     &.@{bootstrap-switch-base}-off {
+        .@{bootstrap-switch-base}-container {
+            margin-left: -(@grid-gutter-width / 2); // pushing back to hide "on" handle
+        }
         .@{bootstrap-switch-base}-label {
             background-color: @btn-default-bg;
             color: #000;
@@ -40,16 +44,18 @@
     }
 
     &.@{bootstrap-switch-base}-mini {
-        min-width: @grid-gutter-width;
+        width: @grid-gutter-width;
 
         .@{bootstrap-switch-base}-handle-on,
         .@{bootstrap-switch-base}-handle-off,
         .@{bootstrap-switch-base}-label {
             float: left; // removing whitespace
+            font-size: 10px; // label/handle icon should be small, too
             line-height: 10px; // to keep empty label same height
             margin-top: 0;
-            padding-bottom: 3px; // to keep circle visually centered
-            padding-top: 4px; // to keep circle visually centered
+            padding-bottom: 4px; // to keep circle visually centered
+            padding-top: 3px; // to keep circle visually centered
+            width: (@grid-gutter-width / 2);
         }
     }
 }

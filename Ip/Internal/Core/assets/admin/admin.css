@@ -6717,6 +6717,7 @@
 }
 .ip .bootstrap-switch {
   display: inline-block;
+  direction: ltr;
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid;
@@ -6725,91 +6726,18 @@
   text-align: left;
   overflow: hidden;
   line-height: 8px;
+  z-index: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   vertical-align: middle;
-  min-width: 100px;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-.ip .bootstrap-switch.bootstrap-switch-mini {
-  min-width: 71px;
-}
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
-  padding-bottom: 4px;
-  padding-top: 4px;
-  font-size: 10px;
-  line-height: 9px;
-}
-.ip .bootstrap-switch.bootstrap-switch-small {
-  min-width: 79px;
-}
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
-  padding-bottom: 3px;
-  padding-top: 3px;
-  font-size: 12px;
-  line-height: 18px;
-}
-.ip .bootstrap-switch.bootstrap-switch-large {
-  min-width: 120px;
-}
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
-  padding-bottom: 9px;
-  padding-top: 9px;
-  font-size: 16px;
-  line-height: normal;
-}
-.ip .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
-  -webkit-transition: margin-left 0.5s;
-  -o-transition: margin-left 0.5s;
-  transition: margin-left 0.5s;
-}
-.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
-  margin-left: 0%;
-}
-.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
-  margin-left: -50%;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.ip .bootstrap-switch.bootstrap-switch-disabled,
-.ip .bootstrap-switch.bootstrap-switch-readonly {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  cursor: default !important;
-}
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label {
-  cursor: default !important;
-}
-.ip .bootstrap-switch.bootstrap-switch-focused {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
 .ip .bootstrap-switch .bootstrap-switch-container {
   display: inline-block;
-  width: 150%;
   top: 0;
   border-radius: 4px;
   -webkit-transform: translate3d(0, 0, 0);
@@ -6824,8 +6752,7 @@
   cursor: pointer;
   display: inline-block !important;
   height: 100%;
-  padding-bottom: 4px;
-  padding-top: 4px;
+  padding: 6px 12px;
   font-size: 14px;
   line-height: 20px;
 }
@@ -6833,7 +6760,6 @@
 .ip .bootstrap-switch .bootstrap-switch-handle-off {
   text-align: center;
   z-index: 1;
-  width: 33.333333333%;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
 .ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
@@ -6865,6 +6791,14 @@
   color: #000;
   background: #eeeeee;
 }
+.ip .bootstrap-switch .bootstrap-switch-label {
+  text-align: center;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  z-index: 100;
+  color: #000000;
+  background: #e7e7e7;
+}
 .ip .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
@@ -6872,15 +6806,6 @@
 .ip .bootstrap-switch .bootstrap-switch-handle-off {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
-}
-.ip .bootstrap-switch .bootstrap-switch-label {
-  text-align: center;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  z-index: 100;
-  width: 33.333333333%;
-  color: #000000;
-  background: #e7e7e7;
 }
 .ip .bootstrap-switch input[type='radio'],
 .ip .bootstrap-switch input[type='checkbox'] {
@@ -6890,6 +6815,82 @@
   opacity: 0;
   filter: alpha(opacity=0);
   z-index: -1;
+}
+.ip .bootstrap-switch input[type='radio'].form-control,
+.ip .bootstrap-switch input[type='checkbox'].form-control {
+  height: auto;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
+  padding: 6px 16px;
+  font-size: 16px;
+  line-height: 1.3333333;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled,
+.ip .bootstrap-switch.bootstrap-switch-readonly,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate {
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-label {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+  -webkit-transition: margin-left 0.5s;
+  -o-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
+}
+.ip .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-focused {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-off .bootstrap-switch-label {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-on .bootstrap-switch-label {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
 }
 @font-face {
   font-family: 'FontAwesome';
@@ -8766,6 +8767,7 @@
 .ip .bootstrap-switch .bootstrap-switch-container {
   border-radius: 40px;
   line-height: inherit;
+  width: 60px;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 40px;
@@ -8780,6 +8782,9 @@
   color: #fff;
   border-bottom-right-radius: 40px;
   border-top-right-radius: 40px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -20px;
 }
 .ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
   background-color: #e7e7e7;
@@ -8796,16 +8801,18 @@
   background: #019bd4;
 }
 .ip .bootstrap-switch.bootstrap-switch-mini {
-  min-width: 40px;
+  width: 40px;
 }
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
   float: left;
+  font-size: 10px;
   line-height: 10px;
   margin-top: 0;
-  padding-bottom: 3px;
-  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-top: 3px;
+  width: 20px;
 }
 .ip .btn {
   font-weight: bold;
