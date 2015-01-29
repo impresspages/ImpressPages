@@ -9348,7 +9348,8 @@
   margin: 0 -20px;
   padding: 10px 20px;
 }
-.ip .ipModuleAdministrators ._menu ul a:hover {
+.ip .ipModuleAdministrators ._menu ul a:hover,
+.ip .ipModuleAdministrators ._menu ul a:focus {
   color: #019bd4;
   text-decoration: none;
 }
@@ -10950,7 +10951,8 @@
   display: block;
   padding: 20px;
 }
-.ip .ipModulePlugins ._plugin:hover {
+.ip .ipModulePlugins ._plugin:hover,
+.ip .ipModulePlugins ._plugin:focus {
   background-color: #d4d4d4;
   color: #2f313f;
   text-decoration: none;
