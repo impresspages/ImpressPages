@@ -65,6 +65,16 @@ class WidgetController
     }
 
     /**
+     * Return a name of the plugin the widget belongs to.
+     *
+     * @return string Plugin name
+     */
+    public function getPluginName()
+    {
+        return $this->pluginName;
+    }
+
+    /**
      * Get widget's administration directory
      *
      * @return string Widget's directory path
