@@ -76,7 +76,9 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array($this->field => json_encode($postData[$this->field]));
+        if (isset($postData[$this->field])) {
+            return array($this->field => json_encode($postData[$this->field]));
+        }
     }
 
 
