@@ -106,7 +106,26 @@ class Config
      */
     public function get($name, $default = null)
     {
-        if (array_key_exists($name, $this->config)) {
+        //If there's a dot in the name split it, and try to find it
+        //You can pass myconfig.sub.value which gets the value in config['myconfig']['sub']['value'] if it exists.
+        if (strpos($name, '.')){
+            $keys = explode('.', $name);
+            $arr = $this->config;
+
+            while ($key = array_shift($keys)) {
+                if(array_key_exists($key, $arr)){
+                    $arr = $arr[$key];
+                }else{
+                    if ($default instanceof \Closure) {
+                        /** @var $default \Closure */
+                        return $default();
+                    } else {
+                        return $default;
+                    }
+                }             
+            }
+            return $arr;
+        } elseif (array_key_exists($name, $this->config)) {
             return $this->config[$name];
         } elseif ($default instanceof \Closure) {
             /** @var $default \Closure */
