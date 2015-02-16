@@ -278,18 +278,6 @@ class Model
 
         $optionsMenu = array();
 
-        if (count($widgetObject->getSkins()) > 1) {
-            $optionsMenu[] = array(
-                'title' => __('Skin', 'Ip-admin', false),
-                'attributes' => array(
-                    'class' => 'ipsSkin',
-                    'data-skins' => json_encode($widgetObject->getSkins()),
-                    'data-currentskin' => $widgetRecord['skin']
-                )
-            );
-        }
-
-        $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
 
         $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
 
@@ -300,9 +288,25 @@ class Model
             'widgetData' => $widgetRecord['data'],
             'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
-            'widgetSkin' => $widgetRecord['skin'],
-            'optionsMenu' => $optionsMenu
+            'widgetSkin' => $widgetRecord['skin']
         );
+
+        if ($managementState) {
+            $skins = $widgetObject->getSkins();
+            if (count($skins) > 1) {
+                $optionsMenu[] = array(
+                    'title' => __('Skin', 'Ip-admin', false),
+                    'attributes' => array(
+                        'class' => 'ipsSkin',
+                        'data-skins' => json_encode($skins),
+                        'data-currentskin' => $widgetRecord['skin']
+                    )
+                );
+            }
+            $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
+            $variables['optionsMenu'] = $optionsMenu;
+        }
+
 
         $answer = ipView('view/widget.php', $variables)->render();
 
