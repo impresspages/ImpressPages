@@ -9,13 +9,6 @@
             </div>
         </div>
     </div>
-    <div class="ipAdminWidgetToolbar hidden" id="ipWidgetGalleryControls">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group">
-                <button type="button" data-level="1" class="btn btn-controls ipsAdd"><?php _e('Add image', 'Ip-admin'); ?></button>
-            </div>
-        </div>
-    </div>
     <div id="ipWidgetGalleryEditPopup" class="modal"><?php /*Fade breaks image management*/?>
         <div class="modal-dialog">
             <div class="modal-content">
