@@ -303,6 +303,13 @@ class Model
                     )
                 );
             }
+            $widgetOptions =  $widgetObject->optionsMenu(
+                $widgetRecord['revisionId'],
+                $widgetRecord['id'],
+                $widgetData,
+                $widgetRecord['skin']
+            );
+            $optionsMenu = array_merge($optionsMenu, $widgetOptions);
             $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
             $variables['optionsMenu'] = $optionsMenu;
         }
