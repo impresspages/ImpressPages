@@ -372,4 +372,24 @@ class Controller extends \Ip\WidgetController
         return $form; // Output a string with generated HTML form
     }
 
+    /**
+     * Array 0f menu items to be added to the widget's options menu. (gear box on the left top corner of the widget)
+     * @param $revisionId
+     * @param $widgetId
+     * @param $data
+     * @param $skin
+     * @return array
+     */
+    public function optionsMenu($revisionId, $widgetId, $data, $skin)
+    {
+        $answer = array();
+        $answer[] = array(
+            'title' => __('Add image', 'Ip-admin', false),
+            'attributes' => array(
+                'class' => 'ipsAdd'
+            )
+        );
+        return $answer;
+    }
+
 }

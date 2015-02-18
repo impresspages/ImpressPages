@@ -8,13 +8,13 @@ var IpWidget_Gallery = function () {
     this.$widgetObject = null;
     this.data = null;
     this.$controls = null;
-    this.$widgetControls = null;
 
     this.init = function ($widgetObject, data) {
         var currentScope = this;
         this.$widgetObject = $widgetObject;
         this.data = data;
-        this.$widgetControls = $('#ipWidgetGalleryControls');
+
+        this.$widgetObject.find('.ipsMyMenu').on('click', function () {console.log('test');});
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
         $(document.body).on('click', $.proxy(function (e) { //detect mouse click outside of the widget
@@ -103,7 +103,7 @@ var IpWidget_Gallery = function () {
         $controls.removeClass('hidden');
         $controls.css('position', 'absolute');
         $controls.css('left', $img.offset().left + 5);
-        $controls.css('top', $img.offset().top + 5);
+        $controls.css('top', $img.offset().top + 10);
 
         this.imageIndex = $item.index();
 
@@ -127,15 +127,8 @@ var IpWidget_Gallery = function () {
 
     this.focus = function () {
         var thisContext = this;
-        var $widgetControls = this.$widgetControls;
         var $widgetObject = this.$widgetObject;
-        $widgetControls.removeClass('hidden');
-        $widgetControls.css('left', $widgetObject.offsetLeft);
-        $widgetControls.css('top', $widgetObject.offsetTop);
-        $widgetControls.css('position', 'absolute');
-        $widgetControls.css('left', $widgetObject.offset().left);
-        $widgetControls.css('top', $widgetObject.offset().top - $widgetControls.height());
-        $widgetControls.find('.ipsAdd').off().on('click', function (e) {
+        $widgetObject.find('.ipsAdd').off('click.galleryWidget').on('click.galleryWidget', function (e) {
             e.preventDefault();
             var repository = new ipRepository({preview: 'thumbnails', filter: 'image'});
             repository.on('ipRepository.filesSelected', $.proxy(thisContext.filesSelected, thisContext));
@@ -144,8 +137,6 @@ var IpWidget_Gallery = function () {
     };
 
     this.blur = function () {
-        var $widgetControls = this.$widgetControls;
-        $widgetControls.addClass('hidden');
         this.$controls.addClass('hidden');
     };
 
