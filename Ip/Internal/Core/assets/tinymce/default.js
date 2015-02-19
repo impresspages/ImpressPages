@@ -31,6 +31,20 @@ ipTinyMceConfig = function () {
 
         allow_script_urls: true,
 
+        init_instance_callback: function(inst) {
+            var $modal = $('.modal-backdrop');
+            if ($modal.length) {
+                $modal.each(function(index, mi) {
+                    var $mi = $(mi);
+                    var $dialog = $mi.siblings('.modal-dialog');
+                    if ($dialog.length) {
+                        $mi.css('height', 0)
+                            .css('height', $dialog.outerHeight(true));
+                    }
+                });
+            }
+        },
+
         file_browser_callback: function (field_name, url, type, win) {
             var $input = $('#' + field_name);
             var $dialog = $input.closest('.mce-window');
