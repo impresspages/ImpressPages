@@ -48,7 +48,9 @@ var ipRepositoryESC;
         $popup.bind('ipModuleRepository.close', function (e) {
             $(document).off('keyup', ipRepositoryESC);
             $('.ipsModuleRepositoryPopup').remove();
-            $('body').removeClass('modal-open');
+            if(!$('.modal[aria-hidden=false]').length) {
+                $('body').removeClass('modal-open');
+            }
         });
 
         $popup.find('.ipsClose').hover(function () {
