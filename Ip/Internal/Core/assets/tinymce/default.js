@@ -32,16 +32,15 @@ ipTinyMceConfig = function () {
         allow_script_urls: true,
 
         init_instance_callback: function(inst) {
-            var $modal = $('.modal-backdrop');
+            var $modal = $('.modal:visible');
+
             if ($modal.length) {
-                $modal.each(function(index, mi) {
-                    var $mi = $(mi);
-                    var $dialog = $mi.siblings('.modal-dialog');
-                    if ($dialog.length) {
-                        $mi.css('height', 0)
-                            .css('height', $dialog.outerHeight(true));
-                    }
-                });
+
+                var $backdrop = $modal.children('.modal-backdrop');
+                var $dialog = $modal.children('.modal-dialog');
+
+                $backdrop.css('height', 0)
+                    .css('height', $dialog.outerHeight(true));
             }
         },
 
