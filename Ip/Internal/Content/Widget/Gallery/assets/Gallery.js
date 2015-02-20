@@ -150,7 +150,6 @@ var IpWidget_Gallery = function () {
             $container.prepend($controls);
         }
 
-        console.log($container.offset().top - $item.offset().top);
         $controls.removeClass('hidden');
         $controls.css('position', 'absolute');
         $controls.css('left', ($item.offset().left - $container.offset().left) + 5 +'px');
@@ -368,6 +367,27 @@ var IpWidget_Gallery = function () {
             $container.append($item);
             $item.on('click', $.proxy(context.focusManagementPopupImage, context));
         });
+
+
+        $container.sortable();
+        $container.disableSelection();
+        $container.on("sortstart", function (event, ui) {
+            context.dragItemOriginalPosition = $(ui.item).index();
+            $popup.find('.ipsWidgetGalleryMenu').addClass('hidden');
+        });
+        $container.on("sortstop", function (event, ui) {
+            var data = {};
+            data.method = 'move';
+            data.originalPosition = context.dragItemOriginalPosition;
+            data.newPosition = $(ui.item).index();
+            if (data.newPosition != data.originalPosition) {
+                context.$widgetObject.save(data, true);
+            } else {
+                //display image controls
+                $(ui.item).click();
+            }
+        });
+
 
         $popup.modal();
 

@@ -9455,7 +9455,7 @@ th {
   z-index: 1030;
 }
 #ipWidgetGalleryManagePopup .modal-dialog {
-  width: 100%;
+  width: 90%;
 }
 #ipWidgetGalleryManagePopup ._container {
   position: relative;

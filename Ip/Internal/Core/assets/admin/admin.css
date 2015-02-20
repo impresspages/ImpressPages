@@ -9630,7 +9630,7 @@
   z-index: 1030;
 }
 .ip #ipWidgetGalleryManagePopup .modal-dialog {
-  width: 100%;
+  width: 90%;
 }
 .ip #ipWidgetGalleryManagePopup ._container {
   position: relative;
