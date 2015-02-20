@@ -44,6 +44,23 @@
 }
 
 
-#ipWidgetGalleryManagePopup .modal-dialog {
-    width: 90%;
+#ipWidgetGalleryManagePopup {
+    .modal-dialog {
+        width: 90%;
+    }
+
+    ._container {
+        position: relative; //to make toolbox over the image with absolute positioning work.
+    }
+
+    ._item {
+        float: left;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        max-width: 200px;
+
+        img {
+            max-width: 100%;
+        }
+    }
 }
