@@ -137,45 +137,6 @@ var IpWidget_Gallery = function () {
         });
     };
 
-    this.focusManagementPopupImage = function (e) {
-        var context = this;
-        var $popup = $('#ipWidgetGalleryManagePopup');
-        var $container = $popup.find('.ipsContainer');
-        e.preventDefault();
-
-        var $item = $(e.currentTarget);
-        var $img = $item.find('.ipsImage');
-
-        var $controls = $popup.find('.ipsWidgetGalleryMenu');
-        if (!$controls.length) {
-            $controls = this.$controls.clone().removeAttr('id').detach();
-            $container.prepend($controls);
-        }
-
-        $controls.removeClass('hidden');
-        $controls.css('position', 'absolute');
-        $controls.css('left', ($item.offset().left - $container.offset().left) + 5 +'px');
-        $controls.css('top', ($item.offset().top - $container.offset().top) + 5 +'px');
-
-        this.imageIndex = $item.index();
-
-        $controls.find('.ipsDelete').off('click.galleryWidget').on('click.galleryWidget', function (e) {
-            $popup.modal('hide');
-            $.proxy(context.deleteImage, context)($item.index());
-        });
-        $controls.find('.ipsEdit').off('click.galleryWidget').on('click.galleryWidget', function (e) {
-            $popup.modal('hide');
-            $.proxy(context.editImage, context)($item.index());
-        });
-        $controls.find('.ipsLink').off('click.galleryWidget').on('click.galleryWidget', function (e) {
-            $popup.modal('hide');
-            $.proxy(linkPopup, context)($item.index(), context.reopenManagementPopup);
-        });
-        $controls.find('.ipsSettings').off('click.galleryWidget').on('click.galleryWidget', function (e) {
-            $popup.modal('hide');
-            $.proxy(settingsPopup, context)($item.index());
-        });
-    };
 
 
 
@@ -193,7 +154,7 @@ var IpWidget_Gallery = function () {
         this.$controls.addClass('hidden');
     };
 
-    this.deleteImage = function (position) {
+    this.deleteImage = function (position, callback) {
         if (!this.data.images[1]) { //if last image
             //remove the whole widget
             ipContent.deleteWidget(this.$widgetObject.data('widgetid'));
@@ -204,7 +165,7 @@ var IpWidget_Gallery = function () {
         var data = {};
         data.method = 'delete';
         data.position = position;
-        this.$widgetObject.save(data, true);
+        this.$widgetObject.save(data, true, callback);
     };
 
     this.editImage = function (position) {
@@ -342,7 +303,7 @@ var IpWidget_Gallery = function () {
         this.confirmButton.off().on('click', function() {$.proxy(saveLink, context)(callback)});
         this.popup.off('hidden.bs.modal.GalleryWidget').on('hidden.bs.modal.GalleryWidget', function () {
             if (callback) {
-                callback();
+                $.proxy(callback, context)();
             }
         })
     };
@@ -374,7 +335,7 @@ var IpWidget_Gallery = function () {
     };
 
 
-    var settingsPopup = function (index) {
+    var settingsPopup = function (index, callback) {
         var data = this.data.images[index];
         var context = this;
         this.settingsPopup = $('#ipWidgetGallerySettingsPopup');
@@ -387,10 +348,18 @@ var IpWidget_Gallery = function () {
 
         this.settingsPopup.modal(); // open modal popup
 
-        this.confirmButton.off().on('click', $.proxy(saveSettings, context));
+        this.confirmButton.off().on('click', function () {
+            $.proxy(saveSettings, context)(callback)
+        });
+
+        this.settingsPopup.off('hidden.bs.modal.GalleryWidget').on('hidden.bs.modal.GalleryWidget', function () {
+            if (callback) {
+                $.proxy(callback, context)();
+            }
+        })
     };
 
-    var saveSettings = function () {
+    var saveSettings = function (callback) {
         var data = {
             method: 'saveSettings',
             title: this.title.val(),
@@ -398,8 +367,8 @@ var IpWidget_Gallery = function () {
             index: this.imageIndex
         };
 
-        this.$widgetObject.save(data, 1); // save and reload widget
         this.settingsPopup.modal('hide');
+        this.$widgetObject.save(data, 1, callback); // save and reload widget
     };
 
 
@@ -410,6 +379,7 @@ var IpWidget_Gallery = function () {
      * This method reopens management popup. Used when previous operation reload the widget and this whole JS object becomes obsolete, we need to reload our data and reshow the popup.
      */
     this.reopenManagementPopup = function () {
+        this.data = $('#ipWidget-' + this.widgetId).data('widgetdata');
         $('#ipWidgetGalleryManagePopup').modal();
     };
 
@@ -449,7 +419,6 @@ var IpWidget_Gallery = function () {
             data.originalPosition = context.dragItemOriginalPosition;
             data.newPosition = $(ui.item).index();
             if (data.newPosition != data.originalPosition) {
-                console.log(context.$widgetObject);
                 context.$widgetObject.save(data, true, function () {
                     $.proxy(context.refreshManagementPopupData, context)();
                 });
@@ -464,6 +433,50 @@ var IpWidget_Gallery = function () {
         $popup.modal();
 
     };
+
+
+    this.focusManagementPopupImage = function (e) {
+        var context = this;
+        var $popup = $('#ipWidgetGalleryManagePopup');
+        var $body = $popup.find('.modal-body');
+        var $container = $popup.find('.ipsContainer');
+        e.preventDefault();
+
+        var $item = $(e.currentTarget);
+        var $img = $item.find('.ipsImage');
+
+        var $controls = $popup.find('.ipsWidgetGalleryMenu');
+        if (!$controls.length) {
+            $controls = this.$controls.clone().removeAttr('id').detach();
+            $body.prepend($controls);
+        }
+
+        $controls.removeClass('hidden');
+        $controls.css('position', 'absolute');
+        $controls.css('left', ($item.offset().left - $container.offset().left) + 20 +'px');
+        $controls.css('top', ($item.offset().top - $container.offset().top) + 20 +'px');
+
+        this.imageIndex = $item.index();
+
+        $controls.find('.ipsDelete').off('click.galleryWidget').on('click.galleryWidget', function (e) {
+            $popup.modal('hide');
+            $.proxy(context.deleteImage, context)($item.index(), context.reopenManagementPopup);
+            $item.remove();
+        });
+        $controls.find('.ipsEdit').off('click.galleryWidget').on('click.galleryWidget', function (e) {
+            $popup.modal('hide');
+            $.proxy(context.editImage, context)($item.index());
+        });
+        $controls.find('.ipsLink').off('click.galleryWidget').on('click.galleryWidget', function (e) {
+            $popup.modal('hide');
+            $.proxy(linkPopup, context)($item.index(), context.reopenManagementPopup);
+        });
+        $controls.find('.ipsSettings').off('click.galleryWidget').on('click.galleryWidget', function (e) {
+            $popup.modal('hide');
+            $.proxy(settingsPopup, context)($item.index(), context.reopenManagementPopup);
+        });
+    };
+
 
     /*** END MANAGEMENT POPUP FUNCTIONALITY ***/
 
