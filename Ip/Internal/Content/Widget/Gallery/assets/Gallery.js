@@ -8,11 +8,13 @@ var IpWidget_Gallery = function () {
     this.$widgetObject = null;
     this.data = null;
     this.$controls = null;
+    this.widgetId = null;
 
     this.init = function ($widgetObject, data) {
         var currentScope = this;
         this.$widgetObject = $widgetObject;
         this.data = data;
+        this.widgetId = this.$widgetObject.data('widgetid');
 
         this.$widgetObject.find('.ipsMyMenu').on('click', function () {console.log('test');});
 
@@ -175,12 +177,6 @@ var IpWidget_Gallery = function () {
         });
     };
 
-    /**
-     * This method reopens management popup. Used when previous operation reload the widget and this whole JS object becomes obsolete, we need to reload our data and reshow the popup.
-     */
-    this.reopenManagementPopup = function () {
-        $('#ipWidgetGalleryManagePopup').modal();
-    };
 
 
     this.blurImage = function () {
@@ -351,47 +347,6 @@ var IpWidget_Gallery = function () {
         })
     };
 
-    this.managementPopup = function () {
-        var context = this;
-        var $popup = $('#ipWidgetGalleryManagePopup');
-
-        var $container = $popup.find('.ipsContainer');
-        $container.html('');
-        var $template = $popup.find('.ipsItemTemplate').clone().detach().removeClass('ipsItemTemplate');
-
-
-
-        $.each(this.data.images, function (key, value) {
-            var $item = $template.clone();
-            $item.find('img').attr('src', value.imageSmall);
-            $container.append($item);
-            $item.on('click', $.proxy(context.focusManagementPopupImage, context));
-        });
-
-
-        $container.sortable();
-        $container.disableSelection();
-        $container.on("sortstart", function (event, ui) {
-            context.dragItemOriginalPosition = $(ui.item).index();
-            $popup.find('.ipsWidgetGalleryMenu').addClass('hidden');
-        });
-        $container.on("sortstop", function (event, ui) {
-            var data = {};
-            data.method = 'move';
-            data.originalPosition = context.dragItemOriginalPosition;
-            data.newPosition = $(ui.item).index();
-            if (data.newPosition != data.originalPosition) {
-                context.$widgetObject.save(data, true);
-            } else {
-                //display image controls
-                $(ui.item).click();
-            }
-        });
-
-
-        $popup.modal();
-
-    };
 
     var saveLink = function (callback) {
         var data = {
@@ -446,6 +401,72 @@ var IpWidget_Gallery = function () {
         this.$widgetObject.save(data, 1); // save and reload widget
         this.settingsPopup.modal('hide');
     };
+
+
+    /*** MANAGEMENT POPUP FUNCTIONALITY ***/
+
+
+    /**
+     * This method reopens management popup. Used when previous operation reload the widget and this whole JS object becomes obsolete, we need to reload our data and reshow the popup.
+     */
+    this.reopenManagementPopup = function () {
+        $('#ipWidgetGalleryManagePopup').modal();
+    };
+
+    this.refreshManagementPopupData = function () {
+        this.data = $('#ipWidget-' + this.widgetId).data('widgetdata');
+    };
+
+
+
+    this.managementPopup = function () {
+        var context = this;
+        var $popup = $('#ipWidgetGalleryManagePopup');
+
+        var $container = $popup.find('.ipsContainer');
+        $container.html('');
+        var $template = $popup.find('.ipsItemTemplate').clone().detach().removeClass('ipsItemTemplate');
+
+
+
+        $.each(this.data.images, function (key, value) {
+            var $item = $template.clone();
+            $item.find('img').attr('src', value.imageSmall);
+            $container.append($item);
+            $item.on('click', $.proxy(context.focusManagementPopupImage, context));
+        });
+
+
+        $container.sortable();
+        $container.disableSelection();
+        $container.on("sortstart", function (event, ui) {
+            context.dragItemOriginalPosition = $(ui.item).index();
+            $popup.find('.ipsWidgetGalleryMenu').addClass('hidden');
+        });
+        $container.on("sortstop", function (event, ui) {
+            var data = {};
+            data.method = 'move';
+            data.originalPosition = context.dragItemOriginalPosition;
+            data.newPosition = $(ui.item).index();
+            if (data.newPosition != data.originalPosition) {
+                console.log(context.$widgetObject);
+                context.$widgetObject.save(data, true, function () {
+                    $.proxy(context.refreshManagementPopupData, context)();
+                });
+
+            } else {
+                //display image controls
+                $(ui.item).click();
+            }
+        });
+
+
+        $popup.modal();
+
+    };
+
+    /*** END MANAGEMENT POPUP FUNCTIONALITY ***/
+
 
 };
 
