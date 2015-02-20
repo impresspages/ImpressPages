@@ -9630,7 +9630,19 @@
   z-index: 1030;
 }
 .ip #ipWidgetGalleryManagePopup .modal-dialog {
-  width: 90%;
+  width: 100%;
+}
+.ip #ipWidgetGalleryManagePopup ._container {
+  position: relative;
+}
+.ip #ipWidgetGalleryManagePopup ._item {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  max-width: 200px;
+}
+.ip #ipWidgetGalleryManagePopup ._item img {
+  max-width: 100%;
 }
 .ip .ipModuleDesign {
   padding: 10px;

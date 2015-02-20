@@ -9455,7 +9455,19 @@ th {
   z-index: 1030;
 }
 #ipWidgetGalleryManagePopup .modal-dialog {
-  width: 90%;
+  width: 100%;
+}
+#ipWidgetGalleryManagePopup ._container {
+  position: relative;
+}
+#ipWidgetGalleryManagePopup ._item {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  max-width: 200px;
+}
+#ipWidgetGalleryManagePopup ._item img {
+  max-width: 100%;
 }
 .ipModuleDesign {
   padding: 10px;

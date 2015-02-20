@@ -137,22 +137,24 @@ var IpWidget_Gallery = function () {
 
     this.focusManagementPopupImage = function (e) {
         var context = this;
+        var $popup = $('#ipWidgetGalleryManagePopup');
+        var $container = $popup.find('.ipsContainer');
         e.preventDefault();
 
         var $item = $(e.currentTarget);
         var $img = $item.find('.ipsImage');
-        var $popup = $('#ipWidgetGalleryManagePopup');
 
         var $controls = $popup.find('.ipsWidgetGalleryMenu');
         if (!$controls.length) {
             $controls = this.$controls.clone().removeAttr('id').detach();
-            $popup.find('.ipsContainer').prepend($controls);
+            $container.prepend($controls);
         }
 
+        console.log($container.offset().top - $item.offset().top);
         $controls.removeClass('hidden');
-        $controls.css('position', 'relative');
-        $controls.css('left', '5px');
-        $controls.css('top', '5px');
+        $controls.css('position', 'absolute');
+        $controls.css('left', ($item.offset().left - $container.offset().left) + 5 +'px');
+        $controls.css('top', ($item.offset().top - $container.offset().top) + 5 +'px');
 
         this.imageIndex = $item.index();
 

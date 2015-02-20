@@ -34,7 +34,7 @@
                     <h4 class="modal-title"><?php _e('Manage gallery', 'Ip-admin'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <div class="ipsContainer">
+                    <div class="ipsContainer _container clearfix">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="ipsItemTemplate ipsItem">
+        <div class="ipsItemTemplate ipsItem _item">
             <img class="_image ipsImage" src="" alt="" />
         </div>
     </div>
