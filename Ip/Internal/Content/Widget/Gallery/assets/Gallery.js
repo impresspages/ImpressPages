@@ -168,8 +168,8 @@ var IpWidget_Gallery = function () {
         this.$widgetObject.save(data, true, callback);
     };
 
-    this.editImage = function (position) {
-        var thisContext = this;
+    this.editImage = function (position, callback) {
+        var context = this;
         var $modal = $('#ipWidgetGalleryEditPopup');
         var options = {};
         var data = this.data.images[position];
@@ -210,9 +210,15 @@ var IpWidget_Gallery = function () {
         $modal.find('.ipsConfirm').off().on('click', function () {
             var crop = $editScreen.ipUploadImage('getCropCoordinates');
             var curImage = $editScreen.ipUploadImage('getCurImage');
-            $.proxy(thisContext.updateImage, thisContext)(position, crop.x1, crop.y1, crop.x2, crop.y2, curImage);
+            $.proxy(context.updateImage, context)(position, crop.x1, crop.y1, crop.x2, crop.y2, curImage, callback);
             $modal.modal('hide');
         });
+
+        $modal.off('hidden.bs.modal.GalleryWidget').on('hidden.bs.modal.GalleryWidget', function () {
+            if (callback) {
+                $.proxy(callback, context)();
+            }
+        })
     };
 
     this.updateImage = function (imageIndex, x1, y1, x2, y2, image, callback) {
@@ -460,12 +466,19 @@ var IpWidget_Gallery = function () {
 
         $controls.find('.ipsDelete').off('click.galleryWidget').on('click.galleryWidget', function (e) {
             $popup.modal('hide');
-            $.proxy(context.deleteImage, context)($item.index(), context.reopenManagementPopup);
-            $item.remove();
+            $.proxy(context.deleteImage, context)($item.index(), function () {
+                $.proxy(context.reopenManagementPopup, context)();
+                $item.remove();
+            });
+
         });
         $controls.find('.ipsEdit').off('click.galleryWidget').on('click.galleryWidget', function (e) {
             $popup.modal('hide');
-            $.proxy(context.editImage, context)($item.index());
+            $.proxy(context.editImage, context)($item.index(), function () {
+                $.proxy(context.reopenManagementPopup, context)();
+                $item.find('img').attr('src', context.data.images[$item.index()]['imageSmall']);
+                console.log(context.data.images[$item.index()]['imageSmall']);
+            });
         });
         $controls.find('.ipsLink').off('click.galleryWidget').on('click.galleryWidget', function (e) {
             $popup.modal('hide');
