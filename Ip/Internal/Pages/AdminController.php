@@ -94,7 +94,7 @@ class AdminController extends \Ip\Controller
         );
 
         $tree = JsTreeHelper::getPageTree($languageCode, $parentId);
-        $tree = ipFilter('ipPageTree', $tree, array('languageCode' => $languageCode, $parentId => $parentId));
+        $tree = ipFilter('ipPageTree', $tree, array('languageCode' => $languageCode, 'parentId' => $parentId));
 
         $responseData = array(
             'tree' => $tree
