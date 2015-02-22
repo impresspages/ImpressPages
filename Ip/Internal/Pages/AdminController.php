@@ -92,8 +92,12 @@ class AdminController extends \Ip\Controller
             'id',
             array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0)
         );
+
+        $tree = JsTreeHelper::getPageTree($languageCode, $parentId);
+        $tree = ipFilter('ipPageTree', $tree, array('languageCode' => $languageCode, $parentId => $parentId));
+
         $responseData = array(
-            'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
+            'tree' => $tree
         );
 
         return new \Ip\Response\Json($responseData);
