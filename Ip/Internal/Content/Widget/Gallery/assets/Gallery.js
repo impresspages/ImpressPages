@@ -10,6 +10,8 @@ var IpWidget_Gallery = function () {
     this.$controls = null;
     this.widgetId = null;
 
+    var widgetClass = 'ipWidget-Gallery';
+
     this.init = function ($widgetObject, data) {
         var currentScope = this;
         this.$widgetObject = $widgetObject;
@@ -21,7 +23,7 @@ var IpWidget_Gallery = function () {
         this.$widgetObject.on('click', $.proxy(this.focus, this));
         $(document.body).on('click', $.proxy(function (e) { //detect mouse click outside of the widget
             var $target = $(e.target);
-            if (!$target.hasClass('ipWidget-Gallery')) {
+            if (!$target.hasClass(widgetClass)) {
                 $target = $target.closest('.ipWidget-Gallery');
             }
             if ($target.length == 0) {
