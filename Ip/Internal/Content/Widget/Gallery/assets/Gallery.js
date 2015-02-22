@@ -24,7 +24,7 @@ var IpWidget_Gallery = function () {
         $(document.body).on('click', $.proxy(function (e) { //detect mouse click outside of the widget
             var $target = $(e.target);
             if (!$target.hasClass(widgetClass)) {
-                $target = $target.closest('.ipWidget-Gallery');
+                $target = $target.closest('.' + widgetClass);
             }
             if ($target.length == 0) {
                 $.proxy(currentScope.blur, currentScope)();
@@ -81,7 +81,7 @@ var IpWidget_Gallery = function () {
                 $closestLi = $target.closest('.ipsItem');
             }
 
-            var $closestWidget = $closestLi.closest('.ipWidget-Gallery');
+            var $closestWidget = $closestLi.closest('.' + widgetClass);
 
             if ($closestWidget.length != 1) {
                 $.proxy(this.blurImage, this)();
