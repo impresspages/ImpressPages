@@ -8,6 +8,8 @@
 namespace Ip\Internal\Content;
 
 
+use Ip\Internal\Browser;
+
 class Model
 {
 
@@ -84,9 +86,37 @@ class Model
     {
         $tmpWidgets = Model::getAvailableWidgetObjects();
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
-        $widgets = array();
+        $widgets = array(
+            'Core' => array()
+        );
+        $uncategorizedWidgets = array();
+
+        unset($tmpWidgets['Columns']);
+
         foreach ($tmpWidgets as $key => $widget) {
-            $widgets[$key] = $widget;
+            if ($widget->isCore()) {
+                $widgets['Core'][$key] = $widget;
+            } else {
+                $pluginName = $widget->getPluginName();
+                if (!array_key_exists($pluginName, $widgets)) {
+                    $widgets[$pluginName] = array();
+                }
+                $widgets[$pluginName][] = $widget;
+            }
+        }
+
+        // Filter out single widget categories
+        foreach ($widgets as $key => $widget) {
+            $widgetCount = count($widgets[$key]);
+
+            if ($widgetCount === 1) {
+                $uncategorizedWidgets[] = $widget[0];
+                unset($widgets[$key]);
+            }
+        }
+
+        if (count($uncategorizedWidgets) > 0) {
+            $widgets['Other'] = $uncategorizedWidgets;
         }
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
@@ -97,13 +127,13 @@ class Model
 
         $page = ipContent()->getCurrentPage();
 
-        unset($widgets['Columns']);
-
         $data = array(
             'widgets' => $widgets,
             'page' => $page,
             'currentRevision' => $revision,
-            'manageableRevision' => $manageableRevision
+            'manageableRevision' => $manageableRevision,
+            'categorySplit' => 3,
+            'mobile' => Browser::isMobile()
         );
 
         $controlPanelHtml = ipView('view/adminPanel.php', $data)->render();
@@ -248,18 +278,6 @@ class Model
 
         $optionsMenu = array();
 
-        if (count($widgetObject->getSkins()) > 1) {
-            $optionsMenu[] = array(
-                'title' => __('Skin', 'Ip-admin', false),
-                'attributes' => array(
-                    'class' => 'ipsSkin',
-                    'data-skins' => json_encode($widgetObject->getSkins()),
-                    'data-currentskin' => $widgetRecord['skin']
-                )
-            );
-        }
-
-        $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
 
         $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
 
@@ -270,9 +288,32 @@ class Model
             'widgetData' => $widgetRecord['data'],
             'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
-            'widgetSkin' => $widgetRecord['skin'],
-            'optionsMenu' => $optionsMenu
+            'widgetSkin' => $widgetRecord['skin']
         );
+
+        if ($managementState) {
+            $skins = $widgetObject->getSkins();
+            if (count($skins) > 1) {
+                $optionsMenu[] = array(
+                    'title' => __('Skin', 'Ip-admin', false),
+                    'attributes' => array(
+                        'class' => 'ipsSkin',
+                        'data-skins' => json_encode($skins),
+                        'data-currentskin' => $widgetRecord['skin']
+                    )
+                );
+            }
+            $widgetOptions =  $widgetObject->optionsMenu(
+                $widgetRecord['revisionId'],
+                $widgetRecord['id'],
+                $widgetData,
+                $widgetRecord['skin']
+            );
+            $optionsMenu = array_merge($optionsMenu, $widgetOptions);
+            $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
+            $variables['optionsMenu'] = $optionsMenu;
+        }
+
 
         $answer = ipView('view/widget.php', $variables)->render();
 

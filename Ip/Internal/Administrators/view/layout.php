@@ -36,7 +36,7 @@
                     <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-mini" ng-class="[activeAdministrator.permissions[permission] ? 'bootstrap-switch-on' : 'bootstrap-switch-off']">
                         <div class="bootstrap-switch-container">
                             <span class="bootstrap-switch-handle-on bootstrap-switch-new">&nbsp;</span>
-                            <label class="bootstrap-switch-label"><span class="fa fa-circle"></span></label>
+                            <span class="bootstrap-switch-label"><span class="fa fa-circle"></span></span>
                             <span class="bootstrap-switch-handle-off bootstrap-switch-default">&nbsp;</span>
                         </div>
                     </div>

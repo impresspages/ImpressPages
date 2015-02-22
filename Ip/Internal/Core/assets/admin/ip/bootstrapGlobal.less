@@ -1,13 +1,13 @@
 // bringing global Bootstrap styles to global scope
 .hidden {
-    .ip > .hidden;
+    &:extend(.ip .hidden all);
 }
 .modal-open {
-    .ip > .modal-open;
+    &:extend(.ip .modal-open all);
+}
+.modal-open .modal {
+    &:extend(.ip .modal-open .modal all);
 }
 .modal-backdrop {
-    .ip > .modal-backdrop;
-    // Fade for backdrop
-    &.fade { .opacity(0); }
-    &.in { .opacity(.5); }
+    &:extend(.ip .modal-backdrop all);
 }

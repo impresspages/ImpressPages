@@ -65,6 +65,16 @@ class WidgetController
     }
 
     /**
+     * Return a name of the plugin the widget belongs to.
+     *
+     * @return string Plugin name
+     */
+    public function getPluginName()
+    {
+        return $this->pluginName;
+    }
+
+    /**
      * Get widget's administration directory
      *
      * @return string Widget's directory path
@@ -332,6 +342,32 @@ class WidgetController
     public function dataForJs($revisionId, $widgetId, $data, $skin)
     {
         return $data;
+    }
+
+
+    /**
+     * Array 0f menu items to be added to the widget's options menu. (gear box on the left top corner of the widget)
+     * @param $revisionId
+     * @param $widgetId
+     * @param $data
+     * @param $skin
+     * @return array
+     */
+    public function optionsMenu($revisionId, $widgetId, $data, $skin)
+    {
+        return array();
+
+//        example with one menu item
+//        $answer = array();
+//        $answer[] = array(
+//            'title' => 'Menu item title',
+//            'attributes' => array(
+//                'class' => 'ipsMyMenu', //class to be added. Could be used in JS to bind actions on this button
+//                'data-somedata' => json_encode('lorem ipsum'), //data that later can be accessed in js. E.g. $('.ipsMyMenu').first().data('somedata');
+//                ...
+//            )
+//        );
+//        return $answer;
     }
 
 

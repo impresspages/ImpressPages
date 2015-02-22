@@ -5844,7 +5844,8 @@
   border: 0;
   -webkit-appearance: none;
 }
-.ip .modal-open {
+.ip .modal-open,
+.modal-open {
   overflow: hidden;
 }
 .ip .modal {
@@ -5875,7 +5876,9 @@
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
 }
-.ip .modal-open .modal {
+.ip .modal-open .modal,
+.modal-open .modal,
+.modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -5895,18 +5898,21 @@
   background-clip: padding-box;
   outline: 0;
 }
-.ip .modal-backdrop {
+.ip .modal-backdrop,
+.modal-backdrop {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   background-color: #000000;
 }
-.ip .modal-backdrop.fade {
+.ip .modal-backdrop.fade,
+.modal-backdrop.fade {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.ip .modal-backdrop.in {
+.ip .modal-backdrop.in,
+.modal-backdrop.in {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
@@ -6491,7 +6497,8 @@
   background-color: transparent;
   border: 0;
 }
-.ip .hidden {
+.ip .hidden,
+.hidden {
   display: none !important;
   visibility: hidden !important;
 }
@@ -6710,6 +6717,7 @@
 }
 .ip .bootstrap-switch {
   display: inline-block;
+  direction: ltr;
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid;
@@ -6718,91 +6726,18 @@
   text-align: left;
   overflow: hidden;
   line-height: 8px;
+  z-index: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   vertical-align: middle;
-  min-width: 100px;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
-.ip .bootstrap-switch.bootstrap-switch-mini {
-  min-width: 71px;
-}
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
-  padding-bottom: 4px;
-  padding-top: 4px;
-  font-size: 10px;
-  line-height: 9px;
-}
-.ip .bootstrap-switch.bootstrap-switch-small {
-  min-width: 79px;
-}
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
-  padding-bottom: 3px;
-  padding-top: 3px;
-  font-size: 12px;
-  line-height: 18px;
-}
-.ip .bootstrap-switch.bootstrap-switch-large {
-  min-width: 120px;
-}
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
-  padding-bottom: 9px;
-  padding-top: 9px;
-  font-size: 16px;
-  line-height: normal;
-}
-.ip .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
-  -webkit-transition: margin-left 0.5s;
-  -o-transition: margin-left 0.5s;
-  transition: margin-left 0.5s;
-}
-.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-container {
-  margin-left: 0%;
-}
-.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label {
-  border-bottom-right-radius: 3px;
-  border-top-right-radius: 3px;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
-  margin-left: -50%;
-}
-.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
-  border-bottom-left-radius: 3px;
-  border-top-left-radius: 3px;
-}
-.ip .bootstrap-switch.bootstrap-switch-disabled,
-.ip .bootstrap-switch.bootstrap-switch-readonly {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  cursor: default !important;
-}
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
-.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
-.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label {
-  cursor: default !important;
-}
-.ip .bootstrap-switch.bootstrap-switch-focused {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
 .ip .bootstrap-switch .bootstrap-switch-container {
   display: inline-block;
-  width: 150%;
   top: 0;
   border-radius: 4px;
   -webkit-transform: translate3d(0, 0, 0);
@@ -6817,8 +6752,7 @@
   cursor: pointer;
   display: inline-block !important;
   height: 100%;
-  padding-bottom: 4px;
-  padding-top: 4px;
+  padding: 6px 12px;
   font-size: 14px;
   line-height: 20px;
 }
@@ -6826,7 +6760,6 @@
 .ip .bootstrap-switch .bootstrap-switch-handle-off {
   text-align: center;
   z-index: 1;
-  width: 33.333333333%;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-primary,
 .ip .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-primary {
@@ -6858,6 +6791,14 @@
   color: #000;
   background: #eeeeee;
 }
+.ip .bootstrap-switch .bootstrap-switch-label {
+  text-align: center;
+  margin-top: -1px;
+  margin-bottom: -1px;
+  z-index: 100;
+  color: #000000;
+  background: #e7e7e7;
+}
 .ip .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
@@ -6865,15 +6806,6 @@
 .ip .bootstrap-switch .bootstrap-switch-handle-off {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
-}
-.ip .bootstrap-switch .bootstrap-switch-label {
-  text-align: center;
-  margin-top: -1px;
-  margin-bottom: -1px;
-  z-index: 100;
-  width: 33.333333333%;
-  color: #000000;
-  background: #e7e7e7;
 }
 .ip .bootstrap-switch input[type='radio'],
 .ip .bootstrap-switch input[type='checkbox'] {
@@ -6883,6 +6815,82 @@
   opacity: 0;
   filter: alpha(opacity=0);
   z-index: -1;
+}
+.ip .bootstrap-switch input[type='radio'].form-control,
+.ip .bootstrap-switch input[type='checkbox'].form-control {
+  height: auto;
+}
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-small .bootstrap-switch-label {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-large .bootstrap-switch-label {
+  padding: 6px 16px;
+  font-size: 16px;
+  line-height: 1.3333333;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled,
+.ip .bootstrap-switch.bootstrap-switch-readonly,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate {
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-on,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-handle-off,
+.ip .bootstrap-switch.bootstrap-switch-disabled .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-readonly .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-indeterminate .bootstrap-switch-label {
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  cursor: default !important;
+}
+.ip .bootstrap-switch.bootstrap-switch-animate .bootstrap-switch-container {
+  -webkit-transition: margin-left 0.5s;
+  -o-transition: margin-left 0.5s;
+  transition: margin-left 0.5s;
+}
+.ip .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-on {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-inverse .bootstrap-switch-handle-off {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-focused {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.ip .bootstrap-switch.bootstrap-switch-on .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-off .bootstrap-switch-label {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label,
+.ip .bootstrap-switch.bootstrap-switch-inverse.bootstrap-switch-on .bootstrap-switch-label {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
 }
 @font-face {
   font-family: 'FontAwesome';
@@ -8748,6 +8756,7 @@
 }
 .ip .colorpicker {
   left: 0;
+  z-index: 1060;
   min-width: 130px;
   padding: 4px;
   margin-top: 1px;
@@ -8759,6 +8768,7 @@
 .ip .bootstrap-switch .bootstrap-switch-container {
   border-radius: 40px;
   line-height: inherit;
+  width: 60px;
 }
 .ip .bootstrap-switch .bootstrap-switch-handle-on {
   border-bottom-left-radius: 40px;
@@ -8773,6 +8783,9 @@
   color: #fff;
   border-bottom-right-radius: 40px;
   border-top-right-radius: 40px;
+}
+.ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-container {
+  margin-left: -20px;
 }
 .ip .bootstrap-switch.bootstrap-switch-off .bootstrap-switch-label {
   background-color: #e7e7e7;
@@ -8789,16 +8802,18 @@
   background: #019bd4;
 }
 .ip .bootstrap-switch.bootstrap-switch-mini {
-  min-width: 40px;
+  width: 40px;
 }
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-on,
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-handle-off,
 .ip .bootstrap-switch.bootstrap-switch-mini .bootstrap-switch-label {
   float: left;
+  font-size: 10px;
   line-height: 10px;
   margin-top: 0;
-  padding-bottom: 3px;
-  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-top: 3px;
+  width: 20px;
 }
 .ip .btn {
   font-weight: bold;
@@ -9264,6 +9279,9 @@
 .ip .ipAdminNavbar ._menuContainer nav {
   margin-bottom: 40px;
 }
+.ip .ipAdminNavbar ._right {
+  margin-right: 0;
+}
 @media (max-width: 767px) {
   .ip .ipAdminNavbar .nav._active,
   .ip .ipAdminNavbar .nav._right li:not(:last-child) {
@@ -9330,7 +9348,8 @@
   margin: 0 -20px;
   padding: 10px 20px;
 }
-.ip .ipModuleAdministrators ._menu ul a:hover {
+.ip .ipModuleAdministrators ._menu ul a:hover,
+.ip .ipModuleAdministrators ._menu ul a:focus {
   color: #019bd4;
   text-decoration: none;
 }
@@ -9394,57 +9413,83 @@
 .ip .ipAdminPanel ._widgets:after {
   clear: both;
 }
-.ip .ipAdminPanel ._widgets ._scrollButton {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
-  display: block;
+.ip .ipAdminPanel ._widgets .ipsAdminPanelWidgetsContainer {
+  min-height: 97px;
+  white-space: nowrap;
+}
+.ip .ipAdminPanel ._widgets ._widgetCategories {
   height: 100%;
+  float: left;
   position: absolute;
-  width: 26px;
-  z-index: 9;
-}
-.ip .ipAdminPanel ._widgets ._scrollButton._left {
-  background-position: 8px center;
-  left: 6px;
-}
-.ip .ipAdminPanel ._widgets ._scrollButton._right {
-  background-position: -32px center;
-  right: 6px;
-}
-.ip .ipAdminPanel ._widgets ._scrollButton:hover {
-  background-color: #e6e6e6;
-}
-.ip .ipAdminPanel ._widgets ._scrollButton:active {
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
-}
-.ip .ipAdminPanel ._widgets ._container {
-  margin: 0 40px;
-}
-.ip .ipAdminPanel ._widgets ._container:before,
-.ip .ipAdminPanel ._widgets ._container:after {
   background-color: #eaeaea;
+  z-index: 1;
+  bottom: 0;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches {
+  padding: 0 25px 0 0;
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches:first-child {
+  padding: 0 25px;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch {
+  margin: 8px 0;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch:hover a {
+  text-decoration: none;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch a {
+  text-decoration: none;
+  text-align: center;
+  padding: 3px 7px;
+  color: #bdbdbd;
+  display: block;
+}
+.ip .ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch._active a {
+  background: #fff;
+  color: #000;
+  padding: 2px 6px;
+  border: 1px solid #c2c2c2;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab {
+  position: relative;
+  display: none;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab:before,
+.ip .ipAdminPanel ._widgets ._widgetTab:after {
+  background-color: #ffffff;
   content: " ";
   display: block;
-  height: 100%;
-  left: 0;
   position: absolute;
   width: 40px;
   z-index: 2;
 }
-.ip .ipAdminPanel ._widgets ._container:after {
-  left: auto;
+.ip .ipAdminPanel ._widgets ._widgetTab:before {
+  left: 0;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab:after {
   right: 0;
 }
-.ip .ipAdminPanel ._widgets ul {
+.ip .ipAdminPanel ._widgets ._widgetTab._active {
+  display: block;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ul {
   list-style: none;
-  margin: 0 0 0 -30px;
+  margin: 6px 40px;
+  padding: 10px 0;
   position: relative;
+  display: inline-block;
+  white-space: nowrap;
 }
-.ip .ipAdminPanel ._widgets li {
-  float: left;
+.ip .ipAdminPanel ._widgets ._widgetTab li {
   margin-left: 30px;
-  padding: 0 3px;
+  display: inline-block;
+  padding: 0 5px;
 }
-.ip .ipAdminPanel ._widgets li a {
+.ip .ipAdminPanel ._widgets ._widgetTab li a {
   background-color: #fff;
   border-radius: 5px;
   display: block;
@@ -9455,17 +9500,17 @@
   text-decoration: none;
   width: 55px;
 }
-.ip .ipAdminPanel ._widgets li a img {
+.ip .ipAdminPanel ._widgets ._widgetTab li a img {
   vertical-align: middle;
 }
-.ip .ipAdminPanel ._widgets li a:hover {
+.ip .ipAdminPanel ._widgets ._widgetTab li a:hover {
   box-shadow: 0 0 0 3px #e0e0e0;
 }
-.ip .ipAdminPanel ._widgets li a:hover ._title span {
+.ip .ipAdminPanel ._widgets ._widgetTab li a:hover ._title span {
   background-color: #dedede;
   color: #000;
 }
-.ip .ipAdminPanel ._widgets li a ._title {
+.ip .ipAdminPanel ._widgets ._widgetTab li a ._title {
   left: -10px;
   overflow: hidden;
   position: absolute;
@@ -9473,7 +9518,7 @@
   top: 62px;
   width: 75px;
 }
-.ip .ipAdminPanel ._widgets li a ._title span {
+.ip .ipAdminPanel ._widgets ._widgetTab li a ._title span {
   border-radius: 5px;
   color: #5f5e60;
   display: inline-block;
@@ -9485,15 +9530,37 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.ip .ipAdminPanel ._widgets li ._button {
+.ip .ipAdminPanel ._widgets ._widgetTab li ._button {
   padding-bottom: 22px;
 }
-.ip .ipAdminPanel ._widgets li ._button.ui-draggable-dragging {
+.ip .ipAdminPanel ._widgets ._widgetTab li ._button.ui-draggable-dragging {
   z-index: 1040;
 }
-.ip .ipAdminPanel ._widgets li ._icon {
+.ip .ipAdminPanel ._widgets ._widgetTab li ._icon {
   height: 55px;
   width: 55px;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ._scrollButton {
+  background: #eaeaea url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 26px;
+  z-index: 9;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ._scrollButton._left {
+  background-position: 8px center;
+  left: 0;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ._scrollButton._right {
+  background-position: -32px center;
+  right: 0;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ._scrollButton:hover {
+  background-color: #d8d8d8;
+}
+.ip .ipAdminPanel ._widgets ._widgetTab ._scrollButton:active {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
 }
 .ip .ipModuleContentEditButton {
   background-color: #000000;
@@ -10932,7 +10999,8 @@
   display: block;
   padding: 20px;
 }
-.ip .ipModulePlugins ._plugin:hover {
+.ip .ipModulePlugins ._plugin:hover,
+.ip .ipModulePlugins ._plugin:focus {
   background-color: #d4d4d4;
   color: #2f313f;
   text-decoration: none;
@@ -11262,28 +11330,6 @@
 }
 .ip .ipModuleGrid ._clickable {
   cursor: pointer;
-}
-.hidden {
-  display: none !important;
-  visibility: hidden !important;
-}
-.modal-open {
-  overflow: hidden;
-}
-.modal-backdrop {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  background-color: #000000;
-}
-.modal-backdrop.fade {
-  opacity: 0;
-  filter: alpha(opacity=0);
-}
-.modal-backdrop.in {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
 }
 .ipAdminBody {
   background-color: #eaeaea;
