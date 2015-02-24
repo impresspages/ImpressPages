@@ -33,6 +33,8 @@ class Event
             curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, ipGetOption('Config.cronTimeout', 10));
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
             $fakeCronAnswer = curl_exec($ch);
 
             if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
