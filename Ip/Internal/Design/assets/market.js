@@ -116,7 +116,9 @@ var ipDesignThemeMarket = new function () {
 
         $('#ipsModuleThemeMarketContainer').find('iframe').remove();
 
-        $(document.body).removeClass(bodyClassToHideScroll);
+        if(!$('.modal[aria-hidden=false]').length) {
+            $(document.body).removeClass(bodyClassToHideScroll);
+        }
     };
 
     this.resize = function (e) {

@@ -55,6 +55,11 @@
                 $('#ipWidgetFormPopup').show();
             });
 
+            $optionsModal.on('hidden.bs.modal', function(e) {
+                if($('.modal[aria-hidden=false]').length) {
+                    $(document.body).addClass('modal-open');
+                }
+            });
 
             $this.modal();
 
