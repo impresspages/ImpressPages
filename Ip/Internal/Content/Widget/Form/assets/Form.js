@@ -108,6 +108,13 @@
 
         var addField = function (e) {
             this.container.ipWidget_ipForm_container('addField');
+
+            var $backdrop = this.modal.children('.modal-backdrop');
+            var $dialog = this.modal.children('.modal-dialog');
+
+            if(this.modal.height() < $dialog.outerHeight(true)) {
+                $backdrop.css('height', 0).css('height', $dialog.outerHeight(true));
+            }
         };
 
         var save = function(e) {
