@@ -12,7 +12,7 @@ class Helper
 
     public static function pagesGridConfig($parentId)
     {
-        return array(
+        $config = array(
             'table' => 'page',
             'allowCreate' => false,
             'allowSearch' => false,
@@ -31,6 +31,10 @@ class Helper
                 )
             )
         );
+
+        $config = ipFilter('ipPageListGridConfig', $config, array('parentId' => $parentId));
+
+        return $config;
     }
 
 
