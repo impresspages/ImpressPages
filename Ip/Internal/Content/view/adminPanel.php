@@ -33,7 +33,7 @@
         <div class="_widgets">
 
             <?php // if mobile, we don't want to include categories ?>
-            <?php if (!$mobile) : ?>
+            <?php if (!$mobile) { ?>
 
                 <div class="_widgetCategories">
 
@@ -69,7 +69,7 @@
 
                 </div>
 
-            <?php endif; // !$mobile ?>
+            <?php } // !$mobile ?>
 
             <div class="_widgetTabs">
 
@@ -85,14 +85,14 @@
 
                         <?php foreach ($widgets as $categoryKey => $list) : ?>
 
-                            <?php if (!$mobile) : ?>
+                            <?php if (!$mobile) { ?>
                                 <div id="_widgetTab_<?php echo strtolower(preg_replace('|[^A-Za-z0-9]|', '', $categoryKey)) ?>" class="_widgetTab<?php echo $active ? ' _active' : '' ?>">
 
                                 <a href="#" class="_scrollButton _left ipsLeft"></a>
                                 <a href="#" class="_scrollButton _right ipsRight"></a>
 
                                 <ul>
-                            <?php endif; ?>
+                            <?php } ?>
 
                             <?php foreach ($list as $widgetKey => $widget) : ?>
 
@@ -109,19 +109,19 @@
 
                             <?php endforeach ?>
 
-                            <?php if (!$mobile) : ?>
+                            <?php if (!$mobile) { ?>
                                 </ul>
                                 </div>
-                            <?php endif; ?>
+                            <?php } ?>
 
                             <?php $active = false; ?>
 
                         <?php endforeach; ?>
 
-                        <?php if ($mobile) : ?>
+                        <?php if ($mobile) { ?>
                     </ul>
                 </div> <?php // <div id="_widgetTab_all" class="_widgetTab _active"> ?>
-            <?php endif; // $mobile ?>
+                <?php } // $mobile ?>
 
                 <div class="clearfix"></div>
 
