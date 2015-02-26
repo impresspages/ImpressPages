@@ -90,6 +90,16 @@
                     $thisForEvent.ipWidget_ipForm_field('setStatus', 'deleted');
                     $thisForEvent.hide();
                     event.preventDefault();
+
+                    var $modal = $this.closest('.modal');
+                    var $backdrop = $modal.children('.modal-backdrop');
+                    var $dialog = $modal.children('.modal-dialog');
+
+                    if($modal.height() < $dialog.outerHeight(true)) {
+                        $backdrop.css('height', 0).css('height', $dialog.outerHeight(true));
+                    } else {
+                        $backdrop.css('height', 0).css('height', $modal.outerHeight(true));
+                    }
                 });
                 return $this;
             });
