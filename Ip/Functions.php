@@ -187,8 +187,9 @@ function ipAddJsContent($name, $value, $priority = 50)
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
  * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddCss($file, $attributes = null, $priority = 50)
+function ipAddCss($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -202,7 +203,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
