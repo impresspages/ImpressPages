@@ -137,8 +137,9 @@ function ipContent()
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddJs($file, $attributes = null, $priority = 50)
+function ipAddJs($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -152,7 +153,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
