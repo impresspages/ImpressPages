@@ -38,16 +38,16 @@
                 <div class="_widgetCategories">
 
                     <?php $catCount = count($widgets); ?>
-                    <?php if ($catCount > 1) : ?>
+                    <?php if ($catCount > 1) { ?>
 
                         <?php $active = true; ?>
                         <?php $current = 0; ?>
 
-                        <?php foreach ($widgets as $categoryKey => $list) : ?>
+                        <?php foreach ($widgets as $categoryKey => $list){ ?>
 
-                            <?php if ($current % $categorySplit === 0) : ?>
+                            <?php if ($current % $categorySplit === 0) { ?>
                                 <ul class="_widgetTabSwitches">
-                            <?php endif; // $current % $categorySplit === 0 ?>
+                            <?php } // $current % $categorySplit === 0 ?>
 
                             <li class="_widgetTabSwitch<?php echo $active ? ' _active' : '' ?>">
                                 <a href="#_widgetTab_<?php echo strtolower(preg_replace('|[^A-Za-z0-9]|', '', $categoryKey)) ?>">
@@ -57,15 +57,15 @@
 
                             <?php $current++; ?>
 
-                            <?php if ($current % $categorySplit === 0) : ?>
+                            <?php if ($current % $categorySplit === 0){ ?>
                                 </ul>
-                            <?php endif; // $current % $categorySplit === 0 ?>
+                            <?php } ?>
 
                             <?php $active = false; ?>
 
-                        <?php endforeach; ?>
+                        <?php } ?>
 
-                    <?php endif; // $catCount > 1 ?>
+                    <?php } // $catCount > 1 ?>
 
                 </div>
 
@@ -97,12 +97,12 @@
                             <?php foreach ($list as $widgetKey => $widget) : ?>
 
                                 <li>
-                                    <div id="ipAdminWidgetButton-<?php echo $widget->getName(); ?>" class="_button ipsAdminPanelWidgetButton">
-                                        <a href="#" title="<?php echo esc($widget->getTitle()); ?>">
+                                    <div id="ipAdminWidgetButton-<?php echo escAttr($widget->getName()); ?>" class="_button ipsAdminPanelWidgetButton">
+                                        <a href="#" title="<?php echo escAttr($widget->getTitle()); ?>">
                                                 <span class="_title">
                                                     <span><?php echo esc($widget->getTitle()); ?></span>
                                                 </span>
-                                            <img class="_icon" src="<?php echo esc($widget->getIcon()) ?>" alt="<?php echo htmlspecialchars($widget->getTitle()); ?>"/>
+                                            <img class="_icon" src="<?php echo escAttr($widget->getIcon()) ?>" alt="<?php echo escAttr($widget->getTitle()); ?>"/>
                                         </a>
                                     </div>
                                 </li>
