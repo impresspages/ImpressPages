@@ -9219,6 +9219,43 @@ th {
   color: #000;
   text-decoration: underline;
 }
+.ipAdminPanel ._widgetCategories {
+  height: 100%;
+  float: left;
+  position: absolute;
+  background-color: #eaeaea;
+  z-index: 1;
+  bottom: 0;
+}
+.ipAdminPanel ._widgetTabSwitches {
+  padding: 0 25px 0 0;
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.ipAdminPanel ._widgetTabSwitches:first-child {
+  padding: 0 25px;
+}
+.ipAdminPanel ._widgetTabSwitches ._widgetTabSwitch {
+  margin: 8px 0;
+}
+.ipAdminPanel ._widgetTabSwitches ._widgetTabSwitch:hover a {
+  text-decoration: none;
+}
+.ipAdminPanel ._widgetTabSwitches ._widgetTabSwitch a {
+  text-decoration: none;
+  text-align: center;
+  padding: 3px 7px;
+  color: #bdbdbd;
+  display: block;
+}
+.ipAdminPanel ._widgetTabSwitches ._widgetTabSwitch._active a {
+  background: #fff;
+  color: #000;
+  padding: 2px 6px;
+  border: 1px solid #c2c2c2;
+}
 .ipAdminPanel ._widgets {
   position: relative;
 }
@@ -9238,83 +9275,57 @@ th {
 .ipAdminPanel ._widgets:after {
   clear: both;
 }
-.ipAdminPanel ._widgets .ipsAdminPanelWidgetsContainer {
-  min-height: 97px;
-  white-space: nowrap;
-}
-.ipAdminPanel ._widgets ._widgetCategories {
-  height: 100%;
-  float: left;
-  position: absolute;
-  background-color: #eaeaea;
-  z-index: 1;
-  bottom: 0;
-}
-.ipAdminPanel ._widgets ._widgetTabSwitches {
-  padding: 0 25px 0 0;
-  list-style: none;
-  margin: 0;
-  display: inline-block;
-  vertical-align: top;
-}
-.ipAdminPanel ._widgets ._widgetTabSwitches:first-child {
-  padding: 0 25px;
-}
-.ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch {
-  margin: 8px 0;
-}
-.ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch:hover a {
-  text-decoration: none;
-}
-.ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch a {
-  text-decoration: none;
-  text-align: center;
-  padding: 3px 7px;
-  color: #bdbdbd;
+.ipAdminPanel ._widgets ._scrollButton {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
   display: block;
+  height: 100%;
+  position: absolute;
+  width: 26px;
+  z-index: 9;
 }
-.ipAdminPanel ._widgets ._widgetTabSwitches ._widgetTabSwitch._active a {
-  background: #fff;
-  color: #000;
-  padding: 2px 6px;
-  border: 1px solid #c2c2c2;
+.ipAdminPanel ._widgets ._scrollButton._left {
+  background-position: 8px center;
+  left: 6px;
 }
-.ipAdminPanel ._widgets ._widgetTab {
-  position: relative;
-  display: none;
+.ipAdminPanel ._widgets ._scrollButton._right {
+  background-position: -32px center;
+  right: 6px;
 }
-.ipAdminPanel ._widgets ._widgetTab:before,
-.ipAdminPanel ._widgets ._widgetTab:after {
-  background-color: #ffffff;
+.ipAdminPanel ._widgets ._scrollButton:hover {
+  background-color: #e6e6e6;
+}
+.ipAdminPanel ._widgets ._scrollButton:active {
+  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
+}
+.ipAdminPanel ._widgets ._container {
+  margin: 0 40px;
+}
+.ipAdminPanel ._widgets ._container:before,
+.ipAdminPanel ._widgets ._container:after {
+  background-color: #eaeaea;
   content: " ";
   display: block;
+  height: 100%;
+  left: 0;
   position: absolute;
   width: 40px;
   z-index: 2;
 }
-.ipAdminPanel ._widgets ._widgetTab:before {
-  left: 0;
-}
-.ipAdminPanel ._widgets ._widgetTab:after {
+.ipAdminPanel ._widgets ._container:after {
+  left: auto;
   right: 0;
 }
-.ipAdminPanel ._widgets ._widgetTab._active {
-  display: block;
-}
-.ipAdminPanel ._widgets ._widgetTab ul {
+.ipAdminPanel ._widgets ul {
   list-style: none;
-  margin: 6px 40px;
-  padding: 10px 0;
+  margin: 0 0 0 -30px;
   position: relative;
-  display: inline-block;
-  white-space: nowrap;
 }
-.ipAdminPanel ._widgets ._widgetTab li {
+.ipAdminPanel ._widgets li {
+  float: left;
   margin-left: 30px;
-  display: inline-block;
-  padding: 0 5px;
+  padding: 0 3px;
 }
-.ipAdminPanel ._widgets ._widgetTab li a {
+.ipAdminPanel ._widgets li a {
   background-color: #fff;
   border-radius: 5px;
   display: block;
@@ -9325,17 +9336,17 @@ th {
   text-decoration: none;
   width: 55px;
 }
-.ipAdminPanel ._widgets ._widgetTab li a img {
+.ipAdminPanel ._widgets li a img {
   vertical-align: middle;
 }
-.ipAdminPanel ._widgets ._widgetTab li a:hover {
+.ipAdminPanel ._widgets li a:hover {
   box-shadow: 0 0 0 3px #e0e0e0;
 }
-.ipAdminPanel ._widgets ._widgetTab li a:hover ._title span {
+.ipAdminPanel ._widgets li a:hover ._title span {
   background-color: #dedede;
   color: #000;
 }
-.ipAdminPanel ._widgets ._widgetTab li a ._title {
+.ipAdminPanel ._widgets li a ._title {
   left: -10px;
   overflow: hidden;
   position: absolute;
@@ -9343,7 +9354,7 @@ th {
   top: 62px;
   width: 75px;
 }
-.ipAdminPanel ._widgets ._widgetTab li a ._title span {
+.ipAdminPanel ._widgets li a ._title span {
   border-radius: 5px;
   color: #5f5e60;
   display: inline-block;
@@ -9355,37 +9366,15 @@ th {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.ipAdminPanel ._widgets ._widgetTab li ._button {
+.ipAdminPanel ._widgets li ._button {
   padding-bottom: 22px;
 }
-.ipAdminPanel ._widgets ._widgetTab li ._button.ui-draggable-dragging {
+.ipAdminPanel ._widgets li ._button.ui-draggable-dragging {
   z-index: 1040;
 }
-.ipAdminPanel ._widgets ._widgetTab li ._icon {
+.ipAdminPanel ._widgets li ._icon {
   height: 55px;
   width: 55px;
-}
-.ipAdminPanel ._widgets ._widgetTab ._scrollButton {
-  background: #eaeaea url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAARCAYAAACfB/8pAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAVRJREFUeNrUlrF1hDAMhm0m8AgZgWwQJrijpuEa6jBBRrj63OCGmtsgI4QRGIENHGEbkI1J0lnRe4L37Ob/niTr51prFg3JX+BbQyrW6ImljB5pqeJashMIAd8B8gOyY+mjc1oGgBJ/A7EQn5A5oxe50RaByX6BmCFbAgCt03IKk0VKiCEKmI8xOUZlNBQBTBcHkXy5uKK7GwkIH+aGTq5Qlc4HsRB1APEkNyGV0YRh6hWG6wd7h/89gFCMcvS8DlqrXSpyQQdP8hC2Mspo3eOygIxe30n+Rh6kNxrxPI/cbHbJB3RB57WKQ+RuRYitiypdZttc7JWxu0Ty/B9AbC8Z37xWfBm+JvdZvt/6CiAKqMbs75FGz27pTKgygwNMDbF6v1XLhCGOm93ClD9t0ISmEXdKiSHiprE52AFBAER4D1F1fIjiNn6HUYRMozqDWOJbgAEAo+eCJacSAoMAAAAASUVORK5CYII=) no-repeat;
-  display: block;
-  height: 100%;
-  position: absolute;
-  width: 26px;
-  z-index: 9;
-}
-.ipAdminPanel ._widgets ._widgetTab ._scrollButton._left {
-  background-position: 8px center;
-  left: 0;
-}
-.ipAdminPanel ._widgets ._widgetTab ._scrollButton._right {
-  background-position: -32px center;
-  right: 0;
-}
-.ipAdminPanel ._widgets ._widgetTab ._scrollButton:hover {
-  background-color: #d8d8d8;
-}
-.ipAdminPanel ._widgets ._widgetTab ._scrollButton:active {
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.15);
 }
 .ipModuleContentEditButton {
   background-color: #000000;
