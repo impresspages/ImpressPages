@@ -263,7 +263,11 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = event.currentTarget;
+        var draggingElement = event.target;
+        if (!$(draggingElement).hasClass('ipWidget')) {
+            //we are dragging something inside widget, not the widget itself
+            return;
+        }
 
         //drop side
         var sidePlaceholders = new Array();
