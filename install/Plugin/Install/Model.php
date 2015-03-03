@@ -42,10 +42,19 @@ class Model
         return true;
     }
 
-    public static function createDatabaseStructure($database, $tablePrefix)
+    public static function createDatabaseStructure($database, $tablePrefix, $dbType = 'mysql')
+    {
+    	if ($dbType == 'pgsql') {
+    		self::createDatabaseStructurePostgreSQL($database, $tablePrefix);
+    	} else {
+    		self::createDatabaseStructureMySQL($database, $tablePrefix);
+    	}
+    }
+    
+    private static function createDatabaseStructureMySQL($database, $tablePrefix)
     {
         $sql = file_get_contents(self::ipFile('Plugin/Install/sql/structure.sql'));
-
+        
         $sql = str_replace("[[[[database]]]]", $database, $sql);
         $sql = str_replace("DROP TABLE IF EXISTS `ip_", "DROP TABLE IF EXISTS `". $tablePrefix, $sql);
         $sql = str_replace("CREATE TABLE `ip_", "CREATE TABLE `".$tablePrefix, $sql);
@@ -55,8 +64,53 @@ class Model
 
         return $errors;
     }
+    
+    private static function createDatabaseStructurePostgreSQL($database, $tablePrefix)
+    {
+    	$sql = file_get_contents(self::ipFile('Plugin/Install/sql/structure-pgsql.sql'));
+    
+    	$sql = str_replace("[[[[database]]]]", $database, $sql);
+    	$sql = str_replace("DROP TABLE IF EXISTS ip_", "DROP TABLE IF EXISTS ". $tablePrefix, $sql);
+    	$sql = str_replace("CREATE TABLE ip_", "CREATE TABLE ".$tablePrefix, $sql);
+     	$sql = str_replace("CREATE SEQUENCE  \"ip_", "CREATE SEQUENCE \"".$tablePrefix, $sql);
+        $sql = str_replace("nextval('\"ip_", "nextval('\"".$tablePrefix, $sql);
 
-    public static function importData($tablePrefix)
+    	$errors = array();
+    	ipDb()->executeUnprepared($sql);
+    
+    	return $errors;
+    }
+
+    public static function importData($tablePrefix, $dbType="mysql") {
+    	if ($dbType == "pgsql") {
+    		self::importDataPostgreSQL($tablePrefix);
+    	} else {
+    		self::importData($tablePrefix);
+    	}
+    }
+    
+    private static function importDataPostgreSQL($tablePrefix)
+    {
+    	$errors = array();
+    
+    	$sqlFile = self::ipFile('Plugin/Install/sql/data-pgsql.sql');
+    	$fh = fopen($sqlFile, 'r');
+    	$sql = fread($fh, utf8_decode(filesize($sqlFile)));
+    	fclose($fh);    
+    
+    	$sql = str_replace("INSERT INTO ip_", "INSERT INTO ". $tablePrefix, $sql);
+    	$sql = str_replace("ALTER SEQUENCE \"ip_", "ALTER SEQUENCE \"". $tablePrefix, $sql);
+        $sql = str_replace("[[[[version]]]]", ipApplication()->getVersion(), $sql);
+    	$sql = str_replace("[[[[dbversion]]]]", \Ip\Internal\Update\Model::getDbVersion(), $sql);
+    	$sql = str_replace("[[[[time]]]]", date('Y-m-d H:i:s'), $sql);
+    	$sql = str_replace("[[[[timestamp]]]]", date('Y-m-d H:i:s'), $sql);
+    
+    	ipDb()->executeUnprepared($sql);
+    
+    	return $errors;
+    }
+    
+    private static function importDataMySQL($tablePrefix)
     {
         $errors = array();
 

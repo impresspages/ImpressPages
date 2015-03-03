@@ -23,7 +23,7 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
-            'orderBy' => '`id` desc',
+            'orderBy' => 'id desc',
             'actions' => array(
                 array(
                     'label' => __('Clear all', 'Ip-admin', false),

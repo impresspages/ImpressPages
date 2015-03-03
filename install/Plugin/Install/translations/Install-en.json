@@ -35,6 +35,7 @@
     "User name": "User name",
     "User password": "User password",
     "Database name": "Database name",
+    "Database type": "Database type",
     "Table prefix (use underscore to separate prefix).": "Table prefix (use underscore to separate prefix).",
     "Next": "Next",
     "Finished!": "Finished!",

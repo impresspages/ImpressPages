@@ -47,11 +47,12 @@ class Model
 
     public static function bindFile($file, $plugin, $instanceId, $baseDir = 'file/repository/')
     {
+    	$time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
         $row = array(
             'filename' => $file,
             'plugin' => $plugin,
             'instanceId' => $instanceId,
-            'createdAt' => time(),
+            'createdAt' => $time,
             'baseDir' => $baseDir
         );
         ipDb()->insert('repository_file', $row);
@@ -70,8 +71,8 @@ class Model
                 WHERE filename = :fileName
                 AND plugin = :plugin
                 AND instanceId = :instanceId
-                AND baseDir = :baseDir
-                LIMIT 1'; // it is important to delete only one record
+                AND baseDir = :baseDir';
+                //LIMIT 1'; // it is important to delete only one record -- why?
 
         ipDb()->execute($sql, $condition);
 
@@ -85,7 +86,7 @@ class Model
 
     public static function whoUsesFile($file)
     {
-        return ipDb()->selectAll('repository_file', '*', array('fileName' => $file));
+        return ipDb()->selectAll('repository_file', '*', array('filename' => $file));
     }
 
     /**

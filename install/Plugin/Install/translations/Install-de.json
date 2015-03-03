@@ -35,6 +35,7 @@
     "User name": "Benutzername",
     "User password": "Passwort",
     "Database name": "Datenbankname",
+    "Database type": "Databanktyp",
     "Table prefix (use underscore to separate prefix).": "Tabellen-Präfix (mit Unterstrich als Trennzeichen zum Tabellennamen)",
     "Next": "weiter",
     "Finished!": "Abgeschlossen!",

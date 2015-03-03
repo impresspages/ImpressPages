@@ -47,28 +47,75 @@ class Db
 
     public static function lock($count, $key)
     {
-        $table = ipTable('email_queue');
-
+    	if (!IpDb()->isPgSQL()) {
+    		self::lockMySQL($count, $key);
+    	} else {
+    		self::lockPgSQL($count, $key);
+    	}
+    }
+    
+    public static function lockMySQL($count, $key)
+    {
+        $table = ipTable('email_queue');        
+        
         $sql = "update $table set
-		`lock` = ?, `lockedAt` = CURRENT_TIMESTAMP
-		where `lock` is NULL and send is NULL order by
+		lock = ?, `lockedAt` = CURRENT_TIMESTAMP
+		where lock is NULL and send is NULL order by
 		immediate desc, id asc limit " . $count;
 
         return ipDb()->execute($sql, array($key));
     }
+    
+    public static function lockPgSQL($count, $key)
+    {
+    	$table = ipTable('email_queue');    	
+    	$sql = "update $table as q set
+    	lock = ?, \"lockedAt\" = CURRENT_TIMESTAMP
+    	FROM (SELECT id FROM $table 
+    	WHERE lock IS NULL AND send is NULL order by
+    	immediate desc, id asc limit " . $count . ") as l 
+    	WHERE (q.id=l.id)";
+    
+    	return ipDb()->execute($sql, array($key));
+    }
 
+    
     public static function lockOnlyImmediate($count, $key)
     {
+    	if (!IpDb()->isPgSQL()) {
+    		self::lockOnlyImmediateMySQL($count, $key);
+    	} else {
+    		self::lockOnlyImmediatePgSQL($count, $key);
+    	}    	
+    }
+    
+    public static function lockOnlyImmediateMySQL($count, $key)
+    {
         $table = ipTable('email_queue');
-
+        
         $sql = "update $table set
-		`lock` = ?, `lockedAt` = CURRENT_TIMESTAMP
-		where `immediate` and `lock` is NULL and `send` is NULL order by
-		`id` asc limit " . $count;
+		lock = ?,  `lockedAt` = CURRENT_TIMESTAMP
+		where immediate and lock is NULL and send is NULL order by
+		id asc limit " . $count;
 
         return ipDb()->execute($sql, array($key));
     }
 
+    public static function lockOnlyImmediatePgSQL($count, $key)
+    {
+    	$table = ipTable('email_queue');
+    
+    	$sql = "update $table as q set
+    	lock = ?, \"lockedAt\" = CURRENT_TIMESTAMP
+    	FROM ( SELECT id FROM $table 
+    	WHERE immediate<>0 AND lock IS NULL AND send IS NULL ORDER BY
+    	id ASC LIMIT " . $count . ") as l 
+    	WHERE (q.id=l.id)";
+    
+    	return ipDb()->execute($sql, array($key));
+    }
+    
+    
     public static function unlock($key)
     {
         return ipDb()->update(
@@ -121,7 +168,7 @@ class Db
     public static function delteOldSent($hours)
     {
         $table = ipTable('email_queue');
-        $sql = "delete from $table where `send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR');
+        $sql = "delete from $table where send is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR');
         return ipDb()->execute($sql);
     }
 
@@ -130,8 +177,8 @@ class Db
     {
         $table = ipTable('email_queue');
         $sql = "delete from $table where
-        (`lock` is not NULL and " . ipDb()->sqlMinAge('lockedAt', $hours, 'HOUR') .")
-        or (`send` is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR') . ")";
+        (lock is not NULL and " . ipDb()->sqlMinAge('lockedAt', $hours, 'HOUR') .")
+        or (send is not NULL and " . ipDb()->sqlMinAge('send', $hours, 'HOUR') . ")";
 
         return ipDb()->execute($sql);
     }
@@ -139,9 +186,9 @@ class Db
     public static function sentOrLockedCount($minutes)
     {
         $table = ipTable('email_queue');
-        $sql = "select count(*) as `sent` from $table where
-        (`send` is not NULL and " . ipDb()->sqlMaxAge('send', $minutes, 'MINUTE') .")
-        or (`lock` is not NULL and send is null) ";
+        $sql = "select count(*) as sent from $table where
+        (send is not NULL and " . ipDb()->sqlMaxAge('send', $minutes, 'MINUTE') .")
+        or (lock is not NULL and send is null) ";
 
         return ipDb()->fetchValue($sql);
     }

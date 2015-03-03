@@ -49,10 +49,22 @@ class Db
         }
 
         try {
-            if (array_key_exists('driver', $dbConfig) && $dbConfig['driver'] == 'sqlite') {
+            if (array_key_exists('type', $dbConfig) && $dbConfig['type'] == 'sqlite') {
                 $dsn = 'sqlite:' . $dbConfig['database'];
                 $this->pdoConnection = new \PDO($dsn);
                 $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            } else if (array_key_exists('type', $dbConfig) && $dbConfig['type'] == 'pgsql') {
+                $dsn = 'pgsql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
+                if (!empty($dbConfig['database'])) {
+                    $dsn .= ';dbname=' . $dbConfig['database'];
+                }
+                $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
+                $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $dt = new \DateTime();
+                $offset = $dt->format("P");
+                $this->pdoConnection->exec("SET TIME ZONE '$offset';");
+                // Postgres equivalent client_enconding ?
+                //$this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
             } else {
                 $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
                 if (!empty($dbConfig['database'])) {
@@ -187,31 +199,32 @@ class Db
      */
     public function selectAll($table, $columns, $where = array(), $sqlEnd = '')
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         if (is_array($columns)) {
-            $columns = '`' . implode('`,`', $columns) . '`';
+            $columns = implode($quote.','.$quote, $columns);
         }
 
-        $sql = 'SELECT ' . $columns . ' FROM ' . ipTable($table);
+        $sql = 'SELECT ' . ($columns != '*' && substr($columns,0,3) != 'MAX' && substr($columns,0,3) != 'MIN' ? $quote.$columns.$quote : $columns) . ' FROM ' . ipTable($table).' ';
 
-        $params = array();
-        $sql .= ' WHERE ';
+        $params = array();        
         if ($where) {
+        	$sql .= ' WHERE ';
             foreach ($where as $column => $value) {
                 if ($value === null) {
-                    $sql .= "`{$column}` IS NULL AND ";
+                    $sql .= "$quote{$column}$quote IS NULL AND ";
                 } else {
                     if (is_bool($value)) {
                         $value = $value ? 1 : 0;
                     }
-                    $sql .= "`{$column}` = ? AND ";
+                    $sql .= "$quote{$column}$quote = ? AND ";
                     $params[] = $value;
                 }
             }
 
             $sql = substr($sql, 0, -4);
-        } else {
+        } /*else {
             $sql .= ' 1 ';
-        }
+        }*/
 
         if ($sqlEnd) {
             $sql .= $sqlEnd;
@@ -255,16 +268,17 @@ class Db
 
     public function selectColumn($table, $column, $where, $sqlEnd = '')
     {
-        $sql = 'SELECT ' . $column . ' FROM ' . ipTable($table);
+    	$quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        $sql = 'SELECT ' . $column . ' FROM ' . ipTable($table).' ';
 
-        $params = array();
-        $sql .= ' WHERE ';
+        $params = array();        
         if ($where) {
+        	$sql .= ' WHERE ';
             foreach ($where as $column => $value) {
                 if ($value === null) {
-                    $sql .= "`{$column}` IS NULL AND ";
+                    $sql .= $quote.$column.$quote.' IS NULL AND ';
                 } else {
-                    $sql .= "`{$column}` = ? AND ";
+                    $sql .= $quote.$column.$quote.' = ? AND ';
                     if (is_bool($value)) {
                         $value = $value ? 1 : 0;
                     }
@@ -273,9 +287,9 @@ class Db
             }
 
             $sql = substr($sql, 0, -4);
-        } else {
+        }/* else {
             $sql .= ' 1 ';
-        }
+        }*/
 
         if ($sqlEnd) {
             $sql .= $sqlEnd;
@@ -325,6 +339,23 @@ class Db
     }
 
     /**
+     * Execute unprepared SQL query. Needed for PostgreSQL because PostgreSQL
+     * will not execute multiple Statements at once. This is used for install
+     * only.
+     *
+     * @param  strong $sql
+     * @return int The number of rows affected by the last SQL statement
+     */
+    public function executeUnprepared($sql)
+    {
+    	try {
+    		return $this->getConnection()->exec($sql);
+    	} catch (\PDOException $e) {
+    		throw new \Ip\Exception\Db($e->getMessage(), $e->getCode(), $e);
+    	}
+    }
+    
+    /**
      * Execute SQL query and return a result set
      *
      * @param string $sql query
@@ -362,12 +393,12 @@ class Db
     {
         $params = array();
         $values = '';
-        $_ignore = $ignore ? ($this->isSqlite()?"OR IGNORE":"IGNORE") : "";
-
+        $_ignore = $ignore ? ($this->isSqlite()?"OR IGNORE":($this->isMySQL()?"IGNORE":"")) : "";
+		$quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " (";
 
         foreach ($row as $column => $value) {
-            $sql .= "`{$column}`, ";
+            $sql .= $quote.$column.$quote.', ';
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;
             }
@@ -384,11 +415,21 @@ class Db
 
 
         if ($this->execute($sql, $params)) {
-            $lastInsertId = $this->getConnection()->lastInsertId();
-            if ($lastInsertId === '0') { // for tables that do not have auto increment id
-                return true;
+            if (ipDB()->isPgSQL()) {
+                try {
+                    $lastInsertId = $this->getConnection()->lastInsertId(ipTable($table).'_id_seq');
+                } catch(\PDOException $e) {
+                    return true;
+                }
+                return $lastInsertId;
+
+            } else {
+                $lastInsertId = $this->getConnection()->lastInsertId();
+                if ($lastInsertId === '0') { // for tables that do not have auto increment id
+                    return true;
+                }
+                return $lastInsertId;
             }
-            return $lastInsertId;
         } else {
             return false;
         }
@@ -425,11 +466,12 @@ class Db
         if (empty($update)) {
             return false;
         }
-
+		
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $sql = 'UPDATE ' . ipTable($table) . ' SET ';
         $params = array();
         foreach ($update as $column => $value) {
-            $sql .= "`{$column}` = ? , ";
+            $sql .= "$quote{$column}$quote = ? , ";
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;
             }
@@ -451,7 +493,13 @@ class Db
      * @param array $values
      */
     public function upsert($table, $keys, $values) {
-        if ($this->insert($table, array_merge($keys, $values), true) == false) {
+    	if ($this->isPgSQL()) {
+    		// as PostgreSQL has no IGNORE, we do it the other way around and
+    		// only insert if the update fails
+    		if ($this->update($table, $values, $keys) == false) {
+    			$this->insert($table, array_merge($keys, $values));
+    		}
+    	} else if ($this->insert($table, array_merge($keys, $values), true) == false) {
             $this->update($table, $values, $keys);
         }
     }
@@ -493,6 +541,16 @@ class Db
     {
         return $this->getDriverName() == 'sqlite';
     }
+    
+    /**
+     * Return true if database is pgsql
+     *
+     * @return bool
+     */
+    public function isPgSQL()
+    {
+    	return $this->getDriverName() == 'pgsql';
+    }
 
     /**
      * Return true if database is mysql
@@ -517,8 +575,10 @@ class Db
             throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
         }
 
-        if (ipDb()->isMySQL()) {
-            $sql = "`".$fieldName."` < NOW() - INTERVAL " . ((int)$minAge) . " ".$unit;
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        $quote_interval = (!ipDb()->isPgSQL() ? '' : '\'');
+        if (ipDb()->isMySQL() || ipDb()->isPgSQL()) {
+            $sql = $quote.$fieldName.$quote." < NOW() - INTERVAL $quote_interval" . ((int)$minAge) . " ".$unit.' '.$quote_interval;
         } else {
             $divider = 1;
             switch($unit) {
@@ -529,8 +589,8 @@ class Db
                     $divider = 60;
                     break;
             }
-            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
-                "`)/".$divider.")>". ((int)$minAge). ") ";
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', ".$quote.$fieldName.$quote.
+                ")/".$divider.")>". ((int)$minAge). ") ";
         }
 
         return $sql;
@@ -549,9 +609,11 @@ class Db
             throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
         }
 
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        $quote_interval = (!ipDb()->isPgSQL() ? '' : '\'');
 //        SELECT DATE(NOW()-INTERVAL 15 DAY)
-        if (ipDb()->isMySQL()) {
-            $sql = "`".$fieldName."` > NOW() - INTERVAL " . ((int)$maxAge) . " ".$unit;
+        if (ipDb()->isMySQL() || ipDb()->isPgSQL()) {
+            $sql = $quote.$fieldName.$quote." > NOW() - INTERVAL $quote_interval" . ((int)$maxAge) . " ".$unit.' '.$quote_interval;
         } else {
             switch($unit) {
                 case 'HOUR':
@@ -561,8 +623,8 @@ class Db
                     $divider = 60;
                     break;
             }
-            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
-                "`)/".$divider.")>". ((int)$maxAge). ") ";
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', ".$quote.$fieldName.$quote.
+                ")/".$divider.")>". ((int)$maxAge). ") ";
         }
 
         return $sql;
@@ -582,6 +644,7 @@ class Db
             return '1';
         }
 
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $sql = '';
         if (is_array($conditions)) {
             foreach ($conditions as $column => $value) {
@@ -598,12 +661,12 @@ class Db
                         $isNull = 'IS NOT NULL AND';
                     }
 
-                    $sql .= "`{$realCol}` {$isNull} ";
+                    $sql .= "$quote{$realCol}$quote {$isNull} ";
                 } else {
                     if ($pair) {
-                        $sql .= "`{$realCol}` {$pair[1]} ? AND ";
+                        $sql .= "$quote{$realCol}$quote {$pair[1]} ? AND ";
                     } else {
-                        $sql .= "`{$realCol}` = ? AND ";
+                        $sql .= "$quote{$realCol}$quote = ? AND ";
                     }
 
                     if (is_bool($value)) {
@@ -615,7 +678,7 @@ class Db
             }
             $sql = substr($sql, 0, -4);
         } else {
-            $sql .= " `id` = ? ";
+            $sql .= $quote.'id'.$quote.' = ? ';
             $params[] = $conditions;
         }
 

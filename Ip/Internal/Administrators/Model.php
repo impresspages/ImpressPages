@@ -12,7 +12,8 @@ class Model
 
     public static function getAll()
     {
-        return ipDb()->selectAll('administrator', '*', array(), 'ORDER BY `id` ASC');
+    	$quote = (IpDb()->isPgSQL() ? "" : "`");
+        return ipDb()->selectAll('administrator', '*', array(), 'ORDER BY '.$quote.'id'.$quote.' ASC');
     }
 
     public static function delete($id)
@@ -106,10 +107,15 @@ class Model
             throw new \Ip\Exception("User doesn't exist");
         }
 
-        if (empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption(
+        if ((!ipDb()->isPgSQL() && empty($user['resetSecret']) || $user['resetTime'] < time() - ipGetOption(
                 'Config.passwordResetLinkExpire',
                 60 * 60 * 24
-            )
+            )) || (
+              empty($user['resetSecret']) || strtotime($user['resetTime']) < time() - ipGetOption(
+            	'Config.passwordResetLinkExpire',
+            	60 * 60 * 24
+            	
+            ))
         ) {
             throw new \Ip\Exception('Invalid password reset link');
         }
@@ -124,9 +130,10 @@ class Model
     private static function generatePasswordResetSecret($userId)
     {
         $secret = md5(ipConfig()->get('sessionName') . uniqid());
+        $time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
         $data = array(
             'resetSecret' => $secret,
-            'resetTime' => time()
+            'resetTime' => $time
         );
         ipDb()->update('administrator', $data, array('id' => $userId));
         return $secret;

@@ -193,11 +193,11 @@ class Model
                 $table = ipTable('page');
                 $sql = "
                     SELECT
-                        `languageCode` AS `language`, COUNT( 1 ) AS `quantity`
+                        languageCode AS language, COUNT( 1 ) AS quantity
                     FROM
                         $table
                     GROUP BY
-                        `languageCode`
+                        languageCode
                 ";
                 $result = ipDb()->fetchAll($sql);
             } catch (\Exception $e) {

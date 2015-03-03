@@ -181,7 +181,7 @@ class Model
      */
     private static function _getPriorities()
     {
-        $list = ipDb()->selectAll('widget_order', '*', array(), 'ORDER BY `priority` ASC');
+        $list = ipDb()->selectAll('widget_order', '*', array(), 'ORDER BY priority ASC');
         $result = array();
         foreach ($list as $widgetOrder) {
             $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
@@ -216,13 +216,15 @@ class Model
             ) . ' does not exist.', array('widgetName' => $widgetName, 'source' => $source));
         }
 
+        $time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
+
         $widgetRecord = array(
             'id' => null,
             'name' => $widgetName,
             'skin' => $skin,
             'data' => $data,
-            'createdAt' => time(),
-            'updatedAt' => time(),
+            'createdAt' => $time,
+            'updatedAt' => $time,
             'revisionId' => null,
             'position' => null,
             'blockName' => null,
@@ -323,16 +325,17 @@ class Model
      */
     public static function getBlockWidgetRecords($blockName, $revisionId, $languageId)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
         $sql = '
             SELECT *
             FROM
                 ' . ipTable('widget', 'w') . '
             WHERE
-                `isDeleted` = 0 AND
-                `blockName` = :blockName AND
-                `revisionId` = :revisionId AND
-                `languageId` = :languageId
-            ORDER BY `position` ASC
+                '.$quote.'isDeleted'.$quote.' = 0 AND
+                '.$quote.'blockName'.$quote.' = :blockName AND
+                '.$quote.'revisionId'.$quote.' = :revisionId AND
+                '.$quote.'languageId'.$quote.' = :languageId
+            ORDER BY position ASC
         ';
 
         $list = ipDb()->fetchAll(
@@ -358,15 +361,16 @@ class Model
     public static function duplicateRevision($oldRevisionId, $newRevisionId)
     {
         $widgetTable = ipTable('widget');
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
 
         $sql = "
             SELECT *
             FROM
                 $widgetTable
             WHERE
-                `revisionId` = ? AND
-                `isDeleted` = 0
-            ORDER BY `position` ASC
+                {$quote}revisionId{$quote} = ? AND
+                {$quote}isDeleted{$quote} = 0
+            ORDER BY position ASC
         ";
 
         $widgets = ipDb()->fetchAll($sql, array($oldRevisionId));
@@ -390,14 +394,15 @@ class Model
             $widgetIdTransition[$oldWidgetId] = $newWidgetId;
         }
 
-        foreach ($widgetIdTransition as $oldId => $newId) {
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
+        foreach ($widgetIdTransition as $oldId => $newId) {        	
             $sql = "
             UPDATE
                 $widgetTable
             SET
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$oldId . "_', 'column" . (int)$newId . "_')
+                {$quote}blockName{$quote} = REPLACE({$quote}blockName{$quote}, 'column" . (int)$oldId . "_', 'column" . (int)$newId . "_')
             WHERE
-                `revisionId` = :newRevisionId
+                {$quote}revisionId{$quote} = :newRevisionId
             ";
             ipDb()->execute($sql, array('newRevisionId' => $newRevisionId));
             ipEvent('ipWidgetDuplicated', array('oldWidgetId' => $oldId, 'newWidgetId' => $newId));
@@ -486,6 +491,8 @@ class Model
     ) {
         $positionNumber = self::_calcWidgetPositionNumber($revisionId, $languageId, null, $blockName, $position);
 
+        $time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
+
         $row = array(
             'data' => json_encode(\Ip\Internal\Text\Utf8::checkEncoding($data)),
             'skin' => $skin,
@@ -495,8 +502,8 @@ class Model
             'blockName' => $blockName,
             'position' => $positionNumber,
             'isVisible' => (int)$visible,
-            'createdAt' => time(),
-            'updatedAt' => time(),
+            'createdAt' => $time,
+            'updatedAt' => $time,
             'isDeleted' => 0,
         );
 
@@ -597,7 +604,8 @@ class Model
      */
     public static function deleteWidget($widgetId)
     {
-        ipDb()->update('widget', array('deletedAt' => time(), 'isDeleted' => 1), array("id" => $widgetId));
+    	$time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
+        ipDb()->update('widget', array('deletedAt' => $time, 'isDeleted' => 1), array("id" => $widgetId));
     }
 
     /**
@@ -641,7 +649,7 @@ class Model
 
         $table = ipTable('widget');
 
-        $records = ipDb()->fetchAll("SELECT `id`, `data` FROM $table WHERE `data` LIKE ?", array($search));
+        $records = ipDb()->fetchAll("SELECT id, data FROM $table WHERE data LIKE ?", array($search));
 
         if (!$records) {
             return;
@@ -719,21 +727,22 @@ class Model
      */
     protected static function revisionFingerprint($revisionId)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
         $table = ipTable('widget');
         // compare revision content
         $sql = "
             SELECT
-                `name`
+                name
             FROM
                 $table
             WHERE
-              `revisionId` = :revisionId
+            {$quote}revisionId{$quote} = :revisionId
               AND
-              `name` != 'Columns'
+              name != 'Columns'
               AND
-              `isDeleted` = 0
+              {$quote}isDeleted{$quote} = 0
             ORDER BY
-              blockName, `position`
+              {$quote}blockName{$quote}, position
         ";
 
         $params = array(
@@ -745,17 +754,17 @@ class Model
         // compare revision content
         $sql = "
             SELECT
-                `data`
+                data
             FROM
                 $table
             WHERE
-              `revisionId` = :revisionId
+              {$quote}revisionId{$quote} = :revisionId
               AND
-              `name` != 'Columns'
+              name != 'Columns'
               AND
-              `isDeleted` = 0
+              {$quote}isDeleted{$quote} = 0
             ORDER BY
-              blockName, `position`
+              {$quote}blockName{$quote}, position
         ";
 
         $params = array(

@@ -28,6 +28,7 @@ class Actions
     public function delete($id)
     {
         $db = new Db($this->subgridConfig, $this->statusVariables);
+        $quote = (!$db->isPgSQL() ? '`' : '"');
 
         $fields = $this->subgridConfig->fields();
         $curData = $db->fetchRow($id);
@@ -44,7 +45,7 @@ class Actions
             " . $this->subgridConfig->tableName() . "
             " . $db->joinQuery() . "
         WHERE
-            " . $this->subgridConfig->tableName() . ".`" . $this->subgridConfig->idField() . "` = :id
+            " . $this->subgridConfig->tableName() . "." . $quote . $this->subgridConfig->idField() . $quote . " = :id
         ";
 
         $params = array(
@@ -64,7 +65,7 @@ class Actions
             FROM
                 " . $this->subgridConfig->languageTableName() . "
             WHERE
-                " . $this->subgridConfig->languageTableName() . ".`" . $this->subgridConfig->languageForeignKeyField() . "` = :id
+                " . $this->subgridConfig->languageTableName() . "." . $quote . $this->subgridConfig->languageForeignKeyField() . $quote . " = :id
             ";
 
             ipDb()->execute($sql, $params);
@@ -88,7 +89,7 @@ class Actions
                 $where = $db->buildSqlWhere();
                 $sql = "
                     SELECT
-                        `" . $childConfig->idField() . "`
+                        " . $quote . $childConfig->idField() . $quote. "
                     FROM
                         " . $childConfig->tableName() . "
                     WHERE
@@ -188,6 +189,7 @@ class Actions
 
 
         $db = new Db($this->subgridConfig, $this->statusVariables);
+        $quote = (!$db->isPgSQL() ? '`' : '"');
         $db->setDefaultLanguageCode($languageCode);
 
         $sql = "UPDATE " . ipTable($table) . " " . $db->joinQuery() . " SET ";
@@ -196,7 +198,7 @@ class Actions
             if ($column == $this->subgridConfig->idField()) {
                 continue; //don't update id field
             }
-            $sql .= "`{$column}` = ? , ";
+            $sql .= "$quote{$column}$quote = ? , ";
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;
             }
@@ -207,7 +209,7 @@ class Actions
         $sql .= " WHERE ";
 
 
-        $sql .= " " . ipTable($table) . ".`" . $this->subgridConfig->idField() . "` = ? ";
+        $sql .= " " . ipTable($table) . "." . $quote . $this->subgridConfig->idField() . $quote . " = ? ";
         $params[] = $id;
 
 
@@ -221,6 +223,7 @@ class Actions
 
     public function create($data)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $languages = ipContent()->getlanguages();
         $fields = $this->subgridConfig->fields();
         $dbData = array();
@@ -269,10 +272,10 @@ class Actions
         $sortField = $this->subgridConfig->sortField();
         if ($sortField) {
             if ($this->subgridConfig->createPosition() == 'top') {
-                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MIN(`$sortField`)", array());
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MIN($quote$sortField$quote)", array());
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue - 1 : 1; // 1 if null
             } else {
-                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX(`$sortField`)", array());
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX($quote$sortField$quote)", array());
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue + 1 : 1; // 1 if null
             }
         }
@@ -310,6 +313,7 @@ class Actions
 
     public function move($id, $targetId, $beforeOrAfter)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         if($this->subgridConfig->sortDirection() == 'desc') {
             //switch $beforeOrAfter value
             if ($beforeOrAfter == 'before') {
@@ -331,24 +335,24 @@ class Actions
         if ($beforeOrAfter == 'before') {
             $sql = "
             SELECT
-                `{$sortField}`
+                $quote{$sortField}$quote
             FROM
                 {$tableName}
                 " . $db->joinQuery() . "
             WHERE
-                `{$sortField}` < :rowNumber
+                $quote{$sortField}$quote < :rowNumber
             ORDER BY
-                `$sortField` DESC";
+                $quote{$sortField}$quote DESC";
         } else {
             $sql = "
             SELECT
-                `{$sortField}`
+                $quote{$sortField}$quote
             FROM
                 {$tableName}
             WHERE
-                `{$sortField}` > :rowNumber
+                $quote{$sortField}$quote > :rowNumber
             ORDER BY
-                `$sortField` ASC";
+                $quote{$sortField}$quote ASC";
         }
 
         $params = array(
@@ -376,6 +380,7 @@ class Actions
 
     public function movePosition($id, $position)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         if ($position < 1) {
             $position = 1;
         }
@@ -392,13 +397,13 @@ class Actions
 
         $sql = "
             SELECT
-                `" . $sortField . "`
+                " . $quote . $sortField . $quote . "
             FROM
                 " . $this->subgridConfig->tableName() . "
             WHERE
                 " . $this->subgridConfig->idField() . " != " . (int)$id . " and (" . $this->subgridConfig->filter() . ")
             ORDER BY
-               `" . $sortField . "` " . $this->subgridConfig->sortDirection() . "
+               " . $quote . $sortField . $quote . " " . $this->subgridConfig->sortDirection() . "
             LIMIT ?, 1
         ";
 
@@ -416,7 +421,7 @@ class Actions
                 return;
             }
 
-            $orderBy = 'ORDER BY ' . $sortField . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
+            $orderBy = 'ORDER BY ' . $quote . $sortField . $quote . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
             $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array(), $orderBy);
             $newPriority = $highestPriority + 5 * $directionInverse;
         } else {

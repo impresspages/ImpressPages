@@ -12,7 +12,8 @@ var ModuleInstall = new function () {
             'username': $('#db_user').val(),
             'password': $('#db_pass').val(),
             'database': $('#db_db').val(),
-            'tablePrefix': $('#db_prefix').val()
+            'tablePrefix': $('#db_prefix').val(),
+            'type': $('#db_type').val()
         };
 
         if (replaceTables) {
