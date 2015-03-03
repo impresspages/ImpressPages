@@ -20,13 +20,14 @@ class Revision
             return null;
         }
 
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         //ordering by id is required because sometimes two revisions might be created at exactly the same time
         $revisionTable = ipTable('revision');
         $sql = "
             SELECT * FROM $revisionTable
             WHERE
-                `pageId` = :pageId
-            ORDER BY `createdAt` DESC, `revisionId` DESC
+                {$quote}pageId{$quote} = :pageId
+            ORDER BY ${quote}createdAt${quote} DESC, ${quote}revisionId{$quote} DESC
         ";
 
         $revision = ipDb()->fetchRow($sql, array('pageId' => $pageId));
@@ -44,12 +45,13 @@ class Revision
         assert('$pageId > 0');
         //ordering by id is required because sometimes two revisions might be created at excatly the same time
         $revisionTable = ipTable('revision');
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         $sql = "
             SELECT * FROM $revisionTable
             WHERE
-                `pageId` = ? AND
-                `isPublished` = 1
-            ORDER BY `createdAt` DESC, `revisionId` DESC
+                {$quote}pageId{$quote} = ? AND
+                {$quote}isPublished{$quote} = 1
+            ORDER BY {$quote}createdAt{$quote} DESC, {$quote}revisionId{$quote} DESC
         ";
 
         $revision = ipDb()->fetchRow($sql, array($pageId));
@@ -161,7 +163,8 @@ class Revision
             'pageId' => $pageId,
         );
 
-        return ipDb()->selectAll('revision', '*', $where, 'ORDER BY `createdAt` DESC, `revisionId` DESC');
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
+        return ipDb()->selectAll('revision', '*', $where, 'ORDER BY '.$quote.'createdAt'.$quote.' DESC, '.$quote.'revisionId'.$quote.' DESC');
     }
 
     /**
@@ -172,10 +175,11 @@ class Revision
     public static function removeOldRevisions($days)
     {
         $table = ipTable('revision');
-
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
+        
         $sql = "
-            SELECT `revisionId` FROM $table
-            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .") AND `isPublished` = 0
+            SELECT {$quote}revisionId{$quote} FROM $table
+            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .") AND {$quote}isPublished{$quote} = 0
         ";
 
         $revisionList = ipDb()->fetchColumn($sql);

@@ -59,7 +59,7 @@ class UrlAllocator
     {
         $pageId = ipDb()->selectValue(
             'page',
-            '`id`',
+            'id',
             array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
         );
         if ($pageId) {
@@ -76,7 +76,7 @@ class UrlAllocator
 
         $pageId = ipDb()->selectValue(
             'page',
-            '`id`',
+            'id',
             array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
         );
 

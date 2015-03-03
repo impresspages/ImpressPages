@@ -221,12 +221,13 @@ class ReflectionModel
     {
         $jsonOptions = json_encode($options);
 
+        $time = (!ipDb()->isPgSQL() ? time() : date('Y-m-d H:i:s'));
         $params = array(
             'original' => $file,
             'reflection' => $reflection,
             'options' => $jsonOptions,
             'optionsFingerprint' => md5($jsonOptions),
-            'createdAt' => time()
+            'createdAt' => $time
         );
 
         ipDb()->insert('repository_reflection', $params);

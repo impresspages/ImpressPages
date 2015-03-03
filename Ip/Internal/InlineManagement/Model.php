@@ -37,7 +37,7 @@ class Model
 
         $tableWithPrefix = ipTable($table);
 
-        $records = ipDb()->fetchAll("SELECT * FROM $tableWithPrefix WHERE `value` LIKE ?", array($search));
+        $records = ipDb()->fetchAll("SELECT * FROM $tableWithPrefix WHERE value LIKE ?", array($search));
 
         if (!$records) {
             return;

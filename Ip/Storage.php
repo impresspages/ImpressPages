@@ -30,8 +30,8 @@ class Storage
             FROM
                 ' . ipTable('storage') . '
             WHERE
-                `plugin` = :plugin AND
-                `key` = :key
+                plugin = :plugin AND
+                key = :key
         ';
 
         $params = array(
@@ -85,11 +85,11 @@ class Storage
 
         $sql = '
             SELECT
-                `key`, `value`
+                key, value
             FROM
                 ' . ipTable('storage') . '
             WHERE
-                `plugin` = :plugin
+                plugin = :plugin
             ';
 
 
@@ -121,9 +121,9 @@ class Storage
             DELETE FROM
                 ' . ipTable('storage') . '
             WHERE
-                `plugin` = :plugin
+                plugin = :plugin
                 AND
-                `key` = :key
+                key = :key
         ';
 
         $params = array(
@@ -146,7 +146,7 @@ class Storage
             DELETE FROM
                 ' . ipTable('storage') . '
             WHERE
-                `plugin` = :plugin
+                plugin = :plugin
         ';
 
         $params = array(

@@ -165,12 +165,12 @@ class Model
      */
     public static function getChildren($parentId, $start = null, $limit = null)
     {
-        $sqlEnd = 'ORDER BY `pageOrder`';
-        if ($start !== null || $limit !== null) {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
+        $sqlEnd = 'ORDER BY '.$quote.'pageOrder'.$quote;
+        if ($start !== null && $limit !== null) {
+        	$sqlEnd .= ' LIMIT ' . (int)$limit . ' OFFSET ' . (int)$start;
+        } else if ($start !== null || $limit !== null) {
             $sqlEnd .= ' LIMIT ' . (int)$start;
-        }
-        if ($limit !== null) {
-            $sqlEnd .= ', ' . (int)$limit;
         }
 
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
@@ -202,12 +202,13 @@ class Model
      */
     public static function getMenuList($languageCode = null)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
         $where = array('parentId' => 0, 'isDeleted' => 0);
         if ($languageCode !== null) {
             $where['languageCode'] = $languageCode;
         }
 
-        $list = ipDb()->selectAll('page', '*', $where, ' ORDER BY `pageOrder` ');
+        $list = ipDb()->selectAll('page', '*', $where, ' ORDER BY '.$quote.'pageOrder'.$quote.' ');
 
 
         return $list;
@@ -285,7 +286,8 @@ class Model
         if (empty($where['isDeleted'])) {
             $where['isDeleted'] = 0;
         }
-        $nextPageOrder = ipDb()->selectValue('page', 'MAX(`pageOrder`) + 1', $where);
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        $nextPageOrder = ipDb()->selectValue('page', "MAX({$quote}pageOrder{$quote}) + 1", $where);
 
         return $nextPageOrder ? $nextPageOrder : 1;
     }
@@ -683,6 +685,7 @@ class Model
             'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
 
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         if ($newUrl == ipConfig()->baseUrl()) {
             //the whole website URL has changed
             $table = ipTable('page');
@@ -690,7 +693,7 @@ class Model
             UPDATE
               $table
             SET
-              `redirectUrl` = REPLACE(`redirectUrl`, :search, :replace)
+              {$quote}redirectUrl{$quote} = REPLACE({$quote}redirectUrl{$quote}, :search, :replace)
             WHERE
             1
             ";
@@ -782,9 +785,10 @@ class Model
     public static function trashSize()
     {
         $table = ipTable('page');
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         $sql = "SELECT COUNT(*)
                 FROM $table
-                WHERE `isDeleted` > 0";
+                WHERE {$quote}isDeleted{$quote} > 0";
 
         return ipDb()->fetchValue($sql);
     }

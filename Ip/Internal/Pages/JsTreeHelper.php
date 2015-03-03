@@ -23,11 +23,12 @@ class JsTreeHelper
      */
     protected static function getList($languageCode, $parentId)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
         $pages = ipDb()->selectAll(
             'page',
             '*',
             array('parentId' => $parentId, 'isDeleted' => 0),
-            'ORDER BY `pageOrder`'
+            'ORDER BY '.$quote.'pageOrder'.$quote
         );
 
         $answer = array();

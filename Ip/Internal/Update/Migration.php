@@ -524,14 +524,15 @@ class Migration
 
 
         $allRecords = ipDb()->selectAll('widgetInstance', '*');
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         foreach ($allRecords as $record) {
             $sql = "
             UPDATE
                 $table
             SET
-                `data` = REPLACE(`data`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
+                {$quote}data{$quote} = REPLACE({$quote}data{$quote}, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
             WHERE
-                `name` = 'Columns'
+                {$quote}name{$quote} = 'Columns'
             ";
 
             ipDb()->execute($sql);
@@ -540,7 +541,7 @@ class Migration
             UPDATE
                 $table
             SET
-                `blockName` = REPLACE(`blockName`, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
+                {$quote}blockName{$quote} = REPLACE({$quote}blockName{$quote}, 'column" . (int)$record['widgetId'] . "_', 'column" . (int)$record['id'] . "_')
             WHERE
                 1
             ";

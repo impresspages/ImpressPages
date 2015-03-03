@@ -157,7 +157,7 @@ class Service
         $table = ipTable('page');
 
         $pages = ipDb()->fetchAll(
-            "SELECT `id` FROM $table WHERE `isDeleted` = 1 AND `deletedAt` < ?",
+            "SELECT id FROM $table WHERE isDeleted = 1 AND deletedAt < ?",
             array($timestamp)
         );
 

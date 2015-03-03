@@ -4,7 +4,7 @@ namespace Ip\Internal\Plugins;
 
 class Model
 {
-
+	
     public static function getModules()
     {
         $modules = array(
@@ -148,7 +148,7 @@ class Model
 
     public static function deactivatePlugin($pluginName)
     {
-        $activePlugins = self::getActivePluginNames();
+        $activePlugins = self::getActivePuginNames();
         if (!in_array($pluginName, $activePlugins)) {
             //already deactivated
             return true;
@@ -172,9 +172,9 @@ class Model
         UPDATE
             ' . ipTable('plugin') . '
         SET
-            `isActive` = 0
+            isActive = 0
         WHERE
-            `name` = ?
+            name = ?
         ';
 
         ipDb()->execute($sql, array($pluginName));
@@ -224,7 +224,7 @@ class Model
         DELETE FROM
             ' . ipTable('plugin') . '
         WHERE
-            `name` = :pluginName
+            name = :pluginName
         ';
 
         $params = array(
@@ -272,7 +272,7 @@ class Model
             FROM
                 ' . ipTable('plugin') . '
             WHERE
-                `name` = :pluginName
+                name = :pluginName
         ';
 
         $params = array(
@@ -328,14 +328,14 @@ class Model
             return array();
         }
         $dbh = ipDb()->getConnection();
+        $quote = (IpDb()->isPgSQL() ? '"' : "`");
         $sql = '
             SELECT
-                `name`
+                name
             FROM
                 ' . ipTable('plugin') . '
             WHERE
-                `isActive` = 1
-        ';
+                '.$quote.'isActive'.$quote.' = 1';
 
         $params = array();
         $q = $dbh->prepare($sql);
@@ -430,8 +430,9 @@ class Model
     protected static function executeSqlIfExists($file)
     {
         if (is_file($file)) {
+        	$quote = (IpDb()->isPgSQL() ? "" : "`");
             $sql = file_get_contents($file);
-            $sql = str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            $sql = str_replace($quote.'ip_', $quote . ipConfig()->tablePrefix(), $sql);
             ipDb()->execute($sql);
         }
 

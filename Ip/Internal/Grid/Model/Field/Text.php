@@ -61,8 +61,10 @@ class Text extends \Ip\Internal\Grid\Model\Field
 
     public function searchQuery($searchVariables)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return ' `' . $this->field . '` like ' . ipDb()->getConnection()->quote(
+            return ' ' . $quote . $this->field . $quote . ' like ' . ipDb()->getConnection()->quote(
                 '%' . $searchVariables[$this->field] . '%'
             ) . '';
         }

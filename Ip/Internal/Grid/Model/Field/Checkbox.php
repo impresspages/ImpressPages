@@ -96,11 +96,13 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
 
     public function searchQuery($searchVariables)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
             if ($searchVariables[$this->field]) {
-                return '`' . $this->field . '`';
+                return $quote . $this->field . $quote;
             } else {
-                return 'not `' . $this->field . '`';
+                return 'not ' . $quote . $this->field . $quote;
             }
 
         }

@@ -352,7 +352,8 @@ class Helper
 
         foreach ($tables as $table) {
             try {
-                $sql = 'SELECT 1 FROM `' . $prefix . $table . '`';
+            	$quote = (IpDb()->isPgSQL() ? "" : "`");
+                $sql = 'SELECT 1 FROM ' . $quote . $prefix . $table . $quote;
                 ipDb()->execute($sql);
                 $tableExists = true;
             } catch (\Exception $e) {

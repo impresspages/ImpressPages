@@ -123,6 +123,7 @@ class Dao
         $scope->settype(Entity\Scope::SCOPE_LANGUAGE);
         $scope->setLanguageId($languageId);
         $this->lastValueScope = $scope;
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
 
         $dbh = ipDb()->getConnection();
         $sql = '
@@ -131,9 +132,9 @@ class Dao
             FROM
                 ' . ipTable('inline_value_language') . '
             WHERE
-                `plugin` = :module AND
-                `key` = :key AND
-                `languageId` = :languageId
+                plugin = :module AND
+                key = :key AND
+                '.$quote.'languageId'.$quote.' = :languageId
         ';
 
         $params = array(
@@ -169,8 +170,8 @@ class Dao
             FROM
                 ' . ipTable('inline_value_global') . '
             WHERE
-                `plugin` = :module AND
-                `key` = :key
+                plugin = :module AND
+                key = :key
         ';
 
         $params = array(
@@ -268,9 +269,9 @@ class Dao
             DELETE FROM
                 ' . ipTable('inline_value_page') . '
             WHERE
-                `plugin` = :module
-                AND `key` = :key
-                AND `pageId` = :pageId
+                plugin = :module
+                AND key = :key
+                AND pageId = :pageId
         ';
 
         $params = array(
@@ -295,9 +296,9 @@ class Dao
             DELETE FROM
                 ' . ipTable('inline_value_language') . '
             WHERE
-                `plugin` = :module and
-                `key` = :key and
-                `languageId` = :languageId
+                plugin = :module and
+                key = :key and
+                languageId = :languageId
         ';
 
         $params = array(
@@ -321,8 +322,8 @@ class Dao
             DELETE FROM
                 ' . ipTable('inline_value_global') . '
             WHERE
-                `plugin` = :module
-                AND `key` = :key
+                plugin = :module
+                AND key = :key
         ';
 
         $params = array(

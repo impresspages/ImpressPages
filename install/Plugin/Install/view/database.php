@@ -22,6 +22,13 @@
         <label for="db_prefix"><?php _e('Table prefix (use underscore to separate prefix).', 'Install'); ?></label>
         <input type="text" maxlength="7" class="form-control" id="db_prefix" name="prefix" value="<?php echo htmlspecialchars($db['tablePrefix']); ?>">
     </div>
+    <div class="form-group">
+        <label for="db_type"><?php _e('Database type', 'Install'); ?></label>
+        <select class="form-control" id="db_type" name="type">
+        	<option value="mysql" <?php echo ($db['type'] == 'mysql'?'selected':'') ?>>MySQL</option>
+        	<option value="pgsql" <?php echo ($db['type'] == 'pgsql'?'selected':'') ?>>PostgreSQL</option>
+        </select>        
+    </div>
     <p class="text-right">
         <button type="submit" class="btn btn-primary ipsDatabaseSubmit"><?php _e('Next', 'Install'); ?></button>
     </p>

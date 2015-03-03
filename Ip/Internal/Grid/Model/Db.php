@@ -29,13 +29,15 @@ class Db
 
     public function buildSqlWhere()
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $where = $this->config->filter();
         $depth = Status::depth($this->statusVariables);
         if ($depth > 1) {
             if (!$this->config->connectionField()) {
                 throw new \Ip\Exception("Nested GRID require 'connectionField' setting to be set.");
             }
-            $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.`' . $this->config->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
+            $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.' . $quote . $this->config->connectionField() . $quote . ' = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
         }
 
         $searchVariables = array();
@@ -68,6 +70,8 @@ class Db
 
     public function breadcrumbTitle($depth)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         if ($depth == 0) {
             return $this->config->getTitle();
         }
@@ -75,8 +79,8 @@ class Db
         $id = $this->statusVariables['gridParentId' . $depth];
 
         $title = ipDb()->fetchValue(
-            "SELECT " . $subgridConfig->tableName() . ".`" . $subgridConfig->getBreadcrumbField() . "` FROM " . $subgridConfig->tableName() . " " . $this->joinQuery(
-            ) . " WHERE " . $subgridConfig->tableName() . '.`' . $subgridConfig->idField() . '` = ' . ipDb()->getConnection()->quote($id) . " "
+            "SELECT " . $subgridConfig->tableName() . ".$quote" . $subgridConfig->getBreadcrumbField() . "$quote FROM " . $subgridConfig->tableName() . " " . $this->joinQuery(
+            ) . " WHERE " . $subgridConfig->tableName() . '.' . $quote . $subgridConfig->idField() . $quote . ' = ' . ipDb()->getConnection()->quote($id) . " "
         );
         return $title;
     }
@@ -116,6 +120,7 @@ class Db
 
     public function joinQuery($languageCode = null)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $joinQuery = false;
         if ($languageCode == null) {
             $languageCode = $this->getDefaultLanguageCode();
@@ -124,9 +129,9 @@ class Db
         if ($this->config->isMultilingual()) {
             // join language table
             $languageTable = $this->config->languageTableName();
-            $idField = $this->config->tableName() . '.`' . $this->config->idField() . '`';
-            $languageReferenceField = $languageTable . '.`' . $this->config->languageForeignKeyField() . '`';
-            $languageCodeField =  $languageTable . '.`' . $this->config->languageCodeField() . '`';
+            $idField = $this->config->tableName() . '.' . $quote . $this->config->idField() . $quote;
+            $languageReferenceField = $languageTable . '.' . $quote . $this->config->languageForeignKeyField() . $quote;
+            $languageCodeField =  $languageTable . '.' . $quote . $this->config->languageCodeField() . $quote;
             $joinQuery .= " LEFT OUTER JOIN $languageTable ON $idField = $languageReferenceField AND $languageCodeField = " . ipDb()->getConnection()->quote($languageCode) . "";
         }
 
@@ -141,7 +146,10 @@ class Db
 
     public function recordCount($where)
     {
-        $sql = "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->joinQuery() . " WHERE " . $where . " ";
+        $sql = "SELECT COUNT(*) FROM " . $this->config->tableName() . " " . $this->joinQuery();
+        if ($where && $where != 1) {
+            $sql .= " WHERE " . $where . " ";
+        }
         return ipDb()->fetchValue($sql);
     }
 
@@ -154,13 +162,16 @@ class Db
           " . $this->config->selectFields() . "
         FROM
           " . $this->config->tableName() . "
-          " . $this->joinQuery() . "
+          " . $this->joinQuery() . 
+        ( $where != 1 ?
+          "
         WHERE
-          " . $where . "
+          " . $where  : "" )."
         ORDER BY
             " . $this->config->orderBy($this->statusVariables) . "
         LIMIT
-            $from, $count
+            $count 
+        OFFSET $from
         ";
 
         $result = ipDb()->fetchAll($sql);
@@ -171,6 +182,8 @@ class Db
 
     public function fetchRow($id)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        
         $sql = "
         SELECT
           " . $this->config->selectFields() . "
@@ -178,7 +191,7 @@ class Db
           " . $this->config->tableName() . "
           " . $this->joinQuery() . "
         WHERE
-          " . $this->config->tableName() . ".`" . $this->config->idField() . "` = :id
+          " . $this->config->tableName() . "." . $quote . $this->config->idField() . $quote . " = :id
         ";
 
         $params = array(

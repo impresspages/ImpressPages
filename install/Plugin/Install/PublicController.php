@@ -240,6 +240,7 @@ class PublicController extends \Ip\Controller
                 'username' => '',
                 'password' => '',
                 'database' => '',
+            	'type'     => 'mysql',
                 'charset' => 'utf8',
                 'tablePrefix' => 'ip_'
             );
@@ -361,8 +362,9 @@ class PublicController extends \Ip\Controller
             'username' => $db['username'],
             'password' => $db['password'],
             'tablePrefix' => $db['tablePrefix'],
-            'database' => '', // If database doesn't exist, we will create it.
-            'charset' => 'utf8',
+            'database' => ($db['type'] == 'pgsql' ? $db['database'] : ''), // If database doesn't exist, we will create it. (except PostgreSQL)
+            'type' => $db['type'],
+            'charset' => 'utf8'
         );
 
         ipConfig()->set('db', $dbConfig);
@@ -374,11 +376,14 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__("Can't connect to database.", 'Install'), false);
         }
 
-        try {
-            Model::createAndUseDatabase($db['database']);
-        } catch (\Ip\Exception $e) {
-            $_SESSION['db_errors'][] = 'DB cannot be created';
-            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
+        // postgres database has to preexist
+        if ($db['type'] != 'pgsql') {
+	        try {
+	            Model::createAndUseDatabase($db['database']);
+	        } catch (\Ip\Exception $e) {
+	            $_SESSION['db_errors'][] = 'DB cannot be created';
+	            return \Ip\Response\JsonRpc::error(__('Specified database does not exists and cannot be created.', 'Install', false));
+	        }
         }
 
         if (Helper::testDBTables($db['tablePrefix']) && empty($db['replaceTables'])) {
@@ -386,10 +391,10 @@ class PublicController extends \Ip\Controller
             return \Ip\Response\JsonRpc::error(__('Do you like to replace existing tables in the database?', 'Install', false), 'table_exists');
         }
 
-        $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix']);
+        $errors = Model::createDatabaseStructure($db['database'], $db['tablePrefix'], $db['type']);
 
         if (!$errors) {
-            $errors = Model::importData($dbConfig['tablePrefix']);
+            $errors = Model::importData($dbConfig['tablePrefix'], $db['type']);
         }
 
         if ($errors) {

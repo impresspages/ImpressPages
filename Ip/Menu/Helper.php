@@ -37,10 +37,13 @@ class Helper
      */
     public static function getMenuItems($menuName, $depthFrom = 1, $depthTo = 1000, $orderBy = null)
     {
+    	
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
+    	
         if ($orderBy == 'title') {
-            $order = '`title`';
+            $order = 'title';
         } else {
-            $order = '`pageOrder`';
+            $order = 'pageOrder';
         }
 
         // variable check
@@ -82,7 +85,7 @@ class Helper
                 'page',
                 '*',
                 array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $menuRootId, 'isDeleted' => 0),
-                "ORDER BY $order"
+                "ORDER BY {$quote}$order{$quote}"
             ); //get first level elements
         } elseif (isset($breadcrumb[$depthFrom - 2])) { // if we need a second level (2), we need to find a parent element at first level. And it is at position 0. This is where -2 comes from.
             if (!empty($breadcrumb[0])) {
@@ -93,7 +96,7 @@ class Helper
                         'page',
                         '*',
                         array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $parent->getId(), 'isDeleted' => 0),
-                        "ORDER BY $order"
+                        "ORDER BY {$quote}$order{$quote}"
                     );
                 } else {
                     $elements = array();
@@ -121,10 +124,12 @@ class Helper
      */
     public static function getChildItems($pageId = null, $depthLimit = 1000, $orderBy = null)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
+    	
         if ($orderBy == 'title') {
-            $order = '`title`';
+            $order = 'title';
         } else {
-            $order = '`pageOrder`';
+            $order = 'pageOrder';
         }
 
         if (is_string($pageId) && !ctype_digit($pageId)) {
@@ -142,7 +147,7 @@ class Helper
             'page',
             '*',
             array('isVisible' => 1, 'isSecured' => 0, 'parentId' => $pageId, 'isDeleted' => 0),
-            "ORDER BY $order"
+            "ORDER BY {$quote}$order{$quote}"
         ); //get first level elements
 
         $items = array();
@@ -162,6 +167,7 @@ class Helper
      */
     private static function arrayToMenuItem($pages, $depth, $curDepth, $order)
     {
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
         $items = array();
         foreach ($pages as $pageRow) {
             $page = new \Ip\Page($pageRow['id']);
@@ -172,7 +178,7 @@ class Helper
                     'page',
                     '*',
                     array('parentId' => $page->getId(), 'isVisible' => 1, 'isSecured' => 0, 'isDeleted' => 0),
-                    "ORDER BY $order"
+                    "ORDER BY {$quote}$order{$quote}"
                 );
                 if ($children) {
                     $childrenItems = self::arrayToMenuItem($children, $depth, $curDepth + 1, $order);

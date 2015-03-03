@@ -780,13 +780,13 @@ function ipDoctypeDeclaration($doctype = null)
 function ipTable($table, $as = false)
 {
     $prefix = ipConfig()->tablePrefix();
-    $answer = '`' . $prefix . $table . '`';
+    $quote = (!ipDb()->isPgSQL() ? '`' : '');
+    $answer = $quote . $prefix . $table . $quote;
     if ($as === true) {
         if ($prefix) { // If table prefix is empty we don't need to use `tableName` as `tableName`.
-            $answer .= ' as `' . $table . '` ';
+            $answer .= ' as ' . $quote . $table . $quote.' ';
         }
     } elseif ($as) {
-        $answer .= ' as `' . $as . '` ';
     }
 
     return $answer;

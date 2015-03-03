@@ -354,6 +354,8 @@ class Config
 
     public function orderBy($statusVariables)
     {
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        
         if (!empty($this->config['orderBy'])) {
             return $this->config['orderBy'];
         } else {
@@ -365,7 +367,7 @@ class Config
             } else {
                 $table = $this->tableName();
             }
-            return $table . ".`" . $orderFieldName . "` " . $this->orderDirection($statusVariables);
+            return $table . "." . $quote . $orderFieldName . $quote . " " . $this->orderDirection($statusVariables);
         }
     }
 
