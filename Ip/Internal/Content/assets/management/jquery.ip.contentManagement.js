@@ -264,7 +264,7 @@
 
     var ipStartWidgetDrag = function (event, ui) {
         var draggingElement = event.target;
-        if (!$(draggingElement).hasClass('ipWidget')) {
+        if (!$(draggingElement).hasClass('ipWidget') && !$(draggingElement).hasClass('ipsAdminPanelWidgetButton')) {
             //we are dragging something inside widget, not the widget itself
             return;
         }
