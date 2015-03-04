@@ -237,6 +237,8 @@ class ReflectionModel
     private function getReflectionRecord($file, $optionsFingerprint)
     {
         $dbh = ipDb()->getConnection();
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $sql = "
         SELECT
           reflection
@@ -245,7 +247,7 @@ class ReflectionModel
         WHERE
           original = :original
           AND
-          optionsFingerprint = :optionsFingerprint
+          {$quote}optionsFingerprint{$quote} = :optionsFingerprint
         ";
 
         $params = array(

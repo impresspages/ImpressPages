@@ -16,7 +16,7 @@ class Helper
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
-        $pages = ipDb()->selectAll('page', 'id, title', array('isDeleted' => 1));
+        $pages = ipDb()->selectAll('page', array('id', 'title'), array('isDeleted' => 1));
 
         foreach ($pages as $page) {
             $field = new \Ip\Form\Field\Checkbox(
@@ -37,7 +37,7 @@ class Helper
         $form = new \Ip\Form();
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
-        $pages = ipDb()->selectAll('page', 'id, title', array('isDeleted' => 1));
+        $pages = ipDb()->selectAll('page', array('id', 'title'), array('isDeleted' => 1));
 
         foreach ($pages as $page) {
             $field = new \Ip\Form\Field\Checkbox(

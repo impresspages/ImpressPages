@@ -133,7 +133,7 @@ class Dao
                 ' . ipTable('inline_value_language') . '
             WHERE
                 plugin = :module AND
-                key = :key AND
+                '.$quote.'key'.$quote.' = :key AND
                 '.$quote.'languageId'.$quote.' = :languageId
         ';
 
@@ -162,6 +162,7 @@ class Dao
         $scope = new Entity\Scope();
         $scope->settype(Entity\Scope::SCOPE_GLOBAL);
         $this->lastValueScope = $scope;
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
 
         $dbh = ipDb()->getConnection();
         $sql = '
@@ -171,7 +172,7 @@ class Dao
                 ' . ipTable('inline_value_global') . '
             WHERE
                 plugin = :module AND
-                key = :key
+                '.$quote.'key'.$quote.' = :key
         ';
 
         $params = array(
@@ -265,13 +266,15 @@ class Dao
     public function deletePageValue($key, $pageId)
     {
         $dbh = ipDb()->getConnection();
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $sql = '
             DELETE FROM
                 ' . ipTable('inline_value_page') . '
             WHERE
                 plugin = :module
-                AND key = :key
-                AND pageId = :pageId
+                AND '.$quote.'key'.$quote.' = :key
+                AND '.$quote.'pageId'.$quote.' = :pageId
         ';
 
         $params = array(
@@ -292,13 +295,15 @@ class Dao
     public function deleteLanguageValue($key, $languageId)
     {
         $dbh = ipDb()->getConnection();
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $sql = '
             DELETE FROM
                 ' . ipTable('inline_value_language') . '
             WHERE
                 plugin = :module and
-                key = :key and
-                languageId = :languageId
+                '.$quote.'key'.$quote.' = :key and
+                '.$quote.'languageId'.$quote.' = :languageId
         ';
 
         $params = array(
@@ -318,12 +323,14 @@ class Dao
     public function deleteGlobalValue($key)
     {
         $dbh = ipDb()->getConnection();
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $sql = '
             DELETE FROM
                 ' . ipTable('inline_value_global') . '
             WHERE
                 plugin = :module
-                AND key = :key
+                AND '.$quote.'key'.$quote.' = :key
         ';
 
         $params = array(

@@ -66,12 +66,13 @@ class Model
             'instanceId' => $instanceId,
             'baseDir' => $baseDir
         );
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
 
         $sql = 'DELETE FROM ' . ipTable('repository_file') . '
                 WHERE filename = :fileName
                 AND plugin = :plugin
-                AND instanceId = :instanceId
-                AND baseDir = :baseDir';
+                AND '.$quote.'instanceId'.$quote.' = :instanceId
+                AND '.$quote.'baseDir'.$quote.' = :baseDir';
                 //LIMIT 1'; // it is important to delete only one record -- why?
 
         ipDb()->execute($sql, $condition);

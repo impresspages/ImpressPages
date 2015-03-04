@@ -23,16 +23,16 @@ class Storage
      */
     public function get($pluginName, $key, $defaultValue = null)
     {
-
+    	$quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $sql = '
             SELECT
                 value
             FROM
-                ' . ipTable('storage') . '
+                ' . ipTable('storage') . "
             WHERE
                 plugin = :plugin AND
-                key = :key
-        ';
+                {$quote}key{$quote} = :key
+        ";
 
         $params = array(
             ':plugin' => $pluginName,
@@ -82,12 +82,12 @@ class Storage
      */
     public function getAll($plugin)
     {
-
-        $sql = '
+    	$quote = (!ipDb()->isPgSQL() ? '`' : '"');
+        $sql = "
             SELECT
-                key, value
+                {$quote}key{$quote}, value
             FROM
-                ' . ipTable('storage') . '
+                " . ipTable('storage') . '
             WHERE
                 plugin = :plugin
             ';
@@ -117,14 +117,15 @@ class Storage
      */
     public function remove($pluginName, $key)
     {
+    	$quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $sql = '
             DELETE FROM
-                ' . ipTable('storage') . '
+                ' . ipTable('storage') . "
             WHERE
                 plugin = :plugin
                 AND
-                key = :key
-        ';
+                {$quote}key{$quote} = :key
+        ";
 
         $params = array(
             ':plugin' => $pluginName,

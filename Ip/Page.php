@@ -472,15 +472,17 @@ class Page
         }
 
         $table = ipTable('page');
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
+
         $sql = "
         SELECT
             *
         FROM
             $table
         WHERE
-            parentId = :parentId AND
-            isVisible = 1 AND
-            isDeleted = 0
+            {$quote}parentId{$quote} = :parentId AND
+            {$quote}isVisible{$quote} = 1 AND
+            {$quote}isDeleted{$quote} = 0
         ORDER BY
             " . $orderBy . "
             " . $direction . "

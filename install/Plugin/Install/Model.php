@@ -85,7 +85,7 @@ class Model
     	if ($dbType == "pgsql") {
     		self::importDataPostgreSQL($tablePrefix);
     	} else {
-    		self::importData($tablePrefix);
+    		self::importDataMySQL($tablePrefix);
     	}
     }
     
