@@ -83,7 +83,7 @@ class Event
         }
 
         // initialize management
-        if (!ipRequest()->getQuery('ipDesignPreview')) {
+        if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableManagement')) {
             Helper::initManagement();
         }
 
