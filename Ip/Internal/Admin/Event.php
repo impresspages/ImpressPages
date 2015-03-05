@@ -123,7 +123,7 @@ class Event
         if (ipContent()->getCurrentPage()) {
             // initialize management
             if (ipIsManagementState()) {
-                if (!ipRequest()->getQuery('ipDesignPreview')) {
+                if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableManagement')) {
                     \Ip\Internal\Content\Helper::initManagement();
                 }
             }
