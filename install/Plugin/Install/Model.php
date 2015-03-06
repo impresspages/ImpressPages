@@ -72,9 +72,13 @@ class Model
     	$sql = str_replace("[[[[database]]]]", $database, $sql);
     	$sql = str_replace("DROP TABLE IF EXISTS ip_", "DROP TABLE IF EXISTS ". $tablePrefix, $sql);
     	$sql = str_replace("CREATE TABLE ip_", "CREATE TABLE ".$tablePrefix, $sql);
-     	$sql = str_replace("CREATE SEQUENCE  \"ip_", "CREATE SEQUENCE \"".$tablePrefix, $sql);
+     	$sql = str_replace("CREATE SEQUENCE \"ip_", "CREATE SEQUENCE \"".$tablePrefix, $sql);
         $sql = str_replace("nextval('\"ip_", "nextval('\"".$tablePrefix, $sql);
-
+        $sql = str_replace('ON ip_', 'ON '.$tablePrefix, $sql);  // create index xy on ip_
+        $sql = str_replace('COMMENT ON COLUMN ip_', 'COMMENT ON COLUMN '.$tablePrefix, $sql);  
+        $sql = str_replace('COMMENT ON TABLE ip_', 'COMMENT ON TABLE '.$tablePrefix, $sql);
+        
+        
     	$errors = array();
     	ipDb()->executeUnprepared($sql);
     
