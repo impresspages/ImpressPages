@@ -28,7 +28,7 @@ class Actions
     public function delete($id)
     {
         $db = new Db($this->subgridConfig, $this->statusVariables);
-        $quote = (!$db->isPgSQL() ? '`' : '"');
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
 
         $fields = $this->subgridConfig->fields();
         $curData = $db->fetchRow($id);
@@ -189,7 +189,7 @@ class Actions
 
 
         $db = new Db($this->subgridConfig, $this->statusVariables);
-        $quote = (!$db->isPgSQL() ? '`' : '"');
+        $quote = (!ipDb()->isPgSQL() ? '`' : '"');
         $db->setDefaultLanguageCode($languageCode);
 
         $sql = "UPDATE " . ipTable($table) . " " . $db->joinQuery() . " SET ";

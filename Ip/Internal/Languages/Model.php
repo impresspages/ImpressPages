@@ -17,7 +17,8 @@ class Model
 
     public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection)
     {
-        $languageOrder = ipDb()->selectValue('language', 'MAX(languageOrder) + 3', array());
+    	$quote = (IpDb()->isPgSQL() ? '"' : "`");
+        $languageOrder = ipDb()->selectValue('language', 'MAX('.$quote.'languageOrder'.$quote.') + 3', array());
         if (!$languageOrder) {
             $languageOrder = 1;
         }
