@@ -18,7 +18,6 @@ var IpWidget_Gallery = function () {
         this.data = data;
         this.widgetId = this.$widgetObject.data('widgetid');
 
-        this.$widgetObject.find('.ipsMyMenu').on('click', function () {console.log('test');});
 
         this.$widgetObject.on('click', $.proxy(this.focus, this));
         $(document.body).on('click', $.proxy(function (e) { //detect mouse click outside of the widget
