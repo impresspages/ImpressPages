@@ -387,7 +387,7 @@ class Config
         if (!empty($statusVariables['order'])) {
             $orderField = $statusVariables['order'];
             foreach($this->config['fields'] as $field) {
-                if (!empty($field['field']) && $field['field'] == $orderField && (empty($field['allowOrder']) || $field['allowOrder'])) {
+                if (!empty($field['field']) && $field['field'] == $orderField && (!isset($field['allowOrder']) || $field['allowOrder'])) {
                     $manualOrder = true;
                     break;
                 }
