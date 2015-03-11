@@ -478,7 +478,6 @@ var IpWidget_Gallery = function () {
             $.proxy(context.editImage, context)($item.index(), function () {
                 $.proxy(context.reopenManagementPopup, context)();
                 $item.find('img').attr('src', context.data.images[$item.index()]['imageSmall']);
-                console.log(context.data.images[$item.index()]['imageSmall']);
             });
         });
         $controls.find('.ipsLink').off('click.galleryWidget').on('click.galleryWidget', function (e) {
