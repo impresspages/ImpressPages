@@ -16,7 +16,9 @@ var ipDesignOptionsClose = function (e) {
 
     var bodyClassToHideScroll = 'modal-open';
 
-    $(document.body).removeClass(bodyClassToHideScroll);
+    if(!$('.modal[aria-hidden=false]').length) {
+        $(document.body).removeClass(bodyClassToHideScroll);
+    }
     $('.ipModuleDesign .ipsPreview').addClass('hidden');
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', '');
 };

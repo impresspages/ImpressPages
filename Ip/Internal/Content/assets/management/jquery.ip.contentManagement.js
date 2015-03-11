@@ -63,28 +63,33 @@
                     // float fix, categories don't exist in mobile
                     var $widgetCategories = $('._widgetCategories');
                     if ($widgetCategories.length) {
-                        $('._widgetTabs').css({'marginLeft':$widgetCategories.width()});
+                        $('.ipsWidgetList').css({'marginLeft':$widgetCategories.width()});
                     }
 
                     ipSpaceForWidgets();
-                    ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
 
                     // Widget category switches
-                    var $widgetSwitches = $('._widgetTabSwitch > a');
+                    $('.ipsWidgetTag a').on('click', function (e) {e.preventDefault();});
+                    var $widgetSwitches = $('.ipsWidgetTag');
                     $widgetSwitches.on('click', function(e) {
                         e.preventDefault();
-                        var $switch = $(this);
+                        var $this = $(this);
 
-                        $widgetSwitches.parent().removeClass('_active');
-                        $switch.parent().addClass('_active');
+                        $widgetSwitches.removeClass('_active');
+                        $this.addClass('_active');
 
-                        $($switch.attr('href'))
-                            .addClass('_active')
-                            .siblings().removeClass('_active');
+                        $('.ipsAdminPanelWidgetsContainer .ipsWidgetItem').addClass('hidden');
+                        var tagWidgetNames = ipContentInit.tags[$this.data('tag')];
+                        $.each(tagWidgetNames, function (key, item) {
+                            $('.ipsWidgetItem-' + item).removeClass('hidden');
+
+                        });
 
                         ipAdminWidgetsScroll();
                     });
+
+                    $widgetSwitches.first().click();
 
                     $('.ipsAdminPanelWidgetButton')
                         .on('dragstart', ipStartWidgetDrag)
@@ -168,66 +173,30 @@
      *
      */
     var ipAdminWidgetsScroll = function () {
-        var $scrollable = $('._widgetTab'); // binding object
-
-        $.each($scrollable, function(index, el) {
-            var $scr = $(el);
-
-            // skip hidden categories
-            if ($scr.css('display') === 'none') return true;
-
-            if (typeof $scr.data('scrollable') === 'undefined') {
-                $scr.scrollable({
-                    items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
-                    touch: false,
-                    keyboard: false,
-                    moveParent: true
-                });
-            }
-
-            var scrollableAPI = $scr.data('scrollable');
-
-            // Items don't dynamically change so we can save values to speed things up
-            var itemWidth = $scr.data('_itemWidth');
-            if (typeof itemWidth === 'undefined') {
-                itemWidth = scrollableAPI.getItems().eq(0).parent().outerWidth(true); // we want the li width
-                $scr.data('_itemWidth', itemWidth);
-            }
-
-            var itemCount = $scr.data('_itemCount');
-            if (typeof itemCount === 'undefined') {
-                itemCount =  scrollableAPI.getItems().length;
-                $scr.data('_itemCount', itemCount);
-            }
-
-            var leftMargin = $scr.find('> ul').css('marginLeft').slice(0, -2) * 2;
-            var containerWidth = $scr.width() - leftMargin; // subtracting sides
-
-            //var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll;
-            var scrollBy = 0;
-
-            for (var i = 1; i <= itemCount; i++) {
-                if (itemWidth * i < containerWidth) {
-                    scrollBy = i;
-                } else {
-                    break;
-                }
-            }
-
-            if (scrollBy === 0) {
-                scrollBy = 1;
-            }
-
-            $scr.find('> .ipsRight, > .ipsLeft').off('click'); // unbind if reinitiating dynamically
-            scrollableAPI.begin(); // move to scroller to default position (beginning)
-            $scr.find('> .ipsRight').on('click', function (event) {
-                event.preventDefault();
-                scrollableAPI.move(scrollBy);
-            });
-            $scr.find('> .ipsLeft').on('click', function (event) {
-                event.preventDefault();
-                scrollableAPI.move(-scrollBy);
-            });
+        var $scrollable = $('.ipsAdminPanelWidgetsContainer'); // binding object
+        $scrollable.removeData("scrollable");
+        $scrollable.scrollable({
+            item: 'li:not(.hidden)',
+            items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
+            touch: false,
+            keyboard: false
+        });
+        var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
+        var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
+        var containerWidth = scrollableAPI.getRoot().width() + 24; // adding left side compensation
+        var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll
+        if (scrollBy < 1) {
+            scrollBy = 1;
+        } // setting the minimum
+        $scrollable.siblings('.ipsRight, .ipsLeft').off('click'); // unbind if reinitiating dynamically
+        scrollableAPI.begin(); // move to scroller to default position (beginning)
+        $scrollable.siblings('.ipsRight').on('click', function (event) {
+            event.preventDefault();
+            scrollableAPI.move(scrollBy);
+        });
+        $scrollable.siblings('.ipsLeft').on('click', function (event) {
+            event.preventDefault();
+            scrollableAPI.move(-scrollBy);
         });
     }
 
@@ -251,21 +220,21 @@
             }
             ;
         }).blur(function () {
-                if (this.value == '') {
-                    this.value = this.defaultValue;
-                }
-                ;
-            }).keyup(function () {
-                var value = this.value;
-                $widgets.css('display', ''); // restate visibility
-                if (value && value != this.defaultValue) {
-                    $widgets.not(':icontains(' + value + ')').css('display', 'none');
-                    $button.addClass('ipaClear');
-                } else {
-                    $button.removeClass('ipaClear');
-                }
-                ipAdminWidgetsScroll(); // reinitiate scrollable
-            });
+            if (this.value == '') {
+                this.value = this.defaultValue;
+            }
+            ;
+        }).keyup(function () {
+            var value = this.value;
+            $widgets.css('display', ''); // restate visibility
+            if (value && value != this.defaultValue) {
+                $widgets.not(':icontains(' + value + ')').css('display', 'none');
+                $button.addClass('ipaClear');
+            } else {
+                $button.removeClass('ipaClear');
+            }
+            ipAdminWidgetsScroll(); // reinitiate scrollable
+        });
 
         $button.click(function (event) {
             event.preventDefault();
@@ -294,7 +263,11 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = event.currentTarget;
+        var draggingElement = event.target;
+        if (!$(draggingElement).hasClass('ipWidget') && !$(draggingElement).hasClass('ipsAdminPanelWidgetButton')) {
+            //we are dragging something inside widget, not the widget itself
+            return;
+        }
 
         //drop side
         var sidePlaceholders = new Array();
