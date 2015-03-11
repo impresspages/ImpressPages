@@ -200,10 +200,14 @@ class Helper
             } else {
                 $item->setUrl($page->getLink());
             }
+            $metaTitle = $page->getMetaTitle();
             $item->setBlank($page->isBlank());
             $item->setTitle($page->getTitle());
             $item->setDepth($curDepth);
             $item->setDisabled($page->isDisabled());
+            $item->setId($page->getId());
+            $item->setAlias($page->getAlias());
+            $item->setPageTitle(empty ($metaTitle) ? $page->getTitle() : $metaTitle);
             $items[] = $item;
         }
 

@@ -27,9 +27,23 @@ class Event
 
             ipAddJs('Ip/Internal/Content/assets/jquery.ip.uploadImage.js');
 
-            ipAddCss('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.css');
-            ipAddJs('Ip/Internal/Core/assets/js/jquery-colorpicker/colorpicker.js');
+            ipAddJs('Ip/Internal/Core/assets/js/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js');
+            ipAddCss('Ip/Internal/Core/assets/js/bootstrap-colorpicker/css/bootstrap-colorpicker.css');
         }
+
+
+    }
+
+    public static function ipUrlChanged($info)
+    {
+        $httpExpression = '/^((http|https):\/\/)/i';
+        if (!preg_match($httpExpression, $info['oldUrl'])) {
+            return;
+        }
+        if (!preg_match($httpExpression, $info['newUrl'])) {
+            return;
+        }
+        Model::updateUrl($info['oldUrl'], $info['newUrl']);
     }
 }
 

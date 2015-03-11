@@ -30,6 +30,19 @@ class PublicController extends \Ip\Controller
         ipAddJs('Plugin/Install/assets/js/install.js');
     }
 
+    public function testSessions()
+    {
+        if (!empty($_SESSION['websiteId'])) {
+            return new \Ip\Response\Json(array('status' => 'success'));
+        }
+
+        $answer = array(
+            'html' => ipView('view/sessionsDontWork.php')->render()
+        );
+        return new \Ip\Response\Json($answer);
+
+    }
+
     public function index()
     {
         $this->init();
@@ -407,7 +420,6 @@ class PublicController extends \Ip\Controller
 
         try {
             ipConfig()->set('db', $dbConfig);
-            OptionHelper::import(__DIR__ . '/options.json');
 
             // if admin data is posted then user will be created
             if ($admin) {

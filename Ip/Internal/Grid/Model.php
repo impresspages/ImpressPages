@@ -9,7 +9,7 @@ namespace Ip\Internal\Grid;
 abstract class Model
 {
 
-    public abstract function handleMethod(\Ip\Request $request);
+    public abstract function handleMethod();
 
 
 }

@@ -42,17 +42,23 @@ class Model
      * @internal param int $newParentId
      * @return int
      */
-    public static function copyPage($pageId, $destinationPageId, $position = null)
+    public static function copyPage($pageId, $destinationPageId, $destinationPosition = null)
     {
         $children = self::getChildren($destinationPageId);
 
-        if (!empty($children)) {
-            $rowNumber = $children[count($children) - 1]['pageOrder'] + 1;
-        } else {
-            $rowNumber = 0;
+        $newPageOrder = 1;
+        if (count($children) > 0) {
+            $newPageOrder = $children[0]['pageOrder'] - 1; // Set as first page.
+            if ($destinationPosition > 0) {
+                if (isset($children[$destinationPosition - 1]) && isset($children[$destinationPosition])) { // New position is in the middle of other pages.
+                    $newPageOrder = ($children[$destinationPosition - 1]['pageOrder'] + $children[$destinationPosition]['pageOrder']) / 2; // Average
+                } else { // New position is at the end.
+                    $newPageOrder = $children[count($children) - 1]['pageOrder'] + 1;
+                }
+            }
         }
 
-        return self::_copyPageRecursion($pageId, $destinationPageId, $rowNumber);
+        return self::_copyPageRecursion($pageId, $destinationPageId, $newPageOrder);
     }
 
     /**
@@ -110,6 +116,8 @@ class Model
         $copy['parentId'] = $newParentId;
         $copy['pageOrder'] = $newIndex;
         $copy['urlPath'] = UrlAllocator::allocatePath($copy['languageCode'], $copy['urlPath']);
+        $copy['createdAt'] = date('Y-m-d H:i:s');
+        $copy['updatedAt'] = date('Y-m-d H:i:s');
 
 
         $pageId = ipDb()->insert('page', $copy);
@@ -168,6 +176,24 @@ class Model
         return ipDb()->selectAll('page', '*', array('parentId' => $parentId, 'isDeleted' => 0), $sqlEnd);
     }
 
+    public static function getDefaultMenuPagePosition($menuAlias, $whenPageIsSelected, $default)
+    {
+        $key = 'menu_' . $menuAlias . '_default_position';
+        if ($whenPageIsSelected) {
+            $key .= '_selected';
+        }
+        return ipStorage()->get('Pages', $key, $default);
+    }
+
+    public static function setDefaultMenuPagePosition($menuAlias, $whenPageIsSelected, $position)
+    {
+        $key = 'menu_' . $menuAlias . '_default_position';
+        if ($whenPageIsSelected) {
+            $key .= '_selected';
+        }
+        ipStorage()->set('Pages', $key, $position);
+    }
+
     /**
      * Get menu list
      *
@@ -207,15 +233,29 @@ class Model
      */
     public static function getPageByUrl($languageCode, $urlPath)
     {
-        if (substr($urlPath, -1) == '/') {
-            $urlPath = substr($urlPath, 0, -1);
-        }
-
-        return ipDb()->selectRow(
+        $page = ipDb()->selectRow(
             'page',
             '*',
             array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
         );
+
+        if ($page) {
+            return $page;
+        }
+
+        //if lash exists, remove. If there is no slash, add it.
+        if (substr($urlPath, -1) == '/') {
+            $urlPath = substr($urlPath, 0, -1);
+        } else {
+            $urlPath .= '/';
+        }
+
+        $page = ipDb()->selectRow(
+            'page',
+            '*',
+            array('languageCode' => $languageCode, 'urlPath' => $urlPath, 'isDeleted' => 0)
+        );
+        return $page;
     }
 
     /**
@@ -261,8 +301,14 @@ class Model
     {
         $pageBeforeChange = ipPage($pageId);
 
-        if (mb_substr($newUrlPath, -1) == '/') {
-            $newUrlPath = mb_substr($newUrlPath, 0, -1);
+        if (ipGetOption('Config.trailingSlash', 1)) {
+            if (mb_substr($newUrlPath, -1) != '/') {
+                $newUrlPath .= '/';
+            }
+        } else {
+            if (mb_substr($newUrlPath, -1) == '/') {
+                $newUrlPath = mb_substr($newUrlPath, 0, -1);
+            }
         }
 
         if ($newUrlPath == $pageBeforeChange->getUrlPath()) {
@@ -274,11 +320,19 @@ class Model
 
         $pageAfterChange = ipPage($pageId);
 
+        $oldUrl = $pageBeforeChange->getLink();
+        if (substr($oldUrl, -1) == '/') {
+            $oldUrl = substr($oldUrl, 0, -1);
+        }
+        $newUrl = $pageAfterChange->getLink();
+        if (substr($newUrl, -1) == '/') {
+            $newUrl = substr($newUrl, 0, -1);
+        }
         ipEvent(
             'ipUrlChanged',
             array(
-                'oldUrl' => $pageBeforeChange->getLink(),
-                'newUrl' => $pageAfterChange->getLink(),
+                'oldUrl' => $oldUrl,
+                'newUrl' => $newUrl,
             )
         );
         return null;
@@ -431,7 +485,14 @@ class Model
             'pageOrder' => $newPageOrder
         );
 
+        $eventData = array(
+            'pageId' => $pageId,
+            'destinationParentId' => $destinationParentId,
+            'destinationPosition' => $destinationPosition
+        );
+        ipEvent('ipBeforePageMoved', $eventData);
         ipDb()->update('page', $update, array('id' => $pageId));
+        ipEvent('ipPageMoved', $eventData);
     }
 
     /**
@@ -473,7 +534,7 @@ class Model
 
         $data['alias'] = static::allocateUniqueAlias($languageCode, $alias);
         $data['title'] = $title;
-        $date['type'] = $type;
+        $data['type'] = $type;
 
         $data['parentId'] = 0;
         $data['pageOrder'] = static::getNextPageOrder(
@@ -553,6 +614,10 @@ class Model
             }
         }
 
+        if (!empty($row['urlPath']) && ipGetOption('Config.trailingSlash', 1) && substr($row['urlPath'], -1) != '/') {
+            $row['urlPath'] .= '/';
+        }
+
         if (empty($row['createdAt'])) {
             $row['createdAt'] = date('Y-m-d H:i:s');
         }
@@ -604,6 +669,7 @@ class Model
      */
     public static function updateUrl($oldUrl, $newUrl)
     {
+
         $old = parse_url($oldUrl);
         $new = parse_url($newUrl);
 
@@ -617,8 +683,26 @@ class Model
             'https://' . $oldPart . '/' => 'https://' . $newPart . '/',
         );
 
-        foreach ($replaces as $search => $replace) {
-            ipDb()->update('page', array('redirectUrl' => $replace), array('redirectUrl' => $search));
+        if ($newUrl == ipConfig()->baseUrl()) {
+            //the whole website URL has changed
+            $table = ipTable('page');
+            $sql = "
+            UPDATE
+              $table
+            SET
+              `redirectUrl` = REPLACE(`redirectUrl`, :search, :replace)
+            WHERE
+            1
+            ";
+            foreach ($replaces as $search => $replace) {
+                ipDb()->execute($sql, array('search' => $search, 'replace' => $replace));
+            }
+        } else {
+            //single page URL has changed
+            foreach ($replaces as $search => $replace) {
+                ipDb()->update('page', array('redirectUrl' => $replace), array('redirectUrl' => $search));
+            }
+
         }
     }
 

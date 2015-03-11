@@ -24,15 +24,23 @@ class Event
 
         if (function_exists('curl_init')) {
             $ch = curl_init();
+            $url = ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'));
             curl_setopt(
                 $ch,
                 CURLOPT_URL,
-                ipConfig()->baseUrl() . '?pa=Cron&pass=' . urlencode(ipGetOption('Config.cronPassword'))
+                $url
             );
             curl_setopt($ch, CURLOPT_REFERER, ipConfig()->baseUrl());
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, ipGetOption('Config.cronTimeout', 10));
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
             $fakeCronAnswer = curl_exec($ch);
+
+            if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
+                ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer, 'type' => 'curl', 'error' => curl_error($ch)));
+            }
+
         } else {
             $request = new \Ip\Request();
             $request->setQuery(
@@ -42,10 +50,12 @@ class Event
                 )
             );
             $fakeCronAnswer = \Ip\ServiceLocator::application()->handleRequest($request)->getContent();
+
+            if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
+                ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer, 'type' => 'subrequest'));
+            }
+
         }
 
-        if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
-            ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer));
-        }
     }
 }

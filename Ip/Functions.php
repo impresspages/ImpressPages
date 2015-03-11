@@ -119,7 +119,7 @@ function ipConfig()
 }
 
 /**
- * Get content object
+ * Get content object.
  *
  * Use this object to access pages and languages.
  * @return \Ip\Content Content object.
@@ -137,8 +137,9 @@ function ipContent()
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddJs($file, $attributes = null, $priority = 50)
+function ipAddJs($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -152,7 +153,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
@@ -168,13 +169,12 @@ function ipAddJsVariable($name, $value)
 }
 
 /**
- * Add JavaScript script. $value will be put inside <script> tags inline into HTML
- *
- * Generates JavaScript code which sets variables using specified values.
+ * Add inline JavaScript.
  * @param string $name JavaScript variable name.
- * @param mixed $value Variable value. Note: Do not use object as a value.
+ * @param string $value JavaScript
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
  */
+
 function ipAddJsContent($name, $value, $priority = 50)
 {
     \Ip\ServiceLocator::pageAssets()->addJavascriptContent($name, $value, $priority);
@@ -188,8 +188,9 @@ function ipAddJsContent($name, $value, $priority = 50)
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
  * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddCss($file, $attributes = null, $priority = 50)
+function ipAddCss($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -203,7 +204,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
@@ -586,14 +587,12 @@ function ipHomeUrl($languageCode = null)
         $homeUrl .= 'index.php/';
     }
 
-    if (ipGetOption('Config.multilingual')) {
-        if ($languageCode == null) {
-            $language = ipContent()->getCurrentLanguage();
-        } else {
-            $language = ipContent()->getLanguageByCode($languageCode);
-        }
-        $homeUrl .= $language->getUrlPath();
+    if ($languageCode == null) {
+        $language = ipContent()->getCurrentLanguage();
+    } else {
+        $language = ipContent()->getLanguageByCode($languageCode);
     }
+    $homeUrl .= $language->getUrlPath();
 
     return $homeUrl;
 }
@@ -628,11 +627,11 @@ function ipFormatBytes($bytes, $context, $precision = 0, $languageCode = null)
 }
 
 /**
- * Get formatted currency string
+ * Get formatted currency string. If you don't like the way the price is formatted by default, catch ipFormatPrice job and provide your own formatting method.
  *
  * @param int $price Numeric price. Multiplied by 100.
  * @param string $currency Three letter currency code. E.g. "EUR".
- * @param string $context A context string: "Ip", "Ip-admin" or plugin's name.
+ * @param string $context Plugins name that's requesting the operation. This makes it possible to render the price differently for each plugin.
  * @param string $languageCode
  * @return string A currency string in specific country format.
  */
@@ -825,7 +824,7 @@ function ipAdminPermission($permission, $administratorId = null)
  * @param string $content Content to be sent (html or plain text. See $html attribute). If you need e-mail templates, use ipEmailTemplate() function to generate the content.
  * @param bool $urgent E-mail urgency
  * @param bool $html HTML mode. Set to false for plain text mode.
- * @param string|array|null $files Full pathname of the file to be attached or array of the pathnames.
+ * @param string|array|null $files Full pathname of the file to be attached or array of pathnames.
  */
 function ipSendEmail($from, $fromName, $to, $toName, $subject, $content, $urgent = true, $html = true, $files = null)
 {
@@ -1032,7 +1031,12 @@ function ipUnbindFile($file, $plugin, $id, $baseDir = 'file/repository/')
 }
 
 /**
- * Get user login manipulation object
+ * Get user login manipulation object.
+ * Eg.
+ *
+ * ipUser()->loggedIn(); //check if user is logged in
+ * ipUser()->userId(); //get logged in user id
+ * ipUser()->data(); //get all user related data. All plugins can contribute their input and add values to this array by catching ipUserData filter.
  *
  * @return \Ip\User
  */
@@ -1079,6 +1083,7 @@ function ipGridController($config)
         //Grid initialization. Add JS and display GRID's HTML
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
 
         $backtrace = debug_backtrace();
         if (empty($backtrace[1]['object']) || empty($backtrace[1]['function']) || empty($backtrace[1]['class'])) {
@@ -1106,8 +1111,12 @@ function ipGridController($config)
                 throw new \Ip\Exception('ipGridController() function must be used only in controller (' . $backtrace[1]['class'] . '). ');
         }
 
+        if (!empty($config['gatewayData'])) {
+            $gateway = array_merge($config['gatewayData'], $gateway);
+        }
+
         $variables = array(
-            'gateway' => $gateway
+            'gateway' => ipActionUrl($gateway)
         );
 
         $content = ipView('Ip/Internal/Grid/view/placeholder.php', $variables);
@@ -1125,4 +1134,68 @@ function ipGridController($config)
     }
 
 
+}
+
+/**
+ * Convert price from one currency to another.
+ * This method throws ipConvertCurrency job. Any plugin that claims knowing how to convert one currency to another can provide the answer.
+ * This method has no default implementation. So if you will request currency conversion that's not covered by any of the plugins, you will get null as the result.
+ * @param int $amount amount in cents
+ * @param string $sourceCurrency three letter uppercase currency code. Eg. USD
+ * @param $destinationCurrency three letter uppercase currency code. Eg. USD
+ * @return int amount in cents
+ */
+function ipConvertCurrency($amount, $sourceCurrency, $destinationCurrency)
+{
+    $result = ipJob('ipConvertCurrency', compact('amount', 'sourceCurrency', 'destinationCurrency'));
+    return $result;
+}
+
+
+/**
+ * Get unocupied file name in directory. Very useful when storing uploaded files.
+ *
+ * @param string $dir
+ * @param string $desiredName
+ * @param bool $sanitize clean up supicious symbols from file name
+ * @return string
+ */
+function ipUnoccupiedFileName($dir, $desiredName, $sanitize = true)
+{
+    $availableFileName = \Ip\Internal\File\Functions::genUnoccupiedName($desiredName, $dir, '', $sanitize);
+    return $availableFileName;
+}
+
+
+/**
+ * Replace placeholders with actual values in string or array of strings. Default placeholders:
+ * websiteTitle
+ * websiteEmail
+ * websiteUrl
+ * userId
+ * userEmail
+ * userName
+ *
+ * @param string $content
+ * @param array $customValues
+ * @param string $context plugin name which executes the function. Makes possible to have different values in different contexts.
+ * @return string
+ */
+function ipReplacePlaceholders($content, $context = 'Ip', $customValues = array())
+{
+
+    $info = array (
+        'content' => $content,
+        'context' => $context,
+        'customValues' => $customValues
+    );
+    if (is_array($content)) {
+        $answer = array();
+        foreach($content as $item) {
+            $answer[] = ipJob('ipReplacePlaceholders', $info);
+        }
+        return $answer;
+    } else {
+        return ipJob('ipReplacePlaceholders', $info);
+    }
 }

@@ -4,6 +4,9 @@ body {
     font-family: @ipFontFamily;
     font-size: @ipFontSize;
 }
+body.rtl{
+    direction: rtl;
+}
 a { // Links should look the same everywhere
     color: @ipLinkColor;
     text-decoration: none;
@@ -105,4 +108,25 @@ a { // Links should look the same everywhere
     &:last-child {
         margin-bottom: 0;
     }
+}
+
+
+.button2 {
+    background-color: #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    padding: 0.5em 1em 0.5em 1em;
+    text-decoration: none;
+}
+.button2:hover {
+    box-shadow: 0 0 0 1px #aaa inset;
+    background: #ccc;
+}
+.button2 a {
+    color: inherit;
+}
+.button2 a:hover {
+    text-decoration: inherit;
 }

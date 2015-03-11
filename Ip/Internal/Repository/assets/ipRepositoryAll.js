@@ -143,16 +143,76 @@
                 case 'jpeg':
                 case 'jpg':
                 case 'png':
-                    iconClass = 'fa fa-picture-o';
+                case 'svg':
+                    iconClass = 'fa fa-file-image-o';
                     break;
                 case 'pdf':
-                    iconClass = 'fa fa-print';
+                    iconClass = 'fa fa-file-pdf-o';
                     break;
                 case 'txt':
                     iconClass = 'fa fa-file-text-o';
                     break;
+                case 'doc':
+                case 'docb':
+                case 'docm':
+                case 'docx':
+                case 'dot':
+                case 'dotm':
+                case 'dotx':
+                case 'odt':
+                case 'rtf':
+                    iconClass = 'fa fa-file-word-o';
+                    break;
+                case 'csv':
+                case 'ods':
+                case 'xla':
+                case 'xlam':
+                case 'xll':
+                case 'xlm':
+                case 'xls':
+                case 'xlsb':
+                case 'xlsm':
+                case 'xlsx':
+                case 'xlt':
+                case 'xltm':
+                case 'xltx':
+                case 'xlw':
+                    iconClass = 'fa fa-file-excel-o';
+                    break;
+                case 'odp':
+                case 'pot':
+                case 'potm':
+                case 'ppam':
+                case 'pps':
+                case 'ppsm':
+                case 'ppsx':
+                case 'ppt':
+                case 'pptm':
+                case 'pptx':
+                case 'sldm':
+                case 'sldx':
+                    iconClass = 'fa fa-file-powerpoint-o';
+                    break;
+                case 'asp':
+                case 'aspx':
+                case 'cgi':
+                case 'css':
+                case 'dll':
                 case 'exe':
-                    iconClass = 'fa fa-windows';
+                case 'htm':
+                case 'html':
+                case 'jsp':
+                case 'js':
+                case 'less':
+                case 'php':
+                case 'pl':
+                case 'py':
+                case 'rb':
+                case 'rss':
+                case 'sass':
+                case 'scss':
+                case 'xml':
+                    iconClass = 'fa fa-file-code-o';
                     break;
                 case '7z':
                 case 'apk':
@@ -166,7 +226,7 @@
                 case 'tar.gz':
                 case 'tgz':
                 case 'zip':
-                    iconClass = 'fa fa-archive';
+                    iconClass = 'fa fa-file-archive-o';
                     break;
                 case 'aac':
                 case 'cda':
@@ -176,7 +236,7 @@
                 case 'ogg':
                 case 'wav':
                 case 'wma':
-                    iconClass = 'fa fa-music';
+                    iconClass = 'fa fa-file-audio-o';
                     break;
                 case 'aaf':
                 case 'avi':
@@ -187,7 +247,7 @@
                 case 'mpg':
                 case 'mov':
                 case 'wmv':
-                    iconClass = 'fa fa-film';
+                    iconClass = 'fa fa-file-video-o';
                     break;
             }
             $file.find('i').addClass(iconClass);
@@ -291,6 +351,7 @@
 
         _delete: function (e) {
             e.preventDefault();
+            var context = this;
 
             if (confirm(ipRepositoryTranslate_confirm_delete)) {
                 var $this = $(this);
@@ -301,68 +362,80 @@
                     files.push($this.data('fileData'));
                 });
 
-                var data = Object();
-                data.aa = 'Repository.deleteFiles';
-                data.files = files;
-                data.securityToken = ip.securityToken;
-                data.secure = $this.data('ipRepositoryAll').secure;
+                $.proxy(methods._executeDelete, context)(files);
 
-                $.ajax({
-                    type: 'POST',
-                    url: ip.baseUrl,
-                    data: data,
-                    context: this,
-                    //success : $.proxy(methods._storeFilesResponse, this),
-                    success: methods._getDeleteFilesResponse,
-                    error: function () {
-                    }, //TODO report error
-                    dataType: 'json'
-                });
             }
         },
 
-        _getDeleteFilesResponse: function (response) {
+        _executeDelete: function(files, forced) {
+            var context = this;
             var $this = $(this);
-            var repositoryContainer = this;
+            var data = Object();
+            data.aa = 'Repository.deleteFiles';
+            data.files = files;
+            data.securityToken = ip.securityToken;
+            data.secure = $this.data('ipRepositoryAll').secure;
+            data.forced = forced;
 
-            if (!response || !response.success) {
-                return; //TODO report error
-            }
+            $.ajax({
+                type: 'POST',
+                url: ip.baseUrl,
+                data: data,
+                context: this,
+                //success : $.proxy(methods._storeFilesResponse, this),
+                success: function (response) {
+                    var $this = $(this);
+                    var repositoryContainer = this;
 
-            // notify that not all files were deleted
-            if (parseInt(response.notRemovedCount) > 0) {
-                alert(ipRepositoryTranslate_delete_warning);
-            }
-
-            // remove deleted files
-            var deletedFiles = response.deletedFiles;
-            var $browser = $this.find('.ipsBrowser');
-            for (var i in deletedFiles) {
-
-                var animateOptions = {};
-
-                switch (settings.preview) {
-                    case 'thumbnails':
-                        animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
-                        break;
-                    default:
-                        animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
-                        break;
-                }
+                    if (!response || !response.success) {
+                        return; //TODO report error
+                    }
 
 
-                $browser.find("li[data-file='" + deletedFiles[i] + "']")
-                    .css('overflow', 'hidden')
-                    .css('border-bottom', 'none')
-                    .animate(animateOptions, 'slow')
-                    .hide(0, function () {
-                        $(this).remove();
-                        // recalculating selected files
-                        $.proxy(methods._countSelected, repositoryContainer)();
-                    })
-                ;
-            }
+                    // remove deleted files
+                    var deletedFiles = response.deletedFiles;
+                    var $browser = $this.find('.ipsBrowser');
+                    for (var i in deletedFiles) {
+
+                        var animateOptions = {};
+
+                        switch (settings.preview) {
+                            case 'thumbnails':
+                                animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
+                                break;
+                            default:
+                                animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
+                                break;
+                        }
+
+
+                        $browser.find("li[data-file='" + deletedFiles[i] + "']")
+                            .css('overflow', 'hidden')
+                            .css('border-bottom', 'none')
+                            .animate(animateOptions, 'slow')
+                            .hide(0, function () {
+                                $(this).remove();
+                                // recalculating selected files
+                                $.proxy(methods._countSelected, repositoryContainer)();
+                            })
+                        ;
+                    }
+
+
+                    // notify that not all files were deleted
+                    if (parseInt(response.notRemovedCount) > 0) {
+                        if (confirm(ipRepositoryTranslate_delete_warning)) {
+                            $.proxy(methods._executeDelete, context)(files, true);
+                        }
+                    }
+                },
+                error: function () {
+                }, //TODO report error
+                dataType: 'json'
+            });
+
         },
+
 
         // set back our element
         _teardown: function () {

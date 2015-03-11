@@ -40,12 +40,12 @@
                     <div class="col-md-3">
                         <?php echo \Plugin\Install\Helper::generateMenu(!empty($_GET['step']) ? $_GET['step'] : \Plugin\Install\Helper::$firstStep); ?>
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-9 ipsContent">
                         <?php echo ipBlock('main')->render(); ?>
                     </div>
                 </div>
                 <div class="page-footer">
-                    <?php printf(__('This software is brought to you by <a target="_blank" href="%s">ImpressPages team</a>', 'Install', false), 'http://www.impresspages.org/cms/about/team/'); ?>
+                    <?php printf(__('This software is brought to you by <a target="_blank" href="%s">ImpressPages team</a>', 'Install', false), 'http://www.impresspages.org/about-us/'); ?>
                 </div>
             </div>
         </div>

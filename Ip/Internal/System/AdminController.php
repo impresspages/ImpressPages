@@ -16,6 +16,8 @@ class AdminController extends \Ip\Controller
         $model = Model::instance();
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
+
 
         $notes = array();
 
@@ -54,6 +56,7 @@ class AdminController extends \Ip\Controller
             ipAddJs('Ip/Internal/System/assets/trash.js');
         }
         ipAddJs('Ip/Internal/System/assets/migrations.js');
+        ipAddJs('assets/cache.js');
 
         return $content;
     }
@@ -188,5 +191,13 @@ class AdminController extends \Ip\Controller
         }
 
         return \Ip\Response\JsonRpc::result('ok');
+    }
+
+    public function clearCache()
+    {
+        ipRequest()->mustBePost();
+        Service::clearCache();
+        $_SESSION['Ip']['notes'][] = __('Cache has been cleared.', 'Ip-admin');
+        return new \Ip\Response\Json(array('status' => 'success'));
     }
 }

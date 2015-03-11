@@ -11,6 +11,8 @@ abstract class GridController extends \Ip\Controller
     {
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
+        ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
+
 
         $controllerClass = get_class($this);
         $controllerClassParts = explode('\\', $controllerClass);
@@ -20,7 +22,7 @@ abstract class GridController extends \Ip\Controller
         $gateway = array('aa' => $aa);
 
         $variables = array(
-            'gateway' => $gateway
+            'gateway' => ipActionurl($gateway)
         );
         $content = ipView('Internal/Grid/view/placeholder.php', $variables)->render();
         return $content;

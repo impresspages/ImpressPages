@@ -31,13 +31,29 @@ class FormHelper
     protected static function getAvailableLocales()
     {
         $locales = array();
-        $files = scandir(ipFile('Ip/Internal/Translations/translations'));
+        $translationDirectories = array(
+            ipFile('Ip/Internal/Translations/translations'),
+            ipFile('file/translations/original'),
+            ipFile('file/translations/override')
+        );
+        $files = array();
+        foreach($translationDirectories as $dir) {
+            if (!is_dir($dir)) {
+                continue;
+            }
+            $files = array_merge($files, scandir($dir));
+        }
+
+
+        $files = array_unique($files, SORT_STRING);
+        sort($files);
 
         foreach ($files as $file) {
             if (preg_match('/^Ip-admin-([a-z\_A-Z]+)\.json$/', $file, $matches)) {
                 $locales[] = array($matches[1], strtoupper($matches[1]));
             }
         }
+
         if (empty($locales)) {
             $locales = array(array('en', 'EN'));
         }
@@ -70,7 +86,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'login', //html "name" attribute
-                'label' => __('Username', 'Ip-admin')
+                'label' => __('Username', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -79,7 +95,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
-                'label' => __('Password', 'Ip-admin')
+                'label' => __('Password', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -88,7 +104,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Login', 'Ip-admin')
+                'value' => __('Login', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
@@ -122,7 +138,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'username', //html "name" attribute
-                'label' => __('Username or email', 'Ip-admin')
+                'label' => __('Username or email', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -130,7 +146,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Reset', 'Ip-admin')
+                'value' => __('Reset', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);
@@ -181,7 +197,7 @@ class FormHelper
         $field = new \Ip\Form\Field\Password(
             array(
                 'name' => 'password', //html "name" attribute
-                'label' => __('New password', 'Ip-admin')
+                'label' => __('New password', 'Ip-admin', false)
             ));
         $field->addValidator('Required');
         $form->addField($field);
@@ -189,7 +205,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Save', 'Ip-admin')
+                'value' => __('Save', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);

@@ -1,15 +1,3 @@
-/*************
- * Form widget
- **************/
-
-// Form widget
-jQuery('.ipWidget-Form').on('ipSubmitResponse', function (e, response) {
-    var $widget = $(this);
-    if (response.status && response.status == 'success') {
-        $widget.find('.ipwSuccess').show();
-        $widget.find('.ipwForm').hide();
-    }
-});
 
 
 /*************

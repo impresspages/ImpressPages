@@ -1,0 +1,8 @@
+.ipConfig_wrapper {
+    max-width: 600px;
+}
+
+
+.ip .ipConfig_wrapper .checkbox {
+    margin-top: 0;
+}

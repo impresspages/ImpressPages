@@ -62,27 +62,16 @@ class Storage
      */
     public function set($pluginName, $key, $value)
     {
-
-        $sql = '
-            INSERT INTO
-                ' . ipTable('storage') . '
-            SET
-                `plugin` = :plugin,
-                `key` = :key,
-                `value` = :value
-            ON DUPLICATE KEY UPDATE
-                `plugin` = :plugin,
-                `key` = :key,
-                `value` = :value
-        ';
-
-        $params = array(
-            ':plugin' => $pluginName,
-            ':key' => $key,
-            ':value' => json_encode($value)
+        $keys = array(
+            'plugin' => $pluginName,
+            'key' => $key
         );
 
-        ipDb()->execute($sql, $params);
+        $values = array(
+            'value' => json_encode($value)
+        );
+
+        ipDb()->upsert('storage', $keys, $values);
     }
 
 
@@ -140,6 +129,28 @@ class Storage
         $params = array(
             ':plugin' => $pluginName,
             ':key' => $key
+        );
+
+        ipDb()->execute($sql, $params);
+
+    }
+    
+    /**
+     * Remove all storage values for the plugin
+     *
+     * @param string $pluginName Plugin name
+     */
+    public function removeAll($pluginName)
+    {
+        $sql = '
+            DELETE FROM
+                ' . ipTable('storage') . '
+            WHERE
+                `plugin` = :plugin
+        ';
+
+        $params = array(
+            ':plugin' => $pluginName
         );
 
         ipDb()->execute($sql, $params);

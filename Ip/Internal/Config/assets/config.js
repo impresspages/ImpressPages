@@ -22,6 +22,21 @@ var IpConfig = new function () {
 
     this.init = function () {
         updateCronUrl();
+
+        if (!$('#removeOldEmails').is(':checked')) {
+            $('.form-group.name-removeOldEmailsDays').addClass('hidden');
+        }
+        $('#removeOldEmails').on('click', function(){$('.form-group.name-removeOldEmailsDays').toggleClass('hidden')});
+
+        if (!$('#removeOldRevisions').is(':checked')) {
+            $('.form-group.name-removeOldRevisionsDays').addClass('hidden');
+        }
+        $('#removeOldRevisions').on('click', function(){$('.form-group.name-removeOldRevisionsDays').toggleClass('hidden')});
+
+        $('.ipsAdvancedOptions').on('click', function() {
+            $('.ipsConfigFormAdvanced').toggleClass('hidden');
+
+        });
     };
 
     var queueAdd = function (fieldid) {

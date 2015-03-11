@@ -36,12 +36,11 @@ var ipManagementMode = new function () {
             data: {aa: 'Content.setManagementMode', value: mode, securityToken: ip.securityToken},
             success: function (response) {
                 if (response) {
-                    if (getParameterByName('_revision')) {
-                        window.location = window.location.href.split('#')[0].split('?')[0] + '?_revision=' + ip.revisionId;
-                    } else {
-                        window.location = window.location.href.split('#')[0].split('?')[0]
+                    var newLocation = window.location.href.split('#')[0].split('?')[0];
+                    if (mode == 0 || getParameterByName('_revision')){
+                        newLocation = newLocation + '?_revision=' + ip.revisionId;
                     }
-
+                    window.location = newLocation;
                 } else {
                     //login has expired
                     window.location = ip.baseUrl + 'admin';

@@ -1,7 +1,6 @@
 {
     "Config.en.websiteTitle": "Title",
     "Config.en.websiteEmail": "test@test.com",
-    "Config.multilingual": "1",
     "Config.automaticCron": "1",
     "Config.cronPassword": "testCronPassword",
 
@@ -22,7 +21,6 @@
     "Config.lightboxWidth": 800,
     "Config.lightboxHeight": 600,
 
-    "Design.themeDirs": "",
     "Email.hourlyLimit": 100,
 
     "Pages.hideNewPages": 0

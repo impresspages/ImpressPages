@@ -149,6 +149,8 @@ class PageAssets
             }
         }
 
+        $cssFiles = ipFilter('ipCss', $cssFiles);
+
         $response = ipResponse();
         $data = array(
             'title' => $response->getTitle(),
@@ -159,23 +161,31 @@ class PageAssets
             'css' => $cssFiles
         );
 
-        return ipView('Ip/Internal/Config/view/head.php', $data)->render();
+        $head = ipView('Ip/Internal/Config/view/head.php', $data)->render();
+        $head = ipFilter('ipHead', $head);
+        return $head;
     }
 
     public function generateJavascript()
     {
         $cacheVersion = $this->getCacheVersion();
         $javascriptFiles = $this->getJavascript();
-        foreach ($javascriptFiles as &$level) {
+        $javascriptFilesSorted = array();
+        foreach ($javascriptFiles as $level) {
             foreach ($level as &$file) {
                 if ($file['type'] == 'file' && $file['cacheFix']) {
                     $file['value'] .= (strpos($file['value'], '?') !== false ? '&' : '?') . $cacheVersion;
                 }
             }
+            $javascriptFilesSorted = array_merge($javascriptFilesSorted, $level);
         }
         $revision = $this->getCurrentRevision();
 
         $page = ipContent()->getCurrentPage();
+
+
+        $javascriptFilesSorted = ipFilter('ipJs', $javascriptFilesSorted);
+
 
         $language = ipContent()->getCurrentLanguage();
         $data = array(
@@ -185,6 +195,7 @@ class PageAssets
                 'languageId' => $language->getId(),
                 'languageUrl' => $language->getLink(),
                 'languageCode' => $language->getCode(),
+                'languageTextDirection' => $language->getTextDirection(),
                 'theme' => ipConfig()->theme(),
                 'pageId' => $page ? $page->getId() : null,
                 'revisionId' => $revision['revisionId'],
@@ -196,7 +207,7 @@ class PageAssets
                 'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
-            'javascript' => $javascriptFiles,
+            'javascript' => $javascriptFilesSorted,
         );
         return ipView('Ip/Internal/Config/view/javascript.php', $data)->render();
     }
@@ -209,5 +220,20 @@ class PageAssets
     protected function getCurrentRevision()
     {
         return \Ip\ServiceLocator::content()->getCurrentRevision();
+    }
+
+    public function removeAllCss()
+    {
+        $this->requiredCss = array();
+    }
+
+    public function removeAllJs()
+    {
+        $this->requiredJs = array();
+    }
+
+    public function removeAllJsVariables()
+    {
+        $this->javascriptVariables = array();
     }
 }

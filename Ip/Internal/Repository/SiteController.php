@@ -29,7 +29,7 @@ class SiteController extends \Ip\Controller
         if (isset($post['secureFolder']) && $post['secureFolder']) {
             //upload to secure publicly not accessible folder.
             if (!ipGetOption('Config.allowAnonymousUploads', 1)) {
-                throw new \Exception('Anonymous uploads are not enabled. You can enable them by adding Config.allowAnonymousUploads value to storage table in the database.');
+                throw new \Exception('Anonymous uploads are not enabled. You can enable them by turning on "anonymous uploads" configuration value in admin.');
             } else {
                 //do nothing. Anonymous uploads are allowed to secure folder
             }

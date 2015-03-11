@@ -8,10 +8,6 @@ class Job
 {
     public static function ipRouteLanguage_70($info)
     {
-        if (!ipGetOption('Config.multilingual')) {
-            return null;
-        }
-
         /** @var \Ip\Request $request */
         $request = $info['request'];
 
@@ -29,12 +25,8 @@ class Job
             }
 
             $languages = ipContent()->getLanguages();
-            if ($languages[0]->getUrlPath() === '') {
-                $result['language'] = $languages[0];
-                return $result;
-            } else {
-                return null;
-            }
+            $result['language'] = $languages[0];
+            return $result;
         }
 
         $urlParts = explode('/', rtrim(parse_url($info['relativeUri'], PHP_URL_PATH), '/'), 2);
@@ -66,7 +58,10 @@ class Job
     public static function ipRequestLanguage_70($info)
     {
         if (!empty($_SESSION['ipLastLanguageId'])) {
-            return ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
+            $language = ipContent()->getLanguage($_SESSION['ipLastLanguageId']);
+            if ($language) { //language may be missing if user has just deleted the language stored in the session
+                return $language;
+            }
         }
         return null;
     }

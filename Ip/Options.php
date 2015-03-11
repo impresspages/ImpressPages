@@ -26,7 +26,12 @@ class Options
     {
         $parts = explode('.', $key, 2);
         if (!isset($parts[1])) {
-            throw new \Ip\Exception("Option key must have plugin name separated by dot.");
+            $backtrace = debug_backtrace();
+            $source = null;
+            if (isset($backtrace[1]['file']) && $backtrace[1]['line']) {
+                $source = "(Error source: " . ($backtrace[1]['file']) . " line: " . ($backtrace[1]['line']) . " ) ";
+            }
+            throw new \Ip\Exception("Option key must have plugin name separated by dot. " . $source);
         }
         return \Ip\ServiceLocator::storage()->get('Config', $parts[0] . '.' . $parts[1], $defaultValue);
     }

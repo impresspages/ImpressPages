@@ -9,7 +9,7 @@
     <meta name="description" content="<?php echo escAttr($description); ?>" />
     <meta name="generator" content="ImpressPages" />
 <?php foreach ($css as $key => $file) { ?>
-    <link href="<?php echo $file['value']; ?>" rel="stylesheet" type="text/css" <?php
+    <link href="<?php echo escAttr($file['value']); ?>" rel="stylesheet" type="text/css" <?php
     if (is_array($file['attributes'])) {
         echo join(
             ' ',

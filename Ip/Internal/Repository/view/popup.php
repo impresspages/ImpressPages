@@ -4,7 +4,7 @@
 
         <ul class="nav nav-tabs ipsTabs">
             <li class="active"><a href="#ipsModuleRepositoryTabUpload" data-toggle="tab"><?php _e('File repository', 'Ip-admin'); ?></a></li>
-            <li class="<?php echo $allowUpload ? '' : 'hidden' ?>"><a href="#ipsModuleRepositoryTabBuy" data-toggle="tab"><?php _e('Buy images', 'Ip-admin'); ?></a>
+            <li class="<?php echo $allowUpload ? '' : 'hidden' ?>"><a href="#ipsModuleRepositoryTabBuy" data-toggle="tab"><?php _e('Buy images', 'Ip-admin'); ?></a></li>
         </ul>
 
         <div class="tab-content">

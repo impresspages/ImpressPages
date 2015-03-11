@@ -49,6 +49,9 @@ abstract class Field
         $this->validators = array();
 
         if (!empty($options['validators'])) {
+            if (!is_array($options['validators'])) {
+                $options['validators'] = array($options['validators']);
+            }
             foreach ($options['validators'] as $validator) {
                 $this->addValidator($validator);
             }
@@ -306,13 +309,15 @@ abstract class Field
     }
 
     /**
-     * CSS class that should be applied to surrounding element of this field. By default empty. Extending classes should specify their constant value.
-     * This field is not used to identify fields by their type. So each extending class should return its own unique and constant string.
+     * CSS class that should be applied to surrounding element of this field. By default equal to the class name of the field.
+     * This field is used to identify fields by their type. So each extending class should return its own unique and constant string.
      * @return string
      */
     public function getTypeClass()
     {
-        return '';
+        $classParts = explode('\\', get_class($this));
+        $last = lcfirst(array_pop($classParts));
+        return $last;
     }
 
     /* GETTERS AND SETTERS  */

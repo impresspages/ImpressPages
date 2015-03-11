@@ -158,7 +158,7 @@ class AdminController extends \Ip\Controller
 
         $logo->setText($_POST['text']);
         $logo->setColor($_POST['color']);
-        $logo->setFont($_POST['font']);
+        $logo->setFont(isset($_POST['font']) ? $_POST['font'] : null);
         if ($_POST['type'] == Entity\Logo::TYPE_IMAGE) {
             $logo->setType(Entity\Logo::TYPE_IMAGE);
         } else {

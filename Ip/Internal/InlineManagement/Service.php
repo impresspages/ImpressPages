@@ -69,7 +69,7 @@ class Service
     }
 
 
-    public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null)
+    public function generateManagedText($key, $tag = 'span', $defaultValue = null, $cssClass = null, $attributes = null)
     {
 
         $curValue = $this->dao->getLanguageValue(Dao::PREFIX_TEXT, $key, ipContent()->getCurrentLanguage()->getId());
@@ -78,13 +78,30 @@ class Service
             $curValue = $defaultValue;
         }
 
+        $attributesStr = '';
+        if (is_array($attributes)) {
+            $attributesStr = join(
+                ' ',
+                array_map(
+                    function ($sKey) use ($attributes) {
+                        if (is_bool($attributes[$sKey])) {
+                            return $attributes[$sKey] ? $sKey : '';
+                        }
+                        return $sKey . '="' . $attributes[$sKey] . '"';
+                    },
+                    array_keys($attributes)
+                )
+            );
+        }
 
         $data = array(
             'defaultValue' => $defaultValue,
             'value' => $curValue,
             'key' => $key,
             'tag' => $tag,
-            'cssClass' => $cssClass
+            'cssClass' => $cssClass,
+            'attributes' => $attributes,
+            'attributesStr' => $attributesStr
         );
 
         if (ipIsManagementState()) {

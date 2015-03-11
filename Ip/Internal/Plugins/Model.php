@@ -7,7 +7,7 @@ class Model
 
     public static function getModules()
     {
-        return array(
+        $modules = array(
             "Core",
             "Content",
             "Admin",
@@ -28,6 +28,16 @@ class Model
             "Update",
             "Ecommerce"
         );
+
+
+        /**
+         * Introduce ipModulesFilter function in index.php file to add or remove system modules. Useful if you build MultiSite and other special cases.
+         */
+        if (function_exists('ipModulesFilter')) {
+            $modules = ipModulesFilter($modules);
+        }
+
+        return $modules;
     }
 
     public static function activatePlugin($pluginName)
@@ -73,35 +83,21 @@ class Model
             $worker->activate();
         }
 
-
-        $dbh = ipDb()->getConnection();
-        $sql = '
-        INSERT INTO
-            ' . ipTable('plugin') . '
-        SET
-            `title` = :title,
-            `name` = :pluginName,
-            `isActive` = 1,
-            `version` = :version
-        ON DUPLICATE KEY UPDATE
-            `title` = :title,
-            `isActive` = 1,
-            `version` = :version
-        ';
-
         if (!empty($config['title'])) {
             $pluginTitle = $config['title'];
         } else {
             $pluginTitle = $pluginName;
         }
+        $keys = array(
+            'name' => $pluginName
+        );
 
-        $params = array(
+        $values = array(
             'title' => $pluginTitle,
-            'pluginName' => $pluginName,
+            'isActive' => 1,
             'version' => $config['version']
         );
-        $q = $dbh->prepare($sql);
-        $q->execute($params);
+        IpDb()->upsert('plugin', $keys, $values);
 
         // set default plugin options
         if (!empty($config['options'])) {
@@ -307,12 +303,30 @@ class Model
 
         }
 
+        $fileOverrides = ipConfig()->get('fileOverrides');
+        if (!is_array($fileOverrides)) {
+            $fileOverrides = array();
+        }
+        $overrideKeys = array_keys($fileOverrides);
+        if (!is_array($overrideKeys)) {
+            $overrideKeys = array();
+        }
+        foreach($overrideKeys as $overriddenDir) {
+            $matches = null;
+            if (preg_match('%^Plugin\/(.+)/$%', $overriddenDir, $matches)) {
+                $answer[] = $matches[1];
+            }
+        }
+
         //TODO add filter for plugins in other directories
         return $answer;
     }
 
     public static function getActivePluginNames()
     {
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            return array();
+        }
         $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
@@ -345,6 +359,10 @@ class Model
 
         }
 
+        if (empty($config['title'])) {
+            $config['title'] = $config['name'];
+        }
+
         return $config;
     }
 
@@ -371,7 +389,7 @@ class Model
             return '';
         }
 
-        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/');
+        $marketUrl = ipConfig()->get('pluginMarketUrl', 'http://market.impresspages.org/plugins-v1/?version=4&cms=1');
 
         return $marketUrl;
     }
@@ -413,7 +431,7 @@ class Model
     {
         if (is_file($file)) {
             $sql = file_get_contents($file);
-            str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            $sql = str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
             ipDb()->execute($sql);
         }
 

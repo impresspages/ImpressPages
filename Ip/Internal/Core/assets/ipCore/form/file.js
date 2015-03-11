@@ -15,14 +15,17 @@
 
                 var $this = $(this);
 
-                var data = $this.data('ipFormFile');
+                var data = $this.data('ipFormFileSettings');
                 if (!data) {
-                    $this.data('ipFormFile', {});
+                    $this.data('ipFormFileSettings', {
+                        limit: parseInt($this.data('filelimit'))
+                    });
 
+                    //the only reliable way to wait till PLupload loads is to periodically check if it has been loaded
 
                     var loadInterval = setInterval(function () {
                         initPlupload($this, loadInterval);
-                    }, 1000);
+                    }, 300);
 
 
                 }
@@ -70,10 +73,20 @@
                          var uploaderFile = uploader.getFile(fileId)
                          uploader.removeFile(uploaderFile);
                          */
-
+                        $file.trigger('removed.ipFileField');
                         $file.remove();
+
                     });
+                    if ($this.data('ipFormFileSettings').limit >= 0) {
+                        if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormFileSettings').limit) {
+                            if ($this.find('.ipsFiles').children().first().length === 1) {
+                                $this.find('.ipsFiles').children().first().remove();
+                            }
+                        }
+                    }
                     $this.find('.ipsFiles').append($newFile);
+                    $newFile.trigger('added.ipFileField');
+
                 }
             });
             up.refresh(); // Reposition Flash/Silverlight
@@ -84,7 +97,7 @@
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipsFileProgressValue').width(file.percent + '%');
-            $file.trigger('progress.ipModuleFormFile', [file.percent]);
+            $file.trigger('progress.ipFileField', [file.percent]);
         },
 
         _fileUploaded: function (up, file, response) {
@@ -108,6 +121,8 @@
                 $fileInput.attr('value', file.name);
                 $file.append($fileInput);
                 $file.find('.ipsFileProgress').remove();
+                $file.trigger('uploaded.ipFileField', [file.percent]);
+
             }
 
         },

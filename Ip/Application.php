@@ -35,7 +35,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.1.2'; //CHANGE_ON_VERSION_UPDATE
+        return '4.5.1'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -158,12 +158,32 @@ class Application
         if ($result) {
             $requestLanguage = $result['language'];
             $routeLanguage = $requestLanguage->getCode();
-            $relativeUri = $result['relativeUri'];
+            ipRequest()->_setRoutePath($result['relativeUri']);
         } else {
             $routeLanguage = null;
             $requestLanguage = ipJob('ipRequestLanguage', array('request' => $request));
-            $relativeUri = $request->getRelativePath();
+            ipRequest()->_setRoutePath($request->getRelativePath());
         }
+
+        //find out and set locale
+        $locale = $requestLanguage->getCode();
+        if (strlen($locale) == '2') {
+            $locale = strtolower($locale) . '_' . strtoupper($locale);
+        } else {
+            $locale = str_replace('-', '_', $locale);
+        }
+        $locale .= '.utf8';
+        if($locale ==  "tr_TR.utf8" && (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)) { //Overcoming this bug https://bugs.php.net/bug.php?id=18556
+            setlocale(LC_COLLATE, $locale);
+            setlocale(LC_MONETARY, $locale);
+            setlocale(LC_NUMERIC, $locale);
+            setlocale(LC_TIME, $locale);
+            setlocale(LC_MESSAGES, $locale);
+            setlocale(LC_CTYPE, "en_US.utf8");
+        } else {
+            setLocale(LC_ALL, $locale);
+        }
+        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
 
         ipContent()->_setCurrentLanguage($requestLanguage);
 
@@ -186,7 +206,7 @@ class Application
 
         $routeAction = ipJob(
             'ipRouteAction',
-            array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage)
+            array('request' => $request, 'relativeUri' => ipRequest()->getRoutePath(), 'routeLanguage' => $routeLanguage)
         );
 
         if (!empty($routeAction)) {
@@ -208,10 +228,12 @@ class Application
             if (!empty($routeAction['plugin'])) {
                 ipRoute()->setPlugin($routeAction['plugin']);
             }
+            if (!empty($routeAction['name'])) {
+                ipRoute()->setName($routeAction['name']);
+            }
             if (!empty($routeAction['action'])) {
                 ipRoute()->setAction($routeAction['action']);
             }
-
         }
 
 
@@ -361,35 +383,42 @@ class Application
     public function modulesInit()
     {
         $translator = \Ip\ServiceLocator::translator();
-        $originalDir = ipFile("file/translations/original/");
         $overrideDir = ipFile("file/translations/override/");
 
         $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         foreach ($plugins as $plugin) {
 
             $translationsDir = ipFile("Plugin/$plugin/translations/");
-            $translator->addTranslationFilePattern('json', $originalDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-%s.json", $plugin);
             $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-%s.json", $plugin);
+
+            $translator->addTranslationFilePattern('json', $translationsDir, "$plugin-admin-%s.json", $plugin . '-admin');
+            $translator->addTranslationFilePattern('json', $overrideDir, "$plugin-admin-%s.json", $plugin . '-admin');
         }
 
-        $router = \Ip\ServiceLocator::router();
 
         foreach ($plugins as $plugin) {
             $routesFile = ipFile("Plugin/$plugin/routes.php");
+            $this->addFileRoutes($routesFile, $plugin);
+        }
+        $this->addFileRoutes(ipFile('Ip/Internal/Ecommerce/routes.php'), 'Ecommerce');
 
-            if (file_exists($routesFile)) {
-                $routes = array();
-                include $routesFile;
+    }
 
-                $router->addRoutes(
-                    $routes,
-                    array(
-                        'plugin' => $plugin,
-                        'controller' => 'PublicController',
-                    )
-                );
-            }
+    protected function addFileRoutes($routesFile, $plugin)
+    {
+        $router = \Ip\ServiceLocator::router();
+        if (file_exists($routesFile)) {
+            $routes = array();
+            include $routesFile;
+
+            $router->addRoutes(
+                $routes,
+                array(
+                    'plugin' => $plugin,
+                    'controller' => 'PublicController',
+                )
+            );
         }
     }
 

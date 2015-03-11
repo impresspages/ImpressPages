@@ -13,17 +13,29 @@ class Table extends \Ip\Internal\Grid\Model
      * @var Config
      */
     protected $config = null;
+    protected $subgridConfig = null;
+    protected $request = null;
 
-    public function __construct($config)
+    public function __construct($config, $request)
     {
+        $this->request = $request;
         $this->config = new Config($config);
 
-        $this->actions = new Actions($this->config);
+
+        $hash = ipRequest()->getRequest('hash', '');
+
+
+        $this->statusVariables = Status::parse($hash);
+
+        $this->subgridConfig = $this->config->subgridConfig($this->statusVariables);
+
+
+        $this->actions = $this->getActions();
     }
 
-    public function handleMethod(\Ip\Request $request)
+    public function handleMethod()
     {
-        $request = ipRequest()->getRequest();
+        $request = $this->request->getRequest();
 
         if (empty($request['method'])) {
             throw new \Ip\Exception('Missing request data');
@@ -31,31 +43,25 @@ class Table extends \Ip\Internal\Grid\Model
         $method = $request['method'];
 
         if (in_array($method, array('update', 'create', 'delete', 'move'))) {
-            ipRequest()->mustBePost();
+            $this->request->mustBePost();
         }
 
         if (in_array($method, array('update', 'create'))) {
-            $data = ipRequest()->getPost();
+            $data = $this->request->getPost();
             $params = $data;
         } elseif (in_array($method, array('search'))) {
-            $data = ipRequest()->getQuery();
+            $data = $this->request->getQuery();
             $params = $data;
         } else {
-            $data = ipRequest()->getRequest();
+            $data = $this->request->getRequest();
             $params = empty($data['params']) ? array() : $data['params'];
         }
 
 
-        if (empty($data['hash'])) {
-            $data['hash'] = '';
-        }
-        $hash = $data['hash'];
-
-        $statusVariables = Status::parse($hash);
 
 
-        if ($this->config->preventAction()) {
-            $preventReason = call_user_func($this->config->preventAction(), $method, $params, $statusVariables);
+        if ($this->subgridConfig->preventAction()) {
+            $preventReason = call_user_func($this->subgridConfig->preventAction(), $method, $params, $this->statusVariables);
             if ($preventReason) {
                 if (is_array($preventReason)) {
                     return $preventReason;
@@ -73,45 +79,68 @@ class Table extends \Ip\Internal\Grid\Model
 
         switch ($method) {
             case 'init':
-                return $this->init($statusVariables);
+                return $this->init();
                 break;
             case 'page':
-                return $this->page($params, $statusVariables);
+                return $this->page($params);
+                break;
+            case 'setPageSize':
+                return $this->setPageSize($params);
+                break;
+            case 'setLanguage':
+                return $this->setLanguage($params);
                 break;
             case 'delete':
-                return $this->delete($params, $statusVariables);
+                return $this->delete($params);
                 break;
             case 'updateForm':
-                return $this->updateForm($params, $statusVariables)->render();
+                $updateForm = $this->updateForm($params);
+                $view = ipView('../view/updateForm.php', array('updateForm' => $updateForm))->render();
+                return $view;
                 break;
             case 'update':
-                return $this->update($params, $statusVariables);
+                return $this->update($params);
                 break;
             case 'move':
-                return $this->move($params, $statusVariables);
+                return $this->move($params);
+                break;
+            case 'movePosition':
+                return $this->movePosition($params);
                 break;
             case 'create':
-                return $this->create($params, $statusVariables);
+                return $this->create($params);
                 break;
             case 'search':
-                return $this->search($params, $statusVariables);
+                return $this->search($params);
+                break;
+            case 'subgrid':
+                return $this->subgrid($params);
+                break;
+            case 'order':
+                return $this->order($params);
                 break;
         }
         return null;
     }
 
-    protected function init($statusVariables)
+
+
+
+    protected function init()
     {
-        $display = new Display($this->config);
+
+        $display = $this->getDisplay();
         $commands = array();
-        $html = $display->fullHtml($statusVariables);
+        $html = $display->fullHtml($this->statusVariables);
         $commands[] = Commands::setHtml($html);
         return $commands;
     }
 
-    protected function page($params, $statusVariables)
+    protected function page($params)
     {
-        $pageVariableName = $this->config->pageVariableName();
+
+        $statusVariables = $this->statusVariables;
+        $pageVariableName = $this->subgridConfig->pageVariableName();
         if (empty($params['page'])) {
             throw new \Ip\Exception('Missing parameters');
         }
@@ -122,48 +151,97 @@ class Table extends \Ip\Internal\Grid\Model
         return $commands;
     }
 
-    protected function delete($params, $statusVariables)
+
+    protected function setPageSize($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['pageSize'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        $statusVariables['pageSize'] = $params['pageSize'];
+        $pageVariableName = $this->subgridConfig->pageVariableName();
+        $statusVariables[$pageVariableName] = 1;
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
+    protected function setLanguage($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['language'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        $statusVariables['language'] = $params['language'];
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
+    protected function delete($params)
     {
         if (empty($params['id'])) {
             throw new \Ip\Exception('Missing parameters');
         }
 
-        if ($this->config->beforeDelete()) {
-            call_user_func($this->config->beforeDelete(), $params['id']);
-        }
+        $commands = array();
 
         try {
-            $actions = new Actions($this->config);
+            $actions = $this->getActions();
             $actions->delete($params['id']);
-            $display = new Display($this->config);
-            $html = $display->fullHtml($statusVariables);
+
+            //If we are not on the first page and we have removed the last record, move user to the previous page
+            if (!empty($this->statusVariables[$this->config->pageVariableName()]) && $this->statusVariables[$this->config->pageVariableName()] > 1) {
+                //We are not on the first page
+
+                $db = new Db($this->subgridConfig, $this->statusVariables);
+                $where = $db->buildSqlWhere();
+                $pageSize = $this->subgridConfig->pageSize($this->statusVariables);
+                $totalPages = ceil($db->recordCount($where) / $pageSize);
+                if ($totalPages < $this->statusVariables[$this->config->pageVariableName()]) {
+                    //set maximal page that has at least one record.
+                    $statusVariables = $this->statusVariables;
+                    $statusVariables[$this->config->pageVariableName()] = $totalPages;
+                    $commands[] = Commands::setHash(Status::build($statusVariables));
+                    return $commands;
+                }
+
+            }
+
+
+            $display = $this->getDisplay();
+            $html = $display->fullHtml($this->statusVariables);
             $commands[] = Commands::setHtml($html);
             return $commands;
         } catch (\Exception $e) {
             $commands[] = Commands::showMessage($e->getMessage());
         }
 
-        if ($this->config->afterDelete()) {
-            call_user_func($this->config->afterDelete(), $params['id']);
-        }
         return $commands;
 
     }
 
-    protected function updateForm($params, $statusVariables)
+    protected function updateForm($params)
     {
-        $display = new Display($this->config);
+        $display = $this->getDisplay();
         $updateForm = $display->updateForm($params['id']);
         return $updateForm;
     }
 
-    protected function update($data, $statusVariables)
+    protected function update($data)
     {
-        if (empty($data[$this->config->idField()])) {
-            throw new \Ip\Exception('Missing parameters');
+        if (empty($data[$this->subgridConfig->idField()])) {
+            throw new \Ip\Exception('Missing parameters. Most likely \'AUTO_INCREMENT\' attribute is missing on the database id field');
         }
-        $recordId = $data[$this->config->idField()];
-        $display = new Display($this->config);
+
+        $this->runTransformations($data);
+
+        $recordId = $data[$this->subgridConfig->idField()];
+        $display = $this->getDisplay();
         $updateForm = $display->updateForm($recordId);
 
 
@@ -177,19 +255,19 @@ class Table extends \Ip\Internal\Grid\Model
         } else {
             $newData = $updateForm->filterValues($data);
 
-            if ($this->config->beforeUpdate()) {
-                call_user_func($this->config->beforeUpdate(), $recordId, $newData);
+            if ($this->subgridConfig->beforeUpdate()) {
+                call_user_func($this->subgridConfig->beforeUpdate(), $recordId, $newData);
             }
 
-            $actions = new Actions($this->config);
+            $actions = $this->getActions();
             $actions->update($recordId, $newData);
 
-            if ($this->config->afterUpdate()) {
-                call_user_func($this->config->afterUpdate(), $recordId, $newData);
+            if ($this->subgridConfig->afterUpdate()) {
+                call_user_func($this->subgridConfig->afterUpdate(), $recordId, $newData);
             }
 
-            $display = new Display($this->config);
-            $html = $display->fullHtml($statusVariables);
+            $display = $this->getDisplay();
+            $html = $display->fullHtml();
             $commands[] = Commands::setHtml($html);
 
             $data = array(
@@ -201,11 +279,56 @@ class Table extends \Ip\Internal\Grid\Model
         return $data;
     }
 
-    protected function create($data, $statusVariables)
+    protected function runTransformations(&$data)
     {
-        $display = new Display($this->config);
+        foreach($this->subgridConfig->fields() as $field) {
+            if (!empty($field['transformations']) && !empty($field['field']) && array_key_exists($field['field'], $data)) {
+                foreach($field['transformations'] as $transformation) {
+                    $transformationObject = $this->createTransformationObject($transformation);
+                    $options = array();
+                    if (is_array($transformation) && isset($transformation[1])) {
+                        $options = $transformation[1];
+                    }
+                    $data[$field['field']] = $transformationObject->transform($data[$field['field']], $options);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $transformationSetting
+     * @return \Ip\Internal\Grid\Model\Transformation
+     * @throws \Ip\Exception
+     */
+    protected function createTransformationObject($transformationSetting)
+    {
+        if(is_array($transformationSetting)) {
+            $transformationSetting = $transformationSetting[0];
+        }
+
+        if (is_object($transformationSetting)) {
+            if (!$transformationSetting instanceof \Ip\Internal\Grid\Model\Transformation) {
+                throw new \Ip\Exception('Transformation object has to implement Ip\Internal\Grid\Model\Table\Transformation interface');
+            }
+            return $transformationSetting;
+        }
+        if (is_string($transformationSetting)) {
+            if (strpos($transformationSetting, '\\') === false) {
+                $transformationSetting = 'Ip\\Internal\\Grid\\Model\\Transformation\\' . $transformationSetting;
+            }
+            $object = new $transformationSetting();
+            return $object;
+        }
+    }
+
+
+    protected function create($data)
+    {
+        $display = $this->getDisplay();
         $createForm = $display->createForm();
 
+
+        $this->runTransformations($data);
 
         $errors = $createForm->validate($data);
 
@@ -217,19 +340,21 @@ class Table extends \Ip\Internal\Grid\Model
         } else {
             $newData = $createForm->filterValues($data);
 
-            if ($this->config->beforeCreate()) {
-                call_user_func($this->config->beforeCreate(), $newData);
+
+
+            if ($this->subgridConfig->beforeCreate()) {
+                call_user_func($this->subgridConfig->beforeCreate(), $newData);
             }
 
-            $actions = new Actions($this->config);
+            $actions = $this->getActions();
             $recordId = $actions->create($newData);
 
-            if ($this->config->afterCreate()) {
-                call_user_func($this->config->afterCreate(), $recordId, $newData);
+            if ($this->subgridConfig->afterCreate()) {
+                call_user_func($this->subgridConfig->afterCreate(), $recordId, $newData);
             }
 
-            $display = new Display($this->config);
-            $html = $display->fullHtml($statusVariables);
+            $display = $this->getDisplay();
+            $html = $display->fullHtml();
             $commands[] = Commands::setHtml($html);
 
             $data = array(
@@ -241,35 +366,61 @@ class Table extends \Ip\Internal\Grid\Model
         return $data;
     }
 
-    protected function move($params, $statusVariables)
+    protected function move($params)
     {
         if (empty($params['id']) || empty($params['targetId']) || empty($params['beforeOrAfter'])) {
             throw new \Ip\Exception('Missing parameters');
         }
 
-        if ($this->config->beforeMove()) {
-            call_user_func($this->config->beforeMove(), $params['id']);
+        if ($this->subgridConfig->beforeMove()) {
+            call_user_func($this->subgridConfig->beforeMove(), $params['id']);
         }
 
         $id = $params['id'];
         $targetId = $params['targetId'];
         $beforeOrAfter = $params['beforeOrAfter'];
 
-        $actions = new Actions($this->config);
+        $actions = $this->getActions();
         $actions->move($id, $targetId, $beforeOrAfter);
-        $display = new Display($this->config);
-        $html = $display->fullHtml($statusVariables);
+        $display = $this->getDisplay();
+        $html = $display->fullHtml();
         $commands[] = Commands::setHtml($html);
 
-        if ($this->config->afterMove()) {
-            call_user_func($this->config->afterMove(), $params['id']);
+        if ($this->subgridConfig->afterMove()) {
+            call_user_func($this->subgridConfig->afterMove(), $params['id']);
         }
         return $commands;
     }
 
-    protected function search($data, $statusVariables)
+    protected function movePosition($params)
     {
-        $display = new Display($this->config);
+        if (empty($params['id']) || !isset($params['position'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if ($this->subgridConfig->beforeMove()) {
+            call_user_func($this->subgridConfig->beforeMove(), $params['id']);
+        }
+
+        $id = $params['id'];
+        $position = $params['position'];
+
+        $actions = $this->getActions();
+        $actions->movePosition($id, $position);
+        $display = $this->getDisplay();
+        $html = $display->fullHtml();
+        $commands[] = Commands::setHtml($html);
+
+        if ($this->subgridConfig->afterMove()) {
+            call_user_func($this->subgridConfig->afterMove(), $params['id']);
+        }
+        return $commands;
+    }
+
+    protected function search($data)
+    {
+        $statusVariables = $this->statusVariables;
+        $display = $this->getDisplay();
         $searchForm = $display->searchForm(array());
 
 
@@ -285,7 +436,30 @@ class Table extends \Ip\Internal\Grid\Model
 
 
             foreach ($newData as $key => $value) {
-                $statusVariables['s_' . $key] = $value;
+                if (in_array($key, array('antispam', 'securityToken')) ) {
+                    continue;
+                }
+                if($value == '') {
+                    unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
+                    continue;
+                }
+
+                if (is_array($value)) {
+                    foreach($value as $subkey => $subval) {
+                        $statusVariables['s_' . $key . '_json'] = json_encode($value);
+                        unset($statusVariables['s_' . $key]);
+                    }
+                } else {
+                    $statusVariables['s_' . $key] = $value;
+                }
+            }
+
+            foreach($searchForm->getFields() as $field) {
+                if (!isset($newData[$field->getName()])) { //script above fails to remove search made based on checkbox as empty checkbox doesn't post anything
+                    unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
+                }
             }
 
             $commands[] = Commands::setHash(Status::build($statusVariables));
@@ -297,6 +471,64 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         return $data;
+    }
+
+
+    protected function subgrid($params)
+    {
+        if (empty($params['gridId'])) {
+            throw new \Ip\Exception('girdId GET variable missing');
+        }
+        if (empty($params['gridParentId'])) {
+            throw new \Ip\Exception('girdParentId GET variable missing');
+        }
+
+        $newStatusVariables = Status::genSubgridVariables($this->statusVariables, $params['gridId'], $params['gridParentId']);
+
+        $commands[] = Commands::setHash(Status::build($newStatusVariables));
+
+        return $commands;
+    }
+
+    protected function getDisplay()
+    {
+        return new Display($this->config, $this->subgridConfig, $this->statusVariables);
+    }
+
+    protected function getActions()
+    {
+        return new Actions($this->subgridConfig, $this->statusVariables);
+    }
+
+
+    protected function order($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['order'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if (empty($statusVariables['order']) || $statusVariables['order'] != $params['order']) {
+            //new field selected to order records. Use ascending order
+            $statusVariables['order'] = $params['order'];
+            unset($statusVariables['direction']);
+        } else {
+            //the same field has been clicked repeatedly.
+
+            if (empty($statusVariables['direction']) || $statusVariables['direction'] == 'asc') {
+                //the same field has been clicked twice. Change order direction to descending
+                $statusVariables['order'] = $params['order'];
+                $statusVariables['direction'] = 'desc';
+            } else {
+                //the same field has been clicked for the third time. Remove ordering
+                unset($statusVariables['order']);
+                unset($statusVariables['direction']);
+            }
+        }
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
     }
 
 

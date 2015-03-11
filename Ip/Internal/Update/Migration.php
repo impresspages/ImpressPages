@@ -9,7 +9,165 @@ namespace Ip\Internal\Update;
 
 class Migration
 {
+
+
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_79()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.5.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_78()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.5.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_77()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_76()
+    {
+        ipSetOption('Content.widgetHeadingMaxLevel', 3);
+    }
+
+    public static function update_75()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_74()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_73()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.3.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_72()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.9"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_71()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.8"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_70()
+    {
+        ipSetOption('Config.trailingSlash', 0); // to keep the system as it was before. New default value is 1;
+    }
+
+    public static function update_69()
+    {
+        //this change was already applied in 60 version. But installation script wasn't changed accordingly. So we are reexecuting this query for installations between 60 and 69
+        ipDb()->execute("ALTER TABLE " . ipTable('page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;");
+    }
+
+    public static function update_68()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.7"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_67()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.6"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_66()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." DROP `createdAtBkp`");
+    }
+
+    public static function update_65()
+    {
+        ipDb()->execute("UPDATE " . ipTable('revision') ." SET `createdAt` = FROM_UNIXTIME(`createdAtBkp`) WHERE 1");
+    }
+
+    public static function update_64()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." ADD `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
+    }
+
+    public static function update_63()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('revision') ." CHANGE `createdAt` `createdAtBkp` INT(11) NOT NULL");
+    }
+
+
+
+    public static function update_62()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.5"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_61()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.4"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_60()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('page') ." CHANGE `createdAt` `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;");
+    }
+
+    public static function update_59()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_58()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_57()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_56()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.2.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_55()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.4"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_54()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.1.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
     public static function update_53()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

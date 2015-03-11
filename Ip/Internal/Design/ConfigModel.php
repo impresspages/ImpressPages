@@ -187,6 +187,7 @@ class ConfigModel
             }
             switch ($option['type']) {
                 case 'select':
+                case 'Select':
                     $newField = new Form\Field\Select();
                     $values = array();
                     if (!empty($option['values']) && is_array($option['values'])) {
@@ -197,28 +198,51 @@ class ConfigModel
                     $newField->setValues($values);
                     break;
                 case 'text':
+                case 'Text':
                     $newField = new Form\Field\Text();
                     break;
                 case 'textarea':
+                case 'Textarea':
                     $newField = new Form\Field\Textarea();
                     break;
                 case 'color':
+                case 'Color':
                     $newField = new Form\Field\Color();
                     break;
                 case 'range':
+                case 'Range':
                     $newField = new Form\Field\Range();
                     break;
                 case 'checkbox':
+                case 'Checkbox':
                     $newField = new Form\Field\Checkbox();
                     break;
                 default:
-                    //do nothing
+                    $class = 'Ip\\Form\\Field\\' . $option['type'];
+                    if (!class_exists($class)) {
+                        $class = $option['type'];
+                    }
+
+                    if (class_exists($class)) {
+                        $newField = new $class();
+                        if ($option['type'] == 'RepositoryFile') {
+                            $newField->setFileLimit(1);
+                        }
+                        if (method_exists($newField, 'setValues') && isset($option['values'])) {
+                            $newField->setValues($option['values']);
+                        }
+                    } else {
+                        $newField = new Form\Field\Text();
+                    }
             }
             if (!isset($newField)) {
                 //field type is not recognised
                 continue;
             }
 
+            if (!empty($option['note'])) {
+                $newField->setNote($option['note']);
+            }
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;
@@ -238,6 +262,17 @@ class ConfigModel
 
         if (isset($data['aa']) && $data['aa'] == 'Design.updateConfig') {
             unset($data['aa']);
+
+            foreach($data as &$item) {
+                if (is_array($item)) {
+                    if (isset($item[0])) { //to support RepositoryFile
+                        $item = $item[0];
+                    } else {
+                        $item = '';
+                    }
+                }
+            }
+
             return $data;
         }
 

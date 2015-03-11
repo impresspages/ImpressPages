@@ -126,9 +126,12 @@ class FormatHelper
                 $locale = str_replace('-', '_', $languageCode);
                 $fmt = numfmt_create($locale, \NumberFormatter::CURRENCY);
                 $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
-            } else {
-                $formattedPrice = ($data['price'] / 100) . ' ' . $data['currency'];
+                if ($formattedPrice !== false && $formattedPrice != 'NaN') {
+                    return $formattedPrice;
+                }
             }
+
+            $formattedPrice = round(($data['price'] / 100), 2) . ' ' . $data['currency'];
         }
 
         return $formattedPrice;
@@ -226,12 +229,12 @@ class FormatHelper
         if ($formattedDate === null) {
             if (function_exists('datefmt_create') && function_exists('datefmt_format')) {
                 if ($languageCode === null) {
-                    $languageCode = ipContent()->getCurrentLanguage()->getId();
-                }
-                if ($context == 'Ip-admin') {
-                    $code = 'en';
-                } else {
-                    $code = $languageCode;
+                    if ($context == 'Ip-admin') {
+                        $code = ipConfig()->adminLocale();
+                    } else {
+                        $languageCode = ipContent()->getCurrentLanguage()->getId();
+                        $code = $languageCode;
+                    }
                 }
                 $locale = str_replace('-', '_', $code);
                 $fmt = datefmt_create(

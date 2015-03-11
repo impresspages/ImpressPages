@@ -43,6 +43,7 @@ class Controller extends \Ip\WidgetController
                         throw new \Ip\Exception("Missing required parameter");
                     }
 
+                    $newImages = array();
 
                     foreach ($postData['images'] as $image) {
                         if (!isset($image['fileName']) || !isset($image['status'])) { //check if all required data present
@@ -70,8 +71,18 @@ class Controller extends \Ip\WidgetController
                             'title' => $title,
                         );
 
-                        $currentData['images'][] = $newImage;
+                        $newImages[] = $newImage;
                     }
+                    if (empty($currentData['images']) || !is_array($currentData['images'])) {
+                        $currentData['images'] = array();
+                    }
+
+                    if(ipGetOption('Content.imageGalleryPosition') == 'bottom') {
+                        $currentData['images'] = array_merge($currentData['images'], $newImages);
+                    } else {
+                        $currentData['images'] = array_merge($newImages, $currentData['images']);
+                    }
+
 
                     return $currentData;
                 case 'crop':
@@ -110,7 +121,10 @@ class Controller extends \Ip\WidgetController
                         $currentData['images'][$index]['url'] = $postData['url'];
                     }
                     if (isset($postData['blank'])) {
-                        $currentData['images'][$index]['blank'] = $postData['blank'];
+                        $currentData['images'][$index]['blank'] = (int)$postData['blank'];
+                    }
+                    if (isset($postData['nofollow'])) {
+                        $currentData['images'][$index]['nofollow'] = (int) $postData['nofollow'];
                     }
                     return $currentData;
 
@@ -188,28 +202,9 @@ class Controller extends \Ip\WidgetController
                     ipReflection($curImage['imageOriginal'], $transformBig, $desiredName)
                 );
 
-                if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2'])) {
-                    $transformSmall = array(
-                        'type' => 'crop',
-                        'x1' => $curImage['cropX1'],
-                        'y1' => $curImage['cropY1'],
-                        'x2' => $curImage['cropX2'],
-                        'y2' => $curImage['cropY2'],
-                        'width' => ipGetOption('Content.widgetGalleryWidth'),
-                        'height' => ipGetOption('Content.widgetGalleryHeight'),
-                        'quality' => ipGetOption('Content.widgetGalleryQuality')
-                    );
-                } else {
-                    $transformSmall = array(
-                        'type' => 'center',
-                        'width' => ipGetOption('Content.widgetGalleryWidth'),
-                        'height' => ipGetOption('Content.widgetGalleryHeight'),
-                        'quality' => ipGetOption('Content.widgetGalleryQuality')
-                    );
-                }
-                $curImage['imageSmall'] = ipFileUrl(
-                    ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title'])
-                );
+
+                $curImage['imageSmall'] = $this->cropSmallImage($curImage);
+
 
                 if (empty($curImage['type'])) {
                     $curImage['type'] = 'lightbox';
@@ -224,6 +219,9 @@ class Controller extends \Ip\WidgetController
                 if (empty($curImage['blank'])) {
                     $curImage['blank'] = '';
                 }
+                if (empty($curImage['nofollow'])) {
+                    $curImage['nofollow'] = '';
+                }
                 if (empty($curImage['title'])) {
                     $curImage['title'] = '';
                 }
@@ -232,6 +230,54 @@ class Controller extends \Ip\WidgetController
             }
         }
         return parent::generateHtml($revisionId, $widgetId, $data, $skin);
+    }
+
+
+    protected function cropSmallImage($curImage)
+    {
+        $smallImageUrl = null;
+        if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2'])) {
+            $transformSmall = array(
+                'type' => 'crop',
+                'x1' => $curImage['cropX1'],
+                'y1' => $curImage['cropY1'],
+                'x2' => $curImage['cropX2'],
+                'y2' => $curImage['cropY2'],
+                'width' => ipGetOption('Content.widgetGalleryWidth'),
+                'height' => ipGetOption('Content.widgetGalleryHeight'),
+                'quality' => ipGetOption('Content.widgetGalleryQuality')
+            );
+        } else {
+            $transformSmall = array(
+                'type' => 'center',
+                'width' => ipGetOption('Content.widgetGalleryWidth'),
+                'height' => ipGetOption('Content.widgetGalleryHeight'),
+                'quality' => ipGetOption('Content.widgetGalleryQuality')
+            );
+        }
+        $smallImageUrl = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
+        return $smallImageUrl;
+    }
+
+    /**
+     * Process data which is passed to widget's JavaScript file for processing
+     *
+     * @param int $revisionId Widget revision ID
+     * @param int $widgetId Widget ID
+     * @param int $widgetId Widget instance ID
+     * @param array $data Widget data array
+     * @param string $skin Widget skin name
+     * @return array Data array
+     */
+    public function dataForJs($revisionId, $widgetId, $data, $skin)
+    {
+        if (isset($data['images']) && is_array($data['images'])) {
+            //loop all current images
+            foreach ($data['images'] as &$curImage) {
+                $curImage['imageSmall'] = $this->cropSmallImage($curImage);
+            }
+        }
+        return $data;
     }
 
 
@@ -305,7 +351,7 @@ class Controller extends \Ip\WidgetController
         $form->addfield($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'url',
                 'label' => __('Url', 'Ip-admin', false),
@@ -317,6 +363,13 @@ class Controller extends \Ip\WidgetController
             array(
                 'name' => 'blank',
                 'label' => __('Open in new window', 'Ip-admin', false),
+            ));
+        $form->addField($field);
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'nofollow',
+                'label' => __('Set rel="nofollow" attribute', 'Ip-admin', false),
             ));
         $form->addField($field);
 
@@ -346,6 +399,32 @@ class Controller extends \Ip\WidgetController
 
 
         return $form; // Output a string with generated HTML form
+    }
+
+    /**
+     * Array 0f menu items to be added to the widget's options menu. (gear box on the left top corner of the widget)
+     * @param $revisionId
+     * @param $widgetId
+     * @param $data
+     * @param $skin
+     * @return array
+     */
+    public function optionsMenu($revisionId, $widgetId, $data, $skin)
+    {
+        $answer = array();
+        $answer[] = array(
+            'title' => __('Add image', 'Ip-admin', false),
+            'attributes' => array(
+                'class' => 'ipsAdd'
+            )
+        );
+        $answer[] = array(
+            'title' => __('Manage images', 'Ip-admin', false),
+            'attributes' => array(
+                'class' => 'ipsManage'
+            )
+        );
+        return $answer;
     }
 
 }

@@ -473,4 +473,77 @@ class Content
         return $rootPage;
     }
 
+
+    /**
+     * Get menus of the website.
+     * Menu list may be different on each language. That's why there is $languageCode parameter.
+     * If $languageCode is omitted, current language is used by default.
+     *
+     * @param string $languageCode
+     * @return \Ip\Page[]
+     */
+    public function getMenus($languageCode = null)
+    {
+        $result = \Ip\Internal\Pages\Service::getMenus($languageCode);
+        $objectArray = array();
+        foreach ($result as $menuData)
+        {
+            $objectArray[] = new \Ip\Page($menuData);
+        }
+        return $objectArray;
+    }
+
+    /**
+     * Get menu.
+     *
+     * @param string $languageCode
+     * @param string $alias unique menu identificator within the language
+     * @return \Ip\Page
+     */
+    public static function getMenu($languageCode, $alias)
+    {
+        $result = \Ip\Internal\Pages\Service::getMenu($languageCode, $alias);
+        if ($result) {
+            return new \Ip\Page($result);
+        }
+        return $result;
+    }
+
+    /**
+     * @param $languageCode
+     * @param $alias
+     * @param $title
+     * @param string $type 'tree' or 'list'
+     * @return int
+     */
+    public function addMenu($languageCode, $alias, $title, $type = 'tree')
+    {
+        return \Ip\Internal\Pages\Service::createMenu($languageCode, $alias, $title, $type);
+    }
+
+    /**
+     * @param $id menu id
+     */
+    public function deleteMenu($languageCode, $alias)
+    {
+        $menu = $this->getMenu($languageCode, $alias);
+        if ($menu) {
+            $this->deletePage($menu->getId());
+        }
+    }
+
+    /**
+     * Get Id of the default page in current or specified language
+     * @param string $languageCode
+     * @return int
+     */
+    public function getDefaultPageId($languageCode = null)
+    {
+        if ($languageCode == null) {
+            $languageCode = ipContent()->getCurrentLanguage()->getCode();
+        }
+        $pageId = ipJob('ipDefaultPageId', array('languageCode' => $languageCode));
+        return $pageId;
+    }
+
 }

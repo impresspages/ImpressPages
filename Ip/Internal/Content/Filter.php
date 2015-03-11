@@ -54,6 +54,9 @@ class Filter
         $typeRadio = __('Radio', 'Ip-admin', false);
         $typeCaptcha = __('Captcha', 'Ip-admin', false);
         $typeFile = __('File', 'Ip-admin', false);
+        $typeRichText = __('Rich text', 'Ip-admin', false);
+        $typeCheckboxes = __('Checkboxes', 'Ip-admin', false);
+        $typeFieldset= __('Fieldset', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['Email'] = new FieldType('Email', '\Ip\Form\Field\Email', $typeEmail);
@@ -70,6 +73,11 @@ class Filter
         )->render());
         $fieldTypes['Captcha'] = new FieldType('Captcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
+        $fieldTypes['RichText'] = new FieldType('RichText', '\Ip\Form\Field\RichText', $typeRichText);
+        $fieldTypes['Checkboxes'] = new FieldType('Checkboxes', '\Ip\Form\Field\Checkboxes', $typeCheckboxes, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
+        'view/formFieldOptions/list.php'
+    )->render());
+        $fieldTypes['Fieldset'] = new FieldType('Fieldset', '\Ip\Form\Fieldset', $typeFieldset);
 
         return $fieldTypes;
     }
@@ -143,7 +151,9 @@ class Filter
 
 
         if (ipContent()->getCurrentPage()) {
-            if (ipIsManagementState()) {
+            if (!ipAdminPermission('Content')) {
+                //Do nothing
+            } elseif (ipIsManagementState()) {
                 $buttons[] = array(
                     'text' => __('Preview', 'Ip-admin', false),
                     'hint' => __('Hides admin tools', 'Ip-admin', false),
@@ -160,15 +170,19 @@ class Filter
                     'url' => '#'
                 );
             }
-            $buttons[] = array(
-                'text' => __('Settings', 'Ip-admin', false),
-                'hint' => __('Page settings', 'Ip-admin', false),
-                'class' => 'ipsAdminPageSettings',
-                'faIcon' => 'fa-gear',
-                'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent(
-                    )->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage(
-                    )->getId()
-            );
+
+            if (ipAdminPermission('Pages')) {
+                $buttons[] = array(
+                    'text' => __('Settings', 'Ip-admin', false),
+                    'hint' => __('Page settings', 'Ip-admin', false),
+                    'class' => 'ipsAdminPageSettings',
+                    'faIcon' => 'fa-gear',
+                    'url' => ipActionUrl(array('aa' => 'Pages.index')) . '#hash&language=' . ipContent(
+                        )->getCurrentLanguage()->getCode() . '&menu=' . $alias . '&page=' . ipContent()->getCurrentPage(
+                        )->getId()
+                );
+            }
+
         }
 
         return $buttons;
@@ -177,7 +191,7 @@ class Filter
 
     public static function ipAdminNavbarCenterElements($elements, $info)
     {
-        if (ipContent()->getCurrentPage()) {
+        if (ipContent()->getCurrentPage() && ipAdminPermission('Content')) {
             $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
             $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
@@ -199,5 +213,55 @@ class Filter
             $elements[] = ipView('view/publishButton.php', $data);
         }
         return $elements;
+    }
+
+    public static function ipHead($head, $info)
+    {
+        $relativePath = ipRequest()->getRelativePath();
+
+
+
+        $canonicalUrl = null;
+        //detect if we need to add canonical meta tag because we are on the home page
+        if (ipContent()->getCurrentPage() && ipContent()->getCurrentPage()->getId() == ipContent()->getDefaultPageId() && ipRequest()->getRelativePath() != '') {
+            //if current page is the default page of current language and relative path is not empty
+            $languages = ipContent()->getLanguages();
+            $firstLanguage = $languages[0];
+
+            if (ipContent()->getCurrentLanguage()->getId() == $firstLanguage->getId()) {
+                //if current language is the first language, set canonical to the base URL.
+                $canonicalUrl = ipConfig()->baseUrl();
+            } elseif(ipRequest()->getRoutePath() != '') {
+                //if current URL is not equal to the language URL, set canonical as language URL
+                $canonicalUrl = ipContent()->getcurrentLanguage()->getLink();
+            }
+
+
+
+        }
+
+        //detect if we need to add canonical tag because of missing trailing slash
+        if (!$canonicalUrl) {
+            //if canonicalUrl is not set yet
+            if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
+                if (substr($relativePath, -1) != '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . $relativePath . '/';
+                }
+            } else {
+                if (substr($relativePath, -1) == '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . substr($relativePath, 0, -1);
+                }
+            }
+
+        }
+
+        if ($canonicalUrl) {
+            $append = '    <link rel="canonical" href="' . escAttr($canonicalUrl) . '" />' . "\n";
+            $head .= $append;
+        }
+
+
+        return $head;
+
     }
 }

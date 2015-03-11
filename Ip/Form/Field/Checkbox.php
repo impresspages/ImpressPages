@@ -33,12 +33,16 @@ class Checkbox extends Field
                 $this->checked = false;
             }
         }
-        if (isset($options['value']) && $options['value']) {
-            $this->setChecked(1);
+        if (isset($options['text']) && $options['text']) {
+            $this->setText($options['text']);
         }
         if (isset($options['options']) && isset($options['options']['text']) && $options['options']['text']) {
             $this->setText($options['options']['text']);
         }
+        if (isset($options['value']) && $options['value']) {
+            $this->setChecked(1);
+        }
+
         if (isset($options['postValue']) && $options['postValue']) {
             $this->setPostValue($options['postValue']);
         }
@@ -177,17 +181,7 @@ class Checkbox extends Field
         }
     }
 
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'confirm';
-    }
+
 
     /**
      * Set value
@@ -199,6 +193,7 @@ class Checkbox extends Field
         if ($value) {
             $this->setChecked(1);
         }
+        parent::setValue($value);
     }
 
 }

@@ -64,6 +64,9 @@
         $this.find('form').on('ipSubmitResponse', function (e, response) {
             if (response.status && response.status == 'success') {
                 //page has been successfully updated
+                if (response.newPageUrl) {
+                    $this.find('input[name=urlPath]').val(response.newPageUrl);
+                }
                 $this.trigger('update.ipPages');
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
             }
@@ -71,6 +74,12 @@
 
         $this.find('.ipsDelete').on('click', function (e) {
             $this.trigger('delete.ipPages');
+        });
+
+        $('html').off('keyup.pageProperties').on('keyup.pageProperties', function(e) {
+            if (e.keyCode === 46 && e.ctrlKey && $this.find('.ipsDelete').is(":visible")) {
+                $this.find('.ipsDelete').click();
+            }
         });
 
         $this.find('.ipsEdit').on('click', function (e) {

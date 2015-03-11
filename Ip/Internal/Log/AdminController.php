@@ -9,6 +9,12 @@ namespace Ip\Internal\Log;
 
 class AdminController extends \Ip\GridController
 {
+    public function index()
+    {
+        ipAddJs('assets/log.js');
+        ipAddJsVariable('clearConfirmTranslation', __('Are you sure you want to delete all log records?', 'Ip-admin', false));
+        return parent::index();
+    }
     protected function config()
     {
         return array(
@@ -17,8 +23,13 @@ class AdminController extends \Ip\GridController
             'allowCreate' => false,
             'allowUpdate' => false,
             'allowDelete' => false,
-            'sortField' => 'id',
-            'sortDirection' => 'desc',
+            'orderBy' => '`id` desc',
+            'actions' => array(
+                array(
+                    'label' => __('Clear all', 'Ip-admin', false),
+                    'class' => 'ipsClearAll'
+                )
+            ),
             'fields' => array(
                 array(
                     'label' => __('Time', 'Ip-admin', false),
@@ -58,7 +69,20 @@ class AdminController extends \Ip\GridController
     {
         $context = json_decode($recordData['context'], true);
 
+        if (!is_array($context)) {
+            $context = array($context);
+        }
+
         unset($context['exception']);
+
+        array_walk_recursive($context, function(&$v) {
+                if (is_object($v)) {
+                    $v = serialize($v);
+                }
+                $v = htmlspecialchars($v);
+            }
+        );
+
 
         if (function_exists('ob_start')) {
             ob_start();
@@ -67,5 +91,11 @@ class AdminController extends \Ip\GridController
         } else {
             return var_export($context, true);
         }
+    }
+
+    public function clear()
+    {
+        ipDb()->delete('log', array());
+        return new \Ip\Response\Json(array('status' => 'success'));
     }
 }

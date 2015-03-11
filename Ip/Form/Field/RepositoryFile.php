@@ -19,7 +19,7 @@ class RepositoryFile extends Field
 {
 
     protected $fileLimit = -1;
-    protected $preview = 'list'; // List or thumbnails.
+    protected $preview = 'thumbnails'; // List or thumbnails.
     protected $secure = false;
 
     public function __construct($options = array())
@@ -62,16 +62,25 @@ class RepositoryFile extends Field
     }
 
     /**
-     * Get class type
+     * Get field value
      *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
+     * @return string[]
      */
-    public function getTypeClass()
+    public function getValue()
     {
-        return 'repositoryFile';
+        if (is_string($this->value)) {
+            if (!empty($this->value)) {
+                return array($this->value);
+            } else {
+                return array();
+            }
+
+        } else {
+            return $this->value;
+        }
     }
+
+
 
     /**
      * Set file limit

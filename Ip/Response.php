@@ -14,7 +14,7 @@ class Response
     protected $headers = array();
     protected $content = null;
 
-    public function __construct($content = null, $headers = null, $statusCode = null)
+    public function __construct($content = null, $headers = null, $statusCode = 200)
     {
         if ($content !== null) {
             $this->setContent($content);

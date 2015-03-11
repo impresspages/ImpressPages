@@ -25,21 +25,11 @@ class Password extends Field
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . escAttr($this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="password" value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' type="password" value="' . escAttr($this->getValue()) . '" />';
     }
 
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'password';
-    }
+
 
 }

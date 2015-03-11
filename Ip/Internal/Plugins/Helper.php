@@ -147,7 +147,7 @@ class Helper
             return $errors;
         }
 
-        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName));
+        ipFilter('ipPluginSaveOptions', $data, array('pluginName' => $pluginName)); //for internal use only. Don't use in your plugins as it is going to change
 
         return true;
     }
@@ -160,55 +160,55 @@ class Helper
     public static function getOptionsForm($pluginName, $form, $options)
     {
         foreach ($options as $option) {
-            if (empty($option['type']) || empty($option['name'])) {
-                continue;
+            if (empty($option['type'])) {
+                $option['type'] = 'text';
             }
 
-            switch ($option['type']) {
-                case 'select':
-                    $newField = new Form\Field\Select();
-                    $values = array();
-                    if (!empty($option['values']) && is_array($option['values'])) {
-                        foreach ($option['values'] as $value) {
-                            $values[] = array($value, $value);
-                        }
-                    }
-                    $newField->setValues($values);
-                    break;
-                case 'text':
-                    $newField = new Form\Field\Text();
-                    break;
-                case 'textarea':
-                    $newField = new Form\Field\Textarea();
-                    break;
-                case 'richText':
-                    $newField = new Form\Field\RichText();
-                    break;
-                case 'color':
-                    $newField = new Form\Field\Color();
-                    break;
-                case 'range':
-                    $newField = new Form\Field\Range();
-                    break;
-                case 'checkbox':
-                    $newField = new Form\Field\Checkbox();
-                    break;
-                default:
-                    //do nothing
+
+            if (in_array($option['type'], array('select', 'text', 'textarea', 'richText', 'color', 'range', 'checkbox', 'password'))) {
+                $option['type'] = ucfirst($option['type']);
             }
+
+            $className = $option['type'];
+            if (class_exists($className)) {
+                $newField = new $className($option);
+            } else {
+                $className = 'Ip\\Form\\Field\\' . $option['type'];
+                if (class_exists($className)) {
+                    $newField = new $className($option);
+                }
+            }
+
             if (!isset($newField)) {
                 //field type is not recognised
                 continue;
             }
 
-            $newField->setName($option['name']);
+            $default = isset($option['default']) ? $option['default'] : null;
+
+            if (!empty($option['name'])) {
+                $newField->setName($option['name']);
+                $optionKey = "{$pluginName}.{$option['name']}";
+                if ($newField instanceof \Ip\Form\FieldLang) {
+                    $value = array();
+                    foreach(ipContent()->getLanguages() as $language) {
+                        $value[$language->getCode()] = ipGetOptionLang($optionKey, $language->getCode(), $default);
+                    }
+                    $newField->setValue($value);
+                } else {
+                    $newField->setValue(ipGetOption($optionKey, $default));
+                }
+
+            }
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             if (!empty($option['note'])) {
                 $newField->setNote($option['note']);
             }
-            $default = isset($option['default']) ? $option['default'] : null;
 
-            $newField->setValue(ipGetOption("{$pluginName}.{$option['name']}", $default));
+            if (!empty($option['validators'])) {
+                $newField->addValidator($option['validators']);
+            }
+
 
             $form->addfield($newField);
         }

@@ -12,6 +12,7 @@ abstract class Field
     protected $label = '';
     protected $defaultValue = '';
     protected $previewMethod = '';
+    protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
     /**
      * Create field object for grid
@@ -21,18 +22,23 @@ abstract class Field
      */
     public function __construct($fieldFieldConfig, $wholeConfig)
     {
-        if (empty($fieldFieldConfig['field'])) {
-            throw new \Ip\Exception('\'field\' option required for text field');
+        if (!empty($fieldFieldConfig['field'])) {
+            $this->field = $fieldFieldConfig['field'];
         }
-        $this->field = $fieldFieldConfig['field'];
 
         if (!empty($fieldFieldConfig['label'])) {
             $this->label = $fieldFieldConfig['label'];
         }
 
+        if (!empty($fieldFieldConfig['layout'])) {
+            $this->layout = $fieldFieldConfig['layout'];
+        }
+
         if (!empty($fieldFieldConfig['defaultValue'])) {
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
+
+
 
         if (!empty($fieldFieldConfig['previewMethod'])) {
             $this->previewMethod = $fieldFieldConfig['previewMethod'];
@@ -51,7 +57,9 @@ abstract class Field
         if ($this->previewMethod) {
             return call_user_func($this->previewMethod, $recordData);
         } else {
-            return esc($recordData[$this->field]);
+            if (isset($recordData[$this->field])) {
+                return esc($recordData[$this->field]);
+            }
         }
     }
 
@@ -163,5 +171,19 @@ abstract class Field
     {
         //do nothing by default
     }
+
+    /**
+     * @param $layout (\Ip\Form\Field::LAYOUT_DEFAULT, \Ip\Form\Field::LAYOUT_NO_LABEL, \Ip\Form\Field::BLANK)
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
 
 }

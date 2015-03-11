@@ -15,10 +15,16 @@ class AdminController extends \Ip\Controller
 
 
         ipAddJs('Ip/Internal/Config/assets/config.js');
+        ipAddCss('Ip/Internal/Config/assets/config.css');
 
         $form = Forms::getForm();
+        $advancedForm = false;
+        if (ipAdminPermission('Config advanced')) {
+            $advancedForm = Forms::getAdvancedForm();
+        }
         $data = array(
-            'form' => $form
+            'form' => $form,
+            'advancedForm' => $advancedForm
         );
         return ipView('view/configWindow.php', $data)->render();
 
@@ -41,9 +47,20 @@ class AdminController extends \Ip\Controller
         }
         $value = $post['value'];
 
-        if (!in_array($fieldName, array('automaticCron', 'cronPassword', 'websiteTitle', 'websiteEmail'))) {
+        if (
+            !in_array($fieldName, array('websiteTitle', 'websiteEmail'))
+            &&
+            !(
+                in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash'))
+                &&
+                ipAdminPermission('Config advanced')
+            )
+        ) {
             throw new \Exception('Unknown config value');
         }
+
+
+
 
         $emailValidator = new \Ip\Form\Validator\Email();
         $error = $emailValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);

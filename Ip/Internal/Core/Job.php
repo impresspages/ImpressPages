@@ -75,7 +75,7 @@ class Job
         if (empty($result['page'])) {
 
             if ($info['relativeUri'] == '') {
-                $pageId = ipJob('ipDefaultPageId');
+                $pageId = ipContent()->getDefaultPageId();
                 $page = \Ip\Internal\Pages\Service::getPage($pageId);
             } else {
                 $languageCode = ipContent()->getCurrentLanguage()->getCode();
@@ -124,6 +124,33 @@ class Job
         }
 
         return call_user_func_array($callableAction, $arguments);
+    }
+
+    public static function ipReplacePlaceholders($info)
+    {
+        $content = $info['content'];
+        $userData = ipUser()->data();
+        $userEmail = !empty($userData['email']) ? $userData['email'] : '';
+        $userName = !empty($userData['name']) ? $userData['name'] : '';
+
+        $values = array(
+            '{websiteTitle}' => ipGetOptionLang('Config.websiteTitle'),
+            '{websiteEmail}' => ipGetOptionLang('Config.websiteEmail'),
+            '{websiteUrl}' => ipConfig()->baseUrl(),
+            '{userId}' => ipUser()->userId(),
+            '{userEmail}' => $userEmail,
+            '{userName}' => $userName
+        );
+        foreach ($info['customValues'] as $key => $value) {
+            $values['{' . $key . '}'] = $value;
+        }
+
+
+        $values = ipFilter('ipReplacePlaceholdersValues', $values, $info);
+        $answer = strtr($content, $values);
+        $answer = ipFilter('ipReplacePlaceholders', $answer, $info);
+        return $answer;
+
     }
 
 }

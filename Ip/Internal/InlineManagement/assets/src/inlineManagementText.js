@@ -22,7 +22,21 @@
                     var cssClass = $this.data('ipInlineManagementText').cssClass;
                     var key = $this.data('ipInlineManagementText').key;
                     var htmlTag = $this.data('ipInlineManagementText').htmlTag;
-                    var customTinyMceConfig = ipTinyMceConfig();
+                    var customTinyMceConfig = $this.data('tinyMceConfig');
+                    if (!customTinyMceConfig) {
+                        if (typeof(ipInlineManagementTinyMceConfig) !== 'undefined') {
+                            var options = {
+                                id: $this.data('key'),
+                                class: $this.data('cssclass'),
+                                tag: $this.data('htmltag'),
+                                default: $this.data('defaultvalue')
+                            }
+                            customTinyMceConfig = ipInlineManagementTinyMceConfig(options);
+                        }
+                        if (!customTinyMceConfig) {
+                            customTinyMceConfig = ipTinyMceConfig();
+                        }
+                    }
                     customTinyMceConfig.setup = function (ed, l) {
                         ed.on('change', function (e) {
                             save($this.html(), key, cssClass, htmlTag);

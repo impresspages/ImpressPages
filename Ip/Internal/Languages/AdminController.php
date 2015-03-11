@@ -136,15 +136,18 @@ class AdminController extends \Ip\GridController
         }
 
         $languages = Fixture::languageList();
-
+        $directionality = Service::TEXT_DIRECTION_LTR;
         if (!empty($languages[$code])) {
             $language = $languages[$code];
             $title = $language['nativeName'];
+            if (!empty($language['directionality']) && $language['directionality'] == 'rtl') {
+                $directionality = Service::TEXT_DIRECTION_RTL;
+            }
         } else {
             $title = $code;
         }
 
-        Service::addLanguage($title, $abbreviation, $code, $url, 1, Service::TEXT_DIRECTION_LTR);
+        Service::addLanguage($title, $abbreviation, $code, $url, 1, $directionality);
 
         return new \Ip\Response\Json(array());
     }
@@ -168,8 +171,8 @@ class AdminController extends \Ip\GridController
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());
-                    $display = new  \Ip\Internal\Grid\Model\Display($config);
-                    $html = $display->fullHtml($statusVariables);
+                    $display = new  \Ip\Internal\Grid\Model\Display($config, $config,$statusVariables);
+                    $html = $display->fullHtml();
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
@@ -191,8 +194,8 @@ class AdminController extends \Ip\GridController
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());
-                    $display = new  \Ip\Internal\Grid\Model\Display($config);
-                    $html = $display->fullHtml($statusVariables);
+                    $display = new  \Ip\Internal\Grid\Model\Display($config, $config, $statusVariables);
+                    $html = $display->fullHtml();
                     $commands[] = \Ip\Internal\Grid\Model\Commands::setHtml($html);
 
                     // show message
@@ -221,7 +224,7 @@ class AdminController extends \Ip\GridController
     public function afterUpdate($id, $newData)
     {
         $updated = Db::getLanguageById($id);
-        if ($updated['url'] != $this->beforeUpdate['url'] && ipGetOption('Config.multilingual')) {
+        if ($updated['url'] != $this->beforeUpdate['url']) {
             $languagePath = $updated['url'] == '' ? '' : $updated['url'] . '/';
             $languagePathBefore = $this->beforeUpdate['url'] == '' ? '' : $this->beforeUpdate['url'] . '/';
 

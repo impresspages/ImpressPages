@@ -503,11 +503,17 @@ class HnCaptcha
                             'refreshbuttontext'=>'uusi ID'
                              ),
                 'nl'=>array(
-                            'msg1'=>'Geef de tekens in die u in het kader ziet (<b>'.$this->chars.' tekens</b>). De code kan de tekens <b>0..9</b> en <b>'.$usedchars.'</b> bevatten.',
+                       	    'msg1'=>'Geef de tekens in die u in het kader ziet (<b>'.$this->chars.' tekens</b>). De code kan de tekens <b>0..9</b> en <b>'.$usedchars.'</b> bevatten.',
                             'msg2'=>'Ik kan de tekens niet lezen. Genereer een ',
                             'buttontext'=>'verzenden',
                             'refreshbuttontext'=>'nieuw ID'
-                            )
+                            ),
+		'tr'=>array(
+			    'msg1'=>'Eğer kutusunda gördüğünüz karakterleri yazın (<b>'.$this->chars.' karakterler</b>). Kod <b>0..9</b> and <b>'.$usedchars.'</b> karakterlerini içerebilir.',
+			    'msg2'=>'Karakterleri okuyamıyorum. Yeni bir ',
+			    'buttontext'=>'gönder',
+			    'refreshbuttontext'=>'yeni ID'
+			   )
             );
             if(!isset($this->messages[$this->lang]) || !isset($this->messages[$this->lang]['msg1']) || !isset($this->messages[$this->lang]['msg2']) || !isset($this->messages[$this->lang]['buttontext']) || !isset($this->messages[$this->lang]['refreshbuttontext']))
             {
@@ -1043,9 +1049,7 @@ class HnCaptcha
             if ($public === '') {
                 $public = $this->public_key;
             }
-            $root = ipFile('');
-            $root = str_replace(array('\\'), array('/'), $root); //HnCaptcha has done this on tempfolder. We need to do this on $root too.
-            return str_replace($root, '', $this->tempfolder).$public.'.jpg';
+            return 'file/tmp/'.$public.'.jpg';
         }
 
         /** @private **/

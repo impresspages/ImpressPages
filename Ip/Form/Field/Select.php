@@ -45,7 +45,7 @@ class Select extends \Ip\Form\Field
         $options = '';
 
         foreach ($this->getValues() as $value) {
-            if (is_string($value)) {
+            if (!is_array($value)) {
                 $value = array($value, $value);
             }
 
@@ -109,10 +109,17 @@ class Select extends \Ip\Form\Field
         }
 
         $firstValue = $values[0];
+        if (is_array($firstValue)) {
+            $key = $firstValue[0];
+            $value = $firstValue[1];
+        } else {
+            $key = $firstValue;
+            $value = $firstValue;
+        }
 
         $html5Important = ($doctype == \Ip\Response\Layout::DOCTYPE_HTML5 && $this->getAttribute(
                 'size'
-            ) <= 1 && $this->getAttribute('multiple') === false && ($firstValue[0] != '' && $firstValue[1] != ''));
+            ) <= 1 && $this->getAttribute('multiple') === false && ($key != '' && $value != ''));
 
         if (!$html5Important) {
             return parent::getValidationAttributesStr($doctype);
@@ -131,17 +138,7 @@ class Select extends \Ip\Form\Field
         return $attributesStr;
     }
 
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'select';
-    }
+
 
     /**
      * Get id

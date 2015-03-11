@@ -8,7 +8,7 @@
                 <li ng-repeat="language in languageList" ng-class="{active: language == activeLanguage}">
                     <a href="" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
                 </li>
-                <li ng-show="{{allowActions}}">
+                <li ng-show="{{allowActions&&ipPagesLanguagesPermission}}">
                     <a href="<?php echo $languagesUrl; ?>"><i class="fa fa-cog"></i></a>
                 </li>
             </ul>
@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </div>
-        <div class="_container _pages ipsPagesContainer" ng-cloak>
+        <div class="_container _pagesListing ipsPagesContainer" ng-cloak>
             <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
                 <div id="pages_{{menu.languageCode}}_{{menu.alias}}">
                     <div class="_actions" ng-show="{{allowActions}}">

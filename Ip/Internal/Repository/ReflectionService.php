@@ -82,6 +82,14 @@ class ReflectionService
         $reflectionModel = ReflectionModel::instance();
         try {
             $reflection = $reflectionModel->getReflection($file, $options, $desiredName, $onDemand);
+            if (ipConfig()->get('rewritesDisabled') || !ipConfig()->get('realTimeReflections', true)) { //create reflections immediately if mod_rewrite is disabled
+                $reflectionRecord = $reflectionModel->getReflectionByReflection($reflection);
+                $reflectionModel->createReflection(
+                    $reflectionRecord['original'],
+                    $reflectionRecord['reflection'],
+                    json_decode($reflectionRecord['options'], true)
+                );
+            }
         } catch (\Exception $e) {
             ipLog()->error($e->getMessage(), array('errorTrace' => $e->getTraceAsString()));
             $this->lastException = $e;

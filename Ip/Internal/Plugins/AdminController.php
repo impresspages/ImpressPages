@@ -18,6 +18,7 @@ class AdminController extends \Ip\Controller
         $plugins = array();
         foreach ($allPlugins as $pluginName) {
             $plugin = Helper::getPluginData($pluginName);
+            $plugin['icon'] = $this->pluginIcon($pluginName);
             $plugins[] = $plugin;
         }
 
@@ -47,12 +48,26 @@ class AdminController extends \Ip\Controller
             $variables['form'] = Helper::pluginPropertiesForm($pluginName);
         }
 
+        $variables['icon'] = $this->pluginIcon($pluginName);
+
         $layout = ipView('view/pluginProperties.php', $variables)->render();
+
+        $layout = ipFilter('ipPluginPropertiesHtml', $layout, array('pluginName' => $pluginName));
 
         $data = array(
             'html' => $layout
         );
         return new \Ip\Response\Json($data);
+    }
+
+    protected function pluginIcon($pluginName)
+    {
+        if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.svg'))) {
+            return ipFileUrl('Plugin/' . $pluginName . '/assets/icon.svg');
+        }
+        if (file_exists(ipFile('Plugin/' . $pluginName . '/assets/icon.png'))) {
+            return ipFileUrl('Plugin/' . $pluginName . '/assets/icon.png');
+        }
     }
 
     public function activate()
@@ -167,7 +182,12 @@ class AdminController extends \Ip\Controller
         if ($result === true) {
             return \Ip\Response\JsonRpc::result($result);
         } else {
-            return \Ip\Response\JsonRpc::error(__('Validation failed', 'Ip-admin', false));
+            $errors = $result;
+            $data = array (
+                'status' => 'error',
+                'errors' => $errors
+            );
+            return new \Ip\Response\Json($data);
         }
     }
 
@@ -177,49 +197,9 @@ class AdminController extends \Ip\Controller
         ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
         ipAddJs('Ip/Internal/Core/assets/js/easyXDM/easyXDM.min.js');
 
-//        ipAddJs('Ip/Internal/Design/assets/options.js');
         ipAddJs('Ip/Internal/Plugins/assets/market.js');
-//        ipAddJs('Ip/Internal/Design/assets/design.js');
-//        ipAddJs('Ip/Internal/Design/assets/pluginInstall.js');
-//        ipAddJs('Ip/Internal/System/assets/market.js');
-
-
-//        $model = Model::instance();
-//
-//        $themes = $model->getAvailableThemes();
-//
-//        $model = Model::instance();
-//        $theme = $model->getTheme(ipConfig()->theme());
-//        $options = $theme->getOptionsAsArray();
-//
-//        $themePlugins = $model->getThemePlugins();
-//        $installedPlugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
-//        $notInstalledPlugins = array();
-//
-//        //filter plugins that are already installed
-//        foreach ($themePlugins as $plugin) {
-//            if (!empty($plugin['name']) && (!in_array($plugin['name'], $installedPlugins) || !is_dir(ipFile('Plugin/' . $plugin['name'])))) {
-//                $notInstalledPlugins[] = $plugin;
-//            }
-//        }
-//
-//
-//        if (isset($_SESSION['module']['design']['pluginNote'])) {
-//            $pluginNote = $_SESSION['module']['design']['pluginNote'];
-//            unset($_SESSION['module']['design']['pluginNote']);
-//        } else {
-//            $pluginNote = '';
-//        }
-//
         $data = array(
-//            'pluginNote' => $pluginNote,
-//            'theme' => $model->getTheme(ipConfig()->theme()),
-//            'plugins' => $notInstalledPlugins,
-//            'availableThemes' => $themes,
             'marketUrl' => Model::marketUrl(),
-//            'showConfiguration' => !empty($options),
-//            'contentManagementUrl' => ipConfig()->baseUrl() . '?aa=Content.index',
-//            'contentManagementText' => __('Manage content', 'Ip-admin', false)
         );
 
 

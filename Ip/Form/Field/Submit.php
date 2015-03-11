@@ -30,15 +30,7 @@ class Submit extends Field
         ) . ' type="submit">' . htmlspecialchars($this->getValue()) . '</button>';
     }
 
-    /**
-     * Get layout
-     *
-     * @return string
-     */
-    public function getLayout()
-    {
-        return self::LAYOUT_DEFAULT;
-    }
+
 
     /**
      * Get type
@@ -48,18 +40,6 @@ class Submit extends Field
     public function getType()
     {
         return self::TYPE_SYSTEM;
-    }
-
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'submit';
     }
 
 }

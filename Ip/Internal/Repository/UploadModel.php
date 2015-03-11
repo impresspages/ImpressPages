@@ -166,6 +166,7 @@ class UploadModel
             'docm',
             'dotx',
             'dotm',
+            'eps',
             'xlsx',
             'xlsm',
             'xlsb',
@@ -205,7 +206,8 @@ class UploadModel
             'psd',
             'ai',
             'sql',
-            'swf'
+            'swf',
+            'svg'
         );
         $whiteListExtensions = ipFilter('ipWhiteListExtensions', $whiteListExtensions);
 

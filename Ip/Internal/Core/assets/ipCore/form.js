@@ -9,6 +9,17 @@ var ipModuleFormPublic;
 (function ($) {
     "use strict";
 
+    function isScrolledIntoView(elem)
+    {
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }
+
 
     ipModuleFormPublic = new function () {
         this.init = function () {
@@ -19,18 +30,23 @@ var ipModuleFormPublic;
             }
 
 
-            if ($('.ipsColorPicker').length && !$.spectrum) {
-                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.min.js') + '"></script>');
-                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/ipCore/spectrum/spectrum.css') + '" type="text/css" />');
+            if (($('.ipsModuleFormPublic .type-color').length || $('.ipsModuleFormAdmin .type-color').length) && !$.fn.colorpicker) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') + '"></script>');
+                $('head').append('<link rel="stylesheet" href="' + ipFileUrl('Ip/Internal/Core/assets/js/bootstrap-colorpicker/css/bootstrap-colorpicker.css') + '" type="text/css" />');
             }
 
+            if ($('.ipsModuleFormPublic .type-richText').length && (typeof(ipTinyMceConfigPublic) === "undefined")) {
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js') + '"></script>');
+                $('body').append('<script type="text/javascript" src="' + ipFileUrl('Ip/Internal/Core/assets/tinymce/defaultPublic.js') + '"></script>');
+            }
 
             $('.ipsModuleFormPublic .ipsFileContainer').ipFormFile();
-            $('.ipsModuleFormPublic .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormPublic .type-richText').ipFormRichtext();
             $('.ipsModuleFormPublic .type-color').ipFormColor();
 
             $('.ipsModuleFormAdmin .ipsFileContainer').ipFormFile();
-            $('.ipsModuleFormAdmin .type-richtext').ipFormRichtext();
+            $('.ipsModuleFormAdmin .type-richText').ipFormRichtext();
             $('.ipsModuleFormAdmin .type-color').ipFormColor();
             $('.ipsModuleFormAdmin .ipsRepositoryFileContainer').ipFormRepositoryFile();
             $('.ipsModuleFormAdmin .type-url').ipFormUrl();
@@ -60,8 +76,9 @@ var ipModuleFormPublic;
 
                 // client-side validation OK.
                 if (!e.isDefaultPrevented()) {
+                    $form.trigger('ipSubmit');
                     $.ajax({
-                        url: ip.baseUrl,
+                        url: $form.attr('action') ? $form.attr('action') : ip.baseUrl,
                         dataType: 'json',
                         type: type,
                         data: $form.serialize(),
@@ -73,10 +90,18 @@ var ipModuleFormPublic;
                             }
                             if (response.replaceHtml) {
                                 $form.replaceWith(response.replaceHtml);
+                                if (!isScrolledIntoView($form)) {
+                                    $('html, body').animate({
+                                        scrollTop: $form.offset().top
+                                    }, 500);
+                                }
                                 ipInitForms();
                             }
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
+                            }
+                            if (response.alert) {
+                                alert(response.alert);
                             }
                         },
                         error: function (response) {

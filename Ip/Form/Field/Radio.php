@@ -47,6 +47,10 @@ class Radio extends Field
         $answer = '';
 
         foreach ($this->getValues() as $key => $value) {
+            if (is_string($value)) {
+                $value = array($value, $value);
+            }
+
             if ($value[0] == $this->value) {
                 $checked = ' checked="checked"';
             } else {
@@ -98,17 +102,6 @@ class Radio extends Field
         return $this->values;
     }
 
-    /**
-     * Get class type
-     *
-     * CSS class that should be applied to surrounding element of this field.
-     * By default empty. Extending classes should specify their value.
-     * @return string
-     */
-    public function getTypeClass()
-    {
-        return 'radio';
-    }
 
     /**
      * Get id

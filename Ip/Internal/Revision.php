@@ -77,7 +77,7 @@ class Revision
         $revision = array(
             'pageId' => $pageId,
             'isPublished' => (int)$published,
-            'createdAt' => time(),
+            'createdAt' => date('Y-m-d H:i:s'),
         );
 
         $revisionId = ipDb()->insert('revision', $revision);
@@ -175,10 +175,10 @@ class Revision
 
         $sql = "
             SELECT `revisionId` FROM $table
-            WHERE `createdAt` < ? AND `isPublished` = 0
+            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .") AND `isPublished` = 0
         ";
 
-        $revisionList = ipDb()->fetchColumn($sql, array(time() - $days * 24 * 60 * 60));
+        $revisionList = ipDb()->fetchColumn($sql);
 
         foreach ($revisionList as $revisionId) {
             \Ip\Internal\Content\Service::removeRevision($revisionId);

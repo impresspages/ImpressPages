@@ -74,7 +74,10 @@ class Controller extends \Ip\WidgetController
                         $currentData['url'] = $postData['url'];
                     }
                     if (isset($postData['blank'])) {
-                        $currentData['blank'] = $postData['blank'];
+                        $currentData['blank'] = (int)$postData['blank'];
+                    }
+                    if (isset($postData['nofollow'])) {
+                        $currentData['nofollow'] = (int)$postData['nofollow'];
                     }
                     return $currentData;
 
@@ -220,6 +223,9 @@ class Controller extends \Ip\WidgetController
             if (empty($data['blank'])) {
                 $data['blank'] = '';
             }
+            if (empty($data['nofollow'])) {
+                $data['nofollow'] = '';
+            }
             if (empty($data['title'])) {
                 $data['title'] = '';
             }
@@ -295,7 +301,7 @@ class Controller extends \Ip\WidgetController
         $form->addfield($field);
 
 
-        $field = new \Ip\Form\Field\Text(
+        $field = new \Ip\Form\Field\Url(
             array(
                 'name' => 'url',
                 'label' => __('Url', 'Ip-admin', false),
@@ -307,6 +313,14 @@ class Controller extends \Ip\WidgetController
             array(
                 'name' => 'blank',
                 'label' => __('Open in new window', 'Ip-admin', false),
+            ));
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'nofollow',
+                'label' => __('Set rel="nofollow" attribute', 'Ip-admin', false),
             ));
         $form->addField($field);
 

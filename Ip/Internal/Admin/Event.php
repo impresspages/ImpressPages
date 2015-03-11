@@ -12,7 +12,6 @@ class Event
         $curModTitle = '';
         $curModUrl = '';
         $curModIcon = '';
-        $helpUrl = 'http://www.impresspages.org/help2';
 
         if (!empty($requestData['aa'])) {
             $parts = explode('.', $requestData['aa']);
@@ -22,8 +21,12 @@ class Event
         }
 
         if (isset($curModule) && $curModule) {
-            $helpUrl = 'http://www.impresspages.org/help2/' . $curModule;
-            $curModTitle = __($curModule, 'Ip-admin', false);
+            $title = $curModule;
+            $plugin = \Ip\Internal\Plugins\Service::getPluginConfig($curModule);
+            if ($plugin) {
+                $title = $plugin['title'];
+            }
+            $curModTitle = __($title, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
         }
@@ -47,7 +50,6 @@ class Event
             'curModTitle' => $curModTitle,
             'curModUrl' => $curModUrl,
             'curModIcon' => $curModIcon,
-            'helpUrl' => $helpUrl,
             'navbarButtons' => array_reverse($navbarButtons),
             'navbarCenterElements' => $navbarCenterElements
         );
@@ -55,6 +57,16 @@ class Event
 
         $html = ipView('view/navbar.php', $data)->render();
         return $html;
+    }
+
+    public static function ipInitFinished ()
+    {
+        $request = \Ip\ServiceLocator::request();
+        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
+
+        if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
+            Model::setSafeMode($safeMode);
+        }
     }
 
     public static function ipBeforeController()
@@ -72,15 +84,14 @@ class Event
             ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
         }
 
-        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
-
-        if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
-            Model::setSafeMode($safeMode);
-        }
 
         //show admin submenu if needed
         if (ipRoute()->isAdmin()) {
+            ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
+            ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
+
             $submenu = Submenu::getSubmenuItems();
+            $submenu = ipFilter('ipAdminSubmenu', $submenu);
             if ($submenu) {
                 ipResponse()->setLayoutVariable('submenu', $submenu);
             }

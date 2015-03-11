@@ -11,9 +11,6 @@ if ((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)
 
 require_once(__DIR__ . '/../Ip/Application.php');
 
-if(!isset($_SESSION)) {
-	session_start();
-}
 
 $application = new \Ip\Application(__DIR__ . '/config.php');
 $application->init();
@@ -59,7 +56,11 @@ ipContent()->_setCurrentLanguage($language);
 
 if ($request->isGet()) {
     $controller = new \Plugin\Install\PublicController();
-    $response = $controller->index();
+    if (!empty($_GET['pa']) && $_GET['pa'] == 'Install.testSessions') {
+        $response = $controller->testSessions();
+    } else {
+        $response = $controller->index();
+    }
 } elseif ($request->isPost()) {
     $route = Ip\Internal\Core\Job::ipRouteAction_20(array('request' => $request));
     if (!$route || $route['plugin'] != 'Install' || $route['controller'] != 'PublicController') {

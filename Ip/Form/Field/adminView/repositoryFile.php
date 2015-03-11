@@ -1,5 +1,6 @@
 <div class="file <?php echo escAttr($classes); ?> ipsRepositoryFileContainer"
-     data-inputname="<?php echo escAttr($inputName); ?>" data-filelimit="<?php echo (int)$fileLimit; ?>"
+     data-inputname="<?php echo escAttr($inputName); ?>"
+     data-filelimit="<?php echo (int)$fileLimit; ?>"
      data-preview="<?php echo escAttr($preview); ?>"
      data-secure="<?php echo escAttr($secure); ?>">
     <a <?php echo $attributesStr; ?> class="btn btn-default ipsSelect ipsFileAddButton" href="#"><?php _e(
@@ -12,16 +13,16 @@
             <?php foreach ($value as $file) { ?>
                 <div class="_file ipsFile">
                     <button type="button" class="close ipsRemove">&times;</button>
-                    <div class="ipsFileName"><?php echo esc($file); ?></div>
+                    <div><a target="_blank" class="ipsLink ipsFileName" href="<?php echo ipFileUrl('file/repository/' . $file) ?>"><?php echo esc($file); ?></a></div>
                     <input type="hidden" name="<?php echo escAttr($inputName); ?>[]"
                            value="<?php echo escAttr($file); ?>"/>
                 </div>
             <?php } ?>
         <?php } ?>
     </div>
-    <div class="_file ipsFile ipsFileTemplate hidden">
+    <div class="well _file ipsFile ipsFileTemplate hidden">
         <button type="button" class="close ipsRemove" aria-hidden="true">&times;</button>
-        <div class="ipsFileName"></div>
+        <div><a target="_blank" class="ipsLink ipsFileName" href=""></a></div>
         <input type="hidden" name="" value=""/>
     </div>
 </div>

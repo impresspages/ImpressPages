@@ -22,6 +22,12 @@ class Controller extends \Ip\WidgetController{
         $form = $this->createForm($widgetId, $data);
         $errors = $form->validate($postData);
 
+        if (empty($data['success'])) {
+            $data['success'] = __('Thank You', 'Ip');
+        }
+        $successHtml = ipView('helperView/success.php', array('success' => $data['success']))->render();
+
+
         if ($errors) {
             $data = array(
                 'status' => 'error',
@@ -31,7 +37,8 @@ class Controller extends \Ip\WidgetController{
             $this->sendEmail($form, $postData, $data);
 
             $data = array(
-                'status' => 'success'
+                'status' => 'success',
+                'replaceHtml' => $successHtml
             );
         }
 
@@ -223,8 +230,8 @@ class Controller extends \Ip\WidgetController{
 
         $data['form'] = $this->createForm($widgetId, $data);
 
-        if (!isset($data['success'])) {
-            $data['success'] = '';
+        if (empty($data['success'])) {
+            $data['success'] = __('Thank You', 'Ip');
         }
 
 
@@ -291,6 +298,14 @@ class Controller extends \Ip\WidgetController{
             if (!isset($field['type']) || !isset($field['label'])) {
                 continue;
             }
+
+
+            if ($field['type'] == 'Fieldset') {
+                $label = empty($field['label']) ? '' : $field['label'];
+                $form->addFieldset(new \Ip\Form\Fieldset($label));
+                continue;
+            }
+
             if (!isset($field['options'])) {
                 $field['options'] = array();
             }

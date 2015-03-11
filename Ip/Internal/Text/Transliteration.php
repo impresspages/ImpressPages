@@ -15,6 +15,20 @@ class Transliteration
 {
     public static function transform($string)
     {
+        if (!function_exists('transliterator_transliterate') || !function_exists('transliterator_list_ids')) {
+            return self::simpleTransform($string);
+        }
+
+        $transliteratorIds = transliterator_list_ids();
+        if (!in_array('Any-Latin', $transliteratorIds) || !in_array('Latin-ASCII', $transliteratorIds)) {
+            return self::simpleTransform($string);
+        }
+
+        return transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0100-\u7fff] remove', $string);
+    }
+
+    protected static function simpleTransform($string)
+    {
 
         $chars_from = array(
             'À',

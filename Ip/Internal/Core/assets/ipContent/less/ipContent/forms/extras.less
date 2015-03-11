@@ -5,7 +5,8 @@
 .form-group { // adding our own bottom margin
     margin-bottom: @ipFormFieldSpace;
 }
-.form-control {
+.form-control,
+.input-group {
     max-width: @ipFormInputMaxWidth;
 }
 textarea.form-control { // fixing font and height
@@ -67,16 +68,17 @@ textarea.form-control { // fixing font and height
 
 // File upload
 ._file {
-    min-height: 20px;
-    padding: (@ipSpaceElement / 2);
-    margin-top: (@ipSpaceGroup / 2);
-    background-color: lighten(@ipBorderColor, 20);
+    background-color: lighten(@ipBorderColor, 40);
     border: 1px solid @ipBorderColor;
     border-radius: @ipFormInputBorderRadius;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    margin-top: (@ipSpaceGroup / 2);
     max-width: @ipFormInputMaxWidth; // to be the same size as controls
+    min-height: 20px;
+    padding: (@ipSpaceElement / 2);
     position: relative;
+    word-wrap: break-word; // to force breaking long filenames
 
     .close {
         float: right;
@@ -138,5 +140,6 @@ textarea.form-control { // fixing font and height
     &:hover {
         box-shadow: 0 0 0 1px @ipFormButtonBackground inset;
         background: darken(@ipFormButtonBackground, 20);
+        text-decoration: inherit; // fixing default link styles
     }
 }

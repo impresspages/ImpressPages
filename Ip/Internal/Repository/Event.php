@@ -11,7 +11,7 @@ class Event
     public static function ipBeforeController()
     {
 
-        if (ipIsManagementState()) {
+        if (ipIsManagementState() || ipRoute()->isAdmin() || ipRequest()->getQuery('ipDesignPreview')) {
             ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepository.js');
             ipAddJs('Ip/Internal/Repository/assets/ipRepositoryUploader.js');
@@ -35,7 +35,7 @@ class Event
             );
             ipAddJsVariable(
                 'ipRepositoryTranslate_delete_warning',
-                __('Some of the selected files cannot be deleted because they are used.', 'Ip-admin')
+                __('Some of the selected files are still used somewhere on your website. Do you still want to remove them? ', 'Ip-admin')
             );
         }
 

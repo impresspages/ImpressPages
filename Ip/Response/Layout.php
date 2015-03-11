@@ -38,11 +38,11 @@ class Layout extends \Ip\Response
     private $charset;
 
 
-    public function __construct($content = null, $headers = null, $statusCode = null)
+    public function __construct($content = null, $headers = null, $statusCode = 200)
     {
         $this->setFavicon(ipFileUrl('favicon.ico'));
         $this->setCharset(ipConfig()->get('charset'));
-        parent::__construct($content = null, $headers = null, $statusCode = null);
+        parent::__construct($content, $headers, $statusCode);
     }
 
     public function render()
@@ -63,13 +63,19 @@ class Layout extends \Ip\Response
 
         if ($layout[0] == '/' || $layout[1] == ':') { // Check if absolute path: '/' for unix, 'C:' for windows
             $viewFile = $layout;
+            if (!is_file($viewFile)) {
+                $viewFile = ipThemeFile('main.php');
+            }
         } elseif (strpos($layout, '/') !== false) { //impresspages path. Eg. Ip/Internal/xxx.php
-            $viewFile = ipFile($layout);
+            $viewFile = $layout;
+            if (!is_file(ipFile($viewFile))) {
+                $viewFile = ipThemeFile('main.php');
+            }
         } else { //layout file. Like main.php
             $viewFile = ipThemeFile($layout);
-        }
-        if (!is_file($viewFile)) {
-            $viewFile = ipThemeFile('main.php');
+            if (!is_file($viewFile)) {
+                $viewFile = ipThemeFile('main.php');
+            }
         }
 
         $content = ipView($viewFile, $this->getLayoutVariables())->render();
@@ -82,9 +88,9 @@ class Layout extends \Ip\Response
     protected function chooseLayout()
     {
         if (ipRoute()->isAdmin()) {
-            $this->layout = ipFile('Ip/Internal/Admin/view/layout.php');
+            $this->layout = 'Ip/Internal/Admin/view/layout.php';
         } elseif (\Ip\Internal\Admin\Model::isSafeMode()) {
-            $this->layout = '/Admin/view/safeModeLayout.php';
+            $this->layout = 'Ip/Internal/Admin/view/safeModeLayout.php';
         } else {
             $this->layout = 'main.php';
         }

@@ -26,7 +26,7 @@ class Service
      *
      * @param string $languageCode
      * @param string $urlPath
-     * @return array
+     * @return \Ip\Page
      */
     public static function getPageByUrl($languageCode, $urlPath)
     {

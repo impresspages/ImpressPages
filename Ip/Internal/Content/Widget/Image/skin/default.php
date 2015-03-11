@@ -7,6 +7,7 @@
         <?php if ($type == 'link'){ ?>
             href="<?php echo escAttr($url) ?>"
             <?php echo $blank ? ' target="_blank" ' : '' ?>
+            <?php echo $nofollow ? ' rel="nofollow" ' : '' ?>
         <?php } ?>
         title="<?php echo isset($title) ? escAttr($title) : '' ?>"
         data-description="<?php echo isset($description) ? escAttr($description) : ''; ?>"

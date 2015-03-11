@@ -19,6 +19,7 @@ class Theme
     protected $authorTitle;
     protected $options;
     protected $widgetOptions;
+    protected $url;
 
     public function __construct(ThemeMetadata $metadata)
     {
@@ -31,7 +32,11 @@ class Theme
     public function getThumbnailUrl()
     {
         if ($this->thumbnail) {
-            $image = ipFileUrl('Theme/' . $this->name . '/' . Model::INSTALL_DIR . $this->thumbnail);
+            if($this->url) {
+                $image = $this->url . $this->name . '/' . Model::INSTALL_DIR . $this->thumbnail;
+            } else {
+                $image = ipFileUrl('Theme/' . $this->name . '/' . Model::INSTALL_DIR . $this->thumbnail);
+            }
         } else {
             $image = ipFileUrl('Ip/Internal/Design/assets/theme.png');
         }

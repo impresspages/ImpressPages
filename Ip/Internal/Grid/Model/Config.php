@@ -13,6 +13,11 @@ class Config
      */
     protected $config = null;
 
+    protected $configChecked = false;
+
+    protected $multilingual = null;
+
+
     /**
      * @var Field[]
      */
@@ -26,29 +31,23 @@ class Config
             throw new \Ip\Exception('\'table\' configuration value missing.');
         }
 
-        if (empty($this->config['fields'])) {
-            $this->config['fields'] = $this->getTableFields($this->config['table']);
-        }
-
-        if (empty($this->config['idField'])) {
-            $this->config['idField'] = 'id';
-        }
-
         if (empty($this->config['pageSize'])) {
-            $this->config['pageSize'] = 10;
+            $this->config['pageSize'] = 20;
         }
 
         if (empty($this->config['pagerSize'])) {
             $this->config['pagerSize'] = 10;
         }
 
-
-        foreach ($this->config['fields'] as &$field) {
-            if (empty($field['type'])) {
-                $field['type'] = 'Text';
-            }
+        if (!isset($this->config['fields']) || !is_array($this->config['fields'])) {
+            $this->config['fields'] = $this->getTableFields($this->tableName(), $this->languageTableName());
         }
+
+        $this->checkConfig($this->config);
+
     }
+
+
 
 
     public function pageVariableName()
@@ -71,6 +70,19 @@ class Config
         return '1';
     }
 
+    /**
+     * Get field name responsible for connection of subgrid to the parent grid.
+     * You can think of it as a foreign key in SQL
+     * @return string
+     */
+    public function connectionField()
+    {
+        if (!empty($this->config['connectionField'])) {
+            return $this->config['connectionField'];
+        }
+        return false;
+    }
+
     public function deleteWarning()
     {
         if (!empty($this->config['deleteWarning'])) {
@@ -85,6 +97,17 @@ class Config
             return $this->config['actions'];
         }
         return array();
+    }
+
+    /**
+     * @return string
+     */
+    public function actionsFilter()
+    {
+        if (!empty($this->config['actionsFilter'])) {
+            return $this->config['actionsFilter'];
+        }
+        return false;
     }
 
     public function beforeDelete()
@@ -187,6 +210,9 @@ class Config
 
     public function fields()
     {
+        if (!$this->configChecked) {
+            $this->checkConfig($this->config);
+        }
         return $this->config['fields'];
     }
 
@@ -223,8 +249,16 @@ class Config
         return !array_key_exists('allowDelete', $this->config) || $this->config['allowDelete'];
     }
 
-    public function pageSize()
+    public function pageSize($statusVariables)
     {
+        if (!empty($statusVariables['pageSize'])) {
+            $pageSize = (int) $statusVariables['pageSize'];
+            if ($pageSize < 1) {
+                $pageSize = 1;
+            }
+            return $pageSize;
+        }
+
         return $this->config['pageSize'];
     }
 
@@ -235,12 +269,43 @@ class Config
 
     public function idField()
     {
-        return $this->config['idField'];
+        if (!empty($this->config['idField'])) {
+            return $this->config['idField'];
+        } else {
+            return 'id';
+        }
     }
 
     public function tableName()
     {
         return ipTable(str_replace("`", "", $this->config['table']));
+    }
+
+    public function languageTableName()
+    {
+        $tableName = $this->rawTableName() . '_language';
+        if (!empty($this->config['languageTable'])) {
+            $tableName = $this->config['languageTable'];
+        }
+        return ipTable(str_replace("`", "", $tableName));
+    }
+
+    public function languageForeignKeyField()
+    {
+        $field = 'itemId';
+        if (!empty($this->config['languageForeignKeyField'])) {
+            $field = $this->config['languageForeignKeyField'];
+        }
+        return $field;
+    }
+
+    public function languageCodeField()
+    {
+        $field = 'language';
+        if (!empty($this->config['languageCodeField'])) {
+            $field = $this->config['languageCodeField'];
+        }
+        return $field;
     }
 
     public function selectFields()
@@ -251,17 +316,19 @@ class Config
         return $this->config['selectFields'];
     }
 
-    public function joinQuery()
-    {
-        if (empty($this->config['joinQuery'])) {
-            return false;
-        }
-        return trim($this->config['joinQuery'], '`');
-    }
 
     public function rawTableName()
     {
         return $this->config['table'];
+    }
+
+    public function rawLanguageTableName()
+    {
+        if (!empty($this->config['languageTable'])) {
+            return $this->config['languageTable'];
+        } else {
+            return $this->rawTableName() . '_language';
+        }
     }
 
     public function sortField()
@@ -275,7 +342,7 @@ class Config
     public function sortDirection()
     {
         if (empty($this->config['sortDirection'])) {
-            return false;
+            return 'asc';
         }
         if ($this->config['sortDirection'] == 'desc') {
             return 'desc';
@@ -285,17 +352,68 @@ class Config
 
     }
 
-    public function orderBy()
+    public function orderBy($statusVariables)
     {
         if (!empty($this->config['orderBy'])) {
             return $this->config['orderBy'];
         } else {
-            if ($this->sortField()) {
-                return $this->tableName() . ".`" . $this->sortField() . "` " . $this->sortDirection();
+            $orderFieldName = $this->orderField($statusVariables);
+
+            $orderField = $this->getField($orderFieldName);
+            if (!empty($orderField['multilingual'])) {
+                $table = $this->languageTableName();
             } else {
-                return $this->tableName() . ".`" . $this->idField() . "` " . $this->sortDirection();
+                $table = $this->tableName();
+            }
+            return $table . ".`" . $orderFieldName . "` " . $this->orderDirection($statusVariables);
+        }
+    }
+
+    public function getField($fieldName)
+    {
+        $fields = $this->fields();
+        foreach($fields as $field) {
+            if (!empty($field['field']) && $field['field'] == $fieldName) {
+                return $field;
             }
         }
+    }
+
+    public function orderField($statusVariables)
+    {
+        $manualOrder = false;
+
+        //check if order field is set manually and if it is allowed to order by that field
+        if (!empty($statusVariables['order'])) {
+            $orderField = $statusVariables['order'];
+            foreach($this->config['fields'] as $field) {
+                if (!empty($field['field']) && $field['field'] == $orderField && (empty($field['allowOrder']) || $field['allowOrder'])) {
+                    $manualOrder = true;
+                    break;
+                }
+            }
+        }
+
+        if ($manualOrder) {
+            return $statusVariables['order'];
+        } else {
+            if ($this->sortField()) {
+                return $this->sortField();
+            } else {
+                return $this->idField();
+            }
+        }
+    }
+
+    public function orderDirection($statusVariables)
+    {
+        if (!empty($statusVariables['direction']) && $statusVariables['direction'] == 'desc') {
+            $direction = 'desc';
+        } else {
+            $direction = $this->sortDirection();
+
+        }
+        return $direction;
     }
 
     public function createPosition()
@@ -316,13 +434,14 @@ class Config
     }
 
 
-    protected function getTableFields($tableName)
+    protected function getTableFields($tableName, $languageTable)
     {
-        $sql = "SHOW COLUMNS FROM " . $this->tableName() . " " . $this->config->joinQuery() . " ";
+        $result = array();
+
+        $sql = "SHOW COLUMNS FROM " . $tableName . " " . $this->joinQuery() . " ";
 
         $fields = ipDb()->fetchColumn($sql);
 
-        $result = array();
         foreach ($fields as $fieldName) {
             $result[] = array(
                 'label' => $fieldName,
@@ -330,7 +449,32 @@ class Config
             );
         }
 
+        if ($this->isMultilingual()) {
+            $sql = "SHOW COLUMNS FROM " . $languageTable . " ";
+
+            $fields = ipDb()->fetchColumn($sql);
+
+            foreach ($fields as $fieldName) {
+                if (in_array($fieldName, array($this->languageCodeField(), $this->languageForeignKeyField()))) {
+                    continue;
+                }
+                $result[] = array(
+                    'label' => $fieldName,
+                    'field' => $fieldName,
+                    'multilingual' => 1
+                );
+            }
+        }
+
         return $result;
+    }
+
+    public function joinQuery()
+    {
+        if (!empty($this->config['joinQuery'])) {
+            return $this->config['joinQuery'];
+        }
+        return false;
     }
 
     public function layout()
@@ -347,6 +491,179 @@ class Config
             return false;
         }
         return $this->config['updateFilter'];
-
     }
+
+
+    public function updateLanguageFilter()
+    {
+        if (empty($this->config['updateLanguageFilter'])) {
+            return false;
+        }
+        return $this->config['updateLanguageFilter'];
+    }
+
+    public function updateFormFilter()
+    {
+        if (empty($this->config['updateFormFilter'])) {
+            return false;
+        }
+        return $this->config['updateFormFilter'];
+    }
+
+    public function createFilter()
+    {
+        if (empty($this->config['createFilter'])) {
+            return false;
+        }
+        return $this->config['createFilter'];
+    }
+
+
+    public function createLanguageFilter()
+    {
+        if (empty($this->config['createLanguageFilter'])) {
+            return false;
+        }
+        return $this->config['createLanguageFilter'];
+    }
+
+    public function createFormFilter()
+    {
+        if (empty($this->config['createFormFilter'])) {
+            return false;
+        }
+        return $this->config['createFormFilter'];
+    }
+
+    /**
+     * @param int $depth
+     * @param array $gridBreadcrumb //to detect loop
+     * @throws \Ip\Exception
+     */
+    protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = array())
+    {
+        $fields = &$config['fields'];
+
+        foreach($fields as &$field) {
+            if (empty($field['type'])) {
+                $field['type'] = 'Text';
+            }
+        }
+
+        //if at least one of the fields is of type 'Tab', then make sure the first field is also 'Tab'. Otherwise tabs don't work.
+        if ($fields[0]['type'] != 'Tab') {
+            $tabExist = false;
+            foreach ($fields as $key => $fieldData) {
+                if (!empty($fieldData['type']) && $fieldData['type'] == 'Tab') {
+                    $tabExist = true;
+                    break;
+                }
+            }
+            if ($tabExist) {
+                array_unshift($fields, array('label' => __('General', 'Ip-admin', false), 'type' => 'Tab'));
+            }
+
+        }
+
+        //automatically add gridId to grid fields
+        $gridIndex = 0;
+        foreach ($fields as $key => &$fieldData) {
+            if (!empty($fieldData['type']) && $fieldData['type'] == 'Grid') {
+                $gridIndex++;
+                if (empty($fieldData['gridId'])) {
+                    $fieldData['gridId'] = 'grid' . $gridIndex;
+                }
+                $subConfig = $fieldData['config'];
+                $loop = false;
+                foreach($gridBreadcrumb as $crumb) {
+                    if ($subConfig == $crumb) {
+                        $loop = true;
+                    }
+                }
+                if (!$loop) {
+                    $newBreadcrumb = array_merge($gridBreadcrumb, array($config));
+                    $this->checkConfig($fieldData['config'], $depth + 1, $newBreadcrumb);
+                }
+
+            }
+        }
+
+        if($depth == 1) {
+            $this->configChecked = true;
+        }
+    }
+
+
+
+    /**
+     * Return nested grid config object
+     * @param $statusVariables
+     * @return Config
+     * @throws \Ip\Exception
+     */
+    public function subgridConfig($statusVariables, $depthLimit = null)
+    {
+        $depth = Status::depth($statusVariables);
+        if ($depthLimit !== null && $depthLimit < $depth) {
+            $depth = $depthLimit;
+        }
+        $config = $this->config;
+        for ($i = 1; $i < $depth; $i++) {
+            $found = false;
+            foreach ($config['fields'] as $field) {
+                if (!empty($field['type']) && $field['type'] == 'Grid' && $field['gridId'] == $statusVariables['gridId' . $i]) {
+                    $config = $field['config'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                throw new \Ip\Exception('Unknown subgrid');
+            }
+        }
+        return new self($config);
+    }
+
+
+    public function getBreadcrumbField()
+    {
+        if (empty($this->config['breadcrumbField'])) {
+            return '';
+        }
+        return $this->config['breadcrumbField'];
+    }
+
+    public function isMultilingual()
+    {
+        if ($this->multilingual !== null) {
+            return $this->multilingual;
+        }
+
+        if (!empty($this->config['languageTable'])) {
+            $this->multilingual = true;
+            return true;
+        }
+
+        if (empty($this->config['fields'])) { //without this, isMultilingual check in getFields function will result in error.
+            return false;
+        }
+
+        $fields = $this->fields();
+        if (!$fields) {
+            $this->multilingual = false;
+            return false;
+        }
+
+        $multilingual = false;
+        foreach($fields as $field) {
+            if (!empty($field['multilingual'])) {
+                $multilingual = true;
+                break;
+            }
+        }
+
+        $this->multilingual = $multilingual;
+        return $multilingual;
+    }
+
 }

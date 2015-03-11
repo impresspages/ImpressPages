@@ -23,6 +23,7 @@ class Helper
         $languages['nl'] = 'Dutch';
         $languages['de'] = 'Deutsch';
         $languages['fr'] = 'French';
+        $languages['it'] = 'Italiano';
         $languages['ja'] = '日本語';
         $languages['lt'] = 'Lietuvių';
         $languages['hu'] = 'Magyar';
@@ -30,7 +31,7 @@ class Helper
         $languages['pl'] = 'Polski';
         $languages['ro'] = 'Română';
         $languages['ru'] = 'Русский';
-        $languages['tr'] = 'Türk';
+        $languages['tr'] = 'Türkçe';
 
         return $languages;
     }
@@ -270,7 +271,7 @@ class Helper
 
     public static function checkMemoryLimit()
     {
-        if (\Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100) {
+        if (\Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() < 100 && \Ip\Internal\System\Helper\SystemInfo::getMemoryLimitAsMb() != -1) {
             return 'warning';
         }
         return 'success';

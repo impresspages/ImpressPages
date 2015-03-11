@@ -4,7 +4,7 @@ $(document).ready(function () {
     if (ip.isManagementState) {
         return;
     }
-    $('a[rel=lightbox]').colorbox({
+    $('a[rel*=lightbox]').colorbox({
         rel: 'ipwImage',
         maxWidth: '90%',
         maxHeight: '90%',

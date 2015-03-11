@@ -15,9 +15,19 @@ class User
 {
 
     /**
+     * Alias of isLoggedIn
+     * @private
      * @return bool true if user is logged in
      */
     function loggedIn()
+    {
+        return $this->isLoggedIn();
+    }
+
+    /**
+     * @return bool true if user is logged in
+     */
+    function isLoggedIn()
     {
         return isset($_SESSION['ipUserId']);
     }
@@ -69,6 +79,9 @@ class User
     {
         if ($userId === null) {
             $userId = $this->userId();
+        }
+        if (!$userId) {
+            return array();
         }
         $info = array(
             'userId' => $userId

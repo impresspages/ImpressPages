@@ -191,6 +191,7 @@ var IpWidget_Image = function () {
         this.type = this.popup.find('select[name=type]');
         this.url = this.popup.find('input[name=url]');
         this.blank = this.popup.find('input[name=blank]');
+        this.nofollow = this.popup.find('input[name=nofollow]');
         var data = this.data;
 
         if (data.type) {
@@ -211,6 +212,12 @@ var IpWidget_Image = function () {
             this.blank.attr('checked', false);
         }
 
+        if (data.nofollow) {
+            this.nofollow.attr('checked', true);
+        } else {
+            this.nofollow.attr('checked', false);
+        }
+
 
         this.type.off().on('change', function () {
             $.proxy(showHide, context)();
@@ -221,6 +228,8 @@ var IpWidget_Image = function () {
 
         this.popup.modal(); // open modal popup
 
+        ipInitForms();
+
         this.confirmButton.off().on('click', $.proxy(saveLink, context));
     };
 
@@ -229,7 +238,8 @@ var IpWidget_Image = function () {
             method: 'setLink',
             type: this.type.val(),
             url: this.url.val(),
-            blank: this.blank.prop('checked') ? 1 : 0
+            blank: this.blank.prop('checked') ? 1 : 0,
+            nofollow: this.nofollow.prop('checked') ? 1 : 0
         };
 
         this.$widgetObject.save(data, 1); // save and reload widget
@@ -240,9 +250,11 @@ var IpWidget_Image = function () {
         if (this.type.val() == 'link') {
             this.popup.find('.form-group.name-url').show();
             this.popup.find('.form-group.name-blank').show();
+            this.popup.find('.form-group.name-nofollow').show();
         } else {
             this.popup.find('.form-group.name-url').hide();
             this.popup.find('.form-group.name-blank').hide();
+            this.popup.find('.form-group.name-nofollow').hide();
         }
     };
 
@@ -275,14 +287,11 @@ var IpWidget_Image = function () {
     };
 
     var actualSize = function(){
-        var $image = this.$widgetObject.find('.ipsImage');
-        $image.resizable('destroy');
+        var data = {
+            method: 'autosize'
+        }
 
-        $image.width(this.data.originalWidth);
-        $image.height('auto');
-
-        $.proxy(makeResizable, this)();
-        this.resize(this.data.originalWidth, $image.height());
+        this.$widgetObject.save(data, 1);
 
     };
 

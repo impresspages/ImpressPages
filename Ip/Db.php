@@ -49,17 +49,23 @@ class Db
         }
 
         try {
-            $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
-            if (!empty($dbConfig['database'])) {
-                $dsn .= ';dbname=' . $dbConfig['database'];
+            if (array_key_exists('driver', $dbConfig) && $dbConfig['driver'] == 'sqlite') {
+                $dsn = 'sqlite:' . $dbConfig['database'];
+                $this->pdoConnection = new \PDO($dsn);
+                $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            } else {
+                $dsn = 'mysql:host=' . str_replace(':', ';port=', $dbConfig['hostname']);
+                if (!empty($dbConfig['database'])) {
+                    $dsn .= ';dbname=' . $dbConfig['database'];
+                }
+                $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
+                $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $dt = new \DateTime();
+                $offset = $dt->format("P");
+                $this->pdoConnection->exec("SET time_zone='$offset';");
+                $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
             }
 
-            $this->pdoConnection = new \PDO($dsn, $dbConfig['username'], $dbConfig['password']);
-            $this->pdoConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $dt = new \DateTime();
-            $offset = $dt->format("P");
-            $this->pdoConnection->exec("SET time_zone='$offset';");
-            $this->pdoConnection->exec("SET CHARACTER SET " . $dbConfig['charset']);
         } catch (\PDOException $e) {
             throw new \Ip\Exception\Db("Can't connect to database. Stack trace hidden for security reasons");
             //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
@@ -355,18 +361,22 @@ class Db
     public function insert($table, $row, $ignore = false)
     {
         $params = array();
-        $_ignore = $ignore ? "IGNORE" : "";
+        $values = '';
+        $_ignore = $ignore ? ($this->isSqlite()?"OR IGNORE":"IGNORE") : "";
 
-        $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " SET ";
+        $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " (";
 
         foreach ($row as $column => $value) {
-            $sql .= "`{$column}` = ?, ";
+            $sql .= "`{$column}`, ";
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;
             }
             $params[] = $value;
+            $values.='?, ';
         }
         $sql = substr($sql, 0, -2);
+        $values = substr($values, 0, -2);
+        $sql .= ") VALUES (${values})";
 
         if (empty($params)) {
             $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " () VALUES()";
@@ -395,18 +405,8 @@ class Db
     {
         $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
         $params = array();
-        foreach ($condition as $column => $value) {
-            if ($value === null) {
-                $sql .= "`{$column}` IS NULL AND ";
-            } else {
-                $sql .= "`{$column}` = ? AND ";
-                if (is_bool($value)) {
-                    $value = $value ? 1 : 0;
-                }
-                $params[] = $value;
-            }
-        }
-        $sql = substr($sql, 0, -4);
+
+        $sql .= $this->buildConditions($condition, $params);
 
         return $this->execute($sql, $params);
     }
@@ -426,7 +426,7 @@ class Db
             return false;
         }
 
-        $sql = "UPDATE " . ipTable($table) . " SET ";
+        $sql = 'UPDATE ' . ipTable($table) . ' SET ';
         $params = array();
         foreach ($update as $column => $value) {
             $sql .= "`{$column}` = ? , ";
@@ -438,26 +438,22 @@ class Db
         $sql = substr($sql, 0, -2);
 
         $sql .= " WHERE ";
-
-        if (is_array($condition)) {
-            foreach ($condition as $column => $value) {
-                if ($value === null) {
-                    $sql .= "`{$column}` IS NULL AND ";
-                } else {
-                    $sql .= "`{$column}` = ? AND ";
-                    if (is_bool($value)) {
-                        $value = $value ? 1 : 0;
-                    }
-                    $params[] = $value;
-                }
-            }
-            $sql = substr($sql, 0, -4);
-        } else {
-            $sql .= " `id` = ? ";
-            $params[] = $condition;
-        }
+        $sql .= $this->buildConditions($condition, $params);
 
         return $this->execute($sql, $params);
+    }
+
+    /**
+     * insert or update row of $table identified by $keys with $values
+     *
+     * @param string $table
+     * @param array $keys
+     * @param array $values
+     */
+    public function upsert($table, $keys, $values) {
+        if ($this->insert($table, array_merge($keys, $values), true) == false) {
+            $this->update($table, $values, $keys);
+        }
     }
 
     /**
@@ -478,4 +474,169 @@ class Db
     {
         return $this->pdoConnection ? true : false;
     }
+
+    /**
+     * Return name of current driver
+     */
+    public function getDriverName()
+    {
+        return $this->pdoConnection->getAttribute(\PDO::ATTR_DRIVER_NAME);
+    }
+
+
+    /**
+     * Return true if database is sqlite
+     *
+     * @return bool
+     */
+    public function isSQLite()
+    {
+        return $this->getDriverName() == 'sqlite';
+    }
+
+    /**
+     * Return true if database is mysql
+     *
+     * @return bool
+     */
+    public function isMySQL()
+    {
+        return $this->getDriverName() == 'mysql';
+    }
+
+    /**
+     * Return SQL condition to select rows with minimum age (database-dependent)
+     *
+     * @param string $fieldName field to compare
+     * @param int    $minAge    minimum age
+     * @param string $unit      unit for age (HOUR or MINUTE)
+     * @return string           sql condition
+     */
+    public function sqlMinAge($fieldName, $minAge, $unit='HOUR') {
+        if (!in_array($unit, array('MINUTE', 'HOUR'))) {
+            throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
+        }
+
+        if (ipDb()->isMySQL()) {
+            $sql = "`".$fieldName."` < NOW() - INTERVAL " . ((int)$minAge) . " ".$unit;
+        } else {
+            $divider = 1;
+            switch($unit) {
+                case 'HOUR':
+                    $divider = 60*60;
+                    break;
+                case 'MINUTE':
+                    $divider = 60;
+                    break;
+            }
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
+                "`)/".$divider.")>". ((int)$minAge). ") ";
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Return SQL condition to select rows with minimum age (database-dependent)
+     *
+     * @param string $fieldName field to compare
+     * @param int    $maxAge    minimum age
+     * @param string $unit      unit for age (HOUR or MINUTE)
+     * @return string           sql condition
+     */
+    public function sqlMaxAge($fieldName, $maxAge, $unit='HOUR') {
+        if (!in_array($unit, array('MINUTE', 'HOUR'))) {
+            throw \Ip\Exception("Only 'MINUTE' or 'HOUR' are available as unit options.");
+        }
+
+//        SELECT DATE(NOW()-INTERVAL 15 DAY)
+        if (ipDb()->isMySQL()) {
+            $sql = "`".$fieldName."` > NOW() - INTERVAL " . ((int)$maxAge) . " ".$unit;
+        } else {
+            switch($unit) {
+                case 'HOUR':
+                    $divider = 60*60;
+                    break;
+                case 'MINUTE':
+                    $divider = 60;
+                    break;
+            }
+            $sql = "((STRFTIME('%s', 'now', 'localtime') - STRFTIME('%s', `".$fieldName.
+                "`)/".$divider.")>". ((int)$maxAge). ") ";
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Build WHERE statement from conditions.
+     *
+     * @param array $conditions
+     * @param array $params
+     *
+     * @return string
+     */
+    protected function buildConditions($conditions = array(), &$params = array())
+    {
+        if (empty($conditions)) {
+            return '1';
+        }
+
+        $sql = '';
+        if (is_array($conditions)) {
+            foreach ($conditions as $column => $value) {
+                $realCol = $column;
+                $pair = $this->containsOperator($column);
+
+                if ($pair) {
+                    $realCol = $pair[0];
+                }
+
+                if ($value === null) {
+                    $isNull = 'IS NULL AND';
+                    if ($pair && preg_match("/(<>|!=)/", $pair[1])) {
+                        $isNull = 'IS NOT NULL AND';
+                    }
+
+                    $sql .= "`{$realCol}` {$isNull} ";
+                } else {
+                    if ($pair) {
+                        $sql .= "`{$realCol}` {$pair[1]} ? AND ";
+                    } else {
+                        $sql .= "`{$realCol}` = ? AND ";
+                    }
+
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
+
+                    $params[] = $value;
+                }
+            }
+            $sql = substr($sql, 0, -4);
+        } else {
+            $sql .= " `id` = ? ";
+            $params[] = $conditions;
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Check whether a value contains an operator.
+     *
+     * @param $value string
+     *
+     * @return array|bool
+     */
+    protected function containsOperator($value)
+    {
+        $idents = preg_split("/(<=>|>=|<=|<>|>|<|!=|=|LIKE)/", $value, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        if (count($idents) <= 1) {
+            return false;
+        } else {
+            return array_map('trim', $idents);
+        }
+    }
+
 }

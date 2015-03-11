@@ -39,6 +39,12 @@
         </button>
     <?php } ?>
 
+
+    <h2><?php _e('Cache', 'Ip-admin'); ?></h2>
+    <p><?php _e('If you change CSS or JS file on your website, users may still have the old version cached on their browsers. "Clear cache" will increase the number added at the end of all CSS / JS links invalidating the cache for all your visitors.', 'Ip-admin'); ?></p>
+    <a class="btn btn-default ipsClearCache" href="#">Clear cache</a>
+
+
     <div class="hidden ipsSystemStatus">
         <h2><?php _e('System status', 'Ip-admin'); ?></h2>
     </div>
@@ -51,7 +57,7 @@
                     <h4 class="modal-title"><?php _e('Update in progress', 'Ip-admin'); ?></h4>
                 </div>
                 <div class="modal-body">
-                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient it may take up to 2 min. on a good line.', 'Ip-admin') ?></p>
+                    <p><?php _e('Downloading new files and migrating the database. Please don\'t refresh the page. Be patient. It may take up to 2 min. on a good line.', 'Ip-admin') ?></p>
                 </div>
             </div>
         </div>

@@ -13,8 +13,12 @@ class Job
      */
     public static function ipRouteAction_80($info)
     {
+        if ($info['routeLanguage'] == null) {
+            return null;
+        }
+
         if ($info['relativeUri'] == '') {
-            $pageId = ipJob('ipDefaultPageId');
+            $pageId = ipContent()->getDefaultPageId();
             $page = \Ip\Internal\Pages\Service::getPage($pageId);
         } else {
             $languageCode = ipContent()->getCurrentLanguage()->getCode();
@@ -50,9 +54,9 @@ class Job
     /**
      * @return mixed
      */
-    public static function ipDefaultPageId_70()
+    public static function ipDefaultPageId_70($info)
     {
-        $languageCode = ipContent()->getCurrentLanguage()->getCode();
+        $languageCode = $info['languageCode'];
         $defaultPageId = ipGetOption('Config.defaultPageId_' . $languageCode, null);
 
         if ($defaultPageId) {

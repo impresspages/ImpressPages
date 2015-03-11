@@ -21,18 +21,18 @@ class Worker
         if (empty($this->config['type'])) {
             $this->config['type'] = 'table';
         }
-        switch ($this->config['type']) {
-            case 'table':
-                $this->model = new Model\Table($this->config);
-                break;
-            default:
-                throw new \Ip\Exception('Undefined Grid type');
-        }
     }
 
     public function handleMethod(\Ip\Request $request)
     {
-        $commands = $this->model->handleMethod($request);
+        switch ($this->config['type']) {
+            case 'table':
+                $this->model = new Model\Table($this->config, $request);
+                break;
+            default:
+                throw new \Ip\Exception('Undefined Grid type');
+        }
+        $commands = $this->model->handleMethod();
         return $commands;
     }
 

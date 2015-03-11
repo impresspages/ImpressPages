@@ -49,11 +49,15 @@ class Module
         $cached_fileNames = array();
         $cached_fileMimeTypes = array();
         if ($files) {
+            if (is_string($files)) {
+                $files = array($files);
+            }
+
             foreach ($files as $fileSetting) {
                 $file = array();
                 if (is_array($fileSetting)) {
                     $file['real_name'] = $fileSetting[0];
-                    $file['required_name'] = $fileSetting[1];
+                    $file['required_name'] = basename($fileSetting[1]);
                 } else {
                     $file['real_name'] = $fileSetting;
                     $file['required_name'] = $fileSetting;
@@ -96,13 +100,13 @@ class Module
     }
 
     /**
-     * Checks if there is some emails waiting in queue and sends them if possible.
+     * Checks if there are some emails waiting in queue and sends them if possible.
      */
     function send()
     {
         $alreadySent = Db::sentOrLockedCount(60);
         if ($alreadySent !== false) {
-            $available = floor(ipGetOption('Email.hourlyLimit') * 0.8 - $alreadySent); //20% for imediate emails
+            $available = floor(ipGetOption('Email.hourlyLimit') * 0.8 - $alreadySent); //20% for immediate emails
             $lockKey = md5(uniqid(rand(), true));
             if ($available > 0) {
                 if ($available > 5 && !defined('CRON')) { //only cron job can send many emails at once.
@@ -115,10 +119,12 @@ class Module
             }
 
             if ($locked == $available) { //if in queue left some messages
-                $locked = $locked + Db::lockOnlyImmediate(
-                        ipGetOption('Email.hourlyLimit') - ($alreadySent + $available),
-                        $lockKey
-                    );
+                if (ipGetOption('Email.hourlyLimit') - ($alreadySent + $available) > 0) {
+                    $locked = $locked + Db::lockOnlyImmediate(
+                            ipGetOption('Email.hourlyLimit') - ($alreadySent + $available),
+                            $lockKey
+                        );
+                }
             }
             if ($locked) {
                 $emails = Db::getLocked($lockKey);
@@ -185,10 +191,13 @@ class Module
                     if ($email['html']) {
                         $mail->IsHTML(true); // send as HTML
 
-                        $h2t = new \Ip\Internal\Text\Html2Text($email['email'], false);
-                        //$mail->Body = $email['email'];
                         $mail->MsgHTML($email['email']);
-                        $mail->AltBody = $h2t->get_text();
+                        try {
+                            $altBody = \Ip\Internal\Text\Html2Text::convert($email['email']);
+                        } catch (\Ip\Internal\Text\Html2TextException $e) {
+                            $altBody = $email['email'];
+                        }
+                        $mail->AltBody = $altBody;
                     } else {
                         /*$h2t = new \Ip\Internal\Text\Html2Text($content, false);
                          $mail->Body  =  $h2t->get_text();*/

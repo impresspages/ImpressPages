@@ -60,9 +60,31 @@
 
                     $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
 
+                    // float fix, categories don't exist in mobile
+                    var $widgetCategories = $('._widgetCategories');
+                    if ($widgetCategories.length) {
+                        $('._widgetTabs').css({'marginLeft':$widgetCategories.width()});
+                    }
+
                     ipSpaceForWidgets();
                     ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
+
+                    // Widget category switches
+                    var $widgetSwitches = $('._widgetTabSwitch > a');
+                    $widgetSwitches.on('click', function(e) {
+                        e.preventDefault();
+                        var $switch = $(this);
+
+                        $widgetSwitches.parent().removeClass('_active');
+                        $switch.parent().addClass('_active');
+
+                        $($switch.attr('href'))
+                            .addClass('_active')
+                            .siblings().removeClass('_active');
+
+                        ipAdminWidgetsScroll();
+                    });
 
                     $('.ipsAdminPanelWidgetButton')
                         .on('dragstart', ipStartWidgetDrag)
@@ -146,28 +168,66 @@
      *
      */
     var ipAdminWidgetsScroll = function () {
-        var $scrollable = $('.ipsAdminPanelWidgetsContainer'); // binding object
-        $scrollable.scrollable({
-            items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
-            touch: false,
-            keyboard: false
-        });
-        var scrollableAPI = $scrollable.data('scrollable'); // getting instance API
-        var itemWidth = scrollableAPI.getItems().eq(0).outerWidth(true);
-        var containerWidth = scrollableAPI.getRoot().width() + 24; // adding left side compensation
-        var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll
-        if (scrollBy < 1) {
-            scrollBy = 1;
-        } // setting the minimum
-        $scrollable.siblings('.ipsRight, .ipsLeft').off('click'); // unbind if reinitiating dynamically
-        scrollableAPI.begin(); // move to scroller to default position (beginning)
-        $scrollable.siblings('.ipsRight').on('click', function (event) {
-            event.preventDefault();
-            scrollableAPI.move(scrollBy);
-        });
-        $scrollable.siblings('.ipsLeft').on('click', function (event) {
-            event.preventDefault();
-            scrollableAPI.move(-scrollBy);
+        var $scrollable = $('._widgetTab'); // binding object
+
+        $.each($scrollable, function(index, el) {
+            var $scr = $(el);
+
+            // skip hidden categories
+            if ($scr.css('display') === 'none') return true;
+
+            if (typeof $scr.data('scrollable') === 'undefined') {
+                $scr.scrollable({
+                    items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
+                    touch: false,
+                    keyboard: false,
+                    moveParent: true
+                });
+            }
+
+            var scrollableAPI = $scr.data('scrollable');
+
+            // Items don't dynamically change so we can save values to speed things up
+            var itemWidth = $scr.data('_itemWidth');
+            if (typeof itemWidth === 'undefined') {
+                itemWidth = scrollableAPI.getItems().eq(0).parent().outerWidth(true); // we want the li width
+                $scr.data('_itemWidth', itemWidth);
+            }
+
+            var itemCount = $scr.data('_itemCount');
+            if (typeof itemCount === 'undefined') {
+                itemCount =  scrollableAPI.getItems().length;
+                $scr.data('_itemCount', itemCount);
+            }
+
+            var leftMargin = $scr.find('> ul').css('marginLeft').slice(0, -2) * 2;
+            var containerWidth = $scr.width() - leftMargin; // subtracting sides
+
+            //var scrollBy = Math.floor(containerWidth / itemWidth); // define number of items to scroll;
+            var scrollBy = 0;
+
+            for (var i = 1; i <= itemCount; i++) {
+                if (itemWidth * i < containerWidth) {
+                    scrollBy = i;
+                } else {
+                    break;
+                }
+            }
+
+            if (scrollBy === 0) {
+                scrollBy = 1;
+            }
+
+            $scr.find('> .ipsRight, > .ipsLeft').off('click'); // unbind if reinitiating dynamically
+            scrollableAPI.begin(); // move to scroller to default position (beginning)
+            $scr.find('> .ipsRight').on('click', function (event) {
+                event.preventDefault();
+                scrollableAPI.move(scrollBy);
+            });
+            $scr.find('> .ipsLeft').on('click', function (event) {
+                event.preventDefault();
+                scrollableAPI.move(-scrollBy);
+            });
         });
     }
 
@@ -239,7 +299,7 @@
         //drop side
         var sidePlaceholders = new Array();
 
-        $('.ipBlock > .ipWidget').not(".ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
+        $('*:not(.ipsCol) > .ipBlock > .ipWidget').not(".ipWidget .ipWidget .ipWidget .ipWidget").not($(draggingElement)).each(function (key, value) {
             //left placeholder
             sidePlaceholders.push({
                 left: $(value).offset().left - 20,
@@ -444,21 +504,25 @@
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
                         var $lastParagraph = widgetController.splitParts().last();
-                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.height = Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.markerOffset = Math.round($lastParagraph.height() / 2) + space;
                     }
 
-                    var $columnsWidget = $widget.closest('.ipWidget').find('.ipBlock');
-                    if ($columnsWidget.length && !$widget.find(".ipBlock").length) {
+                    var $columnsWidget = $widget.parent().closest('.ipWidget');
+                    if ($columnsWidget.find('.ipBlock').length && !$widget.find(".ipBlock").length) {
                         //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
                         lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.markerOffset = lastPlaceholder.markerOffset - space * 1/4
                     }
 
                     if ($widget.find(".ipBlock").length) {
-                        var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        //if last widget has blocks inside (columns widget)
+                        var columnsEnd = $widget.offset().top + $widget.height();
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;
                         lastPlaceholder.markerOffset = 5;
@@ -550,7 +614,7 @@
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipsAdminPanelWidgetButton, .ipWidget",
             activeClass: "",
-            hoverClass: "hover",
+            hoverClass: "_hover",
             greedy: true,
             over: function (event, ui) {
                 lastDroppable = $(this);

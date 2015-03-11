@@ -47,4 +47,26 @@ class RevisionTest extends \PHPUnit_Framework_TestCase
         $widgetCount = ipDb()->selectValue('widget', 'COUNT(*)', array('revisionId' => $secondRevisionId));
         $this->assertEquals(3, $widgetCount);
     }
-} 
+
+    public function testRemoveOldRevisions()
+    {
+        $day = 60 * 60 * 24;
+        ipDb()->delete('revision', array());
+        ipDb()->insert('revision', array('revisionId' => 1, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 1)));
+        ipDb()->insert('revision', array('revisionId' => 2, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 5)));
+        ipDb()->insert('revision', array('revisionId' => 3, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 10)));
+        ipDb()->insert('revision', array('revisionId' => 4, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 100)));
+        ipDb()->insert('revision', array('revisionId' => 5, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 1000)));
+        ipDb()->insert('revision', array('revisionId' => 6, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 10000)));
+        ipDb()->insert('revision', array('revisionId' => 7, 'isPublished' => 1, 'createdAt' => date("Y-m-d H:i:s", time() - $day * 10000)));
+
+        \Ip\Internal\Revision::removeOldRevisions(7);
+
+        $records = ipDb()->selectColumn('revision', 'revisionId', array());
+        $answer = implode(',', $records);
+        $this->assertEquals('1,2,7', $answer);
+
+    }
+
+
+}
