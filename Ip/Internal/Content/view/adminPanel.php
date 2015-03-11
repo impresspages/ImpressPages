@@ -29,7 +29,7 @@
 
             <div class="_widgetCategories">
                 <?php $catCount = count($widgets); ?>
-                <?php if ($catCount > 1) { ?>
+                <?php if (count($tags) > 1) { ?>
                     <?php $active = true; ?>
                     <?php $current = 0; ?>
                     <?php foreach ($tags as $key => $tag){ ?>
