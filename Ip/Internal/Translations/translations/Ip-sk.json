@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Zadané znaky sa nezhodujú",
     "Upload": "Nahrať",
     "Integer required": "Integer required",
-    "Confirm": "Potvrdiť",
-    "Cancel": "Zrušiť",
     "Incorrect color code": "Nesprávny kód farby",
     "Session has ended. Please remove and re-upload files.": "Relácia skončila. Prosím, odstráňte súbory a znovu ich nahrajte.",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Prosím, zadajte platnú e-mailovú adresu.",
     "Session has expired. Please refresh the page.": "Relácia vypršala. Prosím obnovte stránku.",
     "Must be a number.": "Musí byť číslo.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "Hodnota musí byť unikátna",
     "Please correct this value": "Prosím, upravte túto hodnotu",
+    "Max %d characters": "Max %d characters",
     "Required field": "Požadované pole",
     "The value can't be one of:": "Hodnota nesmie byť jedna z:",
     "The value has to be one of:": "Hodnota musí byť jedna z:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Prosím, zadajte hodnotu najmenej $1",
     "Please complete this mandatory field": "Prosím, vyplňte toto povinné pole",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Domov"
+    "Home": "Domov",
+    "Confirm": "Potvrdiť",
+    "Cancel": "Zrušiť"
 }

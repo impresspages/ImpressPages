@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Karakteret e shenuara nuk u përputhën",
     "Upload": "Ngarko",
     "Integer required": "Kërkohet të shenohet numër i plotë",
-    "Confirm": "Konfirmo",
-    "Cancel": "Anulo",
     "Incorrect color code": "Kod i gabuar i ngjyrës",
     "Session has ended. Please remove and re-upload files.": "Sesioni ka skaduar. Ju lutem ngarkoni përsiëri fajllat.",
     "Please enter correct currency format. Eg. 10.50": "Ju lutem shkruani valutën e saktë. P.SH. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Shkruani një e-mail adresë valide.",
     "Session has expired. Please refresh the page.": "Sesion i skaduar. Ju lutemi ri-freskoni faqen.",
     "Must be a number.": "Duhet të jetë numër.",
+    "Min %d character": "Min %d karaktere",
     "The value should be unique": "Kjo vlerë duhjet të jetë unike",
     "Please correct this value": "Ju lutem korrigjoni vlerën",
+    "Max %d characters": "Maksimumi %d karaktere",
     "Required field": "Fusha të detyrueshme",
     "The value can't be one of:": "Vlera nuk mund të jetë një nga:",
     "The value has to be one of:": "Vlera duhet të jetë një nga:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Ju lutemi shkruani vlerë më të madhe se $1",
     "Please complete this mandatory field": "Ju lutem plotësoni fushat e kërkuara",
     "Choose a payment method": "Caktoni formën e pagesës",
-    "Home": "Ballina"
+    "Home": "Ballina",
+    "Confirm": "Konfirmo",
+    "Cancel": "Anulo"
 }
