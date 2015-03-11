@@ -886,18 +886,9 @@ function ipView($file, $data = array(), $_callerDepth = 0)
         throw new \Ip\Exception\View("View {$file} not found.");
     }
 
-    $path = substr($relativePath, 'Theme/' . ipConfig()->theme() . '/override/');
 
-    $possiblePath = ipFile($path);
-
-    if (file_exists($possiblePath)) {
-        $absolutePath = $possiblePath;
-    } else {
-        $file = esc($file);
-        throw new \Ip\Exception\View("View {$file} not found.");
-    }
-
-    return new \Ip\View($absolutePath, $data);
+    $pathFromWebsiteRoot = str_replace(ipFile('Theme/' . ipConfig()->theme() . '/override/'), '', $absolutePath);
+    return ipView($pathFromWebsiteRoot);
 }
 
 /**
