@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Girdiğiniz karakterler uyuşmuyor",
     "Upload": "Yükle",
     "Integer required": "Tam sayı gerekli",
-    "Confirm": "Onayla",
-    "Cancel": "İptal",
     "Incorrect color code": "Geçersiz renk kodu",
     "Session has ended. Please remove and re-upload files.": "Oturum geçersiz. Lütfen dosyaları kaldırın ve yeniden yükleyin.",
     "Please enter correct currency format. Eg. 10.50": "Lütfen doğru para birimi biçimini girin. Örn: 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Lütfen geçerli bir e-posta adresi girin.",
     "Session has expired. Please refresh the page.": "Oturum geçersiz. Lütfen sayfayı yeniden yükleyin.",
     "Must be a number.": "Bir sayı olmalıdır.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "Değer benzersiz olmalı",
     "Please correct this value": "Lütfen bu değeri düzeltin",
+    "Max %d characters": "Max %d characters",
     "Required field": "Gereli alan",
     "The value can't be one of:": "Değer şunlardan biri olamaz:",
     "The value has to be one of:": "Değer şunlardan biri olmalı:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Lütfen $1 değerinden küçük olmayan bir değer girin",
     "Please complete this mandatory field": "Lütfen bu zorunlu alanı doldurun",
     "Choose a payment method": "Lütfen bir ödeme metodu seçin",
-    "Home": "Ana Sayfa"
+    "Home": "Ana Sayfa",
+    "Confirm": "Onayla",
+    "Cancel": "İptal"
 }

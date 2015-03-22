@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Tecknen du angav matchade inte",
     "Upload": "Ladda upp",
     "Integer required": "Heltal krävs",
-    "Confirm": "Bekräfta",
-    "Cancel": "Avbryt",
     "Incorrect color code": "Ogiltig färgkod",
     "Session has ended. Please remove and re-upload files.": "Sessionen har avslutats. Vänligen ta bort och ladda upp filerna på nytt.",
     "Please enter correct currency format. Eg. 10.50": "Vänligen ange korrekt valutaformat. Ex. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Ange korrekt webbplats e-postadress.",
     "Session has expired. Please refresh the page.": "Sessionen har upphört. Vänligen uppdatera sidan.",
     "Must be a number.": "Måste vara ett nummer.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "Värdet bör vara unikt",
     "Please correct this value": "Ange korrekt värde",
+    "Max %d characters": "Max %d characters",
     "Required field": "Required field",
     "The value can't be one of:": "Värdet kan inte vara ett av:",
     "The value has to be one of:": "Värdet måste vara ett av:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Ange ett värde av minst $1",
     "Please complete this mandatory field": "Fyll i detta obligatoriska fält",
     "Choose a payment method": "Välj betalningsmetod",
-    "Home": "Hem"
+    "Home": "Hem",
+    "Confirm": "Bekräfta",
+    "Cancel": "Avbryt"
 }

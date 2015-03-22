@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Antamasi merkit eivät ole yhtenevät",
     "Upload": "Upload",
     "Integer required": "Integer required",
-    "Confirm": "Vahvista",
-    "Cancel": "Peruuta",
     "Incorrect color code": "Epäkelpo värin arvo",
     "Session has ended. Please remove and re-upload files.": "Session has ended. Please remove and re-upload files.",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Please enter a valid email address.",
     "Session has expired. Please refresh the page.": "Session has expired. Please refresh the page.",
     "Must be a number.": "Täytyy olla numero.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "The value should be unique",
     "Please correct this value": "Korjaa tämä arvo",
+    "Max %d characters": "Max %d characters",
     "Required field": "Pakollinen kenttä.",
     "The value can't be one of:": "The value can't be one of:",
     "The value has to be one of:": "The value has to be one of:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Anna numero, joka on suurempi kuin  $1",
     "Please complete this mandatory field": "Täytä tämä pakollinen kenttä",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Etusivu"
+    "Home": "Etusivu",
+    "Confirm": "Vahvista",
+    "Cancel": "Peruuta"
 }
