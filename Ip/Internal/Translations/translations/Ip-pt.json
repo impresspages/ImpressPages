@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Os caracteres que você digitou não corresponde",
     "Upload": "Upload",
     "Integer required": "Integer required",
-    "Confirm": "Confirmar",
-    "Cancel": "Cancelar",
     "Incorrect color code": "Código de cor incorreto",
     "Session has ended. Please remove and re-upload files.": "Sessão finalizada. Por favor, remova e re-envie arquivos.",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Por favor insira um endereço válido.",
     "Session has expired. Please refresh the page.": "Sessão expirada. Por favor, atualize a sua página.",
     "Must be a number.": "Precisa ser um número.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "The value should be unique",
     "Please correct this value": "Por favor corrija este valor",
+    "Max %d characters": "Max %d characters",
     "Required field": "Campo obrigatório",
     "The value can't be one of:": "O valor não pode ser um de:",
     "The value has to be one of:": "O valor tem de ser um de:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Por favor insira um valor de pelo menos $1",
     "Please complete this mandatory field": "Por favor complete este campo obrigatório",
     "Choose a payment method": "Choose a payment method",
-    "Home": "Home"
+    "Home": "Home",
+    "Confirm": "Confirmar",
+    "Cancel": "Cancelar"
 }

@@ -119,6 +119,10 @@ class Model
             $tags['Other'] = $uncategorizedWidgets;
         }
 
+        //these two tranlsations appear here just to make translations engine to find these dynamic translations
+        __('Other', 'Ip-admin', false);
+        __('Core', 'Ip-admin', false);
+
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
 
         $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
