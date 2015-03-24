@@ -38,7 +38,7 @@
                         <?php } // $current % $categorySplit === 0 ?>
                         <li class="_widgetTabSwitch ipsWidgetTag" data-tag="<?php echo escAttr($key) ?>">
                             <a href="#">
-                                <?php echo esc($key) ?>
+                                <?php _e($key, 'Ip-admin') ?>
                             </a>
                         </li>
                         <?php $current++; ?>
