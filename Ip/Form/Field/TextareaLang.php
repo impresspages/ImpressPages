@@ -53,13 +53,5 @@ class TextareaLang extends \Ip\Form\FieldLang
         return $answer;
     }
 
-/*
-<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
-                    ' ',
-                    $this->getClasses()
-                ) . '" name="' . escAttr($this->getName() . '[' . $language->getCode() . ']" ') . $this->getValidationAttributesStr(
-                    $doctype
-                ) . ' type="text" value="' . escAttr($langValue) . '" />
- * */
 
 }
