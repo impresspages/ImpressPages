@@ -8,7 +8,7 @@ namespace Ip\Form\Field;
 
 
 
-class TextLang extends \Ip\Form\FieldLang
+class TextareaLang extends \Ip\Form\FieldLang
 {
 
     public function __construct($options = array())
@@ -38,18 +38,28 @@ class TextLang extends \Ip\Form\FieldLang
             $answer .= '
 <div class="input-group">
   <span class="input-group-addon">' . esc($language->getAbbreviation()) . '</span>
-  <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
-                    ' ',
-                    $this->getClasses()
-                ) . '" name="' . escAttr($this->getName() . '[' . $language->getCode() . ']" ') . $this->getValidationAttributesStr(
-                    $doctype
-                ) . ' type="text" value="' . escAttr($langValue) . '" />
+
+<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+            ' ',
+            $this->getClasses()
+        ) . '" name="' . escattr($this->getName()) . '[' . $language->getCode() . ']" ' . $this->getValidationAttributesStr(
+            $doctype
+        ) . ' >' . escTextarea($langValue) . '</textarea>
+
+
 </div>
             ';
         }
         return $answer;
     }
 
-
+/*
+<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+                    ' ',
+                    $this->getClasses()
+                ) . '" name="' . escAttr($this->getName() . '[' . $language->getCode() . ']" ') . $this->getValidationAttributesStr(
+                    $doctype
+                ) . ' type="text" value="' . escAttr($langValue) . '" />
+ * */
 
 }
