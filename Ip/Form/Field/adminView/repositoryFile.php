@@ -2,7 +2,8 @@
      data-inputname="<?php echo escAttr($inputName); ?>"
      data-filelimit="<?php echo (int)$fileLimit; ?>"
      data-preview="<?php echo escAttr($preview); ?>"
-     data-secure="<?php echo escAttr($secure); ?>">
+     data-secure="<?php echo escAttr($secure); ?>"
+     data-path="<?php echo escAttr($path); ?>">
     <a <?php echo $attributesStr; ?> class="btn btn-default ipsSelect ipsFileAddButton" href="#"><?php _e(
             'Select',
             'Ip-admin'

@@ -26,10 +26,11 @@
                     data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
                     data.secure = settings.secure;
+                    data.path = settings.path;
 
                     if ($popup.find('.ipsPermissionError').length == 0) {
                         $.ajax({
-                            type: 'POST',
+                            type: 'GET',
                             url: ip.baseUrl,
                             data: data,
                             context: this,
