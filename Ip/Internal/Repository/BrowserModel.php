@@ -41,6 +41,60 @@ class BrowserModel
     }
 
     /**
+     * Throw an exception if path goes out of repository dir
+     * @param $path
+     * @param $secure
+     * @throws \Ip\Exception
+     */
+    public function pathMustBeInRepository($path, $secure)
+    {
+        if (!$path) {
+            return;
+        }
+        if ($path && substr($path, -1) != '/') {
+            $path .= '/';
+        }
+
+        $relativePath = ipFile('file/repository/' . $path);
+        if ($secure) {
+            $relativePath = ipFile('file/secure/' . $path);
+        }
+
+        //check if we are still in the repository dir (to prevent listing files outside of the repository)
+        $relpath = realpath($relativePath);
+        if ($secure) {
+            if (strpos($relpath, realpath(ipFile('file/secure/'))) !== 0) {
+                throw new \Ip\Exception("Restricted directory");
+            }
+        } {
+            if (strpos($relpath, realpath(ipFile('file/repository/'))) !== 0) {
+                throw new \Ip\Exception("Restricted directory");
+            }
+        }
+
+    }
+
+    public function getPath($secure, $subdir, $absolute = true)
+    {
+        if ($subdir && substr($subdir, -1) != '/') {
+            $subdir .= '/';
+        }
+
+        $relativePath = 'file/repository/' . $subdir;
+        if ($secure) {
+            $relativePath = 'file/secure/' . $subdir;
+        }
+
+
+
+        $path = $relativePath;
+        if ($absolute) {
+            $path = ipFile($path);
+        }
+        return $path;
+    }
+
+    /**
      * Get list of files for file browser
      * @param int $seek
      * @param int $limit
@@ -48,19 +102,21 @@ class BrowserModel
      * @param bool $secure use secure folder instead of repository root
      * @return array
      */
-    public function getAvailableFiles($seek, $limit, $filter, $secure = false)
+    public function getAvailableFiles($seek, $limit, $filter, $secure = false, $subdir = null)
     {
         $answer = array();
-
-        $repositoryDir = ipFile('file/repository/');
-        if ($secure) {
-            $repositoryDir = ipFile('file/secure/');
+        if ($subdir && substr($subdir, -1) != '/') {
+            $subdir .= '/';
         }
+
+        $repositoryDir = $this->getPath($secure, $subdir);
+
+
         $iterator = new \DirectoryIterator($repositoryDir);
         $iterator->seek($seek);
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
-                $fileData = $this->getFileData($iterator->getFilename(), $secure);
+                $fileData = $this->getFileData($iterator->getFilename(), $secure, $subdir);
                 switch ($filter) {
                     case 'image':
                         if (in_array($fileData['ext'], $this->supportedImageExtensions)) {
@@ -83,17 +139,19 @@ class BrowserModel
      * @return array
      * @throws \Ip\Exception\Repository
      */
-    public function getFile($fileName, $secure = false)
+    public function getFile($fileName, $secure = false, $path = null)
     {
-        return $this->getFileData($fileName, $secure);
+        return $this->getFileData($fileName, $secure, $path);
     }
 
-    private function getFileData($fileName, $secure)
+    private function getFileData($fileName, $secure, $subdir = null)
     {
-        $baseDir = 'file/repository/';
-        if ($secure) {
-            $baseDir = 'file/secure/';
+        if ($subdir && substr($subdir, -1) != '/') {
+            $subdir .= '/';
         }
+
+        $baseDir = $this->getPath($secure, $subdir, false);
+
         $file = ipFile($baseDir . $fileName);
         if (!file_exists($file) || !is_file($file)) {
             throw new \Ip\Exception\Repository("File doesn't exist " . esc($file));
@@ -103,9 +161,9 @@ class BrowserModel
         $ext = strtolower(isset($pathInfo['extension']) ? $pathInfo['extension'] : '');
 
         $data = array(
-            'fileName' => $fileName,
+            'fileName' => $subdir . $fileName,
             'ext' => $ext,
-            'previewUrl' => $this->createPreview($fileName),
+            'previewUrl' => $this->createPreview($subdir . $fileName),
             'originalUrl' => ipFileUrl($baseDir . $fileName),
             'modified' => filemtime($file)
         );
