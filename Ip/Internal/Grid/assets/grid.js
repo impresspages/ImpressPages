@@ -478,6 +478,13 @@
                     }
                 });
 
+                //new bootstrap can't handle backdrop height properly. So we fix it.
+                var $backdrop = $modal.children('.modal-backdrop');
+                var $dialog = $modal.children('.modal-dialog');
+                if ($backdrop.outerHeight(true) < $dialog.outerHeight(true)) {
+                    $backdrop.css('height', 0).css('height', $dialog.outerHeight(true));
+                }
+
 
                 $grid.trigger('updateModalOpen.ipGrid', $modal);
 

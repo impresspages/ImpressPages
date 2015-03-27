@@ -86,7 +86,7 @@ class Model
     {
         $tmpWidgets = Model::getAvailableWidgetObjects();
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
-        $widgets = array(
+        $tags = array(
             'Core' => array()
         );
         $uncategorizedWidgets = array();
@@ -95,29 +95,33 @@ class Model
 
         foreach ($tmpWidgets as $key => $widget) {
             if ($widget->isCore()) {
-                $widgets['Core'][$key] = $widget;
+                $tags['Core'][$key] = $widget->getName();
             } else {
                 $pluginName = $widget->getPluginName();
-                if (!array_key_exists($pluginName, $widgets)) {
-                    $widgets[$pluginName] = array();
+                if (!array_key_exists($pluginName, $tags)) {
+                    $tags[$pluginName] = array();
                 }
-                $widgets[$pluginName][] = $widget;
+                $tags[$pluginName][] = $widget->getName();
             }
         }
 
         // Filter out single widget categories
-        foreach ($widgets as $key => $widget) {
-            $widgetCount = count($widgets[$key]);
+        foreach ($tags as $key => $widget) {
+            $widgetCount = count($tags[$key]);
 
             if ($widgetCount === 1) {
                 $uncategorizedWidgets[] = $widget[0];
-                unset($widgets[$key]);
+                unset($tags[$key]);
             }
         }
 
         if (count($uncategorizedWidgets) > 0) {
-            $widgets['Other'] = $uncategorizedWidgets;
+            $tags['Other'] = $uncategorizedWidgets;
         }
+
+        //these two tranlsations appear here just to make translations engine to find these dynamic translations
+        __('Other', 'Ip-admin', false);
+        __('Core', 'Ip-admin', false);
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
 
@@ -127,8 +131,11 @@ class Model
 
         $page = ipContent()->getCurrentPage();
 
+
+
         $data = array(
-            'widgets' => $widgets,
+            'widgets' => $tmpWidgets,
+            'tags' => $tags,
             'page' => $page,
             'currentRevision' => $revision,
             'manageableRevision' => $manageableRevision,
@@ -139,6 +146,7 @@ class Model
         $controlPanelHtml = ipView('view/adminPanel.php', $data)->render();
 
         $data = array(
+            'tags' => $tags,
             'controlPanelHtml' => $controlPanelHtml,
             'manageableRevision' => $manageableRevision
         );

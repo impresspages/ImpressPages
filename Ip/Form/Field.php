@@ -69,7 +69,7 @@ abstract class Field
         if (!empty($options['name'])) {
             $this->setName($options['name']);
         }
-        if (!empty($options['value'])) {
+        if (isset($options['value'])) {
             $this->setValue($options['value']);
         }
         if (!empty($options['layout'])) {

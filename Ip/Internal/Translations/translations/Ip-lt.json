@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "Simboliai, kuriuos Jus įvedėte nesutampa",
     "Upload": "Įkelti",
     "Integer required": "Būtinas sveikas skaičius",
-    "Confirm": "Patvirtinti",
-    "Cancel": "Atšaukti",
     "Incorrect color code": "Neteisingas spalvos kodas",
     "Session has ended. Please remove and re-upload files.": "Sesijos laikas baigėsi. Prašome pašalinti ir iš naujo įkelti failus.",
     "Please enter correct currency format. Eg. 10.50": "Neteisingas valiutos formatas. Pvz. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "Prašome įvesti galiojantį el.pašto adresą.",
     "Session has expired. Please refresh the page.": "Sesijos laikas baigėsi. Prašome atnaujinti puslapį.",
     "Must be a number.": "Turi būti skaičius.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "Reikšmė turėtų būti unikali",
     "Please correct this value": "Prašome ištaisyti šią reikšmę",
+    "Max %d characters": "Max %d characters",
     "Required field": "Privalomas laukas",
     "The value can't be one of:": "Netinkamos reikšmės yra ",
     "The value has to be one of:": "Tinkamos reikšmės yra ",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Prašome įvesti reikšmę bent $1",
     "Please complete this mandatory field": "Prašome užpildyti šį privalomą lauką",
     "Choose a payment method": "Pasirinkite mokėjimo būdą",
-    "Home": "Titulinis"
+    "Home": "Titulinis",
+    "Confirm": "Patvirtinti",
+    "Cancel": "Atšaukti"
 }

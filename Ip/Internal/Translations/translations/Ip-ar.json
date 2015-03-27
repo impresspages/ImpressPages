@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "الحروف التي أدخلتها لا تتشابه",
     "Upload": "رفع",
     "Integer required": "Integer required",
-    "Confirm": "تأكيد",
-    "Cancel": "إلغاء",
     "Incorrect color code": "رقم لون خاطئ",
     "Session has ended. Please remove and re-upload files.": "لقد إنتهت صلاحية الدورة , يرجى حذف وإعادة رفع الملفات",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "يرجى إدخال بريد إلكتروني صحيح",
     "Session has expired. Please refresh the page.": "إنتهت صلاحية الدورة , يرجى إعادة تحميل الصفحة",
     "Must be a number.": "يجب أن تكون قيمة عددية",
+    "Min %d character": "Min %d character",
     "The value should be unique": "القيمة يجب أن تكون مميزة",
     "Please correct this value": "يرجى تصحيح هذه المادة",
+    "Max %d characters": "Max %d characters",
     "Required field": "خانة مطلوبة",
     "The value can't be one of:": "القيمة يجب أن لا تكون واحدة من بين",
     "The value has to be one of:": "القيمة يجب أن تكون واحدة من بين :",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "يرجى إدخال قيمة على الأقل  $1",
     "Please complete this mandatory field": "يرجى إكمال ملئ الخانات الإجبارية",
     "Choose a payment method": "Choose a payment method",
-    "Home": "الصفحة الرئيسية"
+    "Home": "الصفحة الرئيسية",
+    "Confirm": "تأكيد",
+    "Cancel": "إلغاء"
 }
