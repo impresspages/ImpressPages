@@ -432,6 +432,9 @@ class Model
         if (is_file($file)) {
             $sql = file_get_contents($file);
             $sql = str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            if (preg_replace('/\s+/', '', $sql) == '') {
+                return;
+            }
             ipDb()->execute($sql);
         }
 

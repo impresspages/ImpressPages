@@ -430,11 +430,12 @@ var ipContent = new function () {
                     }
                 }
 
+                $(document).trigger('ipWidgetAdded', {
+                    'widgetId': $newWidget.data('widgetid'),
+                    'widget': $newWidget
+                });
+
                 if (callback) {
-                    $(document).trigger('ipWidgetAdded', {
-                        'widgetId': $newWidget.data('widgetid'),
-                        'widget': $newWidget
-                    });
                     callback($newWidget.data('widgetid'));
                 }
             },

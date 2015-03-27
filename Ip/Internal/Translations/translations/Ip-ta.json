@@ -2,8 +2,6 @@
     "The characters you entered didn't match": "நீங்கள் உள்ளிட்ட எழுத்துக்கள் பொருந்தவில்லை",
     "Upload": "தரவேற்று",
     "Integer required": "Integer required",
-    "Confirm": "உறுதிசெய்",
-    "Cancel": "நிராகரி",
     "Incorrect color code": "பிழையான நிற குறி",
     "Session has ended. Please remove and re-upload files.": "அமர்வு முடிவடைந்தது. கோப்புக்களை நீக்கிவிட்டு மீள தரவேற்றுங்கள்.",
     "Please enter correct currency format. Eg. 10.50": "Please enter correct currency format. Eg. 10.50",
@@ -11,8 +9,10 @@
     "Please enter a valid email address.": "தயவுசெய்து சரியானதொரு மின்னஞ்சலை உள்ளிடுங்கள்",
     "Session has expired. Please refresh the page.": "அமர்வு காலாவதியாகிவிட்டது. தயவுசெய்து பக்கத்தை மீளேற்றுங்கள்",
     "Must be a number.": "கட்டாயம் ஒரு எண்ணாயிருத்தல் வேண்டும்.",
+    "Min %d character": "Min %d character",
     "The value should be unique": "இந்த பெறுமதி தனித்துவமானதாயிருக்க வேண்டும்",
     "Please correct this value": "தயவுசெய்து இந்த பெறுமதியை சரிசெய்யுங்கள்",
+    "Max %d characters": "Max %d characters",
     "Required field": "கட்டாயமான புலம்",
     "The value can't be one of:": "இந்த பெறுமதி இவற்றில் ஒன்றாய் இருக்க முடியாது:",
     "The value has to be one of:": "இந்த பெறுமதி இவற்றில் ஒன்றாய் இருக்க வேண்டும்:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "தயவுசெய்து $1 இனைவிட அதிகமான ஒரு பெறுமதியை உள்ளிடுங்கள்",
     "Please complete this mandatory field": "தயவுசெய்து இந்த கட்டாயமான புலத்தை பூர்த்தி செய்யுங்கள்.",
     "Choose a payment method": "Choose a payment method",
-    "Home": "முகப்பு"
+    "Home": "முகப்பு",
+    "Confirm": "உறுதிசெய்",
+    "Cancel": "நிராகரி"
 }

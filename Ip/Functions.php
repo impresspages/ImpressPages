@@ -137,8 +137,9 @@ function ipContent()
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array|null $attributes for example array('id' => 'example')
  * @param int $priority JavaScript file priority. The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddJs($file, $attributes = null, $priority = 50)
+function ipAddJs($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -152,7 +153,7 @@ function ipAddJs($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addJavascript($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
@@ -187,8 +188,9 @@ function ipAddJsContent($name, $value, $priority = 50)
  * Place CSS files in assets subdirectory of a theme or a plugin.
  * @param array $attributes Attributes for HTML <link> tag. For example, attribute argument array('id' => 'example') adds HTML attribute id="example"
  * @param int $priority CSS priority (loading order). The lower the number the higher the priority.
+ * @param bool $cacheFix add website version number at the end to force browser to reload new version of the file when website's cache is cleared
  */
-function ipAddCss($file, $attributes = null, $priority = 50)
+function ipAddCss($file, $attributes = null, $priority = 50, $cacheFix = true)
 {
     if (preg_match('%(https?:)?//%', $file)) {
         $absoluteUrl = $file;
@@ -202,7 +204,7 @@ function ipAddCss($file, $attributes = null, $priority = 50)
         $absoluteUrl = ipFileUrl($relativePath);
     }
 
-    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority);
+    \Ip\ServiceLocator::pageAssets()->addCss($absoluteUrl, $attributes, $priority, $cacheFix);
 }
 
 /**
@@ -884,18 +886,9 @@ function ipView($file, $data = array(), $_callerDepth = 0)
         throw new \Ip\Exception\View("View {$file} not found.");
     }
 
-    $path = substr($relativePath, 'Theme/' . ipConfig()->theme() . '/override/');
 
-    $possiblePath = ipFile($path);
-
-    if (file_exists($possiblePath)) {
-        $absolutePath = $possiblePath;
-    } else {
-        $file = esc($file);
-        throw new \Ip\Exception\View("View {$file} not found.");
-    }
-
-    return new \Ip\View($absolutePath, $data);
+    $pathFromWebsiteRoot = str_replace(ipFile('Theme/' . ipConfig()->theme() . '/override/'), '', $absolutePath);
+    return ipView($pathFromWebsiteRoot);
 }
 
 /**

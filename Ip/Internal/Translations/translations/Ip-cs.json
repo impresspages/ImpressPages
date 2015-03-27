@@ -1,18 +1,18 @@
 {
     "The characters you entered didn't match": "Hodnoty se neshodují.",
     "Upload": "Nahrát",
-    "Integer required": "Integer required",
-    "Confirm": "Potvrdit",
-    "Cancel": "Zrušit",
-    "Incorrect color code": "Nesprávný barevný kód",
+    "Integer required": "Požadováno celé číslo",
+    "Incorrect color code": "Nesprávný kód barvy",
     "Session has ended. Please remove and re-upload files.": "Tato relace skončila. Prosím odstraňte a znovu nahrajte soubory.",
     "Please enter correct currency format. Eg. 10.50": "Prosím, zadejte správný formát měny. Např. 10.50",
     "Form security check has failed. Please refresh the page.": "Bezpečnostní kontrola formuláře selhala. Prosím, aktualizujte stránku.",
     "Please enter a valid email address.": "Prosím, zadejte platnou e-mailovou adresu.",
     "Session has expired. Please refresh the page.": "Relace vypršela. Prosím, aktualizujte stránku.",
     "Must be a number.": "Musí být číslo.",
+    "Min %d character": "Minimálně %d znaků",
     "The value should be unique": "Hodnota musí být unikátní",
     "Please correct this value": "Prosím, upravte tuto hodnotu",
+    "Max %d characters": "Maximálně %d znaků",
     "Required field": "Požadované pole",
     "The value can't be one of:": "Hodnota nesmí být jedna z:",
     "The value has to be one of:": "Hodnota musí být jedna z:",
@@ -30,5 +30,7 @@
     "Please enter a value of at least $1": "Prosím, zadejte hodnotu ve výši nejméně $1",
     "Please complete this mandatory field": "Prosím, doplňte toto povinné pole",
     "Choose a payment method": "Vyberte způsob platby",
-    "Home": "Domů"
+    "Home": "Domů",
+    "Confirm": "Potvrdit",
+    "Cancel": "Zrušit"
 }
