@@ -51,8 +51,15 @@ class Actions
             'id' => $id
         );
 
-        if ($this->subgridConfig->beforeDelete()) {
-            call_user_func($this->subgridConfig->beforeDelete(), $params['id']);
+        $callables = $this->subgridConfig->beforeDelete();
+        if ($callables) {
+            if (is_array($callables) && !is_callable($callables)) {
+                foreach($callables as $callable) {
+                    call_user_func($callable, $params['id']);
+                }
+            } else {
+                call_user_func($callables, $params['id']);
+            }
         }
 
         ipDb()->execute($sql, $params);
@@ -70,9 +77,17 @@ class Actions
             ipDb()->execute($sql, $params);
         }
 
-        if ($this->subgridConfig->afterDelete()) {
-            call_user_func($this->subgridConfig->afterDelete(), $params['id']);
+        $callables = $this->subgridConfig->afterDelete();
+        if ($callables) {
+            if (is_array($callables) && !is_callable($callables)) {
+                foreach($callables as $callable) {
+                    call_user_func($callable, $params['id']);
+                }
+            } else {
+                call_user_func($callables, $params['id']);
+            }
         }
+
 
         //remove records in child grids
         foreach ($fields as $field) {
