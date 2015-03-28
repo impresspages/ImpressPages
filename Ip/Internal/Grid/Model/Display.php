@@ -344,6 +344,7 @@ class Display
     {
         $db = new Db($this->subgridConfig, $this->statusVariables);
         $form = new \Ip\Form();
+        $form->addAttribute('autocomplete', 'off');
         $curData = $db->fetchRow($id);
         $curDataMultilingual = array();
         if ($this->subgridConfig->isMultilingual()) {
@@ -572,7 +573,7 @@ class Display
     {
         $form = new \Ip\Form();
         $form->setMethod('get');
-
+        $form->addAttribute('autocomplete', 'off');
         $form->removeCsrfCheck();
         foreach ($this->subgridConfig->fields() as $key => $fieldData) {
             if (isset($fieldData['allowSearch']) && !$fieldData['allowSearch']) {

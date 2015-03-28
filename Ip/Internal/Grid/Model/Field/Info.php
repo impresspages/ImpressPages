@@ -31,7 +31,8 @@ class Info extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'html' => $this->html,
-            'layout' => $this->layout
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         return $field;
     }
@@ -42,7 +43,8 @@ class Info extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'html' => $this->html,
-            'layout' => $this->layout
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         return $field;
     }
@@ -67,7 +69,14 @@ class Info extends \Ip\Internal\Grid\Model\Field
      */
     public function searchField($searchVariables)
     {
-        return false;
+        $field = new \Ip\Form\Field\Info(array(
+            'label' => $this->label,
+            'name' => $this->field,
+            'html' => $this->html,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
+        ));
+        return $field;
     }
 
     /**

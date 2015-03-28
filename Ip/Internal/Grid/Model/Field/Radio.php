@@ -51,7 +51,8 @@ class Radio extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'values' => $this->values,
-            'layout' => $this->layout
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -71,7 +72,8 @@ class Radio extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'values' => $this->values,
-            'layout' => $this->layout
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($curData[$this->field]);
         return $field;
@@ -92,7 +94,8 @@ class Radio extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'values' => $values,
-            'layout' => $this->layout
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         if (!empty($searchVariables[$this->field])) {
             $field->setValue($searchVariables[$this->field]);

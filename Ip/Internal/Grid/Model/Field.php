@@ -12,6 +12,7 @@ abstract class Field
     protected $label = '';
     protected $defaultValue = '';
     protected $previewMethod = '';
+    protected $attributes = array();
     protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
     /**
@@ -38,7 +39,9 @@ abstract class Field
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
 
-
+        if (!empty($fieldFieldConfig['attributes'])) {
+            $this->attributes = $fieldFieldConfig['attributes'];
+        }
 
         if (!empty($fieldFieldConfig['previewMethod'])) {
             $this->previewMethod = $fieldFieldConfig['previewMethod'];

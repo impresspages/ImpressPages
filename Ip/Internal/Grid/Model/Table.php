@@ -22,7 +22,7 @@ class Table extends \Ip\Internal\Grid\Model
         $this->config = new Config($config);
 
 
-        $hash = ipRequest()->getRequest('hash', '');
+        $hash = ipRequest()->getRequest('gridHash', '');
 
 
         $this->statusVariables = Status::parse($hash);
@@ -341,6 +341,7 @@ class Table extends \Ip\Internal\Grid\Model
         $display = $this->getDisplay();
         $createForm = $display->createForm();
 
+        $createForm->addAttribute('autocomplete', 'off');
 
         $this->runTransformations($data);
 
