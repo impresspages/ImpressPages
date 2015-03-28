@@ -17,13 +17,16 @@ var ipRepositoryESC;
         if (options.secure) {
             options.preview = 'list';
         }
+        if (!options.path) {
+            options.path = '';
+        }
 
 
         $(document.body).append(ipRepositoryHtml);
         var $popup = $('.ipsModuleRepositoryPopup');
 
         //initialize first tab
-        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader({secure:options.secure});
+        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader({secure:options.secure, path:options.path});
         $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryAll(options);
 
         // todox: initialize each tab

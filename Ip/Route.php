@@ -19,6 +19,7 @@ class Route
     protected $environment = 'public';
     protected $controllerClass = null;
     protected $name = null;
+    protected $parameters = array();
 
     const ENVIRONMENT_ADMIN = 'admin';
     const ENVIRONMENT_PUBLIC = 'public';
@@ -33,12 +34,42 @@ class Route
     }
 
     /**
+     * Parameters passed to the controller of the route
+     * @return array
+     */
+    public function parameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * One of parameters passed to the controller of the route
+     * @return array
+     */
+    public function parameter($parameterName, $default = null)
+    {
+        if (!empty($this->parameters[$parameterName])) {
+            return $this->parameters[$parameterName];
+        }
+        return null;
+    }
+
+    /**
      * @private
      * @param $plugin
      */
     public function setPlugin($plugin)
     {
         $this->plugin = $plugin;
+    }
+
+    /**
+     * @private
+     * @param $parameters
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     /**
