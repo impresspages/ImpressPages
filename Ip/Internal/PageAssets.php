@@ -209,7 +209,9 @@ class PageAssets
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFilesSorted,
         );
-        return ipView('Ip/Internal/Config/view/javascript.php', $data)->render();
+        $javascript = ipView('Ip/Internal/Config/view/javascript.php', $data)->render();
+        $javascript = ipFilter('ipJavaScript', $javascript);
+        return $javascript;
     }
 
     protected function getCacheVersion()

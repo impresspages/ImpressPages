@@ -107,6 +107,7 @@ class Job
         $parameters = $reflection->getParameters();
 
         $arguments = array();
+        $routeParameters = array();
 
         foreach ($parameters as $parameter) {
 
@@ -121,7 +122,10 @@ class Job
                     $name
                 ) . " parameter", array('route' => $info, 'requiredParameter' => $name));
             }
+            $routeParameters[$parameter->getName()] = end($arguments);
         }
+
+        iproute()->setParameters($routeParameters);
 
         return call_user_func_array($callableAction, $arguments);
     }
