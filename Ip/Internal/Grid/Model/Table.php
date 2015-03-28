@@ -255,15 +255,29 @@ class Table extends \Ip\Internal\Grid\Model
         } else {
             $newData = $updateForm->filterValues($data);
 
-            if ($this->subgridConfig->beforeUpdate()) {
-                call_user_func($this->subgridConfig->beforeUpdate(), $recordId, $newData);
+            $callables = $this->subgridConfig->beforeUpdate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $actions = $this->getActions();
             $actions->update($recordId, $newData);
 
-            if ($this->subgridConfig->afterUpdate()) {
-                call_user_func($this->subgridConfig->afterUpdate(), $recordId, $newData);
+            $callables = $this->subgridConfig->afterUpdate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $display = $this->getDisplay();
@@ -342,15 +356,29 @@ class Table extends \Ip\Internal\Grid\Model
 
 
 
-            if ($this->subgridConfig->beforeCreate()) {
-                call_user_func($this->subgridConfig->beforeCreate(), $newData);
+            $callables = $this->subgridConfig->beforeCreate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $newData);
+                }
             }
 
             $actions = $this->getActions();
             $recordId = $actions->create($newData);
 
-            if ($this->subgridConfig->afterCreate()) {
-                call_user_func($this->subgridConfig->afterCreate(), $recordId, $newData);
+            $callables = $this->subgridConfig->afterCreate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $display = $this->getDisplay();
