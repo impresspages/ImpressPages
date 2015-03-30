@@ -146,7 +146,7 @@ class Display
             $tmpGridConfig = $gridConfig->subgridConfig($lastStatusVariables);
             $hash = Status::build($lastStatusVariables);
 
-            $breadcrumbGridconfig = $gridConfig->subgridConfig($lastStatusVariables, $i - 1);
+            $breadcrumbGridconfig = $gridConfig->subgridConfig($lastStatusVariables, $i);
             if ($breadcrumbGridconfig->getBreadcrumbField()) {
                 $title = $db->breadcrumbTitle($i);
             } else {
