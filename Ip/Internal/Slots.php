@@ -15,13 +15,6 @@ class Slots
     {
         $content = \Ip\ServiceLocator::dispatcher()->slot($name, $params);
 
-        if ($content) {
-            if (is_object($content) && method_exists($content, 'render')) {
-                $content = $content->render();
-            }
-            return $content;
-        }
-
         //look for predefined content
         $predefinedContent = $this->getSlotContent($name);
         if ($predefinedContent !== null) {
@@ -30,6 +23,15 @@ class Slots
             }
             return $predefinedContent;
         }
+
+
+        if ($content) {
+            if (is_object($content) && method_exists($content, 'render')) {
+                $content = $content->render();
+            }
+            return $content;
+        }
+
 
         return '';
     }
