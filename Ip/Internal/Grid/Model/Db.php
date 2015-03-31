@@ -71,7 +71,7 @@ class Db
         if ($depth == 0) {
             return $this->config->getTitle();
         }
-        $subgridConfig = $this->config->subgridConfig($this->statusVariables, $depth - 1);
+        $subgridConfig = $this->config->subgridConfig($this->statusVariables, $depth);
         $id = $this->statusVariables['gridParentId' . $depth];
 
         $title = ipDb()->fetchValue(

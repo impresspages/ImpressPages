@@ -19,7 +19,7 @@ $(document).ready(function () {
         });
 
         if (typeof(google) !== 'undefined' && typeof(google.maps) !== 'undefined' && typeof(google.maps.LatLng) !== 'undefined') {
-            ipGoogleMapsLoaded();
+            ipGoogleMapsLoaded = true;
         } else {
             ipLoadGoogleMaps();
         }
