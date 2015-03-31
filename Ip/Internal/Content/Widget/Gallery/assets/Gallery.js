@@ -467,9 +467,14 @@ var IpWidget_Gallery = function () {
 
         $controls.find('.ipsDelete').off('click.galleryWidget').on('click.galleryWidget', function (e) {
             $popup.modal('hide');
+            $controls.addClass('hidden');
             $.proxy(context.deleteImage, context)($item.index(), function () {
                 $.proxy(context.reopenManagementPopup, context)();
+                var index = $item.index();
+                var $next = $item.next();
                 $item.remove();
+                $next.click();
+
             });
 
         });
