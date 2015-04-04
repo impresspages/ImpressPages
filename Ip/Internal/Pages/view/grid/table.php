@@ -1,3 +1,4 @@
+<div class="table-responsive" >
 <table class="_table table ipsTreeDiv">
     <tbody>
         <?php foreach ($data as $row) { ?>
@@ -9,3 +10,4 @@
         <?php } ?>
     </tbody>
 </table>
+</div>
