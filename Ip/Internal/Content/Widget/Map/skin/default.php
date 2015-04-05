@@ -12,7 +12,7 @@ data-lng="<?php echo escAttr($lng); ?>"
     data-markerlng="<?php echo escAttr($markerlng); ?>"
 <?php } ?>
 
-style="height: <?php echo ($height); ?>; width: <?php echo ($width); ?>;"
+style="height: <?php echo ($height); ?>;"
 data-initialized="0"
 class="ipsMap">
 </div>
