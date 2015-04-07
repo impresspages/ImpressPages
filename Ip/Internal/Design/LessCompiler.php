@@ -54,7 +54,8 @@ class LessCompiler
             $parserOptions = array(
                 'import_callback' => $callback,
                 'cache_dir' => ipFile('file/tmp/less/'),
-                'relativeUrls' => false
+                'relativeUrls' => false,
+                'sourceMap' => true
             );
             $parser = new \Less_Parser($parserOptions);
             $directories = array(
