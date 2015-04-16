@@ -25,7 +25,6 @@ var IpWidget_Map = function () {
 
 
         var $resizeContainer = $('<div></div>');
-        $resizeContainer.width($map.width());
         $resizeContainer.height($map.height());
         $map.replaceWith($resizeContainer);
         $resizeContainer.append($map);
@@ -36,11 +35,10 @@ var IpWidget_Map = function () {
         $resizeContainer.resizable({
             aspectRatio: false,
             maxWidth: context.$widgetObject.width(),
-            resize: function (event, ui) {
-                $map.width(ui.size.width);
+            handles: "s",
+            stop: function (event, ui) {
                 $map.height(ui.size.height);
-                $.proxy(initMap, context)();
-                $.proxy(save, context)();
+                $(document).trigger('ipWidgetResized');
             }
         });
 
@@ -146,6 +144,9 @@ var IpWidget_Map = function () {
         $widget.trigger('ipWidgetMapInit', {map: map, marker: this.marker});
 
 
+        $(document).on('ipWidgetResized', function () {
+            google.maps.event.trigger(map, "resize");
+        });
     };
 
     function placeMarker(location) {
@@ -178,10 +179,6 @@ var IpWidget_Map = function () {
             var markerPos = this.marker.getPosition();
             data.markerlat = markerPos.lat();
             data.markerlng = markerPos.lng();
-        }
-        var mapWidth = this.$widgetObject.find('.ipsMap').width();
-        if (this.$widgetObject.width() - mapWidth > 2) {
-            data.width = mapWidth;
         }
 
         this.$widgetObject.save(data, 0);

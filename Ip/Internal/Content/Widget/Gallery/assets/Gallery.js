@@ -466,10 +466,9 @@ var IpWidget_Gallery = function () {
         this.imageIndex = $item.index();
 
         $controls.find('.ipsDelete').off('click.galleryWidget').on('click.galleryWidget', function (e) {
-            $popup.modal('hide');
-            $controls.addClass('hidden');
             $.proxy(context.deleteImage, context)($item.index(), function () {
-                $.proxy(context.reopenManagementPopup, context)();
+                $controls.addClass('hidden');
+                context.data = $('#ipWidget-' + context.widgetId).data('widgetdata');
                 var index = $item.index();
                 var $next = $item.next();
                 $item.remove();
