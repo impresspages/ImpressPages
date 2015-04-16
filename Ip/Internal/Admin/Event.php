@@ -62,7 +62,10 @@ class Event
     public static function ipInitFinished ()
     {
         $request = \Ip\ServiceLocator::request();
-        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
+        $safeMode = $request->getQuery('safeMode');
+        if ($safeMode === null) {
+            $safeMode = $request->getQuery('safemode');
+        }
 
         if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
             Model::setSafeMode($safeMode);
