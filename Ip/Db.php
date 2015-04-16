@@ -444,11 +444,14 @@ class Db
      */
     public function delete($table, $condition)
     {
-        $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
+        $sql = "DELETE FROM " . ipTable($table, false);
         $params = array();
 
-        $sql .= $this->buildConditions($condition, $params);
-
+        $conditions = $this->buildConditions($condition, $params);
+        
+        if ($conditions != '1') {
+        	$sql .= " WHERE ".$this->buildConditions($condition, $params);
+        }
         return $this->execute($sql, $params);
     }
 
