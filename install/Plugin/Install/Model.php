@@ -70,7 +70,7 @@ class Model
         $sql = str_replace("[[[[version]]]]", ipApplication()->getVersion(), $sql);
         $sql = str_replace("[[[[dbversion]]]]", \Ip\Internal\Update\Model::getDbVersion(), $sql);
         $sql = str_replace("[[[[time]]]]", date('Y-m-d H:i:s'), $sql);
-        $sql = str_replace("[[[[timestamp]]]]", date('Y-m-d H:i:s'), $sql);
+        $sql = str_replace("[[[[timestamp]]]]", time(), $sql);
 
         ipDb()->execute($sql);
 
