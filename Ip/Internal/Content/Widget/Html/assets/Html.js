@@ -20,10 +20,20 @@ var IpWidget_Html = function () {
 
         if (this.data.html) {
             if (!ip.safeMode) {
-                container.html(this.data.html);
+                if (ip.isManagementState) {
+                    var $html = $('<div>' + this.data.html + '</div>');
+                    if ($html.find('script').length) {
+                        var $notice = $('#ipWidgetHtmlDisabledJavaScriptNotice').clone().removeAttr('id').detach().removeClass('hidden');
+                        $html.find('script').remove();
+                        $html.prepend($notice);
+                    }
+                    container.html($html.html());
+                } else {
+                    container.html(this.data.html);
+                }
             } else {
-
-                container.html('<p>HTML widget content is hidden in safe mode.</p>'); // todo: translate
+                var $notice = $('#ipWidgetHtmlDisabledInSafeMode').clone().removeAttr('id').detach().removeClass('hidden');
+                container.html('').append($notice); // todo: translate
             }
         }
 
@@ -87,4 +97,5 @@ var IpWidget_Html = function () {
     };
 
 };
+
 
