@@ -680,15 +680,13 @@ class Model
 
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
-            if (empty($data['text'])) {
-                continue;
+
+            foreach($data as &$val) {
+                // ${1} - protocol, ${2} - optional '/'
+                $val = preg_replace($search, '${1}' . $newPart . '${2}', $val);
             }
 
-            // ${1} - protocol, ${2} - optional '/'
-            $after = preg_replace($search, '${1}' . $newPart . '${2}', $data['text']);
-            if ($after != $data['text']) {
-                $data['text'] = $after;
-
+            if (json_encode($data) != $row['data']) {
                 ipDb()->update('widget', array('data' => json_encode($data)), array('id' => $row['id']));
             }
         }
