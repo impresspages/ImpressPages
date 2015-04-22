@@ -131,6 +131,7 @@ class Model
 
         $page = ipContent()->getCurrentPage();
 
+        $tags = ipFilter('ipAdminWidgets', $tags);
 
 
         $data = array(
