@@ -100,6 +100,9 @@ var ipModuleFormPublic;
                             if (response.redirectUrl) {
                                 window.location = response.redirectUrl;
                             }
+                            if (response.reload) {
+                                window.location = window.location.href.split('#')[0];
+                            }
                             if (response.alert) {
                                 alert(response.alert);
                             }
