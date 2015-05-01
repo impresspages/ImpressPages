@@ -64,6 +64,13 @@
     var initTinyMCE = function ($field, config) {
         var $this = $field;
         var $textarea = $this.find('textarea');
+
+        // if previous element is group addon, it means we need to fix IDs for textareas in RichTextLang field type
+        var $prev = $textarea.prev('.input-group-addon');
+        if ($prev.length) {
+            var id = $textarea.attr('id') + '_' + $prev.text();
+            $textarea.attr('id', id);
+        }
         $this.data('ipFormRichText', {initialized: 1});
         $textarea.tinymce(config);
     };
@@ -77,12 +84,13 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         } else {
-            $.error('Method ' + method + ' does not exist on jQuery.ipFormRepositoryFile');
+            $.error('Method ' + method + ' does not exist on jQuery.ipFormRichtext');
         }
 
     };
 
     $('.ipsModuleFormAdmin .type-richText').ipFormRichtext();
+    $('.ipsModuleFormAdmin .type-richTextLang .input-group').ipFormRichtext();
 
 })(jQuery);
 
