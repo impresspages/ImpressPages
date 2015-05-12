@@ -80,8 +80,10 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
     {
         if (isset($postData[$this->field])) {
             return array($this->field => json_encode($postData[$this->field]));
+        }else{
+            return array($this->field => NULL);
         }
-    }
+    }    
 
 
     public function searchField($searchVariables)
