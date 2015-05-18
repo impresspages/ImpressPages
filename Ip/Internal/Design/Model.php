@@ -217,6 +217,7 @@ class Model
             }
         }
 
+        $config = ipFilter('ipThemeConfig', $config);
 
         $metadata->setTitle(!empty($config['title']) ? $config['title'] : $name);
 
