@@ -126,7 +126,7 @@ class LessCompiler
                         $lessValue .= $option['units'];
                     }
                     if (!isset($option['escape']) || $option['escape']) {
-                        $lessValue = "'" . escAttr($lessValue) . "'";
+                        $lessValue = "'" . preg_replace('~[\r\n]+~', '\\r\\n', escAttr($lessValue)) . "'";
                     }
                     break;
             }
