@@ -74,18 +74,6 @@ class Event
 
     public static function ipBeforeController()
     {
-        $request = \Ip\ServiceLocator::request();
-
-        if (ipIsManagementState() || $request->getQuery('aa') || $request->getQuery('admin')) {
-            $sessionLifetime = ini_get('session.gc_maxlifetime');
-            if (!$sessionLifetime) {
-                $sessionLifetime = 120;
-            }
-            if ($sessionLifetime > 20) {
-                $sessionLifetime = $sessionLifetime - 20;
-            }
-            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
-        }
 
 
         //show admin submenu if needed
