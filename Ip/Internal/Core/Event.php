@@ -11,6 +11,18 @@ class Event
 {
     public static function ipBeforeController()
     {
+        $request = \Ip\ServiceLocator::request();
+
+        $sessionLifetime = ini_get('session.gc_maxlifetime');
+        if (!$sessionLifetime) {
+            $sessionLifetime = 120;
+        }
+        if ($sessionLifetime > 30) {
+            $sessionLifetime = $sessionLifetime - 20;
+        }
+        ipAddJsVariable('ipSessionRefresh', $sessionLifetime);
+
+
         if (ipConfig()->isDebugMode()) {
             ipAddJs('Ip/Internal/Core/assets/ipCore/jquery.js', null, 10); // default, global jQuery
             ipAddJs('Ip/Internal/Core/assets/ipCore/console.log.js', null, 10);
