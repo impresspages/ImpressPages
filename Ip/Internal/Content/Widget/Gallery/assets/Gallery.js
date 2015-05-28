@@ -354,6 +354,7 @@ var IpWidget_Gallery = function () {
         this.description.val(data.description);
 
         this.settingsPopup.modal(); // open modal popup
+        ipInitForms();
 
         this.confirmButton.off().on('click', function () {
             $.proxy(saveSettings, context)(callback)
