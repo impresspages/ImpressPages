@@ -102,7 +102,7 @@ class BrowserModel
      * @param bool $secure use secure folder instead of repository root
      * @return array
      */
-    public function getAvailableFiles($seek, $limit, $filter, $secure = false, $subdir = null)
+    public function getAvailableFiles($seek, $limit, $filter, $filterExtensions, $secure = false, $subdir = null)
     {
         $answer = array();
         if ($subdir && substr($subdir, -1) != '/') {
@@ -117,15 +117,24 @@ class BrowserModel
         while ($iterator->valid() && count($answer) < $limit) {
             if ($iterator->isFile()) {
                 $fileData = $this->getFileData($iterator->getFilename(), $secure, $subdir);
+                $append = null;
                 switch ($filter) {
                     case 'image':
                         if (in_array($fileData['ext'], $this->supportedImageExtensions)) {
-                            $answer[] = $fileData;
+                            $append = $fileData;
                         }
                         break;
                     default:
-                        $answer[] = $fileData;
+                        $append = $fileData;
                         break;
+                }
+
+                if ($filterExtensions && !in_array($fileData['ext'], $filterExtensions)) {
+                    $append = null;
+                }
+
+                if ($append) {
+                    $answer[] = $append;
                 }
             }
             $iterator->next();

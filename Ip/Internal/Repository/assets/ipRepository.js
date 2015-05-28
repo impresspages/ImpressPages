@@ -20,7 +20,12 @@ var ipRepositoryESC;
         if (!options.path) {
             options.path = '';
         }
-
+        if (!options.filter) {
+            options.filter = null;
+        }
+        if (!options.filterExtensions) {
+            options.filterExtensions = null;
+        }
 
         $(document.body).append(ipRepositoryHtml);
         var $popup = $('.ipsModuleRepositoryPopup');

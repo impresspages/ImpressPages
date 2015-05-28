@@ -83,6 +83,10 @@ class AdminController extends \Ip\Controller
         $seek = isset($query['seek']) ? (int)$query['seek'] : 0;
         $limit = 10000;
         $filter = isset($query['filter']) ? $query['filter'] : null;
+        $filterExtensions = $query['filterExtensions'] ? $query['filterExtensions'] : null;
+        if (is_string($filterExtensions)) {
+            $filterExtensions = array($filterExtensions);
+        }
         $secure = isset($query['secure']) ? (int)$query['secure'] : null;
         $path = isset($query['path']) ? $query['path'] : null;
 
@@ -90,7 +94,7 @@ class AdminController extends \Ip\Controller
 
         $browserModel->pathMustBeInRepository($path, $secure);
 
-        $files = $browserModel->getAvailableFiles($seek, $limit, $filter, $secure, $path);
+        $files = $browserModel->getAvailableFiles($seek, $limit, $filter, $filterExtensions, $secure, $path);
 
         usort($files, array($this, 'sortFiles'));
 
