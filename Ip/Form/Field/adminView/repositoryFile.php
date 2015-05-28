@@ -3,7 +3,9 @@
      data-filelimit="<?php echo (int)$fileLimit; ?>"
      data-preview="<?php echo escAttr($preview); ?>"
      data-secure="<?php echo escAttr($secure); ?>"
-     data-path="<?php echo escAttr($path); ?>">
+     data-path="<?php echo escAttr($path); ?>"
+     data-filter="<?php echo escAttr($filter); ?>"
+     data-filterextensions='<?php echo escAttr(json_encode($filterExtensions)); ?>'>
     <a <?php echo $attributesStr; ?> class="btn btn-default ipsSelect ipsFileAddButton" href="#"><?php _e(
             'Select',
             'Ip-admin'

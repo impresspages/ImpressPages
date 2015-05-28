@@ -25,6 +25,7 @@
                     data.aa = 'Repository.getAll';
                     data.securityToken = ip.securityToken;
                     data.filter = settings.filter;
+                    data.filterExtensions = settings.filterExtensions;
                     data.secure = settings.secure;
                     data.path = settings.path;
 

@@ -21,7 +21,7 @@
                 if (!data) {
                     $this.find('.ipsSelect').on('click', function (e) {
                         e.preventDefault();
-                        var repository = new ipRepository({preview: $this.data('preview'), secure: $this.data('secure'),path: $this.data('path')});
+                        var repository = new ipRepository({preview: $this.data('preview'), secure: $this.data('secure'),path: $this.data('path'), filter: $this.data('filter'), filterExtensions: $this.data('filterextensions')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     });
 
