@@ -91,4 +91,9 @@ class Service
         return Model::getWidgetRecord($widgetId);
     }
 
+    public static function removeWidget($widgetId)
+    {
+        Model::removeWidget($widgetId);
+    }
+
 }
