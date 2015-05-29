@@ -171,6 +171,13 @@ class Revision
      */
     public static function removeOldRevisions($days)
     {
+        //
+        // 1) Dynamic Widgets (including revisions)
+        // Dynamic widgets have an associated revision. 
+        // That revision's creation time and publication 
+        // state indicates if a widget should be removed  
+        // or not from corresponding db table 'ip_widget'.
+        //
         $table = ipTable('revision');
 
         $sql = "
@@ -182,6 +189,27 @@ class Revision
 
         foreach ($revisionList as $revisionId) {
             \Ip\Internal\Content\Service::removeRevision($revisionId);
+        }
+
+        //
+        // 2) Static Widgets (from static blocks only!)
+        // Static widgets are presisted with revisionId=0.
+        // Therefore, we've to make the time check on widget's
+        // 'createdAt' column combined with 'isDeleted=1' flag 
+        // and 'revisionId=0' indicating widget's removal state. 
+        //
+        $table = ipTable('widget');
+
+        $sql = $sql = "
+            SELECT `id` FROM $table
+            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .") 
+            AND `revisionId` = 0 AND `isDeleted` = 1 AND `deletedAt` IS NOT NULL
+        ";
+
+        $staticWidgetList = ipDb()->fetchColumn($sql);
+
+        foreach ($staticWidgetList as $staticWidgetId) {
+            \Ip\Internal\Content\Service::removeWidget($staticWidgetId);
         }
     }
 
