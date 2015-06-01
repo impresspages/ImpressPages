@@ -19,6 +19,12 @@ class PublicController extends \Ip\Controller
 
     public function pageNotFound()
     {
-        return new \Ip\Response\PageNotFound();
+        $content = null;
+        $error404Page = ipContent()->getPageByAlias('error404');
+        if ($error404Page) {
+            $revision = \Ip\Internal\Revision::getPublishedRevision($error404Page->getId());
+            $content = \Ip\Internal\Content\Model::generateBlock('main', $revision['revisionId'], 0, 0);
+        }
+        return new \Ip\Response\PageNotFound($content);
     }
 }
