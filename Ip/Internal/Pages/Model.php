@@ -466,6 +466,7 @@ class Model
             throw new \Ip\Exception("Can't move page inside itself.");
         }
 
+        $parent = ipContent()->getPage($destinationParentId);
         $newParentChildren = self::getChildren($destinationParentId);
         $newPageOrder = 0; // Initial value.
 
@@ -482,7 +483,8 @@ class Model
 
         $update = array(
             'parentId' => $destinationParentId,
-            'pageOrder' => $newPageOrder
+            'pageOrder' => $newPageOrder,
+            'languageCode' => $parent->getLanguageCode()
         );
 
         $eventData = array(
@@ -492,6 +494,13 @@ class Model
         );
         ipEvent('ipBeforePageMoved', $eventData);
         ipDb()->update('page', $update, array('id' => $pageId));
+        $children = self::getChildren($pageId);
+        if ($children) {
+            foreach ($children as $child) {
+                ipDb()->update('page', array('languageCode' => $update['languageCode']), array('id' => $child['id']));
+            }
+        }
+
         ipEvent('ipPageMoved', $eventData);
     }
 
