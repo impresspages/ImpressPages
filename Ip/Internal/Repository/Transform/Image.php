@@ -103,6 +103,9 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      */
     protected function saveJpeg($image, $fileName, $quality)
     {
+        if (ipConfig()->get('interlaceJpeg', true)) {
+            imageinterlace( $image, TRUE);
+        }
         if (!imagejpeg($image, $fileName, (int)$quality)) {
             throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc(
                 $fileName
@@ -120,6 +123,9 @@ abstract class Image extends \Ip\Internal\Repository\Transform
      */
     protected function savePng($image, $fileName, $compression)
     {
+        if (ipConfig()->get('interlacePng', false )) {
+            imageinterlace( $image, TRUE);
+        }
         if (!imagepng($image, $fileName, $compression)) {
             throw new \Ip\Exception\Repository\Transform("Can't write to file: " . esc(
                 $fileName
