@@ -390,7 +390,7 @@ class Form
         foreach ($this->getClasses() as $class) {
             $answer .= ' ' . $class;
         }
-        return 'class="' . $answer . '"';
+        return $answer;
     }
 
     /**

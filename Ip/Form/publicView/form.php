@@ -1,7 +1,7 @@
 <?php
 /** @var $form \Ip\Form */
 ?>
-<form <?php echo $form->getClassesStr(); ?> <?php echo $form->getAttributesStr(); ?>
+<form class="<?php echo $form->getClassesStr(); ?>" <?php echo $form->getAttributesStr(); ?>
     method="<?php echo $form->getMethod(); ?>" action="<?php echo $form->getAction(); ?>" enctype="multipart/form-data">
     <?php foreach ($form->getFieldsets() as $fieldsetKey => $fieldset) { ?>
         <fieldset <?php echo $fieldset->getAttributesStr($this->getDoctype()) ?>>
