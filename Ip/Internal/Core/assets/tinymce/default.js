@@ -24,6 +24,7 @@ ipTinyMceConfig = function () {
             {title: 'Button', inline: 'span', classes: 'button'}
         ],
         forced_root_block: "p",
+        gecko_spellcheck:true,
 
         document_base_url: ip.baseUrl,
         remove_script_host: false,
