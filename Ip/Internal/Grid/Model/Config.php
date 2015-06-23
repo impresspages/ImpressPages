@@ -544,6 +544,10 @@ class Config
     {
         $fields = &$config['fields'];
 
+        if (!is_array($fields)) {
+            throw new \Ip\Exception('GRID configuration is missing \'fields\' attribute for table ' . $config['table']);
+        }
+
         foreach($fields as &$field) {
             if (empty($field['type'])) {
                 $field['type'] = 'Text';
