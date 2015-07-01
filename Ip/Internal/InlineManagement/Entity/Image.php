@@ -54,6 +54,7 @@ class Image
                     'x1' => $this->getX1(),
                     'y1' => $this->getY1(),
                     'x2' => $this->getX2(),
+                    'quality' => 100 // added 100 quality because slot images renders on default 80 quality
                     'y2' => $this->getY2(),
                     'width' => $this->getRequiredWidth(),
                     'height' => $this->getRequiredHeight()
