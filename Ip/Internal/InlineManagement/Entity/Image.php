@@ -49,11 +49,18 @@ class Image
                 $this->requiredWidth = $data['requiredWidth'];
                 $this->requiredHeight = $data['requiredHeight'];
 
+                $quality = null;
+                $quality = ipGetOption('Config.slotImageQuality');
+                if (!$quality) {
+                    $quality = ipGetOption('Config.defaultImageQuality');
+                }
+
                 $transform = array(
                     'type' => 'crop',
                     'x1' => $this->getX1(),
                     'y1' => $this->getY1(),
                     'x2' => $this->getX2(),
+                    'quality' => $quality,
                     'y2' => $this->getY2(),
                     'width' => $this->getRequiredWidth(),
                     'height' => $this->getRequiredHeight()
