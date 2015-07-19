@@ -682,10 +682,7 @@ class Model
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
 
-            foreach($data as &$val) {
-                // ${1} - protocol, ${2} - optional '/'
-                $val = preg_replace($search, '${1}' . $newPart . '${2}', $val);
-            }
+            $data = self::replaceUrl($search, $newPart, $data);
 
             if (json_encode($data) != $row['data']) {
                 ipDb()->update('widget', array('data' => json_encode($data)), array('id' => $row['id']));
@@ -693,6 +690,22 @@ class Model
         }
     }
 
+    /**
+     * @param string $search
+     * @param string $newPart
+     * @param string|array $data
+     * @return mixed
+     */
+    private static function replaceUrl($search, $newPart, $data){
+        if (is_array($data)){
+            foreach($data as &$val) {
+                $val = self::replaceUrl($search, $newPart, $val);
+            }
+        } else {
+            $data = preg_replace($search, '${1}' . $newPart . '${2}', $data);
+        }
+        return $data;
+    }
     /**
      * @param int $revisionId
      * @return bool|string
