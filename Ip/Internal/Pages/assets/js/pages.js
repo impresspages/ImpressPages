@@ -210,7 +210,7 @@ var ipPageDragId;
             if ($scope.selectedPageId) {
                 $positionSelect.find('option[value=above]').show();
                 $positionSelect.find('option[value=child]').show();
-                $positionSelect.find('option[value=bellow]').show();
+                $positionSelect.find('option[value=below]').show();
                 $positionSelect.val($scope.activeMenu.defaultPositionWhenSelected);
                 if ($scope.activeMenu.type == 'list') {
                     $positionSelect.find('option[value=child]').hide();
@@ -219,7 +219,7 @@ var ipPageDragId;
                 $positionSelect.val($scope.activeMenu.defaultPosition);
                 $positionSelect.find('option[value=above]').hide();
                 $positionSelect.find('option[value=child]').hide();
-                $positionSelect.find('option[value=bellow]').hide();
+                $positionSelect.find('option[value=below]').hide();
             }
 
             $modal.find('form').off('submit').on('submit', function (e) {
@@ -256,7 +256,7 @@ var ipPageDragId;
                             parentId = $scope.selectedPageId;
                         }
                         break;
-                    case 'bellow':
+                    case 'below':
                         if ($scope.selectedPageId && $scope.activeMenu.type != 'list') {
                             var $selectedPage = $('#page_' + $scope.selectedPageId);
                             var $parent = $selectedPage.parent().closest('li');
@@ -400,7 +400,7 @@ var ipPageDragId;
             var parentId = $scope.activeMenu.id;
             if ($scope.activeMenu.type != 'list') {
                 if ($scope.selectedPageId) {
-                    //add bellow selected
+                    //add below selected
                     var $selectedPage = $('#page_' + $scope.selectedPageId);
                     position = $selectedPage.index() + 1;
                     var $parent = $selectedPage.parent().closest('li');
@@ -414,7 +414,7 @@ var ipPageDragId;
                 }
             } else {
                 if ($scope.selectedPageId) {
-                    //add bellow selected
+                    //add below selected
                     position = $('.ipsTreeDiv .active').index() + 1;
                     var curVariables = getHashParams();
                     if (curVariables.gpage) {

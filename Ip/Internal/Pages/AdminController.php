@@ -39,7 +39,7 @@ class AdminController extends \Ip\Controller
                 $default = 'bottom';
             }
             $menu['defaultPosition'] = Model::getDefaultMenuPagePosition($menu['alias'], false, $default);
-            $default = 'bellow';
+            $default = 'below';
             $menu['defaultPositionWhenSelected'] = Model::getDefaultMenuPagePosition($menu['alias'], true, $default);
         }
         $menus = ipFilter('ipPagesMenuList', $menus);
