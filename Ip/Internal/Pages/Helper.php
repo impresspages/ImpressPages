@@ -314,7 +314,7 @@ class Helper
             array('top', __('Top', 'Ip-admin', false)),
             array('above', __('Above selected', 'Ip-admin', false)),
             array('child', __('Child of selected', 'Ip-admin', false)),
-            array('bellow', __('Bellow selected', 'Ip-admin', false)),
+            array('below', __('Below selected', 'Ip-admin', false)),
             array('bottom', __('Bottom', 'Ip-admin', false)),
         );
         $field = new \Ip\Form\Field\Select(
@@ -322,7 +322,7 @@ class Helper
                 'name' => 'position',
                 'label' => __('Position', 'Ip-admin', false),
                 'values' => $values,
-                'value' => 'bellow'
+                'value' => 'below'
             ));
         $form->addField($field);
 
