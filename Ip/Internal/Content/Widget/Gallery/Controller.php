@@ -235,6 +235,9 @@ class Controller extends \Ip\WidgetController
 
     protected function cropSmallImage($curImage)
     {
+        if (!isset($curImage['title'])) {
+            $curImage['title'] = '';
+        }
         $smallImageUrl = null;
         if (isset($curImage['cropX1']) && isset($curImage['cropY1']) && isset($curImage['cropX2']) && isset($curImage['cropY2'])) {
             $transformSmall = array(
@@ -255,7 +258,10 @@ class Controller extends \Ip\WidgetController
                 'quality' => ipGetOption('Content.widgetGalleryQuality')
             );
         }
-        $smallImageUrl = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
+        $smallImageUrl = '';
+        if (!empty($curImage['imageOriginal'])) {
+            $smallImageUrl = ipFileUrl(ipReflection($curImage['imageOriginal'], $transformSmall, $curImage['title']));
+        }
         return $smallImageUrl;
     }
 
@@ -274,6 +280,9 @@ class Controller extends \Ip\WidgetController
         if (isset($data['images']) && is_array($data['images'])) {
             //loop all current images
             foreach ($data['images'] as &$curImage) {
+                if (!is_array($curImage)) {
+                    $curImage = array();
+                }
                 $curImage['imageSmall'] = $this->cropSmallImage($curImage);
             }
         }
