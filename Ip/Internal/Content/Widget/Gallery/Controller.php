@@ -390,6 +390,7 @@ class Controller extends \Ip\WidgetController
     {
         $form = new \Ip\Form();
 
+        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
 
         $field = new \Ip\Form\Field\Text(
             array(
