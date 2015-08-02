@@ -21,5 +21,5 @@ define ('TEST_CAPTURE_SCREENSHOT_ON_FAILURE', true);
 define ('TEST_SCREENSHOT_PATH', __DIR__ . '/screenshots/');
 define ('TEST_SCREENSHOT_URL', $isTravis ? 'http://localhost/phpunit/screenshots/' : 'http://localhost/ip/phpunit/screenshots/');
 
-define('CURRENT_VERSION', '4.6.2'); //CHANGE_ON_VERSION_UPDATE
-define('CURRENT_DBVERSION', 83); //CHANGE_ON_VERSION_UPDATE
+define('CURRENT_VERSION', '4.6.3'); //CHANGE_ON_VERSION_UPDATE
+define('CURRENT_DBVERSION', 84); //CHANGE_ON_VERSION_UPDATE
