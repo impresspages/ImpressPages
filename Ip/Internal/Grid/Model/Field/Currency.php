@@ -84,7 +84,9 @@ class Currency extends \Ip\Internal\Grid\Model\Field
         if (!empty($curData[$this->field])) {
             $curData[$this->field] = $curData[$this->field] / 100;
         }
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 

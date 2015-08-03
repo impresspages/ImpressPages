@@ -72,7 +72,9 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
             'layout' => $this->layout,
             'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue(json_decode($curData[$this->field]));
+        }
         return $field;
     }
 
