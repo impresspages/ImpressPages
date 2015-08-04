@@ -231,10 +231,7 @@ class Config
         return !array_key_exists('allowUpdate', $this->config) || $this->config['allowUpdate'];
     }
 
-    public function allowDB()
-    {
-        return !array_key_exists('allowDB', $this->config) || $this->config['allowDB'];
-    }
+
     public function allowSort()
     {
         if (!empty($this->config['sortField'])) {
