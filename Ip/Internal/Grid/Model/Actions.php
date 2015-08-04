@@ -129,7 +129,7 @@ class Actions
         $languageData = array();
         $languages = ipContent()->getLanguages();
         foreach ($fields as $field) {
-            if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab' || isset($field['allowDB']) && !$field['allowDB']) {
+            if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab' || !empty($field['ignoreDb'])) {
                 continue;
             }
 
@@ -241,7 +241,7 @@ class Actions
         $dbData = array();
         $languageData = array();
         foreach ($fields as $field) {
-            if (!empty($field['type']) && $field['type'] == 'Tab' && empty($field['preview']) || isset($field['allowDB']) && !$field['allowDB']) {
+            if (!empty($field['type']) && $field['type'] == 'Tab' && empty($field['preview']) || !empty($field['ignoreDb'])) {
                 continue;
             }
 
