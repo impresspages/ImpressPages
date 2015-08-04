@@ -29,7 +29,9 @@ class Textarea extends \Ip\Internal\Grid\Model\Field\Text
             'layout' => $this->layout,
             'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 
