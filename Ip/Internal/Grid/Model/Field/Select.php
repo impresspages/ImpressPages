@@ -75,7 +75,9 @@ class Select extends \Ip\Internal\Grid\Model\Field
             'layout' => $this->layout,
             'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 

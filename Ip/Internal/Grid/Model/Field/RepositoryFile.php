@@ -96,11 +96,12 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
         }
-
+        if (isset($curData[$this->field])){
         if ($this->fileLimit == 1) {
             $field->setValue(array($curData[$this->field]));
         } else {
             $field->setValue(json_decode($curData[$this->field]));
+            }
         }
         return $field;
     }
