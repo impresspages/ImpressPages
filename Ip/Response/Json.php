@@ -27,7 +27,7 @@ class Json extends \Ip\Response
 
     public function send()
     {
-        $this->addHeader('Content-type: text/json; charset=utf-8');
+        $this->addHeader('Content-type: application/json; charset=utf-8');
         parent::send();
     }
 
