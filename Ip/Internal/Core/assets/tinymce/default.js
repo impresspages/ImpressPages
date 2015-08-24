@@ -25,7 +25,6 @@ ipTinyMceConfig = function () {
         ],
         forced_root_block: "p",
         gecko_spellcheck: true,
-
         document_base_url: ip.baseUrl,
         remove_script_host: false,
         relative_urls: false,
