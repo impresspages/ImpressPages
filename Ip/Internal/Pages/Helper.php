@@ -14,6 +14,7 @@ class Helper
     {
         $config = array(
             'table' => 'page',
+            'title' => false,
             'allowCreate' => false,
             'allowSearch' => false,
             'allowDelete' => false,
