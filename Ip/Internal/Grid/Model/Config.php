@@ -428,7 +428,7 @@ class Config
 
     public function getTitle()
     {
-        if (empty($this->config['title'])) {
+        if (!isset($this->config['title'])) {
             return $this->config['table'];
         }
         return $this->config['title'];

@@ -7,4 +7,6 @@
         <?php } ?>
     </ol>
 <?php } ?>
-<h1><?php echo esc($title); ?></h1>
+<?php if($title){ ?>
+    <h1><?php echo esc($title); ?></h1>
+<?php } ?>
