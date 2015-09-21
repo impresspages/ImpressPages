@@ -11,6 +11,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
+    protected $path = '';
     protected $repositoryBindKey = 'Grid';
 
     public function __construct($fieldFieldConfig, $wholeConfig)
@@ -31,6 +32,12 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
         if (!empty($this->defaultValue) && !is_array($this->defaultValue)) {
             $this->defaultValue = array($this->defaultValue);
+        }
+
+        if (array_key_exists('path', $fieldFieldConfig)) {
+            $this->path = $fieldFieldConfig['path'];
+        } else {
+            $this->path = '';
         }
 
     }
@@ -55,7 +62,8 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'layout' => $this->layout,
-            'attributes' => $this->attributes
+            'attributes' => $this->attributes,
+            'path' => $this->path
         ));
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
@@ -91,7 +99,8 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'layout' => $this->layout,
-            'attributes' => $this->attributes
+            'attributes' => $this->attributes,
+            'path' => $this->path
         ));
         if ($this->fileLimit !== null) {
             $field->setFileLimit($this->fileLimit);
