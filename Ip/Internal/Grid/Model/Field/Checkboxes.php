@@ -85,7 +85,7 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
         }else{
             return array($this->field => NULL);
         }
-    }    
+    }
 
 
     public function searchField($searchVariables)
@@ -93,7 +93,7 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
         $values = array(array(null, 'Any'));
         $values = array_merge($values, $this->values);
 
-        $field = new \Ip\Form\Field\Checkboxes(array(
+        $field = new \Ip\Form\Field\Select(array(
             'label' => $this->label,
             'name' => $this->field,
             'values' => $values,
@@ -109,7 +109,9 @@ class Checkboxes extends \Ip\Internal\Grid\Model\Field
     public function searchQuery($searchVariables)
     {
         if (isset($searchVariables[$this->field]) && $searchVariables[$this->field] !== '') {
-            return '`' . $this->field . '` = ' . ipDb()->getConnection()->quote($searchVariables[$this->field]) . ' ';
+            return ' `' . $this->field . '` like ' . ipDb()->getConnection()->quote(
+                '%' . json_encode($searchVariables[$this->field]) . '%'
+            ) . '';
         }
         return null;
     }
