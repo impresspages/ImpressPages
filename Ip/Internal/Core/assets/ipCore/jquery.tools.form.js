@@ -719,7 +719,7 @@
             a && a.css({visibility: "hidden"})
         })
     }]};
-    c.each(["email", "url", "number"], function (b, a) {
+    c.each(["url", "number"], function (b, a) {
         c.expr[":"][a] = function (b) {
             return b.getAttribute("type") === a
         }
@@ -727,9 +727,6 @@
     c.fn.oninvalid = function (b) {
         return this[b ? "on" : "trigger"]("OI", b)
     };
-    d.fn(":email", "Please enter a valid email address", function (b, a) {
-        return!a || t.test(a)
-    });
     d.fn(":url", "Please enter a valid URL", function (b, a) {
         return!a || u.test(a)
     });
