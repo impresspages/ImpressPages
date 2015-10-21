@@ -31,7 +31,7 @@ class Email extends Validator
         }
         $value = $values[$valueKey];
 
-        if (!preg_match('#^[a-z0-9.!\#$%&\'*+-/=?^_`{|}~]+@([0-9.]+|([^\s]+\.+[a-z]{2,6}))$#si', $value)) {
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
                 $errorText = __('Please enter a valid email address.', 'Ip-admin');
             } else {
@@ -44,14 +44,5 @@ class Email extends Validator
         }
     }
 
-    /**
-     * Validator attributes
-     *
-     * @return string
-     */
-    public function validatorAttributes()
-    {
-        return 'type="email"';
-    }
 
 }
