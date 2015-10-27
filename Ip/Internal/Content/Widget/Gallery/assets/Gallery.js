@@ -364,6 +364,12 @@ var IpWidget_Gallery = function () {
             if (callback) {
                 $.proxy(callback, context)();
             }
+        });
+
+        // Force include widgetData on submit. Overwrites default submit action. See ipInitForms()
+        this.settingsPopup.find('.ipsAjaxSubmit').off('submit.ipSubmit').on('submit.ipSubmit', function (e) {
+            $.proxy(saveSettings, context)(callback);
+            e.preventDefault();
         })
     };
 
