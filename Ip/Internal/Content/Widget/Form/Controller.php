@@ -42,7 +42,7 @@ class Controller extends \Ip\WidgetController{
             );
         }
 
-        // TODO use JsonRpc
+
         return new \Ip\Response\Json($data);
     }
 

@@ -56,6 +56,8 @@ class Filter
         $typeFile = __('File', 'Ip-admin', false);
         $typeRichText = __('Rich text', 'Ip-admin', false);
         $typeCheckboxes = __('Checkboxes', 'Ip-admin', false);
+        $typeDate = __('Date', 'Ip-admin', false);
+        $typeTime = __('Time', 'Ip-admin', false);
         $typeFieldset= __('Fieldset', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
@@ -77,6 +79,8 @@ class Filter
         $fieldTypes['Checkboxes'] = new FieldType('Checkboxes', '\Ip\Form\Field\Checkboxes', $typeCheckboxes, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
         'view/formFieldOptions/list.php'
     )->render());
+        $fieldTypes['Date'] = new FieldType('Date', '\Ip\Form\Field\Date', $typeDate);
+        $fieldTypes['Time'] = new FieldType('Time', '\Ip\Form\Field\Time', $typeTime);
         $fieldTypes['Fieldset'] = new FieldType('Fieldset', '\Ip\Form\Fieldset', $typeFieldset);
 
         return $fieldTypes;
