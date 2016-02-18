@@ -1344,6 +1344,9 @@ select[multiple].ipModuleForm .input-group-sm > .input-group-btn > .btn {
   /* to remove 3px space below the image (default rendering behavior) */
   max-width: 100%;
 }
+.ipWidget-Image img .autosize {
+  width: 100%;
+}
 .ipWidget-Missing {
   /* covered by default styles */
 }
