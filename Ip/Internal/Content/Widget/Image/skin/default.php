@@ -12,7 +12,7 @@
         title="<?php echo isset($title) ? escAttr($title) : '' ?>"
         data-description="<?php echo isset($description) ? escAttr($description) : ''; ?>"
         >
-        <img class="ipsImage<?php echo !isset($width) ? ' autosize' : '';  ?>"  src="<?php echo escAttr($imageSmall) ?>" alt="<?php echo isset($title) ? escAttr($title) : ''; ?>" title="<?php echo isset($title) ? escAttr($title) : ''; ?>" />
+        <img class="ipsImage" src="<?php echo escAttr($imageSmall) ?>" alt="<?php echo isset($title) ? escAttr($title) : ''; ?>" title="<?php echo isset($title) ? escAttr($title) : ''; ?>" />
     </a>
 <?php } else { ?>
     <div class="ipsImage">&nbsp;</div>
