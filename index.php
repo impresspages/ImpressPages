@@ -11,4 +11,7 @@ if ((PHP_MAJOR_VERSION < 5) || (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 3)
 }
 
 $configFilename = __DIR__ . '/config.php';
-require_once 'Ip/script/run.php';
+require_once('vendor/autoload.php');
+$application = new \Ip\Application($configFilename);
+$application->init();
+$application->run();
