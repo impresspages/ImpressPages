@@ -535,6 +535,10 @@ if (!function_exists('ipFileUrl')) {
             }
         }
 
+        if (substr($path, 0, 3) == 'Ip/') {
+            $path = 'vendor/ImpressPagesCms/' . $path;
+        }
+
         return ipConfig()->baseUrl() . $path;
     }
 }
