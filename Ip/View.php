@@ -23,6 +23,9 @@ class View
     private $data;
     private $doctype;
 
+    static protected $overrides = array();
+
+
     /**
      * Construct view object using specified file and data.
      * @internal
@@ -108,7 +111,11 @@ class View
 
         ob_start();
 
-        require($this->file); // file existence has been checked in constructor
+        $file = $this->file;
+        if (!empty(self::$overrides[$file])) {
+            $file = self::$overrides[$file];
+        }
+        require($file); // file existence has been checked in ipView function
 
         $output = ob_get_contents();
         ob_end_clean();
@@ -190,5 +197,24 @@ class View
                 throw new \Ip\Exception\View("Incorrect view variable name '" . esc($key) . "' " . esc($source));
             }
         }
+    }
+
+    /**
+     * Register view file override
+     * @param string $source absolute path to the view file to be overriden
+     * @param string $destination absolute path to the new view file
+     */
+    public static function registerOverride($source, $destination)
+    {
+        self::$overrides[$source] = $destination;
+    }
+
+    /**
+     * Clear registered view file override
+     * @param $source
+     */
+    public static function clearOverride($source)
+    {
+        unset(self::$overrides[$source]);
     }
 }
