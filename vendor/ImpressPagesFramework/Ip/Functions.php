@@ -507,6 +507,10 @@ if (!function_exists('ipFile')) {
             }
         }
 
+        if (substr($path, 0, 2) == 'Ip') {
+            $path = 'vendor/ImpressPagesFramework/' . $path;
+        }
+
         return $ipFile_baseDir . '/' . $path;
     }
 }
