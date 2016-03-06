@@ -1,0 +1,11 @@
+
+* Incompatibilities with previous versions *
+
+
+strings returned in controller are not wrapped in the layout
+
+
+
+* Things to check *
+
+If admin safe mode works.

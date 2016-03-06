@@ -13,7 +13,7 @@ class Job
      */
     public static function ipRouteAction_80($info)
     {
-        if ($info['routeLanguage'] == null) {
+        if (!\Ip\Internal\Languages\Event::$multilingualRouteDetected) {
             return null;
         }
 
