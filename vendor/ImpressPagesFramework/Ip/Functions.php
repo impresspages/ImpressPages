@@ -507,7 +507,9 @@ if (!function_exists('ipFile')) {
             }
         }
 
-        if (substr($path, 0, 2) == 'Ip') {
+        if (substr($path, 0, 12) == 'Ip/Internal/') {
+            $path = 'vendor/ImpressPagesCms/' . $path;
+        } elseif (substr($path, 0, 2) == 'Ip') {
             $path = 'vendor/ImpressPagesFramework/' . $path;
         }
 
