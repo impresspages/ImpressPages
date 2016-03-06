@@ -272,7 +272,7 @@ class Application
             $plugin = $routeAction['plugin'];
             $controller = $routeAction['controller'];
 
-            if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
+            if (in_array($plugin, \Ip\Internal\ModuleHelper::getModules())) {
                 $controllerClass = 'Ip\\Internal\\' . $plugin . '\\' . $controller;
             } else {
                 if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {

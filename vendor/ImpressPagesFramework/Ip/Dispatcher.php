@@ -132,7 +132,7 @@ class Dispatcher
     public function _bindApplicationEvents()
     {
         // Parse event files:
-        $coreModules = \Ip\Internal\Plugins\Model::getModules();
+        $coreModules = \Ip\Internal\ModuleHelper::getModules();
         foreach ($coreModules as $module) {
             $this->bindPluginEvents($module, '\Ip\Internal');
         }

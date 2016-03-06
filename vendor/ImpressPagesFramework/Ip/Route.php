@@ -97,7 +97,7 @@ class Route
         }
 
 
-        if (in_array($this->plugin, \Ip\Internal\Plugins\Model::getModules())) {
+        if (in_array($this->plugin, \Ip\Internal\ModuleHelper::getModules())) {
             $controllerClass = 'Ip\\Internal\\' . $this->plugin . '\\' . $this->controller;
         } else {
             $controllerClass = 'Plugin\\' . $this->plugin . '\\' . $this->controller;
