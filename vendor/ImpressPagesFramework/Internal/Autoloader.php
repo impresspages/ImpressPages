@@ -29,7 +29,7 @@ class Autoloader
             return true;
         }
 
-        $vendorFile = ipFile('Ip/Internal/Vendor/' . $fileName);
+        $vendorFile = __DIR__ . '/Vendor/' . $fileName;
         if (file_exists($vendorFile)) {
             require_once $vendorFile;
             return true;
