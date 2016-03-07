@@ -8,6 +8,7 @@
 /**
  * @group ignoreOnTravis
  * @group Selenium
+ * @group ComposerCompatible
  */
 class RepositoryTest extends \PhpUnit\Helper\MinkTestCase
 {

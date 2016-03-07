@@ -9,6 +9,7 @@ class WidgetHeadingTest extends MinkTestCase
     /**
      * @group Sauce
      * @group Selenium
+     * @group ComposerCompatible
      */
     public function testHeadingWidget()
     {

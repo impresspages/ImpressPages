@@ -8,6 +8,7 @@ class AdminLoginTest extends \PhpUnit\Helper\MinkTestCase
     /**
      * @group Sauce
      * @group Selenium
+     * @group ComposerCompatible
      */
     public function testLogin()
     {

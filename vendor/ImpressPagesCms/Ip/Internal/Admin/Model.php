@@ -51,7 +51,7 @@ class Model
         $answer = array();
 
 
-        $modules = \Ip\Internal\ModuleHelper::getModules();
+        $modules = \Ip\Internal\Plugins\Model::getModules();
         foreach ($modules as $module) {
 
             // skipping modules that don't have 'index' (default) action in AdminController

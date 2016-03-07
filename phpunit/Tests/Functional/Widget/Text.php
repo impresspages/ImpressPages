@@ -9,6 +9,7 @@ class WidgetTextTest extends MinkTestCase
     /**
      * @group Sauce
      * @group Selenium
+     * @group ComposerCompatible
      */
     public function testTextWidget()
     {

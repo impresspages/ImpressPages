@@ -10,6 +10,7 @@ class InstallTest extends MinkTestCase
     /**
      * @group Sauce
      * @group Selenium
+     * @group ComposerCompatible
      */
     public function testInstallCurrent($customPort = NULL)
     {
