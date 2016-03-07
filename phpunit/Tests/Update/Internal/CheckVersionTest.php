@@ -22,14 +22,14 @@ class CheckVersionTest extends \PhpUnit\GeneralTestCase
 //        $position =  strpos($code, '\''.CURRENT_DBVERSION.'\'');
 //        $this->assertNotEquals($position, FALSE, 'install/constants.php has no dbversion string.');
 
-        $code = file_get_contents(TEST_CODEBASE_DIR.'Ip/Application.php');
+        $code = file_get_contents(TEST_CODEBASE_DIR.'vendor/ImpressPagesFramework/Ip/Application.php');
 
         $position =  strpos($code, '\''.CURRENT_VERSION.'\'');
         $this->assertNotEquals($position, FALSE, 'Ip/Application.php has no version string.');
 
-        $code = file_get_contents(TEST_CODEBASE_DIR . 'Ip/Internal/Update/Model.php');
+        $code = file_get_contents(TEST_CODEBASE_DIR . 'vendor/ImpressPagesCms/Ip/Internal/Update/Model.php');
         $position =  strpos($code, 'return '.CURRENT_DBVERSION.';');
-        $this->assertNotEquals($position, FALSE, 'Ip/Internal/Update/Model.php has no dbVersion string.');
+        $this->assertNotEquals($position, FALSE, 'vendor/ImpressPagesCms/Ip/Internal/Update/Model.php has no dbVersion string.');
 
     }
 

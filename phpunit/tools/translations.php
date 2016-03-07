@@ -56,7 +56,7 @@ foreach ($all as $key => $values) {
 }
 
 foreach (array('Ip', 'Ip-admin') as $domain) {
-    $contents = file_get_contents($rootDir . '/Ip/Internal/Translations/translations/' . $domain . '-en.json');
+    $contents = file_get_contents($rootDir . 'vendor/ImpressPagesCms/Ip/Internal/Translations/translations/' . $domain . '-en.json');
     $messages = json_decode($contents, true);
 
     $domains[$domain] = array_merge($domains[$domain], $messages);

@@ -32,7 +32,7 @@ class TestEnvironment
 
     public static function setupCode($configBasename = 'default.php')
     {
-        require_once TEST_CODEBASE_DIR . 'Ip/Application.php';
+        require_once TEST_CODEBASE_DIR . 'vendor/ImpressPagesFramework/Ip/Application.php';
 
         global $application;
         $application = new \Ip\Application(TEST_FIXTURE_DIR . 'config/' . $configBasename);

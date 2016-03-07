@@ -393,7 +393,7 @@ class Installation
         }
 
         $folders = array(
-            'Ip',
+            'vendor',
             'Plugin',
             'file',
             'install',
