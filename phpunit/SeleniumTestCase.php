@@ -4,7 +4,7 @@ namespace PhpUnit;
 
 use PhpUnit\Helper\TestEnvironment;
 
-class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
+class SeleniumTestCase extends \PHPUnit_Extensions_Selenium2TestCase
 {
 
     protected $captureScreenshotOnFailure;
@@ -25,7 +25,7 @@ class SeleniumTestCase extends \PHPUnit_Extensions_SeleniumTestCase
         $this->setTimeout(10);
 //        $driver = $this->getDriver(array('*firefox'));
     }
-    
+
     protected function assertNoErrors()
     {
         $this->assertElementNotPresent('css=.error');

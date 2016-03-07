@@ -24,7 +24,7 @@ class IpActions
      * @param \PHPUnit_Extensions_SeleniumTestCase $testCase
      * @param Installation $installation
      */
-    public function __construct(\PHPUnit_Extensions_SeleniumTestCase $testCase, \PhpUnit\Helper\Installation $installation) {
+    public function __construct(\PHPUnit_Extensions_Selenium2TestCase $testCase, \PhpUnit\Helper\Installation $installation) {
         $this->testCase = $testCase;
         $this->installation = $installation;
     }
