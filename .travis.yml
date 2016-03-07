@@ -20,6 +20,7 @@ before_script:
   - cd phpunit
   - ./travis-db-create.sh
 #  - composer --prefer-source install # prefer-source is used to avoid github api limit
+  - composer update
   - composer install # prefer-source is used to avoid github api limit
 #  - ./travis-nginx-install.sh
   - ./travis-apache-install.sh
