@@ -312,7 +312,14 @@ class Model
         foreach ($files as $filename) {
             if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {
                 if ($filename[0] != '_') {
-                    $layouts[] = $filename;
+                    $file_contents = file_get_contents($themeDir.$filename);
+                    preg_match_all("(@Layout Name:(.*)\n)siU", $file_contents, $file_layout);
+                    if (isset($file_layout[1]) && isset($file_layout[1][0]) && !empty($file_layout[1][0])) {
+                        $layout_name = preg_replace('/[^a-zA-Z0-9\s]/', '', $file_layout[1][0]);
+                    } else {
+                        $layout_name = '';
+                    }
+                    $layouts[] = array($filename, trim($layout_name) != '' ? $layout_name : $filename);
                 }
             }
         }
