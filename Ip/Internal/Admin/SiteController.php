@@ -276,10 +276,6 @@ class SiteController extends \Ip\Controller
         return new \Ip\Response\Redirect(ipFileUrl('admin/'));
     }
 
-    public function sessionRefresh()
-    {
-        return new \Ip\Response\Json(array());
-    }
 
 
     public function changeLanguage()

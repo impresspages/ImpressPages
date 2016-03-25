@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </div>
-        <div class="_container _pages ipsPagesContainer" ng-cloak>
+        <div class="_container _pagesListing ipsPagesContainer" ng-cloak>
             <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
                 <div id="pages_{{menu.languageCode}}_{{menu.alias}}">
                     <div class="_actions" ng-show="{{allowActions}}">

@@ -28,10 +28,7 @@ var ipAdmin = new function () {
             hideAdminMenu();
         });
 
-        //prevent session expire
-        if (typeof(ipAdminSessionRefresh) !== 'undefined') {
-            setInterval(refreshSession, ipAdminSessionRefresh * 1000);
-        }
+
 
         fixLayout();
         onResize();
@@ -63,17 +60,6 @@ var ipAdmin = new function () {
         $container.height($navbar.outerHeight()); // setting the height to container
     };
 
-    var refreshSession = function () {
-        $.ajax({
-            url: ip.baseUrl, //we assume that for already has m, g, a parameters which will lead this request to required controller
-            dataType: 'json',
-            type: 'GET',
-            data: {sa: 'Admin.sessionRefresh'},
-            success: function (response) {
-                //do nothing
-            }
-        });
-    };
 
     //TODO this function is duplicated in jquery.ip.contentManagement
     var save = function (publish) {

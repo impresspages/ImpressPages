@@ -158,12 +158,12 @@ class Form
      * @param array $data
      * @return array
      */
-    public function filterValues($data)
+    public function     filterValues($data)
     {
         $answer = array();
         $fields = $this->getFields();
         foreach ($fields as $field) {
-            if (isset($data[$field->getName()])) {
+            if (array_key_exists($field->getName(), $data)) {
                 $answer[$field->getName()] = $data[$field->getName()];
             }
         }

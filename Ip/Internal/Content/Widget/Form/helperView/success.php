@@ -1,1 +1,1 @@
-<div class="ipwSuccess"><?php echo $success; ?></div>
+<div class="ipwThankYou"><?php echo $success; ?></div>

@@ -219,10 +219,17 @@ class ConfigModel
                     break;
                 default:
                     $class = 'Ip\\Form\\Field\\' . $option['type'];
+                    if (!class_exists($class)) {
+                        $class = $option['type'];
+                    }
+
                     if (class_exists($class)) {
                         $newField = new $class();
                         if ($option['type'] == 'RepositoryFile') {
                             $newField->setFileLimit(1);
+                        }
+                        if (method_exists($newField, 'setValues') && isset($option['values'])) {
+                            $newField->setValues($option['values']);
                         }
                     } else {
                         $newField = new Form\Field\Text();
@@ -233,6 +240,9 @@ class ConfigModel
                 continue;
             }
 
+            if (!empty($option['note'])) {
+                $newField->setNote($option['note']);
+            }
             $newField->setName($option['name']);
             $newField->setLabel(empty($option['label']) ? '' : $option['label']);
             $default = isset($option['default']) ? $option['default'] : null;

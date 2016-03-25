@@ -12,6 +12,8 @@ abstract class Field
     protected $label = '';
     protected $defaultValue = '';
     protected $previewMethod = '';
+    protected $attributes = array();
+    protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
     /**
      * Create field object for grid
@@ -29,8 +31,16 @@ abstract class Field
             $this->label = $fieldFieldConfig['label'];
         }
 
+        if (!empty($fieldFieldConfig['layout'])) {
+            $this->layout = $fieldFieldConfig['layout'];
+        }
+
         if (!empty($fieldFieldConfig['defaultValue'])) {
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
+        }
+
+        if (!empty($fieldFieldConfig['attributes'])) {
+            $this->attributes = $fieldFieldConfig['attributes'];
         }
 
         if (!empty($fieldFieldConfig['previewMethod'])) {
@@ -164,5 +174,19 @@ abstract class Field
     {
         //do nothing by default
     }
+
+    /**
+     * @param $layout (\Ip\Form\Field::LAYOUT_DEFAULT, \Ip\Form\Field::LAYOUT_NO_LABEL, \Ip\Form\Field::BLANK)
+     */
+    public function setLayout($layout)
+    {
+        $this->layout = $layout;
+    }
+
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
 
 }

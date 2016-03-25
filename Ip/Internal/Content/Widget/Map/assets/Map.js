@@ -25,20 +25,20 @@ var IpWidget_Map = function () {
 
 
         var $resizeContainer = $('<div></div>');
-        $resizeContainer.width($map.width());
         $resizeContainer.height($map.height());
         $map.replaceWith($resizeContainer);
         $resizeContainer.append($map);
+
+        this.$widgetObject.append($('#ipWidgetMapSearchBoxTemplate input').clone().detach().css('marginTop', '6px'));
 
 
         $resizeContainer.resizable({
             aspectRatio: false,
             maxWidth: context.$widgetObject.width(),
-            resize: function (event, ui) {
-                $map.width(ui.size.width);
+            handles: "s",
+            stop: function (event, ui) {
                 $map.height(ui.size.height);
-                $.proxy(initMap, context)();
-                $.proxy(save, context)();
+                $(document).trigger('ipWidgetResized');
             }
         });
 
@@ -100,9 +100,53 @@ var IpWidget_Map = function () {
             $.proxy(placeMarker, context)(event.latLng);
         });
 
+
+
+        // Create the search box and link it to the UI element.
+        var input = /** @type {HTMLInputElement} */(
+            this.$widgetObject.find('.ipsWidgetMapLocationSearch')[0]);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var searchBox = new google.maps.places.SearchBox(
+            /** @type {HTMLInputElement} */(input));
+
+        // Listen for the event fired when the user selects an item from the
+        // pick list. Retrieve the matching places for that item.
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            var location = places[0].geometry.location;
+            $.proxy(placeMarker, context)(location);
+
+            var newBounds = new google.maps.LatLngBounds();
+            newBounds.extend(location);
+            var zoom = map.getZoom();
+            map.fitBounds(newBounds);
+            if (zoom < 5) {
+                zoom = 5;
+            }
+            map.setZoom(zoom);
+
+        });
+
+
+
+        // Bias the SearchBox results towards places that are within the bounds of the
+        // current map's viewport.
+        google.maps.event.addListener(map, 'bounds_changed', function() {
+            var bounds = map.getBounds();
+            searchBox.setBounds(bounds);
+        });
         $widget.trigger('ipWidgetMapInit', {map: map, marker: this.marker});
 
 
+        $(document).on('ipWidgetResized', function () {
+            google.maps.event.trigger(map, "resize");
+        });
     };
 
     function placeMarker(location) {
@@ -135,10 +179,6 @@ var IpWidget_Map = function () {
             var markerPos = this.marker.getPosition();
             data.markerlat = markerPos.lat();
             data.markerlng = markerPos.lng();
-        }
-        var mapWidth = this.$widgetObject.find('.ipsMap').width();
-        if (this.$widgetObject.width() - mapWidth > 2) {
-            data.width = mapWidth;
         }
 
         this.$widgetObject.save(data, 0);

@@ -81,12 +81,28 @@ class Service
         if (!empty($widgetOptions['gallery']['height'])) {
             ipSetOption('Content.widgetGalleryHeight', $widgetOptions['gallery']['height']);
         }
-
+        if (!empty($widgetOptions['heading']['maxLevel'])) {
+            ipSetOption('Content.widgetHeadingMaxLevel', $widgetOptions['heading']['maxLevel']);
+        }
     }
 
     public static function getLayouts()
     {
         return Model::instance()->getThemeLayouts();
+    }
+
+
+    public function getTheme($name = null, $dir = null, $url = null)
+    {
+        if($name == null) {
+            $name = ipConfig()->theme();
+        }
+        if ($dir == null) {
+            $dir = ipFile('Theme/');
+        }
+        $model = Model::instance();
+        $theme = $model->getTheme($name, $dir, $url);
+        return $theme;
     }
 
 

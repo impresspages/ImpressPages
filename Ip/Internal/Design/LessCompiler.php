@@ -54,7 +54,8 @@ class LessCompiler
             $parserOptions = array(
                 'import_callback' => $callback,
                 'cache_dir' => ipFile('file/tmp/less/'),
-                'relativeUrls' => false
+                'relativeUrls' => false,
+                'sourceMap' => true
             );
             $parser = new \Less_Parser($parserOptions);
             $directories = array(
@@ -125,7 +126,7 @@ class LessCompiler
                         $lessValue .= $option['units'];
                     }
                     if (!isset($option['escape']) || $option['escape']) {
-                        $lessValue = "'" . escAttr($lessValue) . "'";
+                        $lessValue = "'" . preg_replace('~[\r\n]+~', '\\r\\n', escAttr($lessValue)) . "'";
                     }
                     break;
             }

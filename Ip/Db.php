@@ -405,21 +405,8 @@ class Db
     {
         $sql = "DELETE FROM " . ipTable($table, false) . " WHERE ";
         $params = array();
-        if (empty($condition)) {
-            $sql .= ' 1 AND ';
-        }
-        foreach ($condition as $column => $value) {
-            if ($value === null) {
-                $sql .= "`{$column}` IS NULL AND ";
-            } else {
-                $sql .= "`{$column}` = ? AND ";
-                if (is_bool($value)) {
-                    $value = $value ? 1 : 0;
-                }
-                $params[] = $value;
-            }
-        }
-        $sql = substr($sql, 0, -4);
+
+        $sql .= $this->buildConditions($condition, $params);
 
         return $this->execute($sql, $params);
     }
@@ -439,7 +426,7 @@ class Db
             return false;
         }
 
-        $sql = "UPDATE " . ipTable($table) . " SET ";
+        $sql = 'UPDATE ' . ipTable($table) . ' SET ';
         $params = array();
         foreach ($update as $column => $value) {
             $sql .= "`{$column}` = ? , ";
@@ -451,24 +438,7 @@ class Db
         $sql = substr($sql, 0, -2);
 
         $sql .= " WHERE ";
-
-        if (is_array($condition)) {
-            foreach ($condition as $column => $value) {
-                if ($value === null) {
-                    $sql .= "`{$column}` IS NULL AND ";
-                } else {
-                    $sql .= "`{$column}` = ? AND ";
-                    if (is_bool($value)) {
-                        $value = $value ? 1 : 0;
-                    }
-                    $params[] = $value;
-                }
-            }
-            $sql = substr($sql, 0, -4);
-        } else {
-            $sql .= " `id` = ? ";
-            $params[] = $condition;
-        }
+        $sql .= $this->buildConditions($condition, $params);
 
         return $this->execute($sql, $params);
     }
@@ -598,5 +568,75 @@ class Db
         return $sql;
     }
 
+    /**
+     * Build WHERE statement from conditions.
+     *
+     * @param array $conditions
+     * @param array $params
+     *
+     * @return string
+     */
+    protected function buildConditions($conditions = array(), &$params = array())
+    {
+        if (empty($conditions)) {
+            return '1';
+        }
+
+        $sql = '';
+        if (is_array($conditions)) {
+            foreach ($conditions as $column => $value) {
+                $realCol = $column;
+                $pair = $this->containsOperator($column);
+
+                if ($pair) {
+                    $realCol = $pair[0];
+                }
+
+                if ($value === null) {
+                    $isNull = 'IS NULL AND';
+                    if ($pair && preg_match("/(<>|!=)/", $pair[1])) {
+                        $isNull = 'IS NOT NULL AND';
+                    }
+
+                    $sql .= "`{$realCol}` {$isNull} ";
+                } else {
+                    if ($pair) {
+                        $sql .= "`{$realCol}` {$pair[1]} ? AND ";
+                    } else {
+                        $sql .= "`{$realCol}` = ? AND ";
+                    }
+
+                    if (is_bool($value)) {
+                        $value = $value ? 1 : 0;
+                    }
+
+                    $params[] = $value;
+                }
+            }
+            $sql = substr($sql, 0, -4);
+        } else {
+            $sql .= " `id` = ? ";
+            $params[] = $conditions;
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Check whether a value contains an operator.
+     *
+     * @param $value string
+     *
+     * @return array|bool
+     */
+    protected function containsOperator($value)
+    {
+        $idents = preg_split("/(<=>|>=|<=|<>|>|<|!=|=|LIKE)/", $value, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        if (count($idents) <= 1) {
+            return false;
+        } else {
+            return array_map('trim', $idents);
+        }
+    }
 
 }

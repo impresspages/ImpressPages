@@ -17,13 +17,21 @@ var ipRepositoryESC;
         if (options.secure) {
             options.preview = 'list';
         }
-
+        if (!options.path) {
+            options.path = '';
+        }
+        if (!options.filter) {
+            options.filter = null;
+        }
+        if (!options.filterExtensions) {
+            options.filterExtensions = null;
+        }
 
         $(document.body).append(ipRepositoryHtml);
         var $popup = $('.ipsModuleRepositoryPopup');
 
         //initialize first tab
-        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader({secure:options.secure});
+        $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryUploader({secure:options.secure, path:options.path});
         $popup.find('#ipsModuleRepositoryTabUpload').ipRepositoryAll(options);
 
         // todox: initialize each tab
@@ -48,7 +56,9 @@ var ipRepositoryESC;
         $popup.bind('ipModuleRepository.close', function (e) {
             $(document).off('keyup', ipRepositoryESC);
             $('.ipsModuleRepositoryPopup').remove();
-            $('body').removeClass('modal-open');
+            if(!$('.modal[aria-hidden=false]').length) {
+                $('body').removeClass('modal-open');
+            }
         });
 
         $popup.find('.ipsClose').hover(function () {

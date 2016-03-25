@@ -27,7 +27,7 @@ class Service
     public static function isManagementMode()
     {
         $backendLoggedIn = \Ip\Internal\Admin\Backend::loggedIn();
-        return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']) && ipAdminPermission('Content'); //we can't check here if we are in a page. It will result in widget rendering in non management mode when widget is rendered using ajax
+        return $backendLoggedIn && !empty($_SESSION['Content']['managementMode']) && ipAdminPermission('Content') && !ipRequest()->getQuery('disableManagement'); //we can't check here if we are in a page. It will result in widget rendering in non management mode when widget is rendered using ajax
     }
 
 
@@ -89,6 +89,11 @@ class Service
     public static function getWidget($widgetId)
     {
         return Model::getWidgetRecord($widgetId);
+    }
+
+    public static function removeWidget($widgetId)
+    {
+        Model::removeWidget($widgetId);
     }
 
 }

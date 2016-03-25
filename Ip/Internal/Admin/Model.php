@@ -122,7 +122,7 @@ class Model
                 $icon = 'fa-cog';
                 break;
             case 'Languages':
-                $icon = 'fa-globe';
+                $icon = 'fa-language';
                 break;
         }
 

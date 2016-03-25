@@ -15,6 +15,10 @@
                         <div class="tab-pane fade in active" id="ipsTypeSelectText">
                             <div class="input-group input-group-lg">
                                 <input class="form-control ipsLogoText" type="text" value="" />
+                                <span class="_colorPicker input-group-addon ipsColorPicker">
+                                    <i></i>
+                                    <input class="_colorPickerValue ipsLogoColor" type="text" value="" />
+                                </span>
                                 <div class="ipsFontSelect input-group-btn">
                                     <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
                                         <span class="ipsFontName"><?php _e('Default', 'Ip-admin'); ?></span>
@@ -26,7 +30,6 @@
                                             <li><a href="#"><?php echo esc($font); ?></a></li>
                                         <?php } ?>
                                     </ul>
-                                    <button class="_colorPicker ipsColorPicker colorPickerSelector"></button>
                                 </div>
                             </div>
                         </div>

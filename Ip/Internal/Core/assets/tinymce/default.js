@@ -1,10 +1,16 @@
+/**
+ * TinyMCE configuration for admin form fields. The ones that appear in administration panel.
+ * https://www.impresspages.org/docs/tinymce
+ */
+
+
 ipTinyMceConfig = function () {
     return {
         inline: true,
         skin: 'impresspages',
         visual_table_class: 'ipTableManagement',
-        //directionality : 'ltr', //TODO according to the current language
-        plugins: "advlist, paste, link, table, colorpicker, textcolor, impresspages, anchor, autolink",
+        directionality : ip.languageTextDirection,
+        plugins: "advlist, paste, link, table, colorpicker, textcolor, alignrollup, anchor, autolink",
         entity_encoding: "raw",
         menubar: false,
         statusbar: false,
@@ -18,10 +24,12 @@ ipTinyMceConfig = function () {
             {title: 'Button', inline: 'span', classes: 'button'}
         ],
         forced_root_block: "p",
-
+        gecko_spellcheck: true,
         document_base_url: ip.baseUrl,
         remove_script_host: false,
         relative_urls: false,
+
+        allow_script_urls: true,
 
         file_browser_callback: function (field_name, url, type, win) {
             var $input = $('#' + field_name);
@@ -47,4 +55,5 @@ ipTinyMceConfig = function () {
             ipTinyMceConfigPastePreprocess(pl, o, validClasses);
         }
     }
+
 };

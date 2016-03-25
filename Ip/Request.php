@@ -25,6 +25,8 @@ class Request
      */
     protected $controller = null;
 
+    protected $routePath = null;
+
 
     public function __construct()
     {
@@ -93,6 +95,11 @@ class Request
     public function isPost()
     {
         return $this->getMethod() == 'POST';
+    }
+
+    public function isAjax()
+    {
+        return strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
     }
 
     /**
@@ -200,7 +207,7 @@ class Request
             $pageURL .= "s";
         }
         $pageURL .= '://';
-        if ($this->_SERVER["SERVER_PORT"] != "80") {
+        if ($this->_SERVER["SERVER_PORT"] != "80" && $this->_SERVER["SERVER_PORT"] != "443") {
             $pageURL .= $this->_SERVER["SERVER_NAME"] . ":" . $this->_SERVER["SERVER_PORT"] . $this->_SERVER["REQUEST_URI"];
         } else {
             $pageURL .= $this->_SERVER["SERVER_NAME"] . $this->_SERVER["REQUEST_URI"];
@@ -234,6 +241,20 @@ class Request
         }
 
         return $relativePath ? ltrim(urldecode($relativePath), '/') : '';
+    }
+
+    /**
+     * @private
+     * for internal ImpressPages uses only
+     */
+    public function _setRoutePath($routePath)
+    {
+        $this->routePath = $routePath;
+    }
+
+    public function getRoutePath()
+    {
+        return $this->routePath;
     }
 
     /**

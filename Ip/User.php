@@ -80,6 +80,9 @@ class User
         if ($userId === null) {
             $userId = $this->userId();
         }
+        if (!$userId) {
+            return array();
+        }
         $info = array(
             'userId' => $userId
         );

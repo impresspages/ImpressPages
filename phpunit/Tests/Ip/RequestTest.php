@@ -32,15 +32,15 @@ class RequestTest extends \PhpUnit\GeneralTestCase
     public function testRelativePath()
     {
         $server = array(
-            'HTTP_HOST' => 'local.ip4.x.org',
-            'SERVER_NAME' => 'local.ip4.x.org',
+            'HTTP_HOST' => 'local.ip.org',
+            'SERVER_NAME' => 'local.ip.org',
             'SERVER_ADDR' => '127.0.0.1',
             'SERVER_PORT' => '80',
             'REMOTE_ADDR' => '127.0.0.1',
-            'DOCUMENT_ROOT' => '/var/www/ip4.x',
+            'DOCUMENT_ROOT' => '/var/www/ip',
             'REQUEST_SCHEME' => 'http',
-            'CONTEXT_DOCUMENT_ROOT' => '/var/www/ip4.x',
-            'SCRIPT_FILENAME' => '/var/www/ip4.x/index.php',
+            'CONTEXT_DOCUMENT_ROOT' => '/var/www/ip',
+            'SCRIPT_FILENAME' => '/var/www/ip/index.php',
             'REDIRECT_URL' => '/admin/',
             'REQUEST_METHOD' => 'GET',
             'QUERY_STRING' => '',

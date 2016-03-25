@@ -95,42 +95,16 @@ class Model
      */
     public function getAvailableThemes()
     {
-        $dirs = $this->getThemeDirs();
-        $dirs = array_reverse($dirs); //first dir themes will override the themes from last ones
-        $themes = array();
-        foreach ($dirs as $dir) {
-            $themes = array_merge($themes, $this->getFolderThemes($dir));
-        }
+        $themes = $this->getFolderThemes(ipFile('Theme/'));
+
+        $themes = ipFilter('ipThemes', $themes);
         return $themes;
-
     }
 
-    /**
-     * first dir themes will override the themes from last ones
-     * @return array
-     */
-    protected function getThemeDirs()
-    {
-        //the order of dirs is very important. First dir themes overrides following ones.
-
-        $cleanDirs = array();
-
-        $optionDirs = ipGetOption('Design.themeDirs');
-        $optionDirs = str_replace(array("\r\n", "\r"), "\n", $optionDirs);
-        $lines = explode("\n", $optionDirs);
-        foreach ($lines as $line) {
-            if (!empty($line)) {
-                $cleanDirs[] = trim($line);
-            }
-        }
-        $cleanDirs = array_merge($cleanDirs, array(ipFile('Theme/')));
-        return $cleanDirs;
-    }
 
     public function getThemeInstallDir()
     {
-        $themeDirs = $this->getThemeDirs();
-        return array_shift($themeDirs);
+        return ipFile('Theme/');
     }
 
 
@@ -176,6 +150,8 @@ class Model
         $theme = $themes[$themeName];
 
 
+        ipEvent('ipBeforeThemeInstalled', array('themeName' => $themeName));
+
         \Ip\ServiceLocator::storage()->set('Ip', 'theme', $themeName);
 
 
@@ -195,6 +171,8 @@ class Model
             $configModel->setConfigValue($themeName, $option['name'], $newValue);
         }
 
+        ipEvent('ipThemeInstalled', array('themeName' => $themeName));
+
 
     }
 
@@ -207,28 +185,31 @@ class Model
         return ipConfig()->get('themeMarketUrl', 'http://market.impresspages.org/themes-v1/?version=4&cms=1');
     }
 
+
     /**
      * Read theme config and create theme entity
      * @param $name
+     * @param null $dir
+     * @param null $url
      * @return Theme
+     * @throws \Exception
      */
-    public function getTheme($name, $dir = null)
+    public function getTheme($name, $dir = null, $url = null)
     {
 
+        if ($dir == null) {
+            $dir = ipFile('Theme/');
+        }
         $metadata = new ThemeMetadata();
         $metadata->setName($name);
-        if ($dir) {
-            $metadata->setPath($dir);
-        } else {
-            $metadata->setPath(ipFile('Theme'));
-        }
+
 
         //new type config
-        $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'Theme.json');
+        $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'Theme.json';
         if (file_exists($themeJsonFile)) {
             $config = $this->parseThemeJson($themeJsonFile);
         } else {
-            $themeJsonFile = ipFile('Theme/' . $name . '/' . self::INSTALL_DIR . 'theme.json');
+            $themeJsonFile = $dir . $name . '/' . self::INSTALL_DIR . 'theme.json';
             if (file_exists($themeJsonFile)) {
                 $config = $this->parseThemeJson($themeJsonFile);
             } else {
@@ -236,6 +217,7 @@ class Model
             }
         }
 
+        $config = ipFilter('ipThemeConfig', $config);
 
         $metadata->setTitle(!empty($config['title']) ? $config['title'] : $name);
 
@@ -249,6 +231,10 @@ class Model
 
         if (!empty($config['thumbnail'])) {
             $metadata->setThumbnail($config['thumbnail']);
+        }
+
+        if (!empty($url)) {
+            $metadata->setUrl($url);
         }
 
         if (!empty($config['doctype']) && defined('\Ip\View::' . $config['doctype'])) {

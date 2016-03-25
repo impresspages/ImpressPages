@@ -49,11 +49,15 @@ class Module
         $cached_fileNames = array();
         $cached_fileMimeTypes = array();
         if ($files) {
+            if (is_string($files)) {
+                $files = array($files);
+            }
+
             foreach ($files as $fileSetting) {
                 $file = array();
                 if (is_array($fileSetting)) {
                     $file['real_name'] = $fileSetting[0];
-                    $file['required_name'] = $fileSetting[1];
+                    $file['required_name'] = basename($fileSetting[1]);
                 } else {
                     $file['real_name'] = $fileSetting;
                     $file['required_name'] = $fileSetting;

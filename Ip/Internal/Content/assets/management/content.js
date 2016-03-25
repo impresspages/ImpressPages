@@ -34,7 +34,7 @@ var ipContent = new function () {
                 var $block = $widget.closest('.ipBlock');
                 $widget.remove();
                 if ($block.children('.ipWidget').length == 0) {
-                    $this.addClass('ipbEmpty');
+                    $block.addClass('ipbEmpty');
                 }
 
 
@@ -430,11 +430,12 @@ var ipContent = new function () {
                     }
                 }
 
+                $(document).trigger('ipWidgetAdded', {
+                    'widgetId': $newWidget.data('widgetid'),
+                    'widget': $newWidget
+                });
+
                 if (callback) {
-                    $(document).trigger('ipWidgetAdded', {
-                        'widgetId': $newWidget.data('widgetid'),
-                        'widget': $newWidget
-                    });
                     callback($newWidget.data('widgetid'));
                 }
             },

@@ -31,7 +31,7 @@ class TextLang extends \Ip\Form\FieldLang
                 }
             }
             if (!is_string($langValue)) {
-                //just in case we have array or something else incompatible with bellow code in the database
+                //just in case we have an array or something else incompatible with below code in the database
                 $langValue = '';
             }
 

@@ -26,6 +26,13 @@ class AdminController extends \Ip\Controller
         ipRequest()->mustBePost();
         $post = ipRequest()->getPost();
         $secure = !empty($post['secure']);
+        $path = isset($post['path']) ? $post['path'] : null;
+
+
+        $browserModel = BrowserModel::instance();
+
+        $browserModel->pathMustBeInRepository($path, $secure);
+
 
         if (!isset($post['files']) || !is_array($post['files'])) {
             return new \Ip\Response\Json(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
@@ -36,10 +43,7 @@ class AdminController extends \Ip\Controller
         $newFiles = array();
 
 
-        $destination = ipFile('file/repository/');
-        if ($secure) {
-            $destination = ipFile('file/secure/');
-        }
+        $destination = $browserModel->getPath($secure, $path);
 
 
         foreach ($files as $file) {
@@ -61,7 +65,7 @@ class AdminController extends \Ip\Controller
             copy($source, $destination . $newName);
             unlink($source); //this is a temporary file
             $browserModel = \Ip\Internal\Repository\BrowserModel::instance();
-            $newFile = $browserModel->getFile($newName, $secure);
+            $newFile = $browserModel->getFile($newName, $secure, $path);
             $newFiles[] = $newFile;
         }
         $answer = array(
@@ -75,15 +79,22 @@ class AdminController extends \Ip\Controller
 
     public function getAll()
     {
-        ipRequest()->mustBePost();
-        $post = ipRequest()->getPost();
-        $seek = isset($post['seek']) ? (int)$post['seek'] : 0;
+        $query = ipRequest()->getQuery();
+        $seek = isset($query['seek']) ? (int)$query['seek'] : 0;
         $limit = 10000;
-        $filter = isset($post['filter']) ? $post['filter'] : null;
-        $secure = isset($post['secure']) ? (int)$post['secure'] : null;
+        $filter = isset($query['filter']) ? $query['filter'] : null;
+        $filterExtensions = $query['filterExtensions'] ? $query['filterExtensions'] : null;
+        if (is_string($filterExtensions)) {
+            $filterExtensions = array($filterExtensions);
+        }
+        $secure = isset($query['secure']) ? (int)$query['secure'] : null;
+        $path = isset($query['path']) ? $query['path'] : null;
 
         $browserModel = BrowserModel::instance();
-        $files = $browserModel->getAvailableFiles($seek, $limit, $filter, $secure);
+
+        $browserModel->pathMustBeInRepository($path, $secure);
+
+        $files = $browserModel->getAvailableFiles($seek, $limit, $filter, $filterExtensions, $secure, $path);
 
         usort($files, array($this, 'sortFiles'));
 

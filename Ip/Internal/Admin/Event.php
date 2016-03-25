@@ -62,7 +62,10 @@ class Event
     public static function ipInitFinished ()
     {
         $request = \Ip\ServiceLocator::request();
-        $safeMode = $request->getQuery('safeMode') || $request->getQuery('safemode');
+        $safeMode = $request->getQuery('safeMode');
+        if ($safeMode === null) {
+            $safeMode = $request->getQuery('safemode');
+        }
 
         if ($safeMode !== null && \Ip\Internal\Admin\Backend::userId()) {
             Model::setSafeMode($safeMode);
@@ -71,18 +74,6 @@ class Event
 
     public static function ipBeforeController()
     {
-        $request = \Ip\ServiceLocator::request();
-
-        if (ipIsManagementState() || $request->getQuery('aa') || $request->getQuery('admin')) {
-            $sessionLifetime = ini_get('session.gc_maxlifetime');
-            if (!$sessionLifetime) {
-                $sessionLifetime = 120;
-            }
-            if ($sessionLifetime > 20) {
-                $sessionLifetime = $sessionLifetime - 20;
-            }
-            ipAddJsVariable('ipAdminSessionRefresh', $sessionLifetime);
-        }
 
 
         //show admin submenu if needed
@@ -123,7 +114,7 @@ class Event
         if (ipContent()->getCurrentPage()) {
             // initialize management
             if (ipIsManagementState()) {
-                if (!ipRequest()->getQuery('ipDesignPreview')) {
+                if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableManagement')) {
                     \Ip\Internal\Content\Helper::initManagement();
                 }
             }

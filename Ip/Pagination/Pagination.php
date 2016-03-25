@@ -90,7 +90,7 @@ class Pagination
 
     public function render($view = null)
     {
-        if ($this->totalPages < 1) {
+        if ($this->totalPages < 1 && $this->currentPage == 1) {
             return null;
         }
 
@@ -105,5 +105,21 @@ class Pagination
 
         return ipView($view, $data)->render();
     }
+
+    public function pagerSize()
+    {
+        return $this->pagerSize;
+    }
+
+    public function currentPage()
+    {
+        return $this->currentPage;
+    }
+
+    public function totalPages()
+    {
+        return $this->totalPages;
+    }
+
 
 }

@@ -24,11 +24,6 @@ class Controller extends \Ip\WidgetController
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
-        if (!empty($data['width'])) {
-            $data['width'] = ((int)$data['width']) . 'px';
-        } else {
-            $data['width'] = '100%';
-        }
         if (!empty($data['height'])) {
             $data['height'] = ((int)$data['height']) . 'px';
         } else {
@@ -53,33 +48,9 @@ class Controller extends \Ip\WidgetController
 
     public function adminHtmlSnippet()
     {
-        return '';
+        return ipView('snippet/searchbox.php')->render();
     }
 
-    protected function settingsForm()
-    {
-        $form = new \Ip\Form();
-        $form->setEnvironment(\Ip\Form::ENVIRONMENT_ADMIN);
-
-
-        $field = new \Ip\Form\Field\Text(
-            array(
-                'name' => 'title',
-                'label' => __('Title', 'Ip-admin', false),
-            ));
-        $form->addField($field);
-
-
-        $field = new \Ip\Form\Field\Textarea(
-            array(
-                'name' => 'description',
-                'label' => __('Description', 'Ip-admin', false),
-            ));
-        $form->addField($field);
-
-
-        return $form; // Output a string with generated HTML form
-    }
 
 
 }

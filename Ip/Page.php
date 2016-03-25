@@ -274,7 +274,8 @@ class Page
      */
     public function getLink()
     {
-        return ipHomeUrl($this->getLanguageCode()) . $this->urlPath;
+        $path = str_replace('%2F', '/', rawurlencode($this->urlPath));
+        return ipHomeUrl($this->getLanguageCode()) . $path;
     }
 
     /**

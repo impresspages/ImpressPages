@@ -14,7 +14,9 @@ class Password extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Password(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -32,7 +34,10 @@ class Password extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Password(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes,
+            'value' => ''
         ));
         return $field;
     }

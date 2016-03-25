@@ -39,7 +39,7 @@
         var data = urlParams($this.data('gateway'));
         data.jsonrpc = '2.0';
         data.method = 'init';
-        data.hash = window.location.hash;
+        data.gridHash = window.location.hash;
         data.params = {};
 
         $.ajax({
@@ -74,6 +74,11 @@
                     $this.html(value.html);
                     $this.trigger('htmlChanged.ipGrid');
                     $.proxy(bindEvents, $this)();
+                    $this.find('.ipsPages .disabled a').on('click', function(e) {
+                        e.preventDefault();
+                        //By default last link is just a #. Clicking on it resets pages section to the root. Prevent that from happening.
+                    });
+
                     $this.trigger('init.ipGrid');
                     ipInitForms();
                     break;
@@ -102,7 +107,7 @@
                 data.params = params;
             }
 
-            data.hash = window.location.hash;
+            data.gridHash = window.location.hash;
 
             $.ajax({
                 type: 'GET',
@@ -130,7 +135,36 @@
             data.params = {};
             data.params.pageSize = $this.data('rows');
 
-            data.hash = window.location.hash;
+            data.gridHash = window.location.hash;
+
+            $.ajax({
+                type: 'GET',
+                url: $grid.data('gateway').split('?')[0],
+                data: data,
+                context: $grid,
+                success: initResponse,
+                error: function (response) {
+                    if (ip.debugMode || ip.developmentMode) {
+                        alert(response);
+                    }
+                },
+                dataType: 'json'
+            });
+
+        });
+
+        $grid.find('.ipsGridLanguageSetting').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+
+            var data = urlParams($grid.data('gateway'));
+            data.jsonrpc = '2.0';
+            data.method = 'setLanguage';
+
+            data.params = {};
+            data.params.language = $this.data('value');
+
+            data.gridHash = window.location.hash;
 
             $.ajax({
                 type: 'GET',
@@ -184,8 +218,8 @@
                 //$form.append($('<input type="hidden" name="aa" />').val(data.aa));
                 $form.attr('action', data);
             }
-            $form.find('input[name=hash]').remove();
-            $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
+            $form.find('input[name=gridHash]').remove();
+            $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
                     $modal.modal('hide');
@@ -225,8 +259,8 @@
                 $form.attr('action', data);
 
             }
-            $form.find('input[name=hash]').remove();
-            $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
+            $form.find('input[name=gridHash]').remove();
+            $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
 
             $form.on('ipSubmitResponse', function (e, response) {
                 if (!response.error) {
@@ -273,6 +307,59 @@
             });
         }
 
+        $grid.find('.ipsMoveModal .ipsConfirm').off('click.grid').on('click.grid', function (e) {
+            $('.ipsMoveModal form').submit();
+        });
+        $grid.find('.ipsSetPosition').off('click.grid').on('click.grid', function(e) {
+            e.preventDefault();
+            $('.ipsMoveModal').modal();
+            $('.ipsMoveModal input[name=position]').focus();
+            $('.ipsMoveModal').find('input[name=id]').val($(this).closest('.ipsRow').data('id'));
+        });
+
+        $('.ipsMoveModal form').off('submit.grid').on('submit.grid', $.proxy(moveToPosition, $grid));
+
+    };
+
+    var moveToPosition = function (event, ui) {
+        event.preventDefault();
+        var $form = $(event.currentTarget);
+        var position = $form.find('input[name=position]').val();
+        if (position == '') {
+            alert('Please enter an integer number');
+            return;
+        }
+
+        var id = $form.find('input[name=id]').val();
+
+
+
+        var $grid = this;
+        var data = {};
+        data.method = 'movePosition';
+        data.params = {};
+        data.params.id = id;
+        data.params.position = position;
+        data.securityToken = ip.securityToken;
+        data.gridHash = window.location.hash;
+        $.ajax({
+            type: 'POST',
+            url: $grid.data('gateway'),
+            data: data,
+            context: $grid,
+            dataType: 'json',
+            success: function (response) {
+                $.proxy(doCommands, $grid)(response.result);
+            },
+            error: function (response) {
+                if (ip.debugMode || ip.developmentMode) {
+                    alert(response);
+                }
+            }
+
+        });
+        $('.ipsMoveModal').modal('hide');
+
     };
 
     var startDrag = function (event, ui) {
@@ -306,7 +393,7 @@
         data.params.targetId = targetId;
         data.params.beforeOrAfter = beforeOrAfter;
         data.securityToken = ip.securityToken;
-        data.hash = window.location.hash;
+        data.gridHash = window.location.hash;
         $.ajax({
             type: 'POST',
             url: $grid.data('gateway'),
@@ -339,7 +426,7 @@
         data.method = 'updateForm';
         data.params = {};
         data.params.id = id;
-        data.hash = window.location.hash;
+        data.gridHash = window.location.hash;
         data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',
@@ -356,8 +443,8 @@
                     $form.attr('action', data);
 
                 }
-                $form.find('input[name=hash]').remove();
-                $form.append($('<input type="hidden" name="hash" />').val(window.location.hash));
+                $form.find('input[name=gridHash]').remove();
+                $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
 
                 $form.on('ipSubmitResponse', function (e, response) {
                     if (!response.error) {
@@ -391,6 +478,13 @@
                     }
                 });
 
+                //new bootstrap can't handle backdrop height properly. So we fix it.
+                var $backdrop = $modal.children('.modal-backdrop');
+                var $dialog = $modal.children('.modal-dialog');
+                if ($backdrop.outerHeight(true) < $dialog.outerHeight(true)) {
+                    $backdrop.css('height', 0).css('height', $dialog.outerHeight(true));
+                }
+
 
                 $grid.trigger('updateModalOpen.ipGrid', $modal);
 
@@ -411,7 +505,7 @@
         data.method = 'delete';
         data.params = {};
         data.params.id = id;
-        data.hash = window.location.hash;
+        data.gridHash = window.location.hash;
         data.securityToken = ip.securityToken;
         $.ajax({
             type: 'POST',

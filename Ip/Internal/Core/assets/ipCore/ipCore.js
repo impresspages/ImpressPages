@@ -19,7 +19,7 @@ $(document).ready(function () {
         });
 
         if (typeof(google) !== 'undefined' && typeof(google.maps) !== 'undefined' && typeof(google.maps.LatLng) !== 'undefined') {
-            ipGoogleMapsLoaded();
+            ipGoogleMapsLoaded = true;
         } else {
             ipLoadGoogleMaps();
         }
@@ -27,7 +27,11 @@ $(document).ready(function () {
 
     ipInitForms();
 
-    ipPingInterval = setInterval(ipPing, 1000 * 60 * 4);  //4min
+    if (typeof(ipSessionRefresh) !== 'undefined') {
+        ipPingInterval = setInterval(ipPing, ipSessionRefresh * 1000);
+    }
+
+
 
     // add ipHas... classes when core elements load
     $(document).on('ipContentManagementInit', function () {

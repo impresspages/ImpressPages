@@ -13,7 +13,9 @@ class Url extends \Ip\Internal\Grid\Model\Field\Text
     {
         $field = new \Ip\Form\Field\Url(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -23,9 +25,13 @@ class Url extends \Ip\Internal\Grid\Model\Field\Text
     {
         $field = new \Ip\Form\Field\Url(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 

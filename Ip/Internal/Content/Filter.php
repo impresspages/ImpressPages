@@ -54,6 +54,11 @@ class Filter
         $typeRadio = __('Radio', 'Ip-admin', false);
         $typeCaptcha = __('Captcha', 'Ip-admin', false);
         $typeFile = __('File', 'Ip-admin', false);
+        $typeRichText = __('Rich text', 'Ip-admin', false);
+        $typeCheckboxes = __('Checkboxes', 'Ip-admin', false);
+        $typeDate = __('Date', 'Ip-admin', false);
+        $typeTime = __('Time', 'Ip-admin', false);
+        $typeFieldset= __('Fieldset', 'Ip-admin', false);
 
         $fieldTypes['Text'] = new FieldType('Text', '\Ip\Form\Field\Text', $typeText);
         $fieldTypes['Email'] = new FieldType('Email', '\Ip\Form\Field\Email', $typeEmail);
@@ -70,6 +75,13 @@ class Filter
         )->render());
         $fieldTypes['Captcha'] = new FieldType('Captcha', '\Ip\Form\Field\Captcha', $typeCaptcha);
         $fieldTypes['File'] = new FieldType('File', '\Ip\Form\Field\File', $typeFile);
+        $fieldTypes['RichText'] = new FieldType('RichText', '\Ip\Form\Field\RichText', $typeRichText);
+        $fieldTypes['Checkboxes'] = new FieldType('Checkboxes', '\Ip\Form\Field\Checkboxes', $typeCheckboxes, 'ipWidgetForm_InitListOptions', 'ipWidgetForm_SaveListOptions', ipView(
+        'view/formFieldOptions/list.php'
+    )->render());
+        $fieldTypes['Date'] = new FieldType('Date', '\Ip\Form\Field\Date', $typeDate);
+        $fieldTypes['Time'] = new FieldType('Time', '\Ip\Form\Field\Time', $typeTime);
+        $fieldTypes['Fieldset'] = new FieldType('Fieldset', '\Ip\Form\Fieldset', $typeFieldset);
 
         return $fieldTypes;
     }
@@ -209,18 +221,50 @@ class Filter
 
     public static function ipHead($head, $info)
     {
-        $append = '';
         $relativePath = ipRequest()->getRelativePath();
-        if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
-            if (substr($relativePath, -1) != '/') {
-                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . $relativePath) . '/" />' . "\n";
+
+
+
+        $canonicalUrl = null;
+        //detect if we need to add canonical meta tag because we are on the home page
+        if (ipContent()->getCurrentPage() && ipContent()->getCurrentPage()->getId() == ipContent()->getDefaultPageId() && ipRequest()->getRelativePath() != '') {
+            //if current page is the default page of current language and relative path is not empty
+            $languages = ipContent()->getLanguages();
+            $firstLanguage = $languages[0];
+
+            if (ipContent()->getCurrentLanguage()->getId() == $firstLanguage->getId()) {
+                //if current language is the first language, set canonical to the base URL.
+                $canonicalUrl = ipConfig()->baseUrl();
+            } elseif(ipRequest()->getRoutePath() != '') {
+                //if current URL is not equal to the language URL, set canonical as language URL
+                $canonicalUrl = ipContent()->getcurrentLanguage()->getLink();
             }
-        } else {
-            if (substr($relativePath, -1) == '/') {
-                $append = '    <link rel="canonical" href="' . escAttr(ipConfig()->baseUrl() . substr($relativePath, 0, -1)) . '" />' . "\n";
-            }
+
+
+
         }
-        $head .= $append;
+
+        //detect if we need to add canonical tag because of missing trailing slash
+        if (!$canonicalUrl) {
+            //if canonicalUrl is not set yet
+            if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
+                if (substr($relativePath, -1) != '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . $relativePath . '/';
+                }
+            } else {
+                if (substr($relativePath, -1) == '/') {
+                    $canonicalUrl = ipConfig()->baseUrl() . substr($relativePath, 0, -1);
+                }
+            }
+
+        }
+
+        if ($canonicalUrl) {
+            $append = '    <link rel="canonical" href="' . escAttr($canonicalUrl) . '" />' . "\n";
+            $head .= $append;
+        }
+
+
         return $head;
 
     }

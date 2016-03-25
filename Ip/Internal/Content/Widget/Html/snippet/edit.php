@@ -17,3 +17,5 @@
         </div>
     </div>
 </div>
+<div id="ipWidgetHtmlDisabledJavaScriptNotice" class="hidden"><?php _e('JavaScript is disabled in management mode.', 'Ip-admin') ?></div>
+<div id="ipWidgetHtmlDisabledInSafeMode" class="hidden"><?php _e('HTML widget content is hidden in safe mode.', 'Ip-admin') ?></div>

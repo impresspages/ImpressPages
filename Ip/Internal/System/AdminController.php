@@ -17,7 +17,6 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
         ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
-        ipAddCss('Ip/Internal/Grid/assets/grid.css');
 
 
         $notes = array();

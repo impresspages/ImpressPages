@@ -106,7 +106,7 @@ class Html2Text
         }
         $nextName = null;
         if ($nextNode instanceof DOMElement && $nextNode != null) {
-            $nextName = strtolower($nextNode->nodeName);
+            $nextName = mb_strtolower($nextNode->nodeName);
         }
 
         return $nextName;
@@ -122,7 +122,7 @@ class Html2Text
         }
         $nextName = null;
         if ($nextNode instanceof DOMElement && $nextNode != null) {
-            $nextName = strtolower($nextNode->nodeName);
+            $nextName = mb_strtolower($nextNode->nodeName);
         }
 
         return $nextName;
@@ -130,7 +130,7 @@ class Html2Text
 
     protected static function iterate_over_node($node) {
         if ($node instanceof \DOMText) {
-            return preg_replace("/[\\t\\n\\v\\f\\r ]+/im", " ", $node->wholeText);
+            return mb_ereg_replace("/[\\t\\n\\v\\f\\r ]+/im", " ", $node->wholeText);
         }
         if ($node instanceof \DOMDocumentType) {
             // ignore
@@ -140,7 +140,7 @@ class Html2Text
         $nextName = self::next_child_name($node);
         $prevName = self::prev_child_name($node);
 
-        $name = strtolower($node->nodeName);
+        $name = mb_strtolower($node->nodeName);
 
         // start whitespace
         switch ($name) {

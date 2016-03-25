@@ -5,7 +5,7 @@
     <?php echo ipHead(); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="<?php echo ipContent()->getCurrentLanguage()->getTextDirection() ?>">
 <div class="wrapper clearfix">
     <header class="clearfix col_12">
         <?php echo ipSlot('logo'); ?>

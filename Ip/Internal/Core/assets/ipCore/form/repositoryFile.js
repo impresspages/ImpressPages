@@ -21,7 +21,7 @@
                 if (!data) {
                     $this.find('.ipsSelect').on('click', function (e) {
                         e.preventDefault();
-                        var repository = new ipRepository({preview: $this.data('preview'), secure: $this.data('secure')});
+                        var repository = new ipRepository({preview: $this.data('preview'), secure: $this.data('secure'),path: $this.data('path'), filter: $this.data('filter'), filterExtensions: $this.data('filterextensions')});
                         repository.bind('ipRepository.filesSelected', $.proxy(filesSelected, context));
                     });
 
@@ -75,7 +75,7 @@
             $newFile.find('.ipsLink').attr('href', files[index].originalUrl);
             $newFile.find('input').val(fileName).attr('name', $this.data('ipFormRepositoryFile').inputName + '[]');
             $newFile.find('.ipsRemove').click($.proxy(removeFile, context));
-            if ($this.data('ipFormRepositoryFile').limit >= 0) {
+            if ($this.data('ipFormRepositoryFile').limit > 0) {
                 if ($this.find('.ipsFiles').children().length + 1 > $this.data('ipFormRepositoryFile').limit) {
                     if ($this.find('.ipsFiles').children().first().length === 1) {
                         $this.find('.ipsFiles').children().first().remove();
@@ -83,7 +83,7 @@
                 }
             }
             $this.find('.ipsFiles').append($newFile);
-
+            $this.trigger('ipFieldFileAdded', [fileName]);
         }
     };
 
@@ -93,6 +93,7 @@
         var $file = $currentTarget.closest('.ipsFile');
         $this.find('.ipsFileTemplate input').change(); //to make js on change event to work
         $file.remove();
+        $this.trigger('ipFieldFileRemoved');
     };
 
 

@@ -139,6 +139,7 @@
                 data.files = files;
                 data.securityToken = ip.securityToken;
                 data.secure = options.secure;
+                data.path = options.path;
 
                 $.ajax({
                     type: 'POST',

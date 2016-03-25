@@ -35,7 +35,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '4.2.9'; //CHANGE_ON_VERSION_UPDATE
+        return '4.6.4'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -158,11 +158,11 @@ class Application
         if ($result) {
             $requestLanguage = $result['language'];
             $routeLanguage = $requestLanguage->getCode();
-            $relativeUri = $result['relativeUri'];
+            ipRequest()->_setRoutePath($result['relativeUri']);
         } else {
             $routeLanguage = null;
             $requestLanguage = ipJob('ipRequestLanguage', array('request' => $request));
-            $relativeUri = $request->getRelativePath();
+            ipRequest()->_setRoutePath($request->getRelativePath());
         }
 
         //find out and set locale
@@ -183,6 +183,7 @@ class Application
         } else {
             setLocale(LC_ALL, $locale);
         }
+        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
 
         ipContent()->_setCurrentLanguage($requestLanguage);
 
@@ -205,7 +206,7 @@ class Application
 
         $routeAction = ipJob(
             'ipRouteAction',
-            array('request' => $request, 'relativeUri' => $relativeUri, 'routeLanguage' => $routeLanguage)
+            array('request' => $request, 'relativeUri' => ipRequest()->getRoutePath(), 'routeLanguage' => $routeLanguage)
         );
 
         if (!empty($routeAction)) {
@@ -227,10 +228,12 @@ class Application
             if (!empty($routeAction['plugin'])) {
                 ipRoute()->setPlugin($routeAction['plugin']);
             }
+            if (!empty($routeAction['name'])) {
+                ipRoute()->setName($routeAction['name']);
+            }
             if (!empty($routeAction['action'])) {
                 ipRoute()->setAction($routeAction['action']);
             }
-
         }
 
 

@@ -47,6 +47,8 @@
     "Warning": "Pastaba",
     "Error": "Klaida",
     "Check again": "Tikrinti dar kartą",
+    "PHP session error": "PHP sesijų klaida",
+    "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.": "PHP sesijos neveikia Jūsų serveryje. ImpressPages, kaip ir bet kokiai kitai TVS būtinas sesijų palaikymas, kad būtų įmanoma prisijungti prie administravimo panelės.",
     "Website configuration": "Svetainės nustatymai",
     "Website name": "Svetainės pavadinimas",
     "Website e-mail address": "Svetainės el. pašto adresas",

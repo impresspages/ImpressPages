@@ -68,7 +68,7 @@ class Config
         }
 
 
-        if (isset($server['HTTPS']) && strtolower($server['HTTPS']) == "on") {
+        if ((isset($server['HTTPS']) && strtolower($server['HTTPS']) == "on") || strtolower(getenv('HTTP_X_FORWARDED_PROTO')) === 'https') {
             $this->protocol = 'https://';
         } else {
             $this->protocol = 'http://';

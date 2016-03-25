@@ -303,12 +303,30 @@ class Model
 
         }
 
+        $fileOverrides = ipConfig()->get('fileOverrides');
+        if (!is_array($fileOverrides)) {
+            $fileOverrides = array();
+        }
+        $overrideKeys = array_keys($fileOverrides);
+        if (!is_array($overrideKeys)) {
+            $overrideKeys = array();
+        }
+        foreach($overrideKeys as $overriddenDir) {
+            $matches = null;
+            if (preg_match('%^Plugin\/(.+)/$%', $overriddenDir, $matches)) {
+                $answer[] = $matches[1];
+            }
+        }
+
         //TODO add filter for plugins in other directories
         return $answer;
     }
 
     public static function getActivePluginNames()
     {
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            return array();
+        }
         $dbh = ipDb()->getConnection();
         $sql = '
             SELECT
@@ -414,6 +432,9 @@ class Model
         if (is_file($file)) {
             $sql = file_get_contents($file);
             $sql = str_replace('`ip_', '`' . ipConfig()->tablePrefix(), $sql);
+            if (preg_replace('/\s+/', '', $sql) == '') {
+                return;
+            }
             ipDb()->execute($sql);
         }
 

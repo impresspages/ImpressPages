@@ -60,9 +60,36 @@
 
                     $('.ipsAdminPanelWidgetButton').ipAdminWidgetButton();
 
+                    // float fix, categories don't exist in mobile
+                    var $widgetCategories = $('._widgetCategories');
+                    if ($widgetCategories.length) {
+                        $('.ipsWidgetList').css({'marginLeft':$widgetCategories.width()});
+                    }
+
                     ipSpaceForWidgets();
-                    ipAdminWidgetsScroll();
                     ipAdminWidgetsSearch();
+
+                    // Widget category switches
+                    $('.ipsWidgetTag a').on('click', function (e) {e.preventDefault();});
+                    var $widgetSwitches = $('.ipsWidgetTag');
+                    $widgetSwitches.on('click', function(e) {
+                        e.preventDefault();
+                        var $this = $(this);
+
+                        $widgetSwitches.removeClass('_active');
+                        $this.addClass('_active');
+
+                        $('.ipsAdminPanelWidgetsContainer .ipsWidgetItem').addClass('hidden');
+                        var tagWidgetNames = ipContentInit.tags[$this.data('tag')];
+                        $.each(tagWidgetNames, function (key, item) {
+                            $('.ipsWidgetItem-' + item).removeClass('hidden');
+
+                        });
+
+                        ipAdminWidgetsScroll();
+                    });
+
+                    $widgetSwitches.first().click();
 
                     $('.ipsAdminPanelWidgetButton')
                         .on('dragstart', ipStartWidgetDrag)
@@ -147,7 +174,9 @@
      */
     var ipAdminWidgetsScroll = function () {
         var $scrollable = $('.ipsAdminPanelWidgetsContainer'); // binding object
+        $scrollable.removeData("scrollable");
         $scrollable.scrollable({
+            item: 'li:not(.hidden)',
             items: 'li', // items are <li> elements; on scroll styles will be added to <ul>
             touch: false,
             keyboard: false
@@ -191,21 +220,21 @@
             }
             ;
         }).blur(function () {
-                if (this.value == '') {
-                    this.value = this.defaultValue;
-                }
-                ;
-            }).keyup(function () {
-                var value = this.value;
-                $widgets.css('display', ''); // restate visibility
-                if (value && value != this.defaultValue) {
-                    $widgets.not(':icontains(' + value + ')').css('display', 'none');
-                    $button.addClass('ipaClear');
-                } else {
-                    $button.removeClass('ipaClear');
-                }
-                ipAdminWidgetsScroll(); // reinitiate scrollable
-            });
+            if (this.value == '') {
+                this.value = this.defaultValue;
+            }
+            ;
+        }).keyup(function () {
+            var value = this.value;
+            $widgets.css('display', ''); // restate visibility
+            if (value && value != this.defaultValue) {
+                $widgets.not(':icontains(' + value + ')').css('display', 'none');
+                $button.addClass('ipaClear');
+            } else {
+                $button.removeClass('ipaClear');
+            }
+            ipAdminWidgetsScroll(); // reinitiate scrollable
+        });
 
         $button.click(function (event) {
             event.preventDefault();
@@ -234,7 +263,11 @@
     }
 
     var ipStartWidgetDrag = function (event, ui) {
-        var draggingElement = event.currentTarget;
+        var draggingElement = event.target;
+        if (!$(draggingElement).hasClass('ipWidget') && !$(draggingElement).hasClass('ipsAdminPanelWidgetButton')) {
+            //we are dragging something inside widget, not the widget itself
+            return;
+        }
 
         //drop side
         var sidePlaceholders = new Array();
@@ -444,21 +477,25 @@
                     if (widgetController.splitParts && widgetController.splitParts().length) {
                         //middle of the last paragraph
                         var $lastParagraph = widgetController.splitParts().last();
-                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2)
+                        lastPlaceholder.top = $lastParagraph.offset().top + Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.height = Math.round($lastParagraph.height() / 2);
+                        lastPlaceholder.markerOffset = Math.round($lastParagraph.height() / 2) + space;
                     }
 
-                    var $columnsWidget = $widget.closest('.ipWidget').find('.ipBlock');
-                    if ($columnsWidget.length && !$widget.find(".ipBlock").length) {
+                    var $columnsWidget = $widget.parent().closest('.ipWidget');
+                    if ($columnsWidget.find('.ipBlock').length && !$widget.find(".ipBlock").length) {
                         //we are last widget inside a column
                         var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
                         if ($columnsWidget.next().length) {
                             space = $columnsWidget.next().offset().top - columnsEnd;
                         }
                         lastPlaceholder.height = columnsEnd -  lastPlaceholder.top + space * 1 / 4;
+                        lastPlaceholder.markerOffset = lastPlaceholder.markerOffset - space * 1/4
                     }
 
                     if ($widget.find(".ipBlock").length) {
-                        var columnsEnd = $columnsWidget.offset().top + $columnsWidget.height();
+                        //if last widget has blocks inside (columns widget)
+                        var columnsEnd = $widget.offset().top + $widget.height();
                         lastPlaceholder.height = space * 2;
                         lastPlaceholder.top = columnsEnd + space * 1 / 4;
                         lastPlaceholder.markerOffset = 5;
@@ -550,7 +587,7 @@
         $('.ipsWidgetDropPlaceholder').droppable({
             accept: ".ipsAdminPanelWidgetButton, .ipWidget",
             activeClass: "",
-            hoverClass: "hover",
+            hoverClass: "_hover",
             greedy: true,
             over: function (event, ui) {
                 lastDroppable = $(this);

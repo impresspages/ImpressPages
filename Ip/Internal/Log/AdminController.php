@@ -69,7 +69,20 @@ class AdminController extends \Ip\GridController
     {
         $context = json_decode($recordData['context'], true);
 
+        if (!is_array($context)) {
+            $context = array($context);
+        }
+
         unset($context['exception']);
+
+        array_walk_recursive($context, function(&$v) {
+                if (is_object($v)) {
+                    $v = serialize($v);
+                }
+                $v = htmlspecialchars($v);
+            }
+        );
+
 
         if (function_exists('ob_start')) {
             ob_start();

@@ -22,7 +22,7 @@ class Table extends \Ip\Internal\Grid\Model
         $this->config = new Config($config);
 
 
-        $hash = ipRequest()->getRequest('hash', '');
+        $hash = ipRequest()->getRequest('gridHash', '');
 
 
         $this->statusVariables = Status::parse($hash);
@@ -87,6 +87,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'setPageSize':
                 return $this->setPageSize($params);
                 break;
+            case 'setLanguage':
+                return $this->setLanguage($params);
+                break;
             case 'delete':
                 return $this->delete($params);
                 break;
@@ -101,6 +104,9 @@ class Table extends \Ip\Internal\Grid\Model
             case 'move':
                 return $this->move($params);
                 break;
+            case 'movePosition':
+                return $this->movePosition($params);
+                break;
             case 'create':
                 return $this->create($params);
                 break;
@@ -109,6 +115,9 @@ class Table extends \Ip\Internal\Grid\Model
                 break;
             case 'subgrid':
                 return $this->subgrid($params);
+                break;
+            case 'order':
+                return $this->order($params);
                 break;
         }
         return null;
@@ -152,6 +161,22 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         $statusVariables['pageSize'] = $params['pageSize'];
+        $pageVariableName = $this->subgridConfig->pageVariableName();
+        $statusVariables[$pageVariableName] = 1;
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
+    protected function setLanguage($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['language'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        $statusVariables['language'] = $params['language'];
         $commands = array();
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
@@ -163,10 +188,31 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('Missing parameters');
         }
 
+        $commands = array();
 
         try {
             $actions = $this->getActions();
             $actions->delete($params['id']);
+
+            //If we are not on the first page and we have removed the last record, move user to the previous page
+            if (!empty($this->statusVariables[$this->config->pageVariableName()]) && $this->statusVariables[$this->config->pageVariableName()] > 1) {
+                //We are not on the first page
+
+                $db = new Db($this->subgridConfig, $this->statusVariables);
+                $where = $db->buildSqlWhere();
+                $pageSize = $this->subgridConfig->pageSize($this->statusVariables);
+                $totalPages = ceil($db->recordCount($where) / $pageSize);
+                if ($totalPages < $this->statusVariables[$this->config->pageVariableName()]) {
+                    //set maximal page that has at least one record.
+                    $statusVariables = $this->statusVariables;
+                    $statusVariables[$this->config->pageVariableName()] = $totalPages;
+                    $commands[] = Commands::setHash(Status::build($statusVariables));
+                    return $commands;
+                }
+
+            }
+
+
             $display = $this->getDisplay();
             $html = $display->fullHtml($this->statusVariables);
             $commands[] = Commands::setHtml($html);
@@ -189,7 +235,7 @@ class Table extends \Ip\Internal\Grid\Model
     protected function update($data)
     {
         if (empty($data[$this->subgridConfig->idField()])) {
-            throw new \Ip\Exception('Missing parameters');
+            throw new \Ip\Exception('Missing parameters. Most likely \'AUTO_INCREMENT\' attribute is missing on the database id field');
         }
 
         $this->runTransformations($data);
@@ -209,15 +255,29 @@ class Table extends \Ip\Internal\Grid\Model
         } else {
             $newData = $updateForm->filterValues($data);
 
-            if ($this->subgridConfig->beforeUpdate()) {
-                call_user_func($this->subgridConfig->beforeUpdate(), $recordId, $newData);
+            $callables = $this->subgridConfig->beforeUpdate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $actions = $this->getActions();
             $actions->update($recordId, $newData);
 
-            if ($this->subgridConfig->afterUpdate()) {
-                call_user_func($this->subgridConfig->afterUpdate(), $recordId, $newData);
+            $callables = $this->subgridConfig->afterUpdate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $display = $this->getDisplay();
@@ -281,6 +341,7 @@ class Table extends \Ip\Internal\Grid\Model
         $display = $this->getDisplay();
         $createForm = $display->createForm();
 
+        $createForm->addAttribute('autocomplete', 'off');
 
         $this->runTransformations($data);
 
@@ -296,15 +357,29 @@ class Table extends \Ip\Internal\Grid\Model
 
 
 
-            if ($this->subgridConfig->beforeCreate()) {
-                call_user_func($this->subgridConfig->beforeCreate(), $newData);
+            $callables = $this->subgridConfig->beforeCreate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $newData);
+                }
             }
 
             $actions = $this->getActions();
             $recordId = $actions->create($newData);
 
-            if ($this->subgridConfig->afterCreate()) {
-                call_user_func($this->subgridConfig->afterCreate(), $recordId, $newData);
+            $callables = $this->subgridConfig->afterCreate();
+            if ($callables) {
+                if (is_array($callables) && !is_callable($callables)) {
+                    foreach($callables as $callable) {
+                        call_user_func($callable, $recordId, $newData);
+                    }
+                } else {
+                    call_user_func($callables, $recordId, $newData);
+                }
             }
 
             $display = $this->getDisplay();
@@ -346,6 +421,31 @@ class Table extends \Ip\Internal\Grid\Model
         return $commands;
     }
 
+    protected function movePosition($params)
+    {
+        if (empty($params['id']) || !isset($params['position'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if ($this->subgridConfig->beforeMove()) {
+            call_user_func($this->subgridConfig->beforeMove(), $params['id']);
+        }
+
+        $id = $params['id'];
+        $position = $params['position'];
+
+        $actions = $this->getActions();
+        $actions->movePosition($id, $position);
+        $display = $this->getDisplay();
+        $html = $display->fullHtml();
+        $commands[] = Commands::setHtml($html);
+
+        if ($this->subgridConfig->afterMove()) {
+            call_user_func($this->subgridConfig->afterMove(), $params['id']);
+        }
+        return $commands;
+    }
+
     protected function search($data)
     {
         $statusVariables = $this->statusVariables;
@@ -370,10 +470,25 @@ class Table extends \Ip\Internal\Grid\Model
                 }
                 if($value == '') {
                     unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
                     continue;
                 }
 
-                $statusVariables['s_' . $key] = $value;
+                if (is_array($value)) {
+                    foreach($value as $subkey => $subval) {
+                        $statusVariables['s_' . $key . '_json'] = json_encode($value);
+                        unset($statusVariables['s_' . $key]);
+                    }
+                } else {
+                    $statusVariables['s_' . $key] = $value;
+                }
+            }
+
+            foreach($searchForm->getFields() as $field) {
+                if (!isset($newData[$field->getName()])) { //script above fails to remove search made based on checkbox as empty checkbox doesn't post anything
+                    unset($statusVariables['s_' . $key]);
+                    unset($statusVariables['s_' . $key . '_json']);
+                }
             }
 
             $commands[] = Commands::setHash(Status::build($statusVariables));
@@ -413,5 +528,37 @@ class Table extends \Ip\Internal\Grid\Model
     {
         return new Actions($this->subgridConfig, $this->statusVariables);
     }
+
+
+    protected function order($params)
+    {
+
+        $statusVariables = $this->statusVariables;
+        if (empty($params['order'])) {
+            throw new \Ip\Exception('Missing parameters');
+        }
+
+        if (empty($statusVariables['order']) || $statusVariables['order'] != $params['order']) {
+            //new field selected to order records. Use ascending order
+            $statusVariables['order'] = $params['order'];
+            unset($statusVariables['direction']);
+        } else {
+            //the same field has been clicked repeatedly.
+
+            if (empty($statusVariables['direction']) || $statusVariables['direction'] == 'asc') {
+                //the same field has been clicked twice. Change order direction to descending
+                $statusVariables['order'] = $params['order'];
+                $statusVariables['direction'] = 'desc';
+            } else {
+                //the same field has been clicked for the third time. Remove ordering
+                unset($statusVariables['order']);
+                unset($statusVariables['direction']);
+            }
+        }
+        $commands = array();
+        $commands[] = Commands::setHash(Status::build($statusVariables));
+        return $commands;
+    }
+
 
 }

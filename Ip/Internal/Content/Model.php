@@ -8,6 +8,8 @@
 namespace Ip\Internal\Content;
 
 
+use Ip\Internal\Browser;
+
 class Model
 {
 
@@ -84,10 +86,42 @@ class Model
     {
         $tmpWidgets = Model::getAvailableWidgetObjects();
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
-        $widgets = array();
+        $tags = array(
+            'Core' => array()
+        );
+        $uncategorizedWidgets = array();
+
+        unset($tmpWidgets['Columns']);
+
         foreach ($tmpWidgets as $key => $widget) {
-            $widgets[$key] = $widget;
+            if ($widget->isCore()) {
+                $tags['Core'][$key] = $widget->getName();
+            } else {
+                $pluginName = $widget->getPluginName();
+                if (!array_key_exists($pluginName, $tags)) {
+                    $tags[$pluginName] = array();
+                }
+                $tags[$pluginName][] = $widget->getName();
+            }
         }
+
+        // Filter out single widget categories
+        foreach ($tags as $key => $widget) {
+            $widgetCount = count($tags[$key]);
+
+            if ($widgetCount === 1) {
+                $uncategorizedWidgets[] = $widget[0];
+                unset($tags[$key]);
+            }
+        }
+
+        if (count($uncategorizedWidgets) > 0) {
+            $tags['Other'] = $uncategorizedWidgets;
+        }
+
+        //these two tranlsations appear here just to make translations engine to find these dynamic translations
+        __('Other', 'Ip-admin', false);
+        __('Core', 'Ip-admin', false);
 
         $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
 
@@ -97,18 +131,23 @@ class Model
 
         $page = ipContent()->getCurrentPage();
 
-        unset($widgets['Columns']);
+        $tags = ipFilter('ipAdminWidgets', $tags);
+
 
         $data = array(
-            'widgets' => $widgets,
+            'widgets' => $tmpWidgets,
+            'tags' => $tags,
             'page' => $page,
             'currentRevision' => $revision,
-            'manageableRevision' => $manageableRevision
+            'manageableRevision' => $manageableRevision,
+            'categorySplit' => 3,
+            'mobile' => Browser::isMobile()
         );
 
         $controlPanelHtml = ipView('view/adminPanel.php', $data)->render();
 
         $data = array(
+            'tags' => $tags,
             'controlPanelHtml' => $controlPanelHtml,
             'manageableRevision' => $manageableRevision
         );
@@ -248,18 +287,6 @@ class Model
 
         $optionsMenu = array();
 
-        if (count($widgetObject->getSkins()) > 1) {
-            $optionsMenu[] = array(
-                'title' => __('Skin', 'Ip-admin', false),
-                'attributes' => array(
-                    'class' => 'ipsSkin',
-                    'data-skins' => json_encode($widgetObject->getSkins()),
-                    'data-currentskin' => $widgetRecord['skin']
-                )
-            );
-        }
-
-        $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
 
         $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
 
@@ -270,9 +297,32 @@ class Model
             'widgetData' => $widgetRecord['data'],
             'widgetId' => $widgetRecord['id'],
             'widgetName' => $widgetRecord['name'],
-            'widgetSkin' => $widgetRecord['skin'],
-            'optionsMenu' => $optionsMenu
+            'widgetSkin' => $widgetRecord['skin']
         );
+
+        if ($managementState) {
+            $skins = $widgetObject->getSkins();
+            if (count($skins) > 1) {
+                $optionsMenu[] = array(
+                    'title' => __('Skin', 'Ip-admin', false),
+                    'attributes' => array(
+                        'class' => 'ipsSkin',
+                        'data-skins' => json_encode($skins),
+                        'data-currentskin' => $widgetRecord['skin']
+                    )
+                );
+            }
+            $widgetOptions =  $widgetObject->optionsMenu(
+                $widgetRecord['revisionId'],
+                $widgetRecord['id'],
+                $widgetData,
+                $widgetRecord['skin']
+            );
+            $optionsMenu = array_merge($optionsMenu, $widgetOptions);
+            $optionsMenu = ipFilter('ipWidgetManagementMenu', $optionsMenu, $widgetRecord);
+            $variables['optionsMenu'] = $optionsMenu;
+        }
+
 
         $answer = ipView('view/widget.php', $variables)->render();
 
@@ -631,20 +681,31 @@ class Model
 
         foreach ($records as $row) {
             $data = json_decode($row['data'], true);
-            if (empty($data['text'])) {
-                continue;
-            }
 
-            // ${1} - protocol, ${2} - optional '/'
-            $after = preg_replace($search, '${1}' . $newPart . '${2}', $data['text']);
-            if ($after != $data['text']) {
-                $data['text'] = $after;
+            $data = self::replaceUrl($search, $newPart, $data);
 
+            if (json_encode($data) != $row['data']) {
                 ipDb()->update('widget', array('data' => json_encode($data)), array('id' => $row['id']));
             }
         }
     }
 
+    /**
+     * @param string $search
+     * @param string $newPart
+     * @param string|array $data
+     * @return mixed
+     */
+    private static function replaceUrl($search, $newPart, $data){
+        if (is_array($data)){
+            foreach($data as &$val) {
+                $val = self::replaceUrl($search, $newPart, $val);
+            }
+        } else {
+            $data = preg_replace($search, '${1}' . $newPart . '${2}', $data);
+        }
+        return $data;
+    }
     /**
      * @param int $revisionId
      * @return bool|string
@@ -696,6 +757,8 @@ class Model
               `revisionId` = :revisionId
               AND
               `name` != 'Columns'
+              AND
+              `isDeleted` = 0
             ORDER BY
               blockName, `position`
         ";
@@ -716,6 +779,8 @@ class Model
               `revisionId` = :revisionId
               AND
               `name` != 'Columns'
+              AND
+              `isDeleted` = 0
             ORDER BY
               blockName, `position`
         ";

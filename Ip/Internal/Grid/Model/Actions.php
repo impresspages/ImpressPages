@@ -42,23 +42,52 @@ class Actions
             " . $this->subgridConfig->tableName() . "
         FROM
             " . $this->subgridConfig->tableName() . "
-            " . $this->subgridConfig->joinQuery() . "
+            " . $db->joinQuery() . "
         WHERE
-            " . $this->subgridConfig->tableName() . "." . $this->subgridConfig->idField() . " = :id
+            " . $this->subgridConfig->tableName() . ".`" . $this->subgridConfig->idField() . "` = :id
         ";
 
         $params = array(
             'id' => $id
         );
 
-        if ($this->subgridConfig->beforeDelete()) {
-            call_user_func($this->subgridConfig->beforeDelete(), $params['id']);
+        $callables = $this->subgridConfig->beforeDelete();
+        if ($callables) {
+            if (is_array($callables) && !is_callable($callables)) {
+                foreach($callables as $callable) {
+                    call_user_func($callable, $params['id']);
+                }
+            } else {
+                call_user_func($callables, $params['id']);
+            }
         }
 
         ipDb()->execute($sql, $params);
-        if ($this->subgridConfig->afterDelete()) {
-            call_user_func($this->subgridConfig->afterDelete(), $params['id']);
+
+        if ($this->subgridConfig->isMultilingual()) {
+            $sql = "
+            DELETE
+
+            FROM
+                " . $this->subgridConfig->languageTableName() . "
+            WHERE
+                " . $this->subgridConfig->languageTableName() . ".`" . $this->subgridConfig->languageForeignKeyField() . "` = :id
+            ";
+
+            ipDb()->execute($sql, $params);
         }
+
+        $callables = $this->subgridConfig->afterDelete();
+        if ($callables) {
+            if (is_array($callables) && !is_callable($callables)) {
+                foreach($callables as $callable) {
+                    call_user_func($callable, $params['id']);
+                }
+            } else {
+                call_user_func($callables, $params['id']);
+            }
+        }
+
 
         //remove records in child grids
         foreach ($fields as $field) {
@@ -97,27 +126,68 @@ class Actions
 
         $fields = $this->subgridConfig->fields();
         $dbData = array();
+        $languageData = array();
+        $languages = ipContent()->getLanguages();
         foreach ($fields as $field) {
-            if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab') {
+            if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab' || !empty($field['ignoreDb'])) {
                 continue;
             }
-            $fieldObject = $this->subgridConfig->fieldObject($field);
 
-            $fieldObject->beforeUpdate($id, $oldData, $data);
-            $fieldData = $fieldObject->updateData($data);
-            if (!is_array($fieldData)) {
-                throw new \Ip\Exception("updateData method in class " . esc(
-                    get_class($fieldObject)
-                ) . " has to return array.");
+            $fieldObject = $this->subgridConfig->fieldObject($field);
+            $fieldObject->beforeUpdate($id, $oldData, $data); //the same event for both: multilingual and non multilingual fields. Each field may store it's multilingual state from constructor and act differently on this event if needed. $oldData is not very correct in multilingual context. But that's still the bets way to go.
+
+            if (empty($field['multilingual'])) {
+                $fieldData = $fieldObject->updateData($data);
+                if (!is_array($fieldData)) {
+                    throw new \Ip\Exception("updateData method in class " . esc(
+                            get_class($fieldObject)
+                        ) . " has to return array.");
+                }
+                $dbData = array_merge($dbData, $fieldData);
+            } else {
+                foreach($languages as $language) {
+                    $tmpData = $data;
+                    if (isset($data[$field['field'] . '_' . $language->getCode()])) {
+                        $tmpData[$field['field']] = $data[$field['field'] . '_' . $language->getCode()];
+                    }
+
+                    $fieldObject = $this->subgridConfig->fieldObject($field);
+                    $fieldData = $fieldObject->updateData($tmpData);
+                    if (!is_array($fieldData)) {
+                        throw new \Ip\Exception("createData method in class " . esc(
+                                get_class($fieldObject)
+                            ) . " has to return array.");
+                    }
+
+                    if (empty($languageData[$language->getCode()])) {
+                        $languageData[$language->getCode()] = array();
+                    }
+                    $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
+                }
             }
-            $dbData = array_merge($dbData, $fieldData);
         }
 
         if ($this->subgridConfig->updateFilter()) {
             $dbData = call_user_func($this->subgridConfig->updateFilter(), $id, $dbData);
         }
 
+        if ($this->subgridConfig->isMultilingual() && $this->subgridConfig->updateLanguageFilter()) {
+            $languageData = call_user_func($this->subgridConfig->updateLanguageFilter(), $id, $languageData);
+        }
+
         $this->updateDb($this->subgridConfig->rawTableName(), $dbData, $id);
+        if (!empty($languageData)) {
+            foreach($languageData as $languageCode => $rawData) {
+                $translationExists = ipDb()->selectRow($this->subgridConfig->rawLanguageTableName(), '*', array($this->subgridConfig->languageCodeField() => $languageCode, $this->subgridConfig->languageForeignKeyField() => $id));
+                if (!$translationExists) {
+                    $insertData = $rawData;
+                    $insertData[$this->subgridConfig->languageCodeField()] = $languageCode;
+                    $insertData[$this->subgridConfig->languageForeignKeyField()] = $id;
+                    ipDb()->insert($this->subgridConfig->rawLanguageTableName(), $insertData);
+                }
+                $this->updateDb($this->subgridConfig->rawTableName(), $rawData, $id, $languageCode);
+            }
+        }
 
         foreach ($fields as $field) {
             $this->subgridConfig->fieldObject($field)->afterUpdate($id, $oldData, $data);
@@ -125,13 +195,17 @@ class Actions
 
     }
 
-    protected function updateDb($table, $update, $id)
+    protected function updateDb($table, $update, $id, $languageCode = null)
     {
         if (empty($update)) {
             return false;
         }
 
-        $sql = "UPDATE " . ipTable($table) . " " . $this->subgridConfig->joinQuery() . " SET ";
+
+        $db = new Db($this->subgridConfig, $this->statusVariables);
+        $db->setDefaultLanguageCode($languageCode);
+
+        $sql = "UPDATE " . ipTable($table) . " " . $db->joinQuery() . " SET ";
         $params = array();
         foreach ($update as $column => $value) {
             if ($column == $this->subgridConfig->idField()) {
@@ -152,28 +226,59 @@ class Actions
         $params[] = $id;
 
 
-        return ipDb()->execute($sql, $params);
+        $result = ipDb()->execute($sql, $params);
+
+
+
+        return $result;
     }
 
 
     public function create($data)
     {
+        $languages = ipContent()->getlanguages();
         $fields = $this->subgridConfig->fields();
         $dbData = array();
+        $languageData = array();
         foreach ($fields as $field) {
-            if (!empty($field['type']) && $field['type'] == 'Tab') {
+            if (!empty($field['type']) && $field['type'] == 'Tab' && empty($field['preview']) || !empty($field['ignoreDb'])) {
                 continue;
             }
 
             $fieldObject = $this->subgridConfig->fieldObject($field);
-            $fieldObject->beforeCreate(null, $data);
-            $fieldData = $fieldObject->createData($data);
-            if (!is_array($fieldData)) {
-                throw new \Ip\Exception("createData method in class " . esc(
-                    get_class($fieldObject)
-                ) . " has to return array.");
+            $fieldObject->beforeCreate(null, $data); //one vent for multilingual and non-multilingual fields.
+
+            if (empty($field['multilingual'])) {
+                $fieldData = $fieldObject->createData($data);
+                if (!is_array($fieldData)) {
+                    throw new \Ip\Exception("createData method in class " . esc(
+                            get_class($fieldObject)
+                        ) . " has to return array.");
+                }
+                $dbData = array_merge($dbData, $fieldData);
+            } else {
+                foreach($languages as $language) {
+                    $tmpData = $data;
+                    if (isset($data[$field['field'] . '_' . $language->getCode()])) {
+                        $tmpData[$field['field']] = $data[$field['field'] . '_' . $language->getCode()];
+                    }
+
+                    $fieldObject = $this->subgridConfig->fieldObject($field);
+                    $fieldData = $fieldObject->createData($tmpData);
+                    if (!is_array($fieldData)) {
+                        throw new \Ip\Exception("createData method in class " . esc(
+                                get_class($fieldObject)
+                            ) . " has to return array.");
+                    }
+
+                    if (empty($languageData[$language->getCode()])) {
+                        $languageData[$language->getCode()] = array();
+                    }
+                    $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
+                }
+
             }
-            $dbData = array_merge($dbData, $fieldData);
+
         }
 
         $sortField = $this->subgridConfig->sortField();
@@ -196,7 +301,20 @@ class Actions
             $dbData = call_user_func($this->subgridConfig->createFilter(), $dbData);
         }
 
+        if ($this->subgridConfig->isMultilingual() && $this->subgridConfig->createLanguageFilter()) {
+            $languageData = call_user_func($this->subgridConfig->createLanguageFilter(), $languageData);
+        }
+
+
+
         $recordId = ipDb()->insert($this->subgridConfig->rawTableName(), $dbData);
+        if (!empty($languageData)) {
+            foreach($languageData as $languageCode => $rawData) {
+                $rawData[$this->subgridConfig->languageCodeField()] = $languageCode;
+                $rawData[$this->subgridConfig->languageForeignKeyField()] = $recordId;
+                ipDb()->insert($this->subgridConfig->rawLanguageTableName(), $rawData);
+            }
+        }
 
         foreach ($fields as $field) {
             $fieldObject = $this->subgridConfig->fieldObject($field);
@@ -207,6 +325,14 @@ class Actions
 
     public function move($id, $targetId, $beforeOrAfter)
     {
+        if($this->subgridConfig->sortDirection() == 'desc') {
+            //switch $beforeOrAfter value
+            if ($beforeOrAfter == 'before') {
+                $beforeOrAfter = 'after';
+            } else {
+                $beforeOrAfter = 'before';
+            }
+        }
         $sortField = $this->subgridConfig->sortField();
 
         $priority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array('id' => $targetId));
@@ -216,13 +342,14 @@ class Actions
 
         $tableName = $this->subgridConfig->tableName();
 
+        $db = new Db($this->subgridConfig, $this->statusVariables);
         if ($beforeOrAfter == 'before') {
             $sql = "
             SELECT
                 `{$sortField}`
             FROM
                 {$tableName}
-                " . $this->subgridConfig->joinQuery() . "
+                " . $db->joinQuery() . "
             WHERE
                 `{$sortField}` < :rowNumber
             ORDER BY
@@ -261,4 +388,79 @@ class Actions
             array($this->subgridConfig->idField() => $id)
         );
     }
+
+    public function movePosition($id, $position)
+    {
+        if ($position < 1) {
+            $position = 1;
+        }
+        $sortField = $this->subgridConfig->sortField();
+
+        //$directionInverse gives opposite sign number when increasing or decresing values depending on sort direction
+        if ($this->subgridConfig->sortDirection() == 'asc') {
+            $directionInverse = 1;
+        } else {
+            $directionInverse = -1;
+        }
+
+
+
+        $sql = "
+            SELECT
+                `" . $sortField . "`
+            FROM
+                " . $this->subgridConfig->tableName() . "
+            WHERE
+                " . $this->subgridConfig->idField() . " != " . (int)$id . " and (" . $this->subgridConfig->filter() . ")
+            ORDER BY
+               `" . $sortField . "` " . $this->subgridConfig->sortDirection() . "
+            LIMIT ?, 1
+        ";
+
+        if ($position == 1) {
+            $record1 = null;
+        } else {
+            $preparedSql = str_replace('?', $position - 2, $sql);
+            $record1 = ipDb()->fetchAll($preparedSql);
+        }
+        $preparedSql = str_replace('?', $position - 1, $sql);
+        $record2 = ipDb()->fetchAll($preparedSql);
+
+        if (!isset($record1[0][$sortField]) && !isset($record2[0][$sortField])) {
+            if ($position == 0) {
+                return;
+            }
+
+            $orderBy = 'ORDER BY ' . $sortField . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
+            $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array(), $orderBy);
+            $newPriority = $highestPriority + 5 * $directionInverse;
+        } else {
+            if (isset($record1[0][$sortField])) {
+                $priority1 = $record1[0][$sortField];
+            } else {
+                if (isset($record2[0][$sortField])) {
+                    $priority1 = $record2[0][$sortField] - 5 * $directionInverse;
+                }
+            }
+
+            if (isset($record2[0][$sortField])) {
+                $priority2 = $record2[0][$sortField];
+            } else {
+                if (isset($record1[0][$sortField])) {
+                    $priority2 = $record1[0][$sortField] + 5 * $directionInverse;
+                }
+            }
+
+            $newPriority = ($priority1 + $priority2) / 2;
+        }
+
+
+
+        ipDb()->update(
+            $this->subgridConfig->rawTableName(),
+            array($sortField => $newPriority),
+            array($this->subgridConfig->idField() => $id)
+        );
+    }
+
 }

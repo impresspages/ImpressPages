@@ -13,6 +13,89 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_85()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.4"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_84()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_83()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_82()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_81()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+    public static function update_80()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.5.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+
+
+    public static function update_79()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.5.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_78()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.5.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_77()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_76()
+    {
+        ipSetOption('Content.widgetHeadingMaxLevel', 3);
+    }
+
+    public static function update_75()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.1"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_74()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.4.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_73()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.3.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
     public static function update_72()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

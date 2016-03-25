@@ -12,6 +12,7 @@ class Event
     {
         $configModel = ConfigModel::instance();
         if ($configModel->isInPreviewState()) {
+            ipAddJsVariable('ipRepositoryUrl', ipFileUrl('file/repository/'));
             static::initConfig();
         }
 

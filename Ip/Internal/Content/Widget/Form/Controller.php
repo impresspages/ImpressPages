@@ -25,7 +25,7 @@ class Controller extends \Ip\WidgetController{
         if (empty($data['success'])) {
             $data['success'] = __('Thank You', 'Ip');
         }
-        $successHtml = ipView('helperView/success.php', array('success' => $data['success']));
+        $successHtml = ipView('helperView/success.php', array('success' => $data['success']))->render();
 
 
         if ($errors) {
@@ -42,7 +42,7 @@ class Controller extends \Ip\WidgetController{
             );
         }
 
-        // TODO use JsonRpc
+
         return new \Ip\Response\Json($data);
     }
 
@@ -298,6 +298,14 @@ class Controller extends \Ip\WidgetController{
             if (!isset($field['type']) || !isset($field['label'])) {
                 continue;
             }
+
+
+            if ($field['type'] == 'Fieldset') {
+                $label = empty($field['label']) ? '' : $field['label'];
+                $form->addFieldset(new \Ip\Form\Fieldset($label));
+                continue;
+            }
+
             if (!isset($field['options'])) {
                 $field['options'] = array();
             }

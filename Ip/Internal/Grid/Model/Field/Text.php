@@ -14,7 +14,9 @@ class Text extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Text(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -32,9 +34,13 @@ class Text extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Text(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 
@@ -48,7 +54,9 @@ class Text extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Text(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         if (!empty($searchVariables[$this->field])) {
             $field->setValue($searchVariables[$this->field]);

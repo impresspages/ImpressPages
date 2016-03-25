@@ -19,44 +19,37 @@
                 if (!data) {
                     $this.data('ipFormColor', {});
 
+                    // the only reliable way to wait till colorpicker plugin loads is to periodically check if it has been loaded
 
                     var loadInterval = setInterval(function () {
-                        initSpectrum($this, loadInterval);
-                    }, 1000);
+                        initColorpicker($this, loadInterval);
+                    }, 400);
                 }
             });
         }
     };
 
-    var initSpectrum = function ($colorPicker, loadInterval) {
-        if (typeof($.fn.spectrum) == 'undefined') {
-            //Wait for spectrum to load
+    var initColorpicker = function ($colorPicker, loadInterval) {
+        if (typeof($.fn.colorpicker) == 'undefined') {
+            // Wait for plugin to load
             return;
 
         }
-        var $this = $colorPicker;
-        var lastColor = $this.find('.ipsColorPicker').val();
 
+        // stopping recurring check
         clearInterval(loadInterval);
 
-        $this.find('.ipsColorPicker').spectrum({
-            preferredFormat: 'RGB',
-            showInput: true,
-            cancelText: $this.find('.ipsColorPicker').data('canceltext'),
-            chooseText: $this.find('.ipsColorPicker').data('confirmtext'),
-            move: function (color) {
-                $this.find('.ipsColorPicker').spectrum("set", color.toHexString());
-            },
-            show: function (color) {
-                lastColor = color.toHexString();
-                $('.sp-cancel').on('click', function () {
-                    $this.find('.ipsColorPicker').spectrum("set", lastColor);
-                });
-                $('.sp-choose').on('click', function () {
-                    lastColor = $this.find('.ipsColorPicker').val();
-                });
-            }
+        var $this = $colorPicker;
 
+        // loading plugin
+        // find option at http://mjolnic.github.io/bootstrap-colorpicker/
+        $this.colorpicker({}).on('changeColor', function () {
+            $this.find('.form-control').trigger('change'); // manually triggering change event on dynamic value change
+        });
+
+        // showing popup on input focus, too
+        $this.find('.form-control').on('focus.colorpicker', function () {
+            $this.colorpicker('show');
         });
     };
 
@@ -71,8 +64,6 @@
         }
 
     };
-
-    $('.ipsModuleFormAdmin .ipsFileContainer').ipFormColor();
 
 })(jQuery);
 

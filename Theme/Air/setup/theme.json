@@ -12,8 +12,28 @@
         "gallery": { /* For responsiveness and optimization it should the size as it would appear on the widest block */
             "width": 295,
             "height": 164
+        },
+        "heading": {
+            "maxLevel": 3
         }
     },
+    "textStyles": [
+        {
+            "title": "Quote",
+            "inline": "span",
+            "classes": "quote"
+        },
+        {
+            "title": "Note",
+            "inline": "span",
+            "classes": "note"
+        },
+        {
+            "title": "Button",
+            "inline": "span",
+            "classes": "button"
+        }
+    ],
     "options": [
         {
             "label": "Text color",

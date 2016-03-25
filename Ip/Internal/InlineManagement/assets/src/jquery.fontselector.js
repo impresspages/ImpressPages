@@ -28,6 +28,10 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
 
     if (options == 'getFont') {
         var root = $(this);
+        if (!root.attr('style')) {
+            //deafult option selected;
+            return null
+        }
         return root.css('font-family');
     }
 
@@ -88,6 +92,7 @@ jQuery.fn.ipInlineManagementFontSelector = function (options) {
 
             if ($(this).hasClass('ipsDefaultFont')) {
                 settings['selected']('');
+                root.css('font-family', '');
             } else {
                 settings['selected']($(this).css('font-family'));
             }

@@ -47,6 +47,8 @@
     "Warning": "Warnung",
     "Error": "Fehler",
     "Check again": "Nochmals überprüfen",
+    "PHP session error": "PHP Session Fehler",
+    "Apparently PHP sessions are not working on your server. ImpressPages as any other CMS require sessions to handle administrator login.": "Offensichtlich sind PHP Sessions auf Ihrem Server nicht funktionsfähig. Wie andere CMS greift auch ImpressPages für den Administrator-Login auf den Einsatz von Sessions zurück.",
     "Website configuration": "Konfiguration der Website",
     "Website name": "Name der Website",
     "Website e-mail address": "E-Mail-Adresse der Website",

@@ -136,15 +136,18 @@ class AdminController extends \Ip\GridController
         }
 
         $languages = Fixture::languageList();
-
+        $directionality = Service::TEXT_DIRECTION_LTR;
         if (!empty($languages[$code])) {
             $language = $languages[$code];
             $title = $language['nativeName'];
+            if (!empty($language['directionality']) && $language['directionality'] == 'rtl') {
+                $directionality = Service::TEXT_DIRECTION_RTL;
+            }
         } else {
             $title = $code;
         }
 
-        Service::addLanguage($title, $abbreviation, $code, $url, 1, Service::TEXT_DIRECTION_LTR);
+        Service::addLanguage($title, $abbreviation, $code, $url, 1, $directionality);
 
         return new \Ip\Response\Json(array());
     }

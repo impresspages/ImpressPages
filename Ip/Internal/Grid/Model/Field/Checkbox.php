@@ -41,7 +41,9 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Checkbox(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         $field->setValue($this->defaultValue);
         return $field;
@@ -56,9 +58,13 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
     {
         $field = new \Ip\Form\Field\Checkbox(array(
             'label' => $this->label,
-            'name' => $this->field
+            'name' => $this->field,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
+        if (isset($curData[$this->field])){
         $field->setValue($curData[$this->field]);
+        }
         return $field;
     }
 
@@ -82,7 +88,9 @@ class Checkbox extends \Ip\Internal\Grid\Model\Field
             'label' => $this->label,
             'name' => $this->field,
             'values' => $values,
-            'value' => null
+            'value' => null,
+            'layout' => $this->layout,
+            'attributes' => $this->attributes
         ));
         if (isset($searchVariables[$this->field])) {
             $field->setValue($searchVariables[$this->field]);

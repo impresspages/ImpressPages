@@ -12,8 +12,9 @@ class Helper
 
     public static function pagesGridConfig($parentId)
     {
-        return array(
+        $config = array(
             'table' => 'page',
+            'title' => false,
             'allowCreate' => false,
             'allowSearch' => false,
             'allowDelete' => false,
@@ -31,6 +32,10 @@ class Helper
                 )
             )
         );
+
+        $config = ipFilter('ipPageListGridConfig', $config, array('parentId' => $parentId));
+
+        return $config;
     }
 
 
@@ -310,7 +315,7 @@ class Helper
             array('top', __('Top', 'Ip-admin', false)),
             array('above', __('Above selected', 'Ip-admin', false)),
             array('child', __('Child of selected', 'Ip-admin', false)),
-            array('bellow', __('Bellow selected', 'Ip-admin', false)),
+            array('below', __('Below selected', 'Ip-admin', false)),
             array('bottom', __('Bottom', 'Ip-admin', false)),
         );
         $field = new \Ip\Form\Field\Select(
@@ -318,7 +323,7 @@ class Helper
                 'name' => 'position',
                 'label' => __('Position', 'Ip-admin', false),
                 'values' => $values,
-                'value' => 'bellow'
+                'value' => 'below'
             ));
         $form->addField($field);
 

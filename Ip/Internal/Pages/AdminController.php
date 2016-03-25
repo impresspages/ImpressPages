@@ -27,7 +27,6 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
         ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
-        ipAddCss('Ip/Internal/Grid/assets/grid.css');
 
 
         ipAddJsVariable('languageList', Helper::languageList());
@@ -40,7 +39,7 @@ class AdminController extends \Ip\Controller
                 $default = 'bottom';
             }
             $menu['defaultPosition'] = Model::getDefaultMenuPagePosition($menu['alias'], false, $default);
-            $default = 'bellow';
+            $default = 'below';
             $menu['defaultPositionWhenSelected'] = Model::getDefaultMenuPagePosition($menu['alias'], true, $default);
         }
         $menus = ipFilter('ipPagesMenuList', $menus);
@@ -93,8 +92,12 @@ class AdminController extends \Ip\Controller
             'id',
             array('languageCode' => $languageCode, 'alias' => $menuName, 'isDeleted' => 0)
         );
+
+        $tree = JsTreeHelper::getPageTree($languageCode, $parentId);
+        $tree = ipFilter('ipPageTree', $tree, array('languageCode' => $languageCode, 'parentId' => $parentId));
+
         $responseData = array(
-            'tree' => JsTreeHelper::getPageTree($languageCode, $parentId)
+            'tree' => $tree
         );
 
         return new \Ip\Response\Json($responseData);

@@ -126,7 +126,7 @@ class FormatHelper
                 $locale = str_replace('-', '_', $languageCode);
                 $fmt = numfmt_create($locale, \NumberFormatter::CURRENCY);
                 $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
-                if ($formattedPrice !== false) {
+                if ($formattedPrice !== false && $formattedPrice != 'NaN') {
                     return $formattedPrice;
                 }
             }
