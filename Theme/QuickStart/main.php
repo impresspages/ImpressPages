@@ -1,3 +1,4 @@
+<?php // @Layout name: Main ?>
 <?php echo ipDoctypeDeclaration(); ?>
 <html<?php echo ipHtmlAttributes(); ?>>
 <head>
