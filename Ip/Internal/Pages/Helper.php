@@ -96,17 +96,13 @@ class Helper
         $form->addField($field);
 
         $layouts = \Ip\Internal\Design\Service::getLayouts();
-        $values = array();
-        foreach ($layouts as $layout) {
-            $values[] = array($layout, $layout);
-        }
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'Ip-admin', false),
                 'value' => $menu['layout'],
-                'values' => $values,
+                'values' => $layouts,
             ));
         $form->addField($field);
 
@@ -178,17 +174,12 @@ class Helper
 
 
         $layouts = \Ip\Internal\Design\Service::getLayouts();
-        $options = array();
-        foreach ($layouts as $layout) {
-            $options[] = array($layout, $layout);
-        }
-
 
         $field = new \Ip\Form\Field\Select(
             array(
                 'name' => 'layout',
                 'label' => __('Layout', 'Ip-admin', false),
-                'values' => $options,
+                'values' => $layouts,
                 'value' => $page->getLayout()
             ));
         $form->addField($field);
