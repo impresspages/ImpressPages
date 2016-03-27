@@ -1,3 +1,4 @@
+<?php // @Layout name: Main ?>
 <?php echo ipView('_header.php')->render(); ?>
     <div class="sidenav col_12 col_md_12 col_lg_3 left">
         <nav<?php if (ipGetThemeOption('collapseSidebarMenu') == 'yes') { echo ' class="collapse"'; }?>>
