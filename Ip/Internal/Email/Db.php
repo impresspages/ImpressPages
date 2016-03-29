@@ -91,7 +91,7 @@ class Db
             array(
                 'send' => date('Y-m-d H:i:s'),
                 'lock' => null,
-                'lockedAt' => '0000-00-00 00:00:00',
+                'lockedAt' => null,
             ),
             array(
                 'id' => $id,

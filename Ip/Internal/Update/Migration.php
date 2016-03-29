@@ -13,6 +13,11 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_86()
+    {
+        ipDb()->execute("ALTER TABLE " . ipTable('email_queue') ." CHANGE `lockedAt` `lockedAt` TIMESTAMP NULL DEFAULT NULL");
+    }
+
     public static function update_85()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
