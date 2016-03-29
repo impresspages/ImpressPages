@@ -95,7 +95,7 @@ CREATE TABLE `ip_email_queue` (
   `html` tinyint(1) NOT NULL,
   `send` timestamp NULL DEFAULT NULL,
   `lock` varchar(32) DEFAULT NULL,
-  `lockedAt` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `lockedAt` timestamp NULL DEFAULT NULL,
   `files` mediumtext,
   `fileNames` mediumtext,
   `fileMimeTypes` mediumtext NOT NULL,
