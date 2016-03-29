@@ -55,7 +55,9 @@ function ipBrowseFile(callback, options) {
     }
     var repository = new ipRepository(options);
     repository.bind('ipRepository.filesSelected', function (event, files) {
-        callback(files);
+        if (callback) {
+            callback(files);
+        }
     });
 }
 
