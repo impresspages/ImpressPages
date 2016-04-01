@@ -16,7 +16,7 @@ ipTinyMceConfig = function () {
         statusbar: false,
         toolbar1: 'bold italic alignrollup styleselect removeformat table, undo redo',
         toolbar2: 'link bullist numlist outdent indent subscript superscript forecolor backcolor',
-        valid_elements: "@[class|style],table[border],tbody,tr[rowspan],td[colspan|rowspan],th[colspan],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,h1,h2,h3,h4,h5,h6",
+        valid_elements: "@[class|style],table[border],tbody,tr[rowspan],td[colspan|rowspan],th[colspan],strong,em,br,sup,sub,p,span,b,u,i,a[name|href|target|title],ul,ol,li,h1,h2,h3,h4,h5,h6,iframe,object",
         paste_word_valid_elements: "table,tbody,tr,td,th,strong,em,br,sup,sub,p,span,b,u,i,a,ul,ol,li",
         style_formats: [
             {title: 'Quote', inline: 'span', classes: 'quote'},
