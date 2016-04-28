@@ -66,7 +66,7 @@ class BrowserModel
             if (strpos($relpath, realpath(ipFile('file/secure/'))) !== 0) {
                 throw new \Ip\Exception("Restricted directory");
             }
-        } {
+        } else {
             if (strpos($relpath, realpath(ipFile('file/repository/'))) !== 0) {
                 throw new \Ip\Exception("Restricted directory");
             }
