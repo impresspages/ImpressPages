@@ -13,6 +13,7 @@ namespace Ip;
 class Config
 {
     protected $config;
+    protected $protocolUrl;
     protected $protocol;
 
     /**
@@ -69,10 +70,19 @@ class Config
 
 
         if ((isset($server['HTTPS']) && strtolower($server['HTTPS']) == "on") || strtolower(getenv('HTTP_X_FORWARDED_PROTO')) === 'https') {
-            $this->protocol = 'https://';
+            $this->protocol = 'https';
         } else {
-            $this->protocol = 'http://';
+            $this->protocol = 'http';
         }
+        $this->protocolUrl = $this->protocol . '://';
+    }
+
+    /**
+     *
+     */
+    public function protocol()
+    {
+        return $this->protocol;
     }
 
     public function database()
@@ -92,7 +102,7 @@ class Config
      */
     public function baseUrl($protocol = null)
     {
-        $prot = $this->protocol;
+        $prot = $this->protocolUrl;
         if ($protocol !== null) {
             $prot = $protocol;
         }

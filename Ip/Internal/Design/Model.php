@@ -182,7 +182,7 @@ class Model
             return '';
         }
 
-        return ipConfig()->get('themeMarketUrl', 'http://market.impresspages.org/themes-v1/?version=4&cms=1');
+        return ipConfig()->get('themeMarketUrl', ipConfig()->protocol() . '://market.impresspages.org/themes-v1/?version=4&cms=1');
     }
 
 
