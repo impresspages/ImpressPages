@@ -238,7 +238,7 @@ class Application
 
 
         //check for CSRF attack
-        if (empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
+        if (ipRoute()->environment() != \Ip\Route::ENVIRONMENT_PUBLIC && empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
                 ) != $this->getSecurityToken(
                 )) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
