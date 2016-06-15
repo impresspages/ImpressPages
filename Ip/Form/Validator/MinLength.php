@@ -54,6 +54,6 @@ class MinLength extends Validator
      */
     public function validatorAttributes()
     {
-        return 'pattern="/(.+){' . $this->minLength . '}"/';
+        return 'pattern="(.+){' . $this->minLength . ',}"';
     }
 }
