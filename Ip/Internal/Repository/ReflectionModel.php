@@ -60,7 +60,9 @@ class ReflectionModel
             $reflection = $this->createReflectionRecord($file, $options, $desiredName);
         }
 
-        if (!$onDemand && !is_file($reflection)) {
+        $absoluteSource = realpath(ipFile('file/' . $reflection));
+
+        if ($onDemand && !is_file($absoluteSource)) {
             $this->createReflection($file, $reflection, $options);
         }
 
