@@ -47,6 +47,13 @@ class MinLength extends Validator
         }
     }
 
-
-
+    /**
+     * Validator attributes
+     *
+     * @return string
+     */
+    public function validatorAttributes()
+    {
+        return 'pattern="(.+){' . $this->minLength . ',}"';
+    }
 }
