@@ -13,6 +13,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     protected $defaultValue = '';
     protected $path = '';
     protected $repositoryBindKey = 'Grid';
+    protected $fileLimit = null;
 
     public function __construct($fieldFieldConfig, $wholeConfig)
     {
@@ -74,23 +75,16 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
-        if (isset($postData[$this->field][0])) {
-            if ($this->fileLimit == 1) {
-                if (!isset($postData[$this->field][0])) {
-                    $value = null;
-                } else {
-                    $value = $postData[$this->field][0];
-                }
-            } else {
-                if (!isset($postData[$this->field][0])) {
-                    $value = json_encode(array());
-                } else {
-                    $value = json_encode($postData[$this->field]);
-                }
-            }
-            return array($this->field => $value);
+        if (!isset($postData[$this->field][0])) {
+            return array();
         }
-        return array();
+
+        if ($this->fileLimit == 1) {
+            $value = $postData[$this->field][0];
+        } else {
+            $value = json_encode($postData[$this->field]);
+        }
+        return array($this->field => $value);
     }
 
     public function updateField($curData)
