@@ -486,8 +486,8 @@ class Table extends \Ip\Internal\Grid\Model
 
             foreach($searchForm->getFields() as $field) {
                 if (!isset($newData[$field->getName()])) { //script above fails to remove search made based on checkbox as empty checkbox doesn't post anything
-                    unset($statusVariables['s_' . $key]);
-                    unset($statusVariables['s_' . $key . '_json']);
+                    unset($statusVariables['s_' . $field->getName()]);
+                    unset($statusVariables['s_' . $field->getName() . '_json']);
                 }
             }
 
