@@ -13,6 +13,11 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_89()
+    {
+        ipSetOption('Config.gmapsApiKey', ''); // to keep the system as it was before. New default value is 1;
+    }
+
     public static function update_88()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);

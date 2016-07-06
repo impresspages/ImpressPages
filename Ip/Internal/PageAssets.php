@@ -204,7 +204,8 @@ class PageAssets
                 'debugMode' => ipconfig()->isDebugMode(),
                 'isManagementState' => ipIsManagementState(),
                 'isAdminState' => ipAdminId() ? 1 : 0,
-                'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0
+                'isAdminNavbarDisabled' => ipRequest()->getQuery('disableAdminNavbar') ? 1 : 0,
+                'gmapsApiKey' => ipGetOption('Config.gmapsApiKey')
             ),
             'javascriptVariables' => $this->getJavascriptVariables(),
             'javascript' => $javascriptFilesSorted,
