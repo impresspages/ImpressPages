@@ -48,7 +48,7 @@ class AdminController extends \Ip\Controller
         $value = $post['value'];
 
         if (
-            !in_array($fieldName, array('websiteTitle', 'websiteEmail'))
+            !in_array($fieldName, array('websiteTitle', 'websiteEmail', 'gmapsApiKey'))
             &&
             !(
                 in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash'))

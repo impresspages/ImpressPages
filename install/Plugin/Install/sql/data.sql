@@ -56,6 +56,7 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Config', 'Config.lightboxWidth', '800'),
 ('Config', 'Config.lightboxHeight', '600'),
 ('Config', 'Config.trailingSlash', '1'),
+('Config', 'Config.gmapsApiKey', ''),
 ('Config', 'Design.themeDirs', '""'),
 ('Config', 'Email.hourlyLimit', '100'),
 ('Config', 'Pages.hideNewPages', '0'),
