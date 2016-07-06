@@ -12,6 +12,13 @@ class Migration
 
 
     //CHANGE_ON_VERSION_UPDATE
+
+    public static function update_88()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.6.6"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
     public static function update_87()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
