@@ -45,7 +45,6 @@ $(document).ready(function () {
 });
 
 var ipGoogleMapsLoadedCallback = function (e) {
-    console.log(e);
     ipGoogleMapsLoading = false;
     ipGoogleMapsLoaded = true;
     $(document).trigger('ipGoogleMapsLoaded');
