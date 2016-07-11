@@ -24,6 +24,15 @@ class Controller extends \Ip\WidgetController
 
     public function generateHtml($revisionId, $widgetId, $data, $skin)
     {
+        if (!$this->gmapsApiAvailable()) {
+            if (ipAdminId()) {
+                return '<a class="note" href="' . ipActionUrl(array('aa' => 'Config')) . '">' . __('Gmaps can\'t work without a unique key. Please set up Gmaps API key', 'Ip-admin') . '</a>';
+            } else {
+                //don't show anything on public site
+                return '';
+            }
+        }
+
         if (!empty($data['height'])) {
             $data['height'] = ((int)$data['height']) . 'px';
         } else {
@@ -49,6 +58,11 @@ class Controller extends \Ip\WidgetController
     public function adminHtmlSnippet()
     {
         return ipView('snippet/searchbox.php')->render();
+    }
+
+    private function gmapsApiAvailable()
+    {
+        return ipGetOption('Config.gmapsApiKey') || ipStorage()->get('Ip', 'upgradedFrom4.6.6', false);
     }
 
 
