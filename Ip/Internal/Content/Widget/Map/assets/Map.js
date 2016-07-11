@@ -19,6 +19,11 @@ var IpWidget_Map = function () {
         var context = this;
         var $map = this.$widgetObject.find('.ipsMap');
 
+        if (!$map.length) {
+            //happens if there is no gMaps key
+            return;
+        }
+
         if (jQuery.fn.ipWidgetMap && typeof(google) !== 'undefined' && typeof(google.maps) !== 'undefined' && typeof(google.maps.LatLng) !== 'undefined') {
             jQuery(this.$widgetObject.get()).ipWidgetMap();
         }

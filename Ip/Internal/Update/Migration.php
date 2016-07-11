@@ -13,6 +13,11 @@ class Migration
 
     //CHANGE_ON_VERSION_UPDATE
 
+    public static function update_90()
+    {
+        ipStorage()->set('Ip', 'upgradedFrom4.6.6', 1); // gmaps widget act differently if system is upgraded from 4.6.6
+    }
+
     public static function update_89()
     {
         ipSetOption('Config.gmapsApiKey', ''); // to keep the system as it was before. New default value is 1;
