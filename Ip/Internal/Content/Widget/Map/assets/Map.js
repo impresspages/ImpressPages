@@ -20,7 +20,7 @@ var IpWidget_Map = function () {
         var $map = this.$widgetObject.find('.ipsMap');
 
         if (!$map.length) {
-            //happens if there is no gMaps key
+            // happens if there is no Google Maps key
             return;
         }
 
