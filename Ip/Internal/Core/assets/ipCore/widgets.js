@@ -18,7 +18,7 @@ jQuery.fn.ipWidgetMap = function () {
         var data = $map.data();
 
         if (!$map.length) {
-            //happens if there is no gMaps key
+            // happens if there is no Google Maps API key
             return;
         }
 

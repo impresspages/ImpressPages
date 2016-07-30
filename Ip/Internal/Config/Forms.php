@@ -44,8 +44,8 @@ class Forms
             array(
                 'name' => 'gmapsApiKey',
                 'value' => ipGetOption('Config.gmapsApiKey'),
-                'label' => __('Google maps API key', 'Ip-admin', false),
-                'hint' => '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key">' . __('How to generate the key', 'Ip-admin', false) . '</a>'
+                'label' => __('Google Maps API key', 'Ip-admin', false),
+                'note' => __('You must provide Google Maps API key for Map widget to work.', 'Ip-admin', false) . ' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">' . __('Follow instructions.', 'Ip-admin', false) . '</a>'
             ));
         $field->addClass('ipsAutoSave');
         $field->addAttribute('data-fieldid', $field->getName());
