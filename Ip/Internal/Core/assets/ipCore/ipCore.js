@@ -5,6 +5,7 @@
 var ipGoogleMapsLoading = false;
 var ipGoogleMapsLoaded = false;
 var ipPingInterval;
+var gmapsApiKey;
 
 /*
  * hook all widgets with plugins
@@ -43,7 +44,7 @@ $(document).ready(function () {
 
 });
 
-var ipGoogleMapsLoadedCallback = function () {
+var ipGoogleMapsLoadedCallback = function (e) {
     ipGoogleMapsLoading = false;
     ipGoogleMapsLoaded = true;
     $(document).trigger('ipGoogleMapsLoaded');
@@ -61,7 +62,7 @@ var ipLoadGoogleMaps = function () {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&' +
-        'callback=ipGoogleMapsLoadedCallback';
+        'callback=ipGoogleMapsLoadedCallback&key=' + ip.gmapsApiKey;
     document.body.appendChild(script);
 };
 

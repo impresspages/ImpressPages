@@ -12,6 +12,21 @@ class Migration
 
 
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_91()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"4.7.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_90()
+    {
+        ipStorage()->set('Ip', 'upgradedFrom4.6.6', 1); // Map widget acts differently if system is upgraded from 4.6.6
+    }
+
+    public static function update_89()
+    {
+        ipSetOption('Config.gmapsApiKey', ''); // introducing Google Maps API key configuration
+    }
 
     public static function update_88()
     {
