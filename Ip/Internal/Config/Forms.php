@@ -40,6 +40,18 @@ class Forms
         $form->addField($field);
 
 
+        $field = new \Ip\Form\Field\Text(
+            array(
+                'name' => 'gmapsApiKey',
+                'value' => ipGetOption('Config.gmapsApiKey'),
+                'label' => __('Google Maps API key', 'Ip-admin', false),
+                'note' => __('You must provide Google Maps API key for Map widget to work.', 'Ip-admin', false) . ' <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">' . __('Follow instructions.', 'Ip-admin', false) . '</a>'
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
 
         return $form;
     }
