@@ -355,7 +355,7 @@ class Config
 
     public function orderBy($statusVariables)
     {
-        if (!empty($this->config['orderBy'])) {
+        if (empty($statusVariables['order']) && !empty($this->config['orderBy'])) {
             return $this->config['orderBy'];
         } else {
             $orderFieldName = $this->orderField($statusVariables);
