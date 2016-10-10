@@ -97,7 +97,7 @@
             var $this = this;
             var $file = $('#ipModFormFile_' + $this.data('ipFormFile').uniqueNumber + '_' + file.id);
             $file.find('.ipsFileProgressValue').width(file.percent + '%');
-            $file.trigger('progress.ipFileField', [file.percent]);
+            $file.trigger('progress.ipFileField', [file.percent, file]);
         },
 
         _fileUploaded: function (up, file, response) {
@@ -112,6 +112,7 @@
             if (answer.error) {
                 $.proxy(methods._displayError, this)(file.id, answer.error.message);
             } else {
+                file.realFileName = answer['fileName'];
                 var $fileInput = $('<input class="ipmUploadedData" name="" type="hidden" value="" />');
                 $fileInput.attr('name', $this.data('ipFormFile').inputName + '[file][]');
                 $fileInput.attr('value', answer.fileName);
@@ -121,7 +122,7 @@
                 $fileInput.attr('value', file.name);
                 $file.append($fileInput);
                 $file.find('.ipsFileProgress').remove();
-                $file.trigger('uploaded.ipFileField', [file.percent]);
+                $file.trigger('uploaded.ipFileField', [file]);
 
             }
 
