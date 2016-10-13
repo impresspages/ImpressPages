@@ -194,24 +194,8 @@ class Db
         $sql = 'SELECT ' . $columns . ' FROM ' . ipTable($table);
 
         $params = array();
-        $sql .= ' WHERE ';
-        if ($where) {
-            foreach ($where as $column => $value) {
-                if ($value === null) {
-                    $sql .= "`{$column}` IS NULL AND ";
-                } else {
-                    if (is_bool($value)) {
-                        $value = $value ? 1 : 0;
-                    }
-                    $sql .= "`{$column}` = ? AND ";
-                    $params[] = $value;
-                }
-            }
 
-            $sql = substr($sql, 0, -4);
-        } else {
-            $sql .= ' 1 ';
-        }
+        $sql .= " WHERE " . $this->buildConditions($where, $params) . " ";
 
         if ($sqlEnd) {
             $sql .= $sqlEnd;
