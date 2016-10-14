@@ -274,13 +274,8 @@ class Application
             $beforeControllerEventInfo['page'] = null;
         }
 
-        // change layout if safe mode
-        if (\Ip\Internal\Admin\Service::isSafeMode()) {
-            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
-        } else {
-            if ($beforeControllerEventInfo['page']) {
-                ipSetLayout($beforeControllerEventInfo['page']->getLayout());
-            }
+        if ($beforeControllerEventInfo['page']) {
+            ipSetLayout($beforeControllerEventInfo['page']->getLayout());
         }
 
         ipEvent('ipBeforeController', $beforeControllerEventInfo);
@@ -450,6 +445,10 @@ class Application
     {
         $response = ipFilter('ipSendResponse', $response);
         ipEvent('ipBeforeResponseSent', array('response' => $response));
+        // change layout if safe mode
+        if (\Ip\Internal\Admin\Service::isSafeMode()) {
+            ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
+        }
         if (method_exists($response, 'execute')) {
             $response = $response->execute();
         }
