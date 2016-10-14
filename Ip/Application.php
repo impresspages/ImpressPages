@@ -5,6 +5,8 @@
 
 namespace Ip;
 
+use Ip\Response\Json;
+
 /**
  * Base class for ImpressPages application
  */
@@ -214,12 +216,7 @@ class Application
 
 
         //check for CSRF attack
-        if (ipRoute()->environment() != \Ip\Route::ENVIRONMENT_PUBLIC && empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
-                    'securityToken'
-                ) != $this->getSecurityToken(
-                )) && (!ipRoute()->controller() || ipRoute()->controller() != 'PublicController')
-        ) {
-
+        if (empty($options['skipCsrfCheck']) && $this->csrfCheckFailed($request, $options)) {
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
                 'status' => 'error'
@@ -229,44 +226,10 @@ class Application
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'Ip-admin')
                 );
             }
-            return new \Ip\Response\Json($data);
+            return new Json($data);
         }
 
-        if (ipRoute()->plugin()) {
-
-            $plugin = ipRoute()->plugin();
-            $controller = ipRoute()->controller();
-
-            // check if user is logged in
-            if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
-
-                if (ipConfig()->get('rewritesDisabled')) {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
-                } else {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
-                }
-            }
-
-            if ($controller == 'AdminController') {
-                if (!ipAdminPermission($plugin)) {
-                    throw new \Ip\Exception('User has no permission to access ' . esc($plugin) . '');
-                }
-            }
-
-            $beforeControllerEventInfo['controllerClass'] = ipRoute()->controllerClass();
-        }
-
-        if (empty($beforeControllerEventInfo['page'])) {
-            $beforeControllerEventInfo['page'] = null;
-        }
-
-        if ($beforeControllerEventInfo['page']) {
-            ipSetLayout($beforeControllerEventInfo['page']->getLayout());
-        }
-
-        ipEvent('ipBeforeController', $beforeControllerEventInfo);
-
-        $controllerAnswer = ipJob('ipExecuteController', $beforeControllerEventInfo);
+        $controllerAnswer = $this->executeController($beforeControllerEventInfo);
 
         return $controllerAnswer;
     }
@@ -279,15 +242,6 @@ class Application
     {
         if (!empty($routeAction['page'])) {
             ipContent()->_setCurrentPage($routeAction['page']);
-        }
-        if (!empty($routeAction['environment'])) {
-            ipRoute()->setEnvironment($routeAction['environment']);
-        } else {
-            if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
-                ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
-            } else {
-                ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
-            }
         }
         if (!empty($routeAction['controller'])) {
             ipRoute()->setController($routeAction['controller']);
@@ -462,5 +416,63 @@ class Application
             $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
         }
         return $_SESSION['ipSecurityToken'];
+    }
+
+    /**
+     * @param $beforeControllerEventInfo
+     * @return Response\Redirect|mixed|null
+     * @throws Exception
+     */
+    private function executeController($beforeControllerEventInfo)
+    {
+        if (ipRoute()->plugin()) {
+            $controller = ipRoute()->controller();
+
+            // check if user is logged in
+            if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
+
+                if (ipConfig()->get('rewritesDisabled')) {
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
+                } else {
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+                }
+            }
+
+            if ($controller == 'AdminController') {
+                $plugin = ipRoute()->plugin();
+                if (!ipAdminPermission($plugin)) {
+                    throw new \Ip\Exception('User has no permission to access ' . esc($plugin) . '');
+                }
+            }
+
+            $beforeControllerEventInfo['controllerClass'] = ipRoute()->controllerClass();
+        }
+
+        if (empty($beforeControllerEventInfo['page'])) {
+            $beforeControllerEventInfo['page'] = null;
+        }
+
+        if ($beforeControllerEventInfo['page']) {
+            ipSetLayout($beforeControllerEventInfo['page']->getLayout());
+        }
+
+        ipEvent('ipBeforeController', $beforeControllerEventInfo);
+
+        $controllerAnswer = ipJob('ipExecuteController', $beforeControllerEventInfo);
+        return $controllerAnswer;
+    }
+
+    /**
+     * @param Request $request
+     * @param $options
+     * @return bool
+     */
+    private function csrfCheckFailed(\Ip\Request $request)
+    {
+        return
+            !ipRoute()->csrfMustBeSkipped() &&
+            $request->isPost() &&
+            ($request->getPost('securityToken') != $this->getSecurityToken()) &&
+            (!ipRoute()->controller() || ipRoute()->controller() != 'PublicController');
     }
 }

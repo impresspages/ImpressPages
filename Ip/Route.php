@@ -142,33 +142,13 @@ class Route
     }
 
     /**
-     * Get environment. 'admin' or 'public'
-     * @return string
-     */
-    public function environment()
-    {
-        return $this->environment;
-    }
-
-    /**
-     * Set route environment 'admin' or public'
-     * @private
-     * @param $environment
-     */
-    public function setEnvironment($environment)
-    {
-        $this->environment = $environment;
-    }
-
-    /**
      * Check if current route is of admin environment
      * @return bool
      */
     public function isAdmin()
     {
-        return $this->environment == self::ENVIRONMENT_ADMIN;
+        return $this->controller && $this->controller == 'AdminController';
     }
-
 
     /**
      * Set route name
@@ -186,6 +166,14 @@ class Route
     public function name()
     {
         return $this->name;
+    }
+
+    public function csrfMustBeSkipped()
+    {
+        if ($this->controller == 'PublicController') {
+            return true;
+        }
+        return false;
     }
 
 
