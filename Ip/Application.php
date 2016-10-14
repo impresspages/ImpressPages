@@ -209,32 +209,7 @@ class Application
             array('request' => $request, 'relativeUri' => ipRequest()->getRoutePath(), 'routeLanguage' => $routeLanguage)
         );
 
-        if (!empty($routeAction)) {
-            if (!empty($routeAction['page'])) {
-                ipContent()->_setCurrentPage($routeAction['page']);
-            }
-            if (!empty($routeAction['environment'])) {
-                ipRoute()->setEnvironment($routeAction['environment']);
-            } else {
-                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
-                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
-                } else {
-                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
-                }
-            }
-            if (!empty($routeAction['controller'])) {
-                ipRoute()->setController($routeAction['controller']);
-            }
-            if (!empty($routeAction['plugin'])) {
-                ipRoute()->setPlugin($routeAction['plugin']);
-            }
-            if (!empty($routeAction['name'])) {
-                ipRoute()->setName($routeAction['name']);
-            }
-            if (!empty($routeAction['action'])) {
-                ipRoute()->setAction($routeAction['action']);
-            }
-        }
+        $routeAction = $this->processRoute($routeAction);
 
 
         //check for CSRF attack
@@ -255,14 +230,6 @@ class Application
             }
             // TODO JSONRPC
             return new \Ip\Response\Json($data);
-        }
-
-        if (empty($routeAction)) {
-            $routeAction = array(
-                'plugin' => 'Core',
-                'controller' => 'PublicController',
-                'action' => 'pageNotFound'
-            );
         }
 
         $beforeControllerEventInfo = $routeAction;
@@ -480,5 +447,42 @@ class Application
             $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
         }
         return $_SESSION['ipSecurityToken'];
+    }
+
+    /**
+     * @param $routeAction
+     * @return mixed
+     */
+    private function processRoute($routeAction)
+    {
+        if (!empty($routeAction)) {
+            if (!empty($routeAction['page'])) {
+                ipContent()->_setCurrentPage($routeAction['page']);
+            }
+            if (!empty($routeAction['environment'])) {
+                ipRoute()->setEnvironment($routeAction['environment']);
+            } else {
+                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
+                } else {
+                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
+                }
+            }
+            if (!empty($routeAction['controller'])) {
+                ipRoute()->setController($routeAction['controller']);
+            }
+            if (!empty($routeAction['plugin'])) {
+                ipRoute()->setPlugin($routeAction['plugin']);
+            }
+            if (!empty($routeAction['name'])) {
+                ipRoute()->setName($routeAction['name']);
+            }
+            if (!empty($routeAction['action'])) {
+                ipRoute()->setAction($routeAction['action']);
+                return $routeAction;
+            }
+            return $routeAction;
+        }
+        return $routeAction;
     }
 }

@@ -90,6 +90,21 @@ class Job
         return $result;
     }
 
+
+    /**
+     * @param $info
+     * @return array|null
+     * @throws \Ip\Exception
+     */
+    public static function ipRouteAction_1000($info)
+    {
+        return array(
+            'plugin' => 'Core',
+            'controller' => 'PublicController',
+            'action' => 'pageNotFound'
+        );
+    }
+
     public static function ipExecuteController_70($info)
     {
         if (!is_callable($info['action'])) {
