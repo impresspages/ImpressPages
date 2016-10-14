@@ -216,7 +216,7 @@ class Application
 
 
         //check for CSRF attack
-        if (empty($options['skipCsrfCheck']) && $this->csrfCheckFailed($request, $options)) {
+        if (empty($options['skipCsrfCheck']) && $this->csrfCheckFailed($request)) {
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
             $data = array(
                 'status' => 'error'
@@ -464,7 +464,6 @@ class Application
 
     /**
      * @param Request $request
-     * @param $options
      * @return bool
      */
     private function csrfCheckFailed(\Ip\Request $request)
