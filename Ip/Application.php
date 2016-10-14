@@ -210,7 +210,7 @@ class Application
         );
 
         $beforeControllerEventInfo = $routeAction;
-        $this->processRoute($routeAction);
+        $this->storeRouteInfo($routeAction);
 
 
         //check for CSRF attack
@@ -275,7 +275,7 @@ class Application
      * @param $routeAction
      * @return mixed
      */
-    private function processRoute($routeAction)
+    private function storeRouteInfo($routeAction)
     {
         if (!empty($routeAction['page'])) {
             ipContent()->_setCurrentPage($routeAction['page']);
