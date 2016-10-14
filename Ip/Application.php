@@ -265,7 +265,7 @@ class Application
             );
         }
 
-        $eventInfo = $routeAction;
+        $beforeControllerEventInfo = $routeAction;
 
         if (!empty($routeAction['plugin'])) {
 
@@ -301,26 +301,26 @@ class Application
                 }
             }
 
-            $eventInfo['controllerClass'] = $controllerClass;
-            $eventInfo['controllerType'] = $controller;
+            $beforeControllerEventInfo['controllerClass'] = $controllerClass;
+            $beforeControllerEventInfo['controllerType'] = $controller;
         }
 
-        if (empty($eventInfo['page'])) {
-            $eventInfo['page'] = null;
+        if (empty($beforeControllerEventInfo['page'])) {
+            $beforeControllerEventInfo['page'] = null;
         }
 
         // change layout if safe mode
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
             ipSetLayout(ipFile('Ip/Internal/Admin/view/safeModeLayout.php'));
         } else {
-            if ($eventInfo['page']) {
-                ipSetLayout($eventInfo['page']->getLayout());
+            if ($beforeControllerEventInfo['page']) {
+                ipSetLayout($beforeControllerEventInfo['page']->getLayout());
             }
         }
 
-        ipEvent('ipBeforeController', $eventInfo);
+        ipEvent('ipBeforeController', $beforeControllerEventInfo);
 
-        $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
+        $controllerAnswer = ipJob('ipExecuteController', $beforeControllerEventInfo);
 
         return $controllerAnswer;
     }
