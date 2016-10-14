@@ -107,16 +107,15 @@ class Job
 
     public static function ipExecuteController_70($info)
     {
-        if (!is_callable($info['action'])) {
+        if (is_callable($info['action'])) {
+            $callableAction = $info['action'];
+            $reflection = new \ReflectionFunction($callableAction);
+        } else {
             $controllerClass = $info['controllerClass'];
             $controller = new $controllerClass();
 
             $callableAction = array($controller, $info['action']);
             $reflection = new \ReflectionMethod($controller, $info['action']);
-
-        } else {
-            $callableAction = $info['action'];
-            $reflection = new \ReflectionFunction($callableAction);
         }
 
         $parameters = $reflection->getParameters();

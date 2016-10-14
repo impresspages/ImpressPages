@@ -237,19 +237,6 @@ class Application
             $plugin = ipRoute()->plugin();
             $controller = ipRoute()->controller();
 
-            if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
-                $controllerClass = 'Ip\\Internal\\' . $plugin . '\\' . $controller;
-            } else {
-                if (!in_array($plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
-                    throw new \Ip\Exception("Plugin '" . esc($plugin) . "' doesn't exist or isn't activated.");
-                }
-                $controllerClass = 'Plugin\\' . $plugin . '\\' . $controller;
-            }
-
-            if (!class_exists($controllerClass)) {
-                throw new \Ip\Exception('Requested controller doesn\'t exist. ' . esc($controllerClass));
-            }
-
             // check if user is logged in
             if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
@@ -266,8 +253,7 @@ class Application
                 }
             }
 
-            $beforeControllerEventInfo['controllerClass'] = $controllerClass;
-            $beforeControllerEventInfo['controllerType'] = $controller;
+            $beforeControllerEventInfo['controllerClass'] = ipRoute()->controllerClass();
         }
 
         if (empty($beforeControllerEventInfo['page'])) {
