@@ -4,10 +4,10 @@
 // $routes['day{/day}'] = 'day'; // PublicController::day($day) will handle that
 
 // Example route
- $routes['hello/{name}'] = function ($name) {
-    $name = ucfirst($name);
-    return '<h1>Hello ' . esc(ucfirst($name)) . '!</h1>';
- };
+// $routes['hello/{name}'] = function ($name) {
+//    $name = ucfirst($name);
+//    return '<h1>Hello ' . esc(ucfirst($name)) . '!</h1>';
+// };
 
 // Example route
 // $routes['counter{/number}'] = array(
