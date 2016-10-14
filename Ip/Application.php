@@ -209,14 +209,15 @@ class Application
             array('request' => $request, 'relativeUri' => ipRequest()->getRoutePath(), 'routeLanguage' => $routeLanguage)
         );
 
-        $routeAction = $this->processRoute($routeAction);
+        $beforeControllerEventInfo = $routeAction;
+        $this->processRoute($routeAction);
 
 
         //check for CSRF attack
         if (ipRoute()->environment() != \Ip\Route::ENVIRONMENT_PUBLIC && empty($options['skipCsrfCheck']) && $request->isPost() && ($request->getPost(
                     'securityToken'
                 ) != $this->getSecurityToken(
-                )) && (empty($routeAction['controller']) || $routeAction['controller'] != 'PublicController')
+                )) && (!ipRoute()->controller() || ipRoute()->controller() != 'PublicController')
         ) {
 
             ipLog()->error('Core.possibleCsrfAttack', array('post' => ipRequest()->getPost()));
@@ -228,16 +229,13 @@ class Application
                     'securityToken' => __('Possible CSRF attack. Please pass correct securityToken.', 'Ip-admin')
                 );
             }
-            // TODO JSONRPC
             return new \Ip\Response\Json($data);
         }
 
-        $beforeControllerEventInfo = $routeAction;
+        if (ipRoute()->plugin()) {
 
-        if (!empty($routeAction['plugin'])) {
-
-            $plugin = $routeAction['plugin'];
-            $controller = $routeAction['controller'];
+            $plugin = ipRoute()->plugin();
+            $controller = ipRoute()->controller();
 
             if (in_array($plugin, \Ip\Internal\Plugins\Model::getModules())) {
                 $controllerClass = 'Ip\\Internal\\' . $plugin . '\\' . $controller;
@@ -290,6 +288,38 @@ class Application
         $controllerAnswer = ipJob('ipExecuteController', $beforeControllerEventInfo);
 
         return $controllerAnswer;
+    }
+
+    /**
+     * @param $routeAction
+     * @return mixed
+     */
+    private function processRoute($routeAction)
+    {
+        if (!empty($routeAction['page'])) {
+            ipContent()->_setCurrentPage($routeAction['page']);
+        }
+        if (!empty($routeAction['environment'])) {
+            ipRoute()->setEnvironment($routeAction['environment']);
+        } else {
+            if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
+                ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
+            } else {
+                ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
+            }
+        }
+        if (!empty($routeAction['controller'])) {
+            ipRoute()->setController($routeAction['controller']);
+        }
+        if (!empty($routeAction['plugin'])) {
+            ipRoute()->setPlugin($routeAction['plugin']);
+        }
+        if (!empty($routeAction['name'])) {
+            ipRoute()->setName($routeAction['name']);
+        }
+        if (!empty($routeAction['action'])) {
+            ipRoute()->setAction($routeAction['action']);
+        }
     }
 
     /**
@@ -447,42 +477,5 @@ class Application
             $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
         }
         return $_SESSION['ipSecurityToken'];
-    }
-
-    /**
-     * @param $routeAction
-     * @return mixed
-     */
-    private function processRoute($routeAction)
-    {
-        if (!empty($routeAction)) {
-            if (!empty($routeAction['page'])) {
-                ipContent()->_setCurrentPage($routeAction['page']);
-            }
-            if (!empty($routeAction['environment'])) {
-                ipRoute()->setEnvironment($routeAction['environment']);
-            } else {
-                if ((!empty($routeAction['controller'])) && $routeAction['controller'] == 'AdminController') {
-                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_ADMIN);
-                } else {
-                    ipRoute()->setEnvironment(\Ip\Route::ENVIRONMENT_PUBLIC);
-                }
-            }
-            if (!empty($routeAction['controller'])) {
-                ipRoute()->setController($routeAction['controller']);
-            }
-            if (!empty($routeAction['plugin'])) {
-                ipRoute()->setPlugin($routeAction['plugin']);
-            }
-            if (!empty($routeAction['name'])) {
-                ipRoute()->setName($routeAction['name']);
-            }
-            if (!empty($routeAction['action'])) {
-                ipRoute()->setAction($routeAction['action']);
-                return $routeAction;
-            }
-            return $routeAction;
-        }
-        return $routeAction;
     }
 }
