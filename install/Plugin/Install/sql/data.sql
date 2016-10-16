@@ -62,8 +62,8 @@ INSERT INTO `ip_storage` (`plugin`, `key`, `value`) VALUES
 ('Config', 'Pages.hideNewPages', '0'),
 ('Cron', 'lastExecutionStart', '[[[[time]]]]'),
 ('Cron', 'lastExecutionEnd', '[[[[time]]]]'),
-('Ip', 'version', '"4.7.0"'),  /* //CHANGE_ON_VERSION_UPDATE */
-('Ip', 'dbVersion', '91'), /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'version', '"4.7.1"'),  /* //CHANGE_ON_VERSION_UPDATE */
+('Ip', 'dbVersion', '92'), /* //CHANGE_ON_VERSION_UPDATE */
 ('Ip', 'theme', '"Air"'),
 ('Ip', 'cachedBaseUrl', ''),
 ('Ip', 'lastSystemMessageSent', ''),
