@@ -194,7 +194,7 @@ class Helper
             } elseif ($page->getRedirectUrl()) {
                 $url = $page->getRedirectUrl();
                 if (!preg_match('/^((http|https):\/\/|\/\/)/i', $url)) {
-                    $url = 'http://' . $url;
+                    $url = ipConfig()->protocol() . '://' . $url;
                 }
                 $item->setUrl($url);
             } else {
