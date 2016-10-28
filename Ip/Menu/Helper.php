@@ -193,7 +193,7 @@ class Helper
                 $item->setUrl('');
             } elseif ($page->getRedirectUrl()) {
                 $url = $page->getRedirectUrl();
-                if (!preg_match('/^((http|https):\/\/)/i', $url)) {
+                if (!preg_match('/^((http|https):\/\/|\/\/)/i', $url)) {
                     $url = 'http://' . $url;
                 }
                 $item->setUrl($url);
