@@ -1,7 +1,6 @@
 {
   "require": {
     "aura/router": "2.3.1",
-    "aura/router": "2.3.1",
     "psr/log": "1.0.2",
     "zendframework/zend-i18n": "2.7.3",
     "zendframework/zend-servicemanager": "2.7.7"
