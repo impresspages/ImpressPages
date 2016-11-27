@@ -86,7 +86,7 @@ class Installation
 
         $testDbHelper = new \PhpUnit\Helper\TestDb();
         $this->setDbName($testDbHelper->getDbName());
-        $this->setDbHost($testDbHelper->getDbHost());
+        $this->setDbHost('localhost');
         $this->setDbUser($testDbHelper->getDbUser());
         $this->setDbPass($testDbHelper->getDbPass());
         $this->testDbHelper = $testDbHelper; //database will be destroyed on this object destruction;
