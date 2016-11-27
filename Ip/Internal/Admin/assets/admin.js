@@ -24,11 +24,6 @@ var ipAdmin = new function () {
             showAdminMenu();
         });
 
-        // $('.ipsAdminLogout').on('click', function (e) {
-        //    e.preventDefault();
-        //    logout();
-        // });
-
         $adminMenu.on('mouseleave', function (e) {
             hideAdminMenu();
         });
@@ -63,23 +58,6 @@ var ipAdmin = new function () {
 
     var fixLayout = function () {
         $container.height($navbar.outerHeight()); // setting the height to container
-    };
-
-    var logout = function () {
-        $.ajax({
-            type: 'GET',
-            url: ip.baseUrl,
-            data: {sa: 'Admin.logout'},
-            complete: function () {
-                window.location = ip.baseUrl + 'admin';
-                // if (window.location.toString().indexOf('?aa') !== -1) {
-                //     window.location = ip.baseUrl; //we are in admin. Redirect to the home page
-                // } else {
-                //     window.location.reload(true); //we are on the actual page. Let's show that page
-                // }
-            },
-            dataType: 'json'
-        });
     };
 
 
