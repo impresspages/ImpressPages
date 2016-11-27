@@ -276,6 +276,7 @@ class SiteController extends \Ip\Controller
     public function logout()
     {
         Model::instance()->logout();
+        return new \Ip\Response\Redirect(ipFileUrl('admin/'));
         if (ipRequest()->isAjax()) {
             return new Json([]);
         } else {
