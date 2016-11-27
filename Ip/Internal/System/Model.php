@@ -74,6 +74,7 @@ class Model
 
         $postFields = 'module_group=service&module_name=communication&action=getInfo&version=1&afterLogin=';
         $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
+        $postFields .= '&phpVersion=' . phpversion();
 
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
