@@ -24,10 +24,10 @@ var ipAdmin = new function () {
             showAdminMenu();
         });
 
-        $('.ipsAdminLogout').on('click', function (e) {
-           e.preventDefault();
-           logout();
-        });
+        // $('.ipsAdminLogout').on('click', function (e) {
+        //    e.preventDefault();
+        //    logout();
+        // });
 
         $adminMenu.on('mouseleave', function (e) {
             hideAdminMenu();
