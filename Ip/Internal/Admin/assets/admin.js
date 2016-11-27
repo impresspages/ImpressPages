@@ -71,12 +71,11 @@ var ipAdmin = new function () {
             url: ip.baseUrl,
             data: {sa: 'Admin.logout'},
             complete: function () {
-                window.location = ip.baseUrl + 'admin';
-                // if (window.location.toString().indexOf('?aa') !== -1) {
-                //     window.location = ip.baseUrl; //we are in admin. Redirect to the home page
-                // } else {
-                //     window.location.reload(true); //we are on the actual page. Let's show that page
-                // }
+                if (window.location.toString().indexOf('?aa') !== -1) {
+                    window.location = ip.baseUrl; //we are in admin. Redirect to the home page
+                } else {
+                    window.location.reload(true); //we are on the actual page. Let's show that page
+                }
             },
             dataType: 'json'
         });
