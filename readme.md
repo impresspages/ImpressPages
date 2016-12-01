@@ -1,8 +1,6 @@
 # ImpressPages
 
-## About ImpressPages
-
-ImpressPages is light php framework with user friendly drag & drop admin panel.
+ImpressPages is a php framework with user friendly drag & drop CMS.
 
 ## Install by downloading ZIP archive from the website
 
