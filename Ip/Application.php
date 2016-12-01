@@ -97,6 +97,13 @@ class Application
 
                 session_start();
             }
+
+            $expireIn = ipConfig()->get('sessionMaxIdle', 1800);
+            if (isset($_SESSION['module']['admin']['last_activity']) && (time() - $_SESSION['module']['admin']['last_activity'] > $expireIn)) {
+                session_unset();
+                session_destroy();
+            }
+            $_SESSION['module']['admin']['last_activity'] = time();
         }
 
         if (empty($options['skipEncoding'])) {
