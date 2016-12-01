@@ -16,14 +16,7 @@ class PathHelper
      */
     public static function ipRelativeDir($callLevel = 0)
     {
-        if (PHP_VERSION_ID >= 50400) { // PHP 5.4 supports debug backtrace level
-            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $callLevel + 1);
-        } elseif (PHP_VERSION_ID >= 50306) { // PHP 5.3.6 supports DEBUG_BACKTRACE_IGNORE_ARGS
-            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        } else {
-            $backtrace = debug_backtrace();
-        }
-
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, $callLevel + 1);
         if (!isset($backtrace[$callLevel]['file'])) {
             throw new \Ip\Exception("Can't find caller");
         }
