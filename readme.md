@@ -13,9 +13,9 @@ ImpressPages is a php framework with user friendly drag & drop CMS.
 ## Install by cloning from GitHub
 
 1. execute in command line
-   > git clone git@github.com:impresspages/ImpressPages.git your_web_server_folder
-   > cd your_web_server_folder
-   > composer install
+   - git clone git@github.com:impresspages/ImpressPages.git your_web_server_folder
+   - cd your_web_server_folder
+   - composer install
 2. Visit your web server in the browser.
 3. Follow the onscreen instructions.
 
