@@ -6,6 +6,6 @@
     "zendframework/zend-servicemanager": "2.7.7"
   },
   "config": {
-    "vendor-dir": "Ip/vendor"
+    "vendor-dir": "Ip/Lib/vendor"
   }
 }

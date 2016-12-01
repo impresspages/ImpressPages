@@ -62,7 +62,7 @@ class Application
         \Ip\ServiceLocator::setConfig($config);
 
         require_once __DIR__ . '/Internal/Autoloader.php';
-        require_once __DIR__ . '/vendor/autoload.php';
+        require_once __DIR__ . '/Lib/vendor/autoload.php';
 
         $autoloader = new \Ip\Autoloader();
         spl_autoload_register(array($autoloader, 'load'));
