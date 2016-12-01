@@ -84,11 +84,7 @@ class Helper
         // search and remove comments like /* */ and //
         $json = preg_replace("#(/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/)|([\s\t](//).*)#", '', $json);
 
-        if (version_compare(phpversion(), '5.4.0', '>=')) {
-            $json = json_decode($json, $assoc, $depth, $options);
-        } else {
-            $json = json_decode($json, $assoc, $depth);
-        }
+        $json = json_decode($json, $assoc, $depth, $options);
 
         return $json;
     }

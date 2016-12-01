@@ -122,8 +122,8 @@ class PublicController extends \Ip\Controller
             );
         }
         $requirements[] = array(
-            'name' => __('PHP version >= 5.3.3', 'Install'),
-            'helpUrl' => 'http://www.impresspages.org/help/php533',
+            'name' => __('PHP version >= 5.5', 'Install'),
+            'helpUrl' => 'http://www.impresspages.org/help/php55',
             'type' => Helper::checkPhpVersion()
         );
         $requirements[] = array(
