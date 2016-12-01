@@ -4,7 +4,7 @@
     "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "Eine Software erstellt vom <a target=\"_blank\" href=\"%s\">ImpressPages Team<\/a>",
     "Apache or Nginx required": "Apache or Nginx erforderlich",
     "Nginx configuration required": "Nginx Konfiguration erforderlich",
-    "PHP version >= 5.3.3": "PHP version >= 5.3.3",
+    "PHP version >= 5.5": "PHP version >= 5.5",
     "PHP module \"PDO\"": "PHP-Modul \"PDO\"",
     "GD Graphics Library": "GD Graphics Library",
     "PHP sessions": "PHP sessions",
