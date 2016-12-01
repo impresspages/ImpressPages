@@ -31,14 +31,6 @@
                         $view = ipView('menu.php', $data);
                         echo $view->render();
                     ?>
-                    <ul class="nav nav-stacked">
-                        <li>
-                            <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')); ?>">
-                                <i class="fa fa-fw fa-power-off"></i>
-                                <?php _e('Logout', 'Ip-admin'); ?>
-                            </a>
-                        </li>
-                    </ul>
                 </nav>
             </div>
         </div>
