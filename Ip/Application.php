@@ -439,8 +439,6 @@ class Application
         $this->prepareEnvironment($options);
         $request = new \Ip\Request();
 
-        $request->fixMagicQuotes();
-
         $request->setQuery($_GET);
         $request->setPost($_POST);
         $request->setServer($_SERVER);
