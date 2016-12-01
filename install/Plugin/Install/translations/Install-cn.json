@@ -4,7 +4,7 @@
     "This software is brought to you by <a target=\"_blank\" href=\"%s\">ImpressPages team<\/a>": "程序源自 <a target=\"_blank\" href=\"%s\">IMPRESSPAGES TEAM<\/a>",
     "Apache or Nginx required": "Apache和Nginx的要求",
     "Nginx configuration required": "Nginx的配置要求",
-    "PHP version >= 5.3.3": "PHP 版本 > = 5.3.3",
+    "PHP version >= 5.5": "PHP 版本 > = 5.5",
     "PHP module \"PDO\"": "PHP 模块须支持 \"PDO\"",
     "GD Graphics Library": "GD库",
     "PHP sessions": "PHP sessions",
