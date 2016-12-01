@@ -2,10 +2,11 @@
 /.buildpath
 /.settings
 /.idea
+/composer.lock
 /project
 /file
 /robots.txt
-/.idea
+/Ip/vendor
 
 /phpunit/Tmp
 

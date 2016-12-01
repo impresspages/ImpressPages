@@ -1,6 +1,6 @@
 language: php
 php:
-  - 5.3
+  - 5.5
 notifications:
   email:
     on_success: change
@@ -17,6 +17,7 @@ env:
 #    allow_failures:
 #        - env: "TEST_GROUP=other"
 before_script:
+  - composer install
   - cd phpunit
   - ./travis-db-create.sh
 #  - composer --prefer-source install # prefer-source is used to avoid github api limit
