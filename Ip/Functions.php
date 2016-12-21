@@ -492,15 +492,28 @@ function _e($text, $domain, $esc = 'html')
  */
 function ipFile($path)
 {
-    global $ipFile_baseDir, $ipFile_coreDir; // Optimization: caching these values speeds things up a lot.
+    global $ipFile_baseDir, $ipFile_coreDir, $ipFile_composerPlugins; // Optimization: caching these values speeds things up a lot.
 
     if (!$ipFile_baseDir) {
         $ipFile_baseDir = ipConfig()->get('baseDir');
         $ipFile_coreDir = ipConfig()->get('coreDir');
+        $ipFile_composerPlugins = ipConfig()->get('composerPlugins');
+    }
+
+    if (strpos($path, 'Plugin/') === 0) {
+        $parts = explode('/', $path);
+        if (empty($parts[1])) {
+            return $ipFile_baseDir . '/' . $path;
+        }
+
+        if (!empty($ipFile_composerPlugins[$parts[1]])) {
+            return dirname($ipFile_baseDir) . '/' . $ipFile_composerPlugins[$parts[1]] . '/' . implode('/', array_slice($parts, 2));
+        }
+
+        return $ipFile_baseDir . '/' . $path;
     }
 
     if (
-        strpos($path, 'Plugin/') === 0 ||
         strpos($path, 'Theme/') === 0 ||
         strpos($path, 'file/') === 0 ||
         $path === ''

@@ -88,6 +88,15 @@ class Config
         } else {
             $this->protocol = 'http';
         }
+
+        $this->config['composerPlugins'] = [];
+        if ($this->isComposerCore()) {
+            $composerConfigFile = dirname(getcwd()) . '/composerPlugins.php';
+            if (is_file($composerConfigFile)) {
+                $this->config['composerPlugins'] = require($composerConfigFile);
+            }
+        }
+
         $this->protocolUrl = $this->protocol . '://';
     }
 
