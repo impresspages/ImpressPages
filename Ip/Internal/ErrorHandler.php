@@ -54,7 +54,7 @@ class ErrorHandler
                 break;
         }
 
-        if (class_exists('Ip\Internal\Log\Logger')) {
+        if (class_exists('Ip\Internal\Log\Logger') && ipConfig()->database()) {
             ipLog()->error($type . ': ' . $errstr . ' in {file}:{line}', array('file' => $errfile, 'line' => $errline));
         }
 

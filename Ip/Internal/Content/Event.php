@@ -42,7 +42,7 @@ class Event
 
         $ipUrlOverrides = ipConfig()->get('urlOverrides');
         if (!$ipUrlOverrides) {
-            $ipUrlOverrides = array();
+            $ipUrlOverrides = [];
         }
 
         ipAddJsVariable('ipUrlOverrides', $ipUrlOverrides);

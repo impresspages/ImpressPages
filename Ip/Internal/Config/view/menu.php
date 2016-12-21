@@ -8,7 +8,7 @@
 <?php if (!empty($items)){ ?>
 <ul <?php echo $attributesStr; ?>><?php
     foreach($items as $menuItem) {
-        $css = array();
+        $css = [];
         $submenu = '';
         $target = '';
         $class = '';

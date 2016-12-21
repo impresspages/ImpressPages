@@ -9,7 +9,7 @@ class Submenu
 
     public static function getSubmenuItems()
     {
-        $submenuItems = ipFilter('ipAdminSystemSubmenu', array());
+        $submenuItems = ipFilter('ipAdminSystemSubmenu', []);
 
         if (!$submenuItems) {
             if (ipRoute()->controller() == 'AdminController' && class_exists(ipRoute()->controllerClass())) {
@@ -25,7 +25,7 @@ class Submenu
         $reflector = new \ReflectionClass($class);
         $methods = $reflector->getMethods();
 
-        $submenuItems = array();
+        $submenuItems = [];
         foreach ($methods as $method)
         {
             if (in_array($method, array('index'))) {

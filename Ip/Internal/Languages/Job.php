@@ -4,6 +4,9 @@
 namespace Ip\Internal\Languages;
 
 
+use Ip\Internal\Install\PageAssets;
+use Ip\Language;
+
 class Job
 {
     public static function ipRouteLanguage_70($info)
@@ -25,7 +28,12 @@ class Job
             }
 
             $languages = ipContent()->getLanguages();
-            $result['language'] = $languages[0];
+            if (!empty($languages)) {
+                $result['language'] = $languages[0];
+            } else {
+                $result['language'] = self::fakeEnglish();
+            }
+
             return $result;
         }
 
@@ -69,7 +77,14 @@ class Job
     public static function ipRequestLanguage_80($info)
     {
         $languages = ipContent()->getLanguages();
-        return $languages[0];
+        if (!empty($languages)) {
+            return $languages[0];
+        }
+        return self::fakeEnglish();
     }
 
+    protected static function fakeEnglish()
+    {
+        return new Language(null, 'en', 'en', 'English', 'EN', '1', 'ltr');
+    }
 }

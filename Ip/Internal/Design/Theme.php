@@ -71,7 +71,7 @@ class Theme
     public function getOptions()
     {
         if (!$this->options) {
-            return array();
+            return [];
         }
         return $this->options;
     }
@@ -98,7 +98,7 @@ class Theme
     public function getWidgetOptions()
     {
         if (!$this->widgetOptions) {
-            return array();
+            return [];
         }
         return $this->widgetOptions;
 

@@ -15,7 +15,7 @@ class AdminController extends \Ip\Controller
 
         $allPlugins = Model::getAllPluginNames();
 
-        $plugins = array();
+        $plugins = [];
         foreach ($allPlugins as $pluginName) {
             $plugin = Helper::getPluginData($pluginName);
             $plugin['icon'] = $this->pluginIcon($pluginName);
@@ -25,7 +25,7 @@ class AdminController extends \Ip\Controller
         ipAddJsVariable('pluginList', $plugins);
         ipAddJsVariable('ipTranslationAreYouSure', __('This action will remove plugin\'s files and database records. Do you want to proceed.?', 'Ip-admin', false));
 
-        $data = array();
+        $data = [];
         $view = ipView('view/layout.php', $data);
 
         ipResponse()->setLayoutVariable('removeAdminContentWrapper', true);

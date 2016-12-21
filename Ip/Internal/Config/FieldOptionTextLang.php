@@ -14,7 +14,7 @@ class FieldOptionTextLang extends Field
 
     protected $optionName = null;
 
-    public function __construct($options = array())
+    public function __construct($options = [])
     {
         if (!empty($options['optionName'])) {
             $this->optionName = $options['optionName'];

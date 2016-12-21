@@ -7,7 +7,7 @@ class AdminPermissions
 {
     protected $userId;
 
-    protected $permissions = array();
+    protected $permissions = [];
 
     public function __construct()
     {

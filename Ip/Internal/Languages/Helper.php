@@ -34,7 +34,7 @@ class Helper
 
     private static function getLanguageSelectValues()
     {
-        $answer = array();
+        $answer = [];
         $languages = Fixture::languageList();
         foreach ($languages as $key => $language) {
             $answer[] = array(

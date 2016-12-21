@@ -37,7 +37,7 @@ class AdminController extends \Ip\Controller
 
         $themePlugins = $model->getThemePlugins();
         $installedPlugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
-        $notInstalledPlugins = array();
+        $notInstalledPlugins = [];
 
         //filter plugins that are already installed
         foreach ($themePlugins as $plugin) {
@@ -190,7 +190,7 @@ class AdminController extends \Ip\Controller
 
         $options = $theme->getOptionsAsArray();
 
-        $valuesToStore = array();
+        $valuesToStore = [];
         foreach ($options as $option) {
             if (empty($option['name'])) {
                 continue;

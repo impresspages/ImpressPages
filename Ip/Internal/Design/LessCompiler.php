@@ -172,7 +172,7 @@ class LessCompiler
     {
         $lessFiles = glob(ipFile('Theme/' . $themeName . '/' . \Ip\Application::ASSETS_DIR . '/') . '*.less');
         if (!is_array($lessFiles)) {
-            return array();
+            return [];
         }
         return $lessFiles;
     }
@@ -205,7 +205,7 @@ class LessCompiler
         $files = glob($pattern, $flags);
         if (!is_array($files)) {
             //some systems return false instead of empty array if no matches found in glob function
-            $files = array();
+            $files = [];
         }
 
         $dirs = glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT);

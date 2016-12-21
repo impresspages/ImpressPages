@@ -12,7 +12,7 @@ class Model
 
     public static function getAll()
     {
-        return ipDb()->selectAll('administrator', '*', array(), 'ORDER BY `id` ASC');
+        return ipDb()->selectAll('administrator', '*', [], 'ORDER BY `id` ASC');
     }
 
     public static function delete($id)

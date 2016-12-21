@@ -26,7 +26,8 @@ class Model
             "Translations",
             "System",
             "Update",
-            "Ecommerce"
+            "Ecommerce",
+            "Install"
         );
 
 
@@ -286,11 +287,11 @@ class Model
 
     public static function getAllPluginNames()
     {
-        $answer = array();
+        $answer = [];
         $pluginDir = ipFile('Plugin/');
         $files = scandir($pluginDir);
         if (!$files) {
-            return array();
+            return [];
         }
         foreach ($files as $file) {
             if (in_array($file, array('.', '..')) || !is_dir(
@@ -305,11 +306,11 @@ class Model
 
         $fileOverrides = ipConfig()->get('fileOverrides');
         if (!is_array($fileOverrides)) {
-            $fileOverrides = array();
+            $fileOverrides = [];
         }
         $overrideKeys = array_keys($fileOverrides);
         if (!is_array($overrideKeys)) {
-            $overrideKeys = array();
+            $overrideKeys = [];
         }
         foreach($overrideKeys as $overriddenDir) {
             $matches = null;
@@ -325,7 +326,7 @@ class Model
     public static function getActivePluginNames()
     {
         if (\Ip\Internal\Admin\Service::isSafeMode()) {
-            return array();
+            return [];
         }
         $dbh = ipDb()->getConnection();
         $sql = '
@@ -337,7 +338,7 @@ class Model
                 `isActive` = 1
         ';
 
-        $params = array();
+        $params = [];
         $q = $dbh->prepare($sql);
         $q->execute($params);
         $data = $q->fetchAll(\PDO::FETCH_COLUMN); //fetch all rows as an array
@@ -370,7 +371,7 @@ class Model
     {
         $configFile = $pluginDir . 'Setup/plugin.json';
         if (!is_file($configFile)) {
-            return array();
+            return [];
         }
 
         $configJson = file_get_contents($configFile);
@@ -379,7 +380,7 @@ class Model
         if ($config) {
             return $config;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -408,7 +409,7 @@ class Model
     {
         //the order of dirs is very important. First dir themes overrides following ones.
 
-        $cleanDirs = array();
+        $cleanDirs = [];
 
         $optionDirs = ipGetOption('Plugins.pluginDirs');
         if ($optionDirs) {

@@ -99,7 +99,7 @@ class Filter
 
     private static function getPluginWidgetDirs()
     {
-        $answer = array();
+        $answer = [];
         $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
         foreach ($plugins as $plugin) {
             $answer = array_merge($answer, static::findPluginWidgets($plugin));
@@ -112,14 +112,14 @@ class Filter
         $widgetDir = ipFile('Plugin/' . $moduleName . '/' . Model::WIDGET_DIR . '/');
 
         if (!is_dir($widgetDir)) {
-            return array();
+            return [];
         }
         $widgetFolders = scandir($widgetDir);
         if ($widgetFolders === false) {
-            return array();
+            return [];
         }
 
-        $answer = array();
+        $answer = [];
         //foreach all widget folders
         foreach ($widgetFolders as $widgetFolder) {
             //each directory is a widget
@@ -199,7 +199,7 @@ class Filter
             $revision = \Ip\ServiceLocator::content()->getCurrentRevision();
             $revisions = \Ip\Internal\Revision::getPageRevisions(ipContent()->getCurrentPage()->getId());
 
-            $managementUrls = array();
+            $managementUrls = [];
             $currentPageLink = ipContent()->getCurrentPage()->getLink();
             foreach ($revisions as $value) {
                 $managementUrls[] = $currentPageLink . '?_revision=' . $value['revisionId'];

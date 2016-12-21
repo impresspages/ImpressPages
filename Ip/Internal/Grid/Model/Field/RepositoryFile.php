@@ -76,7 +76,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
     public function createData($postData)
     {
         if (!isset($postData[$this->field][0])) {
-            return array();
+            return [];
         }
 
         if ($this->fileLimit == 1) {
@@ -119,7 +119,7 @@ class RepositoryFile extends \Ip\Internal\Grid\Model\Field
             }
         } else {
             if (!isset($postData[$this->field][0])) {
-                $value = json_encode(array());
+                $value = json_encode([]);
             } else {
                 $value = json_encode($postData[$this->field]);
             }

@@ -11,12 +11,12 @@ namespace Ip\Internal\Dispatcher;
 class EventListener
 {
 
-    protected $listeners = array();
+    protected $listeners = [];
 
     /**
      * @var array stores info which handlers are sorted
      */
-    protected $sortedListeners = array();
+    protected $sortedListeners = [];
 
     protected function callableError($callable, $backtrace)
     {
@@ -43,7 +43,7 @@ class EventListener
         }
 
         if (!isset($this->listeners[$name][$priority])) {
-            $this->listeners[$name][$priority] = array();
+            $this->listeners[$name][$priority] = [];
         }
 
         $this->listeners[$name][$priority][] = $callable;

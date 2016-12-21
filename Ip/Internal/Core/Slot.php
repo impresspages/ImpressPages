@@ -33,13 +33,13 @@ class Slot
         );
 
         if (!is_array($params)) {
-            $params = array();
+            $params = [];
         }
 
         $data += $params;
 
         if (empty($data['attributes']) || !is_array($data['attributes'])) {
-            $data['attributes'] = array();
+            $data['attributes'] = [];
         }
 
         $data['attributesStr'] = join(
@@ -103,7 +103,7 @@ class Slot
             $data['items'] = \Ip\Menu\Helper::getMenuItems($params['items']);
         }
         if (empty($data['attributes']) || !is_array($data['attributes'])) {
-            $data['attributes'] = array();
+            $data['attributes'] = [];
         }
 
         //generate attributes str
@@ -164,7 +164,7 @@ class Slot
 
     public static function image_80($params)
     {
-        $options = array();
+        $options = [];
         $defaultValue = '';
         $cssClass = '';
         if (empty($params['id'])) {

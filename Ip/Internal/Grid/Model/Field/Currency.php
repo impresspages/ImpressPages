@@ -70,7 +70,7 @@ class Currency extends \Ip\Internal\Grid\Model\Field
         if (isset($postData[$this->field])) {
             return array($this->field => $postData[$this->field]*100);
         }
-        return array();
+        return [];
     }
 
     public function updateField($curData)

@@ -49,7 +49,7 @@ abstract class ValueStorage extends RawStorage
             array($this->namespaceColumn => $this->namespace)
         );
 
-        $result = array();
+        $result = [];
         foreach ($values as $value) {
             $result[$value[$this->keyColumn]] = json_decode($value[$this->valueColumn], true);
         }

@@ -106,8 +106,8 @@ class Job
 
         $parameters = $reflection->getParameters();
 
-        $arguments = array();
-        $routeParameters = array();
+        $arguments = [];
+        $routeParameters = [];
 
         foreach ($parameters as $parameter) {
 

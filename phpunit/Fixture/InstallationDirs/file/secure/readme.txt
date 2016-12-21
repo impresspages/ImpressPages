@@ -1,1 +1,0 @@
-Directory to store publicly not accessible files.

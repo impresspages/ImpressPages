@@ -38,9 +38,9 @@ class AdminController extends \Ip\Controller
             return new \Ip\Response\Json(array('status' => 'error', 'errorMessage' => 'Missing POST variable'));
         }
 
-        $files = isset($post['files']) ? $post['files'] : array();
+        $files = isset($post['files']) ? $post['files'] : [];
 
-        $newFiles = array();
+        $newFiles = [];
 
 
         $destination = $browserModel->getPath($secure, $path);
@@ -98,7 +98,7 @@ class AdminController extends \Ip\Controller
 
         usort($files, array($this, 'sortFiles'));
 
-        $fileGroups = array();
+        $fileGroups = [];
         foreach ($files as $file) {
             $fileGroups[date("Y-m-d", $file['modified'])][] = $file;
         }
@@ -127,7 +127,7 @@ class AdminController extends \Ip\Controller
         $secure = !empty($post['secure']);
 
         $files = isset($post['files']) ? $post['files'] : null;
-        $deletedFiles = array();
+        $deletedFiles = [];
         $notRemovedCount = 0;
 
         $forced = ipRequest()->getPost('forced', false);
@@ -208,7 +208,7 @@ class AdminController extends \Ip\Controller
             set_time_limit(count($files) * 60 + 30);
         }
 
-        $answer = array();
+        $answer = [];
         foreach ($files as $file) {
             if (!empty($file['url']) && !empty($file['title'])) {
                 $fileData = $this->downloadFile($file['url'], $file['title']);

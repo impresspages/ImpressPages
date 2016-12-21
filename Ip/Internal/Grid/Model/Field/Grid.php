@@ -8,7 +8,7 @@ namespace Ip\Internal\Grid\Model\Field;
 
 class Grid extends \Ip\Internal\Grid\Model\Field
 {
-    protected $config = array();
+    protected $config = [];
 
     /**
      * Create field object for grid
@@ -41,7 +41,7 @@ class Grid extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
-        return array();
+        return [];
     }
 
     public function updateField($curData)
@@ -51,7 +51,7 @@ class Grid extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array();
+        return [];
     }
 
 

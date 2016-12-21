@@ -19,7 +19,7 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
 
 
-        $notes = array();
+        $notes = [];
 
         if (isset($_SESSION['Ip']['notes']) && is_array($_SESSION['Ip']['notes'])) {
             $notes = $_SESSION['Ip']['notes'];

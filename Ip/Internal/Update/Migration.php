@@ -743,7 +743,7 @@ class Migration
         ";
         ipDb()->execute($sql);
 
-        $permissions = $permissions = ipDb()->selectColumn('permission', 'permission', array());
+        $permissions = $permissions = ipDb()->selectColumn('permission', 'permission', []);
         if (empty($permissions)) {
             $administrators = \Ip\Internal\Administrators\Model::getAll();
             foreach ($administrators as $administrator) {

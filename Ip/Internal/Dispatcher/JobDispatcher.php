@@ -21,7 +21,7 @@ class JobDispatcher extends EventListener
      * @param array $data Data for event processing
      * @return null
      */
-    public function handle($eventName, $data = array())
+    public function handle($eventName, $data = [])
     {
         if (!isset($this->listeners[$eventName])) {
             return null;

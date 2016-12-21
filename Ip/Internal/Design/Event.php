@@ -49,7 +49,7 @@ class Event
 
         $options = $theme->getOptionsAsArray();
 
-        $fieldNames = array();
+        $fieldNames = [];
         foreach ($options as $option) {
             if (empty($option['name'])) {
                 continue;

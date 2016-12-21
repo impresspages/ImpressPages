@@ -53,10 +53,12 @@ class AdminController extends \Ip\GridController
     {
         $context = json_decode($recordData['context'], true);
 
-        $replace = array();
-        foreach ($context as $key => $val) {
-            if (is_string($val) || is_numeric($val)) {
-                $replace['{' . $key . '}'] = '<em>' . esc($val) . '</em>';
+        $replace = [];
+        if (is_array($context)) {
+            foreach ($context as $key => $val) {
+                if (is_string($val) || is_numeric($val)) {
+                    $replace['{' . $key . '}'] = '<em>' . esc($val) . '</em>';
+                }
             }
         }
 
@@ -95,7 +97,7 @@ class AdminController extends \Ip\GridController
 
     public function clear()
     {
-        ipDb()->delete('log', array());
+        ipDb()->delete('log', []);
         return new \Ip\Response\Json(array('status' => 'success'));
     }
 }

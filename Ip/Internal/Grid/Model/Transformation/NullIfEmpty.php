@@ -14,7 +14,7 @@ namespace Ip\Internal\Grid\Model\Transformation;
  */
 
 class NullIfEmpty implements \Ip\Internal\Grid\Model\Transformation {
-    public function transform($value, $options = array())
+    public function transform($value, $options = [])
     {
         if (empty($value)) {
             return null;

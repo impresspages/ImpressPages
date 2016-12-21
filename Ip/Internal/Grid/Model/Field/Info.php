@@ -88,7 +88,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
      * @return array
      */
     public function createData($postData) {
-        return array();
+        return [];
     }
 
     /**
@@ -99,7 +99,7 @@ class Info extends \Ip\Internal\Grid\Model\Field
      * @return array
      */
     public function updateData($postData) {
-        return array();
+        return [];
     }
 
 

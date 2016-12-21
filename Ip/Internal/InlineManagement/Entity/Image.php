@@ -81,7 +81,7 @@ class Image
 
     public function getValueStr()
     {
-        $data = array();
+        $data = [];
         $data['imageOrig'] = $this->imageOrig;
         $data['x1'] = $this->x1;
         $data['y1'] = $this->y1;

@@ -14,11 +14,11 @@ namespace Ip\Internal\Grid\Model\Transformation;
  */
 
 class Trim implements \Ip\Internal\Grid\Model\Transformation {
-    public function transform($value, $options = array())
+    public function transform($value, $options = [])
     {
 
         if (is_array($value)) {
-            $answer = array();
+            $answer = [];
             foreach($value as $item) {
                 $answer[] = trim($item);
             }

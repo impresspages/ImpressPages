@@ -125,8 +125,8 @@ class Actions
         $oldData = $db->fetchRow($id);
 
         $fields = $this->subgridConfig->fields();
-        $dbData = array();
-        $languageData = array();
+        $dbData = [];
+        $languageData = [];
         $languages = ipContent()->getLanguages();
         foreach ($fields as $field) {
             if (empty($field['field']) ||  $field['field'] == $this->subgridConfig->idField() || isset($field['allowUpdate']) && !$field['allowUpdate'] || !empty($field['type']) && $field['type'] == 'Tab' || !empty($field['ignoreDb'])) {
@@ -160,7 +160,7 @@ class Actions
                     }
 
                     if (empty($languageData[$language->getCode()])) {
-                        $languageData[$language->getCode()] = array();
+                        $languageData[$language->getCode()] = [];
                     }
                     $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
                 }
@@ -206,7 +206,7 @@ class Actions
         $db->setDefaultLanguageCode($languageCode);
 
         $sql = "UPDATE " . ipTable($table) . " " . $db->joinQuery() . " SET ";
-        $params = array();
+        $params = [];
         foreach ($update as $column => $value) {
             if ($column == $this->subgridConfig->idField()) {
                 continue; //don't update id field
@@ -238,8 +238,8 @@ class Actions
     {
         $languages = ipContent()->getlanguages();
         $fields = $this->subgridConfig->fields();
-        $dbData = array();
-        $languageData = array();
+        $dbData = [];
+        $languageData = [];
         foreach ($fields as $field) {
             if (!empty($field['type']) && $field['type'] == 'Tab' && empty($field['preview']) || !empty($field['ignoreDb'])) {
                 continue;
@@ -272,7 +272,7 @@ class Actions
                     }
 
                     if (empty($languageData[$language->getCode()])) {
-                        $languageData[$language->getCode()] = array();
+                        $languageData[$language->getCode()] = [];
                     }
                     $languageData[$language->getCode()] = array_merge($languageData[$language->getCode()], $fieldData);
                 }
@@ -284,10 +284,10 @@ class Actions
         $sortField = $this->subgridConfig->sortField();
         if ($sortField) {
             if ($this->subgridConfig->createPosition() == 'top') {
-                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MIN(`$sortField`)", array());
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MIN(`$sortField`)", []);
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue - 1 : 1; // 1 if null
             } else {
-                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX(`$sortField`)", array());
+                $orderValue = ipDb()->selectValue($this->subgridConfig->rawTableName(), "MAX(`$sortField`)", []);
                 $dbData[$sortField] = is_numeric($orderValue) ? $orderValue + 1 : 1; // 1 if null
             }
         }
@@ -432,7 +432,7 @@ class Actions
             }
 
             $orderBy = 'ORDER BY ' . $sortField . ' ' . ($this->subgridConfig->sortDirection() == 'asc' ? 'desc' : 'asc'); //sort in opposite. This way when selecting first item with selectValue, we will get the last item
-            $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, array(), $orderBy);
+            $highestPriority = ipDb()->selectValue($this->subgridConfig->rawTableName(), $sortField, [], $orderBy);
             $newPriority = $highestPriority + 5 * $directionInverse;
         } else {
             if (isset($record1[0][$sortField])) {

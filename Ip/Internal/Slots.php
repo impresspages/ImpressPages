@@ -11,7 +11,7 @@ class Slots
     protected $slotContent = null;
 
 
-    public function generateSlot($name, $params = array())
+    public function generateSlot($name, $params = [])
     {
         $content = \Ip\ServiceLocator::dispatcher()->slot($name, $params);
 

@@ -23,7 +23,7 @@ class AdminController extends \Ip\GridController
             'orderDirection' => 'desc',
             'table' => 'email_queue',
             'title' => __('Email log', 'Ip-admin', false),
-            'actions' => array(),
+            'actions' => [],
             'fields' => array(
                 array(
                     'label' => __('Subject', 'Ip-admin', false),

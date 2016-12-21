@@ -17,7 +17,7 @@ class Model
 
     public static function addLanguage($title, $abbreviation, $code, $url, $isVisible, $textDirection)
     {
-        $languageOrder = ipDb()->selectValue('language', 'MAX(`languageOrder`) + 3', array());
+        $languageOrder = ipDb()->selectValue('language', 'MAX(`languageOrder`) + 3', []);
         if (!$languageOrder) {
             $languageOrder = 1;
         }
@@ -56,7 +56,7 @@ class Model
      */
     public static function getLanguages()
     {
-        return ipDb()->selectAll('language', '*', array(), 'ORDER BY `languageOrder`');
+        return ipDb()->selectAll('language', '*', [], 'ORDER BY `languageOrder`');
     }
 
 

@@ -12,13 +12,19 @@ class Event
          The best solution is to setup cron service to launch file www.yoursite.com/ip_cron.php few times a day.
          By default fake cron is enabled
         */
-        if (\Ip\Internal\Admin\Model::isSafeMode() || !ipGetOption('Config.automaticCron', 1)) {
+        if (!ipConfig()->database() || \Ip\Internal\Admin\Model::isSafeMode() || !ipGetOption('Config.automaticCron', 1)) {
             return;
         }
 
         $lastExecution = \Ip\ServiceLocator::storage()->get('Cron', 'lastExecutionStart');
         if ($lastExecution && (date('Y-m-d H') == date('Y-m-d H', $lastExecution))) {
             // we execute cron once an hour and cron has been executed this hour
+            return;
+        }
+
+        $lastFailureAt = \Ip\ServiceLocator::storage()->get('Cron', 'lastFailureAt');
+        if ($lastFailureAt && (date('Y-m-d H') == date('Y-m-d H', $lastFailureAt))) {
+            // we had an error this hour
             return;
         }
 
@@ -38,6 +44,7 @@ class Event
             $fakeCronAnswer = curl_exec($ch);
 
             if ($fakeCronAnswer != __('OK', 'Ip-admin', false)) {
+                ipStorage()->set('Cron', 'lastFailureAt', time());
                 ipLog()->error('Cron.failedFakeCron', array('result' => $fakeCronAnswer, 'type' => 'curl', 'error' => curl_error($ch)));
             }
 

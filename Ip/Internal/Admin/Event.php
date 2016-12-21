@@ -43,7 +43,7 @@ class Event
 
         $navbarButtons = ipFilter('ipAdminNavbarButtons', $navbarButtons);
 
-        $navbarCenterElements = ipFilter('ipAdminNavbarCenterElements', array());
+        $navbarCenterElements = ipFilter('ipAdminNavbarCenterElements', []);
 
         $data = array(
             'menuItems' => Model::instance()->getAdminMenuItems($curModule),

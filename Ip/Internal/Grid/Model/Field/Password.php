@@ -27,7 +27,7 @@ class Password extends \Ip\Internal\Grid\Model\Field
         if (isset($postData[$this->field])) {
             return array($this->field => $postData[$this->field]);
         }
-        return array();
+        return [];
     }
 
     public function updateField($curData)
@@ -45,7 +45,7 @@ class Password extends \Ip\Internal\Grid\Model\Field
     public function updateData($postData)
     {
         if (empty($postData[$this->field])) {
-            return array();
+            return [];
         }
         return array($this->field => $this->passwordHash($postData[$this->field]));
     }

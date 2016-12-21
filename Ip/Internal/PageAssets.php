@@ -8,15 +8,15 @@ namespace Ip\Internal;
 class PageAssets
 {
     /** array js variables */
-    private $javascriptVariables = array();
+    private $javascriptVariables = [];
 
     /** array required javascript files */
-    private $requiredJavascript = array();
+    private $requiredJavascript = [];
 
     /** array required css files */
-    private $requiredCss = array();
+    private $requiredCss = [];
 
-    public function addCss($file, $attributes = array(), $stage = 50, $cacheFix = true)
+    public function addCss($file, $attributes = [], $stage = 50, $cacheFix = true)
     {
         $this->requiredCss[(int)$stage][$file] = array(
             'value' => $file,
@@ -37,7 +37,7 @@ class PageAssets
     public function getCss()
     {
         ksort($this->requiredCss);
-        $cssFiles = array();
+        $cssFiles = [];
         foreach ($this->requiredCss as $level) {
             $cssFiles = array_merge($cssFiles, $level);
         }
@@ -53,7 +53,7 @@ class PageAssets
     }
 
 
-    public function addJavascript($file, $attributes = array(), $stage = 50, $cacheFix = true)
+    public function addJavascript($file, $attributes = [], $stage = 50, $cacheFix = true)
     {
         $this->requiredJavascript[(int)$stage][$file] = array(
             'type' => 'file',
@@ -170,7 +170,7 @@ class PageAssets
     {
         $cacheVersion = $this->getCacheVersion();
         $javascriptFiles = $this->getJavascript();
-        $javascriptFilesSorted = array();
+        $javascriptFilesSorted = [];
         foreach ($javascriptFiles as $level) {
             foreach ($level as &$file) {
                 if ($file['type'] == 'file' && $file['cacheFix']) {
@@ -227,16 +227,16 @@ class PageAssets
 
     public function removeAllCss()
     {
-        $this->requiredCss = array();
+        $this->requiredCss = [];
     }
 
     public function removeAllJs()
     {
-        $this->requiredJs = array();
+        $this->requiredJs = [];
     }
 
     public function removeAllJsVariables()
     {
-        $this->javascriptVariables = array();
+        $this->javascriptVariables = [];
     }
 }

@@ -85,7 +85,7 @@ class AdminController extends \Ip\Controller
 
         $imageStr = $this->dao->getValue(Dao::PREFIX_IMAGE, $key, $languageId, $pageId);
         $scope = $this->dao->getLastOperationScope();
-        $types = array();
+        $types = [];
 
         $scopePageTitle = __('Current page and sub-pages', 'Ip-admin', false);
         $scopeParentPageTitle = __('Page "[[page]]" and all sub-pages', 'Ip-admin', false);
@@ -267,7 +267,7 @@ class AdminController extends \Ip\Controller
         $defaultValue = $_POST['defaultValue'];
 
         if (!isset($_POST['options'])) {
-            $options = array();
+            $options = [];
         } else {
             $options = $_POST['options'];
         }
@@ -425,7 +425,7 @@ class AdminController extends \Ip\Controller
         $defaultValue = $_POST['defaultValue'];
 
         if (!isset($_POST['options'])) {
-            $options = array();
+            $options = [];
         } else {
             $options = $_POST['options'];
         }

@@ -24,7 +24,7 @@ class Filter
     public static function ipAdminMenu($menu, $info)
     {
         $urls = Submenu::getSubmenuUrls();
-        $filteredMenu = array();
+        $filteredMenu = [];
 
         //remove menu items that are in submenu
         foreach ($menu as $menuItem) {

@@ -44,6 +44,6 @@ class Model{
      * @return \Ip\Form\Field[]
      */
     private static function collectFieldTypes() {
-        self::$fields = ipFilter('ipWidgetFormFieldTypes', array());
+        self::$fields = ipFilter('ipWidgetFormFieldTypes', []);
     }
 }

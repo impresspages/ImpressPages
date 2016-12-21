@@ -95,7 +95,7 @@ class Pagination
         }
 
         if (!$view) {
-            $view = ipFile('Ip/Pagination/view/pagination.php');
+            $view = __DIR__ . '/view/pagination.php';
         }
 
         $data = $this->options;

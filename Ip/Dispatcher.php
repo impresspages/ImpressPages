@@ -137,9 +137,11 @@ class Dispatcher
             $this->bindPluginEvents($module, '\Ip\Internal');
         }
 
-        $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
-        foreach ($plugins as $plugin) {
-            $this->bindPluginEvents($plugin);
+        if (ipConfig()->database()) {
+            $plugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
+            foreach ($plugins as $plugin) {
+                $this->bindPluginEvents($plugin);
+            }
         }
     }
 

@@ -38,10 +38,10 @@ class Model
     public function getThemePlugins()
     {
         if (!is_dir($this->getThemePluginDir())) {
-            return array();
+            return [];
         }
 
-        $pluginConfigs = array();
+        $pluginConfigs = [];
 
         $plugins = scandir($this->getThemePluginDir());
         foreach ($plugins as $plugin) {
@@ -115,9 +115,9 @@ class Model
     protected function getFolderThemes($folder)
     {
         if (!is_dir($folder)) {
-            return array();
+            return [];
         }
-        $answer = array();
+        $answer = [];
         if ($handle = opendir($folder)) {
             while (false !== ($file = readdir($handle))) {
                 if (is_dir($folder . $file) && $file != '..' && $file != '.' && substr(
@@ -213,7 +213,7 @@ class Model
             if (file_exists($themeJsonFile)) {
                 $config = $this->parseThemeJson($themeJsonFile);
             } else {
-                $config = array();
+                $config = [];
             }
         }
 
@@ -260,7 +260,7 @@ class Model
     protected function parseThemeJson($file)
     {
         if (!file_exists($file) || !is_file($file)) {
-            return array();
+            return [];
         }
 
         $configJson = file_get_contents($file);
@@ -269,7 +269,7 @@ class Model
         if ($config) {
             return $config;
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -278,7 +278,7 @@ class Model
      */
     protected function parseThemeIni($file)
     {
-        $answer = array();
+        $answer = [];
 
         if (file_exists($file)) {
             $config = file($file);
@@ -289,7 +289,7 @@ class Model
                 $answer[$configName] = $value;
             }
         } else {
-            return array();
+            return [];
         }
         return $answer;
 
@@ -307,7 +307,7 @@ class Model
     {
         $themeDir = ipThemeFile('');
         $files = scandir($themeDir);
-        $layouts = array();
+        $layouts = [];
 
         foreach ($files as $filename) {
             if ('php' == strtolower(pathinfo($filename, PATHINFO_EXTENSION))) {

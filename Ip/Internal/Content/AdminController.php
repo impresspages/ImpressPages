@@ -69,7 +69,7 @@ class AdminController extends \Ip\Controller
 
     public function getImageContainerHtml()
     {
-        $html = ipView('view/imageContainer.php', array())->render();
+        $html = ipView('view/imageContainer.php', [])->render();
 
         $result = array(
             "status" => "success",
@@ -164,7 +164,7 @@ class AdminController extends \Ip\Controller
     public function updateWidget()
     {
 
-        $updateData = array();
+        $updateData = [];
         if (!isset($_POST['widgetId'])) {
             return $this->_errorAnswer('Missing POST variable widgetId');
         }
@@ -177,7 +177,7 @@ class AdminController extends \Ip\Controller
 
 
         if (!isset($_POST['widgetData']) || !is_array($_POST['widgetData'])) {
-            $_POST['widgetData'] = array();
+            $_POST['widgetData'] = [];
         }
         $postData = $_POST['widgetData'];
 
@@ -205,7 +205,7 @@ class AdminController extends \Ip\Controller
 
     public function changeSkin()
     {
-        $updateData = array();
+        $updateData = [];
         if (!isset($_POST['widgetId'])) {
             return $this->_errorAnswer('Missing POST variable widgetId');
         }
@@ -282,7 +282,7 @@ class AdminController extends \Ip\Controller
 
 
         if ($publish) {
-            $pageOptions = array();
+            $pageOptions = [];
             $pageOptions['updatedAt'] = date("Y-m-d");
             $pageOptions['isVisible'] = 1;
             \Ip\Internal\Pages\Model::updatePageProperties($revision['pageId'], $pageOptions);
@@ -313,7 +313,7 @@ class AdminController extends \Ip\Controller
             'li_attr' => (object)array(
                     'data-url' => $page->getLink()
                 ),
-            'children' => array()
+            'children' => []
         );
         foreach ($page->getChildren() as $child) {
             $children['children'][] = $this->_addPageToTree($child);
@@ -332,7 +332,7 @@ class AdminController extends \Ip\Controller
                 'type' => 'language',
                 'icon' => 'fa fa-flag-o',
                 'state' => array('opened' => true),
-                'children' => array()
+                'children' => []
             )
         );
 
@@ -347,7 +347,7 @@ class AdminController extends \Ip\Controller
                 'li_attr' => (object)array(
                         'data-url' => $page->getLink(),
                     ),
-                'children' => array()
+                'children' => []
             );
 
             foreach ($page->getChildren() as $child) {

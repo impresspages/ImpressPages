@@ -71,7 +71,7 @@ abstract class RawStorage
             array($this->namespaceColumn => $this->namespace)
         );
 
-        $result = array();
+        $result = [];
         foreach ($values as $value) {
             $result[$value[$this->keyColumn]] = $value[$this->valueColumn];
         }

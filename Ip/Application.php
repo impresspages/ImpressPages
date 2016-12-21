@@ -20,12 +20,15 @@ class Application
      * @ignore
      * @param $configPath
      */
-    public function __construct($configPath)
+    public function __construct($configPath = null)
     {
         if (is_array($configPath)) {
             $this->config = $configPath;
         } else {
             $this->configPath = $configPath;
+        }
+        if ($this->configPath == null) {
+            $this->configPath = __DIR__ . '/../../../../config.php';
         }
     }
 
@@ -44,30 +47,7 @@ class Application
      */
     public function init()
     {
-        global $ipFile_baseDir, $ipFile_overrides;
-        $ipFile_baseDir = null; //required for MultiSite when several application instances are initialized one after another
-        $ipFile_overrides = null; //required for MultiSite when several application instances are initialized one after another
-
-        if ($this->config) {
-            $config = $this->config;
-        } else {
-            $config = require($this->configPath);
-        }
-
-
-        require_once __DIR__ . '/Config.php';
-
-        $config = new \Ip\Config($config);
-        require_once __DIR__ . '/ServiceLocator.php';
-        \Ip\ServiceLocator::setConfig($config);
-
-        require_once __DIR__ . '/Internal/Autoloader.php';
-        require_once __DIR__ . '/Lib/vendor/autoload.php';
-
-        $autoloader = new \Ip\Autoloader();
-        spl_autoload_register(array($autoloader, 'load'));
-
-        require_once __DIR__ . '/Functions.php';
+        //this function has been left here just to avoid any issues with old index.php fies running it.
     }
 
     /**
@@ -91,7 +71,7 @@ class Application
 
         if (empty($options['skipSession'])) {
             if (session_id() == '' && !headers_sent()) { //if session hasn't been started yet
-                session_name(ipConfig()->get('sessionName'));
+                session_name(ipConfig()->get('sessionName', 'impresspages'));
                 if (!ipConfig()->get('disableHttpOnlySetting')) {
                     ini_set('session.cookie_httponly', 1);
                 }
@@ -111,7 +91,7 @@ class Application
             mb_internal_encoding(ipConfig()->get('charset'));
         }
 
-        if (empty($options['skipTimezone'])) {
+        if (empty($options['skipTimezone']) && ipConfig()->get('timezone')) {
             date_default_timezone_set(ipConfig()->get('timezone')); //PHP 5 requires timezone to be set.
         }
     }
@@ -173,29 +153,11 @@ class Application
             ipRequest()->_setRoutePath($request->getRelativePath());
         }
 
-        //find out and set locale
-        $locale = $requestLanguage->getCode();
-        if (strlen($locale) == '2') {
-            $locale = strtolower($locale) . '_' . strtoupper($locale);
-        } else {
-            $locale = str_replace('-', '_', $locale);
+        if ($requestLanguage) {
+            $this->setLocale($requestLanguage);
+            ipContent()->_setCurrentLanguage($requestLanguage);
+            $_SESSION['ipLastLanguageId'] = $requestLanguage->getId();
         }
-        $locale .= '.utf8';
-        if($locale ==  "tr_TR.utf8" && (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)) { //Overcoming this bug https://bugs.php.net/bug.php?id=18556
-            setlocale(LC_COLLATE, $locale);
-            setlocale(LC_MONETARY, $locale);
-            setlocale(LC_NUMERIC, $locale);
-            setlocale(LC_TIME, $locale);
-            setlocale(LC_MESSAGES, $locale);
-            setlocale(LC_CTYPE, "en_US.utf8");
-        } else {
-            setLocale(LC_ALL, $locale);
-        }
-        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
-
-        ipContent()->_setCurrentLanguage($requestLanguage);
-
-        $_SESSION['ipLastLanguageId'] = $requestLanguage->getId();
 
         if (empty($options['skipTranslationsInit'])) {
             if (!empty($options['translationsLanguageCode'])) {
@@ -326,7 +288,9 @@ class Application
             }
         }
 
-        ipEvent('ipBeforeController', $eventInfo);
+        if (ipConfig()->database()) {
+            ipEvent('ipBeforeController', $eventInfo);
+        }
 
         $controllerAnswer = ipJob('ipExecuteController', $eventInfo);
 
@@ -390,6 +354,9 @@ class Application
      */
     public function modulesInit()
     {
+        if (!ipConfig()->database()) {
+            return;
+        }
         $translator = \Ip\ServiceLocator::translator();
         $overrideDir = ipFile("file/translations/override/");
 
@@ -436,6 +403,24 @@ class Application
      */
     public function run($options = array())
     {
+        if ($this->config) {
+            $config = $this->config;
+        } else {
+            if (is_file($this->configPath)) {
+                $config = require($this->configPath);
+            } else {
+                $config = [];
+            }
+        }
+
+        if (!is_array($config)) {
+            $config = [];
+        }
+        $config = new \Ip\Config($config);
+        \Ip\ServiceLocator::setConfig($config);
+
+        require_once __DIR__ . '/Functions.php';
+
         $this->prepareEnvironment($options);
         $request = new \Ip\Request();
 
@@ -471,8 +456,9 @@ class Application
     public function close()
     {
         ipEvent('ipBeforeApplicationClosed');
-
-        ipDb()->disconnect();
+        if (ipConfig()->database()) {
+            ipDb()->disconnect();
+        }
     }
 
     /**
@@ -486,5 +472,31 @@ class Application
             $_SESSION['ipSecurityToken'] = md5(uniqid(rand(), true));
         }
         return $_SESSION['ipSecurityToken'];
+    }
+
+    /**
+     * @param $requestLanguage
+     */
+    protected function setLocale($requestLanguage)
+    {
+//find out and set locale
+        $locale = $requestLanguage->getCode();
+        if (strlen($locale) == '2') {
+            $locale = strtolower($locale) . '_' . strtoupper($locale);
+        } else {
+            $locale = str_replace('-', '_', $locale);
+        }
+        $locale .= '.utf8';
+        if ($locale == "tr_TR.utf8" && (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION < 5)) { //Overcoming this bug https://bugs.php.net/bug.php?id=18556
+            setlocale(LC_COLLATE, $locale);
+            setlocale(LC_MONETARY, $locale);
+            setlocale(LC_NUMERIC, $locale);
+            setlocale(LC_TIME, $locale);
+            setlocale(LC_MESSAGES, $locale);
+            setlocale(LC_CTYPE, "en_US.utf8");
+        } else {
+            setLocale(LC_ALL, $locale);
+        }
+        setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
     }
 }

@@ -22,7 +22,7 @@ class Model
      */
     public static function collectPaymentMethods($paymentData)
     {
-        return ipFilter('ipPaymentMethods', array(), $paymentData);
+        return ipFilter('ipPaymentMethods', [], $paymentData);
     }
 
     /**
@@ -31,7 +31,7 @@ class Model
      */
     public static function collectSubscriptionPaymentMethods($paymentData)
     {
-        return ipFilter('ipSubscriptionPaymentMethods', array(), $paymentData);
+        return ipFilter('ipSubscriptionPaymentMethods', [], $paymentData);
     }
 
 

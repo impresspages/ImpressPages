@@ -18,7 +18,7 @@ class Config
         $fontsString = ipGetOption('Config.availableFonts');
 
         $tmpFonts = explode("\n", $fontsString);
-        $fonts = array();
+        $fonts = [];
         foreach ($tmpFonts as &$font) {
             $tmpFont = trim($font);
             if ($tmpFont != '') {

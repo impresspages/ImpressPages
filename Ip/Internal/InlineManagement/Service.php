@@ -112,7 +112,7 @@ class Service
         return $view->render();
     }
 
-    public function generateManagedImage($key, $defaultValue = null, $options = array(), $cssClass = null)
+    public function generateManagedImage($key, $defaultValue = null, $options = [], $cssClass = null)
     {
         $defaultPlaceholder = ipFileUrl('Ip/Internal/InlineManagement/assets/empty.gif');
 

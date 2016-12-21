@@ -16,5 +16,5 @@ namespace Ip\Internal\Grid\Model;
 
 interface Transformation
 {
-    public function transform($value, $options = array());
+    public function transform($value, $options = []);
 }

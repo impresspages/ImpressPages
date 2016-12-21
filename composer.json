@@ -1,11 +1,20 @@
 {
+  "name": "impresspages/coreexperimental",
+  "version": "5.0.2",
   "require": {
-    "aura/router": "2.3.1",
+    "php": ">=5.5.0",
+    "aura/router": "~2.3.1",
+    "phpmailer/phpmailer": "5.2.16",
     "psr/log": "1.0.2",
     "zendframework/zend-i18n": "2.7.3",
     "zendframework/zend-servicemanager": "2.7.7"
   },
-  "config": {
-    "vendor-dir": "Ip/Lib/vendor"
-  }
+  "autoload": {
+    "psr-4": {"Ip\\": "Ip/"}
+  },
+  "minimum-stability": "stable",
+  "license": [
+    "MIT",
+    "GPL-3.0+"
+  ]
 }

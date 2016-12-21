@@ -15,7 +15,7 @@ class Status
             $statusVariable = substr($statusVariable, 1);
         }
 
-        $variables = array();
+        $variables = [];
         $parts = explode('&', $statusVariable);
         foreach ($parts as $part) {
             $tmp = explode('=', $part);
@@ -57,7 +57,7 @@ class Status
 
     public static function genSubgridVariables($curStatusVariables, $gridId, $gridParentId)
     {
-        $newStatusVariables = array();
+        $newStatusVariables = [];
         $depth = Status::depth($curStatusVariables);
 
         for($i=1; $i<$depth; $i++) {

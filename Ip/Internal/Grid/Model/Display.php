@@ -81,7 +81,7 @@ class Display
 
         asort($values);
 
-        $searchVariables = array();
+        $searchVariables = [];
         foreach ($this->statusVariables as $key => $value) {
             if (preg_match('/^s_/', $key)) {
                 $searchVariables[substr($key, 2)] = $value;
@@ -113,10 +113,10 @@ class Display
         $depth = Status::depth($this->statusVariables);
 
         if ($depth <= 1) {
-            return array();
+            return [];
         }
 
-        $breadcrumb = array();
+        $breadcrumb = [];
         $gridConfig = $this->config;
 
 
@@ -125,7 +125,7 @@ class Display
             'url' => '#'
         );
 
-        $lastStatusVariables = array();
+        $lastStatusVariables = [];
 
         $db = new Db($this->config, $this->statusVariables);
 
@@ -164,7 +164,7 @@ class Display
 
     protected function getActions()
     {
-        $actions = array();
+        $actions = [];
         if ($this->subgridConfig->allowCreate()) {
             $actions['add'] = array(
                 'label' => __('Add', 'Ip-admin', false),
@@ -179,7 +179,7 @@ class Display
         }
 
         //select language in multilingual grid
-        $values = array();
+        $values = [];
         $languages = ipContent()->getLanguages();
         foreach($languages as $language) {
             $values[] = array('label' => $language->getAbbreviation(), 'value' => $language->getCode());
@@ -210,12 +210,12 @@ class Display
                 $action['label'] = '';
             }
             if (!isset($action['values']) || !is_array($action['values'])) {
-                $action['values'] = array();
+                $action['values'] = [];
             }
             foreach ($action['values'] as &$value) {
                 if (!is_array($value)) {
                     $tmpVal = $value;
-                    $value = array();
+                    $value = [];
                     $value['value'] = $tmpVal;
                 }
                 if (!isset($value['value'])) {
@@ -248,12 +248,12 @@ class Display
 
         $disabledSorting = !empty($this->statusVariables['order']);
         $dragButtonHtml = ipView('../view/dragHandle.php', array('disabled' => $disabledSorting));
-        $rows = array();
+        $rows = [];
         foreach ($data as $row) {
             $preparedRow = array(
                 'id' => $row[$this->subgridConfig->idField()]
             );
-            $preparedRowData = array();
+            $preparedRowData = [];
             if ($this->subgridConfig->allowSort()) {
                 $preparedRowData[] = $dragButtonHtml;
             }
@@ -295,7 +295,7 @@ class Display
 
     protected function getColumnData()
     {
-        $columns = array();
+        $columns = [];
         if ($this->subgridConfig->allowSort()) {
             $column = array(
                 'label' => ''
@@ -346,7 +346,7 @@ class Display
         $form = new \Ip\Form();
         $form->addAttribute('autocomplete', 'off');
         $curData = $db->fetchRow($id);
-        $curDataMultilingual = array();
+        $curDataMultilingual = [];
         if ($this->subgridConfig->isMultilingual()) {
             //fetch multilingual data
             $languages = ipContent()->getLanguages();

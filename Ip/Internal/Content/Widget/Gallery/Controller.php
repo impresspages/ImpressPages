@@ -43,7 +43,7 @@ class Controller extends \Ip\WidgetController
                         throw new \Ip\Exception("Missing required parameter");
                     }
 
-                    $newImages = array();
+                    $newImages = [];
 
                     foreach ($postData['images'] as $image) {
                         if (!isset($image['fileName']) || !isset($image['status'])) { //check if all required data present
@@ -74,7 +74,7 @@ class Controller extends \Ip\WidgetController
                         $newImages[] = $newImage;
                     }
                     if (empty($currentData['images']) || !is_array($currentData['images'])) {
-                        $currentData['images'] = array();
+                        $currentData['images'] = [];
                     }
 
                     if(ipGetOption('Content.imageGalleryPosition') == 'bottom') {
@@ -281,7 +281,7 @@ class Controller extends \Ip\WidgetController
             //loop all current images
             foreach ($data['images'] as &$curImage) {
                 if (!is_array($curImage)) {
-                    $curImage = array();
+                    $curImage = [];
                 }
                 $curImage['imageSmall'] = $this->cropSmallImage($curImage);
             }
@@ -421,7 +421,7 @@ class Controller extends \Ip\WidgetController
      */
     public function optionsMenu($revisionId, $widgetId, $data, $skin)
     {
-        $answer = array();
+        $answer = [];
         $answer[] = array(
             'title' => __('Add image', 'Ip-admin', false),
             'attributes' => array(

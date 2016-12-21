@@ -13,7 +13,7 @@
                 switch ($field->getLayout()) {
                     case \Ip\Form\Field::LAYOUT_DEFAULT:
                     case \Ip\Form\Field::LAYOUT_NO_LABEL:
-                        echo ipView('Ip/Form/publicView/field.php', array('field' => $field))->render() . "\n";
+                        echo ipView('field.php', array('field' => $field))->render() . "\n";
                         break;
                     case \Ip\Form\Field::LAYOUT_BLANK:
                     default:

@@ -38,7 +38,7 @@ class Db
             $where .= ' and (' . $where . ') and ' . $this->config->tableName() . '.`' . $this->config->connectionField() . '` = ' . ipDb()->getConnection()->quote($this->statusVariables['gridParentId' . ($depth - 1)]);
         }
 
-        $searchVariables = array();
+        $searchVariables = [];
         foreach ($this->statusVariables as $key => $value) {
             if (preg_match('/^s_/', $key)) {
                 $searchVariables[substr($key, 2)] = $value;

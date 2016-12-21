@@ -65,7 +65,7 @@ class Model
     public static function getIpNotifications()
     {
         if (!function_exists('curl_init')) {
-            return array();
+            return [];
         }
 
         $ch = curl_init();
@@ -96,13 +96,13 @@ class Model
                     'response' => $answer
                 )
             );
-            return array();
+            return [];
         }
 
         return $notices;
     }
 
-    public static function sendUsageStatistics($data = array(), $timeout = 3)
+    public static function sendUsageStatistics($data = [], $timeout = 3)
     {
         if (!function_exists('curl_init')) {
             return;
@@ -137,7 +137,7 @@ class Model
             $data['timezone'] = ipConfig()->get('timezone');
         }
         if (!isset($data['data'])) {
-            $data['data'] = array();
+            $data['data'] = [];
         }
         if (!isset($data['websiteId'])) {
             $data['websiteId'] = ipStorage()->get('Ip', 'websiteId');
@@ -156,7 +156,7 @@ class Model
         }
         if (!isset($data['administrators'])) {
             $administrators = \Ip\Internal\Administrators\Model::getAll();
-            $adminCollection = array();
+            $adminCollection = [];
             foreach ($administrators as $admin) {
                 $permissions = \Ip\Internal\AdminPermissionsModel::getUserPermissions($admin['id']);
                 $adminCollection[] = array(
@@ -176,7 +176,7 @@ class Model
         if (!isset($data['plugins'])) {
             $plugins = \Ip\Internal\Plugins\Model::getAllPluginNames();
             $activePlugins = \Ip\Internal\Plugins\Service::getActivePluginNames();
-            $pluginCollection = array();
+            $pluginCollection = [];
             foreach ($plugins as $pluginName) {
                 $pluginCollection[] = array(
                     'name' => $pluginName,
@@ -189,7 +189,7 @@ class Model
             $data['languages'] = ipContent()->getLanguages();
         }
         if (!isset($data['pages'])) {
-            $result = array();
+            $result = [];
             try {
                 $table = ipTable('page');
                 $sql = "

@@ -19,7 +19,7 @@ class Controller extends \Ip\WidgetController{
 
         $newData = $currentData;
 
-        $newData['files'] = array(); //we will create new files array.
+        $newData['files'] = []; //we will create new files array.
 
         if (isset($postData['files']) && is_array($postData['files'])) {//check if files array is set
             foreach($postData['files'] as $file){
@@ -46,7 +46,7 @@ class Controller extends \Ip\WidgetController{
 
                             $existingFile = self::_findExistingFile($file['fileName'], $currentData['files']);
                             if ($existingFile) {
-                                $newFile = array();
+                                $newFile = [];
                                 $newFile['fileName'] = $existingFile['fileName'];
                                 $newFile['title'] = $file['title'];
                                 $newData['files'][] = $newFile;
@@ -72,15 +72,15 @@ class Controller extends \Ip\WidgetController{
 
     public function generateHtml($revisionId, $widgetId, $data, $skin) {
         if (empty($data['files']) || !is_array($data['files'])) {
-            $data['files'] = array();
+            $data['files'] = [];
         }
-        $newData = array();
+        $newData = [];
         foreach($data['files'] as $file) {
             if (!isset($file['fileName'])) {
                 continue;
             }
 
-            $newFile = array();
+            $newFile = [];
             $newFile['url'] = ipFileUrl('file/repository/' . $file['fileName']);
             $newFile['path'] = ipFile('file/repository/' . $file['fileName']);
             $newFile['title'] = isset($file['title']) ? $file['title'] : $file['fileName'];

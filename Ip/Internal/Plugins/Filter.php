@@ -55,7 +55,7 @@ class Filter
                     $value = $data[$option['name']];
                 }
                 if (!is_array($value)) {
-                    $value = array();
+                    $value = [];
                 }
                 foreach($value as $languageKey => $langValue) {
                     if (!is_string($languageKey)) {

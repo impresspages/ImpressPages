@@ -184,7 +184,7 @@ class Helper
                 $newField->setName($option['name']);
                 $optionKey = "{$pluginName}.{$option['name']}";
                 if ($newField instanceof \Ip\Form\FieldLang) {
-                    $value = array();
+                    $value = [];
                     foreach(ipContent()->getLanguages() as $language) {
                         $value[$language->getCode()] = ipGetOptionLang($optionKey, $language->getCode(), $default);
                     }

@@ -93,7 +93,7 @@ class ConfigModel
         $data = ipRequest()->getRequest();
 
         if (isset($data['restoreDefault'])) {
-            $config = array();
+            $config = [];
             //overwrite current config with default theme values
             $model = Model::instance();
             $theme = $model->getTheme(ipConfig()->theme());
@@ -189,7 +189,7 @@ class ConfigModel
                 case 'select':
                 case 'Select':
                     $newField = new Form\Field\Select();
-                    $values = array();
+                    $values = [];
                     if (!empty($option['values']) && is_array($option['values'])) {
                         foreach ($option['values'] as $value) {
                             $values[] = array($value, $value);

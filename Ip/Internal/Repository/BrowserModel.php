@@ -104,7 +104,7 @@ class BrowserModel
      */
     public function getAvailableFiles($seek, $limit, $filter, $filterExtensions, $secure = false, $subdir = null)
     {
-        $answer = array();
+        $answer = [];
         if ($subdir && substr($subdir, -1) != '/') {
             $subdir .= '/';
         }

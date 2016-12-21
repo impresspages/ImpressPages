@@ -153,10 +153,14 @@ class Content
     public function getLanguages()
     {
         if ($this->languages === null) {
-            $languages = \Ip\Internal\Languages\Service::getLanguages();
-            $this->languages = array();
-            foreach ($languages as $data) {
-                $this->languages[] = \Ip\Internal\Content\Helper::createLanguage($data);
+            if (!ipConfig()->database()) {
+                $this->languages = [];
+            } else {
+                $languages = \Ip\Internal\Languages\Service::getLanguages();
+                $this->languages = array();
+                foreach ($languages as $data) {
+                    $this->languages[] = \Ip\Internal\Content\Helper::createLanguage($data);
+                }
             }
         }
         return $this->languages;

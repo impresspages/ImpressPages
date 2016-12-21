@@ -34,7 +34,7 @@ class AdminController extends \Ip\GridController
 
         $reservedDirs = ipGetOption('Config.reservedDirs');
         if (!is_array($reservedDirs)) {
-            $reservedDirs = array();
+            $reservedDirs = [];
         }
 
         return array(
@@ -149,7 +149,7 @@ class AdminController extends \Ip\GridController
 
         Service::addLanguage($title, $abbreviation, $code, $url, 1, $directionality);
 
-        return new \Ip\Response\Json(array());
+        return new \Ip\Response\Json([]);
     }
 
     public function preventAction($method, $params, $statusVariables)
@@ -167,7 +167,7 @@ class AdminController extends \Ip\GridController
                 if ($params['beforeOrAfter'] == 'before' && $params['targetId'] == $firstLanguage->getId()
                 ) { // moving some language to the top slot
 
-                    $commands = array();
+                    $commands = [];
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());
@@ -190,7 +190,7 @@ class AdminController extends \Ip\GridController
                 } elseif ($params['beforeOrAfter'] == 'after' && $params['id'] == $firstLanguage->getId()
                 ) { // moving first language down
 
-                    $commands = array();
+                    $commands = [];
 
                     // revert drag action
                     $config = new \Ip\Internal\Grid\Model\Config($this->config());

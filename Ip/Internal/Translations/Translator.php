@@ -16,9 +16,9 @@ class Translator
     protected $adminLocale;
 
 
-    protected $domains = array();
+    protected $domains = [];
 
-    protected $adminDomains = array();
+    protected $adminDomains = [];
 
     public function __construct()
     {

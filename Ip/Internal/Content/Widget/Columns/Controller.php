@@ -103,7 +103,7 @@ class Controller extends \Ip\WidgetController
         }
 
         if (empty($data['widths']) || !is_array($data['widths'])) {
-            $data['widths'] = array();
+            $data['widths'] = [];
         }
 
         $totalWidth = (float)0;
@@ -144,7 +144,7 @@ class Controller extends \Ip\WidgetController
     {
         $data = $this->prepareData($data, $newId);
         $cols = $data['cols'];
-        $newCols = array();
+        $newCols = [];
         foreach ($cols as $col) {
             $newCols[] = str_replace('column' . $oldId, 'column' . $newId, $col);
         }

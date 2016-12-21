@@ -29,7 +29,7 @@ class Helper
     public static function initManagement()
     {
         $widgets = Service::getAvailableWidgets();
-        $snippets = array();
+        $snippets = [];
         foreach ($widgets as $widget) {
             $snippetHtml = $widget->adminHtmlSnippet();
             if ($snippetHtml != '') {

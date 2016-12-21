@@ -34,7 +34,7 @@ class Dao
         // Find value in breadcrumb.
         if ($pageId === null) {
             // We can't get breadcrumb if page id is null.
-            $breadcrumb = array();
+            $breadcrumb = [];
         } else {
             $breadcrumb = ipContent()->getBreadcrumb($pageId);
             // var_dump($breadcrumb);

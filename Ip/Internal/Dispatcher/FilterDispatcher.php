@@ -22,7 +22,7 @@ class FilterDispatcher extends EventListener
      * @param array $data Data for event processing
      * @return null
      */
-    public function filter($eventName, $value, $data = array())
+    public function filter($eventName, $value, $data = [])
     {
         if (empty($this->listeners[$eventName])) {
             return $value;

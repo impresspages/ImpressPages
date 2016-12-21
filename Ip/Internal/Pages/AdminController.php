@@ -136,7 +136,7 @@ class AdminController extends \Ip\Controller
             throw new \Ip\Exception("Page doesn't exist");
         }
 
-        $answer = array();
+        $answer = [];
         if (strtotime($data['createdAt']) === false) {
             $answer['errors']['createdAt'] = __('Incorrect date format. Example:', 'Ip-admin', false) . date(" Y-m-d");
         }
@@ -249,7 +249,7 @@ class AdminController extends \Ip\Controller
 
         Service::deletePage($pageId);
 
-        $answer = array();
+        $answer = [];
         $answer['status'] = 'success';
 
         return new \Ip\Response\Json($answer);
@@ -383,7 +383,7 @@ class AdminController extends \Ip\Controller
         // validate page alias
         $page = Model::getPage($menuId);
 
-        $errors = array();
+        $errors = [];
 
         if ($page['alias'] != $alias) {
             if (Model::getPageByAlias($page['languageCode'], $alias)) {

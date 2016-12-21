@@ -12,7 +12,7 @@ class Logger extends \Psr\Log\AbstractLogger
      * @param array $context
      * @return null
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         if (!ipDb()->isConnected()) { // do not log things if we have no database connection
             return;

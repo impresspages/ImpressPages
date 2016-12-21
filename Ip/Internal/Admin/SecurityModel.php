@@ -50,14 +50,14 @@ class SecurityModel
      */
     private function failedLogins()
     {
-        $failedLogins = ipStorage()->get('Admin', 'failedLogins', array());
+        $failedLogins = ipStorage()->get('Admin', 'failedLogins', []);
         return $failedLogins;
     }
 
     public function cleanup()
     {
         $failedLogins = $this->failedLogins();
-        $filtered = array();
+        $filtered = [];
         foreach ($failedLogins as $login) {
             if ($login['time'] > time() - 60 * 60) {
                 $filtered[] = $login;

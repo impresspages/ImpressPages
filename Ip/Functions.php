@@ -483,55 +483,56 @@ function _e($text, $domain, $esc = 'html')
     echo __($text, $domain, $esc);
 }
 
-if (!function_exists('ipFile')) {
-    /**
-     * Gets absolute file path
-     *
-     * @param string $path A path or a pathname.
-     * @return mixed|string Absolute path or pathname.
-     */
-    function ipFile($path)
-    {
-        global $ipFile_baseDir, $ipFile_overrides; // Optimization: caching these values speeds things up a lot.
 
-        if (!$ipFile_baseDir) {
-            $ipFile_baseDir = ipConfig()->get('baseDir');
-            $ipFile_overrides = ipConfig()->get('fileOverrides');
-        }
+/**
+ * Gets absolute file path
+ *
+ * @param string $path A path or a pathname.
+ * @return mixed|string Absolute path or pathname.
+ */
+function ipFile($path)
+{
+    global $ipFile_baseDir, $ipFile_coreDir; // Optimization: caching these values speeds things up a lot.
 
-        if ($ipFile_overrides) {
-            foreach ($ipFile_overrides as $prefix => $newPath) {
-                if (strpos($path, $prefix) === 0) {
-                    return substr_replace($path, $newPath, 0, strlen($prefix));
-                }
-            }
-        }
+    if (!$ipFile_baseDir) {
+        $ipFile_baseDir = ipConfig()->get('baseDir');
+        $ipFile_coreDir = ipConfig()->get('coreDir');
+    }
 
+    if (
+        strpos($path, 'Plugin/') === 0 ||
+        strpos($path, 'Theme/') === 0 ||
+        strpos($path, 'file/') === 0 ||
+        $path === ''
+    ) {
         return $ipFile_baseDir . '/' . $path;
     }
+
+    return $ipFile_coreDir . '/' . $path;
 }
 
-if (!function_exists('ipFileUrl')) {
-    /**
-     * Gets URL by a file name
-     *
-     * @param string $path Pathname relative to current directory or root.
-     * @return mixed|string File's URL address.
-     */
-    function ipFileUrl($path)
-    {
-        $overrides = ipConfig()->get('urlOverrides');
-        if ($overrides) {
-            foreach ($overrides as $prefix => $newPath) {
-                if (strpos($path, $prefix) === 0) {
-                    return substr_replace($path, $newPath, 0, strlen($prefix));
-                }
+
+
+/**
+ * Gets URL by a file name
+ *
+ * @param string $path Pathname relative to current directory or root.
+ * @return mixed|string File's URL address.
+ */
+function ipFileUrl($path)
+{
+    $overrides = ipConfig()->get('urlOverrides');
+    if ($overrides) {
+        foreach ($overrides as $prefix => $newPath) {
+            if (strpos($path, $prefix) === 0) {
+                return substr_replace($path, $newPath, 0, strlen($prefix));
             }
         }
-
-        return ipConfig()->baseUrl() . $path;
     }
+
+    return ipConfig()->baseUrl() . $path;
 }
+
 
 /**
  * Generate URL-encoded query string

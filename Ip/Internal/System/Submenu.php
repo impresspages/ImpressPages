@@ -24,7 +24,7 @@ class Submenu
     public static function getSubmenuUrls()
     {
         $moduleNames = self::getModuleNames();
-        $urls = array();
+        $urls = [];
         foreach ($moduleNames as $moduleName) {
             $urls[] = ipActionUrl(array('aa' => $moduleName . '.index'));
         }
@@ -34,7 +34,7 @@ class Submenu
 
     protected static function getControllerNames()
     {
-        $controllerNames = array();
+        $controllerNames = [];
         foreach (self::getModuleNames() as $name) {
             $controllerNames[] = 'Ip\Internal\\' . $name . '\AdminController';
         }
@@ -54,7 +54,7 @@ class Submenu
     {
         $modules = self::getModuleNames();
 
-        $submenuItems = array();
+        $submenuItems = [];
 
         if (0) { // It is for translation engine to find following strings
             __('Content', 'Ip-admin');

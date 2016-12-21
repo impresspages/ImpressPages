@@ -33,7 +33,7 @@ class Job
         $result['plugin'] = 'Content';
         $result['controller'] = 'PublicController';
         $result['action'] = 'index';
-        $result['urlParts'] = isset($urlParts[1]) ? explode('/', $urlParts[1]) : array();
+        $result['urlParts'] = isset($urlParts[1]) ? explode('/', $urlParts[1]) : [];
 
         return $result;
     }

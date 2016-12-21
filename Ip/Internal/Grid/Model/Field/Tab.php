@@ -17,7 +17,7 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function createData($postData)
     {
-        return array();
+        return [];
     }
 
     public function updateField($curData)
@@ -27,7 +27,7 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function updateData($postData)
     {
-        return array();
+        return [];
     }
 
 
@@ -38,6 +38,6 @@ class Tab extends \Ip\Internal\Grid\Model\Field
 
     public function searchQuery($searchVariables)
     {
-        return array();
+        return [];
     }
 }

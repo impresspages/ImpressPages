@@ -5,7 +5,7 @@ namespace Ip\Internal\Admin;
 class Model
 {
 
-    protected $errors = array();
+    protected $errors = [];
 
     protected function __construct()
     {
@@ -48,7 +48,7 @@ class Model
      */
     public function getAdminMenuItems($currentModule)
     {
-        $answer = array();
+        $answer = [];
 
 
         $modules = \Ip\Internal\Plugins\Model::getModules();

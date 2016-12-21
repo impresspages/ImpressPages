@@ -1,13 +1,3 @@
-/.project
-/.buildpath
-/.settings
-/.idea
+/vendor
 /composer.lock
-/project
-/file
-/robots.txt
-/Ip/Lib/vendor
-
-/phpunit/Tmp
-
-
+/.idea

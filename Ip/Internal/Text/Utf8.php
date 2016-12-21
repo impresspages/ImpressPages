@@ -28,7 +28,7 @@ class Utf8
             }
         }
         if (is_array($dat)) {
-            $answer = array();
+            $answer = [];
             foreach ($dat as $i => $d) {
                 $answer[$i] = self::checkEncoding($d);
             }

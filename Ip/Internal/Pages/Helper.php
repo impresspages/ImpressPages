@@ -41,7 +41,7 @@ class Helper
 
     public static function languageList()
     {
-        $answer = array();
+        $answer = [];
         $languages = ipContent()->getLanguages();
         foreach ($languages as $language) {
             $answer[] = array(

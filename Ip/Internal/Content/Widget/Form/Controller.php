@@ -119,14 +119,14 @@ class Controller extends \Ip\WidgetController{
      */
     public function sendEmail ($form, $postData, $data) {
 
-        $contentData = array();
+        $contentData = [];
 
         $websiteName = ipGetOptionLang('Config.websiteTitle');
         $websiteEmail = ipGetOptionLang('Config.websiteEmail');
 
 
         $from = $websiteEmail;
-        $files = array();
+        $files = [];
 
         foreach($form->getFields() as $field) {
 
@@ -206,22 +206,22 @@ class Controller extends \Ip\WidgetController{
 
     public function defaultData()
     {
-        $data = array();
-        $data['fields'] = array();
+        $data = [];
+        $data['fields'] = [];
         $data['fields'][] = array (
             'type' => 'Text',
             'label' => __('Name', 'Ip', false),
-            'options' => array()
+            'options' => []
         );
         $data['fields'][] = array (
             'type' => 'Email',
             'label' => __('Email', 'Ip', false),
-            'options' => array()
+            'options' => []
         );
         $data['fields'][] = array (
             'type' => 'Textarea',
             'label' => __('Text', 'Ip', false),
-            'options' => array()
+            'options' => []
         );
         return $data;
     }
@@ -257,21 +257,21 @@ class Controller extends \Ip\WidgetController{
         $data['fieldTypes'] = $fieldTypes;
 
         if (empty($data['fields'])) {
-            $data['fields'] = array();
+            $data['fields'] = [];
             $data['fields'][] = array (
                 'type' => 'Text',
                 'label' => __('Name', 'Ip', false),
-                'options' => array()
+                'options' => []
             );
             $data['fields'][] = array (
                 'type' => 'Email',
                 'label' => __('Email', 'Ip', false),
-                'options' => array()
+                'options' => []
             );
             $data['fields'][] = array (
                 'type' => 'Textarea',
                 'label' => __('Text', 'Ip', false),
-                'options' => array()
+                'options' => []
             );
         }
 
@@ -292,7 +292,7 @@ class Controller extends \Ip\WidgetController{
         $form->setEnvironment(\Ip\Form::ENVIRONMENT_PUBLIC);
 
         if (empty($data['fields']) || !is_array($data['fields'])) {
-            $data['fields'] = array();
+            $data['fields'] = [];
         }
         foreach ($data['fields'] as $fieldKey => $field) {
             if (!isset($field['type']) || !isset($field['label'])) {
@@ -307,10 +307,10 @@ class Controller extends \Ip\WidgetController{
             }
 
             if (!isset($field['options'])) {
-                $field['options'] = array();
+                $field['options'] = [];
             }
             if (!isset($field['options']) || !is_array($field['options'])) {
-                $field['options'] = array();
+                $field['options'] = [];
             }
             if (!isset($field['required'])) {
                 $field['required'] = false;

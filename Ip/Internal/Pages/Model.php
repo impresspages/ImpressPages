@@ -74,7 +74,7 @@ class Model
     {
         // $newPages are the pages that have been copied already and should be skipped to duplicate again. This situation can occur when copying the page to it self.
         if ($newPages == null) {
-            $newPages = array();
+            $newPages = [];
         }
         $newNodeId = static::copySinglePage($nodeId, $destinationPageId, $rowNumber);
         $newPages[$newNodeId] = 1;
@@ -347,7 +347,7 @@ class Model
      */
     public static function updatePageProperties($pageId, $properties)
     {
-        $update = array();
+        $update = [];
 
         if (isset($properties['title'])) {
             $update['title'] = $properties['title'];
@@ -534,7 +534,7 @@ class Model
      */
     public static function createMenu($languageCode, $alias, $title, $type = 'tree')
     {
-        $data = array();
+        $data = [];
         $data['languageCode'] = $languageCode;
 
         if (empty($alias)) {

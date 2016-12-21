@@ -76,7 +76,7 @@ class Service
      * @return int page id
      * @throws \Ip\Exception
      */
-    public static function addPage($parentId, $title, $data = array())
+    public static function addPage($parentId, $title, $data = [])
     {
         $data['title'] = $title;
 

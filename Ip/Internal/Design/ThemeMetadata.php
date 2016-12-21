@@ -14,7 +14,7 @@ class ThemeMetadata
 {
     protected $metadata;
 
-    public function __construct($metadata = array())
+    public function __construct($metadata = [])
     {
         $this->metadata = $metadata;
 

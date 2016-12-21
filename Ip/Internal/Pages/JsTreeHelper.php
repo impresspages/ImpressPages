@@ -30,12 +30,12 @@ class JsTreeHelper
             'ORDER BY `pageOrder`'
         );
 
-        $answer = array();
+        $answer = [];
 
         //generate jsTree response array
         foreach ($pages as $page) {
 
-            $pageData = array();
+            $pageData = [];
 
             $pageData['state'] = 'closed';
 

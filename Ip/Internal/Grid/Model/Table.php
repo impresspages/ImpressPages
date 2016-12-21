@@ -54,7 +54,7 @@ class Table extends \Ip\Internal\Grid\Model
             $params = $data;
         } else {
             $data = $this->request->getRequest();
-            $params = empty($data['params']) ? array() : $data['params'];
+            $params = empty($data['params']) ? [] : $data['params'];
         }
 
 
@@ -130,7 +130,7 @@ class Table extends \Ip\Internal\Grid\Model
     {
 
         $display = $this->getDisplay();
-        $commands = array();
+        $commands = [];
         $html = $display->fullHtml($this->statusVariables);
         $commands[] = Commands::setHtml($html);
         return $commands;
@@ -146,7 +146,7 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         $statusVariables[$pageVariableName] = $params['page'];
-        $commands = array();
+        $commands = [];
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
     }
@@ -163,7 +163,7 @@ class Table extends \Ip\Internal\Grid\Model
         $statusVariables['pageSize'] = $params['pageSize'];
         $pageVariableName = $this->subgridConfig->pageVariableName();
         $statusVariables[$pageVariableName] = 1;
-        $commands = array();
+        $commands = [];
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
     }
@@ -177,7 +177,7 @@ class Table extends \Ip\Internal\Grid\Model
         }
 
         $statusVariables['language'] = $params['language'];
-        $commands = array();
+        $commands = [];
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
     }
@@ -188,7 +188,7 @@ class Table extends \Ip\Internal\Grid\Model
             throw new \Ip\Exception('Missing parameters');
         }
 
-        $commands = array();
+        $commands = [];
 
         try {
             $actions = $this->getActions();
@@ -299,7 +299,7 @@ class Table extends \Ip\Internal\Grid\Model
             if (!empty($field['transformations']) && !empty($field['field']) && array_key_exists($field['field'], $data)) {
                 foreach($field['transformations'] as $transformation) {
                     $transformationObject = $this->createTransformationObject($transformation);
-                    $options = array();
+                    $options = [];
                     if (is_array($transformation) && isset($transformation[1])) {
                         $options = $transformation[1];
                     }
@@ -450,7 +450,7 @@ class Table extends \Ip\Internal\Grid\Model
     {
         $statusVariables = $this->statusVariables;
         $display = $this->getDisplay();
-        $searchForm = $display->searchForm(array());
+        $searchForm = $display->searchForm([]);
 
 
         $errors = $searchForm->validate($data);
@@ -555,7 +555,7 @@ class Table extends \Ip\Internal\Grid\Model
                 unset($statusVariables['direction']);
             }
         }
-        $commands = array();
+        $commands = [];
         $commands[] = Commands::setHash(Status::build($statusVariables));
         return $commands;
     }

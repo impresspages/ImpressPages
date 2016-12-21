@@ -30,13 +30,13 @@ class FormHelper
 
     protected static function getAvailableLocales()
     {
-        $locales = array();
+        $locales = [];
         $translationDirectories = array(
             ipFile('Ip/Internal/Translations/translations'),
             ipFile('file/translations/original'),
             ipFile('file/translations/override')
         );
-        $files = array();
+        $files = [];
         foreach($translationDirectories as $dir) {
             if (!is_dir($dir)) {
                 continue;

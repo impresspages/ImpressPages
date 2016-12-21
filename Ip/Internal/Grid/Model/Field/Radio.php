@@ -11,7 +11,7 @@ class Radio extends \Ip\Internal\Grid\Model\Field
     protected $field = '';
     protected $label = '';
     protected $defaultValue = '';
-    protected $values = array();
+    protected $values = [];
 
     public function __construct($fieldFieldConfig, $wholeConfig)
     {
@@ -63,7 +63,7 @@ class Radio extends \Ip\Internal\Grid\Model\Field
         if (isset($postData[$this->field])) {
             return array($this->field => $postData[$this->field]);
         }
-        return array();
+        return [];
     }
 
     public function updateField($curData)

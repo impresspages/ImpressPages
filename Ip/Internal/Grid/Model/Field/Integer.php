@@ -27,7 +27,7 @@ class Integer extends \Ip\Internal\Grid\Model\Field
         if (isset($postData[$this->field])) {
             return array($this->field => $this->nullIfEmpty($postData[$this->field]));
         }
-        return array();
+        return [];
     }
 
     public function updateField($curData)

@@ -31,7 +31,7 @@ class Model
     {
         $widgets = self::getBlockWidgetRecords($blockName, $revisionId, $languageId);
 
-        $widgetsHtml = array();
+        $widgetsHtml = [];
         foreach ($widgets as $widget) {
             try {
                 $widgetsHtml[] = self::_generateWidgetPreview($widget, $managementState);
@@ -39,8 +39,6 @@ class Model
                 throw new \Ip\Exception\Content('Error when generating widget preview', null, $e);
             }
         }
-
-        $currentRevision = ipContent()->getCurrentRevision();
 
         $variables = array(
             'widgetsHtml' => $widgetsHtml,
@@ -87,9 +85,9 @@ class Model
         $tmpWidgets = Model::getAvailableWidgetObjects();
         $tmpWidgets = Model::sortWidgets($tmpWidgets);
         $tags = array(
-            'Core' => array()
+            'Core' => []
         );
-        $uncategorizedWidgets = array();
+        $uncategorizedWidgets = [];
 
         unset($tmpWidgets['Columns']);
 
@@ -99,7 +97,7 @@ class Model
             } else {
                 $pluginName = $widget->getPluginName();
                 if (!array_key_exists($pluginName, $tags)) {
-                    $tags[$pluginName] = array();
+                    $tags[$pluginName] = [];
                 }
                 $tags[$pluginName][] = $widget->getName();
             }
@@ -162,8 +160,8 @@ class Model
     public static function sortWidgets($widgets)
     {
         $priorities = self::_getPriorities();
-        $sortedWidgets = array();
-        $unsortedWidgets = array();
+        $sortedWidgets = [];
+        $unsortedWidgets = [];
         foreach ($widgets as $widget) {
             if (isset($priorities[$widget->getName()])) {
                 $position = $priorities[$widget->getName()];
@@ -173,7 +171,7 @@ class Model
             }
         }
         ksort($sortedWidgets);
-        $answer = array();
+        $answer = [];
         foreach ($sortedWidgets as $widget) {
             $answer[$widget->getName()] = $widget;
         }
@@ -190,8 +188,8 @@ class Model
      */
     private static function _getPriorities()
     {
-        $list = ipDb()->selectAll('widget_order', '*', array(), 'ORDER BY `priority` ASC');
-        $result = array();
+        $list = ipDb()->selectAll('widget_order', '*', [], 'ORDER BY `priority` ASC');
+        $result = [];
         foreach ($list as $widgetOrder) {
             $result[$widgetOrder['widgetName']] = $widgetOrder['priority'];
         }
@@ -263,7 +261,7 @@ class Model
 
         $widgetData = $widgetRecord['data'];
         if (!is_array($widgetData)) {
-            $widgetData = array();
+            $widgetData = [];
         }
 
         if (!$widgetRecord['revisionId']) {
@@ -285,7 +283,7 @@ class Model
             $widgetRecord['skin']
         );
 
-        $optionsMenu = array();
+        $optionsMenu = [];
 
 
         $previewHtml = ipFilter('ipWidgetHtml', $previewHtml, $widgetRecord);
@@ -387,7 +385,7 @@ class Model
 
         $widgets = ipDb()->fetchAll($sql, array($oldRevisionId));
 
-        $widgetIdTransition = array();
+        $widgetIdTransition = [];
         foreach ($widgets as $widget) {
             $widgetObject = Model::getWidgetObject($widget['name']);
 
@@ -432,7 +430,7 @@ class Model
             return self::$widgetObjects;
         }
 
-        self::$widgetObjects = ipFilter('ipWidgets', array());
+        self::$widgetObjects = ipFilter('ipWidgets', []);
 
         return self::$widgetObjects;
     }
@@ -533,7 +531,7 @@ class Model
     {
         $allWidgets = Model::getBlockWidgetRecords($newBlockName, $revisionId, $languageId);
 
-        $widgets = array();
+        $widgets = [];
 
         foreach ($allWidgets as $widget) {
             if ($widgetId === null || $widget['id'] != $widgetId) {

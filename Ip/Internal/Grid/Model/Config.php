@@ -96,7 +96,7 @@ class Config
         if (!empty($this->config['actions'])) {
             return $this->config['actions'];
         }
-        return array();
+        return [];
     }
 
     /**
@@ -437,7 +437,7 @@ class Config
 
     protected function getTableFields($tableName, $languageTable)
     {
-        $result = array();
+        $result = [];
 
         $sql = "SHOW COLUMNS FROM " . $tableName . " " . $this->joinQuery() . " ";
 
@@ -541,7 +541,7 @@ class Config
      * @param array $gridBreadcrumb //to detect loop
      * @throws \Ip\Exception
      */
-    protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = array())
+    protected function checkConfig(&$config, $depth = 1, $gridBreadcrumb = [])
     {
         $fields = &$config['fields'];
 

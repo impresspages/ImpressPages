@@ -15,6 +15,7 @@ class Config
     protected $config;
     protected $protocolUrl;
     protected $protocol;
+    protected $isConfigEmpty;
 
     /**
      * @param $config
@@ -22,13 +23,18 @@ class Config
      */
     public function __construct($config, $server = null)
     {
+        $this->isConfigEmpty = empty($config);
         $this->config = $config;
 
-        if (!isset($this->config['tablePrefix'])) {
-            $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
-        }
-        if (!isset($this->config['database'])) {
-            $this->config['database'] = $this->config['db']['database'];
+        if (!empty($config['db'])) {
+            if (!isset($this->config['tablePrefix'])) {
+                $this->config['tablePrefix'] = $this->config['db']['tablePrefix'];
+            }
+            if (!isset($this->config['database'])) {
+                $this->config['database'] = $this->config['db']['database'];
+            }
+        } else {
+            $this->config['database'] = null;
         }
 
         if (!$server) {
@@ -57,7 +63,15 @@ class Config
         }
 
         if (empty($this->config['baseDir'])) {
-            $this->config['baseDir'] = realpath(dirname($server['SCRIPT_FILENAME']));
+            $this->config['baseDir'] = realpath(getcwd());
+        }
+
+        if (empty($this->config['coreDir'])) {
+            if ($this->isComposerCore()) {
+                $this->config['coreDir'] = realpath(dirname(getcwd()) . '/vendor/impresspages/core');
+            } else {
+                $this->config['coreDir'] = realpath(getcwd() . '/Ip/vendor/impresspages/core');
+            }
         }
 
         if (empty($this->config['charset'])) {
@@ -158,6 +172,9 @@ class Config
         if (!empty($this->config['theme'])) {
             return $this->config['theme'];
         } else {
+            if (!ipConfig()->database()) {
+                return '';
+            }
             return ipStorage()->get('Ip', 'theme');
         }
     }
@@ -176,7 +193,28 @@ class Config
 
     public function showErrors()
     {
-        return !empty($this->config['showErrors']) || !empty($this->config['errorsShow']);
+        return !empty($this->config['showErrors']) || !empty($this->config['errorsShow']) || $this->isConfigEmpty;
     }
 
+    public function isEmpty()
+    {
+        return $this->isConfigEmpty;
+    }
+
+    public function isComposerCore()
+    {
+        return is_dir(dirname(getcwd()) . '/vendor/impresspages/core');
+    }
+
+    /**
+     * @return string - path to the configuration file
+     */
+    public function configFile()
+    {
+        if ($this->isComposerCore()) {
+            return dirname($this->get('baseDir')) . "/config.php";
+        } else {
+            return $this->get('baseDir') . "/config.php";
+        }
+    }
 }

@@ -12,7 +12,7 @@ abstract class Field
     protected $label = '';
     protected $defaultValue = '';
     protected $previewMethod = '';
-    protected $attributes = array();
+    protected $attributes = [];
     protected $layout = \Ip\Form\Field::LAYOUT_DEFAULT;
 
     /**

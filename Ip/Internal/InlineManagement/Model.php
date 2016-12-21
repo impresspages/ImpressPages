@@ -63,7 +63,7 @@ class Model
             // ${1} - protocol, ${2} - optional '/'
             $after = preg_replace($search, '${1}' . $newPart . '${2}', $row['value']);
             if ($after != $row['value']) {
-                $where = array();
+                $where = [];
                 foreach($keyFields as $keyField) {
                     $where[$keyField] = $row[$keyField];
                 }

@@ -109,7 +109,7 @@ class Logo
 
     public function getValueStr()
     {
-        $data = array();
+        $data = [];
         $data['type'] = $this->type;
         $data['imageOrig'] = $this->imageOrig;
         $data['x1'] = $this->x1;
