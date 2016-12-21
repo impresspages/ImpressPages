@@ -304,21 +304,6 @@ class Model
 
         }
 
-        $fileOverrides = ipConfig()->get('fileOverrides');
-        if (!is_array($fileOverrides)) {
-            $fileOverrides = [];
-        }
-        $overrideKeys = array_keys($fileOverrides);
-        if (!is_array($overrideKeys)) {
-            $overrideKeys = [];
-        }
-        foreach($overrideKeys as $overriddenDir) {
-            $matches = null;
-            if (preg_match('%^Plugin\/(.+)/$%', $overriddenDir, $matches)) {
-                $answer[] = $matches[1];
-            }
-        }
-
         //TODO add filter for plugins in other directories
         return $answer;
     }

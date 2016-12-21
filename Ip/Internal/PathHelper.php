@@ -28,21 +28,6 @@ class PathHelper
             $absoluteFile = str_replace('\\', '/', $absoluteFile);
         }
 
-        $overrides = ipConfig()->get('fileOverrides');
-        if ($overrides) {
-            foreach ($overrides as $relativePath => $fullPath) {
-                if (DIRECTORY_SEPARATOR == '\\') {
-                    // Replace windows paths
-                    $fullPath = str_replace('\\', '/', $fullPath);
-                }
-                if (strpos($absoluteFile, $fullPath) === 0) {
-                    $relativeFile = substr_replace($absoluteFile, $relativePath, 0, strlen($fullPath));
-                    return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
-                }
-            }
-        }
-
-
         $coreDir = ipConfig()->get('coreDir');
         $coreDir = str_replace('\\', '/', $coreDir);
         if (strpos($absoluteFile, $coreDir) === 0) {
