@@ -37,7 +37,7 @@ function registerComposerInstalledPlugins()
             continue;
         }
 
-        $composerPlugins[$keyParts[1]] = $autoLoaderPath['0'];
+        $composerPlugins[$keyParts[1]] = substr($autoLoaderPath['0'], mb_strlen($baseDir) + 1);
     }
 
     $content = '<?php return ';
