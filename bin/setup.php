@@ -5,7 +5,7 @@
 
 
 
-if (getcwd() . '/vendor/impresspages/impresspagesexperimental/bin' != __DIR__) {
+if (getcwd() . '/vendor/impresspages/impresspages/bin' != __DIR__) {
     throw new \Exception('This script must be executed from the project root (where composer.json is placed');
 }
 
@@ -32,15 +32,15 @@ foreach ($assetPaths as $assetPath) {
 
 
 if (!is_dir('public/Plugin')) {
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/Plugin public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/Plugin public/`;
 }
 
 if (!is_dir('public/Theme')) {
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/Theme public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/Theme public/`;
 }
 
 if (!is_dir('public/file')) {
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/file public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/file public/`;
 }
 
 //user could have removed admin.php or favicon.ico. So we do our work only if all three are missing.
@@ -50,9 +50,9 @@ if (
     !is_file('public/index.php') &&
     !is_file('public/.htaccess')
 ) {
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/admin.php public/`;
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/favicon.ico public/`;
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/index.php public/`;
-    `cp -rf vendor/impresspages/impresspagesexperimental/start-pack/.htaccess public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/admin.php public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/favicon.ico public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/index.php public/`;
+    `cp -rf vendor/impresspages/impresspages/start-pack/.htaccess public/`;
 }
 
