@@ -17,6 +17,35 @@ copyAssets($publicDir);
 
 createRootFiles($publicDir);
 
+registerComposerInstalledPlugins();
+
+function registerComposerInstalledPlugins()
+{
+    $vendorDir = dirname(dirname(dirname(__DIR__)));
+    $baseDir = dirname($vendorDir);
+    $composerPluginsRegisterFile = $baseDir . '/composerPlugins.php';
+
+    $autoLoaderPaths = require($vendorDir . '/composer/autoload_psr4.php');
+    $composerPlugins = [];
+    foreach ($autoLoaderPaths as $key => $autoLoaderPath) {
+        $keyParts = explode('\\', $key);
+        if ($keyParts[0] != 'Plugin') {
+            continue;
+        }
+
+        if (empty($keyParts[1])) {
+            continue;
+        }
+
+        $composerPlugins[$keyParts[1]] = $autoLoaderPath['0'];
+    }
+
+    $content = '<?php return ';
+    $content .= var_export($composerPlugins, true);
+    $content .= ';';
+
+    file_put_contents($composerPluginsRegisterFile, $content);
+}
 
 /**
  * @param $publicDir
