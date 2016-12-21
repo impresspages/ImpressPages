@@ -39,14 +39,6 @@ class Event
 
     public static function ipBeforeController()
     {
-
-        $ipUrlOverrides = ipConfig()->get('urlOverrides');
-        if (!$ipUrlOverrides) {
-            $ipUrlOverrides = [];
-        }
-
-        ipAddJsVariable('ipUrlOverrides', $ipUrlOverrides);
-
         // Add widgets
         //TODO cache found assets to decrease file system usage
         $widgets = Service::getAvailableWidgets();

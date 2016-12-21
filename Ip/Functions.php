@@ -521,15 +521,6 @@ function ipFile($path)
  */
 function ipFileUrl($path)
 {
-    $overrides = ipConfig()->get('urlOverrides');
-    if ($overrides) {
-        foreach ($overrides as $prefix => $newPath) {
-            if (strpos($path, $prefix) === 0) {
-                return substr_replace($path, $newPath, 0, strlen($prefix));
-            }
-        }
-    }
-
     return ipConfig()->baseUrl() . $path;
 }
 
