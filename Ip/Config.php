@@ -68,9 +68,9 @@ class Config
 
         if (empty($this->config['coreDir'])) {
             if ($this->isComposerCore()) {
-                $this->config['coreDir'] = realpath(dirname(getcwd()) . '/vendor/impresspages/core');
+                $this->config['coreDir'] = realpath(dirname(getcwd()) . '/vendor/impresspages/impresspages');
             } else {
-                $this->config['coreDir'] = realpath(getcwd() . '/Ip/vendor/impresspages/core');
+                $this->config['coreDir'] = realpath(getcwd() . '/Ip/vendor/impresspages/impresspages');
             }
         }
 
@@ -203,7 +203,7 @@ class Config
 
     public function isComposerCore()
     {
-        return is_dir(dirname(getcwd()) . '/vendor/impresspages/core');
+        return is_dir(dirname(getcwd()) . '/vendor/impresspages/impresspages');
     }
 
     /**
