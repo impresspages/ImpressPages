@@ -22,7 +22,7 @@ registerComposerInstalledPlugins();
 function registerComposerInstalledPlugins()
 {
     $vendorDir = dirname(dirname(dirname(__DIR__)));
-    $baseDir = dirname($vendorDir);
+    $baseDir = getcwd();
     $composerPluginsRegisterFile = $baseDir . '/composerPlugins.php';
 
     $autoLoaderPaths = require($vendorDir . '/composer/autoload_psr4.php');
