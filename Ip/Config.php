@@ -90,10 +90,16 @@ class Config
         }
 
         $this->config['composerPlugins'] = [];
+        $this->config['composerPluginPaths'] = [];
         if ($this->isComposerCore()) {
             $composerConfigFile = dirname(getcwd()) . '/composerPlugins.php';
             if (is_file($composerConfigFile)) {
-                $this->config['composerPlugins'] = require($composerConfigFile);
+                $composerPlugins = require($composerConfigFile);
+                $this->config['composerPlugins'] = $composerPlugins;
+
+                foreach ($composerPlugins as $plugin => $path) {
+                    $this->config['composerPluginPaths'][$path] = $plugin;
+                }
             }
         }
 

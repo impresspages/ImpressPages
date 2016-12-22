@@ -44,6 +44,23 @@ class PathHelper
             return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
         }
 
+
+        if (ipConfig()->isComposerCore()) {
+            $rootDir = dirname(ipConfig()->get('baseDir'));
+            if (strpos($absoluteFile, $rootDir) === 0) {
+                $rootRelativeFile = substr($absoluteFile, strlen($rootDir) + 1);
+                $parts = explode('/', $rootRelativeFile);
+                if (count($parts) >= 3) {
+                    $composerPluginPaths = ipConfig()->get('composerPluginPaths');
+                    $pluginComposerPath = $parts[0] . '/' . $parts[1] . '/' . $parts[2];
+                    if (!empty($composerPluginPaths[$pluginComposerPath])) {
+                        $relativeFile = 'Plugin/' . $composerPluginPaths[$pluginComposerPath] . '/' . substr($rootRelativeFile, strlen($pluginComposerPath) + 1);
+                        return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+                    }
+                }
+            }
+        }
+
         throw new \Ip\Exception('Cannot find relative path for file ' . esc($absoluteFile));
     }
 
