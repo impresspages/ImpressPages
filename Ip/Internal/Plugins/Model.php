@@ -304,7 +304,13 @@ class Model
 
         }
 
-        //TODO add filter for plugins in other directories
+        $composerPlugins = array_keys(ipConfig()->get('composerPlugins'));
+        foreach ($composerPlugins as $composerPlugin) {
+            if (!in_array($composerPlugin, $answer)) {
+                $answer[] = $composerPlugin;
+            }
+        }
+
         return $answer;
     }
 
