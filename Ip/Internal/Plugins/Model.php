@@ -294,7 +294,7 @@ class Model
             return [];
         }
         foreach ($files as $file) {
-            if (in_array($file, array('.', '..')) || !is_dir(
+            if (in_array($file, ['.', '..']) || !is_dir(
                     $pluginDir . $file
                 ) || !empty($file[0]) && $file[0] == '.'
             ) {
