@@ -33,7 +33,7 @@ class PathHelper
         if (strpos($absoluteFile, $coreDir) === 0) {
             $relativeFile = substr($absoluteFile, strlen($coreDir) + 1);
 
-            return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+            return dirname($relativeFile) . '/';
         }
 
         $baseDir = ipConfig()->get('baseDir');
@@ -41,21 +41,24 @@ class PathHelper
         if (strpos($absoluteFile, $baseDir) === 0) {
             $relativeFile = substr($absoluteFile, strlen($baseDir) + 1);
 
-            return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+            return dirname($relativeFile) . '/';
         }
 
 
         if (ipConfig()->isComposerCore()) {
+            //this must be a composer installed plugin
             $rootDir = dirname(ipConfig()->get('baseDir'));
+            $coreDir = ipConfig()->get('coreDir');
+            $vendorDepth = count(explode('/', substr($coreDir, strlen($rootDir)))) - 1;
             if (strpos($absoluteFile, $rootDir) === 0) {
                 $rootRelativeFile = substr($absoluteFile, strlen($rootDir) + 1);
                 $parts = explode('/', $rootRelativeFile);
-                if (count($parts) >= 3) {
+                if (count($parts) >= $vendorDepth) {
                     $composerPluginPaths = ipConfig()->get('composerPluginPaths');
-                    $pluginComposerPath = $parts[0] . '/' . $parts[1] . '/' . $parts[2];
+                    $pluginComposerPath = implode('/', array_slice($parts, 0, $vendorDepth));
                     if (!empty($composerPluginPaths[$pluginComposerPath])) {
                         $relativeFile = 'Plugin/' . $composerPluginPaths[$pluginComposerPath] . '/' . substr($rootRelativeFile, strlen($pluginComposerPath) + 1);
-                        return substr($relativeFile, 0, strrpos($relativeFile, '/') + 1);
+                        return dirname($relativeFile) . '/';
                     }
                 }
             }
