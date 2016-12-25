@@ -96,15 +96,15 @@ function createMainDirs($publicDir)
     `mkdir -p $publicDir/Ip/Internal`;
 
     if (!is_dir($publicDir . '/Plugin')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/Plugin public/`;
+        `cp -rf vendor/impresspages/impresspages/start-pack/Plugin $publicDir/`;
     }
 
     if (!is_dir($publicDir . '/Theme')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/Theme public/`;
+        `cp -rf vendor/impresspages/impresspages/start-pack/Theme $publicDir/`;
     }
 
     if (!is_dir($publicDir . '/file')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/file public/`;
+        `cp -rf vendor/impresspages/impresspages/start-pack/file $publicDir/`;
     }
 }
 
