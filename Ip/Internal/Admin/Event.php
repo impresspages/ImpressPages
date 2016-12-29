@@ -23,12 +23,16 @@ class Event
         if (isset($curModule) && $curModule) {
             $title = $curModule;
             $plugin = \Ip\Internal\Plugins\Service::getPluginConfig($curModule);
-            if ($plugin) {
-                $title = $plugin['title'];
-            }
+            
             $curModTitle = __($title, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
+            
+            //if $curModule is a plugin try to translate and get icon in config.json
+            if ($plugin) {
+                $curModTitle = __($plugin['title'], $curModule, false);
+                $curModIcon = isset($plugin['icon']) ? $plugin['icon'] : $curModIcon;
+            }
         }
 
         $navbarButtons = array(
