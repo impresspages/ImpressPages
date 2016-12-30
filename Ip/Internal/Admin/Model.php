@@ -84,7 +84,7 @@ class Model
             $moduleItem = new \Ip\Internal\Admin\MenuItem();
             $moduleItem->setTitle(__($plugin['title'], 'Ip-admin', false));
             $moduleItem->setUrl(ipActionUrl(array('aa' => $plugin['name'])));
-            $moduleItem->setIcon($this->getAdminMenuItemIcon($plugin['name']));
+            $moduleItem->setIcon($this->getAdminMenuPluginIcon($plugin['name']));
             if ($plugin['name'] == $currentModule) {
                 $moduleItem->markAsCurrent(true);
             }
@@ -96,6 +96,17 @@ class Model
         $answer = ipFilter('ipAdminMenu', $answer);
 
         return $answer;
+    }
+    
+    /**
+     * Function to get icon from plugin config
+     * @param $module
+     * @return string
+     */
+    public static function getAdminMenuPluginIcon($module)
+    {
+        $conf = \Ip\Internal\Plugins\Service::getPluginConfig($module);
+        return isset($conf['icon']) ? $conf['icon'] : 'fa-cog';
     }
 
     public static function getAdminMenuItemIcon($module)
