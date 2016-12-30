@@ -4,7 +4,7 @@
   "require": {
     "php": ">=5.5.0",
     "aura/router": "~2.3.1",
-    "phpmailer/phpmailer": "5.2.16",
+    "phpmailer/phpmailer": "5.2.21",
     "psr/log": "1.0.2",
     "zendframework/zend-i18n": "2.7.3",
     "zendframework/zend-servicemanager": "2.7.7"
