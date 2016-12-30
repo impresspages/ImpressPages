@@ -13,6 +13,7 @@ class Db extends \PDOException
 {
     public function __construct($message = "", $code = 0, \PDOException $previous = null)
     {
+        $this->message = $message;
         if ($previous) {
             $this->message = $previous->message;
             $this->code = $previous->code;

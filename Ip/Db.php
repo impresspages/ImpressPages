@@ -67,7 +67,7 @@ class Db
             }
 
         } catch (\PDOException $e) {
-            throw new \Ip\Exception\Db("Can't connect to database. Stack trace hidden for security reasons");
+            throw new \Ip\Exception($e->getMessage());
             //PHP traces all details of error including DB password. This could be a disaster on live server. So we hide that data.
         }
 
