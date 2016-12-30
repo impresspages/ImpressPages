@@ -516,8 +516,9 @@ class Application
     }
 
     protected function getEnv() {
-        if (isset($_ENV['IP_ENV'])) {
-            return $_ENV['IP_ENV'];
+        $environment = getenv('IP_ENV');
+        if (!empty($environment)) {
+            return $environment;
         }
 
         return 'dev';
