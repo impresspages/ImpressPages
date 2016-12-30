@@ -27,9 +27,6 @@ class Application
         } else {
             $this->configPath = $configPath;
         }
-        if ($this->configPath == null) {
-            $this->configPath = __DIR__ . '/../../../../config.php';
-        }
     }
 
     /**
@@ -403,20 +400,8 @@ class Application
      */
     public function run($options = array())
     {
-        if ($this->config) {
-            $config = $this->config;
-        } else {
-            if (is_file($this->configPath)) {
-                $config = require($this->configPath);
-            } else {
-                $config = [];
-            }
-        }
-
-        if (!is_array($config)) {
-            $config = [];
-        }
-        $config = new \Ip\Config($config);
+        $configValues = $this->parseConfig();
+        $config = new \Ip\Config($configValues);
         \Ip\ServiceLocator::setConfig($config);
 
         require_once __DIR__ . '/Functions.php';
@@ -498,5 +483,43 @@ class Application
             setLocale(LC_ALL, $locale);
         }
         setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
+    }
+
+    protected function parseConfig()
+    {
+        if ($this->config) {
+            $config = $this->config;
+        } else {
+            $config = [];
+            if ($this->configPath != null) {
+                $configPath = substr($this->configPath, -1) == '/' ? $this->configPath : dirname($this->configPath);
+            } else {
+                $configPath = getcwd() . '/../';
+            }
+
+            $defaultConfigFile = $configPath . 'config.php';
+            if (is_file($defaultConfigFile)) {
+                $config = array_merge($config, require($defaultConfigFile));
+            }
+
+            $envConfigFile = $configPath . 'config-' . $this->getEnv() . '.php';
+            if (is_file($envConfigFile)) {
+                $config = array_merge($config, require($envConfigFile));
+            }
+        }
+
+        if (!is_array($config)) {
+            $config = [];
+        }
+
+        return $config;
+    }
+
+    protected function getEnv() {
+        if (isset($_ENV['IP_ENV'])) {
+            return $_ENV['IP_ENV'];
+        }
+
+        return 'dev';
     }
 }
