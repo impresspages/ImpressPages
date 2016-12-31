@@ -1,6 +1,6 @@
 <?php
 
-
+require (dirname(dirname(dirname(__DIR__ . ''))) . '/autoload.php');
 $publicDir = 'public';
 
 if (!empty($argv[1])) {
@@ -59,10 +59,10 @@ function createRootFiles($publicDir)
         !is_file($publicDir . '/index.php') &&
         !is_file($publicDir . '/.htaccess')
     ) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/admin.php $publicDir/`;
-        `cp -rf vendor/impresspages/impresspages/start-pack/favicon.ico $publicDir/`;
-        `cp -rf vendor/impresspages/impresspages/start-pack/index.php $publicDir/`;
-        `cp -rf vendor/impresspages/impresspages/start-pack/.htaccess $publicDir/`;
+        copy('vendor/impresspages/impresspages/start-pack/admin.php', $publicDir . '/admin.php');
+        copy('vendor/impresspages/impresspages/start-pack/favicon.ico', $publicDir . '/favicon.ico');
+        copy('vendor/impresspages/impresspages/start-pack/index.php', $publicDir . '/index.php');
+        copy('vendor/impresspages/impresspages/start-pack/.htaccess', $publicDir . '/.htaccess');
     }
 }
 
@@ -90,37 +90,43 @@ function copyAssets($publicDir)
 
 function createMainDirs($publicDir)
 {
-    `rm -rf $publicDir/Ip/*`;
+    AdvancedFs::cleanPath($publicDir . '/Ip/');
 
-    `mkdir -p $publicDir/Ip`;
-    `mkdir -p $publicDir/Ip/Internal`;
 
-    if (!is_dir($publicDir . '/Plugin')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/Plugin $publicDir/`;
+    AdvancedFs::createPath($publicDir . '/Ip/Internal/');
+
+    $pluginDir = $publicDir . '/Plugin';
+    if (!is_dir($pluginDir)) {
+        AdvancedFs::createPath($pluginDir);
+        AdvancedFs::copyPathContent('vendor/impresspages/impresspages/start-pack/Plugin', $pluginDir);
     }
 
-    if (!is_dir($publicDir . '/Theme')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/Theme $publicDir/`;
+    $pluginDir = $publicDir . '/Theme';
+    if (!is_dir($pluginDir)) {
+        AdvancedFs::createPath($pluginDir);
+        AdvancedFs::copyPathContent('vendor/impresspages/impresspages/start-pack/Theme', $pluginDir);
     }
 
-    if (!is_dir($publicDir . '/file')) {
-        `cp -rf vendor/impresspages/impresspages/start-pack/file $publicDir/`;
+    $pluginDir = $publicDir . '/file';
+    if (!is_dir($pluginDir)) {
+        AdvancedFs::createPath($pluginDir);
+        AdvancedFs::copyPathContent('vendor/impresspages/impresspages/start-pack/file', $pluginDir);
     }
 }
 
 function copyPluginAssets($pluginDir, $destinationDir)
 {
-    `rm -rf $destinationDir`;
-    `mkdir -p $destinationDir`;
-    `cp -rf $pluginDir/assets $destinationDir`;
+    AdvancedFs::createPath($destinationDir);
+    AdvancedFs::cleanPath($destinationDir);
+    AdvancedFs::copyPathContent($pluginDir . '/assets', $destinationDir);
 
     $assetPaths = glob($pluginDir . '/Widget/*/assets/');
     foreach ($assetPaths as $assetPath) {
         $widget = basename(dirname($assetPath));
-        `mkdir -p $destinationDir/Widget/$widget/`;
-        `cp -rf $assetPath $destinationDir/Widget/$widget`;
+        $dest = $destinationDir . '/Widget/' . $widget . '/assets';
+        AdvancedFs::createPath($destinationDir);
+        AdvancedFs::copyPathContent($assetPath, $dest);
     }
-
 }
 
 function parsePluginName($pluginDir)
