@@ -124,7 +124,7 @@ function copyPluginAssets($pluginDir, $destinationDir)
     foreach ($assetPaths as $assetPath) {
         $widget = basename(dirname($assetPath));
         $dest = $destinationDir . '/Widget/' . $widget . '/assets';
-        AdvancedFs::createPath($destinationDir);
+        AdvancedFs::createPath($dest);
         AdvancedFs::copyPathContent($assetPath, $dest);
     }
 }
