@@ -7,7 +7,7 @@ if (!empty($argv[1])) {
     $publicDir = $argv[1];
 }
 
-if (getcwd() . '/vendor/impresspages/impresspages/bin' != __DIR__) {
+if (str_replace('\\', '/', getcwd()) . '/vendor/impresspages/impresspages/bin' != str_replace('\\', '/', __DIR__)) {
     throw new \Exception('This script must be executed from the project root (where composer.json is placed');
 }
 
@@ -90,9 +90,8 @@ function copyAssets($publicDir)
 
 function createMainDirs($publicDir)
 {
+	AdvancedFs::createPath($publicDir . '/Ip');
     AdvancedFs::cleanPath($publicDir . '/Ip/');
-
-
     AdvancedFs::createPath($publicDir . '/Ip/Internal/');
 
     $pluginDir = $publicDir . '/Plugin';
