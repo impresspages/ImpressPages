@@ -64,6 +64,9 @@ class Config
 
         if (empty($this->config['baseDir'])) {
             $this->config['baseDir'] = realpath(getcwd());
+            if (DIRECTORY_SEPARATOR  === '\\') {
+                $this->config['baseDir'] = str_replace('\\', '/', $this->config['baseDir']); //windows support both slashes. So make them Linux style.
+            }
         }
 
         if (empty($this->config['coreDir'])) {
@@ -71,6 +74,9 @@ class Config
                 $this->config['coreDir'] = realpath(dirname(getcwd()) . '/vendor/impresspages/impresspages');
             } else {
                 $this->config['coreDir'] = realpath(getcwd() . '/Ip/vendor/impresspages/impresspages');
+            }
+            if (DIRECTORY_SEPARATOR  === '\\') {
+                $this->config['coreDir'] = str_replace('\\', '/', $this->config['coreDir']); //windows support both slashes. So make them Linux style.
             }
         }
 
