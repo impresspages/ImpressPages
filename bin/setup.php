@@ -118,7 +118,8 @@ function copyPluginAssets($pluginDir, $destinationDir)
 {
     AdvancedFs::createPath($destinationDir);
     AdvancedFs::cleanPath($destinationDir);
-    AdvancedFs::copyPathContent($pluginDir . '/assets', $destinationDir);
+    AdvancedFs::createPath($destinationDir . '/assets');
+    AdvancedFs::copyPathContent($pluginDir . '/assets', $destinationDir . '/assets');
 
     $assetPaths = glob($pluginDir . '/Widget/*/assets/');
     foreach ($assetPaths as $assetPath) {
