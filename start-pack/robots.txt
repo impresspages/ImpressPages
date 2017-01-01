@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /update/
+Disallow: /install/
+Disallow: /admin.php
+Disallow: /admin/
