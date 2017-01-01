@@ -73,7 +73,7 @@ class Config
             if ($this->isComposerCore()) {
                 $this->config['coreDir'] = realpath(dirname(getcwd()) . '/vendor/impresspages/impresspages');
             } else {
-                $this->config['coreDir'] = realpath(getcwd() . '/Ip/vendor/impresspages/impresspages');
+                $this->config['coreDir'] = realpath(getcwd());
             }
             if (DIRECTORY_SEPARATOR  === '\\') {
                 $this->config['coreDir'] = str_replace('\\', '/', $this->config['coreDir']); //windows support both slashes. So make them Linux style.
