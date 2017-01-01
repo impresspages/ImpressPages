@@ -494,7 +494,7 @@ class Application
             if ($this->configPath != null) {
                 $configPath = substr($this->configPath, -1) == '/' ? $this->configPath : dirname($this->configPath);
             } else {
-                $configPath = getcwd() . '/../';
+                $configPath = dirname(getcwd()) . '/';
             }
 
             $defaultConfigFile = $configPath . 'config.php';
