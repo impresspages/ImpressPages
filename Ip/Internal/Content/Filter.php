@@ -250,7 +250,7 @@ class Filter
             if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
                 if (substr($relativePath, -1) != '/') {
                     $canonicalUrl = ipConfig()->baseUrl() . $relativePath;
-                    if ($relativePath != '') {
+                    if (substr($canonicalUrl, -1) != '/') {
                         $canonicalUrl .= '/';
                     }
                 }
