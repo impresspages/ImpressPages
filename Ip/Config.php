@@ -265,7 +265,10 @@ class Config
 
         $defaultConfigFile = $configPath . 'config.php';
         if (is_file($defaultConfigFile)) {
-            $config = array_merge($config, require($defaultConfigFile));
+            $defaultConfigValues = require($defaultConfigFile);
+            if (is_array($defaultConfigValues)) {
+                $config = array_merge($config, require($defaultConfigFile));
+            }
         }
 
         $envConfigFile = $configPath . 'config-' . $this->getEnv() . '.php';
