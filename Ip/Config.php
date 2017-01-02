@@ -23,6 +23,9 @@ class Config
      */
     public function __construct($config, $server = null)
     {
+        $config = $this->parseConfig($config);
+
+
         $this->isConfigEmpty = empty($config);
         $this->config = $config;
 
@@ -237,5 +240,52 @@ class Config
         } else {
             return $this->get('baseDir') . "/config.php";
         }
+    }
+
+    private function parseConfig($configSetting)
+    {
+        if (is_array($configSetting)) {
+            return $configSetting;
+        }
+
+        $configPath = $configSetting;
+
+        $config = [];
+        if ($configPath != null) {
+            if (is_file($configPath)) {
+                $configPath = dirname($configPath) . '/';
+            }
+        } else {
+            if ($this->isComposerCore()) {
+                $configPath = dirname(getcwd()) . '/';
+            } else {
+                $configPath = getcwd() . '/';
+            }
+        }
+
+        $defaultConfigFile = $configPath . 'config.php';
+        if (is_file($defaultConfigFile)) {
+            $config = array_merge($config, require($defaultConfigFile));
+        }
+
+        $envConfigFile = $configPath . 'config-' . $this->getEnv() . '.php';
+        if (is_file($envConfigFile)) {
+            $config = array_merge($config, require($envConfigFile));
+        }
+
+        if (!is_array($config)) { //required for install, when config json parsing fails
+            $config = [];
+        }
+
+        return $config;
+    }
+
+    protected function getEnv() {
+        $environment = getenv('IP_ENV');
+        if (!empty($environment)) {
+            return $environment;
+        }
+
+        return 'dev';
     }
 }

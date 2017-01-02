@@ -13,20 +13,14 @@ namespace Ip;
 class Application
 {
     const ASSETS_DIR = 'assets';
-    protected $configPath = null;
-    protected $config = null;
+    protected $configSetting = null;
 
     /**
-     * @ignore
-     * @param $configPath
+     * @param string|array $configSetting string to the configuration directory or configuration data array
      */
-    public function __construct($configPath = null)
+    public function __construct($configSetting = null)
     {
-        if (is_array($configPath)) {
-            $this->config = $configPath;
-        } else {
-            $this->configPath = $configPath;
-        }
+        $this->configSetting = $configSetting;
     }
 
     /**
@@ -400,8 +394,7 @@ class Application
      */
     public function run($options = array())
     {
-        $configValues = $this->parseConfig();
-        $config = new \Ip\Config($configValues);
+        $config = new \Ip\Config($this->configSetting);
         \Ip\ServiceLocator::setConfig($config);
 
         require_once __DIR__ . '/Functions.php';
@@ -464,7 +457,7 @@ class Application
      */
     protected function setLocale($requestLanguage)
     {
-//find out and set locale
+        //find out and set locale
         $locale = $requestLanguage->getCode();
         if (strlen($locale) == '2') {
             $locale = strtolower($locale) . '_' . strtoupper($locale);
@@ -483,44 +476,5 @@ class Application
             setLocale(LC_ALL, $locale);
         }
         setlocale(LC_NUMERIC, "C"); //user standard C syntax for numbers. Otherwise you will get funny things with when autogenerating CSS, etc.
-    }
-
-    protected function parseConfig()
-    {
-        if ($this->config) {
-            $config = $this->config;
-        } else {
-            $config = [];
-            if ($this->configPath != null) {
-                $configPath = substr($this->configPath, -1) == '/' ? $this->configPath : dirname($this->configPath);
-            } else {
-                $configPath = dirname(getcwd()) . '/';
-            }
-
-            $defaultConfigFile = $configPath . 'config.php';
-            if (is_file($defaultConfigFile)) {
-                $config = array_merge($config, require($defaultConfigFile));
-            }
-
-            $envConfigFile = $configPath . 'config-' . $this->getEnv() . '.php';
-            if (is_file($envConfigFile)) {
-                $config = array_merge($config, require($envConfigFile));
-            }
-        }
-
-        if (!is_array($config)) {
-            $config = [];
-        }
-
-        return $config;
-    }
-
-    protected function getEnv() {
-        $environment = getenv('IP_ENV');
-        if (!empty($environment)) {
-            return $environment;
-        }
-
-        return 'dev';
     }
 }
