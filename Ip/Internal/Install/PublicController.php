@@ -136,6 +136,11 @@ class PublicController extends \Ip\Controller
             'type' => Helper::checkPDO()
         );
         $requirements[] = array(
+            'name' => __('PHP module "XML"', 'Install'),
+            'helpUrl' => 'http://www.impresspages.org/help/xml',
+            'type' => Helper::checkLibXml()
+        );
+        $requirements[] = array(
             'name' => __('GD Graphics Library', 'Install'),
             'helpUrl' => 'http://www.impresspages.org/help/gd',
             'type' => Helper::checkGD()

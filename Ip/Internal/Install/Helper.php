@@ -210,6 +210,16 @@ class Helper
         return 'success';
     }
 
+
+    public static function checkLibXml()
+    {
+        if (!function_exists('utf8_decode')) {
+            return 'error';
+        }
+        return 'success';
+    }
+
+
     public static function checkGD()
     {
         if (!extension_loaded('gd') || !function_exists('gd_info')) {
