@@ -249,7 +249,10 @@ class Filter
             //if canonicalUrl is not set yet
             if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
                 if (substr($relativePath, -1) != '/') {
-                    $canonicalUrl = ipConfig()->baseUrl() . $relativePath . '/';
+                    $canonicalUrl = ipConfig()->baseUrl() . $relativePath;
+                    if ($relativePath != '') {
+                        $canonicalUrl .= '/';
+                    }
                 }
             } else {
                 if (substr($relativePath, -1) == '/') {
