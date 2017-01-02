@@ -147,7 +147,7 @@ class Language
     /**
      * Generate language URL
      *
-     * @return string Returns link to home page if multilingual option is turned off
+     * @return string Returns link to homepage if multilingual option is turned off
      */
     public function getLink()
     {

@@ -226,7 +226,7 @@ class Filter
 
 
         $canonicalUrl = null;
-        //detect if we need to add canonical meta tag because we are on the home page
+        //detect if we need to add canonical meta tag because we are on the homepage
         if (ipContent()->getCurrentPage() && ipContent()->getCurrentPage()->getId() == ipContent()->getDefaultPageId() && ipRequest()->getRelativePath() != '') {
             //if current page is the default page of current language and relative path is not empty
             $languages = ipContent()->getLanguages();

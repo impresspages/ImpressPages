@@ -72,7 +72,7 @@ var ipAdmin = new function () {
             data: {sa: 'Admin.logout'},
             complete: function () {
                 if (window.location.toString().indexOf('?aa') !== -1) {
-                    window.location = ip.baseUrl; //we are in admin. Redirect to the home page
+                    window.location = ip.baseUrl; //we are in admin. Redirect to the homepage
                 } else {
                     window.location.reload(true); //we are on the actual page. Let's show that page
                 }
