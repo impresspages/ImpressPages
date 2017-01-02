@@ -248,22 +248,17 @@ class Config
             return $configSetting;
         }
 
-        $configPath = $configSetting;
+        $defaultConfigFile = $configSetting;
 
         $config = [];
-        if ($configPath != null) {
-            if (is_file($configPath)) {
-                $configPath = dirname($configPath) . '/';
-            }
-        } else {
+        if ($defaultConfigFile == null) {
             if ($this->isComposerCore()) {
-                $configPath = dirname(getcwd()) . '/';
+                $defaultConfigFile = dirname(getcwd()) . '/config.php';
             } else {
-                $configPath = getcwd() . '/';
+                $defaultConfigFile = getcwd() . '/config.php';
             }
         }
 
-        $defaultConfigFile = $configPath . 'config.php';
         if (is_file($defaultConfigFile)) {
             $defaultConfigValues = require($defaultConfigFile);
             if (is_array($defaultConfigValues)) {
@@ -271,7 +266,7 @@ class Config
             }
         }
 
-        $envConfigFile = $configPath . 'config-' . $this->getEnv() . '.php';
+        $envConfigFile = dirname($defaultConfigFile) . '/config-' . $this->getEnv() . '.php';
         if (is_file($envConfigFile)) {
             $config = array_merge($config, require($envConfigFile));
         }
