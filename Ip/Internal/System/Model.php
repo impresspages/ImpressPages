@@ -75,6 +75,7 @@ class Model
         $postFields = 'module_group=service&module_name=communication&action=getInfo&version=1&afterLogin=';
         $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
         $postFields .= '&phpVersion=' . phpversion();
+        $postFields .= '&bootstrapType=' . self::bootstrapType();
 
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
@@ -100,6 +101,17 @@ class Model
         }
 
         return $notices;
+    }
+
+    private static function bootstrapType() {
+        if (!is_file('index.php')) {
+            return 'unknown';
+        }
+        $indexContent = file_get_contents('index.php');
+        if (strpos($indexContent, 'Ip/script/run.php') !== false) {
+            return 'Ip/script/run.php';
+        }
+        return 'unknown';
     }
 
     public static function sendUsageStatistics($data = array(), $timeout = 3)
