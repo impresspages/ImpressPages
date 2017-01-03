@@ -19,6 +19,10 @@ createRootFiles($publicDir);
 
 registerComposerInstalledPlugins();
 
+echo "\n***YOU MAY HAVE TO EXECUTE THE UPDATE SCRIPT***\n";
+echo "If you have updated the core version, you have to go to Admin -> System and execute the update script.\n";
+echo "If you don't see an update button in admin - that means you are fine.\n";
+
 function registerComposerInstalledPlugins()
 {
     $vendorDir = dirname(dirname(dirname(__DIR__)));
