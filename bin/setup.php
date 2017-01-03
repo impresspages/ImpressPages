@@ -41,7 +41,10 @@ function registerComposerInstalledPlugins()
     }
 
     $content = '<?php return ' . "\n";
-    $content .= '//This is a auto generated file during "composer install" or "composer update". It helps ImpressPages core to load plugins from vendor directory.';
+    $content .= '// This is a auto generated file during composer install/update. It helps ImpressPages core to load plugins from vendor directory.';
+    $content .= '// It helps ImpressPages core to load plugins from vendor directory.';
+    $content .= '// It is common to add this file to the git repository.';
+    $content .= '// But you shouldn\'t change this file manually as it will be regenerated on next composer install/update.';
     $content .= var_export($composerPlugins, true);
     $content .= ';';
 
