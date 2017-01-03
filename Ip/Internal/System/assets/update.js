@@ -78,7 +78,7 @@
                         return;
                     }
                     if (response.status && response.status == 'success') {
-                        window.location.href = window.location.href;
+                        runMigrations(migrationsUrl);
                     } else {
                         if (response.error) {
                             alert(response.error);
