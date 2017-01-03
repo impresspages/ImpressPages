@@ -35,13 +35,19 @@
                         $container.html($container.html() + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>');
 
                         if (messages[i]['code'] == 'update') {
-                            var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
-                            var $updateLink = $('<span class="btn btn-primary ipsStartUpdate" data-downloadurl="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</span>');
-                            $container.append($downloadLink);
-                            $container.append(' ');
-                            $container.append($updateLink);
-                            $container.append('<br/><br/>');
-                            $updateLink.on('click', startUpdate);
+                            alert(isComposerBasedInstallation);
+                            if (isComposerBasedInstallation) {
+                                alert('test');
+                                $container.append($('<div></div>').text(composerUpdateError));
+                            } else {
+                                var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
+                                var $updateLink = $('<span class="btn btn-primary ipsStartUpdate" data-downloadurl="' + messages[i]['downloadUrl'] + '" data-md5="' + messages[i]['md5'] + '">Start update</span>');
+                                $container.append($downloadLink);
+                                $container.append(' ');
+                                $container.append($updateLink);
+                                $container.append('<br/><br/>');
+                                $updateLink.on('click', startUpdate);
+                            }
                         }
                     }
                 }

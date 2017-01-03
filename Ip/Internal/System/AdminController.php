@@ -10,6 +10,11 @@ namespace Ip\Internal\System;
 
 class AdminController extends \Ip\Controller
 {
+    private $composerUpdateError = null;
+
+    public function __construct() {
+        $this->composerUpdateError = __('Composer based installation can\'t be updated via admin. Please use "composer update" from the command line. Then come back here to execute migrations.', 'Ip-admin', false);
+    }
 
     public function index()
     {
@@ -17,7 +22,8 @@ class AdminController extends \Ip\Controller
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
         ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
-
+        ipAddJsVariable('isComposerBasedInstallation', (int)ipConfig()->isComposerCore());
+        ipAddJsVariable('composerUpdateError', $this->composerUpdateError);
 
         $notes = [];
 
@@ -63,6 +69,12 @@ class AdminController extends \Ip\Controller
 
     public function startUpdate()
     {
+        if (ipConfig()->isComposerCore()) {
+            return new \Ip\Response\Json(array(
+                'error' => $this->composerUpdateError
+            ));
+        }
+
         try {
             \Ip\Internal\Update\Service::update();
         } catch (\Exception $e) {
