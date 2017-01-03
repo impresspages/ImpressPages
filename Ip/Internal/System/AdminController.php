@@ -41,7 +41,7 @@ class AdminController extends \Ip\Controller
             'changedUrl' => $model->getOldUrl() != $model->getNewUrl(),
             'oldUrl' => $model->getOldUrl(),
             'newUrl' => $model->getNewUrl(),
-            'migrationsAvailable' => 1,//\Ip\Internal\Update\Service::migrationsAvailable(),
+            'migrationsAvailable' => \Ip\Internal\Update\Service::migrationsAvailable(),
             'migrationsUrl' => $migrationsUrl,
             'recoveryPageForm' => \Ip\Internal\System\Helper::recoveryPageForm(),
             'emptyPageForm' => \Ip\Internal\System\Helper::emptyPageForm(),
