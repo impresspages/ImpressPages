@@ -262,7 +262,7 @@ class Config
         if (is_file($defaultConfigFile)) {
             $defaultConfigValues = require($defaultConfigFile);
             if (is_array($defaultConfigValues)) {
-                $config = array_merge($config, require($defaultConfigFile));
+                $config = array_merge($config, $defaultConfigValues);
             }
         }
 
