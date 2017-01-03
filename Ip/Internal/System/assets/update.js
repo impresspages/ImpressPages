@@ -37,7 +37,6 @@
                         if (messages[i]['code'] == 'update') {
                             alert(isComposerBasedInstallation);
                             if (isComposerBasedInstallation) {
-                                alert('test');
                                 $container.append($('<div></div>').text(composerUpdateError));
                             } else {
                                 var $downloadLink = $('<a target="_blank" class="btn btn-default" href="' + messages[i]['downloadUrl'] + '">Download</a>');
