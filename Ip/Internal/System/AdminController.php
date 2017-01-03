@@ -13,10 +13,12 @@ class AdminController extends \Ip\Controller
 
     public function index()
     {
+        $migrationsUrl = ipActionUrl(array('pa' => 'Update'));
         $model = Model::instance();
         ipAddJs('Ip/Internal/Grid/assets/grid.js');
         ipAddJs('Ip/Internal/Grid/assets/gridInit.js');
         ipAddJs('Ip/Internal/Grid/assets/subgridField.js');
+        ipAddJsVariable('migrationsUrl', $migrationsUrl);
 
 
         $notes = array();
@@ -39,8 +41,8 @@ class AdminController extends \Ip\Controller
             'changedUrl' => $model->getOldUrl() != $model->getNewUrl(),
             'oldUrl' => $model->getOldUrl(),
             'newUrl' => $model->getNewUrl(),
-            'migrationsAvailable' => \Ip\Internal\Update\Service::migrationsAvailable(),
-            'migrationsUrl' => ipActionUrl(array('pa' => 'Update')),
+            'migrationsAvailable' => 1,//\Ip\Internal\Update\Service::migrationsAvailable(),
+            'migrationsUrl' => $migrationsUrl,
             'recoveryPageForm' => \Ip\Internal\System\Helper::recoveryPageForm(),
             'emptyPageForm' => \Ip\Internal\System\Helper::emptyPageForm(),
             'trash' => $trash,
@@ -64,18 +66,18 @@ class AdminController extends \Ip\Controller
     public function startUpdate()
     {
         try {
+            $successNote = __('ImpressPages has been successfully updated.', 'Ip-admin');
             \Ip\Internal\Update\Service::update();
+            header('Content-type: application/json; charset=utf-8');
+            $_SESSION['Ip']['notes'][] = $successNote;
+            echo '{"status":"success"}';
+            ipDb()->disconnect();
+            exit; //we can't keep executing the code as all files have been replaced.
         } catch (\Exception $e) {
             return new \Ip\Response\Json(array(
                 'error' => $e->getMessage()
             ));
         }
-
-        $_SESSION['Ip']['notes'][] = __('ImpressPages has been successfully updated.', 'Ip-admin');
-
-        return new \Ip\Response\Json(array(
-            'status' => 'success'
-        ));
     }
 
     public function updateLinks()
