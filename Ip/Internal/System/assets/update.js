@@ -35,7 +35,6 @@
                         $container.html($container.html() + '<div class="' + messages[i]['type'] + '">' + messages[i]['message'] + '</div>');
 
                         if (messages[i]['code'] == 'update') {
-                            alert(isComposerBasedInstallation);
                             if (isComposerBasedInstallation) {
                                 $container.append($('<div></div>').text(composerUpdateError));
                             } else {
