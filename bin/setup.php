@@ -40,12 +40,12 @@ function registerComposerInstalledPlugins()
         $composerPlugins[$keyParts[1]] = substr($autoLoaderPath['0'], mb_strlen($baseDir) + 1);
     }
 
-    $content = '<?php return ' . "\n";
+    $content = '<?php ' . "\n";
     $content .= '// This is a auto generated file during composer install/update.' . "\n";
     $content .= '// It helps ImpressPages core to load plugins from vendor directory.' . "\n";
     $content .= '// It is common to add this file to the git repository.' . "\n";
     $content .= '// But you shouldn\'t change this file manually as it will be regenerated on next composer install/update.' . "\n\n";
-    $content .= var_export($composerPlugins, true);
+    $content .= 'return ' . var_export($composerPlugins, true);
     $content .= ';';
 
     file_put_contents($composerPluginsRegisterFile, $content);
