@@ -135,10 +135,12 @@ function copyPluginAssets($pluginDir, $destinationDir)
 
 function parsePluginName($pluginDir)
 {
-    $pluginJson = file_get_contents($pluginDir . '/Setup/plugin.json');
-    $data = json_decode($pluginJson, true);
-    if (!empty($data['name'])) {
-        return $data['name'];
+    $filename = $pluginDir . '/Setup/plugin.json';
+    if(file_exists($filename) && ($pluginJson = file_get_contents($filename))) {
+        $data = json_decode($pluginJson, true);
+        if (!empty($data['name'])) {
+            return $data['name'];
+        }
     }
     return false;
 }
