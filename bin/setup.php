@@ -40,7 +40,8 @@ function registerComposerInstalledPlugins()
         $composerPlugins[$keyParts[1]] = substr($autoLoaderPath['0'], mb_strlen($baseDir) + 1);
     }
 
-    $content = '<?php return ';
+    $content = '<?php return ' . "\n";
+    $content .= '//This is a auto generated file during "composer install" or "composer update". It helps ImpressPages core to load plugins from vendor directory.';
     $content .= var_export($composerPlugins, true);
     $content .= ';';
 
