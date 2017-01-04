@@ -14,7 +14,6 @@ class Service
     {
         $updateModel = new UpdateModel();
         $updateModel->prepareForUpdate();
-        Model::runMigrations();
     }
 
     public static function migrationsAvailable()
