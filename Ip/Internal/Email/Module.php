@@ -63,7 +63,9 @@ class Module
                 $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
                 if (copy($file['real_name'], ipFile('file/tmp/' . $new_name))) {
                     $cached_files[] = ipFile('file/tmp/' . $new_name);
-                    $cached_fileNames[] = $file['required_name'];
+                    $fileNames = explode('/', $file['required_name']);
+                    $fileName = $fileNames[count($fileNames) - 1];
+                    $cached_fileNames[] = $fileName;
                     $tmpMimeType = \Ip\Internal\File\Functions::getMimeType($file['real_name']);
                     if ($tmpMimeType == null) {
                         $tmpMimeType = 'Application/octet-stream';
