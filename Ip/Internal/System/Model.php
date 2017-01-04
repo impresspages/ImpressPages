@@ -76,6 +76,7 @@ class Model
         $postFields .= '&systemVersion=' . \Ip\ServiceLocator::storage()->get('Ip', 'version');
         $postFields .= '&phpVersion=' . phpversion();
         $postFields .= '&bootstrapType=' . self::bootstrapType();
+        $postFields .= '&fileOverridesPresent=' . self::isConfigPresent('fileOverrides');
 
         $plugins = \Ip\Internal\Plugins\Model::getActivePlugins();
         foreach ($plugins as $plugin) {
@@ -101,6 +102,10 @@ class Model
         }
 
         return $notices;
+    }
+
+    private static function isConfigPresent($configKey) {
+        return !empty(ipConfig()->get($configKey));
     }
 
     private static function bootstrapType() {
