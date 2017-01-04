@@ -105,7 +105,7 @@ class Model
     }
 
     private static function isConfigPresent($configKey) {
-        return !empty(ipConfig()->get($configKey));
+        return (int)!empty(ipConfig()->get($configKey));
     }
 
     private static function bootstrapType() {
@@ -133,13 +133,6 @@ class Model
         }
         if (!isset($data['db'])) {
             $data['db'] = null;
-            // todo: make a db type/version check stable to work during install and later on
-//            if (class_exists('PDO')) {
-//                $pdo = ipDb()->getConnection();
-//                if ($pdo) {
-//                    $data['db'] = $pdo->getAttribute(\PDO::ATTR_SERVER_VERSION);
-//                }
-//            }
         }
         if (!isset($data['developmentEnvironment'])) {
             $data['developmentEnvironment'] = ipConfig()->get('developmentEnvironment');
