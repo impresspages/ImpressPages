@@ -39,19 +39,6 @@ class Job
     }
 
     /**
-     * @param $info
-     * @return \Ip\Response\Redirect
-     */
-    public static function ipExecuteController($info)
-    {
-        $page = ipContent()->getCurrentPage();
-        if ($page && $page->getRedirectUrl() && !ipAdminId()) {
-            return new \Ip\Response\Redirect($page->getRedirectUrl());
-        }
-        return null;
-    }
-
-    /**
      * @return mixed
      */
     public static function ipDefaultPageId_70($info)

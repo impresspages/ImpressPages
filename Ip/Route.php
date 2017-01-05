@@ -83,8 +83,8 @@ class Route
     }
 
     /**
-     * Get controller class
      * @return string
+     * @throws Exception
      */
     public function controllerClass()
     {
@@ -96,15 +96,20 @@ class Route
             return null;
         }
 
-
         if (in_array($this->plugin, \Ip\Internal\Plugins\Model::getModules())) {
             $controllerClass = 'Ip\\Internal\\' . $this->plugin . '\\' . $this->controller;
         } else {
+            if (!in_array($this->plugin, \Ip\Internal\Plugins\Service::getActivePluginNames())) {
+                throw new \Ip\Exception("Plugin '" . esc($this->plugin) . "' doesn't exist or isn't activated.");
+            }
             $controllerClass = 'Plugin\\' . $this->plugin . '\\' . $this->controller;
         }
 
+        if (!class_exists($controllerClass)) {
+            throw new \Ip\Exception('Requested controller doesn\'t exist. ' . esc($controllerClass));
+        }
         $this->controllerClass = $controllerClass;
-        return $this->controllerClass;
+        return $controllerClass;
     }
 
     /**
@@ -137,33 +142,13 @@ class Route
     }
 
     /**
-     * Get environment. 'admin' or 'public'
-     * @return string
-     */
-    public function environment()
-    {
-        return $this->environment;
-    }
-
-    /**
-     * Set route environment 'admin' or public'
-     * @private
-     * @param $environment
-     */
-    public function setEnvironment($environment)
-    {
-        $this->environment = $environment;
-    }
-
-    /**
      * Check if current route is of admin environment
      * @return bool
      */
     public function isAdmin()
     {
-        return $this->environment == self::ENVIRONMENT_ADMIN;
+        return $this->controller && $this->controller == 'AdminController';
     }
-
 
     /**
      * Set route name
@@ -182,5 +167,14 @@ class Route
     {
         return $this->name;
     }
+
+    public function csrfMustBeSkipped()
+    {
+        if ($this->controller == 'PublicController') {
+            return true;
+        }
+        return false;
+    }
+
 
 }
