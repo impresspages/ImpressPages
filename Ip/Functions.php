@@ -489,6 +489,7 @@ function _e($text, $domain, $esc = 'html')
  *
  * @param string $path A path or a pathname.
  * @return mixed|string Absolute path or pathname.
+ * @throws \Ip\Exception
  */
 function ipFile($path)
 {
