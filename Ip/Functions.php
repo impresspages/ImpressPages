@@ -521,7 +521,13 @@ function ipFile($path)
         return $ipFile_baseDir . '/' . $path;
     }
 
-    return $ipFile_coreDir . '/' . $path;
+    if (
+        strpos($path, 'Ip/') === 0
+    ) {
+        return $ipFile_coreDir . '/' . $path;
+    }
+
+    throw new \Ip\Exception('ipFile function accepts only paths, that start with Ip/, Plugin/, Theme/, file/');
 }
 
 
