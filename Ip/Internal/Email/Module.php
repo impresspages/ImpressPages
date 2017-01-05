@@ -57,7 +57,7 @@ class Module
                     $file['required_name'] = basename($fileSetting[1]);
                 } else {
                     $file['real_name'] = $fileSetting;
-                    $file['required_name'] = $fileSetting;
+                    $file['required_name'] = basename($fileSetting);
                 }
                 $new_name = 'contact_form_' . rand();
                 $new_name = \Ip\Internal\File\Functions::genUnoccupiedName($new_name, ipFile('file/tmp/'));
