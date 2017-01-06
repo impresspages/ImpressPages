@@ -1,6 +1,5 @@
 {
   "name": "impresspages/impresspages",
-  "version": "5.0.0",
   "require": {
     "php": ">=5.5.0",
     "aura/router": "~2.3.1",
