@@ -247,7 +247,7 @@ class Helper
 
     public static function checkFileIndexDotHtml()
     {
-        if (file_exists(Model::ipFile('index.html'))) {
+        if (file_exists(ipConfig()->get('baseDir') . '/' . 'index.html')) {
             return 'error';
         }
         return 'success';

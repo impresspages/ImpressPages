@@ -528,7 +528,7 @@ function ipFile($path)
         return $ipFile_coreDir . '/' . $path;
     }
 
-    throw new \Ip\Exception('ipFile function accepts only paths, that start with Ip/, Plugin/, Theme/, file/');
+    throw new \Ip\Exception('ipFile function accepts only paths, that start with Ip/, Plugin/, Theme/, file/. Requested path: ' . $path);
 }
 
 
