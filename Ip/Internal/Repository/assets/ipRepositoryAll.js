@@ -1,7 +1,8 @@
 (function ($) {
     "use strict";
 
-    var settings = {};
+    var settings = {},
+        dynamicThumbnailClass = 'js-dynamic-preview';
 
     var methods = {
 
@@ -21,15 +22,16 @@
 
                     $this.data('ipRepositoryAll', options);
 
-                    var data = Object();
-                    data.aa = 'Repository.getAll';
-                    data.securityToken = ip.securityToken;
-                    data.filter = settings.filter;
-                    data.filterExtensions = settings.filterExtensions;
-                    data.secure = settings.secure;
-                    data.path = settings.path;
+                    var data = {
+                        aa: 'Repository.getAll',
+                        securityToken: ip.securityToken,
+                        filter: settings.filter,
+                        filterExtensions: settings.filterExtensions,
+                        secure: settings.secure,
+                        path: settings.path
+                    };
 
-                    if ($popup.find('.ipsPermissionError').length == 0) {
+                    if ($popup.find('.ipsPermissionError').length === 0) {
                         $.ajax({
                             type: 'GET',
                             url: ip.baseUrl,
@@ -63,9 +65,33 @@
                     });
 
                     $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
+                    $('.ipsBrowser').bind("scroll", $.proxy(methods._scroll, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $popup.bind('ipModuleRepository.search', $.proxy(methods._filterFilesByTerm, this));
                     $.proxy(methods._resize, this)();
+                }
+            });
+        },
+
+
+        _isVisible: function (element) {
+            var $browser = $('.ipsBrowser'),
+                $element = $(element),
+                scrollTop = $browser.scrollTop(),
+                elementY = $element.offset().top;
+            return ((elementY < ($browser.height() + scrollTop)) && (elementY > (scrollTop - $element.height())));
+        },
+
+        _loadVisibleThumbnails: function() {
+            var $browserContainer = $(this).find('.ipsBrowserContainer'),
+                $items = $browserContainer.find('.' + dynamicThumbnailClass + ':visible');
+
+            $items.each(function () {
+                var $item = $(this);
+                if (methods._isVisible(this)) {
+                    $item
+                        .removeClass(dynamicThumbnailClass)
+                        .attr('src', $item.attr('data-preview'));
                 }
             });
         },
@@ -114,6 +140,8 @@
                     $list.prev('.ipsListTitle').addClass('hidden');
                 }
             });
+
+            $.proxy(methods._loadVisibleThumbnails, this)();
         },
 
         addRecentFiles: function (files) {
@@ -127,17 +155,17 @@
 
             for (var i in files) {
                 var $newItem = $template.clone().removeClass('ipsFileTemplate');
-                methods._addFileData($newItem, files[i]);
+                methods._addFileData($newItem, files[i], true);
 
                 $newItem.toggleClass('ui-selected');
                 $newList.append($newItem);
             }
             $.proxy(methods._countSelected, this)();
-
+            $.proxy(methods._loadVisibleThumbnails, this)();
 
         },
 
-        _addFileData: function ($file, data) {
+        _addFileData: function ($file, data, instantPreview) {
             // icon
             var iconClass = 'fa fa-file-o';
             switch (data.ext) {
@@ -254,10 +282,20 @@
             }
             $file.find('i').addClass(iconClass);
             // thumbnail
-            $file.find('img')
-                .attr('src', data.previewUrl)
+
+            var $img = $file.find('img');
+
+            $img
                 .attr('alt', data.fileName)
                 .attr('title', data.fileName);
+
+            if (instantPreview) {
+                $img.attr('src', data.previewUrl);
+            } else {
+                $img.addClass(dynamicThumbnailClass)
+                    .attr('data-preview', data.previewUrl);
+            }
+
             // filename
             $file.find('span').text(data.fileName);
             // file data
@@ -294,6 +332,8 @@
                 $browserContainer.append($newList);
 
             }
+
+            $.proxy(methods._loadVisibleThumbnails, this)();
 
             $this.find('.ipsRepositoryActions .ipsSelectionConfirm').click($.proxy(methods._confirm, this));
             $this.find('.ipsRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
@@ -449,6 +489,11 @@
             var $block = $popup.find('.ipsBrowser');
             var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
             $block.outerHeight((parseInt($(window).height()) - tabsHeight));
+            $.proxy(methods._loadVisibleThumbnails, this)();
+        },
+
+        _scroll: function(e) {
+            $.proxy(methods._loadVisibleThumbnails, this)();
         }
 
     };

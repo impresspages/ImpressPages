@@ -49,7 +49,7 @@
                     <ul>
                         <li class="ipsFileTemplate">
                             <i class=""></i>
-                            <img src="" alt="" title="" />
+                            <img src="<?php echo ipFileUrl('Ip/Internal/Content/assets/img/empty.gif') ?>" alt="" title="" />
                             <span></span>
                         </li>
                     </ul>
