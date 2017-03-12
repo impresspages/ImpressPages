@@ -2,7 +2,9 @@
     "use strict";
 
     var settings = {},
-        dynamicThumbnailClass = 'js-dynamic-preview';
+        dynamicThumbnailClass = 'js-dynamic-preview',
+        selectedItemClass = 'ui-selected',
+        $lastSelectedItem = null;
 
     var methods = {
 
@@ -69,6 +71,9 @@
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $popup.bind('ipModuleRepository.search', $.proxy(methods._filterFilesByTerm, this));
                     $.proxy(methods._resize, this)();
+
+
+
                 }
             });
         },
@@ -157,9 +162,11 @@
                 var $newItem = $template.clone().removeClass('ipsFileTemplate');
                 methods._addFileData($newItem, files[i], true);
 
-                $newItem.toggleClass('ui-selected');
+                $newItem.toggleClass(selectedItemClass);
                 $newList.append($newItem);
+                $lastSelectedItem = $newItem;
             }
+
             $.proxy(methods._countSelected, this)();
             $.proxy(methods._loadVisibleThumbnails, this)();
 
@@ -339,8 +346,69 @@
             $this.find('.ipsRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
             $this.find('.ipsRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
 
-            $browserContainer.delegate('li', 'click', function (e) {
-                $(this).toggleClass('ui-selected');
+            $browserContainer.delegate('li', 'click', function (evt) {
+                var $self = $(this);
+
+                if (evt.metaKey || evt.ctrlKey) {
+                    $self.toggleClass(selectedItemClass);
+                } else if (evt.shiftKey) {
+
+                    var $startElem = $lastSelectedItem || $self.siblings('li').eq(0);
+
+                    $self.addClass(selectedItemClass);
+
+                    if ($startElem.is($self))
+                        return;
+
+                    var isLastClickedBefore = $startElem[0].compareDocumentPosition($self[0]) & 4,
+                        crossGroup = !$startElem.parent().is($self.parent());
+
+                    if (isLastClickedBefore) {
+
+                        $startElem.nextUntil($self).addClass(selectedItemClass);
+
+                        // selecting elements across different groups
+                        if (crossGroup) {
+
+                            // go through all groups between the previously selected and target group
+                            $startElem.parent().nextUntil($self.parent(), 'ul').each(function() {
+                                $(this)
+                                    .find('li:first')
+                                    .addClass(selectedItemClass)
+                                    .nextUntil($self)
+                                    .addClass(selectedItemClass);
+                            });
+
+                            // finally elements in the current target group
+                            $self.prevUntil('ul').addClass(selectedItemClass);
+                        }
+
+                    }
+                    else {
+                        $startElem.prevUntil($self).addClass(selectedItemClass);
+
+                        // selecting elements across different groups
+                        if (crossGroup) {
+
+                            // go through all groups between the previously selected and target group
+                            $startElem.parent().prevUntil($self.parent(), 'ul').each(function() {
+                                $(this)
+                                    .find('li:last')
+                                    .addClass(selectedItemClass)
+                                    .prevUntil($self)
+                                    .addClass(selectedItemClass);
+                            });
+
+                            // finally elements in the current target group
+                            $self.nextUntil('ul').addClass(selectedItemClass);
+                        }
+                    }
+
+                } else {
+                    $lastSelectedItem = $self;
+                    $self.toggleClass(selectedItemClass);
+                }
+
                 $.proxy(methods._countSelected, repositoryContainer)();
             });
 
@@ -369,7 +437,7 @@
             }
             var $this = $(this);
             $this.find('.ipsRepositoryActions').addClass('hidden');
-            $this.find('.ipsBrowserContainer li').removeClass('ui-selected');
+            $this.find('.ipsBrowserContainer li').removeClass(selectedItemClass);
             $this.find('.ipsBrowserContainer').removeClass('ui-selecting');
         },
 
