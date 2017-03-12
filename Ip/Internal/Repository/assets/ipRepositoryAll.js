@@ -527,7 +527,7 @@
                                 $(this).remove();
                                 // recalculating selected files
                                 $.proxy(methods._countSelected, repositoryContainer)();
-                            })
+                            });
                         ;
                     }
 
@@ -535,7 +535,13 @@
                     // notify that not all files were deleted
                     if (parseInt(response.notRemovedCount) > 0) {
                         if (confirm(ipRepositoryTranslate_delete_warning)) {
-                            $.proxy(methods._executeDelete, context)(files, true);
+
+                            // do not include already deleted files in the request, otherwise
+                            // we'll end up in an endless loop, telling the user that some files
+                            // could not be deleted (because they have been deleted already)
+                            $.proxy(methods._executeDelete, context)(files.filter(function(x) {
+                                return !~response.deletedFiles.indexOf(x.fileName);
+                            }), true);
                         }
                     }
                 },
