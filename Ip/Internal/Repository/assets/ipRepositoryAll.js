@@ -528,7 +528,6 @@
                                 // recalculating selected files
                                 $.proxy(methods._countSelected, repositoryContainer)();
                             });
-                        ;
                     }
 
 
