@@ -29,7 +29,7 @@ CREATE TABLE `ip_page` (
   `deletedAt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `url` (`urlPath`, `languageCode`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -40,7 +40,7 @@ CREATE TABLE `ip_page_storage` (
   `key` varchar(255) NOT NULL,
   `value` text NOT NULL,
   UNIQUE KEY `pageKey` (`pageId`,`key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ip_permission`;
 
@@ -48,7 +48,7 @@ CREATE TABLE `ip_permission` (
   `administratorId` int(11) NOT NULL DEFAULT '0',
   `permission` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`administratorId`,`permission`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ip_language`;
 
@@ -62,7 +62,7 @@ CREATE TABLE `ip_language` (
   `code` varchar(255) NOT NULL,
   `textDirection` varchar(10) NOT NULL DEFAULT 'ltr',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 
@@ -77,7 +77,7 @@ CREATE TABLE `ip_log` (
   PRIMARY KEY (`id`),
   KEY `time` (`time`),
   KEY `message` (`message`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 
 
@@ -100,7 +100,7 @@ CREATE TABLE `ip_email_queue` (
   `fileNames` mediumtext,
   `fileMimeTypes` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 
 
@@ -115,7 +115,7 @@ CREATE TABLE `ip_repository_file` (
   `createdAt` int(11) NOT NULL COMMENT 'Time, when this module started to use this resource.',
   PRIMARY KEY (`fileId`),
   KEY `filename` (`filename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='File usage table. Track which modules uses which files';
 
 
 
@@ -130,7 +130,7 @@ CREATE TABLE `ip_repository_reflection` (
   `createdAt` int(11) NOT NULL,
   PRIMARY KEY (`reflectionId`),
   KEY `optionsFingerprint` (`optionsFingerprint`,`original`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Cropped versions of original image file';
 
 DROP TABLE IF EXISTS `ip_widget`;
 
@@ -149,7 +149,7 @@ CREATE TABLE `ip_widget` (
   `updatedAt` int(11) NOT NULL,
   `deletedAt` int(11) DEFAULT NULL COMMENT 'unix timestamp',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `ip_theme_storage`;
 
@@ -158,7 +158,7 @@ CREATE TABLE `ip_theme_storage` (
   `key` varchar(100) NOT NULL,
   `value` varchar(255) NOT NULL,
   UNIQUE KEY `themeKey` (`theme`,`key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -168,7 +168,7 @@ CREATE TABLE `ip_widget_order` (
   `widgetName` varchar(255) NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '0',
   UNIQUE KEY `widgetName` (`widgetName`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 
@@ -179,7 +179,7 @@ CREATE TABLE `ip_inline_value_global` (
   `key` varchar(100) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`plugin`,`key`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -191,7 +191,7 @@ CREATE TABLE `ip_inline_value_language` (
   `languageId` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`plugin`,`key`,`languageId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -203,7 +203,7 @@ CREATE TABLE `ip_inline_value_page` (
   `pageId` int(11) NOT NULL,
   `value` text NOT NULL,
   PRIMARY KEY (`plugin`,`key`,`pageId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -215,7 +215,7 @@ CREATE TABLE `ip_plugin` (
   `version` decimal(10,2) NOT NULL,
   `isActive` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
@@ -227,7 +227,7 @@ CREATE TABLE `ip_revision` (
   `isPublished` tinyint(1) NOT NULL DEFAULT '0',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`revisionId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 
@@ -238,7 +238,7 @@ CREATE TABLE `ip_storage` (
     `key` varchar(100) NOT NULL,
     `value` text NOT NULL,
     UNIQUE KEY `pluginkey` (`plugin`,`key`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
 
@@ -253,5 +253,5 @@ CREATE TABLE `ip_administrator` (
   `resetTime` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
