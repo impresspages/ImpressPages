@@ -763,7 +763,7 @@ class Migration
               `administratorId` int(11) DEFAULT NULL,
               `permission` varchar(255) NOT NULL DEFAULT '',
               PRIMARY KEY (`administratorId`, `permission`)
-            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
         ";
         ipDb()->execute($sql);
 
