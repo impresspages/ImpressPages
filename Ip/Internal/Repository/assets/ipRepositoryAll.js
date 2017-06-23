@@ -1,7 +1,10 @@
 (function ($) {
     "use strict";
 
-    var settings = {};
+    var settings = {},
+        dynamicThumbnailClass = 'js-dynamic-preview',
+        selectedItemClass = 'ui-selected',
+        $lastSelectedItem = null;
 
     var methods = {
 
@@ -21,15 +24,16 @@
 
                     $this.data('ipRepositoryAll', options);
 
-                    var data = Object();
-                    data.aa = 'Repository.getAll';
-                    data.securityToken = ip.securityToken;
-                    data.filter = settings.filter;
-                    data.filterExtensions = settings.filterExtensions;
-                    data.secure = settings.secure;
-                    data.path = settings.path;
+                    var data = {
+                        aa: 'Repository.getAll',
+                        securityToken: ip.securityToken,
+                        filter: settings.filter,
+                        filterExtensions: settings.filterExtensions,
+                        secure: settings.secure,
+                        path: settings.path
+                    };
 
-                    if ($popup.find('.ipsPermissionError').length == 0) {
+                    if ($popup.find('.ipsPermissionError').length === 0) {
                         $.ajax({
                             type: 'GET',
                             url: ip.baseUrl,
@@ -63,9 +67,36 @@
                     });
 
                     $(window).bind("resize.ipRepositoryAll", $.proxy(methods._resize, this));
+                    $('.ipsBrowser').bind("scroll", $.proxy(methods._scroll, this));
                     $popup.bind('ipModuleRepository.close', $.proxy(methods._teardown, this));
                     $popup.bind('ipModuleRepository.search', $.proxy(methods._filterFilesByTerm, this));
                     $.proxy(methods._resize, this)();
+
+
+
+                }
+            });
+        },
+
+
+        _isVisible: function (element) {
+            var $browser = $('.ipsBrowser'),
+                $element = $(element),
+                scrollTop = $browser.scrollTop(),
+                elementY = $element.offset().top;
+            return ((elementY < ($browser.height() + scrollTop)) && (elementY > (scrollTop - $element.height())));
+        },
+
+        _loadVisibleThumbnails: function() {
+            var $browserContainer = $(this).find('.ipsBrowserContainer'),
+                $items = $browserContainer.find('.' + dynamicThumbnailClass + ':visible');
+
+            $items.each(function () {
+                var $item = $(this);
+                if (methods._isVisible(this)) {
+                    $item
+                        .removeClass(dynamicThumbnailClass)
+                        .attr('src', $item.attr('data-preview'));
                 }
             });
         },
@@ -114,6 +145,8 @@
                     $list.prev('.ipsListTitle').addClass('hidden');
                 }
             });
+
+            $.proxy(methods._loadVisibleThumbnails, this)();
         },
 
         addRecentFiles: function (files) {
@@ -127,17 +160,19 @@
 
             for (var i in files) {
                 var $newItem = $template.clone().removeClass('ipsFileTemplate');
-                methods._addFileData($newItem, files[i]);
+                methods._addFileData($newItem, files[i], true);
 
-                $newItem.toggleClass('ui-selected');
+                $newItem.toggleClass(selectedItemClass);
                 $newList.append($newItem);
+                $lastSelectedItem = $newItem;
             }
-            $.proxy(methods._countSelected, this)();
 
+            $.proxy(methods._countSelected, this)();
+            $.proxy(methods._loadVisibleThumbnails, this)();
 
         },
 
-        _addFileData: function ($file, data) {
+        _addFileData: function ($file, data, instantPreview) {
             // icon
             var iconClass = 'fa fa-file-o';
             switch (data.ext) {
@@ -254,10 +289,20 @@
             }
             $file.find('i').addClass(iconClass);
             // thumbnail
-            $file.find('img')
-                .attr('src', data.previewUrl)
+
+            var $img = $file.find('img');
+
+            $img
                 .attr('alt', data.fileName)
                 .attr('title', data.fileName);
+
+            if (instantPreview) {
+                $img.attr('src', data.previewUrl);
+            } else {
+                $img.addClass(dynamicThumbnailClass)
+                    .attr('data-preview', data.previewUrl);
+            }
+
             // filename
             $file.find('span').text(data.fileName);
             // file data
@@ -295,12 +340,75 @@
 
             }
 
+            $.proxy(methods._loadVisibleThumbnails, this)();
+
             $this.find('.ipsRepositoryActions .ipsSelectionConfirm').click($.proxy(methods._confirm, this));
             $this.find('.ipsRepositoryActions .ipsSelectionCancel').click($.proxy(methods._stopSelect, this));
             $this.find('.ipsRepositoryActions .ipsSelectionDelete').click($.proxy(methods._delete, this));
 
-            $browserContainer.delegate('li', 'click', function (e) {
-                $(this).toggleClass('ui-selected');
+            $browserContainer.delegate('li', 'click', function (evt) {
+                var $self = $(this);
+
+                if (evt.metaKey || evt.ctrlKey) {
+                    $self.toggleClass(selectedItemClass);
+                } else if (evt.shiftKey) {
+
+                    var $startElem = $lastSelectedItem || $self.siblings('li').eq(0);
+
+                    $self.addClass(selectedItemClass);
+
+                    if ($startElem.is($self))
+                        return;
+
+                    var isLastClickedBefore = $startElem[0].compareDocumentPosition($self[0]) & 4,
+                        crossGroup = !$startElem.parent().is($self.parent());
+
+                    if (isLastClickedBefore) {
+
+                        $startElem.nextUntil($self).addClass(selectedItemClass);
+
+                        // selecting elements across different groups
+                        if (crossGroup) {
+
+                            // go through all groups between the previously selected and target group
+                            $startElem.parent().nextUntil($self.parent(), 'ul').each(function() {
+                                $(this)
+                                    .find('li:first')
+                                    .addClass(selectedItemClass)
+                                    .nextUntil($self)
+                                    .addClass(selectedItemClass);
+                            });
+
+                            // finally elements in the current target group
+                            $self.prevUntil('ul').addClass(selectedItemClass);
+                        }
+
+                    }
+                    else {
+                        $startElem.prevUntil($self).addClass(selectedItemClass);
+
+                        // selecting elements across different groups
+                        if (crossGroup) {
+
+                            // go through all groups between the previously selected and target group
+                            $startElem.parent().prevUntil($self.parent(), 'ul').each(function() {
+                                $(this)
+                                    .find('li:last')
+                                    .addClass(selectedItemClass)
+                                    .prevUntil($self)
+                                    .addClass(selectedItemClass);
+                            });
+
+                            // finally elements in the current target group
+                            $self.nextUntil('ul').addClass(selectedItemClass);
+                        }
+                    }
+
+                } else {
+                    $lastSelectedItem = $self;
+                    $self.toggleClass(selectedItemClass);
+                }
+
                 $.proxy(methods._countSelected, repositoryContainer)();
             });
 
@@ -329,7 +437,7 @@
             }
             var $this = $(this);
             $this.find('.ipsRepositoryActions').addClass('hidden');
-            $this.find('.ipsBrowserContainer li').removeClass('ui-selected');
+            $this.find('.ipsBrowserContainer li').removeClass(selectedItemClass);
             $this.find('.ipsBrowserContainer').removeClass('ui-selecting');
         },
 
@@ -419,15 +527,20 @@
                                 $(this).remove();
                                 // recalculating selected files
                                 $.proxy(methods._countSelected, repositoryContainer)();
-                            })
-                        ;
+                            });
                     }
 
 
                     // notify that not all files were deleted
                     if (parseInt(response.notRemovedCount) > 0) {
                         if (confirm(ipRepositoryTranslate_delete_warning)) {
-                            $.proxy(methods._executeDelete, context)(files, true);
+
+                            // do not include already deleted files in the request, otherwise
+                            // we'll end up in an endless loop, telling the user that some files
+                            // could not be deleted (because they have been deleted already)
+                            $.proxy(methods._executeDelete, context)(files.filter(function(x) {
+                                return !~response.deletedFiles.indexOf(x.fileName);
+                            }), true);
                         }
                     }
                 },
@@ -449,6 +562,11 @@
             var $block = $popup.find('.ipsBrowser');
             var tabsHeight = parseInt($popup.find('.ipsTabs').outerHeight());
             $block.outerHeight((parseInt($(window).height()) - tabsHeight));
+            $.proxy(methods._loadVisibleThumbnails, this)();
+        },
+
+        _scroll: function(e) {
+            $.proxy(methods._loadVisibleThumbnails, this)();
         }
 
     };
