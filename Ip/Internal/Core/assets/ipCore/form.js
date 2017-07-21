@@ -91,12 +91,12 @@ var ipModuleFormPublic;
                                 $form.data("validator").invalidate(response.errors);
                             }
                             if (response.replaceHtml) {
-                                $form.replaceWith(response.replaceHtml);
                                 if (!isScrolledIntoView($form)) {
                                     $('html, body').animate({
                                         scrollTop: $form.offset().top
                                     }, 500);
                                 }
+                                $form.replaceWith(response.replaceHtml);
                                 ipInitForms();
                             }
                             if (response.redirectUrl) {
