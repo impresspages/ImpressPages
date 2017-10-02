@@ -66,6 +66,9 @@ class Captcha extends Field
         $this->addValidator('Required');
 
         parent::__construct($options);
+        if (isset($options['allowMoreThanOneUse'])) {
+            $this->options['allowMoreThanOneUse']=$options['allowMoreThanOneUse'];
+        }
     }
 
     /**
@@ -138,6 +141,11 @@ class Captcha extends Field
         );
         if (strtolower($code) !== $realCode) {
             return $errorText;
+        }
+        // Check the captcha options to see if it allows the (unsafe) option more than one use!
+        if (!isset($this->options['allowMoreThanOneUse'])) {
+            // remove the id from $_SESSION
+            unset( $_SESSION['developer']['form']['field']['captcha'][$id] );
         }
 
         return parent::validate($values, $valueKey, $environment);
