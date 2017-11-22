@@ -142,8 +142,18 @@ class Model
                 continue;
             }
 
-            ipSetOption($pluginName . '.' . $option['name'], $field->getValue());
-
+            if ($option['type'] == 'TextLang' || $option['type'] == 'TextareaLang') {
+                $languages = ipContent()->getLanguages();
+                foreach ($languages as $language) {
+                    foreach ($field->getValue() as $key => $field_value) {
+                        if ($key == $language->code) {
+                            ipSetOptionLang($pluginName . '.' . $option['name'], $field_value, $language->code);
+                        }
+                    }
+                }
+            } else {
+                ipSetOption($pluginName . '.' . $option['name'], $field->getValue());
+            }
         }
     }
 

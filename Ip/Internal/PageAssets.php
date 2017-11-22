@@ -232,7 +232,7 @@ class PageAssets
 
     public function removeAllJs()
     {
-        $this->requiredJs = [];
+        $this->requiredJavascript = [];
     }
 
     public function removeAllJsVariables()

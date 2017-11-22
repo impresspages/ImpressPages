@@ -62,6 +62,12 @@ class Config
                 }
             }
 
+            // base url detection fails when using the PHP built-in webserver, set $baseUrl to / since we'll never serve
+            // ImpressPages from a subdirectory when using the built-in webserver
+            if (php_sapi_name() == 'cli-server') {
+                $baseUrl = '';
+            }
+
             $this->config['baseUrl'] .= rtrim($baseUrl, '/') . '/';
         }
 

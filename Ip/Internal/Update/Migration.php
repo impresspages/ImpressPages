@@ -12,6 +12,18 @@ class Migration
 
 
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_101()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"5.0.3"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
+    public static function update_100()
+    {
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"5.0.2"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
     public static function update_99()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
@@ -763,7 +775,7 @@ class Migration
               `administratorId` int(11) DEFAULT NULL,
               `permission` varchar(255) NOT NULL DEFAULT '',
               PRIMARY KEY (`administratorId`, `permission`)
-            ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+            ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
         ";
         ipDb()->execute($sql);
 
