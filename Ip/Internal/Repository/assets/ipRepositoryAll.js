@@ -167,14 +167,11 @@
             var $lists = $this.find('.ipsBrowser .ipsList');
             var $files = $lists.find('li');
             var term = $this.find('.ipsBrowserSearch .ipsTerm').val().toLowerCase();
-            var unused = $this.find('.ipsBrowserSearch #chkUnused')[0].checked;
 
             if (term.length > 0) {
                 // if term exists - loop all files
                 $files.each(function () {
                     var $file = $(this);
-                    var fileData = $file.data('fileData');
-                    var fileName = fileData.fileName.toLowerCase();
                     // check in files' data whether filename include term
                     if (fileName.search(term) != -1) {
                         // show file if term match (in case it was hidden earlier)
@@ -183,28 +180,10 @@
                         // hide file is term doesn't match
                         $file.addClass('hidden');
                     }
-
-                    if (unused && fileData.used) $file.addClass('hidden');
-
                 });
                 $this.find('.ipsBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
             } else {
                 // show all files if term doesn't exist
-
-
-                if (unused) {
-                    $files.each(function () {
-                        var $file = $(this);
-                        var fileData = $file.data('fileData');
-                        if (unused && fileData.used)
-                            $file.addClass('hidden');
-                        else
-                            $file.removeClass('hidden');
-                    });
-                } else {
-                    $files.removeClass('hidden');
-                }
-
                 $this.find('.ipsBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
             }
 
@@ -244,7 +223,6 @@
 
                 $newItem.toggleClass(selectedItemClass);
                 $newList.append($newItem);
-
                 $lastSelectedItem = $newItem;
             }
 
@@ -385,14 +363,9 @@
             }
 
             // filename
-            $file.find('span').not('.js-usage-indicator').text(data.fileName);
             // file data
             $file.attr('data-file', data.fileName); // unique attribute to recognize required element
             $file.data('fileData', data);
-
-            var $usageIndicator = $file.find('.js-usage-indicator');
-            $usageIndicator.addClass(data.used ? 'hidden' : 'unused');
-
         },
 
         _getAllFilesResponse: function (response) {
