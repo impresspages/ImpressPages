@@ -58,10 +58,6 @@
                     $popup.find('.ipsBrowserSearch .ipsTerm').on('keyup change', function (e) {
                         $popup.trigger('ipModuleRepository.search');
                     });
-                    $popup.find('.ipsBrowserSearch #chkUnused').on('click change', function (e) {
-                        $popup.trigger('ipModuleRepository.search');
-                    });
-
                     $popup.find('.ipsBrowserSearch .ipsSubmit').on('click', function (e) {
                         var $this = $(this);
                         var $searchField = $this.closest('.ipsBrowserSearch').find('.ipsTerm');
