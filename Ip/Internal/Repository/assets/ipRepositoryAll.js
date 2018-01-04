@@ -198,6 +198,7 @@
                 $this.find('.ipsBrowserSearch .fa-search').removeClass('fa-search').addClass('fa-times');
             } else {
                 // show all files if term doesn't exist
+                $files.removeClass('hidden');
                 $this.find('.ipsBrowserSearch .fa-times').removeClass('fa-times').addClass('fa-search');
             }
 
@@ -377,6 +378,7 @@
             }
 
             // filename
+            $file.find('span').text(data.fileName);
             // file data
             $file.attr('data-file', data.fileName); // unique attribute to recognize required element
             $file.data('fileData', data);
@@ -611,7 +613,7 @@
                             // we'll end up in an endless loop, telling the user that some files
                             // could not be deleted (because they have been deleted already)
                             $.proxy(methods._executeDelete, context)(files.filter(function (x) {
-                                return ! ~response.deletedFiles.indexOf(x.fileName);
+                                return !~response.deletedFiles.indexOf(x.fileName);
                             }), true);
                         }
                     }
