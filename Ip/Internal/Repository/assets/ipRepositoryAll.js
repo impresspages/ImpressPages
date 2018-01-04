@@ -186,6 +186,7 @@
                 // if term exists - loop all files
                 $files.each(function () {
                     var $file = $(this);
+                    var fileName = $file.data('fileData').fileName.toLowerCase();
                     // check in files' data whether filename include term
                     if (fileName.search(term) != -1) {
                         // show file if term match (in case it was hidden earlier)
