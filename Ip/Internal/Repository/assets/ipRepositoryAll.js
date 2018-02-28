@@ -79,21 +79,96 @@
         },
 
 
-        _isVisible: function (element) {
-            var $browser = $('.ipsBrowser'),
-                $element = $(element),
-                scrollTop = $browser.scrollTop(),
-                elementY = $element.offset().top;
-            return ((elementY < ($browser.height() + scrollTop)) && (elementY > (scrollTop - $element.height())));
+        _isVisible: function (element, partial, hidden, direction, container) {
+
+            /**
+             * Based on https://github.com/customd/jquery-visible
+             *
+             * Copyright 2012, Digital Fusion
+             * Licensed under the MIT license.
+             * http://teamdf.com/jquery-plugins/license/
+             *
+             * @author Sam Sehnert
+             * @desc A small plugin that checks whether elements are within
+             *       the user visible viewport of a web browser.
+             *       only accounts for vertical position, not horizontal.
+             */
+
+            // Set direction default to 'both'.
+            direction = direction || 'both';
+
+            var $t = $(element),
+                isContained = typeof container !== 'undefined' && container !== null,
+                $c = isContained ? $(container) : $(window),
+                wPosition = isContained ? $c.position() : 0,
+                t = $t.get(0),
+                vpWidth = $c.outerWidth(),
+                vpHeight = $c.outerHeight(),
+                clientSize = hidden === true ? t.offsetWidth * t.offsetHeight : true;
+
+            if (typeof t.getBoundingClientRect === 'function'){
+
+                // Use this native browser method, if available.
+                var rec = t.getBoundingClientRect(),
+                    tViz = isContained ?
+                        rec.top - wPosition.top >= 0 && rec.top < vpHeight + wPosition.top :
+                        rec.top >= 0 && rec.top < vpHeight,
+
+                    bViz = isContained ?
+                        rec.bottom - wPosition.top > 0 && rec.bottom <= vpHeight + wPosition.top :
+                        rec.bottom > 0 && rec.bottom <= vpHeight,
+
+                    lViz = isContained ?
+                        rec.left - wPosition.left >= 0 && rec.left < vpWidth + wPosition.left :
+                        rec.left >= 0 && rec.left <  vpWidth,
+
+                    rViz = isContained ?
+                        rec.right - wPosition.left > 0  && rec.right < vpWidth + wPosition.left  :
+                        rec.right > 0 && rec.right <= vpWidth,
+
+                    vVisible   = partial ? tViz || bViz : tViz && bViz,
+                    hVisible   = partial ? lViz || rViz : lViz && rViz,
+                    vVisible = (rec.top < 0 && rec.bottom > vpHeight) ? true : vVisible,
+                    hVisible = (rec.left < 0 && rec.right > vpWidth) ? true : hVisible;
+
+                if(direction === 'both')
+                    return clientSize && vVisible && hVisible;
+                else if(direction === 'vertical')
+                    return clientSize && vVisible;
+                else if(direction === 'horizontal')
+                    return clientSize && hVisible;
+            } else {
+
+                var viewTop = isContained ? 0 : wPosition,
+                    viewBottom = viewTop + vpHeight,
+                    viewLeft = $c.scrollLeft(),
+                    viewRight = viewLeft + vpWidth,
+                    position = $t.position(),
+                    _top = position.top,
+                    _bottom = _top + $t.height(),
+                    _left = position.left,
+                    _right = _left + $t.width(),
+                    compareTop = partial === true ? _bottom : _top,
+                    compareBottom = partial === true ? _top : _bottom,
+                    compareLeft = partial === true ? _right : _left,
+                    compareRight = partial === true ? _left : _right;
+
+                if(direction === 'both')
+                    return !!clientSize && ((compareBottom <= viewBottom) && (compareTop >= viewTop)) && ((compareRight <= viewRight) && (compareLeft >= viewLeft));
+                else if(direction === 'vertical')
+                    return !!clientSize && ((compareBottom <= viewBottom) && (compareTop >= viewTop));
+                else if(direction === 'horizontal')
+                    return !!clientSize && ((compareRight <= viewRight) && (compareLeft >= viewLeft));
+            }
         },
 
-        _loadVisibleThumbnails: function() {
+        _loadVisibleThumbnails: function () {
             var $browserContainer = $(this).find('.ipsBrowserContainer'),
                 $items = $browserContainer.find('.' + dynamicThumbnailClass + ':visible');
 
             $items.each(function () {
                 var $item = $(this);
-                if (methods._isVisible(this)) {
+                if (methods._isVisible(this, true)) {
                     $item
                         .removeClass(dynamicThumbnailClass)
                         .attr('src', $item.attr('data-preview'));
@@ -371,7 +446,7 @@
                         if (crossGroup) {
 
                             // go through all groups between the previously selected and target group
-                            $startElem.parent().nextUntil($self.parent(), 'ul').each(function() {
+                            $startElem.parent().nextUntil($self.parent(), 'ul').each(function () {
                                 $(this)
                                     .find('li:first')
                                     .addClass(selectedItemClass)
@@ -391,7 +466,7 @@
                         if (crossGroup) {
 
                             // go through all groups between the previously selected and target group
-                            $startElem.parent().prevUntil($self.parent(), 'ul').each(function() {
+                            $startElem.parent().prevUntil($self.parent(), 'ul').each(function () {
                                 $(this)
                                     .find('li:last')
                                     .addClass(selectedItemClass)
@@ -477,7 +552,7 @@
             }
         },
 
-        _executeDelete: function(files, forced) {
+        _executeDelete: function (files, forced) {
             var context = this;
             var $this = $(this);
             var data = Object();
@@ -511,10 +586,10 @@
 
                         switch (settings.preview) {
                             case 'thumbnails':
-                                animateOptions = {width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0};
+                                animateOptions = { width: 0, paddingLeft: 0, paddingRight: 0, marginLeft: 0, marginRight: 0 };
                                 break;
                             default:
-                                animateOptions = {height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0};
+                                animateOptions = { height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0 };
                                 break;
                         }
 
@@ -538,7 +613,7 @@
                             // do not include already deleted files in the request, otherwise
                             // we'll end up in an endless loop, telling the user that some files
                             // could not be deleted (because they have been deleted already)
-                            $.proxy(methods._executeDelete, context)(files.filter(function(x) {
+                            $.proxy(methods._executeDelete, context)(files.filter(function (x) {
                                 return !~response.deletedFiles.indexOf(x.fileName);
                             }), true);
                         }
@@ -565,7 +640,7 @@
             $.proxy(methods._loadVisibleThumbnails, this)();
         },
 
-        _scroll: function(e) {
+        _scroll: function (e) {
             $.proxy(methods._loadVisibleThumbnails, this)();
         }
 
