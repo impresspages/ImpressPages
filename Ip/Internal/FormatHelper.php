@@ -236,7 +236,7 @@ class FormatHelper
                         $code = $languageCode;
                     }
                 }
-                $locale = str_replace('-', '_', $languageCode);
+                $locale = str_replace('-', '_', $code);
                 $fmt = datefmt_create(
                     $locale,
                     \IntlDateFormatter::SHORT,

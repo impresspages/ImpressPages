@@ -35,7 +35,7 @@ abstract class Field
             $this->layout = $fieldFieldConfig['layout'];
         }
 
-        if (!empty($fieldFieldConfig['defaultValue'])) {
+        if (!empty($fieldFieldConfig['defaultValue']) || (array_key_exists( 'defaultValue', $fieldFieldConfig) && (is_int($fieldFieldConfig['defaultValue']) || ord($fieldFieldConfig['defaultValue']) === 48)) ) {
             $this->defaultValue = $fieldFieldConfig['defaultValue'];
         }
 
