@@ -31,8 +31,12 @@ class Csrf extends Validator
         }
 
         $session = \Ip\ServiceLocator::application();
+        $secToken = $session->getSecurityToken();
 
-        if ($values[$valueKey] != $session->getSecurityToken()) {
+        // remove the token from $_SESSION, so it is one use only
+        unset( $_SESSION['ipSecurityToken'] );
+
+        if ($values[$valueKey] != $secToken) {
             if ($environment == \Ip\Form::ENVIRONMENT_ADMIN) {
                 $errorText = __('Session has expired. Please refresh the page.', 'Ip-admin');
             } else {
