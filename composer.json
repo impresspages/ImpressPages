@@ -7,7 +7,8 @@
     "psr/log": "1.0.2",
     "zendframework/zend-i18n": "2.7.3",
     "zendframework/zend-servicemanager": "2.7.7",
-    "mangirdas/advanced-fs": "1.0.2"
+    "mangirdas/advanced-fs": "1.0.2",
+    "phpseclib/phpseclib": "^2.0"
   },
   "autoload": {
     "psr-4": {"Ip\\": "Ip/"}
