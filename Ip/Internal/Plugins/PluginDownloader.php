@@ -2,8 +2,6 @@
 
 namespace Ip\Internal\Plugins;
 
-use phpseclib\Crypt\RSA;
-
 /**
  * Downloads and extracts plugin into plugins directory.
  */
@@ -22,7 +20,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
             define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
         }
 
-        ipGenericAutoload('phpseclib', IP_PHPSECLIB_DIR, 'RSA');
+        ipGenericAutoload('phpseclib', IP_PHPSECLIB_DIR);
     }
 
     public function downloadPlugin($name, $url, $signature)
@@ -45,9 +43,9 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         //check signature
         $fileMd5 = md5_file($archivePath);
 
-        $rsa = new RSA();
+        $rsa = new \phpseclib\Crypt\RSA();
         $rsa->loadKey($this->publicKey);
-        $rsa->setSignatureMode(CRYPT_RSA_SIGNATURE_PKCS1);
+        $rsa->setSignatureMode(\phpseclib\Crypt\RSA::SIGNATURE_PKCS1);
         $verified = $rsa->verify($fileMd5, base64_decode($signature));
 
         if (!$verified) {
