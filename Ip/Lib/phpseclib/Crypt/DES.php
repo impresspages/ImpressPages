@@ -1,12 +1,11 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
  * Pure-PHP implementation of DES.
  *
  * Uses mcrypt, if available, and an internal implementation, otherwise.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * Useful resources are as follows:
  *
@@ -17,9 +16,9 @@
  * Here's a short example of how to use this library:
  * <code>
  * <?php
- *    include('Crypt/DES.php');
+ *    include 'vendor/autoload.php';
  *
- *    $des = new Crypt_DES();
+ *    $des = new \phpseclib\Crypt\DES();
  *
  *    $des->setKey('abcdefgh');
  *
@@ -33,276 +32,120 @@
  * ?>
  * </code>
  *
- * LICENSE: Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @category   Crypt
- * @package    Crypt_DES
- * @author     Jim Wigginton <terrafrost@php.net>
- * @copyright  MMVII Jim Wigginton
- * @license    http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link       http://phpseclib.sourceforge.net
+ * @category  Crypt
+ * @package   DES
+ * @author    Jim Wigginton <terrafrost@php.net>
+ * @copyright 2007 Jim Wigginton
+ * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+ * @link      http://phpseclib.sourceforge.net
  */
 
-/**#@+
- * @access private
- * @see Crypt_DES::_prepareKey()
- * @see Crypt_DES::_processBlock()
- */
-/**
- * Contains array_reverse($keys[CRYPT_DES_DECRYPT])
- */
-define('CRYPT_DES_ENCRYPT', 0);
-/**
- * Contains array_reverse($keys[CRYPT_DES_ENCRYPT])
- */
-define('CRYPT_DES_DECRYPT', 1);
-/**
- * Contains $keys[CRYPT_DES_ENCRYPT] as 1-dim array
- */
-define('CRYPT_DES_ENCRYPT_1DIM', 2);
-/**
- * Contains $keys[CRYPT_DES_DECRYPT] as 1-dim array
- */
-define('CRYPT_DES_DECRYPT_1DIM', 3);
-/**#@-*/
-
-/**#@+
- * @access public
- * @see Crypt_DES::encrypt()
- * @see Crypt_DES::decrypt()
- */
-/**
- * Encrypt / decrypt using the Counter mode.
- *
- * Set to -1 since that's what Crypt/Random.php uses to index the CTR mode.
- *
- * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Counter_.28CTR.29
- */
-define('CRYPT_DES_MODE_CTR', -1);
-/**
- * Encrypt / decrypt using the Electronic Code Book mode.
- *
- * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Electronic_codebook_.28ECB.29
- */
-define('CRYPT_DES_MODE_ECB', 1);
-/**
- * Encrypt / decrypt using the Code Book Chaining mode.
- *
- * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher-block_chaining_.28CBC.29
- */
-define('CRYPT_DES_MODE_CBC', 2);
-/**
- * Encrypt / decrypt using the Cipher Feedback mode.
- *
- * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Cipher_feedback_.28CFB.29
- */
-define('CRYPT_DES_MODE_CFB', 3);
-/**
- * Encrypt / decrypt using the Cipher Feedback mode.
- *
- * @link http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Output_feedback_.28OFB.29
- */
-define('CRYPT_DES_MODE_OFB', 4);
-/**#@-*/
-
-/**#@+
- * @access private
- * @see Crypt_DES::Crypt_DES()
- */
-/**
- * Toggles the internal implementation
- */
-define('CRYPT_DES_MODE_INTERNAL', 1);
-/**
- * Toggles the mcrypt implementation
- */
-define('CRYPT_DES_MODE_MCRYPT', 2);
-/**#@-*/
+namespace phpseclib\Crypt;
 
 /**
  * Pure-PHP implementation of DES.
  *
+ * @package DES
  * @author  Jim Wigginton <terrafrost@php.net>
- * @version 0.1.0
  * @access  public
- * @package Crypt_DES
  */
-class Crypt_DES {
+class DES extends Base
+{
+    /**#@+
+     * @access private
+     * @see \phpseclib\Crypt\DES::_setupKey()
+     * @see \phpseclib\Crypt\DES::_processBlock()
+     */
+    /**
+     * Contains $keys[self::ENCRYPT]
+     */
+    const ENCRYPT = 0;
+    /**
+     * Contains $keys[self::DECRYPT]
+     */
+    const DECRYPT = 1;
+    /**#@-*/
+
+    /**
+     * Block Length of the cipher
+     *
+     * @see \phpseclib\Crypt\Base::block_size
+     * @var int
+     * @access private
+     */
+    var $block_size = 8;
+
+    /**
+     * Key Length (in bytes)
+     *
+     * @see \phpseclib\Crypt\Base::setKeyLength()
+     * @var int
+     * @access private
+     */
+    var $key_length = 8;
+
+    /**
+     * The mcrypt specific name of the cipher
+     *
+     * @see \phpseclib\Crypt\Base::cipher_name_mcrypt
+     * @var string
+     * @access private
+     */
+    var $cipher_name_mcrypt = 'des';
+
+    /**
+     * The OpenSSL names of the cipher / modes
+     *
+     * @see \phpseclib\Crypt\Base::openssl_mode_names
+     * @var array
+     * @access private
+     */
+    var $openssl_mode_names = array(
+        self::MODE_ECB => 'des-ecb',
+        self::MODE_CBC => 'des-cbc',
+        self::MODE_CFB => 'des-cfb',
+        self::MODE_OFB => 'des-ofb'
+        // self::MODE_CTR is undefined for DES
+    );
+
+    /**
+     * Optimizing value while CFB-encrypting
+     *
+     * @see \phpseclib\Crypt\Base::cfb_init_len
+     * @var int
+     * @access private
+     */
+    var $cfb_init_len = 500;
+
+    /**
+     * Switch for DES/3DES encryption
+     *
+     * Used only if $engine == self::ENGINE_INTERNAL
+     *
+     * @see self::_setupKey()
+     * @see self::_processBlock()
+     * @var int
+     * @access private
+     */
+    var $des_rounds = 1;
+
+    /**
+     * max possible size of $key
+     *
+     * @see self::setKey()
+     * @var string
+     * @access private
+     */
+    var $key_length_max = 8;
+
     /**
      * The Key Schedule
      *
-     * @see Crypt_DES::setKey()
-     * @var Array
+     * @see self::_setupKey()
+     * @var array
      * @access private
      */
-    var $keys = "\0\0\0\0\0\0\0\0";
-
-    /**
-     * The Encryption Mode
-     *
-     * @see Crypt_DES::Crypt_DES()
-     * @var Integer
-     * @access private
-     */
-    var $mode;
-
-    /**
-     * Continuous Buffer status
-     *
-     * @see Crypt_DES::enableContinuousBuffer()
-     * @var Boolean
-     * @access private
-     */
-    var $continuousBuffer = false;
-
-    /**
-     * Padding status
-     *
-     * @see Crypt_DES::enablePadding()
-     * @var Boolean
-     * @access private
-     */
-    var $padding = true;
-
-    /**
-     * The Initialization Vector
-     *
-     * @see Crypt_DES::setIV()
-     * @var String
-     * @access private
-     */
-    var $iv = "\0\0\0\0\0\0\0\0";
-
-    /**
-     * A "sliding" Initialization Vector
-     *
-     * @see Crypt_DES::enableContinuousBuffer()
-     * @var String
-     * @access private
-     */
-    var $encryptIV = "\0\0\0\0\0\0\0\0";
-
-    /**
-     * A "sliding" Initialization Vector
-     *
-     * @see Crypt_DES::enableContinuousBuffer()
-     * @var String
-     * @access private
-     */
-    var $decryptIV = "\0\0\0\0\0\0\0\0";
-
-    /**
-     * mcrypt resource for encryption
-     *
-     * The mcrypt resource can be recreated every time something needs to be created or it can be created just once.
-     * Since mcrypt operates in continuous mode, by default, it'll need to be recreated when in non-continuous mode.
-     *
-     * @see Crypt_DES::encrypt()
-     * @var String
-     * @access private
-     */
-    var $enmcrypt;
-
-    /**
-     * mcrypt resource for decryption
-     *
-     * The mcrypt resource can be recreated every time something needs to be created or it can be created just once.
-     * Since mcrypt operates in continuous mode, by default, it'll need to be recreated when in non-continuous mode.
-     *
-     * @see Crypt_DES::decrypt()
-     * @var String
-     * @access private
-     */
-    var $demcrypt;
-
-    /**
-     * Does the enmcrypt resource need to be (re)initialized?
-     *
-     * @see Crypt_DES::setKey()
-     * @see Crypt_DES::setIV()
-     * @var Boolean
-     * @access private
-     */
-    var $enchanged = true;
-
-    /**
-     * Does the demcrypt resource need to be (re)initialized?
-     *
-     * @see Crypt_DES::setKey()
-     * @see Crypt_DES::setIV()
-     * @var Boolean
-     * @access private
-     */
-    var $dechanged = true;
-
-    /**
-     * Is the mode one that is paddable?
-     *
-     * @see Crypt_DES::Crypt_DES()
-     * @var Boolean
-     * @access private
-     */
-    var $paddable = false;
-
-    /**
-     * Encryption buffer for CTR, OFB and CFB modes
-     *
-     * @see Crypt_DES::encrypt()
-     * @var Array
-     * @access private
-     */
-    var $enbuffer = array('encrypted' => '', 'xor' => '', 'pos' => 0, 'enmcrypt_init' => true);
-
-    /**
-     * Decryption buffer for CTR, OFB and CFB modes
-     *
-     * @see Crypt_DES::decrypt()
-     * @var Array
-     * @access private
-     */
-    var $debuffer = array('ciphertext' => '', 'xor' => '', 'pos' => 0, 'demcrypt_init' => true);
-
-    /**
-     * mcrypt resource for CFB mode
-     *
-     * @see Crypt_DES::encrypt()
-     * @see Crypt_DES::decrypt()
-     * @var String
-     * @access private
-     */
-    var $ecb;
-
-    /**
-     * Performance-optimized callback function for en/decrypt()
-     * 
-     * @var Callback
-     * @access private
-     */
-    var $inline_crypt;
-
-    /**
-     * Holds whether performance-optimized $inline_crypt should be used or not.
-     *
-     * @var Boolean
-     * @access private
-     */
-    var $use_inline_crypt = false;
+    var $keys;
 
     /**
      * Shuffle table.
@@ -311,9 +154,9 @@ class Crypt_DES {
      * with each byte containing all bits in the same state as the
      * corresponding bit in the index value.
      *
-     * @see Crypt_DES::_processBlock()
-     * @see Crypt_DES::_prepareKey()
-     * @var Array
+     * @see self::_processBlock()
+     * @see self::_setupKey()
+     * @var array
      * @access private
      */
     var $shuffle = array(
@@ -452,7 +295,7 @@ class Crypt_DES {
      *
      * Indexing this table with each source byte performs the initial bit permutation.
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $ipmap = array(
@@ -494,7 +337,7 @@ class Crypt_DES {
      * Inverse IP mapping helper table.
      * Indexing this table with a byte value reverses the bit order.
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $invipmap = array(
@@ -538,7 +381,7 @@ class Crypt_DES {
      * Each box ($sbox1-$sbox8) has been vectorized, then each value pre-permuted using the
      * P table: concatenation can then be replaced by exclusive ORs.
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox1 = array(
@@ -563,7 +406,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box2
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox2 = array(
@@ -588,7 +431,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box3
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox3 = array(
@@ -613,7 +456,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box4
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox4 = array(
@@ -638,7 +481,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box5
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox5 = array(
@@ -663,7 +506,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box6
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox6 = array(
@@ -688,7 +531,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box7
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox7 = array(
@@ -713,7 +556,7 @@ class Crypt_DES {
     /**
      * Pre-permuted S-box8
      *
-     * @var Array
+     * @var array
      * @access private
      */
     var $sbox8 = array(
@@ -736,75 +579,25 @@ class Crypt_DES {
     );
 
     /**
-     * Default Constructor.
+     * Test for engine validity
      *
-     * Determines whether or not the mcrypt extension should be used.  $mode should only, at present, be
-     * CRYPT_DES_MODE_ECB or CRYPT_DES_MODE_CBC.  If not explictly set, CRYPT_DES_MODE_CBC will be used.
+     * This is mainly just a wrapper to set things up for \phpseclib\Crypt\Base::isValidEngine()
      *
-     * @param optional Integer $mode
-     * @return Crypt_DES
+     * @see \phpseclib\Crypt\Base::isValidEngine()
+     * @param int $engine
      * @access public
+     * @return bool
      */
-    function Crypt_DES($mode = CRYPT_DES_MODE_CBC)
+    function isValidEngine($engine)
     {
-        if ( !defined('CRYPT_DES_MODE') ) {
-            switch (true) {
-                case extension_loaded('mcrypt') && in_array('des', mcrypt_list_algorithms()):
-                    define('CRYPT_DES_MODE', CRYPT_DES_MODE_MCRYPT);
-                    break;
-                default:
-                    define('CRYPT_DES_MODE', CRYPT_DES_MODE_INTERNAL);
+        if ($this->key_length_max == 8) {
+            if ($engine == self::ENGINE_OPENSSL) {
+                $this->cipher_name_openssl_ecb = 'des-ecb';
+                $this->cipher_name_openssl = 'des-' . $this->_openssl_translate_mode();
             }
         }
 
-        switch ( CRYPT_DES_MODE ) {
-            case CRYPT_DES_MODE_MCRYPT:
-                switch ($mode) {
-                    case CRYPT_DES_MODE_ECB:
-                        $this->paddable = true;
-                        $this->mode = MCRYPT_MODE_ECB;
-                        break;
-                    case CRYPT_DES_MODE_CTR:
-                        $this->mode = 'ctr';
-                        //$this->mode = in_array('ctr', mcrypt_list_modes()) ? 'ctr' : CRYPT_DES_MODE_CTR;
-                        break;
-                    case CRYPT_DES_MODE_CFB:
-                        $this->mode = 'ncfb';
-                        $this->ecb = mcrypt_module_open(MCRYPT_DES, '', MCRYPT_MODE_ECB, '');
-                        break;
-                    case CRYPT_DES_MODE_OFB:
-                        $this->mode = MCRYPT_MODE_NOFB;
-                        break;
-                    case CRYPT_DES_MODE_CBC:
-                    default:
-                        $this->paddable = true;
-                        $this->mode = MCRYPT_MODE_CBC;
-                }
-                $this->enmcrypt = mcrypt_module_open(MCRYPT_DES, '', $this->mode, '');
-                $this->demcrypt = mcrypt_module_open(MCRYPT_DES, '', $this->mode, '');
-
-                break;
-            default:
-                switch ($mode) {
-                    case CRYPT_DES_MODE_ECB:
-                    case CRYPT_DES_MODE_CBC:
-                        $this->paddable = true;
-                        $this->mode = $mode;
-                        break;
-                    case CRYPT_DES_MODE_CTR:
-                    case CRYPT_DES_MODE_CFB:
-                    case CRYPT_DES_MODE_OFB:
-                        $this->mode = $mode;
-                        break;
-                    default:
-                        $this->paddable = true;
-                        $this->mode = CRYPT_DES_MODE_CBC;
-                }
-                if (function_exists('create_function') && is_callable('create_function')) {
-                    $this->inline_crypt_setup();
-                    $this->use_inline_crypt = true;
-                }
-        }
+        return parent::isValidEngine($engine);
     }
 
     /**
@@ -818,757 +611,155 @@ class Crypt_DES {
      *
      * If the key is not explicitly set, it'll be assumed to be all zero's.
      *
+     * @see \phpseclib\Crypt\Base::setKey()
      * @access public
-     * @param String $key
+     * @param string $key
      */
     function setKey($key)
     {
-        $this->keys = ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) ? str_pad(substr($key, 0, 8), 8, chr(0)) : $this->_prepareKey($key);
-        $this->enchanged = true;
-        $this->dechanged = true;
+        // We check/cut here only up to max length of the key.
+        // Key padding to the proper length will be done in _setupKey()
+        if (strlen($key) > $this->key_length_max) {
+            $key = substr($key, 0, $this->key_length_max);
+        }
+
+        // Sets the key
+        parent::setKey($key);
     }
 
     /**
-     * Sets the password.
+     * Encrypts a block
      *
-     * Depending on what $method is set to, setPassword()'s (optional) parameters are as follows:
-     *     {@link http://en.wikipedia.org/wiki/PBKDF2 pbkdf2}:
-     *         $hash, $salt, $count
-     *
-     * @param String $password
-     * @param optional String $method
-     * @access public
-     */
-    function setPassword($password, $method = 'pbkdf2')
-    {
-        $key = '';
-
-        switch ($method) {
-            default: // 'pbkdf2'
-                list(, , $hash, $salt, $count) = func_get_args();
-                if (!isset($hash)) {
-                    $hash = 'sha1';
-                }
-                // WPA and WPA2 use the SSID as the salt
-                if (!isset($salt)) {
-                    $salt = 'phpseclib/salt';
-                }
-                // RFC2898#section-4.2 uses 1,000 iterations by default
-                // WPA and WPA2 use 4,096.
-                if (!isset($count)) {
-                    $count = 1000;
-                }
-
-                if (!class_exists('Crypt_Hash')) {
-                    require_once(IP_PHPSECLIB_DIR . 'Crypt/Hash.php');
-                }
-
-                $i = 1;
-                while (strlen($key) < 8) { // $dkLen == 8
-                    //$dk.= $this->_pbkdf($password, $salt, $count, $i++);
-                    $hmac = new Crypt_Hash();
-                    $hmac->setHash($hash);
-                    $hmac->setKey($password);
-                    $f = $u = $hmac->hash($salt . pack('N', $i++));
-                    for ($j = 2; $j <= $count; $j++) {
-                        $u = $hmac->hash($u);
-                        $f^= $u;
-                    }
-                    $key.= $f;
-                }
-        }
-
-        $this->setKey($key);
-    }
-
-    /**
-     * Sets the initialization vector. (optional)
-     *
-     * SetIV is not required when CRYPT_DES_MODE_ECB is being used.  If not explictly set, it'll be assumed
-     * to be all zero's.
-     *
-     * @access public
-     * @param String $iv
-     */
-    function setIV($iv)
-    {
-        $this->encryptIV = $this->decryptIV = $this->iv = str_pad(substr($iv, 0, 8), 8, chr(0));
-        $this->enchanged = true;
-        $this->dechanged = true;
-    }
-
-    /**
-     * Generate CTR XOR encryption key
-     *
-     * Encrypt the output of this and XOR it against the ciphertext / plaintext to get the
-     * plaintext / ciphertext in CTR mode.
-     *
-     * @see Crypt_DES::decrypt()
-     * @see Crypt_DES::encrypt()
-     * @access public
-     * @param String $iv
-     */
-    function _generate_xor(&$iv)
-    {
-        $xor = $iv;
-        for ($j = 4; $j <= 8; $j+=4) {
-            $temp = substr($iv, -$j, 4);
-            switch ($temp) {
-                case "\xFF\xFF\xFF\xFF":
-                    $iv = substr_replace($iv, "\x00\x00\x00\x00", -$j, 4);
-                    break;
-                case "\x7F\xFF\xFF\xFF":
-                    $iv = substr_replace($iv, "\x80\x00\x00\x00", -$j, 4);
-                    break 2;
-                default:
-                    extract(unpack('Ncount', $temp));
-                    $iv = substr_replace($iv, pack('N', $count + 1), -$j, 4);
-                    break 2;
-            }
-        }
-
-        return $xor;
-    }
-
-    /**
-     * Encrypts a message.
-     *
-     * $plaintext will be padded with up to 8 additional bytes.  Other DES implementations may or may not pad in the
-     * same manner.  Other common approaches to padding and the reasons why it's necessary are discussed in the following
-     * URL:
-     *
-     * {@link http://www.di-mgt.com.au/cryptopad.html http://www.di-mgt.com.au/cryptopad.html}
-     *
-     * An alternative to padding is to, separately, send the length of the file.  This is what SSH, in fact, does.
-     * strlen($plaintext) will still need to be a multiple of 8, however, arbitrary values can be added to make it that
-     * length.
-     *
-     * @see Crypt_DES::decrypt()
-     * @access public
-     * @param String $plaintext
-     */
-    function encrypt($plaintext)
-    {
-        if ($this->paddable) {
-            $plaintext = $this->_pad($plaintext);
-        }
-
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
-            if ($this->enchanged) {
-                mcrypt_generic_init($this->enmcrypt, $this->keys, $this->encryptIV);
-                if ($this->mode == 'ncfb') {
-                    mcrypt_generic_init($this->ecb, $this->keys, "\0\0\0\0\0\0\0\0");
-                }
-                $this->enchanged = false;
-            }
-
-            if ($this->mode != 'ncfb' || !$this->continuousBuffer) {
-                $ciphertext = mcrypt_generic($this->enmcrypt, $plaintext);
-            } else {
-                $iv = &$this->encryptIV;
-                $pos = &$this->enbuffer['pos'];
-                $len = strlen($plaintext);
-                $ciphertext = '';
-                $i = 0;
-                if ($pos) {
-                    $orig_pos = $pos;
-                    $max = 8 - $pos;
-                    if ($len >= $max) {
-                        $i = $max;
-                        $len-= $max;
-                        $pos = 0;
-                    } else {
-                        $i = $len;
-                        $pos+= $len;
-                        $len = 0;
-                    }
-                    $ciphertext = substr($iv, $orig_pos) ^ $plaintext;
-                    $iv = substr_replace($iv, $ciphertext, $orig_pos, $i);
-                    $this->enbuffer['enmcrypt_init'] = true;
-                }
-                if ($len >= 8) {
-                    if ($this->enbuffer['enmcrypt_init'] === false || $len > 600) {
-                        if ($this->enbuffer['enmcrypt_init'] === true) {
-                            mcrypt_generic_init($this->enmcrypt, $this->keys, $iv);
-                            $this->enbuffer['enmcrypt_init'] = false;
-                        }
-                        $ciphertext.= mcrypt_generic($this->enmcrypt, substr($plaintext, $i, $len - $len % 8));
-                        $iv = substr($ciphertext, -8);
-                        $len%= 8;
-                    } else {
-                        while ($len >= 8) {
-                            $iv = mcrypt_generic($this->ecb, $iv) ^ substr($plaintext, $i, 8);
-                            $ciphertext.= $iv;
-                            $len-= 8;
-                            $i+= 8;
-                        }
-                    }
-                } 
-                if ($len) {
-                    $iv = mcrypt_generic($this->ecb, $iv);
-                    $block = $iv ^ substr($plaintext, -$len);
-                    $iv = substr_replace($iv, $block, 0, $len);
-                    $ciphertext.= $block;
-                    $pos = $len;
-                }
-                return $ciphertext;
-            }
-
-            if (!$this->continuousBuffer) {
-                mcrypt_generic_init($this->enmcrypt, $this->keys, $this->encryptIV);
-            }
-
-            return $ciphertext;
-        }
-
-        if (!is_array($this->keys)) {
-            $this->keys = $this->_prepareKey("\0\0\0\0\0\0\0\0");
-        }
-
-        if ($this->use_inline_crypt) {
-            $inline = $this->inline_crypt;
-            return $inline('encrypt', $this, $plaintext);
-        }
-
-        $buffer = &$this->enbuffer;
-        $continuousBuffer = $this->continuousBuffer;
-        $ciphertext = '';
-        switch ($this->mode) {
-            case CRYPT_DES_MODE_ECB:
-                for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                    $ciphertext.= $this->_processBlock(substr($plaintext, $i, 8), CRYPT_DES_ENCRYPT);
-                }
-                break;
-            case CRYPT_DES_MODE_CBC:
-                $xor = $this->encryptIV;
-                for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                    $block = substr($plaintext, $i, 8);
-                    $block = $this->_processBlock($block ^ $xor, CRYPT_DES_ENCRYPT);
-                    $xor = $block;
-                    $ciphertext.= $block;
-                }
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $xor;
-                }
-                break;
-            case CRYPT_DES_MODE_CTR:
-                $xor = $this->encryptIV;
-                if (strlen($buffer['encrypted'])) {
-                    for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                        $block = substr($plaintext, $i, 8);
-                        if (strlen($block) > strlen($buffer['encrypted'])) {
-                            $buffer['encrypted'].= $this->_processBlock($this->_generate_xor($xor), CRYPT_DES_ENCRYPT);
-                        }
-                        $key = $this->_string_shift($buffer['encrypted']);
-                        $ciphertext.= $block ^ $key;
-                    }
-                } else {
-                    for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                        $block = substr($plaintext, $i, 8);
-                        $key = $this->_processBlock($this->_generate_xor($xor), CRYPT_DES_ENCRYPT);
-                        $ciphertext.= $block ^ $key;
-                    }
-                }
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $xor;
-                    if ($start = strlen($plaintext) & 7) {
-                        $buffer['encrypted'] = substr($key, $start) . $buffer['encrypted'];
-                    }
-                }
-                break;
-            case CRYPT_DES_MODE_CFB:
-                if ($this->continuousBuffer) {
-                    $iv = &$this->encryptIV;
-                    $pos = &$buffer['pos'];
-                } else {
-                    $iv = $this->encryptIV;
-                    $pos = 0;
-                }
-                $len = strlen($plaintext);
-                $i = 0;
-                if ($pos) {
-                    $orig_pos = $pos;
-                    $max = 8 - $pos;
-                    if ($len >= $max) {
-                        $i = $max;
-                        $len-= $max;
-                        $pos = 0;
-                    } else {
-                        $i = $len;
-                        $pos+= $len;
-                        $len = 0;
-                    }
-                    $ciphertext = substr($iv, $orig_pos) ^ $plaintext;
-                    $iv = substr_replace($iv, $ciphertext, $orig_pos, $i);
-                }
-                while ($len >= 8) {
-                    $iv = $this->_processBlock($iv, CRYPT_DES_ENCRYPT) ^ substr($plaintext, $i, 8);
-                    $ciphertext.= $iv;
-                    $len-= 8;
-                    $i+= 8;
-                }
-                if ($len) {
-                    $iv = $this->_processBlock($iv, CRYPT_DES_ENCRYPT);
-                    $block = $iv ^ substr($plaintext, $i);
-                    $iv = substr_replace($iv, $block, 0, $len);
-                    $ciphertext.= $block;
-                    $pos = $len;
-                }
-                return $ciphertext;
-            case CRYPT_DES_MODE_OFB:
-                $xor = $this->encryptIV;
-                if (strlen($buffer['xor'])) {
-                    for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                        $block = substr($plaintext, $i, 8);
-                        if (strlen($block) > strlen($buffer['xor'])) {
-                            $xor = $this->_processBlock($xor, CRYPT_DES_ENCRYPT);
-                            $buffer['xor'].= $xor;
-                        }
-                        $key = $this->_string_shift($buffer['xor']);
-                        $ciphertext.= $block ^ $key;
-                    }
-                } else {
-                    for ($i = 0; $i < strlen($plaintext); $i+=8) {
-                        $xor = $this->_processBlock($xor, CRYPT_DES_ENCRYPT);
-                        $ciphertext.= substr($plaintext, $i, 8) ^ $xor;
-                    }
-                    $key = $xor;
-                }
-                if ($this->continuousBuffer) {
-                    $this->encryptIV = $xor;
-                    if ($start = strlen($plaintext) & 7) {
-                         $buffer['xor'] = substr($key, $start) . $buffer['xor'];
-                    }
-                }
-        }
-
-        return $ciphertext;
-    }
-
-    /**
-     * Decrypts a message.
-     *
-     * If strlen($ciphertext) is not a multiple of 8, null bytes will be added to the end of the string until it is.
-     *
-     * @see Crypt_DES::encrypt()
-     * @access public
-     * @param String $ciphertext
-     */
-    function decrypt($ciphertext)
-    {
-        if ($this->paddable) {
-            // we pad with chr(0) since that's what mcrypt_generic does.  to quote from http://php.net/function.mcrypt-generic :
-            // "The data is padded with "\0" to make sure the length of the data is n * blocksize."
-            $ciphertext = str_pad($ciphertext, (strlen($ciphertext) + 7) & 0xFFFFFFF8, chr(0));
-        }
-
-        if ( CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT ) {
-            if ($this->dechanged) {
-                mcrypt_generic_init($this->demcrypt, $this->keys, $this->decryptIV);
-                if ($this->mode == 'ncfb') {
-                    mcrypt_generic_init($this->ecb, $this->keys, "\0\0\0\0\0\0\0\0");
-                }
-                $this->dechanged = false;
-            }
-
-            if ($this->mode != 'ncfb' || !$this->continuousBuffer) {
-                $plaintext = mdecrypt_generic($this->demcrypt, $ciphertext);
-            } else {
-                $iv = &$this->decryptIV;
-                $pos = &$this->debuffer['pos'];
-                $len = strlen($ciphertext);
-                $plaintext = '';
-                $i = 0;
-                if ($pos) {
-                    $orig_pos = $pos;
-                    $max = 8 - $pos;
-                    if ($len >= $max) {
-                        $i = $max;
-                        $len-= $max;
-                        $pos = 0;
-                    } else {
-                        $i = $len;
-                        $pos+= $len;
-                        $len = 0;
-                    }
-                    $plaintext = substr($iv, $orig_pos) ^ $ciphertext;
-                    $iv = substr_replace($iv, substr($ciphertext, 0, $i), $orig_pos, $i);
-                }
-                if ($len >= 8) {
-                    $cb = substr($ciphertext, $i, $len - $len % 8);
-                    $plaintext.= mcrypt_generic($this->ecb, $iv . $cb) ^ $cb;
-                    $iv = substr($cb, -8);
-                    $len%= 8;
-                }
-                if ($len) {
-                    $iv = mcrypt_generic($this->ecb, $iv);
-                    $plaintext.= $iv ^ substr($ciphertext, -$len);
-                    $iv = substr_replace($iv, substr($ciphertext, -$len), 0, $len);
-                    $pos = $len;
-                }
-                return $plaintext;
-            }
-
-            if (!$this->continuousBuffer) {
-                mcrypt_generic_init($this->demcrypt, $this->keys, $this->decryptIV);
-            }
-
-            return $this->paddable ? $this->_unpad($plaintext) : $plaintext;
-        }
-
-        if (!is_array($this->keys)) {
-            $this->keys = $this->_prepareKey("\0\0\0\0\0\0\0\0");
-        }
-
-        if ($this->use_inline_crypt) {
-            $inline = $this->inline_crypt;
-            return $inline('decrypt', $this, $ciphertext);
-        }
-
-        $buffer = &$this->debuffer;
-        $continuousBuffer = $this->continuousBuffer;
-        $plaintext = '';
-        switch ($this->mode) {
-            case CRYPT_DES_MODE_ECB:
-                for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                    $plaintext.= $this->_processBlock(substr($ciphertext, $i, 8), CRYPT_DES_DECRYPT);
-                }
-                break;
-            case CRYPT_DES_MODE_CBC:
-                $xor = $this->decryptIV;
-                for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                    $block = substr($ciphertext, $i, 8);
-                    $plaintext.= $this->_processBlock($block, CRYPT_DES_DECRYPT) ^ $xor;
-                    $xor = $block;
-                }
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $xor;
-                }
-                break;
-            case CRYPT_DES_MODE_CTR:
-                $xor = $this->decryptIV;
-                if (strlen($buffer['ciphertext'])) {
-                    for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                        $block = substr($ciphertext, $i, 8);
-                        if (strlen($block) > strlen($buffer['ciphertext'])) {
-                            $buffer['ciphertext'].= $this->_processBlock($this->_generate_xor($xor), CRYPT_DES_ENCRYPT);
-                        }
-                        $key = $this->_string_shift($buffer['ciphertext']);
-                        $plaintext.= $block ^ $key;
-                    }
-                } else {
-                    for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                        $block = substr($ciphertext, $i, 8);
-                        $key = $this->_processBlock($this->_generate_xor($xor), CRYPT_DES_ENCRYPT);
-                        $plaintext.= $block ^ $key;
-                    }
-                }
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $xor;
-                    if ($start = strlen($ciphertext) % 8) {
-                        $buffer['ciphertext'] = substr($key, $start) . $buffer['ciphertext'];
-                    }
-                }
-                break;
-            case CRYPT_DES_MODE_CFB:
-                if ($this->continuousBuffer) {
-                    $iv = &$this->decryptIV;
-                    $pos = &$buffer['pos'];
-                } else {
-                    $iv = $this->decryptIV;
-                    $pos = 0;
-                }
-                $len = strlen($ciphertext);
-                $i = 0;
-                if ($pos) {
-                    $orig_pos = $pos;
-                    $max = 8 - $pos;
-                    if ($len >= $max) {
-                        $i = $max;
-                        $len-= $max;
-                        $pos = 0;
-                    } else {
-                        $i = $len;
-                        $pos+= $len;
-                        $len = 0;
-                    }
-                    $plaintext = substr($iv, $orig_pos) ^ $ciphertext;
-                    $iv = substr_replace($iv, substr($ciphertext, 0, $i), $orig_pos, $i);
-                }
-                while ($len >= 8) {
-                    $iv = $this->_processBlock($iv, CRYPT_DES_ENCRYPT);
-                    $cb = substr($ciphertext, $i, 8);
-                    $plaintext.= $iv ^ $cb;
-                    $iv = $cb;
-                    $len-= 8;
-                    $i+= 8;
-                }
-                if ($len) {
-                    $iv = $this->_processBlock($iv, CRYPT_DES_ENCRYPT);
-                    $plaintext.= $iv ^ substr($ciphertext, $i);
-                    $iv = substr_replace($iv, substr($ciphertext, $i), 0, $len);
-                    $pos = $len;
-                }
-                return $plaintext;
-            case CRYPT_DES_MODE_OFB:
-                $xor = $this->decryptIV;
-                if (strlen($buffer['xor'])) {
-                    for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                        $block = substr($ciphertext, $i, 8);
-                        if (strlen($block) > strlen($buffer['xor'])) {
-                            $xor = $this->_processBlock($xor, CRYPT_DES_ENCRYPT);
-                            $buffer['xor'].= $xor;
-                        }
-                        $key = $this->_string_shift($buffer['xor']);
-                        $plaintext.= $block ^ $key;
-                    }
-                } else {
-                    for ($i = 0; $i < strlen($ciphertext); $i+=8) {
-                        $xor = $this->_processBlock($xor, CRYPT_DES_ENCRYPT);
-                        $plaintext.= substr($ciphertext, $i, 8) ^ $xor;
-                    }
-                    $key = $xor;
-                }
-                if ($this->continuousBuffer) {
-                    $this->decryptIV = $xor;
-                    if ($start = strlen($ciphertext) % 8) {
-                         $buffer['xor'] = substr($key, $start) . $buffer['xor'];
-                    }
-                }
-        }
-
-        return $this->paddable ? $this->_unpad($plaintext) : $plaintext;
-    }
-
-    /**
-     * Treat consecutive "packets" as if they are a continuous buffer.
-     *
-     * Say you have a 16-byte plaintext $plaintext.  Using the default behavior, the two following code snippets
-     * will yield different outputs:
-     *
-     * <code>
-     *    echo $des->encrypt(substr($plaintext, 0, 8));
-     *    echo $des->encrypt(substr($plaintext, 8, 8));
-     * </code>
-     * <code>
-     *    echo $des->encrypt($plaintext);
-     * </code>
-     *
-     * The solution is to enable the continuous buffer.  Although this will resolve the above discrepancy, it creates
-     * another, as demonstrated with the following:
-     *
-     * <code>
-     *    $des->encrypt(substr($plaintext, 0, 8));
-     *    echo $des->decrypt($des->encrypt(substr($plaintext, 8, 8)));
-     * </code>
-     * <code>
-     *    echo $des->decrypt($des->encrypt(substr($plaintext, 8, 8)));
-     * </code>
-     *
-     * With the continuous buffer disabled, these would yield the same output.  With it enabled, they yield different
-     * outputs.  The reason is due to the fact that the initialization vector's change after every encryption /
-     * decryption round when the continuous buffer is enabled.  When it's disabled, they remain constant.
-     *
-     * Put another way, when the continuous buffer is enabled, the state of the Crypt_DES() object changes after each
-     * encryption / decryption round, whereas otherwise, it'd remain constant.  For this reason, it's recommended that
-     * continuous buffers not be used.  They do offer better security and are, in fact, sometimes required (SSH uses them),
-     * however, they are also less intuitive and more likely to cause you problems.
-     *
-     * @see Crypt_DES::disableContinuousBuffer()
-     * @access public
-     */
-    function enableContinuousBuffer()
-    {
-        $this->continuousBuffer = true;
-    }
-
-    /**
-     * Treat consecutive packets as if they are a discontinuous buffer.
-     *
-     * The default behavior.
-     *
-     * @see Crypt_DES::enableContinuousBuffer()
-     * @access public
-     */
-    function disableContinuousBuffer()
-    {
-        $this->continuousBuffer = false;
-        $this->encryptIV = $this->iv;
-        $this->decryptIV = $this->iv;
-        $this->enbuffer = array('encrypted' => '', 'xor' => '', 'pos' => 0, 'enmcrypt_init' => true);
-        $this->debuffer = array('ciphertext' => '', 'xor' => '', 'pos' => 0, 'demcrypt_init' => true);
-
-        if (CRYPT_DES_MODE == CRYPT_DES_MODE_MCRYPT) {
-            mcrypt_generic_init($this->enmcrypt, $this->keys, $this->iv);
-            mcrypt_generic_init($this->demcrypt, $this->keys, $this->iv);
-        }
-    }
-
-    /**
-     * Pad "packets".
-     *
-     * DES works by encrypting eight bytes at a time.  If you ever need to encrypt or decrypt something that's not
-     * a multiple of eight, it becomes necessary to pad the input so that it's length is a multiple of eight.
-     *
-     * Padding is enabled by default.  Sometimes, however, it is undesirable to pad strings.  Such is the case in SSH1,
-     * where "packets" are padded with random bytes before being encrypted.  Unpad these packets and you risk stripping
-     * away characters that shouldn't be stripped away. (SSH knows how many bytes are added because the length is
-     * transmitted separately)
-     *
-     * @see Crypt_DES::disablePadding()
-     * @access public
-     */
-    function enablePadding()
-    {
-        $this->padding = true;
-    }
-
-    /**
-     * Do not pad packets.
-     *
-     * @see Crypt_DES::enablePadding()
-     * @access public
-     */
-    function disablePadding()
-    {
-        $this->padding = false;
-    }
-
-    /**
-     * Pads a string
-     *
-     * Pads a string using the RSA PKCS padding standards so that its length is a multiple of the blocksize (8).
-     * 8 - (strlen($text) & 7) bytes are added, each of which is equal to chr(8 - (strlen($text) & 7)
-     *
-     * If padding is disabled and $text is not a multiple of the blocksize, the string will be padded regardless
-     * and padding will, hence forth, be enabled.
-     *
-     * @see Crypt_DES::_unpad()
+     * @see \phpseclib\Crypt\Base::_encryptBlock()
+     * @see \phpseclib\Crypt\Base::encrypt()
+     * @see self::encrypt()
      * @access private
+     * @param string $in
+     * @return string
      */
-    function _pad($text)
+    function _encryptBlock($in)
     {
-        $length = strlen($text);
-
-        if (!$this->padding) {
-            if (($length & 7) == 0) {
-                return $text;
-            } else {
-                user_error("The plaintext's length ($length) is not a multiple of the block size (8)");
-                $this->padding = true;
-            }
-        }
-
-        $pad = 8 - ($length & 7);
-        return str_pad($text, $length + $pad, chr($pad));
+        return $this->_processBlock($in, self::ENCRYPT);
     }
 
     /**
-     * Unpads a string
+     * Decrypts a block
      *
-     * If padding is enabled and the reported padding length is invalid the encryption key will be assumed to be wrong
-     * and false will be returned.
-     *
-     * @see Crypt_DES::_pad()
+     * @see \phpseclib\Crypt\Base::_decryptBlock()
+     * @see \phpseclib\Crypt\Base::decrypt()
+     * @see self::decrypt()
      * @access private
+     * @param string $in
+     * @return string
      */
-    function _unpad($text)
+    function _decryptBlock($in)
     {
-        if (!$this->padding) {
-            return $text;
-        }
-
-        $length = ord($text[strlen($text) - 1]);
-
-        if (!$length || $length > 8) {
-            return false;
-        }
-
-        return substr($text, 0, -$length);
+        return $this->_processBlock($in, self::DECRYPT);
     }
 
     /**
      * Encrypts or decrypts a 64-bit block
      *
-     * $mode should be either CRYPT_DES_ENCRYPT or CRYPT_DES_DECRYPT.  See
+     * $mode should be either self::ENCRYPT or self::DECRYPT.  See
      * {@link http://en.wikipedia.org/wiki/Image:Feistel.png Feistel.png} to get a general
      * idea of what this function does.
      *
+     * @see self::_encryptBlock()
+     * @see self::_decryptBlock()
      * @access private
-     * @param String $block
-     * @param Integer $mode
-     * @return String
+     * @param string $block
+     * @param int $mode
+     * @return string
      */
     function _processBlock($block, $mode)
     {
-        $shuffle  = $this->shuffle;
-        $invipmap = $this->invipmap;
-        $ipmap = $this->ipmap;
-        $sbox1 = $this->sbox1;
-        $sbox2 = $this->sbox2;
-        $sbox3 = $this->sbox3;
-        $sbox4 = $this->sbox4;
-        $sbox5 = $this->sbox5;
-        $sbox6 = $this->sbox6;
-        $sbox7 = $this->sbox7;
-        $sbox8 = $this->sbox8;
+        static $sbox1, $sbox2, $sbox3, $sbox4, $sbox5, $sbox6, $sbox7, $sbox8, $shuffleip, $shuffleinvip;
+        if (!$sbox1) {
+            $sbox1 = array_map("intval", $this->sbox1);
+            $sbox2 = array_map("intval", $this->sbox2);
+            $sbox3 = array_map("intval", $this->sbox3);
+            $sbox4 = array_map("intval", $this->sbox4);
+            $sbox5 = array_map("intval", $this->sbox5);
+            $sbox6 = array_map("intval", $this->sbox6);
+            $sbox7 = array_map("intval", $this->sbox7);
+            $sbox8 = array_map("intval", $this->sbox8);
+            /* Merge $shuffle with $[inv]ipmap */
+            for ($i = 0; $i < 256; ++$i) {
+                $shuffleip[]    =  $this->shuffle[$this->ipmap[$i]];
+                $shuffleinvip[] =  $this->shuffle[$this->invipmap[$i]];
+            }
+        }
+
         $keys  = $this->keys[$mode];
+        $ki    = -1;
 
         // Do the initial IP permutation.
         $t = unpack('Nl/Nr', $block);
         list($l, $r) = array($t['l'], $t['r']);
-        $block = ($shuffle[$ipmap[$r & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
-                 ($shuffle[$ipmap[($r >> 8) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
-                 ($shuffle[$ipmap[($r >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
-                 ($shuffle[$ipmap[($r >> 24) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
-                 ($shuffle[$ipmap[$l & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
-                 ($shuffle[$ipmap[($l >> 8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
-                 ($shuffle[$ipmap[($l >> 16) & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
-                 ($shuffle[$ipmap[($l >> 24) & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x01");
+        $block = ($shuffleip[ $r        & 0xFF] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
+                 ($shuffleip[($r >>  8) & 0xFF] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
+                 ($shuffleip[($r >> 16) & 0xFF] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
+                 ($shuffleip[($r >> 24) & 0xFF] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
+                 ($shuffleip[ $l        & 0xFF] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
+                 ($shuffleip[($l >>  8) & 0xFF] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
+                 ($shuffleip[($l >> 16) & 0xFF] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
+                 ($shuffleip[($l >> 24) & 0xFF] & "\x01\x01\x01\x01\x01\x01\x01\x01");
 
         // Extract L0 and R0.
         $t = unpack('Nl/Nr', $block);
         list($l, $r) = array($t['l'], $t['r']);
 
-        // Perform the 16 steps.
-        for ($i = 0; $i < 16; $i++) {
-            // start of "the Feistel (F) function" - see the following URL:
-            // http://en.wikipedia.org/wiki/Image:Data_Encryption_Standard_InfoBox_Diagram.png
-            // Merge key schedule.
-            $b1 = (($r >> 3) & 0x1FFFFFFF) ^ ($r << 29) ^ $keys[$i][0];
-            $b2 = (($r >> 31) & 0x00000001) ^ ($r << 1) ^ $keys[$i][1];
+        for ($des_round = 0; $des_round < $this->des_rounds; ++$des_round) {
+            // Perform the 16 steps.
+            for ($i = 0; $i < 16; $i++) {
+                // start of "the Feistel (F) function" - see the following URL:
+                // http://en.wikipedia.org/wiki/Image:Data_Encryption_Standard_InfoBox_Diagram.png
+                // Merge key schedule.
+                $b1 = (($r >>  3) & 0x1FFFFFFF) ^ ($r << 29) ^ $keys[++$ki];
+                $b2 = (($r >> 31) & 0x00000001) ^ ($r <<  1) ^ $keys[++$ki];
 
-            // S-box indexing.
-            $t = $sbox1[($b1 >> 24) & 0x3F] ^ $sbox2[($b2 >> 24) & 0x3F] ^
-                 $sbox3[($b1 >> 16) & 0x3F] ^ $sbox4[($b2 >> 16) & 0x3F] ^
-                 $sbox5[($b1 >> 8) & 0x3F] ^ $sbox6[($b2 >> 8) & 0x3F] ^
-                 $sbox7[$b1 & 0x3F] ^ $sbox8[$b2 & 0x3F] ^ $l;
-            // end of "the Feistel (F) function"
+                // S-box indexing.
+                $t = $sbox1[($b1 >> 24) & 0x3F] ^ $sbox2[($b2 >> 24) & 0x3F] ^
+                     $sbox3[($b1 >> 16) & 0x3F] ^ $sbox4[($b2 >> 16) & 0x3F] ^
+                     $sbox5[($b1 >>  8) & 0x3F] ^ $sbox6[($b2 >>  8) & 0x3F] ^
+                     $sbox7[ $b1        & 0x3F] ^ $sbox8[ $b2        & 0x3F] ^ $l;
+                // end of "the Feistel (F) function"
 
+                $l = $r;
+                $r = $t;
+            }
+
+            // Last step should not permute L & R.
+            $t = $l;
             $l = $r;
             $r = $t;
         }
 
         // Perform the inverse IP permutation.
-        return ($shuffle[$invipmap[($l >> 24) & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
-               ($shuffle[$invipmap[($r >> 24) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
-               ($shuffle[$invipmap[($l >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
-               ($shuffle[$invipmap[($r >> 16) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
-               ($shuffle[$invipmap[($l >> 8) & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
-               ($shuffle[$invipmap[($r >> 8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
-               ($shuffle[$invipmap[$l & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
-               ($shuffle[$invipmap[$r & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x01");
+        return ($shuffleinvip[($r >> 24) & 0xFF] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
+               ($shuffleinvip[($l >> 24) & 0xFF] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
+               ($shuffleinvip[($r >> 16) & 0xFF] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
+               ($shuffleinvip[($l >> 16) & 0xFF] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
+               ($shuffleinvip[($r >>  8) & 0xFF] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
+               ($shuffleinvip[($l >>  8) & 0xFF] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
+               ($shuffleinvip[ $r        & 0xFF] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
+               ($shuffleinvip[ $l        & 0xFF] & "\x01\x01\x01\x01\x01\x01\x01\x01");
     }
 
     /**
-     * Creates the key schedule.
+     * Creates the key schedule
      *
+     * @see \phpseclib\Crypt\Base::_setupKey()
      * @access private
-     * @param String $key
-     * @return Array
      */
-    function _prepareKey($key)
+    function _setupKey()
     {
+        if (isset($this->kl['key']) && $this->key === $this->kl['key'] && $this->des_rounds === $this->kl['des_rounds']) {
+            // already expanded
+            return;
+        }
+        $this->kl = array('key' => $this->key, 'des_rounds' => $this->des_rounds);
+
         static $shifts = array( // number of key bits shifted per round
             1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
         );
@@ -2018,519 +1209,235 @@ class Crypt_DES {
             0x10081108, 0x10081508, 0x11081108, 0x11081508
         );
 
-        // pad the key and remove extra characters as appropriate.
-        $key = str_pad(substr($key, 0, 8), 8, chr(0));
-
-        // Perform the PC/1 transformation and compute C and D.
-        $t = unpack('Nl/Nr', $key);
-        list($l, $r) = array($t['l'], $t['r']);
-        $key = ($this->shuffle[$pc1map[$r & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x00") |
-               ($this->shuffle[$pc1map[($r >> 8) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x00") |
-               ($this->shuffle[$pc1map[($r >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x00") |
-               ($this->shuffle[$pc1map[($r >> 24) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x00") |
-               ($this->shuffle[$pc1map[$l & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x00") |
-               ($this->shuffle[$pc1map[($l >> 8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x00") |
-               ($this->shuffle[$pc1map[($l >> 16) & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x00") |
-               ($this->shuffle[$pc1map[($l >> 24) & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x00");
-        $key = unpack('Nc/Nd', $key);
-        $c = ($key['c'] >> 4) & 0x0FFFFFFF;
-        $d = (($key['d'] >> 4) & 0x0FFFFFF0) | ($key['c'] & 0x0F);
-
         $keys = array();
-        for ($i = 0; $i < 16; $i++) {
-            $c <<= $shifts[$i];
-            $c = ($c | ($c >> 28)) & 0x0FFFFFFF;
-            $d <<= $shifts[$i];
-            $d = ($d | ($d >> 28)) & 0x0FFFFFFF;
+        for ($des_round = 0; $des_round < $this->des_rounds; ++$des_round) {
+            // pad the key and remove extra characters as appropriate.
+            $key = str_pad(substr($this->key, $des_round * 8, 8), 8, "\0");
 
-            // Perform the PC-2 transformation.
-            $cp = $pc2mapc1[$c >> 24] | $pc2mapc2[($c >> 16) & 0xFF] |
-                  $pc2mapc3[($c >> 8) & 0xFF] | $pc2mapc4[$c & 0xFF];
-            $dp = $pc2mapd1[$d >> 24] | $pc2mapd2[($d >> 16) & 0xFF] |
-                  $pc2mapd3[($d >> 8) & 0xFF] | $pc2mapd4[$d & 0xFF];
+            // Perform the PC/1 transformation and compute C and D.
+            $t = unpack('Nl/Nr', $key);
+            list($l, $r) = array($t['l'], $t['r']);
+            $key = ($this->shuffle[$pc1map[ $r        & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x00") |
+                   ($this->shuffle[$pc1map[($r >>  8) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x00") |
+                   ($this->shuffle[$pc1map[($r >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x00") |
+                   ($this->shuffle[$pc1map[($r >> 24) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x00") |
+                   ($this->shuffle[$pc1map[ $l        & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x00") |
+                   ($this->shuffle[$pc1map[($l >>  8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x00") |
+                   ($this->shuffle[$pc1map[($l >> 16) & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x00") |
+                   ($this->shuffle[$pc1map[($l >> 24) & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x00");
+            $key = unpack('Nc/Nd', $key);
+            $c = ( $key['c'] >> 4) & 0x0FFFFFFF;
+            $d = (($key['d'] >> 4) & 0x0FFFFFF0) | ($key['c'] & 0x0F);
 
-            // Reorder: odd bytes/even bytes. Push the result in key schedule.
-            $keys[] = array(
-                ($cp & 0xFF000000) | (($cp << 8) & 0x00FF0000) |
-                (($dp >> 16) & 0x0000FF00) | (($dp >> 8) & 0x000000FF),
-                (($cp << 8) & 0xFF000000) | (($cp << 16) & 0x00FF0000) |
-                (($dp >> 8) & 0x0000FF00) | ($dp & 0x000000FF)
+            $keys[$des_round] = array(
+                self::ENCRYPT => array(),
+                self::DECRYPT => array_fill(0, 32, 0)
+            );
+            for ($i = 0, $ki = 31; $i < 16; ++$i, $ki-= 2) {
+                $c <<= $shifts[$i];
+                $c = ($c | ($c >> 28)) & 0x0FFFFFFF;
+                $d <<= $shifts[$i];
+                $d = ($d | ($d >> 28)) & 0x0FFFFFFF;
+
+                // Perform the PC-2 transformation.
+                $cp = $pc2mapc1[ $c >> 24        ] | $pc2mapc2[($c >> 16) & 0xFF] |
+                      $pc2mapc3[($c >>  8) & 0xFF] | $pc2mapc4[ $c        & 0xFF];
+                $dp = $pc2mapd1[ $d >> 24        ] | $pc2mapd2[($d >> 16) & 0xFF] |
+                      $pc2mapd3[($d >>  8) & 0xFF] | $pc2mapd4[ $d        & 0xFF];
+
+                // Reorder: odd bytes/even bytes. Push the result in key schedule.
+                $val1 = ( $cp        & 0xFF000000) | (($cp <<  8) & 0x00FF0000) |
+                        (($dp >> 16) & 0x0000FF00) | (($dp >>  8) & 0x000000FF);
+                $val2 = (($cp <<  8) & 0xFF000000) | (($cp << 16) & 0x00FF0000) |
+                        (($dp >>  8) & 0x0000FF00) | ( $dp        & 0x000000FF);
+                $keys[$des_round][self::ENCRYPT][       ] = $val1;
+                $keys[$des_round][self::DECRYPT][$ki - 1] = $val1;
+                $keys[$des_round][self::ENCRYPT][       ] = $val2;
+                $keys[$des_round][self::DECRYPT][$ki    ] = $val2;
+            }
+        }
+
+        switch ($this->des_rounds) {
+            case 3: // 3DES keys
+                $this->keys = array(
+                    self::ENCRYPT => array_merge(
+                        $keys[0][self::ENCRYPT],
+                        $keys[1][self::DECRYPT],
+                        $keys[2][self::ENCRYPT]
+                    ),
+                    self::DECRYPT => array_merge(
+                        $keys[2][self::DECRYPT],
+                        $keys[1][self::ENCRYPT],
+                        $keys[0][self::DECRYPT]
+                    )
+                );
+                break;
+            // case 1: // DES keys
+            default:
+                $this->keys = array(
+                    self::ENCRYPT => $keys[0][self::ENCRYPT],
+                    self::DECRYPT => $keys[0][self::DECRYPT]
+                );
+        }
+    }
+
+    /**
+     * Setup the performance-optimized function for de/encrypt()
+     *
+     * @see \phpseclib\Crypt\Base::_setupInlineCrypt()
+     * @access private
+     */
+    function _setupInlineCrypt()
+    {
+        $lambda_functions =& self::_getLambdaFunctions();
+
+        // Engine configuration for:
+        // -  DES ($des_rounds == 1) or
+        // - 3DES ($des_rounds == 3)
+        $des_rounds = $this->des_rounds;
+
+        // We create max. 10 hi-optimized code for memory reason. Means: For each $key one ultra fast inline-crypt function.
+        // (Currently, for DES, one generated $lambda_function cost on php5.5@32bit ~135kb unfreeable mem and ~230kb on php5.5@64bit)
+        // (Currently, for TripleDES, one generated $lambda_function cost on php5.5@32bit ~240kb unfreeable mem and ~340kb on php5.5@64bit)
+        // After that, we'll still create very fast optimized code but not the hi-ultimative code, for each $mode one
+        $gen_hi_opt_code = (bool)( count($lambda_functions) < 10 );
+
+        // Generation of a unique hash for our generated code
+        $code_hash = "Crypt_DES, $des_rounds, {$this->mode}";
+        if ($gen_hi_opt_code) {
+            // For hi-optimized code, we create for each combination of
+            // $mode, $des_rounds and $this->key its own encrypt/decrypt function.
+            // After max 10 hi-optimized functions, we create generic
+            // (still very fast.. but not ultra) functions for each $mode/$des_rounds
+            // Currently 2 * 5 generic functions will be then max. possible.
+            $code_hash = str_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
+        }
+
+        // Is there a re-usable $lambda_functions in there? If not, we have to create it.
+        if (!isset($lambda_functions[$code_hash])) {
+            // Init code for both, encrypt and decrypt.
+            $init_crypt = 'static $sbox1, $sbox2, $sbox3, $sbox4, $sbox5, $sbox6, $sbox7, $sbox8, $shuffleip, $shuffleinvip;
+                if (!$sbox1) {
+                    $sbox1 = array_map("intval", $self->sbox1);
+                    $sbox2 = array_map("intval", $self->sbox2);
+                    $sbox3 = array_map("intval", $self->sbox3);
+                    $sbox4 = array_map("intval", $self->sbox4);
+                    $sbox5 = array_map("intval", $self->sbox5);
+                    $sbox6 = array_map("intval", $self->sbox6);
+                    $sbox7 = array_map("intval", $self->sbox7);
+                    $sbox8 = array_map("intval", $self->sbox8);'
+                    /* Merge $shuffle with $[inv]ipmap */ . '
+                    for ($i = 0; $i < 256; ++$i) {
+                        $shuffleip[]    =  $self->shuffle[$self->ipmap[$i]];
+                        $shuffleinvip[] =  $self->shuffle[$self->invipmap[$i]];
+                    }
+                }
+            ';
+
+            switch (true) {
+                case $gen_hi_opt_code:
+                    // In Hi-optimized code mode, we use our [3]DES key schedule as hardcoded integers.
+                    // No futher initialisation of the $keys schedule is necessary.
+                    // That is the extra performance boost.
+                    $k = array(
+                        self::ENCRYPT => $this->keys[self::ENCRYPT],
+                        self::DECRYPT => $this->keys[self::DECRYPT]
+                    );
+                    $init_encrypt = '';
+                    $init_decrypt = '';
+                    break;
+                default:
+                    // In generic optimized code mode, we have to use, as the best compromise [currently],
+                    // our key schedule as $ke/$kd arrays. (with hardcoded indexes...)
+                    $k = array(
+                        self::ENCRYPT => array(),
+                        self::DECRYPT => array()
+                    );
+                    for ($i = 0, $c = count($this->keys[self::ENCRYPT]); $i < $c; ++$i) {
+                        $k[self::ENCRYPT][$i] = '$ke[' . $i . ']';
+                        $k[self::DECRYPT][$i] = '$kd[' . $i . ']';
+                    }
+                    $init_encrypt = '$ke = $self->keys[$self::ENCRYPT];';
+                    $init_decrypt = '$kd = $self->keys[$self::DECRYPT];';
+                    break;
+            }
+
+            // Creating code for en- and decryption.
+            $crypt_block = array();
+            foreach (array(self::ENCRYPT, self::DECRYPT) as $c) {
+                /* Do the initial IP permutation. */
+                $crypt_block[$c] = '
+                    $in = unpack("N*", $in);
+                    $l  = $in[1];
+                    $r  = $in[2];
+                    $in = unpack("N*",
+                        ($shuffleip[ $r        & 0xFF] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
+                        ($shuffleip[($r >>  8) & 0xFF] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
+                        ($shuffleip[($r >> 16) & 0xFF] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
+                        ($shuffleip[($r >> 24) & 0xFF] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
+                        ($shuffleip[ $l        & 0xFF] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
+                        ($shuffleip[($l >>  8) & 0xFF] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
+                        ($shuffleip[($l >> 16) & 0xFF] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
+                        ($shuffleip[($l >> 24) & 0xFF] & "\x01\x01\x01\x01\x01\x01\x01\x01")
+                    );
+                    ' . /* Extract L0 and R0 */ '
+                    $l = $in[1];
+                    $r = $in[2];
+                ';
+
+                $l = '$l';
+                $r = '$r';
+
+                // Perform DES or 3DES.
+                for ($ki = -1, $des_round = 0; $des_round < $des_rounds; ++$des_round) {
+                    // Perform the 16 steps.
+                    for ($i = 0; $i < 16; ++$i) {
+                        // start of "the Feistel (F) function" - see the following URL:
+                        // http://en.wikipedia.org/wiki/Image:Data_Encryption_Standard_InfoBox_Diagram.png
+                        // Merge key schedule.
+                        $crypt_block[$c].= '
+                            $b1 = ((' . $r . ' >>  3) & 0x1FFFFFFF)  ^ (' . $r . ' << 29) ^ ' . $k[$c][++$ki] . ';
+                            $b2 = ((' . $r . ' >> 31) & 0x00000001)  ^ (' . $r . ' <<  1) ^ ' . $k[$c][++$ki] . ';' .
+                            /* S-box indexing. */
+                            $l . ' = $sbox1[($b1 >> 24) & 0x3F] ^ $sbox2[($b2 >> 24) & 0x3F] ^
+                                     $sbox3[($b1 >> 16) & 0x3F] ^ $sbox4[($b2 >> 16) & 0x3F] ^
+                                     $sbox5[($b1 >>  8) & 0x3F] ^ $sbox6[($b2 >>  8) & 0x3F] ^
+                                     $sbox7[ $b1        & 0x3F] ^ $sbox8[ $b2        & 0x3F] ^ ' . $l . ';
+                        ';
+                        // end of "the Feistel (F) function"
+
+                        // swap L & R
+                        list($l, $r) = array($r, $l);
+                    }
+                    list($l, $r) = array($r, $l);
+                }
+
+                // Perform the inverse IP permutation.
+                $crypt_block[$c].= '$in =
+                    ($shuffleinvip[($l >> 24) & 0xFF] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
+                    ($shuffleinvip[($r >> 24) & 0xFF] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
+                    ($shuffleinvip[($l >> 16) & 0xFF] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
+                    ($shuffleinvip[($r >> 16) & 0xFF] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
+                    ($shuffleinvip[($l >>  8) & 0xFF] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
+                    ($shuffleinvip[($r >>  8) & 0xFF] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
+                    ($shuffleinvip[ $l        & 0xFF] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
+                    ($shuffleinvip[ $r        & 0xFF] & "\x01\x01\x01\x01\x01\x01\x01\x01");
+                ';
+            }
+
+            // Creates the inline-crypt function
+            $lambda_functions[$code_hash] = $this->_createInlineCryptFunction(
+                array(
+                   'init_crypt'    => $init_crypt,
+                   'init_encrypt'  => $init_encrypt,
+                   'init_decrypt'  => $init_decrypt,
+                   'encrypt_block' => $crypt_block[self::ENCRYPT],
+                   'decrypt_block' => $crypt_block[self::DECRYPT]
+                )
             );
         }
 
-        $keys = array(
-                CRYPT_DES_ENCRYPT => $keys,
-                CRYPT_DES_DECRYPT => array_reverse($keys),
-                CRYPT_DES_ENCRYPT_1DIM => array(),
-                CRYPT_DES_DECRYPT_1DIM => array()
-        );
-
-        // Generate 1-dim arrays for inline en/decrypting
-        for ($i = 0; $i < 16; ++$i) {
-            $keys[CRYPT_DES_ENCRYPT_1DIM][] = $keys[CRYPT_DES_ENCRYPT][$i][0];
-            $keys[CRYPT_DES_ENCRYPT_1DIM][] = $keys[CRYPT_DES_ENCRYPT][$i][1];
-            $keys[CRYPT_DES_DECRYPT_1DIM][] = $keys[CRYPT_DES_DECRYPT][$i][0];
-            $keys[CRYPT_DES_DECRYPT_1DIM][] = $keys[CRYPT_DES_DECRYPT][$i][1];
-        }
-
-        return $keys;
-    }
-
-    /**
-     * String Shift
-     *
-     * Inspired by array_shift
-     *
-     * @param String $string
-     * @return String
-     * @access private
-     */
-    function _string_shift(&$string)
-    {
-        $substr = substr($string, 0, 8);
-        $string = substr($string, 8);
-        return $substr;
-    }
-
-    /**
-     * Creates performance-optimized function for de/encrypt(), storing it in $this->inline_crypt
-     *
-     * @param optional Integer $des_rounds (1 = DES[default], 3 = TribleDES)
-     * @access private
-     */
-    function inline_crypt_setup($des_rounds = 1)
-    {
-        $lambda_functions =& Crypt_DES::get_lambda_functions();
-        $block_size = 8;
-        $mode = $this->mode;
-
-        $code_hash = "$mode,$des_rounds";
-
-        if (!isset($lambda_functions[$code_hash])) {
-            // Generating encrypt code:
-            $ki = -1;
-            $init_cryptBlock = '
-                $shuffle  = $self->shuffle;
-                $invipmap = $self->invipmap;
-                $ipmap = $self->ipmap;
-                $sbox1 = $self->sbox1;
-                $sbox2 = $self->sbox2;
-                $sbox3 = $self->sbox3;
-                $sbox4 = $self->sbox4;
-                $sbox5 = $self->sbox5;
-                $sbox6 = $self->sbox6;
-                $sbox7 = $self->sbox7;
-                $sbox8 = $self->sbox8;
-            ';
-
-            $_cryptBlock = '$in = unpack("N*", $in);'."\n";
-            // Do the initial IP permutation.
-            $_cryptBlock .= '
-                $l  = $in[1];
-                $r  = $in[2];
-                $in = unpack("N*",
-                    ($shuffle[$ipmap[ $r        & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
-                    ($shuffle[$ipmap[($r >>  8) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
-                    ($shuffle[$ipmap[($r >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
-                    ($shuffle[$ipmap[($r >> 24) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
-                    ($shuffle[$ipmap[ $l        & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
-                    ($shuffle[$ipmap[($l >>  8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
-                    ($shuffle[$ipmap[($l >> 16) & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
-                    ($shuffle[$ipmap[($l >> 24) & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x01")
-                );
-
-                '.'' /* Extract L0 and R0 */ .'
-                $l = $in[1];
-                $r = $in[2];
-            ';
-
-            $l = 'l';
-            $r = 'r';
-            for ($des_round = 0; $des_round < $des_rounds; ++$des_round) {
-                // Perform the 16 steps.
-                // start of "the Feistel (F) function" - see the following URL:
-                // http://en.wikipedia.org/wiki/Image:Data_Encryption_Standard_InfoBox_Diagram.png
-                // Merge key schedule.
-                for ($i = 0; $i < 8; ++$i) {
-                    $_cryptBlock .= '
-                        $b1 = (($' . $r . ' >>  3) & 0x1FFFFFFF)  ^ ($' . $r . ' << 29) ^ $k_'.(++$ki).';
-                        $b2 = (($' . $r . ' >> 31) & 0x00000001)  ^ ($' . $r . ' <<  1) ^ $k_'.(++$ki).';
-                        $' . $l . '  = $sbox1[($b1 >> 24) & 0x3F] ^ $sbox2[($b2 >> 24) & 0x3F] ^
-                              $sbox3[($b1 >> 16) & 0x3F] ^ $sbox4[($b2 >> 16) & 0x3F] ^
-                              $sbox5[($b1 >>  8) & 0x3F] ^ $sbox6[($b2 >>  8) & 0x3F] ^
-                              $sbox7[ $b1        & 0x3F] ^ $sbox8[ $b2        & 0x3F] ^ $' . $l . ';
-
-                        $b1 = (($' . $l . ' >>  3) & 0x1FFFFFFF)  ^ ($' . $l . ' << 29) ^ $k_'.(++$ki).';
-                        $b2 = (($' . $l . ' >> 31) & 0x00000001)  ^ ($' . $l . ' <<  1) ^ $k_'.(++$ki).';
-                        $' . $r . '  = $sbox1[($b1 >> 24) & 0x3F] ^ $sbox2[($b2 >> 24) & 0x3F] ^
-                              $sbox3[($b1 >> 16) & 0x3F] ^ $sbox4[($b2 >> 16) & 0x3F] ^
-                              $sbox5[($b1 >>  8) & 0x3F] ^ $sbox6[($b2 >>  8) & 0x3F] ^
-                              $sbox7[ $b1        & 0x3F] ^ $sbox8[ $b2        & 0x3F] ^ $' . $r . ';
-                    ';
-                }
-
-                // Last step should not permute L & R.
-                $t = $l;
-                $l = $r;
-                $r = $t;
-            }
-
-            // Perform the inverse IP permutation.
-            $_cryptBlock .= '$in = (
-                    ($shuffle[$invipmap[($' . $r . ' >> 24) & 0xFF]] & "\x80\x80\x80\x80\x80\x80\x80\x80") |
-                    ($shuffle[$invipmap[($' . $l . ' >> 24) & 0xFF]] & "\x40\x40\x40\x40\x40\x40\x40\x40") |
-                    ($shuffle[$invipmap[($' . $r . ' >> 16) & 0xFF]] & "\x20\x20\x20\x20\x20\x20\x20\x20") |
-                    ($shuffle[$invipmap[($' . $l . ' >> 16) & 0xFF]] & "\x10\x10\x10\x10\x10\x10\x10\x10") |
-                    ($shuffle[$invipmap[($' . $r . ' >>  8) & 0xFF]] & "\x08\x08\x08\x08\x08\x08\x08\x08") |
-                    ($shuffle[$invipmap[($' . $l . ' >>  8) & 0xFF]] & "\x04\x04\x04\x04\x04\x04\x04\x04") |
-                    ($shuffle[$invipmap[ $' . $r . '        & 0xFF]] & "\x02\x02\x02\x02\x02\x02\x02\x02") |
-                    ($shuffle[$invipmap[ $' . $l . '        & 0xFF]] & "\x01\x01\x01\x01\x01\x01\x01\x01")
-                );
-            ';
-
-            // Generating mode of operation code:
-            switch ($mode) {
-                case CRYPT_DES_MODE_ECB:
-                    $encrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $ciphertext = "";
-                        $plaintext_len = strlen($text);
-
-                        for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                            $in = substr($text, $i, '.$block_size.');
-                            '.$_cryptBlock.'
-                            $ciphertext.= $in;
-                        }
-                       
-                        return $ciphertext;
-                        ';
-
-                    $decrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_DECRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $plaintext = "";
-                        $ciphertext_len = strlen($text);
-
-                        for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                            $in = substr($text, $i, '.$block_size.');
-                            '.$_cryptBlock.'
-                            $plaintext.= $in;
-                        }
-
-                        return $self->_unpad($plaintext);
-                        ';
-                    break;
-                case CRYPT_DES_MODE_CBC:
-                    $encrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $ciphertext = "";
-                        $plaintext_len = strlen($text);
-
-                        $in = $self->encryptIV;
-
-                        for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                            $in = substr($text, $i, '.$block_size.') ^ $in;
-                            '.$_cryptBlock.'
-                            $ciphertext.= $in;
-                        }
-
-                        if ($self->continuousBuffer) {
-                            $self->encryptIV = $in;
-                        }
-
-                        return $ciphertext;
-                        ';
-
-                    $decrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_DECRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $plaintext = "";
-                        $ciphertext_len = strlen($text);
-
-                        $iv = $self->decryptIV;
-
-                        for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                            $in = $block = substr($text, $i, '.$block_size.');
-                            '.$_cryptBlock.'
-                            $plaintext.= $in ^ $iv;
-                            $iv = $block;
-                        }
-
-                        if ($self->continuousBuffer) {
-                            $self->decryptIV = $iv;
-                        }
-
-                        return $self->_unpad($plaintext);
-                        ';
-                    break;
-                case CRYPT_DES_MODE_CTR:
-                    $encrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $ciphertext = "";
-                        $plaintext_len = strlen($text);
-                        $xor = $self->encryptIV;
-                        $buffer = &$self->enbuffer;
-
-                        if (strlen($buffer["encrypted"])) {
-                            for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                if (strlen($block) > strlen($buffer["encrypted"])) {
-                                    $in = $self->_generate_xor($xor);
-                                    '.$_cryptBlock.'
-                                    $buffer["encrypted"].= $in;
-                                }
-                                $key = $self->_string_shift($buffer["encrypted"]);
-                                $ciphertext.= $block ^ $key;
-                            }
-                        } else {
-                            for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                $in = $self->_generate_xor($xor);
-                                '.$_cryptBlock.'
-                                $key = $in;
-                                $ciphertext.= $block ^ $key;
-                            }
-                        }
-                        if ($self->continuousBuffer) {
-                            $self->encryptIV = $xor;
-                            if ($start = $plaintext_len % '.$block_size.') {
-                                $buffer["encrypted"] = substr($key, $start) . $buffer["encrypted"];
-                            }
-                        }
-
-                        return $ciphertext;
-                    ';
-
-                    $decrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $plaintext = "";
-                        $ciphertext_len = strlen($text);
-                        $xor = $self->decryptIV;
-                        $buffer = &$self->debuffer;
-
-                        if (strlen($buffer["ciphertext"])) {
-                            for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                if (strlen($block) > strlen($buffer["ciphertext"])) {
-                                    $in = $self->_generate_xor($xor);
-                                    '.$_cryptBlock.'
-                                    $buffer["ciphertext"].= $in;
-                                }
-                                $key = $self->_string_shift($buffer["ciphertext"]);
-                                $plaintext.= $block ^ $key;
-                            }
-                        } else {
-                            for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                $in = $self->_generate_xor($xor);
-                                '.$_cryptBlock.'
-                                $key = $in;
-                                $plaintext.= $block ^ $key;
-                            }
-                        }
-                        if ($self->continuousBuffer) {
-                            $self->decryptIV = $xor;
-                            if ($start = $ciphertext_len % '.$block_size.') {
-                                $buffer["ciphertext"] = substr($key, $start) . $buffer["ciphertext"];
-                            }
-                        }
-                       
-                        return $plaintext;
-                        ';
-                    break;
-                case CRYPT_DES_MODE_CFB:
-                    $encrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $ciphertext = "";
-                        $buffer = &$self->enbuffer;
-
-                        if ($self->continuousBuffer) {
-                            $iv = &$self->encryptIV;
-                            $pos = &$buffer["pos"];
-                        } else {
-                            $iv = $self->encryptIV;
-                            $pos = 0;
-                        }
-                        $len = strlen($text);
-                        $i = 0;
-                        if ($pos) {
-                            $orig_pos = $pos;
-                            $max = '.$block_size.' - $pos;
-                            if ($len >= $max) {
-                                $i = $max;
-                                $len-= $max;
-                                $pos = 0;
-                            } else {
-                                $i = $len;
-                                $pos+= $len;
-                                $len = 0;
-                            }
-                            $ciphertext = substr($iv, $orig_pos) ^ $text;
-                            $iv = substr_replace($iv, $ciphertext, $orig_pos, $i);
-                        }
-                        while ($len >= '.$block_size.') {
-                            $in = $iv;
-                            '.$_cryptBlock.';
-                            $iv = $in ^ substr($text, $i, '.$block_size.');
-                            $ciphertext.= $iv;
-                            $len-= '.$block_size.';
-                            $i+= '.$block_size.';
-                        }
-                        if ($len) {
-                            $in = $iv;
-                            '.$_cryptBlock.'
-                            $iv = $in;
-                            $block = $iv ^ substr($text, $i);
-                            $iv = substr_replace($iv, $block, 0, $len);
-                            $ciphertext.= $block;
-                            $pos = $len;
-                        }
-                        return $ciphertext;
-                    ';
-
-                    $decrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $plaintext = "";
-                        $buffer = &$self->debuffer;
-
-                        if ($self->continuousBuffer) {
-                            $iv = &$self->decryptIV;
-                            $pos = &$buffer["pos"];
-                        } else {
-                            $iv = $self->decryptIV;
-                            $pos = 0;
-                        }
-                        $len = strlen($text);
-                        $i = 0;
-                        if ($pos) {
-                            $orig_pos = $pos;
-                            $max = '.$block_size.' - $pos;
-                            if ($len >= $max) {
-                                $i = $max;
-                                $len-= $max;
-                                $pos = 0;
-                            } else {
-                                $i = $len;
-                                $pos+= $len;
-                                $len = 0;
-                            }
-                            $plaintext = substr($iv, $orig_pos) ^ $text;
-                            $iv = substr_replace($iv, substr($text, 0, $i), $orig_pos, $i);
-                        }
-                        while ($len >= '.$block_size.') {
-                            $in = $iv;
-                            '.$_cryptBlock.'
-                            $iv = $in;
-                            $cb = substr($text, $i, '.$block_size.');
-                            $plaintext.= $iv ^ $cb;
-                            $iv = $cb;
-                            $len-= '.$block_size.';
-                            $i+= '.$block_size.';
-                        }
-                        if ($len) {
-                            $in = $iv;
-                            '.$_cryptBlock.'
-                            $iv = $in;
-                            $plaintext.= $iv ^ substr($text, $i);
-                            $iv = substr_replace($iv, substr($text, $i), 0, $len);
-                            $pos = $len;
-                        }
-
-                        return $plaintext;
-                        ';
-                    break;
-                case CRYPT_DES_MODE_OFB:
-                    $encrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $ciphertext = "";
-                        $plaintext_len = strlen($text);
-                        $xor = $self->encryptIV;
-                        $buffer = &$self->enbuffer;
-
-                        if (strlen($buffer["xor"])) {
-                            for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                if (strlen($block) > strlen($buffer["xor"])) {
-                                    $in = $xor;
-                                    '.$_cryptBlock.'
-                                    $xor = $in;
-                                    $buffer["xor"].= $xor;
-                                }
-                                $key = $self->_string_shift($buffer["xor"]);
-                                $ciphertext.= $block ^ $key;
-                            }
-                        } else {
-                            for ($i = 0; $i < $plaintext_len; $i+= '.$block_size.') {
-                                $in = $xor;
-                                '.$_cryptBlock.'
-                                $xor = $in;
-                                $ciphertext.= substr($text, $i, '.$block_size.') ^ $xor;
-                            }
-                            $key = $xor;
-                        }
-                        if ($self->continuousBuffer) {
-                            $self->encryptIV = $xor;
-                            if ($start = $plaintext_len % '.$block_size.') {
-                                 $buffer["xor"] = substr($key, $start) . $buffer["xor"];
-                            }
-                        }
-                        return $ciphertext;
-                        ';
-
-                    $decrypt = $init_cryptBlock . '
-                        extract($self->keys[CRYPT_DES_ENCRYPT_1DIM],  EXTR_PREFIX_ALL, "k");
-                        $plaintext = "";
-                        $ciphertext_len = strlen($text);
-                        $xor = $self->decryptIV;
-                        $buffer = &$self->debuffer;
-
-                        if (strlen($buffer["xor"])) {
-                            for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                                $block = substr($text, $i, '.$block_size.');
-                                if (strlen($block) > strlen($buffer["xor"])) {
-                                    $in = $xor;
-                                    '.$_cryptBlock.'
-                                    $xor = $in;
-                                    $buffer["xor"].= $xor;
-                                }
-                                $key = $self->_string_shift($buffer["xor"]);
-                                $plaintext.= $block ^ $key;
-                            }
-                        } else {
-                            for ($i = 0; $i < $ciphertext_len; $i+= '.$block_size.') {
-                                $in = $xor;
-                                '.$_cryptBlock.'
-                                $xor = $in;
-                                $plaintext.= substr($text, $i, '.$block_size.') ^ $xor;
-                            }
-                            $key = $xor;
-                        }
-                        if ($self->continuousBuffer) {
-                            $self->decryptIV = $xor;
-                            if ($start = $ciphertext_len % '.$block_size.') {
-                                 $buffer["xor"] = substr($key, $start) . $buffer["xor"];
-                            }
-                        }
-                        return $plaintext;
-                        ';
-                    break;
-            }
-            $lambda_functions[$code_hash] = create_function('$action, &$self, $text', 'if ($action == "encrypt") { '.$encrypt.' } else { '.$decrypt.' }');
-        }
+        // Set the inline-crypt function as callback in: $this->inline_crypt
         $this->inline_crypt = $lambda_functions[$code_hash];
     }
-
-    /**
-     * Holds the lambda_functions table (classwide)
-     *
-     * @see inline_crypt_setup()
-     * @return Array
-     * @access private
-     */
-    function &get_lambda_functions()
-    {
-        static $functions = array();
-        return $functions;
-    }
 }
-
-// vim: ts=4:sw=4:et:
-// vim6: fdl=1:
