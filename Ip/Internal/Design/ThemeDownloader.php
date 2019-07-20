@@ -24,7 +24,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         if (!defined('IP_PHPSECLIB_DIR')) {
             define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
         }
-        require_once IP_PHPSECLIB_DIR . 'bootstrap.php';
+        ipGenericAutoload('phpseclib', IP_PHPSECLIB_DIR, 'RSA');
     }
 
     public function downloadTheme($name, $url, $signature)

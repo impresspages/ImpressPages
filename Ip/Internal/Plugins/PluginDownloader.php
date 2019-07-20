@@ -22,7 +22,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
             define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
         }
 
-        require_once IP_PHPSECLIB_DIR . 'bootstrap.php';
+        ipGenericAutoload('phpseclib', IP_PHPSECLIB_DIR, 'RSA');
     }
 
     public function downloadPlugin($name, $url, $signature)
