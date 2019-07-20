@@ -42,7 +42,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         //check signature
         $fileMd5 = md5_file($archivePath);
 
-        $rsa = new \Crypt_RSA();
+        $rsa = new \phpseclib\Crypt\RSA();
         $rsa->loadKey($this->publicKey);
         $rsa->setSignatureMode(CRYPT_RSA_SIGNATURE_PKCS1);
         $verified = $rsa->verify($fileMd5, base64_decode($signature));
