@@ -27,9 +27,8 @@ class Model
             "System",
             "Update",
             "Ecommerce",
-            "Install"
+            "Install",
         );
-
 
         /**
          * Introduce ipModulesFilter function in index.php file to add or remove system modules. Useful if you build MultiSite and other special cases.
@@ -142,7 +141,7 @@ class Model
                 continue;
             }
 
-            if ($option['type'] == 'TextLang' || $option['type'] == 'TextareaLang') {
+            if (!empty($option['type']) && $option['type'] == 'TextLang' || $option['type'] == 'TextareaLang') {
                 $languages = ipContent()->getLanguages();
                 foreach ($languages as $language) {
                     foreach ($field->getValue() as $key => $field_value) {

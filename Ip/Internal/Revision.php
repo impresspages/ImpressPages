@@ -39,10 +39,10 @@ class Revision
         return $revision;
     }
 
-    public static function getPublishedRevision($pageId)
-    {
-        assert('$pageId > 0');
-        //ordering by id is required because sometimes two revisions might be created at excatly the same time
+    public static function getPublishedRevision($pageId) {
+        assert($pageId > 0);
+
+        // Ordering by id is required because sometimes two revisions might be created at excatly the same time.
         $revisionTable = ipTable('revision');
         $sql = "
             SELECT * FROM $revisionTable
@@ -71,8 +71,7 @@ class Revision
 
     public static function createRevision($pageId, $published)
     {
-
-        assert('$pageId > 0');
+        assert($pageId > 0);
 
         $revision = array(
             'pageId' => $pageId,
@@ -173,9 +172,9 @@ class Revision
     {
         //
         // 1) Dynamic Widgets (including revisions)
-        // Dynamic widgets have an associated revision. 
-        // That revision's creation time and publication 
-        // state indicates if a widget should be removed  
+        // Dynamic widgets have an associated revision.
+        // That revision's creation time and publication
+        // state indicates if a widget should be removed
         // or not from corresponding db table 'ip_widget'.
         //
         $table = ipTable('revision');
@@ -195,14 +194,14 @@ class Revision
         // 2) Static Widgets (from static blocks only!)
         // Static widgets are presisted with revisionId=0.
         // Therefore, we've to make the time check on widget's
-        // 'createdAt' column combined with 'isDeleted=1' flag 
-        // and 'revisionId=0' indicating widget's removal state. 
+        // 'createdAt' column combined with 'isDeleted=1' flag
+        // and 'revisionId=0' indicating widget's removal state.
         //
         $table = ipTable('widget');
 
         $sql = $sql = "
             SELECT `id` FROM $table
-            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .") 
+            WHERE (" . ipDb()->sqlMinAge('createdAt', $days * 24, 'HOUR') .")
             AND `revisionId` = 0 AND `isDeleted` = 1 AND `deletedAt` IS NOT NULL
         ";
 
