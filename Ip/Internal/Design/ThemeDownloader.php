@@ -2,6 +2,7 @@
 
 namespace Ip\Internal\Design;
 
+use phpseclib\Crypt\RSA;
 
 /**
  * Class ThemeDownloader
@@ -23,7 +24,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         if (!defined('IP_PHPSECLIB_DIR')) {
             define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
         }
-        require_once IP_PHPSECLIB_DIR . 'Crypt/RSA.php';
+        require_once IP_PHPSECLIB_DIR . 'bootstrap.php';
     }
 
     public function downloadTheme($name, $url, $signature)
@@ -42,7 +43,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         //check signature
         $fileMd5 = md5_file($archivePath);
 
-        $rsa = new \phpseclib\Crypt\RSA();
+        $rsa = new RSA();
         $rsa->loadKey($this->publicKey);
         $rsa->setSignatureMode(CRYPT_RSA_SIGNATURE_PKCS1);
         $verified = $rsa->verify($fileMd5, base64_decode($signature));
