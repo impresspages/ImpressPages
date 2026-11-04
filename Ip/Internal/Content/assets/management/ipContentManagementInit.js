@@ -14,6 +14,11 @@ function replacePublishedToPublish() {
 
     var $revisionsButton = $('.ipsContentRevisions');
     $revisionsButton.removeClass('btn-default').addClass('btn-warning');
+
+    var $status = $('.ipsContentStatus');
+    if ($status.length && !$status.hasClass('_hidden')) {
+        $status.text(ipUnpublishedChangesTranslation).addClass('_unpublished');
+    }
 }
 
 $(document).ready(function () {

@@ -104,6 +104,14 @@
                 'dnd', 'wholerow'
             ]
         });
+
+        // jstree puts plain lists between role="tree" and its role="treeitem" nodes;
+        // give the lists tree roles so screen readers announce a proper tree.
+        $treeDiv.on('ready.jstree redraw.jstree open_node.jstree after_open.jstree', function () {
+            $treeDiv.find('ul.jstree-container-ul').attr('role', 'none');
+            $treeDiv.find('li[role=treeitem] > ul').attr('role', 'group');
+            $treeDiv.find('.jstree-wholerow').attr('aria-hidden', 'true');
+        });
     }
 
     $.fn.ipPageTree = function (method) {

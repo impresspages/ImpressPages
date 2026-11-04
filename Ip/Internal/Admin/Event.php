@@ -22,21 +22,27 @@ class Event
 
         if (isset($curModule) && $curModule) {
             $title = $curModule;
+            if ($curModule == 'Email') {
+                $title = 'Email log'; // same name as in the System menu and on the page itself
+            }
             $pluginConfig = \Ip\Internal\Plugins\Service::getPluginConfig($curModule);
             
             $curModTitle = __($title, 'Ip-admin', false);
             $curModUrl = ipActionUrl(array('aa' => $curModule . '.index'));
             $curModIcon = Model::getAdminMenuItemIcon($curModule);
             
-            //try to translate and get icon in config.json
-            $curModTitle = isset($pluginConfig['title']) ? __($pluginConfig['title'], $curModule, false) : $curModTitle;
-            $curModIcon = isset($pluginConfig['icon']) ? $pluginConfig['icon'] : $curModIcon;
+            // Plugins: title and icon from their plugin.json. Core modules keep the translated title above,
+            // because getPluginConfig() falls back to the bare module name for them.
+            if (!in_array($curModule, \Ip\Internal\Plugins\Model::getModules())) {
+                $curModTitle = isset($pluginConfig['title']) ? __($pluginConfig['title'], $curModule, false) : $curModTitle;
+                $curModIcon = isset($pluginConfig['icon']) ? $pluginConfig['icon'] : $curModIcon;
+            }
         }
 
         $navbarButtons = array(
             array(
-                'text' => '',
-                'hint' => __('Logout', 'Ip-admin', false),
+                'text' => esc(__('Log out', 'Ip-admin', false)),
+                'hint' => __('Log out', 'Ip-admin', false),
                 'url' => ipActionUrl(array('sa' => 'Admin.logout')),
                 'class' => 'ipsAdminLogout',
                 'faIcon' => 'fa-power-off'

@@ -38,7 +38,7 @@ class TextLang extends \Ip\Form\FieldLang
             $answer .= '
 <div class="input-group">
   <span class="input-group-addon">' . esc($language->getAbbreviation()) . '</span>
-  <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+  <input aria-label="' . escAttr(trim($this->getLabel() . ' (' . $language->getTitle() . ')')) . '" ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
                     ' ',
                     $this->getClasses()
                 ) . '" name="' . escAttr($this->getName() . '[' . $language->getCode() . ']" ') . $this->getValidationAttributesStr(

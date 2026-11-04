@@ -65,6 +65,7 @@ class AdminController extends \Ip\Controller
             ipAddJs('Ip/Internal/System/assets/trash.js');
         }
         ipAddJs('Ip/Internal/System/assets/migrations.js');
+        ipAddJs('Ip/Internal/System/assets/updateLinks.js');
         ipAddJs('assets/cache.js');
 
         return $content;
@@ -96,6 +97,7 @@ class AdminController extends \Ip\Controller
 
     public function updateLinks()
     {
+        ipRequest()->mustBePost(); // rewrites content, so never on a plain link click or prefetch
         Service::updateLinks();
         $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
 

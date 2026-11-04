@@ -23,6 +23,7 @@ class FormHelper
                 'values' => self::getAvailableLocales()
             ));
         $field->setValue(ipConfig()->adminLocale());
+        $field->addAttribute('aria-label', __('Admin language', 'Ip-admin', false)); // the visual label is hidden
         $form->addfield($field);
 
         return $form;
@@ -104,7 +105,7 @@ class FormHelper
         //add text field to form object
         $field = new \Ip\Form\Field\Submit(
             array(
-                'value' => __('Login', 'Ip-admin', false)
+                'value' => __('Log in', 'Ip-admin', false)
             ));
         $field->addClass('ipsLoginButton');
         $form->addField($field);

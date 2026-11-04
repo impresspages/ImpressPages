@@ -53,6 +53,9 @@ var ipContent = new function () {
                     }
                 }
             },
+            error: function (response) {
+                ipAdminNotify.ajaxError(response);
+            },
             dataType: 'json'
         });
     };
@@ -365,8 +368,10 @@ var ipContent = new function () {
                 }
 
                 $(document).trigger('ipWidgetSaved', data);
+                ipAdminNotify.saved(ipAdminNotifyTranslations['Saved as draft. Publish to make it live.']);
             },
             error: function (response) {
+                ipAdminNotify.ajaxError(response);
                 if (callback) {
                     callback(null);
                 }
@@ -395,7 +400,7 @@ var ipContent = new function () {
             data: data,
             success: function (response) {
                 if (response.status == 'error') {
-                    alert(response.errorMessage);
+                    ipAdminNotify.error(response.errorMessage);
                 }
                 var $block = $('#ipBlock-' + response.block);
 
@@ -438,6 +443,9 @@ var ipContent = new function () {
                 if (callback) {
                     callback($newWidget.data('widgetid'));
                 }
+            },
+            error: function (response) {
+                ipAdminNotify.ajaxError(response);
             },
             dataType: 'json'
         });
@@ -492,7 +500,7 @@ var ipContent = new function () {
             data: data,
             success: function (response) {
                 if (response.status == 'error') {
-                    alert(response.errorMessage);
+                    ipAdminNotify.error(response.errorMessage);
                 }
                 var $block = $('#ipBlock-' + response.block);
 
@@ -516,6 +524,9 @@ var ipContent = new function () {
                 if (callback) {
                     callback(response.newwidgetId);
                 }
+            },
+            error: function (response) {
+                ipAdminNotify.ajaxError(response);
             },
             dataType: 'json'
         });

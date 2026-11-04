@@ -38,15 +38,13 @@ var ipLanguages = new function () {
             context: this,
             success: function (response) {
                 if (response.error && response.errorMessage) {
-                    alert(response.errorMessage);
+                    ipAdminNotify.error(response.errorMessage);
                 } else {
                     refresh();
                 }
             },
             error: function (response) {
-                if (ip.developmentEnvironment || ip.debugMode) {
-                    alert('Server response: ' + response.responseText);
-                }
+                ipAdminNotify.ajaxError(response);
             },
             dataType: 'json'
         });

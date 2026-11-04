@@ -1,13 +1,13 @@
 <div class="ip ipsAdminNavbarContainer">
-    <div class="ipAdminNavbar ipsAdminNavbar navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
-        <button type="button" class="_toggle ipsAdminMenu navbar-toggle">
+    <div class="ipAdminNavbar ipsAdminNavbar navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" aria-label="<?php _e('Administration', 'Ip-admin'); ?>">
+        <button type="button" class="_toggle ipsAdminMenu navbar-toggle" aria-label="<?php _e('Menu', 'Ip-admin'); ?>" title="<?php _e('Menu', 'Ip-admin'); ?>">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
         <div class="_menu hidden ipsAdminMenuBlock">
             <div class="_menuHeader">
-                <button type="button" class="_toggle navbar-toggle">
+                <button type="button" class="_toggle navbar-toggle" aria-label="<?php _e('Close menu', 'Ip-admin'); ?>">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -15,7 +15,7 @@
                 <p class="navbar-text"><?php _e('Menu', 'Ip-admin'); ?></p>
             </div>
             <div class="_menuContainer ipsAdminMenuBlockContainer">
-                <nav>
+                <nav aria-label="<?php _e('Main menu', 'Ip-admin'); ?>">
                     <?php
                         $data = array(
                             'items' => $menuItems,
@@ -35,7 +35,7 @@
                         <li>
                             <a href="<?php echo ipActionUrl(array('sa' => 'Admin.logout')); ?>">
                                 <i class="fa fa-fw fa-power-off"></i>
-                                <?php _e('Logout', 'Ip-admin'); ?>
+                                <?php _e('Log out', 'Ip-admin'); ?>
                             </a>
                         </li>
                     </ul>
@@ -63,8 +63,9 @@
                     href="<?php echo empty($button['url']) ? '#' : escAttr($button['url']); ?>"
                     class="<?php echo empty($button['class']) ? '' : escAttr($button['class']); ?>"
                     title="<?php echo empty($button['hint']) ? '' : escAttr($button['hint']); ?>"
+                    <?php if (empty($button['text']) && !empty($button['hint'])) { ?>aria-label="<?php echo escAttr($button['hint']); ?>"<?php } ?>
                 >
-                    <i class="fa <?php echo empty($button['faIcon']) ? '' : escAttr($button['faIcon']); ?>"></i>
+                    <i class="fa <?php echo empty($button['faIcon']) ? '' : escAttr($button['faIcon']); ?>" aria-hidden="true"></i>
                     <?php echo empty($button['text']) ? '' : $button['text']; ?>
                 </a>
             </li>

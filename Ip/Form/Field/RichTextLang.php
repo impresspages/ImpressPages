@@ -39,7 +39,7 @@ class RichTextLang extends \Ip\Form\FieldLang
 <div class="input-group">
   <span class="input-group-addon">' . esc($language->getAbbreviation()) . '</span>
 
-<textarea ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
+<textarea aria-label="' . escAttr(trim($this->getLabel() . ' (' . $language->getTitle() . ')')) . '" ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
                     ' ',
                     $this->getClasses()
                 ) . '" name="' . escattr($this->getName()) . '[' . $language->getCode() . ']" ' . $this->getValidationAttributesStr(

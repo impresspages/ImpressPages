@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="55px" height="55px" viewBox="0 0 55 55" style="enable-background:new 0 0 55 55;" xml:space="preserve">
-<path d="M48,28c0,1.104-0.896,2-2,2H9c-1.104,0-2-0.896-2-2l0,0c0-1.104,0.896-2,2-2h37C47.104,26,48,26.896,48,28L48,28z"/>
+<!-- Lucide icon "separator-horizontal" (lucide-static 0.460.0, ISC License, https://lucide.dev) -->
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="-4 -4 32 32" fill="none" stroke="#1f2937" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" x2="21" y1="12" y2="12" />
+    <polyline points="8 8 12 4 16 8" />
+    <polyline points="16 16 12 20 8 16" />
 </svg>

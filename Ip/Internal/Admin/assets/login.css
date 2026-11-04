@@ -112,3 +112,147 @@ h1, h2, h3 {
     margin-top: -2em;
     position: relative;
 }
+
+/*
+    Modern look (2026): light page, centred card, clear type, full-width primary button.
+    Overrides the rules above; works down to phone width.
+*/
+html, body {
+    height: auto;
+    min-height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+    padding: 96px 16px 72px;
+    background: #f4f5f7;
+    color: #111827;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+}
+input, select, textarea, option, table {
+    font-family: inherit;
+    font-size: 15px;
+}
+.logo {
+    top: 0;
+    left: 0;
+    margin: 24px;
+}
+.logo img {
+    height: 28px;
+    width: auto;
+}
+.verticalAlign {
+    display: none;
+}
+.login {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: auto 0;
+    padding: 32px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 24px 48px -16px rgba(16, 24, 40, .18);
+}
+.loginTitle {
+    padding: 0;
+    border: 0;
+}
+.loginTitle h1 {
+    margin: 0 0 24px;
+    padding: 0;
+    border: 0;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    text-transform: none;
+}
+.loginContent {
+    padding: 0;
+}
+.login .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+}
+.login .form-control {
+    width: 100%;
+    height: auto;
+    padding: 10px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+    box-sizing: border-box;
+}
+.login .form-control:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .2);
+}
+.login .btn {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 8px;
+    border: 1px solid #111827;
+    border-radius: 8px;
+    background: #111827;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.login .btn:hover,
+.login .btn:focus {
+    border-color: #374151;
+    background: #374151;
+}
+.login .btn:focus-visible,
+.login a:focus-visible,
+.languageSelect select:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+.loginContent .alternativeLink {
+    position: static;
+    margin: 16px 0 0;
+    text-align: center;
+}
+.loginContent .alternativeLink a,
+.login a {
+    color: #111827;
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.languageSelect {
+    top: 20px;
+    right: 24px;
+}
+.languageSelect select {
+    padding: 6px 10px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: #fff;
+}
+.loginFooter {
+    border: 0;
+    background: transparent;
+    color: #5d6470;
+    font-size: 13px;
+}
+.loginFooter a {
+    color: #374151;
+    text-decoration: underline;
+}
+.loginFooter a:hover {
+    color: #111827;
+}

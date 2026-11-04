@@ -86,7 +86,7 @@
                     window.location.hash = value.hash;
                     break;
                 case 'showMessage':
-                    alert(value.message);
+                    ipAdminNotify.error(value.message);
                     break;
             }
         });
@@ -116,9 +116,7 @@
                 context: $grid,
                 success: initResponse,
                 error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
+                    ipAdminNotify.ajaxError(response);
                 },
                 dataType: 'json'
             });
@@ -144,9 +142,7 @@
                 context: $grid,
                 success: initResponse,
                 error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
+                    ipAdminNotify.ajaxError(response);
                 },
                 dataType: 'json'
             });
@@ -173,9 +169,7 @@
                 context: $grid,
                 success: initResponse,
                 error: function (response) {
-                    if (ip.debugMode || ip.developmentMode) {
-                        alert(response);
-                    }
+                    ipAdminNotify.ajaxError(response);
                 },
                 dataType: 'json'
             });
@@ -221,10 +215,11 @@
             $form.find('input[name=gridHash]').remove();
             $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
             $form.on('ipSubmitResponse', function (e, response) {
-                if (!response.error) {
+                if (!response.error && !response.errors) {
                     $modal.modal('hide');
                     //form has been successfully submitted.
                     $.proxy(doCommands, $grid)(response.result.commands);
+                    ipAdminNotify.saved();
                 }
             });
             $modal.find('.ipsConfirm').off().on('click', function () {
@@ -263,7 +258,7 @@
             $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
 
             $form.on('ipSubmitResponse', function (e, response) {
-                if (!response.error) {
+                if (!response.error && !response.errors) {
                     $modal.modal('hide');
                     //form has been successfully submitted.
                     $.proxy(doCommands, $grid)(response.result.commands);
@@ -326,7 +321,7 @@
         var $form = $(event.currentTarget);
         var position = $form.find('input[name=position]').val();
         if (position == '') {
-            alert('Please enter an integer number');
+            ipAdminNotify.error('Please enter an integer number');
             return;
         }
 
@@ -352,9 +347,7 @@
                 $.proxy(doCommands, $grid)(response.result);
             },
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
-                }
+                ipAdminNotify.ajaxError(response);
             }
 
         });
@@ -404,9 +397,7 @@
                 $.proxy(doCommands, $grid)(response.result);
             },
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
-                }
+                ipAdminNotify.ajaxError(response);
             }
         });
     };
@@ -447,10 +438,11 @@
                 $form.append($('<input type="hidden" name="gridHash" />').val(window.location.hash));
 
                 $form.on('ipSubmitResponse', function (e, response) {
-                    if (!response.error) {
+                    if (!response.error && !response.errors) {
                         $modal.modal('hide');
                         //form has been successfully submitted.
                         $.proxy(doCommands, $grid)(response.result.commands);
+                        ipAdminNotify.saved();
                     }
                 });
                 $modal.find('.form-group').not('.type-blank').first().find('input').focus();
@@ -490,9 +482,7 @@
 
             },
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
-                }
+                ipAdminNotify.ajaxError(response);
             }
         });
 
@@ -514,9 +504,7 @@
             context: $grid,
             success: deleteResponse,
             error: function (response) {
-                if (ip.debugMode || ip.developmentMode) {
-                    alert(response);
-                }
+                ipAdminNotify.ajaxError(response);
             },
             dataType: 'json'
         });
@@ -527,9 +515,7 @@
         if (!response.error) {
             $.proxy(doCommands, $this)(response.result);
         } else {
-            if (ip.debugMode || ip.developmentMode) {
-                alert(response.errorMessage);
-            }
+            ipAdminNotify.error(response.errorMessage);
         }
 
     };

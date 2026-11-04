@@ -22,11 +22,11 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="ipsUpload ipAdminButton btn btn-new"><?php _e('Add new', 'Ip-admin'); ?></a>
+                    <a href="#" class="ipsUpload ipAdminButton btn btn-new"><?php _e('Add files', 'Ip-admin'); ?></a>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default ipsCancel" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin'); ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin'); ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Save', 'Ip-admin'); ?></button>
                 </div>
             </div>
         </div>

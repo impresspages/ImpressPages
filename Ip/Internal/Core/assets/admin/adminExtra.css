@@ -1,0 +1,987 @@
+/*
+ * Admin styles kept outside the LESS build (admin.css is compiled from Bootstrap 3 LESS,
+ * which current PHP LESS compilers can't build). Loaded right after admin.css.
+ */
+
+/* Save status messages (ipAdminNotify in functions.js) */
+.ipAdminNotify {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2147483000;
+    max-width: 360px;
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.ipAdminNotify ._message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: #fff;
+    background: #2b2d31;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .25);
+}
+.ipAdminNotify ._message._saved {
+    background: #2e7d32;
+}
+.ipAdminNotify ._message._error {
+    background: #c62828;
+}
+.ipAdminNotify ._text {
+    flex: 1;
+}
+.ipAdminNotify ._close {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+.ipAdminNotify ._close:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* Content editor: publish status next to the Publish button */
+.ip .ipModuleContentPublishStatus {
+    display: inline-block;
+    margin-right: 10px;
+    color: #d6d7db;
+    font-size: 13px;
+    vertical-align: middle;
+}
+.ip .ipModuleContentPublishStatus._unpublished {
+    color: #ffb74d;
+}
+
+/* Design → Options: visible close button on the theme options box */
+.ip .ipModuleDesignConfig .modal-header .close {
+    min-width: 32px;
+    min-height: 32px;
+    margin: -6px -8px 0 0;
+    color: #333;
+    font-size: 24px;
+    opacity: .7;
+}
+.ip .ipModuleDesignConfig .modal-header .close:hover,
+.ip .ipModuleDesignConfig .modal-header .close:focus {
+    opacity: 1;
+}
+
+/*
+ * Visual refresh: calmer surfaces, rounded controls, clear focus, readable contrast.
+ * Only overrides admin.css; markup is unchanged.
+ */
+.ip,
+.ip .btn,
+.ip .form-control,
+.ip .navbar,
+.ip .modal-content {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Buttons */
+.ip .btn {
+    min-height: 32px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: background-color .15s, border-color .15s, box-shadow .15s;
+}
+.ip .btn-sm,
+.ip .btn-xs {
+    min-height: 28px;
+    padding: 4px 10px;
+}
+.ip .btn .fa {
+    margin-right: 2px;
+}
+.ip .btn-default {
+    border: 1px solid #d0d5dd;
+    background: #fff;
+    color: #1f2937;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+}
+.ip .btn-default:hover,
+.ip .btn-default:focus {
+    border-color: #b8bec8;
+    background: #f5f6f8;
+    color: #111827;
+}
+.ip .btn-primary,
+.ip .btn-success,
+.ip .btn-new,
+.ip .ipAdminPages ._menus .btn-new,
+.ip .ipAdminPages ._languages .btn-new {
+    border-color: #111827;
+    background: #111827;
+    color: #fff;
+}
+.ip .btn-primary:hover,
+.ip .btn-primary:focus,
+.ip .btn-success:hover,
+.ip .btn-success:focus,
+.ip .btn-new:hover,
+.ip .btn-new:focus,
+.ip .ipAdminPages ._menus .btn-new:hover,
+.ip .ipAdminPages ._menus .btn-new:focus,
+.ip .ipAdminPages ._languages .btn-new:hover,
+.ip .ipAdminPages ._languages .btn-new:focus {
+    border-color: #374151;
+    background: #374151;
+    color: #fff;
+}
+.ip .btn-danger {
+    border-color: #d0d5dd;
+    background: #fff;
+    color: #b42318;
+}
+.ip .btn-danger:hover,
+.ip .btn-danger:focus {
+    border-color: #b42318;
+    background: #b42318;
+    color: #fff;
+}
+.ip .btn.disabled,
+.ip .btn[disabled],
+.ip .btn-default.disabled,
+.ip .btn-default[disabled] {
+    border-color: #d0d5dd;
+    background: #fff;
+    color: #1f2937;
+    opacity: .45;
+}
+
+/* Form fields */
+.ip .form-control {
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+}
+.ip .form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .2);
+}
+.ip label {
+    color: #344054;
+    font-weight: 600;
+}
+.ip .help-block {
+    color: #5d6470;
+}
+
+/* Keyboard focus that is always visible */
+.ip a:focus-visible,
+.ip button:focus-visible,
+.ip .btn:focus-visible,
+.ip [role=button]:focus-visible,
+.ip input[type=checkbox]:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* Collapsible form sections (SEO, Other, theme option groups) */
+.ip legend[data-toggle=collapse] {
+    cursor: pointer;
+    user-select: none;
+}
+.ip legend[data-toggle=collapse]:hover {
+    color: #111827;
+}
+
+/* Dialogs */
+.ip .modal-content {
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(16, 24, 40, .2);
+    overflow: hidden;
+}
+.ip .modal-header {
+    border-bottom: 1px solid #eaecf0;
+    background: #fff;
+}
+.ip .modal-footer {
+    border-top: 1px solid #eaecf0;
+    background: #f9fafb;
+}
+.ip .modal-header .close {
+    min-width: 32px;
+    min-height: 32px;
+    margin: -6px -8px 0 0;
+    color: #344054;
+    font-size: 24px;
+    opacity: .65;
+}
+.ip .modal-header .close:hover,
+.ip .modal-header .close:focus {
+    opacity: 1;
+}
+.ip .modal-backdrop.in {
+    opacity: .45;
+}
+
+/* Side sub-navigation (System, Administrators, Log, Email log): readable contrast */
+.ip .ipAdminSubmenu ul a {
+    color: #4b5160;
+}
+.ip .ipAdminSubmenu ul a:hover {
+    color: #111827;
+}
+.ip .ipAdminSubmenu ul .active a {
+    color: #111827;
+}
+
+/* Top bar */
+.ip .ipAdminNavbar .navbar-nav > li > a .fa {
+    margin-right: 4px;
+}
+.ip .ipAdminNavbar .ipsAdminLogout {
+    font-weight: 600;
+}
+
+/* Content editor widget bar: softer tiles for the outline icons */
+.ip .ipAdminPanel ._icon {
+    padding: 4px;
+}
+
+/* Pages: keep "Add page" and the cut/copy/paste group on one row in the narrow column */
+.ip .ipsPagesContainer ._actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+.ip .ipsPagesContainer ._actions .btn-group .btn {
+    padding: 6px 8px;
+}
+.ip .ipsPagesContainer ._actions .btn-group .btn .fa {
+    margin-right: 0;
+}
+
+/* Keep the publish status on the same line as the Publish button */
+.ip .ipAdminNavbar .navbar-center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+.ip .ipAdminNavbar .navbar-center-container .ipModuleContentPublishStatus {
+    margin-right: 0;
+}
+.ip .ipAdminNavbar .navbar-center-container .navbar-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* Grid tables: long unbroken values (paths, URLs, e-mails) wrap instead of widening the page */
+.ip .ipModuleGrid td {
+    overflow-wrap: anywhere;
+}
+
+/* Log: readable context column */
+.ip .ipModuleGrid[data-gateway*="aa=Log."] td:last-child {
+    font-family: SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    white-space: pre-line; /* keep line breaks, drop the template's indentation */
+    color: #4b5160;
+}
+.ip .ipModuleGrid[data-gateway*="aa=Log."] td:first-child {
+    white-space: nowrap;
+}
+
+/* Design → Options: a little more room for long option groups */
+.ip .ipModuleDesignConfig .modal-dialog {
+    width: 380px;
+    max-width: calc(100vw - 16px);
+}
+
+/*
+ * One button rule for the whole admin:
+ *   main action (add, save, activate) .btn-primary / .btn-new / .btn-success  -> blue
+ *   secondary (edit, cancel, search, clear cache) .btn-default                 -> white with border
+ *   destructive .btn-danger                                                     -> red outline, red on hover
+ *   publish / unpublished changes .btn-warning                                  -> amber (a status signal)
+ *   icon-only tools .btn-controls                                               -> white square
+ */
+.ip .btn-controls {
+    min-width: 32px;
+    border: 1px solid #d0d5dd;
+    background: #fff;
+    color: #344054;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .05);
+}
+.ip .btn-controls:hover,
+.ip .btn-controls:focus {
+    border-color: #b8bec8;
+    background: #f5f6f8;
+    color: #111827;
+}
+.ip .btn-controls.btn-xs {
+    min-width: 26px;
+    min-height: 26px;
+    padding: 3px 6px;
+}
+.ip .btn-warning {
+    border-color: #d97706;
+    background: #f59e0b;
+    color: #1f2937;
+}
+.ip .btn-warning:hover,
+.ip .btn-warning:focus {
+    border-color: #b45309;
+    background: #d97706;
+    color: #111827;
+}
+
+/* Permission switches (Administrators) */
+.ip .ipAdminPermission {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+.ip .ipAdminPermission label {
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
+}
+.ip .ipAdminSwitch {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    border-radius: 11px;
+    background: #c4c9d1;
+    cursor: pointer;
+    transition: background-color .15s;
+}
+.ip .ipAdminSwitch ._knob {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .3);
+    transition: left .15s;
+}
+.ip .ipAdminSwitch._on {
+    background: #111827;
+}
+.ip .ipAdminSwitch._on ._knob {
+    left: 20px;
+}
+.ip .ipAdminSwitch:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/*
+ * Every button shows an icon before its text (Lucide icons, see adminIcons.css for the licence).
+ * Buttons that already contain an "fa" icon keep it, moved before the text; the others get an icon
+ * from their action class (ipsSave, ipsCancel, ...).
+ */
+.ip .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.ip .btn.btn-block {
+    display: flex;
+}
+.ip .btn.hidden {
+    display: none;
+}
+.ip .btn .fa {
+    order: -1;
+    margin-right: 0;
+}
+.ip .btn > .caret {
+    order: 1;
+}
+
+.ip .btn[data-dismiss=modal]:not(.btn-primary):not(:has(.fa))::before,
+.ip .btn.ipsCancel:not(:has(.fa))::before,
+.ip .btn.ipsSelectionCancel:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsSave:not(:has(.fa))::before,
+.ip .btn.ipsConfirm:not(:has(.fa))::before,
+.ip .btn.ipsDone:not(:has(.fa))::before,
+.ip .btn.ipsContentSave:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M20 6 9 17l-5-5" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsAdd:not(:has(.fa))::before,
+.ip .btn.ipsCreate:not(:has(.fa))::before,
+.ip .btn.ipsCustomAdd:not(:has(.fa))::before,
+.ip .btn.ipsFieldAdd:not(:has(.fa))::before,
+.ip .btn.ipsFieldOptionsAdd:not(:has(.fa))::before,
+.ip .btn.ipsAddPage:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M5 12h14" /><path d="M12 5v14" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsSearch:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsClearAll:not(:has(.fa))::before,
+.ip .btn.ipsEmpty:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /><line x1="10" x2="10" y1="11" y2="17" /><line x1="14" x2="14" y1="11" y2="17" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /><line x1="10" x2="10" y1="11" y2="17" /><line x1="14" x2="14" y1="11" y2="17" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsClearCache:not(:has(.fa))::before,
+.ip .btn.ipsReloadButton:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path d="M8 16H3v5" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" /><path d="M8 16H3v5" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsUpdateLinks:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsUpload:not(:has(.fa))::before,
+.ip .btn#ipsModuleRepositoryUploadButton:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsDefault:not(:has(.fa))::before,
+.ip .btn.ipsRecovery:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsOpenOptions:not(:has(.fa))::before,
+.ip .btn.ipsOptions:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="21" x2="14" y1="4" y2="4" /><line x1="10" x2="3" y1="4" y2="4" /><line x1="21" x2="12" y1="12" y2="12" /><line x1="8" x2="3" y1="12" y2="12" /><line x1="21" x2="16" y1="20" y2="20" /><line x1="12" x2="3" y1="20" y2="20" /><line x1="14" x2="14" y1="2" y2="6" /><line x1="8" x2="8" y1="10" y2="14" /><line x1="16" x2="16" y1="18" y2="22" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="21" x2="14" y1="4" y2="4" /><line x1="10" x2="3" y1="4" y2="4" /><line x1="21" x2="12" y1="12" y2="12" /><line x1="8" x2="3" y1="12" y2="12" /><line x1="21" x2="16" y1="20" y2="20" /><line x1="12" x2="3" y1="20" y2="20" /><line x1="14" x2="14" y1="2" y2="6" /><line x1="8" x2="8" y1="10" y2="14" /><line x1="16" x2="16" y1="18" y2="22" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsInstallTheme:not(:has(.fa))::before,
+.ip .btn.ipsInstallPlugin:not(:has(.fa))::before,
+.ip .btn.ipsStartMigration:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsActivate:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 22v-5" /><path d="M9 8V2" /><path d="M15 8V2" /><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 22v-5" /><path d="M9 8V2" /><path d="M15 8V2" /><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsDeactivate:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 2v10" /><path d="M18.4 6.6a9 9 0 1 1-12.77.04" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12 2v10" /><path d="M18.4 6.6a9 9 0 1 1-12.77.04" /></svg>') no-repeat center / contain;
+}
+
+.ip .btn.ipsContentPublish:not(:has(.fa))::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background-color: currentColor;
+    -webkit-mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>') no-repeat center / contain;
+}
+
+/* Button groups (Publish + revisions, cut/copy/paste) stay on one row */
+.ip .btn-group {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    vertical-align: middle;
+}
+.ip .btn-group > .btn {
+    float: none;
+}
+
+/* Checkboxes and radio buttons use the same black accent as main buttons and switches */
+.ip input[type=checkbox],
+.ip input[type=radio] {
+    accent-color: #111827;
+}
+
+/*
+ * Main admin menu (hamburger): a light floating panel over a dimmed page,
+ * roomy rows, soft hover, black pill for the current section, Log out set apart.
+ */
+/* slide only, no fade: if animations are paused the panel is still fully visible */
+@keyframes ipAdminMenuIn {
+    from {
+        transform: translateX(-6px);
+    }
+    to {
+        transform: none;
+    }
+}
+.ip .ipAdminNavbar ._menu {
+    top: 8px;
+    left: 8px;
+    width: 264px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: #fff;
+    /* second shadow dims the page behind the panel */
+    box-shadow: 0 24px 48px -12px rgba(16, 24, 40, .28), 0 0 0 100vmax rgba(15, 23, 42, .28);
+    animation: ipAdminMenuIn .16s ease-out;
+}
+.ip .ipAdminNavbar ._menuHeader {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 56px;
+    padding: 0 12px;
+    border-bottom: 1px solid #eef0f3;
+    background: #fff;
+}
+.ip .ipAdminNavbar ._menuHeader ._toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    padding: 0 9px;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.ip .ipAdminNavbar ._menuHeader ._toggle:hover,
+.ip .ipAdminNavbar ._menuHeader ._toggle:focus {
+    background: #f3f4f6;
+}
+.ip .ipAdminNavbar ._menuHeader ._toggle .icon-bar {
+    width: 18px;
+    height: 2px;
+    margin: 0;
+    border-radius: 2px;
+    background: #111827;
+}
+.ip .ipAdminNavbar ._menuHeader .navbar-text {
+    margin: 0;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+.ip .ipAdminNavbar ._menuContainer {
+    height: auto !important; /* admin.js sets a full-window height; size to the content instead */
+    max-height: calc(100vh - 16px - 58px);
+    padding: 8px 0;
+}
+.ip .ipAdminNavbar ._menuContainer nav {
+    margin: 0;
+}
+.ip .ipAdminNavbar ._menu .nav,
+.ip .ipAdminNavbar ._menu .nav:last-child {
+    margin: 0;
+    padding: 0 8px;
+    border: 0;
+}
+.ip .ipAdminNavbar ._menu .nav > li,
+.ip .ipAdminNavbar ._menu .nav:last-child > li {
+    border: 0;
+}
+.ip .ipAdminNavbar ._menu .nav-stacked > li + li {
+    margin-top: 2px;
+}
+.ip .ipAdminNavbar ._menu .nav > li > a,
+.ip .ipAdminNavbar ._menu .nav:last-child > li > a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: transparent;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    transition: background-color .12s, color .12s;
+}
+.ip .ipAdminNavbar ._menu .fa-fw {
+    width: 18px;
+    font-size: 18px;
+    color: #6b7280;
+    text-align: center;
+}
+.ip .ipAdminNavbar ._menu .nav > li > a:hover,
+.ip .ipAdminNavbar ._menu .nav > li > a:focus {
+    background: #f3f4f6;
+    color: #111827;
+}
+.ip .ipAdminNavbar ._menu .nav > li > a:hover .fa-fw,
+.ip .ipAdminNavbar ._menu .nav > li > a:focus .fa-fw {
+    color: #111827;
+}
+.ip .ipAdminNavbar ._menu .nav > .active > a,
+.ip .ipAdminNavbar ._menu .nav > .active > a:hover,
+.ip .ipAdminNavbar ._menu .nav > .active > a:focus {
+    background: #111827;
+    color: #fff;
+    font-weight: 600;
+}
+.ip .ipAdminNavbar ._menu .nav > .active > a .fa-fw {
+    color: #fff;
+}
+/* Log out: its own group at the bottom */
+.ip .ipAdminNavbar ._menu .nav:last-child {
+    margin: 8px 8px 0;
+    padding: 8px 0 0;
+    border-top: 1px solid #eef0f3;
+}
+.ip .ipAdminNavbar ._menu .nav:last-child > li > a:hover,
+.ip .ipAdminNavbar ._menu .nav:last-child > li > a:focus {
+    background: #fef3f2;
+    color: #b42318;
+}
+.ip .ipAdminNavbar ._menu .nav:last-child > li > a:hover .fa-fw,
+.ip .ipAdminNavbar ._menu .nav:last-child > li > a:focus .fa-fw {
+    color: #b42318;
+}
+@media (prefers-reduced-motion: reduce) {
+    .ip .ipAdminNavbar ._menu {
+        animation: none;
+    }
+}
+
+/* ------------------------------------------------------------------
+ * Modern surfaces: soft canvas, white cards, light columns, quiet type
+ * ------------------------------------------------------------------ */
+.ipAdminBody {
+    background-color: #f4f5f7;
+}
+.ip .ipAdminContentWrapper {
+    margin: 16px 24px 24px;
+    padding: 24px 32px 32px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+}
+.ip .ipAdminContentWrapper._hasSubmenu {
+    margin-left: 208px;
+}
+@media (max-width: 1000px) {
+    .ip .ipAdminContentWrapper,
+    .ip .ipAdminContentWrapper._hasSubmenu {
+        margin: 8px;
+        padding: 16px;
+    }
+}
+.ip h1 {
+    margin-top: 0;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+}
+.ip .page-header {
+    margin-bottom: 16px;
+    border-bottom: 0;
+}
+.ip small,
+.ip .small,
+.ip h1 small,
+.ip h2 small {
+    color: #5d6470; /* 5.9:1 on white */
+}
+.ip .help-block a,
+.ip p a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Skip link: hidden until focused with the keyboard */
+.ipAdminSkipLink {
+    position: absolute;
+    top: 8px;
+    left: -9999px;
+    z-index: 2147483001;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #111827;
+    color: #fff;
+    font: 600 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+.ipAdminSkipLink:focus {
+    left: 8px;
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+    color: #fff;
+}
+.ip .ipAdminContentWrapper:focus {
+    outline: none;
+}
+
+/* Top bar: refined dark bar */
+.ip .navbar-inverse.ipAdminNavbar {
+    border-bottom: 1px solid #1f2430;
+    background-color: #0b0f17;
+}
+.ip .ipAdminNavbar .nav._active > li > a {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+.ip .ipAdminNavbar ._right > li > a {
+    margin: 4px 4px 4px 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: #d1d5db;
+    font-size: 13px;
+}
+.ip .ipAdminNavbar ._right > li > a:hover,
+.ip .ipAdminNavbar ._right > li > a:focus {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}
+.ip .ipAdminNavbar > ._toggle {
+    border-radius: 8px;
+}
+.ip .ipAdminNavbar > ._toggle:hover,
+.ip .ipAdminNavbar > ._toggle:focus {
+    background: rgba(255, 255, 255, .1);
+}
+
+/* Section sub-navigation (System, Administrators, Log, Email log) */
+.ip .ipAdminSubmenu {
+    width: 192px;
+    padding: 16px 8px 16px 16px;
+}
+.ip .ipAdminSubmenu ul a {
+    display: block;
+    margin-bottom: 2px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+}
+.ip .ipAdminSubmenu ul a:hover,
+.ip .ipAdminSubmenu ul a:focus {
+    background: #e9ebef;
+    color: #111827;
+}
+.ip .ipAdminSubmenu ul .active a {
+    background: #111827;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Tables (Grid: Languages, Log, Email log) */
+.ip .ipModuleGrid .table > thead > tr > th {
+    border-bottom: 1px solid #e5e7eb;
+    color: #5d6470;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
+.ip .ipModuleGrid .table > tbody > tr > td {
+    border-top: 1px solid #eef0f3;
+    vertical-align: middle;
+}
+.ip .ipModuleGrid .table > tbody > tr:hover > td {
+    background: #f9fafb;
+}
+.ip .ipModuleGrid ._actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* Pages: light columns instead of the dark slate rail */
+.ip .ipAdminPages ._languages {
+    border-right: 1px solid #e5e7eb;
+    background-color: #fff;
+}
+.ip .ipAdminPages ._languages ul a {
+    margin: 4px;
+    padding: 6px 0;
+    border-radius: 8px;
+    text-align: center;
+    color: #4b5160;
+    font-weight: 600;
+}
+.ip .ipAdminPages ._languages ul a:hover,
+.ip .ipAdminPages ._languages ul a:focus {
+    background: #f3f4f6;
+    color: #111827;
+}
+.ip .ipAdminPages ._languages ul .active a {
+    background: #111827;
+    color: #fff;
+}
+.ip .ipAdminPages ._menus {
+    border-right: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+.ip .ipAdminPages ._menus ul a {
+    margin: 0 8px;
+    border-radius: 8px;
+    color: #374151;
+    font-weight: 500;
+}
+.ip .ipAdminPages ._menus ul a:hover,
+.ip .ipAdminPages ._menus ul a:focus {
+    background: #eef0f3;
+    color: #111827;
+}
+.ip .ipAdminPages ._menus ul .active a {
+    background: #fff;
+    box-shadow: 0 0 0 1px #e5e7eb;
+    color: #111827;
+    font-weight: 600;
+}
+.ip .ipAdminPages ._pagesListing {
+    border-right: 1px solid #e5e7eb;
+    background-color: #fff;
+}
+.ip .ipAdminPages ._pagesListing .jstree-anchor {
+    color: #374151;
+}
+.ip .ipAdminPages ._pagesListing .jstree-wholerow-hovered {
+    border-radius: 8px;
+    background: #f3f4f6;
+}
+.ip .ipAdminPages ._pagesListing .jstree-wholerow-clicked {
+    border-radius: 8px;
+    background: #111827;
+}
+.ip .ipAdminPages ._pagesListing .jstree-clicked {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Plugins list: calm cards, readable names, accessible status badges */
+.ip .ipModulePlugins ._plugins li {
+    border-top: 1px solid #e5e7eb;
+}
+.ip .ipModulePlugins ._plugin {
+    color: #374151;
+}
+.ip .ipModulePlugins ._plugin:hover,
+.ip .ipModulePlugins ._plugin:focus {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+.ip .ipModulePlugins ._plugin.active,
+.ip .ipModulePlugins ._plugin.active ._heading {
+    color: #111827;
+}
+.ip .ipModulePlugins ._plugin ._name {
+    font-weight: 600;
+    text-transform: none;
+}
+.ip .label-success,
+.ip .ipModulePlugins ._plugin .label-success {
+    border: 1px solid #abefc6;
+    border-radius: 999px;
+    background: #ecfdf3;
+    color: #067647; /* 6.4:1 */
+    font-weight: 600;
+}
+
+/* Design: rounded theme cards */
+.ip .ipModuleDesign ._selectedTheme,
+.ip .ipModuleDesign ._market,
+.ip .ipModuleDesign ._localThemes {
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #fff;
+}
+.ip .ipModuleDesign ._localThemes ._list li ._preview img,
+.ip .ipModuleDesign ._selectedTheme ._preview img {
+    border-radius: 8px;
+}

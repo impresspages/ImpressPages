@@ -101,6 +101,8 @@ class Display
             'searchForm' => $this->searchForm($searchVariables),
             'moveForm' => $this->moveForm(),
             'title' => $subgridConfig->getTitle(),
+            'updateTitle' => $subgridConfig->updateTitle(),
+            'createTitle' => $subgridConfig->createTitle(),
             'breadcrumb' => $this->getBreadcrumb(),
             'pageSize' => $pageSize,
             'pageSizes' => $values
@@ -170,7 +172,8 @@ class Display
         if ($this->subgridConfig->allowCreate()) {
             $actions['add'] = array(
                 'label' => __('Add', 'Ip-admin', false),
-                'class' => 'ipsCreate'
+                'class' => 'ipsCreate',
+                'primary' => true
             );
         }
         if ($this->subgridConfig->allowSearch()) {

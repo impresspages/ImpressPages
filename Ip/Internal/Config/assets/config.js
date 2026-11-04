@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var $autoSave = $('.ipsAutoSave');
     $autoSave.on('change', IpConfig.autoSaveValue);
-    $autoSave.on('keyup', IpConfig.autoSaveValue);
+    $autoSave.on('keyup', IpConfig.autoSaveValueDelayed);
 
     var $configForm = $('.ipsConfigForm');
     $configForm.validator(validatorConfigAdmin);
@@ -18,7 +18,9 @@ $(document).ready(function () {
 var IpConfig = new function () {
     "use strict";
     var queue = [],
-        processing = false;
+        processing = false,
+        keyupTimers = {},
+        lastSavedValues = {};
 
     this.init = function () {
         updateCronUrl();
@@ -78,11 +80,18 @@ var IpConfig = new function () {
 
         updateCronUrl();
 
+        var value = getFieldValue(fieldId);
+        if (lastSavedValues[fieldId] === value) {
+            processing = false;
+            queueProcess();
+            return;
+        }
+        ipAdminNotify.saving();
 
         var postData = {
             'aa': 'Config.saveValue',
             'fieldName': getFieldName(fieldId),
-            'value': getFieldValue(fieldId),
+            'value': value,
             'securityToken': ip.securityToken,
             'languageId': getFieldLanguage(fieldId)
         };
@@ -96,18 +105,18 @@ var IpConfig = new function () {
                     var errors = {};
                     errors[fieldId] = response.error;
                     $('.ipsConfigForm').data("validator").invalidate(errors);
+                    ipAdminNotify.error(response.error);
+                } else {
+                    lastSavedValues[fieldId] = value;
+                    if (!queue.length) {
+                        ipAdminNotify.saved();
+                    }
                 }
                 processing = false;
                 queueProcess();
             },
             error: function (response) {
-                if (response && response.readyState === 4) {
-                    if (response.responseText) {
-                        alert(response.responseText);
-                    } else {
-                        alert('Autosave error');
-                    }
-                }
+                ipAdminNotify.ajaxError(response);
                 processing = false;
                 queueProcess();
             }
@@ -124,8 +133,19 @@ var IpConfig = new function () {
 
     this.autoSaveValue = function () {
         var $this = $(this);
+        clearTimeout(keyupTimers[$this.data('fieldid')]);
         $('.ipsConfigForm').data("validator").checkValidity();
         queueAdd($this.data('fieldid'));
+    };
+
+    // Typing saves after a short pause instead of on every key press.
+    this.autoSaveValueDelayed = function () {
+        var field = this;
+        var fieldId = $(field).data('fieldid');
+        clearTimeout(keyupTimers[fieldId]);
+        keyupTimers[fieldId] = setTimeout(function () {
+            IpConfig.autoSaveValue.call(field);
+        }, 600);
     };
 
     var removeFromArray = function (dataArray, value) {

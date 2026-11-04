@@ -84,7 +84,7 @@
     </div>
 
     <div class="_popup ipsPreview hidden">
-        <button type="button" class="btn btn-danger _close ipsPreviewClose" title="<?php _e('Close', 'Ip-admin'); ?>"><i class="fa fa-times"></i></button>
+        <button type="button" class="btn btn-danger _close ipsPreviewClose" title="<?php _e('Close', 'Ip-admin'); ?>" aria-label="<?php _e('Close', 'Ip-admin'); ?>"><i class="fa fa-times"></i></button>
         <iframe class="ipsFrame" src="" frameborder="0"></iframe>
     </div>
 </div>

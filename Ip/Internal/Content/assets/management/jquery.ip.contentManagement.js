@@ -140,12 +140,17 @@
                     postData.publish = 0;
                 }
 
+                $this.data('ipContentManagementPublishing', !!publish);
+                ipAdminNotify.saving();
                 $.ajax({
                     type : 'POST',
                     url : ip.baseUrl,
                     data : postData,
                     context : $this,
                     success : methods._savePageResponse,
+                    error : function (response) {
+                        ipAdminNotify.ajaxError(response);
+                    },
                     dataType : 'json'
                 });
             });
@@ -155,9 +160,10 @@
             var $this = $(this);
             var data = $this.data('ipContentManagement');
             if (response.status == 'success') {
+                ipAdminNotify.savedAfterReload(ipAdminNotifyTranslations[$this.data('ipContentManagementPublishing') ? 'Published' : 'Draft saved']);
                 window.location.href = response.newRevisionUrl;
             } else {
-
+                ipAdminNotify.error(response.errorMessage);
             }
         }
     };

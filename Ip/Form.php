@@ -163,8 +163,9 @@ class Form
         $answer = array();
         $fields = $this->getFields();
         foreach ($fields as $field) {
-            if (array_key_exists($field->getName(), $data)) {
-                $answer[$field->getName()] = $data[$field->getName()];
+            $name = (string)$field->getName(); // unnamed fields (e.g. the hidden submit button) have a null name
+            if (array_key_exists($name, $data)) {
+                $answer[$name] = $data[$name];
             }
         }
         return $answer;

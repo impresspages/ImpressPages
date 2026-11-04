@@ -8,11 +8,30 @@ var ipDesignOptionsOpen = function (e) {
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
     $('.ipModuleDesign .ipsPreview').removeClass('hidden');
     $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignOptionsClose);
+    $(document).off('keydown.ipDesignOptions').on('keydown.ipDesignOptions', function (e) {
+        if (e.keyCode === 27 && !$('.ipModuleDesign .ipsPreview').hasClass('hidden')) {
+            ipDesignOptionsClose(e);
+        }
+    });
 };
 
-var ipDesignOptionsClose = function (e) {
+var ipDesignOptionsClose = function (e, alreadyConfirmed) {
     "use strict";
     e.preventDefault();
+
+    if (!alreadyConfirmed) {
+        var frameWindow = $('.ipModuleDesign .ipsPreview .ipsFrame').get(0).contentWindow;
+        try {
+            if (frameWindow.ipDesign && frameWindow.ipDesign.isDirty()) {
+                if (!ipAdminConfirmDiscard()) {
+                    return;
+                }
+                frameWindow.ipDesign.discardChanges();
+            }
+        } catch (error) {
+            // preview not loaded yet
+        }
+    }
 
     var bodyClassToHideScroll = 'modal-open';
 

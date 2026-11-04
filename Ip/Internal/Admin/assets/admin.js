@@ -24,6 +24,24 @@ var ipAdmin = new function () {
             showAdminMenu();
         });
 
+        // Keyboard and touch: open with a click / Enter, close with the menu's own button or Escape.
+        $('.ipsAdminMenu').attr('aria-expanded', 'false').on('click', function (e) {
+            e.preventDefault();
+            showAdminMenu();
+            $adminMenu.find('nav a').first().focus();
+        });
+        $adminMenu.find('._menuHeader ._toggle').on('click', function (e) {
+            e.preventDefault();
+            hideAdminMenu();
+            $('.ipsAdminMenu').focus();
+        });
+        $(document).on('keydown.ipAdminMenu', function (e) {
+            if (e.keyCode === 27 && !$adminMenu.hasClass('hidden')) {
+                hideAdminMenu();
+                $('.ipsAdminMenu').focus();
+            }
+        });
+
         $('.ipsAdminLogout').on('click', function (e) {
             e.preventDefault();
             logout();
@@ -53,11 +71,13 @@ var ipAdmin = new function () {
     var showAdminMenu = function () {
         $currentItem.addClass('hidden');
         $adminMenu.removeClass('hidden');
+        $('.ipsAdminMenu').attr('aria-expanded', 'true');
     };
 
     var hideAdminMenu = function () {
         $currentItem.removeClass('hidden');
         $adminMenu.addClass('hidden');
+        $('.ipsAdminMenu').attr('aria-expanded', 'false');
         $adminMenu.focus(); //makes click outside adminMenu work as roll out.
     };
 

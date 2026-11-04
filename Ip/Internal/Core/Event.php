@@ -73,6 +73,27 @@ class Event
 
         if (ipAdminId()) {
 
+            ipAddJsVariable(
+                'ipAdminNotifyTranslations',
+                array(
+                    'Saving...' => __('Saving...', 'Ip-admin', false),
+                    'Saved' => __('Saved', 'Ip-admin', false),
+                    'Close' => __('Close', 'Ip-admin', false),
+                    "Couldn't save. Please try again." => __("Couldn't save. Please try again.", 'Ip-admin', false),
+                    "Couldn't reach the server. Check your connection and try again." => __("Couldn't reach the server. Check your connection and try again.", 'Ip-admin', false),
+                    'Your session may have expired. Reload the page and log in again.' => __('Your session may have expired. Reload the page and log in again.', 'Ip-admin', false),
+                    'You have unsaved changes. Leave without saving?' => __('You have unsaved changes. Leave without saving?', 'Ip-admin', false),
+                    'Page settings saved' => __('Page settings saved', 'Ip-admin', false),
+                    'Plugin settings saved' => __('Plugin settings saved', 'Ip-admin', false),
+                    'Theme options saved' => __('Theme options saved', 'Ip-admin', false),
+                    'Permission updated' => __('Permission updated', 'Ip-admin', false),
+                    'Saved to the live site' => __('Saved to the live site', 'Ip-admin', false),
+                    'Saved as draft. Publish to make it live.' => __('Saved as draft. Publish to make it live.', 'Ip-admin', false),
+                    'Published' => __('Published', 'Ip-admin', false),
+                    'Draft saved' => __('Draft saved', 'Ip-admin', false),
+                )
+            );
+
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/jquery.tinymce.min.js');
             ipAddJs('Ip/Internal/Core/assets/js/tiny_mce/tinymce.min.js');
 
@@ -92,6 +113,8 @@ class Event
             }
 
             ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
+            ipAddCss('Ip/Internal/Core/assets/admin/adminExtra.css');
+            ipAddCss('Ip/Internal/Core/assets/admin/adminIcons.css');
 
         }
     }

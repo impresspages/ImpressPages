@@ -17,7 +17,12 @@
             'We have detected that website\'s URL has changed. Would you like to update links on your website from %s to %s ?',
             'Ip-admin'
         ), '<b>' . $oldUrl . '</b>', '<b>' . $newUrl . '</b>') ?></p>
-        <a href="<?php echo ipActionUrl(array('aa' => 'System.updateLinks')) ?>" class="ipsUpdateLinks btn btn-primary"><?php _e('Update links', 'Ip-admin'); ?></a>
+        <form method="post" action="<?php echo escAttr(ipConfig()->baseUrl()); ?>" class="ipsUpdateLinksForm"
+              data-confirm="<?php echo escAttr(sprintf(__('Replace every link to %s with %s in all page content? This can\'t be undone.', 'Ip-admin', false), $oldUrl, $newUrl)); ?>">
+            <input type="hidden" name="aa" value="System.updateLinks" />
+            <input type="hidden" name="securityToken" value="<?php echo escAttr(ipSecurityToken()); ?>" />
+            <button type="submit" class="ipsUpdateLinks btn btn-default"><?php _e('Update links', 'Ip-admin'); ?></button>
+        </form>
     <?php } ?>
 
     <?php if ($migrationsAvailable) { ?>

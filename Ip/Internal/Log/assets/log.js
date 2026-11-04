@@ -19,7 +19,7 @@ $('.ipsGrid').on('init.ipGrid', function () {
                 window.location.reload(true);
             },
             error: function (response) {
-                alert(response.responseText);
+                ipAdminNotify.ajaxError(response);
             }
         });
     });

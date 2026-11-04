@@ -4,7 +4,30 @@ var ipDesign = new function () {
         lastSerializedArray = null,
         cssUpdateQueue = [], //css files that are in progress to be updated
         cssUpdateInProgress = false,
-        saveButtonDown = false;
+        saveButtonDown = false,
+        initialSerialized = null,
+        unsavedStorageKey = 'ipDesignOptionsUnsaved';
+
+    // Unsaved values survive preview reloads (they are posted with the page), so remember that they are unsaved.
+    var rememberUnsaved = function (isUnsaved) {
+        try {
+            if (isUnsaved) {
+                window.sessionStorage.setItem(unsavedStorageKey, '1');
+            } else {
+                window.sessionStorage.removeItem(unsavedStorageKey);
+            }
+        } catch (e) {
+            // storage unavailable
+        }
+    };
+
+    var hadUnsavedBeforeReload = function () {
+        try {
+            return window.sessionStorage.getItem(unsavedStorageKey) === '1';
+        } catch (e) {
+            return false;
+        }
+    };
 
     /**
      *
@@ -140,6 +163,7 @@ var ipDesign = new function () {
         $('.ipModuleDesignConfig .ipsBody .collapse').on('shown.bs.collapse', function () {
             fixAccordion();
         });
+        ipAdminInitCollapsibleLegends($('.ipModuleDesignConfig .ipsBody'));
     };
 
     var fixAccordion = function () {
@@ -204,7 +228,13 @@ var ipDesign = new function () {
             saveButtonDown = false;
         });
 
-        $('.ipModuleDesignConfig .ipsSave').off('click').on('click', function (e) {
+        var $saveButton = $('.ipModuleDesignConfig .ipsSave');
+        var saveButtonText = $saveButton.text();
+        var restoreSaveButton = function () {
+            $saveButton.removeClass('disabled').text(saveButtonText);
+        };
+
+        $saveButton.off('click').on('click', function (e) {
             e.preventDefault();
             $(this).addClass('disabled').text(ipTranslationSaving);
 
@@ -213,13 +243,34 @@ var ipDesign = new function () {
 
         $('.ipModuleDesignConfig .ipsForm').on('ipSubmitResponse', function (e, response) {
             if (response.result) {
+                rememberUnsaved(false);
+                ipAdminNotify.savedAfterReload(ipAdminNotifyTranslations['Theme options saved']);
                 window.location.reload(true);
+            } else {
+                restoreSaveButton();
+                if (!response.errors) {
+                    ipAdminNotify.error();
+                }
+            }
+        });
+        $('.ipModuleDesignConfig .ipsForm').on('ipSubmitError', restoreSaveButton);
+        // client side validation failed, so no request was sent
+        $('.ipModuleDesignConfig .ipsForm').on('submit', function (e) {
+            var validator = $(this).data('validator');
+            if (validator && !validator.checkValidity()) {
+                restoreSaveButton();
             }
         });
 
-        $('.ipModuleDesignConfig .ipsCancel').off('click').on('click', function (e) {
+        $('.ipModuleDesignConfig .ipsCancel, .ipModuleDesignConfig .ipsClose').off('click').on('click', function (e) {
             e.preventDefault();
-            window.parent.ipDesignOptionsClose(e);
+            ipDesign.close(e);
+        });
+
+        $(document).on('keydown.ipModuleDesign', function (e) {
+            if (e.keyCode === 27) {
+                ipDesign.close(e);
+            }
         });
 
         $('.ipModuleDesignConfig .ipsDefault').off('click').on('click', function (e) {
@@ -245,10 +296,28 @@ var ipDesign = new function () {
 
         lastSerialized = $('.ipModuleDesignConfig .ipsForm').serialize();
         lastSerializedArray = $('.ipModuleDesignConfig .ipsForm').serializeArray();
+        initialSerialized = lastSerialized;
 
         //setup config groups
 
 
+    };
+
+    this.isDirty = function () {
+        return hadUnsavedBeforeReload() || $('.ipModuleDesignConfig .ipsForm').serialize() !== initialSerialized;
+    };
+
+    // Forget unsaved changes, e.g. when the user chose to close without saving.
+    this.discardChanges = function () {
+        rememberUnsaved(false);
+    };
+
+    this.close = function (e) {
+        if (ipDesign.isDirty() && !ipAdminConfirmDiscard()) {
+            return;
+        }
+        ipDesign.discardChanges();
+        window.parent.ipDesignOptionsClose(e, true);
     };
 
     this.showReloadNotice = function () {
@@ -279,6 +348,7 @@ var ipDesign = new function () {
 
 
     this.openLink = function (href, restoreDefault) {
+        rememberUnsaved(ipDesign.isDirty());
         var config = $('.ipModuleDesignConfig .ipsForm').serializeArray();
 
         // create preview config data
@@ -367,7 +437,7 @@ var ipDesign = new function () {
         var x2 = $(window).width() - $('.ipModuleDesignConfig .ipsDialog').width() - 20;
         var y2 = $(window).height() - 150;
         var topOffset = parseInt($('.ipModuleDesignConfig .ipsDialog').css('top'));
-        $('.ipModuleDesignConfig .ipsBody').css('max-height', $(window).height() - topOffset - 170);
+        $('.ipModuleDesignConfig .ipsBody').css('max-height', $(window).height() - topOffset - 130);
 
         fixAccordion();
     };

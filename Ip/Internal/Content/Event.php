@@ -57,6 +57,7 @@ class Event
                 }
             }
             ipAddJsVariable('ipPublishTranslation', __('Publish', 'Ip-admin', false));
+            ipAddJsVariable('ipUnpublishedChangesTranslation', __('Unpublished changes', 'Ip-admin', false));
         }
     }
 

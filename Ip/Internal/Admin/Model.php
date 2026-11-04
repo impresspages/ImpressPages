@@ -135,6 +135,12 @@ class Model
             case 'Languages':
                 $icon = 'fa-language';
                 break;
+            case 'Log':
+                $icon = 'fa-file-text-o';
+                break;
+            case 'Email':
+                $icon = 'fa-envelope-o';
+                break;
         }
 
         return $icon;

@@ -12,4 +12,4 @@
         </div>
     </div>
 </div>
-<a href="#" class="btn btn-new ipsFieldOptionsAdd"><?php _e('Add new', 'Ip-admin'); ?></a>
+<a href="#" class="btn btn-new ipsFieldOptionsAdd"><?php _e('Add option', 'Ip-admin'); ?></a>

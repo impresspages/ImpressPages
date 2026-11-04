@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cancel', 'Ip-admin') ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php echo __('Confirm', 'Ip-admin') ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php echo __('Save', 'Ip-admin') ?></button>
                 </div>
             </div>
         </div>

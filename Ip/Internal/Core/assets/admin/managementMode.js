@@ -47,7 +47,7 @@ var ipManagementMode = new function () {
                 }
             },
             error: function (response) {
-                alert('error: ' + response);
+                ipAdminNotify.ajaxError(response);
             }
         });
     };

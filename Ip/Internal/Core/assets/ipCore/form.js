@@ -110,7 +110,10 @@ var ipModuleFormPublic;
                             }
                         },
                         error: function (response) {
-                            if (ip.developmentEnvironment || ip.debugMode) {
+                            $form.trigger('ipSubmitError', [response]);
+                            if (typeof (ipAdminNotify) !== 'undefined') {
+                                ipAdminNotify.ajaxError(response);
+                            } else if (ip.developmentEnvironment || ip.debugMode) {
                                 alert('Error: ' + response.responseText);
                             }
                         }

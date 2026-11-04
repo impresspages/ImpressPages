@@ -74,6 +74,9 @@
             data: data,
             context: $this,
             success: saveResponse,
+            error: function (response) {
+                ipAdminNotify.ajaxError(response);
+            },
             dataType: 'json'
         });
     };
@@ -89,6 +92,10 @@
             }
             $this.trigger('ipInlineManagement.stringConfirm');
             $('.ipModuleInlineManagementPopupText').dialog('close');
+            // Theme texts don't go through drafts, so say clearly that the change is already public.
+            ipAdminNotify.saved(ipAdminNotifyTranslations['Saved to the live site']);
+        } else {
+            ipAdminNotify.error();
         }
     };
 

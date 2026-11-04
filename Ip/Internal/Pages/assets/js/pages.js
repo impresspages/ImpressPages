@@ -212,11 +212,17 @@ var ipPageDragId;
                 $positionSelect.find('option[value=child]').show();
                 $positionSelect.find('option[value=below]').show();
                 $positionSelect.val($scope.activeMenu.defaultPositionWhenSelected);
+                if (!$positionSelect.val()) {
+                    $positionSelect.val('below'); // stored value missing or from an old version (e.g. "bellow")
+                }
                 if ($scope.activeMenu.type == 'list') {
                     $positionSelect.find('option[value=child]').hide();
                 }
             } else {
                 $positionSelect.val($scope.activeMenu.defaultPosition);
+                if (!$positionSelect.val()) {
+                    $positionSelect.val('bottom');
+                }
                 $positionSelect.find('option[value=above]').hide();
                 $positionSelect.find('option[value=child]').hide();
                 $positionSelect.find('option[value=below]').hide();
@@ -815,3 +821,30 @@ var ipPageDragId;
     }
 
 })(jQuery);
+
+// Ask before leaving page properties with unsaved changes (switching page, menu or language, or leaving the admin).
+(function () {
+    "use strict";
+    var hasUnsavedChanges = function () {
+        return $('.ipsProperties').data('ipPagePropertiesDirty') === true;
+    };
+
+    document.addEventListener('click', function (e) {
+        var $target = $(e.target).closest('.ipsLanguages a, .ipsMenuList li > a, .ipsPages a, .ipsPages .ipsRow, .ipsAddPage');
+        if (!$target.length || !hasUnsavedChanges()) {
+            return;
+        }
+        if (ipAdminConfirmDiscard()) {
+            $('.ipsProperties').data('ipPagePropertiesDirty', false);
+        } else {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+        }
+    }, true);
+
+    $(window).on('beforeunload.ipPages', function () {
+        if (hasUnsavedChanges()) {
+            return ipAdminNotifyTranslations['You have unsaved changes. Leave without saving?'];
+        }
+    });
+})();
