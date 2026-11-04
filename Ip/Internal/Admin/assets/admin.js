@@ -12,7 +12,9 @@ var ipAdmin = new function () {
     var $navbar;
 
     this.init = function () {
-        $(document.body).prepend($(ipAdminNavbar));
+        if (typeof ipAdminNavbar !== 'undefined') { // admin screens use the rail instead of a top bar
+            $(document.body).prepend($(ipAdminNavbar));
+        }
         $container = $('.ipsAdminNavbarContainer'); // the most top element physically creates a space
         $navbar = $('.ipsAdminNavbar'); // Administration Panel that stays always visible
         $currentItem = $('.ipsItemCurrent');
@@ -64,6 +66,29 @@ var ipAdmin = new function () {
         }
 
         $(window).bind('resize.ipAdmin', onResize);
+
+        // Section entries that share a screen (Settings > General / Advanced) differ only by #hash
+        var syncSectionWithHash = function () {
+            var $links = $('.ipsAdminSection ._link');
+            var hash = window.location.hash.replace('#', '');
+            var $match = $links.filter(function () { return $(this).data('hash') && $(this).data('hash') === hash; });
+            if (!$match.length) {
+                return;
+            }
+            var base = $match.attr('href').split('#')[0];
+            $links.filter(function () { return $(this).attr('href').split('#')[0] === base; }).removeAttr('aria-current');
+            $match.attr('aria-current', 'page');
+            document.title = $.trim($match.text()) + ' · ' + $.trim($('.ipsAdminSection ._title').text());
+        };
+        syncSectionWithHash();
+        $(window).on('hashchange', function () {
+            var $links = $('.ipsAdminSection ._link');
+            if (!window.location.hash) {
+                $links.filter(function () { return !$(this).data('hash') && $(this).attr('href').split('#')[0] === window.location.href.split('#')[0]; }).attr('aria-current', 'page');
+                $links.filter(function () { return $(this).data('hash'); }).removeAttr('aria-current');
+            }
+            syncSectionWithHash();
+        });
 
         $(document).trigger('ipAdminPanelInit');
     };

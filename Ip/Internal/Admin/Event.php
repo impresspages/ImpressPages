@@ -84,23 +84,41 @@ class Event
     {
 
 
-        //show admin submenu if needed
+        // Admin screens: icon rail (level 1) and section column (level 2), see Navigation
         if (ipRoute()->isAdmin()) {
             ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
             ipAddCss('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.css');
 
-            $submenu = Submenu::getSubmenuItems();
-            $submenu = ipFilter('ipAdminSubmenu', $submenu);
-            if ($submenu) {
-                ipResponse()->setLayoutVariable('submenu', $submenu);
+            if (ipAdminId()) {
+                $groups = Navigation::groups(Navigation::currentModule());
+                ipResponse()->setLayoutVariable('adminRail', ipView('view/rail.php', array(
+                    'groups' => $groups,
+                    'siteName' => ipGetOptionLang('Config.websiteTitle', null, 'ImpressPages'),
+                ))->render());
+                $currentGroup = Navigation::currentGroup($groups);
+                if ($currentGroup) {
+                    // browser tab title, e.g. "General · Settings"
+                    $screenTitle = $currentGroup['title'];
+                    foreach ($currentGroup['items'] as $item) {
+                        if ($item['current'] && $item['title'] != $currentGroup['title']) {
+                            $screenTitle = $item['title'] . ' · ' . $currentGroup['title'];
+                        }
+                    }
+                    ipResponse()->setLayoutVariable('adminScreenTitle', $screenTitle);
+                }
+                if ($currentGroup && count($currentGroup['items']) > 1) {
+                    ipResponse()->setLayoutVariable('adminSection', ipView('view/section.php', array('group' => $currentGroup))->render());
+                }
             }
         }
 
-        // Show admin toolbar if admin is logged in:
         if (ipAdminId() && !ipRequest()->getRequest('pa') || ipRequest()->getRequest('aa') && ipAdminId()) {
             if (!ipRequest()->getQuery('ipDesignPreview') && !ipRequest()->getQuery('disableAdminNavbar')) {
                 ipAddJs('Ip/Internal/Admin/assets/admin.js');
-                ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
+                if (!ipRoute()->isAdmin()) {
+                    // page editor on the site: a slim bar with publishing tools and a way back to the admin
+                    ipAddJsVariable('ipAdminNavbar', static::getAdminNavbarHtml());
+                }
             }
         }
 

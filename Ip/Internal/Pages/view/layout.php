@@ -1,24 +1,9 @@
 <div class="ipAdminPages ipsAdminPages" ng-app="Pages" ng-controller="ipPages">
     <div class="_outer ipsAdminPagesContainer">
-        <div class="_container _languages ipsLanguages" ng-cloak>
-            <div class="_actions">
-    <!--            <a href="#" class="btn btn-new"><i class="fa fa-plus"></i></a>-->
-            </div>
-            <ul>
-                <li ng-repeat="language in languageList" ng-class="{active: language == activeLanguage}">
-                    <a href="" ng-click="setLanguageHash(language)">{{language.abbreviation}}</a>
-                </li>
-                <li ng-show="{{allowActions&&ipPagesLanguagesPermission}}">
-                    <a href="<?php echo $languagesUrl; ?>" title="<?php _e('Manage languages', 'Ip-admin'); ?>" aria-label="<?php _e('Manage languages', 'Ip-admin'); ?>"><i class="fa fa-cog" aria-hidden="true"></i></a>
-                </li>
-            </ul>
-        </div>
         <div class="_container _menus ipsMenus" ng-cloak>
-            <div class="_actions" ng-show="{{allowActions}}">
-                <button ng-click="addMenuModal()" class="btn btn-new" role="button">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <?php _e('Add menu', 'Ip-admin'); ?>
-                </button>
+            <h2 class="_columnTitle"><?php _e('Pages', 'Ip-admin'); ?></h2>
+            <div class="_languageSwitch ipsLanguages" role="group" aria-label="<?php _e('Language', 'Ip-admin'); ?>" ng-show="languageList.length > 1">
+                <button type="button" ng-repeat="language in languageList" ng-class="{active: language == activeLanguage}" aria-pressed="{{language == activeLanguage}}" ng-click="setLanguageHash(language)">{{language.abbreviation}}</button>
             </div>
             <ul class="ipsMenuList">
                 <li ng-repeat="menu in menuList" menulist-post-repeat-directive data-menuname="{{menu.alias}}" data-menuid="{{menu.id}}" ng-class="{active: menu == activeMenu}">
@@ -26,10 +11,17 @@
                     <button ng-show="{{allowActions}}" class="btn btn-default _control" ng-click="updateMenuModal(menu)" title="<?php _e('Menu settings', 'Ip-admin'); ?>" aria-label="<?php _e('Menu settings', 'Ip-admin'); ?>"><i class="fa fa-cog" aria-hidden="true"></i></button>
                 </li>
             </ul>
+            <div class="_actions _foot" ng-show="{{allowActions}}">
+                <button ng-click="addMenuModal()" class="btn btn-default btn-block" role="button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <?php _e('Add menu', 'Ip-admin'); ?>
+                </button>
+            </div>
         </div>
         <div class="_container _pagesListing ipsPagesContainer" ng-cloak>
             <div ng-repeat="menu in menuList" class="tree" ng-show="menu.id == activeMenu.id">
                 <div id="pages_{{menu.languageCode}}_{{menu.alias}}">
+                    <h2 class="_columnTitle">{{menuTitle(menu)}}</h2>
                     <div class="_actions" ng-show="{{allowActions}}">
                         <button class="btn btn-new ipsAddPage" ng-click="addPageModal()" role="button">
                             <i class="fa fa-plus" aria-hidden="true"></i>

@@ -985,3 +985,269 @@
 .ip .ipModuleDesign ._selectedTheme ._preview img {
     border-radius: 8px;
 }
+
+/* ------------------------------------------------------------------
+ * Navigation: icon rail (level 1) + section column (level 2).
+ * Level 3 lists live inside screens (e.g. the pages of a menu).
+ * ------------------------------------------------------------------ */
+.ipAdminBody.ipHasRail {
+    padding-left: 64px;
+}
+.ipAdminBody.ipHasRail.ipHasSection {
+    padding-left: 296px; /* rail 64 + section 232 */
+}
+.ip .ipAdminMainBare {
+    display: contents;
+}
+
+.ip .ipAdminRail {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+    width: 64px;
+}
+.ip .ipAdminRail ._inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 64px;
+    padding: 12px 10px;
+    overflow: hidden;
+    background: #0d0f13;
+    color: #c9ccd3;
+    box-sizing: border-box;
+    transition: width .18s ease, box-shadow .18s ease;
+}
+.ip .ipAdminRail:hover ._inner,
+.ip .ipAdminRail:focus-within ._inner {
+    width: 224px;
+    box-shadow: 12px 0 32px -12px rgba(0, 0, 0, .45);
+}
+.ip .ipAdminRail ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ip .ipAdminRail ._bottom {
+    margin-top: auto;
+}
+.ip .ipAdminRail ._separator {
+    height: 1px;
+    margin: 4px 0;
+    background: #23262d;
+}
+.ip .ipAdminRail ._brand,
+.ip .ipAdminRail ._link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.ip .ipAdminRail ._brand {
+    gap: 12px;
+    margin-bottom: 8px;
+    padding: 0 9px;
+    color: #fff;
+    font-weight: 700;
+}
+.ip .ipAdminRail ._mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: #fff;
+    color: #0d0f13;
+    font-size: 12px;
+    font-weight: 700;
+}
+.ip .ipAdminRail ._link .fa {
+    flex: none;
+    width: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+.ip .ipAdminRail ._label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0;
+    transition: opacity .12s ease;
+}
+.ip .ipAdminRail:hover ._label,
+.ip .ipAdminRail:focus-within ._label {
+    opacity: 1;
+}
+.ip .ipAdminRail ._link:hover,
+.ip .ipAdminRail ._link:focus {
+    background: #1d2027;
+    color: #fff;
+    text-decoration: none;
+}
+.ip .ipAdminRail ._link[aria-current="page"] {
+    background: #fff;
+    color: #0d0f13;
+    font-weight: 600;
+}
+.ip .ipAdminRail ._logout:hover,
+.ip .ipAdminRail ._logout:focus {
+    background: #3a1513;
+    color: #ffb4ab;
+}
+.ip .ipAdminRail a:focus-visible {
+    outline: 2px solid #6aa3ff;
+    outline-offset: 2px;
+}
+
+.ip .ipAdminSection {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 64px;
+    z-index: 1020;
+    width: 232px;
+    padding: 16px 8px;
+    overflow-y: auto;
+    border-right: 1px solid #e4e6ea;
+    background: #f8f9fa;
+    box-sizing: border-box;
+}
+.ip .ipAdminSection ._title {
+    margin: 4px 8px 12px;
+    color: #111318;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+.ip .ipAdminSection ._items {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.ip .ipAdminSection ._link {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: #3c4049;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.ip .ipAdminSection ._link:hover,
+.ip .ipAdminSection ._link:focus {
+    background: #eceef1;
+    color: #111318;
+    text-decoration: none;
+}
+.ip .ipAdminSection ._link[aria-current="page"] {
+    background: #111318;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Content area now starts at the very top: no top bar on admin screens */
+.ipAdminBody.ipHasRail .ipAdminContentWrapper {
+    margin-top: 16px;
+}
+
+@media (max-width: 760px) {
+    .ipAdminBody.ipHasRail.ipHasSection {
+        padding-left: 64px;
+    }
+    .ip .ipAdminSection {
+        position: static;
+        width: auto;
+        margin: 8px;
+        border: 1px solid #e4e6ea;
+        border-radius: 12px;
+    }
+    .ip .ipAdminSection ._items {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ip .ipAdminRail ._inner,
+    .ip .ipAdminRail ._label {
+        transition: none;
+    }
+}
+
+/* Pages as levels 2 and 3: menus column (with language switch) and pages column */
+.ip .ipAdminPages ._columnTitle {
+    margin: 0 4px 12px;
+    color: #111318;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+.ip .ipAdminPages ._menus {
+    display: flex;
+    flex-direction: column;
+    width: 232px;
+    padding: 20px 12px;
+    box-sizing: border-box;
+}
+.ip .ipAdminPages ._menus ul {
+    margin: 0;
+    padding: 0;
+}
+.ip .ipAdminPages ._menus ._foot {
+    margin-top: auto;
+    padding-top: 12px;
+}
+.ip .ipAdminPages ._languageSwitch {
+    display: inline-flex;
+    align-self: flex-start;
+    gap: 2px;
+    margin: 0 4px 12px;
+    padding: 2px;
+    border-radius: 9px;
+    background: #eceef1;
+}
+.ip .ipAdminPages ._languageSwitch button {
+    padding: 4px 10px;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    color: #5c616c;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.ip .ipAdminPages ._languageSwitch button.active {
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+    color: #111318;
+}
+.ip .ipAdminPages ._pagesListing {
+    width: 248px;
+    box-sizing: border-box;
+}
+
+/* Small screens: wide tables scroll inside their own box instead of widening the page */
+@media (max-width: 760px) {
+    .ip .ipModuleGrid {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+}

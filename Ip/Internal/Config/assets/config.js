@@ -39,6 +39,23 @@ var IpConfig = new function () {
             $('.ipsConfigFormAdvanced').toggleClass('hidden');
 
         });
+
+        // Settings > General / Advanced in the section column: #advanced shows only the advanced form
+        var showPartFromHash = function () {
+            var advanced = window.location.hash === '#advanced';
+            $('.ipsConfigForm').not('.ipsConfigFormAdvanced').toggleClass('hidden', advanced);
+            $('.ipsConfigFormAdvanced').toggleClass('hidden', !advanced);
+            $('.ipsAdvancedOptions').closest('p').addClass('hidden');
+            var $title = $('.ipsConfigTitle');
+            if (!$title.data('generalTitle')) {
+                $title.data('generalTitle', $title.text());
+            }
+            $title.text(advanced ? $title.data('advancedTitle') : $title.data('generalTitle'));
+        };
+        if ($('.ipsAdminSection').length) {
+            showPartFromHash();
+            $(window).on('hashchange', showPartFromHash);
+        }
     };
 
     var queueAdd = function (fieldid) {

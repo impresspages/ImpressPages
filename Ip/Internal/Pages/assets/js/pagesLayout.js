@@ -14,7 +14,6 @@ var ipPagesResize;
         var $window = $(window);
         var $container = $('.ipsAdminPages');
         var $containerForScroll = $('.ipsAdminPagesContainer');
-        var $languages = $('.ipsLanguages');
         var $menus = $('.ipsMenus');
         var $pages = $('.ipsPagesContainer');
         var $properties = $('.ipsProperties');
@@ -26,11 +25,11 @@ var ipPagesResize;
             contentHeight -= navbarHeight; // leaving place for navbar
         }
 
-        var windowWidth = parseInt($window.width());
+        // the icon rail sits to the left of the Pages columns
+        var windowWidth = parseInt($window.width()) - (parseInt($('.ipsAdminRail').outerWidth()) || 0);
         var propertiesWidth = windowWidth;
-        propertiesWidth -= parseInt($languages.outerWidth());
-        propertiesWidth -= parseInt($menus.outerWidth());
-        propertiesWidth -= parseInt($pages.outerWidth());
+        propertiesWidth -= parseInt($menus.outerWidth()) || 0;
+        propertiesWidth -= parseInt($pages.outerWidth()) || 0;
 
         var minimumPropertiesWidth = 400;
         var maximumPropertiesWidth = 680;

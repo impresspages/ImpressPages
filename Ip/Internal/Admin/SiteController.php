@@ -164,6 +164,9 @@ class SiteController extends \Ip\Controller
             $firstMenuItem = $adminMenuItems[0];
             $redirectUrl = $firstMenuItem->getUrl();
         }
+        if (ipAdminPermission('Pages')) {
+            $redirectUrl = ipActionUrl(array('aa' => 'Pages.index')); // admin home; the page editor opens from Pages
+        }
 
         if (empty($errors)) {
             $answer = array(

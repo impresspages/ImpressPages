@@ -830,7 +830,7 @@ var ipPageDragId;
     };
 
     document.addEventListener('click', function (e) {
-        var $target = $(e.target).closest('.ipsLanguages a, .ipsMenuList li > a, .ipsPages a, .ipsPages .ipsRow, .ipsAddPage');
+        var $target = $(e.target).closest('.ipsLanguages button, .ipsMenuList li > a, .ipsPages a, .ipsPages .ipsRow, .ipsAddPage');
         if (!$target.length || !hasUnsavedChanges()) {
             return;
         }
