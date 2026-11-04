@@ -40,6 +40,45 @@ class Forms
         $form->addField($field);
 
 
+        $field = new FieldOptionTextLang(
+            array(
+                'optionName' => 'Config.websiteDescription',
+                'name' => 'websiteDescription',
+                'label' => __('Website description', 'Ip-admin', false),
+                'hint' => __('One or two sentences about the website. Used as the summary in llms.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'sitemapEnabled',
+                'value' => ipGetOption('Config.sitemapEnabled', 1),
+                'label' => __('Publish sitemap.xml', 'Ip-admin', false),
+                'hint' => __('Lists every public page for search engines at /sitemap.xml and links it from /robots.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'llmsTxtEnabled',
+                'value' => ipGetOption('Config.llmsTxtEnabled', 1),
+                'label' => __('Publish llms.txt', 'Ip-admin', false),
+                'hint' => __('A plain-text summary of the website and its pages for AI assistants, at /llms.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'gmapsApiKey',

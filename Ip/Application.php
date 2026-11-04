@@ -368,6 +368,7 @@ class Application
             $this->addFileRoutes($routesFile, $plugin);
         }
         $this->addFileRoutes(ipFile('Ip/Internal/Ecommerce/routes.php'), 'Ecommerce');
+        $this->addFileRoutes(ipFile('Ip/Internal/Seo/routes.php'), 'Seo');
 
     }
 

@@ -27,6 +27,7 @@ class Model
             "System",
             "Update",
             "Ecommerce",
+            "Seo",
             "Install"
         );
 

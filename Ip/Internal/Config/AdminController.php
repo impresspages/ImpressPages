@@ -48,7 +48,7 @@ class AdminController extends \Ip\Controller
         $value = $post['value'];
 
         if (
-            !in_array($fieldName, array('websiteTitle', 'websiteEmail', 'gmapsApiKey'))
+            !in_array($fieldName, array('websiteTitle', 'websiteEmail', 'websiteDescription', 'gmapsApiKey', 'sitemapEnabled', 'llmsTxtEnabled'))
             &&
             !(
                 in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash'))
@@ -69,7 +69,7 @@ class AdminController extends \Ip\Controller
         }
 
 
-        if (in_array($fieldName, array('websiteTitle', 'websiteEmail'))) {
+        if (in_array($fieldName, array('websiteTitle', 'websiteEmail', 'websiteDescription'))) {
             if (!isset($post['languageId'])) {
                 throw new \Exception('Missing required parameter');
             }
