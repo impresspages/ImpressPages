@@ -126,7 +126,15 @@ var ipPageDragId;
 
             // removing element from list/tree
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
-                if (confirm(ipTranslationAreYouSure)) {
+                ipAdminConfirm({
+                    title: ipTranslationDeletePageTitle,
+                    text: ipTranslationDeletePage,
+                    confirmLabel: ipTranslationDelete,
+                    danger: true
+                }).then(function (confirmed) {
+                    if (!confirmed) {
+                        return;
+                    }
                     var nextId = null;
 
                     //detect which page has to be selected after this one is deleted
@@ -170,7 +178,7 @@ var ipPageDragId;
                         }
                         $scope.$apply();
                     });
-                }
+                });
             });
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
@@ -834,12 +842,19 @@ var ipPageDragId;
         if (!$target.length || !hasUnsavedChanges()) {
             return;
         }
-        if (ipAdminConfirmDiscard()) {
-            $('.ipsProperties').data('ipPagePropertiesDirty', false);
-        } else {
-            e.preventDefault();
-            e.stopImmediatePropagation();
+        // Stop the click, ask, and replay it on the same element if the user chooses to discard.
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (ipAdminConfirm.isOpen()) {
+            return;
         }
+        var target = e.target;
+        ipAdminConfirmDiscard().then(function (discard) {
+            if (discard) {
+                $('.ipsProperties').data('ipPagePropertiesDirty', false);
+                target.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+            }
+        });
     }, true);
 
     $(window).on('beforeunload.ipPages', function () {

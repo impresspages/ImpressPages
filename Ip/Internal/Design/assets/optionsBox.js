@@ -193,8 +193,45 @@ var ipDesign = new function () {
         }
     };
 
+    var widthStorageKey = 'ipDesignOptionsWidth';
+
+    // Wider box for long option groups: drag its right edge. The width is remembered in this browser.
+    var initResize = function () {
+        var $dialog = $('.ipModuleDesignConfig .ipsDialog');
+        var maxWidth = function () {
+            return Math.max(340, Math.min(720, $(window).width() - 32));
+        };
+        try {
+            var saved = parseInt(window.localStorage.getItem(widthStorageKey), 10);
+            if (saved >= 340) {
+                $dialog.css('width', Math.min(saved, maxWidth()) + 'px');
+            }
+        } catch (e) {
+            // storage unavailable, keep the default width
+        }
+        if (typeof ($.fn.resizable) !== 'function' || $(window).width() < 600) {
+            return; // phones: the box already uses the full width
+        }
+        $dialog.resizable({
+            handles: 'e',
+            minWidth: 340,
+            maxWidth: maxWidth(),
+            stop: function (event, ui) {
+                try {
+                    window.localStorage.setItem(widthStorageKey, Math.round(ui.size.width));
+                } catch (e) {
+                    // storage unavailable
+                }
+                ipDesign.fixLayout();
+            }
+        });
+        var hint = (typeof (ipAdminNotifyTranslations) !== 'undefined' && ipAdminNotifyTranslations['Drag to resize']) || 'Drag to resize';
+        $dialog.find('.ui-resizable-e').attr('title', hint);
+    };
+
     var initLayout = function () {
         ipDesign.fixLayout();
+        initResize();
         $('.ipModuleDesignConfig .ipsDialog').draggable({
             //axis: "x",
             //containment: "body",
@@ -313,11 +350,22 @@ var ipDesign = new function () {
     };
 
     this.close = function (e) {
-        if (ipDesign.isDirty() && !ipAdminConfirmDiscard()) {
+        var closeNow = function () {
+            ipDesign.discardChanges();
+            window.parent.ipDesignOptionsClose(e, true);
+        };
+        if (!ipDesign.isDirty()) {
+            closeNow();
             return;
         }
-        ipDesign.discardChanges();
-        window.parent.ipDesignOptionsClose(e, true);
+        if (ipAdminConfirm.isOpen()) {
+            return;
+        }
+        ipAdminConfirmDiscard().then(function (discard) {
+            if (discard) {
+                closeNow();
+            }
+        });
     };
 
     this.showReloadNotice = function () {

@@ -1251,3 +1251,99 @@
         overflow-x: auto;
     }
 }
+
+/* Styled confirmation dialog (ipAdminConfirm), replaces the browser's confirm() box */
+dialog.ipAdminConfirm {
+    /* centred, whatever older stylesheets on the page do to <dialog> */
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+    width: 420px;
+    max-width: calc(100vw - 32px);
+    padding: 20px 20px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: #fff;
+    color: #101828;
+    box-shadow: 0 20px 24px -4px rgba(16, 24, 40, .12), 0 8px 8px -4px rgba(16, 24, 40, .05);
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+dialog.ipAdminConfirm::backdrop {
+    background: rgba(16, 24, 40, .45);
+}
+dialog.ipAdminConfirm ._title {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+dialog.ipAdminConfirm ._text {
+    margin: 0 0 20px;
+    color: #475467;
+    overflow-wrap: anywhere;
+}
+dialog.ipAdminConfirm ._actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+}
+dialog.ipAdminConfirm ._actions .btn {
+    min-height: 36px;
+    margin: 0;
+}
+dialog.ipAdminConfirm ._confirm.btn-danger {
+    border-color: #b42318;
+    background: #b42318;
+    color: #fff;
+}
+dialog.ipAdminConfirm ._confirm.btn-danger:hover,
+dialog.ipAdminConfirm ._confirm.btn-danger:focus {
+    border-color: #912018;
+    background: #912018;
+}
+@media (max-width: 480px) {
+    dialog.ipAdminConfirm ._actions {
+        flex-direction: column-reverse;
+    }
+    dialog.ipAdminConfirm ._actions .btn {
+        width: 100%;
+    }
+}
+
+/* Page properties: one Save button, in an action bar that stays visible while the form scrolls */
+.ip .ipsProperties ._actions {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 8px 0;
+    margin-bottom: 8px;
+    background: #fff;
+    border-bottom: 1px solid #eaecf0;
+}
+
+/* Design → Options: drag the right edge to make the box wider */
+.ip .ipModuleDesignConfig .ui-resizable-e {
+    /* the preview frame doesn't load jQuery UI's stylesheet, so the handle is placed here */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -4px;
+    z-index: 2;
+    display: block;
+    width: 8px;
+    cursor: ew-resize;
+}
+.ip .ipModuleDesignConfig .ui-resizable-e:hover {
+    background: linear-gradient(to right, transparent 3px, #98a2b3 3px, #98a2b3 5px, transparent 5px);
+}
+
+/* Design → theme preview / options: start right of the icon rail instead of underneath it */
+.ip.ipHasRail .ipModuleDesign ._popup {
+    left: 64px;
+    right: 0;
+    width: auto;
+}

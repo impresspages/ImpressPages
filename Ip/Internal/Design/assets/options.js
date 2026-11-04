@@ -20,16 +20,15 @@ var ipDesignOptionsClose = function (e, alreadyConfirmed) {
     e.preventDefault();
 
     if (!alreadyConfirmed) {
+        // The options box lives in the preview frame: let it ask about unsaved changes, then it calls us back.
         var frameWindow = $('.ipModuleDesign .ipsPreview .ipsFrame').get(0).contentWindow;
         try {
-            if (frameWindow.ipDesign && frameWindow.ipDesign.isDirty()) {
-                if (!ipAdminConfirmDiscard()) {
-                    return;
-                }
-                frameWindow.ipDesign.discardChanges();
+            if (frameWindow.ipDesign && typeof (frameWindow.ipDesign.close) === 'function') {
+                frameWindow.ipDesign.close(e);
+                return;
             }
         } catch (error) {
-            // preview not loaded yet
+            // preview not loaded yet, just close
         }
     }
 

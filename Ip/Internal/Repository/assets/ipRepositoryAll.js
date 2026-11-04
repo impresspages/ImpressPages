@@ -538,18 +538,22 @@
             e.preventDefault();
             var context = this;
 
-            if (confirm(ipRepositoryTranslate_confirm_delete)) {
+            var $this = $(this);
+            var files = new Array();
+            $this.find('li.ui-selected').each(function () {
                 var $this = $(this);
+                files.push($this.data('fileData'));
+            });
 
-                var files = new Array();
-                $this.find('li.ui-selected').each(function () {
-                    var $this = $(this);
-                    files.push($this.data('fileData'));
-                });
-
-                $.proxy(methods._executeDelete, context)(files);
-
-            }
+            ipAdminConfirm({
+                text: ipRepositoryTranslate_confirm_delete,
+                confirmLabel: ipRepositoryTranslate_delete,
+                danger: true
+            }).then(function (confirmed) {
+                if (confirmed) {
+                    $.proxy(methods._executeDelete, context)(files);
+                }
+            });
         },
 
         _executeDelete: function (files, forced) {
@@ -608,15 +612,21 @@
 
                     // notify that not all files were deleted
                     if (parseInt(response.notRemovedCount) > 0) {
-                        if (confirm(ipRepositoryTranslate_delete_warning)) {
-
+                        ipAdminConfirm({
+                            text: ipRepositoryTranslate_delete_warning,
+                            confirmLabel: ipRepositoryTranslate_delete,
+                            danger: true
+                        }).then(function (confirmed) {
+                            if (!confirmed) {
+                                return;
+                            }
                             // do not include already deleted files in the request, otherwise
                             // we'll end up in an endless loop, telling the user that some files
                             // could not be deleted (because they have been deleted already)
                             $.proxy(methods._executeDelete, context)(files.filter(function (x) {
                                 return !~response.deletedFiles.indexOf(x.fileName);
                             }), true);
-                        }
+                        });
                     }
                 },
                 error: function () {
