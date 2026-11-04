@@ -79,6 +79,15 @@ class Forms
         $form->addField($field);
 
 
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'llmsFullTxtEnabled',
+                'value' => ipGetOption('Config.llmsFullTxtEnabled', 0),
+                'label' => __('Publish llms-full.txt', 'Ip-admin', false),
+                'hint' => __('The text of every public page in one file for AI assistants, at /llms-full.txt.', 'Ip-admin')
+            ))));
+
+
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'gmapsApiKey',
@@ -92,7 +101,91 @@ class Forms
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
 
+
+        $form->addFieldset(new \Ip\Form\Fieldset(__('Structured data', 'Ip-admin', false)));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'structuredDataEnabled',
+                'value' => ipGetOption('Config.structuredDataEnabled', 1),
+                'label' => __('Add structured data to pages', 'Ip-admin', false),
+                'hint' => __('Describes the website, its owner and each page\'s place in the menu to search engines and AI assistants (schema.org JSON-LD).', 'Ip-admin')
+            ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Select(
+            array(
+                'name' => 'organizationType',
+                'value' => ipGetOption('Config.organizationType', 'Organization'),
+                'label' => __('Website owner', 'Ip-admin', false),
+                'values' => array(
+                    array('Organization', __('Organisation', 'Ip-admin', false)),
+                    array('LocalBusiness', __('Local business with an address customers visit', 'Ip-admin', false)),
+                ),
+            ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Text(
+            array(
+                'name' => 'organizationTelephone',
+                'value' => ipGetOption('Config.organizationTelephone', ''),
+                'label' => __('Telephone', 'Ip-admin', false),
+            ))));
+
+        $addressLabels = array(
+            'organizationStreetAddress' => __('Street address', 'Ip-admin', false),
+            'organizationLocality' => __('City or town', 'Ip-admin', false),
+            'organizationRegion' => __('State or region', 'Ip-admin', false),
+            'organizationPostalCode' => __('Postcode', 'Ip-admin', false),
+            'organizationCountry' => __('Country', 'Ip-admin', false),
+        );
+        foreach (\Ip\Internal\Seo\Model::addressFields() as $option => $property) {
+            $form->addField(self::autoSave(new \Ip\Form\Field\Text(
+                array(
+                    'name' => $option,
+                    'value' => ipGetOption('Config.' . $option, ''),
+                    'label' => $addressLabels[$option],
+                ))));
+        }
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Textarea(
+            array(
+                'name' => 'organizationSameAs',
+                'value' => ipGetOption('Config.organizationSameAs', ''),
+                'label' => __('Profiles elsewhere', 'Ip-admin', false),
+                'hint' => __('Links to the owner\'s social media, map listing or directory pages, one per line. Helps search engines and AI assistants recognise the owner.', 'Ip-admin')
+            ))));
+
+
+        $form->addFieldset(new \Ip\Form\Fieldset(__('AI crawlers', 'Ip-admin', false)));
+
+        foreach (\Ip\Internal\Seo\Model::aiCrawlers() as $userAgent => $operator) {
+            $option = \Ip\Internal\Seo\Model::aiCrawlerOption($userAgent);
+            $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+                array(
+                    'name' => $option,
+                    'value' => ipGetOption('Config.' . $option, 1),
+                    'label' => sprintf(__('Allow %s (%s)', 'Ip-admin', false), $userAgent, $operator),
+                ))));
+        }
+        $form->getField(\Ip\Internal\Seo\Model::aiCrawlerOption('GPTBot'))->setHint(
+            __('Unticked crawlers are asked in /robots.txt not to read the website. AI assistants can only quote and link pages their crawler may read.', 'Ip-admin')
+        );
+
         return $form;
+    }
+
+    /**
+     * Marks a field for saving as soon as it changes.
+     *
+     * @param \Ip\Form\Field $field
+     * @return \Ip\Form\Field
+     */
+    private static function autoSave($field)
+    {
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        return $field;
     }
 
 

@@ -48,7 +48,12 @@ class AdminController extends \Ip\Controller
         $value = $post['value'];
 
         if (
-            !in_array($fieldName, array('websiteTitle', 'websiteEmail', 'websiteDescription', 'gmapsApiKey', 'sitemapEnabled', 'llmsTxtEnabled'))
+            !in_array($fieldName, array_merge(
+                array('websiteTitle', 'websiteEmail', 'websiteDescription', 'gmapsApiKey', 'sitemapEnabled', 'llmsTxtEnabled', 'llmsFullTxtEnabled'),
+                array('structuredDataEnabled', 'organizationType', 'organizationTelephone', 'organizationSameAs'),
+                array_keys(\Ip\Internal\Seo\Model::addressFields()),
+                array_map(array('\Ip\Internal\Seo\Model', 'aiCrawlerOption'), array_keys(\Ip\Internal\Seo\Model::aiCrawlers()))
+            ))
             &&
             !(
                 in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash'))

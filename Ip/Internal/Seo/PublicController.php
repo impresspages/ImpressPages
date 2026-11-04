@@ -7,7 +7,7 @@ namespace Ip\Internal\Seo;
 
 
 /**
- * Serves sitemap.xml, robots.txt and llms.txt, built from the published pages.
+ * Serves sitemap.xml, robots.txt, llms.txt and llms-full.txt, built from the published pages.
  */
 class PublicController extends \Ip\Controller
 {
@@ -48,6 +48,13 @@ class PublicController extends \Ip\Controller
             'Disallow: /admin.php',
             'Disallow: /admin/',
         );
+        foreach (Model::aiCrawlers() as $userAgent => $operator) {
+            if (!ipGetOption('Config.' . Model::aiCrawlerOption($userAgent), 1)) {
+                $lines[] = '';
+                $lines[] = 'User-agent: ' . $userAgent;
+                $lines[] = 'Disallow: /';
+            }
+        }
         if (ipGetOption('Config.sitemapEnabled', 1)) {
             $lines[] = '';
             $lines[] = 'Sitemap: ' . ipConfig()->baseUrl() . 'sitemap.xml';
@@ -96,7 +103,54 @@ class PublicController extends \Ip\Controller
             $text .= "\n";
         }
 
+        if (ipGetOption('Config.llmsFullTxtEnabled', 0)) {
+            $text .= "## Optional\n\n- [Full text of every page](" . ipConfig()->baseUrl() . "llms-full.txt)\n\n";
+        }
+
         $text = ipFilter('ipLlmsTxt', rtrim($text) . "\n", array('sections' => $sections));
+
+        return new \Ip\Response($text, 'Content-type: text/plain; charset=utf-8');
+    }
+
+    /**
+     * The text of every public page in one file, for AI assistants (the llms-full.txt companion of llms.txt).
+     */
+    public function llmsFull()
+    {
+        if (!ipGetOption('Config.llmsFullTxtEnabled', 0)) {
+            return new \Ip\Response\PageNotFound();
+        }
+
+        $sections = array_values(array_filter(Model::getSitePages(), function ($section) {
+            return !empty($section['pages']);
+        }));
+        $multilingual = count($sections) > 1;
+        $firstLanguage = $sections ? $sections[0]['language']->getCode() : null;
+
+        $title = trim((string)ipGetOptionLang('Config.websiteTitle', $firstLanguage, ''));
+        $summary = trim((string)ipGetOptionLang('Config.websiteDescription', $firstLanguage, ''));
+
+        $text = '# ' . ($title !== '' ? $title : ipConfig()->baseUrl()) . "\n\n";
+        if ($summary !== '') {
+            $text .= '> ' . preg_replace('/\s+/', ' ', $summary) . "\n\n";
+        }
+
+        foreach ($sections as $section) {
+            foreach ($section['pages'] as $page) {
+                $text .= '## ' . $page['title'] . "\n\n";
+                $text .= 'URL: ' . $page['url'] . "\n";
+                if ($multilingual) {
+                    $text .= 'Language: ' . $section['language']->getTitle() . "\n";
+                }
+                if ($page['description'] !== '') {
+                    $text .= 'Summary: ' . preg_replace('/\s+/', ' ', $page['description']) . "\n";
+                }
+                $body = Model::pageText($page['id']);
+                $text .= "\n" . ($body !== '' ? $body . "\n\n" : '');
+            }
+        }
+
+        $text = ipFilter('ipLlmsFullTxt', rtrim($text) . "\n", array('sections' => $sections));
 
         return new \Ip\Response($text, 'Content-type: text/plain; charset=utf-8');
     }
