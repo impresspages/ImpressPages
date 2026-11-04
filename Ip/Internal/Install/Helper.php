@@ -213,7 +213,7 @@ class Helper
 
     public static function checkLibXml()
     {
-        if (!function_exists('utf8_decode')) {
+        if (!extension_loaded('xml')) {
             return 'error';
         }
         return 'success';

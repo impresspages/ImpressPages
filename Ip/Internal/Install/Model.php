@@ -61,9 +61,7 @@ class Model
         $errors = [];
 
         $sqlFile = self::ipFile('Ip/Internal/Install/sql/data.sql');
-        $fh = fopen($sqlFile, 'r');
-        $sql = fread($fh, utf8_decode(filesize($sqlFile)));
-        fclose($fh);
+        $sql = file_get_contents($sqlFile);
 
 
         $sql = str_replace("INSERT INTO `ip_", "INSERT INTO `". $tablePrefix, $sql);

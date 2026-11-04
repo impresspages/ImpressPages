@@ -107,7 +107,8 @@ class Functions
     public static function cleanupFileName($fileName)
     {
         $fileName = \Ip\Internal\Text\Transliteration::transform($fileName);
-        $fileName = utf8_decode($fileName);
+        // Whatever transliteration left as non-ASCII becomes "?", then "_" below (what utf8_decode() did, without the PHP 8.2 deprecation).
+        $fileName = preg_replace('/[\xC0-\xFF][\x80-\xBF]*|[\x80-\xBF]/', '?', $fileName); // one "?" per character
         $spec = array("'", "%", "?", "-", "+", " ", "<", ">", "(", ")", "/", "\\", "&", ",", "!", ":", "\"", "?", "|");
 
         $fileName = str_replace($spec, '_', $fileName);
