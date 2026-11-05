@@ -2,9 +2,25 @@
 
 This is a community fork of [ImpressPages](https://github.com/impresspages/ImpressPages), whose last release (5.0.3) dates from 2017 and does not run on modern PHP. The `php8` branch brings it up to date while keeping the existing API, themes and plugins working.
 
-**Current version:** 5.1.0, the first release of this fork.
+**Current version:** 5.2.0.
 
 **Requirements:** PHP 8.1 or newer (tested on PHP 8.5) and MySQL or MariaDB.
+
+### What changed in 5.2.0
+
+- Fresh installs work on PHP 8.2 and newer again (the installer stopped at the Database step because of `utf8_decode()`).
+- The installer no longer shows the generated administrator password to visitors.
+- SEO and GEO in the core: `sitemap.xml`, `robots.txt` and `llms.txt` (and an optional `llms-full.txt`) built from the published pages; schema.org JSON-LD for the site owner, website and breadcrumbs; a switch per AI crawler (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot). Settings are in Config.
+- Admin usability, from a heuristic audit:
+  - "Saving… / Saved / Couldn't save" messages everywhere, failed saves are no longer silent, Config saves after a pause and says so.
+  - A styled confirmation dialog instead of the browser's `confirm()` box, and a prompt before unsaved changes are thrown away (switching page, closing a dialog, closing Design → Options).
+  - The content editor shows whether a page has unpublished changes, and says that theme texts are saved straight to the live site.
+  - New navigation: an icon rail, a section column and screen lists. Outline icons, one button style, readable contrast, keyboard access to collapsible sections, names for icon-only buttons.
+  - Page properties has one Save button that stays visible; Design → Options can be widened; the Log shows readable context; System → Update links asks first and is a POST.
+  - Works on phones and tablets: no admin screen scrolls sideways at 375, 768, 1024 or 1366 px.
+- PHP 8 notices no longer appear inside Grid edit dialogs.
+
+After updating, run the update script (Admin → System) if it is offered: it records the new version and makes browsers load the new admin files.
 
 ### What changed from 5.0.3
 

@@ -12,6 +12,13 @@ class Migration
 
 
     //CHANGE_ON_VERSION_UPDATE
+    public static function update_103()
+    {
+        // New admin scripts and styles in 5.2.0: bump the cache version so browsers load them.
+        ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
+        ipDb()->update('storage', array('value' => '"5.2.0"'), array('key' => 'version', 'plugin' => 'Ip'));
+    }
+
     public static function update_102()
     {
         ipStorage()->set('Ip', 'cacheVersion', ipStorage()->get('Ip', 'cacheVersion', 1) + 1);
