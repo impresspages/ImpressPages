@@ -168,15 +168,123 @@ var ipAdminNotify = new function () {
 };
 
 /**
- * Ask before throwing away unsaved changes. Returns true if it is fine to continue.
+ * Styled replacement for window.confirm(). Returns a Promise that resolves to true (confirmed) or false.
+ *
+ * ipAdminConfirm({
+ *     text: 'Delete this page?',     // required
+ *     title: 'Delete page',          // optional heading
+ *     confirmLabel: 'Delete',        // default "OK"
+ *     cancelLabel: 'Cancel',         // default "Cancel"
+ *     danger: true                   // red confirm button, focus starts on Cancel
+ * }).then(function (confirmed) { ... });
+ *
+ * A plain string works too: ipAdminConfirm('Are you sure?').
+ * Escape and Cancel resolve false. Falls back to window.confirm() where <dialog> isn't supported.
+ */
+function ipAdminConfirm(options) {
+    "use strict";
+    if (typeof (options) === 'string') {
+        options = {text: options};
+    }
+    options = options || {};
+    var t = function (key) {
+        if (typeof (ipAdminNotifyTranslations) !== 'undefined' && ipAdminNotifyTranslations[key]) {
+            return ipAdminNotifyTranslations[key];
+        }
+        return key;
+    };
+    var text = options.text || '';
+
+    var dialog = document.createElement('dialog');
+    if (typeof (dialog.showModal) !== 'function') {
+        return Promise.resolve(window.confirm(text));
+    }
+
+    return new Promise(function (resolve) {
+        var $dialog = $(dialog).addClass('ipAdminConfirm').attr('aria-modal', 'true');
+        var id = 'ipAdminConfirm' + (new Date()).getTime();
+        if (options.title) {
+            $dialog.append($('<h2 class="_title"></h2>').attr('id', id + 'Title').text(options.title));
+            $dialog.attr('aria-labelledby', id + 'Title');
+        }
+        $dialog.append($('<p class="_text"></p>').attr('id', id + 'Text').text(text));
+        $dialog.attr('aria-describedby', id + 'Text');
+
+        var $cancel = $('<button type="button" class="btn btn-default _cancel"></button>').text(options.cancelLabel || t('Cancel'));
+        var $confirm = $('<button type="button" class="btn _confirm"></button>')
+            .addClass(options.danger ? 'btn-danger' : 'btn-primary')
+            .text(options.confirmLabel || t('OK'));
+        $dialog.append($('<div class="_actions"></div>').append($cancel, $confirm));
+
+        var done = false;
+        var finish = function (result) {
+            if (done) {
+                return;
+            }
+            done = true;
+            if (dialog.open) {
+                dialog.close();
+            }
+            $dialog.remove();
+            resolve(result);
+        };
+        $cancel.on('click', function () {
+            finish(false);
+        });
+        $confirm.on('click', function () {
+            finish(true);
+        });
+        dialog.addEventListener('cancel', function (e) { // Escape
+            e.preventDefault();
+            finish(false);
+        });
+        // Keep keys and clicks inside the dialog away from Bootstrap modals and page shortcuts behind it.
+        dialog.addEventListener('keydown', function (e) {
+            e.stopPropagation();
+        });
+        dialog.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        // Open on the next tick: when Escape triggered this (e.g. closing an edited dialog), the same key press
+        // would otherwise also cancel the new dialog straight away.
+        ipAdminConfirm.pending++;
+        setTimeout(function () {
+            ipAdminConfirm.pending--;
+            // Inside an open Bootstrap modal, so the modal's focus trap doesn't pull focus back out of the dialog.
+            var $openModal = $('.modal.in').last();
+            ($openModal.length ? $openModal : $('body')).append($dialog);
+            dialog.showModal();
+            (options.danger ? $cancel : $confirm).trigger('focus');
+        }, 0);
+    });
+}
+
+ipAdminConfirm.pending = 0;
+
+ipAdminConfirm.isOpen = function () {
+    "use strict";
+    return ipAdminConfirm.pending > 0 || $('dialog.ipAdminConfirm[open]').length > 0;
+};
+
+/**
+ * Ask before throwing away unsaved changes. Returns a Promise: true if it is fine to continue.
  */
 function ipAdminConfirmDiscard() {
     "use strict";
-    var text = 'You have unsaved changes. Leave without saving?';
-    if (typeof (ipAdminNotifyTranslations) !== 'undefined' && ipAdminNotifyTranslations[text]) {
-        text = ipAdminNotifyTranslations[text];
-    }
-    return confirm(text);
+    var t = function (key) {
+        if (typeof (ipAdminNotifyTranslations) !== 'undefined' && ipAdminNotifyTranslations[key]) {
+            return ipAdminNotifyTranslations[key];
+        }
+        return key;
+    };
+    return ipAdminConfirm({
+        title: t('Unsaved changes'),
+        text: t('You have unsaved changes. Leave without saving?'),
+        confirmLabel: t('Leave without saving'),
+        cancelLabel: t('Keep editing'),
+        danger: true
+    });
 }
 
 // Ask before a dialog with edited fields is closed by ×, Cancel, Escape or a click outside it.
@@ -197,6 +305,9 @@ $(document).on('input change', '.modal input, .modal select, .modal textarea', f
     "use strict";
     var markSaving = function (e) {
         var $target = $(e.target);
+        if ($target.closest('.ipAdminConfirm').length) {
+            return;
+        }
         if (e.type === 'click') {
             $target = $target.closest('.ipsConfirm, .ipsSave, .ipsAdd, .btn-primary');
         }
@@ -213,11 +324,17 @@ $(document).on('hide.bs.modal', '.modal', function (e) {
     if (e.target !== this || !$modal.data('ipModalDirty') || $modal.data('ipModalSaving')) {
         return;
     }
-    if (ipAdminConfirmDiscard()) {
-        $modal.data('ipModalDirty', false);
-    } else {
-        e.preventDefault();
+    // Keep the dialog open while we ask; close it ourselves if the user chooses to discard.
+    e.preventDefault();
+    if (ipAdminConfirm.isOpen()) {
+        return;
     }
+    ipAdminConfirmDiscard().then(function (discard) {
+        if (discard) {
+            $modal.data('ipModalDirty', false);
+            $modal.modal('hide');
+        }
+    });
 });
 
 /**

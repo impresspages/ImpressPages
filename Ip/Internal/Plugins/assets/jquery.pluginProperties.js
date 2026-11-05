@@ -68,9 +68,16 @@
         });
 
         $this.find('.ipsDelete').on('click', function (e) {
-            if (confirm(ipTranslationAreYouSure)) {
-                $this.trigger('delete.ipPlugins');
-            }
+            ipAdminConfirm({
+                title: ipTranslationRemovePluginTitle,
+                text: ipTranslationAreYouSure,
+                confirmLabel: ipTranslationRemovePlugin,
+                danger: true
+            }).then(function (confirmed) {
+                if (confirmed) {
+                    $this.trigger('delete.ipPlugins');
+                }
+            });
         });
 
 

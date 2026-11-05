@@ -2,9 +2,18 @@
 $('.ipsGrid').on('init.ipGrid', function () {
     "use strict";
     $('.ipsClearAll').on('click', function (e) {
-        if (!confirm(clearConfirmTranslation)) {
-            return;
-        }
+        ipAdminConfirm({
+            text: clearConfirmTranslation,
+            confirmLabel: clearConfirmButtonTranslation,
+            danger: true
+        }).then(function (confirmed) {
+            if (confirmed) {
+                clearLog();
+            }
+        });
+    });
+
+    var clearLog = function () {
         var postData = {
             'aa': 'Log.clear',
             'securityToken': ip.securityToken
@@ -22,7 +31,7 @@ $('.ipsGrid').on('init.ipGrid', function () {
                 ipAdminNotify.ajaxError(response);
             }
         });
-    });
+    };
 
 });
 

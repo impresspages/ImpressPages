@@ -8,4 +8,3 @@
     <button class="ipsSave btn btn-default" role="button"><?php _e('Save', 'Ip-admin'); ?></button>
 </div>
 <?php echo $form->render(); ?>
-<button class="ipsSave btn btn-default" role="button"><?php _e('Save', 'Ip-admin'); ?></button>

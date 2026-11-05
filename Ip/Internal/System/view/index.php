@@ -18,6 +18,8 @@
             'Ip-admin'
         ), '<b>' . $oldUrl . '</b>', '<b>' . $newUrl . '</b>') ?></p>
         <form method="post" action="<?php echo escAttr(ipConfig()->baseUrl()); ?>" class="ipsUpdateLinksForm"
+              data-confirm-title="<?php echo escAttr(__('Update links', 'Ip-admin', false)); ?>"
+              data-confirm-button="<?php echo escAttr(__('Update links', 'Ip-admin', false)); ?>"
               data-confirm="<?php echo escAttr(sprintf(__('Replace every link to %s with %s in all page content? This can\'t be undone.', 'Ip-admin', false), $oldUrl, $newUrl)); ?>">
             <input type="hidden" name="aa" value="System.updateLinks" />
             <input type="hidden" name="securityToken" value="<?php echo escAttr(ipSecurityToken()); ?>" />

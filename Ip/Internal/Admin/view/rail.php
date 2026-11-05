@@ -8,7 +8,7 @@
 ?>
 <nav class="ipAdminRail ipsAdminRail" aria-label="<?php _e('Administration', 'Ip-admin'); ?>">
     <div class="_inner">
-        <a class="_brand" href="<?php echo escAttr(ipActionUrl(array('aa' => 'Pages.index'))); ?>">
+        <a class="_brand" href="<?php echo escAttr(ipActionUrl(array('aa' => 'Pages.index'))); ?>" aria-label="<?php echo escAttr($siteName); ?>">
             <span class="_mark" aria-hidden="true">iP</span>
             <span class="_label"><?php echo esc($siteName); ?></span>
         </a>
