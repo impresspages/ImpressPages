@@ -135,8 +135,6 @@ class NetHelper
                     }
                 } while ($code && --$mr);
 
-                curl_close($rch);
-
                 if (!$mr) {
                     if ($maxredirect === null) {
                         trigger_error('Too many redirects.', E_USER_WARNING);

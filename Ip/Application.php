@@ -250,9 +250,9 @@ class Application
             if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
                 if (ipConfig()->get('rewritesDisabled')) {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin', null, null, 302);
                 } else {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin', null, null, 302);
                 }
             }
 
