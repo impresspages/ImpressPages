@@ -101,7 +101,7 @@ class AdminController extends \Ip\Controller
         Service::updateLinks();
         $_SESSION['Ip']['notes'][] = __('Links have been successfully updated.', 'Ip-admin');
 
-        return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')));
+        return new \Ip\Response\Redirect(ipActionUrl(array('aa' => 'System')), null, null, 303);
     }
 
     protected function indexUrl()

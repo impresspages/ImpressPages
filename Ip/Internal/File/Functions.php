@@ -148,7 +148,6 @@ class Functions
         if (function_exists('finfo_file')) {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mtype = finfo_file($finfo, $file_path);
-            finfo_close($finfo);
         } elseif (function_exists('mime_content_type')) {
             $mtype = mime_content_type($file_path);
         } else {
