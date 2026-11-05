@@ -1347,3 +1347,54 @@ dialog.ipAdminConfirm ._confirm.btn-danger:focus {
     right: 0;
     width: auto;
 }
+
+/* Phones: stack the Pages and Plugins columns instead of a sideways-scrolling strip,
+   let wide tables scroll inside their own box, and fit the theme preview to the screen. */
+@media (max-width: 760px) {
+    .ip .ipsAdminPagesContainer,
+    .ip .ipsModulePluginsContainer {
+        width: auto !important;
+        height: auto !important;
+    }
+    .ip .ipsAdminPagesContainer > ._container,
+    .ip .ipsModulePluginsContainer > ._container {
+        float: none;
+        width: auto !important;
+        height: auto !important;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid #eaecf0;
+    }
+    .ip .ipAdminPages,
+    .ip .ipModulePlugins {
+        overflow-x: hidden;
+    }
+    .ip .ipModuleAdministrators {
+        padding-left: 0;
+    }
+    .ip .ipModuleAdministrators ._menu {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: -20px -20px 16px;
+        border-bottom: 1px solid #eaecf0;
+    }
+}
+
+/* Wide tables (Languages, Log, Email log) scroll inside their own box instead of widening the page */
+.ip .ipModuleGrid {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Design → Theme: the selected theme and the theme list sit side by side only when there is room */
+@media (max-width: 1199px) {
+    .ip .ipModuleDesign ._selectedTheme {
+        float: none;
+        width: auto;
+        max-width: 448px;
+    }
+    .ip .ipModuleDesign ._themes {
+        margin-left: 0;
+    }
+}
