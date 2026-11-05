@@ -5,5 +5,11 @@
     <?php if ($advancedForm) { ?>
         <p><a href="#" class="ipsAdvancedOptions"><?php echo __('Advanced options', 'Ip-admin') ?></a></p>
         <?php echo $advancedForm->render() ?>
+        <div class="ipsSecurityHeadersCheck hidden">
+            <h2><?php _e('What your home page sends now', 'Ip-admin'); ?></h2>
+            <p class="help-block"><?php _e('Checked from your browser as a visitor, so this includes headers your web server adds.', 'Ip-admin'); ?></p>
+            <div class="ipsSecurityHeadersResult" aria-live="polite"></div>
+            <button type="button" class="btn btn-default btn-sm ipsSecurityHeadersRecheck"><i class="fa fa-refresh" aria-hidden="true"></i> <?php _e('Check again', 'Ip-admin'); ?></button>
+        </div>
     <?php } ?>
 </div>

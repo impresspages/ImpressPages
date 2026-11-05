@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var $autoSave = $('.ipsAutoSave');
     $autoSave.on('change', IpConfig.autoSaveValue);
-    $autoSave.on('keyup', IpConfig.autoSaveValueDelayed);
+    $autoSave.on('keyup input', IpConfig.autoSaveValueDelayed); // input: paste with the mouse, autofill
 
     var $configForm = $('.ipsConfigForm');
     $configForm.validator(validatorConfigAdmin);
@@ -36,7 +36,8 @@ var IpConfig = new function () {
         $('#removeOldRevisions').on('click', function(){$('.form-group.name-removeOldRevisionsDays').toggleClass('hidden')});
 
         $('.ipsAdvancedOptions').on('click', function() {
-            $('.ipsConfigFormAdvanced').toggleClass('hidden');
+            $('.ipsConfigFormAdvanced, .ipsSecurityHeadersCheck').toggleClass('hidden');
+            $(document).trigger('ipSecurityHeadersCheck');
 
         });
 
@@ -44,7 +45,10 @@ var IpConfig = new function () {
         var showPartFromHash = function () {
             var advanced = window.location.hash === '#advanced';
             $('.ipsConfigForm').not('.ipsConfigFormAdvanced').toggleClass('hidden', advanced);
-            $('.ipsConfigFormAdvanced').toggleClass('hidden', !advanced);
+            $('.ipsConfigFormAdvanced, .ipsSecurityHeadersCheck').toggleClass('hidden', !advanced);
+            if (advanced) {
+                $(document).trigger('ipSecurityHeadersCheck');
+            }
             $('.ipsAdvancedOptions').closest('p').addClass('hidden');
             var $title = $('.ipsConfigTitle');
             if (!$title.data('generalTitle')) {
