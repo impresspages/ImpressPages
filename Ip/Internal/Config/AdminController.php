@@ -15,6 +15,27 @@ class AdminController extends \Ip\Controller
 
 
         ipAddJs('Ip/Internal/Config/assets/config.js');
+        if (ipAdminPermission('Config advanced')) {
+            ipAddJs('Ip/Internal/Config/assets/securityHeadersCheck.js');
+            ipAddJsVariable('ipSecurityHeadersCheck', array(
+                'url' => ipConfig()->baseUrl(),
+                'https' => ipRequest()->isHttps(),
+                'text' => array(
+                    'header' => __('Header', 'Ip-admin', false),
+                    'value' => __('Value', 'Ip-admin', false),
+                    'status' => __('Status', 'Ip-admin', false),
+                    'sent' => __('Sent', 'Ip-admin', false),
+                    'testing' => __('Testing (report-only)', 'Ip-admin', false),
+                    'needsHttps' => __('Needs HTTPS', 'Ip-admin', false),
+                    'missing' => __('Missing', 'Ip-admin', false),
+                    'optional' => __('Not set (optional)', 'Ip-admin', false),
+                    'hidden' => __('Hidden', 'Ip-admin', false),
+                    'revealsPhp' => __('Reveals the PHP version', 'Ip-admin', false),
+                    'checking' => __('Checking…', 'Ip-admin', false),
+                    'failed' => __('Couldn\'t load the home page to check it.', 'Ip-admin', false),
+                ),
+            ));
+        }
         ipAddCss('Ip/Internal/Config/assets/config.css');
 
         $form = Forms::getForm();
@@ -56,7 +77,8 @@ class AdminController extends \Ip\Controller
             ))
             &&
             !(
-                in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash'))
+                in_array($fieldName, array('automaticCron', 'cronPassword', 'removeOldRevisions', 'removeOldRevisionsDays', 'removeOldEmails', 'removeOldEmailsDays', 'allowAnonymousUploads', 'trailingSlash',
+                    'securityNosniff', 'securityFrameOptions', 'securityReferrerPolicy', 'securityPermissionsPolicy', 'securityHsts', 'securityHstsSubdomains', 'securityCsp', 'securityCspReportOnly', 'securityHidePoweredBy'))
                 &&
                 ipAdminPermission('Config advanced')
             )
@@ -66,6 +88,12 @@ class AdminController extends \Ip\Controller
 
 
 
+
+        if ($fieldName === 'securityFrameOptions' && !array_key_exists((string)$value, \Ip\Internal\Security\Model::frameOptions())
+            || $fieldName === 'securityReferrerPolicy' && !array_key_exists((string)$value, \Ip\Internal\Security\Model::referrerPolicies())
+        ) {
+            throw new \Exception('Unknown config value');
+        }
 
         $emailValidator = new \Ip\Form\Validator\Email();
         $error = $emailValidator->getError(array('value' => $value), 'value', \Ip\Form::ENVIRONMENT_ADMIN);
