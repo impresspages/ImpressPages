@@ -2,9 +2,18 @@
 
 This is a community fork of [ImpressPages](https://github.com/impresspages/ImpressPages), whose last release (5.0.3) dates from 2017 and does not run on modern PHP. The `php8` branch brings it up to date while keeping the existing API, themes and plugins working.
 
-**Current version:** 5.2.0.
+**Current version:** 5.3.0.
 
 **Requirements:** PHP 8.1 or newer (tested on PHP 8.5) and MySQL or MariaDB.
+
+### What changed in 5.3.0
+
+- Security headers in the core, set in Settings → Advanced → Security headers: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy` and `Permissions-Policy` are sent by default and `X-Powered-By` is removed; HTTPS enforcement (HSTS) and a Content Security Policy for public pages are optional. The same screen checks which headers the home page actually sends.
+- Redirects send the status code they're given (they always sent 301). Login, logout and other session-dependent redirects use 302, so browsers don't cache them; a second "Log out" could be answered from the cache.
+- PHP 8.5: removed `finfo_close()` and `curl_close()`, which are deprecated; with PHP errors displayed, the notice broke Form widget uploads.
+- Settings also saves text pasted with the mouse without leaving the field.
+
+A site that is deliberately shown inside a frame on another domain needs **Who may show this website in a frame** set to "Anyone" after updating.
 
 ### What changed in 5.2.0
 
