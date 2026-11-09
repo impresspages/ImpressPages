@@ -1,5 +1,5 @@
 <div class="loginTitle">
-    <h1><?php _e('Login', 'Ip-admin'); ?></h1>
+    <h1><?php _e('Log in', 'Ip-admin'); ?></h1>
 </div>
 <div class="ip loginContent">
     <?php echo $loginForm->render(); ?>

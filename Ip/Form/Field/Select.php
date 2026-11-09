@@ -55,7 +55,7 @@ class Select extends \Ip\Form\Field
                 $selected = '';
             }
 
-            $options .= '<option' . $selected . ' value="' . htmlspecialchars($value[0]) . '">' . htmlspecialchars(
+            $options .= '<option' . $selected . ' value="' . htmlspecialchars((string)$value[0]) . '">' . htmlspecialchars(
                     $value[1]
                 ) . '</option>' . "\n";
         }

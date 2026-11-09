@@ -11,16 +11,14 @@ namespace Ip\Exception;
  */
 class Db extends \PDOException
 {
-    public function __construct($message = "", $code = 0, \PDOException $previous = null)
+    public function __construct($message = "", $code = 0, ?\PDOException $previous = null)
     {
-        $this->message = $message;
+        // PDO error codes are SQLSTATE strings, so the parent gets 0 and the real code is copied below.
+        parent::__construct($previous ? $previous->getMessage() : $message, 0, $previous);
         if ($previous) {
-            $this->message = $previous->message;
-            $this->code = $previous->code;
-            $this->file = $previous->file;
-            $this->line = $previous->line;
-            $this->trace = $previous->getTrace();
-            $this->previous = $previous;
+            $this->code = $previous->getCode();
+            $this->file = $previous->getFile();
+            $this->line = $previous->getLine();
         }
 
         $backtrace = debug_backtrace();
@@ -31,7 +29,7 @@ class Db extends \PDOException
 
         // We usually want exception to show error in the code that uses Db class
         foreach ($backtrace as $info) {
-            if (substr($info['file'], -$pathLength) != $ipDbPath) {
+            if (isset($info['file']) && substr($info['file'], -$pathLength) != $ipDbPath) {
                 $this->file = $info['file'];
                 $this->line = $info['line'];
                 break;

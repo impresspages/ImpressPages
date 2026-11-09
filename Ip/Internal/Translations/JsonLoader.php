@@ -2,10 +2,10 @@
 
 namespace Ip\Internal\Translations;
 
-use Zend\I18n\Translator\Loader\FileLoaderInterface;
-use Zend\I18n\Exception;
-use Zend\I18n\Translator\Plural\Rule as PluralRule;
-use Zend\I18n\Translator\TextDomain;
+use Laminas\I18n\Translator\Loader\FileLoaderInterface;
+use Laminas\I18n\Exception;
+use Laminas\I18n\Translator\Plural\Rule as PluralRule;
+use Laminas\I18n\Translator\TextDomain;
 
 /**
  * PHP array loader.
@@ -45,7 +45,7 @@ class JsonLoader implements FileLoaderInterface
 
         $textDomain = new TextDomain($messages);
 
-        if (array_key_exists('', $textDomain)) {
+        if ($textDomain->offsetExists('')) {
             if (isset($textDomain['']['plural_forms'])) {
                 $textDomain->setPluralRule(
                     PluralRule::fromString($textDomain['']['plural_forms'])

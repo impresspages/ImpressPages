@@ -3,6 +3,7 @@
         <div class="modal-dialog ipsDialog">
             <div class="modal-content">
                 <div class="modal-header ipsDragHandler">
+                    <button type="button" class="close ipsClose" aria-label="<?php _e('Close', 'Ip-admin'); ?>" title="<?php _e('Close', 'Ip-admin'); ?>">&times;</button>
                     <h4 class="modal-title"><i class="fa fa-cogs"></i> <?php _e('Theme options', 'Ip-admin'); ?></h4>
                 </div>
                 <div class="_body ipsBody">

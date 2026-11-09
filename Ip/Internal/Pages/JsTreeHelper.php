@@ -69,7 +69,7 @@ class JsTreeHelper
                 'title' => $page['title'] . '',
                 'icon' => $icon
             ); //transform null into empty string. Null break JStree into infinite loop
-            $pageData['text'] = htmlspecialchars($page['title']);
+            $pageData['text'] = htmlspecialchars((string)$page['title']);
             $answer[] = $pageData;
         }
 

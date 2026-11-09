@@ -8,6 +8,9 @@ namespace Ip\Internal\Grid\Model;
 
 class Table extends \Ip\Internal\Grid\Model
 {
+    protected $statusVariables;
+    protected $actions;
+
 
     /**
      * @var Config

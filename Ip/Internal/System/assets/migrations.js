@@ -19,7 +19,7 @@ function runMigrations(url) {
         type: 'GET',
         success: migrationResponse,
         error: function (response) {
-            alert(response.responseText);
+            ipAdminNotify.ajaxError(response);
         }
     });
 }

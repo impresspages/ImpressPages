@@ -122,7 +122,7 @@ class Fieldset
     {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
-            $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . escAttr($attributeValue) . '"';
+            $answer .= ' ' . htmlspecialchars((string)$attributeKey) . '="' . escAttr($attributeValue) . '"';
         }
 
         return $answer;

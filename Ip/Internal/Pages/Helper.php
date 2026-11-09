@@ -184,7 +184,7 @@ class Helper
             ));
         $form->addField($field);
 
-        $fieldset = new \Ip\Form\Fieldset(__('Seo', 'Ip-admin', false));
+        $fieldset = new \Ip\Form\Fieldset(__('SEO', 'Ip-admin', false));
         $form->addFieldset($fieldset);
 
         $field = new \Ip\Form\Field\Text(

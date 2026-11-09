@@ -10,6 +10,8 @@ namespace Ip\Internal\InlineManagement\Entity;
 
 class Logo
 {
+    protected $image;
+
     const TYPE_TEXT = 'text';
     const TYPE_IMAGE = 'image';
 
@@ -34,6 +36,9 @@ class Logo
     {
         if (is_string($data)) {
             $data = $this->parseStr($data);
+        }
+        if (!is_array($data)) {
+            $data = [];
         }
 
         if (!isset($data['type'])) {

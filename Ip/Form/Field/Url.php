@@ -37,9 +37,9 @@ class Url extends Field
     <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />
+        ) . ' type="text" value="' . htmlspecialchars((string)$this->getValue()) . '" />
     ' . $browseButton . '
 </div>
 ';

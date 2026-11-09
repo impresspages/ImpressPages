@@ -8,11 +8,29 @@ var ipDesignOptionsOpen = function (e) {
     $('.ipModuleDesign .ipsPreview .ipsFrame').attr('src', ip.baseUrl + '?ipDesignPreview=1');
     $('.ipModuleDesign .ipsPreview').removeClass('hidden');
     $('.ipModuleDesign .ipsPreviewClose').off().on('click', ipDesignOptionsClose);
+    $(document).off('keydown.ipDesignOptions').on('keydown.ipDesignOptions', function (e) {
+        if (e.keyCode === 27 && !$('.ipModuleDesign .ipsPreview').hasClass('hidden')) {
+            ipDesignOptionsClose(e);
+        }
+    });
 };
 
-var ipDesignOptionsClose = function (e) {
+var ipDesignOptionsClose = function (e, alreadyConfirmed) {
     "use strict";
     e.preventDefault();
+
+    if (!alreadyConfirmed) {
+        // The options box lives in the preview frame: let it ask about unsaved changes, then it calls us back.
+        var frameWindow = $('.ipModuleDesign .ipsPreview .ipsFrame').get(0).contentWindow;
+        try {
+            if (frameWindow.ipDesign && typeof (frameWindow.ipDesign.close) === 'function') {
+                frameWindow.ipDesign.close(e);
+                return;
+            }
+        } catch (error) {
+            // preview not loaded yet, just close
+        }
+    }
 
     var bodyClassToHideScroll = 'modal-open';
 

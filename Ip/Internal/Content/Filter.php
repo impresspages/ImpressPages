@@ -248,7 +248,8 @@ class Filter
         if (!$canonicalUrl) {
             //if canonicalUrl is not set yet
             if (ipGetOption('Config.trailingSlash', 1) && ipContent()->getCurrentPage()) {
-                if (substr($relativePath, -1) != '/') {
+                // The site root has no path to add a slash to; doing so produced "https://example.com//".
+                if ($relativePath !== '' && substr($relativePath, -1) != '/') {
                     $canonicalUrl = ipConfig()->baseUrl() . $relativePath;
                     if (substr($canonicalUrl, -1) != '/') {
                         $canonicalUrl .= '/';

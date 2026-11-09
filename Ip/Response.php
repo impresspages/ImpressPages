@@ -217,10 +217,15 @@ class Response
     public function send()
     {
         $headers = $this->getHeaders();
+        $statusLineSent = false;
         foreach ($headers as $header) {
             header($header);
+            if (stripos($header, 'HTTP/') === 0) {
+                $statusLineSent = true;
+            }
         }
-        if ($this->getStatusCode()) {
+        // A raw "HTTP/1.x NNN" header already sets the status; PHP 8 warns if it is set again.
+        if ($this->getStatusCode() && !$statusLineSent) {
             if (function_exists('http_response_code')) {
                 http_response_code($this->getStatusCode());
             } else {

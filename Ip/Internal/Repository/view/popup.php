@@ -37,7 +37,7 @@
                 <div class="_repositoryActions ipsRepositoryActions hidden">
                     <div class="_container">
                         <span class="_title"><?php _e('Selected:', 'Ip-admin'); ?> <strong class="ipsSelectionCount"></strong></span>
-                        <button class="btn btn-primary btn-sm ipsSelectionConfirm"><?php _e('Confirm', 'Ip-admin'); ?></button>
+                        <button class="btn btn-primary btn-sm ipsSelectionConfirm"><?php _e('Select', 'Ip-admin'); ?></button>
                         <button class="btn btn-default btn-sm ipsSelectionCancel"><?php _e('Cancel', 'Ip-admin'); ?></button>
                         <button class="btn btn-danger btn-sm ipsSelectionDelete"><?php _e('Delete', 'Ip-admin'); ?><i class="fa fa-fw fa-trash-o"></i></button>
                     </div>

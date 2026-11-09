@@ -10,6 +10,8 @@ namespace Ip\Internal\InlineManagement\Entity;
 
 class Image
 {
+    protected $image;
+
     private $imageOrig;
     private $x1;
     private $y1;

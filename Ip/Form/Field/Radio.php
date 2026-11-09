@@ -72,8 +72,8 @@ class Radio extends Field
                     $this->getName()
                 ) . '" type="radio" ' . $this->getValidationAttributesStr(
                     $doctype
-                ) . $checked . ' value="' . htmlspecialchars($value[0]) . '" />
-                    ' . htmlspecialchars($value[1]) . '
+                ) . $checked . ' value="' . htmlspecialchars((string)$value[0]) . '" />
+                    ' . htmlspecialchars((string)$value[1]) . '
                 </label>
             </div>
             ';

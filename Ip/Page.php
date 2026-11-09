@@ -11,6 +11,7 @@ namespace Ip;
  * @package Ip
  */
 
+#[\AllowDynamicProperties]
 class Page
 {
     /** int - unique number of element. */
@@ -57,13 +58,18 @@ class Page
     protected $isSecured = false;
     protected $isBlank = false;
 
+    protected $pageOrder;
+    protected $type;
+    protected $isDeleted;
+    protected $deletedAt;
+
     /**
      * @param int|array $id
      * @throws \Ip\Exception
      */
     public function __construct($id)
     {
-        if (is_int($id) || ctype_digit($id)) {
+        if (is_int($id) || (is_string($id) && ctype_digit($id))) {
             //select by page id from the database
             $page = ipDb()->selectRow('page', '*', array('id' => $id, 'isDeleted' => 0));
             if (!$page) {

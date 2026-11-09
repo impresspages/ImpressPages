@@ -26,8 +26,8 @@
                         <ul class="dropdown-menu">
                             <?php foreach ($languages as $key => $language) { ?>
                                     <li<?php if ($key == $currentLanguage) { echo ' class="active"'; } ?>>
-                                        <a href="index.php?step=<?php echo !empty($_GET['step']) ? ((int)$_GET['step']) : \Ip\Internal\Install\Helper::$firstStep; ?>&amp;lang=<?php echo htmlspecialchars($key); ?>">
-                                            <?php echo htmlspecialchars($language); ?>
+                                        <a href="index.php?step=<?php echo !empty($_GET['step']) ? ((int)$_GET['step']) : \Ip\Internal\Install\Helper::$firstStep; ?>&amp;lang=<?php echo htmlspecialchars((string)$key); ?>">
+                                            <?php echo htmlspecialchars((string)$language); ?>
                                         </a>
                                     </li>
                             <?php } ?>
@@ -51,7 +51,6 @@
         </div>
     </div>
 </div>
-<iframe style="width:0;height:0;border:none;" border="0" src="http://www.impresspages.org/installationscript2/?step=<?php echo !empty($_GET['step']) && $_GET['step'] >=\Ip\Internal\Install\Helper::$firstStep ? (int)$_GET['step'] : \Ip\Internal\Install\Helper::$firstStep; ?>"></iframe>
 
 <script type="text/javascript" src="<?php echo ipFileUrl('Ip/Internal/Install/assets/js/jquery.js') ?>"></script>
 <script type="text/javascript" src="<?php echo ipFileUrl('Ip/Internal/Install/assets/js/bootstrap.js') ?>"></script>

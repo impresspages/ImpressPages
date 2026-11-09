@@ -14,6 +14,9 @@ class AdminController extends \Ip\Controller
     public function index()
     {
         ipAddJsVariable('ipTranslationAreYouSure', __('Are you sure?', 'Ip-admin', false));
+        ipAddJsVariable('ipTranslationDeletePageTitle', __('Delete page', 'Ip-admin', false));
+        ipAddJsVariable('ipTranslationDeletePage', __('Move this page and its subpages to the trash? You can restore them from the Trash on the System screen.', 'Ip-admin', false));
+        ipAddJsVariable('ipTranslationDelete', __('Delete', 'Ip-admin', false));
 
         ipAddJs('Ip/Internal/Core/assets/js/angular.js');
         ipAddJs('Ip/Internal/Pages/assets/js/pages.js');

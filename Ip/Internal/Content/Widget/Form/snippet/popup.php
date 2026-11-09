@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-new ipsFieldAdd"><?php _e('Add new', 'Ip-admin'); ?></button>
+                            <button type="button" class="btn btn-new ipsFieldAdd"><?php _e('Add field', 'Ip-admin'); ?></button>
                         </div>
 
                         <div class="tab-pane" id="ipWidgetFormPopup-options">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin'); ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin'); ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Save', 'Ip-admin'); ?></button>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin'); ?></button>
-                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin'); ?></button>
+                    <button type="button" class="btn btn-primary ipsConfirm"><?php _e('Save', 'Ip-admin'); ?></button>
                 </div>
             </div>
         </div>

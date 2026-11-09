@@ -43,11 +43,19 @@
 
 
         ipInitForms();
+        $this.find('form').on('ipSubmit', function () {
+            ipAdminNotify.saving();
+        });
         $this.find('form').on('ipSubmitResponse', function (e, response) {
             if (response.result) {
                 //plugin has been successfully updated
                 $this.trigger('update.ipPlugins');
                 $this.find('.ipsSave').addClass('btn-default').removeClass('btn-primary');
+                ipAdminNotify.saved(ipAdminNotifyTranslations['Plugin settings saved']);
+            } else if (response.errors) {
+                ipAdminNotify.hide();
+            } else {
+                ipAdminNotify.error();
             }
         });
 
@@ -60,9 +68,16 @@
         });
 
         $this.find('.ipsDelete').on('click', function (e) {
-            if (confirm(ipTranslationAreYouSure)) {
-                $this.trigger('delete.ipPlugins');
-            }
+            ipAdminConfirm({
+                title: ipTranslationRemovePluginTitle,
+                text: ipTranslationAreYouSure,
+                confirmLabel: ipTranslationRemovePlugin,
+                danger: true
+            }).then(function (confirmed) {
+                if (confirmed) {
+                    $this.trigger('delete.ipPlugins');
+                }
+            });
         });
 
 

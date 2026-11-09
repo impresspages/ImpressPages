@@ -7,6 +7,8 @@
 namespace Ip\Internal\Design;
 
 
+// theme.json may carry any keys; the constructor copies them all onto the object.
+#[\AllowDynamicProperties]
 class Theme
 {
     const PARAMETERS_FILE = 'parameters.php';

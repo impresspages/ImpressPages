@@ -3,7 +3,7 @@
     <div class="ipsCurErrors"></div>
     <div class="ipsBrowseButtonWrapper _browseButtonWrapper">
         <span class="_label _dragdropNotice"><?php _e('Drag&drop files here or click a button to upload.', 'Ip-admin'); ?></span>
-        <a href="#" class="btn btn-primary" id="ipsModuleRepositoryUploadButton"><?php _e('Add new', 'Ip-admin'); ?></a>
+        <a href="#" class="btn btn-primary" id="ipsModuleRepositoryUploadButton"><?php _e('Upload files', 'Ip-admin'); ?></a>
     </div>
     <div class="_browseButtonWrapper">
         <span class="_label"><?php _e('Need more images? Browse and choose from thousands of them.', 'Ip-admin'); ?></span>

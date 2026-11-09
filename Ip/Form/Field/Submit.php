@@ -25,9 +25,9 @@ class Submit extends Field
         return '<button ' . $this->getAttributesStr($doctype) . ' class="btn btn-default ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="submit">' . htmlspecialchars($this->getValue()) . '</button>';
+        ) . ' type="submit">' . htmlspecialchars((string)$this->getValue()) . '</button>';
     }
 
 

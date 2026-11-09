@@ -899,17 +899,17 @@ class HnCaptcha
                 if($this->debug) echo "\n<br>-Captcha-Debug: Fill background with noise: (".$this->nb_noise.")";
                 for($i=0; $i < $this->nb_noise; $i++)
                 {
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $size    = intval(rand((int)($this->minsize / 2.3), (int)($this->maxsize / 1.7)));
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $angle    = intval(rand(0, 360));
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $x        = intval(rand(0, $this->lx));
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $y        = intval(rand(0, (int)($this->ly - ($size / 5))));
                     $this->random_color(160, 224);
                     $color    = $func2($image, $this->r, $this->g, $this->b);
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $text    = chr(intval(rand(45,250)));
                     @ImageTTFText($image, $size, $angle, $x, $y, $color, $this->change_TTF(), $text);
                 }
@@ -938,11 +938,11 @@ class HnCaptcha
             for($i=0, $x = intval(rand($this->minsize,$this->maxsize)); $i < $this->chars; $i++)
             {
                 $text    = strtoupper(substr($private_key, $i, 1));
-                srand((double)microtime()*1000000);
+                srand((float)microtime()*1000000);
                 $angle    = intval(rand(($this->maxrotation * -1), $this->maxrotation));
-                srand((double)microtime()*1000000);
+                srand((float)microtime()*1000000);
                 $size    = intval(rand($this->minsize, $this->maxsize));
-                srand((double)microtime()*1000000);
+                srand((float)microtime()*1000000);
                 $y        = intval(rand((int)($size * 1.5), (int)($this->ly - ($size / 7))));
                 $this->random_color(0, 127);
                 $color    =  $func2($image, $this->r, $this->g, $this->b);
@@ -982,11 +982,11 @@ class HnCaptcha
         /** @private **/
         private function random_color($min,$max)
         {
-            srand((double)microtime() * 1000000);
+            srand((float)microtime() * 1000000);
             $this->r = intval(rand($min,$max));
-            srand((double)microtime() * 1000000);
+            srand((float)microtime() * 1000000);
             $this->g = intval(rand($min,$max));
-            srand((double)microtime() * 1000000);
+            srand((float)microtime() * 1000000);
             $this->b = intval(rand($min,$max));
             //echo " (".$this->r."-".$this->g."-".$this->b.") ";
         }
@@ -1088,12 +1088,12 @@ class HnCaptcha
                 $b = '';
                 for($i = 1; $i < $this->secretposition; $i++)
                 {
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $a .= $s[intval(rand(1,$this->maxtry))];
                 }
                 for($i = 0; $i < (32 - $this->secretposition); $i++)
                 {
-                    srand((double)microtime()*1000000);
+                    srand((float)microtime()*1000000);
                     $b .= $s[intval(rand(1,$this->maxtry))];
                 }
                 return $a.$this->current_try.$b;

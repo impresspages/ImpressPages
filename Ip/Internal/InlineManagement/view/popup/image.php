@@ -17,7 +17,7 @@
                 </div>
             <?php } ?>
             <div class="form-group pull-left">
-                <button class="btn btn-primary ipsConfirm"><?php _e('Confirm', 'Ip-admin'); ?></button>
+                <button class="btn btn-primary ipsConfirm"><?php _e('Save', 'Ip-admin'); ?></button>
                 <button class="btn btn-default ipsCancel"><?php _e('Cancel', 'Ip-admin'); ?></button>
             </div>
         </div>

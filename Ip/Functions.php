@@ -388,7 +388,7 @@ function ipDb()
  */
 function esc($string)
 {
-    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string)$string, ENT_QUOTES, 'UTF-8');
 }
 
 /**
@@ -399,7 +399,7 @@ function esc($string)
  */
 function escTextarea($value)
 {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
 
 /**
@@ -417,7 +417,7 @@ function escTextarea($value)
  */
 function escAttr($value)
 {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
 
 /**
@@ -453,7 +453,7 @@ function __($text, $domain, $esc = 'html')
  * @param callable $closure this code will be executed in given language.
  * @return mixed old language or the result of closure.
  */
-function ipSetTranslationLanguage($languageCode, \Closure $closure = null)
+function ipSetTranslationLanguage($languageCode, ?\Closure $closure = null)
 {
     if ($closure) {
         $oldLanguage = ipSetTranslationLanguage($languageCode);

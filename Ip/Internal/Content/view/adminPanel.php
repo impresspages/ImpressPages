@@ -52,8 +52,8 @@
             </div>
         <div class="_widgets ipsWidgetList">
 
-            <a href="#" class="_scrollButton _left ipsLeft"></a>
-            <a href="#" class="_scrollButton _right ipsRight"></a>
+            <a href="#" class="_scrollButton _left ipsLeft" role="button" aria-label="<?php _e('Previous widgets', 'Ip-admin'); ?>" title="<?php _e('Previous widgets', 'Ip-admin'); ?>"></a>
+            <a href="#" class="_scrollButton _right ipsRight" role="button" aria-label="<?php _e('More widgets', 'Ip-admin'); ?>" title="<?php _e('More widgets', 'Ip-admin'); ?>"></a>
             <div class="_container ipsAdminPanelWidgetsContainer">
                 <?php $scrollWidth = count($widgets)*(55 + 30 + 2*3); // to keep all elements on one line ?>
                 <ul<?php echo ' style="width: '.$scrollWidth.'px;"'; ?>>

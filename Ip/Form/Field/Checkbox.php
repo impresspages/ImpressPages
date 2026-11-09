@@ -67,7 +67,7 @@ class Checkbox extends Field
         }
 
         if ($this->getPostValue() !== null) {
-            $value = ' value="' . htmlspecialchars($this->getPostValue(), ENT_QUOTES) . '"';
+            $value = ' value="' . htmlspecialchars((string)$this->getPostValue(), ENT_QUOTES) . '"';
         } else {
             $value = '';
         }

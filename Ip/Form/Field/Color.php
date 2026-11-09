@@ -28,9 +28,9 @@ class Color extends Field
     <input ' . $this->getAttributesStr($doctype)
         . ' class="form-control ipsColorPicker '
         . implode(' ', $this->getClasses())
-        . '" name="' . htmlspecialchars($this->getName()) . '" '
+        . '" name="' . htmlspecialchars((string)$this->getName()) . '" '
         . $this->getValidationAttributesStr($doctype)
-        . ' type="text" value="' . htmlspecialchars($this->getValue()) . '" />
+        . ' type="text" value="' . htmlspecialchars((string)$this->getValue()) . '" />
 </div>
         ';
 

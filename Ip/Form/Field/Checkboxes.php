@@ -75,8 +75,8 @@ class Checkboxes extends Field
                     $this->getName().'[]'
                 ) . '" type="checkbox" ' . $this->getValidationAttributesStr(
                     $doctype
-                ) . $checked . ' value="' . htmlspecialchars($value[0]) . '" />
-                    ' . htmlspecialchars($value[1]) . '
+                ) . $checked . ' value="' . htmlspecialchars((string)$value[0]) . '" />
+                    ' . htmlspecialchars((string)$value[1]) . '
                 </label>
             </div>
             ';

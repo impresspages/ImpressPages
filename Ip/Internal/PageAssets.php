@@ -198,7 +198,7 @@ class PageAssets
                 'languageTextDirection' => $language->getTextDirection(),
                 'theme' => ipConfig()->theme(),
                 'pageId' => $page ? $page->getId() : null,
-                'revisionId' => $revision['revisionId'],
+                'revisionId' => $revision['revisionId'] ?? null,
                 'securityToken' => \Ip\ServiceLocator::application()->getSecurityToken(),
                 'developmentEnvironment' => ipConfig()->isDevelopmentEnvironment(),
                 'debugMode' => ipconfig()->isDebugMode(),

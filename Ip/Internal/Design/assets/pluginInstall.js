@@ -22,11 +22,11 @@ $(document).ready(function () {
                     window.location = window.location.href.split('#')[0];
                 }
                 if (response && response.error && response.error.message) {
-                    alert(response.error.message);
+                    ipAdminNotify.error(response.error.message);
                 }
             },
             error: function () {
-                alert('Unknown error. Please see the logs.');
+                ipAdminNotify.error();
             }
         });
 

@@ -8,7 +8,7 @@ namespace Ip\Internal\Translations;
 class Translator
 {
     /**
-     * @var $translator \Zend\I18n\Translator\Translator
+     * @var $translator \Laminas\I18n\Translator\Translator
      */
     protected $translator;
 
@@ -22,7 +22,7 @@ class Translator
 
     public function __construct()
     {
-        $this->translator = new \Zend\I18n\Translator\Translator();
+        $this->translator = new \Laminas\I18n\Translator\Translator();
         $this->translator->getPluginManager()->setInvokableClass('json', 'Ip\Internal\Translations\JsonLoader');
 
         $this->setLocale('en');

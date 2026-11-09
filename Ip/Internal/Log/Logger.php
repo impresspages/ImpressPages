@@ -12,7 +12,7 @@ class Logger extends \Psr\Log\AbstractLogger
      * @param array $context
      * @return null
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if (!ipDb()->isConnected()) { // do not log things if we have no database connection
             return;
@@ -32,7 +32,8 @@ class Logger extends \Psr\Log\AbstractLogger
 
         $row = array(
             'level' => $level,
-            'message' => $message,
+            // log.message is varchar(255); strict SQL modes reject longer values
+            'message' => mb_substr($message, 0, 255),
             'context' => json_encode($context),
         );
 

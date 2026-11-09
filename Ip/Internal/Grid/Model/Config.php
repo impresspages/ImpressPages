@@ -434,6 +434,22 @@ class Config
         return $this->config['title'];
     }
 
+    /**
+     * Title of the "edit" dialog, e.g. "Edit language". Null uses the generic "Edit record".
+     */
+    public function updateTitle()
+    {
+        return isset($this->config['updateTitle']) ? $this->config['updateTitle'] : null;
+    }
+
+    /**
+     * Title of the "add" dialog, e.g. "Add language". Null uses the generic "Add record".
+     */
+    public function createTitle()
+    {
+        return isset($this->config['createTitle']) ? $this->config['createTitle'] : null;
+    }
+
 
     protected function getTableFields($tableName, $languageTable)
     {

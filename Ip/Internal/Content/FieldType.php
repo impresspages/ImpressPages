@@ -8,6 +8,9 @@ namespace Ip\Internal\Content;
 
 class FieldType
 {
+    protected $jsOptionsInitFunction;
+    protected $jsOptionsSaveFunction;
+
 
     protected $key;
     protected $fieldClass;

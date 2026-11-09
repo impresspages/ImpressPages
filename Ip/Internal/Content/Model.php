@@ -266,7 +266,7 @@ class Model
 
         if (!$widgetRecord['revisionId']) {
             $currentRevision = ipContent()->getCurrentRevision();
-            $widgetRecord['revisionId'] = $currentRevision['revisionId'];
+            $widgetRecord['revisionId'] = $currentRevision['revisionId'] ?? null;
         }
 
         $previewHtml = $widgetObject->generateHtml(

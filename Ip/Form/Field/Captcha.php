@@ -88,8 +88,8 @@ class Captcha extends Field
         <input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '[code]" ' . $this->getValidationAttributesStr($doctype) . ' type="text" />
-        <input type="hidden" name="' . htmlspecialchars($this->getName()) . '[id]" value="' . $this->getId() . '" />
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '[code]" ' . $this->getValidationAttributesStr($doctype) . ' type="text" />
+        <input type="hidden" name="' . htmlspecialchars((string)$this->getName()) . '[id]" value="' . $this->getId() . '" />
         <img src="' . ipFileUrl($captcha->get_filename_url()) . '" alt="Captcha"/>
         </div>
         ';

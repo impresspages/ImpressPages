@@ -82,14 +82,14 @@ var ipPlugins = null;
                         location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
-                            alert(response.error.message);
+                            ipAdminNotify.error(response.error.message);
                         } else {
-                            alert('Error: ' + response.responseText);
+                            ipAdminNotify.ajaxError(response);
                         }
                     }
                 },
                 error: function (response) {
-                    alert('Error: ' + response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 }
             });
 
@@ -112,14 +112,14 @@ var ipPlugins = null;
                         location.reload();
                     } else {
                         if (response && response.error && response.error.message) {
-                            alert(response.error.message);
+                            ipAdminNotify.error(response.error.message);
                         } else {
-                            alert('Error: ' + response.responseText);
+                            ipAdminNotify.ajaxError(response);
                         }
                     }
                 },
                 error: function (response) {
-                    alert('Error: ' + response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 }
             });
         };
@@ -142,14 +142,14 @@ var ipPlugins = null;
                         window.location = window.location.href.split('#')[0];
                     } else {
                         if (response && response.error && response.error.message) {
-                            alert(response.error.message);
+                            ipAdminNotify.error(response.error.message);
                         } else {
-                            alert('Error: ' + response.responseText);
+                            ipAdminNotify.ajaxError(response);
                         }
                     }
                 },
                 error: function (response) {
-                    alert('Error: ' + response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 }
             });
         };

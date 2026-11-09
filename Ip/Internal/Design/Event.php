@@ -30,6 +30,8 @@ class Event
     protected static function initConfig()
     {
         ipAddCss('Ip/Internal/Core/assets/admin/admin.css');
+        ipAddCss('Ip/Internal/Core/assets/admin/adminExtra.css');
+        ipAddCss('Ip/Internal/Core/assets/admin/adminIcons.css');
         ipAddJs('Ip/Internal/Core/assets/js/jquery-ui/jquery-ui.js');
         ipAddJsVariable('ipTranslationSaving', __('Saving...', 'Ip-admin', false));
         ipAddJs('Ip/Internal/Design/assets/optionsBox.js');

@@ -40,6 +40,54 @@ class Forms
         $form->addField($field);
 
 
+        $field = new FieldOptionTextLang(
+            array(
+                'optionName' => 'Config.websiteDescription',
+                'name' => 'websiteDescription',
+                'label' => __('Website description', 'Ip-admin', false),
+                'hint' => __('One or two sentences about the website. Used as the summary in llms.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'sitemapEnabled',
+                'value' => ipGetOption('Config.sitemapEnabled', 1),
+                'label' => __('Publish sitemap.xml', 'Ip-admin', false),
+                'hint' => __('Lists every public page for search engines at /sitemap.xml and links it from /robots.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+        $field = new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'llmsTxtEnabled',
+                'value' => ipGetOption('Config.llmsTxtEnabled', 1),
+                'label' => __('Publish llms.txt', 'Ip-admin', false),
+                'hint' => __('A plain-text summary of the website and its pages for AI assistants, at /llms.txt.', 'Ip-admin')
+            ));
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        $form->addField($field);
+
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'llmsFullTxtEnabled',
+                'value' => ipGetOption('Config.llmsFullTxtEnabled', 0),
+                'label' => __('Publish llms-full.txt', 'Ip-admin', false),
+                'hint' => __('The text of every public page in one file for AI assistants, at /llms-full.txt.', 'Ip-admin')
+            ))));
+
+
         $field = new \Ip\Form\Field\Text(
             array(
                 'name' => 'gmapsApiKey',
@@ -53,7 +101,171 @@ class Forms
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
 
+
+        $form->addFieldset(new \Ip\Form\Fieldset(__('Structured data', 'Ip-admin', false)));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+            array(
+                'name' => 'structuredDataEnabled',
+                'value' => ipGetOption('Config.structuredDataEnabled', 1),
+                'label' => __('Add structured data to pages', 'Ip-admin', false),
+                'hint' => __('Describes the website, its owner and each page\'s place in the menu to search engines and AI assistants (schema.org JSON-LD).', 'Ip-admin')
+            ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Select(
+            array(
+                'name' => 'organizationType',
+                'value' => ipGetOption('Config.organizationType', 'Organization'),
+                'label' => __('Website owner', 'Ip-admin', false),
+                'values' => array(
+                    array('Organization', __('Organisation', 'Ip-admin', false)),
+                    array('LocalBusiness', __('Local business with an address customers visit', 'Ip-admin', false)),
+                ),
+            ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Text(
+            array(
+                'name' => 'organizationTelephone',
+                'value' => ipGetOption('Config.organizationTelephone', ''),
+                'label' => __('Telephone', 'Ip-admin', false),
+            ))));
+
+        $addressLabels = array(
+            'organizationStreetAddress' => __('Street address', 'Ip-admin', false),
+            'organizationLocality' => __('City or town', 'Ip-admin', false),
+            'organizationRegion' => __('State or region', 'Ip-admin', false),
+            'organizationPostalCode' => __('Postcode', 'Ip-admin', false),
+            'organizationCountry' => __('Country', 'Ip-admin', false),
+        );
+        foreach (\Ip\Internal\Seo\Model::addressFields() as $option => $property) {
+            $form->addField(self::autoSave(new \Ip\Form\Field\Text(
+                array(
+                    'name' => $option,
+                    'value' => ipGetOption('Config.' . $option, ''),
+                    'label' => $addressLabels[$option],
+                ))));
+        }
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Textarea(
+            array(
+                'name' => 'organizationSameAs',
+                'value' => ipGetOption('Config.organizationSameAs', ''),
+                'label' => __('Profiles elsewhere', 'Ip-admin', false),
+                'hint' => __('Links to the owner\'s social media, map listing or directory pages, one per line. Helps search engines and AI assistants recognise the owner.', 'Ip-admin')
+            ))));
+
+
+        $form->addFieldset(new \Ip\Form\Fieldset(__('AI crawlers', 'Ip-admin', false)));
+
+        foreach (\Ip\Internal\Seo\Model::aiCrawlers() as $userAgent => $operator) {
+            $option = \Ip\Internal\Seo\Model::aiCrawlerOption($userAgent);
+            $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(
+                array(
+                    'name' => $option,
+                    'value' => ipGetOption('Config.' . $option, 1),
+                    'label' => sprintf(__('Allow %s (%s)', 'Ip-admin', false), $userAgent, $operator),
+                ))));
+        }
+        $form->getField(\Ip\Internal\Seo\Model::aiCrawlerOption('GPTBot'))->setHint(
+            __('Unticked crawlers are asked in /robots.txt not to read the website. AI assistants can only quote and link pages their crawler may read.', 'Ip-admin')
+        );
+
         return $form;
+    }
+
+    /**
+     * Marks a field for saving as soon as it changes.
+     *
+     * @param \Ip\Form\Field $field
+     * @return \Ip\Form\Field
+     */
+    /**
+     * Settings → Advanced → Security headers (see Ip\Internal\Security\Model).
+     */
+    private static function addSecurityFields(\Ip\Form $form)
+    {
+        $pairs = function ($options) {
+            $values = array();
+            foreach ($options as $value => $label) {
+                $values[] = array($value, $label);
+            }
+            return $values;
+        };
+
+        $form->addFieldset(new \Ip\Form\Fieldset(__('Security headers', 'Ip-admin', false)));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(array(
+            'name' => 'securityNosniff',
+            'value' => ipGetOption('Config.securityNosniff', 1),
+            'label' => __('Stop browsers guessing file types', 'Ip-admin', false),
+            'hint' => __('Sends X-Content-Type-Options: nosniff, so an uploaded file is never run as a script or shown as a page.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Select(array(
+            'name' => 'securityFrameOptions',
+            'value' => ipGetOption('Config.securityFrameOptions', 'SAMEORIGIN'),
+            'label' => __('Who may show this website in a frame', 'Ip-admin', false),
+            'values' => $pairs(\Ip\Internal\Security\Model::frameOptions()),
+            'hint' => __('Protects visitors against clickjacking (X-Frame-Options). "Nobody" breaks the theme preview in Design.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Select(array(
+            'name' => 'securityReferrerPolicy',
+            'value' => ipGetOption('Config.securityReferrerPolicy', 'strict-origin-when-cross-origin'),
+            'label' => __('Referrer policy', 'Ip-admin', false),
+            'values' => $pairs(\Ip\Internal\Security\Model::referrerPolicies()),
+            'hint' => __('How much of a page\'s address is passed on when a visitor follows a link to another website.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Text(array(
+            'name' => 'securityPermissionsPolicy',
+            'value' => ipGetOption('Config.securityPermissionsPolicy', 'camera=(), microphone=(), geolocation=()'),
+            'label' => __('Permissions policy', 'Ip-admin', false),
+            'hint' => __('Browser features this website never uses, switched off so injected code can\'t use them either. Leave empty to not send the header.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(array(
+            'name' => 'securityHsts',
+            'value' => ipGetOption('Config.securityHsts', 0),
+            'label' => __('Force HTTPS for a year', 'Ip-admin', false),
+            'hint' => __('Strict-Transport-Security. Only turn on when the whole website works over HTTPS: browsers then refuse plain HTTP for a year. Only sent on HTTPS requests.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(array(
+            'name' => 'securityHstsSubdomains',
+            'value' => ipGetOption('Config.securityHstsSubdomains', 0),
+            'label' => __('Include subdomains in HTTPS enforcement', 'Ip-admin', false),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Textarea(array(
+            'name' => 'securityCsp',
+            'value' => ipGetOption('Config.securityCsp', ''),
+            'label' => __('Content Security Policy for public pages', 'Ip-admin', false),
+            'hint' => __('Optional. Lists where scripts, styles, images and fonts may come from. Not applied in the admin, the page editor or the login pages. Example: default-src \'self\'; img-src \'self\' data: https:; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\'', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(array(
+            'name' => 'securityCspReportOnly',
+            'value' => ipGetOption('Config.securityCspReportOnly', 1),
+            'label' => __('Report-only: test the policy without blocking anything', 'Ip-admin', false),
+            'hint' => __('Violations show in the browser console. Untick once nothing on your pages is reported.', 'Ip-admin'),
+        ))));
+
+        $form->addField(self::autoSave(new \Ip\Form\Field\Checkbox(array(
+            'name' => 'securityHidePoweredBy',
+            'value' => ipGetOption('Config.securityHidePoweredBy', 1),
+            'label' => __('Hide the PHP version', 'Ip-admin', false),
+            'hint' => __('Removes the X-Powered-By header.', 'Ip-admin'),
+        ))));
+    }
+
+    private static function autoSave($field)
+    {
+        $field->addClass('ipsAutoSave');
+        $field->addAttribute('data-fieldid', $field->getName());
+        $field->addAttribute('id', $field->getName());
+        $field->addAttribute('data-fieldname', $field->getName());
+        return $field;
     }
 
 
@@ -195,6 +407,8 @@ class Forms
         $field->addAttribute('id', $field->getName());
         $field->addAttribute('data-fieldname', $field->getName());
         $form->addField($field);
+
+        self::addSecurityFields($form);
 
 
         return $form;

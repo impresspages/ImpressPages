@@ -25,9 +25,9 @@ class Integer extends Field
         return '<input type="number" step="1" ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' value="' . htmlspecialchars((string)$this->getValue()) . '" />';
     }
 
 

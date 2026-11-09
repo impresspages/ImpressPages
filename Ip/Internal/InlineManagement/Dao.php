@@ -9,6 +9,8 @@ namespace Ip\Internal\InlineManagement;
 
 class Dao
 {
+    protected $inlineValueService;
+
 
     const MODULE_NAME = 'inline_management';
     const PREFIX_TEXT = 'txt_';

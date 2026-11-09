@@ -26,9 +26,9 @@ class HiddenSubmit extends Field
         return '<input type="submit" style="position:absolute; left:-999999px; width:1px; height:1px; visibility:hidden;" tabindex="-1" ' . $this->getAttributesStr(
             $doctype
         ) . ' class="' . implode(' ', $this->getClasses()) . '" name="' . htmlspecialchars(
-            $this->getName()
+            (string)$this->getName()
         ) . '" ' . $this->getValidationAttributesStr($doctype) . ' value="' . htmlspecialchars(
-            $this->getValue()
+            (string)$this->getValue()
         ) . '" />';
     }
 

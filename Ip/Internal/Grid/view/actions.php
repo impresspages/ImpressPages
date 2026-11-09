@@ -4,7 +4,7 @@
             <?php if ($action['type'] == 'Button') { ?>
                 <button
                     type="button"
-                    class="btn btn-default ipsAction <?php echo escAttr($action['class']); ?>"
+                    class="btn <?php echo empty($action['primary']) ? 'btn-default' : 'btn-primary'; ?> ipsAction <?php echo escAttr($action['class']); ?>"
                     <?php if (!empty($action['data'])) { ?>
                         data="<?php echo json_encode($action['data']); ?>"
                     <?php } ?>

@@ -18,13 +18,6 @@ K04RAeg9+OOQ+cTfdlf3koPFbA6Z6Et5+CaiIX5BGBmo18oPIsPobg0NnrZFQens
 tf1Tcb4xZFMMKDn/WwIDAQAB
 -----END PUBLIC KEY-----';
 
-    public function __construct()
-    {
-        if (!defined('IP_PHPSECLIB_DIR')) {
-            define('IP_PHPSECLIB_DIR', ipFile('Ip/Lib/phpseclib/'));
-        }
-        require_once IP_PHPSECLIB_DIR . 'Crypt/RSA.php';
-    }
 
     public function downloadTheme($name, $url, $signature)
     {
@@ -42,10 +35,7 @@ tf1Tcb4xZFMMKDn/WwIDAQAB
         //check signature
         $fileMd5 = md5_file($archivePath);
 
-        $rsa = new \Crypt_RSA();
-        $rsa->loadKey($this->publicKey);
-        $rsa->setSignatureMode(CRYPT_RSA_SIGNATURE_PKCS1);
-        $verified = $rsa->verify($fileMd5, base64_decode($signature));
+        $verified = openssl_verify($fileMd5, base64_decode($signature), $this->publicKey, OPENSSL_ALGO_SHA1) === 1;
 
         if (!$verified) {
             throw new \Ip\Exception('Theme signature verification failed.');

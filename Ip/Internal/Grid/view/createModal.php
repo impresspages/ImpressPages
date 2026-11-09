@@ -7,8 +7,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><?php _e('Add record', 'Ip-admin'); ?></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="<?php _e('Close', 'Ip-admin'); ?>">&times;</button>
+                <h4 class="modal-title"><?php echo empty($createTitle) ? esc(__('Add record', 'Ip-admin', false)) : esc($createTitle); ?></h4>
             </div>
             <div class="modal-body ipsBody">
                 <?php if (count($createForm->getFieldsets()) > 1) { ?>

@@ -6,6 +6,15 @@ $(document).ready(function () {
 
     $('.ipModuleDesign .ipsOpenOptions').on('click', ipDesignOptionsOpen);
 
+    // Design > Theme options in the section column links here with #options
+    var openOptionsFromHash = function () {
+        if (window.location.hash === '#options') {
+            $('.ipModuleDesign .ipsOpenOptions').first().trigger('click');
+        }
+    };
+    openOptionsFromHash();
+    $(window).on('hashchange', openOptionsFromHash);
+
     $('.ipsInstallTheme').on('click', function (e) {
         e.preventDefault();
 
@@ -22,11 +31,11 @@ $(document).ready(function () {
                 if (response.status && response.status == 'success') {
                     window.location = ip.baseUrl + '?aa=Design.index';
                 } else if (response.error) {
-                    alert(response.error);
+                    ipAdminNotify.error(response.error);
                 }
             },
             error: function () {
-                alert('Unknown error. See logs for details.');
+                ipAdminNotify.error();
             }
         });
 

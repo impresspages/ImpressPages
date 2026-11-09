@@ -136,7 +136,7 @@ class Config
 
     public function tablePrefix()
     {
-        return $this->config['tablePrefix'];
+        return $this->config['tablePrefix'] ?? '';
     }
 
     /**

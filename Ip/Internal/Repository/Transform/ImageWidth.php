@@ -53,7 +53,7 @@ class ImageWidth extends Image
         $widthSource = imagesx($image);
         $heightSource = imagesy($image);
 
-        $sourceProportion = (double)$widthSource / (double)$heightSource;
+        $sourceProportion = (float)$widthSource / (float)$heightSource;
 
         if (!$forced && $widthSource < $widthDest) {
             $widthDest = $widthSource;

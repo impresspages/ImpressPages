@@ -16,7 +16,7 @@ class Model
      * @param \Ip\Request $request
      * @return bool
      */
-    public static function isLoginPage(\Ip\Request $request = null)
+    public static function isLoginPage(?\Ip\Request $request = null)
     {
         if ($request == null) {
             $request = ipRequest();
@@ -25,7 +25,7 @@ class Model
         return in_array($relativePath, array('admin', 'admin/', 'admin.php', 'admin.php/'));
     }
 
-    public static function isPasswordResetPage(\Ip\Request $request = null)
+    public static function isPasswordResetPage(?\Ip\Request $request = null)
     {
         if ($request == null) {
             $request = ipRequest();
@@ -134,6 +134,12 @@ class Model
                 break;
             case 'Languages':
                 $icon = 'fa-language';
+                break;
+            case 'Log':
+                $icon = 'fa-file-text-o';
+                break;
+            case 'Email':
+                $icon = 'fa-envelope-o';
                 break;
         }
 

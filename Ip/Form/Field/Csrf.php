@@ -42,7 +42,7 @@ class Csrf extends Blank
             <input ' . $this->getAttributesStr($doctype) . ' class="' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '"  ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '"  ' . $this->getValidationAttributesStr(
             $doctype
         ) . ' type="hidden" value="' . addslashes($session->getSecurityToken()) . '" />
         ';

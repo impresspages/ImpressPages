@@ -25,9 +25,9 @@ class Date extends Field
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="date" value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' type="date" value="' . htmlspecialchars((string)$this->getValue()) . '" />';
     }
 
 

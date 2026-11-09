@@ -8,6 +8,9 @@ namespace Ip\Internal\Grid\Model\Field;
 
 class Grid extends \Ip\Internal\Grid\Model\Field
 {
+    protected $parentField;
+    protected $gridId;
+
     protected $config = [];
 
     /**

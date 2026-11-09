@@ -16,7 +16,7 @@
                 type: 'POST',
                 success: notificationsResponse,
                 error: function (response) {
-                    alert(response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 }
             });
 
@@ -79,14 +79,14 @@
                         runMigrations(migrationsUrl);
                     } else {
                         if (response.error) {
-                            alert(response.error);
+                            ipAdminNotify.error(response.error);
                         }
                     }
                     updateModal.modal('hide');
                 },
                 error: function (response) {
                     updateModal.modal('hide');
-                    alert('Update has failed: ' + response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 }
             });
         }

@@ -71,7 +71,7 @@ class Helper
             } else {
                 $selected = '';
             }
-            $timezoneSelectOptions .= '<option'.$selected.' value="'.addslashes($timezone).'">'.htmlspecialchars($timezone).'</option>';
+            $timezoneSelectOptions .= '<option'.$selected.' value="'.addslashes($timezone).'">'.htmlspecialchars((string)$timezone).'</option>';
         }
 
         return $timezoneSelectOptions;
@@ -213,7 +213,7 @@ class Helper
 
     public static function checkLibXml()
     {
-        if (!function_exists('utf8_decode')) {
+        if (!extension_loaded('xml')) {
             return 'error';
         }
         return 'success';
@@ -371,7 +371,7 @@ class Helper
         $usageStatistics = array(
             'action' => $action,
             'data' => $data,
-            'websiteId' => $_SESSION['websiteId'],
+            'websiteId' => $_SESSION['websiteId'] ?? null,
             'plugins' => [],
             'languages' => [],
             'pages' => [],

@@ -57,7 +57,7 @@ class ImageFit extends Image
         $heightSource = imagesy($image);
 
         $destProportion = $widthDest / $heightDest;
-        $sourceProportion = (double)$widthSource / (double)$heightSource;
+        $sourceProportion = (float)$widthSource / (float)$heightSource;
 
 
         if ($sourceProportion > $destProportion) {

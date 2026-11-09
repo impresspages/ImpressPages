@@ -11,7 +11,7 @@ $( document ).ready(function() {
                 //window.location = window.location.split('#')[0];
             },
             'error': function (response) {
-                alert('Unexpected error.' + response.responseText);
+                ipAdminNotify.ajaxError(response);
             }
         });
     });

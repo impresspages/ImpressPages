@@ -123,7 +123,7 @@ class FormatHelper
         $formattedPrice = ipJob('ipFormatPrice', $data);
         if ($formattedPrice === null) {
             if (function_exists('numfmt_create') && function_exists('numfmt_format_currency')) {
-                $locale = str_replace('-', '_', $languageCode);
+                $locale = str_replace('-', '_', (string)$languageCode);
                 $fmt = numfmt_create($locale, \NumberFormatter::CURRENCY);
                 $formattedPrice = numfmt_format_currency($fmt, $price / 100, strtoupper($currency));
                 if ($formattedPrice !== false && $formattedPrice != 'NaN') {
@@ -236,7 +236,7 @@ class FormatHelper
                         $code = $languageCode;
                     }
                 }
-                $locale = str_replace('-', '_', $languageCode);
+                $locale = str_replace('-', '_', (string)$languageCode);
                 $fmt = datefmt_create(
                     $locale,
                     \IntlDateFormatter::SHORT,

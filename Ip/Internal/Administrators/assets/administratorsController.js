@@ -23,6 +23,15 @@ var ipAdministratorsController = null;
 
         $scope.$on('PathChanged', function (event, path) {
             var administratorId = getHashParams().administrator;
+            if (!administratorId && ipAdministrators.length) {
+                // nothing chosen yet: open your own profile instead of an empty page
+                administratorId = ipAdministrators[0]['id'];
+                for (var j = 0; j < ipAdministrators.length; j++) {
+                    if (ipAdministrators[j]['id'] == ipAdministratorId) {
+                        administratorId = ipAdministrators[j]['id'];
+                    }
+                }
+            }
             for (var i = 0; i < ipAdministrators.length; i++) {
                 if (administratorId == ipAdministrators[i]['id']) {
                     $scope.activateAdministrator(ipAdministrators[i]);
@@ -77,6 +86,7 @@ var ipAdministratorsController = null;
                     $scope.activeAdministrator.email = $form.find('input[name=email]').val();
                     $scope.$apply();
                     $modal.modal('hide');
+                    ipAdminNotify.saved();
                 }
             });
             $modal.find('.ipsSave').off('click').on('click', function () {
@@ -89,7 +99,7 @@ var ipAdministratorsController = null;
 
         $scope.setPermission = function (permission, value, callback) {
             if ($scope.activeAdministrator.id == ipAdministratorId && permission == 'Super admin' && !value && !$scope.activeAdministrator['permissions']['Administrators']) {
-                alert(ipAdministratorsSuperAdminWarning);
+                ipAdminNotify.error(ipAdministratorsSuperAdminWarning);
                 return;
             }
 
@@ -100,6 +110,7 @@ var ipAdministratorsController = null;
                 value: value ? 1 : 0,
                 adminId: $scope.activeAdministrator.id
             };
+            ipAdminNotify.saving();
             $.ajax({
                 type: 'POST',
                 url: ip.baseUrl,
@@ -108,12 +119,13 @@ var ipAdministratorsController = null;
                 success: function (response) {
                     $scope.activeAdministrator.permissions[permission] = value;
                     $scope.$apply();
+                    ipAdminNotify.saved(ipAdminNotifyTranslations['Permission updated']);
                     if (callback) {
                         callback();
                     }
                 },
                 error: function (response) {
-                    alert('Error: ' + response.responseText);
+                    ipAdminNotify.ajaxError(response);
                 },
                 dataType: 'json'
             });
@@ -152,9 +164,7 @@ var ipAdministratorsController = null;
                 context: this,
                 success: successCallback,
                 error: function (response) {
-                    if (ip.developmentEnvironment || ip.debugMode) {
-                        alert('Server response: ' + response.responseText);
-                    }
+                    ipAdminNotify.ajaxError(response);
                 },
                 dataType: 'json'
             });

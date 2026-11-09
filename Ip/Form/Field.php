@@ -137,7 +137,7 @@ abstract class Field
     {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
-            $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+            $answer .= ' ' . htmlspecialchars((string)$attributeKey) . '="' . htmlspecialchars((string)$attributeValue) . '"';
         }
 
         return $answer;

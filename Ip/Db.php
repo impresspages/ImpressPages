@@ -360,7 +360,7 @@ class Db
         }
         $sql = substr($sql, 0, -2);
         $values = substr($values, 0, -2);
-        $sql .= ") VALUES (${values})";
+        $sql .= ") VALUES ({$values})";
 
         if (empty($params)) {
             $sql = "INSERT {$_ignore} INTO " . ipTable($table) . " () VALUES()";

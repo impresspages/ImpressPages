@@ -163,8 +163,9 @@ class Form
         $answer = array();
         $fields = $this->getFields();
         foreach ($fields as $field) {
-            if (array_key_exists($field->getName(), $data)) {
-                $answer[$field->getName()] = $data[$field->getName()];
+            $name = (string)$field->getName(); // unnamed fields (e.g. the hidden submit button) have a null name
+            if (array_key_exists($name, $data)) {
+                $answer[$name] = $data[$name];
             }
         }
         return $answer;
@@ -249,7 +250,7 @@ class Form
      * @param View $view
      * @return string HTML form
      */
-    public function render(\Ip\View $view = null)
+    public function render(?\Ip\View $view = null)
     {
         if (!$view) {
             if ($this->getEnvironment() == self::ENVIRONMENT_ADMIN) {
@@ -345,7 +346,7 @@ class Form
     {
         $answer = '';
         foreach ($this->getAttributes() as $attributeKey => $attributeValue) {
-            $answer .= ' ' . htmlspecialchars($attributeKey) . '="' . htmlspecialchars($attributeValue) . '"';
+            $answer .= ' ' . htmlspecialchars((string)$attributeKey) . '="' . htmlspecialchars((string)$attributeValue) . '"';
         }
         return $answer;
     }

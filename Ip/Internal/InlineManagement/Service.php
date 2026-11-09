@@ -26,7 +26,7 @@ class Service
         }
 
         if ($data['type'] == 'text') {
-            $text = str_replace(' ', '', $data['text']);
+            $text = str_replace(' ', '', (string)($data['text'] ?? ''));
             $data['empty'] = $text == '';
         } else {
             $data['empty'] = empty($data['image']);

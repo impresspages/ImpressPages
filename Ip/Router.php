@@ -4,40 +4,48 @@
 namespace Ip;
 
 
+/**
+ * Minimal router compatible with the Aura Router 2 path syntax ImpressPages used:
+ * required params `{name}`, optional segments `{/a,b}`, regex tokens via `where`,
+ * GET/POST restriction via `method`, extra values and named URL generation.
+ */
 class Router
 {
     /**
-     * @var \Aura\Router\RouteCollection
+     * @var array name => route definition
      */
-    protected $auraRouter;
+    protected $routes = array();
 
     protected $context;
 
     protected $routeIndex = 0;
-
-    public function __construct()
-    {
-        $factory = new \Aura\Router\RouterFactory();
-        $this->auraRouter = $factory->newInstance();
-    }
 
     public function addRoutes($routes, $context = null)
     {
         foreach ($routes as $routeKey => $info) {
 
             $data = $this->routeData($routeKey, $info, $context);
-            $route = $this->auraRouter->add($data['name'], $data['path']);
+
+            $route = array(
+                'path' => $data['path'],
+                'method' => null,
+                'tokens' => array(),
+                'values' => array(),
+            );
+
             if (!empty($data['method']) && in_array($data['method'], array('GET', 'POST'))) {
-                $route->addServer(array('REQUEST_METHOD' => $data['method']));
+                $route['method'] = $data['method'];
             }
-//            unset($data['name']);
             unset($data['path']);
             if (!empty($data['where'])) {
-                $route->addTokens($data['where']);
+                $route['tokens'] = $data['where'];
                 unset($data['where']);
             }
 
-            $route->addValues($data);
+            $route['values'] = $data;
+            $route['regex'] = $this->compile($route['path'], $route['tokens']);
+
+            $this->routes[$data['name']] = $route;
         }
     }
 
@@ -68,29 +76,95 @@ class Router
         return $data;
     }
 
+    /**
+     * Turn a route path into an anchored regex with named groups.
+     */
+    protected function compile($path, $tokens)
+    {
+        $regex = '';
+        $offset = 0;
+        preg_match_all('#\{(/?)([^}]+)\}#', $path, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+        foreach ($matches as $match) {
+            $regex .= preg_quote(substr($path, $offset, $match[0][1] - $offset), '#');
+            $offset = $match[0][1] + strlen($match[0][0]);
+
+            if ($match[1][0] === '/') {
+                // Optional segments: {/a,b} => (?:/(?P<a>..)(?:/(?P<b>..))?)?
+                $names = explode(',', $match[2][0]);
+                $optional = '';
+                foreach (array_reverse($names) as $name) {
+                    $optional = '(?:/(?P<' . $name . '>' . $this->tokenRegex($name, $tokens) . ')' . $optional . ')?';
+                }
+                $regex .= $optional;
+            } else {
+                $name = $match[2][0];
+                $regex .= '(?P<' . $name . '>' . $this->tokenRegex($name, $tokens) . ')';
+            }
+        }
+        $regex .= preg_quote(substr($path, $offset), '#');
+
+        return '#^' . $regex . '$#';
+    }
+
+    protected function tokenRegex($name, $tokens)
+    {
+        return isset($tokens[$name]) ? $tokens[$name] : '[^/]+';
+    }
+
     public function match($path, $request = null)
     {
         if (!$request) {
             $request = ipRequest();
         }
 
-        $result = $this->auraRouter->match($path, $request->getServer());
+        $server = $request->getServer();
+        $requestMethod = isset($server['REQUEST_METHOD']) ? $server['REQUEST_METHOD'] : null;
 
-        if (!$result) {
-            return array();
-        }
+        foreach ($this->routes as $route) {
+            if ($route['method'] && $route['method'] !== $requestMethod) {
+                continue;
+            }
+            if (!preg_match($route['regex'], $path, $matches)) {
+                continue;
+            }
 
-        $result = $result->params;
+            $result = $route['values'];
+            foreach ($matches as $key => $value) {
+                if (is_string($key) && $value !== '') {
+                    $result[$key] = rawurldecode($value);
+                }
+            }
 
-        if (is_callable($result['action'])) {
             return $result;
         }
 
-        return $result;
+        return array();
     }
 
     public function generate($name, $data = array())
     {
-        return $this->auraRouter->generate($name, $data);
+        if (!isset($this->routes[$name])) {
+            return false;
+        }
+        $route = $this->routes[$name];
+        $data = array_merge($route['values'], $data);
+
+        return preg_replace_callback(
+            '#\{(/?)([^}]+)\}#',
+            function ($match) use ($data) {
+                if ($match[1] === '/') {
+                    $url = '';
+                    foreach (explode(',', $match[2]) as $name) {
+                        if (!isset($data[$name]) || $data[$name] === '') {
+                            break;
+                        }
+                        $url .= '/' . rawurlencode($data[$name]);
+                    }
+                    return $url;
+                }
+                return isset($data[$match[2]]) ? rawurlencode($data[$match[2]]) : '';
+            },
+            $route['path']
+        );
     }
 }

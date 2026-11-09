@@ -133,7 +133,7 @@ class Module
                         set_time_limit((sizeof($emails) - $key) * 10 + 100);
                     }
 
-                    $mail = new \PHPMailer();
+                    $mail = new \PHPMailer\PHPMailer\PHPMailer();
                     /*          $mail->Sender = $email['from'];
                      $mail->addCustomHeader("Return-Path: " . $email['from']);*/
 

@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><?php _e('Cancel', 'Ip-admin') ?></button>
-                <button type="button" class="ipsAdd btn btn-primary"><?php _e('Add', 'Ip-admin') ?></button>
+                <button type="button" class="ipsAdd btn btn-primary"><?php _e('Add menu', 'Ip-admin') ?></button>
             </div>
         </div>
     </div>

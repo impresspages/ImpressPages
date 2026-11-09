@@ -29,7 +29,7 @@ class Application
      */
     public static function getVersion()
     {
-        return '5.0.3'; //CHANGE_ON_VERSION_UPDATE
+        return '5.3.0'; //CHANGE_ON_VERSION_UPDATE
     }
 
 
@@ -53,7 +53,7 @@ class Application
 
         if (empty($options['skipError'])) {
             if (ipConfig()->showErrors()) {
-                error_reporting(E_ALL | E_STRICT);
+                error_reporting(E_ALL);
                 ini_set('display_errors', '1');
             } else {
                 ini_set('display_errors', '0');
@@ -250,9 +250,9 @@ class Application
             if ($controller == 'AdminController' && !\Ip\Internal\Admin\Backend::userId()) {
 
                 if (ipConfig()->get('rewritesDisabled')) {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin');
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'index.php/admin', null, null, 302);
                 } else {
-                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin');
+                    return new \Ip\Response\Redirect(ipConfig()->baseUrl() . 'admin', null, null, 302);
                 }
             }
 
@@ -368,6 +368,7 @@ class Application
             $this->addFileRoutes($routesFile, $plugin);
         }
         $this->addFileRoutes(ipFile('Ip/Internal/Ecommerce/routes.php'), 'Ecommerce');
+        $this->addFileRoutes(ipFile('Ip/Internal/Seo/routes.php'), 'Seo');
 
     }
 

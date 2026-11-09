@@ -64,11 +64,11 @@ class Antispam extends Field
 <input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="" />
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '[]"  ' . $this->getValidationAttributesStr($doctype) . ' type="hidden" value="" />
 <input ' . $this->getAttributesStr($doctype) . ' style="display:none;" class="' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '[]"  ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '[]"  ' . $this->getValidationAttributesStr(
             $doctype
         ) . ' type="hidden" value="' . htmlspecialchars(md5(date('Y-m-d') . ipConfig()->get('sessionName'))) . '" />
 ';

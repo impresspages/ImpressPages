@@ -4,11 +4,11 @@
 <form role="form" class="ipsConfigurationForm">
     <div class="form-group">
         <label for="ipsConfigWebsiteName"><?php _e('Website name', 'Install'); ?></label>
-        <input type="text" class="form-control" id="ipsConfigWebsiteName" name="configWebsiteName" value="<?php echo htmlspecialchars($config['websiteName']); ?>">
+        <input type="text" class="form-control" id="ipsConfigWebsiteName" name="configWebsiteName" value="<?php echo htmlspecialchars((string)$config['websiteName']); ?>">
     </div>
     <div class="form-group">
         <label for="ipsConfigWebsiteEmail"><?php _e('Website e-mail address', 'Install'); ?></label>
-        <input type="email" class="form-control" id="ipsConfigWebsiteEmail" name="configWebsiteEmail" value="<?php echo htmlspecialchars($config['websiteEmail']); ?>">
+        <input type="email" class="form-control" id="ipsConfigWebsiteEmail" name="configWebsiteEmail" value="<?php echo htmlspecialchars((string)$config['websiteEmail']); ?>">
     </div>
     <div class="form-group">
         <label for="ipsConfigTimezone"><?php _e('Time zone', 'Install'); ?></label>

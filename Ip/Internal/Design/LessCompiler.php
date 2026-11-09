@@ -41,7 +41,6 @@ class LessCompiler
         $css = '';
 
         try {
-            require_once ipFile('Ip/Lib/less.php/Less.php');
             $themeDir = ipFile('Theme/' . $themeName . '/assets/');
             $ipContentDir = ipFile('Ip/Internal/Core/assets/ipContent/');
 
@@ -52,13 +51,14 @@ class LessCompiler
             };
 
             $parserOptions = array(
-                'import_callback' => $callback,
                 'cache_dir' => ipFile('file/tmp/less/'),
                 'relativeUrls' => false,
                 'sourceMap' => true
             );
             $parser = new \Less_Parser($parserOptions);
+            // A callable import dir is consulted in order, so the theme override is checked first.
             $directories = array(
+                'themeOverride' => $callback,
                 $themeDir => '',
                 $ipContentDir => ''
             );
@@ -75,7 +75,8 @@ class LessCompiler
 
     public static function overrideImportDirectory($themeAssetsDir, $parseFile)
     {
-        $full_path = $themeAssetsDir . $parseFile->getPath();
+        $path = is_string($parseFile) ? $parseFile : $parseFile->getPath();
+        $full_path = $themeAssetsDir . $path;
         $uri = ''; // relative path doesn't work correctly
 
         // if file exists in theme directory it means we want to override the default path

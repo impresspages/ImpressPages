@@ -150,10 +150,19 @@
             var $this = this;
             var $popup = $('.ipsModuleInlineManagementImageModal');
 
-            if (!confirm($popup.find('.ipsRemoveConfirm').text())) {
-                return;
-            }
+            ipAdminConfirm({
+                text: $popup.find('.ipsRemoveConfirm').text(),
+                confirmLabel: $popup.find('.ipsRemove').first().text().trim() || undefined,
+                danger: true
+            }).then(function (confirmed) {
+                if (confirmed) {
+                    $.proxy(methods._executeRemoveImage, $this)();
+                }
+            });
+        },
 
+        _executeRemoveImage: function () {
+            var $this = this;
             var data = Object();
             data.aa = 'InlineManagement.removeImage';
 

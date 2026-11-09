@@ -126,7 +126,15 @@ var ipPageDragId;
 
             // removing element from list/tree
             $properties.off('delete.ipPages').on('delete.ipPages', function () {
-                if (confirm(ipTranslationAreYouSure)) {
+                ipAdminConfirm({
+                    title: ipTranslationDeletePageTitle,
+                    text: ipTranslationDeletePage,
+                    confirmLabel: ipTranslationDelete,
+                    danger: true
+                }).then(function (confirmed) {
+                    if (!confirmed) {
+                        return;
+                    }
                     var nextId = null;
 
                     //detect which page has to be selected after this one is deleted
@@ -170,7 +178,7 @@ var ipPageDragId;
                         }
                         $scope.$apply();
                     });
-                }
+                });
             });
             $properties.off('edit.ipPages').on('edit.ipPages', function () {
                 editPage($scope.selectedPageId);
@@ -212,11 +220,17 @@ var ipPageDragId;
                 $positionSelect.find('option[value=child]').show();
                 $positionSelect.find('option[value=below]').show();
                 $positionSelect.val($scope.activeMenu.defaultPositionWhenSelected);
+                if (!$positionSelect.val()) {
+                    $positionSelect.val('below'); // stored value missing or from an old version (e.g. "bellow")
+                }
                 if ($scope.activeMenu.type == 'list') {
                     $positionSelect.find('option[value=child]').hide();
                 }
             } else {
                 $positionSelect.val($scope.activeMenu.defaultPosition);
+                if (!$positionSelect.val()) {
+                    $positionSelect.val('bottom');
+                }
                 $positionSelect.find('option[value=above]').hide();
                 $positionSelect.find('option[value=child]').hide();
                 $positionSelect.find('option[value=below]').hide();
@@ -815,3 +829,37 @@ var ipPageDragId;
     }
 
 })(jQuery);
+
+// Ask before leaving page properties with unsaved changes (switching page, menu or language, or leaving the admin).
+(function () {
+    "use strict";
+    var hasUnsavedChanges = function () {
+        return $('.ipsProperties').data('ipPagePropertiesDirty') === true;
+    };
+
+    document.addEventListener('click', function (e) {
+        var $target = $(e.target).closest('.ipsLanguages button, .ipsMenuList li > a, .ipsPages a, .ipsPages .ipsRow, .ipsAddPage');
+        if (!$target.length || !hasUnsavedChanges()) {
+            return;
+        }
+        // Stop the click, ask, and replay it on the same element if the user chooses to discard.
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (ipAdminConfirm.isOpen()) {
+            return;
+        }
+        var target = e.target;
+        ipAdminConfirmDiscard().then(function (discard) {
+            if (discard) {
+                $('.ipsProperties').data('ipPagePropertiesDirty', false);
+                target.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+            }
+        });
+    }, true);
+
+    $(window).on('beforeunload.ipPages', function () {
+        if (hasUnsavedChanges()) {
+            return ipAdminNotifyTranslations['You have unsaved changes. Leave without saving?'];
+        }
+    });
+})();

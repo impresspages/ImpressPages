@@ -349,7 +349,7 @@ class ImageHelper
     private static function resizeImage($image, $widthDest, $heightDest, $widthSource, $heightSource, $type)
     {
         $dest_proportion = $widthDest / $heightDest;
-        $sourceProportion = (double)$widthSource / (double)$heightSource;
+        $sourceProportion = (float)$widthSource / (float)$heightSource;
 
         switch ($type) {
             case self::CROP_TYPE_FIT:

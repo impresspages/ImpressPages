@@ -44,8 +44,7 @@ class FieldOptionTextLang extends Field
             $answer .= '
 <div class="input-group">
   <span class="input-group-addon">' . esc($language->getAbbreviation()) . '</span>
-  <input
-  data-fieldname="' . $this->getName() . '"
+  <input aria-label="' . escAttr(trim($this->getLabel() . ' (' . $language->getTitle() . ')')) . '"   data-fieldname="' . $this->getName() . '"
   data-fieldid="' . $fieldId . '"
   id="' . $fieldId . '"
   ' . $this->getAttributesStr($doctype) . ' data-languageid="' . $language->getId() . '" class="ips' . $this->getName(

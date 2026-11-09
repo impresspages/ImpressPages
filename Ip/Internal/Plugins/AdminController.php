@@ -24,6 +24,8 @@ class AdminController extends \Ip\Controller
 
         ipAddJsVariable('pluginList', $plugins);
         ipAddJsVariable('ipTranslationAreYouSure', __('This action will remove plugin\'s files and database records. Do you want to proceed.?', 'Ip-admin', false));
+        ipAddJsVariable('ipTranslationRemovePluginTitle', __('Remove plugin', 'Ip-admin', false));
+        ipAddJsVariable('ipTranslationRemovePlugin', __('Remove', 'Ip-admin', false));
 
         $data = [];
         $view = ipView('view/layout.php', $data);

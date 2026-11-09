@@ -25,9 +25,9 @@ class Time extends Field
         return '<input ' . $this->getAttributesStr($doctype) . ' class="form-control ' . implode(
             ' ',
             $this->getClasses()
-        ) . '" name="' . htmlspecialchars($this->getName()) . '" ' . $this->getValidationAttributesStr(
+        ) . '" name="' . htmlspecialchars((string)$this->getName()) . '" ' . $this->getValidationAttributesStr(
             $doctype
-        ) . ' type="time" value="' . htmlspecialchars($this->getValue()) . '" />';
+        ) . ' type="time" value="' . htmlspecialchars((string)$this->getValue()) . '" />';
     }
 
 
